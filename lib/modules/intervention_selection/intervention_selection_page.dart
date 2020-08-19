@@ -10,11 +10,6 @@ class InterventionSelectionPage extends StatefulWidget {
 class _InterventionSelectionState extends State<InterventionSelectionPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: Column(
-      children: [
-        Text('Intervention selection'),
-      ],
-    ));
+    return Scaffold(body: SafeArea(child: Text('Intervention selection')));
   }
 }

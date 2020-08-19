@@ -2,9 +2,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/constants/custom_color.dart';
 
-import 'package:kb_mobile_app/pages/intervention_selection_page/intervention_selection_page.dart';
-import 'package:kb_mobile_app/pages/login_page/login_page.dart';
-import 'package:kb_mobile_app/pages/splash_page/components/splash_implementer_list.dart';
+import 'package:kb_mobile_app/modules/intervention_selection/intervention_selection_page.dart';
+import 'package:kb_mobile_app/modules/login/login_page.dart';
+import 'package:kb_mobile_app/modules/splash/components/splash_implementer_list.dart';
 
 class SplashPage extends StatefulWidget {
   @override
@@ -21,7 +21,7 @@ class _SplashPageState extends State<SplashPage> {
 
   void setLandingPgae(bool isUserLoginIn) {
     Timer(
-        Duration(seconds: 5),
+        Duration(seconds: 2),
         () => Navigator.pushReplacement(
             context,
             MaterialPageRoute(
@@ -33,7 +33,7 @@ class _SplashPageState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
     // @TODO handling all user realoaction if user has been login in or not
-    //  this.setLandingPgae(false);
+    this.setLandingPgae(false);
 
     Size size = MediaQuery.of(context).size;
     return Scaffold(
