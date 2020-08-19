@@ -33,7 +33,7 @@ class _SplashPageState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
     // @TODO handling all user realoaction if user has been login in or not
-    //  this.setLandingPgae(false);
+    this.setLandingPgae(false);
 
     Size size = MediaQuery.of(context).size;
     return Scaffold(
