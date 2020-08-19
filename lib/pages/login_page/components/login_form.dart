@@ -1,6 +1,7 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/components/form_field_input_icon.dart';
+import 'package:kb_mobile_app/pages/login_page/components/login_button.dart';
 import 'package:kb_mobile_app/pages/login_page/components/login_form_field_seperator.dart';
 import 'package:kb_mobile_app/pages/login_page/constants/login_style.dart';
 
@@ -65,17 +66,20 @@ class _LoginFormState extends State<LoginForm> {
         ),
         Container(
           child: TextFormField(
-            onTap: () => updateInputActiveStatus('username'),
-            onChanged: (value) => onFieldValueChanges(value, 'username'),
-            onFieldSubmitted: (value) => onFieldSubmitted(value, 'username'),
-            readOnly: isLoginProcessActive,
-            autocorrect: false,
-            style: LoginPageStyles.formInputValueStyle,
-            textInputAction: TextInputAction.done,
-            decoration: InputDecoration(
-              border: InputBorder.none,
-            ),
-          ),
+              onTap: () => updateInputActiveStatus('username'),
+              onChanged: (value) => onFieldValueChanges(value, 'username'),
+              onFieldSubmitted: (value) => onFieldSubmitted(value, 'username'),
+              readOnly: isLoginProcessActive,
+              autocorrect: false,
+              style: LoginPageStyles.formInputValueStyle,
+              textInputAction: TextInputAction.done,
+              decoration: InputDecoration(
+                  border: InputBorder.none,
+                  prefixIcon: FormFieldInputIcon(
+                    backGroundColor: Color(0xFFEDF5EC),
+                    svgIcon: 'images/icons/login-user-input.svg',
+                  ),
+                  prefixIconConstraints: LoginPageStyles.loginBoxConstraints)),
         ),
         LoginFormFieldSeperator(
           color:
@@ -103,41 +107,27 @@ class _LoginFormState extends State<LoginForm> {
             readOnly: isLoginProcessActive,
             textInputAction: TextInputAction.done,
             decoration: InputDecoration(
-              border: InputBorder.none,
-            ),
+                border: InputBorder.none,
+                prefixIcon: FormFieldInputIcon(
+                  backGroundColor: Color(0xFFEDF5EC),
+                  svgIcon: 'images/icons/login-lock.svg',
+                ),
+                prefixIconConstraints: LoginPageStyles.loginBoxConstraints,
+                suffixIcon: FormFieldInputIcon(
+                  backGroundColor: Color(0xFFFFFFFF),
+                  svgIcon: 'images/icons/login-open-eye.svg',
+                ),
+                suffixIconConstraints: LoginPageStyles.loginBoxConstraints),
           ),
         ),
         LoginFormFieldSeperator(
           color:
               activeInput == 'password' ? activeInputColor : inActiveInputColor,
         ),
-        Container(
-            width: MediaQuery.of(context).size.width,
-            margin: EdgeInsets.only(top: 20),
-            child: FlatButton(
-              padding: EdgeInsets.only(top: 15, bottom: 15),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12.0)),
-              onPressed: isLoginProcessActive ? null : onLogin,
-              color: Color(0xFF4B9F46),
-              splashColor: Color(0xFFB3EFA0),
-              disabledColor: Color(0xFF4B9F46),
-              child: isLoginProcessActive
-                  ? Container(
-                      height: 20,
-                      width: 20,
-                      child: CircularProgressIndicator(
-                        valueColor: new AlwaysStoppedAnimation(Colors.white),
-                        strokeWidth: 2,
-                      ),
-                    )
-                  : Text('Login',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: const Color(0xFFFAFAFA),
-                      )),
-            ))
+        LoginButton(
+          isLoginProcessActive: isLoginProcessActive,
+          onLogin: onLogin,
+        )
       ],
     ));
   }

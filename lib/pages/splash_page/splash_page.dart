@@ -21,7 +21,7 @@ class _SplashPageState extends State<SplashPage> {
 
   void setLandingPgae(bool isUserLoginIn) {
     Timer(
-        Duration(seconds: 5),
+        Duration(seconds: 2),
         () => Navigator.pushReplacement(
             context,
             MaterialPageRoute(

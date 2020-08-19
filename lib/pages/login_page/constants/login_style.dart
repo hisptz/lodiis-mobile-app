@@ -12,4 +12,7 @@ class LoginPageStyles {
     fontWeight: FontWeight.w500,
     color: const Color(0xFF1A3518),
   );
+
+  static BoxConstraints loginBoxConstraints =
+      BoxConstraints(maxHeight: 40, minHeight: 38, maxWidth: 40, minWidth: 38);
 }
