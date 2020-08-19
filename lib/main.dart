@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app-state/page-state/page_state.dart';
-import 'package:kb_mobile_app/modules/splash_page/splash_page.dart';
+import 'package:kb_mobile_app/modules/splash/splash_page.dart';
 import 'package:provider/provider.dart';
 
 void main() {

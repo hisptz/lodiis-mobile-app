@@ -2,10 +2,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/components/form_field_input_icon.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
-import 'package:kb_mobile_app/modules/intervention_selection_page/intervention_selection_page.dart';
-import 'package:kb_mobile_app/modules/login_page/components/login_button.dart';
-import 'package:kb_mobile_app/modules/login_page/components/login_form_field_seperator.dart';
-import 'package:kb_mobile_app/modules/login_page/constants/login_style.dart';
+import 'package:kb_mobile_app/modules/intervention_selection/intervention_selection_page.dart';
+import 'package:kb_mobile_app/modules/login/components/login_button.dart';
+import 'package:kb_mobile_app/modules/login/components/login_form_field_seperator.dart';
+import 'package:kb_mobile_app/modules/login/constants/login_style.dart';
 
 class LoginForm extends StatefulWidget {
   @override

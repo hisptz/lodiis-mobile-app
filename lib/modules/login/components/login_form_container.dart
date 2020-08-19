@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kb_mobile_app/modules/login_page/components/login_form.dart';
+import 'package:kb_mobile_app/modules/login/components/login_form.dart';
 
 class LoginFormContainer extends StatelessWidget {
   const LoginFormContainer({Key key}) : super(key: key);
