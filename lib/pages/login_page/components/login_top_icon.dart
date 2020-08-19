@@ -5,7 +5,7 @@ class LoginTopIcon extends StatelessWidget {
   final double height = 5.0;
   final double width = 50;
 
-  final double iconSize = 53;
+  final double iconSize = 60;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +37,7 @@ class LoginTopIcon extends StatelessWidget {
         Container(
           margin: EdgeInsets.only(top: 2),
           height: height,
-          width: width * 1.8,
+          width: width * 1.5,
           decoration: BoxDecoration(
               color: const Color(0xFF9AC197),
               borderRadius: BorderRadius.all(Radius.circular(20))),
@@ -45,7 +45,7 @@ class LoginTopIcon extends StatelessWidget {
         Container(
           margin: EdgeInsets.only(top: 2),
           height: height,
-          width: width * 2.5,
+          width: width * 2.0,
           decoration: BoxDecoration(
               color: const Color(0xFFFFFFFF),
               borderRadius: BorderRadius.all(Radius.circular(20))),
