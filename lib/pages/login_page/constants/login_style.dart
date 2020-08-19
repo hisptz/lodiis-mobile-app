@@ -14,5 +14,5 @@ class LoginPageStyles {
   );
 
   static BoxConstraints loginBoxConstraints =
-      BoxConstraints(maxHeight: 40, minHeight: 38, maxWidth: 40, minWidth: 38);
+      BoxConstraints(maxHeight: 45, minHeight: 42, maxWidth: 45, minWidth: 42);
 }

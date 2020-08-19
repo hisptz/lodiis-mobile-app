@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/components/form_field_input_icon.dart';
+import 'package:kb_mobile_app/models/current_user.dart';
+import 'package:kb_mobile_app/pages/intervention_selection_page/intervention_selection_page.dart';
 import 'package:kb_mobile_app/pages/login_page/components/login_button.dart';
 import 'package:kb_mobile_app/pages/login_page/components/login_form_field_seperator.dart';
 import 'package:kb_mobile_app/pages/login_page/constants/login_style.dart';
@@ -13,8 +15,13 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
+// Adding mechanism for updating status of button if all fields has been set
+
   String activeInput = '';
   bool isLoginProcessActive = false;
+  bool isPasswordVisible = false;
+
+  CurrentUser currentUser = new CurrentUser();
 
   void updateInputActiveStatus(String activeField) {
     setState(() {
@@ -22,24 +29,36 @@ class _LoginFormState extends State<LoginForm> {
     });
   }
 
+  void updatePasswordVisibilityStatus() {
+    setState(() {
+      isPasswordVisible = !isPasswordVisible;
+    });
+  }
+
   void onFieldValueChanges(String value, String key) {
-    print('$value - $key');
+    currentUser.username = key == 'username' ? value : currentUser.username;
+    currentUser.password = key == 'password' ? value : currentUser.password;
   }
 
   void onFieldSubmitted(String value, String key) {
-    print('$value - $key');
+    onFieldValueChanges(value, key);
     updateInputActiveStatus('');
   }
 
   void onLogin() {
+    bool status = currentUser.isCUrrentUserSet();
     FocusScope.of(context).unfocus();
     updateInputActiveStatus('');
-    if (!isLoginProcessActive) {
-      print('Login process');
+    if (!isLoginProcessActive && status) {
+      // @TODO impelement actual login process
       isLoginProcessActive = !isLoginProcessActive;
       Timer(Duration(seconds: 3), () {
         setState(() {
           isLoginProcessActive = !isLoginProcessActive;
+          Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => InterventionSelectionPage()));
         });
       });
     }
@@ -77,7 +96,7 @@ class _LoginFormState extends State<LoginForm> {
                   border: InputBorder.none,
                   prefixIcon: FormFieldInputIcon(
                     backGroundColor: Color(0xFFEDF5EC),
-                    svgIcon: 'images/icons/login-user-input.svg',
+                    svgIcon: 'assets/icons/login-user-input.svg',
                   ),
                   prefixIconConstraints: LoginPageStyles.loginBoxConstraints)),
         ),
@@ -98,24 +117,33 @@ class _LoginFormState extends State<LoginForm> {
         ),
         Container(
           child: TextFormField(
+            validator: (String value) {
+              return value.contains('@') ? 'Do not use the @ char.' : null;
+            },
             onTap: () => updateInputActiveStatus('password'),
             onChanged: (value) => onFieldValueChanges(value, 'password'),
             onFieldSubmitted: (value) => onFieldSubmitted(value, 'password'),
-            obscureText: true,
+            obscureText: !isPasswordVisible,
             autocorrect: false,
             style: LoginPageStyles.formInputValueStyle,
             readOnly: isLoginProcessActive,
             textInputAction: TextInputAction.done,
             decoration: InputDecoration(
+                hintStyle: TextStyle(fontSize: 15),
                 border: InputBorder.none,
                 prefixIcon: FormFieldInputIcon(
                   backGroundColor: Color(0xFFEDF5EC),
-                  svgIcon: 'images/icons/login-lock.svg',
+                  svgIcon: 'assets/icons/login-lock.svg',
                 ),
                 prefixIconConstraints: LoginPageStyles.loginBoxConstraints,
-                suffixIcon: FormFieldInputIcon(
-                  backGroundColor: Color(0xFFFFFFFF),
-                  svgIcon: 'images/icons/login-open-eye.svg',
+                suffixIcon: GestureDetector(
+                  onTap: updatePasswordVisibilityStatus,
+                  child: FormFieldInputIcon(
+                    backGroundColor: Color(0xFFFFFFFF),
+                    svgIcon: isPasswordVisible
+                        ? 'assets/icons/login-close-eye.svg'
+                        : 'assets/icons/login-open-eye.svg', // show and hide password icon
+                  ),
                 ),
                 suffixIconConstraints: LoginPageStyles.loginBoxConstraints),
           ),

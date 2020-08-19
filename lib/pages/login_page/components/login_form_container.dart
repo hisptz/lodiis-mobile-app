@@ -12,7 +12,7 @@ class LoginFormContainer extends StatelessWidget {
       decoration: BoxDecoration(
           color: const Color(0xFFFFFFFF),
           borderRadius: BorderRadius.all(Radius.circular(32))),
-      width: size.width * 0.81,
+      width: size.width * 0.8,
       child: Container(
         child: Column(
           children: [

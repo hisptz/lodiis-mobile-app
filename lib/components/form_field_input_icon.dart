@@ -14,16 +14,17 @@ class FormFieldInputIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+        padding: EdgeInsets.only(right: 5, top: 5),
         child: Container(
-      decoration: BoxDecoration(
-          color: backGroundColor,
-          borderRadius: BorderRadius.all(Radius.circular(7))),
-      child: Container(
-        margin: EdgeInsets.all(9),
-        child: SvgPicture.asset(
-          svgIcon,
-        ),
-      ),
-    ));
+          decoration: BoxDecoration(
+              color: backGroundColor,
+              borderRadius: BorderRadius.all(Radius.circular(7))),
+          child: Container(
+            margin: EdgeInsets.all(9),
+            child: SvgPicture.asset(
+              svgIcon,
+            ),
+          ),
+        ));
   }
 }

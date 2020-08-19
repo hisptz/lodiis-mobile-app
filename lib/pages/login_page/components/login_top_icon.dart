@@ -18,7 +18,7 @@ class LoginTopIcon extends StatelessWidget {
           height: iconSize,
           margin: EdgeInsets.only(top: size.height * 0.1),
           child: SvgPicture.asset(
-            'images/icons/login-top-user.svg',
+            'assets/icons/login-top-user.svg',
             fit: BoxFit.contain,
             color: const Color(0xFFB3EFA0),
           ),
