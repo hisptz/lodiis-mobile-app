@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kb_mobile_app/constants/custom_color.dart';
+import 'package:kb_mobile_app/core/constants/custom_color.dart';
 import 'package:kb_mobile_app/modules/login/components/login_form_container.dart';
 import 'package:kb_mobile_app/modules/login/components/login_top_icon.dart';
 

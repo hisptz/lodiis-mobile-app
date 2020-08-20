@@ -18,19 +18,48 @@ class InterventionSelectionCard extends StatelessWidget {
       child: Column(
         children: [
           Container(
-            height: 140,
+            height: 151,
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(
-                  padding: EdgeInsets.only(left: 22, right: 22),
-                  child: Text('Icon'),
-                ),
+                    margin: EdgeInsets.only(left: 22, right: 22, top: 0),
+                    decoration: BoxDecoration(
+                        color: interventionProgram.svgBackgroundColor,
+                        borderRadius: BorderRadius.all(Radius.circular(20))),
+                    width: 65,
+                    height: 65,
+                    child: Container(
+                      margin: EdgeInsets.all(15),
+                      child: SvgPicture.asset(interventionProgram.svgIcon),
+                    )),
                 Container(
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(interventionProgram.name),
+                      Container(
+                          child: Text(interventionProgram.name,
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                  color: interventionProgram.nameColor))),
                       Row(
-                        children: [Text('# of beneficiary '), Text('2121')],
+                        children: [
+                          Text(
+                            '# of beneficiary: ',
+                            style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500,
+                                color: interventionProgram.countLabelColor),
+                          ),
+                          Text('2121',
+                              style: TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w500,
+                                  color: interventionProgram.countColor))
+                        ],
                       )
                     ],
                   ),

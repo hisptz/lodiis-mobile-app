@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:kb_mobile_app/components/form_field_input_icon.dart';
+import 'package:kb_mobile_app/core/components/form_field_input_icon.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/modules/intervention_selection/intervention_selection_page.dart';
 import 'package:kb_mobile_app/modules/login/components/login_button.dart';

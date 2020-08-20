@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:kb_mobile_app/constants/custom_color.dart';
+import 'package:kb_mobile_app/core/constants/custom_color.dart';
+import 'package:kb_mobile_app/core/utils/app_util.dart';
 
 import 'package:kb_mobile_app/modules/intervention_selection/intervention_selection_page.dart';
 import 'package:kb_mobile_app/modules/login/login_page.dart';
@@ -17,9 +18,10 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     super.initState();
+    AppUtil.setStatusBarColor(CustomColor.defaultPrimaryColor);
   }
 
-  void setLandingPgae(bool isUserLoginIn) {
+  void setLandingPage(bool isUserLoginIn) {
     Timer(
         Duration(seconds: 2),
         () => Navigator.pushReplacement(
@@ -33,7 +35,7 @@ class _SplashPageState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
     // @TODO handling all user realoaction if user has been login in or not
-    this.setLandingPgae(false);
+    this.setLandingPage(false);
 
     Size size = MediaQuery.of(context).size;
     return Scaffold(
