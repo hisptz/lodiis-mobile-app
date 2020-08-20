@@ -3,9 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/constants/custom_color.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
-
-import 'package:kb_mobile_app/modules/intervention_selection/intervention_selection_page.dart';
-import 'package:kb_mobile_app/modules/login/login_page.dart';
+import 'package:kb_mobile_app/modules/intervention_selection/intervention_selection.dart';
+import 'package:kb_mobile_app/modules/login/login.dart';
 import 'package:kb_mobile_app/modules/splash/components/splash_implementer_list.dart';
 
 class SplashPage extends StatefulWidget {
@@ -28,9 +27,8 @@ class _SplashPageState extends State<SplashPage> {
         () => Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-                builder: (context) => isUserLoginIn
-                    ? InterventionSelectionPage()
-                    : LoginPage())));
+                builder: (context) =>
+                    isUserLoginIn ? InterventionSelection() : Login())));
   }
 
   @override

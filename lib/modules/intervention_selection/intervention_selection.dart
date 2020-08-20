@@ -7,14 +7,14 @@ import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/intervention_selection/components/intervention_selection_container.dart';
 
-class InterventionSelectionPage extends StatefulWidget {
+class InterventionSelection extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     return _InterventionSelectionState();
   }
 }
 
-class _InterventionSelectionState extends State<InterventionSelectionPage> {
+class _InterventionSelectionState extends State<InterventionSelection> {
   List<InterventionCard> interventionPrograms =
       InterventionCard.getInterventions();
 

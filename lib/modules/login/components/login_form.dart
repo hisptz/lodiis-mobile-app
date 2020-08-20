@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/core/components/form_field_input_icon.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
-import 'package:kb_mobile_app/modules/intervention_selection/intervention_selection_page.dart';
+import 'package:kb_mobile_app/modules/intervention_selection/intervention_selection.dart';
 import 'package:kb_mobile_app/modules/login/components/login_button.dart';
 import 'package:kb_mobile_app/modules/login/components/login_form_field_seperator.dart';
 import 'package:kb_mobile_app/modules/login/constants/login_style.dart';
@@ -15,8 +15,6 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
-// Adding mechanism for updating status of button if all fields has been set
-
   String activeInput = '';
   bool isLoginProcessActive = false;
   bool isPasswordVisible = false;
@@ -56,10 +54,8 @@ class _LoginFormState extends State<LoginForm> {
       Timer(Duration(seconds: 2), () {
         setState(() {
           isLoginProcessActive = !isLoginProcessActive;
-          Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => InterventionSelectionPage()));
+          Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) => InterventionSelection()));
         });
       });
     }
