@@ -69,25 +69,23 @@ class InterventionSelectionCard extends StatelessWidget {
               ],
             ),
           ),
-          Positioned(
-              bottom: 0,
-              child: Container(
-                height: 35,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    color: interventionProgramId == interventionProgram.id
-                        ? interventionProgram.secondaryColor
-                        : Color(0xFFFFFFFF),
-                    borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(32),
-                        bottomRight: Radius.circular(32))),
-                child: Visibility(
-                    visible: interventionProgramId == interventionProgram.id,
-                    child: Container(
-                      padding: EdgeInsets.only(top: 10, bottom: 10),
-                      child: SvgPicture.asset('assets/icons/tick-icon.svg'),
-                    )),
-              ))
+          Container(
+            height: 35,
+            width: double.infinity,
+            decoration: BoxDecoration(
+                color: interventionProgramId == interventionProgram.id
+                    ? interventionProgram.secondaryColor
+                    : Color(0xFFFFFFFF),
+                borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(32),
+                    bottomRight: Radius.circular(32))),
+            child: Visibility(
+                visible: interventionProgramId == interventionProgram.id,
+                child: Container(
+                  padding: EdgeInsets.only(top: 10, bottom: 10),
+                  child: SvgPicture.asset('assets/icons/tick-icon.svg'),
+                )),
+          )
         ],
       ),
     );

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/app-state/intervention_card/intervention_card_state.dart';
 import 'package:kb_mobile_app/core/components/route_page_not_found.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/dreams_intervention.dart';
 import 'package:kb_mobile_app/modules/intervention_selection/components/Intervention_selection_list.dart';
 import 'package:kb_mobile_app/modules/intervention_selection/components/intervention_selection_button.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/ovc_intervention.dart';
+import 'package:provider/provider.dart';
 
 class InterventionSelectionContainer extends StatefulWidget {
   const InterventionSelectionContainer(
@@ -23,12 +25,13 @@ class InterventionSelectionContainer extends StatefulWidget {
 
 class _InterventionSelectionContainerState
     extends State<InterventionSelectionContainer> {
-  InterventionCard activeInterventionProgram;
   bool isInterventionSelected = false;
+  InterventionCard activeInterventionProgram;
 
-  void onSelectingInterventionProgram(InterventionCard interventionProgram) {
-    widget.onIntervetionSelection(interventionProgram);
-    activeInterventionProgram = interventionProgram;
+  void onSelectingInterventionProgram(
+      InterventionCard currentInterventionProgram) {
+    widget.onIntervetionSelection(currentInterventionProgram);
+    activeInterventionProgram = currentInterventionProgram;
     setState(() {
       isInterventionSelected = true;
     });
@@ -37,7 +40,6 @@ class _InterventionSelectionContainerState
   void onInterventionButtonClick() {
     if (activeInterventionProgram != null &&
         activeInterventionProgram.id.isNotEmpty) {
-      // set current card selected and route to specific intervention
       Navigator.push(
           context,
           MaterialPageRoute(
@@ -54,13 +56,16 @@ class _InterventionSelectionContainerState
 
   @override
   Widget build(BuildContext context) {
+    IntervetionCardState intervetionCardState =
+        Provider.of<IntervetionCardState>(context);
+
     return Container(
         child: Column(
       children: [
         Container(
           margin: EdgeInsets.only(top: 40, bottom: 50),
           child: Text(
-            'Select Interventions',
+            'Select Interventions ',
             style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.w500,
@@ -75,7 +80,11 @@ class _InterventionSelectionContainerState
         ),
         InterventionSelectionButton(
             isInterventionSelected: isInterventionSelected,
-            onInterventionButtonClick: onInterventionButtonClick)
+            onInterventionButtonClick: () {
+              intervetionCardState
+                  .setCurrentInterventionProgram(activeInterventionProgram);
+              onInterventionButtonClick();
+            })
       ],
     )); //;
   }
