@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class InterventionCard {
   String id;
+  String uid;
   String name;
   String shortName;
   String svgIcon;
@@ -16,6 +17,7 @@ class InterventionCard {
 
   InterventionCard(
       {this.id,
+      this.uid = '',
       this.name,
       this.shortName,
       this.svgIcon,
