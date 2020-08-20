@@ -10,7 +10,7 @@ class InterventionSelectionList extends StatefulWidget {
       : super(key: key);
 
   final List<InterventionCard> interventionPrograms;
-  final Function(Color) onIntervetionSelection;
+  final Function(InterventionCard) onIntervetionSelection;
 
   @override
   _InterventionSelectionListState createState() =>
@@ -23,7 +23,7 @@ class _InterventionSelectionListState extends State<InterventionSelectionList> {
   void setSelectedCard(InterventionCard interventionProgram) {
     setState(() {
       interventionProgramId = interventionProgram.id;
-      widget.onIntervetionSelection(interventionProgram.primmaryColor);
+      widget.onIntervetionSelection(interventionProgram);
     });
   }
 

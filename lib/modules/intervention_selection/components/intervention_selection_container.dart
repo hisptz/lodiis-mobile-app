@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/intervention_selection/components/Intervention_selection_list.dart';
 
-class InterventionSelectionContainer extends StatelessWidget {
+class InterventionSelectionContainer extends StatefulWidget {
   const InterventionSelectionContainer(
       {Key key,
       @required this.interventionPrograms,
@@ -10,7 +10,16 @@ class InterventionSelectionContainer extends StatelessWidget {
       : super(key: key);
 
   final List<InterventionCard> interventionPrograms;
-  final Function(Color) onIntervetionSelection;
+  final Function(InterventionCard) onIntervetionSelection;
+
+  @override
+  _InterventionSelectionContainerState createState() =>
+      _InterventionSelectionContainerState();
+}
+
+class _InterventionSelectionContainerState
+    extends State<InterventionSelectionContainer> {
+  bool isInterventionSelected = false;
 
   @override
   Widget build(BuildContext context) {
@@ -29,14 +38,38 @@ class InterventionSelectionContainer extends StatelessWidget {
         ),
         Container(
           child: InterventionSelectionList(
-            interventionPrograms: interventionPrograms,
-            onIntervetionSelection: this.onIntervetionSelection,
+            interventionPrograms: widget.interventionPrograms,
+            onIntervetionSelection: (InterventionCard interventionProgram) {
+              this.widget.onIntervetionSelection(interventionProgram);
+              setState(() {
+                isInterventionSelected = true;
+              });
+            },
           ),
         ),
         Container(
-          child: Text(
-            'Continue',
-            style: TextStyle(),
+          margin: EdgeInsets.symmetric(horizontal: 40),
+          child: Container(
+            margin: EdgeInsets.only(top: 60),
+            width: double.infinity,
+            child: FlatButton(
+                onPressed: !isInterventionSelected ? null : () => {},
+                shape: RoundedRectangleBorder(
+                    side: BorderSide(
+                        color: isInterventionSelected
+                            ? Color(0xFFFAFAFA)
+                            : Color(0xFF7FBA7C)),
+                    borderRadius: BorderRadius.circular(12.0)),
+                padding: EdgeInsets.symmetric(vertical: 15),
+                child: Container(
+                  child: Text(
+                    'Continue',
+                    style: TextStyle(
+                        color: isInterventionSelected
+                            ? Color(0xFFFAFAFA)
+                            : Color(0xFF7FBA7C)),
+                  ),
+                )),
           ),
         )
       ],

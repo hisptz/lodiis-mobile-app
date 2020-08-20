@@ -13,20 +13,20 @@ class InterventionSelectionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(20),
+      margin: EdgeInsets.symmetric(vertical: 10, horizontal: 30),
       decoration: BoxDecoration(
           color: Color(0xFFFFFFFF),
           borderRadius: BorderRadius.all(Radius.circular(32))),
       child: Column(
         children: [
           Container(
-            height: 140,
+            height: 120,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(
-                    margin: EdgeInsets.only(left: 22, right: 22, top: 0),
+                    margin: EdgeInsets.symmetric(horizontal: 22),
                     decoration: BoxDecoration(
                         color: interventionProgram.svgBackgroundColor,
                         borderRadius: BorderRadius.all(Radius.circular(20))),

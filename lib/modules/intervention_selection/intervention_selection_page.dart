@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/constants/custom_color.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
@@ -16,11 +19,25 @@ class _InterventionSelectionState extends State<InterventionSelectionPage> {
       InterventionCard.getInterventions();
 
   Color primmaryColor = CustomColor.defaultPrimaryColor;
+  bool hasDataLoaded = false;
 
-  void onIntervetionSelection(Color color) {
+  void onIntervetionSelection(InterventionCard interventionProgram) {
     setState(() {
-      AppUtil.setStatusBarColor(color);
-      primmaryColor = color;
+      AppUtil.setStatusBarColor(interventionProgram.primmaryColor);
+      primmaryColor = interventionProgram.primmaryColor;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    //@TODO Discovering all data for intervetion selections for identify intervations with data
+    Timer(Duration(seconds: 2), upDataStateLoadingStatus);
+  }
+
+  upDataStateLoadingStatus() {
+    setState(() {
+      hasDataLoaded = true;
     });
   }
 
@@ -34,9 +51,11 @@ class _InterventionSelectionState extends State<InterventionSelectionPage> {
         Container(
           decoration: BoxDecoration(color: primmaryColor),
         ),
-        InterventionSelectionContainer(
-            interventionPrograms: interventionPrograms,
-            onIntervetionSelection: onIntervetionSelection)
+        !hasDataLoaded
+            ? CircularProcessLoader()
+            : InterventionSelectionContainer(
+                interventionPrograms: interventionPrograms,
+                onIntervetionSelection: onIntervetionSelection)
       ],
     )));
   }
