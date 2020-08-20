@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kb_mobile_app/models/intervention.dart';
+import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/intervention_selection/components/Intervention_selection_list.dart';
 
 class InterventionSelectionContainer extends StatelessWidget {
@@ -8,7 +8,7 @@ class InterventionSelectionContainer extends StatelessWidget {
     @required this.interventionPrograms,
   }) : super(key: key);
 
-  final List<InterventionProgram> interventionPrograms;
+  final List<InterventionCard> interventionPrograms;
 
   @override
   Widget build(BuildContext context) {

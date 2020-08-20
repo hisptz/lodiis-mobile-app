@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kb_mobile_app/models/intervention.dart';
+import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/intervention_selection/components/intervention_selection_container.dart';
 
 class InterventionSelectionPage extends StatefulWidget {
@@ -10,8 +10,8 @@ class InterventionSelectionPage extends StatefulWidget {
 }
 
 class _InterventionSelectionState extends State<InterventionSelectionPage> {
-  List<InterventionProgram> interventionPrograms =
-      InterventionProgram.getInterventions();
+  List<InterventionCard> interventionPrograms =
+      InterventionCard.getInterventions();
 
   Color primmaryColor = Color(0xFF4B9F46);
 

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:kb_mobile_app/models/intervention.dart';
+import 'package:kb_mobile_app/models/intervention_card.dart';
 
 class InterventionSelectionCard extends StatelessWidget {
   InterventionSelectionCard({Key key, this.interventionProgram})
       : super(key: key);
 
-  final InterventionProgram interventionProgram;
+  final InterventionCard interventionProgram;
 
   @override
   Widget build(BuildContext context) {
