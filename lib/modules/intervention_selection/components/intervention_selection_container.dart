@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/core/components/route_page_not_found.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/dreams_intervention.dart';
 import 'package:kb_mobile_app/modules/intervention_selection/components/Intervention_selection_list.dart';
+import 'package:kb_mobile_app/modules/intervention_selection/components/intervention_selection_button.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/ovc_intervention.dart';
 
 class InterventionSelectionContainer extends StatefulWidget {
   const InterventionSelectionContainer(
@@ -19,7 +23,34 @@ class InterventionSelectionContainer extends StatefulWidget {
 
 class _InterventionSelectionContainerState
     extends State<InterventionSelectionContainer> {
+  InterventionCard activeInterventionProgram;
   bool isInterventionSelected = false;
+
+  void onSelectingInterventionProgram(InterventionCard interventionProgram) {
+    widget.onIntervetionSelection(interventionProgram);
+    activeInterventionProgram = interventionProgram;
+    setState(() {
+      isInterventionSelected = true;
+    });
+  }
+
+  void onInterventionButtonClick() {
+    if (activeInterventionProgram != null &&
+        activeInterventionProgram.id.isNotEmpty) {
+      // set current card selected and route to specific intervention
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => activeInterventionProgram.id == 'ovc'
+                  ? OvcIntervention()
+                  : activeInterventionProgram.id == 'dreams'
+                      ? DreamsIntervention()
+                      : RoutePageNotFound(
+                          pageTitle:
+                              '${activeInterventionProgram.name} is not found',
+                          color: activeInterventionProgram.primmaryColor)));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,39 +70,12 @@ class _InterventionSelectionContainerState
         Container(
           child: InterventionSelectionList(
             interventionPrograms: widget.interventionPrograms,
-            onIntervetionSelection: (InterventionCard interventionProgram) {
-              this.widget.onIntervetionSelection(interventionProgram);
-              setState(() {
-                isInterventionSelected = true;
-              });
-            },
+            onIntervetionSelection: onSelectingInterventionProgram,
           ),
         ),
-        Container(
-          margin: EdgeInsets.symmetric(horizontal: 40),
-          child: Container(
-            margin: EdgeInsets.only(top: 60),
-            width: double.infinity,
-            child: FlatButton(
-                onPressed: !isInterventionSelected ? null : () => {},
-                shape: RoundedRectangleBorder(
-                    side: BorderSide(
-                        color: isInterventionSelected
-                            ? Color(0xFFFAFAFA)
-                            : Color(0xFF7FBA7C)),
-                    borderRadius: BorderRadius.circular(12.0)),
-                padding: EdgeInsets.symmetric(vertical: 15),
-                child: Container(
-                  child: Text(
-                    'Continue',
-                    style: TextStyle(
-                        color: isInterventionSelected
-                            ? Color(0xFFFAFAFA)
-                            : Color(0xFF7FBA7C)),
-                  ),
-                )),
-          ),
-        )
+        InterventionSelectionButton(
+            isInterventionSelected: isInterventionSelected,
+            onInterventionButtonClick: onInterventionButtonClick)
       ],
     )); //;
   }
