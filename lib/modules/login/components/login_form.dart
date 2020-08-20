@@ -21,7 +21,8 @@ class _LoginFormState extends State<LoginForm> {
   bool isLoginProcessActive = false;
   bool isPasswordVisible = false;
 
-  CurrentUser currentUser = new CurrentUser();
+  CurrentUser currentUser =
+      new CurrentUser(username: 'chingalo', password: 'chingalo');
 
   void updateInputActiveStatus(String activeField) {
     setState(() {
@@ -52,7 +53,7 @@ class _LoginFormState extends State<LoginForm> {
     if (!isLoginProcessActive && status) {
       // @TODO impelement actual login process
       isLoginProcessActive = !isLoginProcessActive;
-      Timer(Duration(seconds: 3), () {
+      Timer(Duration(seconds: 2), () {
         setState(() {
           isLoginProcessActive = !isLoginProcessActive;
           Navigator.pushReplacement(
@@ -85,6 +86,7 @@ class _LoginFormState extends State<LoginForm> {
         ),
         Container(
           child: TextFormField(
+              controller: new TextEditingController(text: currentUser.username),
               onTap: () => updateInputActiveStatus('username'),
               onChanged: (value) => onFieldValueChanges(value, 'username'),
               onFieldSubmitted: (value) => onFieldSubmitted(value, 'username'),
@@ -117,9 +119,7 @@ class _LoginFormState extends State<LoginForm> {
         ),
         Container(
           child: TextFormField(
-            validator: (String value) {
-              return value.contains('@') ? 'Do not use the @ char.' : null;
-            },
+            controller: new TextEditingController(text: currentUser.password),
             onTap: () => updateInputActiveStatus('password'),
             onChanged: (value) => onFieldValueChanges(value, 'password'),
             onFieldSubmitted: (value) => onFieldSubmitted(value, 'password'),
