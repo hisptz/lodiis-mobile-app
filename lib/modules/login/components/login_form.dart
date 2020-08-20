@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:kb_mobile_app/components/form_field_input_icon.dart';
+import 'package:kb_mobile_app/core/components/form_field_input_icon.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
-import 'package:kb_mobile_app/modules/intervention_selection/intervention_selection_page.dart';
+import 'package:kb_mobile_app/modules/intervention_selection/intervention_selection.dart';
 import 'package:kb_mobile_app/modules/login/components/login_button.dart';
 import 'package:kb_mobile_app/modules/login/components/login_form_field_seperator.dart';
 import 'package:kb_mobile_app/modules/login/constants/login_style.dart';
@@ -15,13 +15,12 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
-// Adding mechanism for updating status of button if all fields has been set
-
   String activeInput = '';
   bool isLoginProcessActive = false;
   bool isPasswordVisible = false;
 
-  CurrentUser currentUser = new CurrentUser();
+  CurrentUser currentUser =
+      new CurrentUser(username: 'chingalo', password: 'chingalo');
 
   void updateInputActiveStatus(String activeField) {
     setState(() {
@@ -52,13 +51,11 @@ class _LoginFormState extends State<LoginForm> {
     if (!isLoginProcessActive && status) {
       // @TODO impelement actual login process
       isLoginProcessActive = !isLoginProcessActive;
-      Timer(Duration(seconds: 3), () {
+      Timer(Duration(seconds: 2), () {
         setState(() {
           isLoginProcessActive = !isLoginProcessActive;
-          Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => InterventionSelectionPage()));
+          Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) => InterventionSelection()));
         });
       });
     }
@@ -85,6 +82,7 @@ class _LoginFormState extends State<LoginForm> {
         ),
         Container(
           child: TextFormField(
+              controller: new TextEditingController(text: currentUser.username),
               onTap: () => updateInputActiveStatus('username'),
               onChanged: (value) => onFieldValueChanges(value, 'username'),
               onFieldSubmitted: (value) => onFieldSubmitted(value, 'username'),
@@ -117,9 +115,7 @@ class _LoginFormState extends State<LoginForm> {
         ),
         Container(
           child: TextFormField(
-            validator: (String value) {
-              return value.contains('@') ? 'Do not use the @ char.' : null;
-            },
+            controller: new TextEditingController(text: currentUser.password),
             onTap: () => updateInputActiveStatus('password'),
             onChanged: (value) => onFieldValueChanges(value, 'password'),
             onFieldSubmitted: (value) => onFieldSubmitted(value, 'password'),
