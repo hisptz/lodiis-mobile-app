@@ -14,7 +14,7 @@ class LoginButton extends StatelessWidget {
         width: MediaQuery.of(context).size.width,
         margin: EdgeInsets.only(top: 20),
         child: FlatButton(
-          padding: EdgeInsets.only(top: 15, bottom: 15),
+          padding: EdgeInsets.symmetric(vertical: 15),
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
           onPressed: isLoginProcessActive ? null : onLogin,

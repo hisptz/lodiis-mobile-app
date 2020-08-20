@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/constants/custom_color.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 
@@ -43,24 +44,8 @@ class _SplashPageState extends State<SplashPage> {
       Container(
         decoration: BoxDecoration(color: CustomColor.defaultPrimaryColor),
         height: size.height * 0.83,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              width: double.infinity,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CircularProgressIndicator(
-                    strokeWidth: 2,
-                    valueColor: new AlwaysStoppedAnimation(
-                        CustomColor.defaultSecondaryColor),
-                  )
-                ],
-              ),
-            )
-          ],
-        ),
+        child: CircularProcessLoader(
+            color: CustomColor.defaultSecondaryColor, size: 2.0),
       ),
       SplashImplementingPartnerList(),
     ]));
