@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app-state/page-state/page_state.dart';
+import 'package:kb_mobile_app/constants/custom_color.dart';
 import 'package:kb_mobile_app/modules/splash/splash_page.dart';
 import 'package:provider/provider.dart';
 
@@ -15,9 +16,8 @@ class MyApp extends StatelessWidget {
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
-            primaryColor: const Color(0xFF00BFA6),
-            visualDensity: VisualDensity.adaptivePlatformDensity,
-          ),
+              primaryColor: CustomColor.defaultPrimaryColor,
+              visualDensity: VisualDensity.adaptivePlatformDensity),
           home: SafeArea(child: SplashPage()),
         ));
   }
