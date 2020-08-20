@@ -3,22 +3,24 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 
 class InterventionSelectionCard extends StatelessWidget {
-  InterventionSelectionCard({Key key, this.interventionProgram})
+  InterventionSelectionCard(
+      {Key key, this.interventionProgram, this.interventionProgramId})
       : super(key: key);
 
   final InterventionCard interventionProgram;
+  final String interventionProgramId;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.all(20),
       decoration: BoxDecoration(
-          color: const Color(0xFFFFFFFF),
+          color: Color(0xFFFFFFFF),
           borderRadius: BorderRadius.all(Radius.circular(32))),
       child: Column(
         children: [
           Container(
-            height: 151,
+            height: 140,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -48,7 +50,7 @@ class InterventionSelectionCard extends StatelessWidget {
                       Row(
                         children: [
                           Text(
-                            '# of beneficiary: ',
+                            '# of beneficiary:',
                             style: TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w500,
@@ -73,14 +75,18 @@ class InterventionSelectionCard extends StatelessWidget {
                 height: 35,
                 width: double.infinity,
                 decoration: BoxDecoration(
-                    color: interventionProgram.secondaryColor,
+                    color: interventionProgramId == interventionProgram.id
+                        ? interventionProgram.secondaryColor
+                        : Color(0xFFFFFFFF),
                     borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(32),
                         bottomRight: Radius.circular(32))),
-                child: Container(
-                  padding: EdgeInsets.only(top: 10, bottom: 10),
-                  child: SvgPicture.asset('assets/icons/tick-icon.svg'),
-                ),
+                child: Visibility(
+                    visible: interventionProgramId == interventionProgram.id,
+                    child: Container(
+                      padding: EdgeInsets.only(top: 10, bottom: 10),
+                      child: SvgPicture.asset('assets/icons/tick-icon.svg'),
+                    )),
               ))
         ],
       ),

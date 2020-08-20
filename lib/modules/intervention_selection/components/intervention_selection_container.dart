@@ -3,12 +3,14 @@ import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/intervention_selection/components/Intervention_selection_list.dart';
 
 class InterventionSelectionContainer extends StatelessWidget {
-  const InterventionSelectionContainer({
-    Key key,
-    @required this.interventionPrograms,
-  }) : super(key: key);
+  const InterventionSelectionContainer(
+      {Key key,
+      @required this.interventionPrograms,
+      this.onIntervetionSelection})
+      : super(key: key);
 
   final List<InterventionCard> interventionPrograms;
+  final Function(Color) onIntervetionSelection;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +29,9 @@ class InterventionSelectionContainer extends StatelessWidget {
         ),
         Container(
           child: InterventionSelectionList(
-              interventionPrograms: interventionPrograms),
+            interventionPrograms: interventionPrograms,
+            onIntervetionSelection: this.onIntervetionSelection,
+          ),
         ),
         Container(
           child: Text(

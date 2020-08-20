@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/core/constants/custom_color.dart';
+import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/intervention_selection/components/intervention_selection_container.dart';
 
@@ -13,7 +15,14 @@ class _InterventionSelectionState extends State<InterventionSelectionPage> {
   List<InterventionCard> interventionPrograms =
       InterventionCard.getInterventions();
 
-  Color primmaryColor = Color(0xFF4B9F46);
+  Color primmaryColor = CustomColor.defaultPrimaryColor;
+
+  void onIntervetionSelection(Color color) {
+    setState(() {
+      AppUtil.setStatusBarColor(color);
+      primmaryColor = color;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +35,8 @@ class _InterventionSelectionState extends State<InterventionSelectionPage> {
           decoration: BoxDecoration(color: primmaryColor),
         ),
         InterventionSelectionContainer(
-            interventionPrograms: interventionPrograms)
+            interventionPrograms: interventionPrograms,
+            onIntervetionSelection: onIntervetionSelection)
       ],
     )));
   }
