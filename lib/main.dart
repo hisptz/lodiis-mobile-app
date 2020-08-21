@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/app-state/intervention_bottom_navigation_state/intervention_bottom_navigation_state.dart';
 import 'package:kb_mobile_app/app-state/intervention_card_state/intervention_card_state.dart';
-import 'package:kb_mobile_app/app-state/page_state/page_state.dart';
 import 'package:kb_mobile_app/core/constants/custom_color.dart';
 import 'package:kb_mobile_app/modules/splash/splash_page.dart';
 import 'package:provider/provider.dart';
@@ -14,8 +14,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
         providers: [
-          ChangeNotifierProvider(create: (_) => PageState()),
-          ChangeNotifierProvider(create: (_) => IntervetionCardState())
+          ChangeNotifierProvider(create: (_) => IntervetionCardState()),
+          ChangeNotifierProvider(
+              create: (_) => InterventionBottomNavigationState())
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
