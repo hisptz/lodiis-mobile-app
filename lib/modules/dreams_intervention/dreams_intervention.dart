@@ -3,8 +3,14 @@ import 'package:kb_mobile_app/app-state/intervention_bottom_navigation_state/int
 import 'package:kb_mobile_app/app-state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar.dart';
 import 'package:kb_mobile_app/core/components/intervention_app_bar.dart';
+import 'package:kb_mobile_app/core/components/route_page_not_found.dart';
 import 'package:kb_mobile_app/models/Intervention_bottom_navigation.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/pages/dreams_enrollment_page.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/pages/dreams_exit_page.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/pages/dreams_records_page.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/pages/dreams_referral_page.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/pages/dreams_services_page.dart';
 import 'package:provider/provider.dart';
 
 class DreamsIntervention extends StatelessWidget {
@@ -61,13 +67,22 @@ class DreamsIntervention extends StatelessWidget {
                   BoxDecoration(color: activeInterventionProgram.background),
             ),
             Container(
-              child: Column(
-                children: [
-                  Text('container for ${activeInterventionProgram.name}'),
-                  Text(
-                      'container for ${currentInterventionBottomNavigation.toString()}'),
-                ],
-              ),
+              child: currentInterventionBottomNavigation.id == 'services'
+                  ? DreamsServicesPage()
+                  : currentInterventionBottomNavigation.id == 'referral'
+                      ? DreamsReferralPage()
+                      : currentInterventionBottomNavigation.id == 'enrollment'
+                          ? DreamsEnrollmentPage()
+                          : currentInterventionBottomNavigation.id == 'exit'
+                              ? DreamsExitPage()
+                              : currentInterventionBottomNavigation.id ==
+                                      'records'
+                                  ? DreamsRecordsPage()
+                                  : RoutePageNotFound(
+                                      pageTitle:
+                                          currentInterventionBottomNavigation
+                                              .id,
+                                    ),
             ),
           ],
         ),
