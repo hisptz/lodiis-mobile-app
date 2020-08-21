@@ -23,4 +23,9 @@ class CurrentUser {
         password != null &&
         password.isNotEmpty;
   }
+
+  @override
+  String toString() {
+    return 'Curremt user is $username';
+  }
 }

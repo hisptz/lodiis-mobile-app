@@ -9,6 +9,7 @@ class InterventionCard {
   Color primmaryColor;
   Color secondaryColor;
   Color svgIconColor;
+  Color svgIconBorderColor;
   Color svgBackgroundColor;
   Color background;
   Color nameColor;
@@ -24,6 +25,7 @@ class InterventionCard {
       this.primmaryColor,
       this.secondaryColor,
       this.svgIconColor,
+      this.svgIconBorderColor,
       this.svgBackgroundColor,
       this.background,
       this.nameColor,
@@ -39,9 +41,10 @@ class InterventionCard {
         svgIcon: 'assets/icons/ovc-icon.svg',
         primmaryColor: Color(0xFF4B9F46),
         secondaryColor: Color(0xFF63BC48),
-        svgIconColor: Color(0xFF4B9F46),
+        svgIconColor: Color(0xFFB9F8A6),
+        svgIconBorderColor: Color(0xFF6CBA63),
         svgBackgroundColor: Color(0xFFE5F1E4),
-        background: Color(0xFFF6FAF6),
+        background: Color(0xFFE5E5E5),
         nameColor: Color(0xFF1A3518),
         countColor: Color(0xFF4B9F46),
         countLabelColor: Color(0xFF8EA58C),
@@ -53,13 +56,19 @@ class InterventionCard {
         svgIcon: 'assets/icons/dreams-icon.svg',
         primmaryColor: Color(0xFFC7461F),
         secondaryColor: Color(0xFFF1592A),
-        svgIconColor: Color(0xFFF1592A),
+        svgIconColor: Color(0xFFFFB7A0),
+        svgIconBorderColor: Color(0xFFFFA78C),
         svgBackgroundColor: Color(0xFFFEEAE4),
-        background: Color(0xFFFFFAF9),
+        background: Color(0xFFFCF4F2),
         nameColor: Color(0xFF3F1A0F),
         countColor: Color(0xFFF1592A),
         countLabelColor: Color(0xFFCA9A8C),
       ),
     ];
+  }
+
+  @override
+  String toString() {
+    return '$name - $id';
   }
 }

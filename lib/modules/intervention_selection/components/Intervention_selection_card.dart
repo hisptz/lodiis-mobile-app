@@ -34,7 +34,9 @@ class InterventionSelectionCard extends StatelessWidget {
                     height: 65,
                     child: Container(
                       margin: EdgeInsets.all(15),
-                      child: SvgPicture.asset(interventionProgram.svgIcon),
+                      child: SvgPicture.asset(
+                        interventionProgram.svgIcon,
+                      ),
                     )),
                 Container(
                   child: Column(
