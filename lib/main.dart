@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kb_mobile_app/app-state/intervention_card/intervention_card_state.dart';
+import 'package:kb_mobile_app/app-state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/app-state/page_state/page_state.dart';
 import 'package:kb_mobile_app/core/constants/custom_color.dart';
 import 'package:kb_mobile_app/modules/splash/splash_page.dart';

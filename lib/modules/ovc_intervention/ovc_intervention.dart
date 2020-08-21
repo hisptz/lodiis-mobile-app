@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:kb_mobile_app/app-state/intervention_card/intervention_card_state.dart';
+import 'package:kb_mobile_app/app-state/intervention_card_state/intervention_card_state.dart';
+import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar.dart';
 import 'package:kb_mobile_app/core/components/intervention_app_bar.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:provider/provider.dart';
@@ -56,6 +57,8 @@ class OvcIntervention extends StatelessWidget {
             )
           ],
         ),
+        bottomNavigationBar: InterventionBottomNavigationBar(
+            activeInterventionProgram: activeInterventionProgram),
       ),
     ));
   }
