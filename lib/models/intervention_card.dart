@@ -69,6 +69,6 @@ class InterventionCard {
 
   @override
   String toString() {
-    return '$name';
+    return '$name - $id';
   }
 }

@@ -4,9 +4,13 @@ class InterventionPopActionMenu {
   String id;
   String name;
   Color color;
+  FontWeight fontWeight;
 
   InterventionPopActionMenu(
-      {this.id, this.name, this.color = const Color(0xFF1A3518)});
+      {this.id,
+      this.name,
+      this.color = const Color(0xFF1A3518),
+      this.fontWeight = FontWeight.normal});
 
   static List<InterventionPopActionMenu>
       getDefaultInterventionPopActionMenus() {

@@ -20,7 +20,7 @@ class AppUtil {
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(22.0)),
             child: Container(
-              height: MediaQuery.of(context).size.height * 0.5,
+              height: MediaQuery.of(context).size.height * 0.6,
               child: Padding(
                 padding: const EdgeInsets.all(12.0),
                 child: modal,
