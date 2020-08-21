@@ -23,7 +23,11 @@ class AppUtil {
               height: MediaQuery.of(context).size.height * 0.6,
               child: Padding(
                 padding: const EdgeInsets.all(12.0),
-                child: modal,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [modal],
+                ),
               ),
             ),
           );
