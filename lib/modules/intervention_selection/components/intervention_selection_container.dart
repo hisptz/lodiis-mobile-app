@@ -40,7 +40,7 @@ class _InterventionSelectionContainerState
   void onInterventionButtonClick() {
     if (activeInterventionProgram != null &&
         activeInterventionProgram.id.isNotEmpty) {
-      Navigator.push(
+      Navigator.pushReplacement(
           context,
           MaterialPageRoute(
               builder: (context) => activeInterventionProgram.id == 'ovc'
