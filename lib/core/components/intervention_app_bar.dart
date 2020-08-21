@@ -79,8 +79,7 @@ class InterventionAppBar extends StatelessWidget {
                 ))),
         actions: [
           Container(
-            child:
-                IconButton(icon: Icon(Icons.search), onPressed: this.onSearch),
+            child: IconButton(icon: Icon(Icons.search), onPressed: onSearch),
           ),
           Visibility(
               visible: currentInterventionBottomNavigation != null &&
@@ -90,12 +89,11 @@ class InterventionAppBar extends StatelessWidget {
                     icon: SvgPicture.asset(
                       'assets/icons/add-house-hold.svg',
                     ),
-                    onPressed: this.onAddHouseHold),
+                    onPressed: onAddHouseHold),
               )),
           Container(
             child: IconButton(
-                icon: Icon(Icons.more_vert),
-                onPressed: () => this.onOpenMoreMenu),
+                icon: Icon(Icons.more_vert), onPressed: onOpenMoreMenu),
           )
         ]);
   }

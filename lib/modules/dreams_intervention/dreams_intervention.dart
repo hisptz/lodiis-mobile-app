@@ -16,22 +16,6 @@ import 'package:provider/provider.dart';
 class DreamsIntervention extends StatelessWidget {
   const DreamsIntervention({Key key}) : super(key: key);
 
-  void onClickHome() {
-    print('on hoemm');
-  }
-
-  void onSearch() {
-    print('on hoemm');
-  }
-
-  void onAddHouseHold() {
-    print('on hoemm');
-  }
-
-  void onOpenMoreMenu() {
-    print('on hoemm');
-  }
-
   @override
   Widget build(BuildContext context) {
     // state controllers
@@ -45,6 +29,22 @@ class DreamsIntervention extends StatelessWidget {
         intervetionCardState.currentIntervetionProgram;
     InterventionBottomNavigation currentInterventionBottomNavigation =
         interventionBottomNavigationState.currentInterventionBottomNavigation;
+
+    void onClickHome() {
+      print('on onClickHome');
+    }
+
+    void onSearch() {
+      print('on onSearch');
+    }
+
+    void onAddHouseHold() {
+      print('on onAddHouseHold');
+    }
+
+    void onOpenMoreMenu() {
+      print('on onOpenMoreMenu');
+    }
 
     return Scaffold(
         body: SafeArea(

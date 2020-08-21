@@ -3,7 +3,9 @@ import 'package:kb_mobile_app/app-state/intervention_bottom_navigation_state/int
 import 'package:kb_mobile_app/app-state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar.dart';
 import 'package:kb_mobile_app/core/components/intervention_app_bar.dart';
+import 'package:kb_mobile_app/core/components/intervention_pop_up_menu.dart';
 import 'package:kb_mobile_app/core/components/route_page_not_found.dart';
+import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/Intervention_bottom_navigation.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/pages/ovc_enrollment_page.dart';
@@ -15,22 +17,6 @@ import 'package:provider/provider.dart';
 
 class OvcIntervention extends StatelessWidget {
   const OvcIntervention({Key key}) : super(key: key);
-
-  void onClickHome() {
-    print('on hoemm');
-  }
-
-  void onSearch() {
-    print('on hoemm');
-  }
-
-  void onAddHouseHold() {
-    print('on hoemm');
-  }
-
-  void onOpenMoreMenu() {
-    print('on hoemm');
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,6 +31,27 @@ class OvcIntervention extends StatelessWidget {
         intervetionCardState.currentIntervetionProgram;
     InterventionBottomNavigation currentInterventionBottomNavigation =
         interventionBottomNavigationState.currentInterventionBottomNavigation;
+
+    void onClickHome() {
+      print('on onClickHome');
+    }
+
+    void onSearch() {
+      print('on onSearch');
+    }
+
+    void onAddHouseHold() {
+      print('on onAddHouseHold');
+    }
+
+    void onOpenMoreMenu() async {
+      var modal = InterventionPopUpMenu(
+          activeInterventionProgram: activeInterventionProgram);
+      var data = await AppUtil.showPopUpModal(context, modal);
+      if (data != null) {
+        print(data.toString());
+      }
+    }
 
     return Scaffold(
         body: SafeArea(
