@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/app-state/intervention_bottom_navigation_state/intervention_bottom_navigation_state.dart';
+import 'package:kb_mobile_app/app-state/intervention_card_state/intervention_card_state.dart';
+import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar.dart';
 import 'package:kb_mobile_app/core/components/intervention_app_bar.dart';
+import 'package:kb_mobile_app/models/Intervention_bottom_navigation.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:provider/provider.dart';
-import 'package:kb_mobile_app/app-state/intervention_card_state/intervention_card_state.dart';
 
 class DreamsIntervention extends StatelessWidget {
   const DreamsIntervention({Key key}) : super(key: key);
@@ -28,25 +31,49 @@ class DreamsIntervention extends StatelessWidget {
     // state controllers
     IntervetionCardState intervetionCardState =
         Provider.of<IntervetionCardState>(context);
+    InterventionBottomNavigationState interventionBottomNavigationState =
+        Provider.of<InterventionBottomNavigationState>(context);
+
+    // state observers
     InterventionCard activeInterventionProgram =
         intervetionCardState.currentIntervetionProgram;
+    InterventionBottomNavigation currentInterventionBottomNavigation =
+        interventionBottomNavigationState.currentInterventionBottomNavigation;
 
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(65),
-        child: InterventionAppBar(
-          activeInterventionProgram: activeInterventionProgram,
-          onClickHome: onClickHome,
-          onSearch: onSearch,
-          onAddHouseHold: onAddHouseHold,
-          onOpenMoreMenu: onOpenMoreMenu,
+        body: SafeArea(
+      child: Scaffold(
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(65),
+          child: InterventionAppBar(
+            activeInterventionProgram: activeInterventionProgram,
+            onClickHome: onClickHome,
+            onSearch: onSearch,
+            onAddHouseHold: onAddHouseHold,
+            onOpenMoreMenu: onOpenMoreMenu,
+          ),
         ),
+        body: Stack(
+          fit: StackFit.expand,
+          children: [
+            Container(
+              decoration:
+                  BoxDecoration(color: activeInterventionProgram.background),
+            ),
+            Container(
+              child: Column(
+                children: [
+                  Text('container for ${activeInterventionProgram.name}'),
+                  Text(
+                      'container for ${currentInterventionBottomNavigation.toString()}'),
+                ],
+              ),
+            ),
+          ],
+        ),
+        bottomNavigationBar: InterventionBottomNavigationBar(
+            activeInterventionProgram: activeInterventionProgram),
       ),
-      body: SafeArea(
-          child: Container(
-        child: Text(
-            'Dreams intervention - ${activeInterventionProgram.name ?? ''}'),
-      )),
-    );
+    ));
   }
 }

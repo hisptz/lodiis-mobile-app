@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:kb_mobile_app/app-state/intervention_bottom_navigation_state/intervention_bottom_navigation_state.dart';
 import 'package:kb_mobile_app/models/Intervention_bottom_navigation.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
+import 'package:provider/provider.dart';
 
 class InterventionBottomNavigationBar extends StatefulWidget {
   const InterventionBottomNavigationBar({
@@ -20,24 +22,22 @@ class _InterventionBottomNavigationBarState
     extends State<InterventionBottomNavigationBar> {
   List<InterventionBottomNavigation> interventionBottomNavigations =
       InterventionBottomNavigation.getInterventionNavigationButtons();
-  int currentIndex = 0;
-  InterventionBottomNavigation currentInterventionBottomNavigation;
-  void onSelectInterventionBottomNavigation(int index) {
-    this.currentInterventionBottomNavigation =
-        this.interventionBottomNavigations[index] ??
-            currentInterventionBottomNavigation;
-  }
 
   @override
   Widget build(BuildContext context) {
+    // state controllers
+    InterventionBottomNavigationState interventionBottomNavigationState =
+        Provider.of<InterventionBottomNavigationState>(context);
+
+    // state observers
+    int currentIndex = interventionBottomNavigationState
+        .currentInterventionBottomNavigationIndex;
+    InterventionBottomNavigation currentInterventionBottomNavigation =
+        interventionBottomNavigationState.currentInterventionBottomNavigation;
     return BottomNavigationBar(
         onTap: (index) {
-          setState(() {
-            currentIndex = index;
-            this.currentInterventionBottomNavigation =
-                this.interventionBottomNavigations[index] ??
-                    currentInterventionBottomNavigation;
-          });
+          interventionBottomNavigationState
+              .setCuurrentInterventionBottomNavigationIndex(index);
         },
         showUnselectedLabels: true,
         showSelectedLabels: true,

@@ -30,4 +30,9 @@ class InterventionBottomNavigation {
           svgIcon: 'assets/icons/records-navigation-icon.svg'),
     ];
   }
+
+  @override
+  String toString() {
+    return '$name - $id';
+  }
 }
