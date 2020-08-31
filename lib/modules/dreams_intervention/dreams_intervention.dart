@@ -24,15 +24,9 @@ class DreamsIntervention extends StatelessWidget {
   Widget build(BuildContext context) {
     // state controllers
     IntervetionCardState intervetionCardState =
-        Provider.of<IntervetionCardState>(context);
+        Provider.of<IntervetionCardState>(context, listen: false);
     InterventionBottomNavigationState interventionBottomNavigationState =
-        Provider.of<InterventionBottomNavigationState>(context);
-
-    // state observers
-    InterventionCard activeInterventionProgram =
-        intervetionCardState.currentIntervetionProgram;
-    InterventionBottomNavigation currentInterventionBottomNavigation =
-        interventionBottomNavigationState.currentInterventionBottomNavigation;
+        Provider.of<InterventionBottomNavigationState>(context, listen: false);
 
     void onLogOut() {
       //@TODO add logics for log out current user
@@ -60,7 +54,7 @@ class DreamsIntervention extends StatelessWidget {
       print('on onAddHouseHold');
     }
 
-    void onOpenMoreMenu() async {
+    void onOpenMoreMenu(InterventionCard activeInterventionProgram) async {
       var modal = InterventionPopUpMenu(
           activeInterventionProgram: activeInterventionProgram);
       var response = await AppUtil.showPopUpModal(context, modal);
@@ -78,43 +72,69 @@ class DreamsIntervention extends StatelessWidget {
       child: Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(65),
-          child: InterventionAppBar(
-            activeInterventionProgram: activeInterventionProgram,
-            onClickHome: onClickHome,
-            onSearch: onSearch,
-            onAddHouseHold: onAddHouseHold,
-            onOpenMoreMenu: onOpenMoreMenu,
+          child: Consumer<IntervetionCardState>(
+            builder: (context, intervetionCardState, child) {
+              InterventionCard activeInterventionProgram =
+                  intervetionCardState.currentIntervetionProgram;
+              return InterventionAppBar(
+                activeInterventionProgram: activeInterventionProgram,
+                onClickHome: onClickHome,
+                onSearch: onSearch,
+                onAddHouseHold: onAddHouseHold,
+                onOpenMoreMenu: () => onOpenMoreMenu(activeInterventionProgram),
+              );
+            },
           ),
         ),
         body: Stack(
           fit: StackFit.expand,
           children: [
-            Container(
-              decoration:
-                  BoxDecoration(color: activeInterventionProgram.background),
-            ),
-            Container(
-              child: currentInterventionBottomNavigation.id == 'services'
-                  ? DreamsServicesPage()
-                  : currentInterventionBottomNavigation.id == 'referral'
-                      ? DreamsReferralPage()
-                      : currentInterventionBottomNavigation.id == 'enrollment'
-                          ? DreamsEnrollmentPage()
-                          : currentInterventionBottomNavigation.id == 'exit'
-                              ? DreamsExitPage()
-                              : currentInterventionBottomNavigation.id ==
-                                      'records'
-                                  ? DreamsRecordsPage()
-                                  : RoutePageNotFound(
-                                      pageTitle:
-                                          currentInterventionBottomNavigation
-                                              .id,
-                                    ),
+            Consumer<IntervetionCardState>(
+                builder: (context, intervetionCardState, child) {
+              InterventionCard activeInterventionProgram =
+                  intervetionCardState.currentIntervetionProgram;
+              return Container(
+                decoration:
+                    BoxDecoration(color: activeInterventionProgram.background),
+              );
+            }),
+            Consumer<InterventionBottomNavigationState>(
+              builder: (context, interventionBottomNavigationState, child) {
+                InterventionBottomNavigation
+                    currentInterventionBottomNavigation =
+                    interventionBottomNavigationState
+                        .currentInterventionBottomNavigation;
+                return Container(
+                  child: currentInterventionBottomNavigation.id == 'services'
+                      ? DreamsServicesPage()
+                      : currentInterventionBottomNavigation.id == 'referral'
+                          ? DreamsReferralPage()
+                          : currentInterventionBottomNavigation.id ==
+                                  'enrollment'
+                              ? DreamsEnrollmentPage()
+                              : currentInterventionBottomNavigation.id == 'exit'
+                                  ? DreamsExitPage()
+                                  : currentInterventionBottomNavigation.id ==
+                                          'records'
+                                      ? DreamsRecordsPage()
+                                      : RoutePageNotFound(
+                                          pageTitle:
+                                              currentInterventionBottomNavigation
+                                                  .id,
+                                        ),
+                );
+              },
             ),
           ],
         ),
-        bottomNavigationBar: InterventionBottomNavigationBar(
-            activeInterventionProgram: activeInterventionProgram),
+        bottomNavigationBar: Consumer<IntervetionCardState>(
+          builder: (context, value, child) {
+            InterventionCard activeInterventionProgram =
+                intervetionCardState.currentIntervetionProgram;
+            return InterventionBottomNavigationBar(
+                activeInterventionProgram: activeInterventionProgram);
+          },
+        ),
       ),
     ));
   }
