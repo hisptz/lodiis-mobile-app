@@ -15,7 +15,8 @@ class SplashImplementingPartnerList extends StatelessWidget {
             children: [
               SvgPicture.asset('assets/logos/usaid.svg'),
               SvgPicture.asset('assets/logos/usaid.svg'),
-              SvgPicture.asset('assets/logos/kb.svg')
+              SvgPicture.asset('assets/logos/kb.svg'),
+              SvgPicture.asset('assets/logos/hisptz.svg')
             ],
           )),
     );
