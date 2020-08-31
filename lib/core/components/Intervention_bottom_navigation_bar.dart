@@ -5,7 +5,7 @@ import 'package:kb_mobile_app/models/Intervention_bottom_navigation.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:provider/provider.dart';
 
-class InterventionBottomNavigationBar extends StatefulWidget {
+class InterventionBottomNavigationBar extends StatelessWidget {
   const InterventionBottomNavigationBar({
     Key key,
     @required this.activeInterventionProgram,
@@ -14,61 +14,82 @@ class InterventionBottomNavigationBar extends StatefulWidget {
   final InterventionCard activeInterventionProgram;
 
   @override
-  _InterventionBottomNavigationBarState createState() =>
-      _InterventionBottomNavigationBarState();
-}
-
-class _InterventionBottomNavigationBarState
-    extends State<InterventionBottomNavigationBar> {
-  List<InterventionBottomNavigation> interventionBottomNavigations =
-      InterventionBottomNavigation.getInterventionNavigationButtons();
-
-  @override
   Widget build(BuildContext context) {
-    // state controllers
-    InterventionBottomNavigationState interventionBottomNavigationState =
-        Provider.of<InterventionBottomNavigationState>(context);
+    List<InterventionBottomNavigation> interventionBottomNavigations =
+        InterventionBottomNavigation.getInterventionNavigationButtons();
 
-    // state observers
-    int currentIndex = interventionBottomNavigationState
-        .currentInterventionBottomNavigationIndex;
-    InterventionBottomNavigation currentInterventionBottomNavigation =
-        interventionBottomNavigationState.currentInterventionBottomNavigation;
-    return BottomNavigationBar(
-        onTap: (index) {
-          interventionBottomNavigationState
-              .setCuurrentInterventionBottomNavigationIndex(index);
-        },
-        showUnselectedLabels: true,
-        showSelectedLabels: true,
-        unselectedItemColor: Color(0xFF737373),
-        selectedItemColor: widget.activeInterventionProgram.primmaryColor,
-        currentIndex: currentIndex,
-        selectedFontSize: 15.0,
-        unselectedFontSize: 13.0,
-        items: interventionBottomNavigations
-            .map((
-              InterventionBottomNavigation interventionBottomNavigation,
-            ) =>
-                BottomNavigationBarItem(
-                    icon: Container(
-                      margin: EdgeInsets.only(top: 15),
-                      child: SvgPicture.asset(
-                        interventionBottomNavigation.svgIcon,
-                        color: currentInterventionBottomNavigation != null &&
-                                currentInterventionBottomNavigation.id ==
-                                    interventionBottomNavigation.id
-                            ? widget.activeInterventionProgram.primmaryColor
-                            : Color(0xFF737373),
+    return Consumer<InterventionBottomNavigationState>(
+      builder: (context, interventionBottomNavigationState, child) {
+        int currentIndex = interventionBottomNavigationState
+            .currentInterventionBottomNavigationIndex;
+        InterventionBottomNavigation currentInterventionBottomNavigation =
+            interventionBottomNavigationState
+                .currentInterventionBottomNavigation;
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: interventionBottomNavigations.map((
+            InterventionBottomNavigation interventionBottomNavigation,
+          ) {
+            int index = interventionBottomNavigations
+                .indexOf(interventionBottomNavigation);
+            return InkWell(
+              onTap: () {
+                Provider.of<InterventionBottomNavigationState>(context,
+                        listen: false)
+                    .setCuurrentInterventionBottomNavigationIndex(index);
+              },
+              child: Container(
+                margin: EdgeInsets.only(top: 5),
+                padding: EdgeInsets.symmetric(vertical: 5, horizontal: 12),
+                decoration: BoxDecoration(
+                    color: currentIndex == index
+                        ? activeInterventionProgram.primmaryColor
+                        : Colors.transparent,
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(12),
+                        topRight: Radius.circular(12))),
+                child: SizedBox(
+                  height: 70,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Container(
+                        child: Container(
+                          margin: EdgeInsets.only(bottom: 9),
+                          child: SvgPicture.asset(
+                            interventionBottomNavigation.svgIcon,
+                            color: currentInterventionBottomNavigation !=
+                                        null &&
+                                    currentInterventionBottomNavigation.id ==
+                                        interventionBottomNavigation.id
+                                ? Colors.white
+                                : Color(0xFF737373),
+                          ),
+                        ),
                       ),
-                    ),
-                    title: Container(
-                      margin: EdgeInsets.symmetric(vertical: 5),
-                      child: Text(
-                        interventionBottomNavigation.name,
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                    )))
-            .toList());
+                      Container(
+                        child: Text(interventionBottomNavigation.name,
+                            style: TextStyle(
+                                fontSize: 10,
+                                fontWeight: FontWeight.bold,
+                                color: currentInterventionBottomNavigation !=
+                                            null &&
+                                        currentInterventionBottomNavigation
+                                                .id ==
+                                            interventionBottomNavigation.id
+                                    ? Colors.white
+                                    : Color(0xFF737373))),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            );
+          }).toList(),
+        );
+      },
+    );
   }
 }
