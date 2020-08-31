@@ -13,7 +13,13 @@ dependencies:
   provider: ^4.3.2
   cupertino_icons: ^0.1.3
   uuid: ^2.2.0
+  shared_preferences: ^0.5.10
   flutter_svg: ^0.18.0
+  google_fonts: ^1.1.0
+  http: ^0.12.2
+  random_color: ^1.0.5
+  sqflite:
+  path:
 
 dev_dependencies:
   flutter_test:

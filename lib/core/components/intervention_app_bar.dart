@@ -23,13 +23,6 @@ class InterventionAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // state controllers
-    InterventionBottomNavigationState interventionBottomNavigationState =
-        Provider.of<InterventionBottomNavigationState>(context);
-
-    InterventionBottomNavigation currentInterventionBottomNavigation =
-        interventionBottomNavigationState.currentInterventionBottomNavigation;
-
     return AppBar(
         backgroundColor: activeInterventionProgram.primmaryColor,
         title: GestureDetector(
@@ -81,16 +74,22 @@ class InterventionAppBar extends StatelessWidget {
           Container(
             child: IconButton(icon: Icon(Icons.search), onPressed: onSearch),
           ),
-          Visibility(
-              visible: currentInterventionBottomNavigation != null &&
-                  currentInterventionBottomNavigation.id == 'enrollment',
-              child: Container(
-                child: IconButton(
-                    icon: SvgPicture.asset(
-                      'assets/icons/add-house-hold.svg',
-                    ),
-                    onPressed: onAddHouseHold),
-              )),
+          Consumer<InterventionBottomNavigationState>(
+              builder: (context, interventionBottomNavigationState, child) {
+            InterventionBottomNavigation currentInterventionBottomNavigation =
+                interventionBottomNavigationState
+                    .currentInterventionBottomNavigation;
+            return Visibility(
+                visible: currentInterventionBottomNavigation != null &&
+                    currentInterventionBottomNavigation.id == 'enrollment',
+                child: Container(
+                  child: IconButton(
+                      icon: SvgPicture.asset(
+                        'assets/icons/add-house-hold.svg',
+                      ),
+                      onPressed: onAddHouseHold),
+                ));
+          }),
           Container(
             child: IconButton(
                 icon: Icon(Icons.more_vert), onPressed: onOpenMoreMenu),

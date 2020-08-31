@@ -57,7 +57,7 @@ class _InterventionSelectionContainerState
   @override
   Widget build(BuildContext context) {
     IntervetionCardState intervetionCardState =
-        Provider.of<IntervetionCardState>(context);
+        Provider.of<IntervetionCardState>(context, listen: false);
 
     return Container(
         child: Column(
