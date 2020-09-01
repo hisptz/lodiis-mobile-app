@@ -25,43 +25,45 @@ class InterventionPopUpMenu extends StatelessWidget {
           color: interventionProgram.primmaryColor,
           fontWeight: FontWeight.bold);
     }));
-    return SingleChildScrollView(
-      child: Container(
-        padding: EdgeInsets.symmetric(vertical: 30, horizontal: 45),
-        child: Column(
-          children: popUpMenus
-              .map((InterventionPopActionMenu popUpMenu) => Container(
-                      child: Visibility(
-                    visible: popUpMenu.id != activeInterventionProgram.id,
-                    child: GestureDetector(
-                      onTap: () => {Navigator.pop(context, popUpMenu)},
-                      child: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Container(
-                                margin: EdgeInsets.symmetric(vertical: 15),
-                                child: Text(
-                                  popUpMenu.name,
-                                  style: TextStyle(
-                                      color: popUpMenu.color,
-                                      fontSize: 14.0,
-                                      fontWeight: popUpMenu.fontWeight),
-                                ),
-                              )
-                            ],
-                          ),
-                          LoginFormFieldSeperator(
-                            color: Color(0xFFE0E6E0),
-                            height: 1,
-                          )
-                        ],
-                      ),
+    return Container(
+      padding: EdgeInsets.only(
+        left: 45,
+        right: 45,
+        bottom: 20,
+      ),
+      child: Column(
+        children: popUpMenus
+            .map((InterventionPopActionMenu popUpMenu) => Container(
+                    child: Visibility(
+                  visible: popUpMenu.id != activeInterventionProgram.id,
+                  child: GestureDetector(
+                    onTap: () => {Navigator.pop(context, popUpMenu)},
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              margin: EdgeInsets.symmetric(vertical: 15),
+                              child: Text(
+                                popUpMenu.name,
+                                style: TextStyle(
+                                    color: popUpMenu.color,
+                                    fontSize: 14.0,
+                                    fontWeight: popUpMenu.fontWeight),
+                              ),
+                            )
+                          ],
+                        ),
+                        LoginFormFieldSeperator(
+                          color: Color(0xFFE0E6E0),
+                          height: 1,
+                        )
+                      ],
                     ),
-                  )))
-              .toList(),
-        ),
+                  ),
+                )))
+            .toList(),
       ),
     );
   }
