@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:kb_mobile_app/app-state/intervention_bottom_navigation_state/intervention_bottom_navigation_state.dart';
 import 'package:kb_mobile_app/app-state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/core/constants/custom_color.dart';
@@ -21,6 +22,9 @@ class MyApp extends StatelessWidget {
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
+              textTheme: GoogleFonts.robotoTextTheme(
+                Theme.of(context).textTheme,
+              ),
               primaryColor: CustomColor.defaultPrimaryColor,
               visualDensity: VisualDensity.adaptivePlatformDensity),
           home: SafeArea(child: SplashPage()),
