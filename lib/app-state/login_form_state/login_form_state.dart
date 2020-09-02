@@ -5,6 +5,7 @@ class LoginFormState with ChangeNotifier {
   bool _isLoginProcessActive;
   bool _isPasswordVisible;
   String _activeInput;
+  bool _hasLoginFormError;
 
   // Selectors
   bool get isLoginProcessActive => _isLoginProcessActive ?? false;
@@ -12,6 +13,8 @@ class LoginFormState with ChangeNotifier {
   bool get isPasswordVisible => _isPasswordVisible ?? false;
 
   String get activeInput => _activeInput ?? '';
+
+  bool get hasLoginFormError => _hasLoginFormError ?? false;
 
   // reducer for the state
   setIsLoginProcessActive(bool value) {
@@ -26,6 +29,11 @@ class LoginFormState with ChangeNotifier {
 
   setActiveInput(String value) {
     _activeInput = value;
+    notifyListeners();
+  }
+
+  setHasLoginErrorStatus(bool value) {
+    _hasLoginFormError = value;
     notifyListeners();
   }
 }
