@@ -18,6 +18,7 @@ dependencies:
   google_fonts: ^1.1.0
   http: ^0.12.2
   random_color: ^1.0.5
+  fluttertoast: ^7.0.4
   sqflite:
   path:
 
