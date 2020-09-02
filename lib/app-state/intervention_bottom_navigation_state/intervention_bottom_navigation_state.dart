@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:kb_mobile_app/models/Intervention_bottom_navigation.dart';
 
-class InterventionBottomNavigationState extends ChangeNotifier {
+class InterventionBottomNavigationState with ChangeNotifier {
   // initial state
   final List<InterventionBottomNavigation> interventionBottomNavigations =
       InterventionBottomNavigation.getInterventionNavigationButtons();
