@@ -2,7 +2,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/constants/custom_color.dart';
+import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
+import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/modules/intervention_selection/intervention_selection.dart';
 import 'package:kb_mobile_app/modules/login/login.dart';
 import 'package:kb_mobile_app/modules/splash/components/splash_implementer_list.dart';
@@ -19,6 +21,9 @@ class _SplashPageState extends State<SplashPage> {
   void initState() {
     super.initState();
     AppUtil.setStatusBarColor(CustomColor.defaultPrimaryColor);
+    UserService()
+        .getCurrentUser()
+        .then((CurrentUser user) => setLandingPage(user.isLogin));
   }
 
   void setLandingPage(bool isUserLoginIn) {
@@ -33,9 +38,6 @@ class _SplashPageState extends State<SplashPage> {
 
   @override
   Widget build(BuildContext context) {
-    // @TODO handling all user realoaction if user has been login in or not
-    this.setLandingPage(false);
-
     Size size = MediaQuery.of(context).size;
     return Scaffold(
         body: Column(children: [
