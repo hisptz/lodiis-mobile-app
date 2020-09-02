@@ -5,8 +5,10 @@ import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar
 import 'package:kb_mobile_app/core/components/intervention_app_bar.dart';
 import 'package:kb_mobile_app/core/components/intervention_pop_up_menu.dart';
 import 'package:kb_mobile_app/core/components/route_page_not_found.dart';
+import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/Intervention_bottom_navigation.dart';
+import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/pages/dreams_enrollment_page.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/pages/dreams_exit_page.dart';
@@ -28,8 +30,13 @@ class DreamsIntervention extends StatelessWidget {
     InterventionBottomNavigationState interventionBottomNavigationState =
         Provider.of<InterventionBottomNavigationState>(context, listen: false);
 
-    void onLogOut() {
-      //@TODO add logics for log out current user
+    void onLogOut() async {
+      CurrentUser user = await UserService().getCurrentUser();
+      if (user != null) {
+        user.isLogin = false;
+        user.password = '';
+        await UserService().setCurrentUser(user);
+      }
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => Login()));
     }

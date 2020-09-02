@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 
-class IntervetionCardState extends ChangeNotifier {
+class IntervetionCardState with ChangeNotifier {
   // initial state
   final List<InterventionCard> interventions =
       InterventionCard.getInterventions();
