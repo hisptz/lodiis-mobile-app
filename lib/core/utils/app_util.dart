@@ -2,6 +2,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:uuid/uuid.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class AppUtil {
   static void setStatusBarColor(Color color) {
@@ -11,6 +12,14 @@ class AppUtil {
 
   static String getUid() {
     return Uuid().v1().replaceAll('-', '').substring(0, 10);
+  }
+
+  static showToastMessage(String message) {
+    Fluttertoast.showToast(
+        msg: message,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        backgroundColor: Color(0xFF656565));
   }
 
   static showPopUpModal(BuildContext context, Widget modal) {
