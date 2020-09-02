@@ -4,8 +4,12 @@ class CurrentUser {
   String username;
   String password;
   bool isLogin;
-  List<String> userOrgUnitIds;
-  List<String> programs;
+  List userOrgUnitIds;
+  List programs;
+
+  static final String userTable = 'current_user';
+  static final String userProgramTable = 'current_user_program';
+  static final String userOrganisatonUnitTable = 'current_user_ou';
 
   CurrentUser({
     this.id,
@@ -26,6 +30,23 @@ class CurrentUser {
 
   @override
   String toString() {
-    return 'Curremt user is $username';
+    return 'Curremt user is $username $id $name';
+  }
+
+  factory CurrentUser.fromJson(dynamic json, String username, String password) {
+    List programList = json['programs'] as List<dynamic>;
+    List organisationUnitList = json['organisationUnits'] as List<dynamic>;
+    List userOrgUnitIds = [];
+    for (var organisationUnit in organisationUnitList) {
+      userOrgUnitIds.add(organisationUnit['id']);
+    }
+    return CurrentUser(
+        name: json['name'],
+        id: json['id'],
+        password: password,
+        username: username,
+        isLogin: true,
+        programs: programList.map((program) => '$program').toList(),
+        userOrgUnitIds: userOrgUnitIds);
   }
 }
