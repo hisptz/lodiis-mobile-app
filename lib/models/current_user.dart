@@ -49,4 +49,24 @@ class CurrentUser {
         programs: programList.map((program) => '$program').toList(),
         userOrgUnitIds: userOrgUnitIds);
   }
+
+  Map toOffline(CurrentUser user) {
+    var data = Map<String, dynamic>();
+    data['id'] = user.id;
+    data['name'] = user.name;
+    data['username'] = user.username;
+    data['password'] = user.password;
+    data['isLogin'] = user.isLogin ? 1 : 0;
+    return data;
+  }
+
+  CurrentUser.fromOffline(Map<String, dynamic> mapData) {
+    this.id = mapData['id'];
+    this.name = mapData['name'];
+    this.username = mapData['username'];
+    this.password = mapData['password'];
+    this.isLogin = '${mapData['isLogin']}' == '1';
+    this.userOrgUnitIds = [];
+    this.programs = [];
+  }
 }
