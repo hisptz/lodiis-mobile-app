@@ -4,7 +4,7 @@ import 'package:kb_mobile_app/app-state/intervention_bottom_navigation_state/int
 import 'package:kb_mobile_app/app-state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/app-state/login_form_state/login_form_state.dart';
 import 'package:kb_mobile_app/core/constants/custom_color.dart';
-import 'package:kb_mobile_app/modules/splash/splash_page.dart';
+import 'package:kb_mobile_app/modules/splash/splash.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
               ),
               primaryColor: CustomColor.defaultPrimaryColor,
               visualDensity: VisualDensity.adaptivePlatformDensity),
-          home: SafeArea(child: SplashPage()),
+          home: SafeArea(child: Splash()),
         ));
   }
 }
