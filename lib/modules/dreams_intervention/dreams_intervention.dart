@@ -87,47 +87,49 @@ class DreamsIntervention extends StatelessWidget {
             },
           ),
         ),
-        body: Stack(
-          fit: StackFit.expand,
-          children: [
-            Consumer<IntervetionCardState>(
-                builder: (context, intervetionCardState, child) {
-              InterventionCard activeInterventionProgram =
-                  intervetionCardState.currentIntervetionProgram;
-              return Container(
+        body: Consumer<IntervetionCardState>(
+            builder: (context, intervetionCardState, child) {
+          InterventionCard activeInterventionProgram =
+              intervetionCardState.currentIntervetionProgram;
+          return Stack(
+            fit: StackFit.expand,
+            children: [
+              Container(
                 decoration:
                     BoxDecoration(color: activeInterventionProgram.background),
-              );
-            }),
-            Consumer<InterventionBottomNavigationState>(
-              builder: (context, interventionBottomNavigationState, child) {
-                InterventionBottomNavigation
-                    currentInterventionBottomNavigation =
-                    interventionBottomNavigationState
-                        .currentInterventionBottomNavigation;
-                return Container(
-                  child: currentInterventionBottomNavigation.id == 'services'
-                      ? DreamsServicesPage()
-                      : currentInterventionBottomNavigation.id == 'referral'
-                          ? DreamsReferralPage()
-                          : currentInterventionBottomNavigation.id ==
-                                  'enrollment'
-                              ? DreamsEnrollmentPage()
-                              : currentInterventionBottomNavigation.id == 'exit'
-                                  ? DreamsExitPage()
-                                  : currentInterventionBottomNavigation.id ==
-                                          'records'
-                                      ? DreamsRecordsPage()
-                                      : RoutePageNotFound(
-                                          pageTitle:
-                                              currentInterventionBottomNavigation
-                                                  .id,
-                                        ),
-                );
-              },
-            ),
-          ],
-        ),
+              ),
+              Consumer<InterventionBottomNavigationState>(
+                builder: (context, interventionBottomNavigationState, child) {
+                  InterventionBottomNavigation
+                      currentInterventionBottomNavigation =
+                      interventionBottomNavigationState
+                          .getCurrentInterventionBottomNavigation(
+                              activeInterventionProgram);
+                  return Container(
+                    child: currentInterventionBottomNavigation.id == 'services'
+                        ? DreamsServicesPage()
+                        : currentInterventionBottomNavigation.id == 'referral'
+                            ? DreamsReferralPage()
+                            : currentInterventionBottomNavigation.id ==
+                                    'enrollment'
+                                ? DreamsEnrollmentPage()
+                                : currentInterventionBottomNavigation.id ==
+                                        'exit'
+                                    ? DreamsExitPage()
+                                    : currentInterventionBottomNavigation.id ==
+                                            'records'
+                                        ? DreamsRecordsPage()
+                                        : RoutePageNotFound(
+                                            pageTitle:
+                                                currentInterventionBottomNavigation
+                                                    .id,
+                                          ),
+                  );
+                },
+              ),
+            ],
+          );
+        }),
         bottomNavigationBar: Consumer<IntervetionCardState>(
           builder: (context, value, child) {
             InterventionCard activeInterventionProgram =
