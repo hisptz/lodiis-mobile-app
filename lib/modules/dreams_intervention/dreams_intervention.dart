@@ -11,9 +11,9 @@ import 'package:kb_mobile_app/models/Intervention_bottom_navigation.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/pages/dreams_enrollment_page.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/pages/dreams_exit_page.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/pages/dreams_records_page.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/pages/dreams_referral_page.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/pages/dreams_services_page.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/pages/none_agyw_page.dart';
 import 'package:kb_mobile_app/modules/login/login.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/ovc_intervention.dart';
 import 'package:provider/provider.dart';
@@ -117,8 +117,8 @@ class DreamsIntervention extends StatelessWidget {
                                         'exit'
                                     ? DreamsExitPage()
                                     : currentInterventionBottomNavigation.id ==
-                                            'records'
-                                        ? DreamsRecordsPage()
+                                            'noneAgyw'
+                                        ? NoneAgyw()
                                         : RoutePageNotFound(
                                             pageTitle:
                                                 currentInterventionBottomNavigation

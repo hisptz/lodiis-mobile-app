@@ -9,14 +9,14 @@ import 'package:kb_mobile_app/modules/intervention_selection/intervention_select
 import 'package:kb_mobile_app/modules/login/login.dart';
 import 'package:kb_mobile_app/modules/splash/components/splash_implementer_list.dart';
 
-class SplashPage extends StatefulWidget {
+class Splash extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return _SplashPageState();
+    return _SplashState();
   }
 }
 
-class _SplashPageState extends State<SplashPage> {
+class _SplashState extends State<Splash> {
   @override
   void initState() {
     super.initState();
