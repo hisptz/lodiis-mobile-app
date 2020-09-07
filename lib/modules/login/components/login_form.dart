@@ -54,7 +54,7 @@ class _LoginFormState extends State<LoginForm> {
   }
 
   void onLogin(bool isLoginProcessActive) async {
-    bool status = currentUser.isCUrrentUserSet();
+    bool status = currentUser.isCurrentUserSet();
     FocusScope.of(context).unfocus();
     updateInputActiveStatus('');
     if (!isLoginProcessActive && status) {
@@ -63,10 +63,9 @@ class _LoginFormState extends State<LoginForm> {
       CurrentUser user = await UserService()
           .login(currentUser.username.trim(), currentUser.password.trim());
       if (user != null) {
-        // set current user state
         await UserService().setCurrentUser(user);
         Timer(Duration(seconds: 2), () {
-          loginFormState.setIsLoginProcessActive(true);
+          loginFormState.setIsLoginProcessActive(false);
           Navigator.pushReplacement(context,
               MaterialPageRoute(builder: (context) => InterventionSelection()));
         });

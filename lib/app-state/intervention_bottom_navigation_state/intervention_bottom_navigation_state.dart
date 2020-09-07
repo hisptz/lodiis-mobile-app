@@ -8,7 +8,7 @@ class InterventionBottomNavigationState with ChangeNotifier {
   int _currentInterventionBottomNavigationIndex = 0;
 
   // Reducers
-  void setCuurrentInterventionBottomNavigationIndex(int index) {
+  void setCurrentInterventionBottomNavigationIndex(int index) {
     _currentInterventionBottomNavigationIndex = index;
     notifyListeners();
   }

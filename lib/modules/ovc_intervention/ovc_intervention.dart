@@ -44,7 +44,7 @@ class OvcIntervention extends StatelessWidget {
     void onSwitchToDeams(String id) {
       intervetionCardState.setCurrentInterventionProgramId(id);
       interventionBottomNavigationState
-          .setCuurrentInterventionBottomNavigationIndex(0);
+          .setCurrentInterventionBottomNavigationIndex(0);
       Navigator.pushReplacement(context,
           MaterialPageRoute(builder: (context) => DreamsIntervention()));
     }

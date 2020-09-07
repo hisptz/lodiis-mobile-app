@@ -21,7 +21,7 @@ class CurrentUser {
     this.programs,
   });
 
-  bool isCUrrentUserSet() {
+  bool isCurrentUserSet() {
     return username != null &&
         username.isNotEmpty &&
         password != null &&

@@ -37,7 +37,7 @@ class InterventionBottomNavigationBar extends StatelessWidget {
               onTap: () {
                 Provider.of<InterventionBottomNavigationState>(context,
                         listen: false)
-                    .setCuurrentInterventionBottomNavigationIndex(index);
+                    .setCurrentInterventionBottomNavigationIndex(index);
               },
               child: Container(
                 margin: EdgeInsets.only(top: 5),
