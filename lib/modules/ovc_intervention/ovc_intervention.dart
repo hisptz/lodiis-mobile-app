@@ -8,7 +8,6 @@ import 'package:kb_mobile_app/core/components/route_page_not_found.dart';
 import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/Intervention_bottom_navigation.dart';
-import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/dreams_intervention.dart';
 import 'package:kb_mobile_app/modules/login/login.dart';
@@ -31,12 +30,7 @@ class OvcIntervention extends StatelessWidget {
         Provider.of<InterventionBottomNavigationState>(context, listen: false);
 
     void onLogOut() async {
-      CurrentUser user = await UserService().getCurrentUser();
-      if (user != null) {
-        user.isLogin = false;
-        user.password = '';
-        await UserService().setCurrentUser(user);
-      }
+      await UserService().logout();
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => Login()));
     }

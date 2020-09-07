@@ -17,7 +17,14 @@ class UserService {
         : null;
   }
 
-  Future logout() async {}
+  Future logout() async {
+    CurrentUser user = await getCurrentUser();
+    if (user != null) {
+      user.isLogin = false;
+      user.password = '';
+      await setCurrentUser(user);
+    }
+  }
 
   Future<CurrentUser> getCurrentUser() async {
     String userId = await PreferenceProvider.getPreferenceValue(preferenceKey);
