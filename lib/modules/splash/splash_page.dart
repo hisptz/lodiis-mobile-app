@@ -21,9 +21,10 @@ class _SplashPageState extends State<SplashPage> {
   void initState() {
     super.initState();
     AppUtil.setStatusBarColor(CustomColor.defaultPrimaryColor);
-    UserService()
-        .getCurrentUser()
-        .then((CurrentUser user) => setLandingPage(user.isLogin));
+    UserService().getCurrentUser().then((CurrentUser user) {
+      bool isUserLoginIn = user != null ? user.isLogin : false;
+      setLandingPage(isUserLoginIn);
+    });
   }
 
   void setLandingPage(bool isUserLoginIn) {
