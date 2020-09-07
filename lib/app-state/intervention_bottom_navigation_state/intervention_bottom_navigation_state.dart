@@ -1,10 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:kb_mobile_app/models/Intervention_bottom_navigation.dart';
+import 'package:kb_mobile_app/models/intervention_card.dart';
 
 class InterventionBottomNavigationState with ChangeNotifier {
   // initial state
-  final List<InterventionBottomNavigation> interventionBottomNavigations =
-      InterventionBottomNavigation.getInterventionNavigationButtons();
   int _currentInterventionBottomNavigationIndex = 0;
 
   // Reducers
@@ -17,8 +16,14 @@ class InterventionBottomNavigationState with ChangeNotifier {
   int get currentInterventionBottomNavigationIndex =>
       _currentInterventionBottomNavigationIndex;
 
-  InterventionBottomNavigation get currentInterventionBottomNavigation =>
-      interventionBottomNavigations[
-          _currentInterventionBottomNavigationIndex] ??
-      null;
+  InterventionBottomNavigation getCurrentInterventionBottomNavigation(
+      InterventionCard activeInterventionProgram) {
+    List<InterventionBottomNavigation> interventionBottomNavigations =
+        InterventionBottomNavigation.getInterventionNavigationButtons(
+            activeInterventionProgram);
+
+    return interventionBottomNavigations[
+            _currentInterventionBottomNavigationIndex] ??
+        null;
+  }
 }

@@ -16,7 +16,8 @@ class InterventionBottomNavigationBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<InterventionBottomNavigation> interventionBottomNavigations =
-        InterventionBottomNavigation.getInterventionNavigationButtons();
+        InterventionBottomNavigation.getInterventionNavigationButtons(
+            activeInterventionProgram);
 
     return Consumer<InterventionBottomNavigationState>(
       builder: (context, interventionBottomNavigationState, child) {
@@ -24,7 +25,8 @@ class InterventionBottomNavigationBar extends StatelessWidget {
             .currentInterventionBottomNavigationIndex;
         InterventionBottomNavigation currentInterventionBottomNavigation =
             interventionBottomNavigationState
-                .currentInterventionBottomNavigation;
+                .getCurrentInterventionBottomNavigation(
+                    activeInterventionProgram);
         return Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
