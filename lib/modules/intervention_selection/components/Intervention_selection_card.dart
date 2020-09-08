@@ -39,6 +39,7 @@ class InterventionSelectionCard extends StatelessWidget {
                       ),
                     )),
                 Container(
+                  
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
