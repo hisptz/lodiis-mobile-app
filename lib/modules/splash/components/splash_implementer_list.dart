@@ -14,9 +14,13 @@ class SplashImplementingPartnerList extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               SvgPicture.asset('assets/logos/usaid.svg'),
-              SvgPicture.asset('assets/logos/usaid.svg'),
+              Container(
+                padding: EdgeInsets.symmetric(vertical: 2),
+                height: 57,
+                child: Image(image: AssetImage('assets/logos/perpfar.png')),
+              ),
               SvgPicture.asset('assets/logos/kb.svg'),
-              SvgPicture.asset('assets/logos/hisptz.svg')
+              SvgPicture.asset('assets/logos/hisptz.svg'),
             ],
           )),
     );

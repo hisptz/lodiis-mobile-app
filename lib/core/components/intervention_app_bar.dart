@@ -78,7 +78,8 @@ class InterventionAppBar extends StatelessWidget {
               builder: (context, interventionBottomNavigationState, child) {
             InterventionBottomNavigation currentInterventionBottomNavigation =
                 interventionBottomNavigationState
-                    .currentInterventionBottomNavigation;
+                    .getCurrentInterventionBottomNavigation(
+                        activeInterventionProgram);
             return Visibility(
                 visible: currentInterventionBottomNavigation != null &&
                     currentInterventionBottomNavigation.id == 'enrollment',

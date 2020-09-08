@@ -65,9 +65,11 @@ class _LoginFormState extends State<LoginForm> {
       if (user != null) {
         await UserService().setCurrentUser(user);
         Timer(Duration(seconds: 2), () {
-          loginFormState.setIsLoginProcessActive(false);
-          Navigator.pushReplacement(context,
-              MaterialPageRoute(builder: (context) => InterventionSelection()));
+          Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => InterventionSelection()))
+              .then((value) => loginFormState.setIsLoginProcessActive(false));
         });
       } else {
         loginFormState.setIsLoginProcessActive(false);
