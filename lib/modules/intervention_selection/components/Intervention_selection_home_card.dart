@@ -21,7 +21,7 @@ class _InterventionSelectionHomeCardState
   @override
   void initState() {
     super.initState();
-    _animatedHeight = 100.0;
+    _animatedHeight = 0.0;
   }
 
   Widget referral() {
@@ -49,7 +49,7 @@ class _InterventionSelectionHomeCardState
     //1
     GestureDetector(
       onTap: () {
-        print("hello");
+        
       },
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
