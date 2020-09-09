@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:kb_mobile_app/core/components/login_form_field_seperator.dart';
 
 class DreamBeneficiaryCardHeader extends StatelessWidget {
   const DreamBeneficiaryCardHeader({
@@ -29,91 +30,104 @@ class DreamBeneficiaryCardHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double iconHeight = 20;
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Visibility(
-              visible: true,
-              child: Expanded(
-                flex: 1,
-                child: Container(
-                  child: Container(
-                      height: iconHeight,
-                      width: iconHeight,
-                      child: SvgPicture.asset(
-                        svgIcon,
-                      )),
-                ),
-              )),
-          Visibility(
-              visible: true,
-              child: Expanded(
-                flex: canEdit && canView ? 9 : 11,
-                child: Container(
-                  padding: EdgeInsets.only(left: 5.0),
-                  child: Text(
-                    beneficiaryName,
-                    style: TextStyle().copyWith(
-                        color: Color(0xFF05131B),
-                        fontSize: 14.0,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ),
-              )),
-          Visibility(
-              visible: canView,
-              child: Expanded(
-                flex: 1,
-                child: InkWell(
-                    onTap: onView,
+    return Column(
+      children: [
+        Container(
+          margin: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Visibility(
+                  visible: true,
+                  child: Expanded(
+                    flex: 1,
                     child: Container(
-                      height: iconHeight,
-                      width: iconHeight,
-                      margin: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-                      child: SvgPicture.asset(
-                        'assets/icons/expand_icon.svg',
-                        color: Color(0xFF1F8ECE),
-                      ),
-                    )),
-              )),
-          Visibility(
-              visible: canEdit,
-              child: Expanded(
-                flex: 1,
-                child: InkWell(
-                    onTap: onEdit,
+                      child: Container(
+                          height: iconHeight,
+                          width: iconHeight,
+                          child: SvgPicture.asset(
+                            svgIcon,
+                          )),
+                    ),
+                  )),
+              Visibility(
+                  visible: true,
+                  child: Expanded(
+                    flex: canEdit && canView ? 9 : 11,
                     child: Container(
-                      height: iconHeight,
-                      width: iconHeight,
-                      margin: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-                      child: SvgPicture.asset(
-                        'assets/icons/edit-icon.svg',
-                        color: Color(0xFF1F8ECE),
+                      padding: EdgeInsets.only(left: 5.0),
+                      child: Text(
+                        beneficiaryName,
+                        style: TextStyle().copyWith(
+                            color: Color(0xFF05131B),
+                            fontSize: 14.0,
+                            fontWeight: FontWeight.bold),
                       ),
-                    )),
-              )),
-          Visibility(
-              visible: canExpand,
-              child: Expanded(
-                flex: 1,
-                child: InkWell(
-                    onTap: onToggleCard,
-                    child: Container(
-                      height: iconHeight,
-                      width: iconHeight,
-                      margin: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-                      child: SvgPicture.asset(
-                        isExpanded
-                            ? 'assets/icons/chevron_up.svg'
-                            : 'assets/icons/chevron_down.svg',
-                        color: Color(0xFF05131B),
-                      ),
-                    )),
-              )),
-        ],
-      ),
+                    ),
+                  )),
+              Visibility(
+                  visible: canView,
+                  child: Expanded(
+                    flex: 1,
+                    child: InkWell(
+                        onTap: onView,
+                        child: Container(
+                          height: iconHeight,
+                          width: iconHeight,
+                          margin:
+                              EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+                          child: SvgPicture.asset(
+                            'assets/icons/expand_icon.svg',
+                            color: Color(0xFF1F8ECE),
+                          ),
+                        )),
+                  )),
+              Visibility(
+                  visible: canEdit,
+                  child: Expanded(
+                    flex: 1,
+                    child: InkWell(
+                        onTap: onEdit,
+                        child: Container(
+                          height: iconHeight,
+                          width: iconHeight,
+                          margin:
+                              EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+                          child: SvgPicture.asset(
+                            'assets/icons/edit-icon.svg',
+                            color: Color(0xFF1F8ECE),
+                          ),
+                        )),
+                  )),
+              Visibility(
+                  visible: canExpand,
+                  child: Expanded(
+                    flex: 1,
+                    child: InkWell(
+                        onTap: onToggleCard,
+                        child: Container(
+                          height: iconHeight,
+                          width: iconHeight,
+                          margin:
+                              EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+                          child: SvgPicture.asset(
+                            isExpanded
+                                ? 'assets/icons/chevron_up.svg'
+                                : 'assets/icons/chevron_down.svg',
+                            color: Color(0xFF05131B),
+                          ),
+                        )),
+                  )),
+            ],
+          ),
+        ),
+        LineSeperator(
+          color: Color(0xFFE9F4FA),
+        ),
+        SizedBox(
+          height: 15,
+        )
+      ],
     );
   }
 }

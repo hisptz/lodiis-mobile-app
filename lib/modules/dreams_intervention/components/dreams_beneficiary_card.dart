@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:kb_mobile_app/core/components/login_form_field_seperator.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_card_header.dart';
 
-class DreamsBeneficiaryCard extends StatefulWidget {
+class DreamsBeneficiaryCard extends StatelessWidget {
   const DreamsBeneficiaryCard({
     Key key,
     @required this.canEdit,
     @required this.canView,
     @required this.canExpand,
+    @required this.isExpanded,
     @required this.cardBody,
     @required this.cardBottonActions,
     @required this.cardBottonContent,
+    this.onCardToogle,
   }) : super(key: key);
 
   final Widget cardBody;
@@ -19,29 +20,16 @@ class DreamsBeneficiaryCard extends StatefulWidget {
   final bool canEdit;
   final bool canView;
   final bool canExpand;
+  final bool isExpanded;
 
-  @override
-  _DreamsBeneficiaryCardState createState() => _DreamsBeneficiaryCardState();
-}
+  final VoidCallback onCardToogle;
 
-class _DreamsBeneficiaryCardState extends State<DreamsBeneficiaryCard> {
   final String svgIcon = 'assets/icons/dreams-header-icon.svg';
   final String beneficiaryName = 'Amohelang Thuso';
-  bool isExpanded;
 
   void onEdit() {}
-  void onView() {}
-  void onToggleCard() {
-    setState(() {
-      isExpanded = !isExpanded;
-    });
-  }
 
-  @override
-  void initState() {
-    super.initState();
-    isExpanded = false;
-  }
+  void onView() {}
 
   @override
   Widget build(BuildContext context) {
@@ -59,25 +47,18 @@ class _DreamsBeneficiaryCardState extends State<DreamsBeneficiaryCard> {
               DreamBeneficiaryCardHeader(
                 svgIcon: svgIcon,
                 beneficiaryName: beneficiaryName,
-                canEdit: widget.canEdit,
-                canExpand: widget.canExpand,
-                canView: widget.canView,
+                canEdit: canEdit,
+                canExpand: canExpand,
+                canView: canView,
                 isExpanded: isExpanded,
-                onToggleCard: onToggleCard,
+                onToggleCard: onCardToogle,
               ),
-              LineSeperator(
-                color: Color(0xFFE9F4FA),
-              ),
-              Row(
-                children: [Text('body')],
-              ),
-              Row(
-                children: [Text('button actions')],
-              ),
+              cardBody,
+              cardBottonActions,
               Visibility(
                   visible: isExpanded,
                   child: Row(
-                    children: [Text('bottom content')],
+                    children: [cardBottonContent],
                   ))
             ],
           ),
