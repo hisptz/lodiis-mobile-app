@@ -59,33 +59,36 @@ class _InterventionSelectionContainerState
     IntervetionCardState intervetionCardState =
         Provider.of<IntervetionCardState>(context, listen: false);
 
-    return Container(
-        child: Column(
-      children: [
-        Container(
-          margin: EdgeInsets.only(top: 40, bottom: 50),
-          child: Text(
-            'Select Interventions ',
-            style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.w500,
-                color: Color(0xFFFAFAFA)),
+    return SingleChildScrollView(
+          child: Container(
+       
+          child: Column(
+        children: [
+          Container(
+            margin: EdgeInsets.only(top: 40, bottom: 50),
+            child: Text(
+              'Select Interventions ',
+              style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.w500,
+                  color: Color(0xFFFAFAFA)),
+            ),
           ),
-        ),
-        Container(
-          child: InterventionSelectionList(
-            interventionPrograms: widget.interventionPrograms,
-            onIntervetionSelection: onSelectingInterventionProgram,
+          Container(
+            child: InterventionSelectionList(
+              interventionPrograms: widget.interventionPrograms,
+              onIntervetionSelection: onSelectingInterventionProgram,
+            ),
           ),
-        ),
-        InterventionSelectionButton(
-            isInterventionSelected: isInterventionSelected,
-            onInterventionButtonClick: () {
-              intervetionCardState
-                  .setCurrentInterventionProgram(activeInterventionProgram);
-              onInterventionButtonClick();
-            })
-      ],
-    )); //;
+          InterventionSelectionButton(
+              isInterventionSelected: isInterventionSelected,
+              onInterventionButtonClick: () {
+                intervetionCardState
+                    .setCurrentInterventionProgram(activeInterventionProgram);
+                onInterventionButtonClick();
+              })
+        ],
+      )),
+    ); //;
   }
 }

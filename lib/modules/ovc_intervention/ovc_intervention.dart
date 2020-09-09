@@ -98,6 +98,7 @@ class OvcIntervention extends StatelessWidget {
               Container(
                 decoration:
                     BoxDecoration(color: activeInterventionProgram.background),
+
               ),
               Consumer<InterventionBottomNavigationState>(
                 builder: (context, interventionBottomNavigationState, child) {

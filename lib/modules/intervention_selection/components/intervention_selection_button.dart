@@ -13,9 +13,11 @@ class InterventionSelectionButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 40),
+      margin: EdgeInsets.symmetric(
+        horizontal: 40,
+      ),
       child: Container(
-        margin: EdgeInsets.only(top: 60),
+        margin: EdgeInsets.only(top: 60, bottom: 50),
         width: double.infinity,
         child: FlatButton(
             onPressed:
