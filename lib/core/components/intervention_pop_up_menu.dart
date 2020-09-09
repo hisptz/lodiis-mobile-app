@@ -55,7 +55,7 @@ class InterventionPopUpMenu extends StatelessWidget {
                             )
                           ],
                         ),
-                        LoginFormFieldSeperator(
+                        LineSeperator(
                           color: Color(0xFFE0E6E0),
                           height: 1,
                         )
