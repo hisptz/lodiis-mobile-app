@@ -68,8 +68,7 @@ class DreamsIntervention extends StatelessWidget {
       }
     }
 
-    return Scaffold(
-        body: SafeArea(
+    return SafeArea(
       child: Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(65),
@@ -139,6 +138,6 @@ class DreamsIntervention extends StatelessWidget {
           },
         ),
       ),
-    ));
+    );
   }
 }
