@@ -7,6 +7,10 @@ class DreamsServicesPage extends StatelessWidget {
 
   final String title = 'BENEFICIARY LIST';
 
+  final bool canEdit = false;
+  final bool canView = false;
+  final bool canExpand = true;
+
   @override
   Widget build(BuildContext context) {
     return DreamsHomeContainer(header: title, bodyContents: _buildBody());
@@ -17,7 +21,14 @@ class DreamsServicesPage extends StatelessWidget {
       margin: EdgeInsets.only(top: 16.0),
       child: Column(
         children: [
-          DreamsBeneficiaryCard(),
+          DreamsBeneficiaryCard(
+            canEdit: canEdit,
+            canExpand: canExpand,
+            canView: canView,
+            cardBody: null,
+            cardBottonActions: null,
+            cardBottonContent: null,
+          ),
         ],
       ),
     );
