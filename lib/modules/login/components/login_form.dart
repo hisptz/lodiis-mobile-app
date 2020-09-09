@@ -29,7 +29,8 @@ class _LoginFormState extends State<LoginForm> {
     super.initState();
     UserService().getCurrentUser().then((CurrentUser user) {
       setState(() {
-        this.currentUser = user ?? new CurrentUser(username: "system",password: "System123");
+        this.currentUser =
+            user ?? new CurrentUser(username: "system", password: "System123");
       });
     });
     this.loginFormState = Provider.of<LoginFormState>(context, listen: false);
@@ -134,7 +135,7 @@ class _LoginFormState extends State<LoginForm> {
                             prefixIconConstraints:
                                 LoginPageStyles.loginBoxConstraints)),
                   ),
-                  LoginFormFieldSeperator(
+                  LineSeperator(
                     color: activeInput == 'username'
                         ? activeInputColor
                         : inActiveInputColor,
@@ -190,7 +191,7 @@ class _LoginFormState extends State<LoginForm> {
                               LoginPageStyles.loginBoxConstraints),
                     ),
                   ),
-                  LoginFormFieldSeperator(
+                  LineSeperator(
                     color: activeInput == 'password'
                         ? activeInputColor
                         : inActiveInputColor,
