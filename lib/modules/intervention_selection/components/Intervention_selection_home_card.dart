@@ -27,7 +27,7 @@ class _InterventionSelectionHomeCardState
   Widget referral() {
     return GestureDetector(
       onTap: () {
-        print("hello");
+        
       },
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -246,8 +246,10 @@ class _InterventionSelectionHomeCardState
                                                   width: 15,
                                                 ),
                                                 GestureDetector(
+                                                  
                                                   child: _animatedHeight == 0.0
-                                                      ? SvgPicture.asset(
+                                                      ? 
+                                                      SvgPicture.asset(
                                                           "assets/icons/chevron_down.svg")
                                                       : SvgPicture.asset(
                                                           "assets/icons/chevron_up.svg"),
