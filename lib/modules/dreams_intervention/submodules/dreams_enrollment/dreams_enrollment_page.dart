@@ -1,25 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_card_body.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_home_container.dart';
 
-class DreamsServicesPage extends StatefulWidget {
-  const DreamsServicesPage({Key key}) : super(key: key);
+class DreamsEnrollmentPage extends StatefulWidget {
+  const DreamsEnrollmentPage({Key key}) : super(key: key);
 
   @override
-  _DreamsServicesPageState createState() => _DreamsServicesPageState();
+  _DreamsEnrollmentPageState createState() => _DreamsEnrollmentPageState();
 }
 
-class _DreamsServicesPageState extends State<DreamsServicesPage> {
+class _DreamsEnrollmentPageState extends State<DreamsEnrollmentPage> {
   final String title = 'BENEFICIARY LIST';
-  final bool canEdit = false;
-  final bool canView = false;
+  final bool canEdit = true;
+  final bool canView = true;
   final bool canExpand = true;
 
   String toggleCardId = '';
 
   void onCardToogle(String cardId) {
     setState(() {
-      toggleCardId = cardId != toggleCardId ? cardId : '';
+      toggleCardId = canExpand && cardId != toggleCardId ? cardId : '';
     });
   }
 
@@ -41,15 +42,8 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
                   onCardToogle: () {
                     onCardToogle(cardId);
                   },
-                  cardBody: Container(
-                    child: cardId == toggleCardId
-                        ? Column(
-                            children: [Text('Body - vertical')],
-                          )
-                        : Row(
-                            children: [Text('Body - horizontal')],
-                          ),
-                  ),
+                  cardBody: DreamBeneficiaryCardBody(
+                      isVerticalLayout: cardId == toggleCardId),
                   cardBottonActions: Container(),
                   cardBottonContent: cardId == toggleCardId
                       ? Container(

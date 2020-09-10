@@ -1,25 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_card_body.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_home_container.dart';
 
-class DreamsEnrollmentPage extends StatefulWidget {
-  const DreamsEnrollmentPage({Key key}) : super(key: key);
+class NoneAgyw extends StatefulWidget {
+  const NoneAgyw({Key key}) : super(key: key);
 
   @override
-  _DreamsEnrollmentPageState createState() => _DreamsEnrollmentPageState();
+  _NoneAgywState createState() => _NoneAgywState();
 }
 
-class _DreamsEnrollmentPageState extends State<DreamsEnrollmentPage> {
+class _NoneAgywState extends State<NoneAgyw> {
   final String title = 'BENEFICIARY LIST';
-  final bool canEdit = true;
-  final bool canView = true;
+  final bool canEdit = false;
+  final bool canView = false;
   final bool canExpand = true;
 
   String toggleCardId = '';
 
   void onCardToogle(String cardId) {
     setState(() {
-      toggleCardId = cardId != toggleCardId ? cardId : '';
+      toggleCardId = canExpand && cardId != toggleCardId ? cardId : '';
     });
   }
 
@@ -41,21 +42,11 @@ class _DreamsEnrollmentPageState extends State<DreamsEnrollmentPage> {
                   onCardToogle: () {
                     onCardToogle(cardId);
                   },
-                  cardBody: Container(
-                    child: cardId == toggleCardId
-                        ? Column(
-                            children: [Text('Body - vertical')],
-                          )
-                        : Row(
-                            children: [Text('Body - horizontal')],
-                          ),
+                  cardBody: DreamBeneficiaryCardBody(
+                    isVerticalLayout: cardId == toggleCardId,
                   ),
                   cardBottonActions: Container(),
-                  cardBottonContent: cardId == toggleCardId
-                      ? Container(
-                          child: Text('cardBottonContent'),
-                        )
-                      : Container(),
+                  cardBottonContent: Container(),
                 ))
             .toList(),
       ),

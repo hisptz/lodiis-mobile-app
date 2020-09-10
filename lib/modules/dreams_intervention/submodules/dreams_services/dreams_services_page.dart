@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_card_body.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_home_container.dart';
 
-class DreamsExitPage extends StatefulWidget {
-  const DreamsExitPage({Key key}) : super(key: key);
+class DreamsServicesPage extends StatefulWidget {
+  const DreamsServicesPage({Key key}) : super(key: key);
 
   @override
-  _DreamsExitPageState createState() => _DreamsExitPageState();
+  _DreamsServicesPageState createState() => _DreamsServicesPageState();
 }
 
-class _DreamsExitPageState extends State<DreamsExitPage> {
+class _DreamsServicesPageState extends State<DreamsServicesPage> {
   final String title = 'BENEFICIARY LIST';
   final bool canEdit = false;
   final bool canView = false;
@@ -19,7 +20,7 @@ class _DreamsExitPageState extends State<DreamsExitPage> {
 
   void onCardToogle(String cardId) {
     setState(() {
-      toggleCardId = cardId != toggleCardId ? cardId : '';
+      toggleCardId = canExpand && cardId != toggleCardId ? cardId : '';
     });
   }
 
@@ -41,14 +42,8 @@ class _DreamsExitPageState extends State<DreamsExitPage> {
                   onCardToogle: () {
                     onCardToogle(cardId);
                   },
-                  cardBody: Container(
-                    child: cardId == toggleCardId
-                        ? Column(
-                            children: [Text('Body - vertical')],
-                          )
-                        : Row(
-                            children: [Text('Body - horizontal')],
-                          ),
+                  cardBody: DreamBeneficiaryCardBody(
+                    isVerticalLayout: cardId == toggleCardId,
                   ),
                   cardBottonActions: Container(),
                   cardBottonContent: cardId == toggleCardId

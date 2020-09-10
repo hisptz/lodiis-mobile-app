@@ -125,7 +125,7 @@ class DreamBeneficiaryCardHeader extends StatelessWidget {
           color: Color(0xFFE9F4FA),
         ),
         SizedBox(
-          height: 15,
+          height: 5,
         )
       ],
     );
