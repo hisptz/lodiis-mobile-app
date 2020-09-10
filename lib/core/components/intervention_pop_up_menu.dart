@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kb_mobile_app/core/components/login_form_field_seperator.dart';
+import 'package:kb_mobile_app/core/components/line_seperator.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/models/intervention_pop_action_menu.dart';
 
@@ -55,7 +55,7 @@ class InterventionPopUpMenu extends StatelessWidget {
                             )
                           ],
                         ),
-                        LoginFormFieldSeperator(
+                        LineSeperator(
                           color: Color(0xFFE0E6E0),
                           height: 1,
                         )
