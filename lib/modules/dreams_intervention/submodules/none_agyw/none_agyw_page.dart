@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/core/components/line_seperator.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_card_body.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_home_container.dart';
@@ -24,6 +25,8 @@ class _NoneAgywState extends State<NoneAgyw> {
     });
   }
 
+  void onOpenPrepForm() {}
+
   @override
   Widget build(BuildContext context) {
     return DreamsHomeContainer(header: title, bodyContents: _buildBody());
@@ -45,7 +48,26 @@ class _NoneAgywState extends State<NoneAgyw> {
                   cardBody: DreamBeneficiaryCardBody(
                     isVerticalLayout: cardId == toggleCardId,
                   ),
-                  cardBottonActions: Container(),
+                  cardBottonActions: Container(
+                    child: Column(
+                      children: [
+                        LineSeperator(
+                          color: Color(0xFFE9F4FA),
+                        ),
+                        Container(
+                          child: MaterialButton(
+                            onPressed: onOpenPrepForm,
+                            child: Text('PREP',
+                                style: TextStyle().copyWith(
+                                  fontSize: 14.0,
+                                  fontWeight: FontWeight.bold,
+                                  color: Color(0xFF1F8ECE),
+                                )),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
                   cardBottonContent: Container(),
                 ))
             .toList(),

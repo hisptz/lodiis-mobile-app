@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_card_body.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_home_container.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/components/service_card_botton_action.dart';
 
 class DreamsServicesPage extends StatefulWidget {
   const DreamsServicesPage({Key key}) : super(key: key);
@@ -24,6 +25,12 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
     });
   }
 
+  void onOpenAssessmentForm() {}
+
+  void onOpenServiceForm() {}
+
+  void onOpenPrepForm() {}
+
   @override
   Widget build(BuildContext context) {
     return DreamsHomeContainer(header: title, bodyContents: _buildBody());
@@ -31,7 +38,9 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
 
   Widget _buildBody() {
     return Container(
-      margin: EdgeInsets.only(top: 16.0),
+      margin: EdgeInsets.only(
+        top: 16.0,
+      ),
       child: Column(
         children: ['1', '2', '3', '4']
             .map((String cardId) => DreamsBeneficiaryCard(
@@ -45,12 +54,12 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
                   cardBody: DreamBeneficiaryCardBody(
                     isVerticalLayout: cardId == toggleCardId,
                   ),
-                  cardBottonActions: Container(),
-                  cardBottonContent: cardId == toggleCardId
-                      ? Container(
-                          child: Text('cardBottonContent'),
-                        )
-                      : Container(),
+                  cardBottonActions: ServiceCardBottonAction(
+                    onOpenAssessmentForm: onOpenAssessmentForm,
+                    onOpenServiceForm: onOpenServiceForm,
+                    onOpenPrepForm: onOpenPrepForm,
+                  ),
+                  cardBottonContent: Container(),
                 ))
             .toList(),
       ),

@@ -11,7 +11,7 @@ class DreamBeneficiaryCardBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
+        margin: EdgeInsets.symmetric(horizontal: 13.0, vertical: 20.0),
         child: isVerticalLayout
             ? Column(
                 children: [

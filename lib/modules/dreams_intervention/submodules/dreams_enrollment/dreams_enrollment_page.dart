@@ -45,11 +45,7 @@ class _DreamsEnrollmentPageState extends State<DreamsEnrollmentPage> {
                   cardBody: DreamBeneficiaryCardBody(
                       isVerticalLayout: cardId == toggleCardId),
                   cardBottonActions: Container(),
-                  cardBottonContent: cardId == toggleCardId
-                      ? Container(
-                          child: Text('cardBottonContent'),
-                        )
-                      : Container(),
+                  cardBottonContent: Container(),
                 ))
             .toList(),
       ),

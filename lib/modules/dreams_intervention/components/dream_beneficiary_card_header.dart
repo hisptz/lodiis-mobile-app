@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:kb_mobile_app/core/components/login_form_field_seperator.dart';
+import 'package:kb_mobile_app/core/components/line_seperator.dart';
 
 class DreamBeneficiaryCardHeader extends StatelessWidget {
   const DreamBeneficiaryCardHeader({
@@ -33,7 +33,7 @@ class DreamBeneficiaryCardHeader extends StatelessWidget {
     return Column(
       children: [
         Container(
-          margin: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+          margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -106,7 +106,7 @@ class DreamBeneficiaryCardHeader extends StatelessWidget {
                     child: InkWell(
                         onTap: onToggleCard,
                         child: Container(
-                          height: iconHeight,
+                          height: iconHeight * 0.8,
                           width: iconHeight,
                           margin:
                               EdgeInsets.symmetric(vertical: 5, horizontal: 5),

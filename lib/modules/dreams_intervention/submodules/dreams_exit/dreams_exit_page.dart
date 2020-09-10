@@ -46,11 +46,7 @@ class _DreamsExitPageState extends State<DreamsExitPage> {
                     isVerticalLayout: cardId == toggleCardId,
                   ),
                   cardBottonActions: Container(),
-                  cardBottonContent: cardId == toggleCardId
-                      ? Container(
-                          child: Text('cardBottonContent'),
-                        )
-                      : Container(),
+                  cardBottonContent: Container(),
                 ))
             .toList(),
       ),
