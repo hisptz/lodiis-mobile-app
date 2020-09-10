@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class LoginFormFieldSeperator extends StatelessWidget {
-  const LoginFormFieldSeperator({Key key, this.color, this.height = 2.0})
+class LineSeperator extends StatelessWidget {
+  const LineSeperator({Key key, @required this.color, this.height = 2.0})
       : super(key: key);
   final Color color;
   final double height;
