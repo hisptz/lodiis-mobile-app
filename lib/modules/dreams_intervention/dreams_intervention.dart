@@ -51,8 +51,12 @@ class DreamsIntervention extends StatelessWidget {
       print('on onSearch');
     }
 
-    void onAddHouseHold() {
-      print('on onAddHouseHold');
+    void onAddNoneAgywBeneficiary() {
+      print('onAddNoneAgywBeneficiary');
+    }
+
+    void onAddAgywBeneficiary() {
+      print('on onAddAgywBeneficiary');
     }
 
     void onOpenMoreMenu(InterventionCard activeInterventionProgram) async {
@@ -80,7 +84,8 @@ class DreamsIntervention extends StatelessWidget {
                 activeInterventionProgram: activeInterventionProgram,
                 onClickHome: onClickHome,
                 onSearch: onSearch,
-                onAddHouseHold: onAddHouseHold,
+                onAddAgywBeneficiary: onAddAgywBeneficiary,
+                onAddNoneAgywBeneficiary: onAddNoneAgywBeneficiary,
                 onOpenMoreMenu: () => onOpenMoreMenu(activeInterventionProgram),
               );
             },
