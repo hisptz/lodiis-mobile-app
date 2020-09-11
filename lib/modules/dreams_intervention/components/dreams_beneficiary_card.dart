@@ -37,7 +37,7 @@ class DreamsBeneficiaryCard extends StatelessWidget {
       margin: EdgeInsets.only(bottom: 16.0, right: 13.0, left: 13.0),
       child: Material(
         type: MaterialType.card,
-        elevation: 1.0,
+        elevation: 0.9,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(12.0)),
         ),
