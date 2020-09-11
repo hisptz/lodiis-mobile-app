@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/core/components/material_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_card_header.dart';
 
 class DreamsBeneficiaryCard extends StatelessWidget {
@@ -35,13 +36,8 @@ class DreamsBeneficiaryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(bottom: 16.0, right: 13.0, left: 13.0),
-      child: Material(
-        type: MaterialType.card,
-        elevation: 1.0,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(12.0)),
-        ),
-        child: Container(
+      child: MaterialCard(
+        body: Container(
           child: Column(
             children: [
               DreamBeneficiaryCardHeader(
