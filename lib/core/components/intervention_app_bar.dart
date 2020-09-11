@@ -1,22 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:kb_mobile_app/app-state/intervention_bottom_navigation_state/intervention_bottom_navigation_state.dart';
+import 'package:kb_mobile_app/app_state/intervention_bottom_navigation_state/intervention_bottom_navigation_state.dart';
 import 'package:kb_mobile_app/models/Intervention_bottom_navigation.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:provider/provider.dart';
 
 class InterventionAppBar extends StatelessWidget {
-  const InterventionAppBar(
-      {Key key,
-      @required this.activeInterventionProgram,
-      this.onClickHome,
-      this.onAddHouseHold,
-      this.onSearch,
-      this.onOpenMoreMenu})
-      : super(key: key);
+  const InterventionAppBar({
+    Key key,
+    @required this.activeInterventionProgram,
+    this.onClickHome,
+    this.onAddHouseHold,
+    this.onSearch,
+    this.onOpenMoreMenu,
+    this.onAddAgywBeneficiary,
+    this.onAddNoneAgywBeneficiary,
+  }) : super(key: key);
 
   final InterventionCard activeInterventionProgram;
   final VoidCallback onAddHouseHold;
+  final VoidCallback onAddAgywBeneficiary;
+  final VoidCallback onAddNoneAgywBeneficiary;
   final VoidCallback onSearch;
   final VoidCallback onClickHome;
   final VoidCallback onOpenMoreMenu;
@@ -82,13 +86,21 @@ class InterventionAppBar extends StatelessWidget {
                         activeInterventionProgram);
             return Visibility(
                 visible: currentInterventionBottomNavigation != null &&
-                    currentInterventionBottomNavigation.id == 'enrollment',
+                    (currentInterventionBottomNavigation.id == 'enrollment' ||
+                        currentInterventionBottomNavigation.id == 'noneAgyw'),
                 child: Container(
                   child: IconButton(
                       icon: SvgPicture.asset(
-                        'assets/icons/add-house-hold.svg',
+                        activeInterventionProgram.id == 'dreams'
+                            ? 'assets/icons/add-beneficiary.svg'
+                            : 'assets/icons/add-house-hold.svg',
                       ),
-                      onPressed: onAddHouseHold),
+                      onPressed:
+                          currentInterventionBottomNavigation.id == 'noneAgyw'
+                              ? onAddNoneAgywBeneficiary
+                              : activeInterventionProgram.id == 'dreams'
+                                  ? onAddAgywBeneficiary
+                                  : onAddHouseHold),
                 ));
           }),
           Container(

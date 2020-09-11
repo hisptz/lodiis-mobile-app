@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:kb_mobile_app/modules/intervention_selection/components/interverntion_selection_home_collapse_card.dart';
 
 class InterventionSelectionHomeCard extends StatefulWidget {
-  int widgetIndex;
+  final int widgetIndex;
   InterventionSelectionHomeCard({@required this.widgetIndex});
 
   @override
@@ -48,9 +47,7 @@ class _InterventionSelectionHomeCardState
   List<Widget> ovc_widgets = [
     //1
     GestureDetector(
-      onTap: () {
-        
-      },
+      onTap: () {},
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -58,16 +55,25 @@ class _InterventionSelectionHomeCardState
           SizedBox(
             width: 21.25,
           ),
-         
-          Text("ASSESS", style: TextStyle(color: Color(0xFF4B9F46),fontWeight: FontWeight.bold,fontSize: 12)),
-           SizedBox(
-            width: 69
-          ),
-          Text("PLAN", style: TextStyle(color: Color(0xFF4B9F46),fontWeight: FontWeight.bold,fontSize: 12)),
-           SizedBox(
+          Text("ASSESS",
+              style: TextStyle(
+                  color: Color(0xFF4B9F46),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 12)),
+          SizedBox(width: 69),
+          Text("PLAN",
+              style: TextStyle(
+                  color: Color(0xFF4B9F46),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 12)),
+          SizedBox(
             width: 69,
           ),
-          Text("MONITOR", style: TextStyle(color: Color(0xFF4B9F46),fontWeight: FontWeight.bold,fontSize: 12))
+          Text("MONITOR",
+              style: TextStyle(
+                  color: Color(0xFF4B9F46),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 12))
         ],
       ),
     ),
@@ -102,25 +108,38 @@ class _InterventionSelectionHomeCardState
           SizedBox(
             width: 21,
           ),
-          
-          Text("ACHIEVEMENT", style: TextStyle(color: Color(0xFF4B9F46),fontWeight: FontWeight.bold,fontSize: 12)),
-           SizedBox(
-            width: 11
-          ),
-          Text("EXIT", style: TextStyle(color: Color(0xFF4B9F46),fontWeight: FontWeight.bold,fontSize: 12)),
-           SizedBox(
+          Text("ACHIEVEMENT",
+              style: TextStyle(
+                  color: Color(0xFF4B9F46),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 12)),
+          SizedBox(width: 11),
+          Text("EXIT",
+              style: TextStyle(
+                  color: Color(0xFF4B9F46),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 12)),
+          SizedBox(
             width: 11,
           ),
-          Text("TRANSFER", style: TextStyle(color: Color(0xFF4B9F46),fontWeight: FontWeight.bold,fontSize: 12)),
-           SizedBox(
+          Text("TRANSFER",
+              style: TextStyle(
+                  color: Color(0xFF4B9F46),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 12)),
+          SizedBox(
             width: 20,
           ),
-          Text("CLOSURE", style: TextStyle(color: Color(0xFF4B9F46),fontWeight: FontWeight.bold,fontSize: 12))
+          Text("CLOSURE",
+              style: TextStyle(
+                  color: Color(0xFF4B9F46),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 12))
         ],
       ),
     ),
     //4
-       GestureDetector(
+    GestureDetector(
       onTap: () {
         print("hello");
       },
@@ -142,7 +161,6 @@ class _InterventionSelectionHomeCardState
 
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     print(width);
     return SingleChildScrollView(

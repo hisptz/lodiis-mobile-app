@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kb_mobile_app/app-state/intervention_card_state/intervention_card_state.dart';
+import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/core/components/route_page_not_found.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/dreams_intervention.dart';
@@ -60,8 +60,7 @@ class _InterventionSelectionContainerState
         Provider.of<IntervetionCardState>(context, listen: false);
 
     return SingleChildScrollView(
-          child: Container(
-       
+      child: Container(
           child: Column(
         children: [
           Container(
