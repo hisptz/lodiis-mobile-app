@@ -48,7 +48,7 @@ class OvcInterventionChilrens extends StatelessWidget {
           itemCount: childrenList.length,
           itemBuilder: (context, index) {
             return Padding(
-              padding: EdgeInsets.only(right: 0, top: 6),
+              padding: EdgeInsets.only(right: 0, top: 2),
               child: Row(
                 children: [
                   Text("         "),

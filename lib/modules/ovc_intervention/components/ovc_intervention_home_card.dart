@@ -322,7 +322,7 @@ class OvcInterventionCardState extends StatelessWidget {
                               width: 3))),
                   child: Padding(
                     padding: const EdgeInsets.only(
-                        top: 12, left: 21, right: 21, bottom: 14),
+                        top: 8, left: 21, right: 21, bottom: 10),
                  
 
                      
