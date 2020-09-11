@@ -55,19 +55,23 @@ class _InterventionSelectionHomeCardState
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          SizedBox(
-            width: 21.25,
-          ),
+          
          
-          Text("ASSESS", style: TextStyle(color: Color(0xFF4B9F46),fontWeight: FontWeight.bold,fontSize: 12)),
-           SizedBox(
-            width: 69
+         Padding(padding: EdgeInsets.only(top:12 ,bottom: 14,left:20 ,),
+         child:  Text("ASSESS", style: TextStyle(color: Color(0xFF4B9F46),fontWeight: FontWeight.bold,fontSize: 12)),
+         
+         
+         ),
+          Padding(padding: EdgeInsets.only(top:12 ,bottom: 14,left:60 ,) ,
+          
+          child: Text("PLAN", style: TextStyle(color: Color(0xFF4B9F46),fontWeight: FontWeight.bold,fontSize: 12)),
+          
           ),
-          Text("PLAN", style: TextStyle(color: Color(0xFF4B9F46),fontWeight: FontWeight.bold,fontSize: 12)),
-           SizedBox(
-            width: 69,
-          ),
-          Text("MONITOR", style: TextStyle(color: Color(0xFF4B9F46),fontWeight: FontWeight.bold,fontSize: 12))
+         Padding(padding: EdgeInsets.only(top:12 ,bottom: 14,left:60 ,) ,
+         child:  Text("MONITOR", style: TextStyle(color: Color(0xFF4B9F46),fontWeight: FontWeight.bold,fontSize: 12))
+       
+       ,
+         )
         ],
       ),
     ),
@@ -146,132 +150,133 @@ class _InterventionSelectionHomeCardState
     double width = MediaQuery.of(context).size.width;
     print(width);
     return SingleChildScrollView(
-      child: Card(
+      child: Card(   
+        margin: const EdgeInsets.only(top: 13,left: 13,right: 13,bottom: 15),
         elevation: 2,
+    //      shape: RoundedRectangleBorder(
+    // borderRadius: BorderRadius.only(
+    //   bottomRight: Radius.circular(10),
+    //   topRight: Radius.circular(10)),
+    // side: BorderSide(width: 5, color: Colors.green),
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.only(
-                  left: 3.0, right: 8.0, top: 10.0, bottom: 0.0),
-              child: Container(
-                height: 228,
-                width: 375,
-                decoration: BoxDecoration(boxShadow: [
-                  BoxShadow(
-                      color: Color.fromRGBO(75, 159, 70, 0.05),
-                      blurRadius: 0.0,
-                      spreadRadius: 0.0,
-                      offset: Offset(1.0, 5.0))
-                ]),
-                child: Card(
-                  elevation: 0,
-                  shadowColor: Color.fromRGBO(75, 159, 70, 0.05),
-                  child: Padding(
-                    padding: EdgeInsets.only(
-                      bottom: 0,
-                      top: 5,
-                    ),
-                    child: Column(
+            
+       
+       
+                    Column(
                       children: [
                         Row(
                           children: [
-                            Container(
-                                height: 51,
-                                width: 292,
-                                child: Card(
-                                  elevation: 1,
-                                  margin: EdgeInsets.only(top: 13),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      SizedBox(
-                                        width: 20.25,
-                                      ),
-                                      SvgPicture.asset(
-                                          "assets/icons/hh_icon.svg"),
-                                      SizedBox(
-                                        width: 13.65,
-                                      ),
-                                      Text(
-                                        "HHID-IL-00120820",
-                                        style: TextStyle(
-                                            color:
-                                                Color.fromRGBO(26, 53, 24, 1),
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      widgetindex == 0 || widgetindex == 1
-                                          ? Row(
-                                              children: [
-                                                SizedBox(width: 106),
-                                                GestureDetector(
-                                                  child: _animatedHeight == 0.0
-                                                      ? SvgPicture.asset(
-                                                          "assets/icons/chevron_down.svg")
-                                                      : SvgPicture.asset(
-                                                          "assets/icons/chevron_up.svg"),
-                                                  onTap: () {
-                                                    setState(() {
-                                                      _animatedHeight != 0.0
-                                                          ? _animatedHeight =
-                                                              0.0
-                                                          : _animatedHeight =
-                                                              100.0;
-                                                    });
-                                                  },
-                                                )
-                                              ],
-                                            )
-                                          : Row(
-                                              children: [
-                                                SizedBox(
-                                                  width: 40,
-                                                ),
-                                                GestureDetector(
-                                                  onTap: () {},
-                                                  child: SvgPicture.asset(
-                                                      "assets/icons/expand_icon.svg"),
-                                                ),
-                                                SizedBox(
-                                                  width: 15,
-                                                ),
-                                                GestureDetector(
-                                                  onTap: () {},
-                                                  child: SvgPicture.asset(
-                                                      "assets/icons/edit_icon.svg"),
-                                                ),
-                                                SizedBox(
-                                                  width: 15,
-                                                ),
-                                                GestureDetector(
-                                                  child: _animatedHeight == 0.0
-                                                      ? SvgPicture.asset(
-                                                          "assets/icons/chevron_down.svg")
-                                                      : SvgPicture.asset(
-                                                          "assets/icons/chevron_up.svg"),
-                                                  onTap: () {
-                                                    setState(() {
-                                                      _animatedHeight != 0.0
-                                                          ? _animatedHeight =
-                                                              0.0
-                                                          : _animatedHeight =
-                                                              100.0;
-                                                    });
-                                                  },
-                                                )
-                                              ],
-                                            )
-                                    ],
-                                  ),
-                                )),
+                            
+                                 Container(
+                                   width: width,
+                                   child: Card(
+                                     color: Colors.red,
+                                     
+                                     
+                                    elevation: 1,
+                                    margin: EdgeInsets.only(top: 0,right: 0,left: 0,bottom: 0),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        
+                                       Padding(padding: EdgeInsets.only(left:20.25,top: 17,bottom: 14.9 ),
+                                       child:  SvgPicture.asset(
+                                            "assets/icons/hh_icon.svg"),
+                                       ),
+                                        
+                                         Padding(padding: EdgeInsets.only(left:13.65,top: 20,bottom: 15 ),
+                                         child: Text(
+                                          "HHID-IL-00120820",
+                                          style: TextStyle(
+                                              color:
+                                                  Color.fromRGBO(26, 53, 24, 1),
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                         )
+                                        ,
+                                        widgetindex == 0 || widgetindex == 1
+                                            ? 
+                                             Row(
+                                                children: [
+                                               
+                                                  GestureDetector(
+                                                    child: _animatedHeight == 0.0
+                                                        ? Padding(padding:EdgeInsets.only(left:88,top: 26.67,bottom: 19.33,right: 25),
+                                                        child: SvgPicture.asset(
+                                                            "assets/icons/chevron_down.svg",),
+                                                        )
+                                                        : Padding(padding:EdgeInsets.only(left:88,top: 26.67,bottom: 19.33,right: 25), 
+                                                        child: SvgPicture.asset(
+                                                            "assets/icons/chevron_up.svg"),
+                                                        ),
+                                                    onTap: () {
+                                                      setState(() {
+                                                        _animatedHeight != 0.0
+                                                            ? _animatedHeight =
+                                                                0.0
+                                                            : _animatedHeight =
+                                                                100.0;
+                                                      });
+                                                    },
+                                                  )
+                                                ],
+                                              )
+                                            
+                                            : Row(
+                                                children: [
+                                                  
+                                                  GestureDetector(
+                                                    onTap: () {},
+                                                    child: Padding(
+                                                      padding: EdgeInsets.only(left:27.3,top: 22.5,bottom: 13.5,right: 20.85),
+                                                    
+                                                    child: SvgPicture.asset(
+                                                        "assets/icons/expand_icon.svg"),
+                                                    ),
+                                                  ),
+                                             
+                                                  GestureDetector(
+                                                    onTap: () {},
+                                                    child: Padding(
+                                                      padding: EdgeInsets.only(left:0,top: 23.19,bottom: 14.33,right: 0),
+                                                    
+                                                    child: SvgPicture.asset(
+                                                        "assets/icons/edit_icon.svg"),
+                                                    ),
+                                                  ),
+                                                 
+                                                  GestureDetector(
+                                                    child: _animatedHeight == 0.0
+                                                        ?Padding(padding:EdgeInsets.only(right:29.19 ,top:28.33,bottom:17.67,left:24 ),child:  SvgPicture.asset(
+                                                            "assets/icons/chevron_down.svg"),)
+                                                        : SvgPicture.asset(
+                                                            "assets/icons/chevron_up.svg"),
+                                                    onTap: () {
+                                                      setState(() {
+                                                        _animatedHeight != 0.0
+                                                            ? _animatedHeight =
+                                                                0.0
+                                                            : _animatedHeight =
+                                                                100.0;
+                                                      });
+                                                    },
+                                                  )
+                                                ],
+                                              )
+                                      ],
+                                    ),
+                                ),
+                                 ),
                           ],
                         ),
                         Row(
                           children: [
-                            Container(
-                              child: Column(
+                           
+                               Column(
                                 children: [
                                   SizedBox(
                                     height: 12,
@@ -359,30 +364,17 @@ class _InterventionSelectionHomeCardState
                                   )
                                 ],
                               ),
-                            )
+                            
                           ],
                         ),
-                        Row(
-                          children: [
-                            Container(
-                                color: Color.fromRGBO(75, 159, 70, 0.05),
-                                height: 40,
-                                width: 292,
-                                child: Card(
-                                  color: Color.fromRGBO(75, 159, 70, 0.05),
-                                  margin: EdgeInsets.only(top: 18),
-                                  elevation: 0,
-                                  //this widget below may change depend on where in clicked
-                                  child: ovc_widgets[widgetindex],
-                                )),
-                          ],
-                        ),
+                        SingleChildScrollView(child: ovc_widgets[widgetindex],)
+                     
                       ],
                     ),
-                  ),
-                ),
-              ),
-            ),
+                 
+                
+             
+            
             Padding(
                 padding: const EdgeInsets.only(
                     left: 10.0, right: 10.0, bottom: 10.0),
