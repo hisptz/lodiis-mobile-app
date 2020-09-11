@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar_container.dart';
+import 'package:kb_mobile_app/core/components/material_card.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
@@ -30,8 +31,21 @@ class DreamsEnrollmentForm extends StatelessWidget {
             ),
             body: SubPageBody(
               body: Container(
-                child: Text('here done '),
-              ),
+                  margin:
+                      EdgeInsets.symmetric(vertical: 16.0, horizontal: 13.0),
+                  height: 200,
+                  child: MaterialCard(
+                    body: Container(
+                      padding: EdgeInsets.all(10),
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [Text('data')],
+                          )
+                        ],
+                      ),
+                    ),
+                  )),
             ),
             bottomNavigationBar: InterventionBottomNavigationBarContainer()));
   }
