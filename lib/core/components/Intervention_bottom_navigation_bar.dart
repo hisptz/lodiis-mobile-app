@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:kb_mobile_app/app-state/intervention_bottom_navigation_state/intervention_bottom_navigation_state.dart';
+import 'package:kb_mobile_app/app_state/intervention_bottom_navigation_state/intervention_bottom_navigation_state.dart';
 import 'package:kb_mobile_app/models/Intervention_bottom_navigation.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:provider/provider.dart';
