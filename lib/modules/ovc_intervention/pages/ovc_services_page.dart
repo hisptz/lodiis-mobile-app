@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kb_mobile_app/modules/intervention_selection/components/Intervention_selection_home_card.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_intervention_home_card.dart';
 
 class OvcServicesPage extends StatelessWidget {
   const OvcServicesPage({Key key}) : super(key: key);
@@ -7,6 +7,7 @@ class OvcServicesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromRGBO(229,229,229,1),
       appBar:AppBar(
         backgroundColor: Colors.white,
         title: Row(
@@ -22,9 +23,11 @@ class OvcServicesPage extends StatelessWidget {
           
                   child: Column(
             children: [
-              InterventionSelectionHomeCard(
-                 widgetIndex: 0,
-              ),
+            OvcInterventionCardState(editService: true, addExit: false, editEnrollment: false, editReferral: false,),
+            OvcInterventionCardState(editService: true, addExit: false, editEnrollment: false, editReferral: false,),
+            OvcInterventionCardState(editService: true, addExit: false, editEnrollment: false, editReferral: false,),
+            OvcInterventionCardState(editService: true, addExit: false, editEnrollment: false, editReferral: false,),
+            OvcInterventionCardState(editService: true, addExit: false, editEnrollment: false, editReferral: false,),
             ],
           
       ),

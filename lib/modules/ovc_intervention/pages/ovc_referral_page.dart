@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kb_mobile_app/modules/intervention_selection/components/Intervention_selection_home_card.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_intervention_home_card.dart';
 
 class OvcReferralPage extends StatelessWidget {
   const OvcReferralPage({Key key}) : super(key: key);
@@ -32,9 +32,9 @@ class OvcReferralPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromRGBO(75, 159, 70, 0.05),
-      appBar: AppBar(
-        elevation: 0,
+      backgroundColor: Color.fromRGBO(229,229,229,1),
+           appBar: AppBar(
+       
           backgroundColor: Colors.white,
           title: Row(
             children: [
@@ -53,9 +53,11 @@ class OvcReferralPage extends StatelessWidget {
       body:  SingleChildScrollView(
               child: Column(
             children: [
-              InterventionSelectionHomeCard(
-                 widgetIndex: 0,
-              ),
+             OvcInterventionCardState(editReferral: true, addExit: false, editEnrollment: false, editService: false,),
+              OvcInterventionCardState(editReferral: true, addExit: false, editEnrollment: false, editService: false,),
+               OvcInterventionCardState(editReferral: true, addExit: false, editEnrollment: false, editService: false,),
+                OvcInterventionCardState(editReferral: true, addExit: false, editEnrollment: false, editService: false,),
+                 OvcInterventionCardState(editReferral: true, addExit: false, editEnrollment: false, editService: false,),
             ],
           
         ),

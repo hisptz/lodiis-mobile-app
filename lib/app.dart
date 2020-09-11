@@ -8,6 +8,8 @@ import 'package:kb_mobile_app/modules/splash/splash.dart';
 import 'package:provider/provider.dart';
 
 
+const bool debugEnableDeviceSimulator = true;
+
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
