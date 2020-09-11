@@ -276,39 +276,42 @@ class OvcInterventionCardState extends StatelessWidget {
                 visible: showChild ? true : false,
                 child: Padding(
                   padding: const EdgeInsets.only(top: 18.08),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Expanded(
-                            child: Container(
-                              child: SvgPicture.asset(
-                                  "assets/icons/children_ovc_icon.svg"),
-                            ),
-                            flex: 3,
-                          ),
-                          Expanded(
-                            child: Container(
-                              child: Text(
-                                "CHILDREN LIST",
-                                style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.bold,
-                                    color: Color.fromRGBO(26, 53, 24, 1)),
+                  child: AnimatedContainer(
+                                      duration: Duration(seconds: 120),
+                                      child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Expanded(
+                              child: Container(
+                                child: SvgPicture.asset(
+                                    "assets/icons/children_ovc_icon.svg"),
                               ),
+                              flex: 3,
                             ),
-                            flex: 9,
-                          ),
-                        ],
-                      ),
-                      OvcInterventionChilrens(
-                          editService: editService,
-                          editReferral: editReferral,
-                          editEnrollment: editEnrollment,
-                          addExit: addExit),
-                    ],
+                            Expanded(
+                              child: Container(
+                                child: Text(
+                                  "CHILDREN LIST",
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold,
+                                      color: Color.fromRGBO(26, 53, 24, 1)),
+                                ),
+                              ),
+                              flex: 9,
+                            ),
+                          ],
+                        ),
+                        OvcInterventionChilrens(
+                            editService: editService,
+                            editReferral: editReferral,
+                            editEnrollment: editEnrollment,
+                            addExit: addExit),
+                      ],
+                    ),
                   ),
                 ),
               ),
