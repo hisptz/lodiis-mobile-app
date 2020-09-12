@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
+import 'package:kb_mobile_app/models/intervention_card.dart';
+import 'package:provider/provider.dart';
 
 class DreamsHomeContainer extends StatelessWidget {
   final String header;
@@ -8,7 +11,9 @@ class DreamsHomeContainer extends StatelessWidget {
       : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(
+    BuildContext context,
+  ) {
     return Scaffold(
         appBar: header != null && header != ''
             ? AppBar(
@@ -23,6 +28,20 @@ class DreamsHomeContainer extends StatelessWidget {
                 elevation: 1,
               )
             : null,
-        body: SingleChildScrollView(child: bodyContents));
+        body: Stack(
+          children: [
+            Consumer<IntervetionCardState>(
+              builder: (context, intervetionCardState, child) {
+                InterventionCard activeInterventionProgram =
+                    intervetionCardState.currentIntervetionProgram;
+                return Container(
+                  decoration: BoxDecoration(
+                      color: activeInterventionProgram.background),
+                );
+              },
+            ),
+            SingleChildScrollView(child: bodyContents)
+          ],
+        ));
   }
 }

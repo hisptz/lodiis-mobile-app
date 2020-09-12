@@ -59,7 +59,7 @@ class InterventionCard {
         svgIconColor: Color(0xFF8FD6FF),
         svgIconBorderColor: Color(0xFF8FD6FF),
         svgBackgroundColor: Color(0xFFE2F1F9),
-        background: Color(0xFFE5E5E5),
+        background: Color(0xFFF4F7F9),
         nameColor: Color(0xFF071E2C),
         countColor: Color(0xFF1F8ECE),
         countLabelColor: Color(0xFF8CC5E6),

@@ -41,14 +41,16 @@ class _SplashState extends State<Splash> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-        body: Column(children: [
+        body: SingleChildScrollView(
+                  child: Column(children: [
       Container(
-        decoration: BoxDecoration(color: CustomColor.defaultPrimaryColor),
-        height: size.height * 0.83,
-        child: CircularProcessLoader(
-            color: CustomColor.defaultSecondaryColor, size: 2.0),
+          decoration: BoxDecoration(color: CustomColor.defaultPrimaryColor),
+          height: size.height * 0.83,
+          child: CircularProcessLoader(
+              color: CustomColor.defaultSecondaryColor, size: 2.0),
       ),
       SplashImplementingPartnerList(),
-    ]));
+    ]),
+        ));
   }
 }

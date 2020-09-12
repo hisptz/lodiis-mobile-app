@@ -13,6 +13,14 @@ class InterventionBottomNavigationBar extends StatelessWidget {
 
   final InterventionCard activeInterventionProgram;
 
+  void onTap(BuildContext context, int index) {
+    Provider.of<InterventionBottomNavigationState>(context, listen: false)
+        .setCurrentInterventionBottomNavigationIndex(index);
+    if (Navigator.canPop(context)) {
+      Navigator.popUntil(context, (route) => route.isFirst);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     List<InterventionBottomNavigation> interventionBottomNavigations =
@@ -36,11 +44,7 @@ class InterventionBottomNavigationBar extends StatelessWidget {
             int index = interventionBottomNavigations
                 .indexOf(interventionBottomNavigation);
             return InkWell(
-              onTap: () {
-                Provider.of<InterventionBottomNavigationState>(context,
-                        listen: false)
-                    .setCurrentInterventionBottomNavigationIndex(index);
-              },
+              onTap: () => onTap(context, index),
               child: Container(
                 margin: EdgeInsets.only(top: 5),
                 padding: EdgeInsets.symmetric(vertical: 5, horizontal: 12),

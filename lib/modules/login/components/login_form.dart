@@ -30,7 +30,7 @@ class _LoginFormState extends State<LoginForm> {
     UserService().getCurrentUser().then((CurrentUser user) {
       setState(() {
         this.currentUser =
-            user ?? new CurrentUser(username: "system", password: "System123");
+            user ?? new CurrentUser(username: "admin", password: "district");
       });
     });
     this.loginFormState = Provider.of<LoginFormState>(context, listen: false);
