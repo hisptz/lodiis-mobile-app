@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/input_fields/input_field_container.dart';
-import 'package:kb_mobile_app/core/components/input_fields/select_input_field.dart';
-import 'package:kb_mobile_app/core/components/line_seperator.dart';
 import 'package:kb_mobile_app/core/components/material_card.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
@@ -38,9 +36,7 @@ class DreamsEnrollmentForm extends StatelessWidget {
                       EdgeInsets.symmetric(vertical: 16.0, horizontal: 13.0),
                   height: 200,
                   child: MaterialCard(
-                    body: InputFieldContainer(
-                      color: Colors.orangeAccent,
-                    ),
+                    body: InputFieldContainer(color: Colors.blueAccent),
                   )),
             ),
             bottomNavigationBar: InterventionBottomNavigationBarContainer()));
