@@ -16,7 +16,8 @@ class InputFieldContainer extends StatelessWidget {
       InputFieldOption(code: 'one', name: 'One'),
       InputFieldOption(code: 'two', name: 'Two'),
       InputFieldOption(code: 'three', name: 'Three'),
-      InputFieldOption(code: 'four', name: 'Four')
+      InputFieldOption(code: 'four', name: 'Four'),
+      InputFieldOption(code: 'five', name: 'Five')
     ];
 
     return Container(
