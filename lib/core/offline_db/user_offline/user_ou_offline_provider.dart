@@ -8,6 +8,14 @@ class UserOuOfflineProvider extends OfflineDbProvider {
   // columns
   String id = 'id';
   String userId = 'userId';
+String id1 = 'id';
+ String name = 'name';
+ String parent = 'parent';
+//list stored as text
+ String children = 'children';
+ String program = 'program';
+ static const String TABLE = 'organizations';
+
 
   Future<Database> get db async {
     if (_db != null) {
@@ -21,6 +29,7 @@ class UserOuOfflineProvider extends OfflineDbProvider {
   init() async {
     var databasesPath = await getDatabasesPath();
     String path = join(databasesPath, '$databaseName.db');
+    
     var db = await openDatabase(path, version: version, onCreate: _onCreate);
     return db;
   }
@@ -29,6 +38,10 @@ class UserOuOfflineProvider extends OfflineDbProvider {
     String createTableQuery =
         "CREATE TABLE IF NOT EXISTS ${CurrentUser.userOrganisatonUnitTable} ($id TEXT PRIMARY KEY, $userId TEXT)";
     await db.execute(createTableQuery);
+
+        await db.execute(
+        "CREATE TABLE  $TABLE ($id1 TEXT PRIMARY KEY, $name TEXT, $parent TEXT,$program TEXT,$children TEXT)");
+  
   }
 
   addOrUpdateUserOrganisationUnits(CurrentUser user) async {
