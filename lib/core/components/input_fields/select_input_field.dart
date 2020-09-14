@@ -3,11 +3,16 @@ import 'package:flutter_svg/svg.dart';
 import 'package:kb_mobile_app/models/input_field_option.dart';
 
 class SelectInputField extends StatefulWidget {
-  const SelectInputField({Key key, this.color, @required this.options})
+  const SelectInputField(
+      {Key key,
+      this.color,
+      @required this.options,
+      @required this.selectedOption})
       : super(key: key);
 
   final Color color;
   final List<InputFieldOption> options;
+  final String selectedOption;
 
   @override
   _SelectInputFieldState createState() => _SelectInputFieldState();
@@ -18,6 +23,7 @@ class _SelectInputFieldState extends State<SelectInputField> {
 
   @override
   void initState() {
+    this._selectedOption = widget.selectedOption;
     super.initState();
   }
 
