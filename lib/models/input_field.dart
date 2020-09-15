@@ -30,7 +30,6 @@ class InputField {
     this.options = this.options ?? [];
     this.color = this.color ?? Colors.black;
     this.background = this.background ?? Colors.transparent;
-    this.subInputField = this.subInputField ?? null;
   }
 
   @override
