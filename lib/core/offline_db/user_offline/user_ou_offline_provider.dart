@@ -8,7 +8,7 @@ class UserOuOfflineProvider extends OfflineDbProvider {
   // columns
   String id = 'id';
   String userId = 'userId';
-String id1 = 'id';
+String ID = 'id';
  String name = 'name';
  String parent = 'parent';
 //list stored as text
@@ -40,7 +40,7 @@ String id1 = 'id';
     await db.execute(createTableQuery);
 
         await db.execute(
-        "CREATE TABLE  $TABLE ($id1 TEXT PRIMARY KEY, $name TEXT, $parent TEXT,$program TEXT,$children TEXT)");
+        "CREATE TABLE  $TABLE ($ID TEXT PRIMARY KEY, $name TEXT, $parent TEXT,$program TEXT,$children TEXT)");
   
   }
 
