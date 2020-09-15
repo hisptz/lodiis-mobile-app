@@ -1,22 +1,36 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/core/components/input_fields/select_input_field.dart';
+import 'package:kb_mobile_app/core/components/input_fields/text_input_field_container.dart';
 import 'package:kb_mobile_app/core/components/line_seperator.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 
 class InputFieldContainer extends StatelessWidget {
-  const InputFieldContainer({
-    Key key,
-    @required this.inputField,
-  }) : super(key: key);
+  const InputFieldContainer(
+      {Key key, @required this.inputField, this.onInputValueChange})
+      : super(key: key);
 
   final InputField inputField;
+  final Function onInputValueChange;
 
   Widget _getInputField(InputField inputField) {
     return Container(
       child: inputField != null
-          ? SelectInputField(options: inputField.options, selectedOption: null)
+          ? inputField.options.length > 0
+              ? SelectInputField(
+                  onInputValueChange: (String value) =>
+                      this.onInputValueChange(inputField.id, value),
+                  options: inputField.options,
+                  selectedOption: null)
+              : inputField.valueType == 'TEXT' ||
+                      inputField.valueType == 'LONG_TEXT'
+                  ? TextInputFieldContainer(
+                      inputField: inputField,
+                      onInputValueChange: (String value) =>
+                          this.onInputValueChange(inputField.id, value),
+                    )
+                  : inputField.valueType == ''
+                      ? Text('yeah')
+                      : Text(inputField.valueType)
           : Text(''),
     );
   }
@@ -40,6 +54,24 @@ class InputFieldContainer extends StatelessWidget {
               ],
             ),
           ),
+          Visibility(
+              visible: inputField.description != '',
+              child: Container(
+                padding: EdgeInsets.only(top: 10.0),
+                child: Row(
+                  children: [
+                    Expanded(
+                        child: Text(
+                      inputField.description,
+                      style: TextStyle().copyWith(
+                          color: inputField.color,
+                          fontSize: 12.0,
+                          fontStyle: FontStyle.italic,
+                          fontWeight: FontWeight.normal),
+                    ))
+                  ],
+                ),
+              )),
           Visibility(
               visible: inputField.hasSubInputField,
               child: Row(

@@ -7,12 +7,14 @@ class SelectInputField extends StatefulWidget {
       {Key key,
       this.color,
       @required this.options,
-      @required this.selectedOption})
+      @required this.selectedOption,
+      @required this.onInputValueChange})
       : super(key: key);
 
   final Color color;
   final List<InputFieldOption> options;
   final String selectedOption;
+  final Function onInputValueChange;
 
   @override
   _SelectInputFieldState createState() => _SelectInputFieldState();
@@ -23,11 +25,12 @@ class _SelectInputFieldState extends State<SelectInputField> {
 
   @override
   void initState() {
-    this._selectedOption = widget.selectedOption;
     super.initState();
+    this._selectedOption = widget.selectedOption;
   }
 
   void onValueChange(String value) {
+    widget.onInputValueChange(value);
     setState(() {
       _selectedOption = value;
     });
@@ -44,7 +47,7 @@ class _SelectInputFieldState extends State<SelectInputField> {
           height: 20.0,
           child: SvgPicture.asset(
             'assets/icons/chevron_down.svg',
-            color: widget.color,
+            color: widget.color ?? Colors.black,
           ),
         ),
         elevation: 16,
@@ -70,7 +73,7 @@ class _SelectInputFieldState extends State<SelectInputField> {
                 margin: EdgeInsets.only(left: 10),
                 child: SvgPicture.asset(
                   'assets/icons/checked-icon.svg',
-                  color: widget.color,
+                  color: widget.color ?? Colors.black,
                 ),
               ),
       )

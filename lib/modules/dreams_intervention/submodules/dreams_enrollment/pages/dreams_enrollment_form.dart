@@ -50,11 +50,9 @@ class DreamsEnrollmentForm extends StatelessWidget {
                           id: 'id',
                           name: 'Label one',
                           color: Colors.blueAccent,
-                          valueType: '',
-                          value: options[2].code,
+                          description: 'hint for the input field',
+                          valueType: 'TEXT',
                           hasSubInputField: false,
-                          subInputField: InputField(
-                              id: 'null', name: 'null', valueType: 'null'),
                           options: options),
                     ),
                   )),
