@@ -22,27 +22,23 @@ class OrganizationUnitService {
       final responseData = json.decode(response.body);
 
       for (var organization in responseData["organisationUnits"]) {
-      
-
-        organizationUnitList
-            .add(OrganizationUnits.fromJson(organization));
+        organizationUnitList.add(OrganizationUnits.fromJson(organization));
       }
-      
-      // setOrganizationUnit(organizationUnitList);
+
+      setOrganizationUnit(organizationUnitList);
     } else {
       return null;
     }
   }
 
-  setOrganizationUnit(List<OrganizationUnit> organizationUnit) async {
+  setOrganizationUnit(List<OrganizationUnits> organizationUnit) async {
     await OrganizationUnitOffline()
         .addOrUpdateOrganizationUnits(organizationUnit);
   }
 
-  List<OrganizationUnit> get orgList {
+  List<OrganizationUnits> get organizationList {
     //test data on comming
-    print(organizationUnitList);
-    return null;
-    //organizationUnitList;
+   
+    return organizationUnitList;
   }
 }

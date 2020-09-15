@@ -1,20 +1,21 @@
 import 'package:kb_mobile_app/core/offline_db/offline_db_provider.dart';
-import 'package:kb_mobile_app/core/offline_db/organization_unit_offline/Organization_program_offline_provider.dart';
-import 'package:kb_mobile_app/core/offline_db/organization_unit_offline/organization_children_offline_provider.dart';
 import 'package:kb_mobile_app/core/services/organization_unit_service.dart';
 import 'package:kb_mobile_app/models/Organization_unit.dart';
 import 'package:kb_mobile_app/models/organization_unit.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
-class OrganizationUnitOffline extends OfflineDbProvider {
+class OrganizationUnitChildrenOfflineProvider extends OfflineDbProvider {
+
+
   Database _db;
   String id = 'id';
-  String name = 'name';
-  String parent = 'parent';
+  String organizationId = 'organiationId';
+  
 
   //table name
-  static const String TABLE = 'organizations';
+  static const String TABLE = 'organization_unit_children';
+
 
   Future<Database> get db async {
     if (_db != null) {
@@ -35,20 +36,27 @@ class OrganizationUnitOffline extends OfflineDbProvider {
 
   _onCreate(Database db, int version) async {
     await db.execute(
-        "CREATE TABLE IF NOT EXISTS  $TABLE ($id TEXT PRIMARY KEY, $name TEXT, $parent TEXT)");
+        "CREATE TABLE IF NOT EXISTS  $TABLE ($id TEXT , $organizationId TEXT,PRIMARY KEY ($id ,$organizationId))");
+
   }
 
-  addOrUpdateOrganizationUnits(List<OrganizationUnits> organizationUnit) async {
+  addOrUpdateChildrenOrganizationUnits(OrganizationUnits organizationUnit) async {
+
+
     var dbClient = await db;
-    organizationUnit.forEach((organization) async {
-      await dbClient.insert(TABLE, organization.toOffline(organization),
+  
+     for (id in organizationUnit.children) {
+
+      var map = Map<String, dynamic>();
+      map['id'] = id;
+      map['organiationId'] = organizationUnit.id;
+
+      await dbClient.insert(TABLE, map,
           conflictAlgorithm: ConflictAlgorithm.replace);
-      await OrganizationUnitChildrenOfflineProvider()
-          .addOrUpdateChildrenOrganizationUnits(organization);
-          await OrganizationUnitProgramOfflineProvider()
-          .addOrUpdateProgramOrganizationUnits(organization);
+    }
+
           
-    });
+  
   }
 
   Future<dynamic> getOrganizationUnit() async {

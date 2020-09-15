@@ -8,14 +8,6 @@ class UserOuOfflineProvider extends OfflineDbProvider {
   // columns
   String id = 'id';
   String userId = 'userId';
-String ID = 'id';
- String name = 'name';
- String parent = 'parent';
-//list stored as text
- String children = 'children';
- String program = 'program';
- static const String TABLE = 'organizations';
-
 
   Future<Database> get db async {
     if (_db != null) {
@@ -39,9 +31,7 @@ String ID = 'id';
         "CREATE TABLE IF NOT EXISTS ${CurrentUser.userOrganisatonUnitTable} ($id TEXT PRIMARY KEY, $userId TEXT)";
     await db.execute(createTableQuery);
 
-        await db.execute(
-        "CREATE TABLE  $TABLE ($ID TEXT PRIMARY KEY, $name TEXT, $parent TEXT,$program TEXT,$children TEXT)");
-  
+      
   }
 
   addOrUpdateUserOrganisationUnits(CurrentUser user) async {
