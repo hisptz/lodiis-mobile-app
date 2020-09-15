@@ -43,15 +43,14 @@ class DreamsEnrollmentForm extends StatelessWidget {
               body: Container(
                   margin:
                       EdgeInsets.symmetric(vertical: 16.0, horizontal: 13.0),
-                  height: 200,
                   child: MaterialCard(
                     body: InputFieldContainer(
                       inputField: InputField(
                           id: 'id',
                           name: 'Label one',
-                          color: Colors.blueAccent,
+                          color: Colors.amberAccent,
                           description: 'hint for the input field',
-                          valueType: 'PHONE_NUMBER',
+                          valueType: 'BOOLEAN',
                           hasSubInputField: false,
                           options: options),
                     ),

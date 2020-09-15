@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/core/components/input_fields/boolean_input_field_container.dart';
 import 'package:kb_mobile_app/core/components/input_fields/numerical_input_container.dart';
 import 'package:kb_mobile_app/core/components/input_fields/phone_number_input_field_container.dart';
 import 'package:kb_mobile_app/core/components/input_fields/select_input_field.dart';
@@ -42,7 +43,10 @@ class InputFieldContainer extends StatelessWidget {
                               onInputValueChange: (String value) =>
                                   this.onInputValueChange(inputField.id, value))
                           : inputField.valueType == 'BOOLEAN'
-                              ? Container(child: Text('BOOLEAN'))
+                              ? BooleanInputFieldContainer(
+                                  inputField: inputField,
+                                  onInputValueChange: (String value) => this
+                                      .onInputValueChange(inputField.id, value))
                               : inputField.valueType == 'TRUE_ONLY'
                                   ? Container(child: Text('TRUE_ONLY'))
                                   : inputField.valueType == 'DATE'

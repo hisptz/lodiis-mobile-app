@@ -6,12 +6,14 @@ class RadioInputFieldContainer extends StatefulWidget {
       {Key key,
       @required this.options,
       @required this.currentValue,
-      @required this.onInputValueChange})
+      @required this.onInputValueChange,
+      this.activeColor})
       : super(key: key);
 
   final List<InputFieldOption> options;
   final dynamic currentValue;
   final Function onInputValueChange;
+  final Color activeColor;
 
   @override
   _RadioInputFieldContainerState createState() =>
@@ -36,17 +38,18 @@ class _RadioInputFieldContainerState extends State<RadioInputFieldContainer> {
       child: Wrap(
         children: widget.options
             .map((InputFieldOption option) => Container(
-                  color: Colors.redAccent,
-                  margin: EdgeInsets.symmetric(horizontal: 2),
                   child: Row(
                       mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Radio(
+                            activeColor: widget.activeColor,
                             value: option.code,
                             groupValue: _currentValue,
                             onChanged: setSelectedOption),
-                        Text(option.name)
+                        Container(
+                          child: Text(option.name),
+                        )
                       ]),
                 ))
             .toList(),
