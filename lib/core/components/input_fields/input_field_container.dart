@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/core/components/input_fields/numerical_input_container.dart';
 import 'package:kb_mobile_app/core/components/input_fields/select_input_field.dart';
 import 'package:kb_mobile_app/core/components/input_fields/text_input_field_container.dart';
 import 'package:kb_mobile_app/core/components/line_seperator.dart';
@@ -28,8 +29,12 @@ class InputFieldContainer extends StatelessWidget {
                       onInputValueChange: (String value) =>
                           this.onInputValueChange(inputField.id, value),
                     )
-                  : inputField.valueType == ''
-                      ? Text('yeah')
+                  : inputField.valueType == 'INTEGER_ZERO_OR_POSITIVE' ||
+                          inputField.valueType == 'NUMBER'
+                      ? NumericalInputFieldContainer(
+                          inputField: inputField,
+                          onInputValueChange: (String value) =>
+                              this.onInputValueChange(inputField.id, value))
                       : Text(inputField.valueType)
           : Text(''),
     );

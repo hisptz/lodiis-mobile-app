@@ -18,11 +18,11 @@ class DreamsEnrollmentForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<InputFieldOption> options = [
-      InputFieldOption(code: 'one', name: 'One'),
-      InputFieldOption(code: 'two', name: 'Two'),
-      InputFieldOption(code: 'three', name: 'Three'),
-      InputFieldOption(code: 'four', name: 'Four'),
-      InputFieldOption(code: 'five', name: 'Five')
+      // InputFieldOption(code: 'one', name: 'One'),
+      // InputFieldOption(code: 'two', name: 'Two'),
+      // InputFieldOption(code: 'three', name: 'Three'),
+      // InputFieldOption(code: 'four', name: 'Four'),
+      // InputFieldOption(code: 'five', name: 'Five')
     ];
     return SafeArea(
         child: Scaffold(
@@ -51,7 +51,7 @@ class DreamsEnrollmentForm extends StatelessWidget {
                           name: 'Label one',
                           color: Colors.blueAccent,
                           description: 'hint for the input field',
-                          valueType: 'TEXT',
+                          valueType: 'NUMBER',
                           hasSubInputField: false,
                           options: options),
                     ),
