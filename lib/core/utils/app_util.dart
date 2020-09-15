@@ -14,6 +14,20 @@ class AppUtil {
     return Uuid().v1().replaceAll('-', '').substring(0, 10);
   }
 
+  static int getAgeInYear(String dateOfBirth) {
+    DateTime currentDate = DateTime.now();
+    DateTime birthDate = DateTime.parse(dateOfBirth);
+    int age = currentDate.year - birthDate.year;
+    if (birthDate.month > currentDate.month) {
+      age--;
+    } else if (birthDate.month == currentDate.month) {
+      if (birthDate.day > currentDate.day) {
+        age--;
+      }
+    }
+    return age;
+  }
+
   static showToastMessage(String message) {
     Fluttertoast.showToast(
         msg: message,
