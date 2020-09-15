@@ -60,6 +60,12 @@ class OrganizationUnitProgramOfflineProvider extends OfflineDbProvider {
   
   }
 
+   deleteOrganizationProgram(String programId) async {
+    var dbClient = await db;
+    return await dbClient
+        .delete(TABLE, where: '$id = ?', whereArgs: [programId]);
+  }
+
   Future<dynamic> getOrganizationUnit() async {
     // ignore: await_only_futures
     final _db = await db;

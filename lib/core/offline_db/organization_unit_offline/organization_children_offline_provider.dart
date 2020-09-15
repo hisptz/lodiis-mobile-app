@@ -37,6 +37,7 @@ class OrganizationUnitChildrenOfflineProvider extends OfflineDbProvider {
   _onCreate(Database db, int version) async {
     await db.execute(
         "CREATE TABLE IF NOT EXISTS  $TABLE ($id TEXT , $organizationId TEXT,PRIMARY KEY ($id ,$organizationId))");
+        //
 
   }
 
@@ -57,6 +58,12 @@ class OrganizationUnitChildrenOfflineProvider extends OfflineDbProvider {
 
           
   
+  }
+
+   deleteOrganizationChildren(String childrenId) async {
+    var dbClient = await db;
+    return await dbClient
+        .delete(TABLE, where: '$id = ?', whereArgs: [childrenId]);
   }
 
   Future<dynamic> getOrganizationUnit() async {

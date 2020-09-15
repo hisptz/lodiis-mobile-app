@@ -45,23 +45,23 @@ class OrganizationUnitOffline extends OfflineDbProvider {
           conflictAlgorithm: ConflictAlgorithm.replace);
       await OrganizationUnitChildrenOfflineProvider()
           .addOrUpdateChildrenOrganizationUnits(organization);
-          await OrganizationUnitProgramOfflineProvider()
+      await OrganizationUnitProgramOfflineProvider()
           .addOrUpdateProgramOrganizationUnits(organization);
-          
     });
   }
+   deleteOrganization(String organizationId) async {
+    var dbClient = await db;
+    return await dbClient
+        .delete(TABLE, where: '$id = ?', whereArgs: [organizationId]);
+  }
 
-  Future<dynamic> getOrganizationUnit() async {
+  Future<List<OrganizationUnits>> getOrganizationUnit() async {
     // ignore: await_only_futures
-    final _db = await db;
+    var dbClient = await db;
 
-    var res = await _db.query("$TABLE");
-    if (res.length < 0) {
-      return null;
-    } else {
-      var resMap = res[0];
-      return resMap.isNotEmpty ? resMap : null;
-    }
+    dbClient.query(TABLE, columns: [id,name,parent]);
+
+   
   }
 
   close() async {
