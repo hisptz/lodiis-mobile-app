@@ -13,6 +13,14 @@ class InputFieldContainer extends StatelessWidget {
 
   final InputField inputField;
 
+  Widget _getInputField(InputField inputField) {
+    return Container(
+      child: inputField != null
+          ? SelectInputField(options: inputField.options, selectedOption: null)
+          : Text(''),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -38,19 +46,17 @@ class InputFieldContainer extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Expanded(
-                      flex: 3, child: Container(child: Text('Main input'))),
-                  Expanded(flex: 2, child: Container(child: Text('Sub input'))),
+                      flex: 3,
+                      child: Container(child: _getInputField(inputField))),
+                  Expanded(
+                      flex: 2,
+                      child: Container(
+                          child: _getInputField(inputField.subInputField))),
                 ],
               )),
           Visibility(
-              visible:
-                  !inputField.hasSubInputField && inputField.options.length > 0,
-              child: Container(
-                  child: SelectInputField(
-                selectedOption: inputField.value,
-                options: inputField.options,
-                color: inputField.color,
-              ))),
+              visible: !inputField.hasSubInputField,
+              child: Container(child: _getInputField(inputField))),
           LineSeperator(color: inputField.color ?? Colors.transparent)
         ],
       ),
