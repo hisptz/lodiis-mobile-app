@@ -41,11 +41,11 @@ class OvcReferralPage extends StatelessWidget {
       body:  SingleChildScrollView(
               child: Column(
             children: [
-             OvcInterventionCardState(editReferral: true, addExit: false, editEnrollment: false, editService: false,),
-              OvcInterventionCardState(editReferral: true, addExit: false, editEnrollment: false, editService: false,),
-               OvcInterventionCardState(editReferral: true, addExit: false, editEnrollment: false, editService: false,),
-                OvcInterventionCardState(editReferral: true, addExit: false, editEnrollment: false, editService: false,),
-                 OvcInterventionCardState(editReferral: true, addExit: false, editEnrollment: false, editService: false,),
+             OvcInterventionCard(editReferral: true, addExit: false, editEnrollment: false, editService: false,),
+              OvcInterventionCard(editReferral: true, addExit: false, editEnrollment: false, editService: false,),
+               OvcInterventionCard(editReferral: true, addExit: false, editEnrollment: false, editService: false,),
+                OvcInterventionCard(editReferral: true, addExit: false, editEnrollment: false, editService: false,),
+                 OvcInterventionCard(editReferral: true, addExit: false, editEnrollment: false, editService: false,),
             ],
           
         ),
