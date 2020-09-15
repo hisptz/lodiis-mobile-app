@@ -6,7 +6,7 @@ import 'package:path/path.dart';
 class OrganizationUnitChildrenOfflineProvider extends OfflineDbProvider {
   Database _db;
   String id = 'id';
-  String organizationId = 'organiationId';
+  String organizationId = 'organizationId';
 
   Future<Database> get db async {
     if (_db != null) {
@@ -36,7 +36,7 @@ class OrganizationUnitChildrenOfflineProvider extends OfflineDbProvider {
     for (id in organizationUnit.children) {
       var map = Map<String, dynamic>();
       map['id'] = id;
-      map['organiationId'] = organizationUnit.id;
+      map['organizationId'] = organizationUnit.id;
       await dbClient.insert(OrganizationUnits.organizationChildrenTable, map,
           conflictAlgorithm: ConflictAlgorithm.replace);
     }
@@ -59,7 +59,7 @@ class OrganizationUnitChildrenOfflineProvider extends OfflineDbProvider {
     ]);
     if (maps.isNotEmpty) {
       for (Map map in maps) {
-        if (map['organiationId'] == organizationUnitId) {
+        if (map['organizationId'] == organizationUnitId) {
           childrenOrganisationUnits.add(map['id']);
         }
       }

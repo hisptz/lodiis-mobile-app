@@ -6,7 +6,7 @@ import 'package:path/path.dart';
 class OrganizationUnitProgramOfflineProvider extends OfflineDbProvider {
   Database _db;
   String id = 'id';
-  String organizationId = 'organiationId';
+  String organizationId = 'organizationId';
 
   Future<Database> get db async {
     if (_db != null) {
@@ -37,7 +37,7 @@ class OrganizationUnitProgramOfflineProvider extends OfflineDbProvider {
     for (id in organizationUnit.program) {
       var map = Map<String, dynamic>();
       map['id'] = id;
-      map['organiationId'] = organizationUnit.id;
+      map['organizationId'] = organizationUnit.id;
 
       await dbClient.insert(OrganizationUnits.organizationTrogramTable, map,
           conflictAlgorithm: ConflictAlgorithm.replace);
@@ -61,7 +61,7 @@ class OrganizationUnitProgramOfflineProvider extends OfflineDbProvider {
     ]);
     if (maps.isNotEmpty) {
       for (Map map in maps) {
-        if (map['organiationId'] == organizationUnitId) {
+        if (map['organizationId'] == organizationUnitId) {
           programOrganisationUnits.add(map['id']);
         }
       }
