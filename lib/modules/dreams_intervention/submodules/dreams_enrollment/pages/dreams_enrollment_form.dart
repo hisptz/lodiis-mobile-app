@@ -50,7 +50,7 @@ class DreamsEnrollmentForm extends StatelessWidget {
                           name: 'Label one',
                           color: Colors.amberAccent,
                           description: 'hint for the input field',
-                          valueType: 'BOOLEAN',
+                          valueType: 'ORGANISATION_UNIT',
                           hasSubInputField: false,
                           options: options),
                     ),

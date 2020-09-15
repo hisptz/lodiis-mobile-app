@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:kb_mobile_app/core/components/input_fields/input_checked_cion.dart';
 import 'package:kb_mobile_app/models/input_field_option.dart';
 
 class SelectInputField extends StatefulWidget {
@@ -65,17 +66,9 @@ class _SelectInputFieldState extends State<SelectInputField> {
           );
         }).toList(),
       )),
-      Container(
-        child: _selectedOption == null
-            ? Text('')
-            : Container(
-                height: 20.0,
-                margin: EdgeInsets.only(left: 10),
-                child: SvgPicture.asset(
-                  'assets/icons/checked-icon.svg',
-                  color: widget.color ?? Colors.black,
-                ),
-              ),
+      InputCheckedIcon(
+        showTickedIcon: _selectedOption == null,
+        color: widget.color,
       )
     ]);
   }

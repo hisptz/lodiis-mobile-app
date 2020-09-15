@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/core/components/input_fields/input_checked_cion.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 
 class OrganisationUnitInputFieldContainer extends StatelessWidget {
@@ -11,6 +12,16 @@ class OrganisationUnitInputFieldContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(child: Text('ORGANISATION_UNIT'));
+    return Container(
+      child: Row(
+        children: [
+          Expanded(child: Text(inputField.valueType)),
+          InputCheckedIcon(
+            showTickedIcon: false,
+            color: inputField.color,
+          )
+        ],
+      ),
+    );
   }
 }

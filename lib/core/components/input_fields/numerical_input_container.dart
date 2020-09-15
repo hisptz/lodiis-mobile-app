@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/core/components/input_fields/input_checked_cion.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 
 class NumericalInputFieldContainer extends StatefulWidget {
@@ -34,15 +35,24 @@ class _NumericalInputFieldContainerState
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: TextFormField(
-          controller: numericalController,
-          keyboardType: TextInputType.number,
-          onChanged: onValueChange,
-          style: TextStyle().copyWith(color: valueColor),
-          decoration: InputDecoration(
-            border: InputBorder.none,
-            errorText: null,
-          )),
+      child: Row(
+        children: [
+          Expanded(
+              child: TextFormField(
+                  controller: numericalController,
+                  keyboardType: TextInputType.number,
+                  onChanged: onValueChange,
+                  style: TextStyle().copyWith(color: valueColor),
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    errorText: null,
+                  ))),
+          InputCheckedIcon(
+            showTickedIcon: false,
+            color: widget.inputField.color,
+          )
+        ],
+      ),
     );
   }
 }
