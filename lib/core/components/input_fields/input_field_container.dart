@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/core/components/input_fields/numerical_input_container.dart';
+import 'package:kb_mobile_app/core/components/input_fields/phone_number_input_field_container.dart';
 import 'package:kb_mobile_app/core/components/input_fields/select_input_field.dart';
 import 'package:kb_mobile_app/core/components/input_fields/text_input_field_container.dart';
 import 'package:kb_mobile_app/core/components/line_seperator.dart';
@@ -35,7 +36,28 @@ class InputFieldContainer extends StatelessWidget {
                           inputField: inputField,
                           onInputValueChange: (String value) =>
                               this.onInputValueChange(inputField.id, value))
-                      : Text(inputField.valueType)
+                      : inputField.valueType == 'PHONE_NUMBER'
+                          ? PhoneNumberInputFieldContainer(
+                              inputField: inputField,
+                              onInputValueChange: (String value) =>
+                                  this.onInputValueChange(inputField.id, value))
+                          : inputField.valueType == 'BOOLEAN'
+                              ? Container(child: Text('BOOLEAN'))
+                              : inputField.valueType == 'TRUE_ONLY'
+                                  ? Container(child: Text('TRUE_ONLY'))
+                                  : inputField.valueType == 'DATE'
+                                      ? Container(child: Text('DATE'))
+                                      : inputField.valueType ==
+                                              'ORGANISATION_UNIT'
+                                          ? Container(
+                                              child: Text('ORGANISATION_UNIT'))
+                                          : inputField.valueType == 'COORDINATE'
+                                              ? Container(
+                                                  child: Text('COORDINATE'))
+                                              : Container(
+                                                  child: Text(
+                                                      '${inputField.valueType} is not supported'),
+                                                )
           : Text(''),
     );
   }

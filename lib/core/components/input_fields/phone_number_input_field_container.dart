@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 
-class NumericalInputFieldContainer extends StatefulWidget {
-  const NumericalInputFieldContainer(
+class PhoneNumberInputFieldContainer extends StatefulWidget {
+  const PhoneNumberInputFieldContainer(
       {Key key, @required this.inputField, @required this.onInputValueChange})
       : super(key: key);
 
@@ -10,19 +10,20 @@ class NumericalInputFieldContainer extends StatefulWidget {
   final Function onInputValueChange;
 
   @override
-  _NumericalInputFieldContainerState createState() =>
-      _NumericalInputFieldContainerState();
+  _PhoneNumberInputFieldContainerState createState() =>
+      _PhoneNumberInputFieldContainerState();
 }
 
-class _NumericalInputFieldContainerState
-    extends State<NumericalInputFieldContainer> {
+class _PhoneNumberInputFieldContainerState
+    extends State<PhoneNumberInputFieldContainer> {
   Color valueColor = Color(0xFF182E35);
-  TextEditingController numericalController;
+  TextEditingController phoneNumberController;
 
   @override
   void initState() {
     super.initState();
-    numericalController = TextEditingController(text: widget.inputField.value);
+    phoneNumberController =
+        TextEditingController(text: widget.inputField.value);
   }
 
   void onValueChange(String value) {
@@ -35,8 +36,8 @@ class _NumericalInputFieldContainerState
   Widget build(BuildContext context) {
     return Container(
       child: TextFormField(
-          controller: numericalController,
-          keyboardType: TextInputType.number,
+          controller: phoneNumberController,
+          keyboardType: TextInputType.phone,
           onChanged: onValueChange,
           style: TextStyle().copyWith(color: valueColor),
           decoration: InputDecoration(
