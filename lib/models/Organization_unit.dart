@@ -1,9 +1,6 @@
 import 'dart:convert';
 
-OrganizationUnit userFromJson(String strl) =>
-    OrganizationUnit.fromJson(json.decode(strl));
 
-String userToJson(OrganizationUnit data) => json.encode(data.toJson());
 
 class OrganizationUnit {
   String id;
@@ -38,13 +35,7 @@ class OrganizationUnit {
         children: jsonEncode(childrens));
   }
 
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "parent": parent,
-        "name": name,
-        "program": {"id": program},
-        "children": children
-      };
+ 
 
   Map toOffline(OrganizationUnit organizationUnit) {
     

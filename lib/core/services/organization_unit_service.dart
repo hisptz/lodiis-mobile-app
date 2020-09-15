@@ -1,14 +1,19 @@
 import 'dart:convert';
 import 'package:kb_mobile_app/core/offline_db/organization_unit_offline/organization_unit_offline_provider.dart';
 import 'package:kb_mobile_app/core/services/http_service.dart';
+import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/models/Organization_unit.dart';
+import 'package:kb_mobile_app/models/current_user.dart';
+import 'package:kb_mobile_app/models/organization_unit.dart';
 
 class OrganizationUnitService {
-  List<OrganizationUnit> organizationUnitList = [];
+  List<OrganizationUnits> organizationUnitList = [];
   Future<dynamic> organizationUnit() async {
     var url =
         "api/organisationUnits.json?fields=id,name,programs,parent[id],children[id]&paging=false";
-    HttpService http = HttpService(username: "admin", password: "district");
+    CurrentUser user = await UserService().getCurrentUser();
+    HttpService http =
+        HttpService(username: user.username, password: user.password);
 
     var response = await http.httpGet(url);
 
@@ -16,13 +21,14 @@ class OrganizationUnitService {
     if (response.statusCode == 200) {
       final responseData = json.decode(response.body);
 
-      for (int i = 0; i < responseData["organisationUnits"].length; i++) {
-        print((responseData["organisationUnits"][i]));
-        organizationUnitList.add(
-            OrganizationUnit.fromJson(responseData["organisationUnits"][i]));
-      }
+      for (var organization in responseData["organisationUnits"]) {
+      
 
-      setOrganizationUnit(organizationUnitList);
+        organizationUnitList
+            .add(OrganizationUnits.fromJson(organization));
+      }
+      
+      // setOrganizationUnit(organizationUnitList);
     } else {
       return null;
     }
@@ -36,6 +42,7 @@ class OrganizationUnitService {
   List<OrganizationUnit> get orgList {
     //test data on comming
     print(organizationUnitList);
-    return organizationUnitList;
+    return null;
+    //organizationUnitList;
   }
 }
