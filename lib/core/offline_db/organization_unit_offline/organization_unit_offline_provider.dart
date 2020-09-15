@@ -1,8 +1,6 @@
 import 'package:kb_mobile_app/core/offline_db/offline_db_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/organization_unit_offline/Organization_program_offline_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/organization_unit_offline/organization_children_offline_provider.dart';
-import 'package:kb_mobile_app/core/services/organization_unit_service.dart';
-import 'package:kb_mobile_app/models/Organization_unit.dart';
 import 'package:kb_mobile_app/models/organization_unit.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
@@ -12,9 +10,6 @@ class OrganizationUnitOffline extends OfflineDbProvider {
   String id = 'id';
   String name = 'name';
   String parent = 'parent';
-
-  //table name
-  static const String TABLE = 'organizations';
 
   Future<Database> get db async {
     if (_db != null) {
@@ -35,13 +30,14 @@ class OrganizationUnitOffline extends OfflineDbProvider {
 
   _onCreate(Database db, int version) async {
     await db.execute(
-        "CREATE TABLE IF NOT EXISTS  $TABLE ($id TEXT PRIMARY KEY, $name TEXT, $parent TEXT)");
+        "CREATE TABLE IF NOT EXISTS  ${OrganizationUnits.organizationUnitTable} ($id TEXT PRIMARY KEY, $name TEXT, $parent TEXT)");
   }
 
   addOrUpdateOrganizationUnits(List<OrganizationUnits> organizationUnit) async {
     var dbClient = await db;
     organizationUnit.forEach((organization) async {
-      await dbClient.insert(TABLE, organization.toOffline(organization),
+      await dbClient.insert(OrganizationUnits.organizationUnitTable,
+          organization.toOffline(organization),
           conflictAlgorithm: ConflictAlgorithm.replace);
       await OrganizationUnitChildrenOfflineProvider()
           .addOrUpdateChildrenOrganizationUnits(organization);
@@ -49,19 +45,41 @@ class OrganizationUnitOffline extends OfflineDbProvider {
           .addOrUpdateProgramOrganizationUnits(organization);
     });
   }
-   deleteOrganization(String organizationId) async {
+
+  deleteOrganization(String organizationId) async {
     var dbClient = await db;
-    return await dbClient
-        .delete(TABLE, where: '$id = ?', whereArgs: [organizationId]);
+    return await dbClient.delete(OrganizationUnits.organizationUnitTable,
+        where: '$id = ?', whereArgs: [organizationId]);
   }
 
-  Future<List<OrganizationUnits>> getOrganizationUnit() async {
-    // ignore: await_only_futures
-    var dbClient = await db;
-
-    dbClient.query(TABLE, columns: [id,name,parent]);
-
-   
+  Future<List<OrganizationUnits>> getOrganizationUnits() async {
+    List<OrganizationUnits> organizationUnitList = [];
+    try {
+      var dbClient = await db;
+      List<Map> maps = await dbClient.query(
+        OrganizationUnits.organizationUnitTable,
+        columns: [
+          id,
+          name,
+          parent,
+        ],
+      );
+      if (maps.isNotEmpty) {
+        for (Map map in maps) {
+          String organizationUnitId = map['id'];
+          List childrens = await OrganizationUnitChildrenOfflineProvider()
+              .getChildrenOrganisationUnits(organizationUnitId);
+          List programs = await OrganizationUnitProgramOfflineProvider()
+              .getProgramOrganisationUnits(organizationUnitId);
+          OrganizationUnits organizationUnits =
+              OrganizationUnits.fromOffline(map);
+          organizationUnits.program = programs;
+          organizationUnits.children = childrens;
+          organizationUnitList.add(organizationUnits);
+        }
+      }
+    } catch (e) {}
+    return organizationUnitList;
   }
 
   close() async {

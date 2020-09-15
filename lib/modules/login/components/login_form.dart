@@ -6,7 +6,6 @@ import 'package:kb_mobile_app/core/components/form_field_input_icon.dart';
 import 'package:kb_mobile_app/core/constants/custom_color.dart';
 import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
-import 'package:kb_mobile_app/models/Organization_unit.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/modules/intervention_selection/intervention_selection.dart';
 import 'package:kb_mobile_app/modules/login/components/login_button.dart';
@@ -69,7 +68,7 @@ class _LoginFormState extends State<LoginForm> {
           .login(currentUser.username.trim(), currentUser.password.trim());
       if (user != null) {
         await UserService().setCurrentUser(user);
-         await OrganizationUnitService().organizationUnit();
+         await OrganizationUnitService().organizationUnitGetRequest();
 
         
 

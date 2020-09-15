@@ -1,22 +1,12 @@
 import 'package:kb_mobile_app/core/offline_db/offline_db_provider.dart';
-import 'package:kb_mobile_app/core/services/organization_unit_service.dart';
-import 'package:kb_mobile_app/models/Organization_unit.dart';
 import 'package:kb_mobile_app/models/organization_unit.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
 class OrganizationUnitProgramOfflineProvider extends OfflineDbProvider {
-
-
   Database _db;
   String id = 'id';
   String organizationId = 'organiationId';
-  
-
-  //table name
-  static const String TABLE = 'organization_unit_program';
-
-
 
   Future<Database> get db async {
     if (_db != null) {
@@ -37,46 +27,47 @@ class OrganizationUnitProgramOfflineProvider extends OfflineDbProvider {
 
   _onCreate(Database db, int version) async {
     await db.execute(
-        "CREATE TABLE IF NOT EXISTS  $TABLE ($id TEXT , $organizationId TEXT,PRIMARY KEY ($id ,$organizationId))");
-
+        "CREATE TABLE IF NOT EXISTS  ${OrganizationUnits.organizationTrogramTable} ($id TEXT , $organizationId TEXT,PRIMARY KEY ($id ,$organizationId))");
   }
 
-  addOrUpdateProgramOrganizationUnits(OrganizationUnits organizationUnit) async {
-
-
+  addOrUpdateProgramOrganizationUnits(
+      OrganizationUnits organizationUnit) async {
     var dbClient = await db;
-  
-     for (id in organizationUnit.program) {
 
+    for (id in organizationUnit.program) {
       var map = Map<String, dynamic>();
       map['id'] = id;
       map['organiationId'] = organizationUnit.id;
 
-      await dbClient.insert(TABLE, map,
+      await dbClient.insert(OrganizationUnits.organizationTrogramTable, map,
           conflictAlgorithm: ConflictAlgorithm.replace);
     }
-
-          
-  
   }
 
-   deleteOrganizationProgram(String programId) async {
+  deleteOrganization(String organizationUnitId) async {
     var dbClient = await db;
-    return await dbClient
-        .delete(TABLE, where: '$id = ?', whereArgs: [programId]);
+    return await dbClient.delete(OrganizationUnits.organizationTrogramTable,
+        where: '$organizationId = ?', whereArgs: [organizationUnitId]);
   }
 
-  Future<dynamic> getOrganizationUnit() async {
-    // ignore: await_only_futures
-    final _db = await db;
+  Future<List> getProgramOrganisationUnits(String organizationUnitId) async {
+    List programOrganisationUnits = [];
 
-    var res = await _db.query("$TABLE");
-    if (res.length < 0) {
-      return null;
-    } else {
-      var resMap = res[0];
-      return resMap.isNotEmpty ? resMap : null;
+    var dbClient = await db;
+    List<Map> maps = await dbClient
+        .query(OrganizationUnits.organizationTrogramTable, columns: [
+      id,
+      organizationId,
+    ]);
+    if (maps.isNotEmpty) {
+      for (Map map in maps) {
+        if (map['organiationId'] == organizationUnitId) {
+          programOrganisationUnits.add(map['id']);
+        }
+      }
     }
+
+    return programOrganisationUnits;
   }
 
   close() async {
