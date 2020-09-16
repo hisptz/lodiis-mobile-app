@@ -5,6 +5,8 @@ import 'package:kb_mobile_app/core/components/input_fields/input_field_container
 import 'package:kb_mobile_app/core/components/material_card.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
+import 'package:kb_mobile_app/models/input_field.dart';
+import 'package:kb_mobile_app/models/input_field_option.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:provider/provider.dart';
 
@@ -15,6 +17,13 @@ class DreamsEnrollmentForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<InputFieldOption> options = [
+      // InputFieldOption(code: 'one', name: 'One'),
+      // InputFieldOption(code: 'two', name: 'Two'),
+      // InputFieldOption(code: 'three', name: 'Three'),
+      // InputFieldOption(code: 'four', name: 'Four'),
+      // InputFieldOption(code: 'five', name: 'Five')
+    ];
     return SafeArea(
         child: Scaffold(
             appBar: PreferredSize(
@@ -34,9 +43,21 @@ class DreamsEnrollmentForm extends StatelessWidget {
               body: Container(
                   margin:
                       EdgeInsets.symmetric(vertical: 16.0, horizontal: 13.0),
-                  height: 200,
                   child: MaterialCard(
-                    body: InputFieldContainer(color: Colors.blueAccent),
+                    body: InputFieldContainer(
+                      inputField: InputField(
+                          id: 'id',
+                          name: 'Label one',
+                          color: Colors.blueGrey,
+                          description: 'hint for the input field',
+                          valueType: 'TRUE_ONLY',
+                          hasSubInputField: false,
+                          value: '[-34.5555, -5.6066]',
+                          options: options),
+                      onInputValueChange: (String id, dynamic value) {
+                        print('id : $id, value : $value');
+                      },
+                    ),
                   )),
             ),
             bottomNavigationBar: InterventionBottomNavigationBarContainer()));
