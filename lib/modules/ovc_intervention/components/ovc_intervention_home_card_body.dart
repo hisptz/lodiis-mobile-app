@@ -64,7 +64,7 @@ class OvcInterventionBodyData extends StatelessWidget {
                                     children: [
                                      
                                       Padding(
-                                        padding: const EdgeInsets.only(right: 48),
+                                        padding: const EdgeInsets.only(right: 0),
                                         child: Text(
                                           "# of OVC",
                                           style: TextStyle(
@@ -92,16 +92,16 @@ class OvcInterventionBodyData extends StatelessWidget {
                                                   ),
  
 
-                                                  //  Expanded(
+                                                   Expanded(
                                                   
-                                                  //    child: Container(
-                                                  //      color: Colors.red,
-
-                                                  //    ),)
-                                          //            Text("     male - 1",
-                                          // style: TextStyle(
-                                          //     color: Color.fromRGBO(
-                                          //         26, 53, 24, 0.75))))
+                                                     child:     Text("     male - 1",
+                                          style: TextStyle(
+                                              color: Color.fromRGBO(
+                                                  26, 53, 24, 0.75))))
+                                                     
+                                                     
+                                                     ),
+                                                 
 
 
                                     ],
