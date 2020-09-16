@@ -23,8 +23,6 @@ class _BooleanInputFieldContainerState
     InputFieldOption(name: 'No', code: false),
   ];
 
-  onValueChange(bool value) {}
-
   @override
   Widget build(BuildContext context) {
     return RadioInputFieldContainer(

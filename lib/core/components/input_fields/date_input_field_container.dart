@@ -10,7 +10,6 @@ class DateInputFieldContainer extends StatefulWidget {
       @required this.onInputValueChange,
       this.allowFuturePeriod = true})
       : super(key: key);
-
   final InputField inputField;
   final Function onInputValueChange;
   final bool allowFuturePeriod;
@@ -50,6 +49,7 @@ class _DateInputFieldContainerState extends State<DateInputFieldContainer> {
       setState(() {
         _date = AppUtil.formattedDateTimeIntoString(date);
         dateController = TextEditingController(text: _date);
+        widget.onInputValueChange(_date);
       });
   }
 
