@@ -17,11 +17,11 @@ class OvcServicesPage extends StatelessWidget {
           
                   child: Column(
             children: [
-            OvcInterventionCardState(editService: true, addExit: false, editEnrollment: false, editReferral: false,),
-            OvcInterventionCardState(editService: true, addExit: false, editEnrollment: false, editReferral: false,),
-            OvcInterventionCardState(editService: true, addExit: false, editEnrollment: false, editReferral: false,),
-            OvcInterventionCardState(editService: true, addExit: false, editEnrollment: false, editReferral: false,),
-            OvcInterventionCardState(editService: true, addExit: false, editEnrollment: false, editReferral: false,),
+            OvcInterventionCard(editService: true, addExit: false, editEnrollment: false, editReferral: false,),
+            OvcInterventionCard(editService: true, addExit: false, editEnrollment: false, editReferral: false,),
+            OvcInterventionCard(editService: true, addExit: false, editEnrollment: false, editReferral: false,),
+            OvcInterventionCard(editService: true, addExit: false, editEnrollment: false, editReferral: false,),
+            OvcInterventionCard(editService: true, addExit: false, editEnrollment: false, editReferral: false,),
             ],
           
       ),

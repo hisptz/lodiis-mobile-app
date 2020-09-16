@@ -4,11 +4,11 @@ import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_interventi
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_intervention_home_card_body.dart';
 
 // ignore: must_be_immutable
-class OvcInterventionCardState extends StatelessWidget {
+class OvcInterventionCard extends StatelessWidget {
   bool editService, editReferral, editEnrollment, addExit;
   bool showChild = false;
 
-  OvcInterventionCardState(
+  OvcInterventionCard(
       {@required this.editService,
       @required this.editReferral,
       @required this.editEnrollment,

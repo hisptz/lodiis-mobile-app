@@ -1,5 +1,5 @@
 import 'package:kb_mobile_app/core/offline_db/offline_db_provider.dart';
-import 'package:kb_mobile_app/core/offline_db/organization_unit_offline/Organization_program_offline_provider.dart';
+import 'package:kb_mobile_app/core/offline_db/organization_unit_offline/organization_program_offline_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/organization_unit_offline/organization_children_offline_provider.dart';
 import 'package:kb_mobile_app/models/organization_unit.dart';
 import 'package:sqflite/sqflite.dart';
