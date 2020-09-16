@@ -48,12 +48,15 @@ class DreamsEnrollmentForm extends StatelessWidget {
                       inputField: InputField(
                           id: 'id',
                           name: 'Label one',
-                          color: Colors.amberAccent,
+                          color: Colors.blueGrey,
                           description: 'hint for the input field',
-                          valueType: 'DATE',
-                          value: '2020-09-04',
+                          valueType: 'TRUE_ONLY',
                           hasSubInputField: false,
+                          value: '[-34.5555, -5.6066]',
                           options: options),
+                      onInputValueChange: (String id, dynamic value) {
+                        print('id : $id, value : $value');
+                      },
                     ),
                   )),
             ),
