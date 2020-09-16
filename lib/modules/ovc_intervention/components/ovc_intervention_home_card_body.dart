@@ -100,7 +100,7 @@ class OvcInterventionBodyData extends StatelessWidget {
                                                   26, 53, 24, 0.75))))
                                                      
                                                      
-                                                     ),
+                                                     
                                                  
 
 
