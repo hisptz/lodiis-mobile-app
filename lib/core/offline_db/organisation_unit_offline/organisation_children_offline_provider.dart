@@ -73,4 +73,3 @@ class OrganisationUnitChildrenOfflineProvider extends OfflineDbProvider {
     dbClient.close();
   }
 }
-
