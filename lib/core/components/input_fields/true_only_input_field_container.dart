@@ -58,7 +58,10 @@ class _TrueOnlyInputFieldContainerState
                 activeColor: widget.inputField.color,
                 trackColor: inActiveColor,
                 value: _value,
-                onChanged: onSetValue)),
+                onChanged: (bool value) {
+                  onSetValue(value);
+                  widget.onInputValueChange(value ? value : '');
+                })),
       ],
     );
   }

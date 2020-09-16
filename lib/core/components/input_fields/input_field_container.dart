@@ -116,13 +116,18 @@ class InputFieldContainer extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+                  Expanded(child: Container(child: _getInputField(inputField))),
                   Expanded(
-                      flex: 3,
-                      child: Container(child: _getInputField(inputField))),
-                  Expanded(
-                      flex: 2,
-                      child: Container(
-                          child: _getInputField(inputField.subInputField))),
+                      child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Container(
+                        child: Text(inputField.subInputField.name),
+                      ),
+                      Container(
+                          child: _getInputField(inputField.subInputField)),
+                    ],
+                  )),
                 ],
               )),
           Visibility(
