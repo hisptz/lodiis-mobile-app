@@ -6,7 +6,6 @@ import 'package:kb_mobile_app/core/components/material_card.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
-import 'package:kb_mobile_app/models/input_field_option.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:provider/provider.dart';
 
@@ -17,13 +16,6 @@ class OvcEnrollmentForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<InputFieldOption> options = [
-      // InputFieldOption(code: 'one', name: 'One'),
-      // InputFieldOption(code: 'two', name: 'Two'),
-      // InputFieldOption(code: 'three', name: 'Three'),
-      // InputFieldOption(code: 'four', name: 'Four'),
-      // InputFieldOption(code: 'five', name: 'Five')
-    ];
     return SafeArea(
         child: Scaffold(
             appBar: PreferredSize(
@@ -46,14 +38,13 @@ class OvcEnrollmentForm extends StatelessWidget {
                   child: MaterialCard(
                     body: InputFieldContainer(
                       inputField: InputField(
-                          id: 'id',
-                          name: 'Label one',
-                          color: Colors.blueGrey,
-                          description: 'hint for the input field',
-                          valueType: 'ORGANISATION_UNIT',
-                          hasSubInputField: false,
-                          value: '',
-                          options: options),
+                        id: 'id',
+                        name: 'Label one',
+                        color: Colors.blueGrey,
+                        description: 'hint for the input field',
+                        valueType: 'ORGANISATION_UNIT',
+                        hasSubInputField: false,
+                      ),
                       onInputValueChange: (String id, dynamic value) {
                         print('id : $id, value : $value');
                       },

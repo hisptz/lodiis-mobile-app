@@ -20,6 +20,7 @@ class InputFieldContainer extends StatelessWidget {
   final Function onInputValueChange;
 
   Widget _getInputField(InputField inputField) {
+    print(inputField);
     return Container(
       child: inputField != null
           ? inputField.options.length > 0
@@ -122,7 +123,9 @@ class InputFieldContainer extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Container(
-                        child: Text(inputField.subInputField.name),
+                        child: Text(inputField.subInputField != null
+                            ? inputField.subInputField.name
+                            : ''),
                       ),
                       Container(
                           child: _getInputField(inputField.subInputField)),
