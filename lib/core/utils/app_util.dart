@@ -14,9 +14,17 @@ class AppUtil {
     return Uuid().v1().replaceAll('-', '').substring(0, 10);
   }
 
+  static String formattedDateTimeIntoString(DateTime date) {
+    return date.toIso8601String().split('T')[0];
+  }
+
+  static DateTime getDateIntoDateTimeFormat(String date) {
+    return DateTime.parse(date);
+  }
+
   static int getAgeInYear(String dateOfBirth) {
     DateTime currentDate = DateTime.now();
-    DateTime birthDate = DateTime.parse(dateOfBirth);
+    DateTime birthDate = getDateIntoDateTimeFormat(dateOfBirth);
     int age = currentDate.year - birthDate.year;
     if (birthDate.month > currentDate.month) {
       age--;
