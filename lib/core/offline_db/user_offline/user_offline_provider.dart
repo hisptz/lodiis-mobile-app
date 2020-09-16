@@ -46,12 +46,13 @@ class UserOfflineProvider extends OfflineDbProvider {
     await UserProgramOfflineProvider().addOrUpdateUserPrograms(user);
   }
 
-  deleteUser(String userId) async {
+
+ deleteUser(String userId) async {
     var dbClient = await db;
     return await dbClient
         .delete(CurrentUser.userTable, where: '$id = ?', whereArgs: [userId]);
   }
-
+  
   Future<List<CurrentUser>> getUsers() async {
     List<CurrentUser> users = [];
     try {
@@ -83,10 +84,19 @@ class UserOfflineProvider extends OfflineDbProvider {
       print('eror : e');
     }
     return users;
+
   }
 
-  close() async {
+
+close() async {
     var dbClient = await db;
     dbClient.close();
   }
+
+
+
+
+
+  
+
 }

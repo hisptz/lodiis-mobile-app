@@ -12,6 +12,7 @@ import 'package:kb_mobile_app/modules/login/components/login_button.dart';
 import 'package:kb_mobile_app/core/components/line_seperator.dart';
 import 'package:kb_mobile_app/modules/login/constants/login_style.dart';
 import 'package:provider/provider.dart';
+import 'package:kb_mobile_app/core/services/organization_unit_service.dart';
 
 class LoginForm extends StatefulWidget {
   @override
@@ -33,7 +34,9 @@ class _LoginFormState extends State<LoginForm> {
             user ?? new CurrentUser(username: "admin", password: "district");
       });
     });
+   
     this.loginFormState = Provider.of<LoginFormState>(context, listen: false);
+  
   }
 
   void updateInputActiveStatus(String activeField) {
@@ -65,6 +68,10 @@ class _LoginFormState extends State<LoginForm> {
           .login(currentUser.username.trim(), currentUser.password.trim());
       if (user != null) {
         await UserService().setCurrentUser(user);
+         await OrganizationUnitService().organizationUnitGetRequest();
+
+        
+
         Timer(Duration(seconds: 2), () {
           Navigator.pushReplacement(
                   context,

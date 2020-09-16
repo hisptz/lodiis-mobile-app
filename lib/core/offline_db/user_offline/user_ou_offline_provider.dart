@@ -21,6 +21,7 @@ class UserOuOfflineProvider extends OfflineDbProvider {
   init() async {
     var databasesPath = await getDatabasesPath();
     String path = join(databasesPath, '$databaseName.db');
+    
     var db = await openDatabase(path, version: version, onCreate: _onCreate);
     return db;
   }
@@ -29,6 +30,8 @@ class UserOuOfflineProvider extends OfflineDbProvider {
     String createTableQuery =
         "CREATE TABLE IF NOT EXISTS ${CurrentUser.userOrganisatonUnitTable} ($id TEXT PRIMARY KEY, $userId TEXT)";
     await db.execute(createTableQuery);
+
+      
   }
 
   addOrUpdateUserOrganisationUnits(CurrentUser user) async {
