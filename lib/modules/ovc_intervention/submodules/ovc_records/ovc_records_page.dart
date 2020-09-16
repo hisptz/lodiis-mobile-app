@@ -16,11 +16,11 @@ class OvcRecordsPage extends StatelessWidget {
         body: SingleChildScrollView(
               child: Column(
             children: [
-              OvcInterventionCard(addExit: false, editEnrollment: false, editReferral: false, editService: false,),
-               OvcInterventionCard(addExit: false, editEnrollment: false, editReferral: false, editService: false,),
-                OvcInterventionCard(addExit: false, editEnrollment: false, editReferral: false, editService: false,),
-                 OvcInterventionCard(addExit: false, editEnrollment: false, editReferral: false, editService: false,),
-                  OvcInterventionCard(addExit: false, editEnrollment: false, editReferral: false, editService: false,),
+              OvcInterventionCard(addExit: true, editEnrollment: false, editReferral: false, editService: false,),
+               OvcInterventionCard(addExit: true, editEnrollment: false, editReferral: false, editService: false,),
+                OvcInterventionCard(addExit: true, editEnrollment: false, editReferral: false, editService: false,),
+                 OvcInterventionCard(addExit: true, editEnrollment: false, editReferral: false, editService: false,),
+                  OvcInterventionCard(addExit: true, editEnrollment: false, editReferral: false, editService: false,),
             ],
           
         ),

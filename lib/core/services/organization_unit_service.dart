@@ -21,8 +21,8 @@ class OrganizationUnitService {
       var responseData = json.decode(response.body);
 
       for (var organization in responseData["organisationUnits"]) {
-        organizationUnitList.add(OrganizationUnits.fromJson(organization));
-      }
+                organizationUnitList.add(OrganizationUnits.fromJson(organization));
+                 }
       setOrganizationUnits(organizationUnitList);
     } else {
       return null;
