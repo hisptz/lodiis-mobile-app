@@ -73,14 +73,14 @@ class OvcInterventionCard extends StatelessWidget {
                       Visibility(
                           visible: true,
                           child: Expanded(
-                              flex: 2,
+                              flex:  addExit ? 3 :2,
                               child: SvgPicture.asset(
                                   "assets/icons/hh_icon.svg"))),
                       Visibility(
                           visible: true,
                           child: Expanded(
                             //6  on three , 9 on one
-                            flex: editService || editReferral ? 9 : 6,
+                            flex: editService || editReferral || editEnrollment ? 9 : 9,
                             child: Text(
                               "HHID-IL-00120820",
                               style: TextStyle(
@@ -94,7 +94,7 @@ class OvcInterventionCard extends StatelessWidget {
                               ? false
                               : true,
                           child: Expanded(
-                              flex: 1,
+                              flex: 2,
                               child: SvgPicture.asset(
                                 "assets/icons/expand_icon.svg",
                               ))),
@@ -103,7 +103,7 @@ class OvcInterventionCard extends StatelessWidget {
                               ? false
                               : true,
                           child: Expanded(
-                            flex: 1,
+                            flex: 2,
                             child: SvgPicture.asset(
                               "assets/icons/edit_icon.svg",
                             ),
