@@ -38,6 +38,7 @@ class _TextInputFieldContainerState extends State<TextInputFieldContainer> {
                   maxLines:
                       widget.inputField.valueType == 'LONG_TEXT' ? null : 1,
                   keyboardType: TextInputType.text,
+                  textInputAction: TextInputAction.done,
                   style: TextStyle().copyWith(color: Color(0xFF182E35)),
                   decoration: InputDecoration(
                     border: InputBorder.none,

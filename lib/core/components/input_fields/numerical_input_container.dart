@@ -43,6 +43,7 @@ class _NumericalInputFieldContainerState
                   keyboardType: TextInputType.number,
                   onChanged: onValueChange,
                   style: TextStyle().copyWith(color: valueColor),
+                  textInputAction: TextInputAction.done,
                   decoration: InputDecoration(
                     border: InputBorder.none,
                     errorText: null,

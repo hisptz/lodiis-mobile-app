@@ -44,6 +44,7 @@ class _PhoneNumberInputFieldContainerState
                   keyboardType: TextInputType.phone,
                   onChanged: onValueChange,
                   style: TextStyle().copyWith(color: valueColor),
+                  textInputAction: TextInputAction.done,
                   decoration: InputDecoration(
                     border: InputBorder.none,
                     errorText: null,
