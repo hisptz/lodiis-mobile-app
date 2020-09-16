@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:uuid/uuid.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:geolocator/geolocator.dart';
 
 class AppUtil {
   static void setStatusBarColor(Color color) {
@@ -20,6 +21,10 @@ class AppUtil {
 
   static DateTime getDateIntoDateTimeFormat(String date) {
     return DateTime.parse(date);
+  }
+
+  static Future<Position> getCurrentLocation() async {
+    return await getCurrentPosition(desiredAccuracy: LocationAccuracy.best);
   }
 
   static int getAgeInYear(String dateOfBirth) {
