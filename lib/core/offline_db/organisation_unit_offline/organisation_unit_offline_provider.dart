@@ -32,7 +32,6 @@ class OrganisationUnitOffline extends OfflineDbProvider {
   _onCreate(Database db, int version) async {
     await db.execute(
         "CREATE TABLE IF NOT EXISTS  ${OrganisationUnits.organisationUnitTable} ($id TEXT PRIMARY KEY, $name TEXT, $parent TEXT, $level NUMBER)");
-
   }
 
   addOrUpdateOrganisationUnits(List<OrganisationUnits> organisationUnit) async {
@@ -60,12 +59,7 @@ class OrganisationUnitOffline extends OfflineDbProvider {
       var dbClient = await db;
       List<Map> maps = await dbClient.query(
         OrganisationUnits.organisationUnitTable,
-        columns: [
-          id,
-          name,
-          parent,
-          level
-        ],
+        columns: [id, name, parent, level],
       );
       if (maps.isNotEmpty) {
         for (Map map in maps) {
