@@ -25,7 +25,6 @@ class ServiceCardBottonAction extends StatelessWidget {
             children: [
               Expanded(
                   child: Container(
-                alignment: Alignment.topLeft,
                 child: MaterialButton(
                   onPressed: onOpenAssessmentForm,
                   child: Text('ASSESSMENT',

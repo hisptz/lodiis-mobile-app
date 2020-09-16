@@ -50,9 +50,13 @@ class DreamsEnrollmentForm extends StatelessWidget {
                           name: 'Label one',
                           color: Colors.blueGrey,
                           description: 'hint for the input field',
-                          valueType: 'TRUE_ONLY',
-                          hasSubInputField: false,
-                          value: '[-34.5555, -5.6066]',
+                          valueType: 'BOOLEAN',
+                          hasSubInputField: true,
+                          subInputField: InputField(
+                              id: 'id2',
+                              name: 'referral',
+                              color: Colors.amberAccent,
+                              valueType: 'TRUE_ONLY'),
                           options: options),
                       onInputValueChange: (String id, dynamic value) {
                         print('id : $id, value : $value');
