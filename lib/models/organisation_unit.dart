@@ -1,18 +1,18 @@
-class OrganizationUnits {
+class OrganisationUnits {
   String id;
   String parent;
   String name;
   List program;
   List children;
-  //tables for organzations Units
-  static const String organizationTrogramTable = 'organization_unit_program';
-  static const String organizationChildrenTable = 'organization_unit_children';
-  static const String organizationUnitTable = 'organizations';
+  //tables for organisations Units
+  static const String organisationTrogramTable = 'organisation_unit_program';
+  static const String organisationChildrenTable = 'organisation_unit_children';
+  static const String organisationUnitTable = 'organisations';
 
-  OrganizationUnits(
+  OrganisationUnits(
       {this.id, this.name, this.parent, this.program, this.children});
 
-  factory OrganizationUnits.fromJson(Map<String, dynamic> json) {
+  factory OrganisationUnits.fromJson(Map<String, dynamic> json) {
     List programList = json["programs"] as List<dynamic>;
     List childrenList = json["children"] as List<dynamic>;
 
@@ -26,7 +26,7 @@ class OrganizationUnits {
       childrens.add(children['id']);
     }
 
-    return OrganizationUnits(
+    return OrganisationUnits(
         id: json["id"],
         parent: json["id"],
         name: json["name"],
@@ -34,16 +34,16 @@ class OrganizationUnits {
         children: childrens);
   }
 
-  Map toOffline(OrganizationUnits organizationUnit) {
+  Map toOffline(OrganisationUnits organisationUnit) {
     var map = Map<String, dynamic>();
-    map['id'] = organizationUnit.id;
-    map['name'] = organizationUnit.name;
-    map['parent'] = organizationUnit.parent;
+    map['id'] = organisationUnit.id;
+    map['name'] = organisationUnit.name;
+    map['parent'] = organisationUnit.parent;
 
     return map;
   }
 
-  OrganizationUnits.fromOffline(Map<String, dynamic> map) {
+  OrganisationUnits.fromOffline(Map<String, dynamic> map) {
     this.id = map['id'];
     this.name = map['name'];
     this.parent = map['parent'];
