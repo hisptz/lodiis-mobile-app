@@ -1,8 +1,10 @@
+import 'package:flutter/material.dart';
+
 class InputFieldOption {
   String name;
-  String code;
+  dynamic code;
 
-  InputFieldOption({this.code, this.name});
+  InputFieldOption({@required this.code, @required this.name});
 
   @override
   String toString() => '$name $code';

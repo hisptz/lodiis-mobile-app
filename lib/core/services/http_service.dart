@@ -16,12 +16,14 @@ class HttpService {
   }
 
   Future<http.Response> httpPost(String url, body) async {
+    url = '$baseUrl/$url';
     return http.post(url,
         headers: {HttpHeaders.authorizationHeader: "Basic $basicAuth"},
         body: body);
   }
 
   Future<http.Response> httpPut(String url, body) async {
+    url = '$baseUrl/$url';
     return http.put(url,
         headers: {HttpHeaders.authorizationHeader: "Basic $basicAuth"},
         body: body);
