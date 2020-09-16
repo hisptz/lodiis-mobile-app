@@ -34,10 +34,17 @@ class _DateInputFieldContainerState extends State<DateInputFieldContainer> {
 
   void onOpenDateSelection(BuildContext context) async {
     DateTime date = await showDatePicker(
-        context: context,
-        initialDate: AppUtil.getDateIntoDateTimeFormat(_date),
-        firstDate: DateTime(1900),
-        lastDate: widget.allowFuturePeriod ? DateTime(2050) : DateTime.now());
+      context: context,
+      fieldLabelText: '${widget.inputField.name}',
+      initialDate: AppUtil.getDateIntoDateTimeFormat(_date),
+      firstDate: DateTime(1900),
+      confirmText: 'Ok',
+      cancelText: 'Cancel',
+      lastDate: widget.allowFuturePeriod ? DateTime(2050) : DateTime.now(),
+      helpText: '${widget.inputField.name}',
+      errorFormatText: 'Enter valid ${widget.inputField.name}',
+      errorInvalidText: 'Enter ${widget.inputField.name} in valid range',
+    );
 
     if (date != null)
       setState(() {
