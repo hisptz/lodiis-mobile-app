@@ -9,7 +9,7 @@ class OrganisationUnitService {
   List<OrganisationUnits> organisationUnitList = [];
   Future<dynamic> organisationUnitGetRequest() async {
     var url =
-        "api/organisationUnits.json?fields=id,name,programs,parent[id],children[id]&paging=false";
+        "api/organisationUnits.json?fields=id,name,programs,parent[id],level,children[id]&paging=false";
     CurrentUser user = await UserService().getCurrentUser();
     HttpService http =
         HttpService(username: user.username, password: user.password);

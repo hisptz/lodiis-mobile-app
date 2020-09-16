@@ -10,6 +10,7 @@ class OrganisationUnitOffline extends OfflineDbProvider {
   String id = 'id';
   String name = 'name';
   String parent = 'parent';
+  String level = 'level';
 
   Future<Database> get db async {
     if (_db != null) {
@@ -30,7 +31,8 @@ class OrganisationUnitOffline extends OfflineDbProvider {
 
   _onCreate(Database db, int version) async {
     await db.execute(
-        "CREATE TABLE IF NOT EXISTS  ${OrganisationUnits.organisationUnitTable} ($id TEXT PRIMARY KEY, $name TEXT, $parent TEXT)");
+        "CREATE TABLE IF NOT EXISTS  ${OrganisationUnits.organisationUnitTable} ($id TEXT PRIMARY KEY, $name TEXT, $parent TEXT, $level NUMBER)");
+
   }
 
   addOrUpdateOrganisationUnits(List<OrganisationUnits> organisationUnit) async {
@@ -62,6 +64,7 @@ class OrganisationUnitOffline extends OfflineDbProvider {
           id,
           name,
           parent,
+          level
         ],
       );
       if (maps.isNotEmpty) {
