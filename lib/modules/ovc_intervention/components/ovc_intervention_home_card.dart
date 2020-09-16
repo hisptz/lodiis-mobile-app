@@ -131,7 +131,11 @@ class OvcInterventionCard extends StatelessWidget {
               Visibility(
                 visible: editService ? true : false,
                 child: Container(
-                  decoration: BoxDecoration(),
+                   decoration: BoxDecoration(
+                    border: Border(
+                        bottom: BorderSide(
+                            color: Color.fromRGBO(75, 159, 70, 0.1),
+                            width: 3))),
                   child: Padding(
                     padding: const EdgeInsets.only(
                         top: 12, left: 21, right: 21, bottom: 14),
