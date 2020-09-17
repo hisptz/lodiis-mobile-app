@@ -27,24 +27,24 @@ class OrganisationUnitChildrenOfflineProvider extends OfflineDbProvider {
 
   _onCreate(Database db, int version) async {
     await db.execute(
-        "CREATE TABLE IF NOT EXISTS  ${OrganisationUnits.organisationChildrenTable} ($id TEXT , $organisationId TEXT,PRIMARY KEY ($id ,$organisationId))");
+        "CREATE TABLE IF NOT EXISTS  ${OrganisationUnit.organisationChildrenTable} ($id TEXT , $organisationId TEXT,PRIMARY KEY ($id ,$organisationId))");
   }
 
   addOrUpdateChildrenOrganisationUnits(
-      OrganisationUnits organisationUnit) async {
+      OrganisationUnit organisationUnit) async {
     var dbClient = await db;
     for (id in organisationUnit.children) {
       var map = Map<String, dynamic>();
       map['id'] = id;
       map['organisationId'] = organisationUnit.id;
-      await dbClient.insert(OrganisationUnits.organisationChildrenTable, map,
+      await dbClient.insert(OrganisationUnit.organisationChildrenTable, map,
           conflictAlgorithm: ConflictAlgorithm.replace);
     }
   }
 
   deleteOrganisationChildren(String organisationUnitId) async {
     var dbClient = await db;
-    return await dbClient.delete(OrganisationUnits.organisationChildrenTable,
+    return await dbClient.delete(OrganisationUnit.organisationChildrenTable,
         where: '$organisationId = ?', whereArgs: [organisationUnitId]);
   }
 
@@ -53,7 +53,7 @@ class OrganisationUnitChildrenOfflineProvider extends OfflineDbProvider {
 
     var dbClient = await db;
     List<Map> maps = await dbClient
-        .query(OrganisationUnits.organisationTrogramTable, columns: [
+        .query(OrganisationUnit.organisationTrogramTable, columns: [
       id,
       organisationId,
     ]);

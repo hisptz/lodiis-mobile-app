@@ -6,7 +6,7 @@ import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/models/organisation_unit.dart';
 
 class OrganisationUnitService {
-  List<OrganisationUnits> organisationUnitList = [];
+  List<OrganisationUnit> organisationUnitList = [];
   Future<dynamic> organisationUnitGetRequest() async {
     var url =
         "api/organisationUnits.json?fields=id,name,programs,parent[id],level,children[id]&paging=false";
@@ -21,7 +21,7 @@ class OrganisationUnitService {
       var responseData = json.decode(response.body);
 
       for (var organisation in responseData["organisationUnits"]) {
-        organisationUnitList.add(OrganisationUnits.fromJson(organisation));
+        organisationUnitList.add(OrganisationUnit.fromJson(organisation));
       }
       setOrganisationUnits(organisationUnitList);
     } else {
@@ -29,12 +29,12 @@ class OrganisationUnitService {
     }
   }
 
-  setOrganisationUnits(List<OrganisationUnits> organisationUnit) async {
+  setOrganisationUnits(List<OrganisationUnit> organisationUnit) async {
     await OrganisationUnitOffline()
         .addOrUpdateOrganisationUnits(organisationUnit);
   }
 
-  List<OrganisationUnits> get organisationList {
+  List<OrganisationUnit> get organisationList {
     return organisationUnitList;
   }
 }
