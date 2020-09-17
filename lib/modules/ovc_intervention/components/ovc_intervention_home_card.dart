@@ -13,10 +13,15 @@ class OvcInterventionCard extends StatelessWidget {
       @required this.editReferral,
       @required this.editEnrollment,
       @required this.addExit});
+
+    //this line used as the setstate in statefull widgets
+    // (context as Element).markNeedsBuild();
+    
   void onExpand(BuildContext context) {
     showChild = !showChild;
 
     print("on Expand");
+    //
     (context as Element).markNeedsBuild();
   }
 
@@ -55,7 +60,7 @@ class OvcInterventionCard extends StatelessWidget {
           borderRadius: BorderRadius.all(Radius.circular(12.0)),
         ),
         child: Container(
-          padding: EdgeInsets.all(12),
+          padding: EdgeInsets.all(1),
           child: Column(
             children: [
               Container(
@@ -66,21 +71,22 @@ class OvcInterventionCard extends StatelessWidget {
                             width: 3))),
                 margin: EdgeInsets.only(bottom: 3, top: 3),
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 12, bottom: 15),
+                  padding: const EdgeInsets.only(top: 12, bottom: 15,right: 10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Visibility(
                           visible: true,
                           child: Expanded(
-                              flex: 2,
+                              flex:  editEnrollment ? 3 :2,
                               child: SvgPicture.asset(
                                   "assets/icons/hh_icon.svg"))),
                       Visibility(
                           visible: true,
                           child: Expanded(
-                            //6  on three , 9 on one
-                            flex: editService || editReferral ? 9 : 6,
+                            
+                           // flex: editService || editReferral || addExit ? 8 : 8,
+                           flex:  8,
                             child: Text(
                               "HHID-IL-00120820",
                               style: TextStyle(
@@ -90,20 +96,20 @@ class OvcInterventionCard extends StatelessWidget {
                             ),
                           )),
                       Visibility(
-                          visible: editService || editReferral || editEnrollment
+                          visible: editService || editReferral || addExit
                               ? false
                               : true,
                           child: Expanded(
-                              flex: 1,
+                              flex: 2,
                               child: SvgPicture.asset(
                                 "assets/icons/expand_icon.svg",
                               ))),
                       Visibility(
-                          visible: editService || editReferral || editEnrollment
+                          visible: editService || editReferral || addExit
                               ? false
                               : true,
                           child: Expanded(
-                            flex: 1,
+                            flex: 2,
                             child: SvgPicture.asset(
                               "assets/icons/edit_icon.svg",
                             ),
@@ -131,7 +137,24 @@ class OvcInterventionCard extends StatelessWidget {
               Visibility(
                 visible: editService ? true : false,
                 child: Container(
-                  decoration: BoxDecoration(),
+                  
+                   decoration: BoxDecoration(
+                     color: Color.fromRGBO(75, 159, 70, 0.05),
+                    border: Border(
+                        bottom: BorderSide(
+                            color: Color.fromRGBO(75, 159, 70, 0.05),
+                            width: 1),
+                            
+                            right:BorderSide(
+                            color: Color.fromRGBO(75, 159, 70, 0.05),
+                            width: 1),
+                            left:  BorderSide(
+                            color: Color.fromRGBO(75, 159, 70, 0.05),
+                            width: 1),
+                             top: BorderSide(
+                            color: Color.fromRGBO(75, 159, 70, 0.05),
+                            width: 1)
+                            )),
                   child: Padding(
                     padding: const EdgeInsets.only(
                         top: 12, left: 21, right: 21, bottom: 14),
@@ -177,97 +200,138 @@ class OvcInterventionCard extends StatelessWidget {
 
               Visibility(
                 visible: editReferral ? true : false,
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                      top: 12, left: 21, right: 21, bottom: 14),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Expanded(
-                        flex: 9,
-                        child: Text(
-                          "",
+                child: Container(
+                  
+                   decoration: BoxDecoration(
+                     color: Color.fromRGBO(75, 159, 70, 0.05),
+                    border: Border(
+                        bottom: BorderSide(
+                            color: Color.fromRGBO(75, 159, 70, 0.05),
+                            width: 1),
+                            
+                            right:BorderSide(
+                            color: Color.fromRGBO(75, 159, 70, 0.05),
+                            width: 1),
+                            left:  BorderSide(
+                            color: Color.fromRGBO(75, 159, 70, 0.05),
+                            width: 1),
+                             top: BorderSide(
+                            color: Color.fromRGBO(75, 159, 70, 0.05),
+                            width: 1)
+                            )),
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                        top: 12, left: 21, right: 21, bottom: 14),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Expanded(
+                          flex: 9,
+                          child: Text(
+                            "",
+                          ),
                         ),
-                      ),
-                      Expanded(
-                        flex: 13,
-                        child: GestureDetector(
-                          child: Text("REFERRAL",
-                              style: TextStyle(
-                                color: Color(0xFF4B9F46),
-                                fontWeight: FontWeight.bold,
-                              )),
-                          onTap: () => onReferral(),
+                        Expanded(
+                          flex: 13,
+                          child: GestureDetector(
+                            child: Text("REFERRAL",
+                                style: TextStyle(
+                                  color: Color(0xFF4B9F46),
+                                  fontWeight: FontWeight.bold,
+                                )),
+                            onTap: () => onReferral(),
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),
 
               Visibility(
                 visible: addExit ? true : false,
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 12, left: 8, bottom: 14),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        child: Container(
-                          child: GestureDetector(
-                            child: Text("ACHIEVEMENT",
-                                style: TextStyle(
-                                    color: Color(0xFF4B9F46),
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 12)),
-                            onTap: () => onAchievment(),
-                          ),
-                        ),
-                        flex: 7,
-                      ),
-                      Expanded(
-                        child: Container(
-                          child: GestureDetector(
-                            child: Text("EXIT",
-                                style: TextStyle(
-                                    color: Color(0xFF4B9F46),
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 12)),
-                            onTap: () => onExit(),
-                          ),
-                        ),
-                        flex: 3,
-                      ),
-                      Expanded(
-                        child: Container(
+                child: Container(
+                
+                   decoration: BoxDecoration(
+                     color: Color.fromRGBO(75, 159, 70, 0.05),
+                    border: Border(
+                        bottom: BorderSide(
+                            color: Color.fromRGBO(75, 159, 70, 0.05),
+                            width: 1),
+                            
+                            right:BorderSide(
+                            color: Color.fromRGBO(75, 159, 70, 0.05),
+                            width: 1),
+                            left:  BorderSide(
+                            color: Color.fromRGBO(75, 159, 70, 0.05),
+                            width: 1),
+                             top: BorderSide(
+                            color: Color.fromRGBO(75, 159, 70, 0.05),
+                            width: 1)
+                            )),
+                  child: Padding(
+                    
+                    padding: const EdgeInsets.only(top: 12, left: 8, bottom: 14),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child: Container(
                             child: GestureDetector(
-                          child: Text("TRANSFER",
-                              style: TextStyle(
-                                  color: Color(0xFF4B9F46),
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 12)),
-                          onTap: () {
-                            print("on Transfer");
-                          },
-                        )),
-                        flex: 6,
-                      ),
-                      Expanded(
-                        child: Container(
-                          child: GestureDetector(
-                            child: Text("CLOSURE",
+                              child: Text("ACHIEVEMENT",
+                                  style: TextStyle(
+                                      color: Color(0xFF4B9F46),
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 12)),
+                              onTap: () => onAchievment(),
+                            ),
+                          ),
+                          flex: 7,
+                        ),
+                        Expanded(
+                          child: Container(
+                            child: GestureDetector(
+                              child: Text("EXIT",
+                                  style: TextStyle(
+                                      color: Color(0xFF4B9F46),
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 12)),
+                              onTap: () => onExit(),
+                            ),
+                          ),
+                          flex: 3,
+                        ),
+                        Expanded(
+                          child: Container(
+                              child: GestureDetector(
+                            child: Text("TRANSFER",
                                 style: TextStyle(
-                                    color: Color.fromRGBO(115, 115, 115, 0.5),
+                                    color: Color(0xFF4B9F46),
                                     fontWeight: FontWeight.bold,
                                     fontSize: 12)),
                             onTap: () {
-                              print("on Closure");
+                              print("on Transfer");
                             },
-                          ),
+                          )),
+                          flex: 6,
                         ),
-                        flex: 4,
-                      ),
-                    ],
+                        Expanded(
+                          child: Container(
+                            child: GestureDetector(
+                              child: Text("CLOSURE",
+                                  style: TextStyle(
+                                      color: Color.fromRGBO(115, 115, 115, 0.5),
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 12)),
+                              onTap: () {
+                                print("on Closure");
+                              },
+                            ),
+                          ),
+                          flex: 4,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -275,7 +339,8 @@ class OvcInterventionCard extends StatelessWidget {
               Visibility(
                 visible: showChild ? true : false,
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 18.08),
+               
+                  padding:editEnrollment ? const EdgeInsets.only(top:0):const EdgeInsets.only(top: 18.08),
                   child: AnimatedContainer(
                                       duration: Duration(seconds: 120),
                                       child: Column(
@@ -333,7 +398,7 @@ class OvcInterventionCard extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Expanded(
-                            flex: 9,
+                            flex: 7,
                             child: Text(
                               "",
                             ),
