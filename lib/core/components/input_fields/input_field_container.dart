@@ -136,7 +136,9 @@ class InputFieldContainer extends StatelessWidget {
           Visibility(
               visible: !inputField.hasSubInputField,
               child: Container(child: _getInputField(inputField))),
-          LineSeperator(color: inputField.inputColor ?? Colors.transparent)
+          LineSeperator(
+              color:
+                  inputField.inputColor.withOpacity(0.5) ?? Colors.transparent)
         ],
       ),
     );
