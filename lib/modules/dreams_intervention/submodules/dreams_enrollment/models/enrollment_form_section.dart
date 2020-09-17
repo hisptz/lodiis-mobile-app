@@ -12,7 +12,7 @@ class EnrollmentFormSection {
           subSections: [
             FormSection(
                 name: 'Caregiver',
-                color: Color(0xFFE5E5E5),
+                color: Color(0xFFB9B9B9),
                 inputFields: [
                   InputField(
                       id: 's1eRvsL2Ly4', name: 'First Name', valueType: 'TEXT'),
@@ -30,6 +30,7 @@ class EnrollmentFormSection {
                       id: 'vIX4GTSCX4P',
                       name: 'Sex',
                       valueType: 'TEXT',
+                      renderAsRadio: true,
                       options: [
                         InputFieldOption(code: 'Male', name: 'Male'),
                         InputFieldOption(code: 'Female', name: 'Female')
@@ -37,12 +38,13 @@ class EnrollmentFormSection {
                 ])
           ]),
       FormSection(
-          name: 'Thematic Area',
+          name: 'THEMATIC AREA',
           color: Color(0xFF1A3518),
           subSections: [
             FormSection(
                 name: 'ECONOMIC STRENGTHENING',
                 color: Color(0xFF4B9F46),
+                borderColor: Color(0xFF4B9F46),
                 inputFields: [
                   InputField(
                       id: 'tIl7nKaeO0K',
@@ -84,6 +86,7 @@ class EnrollmentFormSection {
             FormSection(
                 name: 'SURVIVAL AND HEALTH',
                 color: Color(0xFF9C27B0),
+                borderColor: Color(0xFF9C27B0),
                 inputFields: [
                   InputField(
                       id: 'ZPlqhoOZ8YD',
@@ -116,6 +119,7 @@ class EnrollmentFormSection {
             FormSection(
                 name: 'HEALTH, WATER, SANITATION & SHELTER',
                 color: Color(0xFF2196F3),
+                borderColor: Color(0xFF2196F3),
                 inputFields: [
                   InputField(
                       id: 'UCMMhdQ3OrB',
@@ -157,6 +161,7 @@ class EnrollmentFormSection {
             FormSection(
                 name: 'EDUCATION AND DEVELOPMENT',
                 color: Color(0xFF009688),
+                borderColor: Color(0xFF009688),
                 inputFields: [
                   InputField(
                       id: 'ae9oO3q6zJx',
@@ -171,6 +176,7 @@ class EnrollmentFormSection {
             FormSection(
                 name: 'PSYCHOSOCIAL SUPPORT AND BASIC CARE',
                 color: Color(0xFF9E9D24),
+                borderColor: Color(0xFF9E9D24),
                 inputFields: [
                   InputField(
                       id: 'SAlR1x703Ly',
@@ -185,6 +191,7 @@ class EnrollmentFormSection {
             FormSection(
                 name: 'CHILD CARE & PROTECTION',
                 color: Color(0xFFEF6C00),
+                borderColor: Color(0xFFEF6C00),
                 inputFields: [
                   InputField(
                       id: 'rbplnN6qdKz',
