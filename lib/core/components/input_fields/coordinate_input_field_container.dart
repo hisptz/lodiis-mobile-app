@@ -61,12 +61,12 @@ class _CoordinteInputFieldContainerState
                   : Container(
                       padding: EdgeInsets.symmetric(vertical: 10),
                       child: CircularProcessLoader(
-                        color: widget.inputField.color,
+                        color: widget.inputField.inputColor,
                       ),
                     )),
           InputCheckedIcon(
             showTickedIcon: false,
-            color: widget.inputField.color,
+            color: widget.inputField.inputColor,
           )
         ],
       ),

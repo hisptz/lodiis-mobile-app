@@ -50,7 +50,7 @@ class _NumericalInputFieldContainerState
                   ))),
           InputCheckedIcon(
             showTickedIcon: false,
-            color: widget.inputField.color,
+            color: widget.inputField.inputColor,
           )
         ],
       ),

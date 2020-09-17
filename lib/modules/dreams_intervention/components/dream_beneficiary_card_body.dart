@@ -51,8 +51,8 @@ class DreamBeneficiaryCardBody extends StatelessWidget {
                   Container(
                     margin: EdgeInsets.only(bottom: 10),
                     child: VerticalRowCardData(
-                        label: 'Status',
-                        value: 'Active',
+                        label: 'Enrolled Organisation unit',
+                        value: 'KB',
                         labelColor: labelColor,
                         valueColor: valueColor),
                   ),
@@ -81,8 +81,8 @@ class DreamBeneficiaryCardBody extends StatelessWidget {
                           HorizontalRowCardData(
                             labelColor: labelColor,
                             valueColor: valueColor,
-                            label: 'Status',
-                            value: 'Active',
+                            label: 'En Org',
+                            value: 'KB',
                           )
                         ],
                       )
@@ -155,14 +155,11 @@ class VerticalRowCardData extends StatelessWidget {
               color: labelColor, fontSize: 14.0, fontWeight: FontWeight.w500),
         )),
         Expanded(
-            flex: 3,
             child: Text(
-              value,
-              style: TextStyle().copyWith(
-                  color: valueColor,
-                  fontSize: 14.0,
-                  fontWeight: FontWeight.w500),
-            ))
+          value,
+          style: TextStyle().copyWith(
+              color: valueColor, fontSize: 14.0, fontWeight: FontWeight.w500),
+        ))
       ],
     );
   }

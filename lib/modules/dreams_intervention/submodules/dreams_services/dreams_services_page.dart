@@ -25,9 +25,13 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
     });
   }
 
-  void onOpenAssessmentForm() {}
+  void onOpenHTSForm() {}
 
-  void onOpenServiceForm() {}
+  void onOpenHRSForm() {}
+
+  void onOpenHIVPrepForm() {}
+
+  void onOpenHIVRegForm() {}
 
   void onOpenPrepForm() {}
 
@@ -55,9 +59,11 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
                     isVerticalLayout: cardId == toggleCardId,
                   ),
                   cardBottonActions: ServiceCardBottonAction(
-                    onOpenAssessmentForm: onOpenAssessmentForm,
-                    onOpenServiceForm: onOpenServiceForm,
                     onOpenPrepForm: onOpenPrepForm,
+                    onOpenHIVPrepForm: onOpenHIVPrepForm,
+                    onOpenHIVRegForm: onOpenHIVRegForm,
+                    onOpenHRSForm: onOpenHRSForm,
+                    onOpenHTSForm: onOpenHTSForm,
                   ),
                   cardBottonContent: Container(),
                 ))
