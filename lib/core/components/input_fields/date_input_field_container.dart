@@ -71,7 +71,7 @@ class _DateInputFieldContainerState extends State<DateInputFieldContainer> {
                   ))),
           InputCheckedIcon(
             showTickedIcon: false,
-            color: widget.inputField.color,
+            color: widget.inputField.inputColor,
           )
         ],
       ),

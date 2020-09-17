@@ -89,7 +89,7 @@ class InputFieldContainer extends StatelessWidget {
                     child: Text(
                   inputField.name,
                   style: TextStyle()
-                      .copyWith(color: inputField.color, fontSize: 14.0),
+                      .copyWith(color: inputField.labelColor, fontSize: 14.0),
                 ))
               ],
             ),
@@ -104,7 +104,7 @@ class InputFieldContainer extends StatelessWidget {
                         child: Text(
                       inputField.description,
                       style: TextStyle().copyWith(
-                          color: inputField.color,
+                          color: inputField.labelColor,
                           fontSize: 12.0,
                           fontStyle: FontStyle.italic,
                           fontWeight: FontWeight.normal),
@@ -136,7 +136,7 @@ class InputFieldContainer extends StatelessWidget {
           Visibility(
               visible: !inputField.hasSubInputField,
               child: Container(child: _getInputField(inputField))),
-          LineSeperator(color: inputField.color ?? Colors.transparent)
+          LineSeperator(color: inputField.inputColor ?? Colors.transparent)
         ],
       ),
     );

@@ -18,7 +18,7 @@ class OrganisationUnitInputFieldContainer extends StatelessWidget {
           Expanded(child: Text(inputField.valueType)),
           InputCheckedIcon(
             showTickedIcon: false,
-            color: inputField.color,
+            color: inputField.inputColor,
           )
         ],
       ),

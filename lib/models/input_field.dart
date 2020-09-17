@@ -7,7 +7,8 @@ class InputField {
   String description;
   String valueType;
   dynamic value;
-  Color color;
+  Color labelColor;
+  Color inputColor;
   Color background;
   List<InputFieldOption> options;
   bool hasSubInputField;
@@ -20,7 +21,8 @@ class InputField {
       this.hasSubInputField,
       this.description,
       this.value,
-      this.color,
+      this.inputColor,
+      this.labelColor,
       this.background,
       this.options,
       this.subInputField}) {
@@ -28,7 +30,8 @@ class InputField {
     this.hasSubInputField = this.hasSubInputField ?? false;
     this.value = this.value ?? null;
     this.options = this.options ?? [];
-    this.color = this.color ?? Colors.black;
+    this.inputColor = this.inputColor ?? Colors.black;
+    this.labelColor = this.labelColor ?? Colors.black;
     this.background = this.background ?? Colors.transparent;
   }
 
