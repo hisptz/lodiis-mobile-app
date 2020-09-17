@@ -31,7 +31,7 @@ class InputField {
     this.value = this.value ?? null;
     this.options = this.options ?? [];
     this.inputColor = this.inputColor ?? Colors.black;
-    this.labelColor = this.labelColor ?? Colors.black;
+    this.labelColor = this.labelColor ?? Color(0xFF1A3518);
     this.background = this.background ?? Colors.transparent;
   }
 
