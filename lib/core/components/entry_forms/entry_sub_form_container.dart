@@ -4,10 +4,12 @@ import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 
 class EntrySubFormContainer extends StatelessWidget {
-  const EntrySubFormContainer({Key key, @required this.subSections})
+  const EntrySubFormContainer(
+      {Key key, @required this.subSections, this.onInputValueChange})
       : super(key: key);
 
   final List<FormSection> subSections;
+  final Function onInputValueChange;
 
   @override
   Widget build(BuildContext context) {
@@ -17,13 +19,13 @@ class EntrySubFormContainer extends StatelessWidget {
         children: subSections
             .map(
               (FormSection subSection) => Container(
-                  margin: EdgeInsets.symmetric(vertical: 10.0),
+                  margin: EdgeInsets.symmetric(vertical: 15.0),
                   padding:
-                      EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
+                      EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
                   decoration: BoxDecoration(
                       border: Border(
                           left: BorderSide(
-                              color: subSection.borderColor, width: 10.0)),
+                              color: subSection.borderColor, width: 8.0)),
                       color: subSection.backgroundColor),
                   child: Column(
                     children: [
@@ -34,7 +36,7 @@ class EntrySubFormContainer extends StatelessWidget {
                               subSection.name,
                               style: TextStyle().copyWith(
                                   color: subSection.color,
-                                  fontSize: 12.0,
+                                  fontSize: 13.0,
                                   fontWeight: FontWeight.bold),
                             )
                           ],
@@ -43,19 +45,22 @@ class EntrySubFormContainer extends StatelessWidget {
                       Container(
                         child: Column(
                           children: subSection.inputFields
-                              .map((InputField inputField) =>
-                                  InputFieldContainer(
-                                    inputField: inputField,
-                                    onInputValueChange:
-                                        (String id, dynamic value) =>
-                                            print('id : $id - value : $value'),
+                              .map((InputField inputField) => Container(
+                                    margin: EdgeInsets.only(top: 10.0),
+                                    child: InputFieldContainer(
+                                        inputField: inputField,
+                                        onInputValueChange:
+                                            (String id, dynamic value) =>
+                                                onInputValueChange(id, value)),
                                   ))
                               .toList(),
                         ),
                       ),
                       Container(
                         child: EntrySubFormContainer(
-                            subSections: subSection.subSections),
+                          subSections: subSection.subSections,
+                          onInputValueChange: onInputValueChange,
+                        ),
                       )
                     ],
                   )),

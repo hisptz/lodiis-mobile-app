@@ -14,6 +14,10 @@ class DreamsEnrollmentForm extends StatelessWidget {
 
   final String label = 'Enrollement';
 
+  void onInputValueChange(String id, dynamic value) {
+    print('On form container :: id : $id - value : $value');
+  }
+
   @override
   Widget build(BuildContext context) {
     final List<FormSection> enrollmentForm =
@@ -37,7 +41,10 @@ class DreamsEnrollmentForm extends StatelessWidget {
               body: Container(
                   margin:
                       EdgeInsets.symmetric(vertical: 16.0, horizontal: 13.0),
-                  child: EntryFormContainer(formSections: enrollmentForm)),
+                  child: EntryFormContainer(
+                    formSections: enrollmentForm,
+                    onInputValueChange: onInputValueChange,
+                  )),
             ),
             bottomNavigationBar: InterventionBottomNavigationBarContainer()));
   }

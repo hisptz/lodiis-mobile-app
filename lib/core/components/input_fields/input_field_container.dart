@@ -19,62 +19,6 @@ class InputFieldContainer extends StatelessWidget {
   final InputField inputField;
   final Function onInputValueChange;
 
-  Widget _getInputField(InputField inputField) {
-    return Container(
-      child: inputField != null
-          ? inputField.options.length > 0
-              ? SelectInputField(
-                renderAsRadio: inputField.renderAsRadio,
-                  onInputValueChange: (dynamic value) =>
-                      this.onInputValueChange(inputField.id, value),
-                  options: inputField.options,
-                  selectedOption: null)
-              : inputField.valueType == 'TEXT' ||
-                      inputField.valueType == 'LONG_TEXT'
-                  ? TextInputFieldContainer(
-                      inputField: inputField,
-                      onInputValueChange: (dynamic value) =>
-                          this.onInputValueChange(inputField.id, value),
-                    )
-                  : inputField.valueType == 'INTEGER_ZERO_OR_POSITIVE' ||
-                          inputField.valueType == 'NUMBER'
-                      ? NumericalInputFieldContainer(
-                          inputField: inputField,
-                          onInputValueChange: (dynamic value) =>
-                              this.onInputValueChange(inputField.id, value))
-                      : inputField.valueType == 'PHONE_NUMBER'
-                          ? PhoneNumberInputFieldContainer(
-                              inputField: inputField,
-                              onInputValueChange: (dynamic value) =>
-                                  this.onInputValueChange(inputField.id, value))
-                          : inputField.valueType == 'BOOLEAN'
-                              ? BooleanInputFieldContainer(
-                                  inputField: inputField,
-                                  onInputValueChange: (dynamic value) => this
-                                      .onInputValueChange(inputField.id, value))
-                              : inputField.valueType == 'TRUE_ONLY'
-                                  ? TrueOnlyInputFieldContainer(
-                                      inputField: inputField,
-                                      onInputValueChange: (dynamic value) =>
-                                          this.onInputValueChange(
-                                              inputField.id, value))
-                                  : inputField.valueType == 'DATE'
-                                      ? DateInputFieldContainer(
-                                          inputField: inputField,
-                                          onInputValueChange: (dynamic value) =>
-                                              this.onInputValueChange(inputField.id, value))
-                                      : inputField.valueType == 'ORGANISATION_UNIT'
-                                          ? OrganisationUnitInputFieldContainer(inputField: inputField, onInputValueChange: (dynamic value) => this.onInputValueChange(inputField.id, value))
-                                          : inputField.valueType == 'COORDINATE'
-                                              ? CoordinteInputFieldContainer(inputField: inputField, onInputValueChange: (dynamic value) => this.onInputValueChange(inputField.id, value))
-                                              : Container(
-                                                  child: Text(
-                                                      '${inputField.valueType} is not supported'),
-                                                )
-          : Text(''),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -141,6 +85,62 @@ class InputFieldContainer extends StatelessWidget {
                   inputField.inputColor.withOpacity(0.5) ?? Colors.transparent)
         ],
       ),
+    );
+  }
+
+  Widget _getInputField(InputField inputField) {
+    return Container(
+      child: inputField != null
+          ? inputField.options.length > 0
+              ? SelectInputField(
+                  renderAsRadio: inputField.renderAsRadio,
+                  onInputValueChange: (dynamic value) =>
+                      this.onInputValueChange(inputField.id, value),
+                  options: inputField.options,
+                  selectedOption: null)
+              : inputField.valueType == 'TEXT' ||
+                      inputField.valueType == 'LONG_TEXT'
+                  ? TextInputFieldContainer(
+                      inputField: inputField,
+                      onInputValueChange: (dynamic value) =>
+                          this.onInputValueChange(inputField.id, value),
+                    )
+                  : inputField.valueType == 'INTEGER_ZERO_OR_POSITIVE' ||
+                          inputField.valueType == 'NUMBER'
+                      ? NumericalInputFieldContainer(
+                          inputField: inputField,
+                          onInputValueChange: (dynamic value) =>
+                              this.onInputValueChange(inputField.id, value))
+                      : inputField.valueType == 'PHONE_NUMBER'
+                          ? PhoneNumberInputFieldContainer(
+                              inputField: inputField,
+                              onInputValueChange: (dynamic value) =>
+                                  this.onInputValueChange(inputField.id, value))
+                          : inputField.valueType == 'BOOLEAN'
+                              ? BooleanInputFieldContainer(
+                                  inputField: inputField,
+                                  onInputValueChange: (dynamic value) => this
+                                      .onInputValueChange(inputField.id, value))
+                              : inputField.valueType == 'TRUE_ONLY'
+                                  ? TrueOnlyInputFieldContainer(
+                                      inputField: inputField,
+                                      onInputValueChange: (dynamic value) =>
+                                          this.onInputValueChange(
+                                              inputField.id, value))
+                                  : inputField.valueType == 'DATE'
+                                      ? DateInputFieldContainer(
+                                          inputField: inputField,
+                                          onInputValueChange: (dynamic value) =>
+                                              this.onInputValueChange(inputField.id, value))
+                                      : inputField.valueType == 'ORGANISATION_UNIT'
+                                          ? OrganisationUnitInputFieldContainer(inputField: inputField, onInputValueChange: (dynamic value) => this.onInputValueChange(inputField.id, value))
+                                          : inputField.valueType == 'COORDINATE'
+                                              ? CoordinteInputFieldContainer(inputField: inputField, onInputValueChange: (dynamic value) => this.onInputValueChange(inputField.id, value))
+                                              : Container(
+                                                  child: Text(
+                                                      '${inputField.valueType} is not supported'),
+                                                )
+          : Text(''),
     );
   }
 }

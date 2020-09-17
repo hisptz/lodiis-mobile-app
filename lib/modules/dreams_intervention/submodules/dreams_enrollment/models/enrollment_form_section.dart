@@ -54,7 +54,10 @@ class EnrollmentFormSection {
                       inputColor: Color(0xFF4B9F46),
                       hasSubInputField: true,
                       subInputField: InputField(
-                          id: null, name: 'Referral', valueType: 'TRUE_ONLY')),
+                          id: null,
+                          name: 'Referral',
+                          valueType: 'TRUE_ONLY',
+                          inputColor: Color(0xFF4B9F46))),
                   InputField(
                       id: 'rGHJIwsGFhM',
                       name:
@@ -63,7 +66,10 @@ class EnrollmentFormSection {
                       inputColor: Color(0xFF4B9F46),
                       hasSubInputField: true,
                       subInputField: InputField(
-                          id: null, name: 'Referral', valueType: 'TRUE_ONLY')),
+                          id: null,
+                          name: 'Referral',
+                          valueType: 'TRUE_ONLY',
+                          inputColor: Color(0xFF4B9F46))),
                   InputField(
                       id: 'TpjxuuSY2Do',
                       name:
@@ -72,7 +78,10 @@ class EnrollmentFormSection {
                       inputColor: Color(0xFF4B9F46),
                       hasSubInputField: true,
                       subInputField: InputField(
-                          id: null, name: 'Referral', valueType: 'TRUE_ONLY')),
+                          id: null,
+                          name: 'Referral',
+                          valueType: 'TRUE_ONLY',
+                          inputColor: Color(0xFF4B9F46))),
                   InputField(
                       id: 'Txd5uH337SN',
                       name:
@@ -81,7 +90,10 @@ class EnrollmentFormSection {
                       inputColor: Color(0xFF4B9F46),
                       hasSubInputField: true,
                       subInputField: InputField(
-                          id: null, name: 'Referral', valueType: 'TRUE_ONLY')),
+                          id: null,
+                          name: 'Referral',
+                          valueType: 'TRUE_ONLY',
+                          inputColor: Color(0xFF4B9F46))),
                 ]),
             FormSection(
                 name: 'SURVIVAL AND HEALTH',
@@ -96,7 +108,10 @@ class EnrollmentFormSection {
                       inputColor: Color(0xFF9C27B0),
                       hasSubInputField: true,
                       subInputField: InputField(
-                          id: null, name: 'Referral', valueType: 'TRUE_ONLY')),
+                          id: null,
+                          name: 'Referral',
+                          valueType: 'TRUE_ONLY',
+                          inputColor: Color(0xFF9C27B0))),
                   InputField(
                       id: 'UDbgJl7AEse',
                       name:
@@ -105,7 +120,10 @@ class EnrollmentFormSection {
                       inputColor: Color(0xFF9C27B0),
                       hasSubInputField: true,
                       subInputField: InputField(
-                          id: null, name: 'Referral', valueType: 'TRUE_ONLY')),
+                          id: null,
+                          name: 'Referral',
+                          valueType: 'TRUE_ONLY',
+                          inputColor: Color(0xFF9C27B0))),
                   InputField(
                       id: 'R0U52RV4Cxe',
                       name:
@@ -114,7 +132,10 @@ class EnrollmentFormSection {
                       inputColor: Color(0xFF9C27B0),
                       hasSubInputField: true,
                       subInputField: InputField(
-                          id: null, name: 'Referral', valueType: 'TRUE_ONLY')),
+                          id: null,
+                          name: 'Referral',
+                          valueType: 'TRUE_ONLY',
+                          inputColor: Color(0xFF9C27B0))),
                 ]),
             FormSection(
                 name: 'HEALTH, WATER, SANITATION & SHELTER',
@@ -129,7 +150,11 @@ class EnrollmentFormSection {
                       inputColor: Color(0xFF2196F3),
                       hasSubInputField: true,
                       subInputField: InputField(
-                          id: null, name: 'Referral', valueType: 'TRUE_ONLY')),
+                        id: null,
+                        name: 'Referral',
+                        valueType: 'TRUE_ONLY',
+                        inputColor: Color(0xFF2196F3),
+                      )),
                   InputField(
                       id: 'NAMKqy2KVKk',
                       name:
@@ -138,7 +163,11 @@ class EnrollmentFormSection {
                       inputColor: Color(0xFF2196F3),
                       hasSubInputField: true,
                       subInputField: InputField(
-                          id: null, name: 'Referral', valueType: 'TRUE_ONLY')),
+                        id: null,
+                        name: 'Referral',
+                        valueType: 'TRUE_ONLY',
+                        inputColor: Color(0xFF2196F3),
+                      )),
                   InputField(
                       id: 'zpnWLMc2oYc',
                       name:
@@ -147,7 +176,11 @@ class EnrollmentFormSection {
                       inputColor: Color(0xFF2196F3),
                       hasSubInputField: true,
                       subInputField: InputField(
-                          id: null, name: 'Referral', valueType: 'TRUE_ONLY')),
+                        id: null,
+                        name: 'Referral',
+                        valueType: 'TRUE_ONLY',
+                        inputColor: Color(0xFF2196F3),
+                      )),
                   InputField(
                       id: 'NqoQ5BNNoob',
                       name:
@@ -156,7 +189,11 @@ class EnrollmentFormSection {
                       inputColor: Color(0xFF2196F3),
                       hasSubInputField: true,
                       subInputField: InputField(
-                          id: null, name: 'Referral', valueType: 'TRUE_ONLY')),
+                        id: null,
+                        name: 'Referral',
+                        valueType: 'TRUE_ONLY',
+                        inputColor: Color(0xFF2196F3),
+                      )),
                 ]),
             FormSection(
                 name: 'EDUCATION AND DEVELOPMENT',
@@ -171,7 +208,11 @@ class EnrollmentFormSection {
                       inputColor: Color(0xFF009688),
                       hasSubInputField: true,
                       subInputField: InputField(
-                          id: null, name: 'Referral', valueType: 'TRUE_ONLY')),
+                        id: null,
+                        name: 'Referral',
+                        valueType: 'TRUE_ONLY',
+                        inputColor: Color(0xFF009688),
+                      )),
                 ]),
             FormSection(
                 name: 'PSYCHOSOCIAL SUPPORT AND BASIC CARE',
@@ -186,7 +227,11 @@ class EnrollmentFormSection {
                       inputColor: Color(0xFF9E9D24),
                       hasSubInputField: true,
                       subInputField: InputField(
-                          id: null, name: 'Referral', valueType: 'TRUE_ONLY')),
+                        id: null,
+                        name: 'Referral',
+                        valueType: 'TRUE_ONLY',
+                        inputColor: Color(0xFF9E9D24),
+                      )),
                 ]),
             FormSection(
                 name: 'CHILD CARE & PROTECTION',
@@ -201,7 +246,11 @@ class EnrollmentFormSection {
                       inputColor: Color(0xFFEF6C00),
                       hasSubInputField: true,
                       subInputField: InputField(
-                          id: null, name: 'Referral', valueType: 'TRUE_ONLY')),
+                        id: null,
+                        name: 'Referral',
+                        valueType: 'TRUE_ONLY',
+                        inputColor: Color(0xFFEF6C00),
+                      )),
                   InputField(
                       id: 'zFpq6eXlVFX',
                       name:
@@ -210,7 +259,11 @@ class EnrollmentFormSection {
                       inputColor: Color(0xFFEF6C00),
                       hasSubInputField: true,
                       subInputField: InputField(
-                          id: null, name: 'Referral', valueType: 'TRUE_ONLY')),
+                        id: null,
+                        name: 'Referral',
+                        valueType: 'TRUE_ONLY',
+                        inputColor: Color(0xFFEF6C00),
+                      )),
                   InputField(
                       id: 'WpzsqW5qNs4',
                       name:
@@ -219,7 +272,11 @@ class EnrollmentFormSection {
                       inputColor: Color(0xFFEF6C00),
                       hasSubInputField: true,
                       subInputField: InputField(
-                          id: null, name: 'Referral', valueType: 'TRUE_ONLY'))
+                        id: null,
+                        name: 'Referral',
+                        valueType: 'TRUE_ONLY',
+                        inputColor: Color(0xFFEF6C00),
+                      ))
                 ]),
           ])
     ];

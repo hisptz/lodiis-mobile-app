@@ -8,11 +8,11 @@ import 'package:kb_mobile_app/models/input_field.dart';
 
 class EntryFormContainer extends StatelessWidget {
   const EntryFormContainer(
-      {Key key, @required this.formSections, this.showLineSeperator = true})
+      {Key key, @required this.formSections, this.onInputValueChange})
       : super(key: key);
 
   final List<FormSection> formSections;
-  final bool showLineSeperator;
+  final Function onInputValueChange;
 
   @override
   Widget build(BuildContext context) {
@@ -48,18 +48,21 @@ class EntryFormContainer extends StatelessWidget {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: formSection.inputFields
-                              .map((InputField inputField) =>
-                                  InputFieldContainer(
-                                    inputField: inputField,
-                                    onInputValueChange:
-                                        (String id, dynamic value) =>
-                                            print('id : $id - value : $value'),
+                              .map((InputField inputField) => Container(
+                                    margin: EdgeInsets.only(top: 10.0),
+                                    child: InputFieldContainer(
+                                      inputField: inputField,
+                                      onInputValueChange:
+                                          (String id, dynamic value) =>
+                                              onInputValueChange(id, value),
+                                    ),
                                   ))
                               .toList(),
                         ),
                       ),
                       EntrySubFormContainer(
                         subSections: formSection.subSections,
+                        onInputValueChange: onInputValueChange,
                       )
                     ],
                   ),
