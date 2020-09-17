@@ -20,11 +20,11 @@ class InputFieldContainer extends StatelessWidget {
   final Function onInputValueChange;
 
   Widget _getInputField(InputField inputField) {
-    print(inputField);
     return Container(
       child: inputField != null
           ? inputField.options.length > 0
               ? SelectInputField(
+                renderAsRadio: inputField.renderAsRadio,
                   onInputValueChange: (dynamic value) =>
                       this.onInputValueChange(inputField.id, value),
                   options: inputField.options,
@@ -78,7 +78,7 @@ class InputFieldContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 8.0),
+      padding: EdgeInsets.symmetric(vertical: 8.0),
       decoration: BoxDecoration(color: inputField.background),
       child: Column(
         children: [
