@@ -46,7 +46,7 @@ class _TextInputFieldContainerState extends State<TextInputFieldContainer> {
                   ))),
           InputCheckedIcon(
             showTickedIcon: false,
-            color: widget.inputField.color,
+            color: widget.inputField.inputColor,
           )
         ],
       ),

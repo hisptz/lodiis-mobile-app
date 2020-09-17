@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/intervention_bottom_navigation_state/intervention_bottom_navigation_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
@@ -36,10 +38,12 @@ class AppBarUtil {
         .setCurrentInterventionProgramId(id);
     Provider.of<InterventionBottomNavigationState>(context, listen: false)
         .setCurrentInterventionBottomNavigationIndex(0);
-    Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-            builder: (context) =>
-                id == 'ovc' ? OvcIntervention() : DreamsIntervention()));
+    Timer(
+        Duration(milliseconds: 5),
+        () => Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    id == 'ovc' ? OvcIntervention() : DreamsIntervention())));
   }
 }

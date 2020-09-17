@@ -40,7 +40,7 @@ class OvcEnrollmentForm extends StatelessWidget {
                       inputField: InputField(
                         id: 'id',
                         name: 'Label one',
-                        color: Colors.blueGrey,
+                        inputColor: Colors.blueGrey,
                         description: 'hint for the input field',
                         valueType: 'ORGANISATION_UNIT',
                         hasSubInputField: false,

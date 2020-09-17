@@ -21,7 +21,7 @@ class RadioInputFieldContainer extends StatefulWidget {
 }
 
 class _RadioInputFieldContainerState extends State<RadioInputFieldContainer> {
-  bool _currentValue;
+  dynamic _currentValue;
 
   void setSelectedOption(dynamic value) {
     setState(() {
