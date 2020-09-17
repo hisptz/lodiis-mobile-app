@@ -26,12 +26,16 @@ class _DateInputFieldContainerState extends State<DateInputFieldContainer> {
 
   @override
   void initState() {
-    _date = widget.inputField.value;
     super.initState();
-    dateController = TextEditingController(text: _date);
+    setState(() {
+      _date = widget.inputField.value;
+      dateController = TextEditingController(text: _date);
+    });
   }
 
   void onOpenDateSelection(BuildContext context) async {
+    _date = _date ?? AppUtil.formattedDateTimeIntoString(DateTime.now());
+    print(_date);
     DateTime date = await showDatePicker(
       context: context,
       fieldLabelText: '${widget.inputField.name}',
