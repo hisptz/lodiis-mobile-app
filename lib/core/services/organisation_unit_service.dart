@@ -34,7 +34,5 @@ class OrganisationUnitService {
         .addOrUpdateOrganisationUnits(organisationUnit);
   }
 
-  List<OrganisationUnit> get organisationList {
-    return organisationUnitList;
-  }
+ 
 }
