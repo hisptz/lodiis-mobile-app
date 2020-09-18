@@ -26,24 +26,30 @@ class EntryFormContainer extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Container(
-                        padding: EdgeInsets.all(15.0),
-                        child: Row(
-                          children: [
-                            Expanded(
-                                child: Text(
-                              formSection.name,
-                              style: TextStyle().copyWith(
-                                  color: formSection.color,
-                                  fontSize: 14.0,
-                                  fontWeight: FontWeight.bold),
-                            ))
-                          ],
+                      Visibility(
+                        visible: formSection.name != '',
+                        child: Container(
+                          padding: EdgeInsets.all(15.0),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                  child: Text(
+                                formSection.name,
+                                style: TextStyle().copyWith(
+                                    color: formSection.color,
+                                    fontSize: 14.0,
+                                    fontWeight: FontWeight.bold),
+                              ))
+                            ],
+                          ),
                         ),
                       ),
-                      Container(
-                          child: LineSeperator(
-                              color: formSection.color.withOpacity(0.1))),
+                      Visibility(
+                        visible: formSection.name != '',
+                        child: Container(
+                            child: LineSeperator(
+                                color: formSection.color.withOpacity(0.1))),
+                      ),
                       Container(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
