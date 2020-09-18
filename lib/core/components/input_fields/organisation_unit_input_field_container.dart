@@ -4,11 +4,15 @@ import 'package:kb_mobile_app/models/input_field.dart';
 
 class OrganisationUnitInputFieldContainer extends StatelessWidget {
   const OrganisationUnitInputFieldContainer(
-      {Key key, @required this.inputField, @required this.onInputValueChange})
+      {Key key,
+      @required this.inputField,
+      @required this.onInputValueChange,
+      this.inputValue})
       : super(key: key);
 
   final InputField inputField;
   final Function onInputValueChange;
+  final String inputValue;
 
   @override
   Widget build(BuildContext context) {
