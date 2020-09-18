@@ -79,6 +79,43 @@ class OrganisationUnitOffline extends OfflineDbProvider {
     return organisationUnitList;
   }
 
+
+
+// ignore: missing_return
+Future<List<OrganisationUnit>>  getOrganisationUnitById(String organisationId)async{
+
+
+ 
+    try {
+       List<OrganisationUnit> organisationUnitList = [];
+      var dbClient = await db;
+      List<Map> maps = await dbClient.query(
+        OrganisationUnit.organisationUnitTable,
+        columns: [id, name, parent, level],
+        where: '$id = ?',whereArgs: [organisationId]
+      );
+      if (maps.isNotEmpty) {
+        for (Map map in maps) {
+          String organizationUnitId = map['id'];
+          List childrens = await OrganisationUnitChildrenOfflineProvider()
+              .getChildrenOrganisationUnits(organizationUnitId);
+          List programs = await OrganisationUnitProgramOfflineProvider()
+              .getProgramOrganisationUnits(organizationUnitId);
+          OrganisationUnit organisationUnits =
+           OrganisationUnit.fromOffline(map);
+          organisationUnits.program = programs;
+          organisationUnits.children = childrens;
+          organisationUnitList.add(organisationUnits);
+        }
+      }
+ 
+   
+   return organisationUnitList;
+
+    }catch(e){}
+}
+
+
   close() async {
     var dbClient = await db;
     dbClient.close();

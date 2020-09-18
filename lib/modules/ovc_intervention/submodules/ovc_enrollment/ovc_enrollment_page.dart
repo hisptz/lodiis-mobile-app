@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/core/utils/organisation_uni_recursive.dart/organisation_util.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_intervention_home_card.dart';
 
 class OvcEnrollmentPage extends StatelessWidget {
@@ -10,13 +11,18 @@ class OvcEnrollmentPage extends StatelessWidget {
       backgroundColor: Color.fromRGBO(229,229,229,1),
       appBar:AppBar(
         backgroundColor: Colors.white,
-        title: Row(
-          children: [
-            SizedBox(
-              width:23,
-            ),
-            Text("HOUSE HOLD LIST",style: TextStyle(color: Colors.black45,fontSize:14,fontWeight: FontWeight.bold ),),
-          ],
+        title: GestureDetector(
+          onTap: () => {
+               OrganisationUnitUtil.populateData(context)
+          },
+                  child: Row(
+            children: [
+              SizedBox(
+                width:23,
+              ),
+              Text("HOUSE HOLD LIST",style: TextStyle(color: Colors.black45,fontSize:14,fontWeight: FontWeight.bold ),),
+            ],
+          ),
         )
         ),
         body: SingleChildScrollView(
