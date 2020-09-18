@@ -7,22 +7,20 @@ import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/models/ovc_enrollement_basic_info.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/models/ovc_enrollment_consent.dart';
 import 'package:provider/provider.dart';
 
-class OvcEnrollmentBasicInfoForm extends StatefulWidget {
-  const OvcEnrollmentBasicInfoForm({Key key}) : super(key: key);
+class OvcEnrollmentConsetForm extends StatefulWidget {
+  const OvcEnrollmentConsetForm({Key key}) : super(key: key);
 
   @override
-  _OvcEnrollmentBasicInfoFormState createState() =>
-      _OvcEnrollmentBasicInfoFormState();
+  _OvcEnrollmentConsetFormState createState() =>
+      _OvcEnrollmentConsetFormState();
 }
 
-class _OvcEnrollmentBasicInfoFormState
-    extends State<OvcEnrollmentBasicInfoForm> {
-  final List<FormSection> formSections =
-      OvcEnrollmentBasicInfo.getFormSections();
-  final String label = 'Basic caregiver information';
+class _OvcEnrollmentConsetFormState extends State<OvcEnrollmentConsetForm> {
+  final List<FormSection> formSections = OvcEnrollmentConsent.getFormSections();
+  final String label = 'Consent Form';
 
   void onInputValueChange(String id, dynamic value) {
     print('id : $id :: value : $value');

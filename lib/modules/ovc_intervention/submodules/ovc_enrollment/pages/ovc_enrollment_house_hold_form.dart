@@ -7,22 +7,22 @@ import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/models/ovc_enrollement_basic_info.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/models/ovc_enrollment_house_hold.dart';
 import 'package:provider/provider.dart';
 
-class OvcEnrollmentBasicInfoForm extends StatefulWidget {
-  const OvcEnrollmentBasicInfoForm({Key key}) : super(key: key);
+class OvcEnrollmentHouseHoldForm extends StatefulWidget {
+  const OvcEnrollmentHouseHoldForm({Key key}) : super(key: key);
 
   @override
-  _OvcEnrollmentBasicInfoFormState createState() =>
-      _OvcEnrollmentBasicInfoFormState();
+  _OvcEnrollmentHouseHoldFormState createState() =>
+      _OvcEnrollmentHouseHoldFormState();
 }
 
-class _OvcEnrollmentBasicInfoFormState
-    extends State<OvcEnrollmentBasicInfoForm> {
+class _OvcEnrollmentHouseHoldFormState
+    extends State<OvcEnrollmentHouseHoldForm> {
   final List<FormSection> formSections =
-      OvcEnrollmentBasicInfo.getFormSections();
-  final String label = 'Basic caregiver information';
+      OvcEnrollmentHouseHold.getFormSections();
+  final String label = 'House Hold form';
 
   void onInputValueChange(String id, dynamic value) {
     print('id : $id :: value : $value');
