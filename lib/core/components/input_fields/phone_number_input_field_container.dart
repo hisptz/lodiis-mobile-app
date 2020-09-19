@@ -51,7 +51,7 @@ class _PhoneNumberInputFieldContainerState
                   ))),
           InputCheckedIcon(
             showTickedIcon: false,
-            color: widget.inputField.color,
+            color: widget.inputField.inputColor,
           )
         ],
       ),

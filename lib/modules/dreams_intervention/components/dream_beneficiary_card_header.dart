@@ -11,6 +11,7 @@ class DreamBeneficiaryCardHeader extends StatelessWidget {
     @required this.canView,
     @required this.canExpand,
     @required this.isExpanded,
+    this.isAcvtive = true,
     this.onEdit,
     this.onView,
     this.onToggleCard,
@@ -22,6 +23,7 @@ class DreamBeneficiaryCardHeader extends StatelessWidget {
   final bool canView;
   final bool canExpand;
   final bool isExpanded;
+  final bool isAcvtive;
 
   final VoidCallback onEdit;
   final VoidCallback onView;
@@ -65,6 +67,23 @@ class DreamBeneficiaryCardHeader extends StatelessWidget {
                       ),
                     ),
                   )),
+              Visibility(
+                  child: Container(
+                margin: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+                decoration: BoxDecoration(
+                    color: isAcvtive ? Color(0xFFF0F8FE) : Color(0xFFFFF5F5),
+                    border: Border.all(
+                        color:
+                            isAcvtive ? Color(0xFF1F8DCE) : Color(0xFFC81314)),
+                    borderRadius: BorderRadius.circular(35.0)),
+                padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 2.0),
+                child: Text(
+                  isAcvtive ? 'Active' : 'Inactive',
+                  style: TextStyle().copyWith(
+                      color: isAcvtive ? Color(0xFF1F8DCE) : Color(0xFFC81314),
+                      fontSize: 12.0),
+                ),
+              )),
               Visibility(
                   visible: canView,
                   child: Expanded(

@@ -50,12 +50,12 @@ class _TrueOnlyInputFieldContainerState
             '$_swithLabel',
             style: TextStyle().copyWith(
                 fontSize: 12.0,
-                color: _value ? widget.inputField.color : inActiveColor),
+                color: _value ? widget.inputField.inputColor : inActiveColor),
           ),
         ),
         Container(
             child: CupertinoSwitch(
-                activeColor: widget.inputField.color,
+                activeColor: widget.inputField.inputColor,
                 trackColor: inActiveColor,
                 value: _value,
                 onChanged: (bool value) {

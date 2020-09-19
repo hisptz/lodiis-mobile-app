@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar_container.dart';
-import 'package:kb_mobile_app/core/components/input_fields/input_field_container.dart';
-import 'package:kb_mobile_app/core/components/material_card.dart';
+import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
-import 'package:kb_mobile_app/models/input_field.dart';
-import 'package:kb_mobile_app/models/input_field_option.dart';
+import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/models/enrollment_form_section.dart';
 import 'package:provider/provider.dart';
 
 class DreamsEnrollmentForm extends StatelessWidget {
@@ -15,15 +14,14 @@ class DreamsEnrollmentForm extends StatelessWidget {
 
   final String label = 'Enrollement';
 
+  void onInputValueChange(String id, dynamic value) {
+    print('On form container :: id : $id - value : $value');
+  }
+
   @override
   Widget build(BuildContext context) {
-    List<InputFieldOption> options = [
-      // InputFieldOption(code: 'one', name: 'One'),
-      // InputFieldOption(code: 'two', name: 'Two'),
-      // InputFieldOption(code: 'three', name: 'Three'),
-      // InputFieldOption(code: 'four', name: 'Four'),
-      // InputFieldOption(code: 'five', name: 'Five')
-    ];
+    final List<FormSection> enrollmentForm =
+        EnrollmentFormSection.getFormSections();
     return SafeArea(
         child: Scaffold(
             appBar: PreferredSize(
@@ -43,25 +41,9 @@ class DreamsEnrollmentForm extends StatelessWidget {
               body: Container(
                   margin:
                       EdgeInsets.symmetric(vertical: 16.0, horizontal: 13.0),
-                  child: MaterialCard(
-                    body: InputFieldContainer(
-                      inputField: InputField(
-                          id: 'id',
-                          name: 'Label one',
-                          color: Colors.blueGrey,
-                          description: 'hint for the input field',
-                          valueType: 'BOOLEAN',
-                          hasSubInputField: true,
-                          subInputField: InputField(
-                              id: 'id2',
-                              name: 'referral',
-                              color: Colors.amberAccent,
-                              valueType: 'TRUE_ONLY'),
-                          options: options),
-                      onInputValueChange: (String id, dynamic value) {
-                        print('id : $id, value : $value');
-                      },
-                    ),
+                  child: EntryFormContainer(
+                    formSections: enrollmentForm,
+                    onInputValueChange: onInputValueChange,
                   )),
             ),
             bottomNavigationBar: InterventionBottomNavigationBarContainer()));
