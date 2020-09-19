@@ -27,7 +27,7 @@ class OrganisationUnitProgramOfflineProvider extends OfflineDbProvider {
 
   _onCreate(Database db, int version) async {
     await db.execute(
-        "CREATE TABLE IF NOT EXISTS  ${OrganisationUnit.organisationTrogramTable} ($id TEXT , $organisationId TEXT,PRIMARY KEY ($id ,$organisationId))");
+        "CREATE TABLE IF NOT EXISTS  ${OrganisationUnit.organisationProgramTable} ($id TEXT , $organisationId TEXT,PRIMARY KEY ($id ,$organisationId))");
   }
 
   addOrUpdateProgramOrganisationUnits(
@@ -39,14 +39,14 @@ class OrganisationUnitProgramOfflineProvider extends OfflineDbProvider {
       map['id'] = id;
       map['organizationId'] = organisationUnit.id;
 
-      await dbClient.insert(OrganisationUnit.organisationTrogramTable, map,
+      await dbClient.insert(OrganisationUnit.organisationProgramTable, map,
           conflictAlgorithm: ConflictAlgorithm.replace);
     }
   }
 
   deleteOrganisation(String organisationUnitId) async {
     var dbClient = await db;
-    return await dbClient.delete(OrganisationUnit.organisationTrogramTable,
+    return await dbClient.delete(OrganisationUnit.organisationProgramTable,
         where: '$organisationId = ?', whereArgs: [organisationUnitId]);
   }
 
@@ -55,7 +55,7 @@ class OrganisationUnitProgramOfflineProvider extends OfflineDbProvider {
 
     var dbClient = await db;
     List<Map> maps = await dbClient
-        .query(OrganisationUnit.organisationTrogramTable, columns: [
+        .query(OrganisationUnit.organisationProgramTable, columns: [
       id,
       organisationId,
     ]);

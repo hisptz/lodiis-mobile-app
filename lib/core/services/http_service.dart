@@ -5,7 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
 class HttpService {
-  static final String baseUrl = 'https://lsis-ovc-dreams.org';
+  static final String baseUrl = '';
   final String username;
   final String password;
 

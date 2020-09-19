@@ -7,6 +7,7 @@ class ExpandedOrganisationWidgets extends StatelessWidget {
   OrganisationUnit organisationUnit;
   int organisationUnitLegnth = 0;
   bool onExpand = true;
+  bool onExpandChildren = true;
   List<Icon> onExpandIcon = [
     Icon(
       Icons.add,

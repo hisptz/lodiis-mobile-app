@@ -53,13 +53,14 @@ class OrganisationUnitChildrenOfflineProvider extends OfflineDbProvider {
 
     var dbClient = await db;
     List<Map> maps = await dbClient
-        .query(OrganisationUnit.organisationTrogramTable, columns: [
+        .query(OrganisationUnit.organisationChildrenTable, columns: [
       id,
       organisationId,
     ]);
     if (maps.isNotEmpty) {
       for (Map map in maps) {
         if (map['organisationId'] == organisationUnitId) {
+        
           childrenOrganisationUnits.add(map['id']);
         }
       }
