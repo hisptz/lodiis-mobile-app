@@ -37,16 +37,14 @@ class ExpandedOrganisationWidgets extends StatelessWidget {
                 GestureDetector(
                   onTap: () {
                     onExpand = !onExpand;
-                   
+
                     (context as Element).markNeedsBuild();
                   },
                   child: Container(
                       padding: EdgeInsets.only(right: 26),
                       color: Colors.transparent,
                       margin: EdgeInsets.symmetric(vertical: 15),
-                      child: onExpand
-                          ? onExpandIcon[0]
-                          : onExpandIcon[1]),
+                      child: onExpand ? onExpandIcon[0] : onExpandIcon[1]),
                 ),
                 Expanded(
                   child: Text(
@@ -61,9 +59,11 @@ class ExpandedOrganisationWidgets extends StatelessWidget {
             ),
             Container(
               child: OrganisationContent(
-               onExpandIcon: onExpandIcon,
+                onExpandIcon: onExpandIcon,
                 organisationUnit: organisationUnit,
-                onExpand:onExpand,
+                onExpand: onExpand,
+                onExpandChildren: onExpandChildren,
+              
               ),
             )
 
