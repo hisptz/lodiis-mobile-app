@@ -6,7 +6,7 @@ class OrganisationUnit {
   List program;
   List children;
   //tables for organisations Units
-  static const String organisationTrogramTable = 'organisation_unit_program';
+  static const String organisationProgramTable = 'organisation_unit_program';
   static const String organisationChildrenTable = 'organisation_unit_children';
   static const String organisationUnitTable = 'organisations';
 
