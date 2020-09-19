@@ -27,7 +27,7 @@ class ExpandedOrganisationWidgets extends StatelessWidget {
     return Container(
       child: GestureDetector(
         onTap: () => {
-          // Navigator.pop(context, organisationUnit)
+          Navigator.pop(context, organisationUnit)
         },
         child: Column(
           children: [
