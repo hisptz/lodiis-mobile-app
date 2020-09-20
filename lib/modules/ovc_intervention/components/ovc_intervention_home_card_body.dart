@@ -18,20 +18,19 @@ class OvcInterventionBodyData extends StatelessWidget {
                                     child: Row(
                                    
                                       children: [
-                                       
+                                        //808080
+                                     
                                         Text(
                                           "Caregiver",
                                           style: TextStyle(
-                                              color: Color.fromRGBO(
-                                                  37, 80, 35, 0.5)),
+                                              color: Color(0x255023ff)),
                                         ),
                                         SizedBox(
                                           width:( MediaQuery.of(context).size.width/14)  ,
                                         ),
                                         Text("Lenka Mosela",
                                             style: TextStyle(
-                                                color: Color.fromRGBO(
-                                                    26, 53, 24, 0.75)))
+                                                color: Color(0xff1a3518)))
                                       ],
                                     ),
                                     ),
@@ -43,8 +42,7 @@ class OvcInterventionBodyData extends StatelessWidget {
                                         Text(
                                           "Caregiver",
                                           style: TextStyle(
-                                              color: Color.fromRGBO(
-                                                  37, 80, 35, 0.5)),
+                                              color: Color(0x255023ff)),
                                         ),
                                          SizedBox(
                                           width:( MediaQuery.of(context).size.width/14)  ,
@@ -52,8 +50,7 @@ class OvcInterventionBodyData extends StatelessWidget {
                                         Text("Lenka Mosela",
                                         overflow: TextOverflow.clip,
                                             style: TextStyle(
-                                                color: Color.fromRGBO(
-                                                    26, 53, 24, 0.75)))
+                                                color: Color(0xff1a3518)))
                                       ],
                                     ),
                                     ),
@@ -67,8 +64,7 @@ class OvcInterventionBodyData extends StatelessWidget {
                                            Text(
                                             "   # of OVC",
                                             style: TextStyle(
-                                                color: Color.fromRGBO(
-                                                    37, 80, 35, 0.5)),
+                                                color: Color(0xff255023)),
                                           ),
                                         
                                           SizedBox(
@@ -76,16 +72,14 @@ class OvcInterventionBodyData extends StatelessWidget {
                                         ),
                                         Text("Female - 2",
                                             style: TextStyle(
-                                                color: Color.fromRGBO(
-                                                    26, 53, 24, 0.75))),
+                                                color: Color(0xff1a3518))),
                                                     Container(
                                                       
                                                       child: Text("  "),
   decoration: BoxDecoration(
 
                       border: Border(
-                        right: BorderSide( color: Color.fromRGBO(
-                                                    26, 53, 24, 0.75),width: 1)
+                        right: BorderSide( color:Color(0xff1a3518) ,width: 1)
 
                       )
                       ),
@@ -93,16 +87,9 @@ class OvcInterventionBodyData extends StatelessWidget {
                                                     ),
  
 
-                                                    //  Expanded(
-                                                    
-                                                    //    child: Container(
-                                                    //      color: Colors.red,
-
-                                                    //    ),)
                                                        Text("  male - 1",
                                             style: TextStyle(
-                                                color: Color.fromRGBO(
-                                                    26, 53, 24, 0.75)))
+                                                color: Color(0xff1a3518)))
 
 
                                       ],
