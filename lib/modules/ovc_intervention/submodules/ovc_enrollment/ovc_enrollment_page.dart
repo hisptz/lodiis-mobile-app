@@ -6,34 +6,61 @@ class OvcEnrollmentPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-      backgroundColor: Color.fromRGBO(229,229,229,1),
-      appBar:AppBar(
+    return Scaffold(
+      backgroundColor: Color(0xe5e5e5),
+      appBar: AppBar(
         backgroundColor: Colors.white,
         title: Row(
           children: [
             SizedBox(
-              width:23,
+              width: 23,
             ),
-            Text("HOUSE HOLD LIST",style: TextStyle(color: Colors.black45,fontSize:14,fontWeight: FontWeight.bold ),),
+            Text(
+              "HOUSE HOLD LIST",
+              style: TextStyle(
+                  color: Colors.black45,
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold),
+            ),
           ],
-        )
         ),
-        body: SingleChildScrollView(
-          
-                  child: Column(
-            children: [
-              OvcInterventionCard(editEnrollment: true, addExit: false, editReferral: false, editService: false,),
-              OvcInterventionCard(editEnrollment: true, addExit: false, editReferral: false, editService: false,),
-              OvcInterventionCard(editEnrollment: true, addExit: false, editReferral: false, editService: false,),
-              OvcInterventionCard(editEnrollment: true, addExit: false, editReferral: false, editService: false,),
-              OvcInterventionCard(editEnrollment: true, addExit: false, editReferral: false, editService: false,)
-            ],
-          
       ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            OvcInterventionCard(
+              editEnrollment: true,
+              addExit: false,
+              editReferral: false,
+              editService: false,
+            ),
+            OvcInterventionCard(
+              editEnrollment: true,
+              addExit: false,
+              editReferral: false,
+              editService: false,
+            ),
+            OvcInterventionCard(
+              editEnrollment: true,
+              addExit: false,
+              editReferral: false,
+              editService: false,
+            ),
+            OvcInterventionCard(
+              editEnrollment: true,
+              addExit: false,
+              editReferral: false,
+              editService: false,
+            ),
+            OvcInterventionCard(
+              editEnrollment: true,
+              addExit: false,
+              editReferral: false,
+              editService: false,
+            )
+          ],
         ),
-      );
-    
-    
+      ),
+    );
   }
 }
