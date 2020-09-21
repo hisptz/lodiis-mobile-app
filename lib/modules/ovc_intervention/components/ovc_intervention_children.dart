@@ -58,8 +58,7 @@ class OvcInterventionChilrens extends StatelessWidget {
                       child: Container(
                         child: Text((index + 1).toString() + ".",
                             style: TextStyle(
-                              //Color.fromRGBO(26, 53, 24, 0.75)
-                                color: Color(0x1a3518ff),
+                                color: Color(0xffabc4ab),
                                 fontWeight: FontWeight.bold,
                                 fontSize: 12)),
                       ),
@@ -69,7 +68,7 @@ class OvcInterventionChilrens extends StatelessWidget {
                       child: Container(
                         child: Text(childrenList[index],
                             style: TextStyle(
-                                color: Color(0x1a3518ff),
+                                color: Color(0xffd3dcd4),
                                 fontWeight: FontWeight.bold,
                                 fontSize: 12)),
                       ),
@@ -85,7 +84,7 @@ class OvcInterventionChilrens extends StatelessWidget {
                                   style: TextStyle(
                                       fontSize: 12,
                                       fontWeight: FontWeight.normal,
-                                      color: Color(0x1a3518ff)),
+                                      color: Color(0xFF4B9F46)),
                                 ),
                             )
                             : Text(""),
@@ -102,7 +101,7 @@ class OvcInterventionChilrens extends StatelessWidget {
                                   style: TextStyle(
                                       fontSize: 12,
                                       fontWeight: FontWeight.w500,
-                                      color:Color(0x1a3518ff)),
+                                      color:Color(0xFF4B9F46)),
                                 ),
                             )
                             : editReferral
@@ -113,7 +112,7 @@ class OvcInterventionChilrens extends StatelessWidget {
                                       style: TextStyle(
                                           fontSize: 12,
                                           fontWeight: FontWeight.w500,
-                                          color: Color(0x1a3518ff)),
+                                          color: Color(0xFF4B9F46)),
                                     ),
                                 )
                                 : MaterialButton(
@@ -123,7 +122,7 @@ class OvcInterventionChilrens extends StatelessWidget {
                                       style: TextStyle(
                                           fontSize: 12,
                                           fontWeight: FontWeight.w500,
-                                          color: Color(0x1a3518ff)),
+                                          color: Color(0xFF4B9F46)),
                                     ),
                                 ),
                       ),
