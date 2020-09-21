@@ -6,11 +6,15 @@ import 'package:kb_mobile_app/models/input_field.dart';
 
 class TrueOnlyInputFieldContainer extends StatefulWidget {
   const TrueOnlyInputFieldContainer(
-      {Key key, @required this.inputField, @required this.onInputValueChange})
+      {Key key,
+      @required this.inputField,
+      @required this.onInputValueChange,
+      this.inputValue})
       : super(key: key);
 
   final InputField inputField;
   final Function onInputValueChange;
+  final bool inputValue;
 
   @override
   _TrueOnlyInputFieldContainerState createState() =>
@@ -26,7 +30,7 @@ class _TrueOnlyInputFieldContainerState
   @override
   void initState() {
     super.initState();
-    onSetValue(widget.inputField.value ?? false);
+    onSetValue(widget.inputValue ?? false);
   }
 
   onSetValue(bool value) {
