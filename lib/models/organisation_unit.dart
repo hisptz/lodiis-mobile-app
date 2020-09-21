@@ -59,4 +59,9 @@ class OrganisationUnit {
     this.children = [];
     this.program = [];
   }
+
+  @override
+  String toString() {
+    return 'name : $name, id : $id';
+  }
 }
