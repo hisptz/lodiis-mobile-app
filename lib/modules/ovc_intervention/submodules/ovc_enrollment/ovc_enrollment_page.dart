@@ -7,7 +7,7 @@ class OvcEnrollmentPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xe5e5e5),
+      backgroundColor: Color(0xffedf4ed),
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: Row(

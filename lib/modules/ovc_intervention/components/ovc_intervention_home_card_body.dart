@@ -1,5 +1,4 @@
 
-
 import 'package:flutter/material.dart';
 
 class OvcInterventionBodyData extends StatelessWidget {
@@ -23,14 +22,14 @@ class OvcInterventionBodyData extends StatelessWidget {
                                         Text(
                                           "Caregiver",
                                           style: TextStyle(
-                                              color: Color(0x255023ff)),
+                                              color: Color(0xff8faf8f)),
                                         ),
                                         SizedBox(
                                           width:( MediaQuery.of(context).size.width/14)  ,
                                         ),
                                         Text("Lenka Mosela",
                                             style: TextStyle(
-                                                color: Color(0xff1a3518)))
+                                                color: Color(0xff507050)))
                                       ],
                                     ),
                                     ),
@@ -42,7 +41,7 @@ class OvcInterventionBodyData extends StatelessWidget {
                                         Text(
                                           "Caregiver",
                                           style: TextStyle(
-                                              color: Color(0x255023ff)),
+                                              color: Color(0xff8faf8f)),
                                         ),
                                          SizedBox(
                                           width:( MediaQuery.of(context).size.width/14)  ,
@@ -50,7 +49,7 @@ class OvcInterventionBodyData extends StatelessWidget {
                                         Text("Lenka Mosela",
                                         overflow: TextOverflow.clip,
                                             style: TextStyle(
-                                                color: Color(0xff1a3518)))
+                                                color: Color(0xff507050)))
                                       ],
                                     ),
                                     ),
@@ -64,7 +63,7 @@ class OvcInterventionBodyData extends StatelessWidget {
                                            Text(
                                             "   # of OVC",
                                             style: TextStyle(
-                                                color: Color(0xff255023)),
+                                                color: Color(0xff8faf8f)),
                                           ),
                                         
                                           SizedBox(
@@ -72,14 +71,14 @@ class OvcInterventionBodyData extends StatelessWidget {
                                         ),
                                         Text("Female - 2",
                                             style: TextStyle(
-                                                color: Color(0xff1a3518))),
+                                                color: Color(0xff507050))),
                                                     Container(
                                                       
                                                       child: Text("  "),
   decoration: BoxDecoration(
 
                       border: Border(
-                        right: BorderSide( color:Color(0xff1a3518) ,width: 1)
+                        right: BorderSide( color:Color(0xff507050) ,width: 1)
 
                       )
                       ),
@@ -89,7 +88,7 @@ class OvcInterventionBodyData extends StatelessWidget {
 
                                                        Text("  male - 1",
                                             style: TextStyle(
-                                                color: Color(0xff1a3518)))
+                                                color: Color(0xff507050)))
 
 
                                       ],

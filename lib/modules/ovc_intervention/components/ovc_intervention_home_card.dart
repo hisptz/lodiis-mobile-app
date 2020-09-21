@@ -14,9 +14,7 @@ class OvcInterventionCard extends StatelessWidget {
       @required this.editEnrollment,
       @required this.addExit});
 
-    //this line used as the setstate in statefull widgets
-    // (context as Element).markNeedsBuild();
-    
+ 
   void onExpand(BuildContext context) {
     showChild = !showChild;
 
@@ -133,6 +131,7 @@ class OvcInterventionCard extends StatelessWidget {
                   ),
                 ),
               ),
+              
               //bodydata,
               OvcInterventionBodyData(),
               Visibility(
@@ -254,20 +253,20 @@ class OvcInterventionCard extends StatelessWidget {
                 child: Container(
                 
                    decoration: BoxDecoration(
-                     color: Color.fromRGBO(75, 159, 70, 0.05),
+                     color: Color(0xfff6fcf6),
                     border: Border(
                         bottom: BorderSide(
-                            color: Color.fromRGBO(75, 159, 70, 0.05),
+                            color: Color(0xfff6fcf6),
                             width: 1),
                             
                             right:BorderSide(
-                            color: Color.fromRGBO(75, 159, 70, 0.05),
+                            color: Color(0xfff6fcf6),
                             width: 1),
                             left:  BorderSide(
-                            color: Color.fromRGBO(75, 159, 70, 0.05),
+                            color: Color(0xfff6fcf6),
                             width: 1),
                              top: BorderSide(
-                            color: Color.fromRGBO(75, 159, 70, 0.05),
+                            color: Color(0xfff6fcf6),
                             width: 1)
                             )),
                   child: Padding(
@@ -281,7 +280,7 @@ class OvcInterventionCard extends StatelessWidget {
                             child: GestureDetector(
                               child: Text("ACHIEVEMENT",
                                   style: TextStyle(
-                                      color: Color(0xFF4B9F46),
+                                      color: Color(0xff99dc9a),
                                       fontWeight: FontWeight.bold,
                                       fontSize: 12)),
                               onTap: () => onAchievment(),
@@ -294,7 +293,7 @@ class OvcInterventionCard extends StatelessWidget {
                             child: GestureDetector(
                               child: Text("EXIT",
                                   style: TextStyle(
-                                      color: Color(0xFF4B9F46),
+                                      color: Color(0xff99dc9a),
                                       fontWeight: FontWeight.bold,
                                       fontSize: 12)),
                               onTap: () => onExit(),
@@ -307,7 +306,7 @@ class OvcInterventionCard extends StatelessWidget {
                               child: GestureDetector(
                             child: Text("TRANSFER",
                                 style: TextStyle(
-                                    color: Color(0xFF4B9F46),
+                                    color: Color(0xff99dc9a),
                                     fontWeight: FontWeight.bold,
                                     fontSize: 12)),
                             onTap: () {
@@ -321,7 +320,7 @@ class OvcInterventionCard extends StatelessWidget {
                             child: GestureDetector(
                               child: Text("CLOSURE",
                                   style: TextStyle(
-                                      color: Color.fromRGBO(115, 115, 115, 0.5),
+                                      color: Color(0xffb5b8b5),
                                       fontWeight: FontWeight.bold,
                                       fontSize: 12)),
                               onTap: () {
@@ -364,7 +363,7 @@ class OvcInterventionCard extends StatelessWidget {
                                   style: TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.bold,
-                                      color: Color.fromRGBO(26, 53, 24, 1)),
+                                      color: Color(0xff143d14)),
                                 ),
                               ),
                               flex: 9,
@@ -387,7 +386,7 @@ class OvcInterventionCard extends StatelessWidget {
                    decoration: BoxDecoration(
                       border: Border(
                           top: BorderSide(
-                              color: Color.fromRGBO(75, 159, 70, 0.1),
+                              color: Color(0xff9fde9f),
                               width: 3))),
                   child: Padding(
                     padding: const EdgeInsets.only(
@@ -425,3 +424,4 @@ class OvcInterventionCard extends StatelessWidget {
     );
   }
 }
+
