@@ -11,11 +11,10 @@ class OrganisationUnitProgramOfflineProvider extends OfflineDbProvider {
   Future<Database> get db async {
     if (_db != null) {
       return _db;
-    } else {
-      _db = await initDB();
-      this._onCreate(_db, version);
-      return _db;
     }
+    _db = await initDB();
+    this._onCreate(_db, version);
+    return _db;
   }
 
   initDB() async {
@@ -30,8 +29,7 @@ class OrganisationUnitProgramOfflineProvider extends OfflineDbProvider {
         "CREATE TABLE IF NOT EXISTS  ${OrganisationUnit.organisationProgramTable} ($id TEXT , $organisationId TEXT,PRIMARY KEY ($id ,$organisationId))");
   }
 
-  addOrUpdateProgramOrganisationUnits(
-      OrganisationUnit organisationUnit) async {
+  addOrUpdateProgramOrganisationUnits(OrganisationUnit organisationUnit) async {
     var dbClient = await db;
 
     for (id in organisationUnit.program) {
