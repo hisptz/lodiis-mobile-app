@@ -52,7 +52,8 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
                       inputField: InputField(
                         id: 'id',
                         name: 'Label one',
-                        inputColor: Colors.blueGrey,
+                        inputColor: Colors.amberAccent,
+                        labelColor: Colors.redAccent,
                         description: 'hint for the input field',
                         valueType: 'ORGANISATION_UNIT',
                         hasSubInputField: false,

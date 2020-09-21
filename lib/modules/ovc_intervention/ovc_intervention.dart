@@ -8,7 +8,7 @@ import 'package:kb_mobile_app/core/utils/app_bar_util.dart';
 import 'package:kb_mobile_app/models/Intervention_bottom_navigation.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/ovc_enrollment_page.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/pages/ovc_enrollement_basic_info_form.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/pages/ovc_enrollment_child_form.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_page.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_records/ovc_records_page.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/ovc_referral_page.dart';
@@ -33,7 +33,7 @@ class OvcIntervention extends StatelessWidget {
   void onAddHouseHold(BuildContext context) {
     Navigator.push(context, MaterialPageRoute(
       builder: (context) {
-        return OvcEnrollmentBasicInfoForm();
+        return OvcEnrollmentChildForm();
       },
     ));
   }
