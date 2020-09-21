@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovcIntervention_home-card.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_intervention_appBar.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_intervention_children.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_intervention_home_card.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_intervention_home_card_body.dart';
 
 
@@ -110,16 +111,16 @@ bottomContent:  Visibility(
                             
                   )
                   
-      //              Column(
-      //       children: [
-      //       // OvcInterventionCard(editService: true, addExit: false, editEnrollment: false, editReferral: false,),
-      //       // OvcInterventionCard(editService: true, addExit: false, editEnrollment: false, editReferral: false,),
-      //       // OvcInterventionCard(editService: true, addExit: false, editEnrollment: false, editReferral: false,),
-      //       // OvcInterventionCard(editService: true, addExit: false, editEnrollment: false, editReferral: false,),
-      //       // OvcInterventionCard(editService: true, addExit: false, editEnrollment: false, editReferral: false,),
-      //       ],
+                   Column(
+            children: [
+            OvcInterventionCard(editService: true, addExit: false, editEnrollment: false, editReferral: false,),
+            OvcInterventionCard(editService: true, addExit: false, editEnrollment: false, editReferral: false,),
+            OvcInterventionCard(editService: true, addExit: false, editEnrollment: false, editReferral: false,),
+            OvcInterventionCard(editService: true, addExit: false, editEnrollment: false, editReferral: false,),
+            OvcInterventionCard(editService: true, addExit: false, editEnrollment: false, editReferral: false,),
+            ],
           
-      // ),
+      ),
         ),
       );
     
