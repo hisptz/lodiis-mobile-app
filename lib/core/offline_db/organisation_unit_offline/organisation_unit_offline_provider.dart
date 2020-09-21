@@ -79,7 +79,6 @@ class OrganisationUnitOffline extends OfflineDbProvider {
     return organisationUnitList;
   }
 
-
   Future<List<OrganisationUnit>> getOrganisationUnitById(
       List organisationIds) async {
     List<OrganisationUnit> organisationUnitList = [];

@@ -6,10 +6,10 @@ class OvcInterventionChilrens extends StatelessWidget {
   bool showChild = false;
 
   OvcInterventionChilrens(
-      {@required this.editService,
-      @required this.editReferral,
-      @required this.editEnrollment,
-      @required this.addExit});
+      {this.editService,
+      this.editReferral,
+     this.editEnrollment,
+    this.addExit});
 
 
 

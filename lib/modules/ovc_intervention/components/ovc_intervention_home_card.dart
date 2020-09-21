@@ -14,9 +14,7 @@ class OvcInterventionCard extends StatelessWidget {
       @required this.editEnrollment,
       @required this.addExit});
 
-    //this line used as the setstate in statefull widgets
-    // (context as Element).markNeedsBuild();
-    
+ 
   void onExpand(BuildContext context) {
     showChild = !showChild;
 
@@ -133,6 +131,7 @@ class OvcInterventionCard extends StatelessWidget {
                   ),
                 ),
               ),
+              
               //bodydata,
               OvcInterventionBodyData(),
               Visibility(
@@ -425,3 +424,4 @@ class OvcInterventionCard extends StatelessWidget {
     );
   }
 }
+
