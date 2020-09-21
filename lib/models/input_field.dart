@@ -6,7 +6,6 @@ class InputField {
   String name;
   String description;
   String valueType;
-  dynamic value;
   Color labelColor;
   Color inputColor;
   Color background;
@@ -21,7 +20,6 @@ class InputField {
       @required this.valueType,
       this.hasSubInputField,
       this.description,
-      this.value,
       this.inputColor,
       this.labelColor,
       this.background,
@@ -31,7 +29,6 @@ class InputField {
     this.description = this.description ?? '';
     this.hasSubInputField = this.hasSubInputField ?? false;
     this.renderAsRadio = this.renderAsRadio ?? false;
-    this.value = this.value ?? null;
     this.options = this.options ?? [];
     this.inputColor = this.inputColor ?? Colors.black;
     this.labelColor = this.labelColor ?? Color(0xFF1A3518);

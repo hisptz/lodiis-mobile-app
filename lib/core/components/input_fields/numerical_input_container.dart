@@ -4,11 +4,15 @@ import 'package:kb_mobile_app/models/input_field.dart';
 
 class NumericalInputFieldContainer extends StatefulWidget {
   const NumericalInputFieldContainer(
-      {Key key, @required this.inputField, @required this.onInputValueChange})
+      {Key key,
+      @required this.inputField,
+      @required this.onInputValueChange,
+      this.inputValue})
       : super(key: key);
 
   final InputField inputField;
   final Function onInputValueChange;
+  final String inputValue;
 
   @override
   _NumericalInputFieldContainerState createState() =>
@@ -23,7 +27,7 @@ class _NumericalInputFieldContainerState
   @override
   void initState() {
     super.initState();
-    numericalController = TextEditingController(text: widget.inputField.value);
+    numericalController = TextEditingController(text: widget.inputValue);
   }
 
   void onValueChange(String value) {

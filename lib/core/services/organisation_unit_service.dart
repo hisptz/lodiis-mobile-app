@@ -6,21 +6,17 @@ import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/models/organisation_unit.dart';
 
 class OrganisationUnitService {
-  List<OrganisationUnit> organisationUnitList = [];
   List<OrganisationUnit> organisations = [];
   Future<dynamic> organisationUnitGetRequest() async {
+    List<OrganisationUnit> organisationUnitList = [];
     var url =
         "api/organisationUnits.json?fields=id,name,programs,parent[id],level,children[id]&paging=false";
     CurrentUser user = await UserService().getCurrentUser();
     HttpService http =
         HttpService(username: user.username, password: user.password);
-
     var response = await http.httpGet(url);
-
-    //check status code
     if (response.statusCode == 200) {
       var responseData = json.decode(response.body);
-
       for (var organisation in responseData["organisationUnits"]) {
         organisationUnitList.add(OrganisationUnit.fromJson(organisation));
       }
@@ -35,18 +31,9 @@ class OrganisationUnitService {
         .addOrUpdateOrganisationUnits(organisationUnit);
   }
 
-  List<OrganisationUnit> getCompleteOrganizationUnitOfCurrentUser(
-      List currentUserOrganisationId) {
-    for (var organisationId in currentUserOrganisationId) {
-      OrganisationUnitOffline()
-          .getOrganisationUnitById(organisationId)
-          .then((value) => {
-                value.forEach((organisation) {
-                  organisations.add(organisation);
-                })
-              });
-    }
-    print(organisations[0].name);
-    return organisations;
+  Future<List<OrganisationUnit>> getOrganisationUnits(
+      List organisationUnitids) async {
+    return await OrganisationUnitOffline()
+        .getOrganisationUnitById(organisationUnitids);
   }
 }

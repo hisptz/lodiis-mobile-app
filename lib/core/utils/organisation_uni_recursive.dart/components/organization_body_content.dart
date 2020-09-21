@@ -87,46 +87,46 @@ class OrganisationContent extends StatelessWidget {
                     ),
                   ],
                 ),
-                Visibility(
-                    visible: !onExpandChildren,
-                    child: Container(
-                        child: FutureBuilder(
-                            future: OrganisationUnitChildrenOfflineProvider()
-                                .getChildrenOrganisationUnits(
-                                    organisationUnit.id),
-                            builder: (context, snapshot) {
-                              if (snapshot.connectionState ==
-                                      ConnectionState.done &&
-                                  snapshot.hasData &&
-                                  snapshot.data != null) {
-                                return SingleChildScrollView(
-                                  physics: ScrollPhysics(),
-                                  child: Padding(
-                                    padding: EdgeInsets.only(right: 0, top: 2),
-                                    child: ListView.builder(
-                                        dragStartBehavior:
-                                            DragStartBehavior.start,
-                                        padding: EdgeInsets.all(0),
-                                        physics: NeverScrollableScrollPhysics(),
-                                        shrinkWrap: true,
-                                        itemCount: OrganisationUnitService()
-                                            .getCompleteOrganizationUnitOfCurrentUser(
-                                                snapshot.data)
-                                            .length,
-                                        itemBuilder: (context, index) {
-                                          return ExpandedOrganisationWidgets(
-                                              organisationUnit:
-                                                  OrganisationUnitService()
-                                                      .getCompleteOrganizationUnitOfCurrentUser(
-                                                          snapshot
-                                                              .data)[index]);
-                                        }),
-                                  ),
-                                );
-                              } else {
-                                return Text("Loading ...");
-                              }
-                            })))
+                // Visibility(
+                //     visible: !onExpandChildren,
+                //     child: Container(
+                //         child: FutureBuilder(
+                //             future: OrganisationUnitChildrenOfflineProvider()
+                //                 .getChildrenOrganisationUnits(
+                //                     organisationUnit.id),
+                //             builder: (context, snapshot) {
+                //               if (snapshot.connectionState ==
+                //                       ConnectionState.done &&
+                //                   snapshot.hasData &&
+                //                   snapshot.data != null) {
+                //                 return SingleChildScrollView(
+                //                   physics: ScrollPhysics(),
+                //                   child: Padding(
+                //                     padding: EdgeInsets.only(right: 0, top: 2),
+                //                     child: ListView.builder(
+                //                         dragStartBehavior:
+                //                             DragStartBehavior.start,
+                //                         padding: EdgeInsets.all(0),
+                //                         physics: NeverScrollableScrollPhysics(),
+                //                         shrinkWrap: true,
+                //                         itemCount: OrganisationUnitService()
+                //                             .getCompleteOrganizationUnitOfCurrentUser(
+                //                                 snapshot.data)
+                //                             .length,
+                //                         itemBuilder: (context, index) {
+                //                           return ExpandedOrganisationWidgets(
+                //                               organisationUnit:
+                //                                   OrganisationUnitService()
+                //                                       .getCompleteOrganizationUnitOfCurrentUser(
+                //                                           snapshot
+                //                                               .data)[index]);
+                //                         }),
+                //                   ),
+                //                 );
+                //               } else {
+                //                 return Text("Loading ...");
+                //               }
+                //             })))
               ],
             )),
       ],

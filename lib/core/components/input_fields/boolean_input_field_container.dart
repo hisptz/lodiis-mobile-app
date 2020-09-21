@@ -5,11 +5,15 @@ import 'package:kb_mobile_app/models/input_field_option.dart';
 
 class BooleanInputFieldContainer extends StatefulWidget {
   const BooleanInputFieldContainer(
-      {Key key, @required this.inputField, @required this.onInputValueChange})
+      {Key key,
+      @required this.inputField,
+      @required this.onInputValueChange,
+      this.inputValue})
       : super(key: key);
 
   final InputField inputField;
   final Function onInputValueChange;
+  final bool inputValue;
 
   @override
   _BooleanInputFieldContainerState createState() =>
@@ -28,7 +32,7 @@ class _BooleanInputFieldContainerState
     return RadioInputFieldContainer(
       options: options,
       activeColor: widget.inputField.inputColor,
-      currentValue: widget.inputField.value,
+      currentValue: widget.inputValue,
       onInputValueChange: widget.onInputValueChange,
     );
   }

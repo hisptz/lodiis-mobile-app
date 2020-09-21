@@ -7,11 +7,15 @@ import 'package:kb_mobile_app/models/input_field.dart';
 
 class CoordinteInputFieldContainer extends StatefulWidget {
   const CoordinteInputFieldContainer(
-      {Key key, @required this.inputField, @required this.onInputValueChange})
+      {Key key,
+      @required this.inputField,
+      @required this.onInputValueChange,
+      this.inputValue})
       : super(key: key);
 
   final InputField inputField;
   final Function onInputValueChange;
+  final String inputValue;
 
   @override
   _CoordinteInputFieldContainerState createState() =>
@@ -27,7 +31,7 @@ class _CoordinteInputFieldContainerState
   @override
   void initState() {
     super.initState();
-    setCurrentLocation(widget.inputField.value);
+    setCurrentLocation(widget.inputValue);
   }
 
   setCurrentLocation(String value) async {

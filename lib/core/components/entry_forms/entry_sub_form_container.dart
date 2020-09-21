@@ -29,17 +29,20 @@ class EntrySubFormContainer extends StatelessWidget {
                       color: subSection.backgroundColor),
                   child: Column(
                     children: [
-                      Container(
-                        child: Row(
-                          children: [
-                            Text(
-                              subSection.name,
-                              style: TextStyle().copyWith(
-                                  color: subSection.color,
-                                  fontSize: 13.0,
-                                  fontWeight: FontWeight.bold),
-                            )
-                          ],
+                      Visibility(
+                        visible: subSection.name != '',
+                        child: Container(
+                          child: Row(
+                            children: [
+                              Text(
+                                subSection.name,
+                                style: TextStyle().copyWith(
+                                    color: subSection.color,
+                                    fontSize: 13.0,
+                                    fontWeight: FontWeight.bold),
+                              )
+                            ],
+                          ),
                         ),
                       ),
                       Container(

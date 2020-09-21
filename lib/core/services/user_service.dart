@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:kb_mobile_app/core/offline_db/user_offline/user_offline_provider.dart';
+import 'package:kb_mobile_app/core/offline_db/user_offline/user_ou_offline_provider.dart';
 import 'package:kb_mobile_app/core/services/http_service.dart';
 import 'package:kb_mobile_app/core/services/preference_provider.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
@@ -22,6 +23,8 @@ class UserService {
     if (user != null) {
       user.isLogin = false;
       user.password = '';
+      user.userOrgUnitIds = [];
+      await UserOuOfflineProvider().deleteUserOrganisationUnits(user.id);
       await setCurrentUser(user);
     }
   }
