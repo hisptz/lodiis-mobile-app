@@ -35,18 +35,5 @@ class OrganisationUnitService {
         .addOrUpdateOrganisationUnits(organisationUnit);
   }
 
-  List<OrganisationUnit> getCompleteOrganizationUnitOfCurrentUser(
-      List currentUserOrganisationId) {
-    for (var organisationId in currentUserOrganisationId) {
-      OrganisationUnitOffline()
-          .getOrganisationUnitById(organisationId)
-          .then((value) => {
-                value.forEach((organisation) {
-                  organisations.add(organisation);
-                })
-              });
-    }
-    print(organisations[0].name);
-    return organisations;
-  }
+
 }
