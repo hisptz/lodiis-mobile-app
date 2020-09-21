@@ -26,7 +26,7 @@ class InputFieldContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 8.0),
+      padding: EdgeInsets.symmetric(vertical: 2.0),
       decoration: BoxDecoration(color: inputField.background),
       child: Column(
         children: [
