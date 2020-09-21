@@ -61,7 +61,6 @@ class ExpandedOrganisationWidgets extends StatelessWidget {
                 organisationUnit: organisationUnit,
                 onExpand: onExpand,
                 onExpandChildren: onExpandChildren,
-              
               ),
             )
 

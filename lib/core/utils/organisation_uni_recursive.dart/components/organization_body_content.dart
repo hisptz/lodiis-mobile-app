@@ -1,8 +1,9 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/core/offline_db/organisation_unit_offline/organisation_children_offline_provider.dart';
-import 'package:kb_mobile_app/core/utils/organisation_uni_recursive.dart/service/components/organisation_unit_recursive_child.dart';
+import 'package:kb_mobile_app/core/services/organisation_unit_service.dart';
+import 'package:kb_mobile_app/core/utils/organisation_uni_recursive.dart/components/organisation_component.dart';
 import 'package:kb_mobile_app/models/organisation_unit.dart';
-
 
 // ignore: must_be_immutable
 class OrganisationContent extends StatelessWidget {
@@ -20,7 +21,6 @@ class OrganisationContent extends StatelessWidget {
       this.onExpandChildren});
   @override
   Widget build(BuildContext context) {
-   
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -99,8 +99,29 @@ class OrganisationContent extends StatelessWidget {
                                       ConnectionState.done &&
                                   snapshot.hasData &&
                                   snapshot.data != null) {
-                                return OrganisationUnitRecursivePopUpMenu(
-                                  currentOrganisationId: snapshot.data,
+                                return SingleChildScrollView(
+                                  physics: ScrollPhysics(),
+                                  child: Padding(
+                                    padding: EdgeInsets.only(right: 0, top: 2),
+                                    child: ListView.builder(
+                                        dragStartBehavior:
+                                            DragStartBehavior.start,
+                                        padding: EdgeInsets.all(0),
+                                        physics: NeverScrollableScrollPhysics(),
+                                        shrinkWrap: true,
+                                        itemCount: OrganisationUnitService()
+                                            .getCompleteOrganizationUnitOfCurrentUser(
+                                                snapshot.data)
+                                            .length,
+                                        itemBuilder: (context, index) {
+                                          return ExpandedOrganisationWidgets(
+                                              organisationUnit:
+                                                  OrganisationUnitService()
+                                                      .getCompleteOrganizationUnitOfCurrentUser(
+                                                          snapshot
+                                                              .data)[index]);
+                                        }),
+                                  ),
                                 );
                               } else {
                                 return Text("Loading ...");

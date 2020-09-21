@@ -20,12 +20,9 @@ class _OrganisationUnitPopUpMenuState extends State<OrganisationUnitPopUpMenu> {
   @override
   void initState() {
     super.initState();
-   getOrganizationId()
+    getOrganizationId()
         .then((_) => {getCompleteOrganizationUnitOfCurrentUser()});
-  
   }
-
-   
 
   getOrganizationId() async {
     CurrentUser user = await UserService().getCurrentUser();
@@ -33,8 +30,6 @@ class _OrganisationUnitPopUpMenuState extends State<OrganisationUnitPopUpMenu> {
     current_User_organisationId = user.userOrgUnitIds;
     (context as Element).markNeedsBuild();
   }
-
-  
 
   getCompleteOrganizationUnitOfCurrentUser() {
     for (var organisationId in current_User_organisationId) {
