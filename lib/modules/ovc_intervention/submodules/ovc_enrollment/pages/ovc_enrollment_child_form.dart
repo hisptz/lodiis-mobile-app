@@ -5,14 +5,26 @@ import 'package:kb_mobile_app/core/components/input_fields/input_field_container
 import 'package:kb_mobile_app/core/components/material_card.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
+import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/models/ovc_enrollment_child.dart';
 import 'package:provider/provider.dart';
 
-class OvcEnrollmentForm extends StatelessWidget {
-  const OvcEnrollmentForm({Key key}) : super(key: key);
+class OvcEnrollmentChildForm extends StatefulWidget {
+  const OvcEnrollmentChildForm({Key key}) : super(key: key);
 
-  final String label = 'Enrollement';
+  @override
+  _OvcEnrollmentChildFormState createState() => _OvcEnrollmentChildFormState();
+}
+
+class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
+  final List<FormSection> formSections = OvcEnrollmentChild.getFormSections();
+  final String label = 'Child form';
+
+  void onInputValueChange(String id, dynamic value) {
+    print('id : $id :: value : $value');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,11 +49,11 @@ class OvcEnrollmentForm extends StatelessWidget {
                       EdgeInsets.symmetric(vertical: 16.0, horizontal: 13.0),
                   child: MaterialCard(
                     body: InputFieldContainer(
-                    
                       inputField: InputField(
                         id: 'id',
                         name: 'Label one',
-                        inputColor: Colors.blueGrey,
+                        inputColor: Colors.amberAccent,
+                        labelColor: Colors.redAccent,
                         description: 'hint for the input field',
                         valueType: 'ORGANISATION_UNIT',
                         hasSubInputField: false,

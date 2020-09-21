@@ -16,7 +16,7 @@ class SelectInputField extends StatefulWidget {
 
   final Color color;
   final List<InputFieldOption> options;
-  final String selectedOption;
+  final dynamic selectedOption;
   final Function onInputValueChange;
   final bool renderAsRadio;
 

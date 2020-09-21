@@ -13,11 +13,15 @@ import 'package:kb_mobile_app/models/input_field.dart';
 
 class InputFieldContainer extends StatelessWidget {
   const InputFieldContainer(
-      {Key key, @required this.inputField, this.onInputValueChange})
+      {Key key,
+      @required this.inputField,
+      this.onInputValueChange,
+      this.inputValue})
       : super(key: key);
 
   final InputField inputField;
   final Function onInputValueChange;
+  final dynamic inputValue;
 
   @override
   Widget build(BuildContext context) {
@@ -97,11 +101,12 @@ class InputFieldContainer extends StatelessWidget {
                   onInputValueChange: (dynamic value) =>
                       this.onInputValueChange(inputField.id, value),
                   options: inputField.options,
-                  selectedOption: null)
+                  selectedOption: inputValue)
               : inputField.valueType == 'TEXT' ||
                       inputField.valueType == 'LONG_TEXT'
                   ? TextInputFieldContainer(
                       inputField: inputField,
+                      inputValue: inputValue,
                       onInputValueChange: (dynamic value) =>
                           this.onInputValueChange(inputField.id, value),
                     )
@@ -109,33 +114,38 @@ class InputFieldContainer extends StatelessWidget {
                           inputField.valueType == 'NUMBER'
                       ? NumericalInputFieldContainer(
                           inputField: inputField,
+                          inputValue: inputValue,
                           onInputValueChange: (dynamic value) =>
                               this.onInputValueChange(inputField.id, value))
                       : inputField.valueType == 'PHONE_NUMBER'
                           ? PhoneNumberInputFieldContainer(
                               inputField: inputField,
+                              inputValue: inputValue,
                               onInputValueChange: (dynamic value) =>
                                   this.onInputValueChange(inputField.id, value))
                           : inputField.valueType == 'BOOLEAN'
                               ? BooleanInputFieldContainer(
                                   inputField: inputField,
+                                  inputValue: inputValue,
                                   onInputValueChange: (dynamic value) => this
                                       .onInputValueChange(inputField.id, value))
                               : inputField.valueType == 'TRUE_ONLY'
                                   ? TrueOnlyInputFieldContainer(
                                       inputField: inputField,
+                                      inputValue: inputValue,
                                       onInputValueChange: (dynamic value) =>
                                           this.onInputValueChange(
                                               inputField.id, value))
                                   : inputField.valueType == 'DATE'
                                       ? DateInputFieldContainer(
                                           inputField: inputField,
+                                          inputValue: inputValue,
                                           onInputValueChange: (dynamic value) =>
                                               this.onInputValueChange(inputField.id, value))
                                       : inputField.valueType == 'ORGANISATION_UNIT'
-                                          ? OrganisationUnitInputFieldContainer(inputField: inputField, onInputValueChange: (dynamic value) => this.onInputValueChange(inputField.id, value))
+                                          ? OrganisationUnitInputFieldContainer(inputField: inputField, inputValue: inputValue, onInputValueChange: (dynamic value) => this.onInputValueChange(inputField.id, value))
                                           : inputField.valueType == 'COORDINATE'
-                                              ? CoordinteInputFieldContainer(inputField: inputField, onInputValueChange: (dynamic value) => this.onInputValueChange(inputField.id, value))
+                                              ? CoordinteInputFieldContainer(inputField: inputField, inputValue: inputValue, onInputValueChange: (dynamic value) => this.onInputValueChange(inputField.id, value))
                                               : Container(
                                                   child: Text(
                                                       '${inputField.valueType} is not supported'),

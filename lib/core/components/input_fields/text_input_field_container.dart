@@ -7,10 +7,12 @@ class TextInputFieldContainer extends StatefulWidget {
     Key key,
     @required this.inputField,
     this.onInputValueChange,
+    this.inputValue,
   }) : super(key: key);
 
   final InputField inputField;
   final Function onInputValueChange;
+  final String inputValue;
 
   @override
   _TextInputFieldContainerState createState() =>
@@ -23,7 +25,7 @@ class _TextInputFieldContainerState extends State<TextInputFieldContainer> {
   @override
   void initState() {
     super.initState();
-    this.textController = TextEditingController(text: widget.inputField.value);
+    this.textController = TextEditingController(text: widget.inputValue);
   }
 
   @override

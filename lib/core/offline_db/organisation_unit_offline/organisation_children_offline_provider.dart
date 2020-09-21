@@ -11,11 +11,10 @@ class OrganisationUnitChildrenOfflineProvider extends OfflineDbProvider {
   Future<Database> get db async {
     if (_db != null) {
       return _db;
-    } else {
-      _db = await initDB();
-      this._onCreate(_db, version);
-      return _db;
     }
+    _db = await initDB();
+    this._onCreate(_db, version);
+    return _db;
   }
 
   initDB() async {
@@ -60,7 +59,6 @@ class OrganisationUnitChildrenOfflineProvider extends OfflineDbProvider {
     if (maps.isNotEmpty) {
       for (Map map in maps) {
         if (map['organisationId'] == organisationUnitId) {
-        
           childrenOrganisationUnits.add(map['id']);
         }
       }
