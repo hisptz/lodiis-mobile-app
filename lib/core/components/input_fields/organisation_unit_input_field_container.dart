@@ -53,9 +53,19 @@ class _OrganisationUnitInputFieldContainerState
   }
 
   void openOrganisationUnit(BuildContext context) async {
-    Widget modal = OrganisationUnitTreeList(
-      organisationUnitIds: userOrganisationUnits,
-      labelColor: widget.inputField.labelColor,
+    Size size = MediaQuery.of(context).size;
+    double height = size.height * 0.6;
+    Widget modal = Container(
+      height: height,
+      margin: EdgeInsets.symmetric(horizontal: 5.0),
+      decoration:
+          BoxDecoration(color: widget.inputField.labelColor.withOpacity(0.05)),
+      child: SingleChildScrollView(
+        child: OrganisationUnitTreeList(
+          organisationUnitIds: userOrganisationUnits,
+          labelColor: widget.inputField.labelColor,
+        ),
+      ),
     );
     OrganisationUnit organisationUnit =
         await AppUtil.showPopUpModal(context, modal);
