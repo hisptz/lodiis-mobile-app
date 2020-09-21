@@ -61,9 +61,7 @@ class UserProgramOfflineProvider extends OfflineDbProvider {
           }
         }
       }
-    } catch (e) {
-      print(e);
-    }
+    } catch (e) {}
     return userProgramIds;
   }
 
