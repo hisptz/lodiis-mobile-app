@@ -24,6 +24,15 @@ class _OvcEnrollmentHouseHoldFormState
   final List<FormSection> formSections =
       OvcEnrollmentHouseHold.getFormSections();
   final String label = 'House Hold form';
+  final List consentFields = [
+    'OVaqHW5kimy',
+    'JCI4nxcE4N6',
+    'XVRQaLDDSpx',
+    'gCdkCgKJhng',
+    'fxqfSmoLBvT',
+    'R026OBBkvLi',
+    'MP7ROUSWfT9'
+  ];
 
   void onSaveAndContinue(BuildContext context) {
     // save and go to list of enrollment;
