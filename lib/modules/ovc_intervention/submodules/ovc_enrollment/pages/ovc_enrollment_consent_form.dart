@@ -70,7 +70,7 @@ class _OvcEnrollmentConsetFormState extends State<OvcEnrollmentConsetForm> {
                         ),
                       ),
                       OvcEnrollmentFormSaveButton(
-                        label: 'Save Consent',
+                        label: 'Save and Continue',
                         labelColor: Colors.white,
                         buttonColor: Color(0xFF4B9F46),
                         fontSize: 15.0,

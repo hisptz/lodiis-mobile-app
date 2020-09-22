@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
+import 'package:kb_mobile_app/models/input_field_option.dart';
 
 class OvcEnrollmentBasicInfo {
   static List<FormSection> getFormSections() {
@@ -44,7 +45,30 @@ class OvcEnrollmentBasicInfo {
                       name: 'Phone Number',
                       valueType: 'PHONE_NUMBER',
                       inputColor: Color(0xFF4B9F46),
-                      labelColor: Color(0xFF4B9F46))
+                      labelColor: Color(0xFF4B9F46)),
+                  InputField(
+                      id: 'qZP982qpSPS',
+                      name: 'Date of Birth',
+                      valueType: 'DATE',
+                      inputColor: Color(0xFF4B9F46),
+                      labelColor: Color(0xFF737373)),
+                  InputField(
+                      id: 'ls9hlz2tyol',
+                      name: 'Age',
+                      valueType: 'NUMBER',
+                      inputColor: Color(0xFF4B9F46),
+                      labelColor: Color(0xFF737373)),
+                  InputField(
+                      id: 'vIX4GTSCX4P',
+                      name: 'Sex',
+                      valueType: 'TEXT',
+                      inputColor: Color(0xFF4B9F46),
+                      labelColor: Color(0xFF737373),
+                      renderAsRadio: true,
+                      options: [
+                        InputFieldOption(code: 'Male', name: 'Male'),
+                        InputFieldOption(code: 'Female', name: 'Female'),
+                      ])
                 ])
           ])
     ];
