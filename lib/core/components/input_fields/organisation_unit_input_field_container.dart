@@ -30,11 +30,15 @@ class _OrganisationUnitInputFieldContainerState
   TextEditingController organisationUnitController;
   List userOrganisationUnits = [];
   bool isLoading = true;
+  String _value;
 
   @override
   void initState() {
     super.initState();
     // Todo set initial value
+    setState(() {
+      _value = widget.inputValue;
+    });
     getUserOrganisationunits();
   }
 
@@ -49,6 +53,7 @@ class _OrganisationUnitInputFieldContainerState
   void setOrganisationunit(String value) {
     setState(() {
       organisationUnitController = TextEditingController(text: value);
+      _value = value;
     });
   }
 
@@ -100,7 +105,7 @@ class _OrganisationUnitInputFieldContainerState
                         errorText: null,
                       ))),
           InputCheckedIcon(
-            showTickedIcon: false,
+            showTickedIcon: _value != '',
             color: widget.inputField.background,
           )
         ],

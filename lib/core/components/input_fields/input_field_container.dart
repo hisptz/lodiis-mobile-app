@@ -97,6 +97,7 @@ class InputFieldContainer extends StatelessWidget {
       child: inputField != null
           ? inputField.options.length > 0
               ? SelectInputField(
+                  color: inputField.inputColor,
                   renderAsRadio: inputField.renderAsRadio,
                   onInputValueChange: (dynamic value) =>
                       this.onInputValueChange(inputField.id, value),

@@ -23,16 +23,23 @@ class _NumericalInputFieldContainerState
     extends State<NumericalInputFieldContainer> {
   Color valueColor = Color(0xFF182E35);
   TextEditingController numericalController;
+  String _value;
 
   @override
   void initState() {
     super.initState();
+    setState(() {
+      _value = widget.inputValue;
+    });
     numericalController = TextEditingController(text: widget.inputValue);
   }
 
   void onValueChange(String value) {
     // @TODO handling error messages
-    setState(() {});
+    setState(() {
+      _value = value;
+    });
+
     widget.onInputValueChange(value);
   }
 
@@ -53,7 +60,7 @@ class _NumericalInputFieldContainerState
                     errorText: null,
                   ))),
           InputCheckedIcon(
-            showTickedIcon: false,
+            showTickedIcon: _value != null,
             color: widget.inputField.inputColor,
           )
         ],

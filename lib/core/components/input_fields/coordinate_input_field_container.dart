@@ -69,7 +69,7 @@ class _CoordinteInputFieldContainerState
                       ),
                     )),
           InputCheckedIcon(
-            showTickedIcon: false,
+            showTickedIcon: _longLatValue != null,
             color: widget.inputField.inputColor,
           )
         ],
