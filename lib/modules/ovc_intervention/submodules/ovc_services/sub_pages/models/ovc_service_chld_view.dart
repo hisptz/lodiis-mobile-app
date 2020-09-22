@@ -23,4 +23,9 @@ class OvcServiceChildModel {
         serviceNumber: 5,
         title: "Service"),
   ];
+
+  @override
+  String toString() {
+    return ("title: $title");
+  }
 }
