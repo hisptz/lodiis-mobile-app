@@ -86,7 +86,7 @@ class InputFieldContainer extends StatelessWidget {
               child: Container(child: _getInputField(inputField))),
           LineSeperator(
               color:
-                  inputField.inputColor.withOpacity(0.5) ?? Colors.transparent)
+                  inputField.inputColor.withOpacity(0.3) ?? Colors.transparent)
         ],
       ),
     );

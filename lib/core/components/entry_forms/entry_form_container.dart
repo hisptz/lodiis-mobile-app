@@ -19,9 +19,10 @@ class EntryFormContainer extends StatelessWidget {
     return Column(
       children: formSections
           .map((FormSection formSection) => Container(
+                margin: EdgeInsets.only(bottom: 10.0),
                 child: MaterialCard(
                     body: Container(
-                  margin: EdgeInsets.symmetric(vertical: 5.0),
+                  margin: EdgeInsets.symmetric(vertical: 10.0),
                   decoration: BoxDecoration(color: formSection.backgroundColor),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -30,6 +31,7 @@ class EntryFormContainer extends StatelessWidget {
                         visible: formSection.name != '',
                         child: Container(
                           padding: EdgeInsets.all(10.0),
+                          margin: EdgeInsets.only(left: 5.0),
                           child: Row(
                             children: [
                               Expanded(
@@ -51,6 +53,9 @@ class EntryFormContainer extends StatelessWidget {
                                 color: formSection.color.withOpacity(0.1))),
                       ),
                       Container(
+                        margin: EdgeInsets.symmetric(vertical: 5.0),
+                        padding: EdgeInsets.symmetric(
+                            vertical: 10.0, horizontal: 20.0),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: formSection.inputFields
