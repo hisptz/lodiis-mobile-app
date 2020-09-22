@@ -8,31 +8,28 @@ import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/models/ovc_enrollement_basic_info.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/pages/ovc_enrollment_child_form.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/models/ovc_enrollement_none_participation.dart';
 import 'package:provider/provider.dart';
 
-class OvcEnrollmentBasicInfoForm extends StatefulWidget {
-  const OvcEnrollmentBasicInfoForm({Key key}) : super(key: key);
+class OvcEnrollmentNoneParticipationForm extends StatefulWidget {
+  OvcEnrollmentNoneParticipationForm({Key key}) : super(key: key);
 
   @override
-  _OvcEnrollmentBasicInfoFormState createState() =>
-      _OvcEnrollmentBasicInfoFormState();
+  _OvcEnrollmentNoneParticipationFormState createState() =>
+      _OvcEnrollmentNoneParticipationFormState();
 }
 
-class _OvcEnrollmentBasicInfoFormState
-    extends State<OvcEnrollmentBasicInfoForm> {
+class _OvcEnrollmentNoneParticipationFormState
+    extends State<OvcEnrollmentNoneParticipationForm> {
   final List<FormSection> formSections =
-      OvcEnrollmentBasicInfo.getFormSections();
-  final String label = 'Basic caregiver information';
+      OvcEnrollmentNoneParticipation.getFormSections();
+  final String label = 'None Participation Form';
 
   void onSaveAndContinue(BuildContext context) {
-    // handling appropriate actions
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => OvcEnrollmentChildForm(),
-        ));
+    // save and go to list of enrollment;
+    if (Navigator.canPop(context)) {
+      Navigator.popUntil(context, (route) => route.isFirst);
+    }
   }
 
   void onInputValueChange(String id, dynamic value) {
@@ -70,7 +67,7 @@ class _OvcEnrollmentBasicInfoFormState
                         ),
                       ),
                       OvcEnrollmentFormSaveButton(
-                        label: 'Save and Continue',
+                        label: 'Save',
                         labelColor: Colors.white,
                         buttonColor: Color(0xFF4B9F46),
                         fontSize: 15.0,
