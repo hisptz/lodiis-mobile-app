@@ -11,8 +11,6 @@ class OvcServiceChildCard extends StatelessWidget {
       @required this.serviceIcon,
       @required this.serviceTitle});
 
-
-
   @override
   Widget build(BuildContext context) {
     return Container(
