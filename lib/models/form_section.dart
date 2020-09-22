@@ -6,6 +6,7 @@ class FormSection {
   Color color;
   Color backgroundColor;
   Color borderColor;
+  String description;
   List<FormSection> subSections;
   List<InputField> inputFields;
 
@@ -15,11 +16,13 @@ class FormSection {
       this.backgroundColor,
       this.borderColor,
       this.subSections,
+      this.description,
       this.inputFields}) {
     this.backgroundColor = this.backgroundColor ?? Colors.transparent;
     this.borderColor = this.borderColor ?? Colors.transparent;
     this.subSections = this.subSections ?? [];
     this.inputFields = this.inputFields ?? [];
+    this.description = this.description ?? "";
   }
 
   @override

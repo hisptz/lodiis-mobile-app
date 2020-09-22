@@ -23,6 +23,14 @@ class RadioInputFieldContainer extends StatefulWidget {
 class _RadioInputFieldContainerState extends State<RadioInputFieldContainer> {
   dynamic _currentValue;
 
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      _currentValue = widget.currentValue;
+    });
+  }
+
   void setSelectedOption(dynamic value) {
     setState(() {
       _currentValue = value;

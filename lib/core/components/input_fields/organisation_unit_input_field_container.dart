@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/input_fields/input_checked_cion.dart';
 import 'package:kb_mobile_app/core/components/organisation_unit_tree_list.dart';
+import 'package:kb_mobile_app/core/services/organisation_unit_service.dart';
 import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
@@ -30,11 +31,11 @@ class _OrganisationUnitInputFieldContainerState
   TextEditingController organisationUnitController;
   List userOrganisationUnits = [];
   bool isLoading = true;
+  String _value;
 
   @override
   void initState() {
     super.initState();
-    // Todo set initial value
     getUserOrganisationunits();
   }
 
@@ -42,13 +43,24 @@ class _OrganisationUnitInputFieldContainerState
     CurrentUser user = await UserService().getCurrentUser();
     setState(() {
       userOrganisationUnits = user.userOrgUnitIds;
-      isLoading = false;
     });
+    discoveringSelectedOrganisationUnit();
+  }
+
+  void discoveringSelectedOrganisationUnit() async {
+    if (widget.inputField != null) {
+      List<OrganisationUnit> ous = await OrganisationUnitService()
+          .getOrganisationUnits([widget.inputValue]);
+      String value = ous.length > 0 ? ous[0].name : null;
+      setOrganisationunit(value);
+    }
   }
 
   void setOrganisationunit(String value) {
     setState(() {
       organisationUnitController = TextEditingController(text: value);
+      _value = value;
+      isLoading = false;
     });
   }
 
@@ -100,8 +112,8 @@ class _OrganisationUnitInputFieldContainerState
                         errorText: null,
                       ))),
           InputCheckedIcon(
-            showTickedIcon: false,
-            color: widget.inputField.background,
+            showTickedIcon: _value != null,
+            color: widget.inputField.inputColor,
           )
         ],
       ),

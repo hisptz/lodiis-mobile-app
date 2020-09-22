@@ -3,14 +3,13 @@ import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
-import 'package:kb_mobile_app/core/components/material_card.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/models/ovc_enrollement_basic_info.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/pages/ovc_enrollment_consent_form.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/pages/ovc_enrollment_child_form.dart';
 import 'package:provider/provider.dart';
 
 class OvcEnrollmentBasicInfoForm extends StatefulWidget {
@@ -28,10 +27,11 @@ class _OvcEnrollmentBasicInfoFormState
   final String label = 'Basic caregiver information';
 
   void onSaveAndContinue(BuildContext context) {
+    // handling appropriate actions
     Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => OvcEnrollmentConsetForm(),
+          builder: (context) => OvcEnrollmentChildForm(),
         ));
   }
 
@@ -64,11 +64,14 @@ class _OvcEnrollmentBasicInfoFormState
                   child: Column(
                     children: [
                       Container(
-                        child: MaterialCard(
-                            body: EntryFormContainer(
-                          formSections: formSections,
-                          onInputValueChange: onInputValueChange,
-                        )),
+                        child: Consumer<EnrollmentFormState>(
+                          builder: (context, enrollmentFormState, child) =>
+                              EntryFormContainer(
+                            formSections: formSections,
+                            dataObject: enrollmentFormState.formState,
+                            onInputValueChange: onInputValueChange,
+                          ),
+                        ),
                       ),
                       OvcEnrollmentFormSaveButton(
                         label: 'Save and Continue',

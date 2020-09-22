@@ -8,31 +8,31 @@ import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/models/ovc_enrollment_consent.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/pages/ovc_enrollement_basic_info_form.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/constants/none_participation_contant.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/models/ovc_enrollement_none_participation.dart';
 import 'package:provider/provider.dart';
 
-class OvcEnrollmentConsetForm extends StatefulWidget {
-  const OvcEnrollmentConsetForm({Key key}) : super(key: key);
+class OvcEnrollmentNoneParticipationForm extends StatefulWidget {
+  OvcEnrollmentNoneParticipationForm({Key key}) : super(key: key);
 
   @override
-  _OvcEnrollmentConsetFormState createState() =>
-      _OvcEnrollmentConsetFormState();
+  _OvcEnrollmentNoneParticipationFormState createState() =>
+      _OvcEnrollmentNoneParticipationFormState();
 }
 
-class _OvcEnrollmentConsetFormState extends State<OvcEnrollmentConsetForm> {
-  final List<FormSection> formSections = OvcEnrollmentConsent.getFormSections();
-  final String label = 'Consent Form';
+class _OvcEnrollmentNoneParticipationFormState
+    extends State<OvcEnrollmentNoneParticipationForm> {
+  final List<FormSection> formSections =
+      OvcEnrollmentNoneParticipation.getFormSections();
+  final String label = 'None Participation Form';
+  final List<NoneParticipationContant> noneParticipationContants =
+      NoneParticipationContant.getNoneParticipationConstant();
 
   void onSaveAndContinue(BuildContext context) {
-    // saving and appropriate actions
-
-    //OvcEnrollmentNoneParticipationForm
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => OvcEnrollmentBasicInfoForm(),
-        ));
+    // save and go to list of enrollment;
+    if (Navigator.canPop(context)) {
+      Navigator.popUntil(context, (route) => route.isFirst);
+    }
   }
 
   void onInputValueChange(String id, dynamic value) {
@@ -74,7 +74,7 @@ class _OvcEnrollmentConsetFormState extends State<OvcEnrollmentConsetForm> {
                         ),
                       ),
                       OvcEnrollmentFormSaveButton(
-                        label: 'Save and Continue',
+                        label: 'Save',
                         labelColor: Colors.white,
                         buttonColor: Color(0xFF4B9F46),
                         fontSize: 15.0,

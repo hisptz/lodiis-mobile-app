@@ -4,12 +4,16 @@ import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 
 class EntrySubFormContainer extends StatelessWidget {
-  const EntrySubFormContainer(
-      {Key key, @required this.subSections, this.onInputValueChange})
-      : super(key: key);
+  const EntrySubFormContainer({
+    Key key,
+    @required this.subSections,
+    @required this.dataObject,
+    this.onInputValueChange,
+  }) : super(key: key);
 
   final List<FormSection> subSections;
   final Function onInputValueChange;
+  final Map dataObject;
 
   @override
   Widget build(BuildContext context) {
@@ -19,9 +23,8 @@ class EntrySubFormContainer extends StatelessWidget {
         children: subSections
             .map(
               (FormSection subSection) => Container(
-                  margin: EdgeInsets.symmetric(vertical: 5.0),
-                  padding:
-                      EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
+                  margin: EdgeInsets.symmetric(
+                      vertical: subSection.name != '' ? 5.0 : 0.0),
                   decoration: BoxDecoration(
                       border: Border(
                           left: BorderSide(
@@ -32,13 +35,15 @@ class EntrySubFormContainer extends StatelessWidget {
                       Visibility(
                         visible: subSection.name != '',
                         child: Container(
+                          padding: EdgeInsets.symmetric(
+                              vertical: 15.0, horizontal: 10.0),
                           child: Row(
                             children: [
                               Text(
                                 subSection.name,
                                 style: TextStyle().copyWith(
                                     color: subSection.color,
-                                    fontSize: 13.0,
+                                    fontSize: 15.0,
                                     fontWeight: FontWeight.bold),
                               )
                             ],
@@ -50,8 +55,15 @@ class EntrySubFormContainer extends StatelessWidget {
                           children: subSection.inputFields
                               .map((InputField inputField) => Container(
                                     margin: EdgeInsets.only(top: 10.0),
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: 10.0,
+                                        horizontal: inputField.background ==
+                                                Colors.transparent
+                                            ? 10.0
+                                            : 0.0),
                                     child: InputFieldContainer(
                                         inputField: inputField,
+                                        inputValue: dataObject[inputField.id],
                                         onInputValueChange:
                                             (String id, dynamic value) =>
                                                 onInputValueChange(id, value)),
@@ -62,6 +74,7 @@ class EntrySubFormContainer extends StatelessWidget {
                       Container(
                         child: EntrySubFormContainer(
                           subSections: subSection.subSections,
+                          dataObject: dataObject,
                           onInputValueChange: onInputValueChange,
                         ),
                       )

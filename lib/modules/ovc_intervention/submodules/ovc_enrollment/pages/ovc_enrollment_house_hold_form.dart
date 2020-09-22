@@ -3,7 +3,6 @@ import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
-import 'package:kb_mobile_app/core/components/material_card.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
@@ -25,6 +24,15 @@ class _OvcEnrollmentHouseHoldFormState
   final List<FormSection> formSections =
       OvcEnrollmentHouseHold.getFormSections();
   final String label = 'House Hold form';
+  final List consentFields = [
+    'OVaqHW5kimy',
+    'JCI4nxcE4N6',
+    'XVRQaLDDSpx',
+    'gCdkCgKJhng',
+    'fxqfSmoLBvT',
+    'R026OBBkvLi',
+    'MP7ROUSWfT9'
+  ];
 
   void onSaveAndContinue(BuildContext context) {
     // save and go to list of enrollment;
@@ -62,11 +70,14 @@ class _OvcEnrollmentHouseHoldFormState
                   child: Column(
                     children: [
                       Container(
-                        child: MaterialCard(
-                            body: EntryFormContainer(
-                          formSections: formSections,
-                          onInputValueChange: onInputValueChange,
-                        )),
+                        child: Consumer<EnrollmentFormState>(
+                          builder: (context, enrollmentFormState, child) =>
+                              EntryFormContainer(
+                            formSections: formSections,
+                            dataObject: enrollmentFormState.formState,
+                            onInputValueChange: onInputValueChange,
+                          ),
+                        ),
                       ),
                       OvcEnrollmentFormSaveButton(
                         label: 'Save House Hold',

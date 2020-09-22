@@ -30,7 +30,9 @@ class _SelectInputFieldState extends State<SelectInputField> {
   @override
   void initState() {
     super.initState();
-    this._selectedOption = widget.selectedOption;
+    setState(() {
+      _selectedOption = widget.selectedOption;
+    });
   }
 
   void onValueChange(dynamic value) {
@@ -47,6 +49,7 @@ class _SelectInputFieldState extends State<SelectInputField> {
             child: RadioInputFieldContainer(
                 options: widget.options,
                 currentValue: _selectedOption,
+                activeColor: widget.color,
                 onInputValueChange: widget.onInputValueChange))
         : Row(children: [
             Expanded(
@@ -76,7 +79,7 @@ class _SelectInputFieldState extends State<SelectInputField> {
               }).toList(),
             )),
             InputCheckedIcon(
-              showTickedIcon: _selectedOption == null,
+              showTickedIcon: _selectedOption != null,
               color: widget.color,
             )
           ]);
