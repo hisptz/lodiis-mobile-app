@@ -19,9 +19,9 @@ class EntryFormContainer extends StatelessWidget {
     return Column(
       children: formSections
           .map((FormSection formSection) => Container(
-                margin: EdgeInsets.symmetric(vertical: 10.0),
                 child: MaterialCard(
                     body: Container(
+                  margin: EdgeInsets.symmetric(vertical: 5.0),
                   decoration: BoxDecoration(color: formSection.backgroundColor),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -29,7 +29,7 @@ class EntryFormContainer extends StatelessWidget {
                       Visibility(
                         visible: formSection.name != '',
                         child: Container(
-                          padding: EdgeInsets.all(15.0),
+                          padding: EdgeInsets.all(10.0),
                           child: Row(
                             children: [
                               Expanded(

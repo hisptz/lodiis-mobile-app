@@ -19,7 +19,7 @@ class EntrySubFormContainer extends StatelessWidget {
         children: subSections
             .map(
               (FormSection subSection) => Container(
-                  margin: EdgeInsets.symmetric(vertical: 15.0),
+                  margin: EdgeInsets.symmetric(vertical: 5.0),
                   padding:
                       EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
                   decoration: BoxDecoration(
