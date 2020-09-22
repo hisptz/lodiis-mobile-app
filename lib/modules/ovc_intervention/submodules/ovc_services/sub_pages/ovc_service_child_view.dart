@@ -28,43 +28,33 @@ class OvcServiceChildView extends StatelessWidget {
           ),
         ),
         body: SingleChildScrollView(
-          child: Column(
-           
-            children: [
+          child: Column(children: [
             OvcChildAppBarContainer(),
-           
-             GridView.count(
-                    crossAxisCount: 2,
-                    primary: false,
-                    childAspectRatio: 0.9,
-                    padding: const EdgeInsets.only(left:8.0,right: 8,top: 0),
-                    mainAxisSpacing: 5.0,
-                    crossAxisSpacing: 5.0,
-                    shrinkWrap: true,
-                    children: OvcServiceChildModel.serviceChildList
-                        .map((ovcServiceChildView) {
-                      return InkWell(
-                        child: 
-                        
-                            Container(
-                                margin: EdgeInsets.only(top: 20),
-      
-          height: MediaQuery.of(context).size.height/16,
-                              child: OvcServiceChildCard(
-                                  countString:
-                                      ovcServiceChildView.serviceNumber.toString(),
-                                  serviceIcon: ovcServiceChildView.iconPath,
-                                  serviceTitle: ovcServiceChildView.title),
-                            ),
-                           
-                     
-                        onTap: () {
-                          print(ovcServiceChildView.title);
-                        },
-                      );
-                    }).toList()),
-          
-          
+            GridView.count(
+                crossAxisCount: 2,
+                primary: false,
+                childAspectRatio: 0.9,
+                padding: const EdgeInsets.only(left: 8.0, right: 8, top: 0),
+                mainAxisSpacing: 5.0,
+                crossAxisSpacing: 5.0,
+                shrinkWrap: true,
+                children: OvcServiceChildModel.serviceChildList
+                    .map((ovcServiceChildView) {
+                  return InkWell(
+                    child: Container(
+                      margin: EdgeInsets.only(top: 20),
+                      height: MediaQuery.of(context).size.height / 16,
+                      child: OvcServiceChildCard(
+                          countString:
+                              ovcServiceChildView.serviceNumber.toString(),
+                          serviceIcon: ovcServiceChildView.iconPath,
+                          serviceTitle: ovcServiceChildView.title),
+                    ),
+                    onTap: () {
+                      print(ovcServiceChildView.title);
+                    },
+                  );
+                }).toList()),
             OvcEnrollmentFormSaveButton(
               label: "GO TO CHILD'S HOUSE HOLD",
               labelColor: Colors.white,
