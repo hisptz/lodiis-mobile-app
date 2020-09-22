@@ -21,9 +21,6 @@ class EntrySubFormContainer extends StatelessWidget {
               (FormSection subSection) => Container(
                   margin: EdgeInsets.symmetric(
                       vertical: subSection.name != '' ? 5.0 : 0.0),
-                  padding: subSection.name != ''
-                      ? EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0)
-                      : EdgeInsets.only(left: 10.0, right: 10.0, bottom: 10.0),
                   decoration: BoxDecoration(
                       border: Border(
                           left: BorderSide(
@@ -34,6 +31,8 @@ class EntrySubFormContainer extends StatelessWidget {
                       Visibility(
                         visible: subSection.name != '',
                         child: Container(
+                          padding: EdgeInsets.symmetric(
+                              vertical: 15.0, horizontal: 10.0),
                           child: Row(
                             children: [
                               Text(
@@ -52,6 +51,12 @@ class EntrySubFormContainer extends StatelessWidget {
                           children: subSection.inputFields
                               .map((InputField inputField) => Container(
                                     margin: EdgeInsets.only(top: 10.0),
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: 10.0,
+                                        horizontal: inputField.background ==
+                                                Colors.transparent
+                                            ? 10.0
+                                            : 0.0),
                                     child: InputFieldContainer(
                                         inputField: inputField,
                                         onInputValueChange:

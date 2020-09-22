@@ -105,8 +105,8 @@ class _OrganisationUnitInputFieldContainerState
                         errorText: null,
                       ))),
           InputCheckedIcon(
-            showTickedIcon: _value != '',
-            color: widget.inputField.background,
+            showTickedIcon: _value != null,
+            color: widget.inputField.inputColor,
           )
         ],
       ),

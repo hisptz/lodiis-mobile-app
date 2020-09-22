@@ -53,9 +53,10 @@ class EntryFormContainer extends StatelessWidget {
                                 color: formSection.color.withOpacity(0.1))),
                       ),
                       Container(
-                        margin: EdgeInsets.symmetric(vertical: 5.0),
+                        margin: EdgeInsets.symmetric(
+                            vertical: 5.0, horizontal: 10.0),
                         padding: EdgeInsets.symmetric(
-                            vertical: 10.0, horizontal: 20.0),
+                            vertical: 10.0, horizontal: 10.0),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: formSection.inputFields
