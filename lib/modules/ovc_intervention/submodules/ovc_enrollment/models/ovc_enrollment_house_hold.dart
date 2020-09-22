@@ -396,7 +396,7 @@ class OvcEnrollmentHouseHold {
                       name:
                           'Psychosocial support and basic care - Vulnerability',
                       valueType: 'BOOLEAN',
-                      background: Color(0xFF),
+                      background: Color(0xFFF5F5E9),
                       inputColor: Color(0xFF9E9D24))
                 ]),
             FormSection(
