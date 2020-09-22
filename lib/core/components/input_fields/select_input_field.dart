@@ -30,7 +30,9 @@ class _SelectInputFieldState extends State<SelectInputField> {
   @override
   void initState() {
     super.initState();
-    this._selectedOption = widget.selectedOption;
+    setState(() {
+      _selectedOption = widget.selectedOption;
+    });
   }
 
   void onValueChange(dynamic value) {
