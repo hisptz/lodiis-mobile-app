@@ -40,7 +40,7 @@ class EntrySubFormContainer extends StatelessWidget {
                                 subSection.name,
                                 style: TextStyle().copyWith(
                                     color: subSection.color,
-                                    fontSize: 13.0,
+                                    fontSize: 15.0,
                                     fontWeight: FontWeight.bold),
                               )
                             ],

@@ -19,7 +19,7 @@ class EntryFormContainer extends StatelessWidget {
     return Column(
       children: formSections
           .map((FormSection formSection) => Container(
-                margin: EdgeInsets.only(bottom: 10.0),
+                margin: EdgeInsets.only(bottom: 20.0),
                 child: MaterialCard(
                     body: Container(
                   margin: EdgeInsets.symmetric(vertical: 10.0),
@@ -39,7 +39,7 @@ class EntryFormContainer extends StatelessWidget {
                                 formSection.name,
                                 style: TextStyle().copyWith(
                                     color: formSection.color,
-                                    fontSize: 14.0,
+                                    fontSize: 16.0,
                                     fontWeight: FontWeight.bold),
                               ))
                             ],
