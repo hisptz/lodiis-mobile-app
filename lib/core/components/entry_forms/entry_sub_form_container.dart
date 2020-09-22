@@ -4,12 +4,16 @@ import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 
 class EntrySubFormContainer extends StatelessWidget {
-  const EntrySubFormContainer(
-      {Key key, @required this.subSections, this.onInputValueChange})
-      : super(key: key);
+  const EntrySubFormContainer({
+    Key key,
+    @required this.subSections,
+    @required this.dataObject,
+    this.onInputValueChange,
+  }) : super(key: key);
 
   final List<FormSection> subSections;
   final Function onInputValueChange;
+  final Map dataObject;
 
   @override
   Widget build(BuildContext context) {
@@ -59,6 +63,7 @@ class EntrySubFormContainer extends StatelessWidget {
                                             : 0.0),
                                     child: InputFieldContainer(
                                         inputField: inputField,
+                                        inputValue: dataObject[inputField.id],
                                         onInputValueChange:
                                             (String id, dynamic value) =>
                                                 onInputValueChange(id, value)),
@@ -69,6 +74,7 @@ class EntrySubFormContainer extends StatelessWidget {
                       Container(
                         child: EntrySubFormContainer(
                           subSections: subSection.subSections,
+                          dataObject: dataObject,
                           onInputValueChange: onInputValueChange,
                         ),
                       )

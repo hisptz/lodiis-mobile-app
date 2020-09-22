@@ -5,7 +5,7 @@ class EnrollmentFormState with ChangeNotifier {
   Map _formState = Map();
 
   // selector
-  void get formState => _formState;
+  Map get formState => _formState;
 
   //reducers
   setFormFieldState(String id, dynamic value) {

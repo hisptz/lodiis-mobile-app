@@ -44,6 +44,7 @@ class DreamsEnrollmentForm extends StatelessWidget {
                   child: EntryFormContainer(
                     formSections: enrollmentForm,
                     onInputValueChange: onInputValueChange,
+                    dataObject: Map(),
                   )),
             ),
             bottomNavigationBar: InterventionBottomNavigationBarContainer()));

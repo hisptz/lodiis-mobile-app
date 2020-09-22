@@ -21,6 +21,22 @@ class OvcEnrollmentChildForm extends StatefulWidget {
 class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
   final List<FormSection> formSections = OvcEnrollmentChild.getFormSections();
   final String label = 'Child form';
+  final List<Map> childList = [];
+  bool isLoading = true;
+  Map childMapObject;
+
+  @override
+  void initState() {
+    super.initState();
+    resetMapObject(childMapObject);
+  }
+
+  void resetMapObject(Map map) {
+    setState(() {
+      childMapObject = Map();
+      isLoading = false;
+    });
+  }
 
   void onSaveAndContinue(BuildContext context) {
     // save child and provide appropriate action
@@ -33,6 +49,7 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
 
   void onInputValueChange(String id, dynamic value) {
     print('id : $id :: value : $value');
+    // adding children in form state
   }
 
   @override
@@ -61,6 +78,7 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
                       Container(
                         child: EntryFormContainer(
                           formSections: formSections,
+                          dataObject: childMapObject,
                           onInputValueChange: onInputValueChange,
                         ),
                       ),

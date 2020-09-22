@@ -70,9 +70,13 @@ class _OvcEnrollmentHouseHoldFormState
                   child: Column(
                     children: [
                       Container(
-                        child: EntryFormContainer(
-                          formSections: formSections,
-                          onInputValueChange: onInputValueChange,
+                        child: Consumer<EnrollmentFormState>(
+                          builder: (context, enrollmentFormState, child) =>
+                              EntryFormContainer(
+                            formSections: formSections,
+                            dataObject: enrollmentFormState.formState,
+                            onInputValueChange: onInputValueChange,
+                          ),
                         ),
                       ),
                       OvcEnrollmentFormSaveButton(
