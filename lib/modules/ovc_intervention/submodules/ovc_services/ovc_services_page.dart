@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_intervention_appBar.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_intervention_home_card.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/sub_pages/ovc_service_child_view.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/sub_pages/ovc_service_child_view_page.dart';
 
 class OvcServicesPage extends StatelessWidget {
   const OvcServicesPage({Key key}) : super(key: key);
