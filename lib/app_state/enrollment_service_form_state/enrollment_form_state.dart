@@ -8,6 +8,12 @@ class EnrollmentFormState with ChangeNotifier {
   Map get formState => _formState;
 
   //reducers
+
+  resetFormState() {
+    _formState = Map();
+    notifyListeners();
+  }
+
   setFormFieldState(String id, dynamic value) {
     _formState[id] = value;
     notifyListeners();
