@@ -8,6 +8,7 @@ import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/constants/none_participation_contant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/models/ovc_enrollement_none_participation.dart';
 import 'package:provider/provider.dart';
 
@@ -24,6 +25,8 @@ class _OvcEnrollmentNoneParticipationFormState
   final List<FormSection> formSections =
       OvcEnrollmentNoneParticipation.getFormSections();
   final String label = 'None Participation Form';
+  final List<NoneParticipationContant> noneParticipationContants =
+      NoneParticipationContant.getNoneParticipationConstant();
 
   void onSaveAndContinue(BuildContext context) {
     // save and go to list of enrollment;

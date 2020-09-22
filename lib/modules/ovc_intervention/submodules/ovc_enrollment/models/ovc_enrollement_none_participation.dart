@@ -29,11 +29,17 @@ class OvcEnrollmentNoneParticipation {
                 inputColor: Color(0xFF4B9F46),
                 labelColor: Color(0xFF4B9F46)),
             InputField(
-                id: '',
+                id: 'ox6mydZjgC3',
                 name: 'Phone Number',
                 valueType: 'PHONE_NUMBER',
                 inputColor: Color(0xFF4B9F46),
                 labelColor: Color(0xFF4B9F46)),
+            InputField(
+                id: 'jVSwC6Ln95H',
+                name: 'Date of Birth',
+                valueType: 'NUMBER',
+                inputColor: Color(0xFF4B9F46),
+                labelColor: Color(0xFF737373)),
             InputField(
                 id: 'an7w8LYPZ7y',
                 name: 'Age',
