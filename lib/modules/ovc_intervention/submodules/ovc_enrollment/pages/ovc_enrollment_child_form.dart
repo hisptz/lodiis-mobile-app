@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
@@ -24,7 +27,7 @@ class OvcEnrollmentChildForm extends StatefulWidget {
 class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
   final List<FormSection> formSections = OvcEnrollmentChild.getFormSections();
   final String label = 'Child form';
-  final List<Map> childList = [];
+  final List<Map> childMapObjects = [];
   bool isLoading = true;
   Map childMapObject;
 
@@ -36,19 +39,28 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
 
   void resetMapObject(Map map) {
     setState(() {
+      if (map != null) {
+        childMapObjects.add(map);
+      }
       childMapObject = Map();
       isLoading = false;
     });
   }
 
   void onSaveAndContinue(BuildContext context) async {
-    // save child and provide appropriate action
-
-    Widget modal = AddChildConfirmation();
+    String name = childMapObject['s1eRvsL2Ly4'] ?? '';
+    Widget modal = AddChildConfirmation(name: name);
     bool response = await AppUtil.showPopUpModal(context, modal);
     if (response != null) {
       if (response) {
+        setState(() {
+          isLoading = true;
+        });
+        Timer(
+            Duration(milliseconds: 500), () => resetMapObject(childMapObject));
       } else {
+        Provider.of<EnrollmentFormState>(context, listen: false)
+            .setFormFieldState('children', childMapObjects);
         Navigator.push(
             context,
             MaterialPageRoute(
@@ -56,7 +68,6 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
             ));
       }
     }
-    setState(() {});
   }
 
   void onInputValueChange(String id, dynamic value) {
