@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
-import 'package:kb_mobile_app/core/components/material_card.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
@@ -60,11 +59,10 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
                   child: Column(
                     children: [
                       Container(
-                        child: MaterialCard(
-                            body: EntryFormContainer(
+                        child: EntryFormContainer(
                           formSections: formSections,
                           onInputValueChange: onInputValueChange,
-                        )),
+                        ),
                       ),
                       OvcEnrollmentFormSaveButton(
                         label: 'Save',

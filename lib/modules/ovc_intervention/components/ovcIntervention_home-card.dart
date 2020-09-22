@@ -3,8 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
+// ignore: must_be_immutable
 class OvcIntervention extends StatelessWidget {
-  
   bool editService, editReferral, editEnrollment, addExit, showChild;
   Widget bodyWidget;
   Widget topyContent;
