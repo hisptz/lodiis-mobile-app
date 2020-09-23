@@ -8,7 +8,7 @@ class OrganisationUnit {
   //tables for organisations Units
   static const String organisationProgramTable = 'organisation_unit_program';
   static const String organisationChildrenTable = 'organisation_unit_children';
-  static const String organisationUnitTable = 'organisations';
+  static const String organisationUnitTable = 'organisation_unit';
 
   OrganisationUnit(
       {this.id,

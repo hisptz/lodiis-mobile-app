@@ -1,33 +1,11 @@
 import 'package:kb_mobile_app/core/offline_db/offline_db_provider.dart';
 import 'package:kb_mobile_app/models/organisation_unit.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:path/path.dart';
 
 class OrganisationUnitChildrenOfflineProvider extends OfflineDbProvider {
-  Database _db;
+  // columns
   String id = 'id';
   String organisationId = 'organisationId';
-
-  Future<Database> get db async {
-    if (_db != null) {
-      return _db;
-    }
-    _db = await initDB();
-    this._onCreate(_db, version);
-    return _db;
-  }
-
-  initDB() async {
-    var databasePath = await getDatabasesPath();
-    String path = join(databasePath, "$databaseName.db");
-    var db = await openDatabase(path, version: version, onCreate: _onCreate);
-    return db;
-  }
-
-  _onCreate(Database db, int version) async {
-    await db.execute(
-        "CREATE TABLE IF NOT EXISTS  ${OrganisationUnit.organisationChildrenTable} ($id TEXT , $organisationId TEXT,PRIMARY KEY ($id ,$organisationId))");
-  }
 
   addOrUpdateChildrenOrganisationUnits(
       OrganisationUnit organisationUnit) async {
@@ -49,7 +27,6 @@ class OrganisationUnitChildrenOfflineProvider extends OfflineDbProvider {
 
   Future<List> getChildrenOrganisationUnits(String organisationUnitId) async {
     List childrenOrganisationUnits = [];
-
     var dbClient = await db;
     List<Map> maps = await dbClient
         .query(OrganisationUnit.organisationChildrenTable, columns: [
@@ -63,12 +40,6 @@ class OrganisationUnitChildrenOfflineProvider extends OfflineDbProvider {
         }
       }
     }
-
     return childrenOrganisationUnits;
-  }
-
-  close() async {
-    var dbClient = await db;
-    dbClient.close();
   }
 }

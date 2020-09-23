@@ -1,36 +1,11 @@
 import 'package:kb_mobile_app/core/offline_db/offline_db_provider.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
-import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
 class UserOuOfflineProvider extends OfflineDbProvider {
-  Database _db;
   // columns
   String id = 'id';
   String userId = 'userId';
-
-  Future<Database> get db async {
-    if (_db != null) {
-      return _db;
-    }
-    _db = await init();
-    this._onCreate(_db, version);
-    return _db;
-  }
-
-  init() async {
-    var databasesPath = await getDatabasesPath();
-    String path = join(databasesPath, '$databaseName.db');
-
-    var db = await openDatabase(path, version: version, onCreate: _onCreate);
-    return db;
-  }
-
-  _onCreate(Database db, int version) async {
-    String createTableQuery =
-        "CREATE TABLE IF NOT EXISTS ${CurrentUser.userOrganisatonUnitTable} ($id TEXT PRIMARY KEY, $userId TEXT)";
-    await db.execute(createTableQuery);
-  }
 
   addOrUpdateUserOrganisationUnits(CurrentUser user) async {
     var dbClient = await db;
@@ -67,10 +42,5 @@ class UserOuOfflineProvider extends OfflineDbProvider {
       }
     } catch (e) {}
     return userOrganisationUnits;
-  }
-
-  close() async {
-    var dbClient = await db;
-    dbClient.close();
   }
 }
