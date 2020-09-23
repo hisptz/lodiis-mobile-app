@@ -18,6 +18,7 @@ class OvcEnrollmentHouseHold {
               InputField(
                   id: 'location',
                   name: 'Location',
+                  isReadObly: true,
                   valueType: 'ORGANISATION_UNIT',
                   inputColor: Color(0xFF4B9F46),
                   labelColor: Color(0xFF737373)),
@@ -42,6 +43,7 @@ class OvcEnrollmentHouseHold {
                       id: 's1eRvsL2Ly4',
                       name: 'First Name',
                       valueType: 'TEXT',
+                      isReadObly: true,
                       inputColor: Color(0xFF4B9F46),
                       labelColor: Color(0xFF737373)),
                   InputField(
@@ -54,6 +56,7 @@ class OvcEnrollmentHouseHold {
                       id: 'rSP9c21JsfC',
                       name: 'Surname',
                       valueType: 'TEXT',
+                      isReadObly: true,
                       inputColor: Color(0xFF4B9F46),
                       labelColor: Color(0xFF737373)),
                   InputField(
@@ -78,6 +81,7 @@ class OvcEnrollmentHouseHold {
                   InputField(
                       id: 'vIX4GTSCX4P',
                       name: 'Sex',
+                      isReadObly: true,
                       valueType: 'TEXT',
                       inputColor: Color(0xFF4B9F46),
                       labelColor: Color(0xFF737373),

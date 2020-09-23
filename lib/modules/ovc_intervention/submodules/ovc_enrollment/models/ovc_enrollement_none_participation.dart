@@ -47,7 +47,7 @@ class OvcEnrollmentNoneParticipation {
             InputField(
                 id: 'jVSwC6Ln95H',
                 name: 'Date of Birth',
-                valueType: 'NUMBER',
+                valueType: 'DATE',
                 inputColor: Color(0xFF4B9F46),
                 labelColor: Color(0xFF737373)),
             InputField(

@@ -58,9 +58,18 @@ class _OvcEnrollmentNoneParticipationFormState
     }
   }
 
+  void autoFillInputFields(String id, dynamic value) {
+    if (id == 'jVSwC6Ln95H') {
+      int age = AppUtil.getAgeInYear(value);
+      Provider.of<EnrollmentFormState>(context, listen: false)
+          .setFormFieldState('mZs1YsN56cR', age.toString());
+    }
+  }
+
   void onInputValueChange(String id, dynamic value) {
     Provider.of<EnrollmentFormState>(context, listen: false)
         .setFormFieldState(id, value);
+    autoFillInputFields(id, value);
   }
 
   @override

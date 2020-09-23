@@ -86,8 +86,16 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
     }
   }
 
+  void autoFillInputFields(String id, dynamic value) {
+    if (id == 'qZP982qpSPS') {
+      int age = AppUtil.getAgeInYear(value);
+      childMapObject['ls9hlz2tyol'] = age.toString();
+    }
+  }
+
   void onInputValueChange(String id, dynamic value) {
     childMapObject[id] = value;
+    autoFillInputFields(id, value);
   }
 
   @override
