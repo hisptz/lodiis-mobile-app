@@ -7,21 +7,28 @@ import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 
 class EntryFormContainer extends StatelessWidget {
-  const EntryFormContainer(
-      {Key key, @required this.formSections, this.onInputValueChange})
-      : super(key: key);
+  const EntryFormContainer({
+    Key key,
+    @required this.formSections,
+    @required this.dataObject,
+    @required this.mandatoryFieldObject,
+    this.onInputValueChange,
+  }) : super(key: key);
 
   final List<FormSection> formSections;
   final Function onInputValueChange;
+  final Map dataObject;
+  final Map mandatoryFieldObject;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: formSections
           .map((FormSection formSection) => Container(
+                margin: EdgeInsets.only(bottom: 20.0),
                 child: MaterialCard(
                     body: Container(
-                  margin: EdgeInsets.symmetric(vertical: 5.0),
+                  margin: EdgeInsets.symmetric(vertical: 10.0),
                   decoration: BoxDecoration(color: formSection.backgroundColor),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -30,6 +37,7 @@ class EntryFormContainer extends StatelessWidget {
                         visible: formSection.name != '',
                         child: Container(
                           padding: EdgeInsets.all(10.0),
+                          margin: EdgeInsets.only(left: 5.0),
                           child: Row(
                             children: [
                               Expanded(
@@ -37,7 +45,7 @@ class EntryFormContainer extends StatelessWidget {
                                 formSection.name,
                                 style: TextStyle().copyWith(
                                     color: formSection.color,
-                                    fontSize: 14.0,
+                                    fontSize: 16.0,
                                     fontWeight: FontWeight.bold),
                               ))
                             ],
@@ -51,6 +59,10 @@ class EntryFormContainer extends StatelessWidget {
                                 color: formSection.color.withOpacity(0.1))),
                       ),
                       Container(
+                        margin: EdgeInsets.symmetric(
+                            vertical: 5.0, horizontal: 10.0),
+                        padding: EdgeInsets.symmetric(
+                            vertical: 10.0, horizontal: 10.0),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: formSection.inputFields
@@ -58,6 +70,9 @@ class EntryFormContainer extends StatelessWidget {
                                     margin: EdgeInsets.only(top: 10.0),
                                     child: InputFieldContainer(
                                       inputField: inputField,
+                                      mandatoryFieldObject:
+                                          mandatoryFieldObject,
+                                      inputValue: dataObject[inputField.id],
                                       onInputValueChange:
                                           (String id, dynamic value) =>
                                               onInputValueChange(id, value),
@@ -68,6 +83,8 @@ class EntryFormContainer extends StatelessWidget {
                       ),
                       EntrySubFormContainer(
                         subSections: formSection.subSections,
+                        dataObject: dataObject,
+                        mandatoryFieldObject: mandatoryFieldObject,
                         onInputValueChange: onInputValueChange,
                       )
                     ],

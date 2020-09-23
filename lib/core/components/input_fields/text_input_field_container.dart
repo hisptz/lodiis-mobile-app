@@ -21,11 +21,22 @@ class TextInputFieldContainer extends StatefulWidget {
 
 class _TextInputFieldContainerState extends State<TextInputFieldContainer> {
   TextEditingController textController;
+  String _value;
 
   @override
   void initState() {
     super.initState();
+    setState(() {
+      _value = widget.inputValue;
+    });
     this.textController = TextEditingController(text: widget.inputValue);
+  }
+
+  onValueChange(String value) {
+    setState(() {
+      _value = value;
+    });
+    widget.onInputValueChange(value);
   }
 
   @override
@@ -35,8 +46,11 @@ class _TextInputFieldContainerState extends State<TextInputFieldContainer> {
         children: [
           Expanded(
               child: TextFormField(
-                  controller: textController,
-                  onChanged: widget.onInputValueChange,
+                  readOnly: widget.inputField.isReadObly,
+                  controller: widget.inputField.isReadObly
+                      ? TextEditingController(text: widget.inputValue)
+                      : textController,
+                  onChanged: onValueChange,
                   maxLines:
                       widget.inputField.valueType == 'LONG_TEXT' ? null : 1,
                   keyboardType: TextInputType.text,
@@ -47,7 +61,7 @@ class _TextInputFieldContainerState extends State<TextInputFieldContainer> {
                     errorText: null,
                   ))),
           InputCheckedIcon(
-            showTickedIcon: false,
+            showTickedIcon: _value != null,
             color: widget.inputField.inputColor,
           )
         ],

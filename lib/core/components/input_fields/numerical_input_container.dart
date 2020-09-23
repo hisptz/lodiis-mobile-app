@@ -23,16 +23,23 @@ class _NumericalInputFieldContainerState
     extends State<NumericalInputFieldContainer> {
   Color valueColor = Color(0xFF182E35);
   TextEditingController numericalController;
+  String _value;
 
   @override
   void initState() {
     super.initState();
+    setState(() {
+      _value = widget.inputValue;
+    });
     numericalController = TextEditingController(text: widget.inputValue);
   }
 
   void onValueChange(String value) {
     // @TODO handling error messages
-    setState(() {});
+    setState(() {
+      _value = value;
+    });
+
     widget.onInputValueChange(value);
   }
 
@@ -43,7 +50,10 @@ class _NumericalInputFieldContainerState
         children: [
           Expanded(
               child: TextFormField(
-                  controller: numericalController,
+                  readOnly: widget.inputField.isReadObly,
+                  controller: widget.inputField.isReadObly
+                      ? TextEditingController(text: widget.inputValue)
+                      : numericalController,
                   keyboardType: TextInputType.number,
                   onChanged: onValueChange,
                   style: TextStyle().copyWith(color: valueColor),
@@ -53,7 +63,7 @@ class _NumericalInputFieldContainerState
                     errorText: null,
                   ))),
           InputCheckedIcon(
-            showTickedIcon: false,
+            showTickedIcon: _value != null,
             color: widget.inputField.inputColor,
           )
         ],

@@ -42,9 +42,10 @@ class DreamsEnrollmentForm extends StatelessWidget {
                   margin:
                       EdgeInsets.symmetric(vertical: 16.0, horizontal: 13.0),
                   child: EntryFormContainer(
-                    formSections: enrollmentForm,
-                    onInputValueChange: onInputValueChange,
-                  )),
+                      formSections: enrollmentForm,
+                      onInputValueChange: onInputValueChange,
+                      dataObject: Map(),
+                      mandatoryFieldObject: Map())),
             ),
             bottomNavigationBar: InterventionBottomNavigationBarContainer()));
  

@@ -11,10 +11,12 @@ class SelectInputField extends StatefulWidget {
       @required this.options,
       @required this.selectedOption,
       @required this.onInputValueChange,
+      @required this.isReadOnly,
       this.renderAsRadio})
       : super(key: key);
 
   final Color color;
+  final bool isReadOnly;
   final List<InputFieldOption> options;
   final dynamic selectedOption;
   final Function onInputValueChange;
@@ -30,7 +32,9 @@ class _SelectInputFieldState extends State<SelectInputField> {
   @override
   void initState() {
     super.initState();
-    this._selectedOption = widget.selectedOption;
+    setState(() {
+      _selectedOption = widget.selectedOption;
+    });
   }
 
   void onValueChange(dynamic value) {
@@ -46,7 +50,9 @@ class _SelectInputFieldState extends State<SelectInputField> {
         ? Container(
             child: RadioInputFieldContainer(
                 options: widget.options,
+                isReadOnly: widget.isReadOnly,
                 currentValue: _selectedOption,
+                activeColor: widget.color,
                 onInputValueChange: widget.onInputValueChange))
         : Row(children: [
             Expanded(
@@ -66,7 +72,7 @@ class _SelectInputFieldState extends State<SelectInputField> {
                 height: 0,
                 color: Colors.transparent,
               ),
-              onChanged: onValueChange,
+              onChanged: widget.isReadOnly ? null : onValueChange,
               items: widget.options
                   .map<DropdownMenuItem<String>>((InputFieldOption option) {
                 return DropdownMenuItem<String>(
@@ -76,7 +82,7 @@ class _SelectInputFieldState extends State<SelectInputField> {
               }).toList(),
             )),
             InputCheckedIcon(
-              showTickedIcon: _selectedOption == null,
+              showTickedIcon: _selectedOption != null,
               color: widget.color,
             )
           ]);

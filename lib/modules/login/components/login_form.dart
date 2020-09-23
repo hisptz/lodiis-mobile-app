@@ -34,9 +34,8 @@ class _LoginFormState extends State<LoginForm> {
             user ?? new CurrentUser(username: "admin", password: "district");
       });
     });
-   
+
     this.loginFormState = Provider.of<LoginFormState>(context, listen: false);
-  
   }
 
   void updateInputActiveStatus(String activeField) {
@@ -68,9 +67,7 @@ class _LoginFormState extends State<LoginForm> {
           .login(currentUser.username.trim(), currentUser.password.trim());
       if (user != null) {
         await UserService().setCurrentUser(user);
-         await OrganisationUnitService().organisationUnitGetRequest();
-
-        
+        await OrganisationUnitService().organisationUnitGetRequest();
 
         Timer(Duration(seconds: 2), () {
           Navigator.pushReplacement(
@@ -83,7 +80,7 @@ class _LoginFormState extends State<LoginForm> {
         loginFormState.setIsLoginProcessActive(false);
         String message = 'Incorrect username or password';
         loginFormState.setHasLoginErrorStatus(true);
-        AppUtil.showToastMessage(message);
+        AppUtil.showToastMessage(message: message);
       }
     }
   }

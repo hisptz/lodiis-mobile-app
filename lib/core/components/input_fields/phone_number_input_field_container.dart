@@ -23,16 +23,22 @@ class _PhoneNumberInputFieldContainerState
     extends State<PhoneNumberInputFieldContainer> {
   Color valueColor = Color(0xFF182E35);
   TextEditingController phoneNumberController;
+  String _value;
 
   @override
   void initState() {
     super.initState();
+    setState(() {
+      _value = widget.inputValue;
+    });
     phoneNumberController = TextEditingController(text: widget.inputValue);
   }
 
   void onValueChange(String value) {
     // @TODO handling error messages
-    setState(() {});
+    setState(() {
+      _value = value;
+    });
     widget.onInputValueChange(value);
   }
 
@@ -43,6 +49,7 @@ class _PhoneNumberInputFieldContainerState
         children: [
           Expanded(
               child: TextFormField(
+                  readOnly: widget.inputField.isReadObly,
                   controller: phoneNumberController,
                   keyboardType: TextInputType.phone,
                   onChanged: onValueChange,
@@ -53,7 +60,7 @@ class _PhoneNumberInputFieldContainerState
                     errorText: null,
                   ))),
           InputCheckedIcon(
-            showTickedIcon: false,
+            showTickedIcon: _value != null,
             color: widget.inputField.inputColor,
           )
         ],

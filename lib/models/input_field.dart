@@ -10,6 +10,7 @@ class InputField {
   Color inputColor;
   Color background;
   bool renderAsRadio;
+  bool isReadObly;
   List<InputFieldOption> options;
   bool hasSubInputField;
   InputField subInputField;
@@ -25,8 +26,10 @@ class InputField {
       this.labelColor,
       this.background,
       this.renderAsRadio,
+      this.isReadObly,
       this.options,
       this.subInputField}) {
+    this.isReadObly = this.isReadObly ?? false;
     this.description = this.description ?? '';
     this.hasSubInputField = this.hasSubInputField ?? false;
     this.renderAsRadio = this.renderAsRadio ?? false;
