@@ -117,6 +117,7 @@ class InputFieldContainer extends StatelessWidget {
           ? inputField.options.length > 0
               ? SelectInputField(
                   color: inputField.inputColor,
+                  isReadOnly: inputField.isReadObly,
                   renderAsRadio: inputField.renderAsRadio,
                   onInputValueChange: (dynamic value) =>
                       this.onInputValueChange(inputField.id, value),

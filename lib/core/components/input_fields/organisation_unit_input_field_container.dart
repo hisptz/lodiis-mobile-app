@@ -104,7 +104,9 @@ class _OrganisationUnitInputFieldContainerState
                       controller: organisationUnitController,
                       style: TextStyle()
                           .copyWith(color: widget.inputField.labelColor),
-                      onTap: () => openOrganisationUnit(context),
+                      onTap: () => widget.inputField.isReadObly
+                          ? null
+                          : openOrganisationUnit(context),
                       readOnly: true,
                       textInputAction: TextInputAction.done,
                       decoration: InputDecoration(
