@@ -7,6 +7,7 @@ class RadioInputFieldContainer extends StatefulWidget {
       @required this.options,
       @required this.currentValue,
       @required this.onInputValueChange,
+      @required this.isReadOnly,
       this.activeColor})
       : super(key: key);
 
@@ -14,6 +15,7 @@ class RadioInputFieldContainer extends StatefulWidget {
   final dynamic currentValue;
   final Function onInputValueChange;
   final Color activeColor;
+  final bool isReadOnly;
 
   @override
   _RadioInputFieldContainerState createState() =>
@@ -54,7 +56,8 @@ class _RadioInputFieldContainerState extends State<RadioInputFieldContainer> {
                             activeColor: widget.activeColor,
                             value: option.code,
                             groupValue: _currentValue,
-                            onChanged: setSelectedOption),
+                            onChanged:
+                                widget.isReadOnly ? null : setSelectedOption),
                         Container(
                           child: Text(option.name),
                         )

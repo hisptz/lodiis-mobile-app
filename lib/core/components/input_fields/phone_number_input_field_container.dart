@@ -49,6 +49,7 @@ class _PhoneNumberInputFieldContainerState
         children: [
           Expanded(
               child: TextFormField(
+                  readOnly: widget.inputField.isReadObly,
                   controller: phoneNumberController,
                   keyboardType: TextInputType.phone,
                   onChanged: onValueChange,

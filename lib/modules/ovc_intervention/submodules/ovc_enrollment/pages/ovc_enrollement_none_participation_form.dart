@@ -10,25 +10,27 @@ import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/models/ovc_enrollement_basic_info.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/pages/ovc_enrollment_child_form.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/constants/ovc_enrollement_none_participation_constant.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/models/ovc_enrollement_none_participation.dart';
 import 'package:provider/provider.dart';
 
-class OvcEnrollmentBasicInfoForm extends StatefulWidget {
-  const OvcEnrollmentBasicInfoForm({Key key}) : super(key: key);
+class OvcEnrollmentNoneParticipationForm extends StatefulWidget {
+  OvcEnrollmentNoneParticipationForm({Key key}) : super(key: key);
 
   @override
-  _OvcEnrollmentBasicInfoFormState createState() =>
-      _OvcEnrollmentBasicInfoFormState();
+  _OvcEnrollmentNoneParticipationFormState createState() =>
+      _OvcEnrollmentNoneParticipationFormState();
 }
 
-class _OvcEnrollmentBasicInfoFormState
-    extends State<OvcEnrollmentBasicInfoForm> {
+class _OvcEnrollmentNoneParticipationFormState
+    extends State<OvcEnrollmentNoneParticipationForm> {
   final List<FormSection> formSections =
-      OvcEnrollmentBasicInfo.getFormSections();
-  final String label = 'Basic caregiver information';
+      OvcEnrollmentNoneParticipation.getFormSections();
+  final String label = 'None Participation Form';
+  final List<OvcEnrollmentNoneParticipationConstant> noneParticipationContants =
+      OvcEnrollmentNoneParticipationConstant.getNoneParticipationConstant();
   final List<String> mandatoryFields =
-      OvcEnrollmentBasicInfo.getMandatoryField();
+      OvcEnrollmentNoneParticipation.getMandatoryField();
   final Map mandatoryFieldObject = Map();
 
   @override
@@ -45,11 +47,10 @@ class _OvcEnrollmentBasicInfoFormState
     bool hadAllMandatoryFilled =
         AppUtil.hasAllMandarotyFieldsFilled(mandatoryFields, dataObject);
     if (hadAllMandatoryFilled) {
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => OvcEnrollmentChildForm(),
-          ));
+      // do actual saving of non particiapation form
+      // if (Navigator.canPop(context)) {
+      //   Navigator.popUntil(context, (route) => route.isFirst);
+      // }
     } else {
       AppUtil.showToastMessage(
           message: 'Please fill all mandatory field',
@@ -58,10 +59,10 @@ class _OvcEnrollmentBasicInfoFormState
   }
 
   void autoFillInputFields(String id, dynamic value) {
-    if (id == 'qZP982qpSPS') {
+    if (id == 'jVSwC6Ln95H') {
       int age = AppUtil.getAgeInYear(value);
       Provider.of<EnrollmentFormState>(context, listen: false)
-          .setFormFieldState('ls9hlz2tyol', age.toString());
+          .setFormFieldState('mZs1YsN56cR', age.toString());
     }
   }
 
@@ -96,26 +97,20 @@ class _OvcEnrollmentBasicInfoFormState
                       builder: (context, enrollmentFormState, child) => Column(
                             children: [
                               Container(
-                                child: Consumer<EnrollmentFormState>(
-                                  builder:
-                                      (context, enrollmentFormState, child) =>
-                                          EntryFormContainer(
-                                    formSections: formSections,
-                                    mandatoryFieldObject: mandatoryFieldObject,
-                                    dataObject: enrollmentFormState.formState,
-                                    onInputValueChange: onInputValueChange,
-                                  ),
+                                child: EntryFormContainer(
+                                  formSections: formSections,
+                                  mandatoryFieldObject: mandatoryFieldObject,
+                                  dataObject: enrollmentFormState.formState,
+                                  onInputValueChange: onInputValueChange,
                                 ),
                               ),
                               OvcEnrollmentFormSaveButton(
-                                label: 'Save and Continue',
+                                label: 'Save',
                                 labelColor: Colors.white,
                                 buttonColor: Color(0xFF4B9F46),
                                 fontSize: 15.0,
                                 onPressButton: () => onSaveAndContinue(
-                                  context,
-                                  enrollmentFormState.formState,
-                                ),
+                                    context, enrollmentFormState.formState),
                               )
                             ],
                           ))),

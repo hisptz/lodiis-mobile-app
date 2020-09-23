@@ -16,12 +16,14 @@ class InputFieldContainer extends StatelessWidget {
       {Key key,
       @required this.inputField,
       this.onInputValueChange,
-      this.inputValue})
+      this.inputValue,
+      this.mandatoryFieldObject})
       : super(key: key);
 
   final InputField inputField;
   final Function onInputValueChange;
   final dynamic inputValue;
+  final Map mandatoryFieldObject;
 
   @override
   Widget build(BuildContext context) {
@@ -40,11 +42,20 @@ class InputFieldContainer extends StatelessWidget {
               child: Row(
                 children: [
                   Expanded(
-                      child: Text(
-                    inputField.name,
-                    style: TextStyle()
-                        .copyWith(color: inputField.labelColor, fontSize: 14.0),
-                  ))
+                      child: RichText(
+                          text: TextSpan(
+                              text: inputField.name,
+                              style: TextStyle(
+                                  color: inputField.labelColor, fontSize: 12.0),
+                              children: [
+                        TextSpan(
+                            text: mandatoryFieldObject != null &&
+                                    mandatoryFieldObject[inputField.id] == true
+                                ? ' *'
+                                : '',
+                            style: TextStyle(
+                                color: Colors.redAccent, fontSize: 12.0))
+                      ])))
                 ],
               ),
             ),
@@ -106,6 +117,7 @@ class InputFieldContainer extends StatelessWidget {
           ? inputField.options.length > 0
               ? SelectInputField(
                   color: inputField.inputColor,
+                  isReadOnly: inputField.isReadObly,
                   renderAsRadio: inputField.renderAsRadio,
                   onInputValueChange: (dynamic value) =>
                       this.onInputValueChange(inputField.id, value),
