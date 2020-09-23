@@ -67,7 +67,7 @@ class EntrySubFormContainer extends StatelessWidget {
                                         inputField: inputField,
                                         mandatoryFieldObject:
                                             mandatoryFieldObject,
-                                        inputValue: dataObject[inputField.id],
+                                        dataObject: dataObject,
                                         onInputValueChange:
                                             (String id, dynamic value) =>
                                                 onInputValueChange(id, value)),

@@ -59,7 +59,13 @@ class _RadioInputFieldContainerState extends State<RadioInputFieldContainer> {
                             onChanged:
                                 widget.isReadOnly ? null : setSelectedOption),
                         Container(
-                          child: Text(option.name),
+                          child: Text(
+                            option.name,
+                            style: TextStyle().copyWith(
+                                color: _currentValue == option.code
+                                    ? widget.activeColor
+                                    : null),
+                          ),
                         )
                       ]),
                 ))
