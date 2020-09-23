@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar_container.dart';
+import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_child_appbar_container.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/components/subApp_bar.dart';
 import 'package:provider/provider.dart';
 
 class OvcServiceSubPageChildView extends StatelessWidget {
@@ -28,7 +28,8 @@ class OvcServiceSubPageChildView extends StatelessWidget {
             builder: (context, intervetionCardState, child) {
               InterventionCard activeInterventionProgram =
                   intervetionCardState.currentIntervetionProgram;
-              return OVCSubPageAppBar(
+              return SubPageAppBar(
+                isLeading: true,
                 label: "Service",
                 activeInterventionProgram: activeInterventionProgram,
               );
