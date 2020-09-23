@@ -5,6 +5,8 @@ import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_child_appbar_container.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/sub_pages/components/ovc_service_detail_card.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/sub_pages/models/ovc_service_detail_card.dart';
 import 'package:provider/provider.dart';
 
 class OvcCasePlanChildView extends StatelessWidget {
@@ -12,10 +14,10 @@ class OvcCasePlanChildView extends StatelessWidget {
     Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => OvcCasePlanChildView(),
-        ));
-  }
-
+          builder: (context) => OvcCasePlanChildView(),));}
+          
+  void onExpand(){ }
+  void onEdit(){}
    caseplan() {}
 
   @override
@@ -35,27 +37,64 @@ class OvcCasePlanChildView extends StatelessWidget {
             },
           ),
         ),
-        body: Column(children: [
-            OvcChildAppBarContainer(),
-           Container(
-             height: MediaQuery.of(context).size.height/3,
-             child: Center(
+        body: SingleChildScrollView(
+                  child: Column(children: [
+            OvcChildAppBarContainer(),         
+        Column(
+       
+              children: OvcChildServiceDetailCard.ovcChildServiceDetailCardSeed
+                  .map((OvcChildServiceDetailCard ovcChildServiceDetailCard) {             
 
-               child: Text("Case plan"),
-             ),
-           ),
+                return  ovcChildServiceDetailCard.casePlan != null ?
+                    Container(
+                      
+                      margin: EdgeInsets.symmetric(vertical: 5,horizontal: 2),
+                      child: OvcServiceDetailCard(
+                          assessmentDate:casePlanDate( ovcChildServiceDetailCard.casePlanDate),
+                          healthStatus:casePlan( ovcChildServiceDetailCard.casePlan),
+                          showBorderColor: true,
+                          onExpand: onExpand,
+                           onEdit: onEdit,
+                        ),
+                    ):Text("");
+              }).toList(),),
             OvcEnrollmentFormSaveButton(
-
-              label: "NEW CASE PLAN",
+              label: "NEW PLAN",
               labelColor: Colors.white,
-              fontSize: 10,
+              fontSize: 14,
               buttonColor: Color(0xFF4B9F46),
               onPressButton: () => caseplan(),
-                          )
-                        ]),
+            )
+          ]),
+        ),
                       
                       bottomNavigationBar: InterventionBottomNavigationBarContainer());
                 }
+
+
+  Widget casePlanDate(String date) {
+    return Visibility(
+           child: Expanded(
+            flex: 6,
+            child: Container(
+                child: Text(
+              "$date",
+              style: TextStyle(color: Color(0xFF8FAF8F)),
+            ))));
+  }
+
+  Widget casePlan(String casePlan) {
+    return Visibility(
+        child: Expanded(
+            flex: 7,
+            child: Container(
+                          padding: EdgeInsets.only(left: 15),
+                                                child: Text(
+                            "$casePlan",
+                            style: TextStyle(
+                                fontSize: 14, color: Color(0xFF143D14)),
+                          ))));
+  }
               
                
 }

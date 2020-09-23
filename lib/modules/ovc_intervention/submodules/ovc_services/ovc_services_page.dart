@@ -18,18 +18,16 @@ class OvcServicesPage extends StatelessWidget {
     print("on Monitor");
   }
 
-
-
   @override
   Widget build(BuildContext context) {
-     void  viewChild() {
- Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => OvcServiceChildView(),
-        ));
-   
-  }
+    void viewChild() {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => OvcServiceChildView(),
+          ));
+    }
+
     return Scaffold(
       backgroundColor: Color(0xffedf4ed),
       appBar: AppBar(
@@ -52,28 +50,27 @@ class OvcServicesPage extends StatelessWidget {
               editEnrollment: false,
               editReferral: false,
               onView: viewChild,
-             
             ),
             OvcInterventionCard(
               editService: true,
               addExit: false,
               editEnrollment: false,
               editReferral: false,
-               onView: viewChild,
+              onView: viewChild,
             ),
             OvcInterventionCard(
               editService: true,
               addExit: false,
               editEnrollment: false,
               editReferral: false,
-               onView: viewChild,
+              onView: viewChild,
             ),
             OvcInterventionCard(
               editService: true,
               addExit: false,
               editEnrollment: false,
               editReferral: false,
-               onView: viewChild,
+              onView: viewChild,
             ),
           ],
         ),

@@ -5,6 +5,7 @@ import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_child_appbar_container.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/sub_pages/components/ovc_service_detail_card.dart';
 import 'package:provider/provider.dart';
 
 class OvcMonitorChildView extends StatelessWidget {
@@ -34,7 +35,7 @@ class OvcMonitorChildView extends StatelessWidget {
            Container(
              height: MediaQuery.of(context).size.height/3,
              child: Center(
-               child: Text("monitor"),
+               child: Text("Monitor forms"),
              ),
            ),
             OvcEnrollmentFormSaveButton(

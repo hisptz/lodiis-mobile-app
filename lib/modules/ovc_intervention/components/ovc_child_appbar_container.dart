@@ -5,6 +5,7 @@ class OvcChildAppBarContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: EdgeInsets.only(bottom: 8),
       color: Color(0xFFFFFFFF),
       child: Column(
         children: [ Row(
