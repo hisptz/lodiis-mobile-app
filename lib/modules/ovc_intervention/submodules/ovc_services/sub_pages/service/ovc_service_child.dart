@@ -29,7 +29,6 @@ class OvcServiceSubPageChildView extends StatelessWidget {
               InterventionCard activeInterventionProgram =
                   intervetionCardState.currentIntervetionProgram;
               return SubPageAppBar(
-                isLeading: true,
                 label: "Service",
                 activeInterventionProgram: activeInterventionProgram,
               );

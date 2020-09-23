@@ -31,8 +31,7 @@ class OvcAssessmentServiceChildView extends StatelessWidget {
               InterventionCard activeInterventionProgram =
                   intervetionCardState.currentIntervetionProgram;
               return SubPageAppBar(
-                isLeading: true,
-                label: "Child Assessment",
+                 label: "Child Assessment",
                 activeInterventionProgram: activeInterventionProgram,
               );
             },
@@ -56,4 +55,5 @@ class OvcAssessmentServiceChildView extends StatelessWidget {
         ]),
         bottomNavigationBar: InterventionBottomNavigationBarContainer());
   }
-}
+}n
+

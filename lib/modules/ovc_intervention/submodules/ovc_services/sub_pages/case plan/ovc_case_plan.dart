@@ -29,8 +29,7 @@ class OvcCasePlanChildView extends StatelessWidget {
               InterventionCard activeInterventionProgram =
                   intervetionCardState.currentIntervetionProgram;
               return SubPageAppBar(
-                isLeading: true,
-                label: "Caseplan",
+                  label: "Caseplan",
                 activeInterventionProgram: activeInterventionProgram,
               );
             },

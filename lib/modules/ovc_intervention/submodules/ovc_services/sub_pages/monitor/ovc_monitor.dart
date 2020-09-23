@@ -23,7 +23,6 @@ class OvcMonitorChildView extends StatelessWidget {
               InterventionCard activeInterventionProgram =
                   intervetionCardState.currentIntervetionProgram;
               return SubPageAppBar(
-                isLeading: true,
                 label: "Monitor",
                 activeInterventionProgram: activeInterventionProgram,
               );
