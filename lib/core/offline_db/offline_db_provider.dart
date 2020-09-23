@@ -10,11 +10,13 @@ class OfflineDbProvider {
     "CREATE TABLE IF NOT EXISTS current_user_ou (id TEXT PRIMARY KEY, userId TEXT)",
     "CREATE TABLE IF NOT EXISTS current_user_program (id TEXT PRIMARY KEY, userId TEXT)",
     "CREATE TABLE IF NOT EXISTS organisation_unit (id TEXT PRIMARY KEY, name TEXT, parent TEXT, level NUMBER)",
-    "CREATE TABLE IF NOT EXISTS organisation_unit_program (id TEXT PRIMARY KEY ,programId TEXT, organisationId TEXT)",
     "CREATE TABLE IF NOT EXISTS organisation_unit_children (id TEXT , organisationId TEXT)"
   ];
 
-  final List<String> migrationQuery = [];
+  final List<String> migrationQuery = [
+    "DROP TABLE organisation_unit_program",
+    "CREATE TABLE IF NOT EXISTS organisation_unit_program (id TEXT PRIMARY KEY ,programId TEXT, organisationId TEXT)"
+  ];
 
   Future<Database> get db async {
     if (_db != null) {

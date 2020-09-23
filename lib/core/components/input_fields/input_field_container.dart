@@ -47,7 +47,9 @@ class InputFieldContainer extends StatelessWidget {
                           text: TextSpan(
                               text: inputField.name,
                               style: TextStyle(
-                                  color: inputField.labelColor, fontSize: 14.0),
+                                  color: inputField.labelColor,
+                                  fontSize: 13.0,
+                                  fontWeight: FontWeight.normal),
                               children: [
                         TextSpan(
                             text: mandatoryFieldObject != null &&
