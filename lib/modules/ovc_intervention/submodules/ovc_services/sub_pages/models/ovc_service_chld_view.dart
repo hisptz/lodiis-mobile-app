@@ -13,15 +13,15 @@ class OvcServiceChildModel {
     OvcServiceChildModel(
         iconPath: "assets/icons/child_case_plan_ovc_icon.svg",
         serviceNumber: 8,
-        title: "Case plan"),
-    OvcServiceChildModel(
-        iconPath: "assets/icons/child_monitor_ovc_icon.svg",
-        serviceNumber: 25,
-        title: "Monitor"),
+        title: "Case plan"),   
     OvcServiceChildModel(
         iconPath: "assets/icons/child_service_ovc_icon.svg",
         serviceNumber: 5,
         title: "Service"),
+     OvcServiceChildModel(
+        iconPath: "assets/icons/child_monitor_ovc_icon.svg",
+        serviceNumber: 25,
+        title: "Monitor"),
   ];
 
   @override
