@@ -6,6 +6,18 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
 
 class AppUtil {
+  static bool hasAllMandarotyFieldsFilled(
+      List mandatoryFields, Map dataObject) {
+    bool hasFilled = true;
+    List fieldIds = dataObject.keys.toList();
+    for (var mandatoryField in mandatoryFields) {
+      if (fieldIds.indexOf(mandatoryField) == -1) {
+        hasFilled = false;
+      }
+    }
+    return hasFilled;
+  }
+
   static void setStatusBarColor(Color color) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
         statusBarColor: color, statusBarBrightness: Brightness.light));
@@ -41,11 +53,12 @@ class AppUtil {
     return age;
   }
 
-  static showToastMessage(String message) {
+  static showToastMessage(
+      {String message, ToastGravity position = ToastGravity.BOTTOM}) {
     Fluttertoast.showToast(
         msg: message,
         toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
+        gravity: position,
         backgroundColor: Color(0xFF656565));
   }
 
