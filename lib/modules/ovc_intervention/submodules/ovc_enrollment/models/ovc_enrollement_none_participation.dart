@@ -4,6 +4,16 @@ import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/input_field_option.dart';
 
 class OvcEnrollmentNoneParticipation {
+  static List<String> getMandatoryField() {
+    return [
+      'JhOvli80Qbx',
+      'jjZWuJfVStp',
+      'jVSwC6Ln95H',
+      'an7w8LYPZ7y',
+      'FHn0nJPumhO'
+    ];
+  }
+
   static List<FormSection> getFormSections() {
     return [
       FormSection(

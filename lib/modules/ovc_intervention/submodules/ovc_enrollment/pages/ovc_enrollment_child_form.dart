@@ -30,10 +30,17 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
   final List<Map> childMapObjects = [];
   bool isLoading = true;
   Map childMapObject;
+  final List<String> mandatoryFields = OvcEnrollmentChild.getMandatoryField();
+  final Map mandatoryFieldObject = Map();
 
   @override
   void initState() {
     super.initState();
+    setState(() {
+      for (String id in mandatoryFields) {
+        mandatoryFieldObject[id] = true;
+      }
+    });
     resetMapObject(childMapObject);
   }
 
@@ -110,6 +117,7 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
                             Container(
                               child: EntryFormContainer(
                                 formSections: formSections,
+                                mandatoryFieldObject: mandatoryFieldObject,
                                 dataObject: childMapObject,
                                 onInputValueChange: onInputValueChange,
                               ),

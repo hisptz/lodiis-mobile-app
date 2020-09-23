@@ -8,6 +8,7 @@ import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/constants/ovc_enrollment_consent_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/models/ovc_enrollment_consent.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/pages/ovc_enrollement_basic_info_form.dart';
 import 'package:provider/provider.dart';
@@ -23,6 +24,19 @@ class OvcEnrollmentConsetForm extends StatefulWidget {
 class _OvcEnrollmentConsetFormState extends State<OvcEnrollmentConsetForm> {
   final List<FormSection> formSections = OvcEnrollmentConsent.getFormSections();
   final String label = 'Consent Form';
+  final List consentFields = OvcEnrollmentConstant.getConsentFields();
+  final List<String> mandatoryFields = OvcEnrollmentConsent.getMandatoryField();
+  final Map mandatoryFieldObject = Map();
+
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      for (String id in mandatoryFields) {
+        mandatoryFieldObject[id] = true;
+      }
+    });
+  }
 
   void onSaveAndContinue(BuildContext context) {
     // saving and appropriate actions
@@ -68,6 +82,7 @@ class _OvcEnrollmentConsetFormState extends State<OvcEnrollmentConsetForm> {
                           builder: (context, enrollmentFormState, child) =>
                               EntryFormContainer(
                             formSections: formSections,
+                            mandatoryFieldObject: mandatoryFieldObject,
                             dataObject: enrollmentFormState.formState,
                             onInputValueChange: onInputValueChange,
                           ),

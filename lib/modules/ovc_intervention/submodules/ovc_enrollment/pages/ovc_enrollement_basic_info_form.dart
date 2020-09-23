@@ -25,6 +25,19 @@ class _OvcEnrollmentBasicInfoFormState
   final List<FormSection> formSections =
       OvcEnrollmentBasicInfo.getFormSections();
   final String label = 'Basic caregiver information';
+  final List<String> mandatoryFields =
+      OvcEnrollmentBasicInfo.getMandatoryField();
+  final Map mandatoryFieldObject = Map();
+
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      for (String id in mandatoryFields) {
+        mandatoryFieldObject[id] = true;
+      }
+    });
+  }
 
   void onSaveAndContinue(BuildContext context) {
     // handling appropriate actions
@@ -68,6 +81,7 @@ class _OvcEnrollmentBasicInfoFormState
                           builder: (context, enrollmentFormState, child) =>
                               EntryFormContainer(
                             formSections: formSections,
+                            mandatoryFieldObject: mandatoryFieldObject,
                             dataObject: enrollmentFormState.formState,
                             onInputValueChange: onInputValueChange,
                           ),

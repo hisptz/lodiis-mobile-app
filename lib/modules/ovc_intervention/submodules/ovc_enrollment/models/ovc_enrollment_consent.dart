@@ -3,6 +3,19 @@ import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 
 class OvcEnrollmentConsent {
+  static List<String> getMandatoryField() {
+    return [
+      'location',
+      'OVaqHW5kimy',
+      'JCI4nxcE4N6',
+      'XVRQaLDDSpx',
+      'gCdkCgKJhng',
+      'fxqfSmoLBvT',
+      'R026OBBkvLi',
+      'MP7ROUSWfT9'
+    ];
+  }
+
   static List<FormSection> getFormSections() {
     return [
       FormSection(name: '', color: Color(0xFF737373), subSections: [

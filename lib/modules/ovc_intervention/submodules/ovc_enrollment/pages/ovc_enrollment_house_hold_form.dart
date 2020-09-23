@@ -8,6 +8,7 @@ import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/constants/ovc_enrollment_consent_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/models/ovc_enrollment_house_hold.dart';
 import 'package:provider/provider.dart';
 
@@ -24,15 +25,20 @@ class _OvcEnrollmentHouseHoldFormState
   final List<FormSection> formSections =
       OvcEnrollmentHouseHold.getFormSections();
   final String label = 'House Hold form';
-  final List consentFields = [
-    'OVaqHW5kimy',
-    'JCI4nxcE4N6',
-    'XVRQaLDDSpx',
-    'gCdkCgKJhng',
-    'fxqfSmoLBvT',
-    'R026OBBkvLi',
-    'MP7ROUSWfT9'
-  ];
+  final List consentFields = OvcEnrollmentConstant.getConsentFields();
+  final List<String> mandatoryFields =
+      OvcEnrollmentHouseHold.getMandatoryField();
+  final Map mandatoryFieldObject = Map();
+
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      for (String id in mandatoryFields) {
+        mandatoryFieldObject[id] = true;
+      }
+    });
+  }
 
   void onSaveAndContinue(BuildContext context) {
     // save and go to list of enrollment;
@@ -74,6 +80,7 @@ class _OvcEnrollmentHouseHoldFormState
                           builder: (context, enrollmentFormState, child) =>
                               EntryFormContainer(
                             formSections: formSections,
+                            mandatoryFieldObject: mandatoryFieldObject,
                             dataObject: enrollmentFormState.formState,
                             onInputValueChange: onInputValueChange,
                           ),
