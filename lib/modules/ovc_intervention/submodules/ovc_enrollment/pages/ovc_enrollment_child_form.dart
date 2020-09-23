@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar_container.dart';
@@ -55,25 +56,33 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
   }
 
   void onSaveAndContinue(BuildContext context) async {
-    String name = childMapObject['s1eRvsL2Ly4'] ?? '';
-    Widget modal = AddChildConfirmation(name: name);
-    bool response = await AppUtil.showPopUpModal(context, modal);
-    if (response != null) {
-      if (response) {
-        setState(() {
-          isLoading = true;
-        });
-        Timer(
-            Duration(milliseconds: 500), () => resetMapObject(childMapObject));
-      } else {
-        Provider.of<EnrollmentFormState>(context, listen: false)
-            .setFormFieldState('children', childMapObjects);
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => OvcEnrollmentHouseHoldForm(),
-            ));
+    bool hadAllMandatoryFilled =
+        AppUtil.hasAllMandarotyFieldsFilled(mandatoryFields, childMapObject);
+    if (hadAllMandatoryFilled) {
+      String name = childMapObject['s1eRvsL2Ly4'] ?? '';
+      Widget modal = AddChildConfirmation(name: name);
+      bool response = await AppUtil.showPopUpModal(context, modal);
+      if (response != null) {
+        if (response) {
+          setState(() {
+            isLoading = true;
+          });
+          Timer(Duration(milliseconds: 500),
+              () => resetMapObject(childMapObject));
+        } else {
+          Provider.of<EnrollmentFormState>(context, listen: false)
+              .setFormFieldState('children', childMapObjects);
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => OvcEnrollmentHouseHoldForm(),
+              ));
+        }
       }
+    } else {
+      AppUtil.showToastMessage(
+          message: 'Please fill all mandatory field',
+          position: ToastGravity.TOP);
     }
   }
 
