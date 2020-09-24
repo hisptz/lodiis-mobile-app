@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:kb_mobile_app/core/offline_db/event_offline/event_offline_provider.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/enrollment.dart';
@@ -31,6 +30,7 @@ class FormUtil {
     List<String> inputFieldIds,
     Map dataObject,
   ) {
+    trackedEntityInstance = trackedEntityInstance ?? AppUtil.getUid();
     String attributes = inputFieldIds
         .map((String attribute) {
           dynamic value = dataObject[attribute] ?? '';
@@ -39,7 +39,7 @@ class FormUtil {
         .toList()
         .join(',');
     dynamic trackedEnrityInstanceJson =
-        '{"trackedEntityInstance":"$trackedEntityInstance", "trackedEntityType":"$trackedEntityType", "orgUnit":"$orgUnit","syncStatus":"not-synced","attributes":[$attributes] , }';
+        '{"trackedEntityInstance":"$trackedEntityInstance", "trackedEntityType":"$trackedEntityType", "orgUnit":"$orgUnit","syncStatus":"not-synced","attributes":[$attributes] }';
     return TrackeEntityInstance()
         .fromJson(json.decode(trackedEnrityInstanceJson));
   }
@@ -52,6 +52,7 @@ class FormUtil {
     String program,
     String trackedEntityInstance,
   ) {
+    enrollment = enrollment ?? AppUtil.getUid();
     enrollmentDate =
         enrollmentDate ?? AppUtil.formattedDateTimeIntoString(DateTime.now());
     incidentDate =
@@ -71,6 +72,7 @@ class FormUtil {
     String eventDate,
     String trackedEntityInstance,
   ) {
+    event = event ?? AppUtil.getUid();
     trackedEntityInstance = trackedEntityInstance ?? '';
     eventDate =
         eventDate ?? AppUtil.formattedDateTimeIntoString(DateTime.now());

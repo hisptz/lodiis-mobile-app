@@ -28,7 +28,7 @@ class Enrollment {
   Enrollment fromJson(dynamic json) {
     return Enrollment(
         enrollment: json['enrollment'],
-        enrollmentDate: "${json['eventDate']}".split('T')[0],
+        enrollmentDate: "${json['enrollmentDate']}".split('T')[0],
         incidentDate: "${json['incidentDate']}".split('T')[0],
         program: json['program'],
         orgUnit: json['orgUnit'],
