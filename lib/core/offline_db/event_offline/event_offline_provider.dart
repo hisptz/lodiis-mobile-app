@@ -10,7 +10,7 @@ class EventOfflineProvider extends OfflineDbProvider {
   final String eventDate = 'eventDate';
   final String program = 'program';
   final String programStage = 'programStage';
-  final String trckedEntityInstance = 'trckedEntityInstance';
+  final String trackedEntityInstance = 'trackedEntityInstance';
   final String status = 'status';
   final String orgUnit = 'orgUnit';
   final String syncStatus = 'syncStatus';

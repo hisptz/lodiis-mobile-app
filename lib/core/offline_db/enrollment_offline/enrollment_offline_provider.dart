@@ -9,7 +9,7 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
   final String incidentDate = 'incidentDate';
   final String program = 'program';
   final String orgUnit = 'orgUnit';
-  final String trckedEntityInstance = 'trckedEntityInstance';
+  final String trackedEntityInstance = 'trackedEntityInstance';
   final String status = 'status';
   final String syncStatus = 'syncStatus';
 }

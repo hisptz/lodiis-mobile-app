@@ -1,14 +1,14 @@
 import 'dart:convert';
 
 class TrackeEntityInstance {
-  String trckedEntityInstance;
+  String trackedEntityInstance;
   String trackedEntityType;
   String orgUnit;
   String syncStatus;
   dynamic attributes;
 
   TrackeEntityInstance({
-    this.trckedEntityInstance,
+    this.trackedEntityInstance,
     this.trackedEntityType,
     this.orgUnit,
     this.syncStatus,
@@ -19,12 +19,12 @@ class TrackeEntityInstance {
 
   @override
   String toString() {
-    return 'trckedEntityInstance $trckedEntityInstance';
+    return 'trackedEntityInstance $trackedEntityInstance';
   }
 
   TrackeEntityInstance fromJson(dynamic json) {
     return TrackeEntityInstance(
-      trckedEntityInstance: json['trckedEntityInstance'],
+      trackedEntityInstance: json['trackedEntityInstance'],
       trackedEntityType: json['trackedEntityType'],
       orgUnit: json['orgUnit'],
       attributes: json['attributes'],
@@ -38,8 +38,8 @@ class TrackeEntityInstance {
 
   Map toOffline(TrackeEntityInstance trackeEntityInstanceObj) {
     Map mapData = Map<String, dynamic>();
-    mapData['trckedEntityInstance'] =
-        trackeEntityInstanceObj.trckedEntityInstance;
+    mapData['trackedEntityInstance'] =
+        trackeEntityInstanceObj.trackedEntityInstance;
     mapData['trackedEntityType'] = trackeEntityInstanceObj.trackedEntityType;
     mapData['orgUnit'] = trackeEntityInstanceObj.orgUnit;
     mapData['syncStatus'] = trackeEntityInstanceObj.syncStatus;
@@ -48,7 +48,7 @@ class TrackeEntityInstance {
   }
 
   TrackeEntityInstance.fromOffline(Map<String, dynamic> mapData) {
-    this.trckedEntityInstance = mapData['trckedEntityInstance'];
+    this.trackedEntityInstance = mapData['trackedEntityInstance'];
     this.trackedEntityType = mapData['trackedEntityType'];
     this.orgUnit = mapData['orgUnit'];
     this.syncStatus = mapData['syncStatus'];
