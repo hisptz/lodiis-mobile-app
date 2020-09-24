@@ -10,6 +10,7 @@ class OvcEnrollmentHouseHoldService {
   final String trackedEntityType = 'XZIKX0bA8WN';
   final List<FormSection> formSections =
       OvcEnrollmentHouseHold.getFormSections();
+  final List<String> hiddenFields = OvcEnrollmentHouseHold.getHiddenField();
   final List<String> consentFields = OvcEnrollmentConstant.getConsentFields();
 
   Future savingHouseHoldform(
@@ -22,6 +23,7 @@ class OvcEnrollmentHouseHoldService {
   ) async {
     List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections);
     inputFieldIds.addAll(consentFields);
+    inputFieldIds.addAll(hiddenFields);
     TrackeEntityInstance trackeEntityInstanceData =
         FormUtil.geTrackedEntityInstanceEnrollmentPayLoad(trackedEntityInstance,
             trackedEntityType, orgUnit, inputFieldIds, dataObject);

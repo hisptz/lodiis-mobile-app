@@ -35,6 +35,8 @@ class _OvcEnrollmentHouseHoldFormState
   final Map mandatoryFieldObject = Map();
   final String trackedEntityInstance = AppUtil.getUid();
 
+  bool isSaving = false;
+
   @override
   void initState() {
     super.initState();
@@ -49,18 +51,30 @@ class _OvcEnrollmentHouseHoldFormState
     bool hadAllMandatoryFilled =
         AppUtil.hasAllMandarotyFieldsFilled(mandatoryFields, dataObject);
     if (hadAllMandatoryFilled) {
+      setState(() {
+        isSaving = true;
+      });
+      // adding other variables
+      //@TODO generate house hold id and program status
+      dataObject['yk0OH9p09C1'] = AppUtil.getUid();
+      dataObject['PN92g65TkVI'] = 'Active';
+
       List<Map> childrenObjects = dataObject['children'];
       String orgUnit = dataObject['location'];
       await OvcEnrollmentHouseHoldService().savingHouseHoldform(
           dataObject, trackedEntityInstance, orgUnit, null, null, null);
       await OvcEnrollmentChildService().savingChildrenEnrollmentForms(
           trackedEntityInstance, orgUnit, childrenObjects, null, null, null);
-      AppUtil.showToastMessage(
-          message: 'Form has been saved successfully',
-          position: ToastGravity.TOP);
-      // if (Navigator.canPop(context)) {
-      //   Navigator.popUntil(context, (route) => route.isFirst);
-      // }
+
+      if (Navigator.canPop(context)) {
+        setState(() {
+          isSaving = false;
+        });
+        AppUtil.showToastMessage(
+            message: 'Form has been saved successfully',
+            position: ToastGravity.TOP);
+        Navigator.popUntil(context, (route) => route.isFirst);
+      }
     } else {
       AppUtil.showToastMessage(
           message: 'Please fill all mandatory field',
@@ -116,12 +130,16 @@ class _OvcEnrollmentHouseHoldFormState
                                   ),
                                 ),
                                 OvcEnrollmentFormSaveButton(
-                                  label: 'Save House Hold',
+                                  label: isSaving
+                                      ? 'Saving House Hold ...'
+                                      : 'Save House Hold',
                                   labelColor: Colors.white,
                                   buttonColor: Color(0xFF4B9F46),
                                   fontSize: 15.0,
-                                  onPressButton: () => onSaveAndContinue(
-                                      context, enrollmentFormState.formState),
+                                  onPressButton: () => isSaving
+                                      ? null
+                                      : onSaveAndContinue(context,
+                                          enrollmentFormState.formState),
                                 )
                               ],
                             )))),
