@@ -28,7 +28,8 @@ class MyApp extends StatelessWidget {
               ),
               primaryColor: CustomColor.defaultPrimaryColor,
               visualDensity: VisualDensity.adaptivePlatformDensity),
-          home:SafeArea(child: Splash()),
+          home:       
+          SafeArea(child: Splash()),
         ));
   }
 }
