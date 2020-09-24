@@ -14,11 +14,21 @@ class OvcCasePlanChildView extends StatelessWidget {
     Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => OvcCasePlanChildView(),));}
-          
-  void onExpand(){ }
-  void onEdit(){}
-   caseplan() {}
+          builder: (context) => OvcCasePlanChildView(),
+        ));
+  }
+
+  void onExpand() {
+    print("on expand");
+  }
+
+  void onEdit() {
+    print("on Edit");
+  }
+
+  caseplan() {
+    print("case plan");
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,33 +41,35 @@ class OvcCasePlanChildView extends StatelessWidget {
               InterventionCard activeInterventionProgram =
                   intervetionCardState.currentIntervetionProgram;
               return SubPageAppBar(
-                  label: "Caseplan",
+                label: "Caseplan",
                 activeInterventionProgram: activeInterventionProgram,
               );
             },
           ),
         ),
         body: SingleChildScrollView(
-                  child: Column(children: [
-            OvcChildAppBarContainer(),         
-        Column(
-       
+          child: Column(children: [
+            OvcChildAppBarContainer(),
+            Column(
               children: OvcChildServiceDetailCard.ovcChildServiceDetailCardSeed
-                  .map((OvcChildServiceDetailCard ovcChildServiceDetailCard) {             
-
-                return  ovcChildServiceDetailCard.casePlan != null ?
-                    Container(
-                      
-                      margin: EdgeInsets.symmetric(vertical: 5,horizontal: 2),
-                      child: OvcServiceDetailCard(
-                          assessmentDate:casePlanDate( ovcChildServiceDetailCard.casePlanDate),
-                          healthStatus:casePlan( ovcChildServiceDetailCard.casePlan),
+                  .map((OvcChildServiceDetailCard ovcChildServiceDetailCard) {
+                return ovcChildServiceDetailCard.casePlan != null
+                    ? Container(
+                        margin:
+                            EdgeInsets.symmetric(vertical: 5, horizontal: 2),
+                        child: OvcServiceDetailCard(
+                          assessmentDate: casePlanDate(
+                              ovcChildServiceDetailCard.casePlanDate),
+                          healthStatus:
+                              casePlan(ovcChildServiceDetailCard.casePlan),
                           showBorderColor: true,
-                          onExpand: onExpand,
-                           onEdit: onEdit,
+                          onExpand:()=> onExpand,
+                          onEdit:()=> onEdit,
                         ),
-                    ):Text("");
-              }).toList(),),
+                      )
+                    : Text("");
+              }).toList(),
+            ),
             OvcEnrollmentFormSaveButton(
               label: "NEW PLAN",
               labelColor: Colors.white,
@@ -67,14 +79,12 @@ class OvcCasePlanChildView extends StatelessWidget {
             )
           ]),
         ),
-                      
-                      bottomNavigationBar: InterventionBottomNavigationBarContainer());
-                }
-
+        bottomNavigationBar: InterventionBottomNavigationBarContainer());
+  }
 
   Widget casePlanDate(String date) {
     return Visibility(
-           child: Expanded(
+        child: Expanded(
             flex: 6,
             child: Container(
                 child: Text(
@@ -88,13 +98,10 @@ class OvcCasePlanChildView extends StatelessWidget {
         child: Expanded(
             flex: 7,
             child: Container(
-                          padding: EdgeInsets.only(left: 15),
-                                                child: Text(
-                            "$casePlan",
-                            style: TextStyle(
-                                fontSize: 14, color: Color(0xFF143D14)),
-                          ))));
+                padding: EdgeInsets.only(left: 15),
+                child: Text(
+                  "$casePlan",
+                  style: TextStyle(fontSize: 14, color: Color(0xFF143D14)),
+                ))));
   }
-              
-               
 }

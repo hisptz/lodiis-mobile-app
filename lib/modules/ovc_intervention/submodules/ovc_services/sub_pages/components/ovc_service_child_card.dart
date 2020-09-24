@@ -59,11 +59,11 @@ class OvcServiceChildCard extends StatelessWidget {
               height: 1,
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              
               children: [
                 Container(
                     margin: EdgeInsets.only(top: 10, left: 33),
-                    padding: EdgeInsets.only(bottom: 1),
+                    padding: EdgeInsets.symmetric(horizontal: 20),
                     color: Colors.transparent,
                     child: Text(serviceTitle,
                         style:
