@@ -5,7 +5,7 @@ class Events {
   String eventDate;
   String program;
   String programStage;
-  String trckedEntityInstance;
+  String trackedEntityInstance;
   String status;
   String orgUnit;
   String syncStatus;
@@ -16,7 +16,7 @@ class Events {
     this.eventDate,
     this.program,
     this.programStage,
-    this.trckedEntityInstance,
+    this.trackedEntityInstance,
     this.status,
     this.orgUnit,
     this.syncStatus,
@@ -36,7 +36,7 @@ class Events {
       eventDate: "${json['eventDate']}".split('T')[0],
       program: json['program'],
       programStage: json['programStage'],
-      trckedEntityInstance: json['trckedEntityInstance'] ?? '',
+      trackedEntityInstance: json['trackedEntityInstance'] ?? '',
       orgUnit: json['orgUnit'],
       status: json['status'],
       dataValues: json['dataValues'],
@@ -54,7 +54,7 @@ class Events {
     mapData['eventDate'] = eventData.eventDate;
     mapData['program'] = eventData.program;
     mapData['programStage'] = eventData.programStage;
-    mapData['trckedEntityInstance'] = eventData.trckedEntityInstance;
+    mapData['trackedEntityInstance'] = eventData.trackedEntityInstance;
     mapData['status'] = eventData.status;
     mapData['orgUnit'] = eventData.orgUnit;
     mapData['syncStatus'] = eventData.syncStatus;
@@ -67,7 +67,7 @@ class Events {
     this.eventDate = mapData['eventDate'];
     this.program = mapData['program'];
     this.programStage = mapData['programStage'];
-    this.trckedEntityInstance = mapData['trckedEntityInstance'];
+    this.trackedEntityInstance = mapData['trackedEntityInstance'];
     this.status = mapData['status'];
     this.orgUnit = mapData['orgUnit'];
     this.syncStatus = mapData['syncStatus'];
