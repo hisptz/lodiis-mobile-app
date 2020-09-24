@@ -106,12 +106,14 @@ class OvcEnrollmentHouseHold {
                       labelColor: Color(0xFF737373)),
                   InputField(
                       id: 'kQehaqmaygZ',
+                      isReadObly: true,
                       name: 'Male aged below 18 years living in household',
                       valueType: 'INTEGER_ZERO_OR_POSITIVE',
                       inputColor: Color(0xFF4B9F46),
                       labelColor: Color(0xFF737373)),
                   InputField(
                       id: 'BXUNH6LXeGA',
+                      isReadObly: true,
                       name:
                           'Female aged below 18 years currently living in household',
                       valueType: 'INTEGER_ZERO_OR_POSITIVE',
