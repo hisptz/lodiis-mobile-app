@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar_container.dart';
@@ -30,10 +31,17 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
   final List<Map> childMapObjects = [];
   bool isLoading = true;
   Map childMapObject;
+  final List<String> mandatoryFields = OvcEnrollmentChild.getMandatoryField();
+  final Map mandatoryFieldObject = Map();
 
   @override
   void initState() {
     super.initState();
+    setState(() {
+      for (String id in mandatoryFields) {
+        mandatoryFieldObject[id] = true;
+      }
+    });
     resetMapObject(childMapObject);
   }
 
@@ -48,30 +56,48 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
   }
 
   void onSaveAndContinue(BuildContext context) async {
-    String name = childMapObject['s1eRvsL2Ly4'] ?? '';
-    Widget modal = AddChildConfirmation(name: name);
-    bool response = await AppUtil.showPopUpModal(context, modal);
-    if (response != null) {
-      if (response) {
-        setState(() {
-          isLoading = true;
-        });
-        Timer(
-            Duration(milliseconds: 500), () => resetMapObject(childMapObject));
-      } else {
-        Provider.of<EnrollmentFormState>(context, listen: false)
-            .setFormFieldState('children', childMapObjects);
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => OvcEnrollmentHouseHoldForm(),
-            ));
+    bool hadAllMandatoryFilled =
+        AppUtil.hasAllMandarotyFieldsFilled(mandatoryFields, childMapObject);
+    if (hadAllMandatoryFilled) {
+      String name = childMapObject['s1eRvsL2Ly4'] ?? '';
+      Widget modal = AddChildConfirmation(name: name);
+      bool response = await AppUtil.showPopUpModal(context, modal);
+      if (response != null) {
+        if (response) {
+          setState(() {
+            isLoading = true;
+          });
+          Timer(Duration(milliseconds: 500),
+              () => resetMapObject(childMapObject));
+        } else {
+          Provider.of<EnrollmentFormState>(context, listen: false)
+              .setFormFieldState('children', childMapObjects);
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => OvcEnrollmentHouseHoldForm(),
+              ));
+        }
       }
+    } else {
+      AppUtil.showToastMessage(
+          message: 'Please fill all mandatory field',
+          position: ToastGravity.TOP);
+    }
+  }
+
+  void autoFillInputFields(String id, dynamic value) {
+    if (id == 'qZP982qpSPS') {
+      int age = AppUtil.getAgeInYear(value);
+      setState(() {
+        childMapObject['ls9hlz2tyol'] = age.toString();
+      });
     }
   }
 
   void onInputValueChange(String id, dynamic value) {
     childMapObject[id] = value;
+    autoFillInputFields(id, value);
   }
 
   @override
@@ -110,6 +136,7 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
                             Container(
                               child: EntryFormContainer(
                                 formSections: formSections,
+                                mandatoryFieldObject: mandatoryFieldObject,
                                 dataObject: childMapObject,
                                 onInputValueChange: onInputValueChange,
                               ),

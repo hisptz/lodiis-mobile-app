@@ -8,6 +8,7 @@ import 'package:kb_mobile_app/models/current_user.dart';
 class UserService {
   final String preferenceKey = 'currrent_user';
 
+
   Future<dynamic> login(String username, String password) async {
     var url = 'api/me.json?fields=*';
     HttpService http = new HttpService(username: username, password: password);
@@ -17,6 +18,7 @@ class UserService {
         ? CurrentUser.fromJson(json.decode(response.body), username, password)
         : null;
   }
+
 
   Future logout() async {
     CurrentUser user = await getCurrentUser();

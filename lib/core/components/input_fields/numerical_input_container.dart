@@ -50,7 +50,10 @@ class _NumericalInputFieldContainerState
         children: [
           Expanded(
               child: TextFormField(
-                  controller: numericalController,
+                  readOnly: widget.inputField.isReadObly,
+                  controller: widget.inputField.isReadObly
+                      ? TextEditingController(text: widget.inputValue)
+                      : numericalController,
                   keyboardType: TextInputType.number,
                   onChanged: onValueChange,
                   style: TextStyle().copyWith(color: valueColor),

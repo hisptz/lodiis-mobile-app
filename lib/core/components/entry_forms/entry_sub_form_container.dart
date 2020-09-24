@@ -8,12 +8,14 @@ class EntrySubFormContainer extends StatelessWidget {
     Key key,
     @required this.subSections,
     @required this.dataObject,
+    @required this.mandatoryFieldObject,
     this.onInputValueChange,
   }) : super(key: key);
 
   final List<FormSection> subSections;
   final Function onInputValueChange;
   final Map dataObject;
+  final Map mandatoryFieldObject;
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +65,9 @@ class EntrySubFormContainer extends StatelessWidget {
                                             : 0.0),
                                     child: InputFieldContainer(
                                         inputField: inputField,
-                                        inputValue: dataObject[inputField.id],
+                                        mandatoryFieldObject:
+                                            mandatoryFieldObject,
+                                        dataObject: dataObject,
                                         onInputValueChange:
                                             (String id, dynamic value) =>
                                                 onInputValueChange(id, value)),
@@ -75,6 +79,7 @@ class EntrySubFormContainer extends StatelessWidget {
                         child: EntrySubFormContainer(
                           subSections: subSection.subSections,
                           dataObject: dataObject,
+                          mandatoryFieldObject: mandatoryFieldObject,
                           onInputValueChange: onInputValueChange,
                         ),
                       )

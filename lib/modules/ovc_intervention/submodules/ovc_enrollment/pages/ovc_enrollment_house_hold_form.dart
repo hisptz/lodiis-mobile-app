@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
+import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/constants/ovc_enrollment_consent_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/models/ovc_enrollment_house_hold.dart';
 import 'package:provider/provider.dart';
 
@@ -24,26 +27,50 @@ class _OvcEnrollmentHouseHoldFormState
   final List<FormSection> formSections =
       OvcEnrollmentHouseHold.getFormSections();
   final String label = 'House Hold form';
-  final List consentFields = [
-    'OVaqHW5kimy',
-    'JCI4nxcE4N6',
-    'XVRQaLDDSpx',
-    'gCdkCgKJhng',
-    'fxqfSmoLBvT',
-    'R026OBBkvLi',
-    'MP7ROUSWfT9'
-  ];
+  final List consentFields = OvcEnrollmentConstant.getConsentFields();
+  final List<String> mandatoryFields =
+      OvcEnrollmentHouseHold.getMandatoryField();
+  final Map mandatoryFieldObject = Map();
 
-  void onSaveAndContinue(BuildContext context) {
-    // save and go to list of enrollment;
-    if (Navigator.canPop(context)) {
-      Navigator.popUntil(context, (route) => route.isFirst);
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      for (String id in mandatoryFields) {
+        mandatoryFieldObject[id] = true;
+      }
+    });
+  }
+
+  void onSaveAndContinue(BuildContext context, Map dataObject) {
+    bool hadAllMandatoryFilled =
+        AppUtil.hasAllMandarotyFieldsFilled(mandatoryFields, dataObject);
+    if (hadAllMandatoryFilled) {
+      // do actual saving of all enrollment details for household
+      // do actual saving for all ovc details
+
+      // if (Navigator.canPop(context)) {
+      //   Navigator.popUntil(context, (route) => route.isFirst);
+      // }
+    } else {
+      AppUtil.showToastMessage(
+          message: 'Please fill all mandatory field',
+          position: ToastGravity.TOP);
+    }
+  }
+
+  void autoFillInputFields(String id, dynamic value) {
+    if (id == 'qZP982qpSPS') {
+      int age = AppUtil.getAgeInYear(value);
+      Provider.of<EnrollmentFormState>(context, listen: false)
+          .setFormFieldState('ls9hlz2tyol', age.toString());
     }
   }
 
   void onInputValueChange(String id, dynamic value) {
     Provider.of<EnrollmentFormState>(context, listen: false)
         .setFormFieldState(id, value);
+    autoFillInputFields(id, value);
   }
 
   @override
@@ -64,31 +91,31 @@ class _OvcEnrollmentHouseHoldFormState
               ),
             ),
             body: SubPageBody(
-              body: Container(
-                  margin:
-                      EdgeInsets.symmetric(vertical: 16.0, horizontal: 13.0),
-                  child: Column(
-                    children: [
-                      Container(
-                        child: Consumer<EnrollmentFormState>(
-                          builder: (context, enrollmentFormState, child) =>
-                              EntryFormContainer(
-                            formSections: formSections,
-                            dataObject: enrollmentFormState.formState,
-                            onInputValueChange: onInputValueChange,
-                          ),
-                        ),
-                      ),
-                      OvcEnrollmentFormSaveButton(
-                        label: 'Save House Hold',
-                        labelColor: Colors.white,
-                        buttonColor: Color(0xFF4B9F46),
-                        fontSize: 15.0,
-                        onPressButton: () => onSaveAndContinue(context),
-                      )
-                    ],
-                  )),
-            ),
+                body: Container(
+                    margin:
+                        EdgeInsets.symmetric(vertical: 16.0, horizontal: 13.0),
+                    child: Consumer<EnrollmentFormState>(
+                        builder: (context, enrollmentFormState, child) =>
+                            Column(
+                              children: [
+                                Container(
+                                  child: EntryFormContainer(
+                                    formSections: formSections,
+                                    mandatoryFieldObject: mandatoryFieldObject,
+                                    dataObject: enrollmentFormState.formState,
+                                    onInputValueChange: onInputValueChange,
+                                  ),
+                                ),
+                                OvcEnrollmentFormSaveButton(
+                                  label: 'Save House Hold',
+                                  labelColor: Colors.white,
+                                  buttonColor: Color(0xFF4B9F46),
+                                  fontSize: 15.0,
+                                  onPressButton: () => onSaveAndContinue(
+                                      context, enrollmentFormState.formState),
+                                )
+                              ],
+                            )))),
             bottomNavigationBar: InterventionBottomNavigationBarContainer()));
   }
 }

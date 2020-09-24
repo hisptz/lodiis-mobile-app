@@ -10,14 +10,15 @@ class FormSection {
   List<FormSection> subSections;
   List<InputField> inputFields;
 
-  FormSection(
-      {@required this.name,
-      @required this.color,
-      this.backgroundColor,
-      this.borderColor,
-      this.subSections,
-      this.description,
-      this.inputFields}) {
+  FormSection({
+    @required this.name,
+    @required this.color,
+    this.backgroundColor,
+    this.borderColor,
+    this.subSections,
+    this.description,
+    this.inputFields,
+  }) {
     this.backgroundColor = this.backgroundColor ?? Colors.transparent;
     this.borderColor = this.borderColor ?? Colors.transparent;
     this.subSections = this.subSections ?? [];

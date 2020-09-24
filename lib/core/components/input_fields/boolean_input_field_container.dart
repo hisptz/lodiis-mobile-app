@@ -31,6 +31,7 @@ class _BooleanInputFieldContainerState
   Widget build(BuildContext context) {
     return RadioInputFieldContainer(
       options: options,
+      isReadOnly: widget.inputField.isReadObly,
       activeColor: widget.inputField.inputColor,
       currentValue: widget.inputValue,
       onInputValueChange: widget.onInputValueChange,

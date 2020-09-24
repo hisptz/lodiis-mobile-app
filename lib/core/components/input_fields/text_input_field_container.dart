@@ -46,7 +46,10 @@ class _TextInputFieldContainerState extends State<TextInputFieldContainer> {
         children: [
           Expanded(
               child: TextFormField(
-                  controller: textController,
+                  readOnly: widget.inputField.isReadObly,
+                  controller: widget.inputField.isReadObly
+                      ? TextEditingController(text: widget.inputValue)
+                      : textController,
                   onChanged: onValueChange,
                   maxLines:
                       widget.inputField.valueType == 'LONG_TEXT' ? null : 1,

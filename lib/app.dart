@@ -21,14 +21,15 @@ class MyApp extends StatelessWidget {
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
-          title: "kb_mobile_app",
+          title: "Ovc-dreams",
           theme: ThemeData(
               textTheme: GoogleFonts.robotoTextTheme(
                 Theme.of(context).textTheme,
               ),
               primaryColor: CustomColor.defaultPrimaryColor,
               visualDensity: VisualDensity.adaptivePlatformDensity),
-          home: SafeArea(child: Splash()),
+          home:       
+          SafeArea(child: Splash()),
         ));
   }
 }

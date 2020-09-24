@@ -6,20 +6,23 @@ class SubPageAppBar extends StatelessWidget {
   const SubPageAppBar({
     Key key,
     @required this.label,
-    @required this.activeInterventionProgram,
+     @required this.activeInterventionProgram,
   }) : super(key: key);
 
   final String label;
   final InterventionCard activeInterventionProgram;
+  
 
   void onOpenMoreMenu(
       BuildContext context, InterventionCard activeInterventionProgram) async {
     AppBarUtil.onOpenMoreMenu(context, activeInterventionProgram);
   }
 
+
   @override
   Widget build(BuildContext context) {
     return AppBar(
+     
       title: Text(
         label,
         style:

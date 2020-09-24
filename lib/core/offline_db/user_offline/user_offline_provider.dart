@@ -1,42 +1,17 @@
 import 'dart:async';
 import 'package:kb_mobile_app/core/offline_db/user_offline/user_ou_offline_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/user_offline/user_program_offline_provider.dart';
-import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:kb_mobile_app/core/offline_db/offline_db_provider.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
 
 class UserOfflineProvider extends OfflineDbProvider {
-  Database _db;
-
   // columns
   String id = 'id';
   String name = 'name';
   String username = 'username';
   String password = 'password';
   String isLogin = 'isLogin';
-
-  Future<Database> get db async {
-    if (_db != null) {
-      return _db;
-    }
-    _db = await init();
-    this._onCreate(_db, version);
-    return _db;
-  }
-
-  init() async {
-    var databasesPath = await getDatabasesPath();
-    String path = join(databasesPath, '$databaseName.db');
-    var db = await openDatabase(path, version: version, onCreate: _onCreate);
-    return db;
-  }
-
-  _onCreate(Database db, int version) async {
-    String createTableQuery =
-        "CREATE TABLE IF NOT EXISTS ${CurrentUser.userTable} ($id TEXT PRIMARY KEY, $name TEXT, $username TEXT, $password TEXT ,$isLogin INTEGER)";
-    await db.execute(createTableQuery);
-  }
 
   addOrUpdateUser(CurrentUser user) async {
     var dbClient = await db;
@@ -81,10 +56,5 @@ class UserOfflineProvider extends OfflineDbProvider {
       }
     } catch (e) {}
     return users;
-  }
-
-  close() async {
-    var dbClient = await db;
-    dbClient.close();
   }
 }

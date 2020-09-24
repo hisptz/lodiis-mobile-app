@@ -3,48 +3,25 @@ import 'package:kb_mobile_app/core/offline_db/organisation_unit_offline/organisa
 import 'package:kb_mobile_app/core/offline_db/organisation_unit_offline/organisation_program_offline_provider.dart';
 import 'package:kb_mobile_app/models/organisation_unit.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:path/path.dart';
 
 class OrganisationUnitOffline extends OfflineDbProvider {
-  Database _db;
+  //columns
   String id = 'id';
   String name = 'name';
   String parent = 'parent';
   String level = 'level';
 
-  Future<Database> get db async {
-    if (_db != null) {
-      return _db;
-    } else {
-      _db = await initDB();
-      this._onCreate(_db, version);
-      return _db;
-    }
-  }
-
-  initDB() async {
-    var databasePath = await getDatabasesPath();
-    String path = join(databasePath, "$databaseName.db");
-    var db = await openDatabase(path, version: version, onCreate: _onCreate);
-    return db;
-  }
-
-  _onCreate(Database db, int version) async {
-    await db.execute(
-        "CREATE TABLE IF NOT EXISTS  ${OrganisationUnit.organisationUnitTable} ($id TEXT PRIMARY KEY, $name TEXT, $parent TEXT, $level NUMBER)");
-  }
-
-  addOrUpdateOrganisationUnits(List<OrganisationUnit> organisationUnit) async {
+  addOrUpdateOrganisationUnits(List<OrganisationUnit> organisationUnits) async {
     var dbClient = await db;
-    organisationUnit.forEach((organisation) async {
+    for (OrganisationUnit organisationUnit in organisationUnits) {
       await dbClient.insert(OrganisationUnit.organisationUnitTable,
-          organisation.toOffline(organisation),
+          organisationUnit.toOffline(organisationUnit),
           conflictAlgorithm: ConflictAlgorithm.replace);
       await OrganisationUnitChildrenOfflineProvider()
-          .addOrUpdateChildrenOrganisationUnits(organisation);
+          .addOrUpdateChildrenOrganisationUnits(organisationUnit);
       await OrganisationUnitProgramOfflineProvider()
-          .addOrUpdateProgramOrganisationUnits(organisation);
-    });
+          .addOrUpdateProgramOrganisationUnits(organisationUnit);
+    }
   }
 
   deleteOrganisation(String organisationId) async {
@@ -79,7 +56,6 @@ class OrganisationUnitOffline extends OfflineDbProvider {
     return organisationUnitList;
   }
 
-// ignore: missing_return
   Future<List<OrganisationUnit>> getOrganisationUnitById(
       List organisationIds) async {
     List<OrganisationUnit> organisationUnitList = [];
@@ -110,10 +86,5 @@ class OrganisationUnitOffline extends OfflineDbProvider {
     } catch (e) {}
     organisationUnitList.sort((a, b) => a.name.compareTo(b.name));
     return organisationUnitList;
-  }
-
-  close() async {
-    var dbClient = await db;
-    dbClient.close();
   }
 }
