@@ -35,7 +35,8 @@ class _SplashState extends State<Splash> {
             context,
             MaterialPageRoute(
                 builder: (context) =>
-                    isUserLoginIn ? InterventionSelection() : Login())));
+                    isUserLoginIn ?  InterventionSelection()
+                    : Login())));
   }
 
   @override
