@@ -10,7 +10,7 @@ class OfflineDbProvider {
     "CREATE TABLE IF NOT EXISTS current_user_ou (id TEXT PRIMARY KEY, userId TEXT)",
     "CREATE TABLE IF NOT EXISTS current_user_program (id TEXT PRIMARY KEY, userId TEXT)",
     "CREATE TABLE IF NOT EXISTS organisation_unit (id TEXT PRIMARY KEY, name TEXT, parent TEXT, level NUMBER)",
-    "CREATE TABLE IF NOT EXISTS organisation_unit_children (id TEXT , organisationId TEXT)"
+    "CREATE TABLE IF NOT EXISTS organisation_unit_children (id TEXT PRIMARY KEY, organisationId TEXT)"
   ];
 
   final List<String> migrationQuery = [
