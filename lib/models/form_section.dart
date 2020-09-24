@@ -11,7 +11,8 @@ class FormSection {
   List<InputField> inputFields;
 
   FormSection(
-      {@required this.name,
+      {
+      @required this.name,
       @required this.color,
       this.backgroundColor,
       this.borderColor,

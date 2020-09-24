@@ -16,7 +16,8 @@ class InputField {
   InputField subInputField;
 
   InputField(
-      {@required this.id,
+      {
+      @required this.id,
       @required this.name,
       @required this.valueType,
       this.hasSubInputField,

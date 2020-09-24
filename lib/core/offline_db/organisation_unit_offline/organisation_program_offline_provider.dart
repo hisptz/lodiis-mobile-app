@@ -35,7 +35,7 @@ class OrganisationUnitProgramOfflineProvider extends OfflineDbProvider {
     for (id in organisationUnit.program) {
       var map = Map<String, dynamic>();
       map['id'] = id;
-      map['organizationId'] = organisationUnit.id;
+      map['organisationId'] = organisationUnit.id;
 
       await dbClient.insert(OrganisationUnit.organisationProgramTable, map,
           conflictAlgorithm: ConflictAlgorithm.replace);

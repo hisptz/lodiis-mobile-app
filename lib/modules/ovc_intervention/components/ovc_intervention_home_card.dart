@@ -7,21 +7,21 @@ import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_interventi
 class OvcInterventionCard extends StatelessWidget {
   bool editService, editReferral, editEnrollment, addExit;
   bool showChild = false;
+  final Function onView;
 
   OvcInterventionCard(
       {@required this.editService,
       @required this.editReferral,
       @required this.editEnrollment,
-      @required this.addExit});
+      @required this.addExit,
+      this.onView});
 
- 
   void onExpand(BuildContext context) {
     showChild = !showChild;
 
     print("on Expand");
     //
     (context as Element).markNeedsBuild();
-    
   }
 
   void onAssess() {
@@ -70,22 +70,22 @@ class OvcInterventionCard extends StatelessWidget {
                             width: 3))),
                 margin: EdgeInsets.only(bottom: 3, top: 3),
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 12, bottom: 15,right: 10),
+                  padding:
+                      const EdgeInsets.only(top: 12, bottom: 15, right: 10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Visibility(
                           visible: true,
                           child: Expanded(
-                              flex:  editEnrollment ? 3 :2,
+                              flex: editEnrollment ? 3 : 2,
                               child: SvgPicture.asset(
                                   "assets/icons/hh_icon.svg"))),
                       Visibility(
                           visible: true,
                           child: Expanded(
-                            
-                           // flex: editService || editReferral || addExit ? 8 : 8,
-                           flex:  8,
+                            // flex: editService || editReferral || addExit ? 8 : 8,
+                            flex: 8,
                             child: Text(
                               "HHID-IL-00120820",
                               style: TextStyle(
@@ -131,30 +131,27 @@ class OvcInterventionCard extends StatelessWidget {
                   ),
                 ),
               ),
-              
+
               //bodydata,
               OvcInterventionBodyData(),
               Visibility(
                 visible: editService ? true : false,
                 child: Container(
-                  
-                   decoration: BoxDecoration(
-                     color: Color.fromRGBO(75, 159, 70, 0.05),
-                    border: Border(
-                        bottom: BorderSide(
-                            color: Color.fromRGBO(75, 159, 70, 0.05),
-                            width: 1),
-                            
-                            right:BorderSide(
-                            color: Color.fromRGBO(75, 159, 70, 0.05),
-                            width: 1),
-                            left:  BorderSide(
-                            color: Color.fromRGBO(75, 159, 70, 0.05),
-                            width: 1),
-                             top: BorderSide(
-                            color: Color.fromRGBO(75, 159, 70, 0.05),
-                            width: 1)
-                            )),
+                  decoration: BoxDecoration(
+                      color: Color.fromRGBO(75, 159, 70, 0.05),
+                      border: Border(
+                          bottom: BorderSide(
+                              color: Color.fromRGBO(75, 159, 70, 0.05),
+                              width: 1),
+                          right: BorderSide(
+                              color: Color.fromRGBO(75, 159, 70, 0.05),
+                              width: 1),
+                          left: BorderSide(
+                              color: Color.fromRGBO(75, 159, 70, 0.05),
+                              width: 1),
+                          top: BorderSide(
+                              color: Color.fromRGBO(75, 159, 70, 0.05),
+                              width: 1))),
                   child: Padding(
                     padding: const EdgeInsets.only(
                         top: 12, left: 21, right: 21, bottom: 14),
@@ -201,24 +198,21 @@ class OvcInterventionCard extends StatelessWidget {
               Visibility(
                 visible: editReferral ? true : false,
                 child: Container(
-                  
-                   decoration: BoxDecoration(
-                     color: Color.fromRGBO(75, 159, 70, 0.05),
-                    border: Border(
-                        bottom: BorderSide(
-                            color: Color.fromRGBO(75, 159, 70, 0.05),
-                            width: 1),
-                            
-                            right:BorderSide(
-                            color: Color.fromRGBO(75, 159, 70, 0.05),
-                            width: 1),
-                            left:  BorderSide(
-                            color: Color.fromRGBO(75, 159, 70, 0.05),
-                            width: 1),
-                             top: BorderSide(
-                            color: Color.fromRGBO(75, 159, 70, 0.05),
-                            width: 1)
-                            )),
+                  decoration: BoxDecoration(
+                      color: Color.fromRGBO(75, 159, 70, 0.05),
+                      border: Border(
+                          bottom: BorderSide(
+                              color: Color.fromRGBO(75, 159, 70, 0.05),
+                              width: 1),
+                          right: BorderSide(
+                              color: Color.fromRGBO(75, 159, 70, 0.05),
+                              width: 1),
+                          left: BorderSide(
+                              color: Color.fromRGBO(75, 159, 70, 0.05),
+                              width: 1),
+                          top: BorderSide(
+                              color: Color.fromRGBO(75, 159, 70, 0.05),
+                              width: 1))),
                   child: Padding(
                     padding: const EdgeInsets.only(
                         top: 12, left: 21, right: 21, bottom: 14),
@@ -251,27 +245,17 @@ class OvcInterventionCard extends StatelessWidget {
               Visibility(
                 visible: addExit ? true : false,
                 child: Container(
-                
-                   decoration: BoxDecoration(
-                     color: Color(0xfff6fcf6),
-                    border: Border(
-                        bottom: BorderSide(
-                            color: Color(0xfff6fcf6),
-                            width: 1),
-                            
-                            right:BorderSide(
-                            color: Color(0xfff6fcf6),
-                            width: 1),
-                            left:  BorderSide(
-                            color: Color(0xfff6fcf6),
-                            width: 1),
-                             top: BorderSide(
-                            color: Color(0xfff6fcf6),
-                            width: 1)
-                            )),
+                  decoration: BoxDecoration(
+                      color: Color(0xfff6fcf6),
+                      border: Border(
+                          bottom:
+                              BorderSide(color: Color(0xfff6fcf6), width: 1),
+                          right: BorderSide(color: Color(0xfff6fcf6), width: 1),
+                          left: BorderSide(color: Color(0xfff6fcf6), width: 1),
+                          top: BorderSide(color: Color(0xfff6fcf6), width: 1))),
                   child: Padding(
-                    
-                    padding: const EdgeInsets.only(top: 12, left: 8, bottom: 14),
+                    padding:
+                        const EdgeInsets.only(top: 12, left: 8, bottom: 14),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
@@ -339,11 +323,12 @@ class OvcInterventionCard extends StatelessWidget {
               Visibility(
                 visible: showChild ? true : false,
                 child: Padding(
-               
-                  padding:editEnrollment ? const EdgeInsets.only(top:0):const EdgeInsets.only(top: 18.08),
+                  padding: editEnrollment
+                      ? const EdgeInsets.only(top: 0)
+                      : const EdgeInsets.only(top: 18.08),
                   child: AnimatedContainer(
-                                      duration: Duration(seconds: 120),
-                                      child: Column(
+                    duration: Duration(seconds: 120),
+                    child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Row(
@@ -371,10 +356,12 @@ class OvcInterventionCard extends StatelessWidget {
                           ],
                         ),
                         OvcInterventionChilrens(
-                            editService: editService,
-                            editReferral: editReferral,
-                            editEnrollment: editEnrollment,
-                            addExit: addExit),
+                          editService: editService,
+                          editReferral: editReferral,
+                          editEnrollment: editEnrollment,
+                          addExit: addExit,
+                          onView: onView,
+                        ),
                       ],
                     ),
                   ),
@@ -383,36 +370,30 @@ class OvcInterventionCard extends StatelessWidget {
               Visibility(
                 visible: editEnrollment && showChild ? true : false,
                 child: Container(
-                   decoration: BoxDecoration(
+                  decoration: BoxDecoration(
                       border: Border(
-                          top: BorderSide(
-                              color: Color(0xff9fde9f),
-                              width: 3))),
+                          top: BorderSide(color: Color(0xff9fde9f), width: 3))),
                   child: Padding(
                     padding: const EdgeInsets.only(
                         top: 8, left: 21, right: 21, bottom: 10),
-                 
-
-                     
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Expanded(
-                            flex: 7,
-                            child: Text(
-                              "",
-                            ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Expanded(
+                          flex: 7,
+                          child: Text(
+                            "",
                           ),
-                          Expanded(
-                            flex: 13,
-                            child: Text("ADD CHILD",
-                                style: TextStyle(
-                                  color: Color(0xFF4B9F46),
-                                  fontWeight: FontWeight.bold,
-                                )),
-                          ),
-                        ],
-                      
+                        ),
+                        Expanded(
+                          flex: 13,
+                          child: Text("ADD CHILD",
+                              style: TextStyle(
+                                color: Color(0xFF4B9F46),
+                                fontWeight: FontWeight.bold,
+                              )),
+                        ),
+                      ],
                     ),
                   ),
                 ),
@@ -424,4 +405,3 @@ class OvcInterventionCard extends StatelessWidget {
     );
   }
 }
-
