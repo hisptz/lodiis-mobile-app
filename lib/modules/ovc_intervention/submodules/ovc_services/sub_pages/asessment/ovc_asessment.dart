@@ -15,24 +15,26 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/s
 import 'package:provider/provider.dart';
 
 class OvcAssessmentServiceChildView extends StatelessWidget {
-  childAssessment(BuildContext context) async{
+  childAssessment(BuildContext context) async {
     Widget model = ChildAssessmentPopUpModal();
-    String response =await AppUtil.showPopUpModal(context, model);
+    String response = await AppUtil.showPopUpModal(context, model);
     if (response != null) {
-     response == "Wellbeing" ?  Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => OvcServiceWellBeingAssessment()  
-        )): 
-          response == "TB" ?Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => OvcServiceTBAssessment()  
-        )) : response == "HIV" ? Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => OvcServiceHIVAssessment()  
-        )) : print(response) ;
+      response == "Wellbeing"
+          ? Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => OvcServiceWellBeingAssessment()))
+          : response == "TB"
+              ? Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => OvcServiceTBAssessment()))
+              : response == "HIV"
+                  ? Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => OvcServiceHIVAssessment()))
+                  : print(response);
     }
   }
 
