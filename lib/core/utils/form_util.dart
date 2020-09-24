@@ -1,5 +1,8 @@
 import 'dart:convert';
+import 'package:kb_mobile_app/core/offline_db/enrollment_offline/enrollment_offline_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/event_offline/event_offline_provider.dart';
+import 'package:kb_mobile_app/core/offline_db/tei_relationship_offline/tei_relationship_offline_provider.dart';
+import 'package:kb_mobile_app/core/offline_db/tracked_entity_instance_offline/tracked_entity_instance_offline_provider.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/enrollment.dart';
 import 'package:kb_mobile_app/models/events.dart';
@@ -98,6 +101,22 @@ class FormUtil {
     dynamic eventJson =
         '{"event" : "$event", "eventDate":"$eventDate",  "program":"$program", "programStage":"$programStage", "trackedEntityInstance":"$trackedEntityInstance", "status":"COMPLETED", "orgUnit":"$orgUnit", "syncStatus":"not-synced", "dataValues":[$dataValues] }';
     return Events().fromJson(json.decode(eventJson));
+  }
+
+  static Future savingTrackeEntityInstance(
+    TrackeEntityInstance trackedEntityInstance,
+  ) async {
+    await TrackedEntityInstanceOfflineProvider()
+        .addOrUpdateTrackedEntityInstance(trackedEntityInstance);
+  }
+
+  static Future savingEnrollment(Enrollment enrollment) async {
+    await EnrollmentOfflineProvider().addOrUpdateEnrollement(enrollment);
+  }
+
+  static Future savingTeiRelationship(TeiRelationship teiRelationship) async {
+    await TeiRelatioShipOfflineProvider()
+        .addOrUpdateTeirelationShip(teiRelationship);
   }
 
   static Future savingEvent(Events event) async {
