@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
@@ -9,12 +7,10 @@ import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.d
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
-import 'package:kb_mobile_app/core/utils/form_util.dart';
-import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/constants/ovc_enrollement_none_participation_constant.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/services/ovc_enrollment_none_participation_service.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/models/ovc_enrollement_none_participation.dart';
 import 'package:provider/provider.dart';
 
@@ -31,14 +27,9 @@ class _OvcEnrollmentNoneParticipationFormState
   final List<FormSection> formSections =
       OvcEnrollmentNoneParticipation.getFormSections();
   final String label = 'None Participation Form';
-  final List<OvcEnrollmentNoneParticipationConstant> noneParticipationContants =
-      OvcEnrollmentNoneParticipationConstant.getNoneParticipationConstant();
   final List<String> mandatoryFields =
       OvcEnrollmentNoneParticipation.getMandatoryField();
   final Map mandatoryFieldObject = Map();
-  final String program = OvcEnrollmentNoneParticipationConstant.program;
-  final String programStage =
-      OvcEnrollmentNoneParticipationConstant.programStage;
   final String eventId = AppUtil.getUid();
 
   bool isSaving = false;
@@ -60,27 +51,8 @@ class _OvcEnrollmentNoneParticipationFormState
       setState(() {
         isSaving = true;
       });
-      // gettting input fields
-      List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections);
-      for (OvcEnrollmentNoneParticipationConstant noneParticipationContant
-          in noneParticipationContants) {
-        String dataElement = noneParticipationContant.dataElement;
-        String attribute = noneParticipationContant.attribute;
-        inputFieldIds.add(dataElement);
-        if (dataObject.keys.toList().indexOf(attribute) != -1) {
-          dataObject[dataElement] = dataObject[attribute];
-        }
-      }
-      Events eventData = FormUtil.getEventPayload(
-          eventId,
-          program,
-          programStage,
-          dataObject['location'],
-          inputFieldIds,
-          dataObject,
-          null,
-          null);
-      await FormUtil.savingEvent(eventData);
+      await OvcNoneParticipationService()
+          .saveNoneParticipationForm(formSections, dataObject, eventId);
       if (Navigator.canPop(context)) {
         setState(() {
           isSaving = false;

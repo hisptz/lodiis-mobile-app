@@ -55,6 +55,25 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
     });
   }
 
+  void updateOvcCount() {
+    int male = 0;
+    int female = 0;
+    for (Map childMapObject in childMapObjects) {
+      String sexValue = childMapObject['vIX4GTSCX4P'];
+      if (sexValue != null) {
+        if (sexValue == 'Male') {
+          male++;
+        } else if (sexValue == 'Female') {
+          female++;
+        }
+      }
+    }
+    Provider.of<EnrollmentFormState>(context, listen: false)
+        .setFormFieldState('kQehaqmaygZ', male.toString());
+    Provider.of<EnrollmentFormState>(context, listen: false)
+        .setFormFieldState('BXUNH6LXeGA', female.toString());
+  }
+
   void onSaveAndContinue(BuildContext context) async {
     bool hadAllMandatoryFilled =
         AppUtil.hasAllMandarotyFieldsFilled(mandatoryFields, childMapObject);
@@ -70,6 +89,11 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
           Timer(Duration(milliseconds: 500),
               () => resetMapObject(childMapObject));
         } else {
+          setState(() {
+            childMapObjects.add(childMapObject);
+          });
+          updateOvcCount();
+
           Provider.of<EnrollmentFormState>(context, listen: false)
               .setFormFieldState('children', childMapObjects);
           Navigator.push(
