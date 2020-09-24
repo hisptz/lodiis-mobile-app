@@ -16,21 +16,22 @@ class InterventionCard {
   Color countLabelColor;
   Color countColor;
 
-  InterventionCard(
-      {this.id,
-      this.uid = '',
-      this.name,
-      this.shortName,
-      this.svgIcon,
-      this.primmaryColor,
-      this.secondaryColor,
-      this.svgIconColor,
-      this.svgIconBorderColor,
-      this.svgBackgroundColor,
-      this.background,
-      this.nameColor,
-      this.countColor,
-      this.countLabelColor});
+  InterventionCard({
+    this.id,
+    this.uid = '',
+    this.name,
+    this.shortName,
+    this.svgIcon,
+    this.primmaryColor,
+    this.secondaryColor,
+    this.svgIconColor,
+    this.svgIconBorderColor,
+    this.svgBackgroundColor,
+    this.background,
+    this.nameColor,
+    this.countColor,
+    this.countLabelColor,
+  });
 
   static List<InterventionCard> getInterventions() {
     return [

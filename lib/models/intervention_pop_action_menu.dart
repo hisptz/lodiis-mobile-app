@@ -6,11 +6,12 @@ class InterventionPopActionMenu {
   Color color;
   FontWeight fontWeight;
 
-  InterventionPopActionMenu(
-      {this.id,
-      this.name,
-      this.color = const Color(0xFF1A3518),
-      this.fontWeight = FontWeight.normal});
+  InterventionPopActionMenu({
+    this.id,
+    this.name,
+    this.color = const Color(0xFF1A3518),
+    this.fontWeight = FontWeight.normal,
+  });
 
   static List<InterventionPopActionMenu>
       getDefaultInterventionPopActionMenus() {
@@ -22,7 +23,6 @@ class InterventionPopActionMenu {
       InterventionPopActionMenu(id: 'profile', name: 'Profiles'),
     ];
   }
-  
 
   @override
   String toString() {

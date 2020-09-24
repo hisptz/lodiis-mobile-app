@@ -60,7 +60,6 @@ class CurrentUser {
     return data;
   }
 
-
   CurrentUser.fromOffline(Map<String, dynamic> mapData) {
     this.id = mapData['id'];
     this.name = mapData['name'];
@@ -70,10 +69,4 @@ class CurrentUser {
     this.userOrgUnitIds = [];
     this.programs = [];
   }
-
-  
-
-
-
-
 }
