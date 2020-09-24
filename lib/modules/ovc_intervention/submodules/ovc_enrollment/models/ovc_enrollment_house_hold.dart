@@ -5,7 +5,7 @@ import 'package:kb_mobile_app/models/input_field_option.dart';
 
 class OvcEnrollmentHouseHold {
   static List<String> getMandatoryField() {
-    return ['location', 's1eRvsL2Ly4', 'rSP9c21JsfC', 'vIX4GTSCX4P'];
+    return [];
   }
 
   static List<FormSection> getFormSections() {
