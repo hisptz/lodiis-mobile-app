@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
@@ -7,6 +9,8 @@ import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.d
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
+import 'package:kb_mobile_app/core/utils/form_util.dart';
+import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
@@ -32,6 +36,12 @@ class _OvcEnrollmentNoneParticipationFormState
   final List<String> mandatoryFields =
       OvcEnrollmentNoneParticipation.getMandatoryField();
   final Map mandatoryFieldObject = Map();
+  final String program = OvcEnrollmentNoneParticipationConstant.program;
+  final String programStage =
+      OvcEnrollmentNoneParticipationConstant.programStage;
+  final String eventId = AppUtil.getUid();
+
+  bool isSaving = false;
 
   @override
   void initState() {
@@ -43,14 +53,43 @@ class _OvcEnrollmentNoneParticipationFormState
     });
   }
 
-  void onSaveAndContinue(BuildContext context, Map dataObject) {
+  void onSaveAndContinue(BuildContext context, Map dataObject) async {
     bool hadAllMandatoryFilled =
         AppUtil.hasAllMandarotyFieldsFilled(mandatoryFields, dataObject);
     if (hadAllMandatoryFilled) {
-      // do actual saving of non particiapation form
-      // if (Navigator.canPop(context)) {
-      //   Navigator.popUntil(context, (route) => route.isFirst);
-      // }
+      setState(() {
+        isSaving = true;
+      });
+      // gettting input fields
+      List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections);
+      for (OvcEnrollmentNoneParticipationConstant noneParticipationContant
+          in noneParticipationContants) {
+        String dataElement = noneParticipationContant.dataElement;
+        String attribute = noneParticipationContant.attribute;
+        inputFieldIds.add(dataElement);
+        if (dataObject.keys.toList().indexOf(attribute) != -1) {
+          dataObject[dataElement] = dataObject[attribute];
+        }
+      }
+      Events eventData = FormUtil.getEventPayload(
+          eventId,
+          program,
+          programStage,
+          dataObject['location'],
+          inputFieldIds,
+          dataObject,
+          null,
+          null);
+      await FormUtil.savingEvent(eventData);
+      if (Navigator.canPop(context)) {
+        setState(() {
+          isSaving = false;
+        });
+        AppUtil.showToastMessage(
+            message: 'Form has been saved successfully',
+            position: ToastGravity.TOP);
+        Navigator.popUntil(context, (route) => route.isFirst);
+      }
     } else {
       AppUtil.showToastMessage(
           message: 'Please fill all mandatory field',
@@ -105,12 +144,14 @@ class _OvcEnrollmentNoneParticipationFormState
                                 ),
                               ),
                               OvcEnrollmentFormSaveButton(
-                                label: 'Save',
+                                label: isSaving ? 'Saving...' : 'save',
                                 labelColor: Colors.white,
                                 buttonColor: Color(0xFF4B9F46),
                                 fontSize: 15.0,
-                                onPressButton: () => onSaveAndContinue(
-                                    context, enrollmentFormState.formState),
+                                onPressButton: () => isSaving
+                                    ? null
+                                    : onSaveAndContinue(
+                                        context, enrollmentFormState.formState),
                               )
                             ],
                           ))),
