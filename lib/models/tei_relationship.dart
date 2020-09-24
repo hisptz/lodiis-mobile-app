@@ -33,6 +33,10 @@ class TeiRelationship {
 
   Map toOffline(TeiRelationship teiRelationshipData) {
     Map mapData = Map<String, dynamic>();
+    mapData['id'] = teiRelationshipData.id;
+    mapData['relationshipType'] = teiRelationshipData.relationshipType;
+    mapData['fromTei'] = teiRelationshipData.fromTei;
+    mapData['toTei'] = teiRelationshipData.toTei;
     return mapData;
   }
 

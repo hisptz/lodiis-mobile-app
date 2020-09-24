@@ -5,6 +5,7 @@ import 'package:kb_mobile_app/models/enrollment.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
+import 'package:kb_mobile_app/models/tei_relationship.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
 
 class FormUtil {
@@ -60,6 +61,17 @@ class FormUtil {
     dynamic enrollmentJson =
         '{"enrollment":"$enrollment", "enrollmentDate":"$enrollmentDate","incidentDate":"$incidentDate","orgUnit":"$orgUnit","program":"$program","trackedEntityInstance":"$trackedEntityInstance","status":"ACTIVE","syncStatus":"not-synced" }';
     return Enrollment().fromJson(json.decode(enrollmentJson));
+  }
+
+  static TeiRelationship getTeiRelationshipPayload(
+    String relationshipType,
+    String fromTei,
+    String toTei,
+  ) {
+    String id = '$fromTei-$toTei';
+    dynamic source =
+        '{"id":"$id","relationshipType":"$relationshipType","toTei":"$toTei", "fromTei":"$fromTei"}';
+    return TeiRelationship().fromJson(json.decode(source));
   }
 
   static Events getEventPayload(
