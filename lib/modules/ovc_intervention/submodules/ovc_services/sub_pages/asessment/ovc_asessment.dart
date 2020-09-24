@@ -7,6 +7,9 @@ import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_child_appbar_container.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/sub_pages/asessment/componets/child_assessment_pop_up_modal.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/sub_pages/asessment/pages/hiv_new_assment.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/sub_pages/asessment/pages/tb_new_assessment.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/sub_pages/asessment/pages/well_being_new_assessment.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/sub_pages/components/ovc_service_detail_card.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/sub_pages/models/ovc_service_detail_card.dart';
 import 'package:provider/provider.dart';
@@ -16,7 +19,20 @@ class OvcAssessmentServiceChildView extends StatelessWidget {
     Widget model = ChildAssessmentPopUpModal();
     String response =await AppUtil.showPopUpModal(context, model);
     if (response != null) {
-      print(response);
+     response == "Wellbeing" ?  Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => OvcServiceWellBeingAssessment()  
+        )): 
+          response == "TB" ?Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => OvcServiceTBAssessment()  
+        )) : response == "HIV" ? Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => OvcServiceHIVAssessment()  
+        )) : print(response) ;
     }
   }
 

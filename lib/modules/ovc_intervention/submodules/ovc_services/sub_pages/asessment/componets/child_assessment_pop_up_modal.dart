@@ -26,7 +26,7 @@ class ChildAssessmentPopUpModal extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        LineSeperator(color: Color(0xFFE0E6E0),height: 2,),
+                        LineSeperator(color: Color(0xFFE0E6E0),height: 1,),
                         Container(
   padding: EdgeInsets.symmetric(vertical: 12),
                           child: Text(
