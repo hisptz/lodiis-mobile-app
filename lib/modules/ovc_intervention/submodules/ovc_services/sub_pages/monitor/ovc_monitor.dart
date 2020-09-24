@@ -7,6 +7,8 @@ import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_child_appb
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/sub_pages/components/ovc_service_detail_card.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/sub_pages/models/ovc_service_detail_card.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/sub_pages/monitor/pages/add_school/ovc_monitor_add_school.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/sub_pages/monitor/pages/add_service/ovc_monitor_add_service.dart';
 import 'package:provider/provider.dart';
 
 //
@@ -22,12 +24,17 @@ class OvcMonitorChildView extends StatelessWidget {
 
   void onExpand() {}
   void onEdit() {}
-  void addService() {
-    print("add Service");
+  void addService(BuildContext context) {
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => OvcMonitorAddService()));
   }
 
-  void addSchool() {
-    print("add School");
+  void addSchool(BuildContext context) {
+ Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => OvcMonitorAddSchool(),
+        ));
   }
 
   @override
@@ -41,7 +48,7 @@ class OvcMonitorChildView extends StatelessWidget {
               InterventionCard activeInterventionProgram =
                   intervetionCardState.currentIntervetionProgram;
               return SubPageAppBar(
-                label: "Monitor",
+                label: "Child Monitor",
                 activeInterventionProgram: activeInterventionProgram,
               );
             },
@@ -84,7 +91,7 @@ class OvcMonitorChildView extends StatelessWidget {
                   borderColor: Color(0xFFAEB9AD),
                   horizontal: 0,
                   buttonColor: Color(0xFFEEF2ED),
-                  onPressButton: () => addService(),
+                  onPressButton: () => addService(context),
                 ),
                 OvcEnrollmentFormSaveButton(
                   label: "ADD SCHOOL",
@@ -96,7 +103,7 @@ class OvcMonitorChildView extends StatelessWidget {
                   horizontal: 0,
                   width: 130,
                   buttonColor: Color(0xFF4B9F46),
-                  onPressButton: () => addSchool(),
+                  onPressButton: () => addSchool(context),
                 )
               ],
             )
@@ -116,7 +123,7 @@ class OvcMonitorChildView extends StatelessWidget {
               style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w700,
-                  color: Color(0xFF1A3518)),
+                  color: Color(0xFF4B9F46)),
             ))));
   }
 
@@ -131,7 +138,7 @@ class OvcMonitorChildView extends StatelessWidget {
                   style: TextStyle(
                       fontWeight: FontWeight.w700,
                       fontSize: 14,
-                      color: Color(0xFF4B9F46)),
+                      color: Color(0xFF1A3518)),
                 ))));
   }
 }
