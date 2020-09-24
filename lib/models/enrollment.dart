@@ -25,7 +25,7 @@ class Enrollment {
     return 'trckedEntityInstance : $trckedEntityInstance on enrollment :$enrollment';
   }
 
-  factory Enrollment.fromJson(dynamic json) {
+  Enrollment fromJson(dynamic json) {
     return Enrollment(
         enrollment: json['enrollment'],
         enrollmentDate: "${json['eventDate']}".split('T')[0],
@@ -41,16 +41,16 @@ class Enrollment {
     return json.encode(toOffline(enrollment));
   }
 
-  Map toOffline(Enrollment enrollment) {
+  Map toOffline(Enrollment enrollmentData) {
     var mapData = Map<String, dynamic>();
-    mapData['enrollment'] = this.enrollment;
-    mapData['enrollmentDate'] = this.enrollmentDate;
-    mapData['incidentDate'] = this.incidentDate;
-    mapData['program'] = this.program;
-    mapData['orgUnit'] = this.orgUnit;
-    mapData['trckedEntityInstance'] = this.trckedEntityInstance;
-    mapData['status'] = this.status;
-    mapData['syncStatus'] = this.syncStatus;
+    mapData['enrollment'] = enrollmentData.enrollment;
+    mapData['enrollmentDate'] = enrollmentData.enrollmentDate;
+    mapData['incidentDate'] = enrollmentData.incidentDate;
+    mapData['program'] = enrollmentData.program;
+    mapData['orgUnit'] = enrollmentData.orgUnit;
+    mapData['trckedEntityInstance'] = enrollmentData.trckedEntityInstance;
+    mapData['status'] = enrollmentData.status;
+    mapData['syncStatus'] = enrollmentData.syncStatus;
     return mapData;
   }
 

@@ -30,7 +30,7 @@ class Events {
     return 'event $event';
   }
 
-  factory Events.fromJson(dynamic json) {
+  Events fromJson(dynamic json) {
     return Events(
       event: json['event'],
       eventDate: "${json['eventDate']}".split('T')[0],
@@ -48,18 +48,17 @@ class Events {
     return json.encode(toOffline(event));
   }
 
-  Map toOffline(Events event) {
+  Map toOffline(Events eventData) {
     Map mapData = Map<String, dynamic>();
-    mapData['event'] = this.event;
-    mapData['eventDate'] = this.eventDate;
-    mapData['program'] = this.program;
-    mapData['programStage'] = this.programStage;
-    mapData['trckedEntityInstance'] = this.trckedEntityInstance;
-    mapData['status'] = this.status;
-    mapData['orgUnit'] = this.orgUnit;
-    mapData['syncStatus'] = this.syncStatus;
-    mapData['dataValues'] = this.dataValues;
-
+    mapData['event'] = eventData.event;
+    mapData['eventDate'] = eventData.eventDate;
+    mapData['program'] = eventData.program;
+    mapData['programStage'] = eventData.programStage;
+    mapData['trckedEntityInstance'] = eventData.trckedEntityInstance;
+    mapData['status'] = eventData.status;
+    mapData['orgUnit'] = eventData.orgUnit;
+    mapData['syncStatus'] = eventData.syncStatus;
+    mapData['dataValues'] = eventData.dataValues;
     return mapData;
   }
 
