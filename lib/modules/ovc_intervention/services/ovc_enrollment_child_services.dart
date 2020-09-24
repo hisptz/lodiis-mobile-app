@@ -33,7 +33,7 @@ class OvcEnrollmentChildService {
         inputFieldIds,
         dataObject,
       );
-      //save tei
+      await FormUtil.savingTrackeEntityInstance(trackeEntityInstanceData);
       Enrollment enrollmentData = FormUtil.getEnrollmentPayLoad(
         enrollment,
         enrollmentDate,
@@ -42,13 +42,12 @@ class OvcEnrollmentChildService {
         program,
         trackedEntityInstance,
       );
-      //saving enrollmmen
+      await FormUtil.savingEnrollment(enrollmentData);
     }
     for (String childTeiReference in childTeiReferences) {
       TeiRelationship teiRelationshipData = FormUtil.getTeiRelationshipPayload(
           relationshipType, parentTrackedEntityInstance, childTeiReference);
-      print((TeiRelationship().toJson(teiRelationshipData)));
-      // saving relationship
+      await FormUtil.savingTeiRelationship(teiRelationshipData);
     }
   }
 }

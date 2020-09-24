@@ -25,12 +25,9 @@ class OvcEnrollmentHouseHoldService {
     TrackeEntityInstance trackeEntityInstanceData =
         FormUtil.geTrackedEntityInstanceEnrollmentPayLoad(trackedEntityInstance,
             trackedEntityType, orgUnit, inputFieldIds, dataObject);
-    print(TrackeEntityInstance().toJson(trackeEntityInstanceData));
-    print('\n');
+    FormUtil.savingTrackeEntityInstance(trackeEntityInstanceData);
     Enrollment enrollmentData = FormUtil.getEnrollmentPayLoad(enrollment,
         enrollmentDate, incidentDate, orgUnit, program, trackedEntityInstance);
-    print(Enrollment().toJson(enrollmentData));
-    print('\n');
-    print('\n');
+    FormUtil.savingEnrollment(enrollmentData);
   }
 }
