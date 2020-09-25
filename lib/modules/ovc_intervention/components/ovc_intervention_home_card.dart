@@ -7,20 +7,19 @@ import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_interventi
 class OvcInterventionCard extends StatelessWidget {
   bool editService, editReferral, editEnrollment, addExit;
   bool showChild = false;
-  final Function onView;
+  final Function onView, onReferral;
 
   OvcInterventionCard(
       {@required this.editService,
       @required this.editReferral,
       @required this.editEnrollment,
       @required this.addExit,
+      this.onReferral,
       this.onView});
 
   void onExpand(BuildContext context) {
     showChild = !showChild;
-
     print("on Expand");
-    //
     (context as Element).markNeedsBuild();
   }
 
@@ -34,10 +33,6 @@ class OvcInterventionCard extends StatelessWidget {
 
   void onMonitor() {
     print("on Monitor");
-  }
-
-  void onReferral() {
-    print("on Referral");
   }
 
   void onAchievment() {
@@ -233,7 +228,7 @@ class OvcInterventionCard extends StatelessWidget {
                                   color: Color(0xFF4B9F46),
                                   fontWeight: FontWeight.bold,
                                 )),
-                            onTap: () => onReferral(),
+                            onTap: onReferral,
                           ),
                         ),
                       ],
