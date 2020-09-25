@@ -29,14 +29,12 @@ class _OvcEnrollmentHouseHoldFormState
   final List<FormSection> formSections =
       OvcEnrollmentHouseHold.getFormSections();
   final String label = 'House Hold form';
-
   final List<String> mandatoryFields =
       OvcEnrollmentHouseHold.getMandatoryField();
   final Map mandatoryFieldObject = Map();
   final String trackedEntityInstance = AppUtil.getUid();
 
   bool isSaving = false;
-
   @override
   void initState() {
     super.initState();
@@ -129,7 +127,6 @@ class _OvcEnrollmentHouseHoldFormState
                                     onInputValueChange: onInputValueChange,
                                   ),
                                 ),
-                                OvcEnrollmentFormSaveButton(
                                   label: isSaving
                                       ? 'Saving House Hold ...'
                                       : 'Save House Hold',

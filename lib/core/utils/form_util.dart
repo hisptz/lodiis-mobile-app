@@ -76,7 +76,6 @@ class FormUtil {
         '{"id":"$id","relationshipType":"$relationshipType","toTei":"$toTei", "fromTei":"$fromTei"}';
     return TeiRelationship().fromJson(json.decode(source));
   }
-
   static Events getEventPayload(
     String event,
     String program,
@@ -118,7 +117,6 @@ class FormUtil {
     await TeiRelatioShipOfflineProvider()
         .addOrUpdateTeirelationShip(teiRelationship);
   }
-
   static Future savingEvent(Events event) async {
     await EventOfflineProvider().addOrUpdateEvent(event);
   }

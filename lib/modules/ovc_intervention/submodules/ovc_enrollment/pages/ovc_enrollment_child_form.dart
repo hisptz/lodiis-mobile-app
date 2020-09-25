@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
@@ -93,7 +92,6 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
             childMapObjects.add(childMapObject);
           });
           updateOvcCount();
-
           Provider.of<EnrollmentFormState>(context, listen: false)
               .setFormFieldState('children', childMapObjects);
           Navigator.push(

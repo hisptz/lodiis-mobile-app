@@ -12,6 +12,7 @@ class OfflineDbProvider {
     "CREATE TABLE IF NOT EXISTS organisation_unit (id TEXT PRIMARY KEY, name TEXT, parent TEXT, level NUMBER)",
     "CREATE TABLE IF NOT EXISTS organisation_unit_children (id TEXT PRIMARY KEY, organisationId TEXT)",
     "CREATE TABLE IF NOT EXISTS organisation_unit_program (id TEXT PRIMARY KEY ,programId TEXT, organisationId TEXT)",
+
     "CREATE TABLE IF NOT EXISTS tracked_entity_instance (trackedEntityInstance TEXT PRIMARY KEY, trackedEntityType TEXT,orgUnit TEXT,syncStatus TEXT )",
     "CREATE TABLE IF NOT EXISTS tracked_entity_instance_attribute (id TEXT PRIMARY KEY,  trackedEntityInstance TEXT,attribute TEXT, value TEXT)",
     "CREATE TABLE IF NOT EXISTS enrollment (enrollment TEXT PRIMARY KEY,enrollmentDate TEXT, incidentDate TEXT, program TEXT, orgUnit TEXT,trackedEntityInstance TEXT, status TEXT,syncStatus TEXT)",
