@@ -71,36 +71,43 @@ class _OvcEnrollmentPageState extends State<OvcEnrollmentPage> {
                   )
                 : Container(
                     margin: EdgeInsets.only(top: 16.0),
-                    child: Column(
-                      children: ovcHouseHolds
-                          .map(
-                            (OvcHouseHold ovcHouseHold) => OvcHouseHoldCard(
-                              ovcHouseHold: ovcHouseHold,
-                              canEdit: canEdit,
-                              canExpand: canExpand,
-                              canView: canView,
-                              isExpanded: ovcHouseHold.id == toggleCardId,
-                              onCardToogle: () {
-                                onCardToogle(ovcHouseHold.id);
-                              },
-                              cardBody: OvcHouseHoldCardBody(
-                                ovcHouseHold: ovcHouseHold,
-                              ),
-                              cardBottonActions: Container(),
-                              cardBottonContent: OvcHouseHoldCardBottonContent(
-                                ovcHouseHold: ovcHouseHold,
-                                canAddChild: canAddChild,
-                                canViewChildInfo: canViewChildInfo,
-                                canEditChildInfo: canEditChildInfo,
-                                canViewChildService: canViewChildService,
-                                canViewChildReferral: canViewChildReferral,
-                                canAddChildExit: canAddChildExit,
-                                canViewChildExit: canViewChildExit,
-                              ),
-                            ),
-                          )
-                          .toList(),
-                    ));
+                    child: ovcHouseHolds.length == 0
+                        ? Center(
+                            child: Text(
+                                'There is no household enrolled at moment'))
+                        : Column(
+                            children: ovcHouseHolds
+                                .map(
+                                  (OvcHouseHold ovcHouseHold) =>
+                                      OvcHouseHoldCard(
+                                    ovcHouseHold: ovcHouseHold,
+                                    canEdit: canEdit,
+                                    canExpand: canExpand,
+                                    canView: canView,
+                                    isExpanded: ovcHouseHold.id == toggleCardId,
+                                    onCardToogle: () {
+                                      onCardToogle(ovcHouseHold.id);
+                                    },
+                                    cardBody: OvcHouseHoldCardBody(
+                                      ovcHouseHold: ovcHouseHold,
+                                    ),
+                                    cardBottonActions: Container(),
+                                    cardBottonContent:
+                                        OvcHouseHoldCardBottonContent(
+                                      ovcHouseHold: ovcHouseHold,
+                                      canAddChild: canAddChild,
+                                      canViewChildInfo: canViewChildInfo,
+                                      canEditChildInfo: canEditChildInfo,
+                                      canViewChildService: canViewChildService,
+                                      canViewChildReferral:
+                                          canViewChildReferral,
+                                      canAddChildExit: canAddChildExit,
+                                      canViewChildExit: canViewChildExit,
+                                    ),
+                                  ),
+                                )
+                                .toList(),
+                          ));
           },
         ),
       ),

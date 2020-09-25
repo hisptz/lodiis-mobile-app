@@ -66,99 +66,117 @@ class _OvcExitPageState extends State<OvcExitPage> {
                   )
                 : Container(
                     margin: EdgeInsets.only(top: 16.0),
-                    child: Column(
-                      children: ovcHouseHolds
-                          .map(
-                            (OvcHouseHold ovcHouseHold) => OvcHouseHoldCard(
-                              ovcHouseHold: ovcHouseHold,
-                              canEdit: canEdit,
-                              canExpand: canExpand,
-                              canView: canView,
-                              isExpanded: ovcHouseHold.id == toggleCardId,
-                              onCardToogle: () {
-                                onCardToogle(ovcHouseHold.id);
-                              },
-                              cardBody: OvcHouseHoldCardBody(
-                                ovcHouseHold: ovcHouseHold,
-                              ),
-                              cardBottonActions: ClipRRect(
-                                borderRadius: BorderRadius.only(
-                                  bottomLeft: Radius.circular(12.0),
-                                  bottomRight: Radius.circular(12.0),
-                                ),
-                                child: Container(
-                                  decoration:
-                                      BoxDecoration(color: Color(0XFFF6FAF6)),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Container(
-                                        child: FlatButton(
-                                            onPressed: () =>
-                                                onViewAchievement(),
-                                            child: Text(
-                                              'ACHIEVEMENT',
-                                              style: TextStyle().copyWith(
-                                                fontSize: 12.0,
-                                                color: Color(0xFF4B9F46),
-                                                fontWeight: FontWeight.w500,
-                                              ),
-                                            )),
+                    child: ovcHouseHolds.length == 0
+                        ? Center(
+                            child: Text(
+                                'There is no household enrolled at moment'))
+                        : Column(
+                            children: ovcHouseHolds
+                                .map(
+                                  (OvcHouseHold ovcHouseHold) =>
+                                      OvcHouseHoldCard(
+                                    ovcHouseHold: ovcHouseHold,
+                                    canEdit: canEdit,
+                                    canExpand: canExpand,
+                                    canView: canView,
+                                    isExpanded: ovcHouseHold.id == toggleCardId,
+                                    onCardToogle: () {
+                                      onCardToogle(ovcHouseHold.id);
+                                    },
+                                    cardBody: OvcHouseHoldCardBody(
+                                      ovcHouseHold: ovcHouseHold,
+                                    ),
+                                    cardBottonActions: ClipRRect(
+                                      borderRadius: ovcHouseHold.id ==
+                                              toggleCardId
+                                          ? BorderRadius.zero
+                                          : BorderRadius.only(
+                                              bottomLeft: Radius.circular(12.0),
+                                              bottomRight:
+                                                  Radius.circular(12.0),
+                                            ),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                            color: Color(0XFFF6FAF6)),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            Container(
+                                              child: FlatButton(
+                                                  onPressed: () =>
+                                                      onViewAchievement(),
+                                                  child: Text(
+                                                    'ACHIEVEMENT',
+                                                    style: TextStyle().copyWith(
+                                                      fontSize: 12.0,
+                                                      color: Color(0xFF4B9F46),
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                    ),
+                                                  )),
+                                            ),
+                                            Container(
+                                              child: FlatButton(
+                                                  onPressed: () => onViewExit(),
+                                                  child: Text(
+                                                    'EXIT',
+                                                    style: TextStyle().copyWith(
+                                                      fontSize: 12.0,
+                                                      color: Color(0xFF4B9F46),
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                    ),
+                                                  )),
+                                            ),
+                                            Container(
+                                              child: FlatButton(
+                                                  onPressed: () =>
+                                                      onViewTransfer(),
+                                                  child: Text(
+                                                    'TRANSFER',
+                                                    style: TextStyle().copyWith(
+                                                      fontSize: 12.0,
+                                                      color: Color(0xFF4B9F46),
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                    ),
+                                                  )),
+                                            ),
+                                            Container(
+                                              child: FlatButton(
+                                                  onPressed: () =>
+                                                      onViewClosure(),
+                                                  child: Text(
+                                                    'CLOSURE',
+                                                    style: TextStyle().copyWith(
+                                                      fontSize: 12.0,
+                                                      color: Color(0xFF4B9F46),
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                    ),
+                                                  )),
+                                            )
+                                          ],
+                                        ),
                                       ),
-                                      Container(
-                                        child: FlatButton(
-                                            onPressed: () => onViewExit(),
-                                            child: Text(
-                                              'EXIT',
-                                              style: TextStyle().copyWith(
-                                                fontSize: 12.0,
-                                                color: Color(0xFF4B9F46),
-                                                fontWeight: FontWeight.w500,
-                                              ),
-                                            )),
-                                      ),
-                                      Container(
-                                        child: FlatButton(
-                                            onPressed: () => onViewTransfer(),
-                                            child: Text(
-                                              'TRANSFER',
-                                              style: TextStyle().copyWith(
-                                                fontSize: 12.0,
-                                                color: Color(0xFF4B9F46),
-                                                fontWeight: FontWeight.w500,
-                                              ),
-                                            )),
-                                      ),
-                                      Container(
-                                        child: FlatButton(
-                                            onPressed: () => onViewClosure(),
-                                            child: Text(
-                                              'CLOSURE',
-                                              style: TextStyle().copyWith(
-                                                fontSize: 12.0,
-                                                color: Color(0xFF4B9F46),
-                                                fontWeight: FontWeight.w500,
-                                              ),
-                                            )),
-                                      )
-                                    ],
+                                    ),
+                                    cardBottonContent:
+                                        OvcHouseHoldCardBottonContent(
+                                      ovcHouseHold: ovcHouseHold,
+                                      canAddChild: canAddChild,
+                                      canViewChildInfo: canViewChildInfo,
+                                      canEditChildInfo: canEditChildInfo,
+                                      canViewChildService: canViewChildService,
+                                      canViewChildReferral:
+                                          canViewChildReferral,
+                                      canAddChildExit: canAddChildExit,
+                                      canViewChildExit: canViewChildExit,
+                                    ),
                                   ),
-                                ),
-                              ),
-                              cardBottonContent: OvcHouseHoldCardBottonContent(
-                                ovcHouseHold: ovcHouseHold,
-                                canAddChild: canAddChild,
-                                canViewChildInfo: canViewChildInfo,
-                                canEditChildInfo: canEditChildInfo,
-                                canViewChildService: canViewChildService,
-                                canViewChildReferral: canViewChildReferral,
-                                canAddChildExit: canAddChildExit,
-                                canViewChildExit: canViewChildExit,
-                              ),
-                            ),
-                          )
-                          .toList(),
-                    ));
+                                )
+                                .toList(),
+                          ));
           },
         ),
       ),
