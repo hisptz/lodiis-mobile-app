@@ -9,14 +9,18 @@ import 'package:kb_mobile_app/modules/ovc_intervention/ovc_intervention.dart';
 import 'package:provider/provider.dart';
 
 class InterventionSelectionContainer extends StatefulWidget {
-  const InterventionSelectionContainer(
-      {Key key,
-      @required this.interventionPrograms,
-      this.onIntervetionSelection})
-      : super(key: key);
+  const InterventionSelectionContainer({
+    Key key,
+    @required this.interventionPrograms,
+    @required this.onIntervetionSelection,
+    @required this.numberOfDreamsBeneficiaries,
+    @required this.numberOfOvcBeneficiaries,
+  }) : super(key: key);
 
   final List<InterventionCard> interventionPrograms;
   final Function(InterventionCard) onIntervetionSelection;
+  final int numberOfDreamsBeneficiaries;
+  final int numberOfOvcBeneficiaries;
 
   @override
   _InterventionSelectionContainerState createState() =>
@@ -77,6 +81,8 @@ class _InterventionSelectionContainerState
             child: InterventionSelectionList(
               interventionPrograms: widget.interventionPrograms,
               onIntervetionSelection: onSelectingInterventionProgram,
+              numberOfDreamsBeneficiaries: widget.numberOfDreamsBeneficiaries,
+              numberOfOvcBeneficiaries: widget.numberOfOvcBeneficiaries,
             ),
           ),
           InterventionSelectionButton(

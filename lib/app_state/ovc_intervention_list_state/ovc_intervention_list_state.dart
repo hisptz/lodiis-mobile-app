@@ -5,12 +5,12 @@ import 'package:kb_mobile_app/modules/ovc_intervention/services/ovc_enrollment_h
 class OvcInterventionListState with ChangeNotifier {
   // intial state
   List<OvcHouseHold> _ovcInterventionList;
-  bool _isLoading;
+  bool _isLoading = true;
   int _numberOfOvcBeneficiaries = 0;
 
   //selectors
   List<OvcHouseHold> get ovcInterventionList => _ovcInterventionList ?? [];
-  bool get isLoading => _isLoading ?? false;
+  bool get isLoading => _isLoading != null ? _isLoading : false;
   int get numberOfOvcBeneficiaries => _numberOfOvcBeneficiaries;
 
   // reducers
@@ -19,6 +19,7 @@ class OvcInterventionListState with ChangeNotifier {
     for (OvcHouseHold houseHold in _ovcInterventionList) {
       _numberOfOvcBeneficiaries += houseHold.children.length;
     }
+    _isLoading = false;
     notifyListeners();
   }
 
@@ -27,7 +28,7 @@ class OvcInterventionListState with ChangeNotifier {
     notifyListeners();
     _ovcInterventionList =
         await OvcEnrollmentHouseHoldService().getHouseHoldList();
-    _isLoading = false;
     notifyListeners();
+    updateNumerOfOvcBeneficiaries();
   }
 }

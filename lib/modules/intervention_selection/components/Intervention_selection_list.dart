@@ -3,14 +3,19 @@ import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/intervention_selection/components/Intervention_selection_card.dart';
 
 class InterventionSelectionList extends StatefulWidget {
-  InterventionSelectionList(
-      {Key key,
-      @required this.interventionPrograms,
-      this.onIntervetionSelection})
-      : super(key: key);
+  InterventionSelectionList({
+    Key key,
+    @required this.interventionPrograms,
+    this.onIntervetionSelection,
+    @required this.numberOfDreamsBeneficiaries,
+    @required this.numberOfOvcBeneficiaries,
+  }) : super(key: key);
 
   final List<InterventionCard> interventionPrograms;
   final Function(InterventionCard) onIntervetionSelection;
+
+  final int numberOfDreamsBeneficiaries;
+  final int numberOfOvcBeneficiaries;
 
   @override
   _InterventionSelectionListState createState() =>
@@ -35,8 +40,12 @@ class _InterventionSelectionListState extends State<InterventionSelectionList> {
             .map((InterventionCard interventionProgram) => GestureDetector(
                   onTap: () => setSelectedCard(interventionProgram),
                   child: InterventionSelectionCard(
-                      interventionProgram: interventionProgram,
-                      interventionProgramId: interventionProgramId),
+                    interventionProgram: interventionProgram,
+                    interventionProgramId: interventionProgramId,
+                    numberOfDreamsBeneficiaries:
+                        widget.numberOfDreamsBeneficiaries,
+                    numberOfOvcBeneficiaries: widget.numberOfOvcBeneficiaries,
+                  ),
                 ))
             .toList(),
       ),
