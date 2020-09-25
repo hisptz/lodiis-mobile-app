@@ -6,6 +6,7 @@ import 'package:sqflite/sqflite.dart';
 class EventOfflineProvider extends OfflineDbProvider {
   final String table = 'events';
   //columns
+  final String id = 'id';
   final String event = 'event';
   final String eventDate = 'eventDate';
   final String program = 'program';
@@ -17,7 +18,8 @@ class EventOfflineProvider extends OfflineDbProvider {
 
   addOrUpdateEvent(Events event) async {
     var dbClient = await db;
-    var data = Events().toOffline(event);
+    Map data = Events().toOffline(event);
+    data['id'] = data['event'];
     data.remove('dataValues');
     await dbClient.insert(table, data,
         conflictAlgorithm: ConflictAlgorithm.replace);

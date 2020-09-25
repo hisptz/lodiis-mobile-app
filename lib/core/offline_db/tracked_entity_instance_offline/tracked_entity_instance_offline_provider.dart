@@ -6,6 +6,7 @@ import 'package:sqflite/sqflite.dart';
 class TrackedEntityInstanceOfflineProvider extends OfflineDbProvider {
   final String table = 'tracked_entity_instance';
   //columns
+  final String id = 'id';
   final String trackedEntityInstance = 'trackedEntityInstance';
   final String trackedEntityType = 'trackedEntityType';
   final String orgUnit = 'orgUnit';
@@ -15,8 +16,9 @@ class TrackedEntityInstanceOfflineProvider extends OfflineDbProvider {
     TrackeEntityInstance trackedEntityInstance,
   ) async {
     var dbClient = await db;
-    var data = TrackeEntityInstance().toOffline(trackedEntityInstance);
+    Map data = TrackeEntityInstance().toOffline(trackedEntityInstance);
     data.remove('attributes');
+    data['id'] = data['trackedEntityInstance'];
     await dbClient.insert(table, data,
         conflictAlgorithm: ConflictAlgorithm.replace);
     await TrackedEntityInstanceOfflineAttributeProvider()

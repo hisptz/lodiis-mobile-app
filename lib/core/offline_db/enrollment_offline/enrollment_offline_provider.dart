@@ -6,6 +6,7 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
   final String table = 'enrollment';
 
   //columns
+  final String id = 'id';
   final String enrollment = 'enrollment';
   final String enrollmentDate = 'enrollmentDate';
   final String incidentDate = 'incidentDate';
@@ -17,7 +18,8 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
 
   addOrUpdateEnrollement(Enrollment enrollment) async {
     var dbClient = await db;
-    var data = Enrollment().toOffline(enrollment);
+    Map data = Enrollment().toOffline(enrollment);
+    data['id'] = data['event'];
     await dbClient.insert(table, data,
         conflictAlgorithm: ConflictAlgorithm.replace);
   }
@@ -26,7 +28,6 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
     String programId,
   ) async {
     List<Enrollment> enrollments = [];
-
     try {
       var dbClient = await db;
       List<Map> maps = await dbClient.query(
