@@ -6,6 +6,7 @@ import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold_card_body.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold_card_botton_content.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_intervention_appBar.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/referral_pages/ovc_house_hold_referral.dart';
 import 'package:provider/provider.dart';
 
 class OvcReferralPage extends StatefulWidget {
@@ -35,7 +36,10 @@ class _OvcReferralPageState extends State<OvcReferralPage> {
     });
   }
 
-  void onViewRerral() {}
+  void onViewRerral(BuildContext context) {
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => OvcHouseHoldRefferal()));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +92,8 @@ class _OvcReferralPageState extends State<OvcReferralPage> {
                                     children: [
                                       Container(
                                         child: FlatButton(
-                                            onPressed: () => onViewRerral(),
+                                            onPressed: () =>
+                                                onViewRerral(context),
                                             child: Text(
                                               'REFERRAL',
                                               style: TextStyle().copyWith(

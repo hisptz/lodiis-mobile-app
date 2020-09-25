@@ -6,7 +6,6 @@ import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold_card_body.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold_card_botton_content.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_intervention_appBar.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/sub_pages/ovc_service_child_view_page.dart';
 import 'package:provider/provider.dart';
 
 class OvcServicesPage extends StatefulWidget {

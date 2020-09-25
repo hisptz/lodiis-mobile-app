@@ -11,7 +11,6 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/s
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/sub_pages/monitor/pages/add_service/ovc_monitor_add_service.dart';
 import 'package:provider/provider.dart';
 
-//
 
 class OvcMonitorChildView extends StatelessWidget {
   void assessment(BuildContext context) {
@@ -103,14 +102,9 @@ class OvcMonitorChildView extends StatelessWidget {
                   horizontal: 0,
                   width: 130,
                   buttonColor: Color(0xFF4B9F46),
-                  onPressButton: () => addSchool(context),
-                )
-              ],
-            )
-          ]),
-        ),
-        bottomNavigationBar: InterventionBottomNavigationBarContainer());
-  }
+                  onPressButton: () => addSchool(context),)], ) ]),  ),
+         
+         bottomNavigationBar: InterventionBottomNavigationBarContainer());}  
 
   Widget serviceDate(String date) {
     return Visibility(
@@ -124,9 +118,7 @@ class OvcMonitorChildView extends StatelessWidget {
                   fontSize: 14,
                   fontWeight: FontWeight.w700,
                   color: Color(0xFF4B9F46)),
-            ))));
-  }
-
+            ))));  }
   Widget serviceAccess(String serviceStatus) {
     return Visibility(
         child: Expanded(
