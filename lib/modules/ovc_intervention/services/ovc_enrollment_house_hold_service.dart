@@ -51,6 +51,7 @@ class OvcEnrollmentHouseHoldService {
         List<OrganisationUnit> ous = await OrganisationUnitService()
             .getOrganisationUnits([enrollment.orgUnit]);
         String location = ous.length > 0 ? ous[0].name : enrollment.orgUnit;
+        String createdDate = enrollment.enrollmentDate;
         //loading households
         List<TrackeEntityInstance> houseHolds =
             await TrackedEntityInstanceOfflineProvider()
@@ -71,8 +72,8 @@ class OvcEnrollmentHouseHoldService {
               .map((TrackeEntityInstance child) =>
                   OvcHouseHoldChild().fromTeiModel(child))
               .toList();
-          ovchouseHoldList.add(
-              OvcHouseHold().fromTeiModel(tei, location, houseHoldChildren));
+          ovchouseHoldList.add(OvcHouseHold()
+              .fromTeiModel(tei, location, createdDate, houseHoldChildren));
         }
       }
     } catch (e) {}

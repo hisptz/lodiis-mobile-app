@@ -1,53 +1,122 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_intervention_list_state.dart';
+import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
+import 'package:kb_mobile_app/models/ovc_house_hold.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold_card.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold_card_body.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold_card_botton_content.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_intervention_appBar.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_intervention_home_card.dart';
+import 'package:provider/provider.dart';
 
-class OvcReferralPage extends StatelessWidget {
+class OvcReferralPage extends StatefulWidget {
   const OvcReferralPage({Key key}) : super(key: key);
 
-  Widget referral() {
-    return GestureDetector(
-      onTap: () {
+  @override
+  _OvcReferralPageState createState() => _OvcReferralPageState();
+}
 
-      },
-      child: Row(
-        
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          SizedBox(
-            width: 20.25,
-          ),
-          SizedBox(
-            width: 13.65,
-          ),
-          Text("REFERRAL",
-              style: TextStyle(
-                color: Color(0xFF4B9F46)
-              )),
-        ],
-      ),
-    );
+class _OvcReferralPageState extends State<OvcReferralPage> {
+  final bool canEdit = false;
+  final bool canView = false;
+  final bool canExpand = true;
+  final bool canAddChild = false;
+  final bool canViewChildInfo = false;
+  final bool canEditChildInfo = false;
+  final bool canViewChildService = false;
+  final bool canViewChildReferral = true;
+  final bool canViewChildExit = false;
+  final bool canAddChildExit = false;
+
+  String toggleCardId = '';
+
+  void onCardToogle(String cardId) {
+    setState(() {
+      toggleCardId = canExpand && cardId != toggleCardId ? cardId : '';
+    });
   }
+
+  void onViewRerral() {}
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xffedf4ed),
-           appBar: AppBar(
-         backgroundColor: Colors.white,
-         title: OvcInterventionAppBar(title: "HOUSE HOLD LIST"),
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        title: OvcInterventionAppBar(title: "HOUSE HOLD LIST"),
       ),
-      body:  SingleChildScrollView(
-              child: Column(
-            children: [
-             OvcInterventionCard(editReferral: true, addExit: false, editEnrollment: false, editService: false,),
-              OvcInterventionCard(editReferral: true, addExit: false, editEnrollment: false, editService: false,),
-               OvcInterventionCard(editReferral: true, addExit: false, editEnrollment: false, editService: false,),
-                OvcInterventionCard(editReferral: true, addExit: false, editEnrollment: false, editService: false,),
-                 OvcInterventionCard(editReferral: true, addExit: false, editEnrollment: false, editService: false,),
-            ],
-          
+      body: SingleChildScrollView(
+        child: Consumer<OvcInterventionListState>(
+          builder: (context, ovcInterventionListState, child) {
+            bool isLoading = ovcInterventionListState.isLoading;
+            List<OvcHouseHold> ovcHouseHolds =
+                ovcInterventionListState.ovcInterventionList;
+            return isLoading
+                ? Container(
+                    margin: EdgeInsets.only(top: 20.0),
+                    child: Center(
+                      child: CircularProcessLoader(color: Colors.blueGrey),
+                    ),
+                  )
+                : Container(
+                    margin: EdgeInsets.only(top: 16.0),
+                    child: Column(
+                      children: ovcHouseHolds
+                          .map(
+                            (OvcHouseHold ovcHouseHold) => OvcHouseHoldCard(
+                              ovcHouseHold: ovcHouseHold,
+                              canEdit: canEdit,
+                              canExpand: canExpand,
+                              canView: canView,
+                              isExpanded: ovcHouseHold.id == toggleCardId,
+                              onCardToogle: () {
+                                onCardToogle(ovcHouseHold.id);
+                              },
+                              cardBody: OvcHouseHoldCardBody(
+                                ovcHouseHold: ovcHouseHold,
+                              ),
+                              cardBottonActions: ClipRRect(
+                                borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(12.0),
+                                  bottomRight: Radius.circular(12.0),
+                                ),
+                                child: Container(
+                                  decoration:
+                                      BoxDecoration(color: Color(0XFFF6FAF6)),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Container(
+                                        child: FlatButton(
+                                            onPressed: () => onViewRerral(),
+                                            child: Text(
+                                              'REFERRAL',
+                                              style: TextStyle().copyWith(
+                                                fontSize: 12.0,
+                                                color: Color(0xFF4B9F46),
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                            )),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              cardBottonContent: OvcHouseHoldCardBottonContent(
+                                ovcHouseHold: ovcHouseHold,
+                                canAddChild: canAddChild,
+                                canViewChildInfo: canViewChildInfo,
+                                canEditChildInfo: canEditChildInfo,
+                                canViewChildService: canViewChildService,
+                                canViewChildReferral: canViewChildReferral,
+                                canAddChildExit: canAddChildExit,
+                                canViewChildExit: canViewChildExit,
+                              ),
+                            ),
+                          )
+                          .toList(),
+                    ));
+          },
         ),
       ),
     );
