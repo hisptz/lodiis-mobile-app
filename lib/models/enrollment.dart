@@ -6,7 +6,7 @@ class Enrollment {
   String incidentDate;
   String program;
   String orgUnit;
-  String trckedEntityInstance;
+  String trackedEntityInstance;
   String status;
   String syncStatus;
 
@@ -16,23 +16,23 @@ class Enrollment {
       this.incidentDate,
       this.program,
       this.orgUnit,
-      this.trckedEntityInstance,
+      this.trackedEntityInstance,
       this.status,
       this.syncStatus});
 
   @override
   String toString() {
-    return 'trckedEntityInstance : $trckedEntityInstance on enrollment :$enrollment';
+    return 'trackedEntityInstance : $trackedEntityInstance on enrollment :$enrollment';
   }
 
   Enrollment fromJson(dynamic json) {
     return Enrollment(
         enrollment: json['enrollment'],
-        enrollmentDate: "${json['eventDate']}".split('T')[0],
+        enrollmentDate: "${json['enrollmentDate']}".split('T')[0],
         incidentDate: "${json['incidentDate']}".split('T')[0],
         program: json['program'],
         orgUnit: json['orgUnit'],
-        trckedEntityInstance: json['trckedEntityInstance'],
+        trackedEntityInstance: json['trackedEntityInstance'],
         status: json['status'],
         syncStatus: json['syncStatus']);
   }
@@ -48,7 +48,7 @@ class Enrollment {
     mapData['incidentDate'] = enrollmentData.incidentDate;
     mapData['program'] = enrollmentData.program;
     mapData['orgUnit'] = enrollmentData.orgUnit;
-    mapData['trckedEntityInstance'] = enrollmentData.trckedEntityInstance;
+    mapData['trackedEntityInstance'] = enrollmentData.trackedEntityInstance;
     mapData['status'] = enrollmentData.status;
     mapData['syncStatus'] = enrollmentData.syncStatus;
     return mapData;
@@ -60,7 +60,7 @@ class Enrollment {
     this.incidentDate = mapData['incidentDate'];
     this.program = mapData['program'];
     this.orgUnit = mapData['orgUnit'];
-    this.trckedEntityInstance = mapData['trckedEntityInstance'];
+    this.trackedEntityInstance = mapData['trackedEntityInstance'];
     this.status = mapData['status'];
     this.syncStatus = mapData['syncStatus'];
   }
