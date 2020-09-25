@@ -1,6 +1,7 @@
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
 
 class OvcHouseHoldChild {
+  String id;
   String firstName;
   String middleName;
   String surname;
@@ -9,6 +10,7 @@ class OvcHouseHoldChild {
   TrackeEntityInstance teiData;
 
   OvcHouseHoldChild({
+    this.id,
     this.firstName,
     this.middleName,
     this.surname,
@@ -33,6 +35,7 @@ class OvcHouseHoldChild {
       }
     }
     return OvcHouseHoldChild(
+        id: tei.trackedEntityInstance,
         firstName: data['s1eRvsL2Ly4'] ?? '',
         middleName: data['s1HaiT6OllL'] ?? '',
         surname: data['rSP9c21JsfC'] ?? '',

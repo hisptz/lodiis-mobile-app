@@ -2,10 +2,12 @@ import 'package:kb_mobile_app/models/ovc_house_hold_child.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
 
 class OvcHouseHold {
+  String id;
   String firstName;
   String middleName;
   String surname;
   String location;
+  String createdDate;
   String houseHoldId;
   String ovcMaleCount;
   String ovcFemaleCount;
@@ -13,6 +15,7 @@ class OvcHouseHold {
   TrackeEntityInstance teiData;
 
   OvcHouseHold({
+    this.id,
     this.firstName,
     this.middleName,
     this.surname,
@@ -20,6 +23,7 @@ class OvcHouseHold {
     this.children,
     this.houseHoldId,
     this.location,
+    this.createdDate,
     this.ovcFemaleCount,
     this.teiData,
   });
@@ -27,6 +31,7 @@ class OvcHouseHold {
   OvcHouseHold fromTeiModel(
     TrackeEntityInstance tei,
     String location,
+    String createdDate,
     List<OvcHouseHoldChild> children,
   ) {
     List keys = [
@@ -45,10 +50,12 @@ class OvcHouseHold {
       }
     }
     return OvcHouseHold(
+        id: tei.trackedEntityInstance,
         firstName: data['s1eRvsL2Ly4'] ?? '',
         middleName: data['s1HaiT6OllL'] ?? '',
         surname: data['rSP9c21JsfC'] ?? '',
         location: location,
+        createdDate: createdDate,
         ovcMaleCount: data['kQehaqmaygZ'] ?? '',
         ovcFemaleCount: data['BXUNH6LXeGA'] ?? '',
         houseHoldId: data['yk0OH9p09C1'] ?? '',

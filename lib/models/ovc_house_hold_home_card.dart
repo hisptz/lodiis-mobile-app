@@ -26,19 +26,22 @@ class OvcHouseHold {
         name: "Lenka Mosela",
         date: generateDate(),
         location: "Berena",
-        numberOvc: "Female-2" + ":" 'Male-1', ovcChildren: OvcChildren.defaultOvcChildrens),
+        numberOvc: "Female-2" + ":" 'Male-1',
+        ovcChildren: OvcChildren.defaultOvcChildrens),
     OvcHouseHold(
         id: generateId(),
         name: "Atile Nthabiseng",
         date: generateDate(),
         location: "Berena",
-        numberOvc: "Female-2" + ":" 'Male-1', ovcChildren: OvcChildren.defaultOvcChildrens),
+        numberOvc: "Female-2" + ":" 'Male-1',
+        ovcChildren: OvcChildren.defaultOvcChildrens),
     OvcHouseHold(
         id: generateId(),
         name: "Mosa Thabiso",
         date: generateDate(),
         location: "Berena",
-        numberOvc: "Female-2" + ":" 'Male-1', ovcChildren: OvcChildren.defaultOvcChildrens),
+        numberOvc: "Female-2" + ":" 'Male-1',
+        ovcChildren: OvcChildren.defaultOvcChildrens),
   ];
 
   static generateId() {
