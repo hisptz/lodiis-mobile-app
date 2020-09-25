@@ -11,6 +11,7 @@ class InputField {
   Color background;
   bool renderAsRadio;
   bool isReadObly;
+  bool allowFuturePeriod;
   List<InputFieldOption> options;
   bool hasSubInputField;
   InputField subInputField;
@@ -29,6 +30,7 @@ class InputField {
     this.options,
     this.subInputField,
   }) {
+    this.allowFuturePeriod = this.allowFuturePeriod ?? false;
     this.isReadObly = this.isReadObly ?? false;
     this.description = this.description ?? '';
     this.hasSubInputField = this.hasSubInputField ?? false;

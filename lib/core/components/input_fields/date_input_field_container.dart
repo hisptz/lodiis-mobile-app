@@ -8,12 +8,10 @@ class DateInputFieldContainer extends StatefulWidget {
       {Key key,
       @required this.inputField,
       @required this.onInputValueChange,
-      this.allowFuturePeriod = true,
       this.inputValue})
       : super(key: key);
   final InputField inputField;
   final Function onInputValueChange;
-  final bool allowFuturePeriod;
   final String inputValue;
 
   @override
@@ -44,7 +42,8 @@ class _DateInputFieldContainerState extends State<DateInputFieldContainer> {
       firstDate: DateTime(1900),
       confirmText: 'Ok',
       cancelText: 'Cancel',
-      lastDate: widget.allowFuturePeriod ? DateTime(2050) : DateTime.now(),
+      lastDate:
+          widget.inputField.allowFuturePeriod ? DateTime(2050) : DateTime.now(),
       helpText: '${widget.inputField.name}',
       errorFormatText: 'Enter valid ${widget.inputField.name}',
       errorInvalidText: 'Enter ${widget.inputField.name} in valid range',
