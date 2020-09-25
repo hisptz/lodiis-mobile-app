@@ -5,7 +5,11 @@ import 'package:kb_mobile_app/models/input_field_option.dart';
 
 class OvcEnrollmentHouseHold {
   static List<String> getMandatoryField() {
-    return ['location', 's1eRvsL2Ly4', 'rSP9c21JsfC', 'vIX4GTSCX4P'];
+    return [];
+  }
+
+  static List<String> getHiddenField() {
+    return ['yk0OH9p09C1', 'PN92g65TkVI'];
   }
 
   static List<FormSection> getFormSections() {
@@ -106,12 +110,14 @@ class OvcEnrollmentHouseHold {
                       labelColor: Color(0xFF737373)),
                   InputField(
                       id: 'kQehaqmaygZ',
+                      isReadObly: true,
                       name: 'Male aged below 18 years living in household',
                       valueType: 'INTEGER_ZERO_OR_POSITIVE',
                       inputColor: Color(0xFF4B9F46),
                       labelColor: Color(0xFF737373)),
                   InputField(
                       id: 'BXUNH6LXeGA',
+                      isReadObly: true,
                       name:
                           'Female aged below 18 years currently living in household',
                       valueType: 'INTEGER_ZERO_OR_POSITIVE',

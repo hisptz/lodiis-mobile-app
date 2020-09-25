@@ -4,6 +4,9 @@ class OvcEnrollmentNoneParticipationConstant {
   String attribute;
   String dataElement;
 
+  static String program = 'AxscuxwznKK';
+  static String programStage = 'AkbbzsszCOJ';
+
   OvcEnrollmentNoneParticipationConstant(
       {@required this.attribute, @required this.dataElement});
 

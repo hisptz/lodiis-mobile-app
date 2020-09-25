@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/core/components/input_fields/boolean_input_field_container.dart';
+import 'package:kb_mobile_app/core/components/input_fields/check_box_list_input_field.dart';
 import 'package:kb_mobile_app/core/components/input_fields/coordinate_input_field_container.dart';
 import 'package:kb_mobile_app/core/components/input_fields/date_input_field_container.dart';
 import 'package:kb_mobile_app/core/components/input_fields/numerical_input_container.dart';
@@ -16,13 +17,13 @@ class InputFieldContainer extends StatelessWidget {
       {Key key,
       @required this.inputField,
       this.onInputValueChange,
-      this.inputValue,
+      this.dataObject,
       this.mandatoryFieldObject})
       : super(key: key);
 
   final InputField inputField;
   final Function onInputValueChange;
-  final dynamic inputValue;
+  final Map dataObject;
   final Map mandatoryFieldObject;
 
   @override
@@ -46,7 +47,9 @@ class InputFieldContainer extends StatelessWidget {
                           text: TextSpan(
                               text: inputField.name,
                               style: TextStyle(
-                                  color: inputField.labelColor, fontSize: 12.0),
+                                  color: inputField.labelColor,
+                                  fontSize: 13.0,
+                                  fontWeight: FontWeight.normal),
                               children: [
                         TextSpan(
                             text: mandatoryFieldObject != null &&
@@ -114,63 +117,69 @@ class InputFieldContainer extends StatelessWidget {
   Widget _getInputField(InputField inputField) {
     return Container(
       child: inputField != null
-          ? inputField.options.length > 0
-              ? SelectInputField(
-                  color: inputField.inputColor,
-                  isReadOnly: inputField.isReadObly,
-                  renderAsRadio: inputField.renderAsRadio,
-                  onInputValueChange: (dynamic value) =>
-                      this.onInputValueChange(inputField.id, value),
-                  options: inputField.options,
-                  selectedOption: inputValue)
-              : inputField.valueType == 'TEXT' ||
-                      inputField.valueType == 'LONG_TEXT'
-                  ? TextInputFieldContainer(
-                      inputField: inputField,
-                      inputValue: inputValue,
+          ? inputField.valueType == 'CHECK_BOX'
+              ? CheckBoxListInputField(
+                  inputField: inputField,
+                  onInputValueChange: this.onInputValueChange,
+                  dataObject: dataObject,
+                )
+              : inputField.options.length > 0
+                  ? SelectInputField(
+                      color: inputField.inputColor,
+                      isReadOnly: inputField.isReadObly,
+                      renderAsRadio: inputField.renderAsRadio,
                       onInputValueChange: (dynamic value) =>
                           this.onInputValueChange(inputField.id, value),
-                    )
-                  : inputField.valueType == 'INTEGER_ZERO_OR_POSITIVE' ||
-                          inputField.valueType == 'NUMBER'
-                      ? NumericalInputFieldContainer(
+                      options: inputField.options,
+                      selectedOption: dataObject[inputField.id])
+                  : inputField.valueType == 'TEXT' ||
+                          inputField.valueType == 'LONG_TEXT'
+                      ? TextInputFieldContainer(
                           inputField: inputField,
-                          inputValue: inputValue,
+                          inputValue: dataObject[inputField.id],
                           onInputValueChange: (dynamic value) =>
-                              this.onInputValueChange(inputField.id, value))
-                      : inputField.valueType == 'PHONE_NUMBER'
-                          ? PhoneNumberInputFieldContainer(
+                              this.onInputValueChange(inputField.id, value),
+                        )
+                      : inputField.valueType == 'INTEGER_ZERO_OR_POSITIVE' ||
+                              inputField.valueType == 'NUMBER'
+                          ? NumericalInputFieldContainer(
                               inputField: inputField,
-                              inputValue: inputValue,
+                              inputValue: dataObject[inputField.id],
                               onInputValueChange: (dynamic value) =>
                                   this.onInputValueChange(inputField.id, value))
-                          : inputField.valueType == 'BOOLEAN'
-                              ? BooleanInputFieldContainer(
+                          : inputField.valueType == 'PHONE_NUMBER'
+                              ? PhoneNumberInputFieldContainer(
                                   inputField: inputField,
-                                  inputValue: inputValue,
+                                  inputValue: dataObject[inputField.id],
                                   onInputValueChange: (dynamic value) => this
                                       .onInputValueChange(inputField.id, value))
-                              : inputField.valueType == 'TRUE_ONLY'
-                                  ? TrueOnlyInputFieldContainer(
+                              : inputField.valueType == 'BOOLEAN'
+                                  ? BooleanInputFieldContainer(
                                       inputField: inputField,
-                                      inputValue: inputValue,
+                                      inputValue: dataObject[inputField.id],
                                       onInputValueChange: (dynamic value) =>
                                           this.onInputValueChange(
                                               inputField.id, value))
-                                  : inputField.valueType == 'DATE'
-                                      ? DateInputFieldContainer(
+                                  : inputField.valueType == 'TRUE_ONLY'
+                                      ? TrueOnlyInputFieldContainer(
                                           inputField: inputField,
-                                          inputValue: inputValue,
+                                          inputValue: dataObject[inputField.id],
                                           onInputValueChange: (dynamic value) =>
-                                              this.onInputValueChange(inputField.id, value))
-                                      : inputField.valueType == 'ORGANISATION_UNIT'
-                                          ? OrganisationUnitInputFieldContainer(inputField: inputField, inputValue: inputValue, onInputValueChange: (dynamic value) => this.onInputValueChange(inputField.id, value))
-                                          : inputField.valueType == 'COORDINATE'
-                                              ? CoordinteInputFieldContainer(inputField: inputField, inputValue: inputValue, onInputValueChange: (dynamic value) => this.onInputValueChange(inputField.id, value))
-                                              : Container(
-                                                  child: Text(
-                                                      '${inputField.valueType} is not supported'),
-                                                )
+                                              this.onInputValueChange(
+                                                  inputField.id, value))
+                                      : inputField.valueType == 'DATE'
+                                          ? DateInputFieldContainer(
+                                              inputField: inputField,
+                                              inputValue: dataObject[inputField.id],
+                                              onInputValueChange: (dynamic value) => this.onInputValueChange(inputField.id, value))
+                                          : inputField.valueType == 'ORGANISATION_UNIT'
+                                              ? OrganisationUnitInputFieldContainer(inputField: inputField, inputValue: dataObject[inputField.id], onInputValueChange: (dynamic value) => this.onInputValueChange(inputField.id, value))
+                                              : inputField.valueType == 'COORDINATE'
+                                                  ? CoordinteInputFieldContainer(inputField: inputField, inputValue: dataObject[inputField.id], onInputValueChange: (dynamic value) => this.onInputValueChange(inputField.id, value))
+                                                  : Container(
+                                                      child: Text(
+                                                          '${inputField.valueType} is not supported'),
+                                                    )
           : Text(''),
     );
   }

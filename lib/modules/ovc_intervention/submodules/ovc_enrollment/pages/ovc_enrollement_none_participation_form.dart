@@ -10,7 +10,7 @@ import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/constants/ovc_enrollement_none_participation_constant.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/services/ovc_enrollment_none_participation_service.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/models/ovc_enrollement_none_participation.dart';
 import 'package:provider/provider.dart';
 
@@ -27,11 +27,12 @@ class _OvcEnrollmentNoneParticipationFormState
   final List<FormSection> formSections =
       OvcEnrollmentNoneParticipation.getFormSections();
   final String label = 'None Participation Form';
-  final List<OvcEnrollmentNoneParticipationConstant> noneParticipationContants =
-      OvcEnrollmentNoneParticipationConstant.getNoneParticipationConstant();
   final List<String> mandatoryFields =
       OvcEnrollmentNoneParticipation.getMandatoryField();
   final Map mandatoryFieldObject = Map();
+  final String eventId = AppUtil.getUid();
+
+  bool isSaving = false;
 
   @override
   void initState() {
@@ -43,14 +44,24 @@ class _OvcEnrollmentNoneParticipationFormState
     });
   }
 
-  void onSaveAndContinue(BuildContext context, Map dataObject) {
+  void onSaveAndContinue(BuildContext context, Map dataObject) async {
     bool hadAllMandatoryFilled =
         AppUtil.hasAllMandarotyFieldsFilled(mandatoryFields, dataObject);
     if (hadAllMandatoryFilled) {
-      // do actual saving of non particiapation form
-      // if (Navigator.canPop(context)) {
-      //   Navigator.popUntil(context, (route) => route.isFirst);
-      // }
+      setState(() {
+        isSaving = true;
+      });
+      await OvcNoneParticipationService()
+          .saveNoneParticipationForm(formSections, dataObject, eventId);
+      if (Navigator.canPop(context)) {
+        setState(() {
+          isSaving = false;
+        });
+        AppUtil.showToastMessage(
+            message: 'Form has been saved successfully',
+            position: ToastGravity.TOP);
+        Navigator.popUntil(context, (route) => route.isFirst);
+      }
     } else {
       AppUtil.showToastMessage(
           message: 'Please fill all mandatory field',
@@ -105,12 +116,14 @@ class _OvcEnrollmentNoneParticipationFormState
                                 ),
                               ),
                               OvcEnrollmentFormSaveButton(
-                                label: 'Save',
+                                label: isSaving ? 'Saving...' : 'save',
                                 labelColor: Colors.white,
                                 buttonColor: Color(0xFF4B9F46),
                                 fontSize: 15.0,
-                                onPressButton: () => onSaveAndContinue(
-                                    context, enrollmentFormState.formState),
+                                onPressButton: () => isSaving
+                                    ? null
+                                    : onSaveAndContinue(
+                                        context, enrollmentFormState.formState),
                               )
                             ],
                           ))),

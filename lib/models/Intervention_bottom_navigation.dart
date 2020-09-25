@@ -5,8 +5,11 @@ class InterventionBottomNavigation {
   String name;
   String svgIcon;
 
-  InterventionBottomNavigation(
-      {this.id = '', this.name = '', this.svgIcon = ''});
+  InterventionBottomNavigation({
+    this.id = '',
+    this.name = '',
+    this.svgIcon = '',
+  });
 
   static List<InterventionBottomNavigation>
       defaultInterventionNavigationButtons = [

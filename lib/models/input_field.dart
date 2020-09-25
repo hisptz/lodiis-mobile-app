@@ -15,20 +15,20 @@ class InputField {
   bool hasSubInputField;
   InputField subInputField;
 
-  InputField(
-      {
-      @required this.id,
-      @required this.name,
-      @required this.valueType,
-      this.hasSubInputField,
-      this.description,
-      this.inputColor,
-      this.labelColor,
-      this.background,
-      this.renderAsRadio,
-      this.isReadObly,
-      this.options,
-      this.subInputField}) {
+  InputField({
+    @required this.id,
+    @required this.name,
+    @required this.valueType,
+    this.hasSubInputField,
+    this.description,
+    this.inputColor,
+    this.labelColor,
+    this.background,
+    this.renderAsRadio,
+    this.isReadObly,
+    this.options,
+    this.subInputField,
+  }) {
     this.isReadObly = this.isReadObly ?? false;
     this.description = this.description ?? '';
     this.hasSubInputField = this.hasSubInputField ?? false;
