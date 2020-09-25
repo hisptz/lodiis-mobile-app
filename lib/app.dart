@@ -4,6 +4,7 @@ import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment
 import 'package:kb_mobile_app/app_state/intervention_bottom_navigation_state/intervention_bottom_navigation_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/app_state/login_form_state/login_form_state.dart';
+import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_intervention_list_state.dart';
 import 'package:kb_mobile_app/core/constants/custom_color.dart';
 import 'package:kb_mobile_app/modules/splash/splash.dart';
 import 'package:provider/provider.dart';
@@ -17,7 +18,8 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(create: (_) => LoginFormState()),
           ChangeNotifierProvider(
               create: (_) => InterventionBottomNavigationState()),
-          ChangeNotifierProvider(create: (_) => EnrollmentFormState())
+          ChangeNotifierProvider(create: (_) => EnrollmentFormState()),
+          ChangeNotifierProvider(create: (_) => OvcInterventionListState()),
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
@@ -28,8 +30,7 @@ class MyApp extends StatelessWidget {
               ),
               primaryColor: CustomColor.defaultPrimaryColor,
               visualDensity: VisualDensity.adaptivePlatformDensity),
-          home:       
-          SafeArea(child: Splash()),
+          home: SafeArea(child: Splash()),
         ));
   }
 }
