@@ -52,6 +52,6 @@ class TrackeEntityInstance {
     this.trackedEntityType = mapData['trackedEntityType'];
     this.orgUnit = mapData['orgUnit'];
     this.syncStatus = mapData['syncStatus'];
-    this.attributes = mapData['attributes'];
+    this.attributes = mapData['attributes'] ?? [];
   }
 }
