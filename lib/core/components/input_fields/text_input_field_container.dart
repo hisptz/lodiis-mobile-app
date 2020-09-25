@@ -36,7 +36,7 @@ class _TextInputFieldContainerState extends State<TextInputFieldContainer> {
     setState(() {
       _value = value;
     });
-    widget.onInputValueChange(value);
+    widget.onInputValueChange(value.trim());
   }
 
   @override

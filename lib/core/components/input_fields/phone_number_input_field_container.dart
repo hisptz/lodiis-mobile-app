@@ -39,7 +39,7 @@ class _PhoneNumberInputFieldContainerState
     setState(() {
       _value = value;
     });
-    widget.onInputValueChange(value);
+    widget.onInputValueChange(value.trim());
   }
 
   @override

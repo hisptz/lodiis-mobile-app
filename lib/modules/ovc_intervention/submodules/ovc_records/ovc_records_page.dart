@@ -1,9 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_intervention_list_state.dart';
+import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
+import 'package:kb_mobile_app/models/ovc_house_hold.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold_card.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold_card_body.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold_card_botton_content.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_intervention_appBar.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_intervention_home_card.dart';
+import 'package:provider/provider.dart';
 
-class OvcRecordsPage extends StatelessWidget {
+class OvcRecordsPage extends StatefulWidget {
   const OvcRecordsPage({Key key}) : super(key: key);
+
+  @override
+  _OvcRecordsPageState createState() => _OvcRecordsPageState();
+}
+
+class _OvcRecordsPageState extends State<OvcRecordsPage> {
+  final bool canEdit = false;
+  final bool canView = false;
+  final bool canExpand = true;
+  final bool canAddChild = false;
+  final bool canViewChildInfo = true;
+  final bool canEditChildInfo = false;
+  final bool canViewChildService = false;
+  final bool canViewChildReferral = false;
+  final bool canViewChildExit = false;
+  final bool canAddChildExit = false;
+
+  String toggleCardId = '';
+
+  void onCardToogle(String cardId) {
+    setState(() {
+      toggleCardId = canExpand && cardId != toggleCardId ? cardId : '';
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -14,15 +44,51 @@ class OvcRecordsPage extends StatelessWidget {
         title: OvcInterventionAppBar(title: "HOUSE HOLD LIST"),
       ),
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-        
-            OvcInterventionCard(addExit: true, editEnrollment: false, editReferral: false, editService: false,),
-             OvcInterventionCard(addExit: true, editEnrollment: false, editReferral: false, editService: false,),
-              OvcInterventionCard(addExit: true, editEnrollment: false, editReferral: false, editService: false,),
-               OvcInterventionCard(addExit: true, editEnrollment: false, editReferral: false, editService: false,),
-                OvcInterventionCard(addExit: true, editEnrollment: false, editReferral: false, editService: false,),
-          ],
+        child: Consumer<OvcInterventionListState>(
+          builder: (context, ovcInterventionListState, child) {
+            bool isLoading = ovcInterventionListState.isLoading;
+            List<OvcHouseHold> ovcHouseHolds =
+                ovcInterventionListState.ovcInterventionList;
+            return isLoading
+                ? Container(
+                    margin: EdgeInsets.only(top: 20.0),
+                    child: Center(
+                      child: CircularProcessLoader(color: Colors.blueGrey),
+                    ),
+                  )
+                : Container(
+                    margin: EdgeInsets.only(top: 16.0),
+                    child: Column(
+                      children: ovcHouseHolds
+                          .map(
+                            (OvcHouseHold ovcHouseHold) => OvcHouseHoldCard(
+                              ovcHouseHold: ovcHouseHold,
+                              canEdit: canEdit,
+                              canExpand: canExpand,
+                              canView: canView,
+                              isExpanded: ovcHouseHold.id == toggleCardId,
+                              onCardToogle: () {
+                                onCardToogle(ovcHouseHold.id);
+                              },
+                              cardBody: OvcHouseHoldCardBody(
+                                ovcHouseHold: ovcHouseHold,
+                              ),
+                              cardBottonActions: Container(),
+                              cardBottonContent: OvcHouseHoldCardBottonContent(
+                                ovcHouseHold: ovcHouseHold,
+                                canAddChild: canAddChild,
+                                canViewChildInfo: canViewChildInfo,
+                                canEditChildInfo: canEditChildInfo,
+                                canViewChildService: canViewChildService,
+                                canViewChildReferral: canViewChildReferral,
+                                canAddChildExit: canAddChildExit,
+                                canViewChildExit: canViewChildExit,
+                              ),
+                            ),
+                          )
+                          .toList(),
+                    ));
+          },
         ),
       ),
     );

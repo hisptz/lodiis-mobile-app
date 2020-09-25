@@ -37,7 +37,7 @@ class FormUtil {
     trackedEntityInstance = trackedEntityInstance ?? AppUtil.getUid();
     String attributes = inputFieldIds
         .map((String attribute) {
-          dynamic value = dataObject[attribute] ?? '';
+          dynamic value = '${dataObject[attribute]}'.trim() ?? '';
           return '{"attribute": "$attribute", "value": "$value"}';
         })
         .toList()
@@ -92,7 +92,7 @@ class FormUtil {
         eventDate ?? AppUtil.formattedDateTimeIntoString(DateTime.now());
     String dataValues = inputFieldIds
         .map((String dataElement) {
-          dynamic value = dataObject[dataElement] ?? '';
+          dynamic value = '${dataObject[dataElement]}'.trim() ?? '';
           return '{"dataElement": "$dataElement", "value": "$value"}';
         })
         .toList()

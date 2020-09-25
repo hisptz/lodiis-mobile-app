@@ -7,18 +7,16 @@ class OvcInterventionAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-          children: [
-            SizedBox(
-              width: 23,
-            ),
-            Text(
-              title,
-              style: TextStyle(
-                  color: Colors.black45,
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold),
-            ),
-          ],
-        );
+      children: [
+        SizedBox(
+          width: 23,
+        ),
+        Text(
+          title,
+          style: TextStyle(
+              color: Colors.black45, fontSize: 14, fontWeight: FontWeight.bold),
+        ),
+      ],
+    );
   }
 }

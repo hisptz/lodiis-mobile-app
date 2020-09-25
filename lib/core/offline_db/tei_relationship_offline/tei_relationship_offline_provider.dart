@@ -16,4 +16,30 @@ class TeiRelatioShipOfflineProvider extends OfflineDbProvider {
     await dbClient.insert(table, data,
         conflictAlgorithm: ConflictAlgorithm.replace);
   }
+
+  Future<List<TeiRelationship>> getTeirelationShips(
+    String fromTeiId,
+  ) async {
+    List<TeiRelationship> teiRelationships = [];
+    try {
+      var dbClient = await db;
+      List<Map> maps = await dbClient.query(
+        table,
+        columns: [
+          id,
+          relationshipType,
+          fromTei,
+          toTei,
+        ],
+        where: '$fromTei = ?',
+        whereArgs: [fromTeiId],
+      );
+      if (maps.isNotEmpty) {
+        for (Map map in maps) {
+          teiRelationships.add(TeiRelationship.fromOffline(map));
+        }
+      }
+    } catch (e) {}
+    return teiRelationships;
+  }
 }

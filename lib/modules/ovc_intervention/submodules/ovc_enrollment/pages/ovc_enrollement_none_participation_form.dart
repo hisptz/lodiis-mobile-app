@@ -1,8 +1,8 @@
-<<
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
+import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_intervention_list_state.dart';
 import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
@@ -54,6 +54,8 @@ class _OvcEnrollmentNoneParticipationFormState
       });
       await OvcNoneParticipationService()
           .saveNoneParticipationForm(formSections, dataObject, eventId);
+      Provider.of<OvcInterventionListState>(context, listen: false)
+          .refreshOvcList();
       if (Navigator.canPop(context)) {
         setState(() {
           isSaving = false;

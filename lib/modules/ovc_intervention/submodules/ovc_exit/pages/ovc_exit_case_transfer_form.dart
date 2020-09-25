@@ -20,10 +20,8 @@ class OvcExitCaseTransferForm extends StatefulWidget {
       _OvcExitCaseTransferFormState();
 }
 
-class _OvcExitCaseTransferFormState
-    extends State<OvcExitCaseTransferForm> {
-  final List<FormSection> formSections =
-      OvcExitCaseTransfer.getFormSections();
+class _OvcExitCaseTransferFormState extends State<OvcExitCaseTransferForm> {
+  final List<FormSection> formSections = OvcExitCaseTransfer.getFormSections();
   final String label = 'Case Transfer Plan';
 
   void onSaveAndContinue(BuildContext context) {
@@ -68,6 +66,7 @@ class _OvcExitCaseTransferFormState
                           builder: (context, enrollmentFormState, child) =>
                               EntryFormContainer(
                             formSections: formSections,
+                            mandatoryFieldObject: Map(),
                             dataObject: enrollmentFormState.formState,
                             onInputValueChange: onInputValueChange,
                           ),
