@@ -10,7 +10,7 @@ class TrackedEntityInstanceOfflineAttributeProvider extends OfflineDbProvider {
   final String attribute = 'attribute';
   final String value = 'value';
 
-  addOrUpdateEventDataValues(
+  addOrUpdateTrackedEntityAttributesValues(
     TrackeEntityInstance trackedEntityInstanceData,
   ) async {
     var dbClient = await db;
@@ -31,5 +31,25 @@ class TrackedEntityInstanceOfflineAttributeProvider extends OfflineDbProvider {
     } catch (e) {
       print(e.toString());
     }
+  }
+
+  Future<List> getTrackedEntityAttributesValues(
+      String trackedEntityInstanceId) async {
+    List attributes = [];
+    try {
+      var dbClient = await db;
+      List<Map> maps = await dbClient.query(
+        table,
+        columns: [attribute, value],
+        where: '$trackedEntityInstance = ?',
+        whereArgs: [trackedEntityInstanceId],
+      );
+      if (maps.isNotEmpty) {
+        for (Map map in maps) {
+          attributes.add(map);
+        }
+      }
+    } catch (e) {}
+    return attributes;
   }
 }

@@ -20,6 +20,39 @@ class TrackedEntityInstanceOfflineProvider extends OfflineDbProvider {
     await dbClient.insert(table, data,
         conflictAlgorithm: ConflictAlgorithm.replace);
     await TrackedEntityInstanceOfflineAttributeProvider()
-        .addOrUpdateEventDataValues(trackedEntityInstance);
+        .addOrUpdateTrackedEntityAttributesValues(trackedEntityInstance);
+  }
+
+  Future<List<TrackeEntityInstance>> getTrackedEntityInstance(
+    List<String> trackedEntityInstanceIds,
+  ) async {
+    List<TrackeEntityInstance> trackedEntityInstances = [];
+    try {
+      var dbClient = await db;
+      for (String trackedEntityInstanceId in trackedEntityInstanceIds) {
+        List<Map> maps = await dbClient.query(
+          table,
+          columns: [
+            trackedEntityInstance,
+            trackedEntityType,
+            orgUnit,
+            syncStatus,
+          ],
+          where: '$trackedEntityInstance = ?',
+          whereArgs: [trackedEntityInstanceId],
+        );
+        if (maps.isNotEmpty) {
+          for (Map map in maps) {
+            List attributes =
+                await TrackedEntityInstanceOfflineAttributeProvider()
+                    .getTrackedEntityAttributesValues(trackedEntityInstanceId);
+            TrackeEntityInstance tei = TrackeEntityInstance.fromOffline(map);
+            tei.attributes = attributes;
+            trackedEntityInstances.add(tei);
+          }
+        }
+      }
+    } catch (e) {}
+    return trackedEntityInstances;
   }
 }
