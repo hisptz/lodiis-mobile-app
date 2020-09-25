@@ -27,7 +27,8 @@ class OvcReferralFollowUp {
                 options: [
                   InputFieldOption(code: 'Complete', name: 'Complete'),
                   InputFieldOption(code: 'Not complete', name: 'Not complete'),
-                ]),
+                ]
+                ),
             InputField(
               id: "BzkeBAxdEVT",
               name: "Additional follow up required",
