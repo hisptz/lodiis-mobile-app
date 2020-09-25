@@ -68,6 +68,7 @@ class _OvcServicesWellbeingAssessmentFormState
                           builder: (context, enrollmentFormState, child) =>
                               EntryFormContainer(
                             formSections: formSections,
+                            mandatoryFieldObject: Map(),
                             dataObject: enrollmentFormState.formState,
                             onInputValueChange: onInputValueChange,
                           ),

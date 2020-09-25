@@ -10,6 +10,8 @@ import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/services/ovc_enrollment_child_services.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/services/ovc_enrollment_house_hold_service.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/constants/ovc_enrollment_consent_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/models/ovc_enrollment_house_hold.dart';
 import 'package:provider/provider.dart';
@@ -27,11 +29,12 @@ class _OvcEnrollmentHouseHoldFormState
   final List<FormSection> formSections =
       OvcEnrollmentHouseHold.getFormSections();
   final String label = 'House Hold form';
-  final List consentFields = OvcEnrollmentConstant.getConsentFields();
   final List<String> mandatoryFields =
       OvcEnrollmentHouseHold.getMandatoryField();
   final Map mandatoryFieldObject = Map();
+  final String trackedEntityInstance = AppUtil.getUid();
 
+  bool isSaving = false;
   @override
   void initState() {
     super.initState();
@@ -42,16 +45,34 @@ class _OvcEnrollmentHouseHoldFormState
     });
   }
 
-  void onSaveAndContinue(BuildContext context, Map dataObject) {
+  void onSaveAndContinue(BuildContext context, Map dataObject) async {
     bool hadAllMandatoryFilled =
         AppUtil.hasAllMandarotyFieldsFilled(mandatoryFields, dataObject);
     if (hadAllMandatoryFilled) {
-      // do actual saving of all enrollment details for household
-      // do actual saving for all ovc details
+      setState(() {
+        isSaving = true;
+      });
+      // adding other variables
+      //@TODO generate house hold id and program status
+      dataObject['yk0OH9p09C1'] = AppUtil.getUid();
+      dataObject['PN92g65TkVI'] = 'Active';
 
-      // if (Navigator.canPop(context)) {
-      //   Navigator.popUntil(context, (route) => route.isFirst);
-      // }
+      List<Map> childrenObjects = dataObject['children'];
+      String orgUnit = dataObject['location'];
+      await OvcEnrollmentHouseHoldService().savingHouseHoldform(
+          dataObject, trackedEntityInstance, orgUnit, null, null, null);
+      await OvcEnrollmentChildService().savingChildrenEnrollmentForms(
+          trackedEntityInstance, orgUnit, childrenObjects, null, null, null);
+
+      if (Navigator.canPop(context)) {
+        setState(() {
+          isSaving = false;
+        });
+        AppUtil.showToastMessage(
+            message: 'Form has been saved successfully',
+            position: ToastGravity.TOP);
+        Navigator.popUntil(context, (route) => route.isFirst);
+      }
     } else {
       AppUtil.showToastMessage(
           message: 'Please fill all mandatory field',
@@ -106,13 +127,16 @@ class _OvcEnrollmentHouseHoldFormState
                                     onInputValueChange: onInputValueChange,
                                   ),
                                 ),
-                                OvcEnrollmentFormSaveButton(
-                                  label: 'Save House Hold',
+                                  label: isSaving
+                                      ? 'Saving House Hold ...'
+                                      : 'Save House Hold',
                                   labelColor: Colors.white,
                                   buttonColor: Color(0xFF4B9F46),
                                   fontSize: 15.0,
-                                  onPressButton: () => onSaveAndContinue(
-                                      context, enrollmentFormState.formState),
+                                  onPressButton: () => isSaving
+                                      ? null
+                                      : onSaveAndContinue(context,
+                                          enrollmentFormState.formState),
                                 )
                               ],
                             )))),

@@ -69,6 +69,7 @@ class _OvcServicesHivscreeningFormState
                               EntryFormContainer(
                             formSections: formSections,
                             dataObject: enrollmentFormState.formState,
+                            mandatoryFieldObject: Map(),
                             onInputValueChange: onInputValueChange,
                           ),
                         ),
