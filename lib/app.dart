@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
+import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_house_hold_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_bottom_navigation_state/intervention_bottom_navigation_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/app_state/login_form_state/login_form_state.dart';
@@ -21,6 +22,9 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(
               create: (_) => InterventionBottomNavigationState()),
           ChangeNotifierProvider(create: (_) => EnrollmentFormState()),
+          ChangeNotifierProvider(
+            create: (_) => OvcHouseHoldCurrentSelection(),
+          ),
           ChangeNotifierProvider(create: (_) => OvcInterventionListState()),
           ChangeNotifierProvider(create: (_) => DreamsInterventionListState()),
           ChangeNotifierProvider(create: (_) => SynchtonizationState())

@@ -58,6 +58,25 @@ class EntryFormContainer extends StatelessWidget {
                         ),
                       ),
                       Visibility(
+                        visible: formSection.description != '',
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                              vertical: 15.0, horizontal: 10.0),
+                          child: Row(
+                            children: [
+                              Text(
+                                formSection.description,
+                                style: TextStyle().copyWith(
+                                    color: formSection.color,
+                                    fontSize: 14.0,
+                                    fontStyle: FontStyle.italic,
+                                    fontWeight: FontWeight.normal),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                      Visibility(
                         visible: formSection.name != '',
                         child: Container(
                             child: LineSeperator(
