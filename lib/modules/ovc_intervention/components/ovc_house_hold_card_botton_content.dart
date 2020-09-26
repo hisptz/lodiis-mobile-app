@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kb_mobile_app/core/components/line_seperator.dart';
 import 'package:kb_mobile_app/models/ovc_house_hold.dart';
 import 'package:kb_mobile_app/models/ovc_house_hold_child.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/sub_pages/ovc_child_service_home.dart';
 
 class OvcHouseHoldCardBottonContent extends StatelessWidget {
   const OvcHouseHoldCardBottonContent({
@@ -40,8 +41,13 @@ class OvcHouseHoldCardBottonContent extends StatelessWidget {
     print('onAddNewChild ');
   }
 
-  void onViewChildService(OvcHouseHoldChild child) {
-    print('onViewChildService ${child.toString()}');
+  void onViewChildService(BuildContext context, OvcHouseHoldChild child) {
+    //@TODO set current state for child and household
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => OvcChildServiceHome(),
+        ));
   }
 
   void onViewChildReferral(OvcHouseHoldChild child) {
@@ -59,10 +65,13 @@ class OvcHouseHoldCardBottonContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 13.0, vertical: 10.0),
       child: Column(
         children: [
+          LineSeperator(
+            color: Color(0xFFECF5EC),
+          ),
           Container(
+            margin: EdgeInsets.symmetric(horizontal: 13.0, vertical: 10.0),
             child: Row(
               children: [
                 Container(
@@ -82,106 +91,109 @@ class OvcHouseHoldCardBottonContent extends StatelessWidget {
               ],
             ),
           ),
-          Column(
-            children: ovcHouseHold.children.map((OvcHouseHoldChild child) {
-              int index = ovcHouseHold.children.indexOf(child) + 1;
-              return Row(
-                children: [
-                  Expanded(
-                    child: Container(
-                      child: Text(
-                        '$index. ${child.toString()}',
-                        style: TextStyle().copyWith(
-                            fontSize: 14.0,
-                            color: Color(0xFF536852),
-                            fontWeight: FontWeight.w500),
+          Container(
+            margin: EdgeInsets.symmetric(horizontal: 13.0, vertical: 10.0),
+            child: Column(
+              children: ovcHouseHold.children.map((OvcHouseHoldChild child) {
+                int index = ovcHouseHold.children.indexOf(child) + 1;
+                return Row(
+                  children: [
+                    Expanded(
+                      child: Container(
+                        child: Text(
+                          '$index. ${child.toString()}',
+                          style: TextStyle().copyWith(
+                              fontSize: 14.0,
+                              color: Color(0xFF536852),
+                              fontWeight: FontWeight.w500),
+                        ),
                       ),
                     ),
-                  ),
-                  Row(mainAxisSize: MainAxisSize.min, children: [
-                    Visibility(
-                      visible: canViewChildService ||
-                          canViewChildInfo ||
-                          canViewChildExit,
-                      child: Container(
-                          child: InkWell(
-                              onTap: () => canViewChildExit
-                                  ? onViewChildExit(child)
-                                  : canViewChildInfo
-                                      ? onViewChildInfo(child)
-                                      : canViewChildService
-                                          ? onViewChildService(child)
-                                          : null,
-                              child: Container(
-                                padding: EdgeInsets.all(10.0),
-                                child: Text(
-                                  'VIEW',
-                                  style: TextStyle().copyWith(
-                                    fontSize: 12.0,
-                                    color: Color(0xFF4B9F46),
-                                    fontWeight: FontWeight.w500,
+                    Row(mainAxisSize: MainAxisSize.min, children: [
+                      Visibility(
+                        visible: canViewChildService ||
+                            canViewChildInfo ||
+                            canViewChildExit,
+                        child: Container(
+                            child: InkWell(
+                                onTap: () => canViewChildExit
+                                    ? onViewChildExit(child)
+                                    : canViewChildInfo
+                                        ? onViewChildInfo(child)
+                                        : canViewChildService
+                                            ? onViewChildService(context, child)
+                                            : null,
+                                child: Container(
+                                  padding: EdgeInsets.all(10.0),
+                                  child: Text(
+                                    'VIEW',
+                                    style: TextStyle().copyWith(
+                                      fontSize: 12.0,
+                                      color: Color(0xFF4B9F46),
+                                      fontWeight: FontWeight.w500,
+                                    ),
                                   ),
-                                ),
-                              ))),
-                    ),
-                    Visibility(
-                      visible: canAddChildExit,
-                      child: Container(
-                          margin: EdgeInsets.only(left: 10.0),
-                          child: InkWell(
-                              onTap: () => onAddChildExit(child),
-                              child: Container(
-                                padding: EdgeInsets.all(10.0),
-                                child: Text(
-                                  'ADD',
-                                  style: TextStyle().copyWith(
-                                    fontSize: 12.0,
-                                    color: Color(0xFF4B9F46),
-                                    fontWeight: FontWeight.w500,
+                                ))),
+                      ),
+                      Visibility(
+                        visible: canAddChildExit,
+                        child: Container(
+                            margin: EdgeInsets.only(left: 10.0),
+                            child: InkWell(
+                                onTap: () => onAddChildExit(child),
+                                child: Container(
+                                  padding: EdgeInsets.all(10.0),
+                                  child: Text(
+                                    'ADD',
+                                    style: TextStyle().copyWith(
+                                      fontSize: 12.0,
+                                      color: Color(0xFF4B9F46),
+                                      fontWeight: FontWeight.w500,
+                                    ),
                                   ),
-                                ),
-                              ))),
-                    ),
-                    Visibility(
-                      visible: canViewChildReferral,
-                      child: Container(
-                          margin: EdgeInsets.only(left: 10.0),
-                          child: InkWell(
-                              onTap: () => onViewChildReferral(child),
-                              child: Container(
-                                padding: EdgeInsets.all(10.0),
-                                child: Text(
-                                  'REFERRAL',
-                                  style: TextStyle().copyWith(
-                                    fontSize: 12.0,
-                                    color: Color(0xFF4B9F46),
-                                    fontWeight: FontWeight.w500,
+                                ))),
+                      ),
+                      Visibility(
+                        visible: canViewChildReferral,
+                        child: Container(
+                            margin: EdgeInsets.only(left: 10.0),
+                            child: InkWell(
+                                onTap: () => onViewChildReferral(child),
+                                child: Container(
+                                  padding: EdgeInsets.all(10.0),
+                                  child: Text(
+                                    'REFERRAL',
+                                    style: TextStyle().copyWith(
+                                      fontSize: 12.0,
+                                      color: Color(0xFF4B9F46),
+                                      fontWeight: FontWeight.w500,
+                                    ),
                                   ),
-                                ),
-                              ))),
-                    ),
-                    Visibility(
-                      visible: canEditChildInfo,
-                      child: Container(
-                          margin: EdgeInsets.only(left: 10.0),
-                          child: InkWell(
-                              onTap: () => onEditChildInfo(child),
-                              child: Container(
-                                padding: EdgeInsets.all(10.0),
-                                child: Text(
-                                  'EDIT',
-                                  style: TextStyle().copyWith(
-                                    fontSize: 12.0,
-                                    color: Color(0xFF4B9F46),
-                                    fontWeight: FontWeight.w500,
+                                ))),
+                      ),
+                      Visibility(
+                        visible: canEditChildInfo,
+                        child: Container(
+                            margin: EdgeInsets.only(left: 10.0),
+                            child: InkWell(
+                                onTap: () => onEditChildInfo(child),
+                                child: Container(
+                                  padding: EdgeInsets.all(10.0),
+                                  child: Text(
+                                    'EDIT',
+                                    style: TextStyle().copyWith(
+                                      fontSize: 12.0,
+                                      color: Color(0xFF4B9F46),
+                                      fontWeight: FontWeight.w500,
+                                    ),
                                   ),
-                                ),
-                              ))),
-                    )
-                  ])
-                ],
-              );
-            }).toList(),
+                                ))),
+                      )
+                    ])
+                  ],
+                );
+              }).toList(),
+            ),
           ),
           Visibility(
               visible: canAddChild,
@@ -193,6 +205,7 @@ class OvcHouseHoldCardBottonContent extends StatelessWidget {
           Visibility(
               visible: canAddChild,
               child: Container(
+                margin: EdgeInsets.symmetric(vertical: 5.0),
                 child: InkWell(
                     onTap: () => onAddNewChild(),
                     child: Container(
