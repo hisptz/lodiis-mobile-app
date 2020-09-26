@@ -4,7 +4,7 @@ import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_child_appbar_container.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_child_info_top_header.dart';
 import 'package:provider/provider.dart';
 
 class OvcServiceSubPageChildView extends StatelessWidget {
@@ -25,7 +25,9 @@ class OvcServiceSubPageChildView extends StatelessWidget {
             },
           ),
         ),
-        body: SubPageBody(body: Container(child: Text('Home'))),
+        body: SubPageBody(
+            body:
+                Container(child: Column(children: [OvcChildInfoTopHeader()]))),
         bottomNavigationBar: InterventionBottomNavigationBarContainer());
   }
 }

@@ -6,6 +6,7 @@ import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_child_appbar_container.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_child_info_top_header.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/sub_pages/child_asessment/componets/child_assessment_pop_up_modal.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/sub_pages/child_asessment/pages/hiv_new_assment.dart';
@@ -65,7 +66,9 @@ class OvcAssessmentServiceChildView extends StatelessWidget {
             },
           ),
         ),
-        body: SubPageBody(body: Container(child: Text('Home'))),
+        body: SubPageBody(
+            body:
+                Container(child: Column(children: [OvcChildInfoTopHeader()]))),
         bottomNavigationBar: InterventionBottomNavigationBarContainer());
     // return Scaffold(
     //     backgroundColor: Color(0xFFEDF4ED),
