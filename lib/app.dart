@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
               create: (_) => InterventionBottomNavigationState()),
           ChangeNotifierProvider(create: (_) => EnrollmentFormState()),
           ChangeNotifierProvider(
-            create: (_) => OvcHouseHoldCurrentSelection(),
+            create: (_) => OvcHouseHoldCurrentSelectionState(),
           ),
           ChangeNotifierProvider(create: (_) => OvcInterventionListState()),
           ChangeNotifierProvider(create: (_) => DreamsInterventionListState()),
