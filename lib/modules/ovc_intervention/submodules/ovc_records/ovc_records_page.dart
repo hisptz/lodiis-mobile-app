@@ -5,7 +5,6 @@ import 'package:kb_mobile_app/models/ovc_house_hold.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold_card.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold_card_body.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold_card_botton_content.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_intervention_appBar.dart';
 import 'package:provider/provider.dart';
 
 class OvcRecordsPage extends StatefulWidget {
@@ -41,7 +40,20 @@ class _OvcRecordsPageState extends State<OvcRecordsPage> {
       backgroundColor: Color(0xffedf4ed),
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: OvcInterventionAppBar(title: "HOUSE HOLD LIST"),
+        title: Row(
+          children: [
+            SizedBox(
+              width: 23,
+            ),
+            Text(
+              "HOUSE HOLD LIST",
+              style: TextStyle(
+                  color: Colors.black45,
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold),
+            ),
+          ],
+        ),
       ),
       body: SingleChildScrollView(
         child: Consumer<OvcInterventionListState>(
