@@ -29,7 +29,12 @@ class EntryFormContainer extends StatelessWidget {
                 child: MaterialCard(
                     body: Container(
                   margin: EdgeInsets.symmetric(vertical: 10.0),
-                  decoration: BoxDecoration(color: formSection.backgroundColor),
+                  decoration: BoxDecoration(
+                      border: Border(
+                        left: BorderSide(
+                            color: formSection.borderColor, width: 8.0),
+                      ),
+                      color: formSection.backgroundColor),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [

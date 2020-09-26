@@ -3,12 +3,18 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 
 class InterventionSelectionCard extends StatelessWidget {
-  InterventionSelectionCard(
-      {Key key, this.interventionProgram, this.interventionProgramId})
-      : super(key: key);
+  InterventionSelectionCard({
+    Key key,
+    this.interventionProgram,
+    this.interventionProgramId,
+    @required this.numberOfDreamsBeneficiaries,
+    @required this.numberOfOvcBeneficiaries,
+  }) : super(key: key);
 
   final InterventionCard interventionProgram;
   final String interventionProgramId;
+  final int numberOfDreamsBeneficiaries;
+  final int numberOfOvcBeneficiaries;
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +45,6 @@ class InterventionSelectionCard extends StatelessWidget {
                       ),
                     )),
                 Container(
-                  
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -59,7 +64,12 @@ class InterventionSelectionCard extends StatelessWidget {
                                 fontWeight: FontWeight.w500,
                                 color: interventionProgram.countLabelColor),
                           ),
-                          Text('2121',
+                          Text(
+                              interventionProgram.id == 'ovc'
+                                  ? numberOfOvcBeneficiaries.toString()
+                                  : interventionProgram.id == 'dreams'
+                                      ? numberOfDreamsBeneficiaries.toString()
+                                      : '',
                               style: TextStyle(
                                   fontSize: 12,
                                   fontWeight: FontWeight.w500,

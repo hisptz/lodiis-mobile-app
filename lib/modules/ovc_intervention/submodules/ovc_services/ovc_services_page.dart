@@ -19,7 +19,6 @@ class _OvcServicesPageState extends State<OvcServicesPage> {
   final bool canEdit = false;
   final bool canView = false;
   final bool canExpand = true;
-
   final bool canAddChild = false;
   final bool canViewChildInfo = false;
   final bool canEditChildInfo = false;
@@ -71,87 +70,101 @@ class _OvcServicesPageState extends State<OvcServicesPage> {
                   )
                 : Container(
                     margin: EdgeInsets.only(top: 16.0),
-                    child: Column(
-                      children: ovcHouseHolds
-                          .map(
-                            (OvcHouseHold ovcHouseHold) => OvcHouseHoldCard(
-                              ovcHouseHold: ovcHouseHold,
-                              canEdit: canEdit,
-                              canExpand: canExpand,
-                              canView: canView,
-                              isExpanded: ovcHouseHold.id == toggleCardId,
-                              onCardToogle: () {
-                                onCardToogle(ovcHouseHold.id);
-                              },
-                              cardBody: OvcHouseHoldCardBody(
-                                ovcHouseHold: ovcHouseHold,
-                              ),
-                              cardBottonActions: ClipRRect(
-                                borderRadius: BorderRadius.only(
-                                  bottomLeft: Radius.circular(12.0),
-                                  bottomRight: Radius.circular(12.0),
-                                ),
-                                child: Container(
-                                  decoration:
-                                      BoxDecoration(color: Color(0XFFF6FAF6)),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      Container(
-                                        child: FlatButton(
-                                            onPressed: () => onAssess(),
-                                            child: Text(
-                                              'ASSESS',
-                                              style: TextStyle().copyWith(
-                                                fontSize: 12.0,
-                                                color: Color(0xFF4B9F46),
-                                                fontWeight: FontWeight.w500,
-                                              ),
-                                            )),
+                    child: ovcHouseHolds.length == 0
+                        ? Center(
+                            child: Text(
+                                'There is no household enrolled at moment'))
+                        : Column(
+                            children: ovcHouseHolds
+                                .map(
+                                  (OvcHouseHold ovcHouseHold) =>
+                                      OvcHouseHoldCard(
+                                    ovcHouseHold: ovcHouseHold,
+                                    canEdit: canEdit,
+                                    canExpand: canExpand,
+                                    canView: canView,
+                                    isExpanded: ovcHouseHold.id == toggleCardId,
+                                    onCardToogle: () {
+                                      onCardToogle(ovcHouseHold.id);
+                                    },
+                                    cardBody: OvcHouseHoldCardBody(
+                                      ovcHouseHold: ovcHouseHold,
+                                    ),
+                                    cardBottonActions: ClipRRect(
+                                      borderRadius: ovcHouseHold.id ==
+                                              toggleCardId
+                                          ? BorderRadius.zero
+                                          : BorderRadius.only(
+                                              bottomLeft: Radius.circular(12.0),
+                                              bottomRight:
+                                                  Radius.circular(12.0),
+                                            ),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                            color: Color(0XFFF6FAF6)),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            Container(
+                                              child: FlatButton(
+                                                  onPressed: () => onAssess(),
+                                                  child: Text(
+                                                    'ASSESS',
+                                                    style: TextStyle().copyWith(
+                                                      fontSize: 12.0,
+                                                      color: Color(0xFF4B9F46),
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                    ),
+                                                  )),
+                                            ),
+                                            Container(
+                                              child: FlatButton(
+                                                  onPressed: () => onPlan(),
+                                                  child: Text(
+                                                    'PLAN',
+                                                    style: TextStyle().copyWith(
+                                                      fontSize: 12.0,
+                                                      color: Color(0xFF4B9F46),
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                    ),
+                                                  )),
+                                            ),
+                                            Container(
+                                              child: FlatButton(
+                                                  onPressed: () => onMonitor(),
+                                                  child: Text(
+                                                    'MONITOR',
+                                                    style: TextStyle().copyWith(
+                                                      fontSize: 12.0,
+                                                      color: Color(0xFF4B9F46),
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                    ),
+                                                  )),
+                                            ),
+                                          ],
+                                        ),
                                       ),
-                                      Container(
-                                        child: FlatButton(
-                                            onPressed: () => onPlan(),
-                                            child: Text(
-                                              'PLAN',
-                                              style: TextStyle().copyWith(
-                                                fontSize: 12.0,
-                                                color: Color(0xFF4B9F46),
-                                                fontWeight: FontWeight.w500,
-                                              ),
-                                            )),
-                                      ),
-                                      Container(
-                                        child: FlatButton(
-                                            onPressed: () => onMonitor(),
-                                            child: Text(
-                                              'MONITOR',
-                                              style: TextStyle().copyWith(
-                                                fontSize: 12.0,
-                                                color: Color(0xFF4B9F46),
-                                                fontWeight: FontWeight.w500,
-                                              ),
-                                            )),
-                                      ),
-                                    ],
+                                    ),
+                                    cardBottonContent:
+                                        OvcHouseHoldCardBottonContent(
+                                      ovcHouseHold: ovcHouseHold,
+                                      canAddChild: canAddChild,
+                                      canViewChildInfo: canViewChildInfo,
+                                      canEditChildInfo: canEditChildInfo,
+                                      canViewChildService: canViewChildService,
+                                      canViewChildReferral:
+                                          canViewChildReferral,
+                                      canAddChildExit: canAddChildExit,
+                                      canViewChildExit: canViewChildExit,
+                                    ),
                                   ),
-                                ),
-                              ),
-                              cardBottonContent: OvcHouseHoldCardBottonContent(
-                                ovcHouseHold: ovcHouseHold,
-                                canAddChild: canAddChild,
-                                canViewChildInfo: canViewChildInfo,
-                                canEditChildInfo: canEditChildInfo,
-                                canViewChildService: canViewChildService,
-                                canViewChildReferral: canViewChildReferral,
-                                canAddChildExit: canAddChildExit,
-                                canViewChildExit: canViewChildExit,
-                              ),
-                            ),
-                          )
-                          .toList(),
-                    ));
+                                )
+                                .toList(),
+                          ));
           },
         ),
       ),
