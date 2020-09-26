@@ -94,7 +94,7 @@ class OvcChildInfoTopHeader extends StatelessWidget {
                             Expanded(
                                 flex: 3,
                                 child: Text(
-                                  currentOvcHouseHoldChild.toString(),
+                                  currentOvcHouseHold.toString(),
                                   style: TextStyle().copyWith(
                                       fontSize: 12.0,
                                       fontWeight: FontWeight.w500,
