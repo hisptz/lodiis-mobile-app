@@ -5,12 +5,12 @@ import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/sub_pages/asessment/ovc_asessment.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/sub_pages/case%20plan/ovc_case_plan.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/sub_pages/child_asessment/ovc_asessment.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/sub_pages/child_case_plan/ovc_case_plan.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/sub_pages/child_monitor/ovc_monitor.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/sub_pages/child_service/ovc_service_child.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/sub_pages/components/ovc_service_child_card.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/sub_pages/constants/ovc_child_service_home_constant.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/sub_pages/monitor/ovc_monitor.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/sub_pages/service/ovc_service_child.dart';
 import 'package:provider/provider.dart';
 
 class OvcChildServiceHome extends StatelessWidget {

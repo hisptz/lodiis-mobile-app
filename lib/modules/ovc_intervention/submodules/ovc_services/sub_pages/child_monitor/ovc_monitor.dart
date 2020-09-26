@@ -12,6 +12,8 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/s
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/sub_pages/models/ovc_service_detail_card.dart';
 import 'package:provider/provider.dart';
 
+//
+
 class OvcMonitorChildView extends StatelessWidget {
   final String label = 'Child Monitor';
 
@@ -56,6 +58,7 @@ class OvcMonitorChildView extends StatelessWidget {
         ),
         body: SubPageBody(body: Container(child: Text('Home'))),
         bottomNavigationBar: InterventionBottomNavigationBarContainer());
+
     // return Scaffold(
     //     backgroundColor: Color(0xFFEDF4ED),
     //     appBar: PreferredSize(
