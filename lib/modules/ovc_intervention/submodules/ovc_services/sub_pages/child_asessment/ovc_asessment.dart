@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
@@ -7,7 +8,7 @@ import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_child_info_top_header.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/sub_pages/child_asessment/componets/child_assessment_pop_up_modal.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/sub_pages/child_asessment/componets/ovc_child_assessment_selection.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/sub_pages/child_asessment/pages/hiv_new_assment.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/sub_pages/child_asessment/pages/tb_new_assessment.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/sub_pages/child_asessment/pages/well_being_new_assessment.dart';
@@ -18,26 +19,28 @@ import 'package:provider/provider.dart';
 class OvcAssessmentServiceChildView extends StatelessWidget {
   final String label = 'Child Assessment';
 
-  childAssessment(BuildContext context) async {
-    Widget model = ChildAssessmentPopUpModal();
-    String response = await AppUtil.showPopUpModal(context, model);
-    if (response != null) {
-      response == "Wellbeing"
+  onAddMewchildAssessment(BuildContext context) async {
+    //reset form field data
+    Provider.of<ServiceFormState>(context, listen: false).resetFormState();
+    Widget model = OvcChildAssessmentSelection();
+    String assessmentResponse = await AppUtil.showPopUpModal(context, model);
+    if (assessmentResponse != null) {
+      assessmentResponse == "Well-being"
           ? Navigator.push(
               context,
               MaterialPageRoute(
                   builder: (context) => OvcServiceWellBeingAssessment()))
-          : response == "TB"
+          : assessmentResponse == "TB"
               ? Navigator.push(
                   context,
                   MaterialPageRoute(
                       builder: (context) => OvcServiceTBAssessment()))
-              : response == "HIV"
+              : assessmentResponse == "HIV"
                   ? Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) => OvcServiceHIVAssessment()))
-                  : print(response);
+                  : print(assessmentResponse);
     }
   }
 
@@ -66,8 +69,23 @@ class OvcAssessmentServiceChildView extends StatelessWidget {
           ),
         ),
         body: SubPageBody(
-            body:
-                Container(child: Column(children: [OvcChildInfoTopHeader()]))),
+          body: Container(
+            child: Column(children: [
+              OvcChildInfoTopHeader(),
+              Container(
+                child: Text('List of assessments'),
+              ),
+              Container(
+                  child: OvcEnrollmentFormSaveButton(
+                label: "NEW ASSESSMENT",
+                labelColor: Colors.white,
+                fontSize: 14,
+                buttonColor: Color(0xFF4B9F46),
+                onPressButton: () => onAddMewchildAssessment(context),
+              ))
+            ]),
+          ),
+        ),
         bottomNavigationBar: InterventionBottomNavigationBarContainer());
     // return Scaffold(
     //     backgroundColor: Color(0xFFEDF4ED),
@@ -104,13 +122,13 @@ class OvcAssessmentServiceChildView extends StatelessWidget {
     //             );
     //           }).toList(),
     //         ),
-    //         OvcEnrollmentFormSaveButton(
-    //           label: "NEW ASSESSMENT",
-    //           labelColor: Colors.white,
-    //           fontSize: 14,
-    //           buttonColor: Color(0xFF4B9F46),
-    //           onPressButton: () => childAssessment(context),
-    //         )
+    // OvcEnrollmentFormSaveButton(
+    //   label: "NEW ASSESSMENT",
+    //   labelColor: Colors.white,
+    //   fontSize: 14,
+    //   buttonColor: Color(0xFF4B9F46),
+    //   onPressButton: () => childAssessment(context),
+    // )
     //       ]),
     //     ),
     //     bottomNavigationBar: InterventionBottomNavigationBarContainer());
