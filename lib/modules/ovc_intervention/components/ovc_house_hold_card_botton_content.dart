@@ -2,10 +2,12 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_house_hold_current_selection_state.dart';
 import 'package:kb_mobile_app/core/components/line_seperator.dart';
 import 'package:kb_mobile_app/models/ovc_house_hold.dart';
 import 'package:kb_mobile_app/models/ovc_house_hold_child.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/sub_pages/ovc_child_service_home.dart';
+import 'package:provider/provider.dart';
 
 class OvcHouseHoldCardBottonContent extends StatelessWidget {
   const OvcHouseHoldCardBottonContent({
@@ -29,6 +31,14 @@ class OvcHouseHoldCardBottonContent extends StatelessWidget {
   final bool canViewChildExit;
   final bool canAddChildExit;
 
+  void setOvcHouseHoldCurrentSelection(
+      BuildContext context, OvcHouseHoldChild child) {
+    Provider.of<OvcHouseHoldCurrentSelectionState>(context, listen: false)
+        .setCurrentHouseHold(ovcHouseHold);
+    Provider.of<OvcHouseHoldCurrentSelectionState>(context, listen: false)
+        .setCurrentHouseHoldChild(child);
+  }
+
   void onEditChildInfo(OvcHouseHoldChild child) {
     print('onEditChildInfo ${child.toString()}');
   }
@@ -42,7 +52,7 @@ class OvcHouseHoldCardBottonContent extends StatelessWidget {
   }
 
   void onViewChildService(BuildContext context, OvcHouseHoldChild child) {
-    //@TODO set current state for child and household
+    setOvcHouseHoldCurrentSelection(context, child);
     Navigator.push(
         context,
         MaterialPageRoute(
