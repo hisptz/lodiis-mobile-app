@@ -8,7 +8,6 @@ class EnrollmentFormState with ChangeNotifier {
   Map get formState => _formState;
 
   //reducers
-
   resetFormState() {
     _formState = Map();
     notifyListeners();
