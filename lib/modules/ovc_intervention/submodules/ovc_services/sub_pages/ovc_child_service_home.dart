@@ -57,6 +57,17 @@ class OvcChildServiceHome extends StatelessWidget {
     print("go to house child hold");
   }
 
+  int getCountValueForOvcServiceChildCard(
+      OvcChildServiceHomeContant ovcChildServiceHomeCard,
+      Map eventListByProgramStage) {
+    int countValue = 0;
+    for (String programStage in ovcChildServiceHomeCard.programStages) {
+      var events = eventListByProgramStage[programStage] ?? [];
+      countValue += events.length;
+    }
+    return countValue;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -103,14 +114,10 @@ class OvcChildServiceHome extends StatelessWidget {
                               children: ovcChildServiceHomeCards.map(
                                   (OvcChildServiceHomeContant
                                       ovcChildServiceHomeCard) {
-                                int countValue = 0;
-                                for (String programStage
-                                    in ovcChildServiceHomeCard.programStages) {
-                                  var events =
-                                      eventListByProgramStage[programStage] ??
-                                          [];
-                                  countValue += events.length;
-                                }
+                                int countValue =
+                                    getCountValueForOvcServiceChildCard(
+                                        ovcChildServiceHomeCard,
+                                        eventListByProgramStage);
                                 return Container(
                                   alignment: Alignment.center,
                                   margin: EdgeInsets.all(5.0),
