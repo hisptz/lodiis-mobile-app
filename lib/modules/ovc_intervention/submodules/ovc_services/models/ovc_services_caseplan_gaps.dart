@@ -923,6 +923,34 @@ class OvcServicesCasePlanGaps {
                       inputColor: Color(0xFF9B2BAE),
                       labelColor: Color(0xFF737373)),
                 ]),
+               FormSection(
+                name: 'Other Activities',
+                color: Color(0xFF4D9E49),
+                borderColor: Color(0xFF4D9E49),
+                inputFields: [ 
+                   InputField(
+                      id: 'JJrN3c03i7f',
+                      name: '(Other activities) Responsible person(Internal/External)',
+                      valueType: 'TEXT',
+                      inputColor: Color(0xFF4D9E49),
+                      labelColor: Color(0xFF737373),
+                      options: [
+                        InputFieldOption(code: 'Internal', name: 'Internal'),
+                        InputFieldOption(code: 'External', name: 'External')     
+                      ]),
+                InputField(
+                      id: 'Mq7g4k4lk44',
+                      name: '(Other activities) Name of responsible person',
+                      valueType: 'TEXT',
+                      inputColor: Color(0xFF4D9E49),
+                      labelColor: Color(0xFF737373)),
+                 InputField(
+                      id: 'LGsvIyYkrP8',
+                      name: '(Other activities) Projected date for completion',
+                      valueType: 'DATE',
+                      inputColor: Color(0xFF4D9E49),
+                      labelColor: Color(0xFF737373)),
+                ])
         ];
   }
 }

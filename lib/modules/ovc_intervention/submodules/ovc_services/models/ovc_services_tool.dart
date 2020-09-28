@@ -888,6 +888,34 @@ class OvcServicesTool {
                       inputColor: Color(0xFF9B2BAE),
                       labelColor: Color(0xFF737373)),
                 ]),
+            FormSection(
+                name: 'Other activities',
+                color: Color(0xFF4D9E49),
+                borderColor: Color(0xFF4D9E49),
+                inputFields: [
+                  InputField(
+                      id: 'Jus8IdpGuKE',
+                      name: 'OTHER ACTIVITIES description',
+                      valueType: 'TEXT',
+                      inputColor: Color(0xFF4D9E49),
+                      labelColor: Color(0xFF737373)),
+                  InputField(
+                      id: 'Nhea8TOrwpf',
+                      name: 'OTHER ACTIVITIES type',
+                      valueType: 'TEXT',
+                      inputColor: Color(0xFF4D9E49),
+                      labelColor: Color(0xFF737373),
+                      options: [
+                        InputFieldOption(code: 'Referral', name: 'Referral'),
+                        InputFieldOption(code: 'Direct service', name: 'Direct service')
+                      ]),
+                  InputField(
+                      id: 'KFu68pPBBOy',
+                      name: 'OTHER ACTIVITIES completed?',
+                      valueType: 'BOOLEAN',
+                      inputColor: Color(0xFF4D9E49),
+                      labelColor: Color(0xFF737373))
+                      ])
         ];
   }
 }
