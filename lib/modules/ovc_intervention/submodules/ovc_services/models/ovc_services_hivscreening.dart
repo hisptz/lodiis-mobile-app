@@ -8,7 +8,7 @@ class OvcServicesHivscreening {
     return [
       FormSection(
           name: 'HIV Risk Assessment',
-          color: Color(0xFF1B3519),
+          color: Color(0xFF4B9F46),
           inputFields: [
             InputField(
                 id: 'kL4IhnhdKZv',
