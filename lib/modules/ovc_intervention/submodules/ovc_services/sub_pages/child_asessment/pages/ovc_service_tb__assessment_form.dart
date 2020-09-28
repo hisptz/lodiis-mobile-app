@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_house_hold_current_selection_state.dart';
+import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar_container.dart';
@@ -71,7 +72,8 @@ class _OvcServiceTBAssessmentFormState
             eventDate,
             currentOvcHouseHoldChild.id,
             eventId);
-        // Update state for current user service data
+        Provider.of<ServiveEventDataState>(context, listen: false)
+            .resetServiceEventDataState(currentOvcHouseHoldChild.id);
         Timer(Duration(seconds: 1), () {
           setState(() {
             isSaving = false;
