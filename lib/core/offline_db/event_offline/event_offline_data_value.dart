@@ -8,7 +8,7 @@ class EventOfflineDataValueProvider extends OfflineDbProvider {
   final String id = 'id';
   final String event = 'event';
   final String dataElement = 'dataElement';
-  final String value = 'program';
+  final String value = 'value';
 
   addOrUpdateEventDataValues(Events eventData) async {
     var dbClient = await db;
@@ -28,5 +28,26 @@ class EventOfflineDataValueProvider extends OfflineDbProvider {
     } catch (e) {
       print(e.toString());
     }
+  }
+
+  Future<List> getEventDataValues(
+    String eventId,
+  ) async {
+    List dataValues = [];
+    try {
+      var dbClient = await db;
+      List<Map> maps = await dbClient.query(
+        table,
+        columns: [dataElement, value],
+        where: '$event = ?',
+        whereArgs: [eventId],
+      );
+      if (maps.isNotEmpty) {
+        for (Map map in maps) {
+          dataValues.add(map);
+        }
+      }
+    } catch (e) {}
+    return dataValues;
   }
 }
