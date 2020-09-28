@@ -89,7 +89,7 @@ class OvcIntervention extends StatelessWidget {
                         : currentInterventionBottomNavigation.id == 'referral'
                             ? OvcReferralPage()
                             : currentInterventionBottomNavigation.id ==
-                                    'enrollment'
+                                    'enrollment' 
                                 ? OvcEnrollmentPage()
                                 : currentInterventionBottomNavigation.id ==
                                         'exit'
