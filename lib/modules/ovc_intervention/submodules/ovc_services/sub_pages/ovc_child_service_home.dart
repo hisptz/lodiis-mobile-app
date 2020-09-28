@@ -82,6 +82,8 @@ class OvcChildServiceHome extends StatelessWidget {
                 child: Consumer<ServiveEventDataState>(
                   builder: (context, serviveEventDataState, child) {
                     bool isLoading = serviveEventDataState.isLoading;
+                    var eventListByProgramStage =
+                        serviveEventDataState.eventListByProgramStage;
                     return isLoading
                         ? Container(
                             margin: EdgeInsets.only(top: 20.0),
@@ -101,7 +103,14 @@ class OvcChildServiceHome extends StatelessWidget {
                               children: ovcChildServiceHomeCards.map(
                                   (OvcChildServiceHomeContant
                                       ovcChildServiceHomeCard) {
-                                int countValue = 1000;
+                                int countValue = 0;
+                                for (String programStage
+                                    in ovcChildServiceHomeCard.programStages) {
+                                  var events =
+                                      eventListByProgramStage[programStage] ??
+                                          [];
+                                  countValue += events.length;
+                                }
                                 return Container(
                                   alignment: Alignment.center,
                                   margin: EdgeInsets.all(5.0),

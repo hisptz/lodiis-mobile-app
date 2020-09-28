@@ -1,3 +1,4 @@
+import 'package:kb_mobile_app/core/offline_db/event_offline/event_offline_provider.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/events.dart';
@@ -20,5 +21,18 @@ class TrackedEntityInstanceUtil {
     Events eventData = FormUtil.getEventPayload(eventId, program, programStage,
         orgUnit, inputFieldIds, dataObject, eventDate, trackedEntityInstance);
     await FormUtil.savingEvent(eventData);
+  }
+
+  static Future<List<Events>> getSavedTrackedEntityInstanceEventData(
+    String trackedEntityInstance,
+  ) async {
+    List<Events> events = [];
+    List<String> trackedEntityInstanceIds = [];
+    try {
+      trackedEntityInstanceIds.add(trackedEntityInstance);
+      events = await EventOfflineProvider()
+          .getTrackedEntityInstance(trackedEntityInstanceIds);
+    } catch (e) {}
+    return events;
   }
 }
