@@ -102,6 +102,21 @@ class OvcServicesList {
                         InputFieldOption(code: 'NcMANzhhphO', name: 'REENROL')
                       ])
                 ]),
+             FormSection(
+                name: '',
+                color: Color(0xFF4D9E49),
+                borderColor: Color(0xFF4D9E49),
+                inputFields: [
+                InputField(
+                      id: '',
+                      name: 'Other Activities',
+                      valueType: 'CHECK_BOX',
+                      inputColor: Color(0xFF4D9E49),
+                      labelColor: Color(0xFF737373),
+                      options: [
+                        InputFieldOption(code: 'ksc7ov3MihX', name: 'OTHER ACTIVITIES')
+                      ])
+                ]),
     ];
   }
 }

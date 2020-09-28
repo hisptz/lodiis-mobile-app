@@ -272,6 +272,17 @@ class OvcServicesOngoingMonitoring {
                       inputColor: Color(0xFF9B2BAE),
                       labelColor: Color(0xFF737373)),
                 ]),
+                FormSection(
+                name: 'Other activities',
+                color: Color(0xFF4D9E49),
+                borderColor: Color(0xFF4D9E49),
+                inputFields: [
+                    InputField(
+                      id: 'C06k1O4qrjw',
+                      name: 'Other activities progress',
+                      valueType: 'TEXT',
+                      inputColor: Color(0xFF4D9E49),
+                      labelColor: Color(0xFF737373))]),
                  FormSection(
                 name: 'For those who were referred and changing HIV status',
                 color: Color(0xFF4D9E49),

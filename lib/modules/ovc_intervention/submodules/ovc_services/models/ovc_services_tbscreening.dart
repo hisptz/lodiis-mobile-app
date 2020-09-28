@@ -6,7 +6,7 @@ import 'package:kb_mobile_app/models/input_field_option.dart';
 class OvcServicesTbscreening {
   static List<FormSection> getFormSections() {
     return [
-      FormSection(name: 'TB Screening', color: Color(0xFF1B3519), inputFields: [
+      FormSection(name: 'TB Screening', color: Color(0xFF4B9F46), inputFields: [
         InputField(
             id: 'XMKMFSdCQ0S',
             name: 'Eligibility Criteria',

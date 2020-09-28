@@ -593,7 +593,7 @@ class HouseholdServicesCasePlanGaps {
                       labelColor: Color(0xFF737373))
                 ]),
           FormSection(
-                name: 'DOMAIN HEALTH',
+                name: 'Other Activities',
                 color: Color(0xFF4D9E49),
                 borderColor: Color(0xFF4D9E49),
                 inputFields: [ 

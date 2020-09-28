@@ -710,6 +710,29 @@ class OvcServicesCasePlanServiceFollowup {
                       inputColor: Color(0xFF9B2BAE),
                       labelColor: Color(0xFF737373))
                 ]),
+             FormSection(
+                name: 'Other Activities',
+                color: Color(0xFF4D9E49),
+                borderColor: Color(0xFF4D9E49),
+                inputFields: [
+                  InputField(
+                      id: 'rGtX9VyOOAb',
+                      name: 'OTHER ACTIVITIES Results',
+                      valueType: 'TEXT',
+                      inputColor: Color(0xFF4D9E49),
+                      labelColor: Color(0xFF737373),
+                      options: [
+                        InputFieldOption(code: 'Achieved', name: 'Achieved'),
+                        InputFieldOption(code: 'In progress', name: 'In progress'),
+                        InputFieldOption(code: 'Not achieved', name: 'Not achieved')    
+                      ]),
+                InputField(
+                      id: 'kKR2XpajAzo',
+                      name: 'Reasons OTHER ACTIVITIES not completed',
+                      valueType: 'TEXT',
+                      inputColor: Color(0xFF4D9E49),
+                      labelColor: Color(0xFF737373)),
+                ])
         ];
   }
 }
