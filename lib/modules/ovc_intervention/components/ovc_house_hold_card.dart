@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/core/components/material_card.dart';
 import 'package:kb_mobile_app/models/ovc_house_hold.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold_card_header.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/household_services_adult_wellbeing.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/pages/household_services_adult_wellbeing_form.dart';
 
 class OvcHouseHoldCard extends StatelessWidget {
   OvcHouseHoldCard({
@@ -32,7 +34,12 @@ class OvcHouseHoldCard extends StatelessWidget {
 
   void onEdit() {}
 
-  void onView() {}
+  void onView(BuildContext context) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => HouseholdServicesAdultWellbeingForm()));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +60,7 @@ class OvcHouseHoldCard extends StatelessWidget {
                   isExpanded: isExpanded,
                   onToggleCard: onCardToogle,
                   onEdit: onEdit,
-                  onView: onView,
+                  onView: () => onView(context),
                 )),
                 cardBody,
                 cardBottonActions,
