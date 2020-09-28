@@ -35,4 +35,16 @@ class TrackedEntityInstanceUtil {
     } catch (e) {}
     return events;
   }
+
+  static List<Events> getAllEventListFromServiceDataState(
+    Map<String, List<Events>> eventListByProgramStage,
+    List<String> programStageids,
+  ) {
+    List<Events> events = [];
+    for (String programStageid in programStageids) {
+      var data = eventListByProgramStage[programStageid] ?? [];
+      events.addAll(data);
+    }
+    return events;
+  }
 }
