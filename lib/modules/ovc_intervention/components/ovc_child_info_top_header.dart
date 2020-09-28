@@ -46,60 +46,80 @@ class OvcChildInfoTopHeader extends StatelessWidget {
                     child: LineSeperator(color: Color(0XFFECF5EC)),
                   ),
                   Container(
-                      margin:
-                          EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
+                      margin: EdgeInsets.symmetric(
+                        horizontal: 10.0,
+                        vertical: 10.0,
+                      ),
                       child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Expanded(
-                                child: Text(
-                              'Sex',
-                              style: TextStyle().copyWith(
-                                  fontSize: 12.0,
-                                  fontWeight: FontWeight.w500,
-                                  color: Color(0xFF92A791)),
-                            )),
-                            Expanded(
-                                child: Text(
-                              currentOvcHouseHoldChild.sex,
-                              style: TextStyle().copyWith(
-                                  fontSize: 12.0,
-                                  fontWeight: FontWeight.w500,
-                                  color: Color(0xFF4B9F46)),
-                            )),
-                            Expanded(
-                                child: Text(
-                              'Age',
-                              style: TextStyle().copyWith(
-                                  fontSize: 12.0,
-                                  fontWeight: FontWeight.w500,
-                                  color: Color(0xFF92A791)),
-                            )),
-                            Expanded(
-                                child: Text(
-                              currentOvcHouseHoldChild.age,
-                              style: TextStyle().copyWith(
-                                  fontSize: 12.0,
-                                  fontWeight: FontWeight.w500,
-                                  color: Color(0xFF4B9F46)),
-                            )),
-                            Expanded(
-                                child: Text(
-                              'Caregiver',
-                              style: TextStyle().copyWith(
-                                  fontSize: 12.0,
-                                  fontWeight: FontWeight.w500,
-                                  color: Color(0xFF92A791)),
-                            )),
-                            Expanded(
-                                flex: 3,
-                                child: Text(
-                                  currentOvcHouseHold.toString(),
+                              child: RichText(
+                                text: TextSpan(
+                                  text: 'Sex  ',
                                   style: TextStyle().copyWith(
-                                      fontSize: 12.0,
-                                      fontWeight: FontWeight.w500,
-                                      color: Color(0xFF4B9F46)),
-                                ))
+                                    fontSize: 12.0,
+                                    fontWeight: FontWeight.w500,
+                                    color: Color(0xFF92A791),
+                                  ),
+                                  children: [
+                                    TextSpan(
+                                      text: currentOvcHouseHoldChild.sex,
+                                      style: TextStyle().copyWith(
+                                        fontSize: 12.0,
+                                        fontWeight: FontWeight.w500,
+                                        color: Color(0xFF4B9F46),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: RichText(
+                                text: TextSpan(
+                                  text: 'Age  ',
+                                  style: TextStyle().copyWith(
+                                    fontSize: 12.0,
+                                    fontWeight: FontWeight.w500,
+                                    color: Color(0xFF92A791),
+                                  ),
+                                  children: [
+                                    TextSpan(
+                                      text: currentOvcHouseHoldChild.age,
+                                      style: TextStyle().copyWith(
+                                        fontSize: 12.0,
+                                        fontWeight: FontWeight.w500,
+                                        color: Color(0xFF4B9F46),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              flex: 2,
+                              child: RichText(
+                                text: TextSpan(
+                                  text: 'Caregiver  ',
+                                  style: TextStyle().copyWith(
+                                    fontSize: 12.0,
+                                    fontWeight: FontWeight.w500,
+                                    color: Color(0xFF92A791),
+                                  ),
+                                  children: [
+                                    TextSpan(
+                                      text: currentOvcHouseHold.toString(),
+                                      style: TextStyle().copyWith(
+                                        fontSize: 12.0,
+                                        fontWeight: FontWeight.w500,
+                                        color: Color(0xFF4B9F46),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
                           ]))
                 ],
               )),

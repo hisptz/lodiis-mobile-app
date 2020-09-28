@@ -64,13 +64,15 @@ class EntryFormContainer extends StatelessWidget {
                               vertical: 15.0, horizontal: 10.0),
                           child: Row(
                             children: [
-                              Text(
-                                formSection.description,
-                                style: TextStyle().copyWith(
-                                    color: formSection.color,
-                                    fontSize: 14.0,
-                                    fontStyle: FontStyle.italic,
-                                    fontWeight: FontWeight.normal),
+                              Expanded(
+                                child: Text(
+                                  formSection.description,
+                                  style: TextStyle().copyWith(
+                                      color: formSection.color,
+                                      fontSize: 14.0,
+                                      fontStyle: FontStyle.italic,
+                                      fontWeight: FontWeight.normal),
+                                ),
                               )
                             ],
                           ),

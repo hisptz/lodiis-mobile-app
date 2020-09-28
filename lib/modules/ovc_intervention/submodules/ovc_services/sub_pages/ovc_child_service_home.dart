@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar_container.dart';
+import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
@@ -55,6 +57,17 @@ class OvcChildServiceHome extends StatelessWidget {
     print("go to house child hold");
   }
 
+  int getCountValueForOvcServiceChildCard(
+      OvcChildServiceHomeContant ovcChildServiceHomeCard,
+      Map eventListByProgramStage) {
+    int countValue = 0;
+    for (String programStage in ovcChildServiceHomeCard.programStages) {
+      var events = eventListByProgramStage[programStage] ?? [];
+      countValue += events.length;
+    }
+    return countValue;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -77,48 +90,79 @@ class OvcChildServiceHome extends StatelessWidget {
             children: [
               OvcChildInfoTopHeader(),
               Container(
-                margin: EdgeInsets.symmetric(vertical: 16.0, horizontal: 13.0),
-                child: GridView.count(
-                  crossAxisCount: 2,
-                  primary: false,
-                  mainAxisSpacing: 10.0,
-                  crossAxisSpacing: 10.0,
-                  shrinkWrap: true,
-                  children: ovcChildServiceHomeCards
-                      .map((OvcChildServiceHomeContant
-                              ovcChildServiceHomeCard) =>
-                          Container(
-                            alignment: Alignment.center,
-                            margin: EdgeInsets.all(5.0),
-                            child: InkWell(
-                              child: OvcServiceChildCard(
-                                ovcChildServiceHomeCard:
-                                    ovcChildServiceHomeCard,
-                                countValue: '20',
-                              ),
-                              onTap: () => ovcChildServiceHomeCard.id ==
-                                      'assessment'
-                                  ? onOpenChildAssessment(context)
-                                  : ovcChildServiceHomeCard.id == 'casePlan'
-                                      ? onOpenChildCasePlan(context)
-                                      : ovcChildServiceHomeCard.id == 'services'
-                                          ? onOpenChildService(context)
-                                          : ovcChildServiceHomeCard.id ==
-                                                  'monitor'
-                                              ? onOpenChildMonitor(context)
-                                              : null,
+                child: Consumer<ServiveEventDataState>(
+                  builder: (context, serviveEventDataState, child) {
+                    bool isLoading = serviveEventDataState.isLoading;
+                    var eventListByProgramStage =
+                        serviveEventDataState.eventListByProgramStage;
+                    return isLoading
+                        ? Container(
+                            margin: EdgeInsets.only(top: 20.0),
+                            child: CircularProcessLoader(
+                              color: Colors.blueGrey,
                             ),
-                          ))
-                      .toList(),
+                          )
+                        : Container(
+                            margin: EdgeInsets.symmetric(
+                                vertical: 16.0, horizontal: 13.0),
+                            child: GridView.count(
+                              crossAxisCount: 2,
+                              primary: false,
+                              mainAxisSpacing: 10.0,
+                              crossAxisSpacing: 10.0,
+                              shrinkWrap: true,
+                              children: ovcChildServiceHomeCards.map(
+                                  (OvcChildServiceHomeContant
+                                      ovcChildServiceHomeCard) {
+                                int countValue =
+                                    getCountValueForOvcServiceChildCard(
+                                        ovcChildServiceHomeCard,
+                                        eventListByProgramStage);
+                                return Container(
+                                  alignment: Alignment.center,
+                                  margin: EdgeInsets.all(5.0),
+                                  child: InkWell(
+                                    child: OvcServiceChildCard(
+                                      ovcChildServiceHomeCard:
+                                          ovcChildServiceHomeCard,
+                                      countValue: countValue.toString(),
+                                    ),
+                                    onTap: () => ovcChildServiceHomeCard.id ==
+                                            'assessment'
+                                        ? onOpenChildAssessment(context)
+                                        : ovcChildServiceHomeCard.id ==
+                                                'casePlan'
+                                            ? onOpenChildCasePlan(context)
+                                            : ovcChildServiceHomeCard.id ==
+                                                    'services'
+                                                ? onOpenChildService(context)
+                                                : ovcChildServiceHomeCard.id ==
+                                                        'monitor'
+                                                    ? onOpenChildMonitor(
+                                                        context)
+                                                    : null,
+                                  ),
+                                );
+                              }).toList(),
+                            ),
+                          );
+                  },
                 ),
               ),
-              OvcEnrollmentFormSaveButton(
-                label: "GO TO CHILD'S HOUSE HOLD",
-                labelColor: Colors.white,
-                fontSize: 10,
-                buttonColor: Color(0xFF4B9F46),
-                onPressButton: () => childHouseHold(),
-              ),
+              Container(child: Consumer<ServiveEventDataState>(
+                  builder: (context, serviveEventDataState, child) {
+                bool isLoading = serviveEventDataState.isLoading;
+                return Visibility(
+                  visible: !isLoading,
+                  child: OvcEnrollmentFormSaveButton(
+                    label: "GO TO CHILD'S HOUSE HOLD",
+                    labelColor: Colors.white,
+                    fontSize: 10,
+                    buttonColor: Color(0xFF4B9F46),
+                    onPressButton: () => childHouseHold(),
+                  ),
+                );
+              })),
             ],
           ),
         )),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar_container.dart';
+import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
@@ -49,8 +51,26 @@ class OvcCasePlanChildView extends StatelessWidget {
           ),
         ),
         body: SubPageBody(
-            body:
-                Container(child: Column(children: [OvcChildInfoTopHeader()]))),
+          body: Container(
+            child: Column(children: [
+              OvcChildInfoTopHeader(),
+              Container(
+                child: Consumer<ServiveEventDataState>(
+                  builder: (context, serviveEventDataState, child) {
+                    bool isLoading = serviveEventDataState.isLoading;
+                    return isLoading
+                        ? CircularProcessLoader(
+                            color: Colors.blueGrey,
+                          )
+                        : Container(
+                            child: Text('Loaded list'),
+                          );
+                  },
+                ),
+              ),
+            ]),
+          ),
+        ),
         bottomNavigationBar: InterventionBottomNavigationBarContainer());
     // return Scaffold(
     //     backgroundColor: Color(0xFFEDF4ED),

@@ -41,12 +41,14 @@ class EntrySubFormContainer extends StatelessWidget {
                               vertical: 15.0, horizontal: 10.0),
                           child: Row(
                             children: [
-                              Text(
-                                subSection.name,
-                                style: TextStyle().copyWith(
-                                    color: subSection.color,
-                                    fontSize: 15.0,
-                                    fontWeight: FontWeight.bold),
+                              Expanded(
+                                child: Text(
+                                  subSection.name,
+                                  style: TextStyle().copyWith(
+                                      color: subSection.color,
+                                      fontSize: 15.0,
+                                      fontWeight: FontWeight.bold),
+                                ),
                               )
                             ],
                           ),
@@ -59,13 +61,15 @@ class EntrySubFormContainer extends StatelessWidget {
                               vertical: 15.0, horizontal: 10.0),
                           child: Row(
                             children: [
-                              Text(
-                                subSection.description,
-                                style: TextStyle().copyWith(
-                                    color: subSection.color,
-                                    fontSize: 14.0,
-                                    fontStyle: FontStyle.italic,
-                                    fontWeight: FontWeight.normal),
+                              Expanded(
+                                child: Text(
+                                  subSection.description,
+                                  style: TextStyle().copyWith(
+                                      color: subSection.color,
+                                      fontSize: 14.0,
+                                      fontStyle: FontStyle.italic,
+                                      fontWeight: FontWeight.normal),
+                                ),
                               )
                             ],
                           ),

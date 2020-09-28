@@ -14,7 +14,7 @@ class TrueOnlyInputFieldContainer extends StatefulWidget {
 
   final InputField inputField;
   final Function onInputValueChange;
-  final bool inputValue;
+  final dynamic inputValue;
 
   @override
   _TrueOnlyInputFieldContainerState createState() =>
@@ -30,7 +30,9 @@ class _TrueOnlyInputFieldContainerState
   @override
   void initState() {
     super.initState();
-    onSetValue(widget.inputValue ?? false);
+    bool value = false;
+    value = '${widget.inputValue}' == 'true' ? true : false;
+    onSetValue(value);
   }
 
   onSetValue(bool value) {

@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_house_hold_current_selection_state.dart';
+import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/core/components/line_seperator.dart';
 import 'package:kb_mobile_app/models/ovc_house_hold.dart';
 import 'package:kb_mobile_app/models/ovc_house_hold_child.dart';
@@ -35,19 +36,28 @@ class OvcHouseHoldCardBottonContent extends StatelessWidget {
       BuildContext context, OvcHouseHoldChild child) {
     Provider.of<OvcHouseHoldCurrentSelectionState>(context, listen: false)
         .setCurrentHouseHold(ovcHouseHold);
-    Provider.of<OvcHouseHoldCurrentSelectionState>(context, listen: false)
-        .setCurrentHouseHoldChild(child);
+    if (child != null) {
+      Provider.of<ServiveEventDataState>(context, listen: false)
+          .resetServiceEventDataState(child.id);
+      Provider.of<OvcHouseHoldCurrentSelectionState>(context, listen: false)
+          .setCurrentHouseHoldChild(child);
+    }
   }
 
-  void onEditChildInfo(OvcHouseHoldChild child) {
+  void onEditChildInfo(BuildContext context, OvcHouseHoldChild child) {
+    setOvcHouseHoldCurrentSelection(context, child);
     print('onEditChildInfo ${child.toString()}');
   }
 
-  void onViewChildInfo(OvcHouseHoldChild child) {
+  void onViewChildInfo(BuildContext context, OvcHouseHoldChild child) {
+    setOvcHouseHoldCurrentSelection(context, child);
     print('onViewChildInfo ${child.toString()}');
   }
 
-  void onAddNewChild() {
+  void onAddNewChild(
+    BuildContext context,
+  ) {
+    setOvcHouseHoldCurrentSelection(context, null);
     print('onAddNewChild ');
   }
 
@@ -60,15 +70,18 @@ class OvcHouseHoldCardBottonContent extends StatelessWidget {
         ));
   }
 
-  void onViewChildReferral(OvcHouseHoldChild child) {
+  void onViewChildReferral(BuildContext context, OvcHouseHoldChild child) {
+    setOvcHouseHoldCurrentSelection(context, child);
     print('onViewChildReferral ${child.toString()}');
   }
 
-  void onViewChildExit(OvcHouseHoldChild child) {
+  void onViewChildExit(BuildContext context, OvcHouseHoldChild child) {
+    setOvcHouseHoldCurrentSelection(context, child);
     print('onViewChildExit ${child.toString()}');
   }
 
-  void onAddChildExit(OvcHouseHoldChild child) {
+  void onAddChildExit(BuildContext context, OvcHouseHoldChild child) {
+    setOvcHouseHoldCurrentSelection(context, child);
     print('onAddChildExit ${child.toString()}');
   }
 
@@ -127,9 +140,9 @@ class OvcHouseHoldCardBottonContent extends StatelessWidget {
                         child: Container(
                             child: InkWell(
                                 onTap: () => canViewChildExit
-                                    ? onViewChildExit(child)
+                                    ? onViewChildExit(context, child)
                                     : canViewChildInfo
-                                        ? onViewChildInfo(child)
+                                        ? onViewChildInfo(context, child)
                                         : canViewChildService
                                             ? onViewChildService(context, child)
                                             : null,
@@ -150,7 +163,7 @@ class OvcHouseHoldCardBottonContent extends StatelessWidget {
                         child: Container(
                             margin: EdgeInsets.only(left: 10.0),
                             child: InkWell(
-                                onTap: () => onAddChildExit(child),
+                                onTap: () => onAddChildExit(context, child),
                                 child: Container(
                                   padding: EdgeInsets.all(10.0),
                                   child: Text(
@@ -168,7 +181,8 @@ class OvcHouseHoldCardBottonContent extends StatelessWidget {
                         child: Container(
                             margin: EdgeInsets.only(left: 10.0),
                             child: InkWell(
-                                onTap: () => onViewChildReferral(child),
+                                onTap: () =>
+                                    onViewChildReferral(context, child),
                                 child: Container(
                                   padding: EdgeInsets.all(10.0),
                                   child: Text(
@@ -186,7 +200,7 @@ class OvcHouseHoldCardBottonContent extends StatelessWidget {
                         child: Container(
                             margin: EdgeInsets.only(left: 10.0),
                             child: InkWell(
-                                onTap: () => onEditChildInfo(child),
+                                onTap: () => onEditChildInfo(context, child),
                                 child: Container(
                                   padding: EdgeInsets.all(10.0),
                                   child: Text(
@@ -217,7 +231,7 @@ class OvcHouseHoldCardBottonContent extends StatelessWidget {
               child: Container(
                 margin: EdgeInsets.symmetric(vertical: 5.0),
                 child: InkWell(
-                    onTap: () => onAddNewChild(),
+                    onTap: () => onAddNewChild(context),
                     child: Container(
                       padding: EdgeInsets.all(10.0),
                       alignment: Alignment.center,

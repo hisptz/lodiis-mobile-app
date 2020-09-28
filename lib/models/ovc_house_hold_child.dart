@@ -7,6 +7,7 @@ class OvcHouseHoldChild {
   String surname;
   String sex;
   String age;
+  String orgUnit;
   TrackeEntityInstance teiData;
 
   OvcHouseHoldChild({
@@ -16,10 +17,11 @@ class OvcHouseHoldChild {
     this.surname,
     this.sex,
     this.age,
+    this.orgUnit,
     this.teiData,
   });
 
-  OvcHouseHoldChild fromTeiModel(TrackeEntityInstance tei) {
+  OvcHouseHoldChild fromTeiModel(TrackeEntityInstance tei, String orgUnit) {
     List keys = [
       's1eRvsL2Ly4',
       's1HaiT6OllL',
@@ -41,6 +43,7 @@ class OvcHouseHoldChild {
         surname: data['rSP9c21JsfC'] ?? '',
         sex: data['vIX4GTSCX4P'] ?? '',
         age: data['ls9hlz2tyol'] ?? '',
+        orgUnit: orgUnit,
         teiData: tei);
   }
 
