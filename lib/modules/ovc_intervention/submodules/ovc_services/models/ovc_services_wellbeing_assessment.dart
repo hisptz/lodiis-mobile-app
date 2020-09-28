@@ -8,14 +8,15 @@ class OvcServicesWellbeingAssessment {
     return [
       FormSection(
           name: 'Role/Impact of a Child to the family',
-          color: Color(0xFF1B3519),
+          color: Color(0xFF4B9F46),
           inputFields: [
             InputField(
                 id: 'lt88RMPaBPg',
                 name: 'What is your role in the family?',
+                description: 'For example, do you cook, do housework or make items such as clothes or tools? Do you sell in the market or work outside of the household? Do you take care of other family members?',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4B9F46),
-                labelColor: Color(0xFF4B9F46)),
+                labelColor: Color(0xFF737373)),
             InputField(
                 id: '',
                 name: 'What is the child\'s impact to the family?',
@@ -39,7 +40,7 @@ class OvcServicesWellbeingAssessment {
                 name: 'Specify other impacts',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4B9F46),
-                labelColor: Color(0xFF4B9F46)),
+                labelColor: Color(0xFF737373)),
             InputField(
                 id: '',
                 name: 'How does the child help your family?',
@@ -69,7 +70,7 @@ class OvcServicesWellbeingAssessment {
                 name: 'Specify other activities',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4B9F46),
-                labelColor: Color(0xFF4B9F46))
+                labelColor: Color(0xFF737373))
           ]),
       FormSection(
           name: 'DOMAIN SCHOOLED',
@@ -1076,43 +1077,47 @@ class OvcServicesWellbeingAssessment {
                 inputColor: Color(0xFFEE6E22),
                 labelColor: Color(0xFF1A3518))
           ]),
-      FormSection(name: 'GOALS', color: Color(0xFF1B3519), inputFields: [
+      FormSection(
+        name: 'GOALS', 
+        description: 'Caseworker reads: “Now I’m going to ask you some questions about how you would like to grow and improve over the next year.”',
+        color: Color(0xFF1B3519), 
+        inputFields: [
         InputField(
             id: 'ADc3clrQRl4',
             name: 'Goal 1',
             valueType: 'LONG_TEXT',
             inputColor: Color(0xFF4B9F46),
-            labelColor: Color(0xFF4B9F46)),
+            labelColor: Color(0xFF737373)),
         InputField(
             id: 'WmnbKX3Vj05',
             name: 'Timeline for goal 1',
             valueType: 'DATE',
             inputColor: Color(0xFF4B9F46),
-            labelColor: Color(0xFF4B9F46)),
+            labelColor: Color(0xFF737373)),
         InputField(
             id: 'rEIhH5N4z0e',
             name: 'Actions need to take place to accomplish goal 1',
             valueType: 'LONG_TEXT',
             inputColor: Color(0xFF4B9F46),
-            labelColor: Color(0xFF4B9F46)),
+            labelColor: Color(0xFF737373)),
         InputField(
             id: 'efNgDIqhlNs',
             name: 'Goal 2',
             valueType: 'LONG_TEXT',
             inputColor: Color(0xFF4B9F46),
-            labelColor: Color(0xFF4B9F46)),
+            labelColor: Color(0xFF737373)),
         InputField(
             id: 'cbxJhkrHUtk',
             name: 'Timeline for goal 2',
             valueType: 'DATE',
             inputColor: Color(0xFF4B9F46),
-            labelColor: Color(0xFF4B9F46)),
+            labelColor: Color(0xFF737373)),
         InputField(
             id: 'iDkUpkg6vO6',
             name: 'Actions need to take place to accomplish goal 2',
             valueType: 'LONG_TEXT',
             inputColor: Color(0xFF4B9F46),
-            labelColor: Color(0xFF4B9F46))
+            labelColor: Color(0xFF737373))
       ]),
     ];
   }
