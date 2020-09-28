@@ -11,7 +11,6 @@ class ServiceFormState with ChangeNotifier {
 
   //reducers
   void resetFormState() {
-    updateFormEditabilityState(isEditableMode: true);
     _formState = Map();
     notifyListeners();
   }
