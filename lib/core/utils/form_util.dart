@@ -37,7 +37,9 @@ class FormUtil {
     trackedEntityInstance = trackedEntityInstance ?? AppUtil.getUid();
     String attributes = inputFieldIds
         .map((String attribute) {
-          dynamic value = '${dataObject[attribute]}'.trim() ?? '';
+          String value = dataObject.keys.toList().indexOf(attribute) > 0
+              ? '${dataObject[attribute]}'.trim()
+              : '';
           return '{"attribute": "$attribute", "value": "$value"}';
         })
         .toList()
@@ -76,6 +78,7 @@ class FormUtil {
         '{"id":"$id","relationshipType":"$relationshipType","toTei":"$toTei", "fromTei":"$fromTei"}';
     return TeiRelationship().fromJson(json.decode(source));
   }
+
   static Events getEventPayload(
     String event,
     String program,
@@ -92,7 +95,9 @@ class FormUtil {
         eventDate ?? AppUtil.formattedDateTimeIntoString(DateTime.now());
     String dataValues = inputFieldIds
         .map((String dataElement) {
-          dynamic value = '${dataObject[dataElement]}'.trim() ?? '';
+          String value = dataObject.keys.toList().indexOf(dataElement) > 0
+              ? '${dataObject[dataElement]}'.trim()
+              : '';
           return '{"dataElement": "$dataElement", "value": "$value"}';
         })
         .toList()
@@ -117,6 +122,7 @@ class FormUtil {
     await TeiRelatioShipOfflineProvider()
         .addOrUpdateTeirelationShip(teiRelationship);
   }
+
   static Future savingEvent(Events event) async {
     await EventOfflineProvider().addOrUpdateEvent(event);
   }
