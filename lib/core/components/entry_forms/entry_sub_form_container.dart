@@ -9,6 +9,7 @@ class EntrySubFormContainer extends StatelessWidget {
     @required this.subSections,
     @required this.dataObject,
     @required this.mandatoryFieldObject,
+    this.isEditableMode = true,
     this.onInputValueChange,
   }) : super(key: key);
 
@@ -16,6 +17,7 @@ class EntrySubFormContainer extends StatelessWidget {
   final Function onInputValueChange;
   final Map dataObject;
   final Map mandatoryFieldObject;
+  final bool isEditableMode;
 
   @override
   Widget build(BuildContext context) {
@@ -88,6 +90,7 @@ class EntrySubFormContainer extends StatelessWidget {
                                             : 0.0),
                                     child: InputFieldContainer(
                                         inputField: inputField,
+                                        isEditableMode: isEditableMode,
                                         mandatoryFieldObject:
                                             mandatoryFieldObject,
                                         dataObject: dataObject,

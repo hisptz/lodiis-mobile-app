@@ -16,12 +16,14 @@ class InputFieldContainer extends StatelessWidget {
   const InputFieldContainer(
       {Key key,
       @required this.inputField,
+      @required this.isEditableMode,
       this.onInputValueChange,
       this.dataObject,
       this.mandatoryFieldObject})
       : super(key: key);
 
   final InputField inputField;
+  final bool isEditableMode;
   final Function onInputValueChange;
   final Map dataObject;
   final Map mandatoryFieldObject;
@@ -86,7 +88,11 @@ class InputFieldContainer extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Expanded(
-                        child: Container(child: _getInputField(inputField))),
+                      child: Container(
+                          child: isEditableMode
+                              ? _getInputField(inputField)
+                              : _getInputFieldLabel(inputField)),
+                    ),
                     Expanded(
                         child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
@@ -97,14 +103,19 @@ class InputFieldContainer extends StatelessWidget {
                               : ''),
                         ),
                         Container(
-                            child: _getInputField(inputField.subInputField)),
+                          child: isEditableMode
+                              ? _getInputField(inputField)
+                              : _getInputFieldLabel(inputField)),
                       ],
                     )),
                   ],
                 )),
             Visibility(
                 visible: !inputField.hasSubInputField,
-                child: Container(child: _getInputField(inputField))),
+                child: Container(
+                          child: isEditableMode
+                              ? _getInputField(inputField)
+                              : _getInputFieldLabel(inputField)),),
             LineSeperator(
                 color: inputField.inputColor.withOpacity(0.3) ??
                     Colors.transparent)
@@ -112,6 +123,20 @@ class InputFieldContainer extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Widget _getInputFieldLabel(InputField inputField) {
+    dynamic value = dataObject[inputField.id] ?? '';
+    // @TODO replace appropriate values based on input type
+    return Container(
+        child: Text(
+      value.toString(),
+      style: TextStyle().copyWith(
+        color: inputField.inputColor,
+        fontWeight: FontWeight.w500,
+        fontSize: 12.0,
+      ),
+    ));
   }
 
   Widget _getInputField(InputField inputField) {
