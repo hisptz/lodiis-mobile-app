@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_house_hold_current_selection_state.dart';
@@ -56,12 +55,11 @@ class _OvcServiceHIVAssessmentFormState
     OvcHouseHoldChild currentOvcHouseHoldChild,
   ) async {
     if (dataObject.keys.length > 0) {
-      // date and event id variables
       setState(() {
         isSaving = true;
       });
-      String eventDate;
-      String eventId;
+      String eventDate = dataObject['eventDate'];
+      String eventId = dataObject['eventId'];
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
             OvcServiceHIVAssessmentConstant.program,
@@ -139,6 +137,8 @@ class _OvcServiceHIVAssessmentFormState
                                     formSections: formSections,
                                     mandatoryFieldObject: Map(),
                                     dataObject: serviceFormState.formState,
+                                    isEditableMode:
+                                        serviceFormState.isEditableMode,
                                     onInputValueChange: onInputValueChange,
                                   ),
                                 ),

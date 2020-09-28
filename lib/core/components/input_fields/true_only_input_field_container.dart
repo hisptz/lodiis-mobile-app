@@ -46,6 +46,7 @@ class _TrueOnlyInputFieldContainerState
   Widget build(BuildContext context) {
     return Row(
       mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Container(
           width: 30.0,

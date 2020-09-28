@@ -103,19 +103,20 @@ class InputFieldContainer extends StatelessWidget {
                               : ''),
                         ),
                         Container(
-                          child: isEditableMode
-                              ? _getInputField(inputField)
-                              : _getInputFieldLabel(inputField)),
+                            child: isEditableMode
+                                ? _getInputField(inputField)
+                                : _getInputFieldLabel(inputField)),
                       ],
                     )),
                   ],
                 )),
             Visibility(
-                visible: !inputField.hasSubInputField,
-                child: Container(
-                          child: isEditableMode
-                              ? _getInputField(inputField)
-                              : _getInputFieldLabel(inputField)),),
+              visible: !inputField.hasSubInputField,
+              child: Container(
+                  child: isEditableMode
+                      ? _getInputField(inputField)
+                      : _getInputFieldLabel(inputField)),
+            ),
             LineSeperator(
                 color: inputField.inputColor.withOpacity(0.3) ??
                     Colors.transparent)
@@ -128,15 +129,21 @@ class InputFieldContainer extends StatelessWidget {
   Widget _getInputFieldLabel(InputField inputField) {
     dynamic value = dataObject[inputField.id] ?? '';
     // @TODO replace appropriate values based on input type
-    return Container(
-        child: Text(
-      value.toString(),
-      style: TextStyle().copyWith(
-        color: inputField.inputColor,
-        fontWeight: FontWeight.w500,
-        fontSize: 12.0,
-      ),
-    ));
+    return Row(
+      children: [
+        Container(
+          margin: EdgeInsets.symmetric(vertical: 15.0),
+          child: Text(
+            value.toString(),
+            style: TextStyle().copyWith(
+              color: inputField.inputColor,
+              fontWeight: FontWeight.w500,
+              fontSize: 12.0,
+            ),
+          ),
+        ),
+      ],
+    );
   }
 
   Widget _getInputField(InputField inputField) {

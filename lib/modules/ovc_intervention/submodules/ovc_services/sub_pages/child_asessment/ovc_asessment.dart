@@ -24,14 +24,17 @@ import 'package:provider/provider.dart';
 class OvcAssessmentServiceChildView extends StatelessWidget {
   final String label = 'Child Assessment';
 
-  onAddMewchildAssessment(BuildContext context) async {
+  void onAddMewchildAssessment(BuildContext context) async {
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
     Widget model = OvcChildAssessmentSelection();
     String assessmentResponse = await AppUtil.showPopUpModal(context, model);
-    onRedirectToAssessmentForm(context, assessmentResponse);
+    onRedirectToAssessmentForm(context, assessmentResponse, true);
   }
 
-  onRedirectToAssessmentForm(BuildContext context, String assessmentResponse) {
+  void onRedirectToAssessmentForm(
+      BuildContext context, String assessmentResponse, bool isEditableMode) {
+    Provider.of<ServiceFormState>(context, listen: false)
+        .updateFormEditabilityState(isEditableMode: isEditableMode);
     if (assessmentResponse != null) {
       assessmentResponse == "Well-being"
           ? Navigator.push(
@@ -52,11 +55,38 @@ class OvcAssessmentServiceChildView extends StatelessWidget {
     }
   }
 
-  onViewAssessment(
-      BuildContext context, String assessmentResponse, Events eventDat) {}
+  void updateFormStateData(BuildContext context, Events eventData) {
+    Provider.of<ServiceFormState>(context, listen: false)
+        .setFormFieldState('eventDate', eventData.eventDate);
+    Provider.of<ServiceFormState>(context, listen: false)
+        .setFormFieldState('eventId', eventData.event);
+    for (Map datavalue in eventData.dataValues) {
+      if (datavalue['value'] != '') {
+        Provider.of<ServiceFormState>(context, listen: false)
+            .setFormFieldState(datavalue['dataElement'], datavalue['value']);
+      }
+    }
+  }
 
-  onEditAssessment(
-      BuildContext context, String assessmentResponse, Events eventDat) {}
+  void onViewAssessment(
+    BuildContext context,
+    String assessmentResponse,
+    Events eventData,
+  ) {
+    bool isEditableMode = false;
+    updateFormStateData(context, eventData);
+    onRedirectToAssessmentForm(context, assessmentResponse, isEditableMode);
+  }
+
+  void onEditAssessment(
+    BuildContext context,
+    String assessmentResponse,
+    Events eventData,
+  ) {
+    // bool isEditableMode = true;
+    // updateFormStateData(context, eventData);
+    // onRedirectToAssessmentForm(context, assessmentResponse, isEditableMode);
+  }
 
   @override
   Widget build(BuildContext context) {
