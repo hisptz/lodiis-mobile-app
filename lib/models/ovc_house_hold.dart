@@ -7,6 +7,7 @@ class OvcHouseHold {
   String middleName;
   String surname;
   String location;
+  String orgUnit;
   String createdDate;
   String houseHoldId;
   String ovcMaleCount;
@@ -23,6 +24,7 @@ class OvcHouseHold {
     this.children,
     this.houseHoldId,
     this.location,
+    this.orgUnit,
     this.createdDate,
     this.ovcFemaleCount,
     this.teiData,
@@ -31,6 +33,7 @@ class OvcHouseHold {
   OvcHouseHold fromTeiModel(
     TrackeEntityInstance tei,
     String location,
+    String orgUnit,
     String createdDate,
     List<OvcHouseHoldChild> children,
   ) {
@@ -55,6 +58,7 @@ class OvcHouseHold {
         middleName: data['s1HaiT6OllL'] ?? '',
         surname: data['rSP9c21JsfC'] ?? '',
         location: location,
+        orgUnit: orgUnit,
         createdDate: createdDate,
         ovcMaleCount: data['kQehaqmaygZ'] ?? '',
         ovcFemaleCount: data['BXUNH6LXeGA'] ?? '',
