@@ -9,9 +9,9 @@ import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_child_info_top_header.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/sub_pages/child_asessment/componets/ovc_child_assessment_selection.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/sub_pages/child_asessment/pages/hiv_new_assment.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/sub_pages/child_asessment/pages/tb_new_assessment.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/sub_pages/child_asessment/pages/well_being_new_assessment.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/sub_pages/child_asessment/pages/ovc_service_hiv_assessment_form.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/sub_pages/child_asessment/pages/ovc_service_tb__assessment_form.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/sub_pages/child_asessment/pages/ovc_service_well_being_assessment_form.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/sub_pages/components/ovc_service_detail_card.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/sub_pages/models/ovc_service_detail_card.dart';
 import 'package:provider/provider.dart';
@@ -29,17 +29,17 @@ class OvcAssessmentServiceChildView extends StatelessWidget {
           ? Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => OvcServiceWellBeingAssessment()))
+                  builder: (context) => OvcServiceWellBeingAssessmentForm()))
           : assessmentResponse == "TB"
               ? Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => OvcServiceTBAssessment()))
+                      builder: (context) => OvcServiceTBAssessmentForm()))
               : assessmentResponse == "HIV"
                   ? Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => OvcServiceHIVAssessment()))
+                          builder: (context) => OvcServiceHIVAssessmentForm()))
                   : print(assessmentResponse);
     }
   }
