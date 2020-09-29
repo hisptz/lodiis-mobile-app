@@ -13,14 +13,14 @@ import 'package:kb_mobile_app/core/components/line_seperator.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 
 class InputFieldContainer extends StatelessWidget {
-  const InputFieldContainer(
-      {Key key,
-      @required this.inputField,
-      this.onInputValueChange,
-      this.dataObject,
-      this.mandatoryFieldObject,
-      this.isEditableMode,})
-      : super(key: key);
+  const InputFieldContainer({
+    Key key,
+    @required this.inputField,
+    this.onInputValueChange,
+    this.dataObject,
+    this.mandatoryFieldObject,
+    this.isEditableMode,
+  }) : super(key: key);
 
   final InputField inputField;
   final bool isEditableMode;
@@ -83,7 +83,8 @@ class InputFieldContainer extends StatelessWidget {
                   ),
                 )),
             Visibility(
-                visible: inputField.hasSubInputField,
+                visible: inputField.hasSubInputField &&
+                    inputField.subInputField != null,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -93,21 +94,25 @@ class InputFieldContainer extends StatelessWidget {
                               ? _getInputField(inputField)
                               : _getInputFieldLabel(inputField)),
                     ),
-                    Expanded(
-                        child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Container(
-                          child: Text(inputField.subInputField != null
-                              ? inputField.subInputField.name
-                              : ''),
-                        ),
-                        Container(
+                    Visibility(
+                      visible: inputField.subInputField != null,
+                      child: Expanded(
+                          child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Container(
+                            child: Text(inputField.subInputField != null
+                                ? inputField.subInputField.name
+                                : ''),
+                          ),
+                          Container(
                             child: isEditableMode
-                                ? _getInputField(inputField)
-                                : _getInputFieldLabel(inputField)),
-                      ],
-                    )),
+                                ? _getInputField(inputField.subInputField)
+                                : _getInputFieldLabel(inputField.subInputField),
+                          ),
+                        ],
+                      )),
+                    ),
                   ],
                 )),
             Visibility(
@@ -129,9 +134,15 @@ class InputFieldContainer extends StatelessWidget {
   Widget _getInputFieldLabel(InputField inputField) {
     dynamic value =
         inputField != null && '${dataObject[inputField.id]}' != 'null'
-            ? dataObject[inputField.id]
-            : '';
-    // @TODO replace appropriate values based on input type
+            ? '${dataObject[inputField.id]}'
+            : '   ';
+    if (inputField != null) {
+      if (inputField.valueType == "BOOLEAN") {
+        value = value == 'true' ? 'Yes' : value == 'false' ? 'No' : value;
+      } else if (inputField.valueType == 'TRUE_ONLY') {
+        value = value == 'true' ? 'Yes' : value;
+      }
+    }
     return Row(
       children: [
         Container(
@@ -139,7 +150,9 @@ class InputFieldContainer extends StatelessWidget {
           child: Text(
             value.toString(),
             style: TextStyle().copyWith(
-              color: inputField.inputColor,
+              color: inputField != null && inputField.inputColor != null
+                  ? inputField.inputColor
+                  : null,
               fontWeight: FontWeight.w500,
               fontSize: 12.0,
             ),
