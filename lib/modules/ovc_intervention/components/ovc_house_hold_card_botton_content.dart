@@ -38,16 +38,25 @@ class OvcHouseHoldCardBottonContent extends StatelessWidget {
   void updateEnrollmentFormStateData(
     BuildContext context,
     OvcHouseHoldChild child,
+    bool isEditableMode,
   ) {
     TrackeEntityInstance teiData = child.teiData;
-    //@todo add other necessary info for edit
-
-    // Provider.of<ServiceFormState>(context, listen: false)
-    //     .setFormFieldState('eventDate', eventData.eventDate);
-    // Provider.of<ServiceFormState>(context, listen: false)
-    //     .setFormFieldState('eventId', eventData.event);
+    // Set hidden fields for editin
     Provider.of<EnrollmentFormState>(context, listen: false)
-        .updateFormEditabilityState(isEditableMode: false);
+        .setFormFieldState('parentTrackedEntityInstance', ovcHouseHold.id);
+    Provider.of<EnrollmentFormState>(context, listen: false)
+        .setFormFieldState('orgUnit', child.orgUnit);
+    Provider.of<EnrollmentFormState>(context, listen: false)
+        .setFormFieldState('enrollment', child.enrollment);
+    Provider.of<EnrollmentFormState>(context, listen: false)
+        .setFormFieldState('enrollmentDate', child.createdDate);
+    Provider.of<EnrollmentFormState>(context, listen: false)
+        .setFormFieldState('incidentDate', child.createdDate);
+    Provider.of<EnrollmentFormState>(context, listen: false)
+        .setFormFieldState('trackedEntityInstance', child.id);
+
+    Provider.of<EnrollmentFormState>(context, listen: false)
+        .updateFormEditabilityState(isEditableMode: isEditableMode);
     for (Map attributeObj in teiData.attributes) {
       if (attributeObj['value'] != '' && '${attributeObj['value']}' != 'null') {
         Provider.of<EnrollmentFormState>(context, listen: false)
@@ -71,12 +80,17 @@ class OvcHouseHoldCardBottonContent extends StatelessWidget {
 
   void onEditChildInfo(BuildContext context, OvcHouseHoldChild child) {
     setOvcHouseHoldCurrentSelection(context, child);
-    print('onEditChildInfo ${child.toString()}');
+    updateEnrollmentFormStateData(context, child, true);
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => OvcEnrollmentChildEditViewForm(),
+        ));
   }
 
   void onViewChildInfo(BuildContext context, OvcHouseHoldChild child) {
     setOvcHouseHoldCurrentSelection(context, child);
-    updateEnrollmentFormStateData(context, child);
+    updateEnrollmentFormStateData(context, child, false);
     Navigator.push(
         context,
         MaterialPageRoute(
@@ -88,7 +102,16 @@ class OvcHouseHoldCardBottonContent extends StatelessWidget {
     BuildContext context,
   ) {
     setOvcHouseHoldCurrentSelection(context, null);
-    print('onAddNewChild ');
+    Provider.of<EnrollmentFormState>(context, listen: false).resetFormState();
+    Provider.of<EnrollmentFormState>(context, listen: false)
+        .setFormFieldState('parentTrackedEntityInstance', ovcHouseHold.id);
+    Provider.of<EnrollmentFormState>(context, listen: false)
+        .setFormFieldState('orgUnit', ovcHouseHold.orgUnit);
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => OvcEnrollmentChildEditViewForm(),
+        ));
   }
 
   void onViewChildService(BuildContext context, OvcHouseHoldChild child) {

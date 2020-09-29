@@ -28,7 +28,7 @@ class _OvcEnrollmentChildEditViewFormState
   List<FormSection> formSections;
   final String label = 'Child form';
 
-  bool isSaving = true;
+  bool isSaving = false;
   bool isFormReady = false;
 
   List<String> mandatoryFields;
@@ -68,6 +68,16 @@ class _OvcEnrollmentChildEditViewFormState
   }
 
   void onSaveForm(BuildContext context, Map dataObject) async {
+// String parentTrackedEntityInstance,
+//     String orgUnit,
+//     List<Map> childrenObjects,
+//     String enrollment,
+//     String enrollmentDate,
+//     String incidentDate,
+    List<Map> childrenObjects = [];
+    childrenObjects.add(dataObject);
+    print(dataObject);
+
     // bool hadAllMandatoryFilled =
     //     AppUtil.hasAllMandarotyFieldsFilled(mandatoryFields, childMapObject);
     // if (hadAllMandatoryFilled) {
