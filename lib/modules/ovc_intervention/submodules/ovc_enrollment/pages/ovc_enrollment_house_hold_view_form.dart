@@ -26,7 +26,7 @@ class _OvcEnrollmentHouseHoldViewFormState
   List<FormSection> formSections;
   List<FormSection> enrollmentFormSections;
   List<FormSection> consentFormSections;
-  final String label = 'House Hold form';
+  final String label = 'Household Enrolment Form';
 
   bool isFormReady = false;
 

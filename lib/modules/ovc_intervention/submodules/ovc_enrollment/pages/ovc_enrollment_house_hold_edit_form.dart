@@ -32,12 +32,10 @@ class _OvcEnrollmentHouseHoldEditFormState
     extends State<OvcEnrollmentHouseHoldEditForm> {
   List<FormSection> formSections;
   List<FormSection> enrollmentFormSections;
-  final String label = 'House Hold form';
+  final String label = 'Household Enrolment Form';
   final Map mandatoryFieldObject = Map();
-
   final List<String> mandatoryFields =
       OvcEnrollmentBasicInfo.getMandatoryField();
-
   bool isFormReady = false;
   bool isSaving = false;
 

@@ -26,7 +26,7 @@ class OvcEnrollmentChildForm extends StatefulWidget {
 
 class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
   final List<FormSection> formSections = OvcEnrollmentChild.getFormSections();
-  final String label = 'Child form';
+  final String label = 'Child enrolment form';
   final List<Map> childMapObjects = [];
   bool isLoading = true;
   Map childMapObject;

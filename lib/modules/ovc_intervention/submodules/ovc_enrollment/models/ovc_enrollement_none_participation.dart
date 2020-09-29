@@ -73,7 +73,7 @@ class OvcEnrollmentNoneParticipation {
                 inputColor: Color(0xFF4B9F46),
                 labelColor: Color(0xFF737373),
                 name:
-                    'Reason why the participant can not be part of the programm',
+                    'Reason why the participant can not be part of the programme',
                 valueType: 'LONG_TEXT')
           ])
     ];

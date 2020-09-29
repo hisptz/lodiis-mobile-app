@@ -3,6 +3,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar_container.dart';
+import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
@@ -25,11 +26,12 @@ class OvcEnrollmentConsetForm extends StatefulWidget {
 }
 
 class _OvcEnrollmentConsetFormState extends State<OvcEnrollmentConsetForm> {
-  final List<FormSection> formSections = OvcEnrollmentConsent.getFormSections();
+  List<FormSection> formSections;
   final String label = 'Consent Form';
   final List<String> consentFields = OvcEnrollmentConstant.getConsentFields();
   final List<String> mandatoryFields = OvcEnrollmentConsent.getMandatoryField();
   final Map mandatoryFieldObject = Map();
+  bool isFormReady = false;
 
   @override
   void initState() {
@@ -38,6 +40,8 @@ class _OvcEnrollmentConsetFormState extends State<OvcEnrollmentConsetForm> {
       for (String id in mandatoryFields) {
         mandatoryFieldObject[id] = true;
       }
+      formSections = OvcEnrollmentConsent.getFormSections();
+      isFormReady = true;
     });
   }
 
@@ -97,27 +101,44 @@ class _OvcEnrollmentConsetFormState extends State<OvcEnrollmentConsetForm> {
               body: Container(
                   margin:
                       EdgeInsets.symmetric(vertical: 16.0, horizontal: 13.0),
-                  child: Consumer<EnrollmentFormState>(
-                      builder: (context, enrollmentFormState, child) => Column(
-                            children: [
-                              Container(
-                                child: EntryFormContainer(
-                                  formSections: formSections,
-                                  mandatoryFieldObject: mandatoryFieldObject,
-                                  dataObject: enrollmentFormState.formState,
-                                  onInputValueChange: onInputValueChange,
-                                ),
+                  child: !isFormReady
+                      ? Column(
+                          children: [
+                            Center(
+                              child: CircularProcessLoader(
+                                color: Colors.blueGrey,
                               ),
-                              OvcEnrollmentFormSaveButton(
-                                label: 'Save and Continue',
-                                labelColor: Colors.white,
-                                buttonColor: Color(0xFF4B9F46),
-                                fontSize: 15.0,
-                                onPressButton: () => onSaveAndContinue(
-                                    context, enrollmentFormState.formState),
-                              )
-                            ],
-                          ))),
+                            )
+                          ],
+                        )
+                      : Container(
+                          child: Consumer<EnrollmentFormState>(
+                              builder: (context, enrollmentFormState, child) =>
+                                  Column(
+                                    children: [
+                                      Container(
+                                        child: EntryFormContainer(
+                                          formSections: formSections,
+                                          mandatoryFieldObject:
+                                              mandatoryFieldObject,
+                                          dataObject:
+                                              enrollmentFormState.formState,
+                                          onInputValueChange:
+                                              onInputValueChange,
+                                        ),
+                                      ),
+                                      OvcEnrollmentFormSaveButton(
+                                        label: 'Save and Continue',
+                                        labelColor: Colors.white,
+                                        buttonColor: Color(0xFF4B9F46),
+                                        fontSize: 15.0,
+                                        onPressButton: () => onSaveAndContinue(
+                                            context,
+                                            enrollmentFormState.formState),
+                                      )
+                                    ],
+                                  )),
+                        )),
             ),
             bottomNavigationBar: InterventionBottomNavigationBarContainer()));
   }
