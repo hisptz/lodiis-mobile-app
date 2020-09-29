@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
 import 'package:kb_mobile_app/core/components/material_card.dart';
 import 'package:kb_mobile_app/models/ovc_house_hold.dart';
+import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold_card_header.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/household_services_adult_wellbeing.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/pages/household_services_adult_wellbeing_form.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/pages/ovc_enrollment_house_hold_view_form.dart';
+import 'package:provider/provider.dart';
 
 class OvcHouseHoldCard extends StatelessWidget {
   OvcHouseHoldCard({
@@ -29,16 +31,39 @@ class OvcHouseHoldCard extends StatelessWidget {
   final bool isExpanded;
 
   final VoidCallback onCardToogle;
-
   final String svgIcon = 'assets/icons/hh_icon.svg';
+
+  void updateEnrollmentFormStateData(
+    BuildContext context,
+  ) {
+    TrackeEntityInstance teiData = ovcHouseHold.teiData;
+    //@todo add other necessary info for edit
+
+    // Provider.of<ServiceFormState>(context, listen: false)
+    //     .setFormFieldState('eventDate', eventData.eventDate);
+    // Provider.of<ServiceFormState>(context, listen: false)
+    //     .setFormFieldState('eventId', eventData.event);
+    Provider.of<EnrollmentFormState>(context, listen: false)
+        .updateFormEditabilityState(isEditableMode: false);
+    Provider.of<EnrollmentFormState>(context, listen: false)
+        .setFormFieldState('location', ovcHouseHold.location);
+    for (Map attributeObj in teiData.attributes) {
+      if (attributeObj['value'] != '' && '${attributeObj['value']}' != 'null') {
+        Provider.of<EnrollmentFormState>(context, listen: false)
+            .setFormFieldState(
+                attributeObj['attribute'], attributeObj['value']);
+      }
+    }
+  }
 
   void onEdit() {}
 
   void onView(BuildContext context) {
+    updateEnrollmentFormStateData(context);
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => HouseholdServicesAdultWellbeingForm()));
+            builder: (context) => OvcEnrollmentHouseHoldViewForm()));
   }
 
   @override

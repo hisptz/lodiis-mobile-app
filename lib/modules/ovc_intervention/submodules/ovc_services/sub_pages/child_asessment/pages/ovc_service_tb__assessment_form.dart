@@ -142,15 +142,18 @@ class _OvcServiceTBAssessmentFormState
                                     onInputValueChange: onInputValueChange,
                                   ),
                                 ),
-                                OvcEnrollmentFormSaveButton(
-                                  label: isSaving ? 'Saving ...' : 'Save',
-                                  labelColor: Colors.white,
-                                  buttonColor: Color(0xFF4B9F46),
-                                  fontSize: 15.0,
-                                  onPressButton: () => onSaveForm(
-                                      context,
-                                      serviceFormState.formState,
-                                      currentOvcHouseHoldChild),
+                                Visibility(
+                                  visible: serviceFormState.isEditableMode,
+                                  child: OvcEnrollmentFormSaveButton(
+                                    label: isSaving ? 'Saving ...' : 'Save',
+                                    labelColor: Colors.white,
+                                    buttonColor: Color(0xFF4B9F46),
+                                    fontSize: 15.0,
+                                    onPressButton: () => onSaveForm(
+                                        context,
+                                        serviceFormState.formState,
+                                        currentOvcHouseHoldChild),
+                                  ),
                                 )
                               ],
                             ),

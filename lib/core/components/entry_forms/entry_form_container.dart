@@ -113,6 +113,7 @@ class EntryFormContainer extends StatelessWidget {
                       EntrySubFormContainer(
                         subSections: formSection.subSections,
                         dataObject: dataObject,
+                        isEditableMode: isEditableMode,
                         mandatoryFieldObject: mandatoryFieldObject,
                         onInputValueChange: onInputValueChange,
                       )

@@ -2,11 +2,14 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_house_hold_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/core/components/line_seperator.dart';
 import 'package:kb_mobile_app/models/ovc_house_hold.dart';
 import 'package:kb_mobile_app/models/ovc_house_hold_child.dart';
+import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/pages/ovc_enrollment_child_edit_view_form.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/sub_pages/ovc_child_service_home.dart';
 import 'package:provider/provider.dart';
 
@@ -32,6 +35,28 @@ class OvcHouseHoldCardBottonContent extends StatelessWidget {
   final bool canViewChildExit;
   final bool canAddChildExit;
 
+  void updateEnrollmentFormStateData(
+    BuildContext context,
+    OvcHouseHoldChild child,
+  ) {
+    TrackeEntityInstance teiData = child.teiData;
+    //@todo add other necessary info for edit
+
+    // Provider.of<ServiceFormState>(context, listen: false)
+    //     .setFormFieldState('eventDate', eventData.eventDate);
+    // Provider.of<ServiceFormState>(context, listen: false)
+    //     .setFormFieldState('eventId', eventData.event);
+    Provider.of<EnrollmentFormState>(context, listen: false)
+        .updateFormEditabilityState(isEditableMode: false);
+    for (Map attributeObj in teiData.attributes) {
+      if (attributeObj['value'] != '' && '${attributeObj['value']}' != 'null') {
+        Provider.of<EnrollmentFormState>(context, listen: false)
+            .setFormFieldState(
+                attributeObj['attribute'], attributeObj['value']);
+      }
+    }
+  }
+
   void setOvcHouseHoldCurrentSelection(
       BuildContext context, OvcHouseHoldChild child) {
     Provider.of<OvcHouseHoldCurrentSelectionState>(context, listen: false)
@@ -51,7 +76,12 @@ class OvcHouseHoldCardBottonContent extends StatelessWidget {
 
   void onViewChildInfo(BuildContext context, OvcHouseHoldChild child) {
     setOvcHouseHoldCurrentSelection(context, child);
-    print('onViewChildInfo ${child.toString()}');
+    updateEnrollmentFormStateData(context, child);
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => OvcEnrollmentChildEditViewForm(),
+        ));
   }
 
   void onAddNewChild(

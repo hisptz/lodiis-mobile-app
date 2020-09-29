@@ -16,7 +16,7 @@ class OvcRecordsPage extends StatefulWidget {
 
 class _OvcRecordsPageState extends State<OvcRecordsPage> {
   final bool canEdit = false;
-  final bool canView = false;
+  final bool canView = true;
   final bool canExpand = true;
   final bool canAddChild = false;
   final bool canViewChildInfo = true;

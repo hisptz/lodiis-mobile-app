@@ -16,10 +16,10 @@ class InputFieldContainer extends StatelessWidget {
   const InputFieldContainer(
       {Key key,
       @required this.inputField,
-      @required this.isEditableMode,
       this.onInputValueChange,
       this.dataObject,
-      this.mandatoryFieldObject})
+      this.mandatoryFieldObject,
+      this.isEditableMode,})
       : super(key: key);
 
   final InputField inputField;
@@ -127,7 +127,10 @@ class InputFieldContainer extends StatelessWidget {
   }
 
   Widget _getInputFieldLabel(InputField inputField) {
-    dynamic value = dataObject[inputField.id] ?? '';
+    dynamic value =
+        inputField != null && '${dataObject[inputField.id]}' != 'null'
+            ? dataObject[inputField.id]
+            : '';
     // @TODO replace appropriate values based on input type
     return Row(
       children: [
