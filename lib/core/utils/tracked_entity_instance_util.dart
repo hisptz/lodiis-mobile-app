@@ -15,7 +15,9 @@ class TrackedEntityInstanceUtil {
     String trackedEntityInstance,
     String eventId,
   ) async {
-    List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections);
+    List<String> inputFieldIds = FormUtil.getFormFieldIds(
+      formSections,
+    );
     eventId =
         eventId == null ? dataObject['eventId'] ?? AppUtil.getUid() : eventId;
     Events eventData = FormUtil.getEventPayload(eventId, program, programStage,
