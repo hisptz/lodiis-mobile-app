@@ -4,6 +4,7 @@ import 'package:kb_mobile_app/core/components/material_card.dart';
 import 'package:kb_mobile_app/models/ovc_house_hold.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold_card_header.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/pages/ovc_enrollment_house_hold_edit_form.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/pages/ovc_enrollment_house_hold_view_form.dart';
 import 'package:provider/provider.dart';
 
@@ -35,18 +36,30 @@ class OvcHouseHoldCard extends StatelessWidget {
 
   void updateEnrollmentFormStateData(
     BuildContext context,
+    bool isEditableMode,
   ) {
     TrackeEntityInstance teiData = ovcHouseHold.teiData;
+    Provider.of<EnrollmentFormState>(context, listen: false).resetFormState();
     //@todo add other necessary info for edit
-
-    // Provider.of<ServiceFormState>(context, listen: false)
-    //     .setFormFieldState('eventDate', eventData.eventDate);
-    // Provider.of<ServiceFormState>(context, listen: false)
-    //     .setFormFieldState('eventId', eventData.event);
     Provider.of<EnrollmentFormState>(context, listen: false)
-        .updateFormEditabilityState(isEditableMode: false);
+        .updateFormEditabilityState(isEditableMode: isEditableMode);
+    Provider.of<EnrollmentFormState>(context, listen: false).setFormFieldState(
+        'location',
+        isEditableMode ? ovcHouseHold.orgUnit : ovcHouseHold.location);
     Provider.of<EnrollmentFormState>(context, listen: false)
-        .setFormFieldState('location', ovcHouseHold.location);
+        .setFormFieldState('trackedEntityInstance', ovcHouseHold.id);
+    Provider.of<EnrollmentFormState>(context, listen: false)
+        .setFormFieldState('orgUnit', ovcHouseHold.orgUnit);
+    Provider.of<EnrollmentFormState>(context, listen: false)
+        .setFormFieldState('enrollment', ovcHouseHold.enrollment);
+    Provider.of<EnrollmentFormState>(context, listen: false)
+        .setFormFieldState('enrollmentDate', ovcHouseHold.createdDate);
+    Provider.of<EnrollmentFormState>(context, listen: false)
+        .setFormFieldState('incidentDate', ovcHouseHold.createdDate);
+    Provider.of<EnrollmentFormState>(context, listen: false)
+        .setFormFieldState('yk0OH9p09C1', ovcHouseHold.houseHoldId);
+    Provider.of<EnrollmentFormState>(context, listen: false)
+        .setFormFieldState('PN92g65TkVI', ovcHouseHold.houseHoldStatus);
     for (Map attributeObj in teiData.attributes) {
       if (attributeObj['value'] != '' && '${attributeObj['value']}' != 'null') {
         Provider.of<EnrollmentFormState>(context, listen: false)
@@ -56,10 +69,16 @@ class OvcHouseHoldCard extends StatelessWidget {
     }
   }
 
-  void onEdit() {}
+  void onEditHouseHold(BuildContext context) {
+    updateEnrollmentFormStateData(context, true);
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => OvcEnrollmentHouseHoldEditForm()));
+  }
 
-  void onView(BuildContext context) {
-    updateEnrollmentFormStateData(context);
+  void onViewHouseHold(BuildContext context) {
+    updateEnrollmentFormStateData(context, false);
     Navigator.push(
         context,
         MaterialPageRoute(
@@ -84,8 +103,8 @@ class OvcHouseHoldCard extends StatelessWidget {
                   canView: canView,
                   isExpanded: isExpanded,
                   onToggleCard: onCardToogle,
-                  onEdit: onEdit,
-                  onView: () => onView(context),
+                  onEdit: () => onEditHouseHold(context),
+                  onView: () => onViewHouseHold(context),
                 )),
                 cardBody,
                 cardBottonActions,

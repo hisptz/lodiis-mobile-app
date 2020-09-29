@@ -43,6 +43,6 @@ class InputField {
 
   @override
   String toString() {
-    return '$id - $name';
+    return '$id - $name - $isReadObly';
   }
 }

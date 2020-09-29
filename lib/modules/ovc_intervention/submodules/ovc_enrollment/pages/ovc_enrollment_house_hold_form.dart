@@ -1,9 +1,12 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_intervention_list_state.dart';
 import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar_container.dart';
+import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
@@ -26,16 +29,15 @@ class OvcEnrollmentHouseHoldForm extends StatefulWidget {
 
 class _OvcEnrollmentHouseHoldFormState
     extends State<OvcEnrollmentHouseHoldForm> {
-  final List<FormSection> formSections =
-      OvcEnrollmentHouseHold.getFormSections();
-  final String label = 'House Hold form';
-
+  List<FormSection> formSections;
+  final String label = 'Household Enrolment Form';
   final List<String> mandatoryFields =
       OvcEnrollmentHouseHold.getMandatoryField();
   final Map mandatoryFieldObject = Map();
   final String trackedEntityInstance = AppUtil.getUid();
 
   bool isSaving = false;
+  bool isFormReady = false;
 
   @override
   void initState() {
@@ -44,6 +46,8 @@ class _OvcEnrollmentHouseHoldFormState
       for (String id in mandatoryFields) {
         mandatoryFieldObject[id] = true;
       }
+      formSections = OvcEnrollmentHouseHold.getFormSections();
+      isFormReady = true;
     });
   }
 
@@ -67,15 +71,17 @@ class _OvcEnrollmentHouseHoldFormState
           trackedEntityInstance, orgUnit, childrenObjects, null, null, null);
       Provider.of<OvcInterventionListState>(context, listen: false)
           .refreshOvcList();
-      if (Navigator.canPop(context)) {
-        setState(() {
-          isSaving = false;
-        });
-        AppUtil.showToastMessage(
-            message: 'Form has been saved successfully',
-            position: ToastGravity.TOP);
-        Navigator.popUntil(context, (route) => route.isFirst);
-      }
+      Timer(Duration(seconds: 1), () {
+        if (Navigator.canPop(context)) {
+          setState(() {
+            isSaving = false;
+          });
+          AppUtil.showToastMessage(
+              message: 'Form has been saved successfully',
+              position: ToastGravity.TOP);
+          Navigator.popUntil(context, (route) => route.isFirst);
+        }
+      });
     } else {
       AppUtil.showToastMessage(
           message: 'Please fill all mandatory field',
@@ -118,32 +124,50 @@ class _OvcEnrollmentHouseHoldFormState
                 body: Container(
                     margin:
                         EdgeInsets.symmetric(vertical: 16.0, horizontal: 13.0),
-                    child: Consumer<EnrollmentFormState>(
-                        builder: (context, enrollmentFormState, child) =>
-                            Column(
-                              children: [
-                                Container(
-                                  child: EntryFormContainer(
-                                    formSections: formSections,
-                                    mandatoryFieldObject: mandatoryFieldObject,
-                                    dataObject: enrollmentFormState.formState,
-                                    onInputValueChange: onInputValueChange,
-                                  ),
+                    child: !isFormReady
+                        ? Column(
+                            children: [
+                              Center(
+                                child: CircularProcessLoader(
+                                  color: Colors.blueGrey,
                                 ),
-                                OvcEnrollmentFormSaveButton(
-                                  label: isSaving
-                                      ? 'Saving House Hold ...'
-                                      : 'Save House Hold',
-                                  labelColor: Colors.white,
-                                  buttonColor: Color(0xFF4B9F46),
-                                  fontSize: 15.0,
-                                  onPressButton: () => isSaving
-                                      ? null
-                                      : onSaveAndContinue(context,
-                                          enrollmentFormState.formState),
-                                )
-                              ],
-                            )))),
+                              )
+                            ],
+                          )
+                        : Container(
+                            child: Consumer<EnrollmentFormState>(
+                                builder: (context, enrollmentFormState,
+                                        child) =>
+                                    Column(
+                                      children: [
+                                        Container(
+                                          child: EntryFormContainer(
+                                            formSections: formSections,
+                                            mandatoryFieldObject:
+                                                mandatoryFieldObject,
+                                            dataObject:
+                                                enrollmentFormState.formState,
+                                            onInputValueChange:
+                                                onInputValueChange,
+                                          ),
+                                        ),
+                                        OvcEnrollmentFormSaveButton(
+                                          label: isSaving
+                                              ? 'Saving House Hold ...'
+                                              : 'Save House Hold',
+                                          labelColor: Colors.white,
+                                          buttonColor: Color(0xFF4B9F46),
+                                          fontSize: 15.0,
+                                          onPressButton: () => isSaving
+                                              ? null
+                                              : onSaveAndContinue(
+                                                  context,
+                                                  enrollmentFormState
+                                                      .formState),
+                                        )
+                                      ],
+                                    )),
+                          ))),
             bottomNavigationBar: InterventionBottomNavigationBarContainer()));
   }
 }

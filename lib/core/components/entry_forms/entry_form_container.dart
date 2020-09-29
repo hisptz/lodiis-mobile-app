@@ -99,8 +99,9 @@ class EntryFormContainer extends StatelessWidget {
                                     child: InputFieldContainer(
                                       inputField: inputField,
                                       isEditableMode: isEditableMode,
-                                      mandatoryFieldObject:
-                                          mandatoryFieldObject,
+                                      mandatoryFieldObject: isEditableMode
+                                          ? mandatoryFieldObject
+                                          : Map(),
                                       dataObject: dataObject,
                                       onInputValueChange:
                                           (String id, dynamic value) =>

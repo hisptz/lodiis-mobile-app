@@ -29,9 +29,12 @@ class OvcEnrollmentHouseHoldService {
     String enrollmentDate,
     String incidentDate,
   ) async {
-    List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections);
+    List<String> inputFieldIds = FormUtil.getFormFieldIds(
+      formSections,
+    );
     inputFieldIds.addAll(consentFields);
     inputFieldIds.addAll(hiddenFields);
+    // @TODO generation of beneficiary ids
     TrackeEntityInstance trackeEntityInstanceData =
         FormUtil.geTrackedEntityInstanceEnrollmentPayLoad(trackedEntityInstance,
             trackedEntityType, orgUnit, inputFieldIds, dataObject);
@@ -53,6 +56,7 @@ class OvcEnrollmentHouseHoldService {
         String location = ous.length > 0 ? ous[0].name : enrollment.orgUnit;
         String orgUnit = enrollment.orgUnit;
         String createdDate = enrollment.enrollmentDate;
+        String enrollmentId = enrollment.enrollment;
         //loading households
         List<TrackeEntityInstance> houseHolds =
             await TrackedEntityInstanceOfflineProvider()
@@ -70,14 +74,58 @@ class OvcEnrollmentHouseHoldService {
                   .getTrackedEntityInstance(childTeiIds);
           //assign household data
           List<OvcHouseHoldChild> houseHoldChildren = houseHoldChildrenTeiData
-              .map((TrackeEntityInstance child) =>
-                  OvcHouseHoldChild().fromTeiModel(child, orgUnit))
+              .map((TrackeEntityInstance child) => OvcHouseHoldChild()
+                  .fromTeiModel(child, orgUnit, createdDate, enrollmentId))
               .toList();
-          ovchouseHoldList.add(OvcHouseHold().fromTeiModel(
-              tei, location, orgUnit, createdDate, houseHoldChildren));
+          // update ovc counts
+          try {
+            tei =
+                getUpdatedHouseHoldWithOvcCounts(tei, houseHoldChildrenTeiData);
+            FormUtil.savingTrackeEntityInstance(tei);
+          } catch (e) {}
+          ovchouseHoldList.add(OvcHouseHold().fromTeiModel(tei, location,
+              orgUnit, createdDate, enrollmentId, houseHoldChildren));
         }
       }
     } catch (e) {}
     return ovchouseHoldList;
+  }
+
+  TrackeEntityInstance getUpdatedHouseHoldWithOvcCounts(
+    TrackeEntityInstance trackeEntityInstanceData,
+    List<TrackeEntityInstance> houseHoldChildren,
+  ) {
+    int male = 0;
+    int female = 0;
+    for (var child in houseHoldChildren) {
+      for (var attributeObj in child.attributes) {
+        if (attributeObj['attribute'] == 'vIX4GTSCX4P') {
+          String sexValue = attributeObj['value'];
+          if (sexValue != null) {
+            if (sexValue == 'Male') {
+              male++;
+            } else if (sexValue == 'Female') {
+              female++;
+            }
+          }
+        }
+      }
+    }
+    List<dynamic> attributes = [];
+    for (Map attributeObj in trackeEntityInstanceData.attributes) {
+      String value = attributeObj['value'];
+      if (attributeObj['attribute'] == 'kQehaqmaygZ') {
+        value = male.toString();
+      }
+      if (attributeObj['attribute'] == 'BXUNH6LXeGA') {
+        value = female.toString();
+      }
+      Map newMap = Map();
+      newMap['attribute'] = attributeObj['attribute'];
+      newMap['value'] = value;
+      attributes.add(newMap);
+    }
+    trackeEntityInstanceData.attributes = attributes;
+    return trackeEntityInstanceData;
   }
 }

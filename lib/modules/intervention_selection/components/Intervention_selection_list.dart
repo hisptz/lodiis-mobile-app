@@ -8,14 +8,16 @@ class InterventionSelectionList extends StatefulWidget {
     @required this.interventionPrograms,
     this.onIntervetionSelection,
     @required this.numberOfDreamsBeneficiaries,
-    @required this.numberOfOvcBeneficiaries,
+    @required this.numberOfHouseHolds,
+    @required this.numberOfOvcs,
   }) : super(key: key);
 
   final List<InterventionCard> interventionPrograms;
   final Function(InterventionCard) onIntervetionSelection;
 
   final int numberOfDreamsBeneficiaries;
-  final int numberOfOvcBeneficiaries;
+  final int numberOfHouseHolds;
+  final int numberOfOvcs;
 
   @override
   _InterventionSelectionListState createState() =>
@@ -44,7 +46,8 @@ class _InterventionSelectionListState extends State<InterventionSelectionList> {
                     interventionProgramId: interventionProgramId,
                     numberOfDreamsBeneficiaries:
                         widget.numberOfDreamsBeneficiaries,
-                    numberOfOvcBeneficiaries: widget.numberOfOvcBeneficiaries,
+                    numberOfHouseHolds: widget.numberOfHouseHolds,
+                    numberOfOvcs: widget.numberOfOvcs,
                   ),
                 ))
             .toList(),

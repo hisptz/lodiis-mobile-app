@@ -12,6 +12,36 @@ import 'package:kb_mobile_app/models/tei_relationship.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
 
 class FormUtil {
+  static List<FormSection> getFormSectionWithReadOnlyStatus(
+      List<FormSection> formSections,
+      bool isReadObly,
+      List<String> skippedInputs) {
+    List<FormSection> sanitizedFormSections = [];
+    for (FormSection formSection in formSections) {
+      List<InputField> inputFields = getInputFieldsWithStatus(
+          formSection.inputFields, isReadObly, skippedInputs);
+      List<FormSection> subSection = getFormSectionWithReadOnlyStatus(
+          formSection.subSections, isReadObly, skippedInputs);
+      formSection.inputFields = inputFields;
+      formSection.subSections = subSection;
+      sanitizedFormSections.add(formSection);
+    }
+    return sanitizedFormSections;
+  }
+
+  static List<InputField> getInputFieldsWithStatus(
+    List<InputField> inputFields,
+    bool isReadObly,
+    List<String> skippedInputs,
+  ) {
+    return inputFields.map((InputField inputField) {
+      if (inputField.id != '' && skippedInputs.indexOf(inputField.id) == -1) {
+        inputField.isReadObly = isReadObly;
+      }
+      return inputField;
+    }).toList();
+  }
+
   static List<String> getFormFieldIds(List<FormSection> formSections) {
     List<String> fieldIds = [];
     for (FormSection formSection in formSections) {
@@ -37,7 +67,7 @@ class FormUtil {
     trackedEntityInstance = trackedEntityInstance ?? AppUtil.getUid();
     String attributes = inputFieldIds
         .map((String attribute) {
-          String value = dataObject.keys.toList().indexOf(attribute) > 0
+          String value = dataObject.keys.toList().indexOf(attribute) > -1
               ? '${dataObject[attribute]}'.trim()
               : '';
           return '{"attribute": "$attribute", "value": "$value"}';
@@ -95,7 +125,7 @@ class FormUtil {
         eventDate ?? AppUtil.formattedDateTimeIntoString(DateTime.now());
     String dataValues = inputFieldIds
         .map((String dataElement) {
-          String value = dataObject.keys.toList().indexOf(dataElement) > 0
+          String value = dataObject.keys.toList().indexOf(dataElement) > -1
               ? '${dataObject[dataElement]}'.trim()
               : '';
           return '{"dataElement": "$dataElement", "value": "$value"}';

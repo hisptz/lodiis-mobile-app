@@ -9,9 +9,11 @@ class OvcHouseHold {
   String location;
   String orgUnit;
   String createdDate;
+  String enrollment;
   String houseHoldId;
   String ovcMaleCount;
   String ovcFemaleCount;
+  String houseHoldStatus;
   List<OvcHouseHoldChild> children;
   TrackeEntityInstance teiData;
 
@@ -26,7 +28,9 @@ class OvcHouseHold {
     this.location,
     this.orgUnit,
     this.createdDate,
+    this.enrollment,
     this.ovcFemaleCount,
+    this.houseHoldStatus,
     this.teiData,
   });
 
@@ -35,6 +39,7 @@ class OvcHouseHold {
     String location,
     String orgUnit,
     String createdDate,
+    String enrollment,
     List<OvcHouseHoldChild> children,
   ) {
     List keys = [
@@ -43,7 +48,8 @@ class OvcHouseHold {
       'rSP9c21JsfC',
       'kQehaqmaygZ',
       'BXUNH6LXeGA',
-      'yk0OH9p09C1'
+      'yk0OH9p09C1',
+      'PN92g65TkVI'
     ];
     Map data = Map();
     for (Map attributOj in tei.attributes) {
@@ -60,9 +66,11 @@ class OvcHouseHold {
         location: location,
         orgUnit: orgUnit,
         createdDate: createdDate,
+        enrollment: enrollment,
         ovcMaleCount: data['kQehaqmaygZ'] ?? '',
         ovcFemaleCount: data['BXUNH6LXeGA'] ?? '',
         houseHoldId: data['yk0OH9p09C1'] ?? '',
+        houseHoldStatus: data['PN92g65TkVI'] ?? '',
         children: children,
         teiData: tei);
   }

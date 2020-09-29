@@ -11,7 +11,8 @@ class AppUtil {
     bool hasFilled = true;
     List fieldIds = dataObject.keys.toList();
     for (var mandatoryField in mandatoryFields) {
-      if (fieldIds.indexOf(mandatoryField) == -1) {
+      if (fieldIds.indexOf(mandatoryField) == -1 &&
+          '${dataObject[mandatoryField]}'.trim() != '') {
         hasFilled = false;
       }
     }
