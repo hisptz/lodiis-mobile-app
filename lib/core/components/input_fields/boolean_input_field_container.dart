@@ -13,7 +13,7 @@ class BooleanInputFieldContainer extends StatefulWidget {
 
   final InputField inputField;
   final Function onInputValueChange;
-  final bool inputValue;
+  final dynamic inputValue;
 
   @override
   _BooleanInputFieldContainerState createState() =>
@@ -26,6 +26,20 @@ class _BooleanInputFieldContainerState
     InputFieldOption(name: 'Yes', code: true),
     InputFieldOption(name: 'No', code: false),
   ];
+  bool _inputValue;
+
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      _inputValue =
+          widget.inputValue != null && '${widget.inputValue}' == 'true'
+              ? true
+              : widget.inputValue != null && '${widget.inputValue}' == 'false'
+                  ? false
+                  : null;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +47,7 @@ class _BooleanInputFieldContainerState
       options: options,
       isReadOnly: widget.inputField.isReadObly,
       activeColor: widget.inputField.inputColor,
-      currentValue: widget.inputValue,
+      currentValue: _inputValue,
       onInputValueChange: widget.onInputValueChange,
     );
   }
