@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 class DreamsInterventionListState with ChangeNotifier {
   // intial state
   List _dreamsInterventionList;
-  bool _isLoading = true;
+  bool _isLoading = false;
   int _numberOfDreamsBeneficiaries = 0;
 
   //selectors

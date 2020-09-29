@@ -6,20 +6,26 @@ class OvcInterventionListState with ChangeNotifier {
   // intial state
   List<OvcHouseHold> _ovcInterventionList;
   bool _isLoading = true;
-  int _numberOfOvcBeneficiaries = 0;
+  int _numberOfHouseHolds = 0;
+  int _numberOfOvcs = 0;
 
   //selectors
   List<OvcHouseHold> get ovcInterventionList => _ovcInterventionList ?? [];
   bool get isLoading => _isLoading != null ? _isLoading : false;
-  int get numberOfOvcBeneficiaries => _numberOfOvcBeneficiaries;
+  int get numberOfHouseHolds => _numberOfHouseHolds;
+  int get numberOfOvcs => _numberOfOvcs;
 
   // reducers
   void updateNumerOfOvcBeneficiaries() {
-    _numberOfOvcBeneficiaries = _ovcInterventionList.length;
-    for (OvcHouseHold houseHold in _ovcInterventionList) {
-      _numberOfOvcBeneficiaries += houseHold.children.length;
-    }
+    _numberOfOvcs = 0;
+    _numberOfHouseHolds = 0;
+    _numberOfHouseHolds = _ovcInterventionList.length;
     _isLoading = false;
+    notifyListeners();
+    for (OvcHouseHold houseHold in _ovcInterventionList) {
+      _numberOfOvcs += houseHold.children.length;
+    }
+
     notifyListeners();
   }
 
