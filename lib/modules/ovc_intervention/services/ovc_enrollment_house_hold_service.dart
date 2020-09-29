@@ -29,7 +29,9 @@ class OvcEnrollmentHouseHoldService {
     String enrollmentDate,
     String incidentDate,
   ) async {
-    List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections);
+    List<String> inputFieldIds = FormUtil.getFormFieldIds(
+      formSections,
+    );
     inputFieldIds.addAll(consentFields);
     inputFieldIds.addAll(hiddenFields);
     // @TODO generation of beneficiary ids

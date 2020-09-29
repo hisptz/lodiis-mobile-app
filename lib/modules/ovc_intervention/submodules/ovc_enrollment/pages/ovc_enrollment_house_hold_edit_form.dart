@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
@@ -10,43 +11,73 @@ import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.d
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
+import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/services/ovc_enrollment_child_services.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/models/ovc_enrollment_child.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/services/ovc_enrollment_house_hold_service.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/models/ovc_enrollement_basic_info.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/models/ovc_enrollment_house_hold.dart';
 import 'package:provider/provider.dart';
 
-class OvcEnrollmentChildEditViewForm extends StatefulWidget {
-  const OvcEnrollmentChildEditViewForm({Key key}) : super(key: key);
+class OvcEnrollmentHouseHoldEditForm extends StatefulWidget {
+  const OvcEnrollmentHouseHoldEditForm({Key key}) : super(key: key);
 
   @override
-  _OvcEnrollmentChildEditViewFormState createState() =>
-      _OvcEnrollmentChildEditViewFormState();
+  _OvcEnrollmentHouseHoldEditFormState createState() =>
+      _OvcEnrollmentHouseHoldEditFormState();
 }
 
-class _OvcEnrollmentChildEditViewFormState
-    extends State<OvcEnrollmentChildEditViewForm> {
+class _OvcEnrollmentHouseHoldEditFormState
+    extends State<OvcEnrollmentHouseHoldEditForm> {
   List<FormSection> formSections;
-  final String label = 'Child form';
-
-  bool isSaving = false;
-  bool isFormReady = false;
-
-  List<String> mandatoryFields;
+  List<FormSection> enrollmentFormSections;
+  final String label = 'House Hold form';
   final Map mandatoryFieldObject = Map();
+
+  final List<String> mandatoryFields =
+      OvcEnrollmentBasicInfo.getMandatoryField();
+
+  bool isFormReady = false;
+  bool isSaving = false;
 
   @override
   void initState() {
     super.initState();
-    formSections = OvcEnrollmentChild.getFormSections();
-    mandatoryFields = OvcEnrollmentChild.getMandatoryField();
     setState(() {
       for (String id in mandatoryFields) {
         mandatoryFieldObject[id] = true;
       }
+      enrollmentFormSections = OvcEnrollmentHouseHold.getFormSections();
+      // take section of enrollments
+      List<String> skippedInputs = [
+        'location',
+        'kQehaqmaygZ',
+        'BXUNH6LXeGA',
+        'ls9hlz2tyol'
+      ];
+      formSections = [enrollmentFormSections[0]];
+      formSections = FormUtil.getFormSectionWithReadOnlyStatus(
+        formSections,
+        false,
+        skippedInputs,
+      );
       isFormReady = true;
     });
+  }
+
+  void autoFillInputFields(String id, dynamic value) {
+    if (id == 'qZP982qpSPS') {
+      int age = AppUtil.getAgeInYear(value);
+      Provider.of<EnrollmentFormState>(context, listen: false)
+          .setFormFieldState('ls9hlz2tyol', age.toString());
+    }
+  }
+
+  void onInputValueChange(String id, dynamic value) {
+    Provider.of<EnrollmentFormState>(context, listen: false)
+        .setFormFieldState(id, value);
+    autoFillInputFields(id, value);
   }
 
   void onSaveForm(BuildContext context, Map dataObject) async {
@@ -56,22 +87,18 @@ class _OvcEnrollmentChildEditViewFormState
       setState(() {
         isSaving = true;
       });
-      List<Map> childrenObjects = [];
-      childrenObjects.add(dataObject);
-      String parentTrackedEntityInstance =
-          dataObject['parentTrackedEntityInstance'];
+      String trackedEntityInstance = dataObject['trackedEntityInstance'];
       String orgUnit = dataObject['orgUnit'];
       String enrollment = dataObject['enrollment'];
       String enrollmentDate = dataObject['enrollmentDate'];
       String incidentDate = dataObject['incidentDate'];
-      await OvcEnrollmentChildService().savingChildrenEnrollmentForms(
-        parentTrackedEntityInstance,
-        orgUnit,
-        childrenObjects,
-        enrollment,
-        enrollmentDate,
-        incidentDate,
-      );
+      await OvcEnrollmentHouseHoldService().savingHouseHoldform(
+          dataObject,
+          trackedEntityInstance,
+          orgUnit,
+          enrollment,
+          enrollmentDate,
+          incidentDate);
       Provider.of<OvcInterventionListState>(context, listen: false)
           .refreshOvcList();
       Timer(Duration(seconds: 1), () {
@@ -90,20 +117,13 @@ class _OvcEnrollmentChildEditViewFormState
           message: 'Please fill all mandatory field',
           position: ToastGravity.TOP);
     }
-  }
 
-  void autoFillInputFields(String id, dynamic value) {
-    if (id == 'qZP982qpSPS') {
-      int age = AppUtil.getAgeInYear(value);
-      Provider.of<EnrollmentFormState>(context, listen: false)
-          .setFormFieldState('ls9hlz2tyol', age.toString());
-    }
-  }
-
-  void onInputValueChange(String id, dynamic value) {
-    Provider.of<EnrollmentFormState>(context, listen: false)
-        .setFormFieldState(id, value);
-    autoFillInputFields(id, value);
+    // Map dataObject,
+    //   String trackedEntityInstance,
+    //   String orgUnit,
+    //   String enrollment,
+    //   String enrollmentDate,
+    //   String incidentDate,
   }
 
   @override
@@ -126,20 +146,21 @@ class _OvcEnrollmentChildEditViewFormState
             body: SubPageBody(
               body: Container(
                 margin: EdgeInsets.symmetric(vertical: 16.0, horizontal: 13.0),
-                child: !isFormReady
-                    ? Column(
-                        children: [
-                          Center(
-                            child: CircularProcessLoader(
-                              color: Colors.blueGrey,
-                            ),
-                          )
-                        ],
-                      )
-                    : Container(
-                        child: Consumer<EnrollmentFormState>(
-                          builder: (context, enrollmentFormState, child) {
-                            return Column(
+                child: Container(
+                  child: !isFormReady
+                      ? Column(
+                          children: [
+                            Center(
+                              child: CircularProcessLoader(
+                                color: Colors.blueGrey,
+                              ),
+                            )
+                          ],
+                        )
+                      : Container(
+                          child: Consumer<EnrollmentFormState>(
+                            builder: (context, enrollmentFormState, child) =>
+                                Column(
                               children: [
                                 Container(
                                   child: EntryFormContainer(
@@ -151,22 +172,23 @@ class _OvcEnrollmentChildEditViewFormState
                                     onInputValueChange: onInputValueChange,
                                   ),
                                 ),
-                                Visibility(
-                                  visible: enrollmentFormState.isEditableMode,
-                                  child: OvcEnrollmentFormSaveButton(
-                                    label: isSaving ? 'Saving ...' : 'Save',
-                                    labelColor: Colors.white,
-                                    buttonColor: Color(0xFF4B9F46),
-                                    fontSize: 15.0,
-                                    onPressButton: () => onSaveForm(
-                                        context, enrollmentFormState.formState),
-                                  ),
+                                OvcEnrollmentFormSaveButton(
+                                  label: isSaving
+                                      ? 'Saving House Hold ...'
+                                      : 'Save House Hold',
+                                  labelColor: Colors.white,
+                                  buttonColor: Color(0xFF4B9F46),
+                                  fontSize: 15.0,
+                                  onPressButton: () => isSaving
+                                      ? null
+                                      : onSaveForm(context,
+                                          enrollmentFormState.formState),
                                 )
                               ],
-                            );
-                          },
+                            ),
+                          ),
                         ),
-                      ),
+                ),
               ),
             ),
             bottomNavigationBar: InterventionBottomNavigationBarContainer()));
