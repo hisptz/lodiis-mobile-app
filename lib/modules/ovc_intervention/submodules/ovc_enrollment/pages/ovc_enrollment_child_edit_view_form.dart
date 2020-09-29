@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
+import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_intervention_list_state.dart';
 import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
@@ -12,6 +13,7 @@ import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/services/ovc_enrollment_child_services.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/models/ovc_enrollment_child.dart';
 import 'package:provider/provider.dart';
 
@@ -47,69 +49,48 @@ class _OvcEnrollmentChildEditViewFormState
     });
   }
 
-  void updateOvcCount() {
-    //@TODO update caregiver values
-    // int male = 0;
-    // int female = 0;
-    // for (Map childMapObject in childMapObjects) {
-    //   String sexValue = childMapObject['vIX4GTSCX4P'];
-    //   if (sexValue != null) {
-    //     if (sexValue == 'Male') {
-    //       male++;
-    //     } else if (sexValue == 'Female') {
-    //       female++;
-    //     }
-    //   }
-    // }
-    // Provider.of<EnrollmentFormState>(context, listen: false)
-    //     .setFormFieldState('kQehaqmaygZ', male.toString());
-    // Provider.of<EnrollmentFormState>(context, listen: false)
-    //     .setFormFieldState('BXUNH6LXeGA', female.toString());
-  }
-
   void onSaveForm(BuildContext context, Map dataObject) async {
-// String parentTrackedEntityInstance,
-//     String orgUnit,
-//     List<Map> childrenObjects,
-//     String enrollment,
-//     String enrollmentDate,
-//     String incidentDate,
-    List<Map> childrenObjects = [];
-    childrenObjects.add(dataObject);
-    print(dataObject);
-
-    // bool hadAllMandatoryFilled =
-    //     AppUtil.hasAllMandarotyFieldsFilled(mandatoryFields, childMapObject);
-    // if (hadAllMandatoryFilled) {
-    //   String name = childMapObject['s1eRvsL2Ly4'] ?? '';
-    //   Widget modal = AddChildConfirmation(name: name);
-    //   bool response = await AppUtil.showPopUpModal(context, modal);
-    //   if (response != null) {
-    //     if (response) {
-    //       setState(() {
-    //         isSaving = true;
-    //       });
-    //       Timer(Duration(milliseconds: 500),
-    //           () => resetMapObject(childMapObject));
-    //     } else {
-    //       setState(() {
-    //         childMapObjects.add(childMapObject);
-    //       });
-    //       updateOvcCount();
-    //       Provider.of<EnrollmentFormState>(context, listen: false)
-    //           .setFormFieldState('children', childMapObjects);
-    //       Navigator.push(
-    //           context,
-    //           MaterialPageRoute(
-    //             builder: (context) => OvcEnrollmentHouseHoldForm(),
-    //           ));
-    //     }
-    //   }
-    // } else {
-    //   AppUtil.showToastMessage(
-    //       message: 'Please fill all mandatory field',
-    //       position: ToastGravity.TOP);
-    // }
+    // @todo update sex value count for household caregiver
+    bool hadAllMandatoryFilled =
+        AppUtil.hasAllMandarotyFieldsFilled(mandatoryFields, dataObject);
+    if (hadAllMandatoryFilled) {
+      setState(() {
+        isSaving = true;
+      });
+      List<Map> childrenObjects = [];
+      childrenObjects.add(dataObject);
+      String parentTrackedEntityInstance =
+          dataObject['parentTrackedEntityInstance'];
+      String orgUnit = dataObject['orgUnit'];
+      String enrollment = dataObject['enrollment'];
+      String enrollmentDate = dataObject['enrollmentDate'];
+      String incidentDate = dataObject['incidentDate'];
+      await OvcEnrollmentChildService().savingChildrenEnrollmentForms(
+        parentTrackedEntityInstance,
+        orgUnit,
+        childrenObjects,
+        enrollment,
+        enrollmentDate,
+        incidentDate,
+      );
+      Provider.of<OvcInterventionListState>(context, listen: false)
+          .refreshOvcList();
+      Timer(Duration(seconds: 1), () {
+        if (Navigator.canPop(context)) {
+          setState(() {
+            isSaving = false;
+          });
+          AppUtil.showToastMessage(
+              message: 'Form has been saved successfully',
+              position: ToastGravity.TOP);
+          Navigator.popUntil(context, (route) => route.isFirst);
+        }
+      });
+    } else {
+      AppUtil.showToastMessage(
+          message: 'Please fill all mandatory field',
+          position: ToastGravity.TOP);
+    }
   }
 
   void autoFillInputFields(String id, dynamic value) {

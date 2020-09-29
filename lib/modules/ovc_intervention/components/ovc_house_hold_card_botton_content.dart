@@ -41,7 +41,8 @@ class OvcHouseHoldCardBottonContent extends StatelessWidget {
     bool isEditableMode,
   ) {
     TrackeEntityInstance teiData = child.teiData;
-    // Set hidden fields for editin
+    // Set hidden fields for editing
+    Provider.of<EnrollmentFormState>(context, listen: false).resetFormState();
     Provider.of<EnrollmentFormState>(context, listen: false)
         .setFormFieldState('parentTrackedEntityInstance', ovcHouseHold.id);
     Provider.of<EnrollmentFormState>(context, listen: false)
