@@ -32,6 +32,7 @@ class OvcEnrollmentHouseHoldService {
     List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections);
     inputFieldIds.addAll(consentFields);
     inputFieldIds.addAll(hiddenFields);
+    // @TODO generation of beneficiary ids
     TrackeEntityInstance trackeEntityInstanceData =
         FormUtil.geTrackedEntityInstanceEnrollmentPayLoad(trackedEntityInstance,
             trackedEntityType, orgUnit, inputFieldIds, dataObject);
@@ -53,6 +54,7 @@ class OvcEnrollmentHouseHoldService {
         String location = ous.length > 0 ? ous[0].name : enrollment.orgUnit;
         String orgUnit = enrollment.orgUnit;
         String createdDate = enrollment.enrollmentDate;
+        String enrollmentId = enrollment.enrollment;
         //loading households
         List<TrackeEntityInstance> houseHolds =
             await TrackedEntityInstanceOfflineProvider()
@@ -70,11 +72,11 @@ class OvcEnrollmentHouseHoldService {
                   .getTrackedEntityInstance(childTeiIds);
           //assign household data
           List<OvcHouseHoldChild> houseHoldChildren = houseHoldChildrenTeiData
-              .map((TrackeEntityInstance child) =>
-                  OvcHouseHoldChild().fromTeiModel(child, orgUnit))
+              .map((TrackeEntityInstance child) => OvcHouseHoldChild()
+                  .fromTeiModel(child, orgUnit, createdDate, enrollmentId))
               .toList();
-          ovchouseHoldList.add(OvcHouseHold().fromTeiModel(
-              tei, location, orgUnit, createdDate, houseHoldChildren));
+          ovchouseHoldList.add(OvcHouseHold().fromTeiModel(tei, location,
+              orgUnit, createdDate, enrollmentId, houseHoldChildren));
         }
       }
     } catch (e) {}
