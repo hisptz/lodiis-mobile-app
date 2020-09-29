@@ -83,9 +83,9 @@ class OvcAssessmentServiceChildView extends StatelessWidget {
     String assessmentResponse,
     Events eventData,
   ) {
-    // bool isEditableMode = true;
-    // updateFormStateData(context, eventData);
-    // onRedirectToAssessmentForm(context, assessmentResponse, isEditableMode);
+    bool isEditableMode = true;
+    updateFormStateData(context, eventData);
+    onRedirectToAssessmentForm(context, assessmentResponse, isEditableMode);
   }
 
   @override
