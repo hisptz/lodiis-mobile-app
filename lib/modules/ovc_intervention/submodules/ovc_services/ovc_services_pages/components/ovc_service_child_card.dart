@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kb_mobile_app/core/components/line_seperator.dart';
 import 'package:kb_mobile_app/core/components/material_card.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/sub_pages/constants/ovc_child_service_home_constant.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/constants/ovc_child_service_home_constant.dart';
 
 class OvcServiceChildCard extends StatelessWidget {
   final OvcChildServiceHomeContant ovcChildServiceHomeCard;

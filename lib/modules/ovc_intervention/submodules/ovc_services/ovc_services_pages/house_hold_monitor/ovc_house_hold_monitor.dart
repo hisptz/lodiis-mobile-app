@@ -8,8 +8,8 @@ import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold_top_header.dart';
 import 'package:provider/provider.dart';
 
-class OvcHouseHoldRefferalHome extends StatelessWidget {
-  final String label = 'House Hold Referral';
+class OvcHouseHoldMonitor extends StatelessWidget {
+  final String label = 'House Hold Monitor';
 
   @override
   Widget build(BuildContext context) {

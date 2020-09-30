@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_house_hold_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_intervention_list_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/models/ovc_house_hold.dart';
@@ -35,7 +36,14 @@ class _OvcReferralPageState extends State<OvcReferralPage> {
     });
   }
 
-  void onViewRerral(BuildContext context) {
+  void setOvcHouseHoldCurrentSelection(
+      BuildContext context, OvcHouseHold ovcHouseHold) {
+    Provider.of<OvcHouseHoldCurrentSelectionState>(context, listen: false)
+        .setCurrentHouseHold(ovcHouseHold);
+  }
+
+  void onViewRerral(BuildContext context, OvcHouseHold ovcHouseHold) {
+    setOvcHouseHoldCurrentSelection(context, ovcHouseHold);
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => OvcHouseHoldRefferalHome()));
   }
@@ -114,8 +122,8 @@ class _OvcReferralPageState extends State<OvcReferralPage> {
                                           children: [
                                             Container(
                                               child: FlatButton(
-                                                  onPressed: () =>
-                                                      onViewRerral(context),
+                                                  onPressed: () => onViewRerral(
+                                                      context, ovcHouseHold),
                                                   child: Text(
                                                     'REFERRAL',
                                                     style: TextStyle().copyWith(
