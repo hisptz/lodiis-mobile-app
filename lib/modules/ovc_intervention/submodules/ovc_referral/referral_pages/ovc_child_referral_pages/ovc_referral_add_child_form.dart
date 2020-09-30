@@ -22,10 +22,9 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/m
 import 'package:provider/provider.dart';
 
 class OvcServiceChildAddReferralForm extends StatefulWidget {
-  final  OvcHouseHoldChild ovcHouseHoldChild;
-  OvcServiceChildAddReferralForm( {this.ovcHouseHoldChild});
+  final OvcHouseHoldChild ovcHouseHoldChild;
+  OvcServiceChildAddReferralForm({this.ovcHouseHoldChild});
 
-  
   @override
   _OvcServiceChildAddReferralFormState createState() =>
       _OvcServiceChildAddReferralFormState();
@@ -45,6 +44,7 @@ class _OvcServiceChildAddReferralFormState
     Timer(Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
+        print(widget.ovcHouseHoldChild);
       });
     });
   }
@@ -65,7 +65,8 @@ class _OvcServiceChildAddReferralFormState
       });
       String eventDate = dataObject['eventDate'];
       String eventId = dataObject['eventId'];
-
+      dataObject['Ntee9tw45ja'] = dataObject['Ntee9tw45ja'] ?? AppUtil.getUid();
+      
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
             OvcReferralConstant.program,
