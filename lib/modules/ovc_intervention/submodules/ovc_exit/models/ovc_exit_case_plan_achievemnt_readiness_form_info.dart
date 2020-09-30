@@ -12,7 +12,8 @@ class OvcExitCasePlanAchievementForm {
           inputFields: [
             InputField(
                 id: "DFPZI9TQLo1",
-                name:"Is this the first Case Plan Achievement Readiness Assessment ?",
+                name:
+                    "Is this the first Case Plan Achievement Readiness Assessment ?",
                 valueType: "BOOLEAN",
                 inputColor: Color(0xFF4B9F46),
                 labelColor: Color(0xFF284227)),
@@ -26,7 +27,7 @@ class OvcExitCasePlanAchievementForm {
                 id: "aU9CHJNURsH",
                 name:
                     "Is this household child-headed (i.e. Household head age is less than 18 years)?",
-                inputColor:Color(0xFF4B9F46),
+                inputColor: Color(0xFF4B9F46),
                 labelColor: Color(0xFF284227),
                 valueType: "BOOLEAN"),
             InputField(
@@ -60,7 +61,7 @@ class OvcExitCasePlanAchievementForm {
                 id: "rumwEfp1ztg",
                 name:
                     "Have the children at high risk of HIV been identified through the HIV risk assessment?",
-                inputColor:Color(0xFF4B9F46),
+                inputColor: Color(0xFF4B9F46),
                 labelColor: Color(0xFF1A3518),
                 valueType: "BOOLEAN"),
             InputField(
@@ -92,7 +93,7 @@ class OvcExitCasePlanAchievementForm {
                 valueType: "BOOLEAN"),
             InputField(
                 id: "Ddle2RGHIgV",
-                inputColor:Color(0xFF4B9F46),
+                inputColor: Color(0xFF4B9F46),
                 labelColor: Color(0xFF1A3518),
                 name:
                     "Is the HIV status of the caregivers (positive, negative) documented in the case file?",
@@ -106,7 +107,7 @@ class OvcExitCasePlanAchievementForm {
                 valueType: "BOOLEAN"),
             InputField(
                 id: "bSdbmpAteTX",
-                inputColor:Color(0xFF4B9F46),
+                inputColor: Color(0xFF4B9F46),
                 labelColor: Color(0xFF1A3518),
                 name:
                     "If there is a child or children in the household older than the age of five and  living with HIV, do they know their HIV status",
@@ -120,7 +121,7 @@ class OvcExitCasePlanAchievementForm {
           ]),
       FormSection(
           name: "DOMAIN-HEALTHY BENCHMARK 2",
-          color:Color(0xFF009688),
+          color: Color(0xFF009688),
           borderColor: Color(0xFF009688),
           inputFields: [
             InputField(
@@ -194,7 +195,7 @@ class OvcExitCasePlanAchievementForm {
       FormSection(
           name: "DOMAIN-HEALTHY BENCHMARK 3",
           color: Color(0xFF2196F3),
-          borderColor:Color(0xFF2196F3),
+          borderColor: Color(0xFF2196F3),
           inputFields: [
             InputField(
                 id: "t22WdY2MOpE",
@@ -249,8 +250,8 @@ class OvcExitCasePlanAchievementForm {
                 valueType: "BOOLEAN"),
             InputField(
               id: "jRWqOcwnNkb",
-               inputColor: Color(0xFF9C27B0),
-                labelColor: Color(0xFF1A3518),
+              inputColor: Color(0xFF9C27B0),
+              labelColor: Color(0xFF1A3518),
               name:
                   "Are you able to pay these school fees without selling productive assets (milk/ploughing cow, agricultural tools etc)",
               valueType: "BOOLEAN",
@@ -278,7 +279,7 @@ class OvcExitCasePlanAchievementForm {
                 valueType: "BOOLEAN"),
             InputField(
                 id: "iEA5kldEs11",
-                inputColor:Color(0xFF9C27B0),
+                inputColor: Color(0xFF9C27B0),
                 labelColor: Color(0xFF1A3518),
                 name:
                     "Is the house safe and has a place for the child(ren) to sleep? (dry, ventilated, lockable)  (based on local standards)",
@@ -318,7 +319,7 @@ class OvcExitCasePlanAchievementForm {
                 valueType: "BOOLEAN"),
             InputField(
                 id: "XxioqueCXcn",
-                inputColor:Color(0xFF9C27B0),
+                inputColor: Color(0xFF9C27B0),
                 labelColor: Color(0xFF1A3518),
                 name: "Has the household achieved this benchmark 5",
                 valueType: "BOOLEAN"),
@@ -337,8 +338,8 @@ class OvcExitCasePlanAchievementForm {
                 valueType: "BOOLEAN"),
             InputField(
               id: "BY3fIOfHynR",
-                inputColor: Color(0xFF2196F3),
-                labelColor: Color(0xFF1A3518),
+              inputColor: Color(0xFF2196F3),
+              labelColor: Color(0xFF1A3518),
               name:
                   "If there is a child with signs of depression or mental health issues such as being withdrawn, not eating, or not playing, did they receive direct services from the project (singing to the Lions, parenting, child stimulation, CCFLS",
               valueType: "BOOLEAN",
@@ -359,7 +360,7 @@ class OvcExitCasePlanAchievementForm {
                 valueType: "BOOLEAN"),
             InputField(
                 id: "jJzwnW4XyMy",
-                inputColor:Color(0xFF2196F3),
+                inputColor: Color(0xFF2196F3),
                 labelColor: Color(0xFF1A3518),
                 name:
                     "In the last six months, have you been beaten or kicked by spouse/partner or any adult",
@@ -401,7 +402,7 @@ class OvcExitCasePlanAchievementForm {
             ),
             InputField(
                 id: "eQzRNzh3AwY",
-                inputColor:Color(0xFF2196F3),
+                inputColor: Color(0xFF2196F3),
                 labelColor: Color(0xFF1A3518),
                 name:
                     "Could you please describe various ways of disciplining children? Probe; which ones do you use frequently",
@@ -436,8 +437,8 @@ class OvcExitCasePlanAchievementForm {
               id: "RVGFbzbEGmY",
               name: "Are the enrolled children attending school regularly",
               valueType: "BOOLEAN",
-                inputColor: Color(0xFF9C27B0),
-                labelColor: Color(0xFF1A3518),
+              inputColor: Color(0xFF9C27B0),
+              labelColor: Color(0xFF1A3518),
             ),
             InputField(
                 id: "HzUAxTw1nZs",
@@ -534,7 +535,7 @@ class OvcExitCasePlanAchievementForm {
                 valueType: "LONG_TEXT"),
             InputField(
                 id: "WiBjV85rYAf",
-                inputColor:Color(0xFF4B9F46),
+                inputColor: Color(0xFF4B9F46),
                 labelColor: Color(0xFF1A3518),
                 name:
                     "Estimated date for Schooled actions or services completion",
