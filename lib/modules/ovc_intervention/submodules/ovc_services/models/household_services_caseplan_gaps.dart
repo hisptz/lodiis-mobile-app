@@ -7,21 +7,23 @@ class HouseholdServicesCasePlanGaps {
   static List<FormSection> getFormSections() {
     return [
        FormSection(
-                name: 'CASE PLAN: GAPS',
-                color: Color(0xFF4D9E49),
-                inputFields: [
-                InputField(
-                      id: 'm8ujTeOcYO3',
-                      name: 'Identified need/Gap',
-                      valueType: 'TEXT',
-                      inputColor: Color(0xFF4D9E49),
-                      labelColor: Color(0xFF737373)
-                     )]),
-       FormSection(
+                id: 'Health',
                 name: 'DOMAIN HEALTH',
                 color: Color(0xFF4D9E49),
                 borderColor: Color(0xFF4D9E49),
                 inputFields: [
+                 InputField(
+                      id: 'm8ujTeOcYO3',
+                      name: 'Identified need/Gap',
+                      valueType: 'TEXT',
+                      inputColor: Color(0xFF4D9E49),
+                      labelColor: Color(0xFF737373)),
+                 InputField(
+                      id: 'XoSPWmpWXCy',
+                      name: 'HTS',
+                      valueType: 'TRUE_ONLY',
+                      inputColor: Color(0xFF4D9E49),
+                      labelColor: Color(0xFF737373)),
                 InputField(
                       id: 'CxwbNfPmiN9',
                       name: '(HTS) Responsible person(Internal/External)',
@@ -42,6 +44,12 @@ class HouseholdServicesCasePlanGaps {
                       id: 'iFv7FJeG3V1',
                       name: '(HTS) Projected date for completion',
                       valueType: 'DATE',
+                      inputColor: Color(0xFF4D9E49),
+                      labelColor: Color(0xFF737373)),
+                 InputField(
+                      id: 'ylSjcj6cv42',
+                      name: 'HIVTREAT',
+                      valueType: 'TRUE_ONLY',
                       inputColor: Color(0xFF4D9E49),
                       labelColor: Color(0xFF737373)),
                  InputField(
@@ -66,7 +74,12 @@ class HouseholdServicesCasePlanGaps {
                       valueType: 'DATE',
                       inputColor: Color(0xFF4D9E49),
                       labelColor: Color(0xFF737373)),
-
+                 InputField(
+                      id: 'cx4xBY4jZXM',
+                      name: 'HIVS&D',
+                      valueType: 'TRUE_ONLY',
+                      inputColor: Color(0xFF4D9E49),
+                      labelColor: Color(0xFF737373)),
                  InputField(
                       id: 'Fmsfd0cXF5w',
                       name: '(HIVS&D) Responsible person(Internal/External)',
@@ -87,6 +100,12 @@ class HouseholdServicesCasePlanGaps {
                       id: 'SIEeRmPm0Q0',
                       name: '(HIVS&D) Projected date for completion',
                       valueType: 'DATE',
+                      inputColor: Color(0xFF4D9E49),
+                      labelColor: Color(0xFF737373)),
+                 InputField(
+                      id: 'AxtahhoHcXV',
+                      name: 'HEALTH',
+                      valueType: 'TRUE_ONLY',
                       inputColor: Color(0xFF4D9E49),
                       labelColor: Color(0xFF737373)),
                  InputField(
@@ -112,6 +131,12 @@ class HouseholdServicesCasePlanGaps {
                       inputColor: Color(0xFF4D9E49),
                       labelColor: Color(0xFF737373)),
                  InputField(
+                      id: 'd2vXxEPeCq7',
+                      name: 'PRG&L',
+                      valueType: 'TRUE_ONLY',
+                      inputColor: Color(0xFF4D9E49),
+                      labelColor: Color(0xFF737373)),
+                 InputField(
                       id: 'HbjnW1JjroQ',
                       name: '(PRG&L) Responsible person(Internal/External)',
                       valueType: 'TEXT',
@@ -131,6 +156,12 @@ class HouseholdServicesCasePlanGaps {
                       id: 'kpzlTeM0673',
                       name: '(PRG&L) Projected date for completion',
                       valueType: 'DATE',
+                      inputColor: Color(0xFF4D9E49),
+                      labelColor: Color(0xFF737373)),
+                   InputField(
+                      id: 'dTFLFtUUeEK',
+                      name: 'SAIDS',
+                      valueType: 'TRUE_ONLY',
                       inputColor: Color(0xFF4D9E49),
                       labelColor: Color(0xFF737373)),
                  InputField(
@@ -153,6 +184,12 @@ class HouseholdServicesCasePlanGaps {
                       id: 'jlu7TDN7khJ',
                       name: '(SAIDS) Projected date for completion',
                       valueType: 'DATE',
+                      inputColor: Color(0xFF4D9E49),
+                      labelColor: Color(0xFF737373)),
+                   InputField(
+                      id: 'Hvq9oisH7Gt',
+                      name: 'WASHMES',
+                      valueType: 'TRUE_ONLY',
                       inputColor: Color(0xFF4D9E49),
                       labelColor: Color(0xFF737373)),
                  InputField(
@@ -178,6 +215,12 @@ class HouseholdServicesCasePlanGaps {
                       inputColor: Color(0xFF4D9E49),
                       labelColor: Color(0xFF737373)),
                  InputField(
+                      id: 'qTf8VSoojJ2',
+                      name: 'SOACKAGE',
+                      valueType: 'TRUE_ONLY',
+                      inputColor: Color(0xFF4D9E49),
+                      labelColor: Color(0xFF737373)),
+                 InputField(
                       id: 'qV0BwfYa8yU',
                       name: '(SOACKAGE) Responsible person(Internal/External)',
                       valueType: 'TEXT',
@@ -197,6 +240,12 @@ class HouseholdServicesCasePlanGaps {
                       id: 'M2Aqvn027cd',
                       name: '(SOACKAGE) Projected date for completion',
                       valueType: 'DATE',
+                      inputColor: Color(0xFF4D9E49),
+                      labelColor: Color(0xFF737373)),
+                 InputField(
+                      id: 'DQxqyncQtwm',
+                      name: 'TIPPY',
+                      valueType: 'TRUE_ONLY',
                       inputColor: Color(0xFF4D9E49),
                       labelColor: Color(0xFF737373)),
                  InputField(
@@ -223,10 +272,23 @@ class HouseholdServicesCasePlanGaps {
                       labelColor: Color(0xFF737373))
                 ]),
              FormSection(
+                id: 'Stable',
                 name: 'DOMAIN STABLE',
                 color: Color(0xFF0000FF),
                 borderColor: Color(0xFF0000FF),
                 inputFields: [
+                 InputField(
+                      id: 'm8ujTeOcYO3',
+                      name: 'Identified need/Gap',
+                      valueType: 'TEXT',
+                      inputColor: Color(0xFF0000FF),
+                      labelColor: Color(0xFF737373)),
+                  InputField(
+                      id: 'e6NV2ZAzFEh',
+                      name: 'SILC',
+                      valueType: 'TRUE_ONLY',
+                      inputColor: Color(0xFF0000FF),
+                      labelColor: Color(0xFF737373)),
                  InputField(
                       id: 'UJIxjjBeJTh',
                       name: '(SILC) Responsible person(Internal/External)',
@@ -247,6 +309,12 @@ class HouseholdServicesCasePlanGaps {
                       id: 'Hdf3EtTGfAb',
                       name: '(SILC) Projected date for completion',
                       valueType: 'DATE',
+                      inputColor: Color(0xFF0000FF),
+                      labelColor: Color(0xFF737373)),
+                  InputField(
+                      id: 'kvF996ugmMl',
+                      name: 'FE',
+                      valueType: 'TRUE_ONLY',
                       inputColor: Color(0xFF0000FF),
                       labelColor: Color(0xFF737373)),
                   InputField(
@@ -272,6 +340,12 @@ class HouseholdServicesCasePlanGaps {
                       inputColor: Color(0xFF0000FF),
                       labelColor: Color(0xFF737373)),
                   InputField(
+                      id: 'iiJpQsEE4qx',
+                      name: 'EST COOPRTVS',
+                      valueType: 'TRUE_ONLY',
+                      inputColor: Color(0xFF0000FF),
+                      labelColor: Color(0xFF737373)),
+                  InputField(
                       id: 'Am9LJf6APMW',
                       name: '(EST COOPRTVS) Responsible person(Internal/External)',
                       valueType: 'TEXT',
@@ -291,6 +365,12 @@ class HouseholdServicesCasePlanGaps {
                       id: 'nIoqbMHf3AS',
                       name: '(EST COOPRTVS) Projected date for completion',
                       valueType: 'DATE',
+                      inputColor: Color(0xFF0000FF),
+                      labelColor: Color(0xFF737373)),
+                  InputField(
+                      id: 'ithLHgsAoxs',
+                      name: 'FUNCT COOPRTVS',
+                      valueType: 'TRUE_ONLY',
                       inputColor: Color(0xFF0000FF),
                       labelColor: Color(0xFF737373)),
                   InputField(
@@ -316,6 +396,12 @@ class HouseholdServicesCasePlanGaps {
                       inputColor: Color(0xFF0000FF),
                       labelColor: Color(0xFF737373)),
                 InputField(
+                      id: 'JqGGsDlZh8T',
+                      name: 'MARKT COOPRTVS',
+                      valueType: 'TRUE_ONLY',
+                      inputColor: Color(0xFF0000FF),
+                      labelColor: Color(0xFF737373)),
+                InputField(
                       id: 'ixFuNoQKLoB',
                       name: '(MARKT COOPRTVS) Responsible person(Internal/External)',
                       valueType: 'TEXT',
@@ -335,6 +421,12 @@ class HouseholdServicesCasePlanGaps {
                       id: 'XODRLh84TdQ',
                       name: '(MARKT COOPRTVS) Projected date for completion',
                       valueType: 'DATE',
+                      inputColor: Color(0xFF0000FF),
+                      labelColor: Color(0xFF737373)),
+                InputField(
+                      id: 'WrjNxZBVHCL',
+                      name: 'K/TPLOTS',
+                      valueType: 'TRUE_ONLY',
                       inputColor: Color(0xFF0000FF),
                       labelColor: Color(0xFF737373)),
                  InputField(
@@ -361,10 +453,23 @@ class HouseholdServicesCasePlanGaps {
                       labelColor: Color(0xFF737373)),
                 ]),
              FormSection(
+                id: 'Safe',
                 name: 'DOMAIN SAFE',
                 color: Color(0xFF0F9587),
                 borderColor: Color(0xFF0F9587),
                 inputFields: [
+                  InputField(
+                      id: 'm8ujTeOcYO3',
+                      name: 'Identified need/Gap',
+                      valueType: 'TEXT',
+                      inputColor: Color(0xFF0F9587),
+                      labelColor: Color(0xFF737373)),
+                  InputField(
+                      id: 'PoxYSqq8Hgz',
+                      name: 'P&FC',
+                      valueType: 'TRUE_ONLY',
+                      inputColor: Color(0xFF0F9587),
+                      labelColor: Color(0xFF737373)),
                   InputField(
                       id: 'ond1LSLwHBC',
                       name: '(P&FC) Responsible person(Internal/External)',
@@ -387,6 +492,12 @@ class HouseholdServicesCasePlanGaps {
                       valueType: 'DATE',
                       inputColor: Color(0xFF0F9587),
                       labelColor: Color(0xFF737373)),
+                 InputField(
+                      id: 'aPmPhwm8Zln',
+                      name: 'VAC',
+                      valueType: 'TRUE_ONLY',
+                      inputColor: Color(0xFF0F9587),
+                      labelColor: Color(0xFF737373)),
                 InputField(
                       id: 'xMrGYeREh1d',
                       name: '(VAC) Responsible person(Internal/External)',
@@ -407,6 +518,12 @@ class HouseholdServicesCasePlanGaps {
                       id: 'wGrQeSydiwd',
                       name: '(VAC) Projected date for completion',
                       valueType: 'DATE',
+                      inputColor: Color(0xFF0F9587),
+                      labelColor: Color(0xFF737373)),
+                 InputField(
+                      id: 'Vd8dV7OweWB',
+                      name: 'SURVIVORS',
+                      valueType: 'TRUE_ONLY',
                       inputColor: Color(0xFF0F9587),
                       labelColor: Color(0xFF737373)),
                 InputField(
@@ -432,6 +549,12 @@ class HouseholdServicesCasePlanGaps {
                       inputColor: Color(0xFF0F9587),
                       labelColor: Color(0xFF737373)),
                  InputField(
+                      id: 'Ccp4Odlh3BE',
+                      name: 'COUNSEL',
+                      valueType: 'TRUE_ONLY',
+                      inputColor: Color(0xFF0F9587),
+                      labelColor: Color(0xFF737373)),
+                 InputField(
                       id: 'tPDgzkbmywi',
                       name: '(COUNSEL) Responsible person(Internal/External)',
                       valueType: 'TEXT',
@@ -451,6 +574,12 @@ class HouseholdServicesCasePlanGaps {
                       id: 'Io9nnYXCvWR',
                       name: '(COUNSEL) Projected date for completion',
                       valueType: 'DATE',
+                      inputColor: Color(0xFF0F9587),
+                      labelColor: Color(0xFF737373)),
+                   InputField(
+                      id: 'yf6KmY3Rm5I',
+                      name: 'ABUSE',
+                      valueType: 'TRUE_ONLY',
                       inputColor: Color(0xFF0F9587),
                       labelColor: Color(0xFF737373)),
                   InputField(
@@ -475,6 +604,12 @@ class HouseholdServicesCasePlanGaps {
                       valueType: 'DATE',
                       inputColor: Color(0xFF0F9587),
                       labelColor: Color(0xFF737373)),
+                 InputField(
+                      id: 'WdZ3PnW5yV6',
+                      name: 'LEGALPROT',
+                      valueType: 'TRUE_ONLY',
+                      inputColor: Color(0xFF0F9587),
+                      labelColor: Color(0xFF737373)),
                 InputField(
                       id: 'Hvvdmc2rsKl',
                       name: '(LEGALPROT) Responsible person(Internal/External)',
@@ -495,6 +630,12 @@ class HouseholdServicesCasePlanGaps {
                       id: 'OIw6D3I6BmY',
                       name: '(LEGALPROT) Projected date for completion',
                       valueType: 'DATE',
+                      inputColor: Color(0xFF0F9587),
+                      labelColor: Color(0xFF737373)),
+                 InputField(
+                      id: 'hS7aONLz2cq',
+                      name: 'BIRTHCERT',
+                      valueType: 'TRUE_ONLY',
                       inputColor: Color(0xFF0F9587),
                       labelColor: Color(0xFF737373)),
                 InputField(
@@ -521,10 +662,23 @@ class HouseholdServicesCasePlanGaps {
                       labelColor: Color(0xFF737373))
                 ]),
               FormSection(
+                id: 'Schooled',
                 name: 'DOMAIN SCHOOLED',
                 color: Color(0xFF9B2BAE),
                 borderColor: Color(0xFF9B2BAE),
                 inputFields: [
+                  InputField(
+                      id: 'm8ujTeOcYO3',
+                      name: 'Identified need/Gap',
+                      valueType: 'TRUE_ONLY',
+                      inputColor: Color(0xFF9B2BAE),
+                      labelColor: Color(0xFF737373)),
+                InputField(
+                      id: 'TQSMaZgfZPO',
+                      name: 'PTS4G',
+                      valueType: 'TEXT',
+                      inputColor: Color(0xFF9B2BAE),
+                      labelColor: Color(0xFF737373)),
                 InputField(
                       id: 'y9Qs6zDLZM2',
                       name: '(PTS4G) Responsible person(Internal/External)',
@@ -548,6 +702,12 @@ class HouseholdServicesCasePlanGaps {
                       inputColor: Color(0xFF9B2BAE),
                       labelColor: Color(0xFF737373)),
                 InputField(
+                      id: 'SN2kJN3jAG9',
+                      name: 'PTS4NG',
+                      valueType: 'TRUE_ONLY',
+                      inputColor: Color(0xFF9B2BAE),
+                      labelColor: Color(0xFF737373)),
+                InputField(
                       id: 'LXX0ixRx2IT',
                       name: '(PTS4NG) Responsible person(Internal/External)',
                       valueType: 'TEXT',
@@ -567,6 +727,12 @@ class HouseholdServicesCasePlanGaps {
                       id: 'bIMwh3ONDGq',
                       name: '(PTS4NG) Projected date for completion',
                       valueType: 'DATE',
+                      inputColor: Color(0xFF9B2BAE),
+                      labelColor: Color(0xFF737373)),
+                InputField(
+                      id: 'X47zxNAqMv0',
+                      name: 'HWCLUB',
+                      valueType: 'TRUE_ONLY',
                       inputColor: Color(0xFF9B2BAE),
                       labelColor: Color(0xFF737373)),
                 InputField(
@@ -596,7 +762,19 @@ class HouseholdServicesCasePlanGaps {
                 name: 'Other Activities',
                 color: Color(0xFF4D9E49),
                 borderColor: Color(0xFF4D9E49),
-                inputFields: [ 
+                inputFields: [
+                  InputField(
+                      id: 'm8ujTeOcYO3',
+                      name: 'Identified need/Gap',
+                      valueType: 'TEXT',
+                      inputColor: Color(0xFF4D9E49),
+                      labelColor: Color(0xFF737373)),
+                  InputField(
+                      id: 'ksc7ov3MihX',
+                      name: 'OTHER ACTIVITIES',
+                      valueType: 'TRUE_ONLY',
+                      inputColor: Color(0xFF4D9E49),
+                      labelColor: Color(0xFF737373)), 
                    InputField(
                       id: 'JJrN3c03i7f',
                       name: '(Other activities) Responsible person(Internal/External)',
