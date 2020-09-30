@@ -7,11 +7,8 @@ import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_child_info_top_header.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_monitor/pages/add_school/ovc_monitor_add_school.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_monitor/pages/add_service/ovc_monitor_add_service.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/components/ovc_service_detail_card.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/models/ovc_service_detail_card.dart';
 import 'package:provider/provider.dart';
 
 //
@@ -152,35 +149,5 @@ class OvcMonitorChildView extends StatelessWidget {
     //       ]),
     //     ),
     //     bottomNavigationBar: InterventionBottomNavigationBarContainer());
-  }
-
-  Widget serviceDate(String date) {
-    return Visibility(
-        visible: true,
-        child: Expanded(
-            flex: 4,
-            child: Container(
-                child: Text(
-              "$date",
-              style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w700,
-                  color: Color(0xFF4B9F46)),
-            ))));
-  }
-
-  Widget serviceAccess(String serviceStatus) {
-    return Visibility(
-        child: Expanded(
-            flex: 3,
-            child: Container(
-                padding: EdgeInsets.only(left: 19),
-                child: Text(
-                  "$serviceStatus",
-                  style: TextStyle(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 14,
-                      color: Color(0xFF1A3518)),
-                ))));
   }
 }
