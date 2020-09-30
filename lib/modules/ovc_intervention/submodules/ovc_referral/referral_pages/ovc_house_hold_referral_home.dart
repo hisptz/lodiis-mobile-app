@@ -6,7 +6,7 @@ import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:provider/provider.dart';
 
-class OvcHouseHoldRefferal extends StatelessWidget {
+class OvcHouseHoldRefferalHome extends StatelessWidget {
   final String label = 'House Hold Referral';
   @override
   Widget build(BuildContext context) {
