@@ -116,6 +116,7 @@ class OvcAssessmentServiceChildView extends StatelessWidget {
                         serviveEventDataState.eventListByProgramStage;
                     Map programStageMap =
                         OvcAssessmentConstant.getOvcAssessmentProgramStageMap();
+                    
                     List<String> programStageids = [];
                     for (var id in programStageMap.keys.toList()) {
                       programStageids.add('$id');
@@ -123,6 +124,7 @@ class OvcAssessmentServiceChildView extends StatelessWidget {
                     List<Events> events = TrackedEntityInstanceUtil
                         .getAllEventListFromServiceDataState(
                             eventListByProgramStage, programStageids);
+                   
                     return isLoading
                         ? CircularProcessLoader(
                             color: Colors.blueGrey,
