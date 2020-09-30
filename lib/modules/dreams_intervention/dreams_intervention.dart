@@ -12,7 +12,6 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enro
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_exit/dreams_exit_page.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_referral/dreams_referral_page.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/dreams_services_page.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/view_form.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/none_agyw_page.dart';
 import 'package:provider/provider.dart';
 
@@ -86,7 +85,7 @@ class DreamsIntervention extends StatelessWidget {
                               activeInterventionProgram);
                   return Container(
                     child: currentInterventionBottomNavigation.id == 'services'
-                        ? OvcReferralFollowUpForm()
+                        ?DreamsServicesPage()
                         : currentInterventionBottomNavigation.id == 'referral'
                             ? DreamsReferralPage()
                             : currentInterventionBottomNavigation.id ==
