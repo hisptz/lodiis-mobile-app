@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_house_hold_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_intervention_list_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/models/ovc_house_hold.dart';
@@ -34,13 +35,27 @@ class _OvcExitPageState extends State<OvcExitPage> {
     });
   }
 
-  void onViewAchievement() {}
+  void setOvcHouseHoldCurrentSelection(
+      BuildContext context, OvcHouseHold ovcHouseHold) {
+    Provider.of<OvcHouseHoldCurrentSelectionState>(context, listen: false)
+        .setCurrentHouseHold(ovcHouseHold);
+  }
 
-  void onViewExit() {}
+  void onViewAchievement(BuildContext context, OvcHouseHold ovcHouseHold) {
+    setOvcHouseHoldCurrentSelection(context, ovcHouseHold);
+  }
 
-  void onViewTransfer() {}
+  void onViewExit(BuildContext context, OvcHouseHold ovcHouseHold) {
+    setOvcHouseHoldCurrentSelection(context, ovcHouseHold);
+  }
 
-  void onViewClosure() {}
+  void onViewTransfer(BuildContext context, OvcHouseHold ovcHouseHold) {
+    setOvcHouseHoldCurrentSelection(context, ovcHouseHold);
+  }
+
+  void onViewClosure(BuildContext context, OvcHouseHold ovcHouseHold) {
+    setOvcHouseHoldCurrentSelection(context, ovcHouseHold);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -117,7 +132,8 @@ class _OvcExitPageState extends State<OvcExitPage> {
                                             Container(
                                               child: FlatButton(
                                                   onPressed: () =>
-                                                      onViewAchievement(),
+                                                      onViewAchievement(context,
+                                                          ovcHouseHold),
                                                   child: Text(
                                                     'ACHIEVEMENT',
                                                     style: TextStyle().copyWith(
@@ -130,7 +146,8 @@ class _OvcExitPageState extends State<OvcExitPage> {
                                             ),
                                             Container(
                                               child: FlatButton(
-                                                  onPressed: () => onViewExit(),
+                                                  onPressed: () => onViewExit(
+                                                      context, ovcHouseHold),
                                                   child: Text(
                                                     'EXIT',
                                                     style: TextStyle().copyWith(
@@ -144,7 +161,8 @@ class _OvcExitPageState extends State<OvcExitPage> {
                                             Container(
                                               child: FlatButton(
                                                   onPressed: () =>
-                                                      onViewTransfer(),
+                                                      onViewTransfer(context,
+                                                          ovcHouseHold),
                                                   child: Text(
                                                     'TRANSFER',
                                                     style: TextStyle().copyWith(
@@ -158,7 +176,10 @@ class _OvcExitPageState extends State<OvcExitPage> {
                                             Container(
                                               child: FlatButton(
                                                   onPressed: () =>
-                                                      onViewClosure(),
+                                                      onViewClosure(
+                                                        context,
+                                                        ovcHouseHold,
+                                                      ),
                                                   child: Text(
                                                     'CLOSURE',
                                                     style: TextStyle().copyWith(

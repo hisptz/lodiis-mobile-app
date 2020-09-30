@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_house_hold_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_intervention_list_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/models/ovc_house_hold.dart';
@@ -34,16 +35,22 @@ class _OvcServicesPageState extends State<OvcServicesPage> {
     });
   }
 
-  void onAssess() {
-    print("on ASSESS");
+  void setOvcHouseHoldCurrentSelection(
+      BuildContext context, OvcHouseHold ovcHouseHold) {
+    Provider.of<OvcHouseHoldCurrentSelectionState>(context, listen: false)
+        .setCurrentHouseHold(ovcHouseHold);
   }
 
-  void onPlan() {
-    print("on Plan");
+  void onOpenHouseHoldAssess(BuildContext context, OvcHouseHold ovcHouseHold) {
+    setOvcHouseHoldCurrentSelection(context, ovcHouseHold);
   }
 
-  void onMonitor() {
-    print("on Monitor");
+  void onOpenHouseHoldPlan(BuildContext context, OvcHouseHold ovcHouseHold) {
+    setOvcHouseHoldCurrentSelection(context, ovcHouseHold);
+  }
+
+  void onOpenHouseHoldMonitor(BuildContext context, OvcHouseHold ovcHouseHold) {
+    setOvcHouseHoldCurrentSelection(context, ovcHouseHold);
   }
 
   @override
@@ -120,7 +127,11 @@ class _OvcServicesPageState extends State<OvcServicesPage> {
                                           children: [
                                             Container(
                                               child: FlatButton(
-                                                  onPressed: () => onAssess(),
+                                                  onPressed: () =>
+                                                      onOpenHouseHoldAssess(
+                                                        context,
+                                                        ovcHouseHold,
+                                                      ),
                                                   child: Text(
                                                     'ASSESS',
                                                     style: TextStyle().copyWith(
@@ -133,7 +144,11 @@ class _OvcServicesPageState extends State<OvcServicesPage> {
                                             ),
                                             Container(
                                               child: FlatButton(
-                                                  onPressed: () => onPlan(),
+                                                  onPressed: () =>
+                                                      onOpenHouseHoldPlan(
+                                                        context,
+                                                        ovcHouseHold,
+                                                      ),
                                                   child: Text(
                                                     'PLAN',
                                                     style: TextStyle().copyWith(
@@ -146,7 +161,11 @@ class _OvcServicesPageState extends State<OvcServicesPage> {
                                             ),
                                             Container(
                                               child: FlatButton(
-                                                  onPressed: () => onMonitor(),
+                                                  onPressed: () =>
+                                                      onOpenHouseHoldMonitor(
+                                                        context,
+                                                        ovcHouseHold,
+                                                      ),
                                                   child: Text(
                                                     'MONITOR',
                                                     style: TextStyle().copyWith(
