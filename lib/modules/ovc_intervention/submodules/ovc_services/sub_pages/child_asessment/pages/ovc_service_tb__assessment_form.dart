@@ -15,6 +15,7 @@ import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/models/ovc_house_hold_child.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_child_info_top_header.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_tbscreening.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/sub_pages/child_asessment/constants/ovc_service_tb_assessment_constant.dart';
@@ -116,7 +117,6 @@ class _OvcServiceTBAssessmentFormState
         ),
         body: SubPageBody(
           body: Container(
-            margin: EdgeInsets.symmetric(vertical: 16.0, horizontal: 13.0),
             child: Consumer<OvcHouseHoldCurrentSelectionState>(
               builder: (context, ovcHouseHoldCurrentSelectionState, child) {
                 OvcHouseHoldChild currentOvcHouseHoldChild =
@@ -132,7 +132,13 @@ class _OvcServiceTBAssessmentFormState
                             )
                           : Column(
                               children: [
+                                OvcChildInfoTopHeader(),
                                 Container(
+                                  margin: EdgeInsets.only(
+                                    top: 10.0,
+                                    left: 13.0,
+                                    right: 13.0,
+                                  ),
                                   child: EntryFormContainer(
                                     formSections: formSections,
                                     mandatoryFieldObject: Map(),
