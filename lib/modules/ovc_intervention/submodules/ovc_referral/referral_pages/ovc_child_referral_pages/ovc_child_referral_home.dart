@@ -25,7 +25,7 @@ class _OvcChildReferralHomeState extends State<OvcChildReferralHome> {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => OvcServiceChildAddReferralForm()));
+            builder: (context) => OvcServiceChildAddReferralForm(ovcHouseHoldChild: child)));
   }
 
   @override
@@ -61,12 +61,12 @@ class _OvcChildReferralHomeState extends State<OvcChildReferralHome> {
                             Text('List ${currentOvcHouseHoldChild.toString()}'),
                       ),
                       OvcEnrollmentFormSaveButton(
-                                label: 'ADD REFFERAL',
-                                labelColor: Colors.white,
-                                buttonColor: Color(0xFF4B9F46),
-                                fontSize: 15.0,
-                                onPressButton: () => onAddRefferal(context,currentOvcHouseHoldChild)
-                                              )
+                          label: 'ADD REFFERAL',
+                          labelColor: Colors.white,
+                          buttonColor: Color(0xFF4B9F46),
+                          fontSize: 15.0,
+                          onPressButton: () =>
+                              onAddRefferal(context, currentOvcHouseHoldChild))
                     ],
                   ),
                 );

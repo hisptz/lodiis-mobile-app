@@ -50,5 +50,3 @@ class TrackedEntityInstanceUtil {
     return events;
   }
 }
-
-

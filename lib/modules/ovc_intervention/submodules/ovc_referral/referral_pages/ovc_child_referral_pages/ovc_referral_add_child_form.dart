@@ -22,6 +22,10 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/m
 import 'package:provider/provider.dart';
 
 class OvcServiceChildAddReferralForm extends StatefulWidget {
+  final  OvcHouseHoldChild ovcHouseHoldChild;
+  OvcServiceChildAddReferralForm( {this.ovcHouseHoldChild});
+
+  
   @override
   _OvcServiceChildAddReferralFormState createState() =>
       _OvcServiceChildAddReferralFormState();
