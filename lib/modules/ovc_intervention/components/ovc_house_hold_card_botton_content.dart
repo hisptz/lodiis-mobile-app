@@ -10,7 +10,7 @@ import 'package:kb_mobile_app/models/ovc_house_hold.dart';
 import 'package:kb_mobile_app/models/ovc_house_hold_child.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/pages/ovc_enrollment_child_edit_view_form.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/referral_pages/ovc_child_referral_home.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/referral_pages/ovc_child_referral_pages/ovc_child_referral_home.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/sub_pages/ovc_child_service_home.dart';
 import 'package:provider/provider.dart';
 
