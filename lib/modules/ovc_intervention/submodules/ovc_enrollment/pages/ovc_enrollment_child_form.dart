@@ -79,7 +79,7 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
     if (hadAllMandatoryFilled) {
       String name = childMapObject['s1eRvsL2Ly4'] ?? '';
       Widget modal = AddChildConfirmation(name: name);
-      bool response = await AppUtil.showPopUpModal(context, modal);
+      bool response = await AppUtil.showPopUpModal(context, modal, false);
       if (response != null) {
         if (response) {
           setState(() {
