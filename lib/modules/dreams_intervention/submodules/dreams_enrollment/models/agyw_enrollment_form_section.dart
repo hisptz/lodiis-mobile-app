@@ -785,7 +785,74 @@ class AgywEnrollmentFormSection {
                       valueType: 'BOOLEAN',
                       inputColor: Color(0xFF258DCC),
                       labelColor: Color(0xFF05131B)),     
+            ]),
+
+
+            FormSection(
+          name: 'Enrollment Module 5:  Reproductive Health',
+          color: Color(0xFF258DCC),
+          inputFields: [
+                  InputField(
+                      id: 'AHbtSNH0i7C',
+                      name: 'Do you have biological children??',
+                      valueType: 'BOOLEAN',
+                      inputColor: Color(0xFF258DCC),
+                      labelColor: Color(0xFF05131B)),
+                  InputField(
+                      id: 'RW9VeyKDvjj',
+                      name: 'How many biological children do you have?',
+                      valueType: 'NUMBER',
+                      inputColor: Color(0xFF258DCC),
+                      labelColor: Color(0xFF05131B)),
+                   InputField(
+                      id: 'XYPRtYgQUF8',
+                      name: 'Are you currently pregnant?',
+                      valueType: 'TEXT',
+                      inputColor: Color(0xFF258DCC),
+                      labelColor: Color(0xFF05131B),
+                      options: [
+                        InputFieldOption(code: 'Yes', name: 'Yes'),
+                        InputFieldOption(code: 'No', name: 'No'),
+                        InputFieldOption(code: "Don't Know", name: "Don't Know")
+                      ]),
+                    InputField(
+                      id: 'SuB4oeLyzZ0',
+                      name: 'Are you attending an ANC clinic for this pregnancy?',
+                      valueType: 'BOOLEAN',
+                      inputColor: Color(0xFF258DCC),
+                      labelColor: Color(0xFF05131B)),
+                    InputField(
+                      id: 'GDrEW22l54i',
+                      name: 'Which clinic/facility are you currently seeking ANC services?',
+                      valueType: 'ORGANISATION_UNIT',
+                      inputColor: Color(0xFF258DCC),
+                      labelColor: Color(0xFF05131B)),
+                  InputField(
+                      id: 'Gs4ArB4ToX5',
+                      name: 'Are you aware of any family planning methods?',
+                      valueType: 'BOOLEAN',
+                      inputColor: Color(0xFF258DCC),
+                      labelColor: Color(0xFF05131B)),
+                  InputField(
+                      id: 'jIlNVicSnqS',
+                      name: 'Do you know pills family planning method?',
+                      valueType: 'TRUE_ONLY',
+                      inputColor: Color(0xFF258DCC),
+                      labelColor: Color(0xFF05131B)),
+                  InputField(
+                      id: 'L4qhaxocyu4',
+                      name: 'Do you know Injections family planning method?',
+                      valueType: 'TRUE_ONLY',
+                      inputColor: Color(0xFF258DCC),
+                      labelColor: Color(0xFF05131B)),
+                 InputField(
+                      id: 'jbKpQbrAoDh',
+                      name: 'Do you know Implants family planning method?',
+                      valueType: 'TEXT',
+                      inputColor: Color(0xFF258DCC),
+                      labelColor: Color(0xFF05131B))  
             ])
+  
   
       ];
   }
