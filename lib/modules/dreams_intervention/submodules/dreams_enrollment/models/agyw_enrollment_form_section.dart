@@ -4,6 +4,12 @@ import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/input_field_option.dart';
 
 class AgywEnrollmentFormSection {
+  static List<String> getMandatoryField() {
+    return [
+      'location',
+    ];
+  }
+
   static List<FormSection> getFormSections() {
     return [
       FormSection(
@@ -29,8 +35,7 @@ class AgywEnrollmentFormSection {
                             code: 'JMGxn39tjoh', name: 'Housework'),
                         InputFieldOption(
                             code: 'qPt9jvB5ACh',
-                            name:
-                                'Fear of the school or other children at school'),
+                            name:'Fear of the school or other children at school'),
                         InputFieldOption(
                             code: 'giEyqjovyAp',
                             name: 'Fear of the walk to school'),

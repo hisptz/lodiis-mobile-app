@@ -35,9 +35,7 @@ class _InterventionSelectionState extends State<InterventionSelection> {
   @override
   void initState() {
     super.initState();
-    //@TODO Discovering all data for intervetion selections for identify intervations with data
-    Timer(Duration(seconds: 2), upDataStateLoadingStatus);
-  }
+      Timer(Duration(seconds: 2), upDataStateLoadingStatus);}
 
   upDataStateLoadingStatus() {
     Provider.of<OvcInterventionListState>(context, listen: false)
@@ -46,6 +44,7 @@ class _InterventionSelectionState extends State<InterventionSelection> {
       hasDataLoaded = true;
     });
   }
+  
 
   @override
   Widget build(BuildContext context) {

@@ -4,6 +4,14 @@ import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/input_field_option.dart';
 
 class AgywEnrollmentRiskAssessment {
+  static List<String> getMandatoryField() {
+    return [
+      'WTZ7GLTrE8Q',
+      'rSP9c21JsfC',
+      'qZP982qpSPS',
+    ];
+  }
+
   static List<FormSection> getFormSections() {
     return [
       FormSection(
