@@ -57,6 +57,17 @@ class FormUtil {
     return fieldIds;
   }
 
+  static List<InputField> getFormInputFields(List<FormSection> formSections) {
+    List<InputField> inputFields = [];
+    for (FormSection formSection in formSections) {
+      List<InputField> subSectionFormFields =
+          getFormInputFields(formSection.subSections);
+      inputFields.addAll(formSection.inputFields);
+      inputFields.addAll(subSectionFormFields);
+    }
+    return inputFields;
+  }
+
   static TrackeEntityInstance geTrackedEntityInstanceEnrollmentPayLoad(
     String trackedEntityInstance,
     String trackedEntityType,
