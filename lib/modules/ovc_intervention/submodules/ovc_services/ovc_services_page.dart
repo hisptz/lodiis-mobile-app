@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_house_hold_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_intervention_list_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/models/ovc_house_hold.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold_card.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold_card_body.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold_card_botton_content.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/house_hold_assessment/ovc_house_hold_assessment.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/house_hold_case_plan/ovc_house_hold_case_plan.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/house_hold_monitor/ovc_house_hold_monitor.dart';
 import 'package:provider/provider.dart';
 
 class OvcServicesPage extends StatefulWidget {
@@ -34,16 +38,38 @@ class _OvcServicesPageState extends State<OvcServicesPage> {
     });
   }
 
-  void onAssess() {
-    print("on ASSESS");
+  void setOvcHouseHoldCurrentSelection(
+      BuildContext context, OvcHouseHold ovcHouseHold) {
+    Provider.of<OvcHouseHoldCurrentSelectionState>(context, listen: false)
+        .setCurrentHouseHold(ovcHouseHold);
   }
 
-  void onPlan() {
-    print("on Plan");
+  void onOpenHouseHoldAssess(BuildContext context, OvcHouseHold ovcHouseHold) {
+    setOvcHouseHoldCurrentSelection(context, ovcHouseHold);
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => OvcHouseHoldAssessment(),
+        ));
   }
 
-  void onMonitor() {
-    print("on Monitor");
+  void onOpenHouseHoldCasePlan(
+      BuildContext context, OvcHouseHold ovcHouseHold) {
+    setOvcHouseHoldCurrentSelection(context, ovcHouseHold);
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => OvcHouseHoldCasePlan(),
+        ));
+  }
+
+  void onOpenHouseHoldMonitor(BuildContext context, OvcHouseHold ovcHouseHold) {
+    setOvcHouseHoldCurrentSelection(context, ovcHouseHold);
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => OvcHouseHoldMonitor(),
+        ));
   }
 
   @override
@@ -120,7 +146,11 @@ class _OvcServicesPageState extends State<OvcServicesPage> {
                                           children: [
                                             Container(
                                               child: FlatButton(
-                                                  onPressed: () => onAssess(),
+                                                  onPressed: () =>
+                                                      onOpenHouseHoldAssess(
+                                                        context,
+                                                        ovcHouseHold,
+                                                      ),
                                                   child: Text(
                                                     'ASSESS',
                                                     style: TextStyle().copyWith(
@@ -133,7 +163,11 @@ class _OvcServicesPageState extends State<OvcServicesPage> {
                                             ),
                                             Container(
                                               child: FlatButton(
-                                                  onPressed: () => onPlan(),
+                                                  onPressed: () =>
+                                                      onOpenHouseHoldCasePlan(
+                                                        context,
+                                                        ovcHouseHold,
+                                                      ),
                                                   child: Text(
                                                     'PLAN',
                                                     style: TextStyle().copyWith(
@@ -146,7 +180,11 @@ class _OvcServicesPageState extends State<OvcServicesPage> {
                                             ),
                                             Container(
                                               child: FlatButton(
-                                                  onPressed: () => onMonitor(),
+                                                  onPressed: () =>
+                                                      onOpenHouseHoldMonitor(
+                                                        context,
+                                                        ovcHouseHold,
+                                                      ),
                                                   child: Text(
                                                     'MONITOR',
                                                     style: TextStyle().copyWith(

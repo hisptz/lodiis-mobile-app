@@ -17,19 +17,19 @@ import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/models/ovc_house_hold_child.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_child_info_top_header.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_tbscreening.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/sub_pages/child_asessment/constants/ovc_service_tb_assessment_constant.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_wellbeing_assessment.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_asessment/constants/ovc_service_well_being_assessment_constant.dart';
 import 'package:provider/provider.dart';
 
-class OvcServiceTBAssessmentForm extends StatefulWidget {
+class OvcServiceWellBeingAssessmentForm extends StatefulWidget {
   @override
-  _OvcServiceTBAssessmentFormState createState() =>
-      _OvcServiceTBAssessmentFormState();
+  _OvcServiceWellBeingAssessmentFormState createState() =>
+      _OvcServiceWellBeingAssessmentFormState();
 }
 
-class _OvcServiceTBAssessmentFormState
-    extends State<OvcServiceTBAssessmentForm> {
-  final String label = "Child TB Assessemnt";
+class _OvcServiceWellBeingAssessmentFormState
+    extends State<OvcServiceWellBeingAssessmentForm> {
+  final String label = "Child Well-being Assessemnt";
   List<FormSection> formSections;
   bool isFormReady = false;
   bool isSaving = false;
@@ -37,7 +37,7 @@ class _OvcServiceTBAssessmentFormState
   @override
   void initState() {
     super.initState();
-    formSections = OvcServicesTbscreening.getFormSections();
+    formSections = OvcServicesWellbeingAssessment.getFormSections();
     Timer(Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
@@ -63,8 +63,8 @@ class _OvcServiceTBAssessmentFormState
       String eventId = dataObject['eventId'];
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-            OvcServiceTBAssessmentConstant.program,
-            OvcServiceTBAssessmentConstant.programStage,
+            OvcServiceWellBeingAssessmentConstant.program,
+            OvcServiceWellBeingAssessmentConstant.programStage,
             currentOvcHouseHoldChild.orgUnit,
             formSections,
             dataObject,
@@ -73,6 +73,7 @@ class _OvcServiceTBAssessmentFormState
             eventId);
         Provider.of<ServiveEventDataState>(context, listen: false)
             .resetServiceEventDataState(currentOvcHouseHoldChild.id);
+        
         Timer(Duration(seconds: 1), () {
           setState(() {
             isSaving = false;

@@ -77,7 +77,6 @@ class _OvcServiceHouseHoldAddReferralFormState
             eventDate,
             currentOvcHouseHold.id,
             eventId);
-
         Provider.of<ServiveEventDataState>(context, listen: false)
             .resetServiceEventDataState(currentOvcHouseHold.id);
 
@@ -85,11 +84,8 @@ class _OvcServiceHouseHoldAddReferralFormState
           setState(() {
             AppUtil.showToastMessage(
                 message: 'Form has been saved successfully',
-                position: ToastGravity.TOP);   
-                Provider.of<ServiveEventDataState>(context, listen: false)
-            .resetServiceEventDataState(currentOvcHouseHold.id);    
+                position: ToastGravity.TOP);
             Navigator.pop(context);
-           
           });
         });
       } catch (e) {
@@ -141,9 +137,9 @@ class _OvcServiceHouseHoldAddReferralFormState
                           )
                         : Column(
                             children: [
-                               OvcHouseHoldInfoTopHeader(
-                        currentOvcHouseHold: currentOvcHouseHold,
-                      ),
+                              OvcHouseHoldInfoTopHeader(
+                                currentOvcHouseHold: currentOvcHouseHold,
+                              ),
                               Container(
                                 margin: EdgeInsets.only(
                                   top: 10.0,

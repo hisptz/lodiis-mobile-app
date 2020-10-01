@@ -17,19 +17,22 @@ import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/models/ovc_house_hold_child.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_child_info_top_header.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_wellbeing_assessment.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/sub_pages/child_asessment/constants/ovc_service_well_being_assessment_constant.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/constants/ovc_referral_constant.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/models/ovc_referral.dart';
 import 'package:provider/provider.dart';
 
-class OvcServiceWellBeingAssessmentForm extends StatefulWidget {
+class OvcServiceChildAddReferralForm extends StatefulWidget {
+  final OvcHouseHoldChild ovcHouseHoldChild;
+  OvcServiceChildAddReferralForm({this.ovcHouseHoldChild});
+
   @override
-  _OvcServiceWellBeingAssessmentFormState createState() =>
-      _OvcServiceWellBeingAssessmentFormState();
+  _OvcServiceChildAddReferralFormState createState() =>
+      _OvcServiceChildAddReferralFormState();
 }
 
-class _OvcServiceWellBeingAssessmentFormState
-    extends State<OvcServiceWellBeingAssessmentForm> {
-  final String label = "Child Well-being Assessemnt";
+class _OvcServiceChildAddReferralFormState
+    extends State<OvcServiceChildAddReferralForm> {
+  final String label = "Add Child Referral";
   List<FormSection> formSections;
   bool isFormReady = false;
   bool isSaving = false;
@@ -37,10 +40,11 @@ class _OvcServiceWellBeingAssessmentFormState
   @override
   void initState() {
     super.initState();
-    formSections = OvcServicesWellbeingAssessment.getFormSections();
+    formSections = OvcAddReferral.getFormSections();
     Timer(Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
+        print(widget.ovcHouseHoldChild.createdDate);
       });
     });
   }
@@ -61,22 +65,24 @@ class _OvcServiceWellBeingAssessmentFormState
       });
       String eventDate = dataObject['eventDate'];
       String eventId = dataObject['eventId'];
+      dataObject['Ntee9tw45ja'] = dataObject['Ntee9tw45ja'] ?? AppUtil.getUid();
+
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-            OvcServiceWellBeingAssessmentConstant.program,
-            OvcServiceWellBeingAssessmentConstant.programStage,
+            OvcReferralConstant.program,
+            OvcReferralConstant.programStage,
             currentOvcHouseHoldChild.orgUnit,
             formSections,
             dataObject,
             eventDate,
             currentOvcHouseHoldChild.id,
             eventId);
+            
         Provider.of<ServiveEventDataState>(context, listen: false)
             .resetServiceEventDataState(currentOvcHouseHoldChild.id);
-        
+
         Timer(Duration(seconds: 1), () {
           setState(() {
-            isSaving = false;
             AppUtil.showToastMessage(
                 message: 'Form has been saved successfully',
                 position: ToastGravity.TOP);
@@ -86,10 +92,8 @@ class _OvcServiceWellBeingAssessmentFormState
       } catch (e) {
         Timer(Duration(seconds: 1), () {
           setState(() {
-            isSaving = false;
             AppUtil.showToastMessage(
                 message: e.toString(), position: ToastGravity.BOTTOM);
-            Navigator.pop(context);
           });
         });
       }
@@ -97,6 +101,7 @@ class _OvcServiceWellBeingAssessmentFormState
       AppUtil.showToastMessage(
           message: 'Please fill at least one form field',
           position: ToastGravity.TOP);
+      Navigator.pop(context);
     }
   }
 
@@ -117,59 +122,53 @@ class _OvcServiceWellBeingAssessmentFormState
           ),
         ),
         body: SubPageBody(
-          body: Container(
-            child: Consumer<OvcHouseHoldCurrentSelectionState>(
-              builder: (context, ovcHouseHoldCurrentSelectionState, child) {
-                OvcHouseHoldChild currentOvcHouseHoldChild =
-                    ovcHouseHoldCurrentSelectionState.currentOvcHouseHoldChild;
-                return Consumer<ServiceFormState>(
-                  builder: (context, serviceFormState, child) {
-                    return Container(
-                      child: !isFormReady
-                          ? Container(
-                              child: CircularProcessLoader(
-                                color: Colors.blueGrey,
-                              ),
-                            )
-                          : Column(
-                              children: [
-                                OvcChildInfoTopHeader(),
-                                Container(
-                                  margin: EdgeInsets.only(
-                                    top: 10.0,
-                                    left: 13.0,
-                                    right: 13.0,
-                                  ),
-                                  child: EntryFormContainer(
-                                    formSections: formSections,
-                                    mandatoryFieldObject: Map(),
-                                    dataObject: serviceFormState.formState,
-                                    isEditableMode:
-                                        serviceFormState.isEditableMode,
-                                    onInputValueChange: onInputValueChange,
-                                  ),
-                                ),
-                                Visibility(
-                                  visible: serviceFormState.isEditableMode,
-                                  child: OvcEnrollmentFormSaveButton(
-                                    label: isSaving ? 'Saving ...' : 'Save',
-                                    labelColor: Colors.white,
-                                    buttonColor: Color(0xFF4B9F46),
-                                    fontSize: 15.0,
-                                    onPressButton: () => onSaveForm(
-                                        context,
-                                        serviceFormState.formState,
-                                        currentOvcHouseHoldChild),
-                                  ),
-                                )
-                              ],
+          body: Container(child: Consumer<OvcHouseHoldCurrentSelectionState>(
+            builder: (context, ovcHouseHoldCurrentSelectionState, child) {
+              OvcHouseHoldChild currentOvcHouseHoldChild =
+                  ovcHouseHoldCurrentSelectionState.currentOvcHouseHoldChild;
+
+              return Consumer<ServiceFormState>(
+                builder: (context, serviceFormState, child) {
+                  return Container(
+                    child: !isFormReady
+                        ? Container(
+                            child: CircularProcessLoader(
+                              color: Colors.blueGrey,
                             ),
-                    );
-                  },
-                );
-              },
-            ),
-          ),
+                          )
+                        : Column(
+                            children: [
+                              OvcChildInfoTopHeader(),
+                              Container(
+                                margin: EdgeInsets.only(
+                                  top: 10.0,
+                                  left: 13.0,
+                                  right: 13.0,
+                                ),
+                                child: EntryFormContainer(
+                                  formSections: formSections,
+                                  mandatoryFieldObject: Map(),
+                                  dataObject: serviceFormState.formState,
+                                  onInputValueChange: onInputValueChange,
+                                ),
+                              ),
+                              OvcEnrollmentFormSaveButton(
+                                label: isSaving ? 'Saving ...' : 'Save',
+                                labelColor: Colors.white,
+                                buttonColor: Color(0xFF4B9F46),
+                                fontSize: 15.0,
+                                onPressButton: () => onSaveForm(
+                                    context,
+                                    serviceFormState.formState,
+                                    currentOvcHouseHoldChild),
+                              )
+                            ],
+                          ),
+                  );
+                },
+              );
+            },
+          )),
         ),
         bottomNavigationBar: InterventionBottomNavigationBarContainer());
   }
