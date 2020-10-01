@@ -5,6 +5,7 @@ import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_caseplan_gaps.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/components/case_plan_gap_form_container.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/constants/ovc_case_plan_constant.dart';
 
 class CasePlanFormContainer extends StatelessWidget {
   CasePlanFormContainer({
@@ -22,11 +23,12 @@ class CasePlanFormContainer extends StatelessWidget {
   final Map dataObject;
   final Function onInputValueChange;
 
-  final String caseToGapLinkage = 'ajqTV28fydL';
+  final String caseToGapLinkage = OvcCasePlanConstant.casePlanToGapLinkage;
 
   void onAddNewGap(BuildContext context) async {
     Map gapDataObject = Map();
-    gapDataObject[caseToGapLinkage] = dataObject[caseToGapLinkage];
+    gapDataObject[caseToGapLinkage] =
+        dataObject[caseToGapLinkage] ?? AppUtil.getUid();
     List<FormSection> formSections = OvcServicesCasePlanGaps.getFormSections()
         .where((FormSection form) => form.id == formSection.id)
         .toList();
@@ -87,6 +89,7 @@ class CasePlanFormContainer extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: formSectionColor.withOpacity(0.2),
                   ),
+                  child: Text(dataObject['gaps'].length.toString()),
                   // child: Row(
                   //   children: (dataObject['gaps'] ?? [])
                   //       .map((Map dataObject) => Text('Data'))

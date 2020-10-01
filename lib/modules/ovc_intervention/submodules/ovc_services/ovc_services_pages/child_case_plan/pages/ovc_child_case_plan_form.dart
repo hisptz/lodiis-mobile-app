@@ -26,6 +26,7 @@ class _OcvChildCasePlanFormState extends State<OcvChildCasePlanForm> {
   final String label = 'Child Case Plan Form';
   List<FormSection> formSections;
   Map borderColors = Map();
+  Map dataObject = Map();
 
   bool isSaving = false;
   bool isFormReady = false;
@@ -35,6 +36,7 @@ class _OcvChildCasePlanFormState extends State<OcvChildCasePlanForm> {
     super.initState();
     setState(() {
       formSections = [];
+      dataObject['gaps'] = [];
       for (FormSection formSection in OvcServicesCasePlan.getFormSections()) {
         borderColors[formSection.id] = formSection.borderColor;
         formSection.borderColor = Colors.transparent;
@@ -99,7 +101,7 @@ class _OcvChildCasePlanFormState extends State<OcvChildCasePlanForm> {
                                               formSectionColor:
                                                   borderColors[formSection.id],
                                               formSection: formSection,
-                                              dataObject: Map(),
+                                              dataObject: dataObject,
                                               isEditableMode: serviceFormState
                                                   .isEditableMode,
                                             ))
