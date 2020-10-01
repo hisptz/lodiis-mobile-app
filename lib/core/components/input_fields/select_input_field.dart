@@ -56,7 +56,7 @@ class _SelectInputFieldState extends State<SelectInputField> {
                 onInputValueChange: widget.onInputValueChange))
         : Row(children: [
             Expanded(
-                child: DropdownButton<String>(
+                child: DropdownButton<dynamic>(
               value: _selectedOption,
               isExpanded: true,
               icon: Container(
@@ -74,8 +74,8 @@ class _SelectInputFieldState extends State<SelectInputField> {
               ),
               onChanged: widget.isReadOnly ? null : onValueChange,
               items: widget.options
-                  .map<DropdownMenuItem<String>>((InputFieldOption option) {
-                return DropdownMenuItem<String>(
+                  .map<DropdownMenuItem<dynamic>>((InputFieldOption option) {
+                return DropdownMenuItem<dynamic>(
                   value: option.code,
                   child: Text(option.name),
                 );

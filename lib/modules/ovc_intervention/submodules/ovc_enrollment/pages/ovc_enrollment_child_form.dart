@@ -26,7 +26,7 @@ class OvcEnrollmentChildForm extends StatefulWidget {
 
 class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
   final List<FormSection> formSections = OvcEnrollmentChild.getFormSections();
-  final String label = 'Child form';
+  final String label = 'Child enrolment form';
   final List<Map> childMapObjects = [];
   bool isLoading = true;
   Map childMapObject;
@@ -79,7 +79,7 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
     if (hadAllMandatoryFilled) {
       String name = childMapObject['s1eRvsL2Ly4'] ?? '';
       Widget modal = AddChildConfirmation(name: name);
-      bool response = await AppUtil.showPopUpModal(context, modal);
+      bool response = await AppUtil.showPopUpModal(context, modal, false);
       if (response != null) {
         if (response) {
           setState(() {

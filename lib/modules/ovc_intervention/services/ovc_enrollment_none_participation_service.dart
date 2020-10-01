@@ -13,7 +13,9 @@ class OvcNoneParticipationService {
 
   Future saveNoneParticipationForm(
       List<FormSection> formSections, Map dataObject, String eventId) async {
-    List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections);
+    List<String> inputFieldIds = FormUtil.getFormFieldIds(
+      formSections,
+    );
     for (OvcEnrollmentNoneParticipationConstant noneParticipationContant
         in noneParticipationContants) {
       String dataElement = noneParticipationContant.dataElement;

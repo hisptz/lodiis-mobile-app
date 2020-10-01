@@ -18,7 +18,7 @@ class AppBarUtil {
       BuildContext context, InterventionCard activeInterventionProgram) async {
     var modal = InterventionPopUpMenu(
         activeInterventionProgram: activeInterventionProgram);
-    var response = await AppUtil.showPopUpModal(context, modal);
+    var response = await AppUtil.showPopUpModal(context, modal, false);
     if (response != null) {
       if (response.id == 'dreams' || response.id == 'ovc') {
         _onSwitchToIntervention(context, response.id);

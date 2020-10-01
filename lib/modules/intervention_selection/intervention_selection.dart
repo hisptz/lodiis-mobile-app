@@ -64,8 +64,9 @@ class _InterventionSelectionState extends State<InterventionSelection> {
           return Container(child: Consumer<OvcInterventionListState>(
             builder: (context, ovcInterventionListState, child) {
               bool isOvcListLoading = ovcInterventionListState.isLoading;
-              int numberOfOvcBeneficiaries =
-                  ovcInterventionListState.numberOfOvcBeneficiaries;
+              int numberOfHouseHolds =
+                  ovcInterventionListState.numberOfHouseHolds;
+              int numberOfOvcs = ovcInterventionListState.numberOfOvcs;
               return Container(
                 child: Consumer<DreamsInterventionListState>(
                   builder: (context, dreamsInterventionListState, child) {
@@ -74,8 +75,8 @@ class _InterventionSelectionState extends State<InterventionSelection> {
                     int numberOfDreamsBeneficiaries =
                         dreamsInterventionListState.numberOfDreamsBeneficiaries;
                     return Container(
-                      child: isSynchronizationActive &&
-                              isDreamsListLoading &&
+                      child: isSynchronizationActive ||
+                              isDreamsListLoading ||
                               isOvcListLoading
                           ? CircularProcessLoader()
                           : InterventionSelectionContainer(
@@ -83,8 +84,8 @@ class _InterventionSelectionState extends State<InterventionSelection> {
                               onIntervetionSelection: onIntervetionSelection,
                               numberOfDreamsBeneficiaries:
                                   numberOfDreamsBeneficiaries,
-                              numberOfOvcBeneficiaries:
-                                  numberOfOvcBeneficiaries,
+                              numberOfHouseHolds: numberOfHouseHolds,
+                              numberOfOvcs: numberOfOvcs,
                             ),
                     );
                   },

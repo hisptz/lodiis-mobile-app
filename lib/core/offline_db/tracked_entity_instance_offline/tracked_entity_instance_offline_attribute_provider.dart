@@ -34,7 +34,8 @@ class TrackedEntityInstanceOfflineAttributeProvider extends OfflineDbProvider {
   }
 
   Future<List> getTrackedEntityAttributesValues(
-      String trackedEntityInstanceId) async {
+    String trackedEntityInstanceId,
+  ) async {
     List attributes = [];
     try {
       var dbClient = await db;

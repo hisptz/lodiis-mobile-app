@@ -13,15 +13,17 @@ import 'package:kb_mobile_app/core/components/line_seperator.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 
 class InputFieldContainer extends StatelessWidget {
-  const InputFieldContainer(
-      {Key key,
-      @required this.inputField,
-      this.onInputValueChange,
-      this.dataObject,
-      this.mandatoryFieldObject})
-      : super(key: key);
+  const InputFieldContainer({
+    Key key,
+    @required this.inputField,
+    this.onInputValueChange,
+    this.dataObject,
+    this.mandatoryFieldObject,
+    this.isEditableMode,
+  }) : super(key: key);
 
   final InputField inputField;
+  final bool isEditableMode;
   final Function onInputValueChange;
   final Map dataObject;
   final Map mandatoryFieldObject;
@@ -38,6 +40,7 @@ class InputFieldContainer extends StatelessWidget {
           vertical: 2.0,
         ),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
               child: Row(
@@ -81,36 +84,82 @@ class InputFieldContainer extends StatelessWidget {
                   ),
                 )),
             Visibility(
-                visible: inputField.hasSubInputField,
+                visible: inputField.hasSubInputField &&
+                    inputField.subInputField != null,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Expanded(
-                        child: Container(child: _getInputField(inputField))),
-                    Expanded(
-                        child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Container(
-                          child: Text(inputField.subInputField != null
-                              ? inputField.subInputField.name
-                              : ''),
-                        ),
-                        Container(
-                            child: _getInputField(inputField.subInputField)),
-                      ],
-                    )),
+                      child: Container(
+                          child: isEditableMode
+                              ? _getInputField(inputField)
+                              : _getInputFieldLabel(inputField)),
+                    ),
+                    Visibility(
+                      visible: inputField.subInputField != null,
+                      child: Expanded(
+                          child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Container(
+                            child: Text(inputField.subInputField != null
+                                ? inputField.subInputField.name
+                                : ''),
+                          ),
+                          Container(
+                            child: isEditableMode
+                                ? _getInputField(inputField.subInputField)
+                                : _getInputFieldLabel(inputField.subInputField),
+                          ),
+                        ],
+                      )),
+                    ),
                   ],
                 )),
             Visibility(
-                visible: !inputField.hasSubInputField,
-                child: Container(child: _getInputField(inputField))),
+              visible: !inputField.hasSubInputField,
+              child: Container(
+                  child: isEditableMode
+                      ? _getInputField(inputField)
+                      : _getInputFieldLabel(inputField)),
+            ),
             LineSeperator(
                 color: inputField.inputColor.withOpacity(0.3) ??
                     Colors.transparent)
           ],
         ),
       ),
+    );
+  }
+
+  Widget _getInputFieldLabel(InputField inputField) {
+    dynamic value =
+        inputField != null && '${dataObject[inputField.id]}' != 'null'
+            ? '${dataObject[inputField.id]}'
+            : '   ';
+    if (inputField != null) {
+      if (inputField.valueType == "BOOLEAN") {
+        value = value == 'true' ? 'Yes' : value == 'false' ? 'No' : value;
+      } else if (inputField.valueType == 'TRUE_ONLY') {
+        value = value == 'true' ? 'Yes' : value;
+      }
+    }
+    return Row(
+      children: [
+        Container(
+          margin: EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
+          child: Text(
+            value.toString(),
+            style: TextStyle().copyWith(
+              color: inputField != null && inputField.inputColor != null
+                  ? inputField.inputColor
+                  : null,
+              fontWeight: FontWeight.w500,
+              fontSize: 12.0,
+            ),
+          ),
+        ),
+      ],
     );
   }
 

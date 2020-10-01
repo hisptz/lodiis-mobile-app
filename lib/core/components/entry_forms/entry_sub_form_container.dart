@@ -9,6 +9,7 @@ class EntrySubFormContainer extends StatelessWidget {
     @required this.subSections,
     @required this.dataObject,
     @required this.mandatoryFieldObject,
+    this.isEditableMode = true,
     this.onInputValueChange,
   }) : super(key: key);
 
@@ -16,6 +17,7 @@ class EntrySubFormContainer extends StatelessWidget {
   final Function onInputValueChange;
   final Map dataObject;
   final Map mandatoryFieldObject;
+  final bool isEditableMode;
 
   @override
   Widget build(BuildContext context) {
@@ -41,12 +43,14 @@ class EntrySubFormContainer extends StatelessWidget {
                               vertical: 15.0, horizontal: 10.0),
                           child: Row(
                             children: [
-                              Text(
-                                subSection.name,
-                                style: TextStyle().copyWith(
-                                    color: subSection.color,
-                                    fontSize: 15.0,
-                                    fontWeight: FontWeight.bold),
+                              Expanded(
+                                child: Text(
+                                  subSection.name,
+                                  style: TextStyle().copyWith(
+                                      color: subSection.color,
+                                      fontSize: 15.0,
+                                      fontWeight: FontWeight.bold),
+                                ),
                               )
                             ],
                           ),
@@ -59,13 +63,15 @@ class EntrySubFormContainer extends StatelessWidget {
                               vertical: 15.0, horizontal: 10.0),
                           child: Row(
                             children: [
-                              Text(
-                                subSection.description,
-                                style: TextStyle().copyWith(
-                                    color: subSection.color,
-                                    fontSize: 14.0,
-                                    fontStyle: FontStyle.italic,
-                                    fontWeight: FontWeight.normal),
+                              Expanded(
+                                child: Text(
+                                  subSection.description,
+                                  style: TextStyle().copyWith(
+                                      color: subSection.color,
+                                      fontSize: 14.0,
+                                      fontStyle: FontStyle.italic,
+                                      fontWeight: FontWeight.normal),
+                                ),
                               )
                             ],
                           ),
@@ -84,6 +90,7 @@ class EntrySubFormContainer extends StatelessWidget {
                                             : 0.0),
                                     child: InputFieldContainer(
                                         inputField: inputField,
+                                        isEditableMode: isEditableMode,
                                         mandatoryFieldObject:
                                             mandatoryFieldObject,
                                         dataObject: dataObject,

@@ -32,7 +32,7 @@ class OvcEnrollmentFormSaveButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(
-          top: 40.0, bottom: 10.0, left: marginLeft, right: marginRight),
+          top: 20.0, bottom: 10.0, left: marginLeft, right: marginRight),
       child: Container(
           width: width,
           child: FlatButton(

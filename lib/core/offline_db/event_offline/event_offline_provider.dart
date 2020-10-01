@@ -25,4 +25,41 @@ class EventOfflineProvider extends OfflineDbProvider {
         conflictAlgorithm: ConflictAlgorithm.replace);
     await EventOfflineDataValueProvider().addOrUpdateEventDataValues(event);
   }
+
+  Future<List<Events>> getTrackedEntityInstance(
+    List<String> trackedEntityInstanceIds,
+  ) async {
+    List<Events> events = [];
+    try {
+      var dbClient = await db;
+      for (String trackedEntityInstanceId in trackedEntityInstanceIds) {
+        List<Map> maps = await dbClient.query(
+          table,
+          columns: [
+            id,
+            event,
+            eventDate,
+            program,
+            programStage,
+            trackedEntityInstance,
+            status,
+            orgUnit,
+            syncStatus,
+          ],
+          where: '$trackedEntityInstance = ?',
+          whereArgs: [trackedEntityInstanceId],
+        );
+        if (maps.isNotEmpty) {
+          for (Map map in maps) {
+            List dataValues = await EventOfflineDataValueProvider()
+                .getEventDataValues(map['id']);
+            Events eventData = Events.fromOffline(map);
+            eventData.dataValues = dataValues;
+            events.add(eventData);
+          }
+        }
+      }
+    } catch (e) {}
+    return events;
+  }
 }

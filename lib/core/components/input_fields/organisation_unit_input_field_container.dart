@@ -80,7 +80,7 @@ class _OrganisationUnitInputFieldContainerState
       ),
     );
     OrganisationUnit organisationUnit =
-        await AppUtil.showPopUpModal(context, modal);
+        await AppUtil.showPopUpModal(context, modal, false);
     if (organisationUnit != null) {
       setOrganisationunit(organisationUnit.name);
       widget.onInputValueChange(organisationUnit.id);

@@ -8,13 +8,15 @@ class InterventionSelectionCard extends StatelessWidget {
     this.interventionProgram,
     this.interventionProgramId,
     @required this.numberOfDreamsBeneficiaries,
-    @required this.numberOfOvcBeneficiaries,
+    @required this.numberOfHouseHolds,
+    @required this.numberOfOvcs,
   }) : super(key: key);
 
   final InterventionCard interventionProgram;
   final String interventionProgramId;
   final int numberOfDreamsBeneficiaries;
-  final int numberOfOvcBeneficiaries;
+  final int numberOfHouseHolds;
+  final int numberOfOvcs;
 
   @override
   Widget build(BuildContext context) {
@@ -55,27 +57,59 @@ class InterventionSelectionCard extends StatelessWidget {
                                   fontSize: 16,
                                   fontWeight: FontWeight.w500,
                                   color: interventionProgram.nameColor))),
-                      Row(
-                        children: [
-                          Text(
-                            '# of beneficiary:',
-                            style: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w500,
-                                color: interventionProgram.countLabelColor),
-                          ),
-                          Text(
-                              interventionProgram.id == 'ovc'
-                                  ? numberOfOvcBeneficiaries.toString()
-                                  : interventionProgram.id == 'dreams'
-                                      ? numberOfDreamsBeneficiaries.toString()
-                                      : '',
-                              style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w500,
-                                  color: interventionProgram.countColor))
-                        ],
-                      )
+                      Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            RichText(
+                              text: TextSpan(
+                                  text: interventionProgram.id == 'ovc'
+                                      ? '# of HouseHolde: '
+                                      : '# of AGYWs: ',
+                                  style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w500,
+                                      color:
+                                          interventionProgram.countLabelColor),
+                                  children: [
+                                    TextSpan(
+                                      text: interventionProgram.id == 'ovc'
+                                          ? numberOfHouseHolds.toString()
+                                          : numberOfDreamsBeneficiaries
+                                              .toString(),
+                                      style: TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w500,
+                                          color:
+                                              interventionProgram.countColor),
+                                    )
+                                  ]),
+                            ),
+                            RichText(
+                              text: TextSpan(
+                                  text: interventionProgram.id == 'ovc'
+                                      ? '# of OVCs: '
+                                      : '# of none-AGWYs: ',
+                                  style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w500,
+                                      color:
+                                          interventionProgram.countLabelColor),
+                                  children: [
+                                    TextSpan(
+                                      text: interventionProgram.id == 'ovc'
+                                          ? numberOfOvcs.toString()
+                                          : numberOfDreamsBeneficiaries
+                                              .toString(),
+                                      style: TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w500,
+                                          color:
+                                              interventionProgram.countColor),
+                                    )
+                                  ]),
+                            )
+                          ])
                     ],
                   ),
                 ),
