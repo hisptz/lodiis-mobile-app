@@ -8,7 +8,6 @@ import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/models/enrollment_form_section.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/dreams_prep_followup_visits.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/dreams_srh_client_intake.dart';
 import 'package:provider/provider.dart';
 
 class DreamsEnrollmentForm extends StatelessWidget {
@@ -22,8 +21,8 @@ class DreamsEnrollmentForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<FormSection> enrollmentForm =
-        EnrollmentFormSection.getFormSections();
+    final List<FormSection> enrollmentForm = [];
+
     return SafeArea(
         child: Scaffold(
             appBar: PreferredSize(
@@ -50,6 +49,5 @@ class DreamsEnrollmentForm extends StatelessWidget {
                       mandatoryFieldObject: Map())),
             ),
             bottomNavigationBar: InterventionBottomNavigationBarContainer()));
- 
   }
 }
