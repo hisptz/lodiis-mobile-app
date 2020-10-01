@@ -5,6 +5,7 @@ import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_caseplan_gaps.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/components/case_plan_gap_form_container.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/components/case_plan_gap_view_container.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/constants/ovc_case_plan_constant.dart';
 
 class CasePlanFormContainer extends StatelessWidget {
@@ -83,16 +84,10 @@ class CasePlanFormContainer extends StatelessWidget {
                   isEditableMode: isEditableMode,
                   onInputValueChange: onValueChange,
                 ),
-                Container(
-                  decoration: BoxDecoration(
-                    color: formSectionColor.withOpacity(0.2),
-                  ),
-                  child: Text(dataObject['gaps'].length.toString()),
-                  // child: Row(
-                  //   children: (dataObject['gaps'] ?? [])
-                  //       .map((Map dataObject) => Text('Data'))
-                  //       .toList(),
-                  // ),
+                CasePlanGapViewContainer(
+                  casePlanGaps: dataObject['gaps'],
+                  domainId: formSection.id,
+                  formSectionColor: formSectionColor,
                 ),
                 Visibility(
                   visible: isEditableMode,

@@ -13,6 +13,7 @@ import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_child_info
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_caseplan.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/components/case_plan_form_container.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/constants/ovc_case_plan_constant.dart';
 import 'package:provider/provider.dart';
 
 class OcvChildCasePlanForm extends StatefulWidget {
@@ -26,7 +27,6 @@ class _OcvChildCasePlanFormState extends State<OcvChildCasePlanForm> {
   final String label = 'Child Case Plan Form';
   List<FormSection> formSections;
   Map borderColors = Map();
-  Map dataObject = Map();
 
   bool isSaving = false;
   bool isFormReady = false;
@@ -36,35 +36,27 @@ class _OcvChildCasePlanFormState extends State<OcvChildCasePlanForm> {
     super.initState();
     setState(() {
       formSections = [];
-      dataObject['gaps'] = [];
       for (FormSection formSection in OvcServicesCasePlan.getFormSections()) {
         borderColors[formSection.id] = formSection.borderColor;
         formSection.borderColor = Colors.transparent;
         formSections.add(formSection);
-        // @todo resplace with statius
-        Map map = Map();
-        map['gaps'] = [];
-        map['vexrPNgPBYg'] = formSection.id;
-        dataObject[formSection.id] = map;
       }
       isFormReady = true;
     });
   }
 
   onInputValueChange(String formSectionId, dynamic value) {
-    setState(() {
-      dataObject[formSectionId] = value;
-    });
-    print(dataObject);
+    Provider.of<ServiceFormState>(context, listen: false)
+        .setFormFieldState(formSectionId, value);
   }
-
-  // vexrPNgPBYg
 
   void onSaveForm(
     BuildContext context,
     Map dataObject,
     OvcHouseHoldChild currentOvcHouseHoldChild,
-  ) {}
+  ) {
+    print(dataObject);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -90,6 +82,7 @@ class _OcvChildCasePlanFormState extends State<OcvChildCasePlanForm> {
                     ovcHouseHoldCurrentSelectionState.currentOvcHouseHoldChild;
                 return Consumer<ServiceFormState>(
                   builder: (context, serviceFormState, child) {
+                    Map dataObject = serviceFormState.formState;
                     return Container(
                       child: !isFormReady
                           ? Container(

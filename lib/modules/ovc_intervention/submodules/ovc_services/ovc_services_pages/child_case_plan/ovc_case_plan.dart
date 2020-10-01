@@ -7,11 +7,14 @@ import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
+import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/models/ovc_house_hold_child.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_child_info_top_header.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_caseplan.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_case_plan/pages/ovc_child_case_plan_form.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/constants/ovc_case_plan_constant.dart';
 import 'package:provider/provider.dart';
 
 class OvcCasePlanChildView extends StatelessWidget {
@@ -19,6 +22,13 @@ class OvcCasePlanChildView extends StatelessWidget {
 
   updateformState(BuildContext context, OvcHouseHoldChild child) {
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
+    for (FormSection formSection in OvcServicesCasePlan.getFormSections()) {
+      Map map = Map();
+      map['gaps'] = [];
+      map[OvcCasePlanConstant.casePlanDomainType] = formSection.id;
+      Provider.of<ServiceFormState>(context, listen: false)
+          .setFormFieldState(formSection.id, map);
+    }
   }
 
   void onAddNewAssessment(BuildContext context, OvcHouseHoldChild child) {
