@@ -43,8 +43,7 @@ class _CasePlanGapFormContainerState extends State<CasePlanGapFormContainer> {
     bool hadAllMandatoryFilled =
         AppUtil.hasAllMandarotyFieldsFilled(mandatoryFields, dataObject);
     if (hadAllMandatoryFilled) {
-      print(dataObject);
-      //Navigator.pop(context, dataObject);
+      Navigator.pop(context, dataObject);
     } else {
       AppUtil.showToastMessage(
           message: 'Please fill all mandatory field',

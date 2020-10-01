@@ -42,18 +42,16 @@ class CasePlanFormContainer extends StatelessWidget {
       formSectionColor: formSectionColor,
       dataObject: gapDataObject,
     );
-    var response = await AppUtil.showPopUpModal(context, modal, true);
-    print(response);
+    Map response = await AppUtil.showPopUpModal(context, modal, true);
     if (response != null) {
-      // setState(() {
-      //   casePlanGapObjects.add(response);
-      // });
+      dataObject['gaps'].add(response);
+      onValueChange('gaps', dataObject['gaps']);
     }
   }
 
   void onValueChange(String id, dynamic value) {
-    // do appropriate action on changes on in inputs
-    print('$id $value');
+    dataObject[id] = value;
+    onInputValueChange(dataObject);
   }
 
   @override

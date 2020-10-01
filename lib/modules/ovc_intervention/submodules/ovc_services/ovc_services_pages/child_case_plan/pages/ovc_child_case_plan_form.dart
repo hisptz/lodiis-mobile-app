@@ -41,9 +41,21 @@ class _OcvChildCasePlanFormState extends State<OcvChildCasePlanForm> {
         borderColors[formSection.id] = formSection.borderColor;
         formSection.borderColor = Colors.transparent;
         formSections.add(formSection);
+        // @todo resplace with statius
+        Map map = Map();
+        map['gaps'] = [];
+        map['vexrPNgPBYg'] = formSection.id;
+        dataObject[formSection.id] = map;
       }
       isFormReady = true;
     });
+  }
+
+  onInputValueChange(String formSectionId, dynamic value) {
+    setState(() {
+      dataObject[formSectionId] = value;
+    });
+    print(dataObject);
   }
 
   // vexrPNgPBYg
@@ -96,15 +108,23 @@ class _OcvChildCasePlanFormState extends State<OcvChildCasePlanForm> {
                                   ),
                                   child: Column(
                                     children: formSections
-                                        .map((FormSection formSection) =>
-                                            CasePlanFormContainer(
-                                              formSectionColor:
-                                                  borderColors[formSection.id],
-                                              formSection: formSection,
-                                              dataObject: dataObject,
-                                              isEditableMode: serviceFormState
-                                                  .isEditableMode,
-                                            ))
+                                        .map(
+                                          (FormSection formSection) =>
+                                              CasePlanFormContainer(
+                                            formSectionColor:
+                                                borderColors[formSection.id],
+                                            formSection: formSection,
+                                            dataObject:
+                                                dataObject[formSection.id],
+                                            isEditableMode:
+                                                serviceFormState.isEditableMode,
+                                            onInputValueChange: (
+                                              dynamic value,
+                                            ) =>
+                                                onInputValueChange(
+                                                    formSection.id, value),
+                                          ),
+                                        )
                                         .toList(),
                                   ),
                                 ),
