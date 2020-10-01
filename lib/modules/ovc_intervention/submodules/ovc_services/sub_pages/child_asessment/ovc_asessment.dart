@@ -27,7 +27,7 @@ class OvcAssessmentServiceChildView extends StatelessWidget {
   void onAddMewchildAssessment(BuildContext context) async {
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
     Widget model = OvcChildAssessmentSelection();
-    String assessmentResponse = await AppUtil.showPopUpModal(context, model);
+    String assessmentResponse = await AppUtil.showPopUpModal(context, model, true);
     onRedirectToAssessmentForm(context, assessmentResponse, true);
   }
 
