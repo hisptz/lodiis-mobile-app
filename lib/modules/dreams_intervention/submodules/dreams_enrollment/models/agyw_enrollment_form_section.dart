@@ -1164,7 +1164,7 @@ class AgywEnrollmentFormSection {
                       labelColor: Color(0xFF05131B)),
                 ]),
           FormSection(
-          name: 'Enrollment Module 7:  Non-Prescription Drug Use',
+          name: 'Enrollment Module 8:  Participation in HIV Prevention Programme',
           color: Color(0xFF258DCC),
           inputFields: [
                   InputField(
