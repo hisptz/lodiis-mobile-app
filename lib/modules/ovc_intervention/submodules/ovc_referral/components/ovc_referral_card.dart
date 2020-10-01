@@ -49,8 +49,10 @@ class OvcReferralCard extends StatelessWidget {
                     child: Expanded(
                         flex: 0,
                         child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Container(
+                               margin: EdgeInsets.symmetric(horizontal: 2.0),
                                  child: FlatButton(
                                   onPressed: onView,
                                   child: Text(
