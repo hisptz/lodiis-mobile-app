@@ -15,7 +15,6 @@ import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/models/ovc_house_hold.dart';
-import 'package:kb_mobile_app/models/ovc_house_hold_child.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_child_info_top_header.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/constants/ovc_referral_constant.dart';
@@ -45,7 +44,7 @@ class _OvcServiceHouseHoldAddReferralFormState
     Timer(Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
-              });
+      });
     });
   }
 
@@ -84,8 +83,9 @@ class _OvcServiceHouseHoldAddReferralFormState
           setState(() {
             AppUtil.showToastMessage(
                 message: 'Form has been saved successfully',
-                position: ToastGravity.TOP);
+                position: ToastGravity.TOP);       
             Navigator.pop(context);
+           
           });
         });
       } catch (e) {
@@ -93,7 +93,7 @@ class _OvcServiceHouseHoldAddReferralFormState
           setState(() {
             AppUtil.showToastMessage(
                 message: e.toString(), position: ToastGravity.BOTTOM);
-                         });
+          });
         });
       }
     } else {
