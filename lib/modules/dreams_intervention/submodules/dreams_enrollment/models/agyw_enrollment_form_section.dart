@@ -660,7 +660,133 @@ class AgywEnrollmentFormSection {
                       valueType: 'BOOLEAN',
                       inputColor: Color(0xFF258DCC),
                       labelColor: Color(0xFF05131B)),
+            ]),
+
+          FormSection(
+          name: 'Enrollment Module 4:  Sexual Activity',
+          color: Color(0xFF258DCC),
+          inputFields: [
+                  InputField(
+                      id: 'lASgoPYJFDc',
+                      name: 'Was your last sexual partner same age, younger or older than you?',
+                      valueType: 'TEXT',
+                      inputColor: Color(0xFF258DCC),
+                      labelColor: Color(0xFF05131B),
+                      options: [
+                        InputFieldOption(code: 'Same Age', name: 'Same Age'),
+                        InputFieldOption(code: 'Younger', name: 'Younger'),
+                        InputFieldOption(code: 'Older', name: 'Older')
+                      ]),
+                  InputField(
+                      id: 'aiXLkPRWtYb',
+                      name: 'Was your last sexual partner circumcised?',
+                      valueType: 'TEXT',
+                      inputColor: Color(0xFF258DCC),
+                      labelColor: Color(0xFF05131B),
+                     options: [
+                        InputFieldOption(code: 'Yes', name: 'Yes'),
+                        InputFieldOption(code: 'No', name: 'No'),
+                        InputFieldOption(code: "Don't Know", name: "Don't Know")
+                      ]),
+                   InputField(
+                      id: 'cVoH1CAuMTb',
+                      name: 'Do you know your last sexual partner HIV status?',
+                      valueType: 'BOOLEAN',
+                      inputColor: Color(0xFF258DCC),
+                      labelColor: Color(0xFF05131B)),
+                    InputField(
+                      id: 'jnO7z2XOLKv',
+                      name: 'How often did/do you use a condom with last partner?',
+                      valueType: 'TEXT',
+                      inputColor: Color(0xFF258DCC),
+                      labelColor: Color(0xFF05131B),
+                       options: [
+                        InputFieldOption(code: 'Always', name: 'Always'),
+                        InputFieldOption(code: 'Sometimes', name: 'Sometimes'),
+                        InputFieldOption(code: "Never", name: "Never")
+                      ]),
+                    InputField(
+                      id: 'QvjdlvdDG7B',
+                      name: 'Was your second to last sexual partner same age, younger or older than you?',
+                      valueType: 'TEXT',
+                      inputColor: Color(0xFF258DCC),
+                      labelColor: Color(0xFF05131B),
+                       options: [
+                        InputFieldOption(code: 'Same Age', name: 'Same Age'),
+                        InputFieldOption(code: 'Younger', name: 'Younger'),
+                        InputFieldOption(code: 'Older', name: 'Older')
+                      ]),
+                  InputField(
+                      id: 'ZJ1O2mAvqwE',
+                      name: 'Was your second to last sexual partner circumcised?',
+                      valueType: 'TEXT',
+                      inputColor: Color(0xFF258DCC),
+                      labelColor: Color(0xFF05131B),
+                      options: [
+                        InputFieldOption(code: 'Yes', name: 'Yes'),
+                        InputFieldOption(code: 'No', name: 'No'),
+                        InputFieldOption(code: "Don't Know", name: "Don't Know")
+                      ]),
+                  InputField(
+                      id: 'vaDqnt0gK9y',
+                      name: 'Do you know your second to last sexual partner HIV status?',
+                      valueType: 'BOOLEAN',
+                      inputColor: Color(0xFF258DCC),
+                      labelColor: Color(0xFF05131B)),
+                  InputField(
+                      id: 'Ec5OLY5STtW',
+                      name: 'How often did/do you use a condom with second to last partner?',
+                      valueType: 'TEXT',
+                      inputColor: Color(0xFF258DCC),
+                      labelColor: Color(0xFF05131B),
+                     options: [
+                        InputFieldOption(code: 'Always', name: 'Always'),
+                        InputFieldOption(code: 'Sometimes', name: 'Sometimes'),
+                        InputFieldOption(code: "Never", name: "Never")
+                      ]),
+                 InputField(
+                      id: 'jbKpQbrAoDh',
+                      name: 'Was your third last sexual partner same age, younger or older than you?',
+                      valueType: 'TEXT',
+                      inputColor: Color(0xFF258DCC),
+                      labelColor: Color(0xFF05131B)),
+                   InputField(
+                      id: 'tO8VP3yEJHq',
+                      name: 'Was your third to last sexual partner circumcised?',
+                      valueType: 'TEXT',
+                      inputColor: Color(0xFF258DCC),
+                      labelColor: Color(0xFF05131B),
+                      options: [
+                        InputFieldOption(code: 'Yes', name: 'Yes'),
+                        InputFieldOption(code: 'No', name: 'No'),
+                        InputFieldOption(code: "Don't Know", name: "Don't Know")
+                      ]
+                      ),
+                 InputField(
+                      id: 'caGPbXZ8ATS',
+                      name: 'Do you know your third to last sexual partner HIV status?',
+                      valueType: 'BOOLEAN',
+                      inputColor: Color(0xFF258DCC),
+                      labelColor: Color(0xFF05131B)),
+                 InputField(
+                      id: 'bhH17wShRcN',
+                      name: 'How often did/do you use a condom with third to last partner?',
+                      valueType: 'TEXT',
+                      inputColor: Color(0xFF258DCC),
+                      labelColor: Color(0xFF05131B),
+                     options: [
+                        InputFieldOption(code: 'Always', name: 'Always'),
+                        InputFieldOption(code: 'Sometimes', name: 'Sometimes'),
+                        InputFieldOption(code: "Never", name: "Never")
+                      ]),
+                 InputField(
+                      id: 'VaPh0Wesrnh',
+                      name: 'In the last 12 months have you received money, gifts or favours in exchange for sex?',
+                      valueType: 'BOOLEAN',
+                      inputColor: Color(0xFF258DCC),
+                      labelColor: Color(0xFF05131B)),     
             ])
+  
       ];
   }
 }
