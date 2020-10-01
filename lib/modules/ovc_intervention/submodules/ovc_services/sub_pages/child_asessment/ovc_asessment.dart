@@ -16,9 +16,9 @@ import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_asessment/componets/ovc_child_assessment_list_card.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_asessment/componets/ovc_child_assessment_selection.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_asessment/constants/ovc_asessment_constant.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_asessment/pages/ovc_service_hiv_assessment_form.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_asessment/pages/ovc_service_tb__assessment_form.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_asessment/pages/ovc_service_well_being_assessment_form.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/sub_pages/child_asessment/pages/ovc_service_hiv_assessment_form.dart';
 import 'package:provider/provider.dart';
 
 class OvcAssessmentServiceChildView extends StatelessWidget {
@@ -27,8 +27,7 @@ class OvcAssessmentServiceChildView extends StatelessWidget {
   void onAddMewchildAssessment(BuildContext context) async {
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
     Widget model = OvcChildAssessmentSelection();
-    String assessmentResponse =
-        await AppUtil.showPopUpModal(context, model, false);
+    String assessmentResponse = await AppUtil.showPopUpModal(context, model);
     onRedirectToAssessmentForm(context, assessmentResponse, true);
   }
 

@@ -10,32 +10,32 @@ import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
-import 'package:kb_mobile_app/models/ovc_house_hold.dart';
+import 'package:kb_mobile_app/models/ovc_house_hold_child.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_child_info_top_header.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold_top_header.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/components/ovc_referral_card.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/components/ovc_referral_card_body.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/constants/ovc_referral_constant.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/ovc_referral_pages/ovc_child_referral_pages/ovc_referral_add_child_form.dart';
 import 'package:provider/provider.dart';
-import 'ovc_house_referral_pages/ovc_referral_add_house_hold_form.dart';
 
-class OvcHouseHoldRefferalHome extends StatefulWidget {
-  OvcHouseHoldRefferalHome({Key key}) : super(key: key);
+class OvcChildReferralHome extends StatefulWidget {
+  OvcChildReferralHome({Key key}) : super(key: key);
 
   @override
-  _OvcHouseHoldRefferalHomeState createState() =>
-      _OvcHouseHoldRefferalHomeState();
+  _OvcChildReferralHomeState createState() => _OvcChildReferralHomeState();
 }
 
-class _OvcHouseHoldRefferalHomeState extends State<OvcHouseHoldRefferalHome> {
-  final String label = 'House Hold Referral';
-  void onAddRefferal(BuildContext context, OvcHouseHold child) {
+class _OvcChildReferralHomeState extends State<OvcChildReferralHome> {
+  final String label = 'Child Referral';
+  int i = 0;
+  void onAddRefferal(BuildContext context, OvcHouseHoldChild child) {
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
     Navigator.push(
         context,
         MaterialPageRoute(
             builder: (context) =>
-                OvcServiceHouseHoldAddReferralForm(ovcHouseHold: child)));
+                OvcServiceChildAddReferralForm(ovcHouseHoldChild: child)));
   }
 
   void onView(BuildContext context) {
@@ -70,8 +70,9 @@ class _OvcHouseHoldRefferalHomeState extends State<OvcHouseHoldRefferalHome> {
               builder: (context, ovcHouseHoldCurrentSelectionState, child) {
                 return Consumer<ServiveEventDataState>(
                   builder: (context, serviceFormState, child) {
-                    OvcHouseHold currentOvcHouseHold =
-                        ovcHouseHoldCurrentSelectionState.currentOvcHouseHold;
+                    OvcHouseHoldChild currentOvcHouseHoldChild =
+                        ovcHouseHoldCurrentSelectionState
+                            .currentOvcHouseHoldChild;
                     bool isLoading = serviceFormState.isLoading;
                     Map<String, List<Events>> eventListByProgramStage =
                         serviceFormState.eventListByProgramStage;
@@ -84,28 +85,25 @@ class _OvcHouseHoldRefferalHomeState extends State<OvcHouseHoldRefferalHome> {
                     List<Events> events = TrackedEntityInstanceUtil
                         .getAllEventListFromServiceDataState(
                             eventListByProgramStage, programStageids);
+
                     return Container(
                       child: Column(
                         children: [
-                          OvcHouseHoldInfoTopHeader(
-                            currentOvcHouseHold: currentOvcHouseHold,
-                          ),
+                          OvcChildInfoTopHeader(),
                           events.length == 0
-                              ? Text(
-                                  "There is no House Hold Refferal at a moment")
+                              ? Text("There is no Child Referrals at a moment")
                               : ListView.builder(
                                   itemCount: events.length,
                                   scrollDirection: Axis.vertical,
                                   controller: _controller,
                                   shrinkWrap: true,
-                                  itemBuilder:
-                                      (context, int referralCardCount) {
+                                  itemBuilder: (context, int referralCardCount) {
                                     Map<String, dynamic> referralData =
-                                        (Events().toOffline(
-                                            events[referralCardCount]));
+                                        (Events().toOffline(events[referralCardCount]));
                                     return isLoading
                                         ? CircularProcessLoader(
-                                            color: Colors.blueGrey)
+                                            color: Colors.blueGrey,
+                                          )
                                         : Container(
                                             margin: EdgeInsets.symmetric(
                                                 vertical: 16.0,
@@ -127,8 +125,8 @@ class _OvcHouseHoldRefferalHomeState extends State<OvcHouseHoldRefferalHome> {
                               labelColor: Colors.white,
                               buttonColor: Color(0xFF4B9F46),
                               fontSize: 15.0,
-                              onPressButton: () =>
-                                  onAddRefferal(context, currentOvcHouseHold))
+                              onPressButton: () => onAddRefferal(
+                                  context, currentOvcHouseHoldChild))
                         ],
                       ),
                     );
