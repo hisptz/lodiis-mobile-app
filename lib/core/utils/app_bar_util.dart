@@ -35,18 +35,19 @@ class AppBarUtil {
   }
 
   static void _onSwitchToIntervention(BuildContext context, String id) {
-    Provider.of<OvcInterventionListState>(context, listen: false)
-        .refreshOvcList();
+    if (id == 'ovc') {
+      Provider.of<OvcInterventionListState>(context, listen: false)
+          .refreshOvcList();
+    }
     Provider.of<IntervetionCardState>(context, listen: false)
         .setCurrentInterventionProgramId(id);
     Provider.of<InterventionBottomNavigationState>(context, listen: false)
         .setCurrentInterventionBottomNavigationIndex(0);
     Timer(
-        Duration(milliseconds: 5),
-        () => Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-                builder: (context) =>
-                    id == 'ovc' ? OvcIntervention() : DreamsIntervention())));
+        Duration(milliseconds: 10),
+        () => Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (context) {
+              return id == 'ovc' ? OvcIntervention() : DreamsIntervention();
+            })));
   }
 }

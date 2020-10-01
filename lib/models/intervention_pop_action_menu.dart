@@ -18,9 +18,9 @@ class InterventionPopActionMenu {
     return [
       InterventionPopActionMenu(id: 'logout', name: 'Logout'),
       InterventionPopActionMenu(id: 'sync', name: 'Sync'),
-      InterventionPopActionMenu(id: 'settings', name: 'Settings'),
-      InterventionPopActionMenu(id: 'report', name: 'Report'),
-      InterventionPopActionMenu(id: 'profile', name: 'Profiles'),
+      // InterventionPopActionMenu(id: 'settings', name: 'Settings'),
+      // InterventionPopActionMenu(id: 'report', name: 'Report'),
+      // InterventionPopActionMenu(id: 'profile', name: 'Profiles'),
     ];
   }
 

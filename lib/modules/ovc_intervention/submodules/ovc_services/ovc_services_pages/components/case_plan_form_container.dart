@@ -6,8 +6,8 @@ import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_caseplan_gaps.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/components/case_plan_gap_form_container.dart';
 
-class CasePlanFormContainer extends StatefulWidget {
-  const CasePlanFormContainer({
+class CasePlanFormContainer extends StatelessWidget {
+  CasePlanFormContainer({
     Key key,
     @required this.formSectionColor,
     @required this.formSection,
@@ -22,31 +22,13 @@ class CasePlanFormContainer extends StatefulWidget {
   final Map dataObject;
   final Function onInputValueChange;
 
-  @override
-  _CasePlanFormContainerState createState() => _CasePlanFormContainerState();
-}
-
-class _CasePlanFormContainerState extends State<CasePlanFormContainer> {
-  String caseToGapLinkage = 'ajqTV28fydL';
-  Map casePlanDataObject;
-  List<Map> casePlanGapObjects;
-
-  @override
-  void initState() {
-    super.initState();
-    setState(() {
-      casePlanDataObject = widget.dataObject ?? Map();
-      casePlanDataObject[caseToGapLinkage] =
-          casePlanDataObject[caseToGapLinkage] ?? AppUtil.getUid();
-      casePlanGapObjects = casePlanDataObject['gaps'] ?? [];
-    });
-  }
+  final String caseToGapLinkage = 'ajqTV28fydL';
 
   void onAddNewGap(BuildContext context) async {
     Map gapDataObject = Map();
-    gapDataObject[caseToGapLinkage] = casePlanDataObject[caseToGapLinkage];
+    gapDataObject[caseToGapLinkage] = dataObject[caseToGapLinkage];
     List<FormSection> formSections = OvcServicesCasePlanGaps.getFormSections()
-        .where((FormSection form) => form.id == widget.formSection.id)
+        .where((FormSection form) => form.id == formSection.id)
         .toList();
     formSections = formSections.map((FormSection form) {
       form.borderColor = Colors.transparent;
@@ -54,8 +36,8 @@ class _CasePlanFormContainerState extends State<CasePlanFormContainer> {
     }).toList();
     Widget modal = CasePlanGapFormContainer(
       formSections: formSections,
-      isEditableMode: widget.isEditableMode,
-      formSectionColor: widget.formSectionColor,
+      isEditableMode: isEditableMode,
+      formSectionColor: formSectionColor,
       dataObject: gapDataObject,
     );
     var response = await AppUtil.showPopUpModal(context, modal, true);
@@ -69,9 +51,7 @@ class _CasePlanFormContainerState extends State<CasePlanFormContainer> {
 
   void onValueChange(String id, dynamic value) {
     // do appropriate action on changes on in inputs
-    setState(() {
-      casePlanDataObject[id] = value;
-    });
+    print('$id $value');
   }
 
   @override
@@ -89,7 +69,7 @@ class _CasePlanFormContainerState extends State<CasePlanFormContainer> {
             decoration: BoxDecoration(
                 border: Border(
               left: BorderSide(
-                color: widget.formSectionColor,
+                color: formSectionColor,
                 width: 8.0,
               ),
             )),
@@ -97,31 +77,31 @@ class _CasePlanFormContainerState extends State<CasePlanFormContainer> {
               children: [
                 EntryFormContainer(
                   elevation: 0.0,
-                  formSections: [widget.formSection],
+                  formSections: [formSection],
                   mandatoryFieldObject: Map(),
-                  dataObject: casePlanDataObject,
-                  isEditableMode: widget.isEditableMode,
+                  dataObject: dataObject,
+                  isEditableMode: isEditableMode,
                   onInputValueChange: onValueChange,
                 ),
                 Container(
                   decoration: BoxDecoration(
-                    color: widget.formSectionColor.withOpacity(0.2),
+                    color: formSectionColor.withOpacity(0.2),
                   ),
-                  child: Row(
-                    children: casePlanGapObjects
-                        .map((Map dataObject) => Text('Data'))
-                        .toList(),
-                  ),
+                  // child: Row(
+                  //   children: (dataObject['gaps'] ?? [])
+                  //       .map((Map dataObject) => Text('Data'))
+                  //       .toList(),
+                  // ),
                 ),
                 Visibility(
-                  visible: widget.isEditableMode,
+                  visible: isEditableMode,
                   child: Container(
                     margin: EdgeInsets.only(bottom: 10.0),
                     child: FlatButton(
                         onPressed: () => onAddNewGap(context),
-                        color: widget.formSectionColor,
+                        color: formSectionColor,
                         shape: RoundedRectangleBorder(
-                            side: BorderSide(color: widget.formSectionColor),
+                            side: BorderSide(color: formSectionColor),
                             borderRadius: BorderRadius.circular(12.0)),
                         child: Container(
                           margin: EdgeInsets.symmetric(
