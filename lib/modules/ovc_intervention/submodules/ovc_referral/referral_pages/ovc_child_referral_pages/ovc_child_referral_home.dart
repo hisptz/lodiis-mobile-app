@@ -11,6 +11,8 @@ import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/models/ovc_house_hold_child.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_child_info_top_header.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/components/ovc_referral_card.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/components/ovc_referral_card_body.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/constants/ovc_referral_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/referral_pages/ovc_child_referral_pages/ovc_referral_add_child_form.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/sub_pages/child_asessment/constants/ovc_asessment_constant.dart';
@@ -25,7 +27,7 @@ class OvcChildReferralHome extends StatefulWidget {
 
 class _OvcChildReferralHomeState extends State<OvcChildReferralHome> {
   final String label = 'Child Referral';
-
+  int i = 0;
   void onAddRefferal(BuildContext context, OvcHouseHoldChild child) {
     Navigator.push(
         context,
@@ -33,6 +35,30 @@ class _OvcChildReferralHomeState extends State<OvcChildReferralHome> {
             builder: (context) =>
                 OvcServiceChildAddReferralForm(ovcHouseHoldChild: child)));
   }
+
+  void onView(BuildContext context) {
+    print("onView");
+  }
+
+  void onManage(BuildContext context) {
+    print("on Manage");
+  }
+
+  List<Map> mydadta;
+
+  List<Map> onExpandData(List<Events> events) {
+    List<Map> data;
+    events.forEach((event) {
+      Map<String, dynamic> mapData = Events().toOffline(event);
+      data.add(mapData);
+    });
+    setState(() {
+      mydadta = data;
+    });
+    return mydadta;
+  }
+
+  final _controller = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -56,6 +82,9 @@ class _OvcChildReferralHomeState extends State<OvcChildReferralHome> {
               builder: (context, ovcHouseHoldCurrentSelectionState, child) {
                 var currentOvcHouseHoldChild =
                     ovcHouseHoldCurrentSelectionState.currentOvcHouseHoldChild;
+                bool isLoading  =
+                    Provider.of<ServiveEventDataState>(context, listen: false)
+                        .isLoading;
                 Map<String, List<Events>> eventListByProgramStage =
                     Provider.of<ServiveEventDataState>(context, listen: false)
                         .eventListByProgramStage;
@@ -68,19 +97,33 @@ class _OvcChildReferralHomeState extends State<OvcChildReferralHome> {
                 List<Events> events = TrackedEntityInstanceUtil
                     .getAllEventListFromServiceDataState(
                         eventListByProgramStage, programStageids);
-                events.forEach((element) {
-                  return print(Events().toOffline(element));
-                });
-                return Container(
+
+                              return Container(
                   child: Column(
                     children: [
                       OvcChildInfoTopHeader(),
-                      Container(
-                        margin: EdgeInsets.symmetric(
-                            vertical: 16.0, horizontal: 13.0),
-                        child:
-                            Text('List ${currentOvcHouseHoldChild.toString()}'),
-                      ),
+                      ListView.builder(
+                          itemCount: events.length,
+                          scrollDirection: Axis.vertical,
+                          controller: _controller,
+                          shrinkWrap: true,
+                          itemBuilder: (context, int index) {
+                            Map<String, dynamic> referralData =
+                                (Events().toOffline(events[index]));
+                       
+                            return Container(
+                                margin: EdgeInsets.symmetric(
+                                    vertical: 16.0, horizontal: 13.0),
+                                child: Material(
+                                    type: MaterialType.card,
+                                    child: OvcReferralCard(
+                                      count: index + 1,
+                                      cardBody: OvcReferralCardBody(
+                                          referralDetails: referralData),
+                                      onView: () => onView(context),
+                                      onManage: () => onManage(context),
+                                    )));
+                          }),
                       OvcEnrollmentFormSaveButton(
                           label: 'ADD REFFERAL',
                           labelColor: Colors.white,
