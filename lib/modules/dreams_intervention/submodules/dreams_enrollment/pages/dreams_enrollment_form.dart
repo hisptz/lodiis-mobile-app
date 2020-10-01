@@ -6,6 +6,7 @@ import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/models/agyw_enrollment_consent.dart';
 import 'package:provider/provider.dart';
 
 class DreamsEnrollmentForm extends StatelessWidget {
@@ -19,7 +20,7 @@ class DreamsEnrollmentForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<FormSection> enrollmentForm = [];
+    final List<FormSection> enrollmentForm = AgywEnrollmentConcent.getFormSections();
 
     return SafeArea(
         child: Scaffold(

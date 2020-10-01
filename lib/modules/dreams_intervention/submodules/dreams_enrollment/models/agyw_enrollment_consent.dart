@@ -6,6 +6,13 @@ class AgywEnrollmentConcent {
   static List<FormSection> getFormSections() {
     return [
       FormSection(name: 'Consent', color: Color(0xFF258DCC), inputFields: [
+               InputField(
+            id: 'location',
+            name: 'Location',            
+            valueType: 'ORGANISATION_UNIT',
+            inputColor: Color(0xFF258DCC),
+            labelColor: Color(0xFF737373)),
+       
         InputField(
             id: 'z2YcxWJ0g35',
             name: 'Would you allow me to talk to the AGYW in privacy',

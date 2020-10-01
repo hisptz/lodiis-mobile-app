@@ -22,12 +22,12 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/s
 import 'package:provider/provider.dart';
 
 class OvcAssessmentServiceChildView extends StatelessWidget {
-  final String label = 'Child Assessment';
+    final String label = 'Child Assessment';
 
   void onAddMewchildAssessment(BuildContext context) async {
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
     Widget model = OvcChildAssessmentSelection();
-    String assessmentResponse = await AppUtil.showPopUpModal(context, model);
+    String assessmentResponse = await AppUtil.showPopUpModal(context, model,true);
     onRedirectToAssessmentForm(context, assessmentResponse, true);
   }
 
