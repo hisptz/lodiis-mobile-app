@@ -59,6 +59,7 @@ class Events {
     mapData['orgUnit'] = eventData.orgUnit;
     mapData['syncStatus'] = eventData.syncStatus;
     mapData['dataValues'] = eventData.dataValues;
+   
     return mapData;
   }
 

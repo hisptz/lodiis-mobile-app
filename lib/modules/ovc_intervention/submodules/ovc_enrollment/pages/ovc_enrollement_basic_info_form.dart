@@ -71,6 +71,7 @@ class _OvcEnrollmentBasicInfoFormState
   void onInputValueChange(String id, dynamic value) {
     Provider.of<EnrollmentFormState>(context, listen: false)
         .setFormFieldState(id, value);
+    
     autoFillInputFields(id, value);
   }
 

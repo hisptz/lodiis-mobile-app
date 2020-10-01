@@ -40,6 +40,7 @@ class InputFieldContainer extends StatelessWidget {
           vertical: 2.0,
         ),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
               child: Row(
@@ -146,7 +147,7 @@ class InputFieldContainer extends StatelessWidget {
     return Row(
       children: [
         Container(
-          margin: EdgeInsets.symmetric(vertical: 15.0),
+          margin: EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
           child: Text(
             value.toString(),
             style: TextStyle().copyWith(
