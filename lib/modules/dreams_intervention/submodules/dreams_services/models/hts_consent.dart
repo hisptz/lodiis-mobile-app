@@ -11,26 +11,26 @@ class HTSConsent {
                inputFields: [
                   InputField(
                       id: 'rguXA70zATn',
-                      name: 'Do you confirm that you have been informed about the nature, conduct, benefits, risks and implications involved in undertaking an HIV test',
+                      name: 'Do you confirm that you have been informed about the nature, conduct, benefits, risks and implications involved in undertaking an HIV test?',
                       valueType: 'BOOLEAN',
                       inputColor: Color(0xFF258DCC),
                       labelColor: Color(0xFF05131B),
                      ),
                   InputField(
                       id: 'TcN49hQNZiG',
-                      name: 'Have you also received and understood all the relevant information concerning the proposed test',
+                      name: 'Have you also received and understood all the relevant information concerning the proposed test?',
                       valueType: 'BOOLEAN',
                       inputColor: Color(0xFF258DCC),
                       labelColor: Color(0xFF05131B)),
                   InputField(
                       id: 'HZ4BrWoGNIO',
-                      name: 'Have you had sufficient opportunity to ask questions and to consider whether I want to proceed with the test',
+                      name: 'Have you had sufficient opportunity to ask questions and to consider whether I want to proceed with the test?',
                       valueType: 'BOOLEAN',
                       inputColor: Color(0xFF258DCC),
                       labelColor: Color(0xFF05131B)),
                    InputField(
                       id: 'Gl7NGINbUAV',
-                      name: 'Do you freely and voluntarily agree to the HIV test being performed, which includes taking a blood sample and testing that sample',
+                      name: 'Do you freely and voluntarily agree to the HIV test being performed, which includes taking a blood sample and testing that sample?',
                       valueType: 'BOOLEAN',
                       inputColor: Color(0xFF258DCC),
                       labelColor: Color(0xFF05131B)),
