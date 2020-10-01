@@ -352,103 +352,210 @@ class ClientInformation {
                         InputFieldOption(code: 'Negative', name: 'Negative')
                       ]),
                   InputField(
-                      id: 'GSLu0wyCCsP',
-                      name: 'Testing channel',
-                      valueType: 'TEXT',
-                      inputColor: Color(0xFF258DCC),
-                      labelColor: Color(0xFF05131B)),    
-                  InputField(
-                      id: 'aoWp3tKXOqa',
-                      name: 'Other community platforms',
-                      valueType: 'TEXT',
-                      inputColor: Color(0xFF258DCC),
-                      labelColor: Color(0xFF05131B),
-                       options: [
-                        InputFieldOption(code: 'Index', name: 'Index'),
-                        InputFieldOption(code: 'New Start clinic', name: 'New Start clinic'),
-                        InputFieldOption(code: 'VCT', name: 'VCT'),
-                        InputFieldOption(code: 'Mobile testing', name: 'Mobile testing'),
-                        InputFieldOption(code: 'Home-based', name: 'Home-based'),
-                        InputFieldOption(code: 'Other', name: 'Other'),
-                      ]),
-                   InputField(
-                      id: 'p2r7Gf6Yqye',
-                      name: 'Layering',
+                      id: 'nleqA1tu4Gs',
+                      name: 'T3: Parallel 1/2',
                       valueType: 'TEXT',
                       inputColor: Color(0xFF258DCC),
                       labelColor: Color(0xFF05131B),
                       options: [
-                        InputFieldOption(code: 'Assist/ Sentebale', name: 'Assist/ Sentebale'),
-                        InputFieldOption(code: 'IPC', name: 'IPC'),
-                        InputFieldOption(code: 'M2M', name: 'M2M'),
-                        InputFieldOption(code: 'CRS or Caritas', name: 'CRS or Caritas'),
-                        InputFieldOption(code: 'Promo', name: 'Promo'),
-                        InputFieldOption(code: 'WVI', name: 'WVI'),
-                        InputFieldOption(code: 'Care for Lesotho', name: 'Care for Lesotho'),
-                        InputFieldOption(code: 'Other', name: 'Other'),
+                        InputFieldOption(code: 'Positive', name: 'Positive'),
+                        InputFieldOption(code: 'Negative', name: 'Negative')
+                      ]),    
+                  InputField(
+                      id: 'FweZ4RT9EUI',
+                      name: 'T3: Parallel 2/2',
+                      valueType: 'TEXT',
+                      inputColor: Color(0xFF258DCC),
+                      labelColor: Color(0xFF05131B),
+                      options: [
+                        InputFieldOption(code: 'Positive', name: 'Positive'),
+                        InputFieldOption(code: 'Negative', name: 'Negative')
                       ]),
                    InputField(
-                      id: 'RXHjnbJAMkz',
-                      name: 'Other layering',
+                      id: 'EPNufgY5Q4j',
+                      name: 'T4: SD Bioline',
                       valueType: 'TEXT',
+                      inputColor: Color(0xFF258DCC),
+                      labelColor: Color(0xFF05131B),
+                      options: [
+                        InputFieldOption(code: 'Positive', name: 'Positive'),
+                        InputFieldOption(code: 'Negative', name: 'Negative'),
+                        InputFieldOption(code: 'Out of stock', name: 'Out of stock')
+                      ]),
+                   InputField(
+                      id: 'mhZeM9CuGQn',
+                      name: 'Final results',
+                      valueType: 'TEXT',
+                      inputColor: Color(0xFF258DCC),
+                      labelColor: Color(0xFF05131B),
+                      options: [
+                        InputFieldOption(code: 'Positive', name: 'Positive'),
+                        InputFieldOption(code: 'Negative', name: 'Negative'),
+                        InputFieldOption(code: 'Indeterminate', name: 'Indeterminate')
+                      ]),
+                  InputField(
+                      id: 'IcJ9QmUV2Mw',
+                      name: 'Test results given',
+                      valueType: 'BOOLEAN',
                       inputColor: Color(0xFF258DCC),
                       labelColor: Color(0xFF05131B)),
                   InputField(
-                      id: 'FclxLnBHILO',
-                      name: 'How far did you go to school',
-                      valueType: 'TEXT',
+                      id: 'vu6kABBg23g',
+                      name: 'If HIV+, did client have knowledge of HIV+ status',
+                      valueType: 'BOOLEAN',
                       inputColor: Color(0xFF258DCC),
-                      labelColor: Color(0xFF05131B),
-                      options: [
-                        InputFieldOption(code: 'Primary level', name: 'Primary level'),
-                        InputFieldOption(code: 'Secondary level', name: 'Secondary level'),
-                        InputFieldOption(code: 'Tertiary level', name: 'Tertiary level (college/university)'),
-                        InputFieldOption(code: 'Vocational level', name: 'Vocational level'),
-                        InputFieldOption(code: 'Other', name: 'Other'),
-                        InputFieldOption(code: 'None', name: 'None'),
-                        InputFieldOption(code: 'Primary', name: 'Primary'),
-                        InputFieldOption(code: 'High school', name: 'High school'),
-                        InputFieldOption(code: 'Tertiary', name: 'Tertiary'),
-                      ]),
+                      labelColor: Color(0xFF05131B)),  
                   InputField(
-                      id: 'D8jPUK4QDxD',
-                      name: 'Your work',
-                      valueType: 'TEXT',
+                      id: 'OLM5yg5kW6R',
+                      name: 'Extra products used: Determine strips',
+                      valueType: 'TRUE_ONLY',
                       inputColor: Color(0xFF258DCC),
-                      labelColor: Color(0xFF05131B),
-                      options: [
-                        InputFieldOption(code: 'Employment or Self employmed', name: 'Employment or Self employmed'),
-                        InputFieldOption(code: 'Student', name: 'Student'),
-                        InputFieldOption(code: 'Unemployed', name: 'Unemployed')
-                      ]),  
-                  InputField(
-                      id: 'EHhaJRS2gqc',
-                      name: 'What made you decide to get tested for HIV today',
-                      valueType: 'TEXT',
-                      inputColor: Color(0xFF258DCC),
-                      labelColor: Color(0xFF05131B),
-                      options: [
-                        InputFieldOption(code: 'Index', name: 'Index'),
-                        InputFieldOption(code: 'Other health worker', name: 'Other health worker'),
-                        InputFieldOption(code: 'Self motivated', name: 'Self motivated'),
-                        InputFieldOption(code: 'Radio or TV', name: 'Radio or TV'),
-                        InputFieldOption(code: 'Positive self-test', name: 'Positive self-test'),
-                        InputFieldOption(code: 'PSI field or New Start staff', name: 'PSI field or New Start staff'),
-                        InputFieldOption(code: 'Billboard or Poster', name: 'Billboard or Poster'),
-                        InputFieldOption(code: 'Partner notification', name: 'Partner notification'),
-                        InputFieldOption(code: 'Other friends or relatives', name: 'Other friends or relatives'),
-                        InputFieldOption(code: 'Other', name: 'Other'),
-                      ]),   
+                      labelColor: Color(0xFF05131B)),   
                    InputField(
-                      id: 'OJfuwI9k15B',
-                      name: 'Other reasons why decided to get tested',
+                      id: 'MoA0SBuczaP',
+                      name: 'Extra products used: Capillary tubes',
+                      valueType: 'TRUE_ONLY',
+                      inputColor: Color(0xFF258DCC),
+                      labelColor: Color(0xFF05131B)),  
+                  InputField(
+                      id: 'j4j5ppqBTDd',
+                      name: 'Extra products used: Alcohol swabs',
+                      valueType: 'TRUE_ONLY',
+                      inputColor: Color(0xFF258DCC),
+                      labelColor: Color(0xFF05131B)),   
+                   InputField(
+                      id: 'VKPaCtAS9vg',
+                      name: 'Extra products used: Unigold strips',
+                      valueType: 'TRUE_ONLY',
+                      inputColor: Color(0xFF258DCC),
+                      labelColor: Color(0xFF05131B)),  
+                   InputField(
+                      id: 'dnCcoQIVZ1I',
+                      name: 'Extra products used: Exam gloves',
+                      valueType: 'TRUE_ONLY',
+                      inputColor: Color(0xFF258DCC),
+                      labelColor: Color(0xFF05131B)),
+
+                   InputField(
+                      id: 'GO6QIfHE7Vc',
+                      name: 'TB Screening conducted',
+                      valueType: 'BOOLEAN',
+                      inputColor: Color(0xFF258DCC),
+                      labelColor: Color(0xFF05131B)),   
+                   InputField(
+                      id: 'WWL1XKS3Hg8',
+                      name: 'TB Suspected',
+                      valueType: 'BOOLEAN',
+                      inputColor: Color(0xFF258DCC),
+                      labelColor: Color(0xFF05131B)),  
+                   InputField(
+                      id: 'NpGma0GzvBk',
+                      name: 'Referral offered',
+                      valueType: 'BOOLEAN',
+                      inputColor: Color(0xFF258DCC),
+                      labelColor: Color(0xFF05131B)), 
+
+
+                  InputField(
+                      id: 'Mcoc57TzQwX',
+                      name: 'ART referral given to client',
+                      valueType: 'TRUE_ONLY',
+                      inputColor: Color(0xFF258DCC),
+                      labelColor: Color(0xFF05131B)),  
+                  InputField(
+                      id: 'O2IpQLJ64pU',
+                      name: 'DNA PCR referral given to client',
+                      valueType: 'TRUE_ONLY',
+                      inputColor: Color(0xFF258DCC),
+                      labelColor: Color(0xFF05131B)),   
+                   InputField(
+                      id: 'MIda6PYnDe3',
+                      name: 'Fp referral given to client',
+                      valueType: 'TRUE_ONLY',
+                      inputColor: Color(0xFF258DCC),
+                      labelColor: Color(0xFF05131B)),  
+                   InputField(
+                      id: 'fPzwReDDMya',
+                      name: 'PReP (HIV-) referral given to client',
+                      valueType: 'TRUE_ONLY',
+                      inputColor: Color(0xFF258DCC),
+                      labelColor: Color(0xFF05131B)), 
+
+
+                    InputField(
+                      id: 'YstOYReVQSu',
+                      name: 'STI Dx/TX referral given to client',
+                      valueType: 'TRUE_ONLY',
+                      inputColor: Color(0xFF258DCC),
+                      labelColor: Color(0xFF05131B)),  
+                  InputField(
+                      id: 'HPzl16DToJQ',
+                      name: 'TB Dx/Tx referral given to client',
+                      valueType: 'TRUE_ONLY',
+                      inputColor: Color(0xFF258DCC),
+                      labelColor: Color(0xFF05131B)),   
+                   InputField(
+                      id: 'DGxRatLifox',
+                      name: 'VMMC referral given to client',
+                      valueType: 'TRUE_ONLY',
+                      inputColor: Color(0xFF258DCC),
+                      labelColor: Color(0xFF05131B)),  
+                   InputField(
+                      id: 'rvanxUEglQu',
+                      name: 'Name of referral DNA PCR or ART facility',
+                      valueType: 'TRUE_ONLY',
+                      inputColor: Color(0xFF258DCC),
+                      labelColor: Color(0xFF05131B)),  
+
+                    InputField(
+                      id: 'YstOYReVQSu',
+                      name: 'STI Dx/TX referral given to client',
+                      valueType: 'TRUE_ONLY',
+                      inputColor: Color(0xFF258DCC),
+                      labelColor: Color(0xFF05131B)),  
+                  InputField(
+                      id: 'HPzl16DToJQ',
+                      name: 'TB Dx/Tx referral given to client',
+                      valueType: 'TRUE_ONLY',
+                      inputColor: Color(0xFF258DCC),
+                      labelColor: Color(0xFF05131B)),   
+                   InputField(
+                      id: 'DGxRatLifox',
+                      name: 'VMMC referral given to client',
+                      valueType: 'TRUE_ONLY',
+                      inputColor: Color(0xFF258DCC),
+                      labelColor: Color(0xFF05131B)),  
+                   InputField(
+                      id: 'rvanxUEglQu',
+                      name: 'Name of referral DNA PCR or ART facility',
+                      valueType: 'ORGANISATION_UNIT',
+                      inputColor: Color(0xFF258DCC),
+                      labelColor: Color(0xFF05131B)),  
+                    InputField(
+                      id: 'tfqVBXrWxyZ',
+                      name: 'Female condoms distributed',
+                      valueType: 'TRUE_ONLY',
+                      inputColor: Color(0xFF258DCC),
+                      labelColor: Color(0xFF05131B)),   
+                    InputField(
+                      id: 'uRHUjuCgaJU',
+                      name: 'Male condoms distributed',
+                      valueType: 'TRUE_ONLY',
+                      inputColor: Color(0xFF258DCC),
+                      labelColor: Color(0xFF05131B)),  
+                  InputField(
+                      id: 'nUp9TLkqont',
+                      name: 'Lube condoms distributed',
+                      valueType: 'TRUE_ONLY',
+                      inputColor: Color(0xFF258DCC),
+                      labelColor: Color(0xFF05131B)),   
+                   InputField(
+                      id: 'qtXzz8JEyFg',
+                      name: 'Senior counselor/Team Leader name',
                       valueType: 'TEXT',
                       inputColor: Color(0xFF258DCC),
-                      labelColor: Color(0xFF05131B)),    
-                ]),
-    
-    
- 
+                      labelColor: Color(0xFF05131B)),                            
+                ]), 
           
     ];
   }
