@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_house_hold_current_selection_state.dart';
+import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_intervention_list_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/models/ovc_house_hold.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold_card.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold_card_body.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold_card_botton_content.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/ovc_referral_pages/ovc_house_hold_referral_home.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/ovc_referral_pages/ovc_house_referral_pages/ovc_house_hold_referral_home.dart';
 import 'package:provider/provider.dart';
 
 class OvcReferralPage extends StatefulWidget {
@@ -40,6 +41,8 @@ class _OvcReferralPageState extends State<OvcReferralPage> {
       BuildContext context, OvcHouseHold ovcHouseHold) {
     Provider.of<OvcHouseHoldCurrentSelectionState>(context, listen: false)
         .setCurrentHouseHold(ovcHouseHold);
+    Provider.of<ServiveEventDataState>(context, listen: false)
+        .resetServiceEventDataState(ovcHouseHold.id);
   }
 
   void onViewRerral(BuildContext context, OvcHouseHold ovcHouseHold) {

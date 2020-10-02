@@ -14,25 +14,27 @@ import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
-import 'package:kb_mobile_app/models/ovc_house_hold_child.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_child_info_top_header.dart';
+import 'package:kb_mobile_app/models/ovc_house_hold.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold_top_header.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_caseplan.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_child_caseplan_gaps.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_case_plan/constants/ovc_child_case_plan_constant.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_house_hold_case_plan_gaps.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/components/case_plan_form_container.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/constants/ovc_case_plan_constant.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/house_hold_case_plan/constants/ovc_house_hold_case_plan_constant.dart';
 import 'package:provider/provider.dart';
 
-class OcvChildCasePlanForm extends StatefulWidget {
-  const OcvChildCasePlanForm({Key key}) : super(key: key);
+class OvcHouseHoldCasePlanForm extends StatefulWidget {
+  OvcHouseHoldCasePlanForm({Key key}) : super(key: key);
 
   @override
-  _OcvChildCasePlanFormState createState() => _OcvChildCasePlanFormState();
+  _OvcHouseHoldCasePlanFormState createState() =>
+      _OvcHouseHoldCasePlanFormState();
 }
 
-class _OcvChildCasePlanFormState extends State<OcvChildCasePlanForm> {
-  final String label = 'Child Case Plan Form';
+class _OvcHouseHoldCasePlanFormState extends State<OvcHouseHoldCasePlanForm> {
+  final String label = 'House Hold Case Plan Form';
   List<FormSection> formSections;
   Map borderColors = Map();
 
@@ -74,7 +76,7 @@ class _OcvChildCasePlanFormState extends State<OcvChildCasePlanForm> {
 
   Future savingDomainsAndGaps(
     Map dataObject,
-    OvcHouseHoldChild currentOvcHouseHoldChild,
+    OvcHouseHold currentOvcHouseHold,
   ) async {
     List<String> hiddenFields = [
       OvcCasePlanConstant.casePlanToGapLinkage,
@@ -91,18 +93,18 @@ class _OcvChildCasePlanFormState extends State<OcvChildCasePlanForm> {
               .where((FormSection formSection) => formSection.id == domainType)
               .toList();
           List<FormSection> domainGapFormSections =
-              OvcServicesChildCasePlanGaps.getFormSections()
+              OvcHouseholdServicesCasePlanGaps.getFormSections()
                   .where(
                       (FormSection formSection) => formSection.id == domainType)
                   .toList();
           await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-            OvcChildCasePlanConstant.program,
-            OvcChildCasePlanConstant.casePlanProgramStage,
-            currentOvcHouseHoldChild.orgUnit,
+            OvcHouseHoldCasePlanConstant.program,
+            OvcHouseHoldCasePlanConstant.casePlanProgramStage,
+            currentOvcHouseHold.orgUnit,
             domainFormSections,
             domainDataObject,
             domainDataObject['eventDate'],
-            currentOvcHouseHoldChild.id,
+            currentOvcHouseHold.id,
             domainDataObject['eventId'],
             hiddenFields,
           );
@@ -112,13 +114,13 @@ class _OcvChildCasePlanFormState extends State<OcvChildCasePlanForm> {
           for (Map domainGapDataObject in domainDataObject['gaps']) {
             await TrackedEntityInstanceUtil
                 .savingTrackedEntityInstanceEventData(
-              OvcChildCasePlanConstant.program,
-              OvcChildCasePlanConstant.casePlanGapProgramStage,
-              currentOvcHouseHoldChild.orgUnit,
+              OvcHouseHoldCasePlanConstant.program,
+              OvcHouseHoldCasePlanConstant.casePlanGapProgramStage,
+              currentOvcHouseHold.orgUnit,
               domainGapFormSections,
               domainGapDataObject,
               domainGapDataObject['eventDate'],
-              currentOvcHouseHoldChild.id,
+              currentOvcHouseHold.id,
               domainGapDataObject['eventId'],
               hiddenFields,
             );
@@ -131,16 +133,16 @@ class _OcvChildCasePlanFormState extends State<OcvChildCasePlanForm> {
   void onSaveForm(
     BuildContext context,
     Map dataObject,
-    OvcHouseHoldChild currentOvcHouseHoldChild,
+    OvcHouseHold currentOvcHouseHold,
   ) async {
     bool isAllDomainFilled = isAllDomainGoalAndGapFilled(dataObject);
     if (isAllDomainFilled) {
       setState(() {
         isSaving = true;
       });
-      await savingDomainsAndGaps(dataObject, currentOvcHouseHoldChild);
+      await savingDomainsAndGaps(dataObject, currentOvcHouseHold);
       Provider.of<ServiveEventDataState>(context, listen: false)
-          .resetServiceEventDataState(currentOvcHouseHoldChild.id);
+          .resetServiceEventDataState(currentOvcHouseHold.id);
       Timer(Duration(seconds: 1), () {
         if (Navigator.canPop(context)) {
           setState(() {
@@ -179,8 +181,8 @@ class _OcvChildCasePlanFormState extends State<OcvChildCasePlanForm> {
           body: Container(
             child: Consumer<OvcHouseHoldCurrentSelectionState>(
               builder: (context, ovcHouseHoldCurrentSelectionState, child) {
-                OvcHouseHoldChild currentOvcHouseHoldChild =
-                    ovcHouseHoldCurrentSelectionState.currentOvcHouseHoldChild;
+                OvcHouseHold currentOvcHouseHold =
+                    ovcHouseHoldCurrentSelectionState.currentOvcHouseHold;
                 return Consumer<ServiceFormState>(
                   builder: (context, serviceFormState, child) {
                     Map dataObject = serviceFormState.formState;
@@ -193,7 +195,9 @@ class _OcvChildCasePlanFormState extends State<OcvChildCasePlanForm> {
                             )
                           : Column(
                               children: [
-                                OvcChildInfoTopHeader(),
+                                OvcHouseHoldInfoTopHeader(
+                                  currentOvcHouseHold: currentOvcHouseHold,
+                                ),
                                 Container(
                                   margin: EdgeInsets.only(
                                     top: 10.0,
@@ -212,6 +216,7 @@ class _OcvChildCasePlanFormState extends State<OcvChildCasePlanForm> {
                                                 dataObject[formSection.id],
                                             isEditableMode:
                                                 serviceFormState.isEditableMode,
+                                            isCasePlanForHouseHold: true,
                                             onInputValueChange: (
                                               dynamic value,
                                             ) =>
@@ -232,7 +237,7 @@ class _OcvChildCasePlanFormState extends State<OcvChildCasePlanForm> {
                                     onPressButton: () => onSaveForm(
                                         context,
                                         serviceFormState.formState,
-                                        currentOvcHouseHoldChild),
+                                        currentOvcHouseHold),
                                   ),
                                 )
                               ],

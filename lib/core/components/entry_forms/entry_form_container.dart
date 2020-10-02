@@ -29,7 +29,7 @@ class EntryFormContainer extends StatelessWidget {
     return Column(
       children: formSections
           .map((FormSection formSection) => Container(
-                margin: EdgeInsets.only(bottom: 20.0),
+                margin: EdgeInsets.only(bottom: 10.0),
                 child: MaterialCard(
                     elevation: elevation,
                     body: Container(

@@ -11,12 +11,14 @@ class CasePlanGapFormContainer extends StatefulWidget {
     @required this.isEditableMode,
     @required this.formSectionColor,
     @required this.dataObject,
+    @required this.isCasePlanForHouseHold,
   }) : super(key: key);
 
   final List<FormSection> formSections;
   final bool isEditableMode;
   final Color formSectionColor;
   final Map dataObject;
+  final bool isCasePlanForHouseHold;
 
   @override
   _CasePlanGapFormContainerState createState() =>
@@ -25,13 +27,15 @@ class CasePlanGapFormContainer extends StatefulWidget {
 
 class _CasePlanGapFormContainerState extends State<CasePlanGapFormContainer> {
   Map mandatoryFieldObject = Map();
-  List mandatoryFields = ['QjlTTO5KAIf'];
+  List mandatoryFields;
   Map dataObject;
 
   @override
   void initState() {
     super.initState();
     setState(() {
+      mandatoryFields =
+          widget.isCasePlanForHouseHold ? ['m8ujTeOcYO3'] : ['QjlTTO5KAIf'];
       for (String id in mandatoryFields) {
         mandatoryFieldObject[id] = true;
       }
@@ -43,8 +47,7 @@ class _CasePlanGapFormContainerState extends State<CasePlanGapFormContainer> {
     bool hadAllMandatoryFilled =
         AppUtil.hasAllMandarotyFieldsFilled(mandatoryFields, dataObject);
     if (hadAllMandatoryFilled) {
-      print(dataObject);
-      //Navigator.pop(context, dataObject);
+      Navigator.pop(context, dataObject);
     } else {
       AppUtil.showToastMessage(
           message: 'Please fill all mandatory field',

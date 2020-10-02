@@ -7,7 +7,6 @@ class OvcReferralCard extends StatelessWidget {
       {Key key,
       @required this.count,
       @required this.cardBody,
-     
       this.onView,
       this.onManage})
       : super(key: key);
@@ -19,17 +18,21 @@ class OvcReferralCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: double.infinity,
       child: MaterialCard(
         body: Container(
           child: Column(
             children: [
               Container(
-                  padding: EdgeInsets.only(top: 15, bottom: 15, left: 20),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [Text("Referral ${count.toString()}")],
-                  )),
+                margin: EdgeInsets.symmetric(vertical: 15.0, horizontal: 15.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: Text("Referral ${count.toString()}"),
+                    )
+                  ],
+                ),
+              ),
               LineSeperator(
                 color: Color(0xFFEDF5EC),
                 height: 2,
@@ -39,56 +42,53 @@ class OvcReferralCard extends StatelessWidget {
                 color: Color(0xFFEDF5EC),
                 height: 2,
               ),
-              Container(
-                     
-                        decoration: BoxDecoration(color: Color(0XFFF6FAF6)),
-                              child: Container(
-                 margin:EdgeInsets.symmetric(horizontal: 70),
-                    padding: EdgeInsets.only(top: 10, bottom: 10),
-                    decoration: BoxDecoration(color: Color(0XFFF6FAF6)),
-                    child: Expanded(
-                        flex: 0,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                               margin: EdgeInsets.symmetric(horizontal: 2.0),
-                                 child: FlatButton(
-                                  onPressed: onView,
-                                  child: Text(
-                                    "VIEW",
-                                    style: TextStyle().copyWith(
-                                      fontSize: 12.0,
-                                      color: Color(0xFF4B9F46),
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  )),
-                            ),
-                            Container(
-                              height: 40.0,
-                             // margin: EdgeInsets.symmetric(horizontal: 20.0),
-                              decoration: BoxDecoration(
-                                border: Border(
-                                  left: BorderSide(
-                                      color: Color(0xFFC9E2C7), width: 1.0),
-                                ),
+              ClipRRect(
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(12.0),
+                  bottomRight: Radius.circular(12.0),
+                ),
+                child: Container(
+                  decoration: BoxDecoration(color: Color(0XFFF6FAF6)),
+                  child: Container(
+                      decoration: BoxDecoration(color: Color(0XFFF6FAF6)),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: FlatButton(
+                                onPressed: onView,
+                                child: Text(
+                                  "VIEW",
+                                  style: TextStyle().copyWith(
+                                    fontSize: 12.0,
+                                    color: Color(0xFF4B9F46),
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                )),
+                          ),
+                          Container(
+                            height: 20.0,
+                            decoration: BoxDecoration(
+                              border: Border(
+                                left: BorderSide(
+                                    color: Color(0xFFC9E2C7), width: 1.0),
                               ),
                             ),
-                            Container(
-                              margin: EdgeInsets.symmetric(horizontal: 30),
-                              child: FlatButton(
-                                  onPressed: onManage,
-                                  child: Text(
-                                    'MANAGE',
-                                    style: TextStyle().copyWith(
-                                      fontSize: 12.0,
-                                      color: Color(0xFF4B9F46),
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  )),
-                            ),
-                          ],
-                        ))),
+                          ),
+                          Expanded(
+                            child: FlatButton(
+                                onPressed: onManage,
+                                child: Text(
+                                  'MANAGE',
+                                  style: TextStyle().copyWith(
+                                    fontSize: 12.0,
+                                    color: Color(0xFF4B9F46),
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                )),
+                          ),
+                        ],
+                      )),
+                ),
               )
             ],
           ),

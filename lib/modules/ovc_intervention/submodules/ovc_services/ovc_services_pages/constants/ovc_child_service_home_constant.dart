@@ -2,6 +2,7 @@ class OvcChildServiceHomeContant {
   String id;
   String title;
   String icon;
+  bool groupByDate;
   List<String> programStages;
 
   OvcChildServiceHomeContant({
@@ -9,8 +10,10 @@ class OvcChildServiceHomeContant {
     this.title,
     this.icon,
     this.programStages,
+    this.groupByDate,
   }) {
     this.programStages = this.programStages ?? [];
+    this.groupByDate = this.groupByDate ?? false;
   }
 
   static List<OvcChildServiceHomeContant> getOvcChildServiceHomeContant() {
@@ -23,7 +26,9 @@ class OvcChildServiceHomeContant {
       OvcChildServiceHomeContant(
           id: 'casePlan',
           title: 'Case Plan',
-          icon: 'assets/icons/child_case_plan_ovc_icon.svg'),
+          icon: 'assets/icons/child_case_plan_ovc_icon.svg',
+          groupByDate: true,
+          programStages: ['ZHjrdThi7Bz']),
       OvcChildServiceHomeContant(
           id: 'services',
           title: 'Services',

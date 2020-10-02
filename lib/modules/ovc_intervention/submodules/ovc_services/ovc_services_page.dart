@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_house_hold_current_selection_state.dart';
+import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_intervention_list_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/models/ovc_house_hold.dart';
@@ -7,7 +8,7 @@ import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold_card_body.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold_card_botton_content.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/house_hold_assessment/ovc_house_hold_assessment.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/house_hold_case_plan/ovc_house_hold_case_plan.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/house_hold_case_plan/ovc_house_hold_case_plan_home.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/house_hold_monitor/ovc_house_hold_monitor.dart';
 import 'package:provider/provider.dart';
 
@@ -42,6 +43,8 @@ class _OvcServicesPageState extends State<OvcServicesPage> {
       BuildContext context, OvcHouseHold ovcHouseHold) {
     Provider.of<OvcHouseHoldCurrentSelectionState>(context, listen: false)
         .setCurrentHouseHold(ovcHouseHold);
+    Provider.of<ServiveEventDataState>(context, listen: false)
+        .resetServiceEventDataState(ovcHouseHold.id);
   }
 
   void onOpenHouseHoldAssess(BuildContext context, OvcHouseHold ovcHouseHold) {
@@ -59,7 +62,7 @@ class _OvcServicesPageState extends State<OvcServicesPage> {
     Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => OvcHouseHoldCasePlan(),
+          builder: (context) => OvcHouseHoldCasePlanHome(),
         ));
   }
 

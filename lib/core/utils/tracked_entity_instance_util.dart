@@ -14,10 +14,13 @@ class TrackedEntityInstanceUtil {
     String eventDate,
     String trackedEntityInstance,
     String eventId,
+    List<String> hiddenFields,
   ) async {
+    hiddenFields = hiddenFields ?? [];
     List<String> inputFieldIds = FormUtil.getFormFieldIds(
       formSections,
     );
+    inputFieldIds.addAll(hiddenFields);
     eventId =
         eventId == null ? dataObject['eventId'] ?? AppUtil.getUid() : eventId;
     Events eventData = FormUtil.getEventPayload(eventId, program, programStage,
@@ -48,5 +51,19 @@ class TrackedEntityInstanceUtil {
       events.addAll(data);
     }
     return events;
+  }
+
+  static Map getGroupedEventByDates(List<Events> events) {
+    Map groupedEvents = Map();
+    List<String> eventDates = events
+        .map((event) => event.eventDate)
+        .toSet()
+        .toList()
+          ..sort((b, a) => a.compareTo(b));
+    for (String eventDate in eventDates) {
+      groupedEvents[eventDate] =
+          events.where((event) => event.eventDate == eventDate).toList();
+    }
+    return groupedEvents;
   }
 }
