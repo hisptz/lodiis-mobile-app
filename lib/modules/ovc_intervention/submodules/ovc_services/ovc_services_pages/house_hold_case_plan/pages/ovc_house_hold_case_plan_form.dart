@@ -111,9 +111,9 @@ class _OvcHouseHoldCasePlanFormState extends State<OvcHouseHoldCasePlanForm> {
               currentOvcHouseHold.orgUnit,
               domainGapFormSections,
               domainGapDataObject,
-              domainDataObject['eventDate'],
+              domainGapDataObject['eventDate'],
               currentOvcHouseHold.id,
-              domainDataObject['eventId'],
+              domainGapDataObject['eventId'],
             );
           }
         } catch (e) {}
