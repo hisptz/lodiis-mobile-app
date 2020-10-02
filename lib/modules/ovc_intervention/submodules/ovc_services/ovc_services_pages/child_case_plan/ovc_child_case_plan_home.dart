@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_house_hold_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
@@ -8,6 +9,8 @@ import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
+import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
+import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/models/ovc_house_hold_child.dart';
@@ -40,10 +43,30 @@ class OvcChildCasePlanHome extends StatelessWidget {
     }
   }
 
-  void onAddNewAssessment(BuildContext context, OvcHouseHoldChild child) {
-    updateformState(context, child);
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => OcvChildCasePlanForm()));
+  isCasePlanExit(Map<String, List<Events>> eventListByProgramStage) {
+    List<Events> events =
+        TrackedEntityInstanceUtil.getAllEventListFromServiceDataState(
+            eventListByProgramStage, programStageIds);
+    Map groupedEventByDates =
+        TrackedEntityInstanceUtil.getGroupedEventByDates(events);
+    String today = AppUtil.formattedDateTimeIntoString(DateTime.now());
+    return groupedEventByDates.keys.toList().indexOf(today) > -1;
+  }
+
+  void onAddNewAssessment(
+    BuildContext context,
+    OvcHouseHoldChild child,
+    Map<String, List<Events>> eventListByProgramStage,
+  ) {
+    if (isCasePlanExit(eventListByProgramStage)) {
+      AppUtil.showToastMessage(
+          message: 'There is exiting case plan that has already created',
+          position: ToastGravity.TOP);
+    } else {
+      updateformState(context, child);
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => OcvChildCasePlanForm()));
+    }
   }
 
   @override
@@ -75,6 +98,8 @@ class OvcChildCasePlanHome extends StatelessWidget {
                     child: Consumer<ServiveEventDataState>(
                       builder: (context, serviveEventDataState, child) {
                         bool isLoading = serviveEventDataState.isLoading;
+                        Map<String, List<Events>> eventListByProgramStage =
+                            serviveEventDataState.eventListByProgramStage;
                         return isLoading
                             ? CircularProcessLoader(
                                 color: Colors.blueGrey,
@@ -96,8 +121,10 @@ class OvcChildCasePlanHome extends StatelessWidget {
                                           fontSize: 10,
                                           buttonColor: Color(0xFF4B9F46),
                                           onPressButton: () =>
-                                              onAddNewAssessment(context,
-                                                  currentOvcHouseHoldChild),
+                                              onAddNewAssessment(
+                                                  context,
+                                                  currentOvcHouseHoldChild,
+                                                  eventListByProgramStage),
                                         ),
                                       ),
                                     ),

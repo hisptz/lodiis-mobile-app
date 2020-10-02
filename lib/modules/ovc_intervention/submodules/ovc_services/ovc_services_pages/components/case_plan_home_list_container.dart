@@ -23,6 +23,8 @@ class CasePlanHomeListContainer extends StatelessWidget {
           List<Events> events =
               TrackedEntityInstanceUtil.getAllEventListFromServiceDataState(
                   eventListByProgramStage, programStageIds);
+          Map groupedEventByDates =
+              TrackedEntityInstanceUtil.getGroupedEventByDates(events);
           return Container(
             child: Text('Listing ${events.length}'),
           );
