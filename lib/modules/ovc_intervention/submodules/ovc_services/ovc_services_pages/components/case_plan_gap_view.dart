@@ -3,20 +3,23 @@ import 'package:kb_mobile_app/core/components/line_seperator.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_caseplan_gaps.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_child_caseplan_gaps.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_house_hold_case_plan_gaps.dart';
 
 class CasePlanGapView extends StatefulWidget {
-  const CasePlanGapView(
-      {Key key,
-      @required this.casePlanGap,
-      this.formSectionColor,
-      @required this.domainId,
-      @required this.gapIndex})
-      : super(key: key);
+  const CasePlanGapView({
+    Key key,
+    @required this.casePlanGap,
+    @required this.isCasePlanForHouseHold,
+    @required this.domainId,
+    @required this.gapIndex,
+    this.formSectionColor,
+  }) : super(key: key);
   final Map casePlanGap;
   final Color formSectionColor;
   final String domainId;
   final int gapIndex;
+  final bool isCasePlanForHouseHold;
 
   @override
   _CasePlanGapViewState createState() => _CasePlanGapViewState();
@@ -34,10 +37,13 @@ class _CasePlanGapViewState extends State<CasePlanGapView> {
     setState(() {
       int gapIndex = widget.gapIndex + 1;
       label = '$label $gapIndex';
-      print(gapIndex);
-      List<FormSection> formSections = OvcServicesCasePlanGaps.getFormSections()
-          .where((FormSection form) => form.id == widget.domainId)
-          .toList();
+      List<FormSection> formSections = widget.isCasePlanForHouseHold
+          ? OvcHouseholdServicesCasePlanGaps.getFormSections()
+              .where((FormSection form) => form.id == widget.domainId)
+              .toList()
+          : OvcServicesChildCasePlanGaps.getFormSections()
+              .where((FormSection form) => form.id == widget.domainId)
+              .toList();
       List keys = widget.casePlanGap.keys.toList();
       inputFields = FormUtil.getFormInputFields(formSections)
           .where((InputField inputField) => keys.indexOf((inputField.id)) > -1)

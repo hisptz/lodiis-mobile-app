@@ -3,7 +3,8 @@ import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.d
 import 'package:kb_mobile_app/core/components/material_card.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_caseplan_gaps.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_child_caseplan_gaps.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_house_hold_case_plan_gaps.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/components/case_plan_gap_form_container.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/components/case_plan_gap_view_container.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/constants/ovc_case_plan_constant.dart';
@@ -15,6 +16,7 @@ class CasePlanFormContainer extends StatelessWidget {
     @required this.formSection,
     @required this.isEditableMode,
     @required this.dataObject,
+    this.isCasePlanForHouseHold = false,
     this.onInputValueChange,
   }) : super(key: key);
 
@@ -23,6 +25,7 @@ class CasePlanFormContainer extends StatelessWidget {
   final bool isEditableMode;
   final Map dataObject;
   final Function onInputValueChange;
+  final bool isCasePlanForHouseHold;
 
   final String caseToGapLinkage = OvcCasePlanConstant.casePlanToGapLinkage;
 
@@ -30,15 +33,20 @@ class CasePlanFormContainer extends StatelessWidget {
     Map gapDataObject = Map();
     gapDataObject[caseToGapLinkage] =
         dataObject[caseToGapLinkage] ?? AppUtil.getUid();
-    List<FormSection> formSections = OvcServicesCasePlanGaps.getFormSections()
-        .where((FormSection form) => form.id == formSection.id)
-        .toList();
+    List<FormSection> formSections = isCasePlanForHouseHold
+        ? OvcHouseholdServicesCasePlanGaps.getFormSections()
+            .where((FormSection form) => form.id == formSection.id)
+            .toList()
+        : OvcServicesChildCasePlanGaps.getFormSections()
+            .where((FormSection form) => form.id == formSection.id)
+            .toList();
     formSections = formSections.map((FormSection form) {
       form.borderColor = Colors.transparent;
       return form;
     }).toList();
     Widget modal = CasePlanGapFormContainer(
       formSections: formSections,
+      isCasePlanForHouseHold: isCasePlanForHouseHold,
       isEditableMode: isEditableMode,
       formSectionColor: formSectionColor,
       dataObject: gapDataObject,
@@ -87,6 +95,7 @@ class CasePlanFormContainer extends StatelessWidget {
                 CasePlanGapViewContainer(
                   casePlanGaps: dataObject['gaps'],
                   domainId: formSection.id,
+                  isCasePlanForHouseHold: isCasePlanForHouseHold,
                   formSectionColor: formSectionColor,
                 ),
                 Visibility(
@@ -95,7 +104,8 @@ class CasePlanFormContainer extends StatelessWidget {
                     margin: EdgeInsets.only(bottom: 10.0),
                     child: FlatButton(
                         onPressed: () => onAddNewGap(context),
-                        color: formSectionColor,
+                        color: Colors.white,
+                        splashColor: formSectionColor.withOpacity(0.5),
                         shape: RoundedRectangleBorder(
                             side: BorderSide(color: formSectionColor),
                             borderRadius: BorderRadius.circular(12.0)),
@@ -106,7 +116,7 @@ class CasePlanFormContainer extends StatelessWidget {
                           ),
                           child: Text('Add Gap',
                               style: TextStyle().copyWith(
-                                color: Colors.white,
+                                color: formSectionColor,
                                 fontSize: 14.0,
                                 fontWeight: FontWeight.w700,
                               )),
