@@ -78,41 +78,45 @@ class _OvcHouseHoldCasePlanFormState extends State<OvcHouseHoldCasePlanForm> {
     Map dataObject,
     OvcHouseHold currentOvcHouseHold,
   ) async {
+    String casePlanFirstGoal = OvcCasePlanConstant.casePlanFirstGoal;
     for (String domainType in dataObject.keys.toList()) {
       Map domainDataObject = dataObject[domainType];
-      try {
-        List<FormSection> domainFormSections = formSections
-            .where((FormSection formSection) => formSection.id == domainType)
-            .toList();
-        List<FormSection> domainGapFormSections =
-            OvcHouseholdServicesCasePlanGaps.getFormSections()
-                .where(
-                    (FormSection formSection) => formSection.id == domainType)
-                .toList();
-        await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-          OvcHouseHoldCasePlanConstant.program,
-          OvcHouseHoldCasePlanConstant.casePlanProgramStage,
-          currentOvcHouseHold.orgUnit,
-          domainFormSections,
-          domainDataObject,
-          domainDataObject['eventDate'],
-          currentOvcHouseHold.id,
-          domainDataObject['eventId'],
-        );
-        for (Map domainGapDataObject in domainDataObject['gaps']) {
+      if (domainDataObject['gaps'].length > 0 &&
+          (domainDataObject[casePlanFirstGoal] != null ||
+              '${domainDataObject[casePlanFirstGoal]}'.trim() != '')) {
+        try {
+          List<FormSection> domainFormSections = formSections
+              .where((FormSection formSection) => formSection.id == domainType)
+              .toList();
+          List<FormSection> domainGapFormSections =
+              OvcHouseholdServicesCasePlanGaps.getFormSections()
+                  .where(
+                      (FormSection formSection) => formSection.id == domainType)
+                  .toList();
           await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
             OvcHouseHoldCasePlanConstant.program,
-            OvcHouseHoldCasePlanConstant.casePlanGapProgramStage,
+            OvcHouseHoldCasePlanConstant.casePlanProgramStage,
             currentOvcHouseHold.orgUnit,
-            domainGapFormSections,
-            domainGapDataObject,
+            domainFormSections,
+            domainDataObject,
             domainDataObject['eventDate'],
             currentOvcHouseHold.id,
             domainDataObject['eventId'],
           );
-        }
-      } catch (e) {
-        print('error ${e.toString()}');
+          for (Map domainGapDataObject in domainDataObject['gaps']) {
+            await TrackedEntityInstanceUtil
+                .savingTrackedEntityInstanceEventData(
+              OvcHouseHoldCasePlanConstant.program,
+              OvcHouseHoldCasePlanConstant.casePlanGapProgramStage,
+              currentOvcHouseHold.orgUnit,
+              domainGapFormSections,
+              domainGapDataObject,
+              domainDataObject['eventDate'],
+              currentOvcHouseHold.id,
+              domainDataObject['eventId'],
+            );
+          }
+        } catch (e) {}
       }
     }
   }
