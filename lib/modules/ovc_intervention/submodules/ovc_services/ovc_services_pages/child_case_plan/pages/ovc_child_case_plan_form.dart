@@ -76,6 +76,10 @@ class _OcvChildCasePlanFormState extends State<OcvChildCasePlanForm> {
     Map dataObject,
     OvcHouseHoldChild currentOvcHouseHoldChild,
   ) async {
+    List<String> hiddenFields = [
+      OvcCasePlanConstant.casePlanToGapLinkage,
+      OvcCasePlanConstant.casePlanDomainType
+    ];
     String casePlanFirstGoal = OvcCasePlanConstant.casePlanFirstGoal;
     for (String domainType in dataObject.keys.toList()) {
       Map domainDataObject = dataObject[domainType];
@@ -100,6 +104,7 @@ class _OcvChildCasePlanFormState extends State<OcvChildCasePlanForm> {
             domainDataObject['eventDate'],
             currentOvcHouseHoldChild.id,
             domainDataObject['eventId'],
+            hiddenFields,
           );
           for (Map domainGapDataObject in domainDataObject['gaps']) {
             await TrackedEntityInstanceUtil
@@ -112,6 +117,7 @@ class _OcvChildCasePlanFormState extends State<OcvChildCasePlanForm> {
               domainGapDataObject['eventDate'],
               currentOvcHouseHoldChild.id,
               domainGapDataObject['eventId'],
+              hiddenFields,
             );
           }
         } catch (e) {}
@@ -137,7 +143,6 @@ class _OcvChildCasePlanFormState extends State<OcvChildCasePlanForm> {
           setState(() {
             isSaving = false;
           });
-
           AppUtil.showToastMessage(
               message: 'Form has been saved successfully',
               position: ToastGravity.TOP);

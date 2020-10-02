@@ -31,11 +31,11 @@ class OvcChildCasePlanHome extends StatelessWidget {
 
   updateformState(BuildContext context, OvcHouseHoldChild child) {
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
-    String casePlanToGapLinkage = AppUtil.getUid();
     for (FormSection formSection in OvcServicesCasePlan.getFormSections()) {
       // @TODO update state accordingly
       Map map = Map();
       map['gaps'] = [];
+      String casePlanToGapLinkage = AppUtil.getUid();
       map[OvcCasePlanConstant.casePlanToGapLinkage] = casePlanToGapLinkage;
       map[OvcCasePlanConstant.casePlanDomainType] = formSection.id;
       Provider.of<ServiceFormState>(context, listen: false)
@@ -67,6 +67,24 @@ class OvcChildCasePlanHome extends StatelessWidget {
       Navigator.push(context,
           MaterialPageRoute(builder: (context) => OcvChildCasePlanForm()));
     }
+  }
+
+  void onEditCasePlan(
+    BuildContext context,
+    OvcHouseHoldChild child,
+    List<Events> casePlanEvents,
+    Map<String, List<Events>> eventListByProgramStage,
+  ) {
+    print(casePlanEvents);
+  }
+
+  void onViewCasePlan(
+    BuildContext context,
+    OvcHouseHoldChild child,
+    List<Events> casePlanEvents,
+    Map<String, List<Events>> eventListByProgramStage,
+  ) {
+    print(casePlanEvents);
   }
 
   @override
@@ -110,8 +128,21 @@ class OvcChildCasePlanHome extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     CasePlanHomeListContainer(
-                                      programStageIds: programStageIds,
-                                    ),
+                                        programStageIds: programStageIds,
+                                        onEditCasePlan: (casePlanEvents) =>
+                                            onViewCasePlan(
+                                              context,
+                                              currentOvcHouseHoldChild,
+                                              casePlanEvents,
+                                              eventListByProgramStage,
+                                            ),
+                                        onViewCasePlan: (casePlanEvents) =>
+                                            onViewCasePlan(
+                                              context,
+                                              currentOvcHouseHoldChild,
+                                              casePlanEvents,
+                                              eventListByProgramStage,
+                                            )),
                                     Container(
                                       child: Visibility(
                                         visible: !isLoading,

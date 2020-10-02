@@ -70,10 +70,11 @@ class _OvcServiceWellBeingAssessmentFormState
             dataObject,
             eventDate,
             currentOvcHouseHoldChild.id,
-            eventId);
+            eventId,
+            null);
         Provider.of<ServiveEventDataState>(context, listen: false)
             .resetServiceEventDataState(currentOvcHouseHoldChild.id);
-        
+
         Timer(Duration(seconds: 1), () {
           setState(() {
             isSaving = false;

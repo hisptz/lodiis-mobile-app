@@ -70,6 +70,24 @@ class OvcHouseHoldCasePlanHome extends StatelessWidget {
     }
   }
 
+  void onEditCasePlan(
+    BuildContext context,
+    OvcHouseHold houseHold,
+    List<Events> casePlanEvents,
+    Map<String, List<Events>> eventListByProgramStage,
+  ) {
+    print(casePlanEvents);
+  }
+
+  void onViewCasePlan(
+    BuildContext context,
+    OvcHouseHold houseHold,
+    List<Events> casePlanEvents,
+    Map<String, List<Events>> eventListByProgramStage,
+  ) {
+    print(casePlanEvents);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -129,6 +147,18 @@ class OvcHouseHoldCasePlanHome extends StatelessWidget {
                                               CasePlanHomeListContainer(
                                                 programStageIds:
                                                     programStageIds,
+                                                onEditCasePlan: (casePlanEvents) =>
+                                                    onEditCasePlan(
+                                                        context,
+                                                        currentOvcHouseHold,
+                                                        casePlanEvents,
+                                                        eventListByProgramStage),
+                                                onViewCasePlan: (casePlanEvents) =>
+                                                    onEditCasePlan(
+                                                        context,
+                                                        currentOvcHouseHold,
+                                                        casePlanEvents,
+                                                        eventListByProgramStage),
                                               ),
                                               Container(
                                                 child: Visibility(

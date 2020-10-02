@@ -65,7 +65,7 @@ class _OvcServiceHouseHoldAddReferralFormState
       String eventDate = dataObject['eventDate'];
       String eventId = dataObject['eventId'];
       dataObject['Ntee9tw45ja'] = dataObject['Ntee9tw45ja'] ?? AppUtil.getUid();
-
+      List<String> hiddenFields = ['Ntee9tw45ja'];
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
             OvcReferralConstant.program,
@@ -75,7 +75,8 @@ class _OvcServiceHouseHoldAddReferralFormState
             dataObject,
             eventDate,
             currentOvcHouseHold.id,
-            eventId);
+            eventId,
+            hiddenFields);
         Provider.of<ServiveEventDataState>(context, listen: false)
             .resetServiceEventDataState(currentOvcHouseHold.id);
         Timer(Duration(seconds: 1), () {

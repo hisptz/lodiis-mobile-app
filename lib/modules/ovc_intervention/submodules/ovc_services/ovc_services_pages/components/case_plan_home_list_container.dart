@@ -22,6 +22,9 @@ class CasePlanHomeListContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     double iconHeight = 20;
     return Container(
+      margin: EdgeInsets.symmetric(
+        vertical: 5.0,
+      ),
       child: Consumer<ServiveEventDataState>(
         builder: (context, serviveEventDataState, child) {
           Map<String, List<Events>> eventListByProgramStage =
@@ -31,13 +34,14 @@ class CasePlanHomeListContainer extends StatelessWidget {
                   eventListByProgramStage, programStageIds);
           Map groupedEventByDates =
               TrackedEntityInstanceUtil.getGroupedEventByDates(events);
+          int assessmentIndex = groupedEventByDates.keys.toList().length;
           return Container(
             child: Column(
               children: groupedEventByDates.keys.toList().map((assessmentDate) {
-                int assessmentIndex = 0;
+                assessmentIndex--;
                 return Container(
                   margin: EdgeInsets.symmetric(
-                    vertical: 10.0,
+                    vertical: 5.0,
                     horizontal: 17.0,
                   ),
                   child: MaterialCard(
@@ -92,7 +96,7 @@ class CasePlanHomeListContainer extends StatelessWidget {
                                   ),
                                   child: InkWell(
                                       onTap: () => onViewCasePlan(
-                                          groupedEventByDates[assessmentIndex]),
+                                          groupedEventByDates[assessmentDate]),
                                       child: Container(
                                         height: iconHeight,
                                         width: iconHeight,
@@ -110,7 +114,7 @@ class CasePlanHomeListContainer extends StatelessWidget {
                                   ),
                                   child: InkWell(
                                       onTap: () => onEditCasePlan(
-                                          groupedEventByDates[assessmentIndex]),
+                                          groupedEventByDates[assessmentDate]),
                                       child: Container(
                                         height: iconHeight,
                                         width: iconHeight,
