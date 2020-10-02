@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
+import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_house_hold_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_intervention_list_state.dart';
 import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar_container.dart';
@@ -12,7 +13,9 @@ import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
+import 'package:kb_mobile_app/models/ovc_house_hold.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold_top_header.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/services/ovc_enrollment_child_services.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/models/ovc_enrollment_child.dart';
 import 'package:provider/provider.dart';
@@ -125,7 +128,6 @@ class _OvcEnrollmentChildEditViewFormState
             ),
             body: SubPageBody(
               body: Container(
-                margin: EdgeInsets.symmetric(vertical: 16.0, horizontal: 13.0),
                 child: !isFormReady
                     ? Column(
                         children: [
@@ -136,37 +138,55 @@ class _OvcEnrollmentChildEditViewFormState
                           )
                         ],
                       )
-                    : Container(
-                        child: Consumer<EnrollmentFormState>(
-                          builder: (context, enrollmentFormState, child) {
-                            return Column(
-                              children: [
-                                Container(
-                                  child: EntryFormContainer(
-                                    formSections: formSections,
-                                    mandatoryFieldObject: mandatoryFieldObject,
-                                    isEditableMode:
-                                        enrollmentFormState.isEditableMode,
-                                    dataObject: enrollmentFormState.formState,
-                                    onInputValueChange: onInputValueChange,
-                                  ),
-                                ),
-                                Visibility(
-                                  visible: enrollmentFormState.isEditableMode,
-                                  child: OvcEnrollmentFormSaveButton(
-                                    label: isSaving ? 'Saving ...' : 'Save',
-                                    labelColor: Colors.white,
-                                    buttonColor: Color(0xFF4B9F46),
-                                    fontSize: 15.0,
-                                    onPressButton: () => onSaveForm(
-                                        context, enrollmentFormState.formState),
-                                  ),
-                                )
-                              ],
-                            );
-                          },
+                    : Column(children: [
+                        Container(
+                          child: Consumer<OvcHouseHoldCurrentSelectionState>(
+                            builder: (context,
+                                ovcHouseHoldCurrentSelectionState, child) {
+                              OvcHouseHold currentOvcHouseHold =
+                                  ovcHouseHoldCurrentSelectionState
+                                      .currentOvcHouseHold;
+                              return OvcHouseHoldInfoTopHeader(
+                                currentOvcHouseHold: currentOvcHouseHold,
+                              );
+                            },
+                          ),
                         ),
-                      ),
+                        Container(
+                          margin: EdgeInsets.symmetric(
+                              vertical: 16.0, horizontal: 13.0),
+                          child: Consumer<EnrollmentFormState>(
+                            builder: (context, enrollmentFormState, child) {
+                              return Column(
+                                children: [
+                                  Container(
+                                    child: EntryFormContainer(
+                                      formSections: formSections,
+                                      mandatoryFieldObject:
+                                          mandatoryFieldObject,
+                                      isEditableMode:
+                                          enrollmentFormState.isEditableMode,
+                                      dataObject: enrollmentFormState.formState,
+                                      onInputValueChange: onInputValueChange,
+                                    ),
+                                  ),
+                                  Visibility(
+                                    visible: enrollmentFormState.isEditableMode,
+                                    child: OvcEnrollmentFormSaveButton(
+                                      label: isSaving ? 'Saving ...' : 'Save',
+                                      labelColor: Colors.white,
+                                      buttonColor: Color(0xFF4B9F46),
+                                      fontSize: 15.0,
+                                      onPressButton: () => onSaveForm(context,
+                                          enrollmentFormState.formState),
+                                    ),
+                                  )
+                                ],
+                              );
+                            },
+                          ),
+                        ),
+                      ]),
               ),
             ),
             bottomNavigationBar: InterventionBottomNavigationBarContainer()));
