@@ -7,7 +7,7 @@ import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold_card_body.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold_card_botton_content.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/house_hold_assessment/ovc_house_hold_assessment.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/house_hold_case_plan/ovc_house_hold_case_plan.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/house_hold_case_plan/ovc_house_hold_case_plan_home.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/house_hold_monitor/ovc_house_hold_monitor.dart';
 import 'package:provider/provider.dart';
 
@@ -59,7 +59,7 @@ class _OvcServicesPageState extends State<OvcServicesPage> {
     Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => OvcHouseHoldCasePlan(),
+          builder: (context) => OvcHouseHoldCasePlanHome(),
         ));
   }
 
