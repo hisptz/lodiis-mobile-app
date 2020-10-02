@@ -10,7 +10,7 @@ class OvcReferralCardBody extends StatelessWidget {
     List<String> dataValuesDetails = [];
 
     for (var datavalue in referralDetails["dataValues"]) {
-           dataValuesDetails.add(datavalue["value"]);
+      dataValuesDetails.add(datavalue["value"]);
     }
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 13.0, vertical: 10.0),
