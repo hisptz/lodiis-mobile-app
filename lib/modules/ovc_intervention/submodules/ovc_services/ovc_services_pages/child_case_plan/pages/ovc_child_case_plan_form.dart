@@ -106,6 +106,9 @@ class _OcvChildCasePlanFormState extends State<OcvChildCasePlanForm> {
             domainDataObject['eventId'],
             hiddenFields,
           );
+          hiddenFields = [
+            OvcCasePlanConstant.casePlanToGapLinkage,
+          ];
           for (Map domainGapDataObject in domainDataObject['gaps']) {
             await TrackedEntityInstanceUtil
                 .savingTrackedEntityInstanceEventData(

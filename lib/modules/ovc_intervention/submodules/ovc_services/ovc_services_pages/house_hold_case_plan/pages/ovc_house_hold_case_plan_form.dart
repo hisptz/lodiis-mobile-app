@@ -108,6 +108,9 @@ class _OvcHouseHoldCasePlanFormState extends State<OvcHouseHoldCasePlanForm> {
             domainDataObject['eventId'],
             hiddenFields,
           );
+          hiddenFields = [
+            OvcCasePlanConstant.casePlanToGapLinkage,
+          ];
           for (Map domainGapDataObject in domainDataObject['gaps']) {
             await TrackedEntityInstanceUtil
                 .savingTrackedEntityInstanceEventData(
