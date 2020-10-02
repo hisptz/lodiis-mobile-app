@@ -45,7 +45,8 @@ class OvcHouseHoldChild {
         data[attribute] = '${attributOj['value']}'.trim() ?? '';
       }
     }
-    return OvcHouseHoldChild(
+    return 
+    OvcHouseHoldChild(
         id: tei.trackedEntityInstance,
         firstName: data['s1eRvsL2Ly4'] ?? '',
         middleName: data['s1HaiT6OllL'] ?? '',
@@ -55,7 +56,8 @@ class OvcHouseHoldChild {
         createdDate: createdDate,
         enrollment: enrollment,
         orgUnit: orgUnit,
-        teiData: tei);
+        teiData: tei
+        );
   }
 
   @override

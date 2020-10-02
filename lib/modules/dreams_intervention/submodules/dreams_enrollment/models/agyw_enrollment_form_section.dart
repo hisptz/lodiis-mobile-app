@@ -24,7 +24,7 @@ class AgywEnrollmentFormSection {
                       id: '',
                       name: 'Record why the child is not enrolled in school',
                       valueType: 'CHECK_BOX',
-                      inputColor: Color(0xFF4B9F46),
+                      inputColor: Color(0xFF258DCC),
                       labelColor: Color(0xFF737373),
                       options: [
                         InputFieldOption(

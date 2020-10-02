@@ -35,16 +35,18 @@ class _InterventionSelectionState extends State<InterventionSelection> {
   @override
   void initState() {
     super.initState();
-      Timer(Duration(seconds: 2), upDataStateLoadingStatus);}
+    Timer(Duration(seconds: 2), upDataStateLoadingStatus);
+  }
 
   upDataStateLoadingStatus() {
     Provider.of<OvcInterventionListState>(context, listen: false)
         .refreshOvcList();
+    Provider.of<DreamsInterventionListState>(context, listen: false)
+        .refreshDreamsList();
     setState(() {
       hasDataLoaded = true;
     });
   }
-  
 
   @override
   Widget build(BuildContext context) {

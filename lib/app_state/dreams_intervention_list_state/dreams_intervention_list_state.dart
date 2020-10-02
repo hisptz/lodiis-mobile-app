@@ -15,11 +15,13 @@ class DreamsInterventionListState with ChangeNotifier {
   int get numberOfDreamsBeneficiaries => _numberOfDreamsBeneficiaries;
   List<AgywDream> get agywDreamList => _agywDreamList;
 
-//AgywDream
   // reducers
   void refreshDreamsList() async {
     _isLoading = true;
     notifyListeners();
-    _agywDreamList = AgywDreamEnrollmentService().getEnrollmentList();
+    _agywDreamList = await AgywDreamEnrollmentService().getEnrollmentList();
+    _isLoading = false;
+    _numberOfDreamsBeneficiaries = _agywDreamList.length;
+    notifyListeners();
   }
 }

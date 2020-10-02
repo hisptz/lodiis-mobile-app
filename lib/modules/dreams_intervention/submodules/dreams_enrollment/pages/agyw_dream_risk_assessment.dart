@@ -12,24 +12,20 @@ import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/models/agyw_enrollment_risk_assessment.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/models/ovc_enrollement_basic_info.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/pages/ovc_enrollment_child_form.dart';
 import 'package:provider/provider.dart';
-
-import 'agyw_dream_enter_form.dart';
+import 'agyw_dream_enrollment.dart';
 
 class AgywDreamServiceForm extends StatefulWidget {
   const AgywDreamServiceForm({Key key}) : super(key: key);
-
   @override
   _AgywDreamServiceFormState createState() => _AgywDreamServiceFormState();
 }
 
 class _AgywDreamServiceFormState extends State<AgywDreamServiceForm> {
-  List<FormSection> formSections = OvcEnrollmentBasicInfo.getFormSections();
+  List<FormSection> formSections;
   final String label = 'Risk Assessment';
   final List<String> mandatoryFields =
-      OvcEnrollmentBasicInfo.getMandatoryField();
+      AgywEnrollmentRiskAssessment.getMandatoryField();
   final Map mandatoryFieldObject = Map();
   bool isFormReady = false;
 
@@ -37,7 +33,7 @@ class _AgywDreamServiceFormState extends State<AgywDreamServiceForm> {
   void initState() {
     super.initState();
     setState(() {
-      for (String id in mandatoryFields){
+      for (String id in mandatoryFields) {
         mandatoryFieldObject[id] = true;
       }
       formSections = AgywEnrollmentRiskAssessment.getFormSections();
@@ -46,18 +42,13 @@ class _AgywDreamServiceFormState extends State<AgywDreamServiceForm> {
   }
 
   void onSaveAndContinue(BuildContext context, Map dataObject) {
-       Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => AgywEntollmentSectionForm(),
-          ));
     bool hadAllMandatoryFilled =
         AppUtil.hasAllMandarotyFieldsFilled(mandatoryFields, dataObject);
     if (hadAllMandatoryFilled) {
       Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => OvcEnrollmentChildForm(),
+            builder: (context) => AgywEntollmentSectionForm(),
           ));
     } else {
       AppUtil.showToastMessage(
@@ -66,18 +57,9 @@ class _AgywDreamServiceFormState extends State<AgywDreamServiceForm> {
     }
   }
 
-  void autoFillInputFields(String id, dynamic value) {
-    if (id == 'qZP982qpSPS') {
-      int age = AppUtil.getAgeInYear(value);
-      Provider.of<EnrollmentFormState>(context, listen: false)
-          .setFormFieldState('ls9hlz2tyol', age.toString());
-    }
-  }
-
   void onInputValueChange(String id, dynamic value) {
     Provider.of<EnrollmentFormState>(context, listen: false)
         .setFormFieldState(id, value);
-    autoFillInputFields(id, value);
   }
 
   @override

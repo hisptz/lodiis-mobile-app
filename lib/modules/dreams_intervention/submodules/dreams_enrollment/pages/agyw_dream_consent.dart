@@ -15,15 +15,15 @@ import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment
 import 'package:provider/provider.dart';
 import 'agyw_dream_risk_assessment.dart';
 
-class AgywEnrollmentConsetForm extends StatefulWidget {
-  const AgywEnrollmentConsetForm({Key key}) : super(key: key);
+class AgywConsentForm extends StatefulWidget {
+  const AgywConsentForm({Key key}) : super(key: key);
 
   @override
   _AgywEnrollmentConsetFormState createState() =>
       _AgywEnrollmentConsetFormState();
 }
 
-class _AgywEnrollmentConsetFormState extends State<AgywEnrollmentConsetForm> {
+class _AgywEnrollmentConsetFormState extends State<AgywConsentForm> {
   List<FormSection> formSections;
   final String label = 'Consent Form';
   final List<String> mandatoryFields =
