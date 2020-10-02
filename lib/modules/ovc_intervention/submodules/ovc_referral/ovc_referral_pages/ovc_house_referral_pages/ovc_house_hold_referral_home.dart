@@ -17,7 +17,7 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/c
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/components/ovc_referral_card_body.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/constants/ovc_referral_constant.dart';
 import 'package:provider/provider.dart';
-import 'ovc_house_referral_pages/ovc_referral_add_house_hold_form.dart';
+import 'ovc_referral_add_house_hold_form.dart';
 
 class OvcHouseHoldRefferalHome extends StatefulWidget {
   OvcHouseHoldRefferalHome({Key key}) : super(key: key);
@@ -98,6 +98,9 @@ class _OvcHouseHoldRefferalHomeState extends State<OvcHouseHoldRefferalHome> {
                                 : Column(
                                     children: [
                                       Container(
+                                        margin: EdgeInsets.symmetric(
+                                          vertical: 10.0,
+                                        ),
                                         child: events.length == 0
                                             ? Text(
                                                 "There is no House Hold Refferal at a moment")
@@ -121,7 +124,7 @@ class _OvcHouseHoldRefferalHomeState extends State<OvcHouseHoldRefferalHome> {
                                                       : Container(
                                                           margin: EdgeInsets
                                                               .symmetric(
-                                                            vertical: 10.0,
+                                                            vertical: 5.0,
                                                             horizontal: 13.0,
                                                           ),
                                                           child: OvcReferralCard(

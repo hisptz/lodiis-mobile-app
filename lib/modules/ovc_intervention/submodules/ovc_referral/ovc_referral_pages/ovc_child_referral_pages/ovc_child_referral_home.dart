@@ -97,6 +97,9 @@ class _OvcChildReferralHomeState extends State<OvcChildReferralHome> {
                                 : Column(
                                     children: [
                                       Container(
+                                        margin: EdgeInsets.symmetric(
+                                          vertical: 10.0,
+                                        ),
                                         child: events.length == 0
                                             ? Text(
                                                 "There is no Child Referrals at a moment")
@@ -119,9 +122,9 @@ class _OvcChildReferralHomeState extends State<OvcChildReferralHome> {
                                                       : Container(
                                                           margin: EdgeInsets
                                                               .symmetric(
-                                                                  vertical: 5.0,
-                                                                  horizontal:
-                                                                      13.0),
+                                                            vertical: 5.0,
+                                                            horizontal: 13.0,
+                                                          ),
                                                           child:
                                                               OvcReferralCard(
                                                             count:
