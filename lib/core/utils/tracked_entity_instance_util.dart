@@ -49,4 +49,16 @@ class TrackedEntityInstanceUtil {
     }
     return events;
   }
+
+  static Map getGroupedEventByDates(List<Events> events) {
+    Map groupedEvents = Map();
+    for (var event in events) {
+      String eventDate = event.eventDate;
+      if (groupedEvents[eventDate] == null) {
+        groupedEvents[eventDate] = [];
+      }
+      groupedEvents[eventDate] = groupedEvents[eventDate].add(event);
+    }
+    return groupedEvents;
+  }
 }

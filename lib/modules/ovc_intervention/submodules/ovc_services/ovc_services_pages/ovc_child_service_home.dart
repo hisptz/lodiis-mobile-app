@@ -5,6 +5,8 @@ import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
+import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
+import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_child_info_top_header.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
@@ -62,8 +64,14 @@ class OvcChildServiceHome extends StatelessWidget {
       Map eventListByProgramStage) {
     int countValue = 0;
     for (String programStage in ovcChildServiceHomeCard.programStages) {
-      var events = eventListByProgramStage[programStage] ?? [];
-      countValue += events.length;
+      List<Events> events = eventListByProgramStage[programStage] ?? [];
+      if (ovcChildServiceHomeCard.groupByDate) {
+        Map groupedEventByDates =
+            TrackedEntityInstanceUtil.getGroupedEventByDates(events);
+        countValue += groupedEventByDates.keys.toList().length;
+      } else {
+        countValue += events.length;
+      }
     }
     return countValue;
   }
