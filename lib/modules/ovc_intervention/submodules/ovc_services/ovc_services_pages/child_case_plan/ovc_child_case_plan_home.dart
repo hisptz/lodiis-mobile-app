@@ -79,7 +79,8 @@ class OvcChildCasePlanHome extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     Container(
-                                      child: Text('List of case plans'),
+                                      child: Text(
+                                          'List of case plans ${currentOvcHouseHoldChild.id}'),
                                     ),
                                     Container(
                                       child: Visibility(
