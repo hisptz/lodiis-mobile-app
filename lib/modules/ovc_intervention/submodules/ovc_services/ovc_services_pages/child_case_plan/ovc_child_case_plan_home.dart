@@ -29,8 +29,15 @@ class OvcChildCasePlanHome extends StatelessWidget {
     OvcChildCasePlanConstant.casePlanProgramStage
   ];
 
-  updateformState(BuildContext context, OvcHouseHoldChild child) {
+  updateformState(
+    BuildContext context,
+    OvcHouseHoldChild child,
+    bool isEditableMode,
+  ) {
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
+    Provider.of<ServiceFormState>(context, listen: false)
+        .updateFormEditabilityState(isEditableMode: isEditableMode);
+
     for (FormSection formSection in OvcServicesCasePlan.getFormSections()) {
       // @TODO update state accordingly
       Map map = Map();
@@ -63,7 +70,7 @@ class OvcChildCasePlanHome extends StatelessWidget {
           message: 'There is exiting case plan that has already created',
           position: ToastGravity.TOP);
     } else {
-      updateformState(context, child);
+      updateformState(context, child, true);
       Navigator.push(context,
           MaterialPageRoute(builder: (context) => OcvChildCasePlanForm()));
     }
@@ -75,6 +82,7 @@ class OvcChildCasePlanHome extends StatelessWidget {
     List<Events> casePlanEvents,
     Map<String, List<Events>> eventListByProgramStage,
   ) {
+    updateformState(context, child, true);
     print(casePlanEvents);
   }
 
@@ -84,6 +92,7 @@ class OvcChildCasePlanHome extends StatelessWidget {
     List<Events> casePlanEvents,
     Map<String, List<Events>> eventListByProgramStage,
   ) {
+    updateformState(context, child, false);
     print(casePlanEvents);
   }
 

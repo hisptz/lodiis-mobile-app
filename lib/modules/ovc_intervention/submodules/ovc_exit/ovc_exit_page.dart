@@ -227,7 +227,6 @@ class _OvcExitPageState extends State<OvcExitPage> {
                                       canViewChildService: canViewChildService,
                                       canViewChildReferral:
                                           canViewChildReferral,
-                                      canAddChildExit: canAddChildExit,
                                       canViewChildExit: canViewChildExit,
                                     ),
                                   ),
