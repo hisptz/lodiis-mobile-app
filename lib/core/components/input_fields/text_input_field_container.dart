@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kb_mobile_app/core/components/input_fields/input_checked_cion.dart';
+import 'package:kb_mobile_app/core/components/input_fields/input_checked_icon.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 
 class TextInputFieldContainer extends StatefulWidget {
@@ -54,14 +54,15 @@ class _TextInputFieldContainerState extends State<TextInputFieldContainer> {
                   maxLines:
                       widget.inputField.valueType == 'LONG_TEXT' ? null : 1,
                   keyboardType: TextInputType.text,
-                  textInputAction: TextInputAction.done,
+                  textInputAction: TextInputAction.next,
+                  textCapitalization: TextCapitalization.sentences,
                   style: TextStyle().copyWith(color: Color(0xFF182E35)),
                   decoration: InputDecoration(
                     border: InputBorder.none,
                     errorText: null,
                   ))),
           InputCheckedIcon(
-            showTickedIcon: _value != null,
+            showTickedIcon: _value != null && '$_value'.trim() != '',
             color: widget.inputField.inputColor,
           )
         ],

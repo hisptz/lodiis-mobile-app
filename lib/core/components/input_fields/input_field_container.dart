@@ -139,27 +139,40 @@ class InputFieldContainer extends StatelessWidget {
             : '   ';
     if (inputField != null) {
       if (inputField.valueType == "BOOLEAN") {
-        value = value == 'true' ? 'Yes' : value == 'false' ? 'No' : value;
+        value = value == 'true'
+            ? 'Yes'
+            : value == 'false'
+                ? 'No'
+                : value;
       } else if (inputField.valueType == 'TRUE_ONLY') {
         value = value == 'true' ? 'Yes' : value;
       }
     }
-    return Row(
-      children: [
-        Container(
-          margin: EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
-          child: Text(
-            value.toString(),
-            style: TextStyle().copyWith(
-              color: inputField != null && inputField.inputColor != null
-                  ? inputField.inputColor
-                  : null,
-              fontWeight: FontWeight.w500,
-              fontSize: 12.0,
+    return Container(
+      child: inputField != null && inputField.valueType == 'CHECK_BOX'
+          ? CheckBoxListInputField(
+              inputField: inputField,
+              isReadOnly: true, //this.onInputValueChange,
+              dataObject: dataObject,
+            )
+          : Row(
+              children: [
+                Container(
+                  margin:
+                      EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
+                  child: Text(
+                    value.toString(),
+                    style: TextStyle().copyWith(
+                      color: inputField != null && inputField.inputColor != null
+                          ? inputField.inputColor
+                          : null,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 12.0,
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ),
-        ),
-      ],
     );
   }
 
@@ -169,7 +182,9 @@ class InputFieldContainer extends StatelessWidget {
           ? inputField.valueType == 'CHECK_BOX'
               ? CheckBoxListInputField(
                   inputField: inputField,
-                  onInputValueChange: this.onInputValueChange,
+                  onInputValueChange: (id, value) {
+                    this.onInputValueChange(id, value);
+                  },
                   dataObject: dataObject,
                 )
               : inputField.options.length > 0

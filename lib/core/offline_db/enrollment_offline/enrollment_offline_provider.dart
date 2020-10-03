@@ -19,7 +19,7 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
   addOrUpdateEnrollement(Enrollment enrollment) async {
     var dbClient = await db;
     Map data = Enrollment().toOffline(enrollment);
-    data['id'] = data['event'];
+    data['id'] = data['enrollment'];
     await dbClient.insert(table, data,
         conflictAlgorithm: ConflictAlgorithm.replace);
   }
@@ -51,6 +51,7 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
         }
       }
     } catch (e) {}
-    return enrollments;
+    return enrollments
+      ..sort((b, a) => a.enrollmentDate.compareTo(b.enrollmentDate));
   }
 }

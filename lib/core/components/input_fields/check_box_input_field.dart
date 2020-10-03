@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 
 class CheckBoxInputField extends StatefulWidget {
-  const CheckBoxInputField(
-      {Key key,
-      @required this.onInputValueChange,
-      @required this.label,
-      @required this.value,
-      @required this.color})
-      : super(key: key);
+  const CheckBoxInputField({
+    Key key,
+    @required this.onInputValueChange,
+    @required this.label,
+    @required this.value,
+    @required this.color,
+    @required this.isReadOnly,
+  }) : super(key: key);
 
   final Function onInputValueChange;
   final String label;
   final Color color;
   final dynamic value;
+  final bool isReadOnly;
 
   @override
   _CheckBoxInputFieldState createState() => _CheckBoxInputFieldState();
@@ -33,6 +35,7 @@ class _CheckBoxInputFieldState extends State<CheckBoxInputField> {
     setState(() {
       _inputValue = value;
     });
+    widget.onInputValueChange(value);
   }
 
   @override
@@ -44,7 +47,7 @@ class _CheckBoxInputFieldState extends State<CheckBoxInputField> {
               value: _inputValue,
               activeColor: _inputValue ? widget.color : null,
               checkColor: _inputValue ? Colors.white : null,
-              onChanged: onInputValueChange),
+              onChanged: widget.isReadOnly ? null : onInputValueChange),
         ),
         Expanded(
             child: Text(

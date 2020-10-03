@@ -126,45 +126,55 @@ class _OvcServiceWellBeingAssessmentFormState
                 return Consumer<ServiceFormState>(
                   builder: (context, serviceFormState, child) {
                     return Container(
-                      child: !isFormReady
-                          ? Container(
-                              child: CircularProcessLoader(
-                                color: Colors.blueGrey,
-                              ),
-                            )
-                          : Column(
-                              children: [
-                                OvcChildInfoTopHeader(),
-                                Container(
-                                  margin: EdgeInsets.only(
-                                    top: 10.0,
-                                    left: 13.0,
-                                    right: 13.0,
+                      child: Column(
+                        children: [
+                          OvcChildInfoTopHeader(),
+                          Container(
+                            child: !isFormReady
+                                ? Container(
+                                    child: CircularProcessLoader(
+                                      color: Colors.blueGrey,
+                                    ),
+                                  )
+                                : Column(
+                                    children: [
+                                      Container(
+                                        margin: EdgeInsets.only(
+                                          top: 10.0,
+                                          left: 13.0,
+                                          right: 13.0,
+                                        ),
+                                        child: EntryFormContainer(
+                                          formSections: formSections,
+                                          mandatoryFieldObject: Map(),
+                                          dataObject:
+                                              serviceFormState.formState,
+                                          isEditableMode:
+                                              serviceFormState.isEditableMode,
+                                          onInputValueChange:
+                                              onInputValueChange,
+                                        ),
+                                      ),
+                                      Visibility(
+                                        visible:
+                                            serviceFormState.isEditableMode,
+                                        child: OvcEnrollmentFormSaveButton(
+                                          label:
+                                              isSaving ? 'Saving ...' : 'Save',
+                                          labelColor: Colors.white,
+                                          buttonColor: Color(0xFF4B9F46),
+                                          fontSize: 15.0,
+                                          onPressButton: () => onSaveForm(
+                                              context,
+                                              serviceFormState.formState,
+                                              currentOvcHouseHoldChild),
+                                        ),
+                                      )
+                                    ],
                                   ),
-                                  child: EntryFormContainer(
-                                    formSections: formSections,
-                                    mandatoryFieldObject: Map(),
-                                    dataObject: serviceFormState.formState,
-                                    isEditableMode:
-                                        serviceFormState.isEditableMode,
-                                    onInputValueChange: onInputValueChange,
-                                  ),
-                                ),
-                                Visibility(
-                                  visible: serviceFormState.isEditableMode,
-                                  child: OvcEnrollmentFormSaveButton(
-                                    label: isSaving ? 'Saving ...' : 'Save',
-                                    labelColor: Colors.white,
-                                    buttonColor: Color(0xFF4B9F46),
-                                    fontSize: 15.0,
-                                    onPressButton: () => onSaveForm(
-                                        context,
-                                        serviceFormState.formState,
-                                        currentOvcHouseHoldChild),
-                                  ),
-                                )
-                              ],
-                            ),
+                          ),
+                        ],
+                      ),
                     );
                   },
                 );

@@ -15,9 +15,9 @@ import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold_top_header.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/components/ovc_referral_card.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/components/ovc_referral_card_body.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/constants/ovc_referral_constant.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/ovc_referral_pages/ovc_house_referral_pages/constants/ovc_house_hold_referral_constant.dart';
 import 'package:provider/provider.dart';
-import 'ovc_referral_add_house_hold_form.dart';
+import 'pages/ovc_referral_add_house_hold_form.dart';
 
 class OvcHouseHoldRefferalHome extends StatefulWidget {
   OvcHouseHoldRefferalHome({Key key}) : super(key: key);
@@ -29,6 +29,9 @@ class OvcHouseHoldRefferalHome extends StatefulWidget {
 
 class _OvcHouseHoldRefferalHomeState extends State<OvcHouseHoldRefferalHome> {
   final String label = 'House Hold Referral';
+
+  List<String> programStageids = [OvcHouseHoldReferralConstant.referralStage];
+
   void onAddRefferal(BuildContext context, OvcHouseHold child) {
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
     Navigator.push(
@@ -75,12 +78,6 @@ class _OvcHouseHoldRefferalHomeState extends State<OvcHouseHoldRefferalHome> {
                     bool isLoading = serviceFormState.isLoading;
                     Map<String, List<Events>> eventListByProgramStage =
                         serviceFormState.eventListByProgramStage;
-                    Map programStageMap =
-                        OvcReferralConstant.getOvcReferralProgramStageMap();
-                    List<String> programStageids = [];
-                    for (var id in programStageMap.keys.toList()) {
-                      programStageids.add('$id');
-                    }
                     List<Events> events = TrackedEntityInstanceUtil
                         .getAllEventListFromServiceDataState(
                             eventListByProgramStage, programStageids);
