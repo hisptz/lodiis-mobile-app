@@ -24,27 +24,44 @@ class OvcHouseHoldAssessment extends StatelessWidget {
   ];
 
   void updateFormState(
-    BuildContext context,
-    bool isEditableMode,
-  ) {
+      BuildContext context, bool isEditableMode, Events assessment) {
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
     Provider.of<ServiceFormState>(context, listen: false)
         .updateFormEditabilityState(isEditableMode: isEditableMode);
+
+    if (assessment != null) {
+      Provider.of<ServiceFormState>(context, listen: false);
+      Provider.of<ServiceFormState>(context, listen: false)
+          .setFormFieldState('eventDate', assessment.eventDate);
+      Provider.of<ServiceFormState>(context, listen: false)
+          .setFormFieldState('eventId', assessment.event);
+      for (Map datavalue in assessment.dataValues) {
+        if (datavalue['value'] != '') {
+          Provider.of<ServiceFormState>(context, listen: false)
+              .setFormFieldState(datavalue['dataElement'], datavalue['value']);
+        }
+      }
+    }
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => OvcHouseHoldAssessmentForm()));
   }
 
   void onAddNewHouseHoldAssessment(
     BuildContext context,
     OvcHouseHold houseHold,
   ) {
-    updateFormState(context, true);
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => OvcHouseHoldAssessmentForm()));
+    updateFormState(context, true, null);
   }
 
   void onViewHouseHoldAssessment(
-      BuildContext context, OvcHouseHold houseHold, Events assessment) {}
+      BuildContext context, OvcHouseHold houseHold, Events assessment) {
+    updateFormState(context, false, assessment);
+  }
+
   void onEditHouseHoldAssessment(
-      BuildContext context, OvcHouseHold houseHold, Events assessment) {}
+      BuildContext context, OvcHouseHold houseHold, Events assessment) {
+    updateFormState(context, true, assessment);
+  }
 
   @override
   Widget build(BuildContext context) {
