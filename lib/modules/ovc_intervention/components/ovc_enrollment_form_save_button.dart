@@ -7,11 +7,11 @@ class OvcEnrollmentFormSaveButton extends StatelessWidget {
       @required this.label,
       @required this.labelColor,
       @required this.buttonColor,
-      this.marginLeft = 20,
-      this.marginRight = 20,
+      this.marginLeft = 65.0,
+      this.marginRight = 64.0,
       this.fontSize = 15.0,
-      this.horizontal = 10,
-      this.vertical = 15,
+      this.horizontal = 10.0,
+      this.vertical = 15.0,
       this.borderColor,
       this.onPressButton})
       : super(key: key);
@@ -47,12 +47,21 @@ class OvcEnrollmentFormSaveButton extends StatelessWidget {
                       borderRadius: BorderRadius.all(Radius.circular(20.0))),
                   padding: EdgeInsets.symmetric(
                       vertical: vertical, horizontal: horizontal),
-                  child: Text(
-                    label,
-                    style: TextStyle().copyWith(
-                        color: labelColor,
-                        fontSize: fontSize,
-                        fontWeight: FontWeight.w700),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Container(
+                          alignment: Alignment.center,
+                          child: Text(
+                            label,
+                            style: TextStyle().copyWith(
+                                color: labelColor,
+                                fontSize: fontSize,
+                                fontWeight: FontWeight.w700),
+                          ),
+                        ),
+                      ),
+                    ],
                   )))),
     );
   }
