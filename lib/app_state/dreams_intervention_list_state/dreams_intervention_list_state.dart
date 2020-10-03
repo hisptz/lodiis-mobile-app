@@ -5,14 +5,15 @@ import 'package:kb_mobile_app/modules/dreams_intervention/services/agyw_dream_en
 class DreamsInterventionListState with ChangeNotifier {
   // intial state
   List<AgywDream> _agywDreamsInterventionList;
-  List _noneAgywDreamsInterventionList;
+  List<AgywDream> _noneAgywDreamsInterventionList;
   bool _isLoading = false;
   int _numberOfAgywDreamsBeneficiaries = 0;
   int _numberOfNoneAgywDreamsBeneficiaries = 0;
 
   //selectors
-  List get agywDreamsInterventionList => _agywDreamsInterventionList ?? [];
-  List get noneAgywDreamsInterventionList =>
+  List<AgywDream> get agywDreamsInterventionList =>
+      _agywDreamsInterventionList ?? [];
+  List<AgywDream> get noneAgywDreamsInterventionList =>
       _noneAgywDreamsInterventionList ?? [];
   bool get isLoading => _isLoading != null ? _isLoading : false;
   int get numberOfAgywDreamsBeneficiaries => _numberOfAgywDreamsBeneficiaries;
