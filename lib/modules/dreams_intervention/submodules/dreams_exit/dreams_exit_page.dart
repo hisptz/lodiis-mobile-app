@@ -38,9 +38,8 @@ class _DreamsExitPageState extends State<DreamsExitPage> {
       child: Consumer<DreamsInterventionListState>(
         builder: (context, dreamInterventionListState, child) {
           bool isLoading = dreamInterventionListState.isLoading;
-
-          List<AgywDream> agywDream = dreamInterventionListState.agywDreamList;
-
+          List<AgywDream> agywDreamsInterventionList =
+              dreamInterventionListState.agywDreamsInterventionList;
           return isLoading
               ? Container(
                   margin: EdgeInsets.only(top: 20.0),
@@ -50,31 +49,29 @@ class _DreamsExitPageState extends State<DreamsExitPage> {
                 )
               : Container(
                   margin: EdgeInsets.only(top: 16.0),
-                  child: agywDream.length == 0
+                  child: agywDreamsInterventionList.length == 0
                       ? Center(
                           child:
                               Text('There is no beneficiary list at a moment'),
                         )
                       : Column(
-                          children: agywDream.map((AgywDream agywDream) {
+                          children: agywDreamsInterventionList
+                              .map((AgywDream agywBeneficiary) {
                             return DreamsBeneficiaryCard(
                               canEdit: canEdit,
                               canExpand: canExpand,
-                              beneficiaryName: agywDream.firstname +
-                                  ' ' +
-                                  agywDream.middlename +
-                                  ' ' +
-                                  agywDream.surname,
+                              beneficiaryName: agywBeneficiary.toString(),
                               canView: canView,
                               isExpanded:
-                                  agywDream.benefecaryId == toggleCardId,
+                                  agywBeneficiary.benefecaryId == toggleCardId,
                               onCardToogle: () {
-                                onCardToogle(agywDream.benefecaryId);
+                                onCardToogle(agywBeneficiary.benefecaryId);
                               },
                               cardBody: DreamBeneficiaryCardBody(
-                                  agywDream: agywDream,
+                                  agywBeneficiary: agywBeneficiary,
                                   isVerticalLayout:
-                                      agywDream.benefecaryId == toggleCardId),
+                                      agywBeneficiary.benefecaryId ==
+                                          toggleCardId),
                               cardBottonActions: Container(),
                               cardBottonContent: Container(),
                             );

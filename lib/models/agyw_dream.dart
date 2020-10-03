@@ -11,6 +11,10 @@ class AgywDream {
   String programStatus;
   String benefecaryId;
   String enrolledOrganisation;
+  String location;
+  String orgUnit;
+  String createdDate;
+  String enrollment;
   TrackeEntityInstance trackeEntityInstanceData;
 
   AgywDream(
@@ -23,11 +27,17 @@ class AgywDream {
       this.sex,
       this.programStatus,
       this.enrolledOrganisation,
+      this.location,
+      this.orgUnit,
+      this.createdDate,
+      this.enrollment,
       this.trackeEntityInstanceData});
   AgywDream fromTeiModel(
     TrackeEntityInstance trackeEntityInstance,
     String orgUnit,
-    String status,
+    String location,
+    String createdDate,
+    String enrollment,
   ) {
     List keys = [
       'WTZ7GLTrE8Q',
@@ -45,9 +55,7 @@ class AgywDream {
         data[attribute] = '${detailObj['value']}'.trim() ?? '';
       }
     }
-
     int age = AppUtil.getAgeInYear(data['qZP982qpSPS']);
-    print(agywAgeBand(age));
     return AgywDream(
       firstname: data['WTZ7GLTrE8Q'],
       middlename: data['s1HaiT6OllL'],
@@ -57,18 +65,21 @@ class AgywDream {
       benefecaryId: data['KvmQjZbGZQU'] ?? '',
       sex: data['vIX4GTSCX4P'] ?? '',
       programStatus: data['PN92g65TkVI'] ?? '',
-      enrolledOrganisation: orgUnit,
+      orgUnit: orgUnit,
+      location: location,
+      createdDate: createdDate,
+      enrollment: enrollment,
+      enrolledOrganisation: '',
       trackeEntityInstanceData: trackeEntityInstance,
     );
   }
 
-//method to return age band
   String agywAgeBand(int age) {
-    String ageBand = '';
-    if (age < 15 && age > 8) return ageBand = '09-14';
-    if (age < 20 && age > 14) return ageBand = '15-19';
-    if (age < 25 && age > 19) return ageBand = '20-24';
-    return ageBand;
+    return (age > 8 && age < 15)
+        ? '09-14'
+        : (age > 14 && age < 20)
+            ? '15-19'
+            : (age > 19 && age < 25) ? '20-24' : '';
   }
 
   @override

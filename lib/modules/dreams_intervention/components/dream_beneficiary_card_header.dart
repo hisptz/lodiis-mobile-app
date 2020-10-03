@@ -31,7 +31,7 @@ class DreamBeneficiaryCardHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double iconHeight = 20;
+    double iconHeight = 25;
     return Column(
       children: [
         Container(
@@ -45,8 +45,8 @@ class DreamBeneficiaryCardHeader extends StatelessWidget {
                     flex: 1,
                     child: Container(
                       child: Container(
-                          height: iconHeight,
-                          width: iconHeight,
+                          height: 20.0,
+                          width: 20.0,
                           child: SvgPicture.asset(
                             svgIcon,
                           )),
@@ -55,7 +55,7 @@ class DreamBeneficiaryCardHeader extends StatelessWidget {
               Visibility(
                   visible: true,
                   child: Expanded(
-                    flex: canEdit && canView ? 9 : 11,
+                    flex: canEdit && canView ? 7 : 10,
                     child: Container(
                       padding: EdgeInsets.only(left: 5.0),
                       child: Text(

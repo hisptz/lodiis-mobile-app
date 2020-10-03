@@ -5,6 +5,7 @@ import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_card_body.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_home_container.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/components/service_card_botton_action.dart';
 import 'package:provider/provider.dart';
 
 class DreamsServicesPage extends StatefulWidget {
@@ -28,15 +29,30 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
     });
   }
 
-  void onOpenHTSForm() {}
+  void onOpenHTSForm(
+    BuildContext context,
+    AgywDream agywBeneficiary,
+  ) {}
 
-  void onOpenHRSForm() {}
+  void onOpenHRSForm(
+    BuildContext context,
+    AgywDream agywBeneficiary,
+  ) {}
 
-  void onOpenHIVPrepForm() {}
+  void onOpenHIVPrepForm(
+    BuildContext context,
+    AgywDream agywBeneficiary,
+  ) {}
 
-  void onOpenHIVRegForm() {}
+  void onOpenHIVRegForm(
+    BuildContext context,
+    AgywDream agywBeneficiary,
+  ) {}
 
-  void onOpenPrepForm() {}
+  void onOpenPrepForm(
+    BuildContext context,
+    AgywDream agywBeneficiary,
+  ) {}
 
   @override
   Widget build(BuildContext context) {
@@ -45,52 +61,62 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
 
   Widget _buildBody() {
     return SingleChildScrollView(
-      child: Consumer<DreamsInterventionListState>(
-        builder: (context, dreamInterventionListState, child) {
-          bool isLoading = dreamInterventionListState.isLoading;
-
-          List<AgywDream> agywDream = dreamInterventionListState.agywDreamList;
-
-          return isLoading
-              ? Container(
-                  margin: EdgeInsets.only(top: 20.0),
-                  child: Center(
-                    child: CircularProcessLoader(color: Colors.blueGrey),
-                  ),
-                )
-              : Container(
-                  margin: EdgeInsets.only(top: 16.0),
-                  child: agywDream.length == 0
-                      ? Center(
-                          child:
-                              Text('There is no beneficiary list at a moment'),
-                        )
-                      : Column(
-                          children: agywDream.map((AgywDream agywDream) {
-                            return DreamsBeneficiaryCard(
-                              canEdit: canEdit,
-                              canExpand: canExpand,
-                              beneficiaryName: agywDream.firstname +
-                                  ' ' +
-                                  agywDream.middlename +
-                                  ' ' +
-                                  agywDream.surname,
-                              canView: canView,
-                              isExpanded:
-                                  agywDream.benefecaryId == toggleCardId,
-                              onCardToogle: () {
-                                onCardToogle(agywDream.benefecaryId);
-                              },
-                              cardBody: DreamBeneficiaryCardBody(
-                                  agywDream: agywDream,
-                                  isVerticalLayout:
-                                      agywDream.benefecaryId == toggleCardId),
-                              cardBottonActions: Container(),
-                              cardBottonContent: Container(),
-                            );
-                          }).toList(),
-                        ));
-        },
+      child: Container(
+        child: Consumer<DreamsInterventionListState>(
+          builder: (context, dreamInterventionListState, child) {
+            bool isLoading = dreamInterventionListState.isLoading;
+            List<AgywDream> agywDreamsInterventionList =
+                dreamInterventionListState.agywDreamsInterventionList;
+            return isLoading
+                ? Container(
+                    margin: EdgeInsets.only(top: 20.0),
+                    child: Center(
+                      child: CircularProcessLoader(color: Colors.blueGrey),
+                    ),
+                  )
+                : Container(
+                    margin: EdgeInsets.only(top: 16.0),
+                    child: agywDreamsInterventionList.length == 0
+                        ? Center(
+                            child: Text(
+                                'There is no beneficiary list at a moment'),
+                          )
+                        : Column(
+                            children: agywDreamsInterventionList
+                                .map((AgywDream agywBeneficiary) {
+                              return DreamsBeneficiaryCard(
+                                canEdit: canEdit,
+                                canExpand: canExpand,
+                                beneficiaryName: agywBeneficiary.toString(),
+                                canView: canView,
+                                isExpanded: agywBeneficiary.benefecaryId ==
+                                    toggleCardId,
+                                onCardToogle: () {
+                                  onCardToogle(agywBeneficiary.benefecaryId);
+                                },
+                                cardBody: DreamBeneficiaryCardBody(
+                                    agywBeneficiary: agywBeneficiary,
+                                    isVerticalLayout:
+                                        agywBeneficiary.benefecaryId ==
+                                            toggleCardId),
+                                cardBottonActions: ServiceCardBottonAction(
+                                  onOpenPrepForm: () =>
+                                      onOpenPrepForm(context, agywBeneficiary),
+                                  onOpenHIVPrepForm: () => onOpenHIVPrepForm(
+                                      context, agywBeneficiary),
+                                  onOpenHIVRegForm: () => onOpenHIVRegForm(
+                                      context, agywBeneficiary),
+                                  onOpenHRSForm: () =>
+                                      onOpenHRSForm(context, agywBeneficiary),
+                                  onOpenHTSForm: () =>
+                                      onOpenHTSForm(context, agywBeneficiary),
+                                ),
+                                cardBottonContent: Container(),
+                              );
+                            }).toList(),
+                          ));
+          },
+        ),
       ),
     );
   }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
+import 'package:kb_mobile_app/core/components/line_seperator.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_card_body.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_card.dart';
@@ -28,7 +29,10 @@ class _DreamsReferralPageState extends State<DreamsReferralPage> {
     });
   }
 
-  void onOpenReferralForm() {}
+  void onOpenReferralForm(
+    BuildContext context,
+    AgywDream agywBeneficiary,
+  ) {}
 
   @override
   Widget build(BuildContext context) {
@@ -40,9 +44,8 @@ class _DreamsReferralPageState extends State<DreamsReferralPage> {
       child: Consumer<DreamsInterventionListState>(
         builder: (context, dreamInterventionListState, child) {
           bool isLoading = dreamInterventionListState.isLoading;
-
-          List<AgywDream> agywDream = dreamInterventionListState.agywDreamList;
-
+          List<AgywDream> agywDreamsInterventionList =
+              dreamInterventionListState.agywDreamsInterventionList;
           return isLoading
               ? Container(
                   margin: EdgeInsets.only(top: 20.0),
@@ -52,32 +55,52 @@ class _DreamsReferralPageState extends State<DreamsReferralPage> {
                 )
               : Container(
                   margin: EdgeInsets.only(top: 16.0),
-                  child: agywDream.length == 0
+                  child: agywDreamsInterventionList.length == 0
                       ? Center(
                           child:
                               Text('There is no beneficiary list at a moment'),
                         )
                       : Column(
-                          children: agywDream.map((AgywDream agywDream) {
+                          children: agywDreamsInterventionList
+                              .map((AgywDream agywBeneficiary) {
                             return DreamsBeneficiaryCard(
                               canEdit: canEdit,
                               canExpand: canExpand,
-                              beneficiaryName: agywDream.firstname +
-                                  ' ' +
-                                  agywDream.middlename +
-                                  ' ' +
-                                  agywDream.surname,
+                              beneficiaryName: agywBeneficiary.toString(),
                               canView: canView,
                               isExpanded:
-                                  agywDream.benefecaryId == toggleCardId,
+                                  agywBeneficiary.benefecaryId == toggleCardId,
                               onCardToogle: () {
-                                onCardToogle(agywDream.benefecaryId);
+                                onCardToogle(agywBeneficiary.benefecaryId);
                               },
                               cardBody: DreamBeneficiaryCardBody(
-                                  agywDream: agywDream,
+                                  agywBeneficiary: agywBeneficiary,
                                   isVerticalLayout:
-                                      agywDream.benefecaryId == toggleCardId),
-                              cardBottonActions: Container(),
+                                      agywBeneficiary.benefecaryId ==
+                                          toggleCardId),
+                              cardBottonActions: Container(
+                                child: Column(
+                                  children: [
+                                    LineSeperator(
+                                      color: Color(0xFFE9F4FA),
+                                    ),
+                                    Container(
+                                      child: MaterialButton(
+                                        onPressed: () => onOpenReferralForm(
+                                          context,
+                                          agywBeneficiary,
+                                        ),
+                                        child: Text('REFERRAL',
+                                            style: TextStyle().copyWith(
+                                              fontSize: 14.0,
+                                              fontWeight: FontWeight.bold,
+                                              color: Color(0xFF1F8ECE),
+                                            )),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
                               cardBottonContent: Container(),
                             );
                           }).toList(),
