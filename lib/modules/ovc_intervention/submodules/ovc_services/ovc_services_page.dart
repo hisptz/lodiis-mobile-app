@@ -143,8 +143,6 @@ class _OvcServicesPageState extends State<OvcServicesPage> {
                                         decoration: BoxDecoration(
                                             color: Color(0XFFF6FAF6)),
                                         child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
                                           children: [
                                             Container(
                                               child: FlatButton(

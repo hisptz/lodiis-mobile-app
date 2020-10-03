@@ -150,11 +150,12 @@ class _OvcExitPageState extends State<OvcExitPage> {
                                         decoration: BoxDecoration(
                                             color: Color(0XFFF6FAF6)),
                                         child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
                                           children: [
-                                            Container(
+                                            Expanded(
                                               child: FlatButton(
+                                                  padding: EdgeInsets.symmetric(
+                                                      vertical: 5.0,
+                                                      horizontal: 0.0),
                                                   onPressed: () =>
                                                       onViewAchievement(context,
                                                           ovcHouseHold),
@@ -164,12 +165,15 @@ class _OvcExitPageState extends State<OvcExitPage> {
                                                       fontSize: 12.0,
                                                       color: Color(0xFF4B9F46),
                                                       fontWeight:
-                                                          FontWeight.w500,
+                                                          FontWeight.normal,
                                                     ),
                                                   )),
                                             ),
-                                            Container(
+                                            Expanded(
                                               child: FlatButton(
+                                                  padding: EdgeInsets.symmetric(
+                                                      vertical: 5.0,
+                                                      horizontal: 0.0),
                                                   onPressed: () => onViewExit(
                                                       context, ovcHouseHold),
                                                   child: Text(
@@ -178,12 +182,15 @@ class _OvcExitPageState extends State<OvcExitPage> {
                                                       fontSize: 12.0,
                                                       color: Color(0xFF4B9F46),
                                                       fontWeight:
-                                                          FontWeight.w500,
+                                                          FontWeight.normal,
                                                     ),
                                                   )),
                                             ),
                                             Container(
                                               child: FlatButton(
+                                                  padding: EdgeInsets.symmetric(
+                                                      vertical: 5.0,
+                                                      horizontal: 0.0),
                                                   onPressed: () =>
                                                       onViewTransfer(context,
                                                           ovcHouseHold),
@@ -193,12 +200,15 @@ class _OvcExitPageState extends State<OvcExitPage> {
                                                       fontSize: 12.0,
                                                       color: Color(0xFF4B9F46),
                                                       fontWeight:
-                                                          FontWeight.w500,
+                                                          FontWeight.normal,
                                                     ),
                                                   )),
                                             ),
-                                            Container(
+                                            Expanded(
                                               child: FlatButton(
+                                                  padding: EdgeInsets.symmetric(
+                                                      vertical: 5.0,
+                                                      horizontal: 0.0),
                                                   onPressed: () =>
                                                       onViewClosure(
                                                         context,
@@ -210,7 +220,7 @@ class _OvcExitPageState extends State<OvcExitPage> {
                                                       fontSize: 12.0,
                                                       color: Color(0xFF4B9F46),
                                                       fontWeight:
-                                                          FontWeight.w500,
+                                                          FontWeight.normal,
                                                     ),
                                                   )),
                                             )
