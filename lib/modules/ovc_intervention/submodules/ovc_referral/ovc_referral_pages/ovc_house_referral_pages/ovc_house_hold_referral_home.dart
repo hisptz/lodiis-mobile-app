@@ -39,11 +39,11 @@ class _OvcHouseHoldRefferalHomeState extends State<OvcHouseHoldRefferalHome> {
   }
 
   void onView(BuildContext context) {
-    print("onView");
+    print('onView');
   }
 
   void onManage(BuildContext context) {
-    print("on Manage");
+    print('on Manage');
   }
 
   final _controller = ScrollController();
@@ -103,7 +103,7 @@ class _OvcHouseHoldRefferalHomeState extends State<OvcHouseHoldRefferalHome> {
                                         ),
                                         child: events.length == 0
                                             ? Text(
-                                                "There is no House Hold Refferal at a moment")
+                                                'There is no House Hold Refferal at a moment')
                                             : ListView.builder(
                                                 itemCount: events.length,
                                                 scrollDirection: Axis.vertical,

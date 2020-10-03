@@ -7,18 +7,18 @@ class OvcAddReferral {
   static List<FormSection> getFormSections() {
     return [
       FormSection(
-          name: "Service Referral",
+          name: 'Service Referral',
           color: Color(0xFF1A3518),
           subSections: [
             //service at community
             FormSection(
-                name: "Service referred for at Community",
+                name: 'Service referred for at Community',
                 color: Color(0xFF1B3519),
                 inputFields: [
                   InputField(
-                      id: "LLWTHwhnch0",
-                      name: "Service Category at community",
-                      valueType: "TEXT",
+                      id: 'LLWTHwhnch0',
+                      name: 'Service Category at community',
+                      valueType: 'TEXT',
                       inputColor: Color(0xFF4B9F46),
                       labelColor: Color(0xFF1A3518),
                       options: [
@@ -32,9 +32,9 @@ class OvcAddReferral {
                             code: 'Social Services', name: 'Social Services'),
                       ]),
                   InputField(
-                      id: "rsh5Kvx6qAU",
-                      name: "Type of service at community",
-                      valueType: "TEXT",
+                      id: 'rsh5Kvx6qAU',
+                      name: 'Type of service at community',
+                      valueType: 'TEXT',
                       inputColor: Color(0xFF4B9F46),
                       labelColor: Color(0xFF1A3518),
                       options: [
@@ -116,16 +116,16 @@ class OvcAddReferral {
                             name: 'Educational and vocational support'),
                       ]),
                   InputField(
-                    id: "ubB83OWNWsv",
-                    name: "Service Provider/Referred Organization at community",
-                    valueType: "ORGANISATION_UNIT",
+                    id: 'ubB83OWNWsv',
+                    name: 'Service Provider/Referred Organization at community',
+                    valueType: 'ORGANISATION_UNIT',
                     inputColor: Color(0xFF4B9F46),
                     labelColor: Color(0xFF1A3518),
                   ),
                   InputField(
-                    id: "WHktsYoFqat",
-                    name: "Comments on referral at community",
-                    valueType: "LONG_TEXT",
+                    id: 'WHktsYoFqat',
+                    name: 'Comments on referral at community',
+                    valueType: 'LONG_TEXT',
                     inputColor: Color(0xFF4B9F46),
                     labelColor: Color(0xFF1A3518),
                   ),
@@ -134,13 +134,13 @@ class OvcAddReferral {
             //service at facility
 
             FormSection(
-                name: "Service referred for at Facility",
+                name: 'Service referred for at Facility',
                 color: Color(0xFF1B3519),
                 inputFields: [
                   InputField(
-                      id: "AuCryxQYmrk",
-                      name: "Service Category at facility",
-                      valueType: "TEXT",
+                      id: 'AuCryxQYmrk',
+                      name: 'Service Category at facility',
+                      valueType: 'TEXT',
                       inputColor: Color(0xFF4B9F46),
                       labelColor: Color(0xFF1A3518),
                       options: [
@@ -154,9 +154,9 @@ class OvcAddReferral {
                             code: 'Social Services', name: 'Social Services'),
                       ]),
                   InputField(
-                      id: "OrC9Bh2bcFz",
-                      name: "Type of service at facility",
-                      valueType: "TEXT",
+                      id: 'OrC9Bh2bcFz',
+                      name: 'Type of service at facility',
+                      valueType: 'TEXT',
                       inputColor: Color(0xFF4B9F46),
                       labelColor: Color(0xFF1A3518),
                       options: [
@@ -238,36 +238,36 @@ class OvcAddReferral {
                             name: 'Educational and vocational support'),
                       ]),
                   InputField(
-                    id: "jOXN2iPhkxj",
-                    name: "Service Provider/Referred Organization at facility",
-                    valueType: "ORGANISATION_UNIT",
+                    id: 'jOXN2iPhkxj',
+                    name: 'Service Provider/Referred Organization at facility',
+                    valueType: 'ORGANISATION_UNIT',
                     inputColor: Color(0xFF4B9F46),
                     labelColor: Color(0xFF1A3518),
                   ),
                   InputField(
-                    id: "iifSkIcBZz2",
-                    name: "Comments on referral at facility",
-                    valueType: "LONG_TEXT",
+                    id: 'iifSkIcBZz2',
+                    name: 'Comments on referral at facility',
+                    valueType: 'LONG_TEXT',
                     inputColor: Color(0xFF4B9F46),
                     labelColor: Color(0xFF1A3518),
                   ),
                 ]),
             //service at organisation
             FormSection(
-                name: "Completed by the Referring Organization",
+                name: 'Completed by the Referring Organization',
                 color: Color(0xFF1B3519),
                 inputFields: [
                   InputField(
-                    id: "tRvDAZxam3P",
-                    name: "Name of next of kin",
-                    valueType: "TEXT",
+                    id: 'tRvDAZxam3P',
+                    name: 'Name of next of kin',
+                    valueType: 'TEXT',
                     inputColor: Color(0xFF4B9F46),
                     labelColor: Color(0xFF1A3518),
                   ),
                   InputField(
-                    id: "qCu2f4kEfzW",
-                    name: "Phone Number of next of kin",
-                    valueType: "PHONE_NUMBER",
+                    id: 'qCu2f4kEfzW',
+                    name: 'Phone Number of next of kin',
+                    valueType: 'PHONE_NUMBER',
                     inputColor: Color(0xFF4B9F46),
                     labelColor: Color(0xFF1A3518),
                   ),

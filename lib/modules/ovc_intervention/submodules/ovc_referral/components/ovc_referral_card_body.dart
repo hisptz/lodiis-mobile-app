@@ -9,8 +9,8 @@ class OvcReferralCardBody extends StatelessWidget {
   Widget build(BuildContext context) {
     List<String> dataValuesDetails = [];
 
-    for (var datavalue in referralDetails["dataValues"]) {
-      dataValuesDetails.add(datavalue["value"]);
+    for (var datavalue in referralDetails['dataValues']) {
+      dataValuesDetails.add(datavalue['value']);
     }
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 13.0, vertical: 10.0),
@@ -33,7 +33,7 @@ class OvcReferralCardBody extends StatelessWidget {
                 Expanded(
                     flex: 2,
                     child: Text(
-                      "${referralDetails["eventDate"]}",
+                      '${referralDetails['eventDate']}',
                       style: TextStyle().copyWith(
                           fontSize: 14.0,
                           color: Color(0XFF536852),
@@ -59,7 +59,7 @@ class OvcReferralCardBody extends StatelessWidget {
                 Expanded(
                     flex: 2,
                     child: Text(
-                      "Clinical Services Bookings ",
+                      'Clinical Services Bookings ',
                       style: TextStyle().copyWith(
                           fontSize: 14.0,
                           color: Color(0XFF536852),
@@ -85,7 +85,7 @@ class OvcReferralCardBody extends StatelessWidget {
                 Expanded(
                     flex: 2,
                     child: Text(
-                      "HTS",
+                      'HTS',
                       style: TextStyle().copyWith(
                           fontSize: 14.0,
                           color: Color(0XFF536852),
@@ -114,7 +114,7 @@ class OvcReferralCardBody extends StatelessWidget {
                       children: [
                         Container(
                             child: Text(
-                          '${referralDetails["status"]}',
+                          '${referralDetails['status']}',
                           style: TextStyle().copyWith(
                               fontSize: 14.0,
                               color: Color(0XFF536852),

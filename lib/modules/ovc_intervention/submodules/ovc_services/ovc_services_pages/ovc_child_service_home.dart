@@ -56,7 +56,7 @@ class OvcChildServiceHome extends StatelessWidget {
   }
 
   void childHouseHold() {
-    print("go to house child hold");
+    print('go to house child hold');
   }
 
   int getCountValueForOvcServiceChildCard(

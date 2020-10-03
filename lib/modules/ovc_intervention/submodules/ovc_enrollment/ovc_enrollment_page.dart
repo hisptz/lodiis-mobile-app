@@ -47,7 +47,7 @@ class _OvcEnrollmentPageState extends State<OvcEnrollmentPage> {
               width: 23,
             ),
             Text(
-              "HOUSE HOLD LIST",
+              'HOUSE HOLD LIST',
               style: TextStyle(
                   color: Colors.black45,
                   fontSize: 14,
@@ -79,28 +79,28 @@ class _OvcEnrollmentPageState extends State<OvcEnrollmentPage> {
                             children: ovcHouseHolds
                                 .map(
                                   (OvcHouseHold ovcHouseHold) =>
-                                    OvcHouseHoldCard(
+                                      OvcHouseHoldCard(
                                     ovcHouseHold: ovcHouseHold,
                                     canEdit: canEdit,
                                     canExpand: canExpand,
                                     canView: canView,
                                     isExpanded: ovcHouseHold.id == toggleCardId,
                                     onCardToogle: () {
-                                    onCardToogle(ovcHouseHold.id);
+                                      onCardToogle(ovcHouseHold.id);
                                     },
-                                      cardBody: OvcHouseHoldCardBody(
+                                    cardBody: OvcHouseHoldCardBody(
                                       ovcHouseHold: ovcHouseHold,
                                     ),
                                     cardBottonActions: Container(),
                                     cardBottonContent:
-                                      OvcHouseHoldCardBottonContent(
+                                        OvcHouseHoldCardBottonContent(
                                       ovcHouseHold: ovcHouseHold,
                                       canAddChild: canAddChild,
                                       canViewChildInfo: canViewChildInfo,
                                       canEditChildInfo: canEditChildInfo,
                                       canViewChildService: canViewChildService,
                                       canViewChildReferral:
-                                      canViewChildReferral,
+                                          canViewChildReferral,
                                       canAddChildExit: canAddChildExit,
                                       canViewChildExit: canViewChildExit,
                                     ),

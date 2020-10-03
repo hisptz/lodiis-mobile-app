@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/core/components/line_seperator.dart';
 
 class OvcChildAssessmentSelection extends StatelessWidget {
-  final List<String> assessmentTitles = ["Well-being", "TB", "HIV"];
+  final List<String> assessmentTitles = ['Well-being', 'TB', 'HIV'];
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -13,7 +13,7 @@ class OvcChildAssessmentSelection extends StatelessWidget {
           Container(
             padding: EdgeInsets.symmetric(vertical: 10.0),
             child: Text(
-              "SELECT ASSESSMENT",
+              'SELECT ASSESSMENT',
               style: TextStyle(
                   color: Color(0xFF4B9F46),
                   fontWeight: FontWeight.w700,

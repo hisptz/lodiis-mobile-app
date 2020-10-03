@@ -13,14 +13,16 @@ class InterventionSelectionContainer extends StatefulWidget {
     Key key,
     @required this.interventionPrograms,
     @required this.onIntervetionSelection,
-    @required this.numberOfDreamsBeneficiaries,
+    @required this.numberOfAgywDreamsBeneficiaries,
+    @required this.numberOfNoneAgywDreamsBeneficiaries,
     @required this.numberOfHouseHolds,
     @required this.numberOfOvcs,
   }) : super(key: key);
 
   final List<InterventionCard> interventionPrograms;
   final Function(InterventionCard) onIntervetionSelection;
-  final int numberOfDreamsBeneficiaries;
+  final int numberOfNoneAgywDreamsBeneficiaries;
+  final int numberOfAgywDreamsBeneficiaries;
   final int numberOfHouseHolds;
   final int numberOfOvcs;
 
@@ -83,7 +85,10 @@ class _InterventionSelectionContainerState
             child: InterventionSelectionList(
               interventionPrograms: widget.interventionPrograms,
               onIntervetionSelection: onSelectingInterventionProgram,
-              numberOfDreamsBeneficiaries: widget.numberOfDreamsBeneficiaries,
+              numberOfAgywDreamsBeneficiaries:
+                  widget.numberOfAgywDreamsBeneficiaries,
+              numberOfNoneAgywDreamsBeneficiaries:
+                  widget.numberOfNoneAgywDreamsBeneficiaries,
               numberOfHouseHolds: widget.numberOfHouseHolds,
               numberOfOvcs: widget.numberOfOvcs,
             ),

@@ -7,14 +7,16 @@ class InterventionSelectionCard extends StatelessWidget {
     Key key,
     this.interventionProgram,
     this.interventionProgramId,
-    @required this.numberOfDreamsBeneficiaries,
+    @required this.numberOfNoneAgywDreamsBeneficiaries,
+    @required this.numberOfAgywDreamsBeneficiaries,
     @required this.numberOfHouseHolds,
     @required this.numberOfOvcs,
   }) : super(key: key);
 
   final InterventionCard interventionProgram;
   final String interventionProgramId;
-  final int numberOfDreamsBeneficiaries;
+  final int numberOfNoneAgywDreamsBeneficiaries;
+  final int numberOfAgywDreamsBeneficiaries;
   final int numberOfHouseHolds;
   final int numberOfOvcs;
 
@@ -75,7 +77,7 @@ class InterventionSelectionCard extends StatelessWidget {
                                     TextSpan(
                                       text: interventionProgram.id == 'ovc'
                                           ? numberOfHouseHolds.toString()
-                                          : numberOfDreamsBeneficiaries
+                                          : numberOfAgywDreamsBeneficiaries
                                               .toString(),
                                       style: TextStyle(
                                           fontSize: 12,
@@ -99,7 +101,7 @@ class InterventionSelectionCard extends StatelessWidget {
                                     TextSpan(
                                       text: interventionProgram.id == 'ovc'
                                           ? numberOfOvcs.toString()
-                                          : numberOfDreamsBeneficiaries
+                                          : numberOfNoneAgywDreamsBeneficiaries
                                               .toString(),
                                       style: TextStyle(
                                           fontSize: 12,

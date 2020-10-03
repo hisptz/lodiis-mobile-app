@@ -28,7 +28,7 @@ class OvcReferralCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Expanded(
-                      child: Text("Referral ${count.toString()}"),
+                      child: Text('Referral ${count.toString()}'),
                     )
                   ],
                 ),
@@ -57,7 +57,7 @@ class OvcReferralCard extends StatelessWidget {
                             child: FlatButton(
                                 onPressed: onView,
                                 child: Text(
-                                  "VIEW",
+                                  'VIEW',
                                   style: TextStyle().copyWith(
                                     fontSize: 12.0,
                                     color: Color(0xFF4B9F46),

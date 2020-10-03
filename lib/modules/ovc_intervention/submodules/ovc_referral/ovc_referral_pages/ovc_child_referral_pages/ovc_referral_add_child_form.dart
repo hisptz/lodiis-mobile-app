@@ -32,7 +32,7 @@ class OvcServiceChildAddReferralForm extends StatefulWidget {
 
 class _OvcServiceChildAddReferralFormState
     extends State<OvcServiceChildAddReferralForm> {
-  final String label = "Add Child Referral";
+  final String label = 'Add Child Referral';
   List<FormSection> formSections;
   bool isFormReady = false;
   bool isSaving = false;

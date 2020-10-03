@@ -6,22 +6,26 @@ class DreamsInterventionListState with ChangeNotifier {
   // intial state
   List _dreamsInterventionList;
   bool _isLoading = false;
-  int _numberOfDreamsBeneficiaries = 0;
+  int _numberOfAgywDreamsBeneficiaries = 0;
+  int _numberOfNoneAgywDreamsBeneficiaries = 0;
+
   List<AgywDream> _agywDreamList;
 
   //selectors
   List get dreamsInterventionList => _dreamsInterventionList ?? [];
   bool get isLoading => _isLoading != null ? _isLoading : false;
-  int get numberOfDreamsBeneficiaries => _numberOfDreamsBeneficiaries;
+  int get numberOfAgywDreamsBeneficiaries => _numberOfAgywDreamsBeneficiaries;
+  int get numberOfNoneAgywDreamsBeneficiaries =>
+      _numberOfNoneAgywDreamsBeneficiaries;
   List<AgywDream> get agywDreamList => _agywDreamList;
 
   // reducers
   void refreshDreamsList() async {
     _isLoading = true;
     notifyListeners();
-    _agywDreamList = await AgywDreamEnrollmentService().getEnrollmentList();
+    _agywDreamList = await AgywDreamEnrollmentService().getAgywBenficiaryList();
     _isLoading = false;
-    _numberOfDreamsBeneficiaries = _agywDreamList.length;
+    _numberOfAgywDreamsBeneficiaries = _agywDreamList.length;
     notifyListeners();
   }
 }

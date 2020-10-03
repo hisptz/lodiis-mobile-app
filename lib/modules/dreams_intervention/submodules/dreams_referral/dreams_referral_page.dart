@@ -55,7 +55,7 @@ class _DreamsReferralPageState extends State<DreamsReferralPage> {
                   child: agywDream.length == 0
                       ? Center(
                           child:
-                              Text("There is no beneficiary list at a moment"),
+                              Text('There is no beneficiary list at a moment'),
                         )
                       : Column(
                           children: agywDream.map((AgywDream agywDream) {
@@ -63,9 +63,9 @@ class _DreamsReferralPageState extends State<DreamsReferralPage> {
                               canEdit: canEdit,
                               canExpand: canExpand,
                               beneficiaryName: agywDream.firstname +
-                                  " " +
+                                  ' ' +
                                   agywDream.middlename +
-                                  " " +
+                                  ' ' +
                                   agywDream.surname,
                               canView: canView,
                               isExpanded:

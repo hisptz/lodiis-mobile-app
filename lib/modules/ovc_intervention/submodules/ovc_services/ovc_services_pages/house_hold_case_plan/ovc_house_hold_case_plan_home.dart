@@ -165,7 +165,7 @@ class OvcHouseHoldCasePlanHome extends StatelessWidget {
                                                   visible: !isLoading,
                                                   child:
                                                       OvcEnrollmentFormSaveButton(
-                                                          label: "NEW CASEPLAN",
+                                                          label: 'NEW CASEPLAN',
                                                           labelColor:
                                                               Colors.white,
                                                           fontSize: 10,

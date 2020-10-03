@@ -31,6 +31,6 @@ class _InterventionSelectionCollapsableCardState
                       bottom: 12,
                       top: 5,
                     ),
-                    child: Text("Children")))));
+                    child: Text('Children')))));
   }
 }

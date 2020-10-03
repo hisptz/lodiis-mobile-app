@@ -22,19 +22,19 @@ class OvcEnrollmentHouseHoldService {
   final List<String> consentFields = OvcEnrollmentConstant.getConsentFields();
 
   Future savingHouseHoldform(
-    Map dataObject,
-    String trackedEntityInstance,
-    String orgUnit,
-    String enrollment,
-    String enrollmentDate,
-    String incidentDate,
-  ) async {
+      Map dataObject,
+      String trackedEntityInstance,
+      String orgUnit,
+      String enrollment,
+      String enrollmentDate,
+      String incidentDate,
+      List<String> hiddenFields) async {
     List<String> inputFieldIds = FormUtil.getFormFieldIds(
       formSections,
     );
+    hiddenFields = hiddenFields ?? [];
     inputFieldIds.addAll(consentFields);
     inputFieldIds.addAll(hiddenFields);
-    // @TODO generation of beneficiary ids
     TrackeEntityInstance trackeEntityInstanceData =
         FormUtil.geTrackedEntityInstanceEnrollmentPayLoad(trackedEntityInstance,
             trackedEntityType, orgUnit, inputFieldIds, dataObject);

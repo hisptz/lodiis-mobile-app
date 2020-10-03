@@ -10,8 +10,8 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enro
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/models/agyw_enrollment_risk_assessment.dart';
 
 class AgywDreamEnrollmentService {
-  final String program = "hOEIHJDrrvz";
-  final String trackedEntityType = "XZIKX0bA8WN";
+  final String program = 'hOEIHJDrrvz';
+  final String trackedEntityType = 'XZIKX0bA8WN';
   final List<FormSection> riskAssessmentFormSections =
       AgywEnrollmentRiskAssessment.getFormSections();
   final List<FormSection> concentFormSections =
@@ -19,15 +19,15 @@ class AgywDreamEnrollmentService {
   final List<FormSection> enrollmentFormSections =
       AgywEnrollmentFormSection.getFormSections();
 
-  Future savingEnrollment(
-    Map dataObject,
-    String trackedEntityInstance,
-    String orgUnit,
-    String enrollment,
-    String enrollmentDate,
-    String incidentDate,
-  ) async {
-    List<String> inputFieldIds = [];
+  Future savingAgwyBeneficiary(
+      Map dataObject,
+      String trackedEntityInstance,
+      String orgUnit,
+      String enrollment,
+      String enrollmentDate,
+      String incidentDate,
+      List<String> hiddenFields) async {
+    List<String> inputFieldIds = hiddenFields ?? [];
     inputFieldIds.addAll(FormUtil.getFormFieldIds(riskAssessmentFormSections));
     inputFieldIds.addAll(FormUtil.getFormFieldIds(concentFormSections));
     inputFieldIds.addAll(FormUtil.getFormFieldIds(enrollmentFormSections));
@@ -41,8 +41,7 @@ class AgywDreamEnrollmentService {
     FormUtil.savingEnrollment(enrollmentData);
   }
 
-//on how to retrieve data from database
-  Future<List<AgywDream>> getEnrollmentList() async {
+  Future<List<AgywDream>> getAgywBenficiaryList() async {
     List<AgywDream> agywDreamList = [];
     try {
       List<Enrollment> enrollments =
@@ -53,7 +52,7 @@ class AgywDreamEnrollmentService {
             await TrackedEntityInstanceOfflineProvider()
                 .getTrackedEntityInstance([enrollment.trackedEntityInstance]);
         for (TrackeEntityInstance tei in dataHolds) {
-          agywDreamList.add(AgywDream().fromTrackeEntityInstanceDataModel(
+          agywDreamList.add(AgywDream().fromTeiModel(
             tei,
             orgnaisationUnit,
             enrollment.status,

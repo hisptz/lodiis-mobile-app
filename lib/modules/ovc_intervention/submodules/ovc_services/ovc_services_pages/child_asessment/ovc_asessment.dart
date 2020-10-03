@@ -37,17 +37,17 @@ class OvcAssessmentServiceChildView extends StatelessWidget {
     Provider.of<ServiceFormState>(context, listen: false)
         .updateFormEditabilityState(isEditableMode: isEditableMode);
     if (assessmentResponse != null) {
-      assessmentResponse == "Well-being"
+      assessmentResponse == 'Well-being'
           ? Navigator.push(
               context,
               MaterialPageRoute(
                   builder: (context) => OvcServiceWellBeingAssessmentForm()))
-          : assessmentResponse == "TB"
+          : assessmentResponse == 'TB'
               ? Navigator.push(
                   context,
                   MaterialPageRoute(
                       builder: (context) => OvcServiceTBAssessmentForm()))
-              : assessmentResponse == "HIV"
+              : assessmentResponse == 'HIV'
                   ? Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -169,7 +169,7 @@ class OvcAssessmentServiceChildView extends StatelessWidget {
               ),
               Container(
                   child: OvcEnrollmentFormSaveButton(
-                label: "NEW ASSESSMENT",
+                label: 'NEW ASSESSMENT',
                 labelColor: Colors.white,
                 fontSize: 14,
                 buttonColor: Color(0xFF4B9F46),

@@ -87,7 +87,7 @@ class OvcMonitorChildView extends StatelessWidget {
     //           InterventionCard activeInterventionProgram =
     //               intervetionCardState.currentIntervetionProgram;
     //           return SubPageAppBar(
-    //             label: "Child Monitor",
+    //             label: 'Child Monitor',
     //             activeInterventionProgram: activeInterventionProgram,
     //           );
     //         },
@@ -113,14 +113,14 @@ class OvcMonitorChildView extends StatelessWidget {
     //                       onEdit: onEdit,
     //                     ),
     //                   )
-    //                 : Text("");
+    //                 : Text('');
     //           }).toList(),
     //         ),
     //         Row(
     //           mainAxisAlignment: MainAxisAlignment.center,
     //           children: [
     //             OvcEnrollmentFormSaveButton(
-    //               label: "ADD SERVICE",
+    //               label: 'ADD SERVICE',
     //               labelColor: Color(0xFF4B9F46),
     //               width: 130,
     //               marginLeft: 10,
@@ -133,7 +133,7 @@ class OvcMonitorChildView extends StatelessWidget {
     //               onPressButton: () => addService(context),
     //             ),
     //             OvcEnrollmentFormSaveButton(
-    //               label: "ADD SCHOOL",
+    //               label: 'ADD SCHOOL',
     //               labelColor: Colors.white,
     //               fontSize: 14,
     //               marginLeft: 10,

@@ -90,13 +90,16 @@ class _OvcEnrollmentHouseHoldEditFormState
       String enrollment = dataObject['enrollment'];
       String enrollmentDate = dataObject['enrollmentDate'];
       String incidentDate = dataObject['incidentDate'];
+      List<String> hiddenFields = ['yk0OH9p09C1', 'PN92g65TkVI'];
       await OvcEnrollmentHouseHoldService().savingHouseHoldform(
-          dataObject,
-          trackedEntityInstance,
-          orgUnit,
-          enrollment,
-          enrollmentDate,
-          incidentDate);
+        dataObject,
+        trackedEntityInstance,
+        orgUnit,
+        enrollment,
+        enrollmentDate,
+        incidentDate,
+        hiddenFields,
+      );
       Provider.of<OvcInterventionListState>(context, listen: false)
           .refreshOvcList();
       Timer(Duration(seconds: 1), () {
@@ -115,13 +118,6 @@ class _OvcEnrollmentHouseHoldEditFormState
           message: 'Please fill all mandatory field',
           position: ToastGravity.TOP);
     }
-
-    // Map dataObject,
-    //   String trackedEntityInstance,
-    //   String orgUnit,
-    //   String enrollment,
-    //   String enrollmentDate,
-    //   String incidentDate,
   }
 
   @override

@@ -57,7 +57,7 @@ class _CasePlanGapViewState extends State<CasePlanGapView> {
             ? '${dataObject[inputField.id]}'
             : '   ';
     if (inputField != null) {
-      if (inputField.valueType == "BOOLEAN") {
+      if (inputField.valueType == 'BOOLEAN') {
         value = value == 'true' ? 'Yes' : value == 'false' ? 'No' : value;
       } else if (inputField.valueType == 'TRUE_ONLY') {
         value = value == 'true' ? 'Yes' : value;

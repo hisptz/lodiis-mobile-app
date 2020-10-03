@@ -63,7 +63,7 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
                   child: agywDream.length == 0
                       ? Center(
                           child:
-                              Text("There is no beneficiary list at a moment"),
+                              Text('There is no beneficiary list at a moment'),
                         )
                       : Column(
                           children: agywDream.map((AgywDream agywDream) {
@@ -71,9 +71,9 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
                               canEdit: canEdit,
                               canExpand: canExpand,
                               beneficiaryName: agywDream.firstname +
-                                  " " +
+                                  ' ' +
                                   agywDream.middlename +
-                                  " " +
+                                  ' ' +
                                   agywDream.surname,
                               canView: canView,
                               isExpanded:

@@ -73,8 +73,12 @@ class _InterventionSelectionState extends State<InterventionSelection> {
                   builder: (context, dreamsInterventionListState, child) {
                     bool isDreamsListLoading =
                         dreamsInterventionListState.isLoading;
-                    int numberOfDreamsBeneficiaries =
-                        dreamsInterventionListState.numberOfDreamsBeneficiaries;
+                    int numberOfAgywDreamsBeneficiaries =
+                        dreamsInterventionListState
+                            .numberOfAgywDreamsBeneficiaries;
+                    int numberOfNoneAgywDreamsBeneficiaries =
+                        dreamsInterventionListState
+                            .numberOfNoneAgywDreamsBeneficiaries;
                     return Container(
                       child: isSynchronizationActive ||
                               isDreamsListLoading ||
@@ -83,9 +87,11 @@ class _InterventionSelectionState extends State<InterventionSelection> {
                           : InterventionSelectionContainer(
                               interventionPrograms: interventionPrograms,
                               onIntervetionSelection: onIntervetionSelection,
-                              numberOfDreamsBeneficiaries:
-                                  numberOfDreamsBeneficiaries,
                               numberOfHouseHolds: numberOfHouseHolds,
+                              numberOfAgywDreamsBeneficiaries:
+                                  numberOfAgywDreamsBeneficiaries,
+                              numberOfNoneAgywDreamsBeneficiaries:
+                                  numberOfNoneAgywDreamsBeneficiaries,
                               numberOfOvcs: numberOfOvcs,
                             ),
                     );

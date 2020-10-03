@@ -7,7 +7,7 @@ import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:provider/provider.dart';
 
 class OvcMonitorAddSchool extends StatelessWidget {
-  final String label = "Add Schooled";
+  final String label = 'Add Schooled';
 
   @override
   Widget build(BuildContext context) {

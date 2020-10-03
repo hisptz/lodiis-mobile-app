@@ -62,13 +62,18 @@ class _OvcEnrollmentHouseHoldFormState
       //@TODO generate house hold id and program status
       dataObject['yk0OH9p09C1'] = AppUtil.getUid();
       dataObject['PN92g65TkVI'] = 'Active';
-
-  
-
+      List<String> hiddenFields = ['yk0OH9p09C1', 'PN92g65TkVI'];
       List<Map> childrenObjects = dataObject['children'];
       String orgUnit = dataObject['location'];
       await OvcEnrollmentHouseHoldService().savingHouseHoldform(
-          dataObject, trackedEntityInstance, orgUnit, null, null, null);
+        dataObject,
+        trackedEntityInstance,
+        orgUnit,
+        null,
+        null,
+        null,
+        hiddenFields,
+      );
       await OvcEnrollmentChildService().savingChildrenEnrollmentForms(
           trackedEntityInstance, orgUnit, childrenObjects, null, null, null);
       Provider.of<OvcInterventionListState>(context, listen: false)

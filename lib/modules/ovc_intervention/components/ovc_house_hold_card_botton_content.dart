@@ -164,7 +164,7 @@ class OvcHouseHoldCardBottonContent extends StatelessWidget {
                 Container(
                     margin: EdgeInsets.only(right: 10.0),
                     child:
-                        SvgPicture.asset("assets/icons/children_ovc_icon.svg")),
+                        SvgPicture.asset('assets/icons/children_ovc_icon.svg')),
                 Expanded(
                   child: Container(
                     child: Text('Children List',

@@ -87,7 +87,7 @@ class _OvcServicesPageState extends State<OvcServicesPage> {
               width: 23,
             ),
             Text(
-              "HOUSE HOLD LIST",
+              'HOUSE HOLD LIST',
               style: TextStyle(
                   color: Colors.black45,
                   fontSize: 14,

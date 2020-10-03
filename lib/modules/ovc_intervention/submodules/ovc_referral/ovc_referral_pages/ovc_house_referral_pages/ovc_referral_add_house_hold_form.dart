@@ -32,7 +32,7 @@ class OvcServiceHouseHoldAddReferralForm extends StatefulWidget {
 
 class _OvcServiceHouseHoldAddReferralFormState
     extends State<OvcServiceHouseHoldAddReferralForm> {
-  final String label = "Add HouseHold Referral";
+  final String label = 'Add HouseHold Referral';
   List<FormSection> formSections;
   bool isFormReady = false;
   bool isSaving = false;

@@ -32,7 +32,8 @@ class _DreamsExitPageState extends State<DreamsExitPage> {
   Widget build(BuildContext context) {
     return DreamsHomeContainer(header: title, bodyContents: _buildBody());
   }
-Widget _buildBody() {
+
+  Widget _buildBody() {
     return SingleChildScrollView(
       child: Consumer<DreamsInterventionListState>(
         builder: (context, dreamInterventionListState, child) {
@@ -52,22 +53,28 @@ Widget _buildBody() {
                   child: agywDream.length == 0
                       ? Center(
                           child:
-                              Text("There is no beneficiary list at a moment"),
+                              Text('There is no beneficiary list at a moment'),
                         )
                       : Column(
                           children: agywDream.map((AgywDream agywDream) {
                             return DreamsBeneficiaryCard(
                               canEdit: canEdit,
                               canExpand: canExpand,
-                              beneficiaryName: agywDream.firstname+" "+agywDream.middlename+" "+agywDream.surname,
+                              beneficiaryName: agywDream.firstname +
+                                  ' ' +
+                                  agywDream.middlename +
+                                  ' ' +
+                                  agywDream.surname,
                               canView: canView,
-                              isExpanded: agywDream.benefecaryId== toggleCardId,
+                              isExpanded:
+                                  agywDream.benefecaryId == toggleCardId,
                               onCardToogle: () {
                                 onCardToogle(agywDream.benefecaryId);
                               },
                               cardBody: DreamBeneficiaryCardBody(
-                                agywDream: agywDream,
-                                  isVerticalLayout: agywDream.benefecaryId == toggleCardId),
+                                  agywDream: agywDream,
+                                  isVerticalLayout:
+                                      agywDream.benefecaryId == toggleCardId),
                               cardBottonActions: Container(),
                               cardBottonContent: Container(),
                             );

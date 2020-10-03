@@ -145,17 +145,18 @@ class OvcEnrollmentChild {
             labelColor: Color(0xFF737373),
             valueType: 'BOOLEAN'),
         InputField(
-            id: 'Sa0KVprHUr7',
-            name: 'When did the violence or abuse happen?',
-            inputColor: Color(0xFF4B9F46),
-            labelColor: Color(0xFF737373),
-            valueType: 'TEXT',
-            renderAsRadio: true,
-            options: [
-              InputFieldOption(code: 'Date', name: 'Date'),
-              InputFieldOption(
-                  code: "I don't remember", name: "I don't remember"),
-            ]),
+          id: 'Sa0KVprHUr7',
+          name: 'When did the violence or abuse happen?',
+          inputColor: Color(0xFF4B9F46),
+          labelColor: Color(0xFF737373),
+          valueType: 'TEXT',
+          renderAsRadio: true,
+          options: [
+            InputFieldOption(code: 'Date', name: 'Date'),
+            InputFieldOption(
+                code: "I don't remember", name: "I don't remember"),
+          ],
+        ),
         InputField(
             id: 'XZh0Uew9Xk0',
             name: 'Date violence or abuse happened',

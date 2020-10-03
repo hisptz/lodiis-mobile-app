@@ -7,7 +7,7 @@ import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:provider/provider.dart';
 
 class OvcMonitorAddService extends StatelessWidget {
-  final String label = "Add Child Visit";
+  final String label = 'Add Child Visit';
 
   @override
   Widget build(BuildContext context) {

@@ -39,11 +39,11 @@ class _OvcChildReferralHomeState extends State<OvcChildReferralHome> {
   }
 
   void onView(BuildContext context) {
-    print("onView");
+    print('onView');
   }
 
   void onManage(BuildContext context) {
-    print("on Manage");
+    print('on Manage');
   }
 
   final _controller = ScrollController();
@@ -102,7 +102,7 @@ class _OvcChildReferralHomeState extends State<OvcChildReferralHome> {
                                         ),
                                         child: events.length == 0
                                             ? Text(
-                                                "There is no Child Referrals at a moment")
+                                                'There is no Child Referrals at a moment')
                                             : ListView.builder(
                                                 itemCount: events.length,
                                                 scrollDirection: Axis.vertical,

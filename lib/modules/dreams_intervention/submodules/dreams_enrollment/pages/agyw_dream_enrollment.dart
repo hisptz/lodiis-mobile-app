@@ -54,10 +54,18 @@ class _AgywEntollmentSectionFormState extends State<AgywEntollmentSectionForm> {
       });
       dataObject['KvmQjZbGZQU'] = AppUtil.getUid();
       dataObject['PN92g65TkVI'] = 'Active';
-      String orgUnit = dataObject["location"];
-      await AgywDreamEnrollmentService().savingEnrollment(
-          dataObject, trackedEntityInstance, orgUnit, null, null, null);
-           Provider.of<DreamsInterventionListState>(context, listen: false)
+      List<String> hiddenFields = ['KvmQjZbGZQU', 'PN92g65TkVI'];
+      String orgUnit = dataObject['location'];
+      await AgywDreamEnrollmentService().savingAgwyBeneficiary(
+        dataObject,
+        trackedEntityInstance,
+        orgUnit,
+        null,
+        null,
+        null,
+        hiddenFields,
+      );
+      Provider.of<DreamsInterventionListState>(context, listen: false)
           .refreshDreamsList();
       Navigator.popUntil(context, (route) => route.isFirst);
     } else {

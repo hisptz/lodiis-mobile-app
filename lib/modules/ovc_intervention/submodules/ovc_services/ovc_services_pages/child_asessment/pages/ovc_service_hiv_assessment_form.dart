@@ -29,7 +29,7 @@ class OvcServiceHIVAssessmentForm extends StatefulWidget {
 
 class _OvcServiceHIVAssessmentFormState
     extends State<OvcServiceHIVAssessmentForm> {
-  final String label = "Child HIV Assessemnt";
+  final String label = 'Child HIV Assessemnt';
   List<FormSection> formSections;
   bool isFormReady = false;
   bool isSaving = false;
