@@ -133,13 +133,24 @@ class InputFieldContainer extends StatelessWidget {
   }
 
   Widget _getInputFieldLabel(InputField inputField) {
+    if (inputField != null && inputField.valueType == 'CHECK_BOX') {
+      for (var option in inputField.options) {
+        print(
+            'input => ${option.code} ::  value => ${dataObject[option.code]}');
+      }
+    }
+
     dynamic value =
         inputField != null && '${dataObject[inputField.id]}' != 'null'
             ? '${dataObject[inputField.id]}'
             : '   ';
     if (inputField != null) {
       if (inputField.valueType == "BOOLEAN") {
-        value = value == 'true' ? 'Yes' : value == 'false' ? 'No' : value;
+        value = value == 'true'
+            ? 'Yes'
+            : value == 'false'
+                ? 'No'
+                : value;
       } else if (inputField.valueType == 'TRUE_ONLY') {
         value = value == 'true' ? 'Yes' : value;
       }
@@ -169,7 +180,9 @@ class InputFieldContainer extends StatelessWidget {
           ? inputField.valueType == 'CHECK_BOX'
               ? CheckBoxListInputField(
                   inputField: inputField,
-                  onInputValueChange: this.onInputValueChange,
+                  onInputValueChange: (id, value) {
+                    this.onInputValueChange(id, value);
+                  }, //this.onInputValueChange,
                   dataObject: dataObject,
                 )
               : inputField.options.length > 0

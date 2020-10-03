@@ -49,6 +49,11 @@ class FormUtil {
         if (inputField.id != '' && inputField.id != 'location') {
           fieldIds.add(inputField.id);
         }
+        if (inputField.valueType == 'CHECK_BOX') {
+          for (var option in inputField.options) {
+            fieldIds.add(option.code);
+          }
+        }
       }
       List<String> subSectionFormFields =
           getFormFieldIds(formSection.subSections);

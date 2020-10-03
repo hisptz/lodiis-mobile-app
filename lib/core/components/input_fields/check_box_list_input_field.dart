@@ -8,12 +8,14 @@ class CheckBoxListInputField extends StatefulWidget {
       {Key key,
       @required this.inputField,
       @required this.dataObject,
+      this.isReadOnly = false,
       this.onInputValueChange})
       : super(key: key);
 
   final InputField inputField;
   final Map dataObject;
   final Function onInputValueChange;
+  final bool isReadOnly;
 
   @override
   _CheckBoxListInputFieldState createState() => _CheckBoxListInputFieldState();
@@ -32,21 +34,18 @@ class _CheckBoxListInputFieldState extends State<CheckBoxListInputField> {
     });
   }
 
-  void onInputValueChange(bool value) {
-    setState(() {});
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
       child: Column(
         children: widget.inputField.options
             .map((InputFieldOption option) => CheckBoxInputField(
+                  isReadOnly: widget.isReadOnly,
                   label: option.name,
                   value: widget.dataObject[option.code],
                   color: widget.inputField.inputColor,
                   onInputValueChange: (dynamic value) =>
-                      widget.onInputValueChange(option.code, value),
+                      widget.onInputValueChange(option.code, '$value'),
                 ))
             .toList(),
       ),
