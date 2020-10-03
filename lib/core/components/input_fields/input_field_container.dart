@@ -133,13 +133,6 @@ class InputFieldContainer extends StatelessWidget {
   }
 
   Widget _getInputFieldLabel(InputField inputField) {
-    if (inputField != null && inputField.valueType == 'CHECK_BOX') {
-      for (var option in inputField.options) {
-        print(
-            'input => ${option.code} ::  value => ${dataObject[option.code]}');
-      }
-    }
-
     dynamic value =
         inputField != null && '${dataObject[inputField.id]}' != 'null'
             ? '${dataObject[inputField.id]}'
@@ -155,23 +148,32 @@ class InputFieldContainer extends StatelessWidget {
         value = value == 'true' ? 'Yes' : value;
       }
     }
-    return Row(
-      children: [
-        Container(
-          margin: EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
-          child: Text(
-            value.toString(),
-            style: TextStyle().copyWith(
-              color: inputField != null && inputField.inputColor != null
-                  ? inputField.inputColor
-                  : null,
-              fontWeight: FontWeight.w500,
-              fontSize: 12.0,
+    return Container(
+      child: inputField != null && inputField.valueType == 'CHECK_BOX'
+          ? CheckBoxListInputField(
+              inputField: inputField,
+              isReadOnly: true, //this.onInputValueChange,
+              dataObject: dataObject,
+            )
+          : Row(
+              children: [
+                Container(
+                  margin:
+                      EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
+                  child: Text(
+                    value.toString(),
+                    style: TextStyle().copyWith(
+                      color: inputField != null && inputField.inputColor != null
+                          ? inputField.inputColor
+                          : null,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 12.0,
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ),
-        ),
-      ],
-    );
+  );
   }
 
   Widget _getInputField(InputField inputField) {
