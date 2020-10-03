@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_bottom_navigation_state/intervention_bottom_navigation_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar_container.dart';
@@ -8,7 +9,7 @@ import 'package:kb_mobile_app/core/utils/app_bar_util.dart';
 import 'package:kb_mobile_app/models/Intervention_bottom_navigation.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/dreams_enrollment_page.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/pages/dreams_enrollment_form.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/pages/agyw_dream_consent.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_exit/dreams_exit_page.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_referral/dreams_referral_page.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/dreams_services_page.dart';
@@ -36,9 +37,11 @@ class DreamsIntervention extends StatelessWidget {
   }
 
   void onAddAgywBeneficiary(BuildContext context) {
+      Provider.of<EnrollmentFormState>(context, listen: false)
+        .resetFormState();
     Navigator.push(context, MaterialPageRoute(
       builder: (context) {
-        return DreamsEnrollmentForm();
+        return AgywConsentForm();
       },
     ));
   }

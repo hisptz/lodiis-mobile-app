@@ -21,8 +21,7 @@ class OvcEnrollmentBasicInfo {
                   isReadObly: true,
                   valueType: 'ORGANISATION_UNIT',
                   inputColor: Color(0xFF4B9F46),
-                  labelColor: Color(0xFF737373)
-                  )
+                  labelColor: Color(0xFF737373))
             ]),
             FormSection(
                 name: 'Caregiver',

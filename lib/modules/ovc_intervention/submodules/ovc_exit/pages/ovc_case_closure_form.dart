@@ -8,22 +8,19 @@ import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/models/ovc_case_closure.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/pages/ovc_enrollment_child_form.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/models/ovc_case_closure.dart';
 import 'package:provider/provider.dart';
 
 class OvcCaseClosureForm extends StatefulWidget {
   const OvcCaseClosureForm({Key key}) : super(key: key);
 
   @override
-  _OvcCaseClosureFormState createState() =>
-      _OvcCaseClosureFormState();
+  _OvcCaseClosureFormState createState() => _OvcCaseClosureFormState();
 }
 
-class _OvcCaseClosureFormState
-    extends State<OvcCaseClosureForm> {
-  final List<FormSection> formSections =
-     OvcCaseClosure.getFormSections();
+class _OvcCaseClosureFormState extends State<OvcCaseClosureForm> {
+  final List<FormSection> formSections = OvcCaseClosure.getFormSections();
   final String label = 'Case Closure Checklist';
 
   void onSaveAndContinue(BuildContext context) {

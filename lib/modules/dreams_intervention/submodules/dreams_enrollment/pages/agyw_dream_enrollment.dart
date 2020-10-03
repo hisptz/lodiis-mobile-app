@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar_container.dart';
@@ -10,27 +11,27 @@ import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/services/agyw_dream_enrollment_service.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/models/agyw_enrollment_form_section.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/models/ovc_enrollement_basic_info.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/pages/ovc_enrollment_child_form.dart';
 import 'package:provider/provider.dart';
 
-class OvcEnrollmentBasicInfoForm extends StatefulWidget {
-  const OvcEnrollmentBasicInfoForm({Key key}) : super(key: key);
-
+class AgywEntollmentSectionForm extends StatefulWidget {
+  const AgywEntollmentSectionForm({Key key}) : super(key: key);
   @override
-  _OvcEnrollmentBasicInfoFormState createState() =>
-      _OvcEnrollmentBasicInfoFormState();
+  _AgywEntollmentSectionFormState createState() =>
+      _AgywEntollmentSectionFormState();
 }
 
-class _OvcEnrollmentBasicInfoFormState
-    extends State<OvcEnrollmentBasicInfoForm> {
-  List<FormSection> formSections = OvcEnrollmentBasicInfo.getFormSections();
-  final String label = 'Basic caregiver information';
+class _AgywEntollmentSectionFormState extends State<AgywEntollmentSectionForm> {
+  List<FormSection> formSections;
+  final String label = 'Enrollment Assessment';
   final List<String> mandatoryFields =
-      OvcEnrollmentBasicInfo.getMandatoryField();
+      AgywEnrollmentFormSection.getMandatoryField();
   final Map mandatoryFieldObject = Map();
+  final String trackedEntityInstance = AppUtil.getUid();
   bool isFormReady = false;
+  bool isSaving = false;
 
   @override
   void initState() {
@@ -39,20 +40,26 @@ class _OvcEnrollmentBasicInfoFormState
       for (String id in mandatoryFields) {
         mandatoryFieldObject[id] = true;
       }
-      formSections = OvcEnrollmentBasicInfo.getFormSections();
+      formSections = AgywEnrollmentFormSection.getFormSections();
       isFormReady = true;
     });
   }
 
-  void onSaveAndContinue(BuildContext context, Map dataObject) {
+  void onSaveAndContinue(BuildContext context, Map dataObject) async {
     bool hadAllMandatoryFilled =
         AppUtil.hasAllMandarotyFieldsFilled(mandatoryFields, dataObject);
     if (hadAllMandatoryFilled) {
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => OvcEnrollmentChildForm(),
-          ));
+      setState(() {
+        isSaving = true;
+      });
+      dataObject['KvmQjZbGZQU'] = AppUtil.getUid();
+      dataObject['PN92g65TkVI'] = 'Active';
+      String orgUnit = dataObject["location"];
+      await AgywDreamEnrollmentService().savingEnrollment(
+          dataObject, trackedEntityInstance, orgUnit, null, null, null);
+           Provider.of<DreamsInterventionListState>(context, listen: false)
+          .refreshDreamsList();
+      Navigator.popUntil(context, (route) => route.isFirst);
     } else {
       AppUtil.showToastMessage(
           message: 'Please fill all mandatory field',
@@ -126,9 +133,9 @@ class _OvcEnrollmentBasicInfoFormState
                                         ),
                                       ),
                                       OvcEnrollmentFormSaveButton(
-                                        label: 'Save and Continue',
+                                        label: 'Save',
                                         labelColor: Colors.white,
-                                        buttonColor: Color(0xFF4B9F46),
+                                        buttonColor: Color(0xFF258DCC),
                                         fontSize: 15.0,
                                         onPressButton: () => onSaveAndContinue(
                                           context,

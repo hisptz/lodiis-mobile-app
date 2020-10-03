@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/models/agyw_dream.dart';
 
 class DreamBeneficiaryCardBody extends StatelessWidget {
-  const DreamBeneficiaryCardBody({Key key, @required this.isVerticalLayout})
+  const DreamBeneficiaryCardBody(
+      {Key key, @required this.isVerticalLayout, @required this.agywDream})
       : super(key: key);
 
   final bool isVerticalLayout;
   final Color labelColor = const Color(0xFF8FBAD3);
   final Color valueColor = const Color(0xFF444E54);
+  final AgywDream agywDream;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +23,7 @@ class DreamBeneficiaryCardBody extends StatelessWidget {
                     margin: EdgeInsets.only(bottom: 10),
                     child: VerticalRowCardData(
                         label: 'Beneficary id',
-                        value: '099383890',
+                        value: '${agywDream.benefecaryId}',
                         labelColor: labelColor,
                         valueColor: valueColor),
                   ),
@@ -28,7 +31,7 @@ class DreamBeneficiaryCardBody extends StatelessWidget {
                     margin: EdgeInsets.only(bottom: 10),
                     child: VerticalRowCardData(
                         label: 'Age',
-                        value: '12',
+                        value: '${agywDream.age}',
                         labelColor: labelColor,
                         valueColor: valueColor),
                   ),
@@ -36,7 +39,7 @@ class DreamBeneficiaryCardBody extends StatelessWidget {
                     margin: EdgeInsets.only(bottom: 10),
                     child: VerticalRowCardData(
                         label: 'Age band',
-                        value: '10-14',
+                        value: '${agywDream.ageBand}',
                         labelColor: labelColor,
                         valueColor: valueColor),
                   ),
@@ -44,7 +47,7 @@ class DreamBeneficiaryCardBody extends StatelessWidget {
                     margin: EdgeInsets.only(bottom: 10),
                     child: VerticalRowCardData(
                         label: 'Sex',
-                        value: 'Female',
+                        value: '${agywDream.sex}',
                         labelColor: labelColor,
                         valueColor: valueColor),
                   ),
@@ -70,13 +73,13 @@ class DreamBeneficiaryCardBody extends StatelessWidget {
                             labelColor: labelColor,
                             valueColor: valueColor,
                             label: 'Age',
-                            value: '12',
+                            value: '${agywDream.age}',
                           ),
                           HorizontalRowCardData(
                             labelColor: labelColor,
                             valueColor: valueColor,
                             label: 'Sex',
-                            value: 'Female',
+                            value: '${agywDream.ageBand}',
                           ),
                           HorizontalRowCardData(
                             labelColor: labelColor,

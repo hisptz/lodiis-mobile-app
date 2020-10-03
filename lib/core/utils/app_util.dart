@@ -47,7 +47,7 @@ class AppUtil {
     if (birthDate.month > currentDate.month) {
       age--;
     } else if (birthDate.month == currentDate.month) {
-      if (birthDate.day > currentDate.day) {
+      if (birthDate.day > currentDate.day){
         age--;
       }
     }

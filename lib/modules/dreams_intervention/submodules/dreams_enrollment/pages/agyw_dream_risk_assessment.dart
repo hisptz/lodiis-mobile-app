@@ -10,25 +10,22 @@ import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/models/agyw_enrollment_risk_assessment.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/models/ovc_enrollement_basic_info.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/pages/ovc_enrollment_child_form.dart';
 import 'package:provider/provider.dart';
+import 'agyw_dream_enrollment.dart';
 
-class OvcEnrollmentBasicInfoForm extends StatefulWidget {
-  const OvcEnrollmentBasicInfoForm({Key key}) : super(key: key);
-
+class AgywDreamServiceForm extends StatefulWidget {
+  const AgywDreamServiceForm({Key key}) : super(key: key);
   @override
-  _OvcEnrollmentBasicInfoFormState createState() =>
-      _OvcEnrollmentBasicInfoFormState();
+  _AgywDreamServiceFormState createState() => _AgywDreamServiceFormState();
 }
 
-class _OvcEnrollmentBasicInfoFormState
-    extends State<OvcEnrollmentBasicInfoForm> {
-  List<FormSection> formSections = OvcEnrollmentBasicInfo.getFormSections();
-  final String label = 'Basic caregiver information';
+class _AgywDreamServiceFormState extends State<AgywDreamServiceForm> {
+  List<FormSection> formSections;
+  final String label = 'Risk Assessment';
   final List<String> mandatoryFields =
-      OvcEnrollmentBasicInfo.getMandatoryField();
+      AgywEnrollmentRiskAssessment.getMandatoryField();
   final Map mandatoryFieldObject = Map();
   bool isFormReady = false;
 
@@ -39,7 +36,7 @@ class _OvcEnrollmentBasicInfoFormState
       for (String id in mandatoryFields) {
         mandatoryFieldObject[id] = true;
       }
-      formSections = OvcEnrollmentBasicInfo.getFormSections();
+      formSections = AgywEnrollmentRiskAssessment.getFormSections();
       isFormReady = true;
     });
   }
@@ -51,7 +48,7 @@ class _OvcEnrollmentBasicInfoFormState
       Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => OvcEnrollmentChildForm(),
+            builder: (context) => AgywEntollmentSectionForm(),
           ));
     } else {
       AppUtil.showToastMessage(
@@ -60,18 +57,9 @@ class _OvcEnrollmentBasicInfoFormState
     }
   }
 
-  void autoFillInputFields(String id, dynamic value) {
-    if (id == 'qZP982qpSPS') {
-      int age = AppUtil.getAgeInYear(value);
-      Provider.of<EnrollmentFormState>(context, listen: false)
-          .setFormFieldState('ls9hlz2tyol', age.toString());
-    }
-  }
-
   void onInputValueChange(String id, dynamic value) {
     Provider.of<EnrollmentFormState>(context, listen: false)
         .setFormFieldState(id, value);
-    autoFillInputFields(id, value);
   }
 
   @override
@@ -128,7 +116,7 @@ class _OvcEnrollmentBasicInfoFormState
                                       OvcEnrollmentFormSaveButton(
                                         label: 'Save and Continue',
                                         labelColor: Colors.white,
-                                        buttonColor: Color(0xFF4B9F46),
+                                        buttonColor: Color(0xFF258DCC),
                                         fontSize: 15.0,
                                         onPressButton: () => onSaveAndContinue(
                                           context,
