@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kb_mobile_app/core/components/input_fields/input_checked_cion.dart';
+import 'package:kb_mobile_app/core/components/input_fields/input_checked_icon.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 
 class NumericalInputFieldContainer extends StatefulWidget {
@@ -57,13 +57,13 @@ class _NumericalInputFieldContainerState
                   keyboardType: TextInputType.number,
                   onChanged: onValueChange,
                   style: TextStyle().copyWith(color: valueColor),
-                  textInputAction: TextInputAction.done,
+                  textInputAction: TextInputAction.next,
                   decoration: InputDecoration(
                     border: InputBorder.none,
                     errorText: null,
                   ))),
           InputCheckedIcon(
-            showTickedIcon: _value != null,
+            showTickedIcon: _value != null && '$_value'.trim() != '',
             color: widget.inputField.inputColor,
           )
         ],
