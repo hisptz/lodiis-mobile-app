@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
@@ -67,7 +69,17 @@ class _AgywEntollmentSectionFormState extends State<AgywEntollmentSectionForm> {
       );
       Provider.of<DreamsInterventionListState>(context, listen: false)
           .refreshDreamsList();
-      Navigator.popUntil(context, (route) => route.isFirst);
+      Timer(Duration(seconds: 1), () {
+        if (Navigator.canPop(context)) {
+          setState(() {
+            isSaving = false;
+          });
+          AppUtil.showToastMessage(
+              message: 'Form has been saved successfully',
+              position: ToastGravity.TOP);
+          Navigator.popUntil(context, (route) => route.isFirst);
+        }
+      });
     } else {
       AppUtil.showToastMessage(
           message: 'Please fill all mandatory field',
@@ -141,7 +153,7 @@ class _AgywEntollmentSectionFormState extends State<AgywEntollmentSectionForm> {
                                         ),
                                       ),
                                       OvcEnrollmentFormSaveButton(
-                                        label: 'Save',
+                                        label: isSaving ? 'Saving ...' : 'Save',
                                         labelColor: Colors.white,
                                         buttonColor: Color(0xFF258DCC),
                                         fontSize: 15.0,

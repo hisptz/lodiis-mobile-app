@@ -68,13 +68,12 @@ class _OvcEnrollmentChildEditViewFormState
       String enrollmentDate = dataObject['enrollmentDate'];
       String incidentDate = dataObject['incidentDate'];
       await OvcEnrollmentChildService().savingChildrenEnrollmentForms(
-        parentTrackedEntityInstance,
-        orgUnit,
-        childrenObjects,
-        enrollment,
-        enrollmentDate,
-        incidentDate,
-      );
+          parentTrackedEntityInstance,
+          orgUnit,
+          childrenObjects,
+          enrollment,
+          enrollmentDate,
+          incidentDate, []);
       Provider.of<OvcInterventionListState>(context, listen: false)
           .refreshOvcList();
       Timer(Duration(seconds: 1), () {

@@ -81,7 +81,7 @@ class DreamBeneficiaryCardBody extends StatelessWidget {
                             labelColor: labelColor,
                             valueColor: valueColor,
                             label: 'Sex',
-                            value: agywBeneficiary.ageBand,
+                            value: agywBeneficiary.sex,
                           ),
                           HorizontalRowCardData(
                             labelColor: labelColor,

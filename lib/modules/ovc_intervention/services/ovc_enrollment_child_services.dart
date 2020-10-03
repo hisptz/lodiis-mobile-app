@@ -19,8 +19,11 @@ class OvcEnrollmentChildService {
     String enrollment,
     String enrollmentDate,
     String incidentDate,
+    List<String> hiddenFields,
   ) async {
+    hiddenFields = hiddenFields ?? [];
     List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections);
+    inputFieldIds.addAll(hiddenFields);
     List childTeiReferences = [];
     for (Map dataObject in childrenObjects) {
       // @TODO generation of beneficiary ids

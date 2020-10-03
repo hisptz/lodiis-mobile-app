@@ -75,7 +75,12 @@ class _OvcEnrollmentHouseHoldFormState
         hiddenFields,
       );
       await OvcEnrollmentChildService().savingChildrenEnrollmentForms(
-          trackedEntityInstance, orgUnit, childrenObjects, null, null, null);
+          trackedEntityInstance,
+          orgUnit,
+          childrenObjects,
+          null,
+          null,
+          null, []);
       Provider.of<OvcInterventionListState>(context, listen: false)
           .refreshOvcList();
       Timer(Duration(seconds: 1), () {

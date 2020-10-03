@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_bottom_navigation_state/intervention_bottom_navigation_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_intervention_list_state.dart';
@@ -38,6 +39,9 @@ class AppBarUtil {
     if (id == 'ovc') {
       Provider.of<OvcInterventionListState>(context, listen: false)
           .refreshOvcList();
+    } else {
+      Provider.of<DreamsInterventionListState>(context, listen: false)
+          .refreshDreamsList();
     }
     Provider.of<IntervetionCardState>(context, listen: false)
         .setCurrentInterventionProgramId(id);
