@@ -9,6 +9,7 @@ class DreamsBeneficiaryCard extends StatelessWidget {
     @required this.canView,
     @required this.canExpand,
     @required this.isExpanded,
+    @required this.beneficiaryName,
     @required this.cardBody,
     @required this.cardBottonActions,
     @required this.cardBottonContent,
@@ -22,11 +23,12 @@ class DreamsBeneficiaryCard extends StatelessWidget {
   final bool canView;
   final bool canExpand;
   final bool isExpanded;
+  final String beneficiaryName;
 
   final VoidCallback onCardToogle;
 
   final String svgIcon = 'assets/icons/dreams-header-icon.svg';
-  final String beneficiaryName = 'Amohelang Thuso';
+
 
   void onEdit() {}
 

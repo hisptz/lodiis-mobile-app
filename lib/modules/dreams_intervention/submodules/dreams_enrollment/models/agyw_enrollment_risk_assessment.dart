@@ -4,6 +4,15 @@ import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/input_field_option.dart';
 
 class AgywEnrollmentRiskAssessment {
+  static List<String> getMandatoryField() {
+    return [
+      'WTZ7GLTrE8Q',
+      'rSP9c21JsfC',
+      'qZP982qpSPS',
+      'vIX4GTSCX4P',          
+    ];
+  }
+
   static List<FormSection> getFormSections() {
     return [
       FormSection(
@@ -64,6 +73,17 @@ class AgywEnrollmentRiskAssessment {
                 valueType: 'DATE',
                 inputColor: Color(0xFF258DCC),
                 labelColor: Color(0xFF05131B)),
+                InputField(
+                id: 'vIX4GTSCX4P',
+                name: 'Sex',
+                valueType: 'TEXT',
+                inputColor: Color(0xFF258DCC),
+                labelColor: Color(0xFF737373),
+                renderAsRadio: true,
+                options: [
+                  InputFieldOption(code: 'Male', name: 'Male'),
+                  InputFieldOption(code: 'Female', name: 'Female'),
+                ]),
             InputField(
                 id: 's1eRvsL2Ly4',
                 name: 'Marital Status.',
