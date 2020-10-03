@@ -54,7 +54,7 @@ class OvcHouseHoldCasePlanHome extends StatelessWidget {
     return groupedEventByDates.keys.toList().indexOf(today) > -1;
   }
 
-  void onAddNewAssessment(
+  void onAddNewCasePlan(
     BuildContext context,
     OvcHouseHold houseHold,
     Map<String, List<Events>> eventListByProgramStage,
@@ -172,7 +172,7 @@ class OvcHouseHoldCasePlanHome extends StatelessWidget {
                                                           buttonColor:
                                                               Color(0xFF4B9F46),
                                                           onPressButton: () =>
-                                                              onAddNewAssessment(
+                                                              onAddNewCasePlan(
                                                                 context,
                                                                 currentOvcHouseHold,
                                                                 eventListByProgramStage,
