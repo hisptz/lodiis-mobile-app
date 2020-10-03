@@ -60,6 +60,6 @@ class EventOfflineProvider extends OfflineDbProvider {
         }
       }
     } catch (e) {}
-    return events;
+    return events..sort((b, a) => a.eventDate.compareTo(b.eventDate));
   }
 }

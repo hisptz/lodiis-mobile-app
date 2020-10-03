@@ -12,7 +12,7 @@ class InputCheckedIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: !showTickedIcon
-          ? Text('')
+          ? Container()
           : Container(
               height: 20.0,
               margin: EdgeInsets.only(left: 10),

@@ -29,7 +29,6 @@ class _OvcServicesPageState extends State<OvcServicesPage> {
   final bool canViewChildService = true;
   final bool canViewChildReferral = false;
   final bool canViewChildExit = false;
-  final bool canAddChildExit = false;
 
   String toggleCardId = '';
 
@@ -211,7 +210,6 @@ class _OvcServicesPageState extends State<OvcServicesPage> {
                                       canViewChildService: canViewChildService,
                                       canViewChildReferral:
                                           canViewChildReferral,
-                                      canAddChildExit: canAddChildExit,
                                       canViewChildExit: canViewChildExit,
                                     ),
                                   ),

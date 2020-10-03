@@ -670,13 +670,13 @@ class OvcHouseholdServicesCasePlanGaps {
             InputField(
                 id: 'm8ujTeOcYO3',
                 name: 'Identified need/Gap',
-                valueType: 'TRUE_ONLY',
+                valueType: 'TEXT',
                 inputColor: Color(0xFF9B2BAE),
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'TQSMaZgfZPO',
                 name: 'PTS4G',
-                valueType: 'TEXT',
+                valueType: 'TRUE_ONLY',
                 inputColor: Color(0xFF9B2BAE),
                 labelColor: Color(0xFF737373)),
             InputField(

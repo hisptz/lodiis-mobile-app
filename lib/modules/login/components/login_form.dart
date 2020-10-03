@@ -46,8 +46,10 @@ class _LoginFormState extends State<LoginForm> {
   }
 
   void onFieldValueChanges(String value, String key) {
-    currentUser.username = key == 'username' ? value : currentUser.username;
-    currentUser.password = key == 'password' ? value : currentUser.password;
+    currentUser.username =
+        key == 'username' ? value.trim() : currentUser.username;
+    currentUser.password =
+        key == 'password' ? value.trim() : currentUser.password;
   }
 
   void onFieldSubmitted(String value, String key) {

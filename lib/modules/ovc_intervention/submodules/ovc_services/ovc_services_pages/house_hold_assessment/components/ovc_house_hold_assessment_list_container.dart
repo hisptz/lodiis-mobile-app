@@ -6,17 +6,17 @@ import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:provider/provider.dart';
 
-class CasePlanHomeListContainer extends StatelessWidget {
-  const CasePlanHomeListContainer({
+class OvcHouseHoldAssessmentListContainer extends StatelessWidget {
+  OvcHouseHoldAssessmentListContainer({
     Key key,
     @required this.programStageIds,
-    this.onEditCasePlan,
-    this.onViewCasePlan,
+    this.onViewHouseHoldAssessment,
+    this.onEditHouseHoldAssessment,
   }) : super(key: key);
 
   final List<String> programStageIds;
-  final Function onViewCasePlan;
-  final Function onEditCasePlan;
+  final Function onViewHouseHoldAssessment;
+  final Function onEditHouseHoldAssessment;
 
   @override
   Widget build(BuildContext context) {
@@ -29,25 +29,22 @@ class CasePlanHomeListContainer extends StatelessWidget {
         builder: (context, serviveEventDataState, child) {
           Map<String, List<Events>> eventListByProgramStage =
               serviveEventDataState.eventListByProgramStage;
-          List<Events> events =
+          List<Events> eventList =
               TrackedEntityInstanceUtil.getAllEventListFromServiceDataState(
                   eventListByProgramStage, programStageIds);
-          Map groupedEventByDates =
-              TrackedEntityInstanceUtil.getGroupedEventByDates(events);
-          int assessmentIndex = groupedEventByDates.keys.toList().length;
+          int assessmentIndex = eventList.length;
           return assessmentIndex == 0
               ? Center(
-                  child: Text('There is no case plan at moment'),
+                  child: Text('There is no Assessment at moment'),
                 )
               : Container(
                   child: Column(
-                    children:
-                        groupedEventByDates.keys.toList().map((assessmentDate) {
+                    children: eventList.map((Events assessment) {
                       assessmentIndex--;
                       return Container(
                         margin: EdgeInsets.symmetric(
                           vertical: 5.0,
-                          horizontal: 17.0,
+                          horizontal: 7.0,
                         ),
                         child: MaterialCard(
                           body: ClipRRect(
@@ -56,13 +53,6 @@ class CasePlanHomeListContainer extends StatelessWidget {
                               bottomLeft: Radius.circular(12.0),
                             ),
                             child: Container(
-                              decoration: BoxDecoration(
-                                  border: Border(
-                                left: BorderSide(
-                                  color: Color(0xFF4B9F46),
-                                  width: 9.0,
-                                ),
-                              )),
                               padding: EdgeInsets.symmetric(
                                   vertical: 10.0, horizontal: 20.0),
                               child: Column(
@@ -74,7 +64,8 @@ class CasePlanHomeListContainer extends StatelessWidget {
                                         child: Expanded(
                                           child: RichText(
                                             text: TextSpan(
-                                              text: '$assessmentDate   ',
+                                              text:
+                                                  '${assessment.eventDate}   ',
                                               style: TextStyle().copyWith(
                                                 color: Color(0xFF92A791),
                                                 fontSize: 12.0,
@@ -83,7 +74,7 @@ class CasePlanHomeListContainer extends StatelessWidget {
                                               children: [
                                                 TextSpan(
                                                   text:
-                                                      'Case plan ${assessmentIndex + 1}',
+                                                      'Assessment ${assessmentIndex + 1}',
                                                   style: TextStyle().copyWith(
                                                     color: Color(0xFF1A3518),
                                                     fontSize: 14.0,
@@ -100,9 +91,9 @@ class CasePlanHomeListContainer extends StatelessWidget {
                                           horizontal: 5.0,
                                         ),
                                         child: InkWell(
-                                            onTap: () => onViewCasePlan(
-                                                groupedEventByDates[
-                                                    assessmentDate]),
+                                            onTap: () =>
+                                                onViewHouseHoldAssessment(
+                                                    assessment),
                                             child: Container(
                                               height: iconHeight,
                                               width: iconHeight,
@@ -119,9 +110,9 @@ class CasePlanHomeListContainer extends StatelessWidget {
                                           horizontal: 5.0,
                                         ),
                                         child: InkWell(
-                                            onTap: () => onEditCasePlan(
-                                                groupedEventByDates[
-                                                    assessmentDate]),
+                                            onTap: () =>
+                                                onEditHouseHoldAssessment(
+                                                    assessment),
                                             child: Container(
                                               height: iconHeight,
                                               width: iconHeight,

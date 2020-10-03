@@ -24,7 +24,6 @@ class OvcHouseHoldCardBottonContent extends StatelessWidget {
     @required this.canViewChildService,
     @required this.canViewChildReferral,
     @required this.canViewChildExit,
-    @required this.canAddChildExit,
     @required this.canEditChildInfo,
   }) : super(key: key);
 
@@ -35,7 +34,6 @@ class OvcHouseHoldCardBottonContent extends StatelessWidget {
   final bool canViewChildService;
   final bool canViewChildReferral;
   final bool canViewChildExit;
-  final bool canAddChildExit;
 
   void updateEnrollmentFormStateData(
     BuildContext context,
@@ -144,11 +142,6 @@ class OvcHouseHoldCardBottonContent extends StatelessWidget {
         ));
   }
 
-  void onAddChildExit(BuildContext context, OvcHouseHoldChild child) {
-    setOvcHouseHoldCurrentSelection(context, child);
-    print('onAddChildExit ${child.toString()}');
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -214,24 +207,6 @@ class OvcHouseHoldCardBottonContent extends StatelessWidget {
                                   padding: EdgeInsets.all(10.0),
                                   child: Text(
                                     'VIEW',
-                                    style: TextStyle().copyWith(
-                                      fontSize: 12.0,
-                                      color: Color(0xFF4B9F46),
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                ))),
-                      ),
-                      Visibility(
-                        visible: canAddChildExit,
-                        child: Container(
-                            margin: EdgeInsets.only(left: 10.0),
-                            child: InkWell(
-                                onTap: () => onAddChildExit(context, child),
-                                child: Container(
-                                  padding: EdgeInsets.all(10.0),
-                                  child: Text(
-                                    'ADD',
                                     style: TextStyle().copyWith(
                                       fontSize: 12.0,
                                       color: Color(0xFF4B9F46),
