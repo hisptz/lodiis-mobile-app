@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kb_mobile_app/core/components/input_fields/input_checked_cion.dart';
+import 'package:kb_mobile_app/core/components/input_fields/input_checked_icon.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 
