@@ -173,7 +173,7 @@ class InputFieldContainer extends StatelessWidget {
                 ),
               ],
             ),
-  );
+    );
   }
 
   Widget _getInputField(InputField inputField) {
@@ -184,7 +184,7 @@ class InputFieldContainer extends StatelessWidget {
                   inputField: inputField,
                   onInputValueChange: (id, value) {
                     this.onInputValueChange(id, value);
-                  }, //this.onInputValueChange,
+                  },
                   dataObject: dataObject,
                 )
               : inputField.options.length > 0

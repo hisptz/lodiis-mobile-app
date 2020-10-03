@@ -14,25 +14,25 @@ import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
-import 'package:kb_mobile_app/models/ovc_house_hold.dart';
+import 'package:kb_mobile_app/models/ovc_house_hold_child.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_child_info_top_header.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold_top_header.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/constants/ovc_referral_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/models/ovc_referral.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/ovc_referral_pages/ovc_child_referral_pages/constants/ovc_child_referral_constant.dart';
 import 'package:provider/provider.dart';
 
-class OvcServiceHouseHoldAddReferralForm extends StatefulWidget {
-  final OvcHouseHold ovcHouseHold;
-  OvcServiceHouseHoldAddReferralForm({this.ovcHouseHold});
+class OvcServiceChildAddReferralForm extends StatefulWidget {
+  final OvcHouseHoldChild ovcHouseHoldChild;
+  OvcServiceChildAddReferralForm({this.ovcHouseHoldChild});
 
   @override
-  _OvcServiceHouseHoldAddReferralFormState createState() =>
-      _OvcServiceHouseHoldAddReferralFormState();
+  _OvcServiceChildAddReferralFormState createState() =>
+      _OvcServiceChildAddReferralFormState();
 }
 
-class _OvcServiceHouseHoldAddReferralFormState
-    extends State<OvcServiceHouseHoldAddReferralForm> {
-  final String label = 'Add HouseHold Referral';
+class _OvcServiceChildAddReferralFormState
+    extends State<OvcServiceChildAddReferralForm> {
+  final String label = 'Add Child Referral';
   List<FormSection> formSections;
   bool isFormReady = false;
   bool isSaving = false;
@@ -44,6 +44,7 @@ class _OvcServiceHouseHoldAddReferralFormState
     Timer(Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
+        print(widget.ovcHouseHoldChild.createdDate);
       });
     });
   }
@@ -56,7 +57,7 @@ class _OvcServiceHouseHoldAddReferralFormState
   void onSaveForm(
     BuildContext context,
     Map dataObject,
-    OvcHouseHold currentOvcHouseHold,
+    OvcHouseHoldChild currentOvcHouseHoldChild,
   ) async {
     if (dataObject.keys.length > 0) {
       setState(() {
@@ -68,17 +69,20 @@ class _OvcServiceHouseHoldAddReferralFormState
       List<String> hiddenFields = ['Ntee9tw45ja'];
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-            OvcReferralConstant.program,
-            OvcReferralConstant.programStage,
-            currentOvcHouseHold.orgUnit,
-            formSections,
-            dataObject,
-            eventDate,
-            currentOvcHouseHold.id,
-            eventId,
-            hiddenFields);
+          OvcChildReferralConstant.program,
+          OvcChildReferralConstant.referralStage,
+          currentOvcHouseHoldChild.orgUnit,
+          formSections,
+          dataObject,
+          eventDate,
+          currentOvcHouseHoldChild.id,
+          eventId,
+          hiddenFields,
+        );
+
         Provider.of<ServiveEventDataState>(context, listen: false)
-            .resetServiceEventDataState(currentOvcHouseHold.id);
+            .resetServiceEventDataState(currentOvcHouseHoldChild.id);
+
         Timer(Duration(seconds: 1), () {
           setState(() {
             AppUtil.showToastMessage(
@@ -122,8 +126,8 @@ class _OvcServiceHouseHoldAddReferralFormState
         body: SubPageBody(
           body: Container(child: Consumer<OvcHouseHoldCurrentSelectionState>(
             builder: (context, ovcHouseHoldCurrentSelectionState, child) {
-              OvcHouseHold currentOvcHouseHold =
-                  ovcHouseHoldCurrentSelectionState.currentOvcHouseHold;
+              OvcHouseHoldChild currentOvcHouseHoldChild =
+                  ovcHouseHoldCurrentSelectionState.currentOvcHouseHoldChild;
 
               return Consumer<ServiceFormState>(
                 builder: (context, serviceFormState, child) {
@@ -136,9 +140,7 @@ class _OvcServiceHouseHoldAddReferralFormState
                           )
                         : Column(
                             children: [
-                              OvcHouseHoldInfoTopHeader(
-                                currentOvcHouseHold: currentOvcHouseHold,
-                              ),
+                              OvcChildInfoTopHeader(),
                               Container(
                                 margin: EdgeInsets.only(
                                   top: 10.0,
@@ -160,7 +162,7 @@ class _OvcServiceHouseHoldAddReferralFormState
                                 onPressButton: () => onSaveForm(
                                     context,
                                     serviceFormState.formState,
-                                    currentOvcHouseHold),
+                                    currentOvcHouseHoldChild),
                               )
                             ],
                           ),

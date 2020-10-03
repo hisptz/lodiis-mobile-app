@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 
 class OvcReferralCardBody extends StatelessWidget {
   final Map<String, dynamic> referralDetails;
-  OvcReferralCardBody({Key key, this.referralDetails}) : super(key: key);
+  OvcReferralCardBody({
+    Key key,
+    this.referralDetails,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
