@@ -4,6 +4,17 @@ import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/input_field_option.dart';
 
 class NonAgywEnrollmentFormSection {
+
+
+ static List<String> getMandatoryField() {
+    return [
+      'sJ35hsF6Lf9',
+      'z9hUdWsyBXB',
+      'sJ35hsF6Lf9'
+    ];
+  }
+
+
   static List<FormSection> getFormSections() {
     return [
            FormSection(
