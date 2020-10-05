@@ -10,7 +10,8 @@ class NonAgywEnrollmentFormSection {
     return [
       'sJ35hsF6Lf9',
       'z9hUdWsyBXB',
-      'sJ35hsF6Lf9'
+      'sJ35hsF6Lf9',
+      'location',
     ];
   }
 
@@ -21,6 +22,12 @@ class NonAgywEnrollmentFormSection {
           name: 'HTS Client Intake Record',
           color: Color(0xFF258DCC),
           inputFields: [
+                InputField(
+            id: 'location',
+            name: 'Location',
+            valueType: 'ORGANISATION_UNIT',
+            inputColor: Color(0xFF258DCC),
+            labelColor: Color(0xFF737373)),
                   InputField(
                       id: 'atNbeYwzMq6',
                       name: 'Site Name',

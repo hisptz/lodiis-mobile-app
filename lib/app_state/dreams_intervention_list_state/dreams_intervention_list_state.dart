@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/services/agyw_dream_enrollment_service.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/services/non_agyw_dream_enrollment_service.dart';
 
 class DreamsInterventionListState with ChangeNotifier {
   // intial state
@@ -26,8 +27,14 @@ class DreamsInterventionListState with ChangeNotifier {
     notifyListeners();
     _agywDreamsInterventionList =
         await AgywDreamEnrollmentService().getAgywBenficiaryList();
+    _noneAgywDreamsInterventionList = await
+        NonAgywDreamEnrollmentService().getNonAgywBenficiaryList();
+        
     _isLoading = false;
-    _numberOfAgywDreamsBeneficiaries = _agywDreamsInterventionList.length;
+    _numberOfNoneAgywDreamsBeneficiaries = _noneAgywDreamsInterventionList.length;
     notifyListeners();
   }
+
+//getNonAgywBenficiaryList
+
 }
