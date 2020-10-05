@@ -21,16 +21,16 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/m
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/ovc_referral_pages/ovc_house_referral_pages/constants/ovc_house_hold_referral_constant.dart';
 import 'package:provider/provider.dart';
 
-class OvcServiceHouseHoldAddReferralForm extends StatefulWidget {
-  OvcServiceHouseHoldAddReferralForm({Key key}) : super(key: key);
+class OvcHouseHoldAddReferralForm extends StatefulWidget {
+  OvcHouseHoldAddReferralForm({Key key}) : super(key: key);
 
   @override
-  _OvcServiceHouseHoldAddReferralFormState createState() =>
-      _OvcServiceHouseHoldAddReferralFormState();
+  _OvcHouseHoldAddReferralFormState createState() =>
+      _OvcHouseHoldAddReferralFormState();
 }
 
-class _OvcServiceHouseHoldAddReferralFormState
-    extends State<OvcServiceHouseHoldAddReferralForm> {
+class _OvcHouseHoldAddReferralFormState
+    extends State<OvcHouseHoldAddReferralForm> {
   final String label = 'HouseHold Referral Form';
   List<FormSection> formSections;
   bool isFormReady = false;
@@ -153,6 +153,8 @@ class _OvcServiceHouseHoldAddReferralFormState
                                     child: EntryFormContainer(
                                       formSections: formSections,
                                       mandatoryFieldObject: Map(),
+                                      isEditableMode:
+                                          serviceFormState.isEditableMode,
                                       dataObject: serviceFormState.formState,
                                       onInputValueChange: onInputValueChange,
                                     ),

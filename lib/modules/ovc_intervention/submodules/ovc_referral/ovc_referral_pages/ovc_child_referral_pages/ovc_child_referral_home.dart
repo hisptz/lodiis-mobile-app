@@ -16,7 +16,9 @@ import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/components/ovc_referral_card.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/components/ovc_referral_card_body.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/ovc_referral_pages/ovc_child_referral_pages/constants/ovc_child_referral_constant.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/ovc_referral_pages/ovc_child_referral_pages/pages/ovc_referral_add_child_form.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/ovc_referral_pages/ovc_child_referral_pages/pages/ovc_child_referral_add_form.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/ovc_referral_pages/ovc_child_referral_pages/pages/ovc_child_referral_manage.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/ovc_referral_pages/ovc_child_referral_pages/pages/ovc_child_referral_view.dart';
 import 'package:provider/provider.dart';
 
 class OvcChildReferralHome extends StatefulWidget {
@@ -57,18 +59,20 @@ class _OvcChildReferralHomeState extends State<OvcChildReferralHome> {
 
   void onAddRefferal(BuildContext context, OvcHouseHoldChild child) {
     updateFormState(context, true, null);
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => OvcServiceChildAddReferralForm()));
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => OvcChildReferralAddForm()));
   }
 
-  void onView(BuildContext context, Events eventData) {
+  void onViewChildReferral(BuildContext context, Events eventData) {
     updateFormState(context, false, eventData);
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => OvcChildReferralView()));
   }
 
-  void onManage(BuildContext context, Events eventData) {
+  void onManageChildReferral(BuildContext context, Events eventData) {
     updateFormState(context, false, eventData);
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => OvcChildReferralManage()));
   }
 
   @override
@@ -141,10 +145,13 @@ class _OvcChildReferralHomeState extends State<OvcChildReferralHome> {
                                                           referralEvent:
                                                               eventData,
                                                         ),
-                                                        onView: () => onView(
-                                                            context, eventData),
+                                                        onView: () =>
+                                                            onViewChildReferral(
+                                                                context,
+                                                                eventData),
                                                         onManage: () =>
-                                                            onManage(context,
+                                                            onManageChildReferral(
+                                                                context,
                                                                 eventData),
                                                       ),
                                                     );

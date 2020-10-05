@@ -21,16 +21,15 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/m
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/ovc_referral_pages/ovc_child_referral_pages/constants/ovc_child_referral_constant.dart';
 import 'package:provider/provider.dart';
 
-class OvcServiceChildAddReferralForm extends StatefulWidget {
-  OvcServiceChildAddReferralForm({Key key}) : super(key: key);
+class OvcChildReferralAddForm extends StatefulWidget {
+  OvcChildReferralAddForm({Key key}) : super(key: key);
 
   @override
-  _OvcServiceChildAddReferralFormState createState() =>
-      _OvcServiceChildAddReferralFormState();
+  _OvcChildReferralAddFormState createState() =>
+      _OvcChildReferralAddFormState();
 }
 
-class _OvcServiceChildAddReferralFormState
-    extends State<OvcServiceChildAddReferralForm> {
+class _OvcChildReferralAddFormState extends State<OvcChildReferralAddForm> {
   final String label = 'Child Referral Form';
   List<FormSection> formSections;
   bool isFormReady = false;
@@ -152,6 +151,8 @@ class _OvcServiceChildAddReferralFormState
                                     child: EntryFormContainer(
                                       formSections: formSections,
                                       mandatoryFieldObject: Map(),
+                                      isEditableMode:
+                                          serviceFormState.isEditableMode,
                                       dataObject: serviceFormState.formState,
                                       onInputValueChange: onInputValueChange,
                                     ),

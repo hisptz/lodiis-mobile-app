@@ -16,18 +16,20 @@ import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/components/ovc_referral_card.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/components/ovc_referral_card_body.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/ovc_referral_pages/ovc_house_referral_pages/constants/ovc_house_hold_referral_constant.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/ovc_referral_pages/ovc_house_referral_pages/pages/ovc_house_hold_referral_manage.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/ovc_referral_pages/ovc_house_referral_pages/pages/ovc_house_hold_referral_view.dart';
 import 'package:provider/provider.dart';
-import 'pages/ovc_referral_add_house_hold_form.dart';
+import 'pages/ovc_house_hold_add_referral_form.dart';
 
-class OvcHouseHoldRefferalHome extends StatefulWidget {
-  OvcHouseHoldRefferalHome({Key key}) : super(key: key);
+class OvcHouseHoldReferralHome extends StatefulWidget {
+  OvcHouseHoldReferralHome({Key key}) : super(key: key);
 
   @override
-  _OvcHouseHoldRefferalHomeState createState() =>
-      _OvcHouseHoldRefferalHomeState();
+  _OvcHouseHoldReferralHomeState createState() =>
+      _OvcHouseHoldReferralHomeState();
 }
 
-class _OvcHouseHoldRefferalHomeState extends State<OvcHouseHoldRefferalHome> {
+class _OvcHouseHoldReferralHomeState extends State<OvcHouseHoldReferralHome> {
   final String label = 'House Hold Referral';
   List<String> programStageids = [OvcHouseHoldReferralConstant.referralStage];
 
@@ -55,18 +57,20 @@ class _OvcHouseHoldRefferalHomeState extends State<OvcHouseHoldRefferalHome> {
 
   void onAddRefferal(BuildContext context, OvcHouseHold child) {
     updateFormState(context, true, null);
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => OvcServiceHouseHoldAddReferralForm()));
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => OvcHouseHoldAddReferralForm()));
   }
 
-  void onView(BuildContext context, Events eventData) {
+  void onViewHouseHoldReferral(BuildContext context, Events eventData) {
     updateFormState(context, false, eventData);
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => OvcHouseHoldReferralView()));
   }
 
-  void onManage(BuildContext context, Events eventData) {
+  void onManageHouseHoldReferral(BuildContext context, Events eventData) {
     updateFormState(context, false, eventData);
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => OvcHouseHoldReferralManage()));
   }
 
   @override
@@ -140,10 +144,13 @@ class _OvcHouseHoldRefferalHomeState extends State<OvcHouseHoldRefferalHome> {
                                                           referralEvent:
                                                               eventData,
                                                         ),
-                                                        onView: () => onView(
-                                                            context, eventData),
+                                                        onView: () =>
+                                                            onViewHouseHoldReferral(
+                                                                context,
+                                                                eventData),
                                                         onManage: () =>
-                                                            onManage(context,
+                                                            onManageHouseHoldReferral(
+                                                                context,
                                                                 eventData),
                                                       ),
                                                     );
