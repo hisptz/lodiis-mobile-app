@@ -18,10 +18,11 @@ import 'package:kb_mobile_app/models/ovc_house_hold_child.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_child_info_top_header.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/models/ovc_exit_information.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_asessment/constants/ovc_service_well_being_assessment_constant.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_pages/child_exit_pages/constants/ovc_exit_case_transfer_constant.dart';
 import 'package:provider/provider.dart';
 
 class OvcExitInformationForm extends StatefulWidget {
+  
   @override
   _OvcExitInformationFormState createState() =>
       _OvcExitInformationFormState();
@@ -63,8 +64,8 @@ class _OvcExitInformationFormState
       String eventId = dataObject['eventId'];
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-            OvcServiceWellBeingAssessmentConstant.program,
-            OvcServiceWellBeingAssessmentConstant.programStage,
+            OvcExitInformationConstant.program,
+            OvcExitInformationConstant.programStage,
             currentOvcHouseHoldChild.orgUnit,
             formSections,
             dataObject,

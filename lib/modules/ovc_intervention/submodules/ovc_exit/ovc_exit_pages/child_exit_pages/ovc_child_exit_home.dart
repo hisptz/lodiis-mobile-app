@@ -1,22 +1,78 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_house_hold_current_selection_state.dart';
+import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
+import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar_container.dart';
+import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
+import 'package:kb_mobile_app/core/utils/app_util.dart';
+import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
+import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_child_info_top_header.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_pages/child_exit_pages/constants/ovc_exit_constant.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_pages/child_exit_pages/pages/ovc_exit_case_closure_form.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_pages/child_exit_pages/pages/ovc_exit_case_transfer_form.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_pages/child_exit_pages/pages/ovc_exit_caseplan_achievement_rediness_form.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_pages/child_exit_pages/pages/ovc_exit_information_form.dart';
 import 'package:provider/provider.dart';
+import 'components/ovc_exit_selection.dart';
 
-class OvcChildExitHome extends StatefulWidget {
-  OvcChildExitHome({Key key}) : super(key: key);
-
-  @override
-  _OvcChildExitHomeState createState() => _OvcChildExitHomeState();
-}
-
-class _OvcChildExitHomeState extends State<OvcChildExitHome> {
+class OvcChildExitHome extends StatelessWidget {
   final String label = 'Child Exit';
+
+  void onAddNewExit(BuildContext context) async {
+    Provider.of<ServiceFormState>(context, listen: false).resetFormState();
+    Widget model = OvcChildExitSelection();
+    String exitResponse =
+        await AppUtil.showPopUpModal(context, model, false);
+    onRedirectToExitForm(context, exitResponse, true);
+  }
+
+  void onRedirectToExitForm(
+      BuildContext context, String exitResponse, bool isEditableMode) {
+    Provider.of<ServiceFormState>(context, listen: false)
+        .updateFormEditabilityState(isEditableMode: isEditableMode);
+    if (exitResponse != null) {
+      exitResponse == 'Exit'
+          ? Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => OvcExitInformationForm()))
+          : exitResponse == 'Transfer'
+              ? Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>  OvcExitCaseTransferForm()))
+              : exitResponse == 'Case closure'
+                  ? Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => OvcExitCaseClosureForm()))
+                           : exitResponse == 'Caseplan Achievement Rediness'
+                              ? Navigator.push(
+                                  context,
+                                     MaterialPageRoute(
+                                         builder: (context) => OvcExitCasePlanAchievementRedinessForm()))
+                  : print(exitResponse);
+    }
+  }
+
+  void updateFormStateData(BuildContext context, Events eventData) {
+    Provider.of<ServiceFormState>(context, listen: false)
+        .setFormFieldState('eventDate', eventData.eventDate);
+    Provider.of<ServiceFormState>(context, listen: false)
+        .setFormFieldState('eventId', eventData.event);
+    for (Map datavalue in eventData.dataValues) {
+      if (datavalue['value'] != '') {
+        Provider.of<ServiceFormState>(context, listen: false)
+            .setFormFieldState(datavalue['dataElement'], datavalue['value']);
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,25 +92,52 @@ class _OvcChildExitHomeState extends State<OvcChildExitHome> {
         ),
         body: SubPageBody(
           body: Container(
-            child: Consumer<OvcHouseHoldCurrentSelectionState>(
-              builder: (context, ovcHouseHoldCurrentSelectionState, child) {
-                var currentOvcHouseHoldChild =
-                    ovcHouseHoldCurrentSelectionState.currentOvcHouseHoldChild;
-                return Container(
-                  child: Column(
-                    children: [
-                      OvcChildInfoTopHeader(),
-                      Container(
-                        margin: EdgeInsets.symmetric(
-                            vertical: 16.0, horizontal: 13.0),
-                        child:
-                            Text('List ${currentOvcHouseHoldChild.toString()}'),
-                      )
-                    ],
-                  ),
-                );
-              },
-            ),
+            child: Column(children: [
+              OvcChildInfoTopHeader(),
+              Container(
+                child: Consumer<ServiveEventDataState>(
+                  builder: (context, serviveEventDataState, child) {
+                    bool isLoading = serviveEventDataState.isLoading;
+                    Map<String, List<Events>> eventListByProgramStage =
+                        serviveEventDataState.eventListByProgramStage;
+                    Map programStageMap =
+                        OvcExitConstant.getOvcExitProgramStageMap();
+                    List<String> programStageids = [];
+                    for (var id in programStageMap.keys.toList()) {
+                      programStageids.add('$id');
+                    }
+                    print(eventListByProgramStage);
+                    List<Events> events = TrackedEntityInstanceUtil
+                        .getAllEventListFromServiceDataState(
+                            eventListByProgramStage, programStageids);
+
+                    return isLoading
+                        ? CircularProcessLoader(
+                            color: Colors.blueGrey,
+                          )
+                        : Container(
+                            margin: EdgeInsets.only(top: 10.0),
+                            child: events.length == 0
+                                ? Center(
+                                    child:
+                                        Text('There is no any exit details at moment'),
+                                  )
+                                : Column(
+                              children: [Text('events $events')],
+                                  ),
+                          );
+                  },
+                ),
+              ),
+              Container(
+                  child: OvcEnrollmentFormSaveButton(
+                label: 'ADD',
+                labelColor: Colors.white,
+                fontSize: 14,
+                buttonColor: Color(0xFF4B9F46),
+                onPressButton: () => onAddNewExit(context),
+              ))
+            ]),
           ),
         ),
         bottomNavigationBar: InterventionBottomNavigationBarContainer());
