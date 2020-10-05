@@ -122,7 +122,7 @@ class _NonAgywEnrollmentPrepScreeningFormState
                         child: EntryFormContainer(
                           formSections: formSections,
                           dataObject: enrollmentFormState.formState,
-                          mandatoryFieldObject: Map(),
+                          mandatoryFieldObject:mandatoryFieldObject,
                           onInputValueChange: onInputValueChange,
                         ),
                       ),
