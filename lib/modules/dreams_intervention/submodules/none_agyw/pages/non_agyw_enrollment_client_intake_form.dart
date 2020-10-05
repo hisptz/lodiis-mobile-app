@@ -26,12 +26,10 @@ class _NonAgywEnrollmentFormSectionFormState
     extends State<NonAgywEnrollmentFormSectionForm> {
   final List<String> mandatoryFields =
       NonAgywEnrollmentFormSection.getMandatoryField();
-   List<FormSection> formSections;
+  List<FormSection> formSections;
   final Map mandatoryFieldObject = Map();
   final String label = 'Household wellbeing Asessment';
   bool isFormReady = false;
-
- 
 
   @override
   void initState() {
@@ -41,22 +39,20 @@ class _NonAgywEnrollmentFormSectionFormState
       for (String id in mandatoryFields) {
         mandatoryFieldObject[id] = true;
       }
-      formSections =    NonAgywEnrollmentFormSection.getFormSections();
+      formSections = NonAgywEnrollmentFormSection.getFormSections();
       isFormReady = true;
     });
   }
 
-
-   void onSaveAndContinue(BuildContext context,Map dataObject) {
-    // handling appropriate actions
-             bool hadAllMandatoryFilled =
+  void onSaveAndContinue(BuildContext context, Map dataObject) {
+    bool hadAllMandatoryFilled =
         AppUtil.hasAllMandarotyFieldsFilled(mandatoryFields, dataObject);
     if (hadAllMandatoryFilled) {
       Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => NonAgywEnrollmentPrepScreeningForm(),
-        ));
+          context,
+          MaterialPageRoute(
+            builder: (context) => NonAgywEnrollmentPrepScreeningForm(),
+          ));
     } else {
       AppUtil.showToastMessage(
           message: 'Please fill all mandatory field',
@@ -88,33 +84,30 @@ class _NonAgywEnrollmentFormSectionFormState
             ),
             body: SubPageBody(
               body: Container(
-                  margin:
-                      EdgeInsets.symmetric(vertical: 16.0, horizontal: 13.0),
-                  child: Consumer<EnrollmentFormState>(
-                          builder: (context, enrollmentFormState, child) =>
-                              Column(
+                margin: EdgeInsets.symmetric(vertical: 16.0, horizontal: 13.0),
+                child: Consumer<EnrollmentFormState>(
+                  builder: (context, enrollmentFormState, child) => Column(
                     children: [
                       Container(
                         child: EntryFormContainer(
-                            formSections: formSections,
-                            dataObject: enrollmentFormState.formState,
-                            mandatoryFieldObject: Map(),
-                            onInputValueChange: onInputValueChange,
-                          ),
+                          formSections: formSections,
+                          dataObject: enrollmentFormState.formState,
+                          mandatoryFieldObject: mandatoryFieldObject,
+                          onInputValueChange: onInputValueChange,
+                        ),
                       ),
                       OvcEnrollmentFormSaveButton(
                         label: 'Save and Continue',
                         labelColor: Colors.white,
                         buttonColor: Color(0xFF4B9F46),
                         fontSize: 15.0,
-                        onPressButton: () => onSaveAndContinue(context,enrollmentFormState.formState),
+                        onPressButton: () => onSaveAndContinue(
+                            context, enrollmentFormState.formState),
                       )
                     ],
                   ),
-                        ),
-                  
-                  
-                  ),
+                ),
+              ),
             ),
             bottomNavigationBar: InterventionBottomNavigationBarContainer()));
   }
