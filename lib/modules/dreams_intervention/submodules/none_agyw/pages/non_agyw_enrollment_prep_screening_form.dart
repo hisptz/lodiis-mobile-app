@@ -74,8 +74,7 @@ class _NonAgywEnrollmentPrepScreeningFormState
       );
       Provider.of<DreamsInterventionListState>(context, listen: false)
           .refreshDreamsList();
-      print(dataObject);
-      Timer(Duration(seconds: 1), () {
+         Timer(Duration(seconds: 1), () {
         if (Navigator.canPop(context)) {
           setState(() {
             isSaving = false;

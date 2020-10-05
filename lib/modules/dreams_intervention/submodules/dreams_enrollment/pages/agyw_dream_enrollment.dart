@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
@@ -67,7 +66,7 @@ class _AgywEntollmentSectionFormState extends State<AgywEntollmentSectionForm> {
         null,
         hiddenFields,
       );
-      
+
       Provider.of<DreamsInterventionListState>(context, listen: false)
           .refreshDreamsList();
       Timer(Duration(seconds: 1), () {
