@@ -4,15 +4,14 @@ import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/input_field_option.dart';
 
 class NonAgywEnrollmentPrepScreening {
-
- static List<String> getMandatoryField() {
+  static List<String> getMandatoryField() {
     return [
       'w16L3KidzUp',
       'sa81lAvBb7Y',
       'nLLHqOGTQK9',
-       ];
+      'dQBja8nUr18',
+  ];
   }
-
 
   static List<FormSection> getFormSections() {
     return [
