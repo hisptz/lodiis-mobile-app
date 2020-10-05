@@ -38,14 +38,8 @@ class OvcHouseHoldCard extends StatelessWidget {
     BuildContext context,
     bool isEditableMode,
   ) {
-    for (var d in ovcHouseHold.teiData.attributes) {
-      if (d['attribute'] == 'yk0OH9p09C1') {
-        print(d);
-      }
-    }
     TrackeEntityInstance teiData = ovcHouseHold.teiData;
     Provider.of<EnrollmentFormState>(context, listen: false).resetFormState();
-    //@todo add other necessary info for edit
     Provider.of<EnrollmentFormState>(context, listen: false)
         .updateFormEditabilityState(isEditableMode: isEditableMode);
     Provider.of<EnrollmentFormState>(context, listen: false).setFormFieldState(

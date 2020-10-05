@@ -144,56 +144,68 @@ class _OvcServicesPageState extends State<OvcServicesPage> {
                                             color: Color(0XFFF6FAF6)),
                                         child: Row(
                                           children: [
-                                            Container(
-                                              child: FlatButton(
-                                                  onPressed: () =>
-                                                      onOpenHouseHoldAssess(
-                                                        context,
-                                                        ovcHouseHold,
+                                            Expanded(
+                                              child: Container(
+                                                child: FlatButton(
+                                                    onPressed: () =>
+                                                        onOpenHouseHoldAssess(
+                                                          context,
+                                                          ovcHouseHold,
+                                                        ),
+                                                    child: Text(
+                                                      'ASSESS',
+                                                      style:
+                                                          TextStyle().copyWith(
+                                                        fontSize: 12.0,
+                                                        color:
+                                                            Color(0xFF4B9F46),
+                                                        fontWeight:
+                                                            FontWeight.w500,
                                                       ),
-                                                  child: Text(
-                                                    'ASSESS',
-                                                    style: TextStyle().copyWith(
-                                                      fontSize: 12.0,
-                                                      color: Color(0xFF4B9F46),
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                    ),
-                                                  )),
+                                                    )),
+                                              ),
                                             ),
-                                            Container(
-                                              child: FlatButton(
-                                                  onPressed: () =>
-                                                      onOpenHouseHoldCasePlan(
-                                                        context,
-                                                        ovcHouseHold,
+                                            Expanded(
+                                              child: Container(
+                                                child: FlatButton(
+                                                    onPressed: () =>
+                                                        onOpenHouseHoldCasePlan(
+                                                          context,
+                                                          ovcHouseHold,
+                                                        ),
+                                                    child: Text(
+                                                      'PLAN',
+                                                      style:
+                                                          TextStyle().copyWith(
+                                                        fontSize: 12.0,
+                                                        color:
+                                                            Color(0xFF4B9F46),
+                                                        fontWeight:
+                                                            FontWeight.w500,
                                                       ),
-                                                  child: Text(
-                                                    'PLAN',
-                                                    style: TextStyle().copyWith(
-                                                      fontSize: 12.0,
-                                                      color: Color(0xFF4B9F46),
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                    ),
-                                                  )),
+                                                    )),
+                                              ),
                                             ),
-                                            Container(
-                                              child: FlatButton(
-                                                  onPressed: () =>
-                                                      onOpenHouseHoldMonitor(
-                                                        context,
-                                                        ovcHouseHold,
+                                            Expanded(
+                                              child: Container(
+                                                child: FlatButton(
+                                                    onPressed: () =>
+                                                        onOpenHouseHoldMonitor(
+                                                          context,
+                                                          ovcHouseHold,
+                                                        ),
+                                                    child: Text(
+                                                      'MONITOR',
+                                                      style:
+                                                          TextStyle().copyWith(
+                                                        fontSize: 12.0,
+                                                        color:
+                                                            Color(0xFF4B9F46),
+                                                        fontWeight:
+                                                            FontWeight.w500,
                                                       ),
-                                                  child: Text(
-                                                    'MONITOR',
-                                                    style: TextStyle().copyWith(
-                                                      fontSize: 12.0,
-                                                      color: Color(0xFF4B9F46),
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                    ),
-                                                  )),
+                                                    )),
+                                              ),
                                             ),
                                           ],
                                         ),

@@ -37,10 +37,10 @@ class AgywDreamEnrollmentService {
     TrackeEntityInstance trackeEntityInstanceData =
         FormUtil.geTrackedEntityInstanceEnrollmentPayLoad(trackedEntityInstance,
             trackedEntityType, orgUnit, inputFieldIds, dataObject);
-    FormUtil.savingTrackeEntityInstance(trackeEntityInstanceData);
+    await FormUtil.savingTrackeEntityInstance(trackeEntityInstanceData);
     Enrollment enrollmentData = FormUtil.getEnrollmentPayLoad(enrollment,
         enrollmentDate, incidentDate, orgUnit, program, trackedEntityInstance);
-    FormUtil.savingEnrollment(enrollmentData);
+    await FormUtil.savingEnrollment(enrollmentData);
   }
 
   Future<List<AgywDream>> getAgywBenficiaryList() async {
