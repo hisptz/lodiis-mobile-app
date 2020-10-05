@@ -7,6 +7,8 @@ import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_bene
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_home_container.dart';
 import 'package:provider/provider.dart';
 
+import 'dream_enrollment_page_view_form.dart';
+
 class DreamsEnrollmentPage extends StatefulWidget {
   const DreamsEnrollmentPage({Key key}) : super(key: key);
 
@@ -58,6 +60,8 @@ class _DreamsEnrollmentPageState extends State<DreamsEnrollmentPage> {
                           children: agywDreamsInterventionList
                               .map((AgywDream agywBeneficiary) {
                             return DreamsBeneficiaryCard(
+                              routeWidget: DreamAgywEnrollmentViewForm(),
+                              agywDream: agywBeneficiary,
                               canEdit: canEdit,
                               canExpand: canExpand,
                               beneficiaryName: agywBeneficiary.toString(),
