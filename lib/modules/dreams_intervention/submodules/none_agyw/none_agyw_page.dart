@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
+import 'package:kb_mobile_app/core/components/line_seperator.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_card_body.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_card.dart';
@@ -28,7 +29,9 @@ class _NoneAgywState extends State<NoneAgyw> {
     });
   }
 
-  void onOpenPrepForm() {}
+  void onPrep(BuildContext context, AgywDream agywDream) {
+    print("on prep none agyw");
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +77,29 @@ class _NoneAgywState extends State<NoneAgyw> {
                                   isVerticalLayout:
                                       agywBeneficiary.benefecaryId ==
                                           toggleCardId),
-                              cardBottonActions: Container(),
+                              cardBottonActions: Container(
+                                child: Column(
+                                  children: [
+                                    LineSeperator(
+                                      color: Color(0xFFE9F4FA),
+                                    ),
+                                    Container(
+                                      child: MaterialButton(
+                                        onPressed: () => onPrep(
+                                          context,
+                                          agywBeneficiary,
+                                        ),
+                                        child: Text('PREP',
+                                            style: TextStyle().copyWith(
+                                              fontSize: 14.0,
+                                              fontWeight: FontWeight.normal,
+                                              color: Color(0xFF1F8ECE),
+                                            )),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
                               cardBottonContent: Container(),
                             );
                           }).toList(),
