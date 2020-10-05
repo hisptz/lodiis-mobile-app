@@ -22,8 +22,7 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/o
 import 'package:provider/provider.dart';
 
 class OvcServiceChildAddReferralForm extends StatefulWidget {
-  final OvcHouseHoldChild ovcHouseHoldChild;
-  OvcServiceChildAddReferralForm({this.ovcHouseHoldChild});
+  OvcServiceChildAddReferralForm({Key key}) : super(key: key);
 
   @override
   _OvcServiceChildAddReferralFormState createState() =>
@@ -32,7 +31,7 @@ class OvcServiceChildAddReferralForm extends StatefulWidget {
 
 class _OvcServiceChildAddReferralFormState
     extends State<OvcServiceChildAddReferralForm> {
-  final String label = 'Add Child Referral';
+  final String label = 'Child Referral Form';
   List<FormSection> formSections;
   bool isFormReady = false;
   bool isSaving = false;
@@ -64,8 +63,12 @@ class _OvcServiceChildAddReferralFormState
       });
       String eventDate = dataObject['eventDate'];
       String eventId = dataObject['eventId'];
-      dataObject['Ntee9tw45ja'] = dataObject['Ntee9tw45ja'] ?? AppUtil.getUid();
-      List<String> hiddenFields = ['Ntee9tw45ja'];
+      dataObject[OvcChildReferralConstant.referralToFollowUpLinkage] =
+          dataObject[OvcChildReferralConstant.referralToFollowUpLinkage] ??
+              AppUtil.getUid();
+      List<String> hiddenFields = [
+        OvcChildReferralConstant.referralToFollowUpLinkage
+      ];
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
           OvcChildReferralConstant.program,

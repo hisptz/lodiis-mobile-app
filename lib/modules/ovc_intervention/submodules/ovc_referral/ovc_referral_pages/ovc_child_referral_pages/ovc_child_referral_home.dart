@@ -30,24 +30,46 @@ class _OvcChildReferralHomeState extends State<OvcChildReferralHome> {
   final String label = 'Child Referral';
   final List<String> programStageids = [OvcChildReferralConstant.referralStage];
 
-  void onAddRefferal(BuildContext context, OvcHouseHoldChild child) {
+  void updateFormState(
+    BuildContext context,
+    bool isEditableMode,
+    Events eventData,
+  ) {
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
+    Provider.of<ServiceFormState>(context, listen: false)
+        .updateFormEditabilityState(isEditableMode: isEditableMode);
+    if (eventData != null) {
+      if (eventData != null) {
+        Provider.of<ServiceFormState>(context, listen: false)
+            .setFormFieldState('eventDate', eventData.eventDate);
+        Provider.of<ServiceFormState>(context, listen: false)
+            .setFormFieldState('eventId', eventData.event);
+        for (Map datavalue in eventData.dataValues) {
+          if (datavalue['value'] != '') {
+            Provider.of<ServiceFormState>(context, listen: false)
+                .setFormFieldState(
+                    datavalue['dataElement'], datavalue['value']);
+          }
+        }
+      }
+    }
+  }
+
+  void onAddRefferal(BuildContext context, OvcHouseHoldChild child) {
+    updateFormState(context, true, null);
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) =>
-                OvcServiceChildAddReferralForm(ovcHouseHoldChild: child)));
+            builder: (context) => OvcServiceChildAddReferralForm()));
   }
 
-  void onView(BuildContext context) {
-    print('onView');
+  void onView(BuildContext context, Events eventData) {
+    updateFormState(context, false, eventData);
   }
 
-  void onManage(BuildContext context) {
-    print('on Manage');
+  void onManage(BuildContext context, Events eventData) {
+    updateFormState(context, false, eventData);
   }
-
-  final _controller = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -119,10 +141,11 @@ class _OvcChildReferralHomeState extends State<OvcChildReferralHome> {
                                                           referralEvent:
                                                               eventData,
                                                         ),
-                                                        onView: () =>
-                                                            onView(context),
+                                                        onView: () => onView(
+                                                            context, eventData),
                                                         onManage: () =>
-                                                            onManage(context),
+                                                            onManage(context,
+                                                                eventData),
                                                       ),
                                                     );
                                                   }).toList(),

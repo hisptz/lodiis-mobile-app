@@ -31,21 +31,42 @@ class _OvcHouseHoldRefferalHomeState extends State<OvcHouseHoldRefferalHome> {
   final String label = 'House Hold Referral';
   List<String> programStageids = [OvcHouseHoldReferralConstant.referralStage];
 
-  void onAddRefferal(BuildContext context, OvcHouseHold child) {
+  void updateFormState(
+    BuildContext context,
+    bool isEditableMode,
+    Events eventData,
+  ) {
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
+    Provider.of<ServiceFormState>(context, listen: false)
+        .updateFormEditabilityState(isEditableMode: isEditableMode);
+    if (eventData != null) {
+      Provider.of<ServiceFormState>(context, listen: false)
+          .setFormFieldState('eventDate', eventData.eventDate);
+      Provider.of<ServiceFormState>(context, listen: false)
+          .setFormFieldState('eventId', eventData.event);
+      for (Map datavalue in eventData.dataValues) {
+        if (datavalue['value'] != '') {
+          Provider.of<ServiceFormState>(context, listen: false)
+              .setFormFieldState(datavalue['dataElement'], datavalue['value']);
+        }
+      }
+    }
+  }
+
+  void onAddRefferal(BuildContext context, OvcHouseHold child) {
+    updateFormState(context, true, null);
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) =>
-                OvcServiceHouseHoldAddReferralForm(ovcHouseHold: child)));
+            builder: (context) => OvcServiceHouseHoldAddReferralForm()));
   }
 
-  void onView(BuildContext context) {
-    print('onView');
+  void onView(BuildContext context, Events eventData) {
+    updateFormState(context, false, eventData);
   }
 
-  void onManage(BuildContext context) {
-    print('on Manage');
+  void onManage(BuildContext context, Events eventData) {
+    updateFormState(context, false, eventData);
   }
 
   @override
@@ -119,10 +140,11 @@ class _OvcHouseHoldRefferalHomeState extends State<OvcHouseHoldRefferalHome> {
                                                           referralEvent:
                                                               eventData,
                                                         ),
-                                                        onView: () =>
-                                                            onView(context),
+                                                        onView: () => onView(
+                                                            context, eventData),
                                                         onManage: () =>
-                                                            onManage(context),
+                                                            onManage(context,
+                                                                eventData),
                                                       ),
                                                     );
                                                   }).toList(),
