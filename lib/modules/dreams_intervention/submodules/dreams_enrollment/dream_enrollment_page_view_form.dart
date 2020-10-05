@@ -47,8 +47,7 @@ class _DreamAgywEnrollmentViewFormState
         return consentFormSection;
       }).toList();
       enrollmentFormSections = AgywEnrollmentFormSection.getFormSections();
-      riskAssessmentFormSections =
-          AgywEnrollmentRiskAssessment.getFormSections();
+      riskAssessmentFormSections =  AgywEnrollmentRiskAssessment.getFormSections();
       formSections.addAll(riskAssessmentFormSections);
       formSections.addAll(enrollmentFormSections);
       isFormReady = true;

@@ -7,8 +7,8 @@ import 'package:kb_mobile_app/models/enrollment.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/organisation_unit.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/models/non_agyw_enrollment_client_intake.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/models/non_agyw_enrollment_prep_screening.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/non_agyw/models/non_agyw_enrollment_client_intake.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/non_agyw/models/non_agyw_enrollment_prep_screening.dart';
 
 class NonAgywDreamEnrollmentService {
   final String program = 'CK4iMK8b0aZ';

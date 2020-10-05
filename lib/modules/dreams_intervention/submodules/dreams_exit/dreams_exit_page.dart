@@ -5,7 +5,6 @@ import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_card_body.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_home_container.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/dream_enrollment_page_view_form.dart';
 import 'package:provider/provider.dart';
 
 class DreamsExitPage extends StatefulWidget {
@@ -59,7 +58,7 @@ class _DreamsExitPageState extends State<DreamsExitPage> {
                           children: agywDreamsInterventionList
                               .map((AgywDream agywBeneficiary) {
                             return DreamsBeneficiaryCard(
-                              routeWidget: DreamAgywEnrollmentViewForm(),
+                              isAgywEnrollment: false,
                               agywDream: agywBeneficiary,
                               canEdit: canEdit,
                               canExpand: canExpand,
