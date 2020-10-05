@@ -31,6 +31,7 @@ class DreamsInterventionListState with ChangeNotifier {
         NonAgywDreamEnrollmentService().getNonAgywBenficiaryList();
         
     _isLoading = false;
+     _numberOfAgywDreamsBeneficiaries = _agywDreamsInterventionList.length;
     _numberOfNoneAgywDreamsBeneficiaries = _noneAgywDreamsInterventionList.length;
     notifyListeners();
   }
