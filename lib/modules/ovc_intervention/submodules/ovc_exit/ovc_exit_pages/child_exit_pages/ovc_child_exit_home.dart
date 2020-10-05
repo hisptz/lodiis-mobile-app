@@ -19,6 +19,7 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_e
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_pages/child_exit_pages/pages/ovc_exit_caseplan_achievement_rediness_form.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_pages/child_exit_pages/pages/ovc_exit_information_form.dart';
 import 'package:provider/provider.dart';
+import 'components/ovc_exit_list_card.dart';
 import 'components/ovc_exit_selection.dart';
 
 class OvcChildExitHome extends StatelessWidget {
@@ -74,6 +75,27 @@ class OvcChildExitHome extends StatelessWidget {
     }
   }
 
+  void onViewExit(
+    BuildContext context,
+    String exitResponse,
+    Events eventData,
+  ) {
+    bool isEditableMode = false;
+    updateFormStateData(context, eventData);
+    onRedirectToExitForm(context, exitResponse, isEditableMode);
+  }
+
+  void onEditExit(
+    BuildContext context,
+    String exitResponse,
+    Events eventData,
+  ) {
+    bool isEditableMode = true;
+    updateFormStateData(context, eventData);
+    onRedirectToExitForm(context, exitResponse, isEditableMode);
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -123,7 +145,31 @@ class OvcChildExitHome extends StatelessWidget {
                                         Text('There is no any exit details at moment'),
                                   )
                                 : Column(
-                              children: [Text('events $events')],
+                               children: events
+                                        .map((Events eventData) =>
+                                            OvcExitListCard(
+                                              eventData: eventData,
+                                              programStageMap: programStageMap,
+                                              onEditExit: () {
+                                                String exitResponse =
+                                                    programStageMap[
+                                                        eventData.programStage];
+                                                onEditExit(
+                                                    context,
+                                                    exitResponse,
+                                                    eventData);
+                                              },
+                                              onViewExit: () {
+                                                String exitResponse =
+                                                    programStageMap[
+                                                        eventData.programStage];
+                                                onViewExit(
+                                                    context,
+                                                    exitResponse,
+                                                    eventData);
+                                              },
+                                            ))
+                                        .toList(),
                                   ),
                           );
                   },
