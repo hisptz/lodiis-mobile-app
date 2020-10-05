@@ -6,10 +6,7 @@ import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_card_body.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_home_container.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/dream_enrollment_page_view_form.dart';
 import 'package:provider/provider.dart';
-
-import 'none_agyw_enrollment_page_view_form.dart';
 
 class NoneAgyw extends StatefulWidget {
   const NoneAgyw({Key key}) : super(key: key);
@@ -20,7 +17,7 @@ class NoneAgyw extends StatefulWidget {
 
 class _NoneAgywState extends State<NoneAgyw> {
   final String title = 'BENEFICIARY LIST';
-  final bool canEdit = false;
+  final bool canEdit = true;
   final bool canView = true;
   final bool canExpand = true;
 
@@ -33,7 +30,7 @@ class _NoneAgywState extends State<NoneAgyw> {
   }
 
   void onPrep(BuildContext context, AgywDream agywDream) {
-    print("on prep none agyw");
+    print("on prep non agyw");
   }
 
   @override
@@ -66,7 +63,7 @@ class _NoneAgywState extends State<NoneAgyw> {
                           children: noneAgywDreamsInterventionList
                               .map((AgywDream agywBeneficiary) {
                             return DreamsBeneficiaryCard(
-                              routeWidget: DreamNonAgywEnrollmentViewForm(),
+                              isAgywEnrollment: false,
                               agywDream: agywBeneficiary,
                               canEdit: canEdit,
                               canExpand: canExpand,

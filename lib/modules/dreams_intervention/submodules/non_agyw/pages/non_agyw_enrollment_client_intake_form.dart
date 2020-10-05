@@ -1,8 +1,5 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar_container.dart';
@@ -12,30 +9,27 @@ import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/services/non_agyw_dream_enrollment_service.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/models/non_agyw_enrollment_prep_screening.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/non_agyw/models/non_agyw_enrollment_client_intake.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
 import 'package:provider/provider.dart';
+import 'non_agyw_enrollment_prep_screening_form.dart';
 
-class NonAgywEnrollmentPrepScreeningForm extends StatefulWidget {
-  const NonAgywEnrollmentPrepScreeningForm({Key key}) : super(key: key);
+class NonAgywEnrollmentFormSectionForm extends StatefulWidget {
+  const NonAgywEnrollmentFormSectionForm({Key key}) : super(key: key);
 
   @override
-  _NonAgywEnrollmentPrepScreeningFormState createState() =>
-      _NonAgywEnrollmentPrepScreeningFormState();
+  _NonAgywEnrollmentFormSectionFormState createState() =>
+      _NonAgywEnrollmentFormSectionFormState();
 }
 
-class _NonAgywEnrollmentPrepScreeningFormState
-    extends State<NonAgywEnrollmentPrepScreeningForm> {
+class _NonAgywEnrollmentFormSectionFormState
+    extends State<NonAgywEnrollmentFormSectionForm> {
   final List<String> mandatoryFields =
-      NonAgywEnrollmentPrepScreening.getMandatoryField();
+      NonAgywEnrollmentFormSection.getMandatoryField();
   List<FormSection> formSections;
-  final String label = 'PrEP Screening';
-
   final Map mandatoryFieldObject = Map();
-  final String trackedEntityInstance = AppUtil.getUid();
+  final String label = 'Household wellbeing Asessment';
   bool isFormReady = false;
-  bool isSaving = false;
 
   @override
   void initState() {
@@ -45,44 +39,20 @@ class _NonAgywEnrollmentPrepScreeningFormState
       for (String id in mandatoryFields) {
         mandatoryFieldObject[id] = true;
       }
-      formSections = NonAgywEnrollmentPrepScreening.getFormSections();
+      formSections = NonAgywEnrollmentFormSection.getFormSections();
       isFormReady = true;
     });
   }
 
-  void onSaveAndContinue(BuildContext context, Map dataObject) async {
+  void onSaveAndContinue(BuildContext context, Map dataObject) {
     bool hadAllMandatoryFilled =
         AppUtil.hasAllMandarotyFieldsFilled(mandatoryFields, dataObject);
     if (hadAllMandatoryFilled) {
-      setState(() {
-        isSaving = true;
-      });
-      dataObject['KvmQjZbGZQU'] = AppUtil.getUid();
-      dataObject['PN92g65TkVI'] = 'Active';
-      List<String> hiddenFields = ['KvmQjZbGZQU', 'PN92g65TkVI'];
-      String orgUnit = dataObject['location'];
-      await NonAgywDreamEnrollmentService().savingNonAgwyBeneficiary(
-        dataObject,
-        trackedEntityInstance,
-        orgUnit,
-        null,
-        null,
-        null,
-        hiddenFields,
-      );
-      Provider.of<DreamsInterventionListState>(context, listen: false)
-          .refreshDreamsList();
-      Timer(Duration(seconds: 1), () {
-        if (Navigator.canPop(context)) {
-          setState(() {
-            isSaving = false;
-          });
-          AppUtil.showToastMessage(
-              message: 'Form has been saved successfully',
-              position: ToastGravity.TOP);
-          Navigator.popUntil(context, (route) => route.isFirst);
-        }
-      });
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => NonAgywEnrollmentPrepScreeningForm(),
+          ));
     } else {
       AppUtil.showToastMessage(
           message: 'Please fill all mandatory field',
@@ -122,14 +92,14 @@ class _NonAgywEnrollmentPrepScreeningFormState
                         child: EntryFormContainer(
                           formSections: formSections,
                           dataObject: enrollmentFormState.formState,
-                          mandatoryFieldObject:mandatoryFieldObject,
+                          mandatoryFieldObject: mandatoryFieldObject,
                           onInputValueChange: onInputValueChange,
                         ),
                       ),
                       OvcEnrollmentFormSaveButton(
                         label: 'Save and Continue',
                         labelColor: Colors.white,
-                        buttonColor: Color(0xFF4B9F46),
+                        buttonColor: Color(0xFF258DCC),
                         fontSize: 15.0,
                         onPressButton: () => onSaveAndContinue(
                             context, enrollmentFormState.formState),
