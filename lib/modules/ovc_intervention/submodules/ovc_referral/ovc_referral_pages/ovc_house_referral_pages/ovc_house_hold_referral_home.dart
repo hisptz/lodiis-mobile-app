@@ -29,7 +29,6 @@ class OvcHouseHoldRefferalHome extends StatefulWidget {
 
 class _OvcHouseHoldRefferalHomeState extends State<OvcHouseHoldRefferalHome> {
   final String label = 'House Hold Referral';
-
   List<String> programStageids = [OvcHouseHoldReferralConstant.referralStage];
 
   void onAddRefferal(BuildContext context, OvcHouseHold child) {
@@ -48,8 +47,6 @@ class _OvcHouseHoldRefferalHomeState extends State<OvcHouseHoldRefferalHome> {
   void onManage(BuildContext context) {
     print('on Manage');
   }
-
-  final _controller = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -81,6 +78,7 @@ class _OvcHouseHoldRefferalHomeState extends State<OvcHouseHoldRefferalHome> {
                     List<Events> events = TrackedEntityInstanceUtil
                         .getAllEventListFromServiceDataState(
                             eventListByProgramStage, programStageids);
+                    int referralIndex = events.length + 1;
                     return Container(
                       child: Column(
                         children: [
@@ -101,43 +99,35 @@ class _OvcHouseHoldRefferalHomeState extends State<OvcHouseHoldRefferalHome> {
                                         child: events.length == 0
                                             ? Text(
                                                 'There is no House Hold Refferal at a moment')
-                                            : ListView.builder(
-                                                itemCount: events.length,
-                                                scrollDirection: Axis.vertical,
-                                                controller: _controller,
-                                                shrinkWrap: true,
-                                                itemBuilder: (
-                                                  context,
-                                                  int referralCardCount,
-                                                ) {
-                                                  Map<String, dynamic>
-                                                      referralData =
-                                                      (Events().toOffline(events[
-                                                          referralCardCount]));
-                                                  return isLoading
-                                                      ? CircularProcessLoader(
-                                                          color:
-                                                              Colors.blueGrey)
-                                                      : Container(
-                                                          margin: EdgeInsets
-                                                              .symmetric(
-                                                            vertical: 5.0,
-                                                            horizontal: 13.0,
-                                                          ),
-                                                          child: OvcReferralCard(
-                                                              count:
-                                                                  referralCardCount +
-                                                                      1,
-                                                              cardBody: OvcReferralCardBody(
-                                                                  referralDetails:
-                                                                      referralData),
-                                                              onView: () =>
-                                                                  onView(
-                                                                      context),
-                                                              onManage: () =>
-                                                                  onManage(
-                                                                      context)));
-                                                }),
+                                            : Container(
+                                                margin: EdgeInsets.symmetric(
+                                                  vertical: 5.0,
+                                                  horizontal: 13.0,
+                                                ),
+                                                child: Column(
+                                                  children: events
+                                                      .map((Events eventData) {
+                                                    referralIndex--;
+                                                    return Container(
+                                                      margin: EdgeInsets.only(
+                                                        bottom: 15.0,
+                                                      ),
+                                                      child: OvcReferralCard(
+                                                        count: referralIndex,
+                                                        cardBody:
+                                                            OvcReferralCardBody(
+                                                          referralEvent:
+                                                              eventData,
+                                                        ),
+                                                        onView: () =>
+                                                            onView(context),
+                                                        onManage: () =>
+                                                            onManage(context),
+                                                      ),
+                                                    );
+                                                  }).toList(),
+                                                ),
+                                              ),
                                       ),
                                       OvcEnrollmentFormSaveButton(
                                           label: 'ADD REFFERAL',
