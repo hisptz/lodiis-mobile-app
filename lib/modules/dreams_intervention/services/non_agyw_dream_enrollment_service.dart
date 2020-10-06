@@ -59,11 +59,15 @@ class NonAgywDreamEnrollmentService {
             await TrackedEntityInstanceOfflineProvider()
                 .getTrackedEntityInstance([enrollment.trackedEntityInstance]);
         for (TrackeEntityInstance tei in dataHolds) {
-           agywDreamList.add(AgywDream()
-              .fromTeiModel(tei, orgUnit, location, createdDate, enrollmentId));
+          print(tei);
+          try {
+            agywDreamList.add(AgywDream().fromTeiModel(
+                tei, orgUnit, location, createdDate, enrollmentId));
+          } catch (e) {}
         }
       }
     } catch (e) {}
+
     return agywDreamList;
   }
 }
