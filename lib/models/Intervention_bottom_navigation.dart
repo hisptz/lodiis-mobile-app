@@ -43,7 +43,8 @@ class InterventionBottomNavigation {
       InterventionCard activeInterventionProgram) {
     return defaultInterventionNavigationButtons
         .where((InterventionBottomNavigation interventionBottomNavigation) {
-      return interventionBottomNavigation.id == 'records'
+      return interventionBottomNavigation.id == 'records' ||
+              interventionBottomNavigation.id == 'exit'
           ? activeInterventionProgram.id == 'ovc'
           : interventionBottomNavigation.id == 'noneAgyw'
               ? activeInterventionProgram.id == 'dreams'

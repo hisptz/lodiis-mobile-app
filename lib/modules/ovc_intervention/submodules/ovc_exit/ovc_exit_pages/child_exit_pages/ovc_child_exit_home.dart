@@ -28,8 +28,7 @@ class OvcChildExitHome extends StatelessWidget {
   void onAddNewExit(BuildContext context) async {
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
     Widget model = OvcChildExitSelection();
-    String exitResponse =
-        await AppUtil.showPopUpModal(context, model, false);
+    String exitResponse = await AppUtil.showPopUpModal(context, model, false);
     onRedirectToExitForm(context, exitResponse, true);
   }
 
@@ -39,26 +38,25 @@ class OvcChildExitHome extends StatelessWidget {
         .updateFormEditabilityState(isEditableMode: isEditableMode);
     if (exitResponse != null) {
       exitResponse == 'Exit'
-          ? Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => OvcExitInformationForm()))
+          ? Navigator.push(context,
+              MaterialPageRoute(builder: (context) => OvcExitInformationForm()))
           : exitResponse == 'Transfer'
               ? Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) =>  OvcExitCaseTransferForm()))
+                      builder: (context) => OvcExitCaseTransferForm()))
               : exitResponse == 'Case closure'
                   ? Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) => OvcExitCaseClosureForm()))
-                           : exitResponse == 'Caseplan Achievement Rediness'
-                              ? Navigator.push(
-                                  context,
-                                     MaterialPageRoute(
-                                         builder: (context) => OvcExitCasePlanAchievementRedinessForm()))
-                  : print(exitResponse);
+                  : exitResponse == 'Caseplan Achievement Rediness'
+                      ? Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  OvcExitCasePlanAchievementRedinessForm()))
+                      : print(exitResponse);
     }
   }
 
@@ -95,7 +93,6 @@ class OvcChildExitHome extends StatelessWidget {
     onRedirectToExitForm(context, exitResponse, isEditableMode);
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -128,11 +125,9 @@ class OvcChildExitHome extends StatelessWidget {
                     for (var id in programStageMap.keys.toList()) {
                       programStageids.add('$id');
                     }
-                    print(eventListByProgramStage);
                     List<Events> events = TrackedEntityInstanceUtil
                         .getAllEventListFromServiceDataState(
                             eventListByProgramStage, programStageids);
-
                     return isLoading
                         ? CircularProcessLoader(
                             color: Colors.blueGrey,
@@ -141,11 +136,11 @@ class OvcChildExitHome extends StatelessWidget {
                             margin: EdgeInsets.only(top: 10.0),
                             child: events.length == 0
                                 ? Center(
-                                    child:
-                                        Text('There is no any exit details at moment'),
+                                    child: Text(
+                                        'There is no any exit details at moment'),
                                   )
                                 : Column(
-                               children: events
+                                    children: events
                                         .map((Events eventData) =>
                                             OvcExitListCard(
                                               eventData: eventData,
@@ -154,19 +149,15 @@ class OvcChildExitHome extends StatelessWidget {
                                                 String exitResponse =
                                                     programStageMap[
                                                         eventData.programStage];
-                                                onEditExit(
-                                                    context,
-                                                    exitResponse,
-                                                    eventData);
+                                                onEditExit(context,
+                                                    exitResponse, eventData);
                                               },
                                               onViewExit: () {
                                                 String exitResponse =
                                                     programStageMap[
                                                         eventData.programStage];
-                                                onViewExit(
-                                                    context,
-                                                    exitResponse,
-                                                    eventData);
+                                                onViewExit(context,
+                                                    exitResponse, eventData);
                                               },
                                             ))
                                         .toList(),
