@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
@@ -28,8 +27,7 @@ class AgywEntollmentSectionForm extends StatefulWidget {
 class _AgywEntollmentSectionFormState extends State<AgywEntollmentSectionForm> {
   List<FormSection> formSections;
   final String label = 'Enrollment Assessment';
-  final List<String> mandatoryFields =
-      AgywEnrollmentFormSection.getMandatoryField();
+  final List<String> mandatoryFields = AgywEnrollmentFormSection.getMandatoryField();
   final Map mandatoryFieldObject = Map();
   final String trackedEntityInstance = AppUtil.getUid();
   bool isFormReady = false;
@@ -54,10 +52,11 @@ class _AgywEntollmentSectionFormState extends State<AgywEntollmentSectionForm> {
       setState(() {
         isSaving = true;
       });
-      dataObject['KvmQjZbGZQU'] = AppUtil.getUid();
-      dataObject['PN92g65TkVI'] = 'Active';
-      List<String> hiddenFields = ['KvmQjZbGZQU', 'PN92g65TkVI'];
+
+      dataObject['d8uBlGOpFhJ'] = AppUtil.getUid();
+      List<String> hiddenFields = ['d8uBlGOpFhJ',];
       String orgUnit = dataObject['location'];
+
       await AgywDreamEnrollmentService().savingAgwyBeneficiary(
         dataObject,
         trackedEntityInstance,
@@ -67,6 +66,7 @@ class _AgywEntollmentSectionFormState extends State<AgywEntollmentSectionForm> {
         null,
         hiddenFields,
       );
+
       Provider.of<DreamsInterventionListState>(context, listen: false)
           .refreshDreamsList();
       Timer(Duration(seconds: 1), () {

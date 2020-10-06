@@ -58,6 +58,8 @@ class _DreamsExitPageState extends State<DreamsExitPage> {
                           children: agywDreamsInterventionList
                               .map((AgywDream agywBeneficiary) {
                             return DreamsBeneficiaryCard(
+                              isAgywEnrollment: false,
+                              agywDream: agywBeneficiary,
                               canEdit: canEdit,
                               canExpand: canExpand,
                               beneficiaryName: agywBeneficiary.toString(),
