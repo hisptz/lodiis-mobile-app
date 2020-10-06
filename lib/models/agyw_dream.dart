@@ -66,7 +66,7 @@ class AgywDream {
       surname: data['rSP9c21JsfC'],
       age: age.toString(),
       ageBand: agywAgeBand(age) ?? '',
-      benefecaryId: data['KvmQjZbGZQU'] ?? data['d8uBlGOpFhJ']??'',
+      benefecaryId: data['KvmQjZbGZQU'] ?? data['d8uBlGOpFhJ'] ?? '',
       sex: data['vIX4GTSCX4P'] ?? '',
       programStatus: data['PN92g65TkVI'] ?? '',
       orgUnit: orgUnit,
