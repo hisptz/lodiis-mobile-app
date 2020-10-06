@@ -8,6 +8,8 @@ import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_bene
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_home_container.dart';
 import 'package:provider/provider.dart';
 
+import 'sub_pages/non_agyw_prep.dart';
+
 class NoneAgyw extends StatefulWidget {
   const NoneAgyw({Key key}) : super(key: key);
 
@@ -30,7 +32,11 @@ class _NoneAgywState extends State<NoneAgyw> {
   }
 
   void onPrep(BuildContext context, AgywDream agywDream) {
-    print("on prep non agyw");
+   Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => NonAgywPrepPage(agywDream: agywDream,),
+          ));
   }
 
   @override
