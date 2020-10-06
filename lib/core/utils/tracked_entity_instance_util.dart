@@ -36,7 +36,7 @@ class TrackedEntityInstanceUtil {
     try {
       trackedEntityInstanceIds.add(trackedEntityInstance);
       events = await EventOfflineProvider()
-          .getTrackedEntityInstance(trackedEntityInstanceIds);
+          .getTrackedEntityInstanceEvents(trackedEntityInstanceIds);
     } catch (e) {}
     return events;
   }

@@ -26,7 +26,7 @@ class EventOfflineProvider extends OfflineDbProvider {
     await EventOfflineDataValueProvider().addOrUpdateEventDataValues(event);
   }
 
-  Future<List<Events>> getTrackedEntityInstance(
+  Future<List<Events>> getTrackedEntityInstanceEvents(
     List<String> trackedEntityInstanceIds,
   ) async {
     List<Events> events = [];
@@ -57,6 +57,41 @@ class EventOfflineProvider extends OfflineDbProvider {
             eventData.dataValues = dataValues;
             events.add(eventData);
           }
+        }
+      }
+    } catch (e) {}
+    return events..sort((b, a) => a.eventDate.compareTo(b.eventDate));
+  }
+
+  Future<List<Events>> getTrackedEntityInstanceEventsByStatus(
+    String eventSyncStatus,
+  ) async {
+    List<Events> events = [];
+    try {
+      var dbClient = await db;
+      List<Map> maps = await dbClient.query(
+        table,
+        columns: [
+          id,
+          event,
+          eventDate,
+          program,
+          programStage,
+          trackedEntityInstance,
+          status,
+          orgUnit,
+          syncStatus,
+        ],
+        where: '$syncStatus = ?',
+        whereArgs: [eventSyncStatus],
+      );
+      if (maps.isNotEmpty) {
+        for (Map map in maps) {
+          List dataValues = await EventOfflineDataValueProvider()
+              .getEventDataValues(map['id']);
+          Events eventData = Events.fromOffline(map);
+          eventData.dataValues = dataValues;
+          events.add(eventData);
         }
       }
     } catch (e) {}
