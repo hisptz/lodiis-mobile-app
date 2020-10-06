@@ -38,7 +38,7 @@ class DreamBenefeciaryTopHeader extends StatelessWidget {
               ),
               Container(
                 margin: EdgeInsets.only(top: 5.0),
-                child: LineSeperator(color: Color(0XFFECF5EC)),
+                child: LineSeperator(color: Color(0XFFE9F4FA)),
               ),
               Container(
                   margin: EdgeInsets.symmetric(
@@ -55,7 +55,7 @@ class DreamBenefeciaryTopHeader extends StatelessWidget {
                               style: TextStyle().copyWith(
                                 fontSize: 12.0,
                                 fontWeight: FontWeight.w500,
-                                color: Color(0xFF92A791),
+                                color: Color(0xFF82898D),
                               ),
                               children: [
                                 TextSpan(
@@ -77,7 +77,7 @@ class DreamBenefeciaryTopHeader extends StatelessWidget {
                               style: TextStyle().copyWith(
                                 fontSize: 12.0,
                                 fontWeight: FontWeight.w500,
-                                color: Color(0xFF92A791),
+                                color: Color(0xFF82898D),
                               ),
                               children: [
                                 TextSpan(
@@ -100,7 +100,7 @@ class DreamBenefeciaryTopHeader extends StatelessWidget {
                               style: TextStyle().copyWith(
                                 fontSize: 12.0,
                                 fontWeight: FontWeight.w500,
-                                color: Color(0xFF92A791),
+                                color: Color(0xFF82898D),
                               ),
                               children: [
                                 TextSpan(
