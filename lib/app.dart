@@ -14,7 +14,6 @@ import 'package:kb_mobile_app/core/constants/custom_color.dart';
 import 'package:kb_mobile_app/modules/splash/splash.dart';
 import 'package:provider/provider.dart';
 
-
 //DreamsNonAgywInterventionListState
 class MyApp extends StatelessWidget {
   @override
@@ -22,7 +21,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (_) => IntervetionCardState()),
-                 ChangeNotifierProvider(create: (_) => LoginFormState()),
+          ChangeNotifierProvider(create: (_) => LoginFormState()),
           ChangeNotifierProvider(
               create: (_) => InterventionBottomNavigationState()),
           ChangeNotifierProvider(create: (_) => EnrollmentFormState()),
@@ -33,7 +32,7 @@ class MyApp extends StatelessWidget {
           ),
           ChangeNotifierProvider(create: (_) => OvcInterventionListState()),
           ChangeNotifierProvider(create: (_) => DreamsInterventionListState()),
-          ChangeNotifierProvider(create: (_) => SynchtonizationState())
+          ChangeNotifierProvider(create: (_) => SynchronizationState())
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,

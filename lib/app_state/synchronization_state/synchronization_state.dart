@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 
-class SynchtonizationState with ChangeNotifier {
+class SynchronizationState with ChangeNotifier {
 // intial state
   bool _isSynchronizationActive;
 

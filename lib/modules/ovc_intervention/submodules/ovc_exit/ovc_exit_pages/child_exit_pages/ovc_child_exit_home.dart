@@ -132,48 +132,59 @@ class OvcChildExitHome extends StatelessWidget {
                         ? CircularProcessLoader(
                             color: Colors.blueGrey,
                           )
-                        : Container(
-                            margin: EdgeInsets.only(top: 10.0),
-                            child: events.length == 0
-                                ? Center(
-                                    child: Text(
-                                        'There is no any exit details at moment'),
-                                  )
-                                : Column(
-                                    children: events
-                                        .map((Events eventData) =>
-                                            OvcExitListCard(
-                                              eventData: eventData,
-                                              programStageMap: programStageMap,
-                                              onEditExit: () {
-                                                String exitResponse =
-                                                    programStageMap[
-                                                        eventData.programStage];
-                                                onEditExit(context,
-                                                    exitResponse, eventData);
-                                              },
-                                              onViewExit: () {
-                                                String exitResponse =
-                                                    programStageMap[
-                                                        eventData.programStage];
-                                                onViewExit(context,
-                                                    exitResponse, eventData);
-                                              },
-                                            ))
-                                        .toList(),
-                                  ),
+                        : Column(
+                            children: [
+                              Container(
+                                margin: EdgeInsets.only(top: 10.0),
+                                child: events.length == 0
+                                    ? Center(
+                                        child: Text(
+                                            'There is no any exit details at moment'),
+                                      )
+                                    : Column(
+                                        children: events
+                                            .map((Events eventData) =>
+                                                OvcExitListCard(
+                                                  eventData: eventData,
+                                                  programStageMap:
+                                                      programStageMap,
+                                                  onEditExit: () {
+                                                    String exitResponse =
+                                                        programStageMap[
+                                                            eventData
+                                                                .programStage];
+                                                    onEditExit(
+                                                        context,
+                                                        exitResponse,
+                                                        eventData);
+                                                  },
+                                                  onViewExit: () {
+                                                    String exitResponse =
+                                                        programStageMap[
+                                                            eventData
+                                                                .programStage];
+                                                    onViewExit(
+                                                        context,
+                                                        exitResponse,
+                                                        eventData);
+                                                  },
+                                                ))
+                                            .toList(),
+                                      ),
+                              ),
+                              Container(
+                                  child: OvcEnrollmentFormSaveButton(
+                                label: 'ADD',
+                                labelColor: Colors.white,
+                                fontSize: 14,
+                                buttonColor: Color(0xFF4B9F46),
+                                onPressButton: () => onAddNewExit(context),
+                              ))
+                            ],
                           );
                   },
                 ),
               ),
-              Container(
-                  child: OvcEnrollmentFormSaveButton(
-                label: 'ADD',
-                labelColor: Colors.white,
-                fontSize: 14,
-                buttonColor: Color(0xFF4B9F46),
-                onPressButton: () => onAddNewExit(context),
-              ))
             ]),
           ),
         ),

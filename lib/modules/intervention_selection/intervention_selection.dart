@@ -58,7 +58,7 @@ class _InterventionSelectionState extends State<InterventionSelection> {
         Container(
           decoration: BoxDecoration(color: primmaryColor),
         ),
-        Consumer<SynchtonizationState>(
+        Consumer<SynchronizationState>(
             builder: (context, synchtonizationState, child) {
           bool isSynchronizationActive =
               synchtonizationState.isSynchronizationActive;

@@ -12,6 +12,7 @@ import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/dreams_intervention.dart';
 import 'package:kb_mobile_app/modules/login/login.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/ovc_intervention.dart';
+import 'package:kb_mobile_app/modules/synchronization/synchronization.dart';
 import 'package:provider/provider.dart';
 
 class AppBarUtil {
@@ -25,8 +26,15 @@ class AppBarUtil {
         _onSwitchToIntervention(context, response.id);
       } else if (response.id == 'logout') {
         _onLogOut(context);
+      } else if (response.id == 'sync') {
+        _onOpenSyncModule(context);
       }
     }
+  }
+
+  static void _onOpenSyncModule(BuildContext context) {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => Synchronization()));
   }
 
   static void _onLogOut(BuildContext context) async {
