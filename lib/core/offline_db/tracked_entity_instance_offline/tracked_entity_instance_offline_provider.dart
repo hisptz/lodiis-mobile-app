@@ -31,27 +31,28 @@ class TrackedEntityInstanceOfflineProvider extends OfflineDbProvider {
     List<TrackeEntityInstance> trackedEntityInstances = [];
     try {
       var dbClient = await db;
-      for (String trackedEntityInstanceId in trackedEntityInstanceIds) {
-        List<Map> maps = await dbClient.query(
-          table,
-          columns: [
-            trackedEntityInstance,
-            trackedEntityType,
-            orgUnit,
-            syncStatus,
-          ],
-          where: '$trackedEntityInstance = ?',
-          whereArgs: [trackedEntityInstanceId],
-        );
-        if (maps.isNotEmpty) {
-          for (Map map in maps) {
-            List attributes =
-                await TrackedEntityInstanceOfflineAttributeProvider()
-                    .getTrackedEntityAttributesValues(trackedEntityInstanceId);
-            TrackeEntityInstance tei = TrackeEntityInstance.fromOffline(map);
-            tei.attributes = attributes;
-            trackedEntityInstances.add(tei);
-          }
+      String questionMarks =
+          trackedEntityInstanceIds.map((e) => '?').toList().join(',');
+      List<Map> maps = await dbClient.query(
+        table,
+        columns: [
+          trackedEntityInstance,
+          trackedEntityType,
+          orgUnit,
+          syncStatus,
+        ],
+        where: '$trackedEntityInstance IN ($questionMarks)',
+        whereArgs: trackedEntityInstanceIds,
+      );
+      if (maps.isNotEmpty) {
+        for (Map map in maps) {
+          String trackedEntityInstanceId = map['trackedEntityInstance'];
+          List attributes =
+              await TrackedEntityInstanceOfflineAttributeProvider()
+                  .getTrackedEntityAttributesValues(trackedEntityInstanceId);
+          TrackeEntityInstance tei = TrackeEntityInstance.fromOffline(map);
+          tei.attributes = attributes;
+          trackedEntityInstances.add(tei);
         }
       }
     } catch (e) {}

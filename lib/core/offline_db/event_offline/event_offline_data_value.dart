@@ -25,9 +25,7 @@ class EventOfflineDataValueProvider extends OfflineDbProvider {
         await dbClient.insert(table, data,
             conflictAlgorithm: ConflictAlgorithm.replace);
       }
-    } catch (e) {
-      print(e.toString());
-    }
+    } catch (e) {}
   }
 
   Future<List> getEventDataValues(
