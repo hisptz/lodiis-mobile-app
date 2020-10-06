@@ -17,8 +17,8 @@ class NoneAgyw extends StatefulWidget {
 
 class _NoneAgywState extends State<NoneAgyw> {
   final String title = 'BENEFICIARY LIST';
-  final bool canEdit = false;
-  final bool canView = false;
+  final bool canEdit = true;
+  final bool canView = true;
   final bool canExpand = true;
 
   String toggleCardId = '';
@@ -30,7 +30,7 @@ class _NoneAgywState extends State<NoneAgyw> {
   }
 
   void onPrep(BuildContext context, AgywDream agywDream) {
-    print("on prep none agyw");
+    print("on prep non agyw");
   }
 
   @override
@@ -63,6 +63,8 @@ class _NoneAgywState extends State<NoneAgyw> {
                           children: noneAgywDreamsInterventionList
                               .map((AgywDream agywBeneficiary) {
                             return DreamsBeneficiaryCard(
+                              isAgywEnrollment: false,
+                              agywDream: agywBeneficiary,
                               canEdit: canEdit,
                               canExpand: canExpand,
                               beneficiaryName: agywBeneficiary.toString(),

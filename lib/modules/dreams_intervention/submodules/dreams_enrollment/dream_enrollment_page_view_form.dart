@@ -9,25 +9,27 @@ import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/models/ovc_enrollment_consent.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/models/ovc_enrollment_house_hold.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/models/agyw_enrollment_risk_assessment.dart';
 import 'package:provider/provider.dart';
 
-class OvcEnrollmentHouseHoldViewForm extends StatefulWidget {
-  const OvcEnrollmentHouseHoldViewForm({Key key}) : super(key: key);
+import 'models/agyw_enrollment_consent.dart';
+import 'models/agyw_enrollment_form_section.dart';
+
+class DreamAgywEnrollmentViewForm extends StatefulWidget {
+  const DreamAgywEnrollmentViewForm({Key key}) : super(key: key);
 
   @override
-  _OvcEnrollmentHouseHoldViewFormState createState() =>
-      _OvcEnrollmentHouseHoldViewFormState();
+  _DreamAgywEnrollmentViewFormState createState() =>
+      _DreamAgywEnrollmentViewFormState();
 }
 
-class _OvcEnrollmentHouseHoldViewFormState
-    extends State<OvcEnrollmentHouseHoldViewForm> {
+class _DreamAgywEnrollmentViewFormState
+    extends State<DreamAgywEnrollmentViewForm> {
   List<FormSection> formSections;
   List<FormSection> enrollmentFormSections;
   List<FormSection> consentFormSections;
-
-  final String label = 'Household Enrolment Form';
+  List<FormSection> riskAssessmentFormSections;
+  final String label = 'Agyw Enrolment Form';
 
   bool isFormReady = false;
 
@@ -35,16 +37,19 @@ class _OvcEnrollmentHouseHoldViewFormState
   void initState() {
     super.initState();
     setState(() {
-      consentFormSections = OvcEnrollmentConsent.getFormSections();
+      consentFormSections = AgywEnrollmentConcent.getFormSections();
       formSections = consentFormSections.map((FormSection consentFormSection) {
-        consentFormSection.name = 'Consent Form';
+        consentFormSection.name = 'Consent';
         List<InputField> inputFields = consentFormSection.inputFields
             .where((InputField inputField) => inputField.id != 'location')
             .toList();
         consentFormSection.inputFields = inputFields;
         return consentFormSection;
       }).toList();
-      enrollmentFormSections = OvcEnrollmentHouseHold.getFormSections();
+      enrollmentFormSections = AgywEnrollmentFormSection.getFormSections();
+      riskAssessmentFormSections =
+          AgywEnrollmentRiskAssessment.getFormSections();
+      formSections.addAll(riskAssessmentFormSections);
       formSections.addAll(enrollmentFormSections);
       isFormReady = true;
     });

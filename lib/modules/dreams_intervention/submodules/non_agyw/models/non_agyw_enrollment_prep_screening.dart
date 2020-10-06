@@ -10,7 +10,7 @@ class NonAgywEnrollmentPrepScreening {
       'sa81lAvBb7Y',
       'nLLHqOGTQK9',
       'dQBja8nUr18',
-  ];
+    ];
   }
 
   static List<FormSection> getFormSections() {
