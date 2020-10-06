@@ -100,16 +100,13 @@ class DreamsBeneficiaryCard extends StatelessWidget {
                 canView: canView,
                 isExpanded: isExpanded,
                 onToggleCard: onCardToogle,
-                onEdit: onEdit,
-                onView: () => onView(context),
-              ),
+                onEdit:() => onEdit(context),
+                onView: () => onView(context),),
               cardBody,
               cardBottonActions,
               Visibility(
                   visible: isExpanded,
-                  child: Row(
-                    children: [cardBottonContent],
-                  ))
+                  child: Row(children: [cardBottonContent],))
             ],
           ),
         ),
