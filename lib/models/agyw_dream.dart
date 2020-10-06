@@ -2,6 +2,7 @@ import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
 
 class AgywDream {
+  String id;
   String firstname;
   String middlename;
   String surname;
@@ -18,7 +19,8 @@ class AgywDream {
   TrackeEntityInstance trackeEntityInstanceData;
 
   AgywDream(
-      {this.firstname,
+      {this.id,
+      this.firstname,
       this.middlename,
       this.surname,
       this.age,
@@ -58,6 +60,7 @@ class AgywDream {
     }
     int age = AppUtil.getAgeInYear(data['qZP982qpSPS']);
     return AgywDream(
+      id: trackeEntityInstance.trackedEntityInstance,
       firstname: data['WTZ7GLTrE8Q'],
       middlename: data['s1HaiT6OllL'],
       surname: data['rSP9c21JsfC'],
@@ -80,7 +83,9 @@ class AgywDream {
         ? '09-14'
         : (age > 14 && age < 20)
             ? '15-19'
-            : (age > 19 && age < 25) ? '20-24' : '';
+            : (age > 19 && age < 25)
+                ? '20-24'
+                : '';
   }
 
   @override
