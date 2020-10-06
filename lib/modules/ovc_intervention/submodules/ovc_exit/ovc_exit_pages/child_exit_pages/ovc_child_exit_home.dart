@@ -24,10 +24,15 @@ import 'components/ovc_exit_selection.dart';
 
 class OvcChildExitHome extends StatelessWidget {
   final String label = 'Child Exit';
+  final List<String> programStageIds = [];
 
-  void onAddNewExit(BuildContext context) async {
+  void onAddNewExit(BuildContext context, List<Events> events) async {
+    List<String> programStageIdsWithData =
+        events.map((Events event) => event.programStage).toList();
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
-    Widget model = OvcChildExitSelection();
+    Widget model = OvcChildExitSelection(
+      programStageIdsWithData: programStageIdsWithData,
+    );
     String exitResponse = await AppUtil.showPopUpModal(context, model, false);
     onRedirectToExitForm(context, exitResponse, true);
   }
@@ -121,13 +126,17 @@ class OvcChildExitHome extends StatelessWidget {
                         serviveEventDataState.eventListByProgramStage;
                     Map programStageMap =
                         OvcExitConstant.getOvcExitProgramStageMap();
-                    List<String> programStageids = [];
                     for (var id in programStageMap.keys.toList()) {
-                      programStageids.add('$id');
+                      programStageIds.add('$id');
                     }
                     List<Events> events = TrackedEntityInstanceUtil
                         .getAllEventListFromServiceDataState(
-                            eventListByProgramStage, programStageids);
+                            eventListByProgramStage, programStageIds);
+                    bool shouldAllowAddNewButton = events
+                            .map((Events event) => event.programStage)
+                            .toList()
+                            .length <
+                        programStageIds.toSet().toList().length;
                     return isLoading
                         ? CircularProcessLoader(
                             color: Colors.blueGrey,
@@ -172,14 +181,18 @@ class OvcChildExitHome extends StatelessWidget {
                                             .toList(),
                                       ),
                               ),
-                              Container(
-                                  child: OvcEnrollmentFormSaveButton(
-                                label: 'ADD',
-                                labelColor: Colors.white,
-                                fontSize: 14,
-                                buttonColor: Color(0xFF4B9F46),
-                                onPressButton: () => onAddNewExit(context),
-                              ))
+                              Visibility(
+                                visible: shouldAllowAddNewButton,
+                                child: Container(
+                                    child: OvcEnrollmentFormSaveButton(
+                                  label: 'ADD',
+                                  labelColor: Colors.white,
+                                  fontSize: 14,
+                                  buttonColor: Color(0xFF4B9F46),
+                                  onPressButton: () =>
+                                      onAddNewExit(context, events),
+                                )),
+                              )
                             ],
                           );
                   },

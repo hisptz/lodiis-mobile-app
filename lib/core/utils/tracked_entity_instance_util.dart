@@ -45,6 +45,7 @@ class TrackedEntityInstanceUtil {
     Map<String, List<Events>> eventListByProgramStage,
     List<String> programStageids,
   ) {
+    programStageids = programStageids.toSet().toList();
     List<Events> events = [];
     for (String programStageid in programStageids) {
       var data = eventListByProgramStage[programStageid] ?? [];
