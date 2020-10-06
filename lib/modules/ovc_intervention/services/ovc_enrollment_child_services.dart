@@ -9,7 +9,7 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment
 class OvcEnrollmentChildService {
   final String program = 'em38qztTI8s';
   final String trackedEntityType = 'XZIKX0bA8WN';
-  final String relationshipType = '';
+  final String relationshipType = 'UVV4IIKD73V';
   final List<FormSection> formSections = OvcEnrollmentChild.getFormSections();
 
   Future savingChildrenEnrollmentForms(
