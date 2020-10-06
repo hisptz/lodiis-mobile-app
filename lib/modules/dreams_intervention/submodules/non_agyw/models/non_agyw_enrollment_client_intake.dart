@@ -114,6 +114,7 @@ class NonAgywEnrollmentFormSection {
             InputField(
                 id: 'ls9hlz2tyol',
                 name: 'Age',
+                isReadObly: true,
                 valueType: 'NUMBER',
                 inputColor: Color(0xFF258DCC),
                 labelColor: Color(0xFF05131B)),
