@@ -8,6 +8,12 @@ import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_home
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/components/service_card_botton_action.dart';
 import 'package:provider/provider.dart';
 
+import 'sub_modules/hiv _reg/hiv_reg_page.dart';
+import 'sub_modules/hiv_prev/hiv_page.dart';
+import 'sub_modules/hts/hts_page.dart';
+import 'sub_modules/prep/prep_page.dart';
+import 'sub_modules/srh/srh_page.dart';
+
 class DreamsServicesPage extends StatefulWidget {
   const DreamsServicesPage({Key key}) : super(key: key);
 
@@ -32,27 +38,45 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
   void onOpenHTSForm(
     BuildContext context,
     AgywDream agywBeneficiary,
-  ) {}
+  ) {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => DreamHtsPage(agywDream: agywBeneficiary,)));
+  }
 
   void onOpenHRSForm(
     BuildContext context,
     AgywDream agywBeneficiary,
-  ) {}
+  ) {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => 
+        DreamSrhPage(agywDream: agywBeneficiary,)));
+  }
 
   void onOpenHIVPrepForm(
     BuildContext context,
     AgywDream agywBeneficiary,
-  ) {}
+  ) {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => DreamHIVPrepPage(agywDream: agywBeneficiary,)));
+  }
 
   void onOpenHIVRegForm(
     BuildContext context,
     AgywDream agywBeneficiary,
-  ) {}
+  ) {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) =>
+         DreamHIVRegPage(agywDream: agywBeneficiary,)));
+  }
 
   void onOpenPrepForm(
     BuildContext context,
     AgywDream agywBeneficiary,
-  ) {}
+  ) {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) =>
+         DreamPrepPage(agywDream: agywBeneficiary,)));
+  }
 
   @override
   Widget build(BuildContext context) {
