@@ -8,7 +8,7 @@ import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_benef
 import 'package:provider/provider.dart';
 
 class NonAgywPrepPage extends StatefulWidget {
-  NonAgywPrepPage({Key key,@required this.agywDream}) : super(key: key);
+  NonAgywPrepPage({Key key, @required this.agywDream}) : super(key: key);
   final AgywDream agywDream;
 
   @override
@@ -39,7 +39,9 @@ class _NonAgywPrepPageState extends State<NonAgywPrepPage> {
             child: Column(
               children: [
                 //header on the page
-                DreamBenefeciaryTopHeader(agywDream: widget.agywDream,),
+                DreamBenefeciaryTopHeader(
+                  agywDream: widget.agywDream,
+                ),
                 Container(
                     margin: EdgeInsets.symmetric(vertical: 250),
                     child: Center(child: Text("PREP FORM CONTAINER")))

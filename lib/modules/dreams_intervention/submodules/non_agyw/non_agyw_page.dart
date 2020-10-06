@@ -32,11 +32,13 @@ class _NoneAgywState extends State<NoneAgyw> {
   }
 
   void onPrep(BuildContext context, AgywDream agywDream) {
-   Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => NonAgywPrepPage(agywDream: agywDream,),
-          ));
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => NonAgywPrepPage(
+            agywDream: agywDream,
+          ),
+        ));
   }
 
   @override
