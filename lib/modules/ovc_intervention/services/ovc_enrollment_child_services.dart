@@ -16,9 +16,9 @@ class OvcEnrollmentChildService {
     String parentTrackedEntityInstance,
     String orgUnit,
     List<Map> childrenObjects,
-    String enrollment,
     String enrollmentDate,
     String incidentDate,
+    bool shouldEnroll,
     List<String> hiddenFields,
   ) async {
     hiddenFields = hiddenFields ?? [];
@@ -29,6 +29,7 @@ class OvcEnrollmentChildService {
       // @TODO generation of beneficiary ids
       String trackedEntityInstance =
           dataObject['trackedEntityInstance'] ?? AppUtil.getUid();
+      String enrollment = dataObject['enrollment'];
       childTeiReferences.add(trackedEntityInstance);
       TrackeEntityInstance trackeEntityInstanceData =
           FormUtil.geTrackedEntityInstanceEnrollmentPayLoad(
@@ -39,15 +40,17 @@ class OvcEnrollmentChildService {
         dataObject,
       );
       await FormUtil.savingTrackeEntityInstance(trackeEntityInstanceData);
-      Enrollment enrollmentData = FormUtil.getEnrollmentPayLoad(
-        enrollment,
-        enrollmentDate,
-        incidentDate,
-        orgUnit,
-        program,
-        trackedEntityInstance,
-      );
-      await FormUtil.savingEnrollment(enrollmentData);
+      if (shouldEnroll) {
+        Enrollment enrollmentData = FormUtil.getEnrollmentPayLoad(
+          enrollment,
+          enrollmentDate,
+          incidentDate,
+          orgUnit,
+          program,
+          trackedEntityInstance,
+        );
+        await FormUtil.savingEnrollment(enrollmentData);
+      }
     }
     for (String childTeiReference in childTeiReferences) {
       TeiRelationship teiRelationshipData = FormUtil.getTeiRelationshipPayload(
