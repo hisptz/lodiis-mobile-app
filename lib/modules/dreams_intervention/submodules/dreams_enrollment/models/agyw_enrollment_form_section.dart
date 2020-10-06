@@ -100,12 +100,7 @@ class AgywEnrollmentFormSection {
                   InputFieldOption(code: 'JPHIEGO', name: 'JPHIEGO'),
                   InputFieldOption(code: 'KB', name: 'KB')
                 ]),
-            InputField(
-                id: 'KvmQjZbGZQU',
-                name: 'AGYW ID',
-                valueType: 'TEXT',
-                inputColor: Color(0xFF258DCC),
-                labelColor: Color(0xFF05131B)),
+        
             InputField(
                 id: 'vIX4GTSCX4P',
                 name: 'Sex',

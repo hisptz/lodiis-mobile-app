@@ -57,12 +57,7 @@ class NonAgywEnrollmentFormSection {
                 valueType: 'TEXT',
                 inputColor: Color(0xFF258DCC),
                 labelColor: Color(0xFF05131B)),
-            InputField(
-                id: 'd8uBlGOpFhJ',
-                name: 'NON-AGYW ID',
-                valueType: 'TEXT',
-                inputColor: Color(0xFF258DCC),
-                labelColor: Color(0xFF05131B)),
+           
             InputField(
                 id: 'sJ35hsF6Lf9',
                 name: 'Client Type',
