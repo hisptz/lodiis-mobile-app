@@ -9,9 +9,9 @@ import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold_card_botton_content.dart';
 import 'package:provider/provider.dart';
 import 'ovc_exit_pages/house_hold_exit_pages/household_achievement/ovc_house_hold_achievement.dart';
-import 'ovc_exit_pages/house_hold_exit_pages/household_case_closure/pages/ovc_house_hold_closure_form.dart';
-import 'ovc_exit_pages/house_hold_exit_pages/household_exit/pages/ovc_house_hold_exit_form.dart';
-import 'ovc_exit_pages/house_hold_exit_pages/household_transfer/pages/ovc_house_hold_transfer_form.dart';
+import 'ovc_exit_pages/house_hold_exit_pages/household_case_closure/ovc_house_hold_case_closure.dart';
+import 'ovc_exit_pages/house_hold_exit_pages/household_exit/ovc_house_hold_exit.dart';
+import 'ovc_exit_pages/house_hold_exit_pages/household_transfer/ovc_house_hold_case_transfer.dart';
 
 class OvcExitPage extends StatefulWidget {
   const OvcExitPage({Key key}) : super(key: key);
@@ -62,7 +62,7 @@ class _OvcExitPageState extends State<OvcExitPage> {
     Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => OvcHouseHoldExitForm(),
+          builder: (context) => OvcHouseHoldExit(),
         ));
   }
 
@@ -71,7 +71,7 @@ class _OvcExitPageState extends State<OvcExitPage> {
     Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => OvcHouseHoldTransferForm(),
+          builder: (context) => OvcHouseHoldCaseTransfer(),
         ));
   }
 
@@ -80,7 +80,7 @@ class _OvcExitPageState extends State<OvcExitPage> {
     Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => OvcHouseHoldClosureForm(),
+          builder: (context) => OvcHouseHoldCaseClosure(),
         ));
   }
 
