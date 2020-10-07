@@ -130,7 +130,7 @@ class _NonAgywPrepPageState extends State<NonAgywPrepPage> {
                                         ),
                                         child: events.length == 0
                                             ? Text(
-                                                'There is no Prep at a moment')
+                                                'There is no Prep Visit at a moment')
                                             : Container(
                                                 margin: EdgeInsets.symmetric(
                                                   vertical: 5.0,
@@ -140,19 +140,22 @@ class _NonAgywPrepPageState extends State<NonAgywPrepPage> {
                                                   children: events
                                                       .map((Events eventData) {
                                                     referralIndex--;
+
                                                     return Container(
                                                       margin: EdgeInsets.only(
                                                         bottom: 15.0,
                                                       ),
-                                                      child: OvcReferralCard(
-                                                        count: referralIndex,
-                                                        cardBody:
-                                                            OvcReferralCardBody(
-                                                          referralEvent:
-                                                              eventData,
-                                                        ),
-                                                        onView: () => {},
-                                                        onManage: () => {},
+                                                      child:
+                                                          NOnAgywPrepListCard(
+                                                        onEditPrep: () =>
+                                                            onEditPrep(context,
+                                                                eventData),
+                                                        onViewPrep: () =>
+                                                            onViewPrep(context,
+                                                                eventData),
+                                                        eventData: eventData,
+                                                        visitCount:
+                                                            referralIndex,
                                                       ),
                                                     );
                                                   }).toList(),
@@ -160,12 +163,12 @@ class _NonAgywPrepPageState extends State<NonAgywPrepPage> {
                                               ),
                                       ),
                                       OvcEnrollmentFormSaveButton(
-                                          label: 'ADD REFFERAL',
+                                          label: 'ADD PREP',
                                           labelColor: Colors.white,
                                           buttonColor: Color(0xFF1F8ECE),
                                           fontSize: 15.0,
-                                          onPressButton: () => onAddRefferal(
-                                              context))
+                                          onPressButton: () =>
+                                              onAddPrep(context, agywDream))
                                     ],
                                   ),
                           ),
