@@ -127,5 +127,4 @@ class OvcChildInfoTopHeader extends StatelessWidget {
       },
     );
   }
-  //
 }
