@@ -35,19 +35,21 @@ class _DreamHtsPageState extends State<DreamHtsPage> {
           ),
         ),
         body: SingleChildScrollView(
-          child: Container(
-            child: Column(
-              children: [
-                //header on the page
-                DreamBenefeciaryTopHeader(
-                  agywDream: widget.agywDream,
-                ),
-                Container(
-                    margin: EdgeInsets.symmetric(vertical: 250),
-                    child: Center(child: Text("HTS FORM CONTAINER")))
-              ],
-            ),
-          ),
+          child: Container(child: Consumer<DreamBenefeciarySelectionState>(
+            builder: (context, dreamBenefeciarySelectionState, child) {
+              AgywDream agywDream =
+                  dreamBenefeciarySelectionState.currentAgywDream;
+              return Column(
+                children: [
+                  //header on the page
+                  DreamBenefeciaryTopHeader(agywDream: agywDream),
+                  Container(
+                      margin: EdgeInsets.symmetric(vertical: 250),
+                      child: Center(child: Text("HTS FORM CONTAINER")))
+                ],
+              );
+            },
+          )),
         ),
         bottomNavigationBar: InterventionBottomNavigationBarContainer());
   }
