@@ -13,16 +13,16 @@ import 'package:kb_mobile_app/app_state/synchronization_state/synchronization_st
 import 'package:kb_mobile_app/core/constants/custom_color.dart';
 import 'package:kb_mobile_app/modules/splash/splash.dart';
 import 'package:provider/provider.dart';
-import 'app_state/dreams_intervention_list_state/non_agyw_prep_list_state.dart';
+import 'app_state/dreams_intervention_list_state/dream_current_selection_state.dart';
+
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-        providers: [
-      
+        providers: [      
           ChangeNotifierProvider(create: (_) => IntervetionCardState()),
-           ChangeNotifierProvider(create: (_) => NonAgywPrepListState()),
+                    ChangeNotifierProvider(create: (_) => DreamBenefeciarySelectionState()),
                  ChangeNotifierProvider(create: (_) => LoginFormState()),
           ChangeNotifierProvider(
               create: (_) => InterventionBottomNavigationState()),
