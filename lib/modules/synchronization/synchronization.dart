@@ -1,5 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
+import 'package:kb_mobile_app/app_state/synchronization_state/synchronization_state.dart';
+import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
@@ -15,9 +19,26 @@ class Synchronization extends StatefulWidget {
 class _SynchronizationState extends State<Synchronization> {
   final String label = 'Data Synchronization';
 
-  void startDataUpload() async {}
+  void startDataUpload(BuildContext context) async {
+    Provider.of<SynchronizationState>(context, listen: false)
+        .startDataUploadActivity();
+  }
 
-  void startDataDownload() async {}
+  void startDataDownload(BuildContext context) async {
+    Provider.of<SynchronizationState>(context, listen: false)
+        .startDataDownloadActivity();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    Timer(Duration(milliseconds: 100), () {
+      setState(() {
+        Provider.of<SynchronizationState>(context, listen: false)
+            .startCheckingStatusOfUnsyncedData();
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,11 +58,53 @@ class _SynchronizationState extends State<Synchronization> {
       ),
       body: SubPageBody(
         body: Container(
-          child: Column(
-            children: [
-              Text('Sync module'),
-              FlatButton(onPressed: () => {}, child: Text('dowload data'))
-            ],
+          child: Consumer<SynchronizationState>(
+            builder: (context, synchronizationState, child) {
+              bool isDataDownloadingActive =
+                  synchronizationState.isDataDownloadingActive;
+              bool isDataUploadingActive =
+                  synchronizationState.isDataUploadingActive;
+              bool hasUnsyncedData = synchronizationState.hasUnsyncedData;
+              bool isUnsyncedCheckingActive =
+                  synchronizationState.isUnsyncedCheckingActive;
+              return isUnsyncedCheckingActive
+                  ? Container(
+                      child: CircularProcessLoader(
+                        color: Colors.blueGrey,
+                      ),
+                    )
+                  : Container(
+                      child: Column(
+                        children: [
+                          Text(
+                              'Sync module isUnsyncedCheckingActive $isUnsyncedCheckingActive'),
+                          Text(
+                              'Sync module isDataDownloadingActive $isDataDownloadingActive'),
+                          Text(
+                              'Sync module isDataUploadingActive $isDataUploadingActive'),
+                          FlatButton(
+                              color: Colors.amberAccent,
+                              disabledColor:
+                                  Colors.amberAccent.withOpacity(0.2),
+                              onPressed: isDataDownloadingActive ||
+                                      isDataUploadingActive
+                                  ? null
+                                  : () => startDataDownload(context),
+                              child: Text('dowload data')),
+                          FlatButton(
+                              color: Colors.amberAccent,
+                              disabledColor:
+                                  Colors.amberAccent.withOpacity(0.2),
+                              onPressed: isDataDownloadingActive ||
+                                      isDataUploadingActive ||
+                                      !hasUnsyncedData
+                                  ? null
+                                  : () => startDataUpload(context),
+                              child: Text('upload data'))
+                        ],
+                      ),
+                    );
+            },
           ),
         ),
       ),
