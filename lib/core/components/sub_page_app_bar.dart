@@ -7,7 +7,7 @@ class SubPageAppBar extends StatelessWidget {
     Key key,
     @required this.label,
     @required this.activeInterventionProgram,
-    this.disableSelectionOfActiveIntervention = false,
+    this.disableSelectionOfActiveIntervention = true,
   }) : super(key: key);
 
   final String label;

@@ -12,12 +12,16 @@ class SynchronizationState with ChangeNotifier {
   bool _hasUnsyncedData;
   bool _isUnsyncedCheckingActive = true;
   SynchronizationService _synchronizationService;
+  int _beneficiaryCount;
+  int _beneficiaryServiceCount;
 
 // selectors
   bool get isDataUploadingActive => _isDataUploadingActive ?? false;
   bool get hasUnsyncedData => _hasUnsyncedData ?? false;
   bool get isUnsyncedCheckingActive => _isUnsyncedCheckingActive ?? false;
   bool get isDataDownloadingActive => _isDataDownloadingActive ?? false;
+  int get beneficiaryCount => _beneficiaryCount ?? 0;
+  int get beneficiaryServiceCount => _beneficiaryServiceCount ?? 0;
 
 // reducers
   void updateDataUploadStatus(bool status) {
@@ -42,6 +46,8 @@ class SynchronizationState with ChangeNotifier {
         SynchronizationService(user.username, user.password);
     var teis = await _synchronizationService.getTeisFromOfflineDb();
     var teiEvents = await _synchronizationService.getTeiEventsFromOfflineDb();
+    _beneficiaryServiceCount = teiEvents.length;
+    _beneficiaryCount = teis.length;
     _hasUnsyncedData = teiEvents.length > 0 || teis.length > 0;
     updateUnsynceDataCheckingStatus(false);
   }
