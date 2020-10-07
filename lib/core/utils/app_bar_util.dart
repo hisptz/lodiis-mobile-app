@@ -17,9 +17,15 @@ import 'package:provider/provider.dart';
 
 class AppBarUtil {
   static void onOpenMoreMenu(
-      BuildContext context, InterventionCard activeInterventionProgram) async {
+    BuildContext context,
+    InterventionCard activeInterventionProgram,
+    final bool disableSelectionOfActiveIntervention,
+  ) async {
     var modal = InterventionPopUpMenu(
-        activeInterventionProgram: activeInterventionProgram);
+      activeInterventionProgram: activeInterventionProgram,
+      disableSelectionOfActiveIntervention:
+          disableSelectionOfActiveIntervention,
+    );
     var response = await AppUtil.showPopUpModal(context, modal, false);
     if (response != null) {
       if (response.id == 'dreams' || response.id == 'ovc') {

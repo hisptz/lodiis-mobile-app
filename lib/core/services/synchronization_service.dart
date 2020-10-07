@@ -24,7 +24,16 @@ class SynchronizationService {
   }
 
   Future downloadBenefiariesToTheServer() async {
+    // Download by programs
     // get payloads the save to offline db;
+    // https://play.dhis2.org/2.34.1/api/trackedEntityInstances.json?ouMode=DESCENDANTS&ou=ImspTQPwCqd&totalPages=true&pageSize=10&fields=
+    // https://play.dhis2.org/2.34.1/api/events.json?ouMode=DESCENDANTS&ou=ImspTQPwCqd&totalPages=true&pageSize=10&fields=
+
+    // https://play.dhis2.org/2.34.1/api/events.json?ouMode=DESCENDANTS&orgUnit=ImspTQPwCqd&totalPages=true&pageSize=10
+
+    //  events[event,program,programStage,trackedEntityInstance,status,orgUnit,dataValues[dataElement,value]]
+    // trackedEntityInstance,trackedEntityType,orgUnit,attributes[attribute,value],enrollments[enrollment,enrollmentDate,incidentDate,orgUnit,program,trackedEntityInstance,status]
+    // fields=trackedEntityInstance,trackedEntityType,orgUnit,attributes[attribute,value],enrollments[enrollment,enrollmentDate,incidentDate,orgUnit,program,trackedEntityInstance,status,events[event,program,programStage,trackedEntityInstance,status,orgUnit,dataValues[dataElement,value]]]
   }
 
   Future<List<TrackeEntityInstance>> getTeisFromOfflineDb() async {

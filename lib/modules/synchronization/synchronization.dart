@@ -15,6 +15,10 @@ class Synchronization extends StatefulWidget {
 class _SynchronizationState extends State<Synchronization> {
   final String label = 'Data Synchronization';
 
+  void startDataUpload() async {}
+
+  void startDataDownload() async {}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,7 +37,12 @@ class _SynchronizationState extends State<Synchronization> {
       ),
       body: SubPageBody(
         body: Container(
-          child: Text('Sync module'),
+          child: Column(
+            children: [
+              Text('Sync module'),
+              FlatButton(onPressed: () => {}, child: Text('dowload data'))
+            ],
+          ),
         ),
       ),
     );
