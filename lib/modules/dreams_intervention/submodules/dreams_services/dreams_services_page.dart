@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dream_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
@@ -39,43 +40,50 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
     BuildContext context,
     AgywDream agywBeneficiary,
   ) {
+    Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
+        .setCurrentAgywDream(agywBeneficiary);
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => DreamHtsPage(agywDream: agywBeneficiary,)));
+        context, MaterialPageRoute(builder: (context) => DreamHtsPage()));
   }
 
   void onOpenHRSForm(
     BuildContext context,
     AgywDream agywBeneficiary,
   ) {
+    Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
+        .setCurrentAgywDream(agywBeneficiary);
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => 
-        DreamSrhPage(agywDream: agywBeneficiary,)));
+        context, MaterialPageRoute(builder: (context) => DreamSrhPage()));
   }
 
   void onOpenHIVPrepForm(
     BuildContext context,
     AgywDream agywBeneficiary,
   ) {
+    Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
+        .setCurrentAgywDream(agywBeneficiary);
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => DreamHIVPrepPage(agywDream: agywBeneficiary,)));
+        context, MaterialPageRoute(builder: (context) => DreamHIVPrepPage()));
   }
 
   void onOpenHIVRegForm(
     BuildContext context,
     AgywDream agywBeneficiary,
   ) {
+    Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
+        .setCurrentAgywDream(agywBeneficiary);
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) =>
-         DreamHIVRegPage(agywDream: agywBeneficiary,)));
+        context, MaterialPageRoute(builder: (context) => DreamHIVRegPage()));
   }
 
   void onOpenPrepForm(
     BuildContext context,
     AgywDream agywBeneficiary,
   ) {
+    Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
+        .setCurrentAgywDream(agywBeneficiary);
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) =>
-         DreamPrepPage(agywDream: agywBeneficiary,)));
+        context, MaterialPageRoute(builder: (context) => DreamPrepPage()));
   }
 
   @override

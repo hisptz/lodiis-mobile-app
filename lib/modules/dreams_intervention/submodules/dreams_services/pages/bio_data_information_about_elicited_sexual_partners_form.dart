@@ -9,8 +9,10 @@ import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/bio_data_information_about_elicited_sexual_partners.dart';
 import 'package:provider/provider.dart';
 
-class BioDataInformationAboutElicitedSexualPartnersForm extends StatelessWidget {
-  const BioDataInformationAboutElicitedSexualPartnersForm({Key key}) : super(key: key);
+class BioDataInformationAboutElicitedSexualPartnersForm
+    extends StatelessWidget {
+  const BioDataInformationAboutElicitedSexualPartnersForm({Key key})
+      : super(key: key);
 
   final String label = 'BIO Data: Information about Index Positive client form';
 
@@ -48,6 +50,5 @@ class BioDataInformationAboutElicitedSexualPartnersForm extends StatelessWidget 
                       mandatoryFieldObject: Map())),
             ),
             bottomNavigationBar: InterventionBottomNavigationBarContainer()));
- 
   }
 }

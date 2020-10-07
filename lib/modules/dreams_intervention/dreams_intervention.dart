@@ -66,7 +66,8 @@ class DreamsIntervention extends StatelessWidget {
                 onClickHome: onClickHome,
                 onSearch: onSearch,
                 onAddAgywBeneficiary: () => onAddAgywBeneficiary(context),
-                onAddNoneAgywBeneficiary:() =>  onAddNoneAgywBeneficiary(context),
+                onAddNoneAgywBeneficiary: () =>
+                    onAddNoneAgywBeneficiary(context),
                 onOpenMoreMenu: () =>
                     onOpenMoreMenu(context, activeInterventionProgram),
               );
@@ -93,7 +94,7 @@ class DreamsIntervention extends StatelessWidget {
                               activeInterventionProgram);
                   return Container(
                     child: currentInterventionBottomNavigation.id == 'services'
-                        ?DreamsServicesPage()
+                        ? DreamsServicesPage()
                         : currentInterventionBottomNavigation.id == 'referral'
                             ? DreamsReferralPage()
                             : currentInterventionBottomNavigation.id ==

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dream_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
@@ -8,8 +9,7 @@ import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_benef
 import 'package:provider/provider.dart';
 
 class DreamHtsPage extends StatefulWidget {
-  DreamHtsPage({Key key,@required this.agywDream}) : super(key: key);
-  final AgywDream agywDream;
+  DreamHtsPage({Key key}) : super(key: key);
 
   @override
   _DreamHtsPageState createState() => _DreamHtsPageState();
