@@ -19,10 +19,6 @@ class SynchronizationService {
     httpClient = HttpService(username: username, password: password);
   }
 
-  Future uploadBenefiariesToTheServer() async {
-    // get offline data and upload to system
-  }
-
   Future downloadBenefiariesToTheServer() async {
     // Download by programs
     // get payloads the save to offline db;
@@ -55,11 +51,27 @@ class SynchronizationService {
         .getTrackedEntityInstanceEventsByStatus(offlineSyncStatus);
   }
 
-  Future uploadTeisToTheServer() async {}
+  Future uploadTeisToTheServer(
+    List<TrackeEntityInstance> teis,
+  ) async {
+    print('teis $teis');
+  }
 
-  Future uploadTeiEnrollmentToTheServer() async {}
+  Future uploadTeiEnrollmentToTheServer(
+    List<Enrollment> teiEnrollments,
+  ) async {
+    print('teiEnrollments $teiEnrollments');
+  }
 
-  Future uploadTeiEventsToTheServer() async {}
+  Future uploadTeiEventsToTheServer(
+    List<Events> teiEvents,
+  ) async {
+    print('teiEvents $teiEvents');
+  }
 
-  Future uploadTeiRelationToTheServer() async {}
+  Future uploadTeiRelationToTheServer(
+    List<TeiRelationship> teiRelationShips,
+  ) async {
+    print('teiRelationShips $teiRelationShips');
+  }
 }

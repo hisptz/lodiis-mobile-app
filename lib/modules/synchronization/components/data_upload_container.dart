@@ -10,6 +10,7 @@ class DataUploadContainer extends StatelessWidget {
     @required this.isDataDownloadingActive,
     @required this.isDataUploadingActive,
     @required this.hasUnsyncedData,
+    @required this.dataUploadProcesses,
     this.onStartDataUpload,
   }) : super(key: key);
 
@@ -19,6 +20,7 @@ class DataUploadContainer extends StatelessWidget {
   final bool isDataUploadingActive;
   final bool hasUnsyncedData;
   final Function onStartDataUpload;
+  final List<String> dataUploadProcesses;
 
   @override
   Widget build(BuildContext context) {
@@ -39,14 +41,7 @@ class DataUploadContainer extends StatelessWidget {
               LineSeperator(color: Colors.blueGrey.withOpacity(0.2)),
               Container(
                 margin: EdgeInsets.symmetric(vertical: 5.0),
-                child: Visibility(
-                  visible: isDataUploadingActive,
-                  child: Text('List of progress'),
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.symmetric(vertical: 5.0),
-                padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
+                padding: EdgeInsets.symmetric(vertical: 2.0, horizontal: 10.0),
                 child: Row(
                   children: [
                     Expanded(
@@ -73,7 +68,7 @@ class DataUploadContainer extends StatelessWidget {
               ),
               Container(
                 margin: EdgeInsets.symmetric(vertical: 5.0),
-                padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
+                padding: EdgeInsets.symmetric(vertical: 2.0, horizontal: 10.0),
                 child: Row(
                   children: [
                     Expanded(
@@ -96,6 +91,31 @@ class DataUploadContainer extends StatelessWidget {
                       ),
                     )
                   ],
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.symmetric(vertical: 5.0),
+                padding: EdgeInsets.all(10.0),
+                decoration: BoxDecoration(
+                  border: dataUploadProcesses.length == 0
+                      ? null
+                      : Border.all(color: Colors.blueGrey.withOpacity(0.2)),
+                  borderRadius: BorderRadius.circular(12.0),
+                ),
+                child: Column(
+                  children: dataUploadProcesses
+                      .map((String process) => Container(
+                            alignment: Alignment.centerLeft,
+                            margin: EdgeInsets.symmetric(vertical: 2.0),
+                            child: Text(
+                              process,
+                              style: TextStyle().copyWith(
+                                  fontSize: 12.0,
+                                  fontStyle: FontStyle.italic,
+                                  fontWeight: FontWeight.normal),
+                            ),
+                          ))
+                      .toList(),
                 ),
               ),
               Container(

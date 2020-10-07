@@ -94,6 +94,8 @@ class _SynchronizationState extends State<Synchronization> {
                                     isDataDownloadingActive,
                                 isDataUploadingActive: isDataUploadingActive,
                                 hasUnsyncedData: hasUnsyncedData,
+                                dataUploadProcesses:
+                                    synchronizationState.dataUploadProcesses,
                                 onStartDataUpload: () =>
                                     onStartDataUpload(context)),
                           ),

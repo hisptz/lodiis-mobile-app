@@ -30,11 +30,14 @@ class SubPageAppBar extends StatelessWidget {
       ),
       backgroundColor: activeInterventionProgram.primmaryColor,
       actions: [
-        Container(
-          child: IconButton(
-              icon: Icon(Icons.more_vert),
-              onPressed: () =>
-                  onOpenMoreMenu(context, activeInterventionProgram)),
+        Visibility(
+          visible: disableSelectionOfActiveIntervention,
+          child: Container(
+            child: IconButton(
+                icon: Icon(Icons.more_vert),
+                onPressed: () =>
+                    onOpenMoreMenu(context, activeInterventionProgram)),
+          ),
         )
       ],
     );

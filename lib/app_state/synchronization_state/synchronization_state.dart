@@ -14,6 +14,8 @@ class SynchronizationState with ChangeNotifier {
   SynchronizationService _synchronizationService;
   int _beneficiaryCount;
   int _beneficiaryServiceCount;
+  List<String> _dataDownloadProcess;
+  List<String> _dataUploadProcess;
 
 // selectors
   bool get isDataUploadingActive => _isDataUploadingActive ?? false;
@@ -22,6 +24,8 @@ class SynchronizationState with ChangeNotifier {
   bool get isDataDownloadingActive => _isDataDownloadingActive ?? false;
   int get beneficiaryCount => _beneficiaryCount ?? 0;
   int get beneficiaryServiceCount => _beneficiaryServiceCount ?? 0;
+  List<String> get dataUploadProcesses => _dataUploadProcess ?? [];
+  List<String> get dataDownloadProcesses => _dataDownloadProcess ?? [];
 
 // reducers
   void updateDataUploadStatus(bool status) {
@@ -39,7 +43,19 @@ class SynchronizationState with ChangeNotifier {
     notifyListeners();
   }
 
+  void addDataUploadProcess(String process) {
+    _dataUploadProcess.add(process);
+    notifyListeners();
+  }
+
+  void addDataDownloadProcess(String process) {
+    _dataDownloadProcess.add(process);
+    notifyListeners();
+  }
+
   void startCheckingStatusOfUnsyncedData() async {
+    _dataDownloadProcess = [];
+    _dataUploadProcess = [];
     updateUnsynceDataCheckingStatus(true);
     CurrentUser user = await UserService().getCurrentUser();
     _synchronizationService =
@@ -53,13 +69,33 @@ class SynchronizationState with ChangeNotifier {
   }
 
   void startDataDownloadActivity() async {
+    _dataDownloadProcess = [];
     updateDataDownloadStatus(true);
     Timer(Duration(seconds: 1), () => updateDataDownloadStatus(false));
   }
 
   void startDataUploadActivity() async {
+    _dataUploadProcess = [];
     updateDataUploadStatus(true);
-    // start actual process
-    Timer(Duration(seconds: 1), () => updateDataUploadStatus(false));
+    addDataUploadProcess('Prepare offline data to upload');
+    var teis = await _synchronizationService.getTeisFromOfflineDb();
+    var teiEnrollments =
+        await _synchronizationService.getTeiEnrollmentFromOfflineDb();
+    addDataUploadProcess("Uploading beneficiary's profile data");
+    await _synchronizationService.uploadTeisToTheServer(teis);
+    await _synchronizationService
+        .uploadTeiEnrollmentToTheServer(teiEnrollments);
+    // @TODO uploading relationships
+    addDataUploadProcess(
+        "Beneficiary's profile data have been uploaded successfully");
+    var teiEvents = await _synchronizationService.getTeiEventsFromOfflineDb();
+    addDataUploadProcess("Uploading beneficiary's service data");
+    await _synchronizationService.uploadTeiEventsToTheServer(teiEvents);
+    addDataUploadProcess(
+        "Beneficiary's services data have been uploaded successfully");
+    Timer(Duration(seconds: 1), () {
+      updateDataUploadStatus(false);
+      addDataUploadProcess("Data upload have been completed successfully");
+    });
   }
 }
