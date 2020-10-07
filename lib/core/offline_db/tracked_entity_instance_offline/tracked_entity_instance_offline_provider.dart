@@ -60,7 +60,7 @@ class TrackedEntityInstanceOfflineProvider extends OfflineDbProvider {
   }
 
   Future<List<TrackeEntityInstance>> getTrackedEntityInstanceByStatus(
-    List<String> teiSyncStatus,
+    String teiSyncStatus,
   ) async {
     List<TrackeEntityInstance> trackedEntityInstances = [];
     try {
