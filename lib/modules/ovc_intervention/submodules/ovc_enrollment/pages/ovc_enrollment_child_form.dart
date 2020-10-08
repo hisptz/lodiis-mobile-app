@@ -50,6 +50,7 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
         childMapObjects.add(map);
       }
       childMapObject = Map();
+      childMapObject['PN92g65TkVI'] = 'Active';
       isLoading = false;
     });
   }

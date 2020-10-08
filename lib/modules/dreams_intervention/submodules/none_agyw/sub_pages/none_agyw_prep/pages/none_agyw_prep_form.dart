@@ -17,18 +17,18 @@ import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/dreams_prep_followup_visit.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/non_agyw/constant/non_agyw_prep_visit_constant.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/constant/non_agyw_prep_visit_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
 import 'package:provider/provider.dart';
 
-class NonAgywPrepForm extends StatefulWidget {
-  NonAgywPrepForm({Key key}) : super(key: key);
+class NoneAgywPrepForm extends StatefulWidget {
+  NoneAgywPrepForm({Key key}) : super(key: key);
 
   @override
-  _NonAgywPrepFormState createState() => _NonAgywPrepFormState();
+  _NoneAgywPrepFormState createState() => _NoneAgywPrepFormState();
 }
 
-class _NonAgywPrepFormState extends State<NonAgywPrepForm> {
+class _NoneAgywPrepFormState extends State<NoneAgywPrepForm> {
   final String label = 'PREP VISIT';
   List<FormSection> formSections;
   bool isFormReady = false;

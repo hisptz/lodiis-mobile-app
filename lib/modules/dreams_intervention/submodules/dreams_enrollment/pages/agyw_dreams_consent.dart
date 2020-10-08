@@ -13,17 +13,17 @@ import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/models/agyw_enrollment_consent.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
 import 'package:provider/provider.dart';
-import 'agyw_dream_risk_assessment.dart';
+import 'agyw_dreams_risk_assessment.dart';
 
-class AgywConsentForm extends StatefulWidget {
-  const AgywConsentForm({Key key}) : super(key: key);
+class AgywDreamsConsentForm extends StatefulWidget {
+  const AgywDreamsConsentForm({Key key}) : super(key: key);
 
   @override
   _AgywEnrollmentConsetFormState createState() =>
       _AgywEnrollmentConsetFormState();
 }
 
-class _AgywEnrollmentConsetFormState extends State<AgywConsentForm> {
+class _AgywEnrollmentConsetFormState extends State<AgywDreamsConsentForm> {
   List<FormSection> formSections;
   final String label = 'Consent Form';
   final List<String> mandatoryFields =

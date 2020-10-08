@@ -4,10 +4,10 @@ import 'package:kb_mobile_app/core/components/material_card.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_card_header.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/dream_enrollment_agyw_page_edit_form.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/dream_enrollment_page_view_form.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/non_agyw/non_agyw_enrollment_page_edit_form.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/non_agyw/non_agyw_enrollment_page_view_form.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/pages/agyw_dreams_enrollment_edit_form.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/pages/agwy_dreams_enrollment_view_form.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/pages/non_agyw_enrollment_page_edit_form.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/pages/non_agyw_enrollment_page_view_form.dart';
 import 'package:provider/provider.dart';
 
 class DreamsBeneficiaryCard extends StatelessWidget {
@@ -39,27 +39,26 @@ class DreamsBeneficiaryCard extends StatelessWidget {
   final VoidCallback onCardToogle;
   final String svgIcon = 'assets/icons/dreams-header-icon.svg';
 
-
   void onEdit(BuildContext context) {
-  updateEnrollmentFormStateData(context, true);
+    updateEnrollmentFormStateData(context, true);
     Navigator.push(
         context,
         MaterialPageRoute(
           builder: (context) => isAgywEnrollment
-              ? DreamAgywEnrollmentEditForm()
-              : DreamNonAgywEnrollmentEditForm(),));}
-
+              ? AgywDreamsEnrollmentEditForm()
+              : DreamNonAgywEnrollmentEditForm(),
+        ));
+  }
 
   void updateEnrollmentFormStateData(BuildContext context, bool edit) {
     TrackeEntityInstance teiData = agywDream.trackeEntityInstanceData;
     Provider.of<EnrollmentFormState>(context, listen: false).resetFormState();
     Provider.of<EnrollmentFormState>(context, listen: false)
         .updateFormEditabilityState(isEditableMode: edit);
-      Provider.of<EnrollmentFormState>(context, listen: false).setFormFieldState(
-        'location',
-        edit ? agywDream.orgUnit : agywDream.location);
+    Provider.of<EnrollmentFormState>(context, listen: false).setFormFieldState(
+        'location', edit ? agywDream.orgUnit : agywDream.location);
     Provider.of<EnrollmentFormState>(context, listen: false)
-        .setFormFieldState('trackedEntityInstance', agywDream.id); 
+        .setFormFieldState('trackedEntityInstance', agywDream.id);
     Provider.of<EnrollmentFormState>(context, listen: false)
         .setFormFieldState('orgUnit', agywDream.orgUnit);
     Provider.of<EnrollmentFormState>(context, listen: false)
@@ -68,24 +67,32 @@ class DreamsBeneficiaryCard extends StatelessWidget {
         .setFormFieldState('enrollmentDate', agywDream.createdDate);
     Provider.of<EnrollmentFormState>(context, listen: false)
         .setFormFieldState('incidentDate', agywDream.createdDate);
-    Provider.of<EnrollmentFormState>(context, listen: false)
-        .setFormFieldState( isAgywEnrollment ?'KvmQjZbGZQU': 'd8uBlGOpFhJ', agywDream.benefecaryId);
-           
+    Provider.of<EnrollmentFormState>(context, listen: false).setFormFieldState(
+        isAgywEnrollment ? 'KvmQjZbGZQU' : 'd8uBlGOpFhJ',
+        agywDream.benefecaryId);
+
     for (Map attributeObj in teiData.attributes) {
       if (attributeObj['value'] != '' && '${attributeObj['value']}' != 'null') {
         Provider.of<EnrollmentFormState>(context, listen: false)
             .setFormFieldState(
-                attributeObj['attribute'], attributeObj['value']); }}}
+                attributeObj['attribute'], attributeObj['value']);
+      }
+    }
+  }
+
   void onView(BuildContext context) {
     updateEnrollmentFormStateData(context, false);
-    Navigator.push(context,
+    Navigator.push(
+        context,
         MaterialPageRoute(
           builder: (context) => isAgywEnrollment
-              ? DreamAgywEnrollmentViewForm()
-              : DreamNonAgywEnrollmentViewForm(),));}
+              ? AgywDreamsEnrollmentViewForm()
+              : DreamNonAgywEnrollmentViewForm(),
+        ));
+  }
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(bottom: 16.0, right: 13.0, left: 13.0),
       child: MaterialCard(
@@ -100,13 +107,16 @@ class DreamsBeneficiaryCard extends StatelessWidget {
                 canView: canView,
                 isExpanded: isExpanded,
                 onToggleCard: onCardToogle,
-                onEdit:() => onEdit(context),
-                onView: () => onView(context),),
+                onEdit: () => onEdit(context),
+                onView: () => onView(context),
+              ),
               cardBody,
               cardBottonActions,
               Visibility(
                   visible: isExpanded,
-                  child: Row(children: [cardBottonContent],))
+                  child: Row(
+                    children: [cardBottonContent],
+                  ))
             ],
           ),
         ),

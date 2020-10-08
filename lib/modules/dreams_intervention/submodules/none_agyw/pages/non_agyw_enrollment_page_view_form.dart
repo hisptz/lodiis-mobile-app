@@ -9,48 +9,44 @@ import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/models/agyw_enrollment_risk_assessment.dart';
 import 'package:provider/provider.dart';
+import '../models/non_agyw_enrollment_client_intake.dart';
+import '../models/non_agyw_enrollment_prep_screening.dart';
 
-import 'models/agyw_enrollment_consent.dart';
-import 'models/agyw_enrollment_form_section.dart';
-
-class DreamAgywEnrollmentViewForm extends StatefulWidget {
-  const DreamAgywEnrollmentViewForm({Key key}) : super(key: key);
+class DreamNonAgywEnrollmentViewForm extends StatefulWidget {
+  const DreamNonAgywEnrollmentViewForm({Key key}) : super(key: key);
 
   @override
-  _DreamAgywEnrollmentViewFormState createState() =>
-      _DreamAgywEnrollmentViewFormState();
+  _DreamNonAgywEnrollmentViewFormState createState() =>
+      _DreamNonAgywEnrollmentViewFormState();
 }
 
-class _DreamAgywEnrollmentViewFormState
-    extends State<DreamAgywEnrollmentViewForm> {
+class _DreamNonAgywEnrollmentViewFormState
+    extends State<DreamNonAgywEnrollmentViewForm> {
   List<FormSection> formSections;
-  List<FormSection> enrollmentFormSections;
-  List<FormSection> consentFormSections;
-  List<FormSection> riskAssessmentFormSections;
-  final String label = 'Agyw Enrolment Form';
-
+  List<FormSection> enrollmentClientIntakeFormSections;
+  List<FormSection> prepScreeningFormSections;
+  final String label = 'Non Agyw Enrolment Form';
   bool isFormReady = false;
 
   @override
   void initState() {
     super.initState();
     setState(() {
-      consentFormSections = AgywEnrollmentConcent.getFormSections();
-      formSections = consentFormSections.map((FormSection consentFormSection) {
-        consentFormSection.name = 'Consent';
+      prepScreeningFormSections =
+          NonAgywEnrollmentFormSection.getFormSections();
+      formSections =
+          prepScreeningFormSections.map((FormSection consentFormSection) {
+        consentFormSection.name = 'HTS Client Intake Record';
         List<InputField> inputFields = consentFormSection.inputFields
             .where((InputField inputField) => inputField.id != 'location')
             .toList();
         consentFormSection.inputFields = inputFields;
         return consentFormSection;
       }).toList();
-      enrollmentFormSections = AgywEnrollmentFormSection.getFormSections();
-      riskAssessmentFormSections =
-          AgywEnrollmentRiskAssessment.getFormSections();
-      formSections.addAll(riskAssessmentFormSections);
-      formSections.addAll(enrollmentFormSections);
+      enrollmentClientIntakeFormSections =
+          NonAgywEnrollmentPrepScreening.getFormSections();
+      formSections.addAll(enrollmentClientIntakeFormSections);
       isFormReady = true;
     });
   }

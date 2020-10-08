@@ -10,6 +10,7 @@ import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
+import 'package:kb_mobile_app/core/constants/beneficiary_identification.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
@@ -58,11 +59,12 @@ class _OvcEnrollmentHouseHoldFormState
       setState(() {
         isSaving = true;
       });
-      // adding other variables
-      //@TODO generate house hold id and program status
-      dataObject['yk0OH9p09C1'] = AppUtil.getUid();
       dataObject['PN92g65TkVI'] = 'Active';
-      List<String> hiddenFields = ['yk0OH9p09C1', 'PN92g65TkVI'];
+      List<String> hiddenFields = [
+        BeneficiaryIdentification.beneficiaryId,
+        BeneficiaryIdentification.beneficiaryIndex,
+        'PN92g65TkVI'
+      ];
       List<Map> childrenObjects = dataObject['children'];
       String orgUnit = dataObject['location'];
       bool shouldEnroll = true;
@@ -83,7 +85,7 @@ class _OvcEnrollmentHouseHoldFormState
         null,
         null,
         shouldEnroll,
-        [],
+        hiddenFields,
       );
       Provider.of<OvcInterventionListState>(context, listen: false)
           .refreshOvcList();

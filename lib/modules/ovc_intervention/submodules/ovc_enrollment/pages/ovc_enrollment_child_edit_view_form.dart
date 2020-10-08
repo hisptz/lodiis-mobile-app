@@ -10,6 +10,7 @@ import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
+import 'package:kb_mobile_app/core/constants/beneficiary_identification.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
@@ -20,19 +21,16 @@ import 'package:kb_mobile_app/modules/ovc_intervention/services/ovc_enrollment_c
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/models/ovc_enrollment_child.dart';
 import 'package:provider/provider.dart';
 
-
 class OvcEnrollmentChildEditViewForm extends StatefulWidget {
   const OvcEnrollmentChildEditViewForm({Key key}) : super(key: key);
 
   @override
   _OvcEnrollmentChildEditViewFormState createState() =>
       _OvcEnrollmentChildEditViewFormState();
-
 }
 
 class _OvcEnrollmentChildEditViewFormState
     extends State<OvcEnrollmentChildEditViewForm> {
-
   List<FormSection> formSections;
   final String label = 'Child enrolment form';
 
@@ -41,7 +39,6 @@ class _OvcEnrollmentChildEditViewFormState
 
   List<String> mandatoryFields;
   final Map mandatoryFieldObject = Map();
-
 
   @override
   void initState() {
@@ -63,6 +60,7 @@ class _OvcEnrollmentChildEditViewFormState
       setState(() {
         isSaving = true;
       });
+      dataObject['PN92g65TkVI'] = dataObject['PN92g65TkVI'] ?? 'Active';
       List<Map> childrenObjects = [];
       childrenObjects.add(dataObject);
       String parentTrackedEntityInstance =
@@ -71,6 +69,11 @@ class _OvcEnrollmentChildEditViewFormState
       String enrollmentDate = dataObject['enrollmentDate'];
       String incidentDate = dataObject['incidentDate'];
       bool shouldEnroll = dataObject['trackedEntityInstance'] == null;
+      List<String> hiddenFields = [
+        BeneficiaryIdentification.beneficiaryId,
+        BeneficiaryIdentification.beneficiaryIndex,
+        'PN92g65TkVI'
+      ];
       await OvcEnrollmentChildService().savingChildrenEnrollmentForms(
         parentTrackedEntityInstance,
         orgUnit,
@@ -78,7 +81,7 @@ class _OvcEnrollmentChildEditViewFormState
         enrollmentDate,
         incidentDate,
         shouldEnroll,
-        [],
+        hiddenFields,
       );
       Provider.of<OvcInterventionListState>(context, listen: false)
           .refreshOvcList();
