@@ -32,7 +32,7 @@ class OvcEnrollmentChildService {
       String enrollment = dataObject['enrollment'];
       childTeiReferences.add(trackedEntityInstance);
       TrackeEntityInstance trackeEntityInstanceData =
-          FormUtil.geTrackedEntityInstanceEnrollmentPayLoad(
+          await FormUtil.geTrackedEntityInstanceEnrollmentPayLoad(
         trackedEntityInstance,
         trackedEntityType,
         orgUnit,

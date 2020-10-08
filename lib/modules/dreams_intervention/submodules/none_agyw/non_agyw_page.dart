@@ -7,7 +7,7 @@ import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_card_body.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_home_container.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/non_agyw/sub_pages/non_agyw_prep.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/sub_pages/none_agyw_prep/none_agyw_prep.dart';
 import 'package:provider/provider.dart';
 
 class NoneAgyw extends StatefulWidget {
@@ -37,7 +37,7 @@ class _NoneAgywState extends State<NoneAgyw> {
     Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => NonAgywPrepPage(),
+          builder: (context) => NoneAgywPrep(),
         ));
   }
 

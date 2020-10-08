@@ -35,8 +35,12 @@ class AgywDreamEnrollmentService {
     inputFieldIds.addAll(FormUtil.getFormFieldIds(enrollmentFormSections));
 
     TrackeEntityInstance trackeEntityInstanceData =
-        FormUtil.geTrackedEntityInstanceEnrollmentPayLoad(trackedEntityInstance,
-            trackedEntityType, orgUnit, inputFieldIds, dataObject);
+        await FormUtil.geTrackedEntityInstanceEnrollmentPayLoad(
+            trackedEntityInstance,
+            trackedEntityType,
+            orgUnit,
+            inputFieldIds,
+            dataObject);
     await FormUtil.savingTrackeEntityInstance(trackeEntityInstanceData);
     Enrollment enrollmentData = FormUtil.getEnrollmentPayLoad(enrollment,
         enrollmentDate, incidentDate, orgUnit, program, trackedEntityInstance);

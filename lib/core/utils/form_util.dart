@@ -1,13 +1,16 @@
 import 'dart:convert';
+import 'package:kb_mobile_app/core/constants/beneficiary_identification.dart';
 import 'package:kb_mobile_app/core/offline_db/enrollment_offline/enrollment_offline_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/event_offline/event_offline_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/tei_relationship_offline/tei_relationship_offline_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/tracked_entity_instance_offline/tracked_entity_instance_offline_provider.dart';
+import 'package:kb_mobile_app/core/services/organisation_unit_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/enrollment.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
+import 'package:kb_mobile_app/models/organisation_unit.dart';
 import 'package:kb_mobile_app/models/tei_relationship.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
 
@@ -73,14 +76,28 @@ class FormUtil {
     return inputFields;
   }
 
-  static TrackeEntityInstance geTrackedEntityInstanceEnrollmentPayLoad(
+  static Future<TrackeEntityInstance> geTrackedEntityInstanceEnrollmentPayLoad(
     String trackedEntityInstance,
     String trackedEntityType,
     String orgUnit,
     List<String> inputFieldIds,
     Map dataObject,
-  ) {
+  ) async {
     trackedEntityInstance = trackedEntityInstance ?? AppUtil.getUid();
+    // @TODO generation of beneficiaries id
+    // BeneficiaryIdentification.beneficiaryIndex,
+    String beneficiaryIndex = '';
+    List<OrganisationUnit> organisationUnits =
+        await OrganisationUnitService().getOrganisationUnits([orgUnit]);
+    OrganisationUnit organisationUnit =
+        organisationUnits.length > 0 ? organisationUnits[0] : null;
+    dataObject[BeneficiaryIdentification.beneficiaryId] =
+        dataObject[BeneficiaryIdentification.beneficiaryId] ??
+            BeneficiaryIdentification.getBenificiaryId(
+                organisationUnit, dataObject, beneficiaryIndex);
+    dataObject[BeneficiaryIdentification.beneficiaryIndex] =
+        dataObject[BeneficiaryIdentification.beneficiaryIndex] ??
+            beneficiaryIndex;
     String attributes = inputFieldIds
         .map((String attribute) {
           String value = dataObject.keys.toList().indexOf(attribute) > -1

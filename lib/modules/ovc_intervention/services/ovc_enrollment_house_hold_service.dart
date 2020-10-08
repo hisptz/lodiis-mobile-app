@@ -37,8 +37,12 @@ class OvcEnrollmentHouseHoldService {
     inputFieldIds.addAll(consentFields);
     inputFieldIds.addAll(hiddenFields);
     TrackeEntityInstance trackeEntityInstanceData =
-        FormUtil.geTrackedEntityInstanceEnrollmentPayLoad(trackedEntityInstance,
-            trackedEntityType, orgUnit, inputFieldIds, dataObject);
+        await FormUtil.geTrackedEntityInstanceEnrollmentPayLoad(
+            trackedEntityInstance,
+            trackedEntityType,
+            orgUnit,
+            inputFieldIds,
+            dataObject);
     await FormUtil.savingTrackeEntityInstance(trackeEntityInstanceData);
     if (shouldEnroll) {
       Enrollment enrollmentData = FormUtil.getEnrollmentPayLoad(
