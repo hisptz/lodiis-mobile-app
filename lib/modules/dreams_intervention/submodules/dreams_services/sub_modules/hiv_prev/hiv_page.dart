@@ -16,7 +16,7 @@ class DreamHIVPrepPage extends StatefulWidget {
 }
 
 class _DreamHIVPrepPageState extends State<DreamHIVPrepPage> {
-  final String label = 'HIV PREP Service';
+  final String label = 'HIV PREV Service';
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +45,7 @@ class _DreamHIVPrepPageState extends State<DreamHIVPrepPage> {
                   DreamBenefeciaryTopHeader(agywDream: agywDream),
                   Container(
                       margin: EdgeInsets.symmetric(vertical: 250),
-                      child: Center(child: Text("HIV PREP FORM CONTAINER")))
+                      child: Center(child: Text("HIV PREV FORM CONTAINER")))
                 ],
               );
             },
