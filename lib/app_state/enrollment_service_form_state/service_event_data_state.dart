@@ -21,7 +21,7 @@ class ServiveEventDataState with ChangeNotifier {
     String trackedEntityInstance,
   ) async {
     _isLoading = true;
-    _eventListByProgramStage = Map<String, List<Events>>();
+    _eventListByProgramStage.clear();
     notifyListeners();
     List<Events> eventList =
         await TrackedEntityInstanceUtil.getSavedTrackedEntityInstanceEventData(

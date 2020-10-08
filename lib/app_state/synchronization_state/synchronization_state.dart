@@ -74,28 +74,31 @@ class SynchronizationState with ChangeNotifier {
     Timer(Duration(seconds: 1), () => updateDataDownloadStatus(false));
   }
 
-  void startDataUploadActivity() async {
+  Future startDataUploadActivity() async {
     _dataUploadProcess = [];
     updateDataUploadStatus(true);
-    addDataUploadProcess('Prepare offline data to upload');
-    var teis = await _synchronizationService.getTeisFromOfflineDb();
-    var teiEnrollments =
-        await _synchronizationService.getTeiEnrollmentFromOfflineDb();
-    addDataUploadProcess("Uploading beneficiary's profile data");
-    await _synchronizationService.uploadTeisToTheServer(teis);
-    await _synchronizationService
-        .uploadTeiEnrollmentToTheServer(teiEnrollments);
-    // @TODO uploading relationships
-    addDataUploadProcess(
-        "Beneficiary's profile data have been uploaded successfully");
-    var teiEvents = await _synchronizationService.getTeiEventsFromOfflineDb();
-    addDataUploadProcess("Uploading beneficiary's service data");
-    await _synchronizationService.uploadTeiEventsToTheServer(teiEvents);
-    addDataUploadProcess(
-        "Beneficiary's services data have been uploaded successfully");
-    Timer(Duration(seconds: 1), () {
-      updateDataUploadStatus(false);
-      addDataUploadProcess("Data upload have been completed successfully");
-    });
+    try {
+      addDataUploadProcess('Prepare offline data to upload');
+      var teis = await _synchronizationService.getTeisFromOfflineDb();
+      var teiEnrollments =
+          await _synchronizationService.getTeiEnrollmentFromOfflineDb();
+      if (teis.length > 0) {
+        addDataUploadProcess("Uploading beneficiary's profile data");
+        await _synchronizationService.uploadTeisToTheServer(
+            teis, teiEnrollments);
+        // @TODO uploading relationships
+        addDataUploadProcess(
+            "Beneficiary's profile data have been uploaded successfully");
+      }
+
+      var teiEvents = await _synchronizationService.getTeiEventsFromOfflineDb();
+      if (teiEvents.length > 0) {
+        addDataUploadProcess("Uploading beneficiary's service data");
+        await _synchronizationService.uploadTeiEventsToTheServer(teiEvents);
+        addDataUploadProcess(
+            "Beneficiary's services data have been uploaded successfully");
+      }
+    } catch (e) {}
+    updateDataUploadStatus(false);
   }
 }
