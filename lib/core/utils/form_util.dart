@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:kb_mobile_app/core/constants/beneficiary_identification.dart';
 import 'package:kb_mobile_app/core/offline_db/enrollment_offline/enrollment_offline_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/event_offline/event_offline_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/tei_relationship_offline/tei_relationship_offline_provider.dart';
@@ -73,14 +74,18 @@ class FormUtil {
     return inputFields;
   }
 
-  static TrackeEntityInstance geTrackedEntityInstanceEnrollmentPayLoad(
+  static Future<TrackeEntityInstance> geTrackedEntityInstanceEnrollmentPayLoad(
     String trackedEntityInstance,
     String trackedEntityType,
     String orgUnit,
     List<String> inputFieldIds,
     Map dataObject,
-  ) {
+  ) async {
     trackedEntityInstance = trackedEntityInstance ?? AppUtil.getUid();
+    // @TODO generation of beneficiaries id
+    // BeneficiaryIdentification.beneficiaryIndex,
+    dataObject[BeneficiaryIdentification.beneficiaryId] =
+        dataObject[BeneficiaryIdentification.beneficiaryId] ?? AppUtil.getUid();
     String attributes = inputFieldIds
         .map((String attribute) {
           String value = dataObject.keys.toList().indexOf(attribute) > -1
