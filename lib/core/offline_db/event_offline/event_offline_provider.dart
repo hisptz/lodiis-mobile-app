@@ -17,6 +17,8 @@ class EventOfflineProvider extends OfflineDbProvider {
   final String syncStatus = 'syncStatus';
 
   addOrUpdateEvent(Events event) async {
+    print("in the database");
+   print(event.dataValues);
     var dbClient = await db;
     Map data = Events().toOffline(event);
     data['id'] = data['event'];

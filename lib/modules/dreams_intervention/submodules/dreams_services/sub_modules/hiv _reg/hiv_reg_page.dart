@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dream_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
@@ -8,8 +9,7 @@ import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_benef
 import 'package:provider/provider.dart';
 
 class DreamHIVRegPage extends StatefulWidget {
-  DreamHIVRegPage({Key key,@required this.agywDream}) : super(key: key);
-  final AgywDream agywDream;
+  DreamHIVRegPage({Key key}) : super(key: key);
 
   @override
   _DreamHIVRegPageState createState() => _DreamHIVRegPageState();
@@ -35,17 +35,21 @@ class _DreamHIVRegPageState extends State<DreamHIVRegPage> {
           ),
         ),
         body: SingleChildScrollView(
-          child: Container(
-            child: Column(
-              children: [
-                //header on the page
-                DreamBenefeciaryTopHeader(agywDream: widget.agywDream,),
-                Container(
-                    margin: EdgeInsets.symmetric(vertical: 250),
-                    child: Center(child: Text("HIV REG FORM CONTAINER")))
-              ],
-            ),
-          ),
+          child: Container(child: Consumer<DreamBenefeciarySelectionState>(
+            builder: (context, dreamBenefeciarySelectionState, child) {
+              AgywDream agywDream =
+                  dreamBenefeciarySelectionState.currentAgywDream;
+              return Column(
+                children: [
+                  //header on the page
+                  DreamBenefeciaryTopHeader(agywDream: agywDream),
+                  Container(
+                      margin: EdgeInsets.symmetric(vertical: 250),
+                      child: Center(child: Text("HIV REG FORM CONTAINER")))
+                ],
+              );
+            },
+          )),
         ),
         bottomNavigationBar: InterventionBottomNavigationBarContainer());
   }

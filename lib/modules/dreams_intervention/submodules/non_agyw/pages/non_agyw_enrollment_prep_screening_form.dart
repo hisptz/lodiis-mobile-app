@@ -89,17 +89,19 @@ class _NonAgywEnrollmentPrepScreeningFormState
           position: ToastGravity.TOP);
     }
   }
-void autoFillInputFields(String id, dynamic value) {
+
+  void autoFillInputFields(String id, dynamic value) {
     if (id == 'qZP982qpSPS') {
       int age = AppUtil.getAgeInYear(value);
       Provider.of<EnrollmentFormState>(context, listen: false)
           .setFormFieldState('ls9hlz2tyol', age.toString());
     }
   }
+
   void onInputValueChange(String id, dynamic value) {
     Provider.of<EnrollmentFormState>(context, listen: false)
         .setFormFieldState(id, value);
-       autoFillInputFields(id, value);
+    autoFillInputFields(id, value);
   }
 
   @override

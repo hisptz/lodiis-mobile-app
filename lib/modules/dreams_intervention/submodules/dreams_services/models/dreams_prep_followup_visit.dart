@@ -3,11 +3,9 @@ import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/input_field_option.dart';
 
-class EnrollmentFormSection {
+class DreamsPrepFollwUpVisit {
   static List<String> getMandatoryField() {
-    return [
-      "m0G5RLlWR9W"
-    ];
+    return ["m0G5RLlWR9W"];
   }
 
   static List<FormSection> getFormSections() {
@@ -26,7 +24,7 @@ class EnrollmentFormSection {
             inputColor: Color(0xFF258DCC),
             labelColor: Color(0xFF05131B)),
         InputField(
-            id: '',
+            id: 'VW9nRqUEWbi',
             name: 'HIV rapid test result',
             valueType: 'TEXT',
             inputColor: Color(0xFF258DCC),

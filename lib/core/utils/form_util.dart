@@ -135,7 +135,7 @@ class FormUtil {
     String eventDate,
     String trackedEntityInstance,
   ) {
-    event = event ?? AppUtil.getUid();
+      event = event ?? AppUtil.getUid();
     trackedEntityInstance = trackedEntityInstance ?? '';
     eventDate =
         eventDate ?? AppUtil.formattedDateTimeIntoString(DateTime.now());
@@ -150,7 +150,7 @@ class FormUtil {
         .join(',');
     dynamic eventJson =
         '{"event" : "$event", "eventDate":"$eventDate",  "program":"$program", "programStage":"$programStage", "trackedEntityInstance":"$trackedEntityInstance", "status":"COMPLETED", "orgUnit":"$orgUnit", "syncStatus":"not-synced", "dataValues":[$dataValues] }';
-    return Events().fromJson(json.decode(eventJson));
+      return Events().fromJson(json.decode(eventJson));
   }
 
   static Future savingTrackeEntityInstance(

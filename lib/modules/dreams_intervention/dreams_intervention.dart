@@ -33,9 +33,8 @@ class DreamsIntervention extends StatelessWidget {
     print('on onSearch');
   }
 
-  void onAddNoneAgywBeneficiary(BuildContext context){
-    Provider.of<EnrollmentFormState>(context, listen: false)
-        .resetFormState();
+  void onAddNoneAgywBeneficiary(BuildContext context) {
+    Provider.of<EnrollmentFormState>(context, listen: false).resetFormState();
     Navigator.push(context, MaterialPageRoute(
       builder: (context) {
         return NonAgywEnrollmentFormSectionForm();
@@ -44,8 +43,7 @@ class DreamsIntervention extends StatelessWidget {
   }
 
   void onAddAgywBeneficiary(BuildContext context) {
-      Provider.of<EnrollmentFormState>(context, listen: false)
-        .resetFormState();
+    Provider.of<EnrollmentFormState>(context, listen: false).resetFormState();
     Navigator.push(context, MaterialPageRoute(
       builder: (context) {
         return AgywConsentForm();
@@ -68,7 +66,8 @@ class DreamsIntervention extends StatelessWidget {
                 onClickHome: onClickHome,
                 onSearch: onSearch,
                 onAddAgywBeneficiary: () => onAddAgywBeneficiary(context),
-                onAddNoneAgywBeneficiary:() =>  onAddNoneAgywBeneficiary(context),
+                onAddNoneAgywBeneficiary: () =>
+                    onAddNoneAgywBeneficiary(context),
                 onOpenMoreMenu: () =>
                     onOpenMoreMenu(context, activeInterventionProgram),
               );
@@ -95,7 +94,7 @@ class DreamsIntervention extends StatelessWidget {
                               activeInterventionProgram);
                   return Container(
                     child: currentInterventionBottomNavigation.id == 'services'
-                        ?DreamsServicesPage()
+                        ? DreamsServicesPage()
                         : currentInterventionBottomNavigation.id == 'referral'
                             ? DreamsReferralPage()
                             : currentInterventionBottomNavigation.id ==

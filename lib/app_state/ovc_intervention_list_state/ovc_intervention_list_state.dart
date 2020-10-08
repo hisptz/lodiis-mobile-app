@@ -25,7 +25,6 @@ class OvcInterventionListState with ChangeNotifier {
     for (OvcHouseHold houseHold in _ovcInterventionList) {
       _numberOfOvcs += houseHold.children.length;
     }
-
     notifyListeners();
   }
 
