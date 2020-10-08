@@ -74,13 +74,13 @@ class _DreamHIVRegPageState extends State<DreamHIVRegPage> {
   void onViewPrep(BuildContext context, Events eventdata) {
     updateFormState(context, false, eventdata);
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => DreamPrepFormPage()));
+        context, MaterialPageRoute(builder: (context) => DreamHIVRegPageForm()));
   }
 
   void onEditPrep(BuildContext context, Events eventdata) {
     updateFormState(context, true, eventdata);
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => DreamPrepFormPage()));
+        context, MaterialPageRoute(builder: (context) => DreamHIVRegPageForm()));
   }
 
   @override
