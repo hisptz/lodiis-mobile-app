@@ -1,3 +1,4 @@
+import 'package:kb_mobile_app/core/constants/beneficiary_identification.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
 
@@ -48,8 +49,7 @@ class AgywDream {
       'qZP982qpSPS',
       'PN92g65TkVI',
       'vIX4GTSCX4P',
-      'KvmQjZbGZQU',
-      'd8uBlGOpFhJ'
+      BeneficiaryIdentification.beneficiaryId
     ];
     Map data = Map();
     for (Map detailObj in trackeEntityInstance.attributes) {
@@ -66,7 +66,7 @@ class AgywDream {
       surname: data['rSP9c21JsfC'],
       age: age.toString(),
       ageBand: agywAgeBand(age) ?? '',
-      benefecaryId: data['KvmQjZbGZQU'] ?? data['d8uBlGOpFhJ'] ?? '',
+      benefecaryId: data[BeneficiaryIdentification.beneficiaryId] ?? '',
       sex: data['vIX4GTSCX4P'] ?? '',
       programStatus: data['PN92g65TkVI'] ?? '',
       orgUnit: orgUnit,

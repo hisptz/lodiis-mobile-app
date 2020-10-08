@@ -1,3 +1,4 @@
+import 'package:kb_mobile_app/core/constants/beneficiary_identification.dart';
 import 'package:kb_mobile_app/models/ovc_house_hold_child.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
 
@@ -45,8 +46,8 @@ class OvcHouseHold {
       'rSP9c21JsfC',
       'kQehaqmaygZ',
       'BXUNH6LXeGA',
-      'yk0OH9p09C1',
-      'PN92g65TkVI'
+      'PN92g65TkVI',
+      BeneficiaryIdentification.beneficiaryId
     ];
     Map data = Map();
     for (Map attributOj in tei.attributes) {
@@ -65,7 +66,7 @@ class OvcHouseHold {
         createdDate: createdDate,
         ovcMaleCount: data['kQehaqmaygZ'] ?? '',
         ovcFemaleCount: data['BXUNH6LXeGA'] ?? '',
-        houseHoldId: data['yk0OH9p09C1'] ?? '',
+        houseHoldId: data[BeneficiaryIdentification.beneficiaryId] ?? '',
         houseHoldStatus: data['PN92g65TkVI'] ?? '',
         children: children,
         teiData: tei);

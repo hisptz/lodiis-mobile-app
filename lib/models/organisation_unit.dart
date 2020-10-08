@@ -2,6 +2,7 @@ class OrganisationUnit {
   String id;
   String parent;
   String name;
+  String code;
   int level;
   List program;
   List children;
@@ -15,6 +16,7 @@ class OrganisationUnit {
     this.name,
     this.parent,
     this.level,
+    this.code,
     this.program,
     this.children,
   });
@@ -41,6 +43,7 @@ class OrganisationUnit {
             parentObj != null && parentObj['id'] != null ? parentObj['id'] : '',
         name: json["name"],
         level: json["level"],
+        code: json['code'] ?? '',
         program: programs,
         children: childrens);
   }
@@ -48,6 +51,7 @@ class OrganisationUnit {
     var map = Map<String, dynamic>();
     map['id'] = organisationUnit.id;
     map['name'] = organisationUnit.name;
+    map['code'] = organisationUnit.code;
     map['parent'] = organisationUnit.parent;
     map["level"] = organisationUnit.level;
 
@@ -59,6 +63,7 @@ class OrganisationUnit {
     this.name = map['name'];
     this.parent = map['parent'];
     this.level = map["level"];
+    this.code = map["code"];
     this.children = [];
     this.program = [];
   }
