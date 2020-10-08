@@ -23,8 +23,10 @@ class _SynchronizationState extends State<Synchronization> {
   final String label = 'Data Synchronization';
 
   void onStartDataUpload(BuildContext context) async {
-    Provider.of<SynchronizationState>(context, listen: false)
+    await Provider.of<SynchronizationState>(context, listen: false)
         .startDataUploadActivity();
+    Provider.of<SynchronizationState>(context, listen: false)
+        .startCheckingStatusOfUnsyncedData();
   }
 
   void onStartDataDownload(BuildContext context) async {
@@ -99,15 +101,15 @@ class _SynchronizationState extends State<Synchronization> {
                                 onStartDataUpload: () =>
                                     onStartDataUpload(context)),
                           ),
-                          Container(
-                            margin: EdgeInsets.symmetric(vertical: 5.0),
-                            child: DataDowmloadContainer(
-                              isDataDownloadingActive: isDataDownloadingActive,
-                              isDataUploadingActive: isDataUploadingActive,
-                              onStartDataDownload: () =>
-                                  onStartDataDownload(context),
-                            ),
-                          ),
+                          // Container(
+                          //   margin: EdgeInsets.symmetric(vertical: 5.0),
+                          //   child: DataDowmloadContainer(
+                          //     isDataDownloadingActive: isDataDownloadingActive,
+                          //     isDataUploadingActive: isDataUploadingActive,
+                          //     onStartDataDownload: () =>
+                          //         onStartDataDownload(context),
+                          //   ),
+                          // ),
                         ],
                       ),
                     );
