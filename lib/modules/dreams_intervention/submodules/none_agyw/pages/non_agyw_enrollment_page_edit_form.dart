@@ -9,37 +9,37 @@ import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
+import 'package:kb_mobile_app/core/constants/beneficiary_identification.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/services/agyw_dream_enrollment_service.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/services/non_agyw_dream_enrollment_service.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
 import 'package:provider/provider.dart';
-import 'models/agyw_enrollment_consent.dart';
-import 'models/agyw_enrollment_form_section.dart';
-import 'models/agyw_enrollment_risk_assessment.dart';
 
-class DreamAgywEnrollmentEditForm extends StatefulWidget {
-  const DreamAgywEnrollmentEditForm({Key key}) : super(key: key);
+import '../models/non_agyw_enrollment_client_intake.dart';
+import '../models/non_agyw_enrollment_prep_screening.dart';
+
+class DreamNonAgywEnrollmentEditForm extends StatefulWidget {
+  const DreamNonAgywEnrollmentEditForm({Key key}) : super(key: key);
 
   @override
-  _DreamAgywEnrollmentEditFormState createState() =>
-      _DreamAgywEnrollmentEditFormState();
+  _DreamNonAgywEnrollmentEditFormState createState() =>
+      _DreamNonAgywEnrollmentEditFormState();
 }
 
-class _DreamAgywEnrollmentEditFormState
-    extends State<DreamAgywEnrollmentEditForm> {
+class _DreamNonAgywEnrollmentEditFormState
+    extends State<DreamNonAgywEnrollmentEditForm> {
   List<FormSection> formSections;
-  List<FormSection> enrollmentFormSections;
-  List<FormSection> consentFormSections;
-  List<FormSection> riskAssessmentFormSections;
-  final String label = 'Agyw Enrolment Form';
+  List<FormSection> clientIntakeFormSections;
+  List<FormSection> prepScreeningFormSections;
+
+  final String label = 'NonAgyw Enrolment Form';
   final Map mandatoryFieldObject = Map();
   final List<String> mandatoryFields =
-      AgywEnrollmentFormSection.getMandatoryField() +
-          AgywEnrollmentConcent.getMandatoryField() +
-          AgywEnrollmentRiskAssessment.getMandatoryField();
+      NonAgywEnrollmentFormSection.getMandatoryField() +
+          NonAgywEnrollmentPrepScreening.getMandatoryField();
   bool isFormReady = false;
   bool isSaving = false;
 
@@ -50,24 +50,14 @@ class _DreamAgywEnrollmentEditFormState
       for (String id in mandatoryFields) {
         mandatoryFieldObject[id] = true;
       }
-      enrollmentFormSections = AgywEnrollmentFormSection.getFormSections();
-      consentFormSections = AgywEnrollmentConcent.getFormSections();
-      riskAssessmentFormSections =
-          AgywEnrollmentRiskAssessment.getFormSections();
-
-      List<String> skippedInputs = [
-        'location',
-        'WTZ7GLTrE8Q',
-        'rSP9c21JsfC',
-        'qZP982qpSPS'        
-        
-        ];
+      clientIntakeFormSections = NonAgywEnrollmentFormSection.getFormSections();
+      prepScreeningFormSections =
+          NonAgywEnrollmentPrepScreening.getFormSections();
+      List<String> skippedInputs = ['location', 'WTZ7GLTrE8Q', 'rSP9c21JsfC'];
       formSections = [
-              riskAssessmentFormSections[0],
+        clientIntakeFormSections[0],
+        prepScreeningFormSections[0],
       ];
-      enrollmentFormSections.forEach((enrollmentFormsection) {
-        formSections.add(enrollmentFormsection);
-      });
 
       formSections = FormUtil.getFormSectionWithReadOnlyStatus(
         formSections,
@@ -104,8 +94,11 @@ class _DreamAgywEnrollmentEditFormState
       String enrollment = dataObject['enrollment'];
       String enrollmentDate = dataObject['enrollmentDate'];
       String incidentDate = dataObject['incidentDate'];
-      List<String> hiddenFields = ['d8uBlGOpFhJ'];
-      await AgywDreamEnrollmentService().savingAgwyBeneficiary(
+      List<String> hiddenFields = [
+        BeneficiaryIdentification.beneficiaryId,
+        BeneficiaryIdentification.beneficiaryIndex,
+      ];
+      await NonAgywDreamEnrollmentService().savingNonAgwyBeneficiary(
         dataObject,
         trackedEntityInstance,
         orgUnit,

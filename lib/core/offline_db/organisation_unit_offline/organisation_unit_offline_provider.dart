@@ -10,6 +10,7 @@ class OrganisationUnitOffline extends OfflineDbProvider {
   String name = 'name';
   String parent = 'parent';
   String level = 'level';
+  String code = 'code';
 
   addOrUpdateOrganisationUnits(List<OrganisationUnit> organisationUnits) async {
     var dbClient = await db;
@@ -36,7 +37,7 @@ class OrganisationUnitOffline extends OfflineDbProvider {
       var dbClient = await db;
       List<Map> maps = await dbClient.query(
         OrganisationUnit.organisationUnitTable,
-        columns: [id, name, parent, level],
+        columns: [id, name, parent, level, code],
       );
       if (maps.isNotEmpty) {
         for (Map map in maps) {
@@ -53,6 +54,7 @@ class OrganisationUnitOffline extends OfflineDbProvider {
         }
       }
     } catch (e) {}
+    organisationUnitList.sort((a, b) => a.name.compareTo(b.name));
     return organisationUnitList;
   }
 
@@ -64,7 +66,7 @@ class OrganisationUnitOffline extends OfflineDbProvider {
       String questionMark = organisationIds.map((e) => '?').toList().join(',');
       List<Map> maps = await dbClient.query(
           OrganisationUnit.organisationUnitTable,
-          columns: [id, name, parent, level],
+          columns: [id, name, parent, level, code],
           orderBy: name,
           where: '$id IN ($questionMark)',
           whereArgs: organisationIds);

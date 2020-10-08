@@ -95,6 +95,22 @@ class OvcEnrollmentHouseHold {
                         InputFieldOption(code: 'Female', name: 'Female'),
                       ]),
                   InputField(
+                      id: 's1eRvsL2Ly4',
+                      name: 'Marital Status',
+                      isReadObly: true,
+                      valueType: 'TEXT',
+                      inputColor: Color(0xFF4B9F46),
+                      labelColor: Color(0xFF737373),
+                      renderAsRadio: true,
+                      options: [
+                        InputFieldOption(code: 'Married', name: 'Married'),
+                        InputFieldOption(code: 'Single', name: 'Single'),
+                        InputFieldOption(code: 'Widowed', name: 'Widowed'),
+                        InputFieldOption(
+                            code: 'Divorced/separated',
+                            name: 'Divorced/separated'),
+                      ]),
+                  InputField(
                       id: 'l9tcZ2TNgx6',
                       name:
                           'Male aged above 18 years and above currently living in household',
@@ -161,7 +177,7 @@ class OvcEnrollmentHouseHold {
                       id: 'E35x1FwfeW7',
                       name:
                           'The last time there was an unexpected urgent household expense (e.g. emergency medical expense, natural disaster – flooding, hail, drought, fire, funeral or house repair), someone in the household was able to pay for that expense',
-                      valueType: 'BOOLEAN',
+                      valueType: 'NUMBER',
                       inputColor: Color(0xFF4B9F46),
                       hasSubInputField: true,
                       subInputField: InputField(

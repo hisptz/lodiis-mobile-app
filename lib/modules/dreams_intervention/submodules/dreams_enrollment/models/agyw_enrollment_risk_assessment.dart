@@ -9,7 +9,7 @@ class AgywEnrollmentRiskAssessment {
       'WTZ7GLTrE8Q',
       'rSP9c21JsfC',
       'qZP982qpSPS',
-      'vIX4GTSCX4P',          
+      'vIX4GTSCX4P',
     ];
   }
 
@@ -73,7 +73,7 @@ class AgywEnrollmentRiskAssessment {
                 valueType: 'DATE',
                 inputColor: Color(0xFF258DCC),
                 labelColor: Color(0xFF05131B)),
-                InputField(
+            InputField(
                 id: 'vIX4GTSCX4P',
                 name: 'Sex',
                 valueType: 'TEXT',

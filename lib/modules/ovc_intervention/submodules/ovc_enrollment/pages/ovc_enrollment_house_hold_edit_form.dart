@@ -10,6 +10,7 @@ import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
+import 'package:kb_mobile_app/core/constants/beneficiary_identification.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
@@ -71,7 +72,7 @@ class _OvcEnrollmentHouseHoldEditFormState
           .setFormFieldState('ls9hlz2tyol', age.toString());
     }
   }
-  
+
   void onInputValueChange(String id, dynamic value) {
     Provider.of<EnrollmentFormState>(context, listen: false)
         .setFormFieldState(id, value);
@@ -90,7 +91,11 @@ class _OvcEnrollmentHouseHoldEditFormState
       String enrollment = dataObject['enrollment'];
       String enrollmentDate = dataObject['enrollmentDate'];
       String incidentDate = dataObject['incidentDate'];
-      List<String> hiddenFields = ['yk0OH9p09C1', 'PN92g65TkVI'];
+      List<String> hiddenFields = [
+        BeneficiaryIdentification.beneficiaryId,
+        BeneficiaryIdentification.beneficiaryIndex,
+        'PN92g65TkVI'
+      ];
       await OvcEnrollmentHouseHoldService().savingHouseHoldform(
         dataObject,
         trackedEntityInstance,

@@ -1,7 +1,9 @@
+import 'package:kb_mobile_app/core/constants/beneficiary_identification.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
 
 class OvcHouseHoldChild {
   String id;
+  String childId;
   String firstName;
   String middleName;
   String surname;
@@ -13,6 +15,7 @@ class OvcHouseHoldChild {
 
   OvcHouseHoldChild({
     this.id,
+    this.childId,
     this.firstName,
     this.middleName,
     this.surname,
@@ -49,6 +52,7 @@ class OvcHouseHoldChild {
         surname: data['rSP9c21JsfC'] ?? '',
         sex: data['vIX4GTSCX4P'] ?? '',
         age: data['ls9hlz2tyol'] ?? '',
+        childId: data[BeneficiaryIdentification.beneficiaryId] ?? '',
         createdDate: createdDate,
         orgUnit: orgUnit,
         teiData: tei);

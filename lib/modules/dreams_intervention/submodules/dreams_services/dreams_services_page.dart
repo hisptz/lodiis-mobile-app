@@ -9,11 +9,11 @@ import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_bene
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_home_container.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/components/service_card_botton_action.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/prep/agyw_prep.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/srh/srh_page.dart';
 import 'package:provider/provider.dart';
 import 'sub_modules/hiv _reg/hiv_reg_page.dart';
 import 'sub_modules/hiv_prev/dreams_hiv_prev_home.dart';
 import 'sub_modules/hts/hts_page.dart';
-import 'sub_modules/srh/srh_page.dart';
 
 class DreamsServicesPage extends StatefulWidget {
   const DreamsServicesPage({Key key}) : super(key: key);

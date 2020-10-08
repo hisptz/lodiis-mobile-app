@@ -14,7 +14,7 @@ import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/prep/prep_page.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/non_agyw/component/prep_visit_card.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/component/prep_visit_card.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
 import 'package:provider/provider.dart';
 
@@ -67,8 +67,8 @@ class _DreamHIVRegPageState extends State<DreamHIVRegPage> {
     updateFormState(context, true, null);
     Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
         .setCurrentAgywDream(agywDream);
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => DreamHIVRegPageForm()));
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => DreamHIVRegPageForm()));
   }
 
   void onViewPrep(BuildContext context, Events eventdata) {
@@ -150,7 +150,7 @@ class _DreamHIVRegPageState extends State<DreamHIVRegPage> {
                                                       ),
                                                       child:
                                                           NOnAgywPrepListCard(
-                                                            visitName: "HIV Reg",
+                                                        visitName: "HIV Reg",
                                                         onEditPrep: () =>
                                                             onEditPrep(context,
                                                                 eventData),
@@ -188,4 +188,3 @@ class _DreamHIVRegPageState extends State<DreamHIVRegPage> {
         bottomNavigationBar: InterventionBottomNavigationBarContainer());
   }
 }
-

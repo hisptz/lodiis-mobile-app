@@ -12,20 +12,20 @@ import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/non_agyw/component/prep_visit_card.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/non_agyw/constant/non_agyw_prep_visit_constant.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/component/prep_visit_card.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/constant/non_agyw_prep_visit_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
 import 'package:provider/provider.dart';
-import 'non_agyw_prep_form.dart';
+import 'pages/none_agyw_prep_form.dart';
 
-class NonAgywPrepPage extends StatefulWidget {
-  NonAgywPrepPage({Key key}) : super(key: key);
+class NoneAgywPrep extends StatefulWidget {
+  NoneAgywPrep({Key key}) : super(key: key);
 
   @override
-  _NonAgywPrepPageState createState() => _NonAgywPrepPageState();
+  _NoneAgywPrepState createState() => _NoneAgywPrepState();
 }
 
-class _NonAgywPrepPageState extends State<NonAgywPrepPage> {
+class _NoneAgywPrepState extends State<NoneAgywPrep> {
   final String label = 'Prep';
   List<String> programStageids = [NonAgywPrepVisitConstant.programStage];
   @override
@@ -65,19 +65,19 @@ class _NonAgywPrepPageState extends State<NonAgywPrepPage> {
     Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
         .setCurrentAgywDream(agywDream);
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => NonAgywPrepForm()));
+        context, MaterialPageRoute(builder: (context) => NoneAgywPrepForm()));
   }
 
   void onViewPrep(BuildContext context, Events eventdata) {
     updateFormState(context, false, eventdata);
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => NonAgywPrepForm()));
+        context, MaterialPageRoute(builder: (context) => NoneAgywPrepForm()));
   }
 
   void onEditPrep(BuildContext context, Events eventdata) {
     updateFormState(context, true, eventdata);
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => NonAgywPrepForm()));
+        context, MaterialPageRoute(builder: (context) => NoneAgywPrepForm()));
   }
 
   @override
