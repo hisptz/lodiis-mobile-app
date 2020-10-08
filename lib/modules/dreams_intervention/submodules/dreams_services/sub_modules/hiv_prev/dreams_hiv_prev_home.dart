@@ -14,6 +14,7 @@ import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
 import 'package:provider/provider.dart';
+import 'components/dreams_hiv_prev_list_card.dart';
 import 'constant/dreams_hiv_prev_constant.dart';
 import 'pages/dreams_hiv_prev_form.dart';
 
@@ -67,6 +68,18 @@ class _DreamsHIVPrevHomeState extends State<DreamsHIVPrevHome> {
         context, MaterialPageRoute(builder: (context) => DreamsHivPrevForm()));
   }
 
+  void onViewHivPrev(BuildContext context, Events eventdata) {
+    updateFormState(context, false, eventdata);
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => DreamsHivPrevForm()));
+  }
+
+  void onEditHivPrev(BuildContext context, Events eventdata) {
+    updateFormState(context, true, eventdata);
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => DreamsHivPrevForm()));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -97,6 +110,7 @@ class _DreamsHIVPrevHomeState extends State<DreamsHIVPrevHome> {
                     List<Events> events = TrackedEntityInstanceUtil
                         .getAllEventListFromServiceDataState(
                             eventListByProgramStage, programStageids);
+                       int sessionIndex = events.length + 1;      
                     return Container(
                       child: Column(
                         children: [
@@ -125,11 +139,23 @@ class _DreamsHIVPrevHomeState extends State<DreamsHIVPrevHome> {
                                                 child: Column(
                                                   children: events
                                                       .map((Events eventData) {
+                                                        sessionIndex--;
                                                     return Container(
                                                       margin: EdgeInsets.only(
                                                         bottom: 15.0,
                                                       ),
-                                            
+                                             child:
+                                                          DreamsHivPrevListCard(
+                                                         onEditPrev: () =>
+                                                            onEditHivPrev(context,
+                                                                eventData),
+                                                        onViewPrev: () =>
+                                                            onViewHivPrev(context,
+                                                                eventData),
+                                                        eventData: eventData,
+                                                        sessionCount:
+                                                            sessionIndex,
+                                                      ),
                                                     );
                                                   }).toList(),
                                                 ),
