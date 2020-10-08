@@ -30,7 +30,73 @@ class DreamHIVRegPage extends StatefulWidget {
 }
 
 class _DreamHIVRegPageState extends State<DreamHIVRegPage> {
-  final String label = 'HIV REG Service';
+  final String label = 'HIV Register';
+  List<FormSection> formSections;
+  bool isFormReady = false;
+  bool isSaving = false;
+
+  @override
+  void initState() {
+    super.initState();
+    formSections = DreamsServiceHivRegisterInfo.getFormSections();
+    Timer(Duration(seconds: 1), () {
+      setState(() {
+        isFormReady = true;
+      });
+    });
+  }
+
+  void onInputValueChange(String id, dynamic value) {
+    Provider.of<ServiceFormState>(context, listen: false)
+        .setFormFieldState(id, value);
+  }
+
+  void onSaveForm(
+      BuildContext context, Map dataObject, AgywDream agywDream) async {
+    if (dataObject.keys.length > 0) {
+      setState(() {
+        isSaving = true;
+      });
+      String eventDate = dataObject['eventDate'];
+      String eventId = dataObject['eventId'];
+      print(dataObject);
+      List<String> hiddenFields = [];
+      try {
+        await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
+            HivPrepConstant.program,
+            HivPrepConstant.programStage,
+            agywDream.orgUnit,
+            formSections,
+            dataObject,
+            eventDate,
+            agywDream.id,
+            eventId,
+            hiddenFields);
+        Provider.of<ServiveEventDataState>(context, listen: false)
+            .resetServiceEventDataState(agywDream.id);
+        Timer(Duration(seconds: 1), () {
+          setState(() {
+            AppUtil.showToastMessage(
+                message: 'Form has been saved successfully',
+                position: ToastGravity.TOP);
+            Navigator.pop(context);
+          });
+        });
+      } catch (e) {
+        Timer(Duration(seconds: 1), () {
+          setState(() {
+            AppUtil.showToastMessage(
+                message: e.toString(), position: ToastGravity.BOTTOM);
+          });
+        });
+      }
+    } else {
+      AppUtil.showToastMessage(
+          message: 'Please fill at least one form field',
+          position: ToastGravity.TOP);
+      Navigator.pop(context);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,19 +114,60 @@ class _DreamHIVRegPageState extends State<DreamHIVRegPage> {
             },
           ),
         ),
-        body: SingleChildScrollView(
-          child: Container(child: Consumer<DreamBenefeciarySelectionState>(
-            builder: (context, dreamBenefeciarySelectionState, child) {
-              AgywDream agywDream =
-                  dreamBenefeciarySelectionState.currentAgywDream;
-              return Column(
-                children: [
-                  //header on the page
-                  DreamBenefeciaryTopHeader(agywDream: agywDream),
-                  Container(
-                      margin: EdgeInsets.symmetric(vertical: 250),
-                      child: Center(child: Text("HIV REG FORM CONTAINER")))
-                ],
+        body: SubPageBody(
+          body: Container(child: Consumer<DreamBenefeciarySelectionState>(
+            builder: (context, nonAgywState, child) {
+              AgywDream agywDream = nonAgywState.currentAgywDream;
+              return Consumer<ServiceFormState>(
+                builder: (context, serviceFormState, child) {
+                  return Container(
+                    child: Column(
+                      children: [
+                        DreamBenefeciaryTopHeader(
+                          agywDream: agywDream,
+                        ),
+                        !isFormReady
+                            ? Container(
+                                child: CircularProcessLoader(
+                                  color: Colors.blueGrey,
+                                ),
+                              )
+                            : Column(
+                                children: [
+                                  Container(
+                                    margin: EdgeInsets.only(
+                                      top: 10.0,
+                                      left: 13.0,
+                                      right: 13.0,
+                                    ),
+                                    child: EntryFormContainer(
+                                      formSections: formSections,
+                                      mandatoryFieldObject: Map(),
+                                      isEditableMode:
+                                          serviceFormState.isEditableMode,
+                                      dataObject: serviceFormState.formState,
+                                      onInputValueChange: onInputValueChange,
+                                    ),
+                                  ),
+                                  Visibility(
+                                    visible: serviceFormState.isEditableMode,
+                                    child: OvcEnrollmentFormSaveButton(
+                                      label: isSaving ? 'Saving ...' : 'Save',
+                                      labelColor: Colors.white,
+                                      buttonColor: Color(0xFF258DCC),
+                                      fontSize: 15.0,
+                                      onPressButton: () => onSaveForm(
+                                          context,
+                                          serviceFormState.formState,
+                                          agywDream),
+                                    ),
+                                  )
+                                ],
+                              )
+                      ],
+                    ),
+                  );
+                },
               );
             },
           )),
