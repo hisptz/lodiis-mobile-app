@@ -32,7 +32,7 @@ class _DreamsReferralPageState extends State<DreamsReferralPage> {
   void onOpenReferralForm(
     BuildContext context,
     AgywDream agywBeneficiary,
-  ) {}
+  ) {print("on referral");}
 
   @override
   Widget build(BuildContext context) {
