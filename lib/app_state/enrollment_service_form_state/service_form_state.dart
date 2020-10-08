@@ -11,7 +11,7 @@ class ServiceFormState with ChangeNotifier {
 
   //reducers
   void resetFormState() {
-    _formState = Map();
+    _formState.clear();
     notifyListeners();
   }
 
