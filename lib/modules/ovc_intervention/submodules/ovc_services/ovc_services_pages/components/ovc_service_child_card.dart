@@ -52,7 +52,7 @@ class OvcServiceChildCard extends StatelessWidget {
               ),
             ),
             Container(
-              margin: EdgeInsets.only(top: 10.0),
+              margin: EdgeInsets.only(top: 5.0),
               child: LineSeperator(
                 color: Color(0xFFECF9EB),
               ),
