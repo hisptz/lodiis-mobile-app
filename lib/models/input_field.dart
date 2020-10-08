@@ -15,6 +15,7 @@ class InputField {
   List<InputFieldOption> options;
   bool hasSubInputField;
   InputField subInputField;
+  List<int> allowedSelectedLevels;
 
   InputField({
     @required this.id,
@@ -29,7 +30,10 @@ class InputField {
     this.isReadObly,
     this.options,
     this.subInputField,
+    this.allowedSelectedLevels,
+    this.allowFuturePeriod,
   }) {
+    this.allowedSelectedLevels = this.allowedSelectedLevels ?? [];
     this.allowFuturePeriod = this.allowFuturePeriod ?? false;
     this.isReadObly = this.isReadObly ?? false;
     this.description = this.description ?? '';
