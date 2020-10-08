@@ -44,4 +44,9 @@ class HttpService {
     return await http.get(url,
         headers: {HttpHeaders.authorizationHeader: "Basic $basicAuth"});
   }
+
+  @override
+  String toString() {
+    return '$baseUrl => $username : $password';
+  }
 }

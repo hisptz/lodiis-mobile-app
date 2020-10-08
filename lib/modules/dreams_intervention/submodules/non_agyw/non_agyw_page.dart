@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dream_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/line_seperator.dart';
@@ -31,12 +32,12 @@ class _NoneAgywState extends State<NoneAgyw> {
   }
 
   void onPrep(BuildContext context, AgywDream agywDream) {
+    Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
+        .setCurrentAgywDream(agywDream);
     Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => NonAgywPrepPage(
-            agywDream: agywDream,
-          ),
+          builder: (context) => NonAgywPrepPage(),
         ));
   }
 

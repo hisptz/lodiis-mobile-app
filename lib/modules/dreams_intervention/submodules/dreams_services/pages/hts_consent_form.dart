@@ -20,8 +20,7 @@ class HTSConsentForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<FormSection> enrollmentForm =
-        HTSConsent.getFormSections();
+    final List<FormSection> enrollmentForm = HTSConsent.getFormSections();
     return SafeArea(
         child: Scaffold(
             appBar: PreferredSize(
@@ -48,6 +47,5 @@ class HTSConsentForm extends StatelessWidget {
                       mandatoryFieldObject: Map())),
             ),
             bottomNavigationBar: InterventionBottomNavigationBarContainer()));
- 
   }
 }

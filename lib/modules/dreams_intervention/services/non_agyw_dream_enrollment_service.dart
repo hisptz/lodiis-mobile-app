@@ -54,12 +54,10 @@ class NonAgywDreamEnrollmentService {
         String orgUnit = enrollment.orgUnit;
         String createdDate = enrollment.enrollmentDate;
         String enrollmentId = enrollment.enrollment;
-
         List<TrackeEntityInstance> dataHolds =  await TrackedEntityInstanceOfflineProvider()
                 .getTrackedEntityInstance([enrollment.trackedEntityInstance]);
         for (TrackeEntityInstance tei in dataHolds) {
-          print(tei);
-          try {
+              try {
             agywDreamList.add(AgywDream().fromTeiModel(
                 tei, orgUnit, location, createdDate, enrollmentId));
           } catch (e) { }

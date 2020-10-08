@@ -42,4 +42,26 @@ class TeiRelatioShipOfflineProvider extends OfflineDbProvider {
     } catch (e) {}
     return teiRelationships;
   }
+
+  Future<List<TeiRelationship>> getAllTeiRelationShips() async {
+    List<TeiRelationship> teiRelationships = [];
+    try {
+      var dbClient = await db;
+      List<Map> maps = await dbClient.query(
+        table,
+        columns: [
+          id,
+          relationshipType,
+          fromTei,
+          toTei,
+        ],
+      );
+      if (maps.isNotEmpty) {
+        for (Map map in maps) {
+          teiRelationships.add(TeiRelationship.fromOffline(map));
+        }
+      }
+    } catch (e) {}
+    return teiRelationships;
+  }
 }

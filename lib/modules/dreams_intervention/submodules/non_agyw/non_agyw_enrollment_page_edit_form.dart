@@ -50,21 +50,15 @@ class _DreamNonAgywEnrollmentEditFormState
         mandatoryFieldObject[id] = true;
       }
       clientIntakeFormSections = NonAgywEnrollmentFormSection.getFormSections();
-      prepScreeningFormSections = NonAgywEnrollmentPrepScreening.getFormSections();
-      
+      prepScreeningFormSections =
+          NonAgywEnrollmentPrepScreening.getFormSections();
 
-      List<String> skippedInputs = [
-        'location',
-        'WTZ7GLTrE8Q',
-         'rSP9c21JsfC'
-        
-        
-        ];
+      List<String> skippedInputs = ['location', 'WTZ7GLTrE8Q', 'rSP9c21JsfC'];
       formSections = [
         clientIntakeFormSections[0],
         prepScreeningFormSections[0],
       ];
-  
+
       formSections = FormUtil.getFormSectionWithReadOnlyStatus(
         formSections,
         false,
@@ -129,8 +123,6 @@ class _DreamNonAgywEnrollmentEditFormState
           position: ToastGravity.TOP);
     }
   }
-
-  
 
   @override
   Widget build(BuildContext context) {

@@ -68,16 +68,18 @@ class _OvcEnrollmentChildEditViewFormState
       String parentTrackedEntityInstance =
           dataObject['parentTrackedEntityInstance'];
       String orgUnit = dataObject['orgUnit'];
-      String enrollment = dataObject['enrollment'];
       String enrollmentDate = dataObject['enrollmentDate'];
       String incidentDate = dataObject['incidentDate'];
+      bool shouldEnroll = dataObject['trackedEntityInstance'] == null;
       await OvcEnrollmentChildService().savingChildrenEnrollmentForms(
-          parentTrackedEntityInstance,
-          orgUnit,
-          childrenObjects,
-          enrollment,
-          enrollmentDate,
-          incidentDate, []);
+        parentTrackedEntityInstance,
+        orgUnit,
+        childrenObjects,
+        enrollmentDate,
+        incidentDate,
+        shouldEnroll,
+        [],
+      );
       Provider.of<OvcInterventionListState>(context, listen: false)
           .refreshOvcList();
       Timer(Duration(seconds: 1), () {

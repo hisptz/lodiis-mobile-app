@@ -58,49 +58,42 @@ class _InterventionSelectionState extends State<InterventionSelection> {
         Container(
           decoration: BoxDecoration(color: primmaryColor),
         ),
-        Consumer<SynchtonizationState>(
-            builder: (context, synchtonizationState, child) {
-          bool isSynchronizationActive =
-              synchtonizationState.isSynchronizationActive;
-          return Container(child: Consumer<OvcInterventionListState>(
-            builder: (context, ovcInterventionListState, child) {
-              bool isOvcListLoading = ovcInterventionListState.isLoading;
-              int numberOfHouseHolds =
-                  ovcInterventionListState.numberOfHouseHolds;
-              int numberOfOvcs = ovcInterventionListState.numberOfOvcs;
-              return Container(
-                child: Consumer<DreamsInterventionListState>(
-                  builder: (context, dreamsInterventionListState, child) {
-                    bool isDreamsListLoading =
-                        dreamsInterventionListState.isLoading;
-                    int numberOfAgywDreamsBeneficiaries =
-                        dreamsInterventionListState
-                            .numberOfAgywDreamsBeneficiaries;
-                    int numberOfNoneAgywDreamsBeneficiaries =
-                        dreamsInterventionListState
-                            .numberOfNoneAgywDreamsBeneficiaries;
-                    return Container(
-                      child: isSynchronizationActive ||
-                              isDreamsListLoading ||
-                              isOvcListLoading
-                          ? CircularProcessLoader()
-                          : InterventionSelectionContainer(
-                              interventionPrograms: interventionPrograms,
-                              onIntervetionSelection: onIntervetionSelection,
-                              numberOfHouseHolds: numberOfHouseHolds,
-                              numberOfAgywDreamsBeneficiaries:
-                                  numberOfAgywDreamsBeneficiaries,
-                              numberOfNoneAgywDreamsBeneficiaries:
-                                  numberOfNoneAgywDreamsBeneficiaries,
-                              numberOfOvcs: numberOfOvcs,
-                            ),
-                    );
-                  },
-                ),
-              );
-            },
-          ));
-        }),
+        Container(child: Consumer<OvcInterventionListState>(
+          builder: (context, ovcInterventionListState, child) {
+            bool isOvcListLoading = ovcInterventionListState.isLoading;
+            int numberOfHouseHolds =
+                ovcInterventionListState.numberOfHouseHolds;
+            int numberOfOvcs = ovcInterventionListState.numberOfOvcs;
+            return Container(
+              child: Consumer<DreamsInterventionListState>(
+                builder: (context, dreamsInterventionListState, child) {
+                  bool isDreamsListLoading =
+                      dreamsInterventionListState.isLoading;
+                  int numberOfAgywDreamsBeneficiaries =
+                      dreamsInterventionListState
+                          .numberOfAgywDreamsBeneficiaries;
+                  int numberOfNoneAgywDreamsBeneficiaries =
+                      dreamsInterventionListState
+                          .numberOfNoneAgywDreamsBeneficiaries;
+                  return Container(
+                    child: isDreamsListLoading || isOvcListLoading
+                        ? CircularProcessLoader()
+                        : InterventionSelectionContainer(
+                            interventionPrograms: interventionPrograms,
+                            onIntervetionSelection: onIntervetionSelection,
+                            numberOfHouseHolds: numberOfHouseHolds,
+                            numberOfAgywDreamsBeneficiaries:
+                                numberOfAgywDreamsBeneficiaries,
+                            numberOfNoneAgywDreamsBeneficiaries:
+                                numberOfNoneAgywDreamsBeneficiaries,
+                            numberOfOvcs: numberOfOvcs,
+                          ),
+                  );
+                },
+              ),
+            );
+          },
+        )),
       ],
     )));
   }

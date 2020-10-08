@@ -21,7 +21,7 @@ class TrackedEntityInstanceUtil {
       formSections,
     );
     inputFieldIds.addAll(hiddenFields);
-    eventId =
+       eventId =
         eventId == null ? dataObject['eventId'] ?? AppUtil.getUid() : eventId;
     Events eventData = FormUtil.getEventPayload(eventId, program, programStage,
         orgUnit, inputFieldIds, dataObject, eventDate, trackedEntityInstance);
@@ -36,7 +36,7 @@ class TrackedEntityInstanceUtil {
     try {
       trackedEntityInstanceIds.add(trackedEntityInstance);
       events = await EventOfflineProvider()
-          .getTrackedEntityInstance(trackedEntityInstanceIds);
+          .getTrackedEntityInstanceEvents(trackedEntityInstanceIds);
     } catch (e) {}
     return events;
   }
@@ -45,6 +45,7 @@ class TrackedEntityInstanceUtil {
     Map<String, List<Events>> eventListByProgramStage,
     List<String> programStageids,
   ) {
+    programStageids = programStageids.toSet().toList();
     List<Events> events = [];
     for (String programStageid in programStageids) {
       var data = eventListByProgramStage[programStageid] ?? [];

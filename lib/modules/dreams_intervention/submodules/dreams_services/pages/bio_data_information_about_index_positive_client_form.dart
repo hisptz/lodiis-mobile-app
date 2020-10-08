@@ -10,7 +10,8 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_serv
 import 'package:provider/provider.dart';
 
 class BioDataInformationAboutIndexPositiveClientForm extends StatelessWidget {
-  const BioDataInformationAboutIndexPositiveClientForm({Key key}) : super(key: key);
+  const BioDataInformationAboutIndexPositiveClientForm({Key key})
+      : super(key: key);
 
   final String label = 'BIO Data: Information about Index Positive client form';
 
@@ -48,6 +49,5 @@ class BioDataInformationAboutIndexPositiveClientForm extends StatelessWidget {
                       mandatoryFieldObject: Map())),
             ),
             bottomNavigationBar: InterventionBottomNavigationBarContainer()));
- 
   }
 }
