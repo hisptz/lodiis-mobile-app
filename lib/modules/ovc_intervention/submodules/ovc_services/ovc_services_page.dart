@@ -196,16 +196,16 @@ class _OvcServicesPageState extends State<OvcServicesPage> {
                                                     )),
                                               ),
                                             ),
-                                            Expanded(
+                                             Expanded(
                                               child: Container(
                                                 child: FlatButton(
                                                     onPressed: () =>
-                                                        onOpenHouseHoldMonitor(
+                                                        onOpenHouseHoldService(
                                                           context,
                                                           ovcHouseHold,
                                                         ),
                                                     child: Text(
-                                                      'MONITOR',
+                                                      'SERVICE',
                                                       style:
                                                           TextStyle().copyWith(
                                                         fontSize: 12.0,
@@ -217,16 +217,16 @@ class _OvcServicesPageState extends State<OvcServicesPage> {
                                                     )),
                                               ),
                                             ),
-                                             Expanded(
+                                           Expanded(
                                               child: Container(
                                                 child: FlatButton(
                                                     onPressed: () =>
-                                                        onOpenHouseHoldService(
+                                                        onOpenHouseHoldMonitor(
                                                           context,
                                                           ovcHouseHold,
                                                         ),
                                                     child: Text(
-                                                      'SERVICE',
+                                                      'MONITOR',
                                                       style:
                                                           TextStyle().copyWith(
                                                         fontSize: 12.0,
