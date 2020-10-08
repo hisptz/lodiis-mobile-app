@@ -87,16 +87,12 @@ class SynchronizationState with ChangeNotifier {
         await _synchronizationService.uploadTeisToTheServer(
             teis, teiEnrollments);
         // @TODO uploading relationships
-        addDataUploadProcess(
-            "Beneficiary's profile data have been uploaded successfully");
       }
 
       var teiEvents = await _synchronizationService.getTeiEventsFromOfflineDb();
       if (teiEvents.length > 0) {
         addDataUploadProcess("Uploading beneficiary's service data");
         await _synchronizationService.uploadTeiEventsToTheServer(teiEvents);
-        addDataUploadProcess(
-            "Beneficiary's services data have been uploaded successfully");
       }
     } catch (e) {}
     updateDataUploadStatus(false);

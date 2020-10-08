@@ -8,7 +8,6 @@ import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
-import 'package:kb_mobile_app/modules/synchronization/components/data_download_container.dart';
 import 'package:kb_mobile_app/modules/synchronization/components/data_upload_container.dart';
 import 'package:provider/provider.dart';
 

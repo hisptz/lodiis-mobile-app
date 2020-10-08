@@ -1,6 +1,4 @@
 import 'dart:convert';
-
-import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/core/offline_db/enrollment_offline/enrollment_offline_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/event_offline/event_offline_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/tei_relationship_offline/tei_relationship_offline_provider.dart';
@@ -138,6 +136,7 @@ class SynchronizationService {
         referenceIds.add(importSummary['reference']);
       } else {
         //@TODO add logs
+        print(json.encode(importSummary));
       }
     }
     return referenceIds;
