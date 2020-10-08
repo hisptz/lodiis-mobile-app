@@ -58,6 +58,8 @@ class _DreamsEnrollmentPageState extends State<DreamsEnrollmentPage> {
                           children: agywDreamsInterventionList
                               .map((AgywDream agywBeneficiary) {
                             return DreamsBeneficiaryCard(
+                              isAgywEnrollment: true,
+                              agywDream: agywBeneficiary,
                               canEdit: canEdit,
                               canExpand: canExpand,
                               beneficiaryName: agywBeneficiary.toString(),

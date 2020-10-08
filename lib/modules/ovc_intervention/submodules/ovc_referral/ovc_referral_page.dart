@@ -47,7 +47,7 @@ class _OvcReferralPageState extends State<OvcReferralPage> {
   void onViewRerral(BuildContext context, OvcHouseHold ovcHouseHold) {
     setOvcHouseHoldCurrentSelection(context, ovcHouseHold);
     Navigator.push(context,
-        MaterialPageRoute(builder: (context) => OvcHouseHoldRefferalHome()));
+        MaterialPageRoute(builder: (context) => OvcHouseHoldReferralHome()));
   }
 
   @override

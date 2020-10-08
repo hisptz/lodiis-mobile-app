@@ -13,7 +13,8 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enro
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_exit/dreams_exit_page.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_referral/dreams_referral_page.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/dreams_services_page.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/none_agyw_page.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/non_agyw/non_agyw_page.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/non_agyw/pages/non_agyw_enrollment_client_intake_form.dart';
 import 'package:provider/provider.dart';
 
 class DreamsIntervention extends StatelessWidget {
@@ -32,8 +33,14 @@ class DreamsIntervention extends StatelessWidget {
     print('on onSearch');
   }
 
-  void onAddNoneAgywBeneficiary() {
-    print('onAddNoneAgywBeneficiary');
+  void onAddNoneAgywBeneficiary(BuildContext context){
+    Provider.of<EnrollmentFormState>(context, listen: false)
+        .resetFormState();
+    Navigator.push(context, MaterialPageRoute(
+      builder: (context) {
+        return NonAgywEnrollmentFormSectionForm();
+      },
+    ));
   }
 
   void onAddAgywBeneficiary(BuildContext context) {
@@ -61,7 +68,7 @@ class DreamsIntervention extends StatelessWidget {
                 onClickHome: onClickHome,
                 onSearch: onSearch,
                 onAddAgywBeneficiary: () => onAddAgywBeneficiary(context),
-                onAddNoneAgywBeneficiary: onAddNoneAgywBeneficiary,
+                onAddNoneAgywBeneficiary:() =>  onAddNoneAgywBeneficiary(context),
                 onOpenMoreMenu: () =>
                     onOpenMoreMenu(context, activeInterventionProgram),
               );

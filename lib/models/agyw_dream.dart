@@ -2,6 +2,7 @@ import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
 
 class AgywDream {
+  String id;
   String firstname;
   String middlename;
   String surname;
@@ -18,7 +19,8 @@ class AgywDream {
   TrackeEntityInstance trackeEntityInstanceData;
 
   AgywDream(
-      {this.firstname,
+      {this.id,
+      this.firstname,
       this.middlename,
       this.surname,
       this.age,
@@ -46,7 +48,8 @@ class AgywDream {
       'qZP982qpSPS',
       'PN92g65TkVI',
       'vIX4GTSCX4P',
-      'KvmQjZbGZQU'
+      'KvmQjZbGZQU',
+      'd8uBlGOpFhJ'
     ];
     Map data = Map();
     for (Map detailObj in trackeEntityInstance.attributes) {
@@ -57,12 +60,13 @@ class AgywDream {
     }
     int age = AppUtil.getAgeInYear(data['qZP982qpSPS']);
     return AgywDream(
+      id: trackeEntityInstance.trackedEntityInstance,
       firstname: data['WTZ7GLTrE8Q'],
       middlename: data['s1HaiT6OllL'],
       surname: data['rSP9c21JsfC'],
       age: age.toString(),
       ageBand: agywAgeBand(age) ?? '',
-      benefecaryId: data['KvmQjZbGZQU'] ?? '',
+      benefecaryId: data['KvmQjZbGZQU'] ?? data['d8uBlGOpFhJ']??'',
       sex: data['vIX4GTSCX4P'] ?? '',
       programStatus: data['PN92g65TkVI'] ?? '',
       orgUnit: orgUnit,
@@ -79,7 +83,9 @@ class AgywDream {
         ? '09-14'
         : (age > 14 && age < 20)
             ? '15-19'
-            : (age > 19 && age < 25) ? '20-24' : '';
+            : (age > 19 && age < 25)
+                ? '20-24'
+                : '';
   }
 
   @override

@@ -10,7 +10,22 @@ class OvcAddReferral {
           name: 'Service Referral',
           color: Color(0xFF1A3518),
           subSections: [
-            //service at community
+            FormSection(
+              name: 'Referral Service Delivery Mode',
+              color: Color(0xFF1A3518),
+              inputFields: [
+                InputField(
+                    id: 'qAed23reDPP',
+                    name: 'Services Referred for at',
+                    valueType: 'TEXT',
+                    inputColor: Color(0xFF4B9F46),
+                    labelColor: Color(0xFF1A3518),
+                    options: [
+                      InputFieldOption(code: 'Facility', name: 'Facility'),
+                      InputFieldOption(code: 'Community', name: 'Community'),
+                    ])
+              ],
+            ),
             FormSection(
                 name: 'Service referred for at Community',
                 color: Color(0xFF1B3519),
@@ -130,9 +145,6 @@ class OvcAddReferral {
                     labelColor: Color(0xFF1A3518),
                   ),
                 ]),
-
-            //service at facility
-
             FormSection(
                 name: 'Service referred for at Facility',
                 color: Color(0xFF1B3519),
@@ -252,7 +264,6 @@ class OvcAddReferral {
                     labelColor: Color(0xFF1A3518),
                   ),
                 ]),
-            //service at organisation
             FormSection(
                 name: 'Completed by the Referring Organization',
                 color: Color(0xFF1B3519),

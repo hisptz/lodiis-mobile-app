@@ -7,21 +7,18 @@ import 'package:kb_mobile_app/models/enrollment.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/organisation_unit.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/models/agyw_enrollment_consent.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/models/agyw_enrollment_form_section.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/models/agyw_enrollment_risk_assessment.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/non_agyw/models/non_agyw_enrollment_client_intake.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/non_agyw/models/non_agyw_enrollment_prep_screening.dart';
 
-class AgywDreamEnrollmentService {
-  final String program = 'hOEIHJDrrvz';
+class NonAgywDreamEnrollmentService {
+  final String program = 'CK4iMK8b0aZ';
   final String trackedEntityType = 'XZIKX0bA8WN';
-  final List<FormSection> riskAssessmentFormSections =
-      AgywEnrollmentRiskAssessment.getFormSections();
-  final List<FormSection> concentFormSections =
-      AgywEnrollmentConcent.getFormSections();
-  final List<FormSection> enrollmentFormSections =
-      AgywEnrollmentFormSection.getFormSections();
+  final List<FormSection> nonAgywClientIntakeFormSections =
+      NonAgywEnrollmentFormSection.getFormSections();
+  final List<FormSection> nonAgywPrepScreeningFormSections =
+      NonAgywEnrollmentPrepScreening.getFormSections();
 
-  Future savingAgwyBeneficiary(
+  Future savingNonAgwyBeneficiary(
       Map dataObject,
       String trackedEntityInstance,
       String orgUnit,
@@ -30,20 +27,21 @@ class AgywDreamEnrollmentService {
       String incidentDate,
       List<String> hiddenFields) async {
     List<String> inputFieldIds = hiddenFields ?? [];
-    inputFieldIds.addAll(FormUtil.getFormFieldIds(riskAssessmentFormSections));
-    inputFieldIds.addAll(FormUtil.getFormFieldIds(concentFormSections));
-    inputFieldIds.addAll(FormUtil.getFormFieldIds(enrollmentFormSections));
+    inputFieldIds
+        .addAll(FormUtil.getFormFieldIds(nonAgywClientIntakeFormSections));
+    inputFieldIds
+        .addAll(FormUtil.getFormFieldIds(nonAgywPrepScreeningFormSections));
 
     TrackeEntityInstance trackeEntityInstanceData =
         FormUtil.geTrackedEntityInstanceEnrollmentPayLoad(trackedEntityInstance,
             trackedEntityType, orgUnit, inputFieldIds, dataObject);
-    await FormUtil.savingTrackeEntityInstance(trackeEntityInstanceData);
+    FormUtil.savingTrackeEntityInstance(trackeEntityInstanceData);
     Enrollment enrollmentData = FormUtil.getEnrollmentPayLoad(enrollment,
         enrollmentDate, incidentDate, orgUnit, program, trackedEntityInstance);
-    await FormUtil.savingEnrollment(enrollmentData);
+    FormUtil.savingEnrollment(enrollmentData);
   }
 
-  Future<List<AgywDream>> getAgywBenficiaryList() async {
+  Future<List<AgywDream>> getNonAgywBenficiaryList() async {
     List<AgywDream> agywDreamList = [];
     try {
       List<Enrollment> enrollments =
@@ -61,7 +59,7 @@ class AgywDreamEnrollmentService {
             await TrackedEntityInstanceOfflineProvider()
                 .getTrackedEntityInstance([enrollment.trackedEntityInstance]);
         for (TrackeEntityInstance tei in dataHolds) {
-          agywDreamList.add(AgywDream()
+           agywDreamList.add(AgywDream()
               .fromTeiModel(tei, orgUnit, location, createdDate, enrollmentId));
         }
       }

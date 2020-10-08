@@ -21,18 +21,16 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/m
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/ovc_referral_pages/ovc_child_referral_pages/constants/ovc_child_referral_constant.dart';
 import 'package:provider/provider.dart';
 
-class OvcServiceChildAddReferralForm extends StatefulWidget {
-  final OvcHouseHoldChild ovcHouseHoldChild;
-  OvcServiceChildAddReferralForm({this.ovcHouseHoldChild});
+class OvcChildReferralAddForm extends StatefulWidget {
+  OvcChildReferralAddForm({Key key}) : super(key: key);
 
   @override
-  _OvcServiceChildAddReferralFormState createState() =>
-      _OvcServiceChildAddReferralFormState();
+  _OvcChildReferralAddFormState createState() =>
+      _OvcChildReferralAddFormState();
 }
 
-class _OvcServiceChildAddReferralFormState
-    extends State<OvcServiceChildAddReferralForm> {
-  final String label = 'Add Child Referral';
+class _OvcChildReferralAddFormState extends State<OvcChildReferralAddForm> {
+  final String label = 'Child Referral Form';
   List<FormSection> formSections;
   bool isFormReady = false;
   bool isSaving = false;
@@ -44,7 +42,6 @@ class _OvcServiceChildAddReferralFormState
     Timer(Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
-        print(widget.ovcHouseHoldChild.createdDate);
       });
     });
   }
@@ -65,8 +62,12 @@ class _OvcServiceChildAddReferralFormState
       });
       String eventDate = dataObject['eventDate'];
       String eventId = dataObject['eventId'];
-      dataObject['Ntee9tw45ja'] = dataObject['Ntee9tw45ja'] ?? AppUtil.getUid();
-      List<String> hiddenFields = ['Ntee9tw45ja'];
+      dataObject[OvcChildReferralConstant.referralToFollowUpLinkage] =
+          dataObject[OvcChildReferralConstant.referralToFollowUpLinkage] ??
+              AppUtil.getUid();
+      List<String> hiddenFields = [
+        OvcChildReferralConstant.referralToFollowUpLinkage
+      ];
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
           OvcChildReferralConstant.program,
@@ -79,10 +80,8 @@ class _OvcServiceChildAddReferralFormState
           eventId,
           hiddenFields,
         );
-
         Provider.of<ServiveEventDataState>(context, listen: false)
             .resetServiceEventDataState(currentOvcHouseHoldChild.id);
-
         Timer(Duration(seconds: 1), () {
           setState(() {
             AppUtil.showToastMessage(
@@ -132,40 +131,46 @@ class _OvcServiceChildAddReferralFormState
               return Consumer<ServiceFormState>(
                 builder: (context, serviceFormState, child) {
                   return Container(
-                    child: !isFormReady
-                        ? Container(
-                            child: CircularProcessLoader(
-                              color: Colors.blueGrey,
-                            ),
-                          )
-                        : Column(
-                            children: [
-                              OvcChildInfoTopHeader(),
-                              Container(
-                                margin: EdgeInsets.only(
-                                  top: 10.0,
-                                  left: 13.0,
-                                  right: 13.0,
+                    child: Column(
+                      children: [
+                        OvcChildInfoTopHeader(),
+                        !isFormReady
+                            ? Container(
+                                child: CircularProcessLoader(
+                                  color: Colors.blueGrey,
                                 ),
-                                child: EntryFormContainer(
-                                  formSections: formSections,
-                                  mandatoryFieldObject: Map(),
-                                  dataObject: serviceFormState.formState,
-                                  onInputValueChange: onInputValueChange,
-                                ),
-                              ),
-                              OvcEnrollmentFormSaveButton(
-                                label: isSaving ? 'Saving ...' : 'Save',
-                                labelColor: Colors.white,
-                                buttonColor: Color(0xFF4B9F46),
-                                fontSize: 15.0,
-                                onPressButton: () => onSaveForm(
-                                    context,
-                                    serviceFormState.formState,
-                                    currentOvcHouseHoldChild),
                               )
-                            ],
-                          ),
+                            : Column(
+                                children: [
+                                  Container(
+                                    margin: EdgeInsets.only(
+                                      top: 10.0,
+                                      left: 13.0,
+                                      right: 13.0,
+                                    ),
+                                    child: EntryFormContainer(
+                                      formSections: formSections,
+                                      mandatoryFieldObject: Map(),
+                                      isEditableMode:
+                                          serviceFormState.isEditableMode,
+                                      dataObject: serviceFormState.formState,
+                                      onInputValueChange: onInputValueChange,
+                                    ),
+                                  ),
+                                  OvcEnrollmentFormSaveButton(
+                                    label: isSaving ? 'Saving ...' : 'Save',
+                                    labelColor: Colors.white,
+                                    buttonColor: Color(0xFF4B9F46),
+                                    fontSize: 15.0,
+                                    onPressButton: () => onSaveForm(
+                                        context,
+                                        serviceFormState.formState,
+                                        currentOvcHouseHoldChild),
+                                  )
+                                ],
+                              )
+                      ],
+                    ),
                   );
                 },
               );
