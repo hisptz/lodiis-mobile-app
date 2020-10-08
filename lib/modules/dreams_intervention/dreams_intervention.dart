@@ -19,11 +19,14 @@ import 'package:provider/provider.dart';
 
 class DreamsIntervention extends StatelessWidget {
   const DreamsIntervention({Key key}) : super(key: key);
-final bool disableSelectionOfActiveIntervention = true;
+  final bool disableSelectionOfActiveIntervention = true;
   void onOpenMoreMenu(
-      BuildContext context, InterventionCard activeInterventionProgram,
-           ) async {
-    AppBarUtil.onOpenMoreMenu(context, activeInterventionProgram);
+      BuildContext context, InterventionCard activeInterventionProgram) async {
+    AppBarUtil.onOpenMoreMenu(
+      context,
+      activeInterventionProgram,
+      disableSelectionOfActiveIntervention,
+    );
   }
 
   void onClickHome() {

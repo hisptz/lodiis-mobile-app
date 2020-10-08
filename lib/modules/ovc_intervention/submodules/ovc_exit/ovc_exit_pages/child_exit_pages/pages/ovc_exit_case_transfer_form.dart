@@ -27,8 +27,7 @@ class OvcExitCaseTransferForm extends StatefulWidget {
       _OvcExitCaseTransferFormState();
 }
 
-class _OvcExitCaseTransferFormState
-    extends State<OvcExitCaseTransferForm> {
+class _OvcExitCaseTransferFormState extends State<OvcExitCaseTransferForm> {
   final String label = 'Case Transfer';
   List<FormSection> formSections;
   bool isFormReady = false;

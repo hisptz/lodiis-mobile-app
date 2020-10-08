@@ -22,14 +22,11 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_e
 import 'package:provider/provider.dart';
 
 class OvcExitInformationForm extends StatefulWidget {
-  
   @override
-  _OvcExitInformationFormState createState() =>
-      _OvcExitInformationFormState();
+  _OvcExitInformationFormState createState() => _OvcExitInformationFormState();
 }
 
-class _OvcExitInformationFormState
-    extends State<OvcExitInformationForm> {
+class _OvcExitInformationFormState extends State<OvcExitInformationForm> {
   final String label = 'Exit';
   List<FormSection> formSections;
   bool isFormReady = false;

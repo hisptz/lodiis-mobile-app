@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_house_hold_current_selection_state.dart';
+import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_intervention_list_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/models/ovc_house_hold.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold_card.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold_card_body.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold_card_botton_content.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_pages/house_hold_exit_pages/ovc_house_hold_archievemnt.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_pages/house_hold_exit_pages/ovc_house_hold_closure.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_pages/house_hold_exit_pages/ovc_house_hold_exit.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_pages/house_hold_exit_pages/ovc_house_hold_transfer.dart';
 import 'package:provider/provider.dart';
+import 'ovc_exit_pages/house_hold_exit_pages/household_achievement/ovc_house_hold_achievement.dart';
+import 'ovc_exit_pages/house_hold_exit_pages/household_case_closure/ovc_house_hold_case_closure.dart';
+import 'ovc_exit_pages/house_hold_exit_pages/household_exit/ovc_house_hold_exit.dart';
+import 'ovc_exit_pages/house_hold_exit_pages/household_transfer/ovc_house_hold_case_transfer.dart';
 
 class OvcExitPage extends StatefulWidget {
   const OvcExitPage({Key key}) : super(key: key);
@@ -43,6 +44,8 @@ class _OvcExitPageState extends State<OvcExitPage> {
       BuildContext context, OvcHouseHold ovcHouseHold) {
     Provider.of<OvcHouseHoldCurrentSelectionState>(context, listen: false)
         .setCurrentHouseHold(ovcHouseHold);
+        Provider.of<ServiveEventDataState>(context, listen: false)
+        .resetServiceEventDataState(ovcHouseHold.id);
   }
 
   void onViewAchievement(BuildContext context, OvcHouseHold ovcHouseHold) {
@@ -50,7 +53,7 @@ class _OvcExitPageState extends State<OvcExitPage> {
     Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => OvcHouseHoldAchievemnt(),
+          builder: (context) => OvcHouseHoldAchievement(),
         ));
   }
 
@@ -68,7 +71,7 @@ class _OvcExitPageState extends State<OvcExitPage> {
     Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => OvcHouseHoldTransfer(),
+          builder: (context) => OvcHouseHoldCaseTransfer(),
         ));
   }
 
@@ -77,7 +80,7 @@ class _OvcExitPageState extends State<OvcExitPage> {
     Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => OvcHouseHoldClosure(),
+          builder: (context) => OvcHouseHoldCaseClosure(),
         ));
   }
 

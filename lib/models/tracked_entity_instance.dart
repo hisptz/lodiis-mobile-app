@@ -13,9 +13,7 @@ class TrackeEntityInstance {
     this.orgUnit,
     this.syncStatus,
     this.attributes,
-  }) {
-    this.syncStatus = this.syncStatus ?? 'synced';
-  }
+  });
 
   @override
   String toString() {
@@ -24,12 +22,11 @@ class TrackeEntityInstance {
 
   TrackeEntityInstance fromJson(dynamic json) {
     return TrackeEntityInstance(
-      trackedEntityInstance: json['trackedEntityInstance'],
-      trackedEntityType: json['trackedEntityType'],
-      orgUnit: json['orgUnit'],
-      attributes: json['attributes'],
-      syncStatus: json['syncStatus'],
-    );
+        trackedEntityInstance: json['trackedEntityInstance'],
+        trackedEntityType: json['trackedEntityType'],
+        orgUnit: json['orgUnit'],
+        attributes: json['attributes'],
+        syncStatus: json['syncStatus'] ?? 'synced');
   }
 
   String toJson(TrackeEntityInstance trackeEntityInstanceObj) {

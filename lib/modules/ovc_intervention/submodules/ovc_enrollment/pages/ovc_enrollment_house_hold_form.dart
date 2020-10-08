@@ -65,6 +65,7 @@ class _OvcEnrollmentHouseHoldFormState
       List<String> hiddenFields = ['yk0OH9p09C1', 'PN92g65TkVI'];
       List<Map> childrenObjects = dataObject['children'];
       String orgUnit = dataObject['location'];
+      bool shouldEnroll = true;
       await OvcEnrollmentHouseHoldService().savingHouseHoldform(
         dataObject,
         trackedEntityInstance,
@@ -72,15 +73,18 @@ class _OvcEnrollmentHouseHoldFormState
         null,
         null,
         null,
+        shouldEnroll,
         hiddenFields,
       );
       await OvcEnrollmentChildService().savingChildrenEnrollmentForms(
-          trackedEntityInstance,
-          orgUnit,
-          childrenObjects,
-          null,
-          null,
-          null, []);
+        trackedEntityInstance,
+        orgUnit,
+        childrenObjects,
+        null,
+        null,
+        shouldEnroll,
+        [],
+      );
       Provider.of<OvcInterventionListState>(context, listen: false)
           .refreshOvcList();
       Timer(Duration(seconds: 1), () {

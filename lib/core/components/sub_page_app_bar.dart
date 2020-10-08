@@ -6,23 +6,23 @@ class SubPageAppBar extends StatelessWidget {
   const SubPageAppBar({
     Key key,
     @required this.label,
-     @required this.activeInterventionProgram,
+    @required this.activeInterventionProgram,
+    this.disableSelectionOfActiveIntervention = true,
   }) : super(key: key);
 
   final String label;
   final InterventionCard activeInterventionProgram;
-  
+  final bool disableSelectionOfActiveIntervention;
 
   void onOpenMoreMenu(
       BuildContext context, InterventionCard activeInterventionProgram) async {
-    AppBarUtil.onOpenMoreMenu(context, activeInterventionProgram);
+    AppBarUtil.onOpenMoreMenu(context, activeInterventionProgram,
+        disableSelectionOfActiveIntervention);
   }
-
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-     
       title: Text(
         label,
         style:
@@ -30,11 +30,14 @@ class SubPageAppBar extends StatelessWidget {
       ),
       backgroundColor: activeInterventionProgram.primmaryColor,
       actions: [
-        Container(
-          child: IconButton(
-              icon: Icon(Icons.more_vert),
-              onPressed: () =>
-                  onOpenMoreMenu(context, activeInterventionProgram)),
+        Visibility(
+          visible: disableSelectionOfActiveIntervention,
+          child: Container(
+            child: IconButton(
+                icon: Icon(Icons.more_vert),
+                onPressed: () =>
+                    onOpenMoreMenu(context, activeInterventionProgram)),
+          ),
         )
       ],
     );

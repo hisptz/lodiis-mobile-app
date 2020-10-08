@@ -11,7 +11,7 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_serv
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/prep/agyw_prep.dart';
 import 'package:provider/provider.dart';
 import 'sub_modules/hiv _reg/hiv_reg_page.dart';
-import 'sub_modules/hiv_prev/hiv_page.dart';
+import 'sub_modules/hiv_prev/dreams_hiv_prev_home.dart';
 import 'sub_modules/hts/hts_page.dart';
 import 'sub_modules/srh/srh_page.dart';
 
@@ -64,7 +64,7 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
     Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
         .setCurrentAgywDream(agywBeneficiary);
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => DreamHIVPrepPage()));
+        context, MaterialPageRoute(builder: (context) => DreamsHIVPrevHome()));
   }
 
   void onOpenHIVRegForm(

@@ -7,9 +7,11 @@ class InterventionPopUpMenu extends StatelessWidget {
   const InterventionPopUpMenu({
     Key key,
     @required this.activeInterventionProgram,
+    @required this.disableSelectionOfActiveIntervention,
   }) : super(key: key);
 
   final InterventionCard activeInterventionProgram;
+  final bool disableSelectionOfActiveIntervention;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +37,8 @@ class InterventionPopUpMenu extends StatelessWidget {
         children: popUpMenus
             .map((InterventionPopActionMenu popUpMenu) => Container(
                     child: Visibility(
-                  visible: popUpMenu.id != activeInterventionProgram.id,
+                  visible: popUpMenu.id != activeInterventionProgram.id ||
+                      !disableSelectionOfActiveIntervention,
                   child: GestureDetector(
                     onTap: () => {Navigator.pop(context, popUpMenu)},
                     child: Column(

@@ -18,14 +18,20 @@ class HttpService {
   Future<http.Response> httpPost(String url, body) async {
     url = '$baseUrl/$url';
     return http.post(url,
-        headers: {HttpHeaders.authorizationHeader: "Basic $basicAuth"},
+        headers: {
+          HttpHeaders.authorizationHeader: "Basic $basicAuth",
+          "Content-Type": "application/json"
+        },
         body: body);
   }
 
   Future<http.Response> httpPut(String url, body) async {
     url = '$baseUrl/$url';
     return http.put(url,
-        headers: {HttpHeaders.authorizationHeader: "Basic $basicAuth"},
+        headers: {
+          HttpHeaders.authorizationHeader: "Basic $basicAuth",
+          "Content-Type": "application/json"
+        },
         body: body);
   }
 
@@ -43,5 +49,10 @@ class HttpService {
     url = '$baseUrl/$url';
     return await http.get(url,
         headers: {HttpHeaders.authorizationHeader: "Basic $basicAuth"});
+  }
+
+  @override
+  String toString() {
+    return '$baseUrl => $username : $password';
   }
 }

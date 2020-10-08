@@ -9,7 +9,6 @@ class OvcHouseHold {
   String location;
   String orgUnit;
   String createdDate;
-  String enrollment;
   String houseHoldId;
   String ovcMaleCount;
   String ovcFemaleCount;
@@ -28,7 +27,6 @@ class OvcHouseHold {
     this.location,
     this.orgUnit,
     this.createdDate,
-    this.enrollment,
     this.ovcFemaleCount,
     this.houseHoldStatus,
     this.teiData,
@@ -39,11 +37,10 @@ class OvcHouseHold {
     String location,
     String orgUnit,
     String createdDate,
-    String enrollment,
     List<OvcHouseHoldChild> children,
   ) {
     List keys = [
-      's1eRvsL2Ly4',
+      'WTZ7GLTrE8Q',
       's1HaiT6OllL',
       'rSP9c21JsfC',
       'kQehaqmaygZ',
@@ -60,13 +57,12 @@ class OvcHouseHold {
     }
     return OvcHouseHold(
         id: tei.trackedEntityInstance,
-        firstName: data['s1eRvsL2Ly4'] ?? '',
+        firstName: data['WTZ7GLTrE8Q'] ?? '',
         middleName: data['s1HaiT6OllL'] ?? '',
         surname: data['rSP9c21JsfC'] ?? '',
         location: location,
         orgUnit: orgUnit,
         createdDate: createdDate,
-        enrollment: enrollment,
         ovcMaleCount: data['kQehaqmaygZ'] ?? '',
         ovcFemaleCount: data['BXUNH6LXeGA'] ?? '',
         houseHoldId: data['yk0OH9p09C1'] ?? '',

@@ -24,12 +24,16 @@ import 'components/ovc_exit_selection.dart';
 
 class OvcChildExitHome extends StatelessWidget {
   final String label = 'Child Exit';
+  final List<String> programStageIds = [];
 
-  void onAddNewExit(BuildContext context) async {
+  void onAddNewExit(BuildContext context, List<Events> events) async {
+    List<String> programStageIdsWithData =
+        events.map((Events event) => event.programStage).toList();
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
-    Widget model = OvcChildExitSelection();
-    String exitResponse =
-        await AppUtil.showPopUpModal(context, model, false);
+    Widget model = OvcChildExitSelection(
+      programStageIdsWithData: programStageIdsWithData,
+    );
+    String exitResponse = await AppUtil.showPopUpModal(context, model, false);
     onRedirectToExitForm(context, exitResponse, true);
   }
 
@@ -39,26 +43,25 @@ class OvcChildExitHome extends StatelessWidget {
         .updateFormEditabilityState(isEditableMode: isEditableMode);
     if (exitResponse != null) {
       exitResponse == 'Exit'
-          ? Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => OvcExitInformationForm()))
+          ? Navigator.push(context,
+              MaterialPageRoute(builder: (context) => OvcExitInformationForm()))
           : exitResponse == 'Transfer'
               ? Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) =>  OvcExitCaseTransferForm()))
+                      builder: (context) => OvcExitCaseTransferForm()))
               : exitResponse == 'Case closure'
                   ? Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) => OvcExitCaseClosureForm()))
-                           : exitResponse == 'Caseplan Achievement Rediness'
-                              ? Navigator.push(
-                                  context,
-                                     MaterialPageRoute(
-                                         builder: (context) => OvcExitCasePlanAchievementRedinessForm()))
-                  : print(exitResponse);
+                  : exitResponse == 'Caseplan Achievement Rediness'
+                      ? Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  OvcExitCasePlanAchievementRedinessForm()))
+                      : print(exitResponse);
     }
   }
 
@@ -95,7 +98,6 @@ class OvcChildExitHome extends StatelessWidget {
     onRedirectToExitForm(context, exitResponse, isEditableMode);
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -124,65 +126,78 @@ class OvcChildExitHome extends StatelessWidget {
                         serviveEventDataState.eventListByProgramStage;
                     Map programStageMap =
                         OvcExitConstant.getOvcExitProgramStageMap();
-                    List<String> programStageids = [];
                     for (var id in programStageMap.keys.toList()) {
-                      programStageids.add('$id');
+                      programStageIds.add('$id');
                     }
-                    print(eventListByProgramStage);
                     List<Events> events = TrackedEntityInstanceUtil
                         .getAllEventListFromServiceDataState(
-                            eventListByProgramStage, programStageids);
-
+                            eventListByProgramStage, programStageIds);
+                    bool shouldAllowAddNewButton = events
+                            .map((Events event) => event.programStage)
+                            .toList()
+                            .length <
+                        programStageIds.toSet().toList().length;
                     return isLoading
                         ? CircularProcessLoader(
                             color: Colors.blueGrey,
                           )
-                        : Container(
-                            margin: EdgeInsets.only(top: 10.0),
-                            child: events.length == 0
-                                ? Center(
-                                    child:
-                                        Text('There is no any exit details at moment'),
-                                  )
-                                : Column(
-                               children: events
-                                        .map((Events eventData) =>
-                                            OvcExitListCard(
-                                              eventData: eventData,
-                                              programStageMap: programStageMap,
-                                              onEditExit: () {
-                                                String exitResponse =
-                                                    programStageMap[
-                                                        eventData.programStage];
-                                                onEditExit(
-                                                    context,
-                                                    exitResponse,
-                                                    eventData);
-                                              },
-                                              onViewExit: () {
-                                                String exitResponse =
-                                                    programStageMap[
-                                                        eventData.programStage];
-                                                onViewExit(
-                                                    context,
-                                                    exitResponse,
-                                                    eventData);
-                                              },
-                                            ))
-                                        .toList(),
-                                  ),
+                        : Column(
+                            children: [
+                              Container(
+                                margin: EdgeInsets.only(top: 10.0),
+                                child: events.length == 0
+                                    ? Center(
+                                        child: Text(
+                                            'There is no any exit details at moment'),
+                                      )
+                                    : Column(
+                                        children: events
+                                            .map((Events eventData) =>
+                                                OvcExitListCard(
+                                                  eventData: eventData,
+                                                  programStageMap:
+                                                      programStageMap,
+                                                  onEditExit: () {
+                                                    String exitResponse =
+                                                        programStageMap[
+                                                            eventData
+                                                                .programStage];
+                                                    onEditExit(
+                                                        context,
+                                                        exitResponse,
+                                                        eventData);
+                                                  },
+                                                  onViewExit: () {
+                                                    String exitResponse =
+                                                        programStageMap[
+                                                            eventData
+                                                                .programStage];
+                                                    onViewExit(
+                                                        context,
+                                                        exitResponse,
+                                                        eventData);
+                                                  },
+                                                ))
+                                            .toList(),
+                                      ),
+                              ),
+                              Visibility(
+                                visible: shouldAllowAddNewButton,
+                                child: Container(
+                                    child: OvcEnrollmentFormSaveButton(
+                                  label: 'ADD',
+                                  labelColor: Colors.white,
+                                  fontSize: 14,
+                                  buttonColor: Color(0xFF4B9F46),
+                                  onPressButton: () =>
+                                      onAddNewExit(context, events),
+                                )),
+                              )
+                            ],
                           );
                   },
                 ),
               ),
-              Container(
-                  child: OvcEnrollmentFormSaveButton(
-                label: 'ADD',
-                labelColor: Colors.white,
-                fontSize: 14,
-                buttonColor: Color(0xFF4B9F46),
-                onPressButton: () => onAddNewExit(context),
-              ))
             ]),
           ),
         ),

@@ -51,8 +51,6 @@ class OvcHouseHoldCard extends StatelessWidget {
     Provider.of<EnrollmentFormState>(context, listen: false)
         .setFormFieldState('orgUnit', ovcHouseHold.orgUnit);
     Provider.of<EnrollmentFormState>(context, listen: false)
-        .setFormFieldState('enrollment', ovcHouseHold.enrollment);
-    Provider.of<EnrollmentFormState>(context, listen: false)
         .setFormFieldState('enrollmentDate', ovcHouseHold.createdDate);
     Provider.of<EnrollmentFormState>(context, listen: false)
         .setFormFieldState('incidentDate', ovcHouseHold.createdDate);

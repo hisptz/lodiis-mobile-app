@@ -9,7 +9,6 @@ class OvcHouseHoldChild {
   String age;
   String orgUnit;
   String createdDate;
-  String enrollment;
   TrackeEntityInstance teiData;
 
   OvcHouseHoldChild({
@@ -21,7 +20,6 @@ class OvcHouseHoldChild {
     this.age,
     this.orgUnit,
     this.createdDate,
-    this.enrollment,
     this.teiData,
   });
 
@@ -29,10 +27,9 @@ class OvcHouseHoldChild {
     TrackeEntityInstance tei,
     String orgUnit,
     String createdDate,
-    String enrollment,
   ) {
     List keys = [
-      's1eRvsL2Ly4',
+      'WTZ7GLTrE8Q',
       's1HaiT6OllL',
       'rSP9c21JsfC',
       'ls9hlz2tyol',
@@ -45,19 +42,16 @@ class OvcHouseHoldChild {
         data[attribute] = '${attributOj['value']}'.trim() ?? '';
       }
     }
-    return 
-    OvcHouseHoldChild(
+    return OvcHouseHoldChild(
         id: tei.trackedEntityInstance,
-        firstName: data['s1eRvsL2Ly4'] ?? '',
+        firstName: data['WTZ7GLTrE8Q'] ?? '',
         middleName: data['s1HaiT6OllL'] ?? '',
         surname: data['rSP9c21JsfC'] ?? '',
         sex: data['vIX4GTSCX4P'] ?? '',
         age: data['ls9hlz2tyol'] ?? '',
         createdDate: createdDate,
-        enrollment: enrollment,
         orgUnit: orgUnit,
-        teiData: tei
-        );
+        teiData: tei);
   }
 
   @override

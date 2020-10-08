@@ -78,7 +78,7 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
     bool hadAllMandatoryFilled =
         AppUtil.hasAllMandarotyFieldsFilled(mandatoryFields, childMapObject);
     if (hadAllMandatoryFilled) {
-      String name = childMapObject['s1eRvsL2Ly4'] ?? '';
+      String name = childMapObject['WTZ7GLTrE8Q'] ?? '';
       Widget modal = AddChildConfirmation(name: name);
       bool response = await AppUtil.showPopUpModal(context, modal, false);
       if (response != null) {
@@ -95,7 +95,7 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
           updateOvcCount();
           Provider.of<EnrollmentFormState>(context, listen: false)
               .setFormFieldState('children', childMapObjects);
-                   Navigator.push(
+          Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (context) => OvcEnrollmentHouseHoldForm(),

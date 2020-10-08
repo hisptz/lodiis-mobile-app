@@ -36,7 +36,7 @@ class OvcChildServiceHomeContant {
       OvcChildServiceHomeContant(
           id: 'monitor',
           title: 'Monitor',
-          icon: 'assets/icons/child_monitor_ovc_icon.svg'),
+          icon: 'assets/icons/child_monitor_ovc_icon.svg',programStages: ['v9Vrc5exzam','dVdlJNtNLIQ'])
     ];
   }
 }

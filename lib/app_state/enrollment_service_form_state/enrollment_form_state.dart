@@ -12,7 +12,7 @@ class EnrollmentFormState with ChangeNotifier {
   //reducers
   void resetFormState() {
     updateFormEditabilityState(isEditableMode: true);
-    _formState = Map();
+    _formState.clear();
     notifyListeners();
   }
 

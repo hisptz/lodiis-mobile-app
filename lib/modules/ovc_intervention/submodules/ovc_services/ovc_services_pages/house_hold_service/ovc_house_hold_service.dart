@@ -8,8 +8,8 @@ import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold_top_header.dart';
 import 'package:provider/provider.dart';
 
-class OvcHouseHoldAchievemnt extends StatelessWidget {
-  final String label = 'House Hold Achievemnt';
+class OvcHouseHoldService extends StatelessWidget {
+  final String label = 'House Hold Service';
 
   @override
   Widget build(BuildContext context) {
@@ -40,9 +40,7 @@ class OvcHouseHoldAchievemnt extends StatelessWidget {
                         currentOvcHouseHold: currentOvcHouseHold,
                       ),
                       Container(
-                        margin: EdgeInsets.symmetric(
-                            vertical: 16.0, horizontal: 13.0),
-                        child: Text('List to add'),
+                        child: Text('Service Home')
                       )
                     ],
                   ),

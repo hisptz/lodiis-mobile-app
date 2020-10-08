@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_intervention_list_state.dart';
-import 'package:kb_mobile_app/app_state/synchronization_state/synchronization_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/constants/custom_color.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
@@ -58,49 +57,42 @@ class _InterventionSelectionState extends State<InterventionSelection> {
         Container(
           decoration: BoxDecoration(color: primmaryColor),
         ),
-        Consumer<SynchtonizationState>(
-            builder: (context, synchtonizationState, child) {
-          bool isSynchronizationActive =
-              synchtonizationState.isSynchronizationActive;
-          return Container(child: Consumer<OvcInterventionListState>(
-            builder: (context, ovcInterventionListState, child) {
-              bool isOvcListLoading = ovcInterventionListState.isLoading;
-              int numberOfHouseHolds =
-                  ovcInterventionListState.numberOfHouseHolds;
-              int numberOfOvcs = ovcInterventionListState.numberOfOvcs;
-              return Container(
-                child: Consumer<DreamsInterventionListState>(
-                  builder: (context, dreamsInterventionListState, child) {
-                    bool isDreamsListLoading =
-                        dreamsInterventionListState.isLoading;
-                    int numberOfAgywDreamsBeneficiaries =
-                        dreamsInterventionListState
-                            .numberOfAgywDreamsBeneficiaries;
-                    int numberOfNoneAgywDreamsBeneficiaries =
-                        dreamsInterventionListState
-                            .numberOfNoneAgywDreamsBeneficiaries;
-                    return Container(
-                      child: isSynchronizationActive ||
-                              isDreamsListLoading ||
-                              isOvcListLoading
-                          ? CircularProcessLoader()
-                          : InterventionSelectionContainer(
-                              interventionPrograms: interventionPrograms,
-                              onIntervetionSelection: onIntervetionSelection,
-                              numberOfHouseHolds: numberOfHouseHolds,
-                              numberOfAgywDreamsBeneficiaries:
-                                  numberOfAgywDreamsBeneficiaries,
-                              numberOfNoneAgywDreamsBeneficiaries:
-                                  numberOfNoneAgywDreamsBeneficiaries,
-                              numberOfOvcs: numberOfOvcs,
-                            ),
-                    );
-                  },
-                ),
-              );
-            },
-          ));
-        }),
+        Container(child: Consumer<OvcInterventionListState>(
+          builder: (context, ovcInterventionListState, child) {
+            bool isOvcListLoading = ovcInterventionListState.isLoading;
+            int numberOfHouseHolds =
+                ovcInterventionListState.numberOfHouseHolds;
+            int numberOfOvcs = ovcInterventionListState.numberOfOvcs;
+            return Container(
+              child: Consumer<DreamsInterventionListState>(
+                builder: (context, dreamsInterventionListState, child) {
+                  bool isDreamsListLoading =
+                      dreamsInterventionListState.isLoading;
+                  int numberOfAgywDreamsBeneficiaries =
+                      dreamsInterventionListState
+                          .numberOfAgywDreamsBeneficiaries;
+                  int numberOfNoneAgywDreamsBeneficiaries =
+                      dreamsInterventionListState
+                          .numberOfNoneAgywDreamsBeneficiaries;
+                  return Container(
+                    child: isDreamsListLoading || isOvcListLoading
+                        ? CircularProcessLoader()
+                        : InterventionSelectionContainer(
+                            interventionPrograms: interventionPrograms,
+                            onIntervetionSelection: onIntervetionSelection,
+                            numberOfHouseHolds: numberOfHouseHolds,
+                            numberOfAgywDreamsBeneficiaries:
+                                numberOfAgywDreamsBeneficiaries,
+                            numberOfNoneAgywDreamsBeneficiaries:
+                                numberOfNoneAgywDreamsBeneficiaries,
+                            numberOfOvcs: numberOfOvcs,
+                          ),
+                  );
+                },
+              ),
+            );
+          },
+        )),
       ],
     )));
   }

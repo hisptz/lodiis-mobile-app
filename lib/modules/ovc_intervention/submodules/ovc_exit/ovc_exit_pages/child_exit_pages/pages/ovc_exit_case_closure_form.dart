@@ -23,12 +23,10 @@ import 'package:provider/provider.dart';
 
 class OvcExitCaseClosureForm extends StatefulWidget {
   @override
-  _OvcExitCaseClosureFormState createState() =>
-      _OvcExitCaseClosureFormState();
+  _OvcExitCaseClosureFormState createState() => _OvcExitCaseClosureFormState();
 }
 
-class _OvcExitCaseClosureFormState
-    extends State<OvcExitCaseClosureForm> {
+class _OvcExitCaseClosureFormState extends State<OvcExitCaseClosureForm> {
   final String label = 'Case closure';
   List<FormSection> formSections;
   bool isFormReady = false;

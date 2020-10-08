@@ -61,26 +61,25 @@ class OrganisationUnitOffline extends OfflineDbProvider {
     List<OrganisationUnit> organisationUnitList = [];
     try {
       var dbClient = await db;
-      for (var organisationId in organisationIds) {
-        List<Map> maps = await dbClient.query(
-            OrganisationUnit.organisationUnitTable,
-            columns: [id, name, parent, level],
-            orderBy: name,
-            where: '$id = ?',
-            whereArgs: [organisationId]);
-        if (maps.isNotEmpty) {
-          for (Map map in maps) {
-            String organizationUnitId = map['id'];
-            List childrens = await OrganisationUnitChildrenOfflineProvider()
-                .getChildrenOrganisationUnits(organizationUnitId);
-            List programs = await OrganisationUnitProgramOfflineProvider()
-                .getProgramOrganisationUnits(organizationUnitId);
-            OrganisationUnit organisationUnits =
-                OrganisationUnit.fromOffline(map);
-            organisationUnits.program = programs;
-            organisationUnits.children = childrens;
-            organisationUnitList.add(organisationUnits);
-          }
+      String questionMark = organisationIds.map((e) => '?').toList().join(',');
+      List<Map> maps = await dbClient.query(
+          OrganisationUnit.organisationUnitTable,
+          columns: [id, name, parent, level],
+          orderBy: name,
+          where: '$id IN ($questionMark)',
+          whereArgs: organisationIds);
+      if (maps.isNotEmpty) {
+        for (Map map in maps) {
+          String organizationUnitId = map['id'];
+          List childrens = await OrganisationUnitChildrenOfflineProvider()
+              .getChildrenOrganisationUnits(organizationUnitId);
+          List programs = await OrganisationUnitProgramOfflineProvider()
+              .getProgramOrganisationUnits(organizationUnitId);
+          OrganisationUnit organisationUnits =
+              OrganisationUnit.fromOffline(map);
+          organisationUnits.program = programs;
+          organisationUnits.children = childrens;
+          organisationUnitList.add(organisationUnits);
         }
       }
     } catch (e) {}

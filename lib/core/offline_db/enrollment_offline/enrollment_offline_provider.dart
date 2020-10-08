@@ -54,4 +54,33 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
     return enrollments
       ..sort((b, a) => a.enrollmentDate.compareTo(b.enrollmentDate));
   }
+
+  Future<List<Enrollment>> getEnrollmentByStatus(
+      String enrollmentSyncStatus) async {
+    List<Enrollment> enrollments = [];
+    try {
+      var dbClient = await db;
+      List<Map> maps = await dbClient.query(
+        table,
+        columns: [
+          enrollment,
+          enrollmentDate,
+          incidentDate,
+          program,
+          orgUnit,
+          status,
+          syncStatus,
+          trackedEntityInstance
+        ],
+        where: '$syncStatus = ?',
+        whereArgs: [enrollmentSyncStatus],
+      );
+      if (maps.isNotEmpty) {
+        for (Map map in maps) {
+          enrollments.add(Enrollment.fromOffline(map));
+        }
+      }
+    } catch (e) {}
+    return enrollments;
+  }
 }

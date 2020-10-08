@@ -57,6 +57,7 @@ class OvcAssessmentServiceChildView extends StatelessWidget {
   }
 
   void updateFormStateData(BuildContext context, Events eventData) {
+    Provider.of<ServiceFormState>(context, listen: false).resetFormState();
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState('eventDate', eventData.eventDate);
     Provider.of<ServiceFormState>(context, listen: false)
