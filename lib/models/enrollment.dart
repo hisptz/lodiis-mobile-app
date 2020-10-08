@@ -34,7 +34,7 @@ class Enrollment {
         orgUnit: json['orgUnit'],
         trackedEntityInstance: json['trackedEntityInstance'],
         status: json['status'],
-        syncStatus: json['syncStatus']);
+        syncStatus: json['syncStatus'] ?? 'synced');
   }
 
   String toJson(Enrollment enrollment) {

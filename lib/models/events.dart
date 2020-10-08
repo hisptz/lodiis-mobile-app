@@ -21,9 +21,7 @@ class Events {
     this.orgUnit,
     this.syncStatus,
     this.dataValues,
-  }) {
-    this.syncStatus = this.syncStatus ?? 'synced';
-  }
+  });
 
   @override
   String toString() {
@@ -32,16 +30,15 @@ class Events {
 
   Events fromJson(dynamic json) {
     return Events(
-      event: json['event'],
-      eventDate: "${json['eventDate']}".split('T')[0],
-      program: json['program'],
-      programStage: json['programStage'],
-      trackedEntityInstance: json['trackedEntityInstance'] ?? '',
-      orgUnit: json['orgUnit'],
-      status: json['status'],
-      dataValues: json['dataValues'],
-      syncStatus: json['syncStatus'],
-    );
+        event: json['event'],
+        eventDate: "${json['eventDate']}".split('T')[0],
+        program: json['program'],
+        programStage: json['programStage'],
+        trackedEntityInstance: json['trackedEntityInstance'] ?? '',
+        orgUnit: json['orgUnit'],
+        status: json['status'],
+        dataValues: json['dataValues'],
+        syncStatus: json['syncStatus'] ?? 'synced');
   }
 
   String toJson(Events event) {
@@ -59,7 +56,7 @@ class Events {
     mapData['orgUnit'] = eventData.orgUnit;
     mapData['syncStatus'] = eventData.syncStatus;
     mapData['dataValues'] = eventData.dataValues;
-   
+
     return mapData;
   }
 
