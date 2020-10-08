@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dream_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
+import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_card_body.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_home_container.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/components/service_card_botton_action.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/prep/agyw_prep.dart';
 import 'package:provider/provider.dart';
-
 import 'sub_modules/hiv _reg/hiv_reg_page.dart';
 import 'sub_modules/hiv_prev/hiv_page.dart';
 import 'sub_modules/hts/hts_page.dart';
-import 'sub_modules/prep/prep_page.dart';
 import 'sub_modules/srh/srh_page.dart';
 
 class DreamsServicesPage extends StatefulWidget {
@@ -46,12 +46,13 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
         context, MaterialPageRoute(builder: (context) => DreamHtsPage()));
   }
 
-  void onOpenHRSForm(
+  void onOpenSRHForm(
     BuildContext context,
     AgywDream agywBeneficiary,
   ) {
     Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
         .setCurrentAgywDream(agywBeneficiary);
+    Provider.of<ServiceFormState>(context, listen: false).resetFormState();
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => DreamSrhPage()));
   }

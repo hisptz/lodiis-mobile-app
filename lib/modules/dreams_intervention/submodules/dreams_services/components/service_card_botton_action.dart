@@ -6,14 +6,14 @@ class ServiceCardBottonAction extends StatelessWidget {
     Key key,
     this.onOpenPrepForm,
     this.onOpenHTSForm,
-    this.onOpenHRSForm,
+    this.onOpenSRHForm,
     this.onOpenHIVPrepForm,
     this.onOpenHIVRegForm,
   }) : super(key: key);
 
   final VoidCallback onOpenPrepForm;
   final VoidCallback onOpenHTSForm;
-  final VoidCallback onOpenHRSForm;
+  final VoidCallback onOpenSRHForm;
   final VoidCallback onOpenHIVPrepForm;
   final VoidCallback onOpenHIVRegForm;
 
@@ -50,7 +50,7 @@ class ServiceCardBottonAction extends StatelessWidget {
                 ),
                 Expanded(
                   child: InkWell(
-                    onTap: onOpenHRSForm,
+                    onTap: onOpenSRHForm,
                     child: Container(
                       padding: EdgeInsets.symmetric(vertical: 5),
                       margin: EdgeInsets.symmetric(vertical: 5),
