@@ -1,8 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/core/components/line_seperator.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_pages/child_exit_pages/constants/ovc_exit_constant.dart';
 
-class OvcChildExitSelection extends StatelessWidget {
-  final List<String> exitTitles = ['Exit', 'Case closure', 'Transfer','Caseplan Achievement Rediness'];
+class OvcChildExitSelection extends StatefulWidget {
+  final List<String> programStageIdsWithData;
+
+  const OvcChildExitSelection({
+    Key key,
+    @required this.programStageIdsWithData,
+  }) : super(key: key);
+
+  @override
+  _OvcChildExitSelectionState createState() => _OvcChildExitSelectionState();
+}
+
+class _OvcChildExitSelectionState extends State<OvcChildExitSelection> {
+  List<String> exitTitles;
+
+  @override
+  void initState() {
+    exitTitles = [];
+    Map programStageMap = OvcExitConstant.getOvcExitProgramStageMap();
+    super.initState();
+    for (String id in programStageMap.keys.toList()) {
+      if (widget.programStageIdsWithData.indexOf(id) == -1) {
+        exitTitles.add(programStageMap[id]);
+      }
+    }
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -39,8 +66,7 @@ class OvcChildExitSelection extends StatelessWidget {
                         children: [
                           Expanded(
                             child: InkWell(
-                              onTap: () =>
-                                  Navigator.pop(context, exitTitle),
+                              onTap: () => Navigator.pop(context, exitTitle),
                               child: Container(
                                   alignment: Alignment.center,
                                   padding: EdgeInsets.symmetric(vertical: 12),

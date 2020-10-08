@@ -18,11 +18,16 @@ import 'package:provider/provider.dart';
 
 class OvcIntervention extends StatelessWidget {
   const OvcIntervention({Key key}) : super(key: key);
+
+  final bool disableSelectionOfActiveIntervention = true;
+
   void onOpenMoreMenu(
       BuildContext context, InterventionCard activeInterventionProgram) async {
-    AppBarUtil.onOpenMoreMenu(context, activeInterventionProgram);
-  
-  
+    AppBarUtil.onOpenMoreMenu(
+      context,
+      activeInterventionProgram,
+      disableSelectionOfActiveIntervention,
+    );
   }
 
   void onClickHome() {
@@ -89,7 +94,7 @@ class OvcIntervention extends StatelessWidget {
                         : currentInterventionBottomNavigation.id == 'referral'
                             ? OvcReferralPage()
                             : currentInterventionBottomNavigation.id ==
-                                    'enrollment' 
+                                    'enrollment'
                                 ? OvcEnrollmentPage()
                                 : currentInterventionBottomNavigation.id ==
                                         'exit'
