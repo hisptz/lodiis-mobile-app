@@ -52,7 +52,14 @@ class OvcHouseHoldMonitor extends StatelessWidget {
   ) {
    updateFormState(context, true, null);
   }
-
+  void onViewHouseHoldMonitor(
+      BuildContext context, OvcHouseHold houseHold, Events monitor) {
+    updateFormState(context, false, monitor);
+  }
+  void onEditHouseHoldMonitor(
+      BuildContext context, OvcHouseHold houseHold, Events monitor) {
+    updateFormState(context, true, monitor);
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -115,6 +122,20 @@ class OvcHouseHoldMonitor extends StatelessWidget {
                                                     OvcHouseHoldMonitorListContainer(
                                                         programStageIds:
                                                             programStageIds,
+                                                        onEditHouseHoldMonitor:
+                                                            (Events monitor) =>
+                                                                onEditHouseHoldMonitor(
+                                                                  context,
+                                                                  currentOvcHouseHold,
+                                                                  monitor,
+                                                                ),
+                                                        onViewHouseHoldMonitor:
+                                                            (Events monitor) =>
+                                                                onViewHouseHoldMonitor(
+                                                                  context,
+                                                                  currentOvcHouseHold,
+                                                                  monitor,
+                                                                )
                                                        ),
                                               ),
                                               Container(
