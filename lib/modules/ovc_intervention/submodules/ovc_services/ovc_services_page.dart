@@ -12,6 +12,8 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/o
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/house_hold_monitor/ovc_house_hold_monitor.dart';
 import 'package:provider/provider.dart';
 
+import 'ovc_services_pages/house_hold_service/ovc_house_hold_service.dart';
+
 class OvcServicesPage extends StatefulWidget {
   const OvcServicesPage({Key key}) : super(key: key);
 
@@ -71,6 +73,14 @@ class _OvcServicesPageState extends State<OvcServicesPage> {
         context,
         MaterialPageRoute(
           builder: (context) => OvcHouseHoldMonitor(),
+        ));
+  }
+  void onOpenHouseHoldService(BuildContext context, OvcHouseHold ovcHouseHold) {
+    setOvcHouseHoldCurrentSelection(context, ovcHouseHold);
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => OvcHouseHoldService(),
         ));
   }
 
@@ -186,7 +196,28 @@ class _OvcServicesPageState extends State<OvcServicesPage> {
                                                     )),
                                               ),
                                             ),
-                                            Expanded(
+                                             Expanded(
+                                              child: Container(
+                                                child: FlatButton(
+                                                    onPressed: () =>
+                                                        onOpenHouseHoldService(
+                                                          context,
+                                                          ovcHouseHold,
+                                                        ),
+                                                    child: Text(
+                                                      'SERVICE',
+                                                      style:
+                                                          TextStyle().copyWith(
+                                                        fontSize: 12.0,
+                                                        color:
+                                                            Color(0xFF4B9F46),
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                      ),
+                                                    )),
+                                              ),
+                                            ),
+                                           Expanded(
                                               child: Container(
                                                 child: FlatButton(
                                                     onPressed: () =>
