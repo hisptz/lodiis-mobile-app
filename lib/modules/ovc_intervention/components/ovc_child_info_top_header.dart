@@ -64,7 +64,7 @@ class OvcChildInfoTopHeader extends StatelessWidget {
                                   ),
                                   children: [
                                     TextSpan(
-                                      text: currentOvcHouseHoldChild.sex,
+                                      text: currentOvcHouseHoldChild.sex ?? "",
                                       style: TextStyle().copyWith(
                                         fontSize: 12.0,
                                         fontWeight: FontWeight.w500,

@@ -8,6 +8,7 @@ class NOnAgywPrepListCard extends StatelessWidget {
     Key key,
     @required this.eventData,
     @required this.visitCount,
+    @required this.visitName,
     this.onViewPrep,
     this.onEditPrep,
   }) : super(key: key);
@@ -16,6 +17,7 @@ class NOnAgywPrepListCard extends StatelessWidget {
   final Function onViewPrep;
   final Function onEditPrep;
   final int visitCount;
+  final String visitName;
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +48,7 @@ class NOnAgywPrepListCard extends StatelessWidget {
                           children: [
                             TextSpan(
                               text:
-                                  "       PREP Visit " + visitCount.toString(),
+                                  "       ${visitName} " + visitCount.toString(),
                               style: TextStyle().copyWith(
                                 color: Color(0xFF05131B),
                                 fontSize: 14.0,
