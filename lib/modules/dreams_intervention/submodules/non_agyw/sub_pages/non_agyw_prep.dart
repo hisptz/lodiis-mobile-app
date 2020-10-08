@@ -147,6 +147,7 @@ class _NonAgywPrepPageState extends State<NonAgywPrepPage> {
                                                       ),
                                                       child:
                                                           NOnAgywPrepListCard(
+                                                            visitName: "PREP Visit",
                                                         onEditPrep: () =>
                                                             onEditPrep(context,
                                                                 eventData),

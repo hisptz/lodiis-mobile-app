@@ -30,6 +30,7 @@ class OvcHouseHoldCard extends StatelessWidget {
   final bool canView;
   final bool canExpand;
   final bool isExpanded;
+ 
 
   final VoidCallback onCardToogle;
   final String svgIcon = 'assets/icons/hh_icon.svg';

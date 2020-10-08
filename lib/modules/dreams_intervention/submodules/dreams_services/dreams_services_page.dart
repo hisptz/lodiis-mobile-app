@@ -54,7 +54,7 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
         .setCurrentAgywDream(agywBeneficiary);
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => DreamSrhPage()));
+        context, MaterialPageRoute(builder: (context) => DreamSRHService()));
   }
 
   void onOpenHIVPrepForm(
