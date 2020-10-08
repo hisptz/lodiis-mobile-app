@@ -5,12 +5,16 @@ import 'package:kb_mobile_app/core/services/organisation_unit_service.dart';
 import 'package:kb_mobile_app/models/organisation_unit.dart';
 
 class OrganisationUnitTreeList extends StatefulWidget {
-  const OrganisationUnitTreeList(
-      {Key key, @required this.organisationUnitIds, @required this.labelColor})
-      : super(key: key);
+  const OrganisationUnitTreeList({
+    Key key,
+    @required this.organisationUnitIds,
+    @required this.labelColor,
+    @required this.allowedSelectedLevels,
+  }) : super(key: key);
 
   final List organisationUnitIds;
   final Color labelColor;
+  final List<int> allowedSelectedLevels;
 
   @override
   _OrganisationUnitTreeListState createState() =>
@@ -53,6 +57,7 @@ class _OrganisationUnitTreeListState extends State<OrganisationUnitTreeList> {
                         OrganisationUnitList(
                           labelColor: widget.labelColor,
                           organisationUnit: organisationUnit,
+                          allowedSelectedLevels: widget.allowedSelectedLevels,
                         ))
                     .toList(),
               ),
