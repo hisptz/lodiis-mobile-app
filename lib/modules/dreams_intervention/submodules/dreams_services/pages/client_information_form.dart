@@ -48,6 +48,5 @@ class ClientInformationForm extends StatelessWidget {
                       mandatoryFieldObject: Map())),
             ),
             bottomNavigationBar: InterventionBottomNavigationBarContainer()));
- 
   }
 }

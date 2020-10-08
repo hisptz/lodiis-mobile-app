@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
@@ -58,6 +57,7 @@ class _NonAgywEnrollmentPrepScreeningFormState
         isSaving = true;
       });
       dataObject['KvmQjZbGZQU'] = AppUtil.getUid();
+      dataObject['d8uBlGOpFhJ'] = AppUtil.getUid();
       dataObject['PN92g65TkVI'] = 'Active';
       List<String> hiddenFields = ['KvmQjZbGZQU', 'PN92g65TkVI'];
       String orgUnit = dataObject['location'];
@@ -90,9 +90,18 @@ class _NonAgywEnrollmentPrepScreeningFormState
     }
   }
 
+  void autoFillInputFields(String id, dynamic value) {
+    if (id == 'qZP982qpSPS') {
+      int age = AppUtil.getAgeInYear(value);
+      Provider.of<EnrollmentFormState>(context, listen: false)
+          .setFormFieldState('ls9hlz2tyol', age.toString());
+    }
+  }
+
   void onInputValueChange(String id, dynamic value) {
     Provider.of<EnrollmentFormState>(context, listen: false)
         .setFormFieldState(id, value);
+    autoFillInputFields(id, value);
   }
 
   @override
@@ -122,7 +131,7 @@ class _NonAgywEnrollmentPrepScreeningFormState
                         child: EntryFormContainer(
                           formSections: formSections,
                           dataObject: enrollmentFormState.formState,
-                          mandatoryFieldObject:mandatoryFieldObject,
+                          mandatoryFieldObject: mandatoryFieldObject,
                           onInputValueChange: onInputValueChange,
                         ),
                       ),

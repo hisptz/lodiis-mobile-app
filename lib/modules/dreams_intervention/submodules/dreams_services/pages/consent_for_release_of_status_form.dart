@@ -48,6 +48,5 @@ class ConsentForReleaseOfStatusForm extends StatelessWidget {
                       mandatoryFieldObject: Map())),
             ),
             bottomNavigationBar: InterventionBottomNavigationBarContainer()));
- 
   }
 }

@@ -28,7 +28,7 @@ class _NonAgywEnrollmentFormSectionFormState
       NonAgywEnrollmentFormSection.getMandatoryField();
   List<FormSection> formSections;
   final Map mandatoryFieldObject = Map();
-  final String label = 'Household wellbeing Asessment';
+  final String label = 'HTS Client Intake';
   bool isFormReady = false;
 
   @override

@@ -27,6 +27,7 @@ class DreamsInterventionListState with ChangeNotifier {
     notifyListeners();
     _agywDreamsInterventionList =
         await AgywDreamEnrollmentService().getAgywBenficiaryList();
+   
     _noneAgywDreamsInterventionList = await
         NonAgywDreamEnrollmentService().getNonAgywBenficiaryList();
         
@@ -36,6 +37,5 @@ class DreamsInterventionListState with ChangeNotifier {
     notifyListeners();
   }
 
-//getNonAgywBenficiaryList
 
 }

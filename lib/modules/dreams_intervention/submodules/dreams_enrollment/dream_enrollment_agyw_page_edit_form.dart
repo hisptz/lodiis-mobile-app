@@ -1,10 +1,9 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
-import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_intervention_list_state.dart';
 import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
@@ -14,28 +13,33 @@ import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/services/agyw_dream_enrollment_service.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/services/ovc_enrollment_house_hold_service.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/models/ovc_enrollement_basic_info.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/models/ovc_enrollment_house_hold.dart';
 import 'package:provider/provider.dart';
+import 'models/agyw_enrollment_consent.dart';
+import 'models/agyw_enrollment_form_section.dart';
+import 'models/agyw_enrollment_risk_assessment.dart';
 
-class OvcEnrollmentHouseHoldEditForm extends StatefulWidget {
-  const OvcEnrollmentHouseHoldEditForm({Key key}) : super(key: key);
+class DreamAgywEnrollmentEditForm extends StatefulWidget {
+  const DreamAgywEnrollmentEditForm({Key key}) : super(key: key);
 
   @override
-  _OvcEnrollmentHouseHoldEditFormState createState() =>
-      _OvcEnrollmentHouseHoldEditFormState();
+  _DreamAgywEnrollmentEditFormState createState() =>
+      _DreamAgywEnrollmentEditFormState();
 }
 
-class _OvcEnrollmentHouseHoldEditFormState
-    extends State<OvcEnrollmentHouseHoldEditForm> {
+class _DreamAgywEnrollmentEditFormState
+    extends State<DreamAgywEnrollmentEditForm> {
   List<FormSection> formSections;
   List<FormSection> enrollmentFormSections;
-  final String label = 'Household Enrolment Form';
+  List<FormSection> consentFormSections;
+  List<FormSection> riskAssessmentFormSections;
+  final String label = 'Agyw Enrolment Form';
   final Map mandatoryFieldObject = Map();
   final List<String> mandatoryFields =
-      OvcEnrollmentBasicInfo.getMandatoryField();
+      AgywEnrollmentFormSection.getMandatoryField() +
+          AgywEnrollmentConcent.getMandatoryField() +
+          AgywEnrollmentRiskAssessment.getMandatoryField();
   bool isFormReady = false;
   bool isSaving = false;
 
@@ -46,15 +50,25 @@ class _OvcEnrollmentHouseHoldEditFormState
       for (String id in mandatoryFields) {
         mandatoryFieldObject[id] = true;
       }
-      enrollmentFormSections = OvcEnrollmentHouseHold.getFormSections();
-      // take section of enrollments
+      enrollmentFormSections = AgywEnrollmentFormSection.getFormSections();
+      consentFormSections = AgywEnrollmentConcent.getFormSections();
+      riskAssessmentFormSections =
+          AgywEnrollmentRiskAssessment.getFormSections();
+
       List<String> skippedInputs = [
         'location',
-        'kQehaqmaygZ',
-        'BXUNH6LXeGA',
-        'ls9hlz2tyol'
+        'WTZ7GLTrE8Q',
+        'rSP9c21JsfC',
+        'qZP982qpSPS'        
+        
+        ];
+      formSections = [
+              riskAssessmentFormSections[0],
       ];
-      formSections = [enrollmentFormSections[0]];
+      enrollmentFormSections.forEach((enrollmentFormsection) {
+        formSections.add(enrollmentFormsection);
+      });
+
       formSections = FormUtil.getFormSectionWithReadOnlyStatus(
         formSections,
         false,
@@ -71,7 +85,7 @@ class _OvcEnrollmentHouseHoldEditFormState
           .setFormFieldState('ls9hlz2tyol', age.toString());
     }
   }
-  
+
   void onInputValueChange(String id, dynamic value) {
     Provider.of<EnrollmentFormState>(context, listen: false)
         .setFormFieldState(id, value);
@@ -90,19 +104,18 @@ class _OvcEnrollmentHouseHoldEditFormState
       String enrollment = dataObject['enrollment'];
       String enrollmentDate = dataObject['enrollmentDate'];
       String incidentDate = dataObject['incidentDate'];
-      List<String> hiddenFields = ['yk0OH9p09C1', 'PN92g65TkVI'];
-      await OvcEnrollmentHouseHoldService().savingHouseHoldform(
+      List<String> hiddenFields = ['d8uBlGOpFhJ'];
+      await AgywDreamEnrollmentService().savingAgwyBeneficiary(
         dataObject,
         trackedEntityInstance,
         orgUnit,
         enrollment,
         enrollmentDate,
         incidentDate,
-        false,
         hiddenFields,
       );
-      Provider.of<OvcInterventionListState>(context, listen: false)
-          .refreshOvcList();
+      Provider.of<DreamsInterventionListState>(context, listen: false)
+          .refreshDreamsList();
       Timer(Duration(seconds: 1), () {
         if (Navigator.canPop(context)) {
           setState(() {
@@ -172,7 +185,7 @@ class _OvcEnrollmentHouseHoldEditFormState
                                       ? 'Saving House Hold ...'
                                       : 'Save House Hold',
                                   labelColor: Colors.white,
-                                  buttonColor: Color(0xFF4B9F46),
+                                  buttonColor: Color(0xFF258DCC),
                                   fontSize: 15.0,
                                   onPressButton: () => isSaving
                                       ? null

@@ -20,16 +20,19 @@ import 'package:kb_mobile_app/modules/ovc_intervention/services/ovc_enrollment_c
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/models/ovc_enrollment_child.dart';
 import 'package:provider/provider.dart';
 
+
 class OvcEnrollmentChildEditViewForm extends StatefulWidget {
   const OvcEnrollmentChildEditViewForm({Key key}) : super(key: key);
 
   @override
   _OvcEnrollmentChildEditViewFormState createState() =>
       _OvcEnrollmentChildEditViewFormState();
+
 }
 
 class _OvcEnrollmentChildEditViewFormState
     extends State<OvcEnrollmentChildEditViewForm> {
+
   List<FormSection> formSections;
   final String label = 'Child enrolment form';
 
@@ -38,6 +41,7 @@ class _OvcEnrollmentChildEditViewFormState
 
   List<String> mandatoryFields;
   final Map mandatoryFieldObject = Map();
+
 
   @override
   void initState() {

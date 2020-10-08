@@ -27,7 +27,8 @@ class AgywEntollmentSectionForm extends StatefulWidget {
 class _AgywEntollmentSectionFormState extends State<AgywEntollmentSectionForm> {
   List<FormSection> formSections;
   final String label = 'Enrollment Assessment';
-  final List<String> mandatoryFields = AgywEnrollmentFormSection.getMandatoryField();
+  final List<String> mandatoryFields =
+      AgywEnrollmentFormSection.getMandatoryField();
   final Map mandatoryFieldObject = Map();
   final String trackedEntityInstance = AppUtil.getUid();
   bool isFormReady = false;
@@ -52,9 +53,13 @@ class _AgywEntollmentSectionFormState extends State<AgywEntollmentSectionForm> {
       setState(() {
         isSaving = true;
       });
-
+     
       dataObject['d8uBlGOpFhJ'] = AppUtil.getUid();
-      List<String> hiddenFields = ['d8uBlGOpFhJ',];
+      //generate id for AGYW ID
+      dataObject['KvmQjZbGZQU'] = AppUtil.getUid();
+      List<String> hiddenFields = [
+        'd8uBlGOpFhJ',
+      ];
       String orgUnit = dataObject['location'];
 
       await AgywDreamEnrollmentService().savingAgwyBeneficiary(

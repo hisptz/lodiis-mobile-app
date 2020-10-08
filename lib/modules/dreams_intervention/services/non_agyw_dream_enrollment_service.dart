@@ -24,6 +24,7 @@ class NonAgywDreamEnrollmentService {
       String orgUnit,
       String enrollment,
       String enrollmentDate,
+      
       String incidentDate,
       List<String> hiddenFields) async {
     List<String> inputFieldIds = hiddenFields ?? [];
@@ -44,8 +45,7 @@ class NonAgywDreamEnrollmentService {
   Future<List<AgywDream>> getNonAgywBenficiaryList() async {
     List<AgywDream> agywDreamList = [];
     try {
-      List<Enrollment> enrollments =
-          await EnrollmentOfflineProvider().getEnrollements(program);
+      List<Enrollment> enrollments = await EnrollmentOfflineProvider().getEnrollements(program);
       for (Enrollment enrollment in enrollments) {
         // get location
         List<OrganisationUnit> ous = await OrganisationUnitService()
@@ -54,15 +54,17 @@ class NonAgywDreamEnrollmentService {
         String orgUnit = enrollment.orgUnit;
         String createdDate = enrollment.enrollmentDate;
         String enrollmentId = enrollment.enrollment;
-        List<TrackeEntityInstance> dataHolds =
-            await TrackedEntityInstanceOfflineProvider()
+        List<TrackeEntityInstance> dataHolds =  await TrackedEntityInstanceOfflineProvider()
                 .getTrackedEntityInstance([enrollment.trackedEntityInstance]);
         for (TrackeEntityInstance tei in dataHolds) {
-          agywDreamList.add(AgywDream()
-              .fromTeiModel(tei, orgUnit, location, createdDate, enrollmentId));
+              try {
+            agywDreamList.add(AgywDream().fromTeiModel(
+                tei, orgUnit, location, createdDate, enrollmentId));
+          } catch (e) { }
         }
       }
     } catch (e) {}
+
     return agywDreamList;
   }
 }
