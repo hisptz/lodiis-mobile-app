@@ -29,7 +29,7 @@ class DreamHIVRegPage extends StatefulWidget {
 }
 
 class _DreamHIVRegPageState extends State<DreamHIVRegPage> {
-  final String label = 'Prep-AGYW';
+  final String label = 'HIV REG-AGYW';
   List<String> programStageids = [ HivPrepConstant.program,HivPrepConstant.programStage];
   @override
   void initState() {
