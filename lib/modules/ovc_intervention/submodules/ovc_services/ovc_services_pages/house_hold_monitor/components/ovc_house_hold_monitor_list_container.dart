@@ -91,6 +91,9 @@ class OvcHouseHoldMonitorListContainer extends StatelessWidget {
                                           horizontal: 5.0,
                                         ),
                                         child: InkWell(
+                                            onTap: () =>
+                                                onViewHouseHoldMonitor(
+                                                   monitor),
                                             child: Container(
                                               height: iconHeight,
                                               width: iconHeight,
@@ -107,6 +110,9 @@ class OvcHouseHoldMonitorListContainer extends StatelessWidget {
                                           horizontal: 5.0,
                                         ),
                                         child: InkWell(
+                                          onTap: () =>
+                                                onEditHouseHoldMonitor(
+                                                    monitor),
                                             child: Container(
                                               height: iconHeight,
                                               width: iconHeight,
