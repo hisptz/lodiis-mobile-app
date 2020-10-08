@@ -73,6 +73,7 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
   ) {
     Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
         .setCurrentAgywDream(agywBeneficiary);
+    Provider.of<ServiceFormState>(context, listen: false).resetFormState();
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => DreamHIVRegPage()));
   }
@@ -141,8 +142,8 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
                                       context, agywBeneficiary),
                                   onOpenHIVRegForm: () => onOpenHIVRegForm(
                                       context, agywBeneficiary),
-                                  onOpenHRSForm: () =>
-                                      onOpenHRSForm(context, agywBeneficiary),
+                                  onOpenSRHForm: () =>
+                                      onOpenSRHForm(context, agywBeneficiary),
                                   onOpenHTSForm: () =>
                                       onOpenHTSForm(context, agywBeneficiary),
                                 ),
