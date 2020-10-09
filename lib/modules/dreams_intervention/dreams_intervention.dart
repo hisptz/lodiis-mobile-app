@@ -11,11 +11,12 @@ import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/dreams_enrollment_page.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/pages/agyw_dreams_consent.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_exit/dreams_exit_page.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_referral/dreams_referral_page.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/dreams_services_page.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/non_agyw_page.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/pages/non_agyw_enrollment_client_intake_form.dart';
 import 'package:provider/provider.dart';
+
+import 'submodules/dreams_referral/dream_referral_page.dart';
 
 class DreamsIntervention extends StatelessWidget {
   const DreamsIntervention({Key key}) : super(key: key);

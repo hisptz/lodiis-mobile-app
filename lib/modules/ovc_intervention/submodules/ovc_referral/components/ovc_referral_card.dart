@@ -7,6 +7,7 @@ class OvcReferralCard extends StatelessWidget {
       {Key key,
       @required this.count,
       @required this.cardBody,
+      @required this.isDreamReferral,
       this.onView,
       this.onManage})
       : super(key: key);
@@ -14,6 +15,7 @@ class OvcReferralCard extends StatelessWidget {
   final Widget cardBody;
   final Function onView;
   final Function onManage;
+  final bool isDreamReferral;
 
   @override
   Widget build(BuildContext context) {
@@ -48,9 +50,10 @@ class OvcReferralCard extends StatelessWidget {
                   bottomRight: Radius.circular(12.0),
                 ),
                 child: Container(
-                  decoration: BoxDecoration(color: Color(0XFFF6FAF6)),
+
+                  decoration: BoxDecoration(color: isDreamReferral ?Color(0XFFFBFDFE):Color(0XFFF6FAF6)),
                   child: Container(
-                      decoration: BoxDecoration(color: Color(0XFFF6FAF6)),
+                      decoration: BoxDecoration(color:isDreamReferral ? Color(0XFFFBFDFE) : Color(0XFFF6FAF6)),
                       child: Row(
                         children: [
                           Expanded(
@@ -60,7 +63,7 @@ class OvcReferralCard extends StatelessWidget {
                                   'VIEW',
                                   style: TextStyle().copyWith(
                                     fontSize: 12.0,
-                                    color: Color(0xFF4B9F46),
+                                    color: isDreamReferral ? Color(0xFF1F8ECE) :  Color(0xFF4B9F46),
                                     fontWeight: FontWeight.w500,
                                   ),
                                 )),
@@ -81,7 +84,7 @@ class OvcReferralCard extends StatelessWidget {
                                   'MANAGE',
                                   style: TextStyle().copyWith(
                                     fontSize: 12.0,
-                                    color: Color(0xFF4B9F46),
+                                    color: isDreamReferral ? Color(0xFF1F8ECE) :  Color(0xFF4B9F46),
                                     fontWeight: FontWeight.w500,
                                   ),
                                 )),

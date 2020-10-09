@@ -139,6 +139,7 @@ class _OvcChildReferralHomeState extends State<OvcChildReferralHome> {
                                                         bottom: 15.0,
                                                       ),
                                                       child: OvcReferralCard(
+                                                        isDreamReferral: false,
                                                         count: referralIndex,
                                                         cardBody:
                                                             OvcReferralCardBody(

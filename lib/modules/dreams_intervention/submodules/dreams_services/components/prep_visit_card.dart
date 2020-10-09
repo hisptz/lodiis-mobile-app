@@ -47,6 +47,7 @@ class PrepVisitListCard extends StatelessWidget {
                           ),
                           children: [
                             TextSpan(
+                              // ignore: unnecessary_brace_in_string_interps
                               text: "       ${visitName} " +
                                   visitCount.toString(),
                               style: TextStyle().copyWith(
