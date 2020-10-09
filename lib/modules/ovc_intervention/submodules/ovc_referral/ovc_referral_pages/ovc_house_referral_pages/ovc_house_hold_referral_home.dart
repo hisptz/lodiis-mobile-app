@@ -61,16 +61,32 @@ class _OvcHouseHoldReferralHomeState extends State<OvcHouseHoldReferralHome> {
         MaterialPageRoute(builder: (context) => OvcHouseHoldAddReferralForm()));
   }
 
-  void onViewHouseHoldReferral(BuildContext context, Events eventData) {
-    updateFormState(context, false, eventData);
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => OvcHouseHoldReferralView()));
+  void onViewHouseHoldReferral(
+    BuildContext context,
+    Events eventData,
+    int referralIndex,
+  ) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => OvcHouseHoldReferralView(
+                  eventData: eventData,
+                  referralIndex: referralIndex,
+                )));
   }
 
-  void onManageHouseHoldReferral(BuildContext context, Events eventData) {
-    updateFormState(context, false, eventData);
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => OvcHouseHoldReferralManage()));
+  void onManageHouseHoldReferral(
+    BuildContext context,
+    Events eventData,
+    referralIndex,
+  ) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => OvcHouseHoldReferralManage(
+                  eventData: eventData,
+                  referralIndex: referralIndex,
+                )));
   }
 
   @override
@@ -155,12 +171,16 @@ class _OvcHouseHoldReferralHomeState extends State<OvcHouseHoldReferralHome> {
                                                         ),
                                                         onView: () =>
                                                             onViewHouseHoldReferral(
-                                                                context,
-                                                                eventData),
+                                                          context,
+                                                          eventData,
+                                                          referralIndex,
+                                                        ),
                                                         onManage: () =>
                                                             onManageHouseHoldReferral(
-                                                                context,
-                                                                eventData),
+                                                          context,
+                                                          eventData,
+                                                          referralIndex,
+                                                        ),
                                                       ),
                                                     );
                                                   }).toList(),

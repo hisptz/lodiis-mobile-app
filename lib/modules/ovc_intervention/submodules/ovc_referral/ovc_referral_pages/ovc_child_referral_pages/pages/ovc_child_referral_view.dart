@@ -4,12 +4,20 @@ import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_car
 import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
+import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_child_info_top_header.dart';
 import 'package:provider/provider.dart';
 
 class OvcChildReferralView extends StatefulWidget {
-  OvcChildReferralView({Key key}) : super(key: key);
+  OvcChildReferralView({
+    Key key,
+    @required this.eventData,
+    @required this.referralIndex,
+  }) : super(key: key);
+
+  final Events eventData;
+  final int referralIndex;
 
   @override
   _OvcChildReferralViewState createState() => _OvcChildReferralViewState();

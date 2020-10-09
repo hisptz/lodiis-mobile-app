@@ -63,16 +63,32 @@ class _OvcChildReferralHomeState extends State<OvcChildReferralHome> {
         MaterialPageRoute(builder: (context) => OvcChildReferralAddForm()));
   }
 
-  void onViewChildReferral(BuildContext context, Events eventData) {
-    updateFormState(context, false, eventData);
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => OvcChildReferralView()));
+  void onViewChildReferral(
+    BuildContext context,
+    Events eventData,
+    int referralIndex,
+  ) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => OvcChildReferralView(
+                  eventData: eventData,
+                  referralIndex: referralIndex,
+                )));
   }
 
-  void onManageChildReferral(BuildContext context, Events eventData) {
-    updateFormState(context, false, eventData);
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => OvcChildReferralManage()));
+  void onManageChildReferral(
+    BuildContext context,
+    Events eventData,
+    int referralIndex,
+  ) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => OvcChildReferralManage(
+                  eventData: eventData,
+                  referralIndex: referralIndex,
+                )));
   }
 
   @override
@@ -156,12 +172,15 @@ class _OvcChildReferralHomeState extends State<OvcChildReferralHome> {
                                                         ),
                                                         onView: () =>
                                                             onViewChildReferral(
-                                                                context,
-                                                                eventData),
+                                                          context,
+                                                          eventData,
+                                                          referralIndex,
+                                                        ),
                                                         onManage: () =>
                                                             onManageChildReferral(
                                                                 context,
-                                                                eventData),
+                                                                eventData,
+                                                                referralIndex),
                                                       ),
                                                     );
                                                   }).toList(),
