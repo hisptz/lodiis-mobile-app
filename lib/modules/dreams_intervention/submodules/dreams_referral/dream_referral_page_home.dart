@@ -16,14 +16,13 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_refe
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_referral/pages/dream_referral_manage.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_referral/pages/dream_referral_view.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/components/ovc_referral_card.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/components/ovc_referral_card_body.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/components/ovc_referral_card_body_summary.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/components/ovc_referral_card_summary.dart';
 import 'package:provider/provider.dart';
 import 'constant/dream_agyw_referral_constant.dart';
 
 class DreamAgywReferralPage extends StatefulWidget {
   DreamAgywReferralPage({Key key}) : super(key: key);
-
   @override
   _DreamAgywReferralPageState createState() => _DreamAgywReferralPageState();
 }
@@ -31,7 +30,6 @@ class DreamAgywReferralPage extends StatefulWidget {
 class _DreamAgywReferralPageState extends State<DreamAgywReferralPage> {
   final String label = 'Agyw Referral';
   final List<String> programStageids = [DreamAgywReferralConstant.programStage];
-
   void updateFormState(
     BuildContext context,
     bool isEditableMode,
@@ -138,11 +136,21 @@ class _DreamAgywReferralPageState extends State<DreamAgywReferralPage> {
                                                       margin: EdgeInsets.only(
                                                         bottom: 15.0,
                                                       ),
-                                                      child: OvcReferralCard(
-                                                        isDreamReferral: true,
+                                                      child:
+                                                          OvcReferralCardSummary(
+                                                          borderColor:
+                                                            Color(0xFFE9F4FA),
+                                                        buttonLabelColor:
+                                                            Color(0xFF1F8ECE),
+                                                        titleColor:
+                                                            Color(0xFF05131B),
                                                         count: referralIndex,
                                                         cardBody:
-                                                            OvcReferralCardBody(
+                                                            OvcReferralCardBodySummary(
+                                                          labelColor:
+                                                              Color(0XFF82898D),
+                                                          valueColor:
+                                                              Color(0XFF444E54),
                                                           referralEvent:
                                                               eventData,
                                                         ),

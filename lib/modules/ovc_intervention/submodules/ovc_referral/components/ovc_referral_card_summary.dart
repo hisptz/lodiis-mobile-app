@@ -2,20 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/core/components/line_seperator.dart';
 import 'package:kb_mobile_app/core/components/material_card.dart';
 
-class OvcReferralCard extends StatelessWidget {
-  OvcReferralCard(
-      {Key key,
-      @required this.count,
-      @required this.cardBody,
-      @required this.isDreamReferral,
-      this.onView,
-      this.onManage})
-      : super(key: key);
+class OvcReferralCardSummary extends StatelessWidget {
+  OvcReferralCardSummary({
+    Key key,
+    @required this.count,
+    @required this.cardBody,
+    @required this.borderColor,
+    @required this.buttonLabelColor,
+    @required this.titleColor,
+    this.onView,
+    this.onManage,
+  }) : super(key: key);
   final int count;
+  final Color borderColor;
+  final Color buttonLabelColor;
+  final Color titleColor;
   final Widget cardBody;
   final Function onView;
   final Function onManage;
-  final bool isDreamReferral;
 
   @override
   Widget build(BuildContext context) {
@@ -30,18 +34,25 @@ class OvcReferralCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Expanded(
-                      child: Text('Referral ${count.toString()}'),
+                      child: Text(
+                        'Referral ${count.toString()}',
+                        style: TextStyle().copyWith(
+                          color: titleColor,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 14.0,
+                        ),
+                      ),
                     )
                   ],
                 ),
               ),
               LineSeperator(
-                color: Color(0xFFEDF5EC),
+                color: borderColor,
                 height: 2,
               ),
               cardBody,
               LineSeperator(
-                color: Color(0xFFEDF5EC),
+                color: borderColor,
                 height: 2,
               ),
               ClipRRect(
@@ -50,10 +61,11 @@ class OvcReferralCard extends StatelessWidget {
                   bottomRight: Radius.circular(12.0),
                 ),
                 child: Container(
-
-                  decoration: BoxDecoration(color: isDreamReferral ?Color(0XFFFBFDFE):Color(0XFFF6FAF6)),
+                  decoration:
+                      BoxDecoration(color: borderColor.withOpacity(0.5)),
                   child: Container(
-                      decoration: BoxDecoration(color:isDreamReferral ? Color(0XFFFBFDFE) : Color(0XFFF6FAF6)),
+                      decoration:
+                          BoxDecoration(color: borderColor.withOpacity(0.5)),
                       child: Row(
                         children: [
                           Expanded(
@@ -63,7 +75,7 @@ class OvcReferralCard extends StatelessWidget {
                                   'VIEW',
                                   style: TextStyle().copyWith(
                                     fontSize: 12.0,
-                                    color: isDreamReferral ? Color(0xFF1F8ECE) :  Color(0xFF4B9F46),
+                                    color: buttonLabelColor,
                                     fontWeight: FontWeight.w500,
                                   ),
                                 )),
@@ -84,7 +96,7 @@ class OvcReferralCard extends StatelessWidget {
                                   'MANAGE',
                                   style: TextStyle().copyWith(
                                     fontSize: 12.0,
-                                    color: isDreamReferral ? Color(0xFF1F8ECE) :  Color(0xFF4B9F46),
+                                    color: buttonLabelColor,
                                     fontWeight: FontWeight.w500,
                                   ),
                                 )),

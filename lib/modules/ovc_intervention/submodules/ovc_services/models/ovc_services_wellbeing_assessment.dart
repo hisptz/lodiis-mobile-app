@@ -1090,6 +1090,7 @@ class OvcServicesWellbeingAssessment {
             labelColor: Color(0xFF737373)),
         InputField(
             id: 'WmnbKX3Vj05',
+            allowFuturePeriod: true,
             name: 'Timeline for goal 1',
             valueType: 'DATE',
             inputColor: Color(0xFF4B9F46),
@@ -1108,6 +1109,7 @@ class OvcServicesWellbeingAssessment {
             labelColor: Color(0xFF737373)),
         InputField(
             id: 'cbxJhkrHUtk',
+            allowFuturePeriod: true,
             name: 'Timeline for goal 2',
             valueType: 'DATE',
             inputColor: Color(0xFF4B9F46),
