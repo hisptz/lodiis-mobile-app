@@ -10,10 +10,12 @@ import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_home
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/components/service_card_botton_action.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hiv_prev/dreams_hiv_prev_home.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hiv_reg/agyw_dreams_hiv_register.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/hts_page.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/prep/agyw_dreams_prep.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/srh/agyw_dreams_srh.dart';
 import 'package:provider/provider.dart';
+
+import 'sub_modules/hts/hts_home_page.dart';
+import 'sub_modules/hts/pages/agyw_dreams_hts_consent_form.dart';
 
 class DreamsServicesPage extends StatefulWidget {
   const DreamsServicesPage({Key key}) : super(key: key);
@@ -42,8 +44,8 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
   ) {
     Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
         .setCurrentAgywDream(agywBeneficiary);
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => DreamHtsPage()));
+     Navigator.push(
+         context, MaterialPageRoute(builder: (context) => AgywDreamsHTSConsentForm()));
   }
 
   void onOpenSRHForm(

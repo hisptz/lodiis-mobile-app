@@ -37,6 +37,7 @@ class NonAgywEnrollmentPrepScreening {
                       labelColor: Color(0xFF05131B)),
                   InputField(
                       id: 'w16L3KidzUp',
+                      allowFuturePeriod: true,
                       name: 'Date of initial client visit',
                       valueType: 'DATE',
                       inputColor: Color(0xFF258DCC),
