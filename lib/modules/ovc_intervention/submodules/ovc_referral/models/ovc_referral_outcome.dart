@@ -32,6 +32,7 @@ class OvcReferralOutCome {
             ),
             InputField(
               id: 'DPf5mUDoZMy',
+              allowFuturePeriod: true,
               name: 'Follow-up date',
               valueType: 'DATE',
               inputColor: Color(0xFF4B9F46),

@@ -291,6 +291,7 @@ class OvcExitCasePlanAchievementRediness {
                       labelColor: Color(0xFF455B44)),
                 InputField(
                       id: 'b73ur3g5lnn',
+                      allowFuturePeriod: true,
                       name: 'Estimated action date for health domain',
                       valueType: 'DATE',
                       inputColor: Color(0xFF4B9F46),
@@ -303,6 +304,7 @@ class OvcExitCasePlanAchievementRediness {
                       labelColor: Color(0xFF455B44)),
                   InputField(
                       id: 'y2AXtjJo8YB',
+                      allowFuturePeriod: true,
                       name: 'Estimated action date for safe domain',
                       valueType: 'DATE',
                       inputColor: Color(0xFF4B9F46),
@@ -315,6 +317,7 @@ class OvcExitCasePlanAchievementRediness {
                       labelColor: Color(0xFF455B44)),
                     InputField(
                       id: 'XWolMis9rdv',
+                      allowFuturePeriod: true,
                       name: 'Estimated action date for stable domain',
                       valueType: 'DATE',
                       inputColor: Color(0xFF4B9F46),
@@ -327,6 +330,7 @@ class OvcExitCasePlanAchievementRediness {
                       labelColor: Color(0xFF455B44)),
                   InputField(
                       id: 'w5s66Dpufem',
+                      allowFuturePeriod: true,
                       name: 'Estimated action date for schooled domain',
                       valueType: 'DATE',
                       inputColor: Color(0xFF4B9F46),
