@@ -138,9 +138,17 @@ class _OvcHouseHoldReferralHomeState extends State<OvcHouseHoldReferralHome> {
                                                         bottom: 15.0,
                                                       ),
                                                       child: OvcReferralCard(
+                                                        borderColor:
+                                                            Color(0xFFEDF5EC),
+                                                        titleColor:
+                                                            Color(0xFF1B3518),
                                                         count: referralIndex,
                                                         cardBody:
                                                             OvcReferralCardBody(
+                                                          labelColor:
+                                                              Color(0XFF92A791),
+                                                          valueColor:
+                                                              Color(0XFF536852),
                                                           referralEvent:
                                                               eventData,
                                                         ),

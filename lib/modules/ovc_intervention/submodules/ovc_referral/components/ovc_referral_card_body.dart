@@ -7,9 +7,13 @@ class OvcReferralCardBody extends StatefulWidget {
   OvcReferralCardBody({
     Key key,
     @required this.referralEvent,
+    @required this.labelColor,
+    @required this.valueColor,
   }) : super(key: key);
 
   final Events referralEvent;
+  final Color labelColor;
+  final Color valueColor;
 
   @override
   _OvcReferralCardBodyState createState() => _OvcReferralCardBodyState();
@@ -42,7 +46,7 @@ class _OvcReferralCardBodyState extends State<OvcReferralCardBody> {
                       'Date',
                       style: TextStyle().copyWith(
                           fontSize: 14.0,
-                          color: Color(0XFF92A791),
+                          color: widget.labelColor,
                           fontWeight: FontWeight.w500),
                     ),
                   ),
@@ -52,7 +56,7 @@ class _OvcReferralCardBodyState extends State<OvcReferralCardBody> {
                       ovcReferralCard.date,
                       style: TextStyle().copyWith(
                           fontSize: 14.0,
-                          color: Color(0XFF536852),
+                          color: widget.valueColor,
                           fontWeight: FontWeight.w500),
                     ),
                   )
@@ -69,7 +73,7 @@ class _OvcReferralCardBodyState extends State<OvcReferralCardBody> {
                       'Service mode',
                       style: TextStyle().copyWith(
                           fontSize: 14.0,
-                          color: Color(0XFF92A791),
+                          color: widget.labelColor,
                           fontWeight: FontWeight.w500),
                     ),
                   ),
@@ -79,7 +83,7 @@ class _OvcReferralCardBodyState extends State<OvcReferralCardBody> {
                       ovcReferralCard.serviceMode,
                       style: TextStyle().copyWith(
                           fontSize: 14.0,
-                          color: Color(0XFF536852),
+                          color: widget.valueColor,
                           fontWeight: FontWeight.w500),
                     ),
                   )
@@ -96,7 +100,7 @@ class _OvcReferralCardBodyState extends State<OvcReferralCardBody> {
                       'Category',
                       style: TextStyle().copyWith(
                           fontSize: 14.0,
-                          color: Color(0XFF92A791),
+                          color: widget.labelColor,
                           fontWeight: FontWeight.w500),
                     ),
                   ),
@@ -106,7 +110,7 @@ class _OvcReferralCardBodyState extends State<OvcReferralCardBody> {
                       ovcReferralCard.category,
                       style: TextStyle().copyWith(
                           fontSize: 14.0,
-                          color: Color(0XFF536852),
+                          color: widget.valueColor,
                           fontWeight: FontWeight.w500),
                     ),
                   )
@@ -123,7 +127,7 @@ class _OvcReferralCardBodyState extends State<OvcReferralCardBody> {
                     'Type',
                     style: TextStyle().copyWith(
                         fontSize: 14.0,
-                        color: Color(0XFF92A791),
+                        color: widget.labelColor,
                         fontWeight: FontWeight.w500),
                   )),
                   Expanded(
@@ -132,7 +136,7 @@ class _OvcReferralCardBodyState extends State<OvcReferralCardBody> {
                       ovcReferralCard.type,
                       style: TextStyle().copyWith(
                           fontSize: 14.0,
-                          color: Color(0XFF536852),
+                          color: widget.valueColor,
                           fontWeight: FontWeight.w500),
                     ),
                   )
@@ -149,7 +153,7 @@ class _OvcReferralCardBodyState extends State<OvcReferralCardBody> {
                     'Status',
                     style: TextStyle().copyWith(
                         fontSize: 14.0,
-                        color: Color(0XFF92A791),
+                        color: widget.labelColor,
                         fontWeight: FontWeight.w500),
                   )),
                   Expanded(
@@ -159,7 +163,7 @@ class _OvcReferralCardBodyState extends State<OvcReferralCardBody> {
                           ovcReferralCard.status,
                           style: TextStyle().copyWith(
                               fontSize: 14.0,
-                              color: Color(0XFF536852),
+                              color: widget.valueColor,
                               fontWeight: FontWeight.w500),
                         ),
                       ))

@@ -137,9 +137,17 @@ class _DreamAgywReferralPageState extends State<DreamAgywReferralPage> {
                                                         bottom: 15.0,
                                                       ),
                                                       child: OvcReferralCard(
+                                                        titleColor:
+                                                            Color(0xFF05131B),
+                                                        borderColor:
+                                                            Color(0xFFE9F4FA),
                                                         count: referralIndex,
                                                         cardBody:
                                                             OvcReferralCardBody(
+                                                          labelColor:
+                                                              Color(0xFF82898D),
+                                                          valueColor:
+                                                              Color(0xFF444E54),
                                                           referralEvent:
                                                               eventData,
                                                         ),
