@@ -497,6 +497,7 @@ class OvcExitCasePlanAchievementFormInfo {
                 valueType: 'LONG_TEXT'),
             InputField(
                 id: 'V7w2O3LqZf0',
+                allowFuturePeriod: true,
                 inputColor: Color(0xFF4B9F46),
                 labelColor: Color(0xFF1A3518),
                 name:
@@ -510,6 +511,7 @@ class OvcExitCasePlanAchievementFormInfo {
                 valueType: 'LONG_TEXT'),
             InputField(
                 id: 'DmTaqTuZ880',
+                allowFuturePeriod: true,
                 inputColor: Color(0xFF4B9F46),
                 labelColor: Color(0xFF1A3518),
                 name: 'Estimated date for Safe actions or services completion',
@@ -522,6 +524,7 @@ class OvcExitCasePlanAchievementFormInfo {
                 valueType: 'LONG_TEXT'),
             InputField(
                 id: 'UTQXWRszCSg',
+                allowFuturePeriod: true,
                 inputColor: Color(0xFF4B9F46),
                 labelColor: Color(0xFF1A3518),
                 name:
@@ -535,6 +538,7 @@ class OvcExitCasePlanAchievementFormInfo {
                 valueType: 'LONG_TEXT'),
             InputField(
                 id: 'WiBjV85rYAf',
+                allowFuturePeriod: true,
                 inputColor: Color(0xFF4B9F46),
                 labelColor: Color(0xFF1A3518),
                 name:

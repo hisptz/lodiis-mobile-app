@@ -865,6 +865,7 @@ class DreamsServicePrepIntakeInfo {
                 valueType: 'TEXT'),
             InputField(
               id: 'rprU5DII5Aw',
+              allowFuturePeriod: true,
               name: 'Date of initial client visit',
               valueType: 'DATE',
               inputColor: Color(0xFF1F8ECE),
@@ -1161,6 +1162,7 @@ class DreamsServicePrepIntakeInfo {
                 valueType: 'DATE'),
             InputField(
                 id: 'mSUNOhSO4c4',
+                allowFuturePeriod: true,
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF05131B),
                 name: 'Date of PrEP initiation',
@@ -1254,6 +1256,7 @@ class DreamsServicePrepIntakeInfo {
                 valueType: 'TRUE_ONLY'),
             InputField(
                 id: 'NIZZ0Bj3XPU',
+                allowFuturePeriod: true,
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF05131B),
                 name: 'Date of initial visit',

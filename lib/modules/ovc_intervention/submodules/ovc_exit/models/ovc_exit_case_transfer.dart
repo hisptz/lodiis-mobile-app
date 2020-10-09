@@ -11,6 +11,7 @@ class OvcExitCaseTransfer {
           inputFields: [
             InputField(
                 id: 'WDIkYamF6kL',
+                allowFuturePeriod: true,
                 name: 'Planned date of transfer',
                 valueType: 'DATE',
                 inputColor: Color(0xFF4B9F46),
@@ -66,6 +67,7 @@ class OvcExitCaseTransfer {
                 labelColor: Color(0xFF4B9F46)),
             InputField(
                 id: 'XEJYZzJJ5b6',
+                allowFuturePeriod: true,
                 name: 'Date of next follow up',
                 valueType: 'DATE',
                 inputColor: Color(0xFF4B9F46),
