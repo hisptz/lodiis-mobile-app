@@ -1,66 +1,101 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_house_hold_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
-import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
+import 'package:kb_mobile_app/core/utils/app_util.dart';
+import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/events.dart';
+import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/models/ovc_house_hold.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold_top_header.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/models/ovc_exit_case_closure.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_pages/house_hold_exit_pages/component/ovc_house_hold_exit_form_container.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_pages/house_hold_exit_pages/household_case_closure/constants/ovc_house_hold_case_closure_constant.dart';
 import 'package:provider/provider.dart';
-import 'components/ovc_house_hold_case_closure_list_container.dart';
-import 'constants/ovc_house_hold_case_closure_constant.dart';
-import 'pages/ovc_house_hold_case_closure_form.dart';
 
-class OvcHouseHoldCaseClosure extends StatelessWidget {
-  final String label = 'House Hold Case Closure';
+class OvcHouseHoldCaseClosure extends StatefulWidget {
+  @override
+  _OvcHouseHoldCaseClosureState createState() =>
+      _OvcHouseHoldCaseClosureState();
+}
+
+class _OvcHouseHoldCaseClosureState extends State<OvcHouseHoldCaseClosure> {
+  final String label = 'House Hold Case Closure Form';
+
   final List<String> programStageIds = [
     OvcHouseHoldCaseClosureConstant.programStage
   ];
 
-  void updateFormState(
-      BuildContext context, bool isEditableMode, Events closure) {
-    Provider.of<ServiceFormState>(context, listen: false).resetFormState();
-    Provider.of<ServiceFormState>(context, listen: false)
-        .updateFormEditabilityState(isEditableMode: isEditableMode);
+  bool isSaving = false;
+  List<FormSection> formSections;
+  bool isFormReady = false;
 
-    if (closure != null) {
-      Provider.of<ServiceFormState>(context, listen: false);
-      Provider.of<ServiceFormState>(context, listen: false)
-          .setFormFieldState('eventDate', closure.eventDate);
-      Provider.of<ServiceFormState>(context, listen: false)
-          .setFormFieldState('eventId', closure.event);
-      for (Map datavalue in closure.dataValues) {
-        if (datavalue['value'] != '') {
-          Provider.of<ServiceFormState>(context, listen: false)
-              .setFormFieldState(datavalue['dataElement'], datavalue['value']);
-        }
-      }
-    }
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => OvcHouseHoldCaseClosureForm()));
+  @override
+  void initState() {
+    super.initState();
+    formSections = OvcExitCaseClosure.getFormSections();
+    Timer(Duration(seconds: 1), () {
+      setState(() {
+        isFormReady = true;
+      });
+    });
   }
 
-  void onAddNewHouseHoldClosure(
+  void onSaveForm(
     BuildContext context,
-    OvcHouseHold houseHold,
-  ) {
-    updateFormState(context, true, null);
-  }
-
-  void onViewHouseHoldClosure(
-      BuildContext context, OvcHouseHold houseHold, Events closure) {
-    updateFormState(context, false, closure);
-  }
-
-  void onEditHouseHoldClosure(
-      BuildContext context, OvcHouseHold houseHold, Events closure) {
-    updateFormState(context, true, closure);
+    Map dataObject,
+    OvcHouseHold currentOvcHouseHold,
+  ) async {
+    if (dataObject.keys.length > 0) {
+      setState(() {
+        isSaving = true;
+      });
+      String eventDate = dataObject['eventDate'];
+      String eventId = dataObject['eventId'];
+      try {
+        await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
+            OvcHouseHoldCaseClosureConstant.program,
+            OvcHouseHoldCaseClosureConstant.programStage,
+            currentOvcHouseHold.orgUnit,
+            formSections,
+            dataObject,
+            eventDate,
+            currentOvcHouseHold.id,
+            eventId,
+            null);
+        Provider.of<ServiveEventDataState>(context, listen: false)
+            .resetServiceEventDataState(currentOvcHouseHold.id);
+        Timer(Duration(seconds: 1), () {
+          setState(() {
+            isSaving = false;
+            AppUtil.showToastMessage(
+                message: 'Form has been saved successfully',
+                position: ToastGravity.TOP);
+            Navigator.pop(context);
+          });
+        });
+      } catch (e) {
+        Timer(Duration(seconds: 1), () {
+          setState(() {
+            isSaving = false;
+            AppUtil.showToastMessage(
+                message: e.toString(), position: ToastGravity.BOTTOM);
+            Navigator.pop(context);
+          });
+        });
+      }
+    } else {
+      AppUtil.showToastMessage(
+          message: 'Please fill at least one form field',
+          position: ToastGravity.TOP);
+    }
   }
 
   @override
@@ -83,7 +118,7 @@ class OvcHouseHoldCaseClosure extends StatelessWidget {
           body: Container(
             child: Consumer<OvcHouseHoldCurrentSelectionState>(
               builder: (context, ovcHouseHoldCurrentSelectionState, child) {
-                var currentOvcHouseHold =
+                OvcHouseHold currentOvcHouseHold =
                     ovcHouseHoldCurrentSelectionState.currentOvcHouseHold;
                 return Container(
                   child: Column(
@@ -92,79 +127,30 @@ class OvcHouseHoldCaseClosure extends StatelessWidget {
                         currentOvcHouseHold: currentOvcHouseHold,
                       ),
                       Container(
-                        child: Consumer<OvcHouseHoldCurrentSelectionState>(
-                          builder: (context, ovcHouseHoldCurrentSelectionState,
-                              child) {
-                            OvcHouseHold currentOvcHouseHold =
-                                ovcHouseHoldCurrentSelectionState
-                                    .currentOvcHouseHold;
-                            return Container(
-                              child: Consumer<ServiveEventDataState>(
-                                builder:
-                                    (context, serviveEventDataState, child) {
-                                  bool isLoading =
-                                      serviveEventDataState.isLoading;
-                                  return isLoading
-                                      ? CircularProcessLoader(
-                                          color: Colors.blueGrey,
-                                        )
-                                      : Container(
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            children: [
-                                              Container(
-                                                margin: EdgeInsets.only(
-                                                  top: 10.0,
-                                                  right: 13.0,
-                                                  left: 13.0,
-                                                ),
-                                                child:
-                                                    OvcHouseHoldCaseClosureListContainer(
-                                                        programStageIds:
-                                                            programStageIds,
-                                                        onEditHouseHoldCaseClosure:
-                                                            (Events closure) =>
-                                                                onEditHouseHoldClosure(
-                                                                  context,
-                                                                  currentOvcHouseHold,
-                                                                  closure,
-                                                                ),
-                                                        onViewHouseHoldCaseClosure:
-                                                            (Events closure) =>
-                                                                onViewHouseHoldClosure(
-                                                                  context,
-                                                                  currentOvcHouseHold,
-                                                                  closure,
-                                                                )),
-                                              ),
-                                              Container(
-                                                child: Visibility(
-                                                  visible: !isLoading,
-                                                  child:
-                                                      OvcEnrollmentFormSaveButton(
-                                                          label:
-                                                              "NEW CASE CLOSURE",
-                                                          labelColor:
-                                                              Colors.white,
-                                                          fontSize: 10,
-                                                          buttonColor:
-                                                              Color(0xFF4B9F46),
-                                                          onPressButton: () =>
-                                                              onAddNewHouseHoldClosure(
-                                                                context,
-                                                                currentOvcHouseHold,
-                                                              )),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        );
-                                },
-                              ),
-                            );
+                        child: Consumer<ServiveEventDataState>(
+                          builder: (context, serviveEventDataState, child) {
+                            bool isLoading = serviveEventDataState.isLoading;
+                            Map<String, List<Events>> eventListByProgramStage =
+                                serviveEventDataState.eventListByProgramStage;
+                            List<Events> eventList = TrackedEntityInstanceUtil
+                                .getAllEventListFromServiceDataState(
+                                    eventListByProgramStage, programStageIds);
+                            Events event =
+                                eventList.length > 0 ? eventList[0] : null;
+                            return isLoading
+                                ? CircularProcessLoader(
+                                    color: Colors.blueGrey,
+                                  )
+                                : Container(
+                                    child: OvcHouseHoldExitFormContainer(
+                                    event: event,
+                                    isSaving: isSaving,
+                                    formSections: formSections,
+                                    onSaveForm: (dataObject) => this.onSaveForm(
+                                        context,
+                                        dataObject,
+                                        currentOvcHouseHold),
+                                  ));
                           },
                         ),
                       )
