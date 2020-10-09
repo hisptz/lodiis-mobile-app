@@ -13,8 +13,8 @@ import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/models/ovc_house_hold.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold_top_header.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/components/ovc_referral_card.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/components/ovc_referral_card_body.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/components/ovc_referral_card_summary.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/components/ovc_referral_card_body_summary.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/ovc_referral_pages/ovc_house_referral_pages/constants/ovc_house_hold_referral_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/ovc_referral_pages/ovc_house_referral_pages/pages/ovc_house_hold_referral_manage.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/ovc_referral_pages/ovc_house_referral_pages/pages/ovc_house_hold_referral_view.dart';
@@ -137,14 +137,15 @@ class _OvcHouseHoldReferralHomeState extends State<OvcHouseHoldReferralHome> {
                                                       margin: EdgeInsets.only(
                                                         bottom: 15.0,
                                                       ),
-                                                      child: OvcReferralCard(
+                                                      child:
+                                                          OvcReferralCardSummary(
                                                         borderColor:
                                                             Color(0xFFEDF5EC),
                                                         titleColor:
                                                             Color(0xFF1B3518),
                                                         count: referralIndex,
                                                         cardBody:
-                                                            OvcReferralCardBody(
+                                                            OvcReferralCardBodySummary(
                                                           labelColor:
                                                               Color(0XFF92A791),
                                                           valueColor:

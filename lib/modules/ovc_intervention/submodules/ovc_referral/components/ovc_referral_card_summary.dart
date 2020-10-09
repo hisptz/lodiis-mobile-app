@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/core/components/line_seperator.dart';
 import 'package:kb_mobile_app/core/components/material_card.dart';
 
-class OvcReferralCard extends StatelessWidget {
-  OvcReferralCard({
+class OvcReferralCardSummary extends StatelessWidget {
+  OvcReferralCardSummary({
     Key key,
     @required this.count,
     @required this.cardBody,
