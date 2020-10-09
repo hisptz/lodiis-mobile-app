@@ -38,8 +38,8 @@ class _DreamPrepFormPageState extends State<DreamPrepFormPage> {
   @override
   void initState() {
     super.initState();
-    formSections = DreamsServicePrepIntakeInfo.getFormSections();
     Timer(Duration(seconds: 1), () {
+      formSections = DreamsServicePrepIntakeInfo.getFormSections();
       setState(() {
         isFormReady = true;
       });
