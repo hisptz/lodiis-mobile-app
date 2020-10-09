@@ -13,8 +13,8 @@ import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/models/ovc_house_hold_child.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_child_info_top_header.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/components/ovc_referral_card.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/components/ovc_referral_card_body.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/components/ovc_referral_card_summary.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/components/ovc_referral_card_body_summary.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/ovc_referral_pages/ovc_child_referral_pages/constants/ovc_child_referral_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/ovc_referral_pages/ovc_child_referral_pages/pages/ovc_child_referral_add_form.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/ovc_referral_pages/ovc_child_referral_pages/pages/ovc_child_referral_manage.dart';
@@ -63,16 +63,32 @@ class _OvcChildReferralHomeState extends State<OvcChildReferralHome> {
         MaterialPageRoute(builder: (context) => OvcChildReferralAddForm()));
   }
 
-  void onViewChildReferral(BuildContext context, Events eventData) {
-    updateFormState(context, false, eventData);
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => OvcChildReferralView()));
+  void onViewChildReferral(
+    BuildContext context,
+    Events eventData,
+    int referralIndex,
+  ) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => OvcChildReferralView(
+                  eventData: eventData,
+                  referralIndex: referralIndex,
+                )));
   }
 
-  void onManageChildReferral(BuildContext context, Events eventData) {
-    updateFormState(context, false, eventData);
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => OvcChildReferralManage()));
+  void onManageChildReferral(
+    BuildContext context,
+    Events eventData,
+    int referralIndex,
+  ) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => OvcChildReferralManage(
+                  eventData: eventData,
+                  referralIndex: referralIndex,
+                )));
   }
 
   @override
@@ -138,21 +154,33 @@ class _OvcChildReferralHomeState extends State<OvcChildReferralHome> {
                                                       margin: EdgeInsets.only(
                                                         bottom: 15.0,
                                                       ),
-                                                      child: OvcReferralCard(
+                                                      child:
+                                                          OvcReferralCardSummary(
+                                                        borderColor:
+                                                            Color(0xFFEDF5EC),
+                                                        titleColor:
+                                                            Color(0xFF1B3518),
                                                         count: referralIndex,
                                                         cardBody:
-                                                            OvcReferralCardBody(
+                                                            OvcReferralCardBodySummary(
+                                                          labelColor:
+                                                              Color(0XFF92A791),
+                                                          valueColor:
+                                                              Color(0XFF536852),
                                                           referralEvent:
                                                               eventData,
                                                         ),
                                                         onView: () =>
                                                             onViewChildReferral(
-                                                                context,
-                                                                eventData),
+                                                          context,
+                                                          eventData,
+                                                          referralIndex,
+                                                        ),
                                                         onManage: () =>
                                                             onManageChildReferral(
                                                                 context,
-                                                                eventData),
+                                                                eventData,
+                                                                referralIndex),
                                                       ),
                                                     );
                                                   }).toList(),

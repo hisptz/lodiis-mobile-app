@@ -10,7 +10,6 @@ import 'package:kb_mobile_app/models/Intervention_bottom_navigation.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/dreams_enrollment_page.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/pages/agyw_dreams_consent.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_exit/dreams_exit_page.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_referral/dreams_referral_page.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/dreams_services_page.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/non_agyw_page.dart';
@@ -105,16 +104,13 @@ class DreamsIntervention extends StatelessWidget {
                                     'enrollment'
                                 ? DreamsEnrollmentPage()
                                 : currentInterventionBottomNavigation.id ==
-                                        'exit'
-                                    ? DreamsExitPage()
-                                    : currentInterventionBottomNavigation.id ==
-                                            'noneAgyw'
-                                        ? NoneAgyw()
-                                        : RoutePageNotFound(
-                                            pageTitle:
-                                                currentInterventionBottomNavigation
-                                                    .id,
-                                          ),
+                                        'noneAgyw'
+                                    ? NoneAgyw()
+                                    : RoutePageNotFound(
+                                        pageTitle:
+                                            currentInterventionBottomNavigation
+                                                .id,
+                                      ),
                   );
                 },
               ),

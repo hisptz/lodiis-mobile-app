@@ -2,15 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/core/components/line_seperator.dart';
 import 'package:kb_mobile_app/core/components/material_card.dart';
 
-class OvcReferralCard extends StatelessWidget {
-  OvcReferralCard(
-      {Key key,
-      @required this.count,
-      @required this.cardBody,
-      this.onView,
-      this.onManage})
-      : super(key: key);
+class OvcReferralCardSummary extends StatelessWidget {
+  OvcReferralCardSummary({
+    Key key,
+    @required this.count,
+    @required this.cardBody,
+    @required this.borderColor,
+    @required this.titleColor,
+    this.onView,
+    this.onManage,
+  }) : super(key: key);
   final int count;
+  final Color borderColor;
+  final Color titleColor;
   final Widget cardBody;
   final Function onView;
   final Function onManage;
@@ -28,18 +32,25 @@ class OvcReferralCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Expanded(
-                      child: Text('Referral ${count.toString()}'),
+                      child: Text(
+                        'Referral ${count.toString()}',
+                        style: TextStyle().copyWith(
+                          color: titleColor,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 14.0,
+                        ),
+                      ),
                     )
                   ],
                 ),
               ),
               LineSeperator(
-                color: Color(0xFFEDF5EC),
+                color: borderColor,
                 height: 2,
               ),
               cardBody,
               LineSeperator(
-                color: Color(0xFFEDF5EC),
+                color: borderColor,
                 height: 2,
               ),
               ClipRRect(
