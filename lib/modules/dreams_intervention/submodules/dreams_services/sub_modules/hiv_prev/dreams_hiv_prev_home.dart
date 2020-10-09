@@ -12,11 +12,11 @@ import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hiv_prev/components/dreams_hiv_prev_list_card.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hiv_prev/constants/dreams_hiv_prev_constant.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hiv_prev/pages/dreams_hiv_prev_form.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
 import 'package:provider/provider.dart';
-import 'components/dreams_hiv_prev_list_card.dart';
-import 'constant/dreams_hiv_prev_constant.dart';
-import 'pages/dreams_hiv_prev_form.dart';
 
 class DreamsHIVPrevHome extends StatefulWidget {
   DreamsHIVPrevHome({Key key}) : super(key: key);
@@ -110,7 +110,7 @@ class _DreamsHIVPrevHomeState extends State<DreamsHIVPrevHome> {
                     List<Events> events = TrackedEntityInstanceUtil
                         .getAllEventListFromServiceDataState(
                             eventListByProgramStage, programStageids);
-                       int sessionIndex = events.length + 1;      
+                    int sessionIndex = events.length + 1;
                     return Container(
                       child: Column(
                         children: [
@@ -139,18 +139,20 @@ class _DreamsHIVPrevHomeState extends State<DreamsHIVPrevHome> {
                                                 child: Column(
                                                   children: events
                                                       .map((Events eventData) {
-                                                        sessionIndex--;
+                                                    sessionIndex--;
                                                     return Container(
                                                       margin: EdgeInsets.only(
                                                         bottom: 15.0,
                                                       ),
-                                             child:
+                                                      child:
                                                           DreamsHivPrevListCard(
-                                                         onEditPrev: () =>
-                                                            onEditHivPrev(context,
+                                                        onEditPrev: () =>
+                                                            onEditHivPrev(
+                                                                context,
                                                                 eventData),
                                                         onViewPrev: () =>
-                                                            onViewHivPrev(context,
+                                                            onViewHivPrev(
+                                                                context,
                                                                 eventData),
                                                         eventData: eventData,
                                                         sessionCount:
@@ -167,7 +169,7 @@ class _DreamsHIVPrevHomeState extends State<DreamsHIVPrevHome> {
                                           buttonColor: Color(0xFF1F8ECE),
                                           fontSize: 15.0,
                                           onPressButton: () =>
-                                          onAddHivPrev(context, agywDream))
+                                              onAddHivPrev(context, agywDream))
                                     ],
                                   ),
                           ),

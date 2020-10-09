@@ -3,8 +3,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:kb_mobile_app/core/components/material_card.dart';
 import 'package:kb_mobile_app/models/events.dart';
 
-class NOnAgywPrepListCard extends StatelessWidget {
-  const NOnAgywPrepListCard({
+class PrepVisitListCard extends StatelessWidget {
+  const PrepVisitListCard({
     Key key,
     @required this.eventData,
     @required this.visitCount,
@@ -47,8 +47,8 @@ class NOnAgywPrepListCard extends StatelessWidget {
                           ),
                           children: [
                             TextSpan(
-                              text:
-                                  "       ${visitName} " + visitCount.toString(),
+                              text: "       ${visitName} " +
+                                  visitCount.toString(),
                               style: TextStyle().copyWith(
                                 color: Color(0xFF05131B),
                                 fontSize: 14.0,

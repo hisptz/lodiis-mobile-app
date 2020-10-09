@@ -16,21 +16,20 @@ import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/dreap_service_prep_intake_form_info.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/dreams_service_hiv_regiser_form_infor.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hiv_reg/constants/hiv_prep_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
 import 'package:provider/provider.dart';
 
-import 'constant/prep_intake_constant.dart';
-
-class DreamPrepFormPage extends StatefulWidget {
-  DreamPrepFormPage({Key key}) : super(key: key);
+class AgywDreamsHIVRegisterForm extends StatefulWidget {
+  AgywDreamsHIVRegisterForm({Key key}) : super(key: key);
 
   @override
-  _DreamPrepFormPageState createState() => _DreamPrepFormPageState();
+  _AgywDreamsHIVRegisterState createState() => _AgywDreamsHIVRegisterState();
 }
 
-class _DreamPrepFormPageState extends State<DreamPrepFormPage> {
-  final String label = 'Enrol Prep-AWYG';
+class _AgywDreamsHIVRegisterState extends State<AgywDreamsHIVRegisterForm> {
+  final String label = 'HIV Register form';
   List<FormSection> formSections;
   bool isFormReady = false;
   bool isSaving = false;
@@ -38,8 +37,8 @@ class _DreamPrepFormPageState extends State<DreamPrepFormPage> {
   @override
   void initState() {
     super.initState();
+    formSections = DreamsServiceHivRegisterInfo.getFormSections();
     Timer(Duration(seconds: 1), () {
-      formSections = DreamsServicePrepIntakeInfo.getFormSections();
       setState(() {
         isFormReady = true;
       });
@@ -63,8 +62,8 @@ class _DreamPrepFormPageState extends State<DreamPrepFormPage> {
       List<String> hiddenFields = [];
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-            PrepIntakeConstant.program,
-            PrepIntakeConstant.programStage,
+            HivPrepConstant.program,
+            HivPrepConstant.programStage,
             agywDream.orgUnit,
             formSections,
             dataObject,

@@ -13,24 +13,22 @@ import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/prep/prep_page.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/component/prep_visit_card.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hiv_reg/constants/hiv_prep_constant.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hiv_reg/pages/agyw_dreams_hiv_register_form.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/components/prep_visit_card.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
 import 'package:provider/provider.dart';
 
-import 'constant/hiv_prep_constant.dart';
-import 'hiv_reg_enrol_page.dart';
-
-class DreamHIVRegPage extends StatefulWidget {
-  DreamHIVRegPage({Key key}) : super(key: key);
+class AgywDreamsHIVRegister extends StatefulWidget {
+  AgywDreamsHIVRegister({Key key}) : super(key: key);
 
   @override
-  _DreamHIVRegPageState createState() => _DreamHIVRegPageState();
+  _AgywDreamsHIVRegisterState createState() => _AgywDreamsHIVRegisterState();
 }
 
-class _DreamHIVRegPageState extends State<DreamHIVRegPage> {
-  final String label = 'HIV REG-AGYW';
-  List<String> programStageids = [ HivPrepConstant.program,HivPrepConstant.programStage];
+class _AgywDreamsHIVRegisterState extends State<AgywDreamsHIVRegister> {
+  final String label = 'HIV Register';
+  List<String> programStageids = [HivPrepConstant.programStage];
   @override
   void initState() {
     super.initState();
@@ -68,19 +66,19 @@ class _DreamHIVRegPageState extends State<DreamHIVRegPage> {
     Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
         .setCurrentAgywDream(agywDream);
     Navigator.push(context,
-        MaterialPageRoute(builder: (context) => DreamHIVRegPageForm()));
+        MaterialPageRoute(builder: (context) => AgywDreamsHIVRegisterForm()));
   }
 
   void onViewPrep(BuildContext context, Events eventdata) {
     updateFormState(context, false, eventdata);
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => DreamHIVRegPageForm()));
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => AgywDreamsHIVRegisterForm()));
   }
 
   void onEditPrep(BuildContext context, Events eventdata) {
     updateFormState(context, true, eventdata);
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => DreamHIVRegPageForm()));
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => AgywDreamsHIVRegisterForm()));
   }
 
   @override
@@ -148,8 +146,7 @@ class _DreamHIVRegPageState extends State<DreamHIVRegPage> {
                                                       margin: EdgeInsets.only(
                                                         bottom: 15.0,
                                                       ),
-                                                      child:
-                                                          NOnAgywPrepListCard(
+                                                      child: PrepVisitListCard(
                                                         visitName: "HIV Reg",
                                                         onEditPrep: () =>
                                                             onEditPrep(context,

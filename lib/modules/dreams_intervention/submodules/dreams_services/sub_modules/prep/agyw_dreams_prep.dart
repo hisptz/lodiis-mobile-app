@@ -12,22 +12,21 @@ import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/prep/prep_page.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/component/prep_visit_card.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/prep/constants/prep_intake_constant.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/prep/pages/agyw_dreams_prep_form.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/components/prep_visit_card.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
 import 'package:provider/provider.dart';
 
-import 'constant/prep_intake_constant.dart';
-
-class DreamPrepPage extends StatefulWidget {
-  DreamPrepPage({Key key}) : super(key: key);
+class AgywDreamsPrep extends StatefulWidget {
+  AgywDreamsPrep({Key key}) : super(key: key);
 
   @override
-  _DreamPrepPageState createState() => _DreamPrepPageState();
+  _AgywDreamsPrepState createState() => _AgywDreamsPrepState();
 }
 
-class _DreamPrepPageState extends State<DreamPrepPage> {
-  final String label = 'Prep-AGYW';
+class _AgywDreamsPrepState extends State<AgywDreamsPrep> {
+  final String label = 'AGYW Prep';
   List<String> programStageids = [PrepIntakeConstant.programStage];
   @override
   void initState() {
@@ -65,20 +64,20 @@ class _DreamPrepPageState extends State<DreamPrepPage> {
     updateFormState(context, true, null);
     Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
         .setCurrentAgywDream(agywDream);
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => DreamPrepFormPage()));
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => AgywDreamsPrepFormPage()));
   }
 
   void onViewPrep(BuildContext context, Events eventdata) {
     updateFormState(context, false, eventdata);
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => DreamPrepFormPage()));
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => AgywDreamsPrepFormPage()));
   }
 
   void onEditPrep(BuildContext context, Events eventdata) {
     updateFormState(context, true, eventdata);
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => DreamPrepFormPage()));
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => AgywDreamsPrepFormPage()));
   }
 
   @override
@@ -146,9 +145,8 @@ class _DreamPrepPageState extends State<DreamPrepPage> {
                                                       margin: EdgeInsets.only(
                                                         bottom: 15.0,
                                                       ),
-                                                      child:
-                                                          NOnAgywPrepListCard(
-                                                            visitName: "PREP Visit",
+                                                      child: PrepVisitListCard(
+                                                        visitName: "PREP Visit",
                                                         onEditPrep: () =>
                                                             onEditPrep(context,
                                                                 eventData),
