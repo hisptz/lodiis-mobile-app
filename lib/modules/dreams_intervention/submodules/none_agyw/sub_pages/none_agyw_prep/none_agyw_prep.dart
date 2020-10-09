@@ -12,7 +12,7 @@ import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/component/prep_visit_card.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/components/prep_visit_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/constant/non_agyw_prep_visit_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
 import 'package:provider/provider.dart';
@@ -145,9 +145,8 @@ class _NoneAgywPrepState extends State<NoneAgywPrep> {
                                                       margin: EdgeInsets.only(
                                                         bottom: 15.0,
                                                       ),
-                                                      child:
-                                                          NOnAgywPrepListCard(
-                                                            visitName: "PREP Visit",
+                                                      child: PrepVisitListCard(
+                                                        visitName: "PREP Visit",
                                                         onEditPrep: () =>
                                                             onEditPrep(context,
                                                                 eventData),

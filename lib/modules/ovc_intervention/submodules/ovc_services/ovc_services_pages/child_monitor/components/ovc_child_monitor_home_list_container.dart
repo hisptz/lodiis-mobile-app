@@ -3,22 +3,21 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kb_mobile_app/core/components/material_card.dart';
 import 'package:kb_mobile_app/models/events.dart';
 
-
 class OvcChildMonitorHomeListContainer extends StatelessWidget {
   const OvcChildMonitorHomeListContainer({
     Key key,
-   @required this.eventData,
+    @required this.eventData,
     @required this.programStageMap,
     this.onEditMonitor,
     this.onViewMonitor,
   }) : super(key: key);
 
- final Events eventData;
+  final Events eventData;
   final Map programStageMap;
   final Function onViewMonitor;
   final Function onEditMonitor;
 
- @override
+  @override
   Widget build(BuildContext context) {
     double iconHeight = 20;
     return Container(
@@ -37,22 +36,21 @@ class OvcChildMonitorHomeListContainer extends StatelessWidget {
                   Container(
                     child: Expanded(
                       child: RichText(
-                        text: 
-                        TextSpan(
+                        text: TextSpan(
                           text: programStageMap[eventData.programStage] ??
-                               'Monitor',
-                                style: TextStyle().copyWith(
-                                color: Color(0xFF1A3518),
-                                fontSize: 14.0,
-                                fontWeight: FontWeight.w700,
+                              'Monitor',
+                          style: TextStyle().copyWith(
+                            color: Color(0xFF1A3518),
+                            fontSize: 14.0,
+                            fontWeight: FontWeight.w700,
                           ),
                           children: [
                             TextSpan(
-                            text: '   ${eventData.eventDate}',
-                            style: TextStyle().copyWith(
-                            color: Color(0xFF92A791),
-                            fontSize: 12.0,
-                            fontWeight: FontWeight.w700,
+                              text: '   ${eventData.eventDate}',
+                              style: TextStyle().copyWith(
+                                color: Color(0xFF92A791),
+                                fontSize: 12.0,
+                                fontWeight: FontWeight.w700,
                               ),
                             )
                           ],

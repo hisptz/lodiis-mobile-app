@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/core/components/organisation_unit_tree_list.dart';
+import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/organisation_unit.dart';
 
 class OrganisationUnitList extends StatefulWidget {
-  const OrganisationUnitList(
-      {Key key, @required this.organisationUnit, @required this.labelColor})
-      : super(key: key);
+  const OrganisationUnitList({
+    Key key,
+    @required this.organisationUnit,
+    @required this.labelColor,
+    @required this.allowedSelectedLevels,
+  }) : super(key: key);
 
   final OrganisationUnit organisationUnit;
   final Color labelColor;
+  final List<int> allowedSelectedLevels;
 
   @override
   _OrganisationUnitListState createState() => _OrganisationUnitListState();
@@ -36,7 +42,14 @@ class _OrganisationUnitListState extends State<OrganisationUnitList> {
     BuildContext context,
     OrganisationUnit organisationUnit,
   ) {
-    Navigator.pop(context, organisationUnit);
+    if (widget.allowedSelectedLevels.length == 0 ||
+        widget.allowedSelectedLevels.indexOf(organisationUnit.level) > -1) {
+      Navigator.pop(context, organisationUnit);
+    } else {
+      String message =
+          'Please select location of level ${widget.allowedSelectedLevels.join(", ")}';
+      AppUtil.showToastMessage(message: message, position: ToastGravity.TOP);
+    }
   }
 
   @override
@@ -78,8 +91,10 @@ class _OrganisationUnitListState extends State<OrganisationUnitList> {
               visible: hasChildren && isExpanded,
               child: Container(
                 child: OrganisationUnitTreeList(
-                    labelColor: widget.labelColor,
-                    organisationUnitIds: widget.organisationUnit.children),
+                  labelColor: widget.labelColor,
+                  organisationUnitIds: widget.organisationUnit.children,
+                  allowedSelectedLevels: widget.allowedSelectedLevels,
+                ),
               ))
         ],
       ),

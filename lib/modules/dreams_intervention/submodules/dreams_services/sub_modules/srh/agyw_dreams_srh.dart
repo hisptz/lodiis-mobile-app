@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dream_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
@@ -13,25 +12,25 @@ import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/component/prep_visit_card.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/components/prep_visit_card.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/srh/constants/srh_client_intake_constant.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/srh/pages/agyw_dreams_srh_form.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
 import 'package:provider/provider.dart';
 
-import 'constant/srh_client_intake_constant.dart';
-import 'enrol_srh_page.dart';
-
-
-
-class DreamSRHService extends StatefulWidget {
-  DreamSRHService({Key key}) : super(key: key);
+class AgywDreamsSRH extends StatefulWidget {
+  AgywDreamsSRH({Key key}) : super(key: key);
 
   @override
-  _DreamSRHServiceState createState() => _DreamSRHServiceState();
+  _AgywDreamsSRHState createState() => _AgywDreamsSRHState();
 }
 
-class _DreamSRHServiceState extends State<DreamSRHService> {
-  final String label = 'SRH-AGYW';
-  List<String> programStageids = [ HivPrepClientIntakeConstant.program,HivPrepClientIntakeConstant.programStage];
+class _AgywDreamsSRHState extends State<AgywDreamsSRH> {
+  final String label = 'SRH Services';
+  List<String> programStageids = [
+    HivPrepClientIntakeConstant.program,
+    HivPrepClientIntakeConstant.programStage
+  ];
   @override
   void initState() {
     super.initState();
@@ -69,19 +68,19 @@ class _DreamSRHServiceState extends State<DreamSRHService> {
     Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
         .setCurrentAgywDream(agywDream);
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => DreamSrhPage()));
+        context, MaterialPageRoute(builder: (context) => AgywDreamsSrhForm()));
   }
 
   void onViewPrep(BuildContext context, Events eventdata) {
     updateFormState(context, false, eventdata);
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => DreamSrhPage()));
+        context, MaterialPageRoute(builder: (context) => AgywDreamsSrhForm()));
   }
 
   void onEditPrep(BuildContext context, Events eventdata) {
     updateFormState(context, true, eventdata);
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => DreamSrhPage()));
+        context, MaterialPageRoute(builder: (context) => AgywDreamsSrhForm()));
   }
 
   @override
@@ -149,9 +148,8 @@ class _DreamSRHServiceState extends State<DreamSRHService> {
                                                       margin: EdgeInsets.only(
                                                         bottom: 15.0,
                                                       ),
-                                                      child:
-                                                          NOnAgywPrepListCard(
-                                                            visitName: "SRH Reg",
+                                                      child: PrepVisitListCard(
+                                                        visitName: "SRH Reg",
                                                         onEditPrep: () =>
                                                             onEditPrep(context,
                                                                 eventData),
@@ -189,4 +187,3 @@ class _DreamSRHServiceState extends State<DreamSRHService> {
         bottomNavigationBar: InterventionBottomNavigationBarContainer());
   }
 }
-

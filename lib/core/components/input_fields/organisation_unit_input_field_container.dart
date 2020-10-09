@@ -74,9 +74,9 @@ class _OrganisationUnitInputFieldContainerState
           BoxDecoration(color: widget.inputField.labelColor.withOpacity(0.05)),
       child: SingleChildScrollView(
         child: OrganisationUnitTreeList(
-          organisationUnitIds: userOrganisationUnits,
-          labelColor: widget.inputField.labelColor,
-        ),
+            organisationUnitIds: userOrganisationUnits,
+            labelColor: widget.inputField.labelColor,
+            allowedSelectedLevels: widget.inputField.allowedSelectedLevels),
       ),
     );
     OrganisationUnit organisationUnit =

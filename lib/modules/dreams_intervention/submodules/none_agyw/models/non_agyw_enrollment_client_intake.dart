@@ -25,6 +25,7 @@ class NonAgywEnrollmentFormSection {
                 id: 'location',
                 name: 'Location',
                 valueType: 'ORGANISATION_UNIT',
+                allowedSelectedLevels: [3],
                 inputColor: Color(0xFF258DCC),
                 labelColor: Color(0xFF737373)),
             InputField(
@@ -57,7 +58,6 @@ class NonAgywEnrollmentFormSection {
                 valueType: 'TEXT',
                 inputColor: Color(0xFF258DCC),
                 labelColor: Color(0xFF05131B)),
-           
             InputField(
                 id: 'sJ35hsF6Lf9',
                 name: 'Client Type',

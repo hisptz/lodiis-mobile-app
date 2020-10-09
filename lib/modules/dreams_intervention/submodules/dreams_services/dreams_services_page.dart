@@ -8,12 +8,12 @@ import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_benef
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_home_container.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/components/service_card_botton_action.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/prep/agyw_prep.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/srh/srh_page.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hiv_prev/dreams_hiv_prev_home.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hiv_reg/agyw_dreams_hiv_register.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/hts_page.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/prep/agyw_dreams_prep.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/srh/agyw_dreams_srh.dart';
 import 'package:provider/provider.dart';
-import 'sub_modules/hiv _reg/hiv_reg_page.dart';
-import 'sub_modules/hiv_prev/dreams_hiv_prev_home.dart';
-import 'sub_modules/hts/hts_page.dart';
 
 class DreamsServicesPage extends StatefulWidget {
   const DreamsServicesPage({Key key}) : super(key: key);
@@ -54,7 +54,7 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
         .setCurrentAgywDream(agywBeneficiary);
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => DreamSRHService()));
+        context, MaterialPageRoute(builder: (context) => AgywDreamsSRH()));
   }
 
   void onOpenHIVPrepForm(
@@ -74,8 +74,8 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
     Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
         .setCurrentAgywDream(agywBeneficiary);
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => DreamHIVRegPage()));
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => AgywDreamsHIVRegister()));
   }
 
   void onOpenPrepForm(
@@ -85,7 +85,7 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
     Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
         .setCurrentAgywDream(agywBeneficiary);
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => DreamPrepPage()));
+        context, MaterialPageRoute(builder: (context) => AgywDreamsPrep()));
   }
 
   @override

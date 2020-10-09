@@ -23,6 +23,7 @@ class OvcEnrollmentConsent {
             id: 'location',
             name: 'Location',
             valueType: 'ORGANISATION_UNIT',
+            allowedSelectedLevels: [3],
             inputColor: Color(0xFF4B9F46),
             labelColor: Color(0xFF737373)),
         InputField(
