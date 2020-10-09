@@ -29,11 +29,8 @@ class DreamHIVRegPage extends StatefulWidget {
 }
 
 class _DreamHIVRegPageState extends State<DreamHIVRegPage> {
-  final String label = 'Prep-AGYW';
-  List<String> programStageids = [
-    HivPrepConstant.program,
-    HivPrepConstant.programStage
-  ];
+  final String label = 'HIV REG-AGYW';
+  List<String> programStageids = [ HivPrepConstant.program,HivPrepConstant.programStage];
   @override
   void initState() {
     super.initState();
@@ -77,13 +74,13 @@ class _DreamHIVRegPageState extends State<DreamHIVRegPage> {
   void onViewPrep(BuildContext context, Events eventdata) {
     updateFormState(context, false, eventdata);
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => DreamPrepFormPage()));
+        context, MaterialPageRoute(builder: (context) => DreamHIVRegPageForm()));
   }
 
   void onEditPrep(BuildContext context, Events eventdata) {
     updateFormState(context, true, eventdata);
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => DreamPrepFormPage()));
+        context, MaterialPageRoute(builder: (context) => DreamHIVRegPageForm()));
   }
 
   @override

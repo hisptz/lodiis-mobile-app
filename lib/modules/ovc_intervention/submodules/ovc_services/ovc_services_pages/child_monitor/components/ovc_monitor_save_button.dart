@@ -38,28 +38,26 @@ class OvcMonitorSaveButton extends StatelessWidget {
           child: FlatButton(
               color: buttonColor,
               shape: RoundedRectangleBorder(
-              side: BorderSide(
-                      color: borderColor == null ? Colors.transparent : borderColor
-                      ),
-              borderRadius: BorderRadius.circular(12.0)),
-              padding:EdgeInsets.all(10.0) ,
+                  side: BorderSide(
+                      color: borderColor == null
+                          ? Colors.transparent
+                          : borderColor),
+                  borderRadius: BorderRadius.circular(12.0)),
+              padding: EdgeInsets.all(10.0),
               onPressed: onPressButton,
               child: Container(
-                      decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(20.0))
-                      ),
-                        child: Container(
-                          child: Text(
-                            label,
-                            style: TextStyle().copyWith(
-                                color: labelColor,
-                                fontSize: fontSize,
-                                fontWeight: FontWeight.w700),
-                          ),
-                        ),
-                  )
-                  )
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(20.0))),
+                child: Container(
+                  child: Text(
+                    label,
+                    style: TextStyle().copyWith(
+                        color: labelColor,
+                        fontSize: fontSize,
+                        fontWeight: FontWeight.w700),
                   ),
+                ),
+              ))),
     );
   }
 }

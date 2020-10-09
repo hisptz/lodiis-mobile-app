@@ -52,7 +52,7 @@ class TrackedEntityInstanceUtil {
         var data = eventListByProgramStage[programStageid] ?? [];
         events.addAll(data);
       } catch (e) {
-        print(e);
+       
       }
     }
     return events;
