@@ -7,6 +7,7 @@ class BeneficiaryIdentification {
   static final List<String> firstNameReference = ['WTZ7GLTrE8Q', 'JhOvli80Qbx'];
   static final List<String> surnameReference = ['rSP9c21JsfC', 'jjZWuJfVStp'];
   static final List<String> birthDate = ['qZP982qpSPS', 'jVSwC6Ln95H'];
+  static final int maxNumberToReserve = 5;
 
   String getBenificiaryId(
     OrganisationUnit organisationUnit,
