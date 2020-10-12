@@ -3,8 +3,8 @@ import 'package:kb_mobile_app/core/components/line_seperator.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/models/ovc_referral_event.dart';
 
-class OvcReferralDetailedCard extends StatefulWidget {
-  const OvcReferralDetailedCard({
+class ReferralDetailedCard extends StatefulWidget {
+  const ReferralDetailedCard({
     Key key,
     @required this.eventData,
     @required this.referralIndex,
@@ -22,11 +22,10 @@ class OvcReferralDetailedCard extends StatefulWidget {
   final Color labelColor;
 
   @override
-  _OvcReferralDetailedCardState createState() =>
-      _OvcReferralDetailedCardState();
+  _ReferralDetailedCardState createState() => _ReferralDetailedCardState();
 }
 
-class _OvcReferralDetailedCardState extends State<OvcReferralDetailedCard> {
+class _ReferralDetailedCardState extends State<ReferralDetailedCard> {
   OvcReferralEvent ovcReferralCard;
 
   @override
