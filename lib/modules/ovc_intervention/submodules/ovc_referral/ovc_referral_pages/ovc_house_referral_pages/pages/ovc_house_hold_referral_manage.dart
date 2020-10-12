@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_house_hold_current_selection_state.dart';
+import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar_container.dart';
+import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/material_card.dart';
+import 'package:kb_mobile_app/core/components/referrals/referral_outocme_card_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
+import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/models/ovc_house_hold.dart';
@@ -76,9 +80,10 @@ class _OvcHouseHoldReferralManageState
                                 referralIndex: widget.referralIndex,
                                 eventData: widget.eventData,
                               ),
-                              ReferralOutComeCard(
+                              ReferralOutComeCardContainer(
+                                currentProgramStage:
+                                    widget.eventData.programStage,
                                 beneficiary: currentOvcHouseHold.teiData,
-                                eventData: widget.eventData,
                                 referralProgram:
                                     OvcHouseHoldReferralConstant.program,
                                 referralFollowUpStage:
@@ -87,7 +92,7 @@ class _OvcHouseHoldReferralManageState
                                 referralToFollowUpLinkage:
                                     OvcHouseHoldReferralConstant
                                         .referralToFollowUpLinkage,
-                              )
+                              ),
                             ],
                           ),
                         ),

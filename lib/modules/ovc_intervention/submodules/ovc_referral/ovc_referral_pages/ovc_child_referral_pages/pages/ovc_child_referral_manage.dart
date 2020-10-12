@@ -3,6 +3,7 @@ import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_house_
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/material_card.dart';
+import 'package:kb_mobile_app/core/components/referrals/referral_outocme_card_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/models/events.dart';
@@ -10,7 +11,6 @@ import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/models/ovc_house_hold_child.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_child_info_top_header.dart';
 import 'package:kb_mobile_app/core/components/referrals/referral_detailed_card.dart';
-import 'package:kb_mobile_app/core/components/referrals/referral_outcome_card.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/ovc_referral_pages/ovc_child_referral_pages/constants/ovc_child_referral_constant.dart';
 import 'package:provider/provider.dart';
 
@@ -72,17 +72,18 @@ class _OvcChildReferralManageState extends State<OvcChildReferralManage> {
                                   referralIndex: widget.referralIndex,
                                   eventData: widget.eventData,
                                 ),
-                                ReferralOutComeCard(
+                                ReferralOutComeCardContainer(
+                                  currentProgramStage:
+                                      widget.eventData.programStage,
                                   beneficiary: currentOvcHouseHoldChild.teiData,
-                                  eventData: widget.eventData,
-                                  referralProgram:
-                                      OvcChildReferralConstant.program,
                                   referralFollowUpStage:
                                       OvcChildReferralConstant
                                           .referralFollowUpStage,
                                   referralToFollowUpLinkage:
                                       OvcChildReferralConstant
                                           .referralToFollowUpLinkage,
+                                  referralProgram:
+                                      OvcChildReferralConstant.program,
                                 )
                               ],
                             ),
