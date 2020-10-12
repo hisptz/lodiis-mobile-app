@@ -11,6 +11,7 @@ import 'package:kb_mobile_app/models/ovc_house_hold_child.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_child_info_top_header.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/components/ovc_referral_detailed_card.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/components/ovc_referral_outcome_card.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/ovc_referral_pages/ovc_child_referral_pages/constants/ovc_child_referral_constant.dart';
 import 'package:provider/provider.dart';
 
 class OvcChildReferralManage extends StatefulWidget {
@@ -75,7 +76,14 @@ class _OvcChildReferralManageState extends State<OvcChildReferralManage> {
                                 OvcReferralOutComeCard(
                                   beneficiary: currentOvcHouseHoldChild.teiData,
                                   eventData: widget.eventData,
-                                  referralProgramStages: [],
+                                  referralProgram:
+                                      OvcChildReferralConstant.program,
+                                  referralFollowUpStage:
+                                      OvcChildReferralConstant
+                                          .referralFollowUpStage,
+                                  referralToFollowUpLinkage:
+                                      OvcChildReferralConstant
+                                          .referralToFollowUpLinkage,
                                 )
                               ],
                             ),
