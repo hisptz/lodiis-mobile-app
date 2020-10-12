@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/line_seperator.dart';
+import 'package:kb_mobile_app/core/components/referrals/referral_outcome_view_container.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/events.dart';
@@ -90,10 +91,7 @@ class _ReferralOutComeCardState extends State<ReferralOutComeCard> {
       hiddenFields: hiddenFields,
       referralToFollowUpLinkage: widget.referralToFollowUpLinkage,
     );
-    var response = await AppUtil.showPopUpModal(context, modal, true);
-    if (response != null) {
-      print('Ready to handling forms');
-    }
+    await AppUtil.showPopUpModal(context, modal, true);
   }
 
   bool getReferralOutComeStatus() {
@@ -124,25 +122,23 @@ class _ReferralOutComeCardState extends State<ReferralOutComeCard> {
             child: Column(
               children: [
                 Container(
-                  child: Text('Referral outcome $isreferralOutComeFilled'),
-                ),
-                Container(
-                  child:
-                      Text('eventData ${widget.eventData.dataValues.length}'),
-                ),
-                Container(
-                  child: Text('referralProgram ${widget.referralProgram}'),
-                ),
-                Container(
-                  child: Text(
-                      'referralFollowUpStage ${widget.referralFollowUpStage}'),
-                ),
-                Container(
-                  child: Text(
-                      'referralToFollowUpLinkage ${widget.referralToFollowUpLinkage}'),
+                  margin: EdgeInsets.only(bottom: 10.0),
+                  child: Visibility(
+                    visible: isreferralOutComeFilled,
+                    child: ReferralOutComeViewContainer(
+                      isEditableMode: widget.isEditableMode,
+                      themeColor: themeColor,
+                      eventData: widget.eventData,
+                      beneficiary: widget.beneficiary,
+                      referralFollowUpStage: widget.referralFollowUpStage,
+                      referralToFollowUpLinkage:
+                          widget.referralToFollowUpLinkage,
+                      referralProgram: widget.referralProgram,
+                    ),
+                  ),
                 ),
                 Visibility(
-                  visible: widget.isEditableMode, //&& !isreferralOutComeFilled,
+                  visible: widget.isEditableMode && !isreferralOutComeFilled,
                   child: ClipRRect(
                     borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(12.0),

@@ -11,6 +11,7 @@ class ReferralOutComeCardContainer extends StatelessWidget {
   const ReferralOutComeCardContainer({
     Key key,
     @required this.currentProgramStage,
+    @required this.currentEventId,
     @required this.beneficiary,
     @required this.referralFollowUpStage,
     @required this.referralToFollowUpLinkage,
@@ -18,6 +19,7 @@ class ReferralOutComeCardContainer extends StatelessWidget {
   }) : super(key: key);
 
   final String currentProgramStage;
+  final String currentEventId;
   final TrackeEntityInstance beneficiary;
   final String referralFollowUpStage;
   final String referralToFollowUpLinkage;
@@ -35,7 +37,7 @@ class ReferralOutComeCardContainer extends StatelessWidget {
               TrackedEntityInstanceUtil.getAllEventListFromServiceDataState(
             eventListByProgramStage,
             [currentProgramStage],
-          );
+          ).where((Events event) => event.event == currentEventId).toList();
           Events eventData = events.length > 0 ? events[0] : null;
           return isLoading
               ? Container(

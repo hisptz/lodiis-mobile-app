@@ -58,7 +58,6 @@ class _AgywDreamsHIVRegisterState extends State<AgywDreamsHIVRegisterForm> {
       });
       String eventDate = dataObject['eventDate'];
       String eventId = dataObject['eventId'];
-      print(dataObject);
       List<String> hiddenFields = [];
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(

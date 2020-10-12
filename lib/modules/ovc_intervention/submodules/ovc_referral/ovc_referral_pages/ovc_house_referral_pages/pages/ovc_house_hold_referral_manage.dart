@@ -81,6 +81,7 @@ class _OvcHouseHoldReferralManageState
                                 eventData: widget.eventData,
                               ),
                               ReferralOutComeCardContainer(
+                                currentEventId: widget.eventData.event,
                                 currentProgramStage:
                                     widget.eventData.programStage,
                                 beneficiary: currentOvcHouseHold.teiData,

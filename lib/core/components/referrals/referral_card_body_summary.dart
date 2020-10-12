@@ -1,7 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/models/events.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/models/ovc_referral_event.dart';
+import 'package:kb_mobile_app/models/referral_event.dart';
 
 class ReferralCardBodySummary extends StatefulWidget {
   ReferralCardBodySummary({
@@ -21,12 +21,12 @@ class ReferralCardBodySummary extends StatefulWidget {
 }
 
 class _ReferralCardBodySummaryState extends State<ReferralCardBodySummary> {
-  OvcReferralEvent ovcReferralCard;
+  ReferralEvent ovcReferralCard;
 
   @override
   void initState() {
     super.initState();
-    ovcReferralCard = OvcReferralEvent().fromTeiModel(widget.referralEvent);
+    ovcReferralCard = ReferralEvent().fromTeiModel(widget.referralEvent);
   }
 
   @override

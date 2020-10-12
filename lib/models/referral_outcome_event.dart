@@ -42,6 +42,6 @@ class ReferralOutComeEvent {
 
   @override
   String toString() {
-    return '$id ';
+    return '$id $dateClientReachStation ';
   }
 }
