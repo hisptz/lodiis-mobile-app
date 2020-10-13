@@ -58,8 +58,8 @@ class SynchronizationState with ChangeNotifier {
     _dataUploadProcess = [];
     updateUnsynceDataCheckingStatus(true);
     CurrentUser user = await UserService().getCurrentUser();
-    _synchronizationService =
-        SynchronizationService(user.username, user.password);
+    _synchronizationService = SynchronizationService(
+        user.username, user.password, user.programs, user.userOrgUnitIds);
     var teis = await _synchronizationService.getTeisFromOfflineDb();
     var teiEvents = await _synchronizationService.getTeiEventsFromOfflineDb();
     _beneficiaryServiceCount = teiEvents.length;
