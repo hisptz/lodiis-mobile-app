@@ -34,20 +34,16 @@ class ReferralOutComeView extends StatelessWidget {
   final String referralProgram;
   final bool isEditableMode;
 
-  void updateFormState(BuildContext context, Events eventData) {
+  void updateFormState(BuildContext context, String referralReference) {
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
     Provider.of<ServiceFormState>(context, listen: false)
         .updateFormEditabilityState(isEditableMode: true);
-    for (Map datavalue in eventData.dataValues) {
-      if (datavalue['value'] != '') {
-        Provider.of<ServiceFormState>(context, listen: false)
-            .setFormFieldState(datavalue['dataElement'], datavalue['value']);
-      }
-    }
+    Provider.of<ServiceFormState>(context, listen: false)
+        .setFormFieldState(referralToFollowUpLinkage, referralReference);
   }
 
-  void onAddReferralOutCome(BuildContext context) async {
-    updateFormState(context, referralOutComeEvent.eventData);
+  void onAddReferralOutComeFollowUp(BuildContext context) async {
+    updateFormState(context, referralOutComeEvent.referralReference);
     Widget modal = ReferralOutComeFollowUpModal(
       themeColor: themeColor,
       referralProgram: referralProgram,
@@ -216,7 +212,8 @@ class ReferralOutComeView extends StatelessWidget {
               builder: (context, serviveEventDataState, child) {
                 Map<String, List<Events>> eventListByProgramStage =
                     serviveEventDataState.eventListByProgramStage;
-                List<ReferralOutFollowUpComeEvent> referralOutComeEvents =
+                List<ReferralOutFollowUpComeEvent>
+                    referralOutComeFollowUpEvents =
                     getReferralOutComeFollowUps(eventListByProgramStage);
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -228,7 +225,8 @@ class ReferralOutComeView extends StatelessWidget {
                       ),
                       child: ReferralOutComeFollowUp(
                         themeColor: themeColor,
-                        referralOutComeEvents: referralOutComeEvents,
+                        referralOutComeFollowUpEvents:
+                            referralOutComeFollowUpEvents,
                       ),
                     ),
                     Container(
@@ -243,8 +241,8 @@ class ReferralOutComeView extends StatelessWidget {
                             children: [
                               Expanded(
                                 child: FlatButton(
-                                  onPressed: () =>
-                                      this.onAddReferralOutCome(context),
+                                  onPressed: () => this
+                                      .onAddReferralOutComeFollowUp(context),
                                   child: Text(
                                     'ADD FOLLOW-UP',
                                     style: TextStyle().copyWith(

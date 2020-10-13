@@ -76,12 +76,12 @@ class _ReferralOutComeFollowUpModalState
           null,
           [widget.referralToFollowUpLinkage],
         );
-        Provider.of<ServiveEventDataState>(context, listen: false)
-            .resetServiceEventDataState(
-                widget.beneficiary.trackedEntityInstance);
         Timer(Duration(seconds: 1), () {
           setState(() {
             isSaving = false;
+            Provider.of<ServiveEventDataState>(context, listen: false)
+                .resetServiceEventDataState(
+                    widget.beneficiary.trackedEntityInstance);
             AppUtil.showToastMessage(
                 message: 'Form has been saved successfully',
                 position: ToastGravity.TOP);

@@ -122,7 +122,7 @@ class _OvcChildReferralHomeState extends State<OvcChildReferralHome> {
                     List<Events> events = TrackedEntityInstanceUtil
                         .getAllEventListFromServiceDataState(
                             eventListByProgramStage, programStageids);
-                    int referralIndex = events.length + 1;
+                    int referralIndex = events.length;
                     return Container(
                       child: Column(
                         children: [
@@ -149,7 +149,7 @@ class _OvcChildReferralHomeState extends State<OvcChildReferralHome> {
                                                 child: Column(
                                                   children: events
                                                       .map((Events eventData) {
-                                                    referralIndex--;
+                                                    int count = referralIndex--;
                                                     return Container(
                                                       margin: EdgeInsets.only(
                                                         bottom: 15.0,
@@ -160,7 +160,7 @@ class _OvcChildReferralHomeState extends State<OvcChildReferralHome> {
                                                             Color(0xFFEDF5EC),
                                                         titleColor:
                                                             Color(0xFF1B3518),
-                                                        count: referralIndex,
+                                                        count: count,
                                                         cardBody:
                                                             ReferralCardBodySummary(
                                                           labelColor:
@@ -174,13 +174,14 @@ class _OvcChildReferralHomeState extends State<OvcChildReferralHome> {
                                                             onViewChildReferral(
                                                           context,
                                                           eventData,
-                                                          referralIndex,
+                                                          count,
                                                         ),
                                                         onManage: () =>
                                                             onManageChildReferral(
-                                                                context,
-                                                                eventData,
-                                                                referralIndex),
+                                                          context,
+                                                          eventData,
+                                                          count,
+                                                        ),
                                                       ),
                                                     );
                                                   }).toList(),
