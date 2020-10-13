@@ -88,15 +88,17 @@ class FormUtil {
     String beneficiaryIndex =
         dataObject[BeneficiaryIdentification.beneficiaryIndex] ??
             await ReservedValueService().getReservedAttributeValue();
-    dataObject[BeneficiaryIdentification.beneficiaryIndex] = beneficiaryIndex;
     List<OrganisationUnit> organisationUnits =
         await OrganisationUnitService().getOrganisationUnits([orgUnit]);
     OrganisationUnit organisationUnit =
         organisationUnits.length > 0 ? organisationUnits[0] : null;
     dataObject[BeneficiaryIdentification.beneficiaryId] =
-        dataObject[BeneficiaryIdentification.beneficiaryId] ??
-            BeneficiaryIdentification().getBenificiaryId(
-                organisationUnit, dataObject, beneficiaryIndex);
+        dataObject[BeneficiaryIdentification.beneficiaryId] =
+            dataObject[BeneficiaryIdentification.beneficiaryIndex] != null
+                ? dataObject[BeneficiaryIdentification.beneficiaryId]
+                : BeneficiaryIdentification().getBenificiaryId(
+                    organisationUnit, dataObject, beneficiaryIndex);
+    dataObject[BeneficiaryIdentification.beneficiaryIndex] = beneficiaryIndex;
     String attributes = inputFieldIds
         .map((String attribute) {
           String value = dataObject.keys.toList().indexOf(attribute) > -1
