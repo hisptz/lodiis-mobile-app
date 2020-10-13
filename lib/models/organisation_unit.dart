@@ -43,7 +43,11 @@ class OrganisationUnit {
             parentObj != null && parentObj['id'] != null ? parentObj['id'] : '',
         name: json["name"],
         level: json["level"],
-        code: json['code'] ?? '',
+        code: json['code'] != null
+            ? json['code']
+            : parentObj != null && parentObj['code'] != null
+                ? parentObj['code']
+                : '',
         program: programs,
         children: childrens);
   }

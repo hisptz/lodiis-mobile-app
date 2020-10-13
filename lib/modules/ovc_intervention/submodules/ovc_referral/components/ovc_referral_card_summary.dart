@@ -8,12 +8,14 @@ class OvcReferralCardSummary extends StatelessWidget {
     @required this.count,
     @required this.cardBody,
     @required this.borderColor,
+    @required this.buttonLabelColor,
     @required this.titleColor,
     this.onView,
     this.onManage,
   }) : super(key: key);
   final int count;
   final Color borderColor;
+  final Color buttonLabelColor;
   final Color titleColor;
   final Widget cardBody;
   final Function onView;
@@ -59,9 +61,11 @@ class OvcReferralCardSummary extends StatelessWidget {
                   bottomRight: Radius.circular(12.0),
                 ),
                 child: Container(
-                  decoration: BoxDecoration(color: Color(0XFFF6FAF6)),
+                  decoration:
+                      BoxDecoration(color: borderColor.withOpacity(0.5)),
                   child: Container(
-                      decoration: BoxDecoration(color: Color(0XFFF6FAF6)),
+                      decoration:
+                          BoxDecoration(color: borderColor.withOpacity(0.5)),
                       child: Row(
                         children: [
                           Expanded(
@@ -71,7 +75,7 @@ class OvcReferralCardSummary extends StatelessWidget {
                                   'VIEW',
                                   style: TextStyle().copyWith(
                                     fontSize: 12.0,
-                                    color: Color(0xFF4B9F46),
+                                    color: buttonLabelColor,
                                     fontWeight: FontWeight.w500,
                                   ),
                                 )),
@@ -92,7 +96,7 @@ class OvcReferralCardSummary extends StatelessWidget {
                                   'MANAGE',
                                   style: TextStyle().copyWith(
                                     fontSize: 12.0,
-                                    color: Color(0xFF4B9F46),
+                                    color: buttonLabelColor,
                                     fontWeight: FontWeight.w500,
                                   ),
                                 )),
