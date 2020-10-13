@@ -12,27 +12,27 @@ class ReservedValueService {
   final String attribute = BeneficiaryIdentification.beneficiaryIndex;
   //why here ?? => because this array  become null when declare in a function pace, as the result no data saved:
   List<ReservedValue> reservedValues = [];
+
   Future generateReservedAttributeValue() async {
     List<ReservedValue> allReservedValues =
         await ReserveValueOffline().getReserveValue();
     List<String> expireReserveValueObjectIds = await getExpiredReserveValues();
-     int numberToReserve = maxNumberToReserve +
+    int numberToReserve = maxNumberToReserve +
         expireReserveValueObjectIds.length -
         allReservedValues.length;
     if (numberToReserve > 0) {
       expireReserveValueObjectIds.length > 0
-          ? deleteExpireValues(expireReserveValueObjectIds)
-          : null;
+          ? await deleteExpireValues(expireReserveValueObjectIds)
+          : await null;
       getReservedValuesFromTheServer(numberToReserve);
       setReservedValues(await getReservedValuesFromTheServer(numberToReserve));
     }
-    
   }
 
   Future getReservedValuesFromTheServer(int numberToReserve) async {
     final String attribute = BeneficiaryIdentification.beneficiaryIndex;
     String url =
-        'api/trackedEntityAttributes/${attribute}/generateAndReserve?numberToReserve=$numberToReserve';
+        'api/trackedEntityAttributes/$attribute/generateAndReserve?numberToReserve=$numberToReserve';
     CurrentUser user = await UserService().getCurrentUser();
     HttpService http =
         HttpService(username: user.username, password: user.password);
@@ -61,7 +61,7 @@ class ReservedValueService {
   }
 
   Future deleteExpireValues(List<String> expireReservedValueIds) async {
-      return await ReserveValueOffline()
+    return await ReserveValueOffline()
         .deleteExpireReserveValue(expireReservedValueIds);
   }
 
@@ -95,5 +95,6 @@ class ReservedValueService {
       }
     }
     await deleteExpireValues(usedReservedValueIds);
+    generateReservedAttributeValue();
   }
 }

@@ -174,13 +174,11 @@ class FormUtil {
   ) async {
     await TrackedEntityInstanceOfflineProvider()
         .addOrUpdateTrackedEntityInstance(trackedEntityInstance);
- 
+    await ReservedValueService().cleanUsedReservedValues();
   }
 
   static Future savingEnrollment(Enrollment enrollment) async {
     await EnrollmentOfflineProvider().addOrUpdateEnrollement(enrollment);
-    print("in save");
-   await ReservedValueService().cleanUsedReservedValues();
   }
 
   static Future savingTeiRelationship(TeiRelationship teiRelationship) async {
