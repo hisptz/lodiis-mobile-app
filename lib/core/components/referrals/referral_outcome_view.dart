@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
+import 'package:kb_mobile_app/core/components/referrals/referral_outcome_following_up_modal.dart';
+import 'package:kb_mobile_app/core/utils/app_util.dart';
+import 'package:kb_mobile_app/models/events.dart';
+import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/referral_outcome_event.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
+import 'package:provider/provider.dart';
 
 class ReferralOutComeView extends StatelessWidget {
   const ReferralOutComeView({
@@ -10,17 +16,44 @@ class ReferralOutComeView extends StatelessWidget {
     @required this.beneficiary,
     @required this.referralFollowUpStage,
     @required this.referralToFollowUpLinkage,
+    @required this.referralOutcomeFollowUpFormSections,
     @required this.referralProgram,
     @required this.isEditableMode,
   }) : super(key: key);
 
   final ReferralOutComeEvent referralOutComeEvent;
+  final List<FormSection> referralOutcomeFollowUpFormSections;
   final Color themeColor;
   final TrackeEntityInstance beneficiary;
   final String referralFollowUpStage;
   final String referralToFollowUpLinkage;
   final String referralProgram;
   final bool isEditableMode;
+
+  void updateFormState(BuildContext context, Events eventData) {
+    Provider.of<ServiceFormState>(context, listen: false).resetFormState();
+    Provider.of<ServiceFormState>(context, listen: false)
+        .updateFormEditabilityState(isEditableMode: true);
+    for (Map datavalue in eventData.dataValues) {
+      if (datavalue['value'] != '') {
+        Provider.of<ServiceFormState>(context, listen: false)
+            .setFormFieldState(datavalue['dataElement'], datavalue['value']);
+      }
+    }
+  }
+
+  void onAddReferralOutCome(BuildContext context) async {
+    updateFormState(context, referralOutComeEvent.eventData);
+    Widget modal = ReferralOutComeFollowUpModal(
+      themeColor: themeColor,
+      referralProgram: referralProgram,
+      referralFollowUpStage: referralProgram,
+      referralToFollowUpLinkage: referralToFollowUpLinkage,
+      referralOutcomeFollowUpFormSections: referralOutcomeFollowUpFormSections,
+      beneficiary: beneficiary,
+    );
+    await AppUtil.showPopUpModal(context, modal, true);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -156,7 +189,7 @@ class ReferralOutComeView extends StatelessWidget {
                   children: [
                     Expanded(
                       child: FlatButton(
-                        onPressed: () => {},
+                        onPressed: () => this.onAddReferralOutCome(context),
                         child: Text(
                           'ADD FOLLOW-UP',
                           style: TextStyle().copyWith(

@@ -1,11 +1,11 @@
 import 'dart:async';
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/line_seperator.dart';
 import 'package:kb_mobile_app/core/components/referrals/referral_outcome_view.dart';
 import 'package:kb_mobile_app/models/events.dart';
+import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/referral_outcome_event.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
 
@@ -19,6 +19,7 @@ class ReferralOutComeViewContainer extends StatefulWidget {
     @required this.referralToFollowUpLinkage,
     @required this.referralProgram,
     @required this.isEditableMode,
+    @required this.referralOutcomeFollowUpFormSections,
   }) : super(key: key);
 
   final Color themeColor;
@@ -28,6 +29,7 @@ class ReferralOutComeViewContainer extends StatefulWidget {
   final String referralToFollowUpLinkage;
   final String referralProgram;
   final bool isEditableMode;
+  final List<FormSection> referralOutcomeFollowUpFormSections;
 
   @override
   _ReferralOutComeViewContainerState createState() =>
@@ -104,6 +106,8 @@ class _ReferralOutComeViewContainerState
                       isEditableMode: widget.isEditableMode,
                       referralOutComeEvent: referralOutComeEvent,
                       beneficiary: widget.beneficiary,
+                      referralOutcomeFollowUpFormSections:
+                          widget.referralOutcomeFollowUpFormSections,
                       themeColor: widget.themeColor,
                       referralFollowUpStage: widget.referralFollowUpStage,
                       referralProgram: widget.referralProgram,

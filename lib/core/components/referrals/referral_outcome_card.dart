@@ -13,6 +13,7 @@ import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
 import 'package:kb_mobile_app/core/components/referrals/referral_outcome_modal.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/models/ovc_referral.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/models/ovc_referral_followup.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/models/ovc_referral_outcome.dart';
 import 'package:provider/provider.dart';
 
@@ -44,6 +45,7 @@ class _ReferralOutComeCardState extends State<ReferralOutComeCard> {
   bool isFormReady = false;
   bool isreferralOutComeFilled = false;
   List<FormSection> referralOutcomeFormSections;
+  List<FormSection> referralOutcomeFollowUpFormSections;
   List<String> hiddenFields = [];
   Color themeColor;
 
@@ -56,11 +58,15 @@ class _ReferralOutComeCardState extends State<ReferralOutComeCard> {
       referralOutcomeFormSections = OvcReferralOutCome.getFormSections();
       hiddenFields
           .addAll(FormUtil.getFormFieldIds(OvcReferral.getFormSections()));
+      referralOutcomeFollowUpFormSections =
+          OvcReferralFollowUp.getFormSections();
     } else {
       themeColor = const Color(0xFF1F8ECE);
       referralOutcomeFormSections = OvcReferralOutCome.getFormSections();
       hiddenFields
           .addAll(FormUtil.getFormFieldIds(OvcReferral.getFormSections()));
+      referralOutcomeFollowUpFormSections =
+          OvcReferralFollowUp.getFormSections();
     }
 
     Timer(Duration(seconds: 1), () {
@@ -130,6 +136,8 @@ class _ReferralOutComeCardState extends State<ReferralOutComeCard> {
                       themeColor: themeColor,
                       eventData: widget.eventData,
                       beneficiary: widget.beneficiary,
+                      referralOutcomeFollowUpFormSections:
+                          referralOutcomeFollowUpFormSections,
                       referralFollowUpStage: widget.referralFollowUpStage,
                       referralToFollowUpLinkage:
                           widget.referralToFollowUpLinkage,
