@@ -1,32 +1,37 @@
 import 'package:kb_mobile_app/core/constants/beneficiary_identification.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 
-class ReservedValue {
+class ReservedAttributeValue {
   String id;
   String attribute;
   String value;
   String expireDate;
 
-  ReservedValue({this.id, this.attribute, this.value, this.expireDate});
+  ReservedAttributeValue({
+    this.id,
+    this.attribute,
+    this.value,
+    this.expireDate,
+  });
 
-  factory ReservedValue.fromJson(Map<String, dynamic> json) {
-    return ReservedValue(
+  factory ReservedAttributeValue.fromJson(Map<String, dynamic> json) {
+    return ReservedAttributeValue(
         id: json['id'] ?? AppUtil.getUid(),
         attribute: BeneficiaryIdentification.beneficiaryIndex,
         value: json['value'],
         expireDate: json['expiryDate']);
   }
 
-  Map toOffline(ReservedValue reservedValue) {
+  Map toOffline(ReservedAttributeValue reservedAttributeValue) {
     var map = Map<String, dynamic>();
-    map['id'] = reservedValue.id;
-    map['attribute'] = reservedValue.attribute;
-    map['value'] = reservedValue.value;
-    map['expireDate'] = reservedValue.expireDate;
+    map['id'] = reservedAttributeValue.id;
+    map['attribute'] = reservedAttributeValue.attribute;
+    map['value'] = reservedAttributeValue.value;
+    map['expireDate'] = reservedAttributeValue.expireDate;
     return map;
   }
 
-  ReservedValue.fromOffline(Map<String, dynamic> map) {
+  ReservedAttributeValue.fromOffline(Map<String, dynamic> map) {
     this.id = map['id'];
     this.attribute = map['attribute'];
     this.value = map['value'];
