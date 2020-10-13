@@ -16,7 +16,7 @@ class DreamReferralView extends StatefulWidget {
 }
 
 class _DreamReferralViewState extends State<DreamReferralView> {
-  final String label = 'View Dream Agyw Referral';
+  final String label = 'View Agyw Referral';
 
   @override
   Widget build(BuildContext context) {

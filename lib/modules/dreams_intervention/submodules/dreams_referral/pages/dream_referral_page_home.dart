@@ -5,6 +5,8 @@ import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_fo
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
+import 'package:kb_mobile_app/core/components/referrals/referral_card_body_summary.dart';
+import 'package:kb_mobile_app/core/components/referrals/referral_card_summary.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
@@ -12,14 +14,12 @@ import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_referral/constant/dream_agyw_referral_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_referral/pages/dream_agyw_referral_form.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_referral/pages/dream_referral_manage.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_referral/pages/dream_referral_view.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/components/ovc_referral_card_body_summary.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/components/ovc_referral_card_summary.dart';
 import 'package:provider/provider.dart';
-import 'constant/dream_agyw_referral_constant.dart';
 
 class DreamAgywReferralPage extends StatefulWidget {
   DreamAgywReferralPage({Key key}) : super(key: key);
@@ -137,8 +137,8 @@ class _DreamAgywReferralPageState extends State<DreamAgywReferralPage> {
                                                         bottom: 15.0,
                                                       ),
                                                       child:
-                                                          OvcReferralCardSummary(
-                                                          borderColor:
+                                                          ReferralCardSummary(
+                                                        borderColor:
                                                             Color(0xFFE9F4FA),
                                                         buttonLabelColor:
                                                             Color(0xFF1F8ECE),
@@ -146,7 +146,7 @@ class _DreamAgywReferralPageState extends State<DreamAgywReferralPage> {
                                                             Color(0xFF05131B),
                                                         count: referralIndex,
                                                         cardBody:
-                                                            OvcReferralCardBodySummary(
+                                                            ReferralCardBodySummary(
                                                           labelColor:
                                                               Color(0XFF82898D),
                                                           valueColor:
