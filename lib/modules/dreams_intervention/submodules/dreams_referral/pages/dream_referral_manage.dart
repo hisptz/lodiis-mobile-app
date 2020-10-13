@@ -2,14 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dream_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar_container.dart';
+import 'package:kb_mobile_app/core/components/material_card.dart';
+import 'package:kb_mobile_app/core/components/referrals/referral_detailed_card.dart';
+import 'package:kb_mobile_app/core/components/referrals/referral_outocme_card_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
+import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_referral/constant/dream_agyw_referral_constant.dart';
 import 'package:provider/provider.dart';
 
 class DreamReferralManage extends StatefulWidget {
-  DreamReferralManage({Key key}) : super(key: key);
+  DreamReferralManage({
+    Key key,
+    @required this.eventData,
+    @required this.referralIndex,
+  }) : super(key: key);
+
+  final Events eventData;
+  final int referralIndex;
 
   @override
   _DreamReferralManageState createState() => _DreamReferralManageState();
@@ -38,15 +50,49 @@ class _DreamReferralManageState extends State<DreamReferralManage> {
           body: Container(
             child: Consumer<DreamBenefeciarySelectionState>(
               builder: (context, dreamCurrentSelectionState, child) {
-                var currentDream = dreamCurrentSelectionState.currentAgywDream;
+                var currentDreamAgywBeneficiary =
+                    dreamCurrentSelectionState.currentAgywDream;
                 return Container(
                   child: Column(
                     children: [
-                      DreamBenefeciaryTopHeader(agywDream: currentDream),
+                      DreamBenefeciaryTopHeader(
+                          agywDream: currentDreamAgywBeneficiary),
                       Container(
                         margin: EdgeInsets.symmetric(
                             vertical: 16.0, horizontal: 13.0),
-                        child: Text('List ${currentDream.toString()}'),
+                        child: Container(
+                          child: MaterialCard(
+                            body: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                ReferralDetailedCard(
+                                  borderColor: Color(0xFFE9F4FA),
+                                  titleColor: Color(0xFF05131B),
+                                  labelColor: Color(0XFF82898D),
+                                  valueColor: Color(0XFF444E54),
+                                  referralIndex: widget.referralIndex,
+                                  eventData: widget.eventData,
+                                ),
+                                ReferralOutComeCardContainer(
+                                  isOvcIntervention: false,
+                                  currentEventId: widget.eventData.event,
+                                  currentProgramStage:
+                                      widget.eventData.programStage,
+                                  beneficiary: currentDreamAgywBeneficiary
+                                      .trackeEntityInstanceData,
+                                  referralProgram:
+                                      DreamAgywReferralConstant.program,
+                                  referralFollowUpStage:
+                                      DreamAgywReferralConstant
+                                          .referralFollowUpStage,
+                                  referralToFollowUpLinkage:
+                                      DreamAgywReferralConstant
+                                          .referralToFollowUpLinkage,
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
                       )
                     ],
                   ),

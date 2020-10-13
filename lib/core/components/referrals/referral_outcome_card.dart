@@ -28,7 +28,7 @@ class ReferralOutComeCard extends StatefulWidget {
     @required this.referralFollowUpStage,
     @required this.referralToFollowUpLinkage,
     @required this.referralProgram,
-    this.isOvcIntervention = true,
+    @required this.isOvcIntervention,
     this.isEditableMode = true,
   }) : super(key: key);
 
