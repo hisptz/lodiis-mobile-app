@@ -24,13 +24,13 @@ class AgywEnrollmentConcent {
             name: 'Would you allow me to talk to the AGYW in privacy',
             valueType: 'BOOLEAN',
             inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF05131B)),
+            labelColor: Color(0xFF737373)),
         InputField(
             id: 'fPtxDcL7A3X',
             name: 'Do you agree to participate in this assessment',
             valueType: 'BOOLEAN',
             inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF05131B)),
+            labelColor: Color(0xFF737373)),
       ]),
     ];
   }

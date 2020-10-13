@@ -98,11 +98,9 @@ class OvcEnrollmentHouseHold {
                   InputField(
                       id: 's1eRvsL2Ly4',
                       name: 'Marital Status',
-                      isReadObly: true,
                       valueType: 'TEXT',
                       inputColor: Color(0xFF4B9F46),
                       labelColor: Color(0xFF737373),
-                      renderAsRadio: true,
                       options: [
                         InputFieldOption(code: 'Married', name: 'Married'),
                         InputFieldOption(code: 'Single', name: 'Single'),
