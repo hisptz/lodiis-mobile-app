@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dream_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
+import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
@@ -10,7 +11,7 @@ import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_home
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/components/service_card_botton_action.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hiv_prev/dreams_hiv_prev_home.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hiv_reg/agyw_dreams_hiv_register.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/hts_page.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/pages/agyw_dreams_hts_consent_form.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/prep/agyw_dreams_prep.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/srh/agyw_dreams_srh.dart';
 import 'package:provider/provider.dart';
@@ -40,19 +41,16 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
     BuildContext context,
     AgywDream agywBeneficiary,
   ) {
-    Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
-        .setCurrentAgywDream(agywBeneficiary);
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => DreamHtsPage()));
+    updateStateData(context, agywBeneficiary);
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => AgywDreamsHTSConsentForm()));
   }
 
   void onOpenSRHForm(
     BuildContext context,
     AgywDream agywBeneficiary,
   ) {
-    Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
-        .setCurrentAgywDream(agywBeneficiary);
-    Provider.of<ServiceFormState>(context, listen: false).resetFormState();
+    updateStateData(context, agywBeneficiary);
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => AgywDreamsSRH()));
   }
@@ -61,8 +59,7 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
     BuildContext context,
     AgywDream agywBeneficiary,
   ) {
-    Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
-        .setCurrentAgywDream(agywBeneficiary);
+    updateStateData(context, agywBeneficiary);
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => DreamsHIVPrevHome()));
   }
@@ -71,9 +68,7 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
     BuildContext context,
     AgywDream agywBeneficiary,
   ) {
-    Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
-        .setCurrentAgywDream(agywBeneficiary);
-    Provider.of<ServiceFormState>(context, listen: false).resetFormState();
+    updateStateData(context, agywBeneficiary);
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => AgywDreamsHIVRegister()));
   }
@@ -82,10 +77,22 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
     BuildContext context,
     AgywDream agywBeneficiary,
   ) {
-    Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
-        .setCurrentAgywDream(agywBeneficiary);
+    updateStateData(context, agywBeneficiary);
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => AgywDreamsPrep()));
+  }
+
+  void updateStateData(
+    BuildContext context,
+    AgywDream agywBeneficiary,
+  ) {
+    Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
+        .setCurrentAgywDream(agywBeneficiary);
+    Provider.of<ServiveEventDataState>(context, listen: false)
+        .resetServiceEventDataState(agywBeneficiary.id);
+    Provider.of<ServiceFormState>(context, listen: false).resetFormState();
+    Provider.of<ServiceFormState>(context, listen: false)
+        .updateFormEditabilityState(isEditableMode: true);
   }
 
   @override

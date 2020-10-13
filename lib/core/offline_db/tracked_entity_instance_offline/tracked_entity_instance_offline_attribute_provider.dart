@@ -51,4 +51,26 @@ class TrackedEntityInstanceOfflineAttributeProvider extends OfflineDbProvider {
     } catch (e) {}
     return attributes;
   }
+
+  Future<List> getTrackedEntityAttributesValuesById(
+    List<String> attributeIds,
+  ) async {
+    List attributes = [];
+    try {
+      var dbClient = await db;
+      String questionMarks = attributeIds.map((e) => '?').toList().join(',');
+      List<Map> maps = await dbClient.query(
+        table,
+        columns: [attribute, value],
+        where: '$attribute IN ($questionMarks)',
+        whereArgs: attributeIds,
+      );
+      if (maps.isNotEmpty) {
+        for (Map map in maps) {
+          attributes.add(map);
+        }
+      }
+    } catch (e) {}
+    return attributes;
+  }
 }

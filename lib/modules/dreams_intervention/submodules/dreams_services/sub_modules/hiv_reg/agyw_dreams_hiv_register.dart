@@ -32,11 +32,6 @@ class _AgywDreamsHIVRegisterState extends State<AgywDreamsHIVRegister> {
   @override
   void initState() {
     super.initState();
-    Provider.of<ServiveEventDataState>(context, listen: false)
-        .resetServiceEventDataState(
-            Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
-                .currentAgywDream
-                .id);
   }
 
   void updateFormState(

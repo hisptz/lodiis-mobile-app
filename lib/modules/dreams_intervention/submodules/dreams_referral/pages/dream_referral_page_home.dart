@@ -1,37 +1,35 @@
 import 'package:flutter/material.dart';
-import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_house_hold_current_selection_state.dart';
+import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dream_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
+import 'package:kb_mobile_app/core/components/referrals/referral_card_body_summary.dart';
+import 'package:kb_mobile_app/core/components/referrals/referral_card_summary.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
+import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
-import 'package:kb_mobile_app/models/ovc_house_hold_child.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_child_info_top_header.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_referral/constant/dream_agyw_referral_constant.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_referral/pages/dream_agyw_referral_form.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_referral/pages/dream_referral_manage.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_referral/pages/dream_referral_view.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
-import 'package:kb_mobile_app/core/components/referrals/referral_card_summary.dart';
-import 'package:kb_mobile_app/core/components/referrals/referral_card_body_summary.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/ovc_referral_pages/ovc_child_referral_pages/constants/ovc_child_referral_constant.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/ovc_referral_pages/ovc_child_referral_pages/pages/ovc_child_referral_add_form.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/ovc_referral_pages/ovc_child_referral_pages/pages/ovc_child_referral_manage.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/ovc_referral_pages/ovc_child_referral_pages/pages/ovc_child_referral_view.dart';
 import 'package:provider/provider.dart';
 
-class OvcChildReferralHome extends StatefulWidget {
-  OvcChildReferralHome({Key key}) : super(key: key);
-
+class DreamAgywReferralPage extends StatefulWidget {
+  DreamAgywReferralPage({Key key}) : super(key: key);
   @override
-  _OvcChildReferralHomeState createState() => _OvcChildReferralHomeState();
+  _DreamAgywReferralPageState createState() => _DreamAgywReferralPageState();
 }
 
-class _OvcChildReferralHomeState extends State<OvcChildReferralHome> {
-  final String label = 'Child Referral';
-  final List<String> programStageids = [OvcChildReferralConstant.referralStage];
-
+class _DreamAgywReferralPageState extends State<DreamAgywReferralPage> {
+  final String label = 'Agyw Referral';
+  final List<String> programStageids = [DreamAgywReferralConstant.programStage];
   void updateFormState(
     BuildContext context,
     bool isEditableMode,
@@ -57,38 +55,22 @@ class _OvcChildReferralHomeState extends State<OvcChildReferralHome> {
     }
   }
 
-  void onAddRefferal(BuildContext context, OvcHouseHoldChild child) {
+  void onAddRefferal(BuildContext context, AgywDream agywDream) {
     updateFormState(context, true, null);
     Navigator.push(context,
-        MaterialPageRoute(builder: (context) => OvcChildReferralAddForm()));
+        MaterialPageRoute(builder: (context) => DreamAgywAddReferralForm()));
   }
 
-  void onViewChildReferral(
-    BuildContext context,
-    Events eventData,
-    int referralIndex,
-  ) {
+  void onViewChildReferral(BuildContext context, Events eventData) {
+    updateFormState(context, false, eventData);
     Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => OvcChildReferralView(
-                  eventData: eventData,
-                  referralIndex: referralIndex,
-                )));
+        context, MaterialPageRoute(builder: (context) => DreamReferralView()));
   }
 
-  void onManageChildReferral(
-    BuildContext context,
-    Events eventData,
-    int referralIndex,
-  ) {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => OvcChildReferralManage(
-                  eventData: eventData,
-                  referralIndex: referralIndex,
-                )));
+  void onManageChildReferral(BuildContext context, Events eventData) {
+    updateFormState(context, false, eventData);
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => DreamReferralManage()));
   }
 
   @override
@@ -109,24 +91,24 @@ class _OvcChildReferralHomeState extends State<OvcChildReferralHome> {
         ),
         body: SubPageBody(
           body: Container(
-            child: Consumer<OvcHouseHoldCurrentSelectionState>(
-              builder: (context, ovcHouseHoldCurrentSelectionState, child) {
+            child: Consumer<DreamBenefeciarySelectionState>(
+              builder: (context, dreamAgywState, child) {
                 return Consumer<ServiveEventDataState>(
                   builder: (context, serviceFormState, child) {
-                    OvcHouseHoldChild currentOvcHouseHoldChild =
-                        ovcHouseHoldCurrentSelectionState
-                            .currentOvcHouseHoldChild;
+                    AgywDream agywDream = dreamAgywState.currentAgywDream;
                     bool isLoading = serviceFormState.isLoading;
                     Map<String, List<Events>> eventListByProgramStage =
                         serviceFormState.eventListByProgramStage;
                     List<Events> events = TrackedEntityInstanceUtil
                         .getAllEventListFromServiceDataState(
                             eventListByProgramStage, programStageids);
-                    int referralIndex = events.length;
+                    int referralIndex = events.length + 1;
                     return Container(
                       child: Column(
                         children: [
-                          OvcChildInfoTopHeader(),
+                          DreamBenefeciaryTopHeader(
+                            agywDream: agywDream,
+                          ),
                           Container(
                             child: isLoading
                                 ? CircularProcessLoader(
@@ -140,7 +122,7 @@ class _OvcChildReferralHomeState extends State<OvcChildReferralHome> {
                                         ),
                                         child: events.length == 0
                                             ? Text(
-                                                'There is no Child Referrals at a moment')
+                                                'There is no Benefeciary Referrals at a moment')
                                             : Container(
                                                 margin: EdgeInsets.symmetric(
                                                   vertical: 5.0,
@@ -149,7 +131,7 @@ class _OvcChildReferralHomeState extends State<OvcChildReferralHome> {
                                                 child: Column(
                                                   children: events
                                                       .map((Events eventData) {
-                                                    int count = referralIndex--;
+                                                    referralIndex--;
                                                     return Container(
                                                       margin: EdgeInsets.only(
                                                         bottom: 15.0,
@@ -157,33 +139,29 @@ class _OvcChildReferralHomeState extends State<OvcChildReferralHome> {
                                                       child:
                                                           ReferralCardSummary(
                                                         borderColor:
-                                                            Color(0xFFEDF5EC),
+                                                            Color(0xFFE9F4FA),
                                                         buttonLabelColor:
-                                                            Color(0xFF4B9F46),
+                                                            Color(0xFF1F8ECE),
                                                         titleColor:
-                                                            Color(0xFF1B3518),
-                                                        count: count,
+                                                            Color(0xFF05131B),
+                                                        count: referralIndex,
                                                         cardBody:
                                                             ReferralCardBodySummary(
                                                           labelColor:
-                                                              Color(0XFF92A791),
+                                                              Color(0XFF82898D),
                                                           valueColor:
-                                                              Color(0XFF536852),
+                                                              Color(0XFF444E54),
                                                           referralEvent:
                                                               eventData,
                                                         ),
                                                         onView: () =>
                                                             onViewChildReferral(
-                                                          context,
-                                                          eventData,
-                                                          count,
-                                                        ),
+                                                                context,
+                                                                eventData),
                                                         onManage: () =>
                                                             onManageChildReferral(
-                                                          context,
-                                                          eventData,
-                                                          count,
-                                                        ),
+                                                                context,
+                                                                eventData),
                                                       ),
                                                     );
                                                   }).toList(),
@@ -193,11 +171,10 @@ class _OvcChildReferralHomeState extends State<OvcChildReferralHome> {
                                       OvcEnrollmentFormSaveButton(
                                           label: 'ADD REFFERAL',
                                           labelColor: Colors.white,
-                                          buttonColor: Color(0xFF4B9F46),
+                                          buttonColor: Color(0xFF1F8ECE),
                                           fontSize: 15.0,
-                                          onPressButton: () => onAddRefferal(
-                                              context,
-                                              currentOvcHouseHoldChild))
+                                          onPressButton: () =>
+                                              onAddRefferal(context, agywDream))
                                     ],
                                   ),
                           )

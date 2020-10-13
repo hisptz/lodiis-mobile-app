@@ -1,190 +1,123 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dream_current_selection_state.dart';
+import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
-import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
-import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
-import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
-import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
-import 'package:kb_mobile_app/core/components/sup_page_body.dart';
-import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
+import 'package:kb_mobile_app/core/components/line_seperator.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
-import 'package:kb_mobile_app/models/events.dart';
-import 'package:kb_mobile_app/models/intervention_card.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_child_info_top_header.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
-import 'package:kb_mobile_app/core/components/referrals/referral_card_summary.dart';
-import 'package:kb_mobile_app/core/components/referrals/referral_card_body_summary.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/ovc_referral_pages/ovc_child_referral_pages/pages/ovc_child_referral_add_form.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_card_body.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_card.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_home_container.dart';
 import 'package:provider/provider.dart';
-import 'constant/dream_agyw_referral_constant.dart';
+import 'pages/dream_referral_page_home.dart';
 
-class DreamAgywReferralPage extends StatefulWidget {
-  DreamAgywReferralPage({Key key}) : super(key: key);
-
+class DreamsReferralPage extends StatefulWidget {
+  const DreamsReferralPage({Key key}) : super(key: key);
   @override
-  _DreamAgywReferralPageState createState() => _DreamAgywReferralPageState();
+  _DreamsReferralPageState createState() => _DreamsReferralPageState();
 }
 
-class _DreamAgywReferralPageState extends State<DreamAgywReferralPage> {
-  final String label = 'Agyw Referral';
-  final List<String> programStageids = [DreamAgywReferralConstant.programStage];
+class _DreamsReferralPageState extends State<DreamsReferralPage> {
+  final String title = 'BENEFICIARY LIST';
+  final bool canEdit = false;
+  final bool canView = false;
+  final bool canExpand = true;
 
-  void updateFormState(
+  String toggleCardId = '';
+
+  void onCardToogle(String cardId) {
+    setState(() {
+      toggleCardId = canExpand && cardId != toggleCardId ? cardId : '';
+    });
+  }
+
+  void onOpenReferralForm(
     BuildContext context,
-    bool isEditableMode,
-    Events eventData,
+    AgywDream agywBeneficiary,
   ) {
-    Provider.of<ServiceFormState>(context, listen: false).resetFormState();
-    Provider.of<ServiceFormState>(context, listen: false)
-        .updateFormEditabilityState(isEditableMode: isEditableMode);
-    if (eventData != null) {
-      if (eventData != null) {
-        Provider.of<ServiceFormState>(context, listen: false)
-            .setFormFieldState('eventDate', eventData.eventDate);
-        Provider.of<ServiceFormState>(context, listen: false)
-            .setFormFieldState('eventId', eventData.event);
-        for (Map datavalue in eventData.dataValues) {
-          if (datavalue['value'] != '') {
-            Provider.of<ServiceFormState>(context, listen: false)
-                .setFormFieldState(
-                    datavalue['dataElement'], datavalue['value']);
-          }
-        }
-      }
-    }
-  }
-
-  void onAddRefferal(BuildContext context, AgywDream agywDream) {
-    updateFormState(context, true, null);
+    Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
+        .setCurrentAgywDream(agywBeneficiary);
+    Provider.of<ServiveEventDataState>(context, listen: false)
+        .resetServiceEventDataState(agywBeneficiary.id);
     Navigator.push(context,
-        MaterialPageRoute(builder: (context) => OvcChildReferralAddForm()));
+        MaterialPageRoute(builder: (context) => DreamAgywReferralPage()));
   }
-
-  void onViewAgywReferral(
-    BuildContext context,
-    Events eventData,
-    int referralIndex,
-  ) {}
-
-  void onManageAgywReferral(
-    BuildContext context,
-    Events eventData,
-    int referralIndex,
-  ) {}
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(65.0),
-          child: Consumer<IntervetionCardState>(
-            builder: (context, intervetionCardState, child) {
-              InterventionCard activeInterventionProgram =
-                  intervetionCardState.currentIntervetionProgram;
-              return SubPageAppBar(
-                label: label,
-                activeInterventionProgram: activeInterventionProgram,
-              );
-            },
-          ),
-        ),
-        body: SubPageBody(
-          body: Container(
-            child: Consumer<DreamBenefeciarySelectionState>(
-              builder: (context, dreamAgywState, child) {
-                return Consumer<ServiveEventDataState>(
-                  builder: (context, serviceFormState, child) {
-                    AgywDream currentAgyDream = dreamAgywState.currentAgywDream;
-                    bool isLoading = serviceFormState.isLoading;
-                    Map<String, List<Events>> eventListByProgramStage =
-                        serviceFormState.eventListByProgramStage;
-                    List<Events> events = TrackedEntityInstanceUtil
-                        .getAllEventListFromServiceDataState(
-                            eventListByProgramStage, programStageids);
-                    int referralIndex = events.length + 1;
-                    return Container(
-                      child: Column(
-                        children: [
-                          OvcChildInfoTopHeader(),
-                          Container(
-                            child: isLoading
-                                ? CircularProcessLoader(
-                                    color: Colors.blueGrey,
-                                  )
-                                : Column(
-                                    children: [
-                                      Container(
-                                        margin: EdgeInsets.symmetric(
-                                          vertical: 10.0,
+    return DreamsHomeContainer(header: title, bodyContents: _buildBody());
+  }
+
+  Widget _buildBody() {
+    return SingleChildScrollView(
+      child: Consumer<DreamsInterventionListState>(
+        builder: (context, dreamInterventionListState, child) {
+          bool isLoading = dreamInterventionListState.isLoading;
+          List<AgywDream> agywDreamsInterventionList =
+              dreamInterventionListState.agywDreamsInterventionList;
+          return isLoading
+              ? Container(
+                  margin: EdgeInsets.only(top: 20.0),
+                  child: Center(
+                    child: CircularProcessLoader(color: Colors.blueGrey),
+                  ),
+                )
+              : Container(
+                  margin: EdgeInsets.only(top: 16.0),
+                  child: agywDreamsInterventionList.length == 0
+                      ? Center(
+                          child:
+                              Text('There is no beneficiary list at a moment'),
+                        )
+                      : Column(
+                          children: agywDreamsInterventionList
+                              .map((AgywDream agywBeneficiary) {
+                            return DreamsBeneficiaryCard(
+                              isAgywEnrollment: false,
+                              agywDream: agywBeneficiary,
+                              canEdit: canEdit,
+                              canExpand: canExpand,
+                              beneficiaryName: agywBeneficiary.toString(),
+                              canView: canView,
+                              isExpanded:
+                                  agywBeneficiary.benefecaryId == toggleCardId,
+                              onCardToogle: () {
+                                onCardToogle(agywBeneficiary.benefecaryId);
+                              },
+                              cardBody: DreamBeneficiaryCardBody(
+                                  agywBeneficiary: agywBeneficiary,
+                                  isVerticalLayout:
+                                      agywBeneficiary.benefecaryId ==
+                                          toggleCardId),
+                              cardBottonActions: Container(
+                                child: Column(
+                                  children: [
+                                    LineSeperator(
+                                      color: Color(0xFFE9F4FA),
+                                    ),
+                                    Container(
+                                      child: MaterialButton(
+                                        onPressed: () => onOpenReferralForm(
+                                          context,
+                                          agywBeneficiary,
                                         ),
-                                        child: events.length == 0
-                                            ? Text(
-                                                'There is no Child Referrals at a moment')
-                                            : Container(
-                                                margin: EdgeInsets.symmetric(
-                                                  vertical: 5.0,
-                                                  horizontal: 13.0,
-                                                ),
-                                                child: Column(
-                                                  children: events
-                                                      .map((Events eventData) {
-                                                    referralIndex--;
-                                                    return Container(
-                                                      margin: EdgeInsets.only(
-                                                        bottom: 15.0,
-                                                      ),
-                                                      child:
-                                                          ReferralCardSummary(
-                                                        titleColor:
-                                                            Color(0xFF05131B),
-                                                        borderColor:
-                                                            Color(0xFFE9F4FA),
-                                                        count: referralIndex,
-                                                        cardBody:
-                                                            ReferralCardBodySummary(
-                                                          labelColor:
-                                                              Color(0xFF82898D),
-                                                          valueColor:
-                                                              Color(0xFF444E54),
-                                                          referralEvent:
-                                                              eventData,
-                                                        ),
-                                                        onView: () =>
-                                                            onViewAgywReferral(
-                                                                context,
-                                                                eventData,
-                                                                referralIndex),
-                                                        onManage: () =>
-                                                            onManageAgywReferral(
-                                                                context,
-                                                                eventData,
-                                                                referralIndex),
-                                                      ),
-                                                    );
-                                                  }).toList(),
-                                                ),
-                                              ),
+                                        child: Text('REFERRAL',
+                                            style: TextStyle().copyWith(
+                                              fontSize: 14.0,
+                                              fontWeight: FontWeight.bold,
+                                              color: Color(0xFF1F8ECE),
+                                            )),
                                       ),
-                                      OvcEnrollmentFormSaveButton(
-                                          label: 'ADD REFFERAL',
-                                          labelColor: Colors.white,
-                                          buttonColor: Color(0xFF4B9F46),
-                                          fontSize: 15.0,
-                                          onPressButton: () => onAddRefferal(
-                                              context, currentAgyDream))
-                                    ],
-                                  ),
-                          )
-                        ],
-                      ),
-                    );
-                  },
-                );
-              },
-            ),
-          ),
-        ),
-        bottomNavigationBar: InterventionBottomNavigationBarContainer());
+                                    )
+                                  ],
+                                ),
+                              ),
+                              cardBottonContent: Container(),
+                            );
+                          }).toList(),
+                        ));
+        },
+      ),
+    );
   }
 }
