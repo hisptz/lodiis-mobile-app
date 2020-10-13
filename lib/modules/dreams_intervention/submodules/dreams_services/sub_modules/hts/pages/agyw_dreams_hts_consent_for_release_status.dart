@@ -16,28 +16,34 @@ import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/dreams_srh_client_intake.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/srh/constants/srh_client_intake_constant.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/client_information.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/consent_for_release_of_status.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/hts_consent.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/constants/agyw_dreams_hts_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
 import 'package:provider/provider.dart';
 
-class AgywDreamsSrhForm extends StatefulWidget {
-  AgywDreamsSrhForm({Key key}) : super(key: key);
+class AgywDreamsHTSConsentForReleaseStatus extends StatefulWidget {
+  AgywDreamsHTSConsentForReleaseStatus({Key key}) : super(key: key);
 
   @override
-  _AgywDreamsSrhFormState createState() => _AgywDreamsSrhFormState();
+  _AgywDreamsHTSConsentForReleaseStatusState createState() => _AgywDreamsHTSConsentForReleaseStatusState();
 }
 
-class _AgywDreamsSrhFormState extends State<AgywDreamsSrhForm> {
-  final String label = 'SRH Service Form';
+class _AgywDreamsHTSConsentForReleaseStatusState extends State<AgywDreamsHTSConsentForReleaseStatus> {
+  final String label = 'Consent for Release of Status';
   List<FormSection> formSections;
+   List<FormSection> allFormSections = [];
   bool isFormReady = false;
   bool isSaving = false;
 
   @override
   void initState() {
     super.initState();
-    formSections = DreamsSrhClientIntake.getFormSections();
+    formSections = ConsentForReleaseOfStatus.getFormSections();
+allFormSections.addAll(formSections);
+allFormSections.addAll(ClientInformation.getFormSections());
+allFormSections.addAll(HTSConsent.getFormSections());
     Timer(Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
@@ -50,7 +56,7 @@ class _AgywDreamsSrhFormState extends State<AgywDreamsSrhForm> {
         .setFormFieldState(id, value);
   }
 
-  void onSaveForm(
+   void onSaveForm(
       BuildContext context, Map dataObject, AgywDream agywDream) async {
     if (dataObject.keys.length > 0) {
       setState(() {
@@ -58,14 +64,14 @@ class _AgywDreamsSrhFormState extends State<AgywDreamsSrhForm> {
       });
       String eventDate = dataObject['eventDate'];
       String eventId = dataObject['eventId'];
-
+      print(dataObject);
       List<String> hiddenFields = [];
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-            HivPrepClientIntakeConstant.program,
-            HivPrepClientIntakeConstant.programStage,
+            AgywDreamsHTSConstant.program,
+            AgywDreamsHTSConstant.programStage,
             agywDream.orgUnit,
-            formSections,
+            allFormSections,
             dataObject,
             eventDate,
             agywDream.id,
@@ -78,7 +84,7 @@ class _AgywDreamsSrhFormState extends State<AgywDreamsSrhForm> {
             AppUtil.showToastMessage(
                 message: 'Form has been saved successfully',
                 position: ToastGravity.TOP);
-            Navigator.pop(context);
+             Navigator.popUntil(context, (route) => route.isFirst);
           });
         });
       } catch (e) {
@@ -151,7 +157,7 @@ class _AgywDreamsSrhFormState extends State<AgywDreamsSrhForm> {
                                   Visibility(
                                     visible: serviceFormState.isEditableMode,
                                     child: OvcEnrollmentFormSaveButton(
-                                      label: isSaving ? 'Saving ...' : 'Save',
+                                      label: isSaving ? 'Saving ...' : 'SAVE',
                                       labelColor: Colors.white,
                                       buttonColor: Color(0xFF258DCC),
                                       fontSize: 15.0,

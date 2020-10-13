@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:http/http.dart';
 import 'package:kb_mobile_app/core/offline_db/enrollment_offline/enrollment_offline_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/event_offline/event_offline_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/tei_relationship_offline/tei_relationship_offline_provider.dart';
@@ -29,33 +30,55 @@ class SynchronizationService {
     String orgUnitId = '';
     String programId = '';
     String trackedEntityInstances_url =
-        'api/trackedEntityInstances.json?ouMode=DESCENDANTS&ou=$orgUnitId&totalPages=true&pageSize=10&fields=';
+        'https://lsis-ovc-dreams.org/api/trackedEntityInstances.json?ouMode=DESCENDANTS&ou=$orgUnitId&program=$programId&totalPages=true&pageSize=10&fields=trackedEntityInstance,trackedEntityType,orgUnit,attributes[attribute,value],enrollments[enrollment,enrollmentDate,incidentDate,orgUnit,program,trackedEntityInstance,status]';
     String event_url =
-        'api/events.json?ouMode=DESCENDANTS&orgUnit=$orgUnitId&program=$programId';
+        'api/trackedEntityInstances.json?ouMode=DESCENDANTS&ou=$orgUnitId&program=$programId&totalPages=true&pageSize=1000&page=3&fields=none';
     String fields =
         'fields=trackedEntityInstance,event,programStage,orgUnit,eventDate,dataValues[dataElement,value]';
     CurrentUser currentUser;
     currentUser = await UserService().getCurrentUser();
-    print("data well");
     print(currentUser.programs.toList().toString());
     print(currentUser.userOrgUnitIds.toList().toString());
-
     for (var program in currentUser.programs) {}
 
-    //take orginisation ids and prorgrams,
-    // fetch trackedEntityInstance
-    // fetch trackedEntityInstance
-    // show progress while download
-    // repeat similar for events
+    //take orginisation ids and prorgrams 
+    // fetch trackedEntityInstance 
+    // fetch trackedEntityInstance 
+    // show progress while download 
+    // repeat similar for events 
+
+
+    Response response = await HttpService(
+            username: currentUser.username, password: currentUser.password)
+        .httpGetPagination(
+            "api/trackedEntityInstances.json?ouMode=DESCENDANTS&ou=j1R4h0Twe27&program=hOEIHJDrrvz&totalPages=true&pageSize=1000&page=3&fields=none",
+            10000);
+    Map<String, dynamic> pager = json.decode(response.body)['pager'];
+    int tot = pager['total'];
+    int page = pager['page'];
+    int pageSize = pager['pageSize'];
+    int total = tot >= pageSize ? tot : pageSize;
+    print(total);
+    for (int page = 1; page <= (total / pageSize.round()); page++) {
+      programs.forEach((program) {
+        orgUnitIds.forEach((organizationId) {
+          // print("hello");
+      
+      
+      
+        });
+      });
+    }
 
     // Download by programs
     // get payloads the save to offline db;
-    // https://play.dhis2.org/2.34.1/api/trackedEntityInstances.json?ouMode=DESCENDANTS&ou=j1R4h0Twe27&totalPages=true&pageSize=10&fields=
-    // https://play.dhis2.org/2.34.1/api/events.json?ouMode=DESCENDANTS&ou=ImspTQPwCqd&totalPages=true&pageSize=10&fields=
-    // https://play.dhis2.org/2.34.1/api/events.json?ouMode=DESCENDANTS&orgUnit=j1R4h0Twe27&totalPages=true&pageSize=10
-    //  events[event,program,programStage,trackedEntityInstance,status,orgUnit,dataValues[dataElement,value]]
-    //  trackedEntityInstance,trackedEntityType,orgUnit,attributes[attribute,value],enrollments[enrollment,enrollmentDate,incidentDate,orgUnit,program,trackedEntityInstance,status]
-    //  fields=trackedEntityInstance,trackedEntityType,orgUnit,attributes[attribute,value],enrollments[enrollment,enrollmentDate,incidentDate,orgUnit,program,trackedEntityInstance,status,events[event,program,programStage,trackedEntityInstance,status,orgUnit,dataValues[dataElement,value]]]
+    // get tracked entity instances and enrollment payload
+    //https://lsis-ovc-dreams.org/api/trackedEntityInstances.json?ouMode=DESCENDANTS&ou=j1R4h0Twe27&program=hOEIHJDrrvz&totalPages=true&pageSize=10&fields=trackedEntityInstance,trackedEntityType,orgUnit,attributes[attribute,value],enrollments[enrollment,enrollmentDate,incidentDate,orgUnit,program,trackedEntityInstance,status]
+
+    // Getting events data
+    //https://lsis-ovc-dreams.org/api/events.json?ouMode=DESCENDANTS&orgUnit=j1R4h0Twe27&program=hOEIHJDrrvz&totalPages=true&pageSize=10&fields=event,program,programStage,trackedEntityInstance,status,orgUnit,dataValues[dataElement,value]
+  
+  
   }
 
   Future<List<TrackeEntityInstance>> getTeisFromOfflineDb() async {

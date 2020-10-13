@@ -62,6 +62,7 @@ class BioDataInformationAboutIndexPositiveClient {
                 labelColor: Color(0xFF05131B)),
             InputField(
                 id: 'qdN6oXzoUCg',
+                allowFuturePeriod: true,
                 name: 'ART START Date',
                 valueType: 'DATE',
                 inputColor: Color(0xFF258DCC),

@@ -9,10 +9,9 @@ import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_benef
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_home_container.dart';
 import 'package:provider/provider.dart';
-import 'dream_referral_page_home.dart';
+import 'pages/dream_referral_page_home.dart';
 
 class DreamsReferralPage extends StatefulWidget {
-
   const DreamsReferralPage({Key key}) : super(key: key);
   @override
   _DreamsReferralPageState createState() => _DreamsReferralPageState();

@@ -53,12 +53,10 @@ class HttpService {
 
   Future<http.Response> httpGetPagination(String url, int pageSize) async {
     url = '$url&totalPages=true&pageSize=1&fields=none';
-    var respo = await this.httpGet(url);
-    return null;
+    var response = await this.httpGet(url);
+      return response;
   }
 
   @override
-  String toString() {
-    return '$baseUrl => $username : $password';
-  }
+  String toString() {return '$baseUrl => $username : $password';}
 }

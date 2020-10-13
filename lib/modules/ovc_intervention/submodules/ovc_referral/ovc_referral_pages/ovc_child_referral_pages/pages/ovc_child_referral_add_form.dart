@@ -38,7 +38,7 @@ class _OvcChildReferralAddFormState extends State<OvcChildReferralAddForm> {
   @override
   void initState() {
     super.initState();
-    formSections = OvcAddReferral.getFormSections();
+    formSections = OvcReferral.getFormSections();
     Timer(Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;

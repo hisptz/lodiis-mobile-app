@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/core/components/line_seperator.dart';
 import 'package:kb_mobile_app/core/components/material_card.dart';
 
-class OvcReferralCardSummary extends StatelessWidget {
-  OvcReferralCardSummary({
+class ReferralCardSummary extends StatelessWidget {
+  ReferralCardSummary({
     Key key,
     @required this.count,
     @required this.cardBody,
@@ -62,47 +62,46 @@ class OvcReferralCardSummary extends StatelessWidget {
                 ),
                 child: Container(
                   decoration:
-                      BoxDecoration(color: borderColor.withOpacity(0.5)),
+                      BoxDecoration(color: borderColor.withOpacity(0.4)),
                   child: Container(
-                      decoration:
-                          BoxDecoration(color: borderColor.withOpacity(0.5)),
                       child: Row(
-                        children: [
-                          Expanded(
-                            child: FlatButton(
-                                onPressed: onView,
-                                child: Text(
-                                  'VIEW',
-                                  style: TextStyle().copyWith(
-                                    fontSize: 12.0,
-                                    color: buttonLabelColor,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                )),
-                          ),
-                          Container(
-                            height: 20.0,
-                            decoration: BoxDecoration(
-                              border: Border(
-                                left: BorderSide(
-                                    color: Color(0xFFC9E2C7), width: 1.0),
+                    children: [
+                      Expanded(
+                        child: FlatButton(
+                            onPressed: onView,
+                            child: Text(
+                              'VIEW',
+                              style: TextStyle().copyWith(
+                                fontSize: 12.0,
+                                color: buttonLabelColor,
+                                fontWeight: FontWeight.w500,
                               ),
-                            ),
+                            )),
+                      ),
+                      Container(
+                        height: 20.0,
+                        decoration: BoxDecoration(
+                          border: Border(
+                            left: BorderSide(
+                                color: buttonLabelColor.withOpacity(0.3),
+                                width: 1.0),
                           ),
-                          Expanded(
-                            child: FlatButton(
-                                onPressed: onManage,
-                                child: Text(
-                                  'MANAGE',
-                                  style: TextStyle().copyWith(
-                                    fontSize: 12.0,
-                                    color: buttonLabelColor,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                )),
-                          ),
-                        ],
-                      )),
+                        ),
+                      ),
+                      Expanded(
+                        child: FlatButton(
+                            onPressed: onManage,
+                            child: Text(
+                              'MANAGE',
+                              style: TextStyle().copyWith(
+                                fontSize: 12.0,
+                                color: buttonLabelColor,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            )),
+                      ),
+                    ],
+                  )),
                 ),
               )
             ],

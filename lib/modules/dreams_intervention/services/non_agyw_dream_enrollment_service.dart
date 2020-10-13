@@ -65,9 +65,7 @@ class NonAgywDreamEnrollmentService {
           try {
             agywDreamList.add(AgywDream().fromTeiModel(
                 tei, orgUnit, location, createdDate, enrollmentId));
-          } catch (e) {
-            print(e);
-          }
+          } catch (e) {}
         }
       }
     } catch (e) {}

@@ -1,6 +1,6 @@
 import 'package:kb_mobile_app/models/events.dart';
 
-class OvcReferralEvent {
+class ReferralEvent {
   String id;
   String date;
   String serviceMode;
@@ -10,7 +10,7 @@ class OvcReferralEvent {
   String comments;
   Events eventData;
 
-  OvcReferralEvent({
+  ReferralEvent({
     this.id,
     this.date,
     this.serviceMode,
@@ -21,7 +21,7 @@ class OvcReferralEvent {
     this.eventData,
   });
 
-  OvcReferralEvent fromTeiModel(
+  ReferralEvent fromTeiModel(
     Events eventData,
   ) {
     List keys = [
@@ -40,7 +40,7 @@ class OvcReferralEvent {
         data[attribute] = '${detailObj['value']}'.trim() ?? '';
       }
     }
-    return OvcReferralEvent(
+    return ReferralEvent(
       id: eventData.event,
       date: eventData.eventDate,
       serviceMode: data['qAed23reDPP'] ?? '',

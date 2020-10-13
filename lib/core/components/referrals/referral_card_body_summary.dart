@@ -1,10 +1,10 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/models/events.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/models/ovc_referral_event.dart';
+import 'package:kb_mobile_app/models/referral_event.dart';
 
-class OvcReferralCardBodySummary extends StatefulWidget {
-  OvcReferralCardBodySummary({
+class ReferralCardBodySummary extends StatefulWidget {
+  ReferralCardBodySummary({
     Key key,
     @required this.referralEvent,
     @required this.labelColor,
@@ -16,18 +16,17 @@ class OvcReferralCardBodySummary extends StatefulWidget {
   final Color valueColor;
 
   @override
-  _OvcReferralCardBodySummaryState createState() =>
-      _OvcReferralCardBodySummaryState();
+  _ReferralCardBodySummaryState createState() =>
+      _ReferralCardBodySummaryState();
 }
 
-class _OvcReferralCardBodySummaryState
-    extends State<OvcReferralCardBodySummary> {
-  OvcReferralEvent ovcReferralCard;
+class _ReferralCardBodySummaryState extends State<ReferralCardBodySummary> {
+  ReferralEvent ovcReferralCard;
 
   @override
   void initState() {
     super.initState();
-    ovcReferralCard = OvcReferralEvent().fromTeiModel(widget.referralEvent);
+    ovcReferralCard = ReferralEvent().fromTeiModel(widget.referralEvent);
   }
   //     82898D
 
