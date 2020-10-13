@@ -11,7 +11,8 @@ class NonAgywEnrollmentFormSection {
       'sJ35hsF6Lf9',
       'location',
       'WTZ7GLTrE8Q',
-      'rSP9c21JsfC'
+      'rSP9c21JsfC',
+      'qZP982qpSPS'
     ];
   }
 

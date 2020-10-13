@@ -158,6 +158,8 @@ class _OvcChildReferralHomeState extends State<OvcChildReferralHome> {
                                                           OvcReferralCardSummary(
                                                         borderColor:
                                                             Color(0xFFEDF5EC),
+                                                        buttonLabelColor:
+                                                            Color(0xFF4B9F46),
                                                         titleColor:
                                                             Color(0xFF1B3518),
                                                         count: referralIndex,
