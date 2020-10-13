@@ -52,8 +52,8 @@ class _ReferralOutComeViewContainerState
         setState(
           () {
             isViewReady = true;
-            referralOutComeEvent =
-                ReferralOutComeEvent().fromTeiModel(widget.eventData);
+            referralOutComeEvent = ReferralOutComeEvent().fromTeiModel(
+                widget.eventData, widget.referralToFollowUpLinkage);
           },
         );
       },

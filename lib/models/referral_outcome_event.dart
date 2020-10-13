@@ -4,6 +4,7 @@ class ReferralOutComeEvent {
   String id;
   String dateClientReachStation;
   String dateServiceProvided;
+  String referralReference;
   bool requredFollowUp;
   String comments;
   Events eventData;
@@ -13,23 +14,32 @@ class ReferralOutComeEvent {
     this.dateClientReachStation,
     this.dateServiceProvided,
     this.requredFollowUp,
+    this.referralReference,
     this.comments,
     this.eventData,
   });
 
   ReferralOutComeEvent fromTeiModel(
     Events eventData,
+    String referralToFollowUpLinkage,
   ) {
-    List keys = ['p7saxV2libq', 'lvT9gfpHIlT', 'LcG4J82PM4Z', 'Ep3atnNQGTY'];
+    List keys = [
+      'p7saxV2libq',
+      'lvT9gfpHIlT',
+      'LcG4J82PM4Z',
+      'Ep3atnNQGTY',
+      referralToFollowUpLinkage
+    ];
     Map data = Map();
     for (Map detailObj in eventData.dataValues) {
-      String attribute = detailObj['dataElement'];
-      if (attribute != null && keys.indexOf(attribute) > -1) {
-        data[attribute] = '${detailObj['value']}'.trim() ?? '';
+      String dataElement = detailObj['dataElement'];
+      if (dataElement != null && keys.indexOf(dataElement) > -1) {
+        data[dataElement] = '${detailObj['value']}'.trim() ?? '';
       }
     }
     return ReferralOutComeEvent(
       id: eventData.event,
+      referralReference: data[referralToFollowUpLinkage] ?? '',
       dateClientReachStation: data['p7saxV2libq'] ?? '',
       dateServiceProvided: data['lvT9gfpHIlT'] ?? '',
       comments: data['LcG4J82PM4Z'] ?? '',
