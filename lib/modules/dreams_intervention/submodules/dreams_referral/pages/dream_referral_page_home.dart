@@ -61,16 +61,30 @@ class _DreamAgywReferralPageState extends State<DreamAgywReferralPage> {
         MaterialPageRoute(builder: (context) => DreamAgywAddReferralForm()));
   }
 
-  void onViewChildReferral(BuildContext context, Events eventData) {
+  void onViewChildReferral(
+      BuildContext context, Events eventData, int referralIndex) {
     updateFormState(context, false, eventData);
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => DreamReferralView()));
+        context,
+        MaterialPageRoute(
+          builder: (context) => DreamReferralView(
+            eventData: eventData,
+            referralIndex: referralIndex,
+          ),
+        ));
   }
 
-  void onManageChildReferral(BuildContext context, Events eventData) {
+  void onManageChildReferral(
+      BuildContext context, Events eventData, int referralIndex) {
     updateFormState(context, false, eventData);
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => DreamReferralManage()));
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => DreamReferralManage(
+            eventData: eventData,
+            referralIndex: referralIndex,
+          ),
+        ));
   }
 
   @override
@@ -131,7 +145,7 @@ class _DreamAgywReferralPageState extends State<DreamAgywReferralPage> {
                                                 child: Column(
                                                   children: events
                                                       .map((Events eventData) {
-                                                    referralIndex--;
+                                                    int count = referralIndex--;
                                                     return Container(
                                                       margin: EdgeInsets.only(
                                                         bottom: 15.0,
@@ -144,7 +158,7 @@ class _DreamAgywReferralPageState extends State<DreamAgywReferralPage> {
                                                             Color(0xFF1F8ECE),
                                                         titleColor:
                                                             Color(0xFF05131B),
-                                                        count: referralIndex,
+                                                        count: count,
                                                         cardBody:
                                                             ReferralCardBodySummary(
                                                           labelColor:
@@ -156,12 +170,16 @@ class _DreamAgywReferralPageState extends State<DreamAgywReferralPage> {
                                                         ),
                                                         onView: () =>
                                                             onViewChildReferral(
-                                                                context,
-                                                                eventData),
+                                                          context,
+                                                          eventData,
+                                                          count,
+                                                        ),
                                                         onManage: () =>
                                                             onManageChildReferral(
-                                                                context,
-                                                                eventData),
+                                                          context,
+                                                          eventData,
+                                                          count,
+                                                        ),
                                                       ),
                                                     );
                                                   }).toList(),

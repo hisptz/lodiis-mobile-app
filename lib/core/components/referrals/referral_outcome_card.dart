@@ -12,6 +12,9 @@ import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
 import 'package:kb_mobile_app/core/components/referrals/referral_outcome_modal.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_referral/models/dream_referral.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_referral/models/dream_referral_followup.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_referral/models/dream_referral_outcome.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/models/ovc_referral.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/models/ovc_referral_followup.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/models/ovc_referral_outcome.dart';
@@ -25,7 +28,7 @@ class ReferralOutComeCard extends StatefulWidget {
     @required this.referralFollowUpStage,
     @required this.referralToFollowUpLinkage,
     @required this.referralProgram,
-    this.isOvcIntervention = true,
+    @required this.isOvcIntervention,
     this.isEditableMode = true,
   }) : super(key: key);
 
@@ -62,11 +65,11 @@ class _ReferralOutComeCardState extends State<ReferralOutComeCard> {
           OvcReferralFollowUp.getFormSections();
     } else {
       themeColor = const Color(0xFF1F8ECE);
-      referralOutcomeFormSections = OvcReferralOutCome.getFormSections();
+      referralOutcomeFormSections = DreamReferralOutCome.getFormSections();
       hiddenFields
-          .addAll(FormUtil.getFormFieldIds(OvcReferral.getFormSections()));
+          .addAll(FormUtil.getFormFieldIds(DreamAddReferral.getFormSections()));
       referralOutcomeFollowUpFormSections =
-          OvcReferralFollowUp.getFormSections();
+          DreamReferralFollowUp.getFormSections();
     }
 
     Timer(Duration(seconds: 1), () {

@@ -76,6 +76,7 @@ class _OvcHouseHoldReferralViewState extends State<OvcHouseHoldReferralView> {
                                 eventData: widget.eventData,
                               ),
                               ReferralOutComeCard(
+                                isOvcIntervention: true,
                                 beneficiary: currentOvcHouseHold.teiData,
                                 eventData: widget.eventData,
                                 isEditableMode: false,

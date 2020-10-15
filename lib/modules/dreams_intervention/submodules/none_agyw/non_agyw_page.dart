@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dream_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
+import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/line_seperator.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
@@ -34,6 +35,8 @@ class _NoneAgywState extends State<NoneAgyw> {
   void onPrep(BuildContext context, AgywDream agywDream) {
     Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
         .setCurrentAgywDream(agywDream);
+    Provider.of<ServiveEventDataState>(context, listen: false)
+        .resetServiceEventDataState(agywDream.id);
     Navigator.push(
         context,
         MaterialPageRoute(

@@ -14,9 +14,9 @@ import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/components/prep_visit_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/constant/non_agyw_prep_visit_constant.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/sub_pages/none_agyw_prep/pages/none_agyw_prep_form.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
 import 'package:provider/provider.dart';
-import 'pages/none_agyw_prep_form.dart';
 
 class NoneAgywPrep extends StatefulWidget {
   NoneAgywPrep({Key key}) : super(key: key);
@@ -31,11 +31,6 @@ class _NoneAgywPrepState extends State<NoneAgywPrep> {
   @override
   void initState() {
     super.initState();
-    Provider.of<ServiveEventDataState>(context, listen: false)
-        .resetServiceEventDataState(
-            Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
-                .currentAgywDream
-                .id);
   }
 
   void updateFormState(

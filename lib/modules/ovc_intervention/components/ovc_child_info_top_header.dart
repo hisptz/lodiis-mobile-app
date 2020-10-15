@@ -25,13 +25,24 @@ class OvcChildInfoTopHeader extends StatelessWidget {
                 children: [
                   Container(
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Container(
                           margin: EdgeInsets.symmetric(
                               horizontal: 10.0, vertical: 5.0),
                           child: Text(
                             currentOvcHouseHoldChild.toString(),
+                            style: TextStyle().copyWith(
+                                color: Color(0xFF1A3518),
+                                fontSize: 14.0,
+                                fontWeight: FontWeight.w700),
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.symmetric(
+                              horizontal: 10.0, vertical: 5.0),
+                          child: Text(
+                            currentOvcHouseHoldChild.childId,
                             style: TextStyle().copyWith(
                                 color: Color(0xFF1A3518),
                                 fontSize: 14.0,

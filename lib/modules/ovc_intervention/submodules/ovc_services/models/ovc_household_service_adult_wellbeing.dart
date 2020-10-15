@@ -315,7 +315,7 @@ class OvcHouseHoldServiceAdultWellbeing {
                 options: [
                   InputFieldOption(code: '1', name: 'Yes'),
                   InputFieldOption(code: '0', name: 'No'),
-                  InputFieldOption(code: '0', name: 'NA')
+                  InputFieldOption(code: '0.000001', name: 'NA')
                 ]),
             InputField(
                 id: 'ut8LqpHyZnR',
@@ -361,7 +361,7 @@ class OvcHouseHoldServiceAdultWellbeing {
                 options: [
                   InputFieldOption(code: '1', name: 'Yes'),
                   InputFieldOption(code: '0', name: 'No'),
-                  InputFieldOption(code: '0', name: 'NA')
+                  InputFieldOption(code: '0.000001', name: 'NA')
                 ]),
             InputField(
                 id: 'w6xeZ47TwwI',
@@ -422,7 +422,7 @@ class OvcHouseHoldServiceAdultWellbeing {
                 options: [
                   InputFieldOption(code: '1', name: 'Yes'),
                   InputFieldOption(code: '0', name: 'No'),
-                  InputFieldOption(code: '0', name: 'NA')
+                  InputFieldOption(code: '0.000001', name: 'NA')
                 ]),
             InputField(
                 id: 'ubin7MjQ5OI',
@@ -489,7 +489,7 @@ class OvcHouseHoldServiceAdultWellbeing {
                 options: [
                   InputFieldOption(code: '1', name: 'Yes'),
                   InputFieldOption(code: '0', name: 'No'),
-                  InputFieldOption(code: '0', name: 'NA')
+                  InputFieldOption(code: '0.000001', name: 'NA')
                 ]),
             InputField(
                 id: 'aRNGDZcwWmS',

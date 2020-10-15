@@ -9,21 +9,21 @@ class DreamReferralFollowUp {
     return [
       FormSection(
           name: 'Referral Follow Up',
-          color: Color(0xFF1B3519),
+          color: Color(0xFF737373),
           inputFields: [
             InputField(
               id: 'DPf5mUDoZMy',
               name: 'Follow-up date',
               valueType: 'DATE',
               inputColor: Color(0xFF1F8ECE),
-              labelColor: Color(0xFF1A3518),
+              labelColor: Color(0xFF737373),
             ),
             InputField(
                 id: 'VHe4ctA0bqU',
                 name: 'Follow-up Status',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF1A3518),
+                labelColor: Color(0xFF737373),
                 options: [
                   InputFieldOption(code: 'Complete', name: 'Complete'),
                   InputFieldOption(code: 'Not complete', name: 'Not complete'),
@@ -33,14 +33,14 @@ class DreamReferralFollowUp {
               name: 'Additional follow up required',
               valueType: 'BOOLEAN',
               inputColor: Color(0xFF1F8ECE),
-              labelColor: Color(0xFF1A3518),
+              labelColor: Color(0xFF737373),
             ),
             InputField(
               id: 'LcG4J82PM4Z',
               name: 'Comments or next steps',
               valueType: 'LONG_TEXT',
               inputColor: Color(0xFF1F8ECE),
-              labelColor: Color(0xFF1A3518),
+              labelColor: Color(0xFF737373),
             ),
           ])
     ];
