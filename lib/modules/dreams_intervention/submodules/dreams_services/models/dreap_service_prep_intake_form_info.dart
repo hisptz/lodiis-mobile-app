@@ -405,25 +405,45 @@ class DreamsServicePrepIntakeInfo {
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
                 name: 'Ever received a blood transfusion?',
-                valueType: 'TEXT'),
+                valueType: 'TEXT',
+                options: [
+                  InputFieldOption(code: '1', name: 'Yes'),
+                  InputFieldOption(code: '0', name: 'No'),
+                  InputFieldOption(code: '0.000001', name: 'NA')
+                ]),
             InputField(
                 id: 'JNeeY3eWUFF',
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
                 name: 'History of sexual abuse?',
-                valueType: 'TEXT'),
+                valueType: 'TEXT',
+                options: [
+                  InputFieldOption(code: '1', name: 'Yes'),
+                  InputFieldOption(code: '0', name: 'No'),
+                  InputFieldOption(code: '0.000001', name: 'NA')
+                ]),
             InputField(
                 id: 'meLwdeoU4Ei',
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
                 name: 'Ever had vaginal sexual intercourse?',
-                valueType: 'TEXT'),
+                valueType: 'TEXT',
+                options: [
+                  InputFieldOption(code: '1', name: 'Yes'),
+                  InputFieldOption(code: '0', name: 'No'),
+                  InputFieldOption(code: '0.000001', name: 'NA')
+                ]),
             InputField(
                 id: 'Syuc71VFOuO',
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
                 name: 'Ever had anal intercourse?',
-                valueType: 'TEXT'),
+                valueType: 'TEXT',
+                options: [
+                  InputFieldOption(code: '1', name: 'Yes'),
+                  InputFieldOption(code: '0', name: 'No'),
+                  InputFieldOption(code: '0.000001', name: 'NA')
+                ]),
             InputField(
                 id: 'zs5TJVoHg9j',
                 inputColor: Color(0xFF1F8ECE),
@@ -472,6 +492,7 @@ class DreamsServicePrepIntakeInfo {
                 options: [
                   InputFieldOption(code: '1', name: 'Yes'),
                   InputFieldOption(code: '0', name: 'No'),
+                  InputFieldOption(code: '0.000001', name: 'NA')
                 ],
                 valueType: 'TEXT'),
             InputField(
@@ -479,11 +500,12 @@ class DreamsServicePrepIntakeInfo {
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
                 name: 'Currently have sores or unusual leakage?',
+                valueType: 'TEXT',
                 options: [
                   InputFieldOption(code: '1', name: 'Yes'),
                   InputFieldOption(code: '0', name: 'No'),
-                ],
-                valueType: 'TEXT'),
+                  InputFieldOption(code: '0.000001', name: 'NA')
+                ]),
             InputField(
                 id: 'rZSfGXtRJbz',
                 inputColor: Color(0xFF1F8ECE),
@@ -497,52 +519,57 @@ class DreamsServicePrepIntakeInfo {
                 labelColor: Color(0xFF737373),
                 name:
                     'Do you currently have more than one sexual partner(including your spouse)?',
+                valueType: 'TEXT',
                 options: [
                   InputFieldOption(code: '1', name: 'Yes'),
                   InputFieldOption(code: '0', name: 'No'),
-                ],
-                valueType: 'TEXT'),
+                  InputFieldOption(code: '0.000001', name: 'NA')
+                ]),
             InputField(
                 id: 'Btlk1QnYGHW',
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
                 name:
                     'The last time you had sex with a non-regular partner,did you use a condom?',
+                valueType: 'TEXT',
                 options: [
                   InputFieldOption(code: '1', name: 'Yes'),
                   InputFieldOption(code: '0', name: 'No'),
-                ],
-                valueType: 'TEXT'),
+                  InputFieldOption(code: '0.000001', name: 'NA')
+                ]),
             InputField(
                 id: 'HL6ENjSn2kn',
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
-                name: ' Have you ever talked to anyone about HTS?',
+                name: 'Have you ever talked to anyone about HTS?',
+                valueType: 'NUMBER',
                 options: [
                   InputFieldOption(code: '1', name: 'Yes'),
                   InputFieldOption(code: '0', name: 'No'),
-                ],
-                valueType: 'NUMBER'),
+                  InputFieldOption(code: '0.000001', name: 'NA')
+                ]),
             InputField(
                 id: 'B1wgf8qa8a6',
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
                 name: 'Have you ever talked to your spouse about HTS?',
+                valueType: 'TEXT',
                 options: [
                   InputFieldOption(code: '1', name: 'Yes'),
                   InputFieldOption(code: '0', name: 'No'),
-                ],
-                valueType: 'TEXT'),
+                  InputFieldOption(code: '0.000001', name: 'NA')
+                ]),
             InputField(
                 id: 'KmkodeXrOOe',
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
                 name: 'Have you ever talked to your regular partner about HTS?',
+                valueType: 'TEXT',
                 options: [
                   InputFieldOption(code: '1', name: 'Yes'),
                   InputFieldOption(code: '0', name: 'No'),
-                ],
-                valueType: 'TEXT'),
+                  InputFieldOption(code: '0.000001', name: 'NA')
+                ]),
             InputField(
                 id: 'XpMXPwbmx7u',
                 inputColor: Color(0xFF1F8ECE),

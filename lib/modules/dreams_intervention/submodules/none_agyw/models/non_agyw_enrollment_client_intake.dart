@@ -404,7 +404,7 @@ class NonAgywEnrollmentFormSection {
                 options: [
                   InputFieldOption(code: '1', name: 'Yes'),
                   InputFieldOption(code: '0', name: 'No'),
-                  InputFieldOption(code: '0', name: 'NA')
+                  InputFieldOption(code: '0.000001', name: 'NA')
                 ]),
             InputField(
                 id: 'uBaYzuSsNts',
@@ -415,7 +415,7 @@ class NonAgywEnrollmentFormSection {
                 options: [
                   InputFieldOption(code: '1', name: 'Yes'),
                   InputFieldOption(code: '0', name: 'No'),
-                  InputFieldOption(code: '0', name: 'NA')
+                  InputFieldOption(code: '0.000001', name: 'NA')
                 ]),
             InputField(
                 id: 'F3g7aYQNOwW',
@@ -426,7 +426,7 @@ class NonAgywEnrollmentFormSection {
                 options: [
                   InputFieldOption(code: '1', name: 'Yes'),
                   InputFieldOption(code: '0', name: 'No'),
-                  InputFieldOption(code: '0', name: 'NA')
+                  InputFieldOption(code: '0.000001', name: 'NA')
                 ]),
             InputField(
                 id: 'a4cZRyZbgaP',
@@ -437,7 +437,7 @@ class NonAgywEnrollmentFormSection {
                 options: [
                   InputFieldOption(code: '1', name: 'Yes'),
                   InputFieldOption(code: '0', name: 'No'),
-                  InputFieldOption(code: '0', name: 'NA')
+                  InputFieldOption(code: '0.000001', name: 'NA')
                 ]),
             InputField(
                 id: 'zvGJ4XV5vaK',
@@ -488,7 +488,7 @@ class NonAgywEnrollmentFormSection {
                 options: [
                   InputFieldOption(code: '1', name: 'Yes'),
                   InputFieldOption(code: '0', name: 'No'),
-                  InputFieldOption(code: '0', name: 'NA')
+                  InputFieldOption(code: '0.000001', name: 'NA')
                 ]),
             InputField(
                 id: 'BL8liR3gxy6',
@@ -499,7 +499,7 @@ class NonAgywEnrollmentFormSection {
                 options: [
                   InputFieldOption(code: '1', name: 'Yes'),
                   InputFieldOption(code: '0', name: 'No'),
-                  InputFieldOption(code: '0', name: 'NA')
+                  InputFieldOption(code: '0.000001', name: 'NA')
                 ]),
             InputField(
                 id: 'h5llEgMRPEy',
@@ -518,7 +518,7 @@ class NonAgywEnrollmentFormSection {
                 options: [
                   InputFieldOption(code: '1', name: 'Yes'),
                   InputFieldOption(code: '0', name: 'No'),
-                  InputFieldOption(code: '0', name: 'NA')
+                  InputFieldOption(code: '0.000001', name: 'NA')
                 ]),
             InputField(
                 id: 'irTgmXk3Lo8',
@@ -530,7 +530,7 @@ class NonAgywEnrollmentFormSection {
                 options: [
                   InputFieldOption(code: '1', name: 'Yes'),
                   InputFieldOption(code: '0', name: 'No'),
-                  InputFieldOption(code: '0', name: 'NA')
+                  InputFieldOption(code: '0.000001', name: 'NA')
                 ]),
             InputField(
                 id: 'bgigq6VXGlz',
@@ -542,7 +542,7 @@ class NonAgywEnrollmentFormSection {
                 options: [
                   InputFieldOption(code: '1', name: 'Yes'),
                   InputFieldOption(code: '0', name: 'No'),
-                  InputFieldOption(code: '0', name: 'NA')
+                  InputFieldOption(code: '0.000001', name: 'NA')
                 ]),
             InputField(
                 id: 'llhNCWTFjAL',
@@ -553,7 +553,7 @@ class NonAgywEnrollmentFormSection {
                 options: [
                   InputFieldOption(code: '1', name: 'Yes'),
                   InputFieldOption(code: '0', name: 'No'),
-                  InputFieldOption(code: '0', name: 'NA')
+                  InputFieldOption(code: '0.000001', name: 'NA')
                 ]),
             InputField(
                 id: 'GnuckKsbxtk',
@@ -564,7 +564,7 @@ class NonAgywEnrollmentFormSection {
                 options: [
                   InputFieldOption(code: '1', name: 'Yes'),
                   InputFieldOption(code: '0', name: 'No'),
-                  InputFieldOption(code: '0', name: 'NA')
+                  InputFieldOption(code: '0.000001', name: 'NA')
                 ]),
             InputField(
                 id: 'pjdU6Cgwy5j',
@@ -575,7 +575,7 @@ class NonAgywEnrollmentFormSection {
                 options: [
                   InputFieldOption(code: '1', name: 'Yes'),
                   InputFieldOption(code: '0', name: 'No'),
-                  InputFieldOption(code: '0', name: 'NA')
+                  InputFieldOption(code: '0.000001', name: 'NA')
                 ]),
             InputField(
                 id: 'aQv0U93Wg1R',
