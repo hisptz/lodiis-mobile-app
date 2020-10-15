@@ -31,11 +31,11 @@ class OvcHouseHoldCardHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double iconHeight = 20;
+    double iconHeight = 20.0;
     return Column(
       children: [
         Container(
-          margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          margin: EdgeInsets.symmetric(horizontal: 5.0, vertical: 10.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
