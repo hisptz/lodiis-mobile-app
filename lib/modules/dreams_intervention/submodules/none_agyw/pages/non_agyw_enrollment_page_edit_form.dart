@@ -174,9 +174,7 @@ class _DreamNonAgywEnrollmentEditFormState
                                   ),
                                 ),
                                 OvcEnrollmentFormSaveButton(
-                                  label: isSaving
-                                      ? 'Saving House Hold ...'
-                                      : 'Save House Hold',
+                                  label: isSaving ? 'Saving ...' : 'Save',
                                   labelColor: Colors.white,
                                   buttonColor: Color(0xFF258DCC),
                                   fontSize: 15.0,

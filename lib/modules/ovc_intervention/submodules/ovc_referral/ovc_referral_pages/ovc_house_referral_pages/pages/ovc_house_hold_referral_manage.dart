@@ -77,6 +77,7 @@ class _OvcHouseHoldReferralManageState
                                 eventData: widget.eventData,
                               ),
                               ReferralOutComeCardContainer(
+                                isOvcIntervention: true,
                                 currentEventId: widget.eventData.event,
                                 currentProgramStage:
                                     widget.eventData.programStage,

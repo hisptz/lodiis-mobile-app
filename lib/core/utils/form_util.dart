@@ -5,7 +5,7 @@ import 'package:kb_mobile_app/core/offline_db/event_offline/event_offline_provid
 import 'package:kb_mobile_app/core/offline_db/tei_relationship_offline/tei_relationship_offline_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/tracked_entity_instance_offline/tracked_entity_instance_offline_provider.dart';
 import 'package:kb_mobile_app/core/services/organisation_unit_service.dart';
-import 'package:kb_mobile_app/core/services/reserved_value_service.dart';
+import 'package:kb_mobile_app/core/services/reserved_attribute_value_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/enrollment.dart';
 import 'package:kb_mobile_app/models/events.dart';
@@ -87,16 +87,18 @@ class FormUtil {
     trackedEntityInstance = trackedEntityInstance ?? AppUtil.getUid();
     String beneficiaryIndex =
         dataObject[BeneficiaryIdentification.beneficiaryIndex] ??
-            await ReservedValueService().getReservedAttributeValue();
-    dataObject[BeneficiaryIdentification.beneficiaryIndex] = beneficiaryIndex;
+            await ReservedAttributeValueService().getReservedAttributeValue();
     List<OrganisationUnit> organisationUnits =
         await OrganisationUnitService().getOrganisationUnits([orgUnit]);
     OrganisationUnit organisationUnit =
         organisationUnits.length > 0 ? organisationUnits[0] : null;
     dataObject[BeneficiaryIdentification.beneficiaryId] =
-        dataObject[BeneficiaryIdentification.beneficiaryId] ??
-            BeneficiaryIdentification().getBenificiaryId(
-                organisationUnit, dataObject, beneficiaryIndex);
+        dataObject[BeneficiaryIdentification.beneficiaryId] =
+            dataObject[BeneficiaryIdentification.beneficiaryIndex] != null
+                ? dataObject[BeneficiaryIdentification.beneficiaryId]
+                : BeneficiaryIdentification().getBenificiaryId(
+                    organisationUnit, dataObject, beneficiaryIndex);
+    dataObject[BeneficiaryIdentification.beneficiaryIndex] = beneficiaryIndex;
     String attributes = inputFieldIds
         .map((String attribute) {
           String value = dataObject.keys.toList().indexOf(attribute) > -1
@@ -174,7 +176,7 @@ class FormUtil {
   ) async {
     await TrackedEntityInstanceOfflineProvider()
         .addOrUpdateTrackedEntityInstance(trackedEntityInstance);
-    await ReservedValueService().cleanUsedReservedValues();
+    await ReservedAttributeValueService().cleanUsedReservedAttributeValues();
   }
 
   static Future savingEnrollment(Enrollment enrollment) async {

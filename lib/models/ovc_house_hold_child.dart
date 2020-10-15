@@ -36,7 +36,8 @@ class OvcHouseHoldChild {
       's1HaiT6OllL',
       'rSP9c21JsfC',
       'ls9hlz2tyol',
-      'vIX4GTSCX4P'
+      'vIX4GTSCX4P',
+      BeneficiaryIdentification.beneficiaryId
     ];
     Map data = Map();
     for (Map attributOj in tei.attributes) {

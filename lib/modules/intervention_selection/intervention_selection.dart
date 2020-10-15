@@ -5,7 +5,7 @@ import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_in
 import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_intervention_list_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/constants/custom_color.dart';
-import 'package:kb_mobile_app/core/services/reserved_value_service.dart';
+import 'package:kb_mobile_app/core/services/reserved_attribute_value_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/intervention_selection/components/intervention_selection_container.dart';
@@ -39,7 +39,7 @@ class _InterventionSelectionState extends State<InterventionSelection> {
   }
 
   upDataStateLoadingStatus() async {
-     await ReservedValueService().generateReservedAttributeValue();
+    await ReservedAttributeValueService().generateReservedAttributeValues();
     Provider.of<OvcInterventionListState>(context, listen: false)
         .refreshOvcList();
     Provider.of<DreamsInterventionListState>(context, listen: false)

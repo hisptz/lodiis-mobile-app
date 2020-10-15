@@ -17,7 +17,7 @@ class NonAgywEnrollmentPrepScreening {
     return [
       FormSection(
           name: 'PrEP Screening for Substantial Risk and Eligibility',
-          color: Color(0xFF05131B),
+          color: Color(0xFF737373),
           subSections: [
             FormSection(
                 name: 'Facility Information',
@@ -28,20 +28,20 @@ class NonAgywEnrollmentPrepScreening {
                       name: 'Facility Name',
                       valueType: 'ORGANISATION_UNIT',
                       inputColor: Color(0xFF258DCC),
-                      labelColor: Color(0xFF05131B)),
+                      labelColor: Color(0xFF737373)),
                   InputField(
                       id: 'yuOiCMwlOlb',
                       name: 'Entry point /Reason for visiting facility',
                       valueType: 'TEXT',
                       inputColor: Color(0xFF258DCC),
-                      labelColor: Color(0xFF05131B)),
+                      labelColor: Color(0xFF737373)),
                   InputField(
                       id: 'w16L3KidzUp',
                       allowFuturePeriod: true,
                       name: 'Date of initial client visit',
                       valueType: 'DATE',
                       inputColor: Color(0xFF258DCC),
-                      labelColor: Color(0xFF05131B)),
+                      labelColor: Color(0xFF737373)),
                 ]),
             FormSection(
                 name: 'Recent Exposure to HIV.  Ask, “In the last 30 days”…',
@@ -53,7 +53,7 @@ class NonAgywEnrollmentPrepScreening {
                           'Have you had sex without a condom with someone living with HIV who is not on treatment',
                       valueType: 'TEXT',
                       inputColor: Color(0xFF258DCC),
-                      labelColor: Color(0xFF05131B),
+                      labelColor: Color(0xFF737373),
                       options: [
                         InputFieldOption(code: 'Yes', name: 'Yes'),
                         InputFieldOption(code: 'No', name: 'No'),
@@ -71,7 +71,7 @@ class NonAgywEnrollmentPrepScreening {
                           'Have you had condom-less sex or other high risk HIV exposure in the past 2 – 6 weeks',
                       valueType: 'TEXT',
                       inputColor: Color(0xFF258DCC),
-                      labelColor: Color(0xFF05131B),
+                      labelColor: Color(0xFF737373),
                       options: [
                         InputFieldOption(code: 'Yes', name: 'Yes'),
                         InputFieldOption(code: 'No', name: 'No'),
@@ -84,7 +84,7 @@ class NonAgywEnrollmentPrepScreening {
                           'Have you had a “cold” or “flu”, runny nose, fatigue, malaise, headache, sore throat, mouth sores, lymphadenopathy, skin rash, myalgia( muscle pain), arthralgia(joint pain)?',
                       valueType: 'TEXT',
                       inputColor: Color(0xFF258DCC),
-                      labelColor: Color(0xFF05131B),
+                      labelColor: Color(0xFF737373),
                       options: [
                         InputFieldOption(code: 'Yes', name: 'Yes'),
                         InputFieldOption(code: 'No', name: 'No'),
@@ -104,26 +104,26 @@ class NonAgywEnrollmentPrepScreening {
                           'Is the client currently taking nephrotoxic drugs. Refer to creatinine clearance job aid for list of nephrotoxic drugs. Consult doctor about alternative medication/management before initiating PrEP?',
                       valueType: 'TRUE_ONLY',
                       inputColor: Color(0xFF258DCC),
-                      labelColor: Color(0xFF05131B)),
+                      labelColor: Color(0xFF737373)),
                   InputField(
                       id: 'nLLHqOGTQK9',
                       name: 'Has creatinine clearance (eGFR) <60 ml/min',
                       valueType: 'TRUE_ONLY',
                       inputColor: Color(0xFF258DCC),
-                      labelColor: Color(0xFF05131B)),
+                      labelColor: Color(0xFF737373)),
                   InputField(
                       id: 'sa81lAvBb7Y',
                       name: 'Weight below 35kg',
                       valueType: 'TRUE_ONLY',
                       inputColor: Color(0xFF258DCC),
-                      labelColor: Color(0xFF05131B)),
+                      labelColor: Color(0xFF737373)),
                   InputField(
                       id: 'wJ0ctEtFyzS',
                       name:
                           'Allergy or contraindication to any medicine in the PrEP regimen',
                       valueType: 'TRUE_ONLY',
                       inputColor: Color(0xFF258DCC),
-                      labelColor: Color(0xFF05131B)),
+                      labelColor: Color(0xFF737373)),
                 ]),
             FormSection(
                 name: 'PrEP Eligibility',
@@ -136,26 +136,26 @@ class NonAgywEnrollmentPrepScreening {
                       name: 'HIV-negative',
                       valueType: 'TRUE_ONLY',
                       inputColor: Color(0xFF258DCC),
-                      labelColor: Color(0xFF05131B)),
+                      labelColor: Color(0xFF737373)),
                   InputField(
                       id: 'ACcf4Jyy30c',
                       name: 'At substantial risk of HIV',
                       valueType: 'TRUE_ONLY',
                       inputColor: Color(0xFF258DCC),
-                      labelColor: Color(0xFF05131B)),
+                      labelColor: Color(0xFF737373)),
                   InputField(
                       id: 'wNIvEyH95EU',
                       name: 'Has no signs/symptoms of acute HIV infection',
                       valueType: 'TRUE_ONLY',
                       inputColor: Color(0xFF258DCC),
-                      labelColor: Color(0xFF05131B)),
+                      labelColor: Color(0xFF737373)),
                   InputField(
                       id: 'z7eAqo0LMqi',
                       name:
                           'Has creatinine clearance (eGFR) >60 ml/min or patient has no risk factors for renal disease and the creatinine result is pending (see Creatinine clearance job aid for risk factors)',
                       valueType: 'TRUE_ONLY',
                       inputColor: Color(0xFF258DCC),
-                      labelColor: Color(0xFF05131B)),
+                      labelColor: Color(0xFF737373)),
                 ]),
             FormSection(
                 name: '',
@@ -167,43 +167,43 @@ class NonAgywEnrollmentPrepScreening {
                       name: 'Date tested',
                       valueType: 'DATE',
                       inputColor: Color(0xFF258DCC),
-                      labelColor: Color(0xFF05131B)),
+                      labelColor: Color(0xFF737373)),
                   InputField(
                       id: 'uBJeTLcoAKM',
                       name: 'Type of test used',
                       valueType: 'TEXT',
                       inputColor: Color(0xFF258DCC),
-                      labelColor: Color(0xFF05131B)),
+                      labelColor: Color(0xFF737373)),
                   InputField(
                       id: 'OLaa0ZiGMVu',
                       name: 'Other type of test used',
                       valueType: 'TEXT',
                       inputColor: Color(0xFF258DCC),
-                      labelColor: Color(0xFF05131B)),
+                      labelColor: Color(0xFF737373)),
                   InputField(
                       id: 'zGAjwEL0yL5',
                       name: 'eGFR Result',
                       valueType: 'TEXT',
                       inputColor: Color(0xFF258DCC),
-                      labelColor: Color(0xFF05131B)),
+                      labelColor: Color(0xFF737373)),
                   InputField(
                       id: 'fufd2D8sYc3',
                       name: 'Date of eGFR results',
                       valueType: 'DATE',
                       inputColor: Color(0xFF258DCC),
-                      labelColor: Color(0xFF05131B)),
+                      labelColor: Color(0xFF737373)),
                   InputField(
                       id: 'fchWv2MSmaS',
                       name: 'Creatinine clearance (calculated)',
                       valueType: 'TEXT',
                       inputColor: Color(0xFF258DCC),
-                      labelColor: Color(0xFF05131B)),
+                      labelColor: Color(0xFF737373)),
                   InputField(
                       id: 'heT7TrQQAA1',
                       name: 'Date Creatinine clearance (calculated)',
                       valueType: 'DATE',
                       inputColor: Color(0xFF258DCC),
-                      labelColor: Color(0xFF05131B))
+                      labelColor: Color(0xFF737373))
                 ]),
             FormSection(
                 name: 'Services Received by Client',
@@ -214,44 +214,44 @@ class NonAgywEnrollmentPrepScreening {
                       name: 'PrEP initiated',
                       valueType: 'TRUE_ONLY',
                       inputColor: Color(0xFF258DCC),
-                      labelColor: Color(0xFF05131B)),
+                      labelColor: Color(0xFF737373)),
                   InputField(
                       id: 'QTHDGaiEgMk',
                       name: 'Initiated on PEP',
                       valueType: 'TRUE_ONLY',
                       inputColor: Color(0xFF258DCC),
-                      labelColor: Color(0xFF05131B)),
+                      labelColor: Color(0xFF737373)),
                   InputField(
                       id: 'wSnrfl8u3Kw',
                       name: 'To start PrEP after completing PEP',
                       valueType: 'TRUE_ONLY',
                       inputColor: Color(0xFF258DCC),
-                      labelColor: Color(0xFF05131B)),
+                      labelColor: Color(0xFF737373)),
                   InputField(
                       id: 'pcS3AkmRGnq',
                       name:
                           'PCR/HIV Ag test or follow-up HIV re-testing (if suspicion of acute HIV infection)',
                       valueType: 'TRUE_ONLY',
                       inputColor: Color(0xFF258DCC),
-                      labelColor: Color(0xFF05131B)),
+                      labelColor: Color(0xFF737373)),
                   InputField(
                       id: 'ycrnvO8Am4c',
                       name: 'Client declined PrEP',
                       valueType: 'TRUE_ONLY',
                       inputColor: Color(0xFF258DCC),
-                      labelColor: Color(0xFF05131B)),
+                      labelColor: Color(0xFF737373)),
                   InputField(
                       id: 'eOy1XwiYC8H',
                       name: 'Referred for PrEP at another facility',
                       valueType: 'TRUE_ONLY',
                       inputColor: Color(0xFF258DCC),
-                      labelColor: Color(0xFF05131B)),
+                      labelColor: Color(0xFF737373)),
                   InputField(
                       id: 'X2m9v2E5WaI',
                       name: 'Name of facility PrEP referred',
                       valueType: 'TEXT',
                       inputColor: Color(0xFF258DCC),
-                      labelColor: Color(0xFF05131B)),
+                      labelColor: Color(0xFF737373)),
                 ]),
           ]),
     ];

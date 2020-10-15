@@ -16,14 +16,14 @@ class OvcReferralFollowUp {
               name: 'Follow-up date',
               valueType: 'DATE',
               inputColor: Color(0xFF4B9F46),
-              labelColor: Color(0xFF1A3518),
+              labelColor: Color(0xFF737373),
             ),
             InputField(
                 id: 'VHe4ctA0bqU',
                 name: 'Follow-up Status',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4B9F46),
-                labelColor: Color(0xFF1A3518),
+                labelColor: Color(0xFF737373),
                 options: [
                   InputFieldOption(code: 'Complete', name: 'Complete'),
                   InputFieldOption(code: 'Not complete', name: 'Not complete'),
@@ -33,14 +33,14 @@ class OvcReferralFollowUp {
               name: 'Additional follow up required',
               valueType: 'BOOLEAN',
               inputColor: Color(0xFF4B9F46),
-              labelColor: Color(0xFF1A3518),
+              labelColor: Color(0xFF737373),
             ),
             InputField(
               id: 'LcG4J82PM4Z',
               name: 'Comments or next steps',
               valueType: 'LONG_TEXT',
               inputColor: Color(0xFF4B9F46),
-              labelColor: Color(0xFF1A3518),
+              labelColor: Color(0xFF737373),
             ),
           ])
     ];
