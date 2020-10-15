@@ -5,9 +5,7 @@ import 'package:kb_mobile_app/core/offline_db/event_offline/event_offline_provid
 import 'package:kb_mobile_app/core/offline_db/tei_relationship_offline/tei_relationship_offline_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/tracked_entity_instance_offline/tracked_entity_instance_offline_provider.dart';
 import 'package:kb_mobile_app/core/services/http_service.dart';
-import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
-import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/models/enrollment.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/tei_relationship.dart';
@@ -15,7 +13,6 @@ import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
 
 class SynchronizationService {
   HttpService httpClient;
-
   final List programs;
   final List orgUnitIds;
   final String offlineSyncStatus = 'not-synced';
@@ -26,59 +23,96 @@ class SynchronizationService {
     httpClient = HttpService(username: username, password: password);
   }
 
-  Future downloadBenefiariesToTheServer() async {
-    String orgUnitId = '';
-    String programId = '';
-    String trackedEntityInstances_url =
-        'https://lsis-ovc-dreams.org/api/trackedEntityInstances.json?ouMode=DESCENDANTS&ou=$orgUnitId&program=$programId&totalPages=true&pageSize=10&fields=trackedEntityInstance,trackedEntityType,orgUnit,attributes[attribute,value],enrollments[enrollment,enrollmentDate,incidentDate,orgUnit,program,trackedEntityInstance,status]';
-    String event_url =
-        'api/trackedEntityInstances.json?ouMode=DESCENDANTS&ou=$orgUnitId&program=$programId&totalPages=true&pageSize=1000&page=3&fields=none';
-    String fields =
-        'fields=trackedEntityInstance,event,programStage,orgUnit,eventDate,dataValues[dataElement,value]';
-    CurrentUser currentUser;
-    currentUser = await UserService().getCurrentUser();
-    print(currentUser.programs.toList().toString());
-    print(currentUser.userOrgUnitIds.toList().toString());
-    for (var program in currentUser.programs) {}
+  List<String> downloadingStages = [];
 
-    //take orginisation ids and prorgrams 
-    // fetch trackedEntityInstance 
-    // fetch trackedEntityInstance 
-    // show progress while download 
-    // repeat similar for events 
-
-
-    Response response = await HttpService(
-            username: currentUser.username, password: currentUser.password)
-        .httpGetPagination(
-            "api/trackedEntityInstances.json?ouMode=DESCENDANTS&ou=j1R4h0Twe27&program=hOEIHJDrrvz&totalPages=true&pageSize=1000&page=3&fields=none",
-            10000);
+  Future<List<String>> getDataPaginationFilters(String url) async {
+    List<String> paginationFilter = [];
+    Response response = await httpClient.httpGetPagination("$url");
     Map<String, dynamic> pager = json.decode(response.body)['pager'];
-    int tot = pager['total'];
-    int page = pager['page'];
-    int pageSize = pager['pageSize'];
-    int total = tot >= pageSize ? tot : pageSize;
-    print(total);
-    for (int page = 1; page <= (total / pageSize.round()); page++) {
-      programs.forEach((program) {
-        orgUnitIds.forEach((organizationId) {
-          // print("hello");
-      
-      
-      
-        });
-      });
+    int pagetTotal = pager['total'];
+    int pageSize = 500;
+    int total = pagetTotal >= pageSize ? pagetTotal : pageSize;
+    for (int page = 1; page <= (total / pageSize).round(); page++) {
+      paginationFilter.add("totalPages=true&pageSize=$pageSize&page=$page");
+    }
+    return paginationFilter;
+  }
+
+  Future downloadBenefiariesToTheServer() async {
+    for (String orgUnitId in orgUnitIds) {
+      for (String program in programs) {
+        await getEventsfromServer(program, orgUnitId);
+        await getTrackedInstancefromServer(program, orgUnitId);
+      }
     }
 
-    // Download by programs
-    // get payloads the save to offline db;
-    // get tracked entity instances and enrollment payload
-    //https://lsis-ovc-dreams.org/api/trackedEntityInstances.json?ouMode=DESCENDANTS&ou=j1R4h0Twe27&program=hOEIHJDrrvz&totalPages=true&pageSize=10&fields=trackedEntityInstance,trackedEntityType,orgUnit,attributes[attribute,value],enrollments[enrollment,enrollmentDate,incidentDate,orgUnit,program,trackedEntityInstance,status]
+    downloadingStages.add("SuccessFully download");
+  }
 
-    // Getting events data
-    //https://lsis-ovc-dreams.org/api/events.json?ouMode=DESCENDANTS&orgUnit=j1R4h0Twe27&program=hOEIHJDrrvz&totalPages=true&pageSize=10&fields=event,program,programStage,trackedEntityInstance,status,orgUnit,dataValues[dataElement,value]
-  
-  
+  Future getEventsfromServer(String program, String userOrgId) async {
+    List<String> pageFilters = await getDataPaginationFilters(
+        "api/events.json?ouMode=DESCENDANTS&orgUnit=$userOrgId&program=$program");
+    int _count = 0;
+    downloadingStages.add("event pagination");
+    for (var pageFilter in pageFilters) {
+      _count++;
+      String newTrackedInstanceUrl =
+          "api/events.json?ouMode=DESCENDANTS&orgUnit=$userOrgId&program=$program&fields=event,program,programStage,trackedEntityInstance,status,orgUnit,dataValues[dataElement,value],eventDate&$pageFilter";
+      Response response = await httpClient.httpGet(newTrackedInstanceUrl);
+      if (response.statusCode == 200) {
+        var responseData = json.decode(response.body);
+        for (var event in responseData["events"]) {
+          await saveEventsToOffline(Events().fromJson(event));
+        }
+      } else {
+        return null;
+      }
+    }
+  }
+
+  Future saveEventsToOffline(Events event) async {
+    downloadingStages.add("event Data Saving");
+    EventOfflineProvider().addOrUpdateEvent(event);
+  }
+
+  Future getTrackedInstancefromServer(String program, String userOrgId) async {
+    List<String> pageFilters = await getDataPaginationFilters(
+        "api/trackedEntityInstances.json?ouMode=DESCENDANTS&ou=$userOrgId&program=$program");
+    downloadingStages.add("Tracked Instance pagination");
+    int _count = 0;
+    for (var pageFilter in pageFilters) {
+      _count++;
+      String newTrackedInstanceUrl =
+          "api/trackedEntityInstances.json?ouMode=DESCENDANTS&ou=$userOrgId&program=$program&fields=trackedEntityInstance,trackedEntityType,orgUnit,attributes[attribute,value],enrollments[enrollment,enrollmentDate,incidentDate,orgUnit,program,trackedEntityInstance,status]&$pageFilter";
+      Response response = await httpClient.httpGet(newTrackedInstanceUrl);
+
+      if (response.statusCode == 200) {
+        var responseData = json.decode(response.body);
+        for (var trackedEntityInstance
+            in responseData["trackedEntityInstances"]) {
+          await saveTrackeEntityInstanceToOffline(
+              TrackeEntityInstance().fromJson(trackedEntityInstance));
+          saveEnrollmentToOffline(trackedEntityInstance['enrollments']);
+        }
+      } else {
+        return null;
+      }
+    }
+  }
+
+  Future saveTrackeEntityInstanceToOffline(
+      TrackeEntityInstance trackeEntityInstance) async {
+    downloadingStages.add("Profile data saving");
+    TrackedEntityInstanceOfflineProvider()
+        .addOrUpdateTrackedEntityInstance(trackeEntityInstance);
+  }
+
+  Future saveEnrollmentToOffline(dynamic enrollments) async {
+    for (var enrollment in enrollments) {
+      downloadingStages.add("Enrollment Saving");
+      EnrollmentOfflineProvider()
+          .addOrUpdateEnrollement(Enrollment().fromJson(enrollment));
+    }
   }
 
   Future<List<TrackeEntityInstance>> getTeisFromOfflineDb() async {

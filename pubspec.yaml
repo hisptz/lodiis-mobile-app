@@ -19,6 +19,7 @@ dependencies:
   http: ^0.12.2
   random_color: ^1.0.5
   fluttertoast: ^7.0.4
+  flutter_stetho: ^0.5.2
   sqflite:
   path:
 dev_dependencies:

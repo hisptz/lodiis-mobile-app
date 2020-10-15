@@ -71,11 +71,7 @@ class _LoginFormState extends State<LoginForm> {
       if (user != null) {
         await UserService().setCurrentUser(user);
         await OrganisationUnitService().organisationUnitGetRequest();
-        await SynchronizationService("admin", "district", currentUser.programs,
-                currentUser.userOrgUnitIds)
-            .downloadBenefiariesToTheServer();
-
-        Timer(Duration(seconds: 2), () {
+             Timer(Duration(seconds: 2), () {
           Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(

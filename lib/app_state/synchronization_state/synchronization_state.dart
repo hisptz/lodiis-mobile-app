@@ -14,6 +14,7 @@ class SynchronizationState with ChangeNotifier {
   SynchronizationService _synchronizationService;
   int _beneficiaryCount;
   int _beneficiaryServiceCount;
+  int _pageCount;
   List<String> _dataDownloadProcess;
   List<String> _dataUploadProcess;
 
@@ -23,6 +24,7 @@ class SynchronizationState with ChangeNotifier {
   bool get isUnsyncedCheckingActive => _isUnsyncedCheckingActive ?? false;
   bool get isDataDownloadingActive => _isDataDownloadingActive ?? false;
   int get beneficiaryCount => _beneficiaryCount ?? 0;
+  int get pageCount => _pageCount ?? 0;
   int get beneficiaryServiceCount => _beneficiaryServiceCount ?? 0;
   List<String> get dataUploadProcesses => _dataUploadProcess ?? [];
   List<String> get dataDownloadProcesses => _dataDownloadProcess ?? [];
@@ -69,9 +71,16 @@ class SynchronizationState with ChangeNotifier {
   }
 
   void startDataDownloadActivity() async {
+    downloadSteps();
     _dataDownloadProcess = [];
     updateDataDownloadStatus(true);
+    addDataDownloadProcess("Start Dowloading....");
+    await _synchronizationService.downloadBenefiariesToTheServer();
     Timer(Duration(seconds: 1), () => updateDataDownloadStatus(false));
+  }
+
+   downloadSteps() async {
+    return _synchronizationService.downloadingStages;
   }
 
   Future startDataUploadActivity() async {
