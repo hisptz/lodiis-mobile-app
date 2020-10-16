@@ -11,11 +11,14 @@ class ReserveValueOffline extends OfflineDbProvider {
 
   addOrUpdateReservedValue(List<ReservedValue> reservedValues) async {
     var dbClient = await db;
-    for (ReservedValue reservedValue in reservedValues) {
+  try {
+      for (ReservedValue reservedValue in reservedValues) {
       await dbClient.insert(
           reservedValueTable, reservedValue.toOffline(reservedValue),
           conflictAlgorithm: ConflictAlgorithm.replace);
     }
+  } catch (e) {
+  }
   }
 
   Future<List<ReservedValue>> getReserveValue() async {

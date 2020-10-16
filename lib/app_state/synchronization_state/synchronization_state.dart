@@ -4,6 +4,9 @@ import 'package:flutter/foundation.dart';
 import 'package:kb_mobile_app/core/services/synchronization_service.dart';
 import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
+import 'package:kb_mobile_app/models/enrollment.dart';
+import 'package:kb_mobile_app/models/events.dart';
+import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
 
 class SynchronizationState with ChangeNotifier {
 // intial state
@@ -16,6 +19,10 @@ class SynchronizationState with ChangeNotifier {
   int _beneficiaryServiceCount;
   List<String> _dataDownloadProcess;
   List<String> _dataUploadProcess;
+  List<Events> _eventFromServer;
+  List<Enrollment> _enrollmentFromServer;
+  List<TrackeEntityInstance> _trackeEntityInstance;
+  List<dynamic> _servertrackedEntityInstance;
 
 // selectors
   bool get isDataUploadingActive => _isDataUploadingActive ?? false;
@@ -23,9 +30,15 @@ class SynchronizationState with ChangeNotifier {
   bool get isUnsyncedCheckingActive => _isUnsyncedCheckingActive ?? false;
   bool get isDataDownloadingActive => _isDataDownloadingActive ?? false;
   int get beneficiaryCount => _beneficiaryCount ?? 0;
-   int get beneficiaryServiceCount => _beneficiaryServiceCount ?? 0;
+  int get beneficiaryServiceCount => _beneficiaryServiceCount ?? 0;
   List<String> get dataUploadProcesses => _dataUploadProcess ?? [];
   List<String> get dataDownloadProcesses => _dataDownloadProcess ?? [];
+  List<Events> get eventFromServer => _eventFromServer ?? [];
+  List<Enrollment> get enrollmentFromServer => _enrollmentFromServer ?? [];
+  List<TrackeEntityInstance> get trackedEntityInstanceFromServer =>
+      _trackeEntityInstance ?? [];
+  List<dynamic> get servertrackedEntityInstance =>
+      _servertrackedEntityInstance ?? [];
 
 // reducers
   void updateDataUploadStatus(bool status) {
@@ -68,48 +81,108 @@ class SynchronizationState with ChangeNotifier {
     updateUnsynceDataCheckingStatus(false);
   }
 
-  void startDataDownloadActivity() async {
+  Future startDataDownloadActivity() async {
     _dataDownloadProcess = [];
+    _eventFromServer = [];
+    _servertrackedEntityInstance = [];
     updateDataDownloadStatus(true);
-    try {
-      addDataDownloadProcess("Start Dowloading....");
-      _synchronizationService
-          .downloadBenefiariesToTheServer()
-          .asStream()
-          .listen((data) async {
-        addDataDownloadProcess("Get Service pagination from server ...");
-        addDataDownloadProcess(
-            _synchronizationService.getEventsFromServerSteps);
-        addDataDownloadProcess(
-            _synchronizationService.getTrackedInstanceFromServerSteps);
-      }).onDone(() {
-        addDataDownloadProcess("finish Dowload");
-        Timer(Duration(seconds: 1), () => updateDataDownloadStatus(false));
-      });
-    } catch (e) {}
+    addDataDownloadProcess("Start Dowloading....");
+    for (String orgUnitId in _synchronizationService.orgUnitIds) {
+      for (String program in _synchronizationService.programs) {
+        addDataDownloadProcess("get service data ....");
+        _eventFromServer.addAll(await _synchronizationService
+            .getEventsfromServer(program, orgUnitId));
+        addDataDownloadProcess("get profile data ....");
+        _servertrackedEntityInstance.addAll(await _synchronizationService
+            .getTrackedInstancefromServer(program, orgUnitId));
+      }
+    }
+    addDataDownloadProcess("finish Dowload");
+
+    //todo analysis of data
+
+//saving events;
+    // addDataDownloadProcess("Saving service data ....");
+    // for (Events events in _eventFromServer) {
+    //   await _synchronizationService.saveEventsToOffline(events);
+    // }
+    // addDataDownloadProcess("Saving service data  complete");
+    // addDataDownloadProcess("Saving profile data ....");
+
+    // //saving profile data
+    // for (var trackedEntityInstance in _servertrackedEntityInstance){
+    //   TrackeEntityInstance trackeEntityInstance =
+    //       TrackeEntityInstance().fromJson(trackedEntityInstance);
+    //   await _synchronizationService.saveTrackeEntityInstanceToOffline(
+    //   TrackeEntityInstance().fromJson(trackedEntityInstance));
+
+    //   _synchronizationService
+    //       .saveEnrollmentToOffline(trackedEntityInstance['enrollments']);
+    // }
+    // addDataDownloadProcess("Saving profile data complete");
+    await analysisOfDownloadedData();
+    updateDataDownloadStatus(false);
   }
 
-  Future startDataUploadActivity() async {
-    _dataUploadProcess = [];
-    updateDataUploadStatus(true);
-    try {
-      addDataUploadProcess('Prepare offline data to upload');
-      var teis = await _synchronizationService.getTeisFromOfflineDb();
-      var teiEnrollments =
-          await _synchronizationService.getTeiEnrollmentFromOfflineDb();
-      if (teis.length > 0) {
-        addDataUploadProcess("Uploading beneficiary's profile data");
-        await _synchronizationService.uploadTeisToTheServer(
-            teis, teiEnrollments);
-        // @TODO uploading relationships
-      }
+  Future analysisOfDownloadedData() async {
+    //online data here
+    List dataDetails = servertrackedEntityInstance;
+    //offline data here
+    // List dataA = await _synchronizationService
+    //     .getOfflineTrackedEntityAttributesValuesById();
 
-      var teiEvents = await _synchronizationService.getTeiEventsFromOfflineDb();
-      if (teiEvents.length > 0) {
-        addDataUploadProcess("Uploading beneficiary's service data");
-        await _synchronizationService.uploadTeiEventsToTheServer(teiEvents);
+    List<String> attributeIds = [];
+
+    //get attributes
+    for (var trackedEntityInstance in servertrackedEntityInstance) {
+      TrackeEntityInstance trackeEntityInstance =
+          TrackeEntityInstance().fromJson(trackedEntityInstance);
+      attributeIds.add(trackeEntityInstance.attributes[0]['attribute']);
+    }
+//search and compare that does not exists in offline and save
+
+//search for those contain conflicts
+
+//it it has no conflict save them
+
+//search attributes from offline
+
+    List offlineTrackedEntityInstanceattributes = await _synchronizationService
+        .getOfflineTrackedEntityAttributesValuesById(attributeIds);
+    for (var trackedEntityInstance in servertrackedEntityInstance) {
+      TrackeEntityInstance trackeEntityInstance =
+          TrackeEntityInstance().fromJson(trackedEntityInstance);
+          print(trackeEntityInstance.attributes[0]);
+      if (offlineTrackedEntityInstanceattributes
+          .contains(trackeEntityInstance.attributes[0]['attribute'])) {
+        print("conflicts");
       }
-    } catch (e) {}
-    updateDataUploadStatus(false);
+      print("in start");
+    }
+
+    Future startDataUploadActivity() async {
+      _dataUploadProcess = [];
+      updateDataUploadStatus(true);
+      try {
+        addDataUploadProcess('Prepare offline data to upload');
+        var teis = await _synchronizationService.getTeisFromOfflineDb();
+        var teiEnrollments =
+            await _synchronizationService.getTeiEnrollmentFromOfflineDb();
+        if (teis.length > 0) {
+          addDataUploadProcess("Uploading beneficiary's profile data");
+          await _synchronizationService.uploadTeisToTheServer(
+              teis, teiEnrollments);
+          // @TODO uploading relationships
+        }
+
+        var teiEvents =
+            await _synchronizationService.getTeiEventsFromOfflineDb();
+        if (teiEvents.length > 0) {
+          addDataUploadProcess("Uploading beneficiary's service data");
+          await _synchronizationService.uploadTeiEventsToTheServer(teiEvents);
+        }
+      } catch (e) {}
+      updateDataUploadStatus(false);
+    }
   }
 }

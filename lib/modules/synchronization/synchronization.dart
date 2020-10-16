@@ -16,7 +16,6 @@ import 'components/data_download_container.dart';
 
 class Synchronization extends StatefulWidget {
   Synchronization({Key key}) : super(key: key);
-  
   @override
   _SynchronizationState createState() => _SynchronizationState();
 }
@@ -26,15 +25,18 @@ class _SynchronizationState extends State<Synchronization> {
 
   void onStartDataUpload(BuildContext context) async {
     await Provider.of<SynchronizationState>(context, listen: false)
-        .startDataUploadActivity();
+        .startDataDownloadActivity();
     Provider.of<SynchronizationState>(context, listen: false)
         .startCheckingStatusOfUnsyncedData();
   }
 
   void onStartDataDownload(BuildContext context) async {
-    Provider.of<SynchronizationState>(context, listen: false)
+    await Provider.of<SynchronizationState>(context, listen: false)
         .startDataDownloadActivity();
-
+  await  Provider.of<SynchronizationState>(context, listen: false)
+        .analysisOfDownloadedData();
+    //  List servertrackedEntityInstance = Provider.of<SynchronizationState>(context, listen: false)
+    //     .servertrackedEntityInstance;      
     Provider.of<OvcInterventionListState>(context, listen: false)
         .refreshOvcList();
     Provider.of<DreamsInterventionListState>(context, listen: false)
