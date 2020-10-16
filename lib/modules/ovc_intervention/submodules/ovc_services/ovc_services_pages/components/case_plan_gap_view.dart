@@ -5,6 +5,7 @@ import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_child_caseplan_gaps.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_house_hold_case_plan_gaps.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/components/case_plan_follow_up_container.dart';
 
 class CasePlanGapView extends StatefulWidget {
   const CasePlanGapView({
@@ -13,13 +14,17 @@ class CasePlanGapView extends StatefulWidget {
     @required this.isCasePlanForHouseHold,
     @required this.domainId,
     @required this.gapIndex,
-    this.formSectionColor,
+    @required this.shouldAddCaseGapFollowUps,
+    @required this.shouldViewCaseGapFollowUp,
+    @required this.formSectionColor,
   }) : super(key: key);
   final Map casePlanGap;
   final Color formSectionColor;
   final String domainId;
   final int gapIndex;
   final bool isCasePlanForHouseHold;
+  final bool shouldAddCaseGapFollowUps;
+  final bool shouldViewCaseGapFollowUp;
 
   @override
   _CasePlanGapViewState createState() => _CasePlanGapViewState();
@@ -58,7 +63,11 @@ class _CasePlanGapViewState extends State<CasePlanGapView> {
             : '   ';
     if (inputField != null) {
       if (inputField.valueType == 'BOOLEAN') {
-        value = value == 'true' ? 'Yes' : value == 'false' ? 'No' : value;
+        value = value == 'true'
+            ? 'Yes'
+            : value == 'false'
+                ? 'No'
+                : value;
       } else if (inputField.valueType == 'TRUE_ONLY') {
         value = value == 'true' ? 'Yes' : value;
       }
@@ -140,7 +149,19 @@ class _CasePlanGapViewState extends State<CasePlanGapView> {
                                             .withOpacity(0.5))
                                   ],
                                 )))
-                            .toList(),
+                            .toList()
+                              ..add(Container(
+                                child: CasePlanGapFollowUpContainer(
+                                  formSectionColor: widget.formSectionColor,
+                                  isCasePlanForHouseHold:
+                                      widget.isCasePlanForHouseHold,
+                                  casePlanGap: widget.casePlanGap,
+                                  shouldAddCaseGapFollowUps:
+                                      widget.shouldAddCaseGapFollowUps,
+                                  shouldViewCaseGapFollowUp:
+                                      widget.shouldViewCaseGapFollowUp,
+                                ),
+                              )),
                       ),
                     ),
                   )

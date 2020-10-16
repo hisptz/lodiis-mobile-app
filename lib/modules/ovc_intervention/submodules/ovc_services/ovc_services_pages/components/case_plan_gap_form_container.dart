@@ -91,7 +91,7 @@ class _CasePlanGapFormContainerState extends State<CasePlanGapFormContainer> {
                           alignment: Alignment.center,
                           padding: EdgeInsets.symmetric(vertical: 22.0),
                           child: Text(
-                            'Add Gap',
+                            'ADD GAP',
                             style: TextStyle().copyWith(
                               color: Color(0xFFFAFAFA),
                               fontSize: 14.0,

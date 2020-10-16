@@ -17,6 +17,8 @@ class CasePlanFormContainer extends StatelessWidget {
     @required this.isEditableMode,
     @required this.dataObject,
     this.isCasePlanForHouseHold = false,
+    this.shouldAddCaseGapFollowUps = false,
+    this.shouldViewCaseGapFollowUp = false,
     this.onInputValueChange,
   }) : super(key: key);
 
@@ -26,11 +28,17 @@ class CasePlanFormContainer extends StatelessWidget {
   final Map dataObject;
   final Function onInputValueChange;
   final bool isCasePlanForHouseHold;
+  final bool shouldAddCaseGapFollowUps;
+  final bool shouldViewCaseGapFollowUp;
 
   final String caseToGapLinkage = OvcCasePlanConstant.casePlanToGapLinkage;
+  final String casePlanGapToFollowinUpLinkage =
+      OvcCasePlanConstant.casePlanGapToFollowinUpLinkage;
 
   void onAddNewGap(BuildContext context) async {
     Map gapDataObject = Map();
+    gapDataObject[casePlanGapToFollowinUpLinkage] =
+        gapDataObject[casePlanGapToFollowinUpLinkage] ?? AppUtil.getUid();
     gapDataObject[caseToGapLinkage] =
         dataObject[caseToGapLinkage] ?? AppUtil.getUid();
     List<FormSection> formSections = isCasePlanForHouseHold
@@ -97,9 +105,12 @@ class CasePlanFormContainer extends StatelessWidget {
                   domainId: formSection.id,
                   isCasePlanForHouseHold: isCasePlanForHouseHold,
                   formSectionColor: formSectionColor,
+                  shouldAddCaseGapFollowUps: shouldAddCaseGapFollowUps,
+                  shouldViewCaseGapFollowUp: shouldViewCaseGapFollowUp,
                 ),
                 Visibility(
-                  visible: isEditableMode,
+                  visible: isEditableMode &&
+                      !(shouldAddCaseGapFollowUps || shouldViewCaseGapFollowUp),
                   child: Container(
                     margin: EdgeInsets.only(bottom: 10.0),
                     child: FlatButton(
