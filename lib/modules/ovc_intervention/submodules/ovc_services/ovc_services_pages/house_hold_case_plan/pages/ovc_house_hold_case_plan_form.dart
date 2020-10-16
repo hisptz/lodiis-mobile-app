@@ -25,8 +25,14 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/o
 import 'package:provider/provider.dart';
 
 class OvcHouseHoldCasePlanForm extends StatefulWidget {
-  OvcHouseHoldCasePlanForm({Key key}) : super(key: key);
+  OvcHouseHoldCasePlanForm({
+    Key key,
+    this.shouldAddCaseGapFollowUps = false,
+    this.shouldViewCaseGapFollowUp = false,
+  }) : super(key: key);
 
+  final bool shouldAddCaseGapFollowUps;
+  final bool shouldViewCaseGapFollowUp;
   @override
   _OvcHouseHoldCasePlanFormState createState() =>
       _OvcHouseHoldCasePlanFormState();
@@ -209,6 +215,10 @@ class _OvcHouseHoldCasePlanFormState extends State<OvcHouseHoldCasePlanForm> {
                                         .map(
                                           (FormSection formSection) =>
                                               CasePlanFormContainer(
+                                            shouldAddCaseGapFollowUps: widget
+                                                .shouldAddCaseGapFollowUps,
+                                            shouldViewCaseGapFollowUp: widget
+                                                .shouldViewCaseGapFollowUp,
                                             formSectionColor:
                                                 borderColors[formSection.id],
                                             formSection: formSection,

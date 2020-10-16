@@ -17,9 +17,9 @@ class CasePlanFormContainer extends StatelessWidget {
     @required this.isEditableMode,
     @required this.dataObject,
     this.isCasePlanForHouseHold = false,
-    this.shouldAddCaseGapFollowUps = false,
-    this.shouldViewCaseGapFollowUp = false,
     this.onInputValueChange,
+    @required this.shouldAddCaseGapFollowUps,
+    @required this.shouldViewCaseGapFollowUp,
   }) : super(key: key);
 
   final Color formSectionColor;
