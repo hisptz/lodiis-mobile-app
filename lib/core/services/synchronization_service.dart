@@ -23,7 +23,8 @@ class SynchronizationService {
     httpClient = HttpService(username: username, password: password);
   }
 
-  List<String> downloadingStages = [];
+  String getEventsFromServerSteps = "";
+  String getTrackedInstanceFromServerSteps = "";
 
   Future<List<String>> getDataPaginationFilters(String url) async {
     List<String> paginationFilter = [];
@@ -41,44 +42,51 @@ class SynchronizationService {
   Future downloadBenefiariesToTheServer() async {
     for (String orgUnitId in orgUnitIds) {
       for (String program in programs) {
-        await getEventsfromServer(program, orgUnitId);
-        await getTrackedInstancefromServer(program, orgUnitId);
+        await getEventsfromServer(program, orgUnitId)
+            .whenComplete(() =>
+                getEventsFromServerSteps = "Service data download Complete")
+            .catchError((onError) =>
+                getEventsFromServerSteps = "Service data fail to download ");
+        await getTrackedInstancefromServer(program, orgUnitId)
+            .whenComplete(() => getTrackedInstanceFromServerSteps =
+                "Profile data download Complete")
+            .catchError((onError) => getTrackedInstanceFromServerSteps =
+                "Profile data fail to download");
       }
     }
-
-    downloadingStages.add("SuccessFully download");
   }
 
   Future getEventsfromServer(String program, String userOrgId) async {
-    List<String> pageFilters = await getDataPaginationFilters(
-        "api/events.json?ouMode=DESCENDANTS&orgUnit=$userOrgId&program=$program");
-    int _count = 0;
-    downloadingStages.add("event pagination");
-    for (var pageFilter in pageFilters) {
-      _count++;
-      String newTrackedInstanceUrl =
-          "api/events.json?ouMode=DESCENDANTS&orgUnit=$userOrgId&program=$program&fields=event,program,programStage,trackedEntityInstance,status,orgUnit,dataValues[dataElement,value],eventDate&$pageFilter";
-      Response response = await httpClient.httpGet(newTrackedInstanceUrl);
-      if (response.statusCode == 200) {
-        var responseData = json.decode(response.body);
-        for (var event in responseData["events"]) {
-          await saveEventsToOffline(Events().fromJson(event));
+    try {
+      List<String> pageFilters = await getDataPaginationFilters(
+              "api/events.json?ouMode=DESCENDANTS&orgUnit=$userOrgId&program=$program")
+          .whenComplete(
+              () => getEventsFromServerSteps = "Get Service Pagination");
+      int _count = 0;
+      for (var pageFilter in pageFilters) {
+        _count++;
+        String newTrackedInstanceUrl =
+            "api/events.json?ouMode=DESCENDANTS&orgUnit=$userOrgId&program=$program&fields=event,program,programStage,trackedEntityInstance,status,orgUnit,dataValues[dataElement,value],eventDate&$pageFilter";
+        Response response = await httpClient.httpGet(newTrackedInstanceUrl);
+        if (response.statusCode == 200) {
+          var responseData = json.decode(response.body);
+          for (var event in responseData["events"]) {
+            await saveEventsToOffline(Events().fromJson(event));
+          }
+        } else {
+          return null;
         }
-      } else {
-        return null;
       }
-    }
+    } catch (e) {}
   }
 
   Future saveEventsToOffline(Events event) async {
-    downloadingStages.add("event Data Saving");
     EventOfflineProvider().addOrUpdateEvent(event);
   }
 
   Future getTrackedInstancefromServer(String program, String userOrgId) async {
     List<String> pageFilters = await getDataPaginationFilters(
         "api/trackedEntityInstances.json?ouMode=DESCENDANTS&ou=$userOrgId&program=$program");
-    downloadingStages.add("Tracked Instance pagination");
     int _count = 0;
     for (var pageFilter in pageFilters) {
       _count++;
@@ -102,14 +110,12 @@ class SynchronizationService {
 
   Future saveTrackeEntityInstanceToOffline(
       TrackeEntityInstance trackeEntityInstance) async {
-    downloadingStages.add("Profile data saving");
     TrackedEntityInstanceOfflineProvider()
         .addOrUpdateTrackedEntityInstance(trackeEntityInstance);
   }
 
   Future saveEnrollmentToOffline(dynamic enrollments) async {
     for (var enrollment in enrollments) {
-      downloadingStages.add("Enrollment Saving");
       EnrollmentOfflineProvider()
           .addOrUpdateEnrollement(Enrollment().fromJson(enrollment));
     }

@@ -7,7 +7,6 @@ class DataDowmloadContainer extends StatelessWidget {
     Key key,
     @required this.isDataDownloadingActive,
     @required this.isDataUploadingActive,
-    @required this.pageCount,
     @required this.dataDownloadProcesses,
     this.onStartDataDownload,
   }) : super(key: key);
@@ -15,7 +14,6 @@ class DataDowmloadContainer extends StatelessWidget {
   final bool isDataDownloadingActive;
   final bool isDataUploadingActive;
   final Function onStartDataDownload;
-  final int pageCount;
   final List<String> dataDownloadProcesses;
 
   @override
@@ -36,33 +34,6 @@ class DataDowmloadContainer extends StatelessWidget {
               ),
               LineSeperator(color: Colors.blueGrey.withOpacity(0.2)),
 
-              Container(
-                margin: EdgeInsets.symmetric(vertical: 5.0),
-                padding: EdgeInsets.symmetric(vertical: 2.0, horizontal: 10.0),
-                child: Row(
-                  children: [
-                    Expanded(
-                      flex: 2,
-                      child: Text(
-                        'Total Pages',
-                        style: TextStyle().copyWith(
-                          fontSize: 14.0,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: Text(
-                        '$pageCount',
-                        style: TextStyle().copyWith(
-                          fontSize: 12.0,
-                          fontWeight: FontWeight.normal,
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-              ),
               Visibility(
                 visible: dataDownloadProcesses.length > 0,
                 child: Container(
@@ -91,14 +62,7 @@ class DataDowmloadContainer extends StatelessWidget {
                   ),
                 ),
               ),
-              // Container(
-              //   margin: EdgeInsets.symmetric(vertical: 5.0),
-              //   child: Visibility(
-              //     visible: isDataDownloadingActive,
-              //     child: Text('List of progress'),
-              //   ),
-              // ),
-              Container(
+               Container(
                 margin: EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
                 child: Row(
                   children: [

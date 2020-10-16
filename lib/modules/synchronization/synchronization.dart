@@ -12,12 +12,11 @@ import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/synchronization/components/data_upload_container.dart';
 import 'package:provider/provider.dart';
-
 import 'components/data_download_container.dart';
 
 class Synchronization extends StatefulWidget {
   Synchronization({Key key}) : super(key: key);
-
+  
   @override
   _SynchronizationState createState() => _SynchronizationState();
 }
@@ -35,6 +34,7 @@ class _SynchronizationState extends State<Synchronization> {
   void onStartDataDownload(BuildContext context) async {
     Provider.of<SynchronizationState>(context, listen: false)
         .startDataDownloadActivity();
+
     Provider.of<OvcInterventionListState>(context, listen: false)
         .refreshOvcList();
     Provider.of<DreamsInterventionListState>(context, listen: false)
@@ -84,7 +84,6 @@ class _SynchronizationState extends State<Synchronization> {
               int beneficiaryCount = synchronizationState.beneficiaryCount;
               int beneficiaryServiceCount =
                   synchronizationState.beneficiaryServiceCount;
-              int pageCount = synchronizationState.pageCount;
               return isUnsyncedCheckingActive
                   ? Container(
                       child: CircularProcessLoader(
@@ -112,12 +111,12 @@ class _SynchronizationState extends State<Synchronization> {
                           Container(
                             margin: EdgeInsets.symmetric(vertical: 5.0),
                             child: DataDowmloadContainer(
-                              pageCount: pageCount,
                               isDataDownloadingActive: isDataDownloadingActive,
                               isDataUploadingActive: isDataUploadingActive,
                               onStartDataDownload: () =>
-                                  onStartDataDownload(context), 
-                                  dataDownloadProcesses:   synchronizationState.dataDownloadProcesses,
+                                  onStartDataDownload(context),
+                              dataDownloadProcesses:
+                                  synchronizationState.dataDownloadProcesses,
                             ),
                           ),
                         ],
