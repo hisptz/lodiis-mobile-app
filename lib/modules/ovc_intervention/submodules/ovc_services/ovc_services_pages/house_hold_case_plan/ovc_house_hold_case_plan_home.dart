@@ -26,8 +26,12 @@ import 'package:provider/provider.dart';
 class OvcHouseHoldCasePlanHome extends StatelessWidget {
   final String label = 'House Hold Case plan';
 
-  final List<String> programStageIds = [
+  final List<String> casePlanProgramStageIds = [
     OvcHouseHoldCasePlanConstant.casePlanProgramStage
+  ];
+
+  final List<String> casePlanGapProgramStageIds = [
+    OvcHouseHoldCasePlanConstant.casePlanGapProgramStage
   ];
 
   updateformState(
@@ -40,10 +44,11 @@ class OvcHouseHoldCasePlanHome extends StatelessWidget {
         .updateFormEditabilityState(isEditableMode: isEditableMode);
     String casePlanToGapLinkage = AppUtil.getUid();
     for (FormSection formSection in OvcServicesCasePlan.getFormSections()) {
-      // @TODO update state accordingly
       Map map = Map();
       map['gaps'] = [];
       map[OvcCasePlanConstant.casePlanToGapLinkage] = casePlanToGapLinkage;
+      map[OvcCasePlanConstant.casePlanGapToFollowinUpLinkage] =
+          AppUtil.getUid();
       map[OvcCasePlanConstant.casePlanDomainType] = formSection.id;
       Provider.of<ServiceFormState>(context, listen: false)
           .setFormFieldState(formSection.id, map);
@@ -53,7 +58,7 @@ class OvcHouseHoldCasePlanHome extends StatelessWidget {
   isCasePlanExit(Map<String, List<Events>> eventListByProgramStage) {
     List<Events> events =
         TrackedEntityInstanceUtil.getAllEventListFromServiceDataState(
-            eventListByProgramStage, programStageIds);
+            eventListByProgramStage, casePlanProgramStageIds);
     Map groupedEventByDates =
         TrackedEntityInstanceUtil.getGroupedEventByDates(events);
     String today = AppUtil.formattedDateTimeIntoString(DateTime.now());
@@ -83,7 +88,7 @@ class OvcHouseHoldCasePlanHome extends StatelessWidget {
     Map<String, List<Events>> eventListByProgramStage,
   ) {
     updateformState(context, houseHold, true);
-    print(casePlanEvents);
+    //print(casePlanEvents);
   }
 
   void onViewCasePlan(
@@ -93,7 +98,7 @@ class OvcHouseHoldCasePlanHome extends StatelessWidget {
     Map<String, List<Events>> eventListByProgramStage,
   ) {
     updateformState(context, houseHold, false);
-    print(casePlanEvents);
+    print('Render form to come');
   }
 
   @override
@@ -154,7 +159,7 @@ class OvcHouseHoldCasePlanHome extends StatelessWidget {
                                             children: [
                                               CasePlanHomeListContainer(
                                                 programStageIds:
-                                                    programStageIds,
+                                                    casePlanProgramStageIds,
                                                 onEditCasePlan: (casePlanEvents) =>
                                                     onEditCasePlan(
                                                         context,
@@ -162,7 +167,7 @@ class OvcHouseHoldCasePlanHome extends StatelessWidget {
                                                         casePlanEvents,
                                                         eventListByProgramStage),
                                                 onViewCasePlan: (casePlanEvents) =>
-                                                    onEditCasePlan(
+                                                    onViewCasePlan(
                                                         context,
                                                         currentOvcHouseHold,
                                                         casePlanEvents,

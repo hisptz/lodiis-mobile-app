@@ -77,10 +77,6 @@ class _OvcHouseHoldCasePlanFormState extends State<OvcHouseHoldCasePlanForm> {
     Map dataObject,
     OvcHouseHold currentOvcHouseHold,
   ) async {
-    List<String> hiddenFields = [
-      OvcCasePlanConstant.casePlanToGapLinkage,
-      OvcCasePlanConstant.casePlanDomainType
-    ];
     String casePlanFirstGoal = OvcCasePlanConstant.casePlanFirstGoal;
     for (String domainType in dataObject.keys.toList()) {
       Map domainDataObject = dataObject[domainType];
@@ -88,6 +84,10 @@ class _OvcHouseHoldCasePlanFormState extends State<OvcHouseHoldCasePlanForm> {
           (domainDataObject[casePlanFirstGoal] != null ||
               '${domainDataObject[casePlanFirstGoal]}'.trim() != '')) {
         try {
+          List<String> hiddenFields = [
+            OvcCasePlanConstant.casePlanToGapLinkage,
+            OvcCasePlanConstant.casePlanDomainType
+          ];
           List<FormSection> domainFormSections = formSections
               .where((FormSection formSection) => formSection.id == domainType)
               .toList();
@@ -109,6 +109,7 @@ class _OvcHouseHoldCasePlanFormState extends State<OvcHouseHoldCasePlanForm> {
           );
           hiddenFields = [
             OvcCasePlanConstant.casePlanToGapLinkage,
+            OvcCasePlanConstant.casePlanGapToFollowinUpLinkage
           ];
           for (Map domainGapDataObject in domainDataObject['gaps']) {
             await TrackedEntityInstanceUtil

@@ -25,8 +25,12 @@ import 'package:provider/provider.dart';
 
 class OvcChildCasePlanHome extends StatelessWidget {
   final String label = 'Child Care Plan';
-  final List<String> programStageIds = [
+  final List<String> casePlanProgramStageIds = [
     OvcChildCasePlanConstant.casePlanProgramStage
+  ];
+
+  final List<String> casePlanGapProgramStageIds = [
+    OvcChildCasePlanConstant.casePlanGapProgramStage
   ];
 
   updateformState(
@@ -37,13 +41,13 @@ class OvcChildCasePlanHome extends StatelessWidget {
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
     Provider.of<ServiceFormState>(context, listen: false)
         .updateFormEditabilityState(isEditableMode: isEditableMode);
-
+    String casePlanToGapLinkage = AppUtil.getUid();
     for (FormSection formSection in OvcServicesCasePlan.getFormSections()) {
-      // @TODO update state accordingly
       Map map = Map();
       map['gaps'] = [];
-      String casePlanToGapLinkage = AppUtil.getUid();
       map[OvcCasePlanConstant.casePlanToGapLinkage] = casePlanToGapLinkage;
+      map[OvcCasePlanConstant.casePlanGapToFollowinUpLinkage] =
+          AppUtil.getUid();
       map[OvcCasePlanConstant.casePlanDomainType] = formSection.id;
       Provider.of<ServiceFormState>(context, listen: false)
           .setFormFieldState(formSection.id, map);
@@ -53,7 +57,7 @@ class OvcChildCasePlanHome extends StatelessWidget {
   isCasePlanExit(Map<String, List<Events>> eventListByProgramStage) {
     List<Events> events =
         TrackedEntityInstanceUtil.getAllEventListFromServiceDataState(
-            eventListByProgramStage, programStageIds);
+            eventListByProgramStage, casePlanProgramStageIds);
     Map groupedEventByDates =
         TrackedEntityInstanceUtil.getGroupedEventByDates(events);
     String today = AppUtil.formattedDateTimeIntoString(DateTime.now());
@@ -94,6 +98,18 @@ class OvcChildCasePlanHome extends StatelessWidget {
   ) {
     updateformState(context, child, false);
     print(casePlanEvents);
+    // for (var casePlanEvent in casePlanEvents) {
+    //   print('${casePlanEvent.dataValues}\n');
+    // }
+    for (var e in eventListByProgramStage[
+        OvcChildCasePlanConstant.casePlanGapProgramStage]) {
+      for (Map dd in e.dataValues) {
+        if (dd.containsKey('dataElement') &&
+            ['ajqTV28fydL', 'tDWIRBsuwsB'].indexOf(dd['dataElement']) > -1) {
+          print('$dd\n\n');
+        }
+      }
+    }
   }
 
   @override
@@ -137,9 +153,10 @@ class OvcChildCasePlanHome extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     CasePlanHomeListContainer(
-                                        programStageIds: programStageIds,
+                                        programStageIds:
+                                            casePlanProgramStageIds,
                                         onEditCasePlan: (casePlanEvents) =>
-                                            onViewCasePlan(
+                                            onEditCasePlan(
                                               context,
                                               currentOvcHouseHoldChild,
                                               casePlanEvents,
