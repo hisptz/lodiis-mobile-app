@@ -101,7 +101,7 @@ class CasePlanFormContainer extends StatelessWidget {
                   onInputValueChange: onValueChange,
                 ),
                 CasePlanGapViewContainer(
-                  casePlanGaps: dataObject['gaps'],
+                  casePlanGaps: dataObject['gaps'] ?? [],
                   domainId: formSection.id,
                   isCasePlanForHouseHold: isCasePlanForHouseHold,
                   formSectionColor: formSectionColor,
