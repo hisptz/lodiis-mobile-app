@@ -16,6 +16,8 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_serv
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/srh/agyw_dreams_srh.dart';
 import 'package:provider/provider.dart';
 
+import 'sub_modules/hts/hts_home_page.dart';
+
 class DreamsServicesPage extends StatefulWidget {
   const DreamsServicesPage({Key key}) : super(key: key);
 
@@ -43,7 +45,7 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
   ) {
     updateStateData(context, agywBeneficiary);
     Navigator.push(context,
-        MaterialPageRoute(builder: (context) => AgywDreamsHTSConsentForm()));
+        MaterialPageRoute(builder: (context) => HTSHomePage()));
   }
 
   void onOpenSRHForm(
