@@ -102,24 +102,25 @@ class SynchronizationState with ChangeNotifier {
     }
     addDataDownloadProcess("finish Dowload");
 
- await analysisOfDownloadedData();
-  
+    await analysisOfDownloadedData();
   }
 
   Future analysisOfDownloadedData() async {
-   // addDataDownloadProcess("Start analyse service data ");
-  //  await eventsAnalysisDownloadData();
-      addDataDownloadProcess("Start analyse profile data ");
-    await trackeEntityInstanceAnalysisDownloadData();
+    // addDataDownloadProcess("Start analyse service data ");
+   await eventsAnalysisDownloadData();
+    addDataDownloadProcess("Start analyse profile data ");
+  //  await trackeEntityInstanceAnalysisDownloadData();
     updateDataDownloadStatus(false);
   }
-
 
   Future eventsAnalysisDownloadData() async {
     List<Events> offLineNonSyncEvents =
         await _synchronizationService.getTeiEventsFromOfflineDb();
     List offEventsAttributes = [];
     List onlineEventsAttributes = [];
+    List offlineEventsToResolve = [];
+    List onlineEventsToResolve = [];
+
 //get data value id which are not sync
     for (Events event in offLineNonSyncEvents) {
       offEventsAttributes.addAll(event.dataValues);
@@ -131,23 +132,26 @@ class SynchronizationState with ChangeNotifier {
         if (!onlineEventsAttributes.contains(offlinEventAttribute)) {
           //contain conflicts
           print("conflict ");
-         onlineEventsAttributes
+          offlineEventsToResolve.add(offlinEventAttribute);
+          onlineEventsToResolve.addAll(onlineEventsAttributes
               .where((onlineEventAttribute) =>
                   offlinEventAttribute['dataElement'] ==
                       onlineEventAttribute['dataElement'] &&
                   offlinEventAttribute['value'] !=
                       onlineEventAttribute['value'])
-              .toList();
-              
+              .toList());
         } else {
           //no conflicts
           _synchronizationService.saveEventsToOffline(event);
         }
       });
     }
-  }
+    _events = {
+      "online": onlineEventsToResolve,
+      "offline": offlineEventsToResolve,
+    };
 
-
+ }
 
   Future trackeEntityInstanceAnalysisDownloadData() async {
     List<String> attributeIds = [];
@@ -194,8 +198,8 @@ class SynchronizationState with ChangeNotifier {
       "offline": offlineTrackedEntityInstance,
       "online": onlineTrackedEntityInstance
     };
-  
   }
+
   Future startDataUploadActivity() async {
     _dataUploadProcess = [];
     updateDataUploadStatus(true);
