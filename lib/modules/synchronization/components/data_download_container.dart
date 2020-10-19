@@ -8,12 +8,14 @@ class DataDowmloadContainer extends StatelessWidget {
     @required this.isDataDownloadingActive,
     @required this.isDataUploadingActive,
     @required this.dataDownloadProcesses,
+    this.onViewConflicts,
     this.onStartDataDownload,
   }) : super(key: key);
 
   final bool isDataDownloadingActive;
   final bool isDataUploadingActive;
   final Function onStartDataDownload;
+  final Function onViewConflicts;
   final List<String> dataDownloadProcesses;
 
   @override
@@ -33,7 +35,6 @@ class DataDowmloadContainer extends StatelessWidget {
                     )),
               ),
               LineSeperator(color: Colors.blueGrey.withOpacity(0.2)),
-
               Visibility(
                 visible: dataDownloadProcesses.length > 0,
                 child: Container(
@@ -62,7 +63,46 @@ class DataDowmloadContainer extends StatelessWidget {
                   ),
                 ),
               ),
-               Container(
+              Container(
+                margin: EdgeInsets.symmetric(vertical: 5.0),
+                padding: EdgeInsets.symmetric(vertical: 2.0, horizontal: 1.0),
+                child: Row(
+                  children: [
+                    Expanded(
+                      flex: 1,
+                      child: Text(
+                        'Conflicts Exists',
+                        style: TextStyle().copyWith(
+                          fontSize: 12.0,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Text(
+                        'count here',
+                        style: TextStyle().copyWith(
+                            fontSize: 12.0,
+                            fontWeight: FontWeight.normal,
+                            color: Colors.red),
+                      ),
+                    ),
+                    Expanded(
+                      child: FlatButton(
+                          shape: RoundedRectangleBorder(
+                              side: BorderSide(color: Colors.blueGrey[100]),
+                              borderRadius: BorderRadius.circular(25.0)),
+                          onPressed: () => this.onViewConflicts(),
+                          child: Text(
+                            "view conflicts",
+                            style: TextStyle().copyWith(
+                                fontSize: 11.0, color: Colors.blueGrey),
+                          )),
+                    )
+                  ],
+                ),
+              ),
+              Container(
                 margin: EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
                 child: Row(
                   children: [

@@ -19,7 +19,6 @@ class SynchronizationState with ChangeNotifier {
   List<String> _dataDownloadProcess;
   List<String> _dataUploadProcess;
   List<Events> _eventFromServer;
-  List<Enrollment> _enrollmentFromServer;
   List<TrackeEntityInstance> _trackeEntityInstance;
   List<dynamic> _servertrackedEntityInstance;
   Map<String, List> _trackedInstance;
@@ -35,7 +34,7 @@ class SynchronizationState with ChangeNotifier {
   List<String> get dataUploadProcesses => _dataUploadProcess ?? [];
   List<String> get dataDownloadProcesses => _dataDownloadProcess ?? [];
   List<Events> get eventFromServer => _eventFromServer ?? [];
-  List<Enrollment> get enrollmentFromServer => _enrollmentFromServer ?? [];
+
   List<TrackeEntityInstance> get trackedEntityInstanceFromServer =>
       _trackeEntityInstance ?? [];
   List<dynamic> get servertrackedEntityInstance =>
@@ -160,7 +159,6 @@ class SynchronizationState with ChangeNotifier {
       "online": onlineEventsToResolve,
       "offline": offlineEventsToResolve,
     };
-
   }
 
   Future trackeEntityInstanceAnalysisDownloadData() async {

@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
@@ -11,6 +10,7 @@ import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/synchronization/components/data_upload_container.dart';
+import 'package:kb_mobile_app/modules/synchronization/conflict_on_download_page.dart';
 import 'package:provider/provider.dart';
 import 'components/data_download_container.dart';
 
@@ -28,6 +28,14 @@ class _SynchronizationState extends State<Synchronization> {
         .startDataUploadActivity();
     Provider.of<SynchronizationState>(context, listen: false)
         .startCheckingStatusOfUnsyncedData();
+  }
+
+  void onViewConflicts(BuildContext context) async {
+   Navigator.push(context, MaterialPageRoute(
+      builder: (context) {
+        return ConflictOnDownloadPage();
+      },
+    ));
   }
 
   void onStartDataDownload(BuildContext context) async {
@@ -119,6 +127,7 @@ class _SynchronizationState extends State<Synchronization> {
                                   onStartDataDownload(context),
                               dataDownloadProcesses:
                                   synchronizationState.dataDownloadProcesses,
+                                  onViewConflicts: () =>onViewConflicts(context),
                             ),
                           ),
                         ],
