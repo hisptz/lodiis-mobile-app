@@ -3,11 +3,11 @@ import 'package:flutter/foundation.dart';
 import 'package:kb_mobile_app/core/services/synchronization_service.dart';
 import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
-import 'package:kb_mobile_app/models/enrollment.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
 
 class SynchronizationState with ChangeNotifier {
+
 // intial state
   bool _isDataUploadingActive;
   bool _isDataDownloadingActive;
@@ -23,6 +23,7 @@ class SynchronizationState with ChangeNotifier {
   List<dynamic> _servertrackedEntityInstance;
   Map<String, List> _trackedInstance;
   Map<String, List> _events;
+  List<Map<String, dynamic>> _events_1;
 
 // selectors
   bool get isDataUploadingActive => _isDataUploadingActive ?? false;
@@ -41,6 +42,7 @@ class SynchronizationState with ChangeNotifier {
       _servertrackedEntityInstance ?? [];
   Map<String, List> get trackedInstance => _trackedInstance ?? {};
   Map<String, List> get events => _events ?? {};
+  List<Map<String, dynamic>>get  events_1 => _events_1 ?? [];
 
 // reducers
   void updateDataUploadStatus(bool status) {
@@ -114,7 +116,7 @@ class SynchronizationState with ChangeNotifier {
     await analysisOfDownloadedData();
   }
 
-  Future analysisOfDownloadedData() async{
+  Future analysisOfDownloadedData() async {
     // addDataDownloadProcess("Start analyse service data ");
     await eventsAnalysisDownloadData();
     addDataDownloadProcess("Start analyse profile data ");
@@ -140,7 +142,6 @@ class SynchronizationState with ChangeNotifier {
       offEventsAttributes.forEach((offlinEventAttribute) {
         if (!onlineEventsAttributes.contains(offlinEventAttribute)) {
           //contain conflicts
-          print("conflict ");
           offlineEventsToResolve.add(offlinEventAttribute);
           onlineEventsToResolve.addAll(onlineEventsAttributes
               .where((onlineEventAttribute) =>
