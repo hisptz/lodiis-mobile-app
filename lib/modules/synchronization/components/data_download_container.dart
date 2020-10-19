@@ -10,6 +10,7 @@ class DataDowmloadContainer extends StatelessWidget {
     @required this.dataDownloadProcesses,
     this.onViewConflicts,
     this.onStartDataDownload,
+    this.conflictCount
   }) : super(key: key);
 
   final bool isDataDownloadingActive;
@@ -17,6 +18,7 @@ class DataDowmloadContainer extends StatelessWidget {
   final Function onStartDataDownload;
   final Function onViewConflicts;
   final List<String> dataDownloadProcesses;
+  final int conflictCount;
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +82,7 @@ class DataDowmloadContainer extends StatelessWidget {
                     ),
                     Expanded(
                       child: Text(
-                        'count here',
+                        '$conflictCount',
                         style: TextStyle().copyWith(
                             fontSize: 12.0,
                             fontWeight: FontWeight.normal,

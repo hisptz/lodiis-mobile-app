@@ -123,6 +123,7 @@ class _SynchronizationState extends State<Synchronization> {
                             child: DataDowmloadContainer(
                               isDataDownloadingActive: isDataDownloadingActive,
                               isDataUploadingActive: isDataUploadingActive,
+                              conflictCount: synchronizationState.conflictCount,
                               onStartDataDownload: () =>
                                   onStartDataDownload(context),
                               dataDownloadProcesses:
