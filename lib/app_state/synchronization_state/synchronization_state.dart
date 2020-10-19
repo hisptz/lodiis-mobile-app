@@ -119,7 +119,7 @@ class SynchronizationState with ChangeNotifier {
     // addDataDownloadProcess("Start analyse service data ");
     await eventsAnalysisDownloadData();
     addDataDownloadProcess("Start analyse profile data ");
-    // await trackeEntityInstanceAnalysisDownloadData();
+    await trackeEntityInstanceAnalysisDownloadData();
     updateDataDownloadStatus(false);
   }
 
@@ -161,8 +161,6 @@ class SynchronizationState with ChangeNotifier {
       "offline": offlineEventsToResolve,
     };
 
-    print(_events["online"]);
-    print(_events['offline']);
   }
 
   Future trackeEntityInstanceAnalysisDownloadData() async {
