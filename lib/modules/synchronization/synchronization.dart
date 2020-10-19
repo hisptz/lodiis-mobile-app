@@ -1,19 +1,21 @@
 import 'dart:async';
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
+import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/synchronization_state/synchronization_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/synchronization/components/data_upload_container.dart';
+import 'package:kb_mobile_app/modules/synchronization/conflict_on_download_page.dart';
 import 'package:provider/provider.dart';
+import 'components/data_download_container.dart';
 
 class Synchronization extends StatefulWidget {
   Synchronization({Key key}) : super(key: key);
-
   @override
   _SynchronizationState createState() => _SynchronizationState();
 }
@@ -28,9 +30,25 @@ class _SynchronizationState extends State<Synchronization> {
         .startCheckingStatusOfUnsyncedData();
   }
 
+  void onViewConflicts(BuildContext context) async {
+   Navigator.push(context, MaterialPageRoute(
+      builder: (context) {
+        return ConflictOnDownloadPage();
+      },
+    ));
+  }
+
   void onStartDataDownload(BuildContext context) async {
-    Provider.of<SynchronizationState>(context, listen: false)
+    await Provider.of<SynchronizationState>(context, listen: false)
         .startDataDownloadActivity();
+  await  Provider.of<SynchronizationState>(context, listen: false)
+        .analysisOfDownloadedData();
+    //  List servertrackedEntityInstance = Provider.of<SynchronizationState>(context, listen: false)
+    //     .servertrackedEntityInstance;      
+    Provider.of<OvcInterventionListState>(context, listen: false)
+        .refreshOvcList();
+    Provider.of<DreamsInterventionListState>(context, listen: false)
+        .refreshDreamsList();
   }
 
   @override
@@ -100,15 +118,19 @@ class _SynchronizationState extends State<Synchronization> {
                                 onStartDataUpload: () =>
                                     onStartDataUpload(context)),
                           ),
-                          // Container(
-                          //   margin: EdgeInsets.symmetric(vertical: 5.0),
-                          //   child: DataDowmloadContainer(
-                          //     isDataDownloadingActive: isDataDownloadingActive,
-                          //     isDataUploadingActive: isDataUploadingActive,
-                          //     onStartDataDownload: () =>
-                          //         onStartDataDownload(context),
-                          //   ),
-                          // ),
+                          Container(
+                            margin: EdgeInsets.symmetric(vertical: 5.0),
+                            child: DataDowmloadContainer(
+                              isDataDownloadingActive: isDataDownloadingActive,
+                              isDataUploadingActive: isDataUploadingActive,
+                              conflictCount: synchronizationState.conflictCount,
+                              onStartDataDownload: () =>
+                                  onStartDataDownload(context),
+                              dataDownloadProcesses:
+                                  synchronizationState.dataDownloadProcesses,
+                                  onViewConflicts: () =>onViewConflicts(context),
+                            ),
+                          ),
                         ],
                       ),
                     );
