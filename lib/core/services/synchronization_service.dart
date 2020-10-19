@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:kb_mobile_app/core/offline_db/enrollment_offline/enrollment_offline_provider.dart';
+import 'package:kb_mobile_app/core/offline_db/event_offline/event_offline_data_value.dart';
 import 'package:kb_mobile_app/core/offline_db/event_offline/event_offline_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/tei_relationship_offline/tei_relationship_offline_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/tracked_entity_instance_offline/tracked_entity_instance_offline_attribute_provider.dart';
@@ -68,12 +69,20 @@ class SynchronizationService {
           return null;
         }
       }
-    } catch (e) {}
+    } catch (e) {}	
     return eventsFromServer;
   }
 
   Future saveEventsToOffline(Events event) async {
     EventOfflineProvider().addOrUpdateEvent(event);
+  }
+
+    Future<List> getOfflineEventsAttributesValuesById(
+    String eventIds) async {
+    List entityInstanceAttributes =
+        await EventOfflineDataValueProvider()
+            .getEventDataValues(eventIds);
+      return entityInstanceAttributes;
   }
 
   Future<List<dynamic>> getTrackedInstancefromServer(
@@ -114,6 +123,8 @@ class SynchronizationService {
           .addOrUpdateEnrollement(Enrollment().fromJson(enrollment));
     }
   }
+   
+
 
   Future<List> getOfflineTrackedEntityAttributesValuesById(
       List<String> attributeIds) async {

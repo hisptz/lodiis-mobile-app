@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
-
 import 'package:flutter/foundation.dart';
 import 'package:kb_mobile_app/core/services/synchronization_service.dart';
 import 'package:kb_mobile_app/core/services/user_service.dart';
@@ -25,6 +23,7 @@ class SynchronizationState with ChangeNotifier {
   List<TrackeEntityInstance> _trackeEntityInstance;
   List<dynamic> _servertrackedEntityInstance;
   Map<String, List> _trackedInstance;
+  Map<String, List> _events;
 
 // selectors
   bool get isDataUploadingActive => _isDataUploadingActive ?? false;
@@ -41,7 +40,8 @@ class SynchronizationState with ChangeNotifier {
       _trackeEntityInstance ?? [];
   List<dynamic> get servertrackedEntityInstance =>
       _servertrackedEntityInstance ?? [];
-  Map<String, List> get trackedInstance => _trackeEntityInstance ?? {};
+  Map<String, List> get trackedInstance => _trackedInstance ?? {};
+  Map<String, List> get events => _events ?? {};
 
 // reducers
   void updateDataUploadStatus(bool status) {
@@ -102,37 +102,52 @@ class SynchronizationState with ChangeNotifier {
     }
     addDataDownloadProcess("finish Dowload");
 
-    //todo analysis of data
-
-//saving events;
-    // addDataDownloadProcess("Saving service data ....");
-    // for (Events events in _eventFromServer) {
-    //   await _synchronizationService.saveEventsToOffline(events);
-    // }
-    // addDataDownloadProcess("Saving service data  complete");
-    // addDataDownloadProcess("Saving profile data ....");
-
-    // //saving profile data
-    // for (var trackedEntityInstance in _servertrackedEntityInstance){
-    //   TrackeEntityInstance trackeEntityInstance =
-    //       TrackeEntityInstance().fromJson(trackedEntityInstance);
-    // await _synchronizationService.saveTrackeEntityInstanceToOffline(
-    // TrackeEntityInstance().fromJson(trackedEntityInstance));
-
-    // _synchronizationService
-    //     .saveEnrollmentToOffline(trackedEntityInstance['enrollments']);
-    // }
-    // addDataDownloadProcess("Saving profile data complete");
-    addDataDownloadProcess("Start analyse data ");
-    await analysisOfDownloadedData();
+ await analysisOfDownloadedData();
+  
   }
 
   Future analysisOfDownloadedData() async {
-     addDataDownloadProcess("Start analyse profile data ");
-  await  trackeEntityInstanceAnalysisDownloadData();
-
+   // addDataDownloadProcess("Start analyse service data ");
+  //  await eventsAnalysisDownloadData();
+      addDataDownloadProcess("Start analyse profile data ");
+    await trackeEntityInstanceAnalysisDownloadData();
     updateDataDownloadStatus(false);
   }
+
+
+  Future eventsAnalysisDownloadData() async {
+    List<Events> offLineNonSyncEvents =
+        await _synchronizationService.getTeiEventsFromOfflineDb();
+    List offEventsAttributes = [];
+    List onlineEventsAttributes = [];
+//get data value id which are not sync
+    for (Events event in offLineNonSyncEvents) {
+      offEventsAttributes.addAll(event.dataValues);
+    }
+//get data value id from online
+    for (Events event in eventFromServer) {
+      onlineEventsAttributes.addAll(event.dataValues);
+      offEventsAttributes.forEach((offlinEventAttribute) {
+        if (!onlineEventsAttributes.contains(offlinEventAttribute)) {
+          //contain conflicts
+          print("conflict ");
+         onlineEventsAttributes
+              .where((onlineEventAttribute) =>
+                  offlinEventAttribute['dataElement'] ==
+                      onlineEventAttribute['dataElement'] &&
+                  offlinEventAttribute['value'] !=
+                      onlineEventAttribute['value'])
+              .toList();
+              
+        } else {
+          //no conflicts
+          _synchronizationService.saveEventsToOffline(event);
+        }
+      });
+    }
+  }
+
+
 
   Future trackeEntityInstanceAnalysisDownloadData() async {
     List<String> attributeIds = [];
@@ -145,44 +160,42 @@ class SynchronizationState with ChangeNotifier {
           TrackeEntityInstance().fromJson(trackedEntityInstance);
       attributeIds.add(trackeEntityInstance.attributes[0]['attribute']);
     }
-//search and compare that does not exists in offline and save
-
-//search for those contain conflicts
-
-//it it has no conflict save them
-
-//search attributes from offline
     List offlineTrackedEntityInstanceattributes = await _synchronizationService
         .getOfflineTrackedEntityAttributesValuesById(attributeIds);
     for (var _trackedEntityInstance in servertrackedEntityInstance) {
       TrackeEntityInstance trackeEntityInstance =
           TrackeEntityInstance().fromJson(_trackedEntityInstance);
-      offlineTrackedEntityInstanceattributes.forEach((trackedAttribute) async {
-        if (trackedAttribute['attribute'] ==
-                trackeEntityInstance.attributes[0]['attribute'] &&
-            trackedAttribute['value'] !=
-                trackeEntityInstance.attributes[0]['value']) {
-          //  conflicts
-          offlineTrackedEntityInstance.add(trackedAttribute['value']);
-          onlineTrackedEntityInstance.add(trackeEntityInstance.attributes[0]);
-          //  print(_trackedInstance['offline'][0]);
-        } else {
-          //Save data when no conflicts
-          await _synchronizationService
-              .saveTrackeEntityInstanceToOffline(trackeEntityInstance);
-          await _synchronizationService
-              .saveEnrollmentToOffline(_trackedEntityInstance['enrollments']);
-        }
-      });
+      if (offlineTrackedEntityInstance == null) {
+        await _synchronizationService
+            .saveTrackeEntityInstanceToOffline(trackeEntityInstance);
+        await _synchronizationService
+            .saveEnrollmentToOffline(_trackedEntityInstance['enrollments']);
+      } else {
+        offlineTrackedEntityInstanceattributes
+            .forEach((trackedAttribute) async {
+          if (trackedAttribute['attribute'] ==
+                  trackeEntityInstance.attributes[0]['attribute'] &&
+              trackedAttribute['value'] !=
+                  trackeEntityInstance.attributes[0]['value']) {
+            //  conflicts
+            offlineTrackedEntityInstance.add(trackedAttribute['value']);
+            onlineTrackedEntityInstance.add(trackeEntityInstance.attributes[0]);
+          } else {
+            //Save data when no conflicts
+            await _synchronizationService
+                .saveTrackeEntityInstanceToOffline(trackeEntityInstance);
+            await _synchronizationService
+                .saveEnrollmentToOffline(_trackedEntityInstance['enrollments']);
+          }
+        });
+      }
     }
     _trackedInstance = {
       "offline": offlineTrackedEntityInstance,
       "online": onlineTrackedEntityInstance
     };
-
-    updateDataDownloadStatus(false);
+  
   }
-
   Future startDataUploadActivity() async {
     _dataUploadProcess = [];
     updateDataUploadStatus(true);

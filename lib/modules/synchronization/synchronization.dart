@@ -25,7 +25,7 @@ class _SynchronizationState extends State<Synchronization> {
 
   void onStartDataUpload(BuildContext context) async {
     await Provider.of<SynchronizationState>(context, listen: false)
-        .startDataDownloadActivity();
+        .startDataUploadActivity();
     Provider.of<SynchronizationState>(context, listen: false)
         .startCheckingStatusOfUnsyncedData();
   }
