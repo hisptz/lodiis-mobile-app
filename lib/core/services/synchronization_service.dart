@@ -38,14 +38,6 @@ class SynchronizationService {
     return paginationFilter;
   }
 
-  Future downloadBenefiariesToTheServer() async {
-    for (String orgUnitId in orgUnitIds) {
-      for (String program in programs) {
-        await getEventsfromServer(program, orgUnitId);
-        await getTrackedInstancefromServer(program, orgUnitId);
-      }
-    }
-  }
 
   Future<List<Events>> getEventsfromServer(
       String program, String userOrgId) async {
