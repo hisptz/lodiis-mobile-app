@@ -109,9 +109,8 @@ class CasePlanFormContainer extends StatelessWidget {
                   shouldViewCaseGapFollowUp: shouldViewCaseGapFollowUp,
                 ),
                 Visibility(
-                  visible: isEditableMode &&
-                      !(shouldEditCaseGapFollowUps ||
-                          shouldViewCaseGapFollowUp),
+                  visible: (isEditableMode || shouldEditCaseGapFollowUps) &&
+                      !shouldViewCaseGapFollowUp,
                   child: Container(
                     margin: EdgeInsets.only(bottom: 10.0),
                     child: FlatButton(

@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kb_mobile_app/core/components/line_seperator.dart';
+import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_child_caseplan_gaps.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_house_hold_case_plan_gaps.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/components/case_plan_follow_up_container.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/components/case_plan_gap_form_container.dart';
 
 class CasePlanGapView extends StatefulWidget {
   const CasePlanGapView({
@@ -34,11 +37,11 @@ class _CasePlanGapViewState extends State<CasePlanGapView> {
   List<InputField> inputFields = [];
   List<FormSection> gapViewformSections;
   String label = 'Gap ';
+  double iconHeight = 15.0;
 
   @override
   void initState() {
     super.initState();
-
     setState(() {
       int gapIndex = widget.gapIndex + 1;
       label = '$label $gapIndex';
@@ -75,6 +78,29 @@ class _CasePlanGapViewState extends State<CasePlanGapView> {
     return value.toString();
   }
 
+  void onEditCasePlanGap(BuildContext context) async {
+    List<FormSection> formSections = widget.isCasePlanForHouseHold
+        ? OvcHouseholdServicesCasePlanGaps.getFormSections()
+            .where((FormSection form) => form.id == widget.domainId)
+            .toList()
+        : OvcServicesChildCasePlanGaps.getFormSections()
+            .where((FormSection form) => form.id == widget.domainId)
+            .toList();
+    formSections = formSections.map((FormSection form) {
+      form.borderColor = Colors.transparent;
+      return form;
+    }).toList();
+    Widget modal = CasePlanGapFormContainer(
+      formSections: formSections,
+      isCasePlanForHouseHold: widget.isCasePlanForHouseHold,
+      isEditableMode: widget.shouldEditCaseGapFollowUps,
+      formSectionColor: widget.formSectionColor,
+      dataObject: widget.casePlanGap,
+    );
+    Map response = await AppUtil.showPopUpModal(context, modal, true);
+    if (response != null) {}
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -89,13 +115,43 @@ class _CasePlanGapViewState extends State<CasePlanGapView> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              child: Text(
-                label,
-                style: TextStyle().copyWith(
-                  color: widget.formSectionColor,
-                  fontSize: 14.0,
-                  fontWeight: FontWeight.w700,
-                ),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Container(
+                      child: Text(
+                        label,
+                        style: TextStyle().copyWith(
+                          color: widget.formSectionColor,
+                          fontSize: 14.0,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    child: Visibility(
+                      visible: widget.shouldEditCaseGapFollowUps,
+                      child: Container(
+                        child: InkWell(
+                          onTap: () => onEditCasePlanGap(
+                            context,
+                          ),
+                          child: Container(
+                            height: iconHeight,
+                            width: iconHeight,
+                            margin: EdgeInsets.symmetric(
+                                vertical: 5, horizontal: 5),
+                            child: SvgPicture.asset(
+                              'assets/icons/edit-icon.svg',
+                              color: widget.formSectionColor,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  )
+                ],
               ),
             ),
             Container(
