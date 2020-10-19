@@ -34,7 +34,7 @@ class DreamsHTSIndexCardBody extends StatelessWidget {
                     Expanded(
                         flex: 1,
                         child: Text(
-                          'Index Id',
+                          'Index Details',
                           style: TextStyle().copyWith(
                               fontSize: 14.0,
                               color: Color(0xFF82898D),
@@ -43,7 +43,7 @@ class DreamsHTSIndexCardBody extends StatelessWidget {
                     Expanded(
                         flex: 2,
                         child: Text(
-                          event.id,
+                          '',
                           style: TextStyle().copyWith(
                               fontSize: 14.0,
                               color: Color(0XFF536852),

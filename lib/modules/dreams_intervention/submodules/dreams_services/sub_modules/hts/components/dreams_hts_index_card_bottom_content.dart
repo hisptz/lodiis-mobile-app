@@ -2,7 +2,6 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dream_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
@@ -47,17 +46,17 @@ class _DreamsHTSIndexCardBottonContentState
   void updateFormState(
     BuildContext context,
     bool isEditableMode,
-    Events eventData,
+    IndexContactModel eventData,
   ) {
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
     Provider.of<ServiceFormState>(context, listen: false)
         .updateFormEditabilityState(isEditableMode: isEditableMode);
     if (eventData != null) {
       Provider.of<ServiceFormState>(context, listen: false)
-          .setFormFieldState('eventDate', eventData.eventDate);
+          .setFormFieldState('eventDate', eventData.date);
       Provider.of<ServiceFormState>(context, listen: false)
-          .setFormFieldState('eventId', eventData.event);
-      for (Map datavalue in eventData.dataValues) {
+          .setFormFieldState('eventId', eventData.id);
+      for (Map datavalue in eventData.datavalues) {
         if (datavalue['value'] != '') {
           Provider.of<ServiceFormState>(context, listen: false)
               .setFormFieldState(datavalue['dataElement'], datavalue['value']);
@@ -66,27 +65,24 @@ class _DreamsHTSIndexCardBottonContentState
     }
   }
 
-  void onEditChildInfo(BuildContext context, OvcHouseHoldChild child) {
-    // setOvcHouseHoldCurrentSelection(context, child);
-    // updateEnrollmentFormStateData(context, child, true);
-    // Navigator.push(
-    //     context,
-    //     MaterialPageRoute(
-    //       builder: (context) => OvcEnrollmentChildEditViewForm(),
-    //     ));
+  void onEditIndexContact(BuildContext context, IndexContactModel eventData) {
+    updateFormState(context, true ,eventData);
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => AgywDreamsIndexContact(),
+        ));
+  }
+  void onViewIndexContact(BuildContext context, IndexContactModel eventData) {
+    updateFormState(context, false ,eventData);
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => AgywDreamsIndexContact(),
+        ));
   }
 
-  void onViewChildInfo(BuildContext context, OvcHouseHoldChild child) {
-    // setOvcHouseHoldCurrentSelection(context, child);
-    // updateEnrollmentFormStateData(context, child, false);
-    // Navigator.push(
-    //     context,
-    //     MaterialPageRoute(
-    //       builder: (context) => OvcEnrollmentChildEditViewForm(),
-    //     ));
-  }
-
-  void onAddNewIndex(BuildContext context, AgywDream agywDream) {
+  void onAddNewIndexContact(BuildContext context, AgywDream agywDream) {
     updateFormState(context, true, null);
     Provider.of<ServiceFormState>(context, listen: false).setFormFieldState(
         AgywDreamsHTSIndexConstant.indexInfoToIndexContactLinkage,
@@ -146,18 +142,16 @@ class _DreamsHTSIndexCardBottonContentState
                        widget.event !=null && element.indexInfoToIndexContactLinkage ==
                         widget.event.indexInfoToIndexContactLinkage)
                     .toList();
-                print(indexContactEvents);
                 return isLoading
                     ? Container(
-                        child: CircularProcessLoader(color: Colors.blueGrey),
-                      )
+                        child: CircularProcessLoader(color: Colors.blueGrey)
+                      ) 
                     : Container(
                         margin: EdgeInsets.symmetric(
                             horizontal: 5.0, vertical: 0.0),
                         child: Column(
                             children: indexContactEvents
                                 .map((IndexContactModel eventData) {
-                          int index = indexContactEvents.length;
                           return Row(
                             children: [
                               Expanded(
@@ -179,13 +173,7 @@ class _DreamsHTSIndexCardBottonContentState
                                   //     canViewChildExit,
                                   child: Container(
                                       child: InkWell(
-                                          // onTap: () => canViewChildExit
-                                          //     ? onViewChildExit(context, child)
-                                          //     : canViewChildInfo
-                                          //         ? onViewChildInfo(context, child)
-                                          //         : canViewChildService
-                                          //             ? onViewChildService(context, child)
-                                          //             : null,
+                                          onTap:() =>onViewIndexContact(context, eventData),
                                           child: Container(
                                             padding: EdgeInsets.all(10.0),
                                             child: Text(
@@ -203,7 +191,7 @@ class _DreamsHTSIndexCardBottonContentState
                         child: Container(
                             margin: EdgeInsets.only(left: 10.0),
                             child: InkWell(
-                                //onTap: () => onEditChildInfo(context, child),
+                                onTap: () => onEditIndexContact(context, eventData),
                                 child: Container(
                                   padding: EdgeInsets.all(5.0),
                                   child: Text(
@@ -225,7 +213,6 @@ class _DreamsHTSIndexCardBottonContentState
             ),
           ),
           Visibility(
-              // visible: canAddChild,
               child: Container(
             child: LineSeperator(
               color: Color(0xFFECF5EC),
@@ -236,7 +223,7 @@ class _DreamsHTSIndexCardBottonContentState
               child: Container(
             margin: EdgeInsets.symmetric(vertical: 5.0),
             child: InkWell(
-                onTap: () => onAddNewIndex(context, agywDream),
+                onTap: () => onAddNewIndexContact(context, agywDream),
                 child: Container(
                   padding: EdgeInsets.all(10.0),
                   alignment: Alignment.center,
