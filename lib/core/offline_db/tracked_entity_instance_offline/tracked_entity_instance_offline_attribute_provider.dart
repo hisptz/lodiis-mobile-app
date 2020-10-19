@@ -65,12 +65,12 @@ class TrackedEntityInstanceOfflineAttributeProvider extends OfflineDbProvider {
         where: '$attribute IN ($questionMarks)',
         whereArgs: attributeIds,
       );
-      if (maps.isNotEmpty) {
+        if (maps.isNotEmpty) {
         for (Map map in maps) {
           attributes.add(map);
         }
       }
     } catch (e) {}
-    return attributes;
+       return attributes;
   }
 }

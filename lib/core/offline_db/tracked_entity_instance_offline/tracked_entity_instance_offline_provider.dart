@@ -67,7 +67,7 @@ class TrackedEntityInstanceOfflineProvider extends OfflineDbProvider {
       var dbClient = await db;
       List<Map> maps = await dbClient.query(
         table,
-        columns: [
+        columns:[
           trackedEntityInstance,
           trackedEntityType,
           orgUnit,

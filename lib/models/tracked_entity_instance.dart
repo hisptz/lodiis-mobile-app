@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-class TrackeEntityInstance {
+class TrackeEntityInstance{
   String trackedEntityInstance;
   String trackedEntityType;
   String orgUnit;

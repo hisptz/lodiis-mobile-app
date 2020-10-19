@@ -1,7 +1,10 @@
 import 'dart:convert';
+import 'package:http/http.dart';
 import 'package:kb_mobile_app/core/offline_db/enrollment_offline/enrollment_offline_provider.dart';
+import 'package:kb_mobile_app/core/offline_db/event_offline/event_offline_data_value.dart';
 import 'package:kb_mobile_app/core/offline_db/event_offline/event_offline_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/tei_relationship_offline/tei_relationship_offline_provider.dart';
+import 'package:kb_mobile_app/core/offline_db/tracked_entity_instance_offline/tracked_entity_instance_offline_attribute_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/tracked_entity_instance_offline/tracked_entity_instance_offline_provider.dart';
 import 'package:kb_mobile_app/core/services/http_service.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
@@ -12,23 +15,115 @@ import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
 
 class SynchronizationService {
   HttpService httpClient;
-
-  final List<String> programs = [];
+  final List programs;
+  final List orgUnitIds;
   final String offlineSyncStatus = 'not-synced';
   final String onlineSyncStatus = 'synced';
 
-  SynchronizationService(String username, String password) {
+  SynchronizationService(
+      String username, String password, this.programs, this.orgUnitIds) {
     httpClient = HttpService(username: username, password: password);
   }
 
-  Future downloadBenefiariesToTheServer() async {
-    // Download by programs
-    // get payloads the save to offline db;
-    // get tracked entity instances and enrollment payload
-    //https://lsis-ovc-dreams.org/api/trackedEntityInstances.json?ouMode=DESCENDANTS&ou=j1R4h0Twe27&program=hOEIHJDrrvz&totalPages=true&pageSize=10&fields=trackedEntityInstance,trackedEntityType,orgUnit,attributes[attribute,value],enrollments[enrollment,enrollmentDate,incidentDate,orgUnit,program,trackedEntityInstance,status]
+  Future<List<String>> getDataPaginationFilters(String url) async {
+    List<String> paginationFilter = [];
+    Response response = await httpClient.httpGetPagination("$url");
+    Map<String, dynamic> pager = json.decode(response.body)['pager'];
+    int pagetTotal = pager['total'];
+    int pageSize = 500;
+    int total = pagetTotal >= pageSize ? pagetTotal : pageSize;
+    for (int page = 1; page <= (total / pageSize).round(); page++) {
+      paginationFilter.add("totalPages=true&pageSize=$pageSize&page=$page");
+    }
+    return paginationFilter;
+  }
 
-    // Getting events data
-    //https://lsis-ovc-dreams.org/api/events.json?ouMode=DESCENDANTS&orgUnit=j1R4h0Twe27&program=hOEIHJDrrvz&totalPages=true&pageSize=10&fields=event,program,programStage,trackedEntityInstance,status,orgUnit,dataValues[dataElement,value]
+
+  Future<List<Events>> getEventsfromServer(
+      String program, String userOrgId) async {
+    List<Events> eventsFromServer = [];
+    try {
+      List<String> pageFilters = await getDataPaginationFilters(
+          "api/events.json?ouMode=DESCENDANTS&orgUnit=$userOrgId&program=$program");
+      int _count = 0;
+      for (var pageFilter in pageFilters) {
+        _count++;
+        String newTrackedInstanceUrl =
+            "api/events.json?ouMode=DESCENDANTS&orgUnit=$userOrgId&program=$program&fields=event,program,programStage,trackedEntityInstance,status,orgUnit,dataValues[dataElement,value,displayName],eventDate&$pageFilter";
+        Response response = await httpClient.httpGet(newTrackedInstanceUrl);
+        if (response.statusCode == 200) {
+          var responseData = json.decode(response.body);
+          for (var event in responseData["events"]) {
+            eventsFromServer.add(Events().fromJson(event));
+            // await saveEventsToOffline(Events().fromJson(event));
+          }
+        } else {
+          return null;
+        }
+      }
+    } catch (e) {}	
+    return eventsFromServer;
+  }
+
+  Future saveEventsToOffline(Events event) async {
+    EventOfflineProvider().addOrUpdateEvent(event);
+  }
+
+    Future<List> getOfflineEventsAttributesValuesById(
+    String eventIds) async {
+    List entityInstanceAttributes =
+        await EventOfflineDataValueProvider()
+            .getEventDataValues(eventIds);
+      return entityInstanceAttributes;
+  }
+
+  Future<List<dynamic>> getTrackedInstancefromServer(
+      String program, String userOrgId) async {
+    List trackedInstanceFromServer = [];
+    List<String> pageFilters = await getDataPaginationFilters(
+        "api/trackedEntityInstances.json?ouMode=DESCENDANTS&ou=$userOrgId&program=$program");
+    int _count = 0;
+    for (var pageFilter in pageFilters) {
+      _count++;
+      String newTrackedInstanceUrl =
+          "api/trackedEntityInstances.json?ouMode=DESCENDANTS&ou=$userOrgId&program=$program&fields=trackedEntityInstance,trackedEntityType,orgUnit,attributes[attribute,value, displayName],enrollments[enrollment,enrollmentDate,incidentDate,orgUnit,program,trackedEntityInstance,status]&$pageFilter";
+      Response response = await httpClient.httpGet(newTrackedInstanceUrl);
+      if (response.statusCode == 200) {
+        var responseData = json.decode(response.body);
+        for (var trackedEntityInstance
+            in responseData["trackedEntityInstances"]) {
+          trackedInstanceFromServer.add(trackedEntityInstance);
+        }
+      } else {
+        return null;
+      }
+    }
+
+    return trackedInstanceFromServer;
+  }
+
+  Future saveTrackeEntityInstanceToOffline(
+      TrackeEntityInstance trackeEntityInstance) async {
+  await  TrackedEntityInstanceOfflineProvider()
+        .addOrUpdateTrackedEntityInstance(trackeEntityInstance);
+  }
+
+//TrackedEntityInstanceOfflineAttributeProvider
+  Future saveEnrollmentToOffline(dynamic enrollments) async {
+    for (var enrollment in enrollments) {
+      EnrollmentOfflineProvider()
+          .addOrUpdateEnrollement(Enrollment().fromJson(enrollment));
+    }
+  }
+   
+
+
+  Future<List> getOfflineTrackedEntityAttributesValuesById(
+      List<String> attributeIds) async {
+    List entityInstanceAttributes =
+        await TrackedEntityInstanceOfflineAttributeProvider()
+            .getTrackedEntityAttributesValuesById(attributeIds);
+      return entityInstanceAttributes;
   }
 
   Future<List<TrackeEntityInstance>> getTeisFromOfflineDb() async {
