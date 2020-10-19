@@ -15,22 +15,22 @@ import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_benef
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/pages/agyw_dreams_hts_client_information.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/pages/agyw_dreams_hts_consent_form.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/pages/agyw_dreams_hts_consent_form_edit.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
 import 'package:provider/provider.dart';
-import 'components/dreams_hts_index_card.dart';
-import 'components/dreams_hts_index_card_body.dart';
-import 'components/dreams_hts_index_card_bottom_content.dart';
 import 'components/dreams_sub_hts_list_card.dart';
 import 'constants/agyw_dreams_hts_constant.dart';
-import 'constants/agyw_dreams_hts_index_constant.dart';
+import 'models/hts_model.dart';
 import 'pages/agyw_dreams_hts_client_information_edit.dart';
 import 'pages/agyw_dreams_hts_consent_for_release_status.dart';
 import 'pages/agyw_dreams_hts_consent_for_release_status_edit.dart';
 
 class HTSSubHomePage extends StatefulWidget {
-  HTSSubHomePage({Key key, @required this.eventId}) : super(key: key);
+  HTSSubHomePage({Key key, 
+  @required this.eventId,
+  this.htsIndexLinkage,
+  }) : super(key: key);
 
   final String eventId;
+  final DreamsHTSEvent htsIndexLinkage;
 
   @override
   _HTSSubHomePageState createState() => _HTSSubHomePageState();
@@ -50,31 +50,31 @@ class _HTSSubHomePageState extends State<HTSSubHomePage> {
     });
   }
 
-  List<String> programStageids = [AgywDreamsHTSConstant.programStage,AgywDreamsHTSIndexConstant.programStage];
+  List<String> programStageids = [AgywDreamsHTSConstant.programStage];
   @override
   void initState() {
     super.initState();
-    Provider.of<ServiveEventDataState>(context, listen: false)
-        .resetServiceEventDataState(
-            Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
-                .currentAgywDream
-                .id);
+    // Provider.of<ServiveEventDataState>(context, listen: false)
+    //     .resetServiceEventDataState(
+    //         Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
+    //             .currentAgywDream
+    //             .id);
   }
 
   void updateFormState(
     BuildContext context,
     bool isEditableMode,
-    Events eventData,
+    DreamsHTSEvent eventData,
   ) {
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
     Provider.of<ServiceFormState>(context, listen: false)
         .updateFormEditabilityState(isEditableMode: isEditableMode);
     if (eventData != null) {
       Provider.of<ServiceFormState>(context, listen: false)
-          .setFormFieldState('eventDate', eventData.eventDate);
+          .setFormFieldState('eventDate', eventData.date);
       Provider.of<ServiceFormState>(context, listen: false)
-          .setFormFieldState('eventId', eventData.event);
-      for (Map datavalue in eventData.dataValues) {
+          .setFormFieldState('eventId', eventData.id);
+      for (Map datavalue in eventData.datavalues) {
         if (datavalue['value'] != '') {
           Provider.of<ServiceFormState>(context, listen: false)
               .setFormFieldState(datavalue['dataElement'], datavalue['value']);
@@ -85,40 +85,33 @@ class _HTSSubHomePageState extends State<HTSSubHomePage> {
 
 void onAddIndexInfo(BuildContext context){
 }
-   void onAddHivPrev(BuildContext context, AgywDream agywDream) {
-     updateFormState(context, true, null);
-     Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
-         .setCurrentAgywDream(agywDream);
-     Navigator.push(
-         context, MaterialPageRoute(builder: (context) => AgywDreamsHTSConsentForm()));
-   }
-
-void onViewConsent(BuildContext context, Events eventdata) {
+  
+void onViewConsent(BuildContext context, DreamsHTSEvent eventdata) {
     updateFormState(context, false, eventdata);
      Navigator.push(
          context, MaterialPageRoute(builder: (context) => AgywDreamsHTSConsentForm()));
    }
-  void onEditConsent(BuildContext context, Events eventdata) {
+  void onEditConsent(BuildContext context, DreamsHTSEvent eventdata) {
     updateFormState(context, true, eventdata);
      Navigator.push(
          context, MaterialPageRoute(builder: (context) => AgywDreamsHTSConsentFormEdit()));
    }
-   void onViewIntake(BuildContext context, Events eventdata) {
+   void onViewIntake(BuildContext context, DreamsHTSEvent eventdata) {
     updateFormState(context, false, eventdata);
      Navigator.push(
          context, MaterialPageRoute(builder: (context) => AgywDreamsHTSClientInformation()));
    }
-  void onEditIntake(BuildContext context, Events eventdata) {
+  void onEditIntake(BuildContext context, DreamsHTSEvent eventdata) {
     updateFormState(context, true, eventdata);
      Navigator.push(
          context, MaterialPageRoute(builder: (context) => AgywDreamsHTSClientInformationEdit()));
    }
-   void onViewStatus(BuildContext context, Events eventdata) {
+   void onViewStatus(BuildContext context, DreamsHTSEvent eventdata) {
     updateFormState(context, false, eventdata);
      Navigator.push(
          context, MaterialPageRoute(builder: (context) => AgywDreamsHTSConsentForReleaseStatus()));
    }
-  void onEditStatus(BuildContext context, Events eventdata) {
+  void onEditStatus(BuildContext context, DreamsHTSEvent eventdata) {
     updateFormState(context, true, eventdata);
      Navigator.push(
          context, MaterialPageRoute(builder: (context) => AgywDreamsHTSConsentForReleaseStatusEdit()));
@@ -153,9 +146,12 @@ void onViewConsent(BuildContext context, Events eventdata) {
                     List<Events> events = TrackedEntityInstanceUtil
                         .getAllEventListFromServiceDataState(
                             eventListByProgramStage, programStageids).where((Events eventData) => 
-                            eventData.event == widget.eventId || eventData.programStage == AgywDreamsHTSIndexConstant.programStage).toList();
+                            eventData.event == widget.eventId).toList();
+                    List<DreamsHTSEvent> indexEvents =
+                        events.map((Events eventData) => 
+                        DreamsHTSEvent().fromTeiModel(eventData)
+                        ).toList();
                     int sessionIndex = events.length + 1;
-                    String indexStageId = AgywDreamsHTSIndexConstant.programStage;
                     return Container(
                       child: Column(
                         children: [
@@ -182,8 +178,8 @@ void onViewConsent(BuildContext context, Events eventdata) {
                                                   horizontal: 13.0,
                                                 ),
                                                 child: Column(
-                                                  children: events
-                                                      .map((Events eventData) {
+                                                  children: indexEvents
+                                                      .map((DreamsHTSEvent eventData) {
                                                     sessionIndex--;
                                                     return Container(
                                                       margin: EdgeInsets.only(
@@ -216,61 +212,6 @@ void onViewConsent(BuildContext context, Events eventdata) {
                                                                 context,
                                                                 eventData),
                                                         eventData: eventData,
-                                                        sessionCount:
-                                                            sessionIndex,
-                                                        eventId: eventData.event,
-                                                        indexCard: DreamsHTSIndexCard(
-                                                           indexStageId:indexStageId,
-                                                           eventData: eventData,
-                                                           canExpand: canExpand,
-                                                           canEdit: canEdit,
-                                                           canView: canView,
-                                                           isExpanded: eventData.event == toggleCardId,
-                                                           onCardToogle: () {
-                                                           onCardToogle(eventData.event);
-                                                              },
-                                                          cardBody: DreamsHTSIndexCardBody(
-                                                            indexStageId: indexStageId,
-                                                          eventData: eventData),
-                                                          cardBottonActions: ClipRRect(
-                                                             borderRadius: eventData.event ==
-                                                             toggleCardId
-                                                             ? BorderRadius.zero
-                                                           : BorderRadius.only(
-                                                            bottomLeft: Radius.circular(12.0),
-                                                            bottomRight:
-                                                             Radius.circular(12.0),
-                                                             ),
-                                                           child: Container(
-                                                           decoration: BoxDecoration(
-                                                         color: Color(0XFFF1FAFF)),
-                                                            child: Row(
-                                                         mainAxisAlignment:
-                                                        MainAxisAlignment.center,
-                                          children: [
-                                            Container(
-                                              child: FlatButton(
-                                                  onPressed: () => onAddIndexInfo(
-                                                      context),
-                                                  child: Text(
-                                                    'REGISTER INDEX',
-                                                    style: TextStyle().copyWith(
-                                                      fontSize: 12.0,
-                                                      color: Color(0xFF258DCC),
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                    ),
-                                                  )),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                                          ),
-                                                          cardBottonContent:
-                                                            DreamsHTSIndexCardBottonContent(
-                                                          eventData: eventData,
-                                                           )
-                                                        ),
                                                       ),
                                                     );
                                                   }).toList(),

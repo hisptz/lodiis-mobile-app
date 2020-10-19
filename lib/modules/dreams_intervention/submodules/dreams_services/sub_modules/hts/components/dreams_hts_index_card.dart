@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/core/components/material_card.dart';
-import 'package:kb_mobile_app/models/events.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/agyw_dreams_index_info_event.dart';
 
 import 'dreams_hts_index_card_header.dart';
 
 class DreamsHTSIndexCard extends StatelessWidget {
   const DreamsHTSIndexCard({
     Key key,
-    @required this.eventData,
-    @required this.indexStageId,
+    @required this.event,
     @required this.cardBody,
     @required this.cardBottonActions,
     @required this.cardBottonContent,
@@ -19,7 +18,7 @@ class DreamsHTSIndexCard extends StatelessWidget {
     this.onCardToogle,
   }) : super(key: key);
 
-  final Events eventData;
+  final AgywDreamsIndexInfoEvent event;
   final Widget cardBody;
   final Widget cardBottonActions;
   final Widget cardBottonContent;
@@ -27,14 +26,12 @@ class DreamsHTSIndexCard extends StatelessWidget {
   final bool isExpanded;
   final bool canEdit;
   final bool canView;
-  final String indexStageId;
 
   final VoidCallback onCardToogle;
   final String svgIcon = 'assets/icons/hh_icon.svg';
 
   @override
   Widget build(BuildContext context) {
-    
     return Container(
       child: Container(
         margin: EdgeInsets.only(bottom: 16.0),
@@ -44,8 +41,7 @@ class DreamsHTSIndexCard extends StatelessWidget {
               children: [
                 Container(
                   child: DreamsHTSIndexCardHeader(
-                  indexStageId: indexStageId,
-                  eventData: eventData,
+                  event: event,
                   canEdit: canEdit,
                   canView: canView,
                   svgIcon: svgIcon,

@@ -59,7 +59,7 @@ class _AgywDreamsIndexContactState extends State<AgywDreamsIndexContact> {
       String eventDate = dataObject['eventDate'];
       String eventId = dataObject['eventId'];
       print(dataObject);
-      List<String> hiddenFields = [];
+      List<String> hiddenFields = [AgywDreamsHTSIndexConstant.indexInfoToIndexContactLinkage];
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
             AgywDreamsHTSIndexConstant.program,

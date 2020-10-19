@@ -16,21 +16,23 @@ import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/bio_data_index_contacts.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/bio_data_information_about_index_positive_client.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/constants/agyw_dreams_hts_index_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/constants/agyw_dreams_index_positive_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
 import 'package:provider/provider.dart';
 
 class AgywDreamsIndexInfoAboutPosClient extends StatefulWidget {
-  AgywDreamsIndexInfoAboutPosClient({Key key}) : super(key: key);
+  AgywDreamsIndexInfoAboutPosClient({
+    Key key,
+  }) : super(key: key);
 
   @override
-  _AgywDreamsIndexInfoAboutPosClientState createState() => _AgywDreamsIndexInfoAboutPosClientState();
+  _AgywDreamsIndexInfoAboutPosClientState createState() =>
+      _AgywDreamsIndexInfoAboutPosClientState();
 }
 
-class _AgywDreamsIndexInfoAboutPosClientState extends State<AgywDreamsIndexInfoAboutPosClient> {
+class _AgywDreamsIndexInfoAboutPosClientState
+    extends State<AgywDreamsIndexInfoAboutPosClient> {
   final String label = 'Index Information about positive client';
   List<FormSection> formSections;
   bool isFormReady = false;
@@ -40,7 +42,8 @@ class _AgywDreamsIndexInfoAboutPosClientState extends State<AgywDreamsIndexInfoA
   void initState() {
     super.initState();
     Timer(Duration(seconds: 1), () {
-      formSections = BioDataInformationAboutIndexPositiveClient.getFormSections();
+      formSections =
+          BioDataInformationAboutIndexPositiveClient.getFormSections();
       setState(() {
         isFormReady = true;
       });
@@ -58,10 +61,17 @@ class _AgywDreamsIndexInfoAboutPosClientState extends State<AgywDreamsIndexInfoA
       setState(() {
         isSaving = true;
       });
+      print(dataObject.keys.length);
       String eventDate = dataObject['eventDate'];
       String eventId = dataObject['eventId'];
-      print(dataObject);
-      List<String> hiddenFields = [];
+      dataObject[AgywDreamsIndexPositiveConstant
+          .indexInfoToIndexContactLinkage] = dataObject[
+              AgywDreamsIndexPositiveConstant.indexInfoToIndexContactLinkage] ??
+          AppUtil.getUid();
+      List<String> hiddenFields = [
+        AgywDreamsIndexPositiveConstant.htsToIndexLinkage,
+        AgywDreamsIndexPositiveConstant.indexInfoToIndexContactLinkage
+      ];
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
             AgywDreamsIndexPositiveConstant.program,
@@ -74,7 +84,7 @@ class _AgywDreamsIndexInfoAboutPosClientState extends State<AgywDreamsIndexInfoA
             eventId,
             hiddenFields);
         Provider.of<ServiveEventDataState>(context, listen: false)
-            .resetServiceEventDataState(agywDream.id);
+        .resetServiceEventDataState(agywDream.id);
         Timer(Duration(seconds: 1), () {
           setState(() {
             AppUtil.showToastMessage(
