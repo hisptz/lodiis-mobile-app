@@ -12,6 +12,8 @@ class DreamsHTSIndexCardHeader extends StatelessWidget {
     @required this.canEdit,
     @required this.canView,
     @required this.isExpanded,
+    @required this.onEdit,
+    @required this.onView,
     this.onToggleCard,
   }) : super(key: key);
 
@@ -20,6 +22,8 @@ class DreamsHTSIndexCardHeader extends StatelessWidget {
   final bool canEdit;
   final bool canView;
   final bool isExpanded;
+  final Function onEdit;
+  final Function onView;
   final AgywDreamsIndexInfoEvent event;
 
   final VoidCallback onToggleCard;
@@ -54,23 +58,25 @@ class DreamsHTSIndexCardHeader extends StatelessWidget {
                   child: Expanded(
                     flex: 1,
                     child: InkWell(
-                      onTap: event == null? null : ()=>{},
+                        onTap: event == null ? null : onView,
                         child: Container(
-                      height: iconHeight,
-                      width: iconHeight,
-                      margin: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-                      child: SvgPicture.asset(
-                        'assets/icons/expand_icon.svg',
-                        color: Color(0xFF258DCC),
-                      ),
-                    )),
+                          height: iconHeight,
+                          width: iconHeight,
+                          margin:
+                              EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+                          child: SvgPicture.asset(
+                            'assets/icons/expand_icon.svg',
+                            color: Color(0xFF258DCC),
+                          ),
+                        )),
                   )),
               Visibility(
                   visible: canEdit,
                   child: Expanded(
                     flex: 1,
                     child: InkWell(
-                        child: Container(
+                      onTap: event == null ? null : onEdit,
+                      child: Container(
                       height: iconHeight,
                       width: iconHeight,
                       margin: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
