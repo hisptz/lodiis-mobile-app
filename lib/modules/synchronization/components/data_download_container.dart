@@ -65,43 +65,46 @@ class DataDowmloadContainer extends StatelessWidget {
                   ),
                 ),
               ),
-              Container(
-                margin: EdgeInsets.symmetric(vertical: 5.0),
-                padding: EdgeInsets.symmetric(vertical: 2.0, horizontal: 1.0),
-                child: Row(
-                  children: [
-                    Expanded(
-                      flex: 1,
-                      child: Text(
-                        'Conflicts Exists',
-                        style: TextStyle().copyWith(
-                          fontSize: 12.0,
-                          fontWeight: FontWeight.w500,
+              Visibility(
+                visible: conflictCount > 0,
+                              child: Container(
+                  margin: EdgeInsets.symmetric(vertical: 5.0),
+                  padding: EdgeInsets.symmetric(vertical: 2.0, horizontal: 1.0),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child: Text(
+                          'Conflicts Exists',
+                          style: TextStyle().copyWith(
+                            fontSize: 12.0,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
                       ),
-                    ),
-                    Expanded(
-                      child: Text(
-                        '$conflictCount',
-                        style: TextStyle().copyWith(
-                            fontSize: 12.0,
-                            fontWeight: FontWeight.normal,
-                            color: Colors.red),
+                      Expanded(
+                        child: Text(
+                          '$conflictCount',
+                          style: TextStyle().copyWith(
+                              fontSize: 12.0,
+                              fontWeight: FontWeight.normal,
+                              color: Colors.red),
+                        ),
                       ),
-                    ),
-                    Expanded(
-                      child: FlatButton(
-                          shape: RoundedRectangleBorder(
-                              side: BorderSide(color: Colors.blueGrey[100]),
-                              borderRadius: BorderRadius.circular(25.0)),
-                          onPressed: () => this.onViewConflicts(),
-                          child: Text(
-                            "view conflicts",
-                            style: TextStyle().copyWith(
-                                fontSize: 11.0, color: Colors.blueGrey),
-                          )),
-                    )
-                  ],
+                      Expanded(
+                        child: FlatButton(
+                            shape: RoundedRectangleBorder(
+                                side: BorderSide(color: Colors.blueGrey[100]),
+                                borderRadius: BorderRadius.circular(25.0)),
+                            onPressed: () => this.onViewConflicts(),
+                            child: Text(
+                              "view conflicts",
+                              style: TextStyle().copyWith(
+                                  fontSize: 11.0, color: Colors.blueGrey),
+                            )),
+                      )
+                    ],
+                  ),
                 ),
               ),
               Container(
