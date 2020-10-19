@@ -90,14 +90,24 @@ class SynchronizationState with ChangeNotifier {
     _servertrackedEntityInstance = [];
     updateDataDownloadStatus(true);
     addDataDownloadProcess("Start Dowloading....");
+    int count = 0;
+    int total = _synchronizationService.orgUnitIds.length *
+        _synchronizationService.programs.length;
     for (String orgUnitId in _synchronizationService.orgUnitIds) {
       for (String program in _synchronizationService.programs) {
-        addDataDownloadProcess("get service data ....");
-        _eventFromServer.addAll(await _synchronizationService
-            .getEventsfromServer(program, orgUnitId));
-        addDataDownloadProcess("get profile data ....");
+        count++;
+        addDataDownloadProcess("Download profile data $count/$total");
         _servertrackedEntityInstance.addAll(await _synchronizationService
             .getTrackedInstancefromServer(program, orgUnitId));
+      }
+    }
+    count = 0;
+    for (String orgUnitId in _synchronizationService.orgUnitIds) {
+      for (String program in _synchronizationService.programs) {
+        count++;
+        addDataDownloadProcess("Download service data $count/$total");
+        _eventFromServer.addAll(await _synchronizationService
+            .getEventsfromServer(program, orgUnitId));
       }
     }
     addDataDownloadProcess("finish Dowload");
@@ -105,11 +115,11 @@ class SynchronizationState with ChangeNotifier {
     await analysisOfDownloadedData();
   }
 
-  Future analysisOfDownloadedData() async {
+  Future analysisOfDownloadedData() async{
     // addDataDownloadProcess("Start analyse service data ");
-   await eventsAnalysisDownloadData();
+    await eventsAnalysisDownloadData();
     addDataDownloadProcess("Start analyse profile data ");
-  //  await trackeEntityInstanceAnalysisDownloadData();
+    // await trackeEntityInstanceAnalysisDownloadData();
     updateDataDownloadStatus(false);
   }
 
@@ -151,7 +161,9 @@ class SynchronizationState with ChangeNotifier {
       "offline": offlineEventsToResolve,
     };
 
- }
+    print(_events["online"]);
+    print(_events['offline']);
+  }
 
   Future trackeEntityInstanceAnalysisDownloadData() async {
     List<String> attributeIds = [];
