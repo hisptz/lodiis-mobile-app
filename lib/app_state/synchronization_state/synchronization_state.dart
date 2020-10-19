@@ -7,7 +7,6 @@ import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
 
 class SynchronizationState with ChangeNotifier {
-
 // intial state
   bool _isDataUploadingActive;
   bool _isDataDownloadingActive;
@@ -24,6 +23,7 @@ class SynchronizationState with ChangeNotifier {
   Map<String, List> _trackedInstance;
   Map<String, List> _events;
   List<Map<String, dynamic>> _events_1;
+  int _conflictLCount;
 
 // selectors
   bool get isDataUploadingActive => _isDataUploadingActive ?? false;
@@ -35,6 +35,7 @@ class SynchronizationState with ChangeNotifier {
   List<String> get dataUploadProcesses => _dataUploadProcess ?? [];
   List<String> get dataDownloadProcesses => _dataDownloadProcess ?? [];
   List<Events> get eventFromServer => _eventFromServer ?? [];
+  int get conflictCount => _conflictLCount ?? 0;
 
   List<TrackeEntityInstance> get trackedEntityInstanceFromServer =>
       _trackeEntityInstance ?? [];
@@ -42,7 +43,7 @@ class SynchronizationState with ChangeNotifier {
       _servertrackedEntityInstance ?? [];
   Map<String, List> get trackedInstance => _trackedInstance ?? {};
   Map<String, List> get events => _events ?? {};
-  List<Map<String, dynamic>>get  events_1 => _events_1 ?? [];
+  List<Map<String, dynamic>> get events_1 => _events_1 ?? [];
 
 // reducers
   void updateDataUploadStatus(bool status) {
@@ -117,7 +118,7 @@ class SynchronizationState with ChangeNotifier {
   }
 
   Future analysisOfDownloadedData() async {
-    // addDataDownloadProcess("Start analyse service data ");
+    addDataDownloadProcess("Start analyse service data ");
     await eventsAnalysisDownloadData();
     addDataDownloadProcess("Start analyse profile data ");
     await trackeEntityInstanceAnalysisDownloadData();
