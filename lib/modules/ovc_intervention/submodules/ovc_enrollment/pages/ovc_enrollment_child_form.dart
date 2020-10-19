@@ -15,6 +15,7 @@ import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/components/add_child_confirmation.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/models/ovc_enrollment_child.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/pages/ovc_enrollment_house_hold_form.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/skip_logics/ovc_child_enrollment_skip_logic.dart';
 import 'package:provider/provider.dart';
 
 class OvcEnrollmentChildForm extends StatefulWidget {
@@ -52,6 +53,7 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
       childMapObject = Map();
       childMapObject['PN92g65TkVI'] = 'Active';
       isLoading = false;
+      evaluateSkipLogics();
     });
   }
   //Caregiver Information
@@ -110,18 +112,20 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
     }
   }
 
-  void autoFillInputFields(String id, dynamic value) {
-    if (id == 'qZP982qpSPS') {
-      int age = AppUtil.getAgeInYear(value);
-      setState(() {
-        childMapObject['ls9hlz2tyol'] = age.toString();
-      });
-    }
+  evaluateSkipLogics() {
+    Timer(
+      Duration(milliseconds: 200),
+      () async => await OvcChildEnrollmentSkipLogic.evaluateSkipLogics(
+        context,
+        formSections,
+        childMapObject,
+      ),
+    );
   }
 
   void onInputValueChange(String id, dynamic value) {
     childMapObject[id] = value;
-    autoFillInputFields(id, value);
+    evaluateSkipLogics();
   }
 
   @override
