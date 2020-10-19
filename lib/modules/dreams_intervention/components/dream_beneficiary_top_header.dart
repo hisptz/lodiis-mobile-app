@@ -19,20 +19,35 @@ class DreamBenefeciaryTopHeader extends StatelessWidget {
           child: Column(
             children: [
               Container(
+                margin: EdgeInsets.symmetric(
+                  horizontal: 10.0,
+                ),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Container(
-                      margin:
-                          EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
-                      child: Text(
-                        agywDream.toString(),
-                        style: TextStyle().copyWith(
-                            color: Color(0xFF1A3518),
-                            fontSize: 14.0,
-                            fontWeight: FontWeight.w700),
+                    Expanded(
+                      child: Container(
+                        child: Text(
+                          agywDream.toString(),
+                          style: TextStyle().copyWith(
+                              color: Color(0xFF05131B),
+                              fontSize: 14.0,
+                              fontWeight: FontWeight.w700),
+                        ),
                       ),
-                    )
+                    ),
+                    Expanded(
+                      child: Container(
+                        alignment: Alignment.centerRight,
+                        child: Text(
+                          agywDream.benefecaryId,
+                          style: TextStyle().copyWith(
+                              color: Color(0xFF05131B),
+                              fontSize: 14.0,
+                              fontWeight: FontWeight.w700),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),

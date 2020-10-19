@@ -3,10 +3,11 @@ import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/input_field_option.dart';
 
-class OvcServicesCasePlanServiceFollowup {
+class OvcServicesChildCasePlanFollowup {
   static List<FormSection> getFormSections() {
     return [
       FormSection(
+          id: 'Health',
           name: 'DOMAIN HEALTH',
           color: Color(0xFF4D9E49),
           borderColor: Color(0xFF4D9E49),
@@ -285,6 +286,7 @@ class OvcServicesCasePlanServiceFollowup {
                 labelColor: Color(0xFF737373))
           ]),
       FormSection(
+          id: 'Stable',
           name: 'DOMAIN STABLE',
           color: Color(0xFF0000FF),
           borderColor: Color(0xFF0000FF),
@@ -376,6 +378,7 @@ class OvcServicesCasePlanServiceFollowup {
                 labelColor: Color(0xFF737373)),
           ]),
       FormSection(
+          id: 'Safe',
           name: 'DOMAIN SAFE',
           color: Color(0xFF0F9587),
           borderColor: Color(0xFF0F9587),
@@ -569,6 +572,7 @@ class OvcServicesCasePlanServiceFollowup {
                 labelColor: Color(0xFF737373)),
           ]),
       FormSection(
+          id: 'Schooled',
           name: 'DOMAIN SCHOOLED',
           color: Color(0xFF9B2BAE),
           borderColor: Color(0xFF9B2BAE),
