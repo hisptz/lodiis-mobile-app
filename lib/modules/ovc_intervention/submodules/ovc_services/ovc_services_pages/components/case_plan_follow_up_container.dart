@@ -55,7 +55,6 @@ class _CasePlanGapFollowUpContainerState
       isEditableMode: widget.shouldViewCaseGapFollowUp,
     );
     await AppUtil.showPopUpModal(context, modal, true);
-    print(widget.casePlanGap);
   }
 
 // handling state management on adding following ups
@@ -70,9 +69,12 @@ class _CasePlanGapFollowUpContainerState
             children: [
               Container(
                 child: CasePlanFollowUpViewContainer(
+                  domainId: widget.domainId,
+                  themeColor: widget.formSectionColor,
                   casePlanGapToFollowinUpLinkageValue:
                       casePlanGapToFollowinUpLinkageValue,
                   shouldEditCaseGapFollowUps: widget.shouldEditCaseGapFollowUps,
+                  isCasePlanForHouseHold: widget.isCasePlanForHouseHold,
                 ),
               ),
               Visibility(

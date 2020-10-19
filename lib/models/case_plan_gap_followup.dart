@@ -154,6 +154,6 @@ class CasePlanGapFollowUp {
 
   @override
   String toString() {
-    return '$id';
+    return '$id $result';
   }
 }
