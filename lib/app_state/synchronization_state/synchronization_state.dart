@@ -159,7 +159,6 @@ class SynchronizationState with ChangeNotifier {
           offlineTrackedEntityInstance.add(trackedAttribute['value']);
           onlineTrackedEntityInstance.add(trackeEntityInstance.attributes[0]);
           //  print(_trackedInstance['offline'][0]);
-
         } else {
           //Save data when no conflicts
           await _synchronizationService
@@ -175,8 +174,7 @@ class SynchronizationState with ChangeNotifier {
     };
 
     updateDataDownloadStatus(false);
-    print(_trackedInstance['offline']);
-  }
+    }
 
   Future startDataUploadActivity() async {
     _dataUploadProcess = [];
