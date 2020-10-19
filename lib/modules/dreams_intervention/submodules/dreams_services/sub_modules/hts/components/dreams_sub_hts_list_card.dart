@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:kb_mobile_app/core/components/material_card.dart';
-import 'package:kb_mobile_app/models/events.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/index/hts_index_home_page.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/models/hts_model.dart';
 
-class DreamsSubHTSListCard extends StatelessWidget {
+class DreamsSubHTSListCard extends StatefulWidget {
   const DreamsSubHTSListCard({
     Key key,
     @required this.eventData,
-    @required this.sessionCount,
-    @required this.eventId,
-    @required this.indexCard,
     this.onViewConsent,
     this.onViewIntake,
     this.onViewStatus,
@@ -18,16 +16,20 @@ class DreamsSubHTSListCard extends StatelessWidget {
     this.onEditStatus, 
   }) : super(key: key);
 
-  final Events eventData;
   final Function onViewConsent;
   final Function onEditConsent;
   final Function onViewIntake;
   final Function onEditIntake;
   final Function onViewStatus;
   final Function onEditStatus;
-  final int sessionCount;
-  final String eventId;
-  final Widget indexCard;
+  final DreamsHTSEvent eventData;
+
+  @override
+  _DreamsSubHTSListCardState createState() => _DreamsSubHTSListCardState();
+}
+
+class _DreamsSubHTSListCardState extends State<DreamsSubHTSListCard> {
+  DreamsHTSEvent dreamsHTSEventCard;
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +55,7 @@ class DreamsSubHTSListCard extends StatelessWidget {
                           child: Expanded(
                             child: RichText(
                               text: TextSpan(
-                                    text: '${eventData.eventDate}   ',
+                                    text: '${widget.eventData.htsIndexLinkage}   ',
                                   style: TextStyle().copyWith(
                                   color: Color(0xFF82898D),
                                   fontSize: 12.0,
@@ -78,7 +80,7 @@ class DreamsSubHTSListCard extends StatelessWidget {
                             horizontal: 5.0,
                           ),
                           child: InkWell(
-                              onTap: onViewConsent,
+                              onTap: widget.onViewConsent,
                               child: Container(
                                 height: iconHeight,
                                 width: iconHeight,
@@ -95,7 +97,7 @@ class DreamsSubHTSListCard extends StatelessWidget {
                             horizontal: 5.0,
                           ),
                           child: InkWell(
-                              onTap: onEditConsent,
+                              onTap: widget.onEditConsent,
                               child: Container(
                                 height: iconHeight,
                                 width: iconHeight,
@@ -125,7 +127,7 @@ class DreamsSubHTSListCard extends StatelessWidget {
                           child: Expanded(
                             child: RichText(
                               text: TextSpan(
-                                 text: '${eventData.eventDate}   ',
+                                 text: '${widget.eventData.date}   ',
                                   style: TextStyle().copyWith(
                                   color: Color(0xFF82898D),
                                   fontSize: 12.0,
@@ -151,7 +153,7 @@ class DreamsSubHTSListCard extends StatelessWidget {
                             horizontal: 5.0,
                           ),
                           child: InkWell(
-                              onTap: onViewIntake,
+                              onTap: widget.onViewIntake,
                               child: Container(
                                 height: iconHeight,
                                 width: iconHeight,
@@ -168,7 +170,7 @@ class DreamsSubHTSListCard extends StatelessWidget {
                             horizontal: 5.0,
                           ),
                           child: InkWell(
-                              onTap: onEditIntake,
+                              onTap: widget.onEditIntake,
                               child: Container(
                                 height: iconHeight,
                                 width: iconHeight,
@@ -198,7 +200,7 @@ class DreamsSubHTSListCard extends StatelessWidget {
                           child: Expanded(
                             child: RichText(
                               text: TextSpan(
-                                 text: '${eventData.eventDate}   ',
+                                 text: '${widget.eventData.date}   ',
                                   style: TextStyle().copyWith(
                                   color: Color(0xFF82898D),
                                   fontSize: 12.0,
@@ -224,7 +226,7 @@ class DreamsSubHTSListCard extends StatelessWidget {
                             horizontal: 5.0,
                           ),
                           child: InkWell(
-                              onTap: onViewStatus,
+                              onTap: widget.onViewStatus,
                               child: Container(
                                 height: iconHeight,
                                 width: iconHeight,
@@ -241,7 +243,7 @@ class DreamsSubHTSListCard extends StatelessWidget {
                             horizontal: 5.0,
                           ),
                           child: InkWell(
-                              onTap: onEditStatus,
+                              onTap: widget.onEditStatus,
                               child: Container(
                                 height: iconHeight,
                                 width: iconHeight,
@@ -258,7 +260,7 @@ class DreamsSubHTSListCard extends StatelessWidget {
               ),
                ),
                 ),
-              indexCard
+              HTSIndexHomePage(htsIndexLinkage:widget.eventData.htsIndexLinkage)
             ],
           ),
         ),

@@ -8,13 +8,11 @@ class DreamsHTSListCard extends StatelessWidget {
     Key key,
     @required this.eventData,
     @required this.sessionCount,
-    this.onViewPrev,
-    this.onEditPrev,
+    this.onViewHTS,
   }) : super(key: key);
 
   final Events eventData;
-  final Function onViewPrev;
-  final Function onEditPrev;
+  final Function onViewHTS;
   final int sessionCount;
 
   @override
@@ -63,7 +61,7 @@ class DreamsHTSListCard extends StatelessWidget {
                       horizontal: 5.0,
                     ),
                     child: InkWell(
-                        onTap: onViewPrev,
+                        onTap: onViewHTS,
                         child: Container(
                           height: iconHeight,
                           width: iconHeight,
