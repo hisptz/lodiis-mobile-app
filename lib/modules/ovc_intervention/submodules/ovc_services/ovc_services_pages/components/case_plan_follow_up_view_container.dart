@@ -8,9 +8,11 @@ class CasePlanFollowUpViewContainer extends StatelessWidget {
   const CasePlanFollowUpViewContainer({
     Key key,
     @required this.casePlanGapToFollowinUpLinkageValue,
+    @required this.shouldEditCaseGapFollowUps,
   }) : super(key: key);
 
   final String casePlanGapToFollowinUpLinkageValue;
+  final bool shouldEditCaseGapFollowUps;
 
   @override
   Widget build(BuildContext context) {

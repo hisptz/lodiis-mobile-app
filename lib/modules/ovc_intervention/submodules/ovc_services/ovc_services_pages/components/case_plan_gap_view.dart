@@ -14,7 +14,7 @@ class CasePlanGapView extends StatefulWidget {
     @required this.isCasePlanForHouseHold,
     @required this.domainId,
     @required this.gapIndex,
-    @required this.shouldAddCaseGapFollowUps,
+    @required this.shouldEditCaseGapFollowUps,
     @required this.shouldViewCaseGapFollowUp,
     @required this.formSectionColor,
   }) : super(key: key);
@@ -23,7 +23,7 @@ class CasePlanGapView extends StatefulWidget {
   final String domainId;
   final int gapIndex;
   final bool isCasePlanForHouseHold;
-  final bool shouldAddCaseGapFollowUps;
+  final bool shouldEditCaseGapFollowUps;
   final bool shouldViewCaseGapFollowUp;
 
   @override
@@ -152,12 +152,13 @@ class _CasePlanGapViewState extends State<CasePlanGapView> {
                             .toList()
                               ..add(Container(
                                 child: CasePlanGapFollowUpContainer(
+                                  domainId: widget.domainId,
                                   formSectionColor: widget.formSectionColor,
                                   isCasePlanForHouseHold:
                                       widget.isCasePlanForHouseHold,
                                   casePlanGap: widget.casePlanGap,
-                                  shouldAddCaseGapFollowUps:
-                                      widget.shouldAddCaseGapFollowUps,
+                                  shouldEditCaseGapFollowUps:
+                                      widget.shouldEditCaseGapFollowUps,
                                   shouldViewCaseGapFollowUp:
                                       widget.shouldViewCaseGapFollowUp,
                                 ),

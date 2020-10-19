@@ -109,8 +109,7 @@ class OvcHouseHoldCasePlanHome extends StatelessWidget {
       context,
       MaterialPageRoute(
         builder: (context) => OvcHouseHoldCasePlanForm(
-          shouldViewCaseGapFollowUp: true,
-          shouldAddCaseGapFollowUps: true,
+          shouldEditCaseGapFollowUps: true,
         ),
       ),
     );
@@ -129,7 +128,6 @@ class OvcHouseHoldCasePlanHome extends StatelessWidget {
       MaterialPageRoute(
         builder: (context) => OvcHouseHoldCasePlanForm(
           shouldViewCaseGapFollowUp: true,
-          shouldAddCaseGapFollowUps: false,
         ),
       ),
     );

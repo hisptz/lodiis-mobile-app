@@ -10,15 +10,17 @@ class CasePlanGapFollowUpContainer extends StatefulWidget {
     @required this.formSectionColor,
     @required this.isCasePlanForHouseHold,
     @required this.casePlanGap,
-    @required this.shouldAddCaseGapFollowUps,
+    @required this.shouldEditCaseGapFollowUps,
     @required this.shouldViewCaseGapFollowUp,
+    @required this.domainId,
   }) : super(key: key);
 
   final Map casePlanGap;
   final Color formSectionColor;
   final bool isCasePlanForHouseHold;
-  final bool shouldAddCaseGapFollowUps;
+  final bool shouldEditCaseGapFollowUps;
   final bool shouldViewCaseGapFollowUp;
+  final String domainId;
 
   @override
   _CasePlanGapFollowUpContainerState createState() =>
@@ -46,7 +48,12 @@ class _CasePlanGapFollowUpContainerState
     Map dataObject = Map();
     dataObject[OvcCasePlanConstant.casePlanGapToFollowinUpLinkage] =
         casePlanGapToFollowinUpLinkageValue;
-    Widget modal = CasePlanFollowUpFormContainer(dataObject: dataObject);
+    Widget modal = CasePlanFollowUpFormContainer(
+      dataObject: dataObject,
+      domainId: widget.domainId,
+      isCasePlanForHouseHold: widget.isCasePlanForHouseHold,
+      isEditableMode: widget.shouldViewCaseGapFollowUp,
+    );
     await AppUtil.showPopUpModal(context, modal, true);
     print(widget.casePlanGap);
   }
@@ -56,7 +63,7 @@ class _CasePlanGapFollowUpContainerState
   Widget build(BuildContext context) {
     return Container(
       child: Visibility(
-        visible: widget.shouldAddCaseGapFollowUps ||
+        visible: widget.shouldEditCaseGapFollowUps ||
             widget.shouldViewCaseGapFollowUp,
         child: Container(
           child: Column(
@@ -65,10 +72,11 @@ class _CasePlanGapFollowUpContainerState
                 child: CasePlanFollowUpViewContainer(
                   casePlanGapToFollowinUpLinkageValue:
                       casePlanGapToFollowinUpLinkageValue,
+                  shouldEditCaseGapFollowUps: widget.shouldEditCaseGapFollowUps,
                 ),
               ),
               Visibility(
-                visible: widget.shouldAddCaseGapFollowUps,
+                visible: widget.shouldViewCaseGapFollowUp,
                 child: Container(
                   alignment: Alignment.center,
                   margin: EdgeInsets.symmetric(vertical: 10.0),

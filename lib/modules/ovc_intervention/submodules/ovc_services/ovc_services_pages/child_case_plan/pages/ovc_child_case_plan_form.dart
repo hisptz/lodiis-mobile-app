@@ -27,11 +27,11 @@ import 'package:provider/provider.dart';
 class OcvChildCasePlanForm extends StatefulWidget {
   const OcvChildCasePlanForm({
     Key key,
-    this.shouldAddCaseGapFollowUps = false,
+    this.shouldEditCaseGapFollowUps = false,
     this.shouldViewCaseGapFollowUp = false,
   }) : super(key: key);
 
-  final bool shouldAddCaseGapFollowUps;
+  final bool shouldEditCaseGapFollowUps;
   final bool shouldViewCaseGapFollowUp;
 
   @override
@@ -213,8 +213,8 @@ class _OcvChildCasePlanFormState extends State<OcvChildCasePlanForm> {
                                         .map(
                                           (FormSection formSection) =>
                                               CasePlanFormContainer(
-                                            shouldAddCaseGapFollowUps: widget
-                                                .shouldAddCaseGapFollowUps,
+                                            shouldEditCaseGapFollowUps: widget
+                                                .shouldEditCaseGapFollowUps,
                                             shouldViewCaseGapFollowUp: widget
                                                 .shouldViewCaseGapFollowUp,
                                             formSectionColor:
