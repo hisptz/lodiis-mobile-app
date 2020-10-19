@@ -18,6 +18,8 @@ class CasePlanFormContainer extends StatelessWidget {
     @required this.dataObject,
     this.isCasePlanForHouseHold = false,
     this.onInputValueChange,
+    @required this.shouldEditCaseGapFollowUps,
+    @required this.shouldViewCaseGapFollowUp,
   }) : super(key: key);
 
   final Color formSectionColor;
@@ -26,11 +28,17 @@ class CasePlanFormContainer extends StatelessWidget {
   final Map dataObject;
   final Function onInputValueChange;
   final bool isCasePlanForHouseHold;
+  final bool shouldEditCaseGapFollowUps;
+  final bool shouldViewCaseGapFollowUp;
 
   final String caseToGapLinkage = OvcCasePlanConstant.casePlanToGapLinkage;
+  final String casePlanGapToFollowinUpLinkage =
+      OvcCasePlanConstant.casePlanGapToFollowinUpLinkage;
 
   void onAddNewGap(BuildContext context) async {
     Map gapDataObject = Map();
+    gapDataObject[casePlanGapToFollowinUpLinkage] =
+        gapDataObject[casePlanGapToFollowinUpLinkage] ?? AppUtil.getUid();
     gapDataObject[caseToGapLinkage] =
         dataObject[caseToGapLinkage] ?? AppUtil.getUid();
     List<FormSection> formSections = isCasePlanForHouseHold
@@ -93,13 +101,16 @@ class CasePlanFormContainer extends StatelessWidget {
                   onInputValueChange: onValueChange,
                 ),
                 CasePlanGapViewContainer(
-                  casePlanGaps: dataObject['gaps'],
+                  casePlanGaps: dataObject['gaps'] ?? [],
                   domainId: formSection.id,
                   isCasePlanForHouseHold: isCasePlanForHouseHold,
                   formSectionColor: formSectionColor,
+                  shouldEditCaseGapFollowUps: shouldEditCaseGapFollowUps,
+                  shouldViewCaseGapFollowUp: shouldViewCaseGapFollowUp,
                 ),
                 Visibility(
-                  visible: isEditableMode,
+                  visible: (isEditableMode || shouldEditCaseGapFollowUps) &&
+                      !shouldViewCaseGapFollowUp,
                   child: Container(
                     margin: EdgeInsets.only(bottom: 10.0),
                     child: FlatButton(

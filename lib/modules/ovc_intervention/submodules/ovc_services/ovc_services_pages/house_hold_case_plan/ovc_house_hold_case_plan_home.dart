@@ -13,7 +13,6 @@ import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
-import 'package:kb_mobile_app/models/ovc_house_hold.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold_top_header.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_caseplan.dart';
@@ -26,24 +25,46 @@ import 'package:provider/provider.dart';
 class OvcHouseHoldCasePlanHome extends StatelessWidget {
   final String label = 'House Hold Case plan';
 
-  final List<String> programStageIds = [
+  final List<String> casePlanProgramStageIds = [
     OvcHouseHoldCasePlanConstant.casePlanProgramStage
+  ];
+
+  final List<String> casePlanGapProgramStageIds = [
+    OvcHouseHoldCasePlanConstant.casePlanGapProgramStage
   ];
 
   updateformState(
     BuildContext context,
-    OvcHouseHold houseHold,
     bool isEditableMode,
+    List<Events> casePlanEvents,
+    Map<String, List<Events>> eventListByProgramStage,
   ) {
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
     Provider.of<ServiceFormState>(context, listen: false)
         .updateFormEditabilityState(isEditableMode: isEditableMode);
-    String casePlanToGapLinkage = AppUtil.getUid();
+    Map sanitizedDataObject;
+    if (casePlanEvents != null) {
+      List<Events> casePlanGapsEvents = eventListByProgramStage[
+          OvcHouseHoldCasePlanConstant.casePlanGapProgramStage];
+      sanitizedDataObject =
+          OvcCasePlanConstant.getMappedCasePlanWithGapsByDomain(
+        casePlanEvents,
+        casePlanGapsEvents,
+      );
+    }
     for (FormSection formSection in OvcServicesCasePlan.getFormSections()) {
-      // @TODO update state accordingly
-      Map map = Map();
-      map['gaps'] = [];
-      map[OvcCasePlanConstant.casePlanToGapLinkage] = casePlanToGapLinkage;
+      String formSectionId = formSection.id;
+      String casePlanToGapLinkage = AppUtil.getUid();
+      Map map = sanitizedDataObject != null &&
+              sanitizedDataObject.containsKey(formSectionId)
+          ? sanitizedDataObject[formSectionId]
+          : Map();
+      map['gaps'] = map['gaps'] ?? [];
+      map[OvcCasePlanConstant.casePlanToGapLinkage] =
+          map[OvcCasePlanConstant.casePlanToGapLinkage] ?? casePlanToGapLinkage;
+      map[OvcCasePlanConstant.casePlanGapToFollowinUpLinkage] =
+          map[OvcCasePlanConstant.casePlanGapToFollowinUpLinkage] ??
+              AppUtil.getUid();
       map[OvcCasePlanConstant.casePlanDomainType] = formSection.id;
       Provider.of<ServiceFormState>(context, listen: false)
           .setFormFieldState(formSection.id, map);
@@ -53,7 +74,7 @@ class OvcHouseHoldCasePlanHome extends StatelessWidget {
   isCasePlanExit(Map<String, List<Events>> eventListByProgramStage) {
     List<Events> events =
         TrackedEntityInstanceUtil.getAllEventListFromServiceDataState(
-            eventListByProgramStage, programStageIds);
+            eventListByProgramStage, casePlanProgramStageIds);
     Map groupedEventByDates =
         TrackedEntityInstanceUtil.getGroupedEventByDates(events);
     String today = AppUtil.formattedDateTimeIntoString(DateTime.now());
@@ -62,15 +83,15 @@ class OvcHouseHoldCasePlanHome extends StatelessWidget {
 
   void onAddNewCasePlan(
     BuildContext context,
-    OvcHouseHold houseHold,
     Map<String, List<Events>> eventListByProgramStage,
   ) {
+    bool isEditableMode = false;
     if (isCasePlanExit(eventListByProgramStage)) {
       AppUtil.showToastMessage(
           message: 'There is exiting case plan that has already created',
           position: ToastGravity.TOP);
     } else {
-      updateformState(context, houseHold, true);
+      updateformState(context, isEditableMode, null, eventListByProgramStage);
       Navigator.push(context,
           MaterialPageRoute(builder: (context) => OvcHouseHoldCasePlanForm()));
     }
@@ -78,22 +99,38 @@ class OvcHouseHoldCasePlanHome extends StatelessWidget {
 
   void onEditCasePlan(
     BuildContext context,
-    OvcHouseHold houseHold,
     List<Events> casePlanEvents,
     Map<String, List<Events>> eventListByProgramStage,
   ) {
-    updateformState(context, houseHold, true);
-    print(casePlanEvents);
+    bool isEditableMode = false;
+    updateformState(
+        context, isEditableMode, casePlanEvents, eventListByProgramStage);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => OvcHouseHoldCasePlanForm(
+          shouldEditCaseGapFollowUps: true,
+        ),
+      ),
+    );
   }
 
   void onViewCasePlan(
     BuildContext context,
-    OvcHouseHold houseHold,
     List<Events> casePlanEvents,
     Map<String, List<Events>> eventListByProgramStage,
   ) {
-    updateformState(context, houseHold, false);
-    print(casePlanEvents);
+    bool isEditableMode = false;
+    updateformState(
+        context, isEditableMode, casePlanEvents, eventListByProgramStage);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => OvcHouseHoldCasePlanForm(
+          shouldViewCaseGapFollowUp: true,
+        ),
+      ),
+    );
   }
 
   @override
@@ -125,74 +162,56 @@ class OvcHouseHoldCasePlanHome extends StatelessWidget {
                         currentOvcHouseHold: currentOvcHouseHold,
                       ),
                       Container(
-                        child: Consumer<OvcHouseHoldCurrentSelectionState>(
-                          builder: (context, ovcHouseHoldCurrentSelectionState,
-                              child) {
-                            OvcHouseHold currentOvcHouseHold =
-                                ovcHouseHoldCurrentSelectionState
-                                    .currentOvcHouseHold;
-                            return Container(
-                              child: Consumer<ServiveEventDataState>(
-                                builder:
-                                    (context, serviveEventDataState, child) {
-                                  bool isLoading =
-                                      serviveEventDataState.isLoading;
-                                  Map<String, List<Events>>
-                                      eventListByProgramStage =
-                                      serviveEventDataState
-                                          .eventListByProgramStage;
-                                  return isLoading
-                                      ? CircularProcessLoader(
-                                          color: Colors.blueGrey,
-                                        )
-                                      : Container(
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            children: [
-                                              CasePlanHomeListContainer(
-                                                programStageIds:
-                                                    programStageIds,
-                                                onEditCasePlan: (casePlanEvents) =>
-                                                    onEditCasePlan(
-                                                        context,
-                                                        currentOvcHouseHold,
-                                                        casePlanEvents,
-                                                        eventListByProgramStage),
-                                                onViewCasePlan: (casePlanEvents) =>
-                                                    onEditCasePlan(
-                                                        context,
-                                                        currentOvcHouseHold,
-                                                        casePlanEvents,
-                                                        eventListByProgramStage),
-                                              ),
-                                              Container(
-                                                child: Visibility(
-                                                  visible: !isLoading,
-                                                  child:
-                                                      OvcEnrollmentFormSaveButton(
-                                                          label: 'NEW CASEPLAN',
-                                                          labelColor:
-                                                              Colors.white,
-                                                          fontSize: 10,
-                                                          buttonColor:
-                                                              Color(0xFF4B9F46),
-                                                          onPressButton: () =>
-                                                              onAddNewCasePlan(
-                                                                context,
-                                                                currentOvcHouseHold,
-                                                                eventListByProgramStage,
-                                                              )),
-                                                ),
-                                              ),
-                                            ],
+                        child: Consumer<ServiveEventDataState>(
+                          builder: (context, serviveEventDataState, child) {
+                            bool isLoading = serviveEventDataState.isLoading;
+                            Map<String, List<Events>> eventListByProgramStage =
+                                serviveEventDataState.eventListByProgramStage;
+                            return isLoading
+                                ? CircularProcessLoader(
+                                    color: Colors.blueGrey,
+                                  )
+                                : Container(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        CasePlanHomeListContainer(
+                                          programStageIds:
+                                              casePlanProgramStageIds,
+                                          onEditCasePlan: (casePlanEvents) =>
+                                              onEditCasePlan(
+                                            context,
+                                            casePlanEvents,
+                                            eventListByProgramStage,
                                           ),
-                                        );
-                                },
-                              ),
-                            );
+                                          onViewCasePlan: (casePlanEvents) =>
+                                              onViewCasePlan(
+                                            context,
+                                            casePlanEvents,
+                                            eventListByProgramStage,
+                                          ),
+                                        ),
+                                        Container(
+                                          child: Visibility(
+                                            visible: !isLoading,
+                                            child: OvcEnrollmentFormSaveButton(
+                                                label: 'NEW CASEPLAN',
+                                                labelColor: Colors.white,
+                                                fontSize: 10,
+                                                buttonColor: Color(0xFF4B9F46),
+                                                onPressButton: () =>
+                                                    onAddNewCasePlan(
+                                                      context,
+                                                      eventListByProgramStage,
+                                                    )),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  );
                           },
                         ),
                       )
