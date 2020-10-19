@@ -78,6 +78,32 @@ class DreamsHTSIndexCardBody extends StatelessWidget {
               ],
             ),
           ),
+            Container(
+            margin: EdgeInsets.symmetric(vertical: 2.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Expanded(
+                    flex: 1,
+                    child: Text(
+                      'On ART',
+                      style: TextStyle().copyWith(
+                          fontSize: 14.0,
+                          color: Color(0xFF82898D),
+                          fontWeight: FontWeight.w500),
+                    )),
+                Expanded(
+                    flex: 2,
+                    child: Text(
+                      event.onART,
+                      style: TextStyle().copyWith(
+                          fontSize: 14.0,
+                          color: Color(0XFF536852),
+                          fontWeight: FontWeight.w500),
+                    ))
+              ],
+            ),
+          ),
             ],
           ),
         ],

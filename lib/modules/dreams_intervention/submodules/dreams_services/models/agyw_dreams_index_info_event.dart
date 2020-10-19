@@ -1,6 +1,6 @@
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/constants/agyw_dreams_index_positive_constant.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/models/index_contact_model.dart';
+
 
 class AgywDreamsIndexInfoEvent {
   String id;
@@ -11,7 +11,7 @@ class AgywDreamsIndexInfoEvent {
   String enrollmentFacility;
   String htsIndexLinkage;
   String indexInfoToIndexContactLinkage;
-  List<IndexContactModel> people;
+  dynamic datavalues;
   
   Events eventData;
 
@@ -24,8 +24,8 @@ class AgywDreamsIndexInfoEvent {
     this.enrollmentFacility,
     this.htsIndexLinkage,
     this.indexInfoToIndexContactLinkage,
-    this.people,
-  
+    this.datavalues,
+   
     this.eventData,
   });
 
@@ -49,6 +49,7 @@ class AgywDreamsIndexInfoEvent {
     return AgywDreamsIndexInfoEvent(
       id: eventData.event,
       date: eventData.eventDate,
+      datavalues:eventData.dataValues,
       consent: data['eT9Dk0tPnHe'] ?? '',
       onART: data['ePGwxaqA5Po'] ?? '',
       startDateART: data['qdN6oXzoUCg'] ?? '',
@@ -61,6 +62,6 @@ class AgywDreamsIndexInfoEvent {
 
   @override
   String toString() {
-    return '$id $date';
+    return '$id $date $datavalues';
   }
 }
