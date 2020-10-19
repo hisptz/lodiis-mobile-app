@@ -19,6 +19,7 @@ import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold_top_header.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/services/ovc_enrollment_child_services.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/models/ovc_enrollment_child.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/skip_logics/ovc_child_enrollment_skip_logic.dart';
 import 'package:provider/provider.dart';
 
 class OvcEnrollmentChildEditViewForm extends StatefulWidget {
@@ -50,7 +51,23 @@ class _OvcEnrollmentChildEditViewFormState
         mandatoryFieldObject[id] = true;
       }
       isFormReady = true;
+      evaluateSkipLogics();
     });
+  }
+
+  evaluateSkipLogics() {
+    Timer(
+      Duration(milliseconds: 200),
+      () async {
+        Map dataObject =
+            Provider.of<EnrollmentFormState>(context, listen: false).formState;
+        await OvcChildEnrollmentSkipLogic.evaluateSkipLogics(
+          context,
+          formSections,
+          dataObject,
+        );
+      },
+    );
   }
 
   void onSaveForm(BuildContext context, Map dataObject) async {
@@ -103,18 +120,10 @@ class _OvcEnrollmentChildEditViewFormState
     }
   }
 
-  void autoFillInputFields(String id, dynamic value) {
-    if (id == 'qZP982qpSPS') {
-      int age = AppUtil.getAgeInYear(value);
-      Provider.of<EnrollmentFormState>(context, listen: false)
-          .setFormFieldState('ls9hlz2tyol', age.toString());
-    }
-  }
-
   void onInputValueChange(String id, dynamic value) {
     Provider.of<EnrollmentFormState>(context, listen: false)
         .setFormFieldState(id, value);
-    autoFillInputFields(id, value);
+    evaluateSkipLogics();
   }
 
   @override
@@ -169,6 +178,10 @@ class _OvcEnrollmentChildEditViewFormState
                                 children: [
                                   Container(
                                     child: EntryFormContainer(
+                                      hiddenFields:
+                                          enrollmentFormState.hiddenFields,
+                                      hiddenSections:
+                                          enrollmentFormState.hiddenSections,
                                       formSections: formSections,
                                       mandatoryFieldObject:
                                           mandatoryFieldObject,

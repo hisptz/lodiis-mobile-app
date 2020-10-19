@@ -3,23 +3,23 @@ import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/input_field_option.dart';
 
-class OvcAddReferral {
+class OvcReferral {
   static List<FormSection> getFormSections() {
     return [
       FormSection(
           name: 'Service Referral',
-          color: Color(0xFF1A3518),
+          color: Color(0xFF1B3519),
           subSections: [
             FormSection(
               name: 'Referral Service Delivery Mode',
-              color: Color(0xFF1A3518),
+              color: Color(0xFF737373),
               inputFields: [
                 InputField(
                     id: 'qAed23reDPP',
                     name: 'Services Referred for at',
                     valueType: 'TEXT',
                     inputColor: Color(0xFF4B9F46),
-                    labelColor: Color(0xFF1A3518),
+                    labelColor: Color(0xFF737373),
                     options: [
                       InputFieldOption(code: 'Facility', name: 'Facility'),
                       InputFieldOption(code: 'Community', name: 'Community'),
@@ -35,7 +35,7 @@ class OvcAddReferral {
                       name: 'Service Category at community',
                       valueType: 'TEXT',
                       inputColor: Color(0xFF4B9F46),
-                      labelColor: Color(0xFF1A3518),
+                      labelColor: Color(0xFF737373),
                       options: [
                         InputFieldOption(
                             code: 'Clinical Services',
@@ -51,7 +51,7 @@ class OvcAddReferral {
                       name: 'Type of service at community',
                       valueType: 'TEXT',
                       inputColor: Color(0xFF4B9F46),
-                      labelColor: Color(0xFF1A3518),
+                      labelColor: Color(0xFF737373),
                       options: [
                         InputFieldOption(
                             code: 'STI Screening', name: 'STI Screening'),
@@ -135,14 +135,14 @@ class OvcAddReferral {
                     name: 'Service Provider/Referred Organization at community',
                     valueType: 'ORGANISATION_UNIT',
                     inputColor: Color(0xFF4B9F46),
-                    labelColor: Color(0xFF1A3518),
+                    labelColor: Color(0xFF737373),
                   ),
                   InputField(
                     id: 'WHktsYoFqat',
                     name: 'Comments on referral at community',
                     valueType: 'LONG_TEXT',
                     inputColor: Color(0xFF4B9F46),
-                    labelColor: Color(0xFF1A3518),
+                    labelColor: Color(0xFF737373),
                   ),
                 ]),
             FormSection(
@@ -154,7 +154,7 @@ class OvcAddReferral {
                       name: 'Service Category at facility',
                       valueType: 'TEXT',
                       inputColor: Color(0xFF4B9F46),
-                      labelColor: Color(0xFF1A3518),
+                      labelColor: Color(0xFF737373),
                       options: [
                         InputFieldOption(
                             code: 'Clinical Services',
@@ -170,7 +170,7 @@ class OvcAddReferral {
                       name: 'Type of service at facility',
                       valueType: 'TEXT',
                       inputColor: Color(0xFF4B9F46),
-                      labelColor: Color(0xFF1A3518),
+                      labelColor: Color(0xFF737373),
                       options: [
                         InputFieldOption(
                             code: 'STI Screening', name: 'STI Screening'),
@@ -254,14 +254,14 @@ class OvcAddReferral {
                     name: 'Service Provider/Referred Organization at facility',
                     valueType: 'ORGANISATION_UNIT',
                     inputColor: Color(0xFF4B9F46),
-                    labelColor: Color(0xFF1A3518),
+                    labelColor: Color(0xFF737373),
                   ),
                   InputField(
                     id: 'iifSkIcBZz2',
                     name: 'Comments on referral at facility',
                     valueType: 'LONG_TEXT',
                     inputColor: Color(0xFF4B9F46),
-                    labelColor: Color(0xFF1A3518),
+                    labelColor: Color(0xFF737373),
                   ),
                 ]),
             FormSection(
@@ -273,14 +273,14 @@ class OvcAddReferral {
                     name: 'Name of next of kin',
                     valueType: 'TEXT',
                     inputColor: Color(0xFF4B9F46),
-                    labelColor: Color(0xFF1A3518),
+                    labelColor: Color(0xFF737373),
                   ),
                   InputField(
                     id: 'qCu2f4kEfzW',
                     name: 'Phone Number of next of kin',
                     valueType: 'PHONE_NUMBER',
                     inputColor: Color(0xFF4B9F46),
-                    labelColor: Color(0xFF1A3518),
+                    labelColor: Color(0xFF737373),
                   ),
                 ])
           ])

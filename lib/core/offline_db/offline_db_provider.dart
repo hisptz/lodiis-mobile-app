@@ -1,6 +1,10 @@
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
+  // String id;
+  // String attribute;
+  // String value;
+  // String expireDate;
 class OfflineDbProvider {
   final String databaseName = "ovc_dreams_app_v1";
   Database _db;
@@ -19,6 +23,7 @@ class OfflineDbProvider {
     "CREATE TABLE IF NOT EXISTS event_data_value (id TEXT PRIMARY KEY, event TEXT,dataElement TEXT, value TEXT)",
     "CREATE TABLE IF NOT EXISTS tei_relationships (id TEXT PRIMARY KEY, relationshipType TEXT, fromTei TEXT, toTei TEXT)",
     "CREATE TABLE IF NOT EXISTS app_logs (id TEXT PRIMARY KEY, type TEXT, message TEXT, date TEXT)",
+    "CREATE TABLE IF NOT EXISTS reserve_value (id TEXT PRIMARY KEY,attribute TEXT,value TEXT,expireDate TEXT)",
   ];
 
   final List<String> migrationQuery = [];

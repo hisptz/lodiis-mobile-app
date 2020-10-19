@@ -8,7 +8,7 @@ class OvcExitCasePlanAchievementFormInfo {
     return [
       FormSection(
           name: 'Case Plan Achievement Readiness Assessment Information',
-          color: Color(0xFF4B9F46),
+          color: Color(0xFF0D3A16),
           inputFields: [
             InputField(
                 id: 'DFPZI9TQLo1',
@@ -16,40 +16,40 @@ class OvcExitCasePlanAchievementFormInfo {
                     'Is this the first Case Plan Achievement Readiness Assessment ?',
                 valueType: 'BOOLEAN',
                 inputColor: Color(0xFF4B9F46),
-                labelColor: Color(0xFF284227)),
+                labelColor: Color(0xFF737373)),
             InputField(
                 id: 'DoltSbENAuc',
                 name: 'Date of Previous Assessment',
                 inputColor: Color(0xFF4B9F46),
-                labelColor: Color(0xFF284227),
+                labelColor: Color(0xFF737373),
                 valueType: 'DATE'),
             InputField(
                 id: 'aU9CHJNURsH',
                 name:
                     'Is this household child-headed (i.e. Household head age is less than 18 years)?',
                 inputColor: Color(0xFF4B9F46),
-                labelColor: Color(0xFF284227),
+                labelColor: Color(0xFF737373),
                 valueType: 'BOOLEAN'),
             InputField(
                 id: 'AMcUQ378pJy',
                 name:
                     'Does this household currently have a pregnant woman or pregnant adolescent girl',
                 inputColor: Color(0xFF4B9F46),
-                labelColor: Color(0xFF284227),
+                labelColor: Color(0xFF737373),
                 valueType: 'BOOLEAN'),
             InputField(
                 id: 'zpxF0UbwoFg',
                 name:
                     'Does this household have a child living with disability or has chronic illness? (Note: Cancer, Diabetes, etc)',
                 inputColor: Color(0xFF4B9F46),
-                labelColor: Color(0xFF284227),
+                labelColor: Color(0xFF737373),
                 valueType: 'BOOLEAN'),
             InputField(
                 id: 'YiEFzKZ6d4d',
                 name:
                     'Does this household have an adolescent or youth enrolled in secondary school or vocational training',
                 inputColor: Color(0xFF4B9F46),
-                labelColor: Color(0xFF284227),
+                labelColor: Color(0xFF737373),
                 valueType: 'BOOLEAN')
           ]),
       FormSection(

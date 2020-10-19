@@ -32,9 +32,9 @@ class Enrollment {
         incidentDate: "${json['incidentDate']}".split('T')[0],
         program: json['program'],
         orgUnit: json['orgUnit'],
-        trackedEntityInstance: json['trackedEntityInstance'],
+        trackedEntityInstance:json['trackedEntityInstance'],
         status: json['status'],
-        syncStatus: json['syncStatus'] ?? 'synced');
+        syncStatus:json['syncStatus'] ?? 'synced');
   }
 
   String toJson(Enrollment enrollment) {

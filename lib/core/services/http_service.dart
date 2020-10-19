@@ -51,8 +51,12 @@ class HttpService {
         headers: {HttpHeaders.authorizationHeader: "Basic $basicAuth"});
   }
 
-  @override
-  String toString() {
-    return '$baseUrl => $username : $password';
+  Future<http.Response> httpGetPagination(String url) async {
+    url = '$url&totalPages=true&pageSize=1&fields=none';
+    var response = await this.httpGet(url);
+      return response;
   }
+
+  @override
+  String toString() {return '$baseUrl => $username : $password';}
 }
