@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:math';
 import 'package:http/http.dart';
 import 'package:kb_mobile_app/core/offline_db/enrollment_offline/enrollment_offline_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/event_offline/event_offline_provider.dart';
@@ -104,7 +103,7 @@ class SynchronizationService {
 
   Future saveTrackeEntityInstanceToOffline(
       TrackeEntityInstance trackeEntityInstance) async {
-    TrackedEntityInstanceOfflineProvider()
+  await  TrackedEntityInstanceOfflineProvider()
         .addOrUpdateTrackedEntityInstance(trackeEntityInstance);
   }
 

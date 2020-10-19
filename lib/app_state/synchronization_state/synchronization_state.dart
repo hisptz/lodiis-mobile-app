@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:kb_mobile_app/core/services/synchronization_service.dart';
@@ -23,6 +24,7 @@ class SynchronizationState with ChangeNotifier {
   List<Enrollment> _enrollmentFromServer;
   List<TrackeEntityInstance> _trackeEntityInstance;
   List<dynamic> _servertrackedEntityInstance;
+  Map<String, List> _trackedInstance;
 
 // selectors
   bool get isDataUploadingActive => _isDataUploadingActive ?? false;
@@ -39,6 +41,7 @@ class SynchronizationState with ChangeNotifier {
       _trackeEntityInstance ?? [];
   List<dynamic> get servertrackedEntityInstance =>
       _servertrackedEntityInstance ?? [];
+  Map<String, List> get trackedInstance => _trackeEntityInstance ?? {};
 
 // reducers
   void updateDataUploadStatus(bool status) {
@@ -113,25 +116,21 @@ class SynchronizationState with ChangeNotifier {
     // for (var trackedEntityInstance in _servertrackedEntityInstance){
     //   TrackeEntityInstance trackeEntityInstance =
     //       TrackeEntityInstance().fromJson(trackedEntityInstance);
-    //   await _synchronizationService.saveTrackeEntityInstanceToOffline(
-    //   TrackeEntityInstance().fromJson(trackedEntityInstance));
+    // await _synchronizationService.saveTrackeEntityInstanceToOffline(
+    // TrackeEntityInstance().fromJson(trackedEntityInstance));
 
-    //   _synchronizationService
-    //       .saveEnrollmentToOffline(trackedEntityInstance['enrollments']);
+    // _synchronizationService
+    //     .saveEnrollmentToOffline(trackedEntityInstance['enrollments']);
     // }
     // addDataDownloadProcess("Saving profile data complete");
+    addDataDownloadProcess("Start analyse data ");
     await analysisOfDownloadedData();
-    updateDataDownloadStatus(false);
   }
 
   Future analysisOfDownloadedData() async {
-    //online data here
-    List dataDetails = servertrackedEntityInstance;
-    //offline data here
-    // List dataA = await _synchronizationService
-    //     .getOfflineTrackedEntityAttributesValuesById();
-
     List<String> attributeIds = [];
+    List offlineTrackedEntityInstance = [];
+    List onlineTrackedEntityInstance = [];
 
     //get attributes
     for (var trackedEntityInstance in servertrackedEntityInstance) {
@@ -146,43 +145,60 @@ class SynchronizationState with ChangeNotifier {
 //it it has no conflict save them
 
 //search attributes from offline
-
     List offlineTrackedEntityInstanceattributes = await _synchronizationService
         .getOfflineTrackedEntityAttributesValuesById(attributeIds);
-    for (var trackedEntityInstance in servertrackedEntityInstance) {
+    for (var _trackedEntityInstance in servertrackedEntityInstance) {
       TrackeEntityInstance trackeEntityInstance =
-          TrackeEntityInstance().fromJson(trackedEntityInstance);
-          print(trackeEntityInstance.attributes[0]);
-      if (offlineTrackedEntityInstanceattributes
-          .contains(trackeEntityInstance.attributes[0]['attribute'])) {
-        print("conflicts");
+          TrackeEntityInstance().fromJson(_trackedEntityInstance);
+      offlineTrackedEntityInstanceattributes.forEach((trackedAttribute) async {
+        if (trackedAttribute['attribute'] ==
+                trackeEntityInstance.attributes[0]['attribute'] &&
+            trackedAttribute['value'] !=
+                trackeEntityInstance.attributes[0]['value']) {
+          //  conflicts
+          offlineTrackedEntityInstance.add(trackedAttribute['value']);
+          onlineTrackedEntityInstance.add(trackeEntityInstance.attributes[0]);
+          //  print(_trackedInstance['offline'][0]);
+
+        } else {
+          //Save data when no conflicts
+          await _synchronizationService
+              .saveTrackeEntityInstanceToOffline(trackeEntityInstance);
+          await _synchronizationService
+              .saveEnrollmentToOffline(_trackedEntityInstance['enrollments']);
+        }
+      });
+    }
+    _trackedInstance = {
+      "offline": offlineTrackedEntityInstance,
+      "online": onlineTrackedEntityInstance
+    };
+
+    updateDataDownloadStatus(false);
+    print(_trackedInstance['offline']);
+  }
+
+  Future startDataUploadActivity() async {
+    _dataUploadProcess = [];
+    updateDataUploadStatus(true);
+    try {
+      addDataUploadProcess('Prepare offline data to upload');
+      var teis = await _synchronizationService.getTeisFromOfflineDb();
+      var teiEnrollments =
+          await _synchronizationService.getTeiEnrollmentFromOfflineDb();
+      if (teis.length > 0) {
+        addDataUploadProcess("Uploading beneficiary's profile data");
+        await _synchronizationService.uploadTeisToTheServer(
+            teis, teiEnrollments);
+        // @TODO uploading relationships
       }
-      print("in start");
-    }
 
-    Future startDataUploadActivity() async {
-      _dataUploadProcess = [];
-      updateDataUploadStatus(true);
-      try {
-        addDataUploadProcess('Prepare offline data to upload');
-        var teis = await _synchronizationService.getTeisFromOfflineDb();
-        var teiEnrollments =
-            await _synchronizationService.getTeiEnrollmentFromOfflineDb();
-        if (teis.length > 0) {
-          addDataUploadProcess("Uploading beneficiary's profile data");
-          await _synchronizationService.uploadTeisToTheServer(
-              teis, teiEnrollments);
-          // @TODO uploading relationships
-        }
-
-        var teiEvents =
-            await _synchronizationService.getTeiEventsFromOfflineDb();
-        if (teiEvents.length > 0) {
-          addDataUploadProcess("Uploading beneficiary's service data");
-          await _synchronizationService.uploadTeiEventsToTheServer(teiEvents);
-        }
-      } catch (e) {}
-      updateDataUploadStatus(false);
-    }
+      var teiEvents = await _synchronizationService.getTeiEventsFromOfflineDb();
+      if (teiEvents.length > 0) {
+        addDataUploadProcess("Uploading beneficiary's service data");
+        await _synchronizationService.uploadTeiEventsToTheServer(teiEvents);
+      }
+    } catch (e) {}
+    updateDataUploadStatus(false);
   }
 }
