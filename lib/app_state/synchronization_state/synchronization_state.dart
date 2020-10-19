@@ -128,6 +128,13 @@ class SynchronizationState with ChangeNotifier {
   }
 
   Future analysisOfDownloadedData() async {
+     addDataDownloadProcess("Start analyse profile data ");
+  await  trackeEntityInstanceAnalysisDownloadData();
+
+    updateDataDownloadStatus(false);
+  }
+
+  Future trackeEntityInstanceAnalysisDownloadData() async {
     List<String> attributeIds = [];
     List offlineTrackedEntityInstance = [];
     List onlineTrackedEntityInstance = [];
@@ -174,7 +181,7 @@ class SynchronizationState with ChangeNotifier {
     };
 
     updateDataDownloadStatus(false);
-    }
+  }
 
   Future startDataUploadActivity() async {
     _dataUploadProcess = [];
