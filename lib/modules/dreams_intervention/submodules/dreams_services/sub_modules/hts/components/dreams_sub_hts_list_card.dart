@@ -55,7 +55,7 @@ class _DreamsSubHTSListCardState extends State<DreamsSubHTSListCard> {
                           child: Expanded(
                             child: RichText(
                               text: TextSpan(
-                                    text: '${widget.eventData.htsIndexLinkage}   ',
+                                    text: '${widget.eventData.date}   ',
                                   style: TextStyle().copyWith(
                                   color: Color(0xFF82898D),
                                   fontSize: 12.0,
