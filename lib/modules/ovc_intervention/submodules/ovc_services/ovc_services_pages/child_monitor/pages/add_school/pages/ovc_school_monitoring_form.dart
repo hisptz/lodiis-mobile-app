@@ -19,6 +19,7 @@ import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_child_info
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_school_monitoring.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_monitor/pages/add_school/constants/ovc_school_monitoring_constant.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_monitor/pages/add_school/skip_logics/ovc_child_school_monitoring_skip_logic.dart';
 import 'package:provider/provider.dart';
 
 class OvcSchoolMonitoringForm extends StatefulWidget {
@@ -27,8 +28,7 @@ class OvcSchoolMonitoringForm extends StatefulWidget {
       _OvcSchoolMonitoringFormState();
 }
 
-class _OvcSchoolMonitoringFormState
-    extends State<OvcSchoolMonitoringForm> {
+class _OvcSchoolMonitoringFormState extends State<OvcSchoolMonitoringForm> {
   final String label = 'Child school performance monitoring tool';
   List<FormSection> formSections;
   bool isFormReady = false;
@@ -41,13 +41,30 @@ class _OvcSchoolMonitoringFormState
     Timer(Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
+        evaluateSkipLogics();
       });
     });
+  }
+
+  evaluateSkipLogics() {
+    Timer(
+      Duration(milliseconds: 200),
+      () async {
+        Map dataObject =
+            Provider.of<ServiceFormState>(context, listen: false).formState;
+        await OvcChildSchoolMonitoringSkipLogic.evaluateSkipLogics(
+          context,
+          formSections,
+          dataObject,
+        );
+      },
+    );
   }
 
   void onInputValueChange(String id, dynamic value) {
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState(id, value);
+    evaluateSkipLogics();
   }
 
   void onSaveForm(
@@ -144,6 +161,10 @@ class _OvcSchoolMonitoringFormState
                                           right: 13.0,
                                         ),
                                         child: EntryFormContainer(
+                                          hiddenSections:
+                                              serviceFormState.hiddenSections,
+                                          hiddenFields:
+                                              serviceFormState.hiddenFields,
                                           formSections: formSections,
                                           mandatoryFieldObject: Map(),
                                           dataObject:

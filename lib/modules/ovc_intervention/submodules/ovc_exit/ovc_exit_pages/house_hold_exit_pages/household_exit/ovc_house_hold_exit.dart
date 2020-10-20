@@ -142,6 +142,7 @@ class _OvcHouseHoldExitState extends State<OvcHouseHoldExit> {
                                     child: OvcHouseHoldExitFormContainer(
                                     event: event,
                                     isSaving: isSaving,
+                                    exitType: 'exit',
                                     formSections: formSections,
                                     onSaveForm: (dataObject) => this.onSaveForm(
                                         context,

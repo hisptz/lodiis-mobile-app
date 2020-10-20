@@ -20,6 +20,7 @@ import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold_top_header.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/models/ovc_exit_case_plan_achievemnt_readiness_form_info.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_pages/house_hold_exit_pages/household_achievement/constants/ovc_house_hold_achievement_constant.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_pages/house_hold_exit_pages/skip_logics/ovc_house_hold_case_plan_achievement_skip_logic.dart';
 import 'package:provider/provider.dart';
 
 class OvcHouseHoldAchievementForm extends StatefulWidget {
@@ -44,13 +45,30 @@ class _OvcHouseHoldAchievementFormState
     Timer(Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
+        evaluateSkipLogics();
       });
     });
+  }
+
+  evaluateSkipLogics() {
+    Timer(
+      Duration(milliseconds: 200),
+      () async {
+        Map dataObject =
+            Provider.of<ServiceFormState>(context, listen: false).formState;
+        await OvcHouseHoldCasePlanAchievementSkipLogic.evaluateSkipLogics(
+          context,
+          formSections,
+          dataObject,
+        );
+      },
+    );
   }
 
   void onInputValueChange(String id, dynamic value) {
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState(id, value);
+    evaluateSkipLogics();
   }
 
   void onSaveForm(
@@ -146,6 +164,10 @@ class _OvcHouseHoldAchievementFormState
                                     children: [
                                       Container(
                                         child: EntryFormContainer(
+                                          hiddenFields:
+                                              serviceFormState.hiddenFields,
+                                          hiddenSections:
+                                              serviceFormState.hiddenSections,
                                           formSections: formSections,
                                           mandatoryFieldObject: Map(),
                                           dataObject:
