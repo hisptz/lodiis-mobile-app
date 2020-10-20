@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:kb_mobile_app/app_state/current_user_state/current_user_state.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_house_hold_current_selection_state.dart';
@@ -19,9 +20,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-        providers: [      
+        providers: [
+          ChangeNotifierProvider(create: (_) => CurrentUserState()),
           ChangeNotifierProvider(create: (_) => IntervetionCardState()),
-          ChangeNotifierProvider(create: (_) => DreamBenefeciarySelectionState()),
+          ChangeNotifierProvider(
+              create: (_) => DreamBenefeciarySelectionState()),
           ChangeNotifierProvider(create: (_) => LoginFormState()),
           ChangeNotifierProvider(
               create: (_) => InterventionBottomNavigationState()),
