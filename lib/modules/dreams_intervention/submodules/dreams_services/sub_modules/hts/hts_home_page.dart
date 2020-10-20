@@ -12,6 +12,7 @@ import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/models/hts_model.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/pages/agyw_dreams_hts_consent_form.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
 import 'package:provider/provider.dart';
@@ -61,7 +62,7 @@ class _HTSHomePageState extends State<HTSHomePage> {
     }
   }
 
-   void onAddHivPrev(BuildContext context, AgywDream agywDream) {
+   void onAddHTS(BuildContext context, AgywDream agywDream) {
      updateFormState(context, true, null);
      Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
          .setCurrentAgywDream(agywDream);
@@ -69,11 +70,12 @@ class _HTSHomePageState extends State<HTSHomePage> {
          context, MaterialPageRoute(builder: (context) => AgywDreamsHTSConsentForm()));
    }
 
-  void onViewHivPrev(BuildContext context, Events eventData) {
+  void onViewHTS(BuildContext context, Events eventData) {
     updateFormState(context, false, eventData);
 
      Navigator.push(
-         context, MaterialPageRoute(builder: (context) => HTSSubHomePage(eventId: eventData.event)));
+         context, MaterialPageRoute(builder: (context) => 
+         HTSSubHomePage(eventId: eventData.event)));
    }
   @override
   Widget build(BuildContext context) {
@@ -141,8 +143,8 @@ class _HTSHomePageState extends State<HTSHomePage> {
                                                       ),
                                                       child:
                                                           DreamsHTSListCard(
-                                                           onViewPrev: () =>
-                                                            onViewHivPrev(
+                                                           onViewHTS: () =>
+                                                            onViewHTS(
                                                                 context,
                                                                 eventData),
                                                         eventData: eventData,
@@ -160,7 +162,7 @@ class _HTSHomePageState extends State<HTSHomePage> {
                                           buttonColor: Color(0xFF1F8ECE),
                                           fontSize: 15.0,
                                           onPressButton: () =>
-                                          onAddHivPrev(context, agywDream))
+                                          onAddHTS(context, agywDream))
                                     ],
                                   ),
                           ),

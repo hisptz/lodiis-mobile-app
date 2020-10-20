@@ -83,12 +83,7 @@ class BioDataInformationAboutIndexPositiveClient {
                   InputFieldOption(code: 'Facility', name: 'Facility'),
                   InputFieldOption(code: 'Community', name: 'Community')
                 ]),
-            InputField(
-                id: 'Vw2UuN7qN8P',
-                name: 'Index to Index Contact linkage',
-                valueType: 'TEXT',
-                inputColor: Color(0xFF258DCC),
-                labelColor: Color(0xFF737373)),
+           
           ]),
     ];
   }

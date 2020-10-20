@@ -28,15 +28,23 @@ class _RadioInputFieldContainerState extends State<RadioInputFieldContainer> {
   @override
   void initState() {
     super.initState();
+    updateInputFieldState();
+  }
+
+  updateInputFieldState() {
     setState(() {
       _currentValue = widget.currentValue;
     });
   }
 
+  @override
+  void didUpdateWidget(covariant RadioInputFieldContainer oldWidget) {
+    super.didUpdateWidget(widget);
+    if (oldWidget.currentValue != widget.currentValue) updateInputFieldState();
+  }
+
   void setSelectedOption(dynamic value) {
-    setState(() {
-      _currentValue = value;
-    });
+    updateInputFieldState();
     widget.onInputValueChange(value);
   }
 

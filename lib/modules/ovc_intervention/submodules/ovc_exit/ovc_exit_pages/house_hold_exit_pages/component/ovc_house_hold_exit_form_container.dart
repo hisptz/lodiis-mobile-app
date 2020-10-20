@@ -8,6 +8,9 @@ import 'package:kb_mobile_app/core/components/material_card.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_pages/house_hold_exit_pages/skip_logics/ovc_house_hold_case_closure_skip_logic.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_pages/house_hold_exit_pages/skip_logics/ovc_house_hold_case_exit_skip_logic.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_pages/house_hold_exit_pages/skip_logics/ovc_house_hold_case_transfer_skip_logic.dart';
 import 'package:provider/provider.dart';
 
 class OvcHouseHoldExitFormContainer extends StatefulWidget {
@@ -16,9 +19,11 @@ class OvcHouseHoldExitFormContainer extends StatefulWidget {
     @required this.event,
     @required this.formSections,
     @required this.isSaving,
+    @required this.exitType,
     this.onSaveForm,
   }) : super(key: key);
 
+  final String exitType;
   final Events event;
   final List<FormSection> formSections;
   final bool isSaving;
@@ -43,6 +48,38 @@ class _OvcHouseHoldExitFormContainerState
         isFormReady = true;
       });
     });
+  }
+
+  evaluateSkipLogics() {
+    Timer(
+      Duration(milliseconds: 200),
+      () async {
+        Map dataObject =
+            Provider.of<ServiceFormState>(context, listen: false).formState;
+
+        if (widget.exitType == 'closure') {
+          await OvcChildHouseHoldCaseClosureSkipLogic.evaluateSkipLogics(
+            context,
+            widget.formSections,
+            dataObject,
+          );
+        }
+        if (widget.exitType == 'exit') {
+          await OvcHouseHoldCaseExitSkipLogic.evaluateSkipLogics(
+            context,
+            widget.formSections,
+            dataObject,
+          );
+        }
+        if (widget.exitType == 'transfer') {
+          await OvcHouseHoldCaseTransferSkipLogic.evaluateSkipLogics(
+            context,
+            widget.formSections,
+            dataObject,
+          );
+        }
+      },
+    );
   }
 
   void onEditForm() {
@@ -126,6 +163,8 @@ class _OvcHouseHoldExitFormContainerState
                           Container(
                             child: EntryFormContainer(
                               elevation: 0.0,
+                              hiddenFields: serviceFormState.hiddenFields,
+                              hiddenSections: serviceFormState.hiddenSections,
                               formSections: widget.formSections,
                               mandatoryFieldObject: Map(),
                               dataObject: serviceFormState.formState,

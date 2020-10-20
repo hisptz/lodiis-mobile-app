@@ -1,19 +1,17 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:kb_mobile_app/models/events.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/agyw_dreams_index_info_event.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/components/dreams_hts_index_card_bottom_content.dart';
 
 class DreamsHTSIndexCardBody extends StatelessWidget {
   DreamsHTSIndexCardBody({
     Key key,
-    @required this.eventData,
-    @required this.indexStageId,
+    this.event,
     Container cardBottonActions, 
     DreamsHTSIndexCardBottonContent cardBottonContent,
   }) : super(key: key);
 
-  final Events eventData;
-  final String indexStageId;
+  final AgywDreamsIndexInfoEvent event;
 
   @override
   Widget build(BuildContext context) {
@@ -21,33 +19,40 @@ class DreamsHTSIndexCardBody extends StatelessWidget {
       margin: EdgeInsets.symmetric(horizontal: 13.0, vertical: 10.0),
       child: Column(
         children: [
-          Container(
-            margin: EdgeInsets.symmetric(vertical: 2.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Expanded(
-                    flex: 1,
-                    child: Text(
-                      'Index Details',
-                      style: TextStyle().copyWith(
-                          fontSize: 14.0,
-                          color: Color(0xFF82898D),
-                          fontWeight: FontWeight.w500),
-                    )),
-                Expanded(
-                    flex: 2,
-                    child: Text(
-                      eventData.toString(),
-                      style: TextStyle().copyWith(
-                          fontSize: 14.0,
-                          color: Color(0XFF536852),
-                          fontWeight: FontWeight.w500),
-                    ))
-              ],
-            ),
-          ),
-          Container(
+          event == null ? Container(
+             margin: EdgeInsets.symmetric(
+                vertical: 10.0,),
+                 child:Text('Index is not yet registered')
+          )
+          : Column(
+            children: [
+              Container(
+                margin: EdgeInsets.symmetric(vertical: 2.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Expanded(
+                        flex: 1,
+                        child: Text(
+                          'Index Details',
+                          style: TextStyle().copyWith(
+                              fontSize: 14.0,
+                              color: Color(0xFF82898D),
+                              fontWeight: FontWeight.w500),
+                        )),
+                    Expanded(
+                        flex: 2,
+                        child: Text(
+                          '',
+                          style: TextStyle().copyWith(
+                              fontSize: 14.0,
+                              color: Color(0XFF536852),
+                              fontWeight: FontWeight.w500),
+                        ))
+                  ],
+                ),
+              ),
+               Container(
             margin: EdgeInsets.symmetric(vertical: 2.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -64,7 +69,7 @@ class DreamsHTSIndexCardBody extends StatelessWidget {
                 Expanded(
                     flex: 2,
                     child: Text(
-                      eventData.eventDate,
+                      event.date,
                       style: TextStyle().copyWith(
                           fontSize: 14.0,
                           color: Color(0XFF536852),
@@ -72,6 +77,34 @@ class DreamsHTSIndexCardBody extends StatelessWidget {
                     ))
               ],
             ),
+          ),
+            Container(
+            margin: EdgeInsets.symmetric(vertical: 2.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Expanded(
+                    flex: 1,
+                    child: Text(
+                      'On ART',
+                      style: TextStyle().copyWith(
+                          fontSize: 14.0,
+                          color: Color(0xFF82898D),
+                          fontWeight: FontWeight.w500),
+                    )),
+                Expanded(
+                    flex: 2,
+                    child: Text(
+                      event.onART,
+                      style: TextStyle().copyWith(
+                          fontSize: 14.0,
+                          color: Color(0XFF536852),
+                          fontWeight: FontWeight.w500),
+                    ))
+              ],
+            ),
+          ),
+            ],
           ),
         ],
       ),

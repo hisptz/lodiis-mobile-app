@@ -30,9 +30,19 @@ class _TrueOnlyInputFieldContainerState
   @override
   void initState() {
     super.initState();
+    updateInputValueState();
+  }
+
+  updateInputValueState() {
     bool value = false;
     value = '${widget.inputValue}' == 'true' ? true : false;
     onSetValue(value);
+  }
+
+  @override
+  void didUpdateWidget(covariant TrueOnlyInputFieldContainer oldWidget) {
+    super.didUpdateWidget(widget);
+    if (oldWidget.inputValue != widget.inputValue) updateInputValueState();
   }
 
   onSetValue(bool value) {

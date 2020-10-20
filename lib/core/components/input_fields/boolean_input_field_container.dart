@@ -31,6 +31,10 @@ class _BooleanInputFieldContainerState
   @override
   void initState() {
     super.initState();
+    updateInputFieldState();
+  }
+
+  updateInputFieldState() {
     setState(() {
       _inputValue =
           widget.inputValue != null && '${widget.inputValue}' == 'true'
@@ -39,6 +43,12 @@ class _BooleanInputFieldContainerState
                   ? false
                   : null;
     });
+  }
+
+  @override
+  void didUpdateWidget(covariant BooleanInputFieldContainer oldWidget) {
+    super.didUpdateWidget(widget);
+    if (oldWidget.inputValue != widget.inputValue) updateInputFieldState();
   }
 
   @override

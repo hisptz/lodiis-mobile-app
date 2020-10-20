@@ -41,9 +41,9 @@ class _AgywDreamsHTSConsentForReleaseStatusState extends State<AgywDreamsHTSCons
   void initState() {
     super.initState();
     formSections = ConsentForReleaseOfStatus.getFormSections();
-allFormSections.addAll(formSections);
-allFormSections.addAll(ClientInformation.getFormSections());
-allFormSections.addAll(HTSConsent.getFormSections());
+    allFormSections.addAll(formSections);
+    allFormSections.addAll(ClientInformation.getFormSections());
+    allFormSections.addAll(HTSConsent.getFormSections());
     Timer(Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
@@ -64,8 +64,10 @@ allFormSections.addAll(HTSConsent.getFormSections());
       });
       String eventDate = dataObject['eventDate'];
       String eventId = dataObject['eventId'];
-      print(dataObject);
-      List<String> hiddenFields = [];
+      dataObject[AgywDreamsHTSConstant.htsToIndexLinkage] =
+          dataObject[AgywDreamsHTSConstant.htsToIndexLinkage] ??
+              AppUtil.getUid();
+      List<String> hiddenFields = [AgywDreamsHTSConstant.htsToIndexLinkage];
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
             AgywDreamsHTSConstant.program,

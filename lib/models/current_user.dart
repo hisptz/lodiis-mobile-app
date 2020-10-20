@@ -3,6 +3,7 @@ class CurrentUser {
   String name;
   String username;
   String password;
+  String implementingPartner;
   bool isLogin;
   List userOrgUnitIds;
   List programs;
@@ -17,6 +18,7 @@ class CurrentUser {
     this.username,
     this.password,
     this.isLogin,
+    this.implementingPartner,
     this.userOrgUnitIds,
     this.programs,
   });
@@ -30,7 +32,7 @@ class CurrentUser {
 
   @override
   String toString() {
-    return 'Curremt user is $username $id $name';
+    return 'Curremt user is $username $id $name $implementingPartner $programs $userOrgUnitIds ';
   }
 
   factory CurrentUser.fromJson(dynamic json, String username, String password) {
@@ -40,12 +42,27 @@ class CurrentUser {
     for (var organisationUnit in organisationUnitList) {
       userOrgUnitIds.add(organisationUnit['id']);
     }
+    List attributeValues = json['attributeValues'] as List<dynamic>;
+    String implementingPartner = '';
+    for (var attributeValue in attributeValues) {
+      if (attributeValue['value'] != null)
+        implementingPartner = attributeValue['value'] == 'vVMJBQvvm5D'
+            ? 'PSI'
+            : attributeValue['value'] == 'tmuVlsiEjUi'
+                ? 'EGPAF'
+                : attributeValue['value'] == 'vFhtHWzmJda'
+                    ? 'JPHIEGO'
+                    : attributeValue['value'] == 'gD1Km2odgDL'
+                        ? 'KB'
+                        : implementingPartner;
+    }
     return CurrentUser(
         name: json['name'],
         id: json['id'],
         password: password,
         username: username,
         isLogin: true,
+        implementingPartner: implementingPartner,
         programs: programList.map((program) => '$program').toList(),
         userOrgUnitIds: userOrgUnitIds);
   }
@@ -57,6 +74,7 @@ class CurrentUser {
     data['username'] = user.username;
     data['password'] = user.password;
     data['isLogin'] = user.isLogin ? 1 : 0;
+    data['implementingPartner'] = user.implementingPartner;
     return data;
   }
 
@@ -66,6 +84,7 @@ class CurrentUser {
     this.username = mapData['username'];
     this.password = mapData['password'];
     this.isLogin = '${mapData['isLogin']}' == '1';
+    this.implementingPartner = mapData['implementingPartner'];
     this.userOrgUnitIds = [];
     this.programs = [];
   }

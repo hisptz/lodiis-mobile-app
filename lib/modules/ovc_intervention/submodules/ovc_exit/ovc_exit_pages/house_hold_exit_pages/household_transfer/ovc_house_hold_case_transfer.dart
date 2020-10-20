@@ -145,6 +145,7 @@ class _OvcHouseHoldCaseTransferState extends State<OvcHouseHoldCaseTransfer> {
                                     child: OvcHouseHoldExitFormContainer(
                                     event: event,
                                     isSaving: isSaving,
+                                    exitType: 'transfer',
                                     formSections: formSections,
                                     onSaveForm: (dataObject) => this.onSaveForm(
                                         context,

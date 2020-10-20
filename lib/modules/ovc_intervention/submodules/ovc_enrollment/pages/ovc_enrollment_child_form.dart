@@ -9,6 +9,7 @@ import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.d
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
+import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
@@ -34,6 +35,9 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
   final List<String> mandatoryFields = OvcEnrollmentChild.getMandatoryField();
   final Map mandatoryFieldObject = Map();
 
+  Map hiddenFields = Map();
+  Map hiddenSections = Map();
+
   @override
   void initState() {
     super.initState();
@@ -56,7 +60,66 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
       evaluateSkipLogics();
     });
   }
-  //Caregiver Information
+
+  evaluateSkipLogics() async {
+    hiddenFields.clear();
+    hiddenSections.clear();
+    List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections);
+    for (String inputFieldId in inputFieldIds) {
+      String value = '${childMapObject[inputFieldId]}';
+      if (inputFieldId == 'qZP982qpSPS') {
+        int age = AppUtil.getAgeInYear(value);
+        assignInputFieldValue('ls9hlz2tyol', age.toString());
+      }
+      if (inputFieldId == 'UeF4OvjIIEK' &&
+          (value.isEmpty || '$value'.trim() != 'true')) {
+        hiddenFields['nOgf8LKXS4k'] = true;
+      }
+      if (inputFieldId == 'Gkjp5XZD70V' &&
+          (value.isEmpty || '$value'.trim() != 'true')) {
+        hiddenFields['Sa0KVprHUr7'] = true;
+        hiddenFields['XZh0Uew9Xk0'] = true;
+        hiddenFields['wtrZQadTkOL'] = true;
+        hiddenFields['Mc3k3bSwXNe'] = true;
+        hiddenFields['CePNVGSnj00'] = true;
+        hiddenFields['GM2mJDlGZin'] = true;
+      }
+      if (inputFieldId == 'Mc3k3bSwXNe' &&
+          (value.isEmpty || '$value'.trim() != 'true')) {
+        hiddenFields['CePNVGSnj00'] = true;
+        hiddenFields['GM2mJDlGZin'] = true;
+      }
+      if (inputFieldId == 'CePNVGSnj00' &&
+          (value.isEmpty || '$value'.trim() != 'Other')) {
+        hiddenFields['GM2mJDlGZin'] = true;
+      }
+    }
+    for (String sectionId in hiddenSections.keys) {
+      List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections
+          .where((formSection) => formSection.id == sectionId)
+          .toList());
+      for (String inputFieldId in inputFieldIds) {
+        hiddenFields[inputFieldId] = true;
+      }
+    }
+    resetValuesForHiddenFields(context, hiddenFields.keys);
+    setState(() {});
+  }
+
+  resetValuesForHiddenFields(BuildContext context, inputFieldIds) {
+    for (String inputFieldId in inputFieldIds) {
+      if (hiddenFields[inputFieldId]) {
+        assignInputFieldValue(inputFieldId, null);
+      }
+    }
+  }
+
+  assignInputFieldValue(
+    String inputFieldId,
+    String value,
+  ) {
+    childMapObject[inputFieldId] = value;
+  }
 
   void updateOvcCount() {
     int male = 0;
@@ -112,17 +175,6 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
     }
   }
 
-  evaluateSkipLogics() {
-    Timer(
-      Duration(milliseconds: 200),
-      () async => await OvcChildEnrollmentSkipLogic.evaluateSkipLogics(
-        context,
-        formSections,
-        childMapObject,
-      ),
-    );
-  }
-
   void onInputValueChange(String id, dynamic value) {
     childMapObject[id] = value;
     evaluateSkipLogics();
@@ -164,6 +216,8 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
                             Container(
                               child: EntryFormContainer(
                                 formSections: formSections,
+                                hiddenFields: hiddenFields,
+                                hiddenSections: hiddenSections,
                                 mandatoryFieldObject: mandatoryFieldObject,
                                 dataObject: childMapObject,
                                 onInputValueChange: onInputValueChange,

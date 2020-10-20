@@ -20,6 +20,7 @@ import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold_top_header.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/household_services_ongoing_monitoring.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/house_hold_monitor/constants/ovc_house_hold_monitor_constant.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/house_hold_monitor/skip_logics/ovc_house_hold_monitoring_skip_logic.dart';
 import 'package:provider/provider.dart';
 
 class OvcHouseHoldMonitorForm extends StatefulWidget {
@@ -30,8 +31,7 @@ class OvcHouseHoldMonitorForm extends StatefulWidget {
       _OvcHouseHoldMonitorFormState();
 }
 
-class _OvcHouseHoldMonitorFormState
-    extends State<OvcHouseHoldMonitorForm> {
+class _OvcHouseHoldMonitorFormState extends State<OvcHouseHoldMonitorForm> {
   final String label = 'House Hold Service monitoring tool';
   List<FormSection> formSections;
   bool isFormReady = false;
@@ -44,13 +44,30 @@ class _OvcHouseHoldMonitorFormState
     Timer(Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
+        evaluateSkipLogics();
       });
     });
+  }
+
+  evaluateSkipLogics() {
+    Timer(
+      Duration(milliseconds: 200),
+      () async {
+        Map dataObject =
+            Provider.of<ServiceFormState>(context, listen: false).formState;
+        await OvcHouseHoldMonitoringSkipLogic.evaluateSkipLogics(
+          context,
+          formSections,
+          dataObject,
+        );
+      },
+    );
   }
 
   void onInputValueChange(String id, dynamic value) {
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState(id, value);
+    evaluateSkipLogics();
   }
 
   void onSaveForm(
@@ -58,7 +75,6 @@ class _OvcHouseHoldMonitorFormState
     Map dataObject,
     OvcHouseHold currentOvcHouseHold,
   ) async {
-
     if (dataObject.keys.length > 0) {
       setState(() {
         isSaving = true;
@@ -147,6 +163,10 @@ class _OvcHouseHoldMonitorFormState
                                     children: [
                                       Container(
                                         child: EntryFormContainer(
+                                          hiddenSections:
+                                              serviceFormState.hiddenSections,
+                                          hiddenFields:
+                                              serviceFormState.hiddenFields,
                                           formSections: formSections,
                                           mandatoryFieldObject: Map(),
                                           dataObject:
@@ -157,7 +177,7 @@ class _OvcHouseHoldMonitorFormState
                                               onInputValueChange,
                                         ),
                                       ),
-                                        Visibility(
+                                      Visibility(
                                         visible:
                                             serviceFormState.isEditableMode,
                                         child: OvcEnrollmentFormSaveButton(

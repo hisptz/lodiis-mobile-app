@@ -1,16 +1,12 @@
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
-  // String id;
-  // String attribute;
-  // String value;
-  // String expireDate;
 class OfflineDbProvider {
-  final String databaseName = "ovc_dreams_app_v1";
+  final String databaseName = "kb_ovc_dream";
   Database _db;
   // Script for migrations as well as intialization of tables
   final List<String> initialQuery = [
-    "CREATE TABLE IF NOT EXISTS current_user (id TEXT PRIMARY KEY, name TEXT, username TEXT, password TEXT ,isLogin INTEGER)",
+    "CREATE TABLE IF NOT EXISTS current_user (id TEXT PRIMARY KEY, name TEXT, username TEXT, password TEXT , implementingPartner TEXT ,isLogin INTEGER)",
     "CREATE TABLE IF NOT EXISTS current_user_ou (id TEXT PRIMARY KEY, userId TEXT)",
     "CREATE TABLE IF NOT EXISTS current_user_program (id TEXT PRIMARY KEY, userId TEXT)",
     "CREATE TABLE IF NOT EXISTS organisation_unit (id TEXT PRIMARY KEY, name TEXT, code TEXT, parent TEXT, level NUMBER)",

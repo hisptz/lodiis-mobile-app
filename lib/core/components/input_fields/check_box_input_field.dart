@@ -26,15 +26,23 @@ class _CheckBoxInputFieldState extends State<CheckBoxInputField> {
   @override
   void initState() {
     super.initState();
+    updateInputValueState();
+  }
+
+  updateInputValueState() {
     setState(() {
       _inputValue = widget.value != null && '${widget.value}' == 'true';
     });
   }
 
+  @override
+  void didUpdateWidget(covariant CheckBoxInputField oldWidget) {
+    super.didUpdateWidget(widget);
+    if (oldWidget.value != widget.value) updateInputValueState();
+  }
+
   void onInputValueChange(bool value) {
-    setState(() {
-      _inputValue = value;
-    });
+    updateInputValueState();
     widget.onInputValueChange(value);
   }
 
