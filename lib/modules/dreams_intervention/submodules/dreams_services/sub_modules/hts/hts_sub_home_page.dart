@@ -12,6 +12,7 @@ import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/hts_tb_home-page.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/pages/agyw_dreams_hts_client_information.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/pages/agyw_dreams_hts_consent_form.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/pages/agyw_dreams_hts_consent_form_edit.dart';
@@ -83,9 +84,7 @@ class _HTSSubHomePageState extends State<HTSSubHomePage> {
     }
   }
 
-void onAddIndexInfo(BuildContext context){
-}
-  
+
 void onViewConsent(BuildContext context, DreamsHTSEvent eventdata) {
     updateFormState(context, false, eventdata);
      Navigator.push(
@@ -212,6 +211,9 @@ void onViewConsent(BuildContext context, DreamsHTSEvent eventdata) {
                                                                 context,
                                                                 eventData),
                                                         eventData: eventData,
+                                                        // tbCard:HTSTBHomePage(
+                                                        //   htsToTBLinkageValue:eventData.htsTBLinkage,
+                                                        // )
                                                       ),
                                                     );
                                                   }).toList(),
