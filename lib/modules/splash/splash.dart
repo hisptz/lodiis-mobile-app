@@ -25,28 +25,22 @@ class _SplashState extends State<Splash> {
     AppUtil.setStatusBarColor(CustomColor.defaultPrimaryColor);
     UserService().getCurrentUser().then((CurrentUser user) {
       bool isUserLoginIn = user != null ? user.isLogin : false;
-      setLandingPage(isUserLoginIn, user);
+      if (isUserLoginIn) {
+        Provider.of<CurrentUserState>(context, listen: false)
+            .setCurrentUser(user);
+      }
+      setLandingPage(isUserLoginIn);
     });
   }
 
-  void setLandingPage(bool isUserLoginIn, CurrentUser user) {
+  void setLandingPage(bool isUserLoginIn) {
     Timer(
-      Duration(seconds: 2),
-      () => Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) {
-            if (isUserLoginIn) {
-              Provider.of<CurrentUserState>(context, listen: false)
-                  .setCurrentUser(user);
-              return InterventionSelection();
-            } else {
-              return Login();
-            }
-          },
-        ),
-      ),
-    );
+        Duration(seconds: 2),
+        () => Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    isUserLoginIn ? InterventionSelection() : Login())));
   }
 
   @override
