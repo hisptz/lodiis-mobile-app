@@ -38,7 +38,6 @@ class UserService {
   }
 
   setCurrentUser(CurrentUser user) async {
-    print(user);
     await UserOfflineProvider().addOrUpdateUser(user);
     await PreferenceProvider.setPreferenceValue(preferenceKey, user.id);
   }
