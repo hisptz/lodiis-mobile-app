@@ -200,6 +200,7 @@ class OvcEnrollmentHouseHold {
                     id: 'ItSpu4jJ4IM',
                     name: 'ECONOMIC STRENGTHENING - Vulnerability',
                     valueType: 'BOOLEAN',
+                    isReadObly: true,
                     background: Color(0xFFECF5EC),
                     inputColor: Color(0xFF4B9F46),
                   )
@@ -273,6 +274,7 @@ class OvcEnrollmentHouseHold {
                     id: 'jCbVjOXRozX',
                     name: 'Food Security - Vulnerability',
                     valueType: 'BOOLEAN',
+                    isReadObly: true,
                     background: Color(0xFFF5E9F7),
                     inputColor: Color(0xFF9C27B0),
                   )
@@ -340,6 +342,7 @@ class OvcEnrollmentHouseHold {
                     id: 'aRRUFQvF8Xs',
                     name: 'Health, Water, Sanitation & Shelter - Vulnerability',
                     valueType: 'BOOLEAN',
+                    isReadObly: true,
                     background: Color(0xFFE9F4FE),
                     inputColor: Color(0xFF2196F3),
                   )
@@ -401,6 +404,7 @@ class OvcEnrollmentHouseHold {
                       id: 'fX6Amzn0Bpo',
                       name: 'EDUCATION AND DEVELOPMENT - Vulnerability',
                       valueType: 'BOOLEAN',
+                      isReadObly: true,
                       inputColor: Color(0xFF009688),
                       background: Color(0xFFE6F3F3)),
                 ]),
@@ -426,6 +430,7 @@ class OvcEnrollmentHouseHold {
                       name:
                           'Psychosocial support and basic care - Vulnerability',
                       valueType: 'BOOLEAN',
+                      isReadObly: true,
                       background: Color(0xFFF5F5E9),
                       inputColor: Color(0xFF9E9D24))
                 ]),
@@ -546,6 +551,7 @@ class OvcEnrollmentHouseHold {
                       id: 'Caul8vihx2O',
                       name: 'CHILD CARE & PROTECTION - Vulnerability',
                       valueType: 'BOOLEAN',
+                      isReadObly: true,
                       inputColor: Color(0xFFEF6C00),
                       background: Color(0xFFFDF0E5)),
                 ]),
