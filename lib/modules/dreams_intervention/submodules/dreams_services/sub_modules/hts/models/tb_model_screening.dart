@@ -1,27 +1,24 @@
 import 'package:kb_mobile_app/models/events.dart';
 
-class DreamsHTSEvent {
+class DreamsHTSTBEvent {
   String id;
   String date;
-  String htsIndexLinkage;
   String htsTBLinkage;
   dynamic datavalues;
   Events eventData;
 
-  DreamsHTSEvent({
+  DreamsHTSTBEvent({
     this.id,
     this.date,
-    this.htsIndexLinkage,
     this.htsTBLinkage,
     this.datavalues,
     this.eventData,
   });
 
- DreamsHTSEvent fromTeiModel(
+ DreamsHTSTBEvent fromTeiModel(
     Events eventData
   ) {
     List keys = [
-      'vbnWGqIQoAN',
       'A4Fl5p0ZBhX',
     ];
     Map data = Map();
@@ -31,11 +28,10 @@ class DreamsHTSEvent {
         data[attribute] = '${detailObj['value']}'.trim() ?? '';
       }
     }
-    return DreamsHTSEvent(
+    return DreamsHTSTBEvent(
       id: eventData.event,
       date: eventData.eventDate,
       datavalues:eventData.dataValues,
-      htsIndexLinkage: data['vbnWGqIQoAN'] ?? '',
       htsTBLinkage: data['A4Fl5p0ZBhX'] ?? '',
       eventData: eventData,
     );

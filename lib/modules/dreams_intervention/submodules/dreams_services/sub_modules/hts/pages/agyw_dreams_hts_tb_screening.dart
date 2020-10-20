@@ -16,38 +16,33 @@ import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/client_information.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/consent_for_release_of_status.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/hts_consent.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/constants/agyw_dreams_hts_constant.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/constants/agyw_dreams_hts_tb_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
 import 'package:provider/provider.dart';
 
-import 'agyw_dreams_hts_tb_screening.dart';
+import '../../../models/dreams_service_tb_screening_form_info.dart';
 
-class AgywDreamsHTSConsentForReleaseStatus extends StatefulWidget {
-  AgywDreamsHTSConsentForReleaseStatus({Key key}) : super(key: key);
+class AgywDreamsHTSTBForm extends StatefulWidget {
+  AgywDreamsHTSTBForm({
+    Key key,
+    this.htsToTBLinkageValue,
+  }) : super(key: key);
+  final String htsToTBLinkageValue;
 
   @override
-  _AgywDreamsHTSConsentForReleaseStatusState createState() =>
-      _AgywDreamsHTSConsentForReleaseStatusState();
+  _AgywDreamsHTSTBFormState createState() => _AgywDreamsHTSTBFormState();
 }
 
-class _AgywDreamsHTSConsentForReleaseStatusState
-    extends State<AgywDreamsHTSConsentForReleaseStatus> {
-  final String label = 'Consent for Release of Status';
+class _AgywDreamsHTSTBFormState extends State<AgywDreamsHTSTBForm> {
+  final String label = 'TB Screening';
   List<FormSection> formSections;
-  List<FormSection> allFormSections = [];
   bool isFormReady = false;
   bool isSaving = false;
 
   @override
   void initState() {
     super.initState();
-    formSections = ConsentForReleaseOfStatus.getFormSections();
-    allFormSections.addAll(formSections);
-    allFormSections.addAll(ClientInformation.getFormSections());
-    allFormSections.addAll(HTSConsent.getFormSections());
+    formSections = DreamsServiceTBScreeningInfo.getFormSections();
     Timer(Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
@@ -62,47 +57,39 @@ class _AgywDreamsHTSConsentForReleaseStatusState
 
   void onSaveForm(
       BuildContext context, Map dataObject, AgywDream agywDream) async {
+    print(widget.htsToTBLinkageValue);
     if (dataObject.keys.length > 0) {
       setState(() {
         isSaving = true;
       });
       String eventDate = dataObject['eventDate'];
       String eventId = dataObject['eventId'];
-      dataObject[AgywDreamsHTSConstant.htsToIndexLinkage] =
-          dataObject[AgywDreamsHTSConstant.htsToIndexLinkage] ??
-              AppUtil.getUid();
-      String htsToTBLinkageValue =
-          dataObject[AgywDreamsHTSConstant.htsToTBLinkage] ?? AppUtil.getUid();
-      dataObject[AgywDreamsHTSConstant.htsToTBLinkage] = htsToTBLinkageValue;
 
-      List<String> hiddenFields = [
-        AgywDreamsHTSConstant.htsToIndexLinkage,
-        AgywDreamsHTSConstant.htsToTBLinkage
-      ];
+      dataObject[AgywDreamsHTSTBConstant.htsToTBLinkage] =
+          widget.htsToTBLinkageValue;
+      List<String> hiddenFields = [AgywDreamsHTSTBConstant.htsToTBLinkage];
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-            AgywDreamsHTSConstant.program,
-            AgywDreamsHTSConstant.programStage,
+            AgywDreamsHTSTBConstant.program,
+            AgywDreamsHTSTBConstant.programStage,
             agywDream.orgUnit,
-            allFormSections,
+            formSections,
             dataObject,
             eventDate,
             agywDream.id,
             eventId,
             hiddenFields);
-        if(dataObject['mhZeM9CuGQn']== 'Positive'){
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => AgywDreamsHTSTBForm(
-                    htsToTBLinkageValue:
-                        dataObject[AgywDreamsHTSConstant.htsToTBLinkage])));
-        }else{
-          Provider.of<ServiveEventDataState>(context, listen: false)
+        Provider.of<ServiveEventDataState>(context, listen: false)
             .resetServiceEventDataState(agywDream.id);
-          Navigator.popUntil(context, (route) => route.isFirst);
-        }
-
+        Timer(Duration(seconds: 1), () {
+          setState(() {
+            AppUtil.showToastMessage(
+                message: 'Form has been saved successfully',
+                position: ToastGravity.TOP);
+           
+            Navigator.popUntil(context, (route) => route.isFirst);
+          });
+        });
       } catch (e) {
         Timer(Duration(seconds: 1), () {
           setState(() {
@@ -173,9 +160,7 @@ class _AgywDreamsHTSConsentForReleaseStatusState
                                   Visibility(
                                     visible: serviceFormState.isEditableMode,
                                     child: OvcEnrollmentFormSaveButton(
-                                      label: isSaving
-                                          ? 'Saving ...'
-                                          : 'SAVE & CONTINUE',
+                                      label: isSaving ? 'Saving ...' : 'Save',
                                       labelColor: Colors.white,
                                       buttonColor: Color(0xFF258DCC),
                                       fontSize: 15.0,
