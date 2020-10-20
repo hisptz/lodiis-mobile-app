@@ -17,7 +17,6 @@ class Splash extends StatefulWidget {
 }
 
 class _SplashState extends State<Splash> {
-  
   @override
   void initState() {
     super.initState();
@@ -35,8 +34,7 @@ class _SplashState extends State<Splash> {
             context,
             MaterialPageRoute(
                 builder: (context) =>
-                    isUserLoginIn ?  InterventionSelection()
-                    : Login())));
+                    isUserLoginIn ? InterventionSelection() : Login())));
   }
 
   @override
@@ -44,15 +42,15 @@ class _SplashState extends State<Splash> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
         body: SingleChildScrollView(
-                  child: Column(children: [
-      Container(
+      child: Column(children: [
+        Container(
           decoration: BoxDecoration(color: CustomColor.defaultPrimaryColor),
           height: size.height * 0.83,
           child: CircularProcessLoader(
               color: CustomColor.defaultSecondaryColor, size: 2.0),
-      ),
-      SplashImplementingPartnerList(),
-    ]),
-        ));
+        ),
+        SplashImplementingPartnerList(),
+      ]),
+    ));
   }
 }

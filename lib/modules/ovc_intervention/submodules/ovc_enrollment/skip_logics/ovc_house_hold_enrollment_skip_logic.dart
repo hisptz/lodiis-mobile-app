@@ -72,7 +72,7 @@ class OvcHouseHoldEnrollmentSkipLogic {
       assignInputFieldValue(context, 'fX6Amzn0Bpo', 'false');
     }
     if ((dataObject['ae9oO3q6zJx'] != null &&
-        "${dataObject['oF2lwagPkQA']}".trim() == 'true')) {
+        "${dataObject['ae9oO3q6zJx']}".trim() == 'true')) {
       assignInputFieldValue(context, 'qGcHUqHsIL3', 'true');
     } else {
       assignInputFieldValue(context, 'qGcHUqHsIL3', 'false');
@@ -97,7 +97,6 @@ class OvcHouseHoldEnrollmentSkipLogic {
     } else {
       assignInputFieldValue(context, 'Caul8vihx2O', 'false');
     }
-
     for (String sectionId in hiddenSections.keys) {
       List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections
           .where((formSection) => formSection.id == sectionId)
@@ -108,7 +107,6 @@ class OvcHouseHoldEnrollmentSkipLogic {
     }
     resetValuesForHiddenFields(context, hiddenFields.keys);
     resetValuesForHiddenSections(context, formSections);
-    print('done');
   }
 
   static resetValuesForHiddenFields(BuildContext context, inputFieldIds) {
@@ -134,7 +132,6 @@ class OvcHouseHoldEnrollmentSkipLogic {
     String inputFieldId,
     String value,
   ) {
-    print('$inputFieldId => $value');
     Provider.of<EnrollmentFormState>(context, listen: false)
         .setFormFieldState(inputFieldId, value);
   }
