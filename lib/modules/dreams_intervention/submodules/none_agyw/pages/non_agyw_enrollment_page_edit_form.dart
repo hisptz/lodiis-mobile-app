@@ -15,6 +15,7 @@ import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/services/non_agyw_dream_enrollment_service.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/skip_logics/none_agyw_enrollment_skip_logic.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
 import 'package:provider/provider.dart';
 
@@ -65,21 +66,29 @@ class _DreamNonAgywEnrollmentEditFormState
         skippedInputs,
       );
       isFormReady = true;
+      evaluateSkipLogics();
     });
   }
 
-  void autoFillInputFields(String id, dynamic value) {
-    if (id == 'qZP982qpSPS') {
-      int age = AppUtil.getAgeInYear(value);
-      Provider.of<EnrollmentFormState>(context, listen: false)
-          .setFormFieldState('ls9hlz2tyol', age.toString());
-    }
+  evaluateSkipLogics() {
+    Timer(
+      Duration(milliseconds: 200),
+      () async {
+        Map dataObject =
+            Provider.of<EnrollmentFormState>(context, listen: false).formState;
+        await NoneAgywEnrollmentSkipLogic.evaluateSkipLogics(
+          context,
+          formSections,
+          dataObject,
+        );
+      },
+    );
   }
 
   void onInputValueChange(String id, dynamic value) {
     Provider.of<EnrollmentFormState>(context, listen: false)
         .setFormFieldState(id, value);
-    autoFillInputFields(id, value);
+    evaluateSkipLogics();
   }
 
   void onSaveForm(BuildContext context, Map dataObject) async {
@@ -165,6 +174,10 @@ class _DreamNonAgywEnrollmentEditFormState
                               children: [
                                 Container(
                                   child: EntryFormContainer(
+                                    hiddenFields:
+                                        enrollmentFormState.hiddenFields,
+                                    hiddenSections:
+                                        enrollmentFormState.hiddenSections,
                                     formSections: formSections,
                                     mandatoryFieldObject: mandatoryFieldObject,
                                     isEditableMode:

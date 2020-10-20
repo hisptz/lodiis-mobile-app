@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
@@ -9,6 +11,7 @@ import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/skip_logics/none_agyw_enrollment_skip_logic.dart';
 import 'package:provider/provider.dart';
 import '../models/non_agyw_enrollment_client_intake.dart';
 import '../models/non_agyw_enrollment_prep_screening.dart';
@@ -48,7 +51,23 @@ class _DreamNonAgywEnrollmentViewFormState
           NonAgywEnrollmentPrepScreening.getFormSections();
       formSections.addAll(enrollmentClientIntakeFormSections);
       isFormReady = true;
+      evaluateSkipLogics();
     });
+  }
+
+  evaluateSkipLogics() {
+    Timer(
+      Duration(milliseconds: 200),
+      () async {
+        Map dataObject =
+            Provider.of<EnrollmentFormState>(context, listen: false).formState;
+        await NoneAgywEnrollmentSkipLogic.evaluateSkipLogics(
+          context,
+          formSections,
+          dataObject,
+        );
+      },
+    );
   }
 
   @override
@@ -89,6 +108,10 @@ class _DreamNonAgywEnrollmentViewFormState
                               children: [
                                 Container(
                                   child: EntryFormContainer(
+                                    hiddenFields:
+                                        enrollmentFormState.hiddenFields,
+                                    hiddenSections:
+                                        enrollmentFormState.hiddenSections,
                                     formSections: formSections,
                                     mandatoryFieldObject: Map(),
                                     isEditableMode:

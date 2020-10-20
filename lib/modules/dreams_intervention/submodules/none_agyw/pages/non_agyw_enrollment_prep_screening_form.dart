@@ -14,6 +14,7 @@ import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/services/non_agyw_dream_enrollment_service.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/models/non_agyw_enrollment_prep_screening.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/skip_logics/none_agyw_enrollment_skip_logic.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
 import 'package:provider/provider.dart';
 
@@ -40,14 +41,29 @@ class _NonAgywEnrollmentPrepScreeningFormState
   @override
   void initState() {
     super.initState();
-
     setState(() {
       for (String id in mandatoryFields) {
         mandatoryFieldObject[id] = true;
       }
       formSections = NonAgywEnrollmentPrepScreening.getFormSections();
       isFormReady = true;
+      evaluateSkipLogics();
     });
+  }
+
+  evaluateSkipLogics() {
+    Timer(
+      Duration(milliseconds: 200),
+      () async {
+        Map dataObject =
+            Provider.of<EnrollmentFormState>(context, listen: false).formState;
+        await NoneAgywEnrollmentSkipLogic.evaluateSkipLogics(
+          context,
+          formSections,
+          dataObject,
+        );
+      },
+    );
   }
 
   void onSaveAndContinue(BuildContext context, Map dataObject) async {
@@ -93,18 +109,10 @@ class _NonAgywEnrollmentPrepScreeningFormState
     }
   }
 
-  void autoFillInputFields(String id, dynamic value) {
-    if (id == 'qZP982qpSPS') {
-      int age = AppUtil.getAgeInYear(value);
-      Provider.of<EnrollmentFormState>(context, listen: false)
-          .setFormFieldState('ls9hlz2tyol', age.toString());
-    }
-  }
-
   void onInputValueChange(String id, dynamic value) {
     Provider.of<EnrollmentFormState>(context, listen: false)
         .setFormFieldState(id, value);
-    autoFillInputFields(id, value);
+    evaluateSkipLogics();
   }
 
   @override
@@ -132,6 +140,8 @@ class _NonAgywEnrollmentPrepScreeningFormState
                     children: [
                       Container(
                         child: EntryFormContainer(
+                          hiddenFields: enrollmentFormState.hiddenFields,
+                          hiddenSections: enrollmentFormState.hiddenSections,
                           formSections: formSections,
                           dataObject: enrollmentFormState.formState,
                           mandatoryFieldObject: mandatoryFieldObject,
