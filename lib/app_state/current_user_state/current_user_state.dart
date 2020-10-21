@@ -6,30 +6,30 @@ class CurrentUserState with ChangeNotifier {
   CurrentUser _currentUser;
   bool _canManageDreams;
   bool _canManageOvc;
-  bool _canManageHivPrep;
+  bool _canManageHivPrevention;
   bool _canManageReferral;
   bool _canManageCLOReferral;
   bool _canManageHts;
   bool _canManageHivReg;
-  bool _canManageHrs;
+  bool _canManageSrh;
   bool _canManagePrep;
 
   // selectors
   CurrentUser get currentUser => _currentUser;
   bool get canManageDreams => _canManageDreams ?? false;
   bool get canManageOvc => _canManageOvc ?? false;
-  bool get canManageHivPrep => _canManageHivPrep ?? false;
+  bool get canManageHivPrevention => _canManageHivPrevention ?? false;
   bool get canManageReferral => _canManageReferral ?? false;
   bool get canManageCLOReferral => _canManageCLOReferral ?? false;
   bool get canManageHts => _canManageHts ?? false;
   bool get canManageHivReg => _canManageHivReg ?? false;
-  bool get canManageHrs => _canManageHrs ?? false;
+  bool get canManageSrh => _canManageSrh ?? false;
   bool get canManagePrep => _canManagePrep ?? false;
 
   void updateUserAccessStatus(String implementingPartner) {
     if (implementingPartner == 'PSI') {
       _canManageDreams = true;
-      _canManageHrs = true;
+      _canManageSrh = true;
       _canManageReferral = true;
       _canManageHts = true;
     }
@@ -52,7 +52,7 @@ class CurrentUserState with ChangeNotifier {
     if (implementingPartner == 'KB-AGYW/DREAMS') {
       _canManageDreams = true;
       _canManageReferral = true;
-      _canManageHivPrep = true;
+      _canManageHivPrevention = true;
       _canManageCLOReferral = true;
     }
     if (implementingPartner == 'CLO (Case Management-DREAMS)') {
