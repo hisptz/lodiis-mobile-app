@@ -18,7 +18,15 @@ class OvcHouseHoldCaseExitSkipLogic {
     List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections);
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
-      print(value);
+      if (inputFieldId == 'iaVO2v6TsWa' && value != 'Other reasons') {
+        hiddenFields['zUU33n41Soa'] = true;
+      }
+      if (inputFieldId == 'vey0snuAsLj' && value != 'true') {
+        hiddenFields['jOXN2iPhkxj'] = true;
+      }
+      if (inputFieldId == 'RtAQJcTqUGF' && value != 'Other') {
+        hiddenFields['q3mJ2FfV3oR'] = true;
+      }
     }
     for (String sectionId in hiddenSections.keys) {
       List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections

@@ -18,7 +18,15 @@ class OvcChildCasePlanAchievementSkipLogic {
     List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections);
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
-      print(value);
+      if (inputFieldId == 'RK3fD7HvH9Q' && value != 'true') {
+        hiddenFields['wGeVdyVO5hE'] = true;
+      }
+      if (inputFieldId == 'fffETOzhGsU' && value != 'true') {
+        hiddenFields['fffETOzhGsU_checkbox'] = true;
+        hiddenFields['gSgJKdbwTSs'] = true;
+        hiddenFields['bhXYz7AnnN7'] = true;
+        hiddenFields['dRiKVfftiaX'] = true;
+      }
     }
     for (String sectionId in hiddenSections.keys) {
       List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections

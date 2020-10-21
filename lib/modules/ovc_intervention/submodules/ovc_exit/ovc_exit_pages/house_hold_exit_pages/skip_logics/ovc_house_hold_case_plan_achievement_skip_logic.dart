@@ -18,7 +18,19 @@ class OvcHouseHoldCasePlanAchievementSkipLogic {
     List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections);
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
-      print(value);
+      if (inputFieldId == 'DFPZI9TQLo1' && value != 'true') {
+        hiddenFields['DoltSbENAuc'] = true;
+      }
+      if (inputFieldId == 'rumwEfp1ztg' && value != 'true') {
+        hiddenFields['a10M4Wqw7U3'] = true;
+      }
+      if (inputFieldId == 'PnoBb14W732' && value != 'true') {
+        hiddenFields['SP8w6AiVGCF'] = true;
+      }
+      if (inputFieldId == 'fpVryquRrCV' && value != 'true') {
+        hiddenFields['k5BHccZLAJL'] = true;
+        hiddenFields['R71zksHtVNn'] = true;
+      }
     }
     for (String sectionId in hiddenSections.keys) {
       List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections
