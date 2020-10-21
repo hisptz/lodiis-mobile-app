@@ -157,20 +157,23 @@ class OvcChildServiceHome extends StatelessWidget {
                   },
                 ),
               ),
-              Container(child: Consumer<ServiveEventDataState>(
-                  builder: (context, serviveEventDataState, child) {
-                bool isLoading = serviveEventDataState.isLoading;
-                return Visibility(
-                  visible: !isLoading,
-                  child: OvcEnrollmentFormSaveButton(
-                    label: "GO TO CHILD'S HOUSE HOLD",
-                    labelColor: Colors.white,
-                    fontSize: 10,
-                    buttonColor: Color(0xFF4B9F46),
-                    onPressButton: () => childHouseHold(),
-                  ),
-                );
-              })),
+              // Container(
+              //   child: Consumer<ServiveEventDataState>(
+              //     builder: (context, serviveEventDataState, child) {
+              //       bool isLoading = serviveEventDataState.isLoading;
+              //       return Visibility(
+              //         visible: !isLoading,
+              //         child: OvcEnrollmentFormSaveButton(
+              //           label: "GO TO CHILD'S HOUSE HOLD",
+              //           labelColor: Colors.white,
+              //           fontSize: 10,
+              //           buttonColor: Color(0xFF4B9F46),
+              //           onPressButton: () => childHouseHold(),
+              //         ),
+              //       );
+              //     },
+              //   ),
+              // ),
             ],
           ),
         )),
