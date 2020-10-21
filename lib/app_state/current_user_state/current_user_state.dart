@@ -55,7 +55,7 @@ class CurrentUserState with ChangeNotifier {
       _canManageHivPrevention = true;
       _canManageCLOReferral = true;
     }
-    if (implementingPartner == 'CLO (Case Management-DREAMS)') {
+    if (implementingPartner == 'CLO') {
       _canManageOvc = true;
       _canManageDreams = true;
       _canManageReferral = true;

@@ -57,7 +57,7 @@ class CurrentUser {
                         : attributeValue['value'] == 'KixA3B2O8Rp'
                             ? 'KB-AGYW/DREAMS'
                             : attributeValue['value'] == 'NuxoYkqopE2'
-                                ? 'CLO (Case Management-DREAMS)'
+                                ? 'CLO'
                                 : implementingPartner;
     }
     return CurrentUser(
