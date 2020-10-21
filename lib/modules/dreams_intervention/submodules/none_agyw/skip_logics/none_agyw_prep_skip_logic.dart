@@ -17,7 +17,7 @@ class NoneAgywPrepSkipLogic {
     hiddenSections.clear();
     List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections);
     for (String inputFieldId in inputFieldIds) {
-      String value = '${dataObject[inputFieldId]}';
+      // String value = '${dataObject[inputFieldId]}';
     }
     for (String sectionId in hiddenSections.keys) {
       List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections

@@ -38,16 +38,13 @@ class SynchronizationService {
     return paginationFilter;
   }
 
-
   Future<List<Events>> getEventsfromServer(
       String program, String userOrgId) async {
     List<Events> eventsFromServer = [];
     try {
       List<String> pageFilters = await getDataPaginationFilters(
           "api/events.json?ouMode=DESCENDANTS&orgUnit=$userOrgId&program=$program");
-      int _count = 0;
       for (var pageFilter in pageFilters) {
-        _count++;
         String newTrackedInstanceUrl =
             "api/events.json?ouMode=DESCENDANTS&orgUnit=$userOrgId&program=$program&fields=event,program,programStage,trackedEntityInstance,status,orgUnit,dataValues[dataElement,value,displayName],eventDate&$pageFilter";
         Response response = await httpClient.httpGet(newTrackedInstanceUrl);
@@ -61,7 +58,7 @@ class SynchronizationService {
           return null;
         }
       }
-    } catch (e) {}	
+    } catch (e) {}
     return eventsFromServer;
   }
 
@@ -69,12 +66,10 @@ class SynchronizationService {
     EventOfflineProvider().addOrUpdateEvent(event);
   }
 
-    Future<List> getOfflineEventsAttributesValuesById(
-    String eventIds) async {
+  Future<List> getOfflineEventsAttributesValuesById(String eventIds) async {
     List entityInstanceAttributes =
-        await EventOfflineDataValueProvider()
-            .getEventDataValues(eventIds);
-      return entityInstanceAttributes;
+        await EventOfflineDataValueProvider().getEventDataValues(eventIds);
+    return entityInstanceAttributes;
   }
 
   Future<List<dynamic>> getTrackedInstancefromServer(
@@ -82,9 +77,7 @@ class SynchronizationService {
     List trackedInstanceFromServer = [];
     List<String> pageFilters = await getDataPaginationFilters(
         "api/trackedEntityInstances.json?ouMode=DESCENDANTS&ou=$userOrgId&program=$program");
-    int _count = 0;
     for (var pageFilter in pageFilters) {
-      _count++;
       String newTrackedInstanceUrl =
           "api/trackedEntityInstances.json?ouMode=DESCENDANTS&ou=$userOrgId&program=$program&fields=trackedEntityInstance,trackedEntityType,orgUnit,attributes[attribute,value, displayName],enrollments[enrollment,enrollmentDate,incidentDate,orgUnit,program,trackedEntityInstance,status]&$pageFilter";
       Response response = await httpClient.httpGet(newTrackedInstanceUrl);
@@ -104,7 +97,7 @@ class SynchronizationService {
 
   Future saveTrackeEntityInstanceToOffline(
       TrackeEntityInstance trackeEntityInstance) async {
-  await  TrackedEntityInstanceOfflineProvider()
+    await TrackedEntityInstanceOfflineProvider()
         .addOrUpdateTrackedEntityInstance(trackeEntityInstance);
   }
 
@@ -115,15 +108,13 @@ class SynchronizationService {
           .addOrUpdateEnrollement(Enrollment().fromJson(enrollment));
     }
   }
-   
-
 
   Future<List> getOfflineTrackedEntityAttributesValuesById(
       List<String> attributeIds) async {
     List entityInstanceAttributes =
         await TrackedEntityInstanceOfflineAttributeProvider()
             .getTrackedEntityAttributesValuesById(attributeIds);
-      return entityInstanceAttributes;
+    return entityInstanceAttributes;
   }
 
   Future<List<TrackeEntityInstance>> getTeisFromOfflineDb() async {

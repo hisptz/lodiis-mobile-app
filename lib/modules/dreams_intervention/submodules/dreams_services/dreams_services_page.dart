@@ -11,7 +11,6 @@ import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_home
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/components/service_card_botton_action.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hiv_prev/dreams_hiv_prev_home.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hiv_reg/agyw_dreams_hiv_register.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/pages/agyw_dreams_hts_consent_form.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/prep/agyw_dreams_prep.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/srh/agyw_dreams_srh.dart';
 import 'package:provider/provider.dart';
@@ -44,8 +43,8 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
     AgywDream agywBeneficiary,
   ) {
     updateStateData(context, agywBeneficiary);
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => HTSHomePage()));
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => HTSHomePage()));
   }
 
   void onOpenSRHForm(

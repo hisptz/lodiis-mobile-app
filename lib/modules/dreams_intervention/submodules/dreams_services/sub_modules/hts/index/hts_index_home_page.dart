@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/components/dreams_hts_index_card_bottom_content.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/constants/agyw_dreams_hts_constant.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/constants/agyw_dreams_index_contact_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/constants/agyw_dreams_index_positive_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/models/index_contact_model.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/pages/agyw_dreams_index_information_about_pos_client.dart';
@@ -15,7 +14,6 @@ import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/agyw_dreams_index_info_event.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/components/dreams_hts_index_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/components/dreams_hts_index_card_body.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/constants/agyw_dreams_hts_index_constant.dart';
 
 class HTSIndexHomePage extends StatefulWidget {
   HTSIndexHomePage({
@@ -109,7 +107,7 @@ class _HTSIndexHomePageState extends State<HTSIndexHomePage> {
                     .toList();
                 AgywDreamsIndexInfoEvent indexEvent =
                     indexEvents.length > 0 ? indexEvents[0] : null;
-          
+
                 return Container(
                     child: Column(children: [
                   Container(
