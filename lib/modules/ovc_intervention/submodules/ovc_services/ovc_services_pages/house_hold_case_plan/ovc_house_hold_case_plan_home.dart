@@ -85,7 +85,7 @@ class OvcHouseHoldCasePlanHome extends StatelessWidget {
     BuildContext context,
     Map<String, List<Events>> eventListByProgramStage,
   ) {
-    bool isEditableMode = false;
+    bool isEditableMode = true;
     if (isCasePlanExit(eventListByProgramStage)) {
       AppUtil.showToastMessage(
           message: 'There is exiting case plan that has already created',
