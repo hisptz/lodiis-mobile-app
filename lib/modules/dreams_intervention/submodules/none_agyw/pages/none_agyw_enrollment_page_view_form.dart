@@ -13,8 +13,8 @@ import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/skip_logics/none_agyw_enrollment_skip_logic.dart';
 import 'package:provider/provider.dart';
-import '../models/non_agyw_enrollment_client_intake.dart';
-import '../models/non_agyw_enrollment_prep_screening.dart';
+import '../models/none_agyw_enrollment_client_intake.dart';
+import '../models/none_agyw_enrollment_prep_screening.dart';
 
 class NoneAgywEnrollmentViewForm extends StatefulWidget {
   const NoneAgywEnrollmentViewForm({Key key}) : super(key: key);
@@ -37,7 +37,7 @@ class _NoneAgywEnrollmentViewFormState
     super.initState();
     setState(() {
       prepScreeningFormSections =
-          NonAgywEnrollmentFormSection.getFormSections();
+          NoneAgywEnrollmentFormSection.getFormSections();
       formSections =
           prepScreeningFormSections.map((FormSection consentFormSection) {
         consentFormSection.name = 'HTS Client Intake Record';
@@ -48,7 +48,7 @@ class _NoneAgywEnrollmentViewFormState
         return consentFormSection;
       }).toList();
       enrollmentClientIntakeFormSections =
-          NonAgywEnrollmentPrepScreening.getFormSections();
+          NoneAgywEnrollmentPrepScreening.getFormSections();
       formSections.addAll(enrollmentClientIntakeFormSections);
       isFormReady = true;
       evaluateSkipLogics();

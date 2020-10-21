@@ -23,6 +23,29 @@ class NoneAgywEnrollmentSkipLogic {
         int age = AppUtil.getAgeInYear(value);
         assignInputFieldValue(context, 'ls9hlz2tyol', age.toString());
       }
+      if (inputFieldId == 'NDigy1JKTNV' && value != 'true') {
+        hiddenFields['wRU2FLKUXer'] = true;
+      }
+      if (inputFieldId == 's1eRvsL2Ly4' && value != 'Other') {
+        hiddenFields['DuWh8Gqwmjf'] = true;
+      }
+      if (inputFieldId == 'Y4dPrHZt7zu' && value != 'true') {
+        hiddenFields['yHAjVqDrXuk'] = true;
+      }
+      if (inputFieldId == 'vUobJnyivtf' && value != 'true') {
+        hiddenFields['Lj7CDNvvtw5'] = true;
+      }
+      if (inputFieldId == 'ulJwlQIOLQA' && value != 'true') {
+        hiddenFields['CcMOQFuS5Uy'] = true;
+      }
+      if (inputFieldId == 'WAlaenCYazT' && value != 'true') {
+        hiddenFields['ZUhWRJSajUE'] = true;
+        hiddenFields['K9y9eMHeSfa'] = true;
+        hiddenFields['T4jtufXMh73'] = true;
+      }
+      if (inputFieldId == 'IJUy3A0IVpr' && value != 'true') {
+        hiddenFields['Hr43Ub9GNyP'] = true;
+      }
     }
     for (String sectionId in hiddenSections.keys) {
       List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections

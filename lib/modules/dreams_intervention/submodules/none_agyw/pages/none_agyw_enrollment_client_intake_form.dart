@@ -8,10 +8,12 @@ import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
+import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
+import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/models/non_agyw_enrollment_client_intake.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/models/none_agyw_enrollment_client_intake.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/skip_logics/none_agyw_enrollment_skip_logic.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
 import 'package:provider/provider.dart';
@@ -28,7 +30,7 @@ class NoneAgywEnrollmentClientInTakeForm extends StatefulWidget {
 class _NoneAgywEnrollmentClientInTakeFormState
     extends State<NoneAgywEnrollmentClientInTakeForm> {
   final List<String> mandatoryFields =
-      NonAgywEnrollmentFormSection.getMandatoryField();
+      NoneAgywEnrollmentFormSection.getMandatoryField();
   List<FormSection> formSections;
   final Map mandatoryFieldObject = Map();
   final String label = 'HTS Client Intake';
@@ -41,7 +43,7 @@ class _NoneAgywEnrollmentClientInTakeFormState
       for (String id in mandatoryFields) {
         mandatoryFieldObject[id] = true;
       }
-      formSections = NonAgywEnrollmentFormSection.getFormSections();
+      formSections = NoneAgywEnrollmentFormSection.getFormSections();
       isFormReady = true;
       evaluateSkipLogics();
     });
@@ -62,7 +64,10 @@ class _NoneAgywEnrollmentClientInTakeFormState
     );
   }
 
-  void onSaveAndContinue(BuildContext context, Map dataObject) {
+  void onSaveAndContinue(BuildContext context, Map dataObject) async {
+    CurrentUser user = await UserService().getCurrentUser();
+    dataObject['klLkGxy328c'] =
+        dataObject['klLkGxy328c'] ?? user.implementingPartner;
     bool hadAllMandatoryFilled =
         AppUtil.hasAllMandarotyFieldsFilled(mandatoryFields, dataObject);
     if (hadAllMandatoryFilled) {

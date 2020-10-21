@@ -3,7 +3,7 @@ import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/input_field_option.dart';
 
-class NonAgywEnrollmentPrepScreening {
+class NoneAgywEnrollmentPrepScreening {
   static List<String> getMandatoryField() {
     return [
       'w16L3KidzUp',
@@ -44,7 +44,7 @@ class NonAgywEnrollmentPrepScreening {
                       labelColor: Color(0xFF737373)),
                 ]),
             FormSection(
-                name: 'Recent Exposure to HIV.  Ask, “In the last 30 days”…',
+                name: 'Recent Exposure to HIV.  Ask, “In the last 30 days',
                 color: Color(0xFF258DCC),
                 inputFields: [
                   InputField(

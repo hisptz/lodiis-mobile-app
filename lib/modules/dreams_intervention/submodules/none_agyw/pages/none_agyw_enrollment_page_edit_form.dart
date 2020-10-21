@@ -19,8 +19,8 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/s
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
 import 'package:provider/provider.dart';
 
-import '../models/non_agyw_enrollment_client_intake.dart';
-import '../models/non_agyw_enrollment_prep_screening.dart';
+import '../models/none_agyw_enrollment_client_intake.dart';
+import '../models/none_agyw_enrollment_prep_screening.dart';
 
 class NoneAgywEnrollmentEditForm extends StatefulWidget {
   const NoneAgywEnrollmentEditForm({Key key}) : super(key: key);
@@ -39,8 +39,8 @@ class _NoneAgywEnrollmentEditFormState
   final String label = 'NonAgyw Enrolment Form';
   final Map mandatoryFieldObject = Map();
   final List<String> mandatoryFields =
-      NonAgywEnrollmentFormSection.getMandatoryField() +
-          NonAgywEnrollmentPrepScreening.getMandatoryField();
+      NoneAgywEnrollmentFormSection.getMandatoryField() +
+          NoneAgywEnrollmentPrepScreening.getMandatoryField();
   bool isFormReady = false;
   bool isSaving = false;
 
@@ -51,9 +51,10 @@ class _NoneAgywEnrollmentEditFormState
       for (String id in mandatoryFields) {
         mandatoryFieldObject[id] = true;
       }
-      clientIntakeFormSections = NonAgywEnrollmentFormSection.getFormSections();
+      clientIntakeFormSections =
+          NoneAgywEnrollmentFormSection.getFormSections();
       prepScreeningFormSections =
-          NonAgywEnrollmentPrepScreening.getFormSections();
+          NoneAgywEnrollmentPrepScreening.getFormSections();
       List<String> skippedInputs = ['location', 'WTZ7GLTrE8Q', 'rSP9c21JsfC'];
       formSections = [
         clientIntakeFormSections[0],
