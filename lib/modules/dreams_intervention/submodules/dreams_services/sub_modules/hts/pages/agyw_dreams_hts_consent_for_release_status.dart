@@ -90,18 +90,18 @@ class _AgywDreamsHTSConsentForReleaseStatusState
             agywDream.id,
             eventId,
             hiddenFields);
-        if(dataObject['mhZeM9CuGQn']== 'Positive'){
+        // if(dataObject['mhZeM9CuGQn']== 'Positive'){
         Navigator.push(
             context,
             MaterialPageRoute(
                 builder: (context) => AgywDreamsHTSTBForm(
                     htsToTBLinkageValue:
                         dataObject[AgywDreamsHTSConstant.htsToTBLinkage])));
-        }else{
-          Provider.of<ServiveEventDataState>(context, listen: false)
-            .resetServiceEventDataState(agywDream.id);
-          Navigator.popUntil(context, (route) => route.isFirst);
-        }
+        // }else{
+          // Provider.of<ServiveEventDataState>(context, listen: false)
+          //   .resetServiceEventDataState(agywDream.id);
+          // Navigator.popUntil(context, (route) => route.isFirst);
+        // }
 
       } catch (e) {
         Timer(Duration(seconds: 1), () {
