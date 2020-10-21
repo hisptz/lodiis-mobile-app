@@ -23,6 +23,157 @@ class AgywDreamsEnrollmentSkipLogic {
         int age = AppUtil.getAgeInYear(value);
         assignInputFieldValue(context, 'ls9hlz2tyol', age.toString());
       }
+      if (inputFieldId == 'oEbOkfQY3NP' && value != 'Other') {
+        hiddenFields['ODMyZc2F7uc'] = true;
+      }
+      if (inputFieldId == 'fEHah8SvP35' && value != 'true') {
+        hiddenFields['uSxDP43mFEG'] = true;
+      }
+      if (inputFieldId == 'JmiNCIwfZvh' && value != 'Other') {
+        hiddenFields['HuGpuXtz673'] = true;
+      }
+      if (inputFieldId == 'VWtI5ROqFzd' && value != 'Other') {
+        hiddenFields['Qiuxkrvq5mH'] = true;
+      }
+      if (inputFieldId == 'xNx00hrCdWj' && value != 'Other') {
+        hiddenFields['B1lYiAi3AQE'] = true;
+      }
+      if (inputFieldId == 'ghkM8TrpEHr' && value != 'Other') {
+        hiddenFields['BwlYnY5isNK'] = true;
+      }
+      if (inputFieldId == 'iIdrEpTkpsk' && value != 'true') {
+        hiddenFields['ovd3lF6epue'] = true;
+      }
+      if (inputFieldId == 'GGZMeIWhXU9' && value != 'true') {
+        hiddenFields['gyQS55npBZ8'] = true;
+        hiddenFields['A3pHHLPwpyq'] = true;
+      }
+      if (inputFieldId == 'gyQS55npBZ8' && value != 'Other') {
+        hiddenFields['A3pHHLPwpyq'] = true;
+      }
+      if (inputFieldId == 'JTNxMQPT134' && value != 'true') {
+        hiddenFields['iQdwzVfZdml'] = true;
+      }
+      if (inputFieldId == 'J6OTM0c1WCV' && value != 'true') {
+        hiddenFields['iQdwzVfZdml'] = true;
+        hiddenFields['J6OTM0c1WCV'] = true;
+        hiddenFields['aPNGd6RCsY9'] = true;
+        hiddenFields['T56nYogWRYq'] = true;
+        hiddenFields['h1HeZ2eEkGn'] = true;
+        hiddenFields['NGVFqUVSHiU'] = true;
+      }
+      if (inputFieldId == 'aPNGd6RCsY9' && value != 'true') {
+        hiddenFields['T56nYogWRYq'] = true;
+      }
+      if (inputFieldId == 'vpmRiwVyKn2' && value != 'true') {
+        hiddenFields['JDFx7WfZ0Qi'] = true;
+      }
+      if (inputFieldId == 'TK4WYUEG5UK' && value != 'true') {
+        hiddenFields['RiSceJCKIzH'] = true;
+        hiddenFields['Gzuxkl4zjrI'] = true;
+      }
+      if (inputFieldId == 'RiSceJCKIzH' && value != 'Other') {
+        hiddenFields['Gzuxkl4zjrI'] = true;
+      }
+      if (inputFieldId == 'agg0eUd8Wwo' && value != 'true') {
+        hiddenFields['jT72rsATBtu'] = true;
+        hiddenFields['muAZsONb53n'] = true;
+        hiddenFields['bK3G4mIj2wL'] = true;
+        hiddenFields['hmtIvw2mKGc'] = true;
+        hiddenFields['aQdK3NzB4Xq'] = true;
+        hiddenFields['NVhWo52VJaZ'] = true;
+      }
+      if (inputFieldId == 'agg0eUd8Wwo' && value != 'false') {
+        hiddenFields['agg0eUd8Wwo_checkbox'] = true;
+        hiddenFields['ErH33FSpFcQ'] = true;
+        hiddenFields['fyDiWTn63jY'] = true;
+        hiddenFields['eHUHUbqwtmc'] = true;
+        hiddenFields['Obxp92Sd0Eo'] = true;
+        hiddenFields['xN6adtem2UD'] = true;
+        hiddenFields['Vk8oBO8z3yD'] = true;
+        hiddenFields['hOmGc8b4FRA'] = true;
+        hiddenFields['XWVu7LTxAJZ'] = true;
+        hiddenFields['Bf8Wp7c3dJF'] = true;
+      }
+      if (inputFieldId == 'bK3G4mIj2wL' && value != 'true') {
+        hiddenFields['hmtIvw2mKGc'] = true;
+      }
+      if (inputFieldId == 'aQdK3NzB4Xq' && value != 'Other') {
+        hiddenFields['NVhWo52VJaZ'] = true;
+      }
+      if (inputFieldId == 'AHbtSNH0i7C' && value != 'true') {
+        hiddenFields['RW9VeyKDvjj'] = true;
+      }
+      if (inputFieldId == 'SuB4oeLyzZ0' && value != 'true') {
+        hiddenFields['GDrEW22l54i'] = true;
+      }
+      if (inputFieldId == 'Gs4ArB4ToX5' && value != 'true') {
+        hiddenFields['Gs4ArB4ToX5_checkbox'] = true;
+        hiddenFields['jIlNVicSnqS'] = true;
+        hiddenFields['L4qhaxocyu4'] = true;
+        hiddenFields['PJHUhZt3YC7'] = true;
+        hiddenFields['iYyKrzKvF9i'] = true;
+        hiddenFields['u4PdP8HWVrs'] = true;
+        hiddenFields['XR1QhO62Zm9'] = true;
+        hiddenFields['qjFPwTWaHhx'] = true;
+      }
+      if (inputFieldId == 'i32OwNqUYRn' && value != 'true') {
+        hiddenFields['ClDEtAAqDPI'] = true;
+      }
+      if (inputFieldId == 'NgIDtgfZMVH' && value != 'true') {
+        hiddenFields['gY0nOLnR3eh'] = true;
+      }
+      if (inputFieldId == 'KNqzbD65UrN' && value != 'true') {
+        hiddenFields['OZqIvrzGBFK'] = true;
+      }
+      if (inputFieldId == 'Zmt7PefVzk4' && value != 'true') {
+        hiddenFields['iLX2uQ4ZXM0'] = true;
+      }
+      if (inputFieldId == 'NOJbkKuHccD' && value != 'true') {
+        hiddenFields['GdsRvY5lHCU'] = true;
+      }
+      if (inputFieldId == 'mvPAYFoFQcW' && value != 'true') {
+        hiddenFields['RO2RIidPOqK'] = true;
+      }
+      if (inputFieldId == 'WwTI82dbYIc' && value != 'true') {
+        hiddenFields['CU4HyDp6XO0'] = true;
+      }
+      if (inputFieldId == 'bBVCUqsdfL3' && value != 'true') {
+        hiddenFields['NP7LbypO3li'] = true;
+      }
+      if (inputFieldId == 'ZcfLYz7JlVo' && value != 'true') {
+        hiddenFields['ZcfLYz7JlVo_checkbox'] = true;
+        hiddenFields['prTJovIPAKu'] = true;
+        hiddenFields['ABZxvJiwxzk'] = true;
+        hiddenFields['bSV7DYAysFT'] = true;
+        hiddenFields['DzQ8pTNwsoA'] = true;
+        hiddenFields['ydSybWoOk93'] = true;
+        hiddenFields['U5MaBVRWZTu'] = true;
+        hiddenFields['fq9YW2mfHhx'] = true;
+        hiddenFields['NOZhaj68naE'] = true;
+        hiddenFields['YaP6i0e5ksq'] = true;
+        hiddenFields['OnrjChs6Pzg'] = true;
+      }
+      if (inputFieldId == 'H2Az2c3MeAy' && value != 'true') {
+        hiddenFields['H2Az2c3MeAy_checkbox'] = true;
+        hiddenFields['dXKzcRop0YS'] = true;
+        hiddenFields['K5NF7rk4RYa'] = true;
+        hiddenFields['u3IjpFje21i'] = true;
+        hiddenFields['JWuFSdMrZXy'] = true;
+        hiddenFields['oWcT4kzD78y'] = true;
+        hiddenFields['zhumM3lBA8J'] = true;
+        hiddenFields['k53fDCE7BHI'] = true;
+        hiddenFields['COJIywvGzco'] = true;
+        hiddenFields['fJzsO0ADn85'] = true;
+        hiddenFields['OFJD1RNGEZu'] = true;
+      }
+      if (inputFieldId == 'QaIUtFdgdIa' && value != 'true') {
+        hiddenFields['JSBixuSLIC5'] = true;
+      }
+      if (inputFieldId == 'o9tReELSzRN' && value != 'true') {
+        hiddenFields['wfb1pQ1odtz'] = true;
+        hiddenFields['YSAyCyGWCaK'] = true;
+      }
     }
     for (String sectionId in hiddenSections.keys) {
       List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections
@@ -39,7 +190,7 @@ class AgywDreamsEnrollmentSkipLogic {
   static resetValuesForHiddenFields(BuildContext context, inputFieldIds) {
     for (String inputFieldId in inputFieldIds) {
       if (hiddenFields[inputFieldId]) {
-        assignInputFieldValue(context, inputFieldId, null);
+        assignInputFieldValue(context, inputFieldId, 'true');
       }
     }
     Provider.of<EnrollmentFormState>(context, listen: false)
