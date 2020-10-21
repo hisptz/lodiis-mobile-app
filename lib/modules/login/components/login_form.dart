@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/app_state/current_user_state/current_user_state.dart';
 import 'package:kb_mobile_app/app_state/login_form_state/login_form_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/form_field_input_icon.dart';
@@ -68,8 +69,10 @@ class _LoginFormState extends State<LoginForm> {
           .login(currentUser.username.trim(), currentUser.password.trim());
       if (user != null) {
         await UserService().setCurrentUser(user);
+        Provider.of<CurrentUserState>(context, listen: false)
+            .setCurrentUser(user);
         await OrganisationUnitService().organisationUnitGetRequest();
-             Timer(Duration(seconds: 2), () {
+        Timer(Duration(seconds: 2), () {
           Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(

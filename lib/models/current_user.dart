@@ -52,9 +52,13 @@ class CurrentUser {
                 ? 'EGPAF'
                 : attributeValue['value'] == 'vFhtHWzmJda'
                     ? 'JPHIEGO'
-                    : attributeValue['value'] == 'gD1Km2odgDL'
-                        ? 'KB'
-                        : implementingPartner;
+                    : attributeValue['value'] == 'SdDDPA28oVh'
+                        ? 'KB-Case Management'
+                        : attributeValue['value'] == 'KixA3B2O8Rp'
+                            ? 'KB-AGYW/DREAMS'
+                            : attributeValue['value'] == 'NuxoYkqopE2'
+                                ? 'CLO (Case Management-DREAMS)'
+                                : implementingPartner;
     }
     return CurrentUser(
         name: json['name'],

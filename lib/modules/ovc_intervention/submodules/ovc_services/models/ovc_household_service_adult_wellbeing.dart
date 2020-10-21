@@ -79,12 +79,6 @@ class OvcHouseHoldServiceAdultWellbeing {
                 inputColor: Color(0xFF4B9F46),
                 labelColor: Color(0xFF1A3518)),
             InputField(
-                id: 'zUU33n41Soa',
-                name: 'Other: Please specify',
-                valueType: 'TEXT',
-                inputColor: Color(0xFF1A3518),
-                labelColor: Color(0xFF4A9F46)),
-            InputField(
                 id: '',
                 name: 'What is your source of income?',
                 valueType: 'CHECK_BOX',
@@ -114,7 +108,7 @@ class OvcHouseHoldServiceAdultWellbeing {
                 inputColor: Color(0xFF4B9F46),
                 labelColor: Color(0xFF1A3518)),
             InputField(
-                id: '',
+                id: 'p8htbyJHydl_checkbox',
                 name: 'If yes, indicate how',
                 valueType: 'CHECK_BOX',
                 inputColor: Color(0xFF4B9F46),
@@ -331,7 +325,7 @@ class OvcHouseHoldServiceAdultWellbeing {
                 inputColor: Color(0xFF4B9F46),
                 labelColor: Color(0xFF1A3518)),
             InputField(
-                id: '',
+                id: 'ut8LqpHyZnR_checkbox',
                 name: 'What is the long-term illness that you have?',
                 valueType: 'CHECK_BOX',
                 inputColor: Color(0xFF4B9F46),
@@ -445,7 +439,7 @@ class OvcHouseHoldServiceAdultWellbeing {
                 id: 'Icb6vUJXVDX',
                 name: 'Do you take your treatments daily and on time?',
                 description:
-                    'f no or not regularly, refer to HIV care and treatment.',
+                    'If no or not regularly, refer to HIV care and treatment.',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4B9F46),
                 labelColor: Color(0xFF1A3518),

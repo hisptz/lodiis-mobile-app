@@ -5,10 +5,12 @@ import 'package:kb_mobile_app/models/intervention_card.dart';
 class InterventionBottomNavigationState with ChangeNotifier {
   // initial state
   int _currentInterventionBottomNavigationIndex = 0;
+  String _currentInterventionBottomNavigationId;
 
   // Reducers
-  void setCurrentInterventionBottomNavigationIndex(int index) {
+  void setCurrentInterventionBottomNavigationStatus(int index, String id) {
     _currentInterventionBottomNavigationIndex = index;
+    _currentInterventionBottomNavigationId = id;
     notifyListeners();
   }
 
@@ -18,12 +20,19 @@ class InterventionBottomNavigationState with ChangeNotifier {
 
   InterventionBottomNavigation getCurrentInterventionBottomNavigation(
       InterventionCard activeInterventionProgram) {
-    List<InterventionBottomNavigation> interventionBottomNavigation =
+    List<InterventionBottomNavigation> interventionBottomNavigations =
         InterventionBottomNavigation.getInterventionNavigationButtons(
             activeInterventionProgram);
-
-    return interventionBottomNavigation[
-            _currentInterventionBottomNavigationIndex] ??
-        null;
+    InterventionBottomNavigation interventionBottomNavigation =
+        interventionBottomNavigations[0];
+    if (_currentInterventionBottomNavigationId != null) {
+      var filteredList = interventionBottomNavigations
+          .where((nav) => nav.id == _currentInterventionBottomNavigationId)
+          .toList();
+      interventionBottomNavigation = filteredList.length > 0
+          ? filteredList[0]
+          : interventionBottomNavigation;
+    }
+    return interventionBottomNavigation;
   }
 }
