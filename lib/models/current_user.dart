@@ -56,7 +56,9 @@ class CurrentUser {
                         ? 'KB-Case Management'
                         : attributeValue['value'] == 'KixA3B2O8Rp'
                             ? 'KB-AGYW/DREAMS'
-                            : implementingPartner;
+                            : attributeValue['value'] == 'NuxoYkqopE2'
+                                ? 'CLO (Case Management-DREAMS)'
+                                : implementingPartner;
     }
     return CurrentUser(
         name: json['name'],
