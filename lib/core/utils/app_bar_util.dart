@@ -60,7 +60,7 @@ class AppBarUtil {
     Provider.of<IntervetionCardState>(context, listen: false)
         .setCurrentInterventionProgramId(id);
     Provider.of<InterventionBottomNavigationState>(context, listen: false)
-        .setCurrentInterventionBottomNavigationIndex(0);
+        .setCurrentInterventionBottomNavigationStatus(0, null);
     Timer(
         Duration(milliseconds: 10),
         () => Navigator.pushReplacement(context,
