@@ -61,8 +61,7 @@ class _OvcEnrollmentHouseHoldFormState
       setState(() {
         isSaving = true;
       });
-      //@TODO apply accordingly based on vurlunability
-      dataObject['PN92g65TkVI'] = 'Active';
+      dataObject['PN92g65TkVI'] = dataObject['PN92g65TkVI'] ?? 'Active';
       List<String> hiddenFields = [
         BeneficiaryIdentification.beneficiaryId,
         BeneficiaryIdentification.beneficiaryIndex,

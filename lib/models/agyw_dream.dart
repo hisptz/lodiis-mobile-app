@@ -49,6 +49,7 @@ class AgywDream {
       'qZP982qpSPS',
       'PN92g65TkVI',
       'vIX4GTSCX4P',
+      'klLkGxy328c',
       BeneficiaryIdentification.beneficiaryId
     ];
     Map data = Map();
@@ -73,7 +74,7 @@ class AgywDream {
       location: location,
       createdDate: createdDate,
       enrollment: enrollment,
-      enrolledOrganisation: '',
+      enrolledOrganisation: data['klLkGxy328c'] ?? '',
       trackeEntityInstanceData: trackeEntityInstance,
     );
   }

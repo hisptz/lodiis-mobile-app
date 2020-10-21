@@ -89,7 +89,7 @@ class _OvcEnrollmentChildEditViewFormState
       List<String> hiddenFields = [
         BeneficiaryIdentification.beneficiaryId,
         BeneficiaryIdentification.beneficiaryIndex,
-        'PN92g65TkVI'
+        'PN92g65TkVI',
       ];
       await OvcEnrollmentChildService().savingChildrenEnrollmentForms(
         parentTrackedEntityInstance,
