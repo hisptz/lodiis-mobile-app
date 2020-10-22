@@ -190,6 +190,7 @@ class SynchronizationState with ChangeNotifier {
         await _synchronizationService
             .saveEnrollmentToOffline(_trackedEntityInstance['enrollments']);
       } else {
+        //consider sync and unsync data comparison
         offlineTrackedEntityInstanceattributes
             .forEach((trackedAttribute) async {
           if (trackedAttribute['attribute'] ==
@@ -197,25 +198,25 @@ class SynchronizationState with ChangeNotifier {
               trackedAttribute['value'] !=
                   trackeEntityInstance.attributes[0]['value']) {
             _conflictLCount++;
-            _trackedInstance1.add({
-              "trackedEntityInstanceId":
-                  trackeEntityInstance.trackedEntityInstance,
+              _trackedInstance1.add({
               "label": trackeEntityInstance.attributes[0]['displayName'],
-              "attribute": trackedAttribute['attribute'],
+              "trackeEntityInstance": trackeEntityInstance,
               "offline": trackedAttribute['value'],
               "online": trackeEntityInstance.attributes[0]['value']
             });
           } else {
+
             //Save data when no conflicts
-            await _synchronizationService
-                .saveTrackeEntityInstanceToOffline(trackeEntityInstance);
-            await _synchronizationService
-                .saveEnrollmentToOffline(_trackedEntityInstance['enrollments']);
+            // await _synchronizationService
+            //     .saveTrackeEntityInstanceToOffline(trackeEntityInstance);
+            // await _synchronizationService
+            //     .saveEnrollmentToOffline(_trackedEntityInstance['enrollments']);
+
+         
           }
         });
       }
     }
-   
   }
 
   Future startDataUploadActivity() async {

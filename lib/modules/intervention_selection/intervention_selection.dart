@@ -43,7 +43,7 @@ class _InterventionSelectionState extends State<InterventionSelection> {
         .refreshOvcList();
     Provider.of<DreamsInterventionListState>(context, listen: false)
         .refreshDreamsList();
-    setState(() {
+    setState((){
       hasDataLoaded = true;
     });
   }
