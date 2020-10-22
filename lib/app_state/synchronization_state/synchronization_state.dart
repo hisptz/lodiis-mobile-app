@@ -153,6 +153,8 @@ class SynchronizationState with ChangeNotifier {
               .toList());
         } else {
           //no conflicts
+          print("no conflicts");
+          print(event);
           _synchronizationService.saveEventsToOffline(event);
         }
       });
@@ -179,18 +181,22 @@ class SynchronizationState with ChangeNotifier {
     for (var _trackedEntityInstance in servertrackedEntityInstance) {
       TrackeEntityInstance trackeEntityInstance =
           TrackeEntityInstance().fromJson(_trackedEntityInstance);
-      if (offlineTrackedEntityInstance == null) {
+     
+      if (offlineTrackedEntityInstanceattributes == null ||
+          offlineTrackedEntityInstanceattributes.length < 1) {     
         await _synchronizationService
             .saveTrackeEntityInstanceToOffline(trackeEntityInstance);
         await _synchronizationService
             .saveEnrollmentToOffline(_trackedEntityInstance['enrollments']);
       } else {
+       
         offlineTrackedEntityInstanceattributes
             .forEach((trackedAttribute) async {
           if (trackedAttribute['attribute'] ==
                   trackeEntityInstance.attributes[0]['attribute'] &&
               trackedAttribute['value'] !=
                   trackeEntityInstance.attributes[0]['value']) {
+            print("conflicts");
             //  conflicts
             offlineTrackedEntityInstance.add(trackedAttribute['value']);
             onlineTrackedEntityInstance.add(trackeEntityInstance.attributes[0]);
