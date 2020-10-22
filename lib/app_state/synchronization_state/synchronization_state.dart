@@ -198,21 +198,18 @@ class SynchronizationState with ChangeNotifier {
               trackedAttribute['value'] !=
                   trackeEntityInstance.attributes[0]['value']) {
             _conflictLCount++;
-              _trackedInstance1.add({
+            _trackedInstance1.add({
               "label": trackeEntityInstance.attributes[0]['displayName'],
               "trackeEntityInstance": trackeEntityInstance,
               "offline": trackedAttribute['value'],
               "online": trackeEntityInstance.attributes[0]['value']
             });
           } else {
-
-            //Save data when no conflicts
-            // await _synchronizationService
-            //     .saveTrackeEntityInstanceToOffline(trackeEntityInstance);
-            // await _synchronizationService
-            //     .saveEnrollmentToOffline(_trackedEntityInstance['enrollments']);
-
-         
+            // Save data when no conflicts
+            await _synchronizationService
+                .saveTrackeEntityInstanceToOffline(trackeEntityInstance);
+            await _synchronizationService
+                .saveEnrollmentToOffline(_trackedEntityInstance['enrollments']);
           }
         });
       }

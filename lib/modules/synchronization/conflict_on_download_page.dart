@@ -146,7 +146,7 @@ class _ConflictOnDownloadPageState extends State<ConflictOnDownloadPage> {
                                                 child: Text("discard",
                                                     style: TextStyle(
                                                         fontSize: 11)),
-                                                        //100000/5
+                                                //100000/5
                                               ),
                                             ),
                                           ),
