@@ -14,7 +14,45 @@ class OgacInterventionFormSection {
     ];
   }
 
-  static List<FormSection> getFormSections() {
+  static List<FormSection> getStageFormSections() {
+    return [
+      FormSection(
+        name: 'OGAC Module',
+        color: Color(0xFFF05A2A),
+        inputFields: [
+          InputField(
+            id: 'TtZ7lDtc40r',
+            name: 'OGAC Module Provided?',
+            valueType: 'TRUE_ONLY',
+            inputColor: Color(0xFFF05A2A),
+            labelColor: Color(0xFF737373),
+          ),
+          InputField(
+            id: 'BelCZxo1ge9',
+            name: 'Date of Service',
+            valueType: 'DATE',
+            inputColor: Color(0xFFF05A2A),
+            labelColor: Color(0xFF737373),
+          ),
+          InputField(
+            id: 'E5SBpSCOV7p',
+            name: 'Referral to Comprehensive Services',
+            valueType: 'TEXT',
+            inputColor: Color(0xFFF05A2A),
+            labelColor: Color(0xFF737373),
+            options: [
+              InputFieldOption(
+                  code: 'OVC Comprehensive', name: 'OVC Comprehensive'),
+              InputFieldOption(
+                  code: 'DREAMS Comprehensive', name: 'DREAMS Comprehensive'),
+            ],
+          )
+        ],
+      )
+    ];
+  }
+
+  static List<FormSection> getEnrollmentFormSections() {
     return [
       FormSection(
         name: 'Location details',
@@ -104,39 +142,6 @@ class OgacInterventionFormSection {
           ),
         ],
       ),
-      FormSection(
-        name: 'OGAC Module',
-        color: Color(0xFFF05A2A),
-        inputFields: [
-          InputField(
-            id: 'TtZ7lDtc40r',
-            name: 'OGAC Module Provided?',
-            valueType: 'TRUE_ONLY',
-            inputColor: Color(0xFFF05A2A),
-            labelColor: Color(0xFF737373),
-          ),
-          InputField(
-            id: 'BelCZxo1ge9',
-            name: 'Date of Service',
-            valueType: 'DATE',
-            inputColor: Color(0xFFF05A2A),
-            labelColor: Color(0xFF737373),
-          ),
-          InputField(
-            id: 'E5SBpSCOV7p',
-            name: 'Referral to Comprehensive Services',
-            valueType: 'TEXT',
-            inputColor: Color(0xFFF05A2A),
-            labelColor: Color(0xFF737373),
-            options: [
-              InputFieldOption(
-                  code: 'OVC Comprehensive', name: 'OVC Comprehensive'),
-              InputFieldOption(
-                  code: 'DREAMS Comprehensive', name: 'DREAMS Comprehensive'),
-            ],
-          )
-        ],
-      )
     ];
   }
 }

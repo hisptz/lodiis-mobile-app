@@ -13,6 +13,7 @@ import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/ogac_intervention/models/ogac_enrollment_form_section.dart';
+import 'package:kb_mobile_app/modules/ogac_intervention/services/ogac_enrollment_service.dart';
 import 'package:kb_mobile_app/modules/ogac_intervention/skip_logics/ogac_intervention_skip_logic.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
 import 'package:provider/provider.dart';
@@ -26,6 +27,7 @@ class OgacEnrollemntForm extends StatefulWidget {
 
 class _OgacEnrollemntFormState extends State<OgacEnrollemntForm> {
   List<FormSection> formSections;
+  List<FormSection> stageFormSections;
   final String label = 'OGAC Enrollment Form';
   final List<String> mandatoryFields =
       OgacInterventionFormSection.getMandatoryField();
@@ -40,7 +42,9 @@ class _OgacEnrollemntFormState extends State<OgacEnrollemntForm> {
       for (String id in mandatoryFields) {
         mandatoryFieldObject[id] = true;
       }
-      formSections = OgacInterventionFormSection.getFormSections();
+      formSections = OgacInterventionFormSection.getEnrollmentFormSections();
+      stageFormSections = OgacInterventionFormSection.getStageFormSections();
+      formSections.addAll(stageFormSections);
       isFormReady = true;
       evaluateSkipLogics();
     });
@@ -61,26 +65,50 @@ class _OgacEnrollemntFormState extends State<OgacEnrollemntForm> {
     );
   }
 
-  void onSaveAndContinue(BuildContext context, Map dataObject) {
+  void onSaveAndContinue(BuildContext context, Map dataObject) async {
     bool hadAllMandatoryFilled =
         AppUtil.hasAllMandarotyFieldsFilled(mandatoryFields, dataObject);
     if (hadAllMandatoryFilled) {
       setState(() {
         isSaving = true;
       });
-      Provider.of<OgacInterventionListState>(context, listen: false)
-          .refreshOgacList();
-      Timer(Duration(seconds: 1), () {
-        if (Navigator.canPop(context)) {
-          setState(() {
-            isSaving = false;
-          });
-          AppUtil.showToastMessage(
-              message: 'Form has been saved successfully',
-              position: ToastGravity.TOP);
-          Navigator.popUntil(context, (route) => route.isFirst);
-        }
-      });
+      String trackedEntityInstance =
+          dataObject['trackedEntityInstance'] ?? AppUtil.getUid();
+      String orgUnit = dataObject['location'];
+      String enrollment = dataObject['enrollment'];
+      String enrollmentDate = dataObject['enrollmentDate'];
+      String incidentDate = dataObject['incidentDate'];
+      List<String> hiddenFields = [];
+      try {
+        await OgacEnrollementservice().savingOgacBeneficiaryEnrollement(
+          dataObject,
+          trackedEntityInstance,
+          orgUnit,
+          enrollment,
+          enrollmentDate,
+          incidentDate,
+          hiddenFields,
+        );
+        Provider.of<OgacInterventionListState>(context, listen: false)
+            .refreshOgacList();
+        Timer(Duration(seconds: 1), () {
+          if (Navigator.canPop(context)) {
+            setState(() {
+              isSaving = false;
+            });
+            AppUtil.showToastMessage(
+                message: 'Form has been saved successfully',
+                position: ToastGravity.TOP);
+            Navigator.popUntil(context, (route) => route.isFirst);
+          }
+        });
+      } catch (e) {
+        setState(() {
+          isSaving = false;
+        });
+        AppUtil.showToastMessage(
+            message: e.toString(), position: ToastGravity.BOTTOM);
+      }
     } else {
       AppUtil.showToastMessage(
           message: 'Please fill all mandatory field',
@@ -133,6 +161,10 @@ class _OgacEnrollemntFormState extends State<OgacEnrollemntForm> {
                                   child: EntryFormContainer(
                                     isEditableMode:
                                         enrollmentFormState.isEditableMode,
+                                    hiddenFields:
+                                        enrollmentFormState.hiddenFields,
+                                    hiddenSections:
+                                        enrollmentFormState.hiddenSections,
                                     formSections: formSections,
                                     mandatoryFieldObject: mandatoryFieldObject,
                                     dataObject: enrollmentFormState.formState,

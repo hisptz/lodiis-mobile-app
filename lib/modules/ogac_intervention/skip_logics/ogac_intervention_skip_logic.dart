@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
+import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
@@ -46,7 +46,7 @@ class OgacInterventionSkipLogic {
         assignInputFieldValue(context, inputFieldId, null);
       }
     }
-    Provider.of<ServiceFormState>(context, listen: false)
+    Provider.of<EnrollmentFormState>(context, listen: false)
         .setHiddenFields(hiddenFields);
   }
 
@@ -54,7 +54,7 @@ class OgacInterventionSkipLogic {
     BuildContext context,
     List<FormSection> formSections,
   ) {
-    Provider.of<ServiceFormState>(context, listen: false)
+    Provider.of<EnrollmentFormState>(context, listen: false)
         .setHiddenSections(hiddenSections);
   }
 
@@ -63,7 +63,7 @@ class OgacInterventionSkipLogic {
     String inputFieldId,
     String value,
   ) {
-    Provider.of<ServiceFormState>(context, listen: false)
+    Provider.of<EnrollmentFormState>(context, listen: false)
         .setFormFieldState(inputFieldId, value);
   }
 }

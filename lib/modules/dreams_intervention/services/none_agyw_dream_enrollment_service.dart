@@ -19,19 +19,19 @@ class NoneAgywDreamEnrollmentService {
       NoneAgywEnrollmentPrepScreening.getFormSections();
 
   Future savingNonAgwyBeneficiary(
-      Map dataObject,
-      String trackedEntityInstance,
-      String orgUnit,
-      String enrollment,
-      String enrollmentDate,
-      String incidentDate,
-      List<String> hiddenFields) async {
+    Map dataObject,
+    String trackedEntityInstance,
+    String orgUnit,
+    String enrollment,
+    String enrollmentDate,
+    String incidentDate,
+    List<String> hiddenFields,
+  ) async {
     List<String> inputFieldIds = hiddenFields ?? [];
     inputFieldIds
         .addAll(FormUtil.getFormFieldIds(nonAgywClientIntakeFormSections));
     inputFieldIds
         .addAll(FormUtil.getFormFieldIds(nonAgywPrepScreeningFormSections));
-
     TrackeEntityInstance trackeEntityInstanceData =
         await FormUtil.geTrackedEntityInstanceEnrollmentPayLoad(
             trackedEntityInstance,
@@ -40,9 +40,17 @@ class NoneAgywDreamEnrollmentService {
             inputFieldIds,
             dataObject);
     await FormUtil.savingTrackeEntityInstance(trackeEntityInstanceData);
-    Enrollment enrollmentData = FormUtil.getEnrollmentPayLoad(enrollment,
-        enrollmentDate, incidentDate, orgUnit, program, trackedEntityInstance);
-    await FormUtil.savingEnrollment(enrollmentData);
+    if (dataObject['trackedEntityInstance'] == null) {
+      Enrollment enrollmentData = FormUtil.getEnrollmentPayLoad(
+        enrollment,
+        enrollmentDate,
+        incidentDate,
+        orgUnit,
+        program,
+        trackedEntityInstance,
+      );
+      await FormUtil.savingEnrollment(enrollmentData);
+    }
   }
 
   Future<List<AgywDream>> getNonAgywBenficiaryList() async {
