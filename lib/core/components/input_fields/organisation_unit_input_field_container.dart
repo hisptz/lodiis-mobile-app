@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/input_fields/input_checked_icon.dart';
@@ -44,7 +46,12 @@ class _OrganisationUnitInputFieldContainerState
     setState(() {
       userOrganisationUnits = user.userOrgUnitIds;
     });
-    discoveringSelectedOrganisationUnit();
+    Timer(
+      Duration(seconds: 1),
+      () {
+        discoveringSelectedOrganisationUnit();
+      },
+    );
   }
 
   void discoveringSelectedOrganisationUnit() async {

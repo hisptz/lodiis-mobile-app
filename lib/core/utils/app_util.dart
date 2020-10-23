@@ -54,18 +54,21 @@ class AppUtil {
   }
 
   static int getAgeInYear(String dateOfBirth) {
-    DateTime currentDate = DateTime.now();
-    DateTime birthDate = dateOfBirth != null && dateOfBirth != ''
-        ? getDateIntoDateTimeFormat(dateOfBirth)
-        : getDateIntoDateTimeFormat(formattedDateTimeIntoString(currentDate));
-    int age = currentDate.year - birthDate.year;
-    if (birthDate.month > currentDate.month) {
-      age--;
-    } else if (birthDate.month == currentDate.month) {
-      if (birthDate.day > currentDate.day) {
+    int age = 0;
+    try {
+      DateTime currentDate = DateTime.now();
+      DateTime birthDate = dateOfBirth != null && dateOfBirth != ''
+          ? getDateIntoDateTimeFormat(dateOfBirth)
+          : getDateIntoDateTimeFormat(formattedDateTimeIntoString(currentDate));
+      age = currentDate.year - birthDate.year;
+      if (birthDate.month > currentDate.month) {
         age--;
+      } else if (birthDate.month == currentDate.month) {
+        if (birthDate.day > currentDate.day) {
+          age--;
+        }
       }
-    }
+    } catch (e) {}
     return age;
   }
 
