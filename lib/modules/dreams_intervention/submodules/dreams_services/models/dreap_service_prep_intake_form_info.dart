@@ -1153,7 +1153,7 @@ class DreamsServicePrepIntakeInfo {
           ]),
       FormSection(
           name: ' Baseline Information',
-          color: Colors.transparent,
+          color: Color(0xFF1F8ECE),
           inputFields: [
             InputField(
                 id: 'tNPOFcRu6Uj',

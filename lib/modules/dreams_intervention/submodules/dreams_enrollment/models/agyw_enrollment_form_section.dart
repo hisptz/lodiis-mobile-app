@@ -412,24 +412,7 @@ class AgywEnrollmentFormSection {
           InputField(
               id: 'JTNxMQPT134',
               name: 'Do you currently go to school?',
-              valueType: 'TEXT',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
-          InputField(
-            id: 'iQdwzVfZdml',
-            name: 'Type of school',
-            valueType: 'TEXT',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
-            options: [
-              InputFieldOption(code: 'Formal', name: 'Formal'),
-              InputFieldOption(code: 'Informal', name: 'Informal')
-            ],
-          ),
-          InputField(
-              id: 'J6OTM0c1WCV',
-              name: 'Do you currently go to school?',
-              valueType: 'TEXT',
+              valueType: 'BOOLEAN',
               inputColor: Color(0xFF258DCC),
               labelColor: Color(0xFF737373)),
           InputField(
@@ -705,18 +688,29 @@ class AgywEnrollmentFormSection {
             labelColor: Color(0xFF737373),
             options: [
               InputFieldOption(
-                  code: 'Completed secondary School',
-                  name: 'Completed secondary School'),
+                  code: 'Facility is too far away',
+                  name: 'Facility is too far away'),
               InputFieldOption(
-                  code: 'Lack of school fees', name: 'Lack of school fees'),
-              InputFieldOption(code: 'Pregnancy', name: 'Pregnancy'),
-              InputFieldOption(code: 'Peer pressure', name: 'Peer pressure'),
-              InputFieldOption(code: 'Not interested', name: 'Not interested'),
+                  code: 'I don’t know where clinic is',
+                  name: 'I don’t know where clinic is'),
               InputFieldOption(
-                  code: 'Awaiting to join secondary',
-                  name: 'Awaiting to join secondary'),
-              InputFieldOption(code: 'Got married', name: 'Got married'),
-              InputFieldOption(code: 'Other', name: 'Other')
+                  code: 'I can’t afford it', name: 'I can’t afford it'),
+              InputFieldOption(
+                  code: 'I feel healthy/not sick',
+                  name: 'I feel healthy/not sick'),
+              InputFieldOption(
+                  code: 'Fear people will know', name: 'Fear people will know'),
+              InputFieldOption(
+                  code: 'Will be discriminated', name: 'Will be discriminated'),
+              InputFieldOption(
+                  code: 'Providers at facility are unfriendly',
+                  name: 'Providers at facility are unfriendly'),
+              InputFieldOption(
+                  code: 'Taking alternative medicine',
+                  name: 'Taking alternative medicine'),
+              InputFieldOption(
+                  code: 'Im too busy to go', name: 'Im too busy to go'),
+              InputFieldOption(code: 'Other', name: 'Other'),
             ],
           ),
           InputField(
@@ -861,12 +855,18 @@ class AgywEnrollmentFormSection {
             ],
           ),
           InputField(
-              id: 'jbKpQbrAoDh',
-              name:
-                  'Was your third last sexual partner same age, younger or older than you?',
-              valueType: 'TEXT',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+            id: 'jbKpQbrAoDh',
+            name:
+                'Was your third last sexual partner same age, younger or older than you?',
+            valueType: 'TEXT',
+            inputColor: Color(0xFF258DCC),
+            labelColor: Color(0xFF737373),
+            options: [
+              InputFieldOption(code: 'Same Age', name: 'Same Age'),
+              InputFieldOption(code: 'Younger', name: 'Younger'),
+              InputFieldOption(code: "Older", name: "Older")
+            ],
+          ),
           InputField(
             id: 'tO8VP3yEJHq',
             name: 'Was your third to last sexual partner circumcised?',
@@ -1034,7 +1034,20 @@ class AgywEnrollmentFormSection {
                   'What’s the main reason for not using any family planning method?',
               valueType: 'TEXT',
               inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              labelColor: Color(0xFF737373),
+              options: [
+                InputFieldOption(
+                    code: 'Not sexually active', name: 'Not sexually active'),
+                InputFieldOption(
+                    code: 'Religious reasons', name: 'Religious reasons'),
+                InputFieldOption(code: 'Cannot afford', name: 'Cannot afford'),
+                InputFieldOption(
+                    code: 'Do not know where to get',
+                    name: 'Do not know where to get'),
+                InputFieldOption(
+                    code: 'Currently pregnant', name: 'Currently pregnant'),
+                InputFieldOption(code: 'Other', name: 'Other'),
+              ]),
           InputField(
               id: 'pq5LEMAI1EX',
               name:
@@ -1415,6 +1428,60 @@ class AgywEnrollmentFormSection {
                 id: 'w4GPtcJq2x9',
                 name: 'Comments',
                 valueType: 'TEXT',
+                inputColor: Color(0xFF258DCC),
+                labelColor: Color(0xFF737373)),
+          ]),
+      FormSection(
+          name: 'Enrollment Criteria',
+          color: Color(0xFF258DCC),
+          inputFields: [
+            InputField(
+                id: 'B4ojlzKypUF',
+                name: 'Is Orphanhood (AGYW 10-17 Yrs)',
+                valueType: 'TRUE_ONLY',
+                inputColor: Color(0xFF258DCC),
+                labelColor: Color(0xFF737373)),
+            InputField(
+                id: 'HJIHPjOf5s1',
+                name: 'Alcohol Use',
+                valueType: 'TRUE_ONLY',
+                inputColor: Color(0xFF258DCC),
+                labelColor: Color(0xFF737373)),
+            InputField(
+                id: 'bApA6X6TVvJ',
+                name: 'Out of school/Never schooled education/Enrollment',
+                valueType: 'TRUE_ONLY',
+                inputColor: Color(0xFF258DCC),
+                labelColor: Color(0xFF737373)),
+            InputField(
+                id: 'yc3BlUIEup3',
+                name: 'Experience of violence',
+                valueType: 'TRUE_ONLY',
+                inputColor: Color(0xFF258DCC),
+                labelColor: Color(0xFF737373)),
+            InputField(
+                id: 'p33MrrhsQRz',
+                name: 'Transactional Sex',
+                valueType: 'TRUE_ONLY',
+                inputColor: Color(0xFF258DCC),
+                labelColor: Color(0xFF737373)),
+            InputField(
+                id: 'iY67qYnywgS',
+                name: 'No or Irregular Condom use',
+                valueType: 'TRUE_ONLY',
+                inputColor: Color(0xFF258DCC),
+                labelColor: Color(0xFF737373)),
+            InputField(
+                id: 'rh881j2vfvT',
+                name:
+                    'Sexually Transmitted Infection (STI) - (past or present)',
+                valueType: 'TRUE_ONLY',
+                inputColor: Color(0xFF258DCC),
+                labelColor: Color(0xFF737373)),
+            InputField(
+                id: 'AZCVLPzD0Vd',
+                name: 'High number of sex partners',
+                valueType: 'TRUE_ONLY',
                 inputColor: Color(0xFF258DCC),
                 labelColor: Color(0xFF737373)),
           ])

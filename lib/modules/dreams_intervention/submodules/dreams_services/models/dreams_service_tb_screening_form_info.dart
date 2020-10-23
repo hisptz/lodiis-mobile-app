@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
+import 'package:kb_mobile_app/models/input_field_option.dart';
 
 class DreamsServiceTBScreeningInfo {
   static List<FormSection> getFormSections() {
@@ -24,6 +25,11 @@ class DreamsServiceTBScreeningInfo {
           valueType: 'TEXT',
           inputColor: Color(0xFF1F8ECE),
           labelColor: Color(0xFF737373),
+           options: [              
+              InputFieldOption(code: 'Positive', name: 'Positive'),
+              InputFieldOption(code: 'Negative', name: 'Negative'),
+              InputFieldOption(code: 'Indeterminate', name: 'Indeterminate')
+            ],
         ),
         InputField(
             id: 'tMvluCbiiUm',

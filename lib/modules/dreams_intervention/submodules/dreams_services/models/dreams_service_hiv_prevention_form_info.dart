@@ -31,8 +31,7 @@ class DreamsServiceHivPreventionInfo {
               InputFieldOption(code: 'oHIV MESSAGING', name: 'oHIV MESSAGING'),
               InputFieldOption(code: 'oSTEPPING STONES', name: 'oSTEPPING STONES'),
               InputFieldOption(code: 'oVAC', name: 'oVAC'),
-              InputFieldOption(code: 'oIPC', name: 'oIPC')
-            
+              InputFieldOption(code: 'oIPC', name: 'oIPC')            
                 ]
                 ),
             InputField(
