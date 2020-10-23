@@ -24,7 +24,7 @@ class DreamsServiceHivPreventionInfo {
                 valueType: 'TEXT'   ,
                 options: [
               InputFieldOption(code: 'oSOCIAL ASSETS', name: 'oSOCIAL ASSETS'),
-              InputFieldOption(code: 'oPARENTING', name: 'oPARENTING'),  InputFieldOption(code: 'oSOCIAL ASSETS', name: 'oSOCIAL ASSETS'),
+              InputFieldOption(code: 'oPARENTING', name: 'oPARENTING'), 
               InputFieldOption(code: 'oSILC', name: 'oSILC'),
               InputFieldOption(code: 'oSAVING GROUP', name: 'oSAVING GROUP'),
               InputFieldOption(code: 'oFINANCIAL EDUCATION', name: 'oFINANCIAL EDUCATION'),
