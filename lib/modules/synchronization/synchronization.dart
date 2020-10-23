@@ -41,9 +41,7 @@ class _SynchronizationState extends State<Synchronization> {
   void onStartDataDownload(BuildContext context) async {
     await Provider.of<SynchronizationState>(context, listen: false)
         .startDataDownloadActivity();
-  await  Provider.of<SynchronizationState>(context, listen: false)
-        .analysisOfDownloadedData();
-    //  List servertrackedEntityInstance = Provider.of<SynchronizationState>(context, listen: false)
+     //  List servertrackedEntityInstance = Provider.of<SynchronizationState>(context, listen: false)
     //     .servertrackedEntityInstance;      
     Provider.of<OvcInterventionListState>(context, listen: false)
         .refreshOvcList();
