@@ -76,6 +76,7 @@ class _InterventionSelectionState extends State<InterventionSelection> {
                   int numberOfNoneAgywDreamsBeneficiaries =
                       dreamsInterventionListState
                           .numberOfNoneAgywDreamsBeneficiaries;
+                  int numberOfOgac = 0;
                   return Container(
                     child: isDreamsListLoading || isOvcListLoading
                         ? CircularProcessLoader()
@@ -88,6 +89,7 @@ class _InterventionSelectionState extends State<InterventionSelection> {
                             numberOfNoneAgywDreamsBeneficiaries:
                                 numberOfNoneAgywDreamsBeneficiaries,
                             numberOfOvcs: numberOfOvcs,
+                            numberOfOgac: numberOfOgac,
                           ),
                   );
                 },

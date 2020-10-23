@@ -13,6 +13,7 @@ class InterventionSelectionList extends StatefulWidget {
     @required this.numberOfNoneAgywDreamsBeneficiaries,
     @required this.numberOfHouseHolds,
     @required this.numberOfOvcs,
+    @required this.numberOfOgac,
   }) : super(key: key);
 
   final List<InterventionCard> interventionPrograms;
@@ -22,6 +23,7 @@ class InterventionSelectionList extends StatefulWidget {
   final int numberOfAgywDreamsBeneficiaries;
   final int numberOfHouseHolds;
   final int numberOfOvcs;
+  final int numberOfOgac;
 
   @override
   _InterventionSelectionListState createState() =>
@@ -55,6 +57,12 @@ class _InterventionSelectionListState extends State<InterventionSelectionList> {
                     (interventionProgram) => interventionProgram.id == 'dreams')
                 .toList());
           }
+          if (currentUserState.canManageOGAC) {
+            interventionPrograms.addAll(widget.interventionPrograms
+                .where(
+                    (interventionProgram) => interventionProgram.id == 'ogac')
+                .toList());
+          }
           return Column(
             children: interventionPrograms
                 .map((InterventionCard interventionProgram) => GestureDetector(
@@ -68,6 +76,7 @@ class _InterventionSelectionListState extends State<InterventionSelectionList> {
                             widget.numberOfNoneAgywDreamsBeneficiaries,
                         numberOfHouseHolds: widget.numberOfHouseHolds,
                         numberOfOvcs: widget.numberOfOvcs,
+                        numberOfOgac: widget.numberOfOgac,
                       ),
                     ))
                 .toList(),

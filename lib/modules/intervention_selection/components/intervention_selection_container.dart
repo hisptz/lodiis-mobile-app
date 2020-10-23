@@ -17,6 +17,7 @@ class InterventionSelectionContainer extends StatefulWidget {
     @required this.numberOfNoneAgywDreamsBeneficiaries,
     @required this.numberOfHouseHolds,
     @required this.numberOfOvcs,
+    @required this.numberOfOgac,
   }) : super(key: key);
 
   final List<InterventionCard> interventionPrograms;
@@ -25,6 +26,7 @@ class InterventionSelectionContainer extends StatefulWidget {
   final int numberOfAgywDreamsBeneficiaries;
   final int numberOfHouseHolds;
   final int numberOfOvcs;
+  final int numberOfOgac;
 
   @override
   _InterventionSelectionContainerState createState() =>
@@ -91,6 +93,7 @@ class _InterventionSelectionContainerState
                   widget.numberOfNoneAgywDreamsBeneficiaries,
               numberOfHouseHolds: widget.numberOfHouseHolds,
               numberOfOvcs: widget.numberOfOvcs,
+              numberOfOgac: widget.numberOfOgac,
             ),
           ),
           InterventionSelectionButton(
