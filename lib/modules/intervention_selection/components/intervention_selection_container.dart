@@ -5,6 +5,7 @@ import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/dreams_intervention.dart';
 import 'package:kb_mobile_app/modules/intervention_selection/components/Intervention_selection_list.dart';
 import 'package:kb_mobile_app/modules/intervention_selection/components/intervention_selection_button.dart';
+import 'package:kb_mobile_app/modules/ogac_intervention/ogac_intervention.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/ovc_intervention.dart';
 import 'package:provider/provider.dart';
 
@@ -57,10 +58,12 @@ class _InterventionSelectionContainerState
                   ? OvcIntervention()
                   : activeInterventionProgram.id == 'dreams'
                       ? DreamsIntervention()
-                      : RoutePageNotFound(
-                          pageTitle:
-                              '${activeInterventionProgram.name} is not found',
-                          color: activeInterventionProgram.primmaryColor)));
+                      : activeInterventionProgram.id == 'ogac'
+                          ? OgacIntervention()
+                          : RoutePageNotFound(
+                              pageTitle:
+                                  '${activeInterventionProgram.name} is not found',
+                              color: activeInterventionProgram.primmaryColor)));
     }
   }
 

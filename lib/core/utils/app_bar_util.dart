@@ -11,6 +11,7 @@ import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/dreams_intervention.dart';
 import 'package:kb_mobile_app/modules/login/login.dart';
+import 'package:kb_mobile_app/modules/ogac_intervention/ogac_intervention.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/ovc_intervention.dart';
 import 'package:kb_mobile_app/modules/synchronization/synchronization.dart';
 import 'package:provider/provider.dart';
@@ -69,7 +70,11 @@ class AppBarUtil {
         Duration(milliseconds: 10),
         () => Navigator.pushReplacement(context,
                 MaterialPageRoute(builder: (context) {
-              return id == 'ovc' ? OvcIntervention() : DreamsIntervention();
+              return id == 'ovc'
+                  ? OvcIntervention()
+                  : id == 'ogac'
+                      ? OgacIntervention()
+                      : DreamsIntervention();
             })));
   }
 }
