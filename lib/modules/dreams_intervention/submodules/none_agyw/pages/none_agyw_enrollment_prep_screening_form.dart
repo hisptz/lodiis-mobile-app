@@ -78,7 +78,7 @@ class _NoneAgywEnrollmentPrepScreeningFormState
       CurrentUser user = await UserService().getCurrentUser();
       dataObject['PN92g65TkVI'] = dataObject['PN92g65TkVI'] ?? 'Active';
       dataObject['klLkGxy328c'] =
-          dataObject['PN92g65TkVI'] ?? user.implementingPartner;
+          dataObject['klLkGxy328c'] ?? user.implementingPartner;
       List<String> hiddenFields = [
         BeneficiaryIdentification.beneficiaryId,
         BeneficiaryIdentification.beneficiaryIndex,

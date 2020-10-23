@@ -10,8 +10,10 @@ import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.d
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/core/constants/beneficiary_identification.dart';
+import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
+import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/services/agyw_dream_enrollment_service.dart';
@@ -106,15 +108,19 @@ class _AgywDreamsEnrollmentEditFormState
       setState(() {
         isSaving = true;
       });
+      CurrentUser user = await UserService().getCurrentUser();
       String trackedEntityInstance = dataObject['trackedEntityInstance'];
       String orgUnit = dataObject['orgUnit'];
       String enrollment = dataObject['enrollment'];
       String enrollmentDate = dataObject['enrollmentDate'];
       String incidentDate = dataObject['incidentDate'];
+      dataObject['klLkGxy328c'] =
+          dataObject['klLkGxy328c'] ?? user.implementingPartner;
       List<String> hiddenFields = [
         BeneficiaryIdentification.beneficiaryId,
         BeneficiaryIdentification.beneficiaryIndex,
-        'PN92g65TkVI'
+        'PN92g65TkVI',
+        'klLkGxy328c'
       ];
       await AgywDreamEnrollmentService().savingAgwyBeneficiary(
         dataObject,

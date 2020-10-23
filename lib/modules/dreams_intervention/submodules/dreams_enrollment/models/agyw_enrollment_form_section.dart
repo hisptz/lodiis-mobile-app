@@ -77,20 +77,6 @@ class AgywEnrollmentFormSection {
               inputColor: Color(0xFF258DCC),
               labelColor: Color(0xFF737373)),
           InputField(
-            id: 'PN92g65TkVI',
-            name: 'Program Status',
-            valueType: 'TEXT',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
-            options: [
-              InputFieldOption(code: 'Not enrolled', name: 'Not enrolled'),
-              InputFieldOption(code: 'Active', name: 'Active'),
-              InputFieldOption(code: 'Exit', name: 'Exit'),
-              InputFieldOption(code: 'Transferred', name: 'Transferred'),
-              InputFieldOption(code: 'Graduated', name: 'Graduated')
-            ],
-          ),
-          InputField(
             id: 'vIX4GTSCX4P',
             name: 'Sex',
             valueType: 'TEXT',
