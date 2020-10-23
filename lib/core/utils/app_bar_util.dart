@@ -28,7 +28,9 @@ class AppBarUtil {
     );
     var response = await AppUtil.showPopUpModal(context, modal, false);
     if (response != null) {
-      if (response.id == 'dreams' || response.id == 'ovc') {
+      if (response.id == 'dreams' ||
+          response.id == 'ovc' ||
+          response.id == 'ogac') {
         _onSwitchToIntervention(context, response.id);
       } else if (response.id == 'logout') {
         _onLogOut(context);
@@ -53,9 +55,11 @@ class AppBarUtil {
     if (id == 'ovc') {
       Provider.of<OvcInterventionListState>(context, listen: false)
           .refreshOvcList();
-    } else {
+    } else if (id == 'dreams') {
       Provider.of<DreamsInterventionListState>(context, listen: false)
           .refreshDreamsList();
+    } else if (id == 'ogac') {
+      // refresh list
     }
     Provider.of<IntervetionCardState>(context, listen: false)
         .setCurrentInterventionProgramId(id);
