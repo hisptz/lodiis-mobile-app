@@ -12,6 +12,8 @@ import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
+import 'package:kb_mobile_app/modules/ogac_intervention/models/ogac_enrollment_form_section.dart';
+import 'package:kb_mobile_app/modules/ogac_intervention/skip_logics/ogac_intervention_skip_logic.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
 import 'package:provider/provider.dart';
 
@@ -25,7 +27,8 @@ class OgacEnrollemntForm extends StatefulWidget {
 class _OgacEnrollemntFormState extends State<OgacEnrollemntForm> {
   List<FormSection> formSections;
   final String label = 'OGAC Enrollment Form';
-  final List<String> mandatoryFields = [];
+  final List<String> mandatoryFields =
+      OgacInterventionFormSection.getMandatoryField();
   final Map mandatoryFieldObject = Map();
   bool isSaving = false;
   bool isFormReady = false;
@@ -37,8 +40,7 @@ class _OgacEnrollemntFormState extends State<OgacEnrollemntForm> {
       for (String id in mandatoryFields) {
         mandatoryFieldObject[id] = true;
       }
-      formSections = [];
-      // formSections = OvcEnrollmentHouseHold.getFormSections();
+      formSections = OgacInterventionFormSection.getFormSections();
       isFormReady = true;
       evaluateSkipLogics();
     });
@@ -50,11 +52,11 @@ class _OgacEnrollemntFormState extends State<OgacEnrollemntForm> {
       () async {
         Map dataObject =
             Provider.of<EnrollmentFormState>(context, listen: false).formState;
-        // await OvcHouseHoldEnrollmentSkipLogic.evaluateSkipLogics(
-        //   context,
-        //   formSections,
-        //   dataObject,
-        // );
+        await OgacInterventionSkipLogic.evaluateSkipLogics(
+          context,
+          formSections,
+          dataObject,
+        );
       },
     );
   }
