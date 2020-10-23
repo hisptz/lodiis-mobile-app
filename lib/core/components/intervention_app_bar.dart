@@ -6,21 +6,24 @@ import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:provider/provider.dart';
 
 class InterventionAppBar extends StatelessWidget {
-  const InterventionAppBar({
-    Key key,
-    @required this.activeInterventionProgram,
-    this.onClickHome,
-    this.onAddHouseHold,
-    this.onSearch,
-    this.onOpenMoreMenu,
-    this.onAddAgywBeneficiary,
-    this.onAddNoneAgywBeneficiary,
-  }) : super(key: key);
+  const InterventionAppBar(
+      {Key key,
+      @required this.activeInterventionProgram,
+      this.onClickHome,
+      this.onAddHouseHold,
+      this.onSearch,
+      this.onOpenMoreMenu,
+      this.onAddAgywBeneficiary,
+      this.onAddNoneAgywBeneficiary,
+      this.onAddOgacBeneficiary})
+      : super(key: key);
 
   final InterventionCard activeInterventionProgram;
   final VoidCallback onAddHouseHold;
   final VoidCallback onAddAgywBeneficiary;
   final VoidCallback onAddNoneAgywBeneficiary;
+  final VoidCallback onAddOgacBeneficiary;
+
   final VoidCallback onSearch;
   final VoidCallback onClickHome;
   final VoidCallback onOpenMoreMenu;
@@ -85,13 +88,17 @@ class InterventionAppBar extends StatelessWidget {
                     .getCurrentInterventionBottomNavigation(
                         activeInterventionProgram);
             return Visibility(
-                visible: currentInterventionBottomNavigation != null &&
-                    (currentInterventionBottomNavigation.id == 'enrollment' ||
-                        currentInterventionBottomNavigation.id == 'noneAgyw'),
+                visible: activeInterventionProgram.id == 'ogac' ||
+                    currentInterventionBottomNavigation != null &&
+                        (currentInterventionBottomNavigation.id ==
+                                'enrollment' ||
+                            currentInterventionBottomNavigation.id ==
+                                'noneAgyw'),
                 child: Container(
                   child: IconButton(
                       icon: SvgPicture.asset(
-                        activeInterventionProgram.id == 'dreams'
+                        activeInterventionProgram.id == 'dreams' ||
+                                activeInterventionProgram.id == 'ogac'
                             ? 'assets/icons/add-beneficiary.svg'
                             : 'assets/icons/add-house-hold.svg',
                       ),
@@ -100,7 +107,9 @@ class InterventionAppBar extends StatelessWidget {
                               ? onAddNoneAgywBeneficiary
                               : activeInterventionProgram.id == 'dreams'
                                   ? onAddAgywBeneficiary
-                                  : onAddHouseHold),
+                                  : activeInterventionProgram.id == 'ogac'
+                                      ? onAddOgacBeneficiary
+                                      : onAddHouseHold),
                 ));
           }),
           Container(

@@ -12,7 +12,6 @@ import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/hts_tb_home-page.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/pages/agyw_dreams_hts_client_information.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/pages/agyw_dreams_hts_consent_form.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/pages/agyw_dreams_hts_consent_form_edit.dart';
@@ -25,9 +24,10 @@ import 'pages/agyw_dreams_hts_consent_for_release_status.dart';
 import 'pages/agyw_dreams_hts_consent_for_release_status_edit.dart';
 
 class HTSSubHomePage extends StatefulWidget {
-  HTSSubHomePage({Key key, 
-  @required this.eventId,
-  this.htsIndexLinkage,
+  HTSSubHomePage({
+    Key key,
+    @required this.eventId,
+    this.htsIndexLinkage,
   }) : super(key: key);
 
   final String eventId;
@@ -84,37 +84,52 @@ class _HTSSubHomePageState extends State<HTSSubHomePage> {
     }
   }
 
-
-void onViewConsent(BuildContext context, DreamsHTSEvent eventdata) {
+  void onViewConsent(BuildContext context, DreamsHTSEvent eventdata) {
     updateFormState(context, false, eventdata);
-     Navigator.push(
-         context, MaterialPageRoute(builder: (context) => AgywDreamsHTSConsentForm()));
-   }
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => AgywDreamsHTSConsentForm()));
+  }
+
   void onEditConsent(BuildContext context, DreamsHTSEvent eventdata) {
     updateFormState(context, true, eventdata);
-     Navigator.push(
-         context, MaterialPageRoute(builder: (context) => AgywDreamsHTSConsentFormEdit()));
-   }
-   void onViewIntake(BuildContext context, DreamsHTSEvent eventdata) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => AgywDreamsHTSConsentFormEdit()));
+  }
+
+  void onViewIntake(BuildContext context, DreamsHTSEvent eventdata) {
     updateFormState(context, false, eventdata);
-     Navigator.push(
-         context, MaterialPageRoute(builder: (context) => AgywDreamsHTSClientInformation()));
-   }
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => AgywDreamsHTSClientInformation()));
+  }
+
   void onEditIntake(BuildContext context, DreamsHTSEvent eventdata) {
     updateFormState(context, true, eventdata);
-     Navigator.push(
-         context, MaterialPageRoute(builder: (context) => AgywDreamsHTSClientInformationEdit()));
-   }
-   void onViewStatus(BuildContext context, DreamsHTSEvent eventdata) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => AgywDreamsHTSClientInformationEdit()));
+  }
+
+  void onViewStatus(BuildContext context, DreamsHTSEvent eventdata) {
     updateFormState(context, false, eventdata);
-     Navigator.push(
-         context, MaterialPageRoute(builder: (context) => AgywDreamsHTSConsentForReleaseStatus()));
-   }
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => AgywDreamsHTSConsentForReleaseStatus()));
+  }
+
   void onEditStatus(BuildContext context, DreamsHTSEvent eventdata) {
     updateFormState(context, true, eventdata);
-     Navigator.push(
-         context, MaterialPageRoute(builder: (context) => AgywDreamsHTSConsentForReleaseStatusEdit()));
-   }
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => AgywDreamsHTSConsentForReleaseStatusEdit()));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -143,14 +158,15 @@ void onViewConsent(BuildContext context, DreamsHTSEvent eventdata) {
                     Map<String, List<Events>> eventListByProgramStage =
                         serviceFormState.eventListByProgramStage;
                     List<Events> events = TrackedEntityInstanceUtil
-                        .getAllEventListFromServiceDataState(
-                            eventListByProgramStage, programStageids).where((Events eventData) => 
-                            eventData.event == widget.eventId).toList();
-                    List<DreamsHTSEvent> indexEvents =
-                        events.map((Events eventData) => 
-                        DreamsHTSEvent().fromTeiModel(eventData)
-                        ).toList();
-                    int sessionIndex = events.length + 1;
+                            .getAllEventListFromServiceDataState(
+                                eventListByProgramStage, programStageids)
+                        .where((Events eventData) =>
+                            eventData.event == widget.eventId)
+                        .toList();
+                    List<DreamsHTSEvent> indexEvents = events
+                        .map((Events eventData) =>
+                            DreamsHTSEvent().fromTeiModel(eventData))
+                        .toList();
                     return Container(
                       child: Column(
                         children: [
@@ -177,46 +193,46 @@ void onViewConsent(BuildContext context, DreamsHTSEvent eventdata) {
                                                   horizontal: 13.0,
                                                 ),
                                                 child: Column(
-                                                  children: indexEvents
-                                                      .map((DreamsHTSEvent eventData) {
-                                                    sessionIndex--;
-                                                    return Container(
-                                                      margin: EdgeInsets.only(
-                                                        bottom: 15.0,
-                                                      ),
-                                                      child:
-                                                          DreamsSubHTSListCard(
+                                                  children: indexEvents.map(
+                                                    (DreamsHTSEvent eventData) {
+                                                      return Container(
+                                                        margin: EdgeInsets.only(
+                                                          bottom: 15.0,
+                                                        ),
+                                                        child:
+                                                            DreamsSubHTSListCard(
                                                           onEditConsent: () =>
-                                                            onEditConsent(
-                                                                context,
-                                                                eventData),
+                                                              onEditConsent(
+                                                                  context,
+                                                                  eventData),
                                                           onViewConsent: () =>
-                                                            onViewConsent(
-                                                                context,
-                                                                eventData),
-                                                        onEditIntake: () =>
-                                                            onEditIntake(
-                                                                context,
-                                                                eventData),
+                                                              onViewConsent(
+                                                                  context,
+                                                                  eventData),
+                                                          onEditIntake: () =>
+                                                              onEditIntake(
+                                                                  context,
+                                                                  eventData),
                                                           onViewIntake: () =>
-                                                            onViewIntake(
-                                                                context,
-                                                                eventData),
+                                                              onViewIntake(
+                                                                  context,
+                                                                  eventData),
                                                           onEditStatus: () =>
-                                                            onEditStatus(
-                                                                context,
-                                                                eventData),
+                                                              onEditStatus(
+                                                                  context,
+                                                                  eventData),
                                                           onViewStatus: () =>
-                                                            onViewStatus(
-                                                                context,
-                                                                eventData),
-                                                        eventData: eventData,
-                                                        // tbCard:HTSTBHomePage(
-                                                        //   htsToTBLinkageValue:eventData.htsTBLinkage,
-                                                        // )
-                                                      ),
-                                                    );
-                                                  }).toList(),
+                                                              onViewStatus(
+                                                                  context,
+                                                                  eventData),
+                                                          eventData: eventData,
+                                                          // tbCard:HTSTBHomePage(
+                                                          //   htsToTBLinkageValue:eventData.htsTBLinkage,
+                                                          // )
+                                                        ),
+                                                      );
+                                                    },
+                                                  ).toList(),
                                                 ),
                                               ),
                                       )

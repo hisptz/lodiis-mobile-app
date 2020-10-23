@@ -65,6 +65,21 @@ class InterventionCard {
         countColor: Color(0xFF1F8ECE),
         countLabelColor: Color(0xFF8CC5E6),
       ),
+      InterventionCard(
+        id: 'ogac',
+        name: '9-14 OGAC',
+        shortName: 'OGAC',
+        svgIcon: 'assets/icons/ogac-icon.svg',
+        primmaryColor: Color(0xFFF05A2A),
+        secondaryColor: Color(0xFFF05A2A).withOpacity(0.8),
+        svgIconColor: Colors.white,
+        svgIconBorderColor: Colors.white,
+        svgBackgroundColor: Color(0xFFF05A2A).withOpacity(0.1),
+        background: Color(0xFFF05A2A).withOpacity(0.09),
+        nameColor: Color(0xFF651900),
+        countColor: Color(0xFF651900).withOpacity(0.8),
+        countLabelColor: Color(0xFF651900).withOpacity(0.3),
+      ),
     ];
   }
 

@@ -27,14 +27,12 @@ class SelectInputField extends StatefulWidget {
 }
 
 class _SelectInputFieldState extends State<SelectInputField> {
-  String _selectedOption;
+  dynamic _selectedOption;
 
   @override
   void initState() {
     super.initState();
-    setState(() {
-      _selectedOption = widget.selectedOption;
-    });
+    updateInputValueState(widget.selectedOption);
   }
 
   updateInputValueState(dynamic value) {
@@ -65,37 +63,39 @@ class _SelectInputFieldState extends State<SelectInputField> {
                 currentValue: _selectedOption,
                 activeColor: widget.color,
                 onInputValueChange: widget.onInputValueChange))
-        : Row(children: [
-            Expanded(
-                child: DropdownButton<dynamic>(
-              value: _selectedOption,
-              isExpanded: true,
-              icon: Container(
-                height: 20.0,
-                child: SvgPicture.asset(
-                  'assets/icons/chevron_down.svg',
-                  color: widget.color ?? Colors.black,
+        : Row(
+            children: [
+              Expanded(
+                  child: DropdownButton<dynamic>(
+                value: _selectedOption,
+                isExpanded: true,
+                icon: Container(
+                  height: 20.0,
+                  child: SvgPicture.asset(
+                    'assets/icons/chevron_down.svg',
+                    color: widget.color ?? Colors.black,
+                  ),
                 ),
-              ),
-              elevation: 16,
-              style: TextStyle(color: widget.color ?? Colors.black),
-              underline: Container(
-                height: 0,
-                color: Colors.transparent,
-              ),
-              onChanged: widget.isReadOnly ? null : onValueChange,
-              items: widget.options
-                  .map<DropdownMenuItem<dynamic>>((InputFieldOption option) {
-                return DropdownMenuItem<dynamic>(
-                  value: option.code,
-                  child: Text(option.name),
-                );
-              }).toList(),
-            )),
-            InputCheckedIcon(
-              showTickedIcon: _selectedOption != null,
-              color: widget.color,
-            )
-          ]);
+                elevation: 16,
+                style: TextStyle(color: widget.color ?? Colors.black),
+                underline: Container(
+                  height: 0,
+                  color: Colors.transparent,
+                ),
+                onChanged: widget.isReadOnly ? null : onValueChange,
+                items: widget.options
+                    .map<DropdownMenuItem<dynamic>>((InputFieldOption option) {
+                  return DropdownMenuItem<dynamic>(
+                    value: option.code,
+                    child: Text(option.name),
+                  );
+                }).toList(),
+              )),
+              InputCheckedIcon(
+                showTickedIcon: _selectedOption != null,
+                color: widget.color,
+              )
+            ],
+          );
   }
 }

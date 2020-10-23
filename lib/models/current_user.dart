@@ -58,7 +58,9 @@ class CurrentUser {
                             ? 'KB-AGYW/DREAMS'
                             : attributeValue['value'] == 'NuxoYkqopE2'
                                 ? 'CLO'
-                                : implementingPartner;
+                                : attributeValue['value'] == 'H2CE3Iwdf7v'
+                                    ? 'Super user'
+                                    : implementingPartner;
     }
     return CurrentUser(
         name: json['name'],

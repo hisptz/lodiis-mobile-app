@@ -45,22 +45,23 @@ class _TextInputFieldContainerState extends State<TextInputFieldContainer> {
       child: Row(
         children: [
           Expanded(
-              child: TextFormField(
-                  readOnly: widget.inputField.isReadObly,
-                  controller: widget.inputField.isReadObly
-                      ? TextEditingController(text: widget.inputValue)
-                      : textController,
-                  onChanged: onValueChange,
-                  maxLines:
-                      widget.inputField.valueType == 'LONG_TEXT' ? null : 1,
-                  keyboardType: TextInputType.text,
-                  textInputAction: TextInputAction.next,
-                  textCapitalization: TextCapitalization.sentences,
-                  style: TextStyle().copyWith(color: Color(0xFF182E35)),
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    errorText: null,
-                  ))),
+            child: TextFormField(
+              readOnly: widget.inputField.isReadObly,
+              controller: widget.inputField.isReadObly
+                  ? TextEditingController(text: widget.inputValue)
+                  : textController,
+              onChanged: onValueChange,
+              maxLines: widget.inputField.valueType == 'LONG_TEXT' ? null : 1,
+              keyboardType: TextInputType.text,
+              textInputAction: TextInputAction.next,
+              textCapitalization: TextCapitalization.sentences,
+              style: TextStyle().copyWith(color: Color(0xFF182E35)),
+              decoration: InputDecoration(
+                border: InputBorder.none,
+                errorText: null,
+              ),
+            ),
+          ),
           InputCheckedIcon(
             showTickedIcon: _value != null && '$_value'.trim() != '',
             color: widget.inputField.inputColor,

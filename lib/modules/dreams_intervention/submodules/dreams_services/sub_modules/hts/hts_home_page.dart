@@ -12,7 +12,6 @@ import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/models/hts_model.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/pages/agyw_dreams_hts_consent_form.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
 import 'package:provider/provider.dart';
@@ -22,7 +21,7 @@ import 'hts_sub_home_page.dart';
 
 class HTSHomePage extends StatefulWidget {
   HTSHomePage({Key key}) : super(key: key);
-  
+
   @override
   _HTSHomePageState createState() => _HTSHomePageState();
 }
@@ -62,21 +61,23 @@ class _HTSHomePageState extends State<HTSHomePage> {
     }
   }
 
-   void onAddHTS(BuildContext context, AgywDream agywDream) {
-     updateFormState(context, true, null);
-     Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
-         .setCurrentAgywDream(agywDream);
-     Navigator.push(
-         context, MaterialPageRoute(builder: (context) => AgywDreamsHTSConsentForm()));
-   }
+  void onAddHTS(BuildContext context, AgywDream agywDream) {
+    updateFormState(context, true, null);
+    Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
+        .setCurrentAgywDream(agywDream);
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => AgywDreamsHTSConsentForm()));
+  }
 
   void onViewHTS(BuildContext context, Events eventData) {
     updateFormState(context, false, eventData);
 
-     Navigator.push(
-         context, MaterialPageRoute(builder: (context) => 
-         HTSSubHomePage(eventId: eventData.event)));
-   }
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => HTSSubHomePage(eventId: eventData.event)));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -141,11 +142,9 @@ class _HTSHomePageState extends State<HTSHomePage> {
                                                       margin: EdgeInsets.only(
                                                         bottom: 15.0,
                                                       ),
-                                                      child:
-                                                          DreamsHTSListCard(
-                                                           onViewHTS: () =>
-                                                            onViewHTS(
-                                                                context,
+                                                      child: DreamsHTSListCard(
+                                                        onViewHTS: () =>
+                                                            onViewHTS(context,
                                                                 eventData),
                                                         eventData: eventData,
                                                         sessionCount:
@@ -156,13 +155,13 @@ class _HTSHomePageState extends State<HTSHomePage> {
                                                 ),
                                               ),
                                       ),
-                                       OvcEnrollmentFormSaveButton(
+                                      OvcEnrollmentFormSaveButton(
                                           label: 'NEW HTS',
                                           labelColor: Colors.white,
                                           buttonColor: Color(0xFF1F8ECE),
                                           fontSize: 15.0,
                                           onPressButton: () =>
-                                          onAddHTS(context, agywDream))
+                                              onAddHTS(context, agywDream))
                                     ],
                                   ),
                           ),

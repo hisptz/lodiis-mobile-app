@@ -62,7 +62,7 @@ class AgywDreamsEnrollmentSkipLogic {
         hiddenFields['h1HeZ2eEkGn'] = true;
         hiddenFields['NGVFqUVSHiU'] = true;
       }
-      if (inputFieldId == 'aPNGd6RCsY9' && value != 'true') {
+      if (inputFieldId == 'aPNGd6RCsY9' && value != 'Other') {
         hiddenFields['T56nYogWRYq'] = true;
       }
       if (inputFieldId == 'vpmRiwVyKn2' && value != 'true') {
@@ -190,7 +190,7 @@ class AgywDreamsEnrollmentSkipLogic {
   static resetValuesForHiddenFields(BuildContext context, inputFieldIds) {
     for (String inputFieldId in inputFieldIds) {
       if (hiddenFields[inputFieldId]) {
-        assignInputFieldValue(context, inputFieldId, 'true');
+        assignInputFieldValue(context, inputFieldId, null);
       }
     }
     Provider.of<EnrollmentFormState>(context, listen: false)

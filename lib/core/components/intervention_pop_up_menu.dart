@@ -42,6 +42,12 @@ class InterventionPopUpMenu extends StatelessWidget {
                       interventionProgram.id == 'dreams')
                   .toList());
             }
+            if (currentUserState.canManageOGAC) {
+              interventionPrograms.addAll(InterventionCard.getInterventions()
+                  .where(
+                      (interventionProgram) => interventionProgram.id == 'ogac')
+                  .toList());
+            }
 
             popUpMenus.addAll(interventionPrograms.map((interventionProgram) {
               return new InterventionPopActionMenu(

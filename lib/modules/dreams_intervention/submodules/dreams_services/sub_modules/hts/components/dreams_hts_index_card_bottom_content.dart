@@ -9,7 +9,6 @@ import 'package:kb_mobile_app/core/components/line_seperator.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/events.dart';
-import 'package:kb_mobile_app/models/ovc_house_hold_child.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/agyw_dreams_index_info_event.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/constants/agyw_dreams_hts_index_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/constants/agyw_dreams_index_contact_constant.dart';
@@ -21,12 +20,6 @@ class DreamsHTSIndexCardBottonContent extends StatefulWidget {
   const DreamsHTSIndexCardBottonContent({
     Key key,
     this.event,
-    // @required this.canAddChild,
-    // @required this.canViewChildInfo,
-    // @required this.canViewChildService,
-    // @required this.canViewChildReferral,
-    // @required this.canViewChildExit,
-    // @required this.canEditChildInfo,
   }) : super(key: key);
 
   final AgywDreamsIndexInfoEvent event;
@@ -66,15 +59,16 @@ class _DreamsHTSIndexCardBottonContentState
   }
 
   void onEditIndexContact(BuildContext context, IndexContactModel eventData) {
-    updateFormState(context, true ,eventData);
+    updateFormState(context, true, eventData);
     Navigator.push(
         context,
         MaterialPageRoute(
           builder: (context) => AgywDreamsIndexContact(),
         ));
   }
+
   void onViewIndexContact(BuildContext context, IndexContactModel eventData) {
-    updateFormState(context, false ,eventData);
+    updateFormState(context, false, eventData);
     Navigator.push(
         context,
         MaterialPageRoute(
@@ -139,13 +133,13 @@ class _DreamsHTSIndexCardBottonContentState
                         IndexContactModel().fromTeiModel(eventData))
                     .toList()
                     .where((element) =>
-                       widget.event !=null && element.indexInfoToIndexContactLinkage ==
-                        widget.event.indexInfoToIndexContactLinkage)
+                        widget.event != null &&
+                        element.indexInfoToIndexContactLinkage ==
+                            widget.event.indexInfoToIndexContactLinkage)
                     .toList();
                 return isLoading
                     ? Container(
-                        child: CircularProcessLoader(color: Colors.blueGrey)
-                      ) 
+                        child: CircularProcessLoader(color: Colors.blueGrey))
                     : Container(
                         margin: EdgeInsets.symmetric(
                             horizontal: 5.0, vertical: 0.0),
@@ -165,15 +159,15 @@ class _DreamsHTSIndexCardBottonContentState
                                   ),
                                 ),
                               ),
-                              Row(
-                                mainAxisSize: MainAxisSize.min, children:[
-                                  Visibility(
+                              Row(mainAxisSize: MainAxisSize.min, children: [
+                                Visibility(
                                   // visible: canViewChildService ||
                                   //     canViewChildInfo ||
                                   //     canViewChildExit,
                                   child: Container(
                                       child: InkWell(
-                                          onTap:() =>onViewIndexContact(context, eventData),
+                                          onTap: () => onViewIndexContact(
+                                              context, eventData),
                                           child: Container(
                                             padding: EdgeInsets.all(10.0),
                                             child: Text(
@@ -186,26 +180,26 @@ class _DreamsHTSIndexCardBottonContentState
                                             ),
                                           ))),
                                 ),
-                      Visibility(
-                        //visible: canEditChildInfo,
-                        child: Container(
-                            margin: EdgeInsets.only(left: 10.0),
-                            child: InkWell(
-                                onTap: () => onEditIndexContact(context, eventData),
-                                child: Container(
-                                  padding: EdgeInsets.all(5.0),
-                                  child: Text(
-                                    'EDIT',
-                                    style: TextStyle().copyWith(
-                                      fontSize: 12.0,
-                                      color: Color(0xFF258DCC),
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                ))),
-                      )
-                                ]
-                              )
+                                Visibility(
+                                  //visible: canEditChildInfo,
+                                  child: Container(
+                                      margin: EdgeInsets.only(left: 10.0),
+                                      child: InkWell(
+                                          onTap: () => onEditIndexContact(
+                                              context, eventData),
+                                          child: Container(
+                                            padding: EdgeInsets.all(5.0),
+                                            child: Text(
+                                              'EDIT',
+                                              style: TextStyle().copyWith(
+                                                fontSize: 12.0,
+                                                color: Color(0xFF258DCC),
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                            ),
+                                          ))),
+                                )
+                              ])
                             ],
                           );
                         }).toList()));
@@ -221,23 +215,23 @@ class _DreamsHTSIndexCardBottonContentState
           Visibility(
               visible: widget.event != null,
               child: Container(
-            margin: EdgeInsets.symmetric(vertical: 5.0),
-            child: InkWell(
-                onTap: () => onAddNewIndexContact(context, agywDream),
-                child: Container(
-                  padding: EdgeInsets.all(10.0),
-                  alignment: Alignment.center,
-                  width: double.infinity,
-                  child: Text(
-                    'ADD INDEX',
-                    style: TextStyle().copyWith(
-                      fontSize: 12.0,
-                      color: Color(0xFF258DCC),
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                )),
-          )),
+                margin: EdgeInsets.symmetric(vertical: 5.0),
+                child: InkWell(
+                    onTap: () => onAddNewIndexContact(context, agywDream),
+                    child: Container(
+                      padding: EdgeInsets.all(10.0),
+                      alignment: Alignment.center,
+                      width: double.infinity,
+                      child: Text(
+                        'ADD INDEX',
+                        style: TextStyle().copyWith(
+                          fontSize: 12.0,
+                          color: Color(0xFF258DCC),
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    )),
+              )),
         ],
       ),
     );
