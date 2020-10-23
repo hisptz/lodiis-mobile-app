@@ -21,22 +21,28 @@ class DreamsServiceHivPreventionInfo {
                 name: 'Type of Intervention',
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
-                valueType: 'TEXT'   ,
+                valueType: 'TEXT',
                 options: [
-              InputFieldOption(code: 'oSOCIAL ASSETS', name: 'oSOCIAL ASSETS'),
-              InputFieldOption(code: 'oPARENTING', name: 'oPARENTING'), 
-              InputFieldOption(code: 'oSILC', name: 'oSILC'),
-              InputFieldOption(code: 'oSAVING GROUP', name: 'oSAVING GROUP'),
-              InputFieldOption(code: 'oFINANCIAL EDUCATION', name: 'oFINANCIAL EDUCATION'),
-              InputFieldOption(code: 'oHIV MESSAGING', name: 'oHIV MESSAGING'),
-              InputFieldOption(code: 'oSTEPPING STONES', name: 'oSTEPPING STONES'),
-              InputFieldOption(code: 'oVAC', name: 'oVAC'),
-              InputFieldOption(code: 'oIPC', name: 'oIPC')            
-                ]
-                ),
+                  InputFieldOption(
+                      code: 'oSOCIAL ASSETS', name: 'oSOCIAL ASSETS'),
+                  InputFieldOption(code: 'oPARENTING', name: 'oPARENTING'),
+                  InputFieldOption(code: 'oSILC', name: 'oSILC'),
+                  InputFieldOption(
+                      code: 'oSAVING GROUP', name: 'oSAVING GROUP'),
+                  InputFieldOption(
+                      code: 'oFINANCIAL EDUCATION',
+                      name: 'oFINANCIAL EDUCATION'),
+                  InputFieldOption(
+                      code: 'oHIV MESSAGING', name: 'oHIV MESSAGING'),
+                  InputFieldOption(
+                      code: 'oSTEPPING STONES', name: 'oSTEPPING STONES'),
+                  InputFieldOption(code: 'oVAC', name: 'oVAC'),
+                  InputFieldOption(code: 'oIPC', name: 'oIPC')
+                ]),
             InputField(
               id: 'InvIBsm9DiQ',
-              name: 'District (where sessions/activities are completed)',
+              name:
+                  'District (where sessions/activities/meetings are completed)',
               valueType: 'ORGANISATION_UNIT',
               inputColor: Color(0xFF1F8ECE),
               labelColor: Color(0xFF737373),
@@ -45,13 +51,15 @@ class DreamsServiceHivPreventionInfo {
                 id: 'ZbIgQobmdDR',
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
-                name: 'Council (where sessions/activities are completed)',
+                name:
+                    'Council (where sessions/activities/meetings are completed)',
                 valueType: 'ORGANISATION_UNIT'),
             InputField(
                 id: 'BJYUYd4JnuB',
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
-                name: 'Village (where sessions/activities are completed)',
+                name:
+                    'Village (where sessions/activities/meetings are completed)',
                 valueType: 'TEXT'),
             InputField(
                 id: 'O7sjTjxUmEa',
@@ -64,6 +72,18 @@ class DreamsServiceHivPreventionInfo {
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
                 name: 'Number of hours spent in session',
+                valueType: 'INTEGER_ZERO_OR_POSITIVE'),
+            InputField(
+                id: 'JEHbgzL2hFL',
+                inputColor: Color(0xFF1F8ECE),
+                labelColor: Color(0xFF737373),
+                name: 'Meeting date',
+                valueType: 'DATE'),
+            InputField(
+                id: 'IIRUvOXnWcN',
+                inputColor: Color(0xFF1F8ECE),
+                labelColor: Color(0xFF737373),
+                name: 'Number of hours spent in meeting',
                 valueType: 'INTEGER_ZERO_OR_POSITIVE'),
             InputField(
                 id: 'FoLeDcnocv4',
