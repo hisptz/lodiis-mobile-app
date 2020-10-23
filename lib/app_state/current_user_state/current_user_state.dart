@@ -82,9 +82,23 @@ class CurrentUserState with ChangeNotifier {
 
   //reducers
   void setCurrentUser(CurrentUser user) {
+    resetUserAccess();
     _currentUser = user;
     String implementingPartner = user.implementingPartner;
     updateUserAccessStatus(implementingPartner);
     notifyListeners();
+  }
+
+  void resetUserAccess() {
+    _canManageDreams = false;
+    _canManageOGAC = false;
+    _canManageOvc = false;
+    _canManageHivPrevention = false;
+    _canManageReferral = false;
+    _canManageCLOReferral = false;
+    _canManageHts = false;
+    _canManageHivReg = false;
+    _canManageSrh = false;
+    _canManagePrep = false;
   }
 }

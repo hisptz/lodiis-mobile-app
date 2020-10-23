@@ -8,7 +8,9 @@ import 'package:geolocator/geolocator.dart';
 
 class AppUtil {
   static bool hasAllMandarotyFieldsFilled(
-      List mandatoryFields, Map dataObject) {
+    List mandatoryFields,
+    Map dataObject,
+  ) {
     bool hasFilled = true;
     List fieldIds = dataObject.keys.toList();
     for (var mandatoryField in mandatoryFields) {

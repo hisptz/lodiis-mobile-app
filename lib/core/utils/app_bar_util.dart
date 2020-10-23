@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_bottom_navigation_state/intervention_bottom_navigation_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
+import 'package:kb_mobile_app/app_state/ogac_intervention_list_state/ogac_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_intervention_list_state.dart';
 import 'package:kb_mobile_app/core/components/intervention_pop_up_menu.dart';
 import 'package:kb_mobile_app/core/services/user_service.dart';
@@ -11,6 +12,7 @@ import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/dreams_intervention.dart';
 import 'package:kb_mobile_app/modules/login/login.dart';
+import 'package:kb_mobile_app/modules/ogac_intervention/ogac_intervention.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/ovc_intervention.dart';
 import 'package:kb_mobile_app/modules/synchronization/synchronization.dart';
 import 'package:provider/provider.dart';
@@ -28,7 +30,9 @@ class AppBarUtil {
     );
     var response = await AppUtil.showPopUpModal(context, modal, false);
     if (response != null) {
-      if (response.id == 'dreams' || response.id == 'ovc') {
+      if (response.id == 'dreams' ||
+          response.id == 'ovc' ||
+          response.id == 'ogac') {
         _onSwitchToIntervention(context, response.id);
       } else if (response.id == 'logout') {
         _onLogOut(context);
@@ -53,9 +57,12 @@ class AppBarUtil {
     if (id == 'ovc') {
       Provider.of<OvcInterventionListState>(context, listen: false)
           .refreshOvcList();
-    } else {
+    } else if (id == 'dreams') {
       Provider.of<DreamsInterventionListState>(context, listen: false)
           .refreshDreamsList();
+    } else if (id == 'ogac') {
+      Provider.of<OgacInterventionListState>(context, listen: false)
+          .refreshOgacList();
     }
     Provider.of<IntervetionCardState>(context, listen: false)
         .setCurrentInterventionProgramId(id);
@@ -65,7 +72,11 @@ class AppBarUtil {
         Duration(milliseconds: 10),
         () => Navigator.pushReplacement(context,
                 MaterialPageRoute(builder: (context) {
-              return id == 'ovc' ? OvcIntervention() : DreamsIntervention();
+              return id == 'ovc'
+                  ? OvcIntervention()
+                  : id == 'ogac'
+                      ? OgacIntervention()
+                      : DreamsIntervention();
             })));
   }
 }
