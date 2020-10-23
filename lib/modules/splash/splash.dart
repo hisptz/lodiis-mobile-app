@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/app_state/current_user_state/current_user_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/constants/custom_color.dart';
 import 'package:kb_mobile_app/core/services/user_service.dart';
@@ -8,6 +9,7 @@ import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/modules/intervention_selection/intervention_selection.dart';
 import 'package:kb_mobile_app/modules/login/login.dart';
 import 'package:kb_mobile_app/modules/splash/components/splash_implementer_list.dart';
+import 'package:provider/provider.dart';
 
 class Splash extends StatefulWidget {
   @override
@@ -17,13 +19,16 @@ class Splash extends StatefulWidget {
 }
 
 class _SplashState extends State<Splash> {
-  
   @override
   void initState() {
     super.initState();
     AppUtil.setStatusBarColor(CustomColor.defaultPrimaryColor);
     UserService().getCurrentUser().then((CurrentUser user) {
       bool isUserLoginIn = user != null ? user.isLogin : false;
+      if (isUserLoginIn) {
+        Provider.of<CurrentUserState>(context, listen: false)
+            .setCurrentUser(user);
+      }
       setLandingPage(isUserLoginIn);
     });
   }
@@ -35,8 +40,7 @@ class _SplashState extends State<Splash> {
             context,
             MaterialPageRoute(
                 builder: (context) =>
-                    isUserLoginIn ?  InterventionSelection()
-                    : Login())));
+                    isUserLoginIn ? InterventionSelection() : Login())));
   }
 
   @override
@@ -44,15 +48,15 @@ class _SplashState extends State<Splash> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
         body: SingleChildScrollView(
-                  child: Column(children: [
-      Container(
+      child: Column(children: [
+        Container(
           decoration: BoxDecoration(color: CustomColor.defaultPrimaryColor),
           height: size.height * 0.83,
           child: CircularProcessLoader(
               color: CustomColor.defaultSecondaryColor, size: 2.0),
-      ),
-      SplashImplementingPartnerList(),
-    ]),
-        ));
+        ),
+        SplashImplementingPartnerList(),
+      ]),
+    ));
   }
 }

@@ -32,7 +32,7 @@ class _NoneAgywState extends State<NoneAgyw> {
     });
   }
 
-  void onPrep(BuildContext context, AgywDream agywDream) {
+  void onOpenPrep(BuildContext context, AgywDream agywDream) {
     Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
         .setCurrentAgywDream(agywDream);
     Provider.of<ServiveEventDataState>(context, listen: false)
@@ -98,7 +98,7 @@ class _NoneAgywState extends State<NoneAgyw> {
                                     ),
                                     Container(
                                       child: MaterialButton(
-                                        onPressed: () => onPrep(
+                                        onPressed: () => onOpenPrep(
                                           context,
                                           agywBeneficiary,
                                         ),

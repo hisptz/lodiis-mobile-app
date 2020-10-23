@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
@@ -9,11 +11,11 @@ import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/models/agyw_enrollment_consent.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/models/agyw_enrollment_form_section.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/models/agyw_enrollment_risk_assessment.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/skip_logics/agyw_dreams_enrollment_skip_logic.dart';
 import 'package:provider/provider.dart';
-
-import '../models/agyw_enrollment_consent.dart';
-import '../models/agyw_enrollment_form_section.dart';
 
 class AgywDreamsEnrollmentViewForm extends StatefulWidget {
   const AgywDreamsEnrollmentViewForm({Key key}) : super(key: key);
@@ -52,7 +54,23 @@ class _AgywDreamsEnrollmentViewFormState
       formSections.addAll(riskAssessmentFormSections);
       formSections.addAll(enrollmentFormSections);
       isFormReady = true;
+      evaluateSkipLogics();
     });
+  }
+
+  evaluateSkipLogics() {
+    Timer(
+      Duration(milliseconds: 200),
+      () async {
+        Map dataObject =
+            Provider.of<EnrollmentFormState>(context, listen: false).formState;
+        await AgywDreamsEnrollmentSkipLogic.evaluateSkipLogics(
+          context,
+          formSections,
+          dataObject,
+        );
+      },
+    );
   }
 
   @override
@@ -93,6 +111,10 @@ class _AgywDreamsEnrollmentViewFormState
                               children: [
                                 Container(
                                   child: EntryFormContainer(
+                                    hiddenFields:
+                                        enrollmentFormState.hiddenFields,
+                                    hiddenSections:
+                                        enrollmentFormState.hiddenSections,
                                     formSections: formSections,
                                     mandatoryFieldObject: Map(),
                                     isEditableMode:

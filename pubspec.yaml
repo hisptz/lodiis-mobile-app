@@ -2,7 +2,7 @@ name: kb_mobile_app
 description: Mobile app for reporting OVC and AGYW cases unde KB project.
 publish_to: "none"
 
-version: 1.0.9+10
+version: 1.0.11+12
 
 environment:
   sdk: ">=2.7.0 <3.0.0"

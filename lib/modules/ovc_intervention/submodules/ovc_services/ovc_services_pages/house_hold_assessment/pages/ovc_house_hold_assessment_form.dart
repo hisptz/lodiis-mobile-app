@@ -20,6 +20,7 @@ import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold_top_header.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_household_service_adult_wellbeing.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/house_hold_assessment/constants/ovc_house_hold_assessment_constant.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/house_hold_assessment/skip_logics/ovc_house_hold_assessment_skip_logic.dart';
 import 'package:provider/provider.dart';
 
 class OvcHouseHoldAssessmentForm extends StatefulWidget {
@@ -44,13 +45,30 @@ class _OvcHouseHoldAssessmentFormState
     Timer(Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
+        evaluateSkipLogics();
       });
     });
+  }
+
+  evaluateSkipLogics() {
+    Timer(
+      Duration(milliseconds: 200),
+      () async {
+        Map dataObject =
+            Provider.of<ServiceFormState>(context, listen: false).formState;
+        await OvchouseHoldAssessmentSkipLogic.evaluateSkipLogics(
+          context,
+          formSections,
+          dataObject,
+        );
+      },
+    );
   }
 
   void onInputValueChange(String id, dynamic value) {
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState(id, value);
+    evaluateSkipLogics();
   }
 
   void onSaveForm(
@@ -146,6 +164,10 @@ class _OvcHouseHoldAssessmentFormState
                                     children: [
                                       Container(
                                         child: EntryFormContainer(
+                                          hiddenSections:
+                                              serviceFormState.hiddenSections,
+                                          hiddenFields:
+                                              serviceFormState.hiddenFields,
                                           formSections: formSections,
                                           mandatoryFieldObject: Map(),
                                           dataObject:

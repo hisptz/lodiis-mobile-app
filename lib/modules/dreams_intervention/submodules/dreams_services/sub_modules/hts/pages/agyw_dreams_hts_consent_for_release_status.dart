@@ -23,17 +23,21 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_serv
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
 import 'package:provider/provider.dart';
 
+import 'agyw_dreams_hts_tb_screening.dart';
+
 class AgywDreamsHTSConsentForReleaseStatus extends StatefulWidget {
   AgywDreamsHTSConsentForReleaseStatus({Key key}) : super(key: key);
 
   @override
-  _AgywDreamsHTSConsentForReleaseStatusState createState() => _AgywDreamsHTSConsentForReleaseStatusState();
+  _AgywDreamsHTSConsentForReleaseStatusState createState() =>
+      _AgywDreamsHTSConsentForReleaseStatusState();
 }
 
-class _AgywDreamsHTSConsentForReleaseStatusState extends State<AgywDreamsHTSConsentForReleaseStatus> {
+class _AgywDreamsHTSConsentForReleaseStatusState
+    extends State<AgywDreamsHTSConsentForReleaseStatus> {
   final String label = 'Consent for Release of Status';
   List<FormSection> formSections;
-   List<FormSection> allFormSections = [];
+  List<FormSection> allFormSections = [];
   bool isFormReady = false;
   bool isSaving = false;
 
@@ -56,7 +60,7 @@ class _AgywDreamsHTSConsentForReleaseStatusState extends State<AgywDreamsHTSCons
         .setFormFieldState(id, value);
   }
 
-   void onSaveForm(
+  void onSaveForm(
       BuildContext context, Map dataObject, AgywDream agywDream) async {
     if (dataObject.keys.length > 0) {
       setState(() {
@@ -67,7 +71,14 @@ class _AgywDreamsHTSConsentForReleaseStatusState extends State<AgywDreamsHTSCons
       dataObject[AgywDreamsHTSConstant.htsToIndexLinkage] =
           dataObject[AgywDreamsHTSConstant.htsToIndexLinkage] ??
               AppUtil.getUid();
-      List<String> hiddenFields = [AgywDreamsHTSConstant.htsToIndexLinkage];
+      String htsToTBLinkageValue =
+          dataObject[AgywDreamsHTSConstant.htsToTBLinkage] ?? AppUtil.getUid();
+      dataObject[AgywDreamsHTSConstant.htsToTBLinkage] = htsToTBLinkageValue;
+
+      List<String> hiddenFields = [
+        AgywDreamsHTSConstant.htsToIndexLinkage,
+        AgywDreamsHTSConstant.htsToTBLinkage
+      ];
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
             AgywDreamsHTSConstant.program,
@@ -79,16 +90,19 @@ class _AgywDreamsHTSConsentForReleaseStatusState extends State<AgywDreamsHTSCons
             agywDream.id,
             eventId,
             hiddenFields);
-        Provider.of<ServiveEventDataState>(context, listen: false)
-            .resetServiceEventDataState(agywDream.id);
-        Timer(Duration(seconds: 1), () {
-          setState(() {
-            AppUtil.showToastMessage(
-                message: 'Form has been saved successfully',
-                position: ToastGravity.TOP);
-             Navigator.popUntil(context, (route) => route.isFirst);
-          });
-        });
+        // if(dataObject['mhZeM9CuGQn']== 'Positive'){
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => AgywDreamsHTSTBForm(
+                    htsToTBLinkageValue:
+                        dataObject[AgywDreamsHTSConstant.htsToTBLinkage])));
+        // }else{
+          // Provider.of<ServiveEventDataState>(context, listen: false)
+          //   .resetServiceEventDataState(agywDream.id);
+          // Navigator.popUntil(context, (route) => route.isFirst);
+        // }
+
       } catch (e) {
         Timer(Duration(seconds: 1), () {
           setState(() {
@@ -159,7 +173,9 @@ class _AgywDreamsHTSConsentForReleaseStatusState extends State<AgywDreamsHTSCons
                                   Visibility(
                                     visible: serviceFormState.isEditableMode,
                                     child: OvcEnrollmentFormSaveButton(
-                                      label: isSaving ? 'Saving ...' : 'SAVE',
+                                      label: isSaving
+                                          ? 'Saving ...'
+                                          : 'SAVE & CONTINUE',
                                       labelColor: Colors.white,
                                       buttonColor: Color(0xFF258DCC),
                                       fontSize: 15.0,

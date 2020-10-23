@@ -183,13 +183,13 @@ class OvcExitCasePlanAchievementFormInfo {
                 inputColor: Color(0xFF009688),
                 labelColor: Color(0xFF1A3518),
                 renderAsRadio: true,
-                name: 'Infant has been tes,ted for HIV at eighteen months',
+                name: 'Infant has been tested for HIV at eighteen months',
                 valueType: 'TRUE_ONLY'),
             InputField(
                 id: 'R71zksHtVNn',
                 inputColor: Color(0xFF009688),
                 labelColor: Color(0xFF1A3518),
-                name: 'Infant has been tes,ted for HIV at eighteen months',
+                name: 'Infant has been tested for HIV at eighteen months',
                 valueType: 'BOOLEAN')
           ]),
       FormSection(
@@ -213,8 +213,8 @@ class OvcExitCasePlanAchievementFormInfo {
                 inputColor: Color(0xFF2196F3),
                 labelColor: Color(0xFF1A3518),
                 options: [
-                  InputFieldOption(code: 1, name: 'Yes'),
-                  InputFieldOption(code: 0, name: 'No')
+                  InputFieldOption(code: '1', name: 'Yes'),
+                  InputFieldOption(code: '0', name: 'No')
                 ]),
             InputField(
                 id: 'r9x5pcp1t9U',
@@ -381,8 +381,8 @@ class OvcExitCasePlanAchievementFormInfo {
                 valueType: 'NUMBER',
                 renderAsRadio: true,
                 options: [
-                  InputFieldOption(code: 1, name: 'Yes'),
-                  InputFieldOption(code: 0, name: 'No')
+                  InputFieldOption(code: '1', name: 'Yes'),
+                  InputFieldOption(code: '0', name: 'No')
                 ]),
             InputField(
                 id: 'zCIs3rB7YS0',
@@ -468,8 +468,8 @@ class OvcExitCasePlanAchievementFormInfo {
                 valueType: 'NUMBER',
                 renderAsRadio: true,
                 options: [
-                  InputFieldOption(code: 1, name: 'Yes'),
-                  InputFieldOption(code: 0, name: 'No')
+                  InputFieldOption(code: '1', name: 'Yes'),
+                  InputFieldOption(code: '0', name: 'No')
                 ]),
             InputField(
                 id: 'sLZhFel4YAc',

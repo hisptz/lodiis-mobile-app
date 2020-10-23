@@ -6,8 +6,8 @@ import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_card_header.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/pages/agyw_dreams_enrollment_edit_form.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/pages/agwy_dreams_enrollment_view_form.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/pages/non_agyw_enrollment_page_edit_form.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/pages/non_agyw_enrollment_page_view_form.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/pages/none_agyw_enrollment_page_edit_form.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/pages/none_agyw_enrollment_page_view_form.dart';
 import 'package:provider/provider.dart';
 
 class DreamsBeneficiaryCard extends StatelessWidget {
@@ -46,7 +46,7 @@ class DreamsBeneficiaryCard extends StatelessWidget {
         MaterialPageRoute(
           builder: (context) => isAgywEnrollment
               ? AgywDreamsEnrollmentEditForm()
-              : DreamNonAgywEnrollmentEditForm(),
+              : NoneAgywEnrollmentEditForm(),
         ));
   }
 
@@ -87,7 +87,7 @@ class DreamsBeneficiaryCard extends StatelessWidget {
         MaterialPageRoute(
           builder: (context) => isAgywEnrollment
               ? AgywDreamsEnrollmentViewForm()
-              : DreamNonAgywEnrollmentViewForm(),
+              : NoneAgywEnrollmentViewForm(),
         ));
   }
 

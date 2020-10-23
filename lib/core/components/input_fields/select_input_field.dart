@@ -37,11 +37,22 @@ class _SelectInputFieldState extends State<SelectInputField> {
     });
   }
 
-  void onValueChange(dynamic value) {
-    widget.onInputValueChange(value);
+  updateInputValueState(dynamic value) {
     setState(() {
       _selectedOption = value;
     });
+  }
+
+  @override
+  void didUpdateWidget(covariant SelectInputField oldWidget) {
+    super.didUpdateWidget(widget);
+    if (oldWidget.selectedOption != widget.selectedOption)
+      updateInputValueState(widget.selectedOption);
+  }
+
+  void onValueChange(dynamic value) {
+    widget.onInputValueChange(value);
+    updateInputValueState(value);
   }
 
   @override

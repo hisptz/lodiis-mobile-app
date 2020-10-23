@@ -19,6 +19,7 @@ import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_child_info
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/models/ovc_exit_caseplan_achievement_rediness.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_pages/child_exit_pages/constants/ovc_exit_case_plan_achievement_rediness_constant.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_pages/child_exit_pages/skip_logics/ovc_child_case_plan_achievement_skip_logic.dart';
 import 'package:provider/provider.dart';
 
 class OvcExitCasePlanAchievementRedinessForm extends StatefulWidget {
@@ -41,13 +42,30 @@ class _OvcExitCasePlanAchievementRedinessFormState
     Timer(Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
+        evaluateSkipLogics();
       });
     });
+  }
+
+  evaluateSkipLogics() {
+    Timer(
+      Duration(milliseconds: 200),
+      () async {
+        Map dataObject =
+            Provider.of<ServiceFormState>(context, listen: false).formState;
+        await OvcChildCasePlanAchievementSkipLogic.evaluateSkipLogics(
+          context,
+          formSections,
+          dataObject,
+        );
+      },
+    );
   }
 
   void onInputValueChange(String id, dynamic value) {
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState(id, value);
+    evaluateSkipLogics();
   }
 
   void onSaveForm(

@@ -19,6 +19,7 @@ import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_child_info
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_hivscreening.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_asessment/constants/ovc_service_hiv_assessment_constant.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_asessment/skip_logics/ovc_child_hiv_assessment_skip_logic.dart';
 import 'package:provider/provider.dart';
 
 class OvcServiceHIVAssessmentForm extends StatefulWidget {
@@ -41,13 +42,30 @@ class _OvcServiceHIVAssessmentFormState
     Timer(Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
+        evaluateSkipLogics();
       });
     });
+  }
+
+  evaluateSkipLogics() {
+    Timer(
+      Duration(milliseconds: 200),
+      () async {
+        Map dataObject =
+            Provider.of<ServiceFormState>(context, listen: false).formState;
+        await OvcChildHivAssessmentSkipLogic.evaluateSkipLogics(
+          context,
+          formSections,
+          dataObject,
+        );
+      },
+    );
   }
 
   void onInputValueChange(String id, dynamic value) {
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState(id, value);
+    evaluateSkipLogics();
   }
 
   void onSaveForm(
@@ -144,6 +162,10 @@ class _OvcServiceHIVAssessmentFormState
                                           right: 13.0,
                                         ),
                                         child: EntryFormContainer(
+                                          hiddenSections:
+                                              serviceFormState.hiddenSections,
+                                          hiddenFields:
+                                              serviceFormState.hiddenFields,
                                           formSections: formSections,
                                           mandatoryFieldObject: Map(),
                                           dataObject:

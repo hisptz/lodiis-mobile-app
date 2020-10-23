@@ -4,6 +4,7 @@ class DreamsHTSEvent {
   String id;
   String date;
   String htsIndexLinkage;
+  String htsTBLinkage;
   dynamic datavalues;
   Events eventData;
 
@@ -11,6 +12,7 @@ class DreamsHTSEvent {
     this.id,
     this.date,
     this.htsIndexLinkage,
+    this.htsTBLinkage,
     this.datavalues,
     this.eventData,
   });
@@ -20,6 +22,7 @@ class DreamsHTSEvent {
   ) {
     List keys = [
       'vbnWGqIQoAN',
+      'A4Fl5p0ZBhX',
     ];
     Map data = Map();
     for (Map detailObj in eventData.dataValues) {
@@ -33,6 +36,7 @@ class DreamsHTSEvent {
       date: eventData.eventDate,
       datavalues:eventData.dataValues,
       htsIndexLinkage: data['vbnWGqIQoAN'] ?? '',
+      htsTBLinkage: data['A4Fl5p0ZBhX'] ?? '',
       eventData: eventData,
     );
   }

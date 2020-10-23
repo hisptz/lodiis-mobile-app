@@ -18,6 +18,7 @@ import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment
 import 'package:kb_mobile_app/modules/ovc_intervention/services/ovc_enrollment_child_services.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/services/ovc_enrollment_house_hold_service.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/models/ovc_enrollment_house_hold.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/skip_logics/ovc_house_hold_enrollment_skip_logic.dart';
 import 'package:provider/provider.dart';
 
 class OvcEnrollmentHouseHoldForm extends StatefulWidget {
@@ -49,6 +50,7 @@ class _OvcEnrollmentHouseHoldFormState
       }
       formSections = OvcEnrollmentHouseHold.getFormSections();
       isFormReady = true;
+      evaluateSkipLogics();
     });
   }
 
@@ -59,7 +61,7 @@ class _OvcEnrollmentHouseHoldFormState
       setState(() {
         isSaving = true;
       });
-      dataObject['PN92g65TkVI'] = 'Active';
+      dataObject['PN92g65TkVI'] = dataObject['PN92g65TkVI'] ?? 'Active';
       List<String> hiddenFields = [
         BeneficiaryIdentification.beneficiaryId,
         BeneficiaryIdentification.beneficiaryIndex,
@@ -107,18 +109,25 @@ class _OvcEnrollmentHouseHoldFormState
     }
   }
 
-  void autoFillInputFields(String id, dynamic value) {
-    if (id == 'qZP982qpSPS') {
-      int age = AppUtil.getAgeInYear(value);
-      Provider.of<EnrollmentFormState>(context, listen: false)
-          .setFormFieldState('ls9hlz2tyol', age.toString());
-    }
+  evaluateSkipLogics() {
+    Timer(
+      Duration(milliseconds: 200),
+      () async {
+        Map dataObject =
+            Provider.of<EnrollmentFormState>(context, listen: false).formState;
+        await OvcHouseHoldEnrollmentSkipLogic.evaluateSkipLogics(
+          context,
+          formSections,
+          dataObject,
+        );
+      },
+    );
   }
 
   void onInputValueChange(String id, dynamic value) {
     Provider.of<EnrollmentFormState>(context, listen: false)
         .setFormFieldState(id, value);
-    autoFillInputFields(id, value);
+    evaluateSkipLogics();
   }
 
   @override
@@ -160,6 +169,10 @@ class _OvcEnrollmentHouseHoldFormState
                                       children: [
                                         Container(
                                           child: EntryFormContainer(
+                                            hiddenFields: enrollmentFormState
+                                                .hiddenFields,
+                                            hiddenSections: enrollmentFormState
+                                                .hiddenSections,
                                             formSections: formSections,
                                             mandatoryFieldObject:
                                                 mandatoryFieldObject,

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
@@ -11,6 +13,7 @@ import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/models/ovc_enrollment_consent.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/models/ovc_enrollment_house_hold.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/skip_logics/ovc_house_hold_enrollment_skip_logic.dart';
 import 'package:provider/provider.dart';
 
 class OvcEnrollmentHouseHoldViewForm extends StatefulWidget {
@@ -47,7 +50,23 @@ class _OvcEnrollmentHouseHoldViewFormState
       enrollmentFormSections = OvcEnrollmentHouseHold.getFormSections();
       formSections.addAll(enrollmentFormSections);
       isFormReady = true;
+      evaluateSkipLogics();
     });
+  }
+
+  evaluateSkipLogics() {
+    Timer(
+      Duration(milliseconds: 200),
+      () async {
+        Map dataObject =
+            Provider.of<EnrollmentFormState>(context, listen: false).formState;
+        await OvcHouseHoldEnrollmentSkipLogic.evaluateSkipLogics(
+          context,
+          formSections,
+          dataObject,
+        );
+      },
+    );
   }
 
   @override
@@ -90,6 +109,10 @@ class _OvcEnrollmentHouseHoldViewFormState
                                   child: EntryFormContainer(
                                     formSections: formSections,
                                     mandatoryFieldObject: Map(),
+                                    hiddenFields:
+                                        enrollmentFormState.hiddenFields,
+                                    hiddenSections:
+                                        enrollmentFormState.hiddenSections,
                                     isEditableMode:
                                         enrollmentFormState.isEditableMode,
                                     dataObject: enrollmentFormState.formState,

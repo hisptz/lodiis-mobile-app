@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
@@ -11,6 +13,7 @@ import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/models/agyw_enrollment_consent.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/skip_logics/agyw_dreams_enrollment_skip_logic.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
 import 'package:provider/provider.dart';
 import 'agyw_dreams_risk_assessment.dart';
@@ -40,7 +43,23 @@ class _AgywEnrollmentConsetFormState extends State<AgywDreamsConsentForm> {
       }
       formSections = AgywEnrollmentConcent.getFormSections();
       isFormReady = true;
+      evaluateSkipLogics();
     });
+  }
+
+  evaluateSkipLogics() {
+    Timer(
+      Duration(milliseconds: 200),
+      () async {
+        Map dataObject =
+            Provider.of<EnrollmentFormState>(context, listen: false).formState;
+        await AgywDreamsEnrollmentSkipLogic.evaluateSkipLogics(
+          context,
+          formSections,
+          dataObject,
+        );
+      },
+    );
   }
 
   void onSaveAndContinue(BuildContext context, Map dataObject) {
@@ -62,6 +81,7 @@ class _AgywEnrollmentConsetFormState extends State<AgywDreamsConsentForm> {
   void onInputValueChange(String id, dynamic value) {
     Provider.of<EnrollmentFormState>(context, listen: false)
         .setFormFieldState(id, value);
+    evaluateSkipLogics();
   }
 
   @override
@@ -83,46 +103,47 @@ class _AgywEnrollmentConsetFormState extends State<AgywDreamsConsentForm> {
             ),
             body: SubPageBody(
               body: Container(
-                  margin:
-                      EdgeInsets.symmetric(vertical: 16.0, horizontal: 13.0),
-                  child: !isFormReady
-                      ? Column(
-                          children: [
-                            Center(
-                              child: CircularProcessLoader(
-                                color: Colors.blueGrey,
+                margin: EdgeInsets.symmetric(vertical: 16.0, horizontal: 13.0),
+                child: !isFormReady
+                    ? Column(
+                        children: [
+                          Center(
+                            child: CircularProcessLoader(
+                              color: Colors.blueGrey,
+                            ),
+                          )
+                        ],
+                      )
+                    : Container(
+                        child: Consumer<EnrollmentFormState>(
+                          builder: (context, enrollmentFormState, child) =>
+                              Column(
+                            children: [
+                              Container(
+                                child: EntryFormContainer(
+                                  hiddenFields:
+                                      enrollmentFormState.hiddenFields,
+                                  hiddenSections:
+                                      enrollmentFormState.hiddenSections,
+                                  formSections: formSections,
+                                  mandatoryFieldObject: mandatoryFieldObject,
+                                  dataObject: enrollmentFormState.formState,
+                                  onInputValueChange: onInputValueChange,
+                                ),
                               ),
-                            )
-                          ],
-                        )
-                      : Container(
-                          child: Consumer<EnrollmentFormState>(
-                              builder: (context, enrollmentFormState, child) =>
-                                  Column(
-                                    children: [
-                                      Container(
-                                        child: EntryFormContainer(
-                                          formSections: formSections,
-                                          mandatoryFieldObject:
-                                              mandatoryFieldObject,
-                                          dataObject:
-                                              enrollmentFormState.formState,
-                                          onInputValueChange:
-                                              onInputValueChange,
-                                        ),
-                                      ),
-                                      OvcEnrollmentFormSaveButton(
-                                        label: 'Save and Continue',
-                                        labelColor: Colors.white,
-                                        buttonColor: Color(0xFF258DCC),
-                                        fontSize: 15.0,
-                                        onPressButton: () => onSaveAndContinue(
-                                            context,
-                                            enrollmentFormState.formState),
-                                      )
-                                    ],
-                                  )),
-                        )),
+                              OvcEnrollmentFormSaveButton(
+                                label: 'Save and Continue',
+                                labelColor: Colors.white,
+                                buttonColor: Color(0xFF258DCC),
+                                fontSize: 15.0,
+                                onPressButton: () => onSaveAndContinue(
+                                    context, enrollmentFormState.formState),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+              ),
             ),
             bottomNavigationBar: InterventionBottomNavigationBarContainer()));
   }

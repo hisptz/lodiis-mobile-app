@@ -27,11 +27,21 @@ class _CheckBoxListInputFieldState extends State<CheckBoxListInputField> {
   @override
   void initState() {
     super.initState();
+    updateInputValueState();
+  }
+
+  updateInputValueState() {
     setState(() {
       for (InputFieldOption option in widget.inputField.options) {
         _inputValue[option.code] = widget.dataObject[option.code] ?? false;
       }
     });
+  }
+
+  @override
+  void didUpdateWidget(covariant CheckBoxListInputField oldWidget) {
+    super.didUpdateWidget(widget);
+    if (oldWidget.dataObject != widget.dataObject) updateInputValueState();
   }
 
   @override
