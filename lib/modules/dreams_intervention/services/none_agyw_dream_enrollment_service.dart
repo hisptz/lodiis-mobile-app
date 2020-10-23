@@ -10,7 +10,7 @@ import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/models/none_agyw_enrollment_client_intake.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/models/none_agyw_enrollment_prep_screening.dart';
 
-class NonAgywDreamEnrollmentService {
+class NoneAgywDreamEnrollmentService {
   final String program = 'CK4iMK8b0aZ';
   final String trackedEntityType = 'XZIKX0bA8WN';
   final List<FormSection> nonAgywClientIntakeFormSections =
