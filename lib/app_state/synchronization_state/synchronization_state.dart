@@ -197,7 +197,7 @@ class SynchronizationState with ChangeNotifier {
                   trackeEntityInstance.attributes[0]['attribute'] &&
               trackedAttribute['value'] !=
                   trackeEntityInstance.attributes[0]['value']) {
-            _conflictLCount++;
+            // _conflictLCount++;
             _trackedInstance1.add({
               "label": trackeEntityInstance.attributes[0]['displayName'],
               "trackeEntityInstance": trackeEntityInstance,
