@@ -269,7 +269,7 @@ class ClientInformation {
             InputField(
                 id: 'CR5xUFmPHVy',
                 name: 'Do you know your partners HIV status',
-                valueType: 'TEXT',
+                valueType: 'BOOLEAN',
                 inputColor: Color(0xFF258DCC),
                 labelColor: Color(0xFF737373)),
             InputField(
