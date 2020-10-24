@@ -9,6 +9,7 @@ import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
+import 'package:kb_mobile_app/core/constants/beneficiary_identification.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
@@ -78,7 +79,10 @@ class _OgacEnrollemntFormState extends State<OgacEnrollemntForm> {
       String enrollment = dataObject['enrollment'];
       String enrollmentDate = dataObject['enrollmentDate'];
       String incidentDate = dataObject['incidentDate'];
-      List<String> hiddenFields = [];
+      List<String> hiddenFields = [
+        BeneficiaryIdentification.beneficiaryId,
+        BeneficiaryIdentification.beneficiaryIndex,
+      ];
       try {
         await OgacEnrollementservice().savingOgacBeneficiaryEnrollement(
           dataObject,
