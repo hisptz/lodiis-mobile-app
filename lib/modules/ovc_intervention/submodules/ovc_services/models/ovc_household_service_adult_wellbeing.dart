@@ -165,37 +165,7 @@ class OvcHouseHoldServiceAdultWellbeing {
                       code: 'VLlIBeTWT2r',
                       name: 'Unable to meet unplanned needs/expenses')
                 ]),
-            InputField(
-                id: '',
-                name:
-                    'If today you had an unplanned expense for the family, how would you respond in meeting this need?',
-                description:
-                    'Unplanned expenses include: food, schooling, healthcare, natural calamities such as funeral, fire, floods, drought.',
-                valueType: 'CHECK_BOX',
-                inputColor: Color(0xFF4B9F46),
-                labelColor: Color(0xFF1A3518),
-                options: [
-                  InputFieldOption(code: 'sg0Xb00g4Cm', name: 'My salary'),
-                  InputFieldOption(code: 'WsmCWZnrldc', name: 'My savings'),
-                  InputFieldOption(
-                      code: 'VYyrkhWsf3e',
-                      name: 'A loan from family or friend'),
-                  InputFieldOption(
-                      code: 'EK531jw3C8s',
-                      name: 'A loan from Micro-finance group'),
-                  InputFieldOption(
-                      code: 'lUtqQEPBJsc', name: 'A loan from a money lender'),
-                  InputFieldOption(
-                      code: 'Inkzrxg621l', name: 'Hawking/market vending'),
-                  InputFieldOption(
-                      code: 'MvM4Kl6bvLd', name: 'Sell off family assests'),
-                  InputFieldOption(
-                      code: 'yfE4U124drd', name: 'Sell/exchange food'),
-                  InputFieldOption(
-                      code: 'VLlIBeTWT2r',
-                      name: 'Unable to meet unplanned needs/expenses')
-                ]),
-            InputField(
+                      InputField(
                 id: 'kuRUBMvgjZy',
                 name: 'Are you a member of a savings group?',
                 description:

@@ -85,7 +85,14 @@ class DreamsSrhClientIntake {
                   code: 'Friends or Family members',
                   name: 'Friends or Family members'),
               InputFieldOption(code: 'Other', name: 'Other')
-            ])
+            ]),
+               InputField(
+            id: 'uLV0xy0iihA',
+            name: 'Specify other reasons to decide getting Fp services',
+            valueType: 'TEXT',
+            inputColor: Color(0xFF258DCC),
+            labelColor: Color(0xFF737373),
+            )
       ]),
       FormSection(
           name: 'PREVIOUS HIV TEST & TREATMENT HISTORY',

@@ -352,8 +352,8 @@ class ClientInformation {
             inputColor: Color(0xFF258DCC),
             labelColor: Color(0xFF737373),
             options: [
-              InputFieldOption(code: 'Individual', name: 'Individual'),
-              InputFieldOption(code: 'Couple', name: 'Couple')
+              InputFieldOption(code: 'Positive', name: 'Positive'),
+              InputFieldOption(code: 'Negative', name: 'Negative')
             ]),
         InputField(
             id: 'ZZcv0xCUXLP',
