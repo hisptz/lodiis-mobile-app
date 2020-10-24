@@ -23,7 +23,8 @@ class SynchronizationState with ChangeNotifier {
   Map<String, List> _trackedInstance;
   Map<String, List> _events;
   List<Map<String, dynamic>> _events_1;
-  int _conflictLCount;
+  List<Map<String, dynamic>> _trackedInstance1;
+  int _conflictLCount = 0;
 
 // selectors
   bool get isDataUploadingActive => _isDataUploadingActive ?? false;
@@ -44,6 +45,7 @@ class SynchronizationState with ChangeNotifier {
   Map<String, List> get trackedInstance => _trackedInstance ?? {};
   Map<String, List> get events => _events ?? {};
   List<Map<String, dynamic>> get events_1 => _events_1 ?? [];
+  List<Map<String, dynamic>> get trackedInstance1 => _trackedInstance1 ?? [];
 
 // reducers
   void updateDataUploadStatus(bool status) {
@@ -112,8 +114,8 @@ class SynchronizationState with ChangeNotifier {
             .getEventsfromServer(program, orgUnitId));
       }
     }
-    addDataDownloadProcess("finish Dowload");
 
+    addDataDownloadProcess("finish Dowload");
     await analysisOfDownloadedData();
   }
 
@@ -153,6 +155,8 @@ class SynchronizationState with ChangeNotifier {
               .toList());
         } else {
           //no conflicts
+          print("no conflicts");
+          print(event);
           _synchronizationService.saveEventsToOffline(event);
         }
       });
@@ -165,8 +169,7 @@ class SynchronizationState with ChangeNotifier {
 
   Future trackeEntityInstanceAnalysisDownloadData() async {
     List<String> attributeIds = [];
-    List offlineTrackedEntityInstance = [];
-    List onlineTrackedEntityInstance = [];
+    _trackedInstance1 = [];
 
     //get attributes
     for (var trackedEntityInstance in servertrackedEntityInstance) {
@@ -179,23 +182,30 @@ class SynchronizationState with ChangeNotifier {
     for (var _trackedEntityInstance in servertrackedEntityInstance) {
       TrackeEntityInstance trackeEntityInstance =
           TrackeEntityInstance().fromJson(_trackedEntityInstance);
-      if (offlineTrackedEntityInstance == null) {
+
+      if (offlineTrackedEntityInstanceattributes == null ||
+          offlineTrackedEntityInstanceattributes.length < 1) {
         await _synchronizationService
             .saveTrackeEntityInstanceToOffline(trackeEntityInstance);
         await _synchronizationService
             .saveEnrollmentToOffline(_trackedEntityInstance['enrollments']);
       } else {
+        //consider sync and unsync data comparison
         offlineTrackedEntityInstanceattributes
             .forEach((trackedAttribute) async {
           if (trackedAttribute['attribute'] ==
                   trackeEntityInstance.attributes[0]['attribute'] &&
               trackedAttribute['value'] !=
                   trackeEntityInstance.attributes[0]['value']) {
-            //  conflicts
-            offlineTrackedEntityInstance.add(trackedAttribute['value']);
-            onlineTrackedEntityInstance.add(trackeEntityInstance.attributes[0]);
+            // _conflictLCount++;
+            _trackedInstance1.add({
+              "label": trackeEntityInstance.attributes[0]['displayName'],
+              "trackeEntityInstance": trackeEntityInstance,
+              "offline": trackedAttribute['value'],
+              "online": trackeEntityInstance.attributes[0]['value']
+            });
           } else {
-            //Save data when no conflicts
+            // Save data when no conflicts
             await _synchronizationService
                 .saveTrackeEntityInstanceToOffline(trackeEntityInstance);
             await _synchronizationService
@@ -204,10 +214,6 @@ class SynchronizationState with ChangeNotifier {
         });
       }
     }
-    _trackedInstance = {
-      "offline": offlineTrackedEntityInstance,
-      "online": onlineTrackedEntityInstance
-    };
   }
 
   Future startDataUploadActivity() async {

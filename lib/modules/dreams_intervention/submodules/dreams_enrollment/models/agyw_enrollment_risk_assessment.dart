@@ -174,7 +174,7 @@ class AgywEnrollmentRiskAssessment {
             InputField(
                 id: 'EQHcFozjbP0',
                 name: 'Have you ever had to drop-out then been readmitted?',
-                valueType: 'TEXT',
+                valueType: 'BOOLEAN',
                 inputColor: Color(0xFF258DCC),
                 labelColor: Color(0xFF737373)),
             InputField(
@@ -188,7 +188,15 @@ class AgywEnrollmentRiskAssessment {
                 name: 'Are you single or double orphan?',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF258DCC),
-                labelColor: Color(0xFF737373)),
+                labelColor: Color(0xFF737373),
+                 options: [
+              InputFieldOption(code: 'double', name: 'double'),
+              InputFieldOption(code: 'single', name: 'single')            
+                ]
+                
+                
+                
+                ),
             InputField(
                 id: 'ODBeRytTLHm',
                 name: 'Are you living within a child-headed household?',

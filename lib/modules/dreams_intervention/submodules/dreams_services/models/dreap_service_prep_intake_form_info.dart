@@ -28,7 +28,13 @@ class DreamsServicePrepIntakeInfo {
               valueType: 'TEXT',
               inputColor: Color(0xFF1F8ECE),
               labelColor: Color(0xFF737373),
-            ),
+              options: [
+                  InputFieldOption(code: 'F', name: 'F'),
+                  InputFieldOption(code: 'M', name: 'M'),
+                  InputFieldOption(code: 'CF', name: 'CF'),
+                  InputFieldOption(code: 'CM', name: 'CM'),               
+                ]),
+
             InputField(
                 id: 'Jhp451oeYyB',
                 inputColor: Color(0xFF1F8ECE),
@@ -52,13 +58,26 @@ class DreamsServicePrepIntakeInfo {
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
                 name: 'Service Type',
-                valueType: 'TEXT'),
+                valueType: 'TEXT',
+                options: [
+                  InputFieldOption(code: 'CounselingTesting', name: 'CounselingTesting'),
+                  InputFieldOption(code: 'Counseling only', name: 'Counseling only'),
+                  InputFieldOption(code: 'Testing only', name: 'Testing only'),           
+                ]),
             InputField(
                 id: 'li1EJgHzWtV',
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
                 name: 'Marital Status',
-                valueType: 'TEXT'),
+                valueType: 'TEXT',
+                options: [
+                  InputFieldOption(code: 'Married', name: 'Married'),
+                  InputFieldOption(code: 'Single', name: 'Single'),
+                  InputFieldOption(code: 'Widowed', name: 'Widowed'),
+                  InputFieldOption(code: 'Divorced/separated', name: 'Divorced/separated'),
+                  InputFieldOption(code: 'Cohabiting', name: 'Cohabiting (leaving with a partner)'),           
+                ]                
+                ),
             InputField(
                 id: 'GrChAWBTqTc',
                 name: 'Specify marital status',
@@ -166,13 +185,24 @@ class DreamsServicePrepIntakeInfo {
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
                 name: 'Specify other occupation',
-                valueType: 'TRUE_ONLY'),
+                valueType: 'TEXT',          
+                ),
             InputField(
                 id: 'D26taDdz4YO',
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
                 name: 'Highest level of Education Attained',
-                valueType: 'TRUE_ONLY'),
+                valueType: 'TRUE_ONLY',
+                 options:[
+                  InputFieldOption(code: 'None', name: 'None'),
+                  InputFieldOption(code: 'Less than Standard 7', name: 'Less than Standard 7'),
+                  InputFieldOption(code: 'Secondary School', name: 'Secondary School'),
+                  InputFieldOption(code: 'High School', name: 'High School'),
+                  InputFieldOption(code: 'College Certificate/Diploma', name: 'College CertificateDiploma'),
+                  InputFieldOption(code: 'University Degree', name: 'University Degree'),
+                  InputFieldOption(code: 'Graduate Degree (Masters/PhD)', name: 'Graduate DegreeMastersPhD'),
+                         ],
+                ),
             InputField(
                 id: 'XfiDt4DzdVS',
                 inputColor: Color(0xFF1F8ECE),
@@ -313,7 +343,8 @@ class DreamsServicePrepIntakeInfo {
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
                 name: 'I learnt of this center through a Partner/Spouse',
-                valueType: 'TEXT'),
+                valueType: 'TRUE_ONLY',                           
+                ),
             InputField(
                 id: 'ADLCht0KPSh',
                 inputColor: Color(0xFF1F8ECE),
@@ -386,7 +417,14 @@ class DreamsServicePrepIntakeInfo {
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
                 name: 'What were the most recent results?',
-                valueType: 'TEXT'),
+                valueType: 'TEXT',
+                 options:[
+                  InputFieldOption(code: 'Positive', name: 'Positive'),
+                  InputFieldOption(code: 'Negative', name: 'Negative'),
+                  InputFieldOption(code: 'Indeterminate', name: 'Indeterminate'),
+                  InputFieldOption(code: 'Didnt collect', name: 'Didnt collect'),     
+                   ],                                
+                ),
             InputField(
                 id: 'D1ukXCpeU0K',
                 inputColor: Color(0xFF1F8ECE),
@@ -399,7 +437,14 @@ class DreamsServicePrepIntakeInfo {
                 labelColor: Color(0xFF737373),
                 name:
                     'Has your most recent sex partiner been tested in the last 3 months?',
-                valueType: 'TEXT'),
+                valueType: 'TEXT',
+                 options:[
+                  InputFieldOption(code: 'Yes', name: 'Yes'),
+                  InputFieldOption(code: 'No', name: 'No'),
+                  InputFieldOption(code: 'I dont know', name: 'I dont know'),
+                  InputFieldOption(code: 'No response', name: 'No response'),     
+                   ],
+                ),
             InputField(
                 id: 'U0E4mb8dSQN',
                 inputColor: Color(0xFF1F8ECE),
@@ -606,13 +651,7 @@ class DreamsServicePrepIntakeInfo {
                 labelColor: Color(0xFF737373),
                 name: 'Date bled #2',
                 valueType: 'DATE'),
-            InputField(
-                id: 'CuSRO5ijeqW',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
-                name: 'Rapid test Result #3',
-                valueType: 'TEXT'),
-            InputField(
+                     InputField(
                 id: 'Phma8a6sS4P',
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
@@ -957,21 +996,7 @@ class DreamsServicePrepIntakeInfo {
                 labelColor: Color(0xFF737373),
                 name: 'Temperature',
                 valueType: 'TEXT'),
-            InputField(
-                id: 'YQI32r1MQxA',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
-                name:
-                    'Have you had sex without a condom with someone living with HIV who is not on treatment',
-                valueType: 'TEXT'),
-            InputField(
-                id: 'pQaAQdJnE1w',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
-                name:
-                    'Have you had condom-less sex or other high risk HIV exposure in the past 2  6 weeks',
-                valueType: 'TEXT'),
-            InputField(
+              InputField(
                 id: 'YQI32r1MQxA',
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
@@ -1153,7 +1178,7 @@ class DreamsServicePrepIntakeInfo {
           ]),
       FormSection(
           name: ' Baseline Information',
-          color: Colors.transparent,
+          color: Color(0xFF1F8ECE),
           inputFields: [
             InputField(
                 id: 'tNPOFcRu6Uj',
