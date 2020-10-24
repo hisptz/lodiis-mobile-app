@@ -11,6 +11,7 @@ class InterventionSelectionCard extends StatelessWidget {
     @required this.numberOfAgywDreamsBeneficiaries,
     @required this.numberOfHouseHolds,
     @required this.numberOfOvcs,
+    @required this.numberOfOgac,
   }) : super(key: key);
 
   final InterventionCard interventionProgram;
@@ -19,6 +20,7 @@ class InterventionSelectionCard extends StatelessWidget {
   final int numberOfAgywDreamsBeneficiaries;
   final int numberOfHouseHolds;
   final int numberOfOvcs;
+  final int numberOfOgac;
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +69,9 @@ class InterventionSelectionCard extends StatelessWidget {
                               text: TextSpan(
                                   text: interventionProgram.id == 'ovc'
                                       ? '# of HouseHolde: '
-                                      : '# of AGYWs: ',
+                                      : interventionProgram.id == 'dreams'
+                                          ? '# of AGYWs: '
+                                          : '# of Beneficiaries: ',
                                   style: TextStyle(
                                       fontSize: 12,
                                       fontWeight: FontWeight.w500,
@@ -77,8 +81,10 @@ class InterventionSelectionCard extends StatelessWidget {
                                     TextSpan(
                                       text: interventionProgram.id == 'ovc'
                                           ? numberOfHouseHolds.toString()
-                                          : numberOfAgywDreamsBeneficiaries
-                                              .toString(),
+                                          : interventionProgram.id == 'dreams'
+                                              ? numberOfAgywDreamsBeneficiaries
+                                                  .toString()
+                                              : numberOfOgac.toString(),
                                       style: TextStyle(
                                           fontSize: 12,
                                           fontWeight: FontWeight.w500,
@@ -91,7 +97,9 @@ class InterventionSelectionCard extends StatelessWidget {
                               text: TextSpan(
                                   text: interventionProgram.id == 'ovc'
                                       ? '# of OVCs: '
-                                      : '# of none-AGWYs: ',
+                                      : interventionProgram.id == 'dreams'
+                                          ? '# of none-AGWYs: '
+                                          : '',
                                   style: TextStyle(
                                       fontSize: 12,
                                       fontWeight: FontWeight.w500,
@@ -101,8 +109,10 @@ class InterventionSelectionCard extends StatelessWidget {
                                     TextSpan(
                                       text: interventionProgram.id == 'ovc'
                                           ? numberOfOvcs.toString()
-                                          : numberOfNoneAgywDreamsBeneficiaries
-                                              .toString(),
+                                          : interventionProgram.id == 'dreams'
+                                              ? numberOfNoneAgywDreamsBeneficiaries
+                                                  .toString()
+                                              : '',
                                       style: TextStyle(
                                           fontSize: 12,
                                           fontWeight: FontWeight.w500,
