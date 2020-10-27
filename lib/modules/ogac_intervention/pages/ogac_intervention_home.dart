@@ -92,20 +92,29 @@ class OgacInterventionHome extends StatelessWidget {
                     )
                   : Container(
                       margin: EdgeInsets.only(top: 16.0),
-                      child: Column(
-                        children: ogacBeneficaries
-                            .map(
-                              (OgacBeneficiary ogacBeneficary) =>
-                                  OgacBeneficiaryCard(
-                                ogacBeneficary: ogacBeneficary,
-                                onEditBeneficiary: () =>
-                                    onEditBeneficiary(context, ogacBeneficary),
-                                onViewBeneficiary: () =>
-                                    onViewBeneficiary(context, ogacBeneficary),
+                      child: ogacBeneficaries.length == 0
+                          ? Container(
+                              margin: EdgeInsets.only(top: 10.0),
+                              child: Text(
+                                'There is no ogac beneficiaries enrolled at moment',
                               ),
                             )
-                            .toList(),
-                      ),
+                          : Column(
+                              children: ogacBeneficaries
+                                  .map(
+                                    (OgacBeneficiary ogacBeneficary) =>
+                                        OgacBeneficiaryCard(
+                                      ogacBeneficary: ogacBeneficary,
+                                      onEditBeneficiary: () =>
+                                          onEditBeneficiary(
+                                              context, ogacBeneficary),
+                                      onViewBeneficiary: () =>
+                                          onViewBeneficiary(
+                                              context, ogacBeneficary),
+                                    ),
+                                  )
+                                  .toList(),
+                            ),
                     ),
             );
           },

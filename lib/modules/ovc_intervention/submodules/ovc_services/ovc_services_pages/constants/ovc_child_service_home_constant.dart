@@ -30,13 +30,17 @@ class OvcChildServiceHomeContant {
           groupByDate: true,
           programStages: ['ZHjrdThi7Bz']),
       OvcChildServiceHomeContant(
-          id: 'services',
-          title: 'Services',
-          icon: 'assets/icons/child_service_ovc_icon.svg'),
+        id: 'services',
+        title: 'Services',
+        icon: 'assets/icons/child_service_ovc_icon.svg',
+        programStages: ['s1krPf0x1AJ'],
+      ),
       OvcChildServiceHomeContant(
-          id: 'monitor',
-          title: 'Monitor',
-          icon: 'assets/icons/child_monitor_ovc_icon.svg',programStages: ['v9Vrc5exzam','dVdlJNtNLIQ'])
+        id: 'monitor',
+        title: 'Monitor',
+        icon: 'assets/icons/child_monitor_ovc_icon.svg',
+        programStages: ['v9Vrc5exzam', 'dVdlJNtNLIQ'],
+      )
     ];
   }
 }

@@ -123,8 +123,9 @@ class OvcChildServiceHome extends StatelessWidget {
                                       ovcChildServiceHomeCard) {
                                 int countValue =
                                     getCountValueForOvcServiceChildCard(
-                                        ovcChildServiceHomeCard,
-                                        eventListByProgramStage);
+                                  ovcChildServiceHomeCard,
+                                  eventListByProgramStage,
+                                );
                                 return Container(
                                   alignment: Alignment.center,
                                   margin: EdgeInsets.all(5.0),
