@@ -73,7 +73,6 @@ class CurrentUserState with ChangeNotifier {
     }
     if (implementingPartner == 'CLO') {
       _canManageOvc = true;
-      _canManageOvc = true;
       _canManageDreams = true;
       _canManageReferral = true;
       _canManageCLOReferral = true;
