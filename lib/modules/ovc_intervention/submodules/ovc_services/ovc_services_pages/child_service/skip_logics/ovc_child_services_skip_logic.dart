@@ -4,7 +4,7 @@ import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:provider/provider.dart';
 
-class OvcChildTBAssessmentSkipLogic {
+class OvcChildServicesSkipLogic {
   static Map hiddenFields = Map();
   static Map hiddenSections = Map();
 
@@ -17,8 +17,8 @@ class OvcChildTBAssessmentSkipLogic {
     hiddenSections.clear();
     List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections);
     for (String inputFieldId in inputFieldIds) {
-      String value = '${dataObject[inputFieldId]}';
-      print(value);
+      // String value = '${dataObject[inputFieldId]}';
+      // print(value);
     }
     for (String sectionId in hiddenSections.keys) {
       List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections
