@@ -34,7 +34,7 @@ class BeneficiaryIdentification {
           value = dataObject[referenceId];
         }
       }
-    } catch (e) {}
+    }catch (e){}
     return value;
   }
 
