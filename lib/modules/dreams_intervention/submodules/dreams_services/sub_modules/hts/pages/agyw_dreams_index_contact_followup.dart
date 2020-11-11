@@ -87,6 +87,7 @@ class _AgywDreamsIndexFollowUpState extends State<AgywDreamsIndexFollowUp> {
           });
           Widget modal = AddFollowUpConfirmation(name: "kija");
           bool response = await AppUtil.showPopUpModal(context, modal, false);
+          
           if (response) {
          
             
