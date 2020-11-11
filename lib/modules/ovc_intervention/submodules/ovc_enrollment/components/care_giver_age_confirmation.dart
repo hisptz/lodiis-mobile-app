@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 class CareGiverAgeConfirmation extends StatelessWidget {
-  const CareGiverAgeConfirmation({Key key,}) : super(key: key);
-
+  const CareGiverAgeConfirmation({
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +24,7 @@ class CareGiverAgeConfirmation extends StatelessWidget {
                     fontWeight: FontWeight.w400),
               ),
             ),
-          ),        
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

@@ -53,13 +53,16 @@ class _OvcEnrollmentBasicInfoFormState
       if (careGiverAge < 18) {
         Widget modal = CareGiverAgeConfirmation();
         bool response = await AppUtil.showPopUpModal(context, modal, false);
-        response ?  Navigator.canPop(context) : Navigator.of(context).popUntil((route) => route.isFirst);      
+        response
+            ? Navigator.canPop(context)
+            : Navigator.of(context).popUntil((route) => route.isFirst);
       } else {
         Navigator.push(
             context,
             MaterialPageRoute(
               builder: (context) => OvcEnrollmentChildForm(),
-            ));  }
+            ));
+      }
     } else {
       AppUtil.showToastMessage(
           message: 'Please fill all mandatory field',

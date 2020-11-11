@@ -60,15 +60,15 @@ class _OvcEnrollmentConsetFormState extends State<OvcEnrollmentConsetForm> {
     bool hadAllMandatoryFilled =
         AppUtil.hasAllMandarotyFieldsFilled(mandatoryFields, dataObject);
     if (hadAllMandatoryFilled) {
-           //bool hasAccepted = hasUserAcceptConsentform(dataObject);
-          Navigator.push(
+      //bool hasAccepted = hasUserAcceptConsentform(dataObject);
+      Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) =>
-            // hasAccepted
-            dataObject['sCGr0RTmvJ7']
-                ? OvcEnrollmentBasicInfoForm()
-                : OvcEnrollmentNoneParticipationForm(),
+                // hasAccepted
+                dataObject['sCGr0RTmvJ7']
+                    ? OvcEnrollmentBasicInfoForm()
+                    : OvcEnrollmentNoneParticipationForm(),
           ));
     } else {
       AppUtil.showToastMessage(

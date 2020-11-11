@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class AddFollowUpConfirmation extends StatelessWidget {
-  const AddFollowUpConfirmation({Key key, @required this.name}) : super(key: key);
+  const AddFollowUpConfirmation({Key key, @required this.name})
+      : super(key: key);
   final String name;
 
   @override
