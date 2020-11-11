@@ -27,7 +27,7 @@ class AddChildConfirmation extends StatelessWidget {
           Container(
             padding: EdgeInsets.only(top: 10.0),
             child: Text(
-              'Add Another FollowUp?',
+              'Add Another Child?',
               style: TextStyle().copyWith(
                   color: Color(0XFF1A3518),
                   fontSize: 14.0,

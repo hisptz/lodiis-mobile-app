@@ -20,7 +20,6 @@ import 'package:provider/provider.dart';
 
 class OvcEnrollmentChildForm extends StatefulWidget {
   const OvcEnrollmentChildForm({Key key}) : super(key: key);
-
   @override
   _OvcEnrollmentChildFormState createState() => _OvcEnrollmentChildFormState();
 }
@@ -179,6 +178,20 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
     evaluateSkipLogics();
   }
 
+  void onSkip() {
+    setState(() {
+      childMapObjects.add(childMapObject);
+    });
+    updateOvcCount();
+    Provider.of<EnrollmentFormState>(context, listen: false)
+        .setFormFieldState('children', childMapObjects);
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => OvcEnrollmentHouseHoldForm(),
+        ));
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -228,7 +241,22 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
                               buttonColor: Color(0xFF4B9F46),
                               fontSize: 15.0,
                               onPressButton: () => onSaveAndContinue(context),
-                            )
+                            ),
+                            Visibility(
+                              visible: true,
+                              child: Container(
+                                child: FlatButton(
+                                  onPressed: onSkip,
+                                  child: Text(
+                                    'Skip',
+                                    style: TextStyle().copyWith(
+                                        color: Color(0xFF4B9F46),
+                                        fontSize: 14.0,
+                                        fontWeight: FontWeight.w400),
+                                  ),
+                                ),
+                              ),
+                            ),
                           ],
                         )),
             ),
