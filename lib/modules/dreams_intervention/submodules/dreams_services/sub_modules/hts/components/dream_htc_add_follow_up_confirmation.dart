@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class AddChildConfirmation extends StatelessWidget {
-  const AddChildConfirmation({Key key, @required this.name}) : super(key: key);
+class AddFollowUpConfirmation extends StatelessWidget {
+  const AddFollowUpConfirmation({Key key, @required this.name}) : super(key: key);
   final String name;
 
   @override
@@ -27,7 +27,7 @@ class AddChildConfirmation extends StatelessWidget {
           Container(
             padding: EdgeInsets.only(top: 10.0),
             child: Text(
-              'Add Another FollowUp?',
+              'Add Another Child?',
               style: TextStyle().copyWith(
                   color: Color(0XFF1A3518),
                   fontSize: 14.0,

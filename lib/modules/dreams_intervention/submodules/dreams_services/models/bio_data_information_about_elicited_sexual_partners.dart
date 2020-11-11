@@ -23,7 +23,7 @@ class BioDataInformationAboutElicitedSexualPartners {
                 valueType: 'TEXT',
                 inputColor: Color(0xFF258DCC),
                 labelColor: Color(0xFF737373),
-                options: [
+                options:[
                   InputFieldOption(code: 'Phone', name: 'Phone'),
                   InputFieldOption(code: 'Home', name: 'Home'),
                   InputFieldOption(code: 'Both', name: 'Both'),

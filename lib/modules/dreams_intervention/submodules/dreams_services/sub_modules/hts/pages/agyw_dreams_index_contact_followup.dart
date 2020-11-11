@@ -16,20 +16,26 @@ import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/bio_data_index_contacts.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/constants/agyw_dreams_hts_index_constant.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/bio_data_information_about_elicited_sexual_partners.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/components/dream_htc_add_follow_up_confirmation.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/constants/agyw_dream_hts_follow_up.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
 import 'package:provider/provider.dart';
 
-class AgywDreamsIndexContact extends StatefulWidget {
-  AgywDreamsIndexContact({Key key}) : super(key: key);
+
+
+
+class AgywDreamsIndexFollowUp extends StatefulWidget {
+  AgywDreamsIndexFollowUp({Key key}) : super(key: key);
   
   @override
-  _AgywDreamsIndexContactState createState() => _AgywDreamsIndexContactState();
+  _AgywDreamsIndexFollowUpState createState() => _AgywDreamsIndexFollowUpState();
 }
 
-class _AgywDreamsIndexContactState extends State<AgywDreamsIndexContact> {
-  final String label = 'HTS Index contact';
+
+
+class _AgywDreamsIndexFollowUpState extends State<AgywDreamsIndexFollowUp> {
+  final String label = 'HTS Index FollowUp';
   List<FormSection> formSections;
   bool isFormReady = false;
   bool isSaving = false;
@@ -38,7 +44,7 @@ class _AgywDreamsIndexContactState extends State<AgywDreamsIndexContact> {
   void initState() {
     super.initState();
     Timer(Duration(seconds: 1), () {
-      formSections = BioDataIndexContacts.getFormSections();
+      formSections = BioDataInformationAboutElicitedSexualPartners.getFormSections();
       setState(() {
         isFormReady = true;
       });
@@ -48,7 +54,7 @@ class _AgywDreamsIndexContactState extends State<AgywDreamsIndexContact> {
   void onInputValueChange(String id, dynamic value) {
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState(id, value);
-  }
+         }
 
   void onSaveForm(
       BuildContext context, Map dataObject, AgywDream agywDream) async {
@@ -56,14 +62,19 @@ class _AgywDreamsIndexContactState extends State<AgywDreamsIndexContact> {
       setState(() {
         isSaving = true;
       });
+
       String eventDate = dataObject['eventDate'];
       String eventId = dataObject['eventId'];
+
+
       print(dataObject);
-      List<String> hiddenFields = [AgywDreamsHTSIndexConstant.indexInfoToIndexContactLinkage];
+      List<String> hiddenFields = [];
       try {
+         Widget modal = AddFollowUpConfirmation(name: "kija");
+      bool response = await AppUtil.showPopUpModal(context, modal, false);
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-            AgywDreamsHTSIndexConstant.program,
-            AgywDreamsHTSIndexConstant.programStage,
+            AgywDreamsHTSFOLLOWUPConstant.program,
+            AgywDreamsHTSFOLLOWUPConstant.programStage,
             agywDream.orgUnit,
             formSections,
             dataObject,
