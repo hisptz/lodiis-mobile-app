@@ -15,8 +15,8 @@ class BeneficiaryIdentification {
     String beneficiaryIndex,
   ) {
     var enrollYear = getValueFromMap(dataObject, birthDate);
-    String enrollFirstName = getValueFromMap(dataObject, firstNameReference);
-    String enrollSurName = getValueFromMap(dataObject, surnameReference);
+    String enrollFirstName = removeSpecialCharacter(getValueFromMap(dataObject, firstNameReference));
+    String enrollSurName = removeSpecialCharacter(getValueFromMap(dataObject, surnameReference));
     DateTime date = AppUtil.getDateIntoDateTimeFormat(enrollYear);
     String yearBirth = '${date.year}'.substring(2, 4);
     String monthBirth = date.month < 10 ? '0${date.month}' : '${date.month}';
@@ -34,7 +34,11 @@ class BeneficiaryIdentification {
           value = dataObject[referenceId];
         }
       }
-    }catch (e){}
+    } catch (e) {}
     return value;
+  }
+
+  String removeSpecialCharacter(String nameWithCharacters) {
+    return nameWithCharacters.replaceAll(new RegExp(r'[^\w\s]+'),'');
   }
 }

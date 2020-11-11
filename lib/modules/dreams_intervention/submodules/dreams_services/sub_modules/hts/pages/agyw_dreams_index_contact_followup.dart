@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dream_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
@@ -22,17 +23,13 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_serv
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
 import 'package:provider/provider.dart';
 
-
-
-
 class AgywDreamsIndexFollowUp extends StatefulWidget {
   AgywDreamsIndexFollowUp({Key key}) : super(key: key);
-  
+
   @override
-  _AgywDreamsIndexFollowUpState createState() => _AgywDreamsIndexFollowUpState();
+  _AgywDreamsIndexFollowUpState createState() =>
+      _AgywDreamsIndexFollowUpState();
 }
-
-
 
 class _AgywDreamsIndexFollowUpState extends State<AgywDreamsIndexFollowUp> {
   final String label = 'HTS Index FollowUp';
@@ -44,7 +41,8 @@ class _AgywDreamsIndexFollowUpState extends State<AgywDreamsIndexFollowUp> {
   void initState() {
     super.initState();
     Timer(Duration(seconds: 1), () {
-      formSections = BioDataInformationAboutElicitedSexualPartners.getFormSections();
+      formSections =
+          BioDataInformationAboutElicitedSexualPartners.getFormSections();
       setState(() {
         isFormReady = true;
       });
@@ -54,7 +52,7 @@ class _AgywDreamsIndexFollowUpState extends State<AgywDreamsIndexFollowUp> {
   void onInputValueChange(String id, dynamic value) {
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState(id, value);
-         }
+  }
 
   void onSaveForm(
       BuildContext context, Map dataObject, AgywDream agywDream) async {
@@ -66,12 +64,9 @@ class _AgywDreamsIndexFollowUpState extends State<AgywDreamsIndexFollowUp> {
       String eventDate = dataObject['eventDate'];
       String eventId = dataObject['eventId'];
 
-
       print(dataObject);
       List<String> hiddenFields = [];
       try {
-         Widget modal = AddFollowUpConfirmation(name: "kija");
-      bool response = await AppUtil.showPopUpModal(context, modal, false);
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
             AgywDreamsHTSFOLLOWUPConstant.program,
             AgywDreamsHTSFOLLOWUPConstant.programStage,
@@ -84,13 +79,20 @@ class _AgywDreamsIndexFollowUpState extends State<AgywDreamsIndexFollowUp> {
             hiddenFields);
         Provider.of<ServiveEventDataState>(context, listen: false)
             .resetServiceEventDataState(agywDream.id);
-        Timer(Duration(seconds: 1), () {
+        Timer(Duration(seconds: 1), () async {
           setState(() {
             AppUtil.showToastMessage(
                 message: 'Form has been saved successfully',
                 position: ToastGravity.TOP);
-            Navigator.pop(context);
           });
+          Widget modal = AddFollowUpConfirmation(name: "kija");
+          bool response = await AppUtil.showPopUpModal(context, modal, false);
+          if (response) {
+         
+            
+          } else {
+            Navigator.pop(context);
+          }
         });
       } catch (e) {
         Timer(Duration(seconds: 1), () {

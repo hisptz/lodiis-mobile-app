@@ -16,7 +16,7 @@ class AddFollowUpConfirmation extends StatelessWidget {
             child: Container(
               padding: EdgeInsets.only(top: 15.0),
               child: Text(
-                '$name added successfully',
+                'FollowUp added successfully',
                 style: TextStyle().copyWith(
                     color: Color(0XFF1A3518),
                     fontSize: 14.0,
@@ -27,7 +27,7 @@ class AddFollowUpConfirmation extends StatelessWidget {
           Container(
             padding: EdgeInsets.only(top: 10.0),
             child: Text(
-              'Add Another Child?',
+              'Add Another FollowUp?',
               style: TextStyle().copyWith(
                   color: Color(0XFF1A3518),
                   fontSize: 14.0,
