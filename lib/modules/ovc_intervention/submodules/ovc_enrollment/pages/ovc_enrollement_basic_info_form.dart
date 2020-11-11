@@ -46,28 +46,20 @@ class _OvcEnrollmentBasicInfoFormState
     });
   }
 
-  void onSaveAndContinue(BuildContext context, Map dataObject) async{
+  void onSaveAndContinue(BuildContext context, Map dataObject) async {
     bool hadAllMandatoryFilled =
         AppUtil.hasAllMandarotyFieldsFilled(mandatoryFields, dataObject);
     if (hadAllMandatoryFilled) {
       if (careGiverAge < 18) {
-         Widget modal = CareGiverAgeConfirmation();
-          bool response = await AppUtil.showPopUpModal(context, modal, false);
-          if(response){
-            // goback 
-
-          }
-          else{
-            //exit
-
-          }
+        Widget modal = CareGiverAgeConfirmation();
+        bool response = await AppUtil.showPopUpModal(context, modal, false);
+        response ?  Navigator.canPop(context) : Navigator.of(context).popUntil((route) => route.isFirst);      
       } else {
         Navigator.push(
             context,
             MaterialPageRoute(
               builder: (context) => OvcEnrollmentChildForm(),
-            ));
-      }
+            ));  }
     } else {
       AppUtil.showToastMessage(
           message: 'Please fill all mandatory field',

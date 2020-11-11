@@ -35,7 +35,7 @@ class CareGiverAgeConfirmation extends StatelessWidget {
                     style: TextStyle().copyWith(
                         color: Color(0xFF1A3518),
                         fontSize: 14.0,
-                        fontWeight: FontWeight.w400),
+                        fontWeight: FontWeight.bold),
                   ),
                 ),
               ),
