@@ -55,7 +55,7 @@ class AddFollowUpConfirmation extends StatelessWidget {
                   onPressed: () => Navigator.pop(context, true),
                   child: Text('Yes',
                       style: TextStyle().copyWith(
-                          color: Color(0xFF4B9F46),
+                          color: Color(0xFF258DCC),
                           fontSize: 14.0,
                           fontWeight: FontWeight.w700)),
                 ),

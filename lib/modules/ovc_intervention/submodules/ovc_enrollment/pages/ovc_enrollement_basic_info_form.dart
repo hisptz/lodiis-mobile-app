@@ -57,7 +57,7 @@ class _OvcEnrollmentBasicInfoFormState
             ? Navigator.canPop(context)
             : Navigator.of(context).popUntil((route) => route.isFirst);
       } else {
-        Navigator.push(
+              Navigator.push(
             context,
             MaterialPageRoute(
               builder: (context) => OvcEnrollmentChildForm(),

@@ -20,7 +20,7 @@ class CareGiverAgeConfirmation extends StatelessWidget {
                 'You Cannot enroll child helded HouseHold',
                 style: TextStyle().copyWith(
                     color: Color(0XFF1A3518),
-                    fontSize: 16.0,
+                    fontSize: 13.0,
                     fontWeight: FontWeight.w400),
               ),
             ),

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
+import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_intervention_list_state.dart';
 import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
@@ -32,6 +33,7 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
   Map childMapObject;
   final List<String> mandatoryFields = OvcEnrollmentChild.getMandatoryField();
   final Map mandatoryFieldObject = Map();
+  bool onSkipButton = false;
 
   Map hiddenFields = Map();
   Map hiddenSections = Map();
@@ -149,6 +151,7 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
         if (response) {
           setState(() {
             isLoading = true;
+            onSkipButton = true;
           });
           Timer(Duration(milliseconds: 500),
               () => resetMapObject(childMapObject));
@@ -178,7 +181,7 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
     evaluateSkipLogics();
   }
 
-  void onSkip() {
+  void onSkip(Map childMapObject) {
     setState(() {
       childMapObjects.add(childMapObject);
     });
@@ -243,10 +246,10 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
                               onPressButton: () => onSaveAndContinue(context),
                             ),
                             Visibility(
-                              visible: true,
+                              visible: onSkipButton,
                               child: Container(
                                 child: FlatButton(
-                                  onPressed: onSkip,
+                                  onPressed: () => onSkip(childMapObject),
                                   child: Text(
                                     'Skip',
                                     style: TextStyle().copyWith(
