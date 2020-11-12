@@ -1,10 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_house_hold_current_selection_state.dart';
+import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_current_assessment_form_state.dart';
 import 'package:kb_mobile_app/core/components/line_seperator.dart';
+import 'package:provider/provider.dart';
 
 class OvcChildAssessmentSelection extends StatelessWidget {
-  final List<String> assessmentTitles = ['Well-being', 'TB', 'HIV'];
+   List<String> assessmentTitles = [];
+
+  void onSelectChild(BuildContext context) {
+ assessmentTitles =   Provider.of<OvcCurrentAssessmentFormState>(context, listen: false)
+        .getAssessmentTitles(Provider.of<OvcHouseHoldCurrentSelectionState>(
+                context,
+                listen: false)
+            .currentOvcHouseHoldChild);
+  }
+
   @override
   Widget build(BuildContext context) {
+    onSelectChild(context);
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 30.0),
       margin: EdgeInsets.only(bottom: 20.0),

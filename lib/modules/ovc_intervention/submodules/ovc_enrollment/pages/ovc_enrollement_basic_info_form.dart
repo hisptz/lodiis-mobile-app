@@ -47,6 +47,7 @@ class _OvcEnrollmentBasicInfoFormState
   void onSaveAndContinue(BuildContext context, Map dataObject) {
     bool hadAllMandatoryFilled =
         AppUtil.hasAllMandarotyFieldsFilled(mandatoryFields, dataObject);
+        
     if (hadAllMandatoryFilled) {
       Navigator.push(
           context,
