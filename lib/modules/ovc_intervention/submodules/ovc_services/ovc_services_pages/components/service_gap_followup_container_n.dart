@@ -4,8 +4,8 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/o
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/components/case_plan_follow_up_view_container.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/constants/ovc_case_plan_constant.dart';
 
-class CasePlanGapFollowUpContainer extends StatefulWidget {
-  const CasePlanGapFollowUpContainer({
+class ServiceGapFollowUpContainer extends StatefulWidget {
+  const ServiceGapFollowUpContainer({
     Key key,
     @required this.formSectionColor,
     @required this.isCasePlanForHouseHold,
@@ -23,12 +23,12 @@ class CasePlanGapFollowUpContainer extends StatefulWidget {
   final String domainId;
 
   @override
-  _CasePlanGapFollowUpContainerState createState() =>
-      _CasePlanGapFollowUpContainerState();
+  _ServiceGapFollowUpContainerState createState() =>
+      _ServiceGapFollowUpContainerState();
 }
 
-class _CasePlanGapFollowUpContainerState
-    extends State<CasePlanGapFollowUpContainer> {
+class _ServiceGapFollowUpContainerState
+    extends State<ServiceGapFollowUpContainer> {
   String casePlanGapToFollowinUpLinkageValue;
   // todo using stage management to tget update list
 
@@ -44,18 +44,18 @@ class _CasePlanGapFollowUpContainerState
     });
   }
 
-  // void addNewFollowingUp(BuildContext context) async {
-  //   Map dataObject = Map();
-  //   dataObject[OvcCasePlanConstant.casePlanGapToFollowinUpLinkage] =
-  //       casePlanGapToFollowinUpLinkageValue;
-  //   Widget modal = CasePlanFollowUpFormContainer(
-  //     dataObject: dataObject,
-  //     domainId: widget.domainId,
-  //     isCasePlanForHouseHold: widget.isCasePlanForHouseHold,
-  //     isEditableMode: widget.shouldViewCaseGapFollowUp,
-  //   );
-  //   await AppUtil.showPopUpModal(context, modal, true);
-  // }
+  void addNewFollowingUp(BuildContext context) async {
+    Map dataObject = Map();
+    dataObject[OvcCasePlanConstant.casePlanGapToFollowinUpLinkage] =
+        casePlanGapToFollowinUpLinkageValue;
+    Widget modal = CasePlanFollowUpFormContainer(
+      dataObject: dataObject,
+      domainId: widget.domainId,
+      isCasePlanForHouseHold: widget.isCasePlanForHouseHold,
+      isEditableMode: widget.shouldViewCaseGapFollowUp,
+    );
+    await AppUtil.showPopUpModal(context, modal, true);
+  }
 
 // handling state management on adding following ups
   @override
@@ -77,31 +77,31 @@ class _CasePlanGapFollowUpContainerState
                   isCasePlanForHouseHold: widget.isCasePlanForHouseHold,
                 ),
               ),
-              // Visibility(
-              //   visible: widget.shouldViewCaseGapFollowUp,
-              //   child: Container(
-              //     alignment: Alignment.center,
-              //     margin: EdgeInsets.symmetric(vertical: 10.0),
-              //     child: FlatButton(
-              //       shape: RoundedRectangleBorder(
-              //         side: BorderSide(
-              //           color: widget.formSectionColor,
-              //         ),
-              //         borderRadius: BorderRadius.circular(12.0),
-              //       ),
-              //       padding: EdgeInsets.all(15.0),
-              //       onPressed: () => this.addNewFollowingUp(context),
-              //       child: Text(
-              //         'ADD FOLLOW-UP',
-              //         style: TextStyle().copyWith(
-              //           color: widget.formSectionColor,
-              //           fontSize: 14.0,
-              //           fontWeight: FontWeight.w700,
-              //         ),
-              //       ),
-              //     ),
-              //   ),
-              // ),
+              Visibility(
+                visible: widget.shouldViewCaseGapFollowUp,
+                child: Container(
+                  alignment: Alignment.center,
+                  margin: EdgeInsets.symmetric(vertical: 10.0),
+                  child: FlatButton(
+                    shape: RoundedRectangleBorder(
+                      side: BorderSide(
+                        color: widget.formSectionColor,
+                      ),
+                      borderRadius: BorderRadius.circular(12.0),
+                    ),
+                    padding: EdgeInsets.all(15.0),
+                    onPressed: () => this.addNewFollowingUp(context),
+                    child: Text(
+                      'ADD FOLLOW-UP',
+                      style: TextStyle().copyWith(
+                        color: widget.formSectionColor,
+                        fontSize: 14.0,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
         ),

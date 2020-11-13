@@ -49,6 +49,7 @@ class _OvcEnrollmentBasicInfoFormState
   void onSaveAndContinue(BuildContext context, Map dataObject) async {
     bool hadAllMandatoryFilled =
         AppUtil.hasAllMandarotyFieldsFilled(mandatoryFields, dataObject);
+        
     if (hadAllMandatoryFilled) {
       if (careGiverAge < 18) {
         Widget modal = CareGiverAgeConfirmation();
