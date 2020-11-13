@@ -16,6 +16,7 @@ import 'package:kb_mobile_app/core/constants/custom_color.dart';
 import 'package:kb_mobile_app/modules/splash/splash.dart';
 import 'package:provider/provider.dart';
 import 'app_state/dreams_intervention_list_state/dream_current_selection_state.dart';
+import 'app_state/ovc_intervention_list_state/ovc_current_assessment_form_state.dart';
 
 class MyApp extends StatelessWidget {
   @override
@@ -27,6 +28,7 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(
               create: (_) => DreamBenefeciarySelectionState()),
           ChangeNotifierProvider(create: (_) => LoginFormState()),
+          ChangeNotifierProvider(create: (_) => OvcCurrentAssessmentFormState()),
           ChangeNotifierProvider(
               create: (_) => InterventionBottomNavigationState()),
           ChangeNotifierProvider(create: (_) => EnrollmentFormState()),
