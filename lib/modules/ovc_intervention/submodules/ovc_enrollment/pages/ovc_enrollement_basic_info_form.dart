@@ -11,6 +11,7 @@ import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/components/care_giver_age_confirmation.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/models/ovc_enrollement_basic_info.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/pages/ovc_enrollment_child_form.dart';
 import 'package:provider/provider.dart';
@@ -31,6 +32,7 @@ class _OvcEnrollmentBasicInfoFormState
       OvcEnrollmentBasicInfo.getMandatoryField();
   final Map mandatoryFieldObject = Map();
   bool isFormReady = false;
+  int careGiverAge = 0;
 
   @override
   void initState() {
@@ -44,16 +46,24 @@ class _OvcEnrollmentBasicInfoFormState
     });
   }
 
-  void onSaveAndContinue(BuildContext context, Map dataObject) {
+  void onSaveAndContinue(BuildContext context, Map dataObject) async {
     bool hadAllMandatoryFilled =
         AppUtil.hasAllMandarotyFieldsFilled(mandatoryFields, dataObject);
         
     if (hadAllMandatoryFilled) {
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => OvcEnrollmentChildForm(),
-          ));
+      if (careGiverAge < 18) {
+        Widget modal = CareGiverAgeConfirmation();
+        bool response = await AppUtil.showPopUpModal(context, modal, false);
+        response
+            ? Navigator.canPop(context)
+            : Navigator.of(context).popUntil((route) => route.isFirst);
+      } else {
+              Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => OvcEnrollmentChildForm(),
+            ));
+      }
     } else {
       AppUtil.showToastMessage(
           message: 'Please fill all mandatory field',
@@ -64,6 +74,7 @@ class _OvcEnrollmentBasicInfoFormState
   void autoFillInputFields(String id, dynamic value) {
     if (id == 'qZP982qpSPS') {
       int age = AppUtil.getAgeInYear(value);
+      careGiverAge = age;
       Provider.of<EnrollmentFormState>(context, listen: false)
           .setFormFieldState('ls9hlz2tyol', age.toString());
     }

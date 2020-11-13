@@ -46,27 +46,29 @@ class _OvcEnrollmentConsetFormState extends State<OvcEnrollmentConsetForm> {
   }
 
 // checking if user accept consent form
-  bool hasUserAcceptConsentform(Map dataObject) {
-    bool hasAccepted = false;
-    for (String consentField in consentFields) {
-      if (dataObject[consentField] == true) {
-        hasAccepted = true;
-      }
-    }
-    return hasAccepted;
-  }
+  // bool hasUserAcceptConsentform(Map dataObject) {
+  //   bool hasAccepted = false;
+  //   for (String consentField in consentFields) {
+  //     if (dataObject[consentField] == true) {
+  //       hasAccepted = true;
+  //     }
+  //   }
+  //   return hasAccepted;
+  // }
 
   void onSaveAndContinue(BuildContext context, Map dataObject) {
     bool hadAllMandatoryFilled =
         AppUtil.hasAllMandarotyFieldsFilled(mandatoryFields, dataObject);
     if (hadAllMandatoryFilled) {
-      bool hasAccepted = hasUserAcceptConsentform(dataObject);
+      //bool hasAccepted = hasUserAcceptConsentform(dataObject);
       Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => hasAccepted
-                ? OvcEnrollmentBasicInfoForm()
-                : OvcEnrollmentNoneParticipationForm(),
+            builder: (context) =>
+                // hasAccepted
+                dataObject['sCGr0RTmvJ7']
+                    ? OvcEnrollmentBasicInfoForm()
+                    : OvcEnrollmentNoneParticipationForm(),
           ));
     } else {
       AppUtil.showToastMessage(

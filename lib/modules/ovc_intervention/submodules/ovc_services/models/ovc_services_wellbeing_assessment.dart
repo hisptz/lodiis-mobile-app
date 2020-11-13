@@ -12,7 +12,7 @@ class OvcServicesWellbeingAssessment {
           inputFields: [
             InputField(
                 id: 'lt88RMPaBPg',
-                name: 'What is your role in the family?',
+                name: 'What is the child’s role in the family?',
                 description:
                     'For example, do you cook, do housework or make items such as clothes or tools? Do you sell in the market or work outside of the household? Do you take care of other family members?',
                 valueType: 'TEXT',
@@ -187,7 +187,10 @@ class OvcServicesWellbeingAssessment {
                 labelColor: Color(0xFF284227),
                 options: [
                   InputFieldOption(code: 'Primary', name: 'Primary'),
-                  InputFieldOption(code: 'Secondary', name: 'Secondary')
+                  InputFieldOption(
+                      code: 'Secondary/High level',
+                      name: 'Secondary/High level'),
+                  InputFieldOption(code: 'College', name: 'College')
                 ]),
             InputField(
                 id: 'KlbW2l1L1NC',
@@ -196,11 +199,15 @@ class OvcServicesWellbeingAssessment {
                 inputColor: Color(0xFF9B2BAE),
                 labelColor: Color(0xFF284227),
                 options: [
-                  InputFieldOption(code: 'Primary', name: 'Primary'),
+                  InputFieldOption(
+                    code: 'Primary', 
+                    name: 'Primary'),
                   InputFieldOption(
                       code: 'Secondary/High level',
                       name: 'Secondary/High level'),
-                  InputFieldOption(code: 'College', name: 'College')
+                  InputFieldOption(
+                    code: 'College',
+                     name: 'College')
                 ]),
             InputField(
                 id: 'xbAukRUBixJ',
@@ -228,13 +235,13 @@ class OvcServicesWellbeingAssessment {
                 labelColor: Color(0xFF284227)),
             InputField(
                 id: 'mozNkqqfYRp',
-                name: 'Is the child enrolled during the last month?',
+                name: 'Was the child enrolled during the last month ?',
                 valueType: 'BOOLEAN',
                 inputColor: Color(0xFF9B2BAE),
                 labelColor: Color(0xFF284227)),
             InputField(
                 id: 'YKuTfp8LIRr',
-                name: 'Did the child miss more than three days?',
+                name: 'Should be did the child miss more than three school days?',
                 valueType: 'BOOLEAN',
                 inputColor: Color(0xFF9B2BAE),
                 labelColor: Color(0xFF284227)),

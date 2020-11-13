@@ -19,7 +19,6 @@ class ConflictOnDownloadPage extends StatefulWidget {
 class _ConflictOnDownloadPageState extends State<ConflictOnDownloadPage> {
   final String label = 'Download Conflicts';
 
-// TrackeEntityInstance
   void onAcceptConflict(TrackeEntityInstance trackeEntityInstance) async {
     await FormUtil.savingTrackeEntityInstance(trackeEntityInstance);
   }
@@ -146,7 +145,6 @@ class _ConflictOnDownloadPageState extends State<ConflictOnDownloadPage> {
                                                 child: Text("discard",
                                                     style: TextStyle(
                                                         fontSize: 11)),
-                                                //100000/5
                                               ),
                                             ),
                                           ),

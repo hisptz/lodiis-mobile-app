@@ -3,15 +3,15 @@ import 'package:kb_mobile_app/core/components/line_seperator.dart';
 import 'package:kb_mobile_app/core/components/material_card.dart';
 
 class DataDowmloadContainer extends StatelessWidget {
-  const DataDowmloadContainer({
-    Key key,
-    @required this.isDataDownloadingActive,
-    @required this.isDataUploadingActive,
-    @required this.dataDownloadProcesses,
-    this.onViewConflicts,
-    this.onStartDataDownload,
-    this.conflictCount
-  }) : super(key: key);
+  const DataDowmloadContainer(
+      {Key key,
+      @required this.isDataDownloadingActive,
+      @required this.isDataUploadingActive,
+      @required this.dataDownloadProcesses,
+      this.onViewConflicts,
+      this.onStartDataDownload,
+      this.conflictCount})
+      : super(key: key);
 
   final bool isDataDownloadingActive;
   final bool isDataUploadingActive;
@@ -67,7 +67,7 @@ class DataDowmloadContainer extends StatelessWidget {
               ),
               Visibility(
                 visible: conflictCount > 0,
-                              child: Container(
+                child: Container(
                   margin: EdgeInsets.symmetric(vertical: 5.0),
                   padding: EdgeInsets.symmetric(vertical: 2.0, horizontal: 1.0),
                   child: Row(
