@@ -4,20 +4,40 @@ import 'package:kb_mobile_app/core/components/line_seperator.dart';
 import 'package:provider/provider.dart';
 
 class ServiceCardBottonAction extends StatelessWidget {
-  const ServiceCardBottonAction({
-    Key key,
-    this.onOpenPrepForm,
-    this.onOpenHTSForm,
-    this.onOpenSRHForm,
-    this.onOpenHIVPrepForm,
-    this.onOpenHIVRegForm,
-  }) : super(key: key);
+  const ServiceCardBottonAction(
+      {Key key,
+      this.onOpenPrepForm,
+      this.onOpenHTSForm,
+      this.onOpenSRHForm,
+      this.onOpenHIVPrepForm,
+      this.onOpenHIVRegForm,
+      this.onOpenCondomForm,
+      this.onOpenMSGHIVForm,
+      this.onOpenANCForm,
+      this.onOpenArtRefillForm,
+      this.onOpenGoGirlsForm,
+      this.onOpenIPCForm,
+      this.onOpenLBSEForm,
+      this.onOpenPEPForm,
+      this.onOpenPostGBVForm,
+      this.onOpenSteppingStonesForm})
+      : super(key: key);
 
   final VoidCallback onOpenPrepForm;
   final VoidCallback onOpenHTSForm;
   final VoidCallback onOpenSRHForm;
   final VoidCallback onOpenHIVPrepForm;
   final VoidCallback onOpenHIVRegForm;
+  final VoidCallback onOpenMSGHIVForm;
+  final VoidCallback onOpenCondomForm;
+  final VoidCallback onOpenPostGBVForm;
+  final VoidCallback onOpenGoGirlsForm;
+  final VoidCallback onOpenSteppingStonesForm;
+  final VoidCallback onOpenIPCForm;
+  final VoidCallback onOpenLBSEForm;
+  final VoidCallback onOpenPEPForm;
+  final VoidCallback onOpenANCForm;
+  final VoidCallback onOpenArtRefillForm;
 
   @override
   Widget build(BuildContext context) {
@@ -154,7 +174,258 @@ class ServiceCardBottonAction extends StatelessWidget {
                           ),
                         ),
                       ),
-                    )
+                    ),
+                    Visibility(
+                      visible: currentUserState.canManageMSGHIV,
+                      child: Expanded(
+                        child: InkWell(
+                          onTap: onOpenMSGHIVForm,
+                          child: Container(
+                            padding: EdgeInsets.symmetric(vertical: 5),
+                            margin: EdgeInsets.symmetric(vertical: 5),
+                            decoration: BoxDecoration(
+                                border: Border(
+                                    left: BorderSide(
+                              width: 1,
+                              color: Color(0xFF8EBAD3),
+                            ))),
+                            child: Center(
+                                child: Text('MSGHIV',
+                                    style: TextStyle().copyWith(
+                                      fontSize: 12.0,
+                                      fontWeight: FontWeight.normal,
+                                      color: Color(0xFF1F8ECE),
+                                    ))),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Visibility(
+                      visible: currentUserState.canManageCondom,
+                      child: Expanded(
+                        child: InkWell(
+                          onTap: onOpenCondomForm,
+                          child: Container(
+                            padding: EdgeInsets.symmetric(vertical: 5),
+                            margin: EdgeInsets.symmetric(vertical: 5),
+                            decoration: BoxDecoration(
+                                border: Border(
+                                    left: BorderSide(
+                              width: 1,
+                              color: Color(0xFF8EBAD3),
+                            ))),
+                            child: Center(
+                                child: Text('CONDOM',
+                                    style: TextStyle().copyWith(
+                                      fontSize: 12.0,
+                                      fontWeight: FontWeight.normal,
+                                      color: Color(0xFF1F8ECE),
+                                    ))),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Visibility(
+                      visible: currentUserState.canManageArtRefill,
+                      child: Expanded(
+                        child: InkWell(
+                          onTap: onOpenArtRefillForm,
+                          child: Container(
+                            padding: EdgeInsets.symmetric(vertical: 5),
+                            margin: EdgeInsets.symmetric(vertical: 5),
+                            decoration: BoxDecoration(
+                                border: Border(
+                                    left: BorderSide(
+                              width: 1,
+                              color: Color(0xFF8EBAD3),
+                            ))),
+                            child: Center(
+                                child: Text('ART RE-FILL',
+                                    style: TextStyle().copyWith(
+                                      fontSize: 12.0,
+                                      fontWeight: FontWeight.normal,
+                                      color: Color(0xFF1F8ECE),
+                                    ))),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Visibility(
+                      visible: currentUserState.canManageAnc,
+                      child: Expanded(
+                        child: InkWell(
+                          onTap: onOpenANCForm,
+                          child: Container(
+                            padding: EdgeInsets.symmetric(vertical: 5),
+                            margin: EdgeInsets.symmetric(vertical: 5),
+                            decoration: BoxDecoration(
+                                border: Border(
+                                    left: BorderSide(
+                              width: 1,
+                              color: Color(0xFF8EBAD3),
+                            ))),
+                            child: Center(
+                                child: Text('ANC',
+                                    style: TextStyle().copyWith(
+                                      fontSize: 12.0,
+                                      fontWeight: FontWeight.normal,
+                                      color: Color(0xFF1F8ECE),
+                                    ))),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Visibility(
+                      visible: currentUserState.canManagePOSTGBV,
+                      child: Expanded(
+                        child: InkWell(
+                          onTap: onOpenPostGBVForm,
+                          child: Container(
+                            padding: EdgeInsets.symmetric(vertical: 5),
+                            margin: EdgeInsets.symmetric(vertical: 5),
+                            decoration: BoxDecoration(
+                                border: Border(
+                                    left: BorderSide(
+                              width: 1,
+                              color: Color(0xFF8EBAD3),
+                            ))),
+                            child: Center(
+                                child: Text('POST GBV',
+                                    style: TextStyle().copyWith(
+                                      fontSize: 12.0,
+                                      fontWeight: FontWeight.normal,
+                                      color: Color(0xFF1F8ECE),
+                                    ))),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Visibility(
+                      visible: currentUserState.canManagePEP,
+                      child: Expanded(
+                        child: InkWell(
+                          onTap: onOpenPEPForm,
+                          child: Container(
+                            padding: EdgeInsets.symmetric(vertical: 5),
+                            margin: EdgeInsets.symmetric(vertical: 5),
+                            decoration: BoxDecoration(
+                                border: Border(
+                                    left: BorderSide(
+                              width: 1,
+                              color: Color(0xFF8EBAD3),
+                            ))),
+                            child: Center(
+                                child: Text('PEP',
+                                    style: TextStyle().copyWith(
+                                      fontSize: 12.0,
+                                      fontWeight: FontWeight.normal,
+                                      color: Color(0xFF1F8ECE),
+                                    ))),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Visibility(
+                      visible: currentUserState.canManageLBSE,
+                      child: Expanded(
+                        child: InkWell(
+                          onTap: onOpenLBSEForm,
+                          child: Container(
+                            padding: EdgeInsets.symmetric(vertical: 5),
+                            margin: EdgeInsets.symmetric(vertical: 5),
+                            decoration: BoxDecoration(
+                                border: Border(
+                                    left: BorderSide(
+                              width: 1,
+                              color: Color(0xFF8EBAD3),
+                            ))),
+                            child: Center(
+                                child: Text('LSBE',
+                                    style: TextStyle().copyWith(
+                                      fontSize: 12.0,
+                                      fontWeight: FontWeight.normal,
+                                      color: Color(0xFF1F8ECE),
+                                    ))),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Visibility(
+                      visible: currentUserState.canManageIPC,
+                      child: Expanded(
+                        child: InkWell(
+                          onTap: onOpenIPCForm,
+                          child: Container(
+                            padding: EdgeInsets.symmetric(vertical: 5),
+                            margin: EdgeInsets.symmetric(vertical: 5),
+                            decoration: BoxDecoration(
+                                border: Border(
+                                    left: BorderSide(
+                              width: 1,
+                              color: Color(0xFF8EBAD3),
+                            ))),
+                            child: Center(
+                                child: Text('IPC',
+                                    style: TextStyle().copyWith(
+                                      fontSize: 12.0,
+                                      fontWeight: FontWeight.normal,
+                                      color: Color(0xFF1F8ECE),
+                                    ))),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Visibility(
+                      visible: currentUserState.canManageSteppingStones,
+                      child: Expanded(
+                        child: InkWell(
+                          onTap: onOpenSteppingStonesForm,
+                          child: Container(
+                            padding: EdgeInsets.symmetric(vertical: 5),
+                            margin: EdgeInsets.symmetric(vertical: 5),
+                            decoration: BoxDecoration(
+                                border: Border(
+                                    left: BorderSide(
+                              width: 1,
+                              color: Color(0xFF8EBAD3),
+                            ))),
+                            child: Center(
+                                child: Text('STEPPING STONES',
+                                    style: TextStyle().copyWith(
+                                      fontSize: 12.0,
+                                      fontWeight: FontWeight.normal,
+                                      color: Color(0xFF1F8ECE),
+                                    ))),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Visibility(
+                      visible: currentUserState.canManageGoGirls,
+                      child: Expanded(
+                        child: InkWell(
+                          onTap: onOpenGoGirlsForm,
+                          child: Container(
+                            padding: EdgeInsets.symmetric(vertical: 5),
+                            margin: EdgeInsets.symmetric(vertical: 5),
+                            decoration: BoxDecoration(
+                                border: Border(
+                                    left: BorderSide(
+                              width: 1,
+                              color: Color(0xFF8EBAD3),
+                            ))),
+                            child: Center(
+                                child: Text('GO GIRLS',
+                                    style: TextStyle().copyWith(
+                                      fontSize: 12.0,
+                                      fontWeight: FontWeight.normal,
+                                      color: Color(0xFF1F8ECE),
+                                    ))),
+                          ),
+                        ),
+                      ),
+                    ),
+                  
                   ],
                 ),
               )
