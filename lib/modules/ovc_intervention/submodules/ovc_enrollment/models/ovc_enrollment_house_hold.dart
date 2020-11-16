@@ -23,7 +23,7 @@ class OvcEnrollmentHouseHold {
                   id: 'location',
                   name: 'Location',
                   isReadObly: true,
-                  allowedSelectedLevels: [3],
+                  allowedSelectedLevels: [3, 4],
                   valueType: 'ORGANISATION_UNIT',
                   inputColor: Color(0xFF4B9F46),
                   labelColor: Color(0xFF737373)),
@@ -231,18 +231,6 @@ class OvcEnrollmentHouseHold {
                       hasSubInputField: true,
                       subInputField: InputField(
                           id: 'q8qSTyjhTmz',
-                          name: 'Referral',
-                          valueType: 'TRUE_ONLY',
-                          inputColor: Color(0xFF9C27B0))),
-                  InputField(
-                      id: 'q8qSTyjhTmz',
-                      name:
-                          'Referral to child in the household who went a whole day without eating anything because there wasn’t enough to eat? [In case of visibly malnourished child, Circle yes and refer]',
-                      valueType: 'BOOLEAN',
-                      inputColor: Color(0xFF9C27B0),
-                      hasSubInputField: true,
-                      subInputField: InputField(
-                          id: 'TpjxuuSY2Do',
                           name: 'Referral',
                           valueType: 'TRUE_ONLY',
                           inputColor: Color(0xFF9C27B0))),
