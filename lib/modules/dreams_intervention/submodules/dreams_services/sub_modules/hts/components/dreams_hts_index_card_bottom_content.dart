@@ -14,6 +14,7 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_serv
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/constants/agyw_dreams_index_contact_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/models/index_contact_model.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/pages/agyw_dreams_index_contact.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/pages/agyw_dreams_index_contact_followup.dart';
 import 'package:provider/provider.dart';
 
 class DreamsHTSIndexCardBottonContent extends StatefulWidget {
@@ -73,6 +74,15 @@ class _DreamsHTSIndexCardBottonContentState
         context,
         MaterialPageRoute(
           builder: (context) => AgywDreamsIndexContact(),
+        ));
+  }
+
+  void onFolloUpIndexContact(BuildContext context, IndexContactModel eventData) {
+    updateFormState(context, true, eventData);
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => AgywDreamsIndexFollowUp(),
         ));
   }
 
@@ -191,6 +201,25 @@ class _DreamsHTSIndexCardBottonContentState
                                             padding: EdgeInsets.all(5.0),
                                             child: Text(
                                               'EDIT',
+                                              style: TextStyle().copyWith(
+                                                fontSize: 12.0,
+                                                color: Color(0xFF258DCC),
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                            ),
+                                          ))),
+                                ),
+                                 Visibility(
+                                  //visible: canFollowUpChilddInfo,
+                                  child: Container(
+                                      margin: EdgeInsets.only(left: 10.0),
+                                      child: InkWell(
+                                          onTap: () => onFolloUpIndexContact(
+                                              context, eventData),
+                                          child: Container(
+                                            padding: EdgeInsets.all(5.0),
+                                            child: Text(
+                                              'FOLLOWUP',
                                               style: TextStyle().copyWith(
                                                 fontSize: 12.0,
                                                 color: Color(0xFF258DCC),

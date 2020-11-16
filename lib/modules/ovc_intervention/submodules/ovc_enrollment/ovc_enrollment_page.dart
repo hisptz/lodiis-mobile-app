@@ -25,7 +25,6 @@ class _OvcEnrollmentPageState extends State<OvcEnrollmentPage> {
   final bool canViewChildService = false;
   final bool canViewChildReferral = false;
   final bool canViewChildExit = false;
-
   String toggleCardId = '';
 
   void onCardToogle(String cardId) {

@@ -1,11 +1,11 @@
 name: kb_mobile_app
 description: Mobile app for reporting OVC and AGYW cases unde KB project.
-publish_to: "none"
+publish_to: 'none'
 
 version: 1.0.13+14
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: '>=2.7.0 <3.0.0'
 
 dependencies:
   flutter:
@@ -21,6 +21,7 @@ dependencies:
   fluttertoast: ^7.0.4
   sqflite:
   path:
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
