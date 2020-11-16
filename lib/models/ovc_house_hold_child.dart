@@ -11,6 +11,7 @@ class OvcHouseHoldChild {
   String age;
   String orgUnit;
   String createdDate;
+  String hivStatus;
   TrackeEntityInstance teiData;
 
   OvcHouseHoldChild({
@@ -23,6 +24,7 @@ class OvcHouseHoldChild {
     this.age,
     this.orgUnit,
     this.createdDate,
+    this.hivStatus,
     this.teiData,
   });
 
@@ -37,6 +39,7 @@ class OvcHouseHoldChild {
       'rSP9c21JsfC',
       'ls9hlz2tyol',
       'vIX4GTSCX4P',
+      'wmKqYZML8GA',
       BeneficiaryIdentification.beneficiaryId
     ];
     Map data = Map();
@@ -55,6 +58,11 @@ class OvcHouseHoldChild {
         age: data['ls9hlz2tyol'] ?? '',
         childId: data[BeneficiaryIdentification.beneficiaryId] ?? '',
         createdDate: createdDate,
+        hivStatus: data['wmKqYZML8GA'] != null
+            ? data['wmKqYZML8GA'] == 'true'
+                ? 'Positive'
+                : 'Negative'
+            : '',
         orgUnit: orgUnit,
         teiData: tei);
   }
