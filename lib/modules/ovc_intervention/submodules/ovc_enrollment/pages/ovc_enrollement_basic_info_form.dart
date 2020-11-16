@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
@@ -14,6 +16,7 @@ import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/components/care_giver_age_confirmation.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/models/ovc_enrollement_basic_info.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/pages/ovc_enrollment_child_form.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/skip_logics/ovc_house_hold_enrollment_skip_logic.dart';
 import 'package:provider/provider.dart';
 
 class OvcEnrollmentBasicInfoForm extends StatefulWidget {
@@ -32,8 +35,6 @@ class _OvcEnrollmentBasicInfoFormState
       OvcEnrollmentBasicInfo.getMandatoryField();
   final Map mandatoryFieldObject = Map();
   bool isFormReady = false;
-  int careGiverAge = 0;
-
   @override
   void initState() {
     super.initState();
@@ -43,13 +44,29 @@ class _OvcEnrollmentBasicInfoFormState
       }
       formSections = OvcEnrollmentBasicInfo.getFormSections();
       isFormReady = true;
+      evaluateSkipLogics();
     });
+  }
+
+  evaluateSkipLogics() {
+    Timer(
+      Duration(milliseconds: 200),
+      () async {
+        Map dataObject =
+            Provider.of<EnrollmentFormState>(context, listen: false).formState;
+        await OvcHouseHoldEnrollmentSkipLogic.evaluateSkipLogics(
+          context,
+          formSections,
+          dataObject,
+        );
+      },
+    );
   }
 
   void onSaveAndContinue(BuildContext context, Map dataObject) async {
     bool hadAllMandatoryFilled =
         AppUtil.hasAllMandarotyFieldsFilled(mandatoryFields, dataObject);
-        
+    int careGiverAge = int.parse(dataObject['ls9hlz2tyol']);
     if (hadAllMandatoryFilled) {
       if (careGiverAge < 18) {
         Widget modal = CareGiverAgeConfirmation();
@@ -58,7 +75,7 @@ class _OvcEnrollmentBasicInfoFormState
             ? Navigator.canPop(context)
             : Navigator.of(context).popUntil((route) => route.isFirst);
       } else {
-              Navigator.push(
+        Navigator.push(
             context,
             MaterialPageRoute(
               builder: (context) => OvcEnrollmentChildForm(),
@@ -71,19 +88,10 @@ class _OvcEnrollmentBasicInfoFormState
     }
   }
 
-  void autoFillInputFields(String id, dynamic value) {
-    if (id == 'qZP982qpSPS') {
-      int age = AppUtil.getAgeInYear(value);
-      careGiverAge = age;
-      Provider.of<EnrollmentFormState>(context, listen: false)
-          .setFormFieldState('ls9hlz2tyol', age.toString());
-    }
-  }
-
   void onInputValueChange(String id, dynamic value) {
     Provider.of<EnrollmentFormState>(context, listen: false)
         .setFormFieldState(id, value);
-    autoFillInputFields(id, value);
+    evaluateSkipLogics();
   }
 
   @override

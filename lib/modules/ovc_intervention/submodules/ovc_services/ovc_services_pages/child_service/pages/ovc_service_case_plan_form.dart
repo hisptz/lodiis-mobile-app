@@ -1,7 +1,5 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_house_hold_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar_container.dart';
@@ -16,7 +14,7 @@ import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_child_info
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_caseplan.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_child_caseplan_gaps.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_case_plan/constants/ovc_child_case_plan_constant.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/components/service_form_container_n.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/components/service_form_container.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/constants/ovc_case_plan_constant.dart';
 import 'package:provider/provider.dart';
 
@@ -132,37 +130,6 @@ class _OcvServiceCasePlanFormState extends State<OcvServiceCasePlanForm> {
     }
   }
 
-  // void onSaveForm(
-  //   BuildContext context,
-  //   Map dataObject,
-  //   OvcHouseHoldChild currentOvcHouseHoldChild,
-  // ) async {
-  //   bool isAllDomainFilled = isAllDomainGoalAndGapFilled(dataObject);
-  //   if (isAllDomainFilled) {
-  //     setState(() {
-  //       isSaving = true;
-  //     });
-  //     await savingDomainsAndGaps(dataObject, currentOvcHouseHoldChild);
-  //     Provider.of<ServiveEventDataState>(context, listen: false)
-  //         .resetServiceEventDataState(currentOvcHouseHoldChild.id);
-  //     Timer(Duration(seconds: 1), () {
-  //       if (Navigator.canPop(context)) {
-  //         setState(() {
-  //           isSaving = false;
-  //         });
-  //         AppUtil.showToastMessage(
-  //             message: 'Form has been saved successfully',
-  //             position: ToastGravity.TOP);
-  //         Navigator.pop(context);
-  //       }
-  //     });
-  //   } else {
-  //     AppUtil.showToastMessage(
-  //         message: 'Please fill at least first goal for all domain with gaps',
-  //         position: ToastGravity.TOP);
-  //   }
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -181,72 +148,52 @@ class _OcvServiceCasePlanFormState extends State<OcvServiceCasePlanForm> {
         ),
         body: SubPageBody(
           body: Container(
-            child: Consumer<OvcHouseHoldCurrentSelectionState>(
-              builder: (context, ovcHouseHoldCurrentSelectionState, child) {
-                OvcHouseHoldChild currentOvcHouseHoldChild =
-                    ovcHouseHoldCurrentSelectionState.currentOvcHouseHoldChild;
-                return Consumer<ServiceFormState>(
-                  builder: (context, serviceFormState, child) {
-                    Map dataObject = serviceFormState.formState;
-                    return Container(
-                      child: !isFormReady
-                          ? Container(
-                              child: CircularProcessLoader(
-                                color: Colors.blueGrey,
+            child: Consumer<ServiceFormState>(
+              builder: (context, serviceFormState, child) {
+                Map dataObject = serviceFormState.formState;
+                return Container(
+                  child: !isFormReady
+                      ? Container(
+                          child: CircularProcessLoader(
+                            color: Colors.blueGrey,
+                          ),
+                        )
+                      : Column(
+                          children: [
+                            OvcChildInfoTopHeader(),
+                            Container(
+                              margin: EdgeInsets.only(
+                                top: 10.0,
+                                left: 13.0,
+                                right: 13.0,
                               ),
-                            )
-                          : Column(
-                              children: [
-                                OvcChildInfoTopHeader(),
-                                Container(
-                                  margin: EdgeInsets.only(
-                                    top: 10.0,
-                                    left: 13.0,
-                                    right: 13.0,
-                                  ),
-                                  child: Column(
-                                    children: formSections
-                                        .map(
-                                          (FormSection formSection) =>
-                                              ServiceFormContainer(
-                                            shouldEditCaseGapFollowUps: widget
-                                                .shouldEditCaseGapFollowUps,
-                                            shouldViewCaseGapFollowUp: widget
-                                                .shouldViewCaseGapFollowUp,
-                                            formSectionColor:
-                                                borderColors[formSection.id],
-                                            formSection: formSection,
-                                            dataObject:
-                                                dataObject[formSection.id],
-                                            isEditableMode:
-                                                serviceFormState.isEditableMode,
-                                            onInputValueChange: (
-                                              dynamic value,
-                                            ) =>
-                                                onInputValueChange(
-                                                    formSection.id, value),
-                                          ),
-                                        )
-                                        .toList(),
-                                  ),
-                                ),
-                                // Visibility(
-                                //   visible: serviceFormState.isEditableMode,
-                                //   child: OvcEnrollmentFormSaveButton(
-                                //     label: isSaving ? 'Saving ...' : 'Save',
-                                //     labelColor: Colors.white,
-                                //     buttonColor: Color(0xFF4B9F46),
-                                //     fontSize: 15.0,
-                                //     onPressButton: () => onSaveForm(
-                                //         context,
-                                //         serviceFormState.formState,
-                                //         currentOvcHouseHoldChild),
-                                //   ),
-                                // )
-                              ],
+                              child: Column(
+                                children: formSections
+                                    .map(
+                                      (FormSection formSection) =>
+                                          ServiceFormContainer(
+                                        shouldEditCaseGapFollowUps:
+                                            widget.shouldEditCaseGapFollowUps,
+                                        shouldViewCaseGapFollowUp:
+                                            widget.shouldViewCaseGapFollowUp,
+                                        formSectionColor:
+                                            borderColors[formSection.id],
+                                        formSection: formSection,
+                                        dataObject: dataObject[formSection.id],
+                                        isEditableMode:
+                                            serviceFormState.isEditableMode,
+                                        onInputValueChange: (
+                                          dynamic value,
+                                        ) =>
+                                            onInputValueChange(
+                                                formSection.id, value),
+                                      ),
+                                    )
+                                    .toList(),
+                              ),
                             ),
-                    );
-                  },
+                          ],
+                        ),
                 );
               },
             ),

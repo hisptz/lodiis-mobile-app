@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
@@ -15,8 +14,8 @@ import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_child_info_top_header.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_caseplan.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_case_plan/constants/ovc_child_case_plan_constant.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_service/pages/ovc_service_case_plan_form_n.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/components/services_home_list_container_n.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_service/pages/ovc_service_case_plan_form.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/components/services_home_list_container.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/constants/ovc_case_plan_constant.dart';
 import 'package:provider/provider.dart';
 
@@ -78,44 +77,6 @@ class OvcServiceSubPageChildView extends StatelessWidget {
     return groupedEventByDates.keys.toList().indexOf(today) > -1;
   }
 
-  // void onAddNewAssessment(
-  //   BuildContext context,
-  //   Map<String, List<Events>> eventListByProgramStage,
-  // ) {
-  //   bool isEditableMode = true;
-  //   if (isCasePlanExit(eventListByProgramStage)) {
-  //     AppUtil.showToastMessage(
-  //         message: 'There is exiting case plan that has already created',
-  //         position: ToastGravity.TOP);
-  //   } else {
-  //     updateformState(context, isEditableMode, null, eventListByProgramStage);
-  //     Navigator.push(
-  //       context,
-  //       MaterialPageRoute(
-  //         builder: (context) => OcvChildCasePlanForm(),
-  //       ),
-  //     );
-  //   }
-  // }
-
-  // void onEditCasePlan(
-  //   BuildContext context,
-  //   List<Events> casePlanEvents,
-  //   Map<String, List<Events>> eventListByProgramStage,
-  // ) {
-  //   bool isEditableMode = true;
-  //   updateformState(
-  //       context, isEditableMode, casePlanEvents, eventListByProgramStage);
-  //   Navigator.push(
-  //     context,
-  //     MaterialPageRoute(
-  //       builder: (context) => OcvServiceCasePlanForm(
-  //         shouldEditCaseGapFollowUps: true,
-  //       ),
-  //     ),
-  //   );
-  // }
-
   void onViewCasePlan(
     BuildContext context,
     List<Events> casePlanEvents,
@@ -171,32 +132,14 @@ class OvcServiceSubPageChildView extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 ServicesHomeListContainer(
-                                    programStageIds: casePlanProgramStageIds,
-                                    // onEditCasePlan: (casePlanEvents) =>
-                                    //     onEditCasePlan(
-                                    //       context,
-                                    //       casePlanEvents,
-                                    //       eventListByProgramStage,
-                                    //     ),
-                                    onViewCasePlan: (casePlanEvents) =>
-                                        onViewCasePlan(
-                                          context,
-                                          casePlanEvents,
-                                          eventListByProgramStage,
-                                        )),
-                                // Container(
-                                //   child: Visibility(
-                                //     visible: !isLoading,
-                                //     child: OvcEnrollmentFormSaveButton(
-                                //       label: 'NEW CASEPLAN',
-                                //       labelColor: Colors.white,
-                                //       fontSize: 10,
-                                //       buttonColor: Color(0xFF4B9F46),
-                                //       onPressButton: () => onAddNewAssessment(
-                                //           context, eventListByProgramStage),
-                                //     ),
-                                //   ),
-                                // ),
+                                  programStageIds: casePlanProgramStageIds,
+                                  onViewCasePlan: (casePlanEvents) =>
+                                      onViewCasePlan(
+                                    context,
+                                    casePlanEvents,
+                                    eventListByProgramStage,
+                                  ),
+                                ),
                               ],
                             ),
                           );

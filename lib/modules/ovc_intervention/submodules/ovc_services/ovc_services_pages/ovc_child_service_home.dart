@@ -12,10 +12,10 @@ import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_child_info
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_asessment/ovc_asessment.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_case_plan/ovc_child_case_plan_home.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_monitor/ovc_monitor.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_service/ovc_service_child.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/components/ovc_service_child_card.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/constants/ovc_child_service_home_constant.dart';
 import 'package:provider/provider.dart';
-
 import 'child_service/ovc_service_child.dart';
 
 class OvcChildServiceHome extends StatelessWidget {
@@ -120,61 +120,46 @@ class OvcChildServiceHome extends StatelessWidget {
                               crossAxisSpacing: 10.0,
                               shrinkWrap: true,
                               children: ovcChildServiceHomeCards.map(
-                                  (OvcChildServiceHomeContant
-                                      ovcChildServiceHomeCard) {
-                                int countValue =
-                                    getCountValueForOvcServiceChildCard(
-                                  ovcChildServiceHomeCard,
-                                  eventListByProgramStage,
-                                );
-                                return Container(
-                                  alignment: Alignment.center,
-                                  margin: EdgeInsets.all(5.0),
-                                  child: InkWell(
-                                    child: OvcServiceChildCard(
-                                      ovcChildServiceHomeCard:
-                                          ovcChildServiceHomeCard,
-                                      countValue: countValue.toString(),
+                                (OvcChildServiceHomeContant
+                                    ovcChildServiceHomeCard) {
+                                  int countValue =
+                                      getCountValueForOvcServiceChildCard(
+                                    ovcChildServiceHomeCard,
+                                    eventListByProgramStage,
+                                  );
+                                  return Container(
+                                    alignment: Alignment.center,
+                                    margin: EdgeInsets.all(5.0),
+                                    child: InkWell(
+                                      child: OvcServiceChildCard(
+                                        ovcChildServiceHomeCard:
+                                            ovcChildServiceHomeCard,
+                                        countValue: countValue.toString(),
+                                      ),
+                                      onTap: () => ovcChildServiceHomeCard.id ==
+                                              'assessment'
+                                          ? onOpenChildAssessment(context)
+                                          : ovcChildServiceHomeCard.id ==
+                                                  'casePlan'
+                                              ? onOpenChildCasePlan(context)
+                                              : ovcChildServiceHomeCard.id ==
+                                                      'services'
+                                                  ? onOpenChildService(context)
+                                                  : ovcChildServiceHomeCard
+                                                              .id ==
+                                                          'monitor'
+                                                      ? onOpenChildMonitor(
+                                                          context)
+                                                      : null,
                                     ),
-                                    onTap: () => ovcChildServiceHomeCard.id ==
-                                            'assessment'
-                                        ? onOpenChildAssessment(context)
-                                        : ovcChildServiceHomeCard.id ==
-                                                'casePlan'
-                                            ? onOpenChildCasePlan(context)
-                                            : ovcChildServiceHomeCard.id ==
-                                                    'services'
-                                                ? onOpenChildService(context)
-                                                : ovcChildServiceHomeCard.id ==
-                                                        'monitor'
-                                                    ? onOpenChildMonitor(
-                                                        context)
-                                                    : null,
-                                  ),
-                                );
-                              }).toList(),
+                                  );
+                                },
+                              ).toList(),
                             ),
                           );
                   },
                 ),
               ),
-              // Container(
-              //   child: Consumer<ServiveEventDataState>(
-              //     builder: (context, serviveEventDataState, child) {
-              //       bool isLoading = serviveEventDataState.isLoading;
-              //       return Visibility(
-              //         visible: !isLoading,
-              //         child: OvcEnrollmentFormSaveButton(
-              //           label: "GO TO CHILD'S HOUSE HOLD",
-              //           labelColor: Colors.white,
-              //           fontSize: 10,
-              //           buttonColor: Color(0xFF4B9F46),
-              //           onPressButton: () => childHouseHold(),
-              //         ),
-              //       );
-              //     },
-              //   ),
-              // ),
             ],
           ),
         )),
