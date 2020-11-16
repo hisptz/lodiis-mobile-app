@@ -16,6 +16,7 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/o
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/components/ovc_service_child_card.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/constants/ovc_child_service_home_constant.dart';
 import 'package:provider/provider.dart';
+import 'child_service/ovc_service_child.dart';
 
 class OvcChildServiceHome extends StatelessWidget {
   final String label = 'Child';
