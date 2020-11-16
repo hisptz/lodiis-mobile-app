@@ -953,7 +953,7 @@ class OvcServicesChildServiceFollowup {
                 name: 'BIRTHCERT Comment',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0F9587),
-                labelColor: Color(0xFF737373)),
+                labelColor: Color(0xFF737373))
           ]),
       FormSection(
           id: 'Schooled',
