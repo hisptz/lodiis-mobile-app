@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
 
 class CurrentUserState with ChangeNotifier {
+  
   // initiat state
   CurrentUser _currentUser;
   bool _canManageDreams;
@@ -14,6 +15,17 @@ class CurrentUserState with ChangeNotifier {
   bool _canManageHivReg;
   bool _canManageSrh;
   bool _canManagePrep;
+  bool _canManageMSGHIV;
+  bool _canManageArtRefill;
+  bool _canManagepostGbv;
+  bool _canManageAnc;
+  bool _canManageCondom;
+  bool _canManagePOSTGBV;
+  bool _canManageGoGirls;
+  bool _canManageSteppingStones;
+  bool _canManageIPC;
+  bool _canManageLBSE;
+  bool _canManagePEP;
 
   // selectors
   CurrentUser get currentUser => _currentUser;
@@ -27,6 +39,17 @@ class CurrentUserState with ChangeNotifier {
   bool get canManageHivReg => _canManageHivReg ?? false;
   bool get canManageSrh => _canManageSrh ?? false;
   bool get canManagePrep => _canManagePrep ?? false;
+  bool get canManageAnc => _canManageAnc ?? false;
+  bool get canManagepostGbv => _canManagepostGbv ?? false;
+  bool get canManageArtRefill => _canManageArtRefill ?? false;
+  bool get canManageMSGHIV => _canManageMSGHIV ?? false;
+  bool get canManageCondom => _canManageCondom ?? false;
+  bool get canManagePOSTGBV => _canManagePOSTGBV ?? false;
+  bool get canManageGoGirls => _canManageGoGirls ?? false;
+  bool get canManageSteppingStones => _canManageSteppingStones ?? false;
+  bool get canManageIPC => _canManageIPC ?? false;
+  bool get canManageLBSE => _canManageLBSE ?? false;
+  bool get canManagePEP => _canManagePEP ?? false;
 
   void updateUserAccessStatus(String implementingPartner) {
     if (implementingPartner == 'Super user') {
@@ -40,23 +63,35 @@ class CurrentUserState with ChangeNotifier {
       _canManageHivReg = true;
       _canManageSrh = true;
       _canManagePrep = true;
+      _canManagePEP = true;
     }
     if (implementingPartner == 'PSI') {
       _canManageDreams = true;
       _canManageSrh = true;
       _canManageReferral = true;
       _canManageHts = true;
+      _canManageMSGHIV = true;
+      _canManageCondom = true;
+      _canManagePEP = true;
     }
     if (implementingPartner == 'EGPAF') {
       _canManageDreams = true;
       _canManageHts = true;
       _canManageReferral = true;
       _canManageHivReg = true;
+      _canManageArtRefill = true;
+      _canManageMSGHIV = true;
+      _canManageAnc = true;
+      _canManagePOSTGBV = true;
+      _canManagePEP = true;
+      _canManageCondom = true;
     }
     if (implementingPartner == 'JPHIEGO') {
       _canManageDreams = true;
       _canManageReferral = true;
       _canManagePrep = true;
+      _canManageHts = true;
+      _canManagePEP = true;
     }
     if (implementingPartner == 'KB-Case Management') {
       _canManageOvc = true;
@@ -70,6 +105,11 @@ class CurrentUserState with ChangeNotifier {
       _canManageReferral = true;
       _canManageHivPrevention = true;
       _canManageCLOReferral = true;
+      _canManageGoGirls = true;
+      _canManagePOSTGBV = true;
+      _canManageMSGHIV = true;
+      _canManageIPC = true;
+      _canManageLBSE = true;
     }
     if (implementingPartner == 'CLO') {
       _canManageOvc = true;
@@ -99,5 +139,16 @@ class CurrentUserState with ChangeNotifier {
     _canManageHivReg = false;
     _canManageSrh = false;
     _canManagePrep = false;
+    _canManageMSGHIV = false;
+    _canManageArtRefill = false;
+    _canManagepostGbv = false;
+    _canManageAnc = false;
+    _canManageCondom = false;
+    _canManagePOSTGBV = false;
+    _canManageGoGirls = false;
+    _canManageSteppingStones = false;
+    _canManageIPC = false;
+    _canManageLBSE = false;
+    _canManagePEP = false;
   }
 }

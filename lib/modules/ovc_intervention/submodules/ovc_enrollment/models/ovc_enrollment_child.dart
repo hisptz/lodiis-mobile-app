@@ -112,7 +112,7 @@ class OvcEnrollmentChild {
                       code: 'Double Orphan', name: 'Double Orphan'),
                 ])
           ]),
-      FormSection(name: '', color: Color(0xFF1A3518), inputFields: [
+      FormSection(name: 'Child Vulnerability', color: Color(0xFF1A3518), inputFields: [
         InputField(
             id: 'wmKqYZML8GA',
             name: 'Child living with HIV ?',

@@ -12,7 +12,8 @@ class OvcEnrollmentConsent {
       'gCdkCgKJhng',
       'fxqfSmoLBvT',
       'R026OBBkvLi',
-      'MP7ROUSWfT9'
+      'MP7ROUSWfT9',
+      'sCGr0RTmvJ7'
     ];
   }
 
@@ -23,7 +24,7 @@ class OvcEnrollmentConsent {
             id: 'location',
             name: 'Location',
             valueType: 'ORGANISATION_UNIT',
-            allowedSelectedLevels: [3],
+            allowedSelectedLevels: [3, 4],
             inputColor: Color(0xFF4B9F46),
             labelColor: Color(0xFF737373)),
         InputField(
@@ -75,6 +76,14 @@ class OvcEnrollmentConsent {
             valueType: 'BOOLEAN',
             labelColor: Color(0xFF1A3518),
             inputColor: Color(0xFF4B9F46)),
+      ]),
+      FormSection(name: '', color: Color(0xFF737373), inputFields: [
+        InputField(
+            id: 'sCGr0RTmvJ7',
+            name: 'Are you willing to be among beneficiaries of this program?',
+            valueType: 'BOOLEAN',
+            labelColor: Color(0xFF1A3518),
+            inputColor: Color(0xFF4B9F46))
       ])
     ];
   }

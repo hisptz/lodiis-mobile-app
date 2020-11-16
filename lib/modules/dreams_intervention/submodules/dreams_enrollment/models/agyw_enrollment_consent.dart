@@ -16,7 +16,7 @@ class AgywEnrollmentConcent {
             id: 'location',
             name: 'Location',
             valueType: 'ORGANISATION_UNIT',
-            allowedSelectedLevels: [3],
+            allowedSelectedLevels: [3, 4],
             inputColor: Color(0xFF258DCC),
             labelColor: Color(0xFF737373)),
         InputField(

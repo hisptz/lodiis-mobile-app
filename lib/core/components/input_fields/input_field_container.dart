@@ -146,6 +146,12 @@ class InputFieldContainer extends StatelessWidget {
                 : value;
       } else if (inputField.valueType == 'TRUE_ONLY') {
         value = value == 'true' ? 'Yes' : value;
+      } else if (inputField.valueType == "NUMBER") {
+        value = value == "1"
+            ? 'Yes'
+            : value == "0"
+                ? 'No'
+                : value;
       }
     }
     return Container(

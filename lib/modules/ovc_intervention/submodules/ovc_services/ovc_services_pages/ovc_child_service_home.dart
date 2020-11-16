@@ -119,61 +119,46 @@ class OvcChildServiceHome extends StatelessWidget {
                               crossAxisSpacing: 10.0,
                               shrinkWrap: true,
                               children: ovcChildServiceHomeCards.map(
-                                  (OvcChildServiceHomeContant
-                                      ovcChildServiceHomeCard) {
-                                int countValue =
-                                    getCountValueForOvcServiceChildCard(
-                                  ovcChildServiceHomeCard,
-                                  eventListByProgramStage,
-                                );
-                                return Container(
-                                  alignment: Alignment.center,
-                                  margin: EdgeInsets.all(5.0),
-                                  child: InkWell(
-                                    child: OvcServiceChildCard(
-                                      ovcChildServiceHomeCard:
-                                          ovcChildServiceHomeCard,
-                                      countValue: countValue.toString(),
+                                (OvcChildServiceHomeContant
+                                    ovcChildServiceHomeCard) {
+                                  int countValue =
+                                      getCountValueForOvcServiceChildCard(
+                                    ovcChildServiceHomeCard,
+                                    eventListByProgramStage,
+                                  );
+                                  return Container(
+                                    alignment: Alignment.center,
+                                    margin: EdgeInsets.all(5.0),
+                                    child: InkWell(
+                                      child: OvcServiceChildCard(
+                                        ovcChildServiceHomeCard:
+                                            ovcChildServiceHomeCard,
+                                        countValue: countValue.toString(),
+                                      ),
+                                      onTap: () => ovcChildServiceHomeCard.id ==
+                                              'assessment'
+                                          ? onOpenChildAssessment(context)
+                                          : ovcChildServiceHomeCard.id ==
+                                                  'casePlan'
+                                              ? onOpenChildCasePlan(context)
+                                              : ovcChildServiceHomeCard.id ==
+                                                      'services'
+                                                  ? onOpenChildService(context)
+                                                  : ovcChildServiceHomeCard
+                                                              .id ==
+                                                          'monitor'
+                                                      ? onOpenChildMonitor(
+                                                          context)
+                                                      : null,
                                     ),
-                                    onTap: () => ovcChildServiceHomeCard.id ==
-                                            'assessment'
-                                        ? onOpenChildAssessment(context)
-                                        : ovcChildServiceHomeCard.id ==
-                                                'casePlan'
-                                            ? onOpenChildCasePlan(context)
-                                            : ovcChildServiceHomeCard.id ==
-                                                    'services'
-                                                ? onOpenChildService(context)
-                                                : ovcChildServiceHomeCard.id ==
-                                                        'monitor'
-                                                    ? onOpenChildMonitor(
-                                                        context)
-                                                    : null,
-                                  ),
-                                );
-                              }).toList(),
+                                  );
+                                },
+                              ).toList(),
                             ),
                           );
                   },
                 ),
               ),
-              // Container(
-              //   child: Consumer<ServiveEventDataState>(
-              //     builder: (context, serviveEventDataState, child) {
-              //       bool isLoading = serviveEventDataState.isLoading;
-              //       return Visibility(
-              //         visible: !isLoading,
-              //         child: OvcEnrollmentFormSaveButton(
-              //           label: "GO TO CHILD'S HOUSE HOLD",
-              //           labelColor: Colors.white,
-              //           fontSize: 10,
-              //           buttonColor: Color(0xFF4B9F46),
-              //           onPressButton: () => childHouseHold(),
-              //         ),
-              //       );
-              //     },
-              //   ),
-              // ),
             ],
           ),
         )),
