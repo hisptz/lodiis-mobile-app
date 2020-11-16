@@ -62,7 +62,7 @@ class OgacInterventionFormSection {
             id: 'location',
             name: 'Location',
             valueType: 'ORGANISATION_UNIT',
-            allowedSelectedLevels: [3],
+            allowedSelectedLevels: [3, 4],
             inputColor: Color(0xFFF05A2A),
             labelColor: Color(0xFF737373),
           ),
