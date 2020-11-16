@@ -19,7 +19,7 @@ class OvcEnrollmentBasicInfo {
                   id: 'location',
                   name: 'Location',
                   isReadObly: true,
-                  allowedSelectedLevels: [3],
+                  allowedSelectedLevels: [3, 4],
                   valueType: 'ORGANISATION_UNIT',
                   inputColor: Color(0xFF4B9F46),
                   labelColor: Color(0xFF737373))
@@ -59,7 +59,7 @@ class OvcEnrollmentBasicInfo {
                       inputColor: Color(0xFF4B9F46),
                       labelColor: Color(0xFF737373)),
                   InputField(
-                      id: 'ls9hlz2Ttyol',
+                      id: 'ls9hlz2tyol',
                       name: 'Age',
                       isReadObly: true,
                       valueType: 'NUMBER',
