@@ -1,4 +1,3 @@
-//  final String label = 'HIV Register';
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dream_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
@@ -14,21 +13,22 @@ import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/components/prep_visit_card.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/msg_hiv/constants/msg_hiv_constant.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/msg_hiv/pages/agyw_dreams_msg_hiv_form.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/go_girls/constants/go_girls_constant.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/go_girls/pages/agyw_dreams_go_girls_form.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
 import 'package:provider/provider.dart';
 
-class AgywDreamMSGHIVRegiser extends StatefulWidget {
-  AgywDreamMSGHIVRegiser({Key key}) : super(key: key);
 
+class AgywDreamGoGirls extends StatefulWidget {
+
+  AgywDreamGoGirls({Key key}) : super(key: key);
   @override
-  _AgywDreamMSGHIVRegiserState createState() => _AgywDreamMSGHIVRegiserState();
+  _AgywDreamGoGirlsState createState() => _AgywDreamGoGirlsState();
 }
 
-class _AgywDreamMSGHIVRegiserState extends State<AgywDreamMSGHIVRegiser> {
-  final String label = 'MSGHIV';
-  List<String> programStageids = [MSGHIVConstant.programStage];
+class _AgywDreamGoGirlsState extends State<AgywDreamGoGirls> {
+  final String label = 'Go Girls';
+  List<String> programStageids = [GoGirlsConstant.programStage];
   @override
   void initState() {
     super.initState();
@@ -61,19 +61,19 @@ class _AgywDreamMSGHIVRegiserState extends State<AgywDreamMSGHIVRegiser> {
     Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
         .setCurrentAgywDream(agywDream);
     Navigator.push(context,
-        MaterialPageRoute(builder: (context) => AgywDreamsMSGHIVForm()));
+        MaterialPageRoute(builder: (context) => AgywDreamsGoGirlsForm()));
   }
 
   void onViewPrep(BuildContext context, Events eventdata) {
     updateFormState(context, false, eventdata);
     Navigator.push(context,
-        MaterialPageRoute(builder: (context) => AgywDreamsMSGHIVForm()));
+        MaterialPageRoute(builder: (context) => AgywDreamsGoGirlsForm()));
   }
 
   void onEditPrep(BuildContext context, Events eventdata) {
     updateFormState(context, true, eventdata);
     Navigator.push(context,
-        MaterialPageRoute(builder: (context) => AgywDreamsMSGHIVForm()));
+        MaterialPageRoute(builder: (context) => AgywDreamsGoGirlsForm()));
   }
 
   @override
@@ -126,7 +126,7 @@ class _AgywDreamMSGHIVRegiserState extends State<AgywDreamMSGHIVRegiser> {
                                         ),
                                         child: events.length == 0
                                             ? Text(
-                                                'There is no MSGHIV at a moment')
+                                                'There is no Go Girls at a moment')
                                             : Container(
                                                 margin: EdgeInsets.symmetric(
                                                   vertical: 5.0,
@@ -142,7 +142,7 @@ class _AgywDreamMSGHIVRegiserState extends State<AgywDreamMSGHIVRegiser> {
                                                         bottom: 15.0,
                                                       ),
                                                       child: PrepVisitListCard(
-                                                        visitName: "MSG HIV ",
+                                                        visitName: "Go Girls ",
                                                         onEditPrep: () =>
                                                             onEditPrep(context,
                                                                 eventData),
@@ -159,7 +159,7 @@ class _AgywDreamMSGHIVRegiserState extends State<AgywDreamMSGHIVRegiser> {
                                               ),
                                       ),
                                       OvcEnrollmentFormSaveButton(
-                                          label: 'ADD MSGHIV',
+                                          label: 'ADD Go Girls',
                                           labelColor: Colors.white,
                                           buttonColor: Color(0xFF1F8ECE),
                                           fontSize: 15.0,
