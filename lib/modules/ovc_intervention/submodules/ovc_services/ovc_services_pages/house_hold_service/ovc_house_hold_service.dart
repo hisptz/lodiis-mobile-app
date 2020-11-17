@@ -1,68 +1,101 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_house_hold_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
-import 'package:kb_mobile_app/core/components/material_card.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
+import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/events.dart';
+import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold_top_header.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/house_hold_service/constants/ovc_service_house_hold_constant.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/house_hold_service/pages/ovc_service_house_hold_form.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_caseplan.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/components/services_home_list_container.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/constants/ovc_case_plan_constant.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/house_hold_case_plan/constants/ovc_house_hold_case_plan_constant.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/house_hold_case_plan/pages/household_service_form.dart';
 import 'package:provider/provider.dart';
 
-class OvcHouseHoldService extends StatefulWidget {
-  @override
-  _OvcHouseHoldServiceState createState() => _OvcHouseHoldServiceState();
-}
+class OvcHouseHoldService extends StatelessWidget {
+  final String label = 'Household Service Followup';
 
-class _OvcHouseHoldServiceState extends State<OvcHouseHoldService> {
-  final String label = 'House Hold Services';
-  final double iconHeight = 20;
+  final List<String> casePlanProgramStageIds = [
+    OvcHouseHoldCasePlanConstant.casePlanProgramStage
+  ];
 
-  updateFormState(
+  final List<String> casePlanGapProgramStageIds = [
+    OvcHouseHoldCasePlanConstant.casePlanGapProgramStage
+  ];
+
+  updateformState(
     BuildContext context,
     bool isEditableMode,
-    Events eventData,
+    List<Events> casePlanEvents,
+    Map<String, List<Events>> eventListByProgramStage,
   ) {
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
     Provider.of<ServiceFormState>(context, listen: false)
-        .updateFormEditabilityState(
-      isEditableMode: isEditableMode,
-    );
-    if (eventData != null) {
-      Provider.of<ServiceFormState>(context, listen: false)
-          .setFormFieldState('eventDate', eventData.eventDate);
-      Provider.of<ServiceFormState>(context, listen: false)
-          .setFormFieldState('eventId', eventData.event);
-      for (Map datavalue in eventData.dataValues) {
-        if (datavalue['value'] != '') {
-          Provider.of<ServiceFormState>(context, listen: false)
-              .setFormFieldState(datavalue['dataElement'], datavalue['value']);
-        }
-      }
+        .updateFormEditabilityState(isEditableMode: isEditableMode);
+    Map sanitizedDataObject;
+    if (casePlanEvents != null) {
+      List<Events> casePlanGapsEvents = eventListByProgramStage[
+          OvcHouseHoldCasePlanConstant.casePlanGapProgramStage];
+      sanitizedDataObject =
+          OvcCasePlanConstant.getMappedCasePlanWithGapsByDomain(
+        casePlanEvents,
+        casePlanGapsEvents,
+      );
     }
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => OvcServiceHouseHoldForm()));
+    for (FormSection formSection in OvcServicesCasePlan.getFormSections()) {
+      String formSectionId = formSection.id;
+      String casePlanToGapLinkage = AppUtil.getUid();
+      Map map = sanitizedDataObject != null &&
+              sanitizedDataObject.containsKey(formSectionId)
+          ? sanitizedDataObject[formSectionId]
+          : Map();
+      map['gaps'] = map['gaps'] ?? [];
+      map[OvcCasePlanConstant.casePlanToGapLinkage] =
+          map[OvcCasePlanConstant.casePlanToGapLinkage] ?? casePlanToGapLinkage;
+      map[OvcCasePlanConstant.casePlanGapToFollowinUpLinkage] =
+          map[OvcCasePlanConstant.casePlanGapToFollowinUpLinkage] ??
+              AppUtil.getUid();
+      map[OvcCasePlanConstant.casePlanDomainType] = formSection.id;
+      Provider.of<ServiceFormState>(context, listen: false)
+          .setFormFieldState(formSection.id, map);
+    }
   }
 
-  void onAddNewService(BuildContext context) {
-    updateFormState(context, true, null);
+  isCasePlanExit(Map<String, List<Events>> eventListByProgramStage) {
+    List<Events> events =
+        TrackedEntityInstanceUtil.getAllEventListFromServiceDataState(
+            eventListByProgramStage, casePlanProgramStageIds);
+    Map groupedEventByDates =
+        TrackedEntityInstanceUtil.getGroupedEventByDates(events);
+    String today = AppUtil.formattedDateTimeIntoString(DateTime.now());
+    return groupedEventByDates.keys.toList().indexOf(today) > -1;
   }
 
-  void onViewService(BuildContext context, Events eventData) {
-    updateFormState(context, false, eventData);
-  }
-
-  void onEditService(BuildContext context, Events eventData) {
-    updateFormState(context, true, eventData);
+  void onViewCasePlan(
+    BuildContext context,
+    List<Events> casePlanEvents,
+    Map<String, List<Events>> eventListByProgramStage,
+  ) {
+    bool isEditableMode = false;
+    updateformState(
+        context, isEditableMode, casePlanEvents, eventListByProgramStage);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => HouseHoldServiceForm(
+          shouldViewCaseGapFollowUp: true,
+          shouldEditCaseGapFollowUps: true,
+        ),
+      ),
+    );
   }
 
   @override
@@ -94,174 +127,32 @@ class _OvcHouseHoldServiceState extends State<OvcHouseHoldService> {
                         currentOvcHouseHold: currentOvcHouseHold,
                       ),
                       Container(
-                        margin: EdgeInsets.only(top: 10.0),
                         child: Consumer<ServiveEventDataState>(
                           builder: (context, serviveEventDataState, child) {
                             bool isLoading = serviveEventDataState.isLoading;
                             Map<String, List<Events>> eventListByProgramStage =
                                 serviveEventDataState.eventListByProgramStage;
-                            List<Events> events = TrackedEntityInstanceUtil
-                                .getAllEventListFromServiceDataState(
-                                    eventListByProgramStage,
-                                    [OvcServiceHouseHoldConstant.programStage]);
-                            int serviceIndex = events.length;
                             return isLoading
                                 ? CircularProcessLoader(
                                     color: Colors.blueGrey,
                                   )
                                 : Container(
                                     child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
                                       children: [
-                                        Visibility(
-                                          visible: events.length == 0,
-                                          child: Container(
-                                            child: Text(
-                                                'There is no service provision at moment'),
+                                        ServicesHomeListContainer(
+                                          programStageIds:
+                                              casePlanProgramStageIds,
+                                          onViewCasePlan: (casePlanEvents) =>
+                                              onViewCasePlan(
+                                            context,
+                                            casePlanEvents,
+                                            eventListByProgramStage,
                                           ),
                                         ),
-                                        Container(
-                                          child: Column(
-                                            children:
-                                                events.map((Events eventData) {
-                                              int currentIndex = serviceIndex--;
-                                              return Container(
-                                                margin: EdgeInsets.symmetric(
-                                                  vertical: 5.0,
-                                                  horizontal: 17.0,
-                                                ),
-                                                child: MaterialCard(
-                                                  body: Container(
-                                                    padding:
-                                                        EdgeInsets.symmetric(
-                                                            vertical: 10.0,
-                                                            horizontal: 20.0),
-                                                    child: Column(
-                                                      children: [
-                                                        Row(
-                                                          mainAxisSize:
-                                                              MainAxisSize.min,
-                                                          children: [
-                                                            Container(
-                                                              child: Expanded(
-                                                                child: RichText(
-                                                                  text:
-                                                                      TextSpan(
-                                                                    text:
-                                                                        '${eventData.eventDate}   ',
-                                                                    style: TextStyle()
-                                                                        .copyWith(
-                                                                      color: Color(
-                                                                          0xFF92A791),
-                                                                      fontSize:
-                                                                          12.0,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w700,
-                                                                    ),
-                                                                    children: [
-                                                                      TextSpan(
-                                                                        text:
-                                                                            'Service Provision $currentIndex',
-                                                                        style: TextStyle()
-                                                                            .copyWith(
-                                                                          color:
-                                                                              Color(0xFF1A3518),
-                                                                          fontSize:
-                                                                              14.0,
-                                                                          fontWeight:
-                                                                              FontWeight.w700,
-                                                                        ),
-                                                                      )
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            Container(
-                                                              margin: EdgeInsets
-                                                                  .symmetric(
-                                                                horizontal: 5.0,
-                                                              ),
-                                                              child: InkWell(
-                                                                  onTap: () =>
-                                                                      onViewService(
-                                                                        context,
-                                                                        eventData,
-                                                                      ),
-                                                                  child:
-                                                                      Container(
-                                                                    height:
-                                                                        iconHeight,
-                                                                    width:
-                                                                        iconHeight,
-                                                                    margin: EdgeInsets.symmetric(
-                                                                        vertical:
-                                                                            5,
-                                                                        horizontal:
-                                                                            5),
-                                                                    child: SvgPicture
-                                                                        .asset(
-                                                                      'assets/icons/expand_icon.svg',
-                                                                      color: Color(
-                                                                          0xFF4B9F46),
-                                                                    ),
-                                                                  )),
-                                                            ),
-                                                            Container(
-                                                              margin: EdgeInsets
-                                                                  .symmetric(
-                                                                horizontal: 5.0,
-                                                              ),
-                                                              child: InkWell(
-                                                                  onTap: () =>
-                                                                      onEditService(
-                                                                        context,
-                                                                        eventData,
-                                                                      ),
-                                                                  child:
-                                                                      Container(
-                                                                    height:
-                                                                        iconHeight,
-                                                                    width:
-                                                                        iconHeight,
-                                                                    margin: EdgeInsets.symmetric(
-                                                                        vertical:
-                                                                            5,
-                                                                        horizontal:
-                                                                            5),
-                                                                    child: SvgPicture
-                                                                        .asset(
-                                                                      'assets/icons/edit-icon.svg',
-                                                                      color: Color(
-                                                                          0xFF4B9F46),
-                                                                    ),
-                                                                  )),
-                                                            ),
-                                                          ],
-                                                        )
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ),
-                                              );
-                                            }).toList()
-                                                  ..add(Container(
-                                                    child:
-                                                        OvcEnrollmentFormSaveButton(
-                                                      label:
-                                                          'NEW SERVICE PROVISION',
-                                                      labelColor: Colors.white,
-                                                      fontSize: 10,
-                                                      buttonColor:
-                                                          Color(0xFF4B9F46),
-                                                      onPressButton: () =>
-                                                          onAddNewService(
-                                                        context,
-                                                      ),
-                                                    ),
-                                                  )),
-                                          ),
-                                        )
                                       ],
                                     ),
                                   );
