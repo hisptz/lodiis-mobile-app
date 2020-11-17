@@ -46,7 +46,15 @@ class _NoneAgywState extends State<NoneAgyw> {
 
   @override
   Widget build(BuildContext context) {
-    return DreamsHomeContainer(header: title, bodyContents: _buildBody());
+    return Consumer<DreamsInterventionListState>(
+      builder: (context, dreamInterventionListState, child) {
+        return DreamsHomeContainer(
+          header:
+              '$title : ${dreamInterventionListState.numberOfNoneAgywDreamsBeneficiaries} beneficiaries',
+          bodyContents: _buildBody(),
+        );
+      },
+    );
   }
 
   Widget _buildBody() {

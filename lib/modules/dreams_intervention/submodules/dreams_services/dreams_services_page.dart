@@ -198,7 +198,15 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
 
   @override
   Widget build(BuildContext context) {
-    return DreamsHomeContainer(header: title, bodyContents: _buildBody());
+    return Consumer<DreamsInterventionListState>(
+      builder: (context, dreamInterventionListState, child) {
+        return DreamsHomeContainer(
+          header:
+              '$title : ${dreamInterventionListState.numberOfAgywDreamsBeneficiaries} beneficiaries',
+          bodyContents: _buildBody(),
+        );
+      },
+    );
   }
 
   Widget _buildBody() {

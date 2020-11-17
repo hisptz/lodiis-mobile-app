@@ -7,8 +7,11 @@ class DreamsHomeContainer extends StatelessWidget {
   final String header;
   final Widget bodyContents;
 
-  const DreamsHomeContainer({Key key, this.header, @required this.bodyContents})
-      : super(key: key);
+  const DreamsHomeContainer({
+    Key key,
+    this.header,
+    @required this.bodyContents,
+  }) : super(key: key);
 
   @override
   Widget build(
