@@ -3,11 +3,11 @@ import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_car
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:provider/provider.dart';
 
-class DreamsHomeContainer extends StatelessWidget {
+class SubModuleHomeContainer extends StatelessWidget {
   final String header;
   final Widget bodyContents;
 
-  const DreamsHomeContainer({
+  const SubModuleHomeContainer({
     Key key,
     this.header,
     @required this.bodyContents,
