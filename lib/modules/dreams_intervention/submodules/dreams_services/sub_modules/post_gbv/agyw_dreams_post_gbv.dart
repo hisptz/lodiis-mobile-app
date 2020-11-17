@@ -14,21 +14,21 @@ import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/components/prep_visit_card.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/msg_hiv/constants/msg_hiv_constant.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/msg_hiv/pages/agyw_dreams_msg_hiv_form.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/post_gbv/constants/msg_hiv_constant.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/post_gbv/pages/agyw_dreams_post_gbv_form.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
 import 'package:provider/provider.dart';
 
-class AgywDreamMSGHIVRegiser extends StatefulWidget {
-  AgywDreamMSGHIVRegiser({Key key}) : super(key: key);
+class AgywDreamPostGBV extends StatefulWidget {
+  AgywDreamPostGBV({Key key}) : super(key: key);
 
   @override
-  _AgywDreamMSGHIVRegiserState createState() => _AgywDreamMSGHIVRegiserState();
+  _AgywDreamPostGBVState createState() => _AgywDreamPostGBVState();
 }
 
-class _AgywDreamMSGHIVRegiserState extends State<AgywDreamMSGHIVRegiser> {
-  final String label = 'MSGHIV';
-  List<String> programStageids = [MSGHIVConstant.programStage];
+class _AgywDreamPostGBVState extends State<AgywDreamPostGBV> {
+  final String label = 'POST GBV';
+  List<String> programStageids = [PostGBVConstant.programStage];
   @override
   void initState() {
     super.initState();
@@ -61,19 +61,19 @@ class _AgywDreamMSGHIVRegiserState extends State<AgywDreamMSGHIVRegiser> {
     Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
         .setCurrentAgywDream(agywDream);
     Navigator.push(context,
-        MaterialPageRoute(builder: (context) => AgywDreamsMSGHIVForm()));
+        MaterialPageRoute(builder: (context) => AgywDreamsPostGBVForm()));
   }
 
   void onViewPrep(BuildContext context, Events eventdata) {
     updateFormState(context, false, eventdata);
     Navigator.push(context,
-        MaterialPageRoute(builder: (context) => AgywDreamsMSGHIVForm()));
+        MaterialPageRoute(builder: (context) => AgywDreamsPostGBVForm()));
   }
 
   void onEditPrep(BuildContext context, Events eventdata) {
     updateFormState(context, true, eventdata);
     Navigator.push(context,
-        MaterialPageRoute(builder: (context) => AgywDreamsMSGHIVForm()));
+        MaterialPageRoute(builder: (context) => AgywDreamsPostGBVForm()));
   }
 
   @override
@@ -126,7 +126,7 @@ class _AgywDreamMSGHIVRegiserState extends State<AgywDreamMSGHIVRegiser> {
                                         ),
                                         child: events.length == 0
                                             ? Text(
-                                                'There is no MSGHIV at a moment')
+                                                'There is no POST_GBV at a moment')
                                             : Container(
                                                 margin: EdgeInsets.symmetric(
                                                   vertical: 5.0,
@@ -142,7 +142,7 @@ class _AgywDreamMSGHIVRegiserState extends State<AgywDreamMSGHIVRegiser> {
                                                         bottom: 15.0,
                                                       ),
                                                       child: PrepVisitListCard(
-                                                        visitName: "MSG HIV ",
+                                                        visitName: "POST GBV ",
                                                         onEditPrep: () =>
                                                             onEditPrep(context,
                                                                 eventData),
@@ -159,7 +159,7 @@ class _AgywDreamMSGHIVRegiserState extends State<AgywDreamMSGHIVRegiser> {
                                               ),
                                       ),
                                       OvcEnrollmentFormSaveButton(
-                                          label: 'ADD MSGHIV',
+                                          label: 'ADD POST_GBV',
                                           labelColor: Colors.white,
                                           buttonColor: Color(0xFF1F8ECE),
                                           fontSize: 15.0,

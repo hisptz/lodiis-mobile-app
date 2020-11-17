@@ -16,22 +16,21 @@ import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/dreams_service_msg_hiv_form_info.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hiv_reg/skip_logics/agyw_dreams_hiv_register_skip_logic.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/msg_hiv/constants/msg_hiv_constant.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/msg_hiv/skip_logics/agyw_dreams_msg_hiv_skip_logic.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/dreams_service_art_refill_form_info.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/art_refill/constants/art_refill_constant.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/art_refill/skip_logics/agyw_dreams_art_refill_skip_logic.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
 import 'package:provider/provider.dart';
 
-class AgywDreamsMSGHIVForm extends StatefulWidget {
-  AgywDreamsMSGHIVForm({Key key}) : super(key: key);
+class AgywDreamsARTRefillForm extends StatefulWidget {
+  AgywDreamsARTRefillForm({Key key}) : super(key: key);
 
   @override
-  _AgywDreamsMSGHIVFormState createState() => _AgywDreamsMSGHIVFormState();
+  _AgywDreamsARTRefillFormState createState() => _AgywDreamsARTRefillFormState();
 }
 
-class _AgywDreamsMSGHIVFormState extends State<AgywDreamsMSGHIVForm> {
-  final String label = 'MSG HIV  form';
+class _AgywDreamsARTRefillFormState extends State<AgywDreamsARTRefillForm> {
+  final String label = 'ART RE-fill form';
   List<FormSection> formSections;
   bool isFormReady = false;
   bool isSaving = false;
@@ -39,7 +38,7 @@ class _AgywDreamsMSGHIVFormState extends State<AgywDreamsMSGHIVForm> {
   @override
   void initState() {
     super.initState();
-    formSections = DreamsMsgHivInfo.getFormSections();
+    formSections = DreamsARTRefillInfo.getFormSections();
     Timer(Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
@@ -54,7 +53,7 @@ class _AgywDreamsMSGHIVFormState extends State<AgywDreamsMSGHIVForm> {
       () async {
         Map dataObject =
             Provider.of<ServiceFormState>(context, listen: false).formState;
-        await AgywDreamsMSGHIVSkipLogic.evaluateSkipLogics(
+        await AgywDreamsArtReFillSkipLogic.evaluateSkipLogics(
           context,
           formSections,
           dataObject,
@@ -80,8 +79,8 @@ class _AgywDreamsMSGHIVFormState extends State<AgywDreamsMSGHIVForm> {
       List<String> hiddenFields = [];
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-            MSGHIVConstant.program,
-            MSGHIVConstant.programStage,
+            ARTRefillConstant.program,
+            ARTRefillConstant.programStage,
             agywDream.orgUnit,
             formSections,
             dataObject,

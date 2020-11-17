@@ -16,22 +16,20 @@ import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/dreams_service_msg_hiv_form_info.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hiv_reg/skip_logics/agyw_dreams_hiv_register_skip_logic.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/msg_hiv/constants/msg_hiv_constant.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/msg_hiv/skip_logics/agyw_dreams_msg_hiv_skip_logic.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/dreams_service_condom_form_info.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/condom/constants/msg_hiv_constant.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/condom/skip_logics/agyw_dreams_condom_skip_logic.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
 import 'package:provider/provider.dart';
 
-class AgywDreamsMSGHIVForm extends StatefulWidget {
-  AgywDreamsMSGHIVForm({Key key}) : super(key: key);
-
+class AgywDreamsCondomForm extends StatefulWidget {
+  AgywDreamsCondomForm({Key key}) : super(key: key);
   @override
-  _AgywDreamsMSGHIVFormState createState() => _AgywDreamsMSGHIVFormState();
+  _AgywDreamsCondomFormState createState() => _AgywDreamsCondomFormState();
 }
 
-class _AgywDreamsMSGHIVFormState extends State<AgywDreamsMSGHIVForm> {
-  final String label = 'MSG HIV  form';
+class _AgywDreamsCondomFormState extends State<AgywDreamsCondomForm> {
+  final String label = 'Contraceptives(Condoms) form';
   List<FormSection> formSections;
   bool isFormReady = false;
   bool isSaving = false;
@@ -39,7 +37,7 @@ class _AgywDreamsMSGHIVFormState extends State<AgywDreamsMSGHIVForm> {
   @override
   void initState() {
     super.initState();
-    formSections = DreamsMsgHivInfo.getFormSections();
+    formSections = DreamsCondomnfo.getFormSections();
     Timer(Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
@@ -54,7 +52,7 @@ class _AgywDreamsMSGHIVFormState extends State<AgywDreamsMSGHIVForm> {
       () async {
         Map dataObject =
             Provider.of<ServiceFormState>(context, listen: false).formState;
-        await AgywDreamsMSGHIVSkipLogic.evaluateSkipLogics(
+        await AgywDreamsCondomSkipLogic.evaluateSkipLogics(
           context,
           formSections,
           dataObject,
@@ -80,8 +78,8 @@ class _AgywDreamsMSGHIVFormState extends State<AgywDreamsMSGHIVForm> {
       List<String> hiddenFields = [];
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-            MSGHIVConstant.program,
-            MSGHIVConstant.programStage,
+            CondomConstant.program,
+            CondomConstant.programStage,
             agywDream.orgUnit,
             formSections,
             dataObject,
