@@ -22,7 +22,7 @@ class OgacBeneficiaryCard extends StatelessWidget {
     return Container(
       margin: EdgeInsets.symmetric(
         vertical: 5.0,
-        horizontal: 20.0,
+        horizontal: 15.0,
       ),
       child: MaterialCard(
         body: Container(

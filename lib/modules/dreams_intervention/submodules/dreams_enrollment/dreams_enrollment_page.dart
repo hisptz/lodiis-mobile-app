@@ -4,7 +4,7 @@ import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_card_body.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_card.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_home_container.dart';
+import 'package:kb_mobile_app/core/components/sub_module_home_container.dart';
 import 'package:provider/provider.dart';
 
 class DreamsEnrollmentPage extends StatefulWidget {
@@ -32,7 +32,7 @@ class _DreamsEnrollmentPageState extends State<DreamsEnrollmentPage> {
   Widget build(BuildContext context) {
     return Consumer<DreamsInterventionListState>(
       builder: (context, dreamInterventionListState, child) {
-        return DreamsHomeContainer(
+        return SubModuleHomeContainer(
           header:
               '$title : ${dreamInterventionListState.numberOfAgywDreamsBeneficiaries} beneficiaries',
           bodyContents: _buildBody(),

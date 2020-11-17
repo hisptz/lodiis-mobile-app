@@ -7,7 +7,7 @@ import 'package:kb_mobile_app/core/components/line_seperator.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_card_body.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_card.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_home_container.dart';
+import 'package:kb_mobile_app/core/components/sub_module_home_container.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/sub_pages/none_agyw_prep/none_agyw_prep.dart';
 import 'package:provider/provider.dart';
 
@@ -48,7 +48,7 @@ class _NoneAgywState extends State<NoneAgyw> {
   Widget build(BuildContext context) {
     return Consumer<DreamsInterventionListState>(
       builder: (context, dreamInterventionListState, child) {
-        return DreamsHomeContainer(
+        return SubModuleHomeContainer(
           header:
               '$title : ${dreamInterventionListState.numberOfNoneAgywDreamsBeneficiaries} beneficiaries',
           bodyContents: _buildBody(),
