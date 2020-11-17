@@ -136,7 +136,7 @@ class CurrentUserState with ChangeNotifier {
     _currentUser = user;
     String implementingPartner = user.implementingPartner;
     updateUserAccessStatus(implementingPartner);
-    notifyListeners();
+    setCurrentUserLocation();
   }
 
   void setCurrentUserLocation() async {
