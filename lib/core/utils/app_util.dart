@@ -44,7 +44,7 @@ class AppUtil {
   }
 
   static String formattedDateTimeIntoString(DateTime date) {
-    return date.toIso8601String().split('T')[0];
+    return date.toIso8601String().split('T')[0].trim();
   }
 
   static DateTime getDateIntoDateTimeFormat(String date) {

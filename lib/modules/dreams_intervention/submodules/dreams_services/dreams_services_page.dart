@@ -7,7 +7,7 @@ import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_card_body.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_card.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_home_container.dart';
+import 'package:kb_mobile_app/core/components/sub_module_home_container.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/components/service_card_botton_action.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/anc/agyw_dreams_anc.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/art_refill/agyw_dreams_art_refill.dart';
@@ -198,7 +198,15 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
 
   @override
   Widget build(BuildContext context) {
-    return DreamsHomeContainer(header: title, bodyContents: _buildBody());
+    return Consumer<DreamsInterventionListState>(
+      builder: (context, dreamInterventionListState, child) {
+        return SubModuleHomeContainer(
+          header:
+              '$title : ${dreamInterventionListState.numberOfAgywDreamsBeneficiaries} beneficiaries',
+          bodyContents: _buildBody(),
+        );
+      },
+    );
   }
 
   Widget _buildBody() {

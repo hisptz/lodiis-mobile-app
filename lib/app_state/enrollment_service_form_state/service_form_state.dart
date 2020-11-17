@@ -37,7 +37,7 @@ class ServiceFormState with ChangeNotifier {
   }
 
   void setFormFieldState(String id, dynamic value) {
-    _formState[id] = value;
+    _formState[id] = value ?? '';
     notifyListeners();
   }
 }

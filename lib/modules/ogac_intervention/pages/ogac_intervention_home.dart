@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
 import 'package:kb_mobile_app/app_state/ogac_intervention_list_state/ogac_intervention_list_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
+import 'package:kb_mobile_app/core/components/sub_module_home_container.dart';
 import 'package:kb_mobile_app/models/ogac_beneficiary.dart';
 import 'package:kb_mobile_app/modules/ogac_intervention/components/ogac_beneficiary_card.dart';
 import 'package:kb_mobile_app/modules/ogac_intervention/pages/ogac_enrollment_form.dart';
@@ -11,6 +12,8 @@ class OgacInterventionHome extends StatelessWidget {
   const OgacInterventionHome({
     Key key,
   }) : super(key: key);
+
+  final String title = 'OGAC List';
 
   void onUpdateFormState(
     BuildContext context,
@@ -75,6 +78,18 @@ class OgacInterventionHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return Consumer<OgacInterventionListState>(
+      builder: (context, dreamInterventionListState, child) {
+        return SubModuleHomeContainer(
+          header:
+              '$title : ${dreamInterventionListState.numberOfOgac} beneficiaries',
+          bodyContents: _buildBody(),
+        );
+      },
+    );
+  }
+
+  SingleChildScrollView _buildBody() {
     return SingleChildScrollView(
       child: Container(
         child: Consumer<OgacInterventionListState>(
@@ -91,12 +106,14 @@ class OgacInterventionHome extends StatelessWidget {
                       ),
                     )
                   : Container(
-                      margin: EdgeInsets.only(top: 16.0),
+                      margin: EdgeInsets.only(top: 10.0),
                       child: ogacBeneficaries.length == 0
-                          ? Container(
-                              margin: EdgeInsets.only(top: 10.0),
-                              child: Text(
-                                'There is no ogac beneficiaries enrolled at moment',
+                          ? Center(
+                              child: Container(
+                                margin: EdgeInsets.only(top: 10.0),
+                                child: Text(
+                                  'There is no ogac beneficiaries enrolled at moment',
+                                ),
                               ),
                             )
                           : Column(
