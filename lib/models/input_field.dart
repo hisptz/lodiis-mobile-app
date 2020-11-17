@@ -10,7 +10,7 @@ class InputField {
   Color inputColor;
   Color background;
   bool renderAsRadio;
-  bool isReadObly;
+  bool isReadOnly;
   bool allowFuturePeriod;
   List<InputFieldOption> options;
   bool hasSubInputField;
@@ -27,7 +27,7 @@ class InputField {
     this.labelColor,
     this.background,
     this.renderAsRadio,
-    this.isReadObly,
+    this.isReadOnly,
     this.options,
     this.subInputField,
     this.allowedSelectedLevels,
@@ -35,7 +35,7 @@ class InputField {
   }) {
     this.allowedSelectedLevels = this.allowedSelectedLevels ?? [];
     this.allowFuturePeriod = this.allowFuturePeriod ?? false;
-    this.isReadObly = this.isReadObly ?? false;
+    this.isReadOnly = this.isReadOnly ?? false;
     this.description = this.description ?? '';
     this.hasSubInputField = this.hasSubInputField ?? false;
     this.renderAsRadio = this.renderAsRadio ?? false;
@@ -47,6 +47,6 @@ class InputField {
 
   @override
   String toString() {
-    return '$id - $name - $isReadObly';
+    return '$id - $name - $isReadOnly';
   }
 }
