@@ -102,7 +102,7 @@ class OvcHouseHoldCasePlanHome extends StatelessWidget {
     List<Events> casePlanEvents,
     Map<String, List<Events>> eventListByProgramStage,
   ) {
-    bool isEditableMode = false;
+    bool isEditableMode = true;
     updateformState(
         context, isEditableMode, casePlanEvents, eventListByProgramStage);
     Navigator.push(
