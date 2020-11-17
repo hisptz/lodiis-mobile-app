@@ -7,7 +7,7 @@ import 'package:kb_mobile_app/models/organisation_unit.dart';
 
 class OrganisationUnitService {
   List<OrganisationUnit> organisations = [];
-  Future<dynamic> organisationUnitGetRequest() async {
+  Future<dynamic> discoveringOrgananisationUnitsFromTheServer() async {
     List<OrganisationUnit> organisationUnitList = [];
     var url =
         "api/organisationUnits.json?fields=id,name,code,programs,parent[id,code],level,children[id]&paging=false";

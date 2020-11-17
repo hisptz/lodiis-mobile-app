@@ -1,9 +1,12 @@
 import 'package:flutter/foundation.dart';
+import 'package:kb_mobile_app/core/services/organisation_unit_service.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
+import 'package:kb_mobile_app/models/organisation_unit.dart';
 
 class CurrentUserState with ChangeNotifier {
   // initiat state
   CurrentUser _currentUser;
+  String _currentUserLocations;
   bool _canManageDreams;
   bool _canManageOGAC;
   bool _canManageOvc;
@@ -27,6 +30,7 @@ class CurrentUserState with ChangeNotifier {
 
   // selectors
   CurrentUser get currentUser => _currentUser;
+  String get currentUserLocations => _currentUserLocations ?? '';
   bool get canManageDreams => _canManageDreams ?? false;
   bool get canManageOGAC => _canManageOGAC ?? false;
   bool get canManageOvc => _canManageOvc ?? false;
@@ -132,6 +136,21 @@ class CurrentUserState with ChangeNotifier {
     _currentUser = user;
     String implementingPartner = user.implementingPartner;
     updateUserAccessStatus(implementingPartner);
+    notifyListeners();
+  }
+
+  void setCurrentUserLocation() async {
+    String locations = '';
+    if (_currentUser != null && _currentUser.userOrgUnitIds != null) {
+      List<OrganisationUnit> organisationUnits = await OrganisationUnitService()
+          .getOrganisationUnits(_currentUser.userOrgUnitIds);
+      locations = organisationUnits
+          .map((OrganisationUnit organisationUnit) =>
+              organisationUnit.name ?? '')
+          .toList()
+          .join(', ');
+    }
+    _currentUserLocations = locations;
     notifyListeners();
   }
 
