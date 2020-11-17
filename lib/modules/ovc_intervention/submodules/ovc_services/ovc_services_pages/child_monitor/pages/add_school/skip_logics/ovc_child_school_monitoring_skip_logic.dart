@@ -18,7 +18,19 @@ class OvcChildSchoolMonitoringSkipLogic {
     List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections);
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
-      print(value);
+
+      //Domain Schooled
+      if (inputFieldId == 'Uw2Z1XNFgXI' && value != 'true') {
+        hiddenFields['yYuNppDTRji'] = true;
+        hiddenFields['t6kN1SwgMSs'] = true;
+      }
+      if (inputFieldId == 'Uw2Z1XNFgXI' && value != 'false') {
+        hiddenFields['vigylZN5Wjz'] = true;
+      }
+
+      if (inputFieldId == 'O8VSN74kSJx' && value != 'true'){
+        hiddenFields['na5YEZYwY0l'] = true;
+      }
     }
     for (String sectionId in hiddenSections.keys) {
       List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections
