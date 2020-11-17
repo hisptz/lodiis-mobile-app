@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_house_hold_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
@@ -13,15 +12,12 @@ import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold_top_header.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_caseplan.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/components/case_plan_home_list_container.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/components/services_home_list_container.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/constants/ovc_case_plan_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/house_hold_case_plan/constants/ovc_house_hold_case_plan_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/house_hold_case_plan/pages/household_service_form.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/house_hold_case_plan/pages/ovc_house_hold_case_plan_form.dart';
 import 'package:provider/provider.dart';
 
 class OvcHouseHoldService extends StatelessWidget {
@@ -82,40 +78,6 @@ class OvcHouseHoldService extends StatelessWidget {
     String today = AppUtil.formattedDateTimeIntoString(DateTime.now());
     return groupedEventByDates.keys.toList().indexOf(today) > -1;
   }
-
-  // void onAddNewCasePlan(
-  //   BuildContext context,
-  //   Map<String, List<Events>> eventListByProgramStage,
-  // ) {
-  //   bool isEditableMode = true;
-  //   if (isCasePlanExit(eventListByProgramStage)) {
-  //     AppUtil.showToastMessage(
-  //         message: 'There is exiting case plan that has already created',
-  //         position: ToastGravity.TOP);
-  //   } else {
-  //     updateformState(context, isEditableMode, null, eventListByProgramStage);
-  //     Navigator.push(context,
-  //         MaterialPageRoute(builder: (context) => OvcHouseHoldCasePlanForm()));
-  //   }
-  // }
-
-  // void onEditCasePlan(
-  //   BuildContext context,
-  //   List<Events> casePlanEvents,
-  //   Map<String, List<Events>> eventListByProgramStage,
-  // ) {
-  //   bool isEditableMode = true;
-  //   updateformState(
-  //       context, isEditableMode, casePlanEvents, eventListByProgramStage);
-  //   Navigator.push(
-  //     context,
-  //     MaterialPageRoute(
-  //       builder: (context) => OvcHouseHoldCasePlanForm(
-  //         shouldEditCaseGapFollowUps: true,
-  //       ),
-  //     ),
-  //   );
-  // }
 
   void onViewCasePlan(
     BuildContext context,
@@ -184,12 +146,6 @@ class OvcHouseHoldService extends StatelessWidget {
                                         ServicesHomeListContainer(
                                           programStageIds:
                                               casePlanProgramStageIds,
-                                          // onEditCasePlan: (casePlanEvents) =>
-                                          //     onEditCasePlan(
-                                          //   context,
-                                          //   casePlanEvents,
-                                          //   eventListByProgramStage,
-                                          // ),
                                           onViewCasePlan: (casePlanEvents) =>
                                               onViewCasePlan(
                                             context,
@@ -197,21 +153,6 @@ class OvcHouseHoldService extends StatelessWidget {
                                             eventListByProgramStage,
                                           ),
                                         ),
-                                        // Container(
-                                        //   child: Visibility(
-                                        //     visible: !isLoading,
-                                        //     child: OvcEnrollmentFormSaveButton(
-                                        //         label: 'NEW CASEPLAN',
-                                        //         labelColor: Colors.white,
-                                        //         fontSize: 10,
-                                        //         buttonColor: Color(0xFF4B9F46),
-                                        //         onPressButton: () =>
-                                        //             onAddNewCasePlan(
-                                        //               context,
-                                        //               eventListByProgramStage,
-                                        //             )),
-                                        //   ),
-                                        // ),
                                       ],
                                     ),
                                   );
