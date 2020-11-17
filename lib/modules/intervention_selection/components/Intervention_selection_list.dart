@@ -65,20 +65,22 @@ class _InterventionSelectionListState extends State<InterventionSelectionList> {
           }
           return Column(
             children: interventionPrograms
-                .map((InterventionCard interventionProgram) => GestureDetector(
-                      onTap: () => setSelectedCard(interventionProgram),
-                      child: InterventionSelectionCard(
-                        interventionProgram: interventionProgram,
-                        interventionProgramId: interventionProgramId,
-                        numberOfAgywDreamsBeneficiaries:
-                            widget.numberOfAgywDreamsBeneficiaries,
-                        numberOfNoneAgywDreamsBeneficiaries:
-                            widget.numberOfNoneAgywDreamsBeneficiaries,
-                        numberOfHouseHolds: widget.numberOfHouseHolds,
-                        numberOfOvcs: widget.numberOfOvcs,
-                        numberOfOgac: widget.numberOfOgac,
-                      ),
-                    ))
+                .map(
+                  (InterventionCard interventionProgram) => GestureDetector(
+                    onTap: () => setSelectedCard(interventionProgram),
+                    child: InterventionSelectionCard(
+                      interventionProgram: interventionProgram,
+                      interventionProgramId: interventionProgramId,
+                      numberOfAgywDreamsBeneficiaries:
+                          widget.numberOfAgywDreamsBeneficiaries,
+                      numberOfNoneAgywDreamsBeneficiaries:
+                          widget.numberOfNoneAgywDreamsBeneficiaries,
+                      numberOfHouseHolds: widget.numberOfHouseHolds,
+                      numberOfOvcs: widget.numberOfOvcs,
+                      numberOfOgac: widget.numberOfOgac,
+                    ),
+                  ),
+                )
                 .toList(),
           );
         },

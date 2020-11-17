@@ -71,7 +71,8 @@ class _LoginFormState extends State<LoginForm> {
         await UserService().setCurrentUser(user);
         Provider.of<CurrentUserState>(context, listen: false)
             .setCurrentUser(user);
-        await OrganisationUnitService().organisationUnitGetRequest();
+        await OrganisationUnitService()
+            .discoveringOrgananisationUnitsFromTheServer();
         Timer(Duration(seconds: 2), () {
           Navigator.pushReplacement(
                   context,
