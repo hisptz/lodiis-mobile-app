@@ -4,7 +4,7 @@ import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:provider/provider.dart';
 
-class AgywDreamsSrhSkipLogic {
+class AgywDreamsHTCIndexFolloUpLogic {
   static Map hiddenFields = Map();
   static Map hiddenSections = Map();
 
@@ -25,22 +25,8 @@ class AgywDreamsSrhSkipLogic {
         hiddenFields['kV6uCz4uLLR'] = true;
          hiddenFields['rE25suIpzDK'] = true;
       }
-      if (inputFieldId == 'rE25suIpzDK' && value != 'false') {
-        hiddenFields['UZxZebenwuv'] = true;
-        hiddenFields['aHpvyQyfyBM'] = true;
-      }
-
-       if (inputFieldId == 'C2k7GxU3P5C' && value != 'true') {
-        hiddenFields['aYeHcF3793X'] = true;
-              }  
-
-          if (inputFieldId == 'ukzLG0l63tw' && value != 'Other') {
-        hiddenFields['uLV0xy0iihA'] = true;
-              } 
-
-       if (inputFieldId == 'BXW4IP4Lfe7' && value != 'Other') {
-        hiddenFields['Sj45q8zEcqx'] = true;
-              } 
+     
+ 
     }
     for (String sectionId in hiddenSections.keys) {
       List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections
