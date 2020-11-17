@@ -22,9 +22,56 @@ class AgywDreamsEnrollmentSkipLogic {
       if (inputFieldId == 'qZP982qpSPS') {
         int age = AppUtil.getAgeInYear(value);
         assignInputFieldValue(context, 'ls9hlz2tyol', age.toString());
+        if (age >= 9 && age < 14) {
+          hiddenFields['bkpG276xEk9'] = true;
+        }
+        if (age >= 20 && age < 24) {
+          hiddenFields['fSQY2z3L0lp'] = true;
+          hiddenFields['Z7PTcgqwCLu'] = true;
+          hiddenFields['FuYyLjYxxkg'] = true;
+        }
       }
       if (inputFieldId == 'oEbOkfQY3NP' && value != 'Other') {
         hiddenFields['ODMyZc2F7uc'] = true;
+      }
+      if (inputFieldId == 'qTZtbRWe1Hb' && value != 'true') {
+        hiddenFields['TJ5KB6GfZX4'] = true;
+      }
+      if (inputFieldId == 'Z7PTcgqwCLu' && value != 'true') {
+        hiddenFields['FuYyLjYxxkg'] = true;
+      }
+      if (inputFieldId == 'rsi08hlOFm8' && value != 'true') {
+        hiddenFields['yU4tNjFpQIq'] = true;
+        hiddenFields['zsivYH5qkho'] = true;
+      }
+      if (inputFieldId == 'fSQY2z3L0lp' && value != 'true') {
+        hiddenFields['UzQ533pOnvt'] = true;
+        hiddenFields['S4yWgL2zp2I'] = true;
+        hiddenFields['bkpG276xEk9'] = true;
+      }
+      if (inputFieldId == 'T3i6bQ3tCaA' && value != 'true') {
+        hiddenFields['UzQ533pOnvt'] = true;
+        hiddenFields['q8qPtzanSTU'] = true;
+        hiddenFields['ojCwZf1iHOE'] = true;
+        hiddenFields['fyIUCi5EUtp'] = true;
+        hiddenFields['r0rKJA911ma'] = true;
+        hiddenFields['VsqV6prIfm9'] = true;
+        hiddenFields['NhBs8uAiRPt'] = true;
+        hiddenFields['LNaNh7kvh4X'] = true;
+        hiddenFields['VomsiFza9mn'] = true;
+      }
+      if (inputFieldId == 'fyIUCi5EUtp' && value != 'true') {
+        hiddenFields['x9CWVcy9CZ2'] = true;
+      }
+      if (inputFieldId == 'LNaNh7kvh4X' && value != 'true') {
+        hiddenFields['wGFmu7DhNGV'] = true;
+      }
+      if (inputFieldId == 'wGFmu7DhNGV' && value != 'true') {
+        hiddenFields['G1s75wng5DY'] = true;
+      }
+      if (inputFieldId == 'bkpG276xEk9' && value != 'true') {
+        hiddenFields['afatGR9sy5Q'] = true;
+        hiddenFields['yCmbCOTbH3R'] = true;
       }
       if (inputFieldId == 'fEHah8SvP35' && value != 'true') {
         hiddenFields['uSxDP43mFEG'] = true;
