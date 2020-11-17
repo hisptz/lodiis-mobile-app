@@ -18,7 +18,24 @@ class AgywDreamsPrepSkipLogic {
     List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections);
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
-      print(value);
+      if (inputFieldId == 'Jhp451oeYyB' && value != 'true') {
+        hiddenFields['p9AA21uFn2n'] = true;
+        hiddenFields['Y0QGNDBCEbz'] = true;
+      }
+      if (inputFieldId == 'IrJBisQbxi6' && value != 'true') {
+        hiddenFields['XnVcJkyoobx'] = true;
+        hiddenFields['sUyz3SX93IM'] = true;
+      }
+      if (inputFieldId == 'kQULFUqgab0' && value != '1') {
+        hiddenFields['WsZMwXWcHly'] = true;
+      }
+      if ((inputFieldId == 'Syuc71VFOuO' && value != '1') && dataObject['meLwdeoU4Ei'] != '1') {
+        hiddenFields['zs5TJVoHg9j'] = true;
+      }
+      if ((inputFieldId == 'meLwdeoU4Ei' && value != '1') && dataObject['Syuc71VFOuO'] != '1') {
+        hiddenFields['zs5TJVoHg9j'] = true;
+      }
+
     }
     for (String sectionId in hiddenSections.keys) {
       List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections
