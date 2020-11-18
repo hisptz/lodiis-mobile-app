@@ -10,6 +10,7 @@ import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/ovc_referral_pages/ovc_house_referral_pages/skip_logics/ovc_referral_outcome.dart';
 import 'package:provider/provider.dart';
 
 class ReferralOutcomeModal extends StatefulWidget {
@@ -40,14 +41,34 @@ class _ReferralOutcomeModalState extends State<ReferralOutcomeModal> {
   void initState() {
     super.initState();
     Timer(Duration(seconds: 1), () {
-      isFormReady = true;
-      setState(() {});
+
+      setState(() {
+        isFormReady = true;
+        evaluateSkipLogics();
+      });
     });
   }
+
+  evaluateSkipLogics() {
+    Timer(
+      Duration(milliseconds: 200),
+          () async {
+        Map dataObject =
+            Provider.of<ServiceFormState>(context, listen: false).formState;
+        await OvcReferralOutcomeSkipLogic.evaluateSkipLogics(
+          context,
+          widget.referralOutcomeFormSections,
+          dataObject,
+        );
+      },
+    );
+  }
+
 
   void onInputValueChange(String id, dynamic value) {
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState(id, value);
+    evaluateSkipLogics();
   }
 
   void onSaveForm(
@@ -129,6 +150,8 @@ class _ReferralOutcomeModalState extends State<ReferralOutcomeModal> {
                     right: 13.0,
                   ),
                   child: EntryFormContainer(
+                    hiddenSections: serviceFormState.hiddenSections,
+                    hiddenFields: serviceFormState.hiddenFields,
                     elevation: 0.0,
                     formSections: widget.referralOutcomeFormSections,
                     mandatoryFieldObject: Map(),
