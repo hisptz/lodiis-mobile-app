@@ -55,10 +55,6 @@ class _DreamsInterventionState extends State<DreamsIntervention> {
     print('on onClickHome');
   }
 
-  void onSearch() {
-    print('on onSearch');
-  }
-
   void onAddNoneAgywBeneficiary(BuildContext context) {
     Provider.of<EnrollmentFormState>(context, listen: false).resetFormState();
     Navigator.push(context, MaterialPageRoute(
@@ -90,7 +86,6 @@ class _DreamsInterventionState extends State<DreamsIntervention> {
               return InterventionAppBar(
                 activeInterventionProgram: activeInterventionProgram,
                 onClickHome: onClickHome,
-                onSearch: onSearch,
                 onAddAgywBeneficiary: () => onAddAgywBeneficiary(context),
                 onAddNoneAgywBeneficiary: () =>
                     onAddNoneAgywBeneficiary(context),

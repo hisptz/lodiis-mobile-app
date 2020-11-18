@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
+import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_card_body.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_card.dart';
 import 'package:kb_mobile_app/core/components/sub_module_home_container.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/pages/agyw_dreams_consent.dart';
 import 'package:provider/provider.dart';
 
 class DreamsEnrollmentPage extends StatefulWidget {
@@ -26,6 +29,15 @@ class _DreamsEnrollmentPageState extends State<DreamsEnrollmentPage> {
     setState(() {
       toggleCardId = canExpand && cardId != toggleCardId ? cardId : '';
     });
+  }
+
+  void onAddAgywBeneficiary(BuildContext context) {
+    Provider.of<EnrollmentFormState>(context, listen: false).resetFormState();
+    Navigator.push(context, MaterialPageRoute(
+      builder: (context) {
+        return AgywDreamsConsentForm();
+      },
+    ));
   }
 
   @override
@@ -59,8 +71,24 @@ class _DreamsEnrollmentPageState extends State<DreamsEnrollmentPage> {
                   margin: EdgeInsets.only(top: 16.0),
                   child: agywDreamsInterventionList.length == 0
                       ? Center(
-                          child:
-                              Text('There is no beneficiary list at a moment'),
+                          child: Column(
+                            children: [
+                              Container(
+                                child: Text(
+                                    'There is no beneficiary list at a moment'),
+                              ),
+                              Container(
+                                child: IconButton(
+                                  icon: SvgPicture.asset(
+                                    'assets/icons/add-beneficiary.svg',
+                                    color: Colors.blueGrey,
+                                  ),
+                                  onPressed: () =>
+                                      onAddAgywBeneficiary(context),
+                                ),
+                              )
+                            ],
+                          ),
                         )
                       : Column(
                           children: agywDreamsInterventionList

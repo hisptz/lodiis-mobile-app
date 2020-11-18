@@ -20,6 +20,7 @@ class CasePlanFormContainer extends StatelessWidget {
     this.onInputValueChange,
     @required this.shouldEditCaseGapFollowUps,
     @required this.shouldViewCaseGapFollowUp,
+    @required this.shouldAddCasePlanGap,
   }) : super(key: key);
 
   final Color formSectionColor;
@@ -29,6 +30,7 @@ class CasePlanFormContainer extends StatelessWidget {
   final Function onInputValueChange;
   final bool isCasePlanForHouseHold;
   final bool shouldEditCaseGapFollowUps;
+  final bool shouldAddCasePlanGap;
   final bool shouldViewCaseGapFollowUp;
 
   final String caseToGapLinkage = OvcCasePlanConstant.casePlanToGapLinkage;
@@ -109,8 +111,7 @@ class CasePlanFormContainer extends StatelessWidget {
                   shouldViewCaseGapFollowUp: shouldViewCaseGapFollowUp,
                 ),
                 Visibility(
-                  visible: (isEditableMode || shouldEditCaseGapFollowUps) &&
-                      !shouldViewCaseGapFollowUp,
+                  visible: (isEditableMode || shouldAddCasePlanGap),
                   child: Container(
                     margin: EdgeInsets.only(bottom: 10.0),
                     child: FlatButton(

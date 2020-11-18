@@ -29,10 +29,12 @@ class OvcHouseHoldCasePlanForm extends StatefulWidget {
     Key key,
     this.shouldEditCaseGapFollowUps = false,
     this.shouldViewCaseGapFollowUp = false,
+    this.shouldAddCasePlanGap = false,
   }) : super(key: key);
 
   final bool shouldEditCaseGapFollowUps;
   final bool shouldViewCaseGapFollowUp;
+  final bool shouldAddCasePlanGap;
   @override
   _OvcHouseHoldCasePlanFormState createState() =>
       _OvcHouseHoldCasePlanFormState();
@@ -215,6 +217,8 @@ class _OvcHouseHoldCasePlanFormState extends State<OvcHouseHoldCasePlanForm> {
                                         .map(
                                           (FormSection formSection) =>
                                               CasePlanFormContainer(
+                                            shouldAddCasePlanGap:
+                                                widget.shouldAddCasePlanGap,
                                             shouldEditCaseGapFollowUps: widget
                                                 .shouldEditCaseGapFollowUps,
                                             shouldViewCaseGapFollowUp: widget
