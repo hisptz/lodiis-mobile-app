@@ -14,6 +14,7 @@ class OgacBeneficiary {
   String location;
   String orgUnit;
   String createdDate;
+  String searchableValue;
   String enrollment;
   TrackeEntityInstance trackeEntityInstanceData;
   Events eventData;
@@ -30,6 +31,7 @@ class OgacBeneficiary {
     this.orgUnit,
     this.createdDate,
     this.enrollment,
+    this.searchableValue,
     this.trackeEntityInstanceData,
     this.eventData,
   });
@@ -66,6 +68,9 @@ class OgacBeneficiary {
       age: age.toString(),
       benefecaryId: data[BeneficiaryIdentification.beneficiaryId] ?? '',
       sex: data['vIX4GTSCX4P'] ?? '',
+      searchableValue:
+          "${data['WTZ7GLTrE8Q'] ?? ''} ${data['s1HaiT6OllL'] ?? ''} ${data['rSP9c21JsfC'] ?? ''} $age ${data[BeneficiaryIdentification.beneficiaryId] ?? ''} ${data['vIX4GTSCX4P'] ?? ''} $createdDate"
+              .toLowerCase(),
       orgUnit: orgUnit,
       location: location,
       createdDate: createdDate,

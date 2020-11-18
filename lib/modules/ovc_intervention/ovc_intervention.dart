@@ -54,10 +54,6 @@ class _OvcInterventionState extends State<OvcIntervention> {
     print('on onClickHome');
   }
 
-  void onSearch() {
-    print('on onSearch');
-  }
-
   void onAddHouseHold(BuildContext context) {
     Provider.of<EnrollmentFormState>(context, listen: false).resetFormState();
     Navigator.push(context, MaterialPageRoute(
@@ -81,7 +77,6 @@ class _OvcInterventionState extends State<OvcIntervention> {
               return InterventionAppBar(
                 activeInterventionProgram: activeInterventionProgram,
                 onClickHome: onClickHome,
-                onSearch: onSearch,
                 onAddHouseHold: () => onAddHouseHold(context),
                 onOpenMoreMenu: () =>
                     onOpenMoreMenu(context, activeInterventionProgram),

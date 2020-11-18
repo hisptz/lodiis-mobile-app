@@ -5,13 +5,26 @@ import 'package:kb_mobile_app/modules/ogac_intervention/services/ogac_enrollment
 class OgacInterventionListState with ChangeNotifier {
   // intitial state
   List<OgacBeneficiary> _ogacInterventionList;
+  List<OgacBeneficiary> _filteredOgacInterventionList;
   bool _isLoading;
   int _numberOfOgac = 0;
 
   // selectors
-  List<OgacBeneficiary> get ogacInterventionList => _ogacInterventionList ?? [];
+  List<OgacBeneficiary> get ogacInterventionList =>
+      _filteredOgacInterventionList ?? [];
   bool get isLoading => _isLoading ?? false;
   int get numberOfOgac => _numberOfOgac;
+
+  void searchOgacList(String value) {
+    _filteredOgacInterventionList = value == ''
+        ? _ogacInterventionList
+        : _ogacInterventionList
+            .where((OgacBeneficiary beneficiary) =>
+                beneficiary.searchableValue.indexOf(value) > -1)
+            .toList();
+    _numberOfOgac = _filteredOgacInterventionList.length;
+    notifyListeners();
+  }
 
   //reducers
   void refreshOgacList() async {
@@ -19,8 +32,8 @@ class OgacInterventionListState with ChangeNotifier {
     notifyListeners();
     _ogacInterventionList =
         await OgacEnrollementservice().getOgacBeneficiaries();
-    _numberOfOgac = _ogacInterventionList.length;
-    _isLoading = false;
     notifyListeners();
+    searchOgacList('');
+    _isLoading = false;
   }
 }

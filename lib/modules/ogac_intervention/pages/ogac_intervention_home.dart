@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
 import 'package:kb_mobile_app/app_state/ogac_intervention_list_state/ogac_intervention_list_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
@@ -76,6 +77,15 @@ class OgacInterventionHome extends StatelessWidget {
     onUpdateFormState(context, ogacBeneficary, true);
   }
 
+  void onAddOgacBeneficiary(BuildContext context) {
+    Provider.of<EnrollmentFormState>(context, listen: false).resetFormState();
+    Navigator.push(context, MaterialPageRoute(
+      builder: (context) {
+        return OgacEnrollemntForm();
+      },
+    ));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Consumer<OgacInterventionListState>(
@@ -109,11 +119,25 @@ class OgacInterventionHome extends StatelessWidget {
                       margin: EdgeInsets.only(top: 10.0),
                       child: ogacBeneficaries.length == 0
                           ? Center(
-                              child: Container(
-                                margin: EdgeInsets.only(top: 10.0),
-                                child: Text(
-                                  'There is no ogac beneficiaries enrolled at moment',
-                                ),
+                              child: Column(
+                                children: [
+                                  Container(
+                                    margin: EdgeInsets.only(top: 10.0),
+                                    child: Text(
+                                      'There is no ogac beneficiaries enrolled at moment',
+                                    ),
+                                  ),
+                                  Container(
+                                    child: IconButton(
+                                      icon: SvgPicture.asset(
+                                        'assets/icons/add-beneficiary.svg',
+                                        color: Colors.blueGrey,
+                                      ),
+                                      onPressed: () =>
+                                          onAddOgacBeneficiary(context),
+                                    ),
+                                  )
+                                ],
                               ),
                             )
                           : Column(

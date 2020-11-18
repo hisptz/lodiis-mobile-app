@@ -14,6 +14,7 @@ class OvcHouseHold {
   String ovcMaleCount;
   String ovcFemaleCount;
   String houseHoldStatus;
+  String searchableValue;
   List<OvcHouseHoldChild> children;
   TrackeEntityInstance teiData;
 
@@ -30,6 +31,7 @@ class OvcHouseHold {
     this.createdDate,
     this.ovcFemaleCount,
     this.houseHoldStatus,
+    this.searchableValue,
     this.teiData,
   });
 
@@ -68,6 +70,9 @@ class OvcHouseHold {
         ovcFemaleCount: data['BXUNH6LXeGA'] ?? '',
         houseHoldId: data[BeneficiaryIdentification.beneficiaryId] ?? '',
         houseHoldStatus: data['PN92g65TkVI'] ?? '',
+        searchableValue:
+            "${data['WTZ7GLTrE8Q'] ?? ''} ${data['s1HaiT6OllL'] ?? ''} ${data['rSP9c21JsfC'] ?? ''} ${data[BeneficiaryIdentification.beneficiaryId] ?? ''} $createdDate"
+                .toLowerCase(),
         children: children,
         teiData: tei);
   }

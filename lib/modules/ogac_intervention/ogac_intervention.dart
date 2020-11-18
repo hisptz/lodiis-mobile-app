@@ -47,10 +47,6 @@ class _OgacInterventionState extends State<OgacIntervention> {
     print('on onClickHome');
   }
 
-  void onSearch() {
-    print('on onSearch');
-  }
-
   void onAddOgacBeneficiary(BuildContext context) {
     Provider.of<EnrollmentFormState>(context, listen: false).resetFormState();
     Navigator.push(context, MaterialPageRoute(
@@ -74,7 +70,6 @@ class _OgacInterventionState extends State<OgacIntervention> {
               return InterventionAppBar(
                 activeInterventionProgram: activeInterventionProgram,
                 onClickHome: onClickHome,
-                onSearch: onSearch,
                 onAddOgacBeneficiary: () => onAddOgacBeneficiary(context),
                 onOpenMoreMenu: () =>
                     onOpenMoreMenu(context, activeInterventionProgram),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dream_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
+import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/line_seperator.dart';
@@ -8,6 +10,7 @@ import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_card_body.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_card.dart';
 import 'package:kb_mobile_app/core/components/sub_module_home_container.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/pages/none_agyw_enrollment_client_intake_form.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/sub_pages/none_agyw_prep/none_agyw_prep.dart';
 import 'package:provider/provider.dart';
 
@@ -44,6 +47,15 @@ class _NoneAgywState extends State<NoneAgyw> {
         ));
   }
 
+  void onAddNoneAgywBeneficiary(BuildContext context) {
+    Provider.of<EnrollmentFormState>(context, listen: false).resetFormState();
+    Navigator.push(context, MaterialPageRoute(
+      builder: (context) {
+        return NoneAgywEnrollmentClientInTakeForm();
+      },
+    ));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Consumer<DreamsInterventionListState>(
@@ -75,8 +87,24 @@ class _NoneAgywState extends State<NoneAgyw> {
                   margin: EdgeInsets.only(top: 16.0),
                   child: noneAgywDreamsInterventionList.length == 0
                       ? Center(
-                          child:
-                              Text('There is no beneficiary list at a moment'),
+                          child: Column(
+                            children: [
+                              Container(
+                                child: Text(
+                                    'There is no beneficiary list at a moment'),
+                              ),
+                              Container(
+                                child: IconButton(
+                                  icon: SvgPicture.asset(
+                                    'assets/icons/add-beneficiary.svg',
+                                    color: Colors.blueGrey,
+                                  ),
+                                  onPressed: () =>
+                                      onAddNoneAgywBeneficiary(context),
+                                ),
+                              )
+                            ],
+                          ),
                         )
                       : Column(
                           children: noneAgywDreamsInterventionList

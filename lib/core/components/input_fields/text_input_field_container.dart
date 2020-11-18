@@ -8,11 +8,13 @@ class TextInputFieldContainer extends StatefulWidget {
     @required this.inputField,
     this.onInputValueChange,
     this.inputValue,
+    this.showInputCheckedIcon = true,
   }) : super(key: key);
 
   final InputField inputField;
   final Function onInputValueChange;
   final String inputValue;
+  final bool showInputCheckedIcon;
 
   @override
   _TextInputFieldContainerState createState() =>
@@ -55,7 +57,7 @@ class _TextInputFieldContainerState extends State<TextInputFieldContainer> {
               keyboardType: TextInputType.text,
               textInputAction: TextInputAction.next,
               textCapitalization: TextCapitalization.sentences,
-              style: TextStyle().copyWith(color: Color(0xFF182E35)),
+              style: TextStyle().copyWith(color: widget.inputField.inputColor),
               decoration: InputDecoration(
                 border: InputBorder.none,
                 errorText: null,
@@ -63,7 +65,9 @@ class _TextInputFieldContainerState extends State<TextInputFieldContainer> {
             ),
           ),
           InputCheckedIcon(
-            showTickedIcon: _value != null && '$_value'.trim() != '',
+            showTickedIcon: widget.showInputCheckedIcon &&
+                _value != null &&
+                '$_value'.trim() != '',
             color: widget.inputField.inputColor,
           )
         ],

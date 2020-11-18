@@ -111,7 +111,7 @@ class OvcChildCasePlanHome extends StatelessWidget {
       context,
       MaterialPageRoute(
         builder: (context) => OcvChildCasePlanForm(
-          shouldEditCaseGapFollowUps: false,
+          shouldAddCasePlanGap: true,
         ),
       ),
     );

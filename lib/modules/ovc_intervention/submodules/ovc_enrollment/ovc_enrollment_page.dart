@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
 import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_intervention_list_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/sub_module_home_container.dart';
@@ -6,6 +8,7 @@ import 'package:kb_mobile_app/models/ovc_house_hold.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold_card.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold_card_body.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold_card_botton_content.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/pages/ovc_enrollment_consent_form.dart';
 import 'package:provider/provider.dart';
 
 class OvcEnrollmentPage extends StatefulWidget {
@@ -34,6 +37,15 @@ class _OvcEnrollmentPageState extends State<OvcEnrollmentPage> {
     setState(() {
       toggleCardId = canExpand && cardId != toggleCardId ? cardId : '';
     });
+  }
+
+  void onAddHouseHold(BuildContext context) {
+    Provider.of<EnrollmentFormState>(context, listen: false).resetFormState();
+    Navigator.push(context, MaterialPageRoute(
+      builder: (context) {
+        return OvcEnrollmentConsetForm();
+      },
+    ));
   }
 
   @override
@@ -67,8 +79,24 @@ class _OvcEnrollmentPageState extends State<OvcEnrollmentPage> {
                   margin: EdgeInsets.only(top: 16.0),
                   child: ovcHouseHolds.length == 0
                       ? Center(
-                          child:
-                              Text('There is no household enrolled at moment'))
+                          child: Column(
+                            children: [
+                              Container(
+                                child: Text(
+                                    'There is no household enrolled at moment'),
+                              ),
+                              Container(
+                                child: IconButton(
+                                  icon: SvgPicture.asset(
+                                    'assets/icons/add-house-hold.svg',
+                                    color: Colors.blueGrey,
+                                  ),
+                                  onPressed: () => onAddHouseHold(context),
+                                ),
+                              )
+                            ],
+                          ),
+                        )
                       : Column(
                           children: ovcHouseHolds
                               .map(

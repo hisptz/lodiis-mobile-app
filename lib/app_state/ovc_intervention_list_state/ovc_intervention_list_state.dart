@@ -5,12 +5,14 @@ import 'package:kb_mobile_app/modules/ovc_intervention/services/ovc_enrollment_h
 class OvcInterventionListState with ChangeNotifier {
   // intial state
   List<OvcHouseHold> _ovcInterventionList;
+  List<OvcHouseHold> _filteredOvcInterventionList;
   bool _isLoading = true;
   int _numberOfHouseHolds = 0;
   int _numberOfOvcs = 0;
 
   //selectors
-  List<OvcHouseHold> get ovcInterventionList => _ovcInterventionList ?? [];
+  List<OvcHouseHold> get ovcInterventionList =>
+      _filteredOvcInterventionList ?? [];
   bool get isLoading => _isLoading != null ? _isLoading : false;
   int get numberOfHouseHolds => _numberOfHouseHolds;
   int get numberOfOvcs => _numberOfOvcs;
@@ -19,10 +21,19 @@ class OvcInterventionListState with ChangeNotifier {
   void updateNumerOfOvcBeneficiaries() {
     _numberOfOvcs = 0;
     _numberOfHouseHolds = 0;
-    _numberOfHouseHolds = _ovcInterventionList.length;
     _isLoading = false;
-    notifyListeners();
-    for (OvcHouseHold houseHold in _ovcInterventionList) {
+    searchHouseHold('');
+  }
+
+  void searchHouseHold(String value) {
+    _filteredOvcInterventionList = value == ''
+        ? _ovcInterventionList
+        : _ovcInterventionList
+            .where((OvcHouseHold beneficiary) =>
+                beneficiary.searchableValue.indexOf(value) > -1)
+            .toList();
+    _numberOfHouseHolds = _filteredOvcInterventionList.length;
+    for (OvcHouseHold houseHold in _filteredOvcInterventionList) {
       _numberOfOvcs += houseHold.children.length;
     }
     notifyListeners();
