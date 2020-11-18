@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:kb_mobile_app/app_state/current_user_state/current_user_state.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/intervention_selection/components/Intervention_selection_card.dart';
-import 'package:provider/provider.dart';
 
 class InterventionSelectionList extends StatefulWidget {
   InterventionSelectionList({
@@ -43,45 +41,25 @@ class _InterventionSelectionListState extends State<InterventionSelectionList> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Consumer<CurrentUserState>(
-        builder: (context, currentUserState, child) {
-          List<InterventionCard> interventionPrograms = [];
-          if (currentUserState.canManageOvc) {
-            interventionPrograms.addAll(widget.interventionPrograms
-                .where((interventionProgram) => interventionProgram.id == 'ovc')
-                .toList());
-          }
-          if (currentUserState.canManageDreams) {
-            interventionPrograms.addAll(widget.interventionPrograms
-                .where(
-                    (interventionProgram) => interventionProgram.id == 'dreams')
-                .toList());
-          }
-          if (currentUserState.canManageOGAC) {
-            interventionPrograms.addAll(widget.interventionPrograms
-                .where(
-                    (interventionProgram) => interventionProgram.id == 'ogac')
-                .toList());
-          }
-          return Column(
-            children: interventionPrograms
-                .map((InterventionCard interventionProgram) => GestureDetector(
-                      onTap: () => setSelectedCard(interventionProgram),
-                      child: InterventionSelectionCard(
-                        interventionProgram: interventionProgram,
-                        interventionProgramId: interventionProgramId,
-                        numberOfAgywDreamsBeneficiaries:
-                            widget.numberOfAgywDreamsBeneficiaries,
-                        numberOfNoneAgywDreamsBeneficiaries:
-                            widget.numberOfNoneAgywDreamsBeneficiaries,
-                        numberOfHouseHolds: widget.numberOfHouseHolds,
-                        numberOfOvcs: widget.numberOfOvcs,
-                        numberOfOgac: widget.numberOfOgac,
-                      ),
-                    ))
-                .toList(),
-          );
-        },
+      child: Column(
+        children: widget.interventionPrograms
+            .map(
+              (InterventionCard interventionProgram) => GestureDetector(
+                onTap: () => setSelectedCard(interventionProgram),
+                child: InterventionSelectionCard(
+                  interventionProgram: interventionProgram,
+                  interventionProgramId: interventionProgramId,
+                  numberOfAgywDreamsBeneficiaries:
+                      widget.numberOfAgywDreamsBeneficiaries,
+                  numberOfNoneAgywDreamsBeneficiaries:
+                      widget.numberOfNoneAgywDreamsBeneficiaries,
+                  numberOfHouseHolds: widget.numberOfHouseHolds,
+                  numberOfOvcs: widget.numberOfOvcs,
+                  numberOfOgac: widget.numberOfOgac,
+                ),
+              ),
+            )
+            .toList(),
       ),
     );
   }

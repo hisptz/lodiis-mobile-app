@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/app_state/current_user_state/current_user_state.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/ogac_intervention_list_state/ogac_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_intervention_list_state.dart';
@@ -35,10 +36,10 @@ class _InterventionSelectionState extends State<InterventionSelection> {
   @override
   void initState() {
     super.initState();
-    Timer(Duration(seconds: 2), upDataStateLoadingStatus);
+    Timer(Duration(seconds: 2), updateDataStateLoadingStatus);
   }
 
-  upDataStateLoadingStatus() async {
+  updateDataStateLoadingStatus() async {
     await ReservedAttributeValueService().generateReservedAttributeValues();
     Provider.of<OvcInterventionListState>(context, listen: false)
         .refreshOvcList();
@@ -46,6 +47,8 @@ class _InterventionSelectionState extends State<InterventionSelection> {
         .refreshDreamsList();
     Provider.of<OgacInterventionListState>(context, listen: false)
         .refreshOgacList();
+    Provider.of<CurrentUserState>(context, listen: false)
+        .setCurrentUserLocation();
     setState(() {
       hasDataLoaded = true;
     });

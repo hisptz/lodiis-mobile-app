@@ -187,35 +187,35 @@ class _CasePlanFollowUpViewContainerState
                                               ),
                                             ),
                                           ),
-                                          // Expanded(
-                                          //   child: RichText(
-                                          //     text: TextSpan(
-                                          //       children: [
-                                          //         TextSpan(
-                                          //             text: 'Comment\n',
-                                          //             style:
-                                          //                 TextStyle().copyWith(
-                                          //               color:
-                                          //                   Color(0xFF8A9589),
-                                          //               fontSize: 12.0,
-                                          //               fontWeight:
-                                          //                   FontWeight.w500,
-                                          //             )),
-                                          //         TextSpan(
-                                          //             text: casePlanFollowup
-                                          //                 .reason,
-                                          //             style:
-                                          //                 TextStyle().copyWith(
-                                          //               color:
-                                          //                   Color(0xFF1A3518),
-                                          //               fontSize: 12.0,
-                                          //               fontWeight:
-                                          //                   FontWeight.w500,
-                                          //             )),
-                                          //       ],
-                                          //     ),
-                                          //   ),
-                                          // ),
+                                          Expanded(
+                                            child: RichText(
+                                              text: TextSpan(
+                                                children: [
+                                                  TextSpan(
+                                                      text: 'Comment\n',
+                                                      style:
+                                                          TextStyle().copyWith(
+                                                        color:
+                                                            Color(0xFF8A9589),
+                                                        fontSize: 12.0,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                      )),
+                                                  TextSpan(
+                                                      text: casePlanFollowup
+                                                          .reason,
+                                                      style:
+                                                          TextStyle().copyWith(
+                                                        color:
+                                                            Color(0xFF1A3518),
+                                                        fontSize: 12.0,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                      )),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
                                           Visibility(
                                             visible: widget
                                                 .shouldEditCaseGapFollowUps,

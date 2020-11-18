@@ -28,7 +28,7 @@ class _DateInputFieldContainerState extends State<DateInputFieldContainer> {
   void initState() {
     super.initState();
     setState(() {
-      _date = widget.inputValue;
+      _date = widget.inputValue == '' ? null : widget.inputValue;
       dateController = TextEditingController(text: _date);
     });
   }
