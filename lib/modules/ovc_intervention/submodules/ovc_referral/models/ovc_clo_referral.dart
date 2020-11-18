@@ -286,10 +286,30 @@ class OvcCLOReferral {
                     labelColor: Color(0xFF737373),
                   ),
                 ]),
+          ]),
 
-                 FormSection(
-          name: 'CLO Outgoing Referrals',
+FormSection(name: "CLO Referrals", color:Color(0xFF1B3519),
+subSections: [
+  FormSection(name: "", color: Colors.transparent ,
+  inputFields: [
+
+  InputField(
+                id: 'NbQGlx6QZpK_clo_type',
+                name: 'Type of CLO Referral',
+                valueType: 'TEXT',
+                inputColor: Color(0xFF4B9F46),
+                labelColor: Color(0xFF737373),
+                options: [
+                  InputFieldOption(code: 'NbQGlx6QZpK_OnGoing', name: 'CLO Outgoing Referrals'),
+                  InputFieldOption(code: 'NbQGlx6QZpK_Received', name: 'CLO Received Referrals'),                 
+                ]),
+  ]
+  ),
+
+    FormSection(
+          name: 'CLO Received Referrals',
           color: Color(0xFF1B3519),
+          id: "OIUDljKyNgy_clo_received",
           inputFields: [
             InputField(
               id: 'OIUDljKyNgy',
@@ -360,6 +380,7 @@ class OvcCLOReferral {
            FormSection(
           name: 'CLO Outgoing Referrals',
           color: Color(0xFF1B3519),
+          id: "g6J1vZ2kDXB_clo_outgoing",
           inputFields: [
             InputField(
               id: 'g6J1vZ2kDXB',
@@ -412,7 +433,10 @@ class OvcCLOReferral {
                   InputFieldOption(code: 'Not complete', name: 'Not complete')
                 ]),
           ])
-          ])
+]
+)
+
     ];
   }
 }
+
