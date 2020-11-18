@@ -141,7 +141,7 @@ class _AgywDreamLBSEState extends State<AgywDreamLBSE> {
                                                         bottom: 15.0,
                                                       ),
                                                       child: PrepVisitListCard(
-                                                        visitName: " LBSE ",
+                                                        visitName: " LBSE Visit",
                                                         onEditPrep: () =>
                                                             onEditPrep(context,
                                                                 eventData),
@@ -158,7 +158,7 @@ class _AgywDreamLBSEState extends State<AgywDreamLBSE> {
                                               ),
                                       ),
                                       OvcEnrollmentFormSaveButton(
-                                          label: 'ADD LBSE',
+                                          label: 'ADD LBSE VISIT',
                                           labelColor: Colors.white,
                                           buttonColor: Color(0xFF1F8ECE),
                                           fontSize: 15.0,

@@ -142,7 +142,7 @@ class _AgywDreamsHIVRegisterState extends State<AgywDreamsHIVRegister> {
                                                         bottom: 15.0,
                                                       ),
                                                       child: PrepVisitListCard(
-                                                        visitName: "HIV Reg",
+                                                        visitName: "HIV Reg Visit",
                                                         onEditPrep: () =>
                                                             onEditPrep(context,
                                                                 eventData),
@@ -159,7 +159,7 @@ class _AgywDreamsHIVRegisterState extends State<AgywDreamsHIVRegister> {
                                               ),
                                       ),
                                       OvcEnrollmentFormSaveButton(
-                                          label: 'ADD HIV REG',
+                                          label: 'ADD HIVREG VISIT',
                                           labelColor: Colors.white,
                                           buttonColor: Color(0xFF1F8ECE),
                                           fontSize: 15.0,

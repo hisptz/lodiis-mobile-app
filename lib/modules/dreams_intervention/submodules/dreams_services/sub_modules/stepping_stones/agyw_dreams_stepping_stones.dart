@@ -125,7 +125,7 @@ class _AgywDreamSteppingStonesState extends State<AgywDreamSteppingStones> {
                                         ),
                                         child: events.length == 0
                                             ? Text(
-                                                'There is no Stepping Steps at a moment')
+                                                'There is no Stepping Stones at a moment')
                                             : Container(
                                                 margin: EdgeInsets.symmetric(
                                                   vertical: 5.0,
@@ -141,7 +141,7 @@ class _AgywDreamSteppingStonesState extends State<AgywDreamSteppingStones> {
                                                         bottom: 15.0,
                                                       ),
                                                       child: PrepVisitListCard(
-                                                        visitName: "S Steps",
+                                                        visitName: "Stepping Stones",
                                                         onEditPrep: () =>
                                                             onEditPrep(context,
                                                                 eventData),
@@ -158,7 +158,7 @@ class _AgywDreamSteppingStonesState extends State<AgywDreamSteppingStones> {
                                               ),
                                       ),
                                       OvcEnrollmentFormSaveButton(
-                                          label: 'ADD Stepping Steps',
+                                          label: 'ADD A VISIT',
                                           labelColor: Colors.white,
                                           buttonColor: Color(0xFF1F8ECE),
                                           fontSize: 15.0,

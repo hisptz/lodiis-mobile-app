@@ -125,7 +125,7 @@ class _AgywDreamCondomState extends State<AgywDreamCondom> {
                                         ),
                                         child: events.length == 0
                                             ? Text(
-                                                'There is no Contraceptives(Condoms) at a moment')
+                                                'There is no Condoms at a moment')
                                             : Container(
                                                 margin: EdgeInsets.symmetric(
                                                   vertical: 5.0,
@@ -141,7 +141,7 @@ class _AgywDreamCondomState extends State<AgywDreamCondom> {
                                                         bottom: 15.0,
                                                       ),
                                                       child: PrepVisitListCard(
-                                                        visitName: "Contra",
+                                                        visitName: "Visit",
                                                         onEditPrep: () =>
                                                             onEditPrep(context,
                                                                 eventData),
@@ -158,7 +158,7 @@ class _AgywDreamCondomState extends State<AgywDreamCondom> {
                                               ),
                                       ),
                                       OvcEnrollmentFormSaveButton(
-                                          label: 'ADD Contraceptives',
+                                          label: 'ADD NEW VISIT',
                                           labelColor: Colors.white,
                                           buttonColor: Color(0xFF1F8ECE),
                                           fontSize: 15.0,

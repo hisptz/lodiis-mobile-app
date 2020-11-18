@@ -48,7 +48,7 @@ class PrepVisitListCard extends StatelessWidget {
                           children: [
                             TextSpan(
                               text:
-                                  "       $visitName " + visitCount.toString(),
+                                  "      $visitName " + visitCount.toString(),
                               style: TextStyle().copyWith(
                                 color: Color(0xFF05131B),
                                 fontSize: 14.0,

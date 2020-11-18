@@ -142,7 +142,7 @@ class _AgywDreamPostGBVState extends State<AgywDreamPostGBV> {
                                                         bottom: 15.0,
                                                       ),
                                                       child: PrepVisitListCard(
-                                                        visitName: "POST GBV ",
+                                                        visitName: "POST GBV",
                                                         onEditPrep: () =>
                                                             onEditPrep(context,
                                                                 eventData),
@@ -159,7 +159,7 @@ class _AgywDreamPostGBVState extends State<AgywDreamPostGBV> {
                                               ),
                                       ),
                                       OvcEnrollmentFormSaveButton(
-                                          label: 'ADD POST_GBV',
+                                          label: 'ADD POST GBV VISIT',
                                           labelColor: Colors.white,
                                           buttonColor: Color(0xFF1F8ECE),
                                           fontSize: 15.0,
