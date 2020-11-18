@@ -34,14 +34,7 @@ class OvcReferralTopBarSelection extends StatelessWidget {
                     ),
                   )),
             ),
-            Container(
-              height: 20.0,
-              decoration: BoxDecoration(
-                border: Border(
-                  left: BorderSide(color: Colors.green[100], width: 2.0),
-                ),
-              ),
-            ),
+            
             Expanded(
               child: FlatButton(
                color: isClicked ?Color(0xFF4B9F46) :Colors.transparent,

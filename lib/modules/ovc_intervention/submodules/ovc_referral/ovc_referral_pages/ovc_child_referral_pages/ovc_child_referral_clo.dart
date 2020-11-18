@@ -9,6 +9,7 @@ import 'package:kb_mobile_app/models/ovc_house_hold_child.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
 import 'package:kb_mobile_app/core/components/referrals/referral_card_summary.dart';
 import 'package:kb_mobile_app/core/components/referrals/referral_card_body_summary.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/ovc_referral_pages/ovc_child_referral_pages/constants/ovc_child_clo_referral_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/ovc_referral_pages/ovc_child_referral_pages/constants/ovc_child_referral_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/ovc_referral_pages/ovc_child_referral_pages/pages/ovc_child_clo_referral_add_form.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/ovc_referral_pages/ovc_child_referral_pages/pages/ovc_child_referral_add_form.dart';
@@ -25,7 +26,7 @@ class OvcChildCLOReferral extends StatefulWidget {
 
 class _OvcChildCLOReferralState extends State<OvcChildCLOReferral> {
   final String label = 'Child Referral';
-  final List<String> programStageids = [OvcChildReferralConstant.referralStage];
+  final List<String> programStageids = [OvcChildCLOReferralConstant.referralCLOOutGoingStage,OvcChildCLOReferralConstant.referralCLOOutReceivedStage];
 
   void updateFormState(
     BuildContext context,
@@ -133,6 +134,7 @@ class _OvcChildCLOReferralState extends State<OvcChildCLOReferral> {
                                                   bottom: 15.0,
                                                 ),
                                                 child: ReferralCardSummary(
+                                                  isCLOReferral: true,
                                                   borderColor:
                                                       Color(0xFFEDF5EC),
                                                   buttonLabelColor:
@@ -166,7 +168,7 @@ class _OvcChildCLOReferralState extends State<OvcChildCLOReferral> {
                                         ),
                                 ),
                                 OvcEnrollmentFormSaveButton(
-                                    label: 'ADD REFFERAL',
+                                    label: 'ADD CLO REFFERAL',
                                     labelColor: Colors.white,
                                     buttonColor: Color(0xFF4B9F46),
                                     fontSize: 15.0,

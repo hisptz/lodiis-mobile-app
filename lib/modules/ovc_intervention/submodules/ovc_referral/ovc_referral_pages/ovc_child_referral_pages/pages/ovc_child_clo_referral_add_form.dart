@@ -18,6 +18,7 @@ import 'package:kb_mobile_app/models/ovc_house_hold_child.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_child_info_top_header.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/models/ovc_clo_referral.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/ovc_referral_pages/ovc_child_referral_pages/constants/ovc_child_clo_referral_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/ovc_referral_pages/ovc_child_referral_pages/constants/ovc_child_referral_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/ovc_referral_pages/ovc_child_referral_pages/skip_logics/ovc_child_referral.dart';
 import 'package:provider/provider.dart';
@@ -30,7 +31,8 @@ class OvcChildCLOReferralAddForm extends StatefulWidget {
       _OvcChildCLOReferralAddFormState();
 }
 
-class _OvcChildCLOReferralAddFormState extends State<OvcChildCLOReferralAddForm> {
+class _OvcChildCLOReferralAddFormState
+    extends State<OvcChildCLOReferralAddForm> {
   final String label = 'Child CLO Referral Form';
   List<FormSection> formSections;
   bool isFormReady = false;
@@ -86,10 +88,12 @@ class _OvcChildCLOReferralAddFormState extends State<OvcChildCLOReferralAddForm>
       List<String> hiddenFields = [
         OvcChildReferralConstant.referralToFollowUpLinkage
       ];
+      
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-          OvcChildReferralConstant.program,
-          OvcChildReferralConstant.referralStage,
+          OvcChildCLOReferralConstant.program,
+          dataObject['NbQGlx6QZpK_clo_type'] == "NbQGlx6QZpK_OnGoing" ?
+          OvcChildCLOReferralConstant.referralCLOOutGoingStage : OvcChildCLOReferralConstant.referralCLOOutReceivedStage,
           currentOvcHouseHoldChild.orgUnit,
           formSections,
           dataObject,

@@ -10,6 +10,7 @@ class ReferralCardSummary extends StatelessWidget {
     @required this.borderColor,
     @required this.buttonLabelColor,
     @required this.titleColor,
+    this.isCLOReferral = false,
     this.onView,
     this.onManage,
   }) : super(key: key);
@@ -20,6 +21,7 @@ class ReferralCardSummary extends StatelessWidget {
   final Widget cardBody;
   final Function onView;
   final Function onManage;
+  final bool isCLOReferral;
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +37,7 @@ class ReferralCardSummary extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Text(
+                        isCLOReferral ? 'CLO Referral ${count.toString()}':
                         'Referral ${count.toString()}',
                         style: TextStyle().copyWith(
                           color: titleColor,
@@ -42,7 +45,22 @@ class ReferralCardSummary extends StatelessWidget {
                           fontSize: 14.0,
                         ),
                       ),
-                    )
+                    ),
+                    Visibility(
+                        visible: isCLOReferral ? true :false,
+                        child: Container(
+                          decoration: BoxDecoration(
+                              color: Color(0xFF4B9F46),
+                              border: Border.all(color: Color(0xFF4B9F46)),
+                              borderRadius: BorderRadius.circular(35.0)),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 8.0, vertical: 2.0),
+                          child: Text(
+                            false ? 'Received' : 'Outgoing',
+                            style: TextStyle()
+                                .copyWith(color: Colors.white, fontSize: 12.0),
+                          ),
+                        )),
                   ],
                 ),
               ),
