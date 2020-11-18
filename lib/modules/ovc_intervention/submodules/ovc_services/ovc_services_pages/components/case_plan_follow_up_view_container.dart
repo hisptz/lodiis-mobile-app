@@ -135,111 +135,124 @@ class _CasePlanFollowUpViewContainerState
                                       child: Row(
                                         children: [
                                           Expanded(
-                                            child: RichText(
-                                              text: TextSpan(
-                                                children: [
-                                                  TextSpan(
-                                                    text: 'Date\n',
-                                                    style: TextStyle().copyWith(
-                                                      color: Color(0xFF8A9589),
-                                                      fontSize: 12.0,
-                                                      fontWeight:
-                                                          FontWeight.w500,
+                                            child: Table(
+                                              children: [
+                                                TableRow(
+                                                  children: [
+                                                    TableCell(
+                                                      child: Text(
+                                                        'Date',
+                                                        style: TextStyle()
+                                                            .copyWith(
+                                                          color:
+                                                              Color(0xFF8A9589),
+                                                          fontSize: 12.0,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                        ),
+                                                      ),
                                                     ),
-                                                  ),
-                                                  TextSpan(
-                                                    text: casePlanFollowup.date,
-                                                    style: TextStyle().copyWith(
-                                                      color: Color(0xFF1A3518),
-                                                      fontSize: 12.0,
-                                                      fontWeight:
-                                                          FontWeight.w500,
+                                                    TableCell(
+                                                      child: Text(
+                                                        'Results',
+                                                        style: TextStyle()
+                                                            .copyWith(
+                                                          color:
+                                                              Color(0xFF8A9589),
+                                                          fontSize: 12.0,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                        ),
+                                                      ),
                                                     ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                          Expanded(
-                                            child: RichText(
-                                              text: TextSpan(
-                                                children: [
-                                                  TextSpan(
-                                                    text: 'Results\n',
-                                                    style: TextStyle().copyWith(
-                                                      color: Color(0xFF8A9589),
-                                                      fontSize: 12.0,
-                                                      fontWeight:
-                                                          FontWeight.w500,
+                                                    TableCell(
+                                                      child: Text(
+                                                        'Comment',
+                                                        style: TextStyle()
+                                                            .copyWith(
+                                                          color:
+                                                              Color(0xFF8A9589),
+                                                          fontSize: 12.0,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                        ),
+                                                      ),
                                                     ),
-                                                  ),
-                                                  TextSpan(
-                                                    text:
+                                                  ],
+                                                ),
+                                                TableRow(
+                                                  children: [
+                                                    TableCell(
+                                                      child: Text(
+                                                        casePlanFollowup.date,
+                                                        style: TextStyle()
+                                                            .copyWith(
+                                                          color:
+                                                              Color(0xFF1A3518),
+                                                          fontSize: 12.0,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    TableCell(
+                                                      child: Text(
                                                         casePlanFollowup.result,
-                                                    style: TextStyle().copyWith(
-                                                      color: Color(0xFF1A3518),
-                                                      fontSize: 12.0,
-                                                      fontWeight:
-                                                          FontWeight.w500,
+                                                        style: TextStyle()
+                                                            .copyWith(
+                                                          color:
+                                                              Color(0xFF1A3518),
+                                                          fontSize: 12.0,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    TableCell(
+                                                      child: Text(
+                                                        casePlanFollowup.reason,
+                                                        style: TextStyle()
+                                                            .copyWith(
+                                                          color:
+                                                              Color(0xFF1A3518),
+                                                          fontSize: 12.0,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                          Container(
+                                            child: Visibility(
+                                              visible: widget
+                                                  .shouldEditCaseGapFollowUps,
+                                              child: Container(
+                                                child: InkWell(
+                                                  onTap: () =>
+                                                      onEditCasePlanFollowUp(
+                                                    context,
+                                                    casePlanFollowup,
+                                                  ),
+                                                  child: Container(
+                                                    height: iconHeight,
+                                                    width: iconHeight,
+                                                    margin:
+                                                        EdgeInsets.symmetric(
+                                                            vertical: 5,
+                                                            horizontal: 5),
+                                                    child: SvgPicture.asset(
+                                                      'assets/icons/edit-icon.svg',
+                                                      color: widget.themeColor,
                                                     ),
                                                   ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                          Expanded(
-                                            child: RichText(
-                                              text: TextSpan(
-                                                children: [
-                                                  TextSpan(
-                                                      text: 'Comment\n',
-                                                      style:
-                                                          TextStyle().copyWith(
-                                                        color:
-                                                            Color(0xFF8A9589),
-                                                        fontSize: 12.0,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                      )),
-                                                  TextSpan(
-                                                      text: casePlanFollowup
-                                                          .reason,
-                                                      style:
-                                                          TextStyle().copyWith(
-                                                        color:
-                                                            Color(0xFF1A3518),
-                                                        fontSize: 12.0,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                      )),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                          Visibility(
-                                            visible: widget
-                                                .shouldEditCaseGapFollowUps,
-                                            child: Container(
-                                              child: InkWell(
-                                                onTap: () =>
-                                                    onEditCasePlanFollowUp(
-                                                  context,
-                                                  casePlanFollowup,
-                                                ),
-                                                child: Container(
-                                                  height: iconHeight,
-                                                  width: iconHeight,
-                                                  margin: EdgeInsets.symmetric(
-                                                      vertical: 5,
-                                                      horizontal: 5),
-                                                  child: SvgPicture.asset(
-                                                    'assets/icons/edit-icon.svg',
-                                                    color: widget.themeColor,
-                                                  ),
                                                 ),
                                               ),
                                             ),
-                                          ),
+                                          )
                                         ],
                                       ),
                                     ))
