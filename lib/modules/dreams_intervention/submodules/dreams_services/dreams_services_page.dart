@@ -16,7 +16,6 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_serv
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/go_girls/agyw_dreams_go_girls.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hiv_prev/dreams_hiv_prev_home.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hiv_reg/agyw_dreams_hiv_register.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/ipc/agyw_dreams_ipc.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/lbse/agyw_dreams_lbse.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/msg_hiv/agyw_dreams_msg_hiv_register.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/pep/agyw_dreams_pep.dart';
@@ -76,7 +75,7 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
         context, MaterialPageRoute(builder: (context) => DreamsHIVPrevHome()));
   }
 
-  void onOpenHIVRegForm(
+  void onOpenIPCForm(
     BuildContext context,
     AgywDream agywBeneficiary,
   ) {
@@ -154,15 +153,6 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
     updateStateData(context, agywBeneficiary);
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => AgywDreamGoGirls()));
-  }
-
-  void onOpenIPCForm(
-    BuildContext context,
-    AgywDream agywBeneficiary,
-  ) {
-    updateStateData(context, agywBeneficiary);
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => AgywDreamIPC()));
   }
 
   void onOpenLBSEForm(
@@ -266,8 +256,8 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
                                   onOpenHIVPrepForm: () => 
                                       onOpenHIVPrepForm(
                                       context, agywBeneficiary),
-                                  onOpenHIVRegForm: () => 
-                                      onOpenHIVRegForm(
+                                  onOpenIPCForm: () => 
+                                      onOpenIPCForm(
                                       context, agywBeneficiary),
                                   onOpenSRHForm: () =>
                                       onOpenSRHForm(context, agywBeneficiary),
@@ -290,8 +280,6 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
                                   onOpenGoGirlsForm: () => 
                                       onOpenGoGirlsForm(
                                       context, agywBeneficiary),
-                                  onOpenIPCForm: () =>
-                                      onOpenIPCForm(context, agywBeneficiary),
                                   onOpenLBSEForm: () =>
                                       onOpenLBSEForm(context, agywBeneficiary),
                                   onOpenPEPForm: () =>

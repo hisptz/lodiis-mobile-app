@@ -30,7 +30,7 @@ class AgywDreamsHIVRegisterForm extends StatefulWidget {
 }
 
 class _AgywDreamsHIVRegisterState extends State<AgywDreamsHIVRegisterForm> {
-  final String label = 'HIV Register form';
+  final String label = 'IPC form';
   List<FormSection> formSections;
   bool isFormReady = false;
   bool isSaving = false;
