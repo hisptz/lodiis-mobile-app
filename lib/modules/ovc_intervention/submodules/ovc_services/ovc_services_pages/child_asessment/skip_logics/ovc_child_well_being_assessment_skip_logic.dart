@@ -24,7 +24,8 @@ class OvcChildWellBeingAssessmentSkipLogic {
       if (inputFieldId == 'TH3xvl6NZhi' && value != 'true') {
         hiddenFields['wOlSzC2ovZN'] = true;
       }
-      if (inputFieldId == 'DaVKi2U248S' && value != 'true') {
+      //Logic changed from true to false.
+      if (inputFieldId == 'DaVKi2U248S' && value != 'false') {
         hiddenFields['TWvKsmKyCSc'] = true;
         hiddenFields['DaVKi2U248S_checkbox'] = true;
         hiddenFields['fcWZ0cctQlO'] = true;
@@ -48,7 +49,8 @@ class OvcChildWellBeingAssessmentSkipLogic {
       if (inputFieldId == 'ot2CtK0hAHo' && value != 'true') {
         hiddenFields['VMP6xJWkWHK'] = true;
       }
-      if (inputFieldId == 'mtZfZIAkVjt' && value != 'true') {
+      //Logic change
+      if (inputFieldId == 'mtZfZIAkVjt' && value != 'false') {
         hiddenFields['mtZfZIAkVjt_checkbox'] = true;
         hiddenFields['qK6pCo37tWW'] = true;
         hiddenFields['Tbga457Gs8B'] = true;
@@ -149,6 +151,77 @@ class OvcChildWellBeingAssessmentSkipLogic {
       if (inputFieldId == 'ebeAKSCVsYo' && value != 'false') {
         hiddenFields['XXHMvERCGLn'] = true;
       }
+      //Gift starts here
+      if (inputFieldId == 'xYdWjIv5eup' && value == 'Primary') {
+        hiddenFields['pczeYqyA3Bj'] = true;
+        hiddenFields['IUdOAhmhqj1'] = true;
+      }
+      if (inputFieldId == 'xYdWjIv5eup' && value == 'Secondary') {
+        hiddenFields['TRuxsvRahqm'] = true;
+        hiddenFields['IUdOAhmhqj1'] = true;
+      }
+      if (inputFieldId == 'xYdWjIv5eup' && value == 'College') {
+        hiddenFields['TRuxsvRahqm'] = true;
+        hiddenFields['pczeYqyA3Bj'] = true;
+      }
+      if (inputFieldId == 'BvEsLzWsL3Z' && value == 'Primary') {
+        hiddenFields['pczeYqyA3Bj'] = true;
+        hiddenFields['IUdOAhmhqj1'] = true;
+      }
+      if (inputFieldId == 'BvEsLzWsL3Z' && value == 'Secondary') {
+        hiddenFields['TRuxsvRahqm'] = true;
+        hiddenFields['IUdOAhmhqj1'] = true;
+      }
+      if (inputFieldId == 'BvEsLzWsL3Z' && value == 'College') {
+        hiddenFields['TRuxsvRahqm'] = true;
+        hiddenFields['pczeYqyA3Bj'] = true;
+      }
+
+      if (inputFieldId == 'M3AaNTqC9d6' && value == 'Primary') {
+        hiddenFields['dwJns2uXUcG'] = true;
+        hiddenFields['SGCjKsX1Mzl'] = true;
+      }
+      if (inputFieldId == 'M3AaNTqC9d6' && value == 'Secondary/High level') {
+        hiddenFields['dwJns2uXUcG'] = true;
+        hiddenFields['xbAukRUBixJ'] = true;
+      }
+      if (inputFieldId == 'M3AaNTqC9d6' && value == 'College') {
+        hiddenFields['xbAukRUBixJ'] = true;
+        hiddenFields['SGCjKsX1Mzl'] = true;
+      }
+      if (inputFieldId == 'KlbW2l1L1NC' && value == 'Primary') {
+        hiddenFields['dwJns2uXUcG'] = true;
+        hiddenFields['SGCjKsX1Mzl'] = true;
+      }
+      if (inputFieldId == 'KlbW2l1L1NC' && value == 'Secondary/High level') {
+        hiddenFields['dwJns2uXUcG'] = true;
+        hiddenFields['xbAukRUBixJ'] = true;
+      }
+      if (inputFieldId == 'KlbW2l1L1NC' && value == 'College') {
+        hiddenFields['xbAukRUBixJ'] = true;
+        hiddenFields['SGCjKsX1Mzl'] = true;
+      }
+
+      //Domain Stable
+      if (inputFieldId == 'aaERjQ9jSZn' && value != 'true') {
+        hiddenFields['cGJa4gfVPQ7'] = true;
+      }
+      if (inputFieldId == 'MEmFZrOhvb3' && value != 'true') {
+        hiddenFields['cGJa4gfVPQ7'] = true;
+      }
+
+      if (inputFieldId == 'dTiDozleQuO' && value != 'Yes') {
+        hiddenFields['dTiDozleQuO_checkbox'] = true;
+      }
+
+      //Domain Health
+      if(inputFieldId == 'pU5ywj3cjSA' && value != 'true'){
+        hiddenFields['HXk5d3kxy37'] = true;
+      }
+      if(inputFieldId == 'HXk5d3kxy37' && value != 'true'){
+        hiddenFields['ndK4JCMORL0'] = true;
+      }
+
     }
     for (String sectionId in hiddenSections.keys) {
       List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections
