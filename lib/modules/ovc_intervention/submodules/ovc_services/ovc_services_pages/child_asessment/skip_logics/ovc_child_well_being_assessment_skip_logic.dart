@@ -24,8 +24,7 @@ class OvcChildWellBeingAssessmentSkipLogic {
       if (inputFieldId == 'TH3xvl6NZhi' && value != 'true') {
         hiddenFields['wOlSzC2ovZN'] = true;
       }
-      //Logic changed from true to false.
-      if (inputFieldId == 'DaVKi2U248S' && value != 'false') {
+      if (inputFieldId == 'DaVKi2U248S' && value != 'true') {
         hiddenFields['TWvKsmKyCSc'] = true;
         hiddenFields['DaVKi2U248S_checkbox'] = true;
         hiddenFields['fcWZ0cctQlO'] = true;
@@ -50,7 +49,7 @@ class OvcChildWellBeingAssessmentSkipLogic {
         hiddenFields['VMP6xJWkWHK'] = true;
       }
       //Logic change
-      if (inputFieldId == 'mtZfZIAkVjt' && value != 'false') {
+      if (inputFieldId == 'mtZfZIAkVjt' && value != 'true') {
         hiddenFields['mtZfZIAkVjt_checkbox'] = true;
         hiddenFields['qK6pCo37tWW'] = true;
         hiddenFields['Tbga457Gs8B'] = true;
@@ -152,6 +151,7 @@ class OvcChildWellBeingAssessmentSkipLogic {
         hiddenFields['XXHMvERCGLn'] = true;
       }
       //Gift starts here
+      //This section needs to be worked on when skip logic level 2 is in place
       if (inputFieldId == 'xYdWjIv5eup' && value == 'Primary') {
         hiddenFields['pczeYqyA3Bj'] = true;
         hiddenFields['IUdOAhmhqj1'] = true;
@@ -176,7 +176,6 @@ class OvcChildWellBeingAssessmentSkipLogic {
         hiddenFields['TRuxsvRahqm'] = true;
         hiddenFields['pczeYqyA3Bj'] = true;
       }
-
       if (inputFieldId == 'M3AaNTqC9d6' && value == 'Primary') {
         hiddenFields['dwJns2uXUcG'] = true;
         hiddenFields['SGCjKsX1Mzl'] = true;
@@ -201,6 +200,7 @@ class OvcChildWellBeingAssessmentSkipLogic {
         hiddenFields['xbAukRUBixJ'] = true;
         hiddenFields['SGCjKsX1Mzl'] = true;
       }
+      //================================================================
 
       //Domain Stable
       if (inputFieldId == 'aaERjQ9jSZn' && value != 'true') {

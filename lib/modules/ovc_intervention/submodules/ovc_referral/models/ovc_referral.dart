@@ -27,6 +27,7 @@ class OvcReferral {
               ],
             ),
             FormSection(
+              id: 'SeRefoCo',
                 name: 'Service referred for at Community',
                 color: Color(0xFF1B3519),
                 inputFields: [
@@ -146,6 +147,7 @@ class OvcReferral {
                   ),
                 ]),
             FormSection(
+              id: 'SeRefoFa',
                 name: 'Service referred for at Facility',
                 color: Color(0xFF1B3519),
                 inputFields: [
@@ -265,6 +267,7 @@ class OvcReferral {
                   ),
                 ]),
             FormSection(
+              id: 'CoReOr',
                 name: 'Completed by the Referring Organization',
                 color: Color(0xFF1B3519),
                 inputFields: [

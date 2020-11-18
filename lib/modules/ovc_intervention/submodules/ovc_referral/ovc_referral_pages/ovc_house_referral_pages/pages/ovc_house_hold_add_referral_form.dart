@@ -19,6 +19,7 @@ import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold_top_header.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/models/ovc_referral.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/ovc_referral_pages/ovc_house_referral_pages/constants/ovc_house_hold_referral_constant.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/ovc_referral_pages/ovc_house_referral_pages/skip_logics/ovc_house_referral.dart';
 import 'package:provider/provider.dart';
 
 class OvcHouseHoldAddReferralForm extends StatefulWidget {
@@ -43,13 +44,30 @@ class _OvcHouseHoldAddReferralFormState
     Timer(Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
+        evaluateSkipLogics();
       });
     });
+  }
+
+  evaluateSkipLogics() {
+    Timer(
+      Duration(milliseconds: 200),
+      () async {
+        Map dataObject =
+            Provider.of<ServiceFormState>(context, listen: false).formState;
+        await OvcHouseHoldReferralSkipLogic.evaluateSkipLogics(
+          context,
+          formSections,
+          dataObject,
+        );
+      },
+    );
   }
 
   void onInputValueChange(String id, dynamic value) {
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState(id, value);
+    evaluateSkipLogics();
   }
 
   void onSaveForm(
@@ -151,6 +169,10 @@ class _OvcHouseHoldAddReferralFormState
                                       right: 13.0,
                                     ),
                                     child: EntryFormContainer(
+                                      hiddenSections:
+                                          serviceFormState.hiddenSections,
+                                      hiddenFields:
+                                          serviceFormState.hiddenFields,
                                       formSections: formSections,
                                       mandatoryFieldObject: Map(),
                                       isEditableMode:
