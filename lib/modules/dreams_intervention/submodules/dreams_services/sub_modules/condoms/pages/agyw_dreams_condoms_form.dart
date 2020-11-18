@@ -16,21 +16,20 @@ import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/dreams_service_anc_form_info.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/anc/constants/anc_constant.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/anc/skip_logics/agyw_dreams_anc_skip_logic.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/dreams_service_condoms_form.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/condoms/constants/condoms_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
 import 'package:provider/provider.dart';
 
-class AgywDreamsANCForm extends StatefulWidget {
-  AgywDreamsANCForm({Key key}) : super(key: key);
+class AgywDreamsCondomsForm extends StatefulWidget {
+  AgywDreamsCondomsForm({Key key}) : super(key: key);
 
   @override
-  _AgywDreamsANCFormState createState() => _AgywDreamsANCFormState();
+  _AgywDreamsCondomsFormState createState() => _AgywDreamsCondomsFormState();
 }
 
-class _AgywDreamsANCFormState extends State<AgywDreamsANCForm> {
-  final String label = 'ANC  form';
+class _AgywDreamsCondomsFormState extends State<AgywDreamsCondomsForm> {
+  final String label = 'Condoms';
   List<FormSection> formSections;
   bool isFormReady = false;
   bool isSaving = false;
@@ -38,34 +37,18 @@ class _AgywDreamsANCFormState extends State<AgywDreamsANCForm> {
   @override
   void initState() {
     super.initState();
-    formSections = DreamsANCInfo.getFormSections();
+    formSections = DreamsCondomsform.getFormSections();
     Timer(Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
-        evaluateSkipLogics();
       });
     });
   }
 
-  evaluateSkipLogics() {
-    Timer(
-      Duration(milliseconds: 200),
-      () async {
-        Map dataObject =
-            Provider.of<ServiceFormState>(context, listen: false).formState;
-        await AgywDreamsANCSkipLogic.evaluateSkipLogics(
-          context,
-          formSections,
-          dataObject,
-        );
-      },
-    );
-  }
-
+  
   void onInputValueChange(String id, dynamic value) {
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState(id, value);
-    evaluateSkipLogics();
   }
 
   void onSaveForm(
@@ -79,8 +62,8 @@ class _AgywDreamsANCFormState extends State<AgywDreamsANCForm> {
       List<String> hiddenFields = [];
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-            ANCConstant.program,
-            ANCConstant.programStage,
+            CondomsConstant.program,
+            CondomsConstant.programStage,
             agywDream.orgUnit,
             formSections,
             dataObject,
