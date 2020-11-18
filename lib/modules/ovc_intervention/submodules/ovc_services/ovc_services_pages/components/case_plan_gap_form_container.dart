@@ -3,6 +3,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/skip_logics/ovc_case_plan_skip_logic.dart';
 
 class CasePlanGapFormContainer extends StatefulWidget {
   const CasePlanGapFormContainer({
@@ -25,7 +26,8 @@ class CasePlanGapFormContainer extends StatefulWidget {
       _CasePlanGapFormContainerState();
 }
 
-class _CasePlanGapFormContainerState extends State<CasePlanGapFormContainer> {
+class _CasePlanGapFormContainerState extends State<CasePlanGapFormContainer>
+    with OvcCasePlanSkipLogic {
   Map mandatoryFieldObject = Map();
   List mandatoryFields;
   Map dataObject;
@@ -41,6 +43,8 @@ class _CasePlanGapFormContainerState extends State<CasePlanGapFormContainer> {
       }
       dataObject = widget.dataObject ?? Map();
     });
+    evaluateSkipLogics(context, widget.formSections, dataObject);
+    setState(() {});
   }
 
   onSaveGapForm(BuildContext context) {
@@ -59,6 +63,8 @@ class _CasePlanGapFormContainerState extends State<CasePlanGapFormContainer> {
     setState(() {
       dataObject[id] = value;
     });
+    evaluateSkipLogics(context, widget.formSections, dataObject);
+    setState(() {});
   }
 
   @override
@@ -69,6 +75,8 @@ class _CasePlanGapFormContainerState extends State<CasePlanGapFormContainer> {
           EntryFormContainer(
             elevation: 0.0,
             formSections: widget.formSections,
+            hiddenFields: hiddenFields,
+            hiddenSections: hiddenSections,
             mandatoryFieldObject: mandatoryFieldObject,
             dataObject: dataObject,
             isEditableMode: widget.isEditableMode,
