@@ -749,6 +749,7 @@ class AgywEnrollmentFormSection {
         ],
       ),
       FormSection(
+        id: 'E_M_4_S_A',
         name: 'Enrollment Module 4:  Sexual Activity',
         color: Color(0xFF258DCC),
         inputFields: [
@@ -1432,30 +1433,35 @@ class AgywEnrollmentFormSection {
                 name: 'Alcohol Use',
                 valueType: 'TRUE_ONLY',
                 inputColor: Color(0xFF258DCC),
+                isReadOnly: true,
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'bApA6X6TVvJ',
                 name: 'Out of school/Never schooled education/Enrollment',
                 valueType: 'TRUE_ONLY',
                 inputColor: Color(0xFF258DCC),
+                isReadOnly: true,
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'yc3BlUIEup3',
                 name: 'Experience of violence',
                 valueType: 'TRUE_ONLY',
                 inputColor: Color(0xFF258DCC),
+                isReadOnly: true,
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'p33MrrhsQRz',
                 name: 'Transactional Sex',
                 valueType: 'TRUE_ONLY',
                 inputColor: Color(0xFF258DCC),
+                isReadOnly: true,
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'iY67qYnywgS',
                 name: 'No or Irregular Condom use',
                 valueType: 'TRUE_ONLY',
                 inputColor: Color(0xFF258DCC),
+                isReadOnly: true,
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'rh881j2vfvT',
@@ -1463,12 +1469,14 @@ class AgywEnrollmentFormSection {
                     'Sexually Transmitted Infection (STI) - (past or present)',
                 valueType: 'TRUE_ONLY',
                 inputColor: Color(0xFF258DCC),
+                isReadOnly: true,
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'AZCVLPzD0Vd',
                 name: 'High number of sex partners',
                 valueType: 'TRUE_ONLY',
                 inputColor: Color(0xFF258DCC),
+                isReadOnly: true,
                 labelColor: Color(0xFF737373)),
           ])
     ];

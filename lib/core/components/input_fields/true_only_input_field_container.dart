@@ -75,7 +75,7 @@ class _TrueOnlyInputFieldContainerState
                 activeColor: widget.inputField.inputColor,
                 trackColor: inActiveColor,
                 value: _value,
-                onChanged: (bool value) {
+                onChanged: widget.inputField.isReadOnly? null : (bool value) {
                   onSetValue(value);
                   widget.onInputValueChange(value ? value : '');
                 })),

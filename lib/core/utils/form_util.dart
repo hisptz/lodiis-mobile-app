@@ -18,14 +18,14 @@ import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
 class FormUtil {
   static List<FormSection> getFormSectionWithReadOnlyStatus(
       List<FormSection> formSections,
-      bool isReadObly,
+      bool isReadOnly,
       List<String> skippedInputs) {
     List<FormSection> sanitizedFormSections = [];
     for (FormSection formSection in formSections) {
       List<InputField> inputFields = getInputFieldsWithStatus(
-          formSection.inputFields, isReadObly, skippedInputs);
+          formSection.inputFields, isReadOnly, skippedInputs);
       List<FormSection> subSection = getFormSectionWithReadOnlyStatus(
-          formSection.subSections, isReadObly, skippedInputs);
+          formSection.subSections, isReadOnly, skippedInputs);
       formSection.inputFields = inputFields;
       formSection.subSections = subSection;
       sanitizedFormSections.add(formSection);
@@ -35,12 +35,12 @@ class FormUtil {
 
   static List<InputField> getInputFieldsWithStatus(
     List<InputField> inputFields,
-    bool isReadObly,
+    bool isReadOnly,
     List<String> skippedInputs,
   ) {
     return inputFields.map((InputField inputField) {
       if (inputField.id != '' && skippedInputs.indexOf(inputField.id) == -1) {
-        inputField.isReadObly = isReadObly;
+        inputField.isReadOnly = isReadOnly;
       }
       return inputField;
     }).toList();

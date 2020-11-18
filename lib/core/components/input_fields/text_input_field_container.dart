@@ -46,8 +46,8 @@ class _TextInputFieldContainerState extends State<TextInputFieldContainer> {
         children: [
           Expanded(
             child: TextFormField(
-              readOnly: widget.inputField.isReadObly,
-              controller: widget.inputField.isReadObly
+              readOnly: widget.inputField.isReadOnly,
+              controller: widget.inputField.isReadOnly
                   ? TextEditingController(text: widget.inputValue)
                   : textController,
               onChanged: onValueChange,
