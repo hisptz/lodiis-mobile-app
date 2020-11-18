@@ -142,7 +142,7 @@ class _AgywDreamGoGirlsState extends State<AgywDreamGoGirls> {
                                                         bottom: 15.0,
                                                       ),
                                                       child: PrepVisitListCard(
-                                                        visitName: "Go Girls ",
+                                                        visitName: "Go Girls Visit ",
                                                         onEditPrep: () =>
                                                             onEditPrep(context,
                                                                 eventData),
@@ -159,7 +159,7 @@ class _AgywDreamGoGirlsState extends State<AgywDreamGoGirls> {
                                               ),
                                       ),
                                       OvcEnrollmentFormSaveButton(
-                                          label: 'ADD Go Girls',
+                                          label: 'ADD Go Girls Visit',
                                           labelColor: Colors.white,
                                           buttonColor: Color(0xFF1F8ECE),
                                           fontSize: 15.0,

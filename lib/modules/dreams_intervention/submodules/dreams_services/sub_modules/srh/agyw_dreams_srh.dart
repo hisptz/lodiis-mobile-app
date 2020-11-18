@@ -144,7 +144,7 @@ class _AgywDreamsSRHState extends State<AgywDreamsSRH> {
                                                         bottom: 15.0,
                                                       ),
                                                       child: PrepVisitListCard(
-                                                        visitName: "SRH Reg",
+                                                        visitName: "SRH Visit",
                                                         onEditPrep: () =>
                                                             onEditPrep(context,
                                                                 eventData),
@@ -161,7 +161,7 @@ class _AgywDreamsSRHState extends State<AgywDreamsSRH> {
                                               ),
                                       ),
                                       OvcEnrollmentFormSaveButton(
-                                          label: 'ADD SRH REG',
+                                          label: 'ADD SRH VISIT',
                                           labelColor: Colors.white,
                                           buttonColor: Color(0xFF1F8ECE),
                                           fontSize: 15.0,

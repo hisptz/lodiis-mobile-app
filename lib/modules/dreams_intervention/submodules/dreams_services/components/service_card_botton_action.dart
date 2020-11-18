@@ -190,7 +190,7 @@ class ServiceCardBottonAction extends StatelessWidget {
                               color: Color(0xFF8EBAD3),
                             ))),
                             child: Center(
-                                child: Text('MSGHIV',
+                                child: Text('HIV Messaging',
                                     style: TextStyle().copyWith(
                                       fontSize: 12.0,
                                       fontWeight: FontWeight.normal,

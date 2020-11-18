@@ -27,7 +27,7 @@ class AgywDreamMSGHIVRegiser extends StatefulWidget {
 }
 
 class _AgywDreamMSGHIVRegiserState extends State<AgywDreamMSGHIVRegiser> {
-  final String label = 'MSGHIV';
+  final String label = 'HIV Messaging';
   List<String> programStageids = [MSGHIVConstant.programStage];
   @override
   void initState() {
@@ -126,7 +126,7 @@ class _AgywDreamMSGHIVRegiserState extends State<AgywDreamMSGHIVRegiser> {
                                         ),
                                         child: events.length == 0
                                             ? Text(
-                                                'There is no MSGHIV at a moment')
+                                                'There is no Visit at a moment')
                                             : Container(
                                                 margin: EdgeInsets.symmetric(
                                                   vertical: 5.0,
@@ -136,13 +136,12 @@ class _AgywDreamMSGHIVRegiserState extends State<AgywDreamMSGHIVRegiser> {
                                                   children: events
                                                       .map((Events eventData) {
                                                     referralIndex--;
-
                                                     return Container(
                                                       margin: EdgeInsets.only(
                                                         bottom: 15.0,
                                                       ),
                                                       child: PrepVisitListCard(
-                                                        visitName: "MSG HIV ",
+                                                        visitName: "Visit ",
                                                         onEditPrep: () =>
                                                             onEditPrep(context,
                                                                 eventData),
@@ -159,7 +158,7 @@ class _AgywDreamMSGHIVRegiserState extends State<AgywDreamMSGHIVRegiser> {
                                               ),
                                       ),
                                       OvcEnrollmentFormSaveButton(
-                                          label: 'ADD MSGHIV',
+                                          label: 'ADD HIV Messaging',
                                           labelColor: Colors.white,
                                           buttonColor: Color(0xFF1F8ECE),
                                           fontSize: 15.0,
