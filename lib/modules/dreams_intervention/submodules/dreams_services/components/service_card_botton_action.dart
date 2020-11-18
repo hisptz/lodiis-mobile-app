@@ -10,8 +10,8 @@ class ServiceCardBottonAction extends StatelessWidget {
       this.onOpenHTSForm,
       this.onOpenSRHForm,
       this.onOpenHIVPrepForm,
-      this.onOpenHIVRegForm,
       this.onOpenCondomForm,
+      this.onOpenContraceptivesForm,
       this.onOpenMSGHIVForm,
       this.onOpenANCForm,
       this.onOpenArtRefillForm,
@@ -27,9 +27,9 @@ class ServiceCardBottonAction extends StatelessWidget {
   final VoidCallback onOpenHTSForm;
   final VoidCallback onOpenSRHForm;
   final VoidCallback onOpenHIVPrepForm;
-  final VoidCallback onOpenHIVRegForm;
   final VoidCallback onOpenMSGHIVForm;
   final VoidCallback onOpenCondomForm;
+  final VoidCallback onOpenContraceptivesForm;
   final VoidCallback onOpenPostGBVForm;
   final VoidCallback onOpenGoGirlsForm;
   final VoidCallback onOpenSteppingStonesForm;
@@ -154,7 +154,7 @@ class ServiceCardBottonAction extends StatelessWidget {
                       visible: currentUserState.canManageHivReg,
                       child: Expanded(
                         child: InkWell(
-                          onTap: onOpenHIVRegForm,
+                          onTap: onOpenIPCForm,
                           child: Container(
                             padding: EdgeInsets.symmetric(vertical: 5),
                             margin: EdgeInsets.symmetric(vertical: 5),
@@ -165,7 +165,7 @@ class ServiceCardBottonAction extends StatelessWidget {
                               color: Color(0xFF8EBAD3),
                             ))),
                             child: Center(
-                                child: Text('HIV REG',
+                                child: Text('IPC',
                                     style: TextStyle().copyWith(
                                       fontSize: 12.0,
                                       fontWeight: FontWeight.normal,
@@ -190,7 +190,7 @@ class ServiceCardBottonAction extends StatelessWidget {
                               color: Color(0xFF8EBAD3),
                             ))),
                             child: Center(
-                                child: Text('MSGHIV',
+                                child: Text('HIV Messaging',
                                     style: TextStyle().copyWith(
                                       fontSize: 12.0,
                                       fontWeight: FontWeight.normal,
@@ -215,7 +215,32 @@ class ServiceCardBottonAction extends StatelessWidget {
                               color: Color(0xFF8EBAD3),
                             ))),
                             child: Center(
-                                child: Text('CONDOM',
+                                child: Text('CONDOMS',
+                                    style: TextStyle().copyWith(
+                                      fontSize: 12.0,
+                                      fontWeight: FontWeight.normal,
+                                      color: Color(0xFF1F8ECE),
+                                    ))),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Visibility(
+                      visible: currentUserState.canManageCondom,
+                      child: Expanded(
+                        child: InkWell(
+                          onTap: onOpenCondomForm,
+                          child: Container(
+                            padding: EdgeInsets.symmetric(vertical: 5),
+                            margin: EdgeInsets.symmetric(vertical: 5),
+                            decoration: BoxDecoration(
+                                border: Border(
+                                    left: BorderSide(
+                              width: 1,
+                              color: Color(0xFF8EBAD3),
+                            ))),
+                            child: Center(
+                                child: Text('CONTRACEPTIVES',
                                     style: TextStyle().copyWith(
                                       fontSize: 12.0,
                                       fontWeight: FontWeight.normal,
@@ -351,31 +376,6 @@ class ServiceCardBottonAction extends StatelessWidget {
                       ),
                     ),
                     Visibility(
-                      visible: currentUserState.canManageIPC,
-                      child: Expanded(
-                        child: InkWell(
-                          onTap: onOpenIPCForm,
-                          child: Container(
-                            padding: EdgeInsets.symmetric(vertical: 5),
-                            margin: EdgeInsets.symmetric(vertical: 5),
-                            decoration: BoxDecoration(
-                                border: Border(
-                                    left: BorderSide(
-                              width: 1,
-                              color: Color(0xFF8EBAD3),
-                            ))),
-                            child: Center(
-                                child: Text('IPC',
-                                    style: TextStyle().copyWith(
-                                      fontSize: 12.0,
-                                      fontWeight: FontWeight.normal,
-                                      color: Color(0xFF1F8ECE),
-                                    ))),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Visibility(
                       visible: currentUserState.canManageSteppingStones,
                       child: Expanded(
                         child: InkWell(
@@ -425,7 +425,6 @@ class ServiceCardBottonAction extends StatelessWidget {
                         ),
                       ),
                     ),
-                  
                   ],
                 ),
               )

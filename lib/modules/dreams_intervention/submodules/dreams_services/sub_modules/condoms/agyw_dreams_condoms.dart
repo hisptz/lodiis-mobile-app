@@ -13,21 +13,22 @@ import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/components/prep_visit_card.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/condom/constants/msg_hiv_constant.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/condom/pages/agyw_dreams_condom_form.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/condoms/pages/agyw_dreams_condoms_form.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
 import 'package:provider/provider.dart';
 
-class AgywDreamCondom extends StatefulWidget {
-  AgywDreamCondom({Key key}) : super(key: key);
+import 'constants/condoms_constant.dart';
+
+class AgywDreamCondoms extends StatefulWidget {
+  AgywDreamCondoms({Key key}) : super(key: key);
 
   @override
-  _AgywDreamCondomState createState() => _AgywDreamCondomState();
+  _AgywDreamCondomsState createState() => _AgywDreamCondomsState();
 }
 
-class _AgywDreamCondomState extends State<AgywDreamCondom> {
-  final String label = 'Contraceptives(Condoms)';
-  List<String> programStageids = [CondomConstant.programStage];
+class _AgywDreamCondomsState extends State<AgywDreamCondoms> {
+  final String label = 'Condoms';
+  List<String> programStageids = [CondomsConstant.programStage];
   @override
   void initState() {
     super.initState();
@@ -60,19 +61,19 @@ class _AgywDreamCondomState extends State<AgywDreamCondom> {
     Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
         .setCurrentAgywDream(agywDream);
     Navigator.push(context,
-        MaterialPageRoute(builder: (context) => AgywDreamsCondomForm()));
+        MaterialPageRoute(builder: (context) => AgywDreamsCondomsForm()));
   }
 
   void onViewPrep(BuildContext context, Events eventdata) {
     updateFormState(context, false, eventdata);
     Navigator.push(context,
-        MaterialPageRoute(builder: (context) => AgywDreamsCondomForm()));
+        MaterialPageRoute(builder: (context) => AgywDreamsCondomsForm()));
   }
 
   void onEditPrep(BuildContext context, Events eventdata) {
     updateFormState(context, true, eventdata);
     Navigator.push(context,
-        MaterialPageRoute(builder: (context) => AgywDreamsCondomForm()));
+        MaterialPageRoute(builder: (context) => AgywDreamsCondomsForm()));
   }
 
   @override
@@ -125,7 +126,7 @@ class _AgywDreamCondomState extends State<AgywDreamCondom> {
                                         ),
                                         child: events.length == 0
                                             ? Text(
-                                                'There is no Contraceptives(Condoms) at a moment')
+                                                'There is no visit at a moment')
                                             : Container(
                                                 margin: EdgeInsets.symmetric(
                                                   vertical: 5.0,
@@ -141,7 +142,7 @@ class _AgywDreamCondomState extends State<AgywDreamCondom> {
                                                         bottom: 15.0,
                                                       ),
                                                       child: PrepVisitListCard(
-                                                        visitName: "Contra",
+                                                        visitName: "Visit",
                                                         onEditPrep: () =>
                                                             onEditPrep(context,
                                                                 eventData),
@@ -158,7 +159,7 @@ class _AgywDreamCondomState extends State<AgywDreamCondom> {
                                               ),
                                       ),
                                       OvcEnrollmentFormSaveButton(
-                                          label: 'ADD Contraceptives',
+                                          label: 'ADD A VISIT',
                                           labelColor: Colors.white,
                                           buttonColor: Color(0xFF1F8ECE),
                                           fontSize: 15.0,

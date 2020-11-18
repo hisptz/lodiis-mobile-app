@@ -913,6 +913,7 @@ class DreamsServicePrepIntakeInfo {
                 valueType: 'BOOLEAN'),
           ]),
       FormSection(
+        id: 'PeSfSRaE',
           name:
               ' Pre-Exposure Prophylaxis (PrEP) Screening for Substantial Risk  and Eligibility',
           color: Color(0xFF1F8ECE),
@@ -1177,6 +1178,7 @@ class DreamsServicePrepIntakeInfo {
                 valueType: 'TEXT'),
           ]),
       FormSection(
+          id: 'BsLnIfmtn',
           name: ' Baseline Information',
           color: Color(0xFF1F8ECE),
           inputFields: [
@@ -1295,17 +1297,17 @@ class DreamsServicePrepIntakeInfo {
                 name: 'Individual at high risk of being forced to have sex',
                 valueType: 'TRUE_ONLY'),
             InputField(
-                id: 'UL1Pq6sgvr2',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
-                name: 'Other indications for PrEP initiation',
-                valueType: 'TEXT'),
-            InputField(
                 id: 'bZ8fTvAhdMS',
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
                 name: 'Other indications for PrEP initiation,specify',
                 valueType: 'TRUE_ONLY'),
+            InputField(
+                id: 'UL1Pq6sgvr2',
+                inputColor: Color(0xFF1F8ECE),
+                labelColor: Color(0xFF737373),
+                name: 'Other indications for PrEP initiation',
+                valueType: 'TEXT'),
             InputField(
                 id: 'NIZZ0Bj3XPU',
                 allowFuturePeriod: true,

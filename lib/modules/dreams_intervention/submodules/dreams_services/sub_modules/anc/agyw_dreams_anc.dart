@@ -141,7 +141,7 @@ class _AgywDreamANCState extends State<AgywDreamANC> {
                                                         bottom: 15.0,
                                                       ),
                                                       child: PrepVisitListCard(
-                                                        visitName: "ANC ",
+                                                        visitName: "ANC VISIT ",
                                                         onEditPrep: () =>
                                                             onEditPrep(context,
                                                                 eventData),
@@ -158,7 +158,7 @@ class _AgywDreamANCState extends State<AgywDreamANC> {
                                               ),
                                       ),
                                       OvcEnrollmentFormSaveButton(
-                                          label: 'ADD ANC',
+                                          label: 'ADD ANC VISIT',
                                           labelColor: Colors.white,
                                           buttonColor: Color(0xFF1F8ECE),
                                           fontSize: 15.0,

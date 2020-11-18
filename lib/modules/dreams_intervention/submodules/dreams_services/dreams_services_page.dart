@@ -11,11 +11,11 @@ import 'package:kb_mobile_app/core/components/sub_module_home_container.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/components/service_card_botton_action.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/anc/agyw_dreams_anc.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/art_refill/agyw_dreams_art_refill.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/condom/agyw_dreams_condom.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/condoms/agyw_dreams_condoms.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/contraceptives/agyw_dreams_contraceptives.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/go_girls/agyw_dreams_go_girls.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hiv_prev/dreams_hiv_prev_home.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hiv_reg/agyw_dreams_hiv_register.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/ipc/agyw_dreams_ipc.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/lbse/agyw_dreams_lbse.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/msg_hiv/agyw_dreams_msg_hiv_register.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/pep/agyw_dreams_pep.dart';
@@ -75,7 +75,7 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
         context, MaterialPageRoute(builder: (context) => DreamsHIVPrevHome()));
   }
 
-  void onOpenHIVRegForm(
+  void onOpenIPCForm(
     BuildContext context,
     AgywDream agywBeneficiary,
   ) {
@@ -108,7 +108,15 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
   ) {
     updateStateData(context, agywBeneficiary);
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => AgywDreamCondom()));
+        context, MaterialPageRoute(builder: (context) => AgywDreamCondoms()));
+  }
+  void onOpenContraceptivesForm(
+    BuildContext context,
+    AgywDream agywBeneficiary,
+  ) {
+    updateStateData(context, agywBeneficiary);
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => AgywDreamContraceptives()));
   }
 
   void onOpenANCForm(
@@ -145,15 +153,6 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
     updateStateData(context, agywBeneficiary);
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => AgywDreamGoGirls()));
-  }
-
-  void onOpenIPCForm(
-    BuildContext context,
-    AgywDream agywBeneficiary,
-  ) {
-    updateStateData(context, agywBeneficiary);
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => AgywDreamIPC()));
   }
 
   void onOpenLBSEForm(
@@ -254,32 +253,39 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
                                 cardBottonActions: ServiceCardBottonAction(
                                   onOpenPrepForm: () =>
                                       onOpenPrepForm(context, agywBeneficiary),
-                                  onOpenHIVPrepForm: () => onOpenHIVPrepForm(
+                                  onOpenHIVPrepForm: () => 
+                                      onOpenHIVPrepForm(
                                       context, agywBeneficiary),
-                                  onOpenHIVRegForm: () => onOpenHIVRegForm(
+                                  onOpenIPCForm: () => 
+                                      onOpenIPCForm(
                                       context, agywBeneficiary),
                                   onOpenSRHForm: () =>
                                       onOpenSRHForm(context, agywBeneficiary),
                                   onOpenHTSForm: () =>
                                       onOpenHTSForm(context, agywBeneficiary),
-                                  onOpenCondomForm: () => onOpenCondomForm(
+                                  onOpenCondomForm: () => 
+                                      onOpenCondomForm(
                                       context, agywBeneficiary),
-                                  onOpenMSGHIVForm: () => onOpenMSGHIVForm(
+                                   onOpenContraceptivesForm: () => 
+                                      onOpenContraceptivesForm(
+                                      context, agywBeneficiary),
+                                  onOpenMSGHIVForm: () => 
+                                      onOpenMSGHIVForm(
                                       context, agywBeneficiary),
                                   onOpenANCForm: () =>
                                       onOpenANCForm(context, agywBeneficiary),
                                   onOpenArtRefillForm: () =>
                                       onOpenArtRefillForm(
                                           context, agywBeneficiary),
-                                  onOpenGoGirlsForm: () => onOpenGoGirlsForm(
+                                  onOpenGoGirlsForm: () => 
+                                      onOpenGoGirlsForm(
                                       context, agywBeneficiary),
-                                  onOpenIPCForm: () =>
-                                      onOpenIPCForm(context, agywBeneficiary),
                                   onOpenLBSEForm: () =>
                                       onOpenLBSEForm(context, agywBeneficiary),
                                   onOpenPEPForm: () =>
                                       onOpenPEPForm(context, agywBeneficiary),
-                                  onOpenPostGBVForm: () => onOpenPostGBVForm(
+                                  onOpenPostGBVForm: () => 
+                                      onOpenPostGBVForm(
                                       context, agywBeneficiary),
                                   onOpenSteppingStonesForm: () =>
                                       onOpenSteppingStonesForm(

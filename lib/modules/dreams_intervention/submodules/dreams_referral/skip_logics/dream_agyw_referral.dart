@@ -4,32 +4,25 @@ import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:provider/provider.dart';
 
-class OvcChildSchoolMonitoringSkipLogic {
+class DreamAgywReferralSkipLogic {
   static Map hiddenFields = Map();
   static Map hiddenSections = Map();
 
   static Future evaluateSkipLogics(
-    BuildContext context,
-    List<FormSection> formSections,
-    Map dataObject,
-  ) async {
+      BuildContext context,
+      List<FormSection> formSections,
+      Map dataObject,
+      ) async {
     hiddenFields.clear();
     hiddenSections.clear();
     List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections);
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
-
-      //Domain Schooled
-      if (inputFieldId == 'Uw2Z1XNFgXI' && value != 'true') {
-        hiddenFields['yYuNppDTRji'] = true;
-        hiddenFields['t6kN1SwgMSs'] = true;
+      if(inputFieldId == 'qAed23reDPP' && value != 'Community'){
+        hiddenSections['SeRefoCo'] = true;
       }
-      if (inputFieldId == 'Uw2Z1XNFgXI' && value != 'false') {
-        hiddenFields['vigylZN5Wjz'] = true;
-      }
-
-      if (inputFieldId == 'O8VSN74kSJx' && value != 'true'){
-        hiddenFields['na5YEZYwY0l'] = true;
+      if(inputFieldId == 'qAed23reDPP' && value != 'Facility'){
+        hiddenSections['SeRefoFa'] = true;
       }
     }
     for (String sectionId in hiddenSections.keys) {
@@ -55,18 +48,18 @@ class OvcChildSchoolMonitoringSkipLogic {
   }
 
   static resetValuesForHiddenSections(
-    BuildContext context,
-    List<FormSection> formSections,
-  ) {
+      BuildContext context,
+      List<FormSection> formSections,
+      ) {
     Provider.of<ServiceFormState>(context, listen: false)
         .setHiddenSections(hiddenSections);
   }
 
   static assignInputFieldValue(
-    BuildContext context,
-    String inputFieldId,
-    String value,
-  ) {
+      BuildContext context,
+      String inputFieldId,
+      String value,
+      ) {
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState(inputFieldId, value);
   }

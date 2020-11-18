@@ -4,7 +4,7 @@ import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:provider/provider.dart';
 
-class OvcChildSchoolMonitoringSkipLogic {
+class AgywDreamsContraceptivesSkipLogic {
   static Map hiddenFields = Map();
   static Map hiddenSections = Map();
 
@@ -18,19 +18,7 @@ class OvcChildSchoolMonitoringSkipLogic {
     List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections);
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
-
-      //Domain Schooled
-      if (inputFieldId == 'Uw2Z1XNFgXI' && value != 'true') {
-        hiddenFields['yYuNppDTRji'] = true;
-        hiddenFields['t6kN1SwgMSs'] = true;
-      }
-      if (inputFieldId == 'Uw2Z1XNFgXI' && value != 'false') {
-        hiddenFields['vigylZN5Wjz'] = true;
-      }
-
-      if (inputFieldId == 'O8VSN74kSJx' && value != 'true'){
-        hiddenFields['na5YEZYwY0l'] = true;
-      }
+      print(value);
     }
     for (String sectionId in hiddenSections.keys) {
       List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections

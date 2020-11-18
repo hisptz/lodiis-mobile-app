@@ -1,4 +1,3 @@
-//  final String label = 'HIV Register';
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dream_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
@@ -13,22 +12,23 @@ import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hiv_reg/constants/hiv_prep_constant.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hiv_reg/pages/agyw_dreams_hiv_register_form.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/components/prep_visit_card.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/contraceptives/pages/agyw_dreams_contraceptives_form.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
 import 'package:provider/provider.dart';
 
-class AgywDreamsHIVRegister extends StatefulWidget {
-  AgywDreamsHIVRegister({Key key}) : super(key: key);
+import 'constants/contraceptives_constant.dart';
+
+class AgywDreamContraceptives extends StatefulWidget {
+  AgywDreamContraceptives({Key key}) : super(key: key);
 
   @override
-  _AgywDreamsHIVRegisterState createState() => _AgywDreamsHIVRegisterState();
+  _AgywDreamContraceptivesState createState() => _AgywDreamContraceptivesState();
 }
 
-class _AgywDreamsHIVRegisterState extends State<AgywDreamsHIVRegister> {
-  final String label = 'IPC';
-  List<String> programStageids = [HivPrepConstant.programStage];
+class _AgywDreamContraceptivesState extends State<AgywDreamContraceptives> {
+  final String label = 'Contraceptives';
+  List<String> programStageids = [ContraceptivesConstant.programStage];
   @override
   void initState() {
     super.initState();
@@ -61,19 +61,19 @@ class _AgywDreamsHIVRegisterState extends State<AgywDreamsHIVRegister> {
     Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
         .setCurrentAgywDream(agywDream);
     Navigator.push(context,
-        MaterialPageRoute(builder: (context) => AgywDreamsHIVRegisterForm()));
+        MaterialPageRoute(builder: (context) => AgywDreamsContraceptivesForm()));
   }
 
   void onViewPrep(BuildContext context, Events eventdata) {
     updateFormState(context, false, eventdata);
     Navigator.push(context,
-        MaterialPageRoute(builder: (context) => AgywDreamsHIVRegisterForm()));
+        MaterialPageRoute(builder: (context) => AgywDreamsContraceptivesForm()));
   }
 
   void onEditPrep(BuildContext context, Events eventdata) {
     updateFormState(context, true, eventdata);
     Navigator.push(context,
-        MaterialPageRoute(builder: (context) => AgywDreamsHIVRegisterForm()));
+        MaterialPageRoute(builder: (context) => AgywDreamsContraceptivesForm()));
   }
 
   @override
@@ -126,7 +126,7 @@ class _AgywDreamsHIVRegisterState extends State<AgywDreamsHIVRegister> {
                                         ),
                                         child: events.length == 0
                                             ? Text(
-                                                'There is no VISIT at a moment')
+                                                'There is no Visit at a moment')
                                             : Container(
                                                 margin: EdgeInsets.symmetric(
                                                   vertical: 5.0,
@@ -142,7 +142,7 @@ class _AgywDreamsHIVRegisterState extends State<AgywDreamsHIVRegister> {
                                                         bottom: 15.0,
                                                       ),
                                                       child: PrepVisitListCard(
-                                                        visitName: "IPC Visit",
+                                                        visitName: "Visit",
                                                         onEditPrep: () =>
                                                             onEditPrep(context,
                                                                 eventData),
@@ -159,7 +159,7 @@ class _AgywDreamsHIVRegisterState extends State<AgywDreamsHIVRegister> {
                                               ),
                                       ),
                                       OvcEnrollmentFormSaveButton(
-                                          label: 'ADD IPC VISIT',
+                                          label: 'ADD NEW VISIT',
                                           labelColor: Colors.white,
                                           buttonColor: Color(0xFF1F8ECE),
                                           fontSize: 15.0,

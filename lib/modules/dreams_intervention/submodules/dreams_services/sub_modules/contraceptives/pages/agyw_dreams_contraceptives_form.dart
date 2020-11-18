@@ -16,20 +16,20 @@ import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/dreams_service_condom_form_info.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/condom/constants/msg_hiv_constant.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/condom/skip_logics/agyw_dreams_condom_skip_logic.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/dreams_service_contraceptives_form_info.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/contraceptives/constants/contraceptives_constant.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/contraceptives/skip_logics/agyw_dreams_contraceptives_skip_logic.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
 import 'package:provider/provider.dart';
 
-class AgywDreamsCondomForm extends StatefulWidget {
-  AgywDreamsCondomForm({Key key}) : super(key: key);
+class AgywDreamsContraceptivesForm extends StatefulWidget {
+  AgywDreamsContraceptivesForm({Key key}) : super(key: key);
   @override
-  _AgywDreamsCondomFormState createState() => _AgywDreamsCondomFormState();
+  _AgywDreamsContraceptivesFormState createState() => _AgywDreamsContraceptivesFormState();
 }
 
-class _AgywDreamsCondomFormState extends State<AgywDreamsCondomForm> {
-  final String label = 'Contraceptives(Condoms) form';
+class _AgywDreamsContraceptivesFormState extends State<AgywDreamsContraceptivesForm> {
+  final String label = 'Contraceptives form';
   List<FormSection> formSections;
   bool isFormReady = false;
   bool isSaving = false;
@@ -37,7 +37,7 @@ class _AgywDreamsCondomFormState extends State<AgywDreamsCondomForm> {
   @override
   void initState() {
     super.initState();
-    formSections = DreamsCondomnfo.getFormSections();
+    formSections = DreamsContraceptivesform.getFormSections();
     Timer(Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
@@ -52,7 +52,7 @@ class _AgywDreamsCondomFormState extends State<AgywDreamsCondomForm> {
       () async {
         Map dataObject =
             Provider.of<ServiceFormState>(context, listen: false).formState;
-        await AgywDreamsCondomSkipLogic.evaluateSkipLogics(
+        await AgywDreamsContraceptivesSkipLogic.evaluateSkipLogics(
           context,
           formSections,
           dataObject,
@@ -78,8 +78,8 @@ class _AgywDreamsCondomFormState extends State<AgywDreamsCondomForm> {
       List<String> hiddenFields = [];
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-            CondomConstant.program,
-            CondomConstant.programStage,
+            ContraceptivesConstant.program,
+            ContraceptivesConstant.programStage,
             agywDream.orgUnit,
             formSections,
             dataObject,

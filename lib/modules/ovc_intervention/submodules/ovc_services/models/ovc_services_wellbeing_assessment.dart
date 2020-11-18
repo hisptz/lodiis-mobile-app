@@ -399,7 +399,7 @@ class OvcServicesWellbeingAssessment {
                   InputFieldOption(code: 'Refuse', name: 'Refuse')
                 ]),
             InputField(
-                id: '',
+                id: 'dTiDozleQuO_checkbox',
                 name: 'Nutritional supplements received',
                 valueType: 'CHECK_BOX',
                 inputColor: Color(0xFF4B9F46),
@@ -583,12 +583,7 @@ class OvcServicesWellbeingAssessment {
                   InputFieldOption(
                       code: 'No disclosure', name: 'No disclosure'),
                 ]),
-            InputField(
-                id: 'c5TMWtM4VVJ',
-                name: 'Could you share the results of the test with me?',
-                valueType: 'TEXT',
-                inputColor: Color(0xFF2895F0),
-                labelColor: Color(0xFF1A3518)),
+
             InputField(
                 id: 'bgJkdPrTnbg',
                 name: 'How did you find out about your HIV status?',

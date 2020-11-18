@@ -36,6 +36,16 @@ class _DateInputFieldContainerState extends State<DateInputFieldContainer> {
   void onOpenDateSelection(BuildContext context) async {
     _date = _date ?? AppUtil.formattedDateTimeIntoString(DateTime.now());
     DateTime date = await showDatePicker(
+      builder: (BuildContext context, Widget child) {
+        return Theme(
+          data: ThemeData.light().copyWith(
+            colorScheme: ColorScheme.light().copyWith(
+              primary: widget.inputField.inputColor,
+            ),
+          ),
+          child: child,
+        );
+      },
       context: context,
       fieldLabelText: '${widget.inputField.name}',
       initialDate: AppUtil.getDateIntoDateTimeFormat(_date),
