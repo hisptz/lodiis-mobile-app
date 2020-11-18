@@ -29,10 +29,12 @@ class OcvChildCasePlanForm extends StatefulWidget {
     Key key,
     this.shouldEditCaseGapFollowUps = false,
     this.shouldViewCaseGapFollowUp = false,
+    this.shouldAddCasePlanGap = false,
   }) : super(key: key);
 
   final bool shouldEditCaseGapFollowUps;
   final bool shouldViewCaseGapFollowUp;
+  final bool shouldAddCasePlanGap;
 
   @override
   _OcvChildCasePlanFormState createState() => _OcvChildCasePlanFormState();
@@ -213,6 +215,8 @@ class _OcvChildCasePlanFormState extends State<OcvChildCasePlanForm> {
                                         .map(
                                           (FormSection formSection) =>
                                               CasePlanFormContainer(
+                                            shouldAddCasePlanGap:
+                                                widget.shouldAddCasePlanGap,
                                             shouldEditCaseGapFollowUps: widget
                                                 .shouldEditCaseGapFollowUps,
                                             shouldViewCaseGapFollowUp: widget
