@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_bottom_navigation_state/intervention_bottom_navigation_state.dart';
+import 'package:kb_mobile_app/app_state/ogac_intervention_list_state/ogac_intervention_list_state.dart';
+import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_intervention_list_state.dart';
 import 'package:kb_mobile_app/core/components/input_fields/text_input_field_container.dart';
 import 'package:kb_mobile_app/models/Intervention_bottom_navigation.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
@@ -49,9 +52,18 @@ class _InterventionAppBarState extends State<InterventionAppBar> {
     onSearchBeneficiary(context, value);
   }
 
-  void onSearchBeneficiary(BuildContext context, dynamic value) {
-    // set appropriate action on seaarch
-    print('$value : value');
+  void onSearchBeneficiary(BuildContext context, String value) {
+    value = value.toLowerCase();
+    if (widget.activeInterventionProgram.id == 'ogac') {
+      Provider.of<OgacInterventionListState>(context, listen: false)
+          .searchOgacList(value);
+    } else if (widget.activeInterventionProgram.id == 'dreams') {
+      Provider.of<DreamsInterventionListState>(context, listen: false)
+          .searchAgywDreams(value);
+    } else if (widget.activeInterventionProgram.id == 'ovc') {
+      Provider.of<OvcInterventionListState>(context, listen: false)
+          .searchHouseHold(value);
+    }
   }
 
   @override
@@ -137,7 +149,7 @@ class _InterventionAppBarState extends State<InterventionAppBar> {
         actions: [
           Container(
             child: IconButton(
-              icon: Icon(isSearchActive ? Icons.close : Icons.search),
+              icon: Icon(isSearchActive ? Icons.search_off : Icons.search),
               onPressed: () => onActivateOrDeactivateSearch(context),
             ),
           ),
