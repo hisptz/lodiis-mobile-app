@@ -111,7 +111,7 @@ class _OrganisationUnitInputFieldContainerState
                       controller: organisationUnitController,
                       style: TextStyle()
                           .copyWith(color: widget.inputField.labelColor),
-                      onTap: () => widget.inputField.isReadObly
+                      onTap: () => widget.inputField.isReadOnly
                           ? null
                           : openOrganisationUnit(context),
                       readOnly: true,

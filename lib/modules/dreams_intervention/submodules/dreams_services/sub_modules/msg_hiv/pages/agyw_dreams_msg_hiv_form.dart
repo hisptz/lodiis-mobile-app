@@ -16,9 +16,10 @@ import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/dreams_service_hiv_regiser_form_infor.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hiv_reg/constants/hiv_prep_constant.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/dreams_service_msg_hiv_form_info.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hiv_reg/skip_logics/agyw_dreams_hiv_register_skip_logic.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/msg_hiv/constants/msg_hiv_constant.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/msg_hiv/skip_logics/agyw_dreams_msg_hiv_skip_logic.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
 import 'package:provider/provider.dart';
 
@@ -30,7 +31,7 @@ class AgywDreamsMSGHIVForm extends StatefulWidget {
 }
 
 class _AgywDreamsMSGHIVFormState extends State<AgywDreamsMSGHIVForm> {
-  final String label = 'HIV Register form';
+  final String label = 'MSG HIV  form';
   List<FormSection> formSections;
   bool isFormReady = false;
   bool isSaving = false;
@@ -38,7 +39,7 @@ class _AgywDreamsMSGHIVFormState extends State<AgywDreamsMSGHIVForm> {
   @override
   void initState() {
     super.initState();
-    formSections = DreamsServiceHivRegisterInfo.getFormSections();
+    formSections = DreamsMsgHivInfo.getFormSections();
     Timer(Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
@@ -53,7 +54,7 @@ class _AgywDreamsMSGHIVFormState extends State<AgywDreamsMSGHIVForm> {
       () async {
         Map dataObject =
             Provider.of<ServiceFormState>(context, listen: false).formState;
-        await AgywDreamsHivRegisterSkipLogic.evaluateSkipLogics(
+        await AgywDreamsMSGHIVSkipLogic.evaluateSkipLogics(
           context,
           formSections,
           dataObject,
@@ -79,8 +80,8 @@ class _AgywDreamsMSGHIVFormState extends State<AgywDreamsMSGHIVForm> {
       List<String> hiddenFields = [];
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-            HivPrepConstant.program,
-            HivPrepConstant.programStage,
+            MSGHIVConstant.program,
+            MSGHIVConstant.programStage,
             agywDream.orgUnit,
             formSections,
             dataObject,

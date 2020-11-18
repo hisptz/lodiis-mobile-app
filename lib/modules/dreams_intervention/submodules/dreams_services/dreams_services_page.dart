@@ -7,13 +7,22 @@ import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_card_body.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_card.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_home_container.dart';
+import 'package:kb_mobile_app/core/components/sub_module_home_container.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/components/service_card_botton_action.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/anc/agyw_dreams_anc.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/art_refill/agyw_dreams_art_refill.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/condom/agyw_dreams_condom.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/go_girls/agyw_dreams_go_girls.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hiv_prev/dreams_hiv_prev_home.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hiv_reg/agyw_dreams_hiv_register.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/ipc/agyw_dreams_ipc.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/lbse/agyw_dreams_lbse.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/msg_hiv/agyw_dreams_msg_hiv_register.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/pep/agyw_dreams_pep.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/post_gbv/agyw_dreams_post_gbv.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/prep/agyw_dreams_prep.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/srh/agyw_dreams_srh.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/stepping_stones/agyw_dreams_stepping_stones.dart';
 import 'package:provider/provider.dart';
 
 import 'sub_modules/hts/hts_home_page.dart';
@@ -89,8 +98,8 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
     AgywDream agywBeneficiary,
   ) {
     updateStateData(context, agywBeneficiary);
-    // Navigator.push(context,
-    //     MaterialPageRoute(builder: (context) => AgywDreamMSGHIVRegiser()));
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => AgywDreamMSGHIVRegiser()));
   }
 
   void onOpenCondomForm(
@@ -98,8 +107,8 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
     AgywDream agywBeneficiary,
   ) {
     updateStateData(context, agywBeneficiary);
-    // Navigator.push(
-    //     context, MaterialPageRoute(builder: (context) => AgywDreamsPrep()));
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => AgywDreamCondom()));
   }
 
   void onOpenANCForm(
@@ -107,6 +116,8 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
     AgywDream agywBeneficiary,
   ) {
     updateStateData(context, agywBeneficiary);
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => AgywDreamANC()));
   }
 
   void onOpenPostGBVForm(
@@ -114,6 +125,8 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
     AgywDream agywBeneficiary,
   ) {
     updateStateData(context, agywBeneficiary);
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => AgywDreamPostGBV()));
   }
 
   void onOpenArtRefillForm(
@@ -121,6 +134,8 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
     AgywDream agywBeneficiary,
   ) {
     updateStateData(context, agywBeneficiary);
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => AgywDreamArtRefill()));
   }
 
   void onOpenGoGirlsForm(
@@ -128,6 +143,8 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
     AgywDream agywBeneficiary,
   ) {
     updateStateData(context, agywBeneficiary);
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => AgywDreamGoGirls()));
   }
 
   void onOpenIPCForm(
@@ -135,6 +152,8 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
     AgywDream agywBeneficiary,
   ) {
     updateStateData(context, agywBeneficiary);
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => AgywDreamIPC()));
   }
 
   void onOpenLBSEForm(
@@ -142,13 +161,17 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
     AgywDream agywBeneficiary,
   ) {
     updateStateData(context, agywBeneficiary);
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => AgywDreamLBSE()));
   }
 
-    void onOpenPEPForm(
+  void onOpenPEPForm(
     BuildContext context,
     AgywDream agywBeneficiary,
   ) {
     updateStateData(context, agywBeneficiary);
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => AgywDreamPEP()));
   }
 
   void onOpenSteppingStonesForm(
@@ -156,6 +179,8 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
     AgywDream agywBeneficiary,
   ) {
     updateStateData(context, agywBeneficiary);
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => AgywDreamSteppingStones()));
   }
 
   void updateStateData(
@@ -173,7 +198,15 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
 
   @override
   Widget build(BuildContext context) {
-    return DreamsHomeContainer(header: title, bodyContents: _buildBody());
+    return Consumer<DreamsInterventionListState>(
+      builder: (context, dreamInterventionListState, child) {
+        return SubModuleHomeContainer(
+          header:
+              '$title : ${dreamInterventionListState.numberOfAgywDreamsBeneficiaries} beneficiaries',
+          bodyContents: _buildBody(),
+        );
+      },
+    );
   }
 
   Widget _buildBody() {
@@ -244,8 +277,8 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
                                       onOpenIPCForm(context, agywBeneficiary),
                                   onOpenLBSEForm: () =>
                                       onOpenLBSEForm(context, agywBeneficiary),
-                                  onOpenPEPForm: () => onOpenPEPForm(
-                                      context, agywBeneficiary),
+                                  onOpenPEPForm: () =>
+                                      onOpenPEPForm(context, agywBeneficiary),
                                   onOpenPostGBVForm: () => onOpenPostGBVForm(
                                       context, agywBeneficiary),
                                   onOpenSteppingStonesForm: () =>

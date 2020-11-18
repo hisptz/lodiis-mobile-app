@@ -118,7 +118,7 @@ class NoneAgywEnrollmentFormSection {
           InputField(
               id: 'ls9hlz2tyol',
               name: 'Age',
-              isReadObly: true,
+              isReadOnly: true,
               valueType: 'NUMBER',
               inputColor: Color(0xFF258DCC),
               labelColor: Color(0xFF737373)),

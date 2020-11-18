@@ -18,15 +18,36 @@ class AgywDreamsSrhSkipLogic {
     List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections);
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
-      print(value);
+    
+
+      if (inputFieldId == 'qjMmrl5bpCx' && value != 'true') {
+        hiddenFields['XZBP09HGzqn'] = true;
+        hiddenFields['kV6uCz4uLLR'] = true;
+         hiddenFields['rE25suIpzDK'] = true;
+      }
+      if (inputFieldId == 'rE25suIpzDK' && value != 'false') {
+        hiddenFields['UZxZebenwuv'] = true;
+        hiddenFields['aHpvyQyfyBM'] = true;
+      }
+
+       if (inputFieldId == 'C2k7GxU3P5C' && value != 'true') {
+        hiddenFields['aYeHcF3793X'] = true;
+              }  
+
+          if (inputFieldId == 'ukzLG0l63tw' && value != 'Other') {
+        hiddenFields['uLV0xy0iihA'] = true;
+              } 
+
+       if (inputFieldId == 'BXW4IP4Lfe7' && value != 'Other') {
+        hiddenFields['Sj45q8zEcqx'] = true;
+              } 
     }
     for (String sectionId in hiddenSections.keys) {
       List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections
           .where((formSection) => formSection.id == sectionId)
           .toList());
-      for (String inputFieldId in inputFieldIds) {
-        hiddenFields[inputFieldId] = true;
-      }
+      for (String inputFieldId in inputFieldIds){
+        hiddenFields[inputFieldId] = true;      }
     }
     resetValuesForHiddenFields(context, hiddenFields.keys);
     resetValuesForHiddenSections(context, formSections);

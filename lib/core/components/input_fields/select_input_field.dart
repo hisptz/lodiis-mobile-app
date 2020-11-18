@@ -37,7 +37,7 @@ class _SelectInputFieldState extends State<SelectInputField> {
 
   updateInputValueState(dynamic value) {
     setState(() {
-      _selectedOption = value;
+      _selectedOption = value == '' ? null : value;
     });
   }
 

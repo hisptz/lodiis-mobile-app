@@ -1,10 +1,12 @@
 import 'package:flutter/foundation.dart';
+import 'package:kb_mobile_app/core/services/organisation_unit_service.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
+import 'package:kb_mobile_app/models/organisation_unit.dart';
 
 class CurrentUserState with ChangeNotifier {
-  
   // initiat state
   CurrentUser _currentUser;
+  String _currentUserLocations;
   bool _canManageDreams;
   bool _canManageOGAC;
   bool _canManageOvc;
@@ -17,7 +19,6 @@ class CurrentUserState with ChangeNotifier {
   bool _canManagePrep;
   bool _canManageMSGHIV;
   bool _canManageArtRefill;
-  bool _canManagepostGbv;
   bool _canManageAnc;
   bool _canManageCondom;
   bool _canManagePOSTGBV;
@@ -29,6 +30,7 @@ class CurrentUserState with ChangeNotifier {
 
   // selectors
   CurrentUser get currentUser => _currentUser;
+  String get currentUserLocations => _currentUserLocations ?? '';
   bool get canManageDreams => _canManageDreams ?? false;
   bool get canManageOGAC => _canManageOGAC ?? false;
   bool get canManageOvc => _canManageOvc ?? false;
@@ -40,7 +42,6 @@ class CurrentUserState with ChangeNotifier {
   bool get canManageSrh => _canManageSrh ?? false;
   bool get canManagePrep => _canManagePrep ?? false;
   bool get canManageAnc => _canManageAnc ?? false;
-  bool get canManagepostGbv => _canManagepostGbv ?? false;
   bool get canManageArtRefill => _canManageArtRefill ?? false;
   bool get canManageMSGHIV => _canManageMSGHIV ?? false;
   bool get canManageCondom => _canManageCondom ?? false;
@@ -64,6 +65,15 @@ class CurrentUserState with ChangeNotifier {
       _canManageSrh = true;
       _canManagePrep = true;
       _canManagePEP = true;
+      _canManageLBSE = true;
+      _canManageSteppingStones = true;
+      _canManageGoGirls = true;
+      _canManageIPC = true;
+      _canManagePOSTGBV = true;
+      _canManageCondom = true;
+      _canManageMSGHIV = true;
+      _canManageArtRefill = true;
+      _canManageAnc = true;
     }
     if (implementingPartner == 'PSI') {
       _canManageDreams = true;
@@ -110,6 +120,7 @@ class CurrentUserState with ChangeNotifier {
       _canManageMSGHIV = true;
       _canManageIPC = true;
       _canManageLBSE = true;
+      _canManageSteppingStones = true;
     }
     if (implementingPartner == 'CLO') {
       _canManageOvc = true;
@@ -125,6 +136,21 @@ class CurrentUserState with ChangeNotifier {
     _currentUser = user;
     String implementingPartner = user.implementingPartner;
     updateUserAccessStatus(implementingPartner);
+    setCurrentUserLocation();
+  }
+
+  void setCurrentUserLocation() async {
+    String locations = '';
+    if (_currentUser != null && _currentUser.userOrgUnitIds != null) {
+      List<OrganisationUnit> organisationUnits = await OrganisationUnitService()
+          .getOrganisationUnits(_currentUser.userOrgUnitIds);
+      locations = organisationUnits
+          .map((OrganisationUnit organisationUnit) =>
+              organisationUnit.name ?? '')
+          .toList()
+          .join(', ');
+    }
+    _currentUserLocations = locations;
     notifyListeners();
   }
 
@@ -141,7 +167,6 @@ class CurrentUserState with ChangeNotifier {
     _canManagePrep = false;
     _canManageMSGHIV = false;
     _canManageArtRefill = false;
-    _canManagepostGbv = false;
     _canManageAnc = false;
     _canManageCondom = false;
     _canManagePOSTGBV = false;

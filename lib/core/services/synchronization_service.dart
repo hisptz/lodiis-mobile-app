@@ -149,6 +149,8 @@ class SynchronizationService {
     body['trackedEntityInstances'] = teis.map((tei) {
       var data = tei.toOffline(tei);
       String trackedEntityInstance = data['trackedEntityInstance'];
+      data['attributes'] =
+          data['attributes'].where((att) => att['value'] != 'null').toList();
       data['enrollments'] = enrollments
           .where((enrollment) =>
               enrollment['trackedEntityInstance'] == trackedEntityInstance)

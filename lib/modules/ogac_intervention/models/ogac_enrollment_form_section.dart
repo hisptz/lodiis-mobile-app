@@ -110,7 +110,7 @@ class OgacInterventionFormSection {
           InputField(
             id: 'ls9hlz2tyol',
             name: 'Age',
-            isReadObly: true,
+            isReadOnly: true,
             valueType: 'NUMBER',
             inputColor: Color(0xFFF05A2A),
             labelColor: Color(0xFF737373),

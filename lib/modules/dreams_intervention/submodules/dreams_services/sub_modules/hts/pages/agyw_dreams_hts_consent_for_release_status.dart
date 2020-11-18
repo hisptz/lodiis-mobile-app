@@ -20,6 +20,7 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_serv
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/hts_consent.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/constants/agyw_dreams_hts_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/pages/agyw_dreams_hts_tb_screening.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/skip_logics/agyw_dreams_hts_skip_logic.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
 import 'package:provider/provider.dart';
 
@@ -48,10 +49,11 @@ class _AgywDreamsHTSConsentForReleaseStatusState
     allFormSections.addAll(HTSConsent.getFormSections());
     Timer(Duration(seconds: 1), () {
       setState(() {
-        isFormReady = true;
+        isFormReady = true;     
       });
     });
   }
+
 
   void onInputValueChange(String id, dynamic value) {
     Provider.of<ServiceFormState>(context, listen: false)
