@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:kb_mobile_app/app_state/intervention_bottom_navigation_state/intervention_bottom_navigation_state.dart';
+import 'package:kb_mobile_app/core/components/input_fields/text_input_field_container.dart';
 import 'package:kb_mobile_app/models/Intervention_bottom_navigation.dart';
+import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:provider/provider.dart';
 
-class InterventionAppBar extends StatelessWidget {
+class InterventionAppBar extends StatefulWidget {
   const InterventionAppBar(
       {Key key,
       @required this.activeInterventionProgram,
       this.onClickHome,
       this.onAddHouseHold,
-      this.onSearch,
       this.onOpenMoreMenu,
       this.onAddAgywBeneficiary,
       this.onAddNoneAgywBeneficiary,
@@ -23,98 +24,172 @@ class InterventionAppBar extends StatelessWidget {
   final VoidCallback onAddAgywBeneficiary;
   final VoidCallback onAddNoneAgywBeneficiary;
   final VoidCallback onAddOgacBeneficiary;
-
-  final VoidCallback onSearch;
   final VoidCallback onClickHome;
   final VoidCallback onOpenMoreMenu;
 
   @override
+  _InterventionAppBarState createState() => _InterventionAppBarState();
+}
+
+class _InterventionAppBarState extends State<InterventionAppBar> {
+  bool isSearchActive = false;
+  InputField inputField = InputField(
+    id: 'search',
+    name: '',
+    valueType: 'TEXT',
+    inputColor: Colors.white,
+  );
+
+  void onActivateOrDeactivateSearch(
+    BuildContext context,
+  ) {
+    String value = '';
+    isSearchActive = !isSearchActive;
+    setState(() {});
+    onSearchBeneficiary(context, value);
+  }
+
+  void onSearchBeneficiary(BuildContext context, dynamic value) {
+    // set appropriate action on seaarch
+    print('$value : value');
+  }
+
+  @override
   Widget build(BuildContext context) {
     return AppBar(
-        backgroundColor: activeInterventionProgram.primmaryColor,
-        title: GestureDetector(
-            onTap: this.onClickHome,
-            child: Material(
-                color: Colors.transparent,
-                child: Container(
-                  child: Row(
-                    children: [
-                      Container(
-                        padding: EdgeInsets.symmetric(
-                            vertical: 9.0, horizontal: 13.5),
-                        decoration: BoxDecoration(
-                            color: Colors.transparent,
-                            borderRadius: BorderRadius.circular(14),
-                            border: Border.all(
-                                color: activeInterventionProgram.svgIconColor)),
-                        child: Row(
-                          children: [
-                            Container(
-                              child: SvgPicture.asset(
-                                activeInterventionProgram.svgIcon,
-                                color: activeInterventionProgram.svgIconColor,
-                                height: 19.2,
-                                width: 19.2,
+        backgroundColor: widget.activeInterventionProgram.primmaryColor,
+        title: Row(
+          children: [
+            Container(
+              child: GestureDetector(
+                onTap: this.widget.onClickHome,
+                child: Material(
+                  color: Colors.transparent,
+                  child: Container(
+                    child: Row(
+                      children: [
+                        Container(
+                          padding: EdgeInsets.symmetric(
+                              vertical: 9.0, horizontal: 13.5),
+                          decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              borderRadius: BorderRadius.circular(14),
+                              border: Border.all(
+                                  color: widget
+                                      .activeInterventionProgram.svgIconColor)),
+                          child: Row(
+                            children: [
+                              Container(
+                                child: SvgPicture.asset(
+                                  widget.activeInterventionProgram.svgIcon,
+                                  color: widget
+                                      .activeInterventionProgram.svgIconColor,
+                                  height: 19.2,
+                                  width: 19.2,
+                                ),
                               ),
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Container(
-                              height: 20,
-                              padding: EdgeInsets.only(top: 2),
-                              child: Text(
-                                activeInterventionProgram.shortName,
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 14),
+                              SizedBox(
+                                width: 5,
                               ),
-                            ),
-                          ],
+                              Container(
+                                height: 20,
+                                padding: EdgeInsets.only(top: 2),
+                                child: Text(
+                                  widget.activeInterventionProgram.shortName,
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 14),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ))),
+                ),
+              ),
+            ),
+            Expanded(
+              child: Visibility(
+                visible: isSearchActive,
+                child: Container(
+                  margin: EdgeInsets.only(left: 5),
+                  padding: EdgeInsets.symmetric(horizontal: 10.0),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10.0),
+                    border: Border.all(
+                        color: widget.activeInterventionProgram.svgIconColor),
+                  ),
+                  child: TextInputFieldContainer(
+                    inputField: inputField,
+                    inputValue: '',
+                    showInputCheckedIcon: false,
+                    onInputValueChange: (dynamic value) =>
+                        onSearchBeneficiary(context, value),
+                  ),
+                ),
+              ),
+            )
+          ],
+        ),
         actions: [
           Container(
-            child: IconButton(icon: Icon(Icons.search), onPressed: onSearch),
-          ),
-          Consumer<InterventionBottomNavigationState>(
-              builder: (context, interventionBottomNavigationState, child) {
-            InterventionBottomNavigation currentInterventionBottomNavigation =
-                interventionBottomNavigationState
-                    .getCurrentInterventionBottomNavigation(
-                        activeInterventionProgram);
-            return Visibility(
-                visible: activeInterventionProgram.id == 'ogac' ||
-                    currentInterventionBottomNavigation != null &&
-                        (currentInterventionBottomNavigation.id ==
-                                'enrollment' ||
-                            currentInterventionBottomNavigation.id ==
-                                'noneAgyw'),
-                child: Container(
-                  child: IconButton(
-                      icon: SvgPicture.asset(
-                        activeInterventionProgram.id == 'dreams' ||
-                                activeInterventionProgram.id == 'ogac'
-                            ? 'assets/icons/add-beneficiary.svg'
-                            : 'assets/icons/add-house-hold.svg',
-                      ),
-                      onPressed:
-                          currentInterventionBottomNavigation.id == 'noneAgyw'
-                              ? onAddNoneAgywBeneficiary
-                              : activeInterventionProgram.id == 'dreams'
-                                  ? onAddAgywBeneficiary
-                                  : activeInterventionProgram.id == 'ogac'
-                                      ? onAddOgacBeneficiary
-                                      : onAddHouseHold),
-                ));
-          }),
-          Container(
             child: IconButton(
-                icon: Icon(Icons.more_vert), onPressed: onOpenMoreMenu),
+              icon: Icon(isSearchActive ? Icons.close : Icons.search),
+              onPressed: () => onActivateOrDeactivateSearch(context),
+            ),
+          ),
+          Container(
+            child: Visibility(
+              visible: !isSearchActive,
+              child: Consumer<InterventionBottomNavigationState>(
+                builder: (context, interventionBottomNavigationState, child) {
+                  InterventionBottomNavigation
+                      currentInterventionBottomNavigation =
+                      interventionBottomNavigationState
+                          .getCurrentInterventionBottomNavigation(
+                    widget.activeInterventionProgram,
+                  );
+                  return Visibility(
+                    visible: widget.activeInterventionProgram.id == 'ogac' ||
+                        currentInterventionBottomNavigation != null &&
+                            (currentInterventionBottomNavigation.id ==
+                                    'enrollment' ||
+                                currentInterventionBottomNavigation.id ==
+                                    'noneAgyw'),
+                    child: Container(
+                      child: IconButton(
+                        icon: SvgPicture.asset(
+                          widget.activeInterventionProgram.id == 'dreams' ||
+                                  widget.activeInterventionProgram.id == 'ogac'
+                              ? 'assets/icons/add-beneficiary.svg'
+                              : 'assets/icons/add-house-hold.svg',
+                        ),
+                        onPressed: currentInterventionBottomNavigation.id ==
+                                'noneAgyw'
+                            ? widget.onAddNoneAgywBeneficiary
+                            : widget.activeInterventionProgram.id == 'dreams'
+                                ? widget.onAddAgywBeneficiary
+                                : widget.activeInterventionProgram.id == 'ogac'
+                                    ? widget.onAddOgacBeneficiary
+                                    : widget.onAddHouseHold,
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+          ),
+          Container(
+            child: Visibility(
+              visible: !isSearchActive,
+              child: IconButton(
+                icon: Icon(Icons.more_vert),
+                onPressed: widget.onOpenMoreMenu,
+              ),
+            ),
           )
         ]);
   }
