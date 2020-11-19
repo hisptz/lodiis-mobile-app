@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 class InterventionPopActionMenu {
   String id;
   String name;
+  String translatedName;
   Color color;
   FontWeight fontWeight;
 
   InterventionPopActionMenu({
     this.id,
     this.name,
+    this.translatedName,
     this.color = const Color(0xFF1A3518),
     this.fontWeight = FontWeight.normal,
   });

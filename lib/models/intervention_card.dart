@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 class InterventionCard {
   String id;
   String name;
+  String translatedName;
   String shortName;
+  String translatedShortName;
   String svgIcon;
   Color primmaryColor;
   Color secondaryColor;
@@ -18,6 +20,8 @@ class InterventionCard {
   InterventionCard({
     this.id,
     this.name,
+    this.translatedName,
+    this.translatedShortName,
     this.shortName,
     this.svgIcon,
     this.primmaryColor,
