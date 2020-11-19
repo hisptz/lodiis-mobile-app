@@ -23,11 +23,11 @@ class OvcCLOReferral {
                         name: 'CLO Outgoing Referrals'),
                     InputFieldOption(
                         code: 'NbQGlx6QZpK_Received',
-                        name: 'CLO Received Referrals'),
+                        name: 'CLO Incomming Referrals'),
                   ]),
             ]),
             FormSection(
-                name: 'CLO Received Referrals',
+                name: 'CLO Incomming Referrals',
                 color: Color(0xFF1B3519),
                 id: "OIUDljKyNgy_clo_received",
                 inputFields: [
