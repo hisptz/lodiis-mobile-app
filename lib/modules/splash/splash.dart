@@ -23,14 +23,18 @@ class _SplashState extends State<Splash> {
   void initState() {
     super.initState();
     AppUtil.setStatusBarColor(CustomColor.defaultPrimaryColor);
-    UserService().getCurrentUser().then((CurrentUser user) {
-      bool isUserLoginIn = user != null ? user.isLogin : false;
-      if (isUserLoginIn) {
-        Provider.of<CurrentUserState>(context, listen: false)
-            .setCurrentUser(user);
-      }
-      setLandingPage(isUserLoginIn);
-    });
+    checkingLanguageSelectionAndCurrentUser();
+  }
+
+  void checkingLanguageSelectionAndCurrentUser() async {
+    CurrentUser user = await UserService().getCurrentUser();
+    bool isUserLoginIn = user != null ? user.isLogin : false;
+    // checking language
+    if (isUserLoginIn) {
+      Provider.of<CurrentUserState>(context, listen: false)
+          .setCurrentUser(user);
+    }
+    setLandingPage(isUserLoginIn);
   }
 
   void setLandingPage(bool isUserLoginIn) {
