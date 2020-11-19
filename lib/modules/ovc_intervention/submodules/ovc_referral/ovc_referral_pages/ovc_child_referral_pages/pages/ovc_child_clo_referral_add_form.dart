@@ -88,12 +88,14 @@ class _OvcChildCLOReferralAddFormState
       List<String> hiddenFields = [
         OvcChildReferralConstant.referralToFollowUpLinkage
       ];
-      
+
       try {
+        print(dataObject['']);
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
           OvcChildCLOReferralConstant.program,
-          dataObject['NbQGlx6QZpK_clo_type'] == "NbQGlx6QZpK_OnGoing" ?
-          OvcChildCLOReferralConstant.referralCLOOutGoingStage : OvcChildCLOReferralConstant.referralCLOOutReceivedStage,
+          dataObject['NbQGlx6QZpK_clo_type'] == "NbQGlx6QZpK_OnGoing"
+              ? OvcChildCLOReferralConstant.referralCLOOutGoingStage
+              : OvcChildCLOReferralConstant.referralCLOOutReceivedStage,
           currentOvcHouseHoldChild.orgUnit,
           formSections,
           dataObject,

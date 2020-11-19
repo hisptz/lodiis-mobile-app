@@ -126,8 +126,6 @@ class _OvcChildCLOReferralState extends State<OvcChildCLOReferral> {
                                             children:
                                                 events.map((Events eventData) {
                                               int count = referralIndex--;
-
-
                                               return Container(
                                                 margin: EdgeInsets.only(
                                                   bottom: 15.0,
