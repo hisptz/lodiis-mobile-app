@@ -18,6 +18,7 @@ class CurrentUserState with ChangeNotifier {
   bool _canManageArtRefill;
   bool _canManageAnc;
   bool _canManageCondom;
+  bool _canManageContaraceptives;
   bool _canManagePOSTGBV;
   bool _canManageGoGirls;
   bool _canManageSteppingStones;
@@ -41,6 +42,7 @@ class CurrentUserState with ChangeNotifier {
   bool get canManageArtRefill => _canManageArtRefill ?? false;
   bool get canManageMSGHIV => _canManageMSGHIV ?? false;
   bool get canManageCondom => _canManageCondom ?? false;
+  bool get canManageContraceptives => _canManageContaraceptives ?? false;
   bool get canManagePOSTGBV => _canManagePOSTGBV ?? false;
   bool get canManageGoGirls => _canManageGoGirls ?? false;
   bool get canManageSteppingStones => _canManageSteppingStones ?? false;
@@ -67,6 +69,7 @@ class CurrentUserState with ChangeNotifier {
       _canManageIPC = true;
       _canManagePOSTGBV = true;
       _canManageCondom = true;
+      _canManageContaraceptives = true;
       _canManageMSGHIV = true;
       _canManageArtRefill = true;
       _canManageAnc = true;
@@ -77,6 +80,7 @@ class CurrentUserState with ChangeNotifier {
       _canManageReferral = true;
       _canManageHts = true;
       _canManageMSGHIV = true;
+      _canManageMSGHIV = true;
       _canManageCondom = true;
       _canManagePEP = true;
     }
@@ -84,13 +88,12 @@ class CurrentUserState with ChangeNotifier {
       _canManageDreams = true;
       _canManageHts = true;
       _canManageReferral = true;
-      _canManageHivReg = true;
       _canManageArtRefill = true;
       _canManageMSGHIV = true;
       _canManageAnc = true;
       _canManagePOSTGBV = true;
-      _canManagePEP = true;
-      _canManageCondom = true;
+      _canManageContaraceptives = true;
+      _canManagePrep = true;
     }
     if (implementingPartner == 'JPHIEGO') {
       _canManageDreams = true;
@@ -150,6 +153,7 @@ class CurrentUserState with ChangeNotifier {
     _canManageArtRefill = false;
     _canManageAnc = false;
     _canManageCondom = false;
+    _canManageContaraceptives = false;
     _canManagePOSTGBV = false;
     _canManageGoGirls = false;
     _canManageSteppingStones = false;

@@ -226,7 +226,7 @@ class ServiceCardBottonAction extends StatelessWidget {
                       ),
                     ),
                     Visibility(
-                      visible: currentUserState.canManageCondom,
+                      visible: currentUserState.canManageContraceptives,
                       child: Expanded(
                         child: InkWell(
                           onTap: onOpenCondomForm,
