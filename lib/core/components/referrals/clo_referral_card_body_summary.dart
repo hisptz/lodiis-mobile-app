@@ -43,6 +43,7 @@ class _CLOReferralCardBodySummaryState extends State<CLOReferralCardBodySummary>
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Expanded(
+                      flex: 2,
                     child: Text(
                       'Date',
                       style: TextStyle().copyWith(
@@ -70,6 +71,7 @@ class _CLOReferralCardBodySummaryState extends State<CLOReferralCardBodySummary>
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Expanded(
+                      flex: 2,
                     child: Text(
                       'Referral for',
                       style: TextStyle().copyWith(
@@ -97,6 +99,7 @@ class _CLOReferralCardBodySummaryState extends State<CLOReferralCardBodySummary>
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Expanded(
+                    flex: 2,
                     child: Text(
                       'Outcome Status ',
                       style: TextStyle().copyWith(
@@ -124,6 +127,7 @@ class _CLOReferralCardBodySummaryState extends State<CLOReferralCardBodySummary>
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Expanded(
+                    flex: 2,
                       child: Text(
                     'Community Partner',
                     style: TextStyle().copyWith(
