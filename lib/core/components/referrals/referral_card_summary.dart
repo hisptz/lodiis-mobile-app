@@ -50,15 +50,15 @@ class ReferralCardSummary extends StatelessWidget {
                         visible: isCLOReferral ? true :false,
                         child: Container(
                           decoration: BoxDecoration(
-                              color: Color(0xFF4B9F46),
-                              border: Border.all(color: Color(0xFF4B9F46)),
+                              // color: Color(0xFF4B9F46),
+                              border: Border.all(color: Colors.black26),
                               borderRadius: BorderRadius.circular(35.0)),
                           padding: EdgeInsets.symmetric(
                               horizontal: 8.0, vertical: 2.0),
                           child: Text(
                             false ? 'Received' : 'Outgoing',
                             style: TextStyle()
-                                .copyWith(color: Colors.white, fontSize: 12.0),
+                                .copyWith(color:  Color(0XFF536852), fontSize: 12.0),
                           ),
                         )),
                   ],
