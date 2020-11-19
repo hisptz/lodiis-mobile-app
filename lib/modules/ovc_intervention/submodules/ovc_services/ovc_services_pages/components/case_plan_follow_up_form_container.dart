@@ -15,6 +15,7 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/m
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_case_plan/constants/ovc_child_case_plan_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/constants/ovc_case_plan_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/house_hold_case_plan/constants/ovc_house_hold_case_plan_constant.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/skip_logics/ovc_case_plan_follow_up_skip_logic.dart';
 import 'package:provider/provider.dart';
 
 class CasePlanFollowUpFormContainer extends StatefulWidget {
@@ -37,7 +38,8 @@ class CasePlanFollowUpFormContainer extends StatefulWidget {
 }
 
 class _CasePlanFollowUpFormContainerState
-    extends State<CasePlanFollowUpFormContainer> {
+    extends State<CasePlanFollowUpFormContainer>
+    with OvcCasePlanFollowUpSkipLogic {
   bool isFormReady = false;
   bool isSaving = false;
   List<FormSection> formSections;
@@ -65,6 +67,8 @@ class _CasePlanFollowUpFormContainerState
         }).toList();
         isFormReady = true;
       });
+      evaluateSkipLogics(context, formSections, widget.dataObject);
+      setState(() {});
     });
   }
 
@@ -139,6 +143,8 @@ class _CasePlanFollowUpFormContainerState
     setState(() {
       widget.dataObject[id] = value;
     });
+    evaluateSkipLogics(context, formSections, widget.dataObject);
+    setState(() {});
   }
 
   @override
@@ -154,6 +160,8 @@ class _CasePlanFollowUpFormContainerState
               child: Column(
                 children: [
                   EntryFormContainer(
+                    hiddenFields: hiddenFields,
+                    hiddenSections: hiddenSections,
                     elevation: 0.0,
                     formSections: formSections,
                     mandatoryFieldObject: mandatoryFieldObject,
