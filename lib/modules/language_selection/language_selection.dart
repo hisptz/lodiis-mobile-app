@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/core/components/language_selection_container.dart';
 import 'package:kb_mobile_app/core/services/language_selection_service.dart';
 import 'package:kb_mobile_app/modules/login/login.dart';
+import 'package:provider/provider.dart';
 
 class LanguageSelection extends StatefulWidget {
-  const LanguageSelection({Key key}) : super(key: key);
+  const LanguageSelection({Key key, this.hasAppBar = false}) : super(key: key);
+
+  final bool hasAppBar;
 
   @override
   _LanguageSelectionState createState() => _LanguageSelectionState();
@@ -18,6 +22,8 @@ class _LanguageSelectionState extends State<LanguageSelection> {
     await LanguageSelectionService.setCurrentLanguageSelection(
       selectionLanguageCode,
     );
+    Provider.of<LanguageTranslationState>(context, listen: false)
+        .setLanguageTranslation(selectionLanguageCode);
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
@@ -31,6 +37,7 @@ class _LanguageSelectionState extends State<LanguageSelection> {
     return Container(
       child: SafeArea(
         child: Scaffold(
+          appBar: null,
           body: LanguageSelectionContainer(
               selectionLanguageCode: '',
               onSetSelectedLanguage: (String selectionLanguageCode) =>
