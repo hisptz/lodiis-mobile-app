@@ -6,13 +6,15 @@ class CLOReferralEvent {
   String referralFor;
   String outComeStatus;
   String communityPartner;
+  String referralType;
 
-  CLOReferralEvent(
-      {this.id,
-      this.referralDate,
-      this.referralFor,
-      this.outComeStatus,
-      this.communityPartner});
+  CLOReferralEvent({
+    this.id,
+    this.referralDate,
+    this.referralFor,
+    this.outComeStatus,
+    this.communityPartner
+  });
 
   CLOReferralEvent fromTeiModel(
     Events eventData,
@@ -21,7 +23,7 @@ class CLOReferralEvent {
       'OIUDljKyNgy',
       'rWIw1JHPiTo',
       'pdUklLmaauR',
-      'RiNop7mvTRW',
+      'RiNop7mvTRW'
     ];
     Map data = Map();
     for (Map detailObj in eventData.dataValues) {
@@ -30,7 +32,6 @@ class CLOReferralEvent {
         data[attribute] = '${detailObj['value']}'.trim() ?? '';
       }
     }
-
     return CLOReferralEvent(
       id: eventData.event,
       referralDate: data['OIUDljKyNgy'] ?? eventData.eventDate,

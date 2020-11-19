@@ -17,7 +17,6 @@ import 'package:provider/provider.dart';
 
 class OvcChildCLOReferral extends StatefulWidget {
   OvcChildCLOReferral({Key key}) : super(key: key);
-
   @override
   _OvcChildCLOReferralState createState() => _OvcChildCLOReferralState();
 }
@@ -127,12 +126,15 @@ class _OvcChildCLOReferralState extends State<OvcChildCLOReferral> {
                                             children:
                                                 events.map((Events eventData) {
                                               int count = referralIndex--;
+
+
                                               return Container(
                                                 margin: EdgeInsets.only(
                                                   bottom: 15.0,
                                                 ),
                                                 child: ReferralCardSummary(
                                                   isCLOReferral: true,
+                                                  isOutgoingCLOReferral: eventData.programStage == OvcChildCLOReferralConstant.referralCLOOutGoingStage ?true:false,
                                                   borderColor:
                                                       Color(0xFFEDF5EC),
                                                   buttonLabelColor:
