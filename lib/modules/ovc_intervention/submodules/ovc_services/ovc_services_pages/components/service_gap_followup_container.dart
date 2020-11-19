@@ -46,6 +46,9 @@ class _ServiceGapFollowUpContainerState
 
   void addNewFollowingUp(BuildContext context) async {
     Map dataObject = Map();
+    for (var key in widget.casePlanGap.keys) {
+      dataObject[key] = widget.casePlanGap[key];
+    }
     dataObject[OvcCasePlanConstant.casePlanGapToFollowinUpLinkage] =
         casePlanGapToFollowinUpLinkageValue;
     Widget modal = CasePlanFollowUpFormContainer(
