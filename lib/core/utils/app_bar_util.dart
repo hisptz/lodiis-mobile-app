@@ -11,6 +11,7 @@ import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/dreams_intervention.dart';
+import 'package:kb_mobile_app/modules/language_selection/language_selection.dart';
 import 'package:kb_mobile_app/modules/login/login.dart';
 import 'package:kb_mobile_app/modules/ogac_intervention/ogac_intervention.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/ovc_intervention.dart';
@@ -38,19 +39,40 @@ class AppBarUtil {
         _onLogOut(context);
       } else if (response.id == 'sync') {
         _onOpenSyncModule(context);
+      } else if (response.id == 'language_setting') {
+        _onOpenLanguageSettingModule(context);
       }
     }
   }
 
+  static void _onOpenLanguageSettingModule(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => LanguageSelection(
+          showLanguageSettingAppBar: true,
+        ),
+      ),
+    );
+  }
+
   static void _onOpenSyncModule(BuildContext context) {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => Synchronization()));
+      context,
+      MaterialPageRoute(
+        builder: (context) => Synchronization(),
+      ),
+    );
   }
 
   static void _onLogOut(BuildContext context) async {
     await UserService().logout();
     Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => Login()));
+      context,
+      MaterialPageRoute(
+        builder: (context) => Login(),
+      ),
+    );
   }
 
   static void _onSwitchToIntervention(BuildContext context, String id) {
@@ -69,14 +91,19 @@ class AppBarUtil {
     Provider.of<InterventionBottomNavigationState>(context, listen: false)
         .setCurrentInterventionBottomNavigationStatus(0, null);
     Timer(
-        Duration(milliseconds: 10),
-        () => Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (context) {
-              return id == 'ovc'
-                  ? OvcIntervention()
-                  : id == 'ogac'
-                      ? OgacIntervention()
-                      : DreamsIntervention();
-            })));
+      Duration(milliseconds: 10),
+      () => Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) {
+            return id == 'ovc'
+                ? OvcIntervention()
+                : id == 'ogac'
+                    ? OgacIntervention()
+                    : DreamsIntervention();
+          },
+        ),
+      ),
+    );
   }
 }

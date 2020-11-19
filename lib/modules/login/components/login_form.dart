@@ -16,6 +16,10 @@ import 'package:provider/provider.dart';
 import 'package:kb_mobile_app/core/services/organisation_unit_service.dart';
 
 class LoginForm extends StatefulWidget {
+  const LoginForm({Key key, @required this.currentLanguage}) : super(key: key);
+
+  final String currentLanguage;
+
   @override
   State<StatefulWidget> createState() {
     return _LoginFormState();
@@ -205,6 +209,7 @@ class _LoginFormState extends State<LoginForm> {
                         : inActiveInputColor,
                   ),
                   LoginButton(
+                    currentLanguage: widget.currentLanguage,
                     isLoginProcessActive: isLoginProcessActive,
                     onLogin: () => onLogin(isLoginProcessActive),
                   )

@@ -5,10 +5,12 @@ import 'package:kb_mobile_app/models/input_field.dart';
 class FormSection {
   String id;
   String name;
+  String translatedName;
   Color color;
   Color backgroundColor;
   Color borderColor;
   String description;
+  String translatedDescription;
   List<FormSection> subSections;
   List<InputField> inputFields;
 
@@ -20,6 +22,8 @@ class FormSection {
     this.borderColor,
     this.subSections,
     this.description,
+    this.translatedDescription,
+    this.translatedName,
     this.inputFields,
   }) {
     this.id = this.id ?? AppUtil.getUid();

@@ -3,12 +3,14 @@ import 'package:kb_mobile_app/models/intervention_card.dart';
 class InterventionBottomNavigation {
   String id;
   String name;
+  String translatedName;
   String svgIcon;
 
   InterventionBottomNavigation({
-    this.id = '',
-    this.name = '',
-    this.svgIcon = '',
+    this.id,
+    this.name,
+    this.translatedName,
+    this.svgIcon,
   });
 
   static List<InterventionBottomNavigation>
