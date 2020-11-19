@@ -88,6 +88,26 @@ class OvchouseHoldAssessmentSkipLogic {
       if (inputFieldId == 'E4UFvIBBEDk' && value != 'Others') {
         hiddenFields['RWcOcPqBnFj'] = true;
       }
+
+      if (inputFieldId == 'T4grVrCVDkk' && value != 'true') {
+        hiddenFields['vNeOE9abQBB'] = true;
+      }
+
+      if (inputFieldId == 'vNeOE9abQBB' && value != 'Positive') {
+        hiddenFields['blod3xZ2dPP'] = true;
+        hiddenFields['ubin7MjQ5OI'] = true;
+        hiddenFields['Icb6vUJXVDX'] = true;
+      }
+
+      if (inputFieldId == 'sLyfb45aLkl' && value != '1') {
+        hiddenFields['aRNGDZcwWmS'] = true;
+      }
+      if(inputFieldId =='BYZu8p33lzP' && value !='Yes'){
+        hiddenFields['ToWhhydys'] = true;
+      }
+      if(inputFieldId == 'SLajij5j1KI' && value != 'Yes'){
+        hiddenFields['RxvDeJX3b3k'] = true;
+      }
     }
     for (String sectionId in hiddenSections.keys) {
       List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections

@@ -45,6 +45,9 @@ class OvcChildEnrollmentSkipLogic {
           (value.isEmpty || '$value'.trim() != 'Other')) {
         hiddenFields['GM2mJDlGZin'] = true;
       }
+      if (inputFieldId == 'Sa0KVprHUr7' && value != 'Date') {
+        hiddenFields['XZh0Uew9Xk0'] = true;
+      }
     }
     for (String sectionId in hiddenSections.keys) {
       List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections
