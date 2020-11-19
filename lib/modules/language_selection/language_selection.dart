@@ -9,9 +9,12 @@ import 'package:kb_mobile_app/modules/login/login.dart';
 import 'package:provider/provider.dart';
 
 class LanguageSelection extends StatefulWidget {
-  const LanguageSelection({Key key, this.hasAppBar = false}) : super(key: key);
+  const LanguageSelection({
+    Key key,
+    this.showLanguageSettingAppBar = false,
+  }) : super(key: key);
 
-  final bool hasAppBar;
+  final bool showLanguageSettingAppBar;
 
   @override
   _LanguageSelectionState createState() => _LanguageSelectionState();
@@ -19,6 +22,17 @@ class LanguageSelection extends StatefulWidget {
 
 class _LanguageSelectionState extends State<LanguageSelection> {
   final String label = 'Language setting';
+  String selectionLanguageCode = '';
+
+  @override
+  void initState() {
+    super.initState();
+    LanguageSelectionService.getCurrentLanguageSelection().then((value) {
+      selectionLanguageCode = value ?? selectionLanguageCode;
+      setState(() {});
+    });
+  }
+
   void onSetSelectedLanguage(
     BuildContext context,
     String selectionLanguageCode,
@@ -28,7 +42,7 @@ class _LanguageSelectionState extends State<LanguageSelection> {
     );
     Provider.of<LanguageTranslationState>(context, listen: false)
         .setLanguageTranslation(selectionLanguageCode);
-    if (widget.hasAppBar) {
+    if (widget.showLanguageSettingAppBar) {
       if (Navigator.canPop(context)) {
         Navigator.pop(context);
       }
@@ -47,7 +61,7 @@ class _LanguageSelectionState extends State<LanguageSelection> {
     return Container(
       child: SafeArea(
         child: Scaffold(
-          appBar: !widget.hasAppBar
+          appBar: !widget.showLanguageSettingAppBar
               ? null
               : PreferredSize(
                   preferredSize: Size.fromHeight(65.0),
@@ -64,7 +78,8 @@ class _LanguageSelectionState extends State<LanguageSelection> {
                   ),
                 ),
           body: LanguageSelectionContainer(
-              selectionLanguageCode: '',
+              selectionLanguageCode: selectionLanguageCode,
+              showLanguageSettingAppBar: widget.showLanguageSettingAppBar,
               onSetSelectedLanguage: (String selectionLanguageCode) =>
                   onSetSelectedLanguage(
                     context,

@@ -10,10 +10,12 @@ class LanguageSelectionContainer extends StatefulWidget {
   const LanguageSelectionContainer({
     Key key,
     @required this.selectionLanguageCode,
+    @required this.showLanguageSettingAppBar,
     this.onSetSelectedLanguage,
   }) : super(key: key);
 
   final String selectionLanguageCode;
+  final bool showLanguageSettingAppBar;
   final Function onSetSelectedLanguage;
 
   @override
@@ -31,6 +33,15 @@ class _LanguageSelectionContainerState
   ) {
     _selectionLanguageCode = selectionLanguage.id;
     setState(() {});
+  }
+
+  @override
+  void didUpdateWidget(covariant LanguageSelectionContainer oldWidget) {
+    super.didUpdateWidget(widget);
+    if (oldWidget.selectionLanguageCode != widget.selectionLanguageCode) {
+      _selectionLanguageCode = widget.selectionLanguageCode;
+      setState(() {});
+    }
   }
 
   @override
@@ -133,7 +144,9 @@ class _LanguageSelectionContainerState
                             padding: EdgeInsets.symmetric(vertical: 15),
                             child: Container(
                               child: Text(
-                                'Agree',
+                                widget.showLanguageSettingAppBar
+                                    ? 'Save'
+                                    : 'Agree',
                                 style: TextStyle(
                                   color: Color(0xFFFAFAFA),
                                 ),
