@@ -3,7 +3,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/skip_logics/ovc_case_plan_skip_logic.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/skip_logics/ovc_case_plan_gap_skip_logic.dart';
 
 class CasePlanGapFormContainer extends StatefulWidget {
   const CasePlanGapFormContainer({
@@ -27,7 +27,7 @@ class CasePlanGapFormContainer extends StatefulWidget {
 }
 
 class _CasePlanGapFormContainerState extends State<CasePlanGapFormContainer>
-    with OvcCasePlanSkipLogic {
+    with OvcCasePlanGapSkipLogic {
   Map mandatoryFieldObject = Map();
   List mandatoryFields;
   Map dataObject;

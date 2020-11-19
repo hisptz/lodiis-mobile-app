@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 
-mixin OvcCasePlanSkipLogic {
+mixin OvcCasePlanGapSkipLogic {
   Map hiddenFields = Map();
   Map hiddenSections = Map();
   Map childMapObject = Map();
