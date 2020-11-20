@@ -55,7 +55,7 @@ class _OvcChildCLOReferralAddFormState
       () async {
         Map dataObject =
             Provider.of<ServiceFormState>(context, listen: false).formState;
-        await OvcChildReferralSkipLogic.evaluateSkipLogics(
+        await OvcChildCLOReferralSkipLogic.evaluateSkipLogics(
           context,
           formSections,
           dataObject,

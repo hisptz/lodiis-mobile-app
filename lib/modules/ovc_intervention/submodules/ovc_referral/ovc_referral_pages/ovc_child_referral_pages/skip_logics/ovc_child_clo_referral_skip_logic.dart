@@ -4,7 +4,7 @@ import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:provider/provider.dart';
 
-class OvcChildReferralSkipLogic {
+class OvcChildCLOReferralSkipLogic {
   static Map hiddenFields = Map();
   static Map hiddenSections = Map();
 
@@ -18,11 +18,15 @@ class OvcChildReferralSkipLogic {
     List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections);
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
-      if (inputFieldId == 'qAed23reDPP' && value != 'Community') {
-        hiddenSections['SeRefoCo'] = true;
+
+      
+      if ((inputFieldId == 'NbQGlx6QZpK_clo_type' &&
+          value != 'NbQGlx6QZpK_Received')) {
+        hiddenSections['OIUDljKyNgy_clo_received'] = true;
       }
-      if (inputFieldId == 'qAed23reDPP' && value != 'Facility') {
-        hiddenSections['SeRefoFa'] = true;
+      if ((inputFieldId == 'NbQGlx6QZpK_clo_type' &&
+          value != 'NbQGlx6QZpK_OnGoing')) {
+        hiddenSections['g6J1vZ2kDXB_clo_outgoing'] = true;
       }
     }
     for (String sectionId in hiddenSections.keys) {
