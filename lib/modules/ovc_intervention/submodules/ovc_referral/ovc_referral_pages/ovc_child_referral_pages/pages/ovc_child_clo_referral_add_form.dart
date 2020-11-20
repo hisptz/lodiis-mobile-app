@@ -20,9 +20,8 @@ import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/models/ovc_clo_referral.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/ovc_referral_pages/ovc_child_referral_pages/constants/ovc_child_clo_referral_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/ovc_referral_pages/ovc_child_referral_pages/constants/ovc_child_referral_constant.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/ovc_referral_pages/ovc_child_referral_pages/skip_logics/ovc_child_referral.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/ovc_referral_pages/ovc_child_referral_pages/skip_logics/ovc_child_clo_referral_skip_logic.dart';
 import 'package:provider/provider.dart';
-
 class OvcChildCLOReferralAddForm extends StatefulWidget {
   OvcChildCLOReferralAddForm({Key key}) : super(key: key);
 
@@ -56,7 +55,7 @@ class _OvcChildCLOReferralAddFormState
       () async {
         Map dataObject =
             Provider.of<ServiceFormState>(context, listen: false).formState;
-        await OvcChildReferralSkipLogic.evaluateSkipLogics(
+        await OvcChildCLOReferralSkipLogic.evaluateSkipLogics(
           context,
           formSections,
           dataObject,
