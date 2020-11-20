@@ -22,7 +22,9 @@ class AgywDreamsMSGHIVSkipLogic {
     inputFieldIds = inputFieldIds.toSet().toList();
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
-      print(value);
+      if (inputFieldId == 'lvT9gfpHIlT' && value == 'null') {
+        hiddenFields['qFwm4RM45gi'] = true;
+      }
     }
     for (String sectionId in hiddenSections.keys) {
       List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections

@@ -11,6 +11,12 @@ class DreamsANCInfo{
           color: Color(0xFF737373),
           inputFields: [
             InputField(
+              id: 'lvT9gfpHIlT',
+              name: 'Date service was provided',
+              valueType: 'DATE',
+              inputColor: Color(0xFF258DCC),
+              labelColor: Color(0xFF737373),),
+            InputField(
                 id: 'irtbsom4W8P',
                 name: 'ANC',
                 valueType: 'TRUE_ONLY',
@@ -29,12 +35,6 @@ class DreamsANCInfo{
                   InputFieldOption(code: "ANC 4th Visit", name: "ANC 4th Visit"),
                 ]
                 ),
-                   InputField(
-                id: 'lvT9gfpHIlT',
-                name: 'Date service was provided',
-                valueType: 'DATE',
-                inputColor: Color(0xFF258DCC),
-                labelColor: Color(0xFF737373),)
           ])
     ];
   }

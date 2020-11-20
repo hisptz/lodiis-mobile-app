@@ -10,17 +10,18 @@ class DreamsGoGirlsInfo{
           color: Color(0xFF737373),
           inputFields: [
             InputField(
+              id: 'lvT9gfpHIlT',
+              name: 'Date service was provided',
+              valueType: 'DATE',
+              inputColor: Color(0xFF258DCC),
+              labelColor: Color(0xFF737373),),
+            InputField(
                 id: 'AUwXd4NrSwG',
                 name: 'Go Girls',
                 valueType: 'TRUE_ONLY',
                 inputColor: Color(0xFF258DCC),
                 labelColor: Color(0xFF737373),  ),
-                  InputField(
-                id: 'lvT9gfpHIlT',
-                name: 'Date service was provided',
-                valueType: 'DATE',
-                inputColor: Color(0xFF258DCC),
-                labelColor: Color(0xFF737373),)
+
           ])
     ];
   }

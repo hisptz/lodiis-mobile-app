@@ -229,7 +229,7 @@ class ServiceCardBottonAction extends StatelessWidget {
                       visible: currentUserState.canManageContraceptives,
                       child: Expanded(
                         child: InkWell(
-                          onTap: onOpenCondomForm,
+                          onTap: onOpenContraceptivesForm,
                           child: Container(
                             padding: EdgeInsets.symmetric(vertical: 5),
                             margin: EdgeInsets.symmetric(vertical: 5),

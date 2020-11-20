@@ -4,15 +4,15 @@ import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:provider/provider.dart';
 
-class AgywDreamsContraceptivesSkipLogic {
+class AgywDreamsPepSkipLogic {
   static Map hiddenFields = Map();
   static Map hiddenSections = Map();
 
   static Future evaluateSkipLogics(
-    BuildContext context,
-    List<FormSection> formSections,
-    Map dataObject,
-  ) async {
+      BuildContext context,
+      List<FormSection> formSections,
+      Map dataObject,
+      ) async {
     hiddenFields.clear();
     hiddenSections.clear();
     List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections);
@@ -23,9 +23,8 @@ class AgywDreamsContraceptivesSkipLogic {
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
       if (inputFieldId == 'lvT9gfpHIlT' && value == 'null') {
-        hiddenFields['uciT2F6ByYO'] = true;
-      }
-    }
+        hiddenFields['mcgHO4djXTu'] = true;
+      }    }
     for (String sectionId in hiddenSections.keys) {
       List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections
           .where((formSection) => formSection.id == sectionId)
@@ -49,18 +48,18 @@ class AgywDreamsContraceptivesSkipLogic {
   }
 
   static resetValuesForHiddenSections(
-    BuildContext context,
-    List<FormSection> formSections,
-  ) {
+      BuildContext context,
+      List<FormSection> formSections,
+      ) {
     Provider.of<ServiceFormState>(context, listen: false)
         .setHiddenSections(hiddenSections);
   }
 
   static assignInputFieldValue(
-    BuildContext context,
-    String inputFieldId,
-    String value,
-  ) {
+      BuildContext context,
+      String inputFieldId,
+      String value,
+      ) {
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState(inputFieldId, value);
   }
