@@ -9,22 +9,31 @@ class OvcChildReferralSkipLogic {
   static Map hiddenSections = Map();
 
   static Future evaluateSkipLogics(
-      BuildContext context,
-      List<FormSection> formSections,
-      Map dataObject,
-      ) async {
+    BuildContext context,
+    List<FormSection> formSections,
+    Map dataObject,
+  ) async {
     hiddenFields.clear();
     hiddenSections.clear();
     List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections);
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
-      if(inputFieldId == 'qAed23reDPP' && value != 'Community'){
+
+      if (inputFieldId == 'qAed23reDPP' && value != 'Community') {
         hiddenSections['SeRefoCo'] = true;
       }
-      if(inputFieldId == 'qAed23reDPP' && value != 'Facility'){
+      if (inputFieldId == 'qAed23reDPP' && value != 'Facility') {
         hiddenSections['SeRefoFa'] = true;
       }
-
+      
+      if ((inputFieldId == 'NbQGlx6QZpK_clo_type' &&
+          value != 'NbQGlx6QZpK_Received')) {
+        hiddenSections['OIUDljKyNgy_clo_received'] = true;
+      }
+      if ((inputFieldId == 'NbQGlx6QZpK_clo_type' &&
+          value != 'NbQGlx6QZpK_OnGoing')) {
+        hiddenSections['g6J1vZ2kDXB_clo_outgoing'] = true;
+      }
     }
     for (String sectionId in hiddenSections.keys) {
       List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections
@@ -49,18 +58,18 @@ class OvcChildReferralSkipLogic {
   }
 
   static resetValuesForHiddenSections(
-      BuildContext context,
-      List<FormSection> formSections,
-      ) {
+    BuildContext context,
+    List<FormSection> formSections,
+  ) {
     Provider.of<ServiceFormState>(context, listen: false)
         .setHiddenSections(hiddenSections);
   }
 
   static assignInputFieldValue(
-      BuildContext context,
-      String inputFieldId,
-      String value,
-      ) {
+    BuildContext context,
+    String inputFieldId,
+    String value,
+  ) {
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState(inputFieldId, value);
   }
