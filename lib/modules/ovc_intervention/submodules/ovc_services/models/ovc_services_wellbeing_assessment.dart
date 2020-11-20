@@ -19,7 +19,7 @@ class OvcServicesWellbeingAssessment {
                 inputColor: Color(0xFF4B9F46),
                 labelColor: Color(0xFF737373)),
             InputField(
-                id: '',
+                id: 'Wstcittf',
                 name: 'What is the child\'s impact to the family?',
                 valueType: 'CHECK_BOX',
                 inputColor: Color(0xFF4B9F46),
@@ -43,7 +43,7 @@ class OvcServicesWellbeingAssessment {
                 inputColor: Color(0xFF4B9F46),
                 labelColor: Color(0xFF737373)),
             InputField(
-                id: '',
+                id: 'HdtChyf',
                 name: 'How does the child help your family?',
                 valueType: 'CHECK_BOX',
                 inputColor: Color(0xFF4B9F46),
@@ -241,12 +241,12 @@ class OvcServicesWellbeingAssessment {
                 labelColor: Color(0xFF284227)),
             InputField(
                 id: 'YKuTfp8LIRr',
-                name: 'Should be did the child miss more than three school days?',
+                name: 'Did the child miss more than three school days?',
                 valueType: 'BOOLEAN',
                 inputColor: Color(0xFF9B2BAE),
                 labelColor: Color(0xFF284227)),
             InputField(
-                id: '',
+                id: 'YKuTfp8LIRr_checkboxes',
                 name: 'Did the child miss more than three days for any reason?',
                 valueType: 'CHECK_BOX',
                 inputColor: Color(0xFF9B2BAE),
@@ -350,7 +350,7 @@ class OvcServicesWellbeingAssessment {
                 ]),
             InputField(
                 id: 'xQjn7WKtJvm',
-                name: 'Specify signs of mulnutrition',
+                name: 'Specify signs of malnutrition',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4B9F46),
                 labelColor: Color(0xFF455B44)),
@@ -705,7 +705,7 @@ class OvcServicesWellbeingAssessment {
                 inputColor: Color(0xFF2895F0),
                 labelColor: Color(0xFF1A3518)),
             InputField(
-                id: '',
+                id: 'VFLlpMdPCTX_checkboxes',
                 name: 'Why do you take the child in that health facility?',
                 valueType: 'CHECK_BOX',
                 inputColor: Color(0xFF2895F0),
@@ -814,7 +814,7 @@ class OvcServicesWellbeingAssessment {
                       name: 'Neutral/ no reaction'),
                   InputFieldOption(
                       code: 'Rejected the child', name: 'Rejected the child'),
-                  InputFieldOption(code: 'Other, specify', name: 'other'),
+                  InputFieldOption(code: 'Other, specify', name: 'Other'),
                 ]),
             InputField(
                 id: 'oJVaLuSykXO',
