@@ -7,15 +7,14 @@ import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
-import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/models/ovc_house_hold_child.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_child_info_top_header.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
-import 'package:kb_mobile_app/core/components/referrals/referral_card_summary.dart';
-import 'package:kb_mobile_app/core/components/referrals/referral_card_body_summary.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/components/ovc_referral_top_bar_selection.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/ovc_referral_pages/ovc_child_referral_pages/constants/ovc_child_referral_constant.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/ovc_referral_pages/ovc_child_referral_pages/ovc_child_referral.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/ovc_referral_pages/ovc_child_referral_pages/ovc_child_referral_clo.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/ovc_referral_pages/ovc_child_referral_pages/pages/ovc_child_referral_add_form.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/ovc_referral_pages/ovc_child_referral_pages/pages/ovc_child_referral_manage.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/ovc_referral_pages/ovc_child_referral_pages/pages/ovc_child_referral_view.dart';
@@ -31,6 +30,7 @@ class OvcChildReferralHome extends StatefulWidget {
 class _OvcChildReferralHomeState extends State<OvcChildReferralHome> {
   final String label = 'Child Referral';
   final List<String> programStageids = [OvcChildReferralConstant.referralStage];
+  bool isCloReferralSelected = false;
 
   void updateFormState(
     BuildContext context,
@@ -77,6 +77,18 @@ class _OvcChildReferralHomeState extends State<OvcChildReferralHome> {
                 )));
   }
 
+  void onCLOReferralSelection(BuildContext context) {
+    setState(() {
+      isCloReferralSelected = true;
+    });
+  }
+
+  void onReferralSelection(BuildContext context) {
+     setState(() {
+      isCloReferralSelected = false;
+    });
+  }
+
   void onManageChildReferral(
     BuildContext context,
     Events eventData,
@@ -113,16 +125,8 @@ class _OvcChildReferralHomeState extends State<OvcChildReferralHome> {
               builder: (context, ovcHouseHoldCurrentSelectionState, child) {
                 return Consumer<ServiveEventDataState>(
                   builder: (context, serviceFormState, child) {
-                    OvcHouseHoldChild currentOvcHouseHoldChild =
-                        ovcHouseHoldCurrentSelectionState
-                            .currentOvcHouseHoldChild;
                     bool isLoading = serviceFormState.isLoading;
-                    Map<String, List<Events>> eventListByProgramStage =
-                        serviceFormState.eventListByProgramStage;
-                    List<Events> events = TrackedEntityInstanceUtil
-                        .getAllEventListFromServiceDataState(
-                            eventListByProgramStage, programStageids);
-                    int referralIndex = events.length;
+
                     return Container(
                       child: Column(
                         children: [
@@ -134,70 +138,16 @@ class _OvcChildReferralHomeState extends State<OvcChildReferralHome> {
                                   )
                                 : Column(
                                     children: [
-                                      Container(
-                                        margin: EdgeInsets.symmetric(
-                                          vertical: 10.0,
-                                        ),
-                                        child: events.length == 0
-                                            ? Text(
-                                                'There is no Child Referrals at a moment')
-                                            : Container(
-                                                margin: EdgeInsets.symmetric(
-                                                  vertical: 5.0,
-                                                  horizontal: 13.0,
-                                                ),
-                                                child: Column(
-                                                  children: events
-                                                      .map((Events eventData) {
-                                                    int count = referralIndex--;
-                                                    return Container(
-                                                      margin: EdgeInsets.only(
-                                                        bottom: 15.0,
-                                                      ),
-                                                      child:
-                                                          ReferralCardSummary(
-                                                        borderColor:
-                                                            Color(0xFFEDF5EC),
-                                                        buttonLabelColor:
-                                                            Color(0xFF4B9F46),
-                                                        titleColor:
-                                                            Color(0xFF1B3518),
-                                                        count: count,
-                                                        cardBody:
-                                                            ReferralCardBodySummary(
-                                                          labelColor:
-                                                              Color(0XFF92A791),
-                                                          valueColor:
-                                                              Color(0XFF536852),
-                                                          referralEvent:
-                                                              eventData,
-                                                        ),
-                                                        onView: () =>
-                                                            onViewChildReferral(
-                                                          context,
-                                                          eventData,
-                                                          count,
-                                                        ),
-                                                        onManage: () =>
-                                                            onManageChildReferral(
-                                                          context,
-                                                          eventData,
-                                                          count,
-                                                        ),
-                                                      ),
-                                                    );
-                                                  }).toList(),
-                                                ),
-                                              ),
+                                      OvcReferralTopBarSelection(
+                                        isClicked: isCloReferralSelected,
+                                        onSelectCLOReferral: () =>
+                                            onCLOReferralSelection(context),
+                                        onSelectReferral: () =>
+                                            onReferralSelection(context),
                                       ),
-                                      OvcEnrollmentFormSaveButton(
-                                          label: 'ADD REFFERAL',
-                                          labelColor: Colors.white,
-                                          buttonColor: Color(0xFF4B9F46),
-                                          fontSize: 15.0,
-                                          onPressButton: () => onAddRefferal(
-                                              context,
-                                              currentOvcHouseHoldChild))
+                                   isCloReferralSelected
+                                          ? OvcChildCLOReferral()
+                                          : OvcChildReferral()
                                     ],
                                   ),
                           )
@@ -213,3 +163,4 @@ class _OvcChildReferralHomeState extends State<OvcChildReferralHome> {
         bottomNavigationBar: InterventionBottomNavigationBarContainer());
   }
 }
+
