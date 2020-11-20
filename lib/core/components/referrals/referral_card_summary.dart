@@ -10,7 +10,7 @@ class ReferralCardSummary extends StatelessWidget {
     @required this.borderColor,
     @required this.buttonLabelColor,
     @required this.titleColor,
-    this.isOutgoingCLOReferral,
+    this.isOutgoingCLOReferral = false,
     this.isCLOReferral = false,
     this.onView,
     this.onManage,
