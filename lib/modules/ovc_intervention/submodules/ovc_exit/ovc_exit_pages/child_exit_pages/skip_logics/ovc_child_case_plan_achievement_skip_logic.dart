@@ -16,6 +16,10 @@ class OvcChildCasePlanAchievementSkipLogic {
     hiddenFields.clear();
     hiddenSections.clear();
     List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections);
+    for (var key in dataObject.keys) {
+      inputFieldIds.add('$key');
+    }
+    inputFieldIds = inputFieldIds.toSet().toList();
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
       if (inputFieldId == 'RK3fD7HvH9Q' && value != 'true') {
