@@ -4,7 +4,9 @@ import 'package:kb_mobile_app/models/input_field_option.dart';
 class InputField {
   String id;
   String name;
+  String translatedName;
   String description;
+  String translatedDescription;
   String valueType;
   Color labelColor;
   Color inputColor;
@@ -32,6 +34,8 @@ class InputField {
     this.subInputField,
     this.allowedSelectedLevels,
     this.allowFuturePeriod,
+    this.translatedName,
+    this.translatedDescription,
   }) {
     this.allowedSelectedLevels = this.allowedSelectedLevels ?? [];
     this.allowFuturePeriod = this.allowFuturePeriod ?? false;

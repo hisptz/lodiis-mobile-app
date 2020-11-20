@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/core/constants/custom_color.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/modules/login/components/login_form_container.dart';
 import 'package:kb_mobile_app/modules/login/components/login_top_icon.dart';
+import 'package:provider/provider.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -27,15 +29,23 @@ class _LoginState extends State<Login> {
             decoration: BoxDecoration(color: CustomColor.defaultPrimaryColor),
           ),
           SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                LoginTopIcon(),
-                SizedBox(
-                  height: 10,
-                ),
-                LoginFormContainer(),
-              ],
+            child: Container(
+              child: Consumer<LanguageTranslationState>(
+                builder: (context, languageTranslationState, child) {
+                  String currentLanguage =
+                      languageTranslationState.currentLanguage;
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      LoginTopIcon(),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      LoginFormContainer(currentLanguage: currentLanguage),
+                    ],
+                  );
+                },
+              ),
             ),
           )
         ],

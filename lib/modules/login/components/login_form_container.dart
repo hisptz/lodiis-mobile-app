@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/modules/login/components/login_form.dart';
 
 class LoginFormContainer extends StatelessWidget {
-  const LoginFormContainer({Key key}) : super(key: key);
+  const LoginFormContainer({
+    Key key,
+    @required this.currentLanguage,
+  }) : super(key: key);
+
+  final String currentLanguage;
 
   @override
   Widget build(BuildContext context) {
@@ -39,17 +44,12 @@ class LoginFormContainer extends StatelessWidget {
                   Column(
                     children: [
                       Text(
-                        'Please enter your account details in',
+                        'Please enter your account details in order to login to the app',
                         style: TextStyle(
                             color: const Color(0xFF737373),
                             fontSize: 14.0,
                             fontWeight: FontWeight.w600),
-                      ),
-                      Text('order to login to the app',
-                          style: TextStyle(
-                              color: const Color(0xFF737373),
-                              fontSize: 15.0,
-                              fontWeight: FontWeight.w600))
+                      )
                     ],
                   )
                 ],
@@ -59,7 +59,9 @@ class LoginFormContainer extends StatelessWidget {
               height: 10,
             ),
             Container(
-              child: LoginForm(),
+              child: LoginForm(
+                currentLanguage: currentLanguage,
+              ),
             )
           ],
         ),
