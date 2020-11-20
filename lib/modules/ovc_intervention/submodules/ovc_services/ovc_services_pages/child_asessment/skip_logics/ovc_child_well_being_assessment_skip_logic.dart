@@ -16,6 +16,10 @@ class OvcChildWellBeingAssessmentSkipLogic {
     hiddenFields.clear();
     hiddenSections.clear();
     List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections);
+    for (var key in dataObject.keys) {
+      inputFieldIds.add('$key');
+    }
+    inputFieldIds = inputFieldIds.toSet().toList();
     void hideForChild() {
       //Domain Schooled
       hiddenFields['Wstcittf'] = true;
@@ -83,7 +87,7 @@ class OvcChildWellBeingAssessmentSkipLogic {
 
     }
 
-    void hideForAdult() {
+    void hideForCaregiver() {
       hiddenFields['lt88RMPaBPg'] = true;
       hiddenFields['TWvKsmKyCSc'] = true;
       hiddenFields['cv8RKCPOOAo'] = true;
@@ -138,7 +142,7 @@ class OvcChildWellBeingAssessmentSkipLogic {
     if (age >= 14) {
       hideForChild();
     } else {
-      hideForAdult();
+      hideForCaregiver();
     }
 
     for (String inputFieldId in inputFieldIds) {

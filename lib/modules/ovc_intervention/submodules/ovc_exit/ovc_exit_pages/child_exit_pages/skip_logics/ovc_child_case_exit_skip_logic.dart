@@ -32,6 +32,10 @@ class OvcChildCaseExitSkipLogic {
       List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections
           .where((formSection) => formSection.id == sectionId)
           .toList());
+      for (var key in dataObject.keys) {
+        inputFieldIds.add('$key');
+      }
+      inputFieldIds = inputFieldIds.toSet().toList();
       for (String inputFieldId in inputFieldIds) {
         hiddenFields[inputFieldId] = true;
       }

@@ -16,7 +16,12 @@ class AgywDreamsEnrollmentSkipLogic {
   ) async {
     hiddenFields.clear();
     hiddenSections.clear();
+
     List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections);
+    for (var key in dataObject.keys) {
+      inputFieldIds.add('$key');
+    }
+    inputFieldIds = inputFieldIds.toSet().toList();
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
       if (inputFieldId == 'qZP982qpSPS') {
@@ -31,29 +36,31 @@ class AgywDreamsEnrollmentSkipLogic {
           hiddenFields['bkpG276xEk9'] = true;
           hiddenFields['VomsiFza9mn'] = true;
           hiddenFields['NhBs8uAiRPt'] = true;
-          // hiddenFields['s1eRvsL2Ly4'] = true; Check marital status
           dataObject['s1eRvsL2Ly4'] = 'Single';
-        } else if (age < 9 || age > 11) {
-          // TODO check why age is not checked
+        }
+        if (age < 9 || age > 11) {
           hiddenFields['x6VFmJLsqgx'] = true;
-        } else if (age >= 20 && age <= 24) {
-          hiddenFields['fSQY2z3L0lp'] = true;
+        }
+        if (age >= 20 && age <= 24) {
           hiddenFields['Z7PTcgqwCLu'] = true;
           hiddenFields['FuYyLjYxxkg'] = true;
         }
-        if(age < 20){
-          hiddenFields['EQHcFozjbP0'] =true;
-          hiddenFields['NhBs8uAiRPt'] =true;
+        if (age < 20) {
+          hiddenFields['EQHcFozjbP0'] = true;
+          hiddenFields['NhBs8uAiRPt'] = true;
+        }
+        if (age >= 9 && age <= 24) {
+          assignInputFieldValue(context, 'cifBFSTHgv5', 'true');
+        } else {
+          assignInputFieldValue(context, 'cifBFSTHgv5', 'false');
         }
       }
 
-      if(inputFieldId == 'GwVHeyOqTv2' && value !='true'){
-          hiddenFields['T3i6bQ3tCaA'] = true;
-          hiddenFields['q8qPtzanSTU'] = true;
-          hiddenFields['ojCwZf1iHOE'] = true;
+      if (inputFieldId == 'GwVHeyOqTv2' && value != 'true') {
+        hiddenFields['T3i6bQ3tCaA'] = true;
+        hiddenFields['q8qPtzanSTU'] = true;
+        hiddenFields['ojCwZf1iHOE'] = true;
       }
-
-
 
       if (inputFieldId == 'oEbOkfQY3NP' && value != 'Other') {
         hiddenFields['ODMyZc2F7uc'] = true;
