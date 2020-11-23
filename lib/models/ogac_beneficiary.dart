@@ -69,7 +69,7 @@ class OgacBeneficiary {
       benefecaryId: data[BeneficiaryIdentification.beneficiaryId] ?? '',
       sex: data['vIX4GTSCX4P'] ?? '',
       searchableValue:
-          "${data['WTZ7GLTrE8Q'] ?? ''} ${data['s1HaiT6OllL'] ?? ''} ${data['rSP9c21JsfC'] ?? ''} $age ${data[BeneficiaryIdentification.beneficiaryId] ?? ''} ${data['vIX4GTSCX4P'] ?? ''} $createdDate"
+          "${data['WTZ7GLTrE8Q'] ?? ''} ${data['s1HaiT6OllL'] ?? ''} ${data['rSP9c21JsfC'] ?? ''} $age ${data[BeneficiaryIdentification.beneficiaryId] ?? ''} ${data['vIX4GTSCX4P'] ?? ''} $location $createdDate"
               .toLowerCase(),
       orgUnit: orgUnit,
       location: location,

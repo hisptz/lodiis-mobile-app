@@ -71,7 +71,7 @@ class OvcHouseHold {
         houseHoldId: data[BeneficiaryIdentification.beneficiaryId] ?? '',
         houseHoldStatus: data['PN92g65TkVI'] ?? '',
         searchableValue:
-            "${data['WTZ7GLTrE8Q'] ?? ''} ${data['s1HaiT6OllL'] ?? ''} ${data['rSP9c21JsfC'] ?? ''} ${data[BeneficiaryIdentification.beneficiaryId] ?? ''} $createdDate"
+            "${data['WTZ7GLTrE8Q'] ?? ''} ${data['s1HaiT6OllL'] ?? ''} ${data['rSP9c21JsfC'] ?? ''} ${data[BeneficiaryIdentification.beneficiaryId] ?? ''} $location $createdDate"
                 .toLowerCase(),
         children: children,
         teiData: tei);
