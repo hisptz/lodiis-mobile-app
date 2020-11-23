@@ -20,6 +20,7 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_serv
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/dreams_service_post_gbv_form_info.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hiv_reg/skip_logics/agyw_dreams_hiv_register_skip_logic.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/post_gbv/constants/msg_hiv_constant.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/post_gbv/skip_logics/agyw_dreams_post_gbv_skip_logic.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
 import 'package:provider/provider.dart';
 
@@ -54,7 +55,7 @@ class _AgywDreamsPostGBVFormState extends State<AgywDreamsPostGBVForm> {
       () async {
         Map dataObject =
             Provider.of<ServiceFormState>(context, listen: false).formState;
-        await AgywDreamsHivRegisterSkipLogic.evaluateSkipLogics(
+        await AgywDreamsPostGbvSkipLogic.evaluateSkipLogics(
           context,
           formSections,
           dataObject,

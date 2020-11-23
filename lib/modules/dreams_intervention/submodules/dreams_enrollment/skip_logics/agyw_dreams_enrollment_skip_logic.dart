@@ -16,7 +16,12 @@ class AgywDreamsEnrollmentSkipLogic {
   ) async {
     hiddenFields.clear();
     hiddenSections.clear();
+
     List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections);
+    for (var key in dataObject.keys) {
+      inputFieldIds.add('$key');
+    }
+    inputFieldIds = inputFieldIds.toSet().toList();
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
       if (inputFieldId == 'qZP982qpSPS') {
@@ -24,15 +29,39 @@ class AgywDreamsEnrollmentSkipLogic {
         assignInputFieldValue(context, 'ls9hlz2tyol', age.toString());
         if (age >= 9 && age <= 14) {
           hiddenFields['bkpG276xEk9'] = true;
-        } else if (age < 9 || age > 11) {
-          // TODO check why age is not checked
+          hiddenFields['yU4tNjFpQIq'] = true;
+          hiddenFields['LNaNh7kvh4X'] = true;
+          hiddenFields['wGFmu7DhNGV'] = true;
+          hiddenFields['G1s75wng5DY'] = true;
+          hiddenFields['bkpG276xEk9'] = true;
+          hiddenFields['VomsiFza9mn'] = true;
+          hiddenFields['NhBs8uAiRPt'] = true;
+          dataObject['s1eRvsL2Ly4'] = 'Single';
+        }
+        if (age < 9 || age > 11) {
           hiddenFields['x6VFmJLsqgx'] = true;
-        } else if (age >= 20 && age <= 24) {
-          hiddenFields['fSQY2z3L0lp'] = true;
+        }
+        if (age >= 20 && age <= 24) {
           hiddenFields['Z7PTcgqwCLu'] = true;
           hiddenFields['FuYyLjYxxkg'] = true;
         }
+        if (age < 20) {
+          hiddenFields['EQHcFozjbP0'] = true;
+          hiddenFields['NhBs8uAiRPt'] = true;
+        }
+        if (age >= 9 && age <= 24) {
+          assignInputFieldValue(context, 'cifBFSTHgv5', 'true');
+        } else {
+          assignInputFieldValue(context, 'cifBFSTHgv5', 'false');
+        }
       }
+
+      if (inputFieldId == 'GwVHeyOqTv2' && value != 'true') {
+        hiddenFields['T3i6bQ3tCaA'] = true;
+        hiddenFields['q8qPtzanSTU'] = true;
+        hiddenFields['ojCwZf1iHOE'] = true;
+      }
+
       if (inputFieldId == 'oEbOkfQY3NP' && value != 'Other') {
         hiddenFields['ODMyZc2F7uc'] = true;
       }
@@ -50,6 +79,7 @@ class AgywDreamsEnrollmentSkipLogic {
         hiddenFields['UzQ533pOnvt'] = true;
         hiddenFields['S4yWgL2zp2I'] = true;
         hiddenFields['bkpG276xEk9'] = true;
+        hiddenFields['GwVHeyOqTv2'] = true;
         // TODO check why doesn't hide module 4 and some of questions in 5
         hiddenFields['AHbtSNH0i7C'] = true;
         hiddenFields['RW9VeyKDvjj'] = true;
@@ -59,8 +89,6 @@ class AgywDreamsEnrollmentSkipLogic {
         hiddenSections['E_M_4_S_A'] = true;
       }
       if (inputFieldId == 'T3i6bQ3tCaA' && value != 'true') {
-        hiddenFields['UzQ533pOnvt'] = true;
-        hiddenFields['q8qPtzanSTU'] = true;
         hiddenFields['ojCwZf1iHOE'] = true;
         hiddenFields['fyIUCi5EUtp'] = true;
         hiddenFields['r0rKJA911ma'] = true;

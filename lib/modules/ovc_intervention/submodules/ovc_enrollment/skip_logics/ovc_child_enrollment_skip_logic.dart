@@ -17,12 +17,20 @@ class OvcChildEnrollmentSkipLogic {
     hiddenFields.clear();
     hiddenSections.clear();
     List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections);
+    for (var key in dataObject.keys) {
+      inputFieldIds.add('$key');
+    }
+    inputFieldIds = inputFieldIds.toSet().toList();
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
       if (inputFieldId == 'qZP982qpSPS') {
         int age = AppUtil.getAgeInYear(value);
         assignInputFieldValue(context, 'ls9hlz2tyol', age.toString());
+        if(age > 2){
+          hiddenFields['GMcljM7jbNG'] = true;
+        }
       }
+
       if (inputFieldId == 'UeF4OvjIIEK' &&
           (value.isEmpty || '$value'.trim() != 'true')) {
         hiddenFields['nOgf8LKXS4k'] = true;

@@ -23,7 +23,9 @@ class TrackedEntityInstanceUtil {
     inputFieldIds.addAll(hiddenFields);
     eventId =
         eventId == null ? dataObject['eventId'] ?? AppUtil.getUid() : eventId;
-    Events eventData = FormUtil.getEventPayload(eventId, program, programStage,
+     //clear unwanted object from the mapper : an object in clo question which signifies form to save
+    dataObject.removeWhere((key, value) => key == 'NbQGlx6QZpK_clo_type');
+       Events eventData = FormUtil.getEventPayload(eventId, program, programStage,
         orgUnit, inputFieldIds, dataObject, eventDate, trackedEntityInstance);
     await FormUtil.savingEvent(eventData);
   }
@@ -51,9 +53,7 @@ class TrackedEntityInstanceUtil {
       try {
         var data = eventListByProgramStage[programStageid] ?? [];
         events.addAll(data);
-      } catch (e) {
-       
-      }
+      } catch (e) {}
     }
     return events;
   }

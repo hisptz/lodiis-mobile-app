@@ -28,7 +28,6 @@ class _ReferralCardBodySummaryState extends State<ReferralCardBodySummary> {
     super.initState();
     ovcReferralCard = ReferralEvent().fromTeiModel(widget.referralEvent);
   }
-  //     82898D
 
   @override
   Widget build(BuildContext context) {
