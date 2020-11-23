@@ -115,6 +115,7 @@ class CurrentUserState with ChangeNotifier {
     if (implementingPartner == 'KB-AGYW/DREAMS') {
       _canManageDreams = true;
       _canManageOvc = true;
+      _canManageOGAC = true;
       _canManageReferral = true;
       _canManageHivPrevention = true;
       _canManageCLOReferral = true;
