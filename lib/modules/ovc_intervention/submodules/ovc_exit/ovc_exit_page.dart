@@ -9,7 +9,7 @@ import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold_card_body.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold_card_botton_content.dart';
 import 'package:provider/provider.dart';
-import 'ovc_exit_pages/house_hold_exit_pages/household_achievement/ovc_house_hold_achievement.dart';
+import 'ovc_exit_pages/house_hold_exit_pages/household_graduation/ovc_house_hold_graduation.dart';
 import 'ovc_exit_pages/house_hold_exit_pages/household_case_closure/ovc_house_hold_case_closure.dart';
 import 'ovc_exit_pages/house_hold_exit_pages/household_exit/ovc_house_hold_exit.dart';
 import 'ovc_exit_pages/house_hold_exit_pages/household_transfer/ovc_house_hold_case_transfer.dart';
@@ -50,12 +50,12 @@ class _OvcExitPageState extends State<OvcExitPage> {
         .resetServiceEventDataState(ovcHouseHold.id);
   }
 
-  void onViewAchievement(BuildContext context, OvcHouseHold ovcHouseHold) {
+  void onViewGraduation(BuildContext context, OvcHouseHold ovcHouseHold) {
     setOvcHouseHoldCurrentSelection(context, ovcHouseHold);
     Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => OvcHouseHoldAchievement(),
+          builder: (context) => OvcHouseHoldGraduation(),
         ));
   }
 
@@ -153,10 +153,10 @@ class _OvcExitPageState extends State<OvcExitPage> {
                                                     vertical: 5.0,
                                                     horizontal: 0.0),
                                                 onPressed: () =>
-                                                    onViewAchievement(
+                                                    onViewGraduation(
                                                         context, ovcHouseHold),
                                                 child: Text(
-                                                  'ACHIEVEMENT',
+                                                  'GRADUATION',
                                                   style: TextStyle().copyWith(
                                                     fontSize: 12.0,
                                                     color: Color(0xFF4B9F46),
