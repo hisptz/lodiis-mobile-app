@@ -9,6 +9,7 @@ class EntrySubFormContainer extends StatelessWidget {
     @required this.subSections,
     @required this.dataObject,
     @required this.mandatoryFieldObject,
+    @required this.currentLanguage,
     this.isEditableMode = true,
     this.onInputValueChange,
     this.hiddenFields,
@@ -16,6 +17,7 @@ class EntrySubFormContainer extends StatelessWidget {
   }) : super(key: key);
 
   final List<FormSection> subSections;
+  final String currentLanguage;
   final Function onInputValueChange;
   final Map dataObject;
   final Map mandatoryFieldObject;
@@ -52,7 +54,10 @@ class EntrySubFormContainer extends StatelessWidget {
                               children: [
                                 Expanded(
                                   child: Text(
-                                    subSection.name,
+                                    currentLanguage == 'lesotho' &&
+                                            subSection.translatedName != null
+                                        ? subSection.translatedName
+                                        : subSection.name,
                                     style: TextStyle().copyWith(
                                         color: subSection.color,
                                         fontSize: 15.0,
@@ -72,7 +77,11 @@ class EntrySubFormContainer extends StatelessWidget {
                               children: [
                                 Expanded(
                                   child: Text(
-                                    subSection.description,
+                                    currentLanguage == 'lesotho' &&
+                                            subSection.translatedDescription !=
+                                                null
+                                        ? subSection.translatedDescription
+                                        : subSection.description,
                                     style: TextStyle().copyWith(
                                         color: subSection.color,
                                         fontSize: 14.0,
@@ -102,6 +111,7 @@ class EntrySubFormContainer extends StatelessWidget {
                                                 : 0.0),
                                         child: InputFieldContainer(
                                             inputField: inputField,
+                                            currentLanguage: currentLanguage,
                                             isEditableMode: isEditableMode,
                                             mandatoryFieldObject:
                                                 mandatoryFieldObject,
@@ -117,6 +127,7 @@ class EntrySubFormContainer extends StatelessWidget {
                         Container(
                           child: EntrySubFormContainer(
                             hiddenFields: hiddenSections,
+                            currentLanguage: currentLanguage,
                             subSections: subSection.subSections,
                             dataObject: dataObject,
                             mandatoryFieldObject: mandatoryFieldObject,

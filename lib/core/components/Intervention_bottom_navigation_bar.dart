@@ -37,7 +37,7 @@ class InterventionBottomNavigationBar extends StatelessWidget {
                   .where((nav) => nav.id != 'referral')
                   .toList();
             }
-            if (!currentUserState.canManagePrep) {
+            if (!currentUserState.canManageNoneAgyw) {
               interventionBottomNavigations = interventionBottomNavigations
                   .where((nav) => nav.id != 'noneAgyw')
                   .toList();

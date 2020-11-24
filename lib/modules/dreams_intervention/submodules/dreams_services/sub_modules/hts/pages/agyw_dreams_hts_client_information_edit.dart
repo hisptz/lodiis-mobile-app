@@ -25,10 +25,12 @@ class AgywDreamsHTSClientInformationEdit extends StatefulWidget {
   AgywDreamsHTSClientInformationEdit({Key key}) : super(key: key);
 
   @override
-  _AgywDreamsHTSClientInformationEditState createState() => _AgywDreamsHTSClientInformationEditState();
+  _AgywDreamsHTSClientInformationEditState createState() =>
+      _AgywDreamsHTSClientInformationEditState();
 }
 
-class _AgywDreamsHTSClientInformationEditState extends State<AgywDreamsHTSClientInformationEdit> {
+class _AgywDreamsHTSClientInformationEditState
+    extends State<AgywDreamsHTSClientInformationEdit> {
   final String label = 'Client Information';
   List<FormSection> formSections;
   bool isFormReady = false;
@@ -50,7 +52,8 @@ class _AgywDreamsHTSClientInformationEditState extends State<AgywDreamsHTSClient
         .setFormFieldState(id, value);
   }
 
-   void onSaveForm(BuildContext context,Map dataObject, AgywDream agywDream) async {
+  void onSaveForm(
+      BuildContext context, Map dataObject, AgywDream agywDream) async {
     if (dataObject.keys.length > 0) {
       setState(() {
         isSaving = true;

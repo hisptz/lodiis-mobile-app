@@ -19,7 +19,7 @@ import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_child_info
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/models/ovc_exit_case_closure.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_pages/child_exit_pages/constants/ovc_exit_case_closure_constant.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_pages/child_exit_pages/skip_logics/ovc_child_case_closure_skip_logic.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/skip_logics/ovc_case_closure_skip_logic.dart';
 import 'package:provider/provider.dart';
 
 class OvcExitCaseClosureForm extends StatefulWidget {
@@ -27,7 +27,7 @@ class OvcExitCaseClosureForm extends StatefulWidget {
   _OvcExitCaseClosureFormState createState() => _OvcExitCaseClosureFormState();
 }
 
-class _OvcExitCaseClosureFormState extends State<OvcExitCaseClosureForm> {
+class _OvcExitCaseClosureFormState extends State<OvcExitCaseClosureForm> with OvcCaseClosureSkipLogic{
   final String label = 'Case closure';
   List<FormSection> formSections;
   bool isFormReady = false;
@@ -51,7 +51,7 @@ class _OvcExitCaseClosureFormState extends State<OvcExitCaseClosureForm> {
       () async {
         Map dataObject =
             Provider.of<ServiceFormState>(context, listen: false).formState;
-        await OvcChildCaseClosureSkipLogic.evaluateSkipLogics(
+        await evaluateCaseClosureSkipLogics(
           context,
           formSections,
           dataObject,
@@ -161,6 +161,8 @@ class _OvcExitCaseClosureFormState extends State<OvcExitCaseClosureForm> {
                                           right: 13.0,
                                         ),
                                         child: EntryFormContainer(
+                                          hiddenSections: hiddenSections,
+                                          hiddenFields: hiddenFields,
                                           formSections: formSections,
                                           mandatoryFieldObject: Map(),
                                           dataObject:

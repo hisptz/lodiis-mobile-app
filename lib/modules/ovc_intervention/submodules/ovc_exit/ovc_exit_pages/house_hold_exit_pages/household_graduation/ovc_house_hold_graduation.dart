@@ -12,30 +12,30 @@ import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/models/ovc_house_hold.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold_top_header.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_pages/house_hold_exit_pages/household_achievement/components/ovc_house_hold_achievement_list_container.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_pages/house_hold_exit_pages/household_achievement/constants/ovc_house_hold_achievement_constant.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_pages/house_hold_exit_pages/household_achievement/pages/ovc_house_hold_achievement_form.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_pages/house_hold_exit_pages/household_graduation/components/ovc_house_hold_graduation_list_container.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_pages/house_hold_exit_pages/household_graduation/constants/ovc_house_hold_achievement_constant.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_pages/house_hold_exit_pages/household_graduation/pages/ovc_house_hold_graduation_form.dart';
 import 'package:provider/provider.dart';
 
-class OvcHouseHoldAchievement extends StatelessWidget {
-  final String label = 'House Hold Case Plan Achievement Rediness';
+class OvcHouseHoldGraduation extends StatelessWidget {
+  final String label = 'House Hold Case Plan Graduation Rediness';
   final List<String> programStageIds = [
-    OvcHouseHoldAchievementConstant.programStage
+    OvcHouseHoldGraduationConstant.programStage
   ];
 
   void updateFormState(
-      BuildContext context, bool isEditableMode, Events achievement) {
+      BuildContext context, bool isEditableMode, Events graduation) {
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
     Provider.of<ServiceFormState>(context, listen: false)
         .updateFormEditabilityState(isEditableMode: isEditableMode);
 
-    if (achievement != null) {
+    if (graduation != null) {
       Provider.of<ServiceFormState>(context, listen: false);
       Provider.of<ServiceFormState>(context, listen: false)
-          .setFormFieldState('eventDate', achievement.eventDate);
+          .setFormFieldState('eventDate', graduation.eventDate);
       Provider.of<ServiceFormState>(context, listen: false)
-          .setFormFieldState('eventId', achievement.event);
-      for (Map datavalue in achievement.dataValues) {
+          .setFormFieldState('eventId', graduation.event);
+      for (Map datavalue in graduation.dataValues) {
         if (datavalue['value'] != '') {
           Provider.of<ServiceFormState>(context, listen: false)
               .setFormFieldState(datavalue['dataElement'], datavalue['value']);
@@ -43,7 +43,7 @@ class OvcHouseHoldAchievement extends StatelessWidget {
       }
     }
     Navigator.push(context,
-        MaterialPageRoute(builder: (context) => OvcHouseHoldAchievementForm()));
+        MaterialPageRoute(builder: (context) => OvcHouseHoldGraduationForm()));
   }
 
   void onAddNewHouseHoldAchievement(
@@ -54,13 +54,13 @@ class OvcHouseHoldAchievement extends StatelessWidget {
   }
 
   void onViewHouseHoldAchievement(
-      BuildContext context, OvcHouseHold houseHold, Events achievement) {
-    updateFormState(context, false, achievement);
+      BuildContext context, OvcHouseHold houseHold, Events graduation) {
+    updateFormState(context, false, graduation);
   }
 
   void onEditHouseHoldAchievement(
-      BuildContext context, OvcHouseHold houseHold, Events achievement) {
-    updateFormState(context, true, achievement);
+      BuildContext context, OvcHouseHold houseHold, Events graduation) {
+    updateFormState(context, true, graduation);
   }
 
   @override
@@ -122,22 +122,22 @@ class OvcHouseHoldAchievement extends StatelessWidget {
                                                   left: 13.0,
                                                 ),
                                                 child:
-                                                    OvcHouseHoldAchievementListContainer(
+                                                    OvcHouseHoldGraduationListContainer(
                                                         programStageIds:
                                                             programStageIds,
                                                         onEditHouseHoldAchievement:
-                                                            (Events achievement) =>
+                                                            (Events graduation) =>
                                                                 onEditHouseHoldAchievement(
                                                                   context,
                                                                   currentOvcHouseHold,
-                                                                  achievement,
+                                                                  graduation,
                                                                 ),
                                                         onViewHouseHoldAchievement:
-                                                            (Events achievement) =>
+                                                            (Events graduation) =>
                                                                 onViewHouseHoldAchievement(
                                                                   context,
                                                                   currentOvcHouseHold,
-                                                                  achievement,
+                                                                  graduation,
                                                                 )),
                                               ),
                                               Container(
@@ -146,7 +146,7 @@ class OvcHouseHoldAchievement extends StatelessWidget {
                                                   child:
                                                       OvcEnrollmentFormSaveButton(
                                                           label:
-                                                              "NEW ACHIEVEMENT",
+                                                              "NEW GRADUATION",
                                                           labelColor:
                                                               Colors.white,
                                                           fontSize: 10,

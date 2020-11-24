@@ -84,7 +84,7 @@ class _AgywDreamsIndexInfoAboutPosClientState
             eventId,
             hiddenFields);
         Provider.of<ServiveEventDataState>(context, listen: false)
-        .resetServiceEventDataState(agywDream.id);
+            .resetServiceEventDataState(agywDream.id);
         Timer(Duration(seconds: 1), () {
           setState(() {
             AppUtil.showToastMessage(

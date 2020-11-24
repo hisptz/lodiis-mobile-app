@@ -22,10 +22,12 @@ class AgywDreamsHTSClientInformation extends StatefulWidget {
   AgywDreamsHTSClientInformation({Key key}) : super(key: key);
 
   @override
-  _AgywDreamsHTSClientInformationState createState() => _AgywDreamsHTSClientInformationState();
+  _AgywDreamsHTSClientInformationState createState() =>
+      _AgywDreamsHTSClientInformationState();
 }
 
-class _AgywDreamsHTSClientInformationState extends State<AgywDreamsHTSClientInformation> {
+class _AgywDreamsHTSClientInformationState
+    extends State<AgywDreamsHTSClientInformation> {
   final String label = 'Client Information';
   List<FormSection> formSections;
   bool isFormReady = false;
@@ -38,11 +40,10 @@ class _AgywDreamsHTSClientInformationState extends State<AgywDreamsHTSClientInfo
     Timer(Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
-          evaluateSkipLogics();
+        evaluateSkipLogics();
       });
     });
   }
-
 
   evaluateSkipLogics() {
     Timer(
@@ -62,14 +63,16 @@ class _AgywDreamsHTSClientInformationState extends State<AgywDreamsHTSClientInfo
   void onInputValueChange(String id, dynamic value) {
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState(id, value);
-         evaluateSkipLogics();
+    evaluateSkipLogics();
   }
 
-   void onSaveForm(BuildContext context,Map dataObject, AgywDream agywDream) {
+  void onSaveForm(BuildContext context, Map dataObject, AgywDream agywDream) {
     Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
         .setCurrentAgywDream(agywDream);
-      Navigator.push(
-         context, MaterialPageRoute(builder: (context) => AgywDreamsHTSConsentForReleaseStatus()));
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => AgywDreamsHTSConsentForReleaseStatus()));
   }
 
   @override
@@ -126,7 +129,9 @@ class _AgywDreamsHTSClientInformationState extends State<AgywDreamsHTSClientInfo
                                   Visibility(
                                     visible: serviceFormState.isEditableMode,
                                     child: OvcEnrollmentFormSaveButton(
-                                      label: isSaving ? 'Saving ...' : 'SAVE & CONTINUE',
+                                      label: isSaving
+                                          ? 'Saving ...'
+                                          : 'SAVE & CONTINUE',
                                       labelColor: Colors.white,
                                       buttonColor: Color(0xFF258DCC),
                                       fontSize: 15.0,

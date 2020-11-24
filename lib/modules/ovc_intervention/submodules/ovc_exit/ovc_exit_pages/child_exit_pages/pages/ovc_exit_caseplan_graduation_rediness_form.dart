@@ -17,20 +17,20 @@ import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/models/ovc_house_hold_child.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_child_info_top_header.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/models/ovc_exit_caseplan_achievement_rediness.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_pages/child_exit_pages/constants/ovc_exit_case_plan_achievement_rediness_constant.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_pages/child_exit_pages/skip_logics/ovc_child_case_plan_achievement_skip_logic.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/models/ovc_exit_caseplan_graduation_rediness.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_pages/child_exit_pages/constants/ovc_exit_case_plan_graduation_rediness_constant.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_pages/child_exit_pages/skip_logics/ovc_child_case_plan_graduation_skip_logic.dart';
 import 'package:provider/provider.dart';
 
-class OvcExitCasePlanAchievementRedinessForm extends StatefulWidget {
+class OvcExitCasePlanGraduationRedinessForm extends StatefulWidget {
   @override
-  _OvcExitCasePlanAchievementRedinessFormState createState() =>
-      _OvcExitCasePlanAchievementRedinessFormState();
+  _OvcExitCasePlanGraduationRedinessFormState createState() =>
+      _OvcExitCasePlanGraduationRedinessFormState();
 }
 
-class _OvcExitCasePlanAchievementRedinessFormState
-    extends State<OvcExitCasePlanAchievementRedinessForm> {
-  final String label = 'Case plan Achievement Rediness';
+class _OvcExitCasePlanGraduationRedinessFormState
+    extends State<OvcExitCasePlanGraduationRedinessForm> {
+  final String label = 'Case plan Graduation Rediness';
   List<FormSection> formSections;
   bool isFormReady = false;
   bool isSaving = false;
@@ -38,7 +38,7 @@ class _OvcExitCasePlanAchievementRedinessFormState
   @override
   void initState() {
     super.initState();
-    formSections = OvcExitCasePlanAchievementRediness.getFormSections();
+    formSections = OvcExitCasePlanGraduationRediness.getFormSections();
     Timer(Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
@@ -53,7 +53,7 @@ class _OvcExitCasePlanAchievementRedinessFormState
       () async {
         Map dataObject =
             Provider.of<ServiceFormState>(context, listen: false).formState;
-        await OvcChildCasePlanAchievementSkipLogic.evaluateSkipLogics(
+        await OvcChildCasePlanGraduationSkipLogic.evaluateSkipLogics(
           context,
           formSections,
           dataObject,
@@ -81,8 +81,8 @@ class _OvcExitCasePlanAchievementRedinessFormState
       String eventId = dataObject['eventId'];
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-            OvcExitCasePlanAchievementRedinessConstant.program,
-            OvcExitCasePlanAchievementRedinessConstant.programStage,
+            OvcExitCasePlanGraduationRedinessConstant.program,
+            OvcExitCasePlanGraduationRedinessConstant.programStage,
             currentOvcHouseHoldChild.orgUnit,
             formSections,
             dataObject,
@@ -163,6 +163,8 @@ class _OvcExitCasePlanAchievementRedinessFormState
                                           right: 13.0,
                                         ),
                                         child: EntryFormContainer(
+                                          hiddenFields: serviceFormState.hiddenFields,
+                                          hiddenSections: serviceFormState.hiddenSections,
                                           formSections: formSections,
                                           mandatoryFieldObject: Map(),
                                           dataObject:

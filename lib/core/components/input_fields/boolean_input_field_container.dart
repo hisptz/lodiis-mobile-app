@@ -8,10 +8,12 @@ class BooleanInputFieldContainer extends StatefulWidget {
       {Key key,
       @required this.inputField,
       @required this.onInputValueChange,
+      @required this.currentLanguage,
       this.inputValue})
       : super(key: key);
 
   final InputField inputField;
+  final String currentLanguage;
   final Function onInputValueChange;
   final dynamic inputValue;
 
@@ -22,9 +24,16 @@ class BooleanInputFieldContainer extends StatefulWidget {
 
 class _BooleanInputFieldContainerState
     extends State<BooleanInputFieldContainer> {
+  //@TODO add translation on options codes
   final List<InputFieldOption> options = [
-    InputFieldOption(name: 'Yes', code: true),
-    InputFieldOption(name: 'No', code: false),
+    InputFieldOption(
+      name: 'Yes',
+      code: true,
+    ),
+    InputFieldOption(
+      name: 'No',
+      code: false,
+    ),
   ];
   bool _inputValue;
 
@@ -55,6 +64,7 @@ class _BooleanInputFieldContainerState
   Widget build(BuildContext context) {
     return RadioInputFieldContainer(
       options: options,
+      currentLanguage: widget.currentLanguage,
       isReadOnly: widget.inputField.isReadOnly,
       activeColor: widget.inputField.inputColor,
       currentValue: _inputValue,

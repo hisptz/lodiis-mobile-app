@@ -6,8 +6,8 @@ import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:provider/provider.dart';
 
-class OvcHouseHoldAchievementListContainer extends StatelessWidget {
-  OvcHouseHoldAchievementListContainer({
+class OvcHouseHoldGraduationListContainer extends StatelessWidget {
+  OvcHouseHoldGraduationListContainer({
     Key key,
     @required this.programStageIds,
     this.onViewHouseHoldAchievement,
@@ -35,7 +35,7 @@ class OvcHouseHoldAchievementListContainer extends StatelessWidget {
           int achievementIndex = eventList.length;
           return achievementIndex == 0
               ? Center(
-                  child: Text('There is no Achievement at moment'),
+                  child: Text('There is no Graduation at moment'),
                 )
               : Container(
                   child: Column(
@@ -74,7 +74,7 @@ class OvcHouseHoldAchievementListContainer extends StatelessWidget {
                                               children: [
                                                 TextSpan(
                                                   text:
-                                                      'Achievement ${achievementIndex + 1}',
+                                                      'Graduation ${achievementIndex + 1}',
                                                   style: TextStyle().copyWith(
                                                     color: Color(0xFF1A3518),
                                                     fontSize: 14.0,

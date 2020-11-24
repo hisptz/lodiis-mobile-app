@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:kb_mobile_app/app_state/app_info_state/app_info_state.dart';
 import 'package:kb_mobile_app/app_state/current_user_state/current_user_state.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dream_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
@@ -23,6 +24,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
         providers: [
+          ChangeNotifierProvider(create: (_) => AppInfoState()),
           ChangeNotifierProvider(create: (_) => LanguageTranslationState()),
           ChangeNotifierProvider(create: (_) => CurrentUserState()),
           ChangeNotifierProvider(create: (_) => IntervetionCardState()),

@@ -4,7 +4,7 @@ import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:provider/provider.dart';
 
-class OvcChildCaseExitSkipLogic {
+class OvcChildCasePlanGraduationSkipLogic {
   static Map hiddenFields = Map();
   static Map hiddenSections = Map();
 
@@ -16,26 +16,29 @@ class OvcChildCaseExitSkipLogic {
     hiddenFields.clear();
     hiddenSections.clear();
     List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections);
+    for (var key in dataObject.keys) {
+      inputFieldIds.add('$key');
+    }
+    inputFieldIds = inputFieldIds.toSet().toList();
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
-      if (inputFieldId == 'iaVO2v6TsWa' && value != 'Other reasons') {
-        hiddenFields['zUU33n41Soa'] = true;
+      if (inputFieldId == 'RK3fD7HvH9Q' && value != 'true') {
+        hiddenFields['wGeVdyVO5hE'] = true;
       }
-      if (inputFieldId == 'vey0snuAsLj' && value != 'true') {
-        hiddenFields['jOXN2iPhkxj'] = true;
+      if(inputFieldId == 'l9HIQkANCHj' && value != 'true') {
+        hiddenFields['l9HIQkANCHj_checkbox'] = true;
       }
-      if (inputFieldId == 'RtAQJcTqUGF' && value != 'Other') {
-        hiddenFields['q3mJ2FfV3oR'] = true;
+      if (inputFieldId == 'fffETOzhGsU' && value != 'true') {
+        hiddenFields['fffETOzhGsU_checkbox'] = true;
+        hiddenFields['gSgJKdbwTSs'] = true;
+        hiddenFields['bhXYz7AnnN7'] = true;
+        hiddenFields['dRiKVfftiaX'] = true;
       }
     }
     for (String sectionId in hiddenSections.keys) {
       List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections
           .where((formSection) => formSection.id == sectionId)
           .toList());
-      for (var key in dataObject.keys) {
-        inputFieldIds.add('$key');
-      }
-      inputFieldIds = inputFieldIds.toSet().toList();
       for (String inputFieldId in inputFieldIds) {
         hiddenFields[inputFieldId] = true;
       }

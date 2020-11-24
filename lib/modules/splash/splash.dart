@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/app_state/app_info_state/app_info_state.dart';
 import 'package:kb_mobile_app/app_state/current_user_state/current_user_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
@@ -34,6 +35,7 @@ class _SplashState extends State<Splash> {
     bool isUserLoginIn = user != null ? user.isLogin : false;
     String currentLanguage =
         await LanguageSelectionService.getCurrentLanguageSelection();
+    Provider.of<AppInfoState>(context, listen: false).setCurrentAppInfo();
     if (currentLanguage != null) {
       Provider.of<LanguageTranslationState>(context, listen: false)
           .setLanguageTranslation(currentLanguage);
