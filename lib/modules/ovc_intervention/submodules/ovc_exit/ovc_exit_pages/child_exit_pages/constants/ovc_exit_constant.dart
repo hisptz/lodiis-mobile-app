@@ -4,7 +4,7 @@ class OvcExitConstant {
     map['GJMtfOWadC0'] = 'Exit';
     map['IjQP2OHQGrL'] = 'Case closure';
     map['sFpMZtePzOy'] = 'Transfer';
-    map['dlR2wsNprZI'] = 'Achievement';
+    map['dlR2wsNprZI'] = 'Graduation';
     return map;
   }
 }
