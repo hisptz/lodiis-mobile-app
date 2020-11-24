@@ -59,7 +59,12 @@ class _OrganisationUnitInputFieldContainerState
       List<OrganisationUnit> ous = await OrganisationUnitService()
           .getOrganisationUnits([widget.inputValue]);
       String value = ous.length > 0 ? ous[0].name : null;
-      setOrganisationunit(value);
+      Timer(
+        Duration(microseconds: 500),
+        () {
+          setOrganisationunit(value);
+        },
+      );
     }
   }
 
