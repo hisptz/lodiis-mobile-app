@@ -2,8 +2,10 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:kb_mobile_app/core/services/synchronization_service.dart';
 import 'package:kb_mobile_app/core/services/user_service.dart';
+import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/models/events.dart';
+import 'package:kb_mobile_app/models/tei_relationship.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
 
 class SynchronizationState with ChangeNotifier {
@@ -22,29 +24,47 @@ class SynchronizationState with ChangeNotifier {
   List<dynamic> _servertrackedEntityInstance;
   Map<String, List> _trackedInstance;
   Map<String, List> _events;
+  Map<String, List> _relationships;
   List<Map<String, dynamic>> _events_1;
   List<Map<String, dynamic>> _trackedInstance1;
   int _conflictLCount = 0;
 
 // selectors
   bool get isDataUploadingActive => _isDataUploadingActive ?? false;
+
   bool get hasUnsyncedData => _hasUnsyncedData ?? false;
+
   bool get isUnsyncedCheckingActive => _isUnsyncedCheckingActive ?? false;
+
   bool get isDataDownloadingActive => _isDataDownloadingActive ?? false;
+
   int get beneficiaryCount => _beneficiaryCount ?? 0;
+
   int get beneficiaryServiceCount => _beneficiaryServiceCount ?? 0;
+
   List<String> get dataUploadProcesses => _dataUploadProcess ?? [];
+
   List<String> get dataDownloadProcesses => _dataDownloadProcess ?? [];
+
   List<Events> get eventFromServer => _eventFromServer ?? [];
+
+
   int get conflictCount => _conflictLCount ?? 0;
 
   List<TrackeEntityInstance> get trackedEntityInstanceFromServer =>
       _trackeEntityInstance ?? [];
+
   List<dynamic> get servertrackedEntityInstance =>
       _servertrackedEntityInstance ?? [];
+
   Map<String, List> get trackedInstance => _trackedInstance ?? {};
+
   Map<String, List> get events => _events ?? {};
+
+  Map<String, List> get relationships => _relationships ?? {};
+
   List<Map<String, dynamic>> get events_1 => _events_1 ?? [];
+
   List<Map<String, dynamic>> get trackedInstance1 => _trackedInstance1 ?? [];
 
 // reducers
@@ -92,8 +112,9 @@ class SynchronizationState with ChangeNotifier {
     _dataDownloadProcess = [];
     _eventFromServer = [];
     _servertrackedEntityInstance = [];
+    _trackeEntityInstance = [];
     updateDataDownloadStatus(true);
-    addDataDownloadProcess("Start Dowloading....");
+    addDataDownloadProcess("Start Downloading....");
     int count = 0;
     int total = _synchronizationService.orgUnitIds.length *
         _synchronizationService.programs.length;
@@ -101,7 +122,7 @@ class SynchronizationState with ChangeNotifier {
       for (String program in _synchronizationService.programs) {
         count++;
         addDataDownloadProcess("Download profile data $count/$total");
-        _servertrackedEntityInstance.addAll(await _synchronizationService
+        servertrackedEntityInstance.addAll(await _synchronizationService
             .getTrackedInstancefromServer(program, orgUnitId));
       }
     }
@@ -115,15 +136,43 @@ class SynchronizationState with ChangeNotifier {
       }
     }
 
-    addDataDownloadProcess("finish Dowload");
-    await analysisOfDownloadedData();
+    addDataDownloadProcess("Download Complete");
+    // await analysisOfDownloadedData();
+    await saveAllData();
   }
+
+  Future saveAllData() async {
+    await saveEventsToOffline();
+    await saveTrackedEntityStateToOffline();
+    AppUtil.showToastMessage(message: 'Download successful');
+    updateDataDownloadStatus(false);
+  }
+
+  Future saveEventsToOffline() async {
+    addDataDownloadProcess('Saving Events');
+    for (Events event in eventFromServer) {
+      await _synchronizationService.saveEventsToOffline(event);
+    }
+  }
+
+  Future saveTrackedEntityStateToOffline() async {
+    addDataDownloadProcess('Saving Profiles');
+    for (var instance in servertrackedEntityInstance) {
+      await _synchronizationService
+          .saveEnrollmentToOffline(instance['enrollments']);
+      await _synchronizationService.saveRelationshipsToOffline(instance['relationships']);
+      await _synchronizationService.saveTrackeEntityInstanceToOffline(
+          TrackeEntityInstance().fromJson(instance));
+    }
+  }
+
 
   Future analysisOfDownloadedData() async {
     addDataDownloadProcess("Start analyse service data ");
     await eventsAnalysisDownloadData();
     addDataDownloadProcess("Start analyse profile data ");
     await trackeEntityInstanceAnalysisDownloadData();
+    addDataDownloadProcess('Saving relationships');
     updateDataDownloadStatus(false);
   }
 
@@ -229,6 +278,10 @@ class SynchronizationState with ChangeNotifier {
         await _synchronizationService.uploadTeisToTheServer(
             teis, teiEnrollments);
         // @TODO uploading relationships
+        var teiRelationships =
+            await _synchronizationService.getTeiRelationShipFromOfflineDb();
+        await _synchronizationService
+            .uploadTeiRelationToTheServer(teiRelationships);
       }
 
       var teiEvents = await _synchronizationService.getTeiEventsFromOfflineDb();

@@ -13,6 +13,7 @@ import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/tei_relationship.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
 
+
 class SynchronizationService {
   HttpService httpClient;
   final List programs;
@@ -60,26 +61,66 @@ class SynchronizationService {
       }
     } catch (e) {}
     return eventsFromServer;
+  } 
+  
+  Future<List<TeiRelationship>> getTeiRelationshipsfromServer(
+      String program, String userOrgId) async {
+    List<TeiRelationship> teiRelationshipsFromServer = [];
+    try {
+      List<String> pageFilters = await getDataPaginationFilters(
+          "api/relationships.json?ouMode=DESCENDANTS&orgUnit=$userOrgId&program=$program");
+      for (var pageFilter in pageFilters) {
+        String newTeiRelationshipsUrl =
+            "api/relationships.json?ouMode=DESCENDANTS&orgUnit=$userOrgId&program=$program&fields=relationships[relationshipType,relationship,from[trackedEntityInstance[trackedEntityInstance]],to[trackedEntityInstance[trackedEntityInstance]]]&$pageFilter";
+        Response response = await httpClient.httpGet(newTeiRelationshipsUrl);
+        if (response.statusCode == 200) {
+          var responseData = json.decode(response.body);
+          for (var teiRelationship in responseData["relationships"]) {
+            teiRelationshipsFromServer.add(TeiRelationship().fromOnline(teiRelationship));
+          }
+          print(teiRelationshipsFromServer);
+        } else {
+          print(response);
+          return null;
+        }
+      }
+    } catch (e) {}
+    return teiRelationshipsFromServer;
   }
+
+
 
   Future saveEventsToOffline(Events event) async {
     EventOfflineProvider().addOrUpdateEvent(event);
   }
+
+  Future saveTeiRelationshipToOffline(TeiRelationship relationship) async {
+    await TeiRelatioShipOfflineProvider().addOrUpdateTeirelationShip(relationship);
+  }
+  Future saveRelationshipsToOffline(List<dynamic> relationships) async {
+    for (var relationship in relationships) {
+      await saveTeiRelationshipToOffline(
+          TeiRelationship().fromOnline(relationship));
+    }
+  }
+
 
   Future<List> getOfflineEventsAttributesValuesById(String eventIds) async {
     List entityInstanceAttributes =
         await EventOfflineDataValueProvider().getEventDataValues(eventIds);
     return entityInstanceAttributes;
   }
-
+//Change from dynamic to TrackeEntityInstance
   Future<List<dynamic>> getTrackedInstancefromServer(
       String program, String userOrgId) async {
     List trackedInstanceFromServer = [];
     List<String> pageFilters = await getDataPaginationFilters(
         "api/trackedEntityInstances.json?ouMode=DESCENDANTS&ou=$userOrgId&program=$program");
     for (var pageFilter in pageFilters) {
+
       String newTrackedInstanceUrl =
-          "api/trackedEntityInstances.json?ouMode=DESCENDANTS&ou=$userOrgId&program=$program&fields=trackedEntityInstance,trackedEntityType,orgUnit,attributes[attribute,value, displayName],enrollments[enrollment,enrollmentDate,incidentDate,orgUnit,program,trackedEntityInstance,status]&$pageFilter";
+          "api/trackedEntityInstances.json?ouMode=DESCENDANTS&ou=$userOrgId&program=$program&fields=trackedEntityInstance,trackedEntityType,orgUnit,attributes[attribute,value, displayName],enrollments[enrollment,enrollmentDate,incidentDate,orgUnit,program,trackedEntityInstance,status]relationships[relationshipType,relationship,from[trackedEntityInstance[trackedEntityInstance]],to[trackedEntityInstance[trackedEntityInstance]]]&$pageFilter";
+
       Response response = await httpClient.httpGet(newTrackedInstanceUrl);
       if (response.statusCode == 200) {
         var responseData = json.decode(response.body);
@@ -208,7 +249,10 @@ class SynchronizationService {
   Future uploadTeiRelationToTheServer(
     List<TeiRelationship> teiRelationShips,
   ) async {
-    print('teiRelationShips $teiRelationShips');
+    Map body = Map<String, dynamic>();
+    String url = 'api/relationships?strategy=CREATE_AND_UPDATE';
+    body['relationships'] = teiRelationShips.map((relationship)=>relationship.toOnline()).toList();
+    var response = await httpClient.httpPost(url, json.encode(body));
   }
 
   List<String> _getReferenceids(Map body) {
