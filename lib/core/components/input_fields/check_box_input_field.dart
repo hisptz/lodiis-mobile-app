@@ -52,16 +52,20 @@ class _CheckBoxInputFieldState extends State<CheckBoxInputField> {
       children: [
         Container(
           child: Checkbox(
-              value: _inputValue,
-              activeColor: _inputValue ? widget.color : null,
-              checkColor: _inputValue ? Colors.white : null,
-              onChanged: widget.isReadOnly ? null : onInputValueChange),
+            value: _inputValue,
+            activeColor: _inputValue ? widget.color : null,
+            checkColor: _inputValue ? Colors.white : null,
+            onChanged: widget.isReadOnly ? null : onInputValueChange,
+          ),
         ),
         Expanded(
-            child: Text(
-          widget.label,
-          style: TextStyle().copyWith(color: _inputValue ? widget.color : null),
-        ))
+          child: Text(
+            widget.label,
+            style: TextStyle().copyWith(
+              color: _inputValue ? widget.color : null,
+            ),
+          ),
+        )
       ],
     );
   }

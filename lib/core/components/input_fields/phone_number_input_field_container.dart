@@ -21,7 +21,6 @@ class PhoneNumberInputFieldContainer extends StatefulWidget {
 
 class _PhoneNumberInputFieldContainerState
     extends State<PhoneNumberInputFieldContainer> {
-  Color valueColor = Color(0xFF182E35);
   TextEditingController phoneNumberController;
   String _value;
 
@@ -48,17 +47,21 @@ class _PhoneNumberInputFieldContainerState
       child: Row(
         children: [
           Expanded(
-              child: TextFormField(
-                  readOnly: widget.inputField.isReadOnly,
-                  controller: phoneNumberController,
-                  keyboardType: TextInputType.phone,
-                  onChanged: onValueChange,
-                  style: TextStyle().copyWith(color: valueColor),
-                  textInputAction: TextInputAction.next,
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    errorText: null,
-                  ))),
+            child: TextFormField(
+              readOnly: widget.inputField.isReadOnly,
+              controller: phoneNumberController,
+              keyboardType: TextInputType.phone,
+              onChanged: onValueChange,
+              style: TextStyle().copyWith(
+                color: widget.inputField.inputColor,
+              ),
+              textInputAction: TextInputAction.next,
+              decoration: InputDecoration(
+                border: InputBorder.none,
+                errorText: null,
+              ),
+            ),
+          ),
           InputCheckedIcon(
             showTickedIcon: _value != null && '$_value'.trim() != '',
             color: widget.inputField.inputColor,

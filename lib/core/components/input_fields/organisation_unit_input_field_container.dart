@@ -38,20 +38,22 @@ class _OrganisationUnitInputFieldContainerState
   @override
   void initState() {
     super.initState();
-    getUserOrganisationunits();
+    Timer(
+      Duration(seconds: 1),
+      () => getUserOrganisationunits(),
+    );
   }
 
   void getUserOrganisationunits() async {
     CurrentUser user = await UserService().getCurrentUser();
-    setState(() {
-      userOrganisationUnits = user.userOrgUnitIds;
-    });
-    Timer(
-      Duration(seconds: 1),
-      () {
-        discoveringSelectedOrganisationUnit();
-      },
-    );
+    userOrganisationUnits = user.userOrgUnitIds;
+    discoveringSelectedOrganisationUnit();
+    // Timer(
+    //   Duration(seconds: 1),
+    //   () {
+    //     discoveringSelectedOrganisationUnit();
+    //   },
+    // );
   }
 
   void discoveringSelectedOrganisationUnit() async {
@@ -59,21 +61,17 @@ class _OrganisationUnitInputFieldContainerState
       List<OrganisationUnit> ous = await OrganisationUnitService()
           .getOrganisationUnits([widget.inputValue]);
       String value = ous.length > 0 ? ous[0].name : null;
-      Timer(
-        Duration(microseconds: 500),
-        () {
-          setOrganisationunit(value);
-        },
-      );
+      setOrganisationunit(value);
     }
   }
 
   void setOrganisationunit(String value) {
-    setState(() {
-      organisationUnitController = TextEditingController(text: value);
-      _value = value;
-      isLoading = false;
-    });
+    organisationUnitController = TextEditingController(text: value);
+    _value = value;
+    isLoading = false;
+    try {
+      setState(() {});
+    } catch (e) {}
   }
 
   void openOrganisationUnit(BuildContext context) async {
@@ -105,26 +103,29 @@ class _OrganisationUnitInputFieldContainerState
       child: Row(
         children: [
           Expanded(
-              child: isLoading
-                  ? Container(
-                      padding: EdgeInsets.symmetric(vertical: 10.0),
-                      child: CircularProcessLoader(
-                        color: widget.inputField.labelColor,
-                      ),
-                    )
-                  : TextFormField(
-                      controller: organisationUnitController,
-                      style: TextStyle()
-                          .copyWith(color: widget.inputField.labelColor),
-                      onTap: () => widget.inputField.isReadOnly
-                          ? null
-                          : openOrganisationUnit(context),
-                      readOnly: true,
-                      textInputAction: TextInputAction.done,
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        errorText: null,
-                      ))),
+            child: isLoading
+                ? Container(
+                    padding: EdgeInsets.symmetric(vertical: 10.0),
+                    child: CircularProcessLoader(
+                      color: widget.inputField.labelColor,
+                    ),
+                  )
+                : TextFormField(
+                    controller: organisationUnitController,
+                    style: TextStyle().copyWith(
+                      color: widget.inputField.inputColor,
+                    ),
+                    onTap: () => widget.inputField.isReadOnly
+                        ? null
+                        : openOrganisationUnit(context),
+                    readOnly: true,
+                    textInputAction: TextInputAction.done,
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      errorText: null,
+                    ),
+                  ),
+          ),
           InputCheckedIcon(
             showTickedIcon: _value != null,
             color: widget.inputField.inputColor,

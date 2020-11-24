@@ -54,20 +54,22 @@ class _CoordinteInputFieldContainerState
       child: Row(
         children: [
           Expanded(
-              child: isCoordinateSet
-                  ? TextFormField(
-                      controller: coordinateController,
-                      readOnly: true,
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        errorText: null,
-                      ))
-                  : Container(
-                      padding: EdgeInsets.symmetric(vertical: 10),
-                      child: CircularProcessLoader(
-                        color: widget.inputField.inputColor,
-                      ),
-                    )),
+            child: isCoordinateSet
+                ? TextFormField(
+                    controller: coordinateController,
+                    readOnly: true,
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      errorText: null,
+                    ),
+                  )
+                : Container(
+                    padding: EdgeInsets.symmetric(vertical: 10),
+                    child: CircularProcessLoader(
+                      color: widget.inputField.inputColor,
+                    ),
+                  ),
+          ),
           InputCheckedIcon(
             showTickedIcon: _longLatValue != null,
             color: widget.inputField.inputColor,

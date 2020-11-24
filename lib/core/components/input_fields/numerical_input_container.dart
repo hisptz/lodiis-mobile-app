@@ -21,7 +21,6 @@ class NumericalInputFieldContainer extends StatefulWidget {
 
 class _NumericalInputFieldContainerState
     extends State<NumericalInputFieldContainer> {
-  Color valueColor = Color(0xFF182E35);
   TextEditingController numericalController;
   String _value;
 
@@ -49,19 +48,25 @@ class _NumericalInputFieldContainerState
       child: Row(
         children: [
           Expanded(
-              child: TextFormField(
-                  readOnly: widget.inputField.isReadOnly,
-                  controller: widget.inputField.isReadOnly
-                      ? TextEditingController(text: widget.inputValue)
-                      : numericalController,
-                  keyboardType: TextInputType.number,
-                  onChanged: onValueChange,
-                  style: TextStyle().copyWith(color: valueColor),
-                  textInputAction: TextInputAction.next,
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    errorText: null,
-                  ))),
+            child: TextFormField(
+              readOnly: widget.inputField.isReadOnly,
+              controller: widget.inputField.isReadOnly
+                  ? TextEditingController(
+                      text: widget.inputValue,
+                    )
+                  : numericalController,
+              keyboardType: TextInputType.number,
+              onChanged: onValueChange,
+              style: TextStyle().copyWith(
+                color: widget.inputField.inputColor,
+              ),
+              textInputAction: TextInputAction.next,
+              decoration: InputDecoration(
+                border: InputBorder.none,
+                errorText: null,
+              ),
+            ),
+          ),
           InputCheckedIcon(
             showTickedIcon: _value != null && '$_value'.trim() != '',
             color: widget.inputField.inputColor,
