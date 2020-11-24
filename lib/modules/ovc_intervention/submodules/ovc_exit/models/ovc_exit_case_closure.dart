@@ -133,7 +133,21 @@ class OvcExitCaseClosure {
               valueType: 'BOOLEAN',
               inputColor: Color(0xFF07AD40),
               labelColor: Color(0xFF737373),
-            )
+            ),
+            InputField(
+              id: 'rrAzBqK44OE', 
+              name: 'Reason for attrition documented in family folder', 
+              valueType: 'BOOLEAN',
+              inputColor: Color(0xFF07AD40),
+              labelColor: Color(0xFF737373),
+            ),
+            InputField(
+              id: 'NAzhfDNlYIr', 
+              name: 'Files for attrition stored in a safe place (locked cabinet)', 
+              valueType: 'BOOLEAN',
+              inputColor: Color(0xFF07AD40),
+              labelColor: Color(0xFF737373),
+            ),
           ])
     ];
   }
