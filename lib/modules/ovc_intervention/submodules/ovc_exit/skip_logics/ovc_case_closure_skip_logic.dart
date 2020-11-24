@@ -20,7 +20,6 @@ mixin OvcCaseClosureSkipLogic {
       inputFieldIds.add('$key');
     }
     inputFieldIds = inputFieldIds.toSet().toList();
-    // print(inputFieldIds);
     for (String inputFieldId in inputFieldIds) {
       if(inputFieldId != 'S6vcaNyPT5a' && inputFieldId != 'iaVO2v6TsWa') {
         hiddenFields[inputFieldId] = true;
@@ -48,7 +47,8 @@ mixin OvcCaseClosureSkipLogic {
         hiddenFields['KR0HmxVQwnJ'] = false;
       }
       if(inputFieldId == 'iaVO2v6TsWa' && value == 'Attrition') {
-        // @TODO add fields for attrition.
+        hiddenFields['rrAzBqK44OE'] = false;
+        hiddenFields['NAzhfDNlYIr'] = false;
       }
     }
     for (String sectionId in hiddenSections.keys) {
