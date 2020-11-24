@@ -137,18 +137,22 @@ class _LanguageSelectionContainerState
                               side: BorderSide(
                                 color: _selectionLanguageCode != ''
                                     ? Color(0xFFFAFAFA)
-                                    : color,
+                                    : Color(0xFF7FBA7C),
                               ),
                               borderRadius: BorderRadius.circular(12.0),
                             ),
-                            padding: EdgeInsets.symmetric(vertical: 15),
+                            padding: EdgeInsets.symmetric(
+                              vertical: 15,
+                            ),
                             child: Container(
                               child: Text(
                                 widget.showLanguageSettingAppBar
                                     ? 'Save'
                                     : 'Agree',
                                 style: TextStyle(
-                                  color: Color(0xFFFAFAFA),
+                                  color: _selectionLanguageCode != ''
+                                      ? Color(0xFFFAFAFA)
+                                      : Color(0xFF7FBA7C),
                                 ),
                               ),
                             ),

@@ -39,15 +39,14 @@ class _AgywDreamsHTSConsentFormState extends State<AgywDreamsHTSConsentForm> {
     Timer(Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
-              });
+      });
     });
   }
-
 
   void onInputValueChange(String id, dynamic value) {
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState(id, value);
-    }
+  }
 
   void onSaveForm(BuildContext context, Map dataObject, AgywDream agywDream) {
     Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
