@@ -16,7 +16,7 @@ import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_pages/child_exit_pages/constants/ovc_exit_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_pages/child_exit_pages/pages/ovc_exit_case_closure_form.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_pages/child_exit_pages/pages/ovc_exit_case_transfer_form.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_pages/child_exit_pages/pages/ovc_exit_caseplan_achievement_rediness_form.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_pages/child_exit_pages/pages/ovc_exit_caseplan_graduation_rediness_form.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_pages/child_exit_pages/pages/ovc_exit_information_form.dart';
 import 'package:provider/provider.dart';
 import 'components/ovc_exit_list_card.dart';
@@ -55,12 +55,12 @@ class OvcChildExitHome extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                           builder: (context) => OvcExitCaseClosureForm()))
-                  : exitResponse == 'Caseplan Achievement Rediness'
+                  : exitResponse == 'Graduation'
                       ? Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) =>
-                                  OvcExitCasePlanAchievementRedinessForm()))
+                                  OvcExitCasePlanGraduationRedinessForm()))
                       : print(exitResponse);
     }
   }

@@ -4,11 +4,11 @@ import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:provider/provider.dart';
 
-class OvcChildCaseTransferSkipLogic {
-  static Map hiddenFields = Map();
-  static Map hiddenSections = Map();
+mixin OvcCaseTransferSkipLogic {
+  Map hiddenFields = Map();
+  Map hiddenSections = Map();
 
-  static Future evaluateSkipLogics(
+  Future evaluateCaseTransferSkipLogics(
     BuildContext context,
     List<FormSection> formSections,
     Map dataObject,
@@ -22,7 +22,7 @@ class OvcChildCaseTransferSkipLogic {
     inputFieldIds = inputFieldIds.toSet().toList();
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
-      print(value);
+      // print(value);
     }
     for (String sectionId in hiddenSections.keys) {
       List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections
@@ -36,7 +36,7 @@ class OvcChildCaseTransferSkipLogic {
     resetValuesForHiddenSections(context, formSections);
   }
 
-  static resetValuesForHiddenFields(BuildContext context, inputFieldIds) {
+  resetValuesForHiddenFields(BuildContext context, inputFieldIds) {
     for (String inputFieldId in inputFieldIds) {
       if (hiddenFields[inputFieldId]) {
         assignInputFieldValue(context, inputFieldId, null);
@@ -46,7 +46,7 @@ class OvcChildCaseTransferSkipLogic {
         .setHiddenFields(hiddenFields);
   }
 
-  static resetValuesForHiddenSections(
+  resetValuesForHiddenSections(
     BuildContext context,
     List<FormSection> formSections,
   ) {
@@ -54,7 +54,7 @@ class OvcChildCaseTransferSkipLogic {
         .setHiddenSections(hiddenSections);
   }
 
-  static assignInputFieldValue(
+  assignInputFieldValue(
     BuildContext context,
     String inputFieldId,
     String value,

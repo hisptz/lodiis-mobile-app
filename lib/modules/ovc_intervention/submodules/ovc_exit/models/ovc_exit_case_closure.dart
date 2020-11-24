@@ -30,6 +30,12 @@ class OvcExitCaseClosure {
           color: Color(0xFF0D3A16),
           inputFields: [
             InputField(
+                id: 'S6vcaNyPT5a',
+                name: 'Date of Household Exited from the OVC Program',
+                valueType: 'DATE',
+                inputColor: Color(0xFF07AD40),
+                labelColor: Color(0xFF737373)),
+            InputField(
                 id: 'iaVO2v6TsWa',
                 name: 'What is a reason for case closure?',
                 valueType: 'TEXT',
@@ -42,12 +48,6 @@ class OvcExitCaseClosure {
                   InputFieldOption(code: 'Transfer', name: 'Transfer'),
                   InputFieldOption(code: 'Attrition', name: 'Attrition'),
                 ]),
-            InputField(
-                id: 'S6vcaNyPT5a',
-                name: 'Date of Household Exited from the OVC Program',
-                valueType: 'DATE',
-                inputColor: Color(0xFF07AD40),
-                labelColor: Color(0xFF737373)),
             InputField(
               id: 'Mgvli43II0y',
               name: 'Are case files completed per the protocol?',
