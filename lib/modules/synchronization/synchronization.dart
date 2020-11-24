@@ -31,7 +31,7 @@ class _SynchronizationState extends State<Synchronization> {
   }
 
   void onViewConflicts(BuildContext context) async {
-   Navigator.push(context, MaterialPageRoute(
+    Navigator.push(context, MaterialPageRoute(
       builder: (context) {
         return ConflictOnDownloadPage();
       },
@@ -41,8 +41,6 @@ class _SynchronizationState extends State<Synchronization> {
   void onStartDataDownload(BuildContext context) async {
     await Provider.of<SynchronizationState>(context, listen: false)
         .startDataDownloadActivity();
-     //  List servertrackedEntityInstance = Provider.of<SynchronizationState>(context, listen: false)
-    //     .servertrackedEntityInstance;      
     Provider.of<OvcInterventionListState>(context, listen: false)
         .refreshOvcList();
     Provider.of<DreamsInterventionListState>(context, listen: false)
@@ -126,7 +124,7 @@ class _SynchronizationState extends State<Synchronization> {
                                   onStartDataDownload(context),
                               dataDownloadProcesses:
                                   synchronizationState.dataDownloadProcesses,
-                                  onViewConflicts: () =>onViewConflicts(context),
+                              onViewConflicts: () => onViewConflicts(context),
                             ),
                           ),
                         ],
