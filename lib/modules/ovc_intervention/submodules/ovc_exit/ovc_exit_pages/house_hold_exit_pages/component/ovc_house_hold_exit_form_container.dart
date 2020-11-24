@@ -8,9 +8,9 @@ import 'package:kb_mobile_app/core/components/material_card.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_pages/house_hold_exit_pages/skip_logics/ovc_house_hold_case_exit_skip_logic.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_pages/house_hold_exit_pages/skip_logics/ovc_house_hold_case_transfer_skip_logic.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/skip_logics/ovc_case_closure_skip_logic.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/skip_logics/ovc_case_exit_skip_logic.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/skip_logics/ovc_case_transfer_skip_logic.dart';
 import 'package:provider/provider.dart';
 
 class OvcHouseHoldExitFormContainer extends StatefulWidget {
@@ -35,7 +35,8 @@ class OvcHouseHoldExitFormContainer extends StatefulWidget {
 }
 
 class _OvcHouseHoldExitFormContainerState
-    extends State<OvcHouseHoldExitFormContainer> with OvcCaseClosureSkipLogic {
+    extends State<OvcHouseHoldExitFormContainer> 
+    with OvcCaseClosureSkipLogic, OvcCaseExitSkipLogic, OvcCaseTransferSkipLogic {
   bool isFormReady = false;
 
   @override
@@ -66,14 +67,14 @@ class _OvcHouseHoldExitFormContainerState
           );
         }
         if (widget.exitType == 'exit') {
-          await OvcHouseHoldCaseExitSkipLogic.evaluateSkipLogics(
+          await evaluateCaseExitSkipLogics(
             context,
             widget.formSections,
             dataObject,
           );
         }
         if (widget.exitType == 'transfer') {
-          await OvcHouseHoldCaseTransferSkipLogic.evaluateSkipLogics(
+          await evaluateCaseTransferSkipLogics(
             context,
             widget.formSections,
             dataObject,
