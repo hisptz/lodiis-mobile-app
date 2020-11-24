@@ -3,17 +3,17 @@ import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/input_field_option.dart';
 
-class OvcExitCasePlanAchievementFormInfo {
+class OvcExitCasePlanGraduationFormInfo {
   static List<FormSection> getFormSections() {
     return [
       FormSection(
-          name: 'Case Plan Achievement Readiness Assessment Information',
+          name: 'Case Plan Graduation Readiness Assessment Information',
           color: Color(0xFF0D3A16),
           inputFields: [
             InputField(
                 id: 'DFPZI9TQLo1',
                 name:
-                    'Is this the first Case Plan Achievement Readiness Assessment ?',
+                    'Is this the first Case Plan Graduation Readiness Assessment ?',
                 valueType: 'BOOLEAN',
                 inputColor: Color(0xFF4B9F46),
                 labelColor: Color(0xFF737373)),

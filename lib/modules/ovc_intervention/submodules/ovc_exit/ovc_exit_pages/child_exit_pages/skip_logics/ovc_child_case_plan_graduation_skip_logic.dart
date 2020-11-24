@@ -4,7 +4,7 @@ import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:provider/provider.dart';
 
-class OvcChildHouseHoldCaseClosureSkipLogic {
+class OvcChildCasePlanGraduationSkipLogic {
   static Map hiddenFields = Map();
   static Map hiddenSections = Map();
 
@@ -22,7 +22,18 @@ class OvcChildHouseHoldCaseClosureSkipLogic {
     inputFieldIds = inputFieldIds.toSet().toList();
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
-      print(value);
+      if (inputFieldId == 'RK3fD7HvH9Q' && value != 'true') {
+        hiddenFields['wGeVdyVO5hE'] = true;
+      }
+      if(inputFieldId == 'l9HIQkANCHj' && value != 'true') {
+        hiddenFields['l9HIQkANCHj_checkbox'] = true;
+      }
+      if (inputFieldId == 'fffETOzhGsU' && value != 'true') {
+        hiddenFields['fffETOzhGsU_checkbox'] = true;
+        hiddenFields['gSgJKdbwTSs'] = true;
+        hiddenFields['bhXYz7AnnN7'] = true;
+        hiddenFields['dRiKVfftiaX'] = true;
+      }
     }
     for (String sectionId in hiddenSections.keys) {
       List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections

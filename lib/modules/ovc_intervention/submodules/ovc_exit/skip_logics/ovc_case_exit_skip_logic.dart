@@ -4,11 +4,11 @@ import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:provider/provider.dart';
 
-class OvcHouseHoldCaseTransferSkipLogic {
-  static Map hiddenFields = Map();
-  static Map hiddenSections = Map();
+mixin OvcCaseExitSkipLogic {
+  Map hiddenFields = Map();
+  Map hiddenSections = Map();
 
-  static Future evaluateSkipLogics(
+  Future evaluateCaseExitSkipLogics(
     BuildContext context,
     List<FormSection> formSections,
     Map dataObject,
@@ -16,18 +16,26 @@ class OvcHouseHoldCaseTransferSkipLogic {
     hiddenFields.clear();
     hiddenSections.clear();
     List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections);
-    for (var key in dataObject.keys) {
-      inputFieldIds.add('$key');
-    }
-    inputFieldIds = inputFieldIds.toSet().toList();
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
-      print(value);
+      if (inputFieldId == 'iaVO2v6TsWa' && value != 'Other reasons') {
+        hiddenFields['zUU33n41Soa'] = true;
+      }
+      if (inputFieldId == 'vey0snuAsLj' && value != 'true') {
+        hiddenFields['jOXN2iPhkxj'] = true;
+      }
+      if (inputFieldId == 'RtAQJcTqUGF' && value != 'Other') {
+        hiddenFields['q3mJ2FfV3oR'] = true;
+      }
     }
     for (String sectionId in hiddenSections.keys) {
       List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections
           .where((formSection) => formSection.id == sectionId)
           .toList());
+      for (var key in dataObject.keys) {
+        inputFieldIds.add('$key');
+      }
+      inputFieldIds = inputFieldIds.toSet().toList();
       for (String inputFieldId in inputFieldIds) {
         hiddenFields[inputFieldId] = true;
       }
@@ -36,7 +44,7 @@ class OvcHouseHoldCaseTransferSkipLogic {
     resetValuesForHiddenSections(context, formSections);
   }
 
-  static resetValuesForHiddenFields(BuildContext context, inputFieldIds) {
+  resetValuesForHiddenFields(BuildContext context, inputFieldIds) {
     for (String inputFieldId in inputFieldIds) {
       if (hiddenFields[inputFieldId]) {
         assignInputFieldValue(context, inputFieldId, null);
@@ -46,7 +54,7 @@ class OvcHouseHoldCaseTransferSkipLogic {
         .setHiddenFields(hiddenFields);
   }
 
-  static resetValuesForHiddenSections(
+  resetValuesForHiddenSections(
     BuildContext context,
     List<FormSection> formSections,
   ) {
@@ -54,7 +62,7 @@ class OvcHouseHoldCaseTransferSkipLogic {
         .setHiddenSections(hiddenSections);
   }
 
-  static assignInputFieldValue(
+  assignInputFieldValue(
     BuildContext context,
     String inputFieldId,
     String value,

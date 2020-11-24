@@ -18,22 +18,22 @@ import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/models/ovc_house_hold.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold_top_header.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/models/ovc_exit_case_plan_achievemnt_readiness_form_info.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_pages/house_hold_exit_pages/household_achievement/constants/ovc_house_hold_achievement_constant.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_pages/house_hold_exit_pages/skip_logics/ovc_house_hold_case_plan_achievement_skip_logic.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/models/ovc_exit_case_plan_graduation_readiness_form_info.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_pages/house_hold_exit_pages/household_graduation/constants/ovc_house_hold_achievement_constant.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_pages/house_hold_exit_pages/skip_logics/ovc_house_hold_case_plan_graduation_skip_logic.dart';
 import 'package:provider/provider.dart';
 
-class OvcHouseHoldAchievementForm extends StatefulWidget {
-  const OvcHouseHoldAchievementForm({Key key}) : super(key: key);
+class OvcHouseHoldGraduationForm extends StatefulWidget {
+  const OvcHouseHoldGraduationForm({Key key}) : super(key: key);
 
   @override
-  _OvcHouseHoldAchievementFormState createState() =>
-      _OvcHouseHoldAchievementFormState();
+  _OvcHouseHoldGraduationFormState createState() =>
+      _OvcHouseHoldGraduationFormState();
 }
 
-class _OvcHouseHoldAchievementFormState
-    extends State<OvcHouseHoldAchievementForm> {
-  final String label = 'House Hold Case Plan Achievement Rediness';
+class _OvcHouseHoldGraduationFormState
+    extends State<OvcHouseHoldGraduationForm> {
+  final String label = 'House Hold Case Plan Graaduation Rediness';
   List<FormSection> formSections;
   bool isFormReady = false;
   bool isSaving = false;
@@ -41,7 +41,7 @@ class _OvcHouseHoldAchievementFormState
   @override
   void initState() {
     super.initState();
-    formSections = OvcExitCasePlanAchievementFormInfo.getFormSections();
+    formSections = OvcExitCasePlanGraduationFormInfo.getFormSections();
     Timer(Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
@@ -84,8 +84,8 @@ class _OvcHouseHoldAchievementFormState
       String eventId = dataObject['eventId'];
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-            OvcHouseHoldAchievementConstant.program,
-            OvcHouseHoldAchievementConstant.programStage,
+            OvcHouseHoldGraduationConstant.program,
+            OvcHouseHoldGraduationConstant.programStage,
             currentOvcHouseHold.orgUnit,
             formSections,
             dataObject,
