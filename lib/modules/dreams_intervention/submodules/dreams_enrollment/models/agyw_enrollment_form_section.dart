@@ -80,10 +80,12 @@ class AgywEnrollmentFormSection {
             id: 'vIX4GTSCX4P',
             name: 'Sex',
             valueType: 'TEXT',
+            isReadOnly: true,
+            renderAsRadio: true,
             inputColor: Color(0xFF258DCC),
             labelColor: Color(0xFF737373),
             options: [
-              InputFieldOption(code: 'Male', name: 'Male'),
+              // InputFieldOption(code: 'Male', name: 'Male'),
               InputFieldOption(code: 'Female', name: 'Female')
             ],
           ),
