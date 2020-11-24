@@ -10,6 +10,7 @@ class CurrentUserState with ChangeNotifier {
   bool _canManageDreams;
   bool _canManageOGAC;
   bool _canManageOvc;
+  bool _canManageNoneAgyw;
   bool _canManageHivPrevention;
   bool _canManageReferral;
   bool _canManageCLOReferral;
@@ -35,6 +36,7 @@ class CurrentUserState with ChangeNotifier {
   bool get canManageDreams => _canManageDreams ?? false;
   bool get canManageOGAC => _canManageOGAC ?? false;
   bool get canManageOvc => _canManageOvc ?? false;
+  bool get canManageNoneAgyw => _canManageNoneAgyw ?? false;
   bool get canManageHivPrevention => _canManageHivPrevention ?? false;
   bool get canManageReferral => _canManageReferral ?? false;
   bool get canManageCLOReferral => _canManageCLOReferral ?? false;
@@ -59,6 +61,7 @@ class CurrentUserState with ChangeNotifier {
       _canManageDreams = true;
       _canManageOGAC = true;
       _canManageOvc = true;
+      _canManageNoneAgyw = true;
       _canManageHivPrevention = true;
       _canManageReferral = true;
       _canManageCLOReferral = true;
@@ -115,6 +118,8 @@ class CurrentUserState with ChangeNotifier {
     if (implementingPartner == 'KB-AGYW/DREAMS') {
       _canManageDreams = true;
       _canManageOvc = true;
+      _canManageOGAC = true;
+      _canManageNoneAgyw = true;
       _canManageReferral = true;
       _canManageHivPrevention = true;
       _canManageCLOReferral = true;
@@ -161,6 +166,7 @@ class CurrentUserState with ChangeNotifier {
     _canManageDreams = false;
     _canManageOGAC = false;
     _canManageOvc = false;
+    _canManageNoneAgyw = false;
     _canManageHivPrevention = false;
     _canManageReferral = false;
     _canManageCLOReferral = false;

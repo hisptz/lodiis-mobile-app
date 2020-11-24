@@ -8,11 +8,13 @@ class CheckBoxListInputField extends StatefulWidget {
       {Key key,
       @required this.inputField,
       @required this.dataObject,
+      @required this.currentLanguage,
       this.isReadOnly = false,
       this.onInputValueChange})
       : super(key: key);
 
   final InputField inputField;
+  final String currentLanguage;
   final Map dataObject;
   final Function onInputValueChange;
   final bool isReadOnly;
@@ -51,7 +53,10 @@ class _CheckBoxListInputFieldState extends State<CheckBoxListInputField> {
         children: widget.inputField.options
             .map((InputFieldOption option) => CheckBoxInputField(
                   isReadOnly: widget.isReadOnly,
-                  label: option.name,
+                  label: widget.currentLanguage == 'lesotho' &&
+                          option.translatedName != null
+                      ? option.translatedName
+                      : option.name,
                   value: widget.dataObject[option.code],
                   color: widget.inputField.inputColor,
                   onInputValueChange: (dynamic value) =>

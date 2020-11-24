@@ -50,14 +50,18 @@ class _TextInputFieldContainerState extends State<TextInputFieldContainer> {
             child: TextFormField(
               readOnly: widget.inputField.isReadOnly,
               controller: widget.inputField.isReadOnly
-                  ? TextEditingController(text: widget.inputValue)
+                  ? TextEditingController(
+                      text: widget.inputValue,
+                    )
                   : textController,
               onChanged: onValueChange,
               maxLines: widget.inputField.valueType == 'LONG_TEXT' ? null : 1,
               keyboardType: TextInputType.text,
               textInputAction: TextInputAction.next,
               textCapitalization: TextCapitalization.sentences,
-              style: TextStyle().copyWith(color: widget.inputField.inputColor),
+              style: TextStyle().copyWith(
+                color: widget.inputField.inputColor,
+              ),
               decoration: InputDecoration(
                 border: InputBorder.none,
                 errorText: null,

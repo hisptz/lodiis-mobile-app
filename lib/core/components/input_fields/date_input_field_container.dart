@@ -4,14 +4,16 @@ import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 
 class DateInputFieldContainer extends StatefulWidget {
-  const DateInputFieldContainer(
-      {Key key,
-      @required this.inputField,
-      @required this.onInputValueChange,
-      this.inputValue})
-      : super(key: key);
+  const DateInputFieldContainer({
+    Key key,
+    @required this.inputField,
+    @required this.onInputValueChange,
+    @required this.currentLanguage,
+    this.inputValue,
+  }) : super(key: key);
   final InputField inputField;
   final Function onInputValueChange;
+  final String currentLanguage;
   final String inputValue;
 
   @override
@@ -21,7 +23,7 @@ class DateInputFieldContainer extends StatefulWidget {
 
 class _DateInputFieldContainerState extends State<DateInputFieldContainer> {
   TextEditingController dateController;
-  Color valueColor = Color(0xFF182E35);
+
   String _date;
 
   @override
@@ -50,8 +52,8 @@ class _DateInputFieldContainerState extends State<DateInputFieldContainer> {
       fieldLabelText: '${widget.inputField.name}',
       initialDate: AppUtil.getDateIntoDateTimeFormat(_date),
       firstDate: DateTime(1900),
-      confirmText: 'Ok',
-      cancelText: 'Cancel',
+      confirmText: widget.currentLanguage == 'lesotho' ? 'Ok' : 'Ok',
+      cancelText: widget.currentLanguage == 'lesotho' ? 'Cancel' : 'Cancel',
       lastDate:
           widget.inputField.allowFuturePeriod ? DateTime(2050) : DateTime.now(),
       helpText: '${widget.inputField.name}',
@@ -73,16 +75,20 @@ class _DateInputFieldContainerState extends State<DateInputFieldContainer> {
       child: Row(
         children: [
           Expanded(
-              child: TextFormField(
-                  controller: dateController,
-                  style: TextStyle().copyWith(color: valueColor),
-                  onTap: () => onOpenDateSelection(context),
-                  readOnly: true,
-                  textInputAction: TextInputAction.done,
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    errorText: null,
-                  ))),
+            child: TextFormField(
+              controller: dateController,
+              style: TextStyle().copyWith(
+                color: widget.inputField.inputColor,
+              ),
+              onTap: () => onOpenDateSelection(context),
+              readOnly: true,
+              textInputAction: TextInputAction.done,
+              decoration: InputDecoration(
+                border: InputBorder.none,
+                errorText: null,
+              ),
+            ),
+          ),
           InputCheckedIcon(
             showTickedIcon: _date != null,
             color: widget.inputField.inputColor,

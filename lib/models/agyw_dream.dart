@@ -78,7 +78,7 @@ class AgywDream {
       enrollment: enrollment,
       enrolledOrganisation: data['klLkGxy328c'] ?? '',
       searchableValue:
-          "${data['WTZ7GLTrE8Q'] ?? ''} ${data['s1HaiT6OllL'] ?? ''} ${data['rSP9c21JsfC'] ?? ''} $age ${agywAgeBand(age) ?? ''} ${data[BeneficiaryIdentification.beneficiaryId] ?? ''} ${data['vIX4GTSCX4P'] ?? ''} ${data['klLkGxy328c'] ?? ''} $createdDate"
+          "${data['WTZ7GLTrE8Q'] ?? ''} ${data['s1HaiT6OllL'] ?? ''} ${data['rSP9c21JsfC'] ?? ''} $age ${agywAgeBand(age) ?? ''} ${data[BeneficiaryIdentification.beneficiaryId] ?? ''} ${data['vIX4GTSCX4P'] ?? ''} ${data['klLkGxy328c'] ?? ''} $location $createdDate"
               .toLowerCase(),
       trackeEntityInstanceData: trackeEntityInstance,
     );

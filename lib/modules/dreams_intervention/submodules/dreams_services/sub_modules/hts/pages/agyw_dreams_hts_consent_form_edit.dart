@@ -25,10 +25,12 @@ class AgywDreamsHTSConsentFormEdit extends StatefulWidget {
   AgywDreamsHTSConsentFormEdit({Key key}) : super(key: key);
 
   @override
-  _AgywDreamsHTSConsentFormEditState createState() => _AgywDreamsHTSConsentFormEditState();
+  _AgywDreamsHTSConsentFormEditState createState() =>
+      _AgywDreamsHTSConsentFormEditState();
 }
 
-class _AgywDreamsHTSConsentFormEditState extends State<AgywDreamsHTSConsentFormEdit> {
+class _AgywDreamsHTSConsentFormEditState
+    extends State<AgywDreamsHTSConsentFormEdit> {
   final String label = 'HTS Consent';
   List<FormSection> formSections;
   bool isFormReady = false;
@@ -50,7 +52,8 @@ class _AgywDreamsHTSConsentFormEditState extends State<AgywDreamsHTSConsentFormE
         .setFormFieldState(id, value);
   }
 
-   void onSaveForm(BuildContext context,Map dataObject, AgywDream agywDream) async {
+  void onSaveForm(
+      BuildContext context, Map dataObject, AgywDream agywDream) async {
     if (dataObject.keys.length > 0) {
       setState(() {
         isSaving = true;

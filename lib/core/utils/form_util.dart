@@ -137,7 +137,7 @@ class FormUtil {
     String fromTei,
     String toTei,
   ) {
-    String id = '$fromTei-$toTei';
+    String id = AppUtil.getUid();
     dynamic source =
         '{"id":"$id","relationshipType":"$relationshipType","toTei":"$toTei", "fromTei":"$fromTei"}';
     return TeiRelationship().fromJson(json.decode(source));
