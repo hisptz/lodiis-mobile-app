@@ -49,11 +49,10 @@ class _AgywDreamsHTSConsentForReleaseStatusState
     allFormSections.addAll(HTSConsent.getFormSections());
     Timer(Duration(seconds: 1), () {
       setState(() {
-        isFormReady = true;     
+        isFormReady = true;
       });
     });
   }
-
 
   void onInputValueChange(String id, dynamic value) {
     Provider.of<ServiceFormState>(context, listen: false)

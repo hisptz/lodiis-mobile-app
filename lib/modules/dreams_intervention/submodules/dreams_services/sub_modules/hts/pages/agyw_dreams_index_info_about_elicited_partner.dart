@@ -25,10 +25,12 @@ class AgywDreamsIndexInfoAboutElicitedPartner extends StatefulWidget {
   AgywDreamsIndexInfoAboutElicitedPartner({Key key}) : super(key: key);
 
   @override
-  _AgywDreamsIndexInfoAboutElicitedPartnerState createState() => _AgywDreamsIndexInfoAboutElicitedPartnerState();
+  _AgywDreamsIndexInfoAboutElicitedPartnerState createState() =>
+      _AgywDreamsIndexInfoAboutElicitedPartnerState();
 }
 
-class _AgywDreamsIndexInfoAboutElicitedPartnerState extends State<AgywDreamsIndexInfoAboutElicitedPartner> {
+class _AgywDreamsIndexInfoAboutElicitedPartnerState
+    extends State<AgywDreamsIndexInfoAboutElicitedPartner> {
   final String label = 'HTS Index contact';
   List<FormSection> formSections;
   bool isFormReady = false;
@@ -38,7 +40,8 @@ class _AgywDreamsIndexInfoAboutElicitedPartnerState extends State<AgywDreamsInde
   void initState() {
     super.initState();
     Timer(Duration(seconds: 1), () {
-      formSections = BioDataInformationAboutElicitedSexualPartners.getFormSections();
+      formSections =
+          BioDataInformationAboutElicitedSexualPartners.getFormSections();
       setState(() {
         isFormReady = true;
       });

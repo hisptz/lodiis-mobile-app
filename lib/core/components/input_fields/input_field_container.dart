@@ -16,6 +16,7 @@ class InputFieldContainer extends StatelessWidget {
   const InputFieldContainer({
     Key key,
     @required this.inputField,
+    @required this.currentLanguage,
     this.onInputValueChange,
     this.dataObject,
     this.mandatoryFieldObject,
@@ -23,6 +24,7 @@ class InputFieldContainer extends StatelessWidget {
   }) : super(key: key);
 
   final InputField inputField;
+  final String currentLanguage;
   final bool isEditableMode;
   final Function onInputValueChange;
   final Map dataObject;
@@ -48,7 +50,10 @@ class InputFieldContainer extends StatelessWidget {
                   Expanded(
                       child: RichText(
                           text: TextSpan(
-                              text: inputField.name,
+                              text: currentLanguage == 'lesotho' &&
+                                      inputField.translatedName != null
+                                  ? inputField.translatedName
+                                  : inputField.name,
                               style: TextStyle(
                                   color: inputField.labelColor,
                                   fontSize: 13.0,
@@ -73,7 +78,10 @@ class InputFieldContainer extends StatelessWidget {
                     children: [
                       Expanded(
                           child: Text(
-                        inputField.description,
+                        currentLanguage == 'lesotho' &&
+                                inputField.translatedDescription != null
+                            ? inputField.translatedDescription
+                            : inputField.description,
                         style: TextStyle().copyWith(
                             color: inputField.labelColor,
                             fontSize: 12.0,
@@ -103,7 +111,12 @@ class InputFieldContainer extends StatelessWidget {
                         children: [
                           Container(
                             child: Text(inputField.subInputField != null
-                                ? inputField.subInputField.name
+                                ? currentLanguage == 'lesotho' &&
+                                        inputField
+                                                .subInputField.translatedName !=
+                                            null
+                                    ? inputField.subInputField.translatedName
+                                    : inputField.subInputField.name
                                 : ''),
                           ),
                           Container(
@@ -133,6 +146,8 @@ class InputFieldContainer extends StatelessWidget {
   }
 
   Widget _getInputFieldLabel(InputField inputField) {
+    //@TODO handling view for data  based on option sets
+    //@TODO translation of boolean or true only values
     dynamic value =
         inputField != null && '${dataObject[inputField.id]}' != 'null'
             ? '${dataObject[inputField.id]}'
@@ -140,18 +155,20 @@ class InputFieldContainer extends StatelessWidget {
     if (inputField != null) {
       if (inputField.valueType == "BOOLEAN") {
         value = value == 'true'
-            ? 'Yes'
+            ? currentLanguage == 'lesotho'
+                ? 'Yes'
+                : 'Yes'
             : value == 'false'
-                ? 'No'
+                ? currentLanguage == 'lesotho'
+                    ? 'No'
+                    : 'No'
                 : value;
       } else if (inputField.valueType == 'TRUE_ONLY') {
-        value = value == 'true' ? 'Yes' : value;
-      } else if (inputField.valueType == "NUMBER") {
-        value = value == "1"
-            ? 'Yes'
-            : value == "0"
-                ? 'No'
-                : value;
+        value = value == 'true'
+            ? currentLanguage == 'lesotho'
+                ? 'Yes'
+                : 'Yes'
+            : value;
       }
     }
     return Container(
