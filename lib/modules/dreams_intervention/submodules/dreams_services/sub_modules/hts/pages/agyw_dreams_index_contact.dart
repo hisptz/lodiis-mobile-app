@@ -23,7 +23,7 @@ import 'package:provider/provider.dart';
 
 class AgywDreamsIndexContact extends StatefulWidget {
   AgywDreamsIndexContact({Key key}) : super(key: key);
-  
+
   @override
   _AgywDreamsIndexContactState createState() => _AgywDreamsIndexContactState();
 }
@@ -59,7 +59,9 @@ class _AgywDreamsIndexContactState extends State<AgywDreamsIndexContact> {
       String eventDate = dataObject['eventDate'];
       String eventId = dataObject['eventId'];
       print(dataObject);
-      List<String> hiddenFields = [AgywDreamsHTSIndexConstant.indexInfoToIndexContactLinkage];
+      List<String> hiddenFields = [
+        AgywDreamsHTSIndexConstant.indexInfoToIndexContactLinkage
+      ];
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
             AgywDreamsHTSIndexConstant.program,
