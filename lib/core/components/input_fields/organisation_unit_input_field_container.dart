@@ -48,12 +48,6 @@ class _OrganisationUnitInputFieldContainerState
     CurrentUser user = await UserService().getCurrentUser();
     userOrganisationUnits = user.userOrgUnitIds;
     discoveringSelectedOrganisationUnit();
-    // Timer(
-    //   Duration(seconds: 1),
-    //   () {
-    //     discoveringSelectedOrganisationUnit();
-    //   },
-    // );
   }
 
   void discoveringSelectedOrganisationUnit() async {

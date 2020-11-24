@@ -29,17 +29,21 @@ class LoginForm extends StatefulWidget {
 class _LoginFormState extends State<LoginForm> {
   CurrentUser currentUser;
   LoginFormState loginFormState;
+  TextEditingController usernameController;
+  TextEditingController passwordController;
 
   @override
   void initState() {
     super.initState();
-    UserService().getCurrentUser().then((CurrentUser user) {
-      setState(() {
-        this.currentUser = user ?? new CurrentUser(username: '', password: '');
-      });
-    });
-
     this.loginFormState = Provider.of<LoginFormState>(context, listen: false);
+    UserService().getCurrentUser().then((CurrentUser user) {
+      currentUser = user ?? new CurrentUser(username: '', password: '');
+      usernameController =
+          new TextEditingController(text: currentUser.username);
+      passwordController =
+          new TextEditingController(text: currentUser.password);
+      setState(() {});
+    });
   }
 
   void updateInputActiveStatus(String activeField) {
@@ -55,6 +59,7 @@ class _LoginFormState extends State<LoginForm> {
         key == 'username' ? value.trim() : currentUser.username;
     currentUser.password =
         key == 'password' ? value.trim() : currentUser.password;
+    setState(() {});
   }
 
   void onFieldSubmitted(String value, String key) {
@@ -127,8 +132,7 @@ class _LoginFormState extends State<LoginForm> {
                   ),
                   Container(
                     child: TextFormField(
-                        controller: new TextEditingController(
-                            text: currentUser.username ?? ''),
+                        controller: usernameController,
                         onTap: () => updateInputActiveStatus('username'),
                         onChanged: (value) =>
                             onFieldValueChanges(value, 'username'),
@@ -160,16 +164,16 @@ class _LoginFormState extends State<LoginForm> {
                           'Password',
                           style: !hasLoginFormError
                               ? LoginPageStyles.formLableStyle
-                              : LoginPageStyles.formLableStyle
-                                  .copyWith(color: Colors.redAccent),
+                              : LoginPageStyles.formLableStyle.copyWith(
+                                  color: Colors.redAccent,
+                                ),
                         )
                       ],
                     ),
                   ),
                   Container(
                     child: TextFormField(
-                      controller: new TextEditingController(
-                          text: currentUser.password ?? ''),
+                      controller: passwordController,
                       onTap: () => updateInputActiveStatus('password'),
                       onChanged: (value) =>
                           onFieldValueChanges(value, 'password'),
@@ -181,26 +185,30 @@ class _LoginFormState extends State<LoginForm> {
                       readOnly: isLoginProcessActive,
                       textInputAction: TextInputAction.done,
                       decoration: InputDecoration(
-                          hintStyle: TextStyle(fontSize: 15),
-                          border: InputBorder.none,
-                          prefixIcon: FormFieldInputIcon(
-                            backGroundColor: Color(0xFFEDF5EC),
-                            svgIcon: 'assets/icons/login-lock.svg',
+                        hintStyle: TextStyle(
+                          fontSize: 15,
+                        ),
+                        border: InputBorder.none,
+                        prefixIcon: FormFieldInputIcon(
+                          backGroundColor: Color(0xFFEDF5EC),
+                          svgIcon: 'assets/icons/login-lock.svg',
+                        ),
+                        prefixIconConstraints:
+                            LoginPageStyles.loginBoxConstraints,
+                        suffixIcon: GestureDetector(
+                          onTap: () => updatePasswordVisibilityStatus(
+                            !isPasswordVisible,
                           ),
-                          prefixIconConstraints:
-                              LoginPageStyles.loginBoxConstraints,
-                          suffixIcon: GestureDetector(
-                            onTap: () => updatePasswordVisibilityStatus(
-                                !isPasswordVisible),
-                            child: FormFieldInputIcon(
-                              backGroundColor: Color(0xFFFFFFFF),
-                              svgIcon: isPasswordVisible
-                                  ? 'assets/icons/login-close-eye.svg'
-                                  : 'assets/icons/login-open-eye.svg', // show and hide password icon
-                            ),
+                          child: FormFieldInputIcon(
+                            backGroundColor: Color(0xFFFFFFFF),
+                            svgIcon: isPasswordVisible
+                                ? 'assets/icons/login-close-eye.svg'
+                                : 'assets/icons/login-open-eye.svg', // show and hide password icon
                           ),
-                          suffixIconConstraints:
-                              LoginPageStyles.loginBoxConstraints),
+                        ),
+                        suffixIconConstraints:
+                            LoginPageStyles.loginBoxConstraints,
+                      ),
                     ),
                   ),
                   LineSeperator(
@@ -211,7 +219,9 @@ class _LoginFormState extends State<LoginForm> {
                   LoginButton(
                     currentLanguage: widget.currentLanguage,
                     isLoginProcessActive: isLoginProcessActive,
-                    onLogin: () => onLogin(isLoginProcessActive),
+                    onLogin: () => onLogin(
+                      isLoginProcessActive,
+                    ),
                   )
                 ],
               );
