@@ -19,6 +19,7 @@ class InterventionPopActionMenu {
       getDefaultInterventionPopActionMenus() {
     return [
       InterventionPopActionMenu(id: 'logout', name: 'Logout'),
+      InterventionPopActionMenu(id: 'about', name: 'About App'),
       InterventionPopActionMenu(id: 'sync', name: 'Sync'),
       InterventionPopActionMenu(
           id: 'language_setting', name: 'Language Settings'),

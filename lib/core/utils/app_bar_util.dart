@@ -10,6 +10,7 @@ import 'package:kb_mobile_app/core/components/intervention_pop_up_menu.dart';
 import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
+import 'package:kb_mobile_app/modules/about_app/about_app.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/dreams_intervention.dart';
 import 'package:kb_mobile_app/modules/language_selection/language_selection.dart';
 import 'package:kb_mobile_app/modules/login/login.dart';
@@ -41,8 +42,19 @@ class AppBarUtil {
         _onOpenSyncModule(context);
       } else if (response.id == 'language_setting') {
         _onOpenLanguageSettingModule(context);
+      } else if (response.id == 'about') {
+        _onOpenAboutAppModule(context);
       }
     }
+  }
+
+  static void _onOpenAboutAppModule(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => AboutApp(),
+      ),
+    );
   }
 
   static void _onOpenLanguageSettingModule(BuildContext context) {
