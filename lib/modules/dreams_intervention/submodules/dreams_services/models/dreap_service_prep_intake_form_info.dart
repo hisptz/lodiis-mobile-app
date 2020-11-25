@@ -28,18 +28,17 @@ class DreamsServicePrepIntakeInfo {
                 labelColor: Color(0xFF737373),
                 valueType: 'TEXT'),
             InputField(
-              id: 'gm4R68f8gqr',
-              name: 'Client Type',
-              valueType: 'TEXT',
-              inputColor: Color(0xFF1F8ECE),
-              labelColor: Color(0xFF737373),
-              options: [
+                id: 'gm4R68f8gqr',
+                name: 'Client Type',
+                valueType: 'TEXT',
+                inputColor: Color(0xFF1F8ECE),
+                labelColor: Color(0xFF737373),
+                options: [
                   InputFieldOption(code: 'F', name: 'F'),
                   InputFieldOption(code: 'M', name: 'M'),
                   InputFieldOption(code: 'CF', name: 'CF'),
-                  InputFieldOption(code: 'CM', name: 'CM'),               
+                  InputFieldOption(code: 'CM', name: 'CM'),
                 ]),
-
             InputField(
                 id: 'Jhp451oeYyB',
                 inputColor: Color(0xFF1F8ECE),
@@ -65,9 +64,11 @@ class DreamsServicePrepIntakeInfo {
                 name: 'Service Type',
                 valueType: 'TEXT',
                 options: [
-                  InputFieldOption(code: 'CounselingTesting', name: 'CounselingTesting'),
-                  InputFieldOption(code: 'Counseling only', name: 'Counseling only'),
-                  InputFieldOption(code: 'Testing only', name: 'Testing only'),           
+                  InputFieldOption(
+                      code: 'CounselingTesting', name: 'CounselingTesting'),
+                  InputFieldOption(
+                      code: 'Counseling only', name: 'Counseling only'),
+                  InputFieldOption(code: 'Testing only', name: 'Testing only'),
                 ]),
             InputField(
                 id: 'li1EJgHzWtV',
@@ -196,28 +197,35 @@ class DreamsServicePrepIntakeInfo {
                 name: 'Other occupation(sp)',
                 valueType: 'TRUE_ONLY'),
             InputField(
-                id: 'PqSjDmu2eMy',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
-                name: 'Specify other occupation',
-                valueType: 'TEXT',          
-                ),
+              id: 'PqSjDmu2eMy',
+              inputColor: Color(0xFF1F8ECE),
+              labelColor: Color(0xFF737373),
+              name: 'Specify other occupation',
+              valueType: 'TEXT',
+            ),
             InputField(
-                id: 'D26taDdz4YO',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
-                name: 'Highest level of Education Attained',
-                valueType: 'TRUE_ONLY',
-                 options:[
-                  InputFieldOption(code: 'None', name: 'None'),
-                  InputFieldOption(code: 'Less than Standard 7', name: 'Less than Standard 7'),
-                  InputFieldOption(code: 'Secondary School', name: 'Secondary School'),
-                  InputFieldOption(code: 'High School', name: 'High School'),
-                  InputFieldOption(code: 'College Certificate/Diploma', name: 'College CertificateDiploma'),
-                  InputFieldOption(code: 'University Degree', name: 'University Degree'),
-                  InputFieldOption(code: 'Graduate Degree (Masters/PhD)', name: 'Graduate DegreeMastersPhD'),
-                         ],
-                ),
+              id: 'D26taDdz4YO',
+              inputColor: Color(0xFF1F8ECE),
+              labelColor: Color(0xFF737373),
+              name: 'Highest level of Education Attained',
+              valueType: 'TRUE_ONLY',
+              options: [
+                InputFieldOption(code: 'None', name: 'None'),
+                InputFieldOption(
+                    code: 'Less than Standard 7', name: 'Less than Standard 7'),
+                InputFieldOption(
+                    code: 'Secondary School', name: 'Secondary School'),
+                InputFieldOption(code: 'High School', name: 'High School'),
+                InputFieldOption(
+                    code: 'College Certificate/Diploma',
+                    name: 'College CertificateDiploma'),
+                InputFieldOption(
+                    code: 'University Degree', name: 'University Degree'),
+                InputFieldOption(
+                    code: 'Graduate Degree (Masters/PhD)',
+                    name: 'Graduate DegreeMastersPhD'),
+              ],
+            ),
             InputField(
                 id: 'XfiDt4DzdVS',
                 inputColor: Color(0xFF1F8ECE),
@@ -354,12 +362,12 @@ class DreamsServicePrepIntakeInfo {
                 name: 'I learnt of this center through a Friend',
                 valueType: 'TRUE_ONLY'),
             InputField(
-                id: 'qRmcFUHrKJG',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
-                name: 'I learnt of this center through a Partner/Spouse',
-                valueType: 'TRUE_ONLY',                           
-                ),
+              id: 'qRmcFUHrKJG',
+              inputColor: Color(0xFF1F8ECE),
+              labelColor: Color(0xFF737373),
+              name: 'I learnt of this center through a Partner/Spouse',
+              valueType: 'TRUE_ONLY',
+            ),
             InputField(
                 id: 'ADLCht0KPSh',
                 inputColor: Color(0xFF1F8ECE),
@@ -428,18 +436,18 @@ class DreamsServicePrepIntakeInfo {
                 name: 'How many times?',
                 valueType: 'NUMBER'),
             InputField(
-                id: 'XnVcJkyoobx',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
-                name: 'What were the most recent results?',
-                valueType: 'TEXT',
-                 options:[
-                  InputFieldOption(code: 'Positive', name: 'Positive'),
-                  InputFieldOption(code: 'Negative', name: 'Negative'),
-                  InputFieldOption(code: 'Indeterminate', name: 'Indeterminate'),
-                  InputFieldOption(code: 'Didnt collect', name: 'Didnt collect'),     
-                   ],                                
-                ),
+              id: 'XnVcJkyoobx',
+              inputColor: Color(0xFF1F8ECE),
+              labelColor: Color(0xFF737373),
+              name: 'What were the most recent results?',
+              valueType: 'TEXT',
+              options: [
+                InputFieldOption(code: 'Positive', name: 'Positive'),
+                InputFieldOption(code: 'Negative', name: 'Negative'),
+                InputFieldOption(code: 'Indeterminate', name: 'Indeterminate'),
+                InputFieldOption(code: 'Didnt collect', name: 'Didnt collect'),
+              ],
+            ),
             InputField(
                 id: 'D1ukXCpeU0K',
                 inputColor: Color(0xFF1F8ECE),
@@ -666,7 +674,7 @@ class DreamsServicePrepIntakeInfo {
                 labelColor: Color(0xFF737373),
                 name: 'Date bled #2',
                 valueType: 'DATE'),
-                     InputField(
+            InputField(
                 id: 'Phma8a6sS4P',
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
@@ -922,9 +930,8 @@ class DreamsServicePrepIntakeInfo {
                 valueType: 'BOOLEAN'),
           ]),
       FormSection(
-        id: 'PeSfSRaE',
-          name:
-              ' Pre-Exposure Prophylaxis (PrEP) Screening for Substantial Risk  and Eligibility',
+          id: 'PeSfSRaE',
+          name: '1. Facility Information',
           color: Color(0xFF1F8ECE),
           inputFields: [
             InputField(
@@ -947,6 +954,12 @@ class DreamsServicePrepIntakeInfo {
               inputColor: Color(0xFF1F8ECE),
               labelColor: Color(0xFF737373),
             ),
+          ]),
+      FormSection(
+          id: 'PeSfSRaE',
+          name: '3. Client Demographics',
+          color: Color(0xFF1F8ECE),
+          inputFields: [
             InputField(
                 id: 'kK8Gt6LA8QM',
                 inputColor: Color(0xFF1F8ECE),
@@ -983,22 +996,10 @@ class DreamsServicePrepIntakeInfo {
                 name: 'Blood Pressure Systolic (mmHg)',
                 valueType: 'NUMBER'),
             InputField(
-                id: 'gCvMVscBNfk',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
-                name: 'Weight',
-                valueType: 'NUMBER'),
-            InputField(
-                id: 'WeaVsrFcWne',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
-                name: 'Blood Pressure Systolic (mmHg)',
-                valueType: 'NUMBER'),
-            InputField(
                 id: 'RqWMrqUcDqv',
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
-                name: 'Blood PressureDiastolic (mmHg)',
+                name: 'Blood Pressure Diastolic (mmHg)',
                 valueType: 'NUMBER'),
             InputField(
                 id: 'd3zHELPzSaH',
@@ -1006,8 +1007,16 @@ class DreamsServicePrepIntakeInfo {
                 labelColor: Color(0xFF737373),
                 name: 'Temperature',
                 valueType: 'TEXT'),
-              InputField(
+          ]),
+      FormSection(
+          id: 'PeSfSRaE',
+          name: '4. Recent Exposure to HIV. Ask, "In the last 30 days"...',
+          color: Color(0xFF1F8ECE),
+          inputFields: [
+            InputField(
                 id: 'YQI32r1MQxA',
+                description:
+                    '*If ONLY reporting sex without a condom, consider post-exposure prophylaxis (PEP). Refer to ART guidelines for management.',
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
                 options: [
@@ -1018,6 +1027,12 @@ class DreamsServicePrepIntakeInfo {
                 name:
                     'Have you had sex without a condom with someone living with HIV who is not on treatment',
                 valueType: 'TEXT'),
+          ]),
+      FormSection(
+          id: 'PeSfSRaE',
+          name: '5. Assessment for acute HIV syndrome',
+          color: Color(0xFF1F8ECE),
+          inputFields: [
             InputField(
                 id: 'pQaAQdJnE1w',
                 inputColor: Color(0xFF1F8ECE),
@@ -1034,6 +1049,8 @@ class DreamsServicePrepIntakeInfo {
                 id: 'DobfAIMBOvy',
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
+                description:
+                    'If reporting sex without a condom in the past 2 to 6 weeks and  has flu-like symptoms, an acute HIV infection might be suspected and further investigation is required; \n DO NOT offer PrEP or PEP and conduct further HIV testingIf a more sensitive test e.g. \n DNA PCR is available with results available within 2 weeks conduct the more sensitive test.If more sensitive test e.g. \n DNA PCR is not available, ask the client to come back after 4 weeks for repeat rapid HIV test.',
                 options: [
                   InputFieldOption(code: 'Yes', name: 'Yes'),
                   InputFieldOption(code: 'No', name: 'No'),
@@ -1042,6 +1059,13 @@ class DreamsServicePrepIntakeInfo {
                 name:
                     'Have you had a cold or flu, runny nose, fatigue, malaise, headache, sore throat, mouth sores, lymphadenopathy, skin rash, myalgia( muscle pain), arthralgia(joint pain)',
                 valueType: 'TEXT'),
+          ]),
+      FormSection(
+          id: 'PeSfSRaE',
+          name:
+              '6. Contraindications for PrEP. If any of the contraindications are present do not offer PrEP',
+          color: Color(0xFF1F8ECE),
+          inputFields: [
             InputField(
                 id: 'jpbLNWRjUJK',
                 inputColor: Color(0xFF1F8ECE),
@@ -1068,6 +1092,13 @@ class DreamsServicePrepIntakeInfo {
                 name:
                     'Allergy or contraindication to any medicine in the PrEP regimen',
                 valueType: 'TRUE_ONLY'),
+          ]),
+      FormSection(
+          id: 'PeSfSRaE',
+          name: '7. PrEP Eligibility',
+          description: 'If all answers in this section are yes, offer PrEP.',
+          color: Color(0xFF1F8ECE),
+          inputFields: [
             InputField(
                 id: 'veoA322323t',
                 inputColor: Color(0xFF1F8ECE),
@@ -1118,13 +1149,6 @@ class DreamsServicePrepIntakeInfo {
                     'Has creatinine clearance (eGFR) >60 ml/min or patient has no risk factors for renal disease and the creatinine result is pending (see Creatinine clearance job aid for risk factors)',
                 valueType: 'TRUE_ONLY'),
             InputField(
-                id: 'JBmwR9pBO4I',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
-                name:
-                    'Has creatinine clearance (eGFR) >60 ml/min or patient has no risk factors for renal disease and the creatinine result is pending (see Creatinine clearance job aid for risk factors)',
-                valueType: 'TRUE_ONLY'),
-            InputField(
                 id: 'Ihu2PjZMh8B',
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
@@ -1142,6 +1166,12 @@ class DreamsServicePrepIntakeInfo {
                 labelColor: Color(0xFF737373),
                 name: 'Date Creatinine clearance (calculated)',
                 valueType: 'DATE'),
+          ]),
+      FormSection(
+          id: 'PeSfSRaE',
+          name: '8. Services Received by Client',
+          color: Color(0xFF1F8ECE),
+          inputFields: [
             InputField(
                 id: 'D0tq5I6jgLk',
                 inputColor: Color(0xFF1F8ECE),
@@ -1184,7 +1214,8 @@ class DreamsServicePrepIntakeInfo {
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
                 name: 'Name of facility PrEP referred',
-                valueType: 'TEXT'),
+                allowedSelectedLevels: [4],
+                valueType: 'ORGANISATION_UNIT'),
           ]),
       FormSection(
           id: 'BsLnIfmtn',
@@ -1198,18 +1229,33 @@ class DreamsServicePrepIntakeInfo {
                 name: 'PrEP Patient Number',
                 valueType: 'NUMBER'),
             InputField(
-                id: 'NpeW9958TcF',
+                id: 'BMqPyVMC6fT',
                 name: 'Entry point for PrEP(community)',
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
+                options: [
+                  InputFieldOption(
+                      code: 'Health facility outreach',
+                      name: 'Health facility outreach'),
+                  InputFieldOption(
+                      code: 'Community program',
+                      name: 'Community program (Specify)'),
+                ],
                 valueType: 'TEXT'),
             InputField(
-              id: 'GqTYUcdyFv0',
-              name: 'Entry point for PrEP(Health facility)',
-              valueType: 'TEXT',
-              inputColor: Color(0xFF1F8ECE),
-              labelColor: Color(0xFF737373),
-            ),
+                id: 'lMVSLtbHoT3',
+                name: 'Entry point for PrEP(Health facility)',
+                inputColor: Color(0xFF1F8ECE),
+                labelColor: Color(0xFF737373),
+                options: [
+                  InputFieldOption(
+                      code: 'Adolescent corner/clinic',
+                      name: 'Adolescent corner/clinic'),
+                  InputFieldOption(code: 'ART', name: 'ART'),
+                  InputFieldOption(code: 'OPD', name: 'OPD'),
+                  InputFieldOption(code: 'Other', name: 'Other'),
+                ],
+                valueType: 'TEXT'),
             InputField(
                 id: 'uPpYQM3rAZ2',
                 inputColor: Color(0xFF1F8ECE),
@@ -1234,7 +1280,7 @@ class DreamsServicePrepIntakeInfo {
                 id: 'qMaqhDQAoGj',
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
-                name: 'Basekline creatinine',
+                name: 'Baseline creatinine',
                 valueType: 'NUMBER'),
             InputField(
                 id: 'OmMTgtlqlYQ',
@@ -1242,6 +1288,60 @@ class DreamsServicePrepIntakeInfo {
                 labelColor: Color(0xFF737373),
                 name: 'CrCL',
                 valueType: 'NUMBER'),
+            InputField(
+                id: 'OlDYLVf0bRA',
+                inputColor: Color(0xFF1F8ECE),
+                labelColor: Color(0xFF737373),
+                name: 'Indication for starting PrEP',
+                valueType: 'TEXT'),
+            InputField(
+                id: 'vNyGPa7FbQm',
+                inputColor: Color(0xFF1F8ECE),
+                labelColor: Color(0xFF737373),
+                name: 'Ever been on PrEP',
+                valueType: 'BOOLEAN'),
+            InputField(
+                id: 'UL0xa3Sz9ML',
+                inputColor: Color(0xFF1F8ECE),
+                labelColor: Color(0xFF737373),
+                name: 'Date PrEP stopped',
+                valueType: 'DATE'),
+            InputField(
+                id: 'de4zcWiZB5j',
+                inputColor: Color(0xFF1F8ECE),
+                labelColor: Color(0xFF737373),
+                name: 'Indication for stopping PrEP',
+                valueType: 'TEXT'),
+            InputField(
+                id: 'QInz3UAj6zC',
+                inputColor: Color(0xFF1F8ECE),
+                labelColor: Color(0xFF737373),
+                name: 'Date initiated on ART',
+                valueType: 'DATE'),
+            InputField(
+                id: 'R63XVONUFeG',
+                inputColor: Color(0xFF1F8ECE),
+                labelColor: Color(0xFF737373),
+                name: 'Unique ART Number',
+                valueType: 'NUMBER'),
+            InputField(
+                id: 'mPLGZsuyrvb',
+                inputColor: Color(0xFF1F8ECE),
+                labelColor: Color(0xFF737373),
+                name: 'Pregnancy Test',
+                valueType: 'TEXT'),
+            InputField(
+                id: 'd9UoOBO2BWi',
+                inputColor: Color(0xFF1F8ECE),
+                labelColor: Color(0xFF737373),
+                name: 'Hepatitis B Screening',
+                valueType: 'TEXT'),
+            InputField(
+                id: 'GMGpCj6Nkvd',
+                inputColor: Color(0xFF1F8ECE),
+                labelColor: Color(0xFF737373),
+                name: 'RPR/VDRL  Screening',
+                valueType: 'TEXT'),
             InputField(
                 id: 'wuaPJIIaG3c',
                 inputColor: Color(0xFF1F8ECE),
@@ -1319,7 +1419,6 @@ class DreamsServicePrepIntakeInfo {
                 valueType: 'TEXT'),
             InputField(
                 id: 'NIZZ0Bj3XPU',
-                allowFuturePeriod: true,
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
                 name: 'Date of initial visit',

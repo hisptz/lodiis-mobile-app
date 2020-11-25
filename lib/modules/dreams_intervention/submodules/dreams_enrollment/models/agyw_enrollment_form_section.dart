@@ -7,6 +7,25 @@ class AgywEnrollmentFormSection {
   static List<String> getMandatoryField() {
     return [
       'location',
+//       'H2Az2c3MeAy',
+//       'ZcfLYz7JlVo_checkbox',
+//       'ZcfLYz7JlVo',
+//       'NP7LbypO3li',
+//       'bBVCUqsdfL3',
+//       'CU4HyDp6XO0',
+//       'WwTI82dbYIc',
+//       'RO2RIidPOqK',
+//       'mvPAYFoFQcW',
+//       'GdsRvY5lHCU',
+//       'NOJbkKuHccD',
+//       'iLX2uQ4ZXM0',
+//       'Zmt7PefVzk4',
+//       'OZqIvrzGBFK',
+//       'KNqzbD65UrN',
+//       'gY0nOLnR3eh',
+//       'NgIDtgfZMVH',
+// 'ClDEtAAqDPI',
+//       'i32OwNqUYRn'
     ];
   }
 
@@ -54,7 +73,8 @@ class AgywEnrollmentFormSection {
           InputField(
               id: 'uSxDP43mFEG',
               name: 'Which community council and district?',
-              valueType: 'TEXT',
+              valueType: 'ORGANISATION_UNIT',
+              allowedSelectedLevels: [4],
               inputColor: Color(0xFF258DCC),
               labelColor: Color(0xFF737373)),
           InputField(
@@ -62,6 +82,7 @@ class AgywEnrollmentFormSection {
               name:
                   'Has parent/guardian provided consent for the girl to be enrolled in DREAMS?',
               valueType: 'BOOLEAN',
+              description: 'Ensure you have documented consent in AGYW file.',
               inputColor: Color(0xFF258DCC),
               labelColor: Color(0xFF737373)),
           InputField(
@@ -76,15 +97,24 @@ class AgywEnrollmentFormSection {
               valueType: 'LONG_TEXT',
               inputColor: Color(0xFF258DCC),
               labelColor: Color(0xFF737373)),
+         ],
+      ),
+      FormSection(
+        name: 'Enrolled Profile Information',
+        color: Color(0xFF258DCC),
+        inputFields: [
           InputField(
-            id: 'vIX4GTSCX4P',
+            id: 'VJiWumvINR6',
             name: 'Sex',
             valueType: 'TEXT',
+            isReadOnly: true,
             inputColor: Color(0xFF258DCC),
             labelColor: Color(0xFF737373),
             options: [
               InputFieldOption(code: 'Male', name: 'Male'),
-              InputFieldOption(code: 'Female', name: 'Female')
+              InputFieldOption(code: 'Female', name: 'Female'),
+              InputFieldOption(code: 'Transgender (male to female)', name: 'Transgender (male to female)'),
+              InputFieldOption(code: 'Transgender (female to male)', name: 'Transgender (female to male)'),
             ],
           ),
           InputField(
@@ -119,6 +149,8 @@ class AgywEnrollmentFormSection {
       ),
       FormSection(
         name: 'Enrollment Module 1:  Individual and Household Information',
+        description:
+            'INTERVIEWER SAY:  This section of the enrolment form asks for details about your household in general.  After this we will move on to other topics.',
         color: Color(0xFF258DCC),
         inputFields: [
           InputField(
@@ -293,9 +325,10 @@ class AgywEnrollmentFormSection {
             inputColor: Color(0xFF258DCC),
             labelColor: Color(0xFF737373),
             options: [
-              InputFieldOption(code: 'Rarely', name: 'Rarely'),
-              InputFieldOption(code: 'Sometimes', name: 'Sometimes'),
-              InputFieldOption(code: 'Often', name: 'Often')
+              InputFieldOption(code: 'Rarely', name: 'Rarely (1-2 days)'),
+              InputFieldOption(
+                  code: 'Sometimes', name: 'Sometimes (3-10 days)'),
+              InputFieldOption(code: 'Often', name: 'Often (more than 10 days)')
             ],
           ),
           InputField(
@@ -393,6 +426,8 @@ class AgywEnrollmentFormSection {
       ),
       FormSection(
         name: 'Enrollment Module 2:  Education & Employment',
+        description:
+            'INTERVIEWER SAY:  This section of the enrolment asks about education and employment information of the AGYW.',
         color: Color(0xFF258DCC),
         inputFields: [
           InputField(
@@ -457,8 +492,9 @@ class AgywEnrollmentFormSection {
               inputColor: Color(0xFF258DCC),
               labelColor: Color(0xFF737373)),
           InputField(
-            id: '',
-            name: 'Where do you get support towards your current education?',
+            id: 'JTNxMQPT134_checkboxes_2',
+            name:
+                'Other than from your parent(s)/guardian(s), are you also getting support towards your current education from another source? (Tick all that apply)',
             valueType: 'CHECK_BOX',
             inputColor: Color(0xFF258DCC),
             labelColor: Color(0xFF737373),
@@ -532,7 +568,7 @@ class AgywEnrollmentFormSection {
               inputColor: Color(0xFF258DCC),
               labelColor: Color(0xFF737373)),
           InputField(
-            id: '',
+            id: 'JTNxMQPT134_checkboxes',
             name: 'Given a chance, what would you wish to do with your life?',
             valueType: 'CHECK_BOX',
             inputColor: Color(0xFF258DCC),
@@ -603,7 +639,7 @@ class AgywEnrollmentFormSection {
           ),
           InputField(
               id: 'Gzuxkl4zjrI',
-              name: 'Other where you keep your savings',
+              name: 'Specify where you keep your savings',
               valueType: 'TEXT',
               inputColor: Color(0xFF258DCC),
               labelColor: Color(0xFF737373)),
@@ -751,6 +787,8 @@ class AgywEnrollmentFormSection {
       FormSection(
         id: 'E_M_4_S_A',
         name: 'Enrollment Module 4:  Sexual Activity',
+        description:
+            'INTERVIEWER SAY: Now I will ask you some questions about your sexual activity in order to gain a better understanding of some life issues.  Let me reassure you that your answers are completely confidential. If you are uncomfortable with any questions, please let me know. Remember, there is no right or wrong answer.',
         color: Color(0xFF258DCC),
         inputFields: [
           InputField(
@@ -896,6 +934,8 @@ class AgywEnrollmentFormSection {
       ),
       FormSection(
         name: 'Enrollment Module 5:  Reproductive Health',
+        description:
+            'INTERVIEWER SAY: Now I would like us to move on to some questions on your reproductive health. ',
         color: Color(0xFF258DCC),
         inputFields: [
           InputField(
@@ -954,7 +994,7 @@ class AgywEnrollmentFormSection {
               InputFieldOption(code: 'iYyKrzKvF9i', name: 'IUCD (Coil)'),
               InputFieldOption(code: 'u4PdP8HWVrs', name: 'Condom'),
               InputFieldOption(
-                  code: 'XR1QhO62Zm9', name: 'Permanent (Tubal Ligation)')
+                  code: 'XR1QhO62Zm9', name: 'Permanent (Tubal Ligation)'),
             ],
           ),
           InputField(
@@ -971,44 +1011,20 @@ class AgywEnrollmentFormSection {
               inputColor: Color(0xFF258DCC),
               labelColor: Color(0xFF737373)),
           InputField(
-              id: 'NjAdtVA5MCl',
-              name: 'Are you currently using Pills family planning method?',
-              valueType: 'BOOLEAN',
+              id: 'FamilyPlanningOptions',
+              name: 'Which family planning methods do you use?',
+              valueType: 'CHECK_BOX',
               inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
-          InputField(
-              id: 'qdK24nEkW3f',
-              name:
-                  'Are you currently using Injections family planning method?',
-              valueType: 'BOOLEAN',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
-          InputField(
-              id: 'kRBlMI2RlqO',
-              name: 'Are you currently using Implants family planning method?',
-              valueType: 'BOOLEAN',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
-          InputField(
-              id: 'sKIywDycbit',
-              name:
-                  'Are you currently using IUCD (Coil) family planning method?',
-              valueType: 'BOOLEAN',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
-          InputField(
-              id: 'vsfOugPeOqm',
-              name: 'Are you currently using condoms family planning method?',
-              valueType: 'BOOLEAN',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
-          InputField(
-              id: 'yButAy4UMTY',
-              name:
-                  'Are you currently using Permanent (Tubal Ligation) family planning method?',
-              valueType: 'BOOLEAN',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              labelColor: Color(0xFF737373),
+            options: [
+              InputFieldOption(code: 'NjAdtVA5MCl', name: 'Pills'),
+              InputFieldOption(code: 'qdK24nEkW3f', name: 'Injections'),
+              InputFieldOption(code: 'kRBlMI2RlqO', name: 'Implants'),
+              InputFieldOption(code: 'sKIywDycbit', name: 'IUCD (Coil)'),
+              InputFieldOption(code: 'vsfOugPeOqm', name: 'Condoms'),
+              InputFieldOption(code: 'yButAy4UMTY', name: 'Permanent (Tubal Ligation)'),
+            ]
+          ),
           InputField(
               id: 'EuH6l8V4sXm',
               name: 'Other family planning methods currently using',
@@ -1046,6 +1062,8 @@ class AgywEnrollmentFormSection {
       ),
       FormSection(
         name: 'Enrollment Module 6:  Gender-based Violence',
+        description:
+            'INTERVIEWER SAY:  The next section goes over a few questions about your experiences with violence.  Now I will ask you some questions about your sexual activity in order to gain a better understanding of some life issues. Let me reassure you that your answers are completely confidential. If you are uncomfortable with any questions, please let me know. Remember, there is no right or wrong answer. ',
         color: Color(0xFF258DCC),
         inputFields: [
           InputField(
@@ -1293,6 +1311,8 @@ class AgywEnrollmentFormSection {
       ),
       FormSection(
         name: 'Enrollment Module 7:  Non-Prescription Drug Use',
+        description:
+            'INTERVIEWER SAY: I would like to ask you some questions about drugs or substances that you may have taken that were not prescribed by your doctor.  Now I will ask you some questions about your sexual activity in order to gain a better understanding of some life issues.  Let me reassure you that your answers are completely confidential. If you are uncomfortable with any questions, please let me know. Remember, there is no right or wrong answer.',
         color: Color(0xFF258DCC),
         inputFields: [
           InputField(
@@ -1367,6 +1387,8 @@ class AgywEnrollmentFormSection {
       FormSection(
           name:
               'Enrollment Module 8:  Participation in HIV Prevention Programme',
+          description:
+              'INTERVIEWER SAY: I would like to ask you a final question about your participation in any of the below programs or interventions.',
           color: Color(0xFF258DCC),
           inputFields: [
             InputField(
@@ -1418,67 +1440,6 @@ class AgywEnrollmentFormSection {
                 inputColor: Color(0xFF258DCC),
                 labelColor: Color(0xFF737373)),
           ]),
-      FormSection(
-          name: 'Enrollment Criteria',
-          color: Color(0xFF258DCC),
-          inputFields: [
-            InputField(
-                id: 'B4ojlzKypUF',
-                name: 'Is Orphanhood (AGYW 10-17 Yrs)',
-                valueType: 'TRUE_ONLY',
-                inputColor: Color(0xFF258DCC),
-                labelColor: Color(0xFF737373)),
-            InputField(
-                id: 'HJIHPjOf5s1',
-                name: 'Alcohol Use',
-                valueType: 'TRUE_ONLY',
-                inputColor: Color(0xFF258DCC),
-                isReadOnly: true,
-                labelColor: Color(0xFF737373)),
-            InputField(
-                id: 'bApA6X6TVvJ',
-                name: 'Out of school/Never schooled education/Enrollment',
-                valueType: 'TRUE_ONLY',
-                inputColor: Color(0xFF258DCC),
-                isReadOnly: true,
-                labelColor: Color(0xFF737373)),
-            InputField(
-                id: 'yc3BlUIEup3',
-                name: 'Experience of violence',
-                valueType: 'TRUE_ONLY',
-                inputColor: Color(0xFF258DCC),
-                isReadOnly: true,
-                labelColor: Color(0xFF737373)),
-            InputField(
-                id: 'p33MrrhsQRz',
-                name: 'Transactional Sex',
-                valueType: 'TRUE_ONLY',
-                inputColor: Color(0xFF258DCC),
-                isReadOnly: true,
-                labelColor: Color(0xFF737373)),
-            InputField(
-                id: 'iY67qYnywgS',
-                name: 'No or Irregular Condom use',
-                valueType: 'TRUE_ONLY',
-                inputColor: Color(0xFF258DCC),
-                isReadOnly: true,
-                labelColor: Color(0xFF737373)),
-            InputField(
-                id: 'rh881j2vfvT',
-                name:
-                    'Sexually Transmitted Infection (STI) - (past or present)',
-                valueType: 'TRUE_ONLY',
-                inputColor: Color(0xFF258DCC),
-                isReadOnly: true,
-                labelColor: Color(0xFF737373)),
-            InputField(
-                id: 'AZCVLPzD0Vd',
-                name: 'High number of sex partners',
-                valueType: 'TRUE_ONLY',
-                inputColor: Color(0xFF258DCC),
-                isReadOnly: true,
-                labelColor: Color(0xFF737373)),
-          ])
     ];
   }
 }

@@ -4,14 +4,14 @@ import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/input_field_option.dart';
 
 class CheckBoxListInputField extends StatefulWidget {
-  const CheckBoxListInputField(
-      {Key key,
-      @required this.inputField,
-      @required this.dataObject,
-      @required this.currentLanguage,
-      this.isReadOnly = false,
-      this.onInputValueChange})
-      : super(key: key);
+  const CheckBoxListInputField({
+    Key key,
+    @required this.inputField,
+    @required this.dataObject,
+    @required this.currentLanguage,
+    this.isReadOnly = false,
+    this.onInputValueChange,
+  }) : super(key: key);
 
   final InputField inputField;
   final String currentLanguage;
