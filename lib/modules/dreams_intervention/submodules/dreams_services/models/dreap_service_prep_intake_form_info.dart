@@ -99,6 +99,12 @@ class DreamsServicePrepIntakeInfo {
               inputColor: Color(0xFF1F8ECE),
               labelColor: Color(0xFF737373),
             ),
+             InputField(
+                id: 'pPKoRExOuKU',
+                inputColor: Color(0xFF1F8ECE),
+                labelColor: Color(0xFF737373),
+                name: 'Are you or your partner currently pregnant?',
+                valueType: 'BOOLEAN'),
             InputField(
                 id: 'KE2KOYQCY8t',
                 inputColor: Color(0xFF1F8ECE),
@@ -445,7 +451,7 @@ class DreamsServicePrepIntakeInfo {
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
                 name:
-                    'Has your most recent sex partiner been tested in the last 3 months?',
+                    'Has your most recent sex partner been tested in the last 3 months?',
                 valueType: 'TEXT',
                  options:[
                   InputFieldOption(code: 'Yes', name: 'Yes'),
