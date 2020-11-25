@@ -1286,6 +1286,25 @@ class DreamsServicePrepIntakeInfo {
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
                 name: 'Indication for starting PrEP',
+                options: [
+                  InputFieldOption(code: 'Currently exchanges sex for money', name: 'Currently exchanges sex for money'),
+                  InputFieldOption(code: 'Currently pays for sex', name: 'Currently pays for sex'),
+                  InputFieldOption(code: 'Man who has sex with men', name: 'Man who has sex with men'),
+                  InputFieldOption(code: 'Transgender individual', name: 'Transgender individual'),
+                  InputFieldOption(code: 'Individual who injects drugs', name: 'Individual who injects drugs'),
+                  InputFieldOption(code: 'In a serodiscordant relationship and HIV-positive partner is not on ART or has been on ART for < 12 months', name: 'In a serodiscordant relationship and HIV-positive partner is not on ART or has been on ART for < 12 months'),
+                  InputFieldOption(code: "In a serodiscordant relationship and HIV-positive partner's last viral load is >= 1000 copies/ml OR viral load is not known but partner's ART adherence is believed to be poor", name: "In a serodiscordant relationship and HIV-positive partner's last viral load is >= 1000 copies/ml OR viral load is not known but partner's ART adherence is believed to be poor"),
+                  InputFieldOption(code: 'Has multiple concurrent sexual partners', name: 'Has multiple concurrent sexual partners'),
+                  InputFieldOption(code: 'Individual believes their partner has multiple other concurrent sexual partners', name: 'Individual believes their partner has multiple other concurrent sexual partners'),
+                  InputFieldOption(code: 'Individual at high risk of being forced to have sex', name: 'Individual at high risk of being forced to have sex'),
+                  InputFieldOption(code: 'Other', name: 'Other (Specify)'),
+                ],
+                valueType: 'TEXT'),
+            InputField(
+                id: 'UL1Pq6sgvr2',
+                inputColor: Color(0xFF1F8ECE),
+                labelColor: Color(0xFF737373),
+                name: 'Other reason for starting PrEP',
                 valueType: 'TEXT'),
             InputField(
                 id: 'vNyGPa7FbQm',
@@ -1304,6 +1323,19 @@ class DreamsServicePrepIntakeInfo {
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
                 name: 'Indication for stopping PrEP',
+                options: [
+                  InputFieldOption(code: 'Patient decision', name: 'Patient decision'),
+                  InputFieldOption(code: 'Poor adherence', name: 'Poor adherence (clinician decision)'),
+                  InputFieldOption(code: 'New HIV diagnosis', name: 'New HIV diagnosis'),
+                  InputFieldOption(code: 'Patient no longer at high risk for HIV infection', name: 'Patient no longer at high risk for HIV infection (clinician decision)'),
+                  InputFieldOption(code: 'Other', name: 'Other (Specify)'),
+                ],
+                valueType: 'TEXT'),
+            InputField(
+                id: 'y7lRj3QSDkn',
+                inputColor: Color(0xFF1F8ECE),
+                labelColor: Color(0xFF737373),
+                name: 'Other reason for stopping PrEP',
                 valueType: 'TEXT'),
             InputField(
                 id: 'QInz3UAj6zC',
@@ -1334,81 +1366,6 @@ class DreamsServicePrepIntakeInfo {
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
                 name: 'RPR/VDRL  Screening',
-                valueType: 'TEXT'),
-            InputField(
-                id: 'wuaPJIIaG3c',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
-                name: 'Currently exchanges sex for money',
-                valueType: 'TRUE_ONLY'),
-            InputField(
-                id: 'MHKRo4smybO',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
-                name: 'Currently pays for sex',
-                valueType: 'TRUE_ONLY'),
-            InputField(
-                id: 'RTDFe07DmAS',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
-                name: 'Man who has sex with men',
-                valueType: 'TRUE_ONLY'),
-            InputField(
-                id: 'hzhNp8HQdxa',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
-                name: 'Transgender individual',
-                valueType: 'TRUE_ONLY'),
-            InputField(
-                id: 'EnOWQqMl3gR',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
-                name: 'Transgender individual',
-                valueType: 'TRUE_ONLY'),
-            InputField(
-                id: 'miDdRhIp5dT',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
-                name:
-                    'In a serodiscordant relationship and HIV positive partner is not on ART or has been on ART for < 12 months',
-                valueType: 'TRUE_ONLY'),
-            InputField(
-                id: 'tcyJ2AAJk4y',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
-                name:
-                    "In a serodiscordant relationship and HIV positive partner's last viral load is >=1000 copies/ml OR viral =load is not known but partner's ART adherence is poor",
-                valueType: 'TRUE_ONLY'),
-            InputField(
-                id: 'Vnpt71NpJE4',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
-                name: 'Has multiple concurrent sexual partners',
-                valueType: 'TRUE_ONLY'),
-            InputField(
-                id: 'Jy2xjANHVpV',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
-                name:
-                    'Individual believes their partner has multiple other concurrent sexual partners',
-                valueType: 'TRUE_ONLY'),
-            InputField(
-                id: 'LcWivhRYlQl',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
-                name: 'Individual at high risk of being forced to have sex',
-                valueType: 'TRUE_ONLY'),
-            InputField(
-                id: 'bZ8fTvAhdMS',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
-                name: 'Other indications for PrEP initiation,specify',
-                valueType: 'TRUE_ONLY'),
-            InputField(
-                id: 'UL1Pq6sgvr2',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
-                name: 'Other indications for PrEP initiation',
                 valueType: 'TEXT'),
             InputField(
                 id: 'NIZZ0Bj3XPU',
