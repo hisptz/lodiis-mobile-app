@@ -28,6 +28,7 @@ class AgywEnrollmentConcent {
         InputField(
             id: 'fPtxDcL7A3X',
             name: 'Do you agree to participate in this assessment',
+            description: 'Ensure you have documented AGYW consent on File',
             valueType: 'BOOLEAN',
             inputColor: Color(0xFF258DCC),
             labelColor: Color(0xFF737373)),
