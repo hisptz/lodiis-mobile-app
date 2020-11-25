@@ -807,12 +807,6 @@ class DreamsServicePrepIntakeInfo {
                 name: 'Planned to reduce risk through abstinence',
                 valueType: 'TRUE_ONLY'),
             InputField(
-                id: 'RIeqF1jCQqo',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
-                name: 'Planned to reduce risk through Treatme',
-                valueType: 'TRUE_ONLY'),
-            InputField(
                 id: 'QLpo44r78kP',
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
