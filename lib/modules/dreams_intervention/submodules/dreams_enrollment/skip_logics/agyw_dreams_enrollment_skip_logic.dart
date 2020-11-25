@@ -28,7 +28,6 @@ class AgywDreamsEnrollmentSkipLogic {
         int age = AppUtil.getAgeInYear(value);
         assignInputFieldValue(context, 'ls9hlz2tyol', age.toString());
         if (age >= 9 && age <= 14) {
-          hiddenFields['bkpG276xEk9'] = true;
           hiddenFields['yU4tNjFpQIq'] = true;
           hiddenFields['LNaNh7kvh4X'] = true;
           hiddenFields['wGFmu7DhNGV'] = true;
@@ -54,6 +53,37 @@ class AgywDreamsEnrollmentSkipLogic {
         } else {
           assignInputFieldValue(context, 'cifBFSTHgv5', 'false');
         }
+        if(age >= 9 && age <= 14) {
+          hiddenFields['LNaNh7kvh4X'] = true;
+          hiddenFields['wGFmu7DhNGV'] = true;
+          hiddenFields['G1s75wng5DY'] = true;
+          hiddenFields['bkpG276xEk9'] = true;
+          hiddenFields['afatGR9sy5Q'] = true;
+          hiddenFields['yCmbCOTbH3R'] = true;
+          hiddenFields['VomsiFza9mn'] = true;
+          hiddenFields['NhBs8uAiRPt'] = true;
+        }
+        if(age >= 15 && age <= 19) {
+          hiddenFields['fSQY2z3L0lp'] = true;
+          hiddenFields['VsqV6prIfm9'] = true;
+          hiddenFields['r0rKJA911ma'] = true;
+          hiddenFields['S4yWgL2zp2I'] = true;
+        }
+        if(age >= 20 && age <= 24) {
+          // hiddenFields['Z7PTcgqwCLu'] = true;
+          // hiddenFields['FuYyLjYxxkg'] = true;
+          // hiddenFields['ODBeRytTLHm'] = true;
+          // hiddenFields['OQS3C6pUiWH'] = true;
+          // hiddenFields['uBx2mRzZoRh'] = true;
+          // hiddenFields['aIJoCMWUqBs'] = true;
+          hiddenFields['zowQOCZivv8'] = true;
+          hiddenFields['fSQY2z3L0lp'] = true;
+          hiddenFields['VsqV6prIfm9'] = true;
+          hiddenFields['r0rKJA911ma'] = true;
+          hiddenFields['S4yWgL2zp2I'] = true;
+          hiddenFields['afatGR9sy5Q'] = true;
+          hiddenFields['yCmbCOTbH3R'] = true;
+        }
       }
 
       if (inputFieldId == 'GwVHeyOqTv2' && value != 'true') {
@@ -68,6 +98,15 @@ class AgywDreamsEnrollmentSkipLogic {
       if (inputFieldId == 'qTZtbRWe1Hb' && value != 'true') {
         hiddenFields['TJ5KB6GfZX4'] = true;
       }
+      if (inputFieldId == 'qTZtbRWe1Hb' && value != 'false') {
+        hiddenFields['OA1dR8a4UWu'] = true;
+      }
+      if(inputFieldId == 'TJ5KB6GfZX4' && value != 'School'){
+        hiddenFields['EQHcFozjbP0'] = true;
+      }
+      //  if(inputFieldId == 'TJ5KB6GfZX4' && (value == 'School' || value == 'School')){
+      //   hiddenFields['OA1dR8a4UWu'] = true;
+      // }
       if (inputFieldId == 'Z7PTcgqwCLu' && value != 'true') {
         hiddenFields['FuYyLjYxxkg'] = true;
       }
@@ -80,7 +119,6 @@ class AgywDreamsEnrollmentSkipLogic {
         hiddenFields['S4yWgL2zp2I'] = true;
         hiddenFields['bkpG276xEk9'] = true;
         hiddenFields['GwVHeyOqTv2'] = true;
-        // TODO check why doesn't hide module 4 and some of questions in 5
         hiddenFields['AHbtSNH0i7C'] = true;
         hiddenFields['RW9VeyKDvjj'] = true;
         hiddenFields['XYPRtYgQUF8'] = true;

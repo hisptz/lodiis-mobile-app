@@ -171,7 +171,11 @@ class AgywEnrollmentRiskAssessment {
                 name: 'Which one',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF258DCC),
-                labelColor: Color(0xFF737373)),
+                labelColor: Color(0xFF737373),
+                options: [
+                  InputFieldOption(code: 'School', name: 'School'),
+                  InputFieldOption(code: 'Vocational', name: 'Vocational')
+                ]),
             InputField(
                 id: 'OA1dR8a4UWu',
                 name:
