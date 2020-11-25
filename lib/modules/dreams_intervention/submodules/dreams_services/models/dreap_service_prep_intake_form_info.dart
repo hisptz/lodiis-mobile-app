@@ -76,11 +76,14 @@ class DreamsServicePrepIntakeInfo {
                 name: 'Marital Status',
                 valueType: 'TEXT',
                 options: [
-                  InputFieldOption(code: 'Married', name: 'Married'),
-                  InputFieldOption(code: 'Single', name: 'Single'),
-                  InputFieldOption(code: 'Widowed', name: 'Widowed'),
-                  InputFieldOption(code: 'Divorced/separated', name: 'Divorced/separated'),
-                  InputFieldOption(code: 'Cohabiting', name: 'Cohabiting (leaving with a partner)'),           
+                  InputFieldOption(code: 'Never married', name: 'Never married'),
+                  InputFieldOption(code: 'Currently Married to one person', name: 'Currently Married to one person'),
+                  InputFieldOption(code: 'Polygamous Marriage', name: 'Polygamous Marriage'),
+                  InputFieldOption(code: 'Divorced', name: 'Divorced'),
+                  InputFieldOption(code: 'Separated', name: 'Separated'), 
+                  InputFieldOption(code: 'Widowed', name: 'Widowed'), 
+                  InputFieldOption(code: 'Living with (unmarried) partner', name: 'Living with (unmarried) partner'),
+                  InputFieldOption(code: 'Other', name: 'Other'),          
                 ]                
                 ),
             InputField(
@@ -109,6 +112,7 @@ class DreamsServicePrepIntakeInfo {
                 options: [
                   InputFieldOption(code: 'Yes', name: 'Yes'),
                   InputFieldOption(code: 'No', name: 'No'),
+                  InputFieldOption(code: 'Don\'t Know', name: 'Don\'t Know')
                 ],
                 name:
                     'Are you or your partner planning to have a child within next 2 years?',
