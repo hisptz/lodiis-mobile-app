@@ -87,7 +87,6 @@ class AgywDreamsEnrollmentSkipLogic {
       }
 
       if (inputFieldId == 'GwVHeyOqTv2' && value != 'true') {
-        hiddenFields['T3i6bQ3tCaA'] = true;
         hiddenFields['q8qPtzanSTU'] = true;
         hiddenFields['ojCwZf1iHOE'] = true;
       }
@@ -118,7 +117,6 @@ class AgywDreamsEnrollmentSkipLogic {
         hiddenFields['UzQ533pOnvt'] = true;
         hiddenFields['S4yWgL2zp2I'] = true;
         hiddenFields['bkpG276xEk9'] = true;
-        hiddenFields['GwVHeyOqTv2'] = true;
         hiddenFields['AHbtSNH0i7C'] = true;
         hiddenFields['RW9VeyKDvjj'] = true;
         hiddenFields['XYPRtYgQUF8'] = true;
