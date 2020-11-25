@@ -56,6 +56,7 @@ class AgywDreamsPrepSkipLogic {
       }
       if (inputFieldId == 'rDV6sBIwivl' && value != 'true') {
         hiddenSections['PeSfSRaE'] = true;
+        hiddenSections['BsLnIfmtn'] = true;
       }
 
       if (inputFieldId == 'kK8Gt6LA8QM' && value != 'Other') {
@@ -77,6 +78,10 @@ class AgywDreamsPrepSkipLogic {
           !((value == 'true' && dataObject['veoA322323t'] == 'true') ||
               value != dataObject['veoA322323t'])) {
         hiddenSections['BsLnIfmtn'] = true;
+      }
+
+      if((inputFieldId == 'lMVSLtbHoT3' && value != 'Other')&& dataObject['BMqPyVMC6fT'] != 'Community program'){
+        hiddenFields['uPpYQM3rAZ2'] = true;
       }
     }
     for (String sectionId in hiddenSections.keys) {

@@ -10,6 +10,7 @@ class EntrySubFormContainer extends StatelessWidget {
     @required this.dataObject,
     @required this.mandatoryFieldObject,
     @required this.currentLanguage,
+    @required this.hiddenInputFieldOptions,
     this.isEditableMode = true,
     this.onInputValueChange,
     this.hiddenFields,
@@ -23,6 +24,7 @@ class EntrySubFormContainer extends StatelessWidget {
   final Map mandatoryFieldObject;
   final Map hiddenFields;
   final Map hiddenSections;
+  final Map hiddenInputFieldOptions;
   final bool isEditableMode;
 
   @override
@@ -102,19 +104,24 @@ class EntrySubFormContainer extends StatelessWidget {
                                                   .trim() !=
                                               'true',
                                       child: Container(
-                                        margin: EdgeInsets.only(top: 10.0),
+                                        margin: EdgeInsets.only(
+                                          top: 10.0,
+                                        ),
                                         padding: EdgeInsets.symmetric(
-                                            vertical: 10.0,
-                                            horizontal: inputField.background ==
-                                                    Colors.transparent
-                                                ? 10.0
-                                                : 0.0),
+                                          vertical: 10.0,
+                                          horizontal: inputField.background ==
+                                                  Colors.transparent
+                                              ? 10.0
+                                              : 0.0,
+                                        ),
                                         child: InputFieldContainer(
                                             inputField: inputField,
                                             currentLanguage: currentLanguage,
                                             isEditableMode: isEditableMode,
                                             mandatoryFieldObject:
                                                 mandatoryFieldObject,
+                                            hiddenInputFieldOptions:
+                                                hiddenInputFieldOptions,
                                             dataObject: dataObject,
                                             onInputValueChange: (String id,
                                                     dynamic value) =>
@@ -126,7 +133,9 @@ class EntrySubFormContainer extends StatelessWidget {
                         ),
                         Container(
                           child: EntrySubFormContainer(
-                            hiddenFields: hiddenSections,
+                            hiddenFields: hiddenFields,
+                            hiddenInputFieldOptions: hiddenInputFieldOptions,
+                            hiddenSections: hiddenSections,
                             currentLanguage: currentLanguage,
                             subSections: subSection.subSections,
                             dataObject: dataObject,

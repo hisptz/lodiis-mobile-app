@@ -180,8 +180,14 @@ class AgywDreamsEnrollmentSkipLogic {
       if (inputFieldId == 'GG0gYqd3Rdt' && value != 'Yes') {
         hiddenFields['w780PZTlVhS'] = true;
       }
-      if (inputFieldId == 'JTNxMQPT134' && value != 'true') {
-        hiddenFields['iQdwzVfZdml'] = true;
+      if (inputFieldId == 'JTNxMQPT134' && value != 'false') {
+        hiddenFields['vpmRiwVyKn2'] = true;
+        hiddenFields['nhI53DrKB7u'] = true;
+        hiddenFields['BoQ3kawURfW'] = true;
+        hiddenFields['JTNxMQPT134_checkboxes'] = true;
+        hiddenFields['T0PGSSQXFtV'] = true;
+        hiddenFields['IH4Ly0VPRtL'] = true;
+        hiddenFields['KFgOeRoncRb'] = true;
       }
       if (inputFieldId == 'JTNxMQPT134' && value != 'true') {
         hiddenFields['iQdwzVfZdml'] = true;
@@ -190,6 +196,7 @@ class AgywDreamsEnrollmentSkipLogic {
         hiddenFields['T56nYogWRYq'] = true;
         hiddenFields['h1HeZ2eEkGn'] = true;
         hiddenFields['NGVFqUVSHiU'] = true;
+        hiddenFields['JTNxMQPT134_checkboxes_2'] = true;
       }
       if (inputFieldId == 'aPNGd6RCsY9' && value != 'Other') {
         hiddenFields['T56nYogWRYq'] = true;
@@ -320,6 +327,21 @@ class AgywDreamsEnrollmentSkipLogic {
         hiddenFields['wfb1pQ1odtz'] = true;
         hiddenFields['YSAyCyGWCaK'] = true;
       }
+
+      if(inputFieldId == 'sNLZwEeOdZe' && value != 'true'){
+        hiddenFields['FamilyPlanningOptions'] = true;
+        hiddenFields['EuH6l8V4sXm'] = true;
+      }
+      if(inputFieldId == 'sNLZwEeOdZe' && value != 'false'){
+        hiddenFields['HyT7FrFWRyH'] = true;
+        hiddenFields['pq5LEMAI1EX'] = true;
+      }
+      if(inputFieldId == 'HyT7FrFWRyH' && value != 'Other'){
+        hiddenFields['pq5LEMAI1EX'] = true;
+      }
+
+
+
     }
     for (String sectionId in hiddenSections.keys) {
       List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections

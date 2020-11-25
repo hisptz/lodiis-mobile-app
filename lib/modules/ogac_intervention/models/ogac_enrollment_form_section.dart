@@ -106,6 +106,9 @@ class OgacInterventionFormSection {
             valueType: 'DATE',
             inputColor: Color(0xFFF05A2A),
             labelColor: Color(0xFF737373),
+            maxAgeInYear: 14,
+            minAgeInYear: 9,
+            hint: "Beneficiary's age should be from 9 - 14 years",
           ),
           InputField(
             id: 'ls9hlz2tyol',

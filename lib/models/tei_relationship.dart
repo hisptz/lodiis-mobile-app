@@ -27,6 +27,41 @@ class TeiRelationship {
     );
   }
 
+  TeiRelationship fromOnline(dynamic json) {
+    Map from = json['from'] ?? Map();
+    Map fromTrackedEntityInstance = from['trackedEntityInstance'] ?? Map();
+    String fromTei = fromTrackedEntityInstance['trackedEntityInstance'] ?? '';
+
+    Map to = json['to'] ?? Map();
+    Map toTrackedEntityInstance = to['trackedEntityInstance'] ?? Map();
+    String toTei = toTrackedEntityInstance['trackedEntityInstance'] ?? '';
+
+    return TeiRelationship(
+      id: json['relationship'],
+      fromTei: fromTei,
+      relationshipType: json['relationshipType'],
+      toTei: toTei,
+    );
+  }
+
+  Map toOnline() {
+    Map data = new Map<String, dynamic>();
+    data['relationshipType'] = relationshipType;
+    data['relationship'] = id;
+
+    Map from = new Map<String, dynamic>();
+    Map fromTrackedEntityInstance = {'trackedEntityInstance': fromTei};
+    from['trackedEntityInstance'] = fromTrackedEntityInstance;
+    Map to = new Map<String, dynamic>();
+    Map toTrackedEntityInstance = {'trackedEntityInstance': toTei};
+    to['trackedEntityInstance'] = toTrackedEntityInstance;
+
+    data['from'] = from;
+    data['to'] = to;
+
+    return data;
+  }
+
   String toJson(TeiRelationship teiRelationshipData) {
     return json.encode(toOffline(teiRelationshipData));
   }
