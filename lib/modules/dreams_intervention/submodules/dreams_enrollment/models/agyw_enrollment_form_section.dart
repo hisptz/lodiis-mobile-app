@@ -82,6 +82,7 @@ class AgywEnrollmentFormSection {
               name:
                   'Has parent/guardian provided consent for the girl to be enrolled in DREAMS?',
               valueType: 'BOOLEAN',
+              description: 'Ensure you have documented consent in AGYW file.',
               inputColor: Color(0xFF258DCC),
               labelColor: Color(0xFF737373)),
           InputField(
@@ -103,14 +104,17 @@ class AgywEnrollmentFormSection {
         color: Color(0xFF258DCC),
         inputFields: [
           InputField(
-            id: 'vIX4GTSCX4P',
+            id: 'VJiWumvINR6',
             name: 'Sex',
             valueType: 'TEXT',
+            isReadOnly: true,
             inputColor: Color(0xFF258DCC),
             labelColor: Color(0xFF737373),
             options: [
               InputFieldOption(code: 'Male', name: 'Male'),
-              InputFieldOption(code: 'Female', name: 'Female')
+              InputFieldOption(code: 'Female', name: 'Female'),
+              InputFieldOption(code: 'Transgender (male to female)', name: 'Transgender (male to female)'),
+              InputFieldOption(code: 'Transgender (female to male)', name: 'Transgender (female to male)'),
             ],
           ),
           InputField(
@@ -1436,67 +1440,6 @@ class AgywEnrollmentFormSection {
                 inputColor: Color(0xFF258DCC),
                 labelColor: Color(0xFF737373)),
           ]),
-      FormSection(
-          name: 'Enrollment Criteria',
-          color: Color(0xFF258DCC),
-          inputFields: [
-            InputField(
-                id: 'B4ojlzKypUF',
-                name: 'Is Orphanhood (AGYW 10-17 Yrs)',
-                valueType: 'TRUE_ONLY',
-                inputColor: Color(0xFF258DCC),
-                labelColor: Color(0xFF737373)),
-            InputField(
-                id: 'HJIHPjOf5s1',
-                name: 'Alcohol Use',
-                valueType: 'TRUE_ONLY',
-                inputColor: Color(0xFF258DCC),
-                isReadOnly: true,
-                labelColor: Color(0xFF737373)),
-            InputField(
-                id: 'bApA6X6TVvJ',
-                name: 'Out of school/Never schooled education/Enrollment',
-                valueType: 'TRUE_ONLY',
-                inputColor: Color(0xFF258DCC),
-                isReadOnly: true,
-                labelColor: Color(0xFF737373)),
-            InputField(
-                id: 'yc3BlUIEup3',
-                name: 'Experience of violence',
-                valueType: 'TRUE_ONLY',
-                inputColor: Color(0xFF258DCC),
-                isReadOnly: true,
-                labelColor: Color(0xFF737373)),
-            InputField(
-                id: 'p33MrrhsQRz',
-                name: 'Transactional Sex',
-                valueType: 'TRUE_ONLY',
-                inputColor: Color(0xFF258DCC),
-                isReadOnly: true,
-                labelColor: Color(0xFF737373)),
-            InputField(
-                id: 'iY67qYnywgS',
-                name: 'No or Irregular Condom use',
-                valueType: 'TRUE_ONLY',
-                inputColor: Color(0xFF258DCC),
-                isReadOnly: true,
-                labelColor: Color(0xFF737373)),
-            InputField(
-                id: 'rh881j2vfvT',
-                name:
-                    'Sexually Transmitted Infection (STI) - (past or present)',
-                valueType: 'TRUE_ONLY',
-                inputColor: Color(0xFF258DCC),
-                isReadOnly: true,
-                labelColor: Color(0xFF737373)),
-            InputField(
-                id: 'AZCVLPzD0Vd',
-                name: 'High number of sex partners',
-                valueType: 'TRUE_ONLY',
-                inputColor: Color(0xFF258DCC),
-                isReadOnly: true,
-                labelColor: Color(0xFF737373)),
-          ])
     ];
   }
 }
