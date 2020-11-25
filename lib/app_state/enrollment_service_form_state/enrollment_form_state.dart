@@ -4,6 +4,7 @@ class EnrollmentFormState with ChangeNotifier {
   // intial state
   Map _formState = Map();
   Map _hiddenFields = Map();
+  Map _hiddenInputFieldOptions = Map();
   Map _hiddenSections = Map();
   bool _isEditableMode = true;
 
@@ -11,6 +12,7 @@ class EnrollmentFormState with ChangeNotifier {
   Map get formState => _formState;
   Map get hiddenFields => _hiddenFields;
   Map get hiddenSections => _hiddenSections;
+  Map get hiddenInputFieldOptions => _hiddenInputFieldOptions;
   bool get isEditableMode => _isEditableMode;
 
   //reducers
@@ -24,6 +26,11 @@ class EnrollmentFormState with ChangeNotifier {
 
   void updateFormEditabilityState({bool isEditableMode = true}) {
     _isEditableMode = isEditableMode;
+    notifyListeners();
+  }
+
+  void setHiddenInputFieldOptions(Map hiddenInputFieldOptions) {
+    _hiddenInputFieldOptions = hiddenInputFieldOptions;
     notifyListeners();
   }
 

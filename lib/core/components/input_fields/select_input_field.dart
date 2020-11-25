@@ -8,14 +8,17 @@ class SelectInputField extends StatefulWidget {
   const SelectInputField({
     Key key,
     this.color,
+    @required this.inputFieldId,
     @required this.options,
     @required this.selectedOption,
     @required this.onInputValueChange,
     @required this.isReadOnly,
     @required this.currentLanguage,
+    @required this.hiddenInputFieldOptions,
     this.renderAsRadio,
   }) : super(key: key);
 
+  final String inputFieldId;
   final Color color;
   final bool isReadOnly;
   final List<InputFieldOption> options;
@@ -23,6 +26,7 @@ class SelectInputField extends StatefulWidget {
   final Function onInputValueChange;
   final bool renderAsRadio;
   final String currentLanguage;
+  final Map hiddenInputFieldOptions;
 
   @override
   _SelectInputFieldState createState() => _SelectInputFieldState();
@@ -30,6 +34,8 @@ class SelectInputField extends StatefulWidget {
 
 class _SelectInputFieldState extends State<SelectInputField> {
   dynamic _selectedOption;
+  Map _hiddenInputFieldOptions = Map();
+  List<InputFieldOption> _options;
 
   @override
   void initState() {
@@ -38,15 +44,24 @@ class _SelectInputFieldState extends State<SelectInputField> {
   }
 
   updateInputValueState(dynamic value) {
-    setState(() {
-      _selectedOption = value == '' ? null : value;
-    });
+    var hiddenInputFieldOptions =
+        widget.hiddenInputFieldOptions[widget.inputFieldId];
+    _hiddenInputFieldOptions =
+        hiddenInputFieldOptions ?? _hiddenInputFieldOptions;
+    _options = widget.options.where((InputFieldOption option) {
+      return _hiddenInputFieldOptions[option.code] == null ||
+          (_hiddenInputFieldOptions[option.code] != null &&
+              '${_hiddenInputFieldOptions[option.code]}' != 'true');
+    }).toList();
+    _selectedOption = value == '' ? null : value;
+    setState(() {});
   }
 
   @override
   void didUpdateWidget(covariant SelectInputField oldWidget) {
     super.didUpdateWidget(widget);
-    if (oldWidget.selectedOption != widget.selectedOption)
+    if (oldWidget.selectedOption != widget.selectedOption ||
+        oldWidget.hiddenInputFieldOptions != widget.hiddenInputFieldOptions)
       updateInputValueState(widget.selectedOption);
   }
 
@@ -60,7 +75,7 @@ class _SelectInputFieldState extends State<SelectInputField> {
     return widget.renderAsRadio
         ? Container(
             child: RadioInputFieldContainer(
-              options: widget.options,
+              options: _options,
               currentLanguage: widget.currentLanguage,
               isReadOnly: widget.isReadOnly,
               currentValue: _selectedOption,
@@ -88,7 +103,7 @@ class _SelectInputFieldState extends State<SelectInputField> {
                     color: Colors.transparent,
                   ),
                   onChanged: widget.isReadOnly ? null : onValueChange,
-                  items: widget.options.map<DropdownMenuItem<dynamic>>(
+                  items: _options.map<DropdownMenuItem<dynamic>>(
                     (InputFieldOption option) {
                       return DropdownMenuItem<dynamic>(
                         value: option.code,

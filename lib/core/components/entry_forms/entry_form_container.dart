@@ -9,17 +9,18 @@ import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:provider/provider.dart';
 
 class EntryFormContainer extends StatelessWidget {
-  const EntryFormContainer(
-      {Key key,
-      @required this.formSections,
-      @required this.dataObject,
-      @required this.mandatoryFieldObject,
-      this.hiddenFields,
-      this.hiddenSections,
-      this.isEditableMode = true,
-      this.onInputValueChange,
-      this.elevation = 1.0})
-      : super(key: key);
+  const EntryFormContainer({
+    Key key,
+    @required this.formSections,
+    @required this.dataObject,
+    @required this.mandatoryFieldObject,
+    this.hiddenFields,
+    this.hiddenSections,
+    this.isEditableMode = true,
+    this.onInputValueChange,
+    this.elevation = 1.0,
+    this.hiddenInputFieldOptions,
+  }) : super(key: key);
 
   final List<FormSection> formSections;
   final Function onInputValueChange;
@@ -27,6 +28,7 @@ class EntryFormContainer extends StatelessWidget {
   final Map hiddenFields;
   final Map hiddenSections;
   final Map mandatoryFieldObject;
+  final Map hiddenInputFieldOptions;
   final bool isEditableMode;
   final double elevation;
 
@@ -137,6 +139,9 @@ class EntryFormContainer extends StatelessWidget {
                                                       top: 10.0),
                                                   child: InputFieldContainer(
                                                     inputField: inputField,
+                                                    hiddenInputFieldOptions:
+                                                        hiddenInputFieldOptions ??
+                                                            Map(),
                                                     currentLanguage:
                                                         currentLanguage,
                                                     isEditableMode:
@@ -160,6 +165,8 @@ class EntryFormContainer extends StatelessWidget {
                                   EntrySubFormContainer(
                                     hiddenFields: hiddenFields ?? Map(),
                                     hiddenSections: hiddenSections ?? Map(),
+                                    hiddenInputFieldOptions:
+                                        hiddenInputFieldOptions ?? Map(),
                                     currentLanguage: currentLanguage,
                                     subSections: formSection.subSections,
                                     dataObject: dataObject,

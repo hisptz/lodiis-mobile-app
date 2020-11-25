@@ -5,12 +5,14 @@ class ServiceFormState with ChangeNotifier {
   Map _formState = Map();
   Map _hiddenFields = Map();
   Map _hiddenSections = Map();
+  Map _hiddenInputFieldOptions = Map();
   bool _isEditableMode = true;
 
   // selector
   Map get formState => _formState;
   Map get hiddenFields => _hiddenFields;
   Map get hiddenSections => _hiddenSections;
+  Map get hiddenInputFieldOptions => _hiddenInputFieldOptions;
   bool get isEditableMode => _isEditableMode;
 
   //reducers
@@ -23,6 +25,11 @@ class ServiceFormState with ChangeNotifier {
 
   void setHiddenFields(Map hiddenFields) {
     _hiddenFields = hiddenFields;
+    notifyListeners();
+  }
+
+  void setHiddenInputFieldOptions(Map hiddenInputFieldOptions) {
+    _hiddenInputFieldOptions = hiddenInputFieldOptions;
     notifyListeners();
   }
 

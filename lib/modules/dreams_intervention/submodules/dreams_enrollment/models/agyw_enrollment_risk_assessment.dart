@@ -189,14 +189,10 @@ class AgywEnrollmentRiskAssessment {
                 valueType: 'TEXT',
                 inputColor: Color(0xFF258DCC),
                 labelColor: Color(0xFF737373),
-                 options: [
-              InputFieldOption(code: 'double', name: 'double'),
-              InputFieldOption(code: 'single', name: 'single')            
-                ]
-                
-                
-                
-                ),
+                options: [
+                  InputFieldOption(code: 'double', name: 'double'),
+                  InputFieldOption(code: 'single', name: 'single')
+                ]),
             InputField(
                 id: 'ODBeRytTLHm',
                 name: 'Are you living within a child-headed household?',

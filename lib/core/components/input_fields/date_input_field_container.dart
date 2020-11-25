@@ -35,8 +35,31 @@ class _DateInputFieldContainerState extends State<DateInputFieldContainer> {
     });
   }
 
+  DateTime getDateFromGivenYear(int year) {
+    DateTime currentDate = DateTime.now();
+    return new DateTime(
+      currentDate.year - year,
+      currentDate.month,
+      currentDate.day - 1,
+    );
+  }
+
   void onOpenDateSelection(BuildContext context) async {
-    _date = _date ?? AppUtil.formattedDateTimeIntoString(DateTime.now());
+    int limit = 200;
+    int minAgeInYear = widget.inputField.minAgeInYear ?? limit;
+    int maxAgeInYear = widget.inputField.maxAgeInYear ?? -limit;
+    DateTime lastDate = getDateFromGivenYear(
+        widget.inputField.minAgeInYear != null ? minAgeInYear : -limit);
+    DateTime firstDate = getDateFromGivenYear(
+        widget.inputField.maxAgeInYear != null ? maxAgeInYear : limit);
+
+    print('$firstDate to $lastDate');
+    DateTime currentDate = DateTime.now();
+    int numberOfYearBetweenCurrentAndMaxDate = currentDate.year - lastDate.year;
+    _date = _date ??
+        AppUtil.formattedDateTimeIntoString(
+          numberOfYearBetweenCurrentAndMaxDate >= 0 ? lastDate : currentDate,
+        );
     DateTime date = await showDatePicker(
       builder: (BuildContext context, Widget child) {
         return Theme(
@@ -49,14 +72,26 @@ class _DateInputFieldContainerState extends State<DateInputFieldContainer> {
         );
       },
       context: context,
-      fieldLabelText: '${widget.inputField.name}',
+      fieldLabelText: widget.currentLanguage == 'lesotho'
+          ? '${widget.inputField.translatedName}'
+          : '${widget.inputField.name}',
       initialDate: AppUtil.getDateIntoDateTimeFormat(_date),
-      firstDate: DateTime(1900),
+      firstDate: firstDate,
       confirmText: widget.currentLanguage == 'lesotho' ? 'Ok' : 'Ok',
       cancelText: widget.currentLanguage == 'lesotho' ? 'Cancel' : 'Cancel',
-      lastDate:
-          widget.inputField.allowFuturePeriod ? DateTime(2050) : DateTime.now(),
-      helpText: '${widget.inputField.name}',
+      lastDate: widget.inputField.allowFuturePeriod ||
+              numberOfYearBetweenCurrentAndMaxDate >= 0
+          ? lastDate
+          : DateTime.now(),
+      helpText: widget.inputField.hint != null
+          ? widget.currentLanguage == 'lesotho' &&
+                  widget.inputField.translatedHint != null
+              ? widget.inputField.translatedHint
+              : widget.inputField.hint
+          : widget.currentLanguage == 'lesotho' &&
+                  widget.inputField.translatedName != null
+              ? '${widget.inputField.translatedName}'
+              : '${widget.inputField.name}',
       errorFormatText: 'Enter valid ${widget.inputField.name}',
       errorInvalidText: 'Enter ${widget.inputField.name} in valid range',
     );
