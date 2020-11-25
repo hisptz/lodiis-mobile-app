@@ -4,6 +4,9 @@ import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/input_field_option.dart';
 
 class DreamsServicePrepIntakeInfo {
+   static List<String> getMandatoryField() {
+    return [];
+  }
   static List<FormSection> getFormSections() {
     return [
       FormSection(
@@ -15,7 +18,9 @@ class DreamsServicePrepIntakeInfo {
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
                 name: 'Site Name',
-                valueType: 'TEXT'),
+                valueType: 'ORGANISATION_UNIT',
+                allowedSelectedLevels: [4],
+                ),
             InputField(
                 id: 'V83BlJrXSiv',
                 name: 'Counselor Name',
