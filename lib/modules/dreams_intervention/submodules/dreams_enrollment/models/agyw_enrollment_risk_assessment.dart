@@ -283,9 +283,14 @@ class AgywEnrollmentRiskAssessment {
             InputField(
                 id: 'UzQ533pOnvt',
                 name: 'How old were you when you had sex for the first time?',
-                valueType: 'NUMBER',
+                valueType: 'TEXT',
                 inputColor: Color(0xFF258DCC),
-                labelColor: Color(0xFF737373)),
+                labelColor: Color(0xFF737373),
+                options: [
+                  InputFieldOption(code: '9-14', name: '9-14'),
+                  InputFieldOption(code: '15-19', name: '15-19'),
+                  InputFieldOption(code: '20-24', name: '20-24'),
+                ]),
             InputField(
                 id: 'q8qPtzanSTU',
                 name:
