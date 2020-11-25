@@ -4,6 +4,9 @@ import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/input_field_option.dart';
 
 class DreamsServicePrepIntakeInfo {
+   static List<String> getMandatoryField() {
+    return [];
+  }
   static List<FormSection> getFormSections() {
     return [
       FormSection(
@@ -15,7 +18,9 @@ class DreamsServicePrepIntakeInfo {
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
                 name: 'Site Name',
-                valueType: 'TEXT'),
+                valueType: 'ORGANISATION_UNIT',
+                allowedSelectedLevels: [4],
+                ),
             InputField(
                 id: 'V83BlJrXSiv',
                 name: 'Counselor Name',
@@ -72,15 +77,16 @@ class DreamsServicePrepIntakeInfo {
                 name: 'Marital Status',
                 valueType: 'TEXT',
                 options: [
-                  InputFieldOption(code: 'Married', name: 'Married'),
-                  InputFieldOption(code: 'Single', name: 'Single'),
-                  InputFieldOption(code: 'Widowed', name: 'Widowed'),
-                  InputFieldOption(
-                      code: 'Divorced/separated', name: 'Divorced/separated'),
-                  InputFieldOption(
-                      code: 'Cohabiting',
-                      name: 'Cohabiting (leaving with a partner)'),
-                ]),
+                  InputFieldOption(code: 'Never married', name: 'Never married'),
+                  InputFieldOption(code: 'Currently Married to one person', name: 'Currently Married to one person'),
+                  InputFieldOption(code: 'Polygamous Marriage', name: 'Polygamous Marriage'),
+                  InputFieldOption(code: 'Divorced', name: 'Divorced'),
+                  InputFieldOption(code: 'Separated', name: 'Separated'), 
+                  InputFieldOption(code: 'Widowed', name: 'Widowed'), 
+                  InputFieldOption(code: 'Living with (unmarried) partner', name: 'Living with (unmarried) partner'),
+                  InputFieldOption(code: 'Other', name: 'Other'),          
+                ]                
+                ),
             InputField(
                 id: 'GrChAWBTqTc',
                 name: 'Specify marital status',
@@ -94,6 +100,12 @@ class DreamsServicePrepIntakeInfo {
               inputColor: Color(0xFF1F8ECE),
               labelColor: Color(0xFF737373),
             ),
+             InputField(
+                id: 'pPKoRExOuKU',
+                inputColor: Color(0xFF1F8ECE),
+                labelColor: Color(0xFF737373),
+                name: 'Are you or your partner currently pregnant?',
+                valueType: 'BOOLEAN'),
             InputField(
                 id: 'KE2KOYQCY8t',
                 inputColor: Color(0xFF1F8ECE),
@@ -107,6 +119,7 @@ class DreamsServicePrepIntakeInfo {
                 options: [
                   InputFieldOption(code: 'Yes', name: 'Yes'),
                   InputFieldOption(code: 'No', name: 'No'),
+                  InputFieldOption(code: 'Don\'t Know', name: 'Don\'t Know')
                 ],
                 name:
                     'Are you or your partner planning to have a child within next 2 years?',
@@ -442,19 +455,19 @@ class DreamsServicePrepIntakeInfo {
                 name: 'How long ago was your most recent test?',
                 valueType: 'TEXT'),
             InputField(
-              id: 'mMmJMXiEPLi',
-              inputColor: Color(0xFF1F8ECE),
-              labelColor: Color(0xFF737373),
-              name:
-                  'Has your most recent sex partner been tested in the last 3 months?',
-              valueType: 'TEXT',
-              options: [
-                InputFieldOption(code: 'Yes', name: 'Yes'),
-                InputFieldOption(code: 'No', name: 'No'),
-                InputFieldOption(code: 'I dont know', name: 'I dont know'),
-                InputFieldOption(code: 'No response', name: 'No response'),
-              ],
-            ),
+                id: 'mMmJMXiEPLi',
+                inputColor: Color(0xFF1F8ECE),
+                labelColor: Color(0xFF737373),
+                name:
+                    'Has your most recent sex partner been tested in the last 3 months?',
+                valueType: 'TEXT',
+                 options:[
+                  InputFieldOption(code: 'Yes', name: 'Yes'),
+                  InputFieldOption(code: 'No', name: 'No'),
+                  InputFieldOption(code: 'I dont know', name: 'I dont know'),
+                  InputFieldOption(code: 'No response', name: 'No response'),     
+                   ],
+                ),
             InputField(
                 id: 'U0E4mb8dSQN',
                 inputColor: Color(0xFF1F8ECE),
@@ -800,12 +813,6 @@ class DreamsServicePrepIntakeInfo {
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
                 name: 'Planned to reduce risk through abstinence',
-                valueType: 'TRUE_ONLY'),
-            InputField(
-                id: 'RIeqF1jCQqo',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
-                name: 'Planned to reduce risk through Treatme',
                 valueType: 'TRUE_ONLY'),
             InputField(
                 id: 'QLpo44r78kP',
