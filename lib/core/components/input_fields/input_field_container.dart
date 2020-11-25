@@ -17,6 +17,7 @@ class InputFieldContainer extends StatelessWidget {
     Key key,
     @required this.inputField,
     @required this.currentLanguage,
+    @required this.hiddenInputFieldOptions,
     this.onInputValueChange,
     this.dataObject,
     this.mandatoryFieldObject,
@@ -29,6 +30,7 @@ class InputFieldContainer extends StatelessWidget {
   final Function onInputValueChange;
   final Map dataObject;
   final Map mandatoryFieldObject;
+  final Map hiddenInputFieldOptions;
 
   @override
   Widget build(BuildContext context) {
@@ -233,6 +235,8 @@ class InputFieldContainer extends StatelessWidget {
                 )
               : inputField.options.length > 0
                   ? SelectInputField(
+                      hiddenInputFieldOptions: hiddenInputFieldOptions,
+                      inputFieldId: inputField.id,
                       currentLanguage: currentLanguage,
                       color: inputField.inputColor,
                       isReadOnly: inputField.isReadOnly,
