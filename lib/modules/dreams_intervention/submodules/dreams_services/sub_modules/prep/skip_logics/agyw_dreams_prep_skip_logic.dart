@@ -58,6 +58,10 @@ class AgywDreamsPrepSkipLogic {
         hiddenSections['PeSfSRaE'] = true;
       }
 
+      if (inputFieldId == 'li1EJgHzWtV' && value != 'Other') {
+        hiddenFields['GrChAWBTqTc'] = true;
+      }
+
       if (inputFieldId == 'kK8Gt6LA8QM' && value != 'Other') {
         hiddenFields['gufQ1ELVqcS'] = true;
       }
