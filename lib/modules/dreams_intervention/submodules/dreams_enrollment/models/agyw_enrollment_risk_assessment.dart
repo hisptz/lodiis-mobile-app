@@ -9,7 +9,7 @@ class AgywEnrollmentRiskAssessment {
       'WTZ7GLTrE8Q',
       'rSP9c21JsfC',
       'qZP982qpSPS',
-      'vIX4GTSCX4P',
+      'VJiWumvINR6',
     ];
   }
 
@@ -81,16 +81,16 @@ class AgywEnrollmentRiskAssessment {
                 inputColor: Color(0xFF4B9F46),
                 labelColor: Color(0xFF737373)),
             InputField(
-                id: 'vIX4GTSCX4P',
+                id: 'VJiWumvINR6',
                 name: 'Sex',
                 valueType: 'TEXT',
-                isReadOnly: true,
                 inputColor: Color(0xFF258DCC),
                 labelColor: Color(0xFF737373),
-                renderAsRadio: true,
                 options: [
-                  // InputFieldOption(code: 'Male', name: 'Male'),
+                  InputFieldOption(code: 'Male', name: 'Male'),
                   InputFieldOption(code: 'Female', name: 'Female'),
+                  InputFieldOption(code: 'Transgender (male to female)', name: 'Transgender (male to female)'),
+                  InputFieldOption(code: 'Transgender (female to male)', name: 'Transgender (female to male)'),
                 ]),
             InputField(
                 id: 's1eRvsL2Ly4',

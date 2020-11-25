@@ -66,7 +66,6 @@ class _DreamsInterventionState extends State<DreamsIntervention> {
 
   void onAddAgywBeneficiary(BuildContext context) {
     Provider.of<EnrollmentFormState>(context, listen: false).resetFormState();
-    Provider.of<EnrollmentFormState>(context, listen: false).setFormFieldState('vIX4GTSCX4P', 'Female');
     Navigator.push(context, MaterialPageRoute(
       builder: (context) {
         return AgywDreamsConsentForm();

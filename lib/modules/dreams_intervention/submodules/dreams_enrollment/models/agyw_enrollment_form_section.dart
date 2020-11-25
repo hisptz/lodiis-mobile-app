@@ -62,6 +62,7 @@ class AgywEnrollmentFormSection {
               name:
                   'Has parent/guardian provided consent for the girl to be enrolled in DREAMS?',
               valueType: 'BOOLEAN',
+              description: 'Ensure you have documented consent in AGYW file.',
               inputColor: Color(0xFF258DCC),
               labelColor: Color(0xFF737373)),
           InputField(
@@ -77,16 +78,17 @@ class AgywEnrollmentFormSection {
               inputColor: Color(0xFF258DCC),
               labelColor: Color(0xFF737373)),
           InputField(
-            id: 'vIX4GTSCX4P',
+            id: 'VJiWumvINR6',
             name: 'Sex',
             valueType: 'TEXT',
             isReadOnly: true,
-            renderAsRadio: true,
             inputColor: Color(0xFF258DCC),
             labelColor: Color(0xFF737373),
             options: [
-              // InputFieldOption(code: 'Male', name: 'Male'),
-              InputFieldOption(code: 'Female', name: 'Female')
+              InputFieldOption(code: 'Male', name: 'Male'),
+              InputFieldOption(code: 'Female', name: 'Female'),
+              InputFieldOption(code: 'Transgender (male to female)', name: 'Transgender (male to female)'),
+              InputFieldOption(code: 'Transgender (female to male)', name: 'Transgender (female to male)'),
             ],
           ),
           InputField(
