@@ -29,6 +29,12 @@ class AgywDreamsPrepSkipLogic {
       if (inputFieldId == 'JflxahjBLrH' && value != 'true') {
         hiddenFields['PqSjDmu2eMy'] = true;
       }
+       if (inputFieldId == 'F42UdUKO75Z' && value != 'true') {
+        hiddenFields['ukX9y6lXpNo'] = true;
+      }
+      if (inputFieldId == 'kTHUZ8SOSXK' && value != 'true') {
+        hiddenFields['aXAPMYFxMFC'] = true;
+      }
 
       if (inputFieldId == 'IrJBisQbxi6' && value != 'true') {
         hiddenFields['XnVcJkyoobx'] = true;
