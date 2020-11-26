@@ -93,18 +93,18 @@ class AgywDreamsEnrollmentSkipLogic {
           if('${dataObject['Z7PTcgqwCLu']}' == 'true') {
             assignInputFieldValue(context, 'B4ojlzKypUF', 'true');
           } else {
-            assignInputFieldValue(context, 'B4ojlzKypUF', 'false');
+            assignInputFieldValue(context, 'B4ojlzKypUF', '');
           }
         }
         if (age > 17) {
-          assignInputFieldValue(context, 'B4ojlzKypUF', 'false');
+          assignInputFieldValue(context, 'B4ojlzKypUF', '');
         }
         if(age <= 19 && '${dataObject['GwVHeyOqTv2']}' == 'true') {
           assignInputFieldValue(context, 'AZCVLPzD0Vd', 'true');
         } else if(age > 19 && '${dataObject['GwVHeyOqTv2']}' == 'true' && int.parse(dataObject['q8qPtzanSTU']) > 2 ) {
           assignInputFieldValue(context, 'AZCVLPzD0Vd', 'true');
         } else {
-          assignInputFieldValue(context, 'AZCVLPzD0Vd', 'false');
+          assignInputFieldValue(context, 'AZCVLPzD0Vd', '');
         }
       }
       if (inputFieldId == 'oEbOkfQY3NP' && value != 'Other') {
@@ -117,7 +117,7 @@ class AgywDreamsEnrollmentSkipLogic {
         if(value == 'false') {
             assignInputFieldValue(context, 'bApA6X6TVvJ', 'true');
         } else {
-          assignInputFieldValue(context, 'bApA6X6TVvJ', 'false');
+          assignInputFieldValue(context, 'bApA6X6TVvJ', '');
         }
       }
       if (inputFieldId == 'qTZtbRWe1Hb' && value != 'false') {
@@ -135,7 +135,7 @@ class AgywDreamsEnrollmentSkipLogic {
         } else {
           hiddenFields['yU4tNjFpQIq'] = true;
           hiddenFields['zsivYH5qkho'] = true;
-          assignInputFieldValue(context, 'HJIHPjOf5s1', 'false');
+          assignInputFieldValue(context, 'HJIHPjOf5s1', '');
         }
       }
       if (inputFieldId == 'fSQY2z3L0lp' && value != 'true') {
@@ -166,7 +166,7 @@ class AgywDreamsEnrollmentSkipLogic {
       if (inputFieldId == 'fyIUCi5EUtp') {
         if(value != 'true') {
           hiddenFields['x9CWVcy9CZ2'] = true;
-          assignInputFieldValue(context, 'rh881j2vfvT', 'false');
+          assignInputFieldValue(context, 'rh881j2vfvT', '');
         } else {
           assignInputFieldValue(context, 'rh881j2vfvT', 'true');
         }
@@ -181,7 +181,7 @@ class AgywDreamsEnrollmentSkipLogic {
         if(value != 'true') {
           hiddenFields['afatGR9sy5Q'] = true;
           hiddenFields['yCmbCOTbH3R'] = true;
-          assignInputFieldValue(context, 'iY67qYnywgS', 'false');
+          assignInputFieldValue(context, 'iY67qYnywgS', '');
         } else {
           assignInputFieldValue(context, 'iY67qYnywgS', 'true');
         }
@@ -382,7 +382,7 @@ class AgywDreamsEnrollmentSkipLogic {
         if(value == 'true') {
           assignInputFieldValue(context, 'yc3BlUIEup3', 'true');
         } else {
-          assignInputFieldValue(context, 'yc3BlUIEup3', 'false');
+          assignInputFieldValue(context, 'yc3BlUIEup3', '');
         }
       }
       if(inputFieldId == 'fVJfCtBVjan') {
@@ -396,7 +396,7 @@ class AgywDreamsEnrollmentSkipLogic {
         if(value == 'true') {
           assignInputFieldValue(context, 'p33MrrhsQRz', 'true');
         } else {
-          assignInputFieldValue(context, 'p33MrrhsQRz', 'false');
+          assignInputFieldValue(context, 'p33MrrhsQRz', '');
         }
       }
       
