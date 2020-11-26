@@ -5,7 +5,6 @@ import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/models/events.dart';
-import 'package:kb_mobile_app/models/tei_relationship.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
 
 class SynchronizationState with ChangeNotifier {

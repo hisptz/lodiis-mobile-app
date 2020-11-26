@@ -56,6 +56,20 @@ class HTSConsent {
             valueType: 'BOOLEAN',
             inputColor: Color(0xFF258DCC),
             labelColor: Color(0xFF737373)),
+        InputField(
+            id: 'yVYVJe26S4u',
+            name:
+            'Do you agree counselor will inform you of the test results in person?',
+            valueType: 'TRUE_ONLY',
+            inputColor: Color(0xFF258DCC),
+            labelColor: Color(0xFF737373)),
+        InputField(
+            id: 'B4xx1IVaAnI',
+            name:
+            'Do you agree that the results of the test may be anonymously used for purposes of research and data collection purposes, provided that such information is de-identified with sufficient safeguards as to confidentiality?',
+            valueType: 'TRUE_ONLY',
+            inputColor: Color(0xFF258DCC),
+            labelColor: Color(0xFF737373)),
       ]),
     ];
   }

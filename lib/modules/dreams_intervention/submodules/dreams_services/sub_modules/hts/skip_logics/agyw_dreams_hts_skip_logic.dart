@@ -23,8 +23,7 @@ class AgywDreamsHTCSkipLogic {
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
 
-      if ((inputFieldId == 'p2r7Gf6Yqye' && value != 'Other') ) {
-       
+      if ((inputFieldId == 'p2r7Gf6Yqye' && value != 'Other')) {
         hiddenFields['RXHjnbJAMkz'] = true;
       }
       if (inputFieldId == 'EHhaJRS2gqc' && value != 'Other') {
@@ -33,6 +32,12 @@ class AgywDreamsHTCSkipLogic {
 
       if (inputFieldId == 'C2k7GxU3P5C' && value != 'true') {
         hiddenFields['aYeHcF3793X'] = true;
+      }
+      if (inputFieldId == 'UlombfpCloG' && value != 'Couple') {
+        hiddenFields['hWdE0MXmeuP'] = true;
+      }
+      if (inputFieldId == 'GSLu0wyCCsP' && value != 'Other') {
+        hiddenFields['aoWp3tKXOqa'] = true;
       }
     }
     for (String sectionId in hiddenSections.keys) {

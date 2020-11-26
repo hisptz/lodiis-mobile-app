@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/input_field_option.dart';
@@ -52,20 +53,6 @@ class ClientInformation {
                 inputColor: Color(0xFF258DCC),
                 labelColor: Color(0xFF737373)),
             InputField(
-                id: 'yVYVJe26S4u',
-                name:
-                    'Do you agree counselor will inform you of the test results in person?',
-                valueType: 'TRUE_ONLY',
-                inputColor: Color(0xFF258DCC),
-                labelColor: Color(0xFF737373)),
-            InputField(
-                id: 'B4xx1IVaAnI',
-                name:
-                    'Do you agree that the results of the test may be anonymously used for purposes of research and data collection purposes, provided that such information is de-identified with sufficient safeguards as to confidentiality?',
-                valueType: 'TRUE_ONLY',
-                inputColor: Color(0xFF258DCC),
-                labelColor: Color(0xFF737373)),
-            InputField(
                 id: 'OlKIVlexb1I',
                 name: 'Priority Pop: Military',
                 valueType: 'TRUE_ONLY',
@@ -96,7 +83,7 @@ class ClientInformation {
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'JL1rGyJaDnw',
-                name: 'Type of final assessment',
+                name: 'Type of final test',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF258DCC),
                 labelColor: Color(0xFF737373),
@@ -121,6 +108,8 @@ class ClientInformation {
           ]),
       FormSection(
           name: "Today's HIV test",
+          description:
+              'Date: ${AppUtil.formattedDateTimeIntoString(DateTime.now())}',
           color: Color(0xFF737373),
           inputFields: [
             InputField(
@@ -143,14 +132,6 @@ class ClientInformation {
                 id: 'GSLu0wyCCsP',
                 name: 'Testing channel',
                 valueType: 'TEXT',
-                inputColor: Color(0xFF258DCC),
-                labelColor: Color(0xFF737373)),
-            InputField(
-                id: 'aoWp3tKXOqa',
-                name: 'Other community platforms',
-                valueType: 'TEXT',
-                inputColor: Color(0xFF258DCC),
-                labelColor: Color(0xFF737373),
                 options: [
                   InputFieldOption(code: 'Index', name: 'Index'),
                   InputFieldOption(
@@ -160,7 +141,16 @@ class ClientInformation {
                       code: 'Mobile testing', name: 'Mobile testing'),
                   InputFieldOption(code: 'Home-based', name: 'Home-based'),
                   InputFieldOption(code: 'Other', name: 'Other'),
-                ]),
+                ],
+                inputColor: Color(0xFF258DCC),
+                labelColor: Color(0xFF737373)),
+            InputField(
+              id: 'aoWp3tKXOqa',
+              name: 'Other community platforms',
+              valueType: 'TEXT',
+              inputColor: Color(0xFF258DCC),
+              labelColor: Color(0xFF737373),
+            ),
             InputField(
                 id: 'p2r7Gf6Yqye',
                 name: 'Layering',
@@ -172,8 +162,7 @@ class ClientInformation {
                       code: 'Assist/ Sentebale', name: 'Assist/ Sentebale'),
                   InputFieldOption(code: 'IPC', name: 'IPC'),
                   InputFieldOption(code: 'M2M', name: 'M2M'),
-                  InputFieldOption(
-                      code: 'CRS or Caritas', name: 'CRS or Caritas'),
+                  InputFieldOption(code: 'CRS or Caritas', name: 'CRS/KB'),
                   InputFieldOption(code: 'Promo', name: 'Promo'),
                   InputFieldOption(code: 'WVI', name: 'WVI'),
                   InputFieldOption(
@@ -257,12 +246,48 @@ class ClientInformation {
                 labelColor: Color(0xFF737373)),
           ]),
       FormSection(
+          name: 'Non-communicable diseases',
+          color: Color(0xFF737373),
+          inputFields: [
+            InputField(
+                id: 'x7Jzm67o0Ng',
+                name: 'Height (m)',
+                valueType: 'NUMBER',
+                inputColor: Color(0xFF258DCC),
+                labelColor: Color(0xFF737373)),
+            InputField(
+                id: 'gCvMVscBNfk',
+                name: 'Weight(kg)',
+                valueType: 'NUMBER',
+                inputColor: Color(0xFF258DCC),
+                labelColor: Color(0xFF737373)),
+            InputField(
+                id: 'WeaVsrFcWne',
+                name: 'Blood Pressure Systolic (mmHg)',
+                valueType: 'NUMBER',
+                inputColor: Color(0xFF258DCC),
+                labelColor: Color(0xFF737373)),
+            InputField(
+              id: 'RqWMrqUcDqv',
+              name: 'Blood Pressure Diastolic (mmHg)',
+              valueType: 'NUMBER',
+              inputColor: Color(0xFF258DCC),
+              labelColor: Color(0xFF737373),
+            ),
+            InputField(
+                id: 'UlJr5baZcQj',
+                name: 'Glucose',
+                valueType: 'NUMBER',
+                inputColor: Color(0xFF258DCC),
+                labelColor: Color(0xFF737373)),
+          ]),
+      FormSection(
           name: 'Risk assessment',
           color: Color(0xFF737373),
           inputFields: [
             InputField(
                 id: 'SNGOfhanJia',
-                name: 'Pregnant/breastfeeding',
+                name: 'Pregnant/breastfeeding (clients or partner)',
                 valueType: 'BOOLEAN',
                 inputColor: Color(0xFF258DCC),
                 labelColor: Color(0xFF737373)),
@@ -286,7 +311,7 @@ class ClientInformation {
                 ]),
             InputField(
                 id: 'DzRsmX6O9V6',
-                name: 'Na u',
+                name: 'Are you?',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF258DCC),
                 labelColor: Color(0xFF737373),
@@ -300,47 +325,6 @@ class ClientInformation {
                 id: 'qS3VY5i86ZB',
                 name: 'Number of sexual partners in last 12  months',
                 valueType: 'INTEGER_ZERO_OR_POSITIVE',
-                inputColor: Color(0xFF258DCC),
-                labelColor: Color(0xFF737373)),
-          ]),
-      FormSection(
-          name: 'Non-communicable diseases',
-          color: Color(0xFF737373),
-          inputFields: [
-            InputField(
-                id: 'x7Jzm67o0Ng',
-                name: 'Height (m)',
-                valueType: 'NUMBER',
-                inputColor: Color(0xFF258DCC),
-                labelColor: Color(0xFF737373)),
-            InputField(
-                id: 'gCvMVscBNfk',
-                name: 'Weight',
-                valueType: 'NUMBER',
-                inputColor: Color(0xFF258DCC),
-                labelColor: Color(0xFF737373)),
-            InputField(
-                id: 'WeaVsrFcWne',
-                name: 'Blood Pressure Systolic (mmHg)',
-                valueType: 'NUMBER',
-                inputColor: Color(0xFF258DCC),
-                labelColor: Color(0xFF737373)),
-            InputField(
-                id: 'RqWMrqUcDqv',
-                name: 'Blood PressureDiastolic (mmHg)',
-                valueType: 'NUMBER',
-                inputColor: Color(0xFF258DCC),
-                labelColor: Color(0xFF737373),
-                options: [
-                  InputFieldOption(code: 'Circumsized', name: 'Circumsized'),
-                  InputFieldOption(
-                      code: 'Genital sores or discharge',
-                      name: 'Genital sores or discharge')
-                ]),
-            InputField(
-                id: 'UlJr5baZcQj',
-                name: 'Glucose',
-                valueType: 'NUMBER',
                 inputColor: Color(0xFF258DCC),
                 labelColor: Color(0xFF737373)),
           ]),
