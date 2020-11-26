@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dream_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
@@ -7,6 +8,7 @@ import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
+import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/events.dart';
@@ -28,6 +30,7 @@ class AgywDreamsPrep extends StatefulWidget {
 class _AgywDreamsPrepState extends State<AgywDreamsPrep> {
   final String label = 'AGYW Prep';
   List<String> programStageids = [PrepIntakeConstant.programStage];
+
   @override
   void initState() {
     super.initState();
@@ -59,8 +62,13 @@ class _AgywDreamsPrepState extends State<AgywDreamsPrep> {
     updateFormState(context, true, null);
     Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
         .setCurrentAgywDream(agywDream);
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => AgywDreamsPrepFormPage()));
+    if (int.parse(agywDream.age) >= 15 && int.parse(agywDream.age) <= 24) {
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => AgywDreamsPrepFormPage()));
+    } else {
+      AppUtil.showToastMessage(
+          message: 'PrEP is restricted to beneficiaries from 15-24 years only', position: ToastGravity.TOP);
+    }
   }
 
   void onViewPrep(BuildContext context, Events eventdata) {

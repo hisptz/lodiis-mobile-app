@@ -100,6 +100,17 @@ class AgywDreamsPrepSkipLogic {
           dataObject['BMqPyVMC6fT'] != 'Community program') {
         hiddenFields['uPpYQM3rAZ2'] = true;
       }
+
+      if (inputFieldId == 'OlDYLVf0bRA' && value != 'Other') {
+        hiddenFields['UL1Pq6sgvr2'] = true;
+      }
+      if (inputFieldId == 'de4zcWiZB5j' && value != 'Other') {
+        hiddenFields['y7lRj3QSDkn'] = true;
+      }
+      if(inputFieldId == 'de4zcWiZB5j' && value != 'New HIV diagnosis'){
+        hiddenFields['QInz3UAj6zC'] = true;
+        hiddenFields['R63XVONUFeG'] = true;
+      }
     }
     for (String sectionId in hiddenSections.keys) {
       List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections

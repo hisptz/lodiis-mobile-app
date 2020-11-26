@@ -28,7 +28,7 @@ class AgywDreamsEnrollmentSkipLogic {
         int age = AppUtil.getAgeInYear(value);
         assignInputFieldValue(context, 'ls9hlz2tyol', age.toString());
         if (age >= 9 && age <= 14) {
-          hiddenFields['yU4tNjFpQIq'] = true;
+          // hiddenFields['yU4tNjFpQIq'] = true;
           // hiddenFields['wGFmu7DhNGV'] = true;
           // hiddenFields['G1s75wng5DY'] = true;
           hiddenFields['bkpG276xEk9'] = true;
@@ -36,7 +36,6 @@ class AgywDreamsEnrollmentSkipLogic {
           hiddenFields['NhBs8uAiRPt'] = true;
           hiddenFields['afatGR9sy5Q'] = true;
           hiddenFields['yCmbCOTbH3R'] = true;
-          hiddenFields['NhBs8uAiRPt'] = true;
           hiddenSections['1_M_S_P'] = true;
           hiddenSections['4_N_O_I_C_U'] = true;
           hiddenSections['5_T_S'] = true;
@@ -82,7 +81,7 @@ class AgywDreamsEnrollmentSkipLogic {
           // hiddenFields['FuYyLjYxxkg'] = true;
         }
         if (age < 20) {
-          hiddenFields['EQHcFozjbP0'] = true;
+          // hiddenFields['EQHcFozjbP0'] = true;
           // hiddenFields['NhBs8uAiRPt'] = true;
         }
         if (age >= 9 && age <= 24) {
@@ -90,13 +89,36 @@ class AgywDreamsEnrollmentSkipLogic {
         } else {
           assignInputFieldValue(context, 'cifBFSTHgv5', 'false');
         }
-       
+        if(age >= 9  && age <= 17) {
+          if('${dataObject['Z7PTcgqwCLu']}' == 'true') {
+            assignInputFieldValue(context, 'B4ojlzKypUF', 'true');
+          } else {
+            assignInputFieldValue(context, 'B4ojlzKypUF', '');
+          }
+        }
+        if (age > 17) {
+          assignInputFieldValue(context, 'B4ojlzKypUF', '');
+        }
+        if(age <= 19 && '${dataObject['GwVHeyOqTv2']}' == 'true') {
+          assignInputFieldValue(context, 'AZCVLPzD0Vd', 'true');
+        } else if(age > 19 && '${dataObject['GwVHeyOqTv2']}' == 'true' && int.parse(dataObject['q8qPtzanSTU']) > 2 ) {
+          assignInputFieldValue(context, 'AZCVLPzD0Vd', 'true');
+        } else {
+          assignInputFieldValue(context, 'AZCVLPzD0Vd', '');
+        }
       }
       if (inputFieldId == 'oEbOkfQY3NP' && value != 'Other') {
         hiddenFields['ODMyZc2F7uc'] = true;
       }
-      if (inputFieldId == 'qTZtbRWe1Hb' && value != 'true') {
-        hiddenFields['TJ5KB6GfZX4'] = true;
+      if (inputFieldId == 'qTZtbRWe1Hb') {
+        if(value != 'true') {
+          hiddenFields['TJ5KB6GfZX4'] = true;
+        }
+        if(value == 'false') {
+            assignInputFieldValue(context, 'bApA6X6TVvJ', 'true');
+        } else {
+          assignInputFieldValue(context, 'bApA6X6TVvJ', '');
+        }
       }
       if (inputFieldId == 'qTZtbRWe1Hb' && value != 'false') {
         hiddenFields['OA1dR8a4UWu'] = true;
@@ -107,9 +129,14 @@ class AgywDreamsEnrollmentSkipLogic {
       if (inputFieldId == 'Z7PTcgqwCLu' && value != 'true') {
         hiddenFields['FuYyLjYxxkg'] = true;
       }
-      if (inputFieldId == 'rsi08hlOFm8' && value != 'true') {
-        hiddenFields['yU4tNjFpQIq'] = true;
-        hiddenFields['zsivYH5qkho'] = true;
+      if (inputFieldId == 'rsi08hlOFm8') {
+        if(value == 'true') {
+          assignInputFieldValue(context, 'HJIHPjOf5s1', 'true');
+        } else {
+          hiddenFields['yU4tNjFpQIq'] = true;
+          hiddenFields['zsivYH5qkho'] = true;
+          assignInputFieldValue(context, 'HJIHPjOf5s1', '');
+        }
       }
       if (inputFieldId == 'fSQY2z3L0lp' && value != 'true') {
         hiddenFields['UzQ533pOnvt'] = true;
@@ -134,9 +161,15 @@ class AgywDreamsEnrollmentSkipLogic {
         hiddenFields['NhBs8uAiRPt'] = true;
         hiddenFields['VomsiFza9mn'] = true;
         hiddenSections['3_STI'] = true;
+        hiddenSections['5_T_S'] = true;
       }
-      if (inputFieldId == 'fyIUCi5EUtp' && value != 'true') {
-        hiddenFields['x9CWVcy9CZ2'] = true;
+      if (inputFieldId == 'fyIUCi5EUtp') {
+        if(value != 'true') {
+          hiddenFields['x9CWVcy9CZ2'] = true;
+          assignInputFieldValue(context, 'rh881j2vfvT', '');
+        } else {
+          assignInputFieldValue(context, 'rh881j2vfvT', 'true');
+        }
       }
       if (inputFieldId == 'LNaNh7kvh4X' && value != 'true') {
         hiddenFields['wGFmu7DhNGV'] = true;
@@ -144,9 +177,15 @@ class AgywDreamsEnrollmentSkipLogic {
       if (inputFieldId == 'wGFmu7DhNGV' && value != 'true') {
         hiddenFields['G1s75wng5DY'] = true;
       }
-      if (inputFieldId == 'bkpG276xEk9' && value != 'true') {
-        hiddenFields['afatGR9sy5Q'] = true;
-        hiddenFields['yCmbCOTbH3R'] = true;
+      if (inputFieldId == 'bkpG276xEk9') {
+        if(value != 'true') {
+          hiddenFields['afatGR9sy5Q'] = true;
+          hiddenFields['yCmbCOTbH3R'] = true;
+          assignInputFieldValue(context, 'iY67qYnywgS', '');
+        } else {
+          assignInputFieldValue(context, 'iY67qYnywgS', 'true');
+        }
+        
       }
       if (inputFieldId == 'fEHah8SvP35' && value != 'true') {
         hiddenFields['uSxDP43mFEG'] = true;
@@ -339,9 +378,28 @@ class AgywDreamsEnrollmentSkipLogic {
       if(inputFieldId == 'HyT7FrFWRyH' && value != 'Other'){
         hiddenFields['pq5LEMAI1EX'] = true;
       }
-
-
-
+      if(inputFieldId == 'Dclkscej6HW') {
+        if(value == 'true') {
+          assignInputFieldValue(context, 'yc3BlUIEup3', 'true');
+        } else {
+          assignInputFieldValue(context, 'yc3BlUIEup3', '');
+        }
+      }
+      if(inputFieldId == 'fVJfCtBVjan') {
+        if(value == 'true') {
+          assignInputFieldValue(context, 'yc3BlUIEup3', 'true');
+        } else {
+          assignInputFieldValue(context, 'yc3BlUIEup3', 'false');
+        }
+      }
+      if(inputFieldId == 'NhBs8uAiRPt') {
+        if(value == 'true') {
+          assignInputFieldValue(context, 'p33MrrhsQRz', 'true');
+        } else {
+          assignInputFieldValue(context, 'p33MrrhsQRz', '');
+        }
+      }
+      
     }
     for (String sectionId in hiddenSections.keys) {
       List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections
