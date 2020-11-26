@@ -939,6 +939,7 @@ class DreamsServicePrepIntakeInfo {
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
                 name: 'Facility Name',
+                isReadOnly: true,
                 valueType: 'ORGANISATION_UNIT'),
             InputField(
                 id: 'uHrSSJghmTS',
