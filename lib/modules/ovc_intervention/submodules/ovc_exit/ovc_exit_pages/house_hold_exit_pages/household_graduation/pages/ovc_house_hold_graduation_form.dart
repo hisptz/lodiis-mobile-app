@@ -33,7 +33,7 @@ class OvcHouseHoldGraduationForm extends StatefulWidget {
 
 class _OvcHouseHoldGraduationFormState
     extends State<OvcHouseHoldGraduationForm> {
-  final String label = 'Household Case Plan Graaduation Rediness';
+  final String label = 'Household Case Plan Graduation Readiness';
   List<FormSection> formSections;
   bool isFormReady = false;
   bool isSaving = false;

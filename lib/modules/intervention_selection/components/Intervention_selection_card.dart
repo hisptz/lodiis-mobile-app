@@ -68,7 +68,7 @@ class InterventionSelectionCard extends StatelessWidget {
                             RichText(
                               text: TextSpan(
                                   text: interventionProgram.id == 'ovc'
-                                      ? '# of HouseHolds: '
+                                      ? '# of Households: '
                                       : interventionProgram.id == 'dreams'
                                           ? '# of AGYWs: '
                                           : '# of Beneficiaries: ',

@@ -17,7 +17,7 @@ class CareGiverAgeConfirmation extends StatelessWidget {
             child: Container(
               padding: EdgeInsets.only(top: 15.0),
               child: Text(
-                'You Cannot enroll child helded HouseHold',
+                'You cannot enroll child headed Household',
                 style: TextStyle().copyWith(
                     color: Color(0XFF1A3518),
                     fontSize: 13.0,
