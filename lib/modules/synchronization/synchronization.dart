@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
+import 'package:kb_mobile_app/app_state/ogac_intervention_list_state/ogac_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/synchronization_state/synchronization_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
@@ -45,6 +46,8 @@ class _SynchronizationState extends State<Synchronization> {
         .refreshOvcList();
     Provider.of<DreamsInterventionListState>(context, listen: false)
         .refreshDreamsList();
+    Provider.of<OgacInterventionListState>(context, listen: false)
+        .refreshOgacList();
   }
 
   @override
