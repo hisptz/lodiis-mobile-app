@@ -30,7 +30,7 @@ class AgywDreamsSrhForm extends StatefulWidget {
 }
 
 class _AgywDreamsSrhFormState extends State<AgywDreamsSrhForm> {
-  final String label = 'SRH Service Form';
+  final String label = 'SRH Client Intake Form';
   List<FormSection> formSections;
   bool isFormReady = false;
   bool isSaving = false;

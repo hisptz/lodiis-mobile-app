@@ -68,8 +68,8 @@ class DreamsSrhClientIntake {
             options: [
               InputFieldOption(code: 'Primary', name: 'Primary'),
               InputFieldOption(
-                  code: 'Secondary/High level', name: 'Secondary/High level'),
-              InputFieldOption(code: 'College', name: 'College')
+                  code: 'High school', name: 'High school'),
+              InputFieldOption(code: 'Tertiary', name: 'Tertiary')
             ]),
         InputField(
             id: 'ukzLG0l63tw',
@@ -281,6 +281,11 @@ class DreamsSrhClientIntake {
                 valueType: 'TEXT',
                 inputColor: Color(0xFF258DCC),
                 labelColor: Color(0xFF737373)),
+          ]),
+      FormSection(
+          name: 'CURRENT CONTRACEPTIVE METHOD PROVIDED',
+          color: Color(0xFF737373),
+          inputFields: [
             InputField(
                 id: 'qhPJ02QhfaZ',
                 name: 'Amount of Emergency Contraceptive pill dispensed',
