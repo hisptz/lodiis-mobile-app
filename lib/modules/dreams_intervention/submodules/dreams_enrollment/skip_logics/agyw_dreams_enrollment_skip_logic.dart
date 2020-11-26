@@ -81,7 +81,7 @@ class AgywDreamsEnrollmentSkipLogic {
           // hiddenFields['FuYyLjYxxkg'] = true;
         }
         if (age < 20) {
-          hiddenFields['EQHcFozjbP0'] = true;
+          // hiddenFields['EQHcFozjbP0'] = true;
           // hiddenFields['NhBs8uAiRPt'] = true;
         }
         if (age >= 9 && age <= 24) {
