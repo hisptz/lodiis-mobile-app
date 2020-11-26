@@ -52,8 +52,6 @@ class _DateInputFieldContainerState extends State<DateInputFieldContainer> {
         widget.inputField.minAgeInYear != null ? minAgeInYear : -limit);
     DateTime firstDate = getDateFromGivenYear(
         widget.inputField.maxAgeInYear != null ? maxAgeInYear : limit);
-
-    print('$firstDate to $lastDate');
     DateTime currentDate = DateTime.now();
     int numberOfYearBetweenCurrentAndMaxDate = currentDate.year - lastDate.year;
     _date = _date ??
