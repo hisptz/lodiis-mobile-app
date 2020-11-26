@@ -30,7 +30,7 @@ class OvcHouseHoldReferralView extends StatefulWidget {
 }
 
 class _OvcHouseHoldReferralViewState extends State<OvcHouseHoldReferralView> {
-  final String label = 'View House Hold Referral';
+  final String label = 'View Household Referral';
 
   @override
   Widget build(BuildContext context) {

@@ -43,7 +43,7 @@ class CareGiverAgeConfirmation extends StatelessWidget {
               Container(
                 child: FlatButton(
                   onPressed: () => Navigator.pop(context, true),
-                  child: Text('GoBack',
+                  child: Text('Go Back',
                       style: TextStyle().copyWith(
                           color: Color(0xFF4B9F46),
                           fontSize: 14.0,

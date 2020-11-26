@@ -18,7 +18,7 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_e
 import 'package:provider/provider.dart';
 
 class OvcHouseHoldGraduation extends StatelessWidget {
-  final String label = 'House Hold Case Plan Graduation Rediness';
+  final String label = 'Household Case Plan Graduation Rediness';
   final List<String> programStageIds = [
     OvcHouseHoldGraduationConstant.programStage
   ];

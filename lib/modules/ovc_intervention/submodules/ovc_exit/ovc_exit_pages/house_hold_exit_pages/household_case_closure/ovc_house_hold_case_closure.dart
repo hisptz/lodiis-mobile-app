@@ -27,7 +27,7 @@ class OvcHouseHoldCaseClosure extends StatefulWidget {
 }
 
 class _OvcHouseHoldCaseClosureState extends State<OvcHouseHoldCaseClosure> {
-  final String label = 'House Hold Case Closure Form';
+  final String label = 'Household Case Closure Form';
 
   final List<String> programStageIds = [
     OvcHouseHoldCaseClosureConstant.programStage
