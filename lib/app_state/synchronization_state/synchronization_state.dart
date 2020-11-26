@@ -47,7 +47,6 @@ class SynchronizationState with ChangeNotifier {
 
   List<Events> get eventFromServer => _eventFromServer ?? [];
 
-
   int get conflictCount => _conflictLCount ?? 0;
 
   List<TrackeEntityInstance> get trackedEntityInstanceFromServer =>
@@ -157,14 +156,18 @@ class SynchronizationState with ChangeNotifier {
   Future saveTrackedEntityStateToOffline() async {
     addDataDownloadProcess('Saving Profiles');
     for (var instance in servertrackedEntityInstance) {
-      await _synchronizationService
-          .saveEnrollmentToOffline(instance['enrollments']);
-      await _synchronizationService.saveRelationshipsToOffline(instance['relationships']);
-      await _synchronizationService.saveTrackeEntityInstanceToOffline(
-          TrackeEntityInstance().fromJson(instance));
+      try {
+        await _synchronizationService
+            .saveEnrollmentToOffline(instance['enrollments']);
+        await _synchronizationService
+            .saveRelationshipsToOffline(instance['relationships']);
+        await _synchronizationService.saveTrackeEntityInstanceToOffline(
+            TrackeEntityInstance().fromJson(instance));
+      } catch (e) {
+        print(e.toString());
+      }
     }
   }
-
 
   Future analysisOfDownloadedData() async {
     addDataDownloadProcess("Start analyse service data ");
