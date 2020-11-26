@@ -187,7 +187,7 @@ class _DreamAgywReferralPageState extends State<DreamAgywReferralPage> {
                                               ),
                                       ),
                                       OvcEnrollmentFormSaveButton(
-                                          label: 'ADD REFFERAL',
+                                          label: 'ADD REFERRAL',
                                           labelColor: Colors.white,
                                           buttonColor: Color(0xFF1F8ECE),
                                           fontSize: 15.0,
