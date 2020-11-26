@@ -74,7 +74,7 @@ class AgywEnrollmentFormSection {
               id: 'uSxDP43mFEG',
               name: 'Which community council and district?',
               valueType: 'ORGANISATION_UNIT',
-              allowedSelectedLevels: [4],
+              allowedSelectedLevels: [3],
               inputColor: Color(0xFF258DCC),
               labelColor: Color(0xFF737373)),
           InputField(
