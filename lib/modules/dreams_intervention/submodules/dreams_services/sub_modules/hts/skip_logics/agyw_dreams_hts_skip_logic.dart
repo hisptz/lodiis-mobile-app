@@ -23,8 +23,7 @@ class AgywDreamsHTCSkipLogic {
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
 
-      if ((inputFieldId == 'p2r7Gf6Yqye' && value != 'Other') ) {
-       
+      if ((inputFieldId == 'p2r7Gf6Yqye' && value != 'Other')) {
         hiddenFields['RXHjnbJAMkz'] = true;
       }
       if (inputFieldId == 'EHhaJRS2gqc' && value != 'Other') {
@@ -33,6 +32,20 @@ class AgywDreamsHTCSkipLogic {
 
       if (inputFieldId == 'C2k7GxU3P5C' && value != 'true') {
         hiddenFields['aYeHcF3793X'] = true;
+      }
+      if (inputFieldId == 'UlombfpCloG' && value != 'Couple') {
+        hiddenFields['hWdE0MXmeuP'] = true;
+      }
+      if (inputFieldId == 'GSLu0wyCCsP' && value != 'Other') {
+        hiddenFields['aoWp3tKXOqa'] = true;
+      }
+      if ('${dataObject['gCvMVscBNfk']}' != 'null' &&
+          '${dataObject['x7Jzm67o0Ng']}' != 'null') {
+        dataObject['gCvMVscBNfk_bmi'] = calculateBMI(
+            '${dataObject['gCvMVscBNfk']}', '${dataObject['x7Jzm67o0Ng']}');
+      }
+      if(inputFieldId == 'mhZeM9CuGQn' && value != 'null'){
+          dataObject['uRsImCXXDXe'] = value;
       }
     }
     for (String sectionId in hiddenSections.keys) {
@@ -72,5 +85,14 @@ class AgywDreamsHTCSkipLogic {
   ) {
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState(inputFieldId, value);
+  }
+
+  static String calculateBMI(weight, height) {
+    double bmi;
+    try {
+      bmi =
+          double.parse(weight) / (double.parse(height) * double.parse(height));
+    } catch (e) {}
+    return bmi != null ? bmi.toStringAsPrecision(3) : '';
   }
 }
