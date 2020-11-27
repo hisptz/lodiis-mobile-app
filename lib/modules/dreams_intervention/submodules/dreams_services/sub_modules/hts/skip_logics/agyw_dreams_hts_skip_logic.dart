@@ -44,7 +44,6 @@ class AgywDreamsHTCSkipLogic {
         dataObject['gCvMVscBNfk_bmi'] = calculateBMI(
             '${dataObject['gCvMVscBNfk']}', '${dataObject['x7Jzm67o0Ng']}');
       }
-
       if(inputFieldId == 'mhZeM9CuGQn' && value != 'null'){
           dataObject['uRsImCXXDXe'] = value;
       }
