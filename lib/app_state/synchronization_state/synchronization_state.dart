@@ -5,7 +5,6 @@ import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/models/events.dart';
-import 'package:kb_mobile_app/models/tei_relationship.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
 
 class SynchronizationState with ChangeNotifier {
@@ -47,7 +46,6 @@ class SynchronizationState with ChangeNotifier {
   List<String> get dataDownloadProcesses => _dataDownloadProcess ?? [];
 
   List<Events> get eventFromServer => _eventFromServer ?? [];
-
 
   int get conflictCount => _conflictLCount ?? 0;
 
@@ -158,14 +156,18 @@ class SynchronizationState with ChangeNotifier {
   Future saveTrackedEntityStateToOffline() async {
     addDataDownloadProcess('Saving Profiles');
     for (var instance in servertrackedEntityInstance) {
-      await _synchronizationService
-          .saveEnrollmentToOffline(instance['enrollments']);
-      await _synchronizationService.saveRelationshipsToOffline(instance['relationships']);
-      await _synchronizationService.saveTrackeEntityInstanceToOffline(
-          TrackeEntityInstance().fromJson(instance));
+      try {
+        await _synchronizationService
+            .saveEnrollmentToOffline(instance['enrollments']);
+        await _synchronizationService
+            .saveRelationshipsToOffline(instance['relationships']);
+        await _synchronizationService.saveTrackeEntityInstanceToOffline(
+            TrackeEntityInstance().fromJson(instance));
+      } catch (e) {
+        print(e.toString());
+      }
     }
   }
-
 
   Future analysisOfDownloadedData() async {
     addDataDownloadProcess("Start analyse service data ");

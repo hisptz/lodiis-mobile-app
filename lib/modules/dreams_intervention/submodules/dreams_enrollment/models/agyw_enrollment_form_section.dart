@@ -74,7 +74,7 @@ class AgywEnrollmentFormSection {
               id: 'uSxDP43mFEG',
               name: 'Which community council and district?',
               valueType: 'ORGANISATION_UNIT',
-              allowedSelectedLevels: [4],
+              allowedSelectedLevels: [3],
               inputColor: Color(0xFF258DCC),
               labelColor: Color(0xFF737373)),
           InputField(
@@ -97,7 +97,7 @@ class AgywEnrollmentFormSection {
               valueType: 'LONG_TEXT',
               inputColor: Color(0xFF258DCC),
               labelColor: Color(0xFF737373)),
-         ],
+        ],
       ),
       FormSection(
         name: 'Enrolled Profile Information',
@@ -113,8 +113,12 @@ class AgywEnrollmentFormSection {
             options: [
               InputFieldOption(code: 'Male', name: 'Male'),
               InputFieldOption(code: 'Female', name: 'Female'),
-              InputFieldOption(code: 'Transgender (male to female)', name: 'Transgender (male to female)'),
-              InputFieldOption(code: 'Transgender (female to male)', name: 'Transgender (female to male)'),
+              InputFieldOption(
+                  code: 'Transgender (male to female)',
+                  name: 'Transgender (male to female)'),
+              InputFieldOption(
+                  code: 'Transgender (female to male)',
+                  name: 'Transgender (female to male)'),
             ],
           ),
           InputField(
@@ -1016,15 +1020,15 @@ class AgywEnrollmentFormSection {
               valueType: 'CHECK_BOX',
               inputColor: Color(0xFF258DCC),
               labelColor: Color(0xFF737373),
-            options: [
-              InputFieldOption(code: 'NjAdtVA5MCl', name: 'Pills'),
-              InputFieldOption(code: 'qdK24nEkW3f', name: 'Injections'),
-              InputFieldOption(code: 'kRBlMI2RlqO', name: 'Implants'),
-              InputFieldOption(code: 'sKIywDycbit', name: 'IUCD (Coil)'),
-              InputFieldOption(code: 'vsfOugPeOqm', name: 'Condoms'),
-              InputFieldOption(code: 'yButAy4UMTY', name: 'Permanent (Tubal Ligation)'),
-            ]
-          ),
+              options: [
+                InputFieldOption(code: 'NjAdtVA5MCl', name: 'Pills'),
+                InputFieldOption(code: 'qdK24nEkW3f', name: 'Injections'),
+                InputFieldOption(code: 'kRBlMI2RlqO', name: 'Implants'),
+                InputFieldOption(code: 'sKIywDycbit', name: 'IUCD (Coil)'),
+                InputFieldOption(code: 'vsfOugPeOqm', name: 'Condoms'),
+                InputFieldOption(
+                    code: 'yButAy4UMTY', name: 'Permanent (Tubal Ligation)'),
+              ]),
           InputField(
               id: 'EuH6l8V4sXm',
               name: 'Other family planning methods currently using',
