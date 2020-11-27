@@ -33,7 +33,7 @@ class OvcEnrollmentChildEditViewForm extends StatefulWidget {
 class _OvcEnrollmentChildEditViewFormState
     extends State<OvcEnrollmentChildEditViewForm> {
   List<FormSection> formSections;
-  final String label = 'Child enrolment form';
+  final String label = 'Child vulnerability form';
 
   bool isSaving = false;
   bool isFormReady = false;
