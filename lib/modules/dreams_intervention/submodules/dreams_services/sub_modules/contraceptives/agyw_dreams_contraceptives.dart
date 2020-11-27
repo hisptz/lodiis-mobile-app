@@ -23,7 +23,8 @@ class AgywDreamContraceptives extends StatefulWidget {
   AgywDreamContraceptives({Key key}) : super(key: key);
 
   @override
-  _AgywDreamContraceptivesState createState() => _AgywDreamContraceptivesState();
+  _AgywDreamContraceptivesState createState() =>
+      _AgywDreamContraceptivesState();
 }
 
 class _AgywDreamContraceptivesState extends State<AgywDreamContraceptives> {
@@ -60,20 +61,26 @@ class _AgywDreamContraceptivesState extends State<AgywDreamContraceptives> {
     updateFormState(context, true, null);
     Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
         .setCurrentAgywDream(agywDream);
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => AgywDreamsContraceptivesForm()));
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => AgywDreamsContraceptivesForm()));
   }
 
   void onViewPrep(BuildContext context, Events eventdata) {
     updateFormState(context, false, eventdata);
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => AgywDreamsContraceptivesForm()));
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => AgywDreamsContraceptivesForm()));
   }
 
   void onEditPrep(BuildContext context, Events eventdata) {
     updateFormState(context, true, eventdata);
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => AgywDreamsContraceptivesForm()));
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => AgywDreamsContraceptivesForm()));
   }
 
   @override
@@ -159,7 +166,7 @@ class _AgywDreamContraceptivesState extends State<AgywDreamContraceptives> {
                                               ),
                                       ),
                                       OvcEnrollmentFormSaveButton(
-                                          label: 'ADD NEW VISIT',
+                                          label: 'ADD VISIT',
                                           labelColor: Colors.white,
                                           buttonColor: Color(0xFF1F8ECE),
                                           fontSize: 15.0,

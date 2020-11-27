@@ -31,7 +31,7 @@ class AgywDreamsLBSEForm extends StatefulWidget {
 }
 
 class _AgywDreamsLBSEFormState extends State<AgywDreamsLBSEForm> {
-  final String label = 'LBSE  form';
+  final String label = 'LBSE form';
   List<FormSection> formSections;
   bool isFormReady = false;
   bool isSaving = false;

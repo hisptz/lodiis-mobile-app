@@ -22,7 +22,8 @@ class AgywDreamSteppingStones extends StatefulWidget {
   AgywDreamSteppingStones({Key key}) : super(key: key);
 
   @override
-  _AgywDreamSteppingStonesState createState() => _AgywDreamSteppingStonesState();
+  _AgywDreamSteppingStonesState createState() =>
+      _AgywDreamSteppingStonesState();
 }
 
 class _AgywDreamSteppingStonesState extends State<AgywDreamSteppingStones> {
@@ -141,7 +142,8 @@ class _AgywDreamSteppingStonesState extends State<AgywDreamSteppingStones> {
                                                         bottom: 15.0,
                                                       ),
                                                       child: PrepVisitListCard(
-                                                        visitName: "Stepping Stones",
+                                                        visitName:
+                                                            "Stepping Stones",
                                                         onEditPrep: () =>
                                                             onEditPrep(context,
                                                                 eventData),
@@ -158,7 +160,7 @@ class _AgywDreamSteppingStonesState extends State<AgywDreamSteppingStones> {
                                               ),
                                       ),
                                       OvcEnrollmentFormSaveButton(
-                                          label: 'ADD A VISIT',
+                                          label: 'ADD VISIT',
                                           labelColor: Colors.white,
                                           buttonColor: Color(0xFF1F8ECE),
                                           fontSize: 15.0,
