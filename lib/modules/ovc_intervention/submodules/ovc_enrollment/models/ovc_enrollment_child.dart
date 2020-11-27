@@ -19,6 +19,8 @@ class OvcEnrollmentChild {
     return [
       FormSection(
           name: 'Child Information',
+          description:
+              'This tool should be applied to all children aged 0-17 years and 11 months old.',
           color: Color(0xFF1A3518),
           inputFields: [
             InputField(

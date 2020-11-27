@@ -29,7 +29,7 @@ class _NoneAgywEnrollmentViewFormState
   List<FormSection> formSections;
   List<FormSection> enrollmentClientIntakeFormSections;
   List<FormSection> prepScreeningFormSections;
-  final String label = 'Non Agyw Enrolment Form';
+  final String label = 'None Agyw Enrolment Form';
   bool isFormReady = false;
 
   @override
