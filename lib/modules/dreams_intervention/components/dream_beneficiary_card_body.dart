@@ -122,21 +122,26 @@ class HorizontalRowCardData extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: RichText(
-        text: TextSpan(
-            text: '$label   ',
-            style: TextStyle().copyWith(
-                color: labelColor, fontSize: 14.0, fontWeight: FontWeight.w500),
-            children: [
-              TextSpan(
-                text: value,
-                style: TextStyle().copyWith(
-                    color: valueColor,
-                    fontSize: 14.0,
-                    fontWeight: FontWeight.w500),
-              )
-            ]),
+    return Expanded(
+      flex: 3,
+      child: Container(
+        child: RichText(
+          text: TextSpan(
+              text: '$label   ',
+              style: TextStyle().copyWith(
+                  color: labelColor,
+                  fontSize: 14.0,
+                  fontWeight: FontWeight.w500),
+              children: [
+                TextSpan(
+                  text: value,
+                  style: TextStyle().copyWith(
+                      color: valueColor,
+                      fontSize: 14.0,
+                      fontWeight: FontWeight.w500),
+                )
+              ]),
+        ),
       ),
     );
   }
