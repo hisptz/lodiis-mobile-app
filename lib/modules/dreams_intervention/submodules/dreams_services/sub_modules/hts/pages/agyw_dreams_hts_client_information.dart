@@ -119,6 +119,8 @@ class _AgywDreamsHTSClientInformationState
                                     ),
                                     child: EntryFormContainer(
                                       formSections: formSections,
+                                      hiddenFields: serviceFormState.hiddenFields,
+                                      hiddenSections:  serviceFormState.hiddenSections,
                                       mandatoryFieldObject: Map(),
                                       isEditableMode:
                                           serviceFormState.isEditableMode,
