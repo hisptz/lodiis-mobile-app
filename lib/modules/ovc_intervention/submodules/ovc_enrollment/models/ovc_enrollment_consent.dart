@@ -30,7 +30,7 @@ class OvcEnrollmentConsent {
         InputField(
             id: 'OVaqHW5kimy',
             name:
-                'Do you understand the goal of the 4 Children OVC program and its potential benefits to my household',
+                'Do you understand the goal of the KB OVC Program and its potential benefits to my household',
             valueType: 'BOOLEAN',
             labelColor: Color(0xFF1A3518),
             inputColor: Color(0xFF4B9F46)),
