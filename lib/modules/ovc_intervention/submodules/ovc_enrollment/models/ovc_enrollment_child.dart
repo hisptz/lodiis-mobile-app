@@ -97,6 +97,11 @@ class OvcEnrollmentChild {
                   InputFieldOption(code: 'Sibling', name: 'Sibling'),
                   InputFieldOption(code: 'Grandparent', name: 'Grandparent'),
                 ]),
+          ]),
+      FormSection(
+          name: 'Child Vulnerability',
+          color: Color(0xFF1A3518),
+          inputFields: [
             InputField(
                 id: 'UeF4OvjIIEK',
                 name: 'Is the child an orphan?',
@@ -112,18 +117,14 @@ class OvcEnrollmentChild {
                 options: [
                   InputFieldOption(
                       code: 'Single Orphan(Mother)',
-                      name: 'Single Orphan(Mother)'),
+                      name: 'Single Orphan(Mother Died)'),
                   InputFieldOption(
                       code: 'Single Orphan(Father)',
-                      name: 'Single Orphan(Father)'),
+                      name: 'Single Orphan(Father Died)'),
                   InputFieldOption(
-                      code: 'Double Orphan', name: 'Double Orphan'),
-                ])
-          ]),
-      FormSection(
-          name: 'Child Vulnerability',
-          color: Color(0xFF1A3518),
-          inputFields: [
+                      code: 'Double Orphan',
+                      name: 'Double Orphan (Father & Mother Died)'),
+                ]),
             InputField(
                 id: 'wmKqYZML8GA',
                 name: 'Child living with HIV ?',
