@@ -34,7 +34,7 @@ class _OvcEnrollmentHouseHoldEditFormState
     extends State<OvcEnrollmentHouseHoldEditForm> {
   List<FormSection> formSections;
   List<FormSection> enrollmentFormSections;
-  final String label = 'Household Enrolment Form';
+  final String label = 'Household vulnerability and prioritization form';
   final Map mandatoryFieldObject = Map();
   final List<String> mandatoryFields =
       OvcEnrollmentBasicInfo.getMandatoryField();
