@@ -39,6 +39,11 @@ class AgywDreamsHTCSkipLogic {
       if (inputFieldId == 'GSLu0wyCCsP' && value != 'Other') {
         hiddenFields['aoWp3tKXOqa'] = true;
       }
+      if ('${dataObject['gCvMVscBNfk']}' != 'null' &&
+          '${dataObject['x7Jzm67o0Ng']}' != 'null') {
+        dataObject['gCvMVscBNfk_bmi'] = calculateBMI(
+            '${dataObject['gCvMVscBNfk']}', '${dataObject['x7Jzm67o0Ng']}');
+      }
     }
     for (String sectionId in hiddenSections.keys) {
       List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections
@@ -77,5 +82,14 @@ class AgywDreamsHTCSkipLogic {
   ) {
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState(inputFieldId, value);
+  }
+
+  static String calculateBMI(weight, height) {
+    double bmi;
+    try {
+      bmi =
+          double.parse(weight) / (double.parse(height) * double.parse(height));
+    } catch (e) {}
+    return bmi != null ? bmi.toStringAsPrecision(3) : '';
   }
 }

@@ -262,6 +262,13 @@ class ClientInformation {
                 inputColor: Color(0xFF258DCC),
                 labelColor: Color(0xFF737373)),
             InputField(
+                id: 'gCvMVscBNfk_bmi',
+                name: 'BMI',
+                isReadOnly: true,
+                valueType: 'NUMBER',
+                inputColor: Color(0xFF258DCC),
+                labelColor: Color(0xFF737373)),
+            InputField(
                 id: 'WeaVsrFcWne',
                 name: 'Blood Pressure Systolic (mmHg)',
                 valueType: 'NUMBER',
