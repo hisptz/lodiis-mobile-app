@@ -22,7 +22,7 @@ class OvcExitPage extends StatefulWidget {
 }
 
 class _OvcExitPageState extends State<OvcExitPage> {
-  final String title = 'HOUSE HOLD LIST';
+  final String title = 'HOUSEHOLD LIST';
   final bool canEdit = false;
   final bool canView = false;
   final bool canExpand = true;

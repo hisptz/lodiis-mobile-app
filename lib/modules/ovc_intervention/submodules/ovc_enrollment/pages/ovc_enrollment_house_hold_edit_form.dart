@@ -187,8 +187,8 @@ class _OvcEnrollmentHouseHoldEditFormState
                                 ),
                                 OvcEnrollmentFormSaveButton(
                                   label: isSaving
-                                      ? 'Saving House Hold ...'
-                                      : 'Save House Hold',
+                                      ? 'Saving Household ...'
+                                      : 'Save Household',
                                   labelColor: Colors.white,
                                   buttonColor: Color(0xFF4B9F46),
                                   fontSize: 15.0,

@@ -18,7 +18,7 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/o
 import 'package:provider/provider.dart';
 
 class OvcHouseHoldAssessment extends StatelessWidget {
-  final String label = 'House Hold Assessment';
+  final String label = 'Household Assessment';
   final List<String> programStageIds = [
     OvcHouseHoldAssessmentConstant.programStage
   ];

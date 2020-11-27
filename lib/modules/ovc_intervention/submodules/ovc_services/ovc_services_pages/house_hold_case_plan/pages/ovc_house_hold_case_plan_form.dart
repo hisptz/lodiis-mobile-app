@@ -41,7 +41,7 @@ class OvcHouseHoldCasePlanForm extends StatefulWidget {
 }
 
 class _OvcHouseHoldCasePlanFormState extends State<OvcHouseHoldCasePlanForm> {
-  final String label = 'House Hold Case Plan Form';
+  final String label = 'Household Case Plan Form';
   List<FormSection> formSections;
   Map borderColors = Map();
 

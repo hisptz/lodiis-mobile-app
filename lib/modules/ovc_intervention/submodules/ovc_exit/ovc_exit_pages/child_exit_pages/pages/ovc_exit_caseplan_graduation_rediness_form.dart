@@ -30,7 +30,7 @@ class OvcExitCasePlanGraduationRedinessForm extends StatefulWidget {
 
 class _OvcExitCasePlanGraduationRedinessFormState
     extends State<OvcExitCasePlanGraduationRedinessForm> {
-  final String label = 'Case plan Graduation Rediness';
+  final String label = 'Case plan Graduation Readiness';
   List<FormSection> formSections;
   bool isFormReady = false;
   bool isSaving = false;

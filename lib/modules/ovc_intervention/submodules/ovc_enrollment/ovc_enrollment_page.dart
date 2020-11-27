@@ -19,7 +19,7 @@ class OvcEnrollmentPage extends StatefulWidget {
 }
 
 class _OvcEnrollmentPageState extends State<OvcEnrollmentPage> {
-  final String title = 'HOUSE HOLD LIST';
+  final String title = 'HOUSEHOLD LIST';
 
   final bool canEdit = true;
   final bool canView = true;
