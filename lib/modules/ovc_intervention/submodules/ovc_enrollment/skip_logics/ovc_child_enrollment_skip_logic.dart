@@ -26,7 +26,7 @@ class OvcChildEnrollmentSkipLogic {
       if (inputFieldId == 'qZP982qpSPS') {
         int age = AppUtil.getAgeInYear(value);
         assignInputFieldValue(context, 'ls9hlz2tyol', age.toString());
-        if(age > 2){
+        if (age > 2) {
           hiddenFields['GMcljM7jbNG'] = true;
         }
       }
@@ -38,7 +38,6 @@ class OvcChildEnrollmentSkipLogic {
       if (inputFieldId == 'Gkjp5XZD70V' &&
           (value.isEmpty || '$value'.trim() != 'true')) {
         hiddenFields['Sa0KVprHUr7'] = true;
-        hiddenFields['XZh0Uew9Xk0'] = true;
         hiddenFields['wtrZQadTkOL'] = true;
         hiddenFields['Mc3k3bSwXNe'] = true;
         hiddenFields['CePNVGSnj00'] = true;
@@ -52,9 +51,6 @@ class OvcChildEnrollmentSkipLogic {
       if (inputFieldId == 'CePNVGSnj00' &&
           (value.isEmpty || '$value'.trim() != 'Other')) {
         hiddenFields['GM2mJDlGZin'] = true;
-      }
-      if (inputFieldId == 'Sa0KVprHUr7' && value != 'Date') {
-        hiddenFields['XZh0Uew9Xk0'] = true;
       }
     }
     for (String sectionId in hiddenSections.keys) {
