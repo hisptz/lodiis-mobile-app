@@ -4,24 +4,21 @@ import 'package:kb_mobile_app/core/components/line_seperator.dart';
 import 'package:provider/provider.dart';
 
 class ServiceCardBottonAction extends StatelessWidget {
-  const ServiceCardBottonAction(
-      {Key key,
-      this.onOpenPrepForm,
-      this.onOpenHTSForm,
-      this.onOpenSRHForm,
-      this.onOpenHIVPrepForm,
-      this.onOpenCondomForm,
-      this.onOpenContraceptivesForm,
-      this.onOpenMSGHIVForm,
-      this.onOpenANCForm,
-      this.onOpenArtRefillForm,
-      this.onOpenGoGirlsForm,
-      this.onOpenIPCForm,
-      this.onOpenLBSEForm,
-      this.onOpenPEPForm,
-      this.onOpenPostGBVForm,
-      this.onOpenSteppingStonesForm})
-      : super(key: key);
+  const ServiceCardBottonAction({
+    Key key,
+    this.onOpenPrepForm,
+    this.onOpenHTSForm,
+    this.onOpenSRHForm,
+    this.onOpenHIVPrepForm,
+    this.onOpenCondomForm,
+    this.onOpenContraceptivesForm,
+    this.onOpenMSGHIVForm,
+    this.onOpenANCForm,
+    this.onOpenArtRefillForm,
+    this.onOpenPEPForm,
+    this.onOpenPostGBVForm,
+    this.onOpenServiceForm,
+  }) : super(key: key);
 
   final VoidCallback onOpenPrepForm;
   final VoidCallback onOpenHTSForm;
@@ -31,13 +28,10 @@ class ServiceCardBottonAction extends StatelessWidget {
   final VoidCallback onOpenCondomForm;
   final VoidCallback onOpenContraceptivesForm;
   final VoidCallback onOpenPostGBVForm;
-  final VoidCallback onOpenGoGirlsForm;
-  final VoidCallback onOpenSteppingStonesForm;
-  final VoidCallback onOpenIPCForm;
-  final VoidCallback onOpenLBSEForm;
   final VoidCallback onOpenPEPForm;
   final VoidCallback onOpenANCForm;
   final VoidCallback onOpenArtRefillForm;
+  final VoidCallback onOpenServiceForm;
 
   @override
   Widget build(BuildContext context) {
@@ -141,31 +135,6 @@ class ServiceCardBottonAction extends StatelessWidget {
                             ))),
                             child: Center(
                                 child: Text('HIV PREV',
-                                    style: TextStyle().copyWith(
-                                      fontSize: 12.0,
-                                      fontWeight: FontWeight.normal,
-                                      color: Color(0xFF1F8ECE),
-                                    ))),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Visibility(
-                      visible: currentUserState.canManageHivReg,
-                      child: Expanded(
-                        child: InkWell(
-                          onTap: onOpenIPCForm,
-                          child: Container(
-                            padding: EdgeInsets.symmetric(vertical: 5),
-                            margin: EdgeInsets.symmetric(vertical: 5),
-                            decoration: BoxDecoration(
-                                border: Border(
-                                    left: BorderSide(
-                              width: 1,
-                              color: Color(0xFF8EBAD3),
-                            ))),
-                            child: Center(
-                                child: Text('IPC',
                                     style: TextStyle().copyWith(
                                       fontSize: 12.0,
                                       fontWeight: FontWeight.normal,
@@ -351,10 +320,10 @@ class ServiceCardBottonAction extends StatelessWidget {
                       ),
                     ),
                     Visibility(
-                      visible: currentUserState.canManageLBSE,
+                      visible: true,
                       child: Expanded(
                         child: InkWell(
-                          onTap: onOpenLBSEForm,
+                          onTap: onOpenServiceForm,
                           child: Container(
                             padding: EdgeInsets.symmetric(vertical: 5),
                             margin: EdgeInsets.symmetric(vertical: 5),
@@ -365,57 +334,7 @@ class ServiceCardBottonAction extends StatelessWidget {
                               color: Color(0xFF8EBAD3),
                             ))),
                             child: Center(
-                                child: Text('LSBE',
-                                    style: TextStyle().copyWith(
-                                      fontSize: 12.0,
-                                      fontWeight: FontWeight.normal,
-                                      color: Color(0xFF1F8ECE),
-                                    ))),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Visibility(
-                      visible: currentUserState.canManageSteppingStones,
-                      child: Expanded(
-                        child: InkWell(
-                          onTap: onOpenSteppingStonesForm,
-                          child: Container(
-                            padding: EdgeInsets.symmetric(vertical: 5),
-                            margin: EdgeInsets.symmetric(vertical: 5),
-                            decoration: BoxDecoration(
-                                border: Border(
-                                    left: BorderSide(
-                              width: 1,
-                              color: Color(0xFF8EBAD3),
-                            ))),
-                            child: Center(
-                                child: Text('STEPPING STONES',
-                                    style: TextStyle().copyWith(
-                                      fontSize: 12.0,
-                                      fontWeight: FontWeight.normal,
-                                      color: Color(0xFF1F8ECE),
-                                    ))),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Visibility(
-                      visible: currentUserState.canManageGoGirls,
-                      child: Expanded(
-                        child: InkWell(
-                          onTap: onOpenGoGirlsForm,
-                          child: Container(
-                            padding: EdgeInsets.symmetric(vertical: 5),
-                            margin: EdgeInsets.symmetric(vertical: 5),
-                            decoration: BoxDecoration(
-                                border: Border(
-                                    left: BorderSide(
-                              width: 1,
-                              color: Color(0xFF8EBAD3),
-                            ))),
-                            child: Center(
-                                child: Text('GO GIRLS',
+                                child: Text('SERVICE FORM',
                                     style: TextStyle().copyWith(
                                       fontSize: 12.0,
                                       fontWeight: FontWeight.normal,
