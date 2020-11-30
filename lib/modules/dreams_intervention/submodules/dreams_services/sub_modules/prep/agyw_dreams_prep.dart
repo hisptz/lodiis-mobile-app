@@ -14,9 +14,13 @@ import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/components/agy_dreams_prep_form_body.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/prep/constants/prep_intake_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/prep/pages/agyw_dreams_prep_form.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/components/prep_visit_card.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/constant/non_agyw_prep_visit_constant.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/sub_pages/none_agyw_prep/none_agyw_prep.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/sub_pages/none_agyw_prep/pages/none_agyw_prep_form.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
 import 'package:provider/provider.dart';
 
@@ -30,6 +34,7 @@ class AgywDreamsPrep extends StatefulWidget {
 class _AgywDreamsPrepState extends State<AgywDreamsPrep> {
   final String label = 'AGYW Prep';
   List<String> programStageids = [PrepIntakeConstant.programStage];
+  List<String> nonAgywprogramStageids = [NonAgywPrepVisitConstant.programStage];
 
   @override
   void initState() {
@@ -67,7 +72,8 @@ class _AgywDreamsPrepState extends State<AgywDreamsPrep> {
           MaterialPageRoute(builder: (context) => AgywDreamsPrepFormPage()));
     } else {
       AppUtil.showToastMessage(
-          message: 'PrEP is restricted to beneficiaries from 15-24 years only', position: ToastGravity.TOP);
+          message: 'PrEP is restricted to beneficiaries from 15-24 years only',
+          position: ToastGravity.TOP);
     }
   }
 
@@ -81,6 +87,32 @@ class _AgywDreamsPrepState extends State<AgywDreamsPrep> {
     updateFormState(context, true, eventdata);
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => AgywDreamsPrepFormPage()));
+  }
+
+  void onAddVisit(BuildContext context, AgywDream agywDream) {
+    updateFormState(context, true, null);
+    Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
+        .setCurrentAgywDream(agywDream);
+    if (int.parse(agywDream.age) >= 15 && int.parse(agywDream.age) <= 24) {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => NoneAgywPrepForm()));
+    } else {
+      AppUtil.showToastMessage(
+          message: 'PrEP is restricted to beneficiaries from 15-24 years only',
+          position: ToastGravity.TOP);
+    }
+  }
+
+  void onViewVisit(BuildContext context, Events eventdata) {
+    updateFormState(context, false, eventdata);
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => NoneAgywPrepForm()));
+  }
+
+  void onEditVisit(BuildContext context, Events eventdata) {
+    updateFormState(context, true, eventdata);
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => NoneAgywPrepForm()));
   }
 
   @override
@@ -100,8 +132,8 @@ class _AgywDreamsPrepState extends State<AgywDreamsPrep> {
           ),
         ),
         body: SubPageBody(
-          body: Container(
-            child: Consumer<DreamBenefeciarySelectionState>(
+          body: Column(children: [
+            Consumer<DreamBenefeciarySelectionState>(
               builder: (context, dreamBenefeciarySelectionState, child) {
                 return Consumer<ServiveEventDataState>(
                   builder: (context, serviceFormState, child) {
@@ -113,13 +145,25 @@ class _AgywDreamsPrepState extends State<AgywDreamsPrep> {
                     List<Events> events = TrackedEntityInstanceUtil
                         .getAllEventListFromServiceDataState(
                             eventListByProgramStage, programStageids);
+
+                    List<Events> visits = TrackedEntityInstanceUtil
+                        .getAllEventListFromServiceDataState(
+                            eventListByProgramStage, nonAgywprogramStageids);
+                    Events lastVisit = visits != null && visits.length > 0
+                        ? visits.last
+                        : null;
                     int referralIndex = events.length + 1;
+                    int visitsReferralIndex = 0;
+                    print({events, visits}.toString());
                     return Container(
                       child: Column(
                         children: [
-                          DreamBenefeciaryTopHeader(
-                            agywDream: agywDream,
-                          ),
+                          Container(
+                              child: events.length > 0
+                                  ? DreamBenefeciaryTopHeader(
+                                      agywDream: agywDream,
+                                    )
+                                  : null),
                           Container(
                             child: isLoading
                                 ? CircularProcessLoader(
@@ -132,8 +176,13 @@ class _AgywDreamsPrepState extends State<AgywDreamsPrep> {
                                           vertical: 10.0,
                                         ),
                                         child: events.length == 0
-                                            ? Text(
-                                                'There is no Prep Visit at a moment')
+                                            ? Container(
+                                                margin: EdgeInsets.symmetric(
+                                                  vertical: 5.0,
+                                                  horizontal: 13.0,
+                                                ),
+                                                child:
+                                                    AgywDreamsPrepFormPageBody())
                                             : Container(
                                                 margin: EdgeInsets.symmetric(
                                                   vertical: 5.0,
@@ -149,7 +198,8 @@ class _AgywDreamsPrepState extends State<AgywDreamsPrep> {
                                                         bottom: 15.0,
                                                       ),
                                                       child: PrepVisitListCard(
-                                                        visitName: "PREP Visit",
+                                                        visitName:
+                                                            "Baseline Information",
                                                         onEditPrep: () =>
                                                             onEditPrep(context,
                                                                 eventData),
@@ -157,21 +207,94 @@ class _AgywDreamsPrepState extends State<AgywDreamsPrep> {
                                                             onViewPrep(context,
                                                                 eventData),
                                                         eventData: eventData,
-                                                        visitCount:
-                                                            referralIndex,
+                                                        editDisabled: visits !=
+                                                                    null &&
+                                                                visits.length >
+                                                                    0
+                                                            ? true
+                                                            : false,
                                                       ),
                                                     );
                                                   }).toList(),
                                                 ),
                                               ),
                                       ),
-                                      OvcEnrollmentFormSaveButton(
-                                          label: 'ADD PREP',
-                                          labelColor: Colors.white,
-                                          buttonColor: Color(0xFF1F8ECE),
-                                          fontSize: 15.0,
-                                          onPressButton: () =>
-                                              onAddPrep(context, agywDream))
+                                      Column(
+                                        children: events.length > 0
+                                            ? [
+                                                Text(
+                                                  "VISITS",
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 18),
+                                                ),
+                                                Container(
+                                                  child: visits.length == 0
+                                                      ? Container(
+                                                          margin: EdgeInsets
+                                                              .symmetric(
+                                                            vertical: 5.0,
+                                                            horizontal: 13.0,
+                                                          ),
+                                                          child: Text(
+                                                              'There is no Prep Visit at a moment'))
+                                                      : Container(
+                                                          margin: EdgeInsets
+                                                              .symmetric(
+                                                            vertical: 1.0,
+                                                            horizontal: 13.0,
+                                                          ),
+                                                          child: Column(
+                                                            children: visits
+                                                                .map((Events
+                                                                    eventData) {
+                                                              visitsReferralIndex++;
+
+                                                              return Container(
+                                                                margin:
+                                                                    EdgeInsets
+                                                                        .only(
+                                                                  bottom: 15.0,
+                                                                ),
+                                                                child:
+                                                                    PrepVisitListCard(
+                                                                  visitName:
+                                                                      "Prep Visit",
+                                                                  onEditPrep: () =>
+                                                                      onEditVisit(
+                                                                          context,
+                                                                          eventData),
+                                                                  onViewPrep: () =>
+                                                                      onViewVisit(
+                                                                          context,
+                                                                          eventData),
+                                                                  eventData:
+                                                                      eventData,
+                                                                  visitCount:
+                                                                      visitsReferralIndex,
+
+                                                                editDisabled: lastVisit == eventData 
+                                                            ? false
+                                                            : true,
+                                                                ),
+                                                              );
+                                                            }).toList(),
+                                                          ),
+                                                        ),
+                                                ),
+                                                OvcEnrollmentFormSaveButton(
+                                                    label: 'ADD VISIT',
+                                                    labelColor: Colors.white,
+                                                    buttonColor:
+                                                        Color(0xFF1F8ECE),
+                                                    fontSize: 15.0,
+                                                    onPressButton: () =>
+                                                        onAddVisit(
+                                                            context, agywDream))
+                                              ]
+                                            : [],
+                                      ),
                                     ],
                                   ),
                           ),
@@ -182,7 +305,7 @@ class _AgywDreamsPrepState extends State<AgywDreamsPrep> {
                 );
               },
             ),
-          ),
+          ]),
         ),
         bottomNavigationBar: InterventionBottomNavigationBarContainer());
   }
