@@ -115,6 +115,38 @@ class _AgywDreamsPrepState extends State<AgywDreamsPrep> {
         context, MaterialPageRoute(builder: (context) => NoneAgywPrepForm()));
   }
 
+  bool isPrepProgramStopped(List<Events> events, List<Events> visits) {
+    List stoppedPrepEvents = getStoppedPrepEvent(events);
+    List stoppedPrepVisits = getStoppedPrepEvent(visits);
+    // print({stoppedPrepEvents, stoppedPrepVisits}.toString());
+    return stoppedPrepEvents.length > 0 || stoppedPrepVisits.length > 0
+        ? true
+        : false;
+  }
+
+  List getStoppedPrepEvent(List<Events> events) {
+    List stoppedEventDates = [];
+    if (events != null && events.length > 0) {
+      for (var event in events) {
+        if (event != null &&
+            event.dataValues != null &&
+            event.dataValues.length > 0) {
+              
+          for (var dataValue in event.dataValues) {
+            
+            if (dataValue['dataElement'] ==
+                        PrepIntakeConstant.prepStoppedDate &&
+                    dataValue['value'].isNotEmpty) {
+             
+              stoppedEventDates.add(dataValue);
+            }
+          }
+        }
+      }
+    }
+    return stoppedEventDates;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -154,7 +186,6 @@ class _AgywDreamsPrepState extends State<AgywDreamsPrep> {
                         : null;
                     int referralIndex = events.length + 1;
                     int visitsReferralIndex = 0;
-                    print({events, visits}.toString());
                     return Container(
                       child: Column(
                         children: [
@@ -273,25 +304,35 @@ class _AgywDreamsPrepState extends State<AgywDreamsPrep> {
                                                                       eventData,
                                                                   visitCount:
                                                                       visitsReferralIndex,
-
-                                                                editDisabled: lastVisit == eventData 
-                                                            ? false
-                                                            : true,
+                                                                  editDisabled:
+                                                                      lastVisit ==
+                                                                              eventData
+                                                                          ? false
+                                                                          : true,
                                                                 ),
                                                               );
                                                             }).toList(),
                                                           ),
                                                         ),
                                                 ),
-                                                OvcEnrollmentFormSaveButton(
-                                                    label: 'ADD VISIT',
-                                                    labelColor: Colors.white,
-                                                    buttonColor:
-                                                        Color(0xFF1F8ECE),
-                                                    fontSize: 15.0,
-                                                    onPressButton: () =>
-                                                        onAddVisit(
-                                                            context, agywDream))
+                                                events != null &&
+                                                        events.length > 0 &&
+                                                        isPrepProgramStopped(
+                                                                events,
+                                                                visits) ==
+                                                            false
+                                                    ? OvcEnrollmentFormSaveButton(
+                                                        label: 'ADD VISIT',
+                                                        labelColor:
+                                                            Colors.white,
+                                                        buttonColor:
+                                                            Color(0xFF1F8ECE),
+                                                        fontSize: 15.0,
+                                                        onPressButton: () =>
+                                                            onAddVisit(context,
+                                                                agywDream))
+                                                    : Text(
+                                                        'Prep program was stopped')
                                               ]
                                             : [],
                                       ),
