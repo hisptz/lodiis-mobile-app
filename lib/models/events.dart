@@ -25,7 +25,7 @@ class Events {
 
   @override
   String toString() {
-    return 'event $event';
+    return 'event <$event>';
   }
 
   Events fromJson(dynamic json) {

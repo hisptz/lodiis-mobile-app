@@ -24,10 +24,6 @@ class CurrentUserState with ChangeNotifier {
   bool _canManageCondom;
   bool _canManageContaraceptives;
   bool _canManagePOSTGBV;
-  bool _canManageGoGirls;
-  bool _canManageSteppingStones;
-  bool _canManageIPC;
-  bool _canManageLBSE;
   bool _canManagePEP;
 
   // selectors
@@ -50,10 +46,6 @@ class CurrentUserState with ChangeNotifier {
   bool get canManageCondom => _canManageCondom ?? false;
   bool get canManageContraceptives => _canManageContaraceptives ?? false;
   bool get canManagePOSTGBV => _canManagePOSTGBV ?? false;
-  bool get canManageGoGirls => _canManageGoGirls ?? false;
-  bool get canManageSteppingStones => _canManageSteppingStones ?? false;
-  bool get canManageIPC => _canManageIPC ?? false;
-  bool get canManageLBSE => _canManageLBSE ?? false;
   bool get canManagePEP => _canManagePEP ?? false;
 
   void updateUserAccessStatus(String implementingPartner) {
@@ -70,11 +62,6 @@ class CurrentUserState with ChangeNotifier {
       _canManageSrh = true;
       _canManagePrep = true;
       _canManagePEP = true;
-      _canManageLBSE = true;
-      _canManageSteppingStones = true;
-      _canManageGoGirls = true;
-      _canManageIPC = true;
-      _canManagePOSTGBV = true;
       _canManageCondom = true;
       _canManageContaraceptives = true;
       _canManageMSGHIV = true;
@@ -123,12 +110,8 @@ class CurrentUserState with ChangeNotifier {
       _canManageReferral = true;
       _canManageHivPrevention = true;
       _canManageCLOReferral = true;
-      _canManageGoGirls = true;
       _canManagePOSTGBV = true;
       _canManageMSGHIV = true;
-      _canManageIPC = true;
-      _canManageLBSE = true;
-      _canManageSteppingStones = true;
     }
     if (implementingPartner == 'CLO') {
       _canManageOvc = true;
@@ -180,10 +163,6 @@ class CurrentUserState with ChangeNotifier {
     _canManageCondom = false;
     _canManageContaraceptives = false;
     _canManagePOSTGBV = false;
-    _canManageGoGirls = false;
-    _canManageSteppingStones = false;
-    _canManageIPC = false;
-    _canManageLBSE = false;
     _canManagePEP = false;
   }
 }
