@@ -19,6 +19,8 @@ class OvcEnrollmentChild {
     return [
       FormSection(
           name: 'Child Information',
+          description:
+              'This tool should be applied to all children aged 0-17 years and 11 months old.',
           color: Color(0xFF1A3518),
           inputFields: [
             InputField(
@@ -98,6 +100,39 @@ class OvcEnrollmentChild {
                   InputFieldOption(code: 'Grandparent', name: 'Grandparent'),
                 ]),
             InputField(
+                id: 'YR7Xxk14qoP',
+                name: 'Is the child living with disabilities?',
+                inputColor: Color(0xFF4B9F46),
+                labelColor: Color(0xFF737373),
+                valueType: 'BOOLEAN'),
+            InputField(
+                id: 'YR7Xxk14qoP_checkbox',
+                name: 'What type of disabilities?',
+                inputColor: Color(0xFF4B9F46),
+                labelColor: Color(0xFF737373),
+                valueType: 'CHECK_BOX',
+                options: [
+                  InputFieldOption(
+                      code: 'dufGxx0KVg0', name: 'acquired brain injury'),
+                  InputFieldOption(
+                      code: 'nfp9NHLf25K', name: 'autism spectrum disorder'),
+                  InputFieldOption(
+                      code: 'tbLVGG4zDrJ', name: 'deaf or hard hearing'),
+                  InputFieldOption(
+                      code: 'ULr0tYkjTTB', name: 'intellectual disability'),
+                  InputFieldOption(
+                      code: 'BfbiOanp9Pi', name: 'mental health conditions'),
+                  InputFieldOption(
+                      code: 'X3MQhmVA1Jt', name: 'physical disability'),
+                  InputFieldOption(
+                      code: 'TPRVr4ua9f9', name: 'vision impairment'),
+                ])
+          ]),
+      FormSection(
+          name: 'Child Vulnerability',
+          color: Color(0xFF1A3518),
+          inputFields: [
+            InputField(
                 id: 'UeF4OvjIIEK',
                 name: 'Is the child an orphan?',
                 inputColor: Color(0xFF4B9F46),
@@ -112,18 +147,14 @@ class OvcEnrollmentChild {
                 options: [
                   InputFieldOption(
                       code: 'Single Orphan(Mother)',
-                      name: 'Single Orphan(Mother)'),
+                      name: 'Single Orphan(Mother Died)'),
                   InputFieldOption(
                       code: 'Single Orphan(Father)',
-                      name: 'Single Orphan(Father)'),
+                      name: 'Single Orphan(Father Died)'),
                   InputFieldOption(
-                      code: 'Double Orphan', name: 'Double Orphan'),
-                ])
-          ]),
-      FormSection(
-          name: 'Child Vulnerability',
-          color: Color(0xFF1A3518),
-          inputFields: [
+                      code: 'Double Orphan',
+                      name: 'Double Orphan (Father & Mother Died)'),
+                ]),
             InputField(
                 id: 'wmKqYZML8GA',
                 name: 'Child living with HIV ?',
@@ -161,19 +192,15 @@ class OvcEnrollmentChild {
               inputColor: Color(0xFF4B9F46),
               labelColor: Color(0xFF737373),
               valueType: 'TEXT',
-              renderAsRadio: true,
               options: [
-                InputFieldOption(code: 'Date', name: 'Date'),
                 InputFieldOption(
-                    code: "I don't remember", name: "I don't remember"),
+                    code: '0-3 months ago', name: '0-3 months ago'),
+                InputFieldOption(
+                    code: '4-6 months ago', name: '4-6 months ago'),
+                InputFieldOption(
+                    code: '7-12 months ago', name: '7-12 months ago'),
               ],
             ),
-            InputField(
-                id: 'XZh0Uew9Xk0',
-                name: 'Date violence or abuse happened',
-                inputColor: Color(0xFF4B9F46),
-                labelColor: Color(0xFF737373),
-                valueType: 'DATE'),
             InputField(
                 id: 'wtrZQadTkOL',
                 name: 'What type of violence /abuse did you experience?',
