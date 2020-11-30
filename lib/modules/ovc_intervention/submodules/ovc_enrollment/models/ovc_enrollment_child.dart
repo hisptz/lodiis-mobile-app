@@ -100,6 +100,12 @@ class OvcEnrollmentChild {
                   InputFieldOption(code: 'Grandparent', name: 'Grandparent'),
                 ]),
             InputField(
+                id: 'KO5NC4pfBmv',
+                name: 'Is this a primary child?',
+                inputColor: Color(0xFF4B9F46),
+                labelColor: Color(0xFF737373),
+                valueType: 'BOOLEAN'),
+            InputField(
                 id: 'YR7Xxk14qoP',
                 name: 'Is the child living with disabilities?',
                 inputColor: Color(0xFF4B9F46),
@@ -132,12 +138,7 @@ class OvcEnrollmentChild {
           name: 'Child Vulnerability',
           color: Color(0xFF1A3518),
           inputFields: [
-            InputField(
-                id: 'KO5NC4pfBmv',
-                name: 'Is this a primary child?',
-                inputColor: Color(0xFF4B9F46),
-                labelColor: Color(0xFF737373),
-                valueType: 'BOOLEAN'),
+
             InputField(
                 id: 'UeF4OvjIIEK',
                 name: 'Is the child an orphan?',
