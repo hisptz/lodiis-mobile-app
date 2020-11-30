@@ -31,11 +31,14 @@ class OvcHouseHoldEnrollmentSkipLogic {
         hiddenFields['gybZY8lq4Ky'] = true;
       }
       if(inputFieldId == 'tNdoR0jYr7R_confirm' && value != 'true'){
-        hiddenFields['cvrdI9t4rtN_confirm'] = true;
         hiddenFields['tNdoR0jYr7R'] = true;
+      }
+      if(inputFieldId == 'tNdoR0jYr7R_confirm' && value != 'false'){
+        hiddenFields['cvrdI9t4rtN_confirm'] = true;
       }
       if(inputFieldId == 'cvrdI9t4rtN_confirm' && value != 'true'){
         hiddenFields['cvrdI9t4rtN'] = true;
+        hiddenFields['W7QUtemHnvI'] = true;
       }
     }
     if ((dataObject['oF2lwagPkQA'] != null &&
