@@ -157,6 +157,19 @@ class OvcServicesHivscreening {
                 name: 'Refer to Social Worker?',
                 valueType: 'BOOLEAN',
                 inputColor: Color(0xFF4B9F46),
+                labelColor: Color(0xFF737373)),
+            InputField(
+
+                id: 'hivriskres',
+                name: 'HIV RISK ASSESSMENT RESULTS',
+                valueType: 'TEXT',
+                renderAsRadio: true,
+                options:[
+                  InputFieldOption(code: 'High risk', name: 'High risk'),
+                  InputFieldOption(code: 'Low risk', name: 'Low risk')
+                ],
+                isReadOnly: true,
+                inputColor: Color(0xFF4B9F46),
                 labelColor: Color(0xFF737373))
           ])
     ];
