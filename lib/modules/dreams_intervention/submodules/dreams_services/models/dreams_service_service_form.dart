@@ -34,6 +34,7 @@ class DreamsServiceForm {
               InputFieldOption(
                   code: 'STEPPING STONES', name: 'STEPPING STONES'),
               InputFieldOption(code: 'IPC', name: 'IPC'),
+              InputFieldOption(code: 'LBSE', name: 'LBSE'),
               InputFieldOption(code: 'GBV Legal', name: 'GBV Legal'),
               InputFieldOption(code: 'VAC Legal', name: 'VAC Legal'),
             ]),

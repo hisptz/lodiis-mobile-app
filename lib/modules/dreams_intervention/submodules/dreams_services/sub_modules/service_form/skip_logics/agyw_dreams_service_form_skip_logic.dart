@@ -21,7 +21,7 @@ class AgywDreamsServiceFormSkipLogic {
     }
     inputFieldIds = inputFieldIds.toSet().toList();
     for (String inputFieldId in inputFieldIds) {
-      var value = dataObject[inputFieldId];
+      String value = '${dataObject[inputFieldId]}';
       //  @TODO Add skip logics
     }
     for (String sectionId in hiddenSections.keys) {
@@ -34,6 +34,53 @@ class AgywDreamsServiceFormSkipLogic {
     }
     resetValuesForHiddenFields(context, hiddenFields.keys);
     resetValuesForHiddenSections(context, formSections);
+  }
+
+  static bool evaluateSkipLogicsBySession(Map dataObject) {
+    String interventionType = dataObject['Eug4BXDFLym'] ?? '';
+    int sessions = dataObject['vL6NpUA0rIU'] != null
+        ? int.parse(dataObject['vL6NpUA0rIU'])
+        : 0;
+    if (interventionType == 'AFLATEEN/TOUN' && sessions <= 12) {
+      return true;
+    }
+    if (interventionType == 'PTS 4-GRADS' && sessions <= 10) {
+      return true;
+    }
+    if (interventionType == 'PTS 4 NON-GRADS' && sessions <= 11) {
+      return true;
+    }
+    if (interventionType == 'Go Girls' && sessions <= 15) {
+      return true;
+    }
+    if (interventionType == 'SILC' && sessions <= 12) {
+      return true;
+    }
+    if (interventionType == 'SAVING GROUP' && sessions <= 12) {
+      return true;
+    }
+    if (interventionType == 'FINANCIAL EDUCATION' && sessions <= 4) {
+      return true;
+    }
+    if (interventionType == 'STEPPING STONES' && sessions <= 11) {
+      return true;
+    }
+    if (interventionType == 'IPC' && sessions <= 4) {
+      return true;
+    }
+    if (interventionType == 'LBSE' && sessions <= 6) {
+      return true;
+    }
+    if (interventionType == 'PARENTING' && sessions <= 14) {
+      return true;
+    }
+    if (interventionType == 'GBV Legal' && sessions <= 1) {
+      return true;
+    }
+    if (interventionType == 'VAC Legal' && sessions <= 1) {
+      return true;
+    }
+    return false;
   }
 
   static resetValuesForHiddenFields(BuildContext context, inputFieldIds) {
