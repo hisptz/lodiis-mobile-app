@@ -45,7 +45,8 @@ class OvcHouseHoldCasePlanHome extends StatelessWidget {
     Map sanitizedDataObject;
     if (casePlanEvents != null) {
       List<Events> casePlanGapsEvents = eventListByProgramStage[
-          OvcHouseHoldCasePlanConstant.casePlanGapProgramStage];
+              OvcHouseHoldCasePlanConstant.casePlanGapProgramStage] ??
+          [];
       sanitizedDataObject =
           OvcCasePlanConstant.getMappedCasePlanWithGapsByDomain(
         casePlanEvents,

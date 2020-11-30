@@ -41,7 +41,8 @@ class OvcServiceSubPageChildView extends StatelessWidget {
     Map sanitizedDataObject;
     if (casePlanEvents != null) {
       List<Events> casePlanGapsEvents = eventListByProgramStage[
-          OvcChildCasePlanConstant.casePlanGapProgramStage];
+              OvcChildCasePlanConstant.casePlanGapProgramStage] ??
+          [];
       sanitizedDataObject =
           OvcCasePlanConstant.getMappedCasePlanWithGapsByDomain(
         casePlanEvents,

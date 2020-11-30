@@ -10,13 +10,11 @@ class ServicesHomeListContainer extends StatelessWidget {
   const ServicesHomeListContainer({
     Key key,
     @required this.programStageIds,
-   // this.onEditCasePlan,
     this.onViewCasePlan,
   }) : super(key: key);
 
   final List<String> programStageIds;
   final Function onViewCasePlan;
-  //final Function onEditCasePlan;
 
   @override
   Widget build(BuildContext context) {
@@ -114,25 +112,6 @@ class ServicesHomeListContainer extends StatelessWidget {
                                               ),
                                             )),
                                       ),
-                                      // Container(
-                                      //   margin: EdgeInsets.symmetric(
-                                      //     horizontal: 5.0,
-                                      //   ),
-                                      //   child: InkWell(
-                                      //       onTap: () => onEditCasePlan(
-                                      //           groupedEventByDates[
-                                      //               assessmentDate]),
-                                      //       child: Container(
-                                      //         height: iconHeight,
-                                      //         width: iconHeight,
-                                      //         margin: EdgeInsets.symmetric(
-                                      //             vertical: 5, horizontal: 5),
-                                      //         child: SvgPicture.asset(
-                                      //           'assets/icons/edit-icon.svg',
-                                      //           color: Color(0xFF4B9F46),
-                                      //         ),
-                                      //       )),
-                                      // ),
                                     ],
                                   )
                                 ],
