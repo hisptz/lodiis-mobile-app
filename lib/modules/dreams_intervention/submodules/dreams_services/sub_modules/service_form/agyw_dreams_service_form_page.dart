@@ -18,14 +18,14 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_serv
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
 import 'package:provider/provider.dart';
 
-class AgywDreamsServicesForm extends StatefulWidget {
-  AgywDreamsServicesForm({Key key}) : super(key: key);
+class AgywDreamsServiceFormPage extends StatefulWidget {
+  AgywDreamsServiceFormPage({Key key}) : super(key: key);
 
   @override
-  _AgywDreamsServicesForm createState() => _AgywDreamsServicesForm();
+  _AgywDreamsServiceFormPage createState() => _AgywDreamsServiceFormPage();
 }
 
-class _AgywDreamsServicesForm extends State<AgywDreamsServicesForm> {
+class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
   final String label = 'Service Form';
   List<String> programStageids = [ServiceFormConstant.programStage];
   @override

@@ -18,7 +18,7 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_serv
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/pep/agyw_dreams_pep.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/post_gbv/agyw_dreams_post_gbv.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/prep/agyw_dreams_prep.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/service_form/agyw_dreams_service_form.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/service_form/agyw_dreams_service_form_page.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/srh/agyw_dreams_srh.dart';
 import 'package:provider/provider.dart';
 
@@ -150,7 +150,7 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
   ) {
     updateStateData(context, agywBeneficiary);
     Navigator.push(context,
-        MaterialPageRoute(builder: (context) => AgywDreamsServicesForm()));
+        MaterialPageRoute(builder: (context) => AgywDreamsServiceFormPage()));
   }
 
   void updateStateData(
