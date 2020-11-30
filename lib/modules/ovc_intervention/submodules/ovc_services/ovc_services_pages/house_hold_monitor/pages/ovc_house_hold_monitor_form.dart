@@ -32,7 +32,7 @@ class OvcHouseHoldMonitorForm extends StatefulWidget {
 }
 
 class _OvcHouseHoldMonitorFormState extends State<OvcHouseHoldMonitorForm> {
-  final String label = 'House Hold Service monitoring tool';
+  final String label = 'Household Service monitoring tool';
   List<FormSection> formSections;
   bool isFormReady = false;
   bool isSaving = false;

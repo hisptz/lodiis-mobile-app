@@ -27,7 +27,7 @@ class OvcHouseHoldCaseTransfer extends StatefulWidget {
 }
 
 class _OvcHouseHoldCaseTransferState extends State<OvcHouseHoldCaseTransfer> {
-  final String label = 'House Hold Case Transfer Form';
+  final String label = 'Household Case Transfer Form';
 
   final List<String> programStageIds = [
     OvcHouseHoldCaseTransferConstant.programStage

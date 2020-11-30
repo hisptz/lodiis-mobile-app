@@ -15,7 +15,7 @@ class OvcEnrollmentHouseHold {
   static List<FormSection> getFormSections() {
     return [
       FormSection(
-          name: 'House Hold Information',
+          name: 'Household Information',
           color: Color(0xFF1A3518),
           subSections: [
             FormSection(name: '', color: Color(0xFF737373), inputFields: [

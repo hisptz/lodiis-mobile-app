@@ -30,7 +30,7 @@ class OvcHouseHoldReferralHome extends StatefulWidget {
 }
 
 class _OvcHouseHoldReferralHomeState extends State<OvcHouseHoldReferralHome> {
-  final String label = 'House Hold Referral';
+  final String label = 'Household Referral';
   List<String> programStageids = [OvcHouseHoldReferralConstant.referralStage];
 
   void updateFormState(
@@ -139,7 +139,7 @@ class _OvcHouseHoldReferralHomeState extends State<OvcHouseHoldReferralHome> {
                                         ),
                                         child: events.length == 0
                                             ? Text(
-                                                'There is no House Hold Refferal at a moment')
+                                                'There is no Household Referral at a moment')
                                             : Container(
                                                 margin: EdgeInsets.symmetric(
                                                   vertical: 5.0,
@@ -190,7 +190,7 @@ class _OvcHouseHoldReferralHomeState extends State<OvcHouseHoldReferralHome> {
                                               ),
                                       ),
                                       OvcEnrollmentFormSaveButton(
-                                          label: 'ADD REFFERAL',
+                                          label: 'ADD REFERRAL',
                                           labelColor: Colors.white,
                                           buttonColor: Color(0xFF4B9F46),
                                           fontSize: 15.0,

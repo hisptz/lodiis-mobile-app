@@ -50,7 +50,7 @@ class OvcEnrollmentChild {
               labelColor: Color(0xFF737373),
               maxAgeInYear: 17,
               minAgeInYear: 0,
-              hint: "Beneficiary's age should be from 0 - 14 years",
+              hint: "Beneficiary's age should be from 0 - 17 years",
             ),
             InputField(
               id: 'ls9hlz2tyol',

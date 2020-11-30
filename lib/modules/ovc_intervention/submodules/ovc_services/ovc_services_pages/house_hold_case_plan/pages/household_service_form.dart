@@ -39,7 +39,7 @@ class HouseHoldServiceForm extends StatefulWidget {
 }
 
 class _HouseHoldServiceFormState extends State<HouseHoldServiceForm> {
-  final String label = 'Household Service Followup';
+  final String label = 'Household Service Follow Up';
   List<FormSection> formSections;
   Map borderColors = Map();
 

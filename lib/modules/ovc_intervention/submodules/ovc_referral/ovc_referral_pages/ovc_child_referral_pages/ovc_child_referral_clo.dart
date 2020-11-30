@@ -166,7 +166,7 @@ class _OvcChildCLOReferralState extends State<OvcChildCLOReferral> {
                                         ),
                                 ),
                                 OvcEnrollmentFormSaveButton(
-                                    label: 'ADD CLO REFFERAL',
+                                    label: 'ADD CLO REFERRAL',
                                     labelColor: Colors.white,
                                     buttonColor: Color(0xFF4B9F46),
                                     fontSize: 15.0,
