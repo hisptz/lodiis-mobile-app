@@ -31,7 +31,7 @@ class AgywDreamsPEPForm extends StatefulWidget {
 }
 
 class _AgywDreamsPEPFormState extends State<AgywDreamsPEPForm> {
-  final String label = 'PEP  form';
+  final String label = 'PEP form';
   List<FormSection> formSections;
   bool isFormReady = false;
   bool isSaving = false;
