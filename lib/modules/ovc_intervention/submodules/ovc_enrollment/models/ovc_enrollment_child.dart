@@ -105,6 +105,34 @@ class OvcEnrollmentChild {
                 inputColor: Color(0xFF4B9F46),
                 labelColor: Color(0xFF737373),
                 valueType: 'BOOLEAN'),
+          ]),
+      FormSection(
+          name: 'Child Vulnerability',
+          color: Color(0xFF1A3518),
+          inputFields: [
+            InputField(
+                id: 'UeF4OvjIIEK',
+                name: 'Is the child an orphan?',
+                inputColor: Color(0xFF4B9F46),
+                labelColor: Color(0xFF737373),
+                valueType: 'BOOLEAN'),
+            InputField(
+                id: 'nOgf8LKXS4k',
+                name: 'Orphan status',
+                valueType: 'TEXT',
+                inputColor: Color(0xFF4B9F46),
+                labelColor: Color(0xFF737373),
+                options: [
+                  InputFieldOption(
+                      code: 'Single Orphan(Mother)',
+                      name: 'Single Orphan(Mother Died)'),
+                  InputFieldOption(
+                      code: 'Single Orphan(Father)',
+                      name: 'Single Orphan(Father Died)'),
+                  InputFieldOption(
+                      code: 'Double Orphan',
+                      name: 'Double Orphan (Father & Mother Died)'),
+                ]),
             InputField(
                 id: 'YR7Xxk14qoP',
                 name: 'Is the child living with disabilities?',
@@ -132,35 +160,6 @@ class OvcEnrollmentChild {
                       code: 'X3MQhmVA1Jt', name: 'physical disability'),
                   InputFieldOption(
                       code: 'TPRVr4ua9f9', name: 'vision impairment'),
-                ])
-          ]),
-      FormSection(
-          name: 'Child Vulnerability',
-          color: Color(0xFF1A3518),
-          inputFields: [
-
-            InputField(
-                id: 'UeF4OvjIIEK',
-                name: 'Is the child an orphan?',
-                inputColor: Color(0xFF4B9F46),
-                labelColor: Color(0xFF737373),
-                valueType: 'BOOLEAN'),
-            InputField(
-                id: 'nOgf8LKXS4k',
-                name: 'Orphan status',
-                valueType: 'TEXT',
-                inputColor: Color(0xFF4B9F46),
-                labelColor: Color(0xFF737373),
-                options: [
-                  InputFieldOption(
-                      code: 'Single Orphan(Mother)',
-                      name: 'Single Orphan(Mother Died)'),
-                  InputFieldOption(
-                      code: 'Single Orphan(Father)',
-                      name: 'Single Orphan(Father Died)'),
-                  InputFieldOption(
-                      code: 'Double Orphan',
-                      name: 'Double Orphan (Father & Mother Died)'),
                 ]),
             InputField(
                 id: 'wmKqYZML8GA',
@@ -249,6 +248,45 @@ class OvcEnrollmentChild {
                 inputColor: Color(0xFF4B9F46),
                 labelColor: Color(0xFF737373),
                 valueType: 'TEXT'),
+            InputField(
+                id: 'mTv9eZZq0Nz',
+                name: 'Which is the primary vulnerability?',
+                inputColor: Color(0xFF4B9F46),
+                labelColor: Color(0xFF737373),
+                valueType: 'TEXT',
+                options: [
+                  InputFieldOption(code: 'Orphan', name: 'Orphan'),
+                  InputFieldOption(
+                      code: 'Child living with disability',
+                      name: 'Child living with disability'),
+                  InputFieldOption(
+                      code: 'Child living with HIV',
+                      name: 'Child living with HIV'),
+                  InputFieldOption(
+                      code: 'Child of PLHIV', name: 'Child of PLHIV'),
+                  InputFieldOption(
+                      code: 'HIV exposed infants', name: 'HIV exposed infants'),
+                  InputFieldOption(
+                      code: 'Child of a sex worker (FSW)',
+                      name: 'Child of a sex worker (FSW)'),
+                  InputFieldOption(
+                      code:
+                          'Child exposed/experiencing violence and abuse (Survivors of Vac)',
+                      name:
+                          'Child exposed/experiencing violence and abuse (Survivors of Vac)'),
+                ]),
+            InputField(
+                id: 'omUPOnb4JVp',
+                name: 'Are there other vulnerabilities?',
+                inputColor: Color(0xFF4B9F46),
+                labelColor: Color(0xFF737373),
+                valueType: 'BOOLEAN'),
+            InputField(
+                id: 'WsmWkkFBiT6',
+                name: 'Other vulnerability',
+                inputColor: Color(0xFF4B9F46),
+                labelColor: Color(0xFF737373),
+                valueType: 'TEXT')
           ])
     ];
   }
