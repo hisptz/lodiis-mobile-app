@@ -4,7 +4,7 @@ import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:provider/provider.dart';
 
-class AgywDreamsHTSRegisterSkipLogic {
+class AgywDreamsHTSTBScreeningSkipLogic {
   static Map hiddenFields = Map();
   static Map hiddenSections = Map();
 
@@ -20,20 +20,9 @@ class AgywDreamsHTSRegisterSkipLogic {
       inputFieldIds.add('$key');
     }
     inputFieldIds = inputFieldIds.toSet().toList();
+    assignInputFieldValue(context, 'uRsImCXXDXe', dataObject['N8tlZl91pBY']);
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
-      if (inputFieldId == 'Dzr6d0hPXjR' && value != 'Other(Specify)') {
-        hiddenFields['IHuXwqwWl9i'] = true;
-      }
-      if (inputFieldId == 'jO14p2Unvqm' && value != 'true') {
-        hiddenFields['UXXn9kAqASd'] = true;
-        hiddenFields['beizqNyYP9a'] = true;
-        hiddenFields['CCgL6RQ9BkR'] = true;
-      }
-      if(inputFieldId == 'B9WDdd3feaQ' && value != 'true'){
-        hiddenFields['cGnoMSGCGBG']= true;
-      }
-
     }
     for (String sectionId in hiddenSections.keys) {
       List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections

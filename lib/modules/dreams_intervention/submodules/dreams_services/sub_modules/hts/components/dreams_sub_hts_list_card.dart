@@ -212,7 +212,7 @@ class _DreamsSubHTSListCardState extends State<DreamsSubHTSListCard> {
                               ),
                               children: [
                                 TextSpan(
-                                  text: "Client Register",
+                                  text: "HTS Register",
                                   style: TextStyle().copyWith(
                                     color: Color(0xFF05131B),
                                     fontSize: 14.0,
