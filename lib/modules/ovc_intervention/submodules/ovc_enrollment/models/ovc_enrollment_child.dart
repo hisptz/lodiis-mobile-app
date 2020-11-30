@@ -99,6 +99,34 @@ class OvcEnrollmentChild {
                   InputFieldOption(code: 'Sibling', name: 'Sibling'),
                   InputFieldOption(code: 'Grandparent', name: 'Grandparent'),
                 ]),
+            InputField(
+                id: 'YR7Xxk14qoP',
+                name: 'Is the child living with disabilities?',
+                inputColor: Color(0xFF4B9F46),
+                labelColor: Color(0xFF737373),
+                valueType: 'BOOLEAN'),
+            InputField(
+                id: 'YR7Xxk14qoP_checkbox',
+                name: 'What type of disabilities?',
+                inputColor: Color(0xFF4B9F46),
+                labelColor: Color(0xFF737373),
+                valueType: 'CHECK_BOX',
+                options: [
+                  InputFieldOption(
+                      code: 'dufGxx0KVg0', name: 'acquired brain injury'),
+                  InputFieldOption(
+                      code: 'nfp9NHLf25K', name: 'autism spectrum disorder'),
+                  InputFieldOption(
+                      code: 'tbLVGG4zDrJ', name: 'deaf or hard hearing'),
+                  InputFieldOption(
+                      code: 'ULr0tYkjTTB', name: 'intellectual disability'),
+                  InputFieldOption(
+                      code: 'BfbiOanp9Pi', name: 'mental health conditions'),
+                  InputFieldOption(
+                      code: 'X3MQhmVA1Jt', name: 'physical disability'),
+                  InputFieldOption(
+                      code: 'TPRVr4ua9f9', name: 'vision impairment'),
+                ])
           ]),
       FormSection(
           name: 'Child Vulnerability',
