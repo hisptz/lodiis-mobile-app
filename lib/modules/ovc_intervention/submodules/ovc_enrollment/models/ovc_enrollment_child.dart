@@ -98,6 +98,12 @@ class OvcEnrollmentChild {
                   InputFieldOption(code: 'Grandparent', name: 'Grandparent'),
                 ]),
             InputField(
+                id: 'KO5NC4pfBmv',
+                name: 'Is this a primary child?',
+                inputColor: Color(0xFF4B9F46),
+                labelColor: Color(0xFF737373),
+                valueType: 'BOOLEAN'),
+            InputField(
                 id: 'UeF4OvjIIEK',
                 name: 'Is the child an orphan?',
                 inputColor: Color(0xFF4B9F46),
