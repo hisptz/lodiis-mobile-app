@@ -170,7 +170,7 @@ Column(
                                               ),
                                       ),
                                       OvcEnrollmentFormSaveButton(
-                                          label: 'ADD REFFERAL',
+                                          label: 'ADD REFERRAL',
                                           labelColor: Colors.white,
                                           buttonColor: Color(0xFF4B9F46),
                                           fontSize: 15.0,

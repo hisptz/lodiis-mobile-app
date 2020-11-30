@@ -30,21 +30,21 @@ class OvcEnrollmentConsent {
         InputField(
             id: 'OVaqHW5kimy',
             name:
-                'Do you understand the goal of the 4 Children OVC program and its potential benefits to my household',
+                'Do you understand the goal of the KB OVC Program and its potential benefits to my household',
             valueType: 'BOOLEAN',
             labelColor: Color(0xFF1A3518),
             inputColor: Color(0xFF4B9F46)),
         InputField(
             id: 'JCI4nxcE4N6',
             name:
-                'Does your household agrees to regularly meet with case management worker to discuss issues faced, set goals for future, and plan how to achieve those goals until our goals are reached',
+                'Does your household agree to regularly meet with case management worker to discuss issues faced, set goals for future, and plan how to achieve those goals until our goals are reached',
             valueType: 'BOOLEAN',
             labelColor: Color(0xFF1A3518),
             inputColor: Color(0xFF4B9F46)),
         InputField(
             id: 'XVRQaLDDSpx',
             name:
-                'Do you allow your information to be stored in (Implementing Organization)’s case management system',
+                'Do you allow your information to be stored in a Case Management Information System ',
             valueType: 'BOOLEAN',
             labelColor: Color(0xFF1A3518),
             inputColor: Color(0xFF4B9F46)),

@@ -34,7 +34,7 @@ class _OvcEnrollmentHouseHoldEditFormState
     extends State<OvcEnrollmentHouseHoldEditForm> {
   List<FormSection> formSections;
   List<FormSection> enrollmentFormSections;
-  final String label = 'Household Enrolment Form';
+  final String label = 'Household vulnerability and prioritization form';
   final Map mandatoryFieldObject = Map();
   final List<String> mandatoryFields =
       OvcEnrollmentBasicInfo.getMandatoryField();
@@ -187,8 +187,8 @@ class _OvcEnrollmentHouseHoldEditFormState
                                 ),
                                 OvcEnrollmentFormSaveButton(
                                   label: isSaving
-                                      ? 'Saving House Hold ...'
-                                      : 'Save House Hold',
+                                      ? 'Saving Household ...'
+                                      : 'Save Household',
                                   labelColor: Colors.white,
                                   buttonColor: Color(0xFF4B9F46),
                                   fontSize: 15.0,

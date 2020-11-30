@@ -22,15 +22,13 @@ class AgywDreamsHTCIndexFolloUpLogic {
     inputFieldIds = inputFieldIds.toSet().toList();
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
-    
 
       if (inputFieldId == 'qjMmrl5bpCx' && value != 'true') {
         hiddenFields['XZBP09HGzqn'] = true;
         hiddenFields['kV6uCz4uLLR'] = true;
          hiddenFields['rE25suIpzDK'] = true;
       }
-     
- 
+
     }
     for (String sectionId in hiddenSections.keys) {
       List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections

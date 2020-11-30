@@ -18,7 +18,7 @@ import 'constants/ovc_house_hold_monitor_constant.dart';
 import 'pages/ovc_house_hold_monitor_form.dart';
 
 class OvcHouseHoldMonitor extends StatelessWidget {
-  final String label = 'House Hold Monitor';
+  final String label = 'Household Monitor';
   final List<String> programStageIds = [
     OvcHouseHoldMonitorConstant.programStage
   ];

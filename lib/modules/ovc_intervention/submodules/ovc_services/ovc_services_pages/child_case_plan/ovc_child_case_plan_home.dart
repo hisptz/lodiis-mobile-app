@@ -22,7 +22,7 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/o
 import 'package:provider/provider.dart';
 
 class OvcChildCasePlanHome extends StatelessWidget {
-  final String label = 'Child Care Plan';
+  final String label = 'Child Case Plan';
   final List<String> casePlanProgramStageIds = [
     OvcChildCasePlanConstant.casePlanProgramStage
   ];
@@ -188,7 +188,7 @@ class OvcChildCasePlanHome extends StatelessWidget {
                                   child: Visibility(
                                     visible: !isLoading,
                                     child: OvcEnrollmentFormSaveButton(
-                                      label: 'NEW CASEPLAN',
+                                      label: 'NEW CASE PLAN',
                                       labelColor: Colors.white,
                                       fontSize: 10,
                                       buttonColor: Color(0xFF4B9F46),

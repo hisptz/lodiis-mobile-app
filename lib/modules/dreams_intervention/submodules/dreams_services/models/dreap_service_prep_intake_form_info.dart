@@ -124,78 +124,56 @@ class DreamsServicePrepIntakeInfo {
                 name:
                     'Are you or your partner planning to have a child within next 2 years?',
                 valueType: 'TEXT'),
-            InputField(
-                id: 'rUyb2ilJl5y',
-                inputColor: Color(0xFF1F8ECE),
+        InputField(
+                id: '',
+                name: 'Occupation',
+                valueType: 'CHECK_BOX',
+                inputColor:Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
-                name: 'Unemployed?',
-                valueType: 'TRUE_ONLY'),
-            InputField(
-                id: 'QdIAXIslH75',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
-                name: 'Student?',
-                valueType: 'TRUE_ONLY'),
-            InputField(
-                id: 'bfMzA5x69SZ',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
-                name: 'Farmer/Farm worker?',
-                valueType: 'TRUE_ONLY'),
-            InputField(
-                id: 'DKmXqOp3oYc',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
-                name: 'Domestic worker/gardener',
-                valueType: 'TRUE_ONLY'),
-            InputField(
-                id: 'TOSx4VyOZQT',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
-                name: 'Guard',
-                valueType: 'TRUE_ONLY'),
-            InputField(
-                id: 'GPYuQ42sg3T',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
-                name: 'Professional',
-                valueType: 'TRUE_ONLY'),
-            InputField(
-                id: 'RFa3D2oM8aQ',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
-                name: 'Informal Trader ',
-                valueType: 'TRUE_ONLY'),
-            InputField(
-                id: 'Y2VpdgQ2iEK',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
+                renderAsRadio: true,
+                options: [
+            InputFieldOption(
+                code: 'rUyb2ilJl5y',
+                name: 'Unemployed'),
+            InputFieldOption(
+                code: 'QdIAXIslH75',
+                name: 'Student',),
+            InputFieldOption(
+                code: 'bfMzA5x69SZ',
+                name: 'Farmer/Farm worker',),
+            InputFieldOption(
+                code: 'DKmXqOp3oYc',
+                name: 'Domestic worker/gardener'),
+            InputFieldOption(
+                code: 'TOSx4VyOZQT',
+                name: 'Guard',),
+            InputFieldOption(
+                code: 'GPYuQ42sg3T',
+                name: 'Professional'),
+            InputFieldOption(
+                code: 'RFa3D2oM8aQ',
+                name: 'Informal Trader',),
+            InputFieldOption(
+                code: 'Y2VpdgQ2iEK', 
                 name: 'Military/Uniformed',
-                valueType: 'TRUE_ONLY'),
-            InputField(
-                id: 'POgKhlepadZ',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
+                ),
+            InputFieldOption(
+                code: 'POgKhlepadZ',
                 name: 'Trucker/Truck driver',
-                valueType: 'TRUE_ONLY'),
-            InputField(
-                id: 'STrVefsqTij',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
+                ),
+            InputFieldOption(
+                code: 'STrVefsqTij',
                 name: 'Commercial Sex Worker',
-                valueType: 'TRUE_ONLY'),
-            InputField(
-                id: 'b8ZaGIN11vv',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
-                name: 'Mine worker',
-                valueType: 'TRUE_ONLY'),
-            InputField(
-                id: 'JflxahjBLrH',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
-                name: 'Other occupation(sp)',
-                valueType: 'TRUE_ONLY'),
+                ),
+            InputFieldOption(
+                code: 'b8ZaGIN11vv',
+                name: 'Mine worker',),
+            InputFieldOption(
+                code: 'JflxahjBLrH',
+                name: 'Other occupation(sp)',),
+                ]
+              ),    
+           
             InputField(
               id: 'PqSjDmu2eMy',
               inputColor: Color(0xFF1F8ECE),
@@ -226,197 +204,140 @@ class DreamsServicePrepIntakeInfo {
                     name: 'Graduate DegreeMastersPhD'),
               ],
             ),
-            InputField(
-                id: 'XfiDt4DzdVS',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
+              
+              
+       InputField(
+        id: '',
+        name: 'Reasons for visiting site',
+        valueType: 'CHECK_BOX',
+        inputColor:Color(0xFF1F8ECE),
+        labelColor: Color(0xFF737373),
+        renderAsRadio: true,
+        options: [
+            InputFieldOption(
+                code: 'XfiDt4DzdVS',
                 name:
-                    'Visited the site because I Have a child who is sick or died.',
-                valueType: 'TRUE_ONLY'),
-            InputField(
-                id: 's5NmD81MGOc',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
-                name: 'Visited the site because my Partner died.',
-                valueType: 'TRUE_ONLY'),
-            InputField(
-                id: 'qA5e24CNBrw',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
+                    'Visited the site because I Have a child who is sick or died.'),
+            InputFieldOption(
+                code: 's5NmD81MGOc',
+                name: 'Visited the site because my Partner died.',),
+            InputFieldOption(
+                code: 'qA5e24CNBrw',
                 name:
-                    'Visited the site because I Worried about my past behaviour/curious',
-                valueType: 'TRUE_ONLY'),
-            InputField(
-                id: 'eNGTWMYAFL0',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
+                    'Visited the site because I Worried about my past behaviour/curious'),
+            InputFieldOption(
+                code: 'eNGTWMYAFL0',
                 name:
-                    'Visited the site because I  Worried abut my partner? behaviour/status',
-                valueType: 'TRUE_ONLY'),
-            InputField(
-                id: 'jcWYjzUCG6S',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
-                name: 'Visited the site because my Partner is sick',
-                valueType: 'TRUE_ONLY'),
-            InputField(
-                id: 'zTC4EV7XTj5',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
+                    'Visited the site because I  Worried abut my partner? behaviour/status'),
+            InputFieldOption(
+                code: 'jcWYjzUCG6S',
+                name: 'Visited the site because my Partner is sick'),
+            InputFieldOption(
+                code: 'zTC4EV7XTj5',
                 name:
-                    'Visited the site because my Partner has tested positive for HIV.',
-                valueType: 'TRUE_ONLY'),
-            InputField(
-                id: 'aN6VHxj82GQ',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
-                name: 'Visited the site because I am feeling unwell',
-                valueType: 'TRUE_ONLY'),
-            InputField(
-                id: 'JFqUJNUzTww',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
+                    'Visited the site because my Partner has tested positive for HIV.'),
+            InputFieldOption(
+                code: 'aN6VHxj82GQ',
+                name: 'Visited the site because I am feeling unwell'),
+            InputFieldOption(
+                code: 'JFqUJNUzTww',
                 name:
-                    'Visited the site because I was Advised by my family/friends',
-                valueType: 'TRUE_ONLY'),
-            InputField(
-                id: 'KaAWXJVHDVz',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
+                    'Visited the site because I was Advised by my family/friends'),
+            InputFieldOption(
+                code: 'KaAWXJVHDVz',
                 name:
-                    'Visited the site because I was Advised by health care worker',
-                valueType: 'TRUE_ONLY'),
-            InputField(
-                id: 'xzpOED9PyVh',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
-                name: 'Visited the site because I am Planning to get married.',
-                valueType: 'TRUE_ONLY'),
-            InputField(
-                id: 'RU9VC5xsNf5',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
+                    'Visited the site because I was Advised by health care worker'),
+            InputFieldOption(
+                code: 'xzpOED9PyVh',
+                name: 'Visited the site because I am Planning to get married.'),
+            InputFieldOption(
+                code: 'RU9VC5xsNf5',
                 name:
-                    'Visited the site because I am Getting serious/stopping condoms',
-                valueType: 'TRUE_ONLY'),
-            InputField(
-                id: 'zscz5KYlCS5',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
-                name: 'Visited the site because I am Planning to have a baby',
-                valueType: 'TRUE_ONLY'),
-            InputField(
-                id: 'yjnuJxlFmIm',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
-                name: 'Visited the site Because I am pregnant',
-                valueType: 'TRUE_ONLY'),
-            InputField(
-                id: 'n1YU4oiRqyY',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
-                name: 'Visited the site because my Partner requested',
-                valueType: 'TRUE_ONLY'),
-            InputField(
-                id: 'ijbtN1BP4A2',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
-                name: 'Visited the site For life insurance',
-                valueType: 'TRUE_ONLY'),
-            InputField(
-                id: 'DXwITugq1X6',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
-                name: 'Visited the site For scholarship/studies',
-                valueType: 'TRUE_ONLY'),
-            InputField(
-                id: 'T92Q2Irzmgj',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
-                name: 'Visited the site For travel/visa',
-                valueType: 'TRUE_ONLY'),
-            InputField(
-                id: 'D5dyOe7GJpp',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
+                    'Visited the site because I am Getting serious/stopping condoms'),
+            InputFieldOption(
+                code: 'zscz5KYlCS5',
+                name: 'Visited the site because I am Planning to have a baby'),
+            InputFieldOption(
+                code: 'yjnuJxlFmIm',
+                name: 'Visited the site Because I am pregnant'),
+            InputFieldOption(
+                code: 'n1YU4oiRqyY',
+                name: 'Visited the site because my Partner requested'),
+            InputFieldOption(
+                code: 'ijbtN1BP4A2',
+                name: 'Visited the site For life insurance'),
+            InputFieldOption(
+                code: 'DXwITugq1X6',
+                name: 'Visited the site For scholarship/studies'),
+            InputFieldOption(
+                code: 'T92Q2Irzmgj',
+                name: 'Visited the site For travel/visa'),
+            InputFieldOption(
+                code: 'D5dyOe7GJpp',
                 name:
-                    'Visited the site because I am Retesting (Closing the window)',
-                valueType: 'TRUE_ONLY'),
-            InputField(
-                id: 'RDDWIVvUOQZ',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
+                    'Visited the site because I am Retesting (Closing the window)'),
+            InputFieldOption(
+                code: 'RDDWIVvUOQZ',
                 name:
-                    'Visited the site because I am Retesting (Confirmation of HIV positive)',
-                valueType: 'TRUE_ONLY'),
-            InputField(
+                    'Visited the site because I am Retesting (Confirmation of HIV positive)'),
+          InputFieldOption(
+                code: 'F42UdUKO75Z',
+                name:
+                    'Other reason for visiting the site(sp)')
+
+                ] ),
+          InputField(
                 id: 'ukX9y6lXpNo',
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
                 name: 'Other reason for visiting the site',
                 valueType: 'TEXT'),
-            InputField(
-                id: 'onf8hoBn6xO',
-                inputColor: Color(0xFF1F8ECE),
+
+          InputField(
+                id: '',
+                name: 'How did you learn of this center?',
+                valueType: 'CHECK_BOX',
+                inputColor:Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
-                name: 'I learnt of this center through a Friend',
-                valueType: 'TRUE_ONLY'),
-            InputField(
-              id: 'qRmcFUHrKJG',
-              inputColor: Color(0xFF1F8ECE),
-              labelColor: Color(0xFF737373),
+                renderAsRadio: true,
+                options: [
+            InputFieldOption(
+                code: 'onf8hoBn6xO',
+                name: 'I learnt of this center through a Friend'),
+            InputFieldOption(
+              code: 'qRmcFUHrKJG',
               name: 'I learnt of this center through a Partner/Spouse',
-              valueType: 'TRUE_ONLY',
             ),
-            InputField(
-                id: 'ADLCht0KPSh',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
-                name: 'I learnt of this center through Other Family Member',
-                valueType: 'TRUE_ONLY'),
-            InputField(
-                id: 'p6Xwp6okdfN',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
-                name: 'I learnt of this center through Other HTC client',
-                valueType: 'TRUE_ONLY'),
-            InputField(
-                id: 'APJcg5JKvGk',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
-                name: 'I learnt of this center through Health worker',
-                valueType: 'TRUE_ONLY'),
-            InputField(
-                id: 'ClMb40newIJ',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
-                name: 'I learnt of this center through Poster',
-                valueType: 'TRUE_ONLY'),
-            InputField(
-                id: 'mrJTBtL2pea',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
-                name: 'I learnt of this center through Community',
-                valueType: 'TRUE_ONLY'),
-            InputField(
-                id: 'PrYvEIgsUz6',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
-                name: 'I learnt of this center through TV advert',
-                valueType: 'TRUE_ONLY'),
-            InputField(
-                id: 'sWbnNobbKk5',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
-                name: 'I learnt of this center through Radio advert',
-                valueType: 'TRUE_ONLY'),
-            InputField(
-                id: 'sWLfVZi2cRo',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
+            InputFieldOption(
+                code: 'ADLCht0KPSh',
+                name: 'I learnt of this center through Other Family Member'),
+            InputFieldOption(
+                code: 'p6Xwp6okdfN',
+                name: 'I learnt of this center through Other HTC client'),
+            InputFieldOption(
+                code: 'APJcg5JKvGk',
+                name: 'I learnt of this center through Health worker'),
+            InputFieldOption(
+                code: 'ClMb40newIJ',
+                name: 'I learnt of this center through Poster'),
+            InputFieldOption(
+                code: 'mrJTBtL2pea',
+                name: 'I learnt of this center through Community'),
+            InputFieldOption(
+                code: 'PrYvEIgsUz6',
+                name: 'I learnt of this center through TV advert'),
+            InputFieldOption(
+                code: 'sWbnNobbKk5',
+                name: 'I learnt of this center through Radio advert'),
+            InputFieldOption(
+                code: 'sWLfVZi2cRo',
                 name:
-                    'I learnt of this center through Newspaper advert or article',
-                valueType: 'TRUE_ONLY'),
+                    'I learnt of this center through Newspaper advert or article'),
+            InputFieldOption(
+                code: 'kTHUZ8SOSXK',
+                name:
+                    'Other ways you learnt of this center(sp)'),        
+                ]),
             InputField(
                 id: 'aXAPMYFxMFC',
                 inputColor: Color(0xFF1F8ECE),
@@ -939,6 +860,7 @@ class DreamsServicePrepIntakeInfo {
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
                 name: 'Facility Name',
+                isReadOnly: true,
                 valueType: 'ORGANISATION_UNIT'),
             InputField(
                 id: 'uHrSSJghmTS',
