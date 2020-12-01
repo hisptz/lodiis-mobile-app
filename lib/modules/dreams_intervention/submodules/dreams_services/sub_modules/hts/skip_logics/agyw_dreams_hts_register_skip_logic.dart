@@ -4,7 +4,7 @@ import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:provider/provider.dart';
 
-class AgywDreamsLBSESkipLogic {
+class AgywDreamsHTSRegisterSkipLogic {
   static Map hiddenFields = Map();
   static Map hiddenSections = Map();
 
@@ -22,9 +22,19 @@ class AgywDreamsLBSESkipLogic {
     inputFieldIds = inputFieldIds.toSet().toList();
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
-      if (inputFieldId == 'lvT9gfpHIlT' && value == 'null') {
-        hiddenFields['QHEd0nnjBQG'] = true;
-      }    }
+      if (inputFieldId == 'Dzr6d0hPXjR' && value != 'Other(Specify)') {
+        hiddenFields['IHuXwqwWl9i'] = true;
+      }
+      if (inputFieldId == 'jO14p2Unvqm' && value != 'true') {
+        hiddenFields['UXXn9kAqASd'] = true;
+        hiddenFields['beizqNyYP9a'] = true;
+        hiddenFields['CCgL6RQ9BkR'] = true;
+      }
+      if(inputFieldId == 'B9WDdd3feaQ' && value != 'true'){
+        hiddenFields['cGnoMSGCGBG']= true;
+      }
+
+    }
     for (String sectionId in hiddenSections.keys) {
       List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections
           .where((formSection) => formSection.id == sectionId)
@@ -62,5 +72,14 @@ class AgywDreamsLBSESkipLogic {
   ) {
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState(inputFieldId, value);
+  }
+
+  static String calculateBMI(weight, height) {
+    double bmi;
+    try {
+      bmi =
+          double.parse(weight) / (double.parse(height) * double.parse(height));
+    } catch (e) {}
+    return bmi != null ? bmi.toStringAsPrecision(3) : '';
   }
 }

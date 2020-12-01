@@ -159,7 +159,7 @@ class _AgywDreamCondomsState extends State<AgywDreamCondoms> {
                                               ),
                                       ),
                                       OvcEnrollmentFormSaveButton(
-                                          label: 'ADD A VISIT',
+                                          label: 'ADD VISIT',
                                           labelColor: Colors.white,
                                           buttonColor: Color(0xFF1F8ECE),
                                           fontSize: 15.0,

@@ -13,22 +13,21 @@ import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/components/prep_visit_card.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/go_girls/constants/go_girls_constant.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/go_girls/pages/agyw_dreams_go_girls_form.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/service_form/constants/service_form_constant.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/service_form/pages/agyw_dreams_service_form.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
 import 'package:provider/provider.dart';
 
+class AgywDreamsServiceFormPage extends StatefulWidget {
+  AgywDreamsServiceFormPage({Key key}) : super(key: key);
 
-class AgywDreamGoGirls extends StatefulWidget {
-
-  AgywDreamGoGirls({Key key}) : super(key: key);
   @override
-  _AgywDreamGoGirlsState createState() => _AgywDreamGoGirlsState();
+  _AgywDreamsServiceFormPage createState() => _AgywDreamsServiceFormPage();
 }
 
-class _AgywDreamGoGirlsState extends State<AgywDreamGoGirls> {
-  final String label = 'Go Girls';
-  List<String> programStageids = [GoGirlsConstant.programStage];
+class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
+  final String label = 'Service Form';
+  List<String> programStageids = [ServiceFormConstant.programStage];
   @override
   void initState() {
     super.initState();
@@ -56,24 +55,24 @@ class _AgywDreamGoGirlsState extends State<AgywDreamGoGirls> {
     }
   }
 
-  void onAddPrep(BuildContext context, AgywDream agywDream) {
+  void onAddService(BuildContext context, AgywDream agywDream) {
     updateFormState(context, true, null);
     Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
         .setCurrentAgywDream(agywDream);
     Navigator.push(context,
-        MaterialPageRoute(builder: (context) => AgywDreamsGoGirlsForm()));
+        MaterialPageRoute(builder: (context) => AgywDreamsServiceForm()));
   }
 
-  void onViewPrep(BuildContext context, Events eventdata) {
+  void onViewService(BuildContext context, Events eventdata) {
     updateFormState(context, false, eventdata);
     Navigator.push(context,
-        MaterialPageRoute(builder: (context) => AgywDreamsGoGirlsForm()));
+        MaterialPageRoute(builder: (context) => AgywDreamsServiceForm()));
   }
 
-  void onEditPrep(BuildContext context, Events eventdata) {
+  void onEditService(BuildContext context, Events eventdata) {
     updateFormState(context, true, eventdata);
     Navigator.push(context,
-        MaterialPageRoute(builder: (context) => AgywDreamsGoGirlsForm()));
+        MaterialPageRoute(builder: (context) => AgywDreamsServiceForm()));
   }
 
   @override
@@ -126,7 +125,7 @@ class _AgywDreamGoGirlsState extends State<AgywDreamGoGirls> {
                                         ),
                                         child: events.length == 0
                                             ? Text(
-                                                'There is no Go Girls at a moment')
+                                                'There is no Services at a moment')
                                             : Container(
                                                 margin: EdgeInsets.symmetric(
                                                   vertical: 5.0,
@@ -142,12 +141,14 @@ class _AgywDreamGoGirlsState extends State<AgywDreamGoGirls> {
                                                         bottom: 15.0,
                                                       ),
                                                       child: PrepVisitListCard(
-                                                        visitName: "Go Girls Visit ",
+                                                        visitName: "Service",
                                                         onEditPrep: () =>
-                                                            onEditPrep(context,
+                                                            onEditService(
+                                                                context,
                                                                 eventData),
                                                         onViewPrep: () =>
-                                                            onViewPrep(context,
+                                                            onViewService(
+                                                                context,
                                                                 eventData),
                                                         eventData: eventData,
                                                         visitCount:
@@ -159,12 +160,12 @@ class _AgywDreamGoGirlsState extends State<AgywDreamGoGirls> {
                                               ),
                                       ),
                                       OvcEnrollmentFormSaveButton(
-                                          label: 'ADD Go Girls Visit',
+                                          label: 'ADD Service',
                                           labelColor: Colors.white,
                                           buttonColor: Color(0xFF1F8ECE),
                                           fontSize: 15.0,
                                           onPressButton: () =>
-                                              onAddPrep(context, agywDream))
+                                              onAddService(context, agywDream))
                                     ],
                                   ),
                           ),

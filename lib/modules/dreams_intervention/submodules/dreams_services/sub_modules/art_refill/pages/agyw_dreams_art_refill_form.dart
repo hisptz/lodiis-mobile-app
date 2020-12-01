@@ -26,11 +26,12 @@ class AgywDreamsARTRefillForm extends StatefulWidget {
   AgywDreamsARTRefillForm({Key key}) : super(key: key);
 
   @override
-  _AgywDreamsARTRefillFormState createState() => _AgywDreamsARTRefillFormState();
+  _AgywDreamsARTRefillFormState createState() =>
+      _AgywDreamsARTRefillFormState();
 }
 
 class _AgywDreamsARTRefillFormState extends State<AgywDreamsARTRefillForm> {
-  final String label = 'ART RE-fill form';
+  final String label = 'ART Re-fill form';
   List<FormSection> formSections;
   bool isFormReady = false;
   bool isSaving = false;

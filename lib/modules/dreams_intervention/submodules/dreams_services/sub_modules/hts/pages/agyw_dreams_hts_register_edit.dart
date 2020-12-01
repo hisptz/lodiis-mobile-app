@@ -16,22 +16,22 @@ import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/dreams_service_lbse_form_info.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hiv_reg/skip_logics/agyw_dreams_hiv_register_skip_logic.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/lbse/constants/lbse_constant.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/lbse/skip_logics/agyw_dreams_lbse_skip_logic.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/hts_register.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/constants/agyw_dreams_hts_constant.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/skip_logics/agyw_dreams_hts_register_skip_logic.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
 import 'package:provider/provider.dart';
 
-class AgywDreamsLBSEForm extends StatefulWidget {
-  AgywDreamsLBSEForm({Key key}) : super(key: key);
+class AgywDreamsHTSRegisterFormEdit extends StatefulWidget {
+  AgywDreamsHTSRegisterFormEdit({Key key}) : super(key: key);
 
   @override
-  _AgywDreamsLBSEFormState createState() => _AgywDreamsLBSEFormState();
+  _AgywDreamsHTSRegisterFormEditState createState() =>
+      _AgywDreamsHTSRegisterFormEditState();
 }
 
-class _AgywDreamsLBSEFormState extends State<AgywDreamsLBSEForm> {
-  final String label = 'LBSE  form';
+class _AgywDreamsHTSRegisterFormEditState extends State<AgywDreamsHTSRegisterFormEdit> {
+  final String label = 'HTS Register';
   List<FormSection> formSections;
   bool isFormReady = false;
   bool isSaving = false;
@@ -39,7 +39,7 @@ class _AgywDreamsLBSEFormState extends State<AgywDreamsLBSEForm> {
   @override
   void initState() {
     super.initState();
-    formSections = DreamsLBSEInfo.getFormSections();
+    formSections = HTSRegister.getFormSections();
     Timer(Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
@@ -51,10 +51,10 @@ class _AgywDreamsLBSEFormState extends State<AgywDreamsLBSEForm> {
   evaluateSkipLogics() {
     Timer(
       Duration(milliseconds: 200),
-      () async {
+          () async {
         Map dataObject =
             Provider.of<ServiceFormState>(context, listen: false).formState;
-        await AgywDreamsLBSESkipLogic.evaluateSkipLogics(
+        await AgywDreamsHTSRegisterSkipLogic.evaluateSkipLogics(
           context,
           formSections,
           dataObject,
@@ -77,11 +77,12 @@ class _AgywDreamsLBSEFormState extends State<AgywDreamsLBSEForm> {
       });
       String eventDate = dataObject['eventDate'];
       String eventId = dataObject['eventId'];
+      print(dataObject);
       List<String> hiddenFields = [];
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-            LBSEConstant.program,
-            LBSEConstant.programStage,
+            AgywDreamsHTSConstant.program,
+            AgywDreamsHTSConstant.programStage,
             agywDream.orgUnit,
             formSections,
             dataObject,
@@ -145,46 +146,46 @@ class _AgywDreamsLBSEFormState extends State<AgywDreamsLBSEForm> {
                         ),
                         !isFormReady
                             ? Container(
-                                child: CircularProcessLoader(
-                                  color: Colors.blueGrey,
-                                ),
-                              )
+                          child: CircularProcessLoader(
+                            color: Colors.blueGrey,
+                          ),
+                        )
                             : Column(
-                                children: [
-                                  Container(
-                                    margin: EdgeInsets.only(
-                                      top: 10.0,
-                                      left: 13.0,
-                                      right: 13.0,
-                                    ),
-                                    child: EntryFormContainer(
-                                      hiddenFields:
-                                          serviceFormState.hiddenFields,
-                                      hiddenSections:
-                                          serviceFormState.hiddenSections,
-                                      formSections: formSections,
-                                      mandatoryFieldObject: Map(),
-                                      isEditableMode:
-                                          serviceFormState.isEditableMode,
-                                      dataObject: serviceFormState.formState,
-                                      onInputValueChange: onInputValueChange,
-                                    ),
-                                  ),
-                                  Visibility(
-                                    visible: serviceFormState.isEditableMode,
-                                    child: OvcEnrollmentFormSaveButton(
-                                      label: isSaving ? 'Saving ...' : 'Save',
-                                      labelColor: Colors.white,
-                                      buttonColor: Color(0xFF258DCC),
-                                      fontSize: 15.0,
-                                      onPressButton: () => onSaveForm(
-                                          context,
-                                          serviceFormState.formState,
-                                          agywDream),
-                                    ),
-                                  )
-                                ],
-                              )
+                          children: [
+                            Container(
+                              margin: EdgeInsets.only(
+                                top: 10.0,
+                                left: 13.0,
+                                right: 13.0,
+                              ),
+                              child: EntryFormContainer(
+                                hiddenFields: serviceFormState.hiddenFields,
+                                hiddenSections: serviceFormState.hiddenSections,
+                                formSections: formSections,
+                                mandatoryFieldObject: Map(),
+                                isEditableMode:
+                                serviceFormState.isEditableMode,
+                                dataObject: serviceFormState.formState,
+                                onInputValueChange: onInputValueChange,
+                              ),
+                            ),
+                            Visibility(
+                              visible: serviceFormState.isEditableMode,
+                              child: OvcEnrollmentFormSaveButton(
+                                label: isSaving
+                                    ? 'Saving ...'
+                                    : 'Save',
+                                labelColor: Colors.white,
+                                buttonColor: Color(0xFF258DCC),
+                                fontSize: 15.0,
+                                onPressButton: () => onSaveForm(
+                                    context,
+                                    serviceFormState.formState,
+                                    agywDream),
+                              ),
+                            )
+                          ],
+                        )
                       ],
                     ),
                   );

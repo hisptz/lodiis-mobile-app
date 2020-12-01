@@ -135,6 +135,8 @@ class _OvcEnrollmentBasicInfoFormState
                                           builder: (context,
                                                   enrollmentFormState, child) =>
                                               EntryFormContainer(
+                                                hiddenSections: enrollmentFormState.hiddenSections,
+                                                hiddenFields: enrollmentFormState.hiddenFields,
                                             formSections: formSections,
                                             mandatoryFieldObject:
                                                 mandatoryFieldObject,

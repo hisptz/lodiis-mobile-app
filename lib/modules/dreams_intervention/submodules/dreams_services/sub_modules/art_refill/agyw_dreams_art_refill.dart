@@ -26,7 +26,7 @@ class AgywDreamArtRefill extends StatefulWidget {
 }
 
 class _AgywDreamArtRefillState extends State<AgywDreamArtRefill> {
-  final String label = 'ART RE-fill';
+  final String label = 'ART Re-fill';
   List<String> programStageids = [ARTRefillConstant.programStage];
   @override
   void initState() {
@@ -125,7 +125,7 @@ class _AgywDreamArtRefillState extends State<AgywDreamArtRefill> {
                                         ),
                                         child: events.length == 0
                                             ? Text(
-                                                'There is no ART RE-fill at a moment')
+                                                'There is no ART Re-fill at a moment')
                                             : Container(
                                                 margin: EdgeInsets.symmetric(
                                                   vertical: 5.0,
@@ -141,7 +141,8 @@ class _AgywDreamArtRefillState extends State<AgywDreamArtRefill> {
                                                         bottom: 15.0,
                                                       ),
                                                       child: PrepVisitListCard(
-                                                        visitName: "ART RE-fill",
+                                                        visitName:
+                                                            "ART Re-fill",
                                                         onEditPrep: () =>
                                                             onEditPrep(context,
                                                                 eventData),
@@ -158,7 +159,7 @@ class _AgywDreamArtRefillState extends State<AgywDreamArtRefill> {
                                               ),
                                       ),
                                       OvcEnrollmentFormSaveButton(
-                                          label: 'ADD ART RE-fill',
+                                          label: 'ADD ART Re-fill',
                                           labelColor: Colors.white,
                                           buttonColor: Color(0xFF1F8ECE),
                                           fontSize: 15.0,

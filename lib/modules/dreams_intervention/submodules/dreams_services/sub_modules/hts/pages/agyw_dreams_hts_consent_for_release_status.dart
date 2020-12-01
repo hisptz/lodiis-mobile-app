@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dream_current_selection_state.dart';
+import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar_container.dart';
@@ -73,7 +74,6 @@ class _AgywDreamsHTSConsentForReleaseStatusState
       String htsToTBLinkageValue =
           dataObject[AgywDreamsHTSConstant.htsToTBLinkage] ?? AppUtil.getUid();
       dataObject[AgywDreamsHTSConstant.htsToTBLinkage] = htsToTBLinkageValue;
-
       List<String> hiddenFields = [
         AgywDreamsHTSConstant.htsToIndexLinkage,
         AgywDreamsHTSConstant.htsToTBLinkage
@@ -89,18 +89,26 @@ class _AgywDreamsHTSConsentForReleaseStatusState
             agywDream.id,
             eventId,
             hiddenFields);
-        // if(dataObject['mhZeM9CuGQn']== 'Positive'){
+        if(dataObject['N8tlZl91pBY']== 'Positive'){
         Navigator.push(
             context,
             MaterialPageRoute(
                 builder: (context) => AgywDreamsHTSTBForm(
                     htsToTBLinkageValue:
                         dataObject[AgywDreamsHTSConstant.htsToTBLinkage])));
-        // }else{
-        // Provider.of<ServiveEventDataState>(context, listen: false)
-        //   .resetServiceEventDataState(agywDream.id);
-        // Navigator.popUntil(context, (route) => route.isFirst);
-        // }
+        }else{
+        Provider.of<ServiveEventDataState>(context, listen: false)
+          .resetServiceEventDataState(agywDream.id);
+        Timer(Duration(seconds: 1), () {
+          setState(() {
+            AppUtil.showToastMessage(
+                message: 'Form has been saved successfully',
+                position: ToastGravity.TOP);
+
+            Navigator.popUntil(context, (route) => route.isFirst);
+          });
+        });
+        }
 
       } catch (e) {
         Timer(Duration(seconds: 1), () {

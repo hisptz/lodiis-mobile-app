@@ -31,7 +31,7 @@ class AgywDreamsIndexFollowUp extends StatefulWidget {
 }
 
 class _AgywDreamsIndexFollowUpState extends State<AgywDreamsIndexFollowUp> {
-  final String label = 'HTS Index FollowUp';
+  final String label = 'HTS Index Follow Up';
   List<FormSection> formSections;
   bool isFormReady = false;
   bool isSaving = false;

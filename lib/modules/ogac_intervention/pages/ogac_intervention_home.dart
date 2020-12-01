@@ -124,7 +124,7 @@ class OgacInterventionHome extends StatelessWidget {
                                   Container(
                                     margin: EdgeInsets.only(top: 10.0),
                                     child: Text(
-                                      'There is no ogac beneficiaries enrolled at moment',
+                                      'There is no OGAC beneficiaries enrolled at moment',
                                     ),
                                   ),
                                   Container(

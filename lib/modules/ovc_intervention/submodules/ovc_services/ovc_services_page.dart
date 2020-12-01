@@ -23,7 +23,7 @@ class OvcServicesPage extends StatefulWidget {
 }
 
 class _OvcServicesPageState extends State<OvcServicesPage> {
-  final String title = 'HOUSE HOLD LIST';
+  final String title = 'HOUSEHOLD LIST';
   final bool canEdit = false;
   final bool canView = false;
   final bool canExpand = true;

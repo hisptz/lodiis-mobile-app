@@ -23,7 +23,7 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/o
 import 'package:provider/provider.dart';
 
 class OvcHouseHoldCasePlanHome extends StatelessWidget {
-  final String label = 'House Hold Case plan';
+  final String label = 'Household Case plan';
 
   final List<String> casePlanProgramStageIds = [
     OvcHouseHoldCasePlanConstant.casePlanProgramStage
@@ -45,7 +45,8 @@ class OvcHouseHoldCasePlanHome extends StatelessWidget {
     Map sanitizedDataObject;
     if (casePlanEvents != null) {
       List<Events> casePlanGapsEvents = eventListByProgramStage[
-          OvcHouseHoldCasePlanConstant.casePlanGapProgramStage];
+              OvcHouseHoldCasePlanConstant.casePlanGapProgramStage] ??
+          [];
       sanitizedDataObject =
           OvcCasePlanConstant.getMappedCasePlanWithGapsByDomain(
         casePlanEvents,
@@ -199,7 +200,7 @@ class OvcHouseHoldCasePlanHome extends StatelessWidget {
                                           child: Visibility(
                                             visible: !isLoading,
                                             child: OvcEnrollmentFormSaveButton(
-                                                label: 'NEW CASEPLAN',
+                                                label: 'NEW CASE PLAN',
                                                 labelColor: Colors.white,
                                                 fontSize: 10,
                                                 buttonColor: Color(0xFF4B9F46),

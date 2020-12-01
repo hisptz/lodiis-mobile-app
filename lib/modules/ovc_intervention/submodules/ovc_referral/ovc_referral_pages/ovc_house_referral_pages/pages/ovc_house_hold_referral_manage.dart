@@ -31,7 +31,7 @@ class OvcHouseHoldReferralManage extends StatefulWidget {
 
 class _OvcHouseHoldReferralManageState
     extends State<OvcHouseHoldReferralManage> {
-  final String label = 'Manage House Hold Referral';
+  final String label = 'Manage Household Referral';
 
   @override
   Widget build(BuildContext context) {

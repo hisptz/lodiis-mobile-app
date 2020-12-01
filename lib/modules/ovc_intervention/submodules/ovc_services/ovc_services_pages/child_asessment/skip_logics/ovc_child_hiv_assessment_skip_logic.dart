@@ -20,9 +20,40 @@ class OvcChildHivAssessmentSkipLogic {
       inputFieldIds.add('$key');
     }
     inputFieldIds = inputFieldIds.toSet().toList();
+
+    if ((dataObject['Fz89mIraWIl'] != null &&
+        '${dataObject['Fz89mIraWIl']}' == 'Yes') ||
+        (dataObject['mIcseDgrIlJ'] != null &&
+            '${dataObject['mIcseDgrIlJ']}' == 'Yes') ||
+        (dataObject['Hi9fp222l2D'] != null &&
+            '${dataObject['Hi9fp222l2D']}' == 'true') ||
+        (dataObject['r13f1emAyvw'] != null &&
+            '${dataObject['r13f1emAyvw']}' == 'true') ||
+        (dataObject['YAugNMbMe2c'] != null &&
+            '${dataObject['YAugNMbMe2c']}' == 'true') ||
+        (dataObject['niqNMJrfFDs'] != null &&
+            '${dataObject['niqNMJrfFDs']}' == 'true') ||
+        (dataObject['NhjnHO0IyqY'] != null &&
+            '${dataObject['NhjnHO0IyqY']}' == 'true') ||
+        (dataObject['LA4G0A6fkNF'] != null &&
+            '${dataObject['LA4G0A6fkNF']}' == 'true') ||
+        (dataObject['dL8ts5GQcMI'] != null &&
+            '${dataObject['dL8ts5GQcMI']}' == 'true') ||
+        (dataObject['W64q5maeL6o'] != null &&
+            '${dataObject['W64q5maeL6o']}' == 'true') ||
+        (dataObject['VJh6KDlBkfb'] != null &&
+            '${dataObject['VJh6KDlBkfb']}' == 'true') ||
+        (dataObject['SDPCwdDB9yX'] != null &&
+            '${dataObject['SDPCwdDB9yX']}' == 'true') ||
+        (dataObject['v0ArPi4Rk4o'] != null &&
+            '${dataObject['v0ArPi4Rk4o']}' == 'true')) {
+      assignInputFieldValue(context, 'hivriskres', 'High risk');
+    } else {
+      assignInputFieldValue(context, 'hivriskres', 'Low risk');
+    }
+
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
-      print(value);
     }
     for (String sectionId in hiddenSections.keys) {
       List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections

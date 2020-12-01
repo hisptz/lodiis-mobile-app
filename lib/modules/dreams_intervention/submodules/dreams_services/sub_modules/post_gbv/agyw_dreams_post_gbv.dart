@@ -126,7 +126,7 @@ class _AgywDreamPostGBVState extends State<AgywDreamPostGBV> {
                                         ),
                                         child: events.length == 0
                                             ? Text(
-                                                'There is no POST_GBV at a moment')
+                                                'There is no POST GBV at a moment')
                                             : Container(
                                                 margin: EdgeInsets.symmetric(
                                                   vertical: 5.0,

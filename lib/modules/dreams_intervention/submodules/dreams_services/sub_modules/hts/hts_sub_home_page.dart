@@ -15,6 +15,8 @@ import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_benef
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/pages/agyw_dreams_hts_client_information.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/pages/agyw_dreams_hts_consent_form.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/pages/agyw_dreams_hts_consent_form_edit.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/pages/agyw_dreams_hts_register.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/pages/agyw_dreams_hts_register_edit.dart';
 import 'package:provider/provider.dart';
 import 'components/dreams_sub_hts_list_card.dart';
 import 'constants/agyw_dreams_hts_constant.dart';
@@ -52,10 +54,11 @@ class _HTSSubHomePageState extends State<HTSSubHomePage> {
   }
 
   List<String> programStageids = [AgywDreamsHTSConstant.programStage];
+
   @override
   void initState() {
     super.initState();
-    }
+  }
 
   void updateFormState(
     BuildContext context,
@@ -123,6 +126,18 @@ class _HTSSubHomePageState extends State<HTSSubHomePage> {
         context,
         MaterialPageRoute(
             builder: (context) => AgywDreamsHTSConsentForReleaseStatusEdit()));
+  }
+
+  void onViewRegister(BuildContext context, DreamsHTSEvent eventdata) {
+    updateFormState(context, false, eventdata);
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => AgywDreamsHTSRegisterForm()));
+  }
+
+  void onEditRegister(BuildContext context, DreamsHTSEvent eventdata) {
+    updateFormState(context, true, eventdata);
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => AgywDreamsHTSRegisterFormEdit()));
   }
 
   @override
@@ -196,6 +211,14 @@ class _HTSSubHomePageState extends State<HTSSubHomePage> {
                                                         ),
                                                         child:
                                                             DreamsSubHTSListCard(
+                                                          onEditRegister: () =>
+                                                              onEditRegister(
+                                                                  context,
+                                                                  eventData),
+                                                          onViewRegister: () =>
+                                                              onViewRegister(
+                                                                  context,
+                                                                  eventData),
                                                           onEditConsent: () =>
                                                               onEditConsent(
                                                                   context,
