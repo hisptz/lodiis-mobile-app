@@ -17,20 +17,19 @@ import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/dreap_service_prep_intake_form_info.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/prep/agyw_dreams_prep.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/prep/constants/prep_intake_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/prep/skip_logics/agyw_dreams_prep_skip_logic.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
 import 'package:provider/provider.dart';
 
-class AgywDreamsPrepFormPage extends StatefulWidget {
-  AgywDreamsPrepFormPage({Key key}) : super(key: key);
+class AgywDreamsPrepFormPageBody extends StatefulWidget {
+  AgywDreamsPrepFormPageBody({Key key}) : super(key: key);
 
   @override
-  _AgywDreamsPrepFormPageState createState() => _AgywDreamsPrepFormPageState();
+  _AgywDreamsPrepFormPageBodyState createState() => _AgywDreamsPrepFormPageBodyState();
 }
 
-class _AgywDreamsPrepFormPageState extends State<AgywDreamsPrepFormPage> {
+class _AgywDreamsPrepFormPageBodyState extends State<AgywDreamsPrepFormPageBody> {
   final String label = 'AGYW Prep Intake Form';
   List<FormSection> formSections;
   bool isFormReady = false;
@@ -96,11 +95,8 @@ class _AgywDreamsPrepFormPageState extends State<AgywDreamsPrepFormPage> {
             AppUtil.showToastMessage(
                 message: 'Form has been saved successfully',
                 position: ToastGravity.TOP);
-            Navigator.popUntil(context, (route) => route.isFirst);
+            Navigator.pop(context);
           });
-           Navigator.push(context,
-          MaterialPageRoute(builder: (context) =>  AgywDreamsPrep()));
-        
         });
       } catch (e) {
         Timer(Duration(seconds: 1), () {
@@ -120,82 +116,60 @@ class _AgywDreamsPrepFormPageState extends State<AgywDreamsPrepFormPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(65.0),
-          child: Consumer<IntervetionCardState>(
-            builder: (context, intervetionCardState, child) {
-              InterventionCard activeInterventionProgram =
-                  intervetionCardState.currentIntervetionProgram;
-              return SubPageAppBar(
-                label: label,
-                activeInterventionProgram: activeInterventionProgram,
-              );
-            },
-          ),
-        ),
-        body: SubPageBody(
-          body: Container(child: Consumer<DreamBenefeciarySelectionState>(
-            builder: (context, nonAgywState, child) {
-              AgywDream agywDream = nonAgywState.currentAgywDream;
-              return Consumer<ServiceFormState>(
-                builder: (context, serviceFormState, child) {
-                  return Container(
-                    child: Column(
-                      children: [
-                        DreamBenefeciaryTopHeader(
-                          agywDream: agywDream,
-                        ),
-                        !isFormReady
-                            ? Container(
-                                child: CircularProcessLoader(
-                                  color: Colors.blueGrey,
-                                ),
-                              )
-                            : Column(
-                                children: [
-                                  Container(
-                                    margin: EdgeInsets.only(
-                                      top: 10.0,
-                                      left: 13.0,
-                                      right: 13.0,
-                                    ),
-                                    child: EntryFormContainer(
-                                      hiddenFields:
-                                          serviceFormState.hiddenFields,
-                                      hiddenSections:
-                                          serviceFormState.hiddenSections,
-                                      formSections: formSections,
-                                      mandatoryFieldObject: Map(),
-                                      isEditableMode:
-                                          serviceFormState.isEditableMode,
-                                      dataObject: serviceFormState.formState,
-                                      onInputValueChange: onInputValueChange,
-                                    ),
-                                  ),
-                                  Visibility(
-                                    visible: serviceFormState.isEditableMode,
-                                    child: OvcEnrollmentFormSaveButton(
-                                      label: isSaving ? 'Saving ...' : 'Save',
-                                      labelColor: Colors.white,
-                                      buttonColor: Color(0xFF258DCC),
-                                      fontSize: 15.0,
-                                      onPressButton: () => onSaveForm(
-                                          context,
-                                          serviceFormState.formState,
-                                          agywDream),
-                                    ),
-                                  )
-                                ],
-                              )
-                      ],
-                    ),
-                  );
-                },
-              );
-            },
-          )),
-        ),
-        bottomNavigationBar: InterventionBottomNavigationBarContainer());
+    return Container(child: Consumer<DreamBenefeciarySelectionState>(
+      builder: (context, nonAgywState, child) {
+        AgywDream agywDream = nonAgywState.currentAgywDream;
+        return Consumer<ServiceFormState>(
+          builder: (context, serviceFormState, child) {
+            return Container(
+              child: Column(
+                children: [
+                  DreamBenefeciaryTopHeader(
+                    agywDream: agywDream,
+                  ),
+                  !isFormReady
+                      ? Container(
+                          child: CircularProcessLoader(
+                            color: Colors.blueGrey,
+                          ),
+                        )
+                      : Column(
+                          children: [
+                            Container(
+                              margin: EdgeInsets.only(
+                                top: 13.0,
+                                left: 13.0,
+                                right: 13.0,
+                              ),
+                              child: EntryFormContainer(
+                                hiddenFields: serviceFormState.hiddenFields,
+                                hiddenSections: serviceFormState.hiddenSections,
+                                formSections: formSections,
+                                mandatoryFieldObject: Map(),
+                                isEditableMode: serviceFormState.isEditableMode,
+                                dataObject: serviceFormState.formState,
+                                onInputValueChange: onInputValueChange,
+                              ),
+                            ),
+                            Visibility(
+                              visible: serviceFormState.isEditableMode,
+                              child: OvcEnrollmentFormSaveButton(
+                                label: isSaving ? 'Saving ...' : 'Save',
+                                labelColor: Colors.white,
+                                buttonColor: Color(0xFF258DCC),
+                                fontSize: 15.0,
+                                onPressButton: () => onSaveForm(context,
+                                    serviceFormState.formState, agywDream),
+                              ),
+                            )
+                          ],
+                        )
+                ],
+              ),
+            );
+          },
+        );
+      },
+    ));
   }
 }
