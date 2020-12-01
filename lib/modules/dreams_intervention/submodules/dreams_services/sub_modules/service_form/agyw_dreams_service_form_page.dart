@@ -11,6 +11,7 @@ import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
+import 'package:kb_mobile_app/models/service_event.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/components/prep_visit_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/service_form/constants/service_form_constant.dart';
@@ -34,13 +35,19 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
   }
 
   void updateFormState(
-    BuildContext context,
-    bool isEditableMode,
-    Events eventData,
-  ) {
+      BuildContext context,
+      bool isEditableMode,
+      Events eventData,
+      AgywDream agywDream,
+      List<ServiceEvents> serviceEvents) {
+    Map serviceEventSessions = aggregateServiceSessions(serviceEvents);
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
     Provider.of<ServiceFormState>(context, listen: false)
         .updateFormEditabilityState(isEditableMode: isEditableMode);
+    Provider.of<ServiceFormState>(context, listen: false)
+        .setFormFieldState('age', agywDream.age);
+    Provider.of<ServiceFormState>(context, listen: false)
+        .setFormFieldState('eventSessions', serviceEventSessions);
     if (eventData != null) {
       Provider.of<ServiceFormState>(context, listen: false)
           .setFormFieldState('eventDate', eventData.eventDate);
@@ -55,22 +62,38 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
     }
   }
 
-  void onAddService(BuildContext context, AgywDream agywDream) {
-    updateFormState(context, true, null);
+  Map aggregateServiceSessions(List<ServiceEvents> serviceEvents) {
+    Map aggregatedSession = Map();
+    for (ServiceEvents event in serviceEvents ?? []) {
+      if (aggregatedSession[event.interventionType] != null) {
+        aggregatedSession[event.interventionType] =
+            aggregatedSession[event.interventionType] + event.numberaOfSessions;
+      } else {
+        aggregatedSession[event.interventionType] = event.numberaOfSessions;
+      }
+    }
+    return aggregatedSession;
+  }
+
+  void onAddService(BuildContext context, AgywDream agywDream,
+      List<ServiceEvents> serviceEvents) {
+    updateFormState(context, true, null, agywDream, serviceEvents);
     Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
         .setCurrentAgywDream(agywDream);
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => AgywDreamsServiceForm()));
   }
 
-  void onViewService(BuildContext context, Events eventdata) {
-    updateFormState(context, false, eventdata);
+  void onViewService(
+      BuildContext context, Events eventdata, AgywDream agywDream) {
+    updateFormState(context, false, eventdata, agywDream, null);
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => AgywDreamsServiceForm()));
   }
 
-  void onEditService(BuildContext context, Events eventdata) {
-    updateFormState(context, true, eventdata);
+  void onEditService(BuildContext context, Events eventdata,
+      AgywDream agywDream, List<ServiceEvents> serviceEvents) {
+    updateFormState(context, true, eventdata, agywDream, serviceEvents);
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => AgywDreamsServiceForm()));
   }
@@ -105,6 +128,10 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
                     List<Events> events = TrackedEntityInstanceUtil
                         .getAllEventListFromServiceDataState(
                             eventListByProgramStage, programStageids);
+                    List<ServiceEvents> serviceEvents = events
+                        .map((Events event) =>
+                            ServiceEvents().getServiceSessions(event))
+                        .toList();
                     int referralIndex = events.length + 1;
                     return Container(
                       child: Column(
@@ -145,11 +172,14 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
                                                         onEditPrep: () =>
                                                             onEditService(
                                                                 context,
-                                                                eventData),
+                                                                eventData,
+                                                                agywDream,
+                                                                serviceEvents),
                                                         onViewPrep: () =>
                                                             onViewService(
                                                                 context,
-                                                                eventData),
+                                                                eventData,
+                                                                agywDream),
                                                         eventData: eventData,
                                                         visitCount:
                                                             referralIndex,
@@ -164,8 +194,10 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
                                           labelColor: Colors.white,
                                           buttonColor: Color(0xFF1F8ECE),
                                           fontSize: 15.0,
-                                          onPressButton: () =>
-                                              onAddService(context, agywDream))
+                                          onPressButton: () => onAddService(
+                                              context,
+                                              agywDream,
+                                              serviceEvents))
                                     ],
                                   ),
                           ),
