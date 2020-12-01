@@ -60,9 +60,9 @@ class _AgywDreamServiceFormState extends State<AgywDreamServiceForm> {
     );
   }
 
-  void onSaveAndContinue(BuildContext context, Map dataObject) {
+  void onSaveAndContinue(BuildContext context, Map dataObject, {Map hiddenFields = const {}}) {
     bool hadAllMandatoryFilled =
-        AppUtil.hasAllMandarotyFieldsFilled(mandatoryFields, dataObject);
+        AppUtil.hasAllMandarotyFieldsFilled(mandatoryFields, dataObject, hiddenFields: hiddenFields);
     if (hadAllMandatoryFilled) {
       Navigator.push(
           context,
@@ -141,6 +141,7 @@ class _AgywDreamServiceFormState extends State<AgywDreamServiceForm> {
                                 onPressButton: () => onSaveAndContinue(
                                   context,
                                   enrollmentFormState.formState,
+                                  hiddenFields: enrollmentFormState.hiddenFields
                                 ),
                               )
                             ],

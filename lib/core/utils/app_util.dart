@@ -7,16 +7,24 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
 
 class AppUtil {
-  static bool hasAllMandarotyFieldsFilled(
-    List mandatoryFields,
-    Map dataObject,
-  ) {
+  static bool hasAllMandarotyFieldsFilled(List mandatoryFields, Map dataObject,
+      {Map hiddenFields = const {}}) {
     bool hasFilled = true;
     List fieldIds = dataObject.keys.toList();
-    for (var mandatoryField in mandatoryFields) {
-      if (fieldIds.indexOf(mandatoryField) == -1 &&
-          '${dataObject[mandatoryField]}'.trim() != '') {
+    List hiddenFieldsIds = hiddenFields.keys.toList();
+    //Remove all hidden fields which are mandatory from the list
+    List filteredMandatoryFields = mandatoryFields
+        .where((field) => hiddenFieldsIds.indexOf(field) < 0)
+        .toList();
+
+    for (var mandatoryField in filteredMandatoryFields) {
+      if (fieldIds.indexOf(mandatoryField) == -1) {
         hasFilled = false;
+      } else {
+        if ('${dataObject[mandatoryField]}'.trim() == '' ||
+            '${dataObject[mandatoryField]}'.trim() == 'null') {
+          hasFilled = false;
+        }
       }
     }
     return hasFilled;
