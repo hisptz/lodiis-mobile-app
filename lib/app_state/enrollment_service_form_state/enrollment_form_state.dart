@@ -21,6 +21,7 @@ class EnrollmentFormState with ChangeNotifier {
     _formState.clear();
     _hiddenFields.clear();
     _hiddenSections.clear();
+    _hiddenInputFieldOptions.clear();
     notifyListeners();
   }
 
