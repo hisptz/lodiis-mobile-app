@@ -71,40 +71,49 @@ class _AgywDreamsServiceFormState extends State<AgywDreamsServiceForm> {
   void onSaveForm(
       BuildContext context, Map dataObject, AgywDream agywDream) async {
     if (dataObject.keys.length > 0) {
-      setState(() {
-        isSaving = true;
-      });
-      String eventDate = dataObject['eventDate'];
-      String eventId = dataObject['eventId'];
-      List<String> hiddenFields = [];
-      try {
-        await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-            ServiceFormConstant.program,
-            ServiceFormConstant.programStage,
-            agywDream.orgUnit,
-            formSections,
-            dataObject,
-            eventDate,
-            agywDream.id,
-            eventId,
-            hiddenFields);
-        Provider.of<ServiveEventDataState>(context, listen: false)
-            .resetServiceEventDataState(agywDream.id);
-        Timer(Duration(seconds: 1), () {
-          setState(() {
-            AppUtil.showToastMessage(
-                message: 'Form has been saved successfully',
-                position: ToastGravity.TOP);
-            Navigator.pop(context);
-          });
+      bool shouldSaveForm =
+          AgywDreamsServiceFormSkipLogic.evaluateSkipLogicsBySession(
+              dataObject);
+      if (shouldSaveForm) {
+        setState(() {
+          isSaving = true;
         });
-      } catch (e) {
-        Timer(Duration(seconds: 1), () {
-          setState(() {
-            AppUtil.showToastMessage(
-                message: e.toString(), position: ToastGravity.BOTTOM);
+        String eventDate = dataObject['eventDate'];
+        String eventId = dataObject['eventId'];
+        List<String> hiddenFields = [];
+        try {
+          await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
+              ServiceFormConstant.program,
+              ServiceFormConstant.programStage,
+              agywDream.orgUnit,
+              formSections,
+              dataObject,
+              eventDate,
+              agywDream.id,
+              eventId,
+              hiddenFields);
+          Provider.of<ServiveEventDataState>(context, listen: false)
+              .resetServiceEventDataState(agywDream.id);
+          Timer(Duration(seconds: 1), () {
+            setState(() {
+              AppUtil.showToastMessage(
+                  message: 'Form has been saved successfully',
+                  position: ToastGravity.TOP);
+              Navigator.pop(context);
+            });
           });
-        });
+        } catch (e) {
+          Timer(Duration(seconds: 1), () {
+            setState(() {
+              AppUtil.showToastMessage(
+                  message: e.toString(), position: ToastGravity.BOTTOM);
+            });
+          });
+        }
+      } else {
+        AppUtil.showToastMessage(
+            message: 'You have reached the maximum number of sessions',
+            position: ToastGravity.TOP);
       }
     } else {
       AppUtil.showToastMessage(
@@ -161,6 +170,8 @@ class _AgywDreamsServiceFormState extends State<AgywDreamsServiceForm> {
                                           serviceFormState.hiddenFields,
                                       hiddenSections:
                                           serviceFormState.hiddenSections,
+                                      hiddenInputFieldOptions: serviceFormState
+                                          .hiddenInputFieldOptions,
                                       formSections: formSections,
                                       mandatoryFieldObject: Map(),
                                       isEditableMode:
