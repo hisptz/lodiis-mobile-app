@@ -17,6 +17,7 @@ import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/dreap_service_prep_intake_form_info.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/prep/agyw_dreams_prep.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/prep/constants/prep_intake_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/prep/skip_logics/agyw_dreams_prep_skip_logic.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
@@ -95,8 +96,11 @@ class _AgywDreamsPrepFormPageState extends State<AgywDreamsPrepFormPage> {
             AppUtil.showToastMessage(
                 message: 'Form has been saved successfully',
                 position: ToastGravity.TOP);
-            Navigator.pop(context);
+            Navigator.popUntil(context, (route) => route.isFirst);
           });
+           Navigator.push(context,
+          MaterialPageRoute(builder: (context) =>  AgywDreamsPrep()));
+        
         });
       } catch (e) {
         Timer(Duration(seconds: 1), () {

@@ -20,7 +20,9 @@ import 'package:provider/provider.dart';
 import 'agyw_dreams_hts_consent_for_release_status.dart';
 
 class AgywDreamsHTSClientInformation extends StatefulWidget {
-  AgywDreamsHTSClientInformation({Key key}) : super(key: key);
+  AgywDreamsHTSClientInformation({Key key, this.isComingFromPrep})
+      : super(key: key);
+  final bool isComingFromPrep;
 
   @override
   _AgywDreamsHTSClientInformationState createState() =>
@@ -33,10 +35,12 @@ class _AgywDreamsHTSClientInformationState
   List<FormSection> formSections;
   bool isFormReady = false;
   bool isSaving = false;
+  bool isComingFromPrep;
 
   @override
   void initState() {
     super.initState();
+    isComingFromPrep = widget.isComingFromPrep;
     formSections = ClientInformation.getFormSections();
     Timer(Duration(seconds: 1), () {
       setState(() {
@@ -70,10 +74,8 @@ class _AgywDreamsHTSClientInformationState
   void onSaveForm(BuildContext context, Map dataObject, AgywDream agywDream) {
     Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
         .setCurrentAgywDream(agywDream);
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => AgywDreamsHTSRegisterForm()));
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => AgywDreamsHTSRegisterForm(isComingFromPrep: isComingFromPrep,)));
   }
 
   @override
@@ -120,8 +122,10 @@ class _AgywDreamsHTSClientInformationState
                                     ),
                                     child: EntryFormContainer(
                                       formSections: formSections,
-                                      hiddenFields: serviceFormState.hiddenFields,
-                                      hiddenSections:  serviceFormState.hiddenSections,
+                                      hiddenFields:
+                                          serviceFormState.hiddenFields,
+                                      hiddenSections:
+                                          serviceFormState.hiddenSections,
                                       mandatoryFieldObject: Map(),
                                       isEditableMode:
                                           serviceFormState.isEditableMode,

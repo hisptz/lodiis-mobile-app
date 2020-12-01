@@ -15,6 +15,8 @@ import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/components/agy_dreams_prep_form_body.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/pages/agyw_dreams_hts_consent_form.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/pages/agyw_dreams_hts_consent_subpart_form.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/prep/constants/prep_intake_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/prep/pages/agyw_dreams_prep_form.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/components/prep_visit_card.dart';
@@ -213,7 +215,7 @@ class _AgywDreamsPrepState extends State<AgywDreamsPrep> {
                                                   horizontal: 13.0,
                                                 ),
                                                 child:
-                                                    AgywDreamsPrepFormPageBody())
+                                                    AgywDreamsHTSConsentFormSubpart(isComingFromPrep: true,))
                                             : Container(
                                                 margin: EdgeInsets.symmetric(
                                                   vertical: 5.0,
