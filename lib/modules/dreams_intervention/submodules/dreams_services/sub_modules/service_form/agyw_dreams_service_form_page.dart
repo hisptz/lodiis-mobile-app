@@ -33,14 +33,13 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
     super.initState();
   }
 
-  void updateFormState(
-    BuildContext context,
-    bool isEditableMode,
-    Events eventData,
-  ) {
+  void updateFormState(BuildContext context, bool isEditableMode,
+      Events eventData, AgywDream agywDream) {
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
     Provider.of<ServiceFormState>(context, listen: false)
         .updateFormEditabilityState(isEditableMode: isEditableMode);
+    Provider.of<ServiceFormState>(context, listen: false)
+        .setFormFieldState('age', agywDream.age);
     if (eventData != null) {
       Provider.of<ServiceFormState>(context, listen: false)
           .setFormFieldState('eventDate', eventData.eventDate);
@@ -56,21 +55,23 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
   }
 
   void onAddService(BuildContext context, AgywDream agywDream) {
-    updateFormState(context, true, null);
+    updateFormState(context, true, null, agywDream);
     Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
         .setCurrentAgywDream(agywDream);
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => AgywDreamsServiceForm()));
   }
 
-  void onViewService(BuildContext context, Events eventdata) {
-    updateFormState(context, false, eventdata);
+  void onViewService(
+      BuildContext context, Events eventdata, AgywDream agywDream) {
+    updateFormState(context, false, eventdata, agywDream);
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => AgywDreamsServiceForm()));
   }
 
-  void onEditService(BuildContext context, Events eventdata) {
-    updateFormState(context, true, eventdata);
+  void onEditService(
+      BuildContext context, Events eventdata, AgywDream agywDream) {
+    updateFormState(context, true, eventdata, agywDream);
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => AgywDreamsServiceForm()));
   }
@@ -145,11 +146,13 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
                                                         onEditPrep: () =>
                                                             onEditService(
                                                                 context,
-                                                                eventData),
+                                                                eventData,
+                                                                agywDream),
                                                         onViewPrep: () =>
                                                             onViewService(
                                                                 context,
-                                                                eventData),
+                                                                eventData,
+                                                                agywDream),
                                                         eventData: eventData,
                                                         visitCount:
                                                             referralIndex,

@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 class AgywDreamsServiceFormSkipLogic {
   static Map hiddenFields = Map();
   static Map hiddenSections = Map();
+  static Map hiddenInputFieldOptions = Map();
 
   static Future evaluateSkipLogics(
     BuildContext context,
@@ -15,10 +16,13 @@ class AgywDreamsServiceFormSkipLogic {
   ) async {
     hiddenFields.clear();
     hiddenSections.clear();
+    hiddenInputFieldOptions.clear();
+
     List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections);
     for (var key in dataObject.keys) {
       inputFieldIds.add('$key');
     }
+
     inputFieldIds = inputFieldIds.toSet().toList();
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
@@ -34,6 +38,44 @@ class AgywDreamsServiceFormSkipLogic {
     }
     resetValuesForHiddenFields(context, hiddenFields.keys);
     resetValuesForHiddenSections(context, formSections);
+    evaluateSkipLogicsByAgywAge(context, formSections, dataObject);
+  }
+
+  static evaluateSkipLogicsByAgywAge(
+    BuildContext context,
+    List<FormSection> formSections,
+    Map dataObject,
+  ) {
+    int agywDreamAge = int.parse(dataObject['age']);
+    Map hiddenOptions = Map();
+    if (agywDreamAge < 10 || agywDreamAge > 17) {
+      hiddenOptions['AFLATEEN/TOUN'] = true;
+      hiddenOptions['PARENTING'] = true;
+      hiddenOptions['VAC Legal'] = true;
+      hiddenOptions['SAVING GROUP'] = true;
+    }
+    if (agywDreamAge < 10 || agywDreamAge > 19) {
+      hiddenOptions['LBSE'] = true;
+    }
+    if (agywDreamAge < 10) {
+      hiddenOptions['FINANCIAL EDUCATION'] = true;
+    }
+    if (agywDreamAge < 18) {
+      hiddenOptions['Go Girls'] = true;
+      hiddenOptions['PTS 4-GRADS'] = true;
+      hiddenOptions['SILC'] = true;
+      hiddenOptions['GBV Legal'] = true;
+    }
+    if (agywDreamAge < 16) {
+      hiddenOptions['PTS 4 NON-GRADS'] = true;
+    }
+    if (agywDreamAge < 15) {
+      hiddenOptions['STEPPING STONES'] = true;
+      hiddenOptions['IPC'] = true;
+    }
+
+    hiddenInputFieldOptions['Eug4BXDFLym'] = hiddenOptions;
+    resetValuesForHiddenInputFieldOptions(context, formSections);
   }
 
   static bool evaluateSkipLogicsBySession(Map dataObject) {
@@ -99,6 +141,14 @@ class AgywDreamsServiceFormSkipLogic {
   ) {
     Provider.of<ServiceFormState>(context, listen: false)
         .setHiddenSections(hiddenSections);
+  }
+
+  static resetValuesForHiddenInputFieldOptions(
+    BuildContext context,
+    List<FormSection> formSections,
+  ) {
+    Provider.of<ServiceFormState>(context, listen: false)
+        .setHiddenInputFieldOptions(hiddenInputFieldOptions);
   }
 
   static assignInputFieldValue(

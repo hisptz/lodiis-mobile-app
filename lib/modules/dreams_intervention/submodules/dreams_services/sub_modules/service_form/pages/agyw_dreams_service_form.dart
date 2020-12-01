@@ -170,6 +170,8 @@ class _AgywDreamsServiceFormState extends State<AgywDreamsServiceForm> {
                                           serviceFormState.hiddenFields,
                                       hiddenSections:
                                           serviceFormState.hiddenSections,
+                                      hiddenInputFieldOptions: serviceFormState
+                                          .hiddenInputFieldOptions,
                                       formSections: formSections,
                                       mandatoryFieldObject: Map(),
                                       isEditableMode:
