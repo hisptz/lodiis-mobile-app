@@ -16,23 +16,22 @@ import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/dreams_srh_client_intake.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/dreams_srh_register.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/srh/constants/srh_client_intake_constant.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/srh/skip_logics/agyw_dreams_srh_skip_logic.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/srh/skip_logics/agyw_dreams_srh_register_skip_logic.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
 import 'package:provider/provider.dart';
 
-import 'agyw_dreams_srh_regiser.dart';
-
-class AgywDreamsSrhForm extends StatefulWidget {
-  AgywDreamsSrhForm({Key key}) : super(key: key);
+class AgywDreamsSrhRegisterForm extends StatefulWidget {
+  AgywDreamsSrhRegisterForm({Key key}) : super(key: key);
 
   @override
-  _AgywDreamsSrhFormState createState() => _AgywDreamsSrhFormState();
+  _AgywDreamsSrhRegisterFormState createState() =>
+      _AgywDreamsSrhRegisterFormState();
 }
 
-class _AgywDreamsSrhFormState extends State<AgywDreamsSrhForm> {
-  final String label = 'SRH Service Form';
+class _AgywDreamsSrhRegisterFormState extends State<AgywDreamsSrhRegisterForm> {
+  final String label = 'SRH Register';
   List<FormSection> formSections;
   bool isFormReady = false;
   bool isSaving = false;
@@ -40,7 +39,7 @@ class _AgywDreamsSrhFormState extends State<AgywDreamsSrhForm> {
   @override
   void initState() {
     super.initState();
-    formSections = DreamsSrhClientIntake.getFormSections();
+    formSections = DreamsSrhRegister.getFormSections();
     Timer(Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
@@ -55,7 +54,7 @@ class _AgywDreamsSrhFormState extends State<AgywDreamsSrhForm> {
       () async {
         Map dataObject =
             Provider.of<ServiceFormState>(context, listen: false).formState;
-        await AgywDreamsSrhSkipLogic.evaluateSkipLogics(
+        await AgywDreamsSrhRegisterSkipLogic.evaluateSkipLogics(
           context,
           formSections,
           dataObject,
@@ -70,14 +69,53 @@ class _AgywDreamsSrhFormState extends State<AgywDreamsSrhForm> {
     evaluateSkipLogics();
   }
 
-  void onSaveForm(BuildContext context, Map dataObject, AgywDream agywDream) {
-    Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
-        .setCurrentAgywDream(agywDream);
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => AgywDreamsSrhRegisterForm()));
+  void onSaveForm(
+      BuildContext context, Map dataObject, AgywDream agywDream) async {
+    if (dataObject.keys.length > 0) {
+      setState(() {
+        isSaving = true;
+      });
+      String eventDate = dataObject['eventDate'];
+      String eventId = dataObject['eventId'];
 
+      List<String> hiddenFields = [];
+      try {
+        await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
+            HivPrepClientIntakeConstant.program,
+            HivPrepClientIntakeConstant.programStage,
+            agywDream.orgUnit,
+            formSections,
+            dataObject,
+            eventDate,
+            agywDream.id,
+            eventId,
+            hiddenFields);
+        Provider.of<ServiveEventDataState>(context, listen: false)
+            .resetServiceEventDataState(agywDream.id);
+        Timer(Duration(seconds: 1), () {
+          setState(() {
+            AppUtil.showToastMessage(
+                message: 'Form has been saved successfully',
+                position: ToastGravity.TOP);
+            if (Navigator.canPop(context)) {
+              Navigator.popUntil(context, (route) => route.isFirst);
+            }
+          });
+        });
+      } catch (e) {
+        Timer(Duration(seconds: 1), () {
+          setState(() {
+            AppUtil.showToastMessage(
+                message: e.toString(), position: ToastGravity.BOTTOM);
+          });
+        });
+      }
+    } else {
+      AppUtil.showToastMessage(
+          message: 'Please fill at least one form field',
+          position: ToastGravity.TOP);
+      Navigator.pop(context);
+    }
   }
 
   @override
@@ -138,7 +176,7 @@ class _AgywDreamsSrhFormState extends State<AgywDreamsSrhForm> {
                                   Visibility(
                                     visible: serviceFormState.isEditableMode,
                                     child: OvcEnrollmentFormSaveButton(
-                                      label: isSaving ? 'Saving ...' : 'Save and Continue',
+                                      label: isSaving ? 'Saving ...' : 'Save',
                                       labelColor: Colors.white,
                                       buttonColor: Color(0xFF258DCC),
                                       fontSize: 15.0,
