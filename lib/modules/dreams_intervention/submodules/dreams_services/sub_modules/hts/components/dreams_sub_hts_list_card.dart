@@ -15,6 +15,8 @@ class DreamsSubHTSListCard extends StatefulWidget {
     this.onEditConsent,
     this.onEditIntake,
     this.onEditStatus,
+    this.onViewRegister,
+    this.onEditRegister
   }) : super(key: key);
 
   final Function onViewConsent;
@@ -23,6 +25,8 @@ class DreamsSubHTSListCard extends StatefulWidget {
   final Function onEditIntake;
   final Function onViewStatus;
   final Function onEditStatus;
+  final Function onViewRegister;
+  final Function onEditRegister;
   final DreamsHTSEvent eventData;
 
   @override
@@ -171,6 +175,78 @@ class _DreamsSubHTSListCardState extends State<DreamsSubHTSListCard> {
                         ),
                         child: InkWell(
                             onTap: widget.onEditIntake,
+                            child: Container(
+                              height: iconHeight,
+                              width: iconHeight,
+                              margin: EdgeInsets.symmetric(
+                                  vertical: 5, horizontal: 5),
+                              child: SvgPicture.asset(
+                                'assets/icons/edit-icon.svg',
+                                color: Color(0xFF1F8ECE),
+                              ),
+                            )),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.only(bottom: 15.0),
+              child: MaterialCard(
+                body: Container(
+                  margin: EdgeInsets.only(left: 10.0),
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Container(
+                        child: Expanded(
+                          child: RichText(
+                            text: TextSpan(
+                              text: '${widget.eventData.date}   ',
+                              style: TextStyle().copyWith(
+                                color: Color(0xFF82898D),
+                                fontSize: 12.0,
+                                fontWeight: FontWeight.w700,
+                              ),
+                              children: [
+                                TextSpan(
+                                  text: "HTS Register",
+                                  style: TextStyle().copyWith(
+                                    color: Color(0xFF05131B),
+                                    fontSize: 14.0,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.symmetric(
+                          horizontal: 5.0,
+                        ),
+                        child: InkWell(
+                            onTap: widget.onViewRegister,
+                            child: Container(
+                              height: iconHeight,
+                              width: iconHeight,
+                              margin: EdgeInsets.symmetric(
+                                  vertical: 5, horizontal: 5),
+                              child: SvgPicture.asset(
+                                'assets/icons/expand_icon.svg',
+                                color: Color(0xFF1F8ECE),
+                              ),
+                            )),
+                      ),
+                      Container(
+                        margin: EdgeInsets.symmetric(
+                          horizontal: 5.0,
+                        ),
+                        child: InkWell(
+                            onTap: widget.onEditRegister,
                             child: Container(
                               height: iconHeight,
                               width: iconHeight,

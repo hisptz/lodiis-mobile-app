@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dream_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
@@ -8,28 +9,27 @@ import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
+import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/client_information.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/pages/agyw_dreams_hts_register.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/skip_logics/agyw_dreams_hts_skip_logic.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/hts_register.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/skip_logics/agyw_dreams_hts_register_skip_logic.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
 import 'package:provider/provider.dart';
 import 'agyw_dreams_hts_consent_for_release_status.dart';
 
-class AgywDreamsHTSClientInformation extends StatefulWidget {
-  AgywDreamsHTSClientInformation({Key key}) : super(key: key);
+class AgywDreamsHTSRegisterForm extends StatefulWidget {
+  AgywDreamsHTSRegisterForm({Key key}) : super(key: key);
 
   @override
-  _AgywDreamsHTSClientInformationState createState() =>
-      _AgywDreamsHTSClientInformationState();
+  _AgywDreamsHTSRegisterFormState createState() =>
+      _AgywDreamsHTSRegisterFormState();
 }
 
-class _AgywDreamsHTSClientInformationState
-    extends State<AgywDreamsHTSClientInformation> {
-  final String label = 'Client Information';
+class _AgywDreamsHTSRegisterFormState extends State<AgywDreamsHTSRegisterForm> {
+  final String label = 'HTS Register';
   List<FormSection> formSections;
   bool isFormReady = false;
   bool isSaving = false;
@@ -37,7 +37,7 @@ class _AgywDreamsHTSClientInformationState
   @override
   void initState() {
     super.initState();
-    formSections = ClientInformation.getFormSections();
+    formSections = HTSRegister.getFormSections();
     Timer(Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
@@ -49,10 +49,10 @@ class _AgywDreamsHTSClientInformationState
   evaluateSkipLogics() {
     Timer(
       Duration(milliseconds: 200),
-      () async {
+          () async {
         Map dataObject =
             Provider.of<ServiceFormState>(context, listen: false).formState;
-        await AgywDreamsHTCSkipLogic.evaluateSkipLogics(
+        await AgywDreamsHTSRegisterSkipLogic.evaluateSkipLogics(
           context,
           formSections,
           dataObject,
@@ -70,10 +70,10 @@ class _AgywDreamsHTSClientInformationState
   void onSaveForm(BuildContext context, Map dataObject, AgywDream agywDream) {
     Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
         .setCurrentAgywDream(agywDream);
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => AgywDreamsHTSRegisterForm()));
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => AgywDreamsHTSConsentForReleaseStatus()));
   }
 
   @override
@@ -106,46 +106,46 @@ class _AgywDreamsHTSClientInformationState
                         ),
                         !isFormReady
                             ? Container(
-                                child: CircularProcessLoader(
-                                  color: Colors.blueGrey,
-                                ),
-                              )
+                          child: CircularProcessLoader(
+                            color: Colors.blueGrey,
+                          ),
+                        )
                             : Column(
-                                children: [
-                                  Container(
-                                    margin: EdgeInsets.only(
-                                      top: 10.0,
-                                      left: 13.0,
-                                      right: 13.0,
-                                    ),
-                                    child: EntryFormContainer(
-                                      formSections: formSections,
-                                      hiddenFields: serviceFormState.hiddenFields,
-                                      hiddenSections:  serviceFormState.hiddenSections,
-                                      mandatoryFieldObject: Map(),
-                                      isEditableMode:
-                                          serviceFormState.isEditableMode,
-                                      dataObject: serviceFormState.formState,
-                                      onInputValueChange: onInputValueChange,
-                                    ),
-                                  ),
-                                  Visibility(
-                                    visible: serviceFormState.isEditableMode,
-                                    child: OvcEnrollmentFormSaveButton(
-                                      label: isSaving
-                                          ? 'Saving ...'
-                                          : 'SAVE & CONTINUE',
-                                      labelColor: Colors.white,
-                                      buttonColor: Color(0xFF258DCC),
-                                      fontSize: 15.0,
-                                      onPressButton: () => onSaveForm(
-                                          context,
-                                          serviceFormState.formState,
-                                          agywDream),
-                                    ),
-                                  )
-                                ],
-                              )
+                          children: [
+                            Container(
+                              margin: EdgeInsets.only(
+                                top: 10.0,
+                                left: 13.0,
+                                right: 13.0,
+                              ),
+                              child: EntryFormContainer(
+                                hiddenFields: serviceFormState.hiddenFields,
+                                hiddenSections: serviceFormState.hiddenSections,
+                                formSections: formSections,
+                                mandatoryFieldObject: Map(),
+                                isEditableMode:
+                                serviceFormState.isEditableMode,
+                                dataObject: serviceFormState.formState,
+                                onInputValueChange: onInputValueChange,
+                              ),
+                            ),
+                            Visibility(
+                              visible: serviceFormState.isEditableMode,
+                              child: OvcEnrollmentFormSaveButton(
+                                label: isSaving
+                                    ? 'Saving ...'
+                                    : 'SAVE & CONTINUE',
+                                labelColor: Colors.white,
+                                buttonColor: Color(0xFF258DCC),
+                                fontSize: 15.0,
+                                onPressButton: () => onSaveForm(
+                                    context,
+                                    serviceFormState.formState,
+                                    agywDream),
+                              ),
+                            )
+                          ],
+                        )
                       ],
                     ),
                   );
