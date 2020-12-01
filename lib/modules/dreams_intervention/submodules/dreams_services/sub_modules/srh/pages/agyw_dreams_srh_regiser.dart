@@ -16,21 +16,22 @@ import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/dreams_service_service_form.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/service_form/constants/service_form_constant.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/service_form/skip_logics/agyw_dreams_service_form_skip_logic.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/dreams_srh_register.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/srh/constants/srh_client_intake_constant.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/srh/skip_logics/agyw_dreams_srh_register_skip_logic.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
 import 'package:provider/provider.dart';
 
-class AgywDreamsServiceForm extends StatefulWidget {
-  AgywDreamsServiceForm({Key key}) : super(key: key);
+class AgywDreamsSrhRegisterForm extends StatefulWidget {
+  AgywDreamsSrhRegisterForm({Key key}) : super(key: key);
 
   @override
-  _AgywDreamsServiceFormState createState() => _AgywDreamsServiceFormState();
+  _AgywDreamsSrhRegisterFormState createState() =>
+      _AgywDreamsSrhRegisterFormState();
 }
 
-class _AgywDreamsServiceFormState extends State<AgywDreamsServiceForm> {
-  final String label = 'Service Form';
+class _AgywDreamsSrhRegisterFormState extends State<AgywDreamsSrhRegisterForm> {
+  final String label = 'SRH Register';
   List<FormSection> formSections;
   bool isFormReady = false;
   bool isSaving = false;
@@ -38,7 +39,7 @@ class _AgywDreamsServiceFormState extends State<AgywDreamsServiceForm> {
   @override
   void initState() {
     super.initState();
-    formSections = DreamsServiceForm.getFormSections();
+    formSections = DreamsSrhRegister.getFormSections();
     Timer(Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
@@ -53,7 +54,7 @@ class _AgywDreamsServiceFormState extends State<AgywDreamsServiceForm> {
       () async {
         Map dataObject =
             Provider.of<ServiceFormState>(context, listen: false).formState;
-        await AgywDreamsServiceFormSkipLogic.evaluateSkipLogics(
+        await AgywDreamsSrhRegisterSkipLogic.evaluateSkipLogics(
           context,
           formSections,
           dataObject,
@@ -71,49 +72,43 @@ class _AgywDreamsServiceFormState extends State<AgywDreamsServiceForm> {
   void onSaveForm(
       BuildContext context, Map dataObject, AgywDream agywDream) async {
     if (dataObject.keys.length > 0) {
-      bool shouldSaveForm =
-          AgywDreamsServiceFormSkipLogic.evaluateSkipLogicsBySession(
-              dataObject);
-      if (shouldSaveForm) {
-        setState(() {
-          isSaving = true;
+      setState(() {
+        isSaving = true;
+      });
+      String eventDate = dataObject['eventDate'];
+      String eventId = dataObject['eventId'];
+
+      List<String> hiddenFields = [];
+      try {
+        await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
+            HivPrepClientIntakeConstant.program,
+            HivPrepClientIntakeConstant.programStage,
+            agywDream.orgUnit,
+            formSections,
+            dataObject,
+            eventDate,
+            agywDream.id,
+            eventId,
+            hiddenFields);
+        Provider.of<ServiveEventDataState>(context, listen: false)
+            .resetServiceEventDataState(agywDream.id);
+        Timer(Duration(seconds: 1), () {
+          setState(() {
+            AppUtil.showToastMessage(
+                message: 'Form has been saved successfully',
+                position: ToastGravity.TOP);
+            if (Navigator.canPop(context)) {
+              Navigator.popUntil(context, (route) => route.isFirst);
+            }
+          });
         });
-        String eventDate = dataObject['eventDate'];
-        String eventId = dataObject['eventId'];
-        List<String> hiddenFields = [];
-        try {
-          await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-              ServiceFormConstant.program,
-              ServiceFormConstant.programStage,
-              agywDream.orgUnit,
-              formSections,
-              dataObject,
-              eventDate,
-              agywDream.id,
-              eventId,
-              hiddenFields);
-          Provider.of<ServiveEventDataState>(context, listen: false)
-              .resetServiceEventDataState(agywDream.id);
-          Timer(Duration(seconds: 1), () {
-            setState(() {
-              AppUtil.showToastMessage(
-                  message: 'Form has been saved successfully',
-                  position: ToastGravity.TOP);
-              Navigator.pop(context);
-            });
+      } catch (e) {
+        Timer(Duration(seconds: 1), () {
+          setState(() {
+            AppUtil.showToastMessage(
+                message: e.toString(), position: ToastGravity.BOTTOM);
           });
-        } catch (e) {
-          Timer(Duration(seconds: 1), () {
-            setState(() {
-              AppUtil.showToastMessage(
-                  message: e.toString(), position: ToastGravity.BOTTOM);
-            });
-          });
-        }
-      } else {
-        AppUtil.showToastMessage(
-            message: 'You have reached the maximum number of sessions',
-            position: ToastGravity.TOP);
+        });
       }
     } else {
       AppUtil.showToastMessage(
@@ -170,8 +165,6 @@ class _AgywDreamsServiceFormState extends State<AgywDreamsServiceForm> {
                                           serviceFormState.hiddenFields,
                                       hiddenSections:
                                           serviceFormState.hiddenSections,
-                                      hiddenInputFieldOptions: serviceFormState
-                                          .hiddenInputFieldOptions,
                                       formSections: formSections,
                                       mandatoryFieldObject: Map(),
                                       isEditableMode:

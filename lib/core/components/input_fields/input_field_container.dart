@@ -235,8 +235,8 @@ class InputFieldContainer extends StatelessWidget {
                 )
               : inputField.options.length > 0
                   ? SelectInputField(
-                      hiddenInputFieldOptions: hiddenInputFieldOptions,
-                      inputFieldId: inputField.id,
+                      hiddenInputFieldOptions:
+                          hiddenInputFieldOptions[inputField.id] ?? Map(),
                       currentLanguage: currentLanguage,
                       color: inputField.inputColor,
                       isReadOnly: inputField.isReadOnly,

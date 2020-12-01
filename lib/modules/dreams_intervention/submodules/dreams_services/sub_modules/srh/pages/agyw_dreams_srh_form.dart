@@ -22,6 +22,8 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_serv
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
 import 'package:provider/provider.dart';
 
+import 'agyw_dreams_srh_regiser.dart';
+
 class AgywDreamsSrhForm extends StatefulWidget {
   AgywDreamsSrhForm({Key key}) : super(key: key);
 
@@ -68,51 +70,14 @@ class _AgywDreamsSrhFormState extends State<AgywDreamsSrhForm> {
     evaluateSkipLogics();
   }
 
-  void onSaveForm(
-      BuildContext context, Map dataObject, AgywDream agywDream) async {
-    if (dataObject.keys.length > 0) {
-      setState(() {
-        isSaving = true;
-      });
-      String eventDate = dataObject['eventDate'];
-      String eventId = dataObject['eventId'];
+  void onSaveForm(BuildContext context, Map dataObject, AgywDream agywDream) {
+    Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
+        .setCurrentAgywDream(agywDream);
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => AgywDreamsSrhRegisterForm()));
 
-      List<String> hiddenFields = [];
-      try {
-        await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-            HivPrepClientIntakeConstant.program,
-            HivPrepClientIntakeConstant.programStage,
-            agywDream.orgUnit,
-            formSections,
-            dataObject,
-            eventDate,
-            agywDream.id,
-            eventId,
-            hiddenFields);
-        Provider.of<ServiveEventDataState>(context, listen: false)
-            .resetServiceEventDataState(agywDream.id);
-        Timer(Duration(seconds: 1), () {
-          setState(() {
-            AppUtil.showToastMessage(
-                message: 'Form has been saved successfully',
-                position: ToastGravity.TOP);
-            Navigator.pop(context);
-          });
-        });
-      } catch (e) {
-        Timer(Duration(seconds: 1), () {
-          setState(() {
-            AppUtil.showToastMessage(
-                message: e.toString(), position: ToastGravity.BOTTOM);
-          });
-        });
-      }
-    } else {
-      AppUtil.showToastMessage(
-          message: 'Please fill at least one form field',
-          position: ToastGravity.TOP);
-      Navigator.pop(context);
-    }
   }
 
   @override
@@ -173,7 +138,7 @@ class _AgywDreamsSrhFormState extends State<AgywDreamsSrhForm> {
                                   Visibility(
                                     visible: serviceFormState.isEditableMode,
                                     child: OvcEnrollmentFormSaveButton(
-                                      label: isSaving ? 'Saving ...' : 'Save',
+                                      label: isSaving ? 'Saving ...' : 'Save and Continue',
                                       labelColor: Colors.white,
                                       buttonColor: Color(0xFF258DCC),
                                       fontSize: 15.0,

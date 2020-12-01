@@ -8,7 +8,6 @@ class SelectInputField extends StatefulWidget {
   const SelectInputField({
     Key key,
     this.color,
-    @required this.inputFieldId,
     @required this.options,
     @required this.selectedOption,
     @required this.onInputValueChange,
@@ -18,7 +17,6 @@ class SelectInputField extends StatefulWidget {
     this.renderAsRadio,
   }) : super(key: key);
 
-  final String inputFieldId;
   final Color color;
   final bool isReadOnly;
   final List<InputFieldOption> options;
@@ -44,10 +42,8 @@ class _SelectInputFieldState extends State<SelectInputField> {
   }
 
   updateInputValueState(dynamic value) {
-    var hiddenInputFieldOptions =
-        widget.hiddenInputFieldOptions[widget.inputFieldId];
     _hiddenInputFieldOptions =
-        hiddenInputFieldOptions ?? _hiddenInputFieldOptions;
+        widget.hiddenInputFieldOptions ?? _hiddenInputFieldOptions;
     _options = widget.options.where((InputFieldOption option) {
       return _hiddenInputFieldOptions[option.code] == null ||
           (_hiddenInputFieldOptions[option.code] != null &&
@@ -84,46 +80,80 @@ class _SelectInputFieldState extends State<SelectInputField> {
               onInputValueChange: widget.onInputValueChange,
             ),
           )
-        : Row(
-            children: [
-              Expanded(
-                child: DropdownButton<dynamic>(
-                  value: _selectedOption,
-                  isExpanded: true,
-                  icon: Container(
-                    height: 20.0,
-                    child: SvgPicture.asset(
-                      'assets/icons/chevron_down.svg',
-                      color: widget.color ?? Colors.black,
-                    ),
-                  ),
-                  elevation: 16,
-                  style: TextStyle(color: widget.color ?? Colors.black),
-                  underline: Container(
-                    height: 0,
-                    color: Colors.transparent,
-                  ),
-                  onChanged: widget.isReadOnly ? null : onValueChange,
-                  items: _options.map<DropdownMenuItem<dynamic>>(
-                    (InputFieldOption option) {
-                      return DropdownMenuItem<dynamic>(
-                        value: option.code,
-                        child: Text(
-                          widget.currentLanguage == 'lesotho' &&
-                                  option.translatedName != null
-                              ? option.translatedName
-                              : option.name,
-                        ),
-                      );
-                    },
-                  ).toList(),
-                ),
-              ),
-              InputCheckedIcon(
-                showTickedIcon: _selectedOption != null,
-                color: widget.color,
-              )
-            ],
+        : Container(
+            child: SelectionOptionContainer(
+              selectedOption: _selectedOption,
+              options: _options,
+              onValueChange: onValueChange,
+              color: widget.color,
+              isReadOnly: widget.isReadOnly,
+              currentLanguage: widget.currentLanguage,
+            ),
           );
+  }
+}
+
+class SelectionOptionContainer extends StatelessWidget {
+  const SelectionOptionContainer({
+    Key key,
+    @required selectedOption,
+    @required List<InputFieldOption> options,
+    this.color,
+    this.isReadOnly,
+    this.onValueChange,
+    this.currentLanguage,
+  })  : _selectedOption = selectedOption,
+        _options = options,
+        super(key: key);
+
+  final dynamic _selectedOption;
+  final List<InputFieldOption> _options;
+  final Color color;
+  final bool isReadOnly;
+  final String currentLanguage;
+  final Function onValueChange;
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Expanded(
+          child: DropdownButton<dynamic>(
+            value: _selectedOption,
+            isExpanded: true,
+            icon: Container(
+              height: 20.0,
+              child: SvgPicture.asset(
+                'assets/icons/chevron_down.svg',
+                color: color ?? Colors.black,
+              ),
+            ),
+            elevation: 16,
+            style: TextStyle(color: color ?? Colors.black),
+            underline: Container(
+              height: 0,
+              color: Colors.transparent,
+            ),
+            onChanged: isReadOnly ? null : onValueChange,
+            items: _options.map<DropdownMenuItem<dynamic>>(
+              (InputFieldOption option) {
+                return DropdownMenuItem<dynamic>(
+                  value: option.code,
+                  child: Text(
+                    currentLanguage == 'lesotho' &&
+                            option.translatedName != null
+                        ? option.translatedName
+                        : option.name,
+                  ),
+                );
+              },
+            ).toList(),
+          ),
+        ),
+        InputCheckedIcon(
+          showTickedIcon: _selectedOption != null,
+          color: color,
+        )
+      ],
+    );
   }
 }
