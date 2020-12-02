@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:kb_mobile_app/core/components/line_seperator.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_card_service_summary.dart';
 
 class DreamBeneficiaryCardBody extends StatelessWidget {
   const DreamBeneficiaryCardBody(
@@ -68,6 +71,19 @@ class DreamBeneficiaryCardBody extends StatelessWidget {
                         labelColor: labelColor,
                         valueColor: valueColor),
                   ),
+                  Container(
+                    margin: EdgeInsets.only(bottom: 10),
+                    child: LineSeperator(
+                      color: labelColor,
+                      height: 0.5,
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(bottom: 5),
+                    child: DreamBeneficiaryCardServiceSummary(
+                      services: getServices(),
+                    ),
+                  )
                 ],
               )
             : Column(
@@ -103,6 +119,37 @@ class DreamBeneficiaryCardBody extends StatelessWidget {
                   ),
                 ],
               ));
+  }
+
+  List<List> getServices() {
+    return [
+      [
+        'HTS',
+        'ART RE-FILL',
+        'HIV MESSAGING',
+      ],
+      [
+        'SRH',
+        'HIV PREV',
+        'CONTRACEPTIVES',
+      ],
+      [
+        'PREP',
+        'CONDOMS',
+        '(ES) Economic Strengthening',
+      ],
+      [
+        'ANC',
+        'GBV LEGAL',
+        '(SAB) Social Assets Building',
+      ],
+      [
+        'PEP',
+        'VAC LEGAL',
+        'HIV & VIOLENCE PREVENTION',
+      ],
+      ['PARENTING', '', ''],
+    ];
   }
 }
 
