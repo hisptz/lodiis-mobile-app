@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:kb_mobile_app/core/components/line_seperator.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_card_service_summary.dart';
 
 class DreamBeneficiaryCardBody extends StatelessWidget {
   const DreamBeneficiaryCardBody(
@@ -68,6 +71,19 @@ class DreamBeneficiaryCardBody extends StatelessWidget {
                         labelColor: labelColor,
                         valueColor: valueColor),
                   ),
+                  // Container(
+                  //   margin: EdgeInsets.only(bottom: 10),
+                  //   child: LineSeperator(
+                  //     color: labelColor,
+                  //     height: 0.5,
+                  //   ),
+                  // ),
+                  // Container(
+                  //   margin: EdgeInsets.only(bottom: 5),
+                  //   child: DreamBeneficiaryCardServiceSummary(
+                  //     services: getServices(),
+                  //   ),
+                  // )
                 ],
               )
             : Column(
@@ -79,30 +95,88 @@ class DreamBeneficiaryCardBody extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          HorizontalRowCardData(
-                            labelColor: labelColor,
-                            valueColor: valueColor,
-                            label: 'Age',
-                            value: agywBeneficiary.age.toString(),
+                          Expanded(
+                            child: Table(
+                              children: [
+                                TableRow(children: [
+                                  TableCell(
+                                    child: Row(
+                                      children: [
+                                        HorizontalRowCardData(
+                                          labelColor: labelColor,
+                                          valueColor: valueColor,
+                                          label: 'Age',
+                                          value: agywBeneficiary.age.toString(),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  TableCell(
+                                    child: Row(
+                                      children: [
+                                        HorizontalRowCardData(
+                                          labelColor: labelColor,
+                                          valueColor: valueColor,
+                                          label: 'Sex',
+                                          value: agywBeneficiary.sex,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  TableCell(
+                                    child: Row(
+                                      children: [
+                                        HorizontalRowCardData(
+                                          labelColor: labelColor,
+                                          valueColor: valueColor,
+                                          label: 'En Org',
+                                          value: agywBeneficiary
+                                              .enrolledOrganisation,
+                                        )
+                                      ],
+                                    ),
+                                  )
+                                ]),
+                              ],
+                            ),
                           ),
-                          HorizontalRowCardData(
-                            labelColor: labelColor,
-                            valueColor: valueColor,
-                            label: 'Sex',
-                            value: agywBeneficiary.sex,
-                          ),
-                          HorizontalRowCardData(
-                            labelColor: labelColor,
-                            valueColor: valueColor,
-                            label: 'En Org',
-                            value: agywBeneficiary.enrolledOrganisation,
-                          )
                         ],
                       )
                     ],
                   ),
                 ],
               ));
+  }
+
+  List<List> getServices() {
+    return [
+      [
+        'HTS',
+        'ART RE-FILL',
+        'HIV MESSAGING',
+      ],
+      [
+        'SRH',
+        'HIV PREV',
+        'CONTRACEPTIVES',
+      ],
+      [
+        'PREP',
+        'CONDOMS',
+        '(ES) Economic Strengthening',
+      ],
+      [
+        'ANC',
+        'GBV LEGAL',
+        '(SAB) Social Assets Building',
+      ],
+      [
+        'PEP',
+        'VAC LEGAL',
+        'HIV & VIOLENCE PREVENTION',
+      ],
+      ['PARENTING', '', ''],
+    ];
   }
 }
 
@@ -122,21 +196,25 @@ class HorizontalRowCardData extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: RichText(
-        text: TextSpan(
-            text: '$label   ',
-            style: TextStyle().copyWith(
-                color: labelColor, fontSize: 14.0, fontWeight: FontWeight.w500),
-            children: [
-              TextSpan(
-                text: value,
-                style: TextStyle().copyWith(
-                    color: valueColor,
-                    fontSize: 14.0,
-                    fontWeight: FontWeight.w500),
-              )
-            ]),
+    return Expanded(
+      child: Container(
+        child: RichText(
+          text: TextSpan(
+              text: '$label   ',
+              style: TextStyle().copyWith(
+                  color: labelColor,
+                  fontSize: 14.0,
+                  fontWeight: FontWeight.w500),
+              children: [
+                TextSpan(
+                  text: value,
+                  style: TextStyle().copyWith(
+                      color: valueColor,
+                      fontSize: 14.0,
+                      fontWeight: FontWeight.w500),
+                )
+              ]),
+        ),
       ),
     );
   }
