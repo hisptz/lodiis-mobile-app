@@ -5,8 +5,27 @@ import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/input_field_option.dart';
 
 class DreamsServicePrepIntakeInfo {
+  static List<String> getCheckboxInputFieldOptions(
+      List<FormSection> formSections) {
+    List<String> inputFieldOptions = [];
+    for (FormSection section in formSections) {
+      for (InputField field in section.inputFields) {
+        if (field.valueType == 'CHECK_BOX') {
+          for (InputFieldOption option in field.options) {
+            inputFieldOptions.add(option.code);
+          }
+        }
+      }
+    }
+    return inputFieldOptions;
+  }
+
   static List<String> getMandatoryField() {
     List<String> inputFields = FormUtil.getFormFieldIds(getFormSections());
+    List<String> optionalFields =
+        getCheckboxInputFieldOptions(getFormSections());
+    inputFields =
+        inputFields.where((field) => optionalFields.indexOf(field) < 0).toList();
     return inputFields;
   }
 
