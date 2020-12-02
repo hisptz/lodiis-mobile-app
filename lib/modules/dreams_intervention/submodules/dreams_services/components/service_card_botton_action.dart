@@ -320,7 +320,7 @@ class ServiceCardBottonAction extends StatelessWidget {
                       ),
                     ),
                     Visibility(
-                      visible: true,
+                      visible: currentUserState.canManageServiceForm,
                       child: Expanded(
                         child: InkWell(
                           onTap: onOpenServiceForm,

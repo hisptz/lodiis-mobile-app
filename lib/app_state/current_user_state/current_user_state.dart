@@ -25,6 +25,7 @@ class CurrentUserState with ChangeNotifier {
   bool _canManageContaraceptives;
   bool _canManagePOSTGBV;
   bool _canManagePEP;
+  bool _canManageServiceForm;
 
   // selectors
   CurrentUser get currentUser => _currentUser;
@@ -47,6 +48,7 @@ class CurrentUserState with ChangeNotifier {
   bool get canManageContraceptives => _canManageContaraceptives ?? false;
   bool get canManagePOSTGBV => _canManagePOSTGBV ?? false;
   bool get canManagePEP => _canManagePEP ?? false;
+  bool get canManageServiceForm => _canManageServiceForm ?? false;
 
   void updateUserAccessStatus(String implementingPartner) {
     if (implementingPartner == 'Super user') {
@@ -67,6 +69,7 @@ class CurrentUserState with ChangeNotifier {
       _canManageMSGHIV = true;
       _canManageArtRefill = true;
       _canManageAnc = true;
+      _canManageServiceForm = true;
     }
     if (implementingPartner == 'PSI') {
       _canManageDreams = true;
@@ -101,6 +104,7 @@ class CurrentUserState with ChangeNotifier {
       _canManageOGAC = true;
       _canManageReferral = true;
       _canManageCLOReferral = true;
+      _canManageServiceForm = true;
     }
     if (implementingPartner == 'KB-AGYW/DREAMS') {
       _canManageDreams = true;
@@ -112,6 +116,7 @@ class CurrentUserState with ChangeNotifier {
       _canManageCLOReferral = true;
       _canManagePOSTGBV = true;
       _canManageMSGHIV = true;
+      _canManageServiceForm = true;
     }
     if (implementingPartner == 'CLO') {
       _canManageOvc = true;
@@ -164,5 +169,6 @@ class CurrentUserState with ChangeNotifier {
     _canManageContaraceptives = false;
     _canManagePOSTGBV = false;
     _canManagePEP = false;
+    _canManageServiceForm = false;
   }
 }
