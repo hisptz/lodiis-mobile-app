@@ -71,19 +71,19 @@ class DreamBeneficiaryCardBody extends StatelessWidget {
                         labelColor: labelColor,
                         valueColor: valueColor),
                   ),
-                  Container(
-                    margin: EdgeInsets.only(bottom: 10),
-                    child: LineSeperator(
-                      color: labelColor,
-                      height: 0.5,
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(bottom: 5),
-                    child: DreamBeneficiaryCardServiceSummary(
-                      services: getServices(),
-                    ),
-                  )
+                  // Container(
+                  //   margin: EdgeInsets.only(bottom: 10),
+                  //   child: LineSeperator(
+                  //     color: labelColor,
+                  //     height: 0.5,
+                  //   ),
+                  // ),
+                  // Container(
+                  //   margin: EdgeInsets.only(bottom: 5),
+                  //   child: DreamBeneficiaryCardServiceSummary(
+                  //     services: getServices(),
+                  //   ),
+                  // )
                 ],
               )
             : Column(
@@ -95,24 +95,51 @@ class DreamBeneficiaryCardBody extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          HorizontalRowCardData(
-                            labelColor: labelColor,
-                            valueColor: valueColor,
-                            label: 'Age',
-                            value: agywBeneficiary.age.toString(),
+                          Expanded(
+                            child: Table(
+                              children: [
+                                TableRow(children: [
+                                  TableCell(
+                                    child: Row(
+                                      children: [
+                                        HorizontalRowCardData(
+                                          labelColor: labelColor,
+                                          valueColor: valueColor,
+                                          label: 'Age',
+                                          value: agywBeneficiary.age.toString(),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  TableCell(
+                                    child: Row(
+                                      children: [
+                                        HorizontalRowCardData(
+                                          labelColor: labelColor,
+                                          valueColor: valueColor,
+                                          label: 'Sex',
+                                          value: agywBeneficiary.sex,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  TableCell(
+                                    child: Row(
+                                      children: [
+                                        HorizontalRowCardData(
+                                          labelColor: labelColor,
+                                          valueColor: valueColor,
+                                          label: 'En Org',
+                                          value: agywBeneficiary
+                                              .enrolledOrganisation,
+                                        )
+                                      ],
+                                    ),
+                                  )
+                                ]),
+                              ],
+                            ),
                           ),
-                          HorizontalRowCardData(
-                            labelColor: labelColor,
-                            valueColor: valueColor,
-                            label: 'Sex',
-                            value: agywBeneficiary.sex,
-                          ),
-                          HorizontalRowCardData(
-                            labelColor: labelColor,
-                            valueColor: valueColor,
-                            label: 'En Org',
-                            value: agywBeneficiary.enrolledOrganisation,
-                          )
                         ],
                       )
                     ],
@@ -169,21 +196,25 @@ class HorizontalRowCardData extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: RichText(
-        text: TextSpan(
-            text: '$label   ',
-            style: TextStyle().copyWith(
-                color: labelColor, fontSize: 14.0, fontWeight: FontWeight.w500),
-            children: [
-              TextSpan(
-                text: value,
-                style: TextStyle().copyWith(
-                    color: valueColor,
-                    fontSize: 14.0,
-                    fontWeight: FontWeight.w500),
-              )
-            ]),
+    return Expanded(
+      child: Container(
+        child: RichText(
+          text: TextSpan(
+              text: '$label   ',
+              style: TextStyle().copyWith(
+                  color: labelColor,
+                  fontSize: 14.0,
+                  fontWeight: FontWeight.w500),
+              children: [
+                TextSpan(
+                  text: value,
+                  style: TextStyle().copyWith(
+                      color: valueColor,
+                      fontSize: 14.0,
+                      fontWeight: FontWeight.w500),
+                )
+              ]),
+        ),
       ),
     );
   }
