@@ -23,6 +23,7 @@ import 'package:provider/provider.dart';
 
 class AgywDreamsEnrollmentForm extends StatefulWidget {
   const AgywDreamsEnrollmentForm({Key key}) : super(key: key);
+
   @override
   _AgywDreamsEnrollmentFormState createState() =>
       _AgywDreamsEnrollmentFormState();
@@ -66,9 +67,12 @@ class _AgywDreamsEnrollmentFormState extends State<AgywDreamsEnrollmentForm> {
     );
   }
 
-  void onSaveAndContinue(BuildContext context, Map dataObject) async {
-    bool hadAllMandatoryFilled =
-        AppUtil.hasAllMandarotyFieldsFilled(mandatoryFields, dataObject);
+  void onSaveAndContinue(BuildContext context, Map dataObject,
+      {Map hiddenFields = const {}}) async {
+    bool hadAllMandatoryFilled = AppUtil.hasAllMandarotyFieldsFilled(
+        mandatoryFields, dataObject,
+      hiddenFields: hiddenFields
+        );
     if (hadAllMandatoryFilled) {
       setState(() {
         isSaving = true;
@@ -178,6 +182,7 @@ class _AgywDreamsEnrollmentFormState extends State<AgywDreamsEnrollmentForm> {
                                 onPressButton: () => onSaveAndContinue(
                                   context,
                                   enrollmentFormState.formState,
+                                  hiddenFields: enrollmentFormState.hiddenFields
                                 ),
                               )
                             ],

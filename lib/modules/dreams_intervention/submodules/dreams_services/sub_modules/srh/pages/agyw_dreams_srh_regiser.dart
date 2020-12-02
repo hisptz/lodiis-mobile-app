@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dream_current_selection_state.dart';
+import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar_container.dart';
@@ -10,78 +11,110 @@ import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.d
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
+import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/hts_consent.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/dreams_srh_register.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/srh/constants/srh_client_intake_constant.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/srh/skip_logics/agyw_dreams_srh_register_skip_logic.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
 import 'package:provider/provider.dart';
-import 'agyw_dreams_hts_client_information.dart';
 
-class AgywDreamsHTSConsentForm extends StatefulWidget {
-  AgywDreamsHTSConsentForm({Key key, this.isComingFromPrep}) : super(key: key);
-
-  final bool isComingFromPrep;
+class AgywDreamsSrhRegisterForm extends StatefulWidget {
+  AgywDreamsSrhRegisterForm({Key key}) : super(key: key);
 
   @override
-  _AgywDreamsHTSConsentFormState createState() =>
-      _AgywDreamsHTSConsentFormState();
+  _AgywDreamsSrhRegisterFormState createState() =>
+      _AgywDreamsSrhRegisterFormState();
 }
 
-class _AgywDreamsHTSConsentFormState extends State<AgywDreamsHTSConsentForm> {
-  final String label = 'HTS Consent';
+class _AgywDreamsSrhRegisterFormState extends State<AgywDreamsSrhRegisterForm> {
+  final String label = 'SRH Register';
   List<FormSection> formSections;
   bool isFormReady = false;
   bool isSaving = false;
-  bool isComingFromPrep;
 
   @override
   void initState() {
     super.initState();
-    isComingFromPrep = widget.isComingFromPrep;
-    formSections = HTSConsent.getFormSections();
+    formSections = DreamsSrhRegister.getFormSections();
     Timer(Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
+        evaluateSkipLogics();
       });
     });
+  }
+
+  evaluateSkipLogics() {
+    Timer(
+      Duration(milliseconds: 200),
+      () async {
+        Map dataObject =
+            Provider.of<ServiceFormState>(context, listen: false).formState;
+        await AgywDreamsSrhRegisterSkipLogic.evaluateSkipLogics(
+          context,
+          formSections,
+          dataObject,
+        );
+      },
+    );
   }
 
   void onInputValueChange(String id, dynamic value) {
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState(id, value);
+    evaluateSkipLogics();
   }
 
-  bool isConsentGiven(Map dataObject) {
-    List<String> consentFields = [
-      'rguXA70zATn',
-      'TcN49hQNZiG',
-      'HZ4BrWoGNIO',
-      'Gl7NGINbUAV',
-      'yVYVJe26S4u',
-      'B4xx1IVaAnI',
-      'rY4ei8RNw6c'
-    ];
+  void onSaveForm(
+      BuildContext context, Map dataObject, AgywDream agywDream) async {
+    if (dataObject.keys.length > 0) {
+      setState(() {
+        isSaving = true;
+      });
+      String eventDate = dataObject['eventDate'];
+      String eventId = dataObject['eventId'];
 
-    return !consentFields.every((field) =>
-        '${dataObject[field]}' == 'false' || '${dataObject[field]}' == 'null');
-  }
-
-  void onSaveForm(BuildContext context, Map dataObject, AgywDream agywDream) {
-    Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
-        .setCurrentAgywDream(agywDream);
-    if (isConsentGiven(dataObject)) {
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => AgywDreamsHTSClientInformation(
-                    isComingFromPrep: isComingFromPrep,
-                  )));
+      List<String> hiddenFields = [];
+      try {
+        await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
+            HivPrepClientIntakeConstant.program,
+            HivPrepClientIntakeConstant.programStage,
+            agywDream.orgUnit,
+            formSections,
+            dataObject,
+            eventDate,
+            agywDream.id,
+            eventId,
+            hiddenFields);
+        Provider.of<ServiveEventDataState>(context, listen: false)
+            .resetServiceEventDataState(agywDream.id);
+        Timer(Duration(seconds: 1), () {
+          setState(() {
+            AppUtil.showToastMessage(
+                message: 'Form has been saved successfully',
+                position: ToastGravity.TOP);
+            if (Navigator.canPop(context)) {
+              Navigator.popUntil(context, (route) => route.isFirst);
+            }
+          });
+        });
+      } catch (e) {
+        Timer(Duration(seconds: 1), () {
+          setState(() {
+            AppUtil.showToastMessage(
+                message: e.toString(), position: ToastGravity.BOTTOM);
+          });
+        });
+      }
     } else {
       AppUtil.showToastMessage(
-          message: 'Cannot proceed without consent',
+          message: 'Please fill at least one form field',
           position: ToastGravity.TOP);
+      Navigator.pop(context);
     }
   }
 
@@ -128,6 +161,10 @@ class _AgywDreamsHTSConsentFormState extends State<AgywDreamsHTSConsentForm> {
                                       right: 13.0,
                                     ),
                                     child: EntryFormContainer(
+                                      hiddenFields:
+                                          serviceFormState.hiddenFields,
+                                      hiddenSections:
+                                          serviceFormState.hiddenSections,
                                       formSections: formSections,
                                       mandatoryFieldObject: Map(),
                                       isEditableMode:
@@ -139,9 +176,7 @@ class _AgywDreamsHTSConsentFormState extends State<AgywDreamsHTSConsentForm> {
                                   Visibility(
                                     visible: serviceFormState.isEditableMode,
                                     child: OvcEnrollmentFormSaveButton(
-                                      label: isSaving
-                                          ? 'Saving ...'
-                                          : 'SAVE & CONTINUE',
+                                      label: isSaving ? 'Saving ...' : 'Save',
                                       labelColor: Colors.white,
                                       buttonColor: Color(0xFF258DCC),
                                       fontSize: 15.0,

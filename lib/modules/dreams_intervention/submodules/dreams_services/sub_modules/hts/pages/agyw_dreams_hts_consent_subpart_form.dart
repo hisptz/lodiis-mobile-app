@@ -19,17 +19,17 @@ import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment
 import 'package:provider/provider.dart';
 import 'agyw_dreams_hts_client_information.dart';
 
-class AgywDreamsHTSConsentForm extends StatefulWidget {
-  AgywDreamsHTSConsentForm({Key key, this.isComingFromPrep}) : super(key: key);
+class AgywDreamsHTSConsentFormSubpart extends StatefulWidget {
+  AgywDreamsHTSConsentFormSubpart({Key key, this.isComingFromPrep}) : super(key: key);
 
   final bool isComingFromPrep;
 
   @override
-  _AgywDreamsHTSConsentFormState createState() =>
-      _AgywDreamsHTSConsentFormState();
+  _AgywDreamsHTSConsentFormSubpartState createState() =>
+      _AgywDreamsHTSConsentFormSubpartState();
 }
 
-class _AgywDreamsHTSConsentFormState extends State<AgywDreamsHTSConsentForm> {
+class _AgywDreamsHTSConsentFormSubpartState extends State<AgywDreamsHTSConsentFormSubpart> {
   final String label = 'HTS Consent';
   List<FormSection> formSections;
   bool isFormReady = false;
@@ -87,22 +87,7 @@ class _AgywDreamsHTSConsentFormState extends State<AgywDreamsHTSConsentForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(65.0),
-          child: Consumer<IntervetionCardState>(
-            builder: (context, intervetionCardState, child) {
-              InterventionCard activeInterventionProgram =
-                  intervetionCardState.currentIntervetionProgram;
-              return SubPageAppBar(
-                label: label,
-                activeInterventionProgram: activeInterventionProgram,
-              );
-            },
-          ),
-        ),
-        body: SubPageBody(
-          body: Container(child: Consumer<DreamBenefeciarySelectionState>(
+    return  Container(child: Consumer<DreamBenefeciarySelectionState>(
             builder: (context, nonAgywState, child) {
               AgywDream agywDream = nonAgywState.currentAgywDream;
               return Consumer<ServiceFormState>(
@@ -159,8 +144,6 @@ class _AgywDreamsHTSConsentFormState extends State<AgywDreamsHTSConsentForm> {
                 },
               );
             },
-          )),
-        ),
-        bottomNavigationBar: InterventionBottomNavigationBarContainer());
+          ));
   }
 }

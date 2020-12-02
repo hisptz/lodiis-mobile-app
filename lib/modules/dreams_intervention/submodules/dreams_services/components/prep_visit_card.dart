@@ -1,23 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/core/components/material_card.dart';
+import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/events.dart';
 
 class PrepVisitListCard extends StatelessWidget {
-  const PrepVisitListCard({
-    Key key,
-    @required this.eventData,
-    @required this.visitCount,
-    @required this.visitName,
-    this.onViewPrep,
-    this.onEditPrep,
-  }) : super(key: key);
+  const PrepVisitListCard(
+      {Key key,
+      @required this.eventData,
+      this.visitCount,
+      @required this.visitName,
+      this.onViewPrep,
+      this.onEditPrep,
+      this.editDisabled})
+      : super(key: key);
 
   final Events eventData;
   final Function onViewPrep;
   final Function onEditPrep;
   final int visitCount;
   final String visitName;
+  final bool editDisabled;
+
 
   @override
   Widget build(BuildContext context) {
@@ -47,8 +52,9 @@ class PrepVisitListCard extends StatelessWidget {
                           ),
                           children: [
                             TextSpan(
-                              text:
-                                  "      $visitName " + visitCount.toString(),
+                              text: visitCount == null || visitCount == 0
+                                  ? "      $visitName "
+                                  : "      $visitName " + visitCount.toString(),
                               style: TextStyle().copyWith(
                                 color: Color(0xFF05131B),
                                 fontSize: 14.0,
@@ -82,7 +88,7 @@ class PrepVisitListCard extends StatelessWidget {
                       horizontal: 5.0,
                     ),
                     child: InkWell(
-                        onTap: onEditPrep,
+                        onTap: editDisabled == true ? null:  onEditPrep,
                         child: Container(
                           height: iconHeight,
                           width: iconHeight,

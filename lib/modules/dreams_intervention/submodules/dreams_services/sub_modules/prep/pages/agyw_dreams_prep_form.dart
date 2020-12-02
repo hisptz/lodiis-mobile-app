@@ -17,6 +17,7 @@ import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/dreap_service_prep_intake_form_info.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/prep/agyw_dreams_prep.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/prep/constants/prep_intake_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/prep/skip_logics/agyw_dreams_prep_skip_logic.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
@@ -32,6 +33,8 @@ class AgywDreamsPrepFormPage extends StatefulWidget {
 class _AgywDreamsPrepFormPageState extends State<AgywDreamsPrepFormPage> {
   final String label = 'AGYW Prep Intake Form';
   List<FormSection> formSections;
+  List<String> mandatoryFields;
+  Map mandatoryFieldObject = Map();
   bool isFormReady = false;
   bool isSaving = false;
 
@@ -40,6 +43,11 @@ class _AgywDreamsPrepFormPageState extends State<AgywDreamsPrepFormPage> {
     super.initState();
     Timer(Duration(seconds: 1), () {
       formSections = DreamsServicePrepIntakeInfo.getFormSections();
+      mandatoryFields  =
+          DreamsServicePrepIntakeInfo.getMandatoryField();
+      for (String id in mandatoryFields) {
+        mandatoryFieldObject[id] = true;
+      }
       setState(() {
         isFormReady = true;
         evaluateSkipLogics();
@@ -68,9 +76,13 @@ class _AgywDreamsPrepFormPageState extends State<AgywDreamsPrepFormPage> {
     evaluateSkipLogics();
   }
 
-  void onSaveForm(
-      BuildContext context, Map dataObject, AgywDream agywDream) async {
-    if (dataObject.keys.length > 0) {
+  void onSaveForm(BuildContext context, Map dataObject, AgywDream agywDream,
+      {hiddenFields = const {}}) async {
+    bool hadAllMandatoryFilled = AppUtil.hasAllMandarotyFieldsFilled(
+        mandatoryFields, dataObject,
+        hiddenFields: hiddenFields);
+
+    if (hadAllMandatoryFilled) {
       setState(() {
         isSaving = true;
       });
@@ -95,8 +107,10 @@ class _AgywDreamsPrepFormPageState extends State<AgywDreamsPrepFormPage> {
             AppUtil.showToastMessage(
                 message: 'Form has been saved successfully',
                 position: ToastGravity.TOP);
-            Navigator.pop(context);
+            Navigator.popUntil(context, (route) => route.isFirst);
           });
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => AgywDreamsPrep()));
         });
       } catch (e) {
         Timer(Duration(seconds: 1), () {
@@ -108,9 +122,8 @@ class _AgywDreamsPrepFormPageState extends State<AgywDreamsPrepFormPage> {
       }
     } else {
       AppUtil.showToastMessage(
-          message: 'Please fill at least one form field',
+          message: 'Please fill all mandatory field',
           position: ToastGravity.TOP);
-      Navigator.pop(context);
     }
   }
 
@@ -162,7 +175,8 @@ class _AgywDreamsPrepFormPageState extends State<AgywDreamsPrepFormPage> {
                                       hiddenSections:
                                           serviceFormState.hiddenSections,
                                       formSections: formSections,
-                                      mandatoryFieldObject: Map(),
+                                      mandatoryFieldObject:
+                                          mandatoryFieldObject,
                                       isEditableMode:
                                           serviceFormState.isEditableMode,
                                       dataObject: serviceFormState.formState,
@@ -179,7 +193,7 @@ class _AgywDreamsPrepFormPageState extends State<AgywDreamsPrepFormPage> {
                                       onPressButton: () => onSaveForm(
                                           context,
                                           serviceFormState.formState,
-                                          agywDream),
+                                          agywDream, hiddenFields: serviceFormState.hiddenFields),
                                     ),
                                   )
                                 ],
