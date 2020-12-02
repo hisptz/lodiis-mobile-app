@@ -61,7 +61,7 @@ class _AgywDreamsIndexInfoAboutPosClientState
       setState(() {
         isSaving = true;
       });
-      print(dataObject.keys.length);
+      // print(dataObject.keys.length);
       String eventDate = dataObject['eventDate'];
       String eventId = dataObject['eventId'];
       dataObject[AgywDreamsIndexPositiveConstant

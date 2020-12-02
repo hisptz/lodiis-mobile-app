@@ -1,13 +1,20 @@
 import 'package:kb_mobile_app/models/events.dart';
 
 class ServiceEvents {
-  String id;
+  String event;
+  String programStage;
   String interventionType;
+  String interventionGroup;
   int numberaOfSessions;
   Events eventData;
 
   ServiceEvents(
-      {this.id, this.eventData, this.interventionType, this.numberaOfSessions});
+      {this.event,
+      this.programStage,
+      this.eventData,
+      this.interventionType,
+      this.interventionGroup,
+      this.numberaOfSessions});
 
   ServiceEvents getServiceSessions(Events events) {
     List keys = [
@@ -22,12 +29,40 @@ class ServiceEvents {
         data[attribute] = '${datavalues['value']}'.trim() ?? '';
       }
     }
+
     var numberaOfSessions =
         data['vL6NpUA0rIU'] != '' ? data['vL6NpUA0rIU'] : '0';
     return ServiceEvents(
-        id: events.event,
+        event: events.event,
+        programStage: events.programStage,
         interventionType: data['Eug4BXDFLym'] ?? '',
+        interventionGroup: assignInterventionGroup(data['Eug4BXDFLym'] ?? ''),
         numberaOfSessions: int.parse(numberaOfSessions),
         eventData: events);
+  }
+
+  String assignInterventionGroup(String interventionType) {
+    if (interventionType == 'AFLATEEN/TOUN' ||
+        interventionType == 'PTS 4 NON-GRADS' ||
+        interventionType == 'PTS 4-GRADS' ||
+        interventionType == 'Go Girls') {
+      return '(SAB) Social Assets Building';
+    } else if (interventionType == 'SILC' ||
+        interventionType == 'SAVING GROUP' ||
+        interventionType == 'FINANCIAL EDUCATION') {
+      return '(ES) Economic Strengthening';
+    } else if (interventionType == 'STEPPING STONES' ||
+        interventionType == 'IPC' ||
+        interventionType == 'LBSE') {
+      return 'HIV & VIOLENCE PREVENTION';
+    } else if (interventionType == 'PARENTING') {
+      return 'PARENTING';
+    } else if (interventionType == 'GBV Legal') {
+      return 'GBV LEGAL';
+    } else if (interventionType == 'VAC Legal') {
+      return 'VAC LEGAL';
+    } else {
+      return '';
+    }
   }
 }
