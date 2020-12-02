@@ -80,59 +80,53 @@ class AgywDreamsServiceFormSkipLogic {
 
   static bool evaluateSkipLogicsBySession(Map dataObject) {
     String interventionType = dataObject['Eug4BXDFLym'] ?? '';
-    int sessions = dataObject['vL6NpUA0rIU'] != null
-        ? int.parse(dataObject['vL6NpUA0rIU'])
-        : 0;
-    if (interventionType == 'AFLATEEN/TOUN' &&
-        (sessions + (dataObject['AFLATEEN/TOUN'] ?? 0)) <= 12) {
-      return true;
-    }
-    if (interventionType == 'PTS 4-GRADS' &&
-        (sessions + (dataObject['PTS 4-GRADS'] ?? 0)) <= 10) {
-      return true;
-    }
-    if (interventionType == 'PTS 4 NON-GRADS' &&
-        (sessions + dataObject['PTS 4 NON-GRADS'] ?? 0) <= 11) {
-      return true;
-    }
-    if (interventionType == 'Go Girls' &&
-        (sessions + dataObject['Go Girls'] ?? 0) <= 15) {
-      return true;
-    }
-    if (interventionType == 'SILC' &&
-        (sessions + dataObject['SILC'] ?? 0) <= 12) {
-      return true;
-    }
-    if (interventionType == 'SAVING GROUP' &&
-        (sessions + dataObject['SAVING GROUP'] ?? 0) <= 12) {
-      return true;
-    }
-    if (interventionType == 'FINANCIAL EDUCATION' &&
-        (sessions + dataObject['FINANCIAL EDUCATION'] ?? 0) <= 4) {
-      return true;
-    }
-    if (interventionType == 'STEPPING STONES' &&
-        (sessions + dataObject['STEPPING STONES'] ?? 0) <= 11) {
-      return true;
-    }
-    if (interventionType == 'IPC' && (sessions + dataObject['IPC'] ?? 0) <= 4) {
-      return true;
-    }
-    if (interventionType == 'LBSE' &&
-        (sessions + dataObject['LBSE'] ?? 0) <= 6) {
-      return true;
-    }
-    if (interventionType == 'PARENTING' &&
-        (sessions + dataObject['PARENTING'] ?? 0) <= 14) {
-      return true;
-    }
-    if (interventionType == 'GBV Legal' &&
-        (sessions + dataObject['GBV Legal'] ?? 0) <= 1) {
-      return true;
-    }
-    if (interventionType == 'VAC Legal' &&
-        (sessions + dataObject['VAC Legal'] ?? 0) <= 1) {
-      return true;
+    int sessions = 0;
+    try {
+      sessions = '${dataObject['vL6NpUA0rIU']}' != 'null'
+          ? int.parse(dataObject['vL6NpUA0rIU'])
+          : sessions;
+    } catch (e) {}
+    if (sessions != 0) {
+      if (interventionType == 'AFLATEEN/TOUN' &&
+          (sessions + (dataObject['AFLATEEN/TOUN'] ?? 0)) <= 12) {
+        return true;
+      } else if (interventionType == 'PTS 4-GRADS' &&
+          (sessions + (dataObject['PTS 4-GRADS'] ?? 0)) <= 10) {
+        return true;
+      } else if (interventionType == 'PTS 4 NON-GRADS' &&
+          (sessions + dataObject['PTS 4 NON-GRADS'] ?? 0) <= 11) {
+        return true;
+      } else if (interventionType == 'Go Girls' &&
+          (sessions + dataObject['Go Girls'] ?? 0) <= 15) {
+        return true;
+      } else if (interventionType == 'SILC' &&
+          (sessions + dataObject['SILC'] ?? 0) <= 12) {
+        return true;
+      } else if (interventionType == 'SAVING GROUP' &&
+          (sessions + dataObject['SAVING GROUP'] ?? 0) <= 12) {
+        return true;
+      } else if (interventionType == 'FINANCIAL EDUCATION' &&
+          (sessions + dataObject['FINANCIAL EDUCATION'] ?? 0) <= 4) {
+        return true;
+      } else if (interventionType == 'STEPPING STONES' &&
+          (sessions + dataObject['STEPPING STONES'] ?? 0) <= 11) {
+        return true;
+      } else if (interventionType == 'IPC' &&
+          (sessions + dataObject['IPC'] ?? 0) <= 4) {
+        return true;
+      } else if (interventionType == 'LBSE' &&
+          (sessions + dataObject['LBSE'] ?? 0) <= 6) {
+        return true;
+      } else if (interventionType == 'PARENTING' &&
+          (sessions + dataObject['PARENTING'] ?? 0) <= 14) {
+        return true;
+      } else if (interventionType == 'GBV Legal' &&
+          (sessions + dataObject['GBV Legal'] ?? 0) <= 1) {
+        return true;
+      } else if (interventionType == 'VAC Legal' &&
+          (sessions + dataObject['VAC Legal'] ?? 0) <= 1) {
+        return true;
+      }
     }
     return false;
   }

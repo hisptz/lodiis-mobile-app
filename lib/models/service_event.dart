@@ -22,11 +22,12 @@ class ServiceEvents {
         data[attribute] = '${datavalues['value']}'.trim() ?? '';
       }
     }
-
+    var numberaOfSessions =
+        data['vL6NpUA0rIU'] != '' ? data['vL6NpUA0rIU'] : '0';
     return ServiceEvents(
         id: events.event,
         interventionType: data['Eug4BXDFLym'] ?? '',
-        numberaOfSessions: int.parse(data['vL6NpUA0rIU'] ?? '0'),
+        numberaOfSessions: int.parse(numberaOfSessions),
         eventData: events);
   }
 }
