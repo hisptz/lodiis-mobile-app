@@ -39,13 +39,24 @@ class AgywDreamsHTCSkipLogic {
       if (inputFieldId == 'GSLu0wyCCsP' && value != 'Other') {
         hiddenFields['aoWp3tKXOqa'] = true;
       }
+
+      if(inputFieldId == 'HXUTJfK4T6V' && value != 'true'){
+        hiddenFields['f8irSIFCXDF'] = true;
+        hiddenFields['JL1rGyJaDnw'] = true;
+        hiddenFields['j2qNW9NsNBv'] = true;
+      }
+
+      if(inputFieldId == 'CR5xUFmPHVy' && value != 'true'){
+        hiddenFields['ODv7ghspcbG'] =true;
+      }
+
       if ('${dataObject['gCvMVscBNfk']}' != 'null' &&
           '${dataObject['x7Jzm67o0Ng']}' != 'null') {
-        dataObject['gCvMVscBNfk_bmi'] = calculateBMI(
-            '${dataObject['gCvMVscBNfk']}', '${dataObject['x7Jzm67o0Ng']}');
+        assignInputFieldValue(context, 'gCvMVscBNfk_bmi', calculateBMI(
+            '${dataObject['gCvMVscBNfk']}', '${dataObject['x7Jzm67o0Ng']}'));
       }
       if(inputFieldId == 'mhZeM9CuGQn' && value != 'null'){
-          dataObject['uRsImCXXDXe'] = value;
+          assignInputFieldValue(context, 'uRsImCXXDXe', value);
       }
     }
     for (String sectionId in hiddenSections.keys) {
