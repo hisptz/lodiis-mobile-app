@@ -88,7 +88,7 @@ class AgywDreamsServiceFormSkipLogic {
           ? int.parse(dataObject['vL6NpUA0rIU'])
           : sessions;
     } catch (e) {}
-    print(dataObject);
+    // print(dataObject);
     if (sessions != 0) {
       if (interventionType == 'AFLATEEN/TOUN') {
         return (sessions + previousSession) <= 12 ? true : false;

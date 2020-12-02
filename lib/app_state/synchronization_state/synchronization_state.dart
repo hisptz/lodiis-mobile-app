@@ -164,7 +164,7 @@ class SynchronizationState with ChangeNotifier {
         await _synchronizationService.saveTrackeEntityInstanceToOffline(
             TrackeEntityInstance().fromJson(instance));
       } catch (e) {
-        print(e.toString());
+        // print(e.toString());
       }
     }
   }
@@ -206,8 +206,8 @@ class SynchronizationState with ChangeNotifier {
               .toList());
         } else {
           //no conflicts
-          print("no conflicts");
-          print(event);
+          // print("no conflicts");
+          // print(event);
           _synchronizationService.saveEventsToOffline(event);
         }
       });
