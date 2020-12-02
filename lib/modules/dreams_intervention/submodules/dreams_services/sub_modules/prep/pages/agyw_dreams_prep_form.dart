@@ -33,6 +33,8 @@ class AgywDreamsPrepFormPage extends StatefulWidget {
 class _AgywDreamsPrepFormPageState extends State<AgywDreamsPrepFormPage> {
   final String label = 'AGYW Prep Intake Form';
   List<FormSection> formSections;
+  List<String> mandatoryFields;
+  Map mandatoryFieldObject = Map();
   bool isFormReady = false;
   bool isSaving = false;
 
@@ -41,6 +43,11 @@ class _AgywDreamsPrepFormPageState extends State<AgywDreamsPrepFormPage> {
     super.initState();
     Timer(Duration(seconds: 1), () {
       formSections = DreamsServicePrepIntakeInfo.getFormSections();
+      mandatoryFields  =
+          DreamsServicePrepIntakeInfo.getMandatoryField();
+      for (String id in mandatoryFields) {
+        mandatoryFieldObject[id] = true;
+      }
       setState(() {
         isFormReady = true;
         evaluateSkipLogics();
@@ -69,9 +76,13 @@ class _AgywDreamsPrepFormPageState extends State<AgywDreamsPrepFormPage> {
     evaluateSkipLogics();
   }
 
-  void onSaveForm(
-      BuildContext context, Map dataObject, AgywDream agywDream) async {
-    if (dataObject.keys.length > 0) {
+  void onSaveForm(BuildContext context, Map dataObject, AgywDream agywDream,
+      {hiddenFields = const {}}) async {
+    bool hadAllMandatoryFilled = AppUtil.hasAllMandarotyFieldsFilled(
+        mandatoryFields, dataObject,
+        hiddenFields: hiddenFields);
+
+    if (hadAllMandatoryFilled) {
       setState(() {
         isSaving = true;
       });
@@ -98,9 +109,8 @@ class _AgywDreamsPrepFormPageState extends State<AgywDreamsPrepFormPage> {
                 position: ToastGravity.TOP);
             Navigator.popUntil(context, (route) => route.isFirst);
           });
-           Navigator.push(context,
-          MaterialPageRoute(builder: (context) =>  AgywDreamsPrep()));
-        
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => AgywDreamsPrep()));
         });
       } catch (e) {
         Timer(Duration(seconds: 1), () {
@@ -112,9 +122,8 @@ class _AgywDreamsPrepFormPageState extends State<AgywDreamsPrepFormPage> {
       }
     } else {
       AppUtil.showToastMessage(
-          message: 'Please fill at least one form field',
+          message: 'Please fill all mandatory field',
           position: ToastGravity.TOP);
-      Navigator.pop(context);
     }
   }
 
@@ -166,7 +175,8 @@ class _AgywDreamsPrepFormPageState extends State<AgywDreamsPrepFormPage> {
                                       hiddenSections:
                                           serviceFormState.hiddenSections,
                                       formSections: formSections,
-                                      mandatoryFieldObject: Map(),
+                                      mandatoryFieldObject:
+                                          mandatoryFieldObject,
                                       isEditableMode:
                                           serviceFormState.isEditableMode,
                                       dataObject: serviceFormState.formState,
@@ -183,7 +193,7 @@ class _AgywDreamsPrepFormPageState extends State<AgywDreamsPrepFormPage> {
                                       onPressButton: () => onSaveForm(
                                           context,
                                           serviceFormState.formState,
-                                          agywDream),
+                                          agywDream, hiddenFields: serviceFormState.hiddenFields),
                                     ),
                                   )
                                 ],

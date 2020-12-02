@@ -109,9 +109,9 @@ class _AgywDreamsEnrollmentEditFormState
     evaluateSkipLogics();
   }
 
-  void onSaveForm(BuildContext context, Map dataObject) async {
+  void onSaveForm(BuildContext context, Map dataObject, {Map hiddenFields = const {}}) async {
     bool hadAllMandatoryFilled =
-        AppUtil.hasAllMandarotyFieldsFilled(mandatoryFields, dataObject);
+        AppUtil.hasAllMandarotyFieldsFilled(mandatoryFields, dataObject, hiddenFields: hiddenFields);
     if (hadAllMandatoryFilled) {
       setState(() {
         isSaving = true;
@@ -217,7 +217,7 @@ class _AgywDreamsEnrollmentEditFormState
                                   onPressButton: () => isSaving
                                       ? null
                                       : onSaveForm(context,
-                                          enrollmentFormState.formState),
+                                          enrollmentFormState.formState, hiddenFields: enrollmentFormState.hiddenFields),
                                 )
                               ],
                             ),

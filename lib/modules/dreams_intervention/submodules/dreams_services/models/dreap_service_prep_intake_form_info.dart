@@ -1,12 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/input_field_option.dart';
 
 class DreamsServicePrepIntakeInfo {
-   static List<String> getMandatoryField() {
-    return [];
+  static List<String> getCheckboxInputFieldOptions(
+      List<FormSection> formSections) {
+    List<String> inputFieldOptions = [];
+    for (FormSection section in formSections) {
+      for (InputField field in section.inputFields) {
+        if (field.valueType == 'CHECK_BOX') {
+          for (InputFieldOption option in field.options) {
+            inputFieldOptions.add(option.code);
+          }
+        }
+      }
+    }
+    return inputFieldOptions;
   }
+
+  static List<String> getMandatoryField() {
+    List<String> inputFields = FormUtil.getFormFieldIds(getFormSections());
+    List<String> optionalFields =
+        getCheckboxInputFieldOptions(getFormSections());
+    inputFields =
+        inputFields.where((field) => optionalFields.indexOf(field) < 0).toList();
+    return inputFields;
+  }
+
   static List<FormSection> getFormSections() {
     return [
       FormSection(
@@ -14,13 +36,13 @@ class DreamsServicePrepIntakeInfo {
           color: Color(0xFF737373),
           inputFields: [
             InputField(
-                id: 'lQ8XDsy6M6y',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
-                name: 'Site Name',
-                valueType: 'ORGANISATION_UNIT',
-                allowedSelectedLevels: [4],
-                ),
+              id: 'lQ8XDsy6M6y',
+              inputColor: Color(0xFF1F8ECE),
+              labelColor: Color(0xFF737373),
+              name: 'Site Name',
+              valueType: 'ORGANISATION_UNIT',
+              allowedSelectedLevels: [4],
+            ),
             InputField(
                 id: 'V83BlJrXSiv',
                 name: 'Counselor Name',
@@ -77,16 +99,21 @@ class DreamsServicePrepIntakeInfo {
                 name: 'Marital Status',
                 valueType: 'TEXT',
                 options: [
-                  InputFieldOption(code: 'Never married', name: 'Never married'),
-                  InputFieldOption(code: 'Currently Married to one person', name: 'Currently Married to one person'),
-                  InputFieldOption(code: 'Polygamous Marriage', name: 'Polygamous Marriage'),
+                  InputFieldOption(
+                      code: 'Never married', name: 'Never married'),
+                  InputFieldOption(
+                      code: 'Currently Married to one person',
+                      name: 'Currently Married to one person'),
+                  InputFieldOption(
+                      code: 'Polygamous Marriage', name: 'Polygamous Marriage'),
                   InputFieldOption(code: 'Divorced', name: 'Divorced'),
-                  InputFieldOption(code: 'Separated', name: 'Separated'), 
-                  InputFieldOption(code: 'Widowed', name: 'Widowed'), 
-                  InputFieldOption(code: 'Living with (unmarried) partner', name: 'Living with (unmarried) partner'),
-                  InputFieldOption(code: 'Other', name: 'Other'),          
-                ]                
-                ),
+                  InputFieldOption(code: 'Separated', name: 'Separated'),
+                  InputFieldOption(code: 'Widowed', name: 'Widowed'),
+                  InputFieldOption(
+                      code: 'Living with (unmarried) partner',
+                      name: 'Living with (unmarried) partner'),
+                  InputFieldOption(code: 'Other', name: 'Other'),
+                ]),
             InputField(
                 id: 'GrChAWBTqTc',
                 name: 'Specify marital status',
@@ -100,7 +127,7 @@ class DreamsServicePrepIntakeInfo {
               inputColor: Color(0xFF1F8ECE),
               labelColor: Color(0xFF737373),
             ),
-             InputField(
+            InputField(
                 id: 'pPKoRExOuKU',
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
@@ -124,56 +151,55 @@ class DreamsServicePrepIntakeInfo {
                 name:
                     'Are you or your partner planning to have a child within next 2 years?',
                 valueType: 'TEXT'),
-        InputField(
+            InputField(
                 id: '',
                 name: 'Occupation',
                 valueType: 'CHECK_BOX',
-                inputColor:Color(0xFF1F8ECE),
+                inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
                 renderAsRadio: true,
                 options: [
-            InputFieldOption(
-                code: 'rUyb2ilJl5y',
-                name: 'Unemployed'),
-            InputFieldOption(
-                code: 'QdIAXIslH75',
-                name: 'Student',),
-            InputFieldOption(
-                code: 'bfMzA5x69SZ',
-                name: 'Farmer/Farm worker',),
-            InputFieldOption(
-                code: 'DKmXqOp3oYc',
-                name: 'Domestic worker/gardener'),
-            InputFieldOption(
-                code: 'TOSx4VyOZQT',
-                name: 'Guard',),
-            InputFieldOption(
-                code: 'GPYuQ42sg3T',
-                name: 'Professional'),
-            InputFieldOption(
-                code: 'RFa3D2oM8aQ',
-                name: 'Informal Trader',),
-            InputFieldOption(
-                code: 'Y2VpdgQ2iEK', 
-                name: 'Military/Uniformed',
-                ),
-            InputFieldOption(
-                code: 'POgKhlepadZ',
-                name: 'Trucker/Truck driver',
-                ),
-            InputFieldOption(
-                code: 'STrVefsqTij',
-                name: 'Commercial Sex Worker',
-                ),
-            InputFieldOption(
-                code: 'b8ZaGIN11vv',
-                name: 'Mine worker',),
-            InputFieldOption(
-                code: 'JflxahjBLrH',
-                name: 'Other occupation(sp)',),
-                ]
-              ),    
-           
+                  InputFieldOption(code: 'rUyb2ilJl5y', name: 'Unemployed'),
+                  InputFieldOption(
+                    code: 'QdIAXIslH75',
+                    name: 'Student',
+                  ),
+                  InputFieldOption(
+                    code: 'bfMzA5x69SZ',
+                    name: 'Farmer/Farm worker',
+                  ),
+                  InputFieldOption(
+                      code: 'DKmXqOp3oYc', name: 'Domestic worker/gardener'),
+                  InputFieldOption(
+                    code: 'TOSx4VyOZQT',
+                    name: 'Guard',
+                  ),
+                  InputFieldOption(code: 'GPYuQ42sg3T', name: 'Professional'),
+                  InputFieldOption(
+                    code: 'RFa3D2oM8aQ',
+                    name: 'Informal Trader',
+                  ),
+                  InputFieldOption(
+                    code: 'Y2VpdgQ2iEK',
+                    name: 'Military/Uniformed',
+                  ),
+                  InputFieldOption(
+                    code: 'POgKhlepadZ',
+                    name: 'Trucker/Truck driver',
+                  ),
+                  InputFieldOption(
+                    code: 'STrVefsqTij',
+                    name: 'Commercial Sex Worker',
+                  ),
+                  InputFieldOption(
+                    code: 'b8ZaGIN11vv',
+                    name: 'Mine worker',
+                  ),
+                  InputFieldOption(
+                    code: 'JflxahjBLrH',
+                    name: 'Other occupation(sp)',
+                  ),
+                ]),
             InputField(
               id: 'PqSjDmu2eMy',
               inputColor: Color(0xFF1F8ECE),
@@ -204,139 +230,137 @@ class DreamsServicePrepIntakeInfo {
                     name: 'Graduate DegreeMastersPhD'),
               ],
             ),
-              
-              
-       InputField(
-        id: '',
-        name: 'Reasons for visiting site',
-        valueType: 'CHECK_BOX',
-        inputColor:Color(0xFF1F8ECE),
-        labelColor: Color(0xFF737373),
-        renderAsRadio: true,
-        options: [
-            InputFieldOption(
-                code: 'XfiDt4DzdVS',
-                name:
-                    'Visited the site because I Have a child who is sick or died.'),
-            InputFieldOption(
-                code: 's5NmD81MGOc',
-                name: 'Visited the site because my Partner died.',),
-            InputFieldOption(
-                code: 'qA5e24CNBrw',
-                name:
-                    'Visited the site because I Worried about my past behaviour/curious'),
-            InputFieldOption(
-                code: 'eNGTWMYAFL0',
-                name:
-                    'Visited the site because I  Worried abut my partner? behaviour/status'),
-            InputFieldOption(
-                code: 'jcWYjzUCG6S',
-                name: 'Visited the site because my Partner is sick'),
-            InputFieldOption(
-                code: 'zTC4EV7XTj5',
-                name:
-                    'Visited the site because my Partner has tested positive for HIV.'),
-            InputFieldOption(
-                code: 'aN6VHxj82GQ',
-                name: 'Visited the site because I am feeling unwell'),
-            InputFieldOption(
-                code: 'JFqUJNUzTww',
-                name:
-                    'Visited the site because I was Advised by my family/friends'),
-            InputFieldOption(
-                code: 'KaAWXJVHDVz',
-                name:
-                    'Visited the site because I was Advised by health care worker'),
-            InputFieldOption(
-                code: 'xzpOED9PyVh',
-                name: 'Visited the site because I am Planning to get married.'),
-            InputFieldOption(
-                code: 'RU9VC5xsNf5',
-                name:
-                    'Visited the site because I am Getting serious/stopping condoms'),
-            InputFieldOption(
-                code: 'zscz5KYlCS5',
-                name: 'Visited the site because I am Planning to have a baby'),
-            InputFieldOption(
-                code: 'yjnuJxlFmIm',
-                name: 'Visited the site Because I am pregnant'),
-            InputFieldOption(
-                code: 'n1YU4oiRqyY',
-                name: 'Visited the site because my Partner requested'),
-            InputFieldOption(
-                code: 'ijbtN1BP4A2',
-                name: 'Visited the site For life insurance'),
-            InputFieldOption(
-                code: 'DXwITugq1X6',
-                name: 'Visited the site For scholarship/studies'),
-            InputFieldOption(
-                code: 'T92Q2Irzmgj',
-                name: 'Visited the site For travel/visa'),
-            InputFieldOption(
-                code: 'D5dyOe7GJpp',
-                name:
-                    'Visited the site because I am Retesting (Closing the window)'),
-            InputFieldOption(
-                code: 'RDDWIVvUOQZ',
-                name:
-                    'Visited the site because I am Retesting (Confirmation of HIV positive)'),
-          InputFieldOption(
-                code: 'F42UdUKO75Z',
-                name:
-                    'Other reason for visiting the site(sp)')
-
-                ] ),
-          InputField(
+            InputField(
+                id: '',
+                name: 'Reasons for visiting site',
+                valueType: 'CHECK_BOX',
+                inputColor: Color(0xFF1F8ECE),
+                labelColor: Color(0xFF737373),
+                renderAsRadio: true,
+                options: [
+                  InputFieldOption(
+                      code: 'XfiDt4DzdVS',
+                      name:
+                          'Visited the site because I Have a child who is sick or died.'),
+                  InputFieldOption(
+                    code: 's5NmD81MGOc',
+                    name: 'Visited the site because my Partner died.',
+                  ),
+                  InputFieldOption(
+                      code: 'qA5e24CNBrw',
+                      name:
+                          'Visited the site because I Worried about my past behaviour/curious'),
+                  InputFieldOption(
+                      code: 'eNGTWMYAFL0',
+                      name:
+                          'Visited the site because I  Worried abut my partner? behaviour/status'),
+                  InputFieldOption(
+                      code: 'jcWYjzUCG6S',
+                      name: 'Visited the site because my Partner is sick'),
+                  InputFieldOption(
+                      code: 'zTC4EV7XTj5',
+                      name:
+                          'Visited the site because my Partner has tested positive for HIV.'),
+                  InputFieldOption(
+                      code: 'aN6VHxj82GQ',
+                      name: 'Visited the site because I am feeling unwell'),
+                  InputFieldOption(
+                      code: 'JFqUJNUzTww',
+                      name:
+                          'Visited the site because I was Advised by my family/friends'),
+                  InputFieldOption(
+                      code: 'KaAWXJVHDVz',
+                      name:
+                          'Visited the site because I was Advised by health care worker'),
+                  InputFieldOption(
+                      code: 'xzpOED9PyVh',
+                      name:
+                          'Visited the site because I am Planning to get married.'),
+                  InputFieldOption(
+                      code: 'RU9VC5xsNf5',
+                      name:
+                          'Visited the site because I am Getting serious/stopping condoms'),
+                  InputFieldOption(
+                      code: 'zscz5KYlCS5',
+                      name:
+                          'Visited the site because I am Planning to have a baby'),
+                  InputFieldOption(
+                      code: 'yjnuJxlFmIm',
+                      name: 'Visited the site Because I am pregnant'),
+                  InputFieldOption(
+                      code: 'n1YU4oiRqyY',
+                      name: 'Visited the site because my Partner requested'),
+                  InputFieldOption(
+                      code: 'ijbtN1BP4A2',
+                      name: 'Visited the site For life insurance'),
+                  InputFieldOption(
+                      code: 'DXwITugq1X6',
+                      name: 'Visited the site For scholarship/studies'),
+                  InputFieldOption(
+                      code: 'T92Q2Irzmgj',
+                      name: 'Visited the site For travel/visa'),
+                  InputFieldOption(
+                      code: 'D5dyOe7GJpp',
+                      name:
+                          'Visited the site because I am Retesting (Closing the window)'),
+                  InputFieldOption(
+                      code: 'RDDWIVvUOQZ',
+                      name:
+                          'Visited the site because I am Retesting (Confirmation of HIV positive)'),
+                  InputFieldOption(
+                      code: 'F42UdUKO75Z',
+                      name: 'Other reason for visiting the site(sp)')
+                ]),
+            InputField(
                 id: 'ukX9y6lXpNo',
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
                 name: 'Other reason for visiting the site',
                 valueType: 'TEXT'),
-
-          InputField(
+            InputField(
                 id: '',
                 name: 'How did you learn of this center?',
                 valueType: 'CHECK_BOX',
-                inputColor:Color(0xFF1F8ECE),
+                inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
                 renderAsRadio: true,
                 options: [
-            InputFieldOption(
-                code: 'onf8hoBn6xO',
-                name: 'I learnt of this center through a Friend'),
-            InputFieldOption(
-              code: 'qRmcFUHrKJG',
-              name: 'I learnt of this center through a Partner/Spouse',
-            ),
-            InputFieldOption(
-                code: 'ADLCht0KPSh',
-                name: 'I learnt of this center through Other Family Member'),
-            InputFieldOption(
-                code: 'p6Xwp6okdfN',
-                name: 'I learnt of this center through Other HTC client'),
-            InputFieldOption(
-                code: 'APJcg5JKvGk',
-                name: 'I learnt of this center through Health worker'),
-            InputFieldOption(
-                code: 'ClMb40newIJ',
-                name: 'I learnt of this center through Poster'),
-            InputFieldOption(
-                code: 'mrJTBtL2pea',
-                name: 'I learnt of this center through Community'),
-            InputFieldOption(
-                code: 'PrYvEIgsUz6',
-                name: 'I learnt of this center through TV advert'),
-            InputFieldOption(
-                code: 'sWbnNobbKk5',
-                name: 'I learnt of this center through Radio advert'),
-            InputFieldOption(
-                code: 'sWLfVZi2cRo',
-                name:
-                    'I learnt of this center through Newspaper advert or article'),
-            InputFieldOption(
-                code: 'kTHUZ8SOSXK',
-                name:
-                    'Other ways you learnt of this center(sp)'),        
+                  InputFieldOption(
+                      code: 'onf8hoBn6xO',
+                      name: 'I learnt of this center through a Friend'),
+                  InputFieldOption(
+                    code: 'qRmcFUHrKJG',
+                    name: 'I learnt of this center through a Partner/Spouse',
+                  ),
+                  InputFieldOption(
+                      code: 'ADLCht0KPSh',
+                      name:
+                          'I learnt of this center through Other Family Member'),
+                  InputFieldOption(
+                      code: 'p6Xwp6okdfN',
+                      name: 'I learnt of this center through Other HTC client'),
+                  InputFieldOption(
+                      code: 'APJcg5JKvGk',
+                      name: 'I learnt of this center through Health worker'),
+                  InputFieldOption(
+                      code: 'ClMb40newIJ',
+                      name: 'I learnt of this center through Poster'),
+                  InputFieldOption(
+                      code: 'mrJTBtL2pea',
+                      name: 'I learnt of this center through Community'),
+                  InputFieldOption(
+                      code: 'PrYvEIgsUz6',
+                      name: 'I learnt of this center through TV advert'),
+                  InputFieldOption(
+                      code: 'sWbnNobbKk5',
+                      name: 'I learnt of this center through Radio advert'),
+                  InputFieldOption(
+                      code: 'sWLfVZi2cRo',
+                      name:
+                          'I learnt of this center through Newspaper advert or article'),
+                  InputFieldOption(
+                      code: 'kTHUZ8SOSXK',
+                      name: 'Other ways you learnt of this center(sp)'),
                 ]),
             InputField(
                 id: 'aXAPMYFxMFC',
@@ -376,19 +400,19 @@ class DreamsServicePrepIntakeInfo {
                 name: 'How long ago was your most recent test?',
                 valueType: 'TEXT'),
             InputField(
-                id: 'mMmJMXiEPLi',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
-                name:
-                    'Has your most recent sex partner been tested in the last 3 months?',
-                valueType: 'TEXT',
-                 options:[
-                  InputFieldOption(code: 'Yes', name: 'Yes'),
-                  InputFieldOption(code: 'No', name: 'No'),
-                  InputFieldOption(code: 'I dont know', name: 'I dont know'),
-                  InputFieldOption(code: 'No response', name: 'No response'),     
-                   ],
-                ),
+              id: 'mMmJMXiEPLi',
+              inputColor: Color(0xFF1F8ECE),
+              labelColor: Color(0xFF737373),
+              name:
+                  'Has your most recent sex partner been tested in the last 3 months?',
+              valueType: 'TEXT',
+              options: [
+                InputFieldOption(code: 'Yes', name: 'Yes'),
+                InputFieldOption(code: 'No', name: 'No'),
+                InputFieldOption(code: 'I dont know', name: 'I dont know'),
+                InputFieldOption(code: 'No response', name: 'No response'),
+              ],
+            ),
             InputField(
                 id: 'U0E4mb8dSQN',
                 inputColor: Color(0xFF1F8ECE),
@@ -595,12 +619,12 @@ class DreamsServicePrepIntakeInfo {
                 labelColor: Color(0xFF737373),
                 name: 'Date bled #2',
                 valueType: 'DATE'),
-            InputField(
-                id: 'Phma8a6sS4P',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
-                name: 'Date bled #3',
-                valueType: 'DATE'),
+            // InputField(
+            //     id: 'Phma8a6sS4P',
+            //     inputColor: Color(0xFF1F8ECE),
+            //     labelColor: Color(0xFF737373),
+            //     name: 'Date bled #3',
+            //     valueType: 'DATE'),
             InputField(
                 id: 'CuSRO5ijeqW',
                 inputColor: Color(0xFF1F8ECE),
@@ -655,19 +679,12 @@ class DreamsServicePrepIntakeInfo {
                 labelColor: Color(0xFF737373),
                 name: 'Period between testing and Informed results?',
                 valueType: 'TEXT'),
-            InputField(
-                id: 'cMEfQ0ir0Qy',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
-                name:
-                    'Type of period used to monitor duration between testing and informed results',
-                valueType: 'TEXT'),
-            InputField(
-                id: 'c2BsZHprXrd',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
-                name: 'Period between testing and Informed results?',
-                valueType: 'TEXT'),
+            // InputField(
+            //     id: 'c2BsZHprXrd',
+            //     inputColor: Color(0xFF1F8ECE),
+            //     labelColor: Color(0xFF737373),
+            //     name: 'Period between testing and Informed results?',
+            //     valueType: 'TEXT'),
             InputField(
                 id: 'cMEfQ0ir0Qy',
                 inputColor: Color(0xFF1F8ECE),
@@ -1216,16 +1233,44 @@ class DreamsServicePrepIntakeInfo {
                 labelColor: Color(0xFF737373),
                 name: 'Indication for starting PrEP',
                 options: [
-                  InputFieldOption(code: 'Currently exchanges sex for money', name: 'Currently exchanges sex for money'),
-                  InputFieldOption(code: 'Currently pays for sex', name: 'Currently pays for sex'),
-                  InputFieldOption(code: 'Man who has sex with men', name: 'Man who has sex with men'),
-                  InputFieldOption(code: 'Transgender individual', name: 'Transgender individual'),
-                  InputFieldOption(code: 'Individual who injects drugs', name: 'Individual who injects drugs'),
-                  InputFieldOption(code: 'In a serodiscordant relationship and HIV-positive partner is not on ART or has been on ART for < 12 months', name: 'In a serodiscordant relationship and HIV-positive partner is not on ART or has been on ART for < 12 months'),
-                  InputFieldOption(code: "In a serodiscordant relationship and HIV-positive partner's last viral load is >= 1000 copies/ml OR viral load is not known but partner's ART adherence is believed to be poor", name: "In a serodiscordant relationship and HIV-positive partner's last viral load is >= 1000 copies/ml OR viral load is not known but partner's ART adherence is believed to be poor"),
-                  InputFieldOption(code: 'Has multiple concurrent sexual partners', name: 'Has multiple concurrent sexual partners'),
-                  InputFieldOption(code: 'Individual believes their partner has multiple other concurrent sexual partners', name: 'Individual believes their partner has multiple other concurrent sexual partners'),
-                  InputFieldOption(code: 'Individual at high risk of being forced to have sex', name: 'Individual at high risk of being forced to have sex'),
+                  InputFieldOption(
+                      code: 'Currently exchanges sex for money',
+                      name: 'Currently exchanges sex for money'),
+                  InputFieldOption(
+                      code: 'Currently pays for sex',
+                      name: 'Currently pays for sex'),
+                  InputFieldOption(
+                      code: 'Man who has sex with men',
+                      name: 'Man who has sex with men'),
+                  InputFieldOption(
+                      code: 'Transgender individual',
+                      name: 'Transgender individual'),
+                  InputFieldOption(
+                      code: 'Individual who injects drugs',
+                      name: 'Individual who injects drugs'),
+                  InputFieldOption(
+                      code:
+                          'In a serodiscordant relationship and HIV-positive partner is not on ART or has been on ART for < 12 months',
+                      name:
+                          'In a serodiscordant relationship and HIV-positive partner is not on ART or has been on ART for < 12 months'),
+                  InputFieldOption(
+                      code:
+                          "In a serodiscordant relationship and HIV-positive partner's last viral load is >= 1000 copies/ml OR viral load is not known but partner's ART adherence is believed to be poor",
+                      name:
+                          "In a serodiscordant relationship and HIV-positive partner's last viral load is >= 1000 copies/ml OR viral load is not known but partner's ART adherence is believed to be poor"),
+                  InputFieldOption(
+                      code: 'Has multiple concurrent sexual partners',
+                      name: 'Has multiple concurrent sexual partners'),
+                  InputFieldOption(
+                      code:
+                          'Individual believes their partner has multiple other concurrent sexual partners',
+                      name:
+                          'Individual believes their partner has multiple other concurrent sexual partners'),
+                  InputFieldOption(
+                      code:
+                          'Individual at high risk of being forced to have sex',
+                      name:
+                          'Individual at high risk of being forced to have sex'),
                   InputFieldOption(code: 'Other', name: 'Other (Specify)'),
                 ],
                 valueType: 'TEXT'),
@@ -1253,10 +1298,17 @@ class DreamsServicePrepIntakeInfo {
                 labelColor: Color(0xFF737373),
                 name: 'Indication for stopping PrEP',
                 options: [
-                  InputFieldOption(code: 'Patient decision', name: 'Patient decision'),
-                  InputFieldOption(code: 'Poor adherence', name: 'Poor adherence (clinician decision)'),
-                  InputFieldOption(code: 'New HIV diagnosis', name: 'New HIV diagnosis'),
-                  InputFieldOption(code: 'Patient no longer at high risk for HIV infection', name: 'Patient no longer at high risk for HIV infection (clinician decision)'),
+                  InputFieldOption(
+                      code: 'Patient decision', name: 'Patient decision'),
+                  InputFieldOption(
+                      code: 'Poor adherence',
+                      name: 'Poor adherence (clinician decision)'),
+                  InputFieldOption(
+                      code: 'New HIV diagnosis', name: 'New HIV diagnosis'),
+                  InputFieldOption(
+                      code: 'Patient no longer at high risk for HIV infection',
+                      name:
+                          'Patient no longer at high risk for HIV infection (clinician decision)'),
                   InputFieldOption(code: 'Other', name: 'Other (Specify)'),
                 ],
                 valueType: 'TEXT'),

@@ -32,6 +32,8 @@ class NoneAgywPrepForm extends StatefulWidget {
 class _NoneAgywPrepFormState extends State<NoneAgywPrepForm> {
   final String label = 'PREP VISIT';
   List<FormSection> formSections;
+  List<String> mandatoryFields;
+  Map mandatoryFieldsObject = Map();
   bool isFormReady = false;
   bool isSaving = false;
 
@@ -39,6 +41,10 @@ class _NoneAgywPrepFormState extends State<NoneAgywPrepForm> {
   void initState() {
     super.initState();
     formSections = DreamsPrepFollwUpVisit.getFormSections();
+    mandatoryFields = DreamsPrepFollwUpVisit.getMandatoryField();
+    for (String fieldId in mandatoryFields) {
+      mandatoryFieldsObject[fieldId] = true;
+    }
     Timer(Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
@@ -58,6 +64,7 @@ class _NoneAgywPrepFormState extends State<NoneAgywPrepForm> {
           formSections,
           dataObject,
         );
+        evaluatePrePMandatoryFieldChange(dataObject);
       },
     );
   }
@@ -68,9 +75,13 @@ class _NoneAgywPrepFormState extends State<NoneAgywPrepForm> {
     evaluateSkipLogics();
   }
 
-  void onSaveForm(
-      BuildContext context, Map dataObject, AgywDream agywDream) async {
-    if (dataObject.keys.length > 0) {
+  void onSaveForm(BuildContext context, Map dataObject, AgywDream agywDream,
+      {hiddenFields: const {}}) async {
+    bool hasAllMandatoryFieldsFilled = AppUtil.hasAllMandarotyFieldsFilled(
+        mandatoryFields, dataObject,
+        hiddenFields: hiddenFields);
+
+    if (hasAllMandatoryFieldsFilled) {
       setState(() {
         isSaving = true;
       });
@@ -109,9 +120,8 @@ class _NoneAgywPrepFormState extends State<NoneAgywPrepForm> {
       }
     } else {
       AppUtil.showToastMessage(
-          message: 'Please fill at least one form field',
+          message: 'Please fill all mandatory field',
           position: ToastGravity.TOP);
-      Navigator.pop(context);
     }
   }
 
@@ -163,7 +173,8 @@ class _NoneAgywPrepFormState extends State<NoneAgywPrepForm> {
                                       hiddenSections:
                                           serviceFormState.hiddenSections,
                                       formSections: formSections,
-                                      mandatoryFieldObject: Map(),
+                                      mandatoryFieldObject:
+                                          mandatoryFieldsObject,
                                       isEditableMode:
                                           serviceFormState.isEditableMode,
                                       dataObject: serviceFormState.formState,
@@ -194,5 +205,21 @@ class _NoneAgywPrepFormState extends State<NoneAgywPrepForm> {
           )),
         ),
         bottomNavigationBar: InterventionBottomNavigationBarContainer());
+  }
+
+  void evaluatePrePMandatoryFieldChange(Map dataObject) {
+    if (dataObject[NonAgywPrepVisitConstant.hivRapidTestId] == 'Positive') {
+      setState(() {
+        mandatoryFields.add(NonAgywPrepVisitConstant.datePrepStopped);
+        mandatoryFieldsObject[NonAgywPrepVisitConstant.datePrepStopped] = true;
+      });
+    } else {
+      if (mandatoryFields.indexOf(NonAgywPrepVisitConstant.datePrepStopped) >
+              0 ||
+          mandatoryFieldsObject[NonAgywPrepVisitConstant.datePrepStopped]) {
+        mandatoryFields.remove(NonAgywPrepVisitConstant.datePrepStopped);
+        mandatoryFieldsObject.remove(NonAgywPrepVisitConstant.datePrepStopped);
+      }
+    }
   }
 }
