@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:kb_mobile_app/core/components/line_seperator.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_card_service_summary.dart';
 
@@ -8,10 +6,12 @@ class DreamBeneficiaryCardBody extends StatelessWidget {
   const DreamBeneficiaryCardBody(
       {Key key,
       @required this.isVerticalLayout,
-      @required this.agywBeneficiary})
+      @required this.agywBeneficiary,
+      this.canViewServiceCategory = false})
       : super(key: key);
 
   final bool isVerticalLayout;
+  final bool canViewServiceCategory;
   final Color labelColor = const Color(0xFF8FBAD3);
   final Color valueColor = const Color(0xFF444E54);
   final AgywDream agywBeneficiary;
@@ -71,19 +71,15 @@ class DreamBeneficiaryCardBody extends StatelessWidget {
                         labelColor: labelColor,
                         valueColor: valueColor),
                   ),
-                  // Container(
-                  //   margin: EdgeInsets.only(bottom: 10),
-                  //   child: LineSeperator(
-                  //     color: labelColor,
-                  //     height: 0.5,
-                  //   ),
-                  // ),
-                  // Container(
-                  //   margin: EdgeInsets.only(bottom: 5),
-                  //   child: DreamBeneficiaryCardServiceSummary(
-                  //     services: getServices(),
-                  //   ),
-                  // )
+                  Visibility(
+                    visible: canViewServiceCategory,
+                    child: Container(
+                      child: DreamBeneficiaryCardServiceSummary(
+                        services: getServices(),
+                        labelColor: valueColor,
+                      ),
+                    ),
+                  )
                 ],
               )
             : Column(
@@ -148,34 +144,38 @@ class DreamBeneficiaryCardBody extends StatelessWidget {
               ));
   }
 
-  List<List> getServices() {
+  List<List<Map>> getServices() {
     return [
       [
-        'HTS',
-        'ART RE-FILL',
-        'HIV MESSAGING',
+        {'name': 'HTS', 'programStage': 'QNdBI9U7rnV'},
+        {'name': 'ART RE-FILL', 'programStage': 'Gk494qKQP8B'},
+        {'name': 'HIV MESSAGING', 'programStage': 'PGFt6IwdZLM'},
       ],
       [
-        'SRH',
-        'HIV PREV',
-        'CONTRACEPTIVES',
+        {'name': 'SRH', 'programStage': 'K61XAaNlbbU'},
+        {'name': 'HIV PREV', 'programStage': 'F6C3d7vZ71o'},
+        {'name': 'CONTRACEPTIVES', 'programStage': 'A7Tl3vML6as'},
       ],
       [
-        'PREP',
-        'CONDOMS',
-        '(ES) Economic Strengthening',
+        {'name': 'PREP', 'programStage': 'mMjGlK1W0Xo'},
+        {'name': 'CONDOMS', 'programStage': 'NXsIkG9Q1BA'},
+        {'name': '(ES) Economic Strengthening', 'programStage': 'bDJq2JWVTbC'},
       ],
       [
-        'ANC',
-        'GBV LEGAL',
-        '(SAB) Social Assets Building',
+        {'name': 'ANC', 'programStage': 'wA5y7RU83lF'},
+        {'name': 'GBV LEGAL', 'programStage': 'bDJq2JWVTbC'},
+        {'name': '(SAB) Social Assets Building', 'programStage': 'bDJq2JWVTbC'},
       ],
       [
-        'PEP',
-        'VAC LEGAL',
-        'HIV & VIOLENCE PREVENTION',
+        {'name': 'PEP', 'programStage': 'CEyIqiOZOwx'},
+        {'name': 'VAC LEGAL', 'programStage': 'bDJq2JWVTbC'},
+        {'name': 'HIV & VIOLENCE PREVENTION', 'programStage': 'bDJq2JWVTbC'},
       ],
-      ['PARENTING', '', ''],
+      [
+        {'name': 'PARENTING', 'programStage': 'bDJq2JWVTbC'},
+        {'name': ''},
+        {'name': ''}
+      ],
     ];
   }
 }
