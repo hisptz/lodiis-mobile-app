@@ -21,17 +21,21 @@ import 'pages/constants/ovc_monitor_constant.dart';
 class OvcMonitorChildView extends StatelessWidget {
   final String label = 'Child Monitoring tool';
 
-  void onAddService(BuildContext context,) {
-       Provider.of<ServiceFormState>(context, listen: false).resetFormState();
-       Navigator.push(context,
+  void onAddService(
+    BuildContext context,
+  ) {
+    Provider.of<ServiceFormState>(context, listen: false).resetFormState();
+    Navigator.push(context,
         MaterialPageRoute(builder: (context) => OvcServiceMonitoringForm()));
   }
+
   void onAddSchool(BuildContext context) {
-       Provider.of<ServiceFormState>(context, listen: false).resetFormState();
-       Navigator.push(context,
+    Provider.of<ServiceFormState>(context, listen: false).resetFormState();
+    Navigator.push(context,
         MaterialPageRoute(builder: (context) => OvcSchoolMonitoringForm()));
   }
- void onRedirectToMonitorForm(
+
+  void onRedirectToMonitorForm(
       BuildContext context, String monitorResponse, bool isEditableMode) {
     Provider.of<ServiceFormState>(context, listen: false)
         .updateFormEditabilityState(isEditableMode: isEditableMode);
@@ -45,11 +49,12 @@ class OvcMonitorChildView extends StatelessWidget {
               ? Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) =>  OvcSchoolMonitoringForm()))
-                  : print(monitorResponse);
+                      builder: (context) => OvcSchoolMonitoringForm()))
+              : print(monitorResponse);
     }
   }
- void updateFormStateData(BuildContext context, Events eventData) {
+
+  void updateFormStateData(BuildContext context, Events eventData) {
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState('eventDate', eventData.eventDate);
     Provider.of<ServiceFormState>(context, listen: false)
@@ -61,16 +66,22 @@ class OvcMonitorChildView extends StatelessWidget {
       }
     }
   }
-  void onEditMonitor(BuildContext context,
+
+  void onEditMonitor(
+    BuildContext context,
     String monitorResponse,
-    Events eventData,) {
+    Events eventData,
+  ) {
     bool isEditableMode = true;
     updateFormStateData(context, eventData);
     onRedirectToMonitorForm(context, monitorResponse, isEditableMode);
   }
-  void onViewMonitor(BuildContext context,
+
+  void onViewMonitor(
+    BuildContext context,
     String monitorResponse,
-    Events eventData,) {
+    Events eventData,
+  ) {
     bool isEditableMode = false;
     updateFormStateData(context, eventData);
     onRedirectToMonitorForm(context, monitorResponse, isEditableMode);
@@ -120,8 +131,8 @@ class OvcMonitorChildView extends StatelessWidget {
                             margin: EdgeInsets.only(top: 10.0),
                             child: events.length == 0
                                 ? Center(
-                                    child:
-                                        Text('There is no monitor details at moment'),
+                                    child: Text(
+                                        'There is no monitor details at moment'),
                                   )
                                 : Column(
                                     children: events
@@ -133,19 +144,15 @@ class OvcMonitorChildView extends StatelessWidget {
                                                 String monitorResponse =
                                                     programStageMap[
                                                         eventData.programStage];
-                                                onEditMonitor(
-                                                    context,
-                                                    monitorResponse,
-                                                    eventData);
+                                                onEditMonitor(context,
+                                                    monitorResponse, eventData);
                                               },
                                               onViewMonitor: () {
                                                 String monitorResponse =
                                                     programStageMap[
                                                         eventData.programStage];
-                                                onViewMonitor(
-                                                    context,
-                                                    monitorResponse,
-                                                    eventData);
+                                                onViewMonitor(context,
+                                                    monitorResponse, eventData);
                                               },
                                             ))
                                         .toList(),
@@ -155,29 +162,25 @@ class OvcMonitorChildView extends StatelessWidget {
                 ),
               ),
               Container(
-                child: Row(
-                  children:[
-                    Expanded(child: 
-                     OvcMonitorSaveButton(
-                          label: 'ADD SERVICE',
-                          labelColor: Color(0xFF4B9F46),
-                          fontSize: 14,
-                          buttonColor: Colors.transparent,
-                          borderColor: Color(0xFFAEB9AD),
-                          onPressButton: () => onAddService(context),
-                        )
-                    ),
-                      Expanded(child: 
-                       OvcMonitorSaveButton(
-                          label: 'ADD SCHOOL',
-                          labelColor: Colors.white,
-                          fontSize: 14,
-                          buttonColor: Color(0xFF4B9F46),
-                          onPressButton: () => onAddSchool(context),
-                        )
-                    ),
-                  ]
-                ),
+                child: Row(children: [
+                  Expanded(
+                      child: OvcMonitorSaveButton(
+                    label: 'ADD SERVICE',
+                    labelColor: Color(0xFF4B9F46),
+                    fontSize: 14,
+                    buttonColor: Colors.transparent,
+                    borderColor: Color(0xFFAEB9AD),
+                    onPressButton: () => onAddService(context),
+                  )),
+                  Expanded(
+                      child: OvcMonitorSaveButton(
+                    label: 'ADD SCHOOL',
+                    labelColor: Colors.white,
+                    fontSize: 14,
+                    buttonColor: Color(0xFF4B9F46),
+                    onPressButton: () => onAddSchool(context),
+                  )),
+                ]),
               ),
             ]),
           ),

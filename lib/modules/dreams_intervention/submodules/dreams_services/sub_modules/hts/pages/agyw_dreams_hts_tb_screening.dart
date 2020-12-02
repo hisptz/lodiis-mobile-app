@@ -51,10 +51,11 @@ class _AgywDreamsHTSTBFormState extends State<AgywDreamsHTSTBForm> {
       });
     });
   }
+
   evaluateSkipLogics() {
     Timer(
       Duration(milliseconds: 200),
-          () async {
+      () async {
         Map dataObject =
             Provider.of<ServiceFormState>(context, listen: false).formState;
         await AgywDreamsHTSTBScreeningSkipLogic.evaluateSkipLogics(
@@ -66,7 +67,6 @@ class _AgywDreamsHTSTBFormState extends State<AgywDreamsHTSTBForm> {
     );
   }
 
-
   void onInputValueChange(String id, dynamic value) {
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState(id, value);
@@ -75,7 +75,7 @@ class _AgywDreamsHTSTBFormState extends State<AgywDreamsHTSTBForm> {
 
   void onSaveForm(
       BuildContext context, Map dataObject, AgywDream agywDream) async {
-    print(widget.htsToTBLinkageValue);
+    // print(widget.htsToTBLinkageValue);
     if (dataObject.keys.length > 0) {
       setState(() {
         isSaving = true;
@@ -167,8 +167,10 @@ class _AgywDreamsHTSTBFormState extends State<AgywDreamsHTSTBForm> {
                                       right: 13.0,
                                     ),
                                     child: EntryFormContainer(
-                                      hiddenSections: serviceFormState.hiddenSections,
-                                      hiddenFields: serviceFormState.hiddenFields,
+                                      hiddenSections:
+                                          serviceFormState.hiddenSections,
+                                      hiddenFields:
+                                          serviceFormState.hiddenFields,
                                       formSections: formSections,
                                       mandatoryFieldObject: Map(),
                                       isEditableMode:
