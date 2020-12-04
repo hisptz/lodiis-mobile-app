@@ -10,11 +10,13 @@ class LanguageSelectionContainer extends StatefulWidget {
   const LanguageSelectionContainer({
     Key key,
     @required this.selectionLanguageCode,
+    @required this.currentLanguage,
     @required this.showLanguageSettingAppBar,
     this.onSetSelectedLanguage,
   }) : super(key: key);
 
   final String selectionLanguageCode;
+  final String currentLanguage;
   final bool showLanguageSettingAppBar;
   final Function onSetSelectedLanguage;
 
@@ -118,6 +120,7 @@ class _LanguageSelectionContainerState
                                       child: LanguageSelectionCard(
                                         size: size,
                                         color: color,
+                                        currentLanguage: widget.currentLanguage,
                                         appLanguage: supportedLangauge,
                                         selectionLanguage:
                                             _selectionLanguageCode,

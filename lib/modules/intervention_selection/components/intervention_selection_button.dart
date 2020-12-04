@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
+import 'package:provider/provider.dart';
 
 class InterventionSelectionButton extends StatelessWidget {
   const InterventionSelectionButton(
@@ -20,24 +22,33 @@ class InterventionSelectionButton extends StatelessWidget {
         margin: EdgeInsets.only(top: 60, bottom: 50),
         width: double.infinity,
         child: FlatButton(
-            onPressed:
-                !isInterventionSelected ? null : onInterventionButtonClick,
-            shape: RoundedRectangleBorder(
-                side: BorderSide(
-                    color: isInterventionSelected
-                        ? Color(0xFFFAFAFA)
-                        : Color(0xFF7FBA7C)),
-                borderRadius: BorderRadius.circular(12.0)),
-            padding: EdgeInsets.symmetric(vertical: 15),
-            child: Container(
+          onPressed: !isInterventionSelected ? null : onInterventionButtonClick,
+          shape: RoundedRectangleBorder(
+            side: BorderSide(
+              color: isInterventionSelected
+                  ? Color(0xFFFAFAFA)
+                  : Color(0xFF7FBA7C),
+            ),
+            borderRadius: BorderRadius.circular(12.0),
+          ),
+          padding: EdgeInsets.symmetric(
+            vertical: 15,
+          ),
+          child: Consumer<LanguageTranslationState>(
+            builder: (context, languageTranslationState, child) => Container(
               child: Text(
-                'Continue',
+                languageTranslationState.currentLanguage == 'lesotho'
+                    ? 'Tsoela-pele'
+                    : 'Continue',
                 style: TextStyle(
-                    color: isInterventionSelected
-                        ? Color(0xFFFAFAFA)
-                        : Color(0xFF7FBA7C)),
+                  color: isInterventionSelected
+                      ? Color(0xFFFAFAFA)
+                      : Color(0xFF7FBA7C),
+                ),
               ),
-            )),
+            ),
+          ),
+        ),
       ),
     );
   }

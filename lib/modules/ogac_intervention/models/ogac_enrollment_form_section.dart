@@ -61,6 +61,7 @@ class OgacInterventionFormSection {
           InputField(
             id: 'location',
             name: 'Location',
+            translatedName: 'Sebaka',
             valueType: 'ORGANISATION_UNIT',
             allowedSelectedLevels: [3, 4],
             inputColor: Color(0xFFF05A2A),

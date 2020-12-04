@@ -81,7 +81,6 @@ class _InterventionSelectionState extends State<InterventionSelection> {
                   int numberOfNoneAgywDreamsBeneficiaries =
                       dreamsInterventionListState
                           .numberOfNoneAgywDreamsBeneficiaries;
-
                   return Consumer<OgacInterventionListState>(
                     builder: (context, ogacInterventionListState, child) {
                       int numberOfOgac = ogacInterventionListState.numberOfOgac;
