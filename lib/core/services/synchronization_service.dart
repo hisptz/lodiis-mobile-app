@@ -78,7 +78,6 @@ class SynchronizationService {
           for (var teiRelationship in responseData["relationships"]) {
             teiRelationshipsFromServer.add(TeiRelationship().fromOnline(teiRelationship));
           }
-          print(teiRelationshipsFromServer);
         } else {
           print(response);
           return null;
@@ -201,7 +200,10 @@ class SynchronizationService {
     var response = await httpClient.httpPost(url, json.encode(body));
     try {
       syncedIds = _getReferenceids(json.decode(response.body));
-    } catch (e) {}
+      print(response.body);
+    } catch (e) {
+      print(e);
+    }
     if (syncedIds.length > 0) {
       for (TrackeEntityInstance tei in teis) {
         if (syncedIds.indexOf(tei.trackedEntityInstance) > -1) {
@@ -235,7 +237,11 @@ class SynchronizationService {
     var response = await httpClient.httpPost(url, json.encode(body));
     try {
       syncedIds = _getReferenceids(json.decode(response.body));
-    } catch (e) {}
+      print('Events');
+      print(response.body);
+    } catch (e) {
+      print(e);
+    }
     if (syncedIds.length > 0) {
       for (Events event in teiEvents) {
         if (syncedIds.indexOf(event.event) > -1) {

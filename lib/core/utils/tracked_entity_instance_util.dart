@@ -15,12 +15,16 @@ class TrackedEntityInstanceUtil {
     String trackedEntityInstance,
     String eventId,
     List<String> hiddenFields,
-  ) async {
+      {
+    List<String> skippedFields,
+  }) async {
     hiddenFields = hiddenFields ?? [];
+    skippedFields = skippedFields ?? [];
     List<String> inputFieldIds = FormUtil.getFormFieldIds(
       formSections,
     );
     inputFieldIds.addAll(hiddenFields);
+    inputFieldIds.removeWhere((field) => skippedFields.indexOf(field) > -1);
     eventId =
         eventId == null ? dataObject['eventId'] ?? AppUtil.getUid() : eventId;
      //clear unwanted object from the mapper : an object in clo question which signifies form to save
