@@ -8,11 +8,13 @@ class LanguageSelectionCard extends StatelessWidget {
     Key key,
     @required this.size,
     @required this.appLanguage,
+    @required this.currentLanguage,
     @required this.selectionLanguage,
     @required this.color,
   }) : super(key: key);
 
   final Size size;
+  final String currentLanguage;
   final AppLanguage appLanguage;
   final String selectionLanguage;
   final Color color;
@@ -30,7 +32,10 @@ class LanguageSelectionCard extends StatelessWidget {
               backgroundImage: AssetImage(appLanguage.image),
             ),
             Container(
-              child: Text(appLanguage.name),
+              child: Text(currentLanguage == 'lesotho' &&
+                      appLanguage.translatedName != null
+                  ? appLanguage.translatedName
+                  : appLanguage.name),
             ),
             Container(
               child: SvgPicture.asset(

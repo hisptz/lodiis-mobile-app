@@ -77,14 +77,24 @@ class _LanguageSelectionState extends State<LanguageSelection> {
                     },
                   ),
                 ),
-          body: LanguageSelectionContainer(
-              selectionLanguageCode: selectionLanguageCode,
-              showLanguageSettingAppBar: widget.showLanguageSettingAppBar,
-              onSetSelectedLanguage: (String selectionLanguageCode) =>
-                  onSetSelectedLanguage(
+          body: Container(
+            child: Consumer<LanguageTranslationState>(
+              builder: (context, languageTranslationState, child) {
+                String currentLanguage =
+                    languageTranslationState.currentLanguage;
+                return LanguageSelectionContainer(
+                  currentLanguage: currentLanguage,
+                  selectionLanguageCode: selectionLanguageCode,
+                  showLanguageSettingAppBar: widget.showLanguageSettingAppBar,
+                  onSetSelectedLanguage: (String selectionLanguageCode) =>
+                      onSetSelectedLanguage(
                     context,
                     selectionLanguageCode,
-                  )),
+                  ),
+                );
+              },
+            ),
+          ),
         ),
       ),
     );

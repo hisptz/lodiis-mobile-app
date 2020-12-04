@@ -1,10 +1,17 @@
 class AppLanguage {
   String id;
   String name;
+  String translatedName;
   bool isDefault;
   String image;
 
-  AppLanguage({this.id, this.name, this.image, this.isDefault}) {
+  AppLanguage({
+    this.id,
+    this.name,
+    this.image,
+    this.isDefault,
+    this.translatedName,
+  }) {
     this.isDefault = this.isDefault ?? false;
   }
 
@@ -18,6 +25,7 @@ class AppLanguage {
       AppLanguage(
         id: 'english',
         name: 'English',
+        translatedName: 'Sekhooa',
         image: 'assets/logos/usa-flag.png',
       ),
     ];
