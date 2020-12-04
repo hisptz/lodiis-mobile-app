@@ -22,6 +22,7 @@ class OvcEnrollmentHouseHold {
               InputField(
                 id: 'location',
                 name: 'Location',
+                translatedName: 'Sebaka',
                 isReadOnly: true,
                 allowedSelectedLevels: [3, 4],
                 valueType: 'ORGANISATION_UNIT',
