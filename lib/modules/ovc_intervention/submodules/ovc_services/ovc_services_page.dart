@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_house_hold_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
+import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_intervention_list_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/sub_module_home_container.dart';
@@ -23,7 +24,6 @@ class OvcServicesPage extends StatefulWidget {
 }
 
 class _OvcServicesPageState extends State<OvcServicesPage> {
-  final String title = 'HOUSEHOLD LIST';
   final bool canEdit = false;
   final bool canView = false;
   final bool canExpand = true;
@@ -53,54 +53,69 @@ class _OvcServicesPageState extends State<OvcServicesPage> {
   void onOpenHouseHoldAssess(BuildContext context, OvcHouseHold ovcHouseHold) {
     setOvcHouseHoldCurrentSelection(context, ovcHouseHold);
     Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => OvcHouseHoldAssessment(),
-        ));
+      context,
+      MaterialPageRoute(
+        builder: (context) => OvcHouseHoldAssessment(),
+      ),
+    );
   }
 
   void onOpenHouseHoldCasePlan(
       BuildContext context, OvcHouseHold ovcHouseHold) {
     setOvcHouseHoldCurrentSelection(context, ovcHouseHold);
     Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => OvcHouseHoldCasePlanHome(),
-        ));
+      context,
+      MaterialPageRoute(
+        builder: (context) => OvcHouseHoldCasePlanHome(),
+      ),
+    );
   }
 
   void onOpenHouseHoldMonitor(BuildContext context, OvcHouseHold ovcHouseHold) {
     setOvcHouseHoldCurrentSelection(context, ovcHouseHold);
     Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => OvcHouseHoldMonitor(),
-        ));
+      context,
+      MaterialPageRoute(
+        builder: (context) => OvcHouseHoldMonitor(),
+      ),
+    );
   }
 
   void onOpenHouseHoldService(BuildContext context, OvcHouseHold ovcHouseHold) {
     setOvcHouseHoldCurrentSelection(context, ovcHouseHold);
     Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => OvcHouseHoldService(),
-        ));
+      context,
+      MaterialPageRoute(
+        builder: (context) => OvcHouseHoldService(),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<OvcInterventionListState>(
-      builder: (context, ovcInterventionListState, child) {
-        return SubModuleHomeContainer(
-          header:
-              '$title : ${ovcInterventionListState.numberOfHouseHolds} households',
-          bodyContents: _buildBody(),
-        );
-      },
+    return Container(
+      child: Consumer<LanguageTranslationState>(
+        builder: (context, languageTranslationState, child) {
+          String currentLanguage = languageTranslationState.currentLanguage;
+          return Consumer<OvcInterventionListState>(
+            builder: (context, ovcInterventionListState, child) {
+              String header = currentLanguage == 'lesotho'
+                  ? 'Lethathamo la malapa'.toUpperCase() +
+                      ': ${ovcInterventionListState.numberOfHouseHolds} Malapa'
+                  : 'Household list'.toUpperCase() +
+                      ': ${ovcInterventionListState.numberOfHouseHolds} households';
+              return SubModuleHomeContainer(
+                header: header,
+                bodyContents: _buildBody(currentLanguage),
+              );
+            },
+          );
+        },
+      ),
     );
   }
 
-  Container _buildBody() {
+  Container _buildBody(String currentLanguage) {
     return Container(
       child: Consumer<OvcInterventionListState>(
         builder: (context, ovcInterventionListState, child) {
@@ -111,15 +126,21 @@ class _OvcServicesPageState extends State<OvcServicesPage> {
               ? Container(
                   margin: EdgeInsets.only(top: 20.0),
                   child: Center(
-                    child: CircularProcessLoader(color: Colors.blueGrey),
+                    child: CircularProcessLoader(
+                      color: Colors.blueGrey,
+                    ),
                   ),
                 )
               : Container(
                   margin: EdgeInsets.only(top: 16.0),
                   child: ovcHouseHolds.length == 0
                       ? Center(
-                          child:
-                              Text('There is no household enrolled at moment'))
+                          child: Text(
+                            currentLanguage == 'lesotho'
+                                ? 'Ha hona lelapa le ngolisitsoeng ha hajoale'
+                                : 'There is no household enrolled at moment',
+                          ),
+                        )
                       : Column(
                           children: ovcHouseHolds
                               .map(
@@ -145,83 +166,87 @@ class _OvcServicesPageState extends State<OvcServicesPage> {
                                           ),
                                     child: Container(
                                       decoration: BoxDecoration(
-                                          color: Color(0XFFF6FAF6)),
+                                        color: Color(0XFFF6FAF6),
+                                      ),
                                       child: Row(
                                         children: [
                                           Expanded(
                                             child: Container(
                                               child: FlatButton(
-                                                  onPressed: () =>
-                                                      onOpenHouseHoldAssess(
-                                                        context,
-                                                        ovcHouseHold,
-                                                      ),
-                                                  child: Text(
-                                                    'ASSESS',
-                                                    style: TextStyle().copyWith(
-                                                      fontSize: 12.0,
-                                                      color: Color(0xFF4B9F46),
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                    ),
-                                                  )),
+                                                onPressed: () =>
+                                                    onOpenHouseHoldAssess(
+                                                  context,
+                                                  ovcHouseHold,
+                                                ),
+                                                child: Text(
+                                                  'ASSESS',
+                                                  style: TextStyle().copyWith(
+                                                    fontSize: 12.0,
+                                                    color: Color(0xFF4B9F46),
+                                                    fontWeight: FontWeight.w500,
+                                                  ),
+                                                ),
+                                              ),
                                             ),
                                           ),
                                           Expanded(
                                             child: Container(
                                               child: FlatButton(
-                                                  onPressed: () =>
-                                                      onOpenHouseHoldCasePlan(
-                                                        context,
-                                                        ovcHouseHold,
-                                                      ),
-                                                  child: Text(
-                                                    'PLAN',
-                                                    style: TextStyle().copyWith(
-                                                      fontSize: 12.0,
-                                                      color: Color(0xFF4B9F46),
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                    ),
-                                                  )),
+                                                onPressed: () =>
+                                                    onOpenHouseHoldCasePlan(
+                                                  context,
+                                                  ovcHouseHold,
+                                                ),
+                                                child: Text(
+                                                  'PLAN',
+                                                  style: TextStyle().copyWith(
+                                                    fontSize: 12.0,
+                                                    color: Color(0xFF4B9F46),
+                                                    fontWeight: FontWeight.w500,
+                                                  ),
+                                                ),
+                                              ),
                                             ),
                                           ),
                                           Expanded(
                                             child: Container(
                                               child: FlatButton(
-                                                  onPressed: () =>
-                                                      onOpenHouseHoldService(
-                                                        context,
-                                                        ovcHouseHold,
-                                                      ),
-                                                  child: Text(
-                                                    'SERVICE',
-                                                    style: TextStyle().copyWith(
-                                                      fontSize: 12.0,
-                                                      color: Color(0xFF4B9F46),
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                    ),
-                                                  )),
+                                                onPressed: () =>
+                                                    onOpenHouseHoldService(
+                                                  context,
+                                                  ovcHouseHold,
+                                                ),
+                                                child: Text(
+                                                  currentLanguage == 'lesotho'
+                                                      ? 'Litsebeletso'
+                                                          .toUpperCase()
+                                                      : 'SERVICES',
+                                                  style: TextStyle().copyWith(
+                                                    fontSize: 12.0,
+                                                    color: Color(0xFF4B9F46),
+                                                    fontWeight: FontWeight.w500,
+                                                  ),
+                                                ),
+                                              ),
                                             ),
                                           ),
                                           Expanded(
                                             child: Container(
                                               child: FlatButton(
-                                                  onPressed: () =>
-                                                      onOpenHouseHoldMonitor(
-                                                        context,
-                                                        ovcHouseHold,
-                                                      ),
-                                                  child: Text(
-                                                    'MONITOR',
-                                                    style: TextStyle().copyWith(
-                                                      fontSize: 12.0,
-                                                      color: Color(0xFF4B9F46),
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                    ),
-                                                  )),
+                                                onPressed: () =>
+                                                    onOpenHouseHoldMonitor(
+                                                  context,
+                                                  ovcHouseHold,
+                                                ),
+                                                child: Text(
+                                                  'MONITOR',
+                                                  style: TextStyle().copyWith(
+                                                    fontSize: 12.0,
+                                                    color: Color(0xFF4B9F46),
+                                                    fontWeight: FontWeight.w500,
+                                                  ),
+                                                ),
+                                              ),
                                             ),
                                           ),
                                         ],
