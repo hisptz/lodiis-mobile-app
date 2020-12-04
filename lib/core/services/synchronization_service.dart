@@ -13,7 +13,6 @@ import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/tei_relationship.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
 
-
 class SynchronizationService {
   HttpService httpClient;
   final List programs;
@@ -61,8 +60,8 @@ class SynchronizationService {
       }
     } catch (e) {}
     return eventsFromServer;
-  } 
-  
+  }
+
   Future<List<TeiRelationship>> getTeiRelationshipsfromServer(
       String program, String userOrgId) async {
     List<TeiRelationship> teiRelationshipsFromServer = [];
@@ -76,10 +75,12 @@ class SynchronizationService {
         if (response.statusCode == 200) {
           var responseData = json.decode(response.body);
           for (var teiRelationship in responseData["relationships"]) {
-            teiRelationshipsFromServer.add(TeiRelationship().fromOnline(teiRelationship));
+            teiRelationshipsFromServer
+                .add(TeiRelationship().fromOnline(teiRelationship));
           }
+          // print(teiRelationshipsFromServer);
         } else {
-          print(response);
+          // print(response);
           return null;
         }
       }
@@ -94,8 +95,10 @@ class SynchronizationService {
   }
 
   Future saveTeiRelationshipToOffline(TeiRelationship relationship) async {
-    await TeiRelatioShipOfflineProvider().addOrUpdateTeirelationShip(relationship);
+    await TeiRelatioShipOfflineProvider()
+        .addOrUpdateTeirelationShip(relationship);
   }
+
   Future saveRelationshipsToOffline(List<dynamic> relationships) async {
     for (var relationship in relationships) {
       await saveTeiRelationshipToOffline(
@@ -103,12 +106,12 @@ class SynchronizationService {
     }
   }
 
-
   Future<List> getOfflineEventsAttributesValuesById(String eventIds) async {
     List entityInstanceAttributes =
         await EventOfflineDataValueProvider().getEventDataValues(eventIds);
     return entityInstanceAttributes;
   }
+
 //Change from dynamic to TrackeEntityInstance
   Future<List<dynamic>> getTrackedInstancefromServer(
       String program, String userOrgId) async {
@@ -116,7 +119,6 @@ class SynchronizationService {
     List<String> pageFilters = await getDataPaginationFilters(
         "api/trackedEntityInstances.json?ouMode=DESCENDANTS&ou=$userOrgId&program=$program");
     for (var pageFilter in pageFilters) {
-
       String newTrackedInstanceUrl =
           "api/trackedEntityInstances.json?ouMode=DESCENDANTS&ou=$userOrgId&program=$program&fields=trackedEntityInstance,trackedEntityType,orgUnit,attributes[attribute,value, displayName],enrollments[enrollment,enrollmentDate,incidentDate,orgUnit,program,trackedEntityInstance,status]relationships[relationshipType,relationship,from[trackedEntityInstance[trackedEntityInstance]],to[trackedEntityInstance[trackedEntityInstance]]]&$pageFilter";
 
@@ -200,10 +202,7 @@ class SynchronizationService {
     var response = await httpClient.httpPost(url, json.encode(body));
     try {
       syncedIds = _getReferenceids(json.decode(response.body));
-      print(response.body);
-    } catch (e) {
-      print(e);
-    }
+    } catch (e) {}
     if (syncedIds.length > 0) {
       for (TrackeEntityInstance tei in teis) {
         if (syncedIds.indexOf(tei.trackedEntityInstance) > -1) {
@@ -237,11 +236,7 @@ class SynchronizationService {
     var response = await httpClient.httpPost(url, json.encode(body));
     try {
       syncedIds = _getReferenceids(json.decode(response.body));
-      print('Events');
-      print(response.body);
-    } catch (e) {
-      print(e);
-    }
+    } catch (e) {}
     if (syncedIds.length > 0) {
       for (Events event in teiEvents) {
         if (syncedIds.indexOf(event.event) > -1) {
@@ -257,7 +252,9 @@ class SynchronizationService {
   ) async {
     Map body = Map<String, dynamic>();
     String url = 'api/relationships?strategy=CREATE_AND_UPDATE';
-    body['relationships'] = teiRelationShips.map((relationship)=>relationship.toOnline()).toList();
+    body['relationships'] = teiRelationShips
+        .map((relationship) => relationship.toOnline())
+        .toList();
     var response = await httpClient.httpPost(url, json.encode(body));
   }
 
@@ -271,7 +268,7 @@ class SynchronizationService {
         referenceIds.add(importSummary['reference']);
       } else {
         //@TODO add logs
-        print(json.encode(importSummary));
+        // print(json.encode(importSummary));
       }
     }
     return referenceIds;

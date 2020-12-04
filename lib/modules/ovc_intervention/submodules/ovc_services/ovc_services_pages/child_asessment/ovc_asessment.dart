@@ -27,7 +27,8 @@ import 'package:provider/provider.dart';
 class OvcAssessmentServiceChildView extends StatelessWidget {
   final String label = 'Child Assessment';
 
-  void onAddMewchildAssessment(BuildContext context, OvcHouseHoldChild child) async {
+  void onAddMewchildAssessment(
+      BuildContext context, OvcHouseHoldChild child) async {
     updateFormStateData(context, null, child);
     Widget model = OvcChildAssessmentSelection();
     String assessmentResponse =
@@ -78,23 +79,15 @@ class OvcAssessmentServiceChildView extends StatelessWidget {
     }
   }
 
-  void onViewAssessment(
-    BuildContext context,
-    String assessmentResponse,
-    Events eventData,
-      OvcHouseHoldChild child
-  ) {
+  void onViewAssessment(BuildContext context, String assessmentResponse,
+      Events eventData, OvcHouseHoldChild child) {
     bool isEditableMode = false;
     updateFormStateData(context, eventData, child);
     onRedirectToAssessmentForm(context, assessmentResponse, isEditableMode);
   }
 
-  void onEditAssessment(
-    BuildContext context,
-    String assessmentResponse,
-    Events eventData,
-      OvcHouseHoldChild child
-  ) {
+  void onEditAssessment(BuildContext context, String assessmentResponse,
+      Events eventData, OvcHouseHoldChild child) {
     bool isEditableMode = true;
     updateFormStateData(context, eventData, child);
     onRedirectToAssessmentForm(context, assessmentResponse, isEditableMode);
@@ -140,66 +133,66 @@ class OvcAssessmentServiceChildView extends StatelessWidget {
                           }
                           List<Events> events = TrackedEntityInstanceUtil
                               .getAllEventListFromServiceDataState(
-                              eventListByProgramStage, programStageids);
+                                  eventListByProgramStage, programStageids);
                           return isLoading
                               ? CircularProcessLoader(
-                            color: Colors.blueGrey,
-                          )
+                                  color: Colors.blueGrey,
+                                )
                               : Container(
-                            margin: EdgeInsets.only(top: 10.0),
-                            child: events.length == 0
-                                ? Center(
-                              child: Text(
-                                  'There is no asseement at moment'),
-                            )
-                                : Column(
-                              children: events
-                                  .map((Events eventData) =>
-                                  OvcChildAssessmentListCard(
-                                    eventData: eventData,
-                                    programStageMap:
-                                    programStageMap,
-                                    onEditAssessment: () {
-                                      String
-                                      assessmentResponse =
-                                      programStageMap[
-                                      eventData
-                                          .programStage];
-                                      onEditAssessment(
-                                          context,
-                                          assessmentResponse,
-                                          eventData,
-                                          currentOvcHouseHoldChild);
-                                    },
-                                    onViewAssessment: () {
-                                      String
-                                      assessmentResponse =
-                                      programStageMap[
-                                      eventData
-                                          .programStage];
-                                      onViewAssessment(
-                                          context,
-                                          assessmentResponse,
-                                          eventData,
-                                          currentOvcHouseHoldChild);
-                                    },
-                                  ))
-                                  .toList(),
-                            ),
-                          );
+                                  margin: EdgeInsets.only(top: 10.0),
+                                  child: events.length == 0
+                                      ? Center(
+                                          child: Text(
+                                              'There is no asseement at moment'),
+                                        )
+                                      : Column(
+                                          children: events
+                                              .map((Events eventData) =>
+                                                  OvcChildAssessmentListCard(
+                                                    eventData: eventData,
+                                                    programStageMap:
+                                                        programStageMap,
+                                                    onEditAssessment: () {
+                                                      String
+                                                          assessmentResponse =
+                                                          programStageMap[
+                                                              eventData
+                                                                  .programStage];
+                                                      onEditAssessment(
+                                                          context,
+                                                          assessmentResponse,
+                                                          eventData,
+                                                          currentOvcHouseHoldChild);
+                                                    },
+                                                    onViewAssessment: () {
+                                                      String
+                                                          assessmentResponse =
+                                                          programStageMap[
+                                                              eventData
+                                                                  .programStage];
+                                                      onViewAssessment(
+                                                          context,
+                                                          assessmentResponse,
+                                                          eventData,
+                                                          currentOvcHouseHoldChild);
+                                                    },
+                                                  ))
+                                              .toList(),
+                                        ),
+                                );
                         },
                       ),
                     ),
                   ),
                   Container(
                       child: OvcEnrollmentFormSaveButton(
-                        label: 'NEW ASSESSMENT',
-                        labelColor: Colors.white,
-                        fontSize: 14,
-                        buttonColor: Color(0xFF4B9F46),
-                        onPressButton: () => onAddMewchildAssessment(
-                            context, currentOvcHouseHoldChild),
-                      ))
+                    label: 'NEW ASSESSMENT',
+                    labelColor: Colors.white,
+                    fontSize: 14,
+                    buttonColor: Color(0xFF4B9F46),
+                    onPressButton: () => onAddMewchildAssessment(
+                        context, currentOvcHouseHoldChild),
+                  ))
                 ]);
               },
             ),

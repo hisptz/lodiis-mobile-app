@@ -24,7 +24,7 @@ class _ConflictOnDownloadPageState extends State<ConflictOnDownloadPage> {
   }
 
   void onDiscardConflict() {
-    print("accept offline data");
+    // print("accept offline data");
   }
 
   @override

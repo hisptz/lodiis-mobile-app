@@ -30,7 +30,8 @@ class AgywDreamsHTSRegisterFormEdit extends StatefulWidget {
       _AgywDreamsHTSRegisterFormEditState();
 }
 
-class _AgywDreamsHTSRegisterFormEditState extends State<AgywDreamsHTSRegisterFormEdit> {
+class _AgywDreamsHTSRegisterFormEditState
+    extends State<AgywDreamsHTSRegisterFormEdit> {
   final String label = 'HTS Register';
   List<FormSection> formSections;
   bool isFormReady = false;
@@ -51,7 +52,7 @@ class _AgywDreamsHTSRegisterFormEditState extends State<AgywDreamsHTSRegisterFor
   evaluateSkipLogics() {
     Timer(
       Duration(milliseconds: 200),
-          () async {
+      () async {
         Map dataObject =
             Provider.of<ServiceFormState>(context, listen: false).formState;
         await AgywDreamsHTSRegisterSkipLogic.evaluateSkipLogics(
@@ -77,7 +78,7 @@ class _AgywDreamsHTSRegisterFormEditState extends State<AgywDreamsHTSRegisterFor
       });
       String eventDate = dataObject['eventDate'];
       String eventId = dataObject['eventId'];
-      print(dataObject);
+      // print(dataObject);
       List<String> hiddenFields = [];
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
@@ -146,46 +147,46 @@ class _AgywDreamsHTSRegisterFormEditState extends State<AgywDreamsHTSRegisterFor
                         ),
                         !isFormReady
                             ? Container(
-                          child: CircularProcessLoader(
-                            color: Colors.blueGrey,
-                          ),
-                        )
+                                child: CircularProcessLoader(
+                                  color: Colors.blueGrey,
+                                ),
+                              )
                             : Column(
-                          children: [
-                            Container(
-                              margin: EdgeInsets.only(
-                                top: 10.0,
-                                left: 13.0,
-                                right: 13.0,
-                              ),
-                              child: EntryFormContainer(
-                                hiddenFields: serviceFormState.hiddenFields,
-                                hiddenSections: serviceFormState.hiddenSections,
-                                formSections: formSections,
-                                mandatoryFieldObject: Map(),
-                                isEditableMode:
-                                serviceFormState.isEditableMode,
-                                dataObject: serviceFormState.formState,
-                                onInputValueChange: onInputValueChange,
-                              ),
-                            ),
-                            Visibility(
-                              visible: serviceFormState.isEditableMode,
-                              child: OvcEnrollmentFormSaveButton(
-                                label: isSaving
-                                    ? 'Saving ...'
-                                    : 'Save',
-                                labelColor: Colors.white,
-                                buttonColor: Color(0xFF258DCC),
-                                fontSize: 15.0,
-                                onPressButton: () => onSaveForm(
-                                    context,
-                                    serviceFormState.formState,
-                                    agywDream),
-                              ),
-                            )
-                          ],
-                        )
+                                children: [
+                                  Container(
+                                    margin: EdgeInsets.only(
+                                      top: 10.0,
+                                      left: 13.0,
+                                      right: 13.0,
+                                    ),
+                                    child: EntryFormContainer(
+                                      hiddenFields:
+                                          serviceFormState.hiddenFields,
+                                      hiddenSections:
+                                          serviceFormState.hiddenSections,
+                                      formSections: formSections,
+                                      mandatoryFieldObject: Map(),
+                                      isEditableMode:
+                                          serviceFormState.isEditableMode,
+                                      dataObject: serviceFormState.formState,
+                                      onInputValueChange: onInputValueChange,
+                                    ),
+                                  ),
+                                  Visibility(
+                                    visible: serviceFormState.isEditableMode,
+                                    child: OvcEnrollmentFormSaveButton(
+                                      label: isSaving ? 'Saving ...' : 'Save',
+                                      labelColor: Colors.white,
+                                      buttonColor: Color(0xFF258DCC),
+                                      fontSize: 15.0,
+                                      onPressButton: () => onSaveForm(
+                                          context,
+                                          serviceFormState.formState,
+                                          agywDream),
+                                    ),
+                                  )
+                                ],
+                              )
                       ],
                     ),
                   );
