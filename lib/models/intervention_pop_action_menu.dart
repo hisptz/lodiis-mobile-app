@@ -18,11 +18,23 @@ class InterventionPopActionMenu {
   static List<InterventionPopActionMenu>
       getDefaultInterventionPopActionMenus() {
     return [
-      InterventionPopActionMenu(id: 'logout', name: 'Logout'),
-      InterventionPopActionMenu(id: 'about', name: 'About App'),
-      InterventionPopActionMenu(id: 'sync', name: 'Sync'),
       InterventionPopActionMenu(
-          id: 'language_setting', name: 'Language Settings'),
+        id: 'logout',
+        name: 'Logout',
+      ),
+      InterventionPopActionMenu(
+        id: 'about',
+        name: 'About App',
+      ),
+      InterventionPopActionMenu(
+        id: 'sync',
+        name: 'Sync',
+      ),
+      InterventionPopActionMenu(
+        id: 'language_setting',
+        name: 'Language Settings',
+        translatedName: 'Khetha Puo',
+      ),
       // InterventionPopActionMenu(id: 'settings', name: 'Settings'),
       // InterventionPopActionMenu(id: 'report', name: 'Report'),
       // InterventionPopActionMenu(id: 'profile', name: 'Profiles'),
