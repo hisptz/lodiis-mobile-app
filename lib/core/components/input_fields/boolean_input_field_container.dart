@@ -28,10 +28,12 @@ class _BooleanInputFieldContainerState
   final List<InputFieldOption> options = [
     InputFieldOption(
       name: 'Yes',
+      translatedName: 'E',
       code: true,
     ),
     InputFieldOption(
       name: 'No',
+      translatedName: 'Che',
       code: false,
     ),
   ];
