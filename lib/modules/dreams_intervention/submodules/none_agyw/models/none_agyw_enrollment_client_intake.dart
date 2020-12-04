@@ -25,6 +25,7 @@ class NoneAgywEnrollmentFormSection {
           InputField(
               id: 'location',
               name: 'Location',
+              translatedName: 'Sebaka',
               valueType: 'ORGANISATION_UNIT',
               allowedSelectedLevels: [3, 4],
               inputColor: Color(0xFF258DCC),

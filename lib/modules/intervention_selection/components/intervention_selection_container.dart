@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/current_user_state/current_user_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
+import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/route_page_not_found.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
@@ -118,28 +119,36 @@ class _InterventionSelectionContainerState
             child: Consumer<CurrentUserState>(
               builder: (context, currentUserState, child) {
                 String locations = currentUserState.currentUserLocations;
-                return Container(
-                  child: Visibility(
-                    visible: locations != '',
-                    child: RichText(
-                      text: TextSpan(
-                        text: 'Location : ',
-                        style: TextStyle().copyWith(
-                            fontSize: 20.0,
-                            fontWeight: FontWeight.w500,
-                            color: Color(0xFFFAFAFA)),
-                        children: [
-                          TextSpan(
-                            text: locations,
+                return Consumer<LanguageTranslationState>(
+                  builder: (context, languageTranslationState, child) {
+                    String currentLanguage =
+                        languageTranslationState.currentLanguage;
+                    return Container(
+                      child: Visibility(
+                        visible: locations != '',
+                        child: RichText(
+                          text: TextSpan(
+                            text: currentLanguage == 'lesotho'
+                                ? 'Sebaka : '
+                                : 'Location : ',
                             style: TextStyle().copyWith(
-                                fontSize: 16.0,
-                                fontWeight: FontWeight.normal,
+                                fontSize: 20.0,
+                                fontWeight: FontWeight.w500,
                                 color: Color(0xFFFAFAFA)),
+                            children: [
+                              TextSpan(
+                                text: locations,
+                                style: TextStyle().copyWith(
+                                    fontSize: 16.0,
+                                    fontWeight: FontWeight.normal,
+                                    color: Color(0xFFFAFAFA)),
+                              ),
+                            ],
                           ),
-                        ],
+                        ),
                       ),
-                    ),
-                  ),
+                    );
+                  },
                 );
               },
             ),
