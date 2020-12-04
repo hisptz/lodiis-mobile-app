@@ -389,7 +389,7 @@ class AgywDreamsEnrollmentSkipLogic {
         if(value == 'true') {
           assignInputFieldValue(context, 'yc3BlUIEup3', 'true');
         } else {
-          assignInputFieldValue(context, 'yc3BlUIEup3', 'false');
+          assignInputFieldValue(context, 'yc3BlUIEup3', '');
         }
       }
       if(inputFieldId == 'NhBs8uAiRPt') {

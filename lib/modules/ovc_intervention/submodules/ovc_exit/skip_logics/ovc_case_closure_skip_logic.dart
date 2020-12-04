@@ -21,16 +21,16 @@ mixin OvcCaseClosureSkipLogic {
     }
     inputFieldIds = inputFieldIds.toSet().toList();
     for (String inputFieldId in inputFieldIds) {
-      if(inputFieldId != 'S6vcaNyPT5a' && inputFieldId != 'iaVO2v6TsWa') {
+      if (inputFieldId != 'S6vcaNyPT5a' && inputFieldId != 'iaVO2v6TsWa') {
         hiddenFields[inputFieldId] = true;
       }
     }
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
       // if(inputFieldId == 'S6vcaNyPT5a' ) {
-      //   print(value);
+      //   // print(value);
       // }
-      if(inputFieldId == 'iaVO2v6TsWa' && value == 'CasePlanAchievement') {
+      if (inputFieldId == 'iaVO2v6TsWa' && value == 'CasePlanAchievement') {
         hiddenFields['Mgvli43II0y'] = false;
         hiddenFields['d1fuqooMhvZ'] = false;
         hiddenFields['HEqBwx1j03q'] = false;
@@ -39,14 +39,14 @@ mixin OvcCaseClosureSkipLogic {
         hiddenFields['UR6DHzGAh9V'] = false;
         hiddenFields['aVSqxKj3eUt'] = false;
       }
-      if(inputFieldId == 'iaVO2v6TsWa' && value == 'Transfer') {
+      if (inputFieldId == 'iaVO2v6TsWa' && value == 'Transfer') {
         hiddenFields['z3oHGQMNcwr'] = false;
         hiddenFields['OXxcaFKJhaB'] = false;
         hiddenFields['F687EjSn2TW'] = false;
         hiddenFields['ZNeMsEdTA8s'] = false;
         hiddenFields['KR0HmxVQwnJ'] = false;
       }
-      if(inputFieldId == 'iaVO2v6TsWa' && value == 'Attrition') {
+      if (inputFieldId == 'iaVO2v6TsWa' && value == 'Attrition') {
         hiddenFields['rrAzBqK44OE'] = false;
         hiddenFields['NAzhfDNlYIr'] = false;
       }

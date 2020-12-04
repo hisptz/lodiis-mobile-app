@@ -8,11 +8,9 @@ class AgywDreamsHTCSkipLogic {
   static Map hiddenFields = Map();
   static Map hiddenSections = Map();
 
-  static Future evaluateSkipLogics(
-    BuildContext context,
-    List<FormSection> formSections,
-    Map dataObject,
-  ) async {
+  static Future evaluateSkipLogics(BuildContext context,
+      List<FormSection> formSections,
+      Map dataObject,) async {
     hiddenFields.clear();
     hiddenSections.clear();
     List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections);
@@ -40,23 +38,23 @@ class AgywDreamsHTCSkipLogic {
         hiddenFields['aoWp3tKXOqa'] = true;
       }
 
-      if(inputFieldId == 'HXUTJfK4T6V' && value != 'true'){
+      if (inputFieldId == 'HXUTJfK4T6V' && value != 'true') {
         hiddenFields['f8irSIFCXDF'] = true;
         hiddenFields['JL1rGyJaDnw'] = true;
         hiddenFields['j2qNW9NsNBv'] = true;
       }
 
-      if(inputFieldId == 'CR5xUFmPHVy' && value != 'true'){
-        hiddenFields['ODv7ghspcbG'] =true;
+      if (inputFieldId == 'CR5xUFmPHVy' && value != 'true') {
+        hiddenFields['ODv7ghspcbG'] = true;
       }
 
       if ('${dataObject['gCvMVscBNfk']}' != 'null' &&
           '${dataObject['x7Jzm67o0Ng']}' != 'null') {
-        assignInputFieldValue(context, 'gCvMVscBNfk_bmi', calculateBMI(
-            '${dataObject['gCvMVscBNfk']}', '${dataObject['x7Jzm67o0Ng']}'));
+        dataObject['gCvMVscBNfk_bmi'] = calculateBMI(
+            '${dataObject['gCvMVscBNfk']}', '${dataObject['x7Jzm67o0Ng']}');
       }
-      if(inputFieldId == 'mhZeM9CuGQn' && value != 'null'){
-          assignInputFieldValue(context, 'uRsImCXXDXe', value);
+      if (inputFieldId == 'mhZeM9CuGQn' && value != 'null') {
+        assignInputFieldValue(context, 'uRsImCXXDXe', value);
       }
     }
     for (String sectionId in hiddenSections.keys) {
@@ -81,19 +79,15 @@ class AgywDreamsHTCSkipLogic {
         .setHiddenFields(hiddenFields);
   }
 
-  static resetValuesForHiddenSections(
-    BuildContext context,
-    List<FormSection> formSections,
-  ) {
+  static resetValuesForHiddenSections(BuildContext context,
+      List<FormSection> formSections,) {
     Provider.of<ServiceFormState>(context, listen: false)
         .setHiddenSections(hiddenSections);
   }
 
-  static assignInputFieldValue(
-    BuildContext context,
-    String inputFieldId,
-    String value,
-  ) {
+  static assignInputFieldValue(BuildContext context,
+      String inputFieldId,
+      String value,) {
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState(inputFieldId, value);
   }

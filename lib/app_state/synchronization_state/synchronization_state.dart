@@ -164,7 +164,7 @@ class SynchronizationState with ChangeNotifier {
         await _synchronizationService.saveTrackeEntityInstanceToOffline(
             TrackeEntityInstance().fromJson(instance));
       } catch (e) {
-        print(e.toString());
+        // print(e.toString());
       }
     }
   }
@@ -206,8 +206,8 @@ class SynchronizationState with ChangeNotifier {
               .toList());
         } else {
           //no conflicts
-          print("no conflicts");
-          print(event);
+          // print("no conflicts");
+          // print(event);
           _synchronizationService.saveEventsToOffline(event);
         }
       });
@@ -275,10 +275,13 @@ class SynchronizationState with ChangeNotifier {
       var teis = await _synchronizationService.getTeisFromOfflineDb();
       var teiEnrollments =
           await _synchronizationService.getTeiEnrollmentFromOfflineDb();
+      print(teis);
+      print(teiEnrollments);
       if (teis.length > 0) {
         addDataUploadProcess("Uploading beneficiary's profile data");
         await _synchronizationService.uploadTeisToTheServer(
             teis, teiEnrollments);
+
         // @TODO uploading relationships
         var teiRelationships =
             await _synchronizationService.getTeiRelationShipFromOfflineDb();
@@ -291,7 +294,9 @@ class SynchronizationState with ChangeNotifier {
         addDataUploadProcess("Uploading beneficiary's service data");
         await _synchronizationService.uploadTeiEventsToTheServer(teiEvents);
       }
-    } catch (e) {}
+    } catch (e) {
+      print(e);
+    }
     updateDataUploadStatus(false);
   }
 }

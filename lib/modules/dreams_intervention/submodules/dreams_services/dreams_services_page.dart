@@ -43,7 +43,10 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
 
   String toggleCardId = '';
 
-  void onCardToogle(String cardId) {
+  void onCardToogle(
+      BuildContext context, String cardId, String trackedEntityInstance) {
+    Provider.of<ServiveEventDataState>(context, listen: false)
+        .resetServiceEventDataState(trackedEntityInstance);
     setState(() {
       toggleCardId = canExpand && cardId != toggleCardId ? cardId : '';
     });
@@ -218,10 +221,14 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
                                 isExpanded: agywBeneficiary.benefecaryId ==
                                     toggleCardId,
                                 onCardToogle: () {
-                                  onCardToogle(agywBeneficiary.benefecaryId);
+                                  onCardToogle(
+                                      context,
+                                      agywBeneficiary.benefecaryId,
+                                      agywBeneficiary.id);
                                 },
                                 cardBody: DreamBeneficiaryCardBody(
                                     agywBeneficiary: agywBeneficiary,
+                                    canViewServiceCategory: true,
                                     isVerticalLayout:
                                         agywBeneficiary.benefecaryId ==
                                             toggleCardId),

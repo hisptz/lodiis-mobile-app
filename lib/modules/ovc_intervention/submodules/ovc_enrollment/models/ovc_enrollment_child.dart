@@ -111,57 +111,6 @@ class OvcEnrollmentChild {
           color: Color(0xFF1A3518),
           inputFields: [
             InputField(
-                id: 'UeF4OvjIIEK',
-                name: 'Is the child an orphan?',
-                inputColor: Color(0xFF4B9F46),
-                labelColor: Color(0xFF737373),
-                valueType: 'BOOLEAN'),
-            InputField(
-                id: 'nOgf8LKXS4k',
-                name: 'Orphan status',
-                valueType: 'TEXT',
-                inputColor: Color(0xFF4B9F46),
-                labelColor: Color(0xFF737373),
-                options: [
-                  InputFieldOption(
-                      code: 'Single Orphan(Mother)',
-                      name: 'Single Orphan(Mother Died)'),
-                  InputFieldOption(
-                      code: 'Single Orphan(Father)',
-                      name: 'Single Orphan(Father Died)'),
-                  InputFieldOption(
-                      code: 'Double Orphan',
-                      name: 'Double Orphan (Father & Mother Died)'),
-                ]),
-            InputField(
-                id: 'YR7Xxk14qoP',
-                name: 'Is the child living with disabilities?',
-                inputColor: Color(0xFF4B9F46),
-                labelColor: Color(0xFF737373),
-                valueType: 'BOOLEAN'),
-            InputField(
-                id: 'YR7Xxk14qoP_checkbox',
-                name: 'What type of disabilities?',
-                inputColor: Color(0xFF4B9F46),
-                labelColor: Color(0xFF737373),
-                valueType: 'CHECK_BOX',
-                options: [
-                  InputFieldOption(
-                      code: 'dufGxx0KVg0', name: 'acquired brain injury'),
-                  InputFieldOption(
-                      code: 'nfp9NHLf25K', name: 'autism spectrum disorder'),
-                  InputFieldOption(
-                      code: 'tbLVGG4zDrJ', name: 'deaf or hard hearing'),
-                  InputFieldOption(
-                      code: 'ULr0tYkjTTB', name: 'intellectual disability'),
-                  InputFieldOption(
-                      code: 'BfbiOanp9Pi', name: 'mental health conditions'),
-                  InputFieldOption(
-                      code: 'X3MQhmVA1Jt', name: 'physical disability'),
-                  InputFieldOption(
-                      code: 'TPRVr4ua9f9', name: 'vision impairment'),
-                ]),
-            InputField(
                 id: 'wmKqYZML8GA',
                 name: 'Child living with HIV ?',
                 inputColor: Color(0xFF4B9F46),
@@ -249,6 +198,57 @@ class OvcEnrollmentChild {
                 labelColor: Color(0xFF737373),
                 valueType: 'TEXT'),
             InputField(
+                id: 'UeF4OvjIIEK',
+                name: 'Is the child an orphan?',
+                inputColor: Color(0xFF4B9F46),
+                labelColor: Color(0xFF737373),
+                valueType: 'BOOLEAN'),
+            InputField(
+                id: 'nOgf8LKXS4k',
+                name: 'Orphan status',
+                valueType: 'TEXT',
+                inputColor: Color(0xFF4B9F46),
+                labelColor: Color(0xFF737373),
+                options: [
+                  InputFieldOption(
+                      code: 'Single Orphan(Mother)',
+                      name: 'Single Orphan(Mother Died)'),
+                  InputFieldOption(
+                      code: 'Single Orphan(Father)',
+                      name: 'Single Orphan(Father Died)'),
+                  InputFieldOption(
+                      code: 'Double Orphan',
+                      name: 'Double Orphan (Father & Mother Died)'),
+                ]),
+            InputField(
+                id: 'YR7Xxk14qoP',
+                name: 'Is the child living with disabilities?',
+                inputColor: Color(0xFF4B9F46),
+                labelColor: Color(0xFF737373),
+                valueType: 'BOOLEAN'),
+            InputField(
+                id: 'YR7Xxk14qoP_checkbox',
+                name: 'What type of disabilities?',
+                inputColor: Color(0xFF4B9F46),
+                labelColor: Color(0xFF737373),
+                valueType: 'CHECK_BOX',
+                options: [
+                  InputFieldOption(
+                      code: 'dufGxx0KVg0', name: 'acquired brain injury'),
+                  InputFieldOption(
+                      code: 'nfp9NHLf25K', name: 'autism spectrum disorder'),
+                  InputFieldOption(
+                      code: 'tbLVGG4zDrJ', name: 'deaf or hard hearing'),
+                  InputFieldOption(
+                      code: 'ULr0tYkjTTB', name: 'intellectual disability'),
+                  InputFieldOption(
+                      code: 'BfbiOanp9Pi', name: 'mental health conditions'),
+                  InputFieldOption(
+                      code: 'X3MQhmVA1Jt', name: 'physical disability'),
+                  InputFieldOption(
+                      code: 'TPRVr4ua9f9', name: 'vision impairment'),
+                ]),
+            InputField(
                 id: 'mTv9eZZq0Nz',
                 name: 'Which is the primary vulnerability?',
                 inputColor: Color(0xFF4B9F46),
@@ -286,7 +286,7 @@ class OvcEnrollmentChild {
                 name: 'Other vulnerability',
                 inputColor: Color(0xFF4B9F46),
                 labelColor: Color(0xFF737373),
-                valueType: 'TEXT')
+                valueType: 'TEXT'),
           ])
     ];
   }
