@@ -18,6 +18,7 @@ class InterventionBottomNavigation {
     InterventionBottomNavigation(
         id: 'services',
         name: 'Services',
+        translatedName: 'Litsebeletso',
         svgIcon: 'assets/icons/services-navigation-icon.svg'),
     InterventionBottomNavigation(
         id: 'referral',
@@ -26,6 +27,7 @@ class InterventionBottomNavigation {
     InterventionBottomNavigation(
         id: 'enrollment',
         name: 'Enrollment',
+        translatedName: 'Ngoliso',
         svgIcon: 'assets/icons/enrollment-navigation-icon.svg'),
     InterventionBottomNavigation(
         id: 'exit',
