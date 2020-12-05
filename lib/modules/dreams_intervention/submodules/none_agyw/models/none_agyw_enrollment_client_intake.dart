@@ -25,6 +25,7 @@ class NoneAgywEnrollmentFormSection {
           InputField(
               id: 'location',
               name: 'Location',
+              translatedName: 'Sebaka',
               valueType: 'ORGANISATION_UNIT',
               allowedSelectedLevels: [3, 4],
               inputColor: Color(0xFF258DCC),
@@ -123,7 +124,7 @@ class NoneAgywEnrollmentFormSection {
               inputColor: Color(0xFF258DCC),
               labelColor: Color(0xFF737373)),
           InputField(
-            id: 's1eRvsL2Ly4',
+            id: 'RHPU8hatG4H',
             name: 'Marital Status',
             valueType: 'TEXT',
             inputColor: Color(0xFF258DCC),

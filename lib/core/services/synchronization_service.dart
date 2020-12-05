@@ -88,6 +88,8 @@ class SynchronizationService {
     return teiRelationshipsFromServer;
   }
 
+
+
   Future saveEventsToOffline(Events event) async {
     EventOfflineProvider().addOrUpdateEvent(event);
   }

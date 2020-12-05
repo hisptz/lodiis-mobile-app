@@ -57,7 +57,7 @@ class DreamsSrhRegister {
         InputField(
             inputColor: Color(0xFF258DCC),
             labelColor: Color(0xFF737373),
-            id: 'initFPMethod',
+            id: '',
             name: 'Initial FP Method(s)',
             valueType: 'CHECK_BOX',
             options: [
@@ -70,7 +70,7 @@ class DreamsSrhRegister {
               InputFieldOption(code: 'WrzFKRm8pvJ', name: 'Vasectomy'),
             ]),
         InputField(
-            id: 'counsServices',
+            id: '',
             name: 'Counselling Services',
             valueType: 'CHECK_BOX',
             inputColor: Color(0xFF258DCC),
@@ -81,7 +81,7 @@ class DreamsSrhRegister {
               InputFieldOption(code: 'bBssQQX8NGE', name: 'STI'),
             ]),
         InputField(
-            id: 'examsScreensRemovals',
+            id: '',
             name: 'Exam, Screens & Removals',
             valueType: 'CHECK_BOX',
             inputColor: Color(0xFF258DCC),
@@ -120,7 +120,7 @@ class DreamsSrhRegister {
           labelColor: Color(0xFF737373),
         ),
         InputField(
-            id: 'switchedFPMethod',
+            id: '',
             name: 'Switched FP Method',
             valueType: 'CHECK_BOX',
             inputColor: Color(0xFF258DCC),

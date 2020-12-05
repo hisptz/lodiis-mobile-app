@@ -16,6 +16,7 @@ import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/dreams_srh_client_intake.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/dreams_srh_register.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/srh/constants/srh_client_intake_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/srh/skip_logics/agyw_dreams_srh_register_skip_logic.dart';
@@ -33,6 +34,7 @@ class AgywDreamsSrhRegisterForm extends StatefulWidget {
 class _AgywDreamsSrhRegisterFormState extends State<AgywDreamsSrhRegisterForm> {
   final String label = 'SRH Register';
   List<FormSection> formSections;
+  List<FormSection> allFormSections = [];
   bool isFormReady = false;
   bool isSaving = false;
 
@@ -40,6 +42,8 @@ class _AgywDreamsSrhRegisterFormState extends State<AgywDreamsSrhRegisterForm> {
   void initState() {
     super.initState();
     formSections = DreamsSrhRegister.getFormSections();
+    allFormSections.addAll(formSections);
+    allFormSections.addAll(DreamsSrhClientIntake.getFormSections());
     Timer(Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
@@ -84,7 +88,7 @@ class _AgywDreamsSrhRegisterFormState extends State<AgywDreamsSrhRegisterForm> {
             HivPrepClientIntakeConstant.program,
             HivPrepClientIntakeConstant.programStage,
             agywDream.orgUnit,
-            formSections,
+            allFormSections,
             dataObject,
             eventDate,
             agywDream.id,

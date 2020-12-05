@@ -23,6 +23,7 @@ class OvcEnrollmentConsent {
         InputField(
             id: 'location',
             name: 'Location',
+            translatedName: 'Sebaka',
             valueType: 'ORGANISATION_UNIT',
             allowedSelectedLevels: [3, 4],
             inputColor: Color(0xFF4B9F46),
