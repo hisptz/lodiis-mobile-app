@@ -76,7 +76,7 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
       if (inputFieldId == 'qZP982qpSPS') {
         int age = AppUtil.getAgeInYear(value);
         assignInputFieldValue('ls9hlz2tyol', age.toString());
-        if(age > 2){
+        if (age > 2) {
           hiddenFields['GMcljM7jbNG'] = true;
         }
       }
@@ -105,6 +105,9 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
       if (inputFieldId == 'Sa0KVprHUr7' && value != 'Date') {
         hiddenFields['XZh0Uew9Xk0'] = true;
       }
+      if (inputFieldId == 'omUPOnb4JVp' && value != 'true') {
+        hiddenFields['WsmWkkFBiT6'] = true;
+      }
     }
     for (String sectionId in hiddenSections.keys) {
       List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections
@@ -126,8 +129,10 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
     }
   }
 
-  assignInputFieldValue(String inputFieldId,
-      String value,) {
+  assignInputFieldValue(
+    String inputFieldId,
+    String value,
+  ) {
     childMapObject[inputFieldId] = value;
   }
 
@@ -152,7 +157,7 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
 
   void onSaveAndContinue(BuildContext context) async {
     bool hadAllMandatoryFilled =
-    AppUtil.hasAllMandarotyFieldsFilled(mandatoryFields, childMapObject);
+        AppUtil.hasAllMandarotyFieldsFilled(mandatoryFields, childMapObject);
     if (hadAllMandatoryFilled) {
       String name = childMapObject['WTZ7GLTrE8Q'] ?? '';
       Widget modal = AddChildConfirmation(name: name);
@@ -164,11 +169,12 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
             onSkipButton = true;
           });
           Timer(Duration(milliseconds: 500),
-                  () => resetMapObject(childMapObject));
+              () => resetMapObject(childMapObject));
         } else {
           setState(() {
-            if(!isADuplicateChildObject(childMapObject)){
-              childMapObject['fullName'] = '${childMapObject['WTZ7GLTrE8Q']} ${childMapObject['rSP9c21JsfC']}';
+            if (!isADuplicateChildObject(childMapObject)) {
+              childMapObject['fullName'] =
+                  '${childMapObject['WTZ7GLTrE8Q']} ${childMapObject['rSP9c21JsfC']}';
               childMapObjects.add(childMapObject);
             }
           });
@@ -196,9 +202,9 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
 
   void onSkip(Map childMapObject) {
     setState(() {
-
-      if(isADuplicateChildObject(childMapObject)){
-        childMapObject['fullName'] = '${childMapObject['WTZ7GLTrE8Q']} ${childMapObject['rSP9c21JsfC']}';
+      if (isADuplicateChildObject(childMapObject)) {
+        childMapObject['fullName'] =
+            '${childMapObject['WTZ7GLTrE8Q']} ${childMapObject['rSP9c21JsfC']}';
         childMapObjects.add(childMapObject);
       }
     });
@@ -232,61 +238,63 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
             body: SubPageBody(
               body: Container(
                   margin:
-                  EdgeInsets.symmetric(vertical: 16.0, horizontal: 13.0),
+                      EdgeInsets.symmetric(vertical: 16.0, horizontal: 13.0),
                   child: isLoading
                       ? Column(
-                    children: [
-                      Center(
-                        child: CircularProcessLoader(
-                          color: Colors.blueGrey,
-                        ),
-                      )
-                    ],
-                  )
+                          children: [
+                            Center(
+                              child: CircularProcessLoader(
+                                color: Colors.blueGrey,
+                              ),
+                            )
+                          ],
+                        )
                       : Column(
-                    children: [
-                      childMapObjects.isNotEmpty
-                          ? Padding(
-                            padding: const EdgeInsets.only( bottom: 12.0),
-                            child: EnrolledChildrenList(
-                            childMapObjects.map<String>((child) => child['fullName'])
-                                .toList()),
-                          )
-                          : Container(),
-                      Container(
-                        child: EntryFormContainer(
-                          formSections: formSections,
-                          hiddenFields: hiddenFields,
-                          hiddenSections: hiddenSections,
-                          mandatoryFieldObject: mandatoryFieldObject,
-                          dataObject: childMapObject,
-                          onInputValueChange: onInputValueChange,
-                        ),
-                      ),
-                      OvcEnrollmentFormSaveButton(
-                        label: 'Save and Continue',
-                        labelColor: Colors.white,
-                        buttonColor: Color(0xFF4B9F46),
-                        fontSize: 15.0,
-                        onPressButton: () => onSaveAndContinue(context),
-                      ),
-                      Visibility(
-                        visible: onSkipButton,
-                        child: Container(
-                          child: FlatButton(
-                            onPressed: () => onSkip(childMapObject),
-                            child: Text(
-                              'Skip',
-                              style: TextStyle().copyWith(
-                                  color: Color(0xFF4B9F46),
-                                  fontSize: 14.0,
-                                  fontWeight: FontWeight.w400),
+                          children: [
+                            childMapObjects.isNotEmpty
+                                ? Padding(
+                                    padding:
+                                        const EdgeInsets.only(bottom: 12.0),
+                                    child: EnrolledChildrenList(childMapObjects
+                                        .map<String>(
+                                            (child) => child['fullName'])
+                                        .toList()),
+                                  )
+                                : Container(),
+                            Container(
+                              child: EntryFormContainer(
+                                formSections: formSections,
+                                hiddenFields: hiddenFields,
+                                hiddenSections: hiddenSections,
+                                mandatoryFieldObject: mandatoryFieldObject,
+                                dataObject: childMapObject,
+                                onInputValueChange: onInputValueChange,
+                              ),
                             ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  )),
+                            OvcEnrollmentFormSaveButton(
+                              label: 'Save and Continue',
+                              labelColor: Colors.white,
+                              buttonColor: Color(0xFF4B9F46),
+                              fontSize: 15.0,
+                              onPressButton: () => onSaveAndContinue(context),
+                            ),
+                            Visibility(
+                              visible: onSkipButton,
+                              child: Container(
+                                child: FlatButton(
+                                  onPressed: () => onSkip(childMapObject),
+                                  child: Text(
+                                    'Skip',
+                                    style: TextStyle().copyWith(
+                                        color: Color(0xFF4B9F46),
+                                        fontSize: 14.0,
+                                        fontWeight: FontWeight.w400),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        )),
             ),
             bottomNavigationBar: InterventionBottomNavigationBarContainer()));
   }
@@ -294,7 +302,7 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
   bool isADuplicateChildObject(Map map) {
     bool isDuplicate = false;
     childMapObjects.forEach((child) {
-      if(child['WTZ7GLTrE8Q'] == map['WTZ7GLTrE8Q']){
+      if (child['WTZ7GLTrE8Q'] == map['WTZ7GLTrE8Q']) {
         //Compares if firstName are equal
         isDuplicate = true;
       }
