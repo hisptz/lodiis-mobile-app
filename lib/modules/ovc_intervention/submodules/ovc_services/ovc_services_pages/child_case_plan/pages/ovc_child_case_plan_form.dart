@@ -6,6 +6,7 @@ import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_house_
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
+import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
@@ -156,9 +157,15 @@ class _OcvChildCasePlanFormState extends State<OcvChildCasePlanForm> {
           setState(() {
             isSaving = false;
           });
+          String currentLanguage =
+              Provider.of<LanguageTranslationState>(context, listen: false)
+                  .currentLanguage;
           AppUtil.showToastMessage(
-              message: 'Form has been saved successfully',
-              position: ToastGravity.TOP);
+            message: currentLanguage == 'lesotho'
+                ? 'Fomo e bolokeile'
+                : 'Form has been saved successfully',
+            position: ToastGravity.TOP,
+          );
           Navigator.pop(context);
         }
       });

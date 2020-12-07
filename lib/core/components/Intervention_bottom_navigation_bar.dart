@@ -10,9 +10,11 @@ class InterventionBottomNavigationBar extends StatelessWidget {
   const InterventionBottomNavigationBar({
     Key key,
     @required this.activeInterventionProgram,
+    @required this.currentLanguage,
   }) : super(key: key);
 
   final InterventionCard activeInterventionProgram;
+  final String currentLanguage;
 
   void onTap(BuildContext context, int index, String id) {
     Provider.of<InterventionBottomNavigationState>(context, listen: false)
@@ -27,7 +29,6 @@ class InterventionBottomNavigationBar extends StatelessWidget {
     List<InterventionBottomNavigation> interventionBottomNavigations =
         InterventionBottomNavigation.getInterventionNavigationButtons(
             activeInterventionProgram);
-
     return Consumer<InterventionBottomNavigationState>(
       builder: (context, interventionBottomNavigationState, child) {
         return Consumer<CurrentUserState>(
@@ -60,15 +61,22 @@ class InterventionBottomNavigationBar extends StatelessWidget {
                   onTap: () =>
                       onTap(context, index, interventionBottomNavigation.id),
                   child: Container(
-                    margin: EdgeInsets.only(top: 5),
-                    padding: EdgeInsets.symmetric(vertical: 5, horizontal: 12),
+                    margin: EdgeInsets.only(
+                      top: 5.0,
+                    ),
+                    padding: EdgeInsets.symmetric(
+                      vertical: 5.0,
+                      horizontal: 12.0,
+                    ),
                     decoration: BoxDecoration(
-                        color: currentIndex == index
-                            ? activeInterventionProgram.primmaryColor
-                            : Colors.transparent,
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(12),
-                            topRight: Radius.circular(12))),
+                      color: currentIndex == index
+                          ? activeInterventionProgram.primmaryColor
+                          : Colors.transparent,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(12.0),
+                        topRight: Radius.circular(12.0),
+                      ),
+                    ),
                     child: SizedBox(
                       height: 70,
                       child: Column(
@@ -77,7 +85,9 @@ class InterventionBottomNavigationBar extends StatelessWidget {
                         children: [
                           Container(
                             child: Container(
-                              margin: EdgeInsets.only(bottom: 9),
+                              margin: EdgeInsets.only(
+                                bottom: 9.0,
+                              ),
                               child: SvgPicture.asset(
                                 interventionBottomNavigation.svgIcon,
                                 color: currentInterventionBottomNavigation !=
@@ -91,17 +101,25 @@ class InterventionBottomNavigationBar extends StatelessWidget {
                             ),
                           ),
                           Container(
-                            child: Text(interventionBottomNavigation.name,
-                                style: TextStyle(
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.bold,
-                                    color: currentInterventionBottomNavigation !=
-                                                null &&
-                                            currentInterventionBottomNavigation
-                                                    .id ==
-                                                interventionBottomNavigation.id
-                                        ? Colors.white
-                                        : Color(0xFF737373))),
+                            child: Text(
+                              currentLanguage == 'lesotho' &&
+                                      interventionBottomNavigation
+                                              .translatedName !=
+                                          null
+                                  ? interventionBottomNavigation.translatedName
+                                  : interventionBottomNavigation.name,
+                              style: TextStyle(
+                                fontSize: 10,
+                                fontWeight: FontWeight.bold,
+                                color: currentInterventionBottomNavigation !=
+                                            null &&
+                                        currentInterventionBottomNavigation
+                                                .id ==
+                                            interventionBottomNavigation.id
+                                    ? Colors.white
+                                    : Color(0xFF737373),
+                              ),
+                            ),
                           )
                         ],
                       ),

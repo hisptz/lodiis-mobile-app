@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/app_info_state/app_info_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
+import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
@@ -36,72 +37,83 @@ class _AboutAppState extends State<AboutApp> {
       ),
       body: SubPageBody(
         body: Container(
-          child: Consumer<AppInfoState>(
-            builder: (context, appInfoState, child) {
-              return Container(
-                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
-                child: SingleChildScrollView(
-                  child: Center(
-                    child: Container(
-                      margin: EdgeInsets.symmetric(vertical: 20),
-                      child: Column(
-                        children: [
-                          Container(
-                            margin: EdgeInsets.only(
-                              bottom: 20.0,
-                            ),
-                            child: CircleAvatar(
-                              radius: size.width * 0.1,
-                              backgroundColor: Color(0xFFF3F3F3),
-                              backgroundImage:
-                                  AssetImage('assets/logos/app-logo.png'),
-                            ),
-                          ),
-                          Container(
-                            margin: EdgeInsets.only(
-                              bottom: 5.0,
-                            ),
-                            child: Text(
-                              'App Name : ${appInfoState.currentAppName}',
-                              style: TextStyle().copyWith(
-                                fontSize: 14.0,
+          child: Consumer<LanguageTranslationState>(
+            builder: (context, languageTranslationState, child) {
+              String currentLanguage = languageTranslationState.currentLanguage;
+              return Consumer<AppInfoState>(
+                builder: (context, appInfoState, child) {
+                  return Container(
+                    padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+                    child: SingleChildScrollView(
+                      child: Center(
+                        child: Container(
+                          margin: EdgeInsets.symmetric(vertical: 20),
+                          child: Column(
+                            children: [
+                              Container(
+                                margin: EdgeInsets.only(
+                                  bottom: 20.0,
+                                ),
+                                child: CircleAvatar(
+                                  radius: size.width * 0.1,
+                                  backgroundColor: Color(0xFFF3F3F3),
+                                  backgroundImage:
+                                      AssetImage('assets/logos/app-logo.png'),
+                                ),
                               ),
-                            ),
+                              Container(
+                                margin: EdgeInsets.only(
+                                  bottom: 5.0,
+                                ),
+                                child: Text(
+                                  currentLanguage == 'lesotho'
+                                      ? 'Lebitso la App : ${appInfoState.currentAppName}'
+                                      : 'App Name : ${appInfoState.currentAppName}',
+                                  style: TextStyle().copyWith(
+                                    fontSize: 14.0,
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                margin: EdgeInsets.only(
+                                  bottom: 5.0,
+                                ),
+                                child: Text(
+                                  'App Version : ${appInfoState.currentAppVersion}',
+                                  style: TextStyle().copyWith(
+                                    fontSize: 14.0,
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                margin: EdgeInsets.only(
+                                  bottom: 5.0,
+                                ),
+                                child: Text(
+                                  'App Id : ${appInfoState.currentAppId}',
+                                  style: TextStyle().copyWith(
+                                    fontSize: 14.0,
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                margin: EdgeInsets.only(
+                                  bottom: 5.0,
+                                ),
+                                child: Text(
+                                  'Device version : ${appInfoState.currentPlatformVersion}',
+                                  style: TextStyle().copyWith(
+                                    fontSize: 14.0,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
-                          Container(
-                            margin: EdgeInsets.only(
-                              bottom: 5.0,
-                            ),
-                            child: Text(
-                                'App Version : ${appInfoState.currentAppVersion}',
-                                style: TextStyle().copyWith(
-                                  fontSize: 14.0,
-                                )),
-                          ),
-                          Container(
-                            margin: EdgeInsets.only(
-                              bottom: 5.0,
-                            ),
-                            child: Text('App Id : ${appInfoState.currentAppId}',
-                                style: TextStyle().copyWith(
-                                  fontSize: 14.0,
-                                )),
-                          ),
-                          Container(
-                            margin: EdgeInsets.only(
-                              bottom: 5.0,
-                            ),
-                            child: Text(
-                                'Device version : ${appInfoState.currentPlatformVersion}',
-                                style: TextStyle().copyWith(
-                                  fontSize: 14.0,
-                                )),
-                          ),
-                        ],
+                        ),
                       ),
                     ),
-                  ),
-                ),
+                  );
+                },
               );
             },
           ),

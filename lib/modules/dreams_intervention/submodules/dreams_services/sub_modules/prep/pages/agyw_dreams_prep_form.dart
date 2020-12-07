@@ -5,6 +5,7 @@ import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dream_cur
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
+import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
@@ -43,8 +44,7 @@ class _AgywDreamsPrepFormPageState extends State<AgywDreamsPrepFormPage> {
     super.initState();
     Timer(Duration(seconds: 1), () {
       formSections = DreamsServicePrepIntakeInfo.getFormSections();
-      mandatoryFields  =
-          DreamsServicePrepIntakeInfo.getMandatoryField();
+      mandatoryFields = DreamsServicePrepIntakeInfo.getMandatoryField();
       for (String id in mandatoryFields) {
         mandatoryFieldObject[id] = true;
       }
@@ -104,13 +104,18 @@ class _AgywDreamsPrepFormPageState extends State<AgywDreamsPrepFormPage> {
             .resetServiceEventDataState(agywDream.id);
         Timer(Duration(seconds: 1), () {
           setState(() {
-            AppUtil.showToastMessage(
-                message: 'Form has been saved successfully',
-                position: ToastGravity.TOP);
-            Navigator.popUntil(context, (route) => route.isFirst);
+            isSaving = false;
           });
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => AgywDreamsPrep()));
+          String currentLanguage =
+              Provider.of<LanguageTranslationState>(context, listen: false)
+                  .currentLanguage;
+          AppUtil.showToastMessage(
+            message: currentLanguage == 'lesotho'
+                ? 'Fomo e bolokeile'
+                : 'Form has been saved successfully',
+            position: ToastGravity.TOP,
+          );
+          Navigator.popUntil(context, (route) => route.isFirst);
         });
       } catch (e) {
         Timer(Duration(seconds: 1), () {
@@ -190,10 +195,10 @@ class _AgywDreamsPrepFormPageState extends State<AgywDreamsPrepFormPage> {
                                       labelColor: Colors.white,
                                       buttonColor: Color(0xFF258DCC),
                                       fontSize: 15.0,
-                                      onPressButton: () => onSaveForm(
-                                          context,
-                                          serviceFormState.formState,
-                                          agywDream, hiddenFields: serviceFormState.hiddenFields),
+                                      onPressButton: () => onSaveForm(context,
+                                          serviceFormState.formState, agywDream,
+                                          hiddenFields:
+                                              serviceFormState.hiddenFields),
                                     ),
                                   )
                                 ],

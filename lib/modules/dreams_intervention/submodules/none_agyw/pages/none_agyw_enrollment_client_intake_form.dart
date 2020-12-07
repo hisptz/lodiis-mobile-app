@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
+import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
@@ -121,31 +122,42 @@ class _NoneAgywEnrollmentClientInTakeFormState
                   : Container(
                       margin: EdgeInsets.symmetric(
                           vertical: 16.0, horizontal: 13.0),
-                      child: Consumer<EnrollmentFormState>(
-                        builder: (context, enrollmentFormState, child) =>
-                            Column(
-                          children: [
-                            Container(
-                              child: EntryFormContainer(
-                                hiddenFields: enrollmentFormState.hiddenFields,
-                                hiddenSections:
-                                    enrollmentFormState.hiddenSections,
-                                formSections: formSections,
-                                dataObject: enrollmentFormState.formState,
-                                mandatoryFieldObject: mandatoryFieldObject,
-                                onInputValueChange: onInputValueChange,
-                              ),
+                      child: Consumer<LanguageTranslationState>(
+                        builder: (context, languageTranslationState, child) {
+                          String currentLanguage =
+                              languageTranslationState.currentLanguage;
+                          return Consumer<EnrollmentFormState>(
+                            builder: (context, enrollmentFormState, child) =>
+                                Column(
+                              children: [
+                                Container(
+                                  child: EntryFormContainer(
+                                    hiddenFields:
+                                        enrollmentFormState.hiddenFields,
+                                    hiddenSections:
+                                        enrollmentFormState.hiddenSections,
+                                    formSections: formSections,
+                                    dataObject: enrollmentFormState.formState,
+                                    mandatoryFieldObject: mandatoryFieldObject,
+                                    onInputValueChange: onInputValueChange,
+                                  ),
+                                ),
+                                OvcEnrollmentFormSaveButton(
+                                  label: currentLanguage == 'lesotho'
+                                      ? 'Boloka ebe u fetela pele'
+                                      : 'Save and Continue',
+                                  labelColor: Colors.white,
+                                  buttonColor: Color(0xFF258DCC),
+                                  fontSize: 15.0,
+                                  onPressButton: () => onSaveAndContinue(
+                                    context,
+                                    enrollmentFormState.formState,
+                                  ),
+                                )
+                              ],
                             ),
-                            OvcEnrollmentFormSaveButton(
-                              label: 'Save and Continue',
-                              labelColor: Colors.white,
-                              buttonColor: Color(0xFF258DCC),
-                              fontSize: 15.0,
-                              onPressButton: () => onSaveAndContinue(
-                                  context, enrollmentFormState.formState),
-                            )
-                          ],
-                        ),
+                          );
+                        },
                       ),
                     ),
             ),

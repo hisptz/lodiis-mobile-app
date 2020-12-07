@@ -4,6 +4,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_house_hold_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
+import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_intervention_list_state.dart';
 import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
@@ -92,7 +93,6 @@ class _OvcEnrollmentChildEditViewFormState
         'PN92g65TkVI',
       ];
 
-
       await OvcEnrollmentChildService().savingChildrenEnrollmentForms(
         parentTrackedEntityInstance,
         orgUnit,
@@ -102,7 +102,7 @@ class _OvcEnrollmentChildEditViewFormState
         shouldEnroll,
         hiddenFields,
       );
-      
+
       Provider.of<OvcInterventionListState>(context, listen: false)
           .refreshOvcList();
       Timer(Duration(seconds: 1), () {
@@ -110,9 +110,15 @@ class _OvcEnrollmentChildEditViewFormState
           setState(() {
             isSaving = false;
           });
+          String currentLanguage =
+              Provider.of<LanguageTranslationState>(context, listen: false)
+                  .currentLanguage;
           AppUtil.showToastMessage(
-              message: 'Form has been saved successfully',
-              position: ToastGravity.TOP);
+            message: currentLanguage == 'lesotho'
+                ? 'Fomo e bolokeile'
+                : 'Form has been saved successfully',
+            position: ToastGravity.TOP,
+          );
           Navigator.popUntil(context, (route) => route.isFirst);
         }
       });
