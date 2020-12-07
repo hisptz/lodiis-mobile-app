@@ -157,60 +157,71 @@ class _OvcHouseHoldAddReferralFormState
       ),
       body: SubPageBody(
         body: Container(
-          child: Consumer<OvcHouseHoldCurrentSelectionState>(
-            builder: (context, ovcHouseHoldCurrentSelectionState, child) {
-              OvcHouseHold currentOvcHouseHold =
-                  ovcHouseHoldCurrentSelectionState.currentOvcHouseHold;
-              return Consumer<ServiceFormState>(
-                builder: (context, serviceFormState, child) {
-                  return Container(
-                    child: Column(
-                      children: [
-                        OvcHouseHoldInfoTopHeader(
-                          currentOvcHouseHold: currentOvcHouseHold,
-                        ),
-                        !isFormReady
-                            ? Container(
-                                child: CircularProcessLoader(
-                                  color: Colors.blueGrey,
-                                ),
-                              )
-                            : Column(
-                                children: [
-                                  Container(
-                                    margin: EdgeInsets.only(
-                                      top: 10.0,
-                                      left: 13.0,
-                                      right: 13.0,
-                                    ),
-                                    child: EntryFormContainer(
-                                      hiddenSections:
-                                          serviceFormState.hiddenSections,
-                                      hiddenFields:
-                                          serviceFormState.hiddenFields,
-                                      formSections: formSections,
-                                      mandatoryFieldObject: Map(),
-                                      isEditableMode:
-                                          serviceFormState.isEditableMode,
-                                      dataObject: serviceFormState.formState,
-                                      onInputValueChange: onInputValueChange,
-                                    ),
-                                  ),
-                                  OvcEnrollmentFormSaveButton(
-                                    label: isSaving ? 'Saving ...' : 'Save',
-                                    labelColor: Colors.white,
-                                    buttonColor: Color(0xFF4B9F46),
-                                    fontSize: 15.0,
-                                    onPressButton: () => onSaveForm(
-                                      context,
-                                      serviceFormState.formState,
-                                      currentOvcHouseHold,
+          child: Consumer<LanguageTranslationState>(
+            builder: (context, languageTranslationState, child) {
+              String currentLanguage = languageTranslationState.currentLanguage;
+              return Consumer<OvcHouseHoldCurrentSelectionState>(
+                builder: (context, ovcHouseHoldCurrentSelectionState, child) {
+                  OvcHouseHold currentOvcHouseHold =
+                      ovcHouseHoldCurrentSelectionState.currentOvcHouseHold;
+                  return Consumer<ServiceFormState>(
+                    builder: (context, serviceFormState, child) {
+                      return Container(
+                        child: Column(
+                          children: [
+                            OvcHouseHoldInfoTopHeader(
+                              currentOvcHouseHold: currentOvcHouseHold,
+                            ),
+                            !isFormReady
+                                ? Container(
+                                    child: CircularProcessLoader(
+                                      color: Colors.blueGrey,
                                     ),
                                   )
-                                ],
-                              )
-                      ],
-                    ),
+                                : Column(
+                                    children: [
+                                      Container(
+                                        margin: EdgeInsets.only(
+                                          top: 10.0,
+                                          left: 13.0,
+                                          right: 13.0,
+                                        ),
+                                        child: EntryFormContainer(
+                                          hiddenSections:
+                                              serviceFormState.hiddenSections,
+                                          hiddenFields:
+                                              serviceFormState.hiddenFields,
+                                          formSections: formSections,
+                                          mandatoryFieldObject: Map(),
+                                          isEditableMode:
+                                              serviceFormState.isEditableMode,
+                                          dataObject:
+                                              serviceFormState.formState,
+                                          onInputValueChange:
+                                              onInputValueChange,
+                                        ),
+                                      ),
+                                      OvcEnrollmentFormSaveButton(
+                                        label: isSaving
+                                            ? 'Saving ...'
+                                            : currentLanguage == 'lesotho'
+                                                ? 'Boloka'
+                                                : 'Save',
+                                        labelColor: Colors.white,
+                                        buttonColor: Color(0xFF4B9F46),
+                                        fontSize: 15.0,
+                                        onPressButton: () => onSaveForm(
+                                          context,
+                                          serviceFormState.formState,
+                                          currentOvcHouseHold,
+                                        ),
+                                      )
+                                    ],
+                                  )
+                          ],
+                        ),
+                      );
+                    },
                   );
                 },
               );

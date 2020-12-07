@@ -138,87 +138,107 @@ class _OvcEnrollmentChildEditViewFormState
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: Scaffold(
-            appBar: PreferredSize(
-              preferredSize: Size.fromHeight(65.0),
-              child: Consumer<IntervetionCardState>(
-                builder: (context, intervetionCardState, child) {
-                  InterventionCard activeInterventionProgram =
-                      intervetionCardState.currentIntervetionProgram;
-                  return SubPageAppBar(
-                    label: label,
-                    activeInterventionProgram: activeInterventionProgram,
-                  );
-                },
-              ),
-            ),
-            body: SubPageBody(
-              body: Container(
-                child: !isFormReady
-                    ? Column(
-                        children: [
-                          Center(
-                            child: CircularProcessLoader(
-                              color: Colors.blueGrey,
-                            ),
-                          )
-                        ],
+      child: Scaffold(
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(65.0),
+          child: Consumer<IntervetionCardState>(
+            builder: (context, intervetionCardState, child) {
+              InterventionCard activeInterventionProgram =
+                  intervetionCardState.currentIntervetionProgram;
+              return SubPageAppBar(
+                label: label,
+                activeInterventionProgram: activeInterventionProgram,
+              );
+            },
+          ),
+        ),
+        body: SubPageBody(
+          body: Container(
+            child: !isFormReady
+                ? Column(
+                    children: [
+                      Center(
+                        child: CircularProcessLoader(
+                          color: Colors.blueGrey,
+                        ),
                       )
-                    : Column(children: [
-                        Container(
-                          child: Consumer<OvcHouseHoldCurrentSelectionState>(
-                            builder: (context,
-                                ovcHouseHoldCurrentSelectionState, child) {
-                              OvcHouseHold currentOvcHouseHold =
-                                  ovcHouseHoldCurrentSelectionState
-                                      .currentOvcHouseHold;
-                              return OvcHouseHoldInfoTopHeader(
-                                currentOvcHouseHold: currentOvcHouseHold,
-                              );
-                            },
-                          ),
+                    ],
+                  )
+                : Column(
+                    children: [
+                      Container(
+                        child: Consumer<OvcHouseHoldCurrentSelectionState>(
+                          builder: (context, ovcHouseHoldCurrentSelectionState,
+                              child) {
+                            OvcHouseHold currentOvcHouseHold =
+                                ovcHouseHoldCurrentSelectionState
+                                    .currentOvcHouseHold;
+                            return OvcHouseHoldInfoTopHeader(
+                              currentOvcHouseHold: currentOvcHouseHold,
+                            );
+                          },
                         ),
-                        Container(
-                          margin: EdgeInsets.symmetric(
-                              vertical: 16.0, horizontal: 13.0),
-                          child: Consumer<EnrollmentFormState>(
-                            builder: (context, enrollmentFormState, child) {
-                              return Column(
-                                children: [
-                                  Container(
-                                    child: EntryFormContainer(
-                                      hiddenFields:
-                                          enrollmentFormState.hiddenFields,
-                                      hiddenSections:
-                                          enrollmentFormState.hiddenSections,
-                                      formSections: formSections,
-                                      mandatoryFieldObject:
-                                          mandatoryFieldObject,
-                                      isEditableMode:
+                      ),
+                      Container(
+                        margin: EdgeInsets.symmetric(
+                          vertical: 16.0,
+                          horizontal: 13.0,
+                        ),
+                        child: Consumer<LanguageTranslationState>(
+                          builder: (context, languageTranslationState, child) {
+                            String currentLanguage =
+                                languageTranslationState.currentLanguage;
+                            return Consumer<EnrollmentFormState>(
+                              builder: (context, enrollmentFormState, child) {
+                                return Column(
+                                  children: [
+                                    Container(
+                                      child: EntryFormContainer(
+                                        hiddenFields:
+                                            enrollmentFormState.hiddenFields,
+                                        hiddenSections:
+                                            enrollmentFormState.hiddenSections,
+                                        formSections: formSections,
+                                        mandatoryFieldObject:
+                                            mandatoryFieldObject,
+                                        isEditableMode:
+                                            enrollmentFormState.isEditableMode,
+                                        dataObject:
+                                            enrollmentFormState.formState,
+                                        onInputValueChange: onInputValueChange,
+                                      ),
+                                    ),
+                                    Visibility(
+                                      visible:
                                           enrollmentFormState.isEditableMode,
-                                      dataObject: enrollmentFormState.formState,
-                                      onInputValueChange: onInputValueChange,
-                                    ),
-                                  ),
-                                  Visibility(
-                                    visible: enrollmentFormState.isEditableMode,
-                                    child: OvcEnrollmentFormSaveButton(
-                                      label: isSaving ? 'Saving ...' : 'Save',
-                                      labelColor: Colors.white,
-                                      buttonColor: Color(0xFF4B9F46),
-                                      fontSize: 15.0,
-                                      onPressButton: () => onSaveForm(context,
-                                          enrollmentFormState.formState),
-                                    ),
-                                  )
-                                ],
-                              );
-                            },
-                          ),
+                                      child: OvcEnrollmentFormSaveButton(
+                                        label: isSaving
+                                            ? 'Saving ...'
+                                            : currentLanguage == 'lesotho'
+                                                ? 'Boloka'
+                                                : 'Save',
+                                        labelColor: Colors.white,
+                                        buttonColor: Color(0xFF4B9F46),
+                                        fontSize: 15.0,
+                                        onPressButton: () => onSaveForm(
+                                          context,
+                                          enrollmentFormState.formState,
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                );
+                              },
+                            );
+                          },
                         ),
-                      ]),
-              ),
-            ),
-            bottomNavigationBar: InterventionBottomNavigationBarContainer()));
+                      ),
+                    ],
+                  ),
+          ),
+        ),
+        bottomNavigationBar: InterventionBottomNavigationBarContainer(),
+      ),
+    );
   }
 }

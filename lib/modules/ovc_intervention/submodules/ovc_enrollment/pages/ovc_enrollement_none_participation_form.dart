@@ -103,64 +103,76 @@ class _OvcEnrollmentNoneParticipationFormState
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: Scaffold(
-            appBar: PreferredSize(
-              preferredSize: Size.fromHeight(65.0),
-              child: Consumer<IntervetionCardState>(
-                builder: (context, intervetionCardState, child) {
-                  InterventionCard activeInterventionProgram =
-                      intervetionCardState.currentIntervetionProgram;
-                  return SubPageAppBar(
-                    label: label,
-                    activeInterventionProgram: activeInterventionProgram,
-                  );
-                },
-              ),
-            ),
-            body: SubPageBody(
-              body: Container(
-                  margin:
-                      EdgeInsets.symmetric(vertical: 16.0, horizontal: 13.0),
-                  child: !isFormReady
-                      ? Column(
-                          children: [
-                            Center(
-                              child: CircularProcessLoader(
-                                color: Colors.blueGrey,
+      child: Scaffold(
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(65.0),
+          child: Consumer<IntervetionCardState>(
+            builder: (context, intervetionCardState, child) {
+              InterventionCard activeInterventionProgram =
+                  intervetionCardState.currentIntervetionProgram;
+              return SubPageAppBar(
+                label: label,
+                activeInterventionProgram: activeInterventionProgram,
+              );
+            },
+          ),
+        ),
+        body: SubPageBody(
+          body: Container(
+            margin: EdgeInsets.symmetric(vertical: 16.0, horizontal: 13.0),
+            child: !isFormReady
+                ? Column(
+                    children: [
+                      Center(
+                        child: CircularProcessLoader(
+                          color: Colors.blueGrey,
+                        ),
+                      )
+                    ],
+                  )
+                : Container(
+                    child: Consumer<LanguageTranslationState>(
+                      builder: (context, languageTranslationState, child) {
+                        String currentLanguage =
+                            languageTranslationState.currentLanguage;
+                        return Consumer<EnrollmentFormState>(
+                          builder: (context, enrollmentFormState, child) =>
+                              Column(
+                            children: [
+                              Container(
+                                child: EntryFormContainer(
+                                  formSections: formSections,
+                                  mandatoryFieldObject: mandatoryFieldObject,
+                                  dataObject: enrollmentFormState.formState,
+                                  onInputValueChange: onInputValueChange,
+                                ),
                               ),
-                            )
-                          ],
-                        )
-                      : Container(
-                          child: Consumer<EnrollmentFormState>(
-                              builder: (context, enrollmentFormState, child) =>
-                                  Column(
-                                    children: [
-                                      Container(
-                                        child: EntryFormContainer(
-                                          formSections: formSections,
-                                          mandatoryFieldObject:
-                                              mandatoryFieldObject,
-                                          dataObject:
-                                              enrollmentFormState.formState,
-                                          onInputValueChange:
-                                              onInputValueChange,
-                                        ),
+                              OvcEnrollmentFormSaveButton(
+                                label: isSaving
+                                    ? 'Saving ...'
+                                    : currentLanguage == 'lesotho'
+                                        ? 'Boloka'
+                                        : 'Save',
+                                labelColor: Colors.white,
+                                buttonColor: Color(0xFF4B9F46),
+                                fontSize: 15.0,
+                                onPressButton: () => isSaving
+                                    ? null
+                                    : onSaveAndContinue(
+                                        context,
+                                        enrollmentFormState.formState,
                                       ),
-                                      OvcEnrollmentFormSaveButton(
-                                        label: isSaving ? 'Saving...' : 'save',
-                                        labelColor: Colors.white,
-                                        buttonColor: Color(0xFF4B9F46),
-                                        fontSize: 15.0,
-                                        onPressButton: () => isSaving
-                                            ? null
-                                            : onSaveAndContinue(context,
-                                                enrollmentFormState.formState),
-                                      )
-                                    ],
-                                  )),
-                        )),
-            ),
-            bottomNavigationBar: InterventionBottomNavigationBarContainer()));
+                              )
+                            ],
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+          ),
+        ),
+        bottomNavigationBar: InterventionBottomNavigationBarContainer(),
+      ),
+    );
   }
 }

@@ -145,66 +145,81 @@ class _AgywDreamsSrhRegisterFormState extends State<AgywDreamsSrhRegisterForm> {
           ),
         ),
         body: SubPageBody(
-          body: Container(child: Consumer<DreamBenefeciarySelectionState>(
-            builder: (context, nonAgywState, child) {
-              AgywDream agywDream = nonAgywState.currentAgywDream;
-              return Consumer<ServiceFormState>(
-                builder: (context, serviceFormState, child) {
-                  return Container(
-                    child: Column(
-                      children: [
-                        DreamBenefeciaryTopHeader(
-                          agywDream: agywDream,
-                        ),
-                        !isFormReady
-                            ? Container(
-                                child: CircularProcessLoader(
-                                  color: Colors.blueGrey,
-                                ),
-                              )
-                            : Column(
-                                children: [
-                                  Container(
-                                    margin: EdgeInsets.only(
-                                      top: 10.0,
-                                      left: 13.0,
-                                      right: 13.0,
-                                    ),
-                                    child: EntryFormContainer(
-                                      hiddenFields:
-                                          serviceFormState.hiddenFields,
-                                      hiddenSections:
-                                          serviceFormState.hiddenSections,
-                                      formSections: formSections,
-                                      mandatoryFieldObject: Map(),
-                                      isEditableMode:
-                                          serviceFormState.isEditableMode,
-                                      dataObject: serviceFormState.formState,
-                                      onInputValueChange: onInputValueChange,
-                                    ),
-                                  ),
-                                  Visibility(
-                                    visible: serviceFormState.isEditableMode,
-                                    child: OvcEnrollmentFormSaveButton(
-                                      label: isSaving ? 'Saving ...' : 'Save',
-                                      labelColor: Colors.white,
-                                      buttonColor: Color(0xFF258DCC),
-                                      fontSize: 15.0,
-                                      onPressButton: () => onSaveForm(
-                                          context,
-                                          serviceFormState.formState,
-                                          agywDream),
-                                    ),
-                                  )
-                                ],
-                              )
-                      ],
-                    ),
-                  );
-                },
-              );
-            },
-          )),
+          body: Container(
+            child: Consumer<LanguageTranslationState>(
+              builder: (context, languageTranslationState, child) {
+                String currentLanguage =
+                    languageTranslationState.currentLanguage;
+                return Consumer<DreamBenefeciarySelectionState>(
+                  builder: (context, nonAgywState, child) {
+                    AgywDream agywDream = nonAgywState.currentAgywDream;
+                    return Consumer<ServiceFormState>(
+                      builder: (context, serviceFormState, child) {
+                        return Container(
+                          child: Column(
+                            children: [
+                              DreamBenefeciaryTopHeader(
+                                agywDream: agywDream,
+                              ),
+                              !isFormReady
+                                  ? Container(
+                                      child: CircularProcessLoader(
+                                        color: Colors.blueGrey,
+                                      ),
+                                    )
+                                  : Column(
+                                      children: [
+                                        Container(
+                                          margin: EdgeInsets.only(
+                                            top: 10.0,
+                                            left: 13.0,
+                                            right: 13.0,
+                                          ),
+                                          child: EntryFormContainer(
+                                            hiddenFields:
+                                                serviceFormState.hiddenFields,
+                                            hiddenSections:
+                                                serviceFormState.hiddenSections,
+                                            formSections: formSections,
+                                            mandatoryFieldObject: Map(),
+                                            isEditableMode:
+                                                serviceFormState.isEditableMode,
+                                            dataObject:
+                                                serviceFormState.formState,
+                                            onInputValueChange:
+                                                onInputValueChange,
+                                          ),
+                                        ),
+                                        Visibility(
+                                          visible:
+                                              serviceFormState.isEditableMode,
+                                          child: OvcEnrollmentFormSaveButton(
+                                            label: isSaving
+                                                ? 'Saving ...'
+                                                : currentLanguage == 'lesotho'
+                                                    ? 'Boloka'
+                                                    : 'Save',
+                                            labelColor: Colors.white,
+                                            buttonColor: Color(0xFF258DCC),
+                                            fontSize: 15.0,
+                                            onPressButton: () => onSaveForm(
+                                                context,
+                                                serviceFormState.formState,
+                                                agywDream),
+                                          ),
+                                        )
+                                      ],
+                                    )
+                            ],
+                          ),
+                        );
+                      },
+                    );
+                  },
+                );
+              },
+            ),
+          ),
         ),
         bottomNavigationBar: InterventionBottomNavigationBarContainer());
   }
