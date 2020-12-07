@@ -15,7 +15,7 @@ import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_benef
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/components/prep_visit_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/anc/constants/anc_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/anc/pages/agyw_dreams_anc_form.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
+import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:provider/provider.dart';
 
 class AgywDreamANC extends StatefulWidget {
@@ -59,20 +59,20 @@ class _AgywDreamANCState extends State<AgywDreamANC> {
     updateFormState(context, true, null);
     Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
         .setCurrentAgywDream(agywDream);
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => AgywDreamsANCForm()));
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => AgywDreamsANCForm()));
   }
 
   void onViewPrep(BuildContext context, Events eventdata) {
     updateFormState(context, false, eventdata);
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => AgywDreamsANCForm()));
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => AgywDreamsANCForm()));
   }
 
   void onEditPrep(BuildContext context, Events eventdata) {
     updateFormState(context, true, eventdata);
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => AgywDreamsANCForm()));
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => AgywDreamsANCForm()));
   }
 
   @override
@@ -157,7 +157,7 @@ class _AgywDreamANCState extends State<AgywDreamANC> {
                                                 ),
                                               ),
                                       ),
-                                      OvcEnrollmentFormSaveButton(
+                                      EntryFormSaveButton(
                                           label: 'ADD ANC VISIT',
                                           labelColor: Colors.white,
                                           buttonColor: Color(0xFF1F8ECE),

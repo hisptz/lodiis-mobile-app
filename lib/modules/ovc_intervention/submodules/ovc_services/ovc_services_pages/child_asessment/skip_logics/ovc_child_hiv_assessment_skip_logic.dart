@@ -22,7 +22,7 @@ class OvcChildHivAssessmentSkipLogic {
     inputFieldIds = inputFieldIds.toSet().toList();
 
     if ((dataObject['Fz89mIraWIl'] != null &&
-        '${dataObject['Fz89mIraWIl']}' == 'Yes') ||
+            '${dataObject['Fz89mIraWIl']}' == 'Yes') ||
         (dataObject['mIcseDgrIlJ'] != null &&
             '${dataObject['mIcseDgrIlJ']}' == 'Yes') ||
         (dataObject['Hi9fp222l2D'] != null &&
@@ -52,9 +52,9 @@ class OvcChildHivAssessmentSkipLogic {
       assignInputFieldValue(context, 'hivriskres', 'Low risk');
     }
 
-    for (String inputFieldId in inputFieldIds) {
-      String value = '${dataObject[inputFieldId]}';
-    }
+    // for (String inputFieldId in inputFieldIds) {
+    //   String value = '${dataObject[inputFieldId]}';
+    // }
     for (String sectionId in hiddenSections.keys) {
       List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections
           .where((formSection) => formSection.id == sectionId)

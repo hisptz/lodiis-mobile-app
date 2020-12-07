@@ -19,7 +19,7 @@ import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/services/agyw_dream_enrollment_service.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/models/agyw_enrollment_form_section.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/skip_logics/agyw_dreams_enrollment_skip_logic.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
+import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:provider/provider.dart';
 
 class AgywDreamsEnrollmentForm extends StatefulWidget {
@@ -71,8 +71,10 @@ class _AgywDreamsEnrollmentFormState extends State<AgywDreamsEnrollmentForm> {
   void onSaveAndContinue(BuildContext context, Map dataObject,
       {Map hiddenFields = const {}}) async {
     bool hadAllMandatoryFilled = AppUtil.hasAllMandarotyFieldsFilled(
-        mandatoryFields, dataObject,
-        hiddenFields: hiddenFields);
+      mandatoryFields,
+      dataObject,
+      hiddenFields: hiddenFields,
+    );
     if (hadAllMandatoryFilled) {
       setState(() {
         isSaving = true;
@@ -118,8 +120,9 @@ class _AgywDreamsEnrollmentFormState extends State<AgywDreamsEnrollmentForm> {
       });
     } else {
       AppUtil.showToastMessage(
-          message: 'Please fill all mandatory field',
-          position: ToastGravity.TOP);
+        message: 'Please fill all mandatory field',
+        position: ToastGravity.TOP,
+      );
     }
   }
 
@@ -132,35 +135,39 @@ class _AgywDreamsEnrollmentFormState extends State<AgywDreamsEnrollmentForm> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: Scaffold(
-            appBar: PreferredSize(
-              preferredSize: Size.fromHeight(65.0),
-              child: Consumer<IntervetionCardState>(
-                builder: (context, intervetionCardState, child) {
-                  InterventionCard activeInterventionProgram =
-                      intervetionCardState.currentIntervetionProgram;
-                  return SubPageAppBar(
-                    label: label,
-                    activeInterventionProgram: activeInterventionProgram,
-                  );
-                },
-              ),
-            ),
-            body: SubPageBody(
-              body: Container(
-                margin: EdgeInsets.symmetric(vertical: 16.0, horizontal: 13.0),
-                child: !isFormReady
-                    ? Column(
-                        children: [
-                          Center(
-                            child: CircularProcessLoader(
-                              color: Colors.blueGrey,
-                            ),
-                          )
-                        ],
+      child: Scaffold(
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(65.0),
+          child: Consumer<IntervetionCardState>(
+            builder: (context, intervetionCardState, child) {
+              InterventionCard activeInterventionProgram =
+                  intervetionCardState.currentIntervetionProgram;
+              return SubPageAppBar(
+                label: label,
+                activeInterventionProgram: activeInterventionProgram,
+              );
+            },
+          ),
+        ),
+        body: SubPageBody(
+          body: Container(
+            margin: EdgeInsets.symmetric(vertical: 16.0, horizontal: 13.0),
+            child: !isFormReady
+                ? Column(
+                    children: [
+                      Center(
+                        child: CircularProcessLoader(
+                          color: Colors.blueGrey,
+                        ),
                       )
-                    : Container(
-                        child: Consumer<EnrollmentFormState>(
+                    ],
+                  )
+                : Container(
+                    child: Consumer<LanguageTranslationState>(
+                      builder: (context, languageTranslationState, child) {
+                        String currentLanguage =
+                            languageTranslationState.currentLanguage;
+                        return Consumer<EnrollmentFormState>(
                           builder: (context, enrollmentFormState, child) =>
                               Column(
                             children: [
@@ -180,22 +187,32 @@ class _AgywDreamsEnrollmentFormState extends State<AgywDreamsEnrollmentForm> {
                                   ),
                                 ),
                               ),
-                              OvcEnrollmentFormSaveButton(
-                                label: isSaving ? 'Saving ...' : 'Save',
+                              EntryFormSaveButton(
+                                label: isSaving
+                                    ? 'Saving ...'
+                                    : currentLanguage == 'lesotho'
+                                        ? 'Boloka'
+                                        : 'Save',
                                 labelColor: Colors.white,
                                 buttonColor: Color(0xFF258DCC),
                                 fontSize: 15.0,
                                 onPressButton: () => onSaveAndContinue(
-                                    context, enrollmentFormState.formState,
-                                    hiddenFields:
-                                        enrollmentFormState.hiddenFields),
+                                  context,
+                                  enrollmentFormState.formState,
+                                  hiddenFields:
+                                      enrollmentFormState.hiddenFields,
+                                ),
                               )
                             ],
                           ),
-                        ),
-                      ),
-              ),
-            ),
-            bottomNavigationBar: InterventionBottomNavigationBarContainer()));
+                        );
+                      },
+                    ),
+                  ),
+          ),
+        ),
+        bottomNavigationBar: InterventionBottomNavigationBarContainer(),
+      ),
+    );
   }
 }

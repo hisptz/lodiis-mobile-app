@@ -18,7 +18,7 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_refe
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_referral/pages/dream_agyw_referral_form.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_referral/pages/dream_referral_manage.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_referral/pages/dream_referral_view.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
+import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:provider/provider.dart';
 
 class DreamAgywReferralPage extends StatefulWidget {
@@ -186,7 +186,7 @@ class _DreamAgywReferralPageState extends State<DreamAgywReferralPage> {
                                                 ),
                                               ),
                                       ),
-                                      OvcEnrollmentFormSaveButton(
+                                      EntryFormSaveButton(
                                           label: 'ADD REFERRAL',
                                           labelColor: Colors.white,
                                           buttonColor: Color(0xFF1F8ECE),

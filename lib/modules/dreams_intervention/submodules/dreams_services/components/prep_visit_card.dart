@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/core/components/material_card.dart';
-import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/events.dart';
 
 class PrepVisitListCard extends StatelessWidget {
@@ -22,7 +20,6 @@ class PrepVisitListCard extends StatelessWidget {
   final int visitCount;
   final String visitName;
   final bool editDisabled;
-
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +85,7 @@ class PrepVisitListCard extends StatelessWidget {
                       horizontal: 5.0,
                     ),
                     child: InkWell(
-                        onTap: editDisabled == true ? null:  onEditPrep,
+                        onTap: editDisabled == true ? null : onEditPrep,
                         child: Container(
                           height: iconHeight,
                           width: iconHeight,

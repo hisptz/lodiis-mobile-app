@@ -17,7 +17,7 @@ import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/models/none_agyw_enrollment_client_intake.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/skip_logics/none_agyw_enrollment_skip_logic.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
+import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:provider/provider.dart';
 import 'none_agyw_enrollment_prep_screening_form.dart';
 
@@ -142,7 +142,7 @@ class _NoneAgywEnrollmentClientInTakeFormState
                                     onInputValueChange: onInputValueChange,
                                   ),
                                 ),
-                                OvcEnrollmentFormSaveButton(
+                                EntryFormSaveButton(
                                   label: currentLanguage == 'lesotho'
                                       ? 'Boloka ebe u fetela pele'
                                       : 'Save and Continue',

@@ -20,7 +20,7 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_serv
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/components/prep_visit_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/constant/non_agyw_prep_visit_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/sub_pages/none_agyw_prep/pages/none_agyw_prep_form.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
+import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:provider/provider.dart';
 
 class AgywDreamsPrep extends StatefulWidget {
@@ -186,11 +186,12 @@ class _AgywDreamsPrepState extends State<AgywDreamsPrep> {
                       child: Column(
                         children: [
                           Container(
-                              child: events.length > 0
-                                  ? DreamBenefeciaryTopHeader(
-                                      agywDream: agywDream,
-                                    )
-                                  : null),
+                            child: events.length > 0
+                                ? DreamBenefeciaryTopHeader(
+                                    agywDream: agywDream,
+                                  )
+                                : null,
+                          ),
                           Container(
                             child: isLoading
                                 ? CircularProcessLoader(
@@ -319,7 +320,7 @@ class _AgywDreamsPrepState extends State<AgywDreamsPrep> {
                                                                 events,
                                                                 visits) ==
                                                             false
-                                                    ? OvcEnrollmentFormSaveButton(
+                                                    ? EntryFormSaveButton(
                                                         label: 'ADD VISIT',
                                                         labelColor:
                                                             Colors.white,

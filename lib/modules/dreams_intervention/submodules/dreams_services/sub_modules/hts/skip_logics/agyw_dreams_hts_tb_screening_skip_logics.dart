@@ -21,9 +21,9 @@ class AgywDreamsHTSTBScreeningSkipLogic {
     }
     inputFieldIds = inputFieldIds.toSet().toList();
     assignInputFieldValue(context, 'uRsImCXXDXe', dataObject['N8tlZl91pBY']);
-    for (String inputFieldId in inputFieldIds) {
-      String value = '${dataObject[inputFieldId]}';
-    }
+    // for (String inputFieldId in inputFieldIds) {
+    //   String value = '${dataObject[inputFieldId]}';
+    // }
     for (String sectionId in hiddenSections.keys) {
       List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections
           .where((formSection) => formSection.id == sectionId)

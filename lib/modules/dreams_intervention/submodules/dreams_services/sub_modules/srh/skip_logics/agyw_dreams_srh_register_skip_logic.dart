@@ -9,10 +9,10 @@ class AgywDreamsSrhRegisterSkipLogic {
   static Map hiddenSections = Map();
 
   static Future evaluateSkipLogics(
-      BuildContext context,
-      List<FormSection> formSections,
-      Map dataObject,
-      ) async {
+    BuildContext context,
+    List<FormSection> formSections,
+    Map dataObject,
+  ) async {
     hiddenFields.clear();
     hiddenSections.clear();
     List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections);
@@ -20,15 +20,16 @@ class AgywDreamsSrhRegisterSkipLogic {
       inputFieldIds.add('$key');
     }
     inputFieldIds = inputFieldIds.toSet().toList();
-    for (String inputFieldId in inputFieldIds) {
-      String value = '${dataObject[inputFieldId]}';
-    }
+    // for (String inputFieldId in inputFieldIds) {
+    //   String value = '${dataObject[inputFieldId]}';
+    // }
     for (String sectionId in hiddenSections.keys) {
       List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections
           .where((formSection) => formSection.id == sectionId)
           .toList());
-      for (String inputFieldId in inputFieldIds){
-        hiddenFields[inputFieldId] = true;      }
+      for (String inputFieldId in inputFieldIds) {
+        hiddenFields[inputFieldId] = true;
+      }
     }
     resetValuesForHiddenFields(context, hiddenFields.keys);
     resetValuesForHiddenSections(context, formSections);
@@ -45,18 +46,18 @@ class AgywDreamsSrhRegisterSkipLogic {
   }
 
   static resetValuesForHiddenSections(
-      BuildContext context,
-      List<FormSection> formSections,
-      ) {
+    BuildContext context,
+    List<FormSection> formSections,
+  ) {
     Provider.of<ServiceFormState>(context, listen: false)
         .setHiddenSections(hiddenSections);
   }
 
   static assignInputFieldValue(
-      BuildContext context,
-      String inputFieldId,
-      String value,
-      ) {
+    BuildContext context,
+    String inputFieldId,
+    String value,
+  ) {
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState(inputFieldId, value);
   }

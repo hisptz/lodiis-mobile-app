@@ -10,7 +10,7 @@ import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/models/ovc_house_hold.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
+import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold_top_header.dart';
 import 'package:provider/provider.dart';
 import 'components/ovc_house_hold_monitor_list_container.dart';
@@ -46,20 +46,23 @@ class OvcHouseHoldMonitor extends StatelessWidget {
         MaterialPageRoute(builder: (context) => OvcHouseHoldMonitorForm()));
   }
 
- void onAddNewHouseHoldMonitor(
+  void onAddNewHouseHoldMonitor(
     BuildContext context,
     OvcHouseHold houseHold,
   ) {
-   updateFormState(context, true, null);
+    updateFormState(context, true, null);
   }
+
   void onViewHouseHoldMonitor(
       BuildContext context, OvcHouseHold houseHold, Events monitor) {
     updateFormState(context, false, monitor);
   }
+
   void onEditHouseHoldMonitor(
       BuildContext context, OvcHouseHold houseHold, Events monitor) {
     updateFormState(context, true, monitor);
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -95,8 +98,8 @@ class OvcHouseHoldMonitor extends StatelessWidget {
                             OvcHouseHold currentOvcHouseHold =
                                 ovcHouseHoldCurrentSelectionState
                                     .currentOvcHouseHold;
-                                       return Container(
-                                          child: Consumer<ServiveEventDataState>(
+                            return Container(
+                              child: Consumer<ServiveEventDataState>(
                                 builder:
                                     (context, serviveEventDataState, child) {
                                   bool isLoading =
@@ -118,7 +121,7 @@ class OvcHouseHoldMonitor extends StatelessWidget {
                                                   right: 13.0,
                                                   left: 13.0,
                                                 ),
-                                                 child:
+                                                child:
                                                     OvcHouseHoldMonitorListContainer(
                                                         programStageIds:
                                                             programStageIds,
@@ -135,26 +138,22 @@ class OvcHouseHoldMonitor extends StatelessWidget {
                                                                   context,
                                                                   currentOvcHouseHold,
                                                                   monitor,
-                                                                )
-                                                       ),
+                                                                )),
                                               ),
                                               Container(
                                                 child: Visibility(
-                                                  child:
-                                                      OvcEnrollmentFormSaveButton(
-                                                          label:
-                                                              "ADD VISIT",
-                                                          labelColor:
-                                                              Colors.white,
-                                                          fontSize: 10,
-                                                          buttonColor:
-                                                              Color(0xFF4B9F46),
-                                                          onPressButton: () =>
-                                                              onAddNewHouseHoldMonitor(
-                                                                context,
-                                                                currentOvcHouseHold,
-                                                              )),
-                                     ),
+                                                  child: EntryFormSaveButton(
+                                                      label: "ADD VISIT",
+                                                      labelColor: Colors.white,
+                                                      fontSize: 10,
+                                                      buttonColor:
+                                                          Color(0xFF4B9F46),
+                                                      onPressButton: () =>
+                                                          onAddNewHouseHoldMonitor(
+                                                            context,
+                                                            currentOvcHouseHold,
+                                                          )),
+                                                ),
                                               ),
                                             ],
                                           ),
