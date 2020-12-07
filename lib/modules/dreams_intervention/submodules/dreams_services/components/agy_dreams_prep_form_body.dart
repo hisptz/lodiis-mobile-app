@@ -5,6 +5,7 @@ import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dream_cur
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
+import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
@@ -26,10 +27,12 @@ class AgywDreamsPrepFormPageBody extends StatefulWidget {
   AgywDreamsPrepFormPageBody({Key key}) : super(key: key);
 
   @override
-  _AgywDreamsPrepFormPageBodyState createState() => _AgywDreamsPrepFormPageBodyState();
+  _AgywDreamsPrepFormPageBodyState createState() =>
+      _AgywDreamsPrepFormPageBodyState();
 }
 
-class _AgywDreamsPrepFormPageBodyState extends State<AgywDreamsPrepFormPageBody> {
+class _AgywDreamsPrepFormPageBodyState
+    extends State<AgywDreamsPrepFormPageBody> {
   final String label = 'AGYW Prep Intake Form';
   List<FormSection> formSections;
   bool isFormReady = false;
@@ -92,9 +95,15 @@ class _AgywDreamsPrepFormPageBodyState extends State<AgywDreamsPrepFormPageBody>
             .resetServiceEventDataState(agywDream.id);
         Timer(Duration(seconds: 1), () {
           setState(() {
+            String currentLanguage =
+                Provider.of<LanguageTranslationState>(context, listen: false)
+                    .currentLanguage;
             AppUtil.showToastMessage(
-                message: 'Form has been saved successfully',
-                position: ToastGravity.TOP);
+              message: currentLanguage == 'lesotho'
+                  ? 'Fomo e bolokeile'
+                  : 'Form has been saved successfully',
+              position: ToastGravity.TOP,
+            );
             Navigator.pop(context);
           });
         });

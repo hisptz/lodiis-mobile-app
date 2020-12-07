@@ -5,6 +5,7 @@ import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dream_cur
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
+import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
@@ -17,7 +18,6 @@ import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/dreams_srh_client_intake.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/srh/constants/srh_client_intake_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/srh/skip_logics/agyw_dreams_srh_skip_logic.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
 import 'package:provider/provider.dart';
@@ -35,7 +35,6 @@ class _AgywDreamsSrhFormState extends State<AgywDreamsSrhForm> {
   final String label = 'SRH Service Form';
   List<FormSection> formSections;
   bool isFormReady = false;
-  bool isSaving = false;
 
   @override
   void initState() {
@@ -73,11 +72,8 @@ class _AgywDreamsSrhFormState extends State<AgywDreamsSrhForm> {
   void onSaveForm(BuildContext context, Map dataObject, AgywDream agywDream) {
     Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
         .setCurrentAgywDream(agywDream);
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => AgywDreamsSrhRegisterForm()));
-
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => AgywDreamsSrhRegisterForm()));
   }
 
   @override
@@ -100,58 +96,69 @@ class _AgywDreamsSrhFormState extends State<AgywDreamsSrhForm> {
           body: Container(child: Consumer<DreamBenefeciarySelectionState>(
             builder: (context, nonAgywState, child) {
               AgywDream agywDream = nonAgywState.currentAgywDream;
-              return Consumer<ServiceFormState>(
-                builder: (context, serviceFormState, child) {
-                  return Container(
-                    child: Column(
-                      children: [
-                        DreamBenefeciaryTopHeader(
-                          agywDream: agywDream,
-                        ),
-                        !isFormReady
-                            ? Container(
-                                child: CircularProcessLoader(
-                                  color: Colors.blueGrey,
-                                ),
-                              )
-                            : Column(
-                                children: [
-                                  Container(
-                                    margin: EdgeInsets.only(
-                                      top: 10.0,
-                                      left: 13.0,
-                                      right: 13.0,
-                                    ),
-                                    child: EntryFormContainer(
-                                      hiddenFields:
-                                          serviceFormState.hiddenFields,
-                                      hiddenSections:
-                                          serviceFormState.hiddenSections,
-                                      formSections: formSections,
-                                      mandatoryFieldObject: Map(),
-                                      isEditableMode:
-                                          serviceFormState.isEditableMode,
-                                      dataObject: serviceFormState.formState,
-                                      onInputValueChange: onInputValueChange,
-                                    ),
-                                  ),
-                                  Visibility(
-                                    visible: serviceFormState.isEditableMode,
-                                    child: OvcEnrollmentFormSaveButton(
-                                      label: isSaving ? 'Saving ...' : 'Save and Continue',
-                                      labelColor: Colors.white,
-                                      buttonColor: Color(0xFF258DCC),
-                                      fontSize: 15.0,
-                                      onPressButton: () => onSaveForm(
-                                          context,
-                                          serviceFormState.formState,
-                                          agywDream),
+              return Consumer<LanguageTranslationState>(
+                builder: (context, languageTranslationState, child) {
+                  String currentLanguage =
+                      languageTranslationState.currentLanguage;
+                  return Consumer<ServiceFormState>(
+                    builder: (context, serviceFormState, child) {
+                      return Container(
+                        child: Column(
+                          children: [
+                            DreamBenefeciaryTopHeader(
+                              agywDream: agywDream,
+                            ),
+                            !isFormReady
+                                ? Container(
+                                    child: CircularProcessLoader(
+                                      color: Colors.blueGrey,
                                     ),
                                   )
-                                ],
-                              )
-                      ],
-                    ),
+                                : Column(
+                                    children: [
+                                      Container(
+                                        margin: EdgeInsets.only(
+                                          top: 10.0,
+                                          left: 13.0,
+                                          right: 13.0,
+                                        ),
+                                        child: EntryFormContainer(
+                                          hiddenFields:
+                                              serviceFormState.hiddenFields,
+                                          hiddenSections:
+                                              serviceFormState.hiddenSections,
+                                          formSections: formSections,
+                                          mandatoryFieldObject: Map(),
+                                          isEditableMode:
+                                              serviceFormState.isEditableMode,
+                                          dataObject:
+                                              serviceFormState.formState,
+                                          onInputValueChange:
+                                              onInputValueChange,
+                                        ),
+                                      ),
+                                      Visibility(
+                                        visible:
+                                            serviceFormState.isEditableMode,
+                                        child: OvcEnrollmentFormSaveButton(
+                                          label: currentLanguage == 'lesotho'
+                                              ? 'Boloka ebe u fetela pele'
+                                              : 'Save and Continue',
+                                          labelColor: Colors.white,
+                                          buttonColor: Color(0xFF258DCC),
+                                          fontSize: 15.0,
+                                          onPressButton: () => onSaveForm(
+                                              context,
+                                              serviceFormState.formState,
+                                              agywDream),
+                                        ),
+                                      )
+                                    ],
+                                  )
+                          ],
+                        ),
+                      );
+                    },
                   );
                 },
               );

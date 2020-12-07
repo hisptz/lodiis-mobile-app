@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_card_service_summary.dart';
+import 'package:provider/provider.dart';
 
 class DreamBeneficiaryCardBody extends StatelessWidget {
   const DreamBeneficiaryCardBody(
@@ -19,129 +21,150 @@ class DreamBeneficiaryCardBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        margin: EdgeInsets.symmetric(horizontal: 13.0, vertical: 20.0),
-        child: isVerticalLayout
-            ? Column(
-                children: [
-                  Container(
-                    margin: EdgeInsets.only(bottom: 10),
-                    child: VerticalRowCardData(
-                        label: 'Created',
-                        value: agywBeneficiary.createdDate,
-                        labelColor: labelColor,
-                        valueColor: valueColor),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(bottom: 10),
-                    child: VerticalRowCardData(
-                        label: 'Beneficary id',
-                        value: agywBeneficiary.benefecaryId,
-                        labelColor: labelColor,
-                        valueColor: valueColor),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(bottom: 10),
-                    child: VerticalRowCardData(
-                        label: 'Age',
-                        value: agywBeneficiary.age.toString(),
-                        labelColor: labelColor,
-                        valueColor: valueColor),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(bottom: 10),
-                    child: VerticalRowCardData(
-                        label: 'Age band',
-                        value: agywBeneficiary.ageBand,
-                        labelColor: labelColor,
-                        valueColor: valueColor),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(bottom: 10),
-                    child: VerticalRowCardData(
-                        label: 'Sex',
-                        value: agywBeneficiary.sex,
-                        labelColor: labelColor,
-                        valueColor: valueColor),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(bottom: 10),
-                    child: VerticalRowCardData(
-                        label: 'Enrolled Organisation unit',
-                        value: agywBeneficiary.enrolledOrganisation,
-                        labelColor: labelColor,
-                        valueColor: valueColor),
-                  ),
-                  Visibility(
-                    visible: canViewServiceCategory,
-                    child: Container(
-                      child: DreamBeneficiaryCardServiceSummary(
-                        services: getServices(),
-                        labelColor: valueColor,
-                      ),
-                    ),
-                  )
-                ],
-              )
-            : Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Wrap(
+      child: Consumer<LanguageTranslationState>(
+        builder: (context, languageTranslationState, child) {
+          String currentLanguage = languageTranslationState.currentLanguage;
+          return Container(
+            margin: EdgeInsets.symmetric(horizontal: 13.0, vertical: 20.0),
+            child: isVerticalLayout
+                ? Column(
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      Container(
+                        margin: EdgeInsets.only(bottom: 10),
+                        child: VerticalRowCardData(
+                          label: 'Created',
+                          value: agywBeneficiary.createdDate,
+                          labelColor: labelColor,
+                          valueColor: valueColor,
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(bottom: 10),
+                        child: VerticalRowCardData(
+                          label: 'Beneficary id',
+                          value: agywBeneficiary.benefecaryId,
+                          labelColor: labelColor,
+                          valueColor: valueColor,
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(bottom: 10),
+                        child: VerticalRowCardData(
+                          label:
+                              currentLanguage == 'lesotho' ? 'Lilemo' : 'Age',
+                          value: agywBeneficiary.age.toString(),
+                          labelColor: labelColor,
+                          valueColor: valueColor,
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(bottom: 10),
+                        child: VerticalRowCardData(
+                          label: 'Age band',
+                          value: agywBeneficiary.ageBand,
+                          labelColor: labelColor,
+                          valueColor: valueColor,
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(bottom: 10),
+                        child: VerticalRowCardData(
+                          label: 'Sex',
+                          value: agywBeneficiary.sex,
+                          labelColor: labelColor,
+                          valueColor: valueColor,
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(bottom: 10),
+                        child: VerticalRowCardData(
+                          label: 'Enrolled Organisation unit',
+                          value: agywBeneficiary.enrolledOrganisation,
+                          labelColor: labelColor,
+                          valueColor: valueColor,
+                        ),
+                      ),
+                      Visibility(
+                        visible: canViewServiceCategory,
+                        child: Container(
+                          child: DreamBeneficiaryCardServiceSummary(
+                            services: getServices(),
+                            labelColor: valueColor,
+                          ),
+                        ),
+                      )
+                    ],
+                  )
+                : Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Wrap(
                         children: [
-                          Expanded(
-                            child: Table(
-                              children: [
-                                TableRow(children: [
-                                  TableCell(
-                                    child: Row(
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(
+                                child: Table(
+                                  children: [
+                                    TableRow(
                                       children: [
-                                        HorizontalRowCardData(
-                                          labelColor: labelColor,
-                                          valueColor: valueColor,
-                                          label: 'Age',
-                                          value: agywBeneficiary.age.toString(),
+                                        TableCell(
+                                          child: Row(
+                                            children: [
+                                              HorizontalRowCardData(
+                                                labelColor: labelColor,
+                                                valueColor: valueColor,
+                                                label:
+                                                    currentLanguage == 'lesotho'
+                                                        ? 'Lilemo'
+                                                        : 'Age',
+                                                value: agywBeneficiary.age
+                                                    .toString(),
+                                              ),
+                                            ],
+                                          ),
                                         ),
-                                      ],
-                                    ),
-                                  ),
-                                  TableCell(
-                                    child: Row(
-                                      children: [
-                                        HorizontalRowCardData(
-                                          labelColor: labelColor,
-                                          valueColor: valueColor,
-                                          label: 'Sex',
-                                          value: agywBeneficiary.sex,
+                                        TableCell(
+                                          child: Row(
+                                            children: [
+                                              HorizontalRowCardData(
+                                                labelColor: labelColor,
+                                                valueColor: valueColor,
+                                                label: 'Sex',
+                                                value: agywBeneficiary.sex,
+                                              ),
+                                            ],
+                                          ),
                                         ),
-                                      ],
-                                    ),
-                                  ),
-                                  TableCell(
-                                    child: Row(
-                                      children: [
-                                        HorizontalRowCardData(
-                                          labelColor: labelColor,
-                                          valueColor: valueColor,
-                                          label: 'En Org',
-                                          value: agywBeneficiary
-                                              .enrolledOrganisation,
+                                        TableCell(
+                                          child: Row(
+                                            children: [
+                                              HorizontalRowCardData(
+                                                labelColor: labelColor,
+                                                valueColor: valueColor,
+                                                label: 'En Org',
+                                                value: agywBeneficiary
+                                                    .enrolledOrganisation,
+                                              )
+                                            ],
+                                          ),
                                         )
                                       ],
                                     ),
-                                  )
-                                ]),
-                              ],
-                            ),
-                          ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          )
                         ],
-                      )
+                      ),
                     ],
                   ),
-                ],
-              ));
+          );
+        },
+      ),
+    );
   }
 
   List<List<Map>> getServices() {

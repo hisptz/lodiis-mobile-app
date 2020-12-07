@@ -4,6 +4,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
+import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
@@ -98,21 +99,31 @@ class _NoneAgywEnrollmentPrepScreeningFormState
       );
       Provider.of<DreamsInterventionListState>(context, listen: false)
           .refreshDreamsList();
-      Timer(Duration(seconds: 1), () {
-        if (Navigator.canPop(context)) {
-          setState(() {
-            isSaving = false;
-          });
-          AppUtil.showToastMessage(
-              message: 'Form has been saved successfully',
-              position: ToastGravity.TOP);
-          Navigator.popUntil(context, (route) => route.isFirst);
-        }
-      });
+      Timer(
+        Duration(seconds: 1),
+        () {
+          if (Navigator.canPop(context)) {
+            setState(() {
+              isSaving = false;
+            });
+            String currentLanguage =
+                Provider.of<LanguageTranslationState>(context, listen: false)
+                    .currentLanguage;
+            AppUtil.showToastMessage(
+              message: currentLanguage == 'lesotho'
+                  ? 'Fomo e bolokeile'
+                  : 'Form has been saved successfully',
+              position: ToastGravity.TOP,
+            );
+            Navigator.popUntil(context, (route) => route.isFirst);
+          }
+        },
+      );
     } else {
       AppUtil.showToastMessage(
-          message: 'Please fill all mandatory field',
-          position: ToastGravity.TOP);
+        message: 'Please fill all mandatory field',
+        position: ToastGravity.TOP,
+      );
     }
   }
 
@@ -125,35 +136,41 @@ class _NoneAgywEnrollmentPrepScreeningFormState
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: Scaffold(
-            appBar: PreferredSize(
-              preferredSize: Size.fromHeight(65.0),
-              child: Consumer<IntervetionCardState>(
-                builder: (context, intervetionCardState, child) {
-                  InterventionCard activeInterventionProgram =
-                      intervetionCardState.currentIntervetionProgram;
-                  return SubPageAppBar(
-                    label: label,
-                    activeInterventionProgram: activeInterventionProgram,
-                  );
-                },
-              ),
-            ),
-            body: SubPageBody(
-              body: !isFormReady
-                  ? Column(
-                      children: [
-                        Center(
-                          child: CircularProcessLoader(
-                            color: Colors.blueGrey,
-                          ),
-                        )
-                      ],
+      child: Scaffold(
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(65.0),
+          child: Consumer<IntervetionCardState>(
+            builder: (context, intervetionCardState, child) {
+              InterventionCard activeInterventionProgram =
+                  intervetionCardState.currentIntervetionProgram;
+              return SubPageAppBar(
+                label: label,
+                activeInterventionProgram: activeInterventionProgram,
+              );
+            },
+          ),
+        ),
+        body: SubPageBody(
+          body: !isFormReady
+              ? Column(
+                  children: [
+                    Center(
+                      child: CircularProcessLoader(
+                        color: Colors.blueGrey,
+                      ),
                     )
-                  : Container(
-                      margin: EdgeInsets.symmetric(
-                          vertical: 16.0, horizontal: 13.0),
-                      child: Consumer<EnrollmentFormState>(
+                  ],
+                )
+              : Container(
+                  margin: EdgeInsets.symmetric(
+                    vertical: 16.0,
+                    horizontal: 13.0,
+                  ),
+                  child: Consumer<LanguageTranslationState>(
+                    builder: (context, languageTranslationState, child) {
+                      String currentLanguage =
+                          languageTranslationState.currentLanguage;
+                      return Consumer<EnrollmentFormState>(
                         builder: (context, enrollmentFormState, child) =>
                             Column(
                           children: [
@@ -169,18 +186,26 @@ class _NoneAgywEnrollmentPrepScreeningFormState
                               ),
                             ),
                             OvcEnrollmentFormSaveButton(
-                              label: 'Save and Continue',
+                              label: currentLanguage == 'lesotho'
+                                  ? 'Boloka ebe u fetela pele'
+                                  : 'Save and Continue',
                               labelColor: Colors.white,
                               buttonColor: Color(0xFF258DCC),
                               fontSize: 15.0,
                               onPressButton: () => onSaveAndContinue(
-                                  context, enrollmentFormState.formState),
+                                context,
+                                enrollmentFormState.formState,
+                              ),
                             )
                           ],
                         ),
-                      ),
-                    ),
-            ),
-            bottomNavigationBar: InterventionBottomNavigationBarContainer()));
+                      );
+                    },
+                  ),
+                ),
+        ),
+        bottomNavigationBar: InterventionBottomNavigationBarContainer(),
+      ),
+    );
   }
 }

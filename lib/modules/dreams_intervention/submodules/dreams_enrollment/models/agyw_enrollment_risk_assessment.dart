@@ -60,7 +60,6 @@ class AgywEnrollmentRiskAssessment {
       'uBx2mRzZoRh',
       'aIJoCMWUqBs',
       'zowQOCZivv8',
-
     ];
   }
 
@@ -132,6 +131,7 @@ class AgywEnrollmentRiskAssessment {
           InputField(
             id: 'ls9hlz2tyol',
             name: 'Age',
+            translatedName: 'Lilemo',
             isReadOnly: true,
             valueType: 'NUMBER',
             inputColor: Color(0xFF258DCC),
