@@ -172,12 +172,12 @@ class DreamBeneficiaryCardBody extends StatelessWidget {
       [
         {'name': 'HTS', 'programStage': 'QNdBI9U7rnV'},
         {'name': 'ART RE-FILL', 'programStage': 'Gk494qKQP8B'},
-        {'name': 'HIV MESSAGING', 'programStage': 'PGFt6IwdZLM'},
+        {'name': 'GBV LEGAL', 'programStage': 'bDJq2JWVTbC'},
       ],
       [
         {'name': 'SRH', 'programStage': 'K61XAaNlbbU'},
-        {'name': 'HIV PREV', 'programStage': 'F6C3d7vZ71o'},
-        {'name': 'CONTRACEPTIVES', 'programStage': 'A7Tl3vML6as'},
+        {'name': 'HIV MESSAGING', 'programStage': 'PGFt6IwdZLM'},
+        {'name': 'PARENTING', 'programStage': 'bDJq2JWVTbC'},
       ],
       [
         {'name': 'PREP', 'programStage': 'mMjGlK1W0Xo'},
@@ -186,18 +186,13 @@ class DreamBeneficiaryCardBody extends StatelessWidget {
       ],
       [
         {'name': 'ANC', 'programStage': 'wA5y7RU83lF'},
-        {'name': 'GBV LEGAL', 'programStage': 'bDJq2JWVTbC'},
+        {'name': 'CONTRACEPTIVES', 'programStage': 'A7Tl3vML6as'},
         {'name': '(SAB) Social Assets Building', 'programStage': 'bDJq2JWVTbC'},
       ],
       [
         {'name': 'PEP', 'programStage': 'CEyIqiOZOwx'},
         {'name': 'VAC LEGAL', 'programStage': 'bDJq2JWVTbC'},
         {'name': 'HIV & VIOLENCE PREVENTION', 'programStage': 'bDJq2JWVTbC'},
-      ],
-      [
-        {'name': 'PARENTING', 'programStage': 'bDJq2JWVTbC'},
-        {'name': ''},
-        {'name': ''}
       ],
     ];
   }
