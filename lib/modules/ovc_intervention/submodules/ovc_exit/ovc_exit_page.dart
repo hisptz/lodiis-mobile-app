@@ -252,6 +252,7 @@ class _OvcExitPageState extends State<OvcExitPage> {
                                   ),
                                   cardBottonContent:
                                       OvcHouseHoldCardBottonContent(
+                                    currentLanguage: currentLanguage,
                                     ovcHouseHold: ovcHouseHold,
                                     canAddChild: canAddChild,
                                     canViewChildInfo: canViewChildInfo,

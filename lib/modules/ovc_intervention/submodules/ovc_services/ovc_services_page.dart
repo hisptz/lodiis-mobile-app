@@ -255,6 +255,7 @@ class _OvcServicesPageState extends State<OvcServicesPage> {
                                   ),
                                   cardBottonContent:
                                       OvcHouseHoldCardBottonContent(
+                                    currentLanguage: currentLanguage,
                                     ovcHouseHold: ovcHouseHold,
                                     canAddChild: canAddChild,
                                     canViewChildInfo: canViewChildInfo,

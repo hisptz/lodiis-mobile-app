@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
+import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
@@ -36,44 +37,36 @@ class _OvcEnrollmentConsetFormState extends State<OvcEnrollmentConsetForm> {
   @override
   void initState() {
     super.initState();
-    setState(() {
-      for (String id in mandatoryFields) {
-        mandatoryFieldObject[id] = true;
-      }
-      formSections = OvcEnrollmentConsent.getFormSections();
-      isFormReady = true;
-    });
+    setState(
+      () {
+        for (String id in mandatoryFields) {
+          mandatoryFieldObject[id] = true;
+        }
+        formSections = OvcEnrollmentConsent.getFormSections();
+        isFormReady = true;
+      },
+    );
   }
-
-// checking if user accept consent form
-  // bool hasUserAcceptConsentform(Map dataObject) {
-  //   bool hasAccepted = false;
-  //   for (String consentField in consentFields) {
-  //     if (dataObject[consentField] == true) {
-  //       hasAccepted = true;
-  //     }
-  //   }
-  //   return hasAccepted;
-  // }
 
   void onSaveAndContinue(BuildContext context, Map dataObject) {
     bool hadAllMandatoryFilled =
         AppUtil.hasAllMandarotyFieldsFilled(mandatoryFields, dataObject);
     if (hadAllMandatoryFilled) {
-      //bool hasAccepted = hasUserAcceptConsentform(dataObject);
       Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) =>
-                // hasAccepted
-                dataObject['sCGr0RTmvJ7']
-                    ? OvcEnrollmentBasicInfoForm()
-                    : OvcEnrollmentNoneParticipationForm(),
-          ));
+        context,
+        MaterialPageRoute(
+          builder: (context) =>
+              // hasAccepted
+              dataObject['sCGr0RTmvJ7']
+                  ? OvcEnrollmentBasicInfoForm()
+                  : OvcEnrollmentNoneParticipationForm(),
+        ),
+      );
     } else {
       AppUtil.showToastMessage(
-          message: 'Please fill all mandatory field',
-          position: ToastGravity.TOP);
+        message: 'Please fill all mandatory field',
+        position: ToastGravity.TOP,
+      );
     }
   }
 
@@ -85,63 +78,75 @@ class _OvcEnrollmentConsetFormState extends State<OvcEnrollmentConsetForm> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: Scaffold(
-            appBar: PreferredSize(
-              preferredSize: Size.fromHeight(65.0),
-              child: Consumer<IntervetionCardState>(
-                builder: (context, intervetionCardState, child) {
-                  InterventionCard activeInterventionProgram =
-                      intervetionCardState.currentIntervetionProgram;
-                  return SubPageAppBar(
-                    label: label,
-                    activeInterventionProgram: activeInterventionProgram,
-                  );
-                },
-              ),
+      child: Scaffold(
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(65.0),
+          child: Consumer<IntervetionCardState>(
+            builder: (context, intervetionCardState, child) {
+              InterventionCard activeInterventionProgram =
+                  intervetionCardState.currentIntervetionProgram;
+              return SubPageAppBar(
+                label: label,
+                activeInterventionProgram: activeInterventionProgram,
+              );
+            },
+          ),
+        ),
+        body: SubPageBody(
+          body: Container(
+            margin: EdgeInsets.symmetric(
+              vertical: 16.0,
+              horizontal: 13.0,
             ),
-            body: SubPageBody(
-              body: Container(
-                  margin:
-                      EdgeInsets.symmetric(vertical: 16.0, horizontal: 13.0),
-                  child: !isFormReady
-                      ? Column(
-                          children: [
-                            Center(
-                              child: CircularProcessLoader(
-                                color: Colors.blueGrey,
+            child: !isFormReady
+                ? Column(
+                    children: [
+                      Center(
+                        child: CircularProcessLoader(
+                          color: Colors.blueGrey,
+                        ),
+                      )
+                    ],
+                  )
+                : Container(
+                    child: Consumer<LanguageTranslationState>(
+                      builder: (context, languageTranslationState, child) {
+                        String currentLanguage =
+                            languageTranslationState.currentLanguage;
+                        return Consumer<EnrollmentFormState>(
+                          builder: (context, enrollmentFormState, child) =>
+                              Column(
+                            children: [
+                              Container(
+                                child: EntryFormContainer(
+                                  formSections: formSections,
+                                  mandatoryFieldObject: mandatoryFieldObject,
+                                  dataObject: enrollmentFormState.formState,
+                                  onInputValueChange: onInputValueChange,
+                                ),
                               ),
-                            )
-                          ],
-                        )
-                      : Container(
-                          child: Consumer<EnrollmentFormState>(
-                              builder: (context, enrollmentFormState, child) =>
-                                  Column(
-                                    children: [
-                                      Container(
-                                        child: EntryFormContainer(
-                                          formSections: formSections,
-                                          mandatoryFieldObject:
-                                              mandatoryFieldObject,
-                                          dataObject:
-                                              enrollmentFormState.formState,
-                                          onInputValueChange:
-                                              onInputValueChange,
-                                        ),
-                                      ),
-                                      OvcEnrollmentFormSaveButton(
-                                        label: 'Save and Continue',
-                                        labelColor: Colors.white,
-                                        buttonColor: Color(0xFF4B9F46),
-                                        fontSize: 15.0,
-                                        onPressButton: () => onSaveAndContinue(
-                                            context,
-                                            enrollmentFormState.formState),
-                                      )
-                                    ],
-                                  )),
-                        )),
-            ),
-            bottomNavigationBar: InterventionBottomNavigationBarContainer()));
+                              OvcEnrollmentFormSaveButton(
+                                label: currentLanguage == 'lesotho'
+                                    ? 'Boloka ebe u fetela pele'
+                                    : 'Save and Continue',
+                                labelColor: Colors.white,
+                                buttonColor: Color(0xFF4B9F46),
+                                fontSize: 15.0,
+                                onPressButton: () => onSaveAndContinue(
+                                  context,
+                                  enrollmentFormState.formState,
+                                ),
+                              )
+                            ],
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+          ),
+        ),
+        bottomNavigationBar: InterventionBottomNavigationBarContainer(),
+      ),
+    );
   }
 }

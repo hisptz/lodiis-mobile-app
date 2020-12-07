@@ -107,6 +107,7 @@ class _OvcRecordsPageState extends State<OvcRecordsPage> {
                                   cardBottonActions: Container(),
                                   cardBottonContent:
                                       OvcHouseHoldCardBottonContent(
+                                    currentLanguage: currentLanguage,
                                     ovcHouseHold: ovcHouseHold,
                                     canAddChild: canAddChild,
                                     canViewChildInfo: canViewChildInfo,

@@ -134,6 +134,7 @@ class _OvcEnrollmentPageState extends State<OvcEnrollmentPage> {
                                   cardBottonActions: Container(),
                                   cardBottonContent:
                                       OvcHouseHoldCardBottonContent(
+                                    currentLanguage: currentLanguage,
                                     ovcHouseHold: ovcHouseHold,
                                     canAddChild: canAddChild,
                                     canViewChildInfo: canViewChildInfo,

@@ -3,6 +3,7 @@ import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_house_
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
+import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
@@ -92,122 +93,136 @@ class _OvcHouseHoldReferralHomeState extends State<OvcHouseHoldReferralHome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(65.0),
-          child: Consumer<IntervetionCardState>(
-            builder: (context, intervetionCardState, child) {
-              InterventionCard activeInterventionProgram =
-                  intervetionCardState.currentIntervetionProgram;
-              return SubPageAppBar(
-                label: label,
-                activeInterventionProgram: activeInterventionProgram,
-              );
-            },
-          ),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(65.0),
+        child: Consumer<IntervetionCardState>(
+          builder: (context, intervetionCardState, child) {
+            InterventionCard activeInterventionProgram =
+                intervetionCardState.currentIntervetionProgram;
+            return SubPageAppBar(
+              label: label,
+              activeInterventionProgram: activeInterventionProgram,
+            );
+          },
         ),
-        body: SubPageBody(
-          body: Container(
-            child: Consumer<OvcHouseHoldCurrentSelectionState>(
-              builder: (context, ovcHouseHoldCurrentSelectionState, child) {
-                return Consumer<ServiveEventDataState>(
-                  builder: (context, serviceFormState, child) {
-                    OvcHouseHold currentOvcHouseHold =
-                        ovcHouseHoldCurrentSelectionState.currentOvcHouseHold;
-                    bool isLoading = serviceFormState.isLoading;
-                    Map<String, List<Events>> eventListByProgramStage =
-                        serviceFormState.eventListByProgramStage;
-                    List<Events> events = TrackedEntityInstanceUtil
-                        .getAllEventListFromServiceDataState(
-                            eventListByProgramStage, programStageids);
-                    int referralIndex = events.length;
-                    return Container(
-                      child: Column(
-                        children: [
-                          OvcHouseHoldInfoTopHeader(
-                            currentOvcHouseHold: currentOvcHouseHold,
-                          ),
-                          Container(
-                            child: isLoading
-                                ? CircularProcessLoader(
-                                    color: Colors.blueGrey,
-                                  )
-                                : Column(
-                                    children: [
-                                      Container(
-                                        margin: EdgeInsets.symmetric(
-                                          vertical: 10.0,
+      ),
+      body: SubPageBody(
+        body: Container(
+          child: Consumer<LanguageTranslationState>(
+            builder: (context, languageTranslationState, child) {
+              String currentLanguage = languageTranslationState.currentLanguage;
+              return Consumer<OvcHouseHoldCurrentSelectionState>(
+                builder: (context, ovcHouseHoldCurrentSelectionState, child) {
+                  return Consumer<ServiveEventDataState>(
+                    builder: (context, serviceFormState, child) {
+                      OvcHouseHold currentOvcHouseHold =
+                          ovcHouseHoldCurrentSelectionState.currentOvcHouseHold;
+                      bool isLoading = serviceFormState.isLoading;
+                      Map<String, List<Events>> eventListByProgramStage =
+                          serviceFormState.eventListByProgramStage;
+                      List<Events> events = TrackedEntityInstanceUtil
+                          .getAllEventListFromServiceDataState(
+                              eventListByProgramStage, programStageids);
+                      int referralIndex = events.length;
+                      return Container(
+                        child: Column(
+                          children: [
+                            OvcHouseHoldInfoTopHeader(
+                              currentOvcHouseHold: currentOvcHouseHold,
+                            ),
+                            Container(
+                              child: isLoading
+                                  ? CircularProcessLoader(
+                                      color: Colors.blueGrey,
+                                    )
+                                  : Column(
+                                      children: [
+                                        Container(
+                                          margin: EdgeInsets.symmetric(
+                                            vertical: 10.0,
+                                          ),
+                                          child: events.length == 0
+                                              ? Text(
+                                                  currentLanguage == 'lesotho'
+                                                      ? 'Ha hona lelapa le lereferioeng ha hajoale'
+                                                      : 'There is no Household Referral at a moment',
+                                                )
+                                              : Container(
+                                                  margin: EdgeInsets.symmetric(
+                                                    vertical: 5.0,
+                                                    horizontal: 13.0,
+                                                  ),
+                                                  child: Column(
+                                                    children: events.map(
+                                                        (Events eventData) {
+                                                      referralIndex--;
+                                                      return Container(
+                                                        margin: EdgeInsets.only(
+                                                          bottom: 15.0,
+                                                        ),
+                                                        child:
+                                                            ReferralCardSummary(
+                                                          borderColor:
+                                                              Color(0xFFEDF5EC),
+                                                          buttonLabelColor:
+                                                              Color(0xFF4B9F46),
+                                                          titleColor:
+                                                              Color(0xFF1B3518),
+                                                          count: referralIndex,
+                                                          cardBody:
+                                                              ReferralCardBodySummary(
+                                                            labelColor: Color(
+                                                                0XFF92A791),
+                                                            valueColor: Color(
+                                                                0XFF536852),
+                                                            referralEvent:
+                                                                eventData,
+                                                          ),
+                                                          onView: () =>
+                                                              onViewHouseHoldReferral(
+                                                            context,
+                                                            eventData,
+                                                            referralIndex,
+                                                          ),
+                                                          onManage: () =>
+                                                              onManageHouseHoldReferral(
+                                                            context,
+                                                            eventData,
+                                                            referralIndex,
+                                                          ),
+                                                        ),
+                                                      );
+                                                    }).toList(),
+                                                  ),
+                                                ),
                                         ),
-                                        child: events.length == 0
-                                            ? Text(
-                                                'There is no Household Referral at a moment')
-                                            : Container(
-                                                margin: EdgeInsets.symmetric(
-                                                  vertical: 5.0,
-                                                  horizontal: 13.0,
-                                                ),
-                                                child: Column(
-                                                  children: events
-                                                      .map((Events eventData) {
-                                                    referralIndex--;
-                                                    return Container(
-                                                      margin: EdgeInsets.only(
-                                                        bottom: 15.0,
-                                                      ),
-                                                      child:
-                                                          ReferralCardSummary(
-                                                        borderColor:
-                                                            Color(0xFFEDF5EC),
-                                                        buttonLabelColor:
-                                                            Color(0xFF4B9F46),
-                                                        titleColor:
-                                                            Color(0xFF1B3518),
-                                                        count: referralIndex,
-                                                        cardBody:
-                                                            ReferralCardBodySummary(
-                                                          labelColor:
-                                                              Color(0XFF92A791),
-                                                          valueColor:
-                                                              Color(0XFF536852),
-                                                          referralEvent:
-                                                              eventData,
-                                                        ),
-                                                        onView: () =>
-                                                            onViewHouseHoldReferral(
-                                                          context,
-                                                          eventData,
-                                                          referralIndex,
-                                                        ),
-                                                        onManage: () =>
-                                                            onManageHouseHoldReferral(
-                                                          context,
-                                                          eventData,
-                                                          referralIndex,
-                                                        ),
-                                                      ),
-                                                    );
-                                                  }).toList(),
-                                                ),
-                                              ),
-                                      ),
-                                      OvcEnrollmentFormSaveButton(
-                                          label: 'ADD REFERRAL',
+                                        OvcEnrollmentFormSaveButton(
+                                          label: currentLanguage == 'lesotho'
+                                              ? 'Kenya Referral'.toUpperCase()
+                                              : 'ADD REFERRAL',
                                           labelColor: Colors.white,
                                           buttonColor: Color(0xFF4B9F46),
                                           fontSize: 15.0,
                                           onPressButton: () => onAddRefferal(
-                                              context, currentOvcHouseHold))
-                                    ],
-                                  ),
-                          ),
-                        ],
-                      ),
-                    );
-                  },
-                );
-              },
-            ),
+                                            context,
+                                            currentOvcHouseHold,
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  );
+                },
+              );
+            },
           ),
         ),
-        bottomNavigationBar: InterventionBottomNavigationBarContainer());
+      ),
+      bottomNavigationBar: InterventionBottomNavigationBarContainer(),
+    );
   }
 }

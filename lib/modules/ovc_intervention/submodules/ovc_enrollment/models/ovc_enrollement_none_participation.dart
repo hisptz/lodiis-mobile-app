@@ -60,6 +60,7 @@ class OvcEnrollmentNoneParticipation {
             InputField(
               id: 'mZs1YsN56cR',
               name: 'Age',
+              translatedName: 'Lilemo',
               isReadOnly: true,
               valueType: 'NUMBER',
               inputColor: Color(0xFF4B9F46),

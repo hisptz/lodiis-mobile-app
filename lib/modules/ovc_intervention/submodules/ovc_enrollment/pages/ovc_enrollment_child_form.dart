@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
+import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_intervention_list_state.dart';
 import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
@@ -76,7 +77,7 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
       if (inputFieldId == 'qZP982qpSPS') {
         int age = AppUtil.getAgeInYear(value);
         assignInputFieldValue('ls9hlz2tyol', age.toString());
-        if(age > 2){
+        if (age > 2) {
           hiddenFields['GMcljM7jbNG'] = true;
         }
       }
@@ -126,8 +127,10 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
     }
   }
 
-  assignInputFieldValue(String inputFieldId,
-      String value,) {
+  assignInputFieldValue(
+    String inputFieldId,
+    String value,
+  ) {
     childMapObject[inputFieldId] = value;
   }
 
@@ -152,7 +155,7 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
 
   void onSaveAndContinue(BuildContext context) async {
     bool hadAllMandatoryFilled =
-    AppUtil.hasAllMandarotyFieldsFilled(mandatoryFields, childMapObject);
+        AppUtil.hasAllMandarotyFieldsFilled(mandatoryFields, childMapObject);
     if (hadAllMandatoryFilled) {
       String name = childMapObject['WTZ7GLTrE8Q'] ?? '';
       Widget modal = AddChildConfirmation(name: name);
@@ -164,11 +167,12 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
             onSkipButton = true;
           });
           Timer(Duration(milliseconds: 500),
-                  () => resetMapObject(childMapObject));
+              () => resetMapObject(childMapObject));
         } else {
           setState(() {
-            if(!isADuplicateChildObject(childMapObject)){
-              childMapObject['fullName'] = '${childMapObject['WTZ7GLTrE8Q']} ${childMapObject['rSP9c21JsfC']}';
+            if (!isADuplicateChildObject(childMapObject)) {
+              childMapObject['fullName'] =
+                  '${childMapObject['WTZ7GLTrE8Q']} ${childMapObject['rSP9c21JsfC']}';
               childMapObjects.add(childMapObject);
             }
           });
@@ -176,16 +180,18 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
           Provider.of<EnrollmentFormState>(context, listen: false)
               .setFormFieldState('children', childMapObjects);
           Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => OvcEnrollmentHouseHoldForm(),
-              ));
+            context,
+            MaterialPageRoute(
+              builder: (context) => OvcEnrollmentHouseHoldForm(),
+            ),
+          );
         }
       }
     } else {
       AppUtil.showToastMessage(
-          message: 'Please fill all mandatory field',
-          position: ToastGravity.TOP);
+        message: 'Please fill all mandatory field',
+        position: ToastGravity.TOP,
+      );
     }
   }
 
@@ -196,9 +202,9 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
 
   void onSkip(Map childMapObject) {
     setState(() {
-
-      if(isADuplicateChildObject(childMapObject)){
-        childMapObject['fullName'] = '${childMapObject['WTZ7GLTrE8Q']} ${childMapObject['rSP9c21JsfC']}';
+      if (isADuplicateChildObject(childMapObject)) {
+        childMapObject['fullName'] =
+            '${childMapObject['WTZ7GLTrE8Q']} ${childMapObject['rSP9c21JsfC']}';
         childMapObjects.add(childMapObject);
       }
     });
@@ -206,95 +212,117 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
     Provider.of<EnrollmentFormState>(context, listen: false)
         .setFormFieldState('children', childMapObjects);
     Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => OvcEnrollmentHouseHoldForm(),
-        ));
+      context,
+      MaterialPageRoute(
+        builder: (context) => OvcEnrollmentHouseHoldForm(),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: Scaffold(
-            appBar: PreferredSize(
-              preferredSize: Size.fromHeight(65.0),
-              child: Consumer<IntervetionCardState>(
-                builder: (context, intervetionCardState, child) {
-                  InterventionCard activeInterventionProgram =
-                      intervetionCardState.currentIntervetionProgram;
-                  return SubPageAppBar(
-                    label: label,
-                    activeInterventionProgram: activeInterventionProgram,
-                  );
-                },
-              ),
-            ),
-            body: SubPageBody(
-              body: Container(
-                  margin:
-                  EdgeInsets.symmetric(vertical: 16.0, horizontal: 13.0),
+      child: Scaffold(
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(65.0),
+          child: Consumer<IntervetionCardState>(
+            builder: (context, intervetionCardState, child) {
+              InterventionCard activeInterventionProgram =
+                  intervetionCardState.currentIntervetionProgram;
+              return SubPageAppBar(
+                label: label,
+                activeInterventionProgram: activeInterventionProgram,
+              );
+            },
+          ),
+        ),
+        body: SubPageBody(
+          body: Container(
+            child: Consumer<LanguageTranslationState>(
+              builder: (context, languageTranslationState, child) {
+                String currentLanguage =
+                    languageTranslationState.currentLanguage;
+                return Container(
+                  margin: EdgeInsets.symmetric(
+                    vertical: 16.0,
+                    horizontal: 13.0,
+                  ),
                   child: isLoading
                       ? Column(
-                    children: [
-                      Center(
-                        child: CircularProcessLoader(
-                          color: Colors.blueGrey,
-                        ),
-                      )
-                    ],
-                  )
+                          children: [
+                            Center(
+                              child: CircularProcessLoader(
+                                color: Colors.blueGrey,
+                              ),
+                            )
+                          ],
+                        )
                       : Column(
-                    children: [
-                      childMapObjects.isNotEmpty
-                          ? Padding(
-                            padding: const EdgeInsets.only( bottom: 12.0),
-                            child: EnrolledChildrenList(
-                            childMapObjects.map<String>((child) => child['fullName'])
-                                .toList()),
-                          )
-                          : Container(),
-                      Container(
-                        child: EntryFormContainer(
-                          formSections: formSections,
-                          hiddenFields: hiddenFields,
-                          hiddenSections: hiddenSections,
-                          mandatoryFieldObject: mandatoryFieldObject,
-                          dataObject: childMapObject,
-                          onInputValueChange: onInputValueChange,
-                        ),
-                      ),
-                      OvcEnrollmentFormSaveButton(
-                        label: 'Save and Continue',
-                        labelColor: Colors.white,
-                        buttonColor: Color(0xFF4B9F46),
-                        fontSize: 15.0,
-                        onPressButton: () => onSaveAndContinue(context),
-                      ),
-                      Visibility(
-                        visible: onSkipButton,
-                        child: Container(
-                          child: FlatButton(
-                            onPressed: () => onSkip(childMapObject),
-                            child: Text(
-                              'Skip',
-                              style: TextStyle().copyWith(
-                                  color: Color(0xFF4B9F46),
-                                  fontSize: 14.0,
-                                  fontWeight: FontWeight.w400),
+                          children: [
+                            childMapObjects.isNotEmpty
+                                ? Padding(
+                                    padding: const EdgeInsets.only(
+                                      bottom: 12.0,
+                                    ),
+                                    child: EnrolledChildrenList(childMapObjects
+                                        .map<String>(
+                                            (child) => child['fullName'])
+                                        .toList()),
+                                  )
+                                : Container(),
+                            Container(
+                              child: EntryFormContainer(
+                                formSections: formSections,
+                                hiddenFields: hiddenFields,
+                                hiddenSections: hiddenSections,
+                                mandatoryFieldObject: mandatoryFieldObject,
+                                dataObject: childMapObject,
+                                onInputValueChange: onInputValueChange,
+                              ),
                             ),
-                          ),
+                            OvcEnrollmentFormSaveButton(
+                              label: currentLanguage == 'lesotho'
+                                  ? 'Boloka ebe u fetela pele'
+                                  : 'Save and Continue',
+                              labelColor: Colors.white,
+                              buttonColor: Color(0xFF4B9F46),
+                              fontSize: 15.0,
+                              onPressButton: () => onSaveAndContinue(context),
+                            ),
+                            Visibility(
+                              visible: onSkipButton,
+                              child: Container(
+                                child: FlatButton(
+                                  onPressed: () => onSkip(childMapObject),
+                                  child: Text(
+                                    currentLanguage == 'lesotho'
+                                        ? 'Feta'
+                                        : 'Skip',
+                                    style: TextStyle().copyWith(
+                                      color: Color(0xFF4B9F46),
+                                      fontSize: 14.0,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                      ),
-                    ],
-                  )),
+                );
+              },
             ),
-            bottomNavigationBar: InterventionBottomNavigationBarContainer()));
+          ),
+        ),
+        bottomNavigationBar: InterventionBottomNavigationBarContainer(),
+      ),
+    );
   }
 
   bool isADuplicateChildObject(Map map) {
     bool isDuplicate = false;
     childMapObjects.forEach((child) {
-      if(child['WTZ7GLTrE8Q'] == map['WTZ7GLTrE8Q']){
+      if (child['WTZ7GLTrE8Q'] == map['WTZ7GLTrE8Q']) {
         //Compares if firstName are equal
         isDuplicate = true;
       }
