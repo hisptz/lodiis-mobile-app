@@ -14,7 +14,7 @@ import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
+import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/services/ovc_enrollment_none_participation_service.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/models/ovc_enrollement_none_participation.dart';
 import 'package:provider/provider.dart';
@@ -147,7 +147,7 @@ class _OvcEnrollmentNoneParticipationFormState
                                   onInputValueChange: onInputValueChange,
                                 ),
                               ),
-                              OvcEnrollmentFormSaveButton(
+                              EntryFormSaveButton(
                                 label: isSaving
                                     ? 'Saving ...'
                                     : currentLanguage == 'lesotho'

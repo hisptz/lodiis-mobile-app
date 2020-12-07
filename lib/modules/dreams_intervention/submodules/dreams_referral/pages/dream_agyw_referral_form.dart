@@ -20,7 +20,7 @@ import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_benef
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_referral/constant/dream_agyw_referral_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_referral/models/dream_referral.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_referral/skip_logics/dream_agyw_referral.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
+import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:provider/provider.dart';
 
 class DreamAgywAddReferralForm extends StatefulWidget {
@@ -193,7 +193,7 @@ class _DreamAgywAddReferralFormState extends State<DreamAgywAddReferralForm> {
                                               onInputValueChange,
                                         ),
                                       ),
-                                      OvcEnrollmentFormSaveButton(
+                                      EntryFormSaveButton(
                                         label: isSaving
                                             ? 'Saving ...'
                                             : currentLanguage == 'lesotho'

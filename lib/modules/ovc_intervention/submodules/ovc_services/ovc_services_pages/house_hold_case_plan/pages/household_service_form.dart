@@ -16,7 +16,7 @@ import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/models/ovc_house_hold.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
+import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold_top_header.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_caseplan.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_house_hold_case_plan_gaps.dart';
@@ -249,7 +249,7 @@ class _HouseHoldServiceFormState extends State<HouseHoldServiceForm> {
                                     ),
                                     Visibility(
                                       visible: serviceFormState.isEditableMode,
-                                      child: OvcEnrollmentFormSaveButton(
+                                      child: EntryFormSaveButton(
                                         label: isSaving
                                             ? 'Saving ...'
                                             : currentLanguage == 'lesotho'

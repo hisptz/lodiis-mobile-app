@@ -14,7 +14,7 @@ import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/components/prep_visit_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/contraceptives/pages/agyw_dreams_contraceptives_form.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
+import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:provider/provider.dart';
 
 import 'constants/contraceptives_constant.dart';
@@ -165,7 +165,7 @@ class _AgywDreamContraceptivesState extends State<AgywDreamContraceptives> {
                                                 ),
                                               ),
                                       ),
-                                      OvcEnrollmentFormSaveButton(
+                                      EntryFormSaveButton(
                                           label: 'ADD VISIT',
                                           labelColor: Colors.white,
                                           buttonColor: Color(0xFF1F8ECE),

@@ -17,7 +17,7 @@ import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/models/ovc_house_hold_child.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_child_info_top_header.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
+import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/models/ovc_clo_referral.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/ovc_referral_pages/ovc_child_referral_pages/constants/ovc_child_clo_referral_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/ovc_referral_pages/ovc_child_referral_pages/constants/ovc_child_referral_constant.dart';
@@ -199,7 +199,7 @@ class _OvcChildCLOReferralAddFormState
                                               onInputValueChange,
                                         ),
                                       ),
-                                      OvcEnrollmentFormSaveButton(
+                                      EntryFormSaveButton(
                                         label: isSaving
                                             ? 'Saving ...'
                                             : currentLanguage == 'lesotho'

@@ -17,7 +17,7 @@ import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/models/ovc_house_hold_child.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_child_info_top_header.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
+import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/models/ovc_exit_case_closure.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_pages/child_exit_pages/constants/ovc_exit_case_closure_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/skip_logics/ovc_case_closure_skip_logic.dart';
@@ -189,7 +189,7 @@ class _OvcExitCaseClosureFormState extends State<OvcExitCaseClosureForm>
                                           Visibility(
                                             visible:
                                                 serviceFormState.isEditableMode,
-                                            child: OvcEnrollmentFormSaveButton(
+                                            child: EntryFormSaveButton(
                                               label: isSaving
                                                   ? 'Saving ...'
                                                   : currentLanguage == 'lesotho'

@@ -19,7 +19,7 @@ import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/services/agyw_dream_enrollment_service.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/models/agyw_enrollment_form_section.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/skip_logics/agyw_dreams_enrollment_skip_logic.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
+import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:provider/provider.dart';
 
 class AgywDreamsEnrollmentForm extends StatefulWidget {
@@ -187,7 +187,7 @@ class _AgywDreamsEnrollmentFormState extends State<AgywDreamsEnrollmentForm> {
                                   ),
                                 ),
                               ),
-                              OvcEnrollmentFormSaveButton(
+                              EntryFormSaveButton(
                                 label: isSaving
                                     ? 'Saving ...'
                                     : currentLanguage == 'lesotho'

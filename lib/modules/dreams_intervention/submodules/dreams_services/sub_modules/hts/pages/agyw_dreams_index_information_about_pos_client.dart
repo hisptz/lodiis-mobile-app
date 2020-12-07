@@ -19,7 +19,7 @@ import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/bio_data_information_about_index_positive_client.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/constants/agyw_dreams_index_positive_constant.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
+import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:provider/provider.dart';
 
 class AgywDreamsIndexInfoAboutPosClient extends StatefulWidget {
@@ -178,7 +178,7 @@ class _AgywDreamsIndexInfoAboutPosClientState
                                         Visibility(
                                           visible:
                                               serviceFormState.isEditableMode,
-                                          child: OvcEnrollmentFormSaveButton(
+                                          child: EntryFormSaveButton(
                                             label: isSaving
                                                 ? 'Saving ...'
                                                 : currentLanguage == 'lesotho'

@@ -15,7 +15,7 @@ import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_benef
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/components/prep_visit_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/art_refill/constants/art_refill_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/art_refill/pages/agyw_dreams_art_refill_form.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
+import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:provider/provider.dart';
 
 class AgywDreamArtRefill extends StatefulWidget {
@@ -158,7 +158,7 @@ class _AgywDreamArtRefillState extends State<AgywDreamArtRefill> {
                                                 ),
                                               ),
                                       ),
-                                      OvcEnrollmentFormSaveButton(
+                                      EntryFormSaveButton(
                                           label: 'ADD ART Re-fill',
                                           labelColor: Colors.white,
                                           buttonColor: Color(0xFF1F8ECE),

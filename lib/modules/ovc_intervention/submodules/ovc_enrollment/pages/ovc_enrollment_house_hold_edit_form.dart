@@ -16,7 +16,7 @@ import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
+import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/services/ovc_enrollment_house_hold_service.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/models/ovc_enrollement_basic_info.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/models/ovc_enrollment_house_hold.dart';
@@ -192,7 +192,7 @@ class _OvcEnrollmentHouseHoldEditFormState
                                     onInputValueChange: onInputValueChange,
                                   ),
                                 ),
-                                OvcEnrollmentFormSaveButton(
+                                EntryFormSaveButton(
                                   label: isSaving
                                       ? 'Saving Household ...'
                                       : 'Save Household',

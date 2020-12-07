@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class OvcEnrollmentFormSaveButton extends StatelessWidget {
-  const OvcEnrollmentFormSaveButton(
+class EntryFormSaveButton extends StatelessWidget {
+  const EntryFormSaveButton(
       {Key key,
       this.width = double.infinity,
       @required this.label,

@@ -13,7 +13,7 @@ import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
+import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/components/add_child_confirmation.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/components/enrolled_children_list.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/models/ovc_enrollment_child.dart';
@@ -282,7 +282,7 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
                                 onInputValueChange: onInputValueChange,
                               ),
                             ),
-                            OvcEnrollmentFormSaveButton(
+                            EntryFormSaveButton(
                               label: currentLanguage == 'lesotho'
                                   ? 'Boloka ebe u fetela pele'
                                   : 'Save and Continue',

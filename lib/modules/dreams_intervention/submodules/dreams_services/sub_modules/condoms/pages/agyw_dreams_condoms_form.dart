@@ -20,7 +20,7 @@ import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_benef
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/dreams_service_condoms_form.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/condoms/constants/condoms_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/condoms/skip_logics/agyw_dreams_condoms_skip_logics.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
+import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:provider/provider.dart';
 
 class AgywDreamsCondomsForm extends StatefulWidget {
@@ -185,7 +185,7 @@ class _AgywDreamsCondomsFormState extends State<AgywDreamsCondomsForm> {
                                       Visibility(
                                         visible:
                                             serviceFormState.isEditableMode,
-                                        child: OvcEnrollmentFormSaveButton(
+                                        child: EntryFormSaveButton(
                                           label: isSaving
                                               ? 'Saving ...'
                                               : currentLanguage == 'lesotho'

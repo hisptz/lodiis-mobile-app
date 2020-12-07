@@ -19,7 +19,7 @@ import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/hts_consent.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/constants/agyw_dreams_hts_constant.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
+import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:provider/provider.dart';
 
 class AgywDreamsHTSConsentFormEdit extends StatefulWidget {
@@ -166,7 +166,7 @@ class _AgywDreamsHTSConsentFormEditState
                                       Visibility(
                                         visible:
                                             serviceFormState.isEditableMode,
-                                        child: OvcEnrollmentFormSaveButton(
+                                        child: EntryFormSaveButton(
                                           label: isSaving
                                               ? 'Saving ...'
                                               : currentLanguage == 'lesotho'

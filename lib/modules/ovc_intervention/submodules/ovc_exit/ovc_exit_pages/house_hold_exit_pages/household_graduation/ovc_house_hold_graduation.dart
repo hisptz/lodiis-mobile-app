@@ -11,7 +11,7 @@ import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/models/ovc_house_hold.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
+import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold_top_header.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_pages/house_hold_exit_pages/household_graduation/components/ovc_house_hold_graduation_list_container.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_pages/house_hold_exit_pages/household_graduation/constants/ovc_house_hold_achievement_constant.dart';
@@ -154,8 +154,7 @@ class OvcHouseHoldGraduation extends StatelessWidget {
                                                 Container(
                                                   child: Visibility(
                                                     visible: !isLoading,
-                                                    child:
-                                                        OvcEnrollmentFormSaveButton(
+                                                    child: EntryFormSaveButton(
                                                       label: currentLanguage ==
                                                               'lesotho'
                                                           ? 'Graduation e ncha'

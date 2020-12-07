@@ -20,7 +20,7 @@ import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_benef
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/dreams_service_service_form.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/service_form/constants/service_form_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/service_form/skip_logics/agyw_dreams_service_form_skip_logic.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
+import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:provider/provider.dart';
 
 class AgywDreamsServiceForm extends StatefulWidget {
@@ -199,7 +199,7 @@ class _AgywDreamsServiceFormState extends State<AgywDreamsServiceForm> {
                                         Visibility(
                                           visible:
                                               serviceFormState.isEditableMode,
-                                          child: OvcEnrollmentFormSaveButton(
+                                          child: EntryFormSaveButton(
                                             label: isSaving
                                                 ? 'Saving ...'
                                                 : currentLanguage == 'lesotho'

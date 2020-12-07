@@ -8,7 +8,7 @@ import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.d
 import 'package:kb_mobile_app/core/components/material_card.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
+import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/skip_logics/ovc_case_closure_skip_logic.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/skip_logics/ovc_case_exit_skip_logic.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/skip_logics/ovc_case_transfer_skip_logic.dart';
@@ -192,7 +192,7 @@ class _OvcHouseHoldExitFormContainerState
                         ),
                         Visibility(
                           visible: serviceFormState.isEditableMode,
-                          child: OvcEnrollmentFormSaveButton(
+                          child: EntryFormSaveButton(
                             label: widget.isSaving
                                 ? 'Saving ...'
                                 : currentLanguage == 'lesotho'

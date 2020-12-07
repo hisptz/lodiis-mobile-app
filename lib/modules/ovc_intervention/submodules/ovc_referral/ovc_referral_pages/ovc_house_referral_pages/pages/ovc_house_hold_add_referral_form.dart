@@ -16,7 +16,7 @@ import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/models/ovc_house_hold.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
+import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold_top_header.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/models/ovc_referral.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/ovc_referral_pages/ovc_house_referral_pages/constants/ovc_house_hold_referral_constant.dart';
@@ -201,7 +201,7 @@ class _OvcHouseHoldAddReferralFormState
                                               onInputValueChange,
                                         ),
                                       ),
-                                      OvcEnrollmentFormSaveButton(
+                                      EntryFormSaveButton(
                                         label: isSaving
                                             ? 'Saving ...'
                                             : currentLanguage == 'lesotho'

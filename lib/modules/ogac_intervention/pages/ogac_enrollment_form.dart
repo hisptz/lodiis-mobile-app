@@ -17,7 +17,7 @@ import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/ogac_intervention/models/ogac_enrollment_form_section.dart';
 import 'package:kb_mobile_app/modules/ogac_intervention/services/ogac_enrollment_service.dart';
 import 'package:kb_mobile_app/modules/ogac_intervention/skip_logics/ogac_intervention_skip_logic.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
+import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:provider/provider.dart';
 
 class OgacEnrollemntForm extends StatefulWidget {
@@ -189,7 +189,7 @@ class _OgacEnrollemntFormState extends State<OgacEnrollemntForm> {
                               Container(
                                 child: Visibility(
                                   visible: enrollmentFormState.isEditableMode,
-                                  child: OvcEnrollmentFormSaveButton(
+                                  child: EntryFormSaveButton(
                                     label: isSaving
                                         ? 'Saving ...'
                                         : currentLanguage == 'lesotho'

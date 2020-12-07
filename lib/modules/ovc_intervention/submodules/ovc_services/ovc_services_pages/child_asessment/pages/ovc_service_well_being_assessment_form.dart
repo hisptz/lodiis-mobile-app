@@ -17,7 +17,7 @@ import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/models/ovc_house_hold_child.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_child_info_top_header.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
+import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_wellbeing_assessment.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_asessment/constants/ovc_service_well_being_assessment_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_asessment/skip_logics/ovc_child_well_being_assessment_skip_logic.dart';
@@ -192,7 +192,7 @@ class _OvcServiceWellBeingAssessmentFormState
                                           Visibility(
                                             visible:
                                                 serviceFormState.isEditableMode,
-                                            child: OvcEnrollmentFormSaveButton(
+                                            child: EntryFormSaveButton(
                                               label: isSaving
                                                   ? 'Saving ...'
                                                   : currentLanguage == 'lesotho'

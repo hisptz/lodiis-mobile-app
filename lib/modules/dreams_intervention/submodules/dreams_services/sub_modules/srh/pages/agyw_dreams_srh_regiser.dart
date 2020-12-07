@@ -21,7 +21,7 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_serv
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/dreams_srh_register.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/srh/constants/srh_client_intake_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/srh/skip_logics/agyw_dreams_srh_register_skip_logic.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
+import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:provider/provider.dart';
 
 class AgywDreamsSrhRegisterForm extends StatefulWidget {
@@ -193,7 +193,7 @@ class _AgywDreamsSrhRegisterFormState extends State<AgywDreamsSrhRegisterForm> {
                                         Visibility(
                                           visible:
                                               serviceFormState.isEditableMode,
-                                          child: OvcEnrollmentFormSaveButton(
+                                          child: EntryFormSaveButton(
                                             label: isSaving
                                                 ? 'Saving ...'
                                                 : currentLanguage == 'lesotho'

@@ -20,7 +20,7 @@ import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_benef
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/bio_data_information_about_elicited_sexual_partners.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/components/dream_htc_add_follow_up_confirmation.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/constants/agyw_dream_hts_follow_up.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
+import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:provider/provider.dart';
 
 class AgywDreamsIndexFollowUp extends StatefulWidget {
@@ -171,7 +171,7 @@ class _AgywDreamsIndexFollowUpState extends State<AgywDreamsIndexFollowUp> {
                                       Visibility(
                                         visible:
                                             serviceFormState.isEditableMode,
-                                        child: OvcEnrollmentFormSaveButton(
+                                        child: EntryFormSaveButton(
                                           label: isSaving
                                               ? 'Saving ...'
                                               : currentLanguage == 'lesotho'

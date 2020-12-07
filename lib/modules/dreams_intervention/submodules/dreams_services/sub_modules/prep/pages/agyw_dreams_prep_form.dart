@@ -18,10 +18,9 @@ import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/dreap_service_prep_intake_form_info.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/prep/agyw_dreams_prep.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/prep/constants/prep_intake_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/prep/skip_logics/agyw_dreams_prep_skip_logic.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
+import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:provider/provider.dart';
 
 class AgywDreamsPrepFormPage extends StatefulWidget {
@@ -198,7 +197,7 @@ class _AgywDreamsPrepFormPageState extends State<AgywDreamsPrepFormPage> {
                                         Visibility(
                                           visible:
                                               serviceFormState.isEditableMode,
-                                          child: OvcEnrollmentFormSaveButton(
+                                          child: EntryFormSaveButton(
                                             label: isSaving
                                                 ? 'Saving ...'
                                                 : currentLanguage == 'lesotho'
