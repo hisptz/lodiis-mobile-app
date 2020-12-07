@@ -25,9 +25,11 @@ class OvcHouseHoldCardBottonContent extends StatelessWidget {
     @required this.canViewChildReferral,
     @required this.canViewChildExit,
     @required this.canEditChildInfo,
+    @required this.currentLanguage,
   }) : super(key: key);
 
   final OvcHouseHold ovcHouseHold;
+  final String currentLanguage;
   final bool canAddChild;
   final bool canViewChildInfo;
   final bool canEditChildInfo;
@@ -81,20 +83,22 @@ class OvcHouseHoldCardBottonContent extends StatelessWidget {
     setOvcHouseHoldCurrentSelection(context, child);
     updateEnrollmentFormStateData(context, child, true);
     Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => OvcEnrollmentChildEditViewForm(),
-        ));
+      context,
+      MaterialPageRoute(
+        builder: (context) => OvcEnrollmentChildEditViewForm(),
+      ),
+    );
   }
 
   void onViewChildInfo(BuildContext context, OvcHouseHoldChild child) {
     setOvcHouseHoldCurrentSelection(context, child);
     updateEnrollmentFormStateData(context, child, false);
     Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => OvcEnrollmentChildEditViewForm(),
-        ));
+      context,
+      MaterialPageRoute(
+        builder: (context) => OvcEnrollmentChildEditViewForm(),
+      ),
+    );
   }
 
   void onAddNewChild(
@@ -107,37 +111,41 @@ class OvcHouseHoldCardBottonContent extends StatelessWidget {
     Provider.of<EnrollmentFormState>(context, listen: false)
         .setFormFieldState('orgUnit', ovcHouseHold.orgUnit);
     Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => OvcEnrollmentChildEditViewForm(),
-        ));
+      context,
+      MaterialPageRoute(
+        builder: (context) => OvcEnrollmentChildEditViewForm(),
+      ),
+    );
   }
 
   void onViewChildService(BuildContext context, OvcHouseHoldChild child) {
     setOvcHouseHoldCurrentSelection(context, child);
     Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => OvcChildServiceHome(),
-        ));
+      context,
+      MaterialPageRoute(
+        builder: (context) => OvcChildServiceHome(),
+      ),
+    );
   }
 
   void onViewChildReferral(BuildContext context, OvcHouseHoldChild child) {
     setOvcHouseHoldCurrentSelection(context, child);
     Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => OvcChildReferralHome(),
-        ));
+      context,
+      MaterialPageRoute(
+        builder: (context) => OvcChildReferralHome(),
+      ),
+    );
   }
 
   void onViewChildExit(BuildContext context, OvcHouseHoldChild child) {
     setOvcHouseHoldCurrentSelection(context, child);
     Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => OvcChildExitHome(),
-        ));
+      context,
+      MaterialPageRoute(
+        builder: (context) => OvcChildExitHome(),
+      ),
+    );
   }
 
   @override
@@ -158,42 +166,52 @@ class OvcHouseHoldCardBottonContent extends StatelessWidget {
                         SvgPicture.asset('assets/icons/children_ovc_icon.svg')),
                 Expanded(
                   child: Container(
-                    child: Text('Children List',
-                        style: TextStyle().copyWith(
-                          fontSize: 14.0,
-                          color: Color(0xFF536852),
-                          fontWeight: FontWeight.w700,
-                        )),
+                    child: Text(
+                      currentLanguage == 'lesotho'
+                          ? 'Lethathamo la bana'
+                          : 'Children List',
+                      style: TextStyle().copyWith(
+                        fontSize: 14.0,
+                        color: Color(0xFF536852),
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
                   ),
                 )
               ],
             ),
           ),
           Container(
-            margin: EdgeInsets.symmetric(horizontal: 13.0, vertical: 10.0),
+            margin: EdgeInsets.symmetric(
+              horizontal: 13.0,
+              vertical: 10.0,
+            ),
             child: Column(
-              children: ovcHouseHold.children.map((OvcHouseHoldChild child) {
-                int index = ovcHouseHold.children.indexOf(child) + 1;
-                return Row(
-                  children: [
-                    Expanded(
-                      child: Container(
-                        child: Text(
-                          '$index. ${child.toString()}',
-                          style: TextStyle().copyWith(
-                              fontSize: 14.0,
-                              color: Color(0xFF536852),
-                              fontWeight: FontWeight.w500),
+              children: ovcHouseHold.children.map(
+                (OvcHouseHoldChild child) {
+                  int index = ovcHouseHold.children.indexOf(child) + 1;
+                  return Row(
+                    children: [
+                      Expanded(
+                        child: Container(
+                          child: Text(
+                            '$index. ${child.toString()}',
+                            style: TextStyle().copyWith(
+                                fontSize: 14.0,
+                                color: Color(0xFF536852),
+                                fontWeight: FontWeight.w500),
+                          ),
                         ),
                       ),
-                    ),
-                    Row(mainAxisSize: MainAxisSize.min, children: [
-                      Visibility(
-                        visible: canViewChildService ||
-                            canViewChildInfo ||
-                            canViewChildExit,
-                        child: Container(
-                            child: InkWell(
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Visibility(
+                            visible: canViewChildService ||
+                                canViewChildInfo ||
+                                canViewChildExit,
+                            child: Container(
+                              child: InkWell(
                                 onTap: () => canViewChildExit
                                     ? onViewChildExit(context, child)
                                     : canViewChildInfo
@@ -211,17 +229,23 @@ class OvcHouseHoldCardBottonContent extends StatelessWidget {
                                       fontWeight: FontWeight.w500,
                                     ),
                                   ),
-                                ))),
-                      ),
-                      Visibility(
-                        visible: canViewChildReferral,
-                        child: Container(
-                            margin: EdgeInsets.only(left: 10.0),
-                            child: InkWell(
+                                ),
+                              ),
+                            ),
+                          ),
+                          Visibility(
+                            visible: canViewChildReferral,
+                            child: Container(
+                              margin: EdgeInsets.only(
+                                left: 10.0,
+                              ),
+                              child: InkWell(
                                 onTap: () =>
                                     onViewChildReferral(context, child),
                                 child: Container(
-                                  padding: EdgeInsets.all(10.0),
+                                  padding: EdgeInsets.all(
+                                    10.0,
+                                  ),
                                   child: Text(
                                     'REFERRAL',
                                     style: TextStyle().copyWith(
@@ -230,13 +254,15 @@ class OvcHouseHoldCardBottonContent extends StatelessWidget {
                                       fontWeight: FontWeight.w500,
                                     ),
                                   ),
-                                ))),
-                      ),
-                      Visibility(
-                        visible: canEditChildInfo,
-                        child: Container(
-                            margin: EdgeInsets.only(left: 10.0),
-                            child: InkWell(
+                                ),
+                              ),
+                            ),
+                          ),
+                          Visibility(
+                            visible: canEditChildInfo,
+                            child: Container(
+                              margin: EdgeInsets.only(left: 10.0),
+                              child: InkWell(
                                 onTap: () => onEditChildInfo(context, child),
                                 child: Container(
                                   padding: EdgeInsets.all(10.0),
@@ -248,12 +274,16 @@ class OvcHouseHoldCardBottonContent extends StatelessWidget {
                                       fontWeight: FontWeight.w500,
                                     ),
                                   ),
-                                ))),
+                                ),
+                              ),
+                            ),
+                          )
+                        ],
                       )
-                    ])
-                  ],
-                );
-              }).toList(),
+                    ],
+                  );
+                },
+              ).toList(),
             ),
           ),
           Visibility(
@@ -264,25 +294,29 @@ class OvcHouseHoldCardBottonContent extends StatelessWidget {
                 ),
               )),
           Visibility(
-              visible: canAddChild,
-              child: Container(
-                margin: EdgeInsets.symmetric(vertical: 5.0),
-                child: InkWell(
-                    onTap: () => onAddNewChild(context),
-                    child: Container(
-                      padding: EdgeInsets.all(10.0),
-                      alignment: Alignment.center,
-                      width: double.infinity,
-                      child: Text(
-                        'ADD CHILD',
-                        style: TextStyle().copyWith(
-                          fontSize: 12.0,
-                          color: Color(0xFF4B9F46),
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    )),
-              )),
+            visible: canAddChild,
+            child: Container(
+              margin: EdgeInsets.symmetric(vertical: 5.0),
+              child: InkWell(
+                onTap: () => onAddNewChild(context),
+                child: Container(
+                  padding: EdgeInsets.all(10.0),
+                  alignment: Alignment.center,
+                  width: double.infinity,
+                  child: Text(
+                    currentLanguage == 'lesotho'
+                        ? 'Kenya ngoana e mong'.toLowerCase()
+                        : 'ADD CHILD',
+                    style: TextStyle().copyWith(
+                      fontSize: 12.0,
+                      color: Color(0xFF4B9F46),
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_house_hold_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
+import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_intervention_list_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/sub_module_home_container.dart';
@@ -22,7 +23,6 @@ class OvcExitPage extends StatefulWidget {
 }
 
 class _OvcExitPageState extends State<OvcExitPage> {
-  final String title = 'HOUSEHOLD LIST';
   final bool canEdit = false;
   final bool canView = false;
   final bool canExpand = true;
@@ -33,7 +33,6 @@ class _OvcExitPageState extends State<OvcExitPage> {
   final bool canViewChildReferral = false;
   final bool canViewChildExit = true;
   final bool canAddChildExit = true;
-
   String toggleCardId = '';
 
   void onCardToogle(String cardId) {
@@ -53,53 +52,68 @@ class _OvcExitPageState extends State<OvcExitPage> {
   void onViewGraduation(BuildContext context, OvcHouseHold ovcHouseHold) {
     setOvcHouseHoldCurrentSelection(context, ovcHouseHold);
     Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => OvcHouseHoldGraduation(),
-        ));
+      context,
+      MaterialPageRoute(
+        builder: (context) => OvcHouseHoldGraduation(),
+      ),
+    );
   }
 
   void onViewExit(BuildContext context, OvcHouseHold ovcHouseHold) {
     setOvcHouseHoldCurrentSelection(context, ovcHouseHold);
     Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => OvcHouseHoldExit(),
-        ));
+      context,
+      MaterialPageRoute(
+        builder: (context) => OvcHouseHoldExit(),
+      ),
+    );
   }
 
   void onViewTransfer(BuildContext context, OvcHouseHold ovcHouseHold) {
     setOvcHouseHoldCurrentSelection(context, ovcHouseHold);
     Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => OvcHouseHoldCaseTransfer(),
-        ));
+      context,
+      MaterialPageRoute(
+        builder: (context) => OvcHouseHoldCaseTransfer(),
+      ),
+    );
   }
 
   void onViewClosure(BuildContext context, OvcHouseHold ovcHouseHold) {
     setOvcHouseHoldCurrentSelection(context, ovcHouseHold);
     Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => OvcHouseHoldCaseClosure(),
-        ));
+      context,
+      MaterialPageRoute(
+        builder: (context) => OvcHouseHoldCaseClosure(),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<OvcInterventionListState>(
-      builder: (context, ovcInterventionListState, child) {
-        return SubModuleHomeContainer(
-          header:
-              '$title : ${ovcInterventionListState.numberOfHouseHolds} households',
-          bodyContents: _buildBody(),
-        );
-      },
+    return Container(
+      child: Consumer<LanguageTranslationState>(
+        builder: (context, languageTranslationState, child) {
+          String currentLanguage = languageTranslationState.currentLanguage;
+          return Consumer<OvcInterventionListState>(
+            builder: (context, ovcInterventionListState, child) {
+              String header = currentLanguage == 'lesotho'
+                  ? 'Lethathamo la malapa'.toUpperCase() +
+                      ': ${ovcInterventionListState.numberOfHouseHolds} Malapa'
+                  : 'Household list'.toUpperCase() +
+                      ': ${ovcInterventionListState.numberOfHouseHolds} households';
+              return SubModuleHomeContainer(
+                header: header,
+                bodyContents: _buildBody(currentLanguage),
+              );
+            },
+          );
+        },
+      ),
     );
   }
 
-  Container _buildBody() {
+  Container _buildBody(String currentLanguage) {
     return Container(
       child: Consumer<OvcInterventionListState>(
         builder: (context, ovcInterventionListState, child) {
@@ -108,17 +122,27 @@ class _OvcExitPageState extends State<OvcExitPage> {
               ovcInterventionListState.ovcInterventionList;
           return isLoading
               ? Container(
-                  margin: EdgeInsets.only(top: 20.0),
+                  margin: EdgeInsets.only(
+                    top: 20.0,
+                  ),
                   child: Center(
-                    child: CircularProcessLoader(color: Colors.blueGrey),
+                    child: CircularProcessLoader(
+                      color: Colors.blueGrey,
+                    ),
                   ),
                 )
               : Container(
-                  margin: EdgeInsets.only(top: 16.0),
+                  margin: EdgeInsets.only(
+                    top: 16.0,
+                  ),
                   child: ovcHouseHolds.length == 0
                       ? Center(
-                          child:
-                              Text('There is no household enrolled at moment'))
+                          child: Text(
+                            currentLanguage == 'lesotho'
+                                ? 'Ha hona lelapa le ngolisitsoeng ha hajoale'
+                                : 'There is no household enrolled at moment',
+                          ),
+                        )
                       : Column(
                           children: ovcHouseHolds
                               .map(
@@ -144,79 +168,83 @@ class _OvcExitPageState extends State<OvcExitPage> {
                                           ),
                                     child: Container(
                                       decoration: BoxDecoration(
-                                          color: Color(0XFFF6FAF6)),
+                                        color: Color(0XFFF6FAF6),
+                                      ),
                                       child: Row(
                                         children: [
                                           Expanded(
                                             child: FlatButton(
-                                                padding: EdgeInsets.symmetric(
-                                                    vertical: 5.0,
-                                                    horizontal: 0.0),
-                                                onPressed: () =>
-                                                    onViewGraduation(
-                                                        context, ovcHouseHold),
-                                                child: Text(
-                                                  'GRADUATION',
-                                                  style: TextStyle().copyWith(
-                                                    fontSize: 12.0,
-                                                    color: Color(0xFF4B9F46),
-                                                    fontWeight:
-                                                        FontWeight.normal,
-                                                  ),
-                                                )),
+                                              padding: EdgeInsets.symmetric(
+                                                vertical: 5.0,
+                                                horizontal: 0.0,
+                                              ),
+                                              onPressed: () => onViewGraduation(
+                                                  context, ovcHouseHold),
+                                              child: Text(
+                                                'GRADUATION',
+                                                style: TextStyle().copyWith(
+                                                  fontSize: 12.0,
+                                                  color: Color(0xFF4B9F46),
+                                                  fontWeight: FontWeight.normal,
+                                                ),
+                                              ),
+                                            ),
                                           ),
                                           Expanded(
                                             child: FlatButton(
-                                                padding: EdgeInsets.symmetric(
-                                                    vertical: 5.0,
-                                                    horizontal: 0.0),
-                                                onPressed: () => onViewExit(
-                                                    context, ovcHouseHold),
-                                                child: Text(
-                                                  'EXIT',
-                                                  style: TextStyle().copyWith(
-                                                    fontSize: 12.0,
-                                                    color: Color(0xFF4B9F46),
-                                                    fontWeight:
-                                                        FontWeight.normal,
-                                                  ),
-                                                )),
+                                              padding: EdgeInsets.symmetric(
+                                                vertical: 5.0,
+                                                horizontal: 0.0,
+                                              ),
+                                              onPressed: () => onViewExit(
+                                                  context, ovcHouseHold),
+                                              child: Text(
+                                                'EXIT',
+                                                style: TextStyle().copyWith(
+                                                  fontSize: 12.0,
+                                                  color: Color(0xFF4B9F46),
+                                                  fontWeight: FontWeight.normal,
+                                                ),
+                                              ),
+                                            ),
                                           ),
                                           Container(
                                             child: FlatButton(
-                                                padding: EdgeInsets.symmetric(
-                                                    vertical: 5.0,
-                                                    horizontal: 0.0),
-                                                onPressed: () => onViewTransfer(
-                                                    context, ovcHouseHold),
-                                                child: Text(
-                                                  'TRANSFER',
-                                                  style: TextStyle().copyWith(
-                                                    fontSize: 12.0,
-                                                    color: Color(0xFF4B9F46),
-                                                    fontWeight:
-                                                        FontWeight.normal,
-                                                  ),
-                                                )),
+                                              padding: EdgeInsets.symmetric(
+                                                vertical: 5.0,
+                                                horizontal: 0.0,
+                                              ),
+                                              onPressed: () => onViewTransfer(
+                                                  context, ovcHouseHold),
+                                              child: Text(
+                                                'TRANSFER',
+                                                style: TextStyle().copyWith(
+                                                  fontSize: 12.0,
+                                                  color: Color(0xFF4B9F46),
+                                                  fontWeight: FontWeight.normal,
+                                                ),
+                                              ),
+                                            ),
                                           ),
                                           Expanded(
                                             child: FlatButton(
-                                                padding: EdgeInsets.symmetric(
-                                                    vertical: 5.0,
-                                                    horizontal: 0.0),
-                                                onPressed: () => onViewClosure(
-                                                      context,
-                                                      ovcHouseHold,
-                                                    ),
-                                                child: Text(
-                                                  'CLOSURE',
-                                                  style: TextStyle().copyWith(
-                                                    fontSize: 12.0,
-                                                    color: Color(0xFF4B9F46),
-                                                    fontWeight:
-                                                        FontWeight.normal,
-                                                  ),
-                                                )),
+                                              padding: EdgeInsets.symmetric(
+                                                vertical: 5.0,
+                                                horizontal: 0.0,
+                                              ),
+                                              onPressed: () => onViewClosure(
+                                                context,
+                                                ovcHouseHold,
+                                              ),
+                                              child: Text(
+                                                'CLOSURE',
+                                                style: TextStyle().copyWith(
+                                                  fontSize: 12.0,
+                                                  color: Color(0xFF4B9F46),
+                                                  fontWeight: FontWeight.normal,
+                                                ),
+                                              ),
+                                            ),
                                           )
                                         ],
                                       ),
@@ -224,6 +252,7 @@ class _OvcExitPageState extends State<OvcExitPage> {
                                   ),
                                   cardBottonContent:
                                       OvcHouseHoldCardBottonContent(
+                                    currentLanguage: currentLanguage,
                                     ovcHouseHold: ovcHouseHold,
                                     canAddChild: canAddChild,
                                     canViewChildInfo: canViewChildInfo,
@@ -235,7 +264,8 @@ class _OvcExitPageState extends State<OvcExitPage> {
                                 ),
                               )
                               .toList(),
-                        ));
+                        ),
+                );
         },
       ),
     );

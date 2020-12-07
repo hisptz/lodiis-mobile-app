@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_house_hold_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
+import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/events.dart';
@@ -23,9 +24,7 @@ class OvcChildReferral extends StatefulWidget {
 }
 
 class _OvcChildReferralState extends State<OvcChildReferral> {
-  final String label = 'Child Referral';
   final List<String> programStageids = [OvcChildReferralConstant.referralStage];
-
   void updateFormState(
     BuildContext context,
     bool isEditableMode,
@@ -53,8 +52,12 @@ class _OvcChildReferralState extends State<OvcChildReferral> {
 
   void onAddRefferal(BuildContext context, OvcHouseHoldChild child) {
     updateFormState(context, true, null);
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => OvcChildReferralAddForm()));
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => OvcChildReferralAddForm(),
+      ),
+    );
   }
 
   void onViewChildReferral(
@@ -63,12 +66,14 @@ class _OvcChildReferralState extends State<OvcChildReferral> {
     int referralIndex,
   ) {
     Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => OvcChildReferralView(
-                  eventData: eventData,
-                  referralIndex: referralIndex,
-                )));
+      context,
+      MaterialPageRoute(
+        builder: (context) => OvcChildReferralView(
+          eventData: eventData,
+          referralIndex: referralIndex,
+        ),
+      ),
+    );
   }
 
   void onManageChildReferral(
@@ -77,41 +82,46 @@ class _OvcChildReferralState extends State<OvcChildReferral> {
     int referralIndex,
   ) {
     Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => OvcChildReferralManage(
-                  eventData: eventData,
-                  referralIndex: referralIndex,
-                )));
+      context,
+      MaterialPageRoute(
+        builder: (context) => OvcChildReferralManage(
+          eventData: eventData,
+          referralIndex: referralIndex,
+        ),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    return  Container(
-            child: Consumer<OvcHouseHoldCurrentSelectionState>(
-              builder: (context, ovcHouseHoldCurrentSelectionState, child) {
-                return Consumer<ServiveEventDataState>(
-                  builder: (context, serviceFormState, child) {
-                    OvcHouseHoldChild currentOvcHouseHoldChild =
-                        ovcHouseHoldCurrentSelectionState
-                            .currentOvcHouseHoldChild;
-                    bool isLoading = serviceFormState.isLoading;
-                    Map<String, List<Events>> eventListByProgramStage =
-                        serviceFormState.eventListByProgramStage;
-                    List<Events> events = TrackedEntityInstanceUtil
-                        .getAllEventListFromServiceDataState(
-                            eventListByProgramStage, programStageids);
-                    int referralIndex = events.length;
-                    return Container(
-                      child: Column(
-                        children: [
-                          Container(
-                            child: isLoading
-                                ? CircularProcessLoader(
-                                    color: Colors.blueGrey,
-                                  )
-                                : 
-Column(
+    return Container(
+      child: Consumer<LanguageTranslationState>(
+        builder: (context, languageTranslationState, child) {
+          String currentLanguage = languageTranslationState.currentLanguage;
+          return Consumer<OvcHouseHoldCurrentSelectionState>(
+            builder: (context, ovcHouseHoldCurrentSelectionState, child) {
+              return Consumer<ServiveEventDataState>(
+                builder: (context, serviceFormState, child) {
+                  OvcHouseHoldChild currentOvcHouseHoldChild =
+                      ovcHouseHoldCurrentSelectionState
+                          .currentOvcHouseHoldChild;
+                  bool isLoading = serviceFormState.isLoading;
+                  Map<String, List<Events>> eventListByProgramStage =
+                      serviceFormState.eventListByProgramStage;
+                  List<Events> events = TrackedEntityInstanceUtil
+                      .getAllEventListFromServiceDataState(
+                          eventListByProgramStage, programStageids);
+                  int referralIndex = events.length;
+                  return Container(
+                    child: Column(
+                      children: [
+                        Container(
+                          child: isLoading
+                              ? CircularProcessLoader(
+                                  color: Colors.blueGrey,
+                                )
+                              : Container(
+                                  child: Column(
                                     children: [
                                       Container(
                                         margin: EdgeInsets.symmetric(
@@ -119,7 +129,10 @@ Column(
                                         ),
                                         child: events.length == 0
                                             ? Text(
-                                                'There is no Child Referrals at a moment')
+                                                currentLanguage == 'lesotho'
+                                                    ? 'Ha ho ngoana ea seng a referiloe'
+                                                    : 'There is no Child Referrals at a moment',
+                                              )
                                             : Container(
                                                 margin: EdgeInsets.symmetric(
                                                   vertical: 5.0,
@@ -170,30 +183,30 @@ Column(
                                               ),
                                       ),
                                       OvcEnrollmentFormSaveButton(
-                                          label: 'ADD REFERRAL',
-                                          labelColor: Colors.white,
-                                          buttonColor: Color(0xFF4B9F46),
-                                          fontSize: 15.0,
-                                          onPressButton: () => onAddRefferal(
-                                              context,
-                                              currentOvcHouseHoldChild))
+                                        label: currentLanguage == 'lesotho'
+                                            ? 'Kenya Referral'.toUpperCase()
+                                            : 'ADD REFERRAL',
+                                        labelColor: Colors.white,
+                                        buttonColor: Color(0xFF4B9F46),
+                                        fontSize: 15.0,
+                                        onPressButton: () => onAddRefferal(
+                                          context,
+                                          currentOvcHouseHoldChild,
+                                        ),
+                                      )
                                     ],
-                                  ) ,
-                          )
-                        ],
-                      ),
-                    );
-                  },
-                );
-              },
-            ),
+                                  ),
+                                ),
+                        )
+                      ],
+                    ),
+                  );
+                },
+              );
+            },
           );
-       
+        },
+      ),
+    );
   }
 }
-
-
-
-
-
-
