@@ -13,39 +13,47 @@ class OvcSchoolMonitoring {
           inputFields: [
             InputField(
                 id: 'Uw2Z1XNFgXI',
-                name: 'Is the child still in school?',
+                name: '1. Is the child still in school?',
+                translatedName: '1. Na ngoana on ntse a kena sekolo?',
                 valueType: 'BOOLEAN',
                 inputColor: Color(0xFF4A9F46),
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 't6kN1SwgMSs',
-                name: 'School name?',
+                name: '2. School name?',
+                translatedName: '2. Lebitso la Sekolo?',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4A9F46),
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'yYuNppDTRji',
                 name: 'Grade?',
+                translatedName: 'Sehlopha',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4A9F46),
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'vigylZN5Wjz',
-                name: 'Why is the child not in school?',
+                name: '3. Why is the child not in school?',
+                translatedName: '3. Ha Karabo e le Che, Fana ka Mabaka',
                 valueType: 'LONG_TEXT',
                 inputColor: Color(0xFF4A9F46),
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'vci20we0Ypg',
                 name:
-                    'Has the child/OVC missed school for 10 or more consecutive days?',
+                    '4. Has the child/OVC missed school for 10 or more consecutive days?',
+                translatedName:
+                    '4. Na khoeling tse tharo tse fetileng ngoana o la ka se ee sekolong matsatsi a 10 a hlahlamanang?',
                 valueType: 'BOOLEAN',
                 inputColor: Color(0xFF4A9F46),
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'O8VSN74kSJx',
                 name:
-                    'Did the child/OVC have any challenges related to school that could have led to low/bad/poor performance?',
+                    '5. Did the child/OVC have any challenges related to school that could have led to low/bad/poor performance?',
+                translatedName:
+                    '5. Na ngoana o bile le mathata a amanang le ho kena sekolo a neng a ka ama tsebetso ea hae sekolong?',
                 valueType: 'BOOLEAN',
                 inputColor: Color(0xFF4A9F46),
                 labelColor: Color(0xFF737373)),
@@ -53,13 +61,16 @@ class OvcSchoolMonitoring {
                 id: 'na5YEZYwY0l',
                 name:
                     'What were the challenges the child had related to school that could have led to low/bad performance?',
+                translatedName: 'Ha Karabo e le E, Fana ka Mabaka',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4A9F46),
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'sCR0ebG3UWX',
                 name:
-                    'Does the caregiver play any role to boost the child school performance?',
+                    '6. Does the caregiver play any role to boost the child school performance?',
+                translatedName:
+                    '6. Na Mohlokomeli o na le karolo eo a e bapalang ho thusa ho nyolla mosebetsi oa ngoana oa sekolo?',
                 valueType: 'BOOLEAN',
                 inputColor: Color(0xFF4A9F46),
                 labelColor: Color(0xFF737373)),
@@ -67,13 +78,16 @@ class OvcSchoolMonitoring {
                 id: 'IWxxfSkEplj',
                 name:
                     'Explain how caregiver boost the child school performance',
+                translatedName: 'Hlalosa Karabo ea hau',
                 valueType: 'LONG_TEXT',
                 inputColor: Color(0xFF4A9F46),
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'fZEQ0wIyB5h',
                 name:
-                    'Comparing the last quarter to the current quarter performance; how has the child performed?',
+                    '8. Comparing the last quarter to the current quarter performance; how has the child performed?',
+                translatedName:
+                    '8. Ha o bapisa sephetho sa nako e fetileng le sa hona joale, ngoana o sebelitseng joang?',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4B9F46),
                 labelColor: Color(0xFF737373),
@@ -85,13 +99,16 @@ class OvcSchoolMonitoring {
             InputField(
                 id: 'iBanzhFYlRN',
                 name:
-                    'What are the Caregiver’s comments about child attendance and performance',
+                    '9. What are the Caregiver’s comments about child attendance and performance',
+                translatedName:
+                    '9. Maikutlo a Mohlokomeli ke a fe ke tsela eo ngoana a kenang sekolo ka eona le tsebetso ea hae sekolong?',
                 valueType: 'LONG_TEXT',
                 inputColor: Color(0xFF4A9F46),
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'uEeaGfuxHyV',
                 name: 'End of Quarter/year Result',
+                translatedName: 'Sephetho sa qetello ea kotara kapa selemo',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4B9F46),
                 labelColor: Color(0xFF737373),
@@ -104,17 +121,23 @@ class OvcSchoolMonitoring {
             InputField(
                 id: 'zpykd7zvLsC',
                 name: 'End of year result',
+                translatedName: 'Sephetho sa qetello ea selemo',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4B9F46),
                 labelColor: Color(0xFF737373),
                 options: [
                   InputFieldOption(
                       code: 'Progressing to next grade',
+                      translatedName: 'O ea sehlopheng se seng ',
                       name: 'Progressing to next grade'),
                   InputFieldOption(
                       code: 'Repeating same grade',
+                      translatedName: 'O pheta sehlopha',
                       name: 'Repeating same grade'),
-                  InputFieldOption(code: 'Dropped-out', name: 'Dropped-out')
+                  InputFieldOption(
+                      code: 'Dropped-out',
+                      translatedName: 'O tlohela sekola',
+                      name: 'Dropped-out')
                 ]),
           ])
     ];
