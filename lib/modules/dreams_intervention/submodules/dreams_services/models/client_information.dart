@@ -162,7 +162,8 @@ class ClientInformation {
                       code: 'Assist/ Sentebale', name: 'Assist/ Sentebale'),
                   InputFieldOption(code: 'IPC', name: 'IPC'),
                   InputFieldOption(code: 'M2M', name: 'M2M'),
-                  InputFieldOption(code: 'CRS or Caritas', name: 'CRS/KB'),
+                  InputFieldOption(
+                      code: 'CRS or Caritas', name: 'CRS or KB'),
                   InputFieldOption(code: 'Promo', name: 'Promo'),
                   InputFieldOption(code: 'WVI', name: 'WVI'),
                   InputFieldOption(

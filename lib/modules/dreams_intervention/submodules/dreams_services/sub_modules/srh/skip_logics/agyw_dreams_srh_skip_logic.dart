@@ -25,31 +25,42 @@ class AgywDreamsSrhSkipLogic {
       if (inputFieldId == 'qjMmrl5bpCx' && value != 'true') {
         hiddenFields['XZBP09HGzqn'] = true;
         hiddenFields['kV6uCz4uLLR'] = true;
-         hiddenFields['rE25suIpzDK'] = true;
+        hiddenFields['rE25suIpzDK'] = true;
       }
       if (inputFieldId == 'rE25suIpzDK' && value != 'false') {
         hiddenFields['UZxZebenwuv'] = true;
         hiddenFields['aHpvyQyfyBM'] = true;
       }
+      if (inputFieldId == 'rE25suIpzDK' && value != 'true') {
+        hiddenFields['XdF6espdxoH'] = true;
+      }
+      if (inputFieldId == 'UZxZebenwuv' && value != 'true') {
+        hiddenFields['aHpvyQyfyBM'] = true;
+      }
+      if (inputFieldId == 'EKVxsIYImj6' && value != 'true') {
+        hiddenFields['ePI1QpCOK7z'] = true;
+        hiddenFields['ny2UH7CAZQB'] = true;
+      }
 
-       if (inputFieldId == 'C2k7GxU3P5C' && value != 'true') {
+      if (inputFieldId == 'C2k7GxU3P5C' && value != 'true') {
         hiddenFields['aYeHcF3793X'] = true;
-              }  
+      }
 
-          if (inputFieldId == 'ukzLG0l63tw' && value != 'Other') {
+      if (inputFieldId == 'ukzLG0l63tw' && value != 'Other') {
         hiddenFields['uLV0xy0iihA'] = true;
-              } 
+      }
 
-       if (inputFieldId == 'BXW4IP4Lfe7' && value != 'Other') {
+      if (inputFieldId == 'BXW4IP4Lfe7' && value != 'Other') {
         hiddenFields['Sj45q8zEcqx'] = true;
-              } 
+      }
     }
     for (String sectionId in hiddenSections.keys) {
       List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections
           .where((formSection) => formSection.id == sectionId)
           .toList());
-      for (String inputFieldId in inputFieldIds){
-        hiddenFields[inputFieldId] = true;      }
+      for (String inputFieldId in inputFieldIds) {
+        hiddenFields[inputFieldId] = true;
+      }
     }
     resetValuesForHiddenFields(context, hiddenFields.keys);
     resetValuesForHiddenSections(context, formSections);
