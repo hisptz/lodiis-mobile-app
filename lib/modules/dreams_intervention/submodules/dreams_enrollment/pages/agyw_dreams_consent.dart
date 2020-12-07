@@ -15,7 +15,7 @@ import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/models/agyw_enrollment_consent.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/skip_logics/agyw_dreams_enrollment_skip_logic.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
+import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:provider/provider.dart';
 import 'agyw_dreams_risk_assessment.dart';
 
@@ -140,7 +140,7 @@ class _AgywEnrollmentConsetFormState extends State<AgywDreamsConsentForm> {
                                       onInputValueChange: onInputValueChange,
                                     ),
                                   ),
-                                  OvcEnrollmentFormSaveButton(
+                                  EntryFormSaveButton(
                                     label: currentLanguage == 'lesotho'
                                         ? 'Boloka ebe u fetela pele'
                                         : 'Save and Continue',

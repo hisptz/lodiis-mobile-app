@@ -16,7 +16,7 @@ import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/models/ovc_house_hold.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
+import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold_top_header.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/services/ovc_enrollment_child_services.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/models/ovc_enrollment_child.dart';
@@ -138,87 +138,107 @@ class _OvcEnrollmentChildEditViewFormState
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: Scaffold(
-            appBar: PreferredSize(
-              preferredSize: Size.fromHeight(65.0),
-              child: Consumer<IntervetionCardState>(
-                builder: (context, intervetionCardState, child) {
-                  InterventionCard activeInterventionProgram =
-                      intervetionCardState.currentIntervetionProgram;
-                  return SubPageAppBar(
-                    label: label,
-                    activeInterventionProgram: activeInterventionProgram,
-                  );
-                },
-              ),
-            ),
-            body: SubPageBody(
-              body: Container(
-                child: !isFormReady
-                    ? Column(
-                        children: [
-                          Center(
-                            child: CircularProcessLoader(
-                              color: Colors.blueGrey,
-                            ),
-                          )
-                        ],
+      child: Scaffold(
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(65.0),
+          child: Consumer<IntervetionCardState>(
+            builder: (context, intervetionCardState, child) {
+              InterventionCard activeInterventionProgram =
+                  intervetionCardState.currentIntervetionProgram;
+              return SubPageAppBar(
+                label: label,
+                activeInterventionProgram: activeInterventionProgram,
+              );
+            },
+          ),
+        ),
+        body: SubPageBody(
+          body: Container(
+            child: !isFormReady
+                ? Column(
+                    children: [
+                      Center(
+                        child: CircularProcessLoader(
+                          color: Colors.blueGrey,
+                        ),
                       )
-                    : Column(children: [
-                        Container(
-                          child: Consumer<OvcHouseHoldCurrentSelectionState>(
-                            builder: (context,
-                                ovcHouseHoldCurrentSelectionState, child) {
-                              OvcHouseHold currentOvcHouseHold =
-                                  ovcHouseHoldCurrentSelectionState
-                                      .currentOvcHouseHold;
-                              return OvcHouseHoldInfoTopHeader(
-                                currentOvcHouseHold: currentOvcHouseHold,
-                              );
-                            },
-                          ),
+                    ],
+                  )
+                : Column(
+                    children: [
+                      Container(
+                        child: Consumer<OvcHouseHoldCurrentSelectionState>(
+                          builder: (context, ovcHouseHoldCurrentSelectionState,
+                              child) {
+                            OvcHouseHold currentOvcHouseHold =
+                                ovcHouseHoldCurrentSelectionState
+                                    .currentOvcHouseHold;
+                            return OvcHouseHoldInfoTopHeader(
+                              currentOvcHouseHold: currentOvcHouseHold,
+                            );
+                          },
                         ),
-                        Container(
-                          margin: EdgeInsets.symmetric(
-                              vertical: 16.0, horizontal: 13.0),
-                          child: Consumer<EnrollmentFormState>(
-                            builder: (context, enrollmentFormState, child) {
-                              return Column(
-                                children: [
-                                  Container(
-                                    child: EntryFormContainer(
-                                      hiddenFields:
-                                          enrollmentFormState.hiddenFields,
-                                      hiddenSections:
-                                          enrollmentFormState.hiddenSections,
-                                      formSections: formSections,
-                                      mandatoryFieldObject:
-                                          mandatoryFieldObject,
-                                      isEditableMode:
+                      ),
+                      Container(
+                        margin: EdgeInsets.symmetric(
+                          vertical: 16.0,
+                          horizontal: 13.0,
+                        ),
+                        child: Consumer<LanguageTranslationState>(
+                          builder: (context, languageTranslationState, child) {
+                            String currentLanguage =
+                                languageTranslationState.currentLanguage;
+                            return Consumer<EnrollmentFormState>(
+                              builder: (context, enrollmentFormState, child) {
+                                return Column(
+                                  children: [
+                                    Container(
+                                      child: EntryFormContainer(
+                                        hiddenFields:
+                                            enrollmentFormState.hiddenFields,
+                                        hiddenSections:
+                                            enrollmentFormState.hiddenSections,
+                                        formSections: formSections,
+                                        mandatoryFieldObject:
+                                            mandatoryFieldObject,
+                                        isEditableMode:
+                                            enrollmentFormState.isEditableMode,
+                                        dataObject:
+                                            enrollmentFormState.formState,
+                                        onInputValueChange: onInputValueChange,
+                                      ),
+                                    ),
+                                    Visibility(
+                                      visible:
                                           enrollmentFormState.isEditableMode,
-                                      dataObject: enrollmentFormState.formState,
-                                      onInputValueChange: onInputValueChange,
-                                    ),
-                                  ),
-                                  Visibility(
-                                    visible: enrollmentFormState.isEditableMode,
-                                    child: OvcEnrollmentFormSaveButton(
-                                      label: isSaving ? 'Saving ...' : 'Save',
-                                      labelColor: Colors.white,
-                                      buttonColor: Color(0xFF4B9F46),
-                                      fontSize: 15.0,
-                                      onPressButton: () => onSaveForm(context,
-                                          enrollmentFormState.formState),
-                                    ),
-                                  )
-                                ],
-                              );
-                            },
-                          ),
+                                      child: EntryFormSaveButton(
+                                        label: isSaving
+                                            ? 'Saving ...'
+                                            : currentLanguage == 'lesotho'
+                                                ? 'Boloka'
+                                                : 'Save',
+                                        labelColor: Colors.white,
+                                        buttonColor: Color(0xFF4B9F46),
+                                        fontSize: 15.0,
+                                        onPressButton: () => onSaveForm(
+                                          context,
+                                          enrollmentFormState.formState,
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                );
+                              },
+                            );
+                          },
                         ),
-                      ]),
-              ),
-            ),
-            bottomNavigationBar: InterventionBottomNavigationBarContainer()));
+                      ),
+                    ],
+                  ),
+          ),
+        ),
+        bottomNavigationBar: InterventionBottomNavigationBarContainer(),
+      ),
+    );
   }
 }

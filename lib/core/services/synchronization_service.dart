@@ -88,8 +88,6 @@ class SynchronizationService {
     return teiRelationshipsFromServer;
   }
 
-
-
   Future saveEventsToOffline(Events event) async {
     EventOfflineProvider().addOrUpdateEvent(event);
   }
@@ -255,7 +253,7 @@ class SynchronizationService {
     body['relationships'] = teiRelationShips
         .map((relationship) => relationship.toOnline())
         .toList();
-    var response = await httpClient.httpPost(url, json.encode(body));
+    await httpClient.httpPost(url, json.encode(body));
   }
 
   List<String> _getReferenceids(Map body) {

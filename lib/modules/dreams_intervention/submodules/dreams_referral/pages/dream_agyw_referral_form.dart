@@ -20,7 +20,7 @@ import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_benef
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_referral/constant/dream_agyw_referral_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_referral/models/dream_referral.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_referral/skip_logics/dream_agyw_referral.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
+import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:provider/provider.dart';
 
 class DreamAgywAddReferralForm extends StatefulWidget {
@@ -134,78 +134,94 @@ class _DreamAgywAddReferralFormState extends State<DreamAgywAddReferralForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(65.0),
-          child: Consumer<IntervetionCardState>(
-            builder: (context, intervetionCardState, child) {
-              InterventionCard activeInterventionProgram =
-                  intervetionCardState.currentIntervetionProgram;
-              return SubPageAppBar(
-                label: label,
-                activeInterventionProgram: activeInterventionProgram,
-              );
-            },
-          ),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(65.0),
+        child: Consumer<IntervetionCardState>(
+          builder: (context, intervetionCardState, child) {
+            InterventionCard activeInterventionProgram =
+                intervetionCardState.currentIntervetionProgram;
+            return SubPageAppBar(
+              label: label,
+              activeInterventionProgram: activeInterventionProgram,
+            );
+          },
         ),
-        body: SubPageBody(
-          body: Container(child: Consumer<DreamBenefeciarySelectionState>(
-            builder: (context, dreamBeneficiaryCurrentSelectionState, child) {
-              AgywDream currentAgywDream =
-                  dreamBeneficiaryCurrentSelectionState.currentAgywDream;
-
-              return Consumer<ServiceFormState>(
-                builder: (context, serviceFormState, child) {
-                  return Container(
-                    child: Column(
-                      children: [
-                        DreamBenefeciaryTopHeader(agywDream: currentAgywDream),
-                        !isFormReady
-                            ? Container(
-                                child: CircularProcessLoader(
-                                  color: Colors.blueGrey,
-                                ),
-                              )
-                            : Column(
-                                children: [
-                                  Container(
-                                    margin: EdgeInsets.only(
-                                      top: 10.0,
-                                      left: 13.0,
-                                      right: 13.0,
+      ),
+      body: SubPageBody(
+        body: Container(
+          child: Consumer<LanguageTranslationState>(
+            builder: (context, languageTranslationState, child) {
+              String currentLanguage = languageTranslationState.currentLanguage;
+              return Consumer<DreamBenefeciarySelectionState>(
+                builder:
+                    (context, dreamBeneficiaryCurrentSelectionState, child) {
+                  AgywDream currentAgywDream =
+                      dreamBeneficiaryCurrentSelectionState.currentAgywDream;
+                  return Consumer<ServiceFormState>(
+                    builder: (context, serviceFormState, child) {
+                      return Container(
+                        child: Column(
+                          children: [
+                            DreamBenefeciaryTopHeader(
+                                agywDream: currentAgywDream),
+                            !isFormReady
+                                ? Container(
+                                    child: CircularProcessLoader(
+                                      color: Colors.blueGrey,
                                     ),
-                                    child: EntryFormContainer(
-                                      hiddenFields:
-                                          serviceFormState.hiddenFields,
-                                      hiddenSections:
-                                          serviceFormState.hiddenSections,
-                                      formSections: formSections,
-                                      mandatoryFieldObject: Map(),
-                                      isEditableMode:
-                                          serviceFormState.isEditableMode,
-                                      dataObject: serviceFormState.formState,
-                                      onInputValueChange: onInputValueChange,
-                                    ),
-                                  ),
-                                  OvcEnrollmentFormSaveButton(
-                                    label: isSaving ? 'Saving ...' : 'Save',
-                                    labelColor: Colors.white,
-                                    buttonColor: Color(0xFF1F8ECE),
-                                    fontSize: 15.0,
-                                    onPressButton: () => onSaveForm(
-                                        context,
-                                        serviceFormState.formState,
-                                        currentAgywDream),
                                   )
-                                ],
-                              )
-                      ],
-                    ),
+                                : Column(
+                                    children: [
+                                      Container(
+                                        margin: EdgeInsets.only(
+                                          top: 10.0,
+                                          left: 13.0,
+                                          right: 13.0,
+                                        ),
+                                        child: EntryFormContainer(
+                                          hiddenFields:
+                                              serviceFormState.hiddenFields,
+                                          hiddenSections:
+                                              serviceFormState.hiddenSections,
+                                          formSections: formSections,
+                                          mandatoryFieldObject: Map(),
+                                          isEditableMode:
+                                              serviceFormState.isEditableMode,
+                                          dataObject:
+                                              serviceFormState.formState,
+                                          onInputValueChange:
+                                              onInputValueChange,
+                                        ),
+                                      ),
+                                      EntryFormSaveButton(
+                                        label: isSaving
+                                            ? 'Saving ...'
+                                            : currentLanguage == 'lesotho'
+                                                ? 'Boloka'
+                                                : 'Save',
+                                        labelColor: Colors.white,
+                                        buttonColor: Color(0xFF1F8ECE),
+                                        fontSize: 15.0,
+                                        onPressButton: () => onSaveForm(
+                                          context,
+                                          serviceFormState.formState,
+                                          currentAgywDream,
+                                        ),
+                                      )
+                                    ],
+                                  )
+                          ],
+                        ),
+                      );
+                    },
                   );
                 },
               );
             },
-          )),
+          ),
         ),
-        bottomNavigationBar: InterventionBottomNavigationBarContainer());
+      ),
+      bottomNavigationBar: InterventionBottomNavigationBarContainer(),
+    );
   }
 }

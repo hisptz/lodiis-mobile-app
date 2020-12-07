@@ -17,7 +17,7 @@ import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/models/ovc_house_hold_child.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_child_info_top_header.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
+import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_caseplan.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_child_caseplan_gaps.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_case_plan/constants/ovc_child_case_plan_constant.dart';
@@ -194,72 +194,83 @@ class _OcvChildCasePlanFormState extends State<OcvChildCasePlanForm> {
         ),
         body: SubPageBody(
           body: Container(
-            child: Consumer<OvcHouseHoldCurrentSelectionState>(
-              builder: (context, ovcHouseHoldCurrentSelectionState, child) {
-                OvcHouseHoldChild currentOvcHouseHoldChild =
-                    ovcHouseHoldCurrentSelectionState.currentOvcHouseHoldChild;
-                return Consumer<ServiceFormState>(
-                  builder: (context, serviceFormState, child) {
-                    Map dataObject = serviceFormState.formState;
-                    return Container(
-                      child: !isFormReady
-                          ? Container(
-                              child: CircularProcessLoader(
-                                color: Colors.blueGrey,
-                              ),
-                            )
-                          : Column(
-                              children: [
-                                OvcChildInfoTopHeader(),
-                                Container(
-                                  margin: EdgeInsets.only(
-                                    top: 10.0,
-                                    left: 13.0,
-                                    right: 13.0,
-                                  ),
-                                  child: Column(
-                                    children: formSections
-                                        .map(
-                                          (FormSection formSection) =>
-                                              CasePlanFormContainer(
-                                            shouldAddCasePlanGap:
-                                                widget.shouldAddCasePlanGap,
-                                            shouldEditCaseGapFollowUps: widget
-                                                .shouldEditCaseGapFollowUps,
-                                            shouldViewCaseGapFollowUp: widget
-                                                .shouldViewCaseGapFollowUp,
-                                            formSectionColor:
-                                                borderColors[formSection.id],
-                                            formSection: formSection,
-                                            dataObject:
-                                                dataObject[formSection.id],
-                                            isEditableMode:
-                                                serviceFormState.isEditableMode,
-                                            onInputValueChange: (
-                                              dynamic value,
-                                            ) =>
-                                                onInputValueChange(
-                                                    formSection.id, value),
-                                          ),
-                                        )
-                                        .toList(),
-                                  ),
-                                ),
-                                Visibility(
-                                  visible: serviceFormState.isEditableMode,
-                                  child: OvcEnrollmentFormSaveButton(
-                                    label: isSaving ? 'Saving ...' : 'Save',
-                                    labelColor: Colors.white,
-                                    buttonColor: Color(0xFF4B9F46),
-                                    fontSize: 15.0,
-                                    onPressButton: () => onSaveForm(
-                                        context,
-                                        serviceFormState.formState,
-                                        currentOvcHouseHoldChild),
+            child: Consumer<LanguageTranslationState>(
+              builder: (context, languageTranslationState, child) {
+                String currentLanguage =
+                    languageTranslationState.currentLanguage;
+                return Consumer<OvcHouseHoldCurrentSelectionState>(
+                  builder: (context, ovcHouseHoldCurrentSelectionState, child) {
+                    OvcHouseHoldChild currentOvcHouseHoldChild =
+                        ovcHouseHoldCurrentSelectionState
+                            .currentOvcHouseHoldChild;
+                    return Consumer<ServiceFormState>(
+                      builder: (context, serviceFormState, child) {
+                        Map dataObject = serviceFormState.formState;
+                        return Container(
+                          child: !isFormReady
+                              ? Container(
+                                  child: CircularProcessLoader(
+                                    color: Colors.blueGrey,
                                   ),
                                 )
-                              ],
-                            ),
+                              : Column(
+                                  children: [
+                                    OvcChildInfoTopHeader(),
+                                    Container(
+                                      margin: EdgeInsets.only(
+                                        top: 10.0,
+                                        left: 13.0,
+                                        right: 13.0,
+                                      ),
+                                      child: Column(
+                                        children: formSections
+                                            .map(
+                                              (FormSection formSection) =>
+                                                  CasePlanFormContainer(
+                                                shouldAddCasePlanGap:
+                                                    widget.shouldAddCasePlanGap,
+                                                shouldEditCaseGapFollowUps: widget
+                                                    .shouldEditCaseGapFollowUps,
+                                                shouldViewCaseGapFollowUp: widget
+                                                    .shouldViewCaseGapFollowUp,
+                                                formSectionColor: borderColors[
+                                                    formSection.id],
+                                                formSection: formSection,
+                                                dataObject:
+                                                    dataObject[formSection.id],
+                                                isEditableMode: serviceFormState
+                                                    .isEditableMode,
+                                                onInputValueChange: (
+                                                  dynamic value,
+                                                ) =>
+                                                    onInputValueChange(
+                                                        formSection.id, value),
+                                              ),
+                                            )
+                                            .toList(),
+                                      ),
+                                    ),
+                                    Visibility(
+                                      visible: serviceFormState.isEditableMode,
+                                      child: EntryFormSaveButton(
+                                        label: isSaving
+                                            ? 'Saving ...'
+                                            : currentLanguage == 'lesotho'
+                                                ? 'Boloka'
+                                                : 'Save',
+                                        labelColor: Colors.white,
+                                        buttonColor: Color(0xFF4B9F46),
+                                        fontSize: 15.0,
+                                        onPressButton: () => onSaveForm(
+                                            context,
+                                            serviceFormState.formState,
+                                            currentOvcHouseHoldChild),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                        );
+                      },
                     );
                   },
                 );
