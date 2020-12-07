@@ -12,6 +12,8 @@ class OvcReferralOutCome {
             InputField(
               id: 'p7saxV2libq',
               name: 'Date client reached the referral station',
+              translatedName:
+                  'Letsatsi, khoeli le selemo se mosebeletsuoa a fumanang ts’ebeletso',
               valueType: 'DATE',
               inputColor: Color(0xFF4B9F46),
               labelColor: Color(0xFF737373),
