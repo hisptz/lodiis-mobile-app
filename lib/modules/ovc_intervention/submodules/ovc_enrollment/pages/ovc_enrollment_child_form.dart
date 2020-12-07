@@ -4,7 +4,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
-import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_intervention_list_state.dart';
 import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
@@ -105,6 +104,9 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
       }
       if (inputFieldId == 'Sa0KVprHUr7' && value != 'Date') {
         hiddenFields['XZh0Uew9Xk0'] = true;
+      }
+      if (inputFieldId == 'omUPOnb4JVp' && value != 'true') {
+        hiddenFields['WsmWkkFBiT6'] = true;
       }
     }
     for (String sectionId in hiddenSections.keys) {

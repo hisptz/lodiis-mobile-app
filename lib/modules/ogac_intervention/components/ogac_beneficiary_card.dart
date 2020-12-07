@@ -156,7 +156,9 @@ class OgacBeneficiaryCard extends StatelessWidget {
                               children: [
                                 Expanded(
                                   child: Text(
-                                    'Sex',
+                                    currentLanguage == 'lesotho'
+                                        ? 'Boleng'
+                                        : 'Sex',
                                     style: TextStyle().copyWith(
                                       color: Color(0xFF651900).withOpacity(0.4),
                                       fontSize: 14.0,

@@ -72,7 +72,9 @@ class DreamBenefeciaryTopHeader extends StatelessWidget {
                               Expanded(
                                 child: RichText(
                                   text: TextSpan(
-                                    text: 'Sex  ',
+                                    text: currentLanguage == 'lesotho'
+                                        ? 'Boleng  '
+                                        : 'Sex  ',
                                     style: TextStyle().copyWith(
                                       fontSize: 12.0,
                                       fontWeight: FontWeight.w500,

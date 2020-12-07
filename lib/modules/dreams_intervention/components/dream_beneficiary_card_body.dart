@@ -69,7 +69,8 @@ class DreamBeneficiaryCardBody extends StatelessWidget {
                       Container(
                         margin: EdgeInsets.only(bottom: 10),
                         child: VerticalRowCardData(
-                          label: 'Sex',
+                          label:
+                              currentLanguage == 'lesotho' ? 'Boleng' : 'Sex',
                           value: agywBeneficiary.sex,
                           labelColor: labelColor,
                           valueColor: valueColor,
@@ -131,7 +132,10 @@ class DreamBeneficiaryCardBody extends StatelessWidget {
                                               HorizontalRowCardData(
                                                 labelColor: labelColor,
                                                 valueColor: valueColor,
-                                                label: 'Sex',
+                                                label:
+                                                    currentLanguage == 'lesotho'
+                                                        ? 'Boleng'
+                                                        : 'Sex',
                                                 value: agywBeneficiary.sex,
                                               ),
                                             ],

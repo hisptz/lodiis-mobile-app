@@ -51,6 +51,7 @@ class OvcEnrollmentHouseHold {
                   InputField(
                     id: 'WTZ7GLTrE8Q',
                     name: 'First Name',
+                    translatedName: 'Lebitso la pele',
                     valueType: 'TEXT',
                     isReadOnly: true,
                     inputColor: Color(0xFF4B9F46),
@@ -59,6 +60,7 @@ class OvcEnrollmentHouseHold {
                   InputField(
                     id: 's1HaiT6OllL',
                     name: 'Middle Name',
+                    translatedName: 'Lebitso le mahareng',
                     valueType: 'TEXT',
                     inputColor: Color(0xFF4B9F46),
                     labelColor: Color(0xFF737373),
@@ -66,6 +68,7 @@ class OvcEnrollmentHouseHold {
                   InputField(
                     id: 'rSP9c21JsfC',
                     name: 'Surname',
+                    translatedName: 'Le Fane',
                     valueType: 'TEXT',
                     isReadOnly: true,
                     inputColor: Color(0xFF4B9F46),
@@ -81,6 +84,7 @@ class OvcEnrollmentHouseHold {
                   InputField(
                     id: 'qZP982qpSPS',
                     name: 'Date of Birth',
+                    translatedName: 'Letsatsi la tsoalo ',
                     valueType: 'DATE',
                     inputColor: Color(0xFF4B9F46),
                     labelColor: Color(0xFF737373),
@@ -100,18 +104,26 @@ class OvcEnrollmentHouseHold {
                   InputField(
                       id: 'vIX4GTSCX4P',
                       name: 'Sex',
+                      translatedName: 'Boleng',
                       isReadOnly: true,
                       valueType: 'TEXT',
                       inputColor: Color(0xFF4B9F46),
                       labelColor: Color(0xFF737373),
                       renderAsRadio: true,
                       options: [
-                        InputFieldOption(code: 'Male', name: 'Male'),
-                        InputFieldOption(code: 'Female', name: 'Female'),
+                        InputFieldOption(
+                            code: 'Male',
+                            name: 'Male',
+                            translatedName: 'Botona'),
+                        InputFieldOption(
+                            code: 'Female',
+                            name: 'Female',
+                            translatedName: 'Botsehali'),
                       ]),
                   InputField(
                       id: 's1eRvsL2Ly4',
                       name: 'Marital Status',
+                      translatedName: 'Maemo a lenyalo',
                       valueType: 'TEXT',
                       inputColor: Color(0xFF4B9F46),
                       labelColor: Color(0xFF737373),

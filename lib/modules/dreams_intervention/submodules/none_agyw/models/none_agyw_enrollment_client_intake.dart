@@ -102,6 +102,7 @@ class NoneAgywEnrollmentFormSection {
           InputField(
             id: 'vIX4GTSCX4P',
             name: 'Sex',
+            translatedName: 'Boleng',
             valueType: 'TEXT',
             inputColor: Color(0xFF258DCC),
             labelColor: Color(0xFF737373),
@@ -111,11 +112,12 @@ class NoneAgywEnrollmentFormSection {
             ],
           ),
           InputField(
-              id: 'qZP982qpSPS',
-              name: 'Date of Birth',
-              valueType: 'DATE',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+            id: 'qZP982qpSPS',
+            name: 'Date of Birth',
+            valueType: 'DATE',
+            inputColor: Color(0xFF258DCC),
+            labelColor: Color(0xFF737373),
+          ),
           InputField(
               id: 'ls9hlz2tyol',
               name: 'Age',

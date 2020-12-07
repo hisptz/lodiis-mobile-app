@@ -107,6 +107,7 @@ class AgywEnrollmentFormSection {
           InputField(
             id: 'VJiWumvINR6',
             name: 'Sex',
+            translatedName: 'Boleng',
             valueType: 'TEXT',
             isReadOnly: true,
             inputColor: Color(0xFF258DCC),

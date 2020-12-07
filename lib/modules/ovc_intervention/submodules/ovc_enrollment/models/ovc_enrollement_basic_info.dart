@@ -33,6 +33,7 @@ class OvcEnrollmentBasicInfo {
                   InputField(
                     id: 'WTZ7GLTrE8Q',
                     name: 'First Name',
+                    translatedName: 'Lebitso la pele',
                     valueType: 'TEXT',
                     inputColor: Color(0xFF4B9F46),
                     labelColor: Color(0xFF737373),
@@ -40,6 +41,7 @@ class OvcEnrollmentBasicInfo {
                   InputField(
                     id: 's1HaiT6OllL',
                     name: 'Middle Name',
+                    translatedName: 'Lebitso le mahareng',
                     valueType: 'TEXT',
                     inputColor: Color(0xFF4B9F46),
                     labelColor: Color(0xFF737373),
@@ -47,6 +49,7 @@ class OvcEnrollmentBasicInfo {
                   InputField(
                     id: 'rSP9c21JsfC',
                     name: 'Surname',
+                    translatedName: 'Le Fane',
                     valueType: 'TEXT',
                     inputColor: Color(0xFF4B9F46),
                     labelColor: Color(0xFF737373),
@@ -89,6 +92,7 @@ class OvcEnrollmentBasicInfo {
                   InputField(
                     id: 'qZP982qpSPS',
                     name: 'Date of Birth',
+                    translatedName: 'Letsatsi la tsoalo ',
                     valueType: 'DATE',
                     inputColor: Color(0xFF4B9F46),
                     labelColor: Color(0xFF737373),
@@ -108,13 +112,20 @@ class OvcEnrollmentBasicInfo {
                   InputField(
                       id: 'vIX4GTSCX4P',
                       name: 'Sex',
+                      translatedName: 'Boleng',
                       valueType: 'TEXT',
                       inputColor: Color(0xFF4B9F46),
                       labelColor: Color(0xFF737373),
                       renderAsRadio: true,
                       options: [
-                        InputFieldOption(code: 'Male', name: 'Male'),
-                        InputFieldOption(code: 'Female', name: 'Female'),
+                        InputFieldOption(
+                            code: 'Male',
+                            name: 'Male',
+                            translatedName: 'Botona'),
+                        InputFieldOption(
+                            code: 'Female',
+                            name: 'Female',
+                            translatedName: 'Botsehali'),
                       ])
                 ])
           ])
