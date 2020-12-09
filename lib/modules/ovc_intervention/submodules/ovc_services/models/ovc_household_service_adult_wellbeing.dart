@@ -15,7 +15,8 @@ class OvcHouseHoldServiceAdultWellbeing {
           inputFields: [
             InputField(
                 id: '',
-                name: 'How do you help your family?',
+                name: '1. How do you help your family?',
+                translatedName: '1. U thusa lelapa la hau joang?',
                 valueType: 'CHECK_BOX',
                 inputColor: Color(0xFF4B9F46),
                 labelColor: Color(0xFF1A3518),
@@ -44,7 +45,9 @@ class OvcHouseHoldServiceAdultWellbeing {
             InputField(
                 id: '',
                 name:
-                    'How do other adults in your household and those not living with you help you?',
+                    '2. How do other adults in your household and those not living with you help you?',
+                translatedName:
+                    '2. Batho ba bang ba baholo bao u lulang le bona le ba u sa luleng le bona ba u thusa joang? ',
                 valueType: 'CHECK_BOX',
                 inputColor: Color(0xFF4B9F46),
                 labelColor: Color(0xFF1A3518),
@@ -80,7 +83,8 @@ class OvcHouseHoldServiceAdultWellbeing {
                 labelColor: Color(0xFF1A3518)),
             InputField(
                 id: '',
-                name: 'What is your source of income?',
+                translatedName: '3. U fumana chelete joang?',
+                name: '3. What is your source of income?',
                 valueType: 'CHECK_BOX',
                 inputColor: Color(0xFF4B9F46),
                 labelColor: Color(0xFF1A3518),
@@ -92,7 +96,7 @@ class OvcHouseHoldServiceAdultWellbeing {
                 ]),
             InputField(
                 id: 'ZuaV20IvVV2',
-                name: 'Is your work regular or irregular?',
+                name: '4. Is your work regular or irregular?',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4B9F46),
                 labelColor: Color(0xFF1A3518),
@@ -103,13 +107,14 @@ class OvcHouseHoldServiceAdultWellbeing {
             InputField(
                 id: 'p8htbyJHydl',
                 name:
-                    'Are you able to regularly meet the needs of your children (school fees, medication, clothes, housing)?',
+                    '5. Are you able to regularly meet the needs of your children (school fees, medication, clothes, housing)?',
                 valueType: 'BOOLEAN',
                 inputColor: Color(0xFF4B9F46),
                 labelColor: Color(0xFF1A3518)),
             InputField(
                 id: 'p8htbyJHydl_checkbox',
                 name: 'If yes, indicate how',
+                translatedName: 'Ha Karabo e le “E”, hlakisa joang ',
                 valueType: 'CHECK_BOX',
                 inputColor: Color(0xFF4B9F46),
                 labelColor: Color(0xFF1A3518),
@@ -138,9 +143,13 @@ class OvcHouseHoldServiceAdultWellbeing {
             InputField(
                 id: '',
                 name:
-                    'If today you had an unplanned expense for the family, how would you respond in meeting this need?',
+                    '6. If today you had an unplanned expense for the family, how would you respond in meeting this need?',
+                translatedName:
+                    '6. Haeba u ne u kaba le tlhoko e sa reroang tsatsing lee bakeng sa lelapa, u ne u ka arabela tlhoko e joalo joang? ',
                 description:
                     'Unplanned expenses include: food, schooling, healthcare, natural calamities such as funeral, fire, floods, drought.',
+                translatedDescription:
+                    'Tlhoko tse sa reroang tsa lelapa li kenyeletsa: lijo, sekolo, bokuli, mokhohlane, likhohola mollo, komello ',
                 valueType: 'CHECK_BOX',
                 inputColor: Color(0xFF4B9F46),
                 labelColor: Color(0xFF1A3518),
@@ -165,19 +174,25 @@ class OvcHouseHoldServiceAdultWellbeing {
                       code: 'VLlIBeTWT2r',
                       name: 'Unable to meet unplanned needs/expenses')
                 ]),
-                      InputField(
+            InputField(
                 id: 'kuRUBMvgjZy',
-                name: 'Are you a member of a savings group?',
+                name: '7. Are you a member of a savings group?',
                 description:
                     'If no, connect/refer them to SILC, VSL or microcredit.',
+                translatedDescription:
+                    'Ha ese setho mo fetisetse mokhatlong oa mokhatlo oa li poloko le likalimo (SILC).',
                 valueType: 'BOOLEAN',
                 inputColor: Color(0xFF4B9F46),
                 labelColor: Color(0xFF1A3518)),
             InputField(
                 id: '',
-                name: 'Do you know of any of the following programs?',
+                name: '8. Do you know of any of the following programs?',
+                translatedName:
+                    '8. Na u oa tseba ka manane tsebetso a latelang?',
                 description:
                     'If necessary, link the household to the services they are not accessing.',
+                translatedDescription:
+                    'Ha ho hlokahala hokahanya lelapa le litsebeletso tseo ba sa li fumaneng. ',
                 valueType: 'CHECK_BOX',
                 inputColor: Color(0xFF4B9F46),
                 labelColor: Color(0xFF1A3518),
@@ -197,6 +212,8 @@ class OvcHouseHoldServiceAdultWellbeing {
                 id: '',
                 name:
                     'If yes, do you participate in any of the following programs? ',
+                translatedName:
+                    'Ha karobo le “E”; na u karolo ea manane tsebetso a latelang? ',
                 valueType: 'CHECK_BOX',
                 inputColor: Color(0xFF4B9F46),
                 labelColor: Color(0xFF1A3518),
@@ -215,9 +232,11 @@ class OvcHouseHoldServiceAdultWellbeing {
             InputField(
                 id: 'iqBsSAfCyJb',
                 name:
-                    'Which food groups do you regularly serve to your family?',
+                    '9. Which food groups do you regularly serve to your family?',
                 description:
                     '1. Energy foods: Papa, potatoes, bananas, oil, sorghum, rice, Bread\n 2. Body building foods: beans, meat, peas, milk, eggs, fish\n3. Protective foods: peaches, pineapples, mangos, pawpaw, oranges, tomatoes, avocado, guavas, bananas, vegetables.',
+                translatedDescription:
+                    '1. limatlafatsi: Papa, litapole, libanana, oli, mabele, rice, bohobe\n2. lihahammele: linaoa, nama, lierekisi, lebese, mahe, tlhapi\n3. lithibela mafu: liperekisi, pineapple, mango, linamuni, tamati, meroho.',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4B9F46),
                 labelColor: Color(0xFF1A3518),
@@ -235,7 +254,9 @@ class OvcHouseHoldServiceAdultWellbeing {
             InputField(
                 id: '',
                 name:
-                    'Over the past one month, where did you get the food that your family ate?',
+                    '10. Over the past one month, where did you get the food that your family ate?',
+                translatedName:
+                    '10. Khoeling e fetileng, lijo tse le li jeleng lapeng la hau le ne le li fumana joang?',
                 valueType: 'CHECK_BOX',
                 inputColor: Color(0xFF4B9F46),
                 labelColor: Color(0xFF1A3518),
@@ -249,7 +270,9 @@ class OvcHouseHoldServiceAdultWellbeing {
                 ]),
             InputField(
                 id: '',
-                name: 'What type of disability does s/he have?',
+                name: '11. What type of disability does s/he have?',
+                translatedName:
+                    '11. Ke mofuta ofe oa bokooa bo u nang le bona?',
                 valueType: 'CHECK_BOX',
                 inputColor: Color(0xFF4B9F46),
                 labelColor: Color(0xFF1A3518),
@@ -271,8 +294,12 @@ class OvcHouseHoldServiceAdultWellbeing {
             InputField(
                 id: 'JcaEaDrtOFj',
                 name:
-                    'Is the person with disability receiving services for the disability?',
+                    '12. Is the person with disability receiving services for the disability?',
+                translatedName:
+                    '12. Na motho ea nang le bokooa o fumana litsebeletso tsa bokooa boo?',
                 description: 'If no, refer to health or disability services.',
+                translatedDescription:
+                    'Ha asa fumane litsebeletso fetisetsa moo ho fanoang ka tsebeletso tsa bophelo kapa tsa bokooa.',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4B9F46),
                 labelColor: Color(0xFF1A3518),
@@ -284,7 +311,7 @@ class OvcHouseHoldServiceAdultWellbeing {
             InputField(
                 id: 'ut8LqpHyZnR',
                 name:
-                    'Do you or anyone have a long-term illness that you would like to share with me',
+                    '13. Do you or anyone have a long-term illness that you would like to share with me',
                 valueType: 'BOOLEAN',
                 inputColor: Color(0xFF4B9F46),
                 labelColor: Color(0xFF1A3518)),
@@ -297,6 +324,8 @@ class OvcHouseHoldServiceAdultWellbeing {
             InputField(
                 id: 'ut8LqpHyZnR_checkbox',
                 name: 'What is the long-term illness that you have?',
+                translatedName:
+                    'Ke bokuli bo fe ba nako e telele boo u nang le bona?',
                 valueType: 'CHECK_BOX',
                 inputColor: Color(0xFF4B9F46),
                 labelColor: Color(0xFF1A3518),
@@ -317,7 +346,7 @@ class OvcHouseHoldServiceAdultWellbeing {
                 labelColor: Color(0xFF1A3518)),
             InputField(
                 id: 'AccHyrWqhI0',
-                name: 'Are you receiving treatment for this illness?',
+                name: '14. Are you receiving treatment for this illness?',
                 description: 'If no, Refer to appropriate health service',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4B9F46),
@@ -344,7 +373,7 @@ class OvcHouseHoldServiceAdultWellbeing {
                 ]),
             InputField(
                 id: 'BvNaiaoxc6w',
-                name: 'Have you been tested for HIV?',
+                name: '15. Have you been tested for HIV?',
                 description: 'If no refer for testing ',
                 valueType: 'BOOLEAN',
                 inputColor: Color(0xFF4B9F46),
@@ -360,7 +389,7 @@ class OvcHouseHoldServiceAdultWellbeing {
             InputField(
                 id: 'T4grVrCVDkk',
                 name:
-                    'Would you be willing to share your HIV test result with me?',
+                    '16. Would you be willing to share your HIV test result with me?',
                 valueType: 'BOOLEAN',
                 inputColor: Color(0xFF4B9F46),
                 labelColor: Color(0xFF1A3518)),
@@ -378,8 +407,10 @@ class OvcHouseHoldServiceAdultWellbeing {
                 ]),
             InputField(
                 id: 'blod3xZ2dPP',
-                name: 'Are you currently taking ART to treat HIV?',
+                name: '17. Are you currently taking ART to treat HIV?',
                 description: 'If no, refer to HIV care and treatment services.',
+                translatedDescription:
+                    'Ha ase tlasa kalafo fetisetsa setsing sa kalafo.',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4B9F46),
                 labelColor: Color(0xFF1A3518),
@@ -390,7 +421,7 @@ class OvcHouseHoldServiceAdultWellbeing {
                 ]),
             InputField(
                 id: 'ubin7MjQ5OI',
-                name: 'If Yes, How long have you been on ART?',
+                name: '18. If Yes, How long have you been on ART?',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4B9F46),
                 labelColor: Color(0xFF1A3518),
@@ -407,9 +438,11 @@ class OvcHouseHoldServiceAdultWellbeing {
                 ]),
             InputField(
                 id: 'Icb6vUJXVDX',
-                name: 'Do you take your treatments daily and on time?',
+                name: '19. Do you take your treatments daily and on time?',
                 description:
                     'If no or not regularly, refer to HIV care and treatment.',
+                translatedDescription:
+                    'Ha ese ka mehla fetisetsa setsing sa kalafo.',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4B9F46),
                 labelColor: Color(0xFF1A3518),
@@ -444,7 +477,7 @@ class OvcHouseHoldServiceAdultWellbeing {
                 labelColor: Color(0xFF1A3518)),
             InputField(
                 id: 'sLyfb45aLkl',
-                name: 'Have you ever had a blood test called viral load?',
+                name: '20. Have you ever had a blood test called viral load?',
                 description:
                     'If taking ART for over six months and not tested refer to viral load test.',
                 valueType: 'TEXT',
@@ -457,9 +490,11 @@ class OvcHouseHoldServiceAdultWellbeing {
                 ]),
             InputField(
                 id: 'aRNGDZcwWmS',
-                name: 'What was the result of your viral load test?',
+                name: '21. What was the result of your viral load test?',
                 description:
                     'Note to Case Management Workers, they do not have to know exact numbers just whether it was high, low or undetectable.',
+                translatedDescription:
+                    'Tlhokomeliso ho Mosebeletsi oa morero, ha ba tlameha ho tseba palo tse nepahetseng empa hore na e holimo kapa e tlase.',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4B9F46),
                 labelColor: Color(0xFF1A3518),
@@ -476,13 +511,14 @@ class OvcHouseHoldServiceAdultWellbeing {
                 ]),
             InputField(
                 id: 'KgLtXquRot3',
-                name: 'What is the name of the health facility you visit?',
+                name: '22. What is the name of the health facility you visit?',
                 valueType: 'ORGANISATION_UNIT',
                 inputColor: Color(0xFF4B9F46),
                 labelColor: Color(0xFF1A3518)),
             InputField(
                 id: '',
-                name: 'Why did you choose this health facility?',
+                name: '23. Why did you choose this health facility?',
+                translatedDescription: '23. Hobaneng u khethile setsi seo?',
                 valueType: 'CHECK_BOX',
                 inputColor: Color(0xFF4B9F46),
                 labelColor: Color(0xFF1A3518),
@@ -505,8 +541,11 @@ class OvcHouseHoldServiceAdultWellbeing {
                           'The doctor at the health facility closest to me doesn’t treat me well'),
                   InputFieldOption(
                       code: 'aUZ2HTFvI4A',
-                      name: 'The facility I go to is a good health center'),
-                  InputFieldOption(code: 'WUwcEkmhaan', name: 'NA')
+                      name: 'The facility I go to is a good health center',
+                      translatedName:
+                          'Setsi sa bophelo se ke eang ho sona se nt’sebeletsa hantle.'),
+                  InputFieldOption(
+                      code: 'WUwcEkmhaan', name: 'NA', translatedName: 'N/A')
                 ]),
             InputField(
                 id: 'beztnfLGhxi',
@@ -516,8 +555,12 @@ class OvcHouseHoldServiceAdultWellbeing {
                 labelColor: Color(0xFF1A3518)),
             InputField(
                 id: 'BYZu8p33lzP',
-                name: 'Have you disclosed your status to anyone?',
+                name: '24. Have you disclosed your status to anyone?',
+                translatedName:
+                    '24. Na ho na le motho eo u kileng oa mojoetsa boemo ba hau ba HIV?',
                 description: 'Refer to HIV support services if no',
+                translatedDescription:
+                    'Fetisetsa setsing bakeng sa litsebeletso tsa t’sehetso ea HIV ha karabo ele che.',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4B9F46),
                 labelColor: Color(0xFF1A3518),
@@ -529,7 +572,9 @@ class OvcHouseHoldServiceAdultWellbeing {
                 ]),
             InputField(
                 id: 'ToWhhydys',
-                name: 'To whom have you disclosed your status?',
+                name: '25. To whom have you disclosed your status?',
+                translatedName:
+                    '25. Ke mang eo u mo joetsitseng ka boemo a hao a HIV?',
                 valueType: 'CHECK_BOX',
                 inputColor: Color(0xFF4B9F46),
                 labelColor: Color(0xFF1A3518),
@@ -556,9 +601,11 @@ class OvcHouseHoldServiceAdultWellbeing {
             InputField(
                 id: 'jzmOXiyGGgw',
                 name:
-                    'Do you feel like people treat you differently because you are HIV positive?',
+                    '26. Do you feel like people treat you differently because you are HIV positive?',
                 description:
                     'Refer to Village Health Workers or Social Workers or psychosocial support.',
+                translatedDescription:
+                    'Fetisetsa ho mosebeletsi oa tsa bophelo Motseng kapa mosebeltsi oa sechaba kapa tlabollong ea maikutlo.',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4B9F46),
                 labelColor: Color(0xFF1A3518),
@@ -570,7 +617,9 @@ class OvcHouseHoldServiceAdultWellbeing {
                 ]),
             InputField(
                 id: '',
-                name: 'How have you coped with HIV-related stigma?',
+                name: '27. How have you coped with HIV-related stigma?',
+                translatedName:
+                    '27. O atleha ho phela joang tlaasa maemo a ho nenoa kapa ho khetholla ka baka la boemo ba hau ba HIV?',
                 valueType: 'CHECK_BOX',
                 inputColor: Color(0xFF4B9F46),
                 labelColor: Color(0xFF1A3518),
@@ -606,7 +655,7 @@ class OvcHouseHoldServiceAdultWellbeing {
             InputField(
                 id: 'JYPmeC1Zbwf',
                 name:
-                    'If you have a child or children 10 or over, have you talked to them about how to protect themselves from HIV?',
+                    '28. If you have a child or children 10 or over, have you talked to them about how to protect themselves from HIV?',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4B9F46),
                 labelColor: Color(0xFF1A3518),
@@ -662,7 +711,7 @@ class OvcHouseHoldServiceAdultWellbeing {
             InputField(
                 id: 'pLbNeD3Ibqo',
                 name:
-                    'Is there someone or a group of people in your community that you trust and feel that you can talk to about any problems that you may face?',
+                    '29. Is there someone or a group of people in your community that you trust and feel that you can talk to about any problems that you may face?',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF549388),
                 labelColor: Color(0xFF1A3518),
@@ -675,7 +724,7 @@ class OvcHouseHoldServiceAdultWellbeing {
             InputField(
                 id: 'RfFxx08F8V0',
                 name:
-                    'If you had to leave your house for a few hours, is there someone that you could ask to watch your children?',
+                    '30. If you had to leave your house for a few hours, is there someone that you could ask to watch your children?',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF549388),
                 labelColor: Color(0xFF1A3518),
@@ -688,7 +737,7 @@ class OvcHouseHoldServiceAdultWellbeing {
             InputField(
                 id: 'JmLdZM3XYfY',
                 name:
-                    'In the last six months have you received information on parenting/ child care and development through training, counseling, mentoring, or home visits?',
+                    '31. In the last six months have you received information on parenting/ child care and development through training, counseling, mentoring, or home visits?',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF549388),
                 labelColor: Color(0xFF1A3518),
@@ -701,7 +750,9 @@ class OvcHouseHoldServiceAdultWellbeing {
             InputField(
                 id: '',
                 name:
-                    'How did you receive information about parenting and child care?',
+                    '32. How did you receive information about parenting and child care?',
+                translatedName:
+                    '32. U fumane tlhahiso leseling ea rethabile le tlhokomelo ea ngoana joang?',
                 valueType: 'CHECK_BOX',
                 inputColor: Color(0xFF549388),
                 labelColor: Color(0xFF1A3518),
@@ -730,7 +781,7 @@ class OvcHouseHoldServiceAdultWellbeing {
             InputField(
                 id: 'SLajij5j1KI',
                 name:
-                    'Has anyone in the household experienced any form of violence and abuse in the last 6 months?',
+                    '33. Has anyone in the household experienced any form of violence and abuse in the last 6 months?',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF549388),
                 labelColor: Color(0xFF1A3518),
@@ -748,7 +799,7 @@ class OvcHouseHoldServiceAdultWellbeing {
                 labelColor: Color(0xFF1A3518)),
             InputField(
                 id: 'E4UFvIBBEDk',
-                name: 'What kind of support did you receive (if any)?',
+                name: '34. What kind of support did you receive (if any)?',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF549388),
                 labelColor: Color(0xFF1A3518),
