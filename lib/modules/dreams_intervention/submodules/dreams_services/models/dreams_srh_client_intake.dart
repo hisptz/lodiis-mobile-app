@@ -66,6 +66,7 @@ class DreamsSrhClientIntake {
             inputColor: Color(0xFF258DCC),
             labelColor: Color(0xFF737373),
             options: [
+              InputFieldOption(code: 'None', name: 'None'),
               InputFieldOption(code: 'Primary', name: 'Primary'),
               InputFieldOption(
                   code: 'High school', name: 'High school'),

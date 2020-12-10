@@ -47,13 +47,22 @@ class OvcHouseHoldEnrollmentSkipLogic {
         hiddenFields['W7QUtemHnvI'] = true;
       }
     }
-    //Child disabilities
+
     if (dataObject['children'] != null) {
-      for (Map child in dataObject['children']) {
-        if ('${child['YR7Xxk14qoP']}' == 'true') {
-          assignInputFieldValue(context, 'mZsmHPVyXV1', 'true');
-        }
+      List<Map> children = dataObject['children'];
+
+      if (children.every((child) => '${child['YR7Xxk14qoP']}' == 'false')) {
+        assignInputFieldValue(context, 'mZsmHPVyXV1', 'false');
+      } else {
+        assignInputFieldValue(context, 'mZsmHPVyXV1', 'true');
       }
+
+      if (children.every((child) => '${child['wmKqYZML8GA']}' == 'false')) {
+        assignInputFieldValue(context, 'M9uM11xcHG3', 'false');
+      } else {
+        assignInputFieldValue(context, 'M9uM11xcHG3', 'true');
+      }
+
     }
 
     //Economic Strengthening
