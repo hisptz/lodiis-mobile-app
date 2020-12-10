@@ -165,7 +165,7 @@ class OvcHouseHoldServiceAdultWellbeing {
                       code: 'VLlIBeTWT2r',
                       name: 'Unable to meet unplanned needs/expenses')
                 ]),
-                      InputField(
+            InputField(
                 id: 'kuRUBMvgjZy',
                 name: 'Are you a member of a savings group?',
                 description:
@@ -194,7 +194,7 @@ class OvcHouseHoldServiceAdultWellbeing {
                   InputFieldOption(code: 'doJJzw4NX8m', name: 'No')
                 ]),
             InputField(
-                id: '',
+                id: 'doJJzw4NX8m_checkbox',
                 name:
                     'If yes, do you participate in any of the following programs? ',
                 valueType: 'CHECK_BOX',
