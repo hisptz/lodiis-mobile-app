@@ -240,7 +240,7 @@ class _NoneAgywPrepFormState extends State<NoneAgywPrepForm> {
     } else {
       if (mandatoryFields.indexOf(NonAgywPrepVisitConstant.datePrepStopped) >
               0 ||
-          mandatoryFieldsObject[NonAgywPrepVisitConstant.datePrepStopped]) {
+          mandatoryFieldsObject[NonAgywPrepVisitConstant.datePrepStopped] != null) {
         mandatoryFields.remove(NonAgywPrepVisitConstant.datePrepStopped);
         mandatoryFieldsObject.remove(NonAgywPrepVisitConstant.datePrepStopped);
       }
