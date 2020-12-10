@@ -1715,6 +1715,7 @@ class OvcServicesChildCasePlanGaps {
             InputField(
                 id: 'ksc7ov3MihX',
                 name: 'OTHER ACTIVITIES',
+                translatedName: 'Mesebetsi e meng',
                 valueType: 'TRUE_ONLY',
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
@@ -1722,6 +1723,8 @@ class OvcServicesChildCasePlanGaps {
                 id: 'JJrN3c03i7f',
                 name:
                     '(Other activities) Responsible person(Internal/External)',
+                translatedName:
+                'Motho ea ikarabellang (ka hare ho lelapa/ka ntle ho lelapa) Mesebetsi e meng',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373),
@@ -1738,6 +1741,8 @@ class OvcServicesChildCasePlanGaps {
             InputField(
                 id: 'Mq7g4k4lk44',
                 name: '(Other activities) Name of responsible person',
+                translatedName:
+                'Lebitso la motho ea ikarabellang bakeng sa Mesebetsi e meng',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
@@ -1745,6 +1750,7 @@ class OvcServicesChildCasePlanGaps {
                 id: 'LGsvIyYkrP8',
                 allowFuturePeriod: true,
                 name: '(Other activities) Projected date for completion',
+                translatedName: 'Letsatsi la Mesebetsi e meng le tla phetheloa',
                 valueType: 'DATE',
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
