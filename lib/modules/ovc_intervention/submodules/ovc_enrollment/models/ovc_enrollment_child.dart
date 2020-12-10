@@ -190,11 +190,22 @@ class OvcEnrollmentChild {
                 labelColor: Color(0xFF737373),
                 valueType: 'TEXT',
                 options: [
-                  InputFieldOption(code: 'Sexual', name: 'Sexual'),
                   InputFieldOption(
-                      code: 'Economic/Neglect', name: 'Economic/Neglect'),
-                  InputFieldOption(code: 'Physical', name: 'Physical'),
-                  InputFieldOption(code: 'Emotional', name: 'Emotional'),
+                      code: 'Sexual',
+                      name: 'Sexual',
+                      translatedName: 'Tlhekefetso ka Motabo'),
+                  InputFieldOption(
+                      code: 'Economic/Neglect',
+                      name: 'Economic/Neglect',
+                      translatedName: 'Tlhekefetso moruong'),
+                  InputFieldOption(
+                      code: 'Physical',
+                      name: 'Physical',
+                      translatedName: 'Tlhekefetso Mmeleng'),
+                  InputFieldOption(
+                      code: 'Emotional',
+                      name: 'Emotional',
+                      translatedName: 'Tlhekefetso maikutlong'),
                 ]),
             InputField(
                 id: 'Mc3k3bSwXNe',
@@ -212,13 +223,25 @@ class OvcEnrollmentChild {
                 valueType: 'TEXT',
                 options: [
                   InputFieldOption(
-                      code: 'Health Facility', name: 'Health Facility'),
-                  InputFieldOption(code: 'Police -CGPU', name: 'Police -CGPU'),
-                  InputFieldOption(code: 'Chief', name: 'Chief'),
-                  InputFieldOption(code: 'Councilor', name: 'Councilor'),
+                      code: 'Health Facility',
+                      name: 'Health Facility',
+                      translatedName: 'Setsi sa bophelo'),
                   InputFieldOption(
-                      code: 'Social Worker', name: 'Social Worker'),
-                  InputFieldOption(code: 'Other', name: 'Other'),
+                      code: 'Police -CGPU',
+                      name: 'Police -CGPU',
+                      translatedName: 'Mapoleseng'),
+                  InputFieldOption(
+                      code: 'Chief', name: 'Chief', translatedName: 'Morena'),
+                  InputFieldOption(
+                      code: 'Councilor',
+                      name: 'Councilor',
+                      translatedName: 'Mocouncilor'),
+                  InputFieldOption(
+                      code: 'Social Worker',
+                      name: 'Social Worker',
+                      translatedName: 'Mohlabolli'),
+                  InputFieldOption(
+                      code: 'Other', name: 'Other', translatedName: 'Tse ling'),
                 ]),
             InputField(
                 id: 'GM2mJDlGZin',
@@ -244,13 +267,16 @@ class OvcEnrollmentChild {
                 options: [
                   InputFieldOption(
                       code: 'Single Orphan(Mother)',
-                      name: 'Single Orphan(Mother Died)'),
+                      name: 'Single Orphan(Mother Died)',
+                      translatedName: 'Khutsana e le Mong (Mme)'),
                   InputFieldOption(
                       code: 'Single Orphan(Father)',
-                      name: 'Single Orphan(Father Died)'),
+                      name: 'Single Orphan(Father Died)',
+                      translatedName: 'Khutsana e le Mong (Ntate)'),
                   InputFieldOption(
                       code: 'Double Orphan',
-                      name: 'Double Orphan (Father & Mother Died)'),
+                      name: 'Double Orphan (Father & Mother Died)',
+                      translatedName: 'Likhutsana le le Mong (Ntate le Mme)'),
                 ]),
             InputField(
                 id: 'YR7Xxk14qoP',
@@ -302,25 +328,39 @@ class OvcEnrollmentChild {
                 labelColor: Color(0xFF737373),
                 valueType: 'TEXT',
                 options: [
-                  InputFieldOption(code: 'Orphan', name: 'Orphan'),
+                  InputFieldOption(
+                      code: 'Orphan',
+                      name: 'Orphan',
+                      translatedName: 'Khutsana'),
                   InputFieldOption(
                       code: 'Child living with disability',
-                      name: 'Child living with disability'),
+                      name: 'Child living with disability',
+                      translatedName: 'Ngoana ea phelang ka bokooa'),
                   InputFieldOption(
                       code: 'Child living with HIV',
-                      name: 'Child living with HIV'),
+                      name: 'Child living with HIV',
+                      translatedName: 'Ngoana ea phelang le HIV'),
                   InputFieldOption(
-                      code: 'Child of PLHIV', name: 'Child of PLHIV'),
+                      code: 'Child of PLHIV',
+                      name: 'Child of PLHIV',
+                      translatedName:
+                          'Ngoana ea phelang lapeng le nang le motho ea phelang le t’soaetso ea HIV'),
                   InputFieldOption(
-                      code: 'HIV exposed infants', name: 'HIV exposed infants'),
+                      code: 'HIV exposed infants',
+                      name: 'HIV exposed infants',
+                      translatedName: 'HIV e pepesa masea'),
                   InputFieldOption(
                       code: 'Child of a sex worker (FSW)',
-                      name: 'Child of a sex worker (FSW)'),
+                      name: 'Child of a sex worker (FSW)',
+                      translatedName:
+                          'Ke ngoana oa motsoali ea hoebang ka mmele (FSW)'),
                   InputFieldOption(
                       code:
                           'Child exposed/experiencing violence and abuse (Survivors of Vac)',
                       name:
-                          'Child exposed/experiencing violence and abuse (Survivors of Vac)'),
+                          'Child exposed/experiencing violence and abuse (Survivors of Vac)',
+                      translatedName:
+                          'Ngoana ea kileng a hlekefetsoa/tlokotsing ea tlhekefetso'),
                 ]),
             InputField(
                 id: 'omUPOnb4JVp',
