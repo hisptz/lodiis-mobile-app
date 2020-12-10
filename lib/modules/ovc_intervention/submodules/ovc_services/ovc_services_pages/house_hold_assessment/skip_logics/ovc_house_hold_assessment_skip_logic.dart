@@ -28,6 +28,7 @@ class OvchouseHoldAssessmentSkipLogic {
       if (inputFieldId == 'yqwX3XCGAUN' && value != 'true') {
         hiddenFields['BKDRNiyoMgV'] = true;
       }
+
       if (inputFieldId == 'p8htbyJHydl' && value != 'true') {
         hiddenFields['p8htbyJHydl_checkbox'] = true;
         hiddenFields['kFRCZNQIF51'] = true;
@@ -55,6 +56,7 @@ class OvchouseHoldAssessmentSkipLogic {
         hiddenFields['bEXtDfYHP4B'] = true;
         hiddenFields['KexFaUmJpt5'] = true;
         hiddenFields['gcW6652C8Bt'] = true;
+        hiddenFields['AccHyrWqhI0'] = true;
       }
       if (inputFieldId == 'gcW6652C8Bt' && value != 'true') {
         hiddenFields['bmJjZctbkhX'] = true;
@@ -64,6 +66,7 @@ class OvchouseHoldAssessmentSkipLogic {
       }
       if (inputFieldId == 'BvNaiaoxc6w' && value != 'true') {
         hiddenFields['Uv26fX0HQvO'] = true;
+        hiddenFields['T4grVrCVDkk'] = true;
       }
       if (inputFieldId == 'blod3xZ2dPP' && value != '1') {
         hiddenFields['ubin7MjQ5OI'] = true;
@@ -111,6 +114,10 @@ class OvchouseHoldAssessmentSkipLogic {
       }
       if(inputFieldId == 'SLajij5j1KI' && value != 'Yes'){
         hiddenFields['RxvDeJX3b3k'] = true;
+      }
+
+      if(inputFieldId == 'doJJzw4NX8m' && value == 'true'){
+        hiddenFields['doJJzw4NX8m_checkbox'] = true;
       }
     }
     for (String sectionId in hiddenSections.keys) {
