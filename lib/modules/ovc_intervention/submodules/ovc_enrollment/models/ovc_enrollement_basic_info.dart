@@ -27,6 +27,7 @@ class OvcEnrollmentBasicInfo {
             ]),
             FormSection(
                 name: 'Caregiver',
+                translatedName: "Mohlokomeli",
                 color: Color(0xFF737373),
                 inputFields: [
                   InputField(
@@ -102,6 +103,7 @@ class OvcEnrollmentBasicInfo {
                     labelColor: Color(0xFF737373),
                     minAgeInYear: 18,
                     hint: "Beneficiary's age should be 18 years and above",
+                    translatedHint: "Lilemo tsa setho li be 18+",
                   ),
                   InputField(
                     id: 'ls9hlz2tyol',

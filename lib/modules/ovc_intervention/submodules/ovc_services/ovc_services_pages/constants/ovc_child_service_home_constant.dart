@@ -1,6 +1,7 @@
 class OvcChildServiceHomeContant {
   String id;
   String title;
+  String translatedTitle;
   String icon;
   bool groupByDate;
   List<String> programStages;
@@ -8,6 +9,7 @@ class OvcChildServiceHomeContant {
   OvcChildServiceHomeContant({
     this.id,
     this.title,
+    this.translatedTitle,
     this.icon,
     this.programStages,
     this.groupByDate,
@@ -32,6 +34,7 @@ class OvcChildServiceHomeContant {
       OvcChildServiceHomeContant(
         id: 'services',
         title: 'Services',
+        translatedTitle: 'Litsebeletso',
         icon: 'assets/icons/child_service_ovc_icon.svg',
         programStages: ['s1krPf0x1AJ'],
       ),

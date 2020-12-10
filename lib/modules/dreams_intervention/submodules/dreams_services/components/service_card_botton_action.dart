@@ -9,7 +9,6 @@ class ServiceCardBottonAction extends StatelessWidget {
     this.onOpenPrepForm,
     this.onOpenHTSForm,
     this.onOpenSRHForm,
-    this.onOpenHIVPrepForm,
     this.onOpenCondomForm,
     this.onOpenContraceptivesForm,
     this.onOpenMSGHIVForm,
@@ -23,7 +22,6 @@ class ServiceCardBottonAction extends StatelessWidget {
   final VoidCallback onOpenPrepForm;
   final VoidCallback onOpenHTSForm;
   final VoidCallback onOpenSRHForm;
-  final VoidCallback onOpenHIVPrepForm;
   final VoidCallback onOpenMSGHIVForm;
   final VoidCallback onOpenCondomForm;
   final VoidCallback onOpenContraceptivesForm;
@@ -56,15 +54,22 @@ class ServiceCardBottonAction extends StatelessWidget {
                         child: InkWell(
                           onTap: onOpenHTSForm,
                           child: Container(
-                            padding: EdgeInsets.symmetric(vertical: 5),
-                            margin: EdgeInsets.symmetric(vertical: 5),
+                            padding: EdgeInsets.symmetric(
+                              vertical: 5.0,
+                            ),
+                            margin: EdgeInsets.symmetric(
+                              vertical: 5.0,
+                            ),
                             child: Center(
-                                child: Text('HTS',
-                                    style: TextStyle().copyWith(
-                                      fontSize: 12.0,
-                                      fontWeight: FontWeight.normal,
-                                      color: Color(0xFF1F8ECE),
-                                    ))),
+                              child: Text(
+                                'HTS',
+                                style: TextStyle().copyWith(
+                                  fontSize: 12.0,
+                                  fontWeight: FontWeight.normal,
+                                  color: Color(0xFF1F8ECE),
+                                ),
+                              ),
+                            ),
                           ),
                         ),
                       ),
@@ -75,21 +80,30 @@ class ServiceCardBottonAction extends StatelessWidget {
                         child: InkWell(
                           onTap: onOpenSRHForm,
                           child: Container(
-                            padding: EdgeInsets.symmetric(vertical: 5),
-                            margin: EdgeInsets.symmetric(vertical: 5),
+                            padding: EdgeInsets.symmetric(
+                              vertical: 5.0,
+                            ),
+                            margin: EdgeInsets.symmetric(
+                              vertical: 5.0,
+                            ),
                             decoration: BoxDecoration(
-                                border: Border(
-                                    left: BorderSide(
-                              width: 1,
-                              color: Color(0xFF8EBAD3),
-                            ))),
+                              border: Border(
+                                left: BorderSide(
+                                  width: 1,
+                                  color: Color(0xFF8EBAD3),
+                                ),
+                              ),
+                            ),
                             child: Center(
-                                child: Text('SRH',
-                                    style: TextStyle().copyWith(
-                                      fontSize: 12.0,
-                                      fontWeight: FontWeight.normal,
-                                      color: Color(0xFF1F8ECE),
-                                    ))),
+                              child: Text(
+                                'SRH',
+                                style: TextStyle().copyWith(
+                                  fontSize: 12.0,
+                                  fontWeight: FontWeight.normal,
+                                  color: Color(0xFF1F8ECE),
+                                ),
+                              ),
+                            ),
                           ),
                         ),
                       ),
@@ -100,46 +114,30 @@ class ServiceCardBottonAction extends StatelessWidget {
                         child: InkWell(
                           onTap: onOpenPrepForm,
                           child: Container(
-                            padding: EdgeInsets.symmetric(vertical: 5),
-                            margin: EdgeInsets.symmetric(vertical: 5),
+                            padding: EdgeInsets.symmetric(
+                              vertical: 5.0,
+                            ),
+                            margin: EdgeInsets.symmetric(
+                              vertical: 5.0,
+                            ),
                             decoration: BoxDecoration(
-                                border: Border(
-                                    left: BorderSide(
-                              width: 1,
-                              color: Color(0xFF8EBAD3),
-                            ))),
+                              border: Border(
+                                left: BorderSide(
+                                  width: 1,
+                                  color: Color(0xFF8EBAD3),
+                                ),
+                              ),
+                            ),
                             child: Center(
-                                child: Text('PREP',
-                                    style: TextStyle().copyWith(
-                                      fontSize: 12.0,
-                                      fontWeight: FontWeight.normal,
-                                      color: Color(0xFF1F8ECE),
-                                    ))),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Visibility(
-                      visible: currentUserState.canManageHivPrevention,
-                      child: Expanded(
-                        child: InkWell(
-                          onTap: onOpenHIVPrepForm,
-                          child: Container(
-                            padding: EdgeInsets.symmetric(vertical: 5),
-                            margin: EdgeInsets.symmetric(vertical: 5),
-                            decoration: BoxDecoration(
-                                border: Border(
-                                    left: BorderSide(
-                              width: 1,
-                              color: Color(0xFF8EBAD3),
-                            ))),
-                            child: Center(
-                                child: Text('HIV PREV',
-                                    style: TextStyle().copyWith(
-                                      fontSize: 12.0,
-                                      fontWeight: FontWeight.normal,
-                                      color: Color(0xFF1F8ECE),
-                                    ))),
+                              child: Text(
+                                'PREP',
+                                style: TextStyle().copyWith(
+                                  fontSize: 12.0,
+                                  fontWeight: FontWeight.normal,
+                                  color: Color(0xFF1F8ECE),
+                                ),
+                              ),
+                            ),
                           ),
                         ),
                       ),
@@ -150,21 +148,30 @@ class ServiceCardBottonAction extends StatelessWidget {
                         child: InkWell(
                           onTap: onOpenMSGHIVForm,
                           child: Container(
-                            padding: EdgeInsets.symmetric(vertical: 5),
-                            margin: EdgeInsets.symmetric(vertical: 5),
+                            padding: EdgeInsets.symmetric(
+                              vertical: 5.0,
+                            ),
+                            margin: EdgeInsets.symmetric(
+                              vertical: 5.0,
+                            ),
                             decoration: BoxDecoration(
-                                border: Border(
-                                    left: BorderSide(
-                              width: 1,
-                              color: Color(0xFF8EBAD3),
-                            ))),
+                              border: Border(
+                                left: BorderSide(
+                                  width: 1,
+                                  color: Color(0xFF8EBAD3),
+                                ),
+                              ),
+                            ),
                             child: Center(
-                                child: Text('HIV Messaging',
-                                    style: TextStyle().copyWith(
-                                      fontSize: 12.0,
-                                      fontWeight: FontWeight.normal,
-                                      color: Color(0xFF1F8ECE),
-                                    ))),
+                              child: Text(
+                                'HIV Messaging',
+                                style: TextStyle().copyWith(
+                                  fontSize: 12.0,
+                                  fontWeight: FontWeight.normal,
+                                  color: Color(0xFF1F8ECE),
+                                ),
+                              ),
+                            ),
                           ),
                         ),
                       ),
@@ -175,21 +182,30 @@ class ServiceCardBottonAction extends StatelessWidget {
                         child: InkWell(
                           onTap: onOpenCondomForm,
                           child: Container(
-                            padding: EdgeInsets.symmetric(vertical: 5),
-                            margin: EdgeInsets.symmetric(vertical: 5),
+                            padding: EdgeInsets.symmetric(
+                              vertical: 5.0,
+                            ),
+                            margin: EdgeInsets.symmetric(
+                              vertical: 5.0,
+                            ),
                             decoration: BoxDecoration(
-                                border: Border(
-                                    left: BorderSide(
-                              width: 1,
-                              color: Color(0xFF8EBAD3),
-                            ))),
+                              border: Border(
+                                left: BorderSide(
+                                  width: 1,
+                                  color: Color(0xFF8EBAD3),
+                                ),
+                              ),
+                            ),
                             child: Center(
-                                child: Text('CONDOMS',
-                                    style: TextStyle().copyWith(
-                                      fontSize: 12.0,
-                                      fontWeight: FontWeight.normal,
-                                      color: Color(0xFF1F8ECE),
-                                    ))),
+                              child: Text(
+                                'CONDOMS',
+                                style: TextStyle().copyWith(
+                                  fontSize: 12.0,
+                                  fontWeight: FontWeight.normal,
+                                  color: Color(0xFF1F8ECE),
+                                ),
+                              ),
+                            ),
                           ),
                         ),
                       ),
@@ -200,21 +216,30 @@ class ServiceCardBottonAction extends StatelessWidget {
                         child: InkWell(
                           onTap: onOpenContraceptivesForm,
                           child: Container(
-                            padding: EdgeInsets.symmetric(vertical: 5),
-                            margin: EdgeInsets.symmetric(vertical: 5),
+                            padding: EdgeInsets.symmetric(
+                              vertical: 5.0,
+                            ),
+                            margin: EdgeInsets.symmetric(
+                              vertical: 5.0,
+                            ),
                             decoration: BoxDecoration(
-                                border: Border(
-                                    left: BorderSide(
-                              width: 1,
-                              color: Color(0xFF8EBAD3),
-                            ))),
+                              border: Border(
+                                left: BorderSide(
+                                  width: 1,
+                                  color: Color(0xFF8EBAD3),
+                                ),
+                              ),
+                            ),
                             child: Center(
-                                child: Text('CONTRACEPTIVES',
-                                    style: TextStyle().copyWith(
-                                      fontSize: 12.0,
-                                      fontWeight: FontWeight.normal,
-                                      color: Color(0xFF1F8ECE),
-                                    ))),
+                              child: Text(
+                                'CONTRACEPTIVES',
+                                style: TextStyle().copyWith(
+                                  fontSize: 12.0,
+                                  fontWeight: FontWeight.normal,
+                                  color: Color(0xFF1F8ECE),
+                                ),
+                              ),
+                            ),
                           ),
                         ),
                       ),
@@ -225,21 +250,30 @@ class ServiceCardBottonAction extends StatelessWidget {
                         child: InkWell(
                           onTap: onOpenArtRefillForm,
                           child: Container(
-                            padding: EdgeInsets.symmetric(vertical: 5),
-                            margin: EdgeInsets.symmetric(vertical: 5),
+                            padding: EdgeInsets.symmetric(
+                              vertical: 5.0,
+                            ),
+                            margin: EdgeInsets.symmetric(
+                              vertical: 5.0,
+                            ),
                             decoration: BoxDecoration(
-                                border: Border(
-                                    left: BorderSide(
-                              width: 1,
-                              color: Color(0xFF8EBAD3),
-                            ))),
+                              border: Border(
+                                left: BorderSide(
+                                  width: 1,
+                                  color: Color(0xFF8EBAD3),
+                                ),
+                              ),
+                            ),
                             child: Center(
-                                child: Text('ART RE-FILL',
-                                    style: TextStyle().copyWith(
-                                      fontSize: 12.0,
-                                      fontWeight: FontWeight.normal,
-                                      color: Color(0xFF1F8ECE),
-                                    ))),
+                              child: Text(
+                                'ART RE-FILL',
+                                style: TextStyle().copyWith(
+                                  fontSize: 12.0,
+                                  fontWeight: FontWeight.normal,
+                                  color: Color(0xFF1F8ECE),
+                                ),
+                              ),
+                            ),
                           ),
                         ),
                       ),
@@ -250,21 +284,30 @@ class ServiceCardBottonAction extends StatelessWidget {
                         child: InkWell(
                           onTap: onOpenANCForm,
                           child: Container(
-                            padding: EdgeInsets.symmetric(vertical: 5),
-                            margin: EdgeInsets.symmetric(vertical: 5),
+                            padding: EdgeInsets.symmetric(
+                              vertical: 5.0,
+                            ),
+                            margin: EdgeInsets.symmetric(
+                              vertical: 5.0,
+                            ),
                             decoration: BoxDecoration(
-                                border: Border(
-                                    left: BorderSide(
-                              width: 1,
-                              color: Color(0xFF8EBAD3),
-                            ))),
+                              border: Border(
+                                left: BorderSide(
+                                  width: 1,
+                                  color: Color(0xFF8EBAD3),
+                                ),
+                              ),
+                            ),
                             child: Center(
-                                child: Text('ANC',
-                                    style: TextStyle().copyWith(
-                                      fontSize: 12.0,
-                                      fontWeight: FontWeight.normal,
-                                      color: Color(0xFF1F8ECE),
-                                    ))),
+                              child: Text(
+                                'ANC',
+                                style: TextStyle().copyWith(
+                                  fontSize: 12.0,
+                                  fontWeight: FontWeight.normal,
+                                  color: Color(0xFF1F8ECE),
+                                ),
+                              ),
+                            ),
                           ),
                         ),
                       ),
@@ -275,21 +318,30 @@ class ServiceCardBottonAction extends StatelessWidget {
                         child: InkWell(
                           onTap: onOpenPostGBVForm,
                           child: Container(
-                            padding: EdgeInsets.symmetric(vertical: 5),
-                            margin: EdgeInsets.symmetric(vertical: 5),
+                            padding: EdgeInsets.symmetric(
+                              vertical: 5.0,
+                            ),
+                            margin: EdgeInsets.symmetric(
+                              vertical: 5.0,
+                            ),
                             decoration: BoxDecoration(
-                                border: Border(
-                                    left: BorderSide(
-                              width: 1,
-                              color: Color(0xFF8EBAD3),
-                            ))),
+                              border: Border(
+                                left: BorderSide(
+                                  width: 1,
+                                  color: Color(0xFF8EBAD3),
+                                ),
+                              ),
+                            ),
                             child: Center(
-                                child: Text('POST GBV',
-                                    style: TextStyle().copyWith(
-                                      fontSize: 12.0,
-                                      fontWeight: FontWeight.normal,
-                                      color: Color(0xFF1F8ECE),
-                                    ))),
+                              child: Text(
+                                'POST GBV',
+                                style: TextStyle().copyWith(
+                                  fontSize: 12.0,
+                                  fontWeight: FontWeight.normal,
+                                  color: Color(0xFF1F8ECE),
+                                ),
+                              ),
+                            ),
                           ),
                         ),
                       ),
@@ -300,21 +352,30 @@ class ServiceCardBottonAction extends StatelessWidget {
                         child: InkWell(
                           onTap: onOpenPEPForm,
                           child: Container(
-                            padding: EdgeInsets.symmetric(vertical: 5),
-                            margin: EdgeInsets.symmetric(vertical: 5),
+                            padding: EdgeInsets.symmetric(
+                              vertical: 5.0,
+                            ),
+                            margin: EdgeInsets.symmetric(
+                              vertical: 5.0,
+                            ),
                             decoration: BoxDecoration(
-                                border: Border(
-                                    left: BorderSide(
-                              width: 1,
-                              color: Color(0xFF8EBAD3),
-                            ))),
+                              border: Border(
+                                left: BorderSide(
+                                  width: 1,
+                                  color: Color(0xFF8EBAD3),
+                                ),
+                              ),
+                            ),
                             child: Center(
-                                child: Text('PEP',
-                                    style: TextStyle().copyWith(
-                                      fontSize: 12.0,
-                                      fontWeight: FontWeight.normal,
-                                      color: Color(0xFF1F8ECE),
-                                    ))),
+                              child: Text(
+                                'PEP',
+                                style: TextStyle().copyWith(
+                                  fontSize: 12.0,
+                                  fontWeight: FontWeight.normal,
+                                  color: Color(0xFF1F8ECE),
+                                ),
+                              ),
+                            ),
                           ),
                         ),
                       ),
@@ -325,21 +386,30 @@ class ServiceCardBottonAction extends StatelessWidget {
                         child: InkWell(
                           onTap: onOpenServiceForm,
                           child: Container(
-                            padding: EdgeInsets.symmetric(vertical: 5),
-                            margin: EdgeInsets.symmetric(vertical: 5),
+                            padding: EdgeInsets.symmetric(
+                              vertical: 5.0,
+                            ),
+                            margin: EdgeInsets.symmetric(
+                              vertical: 5.0,
+                            ),
                             decoration: BoxDecoration(
-                                border: Border(
-                                    left: BorderSide(
-                              width: 1,
-                              color: Color(0xFF8EBAD3),
-                            ))),
+                              border: Border(
+                                left: BorderSide(
+                                  width: 1,
+                                  color: Color(0xFF8EBAD3),
+                                ),
+                              ),
+                            ),
                             child: Center(
-                                child: Text('SERVICE FORM',
-                                    style: TextStyle().copyWith(
-                                      fontSize: 12.0,
-                                      fontWeight: FontWeight.normal,
-                                      color: Color(0xFF1F8ECE),
-                                    ))),
+                              child: Text(
+                                'SERVICE FORM',
+                                style: TextStyle().copyWith(
+                                  fontSize: 12.0,
+                                  fontWeight: FontWeight.normal,
+                                  color: Color(0xFF1F8ECE),
+                                ),
+                              ),
+                            ),
                           ),
                         ),
                       ),

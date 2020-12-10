@@ -5,6 +5,7 @@ import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dream_cur
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
+import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
@@ -20,7 +21,7 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_serv
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/dreams_srh_register.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/srh/constants/srh_client_intake_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/srh/skip_logics/agyw_dreams_srh_register_skip_logic.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
+import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:provider/provider.dart';
 
 class AgywDreamsSrhRegisterForm extends StatefulWidget {
@@ -98,13 +99,18 @@ class _AgywDreamsSrhRegisterFormState extends State<AgywDreamsSrhRegisterForm> {
             .resetServiceEventDataState(agywDream.id);
         Timer(Duration(seconds: 1), () {
           setState(() {
-            AppUtil.showToastMessage(
-                message: 'Form has been saved successfully',
-                position: ToastGravity.TOP);
-            if (Navigator.canPop(context)) {
-              Navigator.popUntil(context, (route) => route.isFirst);
-            }
+            isSaving = false;
           });
+          String currentLanguage =
+              Provider.of<LanguageTranslationState>(context, listen: false)
+                  .currentLanguage;
+          AppUtil.showToastMessage(
+            message: currentLanguage == 'lesotho'
+                ? 'Fomo e bolokeile'
+                : 'Form has been saved successfully',
+            position: ToastGravity.TOP,
+          );
+          Navigator.pop(context);
         });
       } catch (e) {
         Timer(Duration(seconds: 1), () {
@@ -139,66 +145,81 @@ class _AgywDreamsSrhRegisterFormState extends State<AgywDreamsSrhRegisterForm> {
           ),
         ),
         body: SubPageBody(
-          body: Container(child: Consumer<DreamBenefeciarySelectionState>(
-            builder: (context, nonAgywState, child) {
-              AgywDream agywDream = nonAgywState.currentAgywDream;
-              return Consumer<ServiceFormState>(
-                builder: (context, serviceFormState, child) {
-                  return Container(
-                    child: Column(
-                      children: [
-                        DreamBenefeciaryTopHeader(
-                          agywDream: agywDream,
-                        ),
-                        !isFormReady
-                            ? Container(
-                                child: CircularProcessLoader(
-                                  color: Colors.blueGrey,
-                                ),
-                              )
-                            : Column(
-                                children: [
-                                  Container(
-                                    margin: EdgeInsets.only(
-                                      top: 10.0,
-                                      left: 13.0,
-                                      right: 13.0,
-                                    ),
-                                    child: EntryFormContainer(
-                                      hiddenFields:
-                                          serviceFormState.hiddenFields,
-                                      hiddenSections:
-                                          serviceFormState.hiddenSections,
-                                      formSections: formSections,
-                                      mandatoryFieldObject: Map(),
-                                      isEditableMode:
-                                          serviceFormState.isEditableMode,
-                                      dataObject: serviceFormState.formState,
-                                      onInputValueChange: onInputValueChange,
-                                    ),
-                                  ),
-                                  Visibility(
-                                    visible: serviceFormState.isEditableMode,
-                                    child: OvcEnrollmentFormSaveButton(
-                                      label: isSaving ? 'Saving ...' : 'Save',
-                                      labelColor: Colors.white,
-                                      buttonColor: Color(0xFF258DCC),
-                                      fontSize: 15.0,
-                                      onPressButton: () => onSaveForm(
-                                          context,
-                                          serviceFormState.formState,
-                                          agywDream),
-                                    ),
-                                  )
-                                ],
-                              )
-                      ],
-                    ),
-                  );
-                },
-              );
-            },
-          )),
+          body: Container(
+            child: Consumer<LanguageTranslationState>(
+              builder: (context, languageTranslationState, child) {
+                String currentLanguage =
+                    languageTranslationState.currentLanguage;
+                return Consumer<DreamBenefeciarySelectionState>(
+                  builder: (context, nonAgywState, child) {
+                    AgywDream agywDream = nonAgywState.currentAgywDream;
+                    return Consumer<ServiceFormState>(
+                      builder: (context, serviceFormState, child) {
+                        return Container(
+                          child: Column(
+                            children: [
+                              DreamBenefeciaryTopHeader(
+                                agywDream: agywDream,
+                              ),
+                              !isFormReady
+                                  ? Container(
+                                      child: CircularProcessLoader(
+                                        color: Colors.blueGrey,
+                                      ),
+                                    )
+                                  : Column(
+                                      children: [
+                                        Container(
+                                          margin: EdgeInsets.only(
+                                            top: 10.0,
+                                            left: 13.0,
+                                            right: 13.0,
+                                          ),
+                                          child: EntryFormContainer(
+                                            hiddenFields:
+                                                serviceFormState.hiddenFields,
+                                            hiddenSections:
+                                                serviceFormState.hiddenSections,
+                                            formSections: formSections,
+                                            mandatoryFieldObject: Map(),
+                                            isEditableMode:
+                                                serviceFormState.isEditableMode,
+                                            dataObject:
+                                                serviceFormState.formState,
+                                            onInputValueChange:
+                                                onInputValueChange,
+                                          ),
+                                        ),
+                                        Visibility(
+                                          visible:
+                                              serviceFormState.isEditableMode,
+                                          child: EntryFormSaveButton(
+                                            label: isSaving
+                                                ? 'Saving ...'
+                                                : currentLanguage == 'lesotho'
+                                                    ? 'Boloka'
+                                                    : 'Save',
+                                            labelColor: Colors.white,
+                                            buttonColor: Color(0xFF258DCC),
+                                            fontSize: 15.0,
+                                            onPressButton: () => onSaveForm(
+                                                context,
+                                                serviceFormState.formState,
+                                                agywDream),
+                                          ),
+                                        )
+                                      ],
+                                    )
+                            ],
+                          ),
+                        );
+                      },
+                    );
+                  },
+                );
+              },
+            ),
+          ),
         ),
         bottomNavigationBar: InterventionBottomNavigationBarContainer());
   }

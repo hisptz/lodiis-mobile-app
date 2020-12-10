@@ -57,6 +57,7 @@ class OvcEnrollmentChild {
               maxAgeInYear: 17,
               minAgeInYear: 0,
               hint: "Beneficiary's age should be from 0 - 17 years",
+              translatedHint: "Lilemo tsa setho li be pakeng tsa 0 le 17",
             ),
             InputField(
               id: 'ls9hlz2tyol',

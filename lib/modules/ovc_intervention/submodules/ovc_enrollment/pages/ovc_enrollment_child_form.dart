@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
-import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_intervention_list_state.dart';
+import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
@@ -13,7 +13,7 @@ import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
+import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/components/add_child_confirmation.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/components/enrolled_children_list.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/models/ovc_enrollment_child.dart';
@@ -108,6 +108,9 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
       if (inputFieldId == 'omUPOnb4JVp' && value != 'true') {
         hiddenFields['WsmWkkFBiT6'] = true;
       }
+      if (inputFieldId == 'YR7Xxk14qoP' && value != 'true') {
+        hiddenFields['YR7Xxk14qoP_checkbox'] = true;
+      }
     }
     for (String sectionId in hiddenSections.keys) {
       List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections
@@ -182,16 +185,18 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
           Provider.of<EnrollmentFormState>(context, listen: false)
               .setFormFieldState('children', childMapObjects);
           Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => OvcEnrollmentHouseHoldForm(),
-              ));
+            context,
+            MaterialPageRoute(
+              builder: (context) => OvcEnrollmentHouseHoldForm(),
+            ),
+          );
         }
       }
     } else {
       AppUtil.showToastMessage(
-          message: 'Please fill all mandatory field',
-          position: ToastGravity.TOP);
+        message: 'Please fill all mandatory field',
+        position: ToastGravity.TOP,
+      );
     }
   }
 
@@ -212,33 +217,41 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
     Provider.of<EnrollmentFormState>(context, listen: false)
         .setFormFieldState('children', childMapObjects);
     Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => OvcEnrollmentHouseHoldForm(),
-        ));
+      context,
+      MaterialPageRoute(
+        builder: (context) => OvcEnrollmentHouseHoldForm(),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: Scaffold(
-            appBar: PreferredSize(
-              preferredSize: Size.fromHeight(65.0),
-              child: Consumer<IntervetionCardState>(
-                builder: (context, intervetionCardState, child) {
-                  InterventionCard activeInterventionProgram =
-                      intervetionCardState.currentIntervetionProgram;
-                  return SubPageAppBar(
-                    label: label,
-                    activeInterventionProgram: activeInterventionProgram,
-                  );
-                },
-              ),
-            ),
-            body: SubPageBody(
-              body: Container(
-                  margin:
-                      EdgeInsets.symmetric(vertical: 16.0, horizontal: 13.0),
+      child: Scaffold(
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(65.0),
+          child: Consumer<IntervetionCardState>(
+            builder: (context, intervetionCardState, child) {
+              InterventionCard activeInterventionProgram =
+                  intervetionCardState.currentIntervetionProgram;
+              return SubPageAppBar(
+                label: label,
+                activeInterventionProgram: activeInterventionProgram,
+              );
+            },
+          ),
+        ),
+        body: SubPageBody(
+          body: Container(
+            child: Consumer<LanguageTranslationState>(
+              builder: (context, languageTranslationState, child) {
+                String currentLanguage =
+                    languageTranslationState.currentLanguage;
+                return Container(
+                  margin: EdgeInsets.symmetric(
+                    vertical: 16.0,
+                    horizontal: 13.0,
+                  ),
                   child: isLoading
                       ? Column(
                           children: [
@@ -253,8 +266,9 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
                           children: [
                             childMapObjects.isNotEmpty
                                 ? Padding(
-                                    padding:
-                                        const EdgeInsets.only(bottom: 12.0),
+                                    padding: const EdgeInsets.only(
+                                      bottom: 12.0,
+                                    ),
                                     child: EnrolledChildrenList(childMapObjects
                                         .map<String>(
                                             (child) => child['fullName'])
@@ -271,8 +285,10 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
                                 onInputValueChange: onInputValueChange,
                               ),
                             ),
-                            OvcEnrollmentFormSaveButton(
-                              label: 'Save and Continue',
+                            EntryFormSaveButton(
+                              label: currentLanguage == 'lesotho'
+                                  ? 'Boloka ebe u fetela pele'
+                                  : 'Save and Continue',
                               labelColor: Colors.white,
                               buttonColor: Color(0xFF4B9F46),
                               fontSize: 15.0,
@@ -284,19 +300,28 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
                                 child: FlatButton(
                                   onPressed: () => onSkip(childMapObject),
                                   child: Text(
-                                    'Skip',
+                                    currentLanguage == 'lesotho'
+                                        ? 'Feta'
+                                        : 'Skip',
                                     style: TextStyle().copyWith(
-                                        color: Color(0xFF4B9F46),
-                                        fontSize: 14.0,
-                                        fontWeight: FontWeight.w400),
+                                      color: Color(0xFF4B9F46),
+                                      fontSize: 14.0,
+                                      fontWeight: FontWeight.w400,
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
                           ],
-                        )),
+                        ),
+                );
+              },
             ),
-            bottomNavigationBar: InterventionBottomNavigationBarContainer()));
+          ),
+        ),
+        bottomNavigationBar: InterventionBottomNavigationBarContainer(),
+      ),
+    );
   }
 
   bool isADuplicateChildObject(Map map) {

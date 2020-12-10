@@ -13,7 +13,7 @@ import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
+import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold_top_header.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_caseplan.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/components/case_plan_home_list_container.dart';
@@ -199,7 +199,7 @@ class OvcHouseHoldCasePlanHome extends StatelessWidget {
                                         Container(
                                           child: Visibility(
                                             visible: !isLoading,
-                                            child: OvcEnrollmentFormSaveButton(
+                                            child: EntryFormSaveButton(
                                                 label: 'NEW CASE PLAN',
                                                 labelColor: Colors.white,
                                                 fontSize: 10,

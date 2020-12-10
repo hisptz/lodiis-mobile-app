@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
+import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
@@ -14,7 +15,7 @@ import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/models/agyw_enrollment_consent.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/skip_logics/agyw_dreams_enrollment_skip_logic.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
+import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:provider/provider.dart';
 import 'agyw_dreams_risk_assessment.dart';
 
@@ -68,7 +69,7 @@ class _AgywEnrollmentConsetFormState extends State<AgywDreamsConsentForm> {
     if (hadAllMandatoryFilled) {
       AppUtil.showToastMessage(
           message: 'Ensure you have documented AGYW consent on File',
-          position:ToastGravity.TOP );
+          position: ToastGravity.TOP);
       Navigator.push(
           context,
           MaterialPageRoute(
@@ -118,32 +119,41 @@ class _AgywEnrollmentConsetFormState extends State<AgywDreamsConsentForm> {
                         ],
                       )
                     : Container(
-                        child: Consumer<EnrollmentFormState>(
-                          builder: (context, enrollmentFormState, child) =>
-                              Column(
-                            children: [
-                              Container(
-                                child: EntryFormContainer(
-                                  hiddenFields:
-                                      enrollmentFormState.hiddenFields,
-                                  hiddenSections:
-                                      enrollmentFormState.hiddenSections,
-                                  formSections: formSections,
-                                  mandatoryFieldObject: mandatoryFieldObject,
-                                  dataObject: enrollmentFormState.formState,
-                                  onInputValueChange: onInputValueChange,
-                                ),
+                        child: Consumer<LanguageTranslationState>(
+                          builder: (context, languageTranslationState, child) {
+                            String currentLanguage =
+                                languageTranslationState.currentLanguage;
+                            return Consumer<EnrollmentFormState>(
+                              builder: (context, enrollmentFormState, child) =>
+                                  Column(
+                                children: [
+                                  Container(
+                                    child: EntryFormContainer(
+                                      hiddenFields:
+                                          enrollmentFormState.hiddenFields,
+                                      hiddenSections:
+                                          enrollmentFormState.hiddenSections,
+                                      formSections: formSections,
+                                      mandatoryFieldObject:
+                                          mandatoryFieldObject,
+                                      dataObject: enrollmentFormState.formState,
+                                      onInputValueChange: onInputValueChange,
+                                    ),
+                                  ),
+                                  EntryFormSaveButton(
+                                    label: currentLanguage == 'lesotho'
+                                        ? 'Boloka ebe u fetela pele'
+                                        : 'Save and Continue',
+                                    labelColor: Colors.white,
+                                    buttonColor: Color(0xFF258DCC),
+                                    fontSize: 15.0,
+                                    onPressButton: () => onSaveAndContinue(
+                                        context, enrollmentFormState.formState),
+                                  )
+                                ],
                               ),
-                              OvcEnrollmentFormSaveButton(
-                                label: 'Save and Continue',
-                                labelColor: Colors.white,
-                                buttonColor: Color(0xFF258DCC),
-                                fontSize: 15.0,
-                                onPressButton: () => onSaveAndContinue(
-                                    context, enrollmentFormState.formState),
-                              )
-                            ],
-                          ),
+                            );
+                          },
                         ),
                       ),
               ),

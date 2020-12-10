@@ -10,7 +10,7 @@ import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/models/ovc_house_hold.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_enrollment_form_save_button.dart';
+import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold_top_header.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/house_hold_assessment/components/ovc_house_hold_assessment_list_container.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/house_hold_assessment/constants/ovc_house_hold_assessment_constant.dart';
@@ -143,20 +143,17 @@ class OvcHouseHoldAssessment extends StatelessWidget {
                                               Container(
                                                 child: Visibility(
                                                   visible: !isLoading,
-                                                  child:
-                                                      OvcEnrollmentFormSaveButton(
-                                                          label:
-                                                              "NEW ASSESSMENT",
-                                                          labelColor:
-                                                              Colors.white,
-                                                          fontSize: 10,
-                                                          buttonColor:
-                                                              Color(0xFF4B9F46),
-                                                          onPressButton: () =>
-                                                              onAddNewHouseHoldAssessment(
-                                                                context,
-                                                                currentOvcHouseHold,
-                                                              )),
+                                                  child: EntryFormSaveButton(
+                                                      label: "NEW ASSESSMENT",
+                                                      labelColor: Colors.white,
+                                                      fontSize: 10,
+                                                      buttonColor:
+                                                          Color(0xFF4B9F46),
+                                                      onPressButton: () =>
+                                                          onAddNewHouseHoldAssessment(
+                                                            context,
+                                                            currentOvcHouseHold,
+                                                          )),
                                                 ),
                                               ),
                                             ],

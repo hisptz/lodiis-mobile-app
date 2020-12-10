@@ -11,7 +11,6 @@ class CurrentUserState with ChangeNotifier {
   bool _canManageOGAC;
   bool _canManageOvc;
   bool _canManageNoneAgyw;
-  bool _canManageHivPrevention;
   bool _canManageReferral;
   bool _canManageCLOReferral;
   bool _canManageHts;
@@ -34,7 +33,6 @@ class CurrentUserState with ChangeNotifier {
   bool get canManageOGAC => _canManageOGAC ?? false;
   bool get canManageOvc => _canManageOvc ?? false;
   bool get canManageNoneAgyw => _canManageNoneAgyw ?? false;
-  bool get canManageHivPrevention => _canManageHivPrevention ?? false;
   bool get canManageReferral => _canManageReferral ?? false;
   bool get canManageCLOReferral => _canManageCLOReferral ?? false;
   bool get canManageHts => _canManageHts ?? false;
@@ -56,7 +54,6 @@ class CurrentUserState with ChangeNotifier {
       _canManageOGAC = true;
       _canManageOvc = true;
       _canManageNoneAgyw = true;
-      _canManageHivPrevention = true;
       _canManageReferral = true;
       _canManageCLOReferral = true;
       _canManageHts = true;
@@ -112,7 +109,6 @@ class CurrentUserState with ChangeNotifier {
       _canManageOGAC = true;
       _canManageNoneAgyw = true;
       _canManageReferral = true;
-      _canManageHivPrevention = true;
       _canManageCLOReferral = true;
       _canManagePOSTGBV = true;
       _canManageMSGHIV = true;
@@ -155,7 +151,6 @@ class CurrentUserState with ChangeNotifier {
     _canManageOGAC = false;
     _canManageOvc = false;
     _canManageNoneAgyw = false;
-    _canManageHivPrevention = false;
     _canManageReferral = false;
     _canManageCLOReferral = false;
     _canManageHts = false;

@@ -24,10 +24,10 @@ class AgywDreamsServiceFormSkipLogic {
     }
 
     inputFieldIds = inputFieldIds.toSet().toList();
-    for (String inputFieldId in inputFieldIds) {
-      String value = '${dataObject[inputFieldId]}';
-      //  @TODO Add skip logics
-    }
+    // for (String inputFieldId in inputFieldIds) {
+    //   String value = '${dataObject[inputFieldId]}';
+    //   //  @TODO Add skip logics
+    // }
     for (String sectionId in hiddenSections.keys) {
       List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections
           .where((formSection) => formSection.id == sectionId)

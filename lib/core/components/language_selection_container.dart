@@ -150,7 +150,9 @@ class _LanguageSelectionContainerState
                             child: Container(
                               child: Text(
                                 widget.showLanguageSettingAppBar
-                                    ? 'Save'
+                                    ? widget.currentLanguage == 'lesotho'
+                                        ? 'Boloka'
+                                        : 'Save'
                                     : 'Agree',
                                 style: TextStyle(
                                   color: _selectionLanguageCode != ''

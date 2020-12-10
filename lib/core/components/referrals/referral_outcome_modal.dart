@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
+import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
@@ -40,7 +41,6 @@ class _ReferralOutcomeModalState extends State<ReferralOutcomeModal> {
   void initState() {
     super.initState();
     Timer(Duration(seconds: 1), () {
-
       setState(() {
         isFormReady = true;
         evaluateSkipLogics();
@@ -51,7 +51,7 @@ class _ReferralOutcomeModalState extends State<ReferralOutcomeModal> {
   evaluateSkipLogics() {
     Timer(
       Duration(milliseconds: 200),
-          () async {
+      () async {
         Map dataObject =
             Provider.of<ServiceFormState>(context, listen: false).formState;
         await OvcReferralOutcomeSkipLogic.evaluateSkipLogics(
@@ -62,7 +62,6 @@ class _ReferralOutcomeModalState extends State<ReferralOutcomeModal> {
       },
     );
   }
-
 
   void onInputValueChange(String id, dynamic value) {
     Provider.of<ServiceFormState>(context, listen: false)
@@ -98,9 +97,15 @@ class _ReferralOutcomeModalState extends State<ReferralOutcomeModal> {
         Timer(Duration(seconds: 1), () {
           setState(() {
             isSaving = false;
+            String currentLanguage =
+                Provider.of<LanguageTranslationState>(context, listen: false)
+                    .currentLanguage;
             AppUtil.showToastMessage(
-                message: 'Form has been saved successfully',
-                position: ToastGravity.TOP);
+              message: currentLanguage == 'lesotho'
+                  ? 'Fomo e bolokeile'
+                  : 'Form has been saved successfully',
+              position: ToastGravity.TOP,
+            );
             Navigator.pop(context);
           });
         });

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
+import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
@@ -77,191 +78,206 @@ class _CasePlanFollowUpViewContainerState
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Consumer<ServiveEventDataState>(
-        builder: (context, serviveEventDataState, child) {
-          bool isLoading = serviveEventDataState.isLoading;
-          Map<String, List<Events>> eventListByProgramStage =
-              serviveEventDataState.eventListByProgramStage;
-          List<Events> events =
-              TrackedEntityInstanceUtil.getAllEventListFromServiceDataState(
-                  eventListByProgramStage, [programStage]);
-          List<CasePlanGapFollowUp> casePlanFollowups = events
-              .map((Events eventData) => CasePlanGapFollowUp()
-                  .fromTeiModel(eventData, casePlanGapToFollowinUpLinkage))
-              .toList()
-              .where((CasePlanGapFollowUp casePlanFollowup) =>
-                  casePlanFollowup.casePlanGapToFollowinUpLinkage ==
-                  widget.casePlanGapToFollowinUpLinkageValue)
-              .toList();
-          return Container(
-            child: isLoading || !isViewReady
-                ? Container(
-                    margin: EdgeInsets.only(top: 20.0),
-                    child: CircularProcessLoader(
-                      color: Colors.blueGrey,
-                    ),
-                  )
-                : Container(
-                    margin: EdgeInsets.only(top: 10.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Visibility(
-                          visible: casePlanFollowups.length > 0,
-                          child: Container(
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  child: Text(
-                                    'Follow-up',
-                                    style: TextStyle().copyWith(
-                                      color: widget.themeColor,
-                                      fontSize: 14.0,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
+      child: Consumer<LanguageTranslationState>(
+        builder: (context, languageTranslationState, child) {
+          String currentLanguage = languageTranslationState.currentLanguage;
+          return Consumer<ServiveEventDataState>(
+            builder: (context, serviveEventDataState, child) {
+              bool isLoading = serviveEventDataState.isLoading;
+              Map<String, List<Events>> eventListByProgramStage =
+                  serviveEventDataState.eventListByProgramStage;
+              List<Events> events =
+                  TrackedEntityInstanceUtil.getAllEventListFromServiceDataState(
+                      eventListByProgramStage, [programStage]);
+              List<CasePlanGapFollowUp> casePlanFollowups = events
+                  .map((Events eventData) => CasePlanGapFollowUp()
+                      .fromTeiModel(eventData, casePlanGapToFollowinUpLinkage))
+                  .toList()
+                  .where((CasePlanGapFollowUp casePlanFollowup) =>
+                      casePlanFollowup.casePlanGapToFollowinUpLinkage ==
+                      widget.casePlanGapToFollowinUpLinkageValue)
+                  .toList();
+              return Container(
+                child: isLoading || !isViewReady
+                    ? Container(
+                        margin: EdgeInsets.only(top: 20.0),
+                        child: CircularProcessLoader(
+                          color: Colors.blueGrey,
                         ),
-                        Container(
-                          child: Column(
-                            children: casePlanFollowups
-                                .map((CasePlanGapFollowUp casePlanFollowup) =>
-                                    Container(
-                                      margin:
-                                          EdgeInsets.symmetric(vertical: 10.0),
-                                      child: Row(
-                                        children: [
-                                          Expanded(
-                                            child: Table(
-                                              children: [
-                                                TableRow(
-                                                  children: [
-                                                    TableCell(
-                                                      child: Text(
-                                                        'Date',
-                                                        style: TextStyle()
-                                                            .copyWith(
-                                                          color:
-                                                              Color(0xFF8A9589),
-                                                          fontSize: 12.0,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    TableCell(
-                                                      child: Text(
-                                                        'Results',
-                                                        style: TextStyle()
-                                                            .copyWith(
-                                                          color:
-                                                              Color(0xFF8A9589),
-                                                          fontSize: 12.0,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    TableCell(
-                                                      child: Text(
-                                                        'Comment',
-                                                        style: TextStyle()
-                                                            .copyWith(
-                                                          color:
-                                                              Color(0xFF8A9589),
-                                                          fontSize: 12.0,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                                TableRow(
-                                                  children: [
-                                                    TableCell(
-                                                      child: Text(
-                                                        casePlanFollowup.date,
-                                                        style: TextStyle()
-                                                            .copyWith(
-                                                          color:
-                                                              Color(0xFF1A3518),
-                                                          fontSize: 12.0,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    TableCell(
-                                                      child: Text(
-                                                        casePlanFollowup.result,
-                                                        style: TextStyle()
-                                                            .copyWith(
-                                                          color:
-                                                              Color(0xFF1A3518),
-                                                          fontSize: 12.0,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    TableCell(
-                                                      child: Text(
-                                                        casePlanFollowup.reason,
-                                                        style: TextStyle()
-                                                            .copyWith(
-                                                          color:
-                                                              Color(0xFF1A3518),
-                                                          fontSize: 12.0,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                )
-                                              ],
-                                            ),
-                                          ),
+                      )
+                    : Container(
+                        margin: EdgeInsets.only(top: 10.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Visibility(
+                              visible: casePlanFollowups.length > 0,
+                              child: Container(
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      child: Text(
+                                        'Follow-up',
+                                        style: TextStyle().copyWith(
+                                          color: widget.themeColor,
+                                          fontSize: 14.0,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Container(
+                              child: Column(
+                                children: casePlanFollowups
+                                    .map(
+                                      (CasePlanGapFollowUp casePlanFollowup) =>
                                           Container(
-                                            child: Visibility(
-                                              visible: widget
-                                                  .shouldEditCaseGapFollowUps,
-                                              child: Container(
-                                                child: InkWell(
-                                                  onTap: () =>
-                                                      onEditCasePlanFollowUp(
-                                                    context,
-                                                    casePlanFollowup,
+                                        margin: EdgeInsets.symmetric(
+                                          vertical: 10.0,
+                                        ),
+                                        child: Row(
+                                          children: [
+                                            Expanded(
+                                              child: Table(
+                                                children: [
+                                                  TableRow(
+                                                    children: [
+                                                      TableCell(
+                                                        child: Text(
+                                                          currentLanguage ==
+                                                                  'lesotho'
+                                                              ? 'Letsatsi'
+                                                              : 'Date',
+                                                          style: TextStyle()
+                                                              .copyWith(
+                                                            color: Color(
+                                                                0xFF8A9589),
+                                                            fontSize: 12.0,
+                                                            fontWeight:
+                                                                FontWeight.w500,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      TableCell(
+                                                        child: Text(
+                                                          'Results',
+                                                          style: TextStyle()
+                                                              .copyWith(
+                                                            color: Color(
+                                                                0xFF8A9589),
+                                                            fontSize: 12.0,
+                                                            fontWeight:
+                                                                FontWeight.w500,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      TableCell(
+                                                        child: Text(
+                                                          'Comment',
+                                                          style: TextStyle()
+                                                              .copyWith(
+                                                            color: Color(
+                                                                0xFF8A9589),
+                                                            fontSize: 12.0,
+                                                            fontWeight:
+                                                                FontWeight.w500,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
                                                   ),
-                                                  child: Container(
-                                                    height: iconHeight,
-                                                    width: iconHeight,
-                                                    margin:
-                                                        EdgeInsets.symmetric(
-                                                            vertical: 5,
-                                                            horizontal: 5),
-                                                    child: SvgPicture.asset(
-                                                      'assets/icons/edit-icon.svg',
-                                                      color: widget.themeColor,
+                                                  TableRow(
+                                                    children: [
+                                                      TableCell(
+                                                        child: Text(
+                                                          casePlanFollowup.date,
+                                                          style: TextStyle()
+                                                              .copyWith(
+                                                            color: Color(
+                                                                0xFF1A3518),
+                                                            fontSize: 12.0,
+                                                            fontWeight:
+                                                                FontWeight.w500,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      TableCell(
+                                                        child: Text(
+                                                          casePlanFollowup
+                                                              .result,
+                                                          style: TextStyle()
+                                                              .copyWith(
+                                                            color: Color(
+                                                                0xFF1A3518),
+                                                            fontSize: 12.0,
+                                                            fontWeight:
+                                                                FontWeight.w500,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      TableCell(
+                                                        child: Text(
+                                                          casePlanFollowup
+                                                              .reason,
+                                                          style: TextStyle()
+                                                              .copyWith(
+                                                            color: Color(
+                                                                0xFF1A3518),
+                                                            fontSize: 12.0,
+                                                            fontWeight:
+                                                                FontWeight.w500,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                            Container(
+                                              child: Visibility(
+                                                visible: widget
+                                                    .shouldEditCaseGapFollowUps,
+                                                child: Container(
+                                                  child: InkWell(
+                                                    onTap: () =>
+                                                        onEditCasePlanFollowUp(
+                                                      context,
+                                                      casePlanFollowup,
+                                                    ),
+                                                    child: Container(
+                                                      height: iconHeight,
+                                                      width: iconHeight,
+                                                      margin:
+                                                          EdgeInsets.symmetric(
+                                                        vertical: 5,
+                                                        horizontal: 5,
+                                                      ),
+                                                      child: SvgPicture.asset(
+                                                        'assets/icons/edit-icon.svg',
+                                                        color:
+                                                            widget.themeColor,
+                                                      ),
                                                     ),
                                                   ),
                                                 ),
                                               ),
-                                            ),
-                                          )
-                                        ],
+                                            )
+                                          ],
+                                        ),
                                       ),
-                                    ))
-                                .toList(),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
+                                    )
+                                    .toList(),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+              );
+            },
           );
         },
       ),

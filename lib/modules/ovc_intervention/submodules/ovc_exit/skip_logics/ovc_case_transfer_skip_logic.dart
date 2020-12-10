@@ -20,10 +20,10 @@ mixin OvcCaseTransferSkipLogic {
       inputFieldIds.add('$key');
     }
     inputFieldIds = inputFieldIds.toSet().toList();
-    for (String inputFieldId in inputFieldIds) {
-      String value = '${dataObject[inputFieldId]}';
-      // // print(value);
-    }
+    // for (String inputFieldId in inputFieldIds) {
+    //   String value = '${dataObject[inputFieldId]}';
+    //   // // print(value);
+    // }
     for (String sectionId in hiddenSections.keys) {
       List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections
           .where((formSection) => formSection.id == sectionId)

@@ -329,7 +329,7 @@ class OvcHouseHoldServiceAdultWellbeing {
                       translatedName: 'Ha ke tsebe')
                 ]),
             InputField(
-                id: '',
+                id: 'doJJzw4NX8m_checkbox',
                 name:
                     'If yes, do you participate in any of the following programs? ',
                 translatedName:
