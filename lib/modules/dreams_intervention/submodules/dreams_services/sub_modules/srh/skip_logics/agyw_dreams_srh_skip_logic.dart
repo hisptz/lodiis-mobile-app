@@ -27,12 +27,15 @@ class AgywDreamsSrhSkipLogic {
         hiddenFields['kV6uCz4uLLR'] = true;
         hiddenFields['rE25suIpzDK'] = true;
       }
-      if (inputFieldId == 'rE25suIpzDK' && value != 'false') {
-        hiddenFields['UZxZebenwuv'] = true;
-        hiddenFields['aHpvyQyfyBM'] = true;
+      if(inputFieldId == 'kV6uCz4uLLR' && value != 'Positive'){
+        hiddenFields['rE25suIpzDK'] = true;
       }
       if (inputFieldId == 'rE25suIpzDK' && value != 'true') {
         hiddenFields['XdF6espdxoH'] = true;
+      }
+      if (inputFieldId == 'rE25suIpzDK' && value == 'true') {
+        hiddenFields['UZxZebenwuv'] = true;
+        hiddenFields['aHpvyQyfyBM'] = true;
       }
       if (inputFieldId == 'UZxZebenwuv' && value != 'true') {
         hiddenFields['aHpvyQyfyBM'] = true;
