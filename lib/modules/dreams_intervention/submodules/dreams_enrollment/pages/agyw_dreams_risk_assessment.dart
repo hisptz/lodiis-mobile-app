@@ -131,6 +131,9 @@ class _AgywDreamServiceFormState extends State<AgywDreamServiceForm> {
                                           enrollmentFormState.hiddenFields,
                                       hiddenSections:
                                           enrollmentFormState.hiddenSections,
+                                      hiddenInputFieldOptions:
+                                          enrollmentFormState
+                                              .hiddenInputFieldOptions,
                                       formSections: formSections,
                                       mandatoryFieldObject:
                                           mandatoryFieldObject,
