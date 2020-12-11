@@ -9,10 +9,10 @@ class AgywDreamsPepSkipLogic {
   static Map hiddenSections = Map();
 
   static Future evaluateSkipLogics(
-      BuildContext context,
-      List<FormSection> formSections,
-      Map dataObject,
-      ) async {
+    BuildContext context,
+    List<FormSection> formSections,
+    Map dataObject,
+  ) async {
     hiddenFields.clear();
     hiddenSections.clear();
     List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections);
@@ -24,7 +24,8 @@ class AgywDreamsPepSkipLogic {
       String value = '${dataObject[inputFieldId]}';
       if (inputFieldId == 'lvT9gfpHIlT' && value == 'null') {
         hiddenFields['mcgHO4djXTu'] = true;
-      }    }
+      }
+    }
     for (String sectionId in hiddenSections.keys) {
       List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections
           .where((formSection) => formSection.id == sectionId)
@@ -48,18 +49,18 @@ class AgywDreamsPepSkipLogic {
   }
 
   static resetValuesForHiddenSections(
-      BuildContext context,
-      List<FormSection> formSections,
-      ) {
+    BuildContext context,
+    List<FormSection> formSections,
+  ) {
     Provider.of<ServiceFormState>(context, listen: false)
         .setHiddenSections(hiddenSections);
   }
 
   static assignInputFieldValue(
-      BuildContext context,
-      String inputFieldId,
-      String value,
-      ) {
+    BuildContext context,
+    String inputFieldId,
+    String value,
+  ) {
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState(inputFieldId, value);
   }
