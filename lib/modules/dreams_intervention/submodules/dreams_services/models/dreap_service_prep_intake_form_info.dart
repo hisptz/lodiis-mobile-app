@@ -411,10 +411,18 @@ class DreamsServicePrepIntakeInfo {
                   'Has your most recent sex partner been tested in the last 3 months?',
               valueType: 'TEXT',
               options: [
-                InputFieldOption(code: 'Yes', name: 'Yes'),
+                InputFieldOption(
+                    code: 'Yes, and the result was negative',
+                    name: 'Yes, and the result was negative'),
+                InputFieldOption(
+                    code: 'Yes, and the result was positive',
+                    name: 'Yes, and the result was positive'),
+                InputFieldOption(
+                    code: 'Yes, but I don’t know the result',
+                    name: 'Yes, but I don’t know the result'),
                 InputFieldOption(code: 'No', name: 'No'),
-                InputFieldOption(code: 'I dont know', name: 'I dont know'),
-                InputFieldOption(code: 'No response', name: 'No response'),
+                InputFieldOption(code: 'Don\'t Know', name: 'Don\'t Know'),
+                InputFieldOption(code: 'N/A', name: 'N/A'),
               ],
             ),
             InputField(
