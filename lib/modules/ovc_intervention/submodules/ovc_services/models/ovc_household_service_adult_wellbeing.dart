@@ -8,6 +8,7 @@ class OvcHouseHoldServiceAdultWellbeing {
     return [
       FormSection(
           name: 'DOMAIN STABLE',
+          translatedName: 'BOTSITSO',
           color: Color(0xFF4B9F46),
           description:
               'Case Management Worker reads: “Assets are things that are useful and valuable to you. For example, they can be people because each person has knowledge, skills, and talents.”',

@@ -9,6 +9,7 @@ class HouseholdServiceFollowup {
       FormSection(
           id: 'Health',
           name: 'DOMAIN HEALTH',
+          translatedName: 'BOPHELO BO BOTLE',
           color: Color(0xFF4D9E49),
           borderColor: Color(0xFF4D9E49),
           inputFields: [
@@ -394,6 +395,7 @@ class HouseholdServiceFollowup {
       FormSection(
           id: 'Safe',
           name: 'DOMAIN SAFE',
+          translatedName: 'TSIRELETSO',
           color: Color(0xFF0F9587),
           borderColor: Color(0xFF0F9587),
           inputFields: [
@@ -659,6 +661,7 @@ class HouseholdServiceFollowup {
       FormSection(
           id: 'Schooled',
           name: 'DOMAIN SCHOOLED',
+          translatedName:'TSA SEKOLO',
           color: Color(0xFF9B2BAE),
           borderColor: Color(0xFF9B2BAE),
           inputFields: [
