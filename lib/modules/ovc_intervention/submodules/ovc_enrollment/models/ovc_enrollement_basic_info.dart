@@ -57,6 +57,7 @@ class OvcEnrollmentBasicInfo {
                   InputField(
                     id: 'tNdoR0jYr7R_confirm',
                     name: 'Does caregiver have a phone number',
+                    translatedName: 'Na mohlokomeli o na le nomoro ea mohala?',
                     valueType: 'BOOLEAN',
                     inputColor: Color(0xFF4B9F46),
                     labelColor: Color(0xFF737373),
@@ -64,13 +65,16 @@ class OvcEnrollmentBasicInfo {
                   InputField(
                     id: 'tNdoR0jYr7R',
                     name: 'Phone Number',
+                    translatedName: 'Nomoro ea mohala',
                     valueType: 'PHONE_NUMBER',
                     inputColor: Color(0xFF4B9F46),
                     labelColor: Color(0xFF737373),
                   ),
                   InputField(
                     id: 'cvrdI9t4rtN_confirm',
-                    name: 'Does caregiver have another phone number',
+                    name: 'Does caregiver have another phone number?',
+                    translatedName:
+                        'Na mohlokomeli o na le nomoro e \'ngoe ea mohala?',
                     valueType: 'BOOLEAN',
                     inputColor: Color(0xFF4B9F46),
                     labelColor: Color(0xFF737373),
@@ -78,6 +82,7 @@ class OvcEnrollmentBasicInfo {
                   InputField(
                     id: 'cvrdI9t4rtN',
                     name: 'Other Phone Number',
+                    translatedName: 'Nomoro e ngoe ea mohala',
                     valueType: 'PHONE_NUMBER',
                     inputColor: Color(0xFF4B9F46),
                     labelColor: Color(0xFF737373),
