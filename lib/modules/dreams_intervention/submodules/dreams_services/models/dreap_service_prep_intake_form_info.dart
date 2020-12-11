@@ -24,8 +24,9 @@ class DreamsServicePrepIntakeInfo {
     List<String> inputFields = FormUtil.getFormFieldIds(getFormSections());
     List<String> optionalFields =
         getCheckboxInputFieldOptions(getFormSections());
-    inputFields =
-        inputFields.where((field) => optionalFields.indexOf(field) < 0).toList();
+    inputFields = inputFields
+        .where((field) => optionalFields.indexOf(field) < 0)
+        .toList();
     return inputFields;
   }
 
@@ -753,16 +754,10 @@ class DreamsServicePrepIntakeInfo {
                 name: 'Planned to reduce risk through abstinence',
                 valueType: 'TRUE_ONLY'),
             InputField(
-                id: 'QLpo44r78kP',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
-                name: 'Planned to reduce risk through abstinence',
-                valueType: 'TRUE_ONLY'),
-            InputField(
                 id: 'RIeqF1jCQqo',
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
-                name: 'Planned to reduce risk through Treatment of of STIs',
+                name: ' Planned to reduce risk through Treatment of STIs',
                 valueType: 'TRUE_ONLY'),
             InputField(
                 id: 'zJGSraV1Fvk',
