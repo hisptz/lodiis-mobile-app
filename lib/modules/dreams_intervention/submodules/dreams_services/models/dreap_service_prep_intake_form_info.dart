@@ -213,7 +213,7 @@ class DreamsServicePrepIntakeInfo {
               inputColor: Color(0xFF1F8ECE),
               labelColor: Color(0xFF737373),
               name: 'Highest level of Education Attained',
-              valueType: 'TRUE_ONLY',
+              valueType: 'BOOLEAN',
               options: [
                 InputFieldOption(code: 'None', name: 'None'),
                 InputFieldOption(
@@ -740,31 +740,31 @@ class DreamsServicePrepIntakeInfo {
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
                 name: 'Planned to reduce risk through use of condom',
-                valueType: 'TRUE_ONLY'),
+                valueType: 'BOOLEAN'),
             InputField(
                 id: 'gcUUfyjuGYd',
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
                 name: 'Planned to reduce risk through monogamy',
-                valueType: 'TRUE_ONLY'),
+                valueType: 'BOOLEAN'),
             InputField(
                 id: 'QLpo44r78kP',
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
                 name: 'Planned to reduce risk through abstinence',
-                valueType: 'TRUE_ONLY'),
+                valueType: 'BOOLEAN'),
             InputField(
                 id: 'RIeqF1jCQqo',
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
                 name: ' Planned to reduce risk through Treatment of STIs',
-                valueType: 'TRUE_ONLY'),
+                valueType: 'BOOLEAN'),
             InputField(
                 id: 'zJGSraV1Fvk',
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
                 name: 'Planned to reduce risk through Decreased # of partner',
-                valueType: 'TRUE_ONLY'),
+                valueType: 'BOOLEAN'),
             InputField(
                 id: 'O8Fz5EWOOzU',
                 inputColor: Color(0xFF1F8ECE),
@@ -812,11 +812,11 @@ class DreamsServicePrepIntakeInfo {
                 name: 'Sexual partner with HIV is not ART',
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
-                valueType: 'TRUE_ONLY'),
+                valueType: 'BOOLEAN'),
             InputField(
               id: 'zNz3aCntxv4',
               name: 'Sexual partner who has been on ART for less than 6 months',
-              valueType: 'TRUE_ONLY',
+              valueType: 'BOOLEAN',
               inputColor: Color(0xFF1F8ECE),
               labelColor: Color(0xFF737373),
             ),
@@ -826,34 +826,34 @@ class DreamsServicePrepIntakeInfo {
                 labelColor: Color(0xFF737373),
                 name:
                     'Sexual partner who has been on ART for more than 6 months but is not virally suppressed',
-                valueType: 'TRUE_ONLY'),
+                valueType: 'BOOLEAN'),
             InputField(
                 id: 'OXmIVzKnnfX',
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
                 name:
                     'Vaginal or anal sexual intercourse without condoms with more than one partner',
-                valueType: 'TRUE_ONLY'),
+                valueType: 'BOOLEAN'),
             InputField(
                 id: 'FHFDusOkEf7',
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
                 name: 'A sexual partner with one or more HIV risk factors',
-                valueType: 'TRUE_ONLY'),
+                valueType: 'BOOLEAN'),
             InputField(
                 id: 'gB1KMAsfA1H',
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
                 name:
                     ' history of a sexually transmitted infection(STI)by lab testing or self-report or syndromic STI treatment',
-                valueType: 'TRUE_ONLY'),
+                valueType: 'BOOLEAN'),
             InputField(
                 id: 'hjKFMOVQ3Kt',
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
                 name:
                     'Client has requested PrEP and has received information on PrEP including which people would benefit from PrEP and client still feels they would benefit from PrEP',
-                valueType: 'TRUE_ONLY'),
+                valueType: 'BOOLEAN'),
             InputField(
                 id: 'rDV6sBIwivl',
                 inputColor: Color(0xFF1F8ECE),
@@ -1006,26 +1006,26 @@ class DreamsServicePrepIntakeInfo {
                 labelColor: Color(0xFF737373),
                 name:
                     'Is the client currently taking nephrotoxic drugs. Refer to creatinine clearance job aid for list of nephrotoxic drugs. Consult doctor about alternative medication/management before initiating PrEP',
-                valueType: 'TRUE_ONLY'),
+                valueType: 'BOOLEAN'),
             InputField(
                 id: 'bH9DpJOIutM',
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
                 name: 'Has creatinine clearance (eGFR) <60 ml/min',
-                valueType: 'TRUE_ONLY'),
+                valueType: 'BOOLEAN'),
             InputField(
                 id: 'h0P6UfkUvLP',
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
                 name: 'Weight below 35kg',
-                valueType: 'TRUE_ONLY'),
+                valueType: 'BOOLEAN'),
             InputField(
                 id: 'POaEWdS7Lw5',
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
                 name:
                     'Allergy or contraindication to any medicine in the PrEP regimen',
-                valueType: 'TRUE_ONLY'),
+                valueType: 'BOOLEAN'),
           ]),
       FormSection(
           id: 'PeSfSRaE',
@@ -1038,7 +1038,7 @@ class DreamsServicePrepIntakeInfo {
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
                 name: 'HIV-negative',
-                valueType: 'TRUE_ONLY'),
+                valueType: 'BOOLEAN'),
             InputField(
                 id: 'vMR9VtzuH3R',
                 inputColor: Color(0xFF1F8ECE),
@@ -1068,20 +1068,20 @@ class DreamsServicePrepIntakeInfo {
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
                 name: 'At substantial risk of HIV',
-                valueType: 'TRUE_ONLY'),
+                valueType: 'BOOLEAN'),
             InputField(
                 id: 'qibwngZ6fd5',
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
                 name: 'Has no signs/symptoms of acute HIV infection',
-                valueType: 'TRUE_ONLY'),
+                valueType: 'BOOLEAN'),
             InputField(
                 id: 'JBmwR9pBO4I',
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
                 name:
                     'Has creatinine clearance (eGFR) >60 ml/min or patient has no risk factors for renal disease and the creatinine result is pending (see Creatinine clearance job aid for risk factors)',
-                valueType: 'TRUE_ONLY'),
+                valueType: 'BOOLEAN'),
             InputField(
                 id: 'Ihu2PjZMh8B',
                 inputColor: Color(0xFF1F8ECE),
@@ -1111,38 +1111,38 @@ class DreamsServicePrepIntakeInfo {
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
                 name: 'PrEP initiated',
-                valueType: 'TRUE_ONLY'),
+                valueType: 'BOOLEAN'),
             InputField(
                 id: 'q9dpokR3G1q',
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
                 name: 'Initiated on PEP',
-                valueType: 'TRUE_ONLY'),
+                valueType: 'BOOLEAN'),
             InputField(
                 id: 'rZov68n0pzv',
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
                 name: 'To start PrEP after completing PEP',
-                valueType: 'TRUE_ONLY'),
+                valueType: 'BOOLEAN'),
             InputField(
                 id: 'kqDlnMhTKTd',
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
                 name:
                     'PCR/HIV Ag test or follow-up HIV re-testing (if suspicion of acute HIV infection)',
-                valueType: 'TRUE_ONLY'),
+                valueType: 'BOOLEAN'),
             InputField(
                 id: 'B8jihEQnoJG',
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
                 name: 'Client declined PrEP',
-                valueType: 'TRUE_ONLY'),
+                valueType: 'BOOLEAN'),
             InputField(
                 id: 'ov7UEdiyjJA',
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
                 name: 'Referred for PrEP at another facility',
-                valueType: 'TRUE_ONLY'),
+                valueType: 'BOOLEAN'),
             InputField(
                 id: 'dpfubDzhwhX',
                 inputColor: Color(0xFF1F8ECE),
