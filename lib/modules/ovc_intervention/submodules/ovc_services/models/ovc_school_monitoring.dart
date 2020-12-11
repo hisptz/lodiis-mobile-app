@@ -8,6 +8,7 @@ class OvcSchoolMonitoring {
     return [
       FormSection(
           name: 'DOMAIN SCHOOLED',
+          translatedName:'TSA SEKOLO',
           color: Color(0xFF4A9F46),
           borderColor: Color(0xFF4A9F46),
           inputFields: [

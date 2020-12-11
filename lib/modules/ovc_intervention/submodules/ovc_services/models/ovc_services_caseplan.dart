@@ -7,6 +7,7 @@ class OvcServicesCasePlan {
     return [
       FormSection(
         name: 'DOMAIN HEALTH',
+        translatedName: 'BOPHELO BO BOTLE',
         id: 'Health',
         color: Color(0xFF4D9E49),
         borderColor: Color(0xFF4D9E49),
@@ -30,6 +31,7 @@ class OvcServicesCasePlan {
       FormSection(
         id: 'Stable',
         name: 'DOMAIN STABLE',
+        translatedName: 'BOTSITSO',
         color: Color(0xFF0000FF),
         borderColor: Color(0xFF0000FF),
         inputFields: [
@@ -52,6 +54,7 @@ class OvcServicesCasePlan {
       FormSection(
         id: 'Safe',
         name: 'DOMAIN SAFE',
+        translatedName: 'TSIRELETSO',
         color: Color(0xFF0F9587),
         borderColor: Color(0xFF0F9587),
         inputFields: [
@@ -74,6 +77,7 @@ class OvcServicesCasePlan {
       FormSection(
         id: 'Schooled',
         name: 'DOMAIN SCHOOLED',
+        translatedName:'TSA SEKOLO',
         color: Color(0xFF9B2BAE),
         borderColor: Color(0xFF9B2BAE),
         inputFields: [

@@ -8,6 +8,7 @@ class OvcServicesList {
     return [
             FormSection(
                 name: 'DOMAIN HEALTH',
+                translatedName: 'BOPHELO BO BOTLE',
                 color: Color(0xFF4D9E49),
                 borderColor: Color(0xFF4D9E49),
                 inputFields: [
