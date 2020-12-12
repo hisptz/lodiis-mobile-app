@@ -26,7 +26,7 @@ class AgywDreamsSRH extends StatefulWidget {
 }
 
 class _AgywDreamsSRHState extends State<AgywDreamsSRH> {
-  final String label = 'SRH Services';
+  final String label = 'SRH Client Intake Form';
   List<String> programStageids = [
     HivPrepClientIntakeConstant.program,
     HivPrepClientIntakeConstant.programStage
