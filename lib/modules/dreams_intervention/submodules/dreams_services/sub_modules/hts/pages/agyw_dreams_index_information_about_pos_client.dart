@@ -20,6 +20,7 @@ import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_benef
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/bio_data_information_about_index_positive_client.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/constants/agyw_dreams_index_positive_constant.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/skip_logics/agyw_dreams_index_information_about_pos_client_skip_logic.dart';
 import 'package:provider/provider.dart';
 
 class AgywDreamsIndexInfoAboutPosClient extends StatefulWidget {
@@ -47,13 +48,31 @@ class _AgywDreamsIndexInfoAboutPosClientState
           BioDataInformationAboutIndexPositiveClient.getFormSections();
       setState(() {
         isFormReady = true;
+        evaluateSkipLogics();
       });
     });
+  }
+
+  evaluateSkipLogics() {
+    Timer(
+      Duration(milliseconds: 200),
+      () async {
+        Map dataObject =
+            Provider.of<ServiceFormState>(context, listen: false).formState;
+        await AgywDreamsIndexInformationAboutPosClientSkipLogic
+            .evaluateSkipLogics(
+          context,
+          formSections,
+          dataObject,
+        );
+      },
+    );
   }
 
   void onInputValueChange(String id, dynamic value) {
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState(id, value);
+    evaluateSkipLogics();
   }
 
   void onSaveForm(
@@ -165,6 +184,10 @@ class _AgywDreamsIndexInfoAboutPosClientState
                                             right: 13.0,
                                           ),
                                           child: EntryFormContainer(
+                                            hiddenFields:
+                                                serviceFormState.hiddenFields,
+                                            hiddenSections:
+                                                serviceFormState.hiddenSections,
                                             formSections: formSections,
                                             mandatoryFieldObject: Map(),
                                             isEditableMode:
