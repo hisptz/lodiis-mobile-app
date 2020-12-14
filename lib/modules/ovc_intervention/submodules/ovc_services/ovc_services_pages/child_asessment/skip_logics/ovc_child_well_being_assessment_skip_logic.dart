@@ -186,7 +186,7 @@ class OvcChildWellBeingAssessmentSkipLogic {
         }
 
         //Logic change
-        if (inputFieldId == 'mtZfZIAkVjt' && value != 'true') {
+        if (inputFieldId == 'mtZfZIAkVjt' && (value == 'true' || value == 'null')) {
           hiddenFields['mtZfZIAkVjt_checkbox'] = true;
           hiddenFields['qK6pCo37tWW'] = true;
           hiddenFields['Tbga457Gs8B'] = true;

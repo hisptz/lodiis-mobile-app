@@ -180,18 +180,6 @@ class OvcEnrollmentHouseHold {
                 borderColor: Color(0xFF4B9F46),
                 inputFields: [
                   InputField(
-                    id: 'oF2lwagPkQA',
-                    name: 'Is this a child-headed household',
-                    valueType: 'BOOLEAN',
-                    inputColor: Color(0xFF4B9F46),
-                    hasSubInputField: true,
-                    subInputField: InputField(
-                        id: 'a0XHRG2DuNs',
-                        name: 'Referral',
-                        valueType: 'TRUE_ONLY',
-                        inputColor: Color(0xFF4B9F46)),
-                  ),
-                  InputField(
                     id: 'j0S43gUicDQ',
                     name:
                         'In the last 6 months, has there been at least one member of the household who has consistently had formal or informal employment or is self-employed or has a business or is engaged in an economically productive activity',
