@@ -119,6 +119,9 @@ class OvchouseHoldAssessmentSkipLogic {
       if(inputFieldId == 'doJJzw4NX8m' && value == 'true'){
         hiddenFields['doJJzw4NX8m_checkbox'] = true;
       }
+      if(inputFieldId == 'LGrG9fGZfXP' && value == 'true'){
+          hiddenFields['ZuaV20IvVV2'] = true;
+      }
     }
     for (String sectionId in hiddenSections.keys) {
       List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections
