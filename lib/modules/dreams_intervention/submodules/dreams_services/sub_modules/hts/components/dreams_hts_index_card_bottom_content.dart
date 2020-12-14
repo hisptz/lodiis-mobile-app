@@ -9,7 +9,8 @@ import 'package:kb_mobile_app/core/components/line_seperator.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/events.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/agyw_dreams_index_info_event.dart';
+import 'package:kb_mobile_app/models/agyw_dreams_index_info_event.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/constants/agyw_dream_hts_follow_up.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/constants/agyw_dreams_hts_index_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/constants/agyw_dreams_index_contact_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/models/index_contact_model.dart';
@@ -77,8 +78,12 @@ class _DreamsHTSIndexCardBottonContentState
         ));
   }
 
-  void onFolloUpIndexContact(BuildContext context, IndexContactModel eventData) {
-    updateFormState(context, true, eventData);
+  void onFolloUpIndexContact(
+      BuildContext context, IndexContactModel eventData) {
+    updateFormState(context, true, null);
+    Provider.of<ServiceFormState>(context, listen: false).setFormFieldState(
+        AgywDreamsHTSFOLLOWUPConstant.indexContactToElicitedPartnerLinkage,
+        widget.event.indexContactToElicitedPartnerLinkage);
     Navigator.push(
         context,
         MaterialPageRoute(
@@ -91,6 +96,9 @@ class _DreamsHTSIndexCardBottonContentState
     Provider.of<ServiceFormState>(context, listen: false).setFormFieldState(
         AgywDreamsHTSIndexConstant.indexInfoToIndexContactLinkage,
         widget.event.indexInfoToIndexContactLinkage);
+    Provider.of<ServiceFormState>(context, listen: false).setFormFieldState(
+        AgywDreamsHTSIndexConstant.indexContactToElicitedSexualPartnerLinkage,
+        widget.event.indexContactToElicitedPartnerLinkage);
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => AgywDreamsIndexContact()));
   }
@@ -209,7 +217,7 @@ class _DreamsHTSIndexCardBottonContentState
                                             ),
                                           ))),
                                 ),
-                                 Visibility(
+                                Visibility(
                                   //visible: canFollowUpChilddInfo,
                                   child: Container(
                                       margin: EdgeInsets.only(left: 10.0),

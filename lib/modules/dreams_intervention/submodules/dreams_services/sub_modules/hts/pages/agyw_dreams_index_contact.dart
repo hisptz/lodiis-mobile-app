@@ -59,9 +59,9 @@ class _AgywDreamsIndexContactState extends State<AgywDreamsIndexContact> {
       });
       String eventDate = dataObject['eventDate'];
       String eventId = dataObject['eventId'];
-      // print(dataObject);
       List<String> hiddenFields = [
-        AgywDreamsHTSIndexConstant.indexInfoToIndexContactLinkage
+        AgywDreamsHTSIndexConstant.indexInfoToIndexContactLinkage,
+        AgywDreamsHTSIndexConstant.indexContactToElicitedSexualPartnerLinkage
       ];
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(

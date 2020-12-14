@@ -62,7 +62,9 @@ class _AgywDreamsIndexFollowUpState extends State<AgywDreamsIndexFollowUp> {
       });
       String eventDate = dataObject['eventDate'];
       String eventId = dataObject['eventId'];
-      List<String> hiddenFields = [];
+      List<String> hiddenFields = [
+        AgywDreamsHTSFOLLOWUPConstant.indexContactToElicitedPartnerLinkage
+      ];
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
           AgywDreamsHTSFOLLOWUPConstant.program,

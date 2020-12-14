@@ -6,6 +6,7 @@ class ReferralOutFollowUpComeEvent {
   String followUpStatus;
   String comments;
   String referralReference;
+  bool additionalFollowUpRequired;
   Events eventData;
 
   ReferralOutFollowUpComeEvent({
@@ -14,6 +15,7 @@ class ReferralOutFollowUpComeEvent {
     this.followUpStatus,
     this.comments,
     this.referralReference,
+    this.additionalFollowUpRequired,
     this.eventData,
   });
 
@@ -25,6 +27,7 @@ class ReferralOutFollowUpComeEvent {
       'DPf5mUDoZMy',
       'VHe4ctA0bqU',
       'LcG4J82PM4Z',
+      'BzkeBAxdEVT',
       referralToFollowUpLinkage
     ];
     Map data = Map();
@@ -39,6 +42,11 @@ class ReferralOutFollowUpComeEvent {
       followUpDate: data['DPf5mUDoZMy'] ?? '',
       followUpStatus: data['VHe4ctA0bqU'] ?? '',
       comments: data['LcG4J82PM4Z'] ?? '',
+      additionalFollowUpRequired: data['BzkeBAxdEVT'] != null
+          ? data['BzkeBAxdEVT'] == 'true'
+              ? true
+              : false
+          : true,
       referralReference: data[referralToFollowUpLinkage] ?? '',
       eventData: eventData,
     );
