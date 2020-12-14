@@ -32,7 +32,7 @@ class AgywDreamsEnrollmentForm extends StatefulWidget {
 
 class _AgywDreamsEnrollmentFormState extends State<AgywDreamsEnrollmentForm> {
   List<FormSection> formSections;
-  final String label = 'Enrollment Assessment';
+  final String label = 'DREAMS Enrollment Form';
   final List<String> mandatoryFields =
       AgywEnrollmentFormSection.getMandatoryField();
   final Map mandatoryFieldObject = Map();
