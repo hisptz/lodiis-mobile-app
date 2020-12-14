@@ -113,7 +113,9 @@ class _HTSIndexHomePageState extends State<HTSIndexHomePage> {
                   Container(
                       child: DreamsHTSIndexCard(
                           event: indexEvent,
-                          canExpand: canExpand,
+                          canExpand: canExpand &&
+                              indexEvent != null &&
+                              indexEvent.consent == 'true',
                           canEdit: canEdit,
                           canView: canView,
                           isExpanded: indexEvent != null &&
