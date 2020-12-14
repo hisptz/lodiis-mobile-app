@@ -215,6 +215,17 @@ class ReferralOutComeView extends StatelessWidget {
                 List<ReferralOutFollowUpComeEvent>
                     referralOutComeFollowUpEvents =
                     getReferralOutComeFollowUps(eventListByProgramStage);
+                bool canAddFollowUp = true;
+                referralOutComeFollowUpEvents
+                    .forEach((referralOutcomeFollowUpEvent) {
+                  if (referralOutcomeFollowUpEvent.additionalFollowUpRequired !=
+                          null &&
+                      !referralOutcomeFollowUpEvent
+                          .additionalFollowUpRequired) {
+                    canAddFollowUp =
+                        referralOutcomeFollowUpEvent.additionalFollowUpRequired;
+                  }
+                });
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -237,23 +248,26 @@ class ReferralOutComeView extends StatelessWidget {
                           decoration: BoxDecoration(
                             color: themeColor,
                           ),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: FlatButton(
-                                  onPressed: () => this
-                                      .onAddReferralOutComeFollowUp(context),
-                                  child: Text(
-                                    'ADD FOLLOW-UP',
-                                    style: TextStyle().copyWith(
-                                      color: Color(0XFFFAFAFA),
-                                      fontSize: 15.0,
-                                      fontWeight: FontWeight.w700,
+                          child: Visibility(
+                            visible: canAddFollowUp,
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: FlatButton(
+                                    onPressed: () => this
+                                        .onAddReferralOutComeFollowUp(context),
+                                    child: Text(
+                                      'ADD FOLLOW-UP',
+                                      style: TextStyle().copyWith(
+                                        color: Color(0XFFFAFAFA),
+                                        fontSize: 15.0,
+                                        fontWeight: FontWeight.w700,
+                                      ),
                                     ),
                                   ),
-                                ),
-                              )
-                            ],
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       ),
