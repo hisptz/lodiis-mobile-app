@@ -872,11 +872,11 @@ class OvcHouseHoldServiceAdultWellbeing {
                       name: 'My spouse',
                       translatedName: 'Molekane oaka'),
                   InputFieldOption(
-                      code: 'pCHKaQptcwn',
+                      code: 'MJGmlQevBsM',
                       name: 'A friend/neighbor',
                       translatedName: 'Motsoalle/Moahisane '),
                   InputFieldOption(
-                      code: 'FqLADURlSw6',
+                      code: 'pCHKaQptcwn',
                       name: 'Boyfriend/ girlfriend',
                       translatedName: 'Mohlankana oaka/Kharebe eaka'),
                   InputFieldOption(
