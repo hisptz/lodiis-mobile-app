@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/core/components/material_card.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/agyw_dreams_index_info_event.dart';
+import 'package:kb_mobile_app/models/agyw_dreams_index_info_event.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../../../app_state/enrollment_service_form_state/service_form_state.dart';
@@ -33,7 +33,6 @@ class DreamsHTSIndexCard extends StatelessWidget {
   final VoidCallback onCardToogle;
   final String svgIcon = 'assets/icons/hh_icon.svg';
 
-
   void updateFormState(
     BuildContext context,
     bool isEditableMode,
@@ -56,16 +55,18 @@ class DreamsHTSIndexCard extends StatelessWidget {
     }
   }
 
-  void onEditIndexInfo(BuildContext context, AgywDreamsIndexInfoEvent eventData) {
-    updateFormState(context,true,eventData);
+  void onEditIndexInfo(
+      BuildContext context, AgywDreamsIndexInfoEvent eventData) {
+    updateFormState(context, true, eventData);
     Navigator.push(
         context,
         MaterialPageRoute(
             builder: (context) => AgywDreamsIndexInfoAboutPosClient()));
   }
 
-  void onViewIndexInfo(BuildContext context, AgywDreamsIndexInfoEvent eventData) {
-    updateFormState(context,false,eventData);
+  void onViewIndexInfo(
+      BuildContext context, AgywDreamsIndexInfoEvent eventData) {
+    updateFormState(context, false, eventData);
     Navigator.push(
         context,
         MaterialPageRoute(
@@ -82,7 +83,7 @@ class DreamsHTSIndexCard extends StatelessWidget {
             child: Column(
               children: [
                 Container(
-                  child: DreamsHTSIndexCardHeader(
+                    child: DreamsHTSIndexCardHeader(
                   event: event,
                   canEdit: canEdit,
                   canView: canView,
@@ -90,8 +91,8 @@ class DreamsHTSIndexCard extends StatelessWidget {
                   canExpand: canExpand,
                   isExpanded: isExpanded,
                   onToggleCard: onCardToogle,
-                  onEdit: () => onEditIndexInfo(context,event),
-                  onView: () => onViewIndexInfo(context,event),
+                  onEdit: () => onEditIndexInfo(context, event),
+                  onView: () => onViewIndexInfo(context, event),
                 )),
                 cardBody,
                 cardBottonActions,
@@ -103,5 +104,4 @@ class DreamsHTSIndexCard extends StatelessWidget {
       ),
     );
   }
-  }
-
+}

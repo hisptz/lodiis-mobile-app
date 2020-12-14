@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:kb_mobile_app/core/components/line_seperator.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/agyw_dreams_index_info_event.dart';
+import 'package:kb_mobile_app/models/agyw_dreams_index_info_event.dart';
 
 class DreamsHTSIndexCardHeader extends StatelessWidget {
   DreamsHTSIndexCardHeader({

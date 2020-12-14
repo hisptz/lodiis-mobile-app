@@ -9,7 +9,7 @@ import 'package:kb_mobile_app/core/components/line_seperator.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/events.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/agyw_dreams_index_info_event.dart';
+import 'package:kb_mobile_app/models/agyw_dreams_index_info_event.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/constants/agyw_dream_hts_follow_up.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/constants/agyw_dreams_hts_index_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/constants/agyw_dreams_index_contact_constant.dart';

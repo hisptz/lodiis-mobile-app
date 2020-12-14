@@ -11,7 +11,7 @@ import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_ev
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/events.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/agyw_dreams_index_info_event.dart';
+import 'package:kb_mobile_app/models/agyw_dreams_index_info_event.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/components/dreams_hts_index_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/components/dreams_hts_index_card_body.dart';
 
