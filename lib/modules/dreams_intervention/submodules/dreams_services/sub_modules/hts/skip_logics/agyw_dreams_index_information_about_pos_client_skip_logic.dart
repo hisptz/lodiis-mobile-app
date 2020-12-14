@@ -23,14 +23,14 @@ class AgywDreamsIndexInformationAboutPosClientSkipLogic {
 
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
-      if (inputFieldId == 'eT9Dk0tPnHe' && value != 'true') {
+      if (inputFieldId == 'eT9Dk0tPnHe' && value != 'false') {
         hiddenFields['V5mfC58nqj2'] = true;
         hiddenFields['Gfakgx9bgsW'] = true;
       }
       if (inputFieldId == 'V5mfC58nqj2' && value != 'Other') {
         hiddenFields['Gfakgx9bgsW'] = true;
       }
-      if (inputFieldId == 'ePGwxaqA5Po' && value != 'false') {
+      if (inputFieldId == 'ePGwxaqA5Po' && value != 'true') {
         hiddenFields['MqHM8UEHaFD'] = true;
         hiddenFields['qdN6oXzoUCg'] = true;
         hiddenFields['rvZ3SgtvxB5'] = true;
