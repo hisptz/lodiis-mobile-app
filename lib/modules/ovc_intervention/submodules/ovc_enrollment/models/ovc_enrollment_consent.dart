@@ -40,9 +40,9 @@ class OvcEnrollmentConsent {
         InputField(
             id: 'JCI4nxcE4N6',
             name:
-                'Lelapa laka le lumela ho kopana kamehla ho buisana ka litaba tseo re thulanang le tsona, ho beha sepheo sa bokamoso ba rona, le hore na re ka fihlela sepheo seo joang, re sebetsa mmoho ho fihlela re fihleletse sepheo sa rona.',
+                'Does your household agrees to regularly meet with CMW to discuss issues faced, set goals for future, and plan how to achieve those goals?',
             translatedName:
-                'Lelapa leso le lumela ho kopana khafetsa le Case Management Worker ho buisana ka mathata ao re tobaneng le ona, ho ipehela lipheo tsa bokamoso ba rona, le hore na re ka fihlela sepheo seo joang, re sebetsa \'moho ho fihlela re fihlela sepheo sa rona.',
+                'Lelapa leso le lumela ho kopana khafetsa le Case Management Worker ho buisana ka mathata ao re tobaneng le ona, ho ipehela lipheo tsa bokamoso ba rona, le hore na re ka fihlela sepheo seo joang, re sebetsa \'moho ho fihlela re fihlela sepheo sa rona?',
             valueType: 'BOOLEAN',
             labelColor: Color(0xFF1A3518),
             inputColor: Color(0xFF4B9F46)),
