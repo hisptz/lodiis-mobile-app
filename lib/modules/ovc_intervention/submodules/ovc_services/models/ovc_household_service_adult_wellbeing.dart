@@ -600,7 +600,13 @@ class OvcHouseHoldServiceAdultWellbeing {
                     'If over six months (or their window period) refer for testing ',
                 translatedDescription:
                     'Ha sephetho se feta khoeli tse 6 fetesitsa setsing sa tlhabollo',
-                valueType: 'DATE',
+                valueType: 'TEXT',
+                options: [
+                  InputFieldOption(code: '0-3 months ago', name: '0-3 months ago'),
+                  InputFieldOption(code: '4-6 months ago', name: '4-6 months ago'),
+                  InputFieldOption(code: '7-12 months ago', name: '7-12 months ago'),
+                  InputFieldOption(code: 'Above 12 months ago', name: 'Above 12 months ago'),
+                ],
                 inputColor: Color(0xFF4B9F46),
                 labelColor: Color(0xFF1A3518)),
             InputField(
@@ -872,11 +878,11 @@ class OvcHouseHoldServiceAdultWellbeing {
                       name: 'My spouse',
                       translatedName: 'Molekane oaka'),
                   InputFieldOption(
-                      code: 'pCHKaQptcwn',
+                      code: 'MJGmlQevBsM',
                       name: 'A friend/neighbor',
                       translatedName: 'Motsoalle/Moahisane '),
                   InputFieldOption(
-                      code: 'FqLADURlSw6',
+                      code: 'pCHKaQptcwn',
                       name: 'Boyfriend/ girlfriend',
                       translatedName: 'Mohlankana oaka/Kharebe eaka'),
                   InputFieldOption(
@@ -1119,7 +1125,7 @@ class OvcHouseHoldServiceAdultWellbeing {
                       code: 'NA', name: 'NA', translatedName: 'N/A')
                 ]),
             InputField(
-                id: '',
+                id: 'JmLdZM3XYfY_checkbox',
                 name:
                     '32. How did you receive information about parenting and child care?',
                 translatedName:
@@ -1244,44 +1250,6 @@ class OvcHouseHoldServiceAdultWellbeing {
                 inputColor: Color(0xFF549388),
                 labelColor: Color(0xFF1A3518)),
           ]),
-      FormSection(
-          name: 'Goals and Actions',
-          color: Color(0xFF8836AE),
-          description:
-              'Case Management Workers reads: “Assets can also be social. This is because people need connections, support, and relationships in order to be well.”',
-          borderColor: Color(0xFF8836AE),
-          inputFields: [
-            InputField(
-                id: 'LfzukQDbExn',
-                name: 'Goal 1 to improve your relationship with your children',
-                translatedName:
-                    'Sepheo 1 ho ntlafatsa likamano tsa hau le bana ba hau',
-                valueType: 'LONG_TEXT',
-                inputColor: Color(0xFF8836AE),
-                labelColor: Color(0xFF1A3518)),
-            InputField(
-                id: 'IEWXu1tyGnj',
-                name: 'Actions for Goal 1',
-                translatedName: 'Likhato tsa sepheo 1',
-                valueType: 'LONG_TEXT',
-                inputColor: Color(0xFF8836AE),
-                labelColor: Color(0xFF1A3518)),
-            InputField(
-                id: 'TLXASUqVT6H',
-                name: 'Goal 2 to improve your relationship with your children',
-                translatedName:
-                    'Sepheo 2 ho ntlafatsa likamano tsa hau le bana ba hau',
-                valueType: 'LONG_TEXT',
-                inputColor: Color(0xFF8836AE),
-                labelColor: Color(0xFF1A3518)),
-            InputField(
-                id: 'mj3S8PG5tra',
-                name: 'Actions for Goal 2',
-                translatedName: 'Likhato tsa sepheo 2',
-                valueType: 'LONG_TEXT',
-                inputColor: Color(0xFF8836AE),
-                labelColor: Color(0xFF1A3518)),
-          ])
     ];
   }
 }

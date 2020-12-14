@@ -16,6 +16,7 @@ import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/components/add_child_confirmation.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/components/enrolled_children_list.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/constants/ovc_enrollment_child_form_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/models/ovc_enrollment_child.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/pages/ovc_enrollment_house_hold_form.dart';
 import 'package:provider/provider.dart';
@@ -112,6 +113,7 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
         hiddenFields['YR7Xxk14qoP_checkbox'] = true;
       }
     }
+    assignPrimaryVulnerability(childMapObject);
     for (String sectionId in hiddenSections.keys) {
       List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections
           .where((formSection) => formSection.id == sectionId)
@@ -137,6 +139,42 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
     String value,
   ) {
     childMapObject[inputFieldId] = value;
+  }
+
+  assignPrimaryVulnerability(Map dataObject) {
+    List<String> vulnerabilities = [
+      'wmKqYZML8GA',
+      'GMcljM7jbNG',
+      'br1xvwAQ6el',
+      'ZKMhrjWoXnD',
+      'Gkjp5XZD70V',
+      'UeF4OvjIIEK',
+      'YR7Xxk14qoP'
+    ];
+    List<String> primaryVulnerabilitiesOptions = [
+      'Child living with HIV',
+      'HIV exposed infants',
+      'Child of a sex worker (FSW)',
+      'Child of PLHIV',
+      'Child exposed/experiencing violence and abuse (Survivors of Vac)',
+      'Orphan',
+      'Child living with disability'
+    ];
+    for (var vulnerabilityKey in vulnerabilities) {
+      if (dataObject[vulnerabilityKey] == true) {
+        assignInputFieldValue(
+            OvcEnrollmentChildConstant.primaryVulnerabilityKey,
+            primaryVulnerabilitiesOptions[
+                vulnerabilities.indexOf(vulnerabilityKey)]);
+        break;
+      } else
+        continue;
+    }
+    if (vulnerabilities.every((element) =>
+        (dataObject[element] == false || dataObject[element] == null))) {
+      assignInputFieldValue(
+          OvcEnrollmentChildConstant.primaryVulnerabilityKey, null);
+    }
   }
 
   void updateOvcCount() {

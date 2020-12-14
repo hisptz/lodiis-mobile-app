@@ -62,7 +62,13 @@ class OvcHouseHoldEnrollmentSkipLogic {
       } else {
         assignInputFieldValue(context, 'M9uM11xcHG3', 'true');
       }
-
+      try {
+        if (children
+            .every((child) => int.parse('${child['ls9hlz2tyol']}') > 5)) {
+          hiddenFields['NqoQ5BNNoob'] = true;
+          hiddenFields['NAMKqy2KVKk'] = true;
+        }
+      } catch (e) {}
     }
 
     //Economic Strengthening

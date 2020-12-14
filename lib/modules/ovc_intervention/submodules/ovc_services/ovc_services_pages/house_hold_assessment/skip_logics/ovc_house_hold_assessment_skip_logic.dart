@@ -119,6 +119,14 @@ class OvchouseHoldAssessmentSkipLogic {
       if(inputFieldId == 'doJJzw4NX8m' && value == 'true'){
         hiddenFields['doJJzw4NX8m_checkbox'] = true;
       }
+      if(inputFieldId == 'LGrG9fGZfXP' && value == 'true'){
+          hiddenFields['ZuaV20IvVV2'] = true;
+      }
+      if(inputFieldId == 'JmLdZM3XYfY' && value == 'No'){
+          hiddenFields['JmLdZM3XYfY_checkbox'] = true;
+      }
+
+
     }
     for (String sectionId in hiddenSections.keys) {
       List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections
@@ -158,4 +166,6 @@ class OvchouseHoldAssessmentSkipLogic {
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState(inputFieldId, value);
   }
+
+
 }

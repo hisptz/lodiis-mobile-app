@@ -325,6 +325,7 @@ class OvcEnrollmentChild {
             InputField(
                 id: 'mTv9eZZq0Nz',
                 name: '8. Which is the primary vulnerability?',
+                isReadOnly: true,
                 inputColor: Color(0xFF4B9F46),
                 labelColor: Color(0xFF737373),
                 valueType: 'TEXT',
@@ -365,13 +366,13 @@ class OvcEnrollmentChild {
                 ]),
             InputField(
                 id: 'omUPOnb4JVp',
-                name: '9. Are there other vulnerabilities?',
+                name: '9. Are there other vulnerabilities? (Beyond the identified seven)',
                 inputColor: Color(0xFF4B9F46),
                 labelColor: Color(0xFF737373),
                 valueType: 'BOOLEAN'),
             InputField(
                 id: 'WsmWkkFBiT6',
-                name: 'Other vulnerability',
+                name: 'Other vulnerability (Beyond the identified seven)',
                 inputColor: Color(0xFF4B9F46),
                 labelColor: Color(0xFF737373),
                 valueType: 'TEXT'),

@@ -193,20 +193,6 @@ class OvcEnrollmentHouseHold {
                 borderColor: Color(0xFF4B9F46),
                 inputFields: [
                   InputField(
-                    id: 'oF2lwagPkQA',
-                    name: '1. Is this a child-headed household',
-                    translatedName:
-                        '1. Na mohlokomeli oa lelapa ke ngoana ea lilemo tse katlase ho 18?',
-                    valueType: 'BOOLEAN',
-                    inputColor: Color(0xFF4B9F46),
-                    hasSubInputField: true,
-                    subInputField: InputField(
-                        id: 'a0XHRG2DuNs',
-                        name: 'Referral',
-                        valueType: 'TRUE_ONLY',
-                        inputColor: Color(0xFF4B9F46)),
-                  ),
-                  InputField(
                     id: 'j0S43gUicDQ',
                     name:
                         '2. In the last 6 months, has there been at least one member of the household who has consistently had formal or informal employment or is self-employed or has a business or is engaged in an economically productive activity',
@@ -227,7 +213,15 @@ class OvcEnrollmentHouseHold {
                         '3. The last time there was an unexpected urgent household expense (e.g. emergency medical expense, natural disaster – flooding, hail, drought, fire, funeral or house repair), someone in the household was able to pay for that expense',
                     translatedName:
                         '3. Nakong e fitileng haeba le kile la ba boemong ba ho ba le litlhoko tsa ts’ohanyetso tse hlokang chelete (joaloka, lefu, ho lokisa ntlo, likoluoa tse kang likhohola, sefako, komello, mollo), na ho na le motho lapeng moo ea ileng a lefa lišenyehelo tseo?',
-                    valueType: 'BOOLEAN',
+                    valueType: 'TEXT',
+                    options: [
+                      InputFieldOption(
+                          code: 'Yes', name: 'Yes', translatedName: 'E'),
+                      InputFieldOption(
+                          code: 'No', name: 'No', translatedName: 'Cha'),
+                      InputFieldOption(
+                          code: 'N/A', name: 'N/A', translatedName: 'N/A'),
+                    ],
                     inputColor: Color(0xFF4B9F46),
                     hasSubInputField: true,
                     subInputField: InputField(
@@ -643,6 +637,7 @@ class OvcEnrollmentHouseHold {
                     translatedName:
                         '19. Na ho na le ngoana ea nang le bokooa lelapeng lee?',
                     valueType: 'BOOLEAN',
+                    isReadOnly: true,
                     inputColor: Color(0xFFEF6C00),
                     hasSubInputField: true,
                     subInputField: InputField(
