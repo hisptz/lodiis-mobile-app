@@ -1,4 +1,5 @@
 import 'package:kb_mobile_app/models/events.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/constants/agyw_dream_hts_follow_up.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/constants/agyw_dreams_index_positive_constant.dart';
 
 class AgywDreamsIndexInfoEvent {
@@ -10,6 +11,7 @@ class AgywDreamsIndexInfoEvent {
   String enrollmentFacility;
   String htsIndexLinkage;
   String indexInfoToIndexContactLinkage;
+  String indexContactToElicitedPartnerLinkage;
   dynamic datavalues;
 
   Events eventData;
@@ -23,6 +25,7 @@ class AgywDreamsIndexInfoEvent {
     this.enrollmentFacility,
     this.htsIndexLinkage,
     this.indexInfoToIndexContactLinkage,
+    this.indexContactToElicitedPartnerLinkage,
     this.datavalues,
     this.eventData,
   });
@@ -34,7 +37,8 @@ class AgywDreamsIndexInfoEvent {
       'qdN6oXzoUCg',
       'rvZ3SgtvxB5',
       AgywDreamsIndexPositiveConstant.htsToIndexLinkage,
-      AgywDreamsIndexPositiveConstant.indexInfoToIndexContactLinkage
+      AgywDreamsIndexPositiveConstant.indexInfoToIndexContactLinkage,
+      AgywDreamsHTSFOLLOWUPConstant.indexContactToElicitedPartnerLinkage
     ];
     Map data = Map();
     for (Map detailObj in eventData.dataValues) {
@@ -55,6 +59,9 @@ class AgywDreamsIndexInfoEvent {
           data[AgywDreamsIndexPositiveConstant.htsToIndexLinkage] ?? '',
       indexInfoToIndexContactLinkage: data[
               AgywDreamsIndexPositiveConstant.indexInfoToIndexContactLinkage] ??
+          '',
+      indexContactToElicitedPartnerLinkage: data[AgywDreamsHTSFOLLOWUPConstant
+              .indexContactToElicitedPartnerLinkage] ??
           '',
       eventData: eventData,
     );
