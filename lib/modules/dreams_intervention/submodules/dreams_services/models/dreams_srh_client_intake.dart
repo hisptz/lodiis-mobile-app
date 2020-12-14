@@ -68,8 +68,7 @@ class DreamsSrhClientIntake {
             options: [
               InputFieldOption(code: 'None', name: 'None'),
               InputFieldOption(code: 'Primary', name: 'Primary'),
-              InputFieldOption(
-                  code: 'High school', name: 'High school'),
+              InputFieldOption(code: 'High school', name: 'High school'),
               InputFieldOption(code: 'Tertiary', name: 'Tertiary')
             ]),
         InputField(
@@ -87,13 +86,13 @@ class DreamsSrhClientIntake {
                   name: 'Friends or Family members'),
               InputFieldOption(code: 'Other', name: 'Other')
             ]),
-               InputField(
-            id: 'uLV0xy0iihA',
-            name: 'Specify other reasons to decide getting Fp services',
-            valueType: 'TEXT',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
-            )
+        InputField(
+          id: 'uLV0xy0iihA',
+          name: 'Specify other reasons to decide getting Fp services',
+          valueType: 'TEXT',
+          inputColor: Color(0xFF258DCC),
+          labelColor: Color(0xFF737373),
+        )
       ]),
       FormSection(
           name: 'PREVIOUS HIV TEST & TREATMENT HISTORY',
@@ -406,7 +405,13 @@ class DreamsSrhClientIntake {
                   InputFieldOption(
                       code: 'Post-abortion', name: 'Post-abortion'),
                   InputFieldOption(code: 'Other', name: 'Other')
-                ])
+                ]),
+            InputField(
+                id: 'GbYE4IUsK0T',
+                name: 'Other method provision by occasion',
+                inputColor: Color(0xFF258DCC),
+                labelColor: Color(0xFF737373),
+                valueType: 'TEXT')
           ])
     ];
   }

@@ -26,14 +26,35 @@ class AgywEnrollmentFormSection {
       'gY0nOLnR3eh',
       'NgIDtgfZMVH',
       'ClDEtAAqDPI',
-      'i32OwNqUYRn'
+      'i32OwNqUYRn',
+      'i32OwNqUYRn',
+      'ClDEtAAqDPI',
+      'NgIDtgfZMVH',
+      'gY0nOLnR3eh',
+      'KNqzbD65UrN',
+      'OZqIvrzGBFK',
+      'Zmt7PefVzk4',
+      'iLX2uQ4ZXM0',
+      'NOJbkKuHccD',
+      'GdsRvY5lHCU',
+      'mvPAYFoFQcW',
+      'RO2RIidPOqK',
+      'WwTI82dbYIc',
+      'CU4HyDp6XO0',
+      'bBVCUqsdfL3',
+      'NP7LbypO3li',
+      'ZcfLYz7JlVo',
+      'ZcfLYz7JlVo_checkbox',
+      'H2Az2c3MeAy',
+      'H2Az2c3MeAy_checkbox',
+      'OFJD1RNGEZu'
     ];
   }
 
   static List<FormSection> getFormSections() {
     return [
       FormSection(
-        name: 'Enrollment Basic Details',
+        name: 'Enrollment Instructions',
         color: Color(0xFF258DCC),
         inputFields: [
           InputField(

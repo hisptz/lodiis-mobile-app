@@ -27,7 +27,7 @@ class AgywDreamsSrhSkipLogic {
         hiddenFields['kV6uCz4uLLR'] = true;
         hiddenFields['rE25suIpzDK'] = true;
       }
-      if(inputFieldId == 'kV6uCz4uLLR' && value != 'Positive'){
+      if (inputFieldId == 'kV6uCz4uLLR' && value != 'Positive') {
         hiddenFields['rE25suIpzDK'] = true;
       }
       if (inputFieldId == 'rE25suIpzDK' && value != 'true') {
@@ -55,6 +55,10 @@ class AgywDreamsSrhSkipLogic {
 
       if (inputFieldId == 'BXW4IP4Lfe7' && value != 'Other') {
         hiddenFields['Sj45q8zEcqx'] = true;
+      }
+
+      if (inputFieldId == 'fPNCS47GeqT' && value != 'Other') {
+        hiddenFields['GbYE4IUsK0T'] = true;
       }
     }
     for (String sectionId in hiddenSections.keys) {
