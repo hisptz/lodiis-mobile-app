@@ -325,6 +325,7 @@ class OvcEnrollmentChild {
             InputField(
                 id: 'mTv9eZZq0Nz',
                 name: '8. Which is the primary vulnerability?',
+                isReadOnly: true,
                 inputColor: Color(0xFF4B9F46),
                 labelColor: Color(0xFF737373),
                 valueType: 'TEXT',
