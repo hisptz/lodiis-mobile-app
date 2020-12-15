@@ -22,16 +22,16 @@ class NonAgywDreamsHTSRegisterSkipLogic {
     inputFieldIds = inputFieldIds.toSet().toList();
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
-      if (inputFieldId == 'Dzr6d0hPXjR' && value != 'Other(Specify)') {
-        hiddenFields['IHuXwqwWl9i'] = true;
+      if (inputFieldId == 'WsyK9VWBYOQ' && value != 'Other(Specify)') {
+        hiddenFields['Yk0afIAypzt'] = true;
       }
-      if (inputFieldId == 'jO14p2Unvqm' && value != 'true') {
-        hiddenFields['UXXn9kAqASd'] = true;
-        hiddenFields['beizqNyYP9a'] = true;
-        hiddenFields['CCgL6RQ9BkR'] = true;
+      if (inputFieldId == 'ses8fLQtfoi' && value != 'true') {
+        hiddenFields['aX0niP9AH6t'] = true;
+        hiddenFields['zcMQIn9jMRD'] = true;
+        hiddenFields['GwsIKCCsbSB'] = true;
       }
-      if(inputFieldId == 'B9WDdd3feaQ' && value != 'true'){
-        hiddenFields['cGnoMSGCGBG']= true;
+      if(inputFieldId == 'yvu29Wvtb41' && value != 'true'){
+        hiddenFields['CpGjlCaEcJt']= true;
       }
 
     }

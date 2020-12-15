@@ -21,41 +21,38 @@ class NonAgywDreamsHTCSkipLogic {
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
 
-      if ((inputFieldId == 'p2r7Gf6Yqye' && value != 'Other')) {
-        hiddenFields['RXHjnbJAMkz'] = true;
+      if ((inputFieldId == 'J53jgfHiufC' && value != 'Other')) {
+        hiddenFields['ybq5BQOdMG6'] = true;
       }
-      if (inputFieldId == 'EHhaJRS2gqc' && value != 'Other') {
-        hiddenFields['OJfuwI9k15B'] = true;
-      }
-
-      if (inputFieldId == 'C2k7GxU3P5C' && value != 'true') {
-        hiddenFields['aYeHcF3793X'] = true;
-      }
-      if (inputFieldId == 'UlombfpCloG' && value != 'Couple') {
-        hiddenFields['hWdE0MXmeuP'] = true;
-      }
-      if (inputFieldId == 'GSLu0wyCCsP' && value != 'Other') {
-        hiddenFields['aoWp3tKXOqa'] = true;
+      if (inputFieldId == 'G86T8BY1eVL' && value != 'Other') {
+        hiddenFields['YzPuEq2nAIh'] = true;
       }
 
-      if (inputFieldId == 'HXUTJfK4T6V' && value != 'true') {
-        hiddenFields['f8irSIFCXDF'] = true;
-        hiddenFields['JL1rGyJaDnw'] = true;
-        hiddenFields['j2qNW9NsNBv'] = true;
+      if (inputFieldId == 'sJ35hsF6Lf9' && value != 'Couple') {
+        hiddenFields['XjHuTmtsXsz'] = true;
+      }
+      if (inputFieldId == 'Lam6bSq1Zgk' && value != 'Other') {
+        hiddenFields['w6kNR0e4G6V'] = true;
       }
 
-      if (inputFieldId == 'CR5xUFmPHVy' && value != 'true') {
-        hiddenFields['ODv7ghspcbG'] = true;
+      if (inputFieldId == 'qvXYyTK9h2m' && value != 'true') {
+        hiddenFields['ZxXscC5W9qb'] = true;
+        hiddenFields['ECSlqcSEB9D'] = true;
+        hiddenFields['z50tGzpCAow'] = true;
       }
 
-      if ('${dataObject['gCvMVscBNfk']}' != 'null' &&
-          '${dataObject['x7Jzm67o0Ng']}' != 'null') {
-        dataObject['gCvMVscBNfk_bmi'] = calculateBMI(
-            '${dataObject['gCvMVscBNfk']}', '${dataObject['x7Jzm67o0Ng']}');
+      if (inputFieldId == 'RXS4fNXVKMl' && value != 'true') {
+        hiddenFields['LZFhD0N9Zj5'] = true;
       }
-      if (inputFieldId == 'mhZeM9CuGQn' && value != 'null') {
-        assignInputFieldValue(context, 'uRsImCXXDXe', value);
+
+      if ('${dataObject['eXp9ASOufpR']}' != 'null' &&
+          '${dataObject['qsujYWhB0DP']}' != 'null') {
+        dataObject['eXp9ASOufpR_bmi'] = calculateBMI(
+            '${dataObject['eXp9ASOufpR']}', '${dataObject['qsujYWhB0DP']}');
       }
+      // if (inputFieldId == 'mA1IUgJSWf8' && value != 'null') {
+      //   assignInputFieldValue(context, 'uRsImCXXDXe', value);
+      // }
     }
     for (String sectionId in hiddenSections.keys) {
       List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections
