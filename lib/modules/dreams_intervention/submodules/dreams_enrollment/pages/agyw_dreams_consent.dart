@@ -14,6 +14,7 @@ import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/models/agyw_enrollment_consent.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/pages/agyw_enrollment_none_participation_form.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/skip_logics/agyw_dreams_enrollment_skip_logic.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:provider/provider.dart';
@@ -73,7 +74,9 @@ class _AgywEnrollmentConsetFormState extends State<AgywDreamsConsentForm> {
       Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => AgywDreamServiceForm(),
+            builder: (context) => dataObject['EsrJ2dgIMHY']
+                ? AgywDreamServiceForm()
+                : AgywEnrollmentNoneParticipationForm(),
           ));
     } else {
       AppUtil.showToastMessage(

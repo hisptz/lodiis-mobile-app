@@ -45,6 +45,7 @@ class BioDataIndexContacts {
                 id: 'cYoXGqzLXLr',
                 name: "Partner's age",
                 valueType: 'NUMBER',
+                isReadOnly: true,
                 inputColor: Color(0xFF258DCC),
                 labelColor: Color(0xFF737373)),
             InputField(
@@ -76,18 +77,6 @@ class BioDataIndexContacts {
                   InputFieldOption(code: 'Unknown', name: 'Unknown'),
                   InputFieldOption(code: 'No Response', name: 'No Response')
                 ]),
-            InputField(
-                id: 'Vw2UuN7qN8P',
-                name: 'Index to Index Contact linkage',
-                valueType: 'TEXT',
-                inputColor: Color(0xFF258DCC),
-                labelColor: Color(0xFF737373)),
-            InputField(
-                id: 'ZeXr3gvDhCW',
-                name: 'Index Contact to elicited sexual partner linkage',
-                valueType: 'TEXT',
-                inputColor: Color(0xFF258DCC),
-                labelColor: Color(0xFF737373))
           ]),
     ];
   }

@@ -110,7 +110,8 @@ class _AgywDreamsSrhRegisterFormState extends State<AgywDreamsSrhRegisterForm> {
                 : 'Form has been saved successfully',
             position: ToastGravity.TOP,
           );
-          Navigator.pop(context);
+
+          Navigator.popUntil(context, (route) => route.isFirst);
         });
       } catch (e) {
         Timer(Duration(seconds: 1), () {
@@ -124,7 +125,6 @@ class _AgywDreamsSrhRegisterFormState extends State<AgywDreamsSrhRegisterForm> {
       AppUtil.showToastMessage(
           message: 'Please fill at least one form field',
           position: ToastGravity.TOP);
-      Navigator.pop(context);
     }
   }
 

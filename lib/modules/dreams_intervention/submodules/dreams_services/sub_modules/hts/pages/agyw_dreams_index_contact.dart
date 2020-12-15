@@ -49,6 +49,15 @@ class _AgywDreamsIndexContactState extends State<AgywDreamsIndexContact> {
   void onInputValueChange(String id, dynamic value) {
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState(id, value);
+    autoFillInputFields(id, value);
+  }
+
+  void autoFillInputFields(String id, dynamic value) {
+    if (id == 'Y0QGNDBCEbz') {
+      int age = AppUtil.getAgeInYear(value);
+      Provider.of<ServiceFormState>(context, listen: false)
+          .setFormFieldState('cYoXGqzLXLr', age.toString());
+    }
   }
 
   void onSaveForm(
@@ -59,9 +68,9 @@ class _AgywDreamsIndexContactState extends State<AgywDreamsIndexContact> {
       });
       String eventDate = dataObject['eventDate'];
       String eventId = dataObject['eventId'];
-      // print(dataObject);
       List<String> hiddenFields = [
-        AgywDreamsHTSIndexConstant.indexInfoToIndexContactLinkage
+        AgywDreamsHTSIndexConstant.indexInfoToIndexContactLinkage,
+        AgywDreamsHTSIndexConstant.indexContactToElicitedSexualPartnerLinkage
       ];
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
