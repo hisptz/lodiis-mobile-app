@@ -16,6 +16,7 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enro
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_referral/dream_referral_page.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/dreams_services_page.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/none_agyw_page.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/pages/non_agyw_dreams_hts_consent_form.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/pages/none_agyw_enrollment_client_intake_form.dart';
 import 'package:provider/provider.dart';
 
@@ -59,7 +60,7 @@ class _DreamsInterventionState extends State<DreamsIntervention> {
     Provider.of<EnrollmentFormState>(context, listen: false).resetFormState();
     Navigator.push(context, MaterialPageRoute(
       builder: (context) {
-        return NoneAgywEnrollmentClientInTakeForm();
+        return NonAgywDreamsHTSConsentForm();
       },
     ));
   }

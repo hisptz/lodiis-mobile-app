@@ -10,6 +10,8 @@ import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_card_body.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_card.dart';
 import 'package:kb_mobile_app/core/components/sub_module_home_container.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/constant/non_agyw_hts_constant.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/pages/non_agyw_dreams_hts_consent_form.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/pages/none_agyw_enrollment_client_intake_form.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/sub_pages/none_agyw_prep/none_agyw_prep.dart';
 import 'package:provider/provider.dart';
@@ -51,7 +53,7 @@ class _NoneAgywState extends State<NoneAgyw> {
     Provider.of<EnrollmentFormState>(context, listen: false).resetFormState();
     Navigator.push(context, MaterialPageRoute(
       builder: (context) {
-        return NoneAgywEnrollmentClientInTakeForm();
+        return NonAgywDreamsHTSConsentForm();
       },
     ));
   }
@@ -109,6 +111,13 @@ class _NoneAgywState extends State<NoneAgyw> {
                       : Column(
                           children: noneAgywDreamsInterventionList
                               .map((AgywDream agywBeneficiary) {
+                            List dataObject = agywBeneficiary
+                                .trackeEntityInstanceData.attributes;
+                            List filteredDataObject = dataObject.where((element) => element['attribute'] == NonAgywDreamsHTSConstant.hivResultStatus).toList();
+                            bool isBeneficiaryHIVNegative = false;
+                            if(filteredDataObject.isNotEmpty){
+                                isBeneficiaryHIVNegative = filteredDataObject.first['value'] == 'Negative';
+                            }
                             return DreamsBeneficiaryCard(
                               isAgywEnrollment: false,
                               agywDream: agywBeneficiary,
@@ -126,29 +135,32 @@ class _NoneAgywState extends State<NoneAgyw> {
                                   isVerticalLayout:
                                       agywBeneficiary.benefecaryId ==
                                           toggleCardId),
-                              cardBottonActions: Container(
-                                child: Column(
-                                  children: [
-                                    LineSeperator(
-                                      color: Color(0xFFE9F4FA),
-                                    ),
-                                    Container(
-                                      child: MaterialButton(
-                                        onPressed: () => onOpenPrep(
-                                          context,
-                                          agywBeneficiary,
-                                        ),
-                                        child: Text('PREP',
-                                            style: TextStyle().copyWith(
-                                              fontSize: 14.0,
-                                              fontWeight: FontWeight.normal,
-                                              color: Color(0xFF1F8ECE),
-                                            )),
+                              cardBottonActions: isBeneficiaryHIVNegative
+                                  ? Container(
+                                      child: Column(
+                                        children: [
+                                          LineSeperator(
+                                            color: Color(0xFFE9F4FA),
+                                          ),
+                                          Container(
+                                            child: MaterialButton(
+                                              onPressed: () => onOpenPrep(
+                                                context,
+                                                agywBeneficiary,
+                                              ),
+                                              child: Text('PREP',
+                                                  style: TextStyle().copyWith(
+                                                    fontSize: 14.0,
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                    color: Color(0xFF1F8ECE),
+                                                  )),
+                                            ),
+                                          )
+                                        ],
                                       ),
                                     )
-                                  ],
-                                ),
-                              ),
+                                  : Container(),
                               cardBottonContent: Container(),
                             );
                           }).toList(),
