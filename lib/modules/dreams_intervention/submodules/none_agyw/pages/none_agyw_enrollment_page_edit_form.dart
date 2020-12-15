@@ -18,6 +18,11 @@ import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/services/none_agyw_dream_enrollment_service.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/constant/non_agyw_hts_constant.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/models/non_agyw_hts_client_information.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/models/non_agyw_hts_consent.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/models/non_agyw_hts_consent_for_release_of_status.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/models/non_agyw_hts_register.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/skip_logics/none_agyw_enrollment_skip_logic.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:provider/provider.dart';
@@ -38,6 +43,10 @@ class _NoneAgywEnrollmentEditFormState
   List<FormSection> formSections;
   List<FormSection> clientIntakeFormSections;
   List<FormSection> prepScreeningFormSections;
+  List<FormSection> htsConsentFormSections;
+  List<FormSection> htsClientInformationFormSections;
+  List<FormSection> htsRegisterFormSections;
+  List<FormSection> htsConsentForReleaseFormSections;
 
   final String label = 'NonAgyw Enrolment Form';
   final Map mandatoryFieldObject = Map();
@@ -51,6 +60,15 @@ class _NoneAgywEnrollmentEditFormState
   void initState() {
     super.initState();
     setState(() {
+      htsConsentFormSections = NonAgywHTSConsent.getFormSections();
+      htsClientInformationFormSections =
+          NonAgywHTSClientInformation.getFormSections();
+      htsRegisterFormSections = NonAgywHTSRegister.getFormSections();
+      htsConsentForReleaseFormSections =
+          NonAgywHTSConsentForReleaseOfStatus.getFormSections();
+
+      //Determine if the beneficiary is HIV Positive
+
       for (String id in mandatoryFields) {
         mandatoryFieldObject[id] = true;
       }
@@ -60,10 +78,15 @@ class _NoneAgywEnrollmentEditFormState
           NoneAgywEnrollmentPrepScreening.getFormSections();
       List<String> skippedInputs = ['location', 'WTZ7GLTrE8Q', 'rSP9c21JsfC'];
       formSections = [
-        clientIntakeFormSections[0],
-        prepScreeningFormSections[0],
+        ...htsConsentFormSections,
+        clientIntakeFormSections[0], //TODO: Why take only the first section?
+        ...htsClientInformationFormSections,
+        ...htsRegisterFormSections,
+        ...htsConsentForReleaseFormSections,
       ];
-
+      if (isBeneficiaryHIVNegative()) {
+        formSections.addAll(prepScreeningFormSections);
+      }
       formSections = FormUtil.getFormSectionWithReadOnlyStatus(
         formSections,
         false,
@@ -236,5 +259,15 @@ class _NoneAgywEnrollmentEditFormState
               ),
             ),
             bottomNavigationBar: InterventionBottomNavigationBarContainer()));
+  }
+
+  bool isBeneficiaryHIVNegative() {
+    bool isBeneficiaryNegative = false;
+    Map dataObject =
+        Provider.of<EnrollmentFormState>(context, listen: false).formState;
+    if (dataObject[NonAgywDreamsHTSConstant.hivResultStatus] == 'Negative') {
+      isBeneficiaryNegative = true;
+    }
+    return isBeneficiaryNegative;
   }
 }
