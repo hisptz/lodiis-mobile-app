@@ -45,6 +45,7 @@ class BioDataIndexContacts {
                 id: 'cYoXGqzLXLr',
                 name: "Partner's age",
                 valueType: 'NUMBER',
+                isReadOnly: true,
                 inputColor: Color(0xFF258DCC),
                 labelColor: Color(0xFF737373)),
             InputField(
