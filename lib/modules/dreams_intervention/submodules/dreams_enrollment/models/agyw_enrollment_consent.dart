@@ -4,7 +4,14 @@ import 'package:kb_mobile_app/models/input_field.dart';
 
 class AgywEnrollmentConcent {
   static List<String> getMandatoryField() {
-    return ['location', 'n85SOIP68bN', 'e13nmWOsicM', 'EsrJ2dgIMHY'];
+    return [
+      'location',
+      'z2YcxWJ0g35',
+      'fPtxDcL7A3X',
+      'n85SOIP68bN',
+      'e13nmWOsicM',
+      'EsrJ2dgIMHY'
+    ];
   }
 
   static List<FormSection> getFormSections() {
@@ -19,35 +26,50 @@ class AgywEnrollmentConcent {
             inputColor: Color(0xFF258DCC),
             labelColor: Color(0xFF737373)),
         InputField(
+            id: 'z2YcxWJ0g35',
+            name: 'Would you allow me to talk to the AGYW in privacy?',
+            translatedName:
+                'Na u lumela hore ke botse mocha lipotso lekunutung?',
+            valueType: 'BOOLEAN',
+            inputColor: Color(0xFF258DCC),
+            labelColor: Color(0xFF737373)),
+        InputField(
+            id: 'fPtxDcL7A3X',
+            name: 'Do you agree to participate in this assessment',
+            translatedName: 'Na u lumela ho hloauoa ho kena lenaneng la DREAMS',
+            valueType: 'BOOLEAN',
+            inputColor: Color(0xFF258DCC),
+            labelColor: Color(0xFF737373)),
+        InputField(
             id: 'n85SOIP68bN',
             name:
-                'Have you read and  understand the provided information and have had the opportunity to ask questions?',
+                'I have read and I understand the provided information and have had the opportunity to ask questions.',
             translatedName:
-                'Ke balile le ho utloisisa litaba tseo ke li fuoeng mme ke bile le monyetla oa ho botsa lipotso',
+                'Ke balile le ho utloisisa litaba tseo ke li fuoeng mme ke bile le monyetla oa ho botsa lipotso.',
             valueType: 'BOOLEAN',
             inputColor: Color(0xFF258DCC),
             labelColor: Color(0xFF737373)),
         InputField(
             id: 'e13nmWOsicM',
             name:
-                'Do you understand that my participation is voluntary and that I am free to withdraw at any time, without giving a reason and without cost?',
+                'I understand that my participation is voluntary and that I am free to withdraw at any time, without giving a reason and without cost.',
             translatedName:
-                'Kea utloisisa hore ho nka karolo hoaka ke boithaopo mme nka ikhula neng kapa neng ke sa fane le ka mabaka',
+                'Kea utloisisa hore ho nka karolo hoaka ke boithaopo mme nka ikhula neng kapa neng ke sa fane le ka mabaka.',
             valueType: 'BOOLEAN',
             inputColor: Color(0xFF258DCC),
             labelColor: Color(0xFF737373)),
         InputField(
             id: 'EsrJ2dgIMHY',
             name:
-                'Do you voluntarily agree to take part in the assessment and enrolment process?',
+                'I voluntarily agree to take part in the assessment and enrollment process.',
             translatedName:
-                'Ke lumela ka boithaopo ho nka karolo tsebetsong ena',
-            description: 'Ensure you have documented AGYW consent on File',
+                'Ke lumela ka boithaopo ho nka karolo tsebetsong ena.',
+            description: 'Ensure you have documented AGYW consent on file.',
             translatedDescription:
-                'Netefatsa hore o ngotse tumello ea AGYW faeleng',
+                'Netefatsa hore o ngotse tumello ea AGYW faeleng.',
             valueType: 'BOOLEAN',
             inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373)),
+            labelColor: Color(0xFF737373))
       ]),
     ];
   }
