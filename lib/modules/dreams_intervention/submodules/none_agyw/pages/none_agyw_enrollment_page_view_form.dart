@@ -11,6 +11,11 @@ import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/constant/non_agyw_hts_constant.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/models/non_agyw_hts_client_information.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/models/non_agyw_hts_consent.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/models/non_agyw_hts_consent_for_release_of_status.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/models/non_agyw_hts_register.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/skip_logics/none_agyw_enrollment_skip_logic.dart';
 import 'package:provider/provider.dart';
 import '../models/none_agyw_enrollment_client_intake.dart';
@@ -27,8 +32,13 @@ class NoneAgywEnrollmentViewForm extends StatefulWidget {
 class _NoneAgywEnrollmentViewFormState
     extends State<NoneAgywEnrollmentViewForm> {
   List<FormSection> formSections;
-  List<FormSection> enrollmentClientIntakeFormSections;
   List<FormSection> prepScreeningFormSections;
+  List<FormSection> enrollmentClientIntakeFormSections;
+  List<FormSection> htsConsentFormSections;
+  List<FormSection> htsClientInformationFormSections;
+  List<FormSection> htsRegisterFormSections;
+  List<FormSection> htsConsentForReleaseFormSections;
+
   final String label = 'None Agyw Enrolment Form';
   bool isFormReady = false;
 
@@ -36,20 +46,33 @@ class _NoneAgywEnrollmentViewFormState
   void initState() {
     super.initState();
     setState(() {
-      prepScreeningFormSections =
+      formSections = [];
+      htsConsentFormSections = NonAgywHTSConsent.getFormSections();
+      htsClientInformationFormSections =
+          NonAgywHTSClientInformation.getFormSections();
+      htsRegisterFormSections = NonAgywHTSRegister.getFormSections();
+      htsConsentForReleaseFormSections =
+          NonAgywHTSConsentForReleaseOfStatus.getFormSections();
+      enrollmentClientIntakeFormSections =
           NoneAgywEnrollmentFormSection.getFormSections();
-      formSections =
-          prepScreeningFormSections.map((FormSection consentFormSection) {
+      formSections.addAll(htsConsentFormSections);
+      formSections.addAll(enrollmentClientIntakeFormSections
+          .map((FormSection consentFormSection) {
         consentFormSection.name = 'HTS Client Intake Record';
         List<InputField> inputFields = consentFormSection.inputFields
             .where((InputField inputField) => inputField.id != 'location')
             .toList();
         consentFormSection.inputFields = inputFields;
         return consentFormSection;
-      }).toList();
-      enrollmentClientIntakeFormSections =
-          NoneAgywEnrollmentPrepScreening.getFormSections();
-      formSections.addAll(enrollmentClientIntakeFormSections);
+      }).toList());
+      formSections.addAll(htsClientInformationFormSections);
+      formSections.addAll(htsRegisterFormSections);
+      formSections.addAll(htsConsentForReleaseFormSections);
+      if (isBeneficiaryHIVNegative()) {
+        prepScreeningFormSections =
+            NoneAgywEnrollmentPrepScreening.getFormSections();
+        formSections.addAll(prepScreeningFormSections);
+      }
       isFormReady = true;
       evaluateSkipLogics();
     });
@@ -127,5 +150,15 @@ class _NoneAgywEnrollmentViewFormState
               ),
             ),
             bottomNavigationBar: InterventionBottomNavigationBarContainer()));
+  }
+
+  bool isBeneficiaryHIVNegative() {
+    bool isBeneficiaryNegative = false;
+    Map dataObject =
+        Provider.of<EnrollmentFormState>(context, listen: false).formState;
+    if (dataObject[NonAgywDreamsHTSConstant.hivResultStatus] == 'Negative') {
+      isBeneficiaryNegative = true;
+    }
+    return isBeneficiaryNegative;
   }
 }

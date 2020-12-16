@@ -16,6 +16,7 @@ class NoneAgywEnrollmentFormSection {
     ];
   }
 
+
   static List<FormSection> getFormSections() {
     return [
       FormSection(
@@ -797,7 +798,7 @@ class NoneAgywEnrollmentFormSection {
                 valueType: 'TRUE_ONLY',
                 inputColor: Color(0xFF258DCC),
                 labelColor: Color(0xFF737373)),
-          ])
+          ]),
     ];
   }
 }
