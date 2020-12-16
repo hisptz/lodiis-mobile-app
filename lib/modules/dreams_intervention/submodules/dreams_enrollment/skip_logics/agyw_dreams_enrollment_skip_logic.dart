@@ -235,6 +235,9 @@ class AgywDreamsEnrollmentSkipLogic {
         hiddenFields['IH4Ly0VPRtL'] = true;
         hiddenFields['KFgOeRoncRb'] = true;
       }
+      if (inputFieldId == 'IH4Ly0VPRtL' && value != 'Other') {
+        hiddenFields['KFgOeRoncRb'] = true;
+      }
       if (inputFieldId == 'JTNxMQPT134' && value != 'true') {
         hiddenFields['iQdwzVfZdml'] = true;
         hiddenFields['J6OTM0c1WCV'] = true;
@@ -244,8 +247,14 @@ class AgywDreamsEnrollmentSkipLogic {
         hiddenFields['NGVFqUVSHiU'] = true;
         hiddenFields['JTNxMQPT134_checkboxes_2'] = true;
       }
-      if (inputFieldId == 'aPNGd6RCsY9' && value != 'Other') {
-        hiddenFields['T56nYogWRYq'] = true;
+      if (inputFieldId == 'aPNGd6RCsY9') {
+        if (value != 'Other') {
+          hiddenFields['T56nYogWRYq'] = true;
+        } else if (value != 'Primary level') {
+          hiddenFields['h1HeZ2eEkGn'] = true;
+        } else if (value != 'Secondary level') {
+          hiddenFields['NGVFqUVSHiU'] = true;
+        }
       }
       if (inputFieldId == 'vpmRiwVyKn2' && value != 'true') {
         hiddenFields['JDFx7WfZ0Qi'] = true;
