@@ -71,26 +71,43 @@ class AgywEnrollmentRiskAssessment {
         inputFields: [
           InputField(
               id: 'YQ9G0ww2cDN',
-              name: 'AGYW’s father given name',
+              name: '2. AGYW’s father given name',
+              translatedName:
+                  '2. Lebitso la ntate oa moroetsana/mosali ea mocha lilemong (AGYW)',
               valueType: 'TEXT',
               inputColor: Color(0xFF258DCC),
               labelColor: Color(0xFF737373)),
           InputField(
               id: 'auPInwvDZjF',
-              name: 'AGYW’s mother given name',
+              name: '3. AGYW’s mother given name',
+              translatedName:
+                  '3. Lebitso la ’m’e oa moroetsana/mosali ea mocha lilemong',
               valueType: 'TEXT',
               inputColor: Color(0xFF258DCC),
               labelColor: Color(0xFF737373)),
           InputField(
               id: 'NrYoz8RewxV',
               name:
-                  'If the AGYW comes from child headed family,Name of the Sister/Brother',
+                  '4. If the AGYW comes from child headed family,Name of the Sister/Brother',
+              translatedName:
+                  '4. Haeba moroetsana/mosali ea mocha lilemong a tsoa lelapeng leo hloho ea lelapa e leng ngoana, fana ka lebitso la ngoana eo',
+              valueType: 'TEXT',
+              inputColor: Color(0xFF258DCC),
+              labelColor: Color(0xFF737373)),
+          InputField(
+              id: 'pvjIijxEJGp',
+              name:
+                  '5. Phone number of parent/caregiver/heads of the family if available',
+              translatedName:
+                  '5. Nomoro ea fono ea motsoali/mohlokomeli/hloho ea lelapa',
               valueType: 'TEXT',
               inputColor: Color(0xFF258DCC),
               labelColor: Color(0xFF737373)),
           InputField(
               id: 'tNdoR0jYr7R',
-              name: 'Phone number',
+              name: '6. Phone number',
+              translatedName:
+                  '6. Nomoro ea fono ea moroetsana/mosali ea mocha lilemong (haeba e le teng)',
               valueType: 'TEXT',
               inputColor: Color(0xFF258DCC),
               labelColor: Color(0xFF737373)),
@@ -103,24 +120,28 @@ class AgywEnrollmentRiskAssessment {
           InputField(
               id: 'WTZ7GLTrE8Q',
               name: 'First Name',
+              translatedName: 'Lebitso la pele',
               valueType: 'TEXT',
               inputColor: Color(0xFF258DCC),
               labelColor: Color(0xFF737373)),
           InputField(
               id: 's1HaiT6OllL',
               name: 'Middle Name',
+              translatedName: 'Lebitso le mahareng',
               valueType: 'TEXT',
               inputColor: Color(0xFF258DCC),
               labelColor: Color(0xFF737373)),
           InputField(
               id: 'rSP9c21JsfC',
               name: 'Surname',
+              translatedName: 'Le Fane',
               valueType: 'TEXT',
               inputColor: Color(0xFF258DCC),
               labelColor: Color(0xFF737373)),
           InputField(
             id: 'qZP982qpSPS',
             name: 'Date of Birth',
+            translatedName: 'Letsatsi la tsoalo',
             valueType: 'DATE',
             inputColor: Color(0xFF258DCC),
             labelColor: Color(0xFF737373),
@@ -158,16 +179,31 @@ class AgywEnrollmentRiskAssessment {
           InputField(
             id: 's1eRvsL2Ly4',
             name: 'Marital Status.',
+            translatedName: 'Boemo ba lenyalo.',
             valueType: 'TEXT',
             inputColor: Color(0xFF258DCC),
             labelColor: Color(0xFF737373),
             options: [
-              InputFieldOption(code: 'Married', name: 'Married'),
-              InputFieldOption(code: 'Single', name: 'Single'),
-              InputFieldOption(code: 'Widowed', name: 'Widowed'),
               InputFieldOption(
-                  code: 'Divorced/separated', name: 'Divorced/separated'),
-              InputFieldOption(code: 'Cohabiting', name: 'Cohabiting')
+                  code: 'Married',
+                  name: 'Married',
+                  translatedName: 'Ka hara lenyalo'),
+              InputFieldOption(
+                  code: 'Single',
+                  name: 'Single',
+                  translatedName: 'Haba nyalana'),
+              InputFieldOption(
+                  code: 'Widowed',
+                  name: 'Widowed',
+                  translatedName: 'Molekane o hlokahetse'),
+              InputFieldOption(
+                  code: 'Divorced/separated',
+                  name: 'Divorced/separated',
+                  translatedName: 'Tlhalano/Karohano'),
+              InputFieldOption(
+                  code: 'Cohabiting',
+                  name: 'Cohabiting',
+                  translatedName: 'Ho lula hammoho (le molekane)')
             ],
           ),
           InputField(
@@ -239,6 +275,8 @@ class AgywEnrollmentRiskAssessment {
                 id: 'UzQ533pOnvt',
                 name:
                     'b. How old were you when you had sex for the first time?',
+                translatedName:
+                    'b. U ne u le lilemo tse kae ha u qala ho etsa thobalano?',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF258DCC),
                 labelColor: Color(0xFF737373),
@@ -251,12 +289,15 @@ class AgywEnrollmentRiskAssessment {
               InputField(
                   id: 'GwVHeyOqTv2',
                   name: 'c. Do you have any sexual partner?',
+                  translatedName:
+                      'c. Na ho na le motho eo u etsang thobalano le eena?',
                   valueType: 'BOOLEAN',
                   inputColor: Color(0xFF258DCC),
                   labelColor: Color(0xFF737373)),
               InputField(
                   id: 'T3i6bQ3tCaA',
                   name: 'd. Are you involved in any sexual activity?',
+                  translatedName: 'd. Na u etsa thobalano?',
                   valueType: 'BOOLEAN',
                   inputColor: Color(0xFF258DCC),
                   labelColor: Color(0xFF737373)),
@@ -264,12 +305,16 @@ class AgywEnrollmentRiskAssessment {
                   id: 'q8qPtzanSTU',
                   name:
                       'e. How many sexual partners have you had in the last 12 months?',
+                  translatedName:
+                      'e. U entse thobalano le batho ba bakae ka palo likhoeling tse 12 tse fetileng?',
                   valueType: 'NUMBER',
                   inputColor: Color(0xFF258DCC),
                   labelColor: Color(0xFF737373)),
               InputField(
                   id: 'ojCwZf1iHOE',
                   name: 'f. Do you have a current sexual partner?',
+                  translatedName:
+                      'f. Na u na le motho eo u etsang thobalano le eena nakong ea joale?',
                   valueType: 'BOOLEAN',
                   inputColor: Color(0xFF258DCC),
                   labelColor: Color(0xFF737373)),
@@ -290,6 +335,8 @@ class AgywEnrollmentRiskAssessment {
                 id: 'UzQ533pOnvt',
                 name:
                     'b. How old were you when you had sex for the first time?',
+                translatedName:
+                    'b. U ne u le lilemo tse kae ha u qala ho etsa thobalano?',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF258DCC),
                 labelColor: Color(0xFF737373),
@@ -302,12 +349,15 @@ class AgywEnrollmentRiskAssessment {
               InputField(
                   id: 'GwVHeyOqTv2',
                   name: 'c. Do you have any sexual partner?',
+                  translatedName:
+                      'c. Na ho na le motho eo u etsang thobalano le eena?',
                   valueType: 'BOOLEAN',
                   inputColor: Color(0xFF258DCC),
                   labelColor: Color(0xFF737373)),
               InputField(
                   id: 'T3i6bQ3tCaA',
                   name: 'd. Are you involved in any sexual activity?',
+                  translatedName: 'd. Na u etsa thobalano?',
                   valueType: 'BOOLEAN',
                   inputColor: Color(0xFF258DCC),
                   labelColor: Color(0xFF737373)),
@@ -315,12 +365,16 @@ class AgywEnrollmentRiskAssessment {
                   id: 'q8qPtzanSTU',
                   name:
                       'e. How many sexual partners have you had in the last 12 months?',
+                  translatedName:
+                      'e. U entse thobalano le batho ba bakae ka palo likhoeling tse 12 tse fetileng?',
                   valueType: 'NUMBER',
                   inputColor: Color(0xFF258DCC),
                   labelColor: Color(0xFF737373)),
               InputField(
                   id: 'ojCwZf1iHOE',
                   name: 'f. Do you have a current sexual partner?',
+                  translatedName:
+                      'f. Na u na le motho eo u etsang thobalano le eena nakong ea joale?',
                   valueType: 'BOOLEAN',
                   inputColor: Color(0xFF258DCC),
                   labelColor: Color(0xFF737373)),
@@ -334,18 +388,22 @@ class AgywEnrollmentRiskAssessment {
               InputField(
                   id: 'LNaNh7kvh4X',
                   name: 'a. Have you ever been or are you currently pregnant?',
+                  translatedName:
+                      'a. Na u kile oa ima nakong e fetileng kapa na u mokhachane nakong ea joale?',
                   valueType: 'BOOLEAN',
                   inputColor: Color(0xFF258DCC),
                   labelColor: Color(0xFF737373)),
               InputField(
                   id: 'wGFmu7DhNGV',
                   name: 'b. Do you have any children?',
+                  translatedName: 'b. Na u na le bana?',
                   valueType: 'BOOLEAN',
                   inputColor: Color(0xFF258DCC),
                   labelColor: Color(0xFF737373)),
               InputField(
                   id: 'G1s75wng5DY',
-                  name: 'c. How many children do you have',
+                  name: 'c. How many children do you have?',
+                  translatedName: 'c. Bana ba hao ba bakae ka palo?',
                   valueType: 'NUMBER',
                   inputColor: Color(0xFF258DCC),
                   labelColor: Color(0xFF737373)),
@@ -359,12 +417,16 @@ class AgywEnrollmentRiskAssessment {
               InputField(
                   id: 'fyIUCi5EUtp',
                   name: 'a. Have you ever been diagnosed with any STIs?',
+                  translatedName:
+                      'a. Na u kile oa fumanoa u e-na le tšoaetso ea mafu a likobo?',
                   valueType: 'BOOLEAN',
                   inputColor: Color(0xFF258DCC),
                   labelColor: Color(0xFF737373)),
               InputField(
                   id: 'x9CWVcy9CZ2',
                   name: 'b. Were they treated?',
+                  translatedName:
+                      'b. Haeba karabo e le “E”, na mafu ao a ile a alafuoa?',
                   valueType: 'BOOLEAN',
                   inputColor: Color(0xFF258DCC),
                   labelColor: Color(0xFF737373)),
@@ -378,6 +440,7 @@ class AgywEnrollmentRiskAssessment {
               InputField(
                   id: 'bkpG276xEk9',
                   name: 'a. Do you use condoms regularly?',
+                  translatedName: 'a. Na u sebelisa likhohlopo khafetsa?',
                   valueType: 'BOOLEAN',
                   inputColor: Color(0xFF258DCC),
                   labelColor: Color(0xFF737373)),
@@ -397,6 +460,8 @@ class AgywEnrollmentRiskAssessment {
               InputField(
                   id: 'VomsiFza9mn',
                   name: 'd. Are you currently taking any contraceptives?',
+                  translatedName:
+                      'd. Na, nakong ea joale, u sebelisa lithibela-pelehi?',
                   valueType: 'BOOLEAN',
                   inputColor: Color(0xFF258DCC),
                   labelColor: Color(0xFF737373)),
@@ -411,6 +476,8 @@ class AgywEnrollmentRiskAssessment {
                   id: 'Dclkscej6HW',
                   name:
                       'a. Have you ever experienced sexual violence (lifetime)?',
+                  translatedName:
+                      'a. Na u kile oa hlekefetsoa ka motabo bophelong ba hao?',
                   valueType: 'BOOLEAN',
                   inputColor: Color(0xFF258DCC),
                   labelColor: Color(0xFF737373)),
@@ -461,18 +528,24 @@ class AgywEnrollmentRiskAssessment {
                   id: 'fVJfCtBVjan',
                   name:
                       'a. Experience of physical or emotional violence (within the last year)?',
+                  translatedName:
+                      'a. Na u kile oa hlekefetsoa ’meleng kapa maikutlong (selemong se fetileng)',
                   valueType: 'BOOLEAN',
                   inputColor: Color(0xFF258DCC),
                   labelColor: Color(0xFF737373)),
               InputField(
                   id: 'IokYFEUtSuc',
                   name: 'b. Has your partner ever hit or hurt you in any way?',
+                  translatedName:
+                      'b. Na mohlankana/monna oa hao o kile a u otla kapa ho u utloisa bohloko maikutlong?',
                   valueType: 'BOOLEAN',
                   inputColor: Color(0xFF258DCC),
                   labelColor: Color(0xFF737373)),
               InputField(
                   id: 'lo645exmnYG',
                   name: 'c. Has your partner ever threatened to hurt you?',
+                  translatedName:
+                      'c. Na mohlankana/monna oa hao o kile a u tšosa ka hore o tla u ntša kotsi?',
                   valueType: 'BOOLEAN',
                   inputColor: Color(0xFF258DCC),
                   labelColor: Color(0xFF737373)),
@@ -480,6 +553,8 @@ class AgywEnrollmentRiskAssessment {
                   id: 'DBFA8dHsErO',
                   name:
                       'd. Do you generally feel unsafe in your current relationship with your partner?',
+                  translatedName:
+                      'd. Na u ikutloa u sa sireletseha likamanong tsa hao le mohlankana/monna oa hao nakong ea joale?',
                   valueType: 'BOOLEAN',
                   inputColor: Color(0xFF258DCC),
                   labelColor: Color(0xFF737373)),
@@ -487,6 +562,8 @@ class AgywEnrollmentRiskAssessment {
                   id: 'MeKao21EPyi',
                   name:
                       'e. Do/did you feel afraid of your partner in any ways?',
+                  translatedName:
+                      'e. Na u utloa u e-na le tšabo kapa u kile oa utloa u e-na le tšabo ea mohlankana/monna oa hao?',
                   valueType: 'BOOLEAN',
                   inputColor: Color(0xFF258DCC),
                   labelColor: Color(0xFF737373))
@@ -501,6 +578,8 @@ class AgywEnrollmentRiskAssessment {
                   id: 'Dclkscej6HW',
                   name:
                       'a. Have you ever experienced sexual violence (lifetime)?',
+                  translatedName:
+                      'a. Na u kile oa hlekefetsoa ka motabo bophelong ba hao?',
                   valueType: 'BOOLEAN',
                   inputColor: Color(0xFF258DCC),
                   labelColor: Color(0xFF737373)),
@@ -508,18 +587,24 @@ class AgywEnrollmentRiskAssessment {
                   id: 'fVJfCtBVjan',
                   name:
                       'b. Experience of physical or emotional violence (within the last year)?',
+                  translatedName:
+                      'b. Na u kile oa hlekefetsoa ’meleng kapa maikutlong (selemong se fetileng)',
                   valueType: 'BOOLEAN',
                   inputColor: Color(0xFF258DCC),
                   labelColor: Color(0xFF737373)),
               InputField(
                   id: 'IokYFEUtSuc',
                   name: 'c. Has your partner ever hit or hurt you in any way?',
+                  translatedName:
+                      'c. Na mohlankana/monna oa hao o kile a u otla kapa ho u utloisa bohloko maikutlong?',
                   valueType: 'BOOLEAN',
                   inputColor: Color(0xFF258DCC),
                   labelColor: Color(0xFF737373)),
               InputField(
                   id: 'lo645exmnYG',
                   name: 'd. Has your partner ever threatened to hurt you?',
+                  translatedName:
+                      'd. Na mohlankana/monna oa hao o kile a u tšosa ka hore o tla u ntša kotsi?',
                   valueType: 'BOOLEAN',
                   inputColor: Color(0xFF258DCC),
                   labelColor: Color(0xFF737373)),
@@ -527,6 +612,8 @@ class AgywEnrollmentRiskAssessment {
                   id: 'DBFA8dHsErO',
                   name:
                       'e. Do you generally feel unsafe in your current relationship with your partner?',
+                  translatedName:
+                      'e. Na u ikutloa u sa sireletseha likamanong tsa hao le mohlankana/monna oa hao nakong ea joale?',
                   valueType: 'BOOLEAN',
                   inputColor: Color(0xFF258DCC),
                   labelColor: Color(0xFF737373)),
@@ -534,6 +621,8 @@ class AgywEnrollmentRiskAssessment {
                   id: 'MeKao21EPyi',
                   name:
                       'f. Do/did you feel afraid of your partner in any ways?',
+                  translatedName:
+                      'f. Na u utloa u e-na le tšabo kapa u kile oa utloa u e-na le tšabo ea mohlankana/monna oa hao?',
                   valueType: 'BOOLEAN',
                   inputColor: Color(0xFF258DCC),
                   labelColor: Color(0xFF737373))
@@ -547,6 +636,8 @@ class AgywEnrollmentRiskAssessment {
               InputField(
                   id: 'rsi08hlOFm8',
                   name: 'a. Have you ever or are you currently using alcohol?',
+                  translatedName:
+                      'a. Na u kile oa noa joala nakong e fetileng kapa u noa joala nakong ea joale?',
                   valueType: 'BOOLEAN',
                   inputColor: Color(0xFF258DCC),
                   labelColor: Color(0xFF737373)),
@@ -554,6 +645,8 @@ class AgywEnrollmentRiskAssessment {
                   id: 'yU4tNjFpQIq',
                   name:
                       'b. During the past three months, has your use of alcohol led to health, social, legal or financial problems?',
+                  translatedName:
+                      'b. Likhoeling tse 3 tse fetileng, na ho noa joala ho u baketse mathata bophelong, likamanong le batho ba bang, litlolong tsa molao, kapa cheleteng?',
                   valueType: 'BOOLEAN',
                   inputColor: Color(0xFF258DCC),
                   labelColor: Color(0xFF737373)),
@@ -561,6 +654,8 @@ class AgywEnrollmentRiskAssessment {
                   id: 'zsivYH5qkho',
                   name:
                       'c. Do you ever forget things you did while using alcohol?',
+                  translatedName:
+                      'c. Na u ke u iphumane u sa hopole lintho tseo u li entseng nakong eo u neng u noele joala?',
                   valueType: 'BOOLEAN',
                   inputColor: Color(0xFF258DCC),
                   labelColor: Color(0xFF737373)),
@@ -574,6 +669,8 @@ class AgywEnrollmentRiskAssessment {
               InputField(
                   id: 'rsi08hlOFm8',
                   name: 'a. Have you ever or are you currently using alcohol?',
+                  translatedName:
+                      'a. Na u kile oa noa joala nakong e fetileng kapa u noa joala nakong ea joale?',
                   valueType: 'BOOLEAN',
                   inputColor: Color(0xFF258DCC),
                   labelColor: Color(0xFF737373)),
@@ -581,6 +678,8 @@ class AgywEnrollmentRiskAssessment {
                   id: 'yU4tNjFpQIq',
                   name:
                       'b. During the past three months, has your use of alcohol led to health, social, legal or financial problems?',
+                  translatedName:
+                      'b. Likhoeling tse 3 tse fetileng, na ho noa joala ho u baketse mathata bophelong, likamanong le batho ba bang, litlolong tsa molao, kapa cheleteng?',
                   valueType: 'BOOLEAN',
                   inputColor: Color(0xFF258DCC),
                   labelColor: Color(0xFF737373)),
@@ -588,6 +687,8 @@ class AgywEnrollmentRiskAssessment {
                   id: 'zsivYH5qkho',
                   name:
                       'c. Do you ever forget things you did while using alcohol?',
+                  translatedName:
+                      'c. Na u ke u iphumane u sa hopole lintho tseo u li entseng nakong eo u neng u noele joala?',
                   valueType: 'BOOLEAN',
                   inputColor: Color(0xFF258DCC),
                   labelColor: Color(0xFF737373)),
@@ -601,6 +702,8 @@ class AgywEnrollmentRiskAssessment {
               InputField(
                   id: 'rsi08hlOFm8',
                   name: 'a. Have you ever or are you currently using alcohol?',
+                  translatedName:
+                      'a. Na u kile oa noa joala nakong e fetileng kapa u noa joala nakong ea joale?',
                   valueType: 'BOOLEAN',
                   inputColor: Color(0xFF258DCC),
                   labelColor: Color(0xFF737373)),
@@ -608,6 +711,8 @@ class AgywEnrollmentRiskAssessment {
                   id: 'yU4tNjFpQIq',
                   name:
                       'b. During the past three months, has your use of alcohol led to health, social, legal or financial problems?',
+                  translatedName:
+                      'b. Likhoeling tse 3 tse fetileng, na ho noa joala ho u baketse mathata bophelong, likamanong le batho ba bang, litlolong tsa molao, kapa cheleteng?',
                   valueType: 'BOOLEAN',
                   inputColor: Color(0xFF258DCC),
                   labelColor: Color(0xFF737373)),
@@ -615,6 +720,8 @@ class AgywEnrollmentRiskAssessment {
                   id: 'zsivYH5qkho',
                   name:
                       'c. Do you ever forget things you did while using alcohol?',
+                  translatedName:
+                      'c. Na u ke u iphumane u sa hopole lintho tseo u li entseng nakong eo u neng u noele joala?',
                   valueType: 'BOOLEAN',
                   inputColor: Color(0xFF258DCC),
                   labelColor: Color(0xFF737373)),
@@ -629,24 +736,35 @@ class AgywEnrollmentRiskAssessment {
                   id: 'qTZtbRWe1Hb',
                   name:
                       'a. Are you currently enrolled in school or a vocation program?',
+                  translatedName:
+                      'a. Na u kena sekolo se tloaelehileng kapa sekolo sa mosebetsi oa matsoho?',
                   valueType: 'BOOLEAN',
                   inputColor: Color(0xFF258DCC),
                   labelColor: Color(0xFF737373)),
               InputField(
                 id: 'TJ5KB6GfZX4',
                 name: 'b. Which one',
+                translatedName: 'b. Haeba ho le joalo, sekolo seo ke sefe?',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF258DCC),
                 labelColor: Color(0xFF737373),
                 options: [
-                  InputFieldOption(code: 'School', name: 'School'),
-                  InputFieldOption(code: 'Vocational', name: 'Vocational')
+                  InputFieldOption(
+                      code: 'School',
+                      name: 'School',
+                      translatedName: 'Sekolo se tloaelehileng'),
+                  InputFieldOption(
+                      code: 'Vocational',
+                      name: 'Vocational',
+                      translatedName: 'ekolo sa mosebetsi oa matsoho ')
                 ],
               ),
               InputField(
                   id: 'OA1dR8a4UWu',
                   name:
                       'c. Would you prefer re-enrolment in either school or vocational training?',
+                  translatedName:
+                      'c. Haeba u sa kene sekolo, u ka thabela ho kena sekolo se tloaelehileng kapa sekolo sa mosebetsi oa matsoho?',
                   valueType: 'BOOLEAN',
                   inputColor: Color(0xFF258DCC),
                   labelColor: Color(0xFF737373)),
@@ -654,6 +772,8 @@ class AgywEnrollmentRiskAssessment {
                   id: 'EQHcFozjbP0',
                   name:
                       'd. Have you ever had to drop-out then been readmitted?',
+                  translatedName:
+                      'd. Haeba u kena sekolo, na u kile oa se tlohela ka lehare ’me oa amoheloa bocha?',
                   valueType: 'BOOLEAN',
                   inputColor: Color(0xFF258DCC),
                   labelColor: Color(0xFF737373)),
@@ -668,24 +788,35 @@ class AgywEnrollmentRiskAssessment {
                   id: 'qTZtbRWe1Hb',
                   name:
                       'a. Are you currently enrolled in school or a vocation program?',
+                  translatedName:
+                      'a. Na u kena sekolo se tloaelehileng kapa sekolo sa mosebetsi oa matsoho?',
                   valueType: 'BOOLEAN',
                   inputColor: Color(0xFF258DCC),
                   labelColor: Color(0xFF737373)),
               InputField(
                 id: 'TJ5KB6GfZX4',
                 name: 'b. Which one',
+                translatedName: 'b. Haeba ho le joalo, sekolo seo ke sefe?',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF258DCC),
                 labelColor: Color(0xFF737373),
                 options: [
-                  InputFieldOption(code: 'School', name: 'School'),
-                  InputFieldOption(code: 'Vocational', name: 'Vocational')
+                  InputFieldOption(
+                      code: 'School',
+                      name: 'School',
+                      translatedName: 'Sekolo se tloaelehileng'),
+                  InputFieldOption(
+                      code: 'Vocational',
+                      name: 'Vocational',
+                      translatedName: 'ekolo sa mosebetsi oa matsoho ')
                 ],
               ),
               InputField(
                   id: 'OA1dR8a4UWu',
                   name:
                       'c. Would you prefer re-enrolment in either school or vocational training?',
+                  translatedName:
+                      'c. Haeba u sa kene sekolo, u ka thabela ho kena sekolo se tloaelehileng kapa sekolo sa mosebetsi oa matsoho?',
                   valueType: 'BOOLEAN',
                   inputColor: Color(0xFF258DCC),
                   labelColor: Color(0xFF737373)),
@@ -693,6 +824,8 @@ class AgywEnrollmentRiskAssessment {
                   id: 'EQHcFozjbP0',
                   name:
                       'd. Have you ever had to drop-out then been readmitted?',
+                  translatedName:
+                      'd. Haeba u kena sekolo, na u kile oa se tlohela ka lehare ’me oa amoheloa bocha?',
                   valueType: 'BOOLEAN',
                   inputColor: Color(0xFF258DCC),
                   labelColor: Color(0xFF737373)),
@@ -706,23 +839,34 @@ class AgywEnrollmentRiskAssessment {
               InputField(
                   id: 'Z7PTcgqwCLu',
                   name: 'a. Are you an orphan?',
+                  translatedName: 'a. Na u khutsana?',
                   valueType: 'BOOLEAN',
                   inputColor: Color(0xFF258DCC),
                   labelColor: Color(0xFF737373)),
               InputField(
                 id: 'FuYyLjYxxkg',
                 name: 'b. Are you single or double orphan?',
+                translatedName:
+                    'b. Haeba ho le joalo, u shoeletsoe ke motsoali a le mong kapa batsoali ba babeli?',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF258DCC),
                 labelColor: Color(0xFF737373),
                 options: [
-                  InputFieldOption(code: 'double', name: 'double'),
-                  InputFieldOption(code: 'single', name: 'single')
+                  InputFieldOption(
+                      code: 'double',
+                      name: 'double',
+                      translatedName: 'Batsoali ba babeli'),
+                  InputFieldOption(
+                      code: 'single',
+                      name: 'single',
+                      translatedName: 'Motsoali a le mong')
                 ],
               ),
               InputField(
                   id: 'ODBeRytTLHm',
                   name: 'c. Are you living within a child-headed household?',
+                  translatedName:
+                      'c. Na u phela lelapeng leo hloho ea lelapa e leng ngoana?',
                   valueType: 'BOOLEAN',
                   inputColor: Color(0xFF258DCC),
                   labelColor: Color(0xFF737373)),
@@ -730,6 +874,8 @@ class AgywEnrollmentRiskAssessment {
                   id: 'OQS3C6pUiWH',
                   name:
                       'd. In the past 6 months, has anyone in your household had consistent formal or informal Work that generated money for the household?',
+                  translatedName:
+                      'd. Likhoeling tse 6 tse fetileng, na ho na le e mong oa lelapa ea neng a hiriloe mosebetsing kapa a sebetsa e le moitšokoli?',
                   valueType: 'BOOLEAN',
                   inputColor: Color(0xFF258DCC),
                   labelColor: Color(0xFF737373)),
@@ -737,6 +883,8 @@ class AgywEnrollmentRiskAssessment {
                   id: 'uBx2mRzZoRh',
                   name:
                       'e. In the past 4 weeks/30 days, was there ever no food to eat of any kind in your house because of lack of resources to get food?',
+                  translatedName:
+                      'e. Libekeng tse 4 tse fetileng/matsatsing a 30 a fetileng, na u kile oa hloka lijo hobane ho ne ho se mokhoa oa ho li reka?',
                   valueType: 'BOOLEAN',
                   inputColor: Color(0xFF258DCC),
                   labelColor: Color(0xFF737373)),
@@ -744,6 +892,8 @@ class AgywEnrollmentRiskAssessment {
                   id: 'aIJoCMWUqBs',
                   name:
                       'f. In the past 4 weeks/30 days, did you or any household member go to sleep at night hungry because there was not enough food?',
+                  translatedName:
+                      'f. Libekeng tse 4 tse fetileng/matsatsing a 30 a fetileng, na uena kapa e mong oa lelapa o kile a robala a sa ja e le hobane lijo li haella?',
                   valueType: 'BOOLEAN',
                   inputColor: Color(0xFF258DCC),
                   labelColor: Color(0xFF737373)),
@@ -764,23 +914,34 @@ class AgywEnrollmentRiskAssessment {
               InputField(
                   id: 'Z7PTcgqwCLu',
                   name: 'a. Are you an orphan?',
+                  translatedName: 'a. Na u khutsana?',
                   valueType: 'BOOLEAN',
                   inputColor: Color(0xFF258DCC),
                   labelColor: Color(0xFF737373)),
               InputField(
                 id: 'FuYyLjYxxkg',
                 name: 'b. Are you single or double orphan?',
+                translatedName:
+                    'b. Haeba ho le joalo, u shoeletsoe ke motsoali a le mong kapa batsoali ba babeli?',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF258DCC),
                 labelColor: Color(0xFF737373),
                 options: [
-                  InputFieldOption(code: 'double', name: 'double'),
-                  InputFieldOption(code: 'single', name: 'single')
+                  InputFieldOption(
+                      code: 'double',
+                      name: 'double',
+                      translatedName: 'Batsoali ba babeli'),
+                  InputFieldOption(
+                      code: 'single',
+                      name: 'single',
+                      translatedName: 'Motsoali a le mong')
                 ],
               ),
               InputField(
                   id: 'ODBeRytTLHm',
                   name: 'c. Are you living within a child-headed household?',
+                  translatedName:
+                      'c. Na u phela lelapeng leo hloho ea lelapa e leng ngoana?',
                   valueType: 'BOOLEAN',
                   inputColor: Color(0xFF258DCC),
                   labelColor: Color(0xFF737373)),
@@ -788,6 +949,8 @@ class AgywEnrollmentRiskAssessment {
                   id: 'OQS3C6pUiWH',
                   name:
                       'd. In the past 6 months, has anyone in your household had consistent formal or informal Work that generated money for the household?',
+                  translatedName:
+                      'd. Likhoeling tse 6 tse fetileng, na ho na le e mong oa lelapa ea neng a hiriloe mosebetsing kapa a sebetsa e le moitšokoli?',
                   valueType: 'BOOLEAN',
                   inputColor: Color(0xFF258DCC),
                   labelColor: Color(0xFF737373)),
@@ -795,6 +958,8 @@ class AgywEnrollmentRiskAssessment {
                   id: 'uBx2mRzZoRh',
                   name:
                       'e. In the past 4 weeks/30 days, was there ever no food to eat of any kind in your house because of lack of resources to get food?',
+                  translatedName:
+                      'e. Libekeng tse 4 tse fetileng/matsatsing a 30 a fetileng, na u kile oa hloka lijo hobane ho ne ho se mokhoa oa ho li reka?',
                   valueType: 'BOOLEAN',
                   inputColor: Color(0xFF258DCC),
                   labelColor: Color(0xFF737373)),
@@ -802,6 +967,8 @@ class AgywEnrollmentRiskAssessment {
                   id: 'aIJoCMWUqBs',
                   name:
                       'f. In the past 4 weeks/30 days, did you or any household member go to sleep at night hungry because there was not enough food?',
+                  translatedName:
+                      'f. Libekeng tse 4 tse fetileng/matsatsing a 30 a fetileng, na uena kapa e mong oa lelapa o kile a robala a sa ja e le hobane lijo li haella?',
                   valueType: 'BOOLEAN',
                   inputColor: Color(0xFF258DCC),
                   labelColor: Color(0xFF737373)),
