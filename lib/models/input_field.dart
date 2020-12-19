@@ -16,6 +16,7 @@ class InputField {
   bool allowFuturePeriod;
   int minAgeInYear;
   int maxAgeInYear;
+  int numberOfMonth;
   bool shouldUserCustomAgeLimit;
   String hint;
   String translatedHint;
@@ -45,6 +46,7 @@ class InputField {
     this.translatedHint,
     this.maxAgeInYear,
     this.minAgeInYear,
+    this.numberOfMonth,
   }) {
     this.allowedSelectedLevels = this.allowedSelectedLevels ?? [];
     this.allowFuturePeriod = this.allowFuturePeriod ?? false;

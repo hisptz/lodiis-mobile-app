@@ -69,6 +69,7 @@ class AgywEnrollmentNoneParticipation {
               inputColor: Color(0xFF258DCC),
               labelColor: Color(0xFF737373),
               maxAgeInYear: 24,
+              numberOfMonth: 11,
               minAgeInYear: 9,
             ),
             InputField(

@@ -55,6 +55,7 @@ class OvcEnrollmentChild {
               inputColor: Color(0xFF4B9F46),
               labelColor: Color(0xFF737373),
               maxAgeInYear: 17,
+              numberOfMonth: 11,
               minAgeInYear: 0,
               hint: "Beneficiary's age should be from 0 - 17 years",
               translatedHint: "Lilemo tsa setho li be pakeng tsa 0 le 17",
@@ -366,7 +367,8 @@ class OvcEnrollmentChild {
                 ]),
             InputField(
                 id: 'omUPOnb4JVp',
-                name: '9. Are there other vulnerabilities? (Beyond the identified seven)',
+                name:
+                    '9. Are there other vulnerabilities? (Beyond the identified seven)',
                 inputColor: Color(0xFF4B9F46),
                 labelColor: Color(0xFF737373),
                 valueType: 'BOOLEAN'),
