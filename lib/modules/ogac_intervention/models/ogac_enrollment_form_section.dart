@@ -108,6 +108,7 @@ class OgacInterventionFormSection {
             inputColor: Color(0xFFF05A2A),
             labelColor: Color(0xFF737373),
             maxAgeInYear: 14,
+            numberOfMonth: 11,
             minAgeInYear: 9,
             hint: "Beneficiary's age should be from 9 - 14 years",
           ),
