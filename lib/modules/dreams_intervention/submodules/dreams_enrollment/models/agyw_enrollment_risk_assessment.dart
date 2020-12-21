@@ -103,14 +103,6 @@ class AgywEnrollmentRiskAssessment {
               valueType: 'TEXT',
               inputColor: Color(0xFF258DCC),
               labelColor: Color(0xFF737373)),
-          InputField(
-              id: 'tNdoR0jYr7R',
-              name: '6. Phone number',
-              translatedName:
-                  '6. Nomoro ea fono ea moroetsana/mosali ea mocha lilemong (haeba e le teng)',
-              valueType: 'TEXT',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
         ],
       ),
       FormSection(
@@ -177,6 +169,14 @@ class AgywEnrollmentRiskAssessment {
                   name: 'Transgender (female to male)'),
             ],
           ),
+          InputField(
+              id: 'tNdoR0jYr7R',
+              name: 'Phone number of AGYW',
+              translatedName:
+                  'Nomoro ea fono ea moroetsana/mosali ea mocha lilemong (haeba e le teng)',
+              valueType: 'TEXT',
+              inputColor: Color(0xFF258DCC),
+              labelColor: Color(0xFF737373)),
           InputField(
             id: 's1eRvsL2Ly4',
             name: 'Marital Status.',
