@@ -17,7 +17,7 @@ class AgywEnrollmentRiskAssessment {
       'GwVHeyOqTv2',
       'T3i6bQ3tCaA',
       'q8qPtzanSTU',
-      'ojCwZf1iHOE',
+      // 'ojCwZf1iHOE',
       'LNaNh7kvh4X',
       'wGFmu7DhNGV',
       'G1s75wng5DY',
@@ -311,14 +311,14 @@ class AgywEnrollmentRiskAssessment {
                   valueType: 'NUMBER',
                   inputColor: Color(0xFF258DCC),
                   labelColor: Color(0xFF737373)),
-              InputField(
-                  id: 'ojCwZf1iHOE',
-                  name: 'f. Do you have a current sexual partner?',
-                  translatedName:
-                      'f. Na u na le motho eo u etsang thobalano le eena nakong ea joale?',
-                  valueType: 'BOOLEAN',
-                  inputColor: Color(0xFF258DCC),
-                  labelColor: Color(0xFF737373)),
+              // InputField(
+              //     id: 'ojCwZf1iHOE',
+              //     name: 'f. Do you have a current sexual partner?',
+              //     translatedName:
+              //         'f. Na u na le motho eo u etsang thobalano le eena nakong ea joale?',
+              //     valueType: 'BOOLEAN',
+              //     inputColor: Color(0xFF258DCC),
+              //     labelColor: Color(0xFF737373)),
             ],
           ),
           FormSection(
@@ -371,14 +371,14 @@ class AgywEnrollmentRiskAssessment {
                   valueType: 'NUMBER',
                   inputColor: Color(0xFF258DCC),
                   labelColor: Color(0xFF737373)),
-              InputField(
-                  id: 'ojCwZf1iHOE',
-                  name: 'f. Do you have a current sexual partner?',
-                  translatedName:
-                      'f. Na u na le motho eo u etsang thobalano le eena nakong ea joale?',
-                  valueType: 'BOOLEAN',
-                  inputColor: Color(0xFF258DCC),
-                  labelColor: Color(0xFF737373)),
+              // InputField(
+              //     id: 'ojCwZf1iHOE',
+              //     name: 'f. Do you have a current sexual partner?',
+              //     translatedName:
+              //         'f. Na u na le motho eo u etsang thobalano le eena nakong ea joale?',
+              //     valueType: 'BOOLEAN',
+              //     inputColor: Color(0xFF258DCC),
+              //     labelColor: Color(0xFF737373)),
             ],
           ),
           FormSection(
