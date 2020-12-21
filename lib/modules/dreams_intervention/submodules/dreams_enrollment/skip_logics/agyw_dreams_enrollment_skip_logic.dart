@@ -95,14 +95,13 @@ class AgywDreamsEnrollmentSkipLogic {
         } else {
           assignInputFieldValue(context, 'cifBFSTHgv5', 'false');
         }
-        if (age >= 9 && age <= 17) {
+        if ((age >= 9 && age <= 17) || (age >= 20 && age <= 24)) {
           if ('${dataObject['Z7PTcgqwCLu']}' == 'true') {
             assignInputFieldValue(context, 'B4ojlzKypUF', 'true');
           } else {
             assignInputFieldValue(context, 'B4ojlzKypUF', '');
           }
-        }
-        if (age > 17) {
+        } else {
           assignInputFieldValue(context, 'B4ojlzKypUF', '');
         }
         if (age <= 19 && '${dataObject['GwVHeyOqTv2']}' == 'true') {
