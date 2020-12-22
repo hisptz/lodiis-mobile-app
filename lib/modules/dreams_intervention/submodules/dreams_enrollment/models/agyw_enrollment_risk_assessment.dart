@@ -100,7 +100,7 @@ class AgywEnrollmentRiskAssessment {
                   '5. Phone number of parent/caregiver/heads of the family if available',
               translatedName:
                   '5. Nomoro ea fono ea motsoali/mohlokomeli/hloho ea lelapa',
-              valueType: 'TEXT',
+              valueType: 'PHONE_NUMBER',
               inputColor: Color(0xFF258DCC),
               labelColor: Color(0xFF737373)),
         ],
@@ -174,7 +174,7 @@ class AgywEnrollmentRiskAssessment {
               name: 'Phone number of AGYW',
               translatedName:
                   'Nomoro ea fono ea moroetsana/mosali ea mocha lilemong (haeba e le teng)',
-              valueType: 'TEXT',
+              valueType: 'PHONE_NUMBER',
               inputColor: Color(0xFF258DCC),
               labelColor: Color(0xFF737373)),
           InputField(

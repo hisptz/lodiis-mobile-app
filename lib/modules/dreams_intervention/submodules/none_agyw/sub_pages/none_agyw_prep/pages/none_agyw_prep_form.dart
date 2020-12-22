@@ -88,7 +88,7 @@ class _NoneAgywPrepFormState extends State<NoneAgywPrepForm> {
       });
       String eventDate = dataObject['eventDate'];
       String eventId = dataObject['eventId'];
-
+      dataObject.remove('select_visit_type');
       List<String> hiddenFields = [];
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
@@ -209,10 +209,11 @@ class _NoneAgywPrepFormState extends State<NoneAgywPrepForm> {
                                             buttonColor: Color(0xFF258DCC),
                                             fontSize: 15.0,
                                             onPressButton: () => onSaveForm(
-                                              context,
-                                              serviceFormState.formState,
-                                              agywDream,
-                                            ),
+                                                context,
+                                                serviceFormState.formState,
+                                                agywDream,
+                                                hiddenFields: serviceFormState
+                                                    .hiddenFields),
                                           ),
                                         )
                                       ],
@@ -240,7 +241,8 @@ class _NoneAgywPrepFormState extends State<NoneAgywPrepForm> {
     } else {
       if (mandatoryFields.indexOf(NonAgywPrepVisitConstant.datePrepStopped) >
               0 ||
-          mandatoryFieldsObject[NonAgywPrepVisitConstant.datePrepStopped] != null) {
+          mandatoryFieldsObject[NonAgywPrepVisitConstant.datePrepStopped] !=
+              null) {
         mandatoryFields.remove(NonAgywPrepVisitConstant.datePrepStopped);
         mandatoryFieldsObject.remove(NonAgywPrepVisitConstant.datePrepStopped);
       }

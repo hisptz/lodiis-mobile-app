@@ -20,9 +20,19 @@ class NoneAgywPrepSkipLogic {
       inputFieldIds.add('$key');
     }
     inputFieldIds = inputFieldIds.toSet().toList();
-    // for (String inputFieldId in inputFieldIds) {
-    //   // String value = '${dataObject[inputFieldId]}';
-    // }
+    for (String inputFieldId in inputFieldIds) {
+      String value = '${dataObject[inputFieldId]}';
+      if (inputFieldId == 'select_visit_type' && value != 'Normal Visit') {
+        hiddenSections['PrEP_Visits'] = true;
+        hiddenFields['m0G5RLlWR9W'] = true;
+      }
+      if (inputFieldId == 'select_visit_type' && value != 'Case Transfer') {
+        hiddenSections['Case_transfer'] = true;
+      }
+      if (inputFieldId == 'select_visit_type' && value != 'Stopping PrEP') {
+        hiddenSections['Stopping_PrEP'] = true;
+      }
+    }
     for (String sectionId in hiddenSections.keys) {
       List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections
           .where((formSection) => formSection.id == sectionId)

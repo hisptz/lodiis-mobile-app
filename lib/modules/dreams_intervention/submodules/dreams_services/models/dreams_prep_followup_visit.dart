@@ -10,130 +10,152 @@ class DreamsPrepFollwUpVisit {
 
   static List<FormSection> getFormSections() {
     return [
-      FormSection(name: 'PrEP Visits', color: Color(0xFF737373), inputFields: [
+      FormSection(name: 'Visit Type', color: Color(0xFF737373), inputFields: [
         InputField(
-            id: 'Dl8JvQuOkAd',
-            name: 'Duration in weeks since starting PrEP',
-            valueType: 'NUMBER',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373)),
-        InputField(
-            id: 'gCvMVscBNfk',
-            name: 'Weight',
-            valueType: 'NUMBER',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373)),
-        InputField(
-            id: 'VW9nRqUEWbi',
-            name: 'HIV rapid test result',
-            valueType: 'TEXT',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
-            options: [
-              InputFieldOption(code: 'Positive', name: 'Positive'),
-              InputFieldOption(code: 'Negative', name: 'Negative'),
-              InputFieldOption(code: 'Indeterminate', name: 'Indeterminate'),
-              InputFieldOption(code: 'Didn\'t collect', name: 'Didn\'t collect')
-            ]),
-        InputField(
-            id: 'm0G5RLlWR9W',
-            name: 'Date of test',
-            valueType: 'DATE',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373)),
-        InputField(
-            id: 'zjTq55mgupV',
-            name: 'Creatinine',
-            valueType: 'NUMBER',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373)),
-        InputField(
-            id: 'AhmIGuxYRSY',
-            name: 'Cr Clearance',
-            valueType: 'NUMBER',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373)),
-        InputField(
-            id: 'sg1onDJ89ze',
-            name: 'STI Screening(PrEP)',
-            valueType: 'TEXT',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
-            options: [
-              InputFieldOption(
-                  code: 'No signs or symptoms', name: 'No signs or symptoms'),
-              InputFieldOption(
-                  code: 'Signs or symptoms', name: 'Signs or symptoms')
-            ]),
-        InputField(
-            id: 'EcoA0KLZ4rL',
-            name: 'STI Treatment(PrEP)',
-            valueType: 'TEXT',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
-            options: [
-              InputFieldOption(
-                  code: 'Treated for STI', name: 'Treated for STI'),
-              InputFieldOption(
-                  code: 'Not treated for STI', name: 'Not treated for STI')
-            ]),
-        InputField(
-            id: 'sdgj99xGuv3',
-            name: 'Number of condoms provided',
-            valueType: 'NUMBER',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373)),
-        InputField(
-            id: 'JVuPPJbsj4T',
-            name: 'Type of condom',
-            valueType: 'TEXT',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
-            options: [
-              InputFieldOption(code: 'Male', name: 'Male'),
-              InputFieldOption(code: 'Female', name: 'Female')
-            ]),
-        InputField(
-            id: 'wBG1kmHK6kJ',
-            name: 'Visit outcome',
-            valueType: 'TEXT',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
-            options: [
-              InputFieldOption(
-                  code: 'Continued same PrEP regimen',
-                  name: 'Continued same PrEP regimen'),
-              InputFieldOption(
-                  code: 'Continued PrEP but PrEP regimen changed',
-                  name: 'Continued PrEP but PrEP regimen changed'),
-              InputFieldOption(
-                  code: 'PrEP stopped due to patient\'s decision',
-                  name: 'PrEP stopped due to patient\'s decision'),
-              InputFieldOption(
-                  code: 'PrEP stopped due to poor adherence',
-                  name: 'PrEP stopped due to poor adherence'),
-              InputFieldOption(
-                  code: 'PrEP stopped due to new HIV diagnosis',
-                  name: 'PrEP stopped due to new HIV diagnosis'),
-              InputFieldOption(
-                  code: 'PrEP stopped due to patient no longer at risk',
-                  name: 'PrEP stopped due to patient no longer at risk'),
-              InputFieldOption(code: 'Other', name: 'Other')
-            ]),
-        InputField(
-            id: 'QsE306jJj60',
-            name: 'PrEP Regimens',
-            valueType: 'TEXT',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
-            options: [
-              InputFieldOption(code: 'TDF3TC', name: 'TDF3TC'),
-              InputFieldOption(code: 'TDFFTC', name: 'TDFFTC'),
-              InputFieldOption(code: 'TDF', name: 'TDF'),
-              InputFieldOption(code: 'Other', name: 'Other')
-            ])
+          id: 'select_visit_type',
+          name: 'Select visit type',
+          valueType: 'TEXT',
+          options: [
+            InputFieldOption(code: 'Normal Visit', name: 'Normal Visit'),
+            InputFieldOption(code: 'Case Transfer', name: 'Case Transfer'),
+            InputFieldOption(code: 'Stopping PrEP', name: 'Stopping PrEP')
+          ],
+          inputColor: Color(0xFF258DCC),
+          labelColor: Color(0xFF737373),
+        )
       ]),
       FormSection(
+          name: 'PrEP Visits',
+          id: 'PrEP_Visits',
+          color: Color(0xFF737373),
+          inputFields: [
+            InputField(
+                id: 'Dl8JvQuOkAd',
+                name: 'Duration in weeks since starting PrEP',
+                valueType: 'NUMBER',
+                inputColor: Color(0xFF258DCC),
+                labelColor: Color(0xFF737373)),
+            InputField(
+                id: 'gCvMVscBNfk',
+                name: 'Weight',
+                valueType: 'NUMBER',
+                inputColor: Color(0xFF258DCC),
+                labelColor: Color(0xFF737373)),
+            InputField(
+                id: 'VW9nRqUEWbi',
+                name: 'HIV rapid test result',
+                valueType: 'TEXT',
+                inputColor: Color(0xFF258DCC),
+                labelColor: Color(0xFF737373),
+                options: [
+                  InputFieldOption(code: 'Positive', name: 'Positive'),
+                  InputFieldOption(code: 'Negative', name: 'Negative'),
+                  InputFieldOption(
+                      code: 'Indeterminate', name: 'Indeterminate'),
+                  InputFieldOption(
+                      code: 'Didn\'t collect', name: 'Didn\'t collect')
+                ]),
+            InputField(
+                id: 'm0G5RLlWR9W',
+                name: 'Date of test',
+                valueType: 'DATE',
+                inputColor: Color(0xFF258DCC),
+                labelColor: Color(0xFF737373)),
+            InputField(
+                id: 'zjTq55mgupV',
+                name: 'Creatinine',
+                valueType: 'NUMBER',
+                inputColor: Color(0xFF258DCC),
+                labelColor: Color(0xFF737373)),
+            InputField(
+                id: 'AhmIGuxYRSY',
+                name: 'Cr Clearance',
+                valueType: 'NUMBER',
+                inputColor: Color(0xFF258DCC),
+                labelColor: Color(0xFF737373)),
+            InputField(
+                id: 'sg1onDJ89ze',
+                name: 'STI Screening(PrEP)',
+                valueType: 'TEXT',
+                inputColor: Color(0xFF258DCC),
+                labelColor: Color(0xFF737373),
+                options: [
+                  InputFieldOption(
+                      code: 'No signs or symptoms',
+                      name: 'No signs or symptoms'),
+                  InputFieldOption(
+                      code: 'Signs or symptoms', name: 'Signs or symptoms')
+                ]),
+            InputField(
+                id: 'EcoA0KLZ4rL',
+                name: 'STI Treatment(PrEP)',
+                valueType: 'TEXT',
+                inputColor: Color(0xFF258DCC),
+                labelColor: Color(0xFF737373),
+                options: [
+                  InputFieldOption(
+                      code: 'Treated for STI', name: 'Treated for STI'),
+                  InputFieldOption(
+                      code: 'Not treated for STI', name: 'Not treated for STI')
+                ]),
+            InputField(
+                id: 'sdgj99xGuv3',
+                name: 'Number of condoms provided',
+                valueType: 'NUMBER',
+                inputColor: Color(0xFF258DCC),
+                labelColor: Color(0xFF737373)),
+            InputField(
+                id: 'JVuPPJbsj4T',
+                name: 'Type of condom',
+                valueType: 'TEXT',
+                inputColor: Color(0xFF258DCC),
+                labelColor: Color(0xFF737373),
+                options: [
+                  InputFieldOption(code: 'Male', name: 'Male'),
+                  InputFieldOption(code: 'Female', name: 'Female')
+                ]),
+            InputField(
+                id: 'wBG1kmHK6kJ',
+                name: 'Visit outcome',
+                valueType: 'TEXT',
+                inputColor: Color(0xFF258DCC),
+                labelColor: Color(0xFF737373),
+                options: [
+                  InputFieldOption(
+                      code: 'Continued same PrEP regimen',
+                      name: 'Continued same PrEP regimen'),
+                  InputFieldOption(
+                      code: 'Continued PrEP but PrEP regimen changed',
+                      name: 'Continued PrEP but PrEP regimen changed'),
+                  InputFieldOption(
+                      code: 'PrEP stopped due to patient\'s decision',
+                      name: 'PrEP stopped due to patient\'s decision'),
+                  InputFieldOption(
+                      code: 'PrEP stopped due to poor adherence',
+                      name: 'PrEP stopped due to poor adherence'),
+                  InputFieldOption(
+                      code: 'PrEP stopped due to new HIV diagnosis',
+                      name: 'PrEP stopped due to new HIV diagnosis'),
+                  InputFieldOption(
+                      code: 'PrEP stopped due to patient no longer at risk',
+                      name: 'PrEP stopped due to patient no longer at risk'),
+                  InputFieldOption(code: 'Other', name: 'Other')
+                ]),
+            InputField(
+                id: 'QsE306jJj60',
+                name: 'PrEP Regimens',
+                valueType: 'TEXT',
+                inputColor: Color(0xFF258DCC),
+                labelColor: Color(0xFF737373),
+                options: [
+                  InputFieldOption(code: 'TDF3TC', name: 'TDF3TC'),
+                  InputFieldOption(code: 'TDFFTC', name: 'TDFFTC'),
+                  InputFieldOption(code: 'TDF', name: 'TDF'),
+                  InputFieldOption(code: 'Other', name: 'Other')
+                ])
+          ]),
+      FormSection(
+          id: 'Case_transfer',
           name: 'Case Transfer',
           color: Color(0xFF737373),
           inputFields: [
@@ -157,6 +179,7 @@ class DreamsPrepFollwUpVisit {
                 labelColor: Color(0xFF737373))
           ]),
       FormSection(
+          id: 'Stopping_PrEP',
           name: 'Stopping PrEP',
           color: Color(0xFF737373),
           inputFields: [
