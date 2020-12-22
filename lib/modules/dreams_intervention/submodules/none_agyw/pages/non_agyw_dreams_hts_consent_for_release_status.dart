@@ -65,9 +65,6 @@ class _NonAgywDreamsHTSConsentForReleaseStatusState
 
   void onSaveForm(BuildContext context, Map dataObject) async {
     if (dataObject.keys.length > 0) {
-      setState(() {
-        isSaving = true;
-      });
       try {
         if(dataObject[NonAgywDreamsHTSConstant.hivResultStatus] == 'Negative'){
           Navigator.push(

@@ -113,8 +113,10 @@ class _NoneAgywState extends State<NoneAgyw> {
                               .map((AgywDream agywBeneficiary) {
                             List dataObject = agywBeneficiary
                                 .trackeEntityInstanceData.attributes;
+
                             List filteredDataObject = dataObject.where((element) => element['attribute'] == NonAgywDreamsHTSConstant.hivResultStatus).toList();
                             bool isBeneficiaryHIVNegative = false;
+                            print(NonAgywDreamsHTSConstant.hivResultStatus);
                             if(filteredDataObject.isNotEmpty){
                                 isBeneficiaryHIVNegative = filteredDataObject.first['value'] == 'Negative';
                             }

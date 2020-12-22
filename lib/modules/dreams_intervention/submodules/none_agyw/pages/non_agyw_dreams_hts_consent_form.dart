@@ -11,10 +11,9 @@ import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/hts_consent.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/models/non_agyw_hts_consent.dart';
 import 'package:provider/provider.dart';
-import 'non_agyw_dreams_hts_client_information.dart';
 import 'none_agyw_enrollment_client_intake_form.dart';
 
 class NonAgywDreamsHTSConsentForm extends StatefulWidget {
@@ -38,7 +37,7 @@ class _NonAgywDreamsHTSConsentFormState extends State<NonAgywDreamsHTSConsentFor
   void initState() {
     super.initState();
     isComingFromPrep = widget.isComingFromPrep;
-    formSections = HTSConsent.getFormSections();
+    formSections = NonAgywHTSConsent.getFormSections();
     Timer(Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;

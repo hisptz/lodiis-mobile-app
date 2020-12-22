@@ -9,8 +9,8 @@ import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/hts_register.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/models/non_agyw_hts_register.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/pages/non_agyw_dreams_hts_consent_for_release_status.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/skip_logics/non_agyw_hts_register_skip_logic.dart';
 import 'package:provider/provider.dart';
@@ -37,7 +37,7 @@ class _NonAgywDreamsHTSRegisterFormState
   void initState() {
     super.initState();
     isComingFromPrep = widget.isComingFromPrep;
-    formSections = HTSRegister.getFormSections();
+    formSections = NonAgywHTSRegister.getFormSections();
     Timer(Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
@@ -68,6 +68,7 @@ class _NonAgywDreamsHTSRegisterFormState
   }
 
   void onSaveForm(BuildContext context, Map dataObject) async {
+    print(dataObject);
     Navigator.push(
         context,
         MaterialPageRoute(
