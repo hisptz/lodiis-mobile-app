@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
+import 'package:kb_mobile_app/models/input_field_option.dart';
 
 class AgywEnrollmentConcent {
   static List<String> getMandatoryField() {
@@ -30,16 +31,31 @@ class AgywEnrollmentConcent {
             name: 'Would you allow me to talk to the AGYW in privacy?',
             translatedName:
                 'Na u lumela hore ke botse mocha lipotso lekunutung?',
-            valueType: 'BOOLEAN',
+            valueType: 'TEXT',
+            renderAsRadio: true,
             inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373)),
+            labelColor: Color(0xFF737373),
+            options: [
+              InputFieldOption(code: '1', name: 'Yes', translatedName: 'E'),
+              InputFieldOption(code: '0', name: 'No', translatedName: 'Che'),
+              InputFieldOption(
+                  code: '0.000001', name: 'NA', translatedName: 'N/A')
+            ]),
         InputField(
             id: 'fPtxDcL7A3X',
-            name: 'Do you agree to participate in this assessment',
-            translatedName: 'Na u lumela ho hloauoa ho kena lenaneng la DREAMS',
-            valueType: 'BOOLEAN',
+            name: 'Do you agree to participate in this assessment?',
+            translatedName:
+                'Na u lumela ho hloauoa ho kena lenaneng la DREAMS?',
+            valueType: 'TEXT',
+            renderAsRadio: true,
             inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373)),
+            labelColor: Color(0xFF737373),
+            options: [
+              InputFieldOption(code: '1', name: 'Yes', translatedName: 'E'),
+              InputFieldOption(code: '0', name: 'No', translatedName: 'Che'),
+              InputFieldOption(
+                  code: '0.000001', name: 'NA', translatedName: 'N/A')
+            ]),
         InputField(
             id: 'n85SOIP68bN',
             name:
