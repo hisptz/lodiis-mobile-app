@@ -602,10 +602,14 @@ class OvcHouseHoldServiceAdultWellbeing {
                     'Ha sephetho se feta khoeli tse 6 fetesitsa setsing sa tlhabollo',
                 valueType: 'TEXT',
                 options: [
-                  InputFieldOption(code: '0-3 months ago', name: '0-3 months ago'),
-                  InputFieldOption(code: '4-6 months ago', name: '4-6 months ago'),
-                  InputFieldOption(code: '7-12 months ago', name: '7-12 months ago'),
-                  InputFieldOption(code: 'Above 12 months ago', name: 'Above 12 months ago'),
+                  InputFieldOption(
+                      code: '0-3 months ago', name: '0-3 months ago'),
+                  InputFieldOption(
+                      code: '4-6 months ago', name: '4-6 months ago'),
+                  InputFieldOption(
+                      code: '7-12 months ago', name: '7-12 months ago'),
+                  InputFieldOption(
+                      code: 'Above 12 months ago', name: 'Above 12 months ago'),
                 ],
                 inputColor: Color(0xFF4B9F46),
                 labelColor: Color(0xFF1A3518)),
@@ -644,23 +648,29 @@ class OvcHouseHoldServiceAdultWellbeing {
                       translatedName: 'Ha ho Karabo')
                 ]),
             InputField(
-                id: 'blod3xZ2dPP',
-                name: '17. Are you currently taking ART to treat HIV?',
-                translatedName:
-                    '17. Na u tlasa kalafo ea lefu la HIV ha joale?',
-                description: 'If no, refer to HIV care and treatment services.',
-                translatedDescription:
-                    'Ha ase tlasa kalafo fetisetsa setsing sa kalafo.',
-                valueType: 'TEXT',
+              id: 'blod3xZ2dPP',
+              name: '17. Are you currently taking ART to treat HIV?',
+              translatedName: '17. Na u tlasa kalafo ea lefu la HIV ha joale?',
+              description: 'If no, refer to HIV care and treatment services.',
+              translatedDescription:
+                  'Ha ase tlasa kalafo fetisetsa setsing sa kalafo.',
+              valueType: 'TEXT',
+              inputColor: Color(0xFF4B9F46),
+              labelColor: Color(0xFF1A3518),
+              options: [
+                InputFieldOption(code: '1', name: 'Yes', translatedName: 'E'),
+                InputFieldOption(code: '0', name: 'No', translatedName: 'Che'),
+                InputFieldOption(
+                    code: '0.000001', name: 'NA', translatedName: 'N/A')
+              ],
+              hasSubInputField: true,
+              subInputField: InputField(
+                id: 'eShHDoV4ARm',
+                name: 'Referral',
+                valueType: 'TRUE_ONLY',
                 inputColor: Color(0xFF4B9F46),
-                labelColor: Color(0xFF1A3518),
-                options: [
-                  InputFieldOption(code: '1', name: 'Yes', translatedName: 'E'),
-                  InputFieldOption(
-                      code: '0', name: 'No', translatedName: 'Che'),
-                  InputFieldOption(
-                      code: '0.000001', name: 'NA', translatedName: 'N/A')
-                ]),
+              ),
+            ),
             InputField(
                 id: 'ubin7MjQ5OI',
                 name: '18. If Yes, How long have you been on ART?',

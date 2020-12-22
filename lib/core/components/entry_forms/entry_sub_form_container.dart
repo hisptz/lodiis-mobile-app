@@ -116,6 +116,7 @@ class EntrySubFormContainer extends StatelessWidget {
                                         ),
                                         child: InputFieldContainer(
                                             inputField: inputField,
+                                            hiddenFields: hiddenFields,
                                             currentLanguage: currentLanguage,
                                             isEditableMode: isEditableMode,
                                             mandatoryFieldObject:

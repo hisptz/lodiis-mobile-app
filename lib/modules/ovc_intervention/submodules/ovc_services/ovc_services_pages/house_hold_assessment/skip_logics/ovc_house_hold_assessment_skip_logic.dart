@@ -109,24 +109,25 @@ class OvchouseHoldAssessmentSkipLogic {
       if (inputFieldId == 'sLyfb45aLkl' && value != '1') {
         hiddenFields['aRNGDZcwWmS'] = true;
       }
-      if(inputFieldId =='BYZu8p33lzP' && value !='Yes'){
+      if (inputFieldId == 'BYZu8p33lzP' && value != 'Yes') {
         hiddenFields['ToWhhydys'] = true;
       }
-      if(inputFieldId == 'SLajij5j1KI' && value != 'Yes'){
+      if (inputFieldId == 'SLajij5j1KI' && value != 'Yes') {
         hiddenFields['RxvDeJX3b3k'] = true;
       }
 
-      if(inputFieldId == 'doJJzw4NX8m' && value == 'true'){
+      if (inputFieldId == 'doJJzw4NX8m' && value == 'true') {
         hiddenFields['doJJzw4NX8m_checkbox'] = true;
       }
-      if(inputFieldId == 'LGrG9fGZfXP' && value == 'true'){
-          hiddenFields['ZuaV20IvVV2'] = true;
+      if (inputFieldId == 'LGrG9fGZfXP' && value == 'true') {
+        hiddenFields['ZuaV20IvVV2'] = true;
       }
-      if(inputFieldId == 'JmLdZM3XYfY' && value == 'No'){
-          hiddenFields['JmLdZM3XYfY_checkbox'] = true;
+      if (inputFieldId == 'JmLdZM3XYfY' && value == 'No') {
+        hiddenFields['JmLdZM3XYfY_checkbox'] = true;
       }
-
-
+      if (inputFieldId == 'blod3xZ2dPP' && value != null && value != '0') {
+        hiddenFields['eShHDoV4ARm'] = true;
+      }
     }
     for (String sectionId in hiddenSections.keys) {
       List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections
@@ -166,6 +167,4 @@ class OvchouseHoldAssessmentSkipLogic {
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState(inputFieldId, value);
   }
-
-
 }
