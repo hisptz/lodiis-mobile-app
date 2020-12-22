@@ -119,8 +119,10 @@ class NonAgywHTSClientInformation {
                 inputColor: Color(0xFF258DCC),
                 labelColor: Color(0xFF737373),
                 options: [
-                  InputFieldOption(code: 'Individual', name: 'Individual'),
-                  InputFieldOption(code: 'Couple', name: 'Couple')
+                  InputFieldOption(code: 'F', name: 'F'),
+                  InputFieldOption(code: 'M', name: 'M'),
+                  InputFieldOption(code: 'CF', name: 'CF'),
+                  InputFieldOption(code: 'CM', name: 'CM')
                 ]),
             InputField(
                 id: 'XjHuTmtsXsz',
