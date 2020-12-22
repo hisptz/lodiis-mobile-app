@@ -116,7 +116,6 @@ class _NoneAgywState extends State<NoneAgyw> {
 
                             List filteredDataObject = dataObject.where((element) => element['attribute'] == NonAgywDreamsHTSConstant.hivResultStatus).toList();
                             bool isBeneficiaryHIVNegative = false;
-                            print(NonAgywDreamsHTSConstant.hivResultStatus);
                             if(filteredDataObject.isNotEmpty){
                                 isBeneficiaryHIVNegative = filteredDataObject.first['value'] == 'Negative';
                             }

@@ -68,7 +68,6 @@ class _NonAgywDreamsHTSRegisterFormState
   }
 
   void onSaveForm(BuildContext context, Map dataObject) async {
-    print(dataObject);
     Navigator.push(
         context,
         MaterialPageRoute(
