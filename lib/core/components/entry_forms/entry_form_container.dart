@@ -138,6 +138,7 @@ class EntryFormContainer extends StatelessWidget {
                                                   margin: EdgeInsets.only(
                                                       top: 10.0),
                                                   child: InputFieldContainer(
+                                                    hiddenFields: hiddenFields,
                                                     inputField: inputField,
                                                     hiddenInputFieldOptions:
                                                         hiddenInputFieldOptions ??

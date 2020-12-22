@@ -21,6 +21,7 @@ class InputFieldContainer extends StatelessWidget {
     this.onInputValueChange,
     this.dataObject,
     this.mandatoryFieldObject,
+    @required this.hiddenFields,
     this.isEditableMode,
   }) : super(key: key);
 
@@ -31,6 +32,7 @@ class InputFieldContainer extends StatelessWidget {
   final Map dataObject;
   final Map mandatoryFieldObject;
   final Map hiddenInputFieldOptions;
+  final Map hiddenFields;
 
   @override
   Widget build(BuildContext context) {
@@ -105,7 +107,9 @@ class InputFieldContainer extends StatelessWidget {
             ),
             Visibility(
               visible: inputField.hasSubInputField &&
-                  inputField.subInputField != null,
+                  inputField.subInputField != null &&
+                  (hiddenFields == null ||
+                      '${hiddenFields[inputField.id]}'.trim() != 'true'),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
