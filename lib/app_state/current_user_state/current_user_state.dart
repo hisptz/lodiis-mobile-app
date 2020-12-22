@@ -76,7 +76,6 @@ class CurrentUserState with ChangeNotifier {
       _canManageMSGHIV = true;
       _canManageMSGHIV = true;
       _canManageCondom = true;
-      _canManagePEP = true;
     }
     if (implementingPartner == 'EGPAF') {
       _canManageDreams = true;

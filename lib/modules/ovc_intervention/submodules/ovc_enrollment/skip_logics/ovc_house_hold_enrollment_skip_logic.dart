@@ -33,9 +33,9 @@ class OvcHouseHoldEnrollmentSkipLogic {
         }
       }
 
-      if (inputFieldId == 'M9uM11xcHG3' && value != 'true') {
-        hiddenFields['gybZY8lq4Ky'] = true;
-      }
+      // if (inputFieldId == 'M9uM11xcHG3' && value != 'true') {
+      //   hiddenFields['gybZY8lq4Ky'] = true;
+      // }
       if (inputFieldId == 'tNdoR0jYr7R_confirm' && value != 'true') {
         hiddenFields['tNdoR0jYr7R'] = true;
       }
@@ -51,17 +51,17 @@ class OvcHouseHoldEnrollmentSkipLogic {
     if (dataObject['children'] != null) {
       List<Map> children = dataObject['children'];
 
-      if (children.every((child) => '${child['YR7Xxk14qoP']}' == 'false')) {
-        assignInputFieldValue(context, 'mZsmHPVyXV1', 'false');
-      } else {
-        assignInputFieldValue(context, 'mZsmHPVyXV1', 'true');
-      }
+      // if (children.every((child) => '${child['YR7Xxk14qoP']}' == 'false')) {
+      //   assignInputFieldValue(context, 'mZsmHPVyXV1', 'false');
+      // } else {
+      //   assignInputFieldValue(context, 'mZsmHPVyXV1', 'true');
+      // }
 
-      if (children.every((child) => '${child['wmKqYZML8GA']}' == 'false')) {
-        assignInputFieldValue(context, 'M9uM11xcHG3', 'false');
-      } else {
-        assignInputFieldValue(context, 'M9uM11xcHG3', 'true');
-      }
+      // if (children.every((child) => '${child['wmKqYZML8GA']}' == 'false')) {
+      //   assignInputFieldValue(context, 'M9uM11xcHG3', 'false');
+      // } else {
+      //   assignInputFieldValue(context, 'M9uM11xcHG3', 'true');
+      // }
       try {
         if (children
             .every((child) => int.parse('${child['ls9hlz2tyol']}') > 5)) {
