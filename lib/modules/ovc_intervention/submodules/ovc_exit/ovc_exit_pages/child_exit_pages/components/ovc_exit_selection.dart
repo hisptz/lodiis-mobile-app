@@ -27,7 +27,11 @@ class _OvcChildExitSelectionState extends State<OvcChildExitSelection> {
         exitTitles.add(programStageMap[id]);
       }
     }
-    setState(() {});
+    if(widget.programStageIdsWithData.isEmpty){
+      setState(() {
+        exitTitles.remove(programStageMap[OvcExitConstant.caseClosureKey]);
+      });
+    }
   }
 
   @override

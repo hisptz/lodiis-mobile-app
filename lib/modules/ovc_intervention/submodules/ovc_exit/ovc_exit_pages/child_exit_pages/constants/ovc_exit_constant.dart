@@ -7,4 +7,5 @@ class OvcExitConstant {
     map['dlR2wsNprZI'] = 'Graduation';
     return map;
   }
+  static String caseClosureKey = 'IjQP2OHQGrL';
 }

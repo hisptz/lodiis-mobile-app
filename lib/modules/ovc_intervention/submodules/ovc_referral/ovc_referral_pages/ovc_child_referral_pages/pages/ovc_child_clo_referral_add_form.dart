@@ -77,7 +77,6 @@ class _OvcChildCLOReferralAddFormState
     Map dataObject,
     OvcHouseHoldChild currentOvcHouseHoldChild,
   ) async {
-    print(dataObject);
     if (dataObject.keys.length > 1) {// Setting to 1 ignores the first field (NbQGlx6QZpK_clo_type)
       setState(() {
         isSaving = true;
