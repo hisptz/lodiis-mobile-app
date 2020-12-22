@@ -8,9 +8,11 @@ class NonAgywDreamsHTCSkipLogic {
   static Map hiddenFields = Map();
   static Map hiddenSections = Map();
 
-  static Future evaluateSkipLogics(BuildContext context,
-      List<FormSection> formSections,
-      Map dataObject,) async {
+  static Future evaluateSkipLogics(
+    BuildContext context,
+    List<FormSection> formSections,
+    Map dataObject,
+  ) async {
     hiddenFields.clear();
     hiddenSections.clear();
     List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections);
@@ -28,7 +30,7 @@ class NonAgywDreamsHTCSkipLogic {
         hiddenFields['YzPuEq2nAIh'] = true;
       }
 
-      if (inputFieldId == 'sJ35hsF6Lf9' && value != 'Couple') {
+      if (inputFieldId == 'sJ35hsF6Lf9' && value != 'C') {
         hiddenFields['XjHuTmtsXsz'] = true;
       }
       if (inputFieldId == 'Lam6bSq1Zgk' && value != 'Other') {
@@ -76,15 +78,19 @@ class NonAgywDreamsHTCSkipLogic {
         .setHiddenFields(hiddenFields);
   }
 
-  static resetValuesForHiddenSections(BuildContext context,
-      List<FormSection> formSections,) {
+  static resetValuesForHiddenSections(
+    BuildContext context,
+    List<FormSection> formSections,
+  ) {
     Provider.of<ServiceFormState>(context, listen: false)
         .setHiddenSections(hiddenSections);
   }
 
-  static assignInputFieldValue(BuildContext context,
-      String inputFieldId,
-      String value,) {
+  static assignInputFieldValue(
+    BuildContext context,
+    String inputFieldId,
+    String value,
+  ) {
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState(inputFieldId, value);
   }
