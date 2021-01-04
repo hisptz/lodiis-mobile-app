@@ -138,6 +138,7 @@ class SelectionOptionContainer extends StatelessWidget {
               color: Colors.transparent,
             ),
             onChanged: isReadOnly ? null : onChange,
+            disabledHint: Text(_selectedOption ?? '', style: TextStyle(color: color),),
             items: _options.map<DropdownMenuItem<dynamic>>(
               (InputFieldOption option) {
                 return DropdownMenuItem<dynamic>(

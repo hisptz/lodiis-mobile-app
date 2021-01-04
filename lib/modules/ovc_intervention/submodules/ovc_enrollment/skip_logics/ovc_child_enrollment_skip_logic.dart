@@ -3,6 +3,7 @@ import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/constants/ovc_enrollment_child_form_constant.dart';
 import 'package:provider/provider.dart';
 
 class OvcChildEnrollmentSkipLogic {
@@ -60,7 +61,7 @@ class OvcChildEnrollmentSkipLogic {
       }
 
     }
-
+    assignPrimaryVulnerability( context, dataObject);
     for (String sectionId in hiddenSections.keys) {
       List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections
           .where((formSection) => formSection.id == sectionId)
@@ -71,6 +72,43 @@ class OvcChildEnrollmentSkipLogic {
     }
     resetValuesForHiddenFields(context, hiddenFields.keys);
     resetValuesForHiddenSections(context, formSections);
+  }
+
+  static assignPrimaryVulnerability(BuildContext context, Map dataObject) {
+    List<String> vulnerabilities = [
+      'wmKqYZML8GA',
+      'GMcljM7jbNG',
+      'br1xvwAQ6el',
+      'ZKMhrjWoXnD',
+      'Gkjp5XZD70V',
+      'UeF4OvjIIEK',
+      'YR7Xxk14qoP'
+    ];
+    List<String> primaryVulnerabilitiesOptions = [
+      'Child living with HIV',
+      'HIV exposed infants',
+      'Child of a sex worker (FSW)',
+      'Child of PLHIV',
+      'Child exposed/experiencing violence and abuse (Survivors of Vac)',
+      'Orphan',
+      'Child living with disability'
+    ];
+    for (var vulnerabilityKey in vulnerabilities) {
+      if (dataObject[vulnerabilityKey] == true) {
+        assignInputFieldValue(
+            context,
+            OvcEnrollmentChildConstant.primaryVulnerabilityKey,
+            primaryVulnerabilitiesOptions[
+                vulnerabilities.indexOf(vulnerabilityKey)]);
+        break;
+      } else
+        continue;
+    }
+    if (vulnerabilities.every((element) =>
+        (dataObject[element] == false || dataObject[element] == null))) {
+      assignInputFieldValue(
+          context, OvcEnrollmentChildConstant.primaryVulnerabilityKey, null);
+    }
   }
 
   static resetValuesForHiddenFields(BuildContext context, inputFieldIds) {
