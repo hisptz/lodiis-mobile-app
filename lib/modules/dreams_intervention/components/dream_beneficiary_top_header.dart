@@ -46,7 +46,7 @@ class DreamBenefeciaryTopHeader extends StatelessWidget {
                             child: Container(
                               alignment: Alignment.centerRight,
                               child: Text(
-                                agywDream.benefecaryId,
+                                agywDream.primaryUIC,
                                 style: TextStyle().copyWith(
                                     color: Color(0xFF05131B),
                                     fontSize: 14.0,

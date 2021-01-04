@@ -69,7 +69,7 @@ class DreamsBeneficiaryCard extends StatelessWidget {
         .setFormFieldState('incidentDate', agywDream.createdDate);
     Provider.of<EnrollmentFormState>(context, listen: false).setFormFieldState(
         isAgywEnrollment ? 'KvmQjZbGZQU' : 'd8uBlGOpFhJ',
-        agywDream.benefecaryId);
+        agywDream.primaryUIC);
 
     for (Map attributeObj in teiData.attributes) {
       if (attributeObj['value'] != '' && '${attributeObj['value']}' != 'null') {

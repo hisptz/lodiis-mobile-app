@@ -59,7 +59,7 @@ class OvcHouseHoldCardHeader extends StatelessWidget {
                     child: Container(
                       padding: EdgeInsets.only(left: 5.0),
                       child: Text(
-                        ovcHouseHold.houseHoldId,
+                        ovcHouseHold.primaryUIC,
                         style: TextStyle().copyWith(
                             color: Color(0xFF1A3518),
                             fontSize: 14.0,

@@ -127,14 +127,14 @@ class _NoneAgywState extends State<NoneAgyw> {
                               beneficiaryName: agywBeneficiary.toString(),
                               canView: canView,
                               isExpanded:
-                                  agywBeneficiary.benefecaryId == toggleCardId,
+                                  agywBeneficiary.primaryUIC == toggleCardId,
                               onCardToogle: () {
-                                onCardToogle(agywBeneficiary.benefecaryId);
+                                onCardToogle(agywBeneficiary.primaryUIC);
                               },
                               cardBody: DreamBeneficiaryCardBody(
                                   agywBeneficiary: agywBeneficiary,
                                   isVerticalLayout:
-                                      agywBeneficiary.benefecaryId ==
+                                      agywBeneficiary.primaryUIC ==
                                           toggleCardId),
                               cardBottonActions: isBeneficiaryHIVNegative
                                   ? Container(

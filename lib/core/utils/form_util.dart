@@ -83,6 +83,7 @@ class FormUtil {
     String orgUnit,
     List<String> inputFieldIds,
     Map dataObject,
+    {bool hasBeneficiaryId = true}
   ) async {
     trackedEntityInstance = trackedEntityInstance ?? AppUtil.getUid();
     String beneficiaryIndex =
@@ -92,13 +93,16 @@ class FormUtil {
         await OrganisationUnitService().getOrganisationUnits([orgUnit]);
     OrganisationUnit organisationUnit =
         organisationUnits.length > 0 ? organisationUnits[0] : null;
-    dataObject[BeneficiaryIdentification.beneficiaryId] =
+    if(hasBeneficiaryId) {
+      dataObject[BeneficiaryIdentification.beneficiaryId] =
         dataObject[BeneficiaryIdentification.beneficiaryId] =
             dataObject[BeneficiaryIdentification.beneficiaryIndex] != null
                 ? dataObject[BeneficiaryIdentification.beneficiaryId]
                 : BeneficiaryIdentification().getBenificiaryId(
                     organisationUnit, dataObject, beneficiaryIndex);
     dataObject[BeneficiaryIdentification.beneficiaryIndex] = beneficiaryIndex;
+    }
+    
     String attributes = inputFieldIds
         .map((String attribute) {
           String value = dataObject.keys.toList().indexOf(attribute) > -1

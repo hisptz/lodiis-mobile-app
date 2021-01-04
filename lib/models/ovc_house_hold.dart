@@ -10,7 +10,8 @@ class OvcHouseHold {
   String location;
   String orgUnit;
   String createdDate;
-  String houseHoldId;
+  String primaryUIC;
+  String secondaryUIC;
   String ovcMaleCount;
   String ovcFemaleCount;
   String houseHoldStatus;
@@ -25,7 +26,8 @@ class OvcHouseHold {
     this.surname,
     this.ovcMaleCount,
     this.children,
-    this.houseHoldId,
+    this.primaryUIC,
+    this.secondaryUIC,
     this.location,
     this.orgUnit,
     this.createdDate,
@@ -49,7 +51,8 @@ class OvcHouseHold {
       'kQehaqmaygZ',
       'BXUNH6LXeGA',
       'PN92g65TkVI',
-      BeneficiaryIdentification.beneficiaryId
+      BeneficiaryIdentification.primaryUIC,
+      BeneficiaryIdentification.secondaryUIC
     ];
     Map data = Map();
     for (Map attributOj in tei.attributes) {
@@ -68,7 +71,7 @@ class OvcHouseHold {
         createdDate: createdDate,
         ovcMaleCount: data['kQehaqmaygZ'] ?? '',
         ovcFemaleCount: data['BXUNH6LXeGA'] ?? '',
-        houseHoldId: data[BeneficiaryIdentification.beneficiaryId] ?? '',
+        primaryUIC: data[BeneficiaryIdentification.beneficiaryId] ?? '',
         houseHoldStatus: data['PN92g65TkVI'] ?? '',
         searchableValue:
             "${data['WTZ7GLTrE8Q'] ?? ''} ${data['s1HaiT6OllL'] ?? ''} ${data['rSP9c21JsfC'] ?? ''} ${data[BeneficiaryIdentification.beneficiaryId] ?? ''} $location $createdDate"
