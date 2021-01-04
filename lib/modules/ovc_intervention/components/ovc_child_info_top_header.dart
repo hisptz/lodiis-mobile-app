@@ -52,7 +52,7 @@ class OvcChildInfoTopHeader extends StatelessWidget {
                                   margin: EdgeInsets.symmetric(
                                       horizontal: 10.0, vertical: 5.0),
                                   child: Text(
-                                    currentOvcHouseHoldChild.childId,
+                                    currentOvcHouseHoldChild.primaryUIC,
                                     style: TextStyle().copyWith(
                                         color: Color(0xFF1A3518),
                                         fontSize: 14.0,

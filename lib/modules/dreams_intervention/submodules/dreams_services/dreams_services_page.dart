@@ -36,7 +36,7 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
   final bool canView = false;
   final bool canExpand = true;
 
-  String toggleCardId = '';
+  String toggleCardId = ' ';
 
   void onCardToogle(
       BuildContext context, String cardId, String trackedEntityInstance) {
@@ -255,12 +255,12 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
                                 canExpand: canExpand,
                                 beneficiaryName: agywBeneficiary.toString(),
                                 canView: canView,
-                                isExpanded: agywBeneficiary.benefecaryId ==
+                                isExpanded: agywBeneficiary.primaryUIC ==
                                     toggleCardId,
                                 onCardToogle: () {
                                   onCardToogle(
                                     context,
-                                    agywBeneficiary.benefecaryId,
+                                    agywBeneficiary.primaryUIC,
                                     agywBeneficiary.id,
                                   );
                                 },
@@ -268,7 +268,7 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
                                   agywBeneficiary: agywBeneficiary,
                                   canViewServiceCategory: true,
                                   isVerticalLayout:
-                                      agywBeneficiary.benefecaryId ==
+                                      agywBeneficiary.primaryUIC ==
                                           toggleCardId,
                                 ),
                                 cardBottonActions: ServiceCardBottonAction(
