@@ -101,14 +101,14 @@ class _DreamsEnrollmentPageState extends State<DreamsEnrollmentPage> {
                               beneficiaryName: agywBeneficiary.toString(),
                               canView: canView,
                               isExpanded:
-                                  agywBeneficiary.primaryUIC == toggleCardId,
+                                  agywBeneficiary.id == toggleCardId,
                               onCardToogle: () {
-                                onCardToogle(agywBeneficiary.primaryUIC);
+                                onCardToogle(agywBeneficiary.id);
                               },
                               cardBody: DreamBeneficiaryCardBody(
                                   agywBeneficiary: agywBeneficiary,
                                   isVerticalLayout:
-                                      agywBeneficiary.primaryUIC ==
+                                      agywBeneficiary.id ==
                                           toggleCardId),
                               cardBottonActions: Container(),
                               cardBottonContent: Container(),

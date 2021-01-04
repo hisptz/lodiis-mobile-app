@@ -36,14 +36,14 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
   final bool canView = false;
   final bool canExpand = true;
 
-  String toggleCardId = ' ';
+  String toggleCardId = '';
 
   void onCardToogle(
-      BuildContext context, String cardId, String trackedEntityInstance) {
+      BuildContext context,  String trackedEntityInstance) {
     Provider.of<ServiveEventDataState>(context, listen: false)
         .resetServiceEventDataState(trackedEntityInstance);
     setState(() {
-      toggleCardId = canExpand && cardId != toggleCardId ? cardId : '';
+      toggleCardId = canExpand && trackedEntityInstance != toggleCardId ? trackedEntityInstance : '';
     });
   }
 
@@ -255,12 +255,11 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
                                 canExpand: canExpand,
                                 beneficiaryName: agywBeneficiary.toString(),
                                 canView: canView,
-                                isExpanded: agywBeneficiary.primaryUIC ==
+                                isExpanded: agywBeneficiary.id ==
                                     toggleCardId,
                                 onCardToogle: () {
                                   onCardToogle(
                                     context,
-                                    agywBeneficiary.primaryUIC,
                                     agywBeneficiary.id,
                                   );
                                 },
@@ -268,7 +267,7 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
                                   agywBeneficiary: agywBeneficiary,
                                   canViewServiceCategory: true,
                                   isVerticalLayout:
-                                      agywBeneficiary.primaryUIC ==
+                                      agywBeneficiary.id ==
                                           toggleCardId,
                                 ),
                                 cardBottonActions: ServiceCardBottonAction(
