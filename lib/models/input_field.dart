@@ -14,6 +14,7 @@ class InputField {
   bool renderAsRadio;
   bool isReadOnly;
   bool allowFuturePeriod;
+  bool disablePastPeriod;
   int minAgeInYear;
   int maxAgeInYear;
   int numberOfMonth;
@@ -40,6 +41,7 @@ class InputField {
     this.subInputField,
     this.allowedSelectedLevels,
     this.allowFuturePeriod,
+    this.disablePastPeriod,
     this.translatedName,
     this.translatedDescription,
     this.hint,
@@ -50,6 +52,7 @@ class InputField {
   }) {
     this.allowedSelectedLevels = this.allowedSelectedLevels ?? [];
     this.allowFuturePeriod = this.allowFuturePeriod ?? false;
+    this.disablePastPeriod = this.disablePastPeriod ?? false;
     this.isReadOnly = this.isReadOnly ?? false;
     this.description = this.description ?? '';
     this.hasSubInputField = this.hasSubInputField ?? false;

@@ -75,7 +75,7 @@ class _DateInputFieldContainerState extends State<DateInputFieldContainer> {
           ? '${widget.inputField.translatedName}'
           : '${widget.inputField.name}',
       initialDate: AppUtil.getDateIntoDateTimeFormat(_date),
-      firstDate: firstDate,
+      firstDate: widget.inputField.disablePastPeriod ? DateTime.now() : firstDate,
       confirmText: widget.currentLanguage == 'lesotho' ? 'Ok' : 'Ok',
       cancelText: widget.currentLanguage == 'lesotho' ? 'Cancel' : 'Cancel',
       lastDate: widget.inputField.allowFuturePeriod ||
