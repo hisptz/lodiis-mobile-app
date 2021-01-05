@@ -56,11 +56,18 @@ class OvcEnrollmentHouseHoldService {
     }
   }
 
-  Future<List<OvcHouseHold>> getHouseHoldList() async {
+  Future<List<OvcHouseHold>> getHouseHoldList({page}) async {
     List<OvcHouseHold> ovchouseHoldList = [];
+
+    List<TrackeEntityInstance> allTrackedEntityInstanceList = [];
+
     try {
       List<Enrollment> enrollments =
-          await EnrollmentOfflineProvider().getEnrollements(program);
+          await EnrollmentOfflineProvider().getEnrollements(program, page: page);
+      allTrackedEntityInstanceList =
+          await TrackedEntityInstanceOfflineProvider().getTrackedEntityInstance(
+              enrollments.map((e) => e.trackedEntityInstance).toList());
+
       for (Enrollment enrollment in enrollments) {
         // get location
         List<OrganisationUnit> ous = await OrganisationUnitService()
@@ -70,8 +77,9 @@ class OvcEnrollmentHouseHoldService {
         String createdDate = enrollment.enrollmentDate;
         //loading households
         List<TrackeEntityInstance> houseHolds =
-            await TrackedEntityInstanceOfflineProvider()
-                .getTrackedEntityInstance([enrollment.trackedEntityInstance]);
+            allTrackedEntityInstanceList.where((tei) =>
+                tei.trackedEntityInstance ==
+                enrollment.trackedEntityInstance).toList();
         // loop house hold/caregiver
         for (TrackeEntityInstance tei in houseHolds) {
           List<TeiRelationship> relationships =
@@ -100,6 +108,10 @@ class OvcEnrollmentHouseHoldService {
       }
     } catch (e) {}
     return ovchouseHoldList;
+  }
+
+  Future<int> getHouseholdCount() async {
+    return await EnrollmentOfflineProvider().getEnrollmentsCount(program);
   }
 
   TrackeEntityInstance getUpdatedHouseHoldWithOvcCounts(

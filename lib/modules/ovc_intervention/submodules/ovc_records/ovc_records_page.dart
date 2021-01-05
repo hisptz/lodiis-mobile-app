@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_intervention_list_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
+import 'package:kb_mobile_app/core/components/paginated_list_view.dart';
 import 'package:kb_mobile_app/core/components/sub_module_home_container.dart';
+import 'package:kb_mobile_app/core/services/pagination-service.dart';
 import 'package:kb_mobile_app/models/ovc_house_hold.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold_card.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold_card_body.dart';
@@ -59,70 +62,47 @@ class _OvcRecordsPageState extends State<OvcRecordsPage> {
     );
   }
 
-  Container _buildBody(String currentLanguage) {
-    return Container(
-      child: Consumer<OvcInterventionListState>(
-        builder: (context, ovcInterventionListState, child) {
-          bool isLoading = ovcInterventionListState.isLoading;
-          List<OvcHouseHold> ovcHouseHolds =
-              ovcInterventionListState.ovcInterventionList;
-          return isLoading
-              ? Container(
-                  margin: EdgeInsets.only(
-                    top: 20.0,
+  Widget _buildBody(String currentLanguage) {
+    return Consumer<OvcInterventionListState>(
+        builder: (context, ovcListState, child) => CustomPaginatedListView(
+            childBuilder: (context, ovcHouseHold, index) => OvcHouseHoldCard(
+                  ovcHouseHold: ovcHouseHold,
+                  canEdit: canEdit,
+                  canExpand: canExpand,
+                  canView: canView,
+                  isExpanded: ovcHouseHold.id == toggleCardId,
+                  onCardToogle: () {
+                    onCardToogle(ovcHouseHold.id);
+                  },
+                  cardBody: OvcHouseHoldCardBody(
+                    ovcHouseHold: ovcHouseHold,
                   ),
-                  child: Center(
-                    child: CircularProcessLoader(
-                      color: Colors.blueGrey,
-                    ),
+                  cardBottonActions: Container(),
+                  cardBottonContent: OvcHouseHoldCardBottonContent(
+                    currentLanguage: currentLanguage,
+                    ovcHouseHold: ovcHouseHold,
+                    canAddChild: canAddChild,
+                    canViewChildInfo: canViewChildInfo,
+                    canEditChildInfo: canEditChildInfo,
+                    canViewChildService: canViewChildService,
+                    canViewChildReferral: canViewChildReferral,
+                    canViewChildExit: canViewChildExit,
                   ),
-                )
-              : Container(
-                  margin: EdgeInsets.only(
-                    top: 16.0,
-                  ),
-                  child: ovcHouseHolds.length == 0
-                      ? Center(
-                          child: Text(
-                            currentLanguage == 'lesotho'
-                                ? 'Ha hona lelapa le ngolisitsoeng ha hajoale'
-                                : 'There is no household enrolled at moment',
-                          ),
-                        )
-                      : Column(
-                          children: ovcHouseHolds
-                              .map(
-                                (OvcHouseHold ovcHouseHold) => OvcHouseHoldCard(
-                                  ovcHouseHold: ovcHouseHold,
-                                  canEdit: canEdit,
-                                  canExpand: canExpand,
-                                  canView: canView,
-                                  isExpanded: ovcHouseHold.id == toggleCardId,
-                                  onCardToogle: () {
-                                    onCardToogle(ovcHouseHold.id);
-                                  },
-                                  cardBody: OvcHouseHoldCardBody(
-                                    ovcHouseHold: ovcHouseHold,
-                                  ),
-                                  cardBottonActions: Container(),
-                                  cardBottonContent:
-                                      OvcHouseHoldCardBottonContent(
-                                    currentLanguage: currentLanguage,
-                                    ovcHouseHold: ovcHouseHold,
-                                    canAddChild: canAddChild,
-                                    canViewChildInfo: canViewChildInfo,
-                                    canEditChildInfo: canEditChildInfo,
-                                    canViewChildService: canViewChildService,
-                                    canViewChildReferral: canViewChildReferral,
-                                    canViewChildExit: canViewChildExit,
-                                  ),
-                                ),
-                              )
-                              .toList(),
-                        ),
-                );
-        },
-      ),
-    );
+                ),
+            pagingController: ovcListState.pagingController,
+            emptyListWidget: Center(
+              child: Text(
+                currentLanguage == 'lesotho'
+                    ? 'Ha hona lelapa le ngolisitsoeng ha hajoale'
+                    : 'There is no household enrolled at moment',
+              ),
+            ),
+            errorWidget: Center(
+              child: Text(
+                currentLanguage == 'lesotho'
+                    ? 'Ha hona lelapa le ngolisitsoeng ha hajoale'
+                    : 'There is no household enrolled at moment',
+              ),
+            )));
   }
 }
