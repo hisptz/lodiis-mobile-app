@@ -9,8 +9,7 @@ class OvcInterventionListState with ChangeNotifier {
   // intial state
   List<OvcHouseHold> _ovcInterventionList = [];
   List<OvcHouseHold> _filteredOvcInterventionList = [];
-  PagingController _pagingController =
-      PagingController<int, OvcHouseHold>(firstPageKey: 0);
+  PagingController _pagingController;
   bool _isLoading = true;
   int _numberOfHouseHolds = 0;
   int _numberOfOvcs = 0;
@@ -34,6 +33,7 @@ class OvcInterventionListState with ChangeNotifier {
   PagingController get pagingController => _pagingController;
 
   void initializePagination() {
+    _pagingController = PagingController<int, OvcHouseHold>(firstPageKey: 0);
     PaginationService.initializePagination(
         mounted: true,
         pagingController: _pagingController,
@@ -43,15 +43,10 @@ class OvcInterventionListState with ChangeNotifier {
   Future<void> _fetchPage(int pageKey) async {
     if (pageKey != 0) {
       updatePageNumber(pageKey);
-      if (pageKey == (numberOfPages - 1)) {
-        _pagingController.appendLastPage(await OvcEnrollmentHouseHoldService()
-            .getHouseHoldList(page: _pageNumber));
-      } else {
-        _pagingController.appendPage(
-            await OvcEnrollmentHouseHoldService()
-                .getHouseHoldList(page: _pageNumber),
-            (pageKey + 1));
-      }
+      List ovcList = await OvcEnrollmentHouseHoldService()
+          .getHouseHoldList(page: _pageNumber);
+      PaginationService.assignPagesToController(
+          _pagingController, ovcList, pageKey, numberOfPages);
     }
   }
 
@@ -84,12 +79,9 @@ class OvcInterventionListState with ChangeNotifier {
         await OvcEnrollmentHouseHoldService().getHouseholdCount();
     _numberOfOvcs = 5;
     //Update number of Pages
-    if (numberOfHouseHolds != null) {
-      _numberOfPages =
-          (numberOfHouseHolds / PaginationConstants.paginationLimit).ceil();
-    }
+    getNumberOfPages();
     initializePagination();
-    await getInitialOvcList();
+    refreshOvcList();
   }
 
   void updatePageNumber(int pageNo) async {
@@ -98,19 +90,10 @@ class OvcInterventionListState with ChangeNotifier {
 
   Future<void> refreshOvcList() async {
     _isLoading = true;
-    // notifyListeners();
-    _ovcInterventionList = await OvcEnrollmentHouseHoldService()
+    notifyListeners();
+    List ovcList = await OvcEnrollmentHouseHoldService()
         .getHouseHoldList(page: _pageNumber);
-    // notifyListeners();
-    updateNumerOfOvcBeneficiaries();
-  }
-
-  Future<void> getInitialOvcList() async {
-    // _isLoading =  true;
-    _pagingController.value = PagingState<int, OvcHouseHold>(
-        nextPageKey: 1,
-        itemList:
-            await OvcEnrollmentHouseHoldService().getHouseHoldList(page: 0));
+    PaginationService.assignPagesToController(_pagingController, ovcList, _pageNumber, _numberOfPages);
     _isLoading = false;
     notifyListeners();
   }
@@ -123,5 +106,12 @@ class OvcInterventionListState with ChangeNotifier {
   void dispose() {
     _pagingController.dispose();
     super.dispose();
+  }
+
+  void getNumberOfPages() {
+    if (numberOfHouseHolds != null) {
+      _numberOfPages =
+          (numberOfHouseHolds / PaginationConstants.paginationLimit).ceil();
+    }
   }
 }

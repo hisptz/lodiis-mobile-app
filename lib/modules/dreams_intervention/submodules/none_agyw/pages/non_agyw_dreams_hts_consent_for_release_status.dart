@@ -96,7 +96,7 @@ class _NonAgywDreamsHTSConsentForReleaseStatusState
             hiddenFields,
           );
           Provider.of<DreamsInterventionListState>(context, listen: false)
-              .refreshDreamsList();
+              .refreshBeneficiariesNumber();
           Timer(
             Duration(seconds: 1),
                 () {

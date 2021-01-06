@@ -45,9 +45,9 @@ class _InterventionSelectionState extends State<InterventionSelection> {
     Provider.of<OvcInterventionListState>(context, listen: false)
         .refreshOvcNumber();
     Provider.of<DreamsInterventionListState>(context, listen: false)
-        .refreshDreamsList();
+        .refreshBeneficiariesNumber();
     Provider.of<OgacInterventionListState>(context, listen: false)
-        .refreshOgacList();
+        .refreshOgacNumber();
     Provider.of<CurrentUserState>(context, listen: false)
         .setCurrentUserLocation();
     setState(() {

@@ -87,13 +87,14 @@ class AppBarUtil {
     );
   }
 
+
   static void _onSwitchToIntervention(BuildContext context, String id) {
     if (id == 'ovc') {
       Provider.of<OvcInterventionListState>(context, listen: false)
-          .refreshOvcList();
+          .refreshOvcNumber();
     } else if (id == 'dreams') {
       Provider.of<DreamsInterventionListState>(context, listen: false)
-          .refreshDreamsList();
+          .refreshBeneficiariesNumber();
     } else if (id == 'ogac') {
       Provider.of<OgacInterventionListState>(context, listen: false)
           .refreshOgacList();

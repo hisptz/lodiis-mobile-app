@@ -79,11 +79,11 @@ class NoneAgywDreamEnrollmentService {
     }
   }
 
-  Future<List<AgywDream>> getNonAgywBenficiaryList() async {
+  Future<List<AgywDream>> getNonAgywBenficiaryList({int page}) async {
     List<AgywDream> agywDreamList = [];
     try {
       List<Enrollment> enrollments =
-          await EnrollmentOfflineProvider().getEnrollements(program);
+          await EnrollmentOfflineProvider().getEnrollements(program, page: page);
       for (Enrollment enrollment in enrollments) {
         // get location
         List<OrganisationUnit> ous = await OrganisationUnitService()
