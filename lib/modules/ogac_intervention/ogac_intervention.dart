@@ -58,53 +58,47 @@ class _OgacInterventionState extends State<OgacIntervention> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: SafeArea(
-      child: Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(65),
-          child: Consumer<IntervetionCardState>(
-            builder: (context, intervetionCardState, child) {
-              InterventionCard activeInterventionProgram =
-                  intervetionCardState.currentIntervetionProgram;
-              return InterventionAppBar(
-                activeInterventionProgram: activeInterventionProgram,
-                onClickHome: onClickHome,
-                onAddOgacBeneficiary: () => onAddOgacBeneficiary(context),
-                onOpenMoreMenu: () =>
-                    onOpenMoreMenu(context, activeInterventionProgram),
-              );
-            },
-          ),
-        ),
-        body: Container(
-          child: !isViewReady
-              ? Container(
-                  margin: EdgeInsets.only(top: 20.0),
-                  child: CircularProcessLoader(
-                    color: Colors.blueGrey,
+    return Scaffold(body: SafeArea(
+      child: Consumer<IntervetionCardState>(
+        builder: (context, intervetionCardState, child) {
+          InterventionCard activeInterventionProgram =
+                      intervetionCardState.currentIntervetionProgram;
+          return Scaffold(
+            appBar: PreferredSize(
+              preferredSize: Size.fromHeight(65),
+              child: InterventionAppBar(
+                    activeInterventionProgram: activeInterventionProgram,
+                    onClickHome: onClickHome,
+                    onAddOgacBeneficiary: () => onAddOgacBeneficiary(context),
+                    onOpenMoreMenu: () =>
+                        onOpenMoreMenu(context, activeInterventionProgram),
                   ),
-                )
-              : Container(
-                  child: Consumer<IntervetionCardState>(
-                      builder: (context, intervetionCardState, child) {
-                    InterventionCard activeInterventionProgram =
-                        intervetionCardState.currentIntervetionProgram;
-                    return Stack(
-                      fit: StackFit.expand,
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                              color: activeInterventionProgram.background),
-                        ),
-                        Container(
-                          child: OgacInterventionHome(),
-                        ),
-                      ],
-                    );
-                  }),
-                ),
-        ),
+            ),
+            body: Container(
+              child: !isViewReady
+                  ? Container(
+                      margin: EdgeInsets.only(top: 20.0),
+                      child: CircularProcessLoader(
+                        color: Colors.blueGrey,
+                      ),
+                    )
+                  : Container(
+                      child: Stack(
+                          fit: StackFit.expand,
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                  color: activeInterventionProgram.background),
+                            ),
+                            Container(
+                              child: OgacInterventionHome(),
+                            ),
+                          ],
+                        )
+                    ),
+            ),
+          );
+        },
       ),
     ));
   }

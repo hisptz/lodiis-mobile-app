@@ -52,7 +52,7 @@ class OvcChildInfoTopHeader extends StatelessWidget {
                                   margin: EdgeInsets.symmetric(
                                       horizontal: 10.0, vertical: 5.0),
                                   child: Text(
-                                    currentOvcHouseHoldChild.childId,
+                                    currentOvcHouseHoldChild.primaryUIC,
                                     style: TextStyle().copyWith(
                                         color: Color(0xFF1A3518),
                                         fontSize: 14.0,
@@ -116,6 +116,31 @@ class OvcChildInfoTopHeader extends StatelessWidget {
                                         children: [
                                           TextSpan(
                                             text: currentOvcHouseHoldChild.age,
+                                            style: TextStyle().copyWith(
+                                              fontSize: 12.0,
+                                              fontWeight: FontWeight.w500,
+                                              color: Color(0xFF4B9F46),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: RichText(
+                                      text: TextSpan(
+                                        text: currentLanguage == 'lesotho'
+                                            ? 'HIV Status '
+                                            : 'HIV Status  ',
+                                        style: TextStyle().copyWith(
+                                          fontSize: 12.0,
+                                          fontWeight: FontWeight.w500,
+                                          color: Color(0xFF92A791),
+                                        ),
+                                        children: [
+                                          TextSpan(
+                                            text: currentOvcHouseHoldChild
+                                                .hivStatus,
                                             style: TextStyle().copyWith(
                                               fontSize: 12.0,
                                               fontWeight: FontWeight.w500,

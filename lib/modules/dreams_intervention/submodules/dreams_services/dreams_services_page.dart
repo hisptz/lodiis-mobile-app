@@ -40,11 +40,11 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
   String toggleCardId = '';
 
   void onCardToogle(
-      BuildContext context, String cardId, String trackedEntityInstance) {
+      BuildContext context,  String trackedEntityInstance) {
     Provider.of<ServiveEventDataState>(context, listen: false)
         .resetServiceEventDataState(trackedEntityInstance);
     setState(() {
-      toggleCardId = canExpand && cardId != toggleCardId ? cardId : '';
+      toggleCardId = canExpand && trackedEntityInstance != toggleCardId ? trackedEntityInstance : '';
     });
   }
 

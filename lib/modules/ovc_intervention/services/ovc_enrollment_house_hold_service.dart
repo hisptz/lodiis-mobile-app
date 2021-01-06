@@ -42,7 +42,7 @@ class OvcEnrollmentHouseHoldService {
             trackedEntityType,
             orgUnit,
             inputFieldIds,
-            dataObject);
+            dataObject, hasBeneficiaryId: false);
     await FormUtil.savingTrackeEntityInstance(trackeEntityInstanceData);
     if (shouldEnroll) {
       Enrollment enrollmentData = FormUtil.getEnrollmentPayLoad(

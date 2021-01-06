@@ -11,7 +11,7 @@ class AgywDream {
   String ageBand;
   String sex;
   String programStatus;
-  String benefecaryId;
+  String primaryUIC;
   String enrolledOrganisation;
   String location;
   String orgUnit;
@@ -27,7 +27,7 @@ class AgywDream {
       this.surname,
       this.age,
       this.ageBand,
-      this.benefecaryId,
+      this.primaryUIC,
       this.sex,
       this.programStatus,
       this.enrolledOrganisation,
@@ -52,7 +52,7 @@ class AgywDream {
       'PN92g65TkVI',
       'VJiWumvINR6',
       'klLkGxy328c',
-      BeneficiaryIdentification.beneficiaryId
+      BeneficiaryIdentification.primaryUIC
     ];
     Map data = Map();
     for (Map detailObj in trackeEntityInstance.attributes) {
@@ -69,7 +69,7 @@ class AgywDream {
       surname: data['rSP9c21JsfC'] ?? '',
       age: age.toString(),
       ageBand: agywAgeBand(age) ?? '',
-      benefecaryId: data[BeneficiaryIdentification.beneficiaryId] ?? '',
+      primaryUIC: data[BeneficiaryIdentification.primaryUIC] ?? '',
       sex: data['VJiWumvINR6'] ?? '',
       programStatus: data['PN92g65TkVI'] ?? '',
       orgUnit: orgUnit,

@@ -55,7 +55,7 @@ class OvcHouseHoldCard extends StatelessWidget {
     Provider.of<EnrollmentFormState>(context, listen: false)
         .setFormFieldState('incidentDate', ovcHouseHold.createdDate);
     Provider.of<EnrollmentFormState>(context, listen: false)
-        .setFormFieldState('yk0OH9p09C1', ovcHouseHold.houseHoldId);
+        .setFormFieldState('yk0OH9p09C1', ovcHouseHold.primaryUIC);
     Provider.of<EnrollmentFormState>(context, listen: false)
         .setFormFieldState('PN92g65TkVI', ovcHouseHold.houseHoldStatus);
     for (Map attributeObj in teiData.attributes) {

@@ -4,6 +4,8 @@ import 'package:kb_mobile_app/models/organisation_unit.dart';
 class BeneficiaryIdentification {
   static final String beneficiaryId = 'cfPJpuMGp2O';
   static final String beneficiaryIndex = 'Uth5HQFgqlb';
+  static final String primaryUIC = 'fTSAY18LgCF';
+  static final String secondaryUIC = 'eIU7KMx4Tu3';
   static final List<String> firstNameReference = ['WTZ7GLTrE8Q', 'JhOvli80Qbx'];
   static final List<String> surnameReference = ['rSP9c21JsfC', 'jjZWuJfVStp'];
   static final List<String> birthDate = ['qZP982qpSPS', 'jVSwC6Ln95H'];

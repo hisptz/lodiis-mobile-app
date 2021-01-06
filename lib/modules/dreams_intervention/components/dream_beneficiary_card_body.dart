@@ -41,8 +41,8 @@ class DreamBeneficiaryCardBody extends StatelessWidget {
                       Container(
                         margin: EdgeInsets.only(bottom: 10),
                         child: VerticalRowCardData(
-                          label: 'Beneficary id',
-                          value: agywBeneficiary.benefecaryId,
+                          label: 'Primary UIC',
+                          value: agywBeneficiary.primaryUIC,
                           labelColor: labelColor,
                           valueColor: valueColor,
                         ),

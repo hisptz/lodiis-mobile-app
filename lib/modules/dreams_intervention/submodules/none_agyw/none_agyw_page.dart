@@ -81,71 +81,58 @@ class _NoneAgywState extends State<NoneAgyw> {
                 List dataObject =
                     agywBeneficiary.trackeEntityInstanceData.attributes;
 
-                List filteredDataObject = dataObject
-                    .where((element) =>
-                        element['attribute'] ==
-                        NonAgywDreamsHTSConstant.hivResultStatus)
-                    .toList();
-                bool isBeneficiaryHIVNegative = false;
-                if (filteredDataObject.isNotEmpty) {
-                  isBeneficiaryHIVNegative =
-                      filteredDataObject.first['value'] == 'Negative';
-                }
-                return DreamsBeneficiaryCard(
-                  isAgywEnrollment: false,
-                  agywDream: agywBeneficiary,
-                  canEdit: canEdit,
-                  canExpand: canExpand,
-                  beneficiaryName: agywBeneficiary.toString(),
-                  canView: canView,
-                  isExpanded: agywBeneficiary.benefecaryId == toggleCardId,
-                  onCardToogle: () {
-                    onCardToogle(agywBeneficiary.benefecaryId);
-                  },
-                  cardBody: DreamBeneficiaryCardBody(
-                      agywBeneficiary: agywBeneficiary,
-                      isVerticalLayout:
-                          agywBeneficiary.benefecaryId == toggleCardId),
-                  cardBottonActions: isBeneficiaryHIVNegative
-                      ? Container(
-                          child: Column(
-                            children: [
-                              LineSeperator(
-                                color: Color(0xFFE9F4FA),
-                              ),
-                              Container(
-                                child: MaterialButton(
-                                  onPressed: () => onOpenPrep(
-                                    context,
-                                    agywBeneficiary,
-                                  ),
-                                  child: Text('PREP',
-                                      style: TextStyle().copyWith(
-                                        fontSize: 14.0,
-                                        fontWeight: FontWeight.normal,
-                                        color: Color(0xFF1F8ECE),
-                                      )),
-                                ),
-                              )
-                            ],
-                          ),
-                        )
-                      : Container(),
-                  cardBottonContent: Container(),
-                );
-              },
-              pagingController:
-                  dreamInterventionListState.nonAgywPagingController,
-              emptyListWidget: Center(
-                child: Text(
-                  'There is no beneficiary list at a moment',
-                ),
-              ),
-              errorWidget: Center(
-                child: Text(
-                  'There is no beneficiary list at a moment',
-                ),
-              ));
+                            List filteredDataObject = dataObject.where((element) => element['attribute'] == NonAgywDreamsHTSConstant.hivResultStatus).toList();
+                            bool isBeneficiaryHIVNegative = false;
+                            if(filteredDataObject.isNotEmpty){
+                                isBeneficiaryHIVNegative = filteredDataObject.first['value'] == 'Negative';
+                            }
+                            return DreamsBeneficiaryCard(
+                              isAgywEnrollment: false,
+                              agywDream: agywBeneficiary,
+                              canEdit: canEdit,
+                              canExpand: canExpand,
+                              beneficiaryName: agywBeneficiary.toString(),
+                              canView: canView,
+                              isExpanded:
+                                  agywBeneficiary.primaryUIC == toggleCardId,
+                              onCardToogle: () {
+                                onCardToogle(agywBeneficiary.primaryUIC);
+                              },
+                              cardBody: DreamBeneficiaryCardBody(
+                                  agywBeneficiary: agywBeneficiary,
+                                  isVerticalLayout:
+                                      agywBeneficiary.primaryUIC ==
+                                          toggleCardId),
+                              cardBottonActions: isBeneficiaryHIVNegative
+                                  ? Container(
+                                      child: Column(
+                                        children: [
+                                          LineSeperator(
+                                            color: Color(0xFFE9F4FA),
+                                          ),
+                                          Container(
+                                            child: MaterialButton(
+                                              onPressed: () => onOpenPrep(
+                                                context,
+                                                agywBeneficiary,
+                                              ),
+                                              child: Text('PREP',
+                                                  style: TextStyle().copyWith(
+                                                    fontSize: 14.0,
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                    color: Color(0xFF1F8ECE),
+                                                  )),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    )
+                                  : Container(),
+                              cardBottonContent: Container(),
+                            );
+                          }).toList(),
+                        ));
         },
       ),
     );

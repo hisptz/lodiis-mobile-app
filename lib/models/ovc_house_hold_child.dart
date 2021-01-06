@@ -3,7 +3,8 @@ import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
 
 class OvcHouseHoldChild {
   String id;
-  String childId;
+  String primaryUIC;
+  String secondaryUIC;
   String firstName;
   String middleName;
   String surname;
@@ -16,7 +17,8 @@ class OvcHouseHoldChild {
 
   OvcHouseHoldChild({
     this.id,
-    this.childId,
+    this.primaryUIC,
+    this.secondaryUIC,
     this.firstName,
     this.middleName,
     this.surname,
@@ -40,7 +42,8 @@ class OvcHouseHoldChild {
       'ls9hlz2tyol',
       'vIX4GTSCX4P',
       'wmKqYZML8GA',
-      BeneficiaryIdentification.beneficiaryId
+      BeneficiaryIdentification.primaryUIC,
+      BeneficiaryIdentification.secondaryUIC
     ];
     Map data = Map();
     for (Map attributOj in tei.attributes) {
@@ -56,7 +59,8 @@ class OvcHouseHoldChild {
         surname: data['rSP9c21JsfC'] ?? '',
         sex: data['vIX4GTSCX4P'] ?? '',
         age: data['ls9hlz2tyol'] ?? '',
-        childId: data[BeneficiaryIdentification.beneficiaryId] ?? '',
+        primaryUIC: data[BeneficiaryIdentification.primaryUIC] ?? '',
+        secondaryUIC: data[BeneficiaryIdentification.secondaryUIC] ?? '',
         createdDate: createdDate,
         hivStatus: data['wmKqYZML8GA'] != null
             ? data['wmKqYZML8GA'] == 'true'
