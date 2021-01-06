@@ -70,14 +70,14 @@ class _DreamsReferralPageState extends State<DreamsReferralPage> {
                   canExpand: canExpand,
                   beneficiaryName: agywBeneficiary.toString(),
                   canView: canView,
-                  isExpanded: agywBeneficiary.benefecaryId == toggleCardId,
+                  isExpanded: agywBeneficiary.id == toggleCardId,
                   onCardToogle: () {
-                    onCardToogle(agywBeneficiary.benefecaryId);
+                    onCardToogle(agywBeneficiary.id);
                   },
                   cardBody: DreamBeneficiaryCardBody(
                       agywBeneficiary: agywBeneficiary,
                       isVerticalLayout:
-                          agywBeneficiary.benefecaryId == toggleCardId),
+                          agywBeneficiary.id == toggleCardId),
                   cardBottonActions: Container(
                     child: Column(
                       children: [

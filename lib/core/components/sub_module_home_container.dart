@@ -43,7 +43,7 @@ class SubModuleHomeContainer extends StatelessWidget {
                 );
               },
             ),
-            SingleChildScrollView(child: bodyContents)
+            Container(child: bodyContents)
           ],
         ));
   }

@@ -39,12 +39,13 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
 
   String toggleCardId = '';
 
-  void onCardToogle(
-      BuildContext context,  String trackedEntityInstance) {
+  void onCardToogle(BuildContext context, String trackedEntityInstance) {
     Provider.of<ServiveEventDataState>(context, listen: false)
         .resetServiceEventDataState(trackedEntityInstance);
     setState(() {
-      toggleCardId = canExpand && trackedEntityInstance != toggleCardId ? trackedEntityInstance : '';
+      toggleCardId = canExpand && trackedEntityInstance != toggleCardId
+          ? trackedEntityInstance
+          : '';
     });
   }
 
@@ -223,18 +224,18 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
         child: Consumer<DreamsInterventionListState>(
           builder: (context, dreamInterventionListState, child) {
             return CustomPaginatedListView(
-                childBuilder: (context, agywBeneficiary, child) => DreamsBeneficiaryCard(
+                childBuilder: (context, agywBeneficiary, child) =>
+                    DreamsBeneficiaryCard(
                       isAgywEnrollment: true,
                       agywDream: agywBeneficiary,
                       canEdit: canEdit,
                       canExpand: canExpand,
                       beneficiaryName: agywBeneficiary.toString(),
                       canView: canView,
-                      isExpanded: agywBeneficiary.benefecaryId == toggleCardId,
+                      isExpanded: agywBeneficiary.id == toggleCardId,
                       onCardToogle: () {
                         onCardToogle(
                           context,
-                          agywBeneficiary.benefecaryId,
                           agywBeneficiary.id,
                         );
                       },
@@ -242,7 +243,7 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
                         agywBeneficiary: agywBeneficiary,
                         canViewServiceCategory: true,
                         isVerticalLayout:
-                            agywBeneficiary.benefecaryId == toggleCardId,
+                            agywBeneficiary.id == toggleCardId,
                       ),
                       cardBottonActions: ServiceCardBottonAction(
                         onOpenPrepForm: () => onOpenPrepForm(

@@ -40,13 +40,12 @@ class OgacInterventionListState with ChangeNotifier {
   }
 
   Future<void> _fetchPage(int pageKey) async {
-    if (pageKey != 0) {
       updatePageNumber(pageKey);
       List ovcList = await OgacEnrollementservice()
-          .getOgacBeneficiaries(page: _pageNumber);
+          .getOgacBeneficiaries(page: pageKey);
       PaginationService.assignPagesToController(
           _pagingController, ovcList, pageKey, numberOfPages);
-    }
+
   }
 
   void updatePageNumber(int pageNo) async {
@@ -57,13 +56,13 @@ class OgacInterventionListState with ChangeNotifier {
   Future<void> refreshOgacNumber() async {
     //write code to count and update number of Households and number of OVC
     _isLoading = true;
-    _pageNumber = 0;
     notifyListeners();
     _numberOfOgac = 1;
     //Update number of Pages
     getNumberOfPages();
     initializePagination();
-    refreshOgacList();
+   _isLoading = false;
+   notifyListeners();
   }
 
   void searchOgacList(String value) {
@@ -79,14 +78,7 @@ class OgacInterventionListState with ChangeNotifier {
 
   //reducers
   void refreshOgacList() async {
-    _isLoading = true;
-    notifyListeners();
-    List ogacList =
-        await OgacEnrollementservice().getOgacBeneficiaries(page: _pageNumber);
-    PaginationService.assignPagesToController(
-        _pagingController, ogacList, _pageNumber, numberOfPages);
-    _isLoading = false;
-    notifyListeners();
+    _pagingController.refresh();
   }
 
   void getNumberOfPages() {

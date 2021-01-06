@@ -15,9 +15,7 @@ class DreamsInterventionListState with ChangeNotifier {
   bool _isLoading = false;
   int _numberOfAgywDreamsBeneficiaries = 0;
   int _numberOfNoneAgywDreamsBeneficiaries = 0;
-  int _agywPageNumber = 0;
   int _agywNumberOfPages = 0;
-  int _nonAgywPageNumber = 0;
   int _nonAgywNumberOfPages = 0;
 
   PagingController _agywPagingController;
@@ -48,28 +46,21 @@ class DreamsInterventionListState with ChangeNotifier {
 
 
   Future<void> _fetchAgywPage(int pageKey) async {
-    if (pageKey != 0) {
-      updateAgywPageNumber(pageKey);
-      List<AgywDream> agywList = await AgywDreamEnrollmentService()
-          .getAgywBenficiaryList(page: _agywPageNumber);
+    List<AgywDream> agywList = await AgywDreamEnrollmentService()
+        .getAgywBenficiaryList(page: pageKey);
 
-      PaginationService.assignPagesToController(
-          _agywPagingController, agywList, pageKey, agywNumberOfPages);
-    }
+    PaginationService.assignPagesToController(
+        _agywPagingController, agywList, pageKey, agywNumberOfPages);
   }
 
   Future<void> _fetchNonAgywPage(int pageKey) async {
-    if (pageKey != 0) {
-      updateNonAgywPageNumber(pageKey);
-      List<AgywDream> nonAgywList = await NoneAgywDreamEnrollmentService()
-          .getNonAgywBenficiaryList(page: _nonAgywPageNumber);
-      PaginationService.assignPagesToController(
-          _nonAgywPagingController, nonAgywList, pageKey, nonAgywNumberOfPages);
-    }
+    List<AgywDream> nonAgywList = await NoneAgywDreamEnrollmentService()
+        .getNonAgywBenficiaryList(page: pageKey);
+    PaginationService.assignPagesToController(
+        _nonAgywPagingController, nonAgywList, pageKey, nonAgywNumberOfPages);
   }
 
   void initializePagination() {
-    _agywPageNumber = 0;
     _nonAgywPagingController = PagingController<int, AgywDream>(firstPageKey: 0);
     _agywPagingController = PagingController<int, AgywDream>(firstPageKey: 0);
     PaginationService.initializePagination(
@@ -84,21 +75,15 @@ class DreamsInterventionListState with ChangeNotifier {
   }
 
   Future<void> refreshBeneficiariesNumber() async {
+    _isLoading = true;
+    notifyListeners();
     //write code to count and update number of Beneficiaries
     _numberOfAgywDreamsBeneficiaries = 1;
     _numberOfNoneAgywDreamsBeneficiaries = 1;
     getNumberOfPages();
-    _isLoading = true;
     initializePagination();
-    refreshDreamsList();
-  }
-
-  void updateAgywPageNumber(int pageNo) async {
-    _agywPageNumber = pageNo;
-  }
-
-  void updateNonAgywPageNumber(int pageNo) async {
-    _nonAgywPageNumber = pageNo;
+    _isLoading = false;
+    notifyListeners();
   }
 
   // reducers
@@ -123,18 +108,8 @@ class DreamsInterventionListState with ChangeNotifier {
   }
 
   void refreshDreamsList() async {
-    _isLoading = true;
-    notifyListeners();
-    List<AgywDream> agywList = await AgywDreamEnrollmentService()
-        .getAgywBenficiaryList(page: _agywPageNumber);
-    List<AgywDream> nonAgywList = await NoneAgywDreamEnrollmentService()
-        .getNonAgywBenficiaryList(page: _nonAgywPageNumber);
-
-    PaginationService.assignPagesToController(
-        _agywPagingController, agywList, _agywPageNumber, agywNumberOfPages);
-    PaginationService.assignPagesToController(_nonAgywPagingController, nonAgywList,
-        _nonAgywPageNumber, nonAgywNumberOfPages);
-    _isLoading = false;
+    _agywPagingController.refresh();
+    _nonAgywPagingController.refresh();
     notifyListeners();
   }
 
