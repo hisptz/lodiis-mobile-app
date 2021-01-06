@@ -64,7 +64,8 @@ class NoneAgywDreamEnrollmentService {
             trackedEntityType,
             orgUnit,
             inputFieldIds,
-            dataObject);
+            dataObject,
+            hasBeneficiaryId: false);
     await FormUtil.savingTrackeEntityInstance(trackeEntityInstanceData);
     if (dataObject['trackedEntityInstance'] == null) {
       Enrollment enrollmentData = FormUtil.getEnrollmentPayLoad(
