@@ -4,6 +4,7 @@ import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_in
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/line_seperator.dart';
+import 'package:kb_mobile_app/core/components/paginated_list_view.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_card_body.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_card.dart';
@@ -59,73 +60,61 @@ class _DreamsReferralPageState extends State<DreamsReferralPage> {
   Widget _buildBody() {
     return SingleChildScrollView(
       child: Consumer<DreamsInterventionListState>(
-        builder: (context, dreamInterventionListState, child) {
-          bool isLoading = dreamInterventionListState.isLoading;
-          List<AgywDream> agywDreamsInterventionList =
-              dreamInterventionListState.agywDreamsInterventionList;
-          return isLoading
-              ? Container(
-                  margin: EdgeInsets.only(top: 20.0),
-                  child: Center(
-                    child: CircularProcessLoader(color: Colors.blueGrey),
-                  ),
-                )
-              : Container(
-                  margin: EdgeInsets.only(top: 16.0),
-                  child: agywDreamsInterventionList.length == 0
-                      ? Center(
-                          child:
-                              Text('There is no beneficiary list at a moment'),
+          builder: (context, dreamInterventionListState, child) {
+        return CustomPaginatedListView(
+            childBuilder: (context, agywBeneficiary, child) =>
+                DreamsBeneficiaryCard(
+                  isAgywEnrollment: false,
+                  agywDream: agywBeneficiary,
+                  canEdit: canEdit,
+                  canExpand: canExpand,
+                  beneficiaryName: agywBeneficiary.toString(),
+                  canView: canView,
+                  isExpanded: agywBeneficiary.id == toggleCardId,
+                  onCardToogle: () {
+                    onCardToogle(agywBeneficiary.id);
+                  },
+                  cardBody: DreamBeneficiaryCardBody(
+                      agywBeneficiary: agywBeneficiary,
+                      isVerticalLayout:
+                          agywBeneficiary.id == toggleCardId),
+                  cardBottonActions: Container(
+                    child: Column(
+                      children: [
+                        LineSeperator(
+                          color: Color(0xFFE9F4FA),
+                        ),
+                        Container(
+                          child: MaterialButton(
+                            onPressed: () => onOpenReferralForm(
+                              context,
+                              agywBeneficiary,
+                            ),
+                            child: Text('REFERRAL',
+                                style: TextStyle().copyWith(
+                                  fontSize: 14.0,
+                                  fontWeight: FontWeight.bold,
+                                  color: Color(0xFF1F8ECE),
+                                )),
+                          ),
                         )
-                      : Column(
-                          children: agywDreamsInterventionList
-                              .map((AgywDream agywBeneficiary) {
-                            return DreamsBeneficiaryCard(
-                              isAgywEnrollment: false,
-                              agywDream: agywBeneficiary,
-                              canEdit: canEdit,
-                              canExpand: canExpand,
-                              beneficiaryName: agywBeneficiary.toString(),
-                              canView: canView,
-                              isExpanded:
-                                  agywBeneficiary.id == toggleCardId,
-                              onCardToogle: () {
-                                onCardToogle(agywBeneficiary.id);
-                              },
-                              cardBody: DreamBeneficiaryCardBody(
-                                  agywBeneficiary: agywBeneficiary,
-                                  isVerticalLayout:
-                                      agywBeneficiary.id ==
-                                          toggleCardId),
-                              cardBottonActions: Container(
-                                child: Column(
-                                  children: [
-                                    LineSeperator(
-                                      color: Color(0xFFE9F4FA),
-                                    ),
-                                    Container(
-                                      child: MaterialButton(
-                                        onPressed: () => onOpenReferralForm(
-                                          context,
-                                          agywBeneficiary,
-                                        ),
-                                        child: Text('REFERRAL',
-                                            style: TextStyle().copyWith(
-                                              fontSize: 14.0,
-                                              fontWeight: FontWeight.bold,
-                                              color: Color(0xFF1F8ECE),
-                                            )),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                              cardBottonContent: Container(),
-                            );
-                          }).toList(),
-                        ));
-        },
-      ),
+                      ],
+                    ),
+                  ),
+                  cardBottonContent: Container(),
+                ),
+            pagingController: dreamInterventionListState.agywPagingController,
+            emptyListWidget: Center(
+              child: Text(
+                'There is no beneficiary list at a moment',
+              ),
+            ),
+            errorWidget: Center(
+              child: Text(
+                'There is no beneficiary list at a moment',
+              ),
+            ));
+      }),
     );
   }
 }

@@ -4,6 +4,7 @@ import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_in
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
+import 'package:kb_mobile_app/core/components/paginated_list_view.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_card_body.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_card.dart';
@@ -38,12 +39,13 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
 
   String toggleCardId = '';
 
-  void onCardToogle(
-      BuildContext context,  String trackedEntityInstance) {
+  void onCardToogle(BuildContext context, String trackedEntityInstance) {
     Provider.of<ServiveEventDataState>(context, listen: false)
         .resetServiceEventDataState(trackedEntityInstance);
     setState(() {
-      toggleCardId = canExpand && trackedEntityInstance != toggleCardId ? trackedEntityInstance : '';
+      toggleCardId = canExpand && trackedEntityInstance != toggleCardId
+          ? trackedEntityInstance
+          : '';
     });
   }
 
@@ -221,108 +223,89 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
       child: Container(
         child: Consumer<DreamsInterventionListState>(
           builder: (context, dreamInterventionListState, child) {
-            bool isLoading = dreamInterventionListState.isLoading;
-            List<AgywDream> agywDreamsInterventionList =
-                dreamInterventionListState.agywDreamsInterventionList;
-            return isLoading
-                ? Container(
-                    margin: EdgeInsets.only(
-                      top: 20.0,
-                    ),
-                    child: Center(
-                      child: CircularProcessLoader(
-                        color: Colors.blueGrey,
+            return CustomPaginatedListView(
+                childBuilder: (context, agywBeneficiary, child) =>
+                    DreamsBeneficiaryCard(
+                      isAgywEnrollment: true,
+                      agywDream: agywBeneficiary,
+                      canEdit: canEdit,
+                      canExpand: canExpand,
+                      beneficiaryName: agywBeneficiary.toString(),
+                      canView: canView,
+                      isExpanded: agywBeneficiary.id == toggleCardId,
+                      onCardToogle: () {
+                        onCardToogle(
+                          context,
+                          agywBeneficiary.id,
+                        );
+                      },
+                      cardBody: DreamBeneficiaryCardBody(
+                        agywBeneficiary: agywBeneficiary,
+                        canViewServiceCategory: true,
+                        isVerticalLayout:
+                            agywBeneficiary.id == toggleCardId,
                       ),
+                      cardBottonActions: ServiceCardBottonAction(
+                        onOpenPrepForm: () => onOpenPrepForm(
+                          context,
+                          agywBeneficiary,
+                        ),
+                        onOpenSRHForm: () => onOpenSRHForm(
+                          context,
+                          agywBeneficiary,
+                        ),
+                        onOpenHTSForm: () => onOpenHTSForm(
+                          context,
+                          agywBeneficiary,
+                        ),
+                        onOpenCondomForm: () => onOpenCondomForm(
+                          context,
+                          agywBeneficiary,
+                        ),
+                        onOpenContraceptivesForm: () =>
+                            onOpenContraceptivesForm(
+                          context,
+                          agywBeneficiary,
+                        ),
+                        onOpenMSGHIVForm: () => onOpenMSGHIVForm(
+                          context,
+                          agywBeneficiary,
+                        ),
+                        onOpenANCForm: () => onOpenANCForm(
+                          context,
+                          agywBeneficiary,
+                        ),
+                        onOpenArtRefillForm: () => onOpenArtRefillForm(
+                          context,
+                          agywBeneficiary,
+                        ),
+                        onOpenPEPForm: () => onOpenPEPForm(
+                          context,
+                          agywBeneficiary,
+                        ),
+                        onOpenPostGBVForm: () => onOpenPostGBVForm(
+                          context,
+                          agywBeneficiary,
+                        ),
+                        onOpenServiceForm: () => onOpenServiceForm(
+                          context,
+                          agywBeneficiary,
+                        ),
+                      ),
+                      cardBottonContent: Container(),
                     ),
-                  )
-                : Container(
-                    margin: EdgeInsets.only(
-                      top: 16.0,
-                    ),
-                    child: agywDreamsInterventionList.length == 0
-                        ? Center(
-                            child: Text(
-                              'There is no beneficiary list at a moment',
-                            ),
-                          )
-                        : Column(
-                            children: agywDreamsInterventionList
-                                .map((AgywDream agywBeneficiary) {
-                              return DreamsBeneficiaryCard(
-                                isAgywEnrollment: true,
-                                agywDream: agywBeneficiary,
-                                canEdit: canEdit,
-                                canExpand: canExpand,
-                                beneficiaryName: agywBeneficiary.toString(),
-                                canView: canView,
-                                isExpanded: agywBeneficiary.id ==
-                                    toggleCardId,
-                                onCardToogle: () {
-                                  onCardToogle(
-                                    context,
-                                    agywBeneficiary.id,
-                                  );
-                                },
-                                cardBody: DreamBeneficiaryCardBody(
-                                  agywBeneficiary: agywBeneficiary,
-                                  canViewServiceCategory: true,
-                                  isVerticalLayout:
-                                      agywBeneficiary.id ==
-                                          toggleCardId,
-                                ),
-                                cardBottonActions: ServiceCardBottonAction(
-                                  onOpenPrepForm: () => onOpenPrepForm(
-                                    context,
-                                    agywBeneficiary,
-                                  ),
-                                  onOpenSRHForm: () => onOpenSRHForm(
-                                    context,
-                                    agywBeneficiary,
-                                  ),
-                                  onOpenHTSForm: () => onOpenHTSForm(
-                                    context,
-                                    agywBeneficiary,
-                                  ),
-                                  onOpenCondomForm: () => onOpenCondomForm(
-                                    context,
-                                    agywBeneficiary,
-                                  ),
-                                  onOpenContraceptivesForm: () =>
-                                      onOpenContraceptivesForm(
-                                    context,
-                                    agywBeneficiary,
-                                  ),
-                                  onOpenMSGHIVForm: () => onOpenMSGHIVForm(
-                                    context,
-                                    agywBeneficiary,
-                                  ),
-                                  onOpenANCForm: () => onOpenANCForm(
-                                    context,
-                                    agywBeneficiary,
-                                  ),
-                                  onOpenArtRefillForm: () =>
-                                      onOpenArtRefillForm(
-                                    context,
-                                    agywBeneficiary,
-                                  ),
-                                  onOpenPEPForm: () => onOpenPEPForm(
-                                    context,
-                                    agywBeneficiary,
-                                  ),
-                                  onOpenPostGBVForm: () => onOpenPostGBVForm(
-                                    context,
-                                    agywBeneficiary,
-                                  ),
-                                  onOpenServiceForm: () => onOpenServiceForm(
-                                    context,
-                                    agywBeneficiary,
-                                  ),
-                                ),
-                                cardBottonContent: Container(),
-                              );
-                            }).toList(),
-                          ),
-                  );
+                pagingController:
+                    dreamInterventionListState.agywPagingController,
+                emptyListWidget: Center(
+                  child: Text(
+                    'There is no beneficiary list at a moment',
+                  ),
+                ),
+                errorWidget: Center(
+                  child: Text(
+                    'There is no beneficiary list at a moment',
+                  ),
+                ));
           },
         ),
       ),

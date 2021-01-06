@@ -18,32 +18,34 @@ class CustomPaginatedListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PagedListView(
-        padding: EdgeInsets.only(top: 20.0),
-        primary: false,
-        scrollDirection: Axis.vertical,
-        shrinkWrap: true,
-        pagingController: pagingController,
-        builderDelegate: PagedChildBuilderDelegate(
-          noItemsFoundIndicatorBuilder: (context) => emptyListWidget,
-          firstPageProgressIndicatorBuilder: (context) => Container(
-            margin: EdgeInsets.only(top: 20.0),
-            child: Center(
-              child: CircularProcessLoader(
-                color: Colors.blueGrey,
+    return Container(
+      child: PagedListView(
+          padding: EdgeInsets.only(top: 20.0),
+          primary: false,
+          scrollDirection: Axis.vertical,
+          shrinkWrap: true,
+          pagingController: pagingController,
+          builderDelegate: PagedChildBuilderDelegate(
+            noItemsFoundIndicatorBuilder: (context) => emptyListWidget,
+            firstPageProgressIndicatorBuilder: (context) => Container(
+              margin: EdgeInsets.only(top: 20.0),
+              child: Center(
+                child: CircularProcessLoader(
+                  color: Colors.blueGrey,
+                ),
               ),
             ),
-          ),
-          firstPageErrorIndicatorBuilder: (context) => errorWidget,
-          newPageProgressIndicatorBuilder: (context) => Container(
-            margin: EdgeInsets.only(top: 20.0),
-            child: Center(
-              child: CircularProcessLoader(
-                color: Colors.blueGrey,
+            firstPageErrorIndicatorBuilder: (context) => errorWidget,
+            newPageProgressIndicatorBuilder: (context) => Container(
+              margin: EdgeInsets.only(top: 20.0),
+              child: Center(
+                child: CircularProcessLoader(
+                  color: Colors.blueGrey,
+                ),
               ),
             ),
-          ),
-          itemBuilder: childBuilder,
-        ));
+            itemBuilder: childBuilder,
+          )),
+    );
   }
 }

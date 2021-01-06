@@ -6,13 +6,13 @@ import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/line_seperator.dart';
+import 'package:kb_mobile_app/core/components/paginated_list_view.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_card_body.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_card.dart';
 import 'package:kb_mobile_app/core/components/sub_module_home_container.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/constant/non_agyw_hts_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/pages/non_agyw_dreams_hts_consent_form.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/pages/none_agyw_enrollment_client_intake_form.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/sub_pages/none_agyw_prep/none_agyw_prep.dart';
 import 'package:provider/provider.dart';
 
@@ -72,102 +72,75 @@ class _NoneAgywState extends State<NoneAgyw> {
   }
 
   Widget _buildBody() {
-    return SingleChildScrollView(
-      child: Consumer<DreamsInterventionListState>(
+    return SingleChildScrollView(child: Consumer<DreamsInterventionListState>(
         builder: (context, dreamInterventionListState, child) {
-          bool isLoading = dreamInterventionListState.isLoading;
-          List<AgywDream> noneAgywDreamsInterventionList =
-              dreamInterventionListState.noneAgywDreamsInterventionList;
-          return isLoading
-              ? Container(
-                  margin: EdgeInsets.only(top: 20.0),
-                  child: Center(
-                    child: CircularProcessLoader(color: Colors.blueGrey),
-                  ),
-                )
-              : Container(
-                  margin: EdgeInsets.only(top: 16.0),
-                  child: noneAgywDreamsInterventionList.length == 0
-                      ? Center(
-                          child: Column(
-                            children: [
-                              Container(
-                                child: Text(
-                                    'There is no beneficiary list at a moment'),
-                              ),
-                              Container(
-                                child: IconButton(
-                                  icon: SvgPicture.asset(
-                                    'assets/icons/add-beneficiary.svg',
-                                    color: Colors.blueGrey,
-                                  ),
-                                  onPressed: () =>
-                                      onAddNoneAgywBeneficiary(context),
-                                ),
-                              )
-                            ],
+      return CustomPaginatedListView(
+        emptyListWidget: Center(
+          child: Text(
+            'There is no beneficiary list at a moment',
+          ),
+        ),
+        errorWidget: Center(
+          child: Text(
+            'There is no beneficiary list at a moment',
+          ),
+        ),
+        pagingController: dreamInterventionListState.nonAgywPagingController,
+        childBuilder: (context, agywBeneficiary, child) {
+          List dataObject = agywBeneficiary.trackeEntityInstanceData.attributes;
+          List filteredDataObject = dataObject
+              .where((element) =>
+                  element['attribute'] ==
+                  NonAgywDreamsHTSConstant.hivResultStatus)
+              .toList();
+          bool isBeneficiaryHIVNegative = false;
+          if (filteredDataObject.isNotEmpty) {
+            isBeneficiaryHIVNegative =
+                filteredDataObject.first['value'] == 'Negative';
+          }
+          return DreamsBeneficiaryCard(
+            isAgywEnrollment: false,
+            agywDream: agywBeneficiary,
+            canEdit: canEdit,
+            canExpand: canExpand,
+            beneficiaryName: agywBeneficiary.toString(),
+            canView: canView,
+            isExpanded: agywBeneficiary.id == toggleCardId,
+            onCardToogle: () {
+              onCardToogle(agywBeneficiary.id);
+            },
+            cardBody: DreamBeneficiaryCardBody(
+                agywBeneficiary: agywBeneficiary,
+                isVerticalLayout: agywBeneficiary.id == toggleCardId),
+            cardBottonActions: isBeneficiaryHIVNegative
+                ? Container(
+                    child: Column(
+                      children: [
+                        LineSeperator(
+                          color: Color(0xFFE9F4FA),
+                        ),
+                        Container(
+                          child: MaterialButton(
+                            onPressed: () => onOpenPrep(
+                              context,
+                              agywBeneficiary,
+                            ),
+                            child: Text('PREP',
+                                style: TextStyle().copyWith(
+                                  fontSize: 14.0,
+                                  fontWeight: FontWeight.normal,
+                                  color: Color(0xFF1F8ECE),
+                                )),
                           ),
                         )
-                      : Column(
-                          children: noneAgywDreamsInterventionList
-                              .map((AgywDream agywBeneficiary) {
-                            List dataObject = agywBeneficiary
-                                .trackeEntityInstanceData.attributes;
-
-                            List filteredDataObject = dataObject.where((element) => element['attribute'] == NonAgywDreamsHTSConstant.hivResultStatus).toList();
-                            bool isBeneficiaryHIVNegative = false;
-                            if(filteredDataObject.isNotEmpty){
-                                isBeneficiaryHIVNegative = filteredDataObject.first['value'] == 'Negative';
-                            }
-                            return DreamsBeneficiaryCard(
-                              isAgywEnrollment: false,
-                              agywDream: agywBeneficiary,
-                              canEdit: canEdit,
-                              canExpand: canExpand,
-                              beneficiaryName: agywBeneficiary.toString(),
-                              canView: canView,
-                              isExpanded:
-                                  agywBeneficiary.primaryUIC == toggleCardId,
-                              onCardToogle: () {
-                                onCardToogle(agywBeneficiary.primaryUIC);
-                              },
-                              cardBody: DreamBeneficiaryCardBody(
-                                  agywBeneficiary: agywBeneficiary,
-                                  isVerticalLayout:
-                                      agywBeneficiary.primaryUIC ==
-                                          toggleCardId),
-                              cardBottonActions: isBeneficiaryHIVNegative
-                                  ? Container(
-                                      child: Column(
-                                        children: [
-                                          LineSeperator(
-                                            color: Color(0xFFE9F4FA),
-                                          ),
-                                          Container(
-                                            child: MaterialButton(
-                                              onPressed: () => onOpenPrep(
-                                                context,
-                                                agywBeneficiary,
-                                              ),
-                                              child: Text('PREP',
-                                                  style: TextStyle().copyWith(
-                                                    fontSize: 14.0,
-                                                    fontWeight:
-                                                        FontWeight.normal,
-                                                    color: Color(0xFF1F8ECE),
-                                                  )),
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    )
-                                  : Container(),
-                              cardBottonContent: Container(),
-                            );
-                          }).toList(),
-                        ));
+                      ],
+                    ),
+                  )
+                : Container(),
+            cardBottonContent: Container(),
+          );
         },
-      ),
-    );
+      );
+    }));
   }
 }
