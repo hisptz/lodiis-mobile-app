@@ -36,13 +36,14 @@ class _InterventionSelectionState extends State<InterventionSelection> {
   @override
   void initState() {
     super.initState();
+
     Timer(Duration(seconds: 2), updateDataStateLoadingStatus);
   }
 
   updateDataStateLoadingStatus() async {
     await ReservedAttributeValueService().generateReservedAttributeValues();
     Provider.of<OvcInterventionListState>(context, listen: false)
-        .refreshOvcList();
+        .refreshOvcNumber();
     Provider.of<DreamsInterventionListState>(context, listen: false)
         .refreshDreamsList();
     Provider.of<OgacInterventionListState>(context, listen: false)

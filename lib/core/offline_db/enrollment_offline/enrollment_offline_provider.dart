@@ -1,3 +1,4 @@
+import 'package:kb_mobile_app/core/constants/pagination.dart';
 import 'package:kb_mobile_app/core/offline_db/offline_db_provider.dart';
 import 'package:kb_mobile_app/models/enrollment.dart';
 import 'package:sqflite/sqflite.dart';
@@ -24,27 +25,27 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
         conflictAlgorithm: ConflictAlgorithm.replace);
   }
 
-  Future<List<Enrollment>> getEnrollements(
-    String programId,
-  ) async {
+  Future<List<Enrollment>> getEnrollements(String programId, {page}) async {
     List<Enrollment> enrollments = [];
     try {
       var dbClient = await db;
-      List<Map> maps = await dbClient.query(
-        table,
-        columns: [
-          enrollment,
-          enrollmentDate,
-          incidentDate,
-          program,
-          orgUnit,
-          status,
-          syncStatus,
-          trackedEntityInstance
-        ],
-        where: '$program = ?',
-        whereArgs: [programId],
-      );
+      List<Map> maps = await dbClient.query(table,
+          columns: [
+            enrollment,
+            enrollmentDate,
+            incidentDate,
+            program,
+            orgUnit,
+            status,
+            syncStatus,
+            trackedEntityInstance
+          ],
+          where: '$program = ?',
+          orderBy: '$enrollmentDate DESC',
+          whereArgs: [programId],
+          limit: page != null ? PaginationConstants.paginationLimit : null,
+          offset:
+              page != null ? page * PaginationConstants.paginationLimit : null);
       if (maps.isNotEmpty) {
         for (Map map in maps) {
           enrollments.add(Enrollment.fromOffline(map));
@@ -53,6 +54,19 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
     } catch (e) {}
     return enrollments
       ..sort((b, a) => a.enrollmentDate.compareTo(b.enrollmentDate));
+  }
+
+  Future<int> getEnrollmentsCount(String programId) async {
+    var dbClient = await db;
+    List<Map> enrollmentList = await dbClient.query(
+          table,
+          columns: [enrollment],
+          where: '$program = ?',
+          whereArgs: [programId],
+        ) ??
+        [];
+
+    return enrollmentList.length;
   }
 
   Future<List<Enrollment>> getEnrollmentByStatus(
