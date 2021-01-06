@@ -183,6 +183,7 @@ class _DreamAgywAddReferralFormState extends State<DreamAgywAddReferralForm> {
                                               serviceFormState.hiddenFields,
                                           hiddenSections:
                                               serviceFormState.hiddenSections,
+                                          hiddenInputFieldOptions: serviceFormState.hiddenInputFieldOptions,
                                           formSections: formSections,
                                           mandatoryFieldObject: Map(),
                                           isEditableMode:

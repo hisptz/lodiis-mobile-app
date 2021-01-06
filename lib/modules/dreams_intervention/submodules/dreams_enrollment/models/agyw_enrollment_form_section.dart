@@ -2045,12 +2045,15 @@ class AgywEnrollmentFormSection {
                 translatedName:
                     '801. Na u kile oa kena lithupelong kapa mananehong a latelang?',
                 valueType: 'CHECK_BOX',
+                inputColor: Color(0xFF258DCC),
+                labelColor: Color(0xFF737373),
                 options: [
                   InputFieldOption(
                     code: 'Hn0P1sGIKe1',
                     name: 'Go Girls: Sepheo Adopted Curriculum: Married Women',
                     translatedName:
                         'Go Girls: Sepheo Adopted Curriculum: Married Women',
+                        
                   ),
                   InputFieldOption(
                     code: 'SaAW6b6glDZ',
