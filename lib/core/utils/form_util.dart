@@ -46,6 +46,19 @@ class FormUtil {
     }).toList();
   }
 
+  static List<FormSection> getFlattenFormSections(
+      List<FormSection> formSections) {
+    List<FormSection> sections = [];
+    for (FormSection formSection in formSections) {
+      if (formSection.subSections.length > 0) {
+        sections.addAll(getFlattenFormSections(formSection.subSections));
+      }
+     // formSection.subSections = [];
+      sections.add(formSection);
+    }
+    return sections;
+  }
+
   static List<String> getFormFieldIds(List<FormSection> formSections) {
     List<String> fieldIds = [];
     for (FormSection formSection in formSections) {
@@ -78,13 +91,12 @@ class FormUtil {
   }
 
   static Future<TrackeEntityInstance> geTrackedEntityInstanceEnrollmentPayLoad(
-    String trackedEntityInstance,
-    String trackedEntityType,
-    String orgUnit,
-    List<String> inputFieldIds,
-    Map dataObject,
-    {bool hasBeneficiaryId = true}
-  ) async {
+      String trackedEntityInstance,
+      String trackedEntityType,
+      String orgUnit,
+      List<String> inputFieldIds,
+      Map dataObject,
+      {bool hasBeneficiaryId = true}) async {
     trackedEntityInstance = trackedEntityInstance ?? AppUtil.getUid();
     String beneficiaryIndex =
         dataObject[BeneficiaryIdentification.beneficiaryIndex] ??
@@ -93,16 +105,16 @@ class FormUtil {
         await OrganisationUnitService().getOrganisationUnits([orgUnit]);
     OrganisationUnit organisationUnit =
         organisationUnits.length > 0 ? organisationUnits[0] : null;
-    if(hasBeneficiaryId) {
+    if (hasBeneficiaryId) {
       dataObject[BeneficiaryIdentification.beneficiaryId] =
-        dataObject[BeneficiaryIdentification.beneficiaryId] =
-            dataObject[BeneficiaryIdentification.beneficiaryIndex] != null
-                ? dataObject[BeneficiaryIdentification.beneficiaryId]
-                : BeneficiaryIdentification().getBenificiaryId(
-                    organisationUnit, dataObject, beneficiaryIndex);
-    dataObject[BeneficiaryIdentification.beneficiaryIndex] = beneficiaryIndex;
+          dataObject[BeneficiaryIdentification.beneficiaryId] =
+              dataObject[BeneficiaryIdentification.beneficiaryIndex] != null
+                  ? dataObject[BeneficiaryIdentification.beneficiaryId]
+                  : BeneficiaryIdentification().getBenificiaryId(
+                      organisationUnit, dataObject, beneficiaryIndex);
+      dataObject[BeneficiaryIdentification.beneficiaryIndex] = beneficiaryIndex;
     }
-    
+
     String attributes = inputFieldIds
         .map((String attribute) {
           String value = dataObject.keys.toList().indexOf(attribute) > -1
