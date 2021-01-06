@@ -56,10 +56,10 @@ class OgacEnrollementservice {
     );
   }
 
-  Future<List<OgacBeneficiary>> getOgacBeneficiaries() async {
+  Future<List<OgacBeneficiary>> getOgacBeneficiaries({int page}) async {
     List<OgacBeneficiary> ogacBeneficiaries = [];
     List<Enrollment> enrollments = await EnrollmentOfflineProvider()
-        .getEnrollements(OgacInterventionConstant.program);
+        .getEnrollements(OgacInterventionConstant.program, page: page);
     for (Enrollment enrollment in enrollments) {
       List<OrganisationUnit> ous = await OrganisationUnitService()
           .getOrganisationUnits([enrollment.orgUnit]);

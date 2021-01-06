@@ -52,13 +52,13 @@ class _NonAgywDreamsHTSConsentFormState extends State<NonAgywDreamsHTSConsentFor
 
   bool isConsentGiven(Map dataObject) {
     List<String> consentFields = [
-      'rguXA70zATn',
-      'TcN49hQNZiG',
-      'HZ4BrWoGNIO',
-      'Gl7NGINbUAV',
-      'yVYVJe26S4u',
-      'B4xx1IVaAnI',
-      'rY4ei8RNw6c'
+      'lDBdxPHndqZ',
+      'ue9kOx3UeTa',
+      'lYPlsVaINE2',
+      'mv3oo5ZwG6E',
+      't8qcja4SqOG',
+      'nL0ybbExLV5',
+      'm8AsVhFfJe2'
     ];
 
     return !consentFields.every((field) =>

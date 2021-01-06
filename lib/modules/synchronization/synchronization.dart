@@ -43,9 +43,9 @@ class _SynchronizationState extends State<Synchronization> {
     await Provider.of<SynchronizationState>(context, listen: false)
         .startDataDownloadActivity();
     Provider.of<OvcInterventionListState>(context, listen: false)
-        .refreshOvcList();
+        .refreshOvcNumber();
     Provider.of<DreamsInterventionListState>(context, listen: false)
-        .refreshDreamsList();
+        .refreshBeneficiariesNumber();
     Provider.of<OgacInterventionListState>(context, listen: false)
         .refreshOgacList();
   }
