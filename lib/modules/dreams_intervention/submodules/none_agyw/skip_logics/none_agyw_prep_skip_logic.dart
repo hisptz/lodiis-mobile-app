@@ -34,11 +34,19 @@ class NoneAgywPrepSkipLogic {
       }
     }
     for (String sectionId in hiddenSections.keys) {
-      List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections
+      List<FormSection> allFormSections =
+          FormUtil.getFlattenFormSections(formSections);
+      List<String> hidddenSectionInputFieldIds = FormUtil.getFormFieldIds(allFormSections
           .where((formSection) => formSection.id == sectionId)
           .toList());
-      for (String inputFieldId in inputFieldIds) {
-        hiddenFields[inputFieldId] = true;
+      List<String> allInputFieldIds = FormUtil.getFormFieldIds(allFormSections
+          .where((formSection) => formSection.id != sectionId)
+          .toList());
+      
+      for (String inputFieldId in hidddenSectionInputFieldIds) {
+        if (allInputFieldIds.indexOf(inputFieldId) == -1) {
+          hiddenFields[inputFieldId] = true;
+        }
       }
     }
     resetValuesForHiddenFields(context, hiddenFields.keys);
