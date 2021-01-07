@@ -18,8 +18,7 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/m
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/skip_logics/none_agyw_enrollment_skip_logic.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:provider/provider.dart';
-
-import 'non_agyw_dreams_hts_client_information.dart';
+import 'none_agyw_enrollment_prep_screening_form.dart';
 
 class NoneAgywEnrollmentClientInTakeForm extends StatefulWidget {
   const NoneAgywEnrollmentClientInTakeForm({Key key}) : super(key: key);
@@ -35,7 +34,7 @@ class _NoneAgywEnrollmentClientInTakeFormState
       NoneAgywEnrollmentFormSection.getMandatoryField();
   List<FormSection> formSections;
   final Map mandatoryFieldObject = Map();
-  final String label = 'HTS Client Intake';
+  final String label = 'Non AGYW PReP Intake';
   bool isFormReady = false;
 
   @override
@@ -77,7 +76,7 @@ class _NoneAgywEnrollmentClientInTakeFormState
       Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => NonAgywDreamsHTSClientInformation(),
+            builder: (context) => NoneAgywEnrollmentPrepScreeningForm(),
           ));
     } else {
       AppUtil.showToastMessage(

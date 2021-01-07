@@ -14,7 +14,7 @@ import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/models/non_agyw_hts_consent.dart';
 import 'package:provider/provider.dart';
-import 'none_agyw_enrollment_client_intake_form.dart';
+import 'non_agyw_dreams_hts_client_information.dart';
 
 class NonAgywDreamsHTSConsentForm extends StatefulWidget {
   NonAgywDreamsHTSConsentForm({Key key, this.isComingFromPrep}) : super(key: key);
@@ -71,8 +71,7 @@ class _NonAgywDreamsHTSConsentFormState extends State<NonAgywDreamsHTSConsentFor
       Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => NoneAgywEnrollmentClientInTakeForm(
-                  )));
+              builder: (context) => NonAgywDreamsHTSClientInformation()));
     } else {
       AppUtil.showToastMessage(
           message: 'Cannot proceed without consent',

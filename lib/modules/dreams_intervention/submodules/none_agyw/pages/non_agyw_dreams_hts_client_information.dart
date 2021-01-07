@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar_container.dart';
@@ -7,6 +8,7 @@ import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
+import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
@@ -30,6 +32,8 @@ class _NonAgywDreamsHTSClientInformationState
     extends State<NonAgywDreamsHTSClientInformation> {
   final String label = 'Client Information';
   List<FormSection> formSections;
+  List<String> mandatoryFields;
+  Map mandatoryFieldsObject = Map();
   bool isFormReady = false;
   bool isSaving = false;
   bool isComingFromPrep;
@@ -39,6 +43,10 @@ class _NonAgywDreamsHTSClientInformationState
     super.initState();
     isComingFromPrep = widget.isComingFromPrep;
     formSections = NonAgywHTSClientInformation.getFormSections();
+    mandatoryFields = NonAgywHTSClientInformation.getMandatoryField();
+    for (String id in mandatoryFields) {
+      mandatoryFieldsObject[id] = true;
+    }
     Timer(Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
@@ -68,12 +76,18 @@ class _NonAgywDreamsHTSClientInformationState
     evaluateSkipLogics();
   }
 
-  void onSaveForm(BuildContext context, Map dataObject) {
+  void onSaveForm(BuildContext context, Map dataObject, Map hiddenFields) {
     dataObject.remove(NonAgywDreamsHTSConstant.bmiKey);
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => NonAgywDreamsHTSRegisterForm()));
+    if(AppUtil.hasAllMandarotyFieldsFilled(mandatoryFields, dataObject, hiddenFields: hiddenFields)){
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => NonAgywDreamsHTSRegisterForm()));
+    }else{
+      AppUtil.showToastMessage(
+          message: 'Please fill all mandatory field',
+          position: ToastGravity.TOP);
+    }
   }
 
   @override
@@ -118,7 +132,7 @@ class _NonAgywDreamsHTSClientInformationState
                             enrollmentFormState.hiddenFields,
                             hiddenSections:
                             enrollmentFormState.hiddenSections,
-                            mandatoryFieldObject: Map(),
+                            mandatoryFieldObject: mandatoryFieldsObject,
                             isEditableMode:
                             enrollmentFormState.isEditableMode,
                             dataObject: enrollmentFormState.formState,
@@ -137,6 +151,7 @@ class _NonAgywDreamsHTSClientInformationState
                             onPressButton: () => onSaveForm(
                               context,
                               enrollmentFormState.formState,
+                              enrollmentFormState.hiddenFields
                             ),
                           ),
                         )

@@ -22,6 +22,13 @@ class AgywDreamsPrepSkipLogic {
     inputFieldIds = inputFieldIds.toSet().toList();
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
+
+      if (inputFieldId == 'vNyGPa7FbQm' && value != 'true') {
+        hiddenFields['y7lRj3QSDkn'] = true;
+        hiddenFields['de4zcWiZB5j'] = true;
+        hiddenFields['UL0xa3Sz9ML'] = true;
+      }
+
       if (inputFieldId == 'Jhp451oeYyB' && value != 'true') {
         hiddenFields['p9AA21uFn2n'] = true;
         hiddenFields['Y0QGNDBCEbz'] = true;
@@ -29,7 +36,7 @@ class AgywDreamsPrepSkipLogic {
       if (inputFieldId == 'JflxahjBLrH' && value != 'true') {
         hiddenFields['PqSjDmu2eMy'] = true;
       }
-       if (inputFieldId == 'F42UdUKO75Z' && value != 'true') {
+      if (inputFieldId == 'F42UdUKO75Z' && value != 'true') {
         hiddenFields['ukX9y6lXpNo'] = true;
       }
       if (inputFieldId == 'kTHUZ8SOSXK' && value != 'true') {
@@ -107,7 +114,7 @@ class AgywDreamsPrepSkipLogic {
       if (inputFieldId == 'de4zcWiZB5j' && value != 'Other') {
         hiddenFields['y7lRj3QSDkn'] = true;
       }
-      if(inputFieldId == 'de4zcWiZB5j' && value != 'New HIV diagnosis'){
+      if (inputFieldId == 'de4zcWiZB5j' && value != 'New HIV diagnosis') {
         hiddenFields['QInz3UAj6zC'] = true;
         hiddenFields['R63XVONUFeG'] = true;
       }
