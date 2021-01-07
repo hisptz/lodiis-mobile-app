@@ -100,7 +100,7 @@ class _AgywDreamsEnrollmentFormState extends State<AgywDreamsEnrollmentForm> {
         hiddenFields,
       );
       Provider.of<DreamsInterventionListState>(context, listen: false)
-          .refreshBeneficiariesNumber();
+          .refreshDreamsList();
       Timer(Duration(seconds: 1), () {
         if (Navigator.canPop(context)) {
           setState(() {

@@ -8,15 +8,17 @@ import 'package:kb_mobile_app/modules/dreams_intervention/services/none_agyw_dre
 
 class DreamsInterventionListState with ChangeNotifier {
   // intial state
-  List<AgywDream> _agywDreamsInterventionList;
+  List<AgywDream> _agywDreamsInterventionList = <AgywDream>[];
   List<AgywDream> _filteredAgywDreamsInterventionList;
-  List<AgywDream> _noneAgywDreamsInterventionList;
+  List<AgywDream> _noneAgywDreamsInterventionList = <AgywDream>[];
   List<AgywDream> _filteredNoneAgywDreamsInterventionList;
   bool _isLoading = false;
   int _numberOfAgywDreamsBeneficiaries = 0;
   int _numberOfNoneAgywDreamsBeneficiaries = 0;
   int _agywNumberOfPages = 0;
   int _nonAgywNumberOfPages = 0;
+  int _agywNextPage = 0;
+  int _nonAgywNextPage = 0;
 
   PagingController _agywPagingController;
 
@@ -88,23 +90,41 @@ class DreamsInterventionListState with ChangeNotifier {
 
   // reducers
   void searchAgywDreams(String value) {
-    _filteredAgywDreamsInterventionList = value == ''
-        ? _agywDreamsInterventionList
-        : _agywDreamsInterventionList
+    if(_agywDreamsInterventionList.isEmpty){
+      _agywDreamsInterventionList = _agywPagingController.itemList ?? <AgywDream>[];
+      _agywNextPage = _agywPagingController.nextPageKey;
+    }
+    if(_noneAgywDreamsInterventionList.isEmpty){
+      _noneAgywDreamsInterventionList = _nonAgywPagingController.itemList ?? <AgywDream>[];
+      _nonAgywNextPage = _nonAgywPagingController.nextPageKey;
+    }
+    if(value.isNotEmpty){
+        final filteredAgywDreamsList = _agywDreamsInterventionList
             .where((AgywDream beneficiary) =>
-                beneficiary.searchableValue.indexOf(value) > -1)
+        beneficiary.searchableValue.indexOf(value.toLowerCase()) > -1)
             .toList();
-    _filteredNoneAgywDreamsInterventionList = value == ''
-        ? _noneAgywDreamsInterventionList
-        : _noneAgywDreamsInterventionList
+
+        final filteredNonAgywDreamsList = _noneAgywDreamsInterventionList
             .where((AgywDream beneficiary) =>
-                beneficiary.searchableValue.indexOf(value) > -1)
+        beneficiary.searchableValue.indexOf(value.toLowerCase()) > -1)
             .toList();
-    _numberOfAgywDreamsBeneficiaries =
-        _filteredAgywDreamsInterventionList.length;
-    _numberOfNoneAgywDreamsBeneficiaries =
-        _filteredNoneAgywDreamsInterventionList.length;
-    notifyListeners();
+
+        _agywPagingController.itemList = filteredAgywDreamsList;
+        _agywPagingController.nextPageKey = null;
+        _nonAgywPagingController.itemList = filteredNonAgywDreamsList;
+        _nonAgywPagingController.nextPageKey = null;
+
+    }else{
+        _agywPagingController.itemList = _agywDreamsInterventionList;
+        _agywPagingController.nextPageKey = _agywNextPage;
+        _agywDreamsInterventionList = <AgywDream>[];
+        _agywNextPage = 0;
+
+        _nonAgywPagingController.itemList = _noneAgywDreamsInterventionList;
+        _nonAgywPagingController.nextPageKey = _nonAgywNextPage;
+        _noneAgywDreamsInterventionList = <AgywDream>[];
+        _nonAgywNextPage = 0;
+    }
   }
 
   void refreshDreamsList() async {

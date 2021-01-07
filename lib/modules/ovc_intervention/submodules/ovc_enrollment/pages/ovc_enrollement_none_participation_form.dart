@@ -61,7 +61,7 @@ class _OvcEnrollmentNoneParticipationFormState
       await OvcNoneParticipationService()
           .saveNoneParticipationForm(formSections, dataObject, eventId);
       Provider.of<OvcInterventionListState>(context, listen: false)
-          .refreshOvcNumber();
+          .refreshOvcList();
       Timer(Duration(seconds: 1), () {
         if (Navigator.canPop(context)) {
           setState(() {

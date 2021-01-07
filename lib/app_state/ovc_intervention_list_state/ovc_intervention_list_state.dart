@@ -7,13 +7,15 @@ import 'package:kb_mobile_app/modules/ovc_intervention/services/ovc_enrollment_h
 
 class OvcInterventionListState with ChangeNotifier {
   // intial state
-  List<OvcHouseHold> _ovcInterventionList = [];
+  List<OvcHouseHold> _ovcInterventionList = <OvcHouseHold>[];
   List<OvcHouseHold> _filteredOvcInterventionList = [];
   PagingController _pagingController;
   bool _isLoading = true;
   int _numberOfHouseHolds = 0;
   int _numberOfOvcs = 0;
   int _numberOfPages = 0;
+  int _nextPage = 0;
+  String searchText = '';
 
   //selectors
   List<OvcHouseHold> get ovcInterventionList =>
@@ -30,19 +32,21 @@ class OvcInterventionListState with ChangeNotifier {
   PagingController get pagingController => _pagingController;
 
   void initializePagination() {
-    _pagingController = PagingController<int, OvcHouseHold>(firstPageKey: 0,  );
+    _pagingController = PagingController<int, OvcHouseHold>(
+      firstPageKey: 0,
+    );
     PaginationService.initializePagination(
         mounted: true,
         pagingController: _pagingController,
         fetchPage: _fetchPage);
-
   }
 
   Future<void> _fetchPage(int pageKey) async {
-      List ovcList = await OvcEnrollmentHouseHoldService()
-          .getHouseHoldList(page: pageKey);
-      PaginationService.assignPagesToController(
-          _pagingController, ovcList, pageKey, numberOfPages);
+    List ovcList =
+        await OvcEnrollmentHouseHoldService().getHouseHoldList(page: pageKey) ??
+            [];
+    PaginationService.assignPagesToController(
+        _pagingController, ovcList, pageKey, numberOfPages);
   }
 
   // reducers
@@ -52,17 +56,25 @@ class OvcInterventionListState with ChangeNotifier {
   }
 
   void searchHouseHold(String value) {
-    _filteredOvcInterventionList = value == ''
-        ? _ovcInterventionList
-        : _ovcInterventionList
-            .where((OvcHouseHold beneficiary) =>
-                beneficiary.searchableValue.indexOf(value) > -1)
-            .toList();
-    // _numberOfHouseHolds = _filteredOvcInterventionList.length;
-    for (OvcHouseHold houseHold in _filteredOvcInterventionList) {
-      _numberOfOvcs += houseHold.children.length;
+    if (_ovcInterventionList.isEmpty) {
+      _ovcInterventionList = _pagingController.itemList ?? <OvcHouseHold>[];
+      _nextPage = _pagingController.nextPageKey;
     }
-    notifyListeners();
+    if (value != '') {
+      final filteredHouseholds = _ovcInterventionList
+          .where((OvcHouseHold beneficiary) =>
+              beneficiary.searchableValue.indexOf(value.toLowerCase()) > -1)
+          .toList();
+      _pagingController.itemList = filteredHouseholds;
+      //Preventing the controller from loading.
+      _pagingController.nextPageKey = null;
+    } else {
+      _pagingController.itemList = _ovcInterventionList;
+      _pagingController.nextPageKey = _nextPage;
+
+      _ovcInterventionList = <OvcHouseHold>[];
+      _nextPage = 0;
+    }
   }
 
   Future<void> refreshOvcNumber() async {
@@ -75,17 +87,12 @@ class OvcInterventionListState with ChangeNotifier {
     //Update number of Pages
     getNumberOfPages();
     initializePagination();
-    _isLoading =  false;
+    _isLoading = false;
     notifyListeners();
   }
 
-
   Future<void> refreshOvcList() async {
     _pagingController.refresh();
-  }
-
-  Future<void> onHouseHoldAdd() async {
-    await refreshOvcList();
   }
 
   @override

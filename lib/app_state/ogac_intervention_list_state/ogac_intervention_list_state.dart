@@ -7,12 +7,12 @@ import 'package:kb_mobile_app/modules/ogac_intervention/services/ogac_enrollment
 
 class OgacInterventionListState with ChangeNotifier {
   // intitial state
-  List<OgacBeneficiary> _ogacInterventionList;
+  List<OgacBeneficiary> _ogacInterventionList = <OgacBeneficiary>[];
   List<OgacBeneficiary> _filteredOgacInterventionList;
   bool _isLoading;
   int _numberOfOgac = 0;
-  int _pageNumber = 0;
   int _numberOfPages = 0;
+  int _nextPage = 0;
 
   PagingController _pagingController;
 
@@ -24,7 +24,6 @@ class OgacInterventionListState with ChangeNotifier {
 
   int get numberOfOgac => _numberOfOgac;
 
-  int get pageNumber => _pageNumber;
 
   int get numberOfPages => _numberOfPages;
 
@@ -40,7 +39,6 @@ class OgacInterventionListState with ChangeNotifier {
   }
 
   Future<void> _fetchPage(int pageKey) async {
-      updatePageNumber(pageKey);
       List ovcList = await OgacEnrollementservice()
           .getOgacBeneficiaries(page: pageKey);
       PaginationService.assignPagesToController(
@@ -48,10 +46,6 @@ class OgacInterventionListState with ChangeNotifier {
 
   }
 
-  void updatePageNumber(int pageNo) async {
-    _pageNumber = pageNo;
-    notifyListeners();
-  }
 
   Future<void> refreshOgacNumber() async {
     //write code to count and update number of Households and number of OVC
@@ -66,14 +60,25 @@ class OgacInterventionListState with ChangeNotifier {
   }
 
   void searchOgacList(String value) {
-    _filteredOgacInterventionList = value == ''
-        ? _ogacInterventionList
-        : _ogacInterventionList
-            .where((OgacBeneficiary beneficiary) =>
-                beneficiary.searchableValue.indexOf(value) > -1)
-            .toList();
-    _numberOfOgac = _filteredOgacInterventionList.length;
-    notifyListeners();
+    if (_ogacInterventionList.isEmpty) {
+      _ogacInterventionList = _pagingController.itemList ?? <OgacBeneficiary>[];
+      _nextPage = _pagingController.nextPageKey;
+    }
+    if (value != '') {
+      final filteredHouseholds = _ogacInterventionList
+          .where((OgacBeneficiary beneficiary) =>
+      beneficiary.searchableValue.indexOf(value.toLowerCase()) > -1)
+          .toList();
+      _pagingController.itemList = filteredHouseholds;
+      //Preventing the controller from loading.
+      _pagingController.nextPageKey = null;
+    } else {
+      _pagingController.itemList = _ogacInterventionList;
+      _pagingController.nextPageKey = _nextPage;
+
+      _ogacInterventionList = <OgacBeneficiary>[];
+      _nextPage = 0;
+    }
   }
 
   //reducers
