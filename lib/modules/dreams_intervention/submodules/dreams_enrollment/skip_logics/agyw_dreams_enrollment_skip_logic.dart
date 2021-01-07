@@ -242,11 +242,14 @@ class AgywDreamsEnrollmentSkipLogic {
         hiddenFields['JTNxMQPT134_checkboxes_2'] = true;
       }
       if (inputFieldId == 'aPNGd6RCsY9') {
+        print(value);
         if (value != 'Other') {
           hiddenFields['T56nYogWRYq'] = true;
-        } else if (value != 'Primary level') {
+        } 
+        if (value != 'Primary level') {
           hiddenFields['h1HeZ2eEkGn'] = true;
-        } else if (value != 'Secondary level') {
+        } 
+        if (value != 'Secondary level') {
           hiddenFields['NGVFqUVSHiU'] = true;
         }
       }
@@ -414,13 +417,14 @@ class AgywDreamsEnrollmentSkipLogic {
     for (String sectionId in hiddenSections.keys) {
       List<FormSection> allFormSections =
           FormUtil.getFlattenFormSections(formSections);
-      List<String> hidddenSectionInputFieldIds = FormUtil.getFormFieldIds(allFormSections
-          .where((formSection) => formSection.id == sectionId)
-          .toList());
+      List<String> hidddenSectionInputFieldIds = FormUtil.getFormFieldIds(
+          allFormSections
+              .where((formSection) => formSection.id == sectionId)
+              .toList());
       List<String> allInputFieldIds = FormUtil.getFormFieldIds(allFormSections
           .where((formSection) => formSection.id != sectionId)
           .toList());
-      
+
       for (String inputFieldId in hidddenSectionInputFieldIds) {
         if (allInputFieldIds.indexOf(inputFieldId) == -1) {
           hiddenFields[inputFieldId] = true;
