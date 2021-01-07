@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 class OvchouseHoldAssessmentSkipLogic {
   static Map hiddenFields = Map();
   static Map hiddenSections = Map();
+  static Map hiddenInputFieldOptions = Map();
 
   static Future evaluateSkipLogics(
     BuildContext context,
@@ -15,6 +16,7 @@ class OvchouseHoldAssessmentSkipLogic {
   ) async {
     hiddenFields.clear();
     hiddenSections.clear();
+    hiddenInputFieldOptions.clear();
     List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections);
     for (var key in dataObject.keys) {
       inputFieldIds.add('$key');
@@ -122,6 +124,24 @@ class OvchouseHoldAssessmentSkipLogic {
       if (inputFieldId == 'LGrG9fGZfXP' && value == 'true') {
         hiddenFields['ZuaV20IvVV2'] = true;
       }
+      if (inputFieldId == 'ZuaV20IvVV2') {
+        Map hiddenOptions = Map();
+        if (value == 'Regular') {
+          hiddenOptions['Sometimes a month'] = true;
+          hiddenOptions['Once a week'] = true;
+          hiddenOptions['During some seasons'] = true;
+        } else if (value == 'Irregular') {
+          hiddenOptions['Daily'] = true;
+          hiddenOptions['Fulltime'] = true;
+        } else {
+          hiddenFields['kCuxe1Psh8E'] = true;
+          hiddenFields['lnFXCB5NcYk'] = true;
+        }
+        hiddenInputFieldOptions['ZuaV20IvVV2'] = hiddenOptions;
+      }
+      if (inputFieldId == 'kCuxe1Psh8E' && value != 'Other') {
+        hiddenFields['lnFXCB5NcYk'] = true;
+      }
       if (inputFieldId == 'JmLdZM3XYfY' && value == 'No') {
         hiddenFields['JmLdZM3XYfY_checkbox'] = true;
       }
@@ -132,13 +152,14 @@ class OvchouseHoldAssessmentSkipLogic {
     for (String sectionId in hiddenSections.keys) {
       List<FormSection> allFormSections =
           FormUtil.getFlattenFormSections(formSections);
-      List<String> hidddenSectionInputFieldIds = FormUtil.getFormFieldIds(allFormSections
-          .where((formSection) => formSection.id == sectionId)
-          .toList());
+      List<String> hidddenSectionInputFieldIds = FormUtil.getFormFieldIds(
+          allFormSections
+              .where((formSection) => formSection.id == sectionId)
+              .toList());
       List<String> allInputFieldIds = FormUtil.getFormFieldIds(allFormSections
           .where((formSection) => formSection.id != sectionId)
           .toList());
-      
+
       for (String inputFieldId in hidddenSectionInputFieldIds) {
         if (allInputFieldIds.indexOf(inputFieldId) == -1) {
           hiddenFields[inputFieldId] = true;
@@ -147,6 +168,7 @@ class OvchouseHoldAssessmentSkipLogic {
     }
     resetValuesForHiddenFields(context, hiddenFields.keys);
     resetValuesForHiddenSections(context, formSections);
+    resetValuesForHiddenInputFieldOptions(context);
   }
 
   static resetValuesForHiddenFields(BuildContext context, inputFieldIds) {
@@ -165,6 +187,13 @@ class OvchouseHoldAssessmentSkipLogic {
   ) {
     Provider.of<ServiceFormState>(context, listen: false)
         .setHiddenSections(hiddenSections);
+  }
+
+  static resetValuesForHiddenInputFieldOptions(
+    BuildContext context,
+  ) {
+    Provider.of<ServiceFormState>(context, listen: false)
+        .setHiddenInputFieldOptions(hiddenInputFieldOptions);
   }
 
   static assignInputFieldValue(
