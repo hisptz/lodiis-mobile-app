@@ -17,6 +17,8 @@ class HouseholdServiceFollowup {
                 id: 'KDSYFiIefGN',
                 name: 'HTS Follow-up date',
                 translatedName: 'Letsatsi la ho latela HTS',
+                allowFuturePeriod: true,
+                disablePastPeriod: true,
                 valueType: 'DATE',
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
@@ -58,6 +60,8 @@ class HouseholdServiceFollowup {
             InputField(
                 id: 'f0oxTNNwdgP',
                 name: 'HIVTREAT Follow-up date',
+                allowFuturePeriod: true,
+                disablePastPeriod: true,
                 translatedName: 'Letsatsi la ho latela HIVTREAT',
                 valueType: 'DATE',
                 inputColor: Color(0xFF4D9E49),
@@ -100,6 +104,8 @@ class HouseholdServiceFollowup {
             InputField(
                 id: 'zosvtbskE9R',
                 name: 'HIVS&D Follow-up date',
+                allowFuturePeriod: true,
+                disablePastPeriod: true,
                 translatedName: 'Letsatsi la ho latela HIVS&D',
                 valueType: 'DATE',
                 inputColor: Color(0xFF4D9E49),
@@ -142,6 +148,8 @@ class HouseholdServiceFollowup {
             InputField(
                 id: 't6FoYSa8TuZ',
                 name: 'HEALTH Follow-up date',
+                allowFuturePeriod: true,
+                disablePastPeriod: true,
                 translatedName: 'Letsatsi la ho latela HEALTH',
                 valueType: 'DATE',
                 inputColor: Color(0xFF4D9E49),
@@ -184,6 +192,8 @@ class HouseholdServiceFollowup {
             InputField(
                 id: 'GcqCEwXQumn',
                 name: 'PRG&L Follow-up date',
+                allowFuturePeriod: true,
+                disablePastPeriod: true,
                 translatedName: 'Letsatsi la ho latela PRG&L',
                 valueType: 'DATE',
                 inputColor: Color(0xFF4D9E49),
@@ -226,6 +236,8 @@ class HouseholdServiceFollowup {
             InputField(
                 id: 'slcUWMY6BBO',
                 name: 'SAIDS Follow-up date',
+                allowFuturePeriod: true,
+                disablePastPeriod: true,
                 translatedName: 'Letsatsi la ho latela SAIDS',
                 valueType: 'DATE',
                 inputColor: Color(0xFF4D9E49),
@@ -268,6 +280,8 @@ class HouseholdServiceFollowup {
             InputField(
                 id: 'Pfp7l7WWLEY',
                 name: 'WASHMES Follow-up date',
+                allowFuturePeriod: true,
+                disablePastPeriod: true,
                 translatedName: 'Letsatsi la ho latela WASHMES',
                 valueType: 'DATE',
                 inputColor: Color(0xFF4D9E49),
@@ -310,6 +324,8 @@ class HouseholdServiceFollowup {
             InputField(
                 id: 'ipDfOPUCPlB',
                 name: 'SOACKAGE Follow-up date',
+                allowFuturePeriod: true,
+                disablePastPeriod: true,
                 translatedName: 'Letsatsi la ho latela SOACKAGE',
                 valueType: 'DATE',
                 inputColor: Color(0xFF4D9E49),
@@ -352,6 +368,8 @@ class HouseholdServiceFollowup {
             InputField(
                 id: 'qfs6yQfH7lk',
                 name: 'TIPPY Follow-up date',
+                allowFuturePeriod: true,
+                disablePastPeriod: true,
                 translatedName: 'Letsatsi la ho latela TIPPY',
                 valueType: 'DATE',
                 inputColor: Color(0xFF4D9E49),
@@ -403,6 +421,8 @@ class HouseholdServiceFollowup {
                 id: 'xSpmXkwsULS',
                 name: 'SILC Follow-up date',
                 translatedName: 'Letsatsi la ho latela SILC',
+                allowFuturePeriod: true,
+                disablePastPeriod: true,
                 valueType: 'DATE',
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
@@ -444,6 +464,8 @@ class HouseholdServiceFollowup {
             InputField(
                 id: 'dWu9d1DgNkz',
                 name: 'FE Follow-up date',
+                allowFuturePeriod: true,
+                disablePastPeriod: true,
                 translatedName: 'Letsatsi la ho latela FE',
                 valueType: 'DATE',
                 inputColor: Color(0xFF0F9587),
@@ -486,6 +508,8 @@ class HouseholdServiceFollowup {
             InputField(
                 id: 'XXUKujRHZpn',
                 name: 'EST COOPRTVS Follow-up date',
+                allowFuturePeriod: true,
+                disablePastPeriod: true,
                 translatedName: 'Letsatsi la ho latela EST COOPRTVS',
                 valueType: 'DATE',
                 inputColor: Color(0xFF0F9587),
@@ -530,6 +554,8 @@ class HouseholdServiceFollowup {
             InputField(
                 id: 'LseJW3MfsQB',
                 name: 'FUNCT COOPRTVS Follow-up date',
+                allowFuturePeriod: true,
+                disablePastPeriod: true,
                 translatedName: 'Letsatsi la ho latela FUNCT COOPRTVS',
                 valueType: 'DATE',
                 inputColor: Color(0xFF0F9587),
@@ -574,6 +600,8 @@ class HouseholdServiceFollowup {
             InputField(
                 id: 'btnRZtDTyBN',
                 name: 'MARKT COOPRTVS Follow-up date',
+                allowFuturePeriod: true,
+                disablePastPeriod: true,
                 translatedName: 'Letsatsi la ho latela MARKT COOPRTVS',
                 valueType: 'DATE',
                 inputColor: Color(0xFF0F9587),
@@ -618,6 +646,8 @@ class HouseholdServiceFollowup {
             InputField(
                 id: 'O84rxMOQ52U',
                 name: 'K/TPLOTS Follow-up date',
+                allowFuturePeriod: true,
+                disablePastPeriod: true,
                 translatedName: 'Letsatsi la ho latela K/TPLOTS',
                 valueType: 'DATE',
                 inputColor: Color(0xFF0F9587),
@@ -668,6 +698,8 @@ class HouseholdServiceFollowup {
             InputField(
                 id: 'dXmaqyn9DME',
                 name: 'P&FC Follow-up date',
+                allowFuturePeriod: true,
+                disablePastPeriod: true,
                 translatedName: 'Letsatsi la ho latela P&FC',
                 valueType: 'DATE',
                 inputColor: Color(0xFF9B2BAE),
@@ -710,6 +742,8 @@ class HouseholdServiceFollowup {
             InputField(
                 id: 'gEoY9RmjQAk',
                 name: 'VAC Follow-up date',
+                allowFuturePeriod: true,
+                disablePastPeriod: true,
                 translatedName: 'Letsatsi la ho latela VAC',
                 valueType: 'DATE',
                 inputColor: Color(0xFF9B2BAE),
@@ -752,6 +786,8 @@ class HouseholdServiceFollowup {
             InputField(
                 id: 'ZeDSleJMfKr',
                 name: 'SURVIVORS Follow-up date',
+                allowFuturePeriod: true,
+                disablePastPeriod: true,
                 translatedName: 'Letsatsi la ho latela SURVIVORS',
                 valueType: 'DATE',
                 inputColor: Color(0xFF9B2BAE),
@@ -795,6 +831,8 @@ class HouseholdServiceFollowup {
             InputField(
                 id: 'BJ0jXcce2sw',
                 name: 'COUNSEL Follow-up date',
+                allowFuturePeriod: true,
+                disablePastPeriod: true,
                 translatedName: 'Letsatsi la ho latela COUNSEL',
                 valueType: 'DATE',
                 inputColor: Color(0xFF9B2BAE),
@@ -837,6 +875,8 @@ class HouseholdServiceFollowup {
             InputField(
                 id: 'RZR0kUm9Ov8',
                 name: 'ABUSE Follow-up date',
+                allowFuturePeriod: true,
+                disablePastPeriod: true,
                 translatedName: 'Letsatsi la ho latela ABUSE',
                 valueType: 'DATE',
                 inputColor: Color(0xFF9B2BAE),
@@ -879,6 +919,8 @@ class HouseholdServiceFollowup {
             InputField(
                 id: 'UVD4nyRh9G4',
                 name: 'LEGALPROT Follow-up date',
+                allowFuturePeriod: true,
+                disablePastPeriod: true,
                 translatedName: 'Letsatsi la ho latela LEGALPROT',
                 valueType: 'DATE',
                 inputColor: Color(0xFF9B2BAE),
@@ -922,6 +964,8 @@ class HouseholdServiceFollowup {
             InputField(
                 id: 'yHtXXWgvUPI',
                 name: 'BIRTHCERT Follow-up Date',
+                allowFuturePeriod: true,
+                disablePastPeriod: true,
                 translatedName: 'Letsatsi la ho latela BIRTHCERT',
                 valueType: 'DATE',
                 inputColor: Color(0xFF9B2BAE),
@@ -971,6 +1015,8 @@ class HouseholdServiceFollowup {
             InputField(
                 id: 'nqip0DmFucC',
                 name: 'PTS4G Follow-up date',
+                allowFuturePeriod: true,
+                disablePastPeriod: true,
                 translatedName: 'Letsatsi la ho latela PTS4G',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0000FF),
@@ -1013,6 +1059,8 @@ class HouseholdServiceFollowup {
             InputField(
                 id: 'CiDZ0bP8sUk',
                 name: 'PTS4NG Follow-up date',
+                allowFuturePeriod: true,
+                disablePastPeriod: true,
                 translatedName: 'Letsatsi la ho latela PTS4NG',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0000FF),
@@ -1055,6 +1103,8 @@ class HouseholdServiceFollowup {
             InputField(
                 id: 'VNX4rtSJ4GQ',
                 name: 'HWCLUB Follow-up date',
+                allowFuturePeriod: true,
+                disablePastPeriod: true,
                 translatedName: 'Letsatsi la ho latela HWCLUB',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0000FF),
@@ -1103,6 +1153,8 @@ class HouseholdServiceFollowup {
             InputField(
                 id: 'akYwcu3idMK',
                 name: 'OTHER ACTIVITIES Follow-up date',
+                allowFuturePeriod: true,
+                disablePastPeriod: true,
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
