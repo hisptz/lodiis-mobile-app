@@ -860,7 +860,7 @@ class OvcServicesChildCasePlanGaps {
                 name: 'MARKT COOPRTVS',
                 translatedName: 'Tšebeletso a MARKT COOPRTVS',
                 valueType: 'TRUE_ONLY',
-                inputColor: Color(0xFF4D9E49),
+                inputColor: Color(0xFF0000FF),
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'ixFuNoQKLoB',
