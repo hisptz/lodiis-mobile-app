@@ -189,7 +189,7 @@ class _AgywDreamsHTSConsentForReleaseStatusState
                                     child: EntryFormSaveButton(
                                       label: isSaving
                                           ? 'Saving ...'
-                                          : 'SAVE & CONTINUE',
+                                          : 'Save and Continue',
                                       labelColor: Colors.white,
                                       buttonColor: Color(0xFF258DCC),
                                       fontSize: 15.0,

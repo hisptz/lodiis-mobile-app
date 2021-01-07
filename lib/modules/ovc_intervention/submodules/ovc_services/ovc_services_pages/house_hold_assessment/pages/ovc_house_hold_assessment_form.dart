@@ -179,6 +179,7 @@ class _OvcHouseHoldAssessmentFormState
                                                   .hiddenSections,
                                               hiddenFields:
                                                   serviceFormState.hiddenFields,
+                                              hiddenInputFieldOptions: serviceFormState.hiddenInputFieldOptions,
                                               formSections: formSections,
                                               mandatoryFieldObject: Map(),
                                               dataObject:

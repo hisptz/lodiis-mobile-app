@@ -33,7 +33,7 @@ class OvcEnrollmentHouseHoldForm extends StatefulWidget {
 class _OvcEnrollmentHouseHoldFormState
     extends State<OvcEnrollmentHouseHoldForm> {
   List<FormSection> formSections;
-  final String label = 'Household vulnerability and prioritization form';
+  final String label = 'Household information';
   final List<String> mandatoryFields =
       OvcEnrollmentHouseHold.getMandatoryField();
   final Map mandatoryFieldObject = Map();

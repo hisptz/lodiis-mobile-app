@@ -100,7 +100,6 @@ class CurrentUserState with ChangeNotifier {
       _canManageOGAC = true;
       _canManageReferral = true;
       _canManageCLOReferral = true;
-      _canManageServiceForm = true;
     }
     if (implementingPartner == 'KB-AGYW/DREAMS') {
       _canManageDreams = true;

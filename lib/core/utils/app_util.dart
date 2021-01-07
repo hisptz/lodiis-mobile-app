@@ -16,7 +16,6 @@ class AppUtil {
     List filteredMandatoryFields = mandatoryFields
         .where((field) => hiddenFieldsIds.indexOf(field) < 0)
         .toList();
-
     for (var mandatoryField in filteredMandatoryFields) {
       if (fieldIds.indexOf(mandatoryField) == -1) {
         hasFilled = false;

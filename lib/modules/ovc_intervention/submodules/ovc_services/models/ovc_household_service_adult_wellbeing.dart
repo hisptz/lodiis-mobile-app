@@ -161,6 +161,42 @@ class OvcHouseHoldServiceAdultWellbeing {
                       translatedName: 'Ke oa nakoana'),
                 ]),
             InputField(
+              id: 'kCuxe1Psh8E', 
+              name: 'Select frequency', 
+              translatedName: 'khetha linako',
+              valueType: 'TEXT',
+              options: [
+                InputFieldOption(
+                  code: 'Daily', 
+                  name: 'Daily', 
+                  translatedName: 'Oa matsatsi'),
+                InputFieldOption(
+                  code: 'Sometimes a month', 
+                  name: 'Sometimes a month', 
+                  translatedName: 'Oa nako tseling tsa khoeli'),
+                InputFieldOption(
+                  code: 'Fulltime', 
+                  name: 'Fulltime', 
+                  translatedName: 'Oa nako eohle	'),
+                InputFieldOption(
+                  code: 'Once a week', 
+                  name: 'Once a week', 
+                  translatedName: 'Hang ka khoeli'),
+                InputFieldOption(
+                  code: 'During some seasons', 
+                  name: 'During some seasons', 
+                  translatedName: 'Linako tse ling tsa selemo'),
+                InputFieldOption(
+                  code: 'Other', 
+                  name: 'Other', 
+                  translatedName: 'Tse ling'),
+              ]),
+            InputField(
+              id: 'lnFXCB5NcYk', 
+              name: 'Other, Specify (work frequecny)', 
+              translatedName: 'Tse ling, Hlalosa',
+              valueType: 'TEXT'),
+            InputField(
                 id: 'p8htbyJHydl',
                 name:
                     '5. Are you able to regularly meet the needs of your children (school fees, medication, clothes, housing)?',

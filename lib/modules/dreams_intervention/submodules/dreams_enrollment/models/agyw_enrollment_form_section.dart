@@ -8,8 +8,6 @@ class AgywEnrollmentFormSection {
     return [
       'location',
       'H2Az2c3MeAy',
-      // 'H2Az2c3MeAy_checkbox',
-      // 'ZcfLYz7JlVo_checkbox',
       'ZcfLYz7JlVo',
       'NP7LbypO3li',
       'bBVCUqsdfL3',
@@ -37,17 +35,13 @@ class AgywEnrollmentFormSection {
       'iLX2uQ4ZXM0',
       'NOJbkKuHccD',
       'GdsRvY5lHCU',
-      'mvPAYFoFQcW',
       'RO2RIidPOqK',
       'WwTI82dbYIc',
       'CU4HyDp6XO0',
       'bBVCUqsdfL3',
       'NP7LbypO3li',
       'ZcfLYz7JlVo',
-      'ZcfLYz7JlVo_checkbox',
       'H2Az2c3MeAy',
-      'H2Az2c3MeAy_checkbox',
-      'OFJD1RNGEZu'
     ];
   }
 
