@@ -121,7 +121,7 @@ class _AgywDreamsHTSConsentFormSubpartState
                               visible: serviceFormState.isEditableMode,
                               child: EntryFormSaveButton(
                                 label:
-                                    isSaving ? 'Saving ...' : 'SAVE & CONTINUE',
+                                    isSaving ? 'Saving ...' : 'Save and Continue',
                                 labelColor: Colors.white,
                                 buttonColor: Color(0xFF258DCC),
                                 fontSize: 15.0,
