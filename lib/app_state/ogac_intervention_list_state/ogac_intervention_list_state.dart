@@ -24,7 +24,6 @@ class OgacInterventionListState with ChangeNotifier {
 
   int get numberOfOgac => _numberOfOgac;
 
-
   int get numberOfPages => _numberOfPages;
 
   PagingController get pagingController => _pagingController;
@@ -39,24 +38,24 @@ class OgacInterventionListState with ChangeNotifier {
   }
 
   Future<void> _fetchPage(int pageKey) async {
-      List ovcList = await OgacEnrollementservice()
-          .getOgacBeneficiaries(page: pageKey);
-      PaginationService.assignPagesToController(
-          _pagingController, ovcList, pageKey, numberOfPages);
-
+    List ovcList =
+        await OgacEnrollementservice().getOgacBeneficiaries(page: pageKey);
+    PaginationService.assignPagesToController(
+        _pagingController, ovcList, pageKey, numberOfPages);
   }
 
+  Future<void> getBeneficiaryNumber() async {
+    _numberOfOgac = await OgacEnrollementservice().getOgacBeneficiariesCount();
+  }
 
   Future<void> refreshOgacNumber() async {
-    //write code to count and update number of Households and number of OVC
     _isLoading = true;
     notifyListeners();
-    _numberOfOgac = 1;
-    //Update number of Pages
+    await getBeneficiaryNumber();
     getNumberOfPages();
     initializePagination();
-   _isLoading = false;
-   notifyListeners();
+    _isLoading = false;
+    notifyListeners();
   }
 
   void searchOgacList(String value) {
@@ -67,7 +66,7 @@ class OgacInterventionListState with ChangeNotifier {
     if (value != '') {
       final filteredHouseholds = _ogacInterventionList
           .where((OgacBeneficiary beneficiary) =>
-      beneficiary.searchableValue.indexOf(value.toLowerCase()) > -1)
+              beneficiary.searchableValue.indexOf(value.toLowerCase()) > -1)
           .toList();
       _pagingController.itemList = filteredHouseholds;
       //Preventing the controller from loading.
@@ -79,6 +78,13 @@ class OgacInterventionListState with ChangeNotifier {
       _ogacInterventionList = <OgacBeneficiary>[];
       _nextPage = 0;
     }
+  }
+
+  void onBeneficiaryAdd(){
+      _numberOfOgac = _numberOfOgac + 1;
+      getNumberOfPages();
+      notifyListeners();
+      refreshOgacList();
   }
 
   //reducers

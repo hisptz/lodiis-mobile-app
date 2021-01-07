@@ -98,7 +98,7 @@ class _NoneAgywEnrollmentPrepScreeningFormState
         hiddenFields,
       );
       Provider.of<DreamsInterventionListState>(context, listen: false)
-          .refreshDreamsList();
+          .onNonAgywBeneficiaryAdd();
       Timer(
         Duration(seconds: 1),
         () {

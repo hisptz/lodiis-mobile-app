@@ -3,6 +3,7 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:kb_mobile_app/core/constants/pagination.dart';
 import 'package:kb_mobile_app/core/services/pagination-service.dart';
 import 'package:kb_mobile_app/models/ovc_house_hold.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/services/ovc_enrollment_child_services.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/services/ovc_enrollment_house_hold_service.dart';
 
 class OvcInterventionListState with ChangeNotifier {
@@ -55,6 +56,13 @@ class OvcInterventionListState with ChangeNotifier {
     searchHouseHold('');
   }
 
+  Future<void> getHouseholdCount() async{
+    _numberOfHouseHolds =
+        await OvcEnrollmentHouseHoldService().getHouseholdCount();
+    _numberOfOvcs = await OvcEnrollmentChildService().getOvcCount();
+  }
+
+
   void searchHouseHold(String value) {
     if (_ovcInterventionList.isEmpty) {
       _ovcInterventionList = _pagingController.itemList ?? <OvcHouseHold>[];
@@ -81,9 +89,7 @@ class OvcInterventionListState with ChangeNotifier {
     //write code to count and update number of Households and number of OVC
     _isLoading = true;
     notifyListeners();
-    _numberOfHouseHolds =
-        await OvcEnrollmentHouseHoldService().getHouseholdCount();
-    _numberOfOvcs = 5;
+    await getHouseholdCount();
     //Update number of Pages
     getNumberOfPages();
     initializePagination();
@@ -93,6 +99,14 @@ class OvcInterventionListState with ChangeNotifier {
 
   Future<void> refreshOvcList() async {
     _pagingController.refresh();
+  }
+
+  Future<void> onHouseholdAdd() async{
+      _numberOfHouseHolds = _numberOfHouseHolds + 1;
+      _numberOfOvcs = await OvcEnrollmentChildService().getOvcCount();
+      getNumberOfPages();
+      notifyListeners();
+      refreshOvcList();
   }
 
   @override
