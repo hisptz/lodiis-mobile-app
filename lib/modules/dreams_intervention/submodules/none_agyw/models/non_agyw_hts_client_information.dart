@@ -5,8 +5,77 @@ import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/input_field_option.dart';
 
 class NonAgywHTSClientInformation {
+
+  static List<String> getMandatoryField(){
+    return [
+      'sJ35hsF6Lf9',
+      'location',
+      'WTZ7GLTrE8Q',
+      'rSP9c21JsfC',
+      'qZP982qpSPS'
+    ];
+  }
+
   static List<FormSection> getFormSections() {
     return [
+      FormSection(
+          name: 'Client Profile',
+          color: Color(0xFF737373),
+          inputFields: [
+            InputField(
+                id: 'location',
+                name: 'Location',
+                translatedName: 'Sebaka',
+                valueType: 'ORGANISATION_UNIT',
+                allowedSelectedLevels: [3, 4],
+                inputColor: Color(0xFF258DCC),
+                labelColor: Color(0xFF737373)),
+            InputField(
+                id: 'WTZ7GLTrE8Q',
+                name: 'First Name',
+                valueType: 'TEXT',
+                inputColor: Color(0xFF258DCC),
+                labelColor: Color(0xFF737373)),
+            InputField(
+                id: 's1HaiT6OllL',
+                name: 'Middle Name',
+                valueType: 'TEXT',
+                inputColor: Color(0xFF258DCC),
+                labelColor: Color(0xFF737373)),
+            InputField(
+                id: 'rSP9c21JsfC',
+                name: 'Surname',
+                valueType: 'TEXT',
+                inputColor: Color(0xFF258DCC),
+                labelColor: Color(0xFF737373)),
+            InputField(
+              id: 'vIX4GTSCX4P',
+              name: 'Sex',
+              translatedName: 'Boleng',
+              valueType: 'TEXT',
+              inputColor: Color(0xFF258DCC),
+              labelColor: Color(0xFF737373),
+              options: [
+                InputFieldOption(code: 'Male', name: 'Male'),
+                InputFieldOption(code: 'Female', name: 'Female')
+              ],
+            ),
+            InputField(
+              id: 'qZP982qpSPS',
+              name: 'Date of Birth',
+              valueType: 'DATE',
+              inputColor: Color(0xFF258DCC),
+              labelColor: Color(0xFF737373),
+            ),
+            InputField(
+                id: 'ls9hlz2tyol',
+                name: 'Age',
+                translatedName: 'Lilemo',
+                isReadOnly: true,
+                valueType: 'NUMBER',
+                inputColor: Color(0xFF258DCC),
+                labelColor: Color(0xFF737373)),
+          ]),
       FormSection(
           name: 'Client Information',
           color: Color(0xFF737373),

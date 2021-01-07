@@ -23,8 +23,9 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_serv
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/constant/non_agyw_hts_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/models/non_agyw_hts_consent_for_release_of_status.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/pages/none_agyw_enrollment_prep_screening_form.dart';
 import 'package:provider/provider.dart';
+
+import 'none_agyw_enrollment_client_intake_form.dart';
 
 class NonAgywDreamsHTSConsentForReleaseStatus extends StatefulWidget {
   NonAgywDreamsHTSConsentForReleaseStatus({Key key}) : super(key: key);
@@ -70,7 +71,7 @@ class _NonAgywDreamsHTSConsentForReleaseStatusState
           Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => NoneAgywEnrollmentPrepScreeningForm()));
+                      builder: (context) => NoneAgywEnrollmentClientInTakeForm()));
         }else{
           setState(() {
             isSaving = true;
@@ -96,7 +97,7 @@ class _NonAgywDreamsHTSConsentForReleaseStatusState
             hiddenFields,
           );
           Provider.of<DreamsInterventionListState>(context, listen: false)
-              .refreshBeneficiariesNumber();
+              .onNonAgywBeneficiaryAdd();
           Timer(
             Duration(seconds: 1),
                 () {

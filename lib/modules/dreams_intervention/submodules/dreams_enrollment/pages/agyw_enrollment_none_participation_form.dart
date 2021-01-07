@@ -61,7 +61,7 @@ class _AgywEnrollmentNoneParticipationFormState
       await AgywDreamsNoneParticipationService()
           .saveNoneParticipationForm(formSections, dataObject, eventId);
       Provider.of<DreamsInterventionListState>(context, listen: false)
-          .refreshBeneficiariesNumber();
+          .refreshDreamsList();
       Timer(Duration(seconds: 1), () {
         if (Navigator.canPop(context)) {
           setState(() {

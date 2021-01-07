@@ -90,7 +90,7 @@ class _OvcEnrollmentHouseHoldFormState
         shouldEnroll,
         hiddenFields,
       );
-      await Provider.of<OvcInterventionListState>(context, listen: false).onHouseHoldAdd();
+      await Provider.of<OvcInterventionListState>(context, listen: false).onHouseholdAdd();
       Timer(Duration(seconds: 1), () {
         if (Navigator.canPop(context)) {
           setState(() {

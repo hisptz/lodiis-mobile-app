@@ -87,6 +87,10 @@ class OgacEnrollementservice {
     return ogacBeneficiaries;
   }
 
+  Future<int> getOgacBeneficiariesCount() async{
+    return await EnrollmentOfflineProvider().getEnrollmentsCount(OgacInterventionConstant.program);
+  }
+
   savingOgacBeneficiaryEvent(
     String orgUnit,
     Map dataObject,

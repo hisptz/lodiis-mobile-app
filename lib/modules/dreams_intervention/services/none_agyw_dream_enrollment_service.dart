@@ -107,4 +107,8 @@ class NoneAgywDreamEnrollmentService {
 
     return agywDreamList;
   }
+
+  Future<int> getNonAgywBeneficiaryCount() async{
+    return await EnrollmentOfflineProvider().getEnrollmentsCount(program);
+  }
 }

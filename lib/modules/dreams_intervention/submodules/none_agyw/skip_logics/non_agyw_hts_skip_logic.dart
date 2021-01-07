@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
+import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:provider/provider.dart';
@@ -22,6 +23,10 @@ class NonAgywDreamsHTCSkipLogic {
     inputFieldIds = inputFieldIds.toSet().toList();
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
+      if (inputFieldId == 'qZP982qpSPS') {
+        int age = AppUtil.getAgeInYear(value);
+        assignInputFieldValue(context, 'ls9hlz2tyol', age.toString());
+      }
 
       if ((inputFieldId == 'J53jgfHiufC' && value != 'Other')) {
         hiddenFields['ybq5BQOdMG6'] = true;

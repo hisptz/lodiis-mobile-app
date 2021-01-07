@@ -95,7 +95,7 @@ class _OgacEnrollemntFormState extends State<OgacEnrollemntForm> {
           hiddenFields,
         );
         Provider.of<OgacInterventionListState>(context, listen: false)
-            .refreshOgacList();
+            .onBeneficiaryAdd();
         Timer(Duration(seconds: 1), () {
           if (Navigator.canPop(context)) {
             setState(() {
