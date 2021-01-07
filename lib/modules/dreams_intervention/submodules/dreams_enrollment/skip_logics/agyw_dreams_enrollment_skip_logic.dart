@@ -115,6 +115,7 @@ class AgywDreamsEnrollmentSkipLogic {
       if (inputFieldId == 'qTZtbRWe1Hb') {
         if (value != 'true') {
           hiddenFields['TJ5KB6GfZX4'] = true;
+          assignInputFieldValue(context, 'JTNxMQPT134', 'true');
         }
         if (value == 'false') {
           assignInputFieldValue(context, 'bApA6X6TVvJ', 'true');
@@ -127,6 +128,12 @@ class AgywDreamsEnrollmentSkipLogic {
       }
       if (inputFieldId == 'TJ5KB6GfZX4' && value != 'School') {
         hiddenFields['EQHcFozjbP0'] = true;
+      }
+      if (inputFieldId == 'TJ5KB6GfZX4' && value == 'Vocational') {
+        assignInputFieldValue(context, 'aPNGd6RCsY9', 'Vocational level');
+      }
+      if (inputFieldId == 'r0rKJA911ma' && value == 'true') {
+        assignInputFieldValue(context, 'mvPAYFoFQcW', 'true');
       }
       if (inputFieldId == 'Z7PTcgqwCLu' && value != 'true') {
         hiddenFields['FuYyLjYxxkg'] = true;
@@ -156,7 +163,6 @@ class AgywDreamsEnrollmentSkipLogic {
         hiddenSections['2_H_O_P'] = true;
       }
       if (inputFieldId == 'T3i6bQ3tCaA' && value != 'true') {
-        // hiddenFields['ojCwZf1iHOE'] = true;
         hiddenFields['fyIUCi5EUtp'] = true;
         hiddenFields['r0rKJA911ma'] = true;
         hiddenFields['VsqV6prIfm9'] = true;
@@ -245,10 +251,10 @@ class AgywDreamsEnrollmentSkipLogic {
         print(value);
         if (value != 'Other') {
           hiddenFields['T56nYogWRYq'] = true;
-        } 
+        }
         if (value != 'Primary level') {
           hiddenFields['h1HeZ2eEkGn'] = true;
-        } 
+        }
         if (value != 'Secondary level') {
           hiddenFields['NGVFqUVSHiU'] = true;
         }

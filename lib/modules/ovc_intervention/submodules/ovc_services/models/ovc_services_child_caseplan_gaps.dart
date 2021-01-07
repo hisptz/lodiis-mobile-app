@@ -555,7 +555,8 @@ class OvcServicesChildCasePlanGaps {
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'JSQ3xP1NhuN',
-                name: 'Tšebeletso ea FOODPREP',
+                name: 'FOODPREP',
+                translatedName: 'Tšebeletso ea FOODPREP',
                 valueType: 'TRUE_ONLY',
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
