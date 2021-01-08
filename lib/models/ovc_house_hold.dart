@@ -71,7 +71,8 @@ class OvcHouseHold {
         createdDate: createdDate,
         ovcMaleCount: data['kQehaqmaygZ'] ?? '',
         ovcFemaleCount: data['BXUNH6LXeGA'] ?? '',
-        primaryUIC: data[BeneficiaryIdentification.beneficiaryId] ?? '',
+        primaryUIC: data[BeneficiaryIdentification.primaryUIC] ?? '',
+        secondaryUIC: data[BeneficiaryIdentification.secondaryUIC] ?? '',
         houseHoldStatus: data['PN92g65TkVI'] ?? '',
         searchableValue:
             "${data['WTZ7GLTrE8Q'] ?? ''} ${data['s1HaiT6OllL'] ?? ''} ${data['rSP9c21JsfC'] ?? ''} ${data[BeneficiaryIdentification.beneficiaryId] ?? ''} $location $createdDate"

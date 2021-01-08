@@ -7,14 +7,16 @@ import 'package:provider/provider.dart';
 class OvcHouseHoldReferralSkipLogic {
   static Map hiddenFields = Map();
   static Map hiddenSections = Map();
+  static Map hiddenInputFieldOptions = Map();
 
   static Future evaluateSkipLogics(
-      BuildContext context,
-      List<FormSection> formSections,
-      Map dataObject,
-      ) async {
+    BuildContext context,
+    List<FormSection> formSections,
+    Map dataObject,
+  ) async {
     hiddenFields.clear();
     hiddenSections.clear();
+    hiddenInputFieldOptions.clear();
     List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections);
     for (var key in dataObject.keys) {
       inputFieldIds.add('$key');
@@ -22,23 +24,164 @@ class OvcHouseHoldReferralSkipLogic {
     inputFieldIds = inputFieldIds.toSet().toList();
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
-      if(inputFieldId == 'qAed23reDPP' && value != 'Community'){
+      if (inputFieldId == 'qAed23reDPP' && value != 'Community') {
         hiddenSections['SeRefoCo'] = true;
       }
-      if(inputFieldId == 'qAed23reDPP' && value != 'Facility'){
+      if (inputFieldId == 'qAed23reDPP' && value != 'Facility') {
         hiddenSections['SeRefoFa'] = true;
+      }
+      if (inputFieldId == 'LLWTHwhnch0' && value != 'null') {
+        Map hiddenOptions = Map();
+        if (value == 'Clinical Services') {
+          hiddenOptions['Youth friendly services'] = true;
+          hiddenOptions['Gender Based Violence'] = true;
+          hiddenOptions['Domestic Violence Support group'] = true;
+          hiddenOptions['Income generating activity'] = true;
+          hiddenOptions['Orphan Care & Support'] = true;
+          hiddenOptions['Psycho-social Support'] = true;
+          hiddenOptions['PLHIV support group'] = true;
+          hiddenOptions['Referral to post abuse care services'] = true;
+          hiddenOptions['Violence Against Children'] = true;
+          hiddenOptions['CAG'] = true;
+          hiddenOptions['Home based care visits'] = true;
+          hiddenOptions['Educational and vocational support'] = true;
+        } else if (value == 'Post abuse case management') {
+          hiddenOptions['Youth friendly services'] = true;
+          hiddenOptions['Income generating activity'] = true;
+          hiddenOptions['Orphan Care & Support'] = true;
+          hiddenOptions['Psycho-social Support'] = true;
+          hiddenOptions['PLHIV support group'] = true;
+          hiddenOptions['CAG'] = true;
+          hiddenOptions['Home based care visits'] = true;
+          hiddenOptions['Educational and vocational support'] = true;
+          hiddenOptions['STI Screening'] = true;
+          hiddenOptions['STI Treatment'] = true;
+          hiddenOptions['HIV Testing and counselling'] = true;
+          hiddenOptions['Evaluation for ARVs/HAART'] = true;
+          hiddenOptions['ART and Adherence'] = true;
+          hiddenOptions['PMTCT Services'] = true;
+          hiddenOptions['FamilyPlanningSRH'] = true;
+          hiddenOptions['Condom supply'] = true;
+          hiddenOptions['TB screening'] = true;
+          hiddenOptions['TB treatment'] = true;
+          hiddenOptions['Nutrition'] = true;
+          hiddenOptions['VMMC'] = true;
+          hiddenOptions['Cervical Cancer Screening'] = true;
+          hiddenOptions['ECD'] = true;
+          hiddenOptions['HTS'] = true;
+          hiddenOptions['ANC'] = true;
+          hiddenOptions['EID Testing'] = true;
+          hiddenOptions['PrEP/PEP'] = true;
+          hiddenOptions['PMTCT'] = true;
+        } else if (value == 'Social Services') {
+          hiddenOptions['Referral to post abuse care services'] = true;
+          hiddenOptions['STI Screening'] = true;
+          hiddenOptions['STI Treatment'] = true;
+          hiddenOptions['HIV Testing and counselling'] = true;
+          hiddenOptions['Evaluation for ARVs/HAART'] = true;
+          hiddenOptions['ART and Adherence'] = true;
+          hiddenOptions['PMTCT Services'] = true;
+          hiddenOptions['FamilyPlanningSRH'] = true;
+          hiddenOptions['Condom supply'] = true;
+          hiddenOptions['TB screening'] = true;
+          hiddenOptions['TB treatment'] = true;
+          hiddenOptions['Nutrition'] = true;
+          hiddenOptions['VMMC'] = true;
+          hiddenOptions['Cervical Cancer Screening'] = true;
+          hiddenOptions['ECD'] = true;
+          hiddenOptions['HTS'] = true;
+          hiddenOptions['ANC'] = true;
+          hiddenOptions['EID Testing'] = true;
+          hiddenOptions['PrEP/PEP'] = true;
+          hiddenOptions['PMTCT'] = true;
+          hiddenOptions['Gender Based Violence'] = true;
+          hiddenOptions['Domestic Violence Support group'] = true;
+          hiddenOptions['Violence Against Children'] = true;
+        }
+        hiddenInputFieldOptions['rsh5Kvx6qAU'] = hiddenOptions;
+      }
+      if (inputFieldId == 'AuCryxQYmrk' && value != 'null') {
+        Map hiddenOptions = Map();
+        if (value == 'Clinical Services') {
+          hiddenOptions['Youth friendly services'] = true;
+          hiddenOptions['Gender Based Violence'] = true;
+          hiddenOptions['Domestic Violence Support group'] = true;
+          hiddenOptions['Income generating activity'] = true;
+          hiddenOptions['Orphan Care & Support'] = true;
+          hiddenOptions['Psycho-social Support'] = true;
+          hiddenOptions['PLHIV support group'] = true;
+          hiddenOptions['Referral to post abuse care services'] = true;
+          hiddenOptions['Violence Against Children'] = true;
+          hiddenOptions['CAG'] = true;
+          hiddenOptions['Home based care visits'] = true;
+          hiddenOptions['Educational and vocational support'] = true;
+        } else if (value == 'Post abuse case management') {
+          hiddenOptions['Youth friendly services'] = true;
+          hiddenOptions['Income generating activity'] = true;
+          hiddenOptions['Orphan Care & Support'] = true;
+          hiddenOptions['Psycho-social Support'] = true;
+          hiddenOptions['PLHIV support group'] = true;
+          hiddenOptions['CAG'] = true;
+          hiddenOptions['Home based care visits'] = true;
+          hiddenOptions['Educational and vocational support'] = true;
+          hiddenOptions['STI Screening'] = true;
+          hiddenOptions['STI Treatment'] = true;
+          hiddenOptions['HIV Testing and counselling'] = true;
+          hiddenOptions['Evaluation for ARVs/HAART'] = true;
+          hiddenOptions['ART and Adherence'] = true;
+          hiddenOptions['PMTCT Services'] = true;
+          hiddenOptions['FamilyPlanningSRH'] = true;
+          hiddenOptions['Condom supply'] = true;
+          hiddenOptions['TB screening'] = true;
+          hiddenOptions['TB treatment'] = true;
+          hiddenOptions['Nutrition'] = true;
+          hiddenOptions['VMMC'] = true;
+          hiddenOptions['Cervical Cancer Screening'] = true;
+          hiddenOptions['ECD'] = true;
+          hiddenOptions['HTS'] = true;
+          hiddenOptions['ANC'] = true;
+          hiddenOptions['EID Testing'] = true;
+          hiddenOptions['PrEP/PEP'] = true;
+          hiddenOptions['PMTCT'] = true;
+        } else if (value == 'Social Services') {
+          hiddenOptions['Referral to post abuse care services'] = true;
+          hiddenOptions['STI Screening'] = true;
+          hiddenOptions['STI Treatment'] = true;
+          hiddenOptions['HIV Testing and counselling'] = true;
+          hiddenOptions['Evaluation for ARVs/HAART'] = true;
+          hiddenOptions['ART and Adherence'] = true;
+          hiddenOptions['PMTCT Services'] = true;
+          hiddenOptions['FamilyPlanningSRH'] = true;
+          hiddenOptions['Condom supply'] = true;
+          hiddenOptions['TB screening'] = true;
+          hiddenOptions['TB treatment'] = true;
+          hiddenOptions['Nutrition'] = true;
+          hiddenOptions['VMMC'] = true;
+          hiddenOptions['Cervical Cancer Screening'] = true;
+          hiddenOptions['ECD'] = true;
+          hiddenOptions['HTS'] = true;
+          hiddenOptions['ANC'] = true;
+          hiddenOptions['EID Testing'] = true;
+          hiddenOptions['PrEP/PEP'] = true;
+          hiddenOptions['PMTCT'] = true;
+          hiddenOptions['Gender Based Violence'] = true;
+          hiddenOptions['Domestic Violence Support group'] = true;
+          hiddenOptions['Violence Against Children'] = true;
+        }
+        hiddenInputFieldOptions['OrC9Bh2bcFz'] = hiddenOptions;
       }
     }
     for (String sectionId in hiddenSections.keys) {
       List<FormSection> allFormSections =
           FormUtil.getFlattenFormSections(formSections);
-      List<String> hidddenSectionInputFieldIds = FormUtil.getFormFieldIds(allFormSections
-          .where((formSection) => formSection.id == sectionId)
-          .toList());
+      List<String> hidddenSectionInputFieldIds = FormUtil.getFormFieldIds(
+          allFormSections
+              .where((formSection) => formSection.id == sectionId)
+              .toList());
       List<String> allInputFieldIds = FormUtil.getFormFieldIds(allFormSections
           .where((formSection) => formSection.id != sectionId)
           .toList());
-      
+
       for (String inputFieldId in hidddenSectionInputFieldIds) {
         if (allInputFieldIds.indexOf(inputFieldId) == -1) {
           hiddenFields[inputFieldId] = true;
@@ -46,6 +189,7 @@ class OvcHouseHoldReferralSkipLogic {
       }
     }
     resetValuesForHiddenFields(context, hiddenFields.keys);
+    resetValuesForHiddenInputFieldOptions(context);
     resetValuesForHiddenSections(context, formSections);
   }
 
@@ -59,19 +203,24 @@ class OvcHouseHoldReferralSkipLogic {
         .setHiddenFields(hiddenFields);
   }
 
+  static resetValuesForHiddenInputFieldOptions(BuildContext context) {
+    Provider.of<ServiceFormState>(context, listen: false)
+        .setHiddenInputFieldOptions(hiddenInputFieldOptions);
+  }
+
   static resetValuesForHiddenSections(
-      BuildContext context,
-      List<FormSection> formSections,
-      ) {
+    BuildContext context,
+    List<FormSection> formSections,
+  ) {
     Provider.of<ServiceFormState>(context, listen: false)
         .setHiddenSections(hiddenSections);
   }
 
   static assignInputFieldValue(
-      BuildContext context,
-      String inputFieldId,
-      String value,
-      ) {
+    BuildContext context,
+    String inputFieldId,
+    String value,
+  ) {
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState(inputFieldId, value);
   }

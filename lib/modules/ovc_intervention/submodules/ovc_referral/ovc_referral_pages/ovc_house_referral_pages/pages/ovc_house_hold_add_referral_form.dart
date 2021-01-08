@@ -68,6 +68,13 @@ class _OvcHouseHoldAddReferralFormState
   void onInputValueChange(String id, dynamic value) {
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState(id, value);
+    if (id == 'LLWTHwhnch0') {
+      Provider.of<ServiceFormState>(context, listen: false)
+          .removeFieldFromState('rsh5Kvx6qAU');
+    } else if (id == 'AuCryxQYmrk') {
+      Provider.of<ServiceFormState>(context, listen: false)
+          .removeFieldFromState('OrC9Bh2bcFz');
+    }
     evaluateSkipLogics();
   }
 
@@ -191,6 +198,7 @@ class _OvcHouseHoldAddReferralFormState
                                               serviceFormState.hiddenSections,
                                           hiddenFields:
                                               serviceFormState.hiddenFields,
+                                          hiddenInputFieldOptions: serviceFormState.hiddenInputFieldOptions,
                                           formSections: formSections,
                                           mandatoryFieldObject: Map(),
                                           isEditableMode:
