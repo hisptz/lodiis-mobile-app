@@ -12,7 +12,7 @@ class DreamsPrepFollwUpVisit {
     return [
       FormSection(name: 'Visit Type', color: Color(0xFF737373), inputFields: [
         InputField(
-          id: 'select_visit_type',
+          id: 'oIrEIqHBvJ5',
           name: 'Select visit type',
           valueType: 'TEXT',
           options: [

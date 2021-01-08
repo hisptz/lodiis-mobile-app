@@ -59,7 +59,7 @@ class TrackedEntityInstanceUtil {
         events.addAll(data);
       } catch (e) {}
     }
-    return events;
+    return events.reversed.toList();
   }
 
   static Map getGroupedEventByDates(List<Events> events) {

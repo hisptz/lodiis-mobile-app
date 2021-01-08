@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_intervention_list_state.dart';
@@ -110,10 +111,23 @@ class _OvcEnrollmentPageState extends State<OvcEnrollmentPage> {
                   ),
                 ),
             emptyListWidget: Center(
-              child: Text(
-                currentLanguage == 'lesotho'
-                    ? 'Ha hona lelapa le ngolisitsoeng ha hajoale'
-                    : 'There is no household enrolled at moment',
+              child: Column(
+                children: [
+                  Text(
+                    currentLanguage == 'lesotho'
+                        ? 'Ha hona lelapa le ngolisitsoeng ha hajoale'
+                        : 'There is no household enrolled at moment',
+                  ),
+                  Container(
+                    child: IconButton(
+                      icon: SvgPicture.asset(
+                        'assets/icons/add-beneficiary.svg',
+                        color: Colors.blueGrey,
+                      ),
+                      onPressed: () => onAddHouseHold(context),
+                    ),
+                  )
+                ],
               ),
             ),
           ),);

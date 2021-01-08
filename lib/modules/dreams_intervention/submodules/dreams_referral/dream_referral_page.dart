@@ -58,7 +58,7 @@ class _DreamsReferralPageState extends State<DreamsReferralPage> {
   }
 
   Widget _buildBody() {
-    return SingleChildScrollView(
+    return Container(
       child: Consumer<DreamsInterventionListState>(
           builder: (context, dreamInterventionListState, child) {
         return CustomPaginatedListView(

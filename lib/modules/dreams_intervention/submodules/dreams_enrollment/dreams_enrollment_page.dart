@@ -55,7 +55,7 @@ class _DreamsEnrollmentPageState extends State<DreamsEnrollmentPage> {
   }
 
   Widget _buildBody() {
-    return SingleChildScrollView(
+    return Container(
       child: Consumer<DreamsInterventionListState>(
         builder: (context, dreamInterventionListState, child) {
           return CustomPaginatedListView(
@@ -79,10 +79,25 @@ class _DreamsEnrollmentPageState extends State<DreamsEnrollmentPage> {
                     cardBottonContent: Container(),
                   ),
               pagingController: dreamInterventionListState.agywPagingController,
-              emptyListWidget: Center(
-                child: Text(
-                  'There is no beneficiary list at a moment',
-                ),
+              emptyListWidget: Column(
+                children: [
+                  Center(
+                    child: Text(
+                      'There is no beneficiary list at a moment',
+                    ),
+                  ),
+                  Center(
+                    child: Container(
+                      child: IconButton(
+                        icon: SvgPicture.asset(
+                          'assets/icons/add-beneficiary.svg',
+                          color: Colors.blueGrey,
+                        ),
+                        onPressed: () => onAddAgywBeneficiary(context),
+                      ),
+                    ),
+                  )
+                ],
               ),
               errorWidget: Center(
                 child: Text(

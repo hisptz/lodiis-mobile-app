@@ -88,7 +88,6 @@ class _NoneAgywPrepFormState extends State<NoneAgywPrepForm> {
       });
       String eventDate = dataObject['eventDate'];
       String eventId = dataObject['eventId'];
-      dataObject.remove('select_visit_type');
       List<String> hiddenFields = [];
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(

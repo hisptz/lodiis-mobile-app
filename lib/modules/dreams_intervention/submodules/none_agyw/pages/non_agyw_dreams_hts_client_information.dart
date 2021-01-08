@@ -30,7 +30,7 @@ class NonAgywDreamsHTSClientInformation extends StatefulWidget {
 
 class _NonAgywDreamsHTSClientInformationState
     extends State<NonAgywDreamsHTSClientInformation> {
-  final String label = 'Client Information';
+  final String label = 'HTS Client Intake';
   List<FormSection> formSections;
   List<String> mandatoryFields;
   Map mandatoryFieldsObject = Map();

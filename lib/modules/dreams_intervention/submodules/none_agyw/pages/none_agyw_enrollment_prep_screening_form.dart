@@ -186,7 +186,8 @@ class _NoneAgywEnrollmentPrepScreeningFormState
                               ),
                             ),
                             EntryFormSaveButton(
-                              label: currentLanguage == 'lesotho'
+                              label: isSaving ? 'Saving...' :
+                              currentLanguage == 'lesotho'
                                   ? 'Boloka ebe u fetela pele'
                                   : 'Save and Continue',
                               labelColor: Colors.white,

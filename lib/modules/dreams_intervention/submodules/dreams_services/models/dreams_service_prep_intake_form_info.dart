@@ -91,7 +91,7 @@ class DreamsServicePrepIntakeInfo {
                 valueType: 'TEXT',
                 options: [
                   InputFieldOption(
-                      code: 'CounselingTesting', name: 'CounselingTesting'),
+                      code: 'CounselingTesting', name: 'Counseling Testing'),
                   InputFieldOption(
                       code: 'Counseling only', name: 'Counseling only'),
                   InputFieldOption(code: 'Testing only', name: 'Testing only'),
