@@ -100,62 +100,63 @@ class OgacInterventionHome extends StatelessWidget {
     );
   }
 
-  SingleChildScrollView _buildBody() {
-    return SingleChildScrollView(
+  Container _buildBody() {
+    return Container(
       child: Container(
         child: Consumer<OgacInterventionListState>(
           builder: (context, ogacInterventionListState, child) {
-             return CustomPaginatedListView(childBuilder: (context, ogacBeneficary, child) => OgacBeneficiaryCard(
-               ogacBeneficary: ogacBeneficary,
-               onEditBeneficiary: () =>
-                   onEditBeneficiary(
-                       context, ogacBeneficary),
-               onViewBeneficiary: () =>
-                   onViewBeneficiary(
-                       context, ogacBeneficary),
-             ), pagingController: ogacInterventionListState.pagingController, emptyListWidget: Center(
-               child: Column(
-                 children: [
-                   Container(
-                     margin: EdgeInsets.only(top: 10.0),
-                     child: Text(
-                       'There is no OGAC beneficiaries enrolled at moment',
-                     ),
-                   ),
-                   Container(
-                     child: IconButton(
-                       icon: SvgPicture.asset(
-                         'assets/icons/add-beneficiary.svg',
-                         color: Colors.blueGrey,
-                       ),
-                       onPressed: () =>
-                           onAddOgacBeneficiary(context),
-                     ),
-                   )
-                 ],
-               ),
-             ), errorWidget: Center(
-               child: Column(
-                 children: [
-                   Container(
-                     margin: EdgeInsets.only(top: 10.0),
-                     child: Text(
-                       'There is no OGAC beneficiaries enrolled at moment',
-                     ),
-                   ),
-                   Container(
-                     child: IconButton(
-                       icon: SvgPicture.asset(
-                         'assets/icons/add-beneficiary.svg',
-                         color: Colors.blueGrey,
-                       ),
-                       onPressed: () =>
-                           onAddOgacBeneficiary(context),
-                     ),
-                   )
-                 ],
-               ),
-             ));
+            return CustomPaginatedListView(
+                childBuilder: (context, ogacBeneficary, child) =>
+                    OgacBeneficiaryCard(
+                      ogacBeneficary: ogacBeneficary,
+                      onEditBeneficiary: () =>
+                          onEditBeneficiary(context, ogacBeneficary),
+                      onViewBeneficiary: () =>
+                          onViewBeneficiary(context, ogacBeneficary),
+                    ),
+                pagingController: ogacInterventionListState.pagingController,
+                emptyListWidget: Center(
+                  child: Column(
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(top: 10.0),
+                        child: Text(
+                          'There is no OGAC beneficiaries enrolled at moment',
+                        ),
+                      ),
+                      Container(
+                        child: IconButton(
+                          icon: SvgPicture.asset(
+                            'assets/icons/add-beneficiary.svg',
+                            color: Colors.blueGrey,
+                          ),
+                          onPressed: () => onAddOgacBeneficiary(context),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                errorWidget: Center(
+                  child: Column(
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(top: 10.0),
+                        child: Text(
+                          'There is no OGAC beneficiaries enrolled at moment',
+                        ),
+                      ),
+                      Container(
+                        child: IconButton(
+                          icon: SvgPicture.asset(
+                            'assets/icons/add-beneficiary.svg',
+                            color: Colors.blueGrey,
+                          ),
+                          onPressed: () => onAddOgacBeneficiary(context),
+                        ),
+                      )
+                    ],
+                  ),
+                ));
           },
         ),
       ),

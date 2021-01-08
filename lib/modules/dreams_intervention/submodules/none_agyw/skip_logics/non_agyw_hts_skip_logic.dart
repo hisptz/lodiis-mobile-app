@@ -23,11 +23,12 @@ class NonAgywDreamsHTCSkipLogic {
     inputFieldIds = inputFieldIds.toSet().toList();
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
+
       if (inputFieldId == 'qZP982qpSPS') {
         int age = AppUtil.getAgeInYear(value);
-        assignInputFieldValue(context, 'ls9hlz2tyol', age.toString());
+        dataObject['ls9hlz2tyol'] = age.toString();
+        // assignInputFieldValue(context, 'ls9hlz2tyol', age.toString());
       }
-
       if ((inputFieldId == 'J53jgfHiufC' && value != 'Other')) {
         hiddenFields['ybq5BQOdMG6'] = true;
       }

@@ -219,7 +219,7 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
   }
 
   Widget _buildBody() {
-    return SingleChildScrollView(
+    return Container(
       child: Container(
         child: Consumer<DreamsInterventionListState>(
           builder: (context, dreamInterventionListState, child) {

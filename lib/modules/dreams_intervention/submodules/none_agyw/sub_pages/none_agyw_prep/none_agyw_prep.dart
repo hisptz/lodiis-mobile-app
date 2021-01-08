@@ -28,6 +28,7 @@ class NoneAgywPrep extends StatefulWidget {
 class _NoneAgywPrepState extends State<NoneAgywPrep> {
   final String label = 'Prep';
   List<String> programStageids = [NonAgywPrepVisitConstant.programStage];
+
   @override
   void initState() {
     super.initState();
@@ -106,6 +107,7 @@ class _NoneAgywPrepState extends State<NoneAgywPrep> {
                         .getAllEventListFromServiceDataState(
                             eventListByProgramStage, programStageids);
                     int referralIndex = events.length + 1;
+
                     return Container(
                       child: Column(
                         children: [
@@ -157,13 +159,20 @@ class _NoneAgywPrepState extends State<NoneAgywPrep> {
                                                 ),
                                               ),
                                       ),
-                                      EntryFormSaveButton(
-                                          label: 'ADD PREP',
-                                          labelColor: Colors.white,
-                                          buttonColor: Color(0xFF1F8ECE),
-                                          fontSize: 15.0,
-                                          onPressButton: () =>
-                                              onAddPrep(context, agywDream))
+                                      !isPrePStopped(events)
+                                          ? EntryFormSaveButton(
+                                              label: 'ADD PREP VISIT',
+                                              labelColor: Colors.white,
+                                              buttonColor: Color(0xFF1F8ECE),
+                                              fontSize: 15.0,
+                                              onPressButton: () =>
+                                                  onAddPrep(context, agywDream))
+                                          : Padding(
+                                              padding: const EdgeInsets.only(
+                                                  bottom: 20.0),
+                                              child: Text(
+                                                  'Prep program was stopped'),
+                                            )
                                     ],
                                   ),
                           ),
@@ -177,5 +186,11 @@ class _NoneAgywPrepState extends State<NoneAgywPrep> {
           ),
         ),
         bottomNavigationBar: InterventionBottomNavigationBarContainer());
+  }
+
+  bool isPrePStopped(List<Events> events) {
+    return events.any((element) => element.dataValues.any((value) =>
+        value['dataElement'] == NonAgywPrepVisitConstant.visitType &&
+        value['value'] == 'Stopping PrEP'));
   }
 }
