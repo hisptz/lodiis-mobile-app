@@ -138,10 +138,6 @@ mixin OvcCasePlanFollowUpSkipLogic {
         hiddenFields['EYhFIkTpUS3'] = false;
         hiddenFields['rM13n9K4vE7'] = false;
         hiddenFields['VlReEXXH1WN'] = false;
-        hiddenFields['CiDZ0bP8sUk'] = false;
-        hiddenFields['IiKUlAeSIE3'] = false;
-        hiddenFields['rUCb6Afcz9U'] = false;
-        hiddenFields['sD0zbIksKTY'] = false;
       } else if (key == 'SN2kJN3jAG9' && value == 'true') {
         hiddenFields['CiDZ0bP8sUk'] = false;
         hiddenFields['IiKUlAeSIE3'] = false;
