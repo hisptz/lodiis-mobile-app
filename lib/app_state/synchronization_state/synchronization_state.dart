@@ -282,7 +282,6 @@ class SynchronizationState with ChangeNotifier {
         await _synchronizationService.uploadTeisToTheServer(
             teis, teiEnrollments);
 
-        // @TODO uploading relationships
         var teiRelationships =
             await _synchronizationService.getTeiRelationShipFromOfflineDb();
         await _synchronizationService
@@ -294,6 +293,7 @@ class SynchronizationState with ChangeNotifier {
         addDataUploadProcess("Uploading beneficiary's service data");
         await _synchronizationService.uploadTeiEventsToTheServer(teiEvents);
       }
+      print('done');
     } catch (e) {
       print(e);
     }

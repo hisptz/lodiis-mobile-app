@@ -116,7 +116,7 @@ class _DreamAgywReferralPageState extends State<DreamAgywReferralPage> {
                     List<Events> events = TrackedEntityInstanceUtil
                         .getAllEventListFromServiceDataState(
                             eventListByProgramStage, programStageids);
-                    int referralIndex = events.length + 1;
+                    int referralIndex = events.length;
                     return Container(
                       child: Column(
                         children: [

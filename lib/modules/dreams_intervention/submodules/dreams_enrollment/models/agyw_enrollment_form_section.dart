@@ -169,13 +169,6 @@ class AgywEnrollmentFormSection {
               inputColor: Color(0xFF258DCC),
               labelColor: Color(0xFF737373)),
           InputField(
-              id: 'Qgy2ZvF0EwJ',
-              name: 'Primary UIC Number',
-              translatedName: 'Nomoro ea DREAMS UIC',
-              valueType: 'TEXT',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
-          InputField(
             id: 'iS9mAp3jDaU',
             name: 'Relationship to Caregiver',
             translatedName: 'Kamano le mohlokomeli',
