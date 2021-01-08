@@ -123,7 +123,7 @@ class _OvcHouseHoldReferralHomeState extends State<OvcHouseHoldReferralHome> {
                       List<Events> events = TrackedEntityInstanceUtil
                           .getAllEventListFromServiceDataState(
                               eventListByProgramStage, programStageids);
-                      int referralIndex = events.length;
+                      int referralIndex = events.length +1;
                       return Container(
                         child: Column(
                           children: [
