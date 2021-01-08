@@ -200,8 +200,9 @@ class SynchronizationService {
     var response = await httpClient.httpPost(url, json.encode(body));
     try {
       syncedIds = _getReferenceids(json.decode(response.body));
-
-    } catch (e) {print(e);}
+    } catch (e) {
+      print(e);
+    }
     if (syncedIds.length > 0) {
       for (TrackeEntityInstance tei in teis) {
         if (syncedIds.indexOf(tei.trackedEntityInstance) > -1) {
@@ -236,7 +237,9 @@ class SynchronizationService {
     try {
       syncedIds = _getReferenceids(json.decode(response.body));
       print(json.decode(response.body));
-    } catch (e) {print(e);}
+    } catch (e) {
+      print(e);
+    }
     if (syncedIds.length > 0) {
       for (Events event in teiEvents) {
         if (syncedIds.indexOf(event.event) > -1) {
@@ -268,7 +271,7 @@ class SynchronizationService {
         referenceIds.add(importSummary['reference']);
       } else {
         //@TODO add logs
-        // print(json.encode(importSummary));
+        //print(json.encode(importSummary));
       }
     }
     return referenceIds;

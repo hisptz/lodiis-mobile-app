@@ -82,16 +82,29 @@ class _AgywDreamsHTSConsentForReleaseStatusState
       ];
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-            AgywDreamsHTSConstant.program,
-            AgywDreamsHTSConstant.programStage,
-            agywDream.orgUnit,
-            allFormSections,
-            dataObject,
-            eventDate,
-            agywDream.id,
-            eventId,
-            hiddenFields,
-            skippedFields: [AgywDreamsHTSConstant.bmiKey]);
+          AgywDreamsHTSConstant.program,
+          AgywDreamsHTSConstant.programStage,
+          agywDream.orgUnit,
+          allFormSections,
+          dataObject,
+          eventDate,
+          agywDream.id,
+          eventId,
+          hiddenFields,
+          skippedFields: [AgywDreamsHTSConstant.bmiKey],
+        );
+        await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
+          AgywDreamsHTSConstant.program,
+          AgywDreamsHTSConstant.htsRegisterProgramStage,
+          agywDream.orgUnit,
+          allFormSections,
+          dataObject,
+          eventDate,
+          agywDream.id,
+          eventId,
+          hiddenFields,
+          skippedFields: [AgywDreamsHTSConstant.bmiKey],
+        );
         if (dataObject[AgywDreamsHTSConstant.hivResultStatus] == 'Positive') {
           Navigator.push(
               context,
