@@ -153,6 +153,9 @@ class _NoneAgywPrepState extends State<NoneAgywPrep> {
                                                         eventData: eventData,
                                                         visitCount:
                                                             referralIndex,
+                                                        editDisabled:
+                                                            eventData !=
+                                                                events.first,
                                                       ),
                                                     );
                                                   }).toList(),

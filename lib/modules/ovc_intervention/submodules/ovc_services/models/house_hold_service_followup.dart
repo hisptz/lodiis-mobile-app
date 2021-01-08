@@ -1064,7 +1064,7 @@ class HouseholdServiceFollowup {
                 allowFuturePeriod: true,
                 disablePastPeriod: true,
                 translatedName: 'Letsatsi la ho latela PTS4G',
-                valueType: 'TEXT',
+                valueType: 'DATE',
                 inputColor: Color(0xFF9B2BAE),
                 labelColor: Color(0xFF737373)),
             InputField(
@@ -1108,7 +1108,7 @@ class HouseholdServiceFollowup {
                 allowFuturePeriod: true,
                 disablePastPeriod: true,
                 translatedName: 'Letsatsi la ho latela PTS4NG',
-                valueType: 'TEXT',
+                valueType: 'DATE',
                 inputColor: Color(0xFF9B2BAE),
                 labelColor: Color(0xFF737373)),
             InputField(
@@ -1152,7 +1152,7 @@ class HouseholdServiceFollowup {
                 allowFuturePeriod: true,
                 disablePastPeriod: true,
                 translatedName: 'Letsatsi la ho latela HWCLUB',
-                valueType: 'TEXT',
+                valueType: 'DATE',
                 inputColor: Color(0xFF9B2BAE),
                 labelColor: Color(0xFF737373)),
             InputField(
@@ -1201,7 +1201,7 @@ class HouseholdServiceFollowup {
                 name: 'OTHER ACTIVITIES Follow-up date',
                 allowFuturePeriod: true,
                 disablePastPeriod: true,
-                valueType: 'TEXT',
+                valueType: 'DATE',
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
             InputField(
