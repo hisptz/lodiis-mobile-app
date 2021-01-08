@@ -121,7 +121,7 @@ class _OvcEnrollmentPageState extends State<OvcEnrollmentPage> {
                   Container(
                     child: IconButton(
                       icon: SvgPicture.asset(
-                        'assets/icons/add-beneficiary.svg',
+                        'assets/icons/add-house-hold.svg',
                         color: Colors.blueGrey,
                       ),
                       onPressed: () => onAddHouseHold(context),

@@ -35,7 +35,7 @@ class AppBarUtil {
       if (response.id == 'dreams' ||
           response.id == 'ovc' ||
           response.id == 'ogac') {
-        _onSwitchToIntervention(context, response.id);
+        await _onSwitchToIntervention(context, response.id);
       } else if (response.id == 'logout') {
         _onLogOut(context);
       } else if (response.id == 'sync') {
@@ -88,16 +88,16 @@ class AppBarUtil {
   }
 
 
-  static void _onSwitchToIntervention(BuildContext context, String id) {
+  static Future<void> _onSwitchToIntervention(BuildContext context, String id) async{
     if (id == 'ovc') {
-      Provider.of<OvcInterventionListState>(context, listen: false)
+      await Provider.of<OvcInterventionListState>(context, listen: false)
           .refreshOvcNumber();
     } else if (id == 'dreams') {
-      Provider.of<DreamsInterventionListState>(context, listen: false)
+      await Provider.of<DreamsInterventionListState>(context, listen: false)
           .refreshBeneficiariesNumber();
     } else if (id == 'ogac') {
-      Provider.of<OgacInterventionListState>(context, listen: false)
-          .refreshOgacList();
+      await Provider.of<OgacInterventionListState>(context, listen: false)
+          .refreshOgacNumber();
     }
     Provider.of<IntervetionCardState>(context, listen: false)
         .setCurrentInterventionProgramId(id);
