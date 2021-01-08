@@ -198,6 +198,11 @@ class DreamBeneficiaryCardBody extends StatelessWidget {
         {'name': 'VAC LEGAL', 'programStage': 'bDJq2JWVTbC'},
         {'name': 'HIV & VIOLENCE PREVENTION', 'programStage': 'bDJq2JWVTbC'},
       ],
+      [
+        {'name': 'VAC LEGAL MESSAGING', 'programStage': 'bDJq2JWVTbC'},
+        {'name': ''},
+        {'name': ''},
+      ]
     ];
   }
 }
