@@ -180,8 +180,8 @@ class _AgywDreamsPrepState extends State<AgywDreamsPrep> {
                     Events lastVisit = visits != null && visits.length > 0
                         ? visits.last
                         : null;
-                    int referralIndex = events.length + 1;
-                    int visitsReferralIndex = 0;
+                    int referralIndex = events.length;
+                    int visitReferralIndex = visits.length;
                     return Container(
                       child: Column(
                         children: [
@@ -279,8 +279,7 @@ class _AgywDreamsPrepState extends State<AgywDreamsPrep> {
                                                             children: visits
                                                                 .map((Events
                                                                     eventData) {
-                                                              visitsReferralIndex++;
-
+                                                              int count = visitReferralIndex--;
                                                               return Container(
                                                                 margin:
                                                                     EdgeInsets
@@ -302,12 +301,9 @@ class _AgywDreamsPrepState extends State<AgywDreamsPrep> {
                                                                   eventData:
                                                                       eventData,
                                                                   visitCount:
-                                                                      visitsReferralIndex,
+                                                                      count,
                                                                   editDisabled:
-                                                                      lastVisit ==
-                                                                              eventData
-                                                                          ? false
-                                                                          : true,
+                                                                      !(visits.first == eventData)
                                                                 ),
                                                               );
                                                             }).toList(),
