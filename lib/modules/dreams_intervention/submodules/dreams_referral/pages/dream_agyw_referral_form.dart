@@ -67,6 +67,13 @@ class _DreamAgywAddReferralFormState extends State<DreamAgywAddReferralForm> {
   void onInputValueChange(String id, dynamic value) {
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState(id, value);
+    if (id == 'AuCryxQYmrk') {
+      Provider.of<ServiceFormState>(context, listen: false)
+          .removeFieldFromState('OrC9Bh2bcFz');
+    } else if (id == 'LLWTHwhnch0') {
+      Provider.of<ServiceFormState>(context, listen: false)
+          .removeFieldFromState('rsh5Kvx6qAU');
+    }
     evaluateSkipLogics();
   }
 
@@ -183,7 +190,9 @@ class _DreamAgywAddReferralFormState extends State<DreamAgywAddReferralForm> {
                                               serviceFormState.hiddenFields,
                                           hiddenSections:
                                               serviceFormState.hiddenSections,
-                                          hiddenInputFieldOptions: serviceFormState.hiddenInputFieldOptions,
+                                          hiddenInputFieldOptions:
+                                              serviceFormState
+                                                  .hiddenInputFieldOptions,
                                           formSections: formSections,
                                           mandatoryFieldObject: Map(),
                                           isEditableMode:

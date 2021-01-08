@@ -48,4 +48,9 @@ class ServiceFormState with ChangeNotifier {
     _formState[id] = value ?? '';
     notifyListeners();
   }
+
+  void removeFieldFromState(String id) {
+    _formState.remove(id);
+    notifyListeners();
+  }
 }
