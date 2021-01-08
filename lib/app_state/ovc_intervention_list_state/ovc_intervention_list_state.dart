@@ -88,7 +88,11 @@ class OvcInterventionListState with ChangeNotifier {
     await getHouseholdCount();
     //Update number of Pages
     getNumberOfPages();
-    initializePagination();
+    if(_pagingController == null){
+      initializePagination();
+    }else{
+      _pagingController.refresh();
+    }
     _isLoading = false;
     notifyListeners();
   }
