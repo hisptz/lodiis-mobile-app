@@ -1138,6 +1138,50 @@ class OvcServicesChildServiceFollowup {
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
             InputField(
+                id: 'iQ1FizjOkkl',
+                name: 'VAC Legal Messaging Follow-up date',
+                allowFuturePeriod: true,
+                disablePastPeriod: true,
+                translatedName: 'Letsatsi la ho latela VAC Legal Messaging',
+                valueType: 'DATE',
+                inputColor: Color(0xFF0F9587),
+                labelColor: Color(0xFF737373)),
+            InputField(
+                id: 'QDFZ03HbjGj',
+                name: 'VAC Legal Messaging Provision Status',
+                translatedName: 'Boemo ba Phano ea Litšebeletso ea VAC Legal Messaging',
+                valueType: 'TEXT',
+                inputColor: Color(0xFF0F9587),
+                labelColor: Color(0xFF737373),
+                options: [
+                  InputFieldOption(
+                      code: 'Achieved',
+                      name: 'Achieved',
+                      translatedName: 'Hona le katleho'),
+                  InputFieldOption(
+                      code: 'In progress',
+                      name: 'In progress',
+                      translatedName: 'Tsoelo pele'),
+                  InputFieldOption(
+                      code: 'Not achieved',
+                      name: 'Not achieved',
+                      translatedName: 'Ha ho katleho e fihletsoeng')
+                ]),
+            InputField(
+                id: 'Dw1xLXILErU',
+                name: 'VAC Legal Messaging Provision Date',
+                translatedName: 'Letsatsi la Kabo ea Litšebeletso tsa VAC Legal Messaging',
+                valueType: 'DATE',
+                inputColor: Color(0xFF0F9587),
+                labelColor: Color(0xFF737373)),
+            InputField(
+                id: 'KWk8waoLO7N',
+                name: 'VAC Legal Messaging Comment',
+                translatedName: 'Tlhaloso ea VAC Legal Messaging',
+                valueType: 'TEXT',
+                inputColor: Color(0xFF0F9587),
+                labelColor: Color(0xFF737373)),
+            InputField(
                 id: 'ZeDSleJMfKr',
                 name: 'SURVIVORS Follow-up date',
                 allowFuturePeriod: true,

@@ -203,6 +203,13 @@ class OvcServicesOngoingMonitoring {
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
             InputField(
+                id: 'x3FxC6Bw139',
+                name: 'VAC Legal Messaging progress',
+                translatedName: 'Tsoelo-pele ea litšebeletso tsa VAC Legal Messaging progress',
+                valueType: 'TEXT',
+                inputColor: Color(0xFF0F9587),
+                labelColor: Color(0xFF737373)),
+            InputField(
                 id: 'akSICiOvXty',
                 name: 'SURVIVORS Service progress',
                 translatedName: 'Tsoelo-pele ea litšebeletso tsa SURVIVORS',
