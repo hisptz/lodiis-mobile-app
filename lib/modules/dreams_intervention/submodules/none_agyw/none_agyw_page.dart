@@ -72,12 +72,25 @@ class _NoneAgywState extends State<NoneAgyw> {
   }
 
   Widget _buildBody() {
-    return SingleChildScrollView(child: Consumer<DreamsInterventionListState>(
+    return Container(child: Consumer<DreamsInterventionListState>(
         builder: (context, dreamInterventionListState, child) {
       return CustomPaginatedListView(
         emptyListWidget: Center(
-          child: Text(
-            'There is no beneficiary list at a moment',
+          child: Column(
+            children: [
+              Text(
+                'There is no beneficiary list at a moment',
+              ),
+              Container(
+                child: IconButton(
+                  icon: SvgPicture.asset(
+                    'assets/icons/add-beneficiary.svg',
+                    color: Colors.blueGrey,
+                  ),
+                  onPressed: () => onAddNoneAgywBeneficiary(context),
+                ),
+              )
+            ],
           ),
         ),
         errorWidget: Center(
