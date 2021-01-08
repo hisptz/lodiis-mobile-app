@@ -25,6 +25,7 @@ class DreamAgywReferralSkipLogic {
     inputFieldIds = inputFieldIds.toSet().toList();
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
+      print(value);
       if (inputFieldId == 'qAed23reDPP' && value != 'Community') {
         hiddenSections['SeRefoCo'] = true;
       }

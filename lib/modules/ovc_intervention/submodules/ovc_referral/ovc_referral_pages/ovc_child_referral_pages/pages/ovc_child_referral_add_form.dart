@@ -67,6 +67,13 @@ class _OvcChildReferralAddFormState extends State<OvcChildReferralAddForm> {
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState(id, value);
     evaluateSkipLogics();
+    if (id == 'LLWTHwhnch0') {
+      Provider.of<ServiceFormState>(context, listen: false)
+          .removeFieldFromState('rsh5Kvx6qAU');
+    } else if (id == 'AuCryxQYmrk') {
+      Provider.of<ServiceFormState>(context, listen: false)
+          .removeFieldFromState('OrC9Bh2bcFz');
+    }
   }
 
   void onSaveForm(
@@ -191,6 +198,7 @@ class _OvcChildReferralAddFormState extends State<OvcChildReferralAddForm> {
                                               serviceFormState.hiddenFields,
                                           hiddenSections:
                                               serviceFormState.hiddenSections,
+                                          hiddenInputFieldOptions: serviceFormState.hiddenInputFieldOptions,
                                           formSections: formSections,
                                           mandatoryFieldObject: Map(),
                                           isEditableMode:
