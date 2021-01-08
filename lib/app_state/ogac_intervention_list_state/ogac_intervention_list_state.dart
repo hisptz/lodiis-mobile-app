@@ -8,17 +8,12 @@ import 'package:kb_mobile_app/modules/ogac_intervention/services/ogac_enrollment
 class OgacInterventionListState with ChangeNotifier {
   // intitial state
   List<OgacBeneficiary> _ogacInterventionList = <OgacBeneficiary>[];
-  List<OgacBeneficiary> _filteredOgacInterventionList;
   bool _isLoading;
   int _numberOfOgac = 0;
   int _numberOfPages = 0;
   int _nextPage = 0;
 
   PagingController _pagingController;
-
-  // selectors
-  List<OgacBeneficiary> get ogacInterventionList =>
-      _filteredOgacInterventionList ?? [];
 
   bool get isLoading => _isLoading ?? false;
 

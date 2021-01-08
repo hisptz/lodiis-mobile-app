@@ -9,7 +9,6 @@ import 'package:kb_mobile_app/modules/ovc_intervention/services/ovc_enrollment_h
 class OvcInterventionListState with ChangeNotifier {
   // intial state
   List<OvcHouseHold> _ovcInterventionList = <OvcHouseHold>[];
-  List<OvcHouseHold> _filteredOvcInterventionList = [];
   PagingController _pagingController;
   bool _isLoading = true;
   int _numberOfHouseHolds = 0;
@@ -18,9 +17,6 @@ class OvcInterventionListState with ChangeNotifier {
   int _nextPage = 0;
   String searchText = '';
 
-  //selectors
-  List<OvcHouseHold> get ovcInterventionList =>
-      _filteredOvcInterventionList ?? [];
 
   bool get isLoading => _isLoading != null ? _isLoading : false;
 

@@ -9,9 +9,7 @@ import 'package:kb_mobile_app/modules/dreams_intervention/services/none_agyw_dre
 class DreamsInterventionListState with ChangeNotifier {
   // intial state
   List<AgywDream> _agywDreamsInterventionList = <AgywDream>[];
-  List<AgywDream> _filteredAgywDreamsInterventionList;
   List<AgywDream> _noneAgywDreamsInterventionList = <AgywDream>[];
-  List<AgywDream> _filteredNoneAgywDreamsInterventionList;
   bool _isLoading = false;
   int _numberOfAgywDreamsBeneficiaries = 0;
   int _numberOfNoneAgywDreamsBeneficiaries = 0;
@@ -24,12 +22,6 @@ class DreamsInterventionListState with ChangeNotifier {
 
   PagingController _nonAgywPagingController;
 
-  //selectors
-  List<AgywDream> get agywDreamsInterventionList =>
-      _filteredAgywDreamsInterventionList ?? [];
-
-  List<AgywDream> get noneAgywDreamsInterventionList =>
-      _filteredNoneAgywDreamsInterventionList ?? [];
 
   bool get isLoading => _isLoading != null ? _isLoading : false;
 
