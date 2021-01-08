@@ -25,12 +25,16 @@ class OvcMonitorChildView extends StatelessWidget {
     BuildContext context,
   ) {
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
+    Provider.of<ServiceFormState>(context, listen: false)
+        .updateFormEditabilityState(isEditableMode: true);
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => OvcServiceMonitoringForm()));
   }
 
   void onAddSchool(BuildContext context) {
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
+    Provider.of<ServiceFormState>(context, listen: false)
+        .updateFormEditabilityState(isEditableMode: true);
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => OvcSchoolMonitoringForm()));
   }
