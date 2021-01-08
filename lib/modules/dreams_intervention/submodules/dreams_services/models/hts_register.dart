@@ -48,6 +48,14 @@ class HTSRegister {
           labelColor: Color(0xFF737373),
         ),
         InputField(
+          id: 'KmQPPZ7O30R',
+          name:
+          'Pre-test counselled?',
+          valueType: 'BOOLEAN',
+          inputColor: Color(0xFF258DCC),
+          labelColor: Color(0xFF737373),
+        ),
+        InputField(
           id: 'Y5PxXxigrdQ',
           name:
           '1st HIV test Determine',

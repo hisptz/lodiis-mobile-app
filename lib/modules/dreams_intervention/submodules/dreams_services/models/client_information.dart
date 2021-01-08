@@ -182,16 +182,6 @@ class ClientInformation {
                 inputColor: Color(0xFF258DCC),
                 labelColor: Color(0xFF737373),
                 options: [
-                  InputFieldOption(
-                      code: 'Primary level', name: 'Primary level'),
-                  InputFieldOption(
-                      code: 'Secondary level', name: 'Secondary level'),
-                  InputFieldOption(
-                      code: 'Tertiary level',
-                      name: 'Tertiary level (college/university)'),
-                  InputFieldOption(
-                      code: 'Vocational level', name: 'Vocational level'),
-                  InputFieldOption(code: 'Other', name: 'Other'),
                   InputFieldOption(code: 'None', name: 'None'),
                   InputFieldOption(code: 'Primary', name: 'Primary'),
                   InputFieldOption(code: 'High school', name: 'High school'),
