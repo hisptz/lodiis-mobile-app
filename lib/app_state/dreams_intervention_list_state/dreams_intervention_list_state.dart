@@ -22,7 +22,6 @@ class DreamsInterventionListState with ChangeNotifier {
 
   PagingController _nonAgywPagingController;
 
-
   bool get isLoading => _isLoading != null ? _isLoading : false;
 
   int get numberOfAgywDreamsBeneficiaries => _numberOfAgywDreamsBeneficiaries;
@@ -74,7 +73,13 @@ class DreamsInterventionListState with ChangeNotifier {
     //write code to count and update number of Beneficiaries
     await getDreamsCount();
     getNumberOfPages();
-    initializePagination();
+    if (_nonAgywPagingController == null || _agywPagingController == null) {
+      initializePagination();
+    } else {
+      _nonAgywPagingController.refresh();
+      _agywPagingController.refresh();
+    }
+    //TODO: fix infinite loading while syncing data
     _isLoading = false;
     notifyListeners();
   }
@@ -126,14 +131,15 @@ class DreamsInterventionListState with ChangeNotifier {
     }
   }
 
-  void onNonAgywBeneficiaryAdd(){
-    _numberOfNoneAgywDreamsBeneficiaries = _numberOfNoneAgywDreamsBeneficiaries +1;
+  void onNonAgywBeneficiaryAdd() {
+    _numberOfNoneAgywDreamsBeneficiaries =
+        _numberOfNoneAgywDreamsBeneficiaries + 1;
     getNumberOfPages();
     notifyListeners();
     refreshDreamsList();
   }
 
-  void onAgywBeneficiaryAdd(){
+  void onAgywBeneficiaryAdd() {
     _numberOfAgywDreamsBeneficiaries = _numberOfAgywDreamsBeneficiaries + 1;
     getNumberOfPages();
     notifyListeners();
@@ -145,7 +151,7 @@ class DreamsInterventionListState with ChangeNotifier {
     _nonAgywPagingController.refresh();
     notifyListeners();
   }
-  
+
   @override
   void dispose() {
     _agywPagingController.dispose();

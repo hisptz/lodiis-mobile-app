@@ -48,7 +48,11 @@ class OgacInterventionListState with ChangeNotifier {
     notifyListeners();
     await getBeneficiaryNumber();
     getNumberOfPages();
-    initializePagination();
+    if (_pagingController == null) {
+      initializePagination();
+    } else {
+      _pagingController.refresh();
+    }
     _isLoading = false;
     notifyListeners();
   }
@@ -75,11 +79,11 @@ class OgacInterventionListState with ChangeNotifier {
     }
   }
 
-  void onBeneficiaryAdd(){
-      _numberOfOgac = _numberOfOgac + 1;
-      getNumberOfPages();
-      notifyListeners();
-      refreshOgacList();
+  void onBeneficiaryAdd() {
+    _numberOfOgac = _numberOfOgac + 1;
+    getNumberOfPages();
+    notifyListeners();
+    refreshOgacList();
   }
 
   //reducers

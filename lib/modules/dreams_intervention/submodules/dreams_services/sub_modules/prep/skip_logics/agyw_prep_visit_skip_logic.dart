@@ -4,11 +4,11 @@ import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:provider/provider.dart';
 
-mixin OvcCaseClosureSkipLogic {
-  Map hiddenFields = Map();
-  Map hiddenSections = Map();
+class AgywPrepSkipLogic {
+  static Map hiddenFields = Map();
+  static Map hiddenSections = Map();
 
-  Future evaluateCaseClosureSkipLogics(
+  static Future evaluateSkipLogics(
     BuildContext context,
     List<FormSection> formSections,
     Map dataObject,
@@ -21,35 +21,16 @@ mixin OvcCaseClosureSkipLogic {
     }
     inputFieldIds = inputFieldIds.toSet().toList();
     for (String inputFieldId in inputFieldIds) {
-      if (inputFieldId != 'S6vcaNyPT5a' && inputFieldId != 'D9boflKTCM4') {
-        hiddenFields[inputFieldId] = true;
-      }
-    }
-    for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
-      // if(inputFieldId == 'S6vcaNyPT5a' ) {
-      //   // print(value);
-      // }
-
-      if (inputFieldId == 'D9boflKTCM4' && value == 'CasePlanAchievement') {
-        hiddenFields['Mgvli43II0y'] = false;
-        hiddenFields['d1fuqooMhvZ'] = false;
-        hiddenFields['HEqBwx1j03q'] = false;
-        hiddenFields['P4jYGKdec2j'] = false;
-        hiddenFields['P3UeZrhQ3n6'] = false;
-        hiddenFields['UR6DHzGAh9V'] = false;
-        hiddenFields['aVSqxKj3eUt'] = false;
+      if (inputFieldId == 'oIrEIqHBvJ5' && value != 'Normal Visit') {
+        hiddenSections['PrEP_Visits'] = true;
+        hiddenFields['m0G5RLlWR9W'] = true;
       }
-      if (inputFieldId == 'D9boflKTCM4' && value == 'Transfer') {
-        hiddenFields['z3oHGQMNcwr'] = false;
-        hiddenFields['OXxcaFKJhaB'] = false;
-        hiddenFields['F687EjSn2TW'] = false;
-        hiddenFields['ZNeMsEdTA8s'] = false;
-        hiddenFields['KR0HmxVQwnJ'] = false;
+      if (inputFieldId == 'oIrEIqHBvJ5' && value != 'Case Transfer') {
+        hiddenSections['Case_transfer'] = true;
       }
-      if (inputFieldId == 'D9boflKTCM4' && value == 'Attrition') {
-        hiddenFields['rrAzBqK44OE'] = false;
-        hiddenFields['NAzhfDNlYIr'] = false;
+      if (inputFieldId == 'oIrEIqHBvJ5' && value != 'Stopping PrEP') {
+        hiddenSections['Stopping_PrEP'] = true;
       }
     }
     for (String sectionId in hiddenSections.keys) {
@@ -57,17 +38,22 @@ mixin OvcCaseClosureSkipLogic {
           FormUtil.getFlattenFormSections(formSections);
       List<String> hidddenSectionInputFieldIds = FormUtil.getFormFieldIds(allFormSections
           .where((formSection) => formSection.id == sectionId)
-          .toList());      
+          .toList());
+      List<String> allInputFieldIds = FormUtil.getFormFieldIds(allFormSections
+          .where((formSection) => formSection.id != sectionId)
+          .toList());
+      
       for (String inputFieldId in hidddenSectionInputFieldIds) {
-
-        hiddenFields[inputFieldId] = true;
+        if (allInputFieldIds.indexOf(inputFieldId) == -1) {
+          hiddenFields[inputFieldId] = true;
+        }
       }
     }
     resetValuesForHiddenFields(context, hiddenFields.keys);
     resetValuesForHiddenSections(context, formSections);
   }
 
-  resetValuesForHiddenFields(BuildContext context, inputFieldIds) {
+  static resetValuesForHiddenFields(BuildContext context, inputFieldIds) {
     for (String inputFieldId in inputFieldIds) {
       if (hiddenFields[inputFieldId]) {
         assignInputFieldValue(context, inputFieldId, null);
@@ -77,7 +63,7 @@ mixin OvcCaseClosureSkipLogic {
         .setHiddenFields(hiddenFields);
   }
 
-  resetValuesForHiddenSections(
+  static resetValuesForHiddenSections(
     BuildContext context,
     List<FormSection> formSections,
   ) {
@@ -85,7 +71,7 @@ mixin OvcCaseClosureSkipLogic {
         .setHiddenSections(hiddenSections);
   }
 
-  assignInputFieldValue(
+  static assignInputFieldValue(
     BuildContext context,
     String inputFieldId,
     String value,
