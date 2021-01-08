@@ -69,6 +69,10 @@ class _OvcHouseHoldAssessmentFormState
   void onInputValueChange(String id, dynamic value) {
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState(id, value);
+    if (id == 'ZuaV20IvVV2') {
+      Provider.of<ServiceFormState>(context, listen: false)
+          .removeFieldFromState('kCuxe1Psh8E');
+    }
     evaluateSkipLogics();
   }
 

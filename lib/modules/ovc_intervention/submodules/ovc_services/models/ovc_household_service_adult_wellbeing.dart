@@ -165,6 +165,8 @@ class OvcHouseHoldServiceAdultWellbeing {
               name: 'Select frequency', 
               translatedName: 'khetha linako',
               valueType: 'TEXT',
+              inputColor: Color(0xFF4B9F46),
+              labelColor: Color(0xFF1A3518),
               options: [
                 InputFieldOption(
                   code: 'Daily', 
