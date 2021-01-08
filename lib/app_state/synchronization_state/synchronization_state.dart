@@ -293,7 +293,6 @@ class SynchronizationState with ChangeNotifier {
         addDataUploadProcess("Uploading beneficiary's service data");
         await _synchronizationService.uploadTeiEventsToTheServer(teiEvents);
       }
-      print('done');
     } catch (e) {
       print(e);
     }
