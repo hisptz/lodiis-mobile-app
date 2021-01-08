@@ -275,8 +275,8 @@ class SynchronizationState with ChangeNotifier {
       var teis = await _synchronizationService.getTeisFromOfflineDb();
       var teiEnrollments =
           await _synchronizationService.getTeiEnrollmentFromOfflineDb();
-      print(teis);
-      print(teiEnrollments);
+      // print(teis);
+      // print(teiEnrollments);
       if (teis.length > 0) {
         addDataUploadProcess("Uploading beneficiary's profile data");
         await _synchronizationService.uploadTeisToTheServer(
@@ -293,7 +293,6 @@ class SynchronizationState with ChangeNotifier {
         addDataUploadProcess("Uploading beneficiary's service data");
         await _synchronizationService.uploadTeiEventsToTheServer(teiEvents);
       }
-      print('done');
     } catch (e) {
       print(e);
     }
