@@ -137,7 +137,7 @@ class OvchouseHoldAssessmentSkipLogic {
           hiddenFields['kCuxe1Psh8E'] = true;
           hiddenFields['lnFXCB5NcYk'] = true;
         }
-        hiddenInputFieldOptions['ZuaV20IvVV2'] = hiddenOptions;
+        hiddenInputFieldOptions['kCuxe1Psh8E'] = hiddenOptions;
       }
       if (inputFieldId == 'kCuxe1Psh8E' && value != 'Other') {
         hiddenFields['lnFXCB5NcYk'] = true;
@@ -147,6 +147,10 @@ class OvchouseHoldAssessmentSkipLogic {
       }
       if (inputFieldId == 'blod3xZ2dPP' && value != null && value != '0') {
         hiddenFields['eShHDoV4ARm'] = true;
+      }
+
+      if (inputFieldId == 'iXf2St64o0a' && value == 'true') {
+        hiddenFields['JcaEaDrtOFj'] = true;
       }
     }
     for (String sectionId in hiddenSections.keys) {
