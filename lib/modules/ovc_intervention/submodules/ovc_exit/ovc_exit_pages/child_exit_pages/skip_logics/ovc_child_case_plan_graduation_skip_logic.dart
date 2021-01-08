@@ -40,15 +40,10 @@ class OvcChildCasePlanGraduationSkipLogic {
           FormUtil.getFlattenFormSections(formSections);
       List<String> hidddenSectionInputFieldIds = FormUtil.getFormFieldIds(allFormSections
           .where((formSection) => formSection.id == sectionId)
-          .toList());
-      List<String> allInputFieldIds = FormUtil.getFormFieldIds(allFormSections
-          .where((formSection) => formSection.id != sectionId)
-          .toList());
-      
+          .toList());      
       for (String inputFieldId in hidddenSectionInputFieldIds) {
-        if (allInputFieldIds.indexOf(inputFieldId) == -1) {
-          hiddenFields[inputFieldId] = true;
-        }
+
+        hiddenFields[inputFieldId] = true;
       }
     }
     resetValuesForHiddenFields(context, hiddenFields.keys);
