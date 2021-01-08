@@ -4,15 +4,15 @@ import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:provider/provider.dart';
 
-class AgywDreamsCondomSkipLogic {
+class AgywPrepSkipLogic {
   static Map hiddenFields = Map();
   static Map hiddenSections = Map();
 
   static Future evaluateSkipLogics(
-      BuildContext context,
-      List<FormSection> formSections,
-      Map dataObject,
-      ) async {
+    BuildContext context,
+    List<FormSection> formSections,
+    Map dataObject,
+  ) async {
     hiddenFields.clear();
     hiddenSections.clear();
     List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections);
@@ -22,12 +22,15 @@ class AgywDreamsCondomSkipLogic {
     inputFieldIds = inputFieldIds.toSet().toList();
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
-      if (inputFieldId == 'lvT9gfpHIlT' && value == 'null') {
-        hiddenFields['sdgj99xGuv3'] = true;
-        hiddenFields['uciT2F6ByYO'] = true;
+      if (inputFieldId == 'oIrEIqHBvJ5' && value != 'Normal Visit') {
+        hiddenSections['PrEP_Visits'] = true;
+        hiddenFields['m0G5RLlWR9W'] = true;
       }
-      if(inputFieldId == 'uciT2F6ByYO' && value != 'true'){
-        hiddenFields['sdgj99xGuv3'] = true;
+      if (inputFieldId == 'oIrEIqHBvJ5' && value != 'Case Transfer') {
+        hiddenSections['Case_transfer'] = true;
+      }
+      if (inputFieldId == 'oIrEIqHBvJ5' && value != 'Stopping PrEP') {
+        hiddenSections['Stopping_PrEP'] = true;
       }
     }
     for (String sectionId in hiddenSections.keys) {
@@ -35,10 +38,15 @@ class AgywDreamsCondomSkipLogic {
           FormUtil.getFlattenFormSections(formSections);
       List<String> hidddenSectionInputFieldIds = FormUtil.getFormFieldIds(allFormSections
           .where((formSection) => formSection.id == sectionId)
-          .toList());      
+          .toList());
+      List<String> allInputFieldIds = FormUtil.getFormFieldIds(allFormSections
+          .where((formSection) => formSection.id != sectionId)
+          .toList());
+      
       for (String inputFieldId in hidddenSectionInputFieldIds) {
-
-        hiddenFields[inputFieldId] = true;
+        if (allInputFieldIds.indexOf(inputFieldId) == -1) {
+          hiddenFields[inputFieldId] = true;
+        }
       }
     }
     resetValuesForHiddenFields(context, hiddenFields.keys);
@@ -56,18 +64,18 @@ class AgywDreamsCondomSkipLogic {
   }
 
   static resetValuesForHiddenSections(
-      BuildContext context,
-      List<FormSection> formSections,
-      ) {
+    BuildContext context,
+    List<FormSection> formSections,
+  ) {
     Provider.of<ServiceFormState>(context, listen: false)
         .setHiddenSections(hiddenSections);
   }
 
   static assignInputFieldValue(
-      BuildContext context,
-      String inputFieldId,
-      String value,
-      ) {
+    BuildContext context,
+    String inputFieldId,
+    String value,
+  ) {
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState(inputFieldId, value);
   }
