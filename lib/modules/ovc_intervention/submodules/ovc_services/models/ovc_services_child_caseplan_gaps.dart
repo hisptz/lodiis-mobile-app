@@ -860,7 +860,7 @@ class OvcServicesChildCasePlanGaps {
                 name: 'MARKT COOPRTVS',
                 translatedName: 'Tšebeletso a MARKT COOPRTVS',
                 valueType: 'TRUE_ONLY',
-                inputColor: Color(0xFF4D9E49),
+                inputColor: Color(0xFF0000FF),
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'ixFuNoQKLoB',
@@ -1072,6 +1072,47 @@ class OvcServicesChildCasePlanGaps {
                 allowFuturePeriod: true,
                 name: '(VAC) Projected date for completion',
                 translatedName: 'Letsatsi la VAC le tla phetheloa',
+                valueType: 'DATE',
+                inputColor: Color(0xFF0F9587),
+                labelColor: Color(0xFF737373)),
+                InputField(
+                id: 'AaqeRcyjbyS',
+                name: 'VAC Legal Messaging',
+                translatedName: 'Tšebeletso a VAC Legal Messaging',
+                valueType: 'TRUE_ONLY',
+                inputColor: Color(0xFF0F9587),
+                labelColor: Color(0xFF737373)),
+            InputField(
+                id: 'RCDsibNNIWq',
+                name: '(VAC Legal Messaging) Responsible person(Internal/External)',
+                translatedName:
+                    '(VAC Legal Messaging) Motho ea ikarabellang (ka hare ho lelapa/ka ntle ho lelapa)',
+                valueType: 'TEXT',
+                inputColor: Color(0xFF0F9587),
+                labelColor: Color(0xFF737373),
+                options: [
+                  InputFieldOption(
+                      code: 'Internal',
+                      name: 'Internal',
+                      translatedName: 'Ka hare ho lelapa'),
+                  InputFieldOption(
+                      code: 'External',
+                      name: 'External',
+                      translatedName: 'Ka ntle ho lelapa')
+                ]),
+            InputField(
+                id: 'TizNGPP6e1d',
+                name: '(VAC Legal Messaging) Name of responsible person',
+                translatedName:
+                    'Lebitso la motho ea ikarabellang bakeng sa VAC Legal Messaging',
+                valueType: 'TEXT',
+                inputColor: Color(0xFF0F9587),
+                labelColor: Color(0xFF737373)),
+            InputField(
+                id: 'A4xYu8BYOg7',
+                allowFuturePeriod: true,
+                name: '(VAC Legal Messaging) Projected date for completion',
+                translatedName: 'Letsatsi la VAC Legal Messaging le tla phetheloa',
                 valueType: 'DATE',
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),

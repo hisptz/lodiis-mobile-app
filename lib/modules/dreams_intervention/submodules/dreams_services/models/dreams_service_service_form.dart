@@ -37,6 +37,7 @@ class DreamsServiceForm {
               InputFieldOption(code: 'LBSE', name: 'LBSE'),
               InputFieldOption(code: 'GBV Legal', name: 'GBV Legal'),
               InputFieldOption(code: 'VAC Legal', name: 'VAC Legal'),
+              InputFieldOption(code: 'VAC Legal Messaging', name: 'VAC Legal Messaging'),
             ]),
         InputField(
           id: 'O7sjTjxUmEa',

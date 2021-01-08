@@ -106,6 +106,11 @@ mixin OvcCasePlanGapSkipLogic {
         hiddenFields['jKqWohAPqyW'] = true;
         hiddenFields['wGrQeSydiwd'] = true;
       }
+      if (inputFieldId == 'AaqeRcyjbyS' && value != 'true') {
+        hiddenFields['RCDsibNNIWq'] = true;
+        hiddenFields['TizNGPP6e1d'] = true;
+        hiddenFields['A4xYu8BYOg7'] = true;
+      }
       if (inputFieldId == 'Vd8dV7OweWB' && value != 'true') {
         hiddenFields['VL3CAgTpdqK'] = true;
         hiddenFields['UDYd31rUKgN'] = true;
@@ -260,13 +265,14 @@ mixin OvcCasePlanGapSkipLogic {
     for (String sectionId in hiddenSections.keys) {
       List<FormSection> allFormSections =
           FormUtil.getFlattenFormSections(formSections);
-      List<String> hidddenSectionInputFieldIds = FormUtil.getFormFieldIds(allFormSections
-          .where((formSection) => formSection.id == sectionId)
-          .toList());
+      List<String> hidddenSectionInputFieldIds = FormUtil.getFormFieldIds(
+          allFormSections
+              .where((formSection) => formSection.id == sectionId)
+              .toList());
       List<String> allInputFieldIds = FormUtil.getFormFieldIds(allFormSections
           .where((formSection) => formSection.id != sectionId)
           .toList());
-      
+
       for (String inputFieldId in hidddenSectionInputFieldIds) {
         if (allInputFieldIds.indexOf(inputFieldId) == -1) {
           hiddenFields[inputFieldId] = true;
