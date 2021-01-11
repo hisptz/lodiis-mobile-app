@@ -34,6 +34,7 @@ class DreamReferralOutCome {
               id: 'DPf5mUDoZMy',
               name: 'Follow-up date',
               allowFuturePeriod: true,
+              disablePastPeriod: true,
               valueType: 'DATE',
               inputColor: Color(0xFF1F8ECE),
               labelColor: Color(0xFF737373),
