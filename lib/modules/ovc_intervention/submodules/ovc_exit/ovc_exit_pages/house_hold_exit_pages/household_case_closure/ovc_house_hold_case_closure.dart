@@ -19,6 +19,9 @@ import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/models/ovc_exit_case_closure.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_pages/house_hold_exit_pages/component/ovc_house_hold_exit_form_container.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_pages/house_hold_exit_pages/household_case_closure/constants/ovc_house_hold_case_closure_constant.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_pages/house_hold_exit_pages/household_exit/constants/ovc_house_hold_exit_constant.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_pages/house_hold_exit_pages/household_graduation/constants/ovc_house_hold_achievement_constant.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_pages/house_hold_exit_pages/household_transfer/constants/ovc_house_hold_case_transfer_constant.dart';
 import 'package:provider/provider.dart';
 
 class OvcHouseHoldCaseClosure extends StatefulWidget {
@@ -31,7 +34,10 @@ class _OvcHouseHoldCaseClosureState extends State<OvcHouseHoldCaseClosure> {
   final String label = 'Household Case Closure Form';
 
   final List<String> programStageIds = [
-    OvcHouseHoldCaseClosureConstant.programStage
+    OvcHouseHoldCaseClosureConstant.programStage,
+    OvcHouseHoldGraduationConstant.programStage,
+    OvcHouseHoldCaseTransferConstant.programStage,
+    OvcHouseHoldExitConstant.programStage
   ];
 
   bool isSaving = false;
@@ -135,30 +141,47 @@ class _OvcHouseHoldCaseClosureState extends State<OvcHouseHoldCaseClosure> {
                       ),
                       Container(
                         child: Consumer<ServiveEventDataState>(
-                          builder: (context, serviveEventDataState, child) {
-                            bool isLoading = serviveEventDataState.isLoading;
+                          builder: (context, serviceEventDataState, child) {
+                            bool isLoading = serviceEventDataState.isLoading;
                             Map<String, List<Events>> eventListByProgramStage =
-                                serviveEventDataState.eventListByProgramStage;
+                                serviceEventDataState.eventListByProgramStage;
                             List<Events> eventList = TrackedEntityInstanceUtil
-                                .getAllEventListFromServiceDataState(
-                                    eventListByProgramStage, programStageIds);
-                            Events event =
-                                eventList.length > 0 ? eventList[0] : null;
+                                    .getAllEventListFromServiceDataState(
+                                        eventListByProgramStage,
+                                        programStageIds) ??
+                                [];
+                            Events event = eventList.firstWhere(
+                                (e) =>
+                                    e.programStage ==
+                                    OvcHouseHoldCaseClosureConstant
+                                        .programStage,
+                                orElse: () => null);
+                            bool isDisabled = shouldDisableClosure(eventList);
+
                             return isLoading
                                 ? CircularProcessLoader(
                                     color: Colors.blueGrey,
                                   )
-                                : Container(
-                                    child: OvcHouseHoldExitFormContainer(
-                                    event: event,
-                                    exitType: 'closure',
-                                    isSaving: isSaving,
-                                    formSections: formSections,
-                                    onSaveForm: (dataObject) => this.onSaveForm(
-                                        context,
-                                        dataObject,
-                                        currentOvcHouseHold),
-                                  ));
+                                : isDisabled
+                                    ? Container(
+                                        height: 100.0,
+                                        child: Center(
+                                          child: Text(
+                                            'You cannot add closure before adding either Graduation, Exit, or Transfer',
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ),
+                                      )
+                                    : Container(
+                                        child: OvcHouseHoldExitFormContainer(
+                                        event: event,
+                                        exitType: 'closure',
+                                        isSaving: isSaving,
+                                        formSections: formSections,
+                                        onSaveForm: (dataObject) => this
+                                            .onSaveForm(context, dataObject,
+                                                currentOvcHouseHold),
+                                      ));
                           },
                         ),
                       )
@@ -170,5 +193,9 @@ class _OvcHouseHoldCaseClosureState extends State<OvcHouseHoldCaseClosure> {
           ),
         ),
         bottomNavigationBar: InterventionBottomNavigationBarContainer());
+  }
+
+  bool shouldDisableClosure(List<Events> eventList) {
+    return eventList.isEmpty;
   }
 }
