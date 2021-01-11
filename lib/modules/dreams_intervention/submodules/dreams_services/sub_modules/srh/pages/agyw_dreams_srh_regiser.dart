@@ -86,15 +86,27 @@ class _AgywDreamsSrhRegisterFormState extends State<AgywDreamsSrhRegisterForm> {
       List<String> hiddenFields = [];
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-            HivPrepClientIntakeConstant.program,
-            HivPrepClientIntakeConstant.programStage,
-            agywDream.orgUnit,
-            allFormSections,
-            dataObject,
-            eventDate,
-            agywDream.id,
-            eventId,
-            hiddenFields);
+          HivPrepClientIntakeConstant.program,
+          HivPrepClientIntakeConstant.programStage,
+          agywDream.orgUnit,
+          allFormSections,
+          dataObject,
+          eventDate,
+          agywDream.id,
+          eventId,
+          hiddenFields,
+        );
+        await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
+          HivPrepClientIntakeConstant.program,
+          HivPrepClientIntakeConstant.srhRegisterProgramStage,
+          agywDream.orgUnit,
+          allFormSections,
+          dataObject,
+          eventDate,
+          agywDream.id,
+          eventId,
+          hiddenFields,
+        );
         Provider.of<ServiveEventDataState>(context, listen: false)
             .resetServiceEventDataState(agywDream.id);
         Timer(Duration(seconds: 1), () {
