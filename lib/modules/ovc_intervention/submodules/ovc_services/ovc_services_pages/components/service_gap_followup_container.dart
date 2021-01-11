@@ -30,6 +30,7 @@ class ServiceGapFollowUpContainer extends StatefulWidget {
 class _ServiceGapFollowUpContainerState
     extends State<ServiceGapFollowUpContainer> {
   String casePlanGapToFollowinUpLinkageValue;
+
   // todo using stage management to tget update list
 
   @override
@@ -74,6 +75,7 @@ class _ServiceGapFollowUpContainerState
             children: [
               Container(
                 child: CasePlanFollowUpViewContainer(
+                  casePlanGap: widget.casePlanGap,
                   domainId: widget.domainId,
                   themeColor: widget.formSectionColor,
                   casePlanGapToFollowinUpLinkageValue:

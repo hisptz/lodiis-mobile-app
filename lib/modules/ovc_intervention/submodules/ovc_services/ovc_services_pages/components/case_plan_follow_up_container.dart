@@ -54,6 +54,7 @@ class _CasePlanGapFollowUpContainerState
             children: [
               Container(
                 child: CasePlanFollowUpViewContainer(
+                  casePlanGap: widget.casePlanGap,
                   domainId: widget.domainId,
                   themeColor: widget.formSectionColor,
                   casePlanGapToFollowinUpLinkageValue:

@@ -21,6 +21,7 @@ class CasePlanFollowUpViewContainer extends StatefulWidget {
     @required this.isCasePlanForHouseHold,
     @required this.themeColor,
     @required this.domainId,
+    @required this.casePlanGap,
   }) : super(key: key);
 
   final String casePlanGapToFollowinUpLinkageValue;
@@ -28,6 +29,7 @@ class CasePlanFollowUpViewContainer extends StatefulWidget {
   final bool isCasePlanForHouseHold;
   final String domainId;
   final Color themeColor;
+  final Map casePlanGap;
 
   @override
   _CasePlanFollowUpViewContainerState createState() =>
@@ -53,6 +55,7 @@ class _CasePlanFollowUpViewContainerState
       if ('${dataValue['value']}'.isNotEmpty)
         dataObject[dataValue['dataElement']] = dataValue['value'];
     }
+    dataObject.addAll(widget.casePlanGap);
     Widget modal = CasePlanFollowUpFormContainer(
       dataObject: dataObject,
       domainId: widget.domainId,
