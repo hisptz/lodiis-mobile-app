@@ -36,6 +36,7 @@ class OvcChildServiceHomeContant {
         title: 'Services',
         translatedTitle: 'Litsebeletso',
         icon: 'assets/icons/child_service_ovc_icon.svg',
+        groupByDate: true,
         programStages: ['ZHjrdThi7Bz'],
       ),
       OvcChildServiceHomeContant(
