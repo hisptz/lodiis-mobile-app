@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/core/components/line_seperator.dart';
 import 'package:kb_mobile_app/core/components/material_card.dart';
+import 'package:provider/provider.dart';
 
-class DataDowmloadContainer extends StatelessWidget {
-  const DataDowmloadContainer(
+class DataDownloadContainer extends StatelessWidget {
+  const DataDownloadContainer(
       {Key key,
       @required this.isDataDownloadingActive,
       @required this.isDataUploadingActive,
       @required this.dataDownloadProcesses,
       this.onViewConflicts,
       this.onStartDataDownload,
-      this.conflictCount})
+      this.conflictCount,
+      this.profileProgress,
+      this.eventsProgress, this.overallProgress})
       : super(key: key);
 
   final bool isDataDownloadingActive;
@@ -19,6 +23,9 @@ class DataDowmloadContainer extends StatelessWidget {
   final Function onViewConflicts;
   final List<String> dataDownloadProcesses;
   final int conflictCount;
+  final double profileProgress;
+  final double eventsProgress;
+  final double overallProgress;
 
   @override
   Widget build(BuildContext context) {
@@ -49,19 +56,89 @@ class DataDowmloadContainer extends StatelessWidget {
                     borderRadius: BorderRadius.circular(12.0),
                   ),
                   child: Column(
-                    children: dataDownloadProcesses
-                        .map((String process) => Container(
-                              alignment: Alignment.centerLeft,
-                              margin: EdgeInsets.symmetric(vertical: 2.0),
-                              child: Text(
-                                process,
-                                style: TextStyle().copyWith(
-                                    fontSize: 12.0,
-                                    fontStyle: FontStyle.italic,
-                                    fontWeight: FontWeight.normal),
+                    children: [
+                      Text(
+                          'Starting Download. Please wait, this might take a while'),
+                      Container(
+                        child: Column(
+                          children: [
+                            Text('Overall Progress'),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Center(
+                                child: LinearProgressIndicator(
+                                  backgroundColor: Colors.grey,
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                      Provider.of<IntervetionCardState>(context,
+                                              listen: false)
+                                          .currentIntervetionProgram
+                                          .primmaryColor),
+                                  minHeight: 10.0,
+                                  value: overallProgress ?? 0,
+                                ),
                               ),
-                            ))
-                        .toList(),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        child: Column(
+                          children: [
+                            Text('Profile Data'),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Center(
+                                child: LinearProgressIndicator(
+                                  backgroundColor: Colors.grey,
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                      Provider.of<IntervetionCardState>(context,
+                                              listen: false)
+                                          .currentIntervetionProgram
+                                          .primmaryColor),
+                                  minHeight: 10.0,
+                                  value: profileProgress ?? 0,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        child: Column(
+                          children: [
+                            Text('Service Data', textAlign: TextAlign.start,),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Center(
+                                child: LinearProgressIndicator(
+                                  backgroundColor: Colors.grey,
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                      Provider.of<IntervetionCardState>(context,
+                                              listen: false)
+                                          .currentIntervetionProgram
+                                          .primmaryColor),
+                                  minHeight: 10.0,
+                                  value: eventsProgress ?? 0,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        alignment: Alignment.centerLeft,
+                        margin: EdgeInsets.symmetric(vertical: 2.0),
+                        child: Text(
+                          dataDownloadProcesses.length > 0
+                              ? dataDownloadProcesses.last
+                              : '',
+                          style: TextStyle().copyWith(
+                              fontSize: 12.0,
+                              fontStyle: FontStyle.italic,
+                              fontWeight: FontWeight.normal),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),

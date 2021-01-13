@@ -5,6 +5,7 @@ import 'package:sqflite/sqflite.dart';
 
 class EventOfflineProvider extends OfflineDbProvider {
   final String table = 'events';
+
   //columns
   final String id = 'id';
   final String event = 'event';
@@ -17,13 +18,27 @@ class EventOfflineProvider extends OfflineDbProvider {
   final String syncStatus = 'syncStatus';
 
   addOrUpdateEvent(Events event) async {
-       var dbClient = await db;
+    var dbClient = await db;
     Map data = Events().toOffline(event);
     data['id'] = data['event'];
     data.remove('dataValues');
     await dbClient.insert(table, data,
         conflictAlgorithm: ConflictAlgorithm.replace);
     await EventOfflineDataValueProvider().addOrUpdateEventDataValues(event);
+  }
+
+  addOrUpdateMultipleEvents(List<Events> events) async {
+    var dbClient = await db;
+    var eventBatch = dbClient.batch();
+    for (Events event in events) {
+      Map data = Events().toOffline(event);
+      data['id'] = data['event'];
+      data.remove('dataValues');
+      eventBatch.insert(table, data,
+          conflictAlgorithm: ConflictAlgorithm.replace);
+    }
+
+    await eventBatch.commit(exclusive: true, noResult: true, continueOnError: true);
   }
 
   Future<List<Events>> getTrackedEntityInstanceEvents(
