@@ -46,7 +46,7 @@ class MyApp extends StatelessWidget {
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
-          title: "[TEST] Lesotho OVC-DREAMS",
+          title: "Lesotho OVC-DREAMS",
           theme: ThemeData(
               textTheme: GoogleFonts.robotoTextTheme(
                 Theme.of(context).textTheme,
