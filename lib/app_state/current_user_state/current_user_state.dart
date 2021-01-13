@@ -118,6 +118,12 @@ class CurrentUserState with ChangeNotifier {
       _canManageReferral = true;
       _canManageCLOReferral = true;
     }
+    if (implementingPartner == "Paralegal") {
+      _canManageOvc = true;
+      _canManageDreams = true;
+      _canManageReferral = true;
+      _canManageServiceForm = true;
+    }
   }
 
   //reducers
