@@ -2,7 +2,7 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
 class OfflineDbProvider {
-  final String databaseName = "kb_ovc_dreams_mobile_app_testing";
+  final String databaseName = "kb_ovc_dreams_mobile_app";
   Database _db;
   // Script for migrations as well as intialization of tables
   final List<String> initialQuery = [
