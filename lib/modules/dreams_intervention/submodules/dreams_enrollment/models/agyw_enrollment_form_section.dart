@@ -57,6 +57,7 @@ class AgywEnrollmentFormSection {
               translatedName:
                   'Na moroetsana/mosali ea mocha lilemong o lipakeng tsa lilemo tse 9 le 24?',
               valueType: 'BOOLEAN',
+              isReadOnly: true,
               inputColor: Color(0xFF258DCC),
               labelColor: Color(0xFF737373)),
           InputField(
@@ -2040,7 +2041,6 @@ class AgywEnrollmentFormSection {
                     name: 'Go Girls: Sepheo Adopted Curriculum: Married Women',
                     translatedName:
                         'Go Girls: Sepheo Adopted Curriculum: Married Women',
-                        
                   ),
                   InputFieldOption(
                     code: 'SaAW6b6glDZ',
