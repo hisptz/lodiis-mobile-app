@@ -4,19 +4,24 @@ import 'package:kb_mobile_app/core/offline_db/user_offline/user_ou_offline_provi
 import 'package:kb_mobile_app/core/offline_db/user_offline/user_program_offline_provider.dart';
 import 'package:kb_mobile_app/core/services/http_service.dart';
 import 'package:kb_mobile_app/core/services/preference_provider.dart';
+import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
 
 class UserService {
   final String preferenceKey = 'currrent_user';
 
   Future<dynamic> login(String username, String password) async {
-    var url =
-        'api/me.json?fields=id,name,programs,organisationUnits[id],attributeValues[value,attribute[id,name]]';
-    HttpService http = new HttpService(username: username, password: password);
-    var response = await http.httpGet(url);
-    return response.statusCode == 200
-        ? CurrentUser.fromJson(json.decode(response.body), username, password)
-        : null;
+    try{
+      var url =
+          'api/me.json?fields=id,name,programs,organisationUnits[id],attributeValues[value,attribute[id,name]]';
+      HttpService http = new HttpService(username: username, password: password);
+      var response = await http.httpGet(url);
+      return response.statusCode == 200
+          ? CurrentUser.fromJson(json.decode(response.body), username, password)
+          : 'invalid username/password';
+    }catch(e){
+      return null;
+    }
   }
 
   Future logout() async {
