@@ -5,12 +5,34 @@ import 'package:sqflite/sqflite.dart';
 
 class TrackedEntityInstanceOfflineProvider extends OfflineDbProvider {
   final String table = 'tracked_entity_instance';
+
   //columns
   final String id = 'id';
   final String trackedEntityInstance = 'trackedEntityInstance';
   final String trackedEntityType = 'trackedEntityType';
   final String orgUnit = 'orgUnit';
   final String syncStatus = 'syncStatus';
+
+  addOrUpdateMultipleTrackedEntityInstance(
+      List<TrackeEntityInstance> trackedEntityInstances) async {
+    var dbClient = await db;
+    var trackedEntityBatch = dbClient.batch();
+    List attributesList = [];
+
+    for (TrackeEntityInstance trackedEntityInstance in trackedEntityInstances) {
+      Map data = TrackeEntityInstance().toOffline(trackedEntityInstance);
+      data.remove('attributes');
+      data['id'] = data['trackedEntityInstance'];
+      trackedEntityBatch.insert(table, data,
+          conflictAlgorithm: ConflictAlgorithm.replace);
+      attributesList.addAll(TrackedEntityInstanceOfflineAttributeProvider()
+          .getTrackedEntityAttributes(trackedEntityInstance));
+    }
+    await trackedEntityBatch.commit(
+        continueOnError: true, noResult: true, exclusive: true);
+    await TrackedEntityInstanceOfflineAttributeProvider()
+        .addOrUpdateMultipleTrackedEntityInstanceAttributes(attributesList);
+  }
 
   addOrUpdateTrackedEntityInstance(
     TrackeEntityInstance trackedEntityInstance,
@@ -67,7 +89,7 @@ class TrackedEntityInstanceOfflineProvider extends OfflineDbProvider {
       var dbClient = await db;
       List<Map> maps = await dbClient.query(
         table,
-        columns:[
+        columns: [
           trackedEntityInstance,
           trackedEntityType,
           orgUnit,

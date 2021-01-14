@@ -60,7 +60,9 @@ class CurrentUser {
                                 ? 'CLO'
                                 : attributeValue['value'] == 'H2CE3Iwdf7v'
                                     ? 'Super user'
-                                    : implementingPartner;
+                                    : attributeValue['value'] == 'RoLA6GyxTlS'
+                                        ? 'Paralegal'
+                                        : implementingPartner;
     }
     return CurrentUser(
         name: json['name'],

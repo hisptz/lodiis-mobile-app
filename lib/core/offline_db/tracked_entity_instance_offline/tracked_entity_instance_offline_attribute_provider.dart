@@ -4,6 +4,7 @@ import 'package:sqflite/sqflite.dart';
 
 class TrackedEntityInstanceOfflineAttributeProvider extends OfflineDbProvider {
   final String table = 'tracked_entity_instance_attribute';
+
   //columns
   final String id = 'id';
   final String trackedEntityInstance = 'trackedEntityInstance';
@@ -29,6 +30,39 @@ class TrackedEntityInstanceOfflineAttributeProvider extends OfflineDbProvider {
             conflictAlgorithm: ConflictAlgorithm.replace);
       }
     } catch (e) {}
+  }
+
+  addOrUpdateMultipleTrackedEntityInstanceAttributes(List attributes) async {
+    var dbClient = await db;
+    var attributesBatch = dbClient.batch();
+    try {
+      for (var attribute in attributes) {
+        attributesBatch.insert(table, attribute,
+            conflictAlgorithm: ConflictAlgorithm.replace);
+      }
+      await attributesBatch.commit(
+          exclusive: true, noResult: true, continueOnError: true);
+    } catch (e) {}
+  }
+
+  List getTrackedEntityAttributes(TrackeEntityInstance trackedEntityInstance) {
+    List attributes = trackedEntityInstance.attributes as List<dynamic>;
+    List attributesObjects = [];
+    try {
+      String trackedEntityInstanceId =
+          trackedEntityInstance.trackedEntityInstance;
+      for (Map attributeObj in attributes) {
+        String attribute = attributeObj['attribute'];
+        Map data = Map<String, dynamic>();
+        data['id'] = '$trackedEntityInstance-$attribute';
+        data['trackedEntityInstance'] = trackedEntityInstanceId;
+        data['attribute'] = attribute;
+        data['value'] = attributeObj['value'] ?? '';
+        attributesObjects.add(data);
+      }
+    } catch (e) {}
+
+    return attributesObjects;
   }
 
   Future<List> getTrackedEntityAttributesValues(
@@ -65,12 +99,12 @@ class TrackedEntityInstanceOfflineAttributeProvider extends OfflineDbProvider {
         where: '$attribute IN ($questionMarks)',
         whereArgs: attributeIds,
       );
-        if (maps.isNotEmpty) {
+      if (maps.isNotEmpty) {
         for (Map map in maps) {
           attributes.add(map);
         }
       }
     } catch (e) {}
-       return attributes;
+    return attributes;
   }
 }
