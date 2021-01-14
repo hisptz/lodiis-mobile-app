@@ -35,7 +35,8 @@ class InterventionPopActionMenu {
         name: 'Language Settings',
         translatedName: 'Khetha Puo',
       ),
-      // InterventionPopActionMenu(id: 'settings', name: 'Settings'),
+      InterventionPopActionMenu(
+          id: 'application_logs', name: 'Application Logs'),
       // InterventionPopActionMenu(id: 'report', name: 'Report'),
       // InterventionPopActionMenu(id: 'profile', name: 'Profiles'),
     ];

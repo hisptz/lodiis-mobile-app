@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/core/components/input_fields/input_checked_icon.dart';
+import 'package:kb_mobile_app/core/components/input_fields/input_search_icon.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 
 class TextInputFieldContainer extends StatefulWidget {
@@ -9,12 +10,14 @@ class TextInputFieldContainer extends StatefulWidget {
     this.onInputValueChange,
     this.inputValue,
     this.showInputCheckedIcon = true,
+    this.showInputSearchIcon = false,
   }) : super(key: key);
 
   final InputField inputField;
   final Function onInputValueChange;
   final String inputValue;
   final bool showInputCheckedIcon;
+  final bool showInputSearchIcon;
 
   @override
   _TextInputFieldContainerState createState() =>
@@ -73,6 +76,10 @@ class _TextInputFieldContainerState extends State<TextInputFieldContainer> {
                 _value != null &&
                 '$_value'.trim() != '',
             color: widget.inputField.inputColor,
+          ),
+          Visibility(
+            child: InputSearchIcon(),
+            visible: widget.showInputSearchIcon,
           )
         ],
       ),
