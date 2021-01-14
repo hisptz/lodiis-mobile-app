@@ -68,6 +68,11 @@ class _AgywDreamsIndexContactState extends State<AgywDreamsIndexContact> {
       });
       String eventDate = dataObject['eventDate'];
       String eventId = dataObject['eventId'];
+      dataObject[AgywDreamsHTSIndexConstant
+          .indexContactToElicitedSexualPartnerLinkage] = dataObject[
+              AgywDreamsHTSIndexConstant
+                  .indexContactToElicitedSexualPartnerLinkage] ??
+          AppUtil.getUid();
       List<String> hiddenFields = [
         AgywDreamsHTSIndexConstant.indexInfoToIndexContactLinkage,
         AgywDreamsHTSIndexConstant.indexContactToElicitedSexualPartnerLinkage

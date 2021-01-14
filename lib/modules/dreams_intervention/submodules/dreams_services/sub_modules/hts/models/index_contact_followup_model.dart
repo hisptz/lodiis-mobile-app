@@ -1,29 +1,24 @@
 import 'package:kb_mobile_app/models/events.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/constants/agyw_dreams_hts_index_constant.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/constants/agyw_dream_hts_follow_up.dart';
 
-class IndexContactModel {
+class IndexContactFollowUpModel {
   String id;
   String date;
-  String name;
   dynamic dataValues;
   Events eventData;
-  String indexInfoToIndexContactLinkage;
   String indexContactToElicitedPartnerLinkage;
 
-  IndexContactModel(
-      {this.id,
-      this.date,
-      this.name,
-      this.dataValues,
-      this.eventData,
-      this.indexInfoToIndexContactLinkage,
-      this.indexContactToElicitedPartnerLinkage});
+  IndexContactFollowUpModel({
+    this.id,
+    this.date,
+    this.dataValues,
+    this.eventData,
+    this.indexContactToElicitedPartnerLinkage,
+  });
 
-  IndexContactModel fromTeiModel(Events eventData) {
+  IndexContactFollowUpModel fromTeiModel(Events eventData) {
     List keys = [
-      AgywDreamsHTSIndexConstant.indexName,
-      AgywDreamsHTSIndexConstant.indexInfoToIndexContactLinkage,
-      AgywDreamsHTSIndexConstant.indexContactToElicitedSexualPartnerLinkage
+      AgywDreamsHTSFOLLOWUPConstant.indexContactToElicitedPartnerLinkage
     ];
     Map data = Map();
     for (Map detailObj in eventData.dataValues) {
@@ -32,14 +27,13 @@ class IndexContactModel {
         data[attribute] = '${detailObj['value']}'.trim() ?? '';
       }
     }
-    return IndexContactModel(
+    return IndexContactFollowUpModel(
       id: eventData.event,
       date: eventData.eventDate,
       dataValues: eventData.dataValues,
-      indexInfoToIndexContactLinkage:
-          data[AgywDreamsHTSIndexConstant.indexInfoToIndexContactLinkage] ?? '',
-      name: data[AgywDreamsHTSIndexConstant.indexName] ?? '',
-      indexContactToElicitedPartnerLinkage: data[AgywDreamsHTSIndexConstant.indexContactToElicitedSexualPartnerLinkage],
+      indexContactToElicitedPartnerLinkage: data[AgywDreamsHTSFOLLOWUPConstant
+              .indexContactToElicitedPartnerLinkage] ??
+          '',
       eventData: eventData,
     );
   }
