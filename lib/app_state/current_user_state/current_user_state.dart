@@ -111,6 +111,8 @@ class CurrentUserState with ChangeNotifier {
       _canManagePOSTGBV = true;
       _canManageMSGHIV = true;
       _canManageServiceForm = true;
+      _canManagePrep = true;
+      _canManagePEP = true;
     }
     if (implementingPartner == 'CLO') {
       _canManageOvc = true;

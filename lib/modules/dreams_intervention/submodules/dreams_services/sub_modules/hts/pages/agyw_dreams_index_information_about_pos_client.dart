@@ -90,7 +90,7 @@ class _AgywDreamsIndexInfoAboutPosClientState
           AppUtil.getUid();
       List<String> hiddenFields = [
         AgywDreamsIndexPositiveConstant.htsToIndexLinkage,
-        AgywDreamsIndexPositiveConstant.indexInfoToIndexContactLinkage
+        AgywDreamsIndexPositiveConstant.indexInfoToIndexContactLinkage,
       ];
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(

@@ -14,6 +14,7 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_serv
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/constants/agyw_dreams_hts_index_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/constants/agyw_dreams_index_contact_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/models/index_contact_model.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/pages/agyw_dreams_hts_index_contact_followup_list.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/pages/agyw_dreams_index_contact.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/pages/agyw_dreams_index_contact_followup.dart';
 import 'package:provider/provider.dart';
@@ -51,7 +52,7 @@ class _DreamsHTSIndexCardBottonContentState
           .setFormFieldState('eventDate', eventData.date);
       Provider.of<ServiceFormState>(context, listen: false)
           .setFormFieldState('eventId', eventData.id);
-      for (Map datavalue in eventData.datavalues) {
+      for (Map datavalue in eventData.dataValues) {
         if (datavalue['value'] != '') {
           Provider.of<ServiceFormState>(context, listen: false)
               .setFormFieldState(datavalue['dataElement'], datavalue['value']);
@@ -78,16 +79,15 @@ class _DreamsHTSIndexCardBottonContentState
         ));
   }
 
-  void onFolloUpIndexContact(
+  void onFollowUpIndexContact(
       BuildContext context, IndexContactModel eventData) {
-    updateFormState(context, true, null);
-    Provider.of<ServiceFormState>(context, listen: false).setFormFieldState(
-        AgywDreamsHTSFOLLOWUPConstant.indexContactToElicitedPartnerLinkage,
-        widget.event.indexContactToElicitedPartnerLinkage);
     Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => AgywDreamsIndexFollowUp(),
+          builder: (context) => AgywDreamsIndexFollowUpList(
+            indexContactEvent: eventData,
+            indexInfoEvent: widget.event,
+          ),
         ));
   }
 
@@ -96,9 +96,6 @@ class _DreamsHTSIndexCardBottonContentState
     Provider.of<ServiceFormState>(context, listen: false).setFormFieldState(
         AgywDreamsHTSIndexConstant.indexInfoToIndexContactLinkage,
         widget.event.indexInfoToIndexContactLinkage);
-    Provider.of<ServiceFormState>(context, listen: false).setFormFieldState(
-        AgywDreamsHTSIndexConstant.indexContactToElicitedSexualPartnerLinkage,
-        widget.event.indexContactToElicitedPartnerLinkage);
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => AgywDreamsIndexContact()));
   }
@@ -124,7 +121,7 @@ class _DreamsHTSIndexCardBottonContentState
                     )),
                 Expanded(
                   child: Container(
-                    child: Text('Index List',
+                    child: Text('Index Contact List',
                         style: TextStyle().copyWith(
                           fontSize: 14.0,
                           color: Color(0xFF536852),
@@ -222,7 +219,7 @@ class _DreamsHTSIndexCardBottonContentState
                                   child: Container(
                                       margin: EdgeInsets.only(left: 10.0),
                                       child: InkWell(
-                                          onTap: () => onFolloUpIndexContact(
+                                          onTap: () => onFollowUpIndexContact(
                                               context, eventData),
                                           child: Container(
                                             padding: EdgeInsets.all(5.0),
@@ -260,7 +257,7 @@ class _DreamsHTSIndexCardBottonContentState
                       alignment: Alignment.center,
                       width: double.infinity,
                       child: Text(
-                        'ADD INDEX',
+                        'ADD NEW INDEX CONTACT',
                         style: TextStyle().copyWith(
                           fontSize: 12.0,
                           color: Color(0xFF258DCC),

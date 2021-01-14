@@ -38,9 +38,8 @@ class SynchronizationService {
     return paginationFilter;
   }
 
-  Future<List<Events>> getEventsfromServer(
+  Future<void> getAndSaveEventsFromServer(
       String program, String userOrgId) async {
-    List<Events> eventsFromServer = [];
     try {
       List<String> pageFilters = await getDataPaginationFilters(
           "api/events.json?ouMode=DESCENDANTS&orgUnit=$userOrgId&program=$program");
@@ -50,16 +49,16 @@ class SynchronizationService {
         Response response = await httpClient.httpGet(newTrackedInstanceUrl);
         if (response.statusCode == 200) {
           var responseData = json.decode(response.body);
-          for (var event in responseData["events"]) {
-            eventsFromServer.add(Events().fromJson(event));
-            // await saveEventsToOffline(Events().fromJson(event));
-          }
+          List<Events> events =
+              responseData['events']?.map<Events>((event) => Events().fromJson(event))?.toList();
+          saveEventsToOffline(events);
         } else {
-          return null;
+          print(response.statusCode);
         }
       }
-    } catch (e) {}
-    return eventsFromServer;
+    } catch (e) {
+      print(e);
+    }
   }
 
   Future<List<TeiRelationship>> getTeiRelationshipsfromServer(
@@ -88,8 +87,8 @@ class SynchronizationService {
     return teiRelationshipsFromServer;
   }
 
-  Future saveEventsToOffline(Events event) async {
-    EventOfflineProvider().addOrUpdateEvent(event);
+  Future saveEventsToOffline(List<Events> events) async {
+    await EventOfflineProvider().addOrUpdateMultipleEvents(events);
   }
 
   Future saveTeiRelationshipToOffline(TeiRelationship relationship) async {
@@ -110,10 +109,42 @@ class SynchronizationService {
     return entityInstanceAttributes;
   }
 
+  List<TrackeEntityInstance> getTeiFromResponse(responseData) {
+    return responseData['trackedEntityInstances']
+        ?.map<TrackeEntityInstance>(
+            (instance) => TrackeEntityInstance().fromJson(instance))
+        ?.toList();
+  }
+
+  Map<String, List> getEnrollmentsAndRelationshipsFromResponse(responseData){
+    List<Enrollment> enrollments = [];
+    List<TeiRelationship> relationships = [];
+    for (var tei in responseData['trackedEntityInstances']) {
+      enrollments.addAll(tei['enrollments']
+          ?.map<Enrollment>((t) => Enrollment().fromJson(t))
+          ?.toList());
+      relationships.addAll(tei['relationships']
+          ?.map<TeiRelationship>((t) => TeiRelationship().fromOnline(t))
+          ?.toList());
+    }
+    return {'enrollments': enrollments, 'relationships': relationships};
+  }
+
+  Future<void> saveTeis(var responseData) async {
+    Map enrollmentsAndRelationships =
+        getEnrollmentsAndRelationshipsFromResponse(responseData);
+    TrackedEntityInstanceOfflineProvider()
+        .addOrUpdateMultipleTrackedEntityInstance(
+            getTeiFromResponse(responseData));
+    EnrollmentOfflineProvider().addOrUpdateMultipleEnrollments(
+        enrollmentsAndRelationships['enrollments']);
+    TeiRelatioShipOfflineProvider().addOrUpdateMultipleTeiRelationships(
+        enrollmentsAndRelationships['relationships']);
+  }
+
 //Change from dynamic to TrackeEntityInstance
-  Future<List<dynamic>> getTrackedInstancefromServer(
+  Future<void> getAndSaveTrackedInstanceFromServer(
       String program, String userOrgId) async {
-    List trackedInstanceFromServer = [];
     List<String> pageFilters = await getDataPaginationFilters(
         "api/trackedEntityInstances.json?ouMode=DESCENDANTS&ou=$userOrgId&program=$program");
     for (var pageFilter in pageFilters) {
@@ -123,22 +154,12 @@ class SynchronizationService {
       Response response = await httpClient.httpGet(newTrackedInstanceUrl);
       if (response.statusCode == 200) {
         var responseData = json.decode(response.body);
-        for (var trackedEntityInstance
-            in responseData["trackedEntityInstances"]) {
-          trackedInstanceFromServer.add(trackedEntityInstance);
-        }
-      } else {
-        return null;
+        await saveTeis(responseData);
+      }
+      {
+        print(response.statusCode);
       }
     }
-
-    return trackedInstanceFromServer;
-  }
-
-  Future saveTrackeEntityInstanceToOffline(
-      TrackeEntityInstance trackeEntityInstance) async {
-    await TrackedEntityInstanceOfflineProvider()
-        .addOrUpdateTrackedEntityInstance(trackeEntityInstance);
   }
 
 //TrackedEntityInstanceOfflineAttributeProvider

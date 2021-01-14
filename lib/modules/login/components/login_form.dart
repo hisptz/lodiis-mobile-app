@@ -77,22 +77,29 @@ class _LoginFormState extends State<LoginForm> {
       CurrentUser user = await UserService()
           .login(currentUser.username.trim(), currentUser.password.trim());
       if (user != null) {
-        await UserService().setCurrentUser(user);
-        Provider.of<CurrentUserState>(context, listen: false)
-            .setCurrentUser(user);
-        await OrganisationUnitService()
-            .discoveringOrgananisationUnitsFromTheServer();
-        Timer(Duration(seconds: 2), () {
-          Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => InterventionSelection()))
-              .then((value) => loginFormState.setIsLoginProcessActive(false));
-        });
+        if (user.runtimeType == String) {
+          loginFormState.setIsLoginProcessActive(false);
+          String message = 'Incorrect username or password';
+          loginFormState.setHasLoginErrorStatus(true);
+          AppUtil.showToastMessage(message: message);
+        } else {
+          await UserService().setCurrentUser(user);
+          Provider.of<CurrentUserState>(context, listen: false)
+              .setCurrentUser(user);
+          await OrganisationUnitService()
+              .discoveringOrgananisationUnitsFromTheServer();
+          Timer(Duration(seconds: 2), () {
+            Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => InterventionSelection()))
+                .then((value) => loginFormState.setIsLoginProcessActive(false));
+          });
+        }
       } else {
         loginFormState.setIsLoginProcessActive(false);
-        String message = 'Incorrect username or password';
-        loginFormState.setHasLoginErrorStatus(true);
+        String message =
+            'Error logging in. Please check your internet connection';
         AppUtil.showToastMessage(message: message);
       }
     }

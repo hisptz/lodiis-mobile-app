@@ -25,6 +25,17 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
         conflictAlgorithm: ConflictAlgorithm.replace);
   }
 
+  addOrUpdateMultipleEnrollments(List <Enrollment> enrollments)async {
+    var dbClient = await db;
+    var enrollmentBatch = dbClient.batch();
+    for (Enrollment enrollment in enrollments){
+        Map data = Enrollment().toOffline(enrollment);
+        data['id'] = data['enrollment'];
+        enrollmentBatch.insert(table, data, conflictAlgorithm: ConflictAlgorithm.replace);
+    }
+     return await enrollmentBatch.commit(noResult: true, continueOnError: true);
+  }
+
   Future<List<Enrollment>> getEnrollements(String programId, {page}) async {
     List<Enrollment> enrollments = [];
     try {

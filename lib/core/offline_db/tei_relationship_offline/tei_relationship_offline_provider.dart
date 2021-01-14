@@ -4,11 +4,27 @@ import 'package:sqflite/sqflite.dart';
 
 class TeiRelatioShipOfflineProvider extends OfflineDbProvider {
   final String table = 'tei_relationships';
+
   // colums
   final String id = 'id';
   final String relationshipType = 'relationshipType';
   final String fromTei = 'fromTei';
   final String toTei = 'toTei';
+
+  addOrUpdateMultipleTeiRelationships(
+      List<TeiRelationship> relationships) async {
+    var dbClient = await db;
+    var relationshipBatch = dbClient.batch();
+
+    for (TeiRelationship relationship in relationships) {
+      var data = TeiRelationship().toOffline(relationship);
+      relationshipBatch.insert(table, data,
+          conflictAlgorithm: ConflictAlgorithm.replace);
+    }
+
+    await relationshipBatch.commit(
+        noResult: true, continueOnError: true, exclusive: true);
+  }
 
   addOrUpdateTeirelationShip(TeiRelationship teiRelationship) async {
     var dbClient = await db;
