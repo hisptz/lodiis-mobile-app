@@ -36,6 +36,7 @@ class OvcHouseHoldCasePlanForm extends StatefulWidget {
   final bool shouldEditCaseGapFollowUps;
   final bool shouldViewCaseGapFollowUp;
   final bool shouldAddCasePlanGap;
+
   @override
   _OvcHouseHoldCasePlanFormState createState() =>
       _OvcHouseHoldCasePlanFormState();
@@ -116,6 +117,7 @@ class _OvcHouseHoldCasePlanFormState extends State<OvcHouseHoldCasePlanForm> {
             domainDataObject['eventId'],
             hiddenFields,
           );
+
           hiddenFields = [
             OvcCasePlanConstant.casePlanToGapLinkage,
             OvcCasePlanConstant.casePlanGapToFollowinUpLinkage
