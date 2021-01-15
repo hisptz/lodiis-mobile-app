@@ -17,7 +17,6 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_refe
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/dreams_services_page.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/none_agyw_page.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/pages/non_agyw_dreams_hts_consent_form.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/pages/none_agyw_enrollment_client_intake_form.dart';
 import 'package:provider/provider.dart';
 
 class DreamsIntervention extends StatefulWidget {
@@ -79,20 +78,20 @@ class _DreamsInterventionState extends State<DreamsIntervention> {
     return SafeArea(
       child: Consumer<IntervetionCardState>(
         builder: (context, intervetionCardState, child) {
-           InterventionCard activeInterventionProgram =
-                      intervetionCardState.currentIntervetionProgram;
+          InterventionCard activeInterventionProgram =
+              intervetionCardState.currentIntervetionProgram;
           return Scaffold(
             appBar: PreferredSize(
               preferredSize: Size.fromHeight(65),
               child: InterventionAppBar(
-                    activeInterventionProgram: activeInterventionProgram,
-                    onClickHome: onClickHome,
-                    onAddAgywBeneficiary: () => onAddAgywBeneficiary(context),
-                    onAddNoneAgywBeneficiary: () =>
-                        onAddNoneAgywBeneficiary(context),
-                    onOpenMoreMenu: () =>
-                        onOpenMoreMenu(context, activeInterventionProgram),
-                  ),
+                activeInterventionProgram: activeInterventionProgram,
+                onClickHome: onClickHome,
+                onAddAgywBeneficiary: () => onAddAgywBeneficiary(context),
+                onAddNoneAgywBeneficiary: () =>
+                    onAddNoneAgywBeneficiary(context),
+                onOpenMoreMenu: () =>
+                    onOpenMoreMenu(context, activeInterventionProgram),
+              ),
             ),
             body: Container(
               child: !isViewReady
@@ -104,47 +103,45 @@ class _DreamsInterventionState extends State<DreamsIntervention> {
                     )
                   : Container(
                       child: Stack(
-                          fit: StackFit.expand,
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                  color: activeInterventionProgram.background),
-                            ),
-                            Consumer<InterventionBottomNavigationState>(
-                              builder: (context,
-                                  interventionBottomNavigationState, child) {
-                                InterventionBottomNavigation
-                                    currentInterventionBottomNavigation =
-                                    interventionBottomNavigationState
-                                        .getCurrentInterventionBottomNavigation(
-                                            activeInterventionProgram);
-                                return Container(
-                                  child: currentInterventionBottomNavigation
-                                              .id ==
-                                          'services'
-                                      ? DreamsServicesPage()
-                                      : currentInterventionBottomNavigation
-                                                  .id ==
-                                              'referral'
-                                          ? DreamsReferralPage()
-                                          : currentInterventionBottomNavigation
-                                                      .id ==
-                                                  'enrollment'
-                                              ? DreamsEnrollmentPage()
-                                              : currentInterventionBottomNavigation
-                                                          .id ==
-                                                      'noneAgyw'
-                                                  ? NoneAgyw()
-                                                  : RoutePageNotFound(
-                                                      pageTitle:
-                                                          currentInterventionBottomNavigation
-                                                              .id,
-                                                    ),
-                                );
-                              },
-                            ),
-                          ],
-                        ),
+                        fit: StackFit.expand,
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                                color: activeInterventionProgram.background),
+                          ),
+                          Consumer<InterventionBottomNavigationState>(
+                            builder: (context,
+                                interventionBottomNavigationState, child) {
+                              InterventionBottomNavigation
+                                  currentInterventionBottomNavigation =
+                                  interventionBottomNavigationState
+                                      .getCurrentInterventionBottomNavigation(
+                                          activeInterventionProgram);
+                              return Container(
+                                child: currentInterventionBottomNavigation.id ==
+                                        'services'
+                                    ? DreamsServicesPage()
+                                    : currentInterventionBottomNavigation.id ==
+                                            'referral'
+                                        ? DreamsReferralPage()
+                                        : currentInterventionBottomNavigation
+                                                    .id ==
+                                                'enrollment'
+                                            ? DreamsEnrollmentPage()
+                                            : currentInterventionBottomNavigation
+                                                        .id ==
+                                                    'noneAgyw'
+                                                ? NoneAgyw()
+                                                : RoutePageNotFound(
+                                                    pageTitle:
+                                                        currentInterventionBottomNavigation
+                                                            .id,
+                                                  ),
+                              );
+                            },
+                          ),
+                        ],
+                      ),
                     ),
             ),
             bottomNavigationBar: InterventionBottomNavigationBarContainer(),

@@ -17,6 +17,7 @@ class AgywDreamsServiceFormSkipLogic {
     hiddenFields.clear();
     hiddenSections.clear();
     hiddenInputFieldOptions.clear();
+    Map hiddenOptions = Map();
 
     List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections);
     for (var key in dataObject.keys) {
@@ -24,33 +25,16 @@ class AgywDreamsServiceFormSkipLogic {
     }
 
     inputFieldIds = inputFieldIds.toSet().toList();
-    // for (String inputFieldId in inputFieldIds) {
-    //   String value = '${dataObject[inputFieldId]}';
-    //   //  @TODO Add skip logics
-    // }
-    for (String sectionId in hiddenSections.keys) {
-      List<FormSection> allFormSections =
-          FormUtil.getFlattenFormSections(formSections);
-      List<String> hidddenSectionInputFieldIds = FormUtil.getFormFieldIds(allFormSections
-          .where((formSection) => formSection.id == sectionId)
-          .toList());      
-      for (String inputFieldId in hidddenSectionInputFieldIds) {
-
-        hiddenFields[inputFieldId] = true;
-      }
+    for (String inputFieldId in inputFieldIds) {
+      String value = '${dataObject[inputFieldId]}';
+      // add skiplogics
     }
-    resetValuesForHiddenFields(context, hiddenFields.keys);
-    resetValuesForHiddenSections(context, formSections);
-    evaluateSkipLogicsByAgywAge(context, formSections, dataObject);
-  }
 
-  static evaluateSkipLogicsByAgywAge(
-    BuildContext context,
-    List<FormSection> formSections,
-    Map dataObject,
-  ) {
+    // skip logic as per age
     int agywDreamAge = int.parse(dataObject['age']);
-    Map hiddenOptions = Map();
+    if (agywDreamAge < 18 || agywDreamAge > 24) {
+      hiddenOptions['GBV Legal Messaging'] = true;
+    }
     if (agywDreamAge < 10 || agywDreamAge > 17) {
       hiddenOptions['AFLATEEN/TOUN'] = true;
       hiddenOptions['PARENTING'] = true;
@@ -77,7 +61,26 @@ class AgywDreamsServiceFormSkipLogic {
       hiddenOptions['IPC'] = true;
     }
 
+    // skip logic as per implementing patner
+    if (dataObject['implementingPatner'] != 'Paralegal') {
+      hiddenOptions['VAC Legal Messaging'] = true;
+      hiddenOptions['GBV Legal Messaging'] = true;
+    }
     hiddenInputFieldOptions['Eug4BXDFLym'] = hiddenOptions;
+
+    for (String sectionId in hiddenSections.keys) {
+      List<FormSection> allFormSections =
+          FormUtil.getFlattenFormSections(formSections);
+      List<String> hidddenSectionInputFieldIds = FormUtil.getFormFieldIds(
+          allFormSections
+              .where((formSection) => formSection.id == sectionId)
+              .toList());
+      for (String inputFieldId in hidddenSectionInputFieldIds) {
+        hiddenFields[inputFieldId] = true;
+      }
+    }
+    resetValuesForHiddenFields(context, hiddenFields.keys);
+    resetValuesForHiddenSections(context, formSections);
     resetValuesForHiddenInputFieldOptions(context, formSections);
   }
 
