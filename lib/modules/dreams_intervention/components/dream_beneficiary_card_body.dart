@@ -200,7 +200,7 @@ class DreamBeneficiaryCardBody extends StatelessWidget {
       ],
       [
         {'name': 'VAC LEGAL MESSAGING', 'programStage': 'bDJq2JWVTbC'},
-        {'name': ''},
+        {'name': 'GBV LEGAL MESSAGING', 'programStage': 'bDJq2JWVTbC'},
         {'name': ''},
       ]
     ];

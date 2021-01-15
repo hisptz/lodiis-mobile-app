@@ -248,7 +248,6 @@ class AgywDreamsEnrollmentSkipLogic {
         hiddenFields['JTNxMQPT134_checkboxes_2'] = true;
       }
       if (inputFieldId == 'aPNGd6RCsY9') {
-        print(value);
         if (value != 'Other') {
           hiddenFields['T56nYogWRYq'] = true;
         }

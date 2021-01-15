@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:kb_mobile_app/app_state/current_user_state/current_user_state.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dream_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
@@ -14,6 +15,7 @@ import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
+import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
@@ -54,6 +56,10 @@ class _AgywDreamsServiceFormState extends State<AgywDreamsServiceForm> {
       () async {
         Map dataObject =
             Provider.of<ServiceFormState>(context, listen: false).formState;
+        CurrentUser currentUser =
+            Provider.of<CurrentUserState>(context, listen: false).currentUser;
+        dataObject['implementingPatner'] =
+            '${currentUser.implementingPartner ?? ''}';
         await AgywDreamsServiceFormSkipLogic.evaluateSkipLogics(
           context,
           formSections,
@@ -81,6 +87,7 @@ class _AgywDreamsServiceFormState extends State<AgywDreamsServiceForm> {
         });
         String eventDate = dataObject['eventDate'];
         String eventId = dataObject['eventId'];
+        dataObject.remove('implementingPatner');
         List<String> hiddenFields = [];
         try {
           await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
