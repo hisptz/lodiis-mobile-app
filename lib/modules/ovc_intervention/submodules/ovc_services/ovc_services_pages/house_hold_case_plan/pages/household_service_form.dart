@@ -34,6 +34,7 @@ class HouseHoldServiceForm extends StatefulWidget {
 
   final bool shouldEditCaseGapFollowUps;
   final bool shouldViewCaseGapFollowUp;
+
   @override
   _HouseHoldServiceFormState createState() => _HouseHoldServiceFormState();
 }

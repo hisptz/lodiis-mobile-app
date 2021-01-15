@@ -55,7 +55,10 @@ class _CasePlanFollowUpViewContainerState
       if ('${dataValue['value']}'.isNotEmpty)
         dataObject[dataValue['dataElement']] = dataValue['value'];
     }
-    dataObject.addAll(widget.casePlanGap);
+    Map casePlanGap = widget.casePlanGap;
+    casePlanGap.remove('eventDate');
+    casePlanGap.remove('eventId');
+    dataObject.addAll(casePlanGap);
     Widget modal = CasePlanFollowUpFormContainer(
       dataObject: dataObject,
       domainId: widget.domainId,
