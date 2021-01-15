@@ -114,8 +114,8 @@ class DreamsBeneficiaryCard extends StatelessWidget {
               cardBottonActions,
               Visibility(
                   visible: isExpanded,
-                  child: Row(
-                    children: [cardBottonContent],
+                  child: Container(
+                    child: cardBottonContent,
                   ))
             ],
           ),

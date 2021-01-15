@@ -74,15 +74,11 @@ class _LoginFormState extends State<LoginForm> {
     if (!isLoginProcessActive && status) {
       loginFormState.setHasLoginErrorStatus(false);
       loginFormState.setIsLoginProcessActive(true);
-      CurrentUser user = await UserService()
-          .login(currentUser.username.trim(), currentUser.password.trim());
-      if (user != null) {
-        if (user.runtimeType == String) {
-          loginFormState.setIsLoginProcessActive(false);
-          String message = 'Incorrect username or password';
-          loginFormState.setHasLoginErrorStatus(true);
-          AppUtil.showToastMessage(message: message);
-        } else {
+
+      try {
+        CurrentUser user = await UserService()
+            .login(currentUser.username.trim(), currentUser.password.trim());
+        if (user != null) {
           await UserService().setCurrentUser(user);
           Provider.of<CurrentUserState>(context, listen: false)
               .setCurrentUser(user);
@@ -95,8 +91,13 @@ class _LoginFormState extends State<LoginForm> {
                         builder: (context) => InterventionSelection()))
                 .then((value) => loginFormState.setIsLoginProcessActive(false));
           });
+        } else {
+          loginFormState.setIsLoginProcessActive(false);
+          String message = 'Incorrect username or password';
+          loginFormState.setHasLoginErrorStatus(true);
+          AppUtil.showToastMessage(message: message);
         }
-      } else {
+      } catch (e) {
         loginFormState.setIsLoginProcessActive(false);
         String message =
             'Error logging in. Please check your internet connection';

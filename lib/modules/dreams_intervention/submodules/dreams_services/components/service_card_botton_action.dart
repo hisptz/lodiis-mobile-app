@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
+import 'package:flutter/rendering.dart';
 import 'package:kb_mobile_app/app_state/current_user_state/current_user_state.dart';
 import 'package:kb_mobile_app/core/components/line_seperator.dart';
 import 'package:provider/provider.dart';
@@ -46,375 +48,418 @@ class ServiceCardBottonAction extends StatelessWidget {
                   bottomLeft: Radius.circular(12.0),
                   bottomRight: Radius.circular(12.0),
                 ),
-                child: Row(
-                  children: [
-                    Visibility(
-                      visible: currentUserState.canManageHts,
-                      child: Expanded(
-                        child: InkWell(
-                          onTap: onOpenHTSForm,
+                child: Container(
+                  height: 50.0,
+                  child: Center(
+                    child: ListView(
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      children: [
+                        Visibility(
+                          visible: currentUserState.canManageHts,
                           child: Container(
-                            padding: EdgeInsets.symmetric(
-                              vertical: 5.0,
-                            ),
-                            margin: EdgeInsets.symmetric(
-                              vertical: 5.0,
-                            ),
-                            child: Center(
-                              child: Text(
-                                'HTS',
-                                style: TextStyle().copyWith(
-                                  fontSize: 12.0,
-                                  fontWeight: FontWeight.normal,
-                                  color: Color(0xFF1F8ECE),
+                            child: InkWell(
+                              onTap: onOpenHTSForm,
+                              child: Container(
+                                padding: EdgeInsets.symmetric(
+                                  vertical: 5.0,
+                                ),
+                                margin: EdgeInsets.symmetric(
+                                  vertical: 5.0,
+                                ),
+                                child: Center(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      'HTS',
+                                      style: TextStyle().copyWith(
+                                        fontSize: 12.0,
+                                        fontWeight: FontWeight.normal,
+                                        color: Color(0xFF1F8ECE),
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                    ),
-                    Visibility(
-                      visible: currentUserState.canManageSrh,
-                      child: Expanded(
-                        child: InkWell(
-                          onTap: onOpenSRHForm,
+                        Visibility(
+                          visible: currentUserState.canManageSrh,
                           child: Container(
-                            padding: EdgeInsets.symmetric(
-                              vertical: 5.0,
-                            ),
-                            margin: EdgeInsets.symmetric(
-                              vertical: 5.0,
-                            ),
-                            decoration: BoxDecoration(
-                              border: Border(
-                                left: BorderSide(
-                                  width: 1,
-                                  color: Color(0xFF8EBAD3),
+                            child: InkWell(
+                              onTap: onOpenSRHForm,
+                              child: Container(
+                                padding: EdgeInsets.symmetric(
+                                  vertical: 5.0,
                                 ),
-                              ),
-                            ),
-                            child: Center(
-                              child: Text(
-                                'SRH',
-                                style: TextStyle().copyWith(
-                                  fontSize: 12.0,
-                                  fontWeight: FontWeight.normal,
-                                  color: Color(0xFF1F8ECE),
+                                margin: EdgeInsets.symmetric(
+                                  vertical: 5.0,
+                                ),
+                                decoration: BoxDecoration(
+                                  border: Border(
+                                    left: BorderSide(
+                                      width: 1,
+                                      color: Color(0xFF8EBAD3),
+                                    ),
+                                  ),
+                                ),
+                                child: Center(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      'SRH',
+                                      style: TextStyle().copyWith(
+                                        fontSize: 12.0,
+                                        fontWeight: FontWeight.normal,
+                                        color: Color(0xFF1F8ECE),
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                    ),
-                    Visibility(
-                      visible: currentUserState.canManagePrep,
-                      child: Expanded(
-                        child: InkWell(
-                          onTap: onOpenPrepForm,
+                        Visibility(
+                          visible: currentUserState.canManagePrep,
                           child: Container(
-                            padding: EdgeInsets.symmetric(
-                              vertical: 5.0,
-                            ),
-                            margin: EdgeInsets.symmetric(
-                              vertical: 5.0,
-                            ),
-                            decoration: BoxDecoration(
-                              border: Border(
-                                left: BorderSide(
-                                  width: 1,
-                                  color: Color(0xFF8EBAD3),
+                            child: InkWell(
+                              onTap: onOpenPrepForm,
+                              child: Container(
+                                padding: EdgeInsets.symmetric(
+                                  vertical: 5.0,
                                 ),
-                              ),
-                            ),
-                            child: Center(
-                              child: Text(
-                                'PREP',
-                                style: TextStyle().copyWith(
-                                  fontSize: 12.0,
-                                  fontWeight: FontWeight.normal,
-                                  color: Color(0xFF1F8ECE),
+                                margin: EdgeInsets.symmetric(
+                                  vertical: 5.0,
+                                ),
+                                decoration: BoxDecoration(
+                                  border: Border(
+                                    left: BorderSide(
+                                      width: 1,
+                                      color: Color(0xFF8EBAD3),
+                                    ),
+                                  ),
+                                ),
+                                child: Center(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      'PREP',
+                                      style: TextStyle().copyWith(
+                                        fontSize: 12.0,
+                                        fontWeight: FontWeight.normal,
+                                        color: Color(0xFF1F8ECE),
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                    ),
-                    Visibility(
-                      visible: currentUserState.canManageMSGHIV,
-                      child: Expanded(
-                        child: InkWell(
-                          onTap: onOpenMSGHIVForm,
+                        Visibility(
+                          visible: currentUserState.canManageMSGHIV,
                           child: Container(
-                            padding: EdgeInsets.symmetric(
-                              vertical: 5.0,
-                            ),
-                            margin: EdgeInsets.symmetric(
-                              vertical: 5.0,
-                            ),
-                            decoration: BoxDecoration(
-                              border: Border(
-                                left: BorderSide(
-                                  width: 1,
-                                  color: Color(0xFF8EBAD3),
+                            child: InkWell(
+                              onTap: onOpenMSGHIVForm,
+                              child: Container(
+                                padding: EdgeInsets.symmetric(
+                                  vertical: 5.0,
                                 ),
-                              ),
-                            ),
-                            child: Center(
-                              child: Text(
-                                'HIV Messaging',
-                                style: TextStyle().copyWith(
-                                  fontSize: 12.0,
-                                  fontWeight: FontWeight.normal,
-                                  color: Color(0xFF1F8ECE),
+                                margin: EdgeInsets.symmetric(
+                                  vertical: 5.0,
+                                ),
+                                decoration: BoxDecoration(
+                                  border: Border(
+                                    left: BorderSide(
+                                      width: 1,
+                                      color: Color(0xFF8EBAD3),
+                                    ),
+                                  ),
+                                ),
+                                child: Center(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      'HIV Messaging',
+                                      style: TextStyle().copyWith(
+                                        fontSize: 12.0,
+                                        fontWeight: FontWeight.normal,
+                                        color: Color(0xFF1F8ECE),
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                    ),
-                    Visibility(
-                      visible: currentUserState.canManageCondom,
-                      child: Expanded(
-                        child: InkWell(
-                          onTap: onOpenCondomForm,
+                        Visibility(
+                          visible: currentUserState.canManageCondom,
                           child: Container(
-                            padding: EdgeInsets.symmetric(
-                              vertical: 5.0,
-                            ),
-                            margin: EdgeInsets.symmetric(
-                              vertical: 5.0,
-                            ),
-                            decoration: BoxDecoration(
-                              border: Border(
-                                left: BorderSide(
-                                  width: 1,
-                                  color: Color(0xFF8EBAD3),
+                            child: InkWell(
+                              onTap: onOpenCondomForm,
+                              child: Container(
+                                padding: EdgeInsets.symmetric(
+                                  vertical: 5.0,
                                 ),
-                              ),
-                            ),
-                            child: Center(
-                              child: Text(
-                                'CONDOMS',
-                                style: TextStyle().copyWith(
-                                  fontSize: 12.0,
-                                  fontWeight: FontWeight.normal,
-                                  color: Color(0xFF1F8ECE),
+                                margin: EdgeInsets.symmetric(
+                                  vertical: 5.0,
+                                ),
+                                decoration: BoxDecoration(
+                                  border: Border(
+                                    left: BorderSide(
+                                      width: 1,
+                                      color: Color(0xFF8EBAD3),
+                                    ),
+                                  ),
+                                ),
+                                child: Center(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      'CONDOMS',
+                                      style: TextStyle().copyWith(
+                                        fontSize: 12.0,
+                                        fontWeight: FontWeight.normal,
+                                        color: Color(0xFF1F8ECE),
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                    ),
-                    Visibility(
-                      visible: currentUserState.canManageContraceptives,
-                      child: Expanded(
-                        child: InkWell(
-                          onTap: onOpenContraceptivesForm,
+                        Visibility(
+                          visible: currentUserState.canManageContraceptives,
                           child: Container(
-                            padding: EdgeInsets.symmetric(
-                              vertical: 5.0,
-                            ),
-                            margin: EdgeInsets.symmetric(
-                              vertical: 5.0,
-                            ),
-                            decoration: BoxDecoration(
-                              border: Border(
-                                left: BorderSide(
-                                  width: 1,
-                                  color: Color(0xFF8EBAD3),
-                                ),
-                              ),
-                            ),
-                            child: Center(
-                              child: Text(
-                                'CONTRACEPTIVES',
-                                style: TextStyle().copyWith(
-                                  fontSize: 12.0,
-                                  fontWeight: FontWeight.normal,
-                                  color: Color(0xFF1F8ECE),
+                            child: Container(
+                              child: InkWell(
+                                onTap: onOpenContraceptivesForm,
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(
+                                    vertical: 5.0,
+                                  ),
+                                  margin: EdgeInsets.symmetric(
+                                    vertical: 5.0,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    border: Border(
+                                      left: BorderSide(
+                                        width: 1,
+                                        color: Color(0xFF8EBAD3),
+                                      ),
+                                    ),
+                                  ),
+                                  child: Center(
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(
+                                        'CONTRACEPTIVES',
+                                        style: TextStyle().copyWith(
+                                          fontSize: 12.0,
+                                          fontWeight: FontWeight.normal,
+                                          color: Color(0xFF1F8ECE),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                    ),
-                    Visibility(
-                      visible: currentUserState.canManageArtRefill,
-                      child: Expanded(
-                        child: InkWell(
-                          onTap: onOpenArtRefillForm,
+                        Visibility(
+                          visible: currentUserState.canManageArtRefill,
                           child: Container(
-                            padding: EdgeInsets.symmetric(
-                              vertical: 5.0,
-                            ),
-                            margin: EdgeInsets.symmetric(
-                              vertical: 5.0,
-                            ),
-                            decoration: BoxDecoration(
-                              border: Border(
-                                left: BorderSide(
-                                  width: 1,
-                                  color: Color(0xFF8EBAD3),
-                                ),
-                              ),
-                            ),
-                            child: Center(
-                              child: Text(
-                                'ART RE-FILL',
-                                style: TextStyle().copyWith(
-                                  fontSize: 12.0,
-                                  fontWeight: FontWeight.normal,
-                                  color: Color(0xFF1F8ECE),
+                            child: Container(
+                              child: InkWell(
+                                onTap: onOpenArtRefillForm,
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(
+                                    vertical: 5.0,
+                                  ),
+                                  margin: EdgeInsets.symmetric(
+                                    vertical: 5.0,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    border: Border(
+                                      left: BorderSide(
+                                        width: 1,
+                                        color: Color(0xFF8EBAD3),
+                                      ),
+                                    ),
+                                  ),
+                                  child: Center(
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(
+                                        'ART RE-FILL',
+                                        style: TextStyle().copyWith(
+                                          fontSize: 12.0,
+                                          fontWeight: FontWeight.normal,
+                                          color: Color(0xFF1F8ECE),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                    ),
-                    Visibility(
-                      visible: currentUserState.canManageAnc,
-                      child: Expanded(
-                        child: InkWell(
-                          onTap: onOpenANCForm,
+                        Visibility(
+                          visible: currentUserState.canManageAnc,
                           child: Container(
-                            padding: EdgeInsets.symmetric(
-                              vertical: 5.0,
-                            ),
-                            margin: EdgeInsets.symmetric(
-                              vertical: 5.0,
-                            ),
-                            decoration: BoxDecoration(
-                              border: Border(
-                                left: BorderSide(
-                                  width: 1,
-                                  color: Color(0xFF8EBAD3),
+                            child: InkWell(
+                              onTap: onOpenANCForm,
+                              child: Container(
+                                padding: EdgeInsets.symmetric(
+                                  vertical: 5.0,
                                 ),
-                              ),
-                            ),
-                            child: Center(
-                              child: Text(
-                                'ANC',
-                                style: TextStyle().copyWith(
-                                  fontSize: 12.0,
-                                  fontWeight: FontWeight.normal,
-                                  color: Color(0xFF1F8ECE),
+                                margin: EdgeInsets.symmetric(
+                                  vertical: 5.0,
+                                ),
+                                decoration: BoxDecoration(
+                                  border: Border(
+                                    left: BorderSide(
+                                      width: 1,
+                                      color: Color(0xFF8EBAD3),
+                                    ),
+                                  ),
+                                ),
+                                child: Center(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      'ANC',
+                                      style: TextStyle().copyWith(
+                                        fontSize: 12.0,
+                                        fontWeight: FontWeight.normal,
+                                        color: Color(0xFF1F8ECE),
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                    ),
-                    Visibility(
-                      visible: currentUserState.canManagePOSTGBV,
-                      child: Expanded(
-                        child: InkWell(
-                          onTap: onOpenPostGBVForm,
+                        Visibility(
+                          visible: currentUserState.canManagePOSTGBV,
                           child: Container(
-                            padding: EdgeInsets.symmetric(
-                              vertical: 5.0,
-                            ),
-                            margin: EdgeInsets.symmetric(
-                              vertical: 5.0,
-                            ),
-                            decoration: BoxDecoration(
-                              border: Border(
-                                left: BorderSide(
-                                  width: 1,
-                                  color: Color(0xFF8EBAD3),
+                            child: InkWell(
+                              onTap: onOpenPostGBVForm,
+                              child: Container(
+                                padding: EdgeInsets.symmetric(
+                                  vertical: 5.0,
                                 ),
-                              ),
-                            ),
-                            child: Center(
-                              child: Text(
-                                'POST GBV',
-                                style: TextStyle().copyWith(
-                                  fontSize: 12.0,
-                                  fontWeight: FontWeight.normal,
-                                  color: Color(0xFF1F8ECE),
+                                margin: EdgeInsets.symmetric(
+                                  vertical: 5.0,
+                                ),
+                                decoration: BoxDecoration(
+                                  border: Border(
+                                    left: BorderSide(
+                                      width: 1,
+                                      color: Color(0xFF8EBAD3),
+                                    ),
+                                  ),
+                                ),
+                                child: Center(
+                                  child: Container(
+                                    child: Text(
+                                      'POST GBV',
+                                      style: TextStyle().copyWith(
+                                        fontSize: 12.0,
+                                        fontWeight: FontWeight.normal,
+                                        color: Color(0xFF1F8ECE),
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                    ),
-                    Visibility(
-                      visible: currentUserState.canManagePEP,
-                      child: Expanded(
-                        child: InkWell(
-                          onTap: onOpenPEPForm,
+                        Visibility(
+                          visible: currentUserState.canManagePEP,
                           child: Container(
-                            padding: EdgeInsets.symmetric(
-                              vertical: 5.0,
-                            ),
-                            margin: EdgeInsets.symmetric(
-                              vertical: 5.0,
-                            ),
-                            decoration: BoxDecoration(
-                              border: Border(
-                                left: BorderSide(
-                                  width: 1,
-                                  color: Color(0xFF8EBAD3),
+                            child: InkWell(
+                              onTap: onOpenPEPForm,
+                              child: Container(
+                                padding: EdgeInsets.symmetric(
+                                  vertical: 5.0,
                                 ),
-                              ),
-                            ),
-                            child: Center(
-                              child: Text(
-                                'PEP',
-                                style: TextStyle().copyWith(
-                                  fontSize: 12.0,
-                                  fontWeight: FontWeight.normal,
-                                  color: Color(0xFF1F8ECE),
+                                margin: EdgeInsets.symmetric(
+                                  vertical: 5.0,
+                                ),
+                                decoration: BoxDecoration(
+                                  border: Border(
+                                    left: BorderSide(
+                                      width: 1,
+                                      color: Color(0xFF8EBAD3),
+                                    ),
+                                  ),
+                                ),
+                                child: Center(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      'PEP',
+                                      style: TextStyle().copyWith(
+                                        fontSize: 12.0,
+                                        fontWeight: FontWeight.normal,
+                                        color: Color(0xFF1F8ECE),
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                    ),
-                    Visibility(
-                      visible: currentUserState.canManageServiceForm,
-                      child: Expanded(
-                        child: InkWell(
-                          onTap: onOpenServiceForm,
+                        Visibility(
+                          visible: currentUserState.canManageServiceForm,
                           child: Container(
-                            padding: EdgeInsets.symmetric(
-                              vertical: 5.0,
-                            ),
-                            margin: EdgeInsets.symmetric(
-                              vertical: 5.0,
-                            ),
-                            decoration: BoxDecoration(
-                              border: Border(
-                                left: BorderSide(
-                                  width: 1,
-                                  color: Color(0xFF8EBAD3),
+                            child: InkWell(
+                              onTap: onOpenServiceForm,
+                              child: Container(
+                                padding: EdgeInsets.symmetric(
+                                  vertical: 5.0,
                                 ),
-                              ),
-                            ),
-                            child: Center(
-                              child: Text(
-                                'SERVICE FORM',
-                                style: TextStyle().copyWith(
-                                  fontSize: 12.0,
-                                  fontWeight: FontWeight.normal,
-                                  color: Color(0xFF1F8ECE),
+                                margin: EdgeInsets.symmetric(
+                                  vertical: 5.0,
+                                ),
+                                decoration: BoxDecoration(
+                                  border: Border(
+                                    left: BorderSide(
+                                      width: 1,
+                                      color: Color(0xFF8EBAD3),
+                                    ),
+                                  ),
+                                ),
+                                child: Center(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      'SERVICE FORM',
+                                      style: TextStyle().copyWith(
+                                        fontSize: 12.0,
+                                        fontWeight: FontWeight.normal,
+                                        color: Color(0xFF1F8ECE),
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
                           ),
                         ),
-                      ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
               )
             ],
