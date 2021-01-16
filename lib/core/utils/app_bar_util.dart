@@ -12,7 +12,7 @@ import 'package:kb_mobile_app/core/offline_db/app_logs_offline/app_logs_offline_
 import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
-import 'package:kb_mobile_app/models/logs.dart';
+import 'package:kb_mobile_app/models/app_logs.dart';
 import 'package:kb_mobile_app/modules/about_app/about_app.dart';
 import 'package:kb_mobile_app/modules/app_logs/app_logs_page.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/dreams_intervention.dart';

@@ -123,35 +123,42 @@ class SynchronizationState with ChangeNotifier {
     int totalCount = 0;
     int total = _synchronizationService.orgUnitIds.length *
         _synchronizationService.programs.length;
-    for (String orgUnitId in _synchronizationService.orgUnitIds) {
-      for (String program in _synchronizationService.programs) {
-        count++;
-        totalCount++;
-        profileProgress = count/total;
-        overallProgress = totalCount/(total*2);
-        addDataDownloadProcess("Download and saving profile data $count/$total");
-        await _synchronizationService
-            .getAndSaveTrackedInstanceFromServer(program, orgUnitId);
+    try {
+      for (String orgUnitId in _synchronizationService.orgUnitIds) {
+        for (String program in _synchronizationService.programs) {
+          count++;
+          totalCount++;
+          profileProgress = count / total;
+          overallProgress = totalCount / (total * 2);
+          addDataDownloadProcess(
+              "Download and saving profile data $count/$total");
+          await _synchronizationService.getAndSaveTrackedInstanceFromServer(
+              program, orgUnitId);
+        }
       }
-    }
-    count = 0;
-    for (String orgUnitId in _synchronizationService.orgUnitIds) {
-      for (String program in _synchronizationService.programs) {
-        count++;
-        totalCount++;
-        eventsProgress = count/total;
-        overallProgress = totalCount/(total*2);
-        addDataDownloadProcess("Download and saving service data $count/$total");
-        await _synchronizationService
-            .getAndSaveEventsFromServer(program, orgUnitId);
+      count = 0;
+      for (String orgUnitId in _synchronizationService.orgUnitIds) {
+        for (String program in _synchronizationService.programs) {
+          count++;
+          totalCount++;
+          eventsProgress = count / total;
+          overallProgress = totalCount / (total * 2);
+          addDataDownloadProcess(
+              "Download and saving service data $count/$total");
+          await _synchronizationService.getAndSaveEventsFromServer(
+              program, orgUnitId);
+        }
       }
+      AppUtil.showToastMessage(message: 'Download successful');
+      updateDataDownloadStatus(false);
+    } catch (e) {
+      _dataDownloadProcess = [];
+      updateDataDownloadStatus(false);
+      AppUtil.showToastMessage(message: 'Error downloading data');
     }
-    AppUtil.showToastMessage(message: 'Download successful');
-    updateDataDownloadStatus(false);
     // await analysisOfDownloadedData();
     // await saveAllData();
   }
-
 
   // Future analysisOfDownloadedData() async {
   //   addDataDownloadProcess("Start analyse service data ");
@@ -278,7 +285,8 @@ class SynchronizationState with ChangeNotifier {
         await _synchronizationService.uploadTeiEventsToTheServer(teiEvents);
       }
     } catch (e) {
-      print(e);
+      AppUtil.showToastMessage(message: 'Error uploading data');
+      updateDataUploadStatus(false);
     }
     updateDataUploadStatus(false);
   }

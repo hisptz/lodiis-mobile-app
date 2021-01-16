@@ -1,6 +1,6 @@
 import 'package:kb_mobile_app/core/constants/app_logs.dart';
 import 'package:kb_mobile_app/core/offline_db/offline_db_provider.dart';
-import 'package:kb_mobile_app/models/logs.dart';
+import 'package:kb_mobile_app/models/app_logs.dart';
 import 'package:sqflite/sqflite.dart';
 
 class AppLogsOfflineProvider extends OfflineDbProvider {
@@ -11,11 +11,15 @@ class AppLogsOfflineProvider extends OfflineDbProvider {
   final String message = 'message';
   final String date = 'date';
 
-  addLogs(AppLogs logData) async {
+  Future<void> addLogs(AppLogs logData) async {
     var dbClient = await db;
     Map data = AppLogs().toOffline(logData);
-    await dbClient.insert(table, data,
-        conflictAlgorithm: ConflictAlgorithm.replace);
+    try {
+      await dbClient.insert(table, data,
+          conflictAlgorithm: ConflictAlgorithm.replace);
+    } catch (e) {
+      print(e.toString());
+    }
   }
 
   Future<List<AppLogs>> getLogs({int page}) async {
@@ -23,16 +27,19 @@ class AppLogsOfflineProvider extends OfflineDbProvider {
 
     try {
       var dbClient = await db;
-      List<Map> maps = await dbClient.query(table,
-          columns: [
-            id,
-            type,
-            date,
-            message,
-          ],
-          limit: page != null ? AppLogsConstants.logsPagnationLimit : null,
-          offset:
-              page != null ? page * AppLogsConstants.logsPagnationLimit : null);
+      List<Map> maps = await dbClient.query(
+        table,
+        columns: [
+          id,
+          type,
+          date,
+          message,
+        ],
+        limit: page != null ? AppLogsConstants.logsPagnationLimit : null,
+        offset:
+            page != null ? page * AppLogsConstants.logsPagnationLimit : null,
+        orderBy: '$date DESC',
+      );
       if (maps.isNotEmpty) {
         for (Map map in maps) {
           AppLogs log = AppLogs.fromOffline(map);

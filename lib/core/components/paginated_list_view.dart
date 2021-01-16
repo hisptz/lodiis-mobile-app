@@ -21,7 +21,7 @@ class CustomPaginatedListView extends StatelessWidget {
     return Container(
       child: PagedListView(
           padding: EdgeInsets.only(top: 20.0),
-          primary: false,
+          primary: true,
           scrollDirection: Axis.vertical,
           shrinkWrap: true,
           pagingController: pagingController,
