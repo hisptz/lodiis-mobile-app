@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:kb_mobile_app/core/constants/app_logs.dart';
 import 'package:kb_mobile_app/core/services/pagination-service.dart';
-import 'package:kb_mobile_app/models/logs.dart';
+import 'package:kb_mobile_app/models/app_logs.dart';
 import 'package:kb_mobile_app/modules/app_logs/services/app_logs_service.dart';
 
 class AppLogsState with ChangeNotifier {
@@ -24,6 +24,7 @@ class AppLogsState with ChangeNotifier {
   Future<void> refreshAppLogsNumber() async {
     _isLoading = true;
     notifyListeners();
+    await getAppLogsCount();
     await getNumberOfPages();
     if (_pagingController == null) {
       initializePagination();
@@ -86,5 +87,12 @@ class AppLogsState with ChangeNotifier {
 
   Future<void> getAppLogsCount() async {
     _numberOfAppLogs = await AppLogsService().getAppLogsCount();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    _pagingController.dispose();
+    super.dispose();
   }
 }

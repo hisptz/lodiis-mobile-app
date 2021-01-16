@@ -1,5 +1,5 @@
 import 'package:kb_mobile_app/core/offline_db/app_logs_offline/app_logs_offline_provider.dart';
-import 'package:kb_mobile_app/models/logs.dart';
+import 'package:kb_mobile_app/models/app_logs.dart';
 
 class AppLogsService {
   Future<void> saveLogs(AppLogs appLog) async {

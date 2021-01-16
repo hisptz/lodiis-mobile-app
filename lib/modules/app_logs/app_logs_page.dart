@@ -54,46 +54,52 @@ class _AppLogsState extends State<AppLogsPage> {
                 )),
             body: Consumer<AppLogsState>(
               builder: (context, appLogsState, child) {
-                return Container(
-                  child: Stack(
-                    fit: StackFit.expand,
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                            color: activeInterventionProgram.background),
-                      ),
-                      Column(
-                        children: [
-                          AppLogsSearch(
-                            onSearchLogs: (value) => onSearchLogs(value),
-                          ),
-                          CustomPaginatedListView(
-                              childBuilder: (context, appLog, child) =>
-                                  Container(
-                                      margin: EdgeInsets.symmetric(
-                                          horizontal: 10, vertical: 10),
-                                      child: AppLogsCard(
-                                        appLog: appLog,
-                                        currentInterventionColor:
-                                            activeInterventionProgram
-                                                .countLabelColor,
-                                      )),
-                              pagingController: appLogsState.pagingController,
-                              emptyListWidget: Column(children: [
-                                Center(
+                return Scaffold(
+                  appBar: AppBar(
+                    automaticallyImplyLeading: false,
+                    title: AppLogsSearch(
+                      onSearchLogs: (value) => onSearchLogs(value),
+                    ),
+                    backgroundColor: Colors.white,
+                  ),
+                  body: Container(
+                    child: Stack(
+                      fit: StackFit.expand,
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                              color: activeInterventionProgram.background),
+                        ),
+                        Container(
+                          child: Container(
+                            child: CustomPaginatedListView(
+                                childBuilder: (context, appLog, child) =>
+                                    Container(
+                                        margin: EdgeInsets.symmetric(
+                                            horizontal: 10, vertical: 10),
+                                        child: AppLogsCard(
+                                          appLog: appLog,
+                                          currentInterventionColor:
+                                              activeInterventionProgram
+                                                  .countLabelColor,
+                                        )),
+                                pagingController: appLogsState.pagingController,
+                                emptyListWidget: Column(children: [
+                                  Center(
+                                    child: Text(
+                                      'There are no application logs at a moment.',
+                                    ),
+                                  )
+                                ]),
+                                errorWidget: Center(
                                   child: Text(
-                                    'There are no application logs at a moment.',
+                                    'There are no application logs list at a moment.',
                                   ),
-                                )
-                              ]),
-                              errorWidget: Center(
-                                child: Text(
-                                  'There are no application logs list at a moment.',
-                                ),
-                              ))
-                        ],
-                      )
-                    ],
+                                )),
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 );
               },
