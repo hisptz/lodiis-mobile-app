@@ -90,12 +90,7 @@ class _AgywDreamsIndexFollowUpState extends State<AgywDreamsIndexFollowUp> {
                 : 'Form has been saved successfully',
             position: ToastGravity.TOP,
           );
-          Widget modal = AddFollowUpConfirmation(name: "name");
-          bool response = await AppUtil.showPopUpModal(context, modal, false);
-          if (response) {
-          } else {
-            Navigator.pop(context);
-          }
+          Navigator.pop(context);
         });
       } catch (e) {
         Timer(Duration(seconds: 1), () {

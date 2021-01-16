@@ -46,9 +46,11 @@ class _CasePlanFollowUpFormContainerState
   List<FormSection> formSections;
   Map mandatoryFieldObject;
   Color formSectionColor;
+  Map dataObject;
 
   @override
   void initState() {
+    dataObject = widget.dataObject;
     super.initState();
     Timer(Duration(seconds: 1), () {
       setState(() {
@@ -202,7 +204,7 @@ class _CasePlanFollowUpFormContainerState
                                   color: formSectionColor,
                                   onPressed: () => onSaveGapForm(
                                       context,
-                                      widget.dataObject,
+                                      dataObject,
                                       currentOvcHouseHold,
                                       currentOvcHouseHoldChild),
                                   child: Container(

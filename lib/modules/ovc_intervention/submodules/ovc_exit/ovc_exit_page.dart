@@ -116,6 +116,7 @@ class _OvcExitPageState extends State<OvcExitPage> {
   }
 
   Widget _buildBody(String currentLanguage) {
+    double screenWidth = MediaQuery.of(context).size.width;
     return Consumer<OvcInterventionListState>(
         builder: (context, ovcListState, child) => CustomPaginatedListView(
               pagingController: ovcListState.pagingController,
@@ -139,12 +140,18 @@ class _OvcExitPageState extends State<OvcExitPage> {
                           bottomRight: Radius.circular(12.0),
                         ),
                   child: Container(
+                    height: 50.0,
+                      width: double.infinity,
                     decoration: BoxDecoration(
                       color: Color(0XFFF6FAF6),
                     ),
-                    child: Row(
+                    child: ListView(
+                      scrollDirection: Axis.horizontal,
+                      itemExtent:
+                      screenWidth > 320 ? (screenWidth * 0.95) / 4 : null,
+                      shrinkWrap: true,
                       children: [
-                        Expanded(
+                        Container(
                           child: FlatButton(
                             padding: EdgeInsets.symmetric(
                               vertical: 5.0,
@@ -162,7 +169,7 @@ class _OvcExitPageState extends State<OvcExitPage> {
                             ),
                           ),
                         ),
-                        Expanded(
+                        Container(
                           child: FlatButton(
                             padding: EdgeInsets.symmetric(
                               vertical: 5.0,
@@ -197,7 +204,7 @@ class _OvcExitPageState extends State<OvcExitPage> {
                             ),
                           ),
                         ),
-                        Expanded(
+                        Container(
                           child: FlatButton(
                             padding: EdgeInsets.symmetric(
                               vertical: 5.0,
