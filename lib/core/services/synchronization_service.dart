@@ -1,5 +1,8 @@
 import 'dart:convert';
+import 'package:flutter/services.dart';
 import 'package:http/http.dart';
+import 'package:kb_mobile_app/core/constants/app_logs.dart';
+import 'package:kb_mobile_app/core/offline_db/app_logs_offline/app_logs_offline_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/enrollment_offline/enrollment_offline_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/event_offline/event_offline_data_value.dart';
 import 'package:kb_mobile_app/core/offline_db/event_offline/event_offline_provider.dart';
@@ -7,9 +10,11 @@ import 'package:kb_mobile_app/core/offline_db/tei_relationship_offline/tei_relat
 import 'package:kb_mobile_app/core/offline_db/tracked_entity_instance_offline/tracked_entity_instance_offline_attribute_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/tracked_entity_instance_offline/tracked_entity_instance_offline_provider.dart';
 import 'package:kb_mobile_app/core/services/http_service.dart';
+import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/enrollment.dart';
 import 'package:kb_mobile_app/models/events.dart';
+import 'package:kb_mobile_app/models/app_logs.dart';
 import 'package:kb_mobile_app/models/tei_relationship.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
 
@@ -49,15 +54,22 @@ class SynchronizationService {
         Response response = await httpClient.httpGet(newTrackedInstanceUrl);
         if (response.statusCode == 200) {
           var responseData = json.decode(response.body);
-          List<Events> events =
-              responseData['events']?.map<Events>((event) => Events().fromJson(event))?.toList();
+          List<Events> events = responseData['events']
+              ?.map<Events>((event) => Events().fromJson(event))
+              ?.toList();
           saveEventsToOffline(events);
         } else {
-          print(response.statusCode);
+          AppLogs log = AppLogs(
+              type: AppLogsConstants.errorLogType,
+              message: _getHttpResponseAppLogs(response.body));
+          await AppLogsOfflineProvider().addLogs(log);
         }
       }
     } catch (e) {
-      print(e);
+      AppLogs log = AppLogs(
+          type: AppLogsConstants.errorLogType, message: '${e.toString()}');
+      await AppLogsOfflineProvider().addLogs(log);
+      throw e;
     }
   }
 
@@ -77,13 +89,20 @@ class SynchronizationService {
             teiRelationshipsFromServer
                 .add(TeiRelationship().fromOnline(teiRelationship));
           }
-          // print(teiRelationshipsFromServer);
         } else {
-          // print(response);
+          AppLogs log = AppLogs(
+              type: AppLogsConstants.errorLogType,
+              message: _getHttpResponseAppLogs(response.body));
+          await AppLogsOfflineProvider().addLogs(log);
           return null;
         }
       }
-    } catch (e) {}
+    } catch (e) {
+      AppLogs log = AppLogs(
+          type: AppLogsConstants.errorLogType, message: '${e.toString()}');
+      await AppLogsOfflineProvider().addLogs(log);
+      throw e;
+    }
     return teiRelationshipsFromServer;
   }
 
@@ -116,7 +135,7 @@ class SynchronizationService {
         ?.toList();
   }
 
-  Map<String, List> getEnrollmentsAndRelationshipsFromResponse(responseData){
+  Map<String, List> getEnrollmentsAndRelationshipsFromResponse(responseData) {
     List<Enrollment> enrollments = [];
     List<TeiRelationship> relationships = [];
     for (var tei in responseData['trackedEntityInstances']) {
@@ -151,13 +170,23 @@ class SynchronizationService {
       String newTrackedInstanceUrl =
           "api/trackedEntityInstances.json?ouMode=DESCENDANTS&ou=$userOrgId&program=$program&fields=trackedEntityInstance,trackedEntityType,orgUnit,attributes[attribute,value, displayName],enrollments[enrollment,enrollmentDate,incidentDate,orgUnit,program,trackedEntityInstance,status]relationships[relationshipType,relationship,from[trackedEntityInstance[trackedEntityInstance]],to[trackedEntityInstance[trackedEntityInstance]]]&$pageFilter";
 
-      Response response = await httpClient.httpGet(newTrackedInstanceUrl);
-      if (response.statusCode == 200) {
-        var responseData = json.decode(response.body);
-        await saveTeis(responseData);
-      }
-      {
-        print(response.statusCode);
+      try {
+        Response response = await httpClient.httpGet(newTrackedInstanceUrl);
+        if (response.statusCode == 200) {
+          var responseData = json.decode(response.body);
+          await saveTeis(responseData);
+        } else {
+          AppLogs log = AppLogs(
+              type: AppLogsConstants.errorLogType,
+              message: _getHttpResponseAppLogs(response.body));
+          await AppLogsOfflineProvider().addLogs(log);
+          return null;
+        }
+      } catch (e) {
+        AppLogs log = AppLogs(
+            type: AppLogsConstants.errorLogType, message: '${e.toString()}');
+        await AppLogsOfflineProvider().addLogs(log);
+        throw e;
       }
     }
   }
@@ -218,11 +247,23 @@ class SynchronizationService {
           .toList();
       return data;
     }).toList();
-    var response = await httpClient.httpPost(url, json.encode(body));
+
     try {
-      syncedIds = _getReferenceids(json.decode(response.body));
+      var response = await httpClient.httpPost(url, json.encode(body));
+      if (response.statusCode >= 400 && response.statusCode != 409) {
+        var message = _getHttpResponseAppLogs(response.body);
+        AppLogs log =
+            AppLogs(type: AppLogsConstants.errorLogType, message: message);
+        await AppLogsOfflineProvider().addLogs(log);
+        AppUtil.showToastMessage(message: 'Error uploading data');
+      }
+      syncedIds = await _getReferenceids(json.decode(response.body));
     } catch (e) {
-      print(e);
+      AppLogs log = AppLogs(
+          type: AppLogsConstants.errorLogType, message: '${e.toString()}');
+      await AppLogsOfflineProvider().addLogs(log);
+      AppUtil.showToastMessage(message: 'Error uploading data');
+      throw e;
     }
     if (syncedIds.length > 0) {
       for (TrackeEntityInstance tei in teis) {
@@ -254,12 +295,23 @@ class SynchronizationService {
       }
       return data;
     }).toList();
-    var response = await httpClient.httpPost(url, json.encode(body));
+
     try {
-      syncedIds = _getReferenceids(json.decode(response.body));
-      print(json.decode(response.body));
+      var response = await httpClient.httpPost(url, json.encode(body));
+      if (response.statusCode >= 400 && response.statusCode != 409) {
+        var message = _getHttpResponseAppLogs(response.body);
+        AppLogs log =
+            AppLogs(type: AppLogsConstants.errorLogType, message: message);
+        await AppLogsOfflineProvider().addLogs(log);
+        AppUtil.showToastMessage(message: 'Error uploading data');
+      }
+      syncedIds = await _getReferenceids(json.decode(response.body));
     } catch (e) {
-      print(e);
+      AppLogs log = AppLogs(
+          type: AppLogsConstants.errorLogType, message: '${e.toString()}');
+      await AppLogsOfflineProvider().addLogs(log);
+      AppUtil.showToastMessage(message: 'Error uploading data');
+      throw e;
     }
     if (syncedIds.length > 0) {
       for (Events event in teiEvents) {
@@ -279,10 +331,45 @@ class SynchronizationService {
     body['relationships'] = teiRelationShips
         .map((relationship) => relationship.toOnline())
         .toList();
-    await httpClient.httpPost(url, json.encode(body));
+    try {
+      var response = await httpClient.httpPost(url, json.encode(body));
+      if (response.statusCode >= 400 && response.statusCode != 409) {
+        var message = _getHttpResponseAppLogs(response.body);
+        AppLogs log =
+            AppLogs(type: AppLogsConstants.errorLogType, message: message);
+        await AppLogsOfflineProvider().addLogs(log);
+        AppUtil.showToastMessage(message: 'Error uploading data');
+      }
+    } catch (e) {
+      AppLogs log = AppLogs(
+          type: AppLogsConstants.errorLogType, message: '${e.toString()}');
+      await AppLogsOfflineProvider().addLogs(log);
+      AppUtil.showToastMessage(message: 'Error uploading data');
+      throw e;
+    }
   }
 
-  List<String> _getReferenceids(Map body) {
+  String _getHttpResponseAppLogs(String responseBody) {
+    int descriptionStart = responseBody.lastIndexOf('<b>Description</b> ');
+    int descriptionEnd = responseBody.lastIndexOf('</p>');
+    int httpStatusStart = responseBody.lastIndexOf('<h1>HTTP');
+    int httpStatusEnd = responseBody.lastIndexOf('</h1>');
+
+    String description = responseBody
+        .substring(descriptionStart, descriptionEnd)
+        .replaceAll(new RegExp('<b>Description</b>'), '')
+        .trimLeft()
+        .trimRight();
+    String status = responseBody
+        .substring(httpStatusStart, httpStatusEnd)
+        .replaceAll(new RegExp('<h1>'), '')
+        .trimLeft()
+        .trimRight();
+
+    return '$status: $description';
+  }
+
+  Future<List<String>> _getReferenceids(Map body) async {
     List<String> referenceIds = [];
     var bodyResponse = body['response'];
     var importSummaries = bodyResponse['importSummaries'] ?? [];
@@ -291,8 +378,21 @@ class SynchronizationService {
           importSummary['reference'] != null) {
         referenceIds.add(importSummary['reference']);
       } else {
-        //@TODO add logs
-        //print(json.encode(importSummary));
+        if (importSummary['conflicts'] != null) {
+          for (var conflict in importSummary['conflicts']) {
+            AppLogs log = AppLogs(
+                type: AppLogsConstants.errorLogType,
+                message: "${conflict['object']}: ${conflict['value']}");
+            await AppLogsOfflineProvider().addLogs(log);
+            AppUtil.showToastMessage(message: 'Error uploading data');
+          }
+        } else if (importSummary['description'] != null) {
+          AppLogs log = AppLogs(
+              type: AppLogsConstants.errorLogType,
+              message: importSummary['description']);
+          await AppLogsOfflineProvider().addLogs(log);
+          AppUtil.showToastMessage(message: 'Error uploading data');
+        }
       }
     }
     return referenceIds;
