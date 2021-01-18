@@ -795,7 +795,8 @@ class HouseholdServiceFollowup {
             InputField(
                 id: 'QDFZ03HbjGj',
                 name: 'VAC Legal Messaging Provision Status',
-                translatedName: 'Boemo ba Phano ea Litšebeletso ea VAC Legal Messaging',
+                translatedName:
+                    'Boemo ba Phano ea Litšebeletso ea VAC Legal Messaging',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373),
@@ -816,7 +817,8 @@ class HouseholdServiceFollowup {
             InputField(
                 id: 'Dw1xLXILErU',
                 name: 'VAC Legal Messaging Provision Date',
-                translatedName: 'Letsatsi la Kabo ea Litšebeletso tsa VAC Legal Messaging',
+                translatedName:
+                    'Letsatsi la Kabo ea Litšebeletso tsa VAC Legal Messaging',
                 valueType: 'DATE',
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
@@ -1054,7 +1056,7 @@ class HouseholdServiceFollowup {
       FormSection(
           id: 'Schooled',
           name: 'DOMAIN SCHOOLED',
-          translatedName:'TSA SEKOLO',
+          translatedName: 'TSA SEKOLO',
           color: Color(0xFF9B2BAE),
           borderColor: Color(0xFF9B2BAE),
           inputFields: [

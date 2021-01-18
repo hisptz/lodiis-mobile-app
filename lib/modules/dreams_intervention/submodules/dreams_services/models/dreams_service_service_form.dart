@@ -4,6 +4,10 @@ import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/input_field_option.dart';
 
 class DreamsServiceForm {
+  static List<String> getMandatoryField() {
+    return ['Eug4BXDFLym'];
+  }
+
   static List<FormSection> getFormSections() {
     return [
       FormSection(name: 'Service Form', color: Color(0xFF737373), inputFields: [
@@ -37,7 +41,10 @@ class DreamsServiceForm {
               InputFieldOption(code: 'LBSE', name: 'LBSE'),
               InputFieldOption(code: 'GBV Legal', name: 'GBV Legal'),
               InputFieldOption(code: 'VAC Legal', name: 'VAC Legal'),
-              InputFieldOption(code: 'VAC Legal Messaging', name: 'VAC Legal Messaging'),
+              InputFieldOption(
+                  code: 'VAC Legal Messaging', name: 'VAC Legal Messaging'),
+              InputFieldOption(
+                  code: 'GBV Legal Messaging', name: 'GBV Legal Messaging')
             ]),
         InputField(
           id: 'O7sjTjxUmEa',

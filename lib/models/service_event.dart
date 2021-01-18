@@ -63,6 +63,8 @@ class ServiceEvents {
       return 'VAC LEGAL';
     } else if (interventionType == 'VAC Legal Messaging') {
       return 'VAC LEGAL MESSAGING';
+    } else if (interventionType == 'GBV Legal Messaging') {
+      return 'GBV LEGAL MESSAGING';
     } else {
       return '';
     }
