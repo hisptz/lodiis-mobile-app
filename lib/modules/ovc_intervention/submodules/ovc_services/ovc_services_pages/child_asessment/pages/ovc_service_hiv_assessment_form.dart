@@ -80,6 +80,11 @@ class _OvcServiceHIVAssessmentFormState
       });
       String eventDate = dataObject['eventDate'];
       String eventId = dataObject['eventId'];
+
+      List<String> skippedFields = [
+        'hivriskres',
+      ];
+
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
             OvcServiceHIVAssessmentConstant.program,
@@ -90,7 +95,7 @@ class _OvcServiceHIVAssessmentFormState
             eventDate,
             currentOvcHouseHoldChild.id,
             eventId,
-            null);
+            null, skippedFields: skippedFields);
         Provider.of<ServiveEventDataState>(context, listen: false)
             .resetServiceEventDataState(currentOvcHouseHoldChild.id);
         Timer(Duration(seconds: 1), () {

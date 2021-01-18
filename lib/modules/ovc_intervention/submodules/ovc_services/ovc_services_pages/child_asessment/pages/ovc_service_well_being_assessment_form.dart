@@ -80,6 +80,10 @@ class _OvcServiceWellBeingAssessmentFormState
       });
       String eventDate = dataObject['eventDate'];
       String eventId = dataObject['eventId'];
+
+      List<String> skippedFields = [
+        'Wstcittf',
+      ];
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
             OvcServiceWellBeingAssessmentConstant.program,
@@ -90,7 +94,8 @@ class _OvcServiceWellBeingAssessmentFormState
             eventDate,
             currentOvcHouseHoldChild.id,
             eventId,
-            null);
+            null,
+            skippedFields: skippedFields);
         Provider.of<ServiveEventDataState>(context, listen: false)
             .resetServiceEventDataState(currentOvcHouseHoldChild.id);
 

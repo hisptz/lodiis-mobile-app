@@ -36,8 +36,7 @@ class _CasePlanGapFormContainerState extends State<CasePlanGapFormContainer>
   void initState() {
     super.initState();
     setState(() {
-      mandatoryFields =
-          widget.isCasePlanForHouseHold ? ['m8ujTeOcYO3'] : ['QjlTTO5KAIf'];
+      mandatoryFields = ['QjlTTO5KAIf'];
       for (String id in mandatoryFields) {
         mandatoryFieldObject[id] = true;
       }

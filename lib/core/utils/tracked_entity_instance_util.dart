@@ -3,6 +3,7 @@ import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
+import 'package:kb_mobile_app/models/input_field.dart';
 
 class TrackedEntityInstanceUtil {
   static Future savingTrackedEntityInstanceEventData(
@@ -14,8 +15,7 @@ class TrackedEntityInstanceUtil {
     String eventDate,
     String trackedEntityInstance,
     String eventId,
-    List<String> hiddenFields,
-      {
+    List<String> hiddenFields, {
     List<String> skippedFields,
   }) async {
     hiddenFields = hiddenFields ?? [];
@@ -24,12 +24,12 @@ class TrackedEntityInstanceUtil {
       formSections,
     );
     inputFieldIds.addAll(hiddenFields);
+
     inputFieldIds.removeWhere((field) => skippedFields.indexOf(field) > -1);
     eventId =
         eventId == null ? dataObject['eventId'] ?? AppUtil.getUid() : eventId;
-     //clear unwanted object from the mapper : an object in clo question which signifies form to save
-    dataObject.removeWhere((key, value) => key == 'NbQGlx6QZpK_clo_type');
-       Events eventData = FormUtil.getEventPayload(eventId, program, programStage,
+    //clear unwanted object from the mapper : an object in clo question which signifies form to save
+    Events eventData = FormUtil.getEventPayload(eventId, program, programStage,
         orgUnit, inputFieldIds, dataObject, eventDate, trackedEntityInstance);
     await FormUtil.savingEvent(eventData);
   }

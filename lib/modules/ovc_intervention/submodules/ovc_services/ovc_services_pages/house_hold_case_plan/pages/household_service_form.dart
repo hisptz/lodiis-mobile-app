@@ -42,7 +42,6 @@ class _HouseHoldServiceFormState extends State<HouseHoldServiceForm> {
   final String label = 'Household Service Follow Up';
   List<FormSection> formSections;
   Map borderColors = Map();
-
   bool isSaving = false;
   bool isFormReady = false;
 

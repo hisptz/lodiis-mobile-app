@@ -104,6 +104,7 @@ class _OvcChildCLOReferralAddFormState
           currentOvcHouseHoldChild.id,
           eventId,
           hiddenFields,
+          skippedFields: ['NbQGlx6QZpK_clo_type']
         );
         Provider.of<ServiveEventDataState>(context, listen: false)
             .resetServiceEventDataState(currentOvcHouseHoldChild.id);
