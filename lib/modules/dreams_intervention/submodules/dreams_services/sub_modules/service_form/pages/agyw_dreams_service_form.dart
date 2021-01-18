@@ -35,12 +35,17 @@ class AgywDreamsServiceForm extends StatefulWidget {
 class _AgywDreamsServiceFormState extends State<AgywDreamsServiceForm> {
   final String label = 'Service Form';
   List<FormSection> formSections;
+  final List<String> mandatoryFields = DreamsServiceForm.getMandatoryField();
+  final Map mandatoryFieldObject = Map();
   bool isFormReady = false;
   bool isSaving = false;
 
   @override
   void initState() {
     super.initState();
+    for (String id in mandatoryFields) {
+      mandatoryFieldObject[id] = true;
+    }
     formSections = DreamsServiceForm.getFormSections();
     Timer(Duration(seconds: 1), () {
       setState(() {
@@ -77,64 +82,73 @@ class _AgywDreamsServiceFormState extends State<AgywDreamsServiceForm> {
 
   void onSaveForm(
       BuildContext context, Map dataObject, AgywDream agywDream) async {
-    if (dataObject.keys.length > 0) {
-      bool shouldSaveForm =
-          AgywDreamsServiceFormSkipLogic.evaluateSkipLogicsBySession(
-              dataObject);
-      if (shouldSaveForm) {
-        setState(() {
-          isSaving = true;
-        });
-        String eventDate = dataObject['eventDate'];
-        String eventId = dataObject['eventId'];
-        dataObject.remove('implementingPatner');
-        List<String> hiddenFields = [];
-        try {
-          await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-              ServiceFormConstant.program,
-              ServiceFormConstant.programStage,
-              agywDream.orgUnit,
-              formSections,
-              dataObject,
-              eventDate,
-              agywDream.id,
-              eventId,
-              hiddenFields);
-          Provider.of<ServiveEventDataState>(context, listen: false)
-              .resetServiceEventDataState(agywDream.id);
-          Timer(Duration(seconds: 1), () {
-            setState(() {
-              isSaving = false;
-            });
-            String currentLanguage =
-                Provider.of<LanguageTranslationState>(context, listen: false)
-                    .currentLanguage;
-            AppUtil.showToastMessage(
-              message: currentLanguage == 'lesotho'
-                  ? 'Fomo e bolokeile'
-                  : 'Form has been saved successfully',
-              position: ToastGravity.TOP,
-            );
-            Navigator.pop(context);
+    bool hadAllMandatoryFilled =
+        AppUtil.hasAllMandarotyFieldsFilled(mandatoryFields, dataObject);
+    if (hadAllMandatoryFilled) {
+      if (dataObject.keys.length > 0) {
+        bool shouldSaveForm =
+            AgywDreamsServiceFormSkipLogic.evaluateSkipLogicsBySession(
+                dataObject);
+        if (shouldSaveForm) {
+          setState(() {
+            isSaving = true;
           });
-        } catch (e) {
-          Timer(Duration(seconds: 1), () {
-            setState(() {
+          String eventDate = dataObject['eventDate'];
+          String eventId = dataObject['eventId'];
+          dataObject.remove('implementingPatner');
+          List<String> hiddenFields = [];
+          try {
+            await TrackedEntityInstanceUtil
+                .savingTrackedEntityInstanceEventData(
+                    ServiceFormConstant.program,
+                    ServiceFormConstant.programStage,
+                    agywDream.orgUnit,
+                    formSections,
+                    dataObject,
+                    eventDate,
+                    agywDream.id,
+                    eventId,
+                    hiddenFields);
+            Provider.of<ServiveEventDataState>(context, listen: false)
+                .resetServiceEventDataState(agywDream.id);
+            Timer(Duration(seconds: 1), () {
+              setState(() {
+                isSaving = false;
+              });
+              String currentLanguage =
+                  Provider.of<LanguageTranslationState>(context, listen: false)
+                      .currentLanguage;
               AppUtil.showToastMessage(
-                  message: e.toString(), position: ToastGravity.BOTTOM);
+                message: currentLanguage == 'lesotho'
+                    ? 'Fomo e bolokeile'
+                    : 'Form has been saved successfully',
+                position: ToastGravity.TOP,
+              );
+              Navigator.pop(context);
             });
-          });
+          } catch (e) {
+            Timer(Duration(seconds: 1), () {
+              setState(() {
+                AppUtil.showToastMessage(
+                    message: e.toString(), position: ToastGravity.BOTTOM);
+              });
+            });
+          }
+        } else {
+          AppUtil.showToastMessage(
+              message: 'You have reached the maximum number of sessions',
+              position: ToastGravity.TOP);
         }
       } else {
         AppUtil.showToastMessage(
-            message: 'You have reached the maximum number of sessions',
+            message: 'Please fill at least one form field',
             position: ToastGravity.TOP);
+        Navigator.pop(context);
       }
     } else {
       AppUtil.showToastMessage(
-          message: 'Please fill at least one form field',
+          message: 'Please fill all mandatory field',
           position: ToastGravity.TOP);
-      Navigator.pop(context);
     }
   }
 
@@ -194,7 +208,8 @@ class _AgywDreamsServiceFormState extends State<AgywDreamsServiceForm> {
                                                 serviceFormState
                                                     .hiddenInputFieldOptions,
                                             formSections: formSections,
-                                            mandatoryFieldObject: Map(),
+                                            mandatoryFieldObject:
+                                                mandatoryFieldObject,
                                             isEditableMode:
                                                 serviceFormState.isEditableMode,
                                             dataObject:
