@@ -99,13 +99,6 @@ class OvcExitCasePlanGraduationFormInfo {
                     'Is the HIV status of the caregivers (positive, negative) documented in the case file?',
                 valueType: 'BOOLEAN'),
             InputField(
-                id: 'Ddle2RGHIgV',
-                inputColor: Color(0xFF4B9F46),
-                labelColor: Color(0xFF1A3518),
-                name:
-                    'Is the HIV status of the caregivers (positive, negative) documented in the case file?',
-                valueType: 'BOOLEAN'),
-            InputField(
                 id: 'bSdbmpAteTX',
                 inputColor: Color(0xFF4B9F46),
                 labelColor: Color(0xFF1A3518),

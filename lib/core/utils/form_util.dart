@@ -63,7 +63,7 @@ class FormUtil {
     List<String> fieldIds = [];
     for (FormSection formSection in formSections) {
       for (InputField inputField in formSection.inputFields) {
-        if (inputField.id != '' && inputField.id != 'location') {
+        if (inputField.id != '' && inputField.id != 'location' && inputField.valueType != 'CHECK_BOX') {
           fieldIds.add(inputField.id);
         }
         if (inputField.valueType == 'CHECK_BOX') {
