@@ -4,6 +4,10 @@ import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/input_field_option.dart';
 
 class DreamsServiceForm {
+  static List<String> getMandatoryField() {
+    return ['Eug4BXDFLym'];
+  }
+
   static List<FormSection> getFormSections() {
     return [
       FormSection(name: 'Service Form', color: Color(0xFF737373), inputFields: [
