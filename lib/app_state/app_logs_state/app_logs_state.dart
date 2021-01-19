@@ -63,7 +63,11 @@ class AppLogsState with ChangeNotifier {
   Future<void> _fetchPage(int pageKey) async {
     List<AppLogs> logsList = await AppLogsService().getAppLogs(page: pageKey);
     PaginationService.assignPagesToController(
-        _pagingController, logsList, pageKey, numberOfPages);
+      _pagingController,
+      logsList,
+      pageKey,
+      numberOfPages,
+    );
   }
 
   void initializePagination() {
@@ -91,7 +95,6 @@ class AppLogsState with ChangeNotifier {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     _pagingController.dispose();
     super.dispose();
   }
