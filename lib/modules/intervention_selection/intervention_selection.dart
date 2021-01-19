@@ -41,18 +41,20 @@ class _InterventionSelectionState extends State<InterventionSelection> {
   }
 
   updateDataStateLoadingStatus() async {
-    await ReservedAttributeValueService().generateReservedAttributeValues();
-    Provider.of<OvcInterventionListState>(context, listen: false)
-        .refreshOvcNumber();
-    Provider.of<DreamsInterventionListState>(context, listen: false)
-        .refreshBeneficiariesNumber();
-    Provider.of<OgacInterventionListState>(context, listen: false)
-        .refreshOgacNumber();
-    Provider.of<CurrentUserState>(context, listen: false)
-        .setCurrentUserLocation();
-    setState(() {
-      hasDataLoaded = true;
-    });
+    try {
+      await ReservedAttributeValueService().generateReservedAttributeValues();
+      Provider.of<OvcInterventionListState>(context, listen: false)
+          .refreshOvcNumber();
+      Provider.of<DreamsInterventionListState>(context, listen: false)
+          .refreshBeneficiariesNumber();
+      Provider.of<OgacInterventionListState>(context, listen: false)
+          .refreshOgacNumber();
+      Provider.of<CurrentUserState>(context, listen: false)
+          .setCurrentUserLocation();
+      setState(() {
+        hasDataLoaded = true;
+      });
+    } catch (error) {}
   }
 
   @override

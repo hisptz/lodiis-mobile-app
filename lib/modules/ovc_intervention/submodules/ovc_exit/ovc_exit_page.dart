@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_house_hold_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_intervention_list_state.dart';
 import 'package:kb_mobile_app/core/components/paginated_list_view.dart';
 import 'package:kb_mobile_app/core/components/sub_module_home_container.dart';
-import 'package:kb_mobile_app/core/services/pagination-service.dart';
 import 'package:kb_mobile_app/models/ovc_house_hold.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold_card.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold_card_body.dart';
@@ -141,14 +139,14 @@ class _OvcExitPageState extends State<OvcExitPage> {
                         ),
                   child: Container(
                     height: 50.0,
-                      width: double.infinity,
+                    width: double.infinity,
                     decoration: BoxDecoration(
                       color: Color(0XFFF6FAF6),
                     ),
                     child: ListView(
                       scrollDirection: Axis.horizontal,
                       itemExtent:
-                      screenWidth > 320 ? (screenWidth * 0.95) / 4 : null,
+                          screenWidth > 320 ? (screenWidth * 0.95) / 4 : null,
                       shrinkWrap: true,
                       children: [
                         Container(

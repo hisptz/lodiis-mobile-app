@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/core/components/material_card.dart';
 import 'package:kb_mobile_app/models/agyw_dreams_index_info_event.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/components/dreams_hts_index_contact_card_body.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/components/dreams_hts_index_contact_card_header.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/models/index_contact_model.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/pages/agyw_dreams_index_information_about_pos_client.dart';
 import 'package:provider/provider.dart';
-
-import '../../../../../../../app_state/enrollment_service_form_state/service_form_state.dart';
-import '../pages/agyw_dreams_index_information_about_pos_client.dart';
-import 'dreams_hts_index_card_header.dart';
 
 class DreamsHTSIndexContactCard extends StatelessWidget {
   const DreamsHTSIndexContactCard({
@@ -45,18 +43,22 @@ class DreamsHTSIndexContactCard extends StatelessWidget {
       BuildContext context, AgywDreamsIndexInfoEvent eventData) {
     updateFormState(context, true, eventData);
     Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => AgywDreamsIndexInfoAboutPosClient()));
+      context,
+      MaterialPageRoute(
+        builder: (context) => AgywDreamsIndexInfoAboutPosClient(),
+      ),
+    );
   }
 
   void onViewIndexInfo(
       BuildContext context, AgywDreamsIndexInfoEvent eventData) {
     updateFormState(context, false, eventData);
     Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => AgywDreamsIndexInfoAboutPosClient()));
+      context,
+      MaterialPageRoute(
+        builder: (context) => AgywDreamsIndexInfoAboutPosClient(),
+      ),
+    );
   }
 
   @override

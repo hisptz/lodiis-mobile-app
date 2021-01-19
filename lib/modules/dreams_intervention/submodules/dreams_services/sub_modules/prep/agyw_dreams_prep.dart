@@ -31,7 +31,9 @@ class AgywDreamsPrep extends StatefulWidget {
 class _AgywDreamsPrepState extends State<AgywDreamsPrep> {
   final String label = 'AGYW Prep';
   List<String> programStageids = [PrepIntakeConstant.programStage];
-  List<String> visitProgramStageIds = [PrepIntakeConstant.prepVisitProgramStage];
+  List<String> visitProgramStageIds = [
+    PrepIntakeConstant.prepVisitProgramStage
+  ];
 
   @override
   void initState() {
@@ -76,14 +78,14 @@ class _AgywDreamsPrepState extends State<AgywDreamsPrep> {
 
   void onViewPrep(BuildContext context, Events eventdata) {
     updateFormState(context, false, eventdata);
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => AgywPrepVisitForm()));
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => AgywPrepVisitForm()));
   }
 
   void onEditPrep(BuildContext context, Events eventdata) {
     updateFormState(context, true, eventdata);
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => AgywPrepVisitForm()));
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => AgywPrepVisitForm()));
   }
 
   void onAddVisit(BuildContext context, AgywDream agywDream) {
@@ -91,8 +93,8 @@ class _AgywDreamsPrepState extends State<AgywDreamsPrep> {
     Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
         .setCurrentAgywDream(agywDream);
     if (int.parse(agywDream.age) >= 15 && int.parse(agywDream.age) <= 24) {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => AgywPrepVisitForm()));
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => AgywPrepVisitForm()));
     } else {
       AppUtil.showToastMessage(
           message: 'PrEP is restricted to beneficiaries from 15-24 years only',
@@ -220,7 +222,6 @@ class _AgywDreamsPrepState extends State<AgywDreamsPrep> {
                                                   children: events
                                                       .map((Events eventData) {
                                                     referralIndex--;
-
                                                     return Container(
                                                       margin: EdgeInsets.only(
                                                         bottom: 15.0,
@@ -277,32 +278,31 @@ class _AgywDreamsPrepState extends State<AgywDreamsPrep> {
                                                             children: visits
                                                                 .map((Events
                                                                     eventData) {
-                                                              int count = visitReferralIndex--;
+                                                              int count =
+                                                                  visitReferralIndex--;
                                                               return Container(
                                                                 margin:
                                                                     EdgeInsets
                                                                         .only(
                                                                   bottom: 15.0,
                                                                 ),
-                                                                child:
-                                                                    PrepVisitListCard(
-                                                                  visitName:
-                                                                      "Prep Visit",
-                                                                  onEditPrep: () =>
-                                                                      onEditVisit(
-                                                                          context,
-                                                                          eventData),
-                                                                  onViewPrep: () =>
-                                                                      onViewVisit(
-                                                                          context,
-                                                                          eventData),
-                                                                  eventData:
-                                                                      eventData,
-                                                                  visitCount:
-                                                                      count,
-                                                                  editDisabled:
-                                                                      !(visits.first == eventData)
-                                                                ),
+                                                                child: PrepVisitListCard(
+                                                                    visitName:
+                                                                        "Prep Visit",
+                                                                    onEditPrep: () => onEditVisit(
+                                                                        context,
+                                                                        eventData),
+                                                                    onViewPrep: () =>
+                                                                        onViewVisit(
+                                                                            context,
+                                                                            eventData),
+                                                                    eventData:
+                                                                        eventData,
+                                                                    visitCount:
+                                                                        count,
+                                                                    editDisabled:
+                                                                        !(visits.first ==
+                                                                            eventData)),
                                                               );
                                                             }).toList(),
                                                           ),

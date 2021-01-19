@@ -84,7 +84,7 @@ class AppLogsState with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> getNumberOfPages() {
+  getNumberOfPages() {
     _numberOfPages =
         (_numberOfAppLogs / AppLogsConstants.logsPagnationLimit).ceil();
   }
