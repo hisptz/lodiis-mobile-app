@@ -69,9 +69,11 @@ class _NonAgywDreamsHTSRegisterFormState
 
   void onSaveForm(BuildContext context, Map dataObject) async {
     Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => NonAgywDreamsHTSConsentForReleaseStatus()));
+      context,
+      MaterialPageRoute(
+        builder: (context) => NonAgywDreamsHTSConsentForReleaseStatus(),
+      ),
+    );
   }
 
   @override
