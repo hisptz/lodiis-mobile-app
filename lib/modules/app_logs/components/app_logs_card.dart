@@ -5,12 +5,15 @@ import 'package:kb_mobile_app/core/constants/app_logs.dart';
 import 'package:kb_mobile_app/models/app_logs.dart';
 
 class AppLogsCard extends StatelessWidget {
-  AppLogsCard(
-      {Key key, @required this.appLog, @required this.currentInterventionColor})
-      : super(key: key);
+  AppLogsCard({
+    Key key,
+    @required this.appLog,
+    @required this.currentInterventionColor,
+  }) : super(key: key);
 
-  AppLogs appLog;
-  Color currentInterventionColor;
+  final AppLogs appLog;
+  final Color currentInterventionColor;
+
   @override
   Widget build(BuildContext context) {
     String logDateString =
@@ -33,7 +36,10 @@ class AppLogsCard extends StatelessWidget {
                             color: Colors.redAccent,
                           )
                         : appLog.type == AppLogsConstants.infoLogType
-                            ? Icon(Icons.info, color: Colors.blueAccent)
+                            ? Icon(
+                                Icons.info,
+                                color: Colors.blueAccent,
+                              )
                             : appLog.type == AppLogsConstants.warningLogType
                                 ? Icon(
                                     Icons.warning,
@@ -61,22 +67,28 @@ class AppLogsCard extends StatelessWidget {
                 ],
               ),
             ),
-            LineSeperator(color: currentInterventionColor.withOpacity(0.3)),
+            LineSeperator(
+              color: currentInterventionColor.withOpacity(0.3),
+            ),
             SizedBox(
               height: 5,
             ),
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              padding: EdgeInsets.symmetric(
+                horizontal: 10,
+                vertical: 10,
+              ),
               child: Row(
                 children: [
                   Expanded(
-                      flex: 1,
-                      child: Text(
-                        appLog.message,
-                        style: TextStyle().copyWith(
-                          fontSize: 14.0,
-                        ),
-                      ))
+                    flex: 1,
+                    child: Text(
+                      appLog.message,
+                      style: TextStyle().copyWith(
+                        fontSize: 14.0,
+                      ),
+                    ),
+                  )
                 ],
               ),
             )

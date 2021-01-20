@@ -8,11 +8,9 @@ import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_car
 import 'package:kb_mobile_app/app_state/ogac_intervention_list_state/ogac_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_intervention_list_state.dart';
 import 'package:kb_mobile_app/core/components/intervention_pop_up_menu.dart';
-import 'package:kb_mobile_app/core/offline_db/app_logs_offline/app_logs_offline_provider.dart';
 import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
-import 'package:kb_mobile_app/models/app_logs.dart';
 import 'package:kb_mobile_app/modules/about_app/about_app.dart';
 import 'package:kb_mobile_app/modules/app_logs/app_logs_page.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/dreams_intervention.dart';

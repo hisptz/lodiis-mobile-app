@@ -25,11 +25,6 @@ class AgywDreamsServiceFormSkipLogic {
     }
 
     inputFieldIds = inputFieldIds.toSet().toList();
-    for (String inputFieldId in inputFieldIds) {
-      String value = '${dataObject[inputFieldId]}';
-      // add skiplogics
-    }
-
     // skip logic as per age
     int agywDreamAge = int.parse(dataObject['age']);
     if (agywDreamAge < 18 || agywDreamAge > 24) {

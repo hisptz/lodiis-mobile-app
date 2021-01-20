@@ -79,7 +79,6 @@ class DreamsInterventionListState with ChangeNotifier {
       _nonAgywPagingController.refresh();
       _agywPagingController.refresh();
     }
-    //TODO: fix infinite loading while syncing data
     _isLoading = false;
     notifyListeners();
   }

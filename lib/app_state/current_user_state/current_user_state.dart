@@ -21,7 +21,7 @@ class CurrentUserState with ChangeNotifier {
   bool _canManageArtRefill;
   bool _canManageAnc;
   bool _canManageCondom;
-  bool _canManageContaraceptives;
+  bool _canManageContraceptives;
   bool _canManagePOSTGBV;
   bool _canManagePEP;
   bool _canManageServiceForm;
@@ -43,97 +43,64 @@ class CurrentUserState with ChangeNotifier {
   bool get canManageArtRefill => _canManageArtRefill ?? false;
   bool get canManageMSGHIV => _canManageMSGHIV ?? false;
   bool get canManageCondom => _canManageCondom ?? false;
-  bool get canManageContraceptives => _canManageContaraceptives ?? false;
+  bool get canManageContraceptives => _canManageContraceptives ?? false;
   bool get canManagePOSTGBV => _canManagePOSTGBV ?? false;
   bool get canManagePEP => _canManagePEP ?? false;
   bool get canManageServiceForm => _canManageServiceForm ?? false;
 
-  void updateUserAccessStatus(String implementingPartner) {
-    if (implementingPartner == 'Super user') {
-      _canManageDreams = true;
-      _canManageOGAC = true;
-      _canManageOvc = true;
-      _canManageNoneAgyw = true;
-      _canManageReferral = true;
-      _canManageCLOReferral = true;
-      _canManageHts = true;
-      _canManageHivReg = true;
-      _canManageSrh = true;
-      _canManagePrep = true;
-      _canManagePEP = true;
-      _canManageCondom = true;
-      _canManageContaraceptives = true;
-      _canManageMSGHIV = true;
-      _canManageArtRefill = true;
-      _canManageAnc = true;
-      _canManageServiceForm = true;
-    }
-    if (implementingPartner == 'PSI') {
-      _canManageDreams = true;
-      _canManageSrh = true;
-      _canManageReferral = true;
-      _canManageHts = true;
-      _canManageMSGHIV = true;
-      _canManageMSGHIV = true;
-      _canManageCondom = true;
-    }
-    if (implementingPartner == 'EGPAF') {
-      _canManageDreams = true;
-      _canManageHts = true;
-      _canManageReferral = true;
-      _canManageArtRefill = true;
-      _canManageMSGHIV = true;
-      _canManageAnc = true;
-      _canManagePOSTGBV = true;
-      _canManageContaraceptives = true;
-      _canManagePrep = true;
-    }
-    if (implementingPartner == 'JPHIEGO') {
-      _canManageDreams = true;
-      _canManageReferral = true;
-      _canManagePrep = true;
-      _canManageHts = true;
-      _canManagePEP = true;
-    }
-    if (implementingPartner == 'KB-Case Management') {
-      _canManageOvc = true;
-      _canManageOGAC = true;
-      _canManageReferral = true;
-      _canManageCLOReferral = true;
-    }
-    if (implementingPartner == 'KB-AGYW/DREAMS') {
-      _canManageDreams = true;
-      _canManageOvc = true;
-      _canManageOGAC = true;
-      _canManageNoneAgyw = true;
-      _canManageReferral = true;
-      _canManageCLOReferral = true;
-      _canManagePOSTGBV = true;
-      _canManageMSGHIV = true;
-      _canManageServiceForm = true;
-      _canManagePrep = true;
-      _canManagePEP = true;
-    }
-    if (implementingPartner == 'CLO') {
-      _canManageOvc = true;
-      _canManageDreams = true;
-      _canManageReferral = true;
-      _canManageCLOReferral = true;
-    }
-    if (implementingPartner == "Paralegal") {
-      _canManageOvc = true;
-      _canManageDreams = true;
-      _canManageReferral = true;
-      _canManageServiceForm = true;
-    }
+  void updateUserAccessStatus(
+    String implementingPartner,
+    dynamic userAccessConfigurations,
+  ) {
+    var userAccesses = userAccessConfigurations[implementingPartner] ?? Map();
+    _canManageDreams = userAccesses['canManageDreams'] &&
+        userAccesses['canManageDreams'] == true;
+    _canManageOGAC =
+        userAccesses['canManageOGAC'] && userAccesses['canManageOGAC'] == true;
+    _canManageOvc =
+        userAccesses['canManageOvc'] && userAccesses['canManageOvc'] == true;
+    _canManageNoneAgyw = userAccesses['canManageNoneAgyw'] &&
+        userAccesses['canManageNoneAgyw'] == true;
+    _canManageReferral = userAccesses['canManageReferral'] &&
+        userAccesses['canManageReferral'] == true;
+    _canManageCLOReferral = userAccesses['canManageCLOReferral'] &&
+        userAccesses['canManageCLOReferral'] == true;
+    _canManageHts =
+        userAccesses['canManageHts'] && userAccesses['canManageHts'] == true;
+    _canManageHivReg = userAccesses['canManageHivReg'] &&
+        userAccesses['canManageHivReg'] == true;
+    _canManageSrh =
+        userAccesses['canManageSrh'] && userAccesses['canManageSrh'] == true;
+    _canManagePrep =
+        userAccesses['canManagePrep'] && userAccesses['canManagePrep'] == true;
+    _canManagePEP =
+        userAccesses['canManagePEP'] && userAccesses['canManagePEP'] == true;
+    _canManageCondom = userAccesses['canManageCondom'] &&
+        userAccesses['canManageCondom'] == true;
+    _canManageContraceptives = userAccesses['canManageContraceptives'] &&
+        userAccesses['canManageContraceptives'] == true;
+    _canManageMSGHIV = userAccesses['canManageMSGHIV'] &&
+        userAccesses['canManageMSGHIV'] == true;
+    _canManageArtRefill = userAccesses['canManageArtRefill'] &&
+        userAccesses['canManageArtRefill'] == true;
+    _canManageAnc =
+        userAccesses['canManageAnc'] && userAccesses['canManageAnc'] == true;
+    _canManageServiceForm = userAccesses['canManageServiceForm'] &&
+        userAccesses['canManageServiceForm'] == true;
+    notifyListeners();
   }
 
   //reducers
-  void setCurrentUser(CurrentUser user) {
-    resetUserAccess();
+  void setCurrentUser(
+    CurrentUser user,
+    dynamic userAccessConfigurations,
+  ) {
     _currentUser = user;
     String implementingPartner = user.implementingPartner;
-    updateUserAccessStatus(implementingPartner);
+    updateUserAccessStatus(
+      implementingPartner,
+      userAccessConfigurations,
+    );
     setCurrentUserLocation();
   }
 
@@ -150,26 +117,5 @@ class CurrentUserState with ChangeNotifier {
     }
     _currentUserLocations = locations;
     notifyListeners();
-  }
-
-  void resetUserAccess() {
-    _canManageDreams = false;
-    _canManageOGAC = false;
-    _canManageOvc = false;
-    _canManageNoneAgyw = false;
-    _canManageReferral = false;
-    _canManageCLOReferral = false;
-    _canManageHts = false;
-    _canManageHivReg = false;
-    _canManageSrh = false;
-    _canManagePrep = false;
-    _canManageMSGHIV = false;
-    _canManageArtRefill = false;
-    _canManageAnc = false;
-    _canManageCondom = false;
-    _canManageContaraceptives = false;
-    _canManagePOSTGBV = false;
-    _canManagePEP = false;
-    _canManageServiceForm = false;
   }
 }

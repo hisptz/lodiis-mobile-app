@@ -140,8 +140,9 @@ class _AgywDreamsIndexFollowUpListState
       }
     } else {
       AppUtil.showToastMessage(
-          message: 'Please fill at least one form field',
-          position: ToastGravity.TOP);
+        message: 'Please fill at least one form field',
+        position: ToastGravity.TOP,
+      );
       Navigator.pop(context);
     }
   }
@@ -152,10 +153,11 @@ class _AgywDreamsIndexFollowUpListState
         AgywDreamsHTSFOLLOWUPConstant.indexContactToElicitedPartnerLinkage,
         widget.indexContactEvent.indexContactToElicitedPartnerLinkage);
     Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => AgywDreamsIndexFollowUp(),
-        ));
+      context,
+      MaterialPageRoute(
+        builder: (context) => AgywDreamsIndexFollowUp(),
+      ),
+    );
   }
 
   @override
@@ -178,14 +180,12 @@ class _AgywDreamsIndexFollowUpListState
         body: Container(
           child: Consumer<LanguageTranslationState>(
             builder: (context, languageTranslationState, child) {
-              String currentLanguage = languageTranslationState.currentLanguage;
               return Consumer<DreamBenefeciarySelectionState>(
                 builder: (context, dreamBeneficiarySelectionState, child) {
                   return Consumer<ServiveEventDataState>(
                     builder: (context, serviceFormState, child) {
                       AgywDream agywDream =
                           dreamBeneficiarySelectionState.currentAgywDream;
-                      bool isLoading = serviceFormState.isLoading;
                       Map<String, List<Events>> eventListByProgramStage =
                           serviceFormState.eventListByProgramStage;
                       List<Events> indexContactFollowUpEvents =
@@ -193,7 +193,6 @@ class _AgywDreamsIndexFollowUpListState
                               .getAllEventListFromServiceDataState(
                                   eventListByProgramStage,
                                   [AgywDreamsHTSFOLLOWUPConstant.programStage]);
-
                       List<IndexContactFollowUpModel> followUpList =
                           indexContactFollowUpEvents
                               .map((e) =>
@@ -224,25 +223,27 @@ class _AgywDreamsIndexFollowUpListState
                               horizontal: 13.0,
                             ),
                             child: Column(
-                              children: followUpList.map(
-                                  (IndexContactFollowUpModel
-                                      indexContactFollowUp) {
+                              children: followUpList.map((
+                                IndexContactFollowUpModel indexContactFollowUp,
+                              ) {
                                 eventNo--;
                                 return DreamsHTSIndexContactFollowUpListCard(
                                   indexContactFollowUpModel:
                                       indexContactFollowUp,
                                   followUpNo: eventNo,
-                                  isEditable: indexContactFollowUp == followUpList.first,
+                                  isEditable: indexContactFollowUp ==
+                                      followUpList.first,
                                 );
                               }).toList(),
                             ),
                           ),
                           EntryFormSaveButton(
-                              label: 'ADD FOLLOW UP',
-                              labelColor: Colors.white,
-                              buttonColor: Color(0xFF1F8ECE),
-                              fontSize: 15.0,
-                              onPressButton: onAddFollowUp)
+                            label: 'ADD FOLLOW UP',
+                            labelColor: Colors.white,
+                            buttonColor: Color(0xFF1F8ECE),
+                            fontSize: 15.0,
+                            onPressButton: onAddFollowUp,
+                          )
                         ],
                       );
                     },

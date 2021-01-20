@@ -66,7 +66,6 @@ class _NoneAgywEnrollmentClientInTakeFormState
   }
 
   void onSaveAndContinue(BuildContext context, Map dataObject) async {
-
     CurrentUser user = await UserService().getCurrentUser();
     dataObject['klLkGxy328c'] =
         dataObject['klLkGxy328c'] ?? user.implementingPartner;
@@ -80,8 +79,9 @@ class _NoneAgywEnrollmentClientInTakeFormState
           ));
     } else {
       AppUtil.showToastMessage(
-          message: 'Please fill all mandatory field',
-          position: ToastGravity.TOP);
+        message: 'Please fill all mandatory field',
+        position: ToastGravity.TOP,
+      );
     }
   }
 

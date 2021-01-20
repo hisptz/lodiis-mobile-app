@@ -3,7 +3,6 @@ import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
-import 'package:kb_mobile_app/models/input_field.dart';
 
 class TrackedEntityInstanceUtil {
   static Future savingTrackedEntityInstanceEventData(

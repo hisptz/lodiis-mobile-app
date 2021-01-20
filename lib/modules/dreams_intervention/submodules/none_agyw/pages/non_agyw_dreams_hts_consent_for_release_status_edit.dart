@@ -61,7 +61,6 @@ class _AgywDreamsHTSConsentForReleaseStatusEditState
       });
       String eventDate = dataObject['eventDate'];
       String eventId = dataObject['eventId'];
-      // print(dataObject);
       List<String> hiddenFields = [];
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(

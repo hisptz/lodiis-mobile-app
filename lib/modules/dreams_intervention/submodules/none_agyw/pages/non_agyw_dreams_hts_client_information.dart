@@ -78,12 +78,15 @@ class _NonAgywDreamsHTSClientInformationState
 
   void onSaveForm(BuildContext context, Map dataObject, Map hiddenFields) {
     dataObject.remove(NonAgywDreamsHTSConstant.bmiKey);
-    if(AppUtil.hasAllMandarotyFieldsFilled(mandatoryFields, dataObject, hiddenFields: hiddenFields)){
+    if (AppUtil.hasAllMandarotyFieldsFilled(mandatoryFields, dataObject,
+        hiddenFields: hiddenFields)) {
       Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => NonAgywDreamsHTSRegisterForm()));
-    }else{
+        context,
+        MaterialPageRoute(
+          builder: (context) => NonAgywDreamsHTSRegisterForm(),
+        ),
+      );
+    } else {
       AppUtil.showToastMessage(
           message: 'Please fill all mandatory field',
           position: ToastGravity.TOP);
@@ -114,49 +117,48 @@ class _NonAgywDreamsHTSClientInformationState
                   children: [
                     !isFormReady
                         ? Container(
-                      child: CircularProcessLoader(
-                        color: Colors.blueGrey,
-                      ),
-                    )
-                        : Column(
-                      children: [
-                        Container(
-                          margin: EdgeInsets.only(
-                            top: 10.0,
-                            left: 13.0,
-                            right: 13.0,
-                          ),
-                          child: EntryFormContainer(
-                            formSections: formSections,
-                            hiddenFields:
-                            enrollmentFormState.hiddenFields,
-                            hiddenSections:
-                            enrollmentFormState.hiddenSections,
-                            mandatoryFieldObject: mandatoryFieldsObject,
-                            isEditableMode:
-                            enrollmentFormState.isEditableMode,
-                            dataObject: enrollmentFormState.formState,
-                            onInputValueChange: onInputValueChange,
-                          ),
-                        ),
-                        Visibility(
-                          visible: enrollmentFormState.isEditableMode,
-                          child: EntryFormSaveButton(
-                            label: isSaving
-                                ? 'Saving ...'
-                                : 'Save and Continue',
-                            labelColor: Colors.white,
-                            buttonColor: Color(0xFF258DCC),
-                            fontSize: 15.0,
-                            onPressButton: () => onSaveForm(
-                              context,
-                              enrollmentFormState.formState,
-                              enrollmentFormState.hiddenFields
+                            child: CircularProcessLoader(
+                              color: Colors.blueGrey,
                             ),
-                          ),
-                        )
-                      ],
-                    )
+                          )
+                        : Column(
+                            children: [
+                              Container(
+                                margin: EdgeInsets.only(
+                                  top: 10.0,
+                                  left: 13.0,
+                                  right: 13.0,
+                                ),
+                                child: EntryFormContainer(
+                                  formSections: formSections,
+                                  hiddenFields:
+                                      enrollmentFormState.hiddenFields,
+                                  hiddenSections:
+                                      enrollmentFormState.hiddenSections,
+                                  mandatoryFieldObject: mandatoryFieldsObject,
+                                  isEditableMode:
+                                      enrollmentFormState.isEditableMode,
+                                  dataObject: enrollmentFormState.formState,
+                                  onInputValueChange: onInputValueChange,
+                                ),
+                              ),
+                              Visibility(
+                                visible: enrollmentFormState.isEditableMode,
+                                child: EntryFormSaveButton(
+                                  label: isSaving
+                                      ? 'Saving ...'
+                                      : 'Save and Continue',
+                                  labelColor: Colors.white,
+                                  buttonColor: Color(0xFF258DCC),
+                                  fontSize: 15.0,
+                                  onPressButton: () => onSaveForm(
+                                      context,
+                                      enrollmentFormState.formState,
+                                      enrollmentFormState.hiddenFields),
+                                ),
+                              )
+                            ],
+                          )
                   ],
                 ),
               );

@@ -3,7 +3,6 @@ import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dream_cur
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
-import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/paginated_list_view.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_card_body.dart';
@@ -242,8 +241,7 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
                       cardBody: DreamBeneficiaryCardBody(
                         agywBeneficiary: agywBeneficiary,
                         canViewServiceCategory: true,
-                        isVerticalLayout:
-                            agywBeneficiary.id == toggleCardId,
+                        isVerticalLayout: agywBeneficiary.id == toggleCardId,
                       ),
                       cardBottonActions: ServiceCardBottonAction(
                         onOpenPrepForm: () => onOpenPrepForm(

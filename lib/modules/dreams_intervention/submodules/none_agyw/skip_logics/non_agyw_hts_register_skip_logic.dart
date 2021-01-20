@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
+import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:provider/provider.dart';
@@ -30,19 +30,18 @@ class NonAgywDreamsHTSRegisterSkipLogic {
         hiddenFields['zcMQIn9jMRD'] = true;
         hiddenFields['GwsIKCCsbSB'] = true;
       }
-      if(inputFieldId == 'yvu29Wvtb41' && value != 'true'){
-        hiddenFields['CpGjlCaEcJt']= true;
+      if (inputFieldId == 'yvu29Wvtb41' && value != 'true') {
+        hiddenFields['CpGjlCaEcJt'] = true;
       }
-
     }
     for (String sectionId in hiddenSections.keys) {
       List<FormSection> allFormSections =
           FormUtil.getFlattenFormSections(formSections);
-      List<String> hidddenSectionInputFieldIds = FormUtil.getFormFieldIds(allFormSections
-          .where((formSection) => formSection.id == sectionId)
-          .toList());      
+      List<String> hidddenSectionInputFieldIds = FormUtil.getFormFieldIds(
+          allFormSections
+              .where((formSection) => formSection.id == sectionId)
+              .toList());
       for (String inputFieldId in hidddenSectionInputFieldIds) {
-
         hiddenFields[inputFieldId] = true;
       }
     }
@@ -56,7 +55,7 @@ class NonAgywDreamsHTSRegisterSkipLogic {
         assignInputFieldValue(context, inputFieldId, null);
       }
     }
-    Provider.of<ServiceFormState>(context, listen: false)
+    Provider.of<EnrollmentFormState>(context, listen: false)
         .setHiddenFields(hiddenFields);
   }
 
@@ -64,7 +63,7 @@ class NonAgywDreamsHTSRegisterSkipLogic {
     BuildContext context,
     List<FormSection> formSections,
   ) {
-    Provider.of<ServiceFormState>(context, listen: false)
+    Provider.of<EnrollmentFormState>(context, listen: false)
         .setHiddenSections(hiddenSections);
   }
 
@@ -73,7 +72,7 @@ class NonAgywDreamsHTSRegisterSkipLogic {
     String inputFieldId,
     String value,
   ) {
-    Provider.of<ServiceFormState>(context, listen: false)
+    Provider.of<EnrollmentFormState>(context, listen: false)
         .setFormFieldState(inputFieldId, value);
   }
 
