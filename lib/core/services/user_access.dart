@@ -1,10 +1,12 @@
 import 'dart:convert';
 
 import 'package:kb_mobile_app/core/constants/default_user_access.dart';
+import 'package:kb_mobile_app/core/offline_db/user_access_offline/user_access_offline.dart';
 import 'package:kb_mobile_app/core/services/http_service.dart';
 
 class UserAccess {
   final String url = "api/dataStore/kb-mobile-app/user-access";
+  final String userAccessId = "user-access";
 
   Future<dynamic> getUserAccessConfigurationsFromTheServer(
     String username,
@@ -23,17 +25,25 @@ class UserAccess {
   }
 
   Future savingUserAccessConfigurations(userAccessConfigs) async {
-    print(userAccessConfigs.keys.toList());
     try {
-      //@TODO actual implementations
+      String userAccessData = json.encode(userAccessConfigs);
+      await UserAccessOfflineProvider()
+          .addOrUpdateUserAccess(userAccessId, userAccessData);
     } catch (error) {}
   }
 
   Future getSavedUserAccessConfigurations() async {
     String defaultUserAccessConfigs = DefaultUserAccess.getDefaultUserAccess();
+    dynamic currentUserAccessConfigs;
     try {
-      //@TODO actual implementations
-    } catch (error) {}
-    return json.decode(defaultUserAccessConfigs);
+      currentUserAccessConfigs = await UserAccessOfflineProvider()
+          .getAllUserAccessConfigurationById(userAccessId);
+      currentUserAccessConfigs = currentUserAccessConfigs != null
+          ? currentUserAccessConfigs
+          : defaultUserAccessConfigs;
+    } catch (error) {
+      print("error : $error");
+    }
+    return json.decode(currentUserAccessConfigs);
   }
 }
