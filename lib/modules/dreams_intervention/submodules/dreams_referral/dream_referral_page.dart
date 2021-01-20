@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dream_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
-import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/line_seperator.dart';
 import 'package:kb_mobile_app/core/components/paginated_list_view.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
@@ -76,8 +75,7 @@ class _DreamsReferralPageState extends State<DreamsReferralPage> {
                   },
                   cardBody: DreamBeneficiaryCardBody(
                       agywBeneficiary: agywBeneficiary,
-                      isVerticalLayout:
-                          agywBeneficiary.id == toggleCardId),
+                      isVerticalLayout: agywBeneficiary.id == toggleCardId),
                   cardBottonActions: Container(
                     child: Column(
                       children: [

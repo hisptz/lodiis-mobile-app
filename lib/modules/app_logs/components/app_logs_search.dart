@@ -3,11 +3,14 @@ import 'package:kb_mobile_app/core/components/input_fields/text_input_field_cont
 import 'package:kb_mobile_app/models/input_field.dart';
 
 class AppLogsSearch extends StatelessWidget {
-  AppLogsSearch({Key key, this.onSearchLogs}) : super(key: key);
+  AppLogsSearch({
+    Key key,
+    this.onSearchLogs,
+  }) : super(key: key);
 
   final Function onSearchLogs;
 
-  InputField inputField = InputField(
+  final InputField inputField = InputField(
     id: 'search',
     name: '',
     valueType: 'TEXT',
