@@ -1,17 +1,18 @@
 import 'dart:convert';
-import 'package:flutter/services.dart';
 import 'package:kb_mobile_app/core/offline_db/user_offline/user_offline_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/user_offline/user_ou_offline_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/user_offline/user_program_offline_provider.dart';
 import 'package:kb_mobile_app/core/services/http_service.dart';
 import 'package:kb_mobile_app/core/services/preference_provider.dart';
-import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
 
 class UserService {
   final String preferenceKey = 'currrent_user';
 
-  Future<dynamic> login(String username, String password) async {
+  Future<dynamic> login(
+    String username,
+    String password,
+  ) async {
     try {
       var url =
           'api/me.json?fields=id,name,programs,organisationUnits[id],attributeValues[value,attribute[id,name]]';
@@ -19,7 +20,11 @@ class UserService {
           new HttpService(username: username, password: password);
       var response = await http.httpGet(url);
       return response.statusCode == 200
-          ? CurrentUser.fromJson(json.decode(response.body), username, password)
+          ? CurrentUser.fromJson(
+              json.decode(response.body),
+              username,
+              password,
+            )
           : null;
     } catch (e) {
       throw e;
@@ -47,8 +52,13 @@ class UserService {
     return filteredUsers.length > 0 ? filteredUsers[0] : null;
   }
 
-  setCurrentUser(CurrentUser user) async {
+  setCurrentUser(
+    CurrentUser user,
+  ) async {
     await UserOfflineProvider().addOrUpdateUser(user);
-    await PreferenceProvider.setPreferenceValue(preferenceKey, user.id);
+    await PreferenceProvider.setPreferenceValue(
+      preferenceKey,
+      user.id,
+    );
   }
 }

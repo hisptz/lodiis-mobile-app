@@ -79,7 +79,7 @@ class _NoneAgywEnrollmentEditFormState
       List<String> skippedInputs = ['location', 'WTZ7GLTrE8Q', 'rSP9c21JsfC'];
       formSections = [
         ...htsConsentFormSections,
-        clientIntakeFormSections[0], //TODO: Why take only the first section?
+        clientIntakeFormSections[0],
         ...htsClientInformationFormSections,
         ...htsRegisterFormSections,
         ...htsConsentForReleaseFormSections,

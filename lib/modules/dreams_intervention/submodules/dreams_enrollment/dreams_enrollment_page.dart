@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
-import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/paginated_list_view.dart';
-import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_card_body.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_card.dart';
 import 'package:kb_mobile_app/core/components/sub_module_home_container.dart';
@@ -73,8 +71,7 @@ class _DreamsEnrollmentPageState extends State<DreamsEnrollmentPage> {
                     },
                     cardBody: DreamBeneficiaryCardBody(
                         agywBeneficiary: agywBeneficiary,
-                        isVerticalLayout:
-                            agywBeneficiary.id == toggleCardId),
+                        isVerticalLayout: agywBeneficiary.id == toggleCardId),
                     cardBottonActions: Container(),
                     cardBottonContent: Container(),
                   ),

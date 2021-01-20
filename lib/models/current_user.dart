@@ -35,7 +35,11 @@ class CurrentUser {
     return 'Curremt user is $username $id $name $implementingPartner $programs $userOrgUnitIds ';
   }
 
-  factory CurrentUser.fromJson(dynamic json, String username, String password) {
+  factory CurrentUser.fromJson(
+    dynamic json,
+    String username,
+    String password,
+  ) {
     List programList = json['programs'] as List<dynamic>;
     List organisationUnitList = json['organisationUnits'] as List<dynamic>;
     List userOrgUnitIds = [];

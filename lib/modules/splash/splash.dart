@@ -6,6 +6,7 @@ import 'package:kb_mobile_app/app_state/language_translation_state/language_tran
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/constants/custom_color.dart';
 import 'package:kb_mobile_app/core/services/language_selection_service.dart';
+import 'package:kb_mobile_app/core/services/user_access.dart';
 import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
@@ -40,8 +41,10 @@ class _SplashState extends State<Splash> {
       Provider.of<LanguageTranslationState>(context, listen: false)
           .setLanguageTranslation(currentLanguage);
       if (isUserLoginIn) {
+        var userAccessConfigurations =
+            await UserAccess().getSavedUserAccessConfigurations();
         Provider.of<CurrentUserState>(context, listen: false)
-            .setCurrentUser(user);
+            .setCurrentUser(user, userAccessConfigurations);
       }
       setLandingPage(isUserLoginIn);
     } else {
@@ -82,10 +85,14 @@ class _SplashState extends State<Splash> {
         child: Column(
           children: [
             Container(
-              decoration: BoxDecoration(color: CustomColor.defaultPrimaryColor),
+              decoration: BoxDecoration(
+                color: CustomColor.defaultPrimaryColor,
+              ),
               height: size.height * 0.83,
               child: CircularProcessLoader(
-                  color: CustomColor.defaultSecondaryColor, size: 2.0),
+                color: CustomColor.defaultSecondaryColor,
+                size: 2.0,
+              ),
             ),
             SplashImplementingPartnerList(),
           ],

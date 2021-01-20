@@ -26,7 +26,6 @@ class AppLogs {
     mapData['type'] = logs.type ?? '';
     mapData['message'] = logs.message ?? '';
     mapData['date'] = logs.date ?? currentDateTime.toString().split('.')[0];
-
     return mapData;
   }
 
@@ -36,6 +35,6 @@ class AppLogs {
     this.message = mapData['message'];
     this.date = mapData['date'];
     this.searchableValue =
-        '${type.toLowerCase()} ${message.toLowerCase()} ${date}';
+        '${type.toLowerCase()} ${message.toLowerCase()} $date';
   }
 }

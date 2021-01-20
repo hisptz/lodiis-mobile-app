@@ -67,12 +67,13 @@ class _NonAgywDreamsHTSConsentForReleaseStatusState
   void onSaveForm(BuildContext context, Map dataObject) async {
     if (dataObject.keys.length > 0) {
       try {
-        if(dataObject[NonAgywDreamsHTSConstant.hivResultStatus] == 'Negative'){
+        if (dataObject[NonAgywDreamsHTSConstant.hivResultStatus] ==
+            'Negative') {
           Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => NoneAgywEnrollmentClientInTakeForm()));
-        }else{
+              context,
+              MaterialPageRoute(
+                  builder: (context) => NoneAgywEnrollmentClientInTakeForm()));
+        } else {
           setState(() {
             isSaving = true;
           });
@@ -100,14 +101,15 @@ class _NonAgywDreamsHTSConsentForReleaseStatusState
               .onNonAgywBeneficiaryAdd();
           Timer(
             Duration(seconds: 1),
-                () {
+            () {
               if (Navigator.canPop(context)) {
                 setState(() {
                   isSaving = false;
                 });
-                String currentLanguage =
-                    Provider.of<LanguageTranslationState>(context, listen: false)
-                        .currentLanguage;
+                String currentLanguage = Provider.of<LanguageTranslationState>(
+                        context,
+                        listen: false)
+                    .currentLanguage;
                 AppUtil.showToastMessage(
                   message: currentLanguage == 'lesotho'
                       ? 'Fomo e bolokeile'
@@ -119,7 +121,6 @@ class _NonAgywDreamsHTSConsentForReleaseStatusState
             },
           );
         }
-
       } catch (e) {
         Timer(Duration(seconds: 1), () {
           setState(() {
@@ -134,7 +135,6 @@ class _NonAgywDreamsHTSConsentForReleaseStatusState
           position: ToastGravity.TOP);
       Navigator.pop(context);
     }
-
   }
 
   @override

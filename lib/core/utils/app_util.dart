@@ -30,8 +30,12 @@ class AppUtil {
   }
 
   static void setStatusBarColor(Color color) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        statusBarColor: color, statusBarBrightness: Brightness.light));
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        statusBarColor: color,
+        statusBarBrightness: Brightness.light,
+      ),
+    );
   }
 
   static String getUid() {

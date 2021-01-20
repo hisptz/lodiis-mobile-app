@@ -54,11 +54,11 @@ class NoneAgywEnrollmentSkipLogic {
     for (String sectionId in hiddenSections.keys) {
       List<FormSection> allFormSections =
           FormUtil.getFlattenFormSections(formSections);
-      List<String> hidddenSectionInputFieldIds = FormUtil.getFormFieldIds(allFormSections
-          .where((formSection) => formSection.id == sectionId)
-          .toList());      
+      List<String> hidddenSectionInputFieldIds = FormUtil.getFormFieldIds(
+          allFormSections
+              .where((formSection) => formSection.id == sectionId)
+              .toList());
       for (String inputFieldId in hidddenSectionInputFieldIds) {
-
         hiddenFields[inputFieldId] = true;
       }
     }
