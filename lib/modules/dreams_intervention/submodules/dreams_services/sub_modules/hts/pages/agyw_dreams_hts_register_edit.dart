@@ -35,6 +35,8 @@ class _AgywDreamsHTSRegisterFormEditState
     extends State<AgywDreamsHTSRegisterFormEdit> {
   final String label = 'HTS Register';
   List<FormSection> formSections;
+  final List<String> mandatoryFields = HTSRegister.getMandatoryFields();
+  final Map mandatoryFieldObject = Map();
   bool isFormReady = false;
   bool isSaving = false;
 
@@ -42,6 +44,9 @@ class _AgywDreamsHTSRegisterFormEditState
   void initState() {
     super.initState();
     formSections = HTSRegister.getFormSections();
+    for (String id in mandatoryFields) {
+      mandatoryFieldObject[id] = true;
+    }
     Timer(Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
@@ -73,65 +78,73 @@ class _AgywDreamsHTSRegisterFormEditState
 
   void onSaveForm(
       BuildContext context, Map dataObject, AgywDream agywDream) async {
-    if (dataObject.keys.length > 0) {
-      setState(() {
-        isSaving = true;
-      });
-      String eventDate = dataObject['eventDate'];
-      String eventId = dataObject['eventId'];
-      List<String> hiddenFields = [];
-      try {
-        await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-          AgywDreamsHTSConstant.program,
-          AgywDreamsHTSConstant.programStage,
-          agywDream.orgUnit,
-          formSections,
-          dataObject,
-          eventDate,
-          agywDream.id,
-          eventId,
-          hiddenFields,
-        );
-        await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-          AgywDreamsHTSConstant.program,
-          AgywDreamsHTSConstant.htsRegisterProgramStage,
-          agywDream.orgUnit,
-          formSections,
-          dataObject,
-          eventDate,
-          agywDream.id,
-          eventId,
-          hiddenFields,
-        );
-        Provider.of<ServiveEventDataState>(context, listen: false)
-            .resetServiceEventDataState(agywDream.id);
-        Timer(Duration(seconds: 1), () {
-          setState(() {
-            String currentLanguage =
-                Provider.of<LanguageTranslationState>(context, listen: false)
-                    .currentLanguage;
-            AppUtil.showToastMessage(
-              message: currentLanguage == 'lesotho'
-                  ? 'Fomo e bolokeile'
-                  : 'Form has been saved successfully',
-              position: ToastGravity.TOP,
-            );
-            Navigator.pop(context);
-          });
+    bool hadAllMandatoryFilled =
+        AppUtil.hasAllMandarotyFieldsFilled(mandatoryFields, dataObject);
+    if (hadAllMandatoryFilled) {
+      if (dataObject.keys.length > 0) {
+        setState(() {
+          isSaving = true;
         });
-      } catch (e) {
-        Timer(Duration(seconds: 1), () {
-          setState(() {
-            AppUtil.showToastMessage(
-                message: e.toString(), position: ToastGravity.BOTTOM);
+        String eventDate = dataObject['eventDate'];
+        String eventId = dataObject['eventId'];
+        List<String> hiddenFields = [];
+        try {
+          await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
+            AgywDreamsHTSConstant.program,
+            AgywDreamsHTSConstant.programStage,
+            agywDream.orgUnit,
+            formSections,
+            dataObject,
+            eventDate,
+            agywDream.id,
+            eventId,
+            hiddenFields,
+          );
+          await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
+            AgywDreamsHTSConstant.program,
+            AgywDreamsHTSConstant.htsRegisterProgramStage,
+            agywDream.orgUnit,
+            formSections,
+            dataObject,
+            eventDate,
+            agywDream.id,
+            eventId,
+            hiddenFields,
+          );
+          Provider.of<ServiveEventDataState>(context, listen: false)
+              .resetServiceEventDataState(agywDream.id);
+          Timer(Duration(seconds: 1), () {
+            setState(() {
+              String currentLanguage =
+                  Provider.of<LanguageTranslationState>(context, listen: false)
+                      .currentLanguage;
+              AppUtil.showToastMessage(
+                message: currentLanguage == 'lesotho'
+                    ? 'Fomo e bolokeile'
+                    : 'Form has been saved successfully',
+                position: ToastGravity.TOP,
+              );
+              Navigator.pop(context);
+            });
           });
-        });
+        } catch (e) {
+          Timer(Duration(seconds: 1), () {
+            setState(() {
+              AppUtil.showToastMessage(
+                  message: e.toString(), position: ToastGravity.BOTTOM);
+            });
+          });
+        }
+      } else {
+        AppUtil.showToastMessage(
+            message: 'Please fill at least one form field',
+            position: ToastGravity.TOP);
+        Navigator.pop(context);
       }
     } else {
       AppUtil.showToastMessage(
-          message: 'Please fill at least one form field',
+          message: 'Please fill all mandatory field',
           position: ToastGravity.TOP);
-      Navigator.pop(context);
     }
   }
 
