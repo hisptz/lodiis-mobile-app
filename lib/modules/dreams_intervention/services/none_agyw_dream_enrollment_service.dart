@@ -32,8 +32,6 @@ class NoneAgywDreamEnrollmentService {
   final List<FormSection> htsConsentForReleaseFormSections =
       NonAgywHTSConsentForReleaseOfStatus.getFormSections();
 
-
-
   Future savingNonAgwyBeneficiary(
     Map dataObject,
     String trackedEntityInstance,
@@ -83,8 +81,8 @@ class NoneAgywDreamEnrollmentService {
   Future<List<AgywDream>> getNonAgywBenficiaryList({int page}) async {
     List<AgywDream> agywDreamList = [];
     try {
-      List<Enrollment> enrollments =
-          await EnrollmentOfflineProvider().getEnrollements(program, page: page);
+      List<Enrollment> enrollments = await EnrollmentOfflineProvider()
+          .getEnrollements(program, page: page);
       for (Enrollment enrollment in enrollments) {
         // get location
         List<OrganisationUnit> ous = await OrganisationUnitService()
@@ -108,7 +106,7 @@ class NoneAgywDreamEnrollmentService {
     return agywDreamList;
   }
 
-  Future<int> getNonAgywBeneficiaryCount() async{
+  Future<int> getNonAgywBeneficiaryCount() async {
     return await EnrollmentOfflineProvider().getEnrollmentsCount(program);
   }
 }
