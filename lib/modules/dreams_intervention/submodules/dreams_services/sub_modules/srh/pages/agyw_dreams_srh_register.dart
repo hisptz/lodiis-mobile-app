@@ -44,7 +44,6 @@ class _AgywDreamsSrhRegisterFormState extends State<AgywDreamsSrhRegisterForm> {
     super.initState();
     formSections = DreamsSrhRegister.getFormSections();
     allFormSections.addAll(formSections);
-    allFormSections.addAll(DreamsSrhClientIntake.getFormSections());
     Timer(Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
@@ -59,6 +58,7 @@ class _AgywDreamsSrhRegisterFormState extends State<AgywDreamsSrhRegisterForm> {
       () async {
         Map dataObject =
             Provider.of<ServiceFormState>(context, listen: false).formState;
+          print(dataObject);
         await AgywDreamsSrhRegisterSkipLogic.evaluateSkipLogics(
           context,
           formSections,
@@ -84,23 +84,17 @@ class _AgywDreamsSrhRegisterFormState extends State<AgywDreamsSrhRegisterForm> {
       String eventId = dataObject['eventId'];
 
       List<String> hiddenFields = [];
+
+      dataObject[SRHConstant.srhToSrhRegisterLinkage] = dataObject[SRHConstant.srhToSrhRegisterLinkage] ?? AppUtil.getUid();
+
+      hiddenFields.add(SRHConstant.srhToSrhRegisterLinkage);
+      
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-          HivPrepClientIntakeConstant.program,
-          HivPrepClientIntakeConstant.programStage,
+          SRHConstant.program,
+          SRHConstant.srhRegisterProgramStage,
           agywDream.orgUnit,
-          allFormSections,
-          dataObject,
-          eventDate,
-          agywDream.id,
-          eventId,
-          hiddenFields,
-        );
-        await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-          HivPrepClientIntakeConstant.program,
-          HivPrepClientIntakeConstant.srhRegisterProgramStage,
-          agywDream.orgUnit,
-          allFormSections,
+          DreamsSrhRegister.getFormSections(),
           dataObject,
           eventDate,
           agywDream.id,
@@ -122,8 +116,8 @@ class _AgywDreamsSrhRegisterFormState extends State<AgywDreamsSrhRegisterForm> {
                 : 'Form has been saved successfully',
             position: ToastGravity.TOP,
           );
-
-          Navigator.popUntil(context, (route) => route.isFirst);
+          // Navigator.popUntil(context, (route) => route.);
+          Navigator.pop(context, 'fromSaving');
         });
       } catch (e) {
         Timer(Duration(seconds: 1), () {
