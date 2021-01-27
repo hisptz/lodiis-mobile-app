@@ -175,6 +175,20 @@ class _HTSSubHomePageState extends State<HTSSubHomePage> {
     return canAccessIndexContact;
   }
 
+  String getHtsRegisterHivStatus(DreamsHTSEvent dreamsHtsRegisterEvent) {
+    if (dreamsHtsRegisterEvent != null) {
+      int dataElementIndex = dreamsHtsRegisterEvent.datavalues.indexWhere(
+          (dataValue) =>
+              dataValue['dataElement'] ==
+              AgywDreamsHTSConstant.hivResultStatus);
+      return dreamsHtsRegisterEvent.datavalues
+              .elementAt(dataElementIndex)['value'] ??
+          '';
+    } else {
+      return '';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -217,6 +231,8 @@ class _HTSSubHomePageState extends State<HTSSubHomePage> {
                             eventListByProgramStage, indexEvents);
                     bool canAccessIndexContacts =
                         canAccessIndexContactsInformation(htsRegisterEventData);
+                    String hivResultStatus =
+                        getHtsRegisterHivStatus(htsRegisterEventData);
                     return Container(
                       child: Column(
                         children: [
@@ -271,7 +287,8 @@ class _HTSSubHomePageState extends State<HTSSubHomePage> {
                                                             onEditStatus: () => onEditStatus(context, eventData),
                                                             onViewStatus: () => onViewStatus(context, eventData),
                                                             eventData: eventData,
-                                                            canAccessIndexContact: canAccessIndexContacts
+                                                            canAccessIndexContact: canAccessIndexContacts,
+                                                            hivResultStatus: hivResultStatus
                                                             // tbCard:HTSTBHomePage(
                                                             //   htsToTBLinkageValue:eventData.htsTBLinkage,
                                                             // )

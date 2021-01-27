@@ -5,18 +5,19 @@ import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/components/dreams_hts_tb_screening_card.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/constants/agyw_dreams_hts_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/constants/agyw_dreams_hts_tb_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/models/tb_model_screening.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/pages/agyw_dreams_hts_tb_screening.dart';
 import 'package:provider/provider.dart';
 
 class HTSTBHomePage extends StatefulWidget {
-  HTSTBHomePage({
-    Key key,
-    @required this.htsToTBLinkageValue,
-  }) : super(key: key);
+  HTSTBHomePage(
+      {Key key, @required this.htsToTBLinkageValue, this.hivResultStatus})
+      : super(key: key);
 
   final String htsToTBLinkageValue;
+  final String hivResultStatus;
 
   @override
   _HTSTBHomePageState createState() => _HTSTBHomePageState();
@@ -47,6 +48,8 @@ class _HTSTBHomePageState extends State<HTSTBHomePage> {
           .setFormFieldState('eventDate', eventData.date);
       Provider.of<ServiceFormState>(context, listen: false)
           .setFormFieldState('eventId', eventData.id);
+      Provider.of<ServiceFormState>(context, listen: false).setFormFieldState(
+          AgywDreamsHTSConstant.hivResultStatus, widget.hivResultStatus ?? '');
       for (Map datavalue in eventData.datavalues) {
         if (datavalue['value'] != '') {
           Provider.of<ServiceFormState>(context, listen: false)
