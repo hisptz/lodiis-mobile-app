@@ -53,7 +53,9 @@ class _HTSSubHomePageState extends State<HTSSubHomePage> {
     });
   }
 
-  List<String> programStageids = [AgywDreamsHTSConstant.programStage];
+  List<String> programStageids = [
+    AgywDreamsHTSConstant.programStage,
+  ];
 
   @override
   void initState() {
@@ -136,8 +138,29 @@ class _HTSSubHomePageState extends State<HTSSubHomePage> {
 
   void onEditRegister(BuildContext context, DreamsHTSEvent eventdata) {
     updateFormState(context, true, eventdata);
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => AgywDreamsHTSRegisterFormEdit()));
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => AgywDreamsHTSRegisterFormEdit()));
+  }
+
+  DreamsHTSEvent getHtsRegisterEventData(
+      Map<String, List<Events>> eventListByProgramStage,
+      List<DreamsHTSEvent> indexEvents) {
+    List<DreamsHTSEvent> events =
+        TrackedEntityInstanceUtil.getAllEventListFromServiceDataState(
+                eventListByProgramStage,
+                [AgywDreamsHTSConstant.htsRegisterProgramStage])
+            .map((Events eventData) => DreamsHTSEvent().fromTeiModel(eventData))
+            .toList();
+    List<DreamsHTSEvent> htsRegisterEvents = events
+        .where((DreamsHTSEvent dreamsHTSEvent) =>
+            indexEvents.indexWhere((DreamsHTSEvent event) =>
+                event.htsToHtsRegisterLinkage ==
+                dreamsHTSEvent.htsToHtsRegisterLinkage) !=
+            -1)
+        .toList();
+    return htsRegisterEvents.isNotEmpty ? htsRegisterEvents.first : null;
   }
 
   @override
@@ -177,6 +200,9 @@ class _HTSSubHomePageState extends State<HTSSubHomePage> {
                         .map((Events eventData) =>
                             DreamsHTSEvent().fromTeiModel(eventData))
                         .toList();
+                    DreamsHTSEvent htsRegisterEventData =
+                        getHtsRegisterEventData(
+                            eventListByProgramStage, indexEvents);
                     return Container(
                       child: Column(
                         children: [
@@ -214,11 +240,11 @@ class _HTSSubHomePageState extends State<HTSSubHomePage> {
                                                           onEditRegister: () =>
                                                               onEditRegister(
                                                                   context,
-                                                                  eventData),
+                                                                  htsRegisterEventData),
                                                           onViewRegister: () =>
                                                               onViewRegister(
                                                                   context,
-                                                                  eventData),
+                                                                  htsRegisterEventData),
                                                           onEditConsent: () =>
                                                               onEditConsent(
                                                                   context,
