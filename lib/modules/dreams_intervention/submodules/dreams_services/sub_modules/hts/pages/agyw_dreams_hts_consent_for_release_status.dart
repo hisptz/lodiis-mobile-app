@@ -38,7 +38,8 @@ class _AgywDreamsHTSConsentForReleaseStatusState
     extends State<AgywDreamsHTSConsentForReleaseStatus> {
   final String label = 'Consent for Release of Status';
   List<FormSection> formSections;
-  List<FormSection> allFormSections = [];
+  List<FormSection> htsRegisterformSections;
+  List<FormSection> htsFormSections = [];
   bool isFormReady = false;
   bool isSaving = false;
 
@@ -46,10 +47,10 @@ class _AgywDreamsHTSConsentForReleaseStatusState
   void initState() {
     super.initState();
     formSections = ConsentForReleaseOfStatus.getFormSections();
-    allFormSections.addAll(formSections);
-    allFormSections.addAll(HTSRegister.getFormSections());
-    allFormSections.addAll(ClientInformation.getFormSections());
-    allFormSections.addAll(HTSConsent.getFormSections());
+    htsRegisterformSections = HTSRegister.getFormSections();
+    htsFormSections.addAll(formSections);
+    htsFormSections.addAll(ClientInformation.getFormSections());
+    htsFormSections.addAll(HTSConsent.getFormSections());
     Timer(Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
@@ -76,16 +77,22 @@ class _AgywDreamsHTSConsentForReleaseStatusState
       String htsToTBLinkageValue =
           dataObject[AgywDreamsHTSConstant.htsToTBLinkage] ?? AppUtil.getUid();
       dataObject[AgywDreamsHTSConstant.htsToTBLinkage] = htsToTBLinkageValue;
+      String htsToHtsRegister =
+          dataObject[AgywDreamsHTSConstant.htsToHtsRegisterLinkage] ??
+              AppUtil.getUid();
+      dataObject[AgywDreamsHTSConstant.htsToHtsRegisterLinkage] =
+          htsToHtsRegister;
       List<String> hiddenFields = [
         AgywDreamsHTSConstant.htsToIndexLinkage,
-        AgywDreamsHTSConstant.htsToTBLinkage
+        AgywDreamsHTSConstant.htsToTBLinkage,
+        AgywDreamsHTSConstant.htsToHtsRegisterLinkage
       ];
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
           AgywDreamsHTSConstant.program,
           AgywDreamsHTSConstant.programStage,
           agywDream.orgUnit,
-          allFormSections,
+          htsFormSections,
           dataObject,
           eventDate,
           agywDream.id,
@@ -97,7 +104,7 @@ class _AgywDreamsHTSConsentForReleaseStatusState
           AgywDreamsHTSConstant.program,
           AgywDreamsHTSConstant.htsRegisterProgramStage,
           agywDream.orgUnit,
-          allFormSections,
+          htsRegisterformSections,
           dataObject,
           eventDate,
           agywDream.id,

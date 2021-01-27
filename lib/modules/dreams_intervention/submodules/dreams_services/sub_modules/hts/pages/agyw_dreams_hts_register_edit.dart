@@ -91,17 +91,6 @@ class _AgywDreamsHTSRegisterFormEditState
         try {
           await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
             AgywDreamsHTSConstant.program,
-            AgywDreamsHTSConstant.programStage,
-            agywDream.orgUnit,
-            formSections,
-            dataObject,
-            eventDate,
-            agywDream.id,
-            eventId,
-            hiddenFields,
-          );
-          await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-            AgywDreamsHTSConstant.program,
             AgywDreamsHTSConstant.htsRegisterProgramStage,
             agywDream.orgUnit,
             formSections,
@@ -110,6 +99,7 @@ class _AgywDreamsHTSRegisterFormEditState
             agywDream.id,
             eventId,
             hiddenFields,
+            skippedFields: [AgywDreamsHTSConstant.bmiKey],
           );
           Provider.of<ServiveEventDataState>(context, listen: false)
               .resetServiceEventDataState(agywDream.id);
@@ -200,7 +190,8 @@ class _AgywDreamsHTSRegisterFormEditState
                                           hiddenSections:
                                               serviceFormState.hiddenSections,
                                           formSections: formSections,
-                                          mandatoryFieldObject: Map(),
+                                          mandatoryFieldObject:
+                                              mandatoryFieldObject,
                                           isEditableMode:
                                               serviceFormState.isEditableMode,
                                           dataObject:
