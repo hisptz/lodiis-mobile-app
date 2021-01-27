@@ -103,7 +103,6 @@ class _HTSHomePageState extends State<HTSHomePage> {
                     List<Events> events = TrackedEntityInstanceUtil
                             .getAllEventListFromServiceDataState(
                                 eventListByProgramStage, programStageids)
-                        .reversed
                         .toList();
                     int sessionIndex = events.length + 1;
                     return Container(

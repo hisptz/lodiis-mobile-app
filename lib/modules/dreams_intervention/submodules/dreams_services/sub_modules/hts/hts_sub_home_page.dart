@@ -163,6 +163,18 @@ class _HTSSubHomePageState extends State<HTSSubHomePage> {
     return htsRegisterEvents.isNotEmpty ? htsRegisterEvents.first : null;
   }
 
+  bool canAccessIndexContactsInformation(
+      DreamsHTSEvent dreamsHtsRegisterEvent) {
+    bool canAccessIndexContact = dreamsHtsRegisterEvent != null
+        ? dreamsHtsRegisterEvent.datavalues.indexWhere((dataValue) =>
+                dataValue['dataElement'] ==
+                    AgywDreamsHTSConstant.hivResultStatus &&
+                dataValue['value'] == 'Positive') !=
+            -1
+        : false;
+    return canAccessIndexContact;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -203,6 +215,8 @@ class _HTSSubHomePageState extends State<HTSSubHomePage> {
                     DreamsHTSEvent htsRegisterEventData =
                         getHtsRegisterEventData(
                             eventListByProgramStage, indexEvents);
+                    bool canAccessIndexContacts =
+                        canAccessIndexContactsInformation(htsRegisterEventData);
                     return Container(
                       child: Column(
                         children: [
@@ -235,45 +249,33 @@ class _HTSSubHomePageState extends State<HTSSubHomePage> {
                                                         margin: EdgeInsets.only(
                                                           bottom: 15.0,
                                                         ),
-                                                        child:
-                                                            DreamsSubHTSListCard(
-                                                          onEditRegister: () =>
-                                                              onEditRegister(
-                                                                  context,
-                                                                  htsRegisterEventData),
-                                                          onViewRegister: () =>
-                                                              onViewRegister(
-                                                                  context,
-                                                                  htsRegisterEventData),
-                                                          onEditConsent: () =>
-                                                              onEditConsent(
-                                                                  context,
-                                                                  eventData),
-                                                          onViewConsent: () =>
-                                                              onViewConsent(
-                                                                  context,
-                                                                  eventData),
-                                                          onEditIntake: () =>
-                                                              onEditIntake(
-                                                                  context,
-                                                                  eventData),
-                                                          onViewIntake: () =>
-                                                              onViewIntake(
-                                                                  context,
-                                                                  eventData),
-                                                          onEditStatus: () =>
-                                                              onEditStatus(
-                                                                  context,
-                                                                  eventData),
-                                                          onViewStatus: () =>
-                                                              onViewStatus(
-                                                                  context,
-                                                                  eventData),
-                                                          eventData: eventData,
-                                                          // tbCard:HTSTBHomePage(
-                                                          //   htsToTBLinkageValue:eventData.htsTBLinkage,
-                                                          // )
-                                                        ),
+                                                        child: DreamsSubHTSListCard(
+                                                            onEditRegister: () =>
+                                                                onEditRegister(
+                                                                    context, htsRegisterEventData),
+                                                            onViewRegister: () =>
+                                                                onViewRegister(
+                                                                    context,
+                                                                    htsRegisterEventData),
+                                                            onEditConsent: () =>
+                                                                onEditConsent(
+                                                                    context, eventData),
+                                                            onViewConsent: () =>
+                                                                onViewConsent(
+                                                                    context, eventData),
+                                                            onEditIntake: () =>
+                                                                onEditIntake(
+                                                                    context, eventData),
+                                                            onViewIntake: () =>
+                                                                onViewIntake(context, eventData),
+                                                            onEditStatus: () => onEditStatus(context, eventData),
+                                                            onViewStatus: () => onViewStatus(context, eventData),
+                                                            eventData: eventData,
+                                                            canAccessIndexContact: canAccessIndexContacts
+                                                            // tbCard:HTSTBHomePage(
+                                                            //   htsToTBLinkageValue:eventData.htsTBLinkage,
+                                                            // )
+                                                            ),
                                                       );
                                                     },
                                                   ).toList(),

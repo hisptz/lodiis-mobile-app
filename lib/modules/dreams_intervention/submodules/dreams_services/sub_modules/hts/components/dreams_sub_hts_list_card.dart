@@ -9,6 +9,7 @@ class DreamsSubHTSListCard extends StatefulWidget {
   const DreamsSubHTSListCard(
       {Key key,
       @required this.eventData,
+      this.canAccessIndexContact,
       this.onViewConsent,
       this.onViewIntake,
       this.onViewStatus,
@@ -19,6 +20,7 @@ class DreamsSubHTSListCard extends StatefulWidget {
       this.onEditRegister})
       : super(key: key);
 
+  final bool canAccessIndexContact;
   final Function onViewConsent;
   final Function onEditConsent;
   final Function onViewIntake;
@@ -336,7 +338,10 @@ class _DreamsSubHTSListCardState extends State<DreamsSubHTSListCard> {
               ),
             ),
             HTSTBHomePage(htsToTBLinkageValue: widget.eventData.htsTBLinkage),
-            HTSIndexHomePage(htsIndexLinkage: widget.eventData.htsIndexLinkage)
+            Visibility(
+                visible: widget.canAccessIndexContact,
+                child: HTSIndexHomePage(
+                    htsIndexLinkage: widget.eventData.htsIndexLinkage))
           ],
         ),
       ),
