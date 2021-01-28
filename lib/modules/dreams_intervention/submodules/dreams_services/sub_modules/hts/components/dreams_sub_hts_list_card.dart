@@ -339,9 +339,11 @@ class _DreamsSubHTSListCardState extends State<DreamsSubHTSListCard> {
                 ),
               ),
             ),
-            HTSTBHomePage(
-                htsToTBLinkageValue: widget.eventData.htsTBLinkage,
-                hivResultStatus: widget.hivResultStatus),
+            Visibility(
+                visible: widget.canAccessIndexContact,
+                child: HTSTBHomePage(
+                    htsToTBLinkageValue: widget.eventData.htsTBLinkage,
+                    hivResultStatus: widget.hivResultStatus)),
             Visibility(
                 visible: widget.canAccessIndexContact,
                 child: HTSIndexHomePage(
