@@ -19,6 +19,7 @@ import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/hts_register.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/constants/agyw_dreams_hts_constant.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/pages/agyw_dreams_hts_tb_screening.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/skip_logics/agyw_dreams_hts_register_skip_logic.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:provider/provider.dart';
@@ -91,17 +92,6 @@ class _AgywDreamsHTSRegisterFormEditState
         try {
           await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
             AgywDreamsHTSConstant.program,
-            AgywDreamsHTSConstant.programStage,
-            agywDream.orgUnit,
-            formSections,
-            dataObject,
-            eventDate,
-            agywDream.id,
-            eventId,
-            hiddenFields,
-          );
-          await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-            AgywDreamsHTSConstant.program,
             AgywDreamsHTSConstant.htsRegisterProgramStage,
             agywDream.orgUnit,
             formSections,
@@ -110,6 +100,7 @@ class _AgywDreamsHTSRegisterFormEditState
             agywDream.id,
             eventId,
             hiddenFields,
+            skippedFields: [AgywDreamsHTSConstant.bmiKey],
           );
           Provider.of<ServiveEventDataState>(context, listen: false)
               .resetServiceEventDataState(agywDream.id);
@@ -124,7 +115,21 @@ class _AgywDreamsHTSRegisterFormEditState
                     : 'Form has been saved successfully',
                 position: ToastGravity.TOP,
               );
-              Navigator.pop(context);
+              if (dataObject[AgywDreamsHTSConstant.hivResultStatus] ==
+                  'Positive') {
+                // reset event id and event date
+                dataObject.remove('eventId');
+                dataObject.remove('eventDate');
+
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => AgywDreamsHTSTBForm(
+                            htsToTBLinkageValue: dataObject[
+                                AgywDreamsHTSConstant.htsToTBLinkage])));
+              } else {
+                Navigator.pop(context);
+              }
             });
           });
         } catch (e) {
@@ -200,7 +205,8 @@ class _AgywDreamsHTSRegisterFormEditState
                                           hiddenSections:
                                               serviceFormState.hiddenSections,
                                           formSections: formSections,
-                                          mandatoryFieldObject: Map(),
+                                          mandatoryFieldObject:
+                                              mandatoryFieldObject,
                                           isEditableMode:
                                               serviceFormState.isEditableMode,
                                           dataObject:

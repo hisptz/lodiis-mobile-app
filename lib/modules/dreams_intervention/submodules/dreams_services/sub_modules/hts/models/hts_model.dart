@@ -5,6 +5,7 @@ class DreamsHTSEvent {
   String date;
   String htsIndexLinkage;
   String htsTBLinkage;
+  String htsToHtsRegisterLinkage;
   dynamic datavalues;
   Events eventData;
 
@@ -13,17 +14,13 @@ class DreamsHTSEvent {
     this.date,
     this.htsIndexLinkage,
     this.htsTBLinkage,
+    this.htsToHtsRegisterLinkage,
     this.datavalues,
     this.eventData,
   });
 
- DreamsHTSEvent fromTeiModel(
-    Events eventData
-  ) {
-    List keys = [
-      'vbnWGqIQoAN',
-      'A4Fl5p0ZBhX',
-    ];
+  DreamsHTSEvent fromTeiModel(Events eventData) {
+    List keys = ['vbnWGqIQoAN', 'A4Fl5p0ZBhX', 'icla65Bvljz'];
     Map data = Map();
     for (Map detailObj in eventData.dataValues) {
       String attribute = detailObj['dataElement'];
@@ -34,9 +31,10 @@ class DreamsHTSEvent {
     return DreamsHTSEvent(
       id: eventData.event,
       date: eventData.eventDate,
-      datavalues:eventData.dataValues,
+      datavalues: eventData.dataValues,
       htsIndexLinkage: data['vbnWGqIQoAN'] ?? '',
       htsTBLinkage: data['A4Fl5p0ZBhX'] ?? '',
+      htsToHtsRegisterLinkage: data['icla65Bvljz'] ?? '',
       eventData: eventData,
     );
   }

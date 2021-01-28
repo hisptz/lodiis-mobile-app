@@ -73,17 +73,7 @@ class _AgywDreamsHTSConsentForReleaseStatusEditState
           agywDream.id,
           eventId,
           hiddenFields,
-        );
-        await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-          AgywDreamsHTSConstant.program,
-          AgywDreamsHTSConstant.htsRegisterProgramStage,
-          agywDream.orgUnit,
-          formSections,
-          dataObject,
-          eventDate,
-          agywDream.id,
-          eventId,
-          hiddenFields,
+          skippedFields: [AgywDreamsHTSConstant.bmiKey],
         );
         Provider.of<ServiveEventDataState>(context, listen: false)
             .resetServiceEventDataState(agywDream.id);
