@@ -67,8 +67,11 @@ class _HTSTBHomePageState extends State<HTSTBHomePage> {
 
   void onEditTB(BuildContext context, DreamsHTSTBEvent eventData) {
     updateFormState(context, true, eventData);
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => AgywDreamsHTSTBForm()));
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => AgywDreamsHTSTBForm(
+                htsToTBLinkageValue: eventData.htsTBLinkage)));
   }
 
   @override

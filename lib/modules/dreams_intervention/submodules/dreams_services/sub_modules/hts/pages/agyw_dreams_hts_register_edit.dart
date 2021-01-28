@@ -102,32 +102,36 @@ class _AgywDreamsHTSRegisterFormEditState
             hiddenFields,
             skippedFields: [AgywDreamsHTSConstant.bmiKey],
           );
-          if (dataObject[AgywDreamsHTSConstant.hivResultStatus] == 'Positive') {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => AgywDreamsHTSTBForm(
-                        htsToTBLinkageValue:
-                            dataObject[AgywDreamsHTSConstant.htsToTBLinkage])));
-          } else {
-            Provider.of<ServiveEventDataState>(context, listen: false)
-                .resetServiceEventDataState(agywDream.id);
-            Timer(Duration(seconds: 1), () {
-              setState(() {
-                String currentLanguage = Provider.of<LanguageTranslationState>(
-                        context,
-                        listen: false)
-                    .currentLanguage;
-                AppUtil.showToastMessage(
-                  message: currentLanguage == 'lesotho'
-                      ? 'Fomo e bolokeile'
-                      : 'Form has been saved successfully',
-                  position: ToastGravity.TOP,
-                );
+          Provider.of<ServiveEventDataState>(context, listen: false)
+              .resetServiceEventDataState(agywDream.id);
+          Timer(Duration(seconds: 1), () {
+            setState(() {
+              String currentLanguage =
+                  Provider.of<LanguageTranslationState>(context, listen: false)
+                      .currentLanguage;
+              AppUtil.showToastMessage(
+                message: currentLanguage == 'lesotho'
+                    ? 'Fomo e bolokeile'
+                    : 'Form has been saved successfully',
+                position: ToastGravity.TOP,
+              );
+              if (dataObject[AgywDreamsHTSConstant.hivResultStatus] ==
+                  'Positive') {
+                // reset event id and event date
+                dataObject.remove('eventId');
+                dataObject.remove('eventDate');
+
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => AgywDreamsHTSTBForm(
+                            htsToTBLinkageValue: dataObject[
+                                AgywDreamsHTSConstant.htsToTBLinkage])));
+              } else {
                 Navigator.pop(context);
-              });
+              }
             });
-          }
+          });
         } catch (e) {
           Timer(Duration(seconds: 1), () {
             setState(() {
