@@ -11,6 +11,7 @@ import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
+import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/agyw_dreams_index_info_event.dart';
@@ -89,7 +90,7 @@ class _AgywDreamsIndexFollowUpListState
 
   void onSaveForm(
       BuildContext context, Map dataObject, AgywDream agywDream) async {
-    if (dataObject.keys.length > 0) {
+    if (FormUtil.geFormFilledStatus(dataObject, formSections)) {
       setState(() {
         isSaving = true;
       });
@@ -143,7 +144,6 @@ class _AgywDreamsIndexFollowUpListState
         message: 'Please fill at least one form field',
         position: ToastGravity.TOP,
       );
-      Navigator.pop(context);
     }
   }
 
