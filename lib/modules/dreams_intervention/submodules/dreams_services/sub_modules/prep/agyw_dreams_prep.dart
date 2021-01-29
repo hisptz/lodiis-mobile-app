@@ -18,6 +18,7 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_serv
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/prep/constants/prep_intake_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/components/prep_visit_card.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/prep/pages/agyw_dreams_prep_form.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/prep/pages/agyw_prep_visit_form.dart';
 import 'package:provider/provider.dart';
 
@@ -78,8 +79,8 @@ class _AgywDreamsPrepState extends State<AgywDreamsPrep> {
 
   void onViewPrep(BuildContext context, Events eventdata) {
     updateFormState(context, false, eventdata);
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => AgywPrepVisitForm()));
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => AgywDreamsPrepFormPage()));
   }
 
   void onEditPrep(BuildContext context, Events eventdata) {
