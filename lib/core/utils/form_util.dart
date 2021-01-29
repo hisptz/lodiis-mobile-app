@@ -53,7 +53,7 @@ class FormUtil {
       if (formSection.subSections.length > 0) {
         sections.addAll(getFlattenFormSections(formSection.subSections));
       }
-     // formSection.subSections = [];
+      // formSection.subSections = [];
       sections.add(formSection);
     }
     return sections;
@@ -63,7 +63,9 @@ class FormUtil {
     List<String> fieldIds = [];
     for (FormSection formSection in formSections) {
       for (InputField inputField in formSection.inputFields) {
-        if (inputField.id != '' && inputField.id != 'location' && inputField.valueType != 'CHECK_BOX') {
+        if (inputField.id != '' &&
+            inputField.id != 'location' &&
+            inputField.valueType != 'CHECK_BOX') {
           fieldIds.add(inputField.id);
         }
         if (inputField.valueType == 'CHECK_BOX') {
@@ -77,6 +79,21 @@ class FormUtil {
       fieldIds.addAll(subSectionFormFields);
     }
     return fieldIds;
+  }
+
+  static bool geFormFilledStatus(
+      Map dataObject, List<FormSection> formSections) {
+    bool isformFilled = false;
+    if (dataObject.keys.length > 0) {
+      List<String> inputFields = getFormFieldIds(formSections);
+      for (String id in inputFields) {
+        if (dataObject.containsKey(id) && '${dataObject[id]}'.trim() != '') {
+          isformFilled = true;
+        }
+      }
+    }
+
+    return isformFilled;
   }
 
   static List<InputField> getFormInputFields(List<FormSection> formSections) {
