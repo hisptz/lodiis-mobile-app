@@ -13,6 +13,7 @@ import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/core/constants/beneficiary_identification.dart';
 import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
+import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
@@ -65,7 +66,7 @@ class _NonAgywDreamsHTSConsentForReleaseStatusState
   }
 
   void onSaveForm(BuildContext context, Map dataObject) async {
-    if (dataObject.keys.length > 0) {
+    if (FormUtil.geFormFilledStatus(dataObject, formSections)) {
       try {
         if (dataObject[NonAgywDreamsHTSConstant.hivResultStatus] ==
             'Negative') {
@@ -133,7 +134,6 @@ class _NonAgywDreamsHTSConsentForReleaseStatusState
       AppUtil.showToastMessage(
           message: 'Please fill at least one form field',
           position: ToastGravity.TOP);
-      Navigator.pop(context);
     }
   }
 

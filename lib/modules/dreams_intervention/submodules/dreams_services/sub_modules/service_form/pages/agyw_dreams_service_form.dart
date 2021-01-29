@@ -13,6 +13,7 @@ import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.d
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
+import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
@@ -85,7 +86,7 @@ class _AgywDreamsServiceFormState extends State<AgywDreamsServiceForm> {
     bool hadAllMandatoryFilled =
         AppUtil.hasAllMandarotyFieldsFilled(mandatoryFields, dataObject);
     if (hadAllMandatoryFilled) {
-      if (dataObject.keys.length > 0) {
+      if (FormUtil.geFormFilledStatus(dataObject, formSections)) {
         bool shouldSaveForm =
             AgywDreamsServiceFormSkipLogic.evaluateSkipLogicsBySession(
                 dataObject);

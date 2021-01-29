@@ -12,6 +12,7 @@ import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.d
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
+import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
@@ -58,7 +59,7 @@ class _AgywDreamsSrhRegisterFormState extends State<AgywDreamsSrhRegisterForm> {
       () async {
         Map dataObject =
             Provider.of<ServiceFormState>(context, listen: false).formState;
-          print(dataObject);
+        print(dataObject);
         await AgywDreamsSrhRegisterSkipLogic.evaluateSkipLogics(
           context,
           formSections,
@@ -76,7 +77,7 @@ class _AgywDreamsSrhRegisterFormState extends State<AgywDreamsSrhRegisterForm> {
 
   void onSaveForm(
       BuildContext context, Map dataObject, AgywDream agywDream) async {
-    if (dataObject.keys.length > 0) {
+    if (FormUtil.geFormFilledStatus(dataObject, formSections)) {
       setState(() {
         isSaving = true;
       });
@@ -85,10 +86,11 @@ class _AgywDreamsSrhRegisterFormState extends State<AgywDreamsSrhRegisterForm> {
 
       List<String> hiddenFields = [];
 
-      dataObject[SRHConstant.srhToSrhRegisterLinkage] = dataObject[SRHConstant.srhToSrhRegisterLinkage] ?? AppUtil.getUid();
+      dataObject[SRHConstant.srhToSrhRegisterLinkage] =
+          dataObject[SRHConstant.srhToSrhRegisterLinkage] ?? AppUtil.getUid();
 
       hiddenFields.add(SRHConstant.srhToSrhRegisterLinkage);
-      
+
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
           SRHConstant.program,
