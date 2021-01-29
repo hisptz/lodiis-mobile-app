@@ -12,6 +12,7 @@ import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.d
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
+import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
@@ -74,7 +75,7 @@ class _OvcServiceHIVAssessmentFormState
     Map dataObject,
     OvcHouseHoldChild currentOvcHouseHoldChild,
   ) async {
-    if (dataObject.keys.length > 0) {
+    if (FormUtil.geFormFilledStatus(dataObject, formSections)) {
       setState(() {
         isSaving = true;
       });
@@ -95,7 +96,8 @@ class _OvcServiceHIVAssessmentFormState
             eventDate,
             currentOvcHouseHoldChild.id,
             eventId,
-            null, skippedFields: skippedFields);
+            null,
+            skippedFields: skippedFields);
         Provider.of<ServiveEventDataState>(context, listen: false)
             .resetServiceEventDataState(currentOvcHouseHoldChild.id);
         Timer(Duration(seconds: 1), () {
