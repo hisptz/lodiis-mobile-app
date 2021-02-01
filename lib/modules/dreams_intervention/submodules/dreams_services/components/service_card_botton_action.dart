@@ -369,6 +369,7 @@ class ServiceCardBottonAction extends StatelessWidget {
                                 ),
                                 child: Center(
                                   child: Container(
+                                    padding: const EdgeInsets.all(8.0),
                                     child: Text(
                                       'POST GBV',
                                       style: TextStyle().copyWith(
