@@ -69,6 +69,14 @@ class AgywEnrollmentRiskAssessment {
         color: Color(0xFF258DCC),
         inputFields: [
           InputField(
+              id: 'dxp3qM2TgUc',
+              name: '1. Name of parent/caregiver',
+              translatedName:
+                  '1. Lebitso la motsoali/mohlokomeli',
+              valueType: 'TEXT',
+              inputColor: Color(0xFF258DCC),
+              labelColor: Color(0xFF737373)),
+          InputField(
               id: 'YQ9G0ww2cDN',
               name: '2. AGYW’s father given name',
               translatedName:
