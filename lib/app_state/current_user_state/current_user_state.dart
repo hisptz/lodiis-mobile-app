@@ -87,7 +87,8 @@ class CurrentUserState with ChangeNotifier {
         userAccesses['canManageAnc'] && userAccesses['canManageAnc'] == true;
     _canManageServiceForm = userAccesses['canManageServiceForm'] &&
         userAccesses['canManageServiceForm'] == true;
-    _canManagePOSTGBV = userAccesses['canManagePOSTGBV'] == true;
+    _canManagePOSTGBV = userAccesses['canManagePOSTGBV'] &&
+        userAccesses['canManagePOSTGBV'] == true;
     notifyListeners();
   }
 
