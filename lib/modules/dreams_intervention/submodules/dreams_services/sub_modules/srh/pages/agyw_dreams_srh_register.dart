@@ -12,6 +12,7 @@ import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.d
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
+import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
@@ -44,7 +45,6 @@ class _AgywDreamsSrhRegisterFormState extends State<AgywDreamsSrhRegisterForm> {
     super.initState();
     formSections = DreamsSrhRegister.getFormSections();
     allFormSections.addAll(formSections);
-    allFormSections.addAll(DreamsSrhClientIntake.getFormSections());
     Timer(Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
@@ -59,6 +59,7 @@ class _AgywDreamsSrhRegisterFormState extends State<AgywDreamsSrhRegisterForm> {
       () async {
         Map dataObject =
             Provider.of<ServiceFormState>(context, listen: false).formState;
+        print(dataObject);
         await AgywDreamsSrhRegisterSkipLogic.evaluateSkipLogics(
           context,
           formSections,
@@ -76,7 +77,7 @@ class _AgywDreamsSrhRegisterFormState extends State<AgywDreamsSrhRegisterForm> {
 
   void onSaveForm(
       BuildContext context, Map dataObject, AgywDream agywDream) async {
-    if (dataObject.keys.length > 0) {
+    if (FormUtil.geFormFilledStatus(dataObject, formSections)) {
       setState(() {
         isSaving = true;
       });
@@ -84,23 +85,18 @@ class _AgywDreamsSrhRegisterFormState extends State<AgywDreamsSrhRegisterForm> {
       String eventId = dataObject['eventId'];
 
       List<String> hiddenFields = [];
+
+      dataObject[SRHConstant.srhToSrhRegisterLinkage] =
+          dataObject[SRHConstant.srhToSrhRegisterLinkage] ?? AppUtil.getUid();
+
+      hiddenFields.add(SRHConstant.srhToSrhRegisterLinkage);
+
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-          HivPrepClientIntakeConstant.program,
-          HivPrepClientIntakeConstant.programStage,
+          SRHConstant.program,
+          SRHConstant.srhRegisterProgramStage,
           agywDream.orgUnit,
-          allFormSections,
-          dataObject,
-          eventDate,
-          agywDream.id,
-          eventId,
-          hiddenFields,
-        );
-        await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-          HivPrepClientIntakeConstant.program,
-          HivPrepClientIntakeConstant.srhRegisterProgramStage,
-          agywDream.orgUnit,
-          allFormSections,
+          DreamsSrhRegister.getFormSections(),
           dataObject,
           eventDate,
           agywDream.id,
@@ -122,8 +118,8 @@ class _AgywDreamsSrhRegisterFormState extends State<AgywDreamsSrhRegisterForm> {
                 : 'Form has been saved successfully',
             position: ToastGravity.TOP,
           );
-
-          Navigator.popUntil(context, (route) => route.isFirst);
+          // Navigator.popUntil(context, (route) => route.);
+          Navigator.pop(context, 'fromSaving');
         });
       } catch (e) {
         Timer(Duration(seconds: 1), () {

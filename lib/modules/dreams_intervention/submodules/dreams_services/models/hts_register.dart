@@ -4,61 +4,58 @@ import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/input_field_option.dart';
 
 class HTSRegister {
+  static List<String> getMandatoryFields() {
+    return ['N8tlZl91pBY'];
+  }
+
   static List<FormSection> getFormSections() {
     return [
       FormSection(name: 'HTS Register', color: Color(0xFF737373), inputFields: [
         InputField(
           id: 'TzQgZh4Emjc',
-          name:
-          'PITC',
+          name: 'PITC',
           valueType: 'BOOLEAN',
           inputColor: Color(0xFF258DCC),
           labelColor: Color(0xFF737373),
         ),
         InputField(
           id: 'c9QZUeAy0wW',
-          name:
-          'CITC',
+          name: 'CITC',
           valueType: 'BOOLEAN',
           inputColor: Color(0xFF258DCC),
           labelColor: Color(0xFF737373),
         ),
         InputField(
           id: 'r9qhjMX4Hx6',
-          name:
-          'History of previous testing',
+          name: 'History of previous testing',
           valueType: 'BOOLEAN',
           inputColor: Color(0xFF258DCC),
           labelColor: Color(0xFF737373),
         ),
         InputField(
           id: 'pIHdbKd5FPu',
-          name:
-          'Previous Results given?',
+          name: 'Previous Results given?',
           valueType: 'BOOLEAN',
           inputColor: Color(0xFF258DCC),
           labelColor: Color(0xFF737373),
         ),
         InputField(
           id: 'lbQibppfmcY',
-          name:
-          'Time since last test',
+          name: 'Time since last test',
           valueType: 'DATE',
           inputColor: Color(0xFF258DCC),
           labelColor: Color(0xFF737373),
         ),
         InputField(
           id: 'KmQPPZ7O30R',
-          name:
-          'Pre-test counselled?',
+          name: 'Pre-test counselled?',
           valueType: 'BOOLEAN',
           inputColor: Color(0xFF258DCC),
           labelColor: Color(0xFF737373),
         ),
         InputField(
           id: 'Y5PxXxigrdQ',
-          name:
-          '1st HIV test Determine',
+          name: '1st HIV test Determine',
           valueType: 'TEXT',
           options: [
             InputFieldOption(code: 'Positive', name: 'Positive'),
@@ -70,24 +67,21 @@ class HTSRegister {
         ),
         InputField(
           id: 'b0eR4kaNZQF',
-          name:
-          '1st HIV test Determine Lot No',
+          name: '1st HIV test Determine Lot No',
           valueType: 'TEXT',
           inputColor: Color(0xFF258DCC),
           labelColor: Color(0xFF737373),
         ),
         InputField(
           id: 'Mz3Nl9sdokn',
-          name:
-          '1st HIV test Determine Expiry',
+          name: '1st HIV test Determine Expiry',
           valueType: 'DATE',
           inputColor: Color(0xFF258DCC),
           labelColor: Color(0xFF737373),
         ),
         InputField(
           id: 'wLgXXyf7NJ9',
-          name:
-          '2nd HIV test Unigold',
+          name: '2nd HIV test Unigold',
           valueType: 'TEXT',
           options: [
             InputFieldOption(code: 'Positive', name: 'Positive'),
@@ -99,24 +93,21 @@ class HTSRegister {
         ),
         InputField(
           id: 'R9cQnQsG45r',
-          name:
-          '2nd HIV test Unigold Lot No',
+          name: '2nd HIV test Unigold Lot No',
           valueType: 'TEXT',
           inputColor: Color(0xFF258DCC),
           labelColor: Color(0xFF737373),
         ),
         InputField(
           id: 'qeHyqz86Fl8',
-          name:
-          '2nd HIV test Unigold Expiry',
+          name: '2nd HIV test Unigold Expiry',
           valueType: 'DATE',
           inputColor: Color(0xFF258DCC),
           labelColor: Color(0xFF737373),
         ),
         InputField(
           id: 'AAspMgNuM2c',
-          name:
-          '1st HIV test Repeat Determine',
+          name: '1st HIV test Repeat Determine',
           valueType: 'TEXT',
           options: [
             InputFieldOption(code: 'Positive', name: 'Positive'),
@@ -128,24 +119,21 @@ class HTSRegister {
         ),
         InputField(
           id: 'ZGYjobLBZFU',
-          name:
-          '1st HIV test Repeat Determine Lot No',
+          name: '1st HIV test Repeat Determine Lot No',
           valueType: 'TEXT',
           inputColor: Color(0xFF258DCC),
           labelColor: Color(0xFF737373),
         ),
         InputField(
           id: 'G1qmzkIMtWx',
-          name:
-          '1st HIV test Repeat Determine Expiry',
+          name: '1st HIV test Repeat Determine Expiry',
           valueType: 'DATE',
           inputColor: Color(0xFF258DCC),
           labelColor: Color(0xFF737373),
         ),
         InputField(
           id: 'N78w4YWM5SY',
-          name:
-          '2nd HIV test Repeat Unigold',
+          name: '2nd HIV test Repeat Unigold',
           valueType: 'TEXT',
           options: [
             InputFieldOption(code: 'Positive', name: 'Positive'),
@@ -157,24 +145,21 @@ class HTSRegister {
         ),
         InputField(
           id: 'k12w1gU3NNN',
-          name:
-          '2nd HIV test Repeat Unigold Lot No',
+          name: '2nd HIV test Repeat Unigold Lot No',
           valueType: 'TEXT',
           inputColor: Color(0xFF258DCC),
           labelColor: Color(0xFF737373),
         ),
         InputField(
           id: 'geLLet99Av2',
-          name:
-          '2nd HIV test Repeat Unigold Expiry',
+          name: '2nd HIV test Repeat Unigold Expiry',
           valueType: 'DATE',
           inputColor: Color(0xFF258DCC),
           labelColor: Color(0xFF737373),
         ),
         InputField(
           id: 'GMn3daZLeN7',
-          name:
-          '3rd HIV test Repeated SD Bioline',
+          name: '3rd HIV test Repeated SD Bioline',
           valueType: 'TEXT',
           options: [
             InputFieldOption(code: 'Positive', name: 'Positive'),
@@ -186,24 +171,21 @@ class HTSRegister {
         ),
         InputField(
           id: 'ufJ70Sbu45y',
-          name:
-          '3rd HIV test Repeated SD Bioline Lot No',
+          name: '3rd HIV test Repeated SD Bioline Lot No',
           valueType: 'TEXT',
           inputColor: Color(0xFF258DCC),
           labelColor: Color(0xFF737373),
         ),
         InputField(
           id: 'cVkNfJ2kOar',
-          name:
-          '3rd HIV test Repeated SD Bioline Expiry',
+          name: '3rd HIV test Repeated SD Bioline Expiry',
           valueType: 'DATE',
           inputColor: Color(0xFF258DCC),
           labelColor: Color(0xFF737373),
         ),
         InputField(
           id: 'N8tlZl91pBY',
-          name:
-          'Final HIV Status',
+          name: 'Final HIV Status',
           options: [
             InputFieldOption(code: 'Positive', name: 'Positive'),
             InputFieldOption(code: 'Negative', name: 'Negative'),
@@ -215,8 +197,7 @@ class HTSRegister {
         ),
         InputField(
           id: 'idNHfBDFRwv',
-          name:
-          'DNA PCR Results',
+          name: 'DNA PCR Results',
           options: [
             InputFieldOption(code: 'Positive', name: 'Positive'),
             InputFieldOption(code: 'Negative', name: 'Negative'),
@@ -228,124 +209,109 @@ class HTSRegister {
         ),
         InputField(
           id: 'Hwv0NQjuyaK',
-          name:
-          'Final Result Given',
+          name: 'Final Result Given',
           valueType: 'BOOLEAN',
           inputColor: Color(0xFF258DCC),
           labelColor: Color(0xFF737373),
         ),
         InputField(
           id: 'FKz6EltIScb',
-          name:
-          'EQC/PPT',
+          name: 'EQC/PPT',
           valueType: 'BOOLEAN',
           inputColor: Color(0xFF258DCC),
           labelColor: Color(0xFF737373),
         ),
         InputField(
           id: 'B9WDdd3feaQ',
-          name:
-          'Tested as Couple?',
+          name: 'Tested as Couple?',
           valueType: 'BOOLEAN',
           inputColor: Color(0xFF258DCC),
           labelColor: Color(0xFF737373),
         ),
         InputField(
           id: 'cGnoMSGCGBG',
-          name:
-          'Couple Discordant?',
+          name: 'Couple Discordant?',
           valueType: 'BOOLEAN',
           inputColor: Color(0xFF258DCC),
           labelColor: Color(0xFF737373),
         ),
         InputField(
-          id: 'Dzr6d0hPXjR',
-          name:
-          'Mode of Entry Point',
-          valueType: 'TEXT',
-          inputColor: Color(0xFF258DCC),
-          labelColor: Color(0xFF737373),
-          options: [
-            InputFieldOption(code: 'ART', name: 'ART'),
-            InputFieldOption(code: 'ANC', name: 'ANC'),
-            InputFieldOption(code: 'OPD', name: 'OPD'),
-            InputFieldOption(code: 'TB', name: 'TB'),
-            InputFieldOption(code: 'VMMC', name: 'VMMC'),
-            InputFieldOption(code: 'Adolescent', name: 'Adolescent'),
-            InputFieldOption(code: 'Self Testing', name: 'Self Testing'),
-            InputFieldOption(code: 'In-Patient', name: 'In-Patient'),
-            InputFieldOption(code: 'PEP', name: 'PEP'),
-            InputFieldOption(code: 'Other(Specify)', name: 'Other(Specify)'),
-          ]
-        ),
+            id: 'Dzr6d0hPXjR',
+            name: 'Mode of Entry Point',
+            valueType: 'TEXT',
+            inputColor: Color(0xFF258DCC),
+            labelColor: Color(0xFF737373),
+            options: [
+              InputFieldOption(code: 'ART', name: 'ART'),
+              InputFieldOption(code: 'ANC', name: 'ANC'),
+              InputFieldOption(code: 'OPD', name: 'OPD'),
+              InputFieldOption(code: 'TB', name: 'TB'),
+              InputFieldOption(code: 'VMMC', name: 'VMMC'),
+              InputFieldOption(code: 'Adolescent', name: 'Adolescent'),
+              InputFieldOption(code: 'Self Testing', name: 'Self Testing'),
+              InputFieldOption(code: 'In-Patient', name: 'In-Patient'),
+              InputFieldOption(code: 'PEP', name: 'PEP'),
+              InputFieldOption(code: 'Other(Specify)', name: 'Other(Specify)'),
+            ]),
         InputField(
           id: 'IHuXwqwWl9i',
-          name:
-          'Other Mode of Entry Point',
+          name: 'Other Mode of Entry Point',
           valueType: 'TEXT',
           inputColor: Color(0xFF258DCC),
           labelColor: Color(0xFF737373),
         ),
         InputField(
           id: 'nAJSNqFjoPj',
-          name:
-          'Male condom',
+          name: 'Male condom',
           valueType: 'NUMBER',
           inputColor: Color(0xFF258DCC),
           labelColor: Color(0xFF737373),
         ),
         InputField(
           id: 'Uger7u9MK2k',
-          name:
-          'Female condom',
+          name: 'Female condom',
           valueType: 'NUMBER',
           inputColor: Color(0xFF258DCC),
           labelColor: Color(0xFF737373),
         ),
         InputField(
           id: 'Io9EHy6EzgM',
-          name:
-          'TB screening',
+          name: 'TB screening',
           valueType: 'BOOLEAN',
           inputColor: Color(0xFF258DCC),
           labelColor: Color(0xFF737373),
         ),
         InputField(
           id: 'jO14p2Unvqm',
-          name:
-          'Linked to Care?',
+          name: 'Linked to Care?',
           valueType: 'BOOLEAN',
           inputColor: Color(0xFF258DCC),
           labelColor: Color(0xFF737373),
         ),
         InputField(
           id: 'UXXn9kAqASd',
-          name:
-          'ART Unique No',
+          name: 'ART Unique No',
           valueType: 'TEXT',
           inputColor: Color(0xFF258DCC),
           labelColor: Color(0xFF737373),
         ),
         InputField(
           id: 'beizqNyYP9a',
-          name:
-          'Patient Clinic #',
+          name: 'Patient Clinic #',
           valueType: 'TEXT',
           inputColor: Color(0xFF258DCC),
           labelColor: Color(0xFF737373),
         ),
         InputField(
           id: 'CCgL6RQ9BkR',
-          name:
-          'Date Linked to care',
+          name: 'Date Linked to care',
           valueType: 'DATE',
           inputColor: Color(0xFF258DCC),
           labelColor: Color(0xFF737373),
         ),
         InputField(
           id: 'RJIRJBkyuaj',
-          name:
-          'Referred Facility',
+          name: 'Referred Facility',
           valueType: 'ORGANISATION_UNIT',
           allowedSelectedLevels: [4],
           inputColor: Color(0xFF258DCC),

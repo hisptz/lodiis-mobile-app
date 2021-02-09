@@ -12,6 +12,7 @@ import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.d
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
+import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
@@ -38,7 +39,8 @@ class _AgywDreamsHTSConsentForReleaseStatusState
     extends State<AgywDreamsHTSConsentForReleaseStatus> {
   final String label = 'Consent for Release of Status';
   List<FormSection> formSections;
-  List<FormSection> allFormSections = [];
+  List<FormSection> htsRegisterformSections;
+  List<FormSection> htsFormSections = [];
   bool isFormReady = false;
   bool isSaving = false;
 
@@ -46,10 +48,10 @@ class _AgywDreamsHTSConsentForReleaseStatusState
   void initState() {
     super.initState();
     formSections = ConsentForReleaseOfStatus.getFormSections();
-    allFormSections.addAll(formSections);
-    allFormSections.addAll(HTSRegister.getFormSections());
-    allFormSections.addAll(ClientInformation.getFormSections());
-    allFormSections.addAll(HTSConsent.getFormSections());
+    htsRegisterformSections = HTSRegister.getFormSections();
+    htsFormSections.addAll(formSections);
+    htsFormSections.addAll(ClientInformation.getFormSections());
+    htsFormSections.addAll(HTSConsent.getFormSections());
     Timer(Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
@@ -64,7 +66,7 @@ class _AgywDreamsHTSConsentForReleaseStatusState
 
   void onSaveForm(
       BuildContext context, Map dataObject, AgywDream agywDream) async {
-    if (dataObject.keys.length > 0) {
+    if (FormUtil.geFormFilledStatus(dataObject, formSections)) {
       setState(() {
         isSaving = true;
       });
@@ -76,16 +78,22 @@ class _AgywDreamsHTSConsentForReleaseStatusState
       String htsToTBLinkageValue =
           dataObject[AgywDreamsHTSConstant.htsToTBLinkage] ?? AppUtil.getUid();
       dataObject[AgywDreamsHTSConstant.htsToTBLinkage] = htsToTBLinkageValue;
+      String htsToHtsRegister =
+          dataObject[AgywDreamsHTSConstant.htsToHtsRegisterLinkage] ??
+              AppUtil.getUid();
+      dataObject[AgywDreamsHTSConstant.htsToHtsRegisterLinkage] =
+          htsToHtsRegister;
       List<String> hiddenFields = [
         AgywDreamsHTSConstant.htsToIndexLinkage,
-        AgywDreamsHTSConstant.htsToTBLinkage
+        AgywDreamsHTSConstant.htsToTBLinkage,
+        AgywDreamsHTSConstant.htsToHtsRegisterLinkage
       ];
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
           AgywDreamsHTSConstant.program,
           AgywDreamsHTSConstant.programStage,
           agywDream.orgUnit,
-          allFormSections,
+          htsFormSections,
           dataObject,
           eventDate,
           agywDream.id,
@@ -97,7 +105,7 @@ class _AgywDreamsHTSConsentForReleaseStatusState
           AgywDreamsHTSConstant.program,
           AgywDreamsHTSConstant.htsRegisterProgramStage,
           agywDream.orgUnit,
-          allFormSections,
+          htsRegisterformSections,
           dataObject,
           eventDate,
           agywDream.id,
@@ -142,7 +150,6 @@ class _AgywDreamsHTSConsentForReleaseStatusState
       AppUtil.showToastMessage(
           message: 'Please fill at least one form field',
           position: ToastGravity.TOP);
-      Navigator.pop(context);
     }
   }
 

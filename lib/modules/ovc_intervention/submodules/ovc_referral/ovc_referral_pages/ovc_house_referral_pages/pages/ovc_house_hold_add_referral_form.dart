@@ -12,6 +12,7 @@ import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.d
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
+import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
@@ -83,7 +84,7 @@ class _OvcHouseHoldAddReferralFormState
     Map dataObject,
     OvcHouseHold currentOvcHouseHold,
   ) async {
-    if (dataObject.keys.length > 0) {
+    if (FormUtil.geFormFilledStatus(dataObject, formSections)) {
       setState(() {
         isSaving = true;
       });
@@ -135,7 +136,6 @@ class _OvcHouseHoldAddReferralFormState
       AppUtil.showToastMessage(
           message: 'Please fill at least one form field',
           position: ToastGravity.TOP);
-      Navigator.pop(context);
     }
   }
 
@@ -198,7 +198,9 @@ class _OvcHouseHoldAddReferralFormState
                                               serviceFormState.hiddenSections,
                                           hiddenFields:
                                               serviceFormState.hiddenFields,
-                                          hiddenInputFieldOptions: serviceFormState.hiddenInputFieldOptions,
+                                          hiddenInputFieldOptions:
+                                              serviceFormState
+                                                  .hiddenInputFieldOptions,
                                           formSections: formSections,
                                           mandatoryFieldObject: Map(),
                                           isEditableMode:

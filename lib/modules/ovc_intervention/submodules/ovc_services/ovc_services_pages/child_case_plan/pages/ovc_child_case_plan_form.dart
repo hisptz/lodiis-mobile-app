@@ -203,6 +203,12 @@ class _OcvChildCasePlanFormState extends State<OcvChildCasePlanForm> {
                     OvcHouseHoldChild currentOvcHouseHoldChild =
                         ovcHouseHoldCurrentSelectionState
                             .currentOvcHouseHoldChild;
+                    int age = 5;
+                    try {
+                      age = int.parse(currentOvcHouseHoldChild.age);
+                    } catch (e) {
+                      print(e);
+                    }
                     return Consumer<ServiceFormState>(
                       builder: (context, serviceFormState, child) {
                         Map dataObject = serviceFormState.formState;
@@ -226,26 +232,44 @@ class _OcvChildCasePlanFormState extends State<OcvChildCasePlanForm> {
                                         children: formSections
                                             .map(
                                               (FormSection formSection) =>
-                                                  CasePlanFormContainer(
-                                                shouldAddCasePlanGap:
-                                                    widget.shouldAddCasePlanGap,
-                                                shouldEditCaseGapFollowUps: widget
-                                                    .shouldEditCaseGapFollowUps,
-                                                shouldViewCaseGapFollowUp: widget
-                                                    .shouldViewCaseGapFollowUp,
-                                                formSectionColor: borderColors[
-                                                    formSection.id],
-                                                formSection: formSection,
-                                                dataObject:
-                                                    dataObject[formSection.id],
-                                                isEditableMode: serviceFormState
-                                                    .isEditableMode,
-                                                onInputValueChange: (
-                                                  dynamic value,
-                                                ) =>
-                                                    onInputValueChange(
-                                                        formSection.id, value),
-                                              ),
+                                                  age < // Remove the domain schooled for children younger than 5
+                                                              5 &&
+                                                          formSection.id ==
+                                                              'Schooled'
+                                                      ? Container()
+                                                      : CasePlanFormContainer(
+                                                          currentHouseHoldChild:
+                                                              currentOvcHouseHoldChild,
+                                                          shouldAddCasePlanGap:
+                                                              widget
+                                                                  .shouldAddCasePlanGap,
+                                                          shouldEditCaseGapFollowUps:
+                                                              widget
+                                                                  .shouldEditCaseGapFollowUps,
+                                                          shouldViewCaseGapFollowUp:
+                                                              widget
+                                                                  .shouldViewCaseGapFollowUp,
+                                                          formSectionColor:
+                                                              borderColors[
+                                                                  formSection
+                                                                      .id],
+                                                          formSection:
+                                                              formSection,
+                                                          dataObject:
+                                                              dataObject[
+                                                                  formSection
+                                                                      .id],
+                                                          isEditableMode:
+                                                              serviceFormState
+                                                                  .isEditableMode,
+                                                          onInputValueChange: (
+                                                            dynamic value,
+                                                          ) =>
+                                                              onInputValueChange(
+                                                                  formSection
+                                                                      .id,
+                                                                  value),
+                                                        ),
                                             )
                                             .toList(),
                                       ),

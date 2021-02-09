@@ -25,11 +25,12 @@ class DreamsServiceTBScreeningInfo {
           valueType: 'TEXT',
           inputColor: Color(0xFF1F8ECE),
           labelColor: Color(0xFF737373),
-           options: [              
-              InputFieldOption(code: 'Positive', name: 'Positive'),
-              InputFieldOption(code: 'Negative', name: 'Negative'),
-              InputFieldOption(code: 'Indeterminate', name: 'Indeterminate')
-            ],
+          isReadOnly: true,
+          options: [
+            InputFieldOption(code: 'Positive', name: 'Positive'),
+            InputFieldOption(code: 'Negative', name: 'Negative'),
+            InputFieldOption(code: 'Indeterminate', name: 'Indeterminate')
+          ],
         ),
         InputField(
             id: 'tMvluCbiiUm',

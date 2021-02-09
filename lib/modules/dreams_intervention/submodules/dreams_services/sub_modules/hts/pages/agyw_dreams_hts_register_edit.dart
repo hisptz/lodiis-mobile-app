@@ -12,6 +12,7 @@ import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.d
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
+import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
@@ -19,6 +20,7 @@ import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/hts_register.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/constants/agyw_dreams_hts_constant.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/pages/agyw_dreams_hts_tb_screening.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/skip_logics/agyw_dreams_hts_register_skip_logic.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:provider/provider.dart';
@@ -35,6 +37,8 @@ class _AgywDreamsHTSRegisterFormEditState
     extends State<AgywDreamsHTSRegisterFormEdit> {
   final String label = 'HTS Register';
   List<FormSection> formSections;
+  final List<String> mandatoryFields = HTSRegister.getMandatoryFields();
+  final Map mandatoryFieldObject = Map();
   bool isFormReady = false;
   bool isSaving = false;
 
@@ -42,6 +46,9 @@ class _AgywDreamsHTSRegisterFormEditState
   void initState() {
     super.initState();
     formSections = HTSRegister.getFormSections();
+    for (String id in mandatoryFields) {
+      mandatoryFieldObject[id] = true;
+    }
     Timer(Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
@@ -73,65 +80,76 @@ class _AgywDreamsHTSRegisterFormEditState
 
   void onSaveForm(
       BuildContext context, Map dataObject, AgywDream agywDream) async {
-    if (dataObject.keys.length > 0) {
-      setState(() {
-        isSaving = true;
-      });
-      String eventDate = dataObject['eventDate'];
-      String eventId = dataObject['eventId'];
-      List<String> hiddenFields = [];
-      try {
-        await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-          AgywDreamsHTSConstant.program,
-          AgywDreamsHTSConstant.programStage,
-          agywDream.orgUnit,
-          formSections,
-          dataObject,
-          eventDate,
-          agywDream.id,
-          eventId,
-          hiddenFields,
-        );
-        await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-          AgywDreamsHTSConstant.program,
-          AgywDreamsHTSConstant.htsRegisterProgramStage,
-          agywDream.orgUnit,
-          formSections,
-          dataObject,
-          eventDate,
-          agywDream.id,
-          eventId,
-          hiddenFields,
-        );
-        Provider.of<ServiveEventDataState>(context, listen: false)
-            .resetServiceEventDataState(agywDream.id);
-        Timer(Duration(seconds: 1), () {
-          setState(() {
-            String currentLanguage =
-                Provider.of<LanguageTranslationState>(context, listen: false)
-                    .currentLanguage;
-            AppUtil.showToastMessage(
-              message: currentLanguage == 'lesotho'
-                  ? 'Fomo e bolokeile'
-                  : 'Form has been saved successfully',
-              position: ToastGravity.TOP,
-            );
-            Navigator.pop(context);
-          });
+    bool hadAllMandatoryFilled =
+        AppUtil.hasAllMandarotyFieldsFilled(mandatoryFields, dataObject);
+    if (hadAllMandatoryFilled) {
+      if (FormUtil.geFormFilledStatus(dataObject, formSections)) {
+        setState(() {
+          isSaving = true;
         });
-      } catch (e) {
-        Timer(Duration(seconds: 1), () {
-          setState(() {
-            AppUtil.showToastMessage(
-                message: e.toString(), position: ToastGravity.BOTTOM);
+        String eventDate = dataObject['eventDate'];
+        String eventId = dataObject['eventId'];
+        List<String> hiddenFields = [];
+        try {
+          await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
+            AgywDreamsHTSConstant.program,
+            AgywDreamsHTSConstant.htsRegisterProgramStage,
+            agywDream.orgUnit,
+            formSections,
+            dataObject,
+            eventDate,
+            agywDream.id,
+            eventId,
+            hiddenFields,
+            skippedFields: [AgywDreamsHTSConstant.bmiKey],
+          );
+          Provider.of<ServiveEventDataState>(context, listen: false)
+              .resetServiceEventDataState(agywDream.id);
+          Timer(Duration(seconds: 1), () {
+            setState(() {
+              String currentLanguage =
+                  Provider.of<LanguageTranslationState>(context, listen: false)
+                      .currentLanguage;
+              AppUtil.showToastMessage(
+                message: currentLanguage == 'lesotho'
+                    ? 'Fomo e bolokeile'
+                    : 'Form has been saved successfully',
+                position: ToastGravity.TOP,
+              );
+              if (dataObject[AgywDreamsHTSConstant.hivResultStatus] ==
+                  'Positive') {
+                // reset event id and event date
+                dataObject.remove('eventId');
+                dataObject.remove('eventDate');
+
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => AgywDreamsHTSTBForm(
+                            htsToTBLinkageValue: dataObject[
+                                AgywDreamsHTSConstant.htsToTBLinkage])));
+              } else {
+                Navigator.pop(context);
+              }
+            });
           });
-        });
+        } catch (e) {
+          Timer(Duration(seconds: 1), () {
+            setState(() {
+              AppUtil.showToastMessage(
+                  message: e.toString(), position: ToastGravity.BOTTOM);
+            });
+          });
+        }
+      } else {
+        AppUtil.showToastMessage(
+            message: 'Please fill at least one form field',
+            position: ToastGravity.TOP);
       }
     } else {
       AppUtil.showToastMessage(
-          message: 'Please fill at least one form field',
+          message: 'Please fill all mandatory field',
           position: ToastGravity.TOP);
-      Navigator.pop(context);
     }
   }
 
@@ -187,7 +205,8 @@ class _AgywDreamsHTSRegisterFormEditState
                                           hiddenSections:
                                               serviceFormState.hiddenSections,
                                           formSections: formSections,
-                                          mandatoryFieldObject: Map(),
+                                          mandatoryFieldObject:
+                                              mandatoryFieldObject,
                                           isEditableMode:
                                               serviceFormState.isEditableMode,
                                           dataObject:

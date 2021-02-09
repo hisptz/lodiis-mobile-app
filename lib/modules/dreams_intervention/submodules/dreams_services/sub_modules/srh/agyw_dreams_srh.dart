@@ -28,8 +28,8 @@ class AgywDreamsSRH extends StatefulWidget {
 class _AgywDreamsSRHState extends State<AgywDreamsSRH> {
   final String label = 'SRH Client Intake Form';
   List<String> programStageids = [
-    HivPrepClientIntakeConstant.program,
-    HivPrepClientIntakeConstant.programStage
+    SRHConstant.program,
+    SRHConstant.programStage
   ];
 
   @override
@@ -59,7 +59,7 @@ class _AgywDreamsSRHState extends State<AgywDreamsSRH> {
     }
   }
 
-  void onAddPrep(BuildContext context, AgywDream agywDream) {
+  void onAddSRH(BuildContext context, AgywDream agywDream) {
     updateFormState(context, true, null);
     Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
         .setCurrentAgywDream(agywDream);
@@ -67,14 +67,14 @@ class _AgywDreamsSRHState extends State<AgywDreamsSRH> {
         context, MaterialPageRoute(builder: (context) => AgywDreamsSrhForm()));
   }
 
-  void onViewPrep(BuildContext context, Events eventdata) {
-    updateFormState(context, false, eventdata);
+  void onViewSRH(BuildContext context, Events eventData) {
+    updateFormState(context, false, eventData);
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => AgywDreamsSrhForm()));
   }
 
-  void onEditPrep(BuildContext context, Events eventdata) {
-    updateFormState(context, true, eventdata);
+  void onEditSRH(BuildContext context, Events eventData) {
+    updateFormState(context, true, eventData);
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => AgywDreamsSrhForm()));
   }
@@ -139,7 +139,6 @@ class _AgywDreamsSRHState extends State<AgywDreamsSRH> {
                                                   children: events
                                                       .map((Events eventData) {
                                                     referralIndex--;
-
                                                     return Container(
                                                       margin: EdgeInsets.only(
                                                         bottom: 15.0,
@@ -147,10 +146,10 @@ class _AgywDreamsSRHState extends State<AgywDreamsSRH> {
                                                       child: PrepVisitListCard(
                                                         visitName: "SRH Visit",
                                                         onEditPrep: () =>
-                                                            onEditPrep(context,
+                                                            onEditSRH(context,
                                                                 eventData),
                                                         onViewPrep: () =>
-                                                            onViewPrep(context,
+                                                            onViewSRH(context,
                                                                 eventData),
                                                         eventData: eventData,
                                                         visitCount:
@@ -167,7 +166,7 @@ class _AgywDreamsSRHState extends State<AgywDreamsSRH> {
                                           buttonColor: Color(0xFF1F8ECE),
                                           fontSize: 15.0,
                                           onPressButton: () =>
-                                              onAddPrep(context, agywDream))
+                                              onAddSRH(context, agywDream))
                                     ],
                                   ),
                           ),

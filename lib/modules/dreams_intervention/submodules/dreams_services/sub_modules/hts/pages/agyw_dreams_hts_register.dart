@@ -34,6 +34,8 @@ class AgywDreamsHTSRegisterForm extends StatefulWidget {
 class _AgywDreamsHTSRegisterFormState extends State<AgywDreamsHTSRegisterForm> {
   final String label = 'HTS Register';
   List<FormSection> formSections;
+  final List<String> mandatoryFields = HTSRegister.getMandatoryFields();
+  final Map mandatoryFieldObject = Map();
   bool isFormReady = false;
   bool isSaving = false;
   bool isComingFromPrep;
@@ -43,6 +45,9 @@ class _AgywDreamsHTSRegisterFormState extends State<AgywDreamsHTSRegisterForm> {
     super.initState();
     isComingFromPrep = widget.isComingFromPrep;
     formSections = HTSRegister.getFormSections();
+    for (String id in mandatoryFields) {
+      mandatoryFieldObject[id] = true;
+    }
     Timer(Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
@@ -73,27 +78,35 @@ class _AgywDreamsHTSRegisterFormState extends State<AgywDreamsHTSRegisterForm> {
   }
 
   void onSaveForm(BuildContext context, Map dataObject, AgywDream agywDream) {
-    Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
-        .setCurrentAgywDream(agywDream);
-    if (isComingFromPrep == true &&
-        dataObject[AgywDreamsHTSConstant.hivResultStatus] == 'Negative') {
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => AgywDreamsPrepFormPage()));
-    } else if (isComingFromPrep == true &&
-        dataObject[AgywDreamsHTSConstant.hivResultStatus] == 'Positive') {
-      Timer(Duration(seconds: 1), () {
-        setState(() {
-          AppUtil.showToastMessage(
-              message: 'You are not eligible to take PREP program',
-              position: ToastGravity.TOP);
-          Navigator.popUntil(context, (route) => route.isFirst);
+    bool hadAllMandatoryFilled =
+        AppUtil.hasAllMandarotyFieldsFilled(mandatoryFields, dataObject);
+    if (hadAllMandatoryFilled) {
+      Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
+          .setCurrentAgywDream(agywDream);
+      if (isComingFromPrep == true &&
+          dataObject[AgywDreamsHTSConstant.hivResultStatus] == 'Negative') {
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => AgywDreamsPrepFormPage()));
+      } else if (isComingFromPrep == true &&
+          dataObject[AgywDreamsHTSConstant.hivResultStatus] == 'Positive') {
+        Timer(Duration(seconds: 1), () {
+          setState(() {
+            AppUtil.showToastMessage(
+                message: 'You are not eligible to take PREP program',
+                position: ToastGravity.TOP);
+            Navigator.popUntil(context, (route) => route.isFirst);
+          });
         });
-      });
+      } else {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => AgywDreamsHTSConsentForReleaseStatus()));
+      }
     } else {
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => AgywDreamsHTSConsentForReleaseStatus()));
+      AppUtil.showToastMessage(
+          message: 'Please fill all mandatory field',
+          position: ToastGravity.TOP);
     }
   }
 
@@ -145,7 +158,8 @@ class _AgywDreamsHTSRegisterFormState extends State<AgywDreamsHTSRegisterForm> {
                                       hiddenSections:
                                           serviceFormState.hiddenSections,
                                       formSections: formSections,
-                                      mandatoryFieldObject: Map(),
+                                      mandatoryFieldObject:
+                                          mandatoryFieldObject,
                                       isEditableMode:
                                           serviceFormState.isEditableMode,
                                       dataObject: serviceFormState.formState,

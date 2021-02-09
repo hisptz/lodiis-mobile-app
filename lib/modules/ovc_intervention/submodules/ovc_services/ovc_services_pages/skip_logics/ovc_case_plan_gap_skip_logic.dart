@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
+import 'package:kb_mobile_app/models/ovc_house_hold_child.dart';
 
 mixin OvcCasePlanGapSkipLogic {
   Map hiddenFields = Map();
@@ -8,10 +9,8 @@ mixin OvcCasePlanGapSkipLogic {
   Map childMapObject = Map();
 
   Future evaluateSkipLogics(
-    BuildContext context,
-    List<FormSection> formSections,
-    Map dataObject,
-  ) async {
+      BuildContext context, List<FormSection> formSections, Map dataObject,
+      {OvcHouseHoldChild currentHouseHoldChild}) async {
     hiddenFields.clear();
     hiddenSections.clear();
     List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections);
@@ -19,6 +18,7 @@ mixin OvcCasePlanGapSkipLogic {
       inputFieldIds.add('$key');
     }
     inputFieldIds = inputFieldIds.toSet().toList();
+    evaluateAgeSkipLogics(inputFieldIds, currentHouseHoldChild);
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
       if (inputFieldId == 'XoSPWmpWXCy' && value != 'true') {
@@ -265,11 +265,11 @@ mixin OvcCasePlanGapSkipLogic {
     for (String sectionId in hiddenSections.keys) {
       List<FormSection> allFormSections =
           FormUtil.getFlattenFormSections(formSections);
-      List<String> hidddenSectionInputFieldIds = FormUtil.getFormFieldIds(allFormSections
-          .where((formSection) => formSection.id == sectionId)
-          .toList());      
+      List<String> hidddenSectionInputFieldIds = FormUtil.getFormFieldIds(
+          allFormSections
+              .where((formSection) => formSection.id == sectionId)
+              .toList());
       for (String inputFieldId in hidddenSectionInputFieldIds) {
-
         hiddenFields[inputFieldId] = true;
       }
     }
@@ -290,5 +290,63 @@ mixin OvcCasePlanGapSkipLogic {
     String value,
   ) {
     childMapObject[inputFieldId] = value;
+  }
+
+  void evaluateAgeSkipLogics(
+      List<String> inputFieldIds, OvcHouseHoldChild currentHouseHoldChild) {
+    try {
+      int age = int.parse(currentHouseHoldChild.age);
+      //Domain health
+      if (age > 5) {
+        hiddenFields['x4yAqv4z2Xv'] = true;
+        hiddenFields['AM9oJCOHM7f'] = true;
+        hiddenFields['hJUuQ648wVF'] = true;
+        hiddenFields['LswSBpMoG5C'] = true;
+        hiddenFields['gCKoJgBFdob'] = true;
+        hiddenFields['JSQ3xP1NhuN'] = true;
+        hiddenFields['AwWKp6KmqgY'] = true;
+        hiddenFields['EaJTFrklMo5'] = true;
+      }
+      if (age < 2 || age > 5) {
+        hiddenFields['BJrrrqQqwQO'] = true;
+      }
+
+      //Domain Schooled
+      if (age < 9 || age > 17) {
+        hiddenFields['Cb8qzfdrg7d'] = true;
+      }
+      if (age < 18 || age > 24) {
+        hiddenFields['TQSMaZgfZPO'] = true;
+        hiddenFields['SN2kJN3jAG9'] = true;
+      }
+
+      if (age < 13 || age > 17) {
+        hiddenFields['qraZh4n14S4'] = true;
+        hiddenFields['TdReJf2LTXA'] = true;
+        hiddenFields['q2N7p3UbvSF'] = true;
+      }
+
+      if (age < 5 || age > 17) {
+        hiddenFields['NcMANzhhphO'] = true;
+      }
+      if (age < 9 || age > 20) {
+        hiddenFields['X47zxNAqMv0'] = true;
+      }
+
+      //Domain Stable
+      if (age < 10 || age > 17) {
+        hiddenFields['yPP7lkomNfK'] = true;
+      }
+
+      //Domain Safe
+      if (age < 9 || age > 17) {
+        hiddenFields['uQiyym8SEvd'] = true;
+        hiddenFields['aPmPhwm8Zln'] = true;
+        hiddenFields['AaqeRcyjbyS'] = true;
+      }
+      if (age < 5 || age > 8) {
+        hiddenFields['neF08iYV9Os'] = true;
+      }
+    } catch (e) {}
   }
 }

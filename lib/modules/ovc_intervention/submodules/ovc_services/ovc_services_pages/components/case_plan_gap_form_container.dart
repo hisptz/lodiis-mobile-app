@@ -3,23 +3,27 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
+import 'package:kb_mobile_app/models/ovc_house_hold_child.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/skip_logics/ovc_case_plan_gap_skip_logic.dart';
+import 'package:provider/provider.dart';
 
 class CasePlanGapFormContainer extends StatefulWidget {
-  const CasePlanGapFormContainer({
-    Key key,
-    @required this.formSections,
-    @required this.isEditableMode,
-    @required this.formSectionColor,
-    @required this.dataObject,
-    @required this.isCasePlanForHouseHold,
-  }) : super(key: key);
+  const CasePlanGapFormContainer(
+      {Key key,
+      @required this.formSections,
+      @required this.isEditableMode,
+      @required this.formSectionColor,
+      @required this.dataObject,
+      @required this.isCasePlanForHouseHold,
+      this.currentHouseHoldChild})
+      : super(key: key);
 
   final List<FormSection> formSections;
   final bool isEditableMode;
   final Color formSectionColor;
   final Map dataObject;
   final bool isCasePlanForHouseHold;
+  final OvcHouseHoldChild currentHouseHoldChild;
 
   @override
   _CasePlanGapFormContainerState createState() =>
@@ -42,7 +46,8 @@ class _CasePlanGapFormContainerState extends State<CasePlanGapFormContainer>
       }
       dataObject = widget.dataObject ?? Map();
     });
-    evaluateSkipLogics(context, widget.formSections, dataObject);
+    evaluateSkipLogics(context, widget.formSections, dataObject,
+        currentHouseHoldChild: widget.currentHouseHoldChild);
     setState(() {});
   }
 
@@ -62,7 +67,8 @@ class _CasePlanGapFormContainerState extends State<CasePlanGapFormContainer>
     setState(() {
       dataObject[id] = value;
     });
-    evaluateSkipLogics(context, widget.formSections, dataObject);
+    evaluateSkipLogics(context, widget.formSections, dataObject,
+        currentHouseHoldChild: widget.currentHouseHoldChild);
     setState(() {});
   }
 

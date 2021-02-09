@@ -3,6 +3,7 @@ import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.d
 import 'package:kb_mobile_app/core/components/material_card.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
+import 'package:kb_mobile_app/models/ovc_house_hold_child.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_child_caseplan_gaps.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_house_hold_case_plan_gaps.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/components/case_plan_gap_form_container.dart';
@@ -21,6 +22,7 @@ class CasePlanFormContainer extends StatelessWidget {
     @required this.shouldEditCaseGapFollowUps,
     @required this.shouldViewCaseGapFollowUp,
     @required this.shouldAddCasePlanGap,
+    this.currentHouseHoldChild
   }) : super(key: key);
 
   final Color formSectionColor;
@@ -32,6 +34,7 @@ class CasePlanFormContainer extends StatelessWidget {
   final bool shouldEditCaseGapFollowUps;
   final bool shouldAddCasePlanGap;
   final bool shouldViewCaseGapFollowUp;
+  final OvcHouseHoldChild currentHouseHoldChild;
 
   final String caseToGapLinkage = OvcCasePlanConstant.casePlanToGapLinkage;
   final String casePlanGapToFollowinUpLinkage =
@@ -55,6 +58,7 @@ class CasePlanFormContainer extends StatelessWidget {
       return form;
     }).toList();
     Widget modal = CasePlanGapFormContainer(
+      currentHouseHoldChild: currentHouseHoldChild,
       formSections: formSections,
       isCasePlanForHouseHold: isCasePlanForHouseHold,
       isEditableMode: isEditableMode,

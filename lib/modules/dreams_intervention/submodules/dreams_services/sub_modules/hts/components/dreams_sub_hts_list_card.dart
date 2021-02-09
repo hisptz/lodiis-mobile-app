@@ -6,19 +6,23 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_serv
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts/models/hts_model.dart';
 
 class DreamsSubHTSListCard extends StatefulWidget {
-  const DreamsSubHTSListCard({
-    Key key,
-    @required this.eventData,
-    this.onViewConsent,
-    this.onViewIntake,
-    this.onViewStatus,
-    this.onEditConsent,
-    this.onEditIntake,
-    this.onEditStatus,
-    this.onViewRegister,
-    this.onEditRegister
-  }) : super(key: key);
+  const DreamsSubHTSListCard(
+      {Key key,
+      @required this.eventData,
+      this.canAccessIndexContact,
+      this.hivResultStatus,
+      this.onViewConsent,
+      this.onViewIntake,
+      this.onViewStatus,
+      this.onEditConsent,
+      this.onEditIntake,
+      this.onEditStatus,
+      this.onViewRegister,
+      this.onEditRegister})
+      : super(key: key);
 
+  final bool canAccessIndexContact;
+  final String hivResultStatus;
   final Function onViewConsent;
   final Function onEditConsent;
   final Function onViewIntake;
@@ -335,8 +339,15 @@ class _DreamsSubHTSListCardState extends State<DreamsSubHTSListCard> {
                 ),
               ),
             ),
-            HTSTBHomePage(htsToTBLinkageValue:widget.eventData.htsTBLinkage),
-            HTSIndexHomePage(htsIndexLinkage: widget.eventData.htsIndexLinkage)
+            Visibility(
+                visible: widget.canAccessIndexContact,
+                child: HTSTBHomePage(
+                    htsToTBLinkageValue: widget.eventData.htsTBLinkage,
+                    hivResultStatus: widget.hivResultStatus)),
+            Visibility(
+                visible: widget.canAccessIndexContact,
+                child: HTSIndexHomePage(
+                    htsIndexLinkage: widget.eventData.htsIndexLinkage))
           ],
         ),
       ),

@@ -43,7 +43,7 @@ class _CheckBoxInputFieldState extends State<CheckBoxInputField> {
 
   void onInputValueChange(bool value) {
     updateInputValueState();
-    widget.onInputValueChange(value);
+    widget.onInputValueChange(value == true ? value : null);
   }
 
   @override
