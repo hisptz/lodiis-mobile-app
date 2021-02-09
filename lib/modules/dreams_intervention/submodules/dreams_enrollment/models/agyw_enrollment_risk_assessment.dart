@@ -861,13 +861,17 @@ class AgywEnrollmentRiskAssessment {
                 labelColor: Color(0xFF737373),
                 options: [
                   InputFieldOption(
-                      code: 'double',
-                      name: 'double',
-                      translatedName: 'Batsoali ba babeli'),
+                      code: 'Single Orphan(Mother)',
+                      name: 'Single Orphan(Mother Died)',
+                      translatedName: 'Khutsana e le Mong (Mme)'),
                   InputFieldOption(
-                      code: 'single',
-                      name: 'single',
-                      translatedName: 'Motsoali a le mong')
+                      code: 'Single Orphan(Father)',
+                      name: 'Single Orphan(Father Died)',
+                      translatedName: 'Khutsana e le Mong (Ntate)'),
+                  InputFieldOption(
+                      code: 'Double Orphan',
+                      name: 'Double Orphan (Father & Mother Died)',
+                      translatedName: 'Likhutsana le le Mong (Ntate le Mme)'),
                 ],
               ),
               InputField(
@@ -936,13 +940,17 @@ class AgywEnrollmentRiskAssessment {
                 labelColor: Color(0xFF737373),
                 options: [
                   InputFieldOption(
-                      code: 'double',
-                      name: 'double',
-                      translatedName: 'Batsoali ba babeli'),
+                      code: 'Single Orphan(Mother)',
+                      name: 'Single Orphan(Mother Died)',
+                      translatedName: 'Khutsana e le Mong (Mme)'),
                   InputFieldOption(
-                      code: 'single',
-                      name: 'single',
-                      translatedName: 'Motsoali a le mong')
+                      code: 'Single Orphan(Father)',
+                      name: 'Single Orphan(Father Died)',
+                      translatedName: 'Khutsana e le Mong (Ntate)'),
+                  InputFieldOption(
+                      code: 'Double Orphan',
+                      name: 'Double Orphan (Father & Mother Died)',
+                      translatedName: 'Likhutsana le le Mong (Ntate le Mme)'),
                 ],
               ),
               InputField(
