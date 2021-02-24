@@ -49,7 +49,8 @@ class _HTSTBHomePageState extends State<HTSTBHomePage> {
       Provider.of<ServiceFormState>(context, listen: false)
           .setFormFieldState('eventId', eventData.id);
       Provider.of<ServiceFormState>(context, listen: false).setFormFieldState(
-          AgywDreamsHTSConstant.hivResultStatus, widget.hivResultStatus ?? '');
+          AgywDreamsHTSLongFormConstant.hivResultStatus,
+          widget.hivResultStatus ?? '');
       for (Map datavalue in eventData.datavalues) {
         if (datavalue['value'] != '') {
           Provider.of<ServiceFormState>(context, listen: false)

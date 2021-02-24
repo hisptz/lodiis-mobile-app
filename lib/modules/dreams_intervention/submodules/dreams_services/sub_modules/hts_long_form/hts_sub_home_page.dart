@@ -54,7 +54,7 @@ class _HTSSubHomePageState extends State<HTSSubHomePage> {
   }
 
   List<String> programStageids = [
-    AgywDreamsHTSConstant.programStage,
+    AgywDreamsHTSLongFormConstant.programStage,
   ];
 
   @override
@@ -150,7 +150,7 @@ class _HTSSubHomePageState extends State<HTSSubHomePage> {
     List<DreamsHTSEvent> events =
         TrackedEntityInstanceUtil.getAllEventListFromServiceDataState(
                 eventListByProgramStage,
-                [AgywDreamsHTSConstant.htsRegisterProgramStage])
+                [AgywDreamsHTSLongFormConstant.htsRegisterProgramStage])
             .map((Events eventData) => DreamsHTSEvent().fromTeiModel(eventData))
             .toList();
     List<DreamsHTSEvent> htsRegisterEvents = events
@@ -168,7 +168,7 @@ class _HTSSubHomePageState extends State<HTSSubHomePage> {
     bool canAccessIndexContact = dreamsHtsRegisterEvent != null
         ? dreamsHtsRegisterEvent.datavalues.indexWhere((dataValue) =>
                 dataValue['dataElement'] ==
-                    AgywDreamsHTSConstant.hivResultStatus &&
+                    AgywDreamsHTSLongFormConstant.hivResultStatus &&
                 dataValue['value'] == 'Positive') !=
             -1
         : false;
@@ -180,7 +180,7 @@ class _HTSSubHomePageState extends State<HTSSubHomePage> {
       int dataElementIndex = dreamsHtsRegisterEvent.datavalues.indexWhere(
           (dataValue) =>
               dataValue['dataElement'] ==
-              AgywDreamsHTSConstant.hivResultStatus);
+              AgywDreamsHTSLongFormConstant.hivResultStatus);
       return dreamsHtsRegisterEvent.datavalues
               .elementAt(dataElementIndex)['value'] ??
           '';

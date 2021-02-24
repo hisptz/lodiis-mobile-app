@@ -74,7 +74,7 @@ class _AgywDreamsHTSClientInformationState
   void onSaveForm(BuildContext context, Map dataObject, AgywDream agywDream) {
     Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
         .setCurrentAgywDream(agywDream);
-    dataObject.remove(AgywDreamsHTSConstant.bmiKey);
+    dataObject.remove(AgywDreamsHTSLongFormConstant.bmiKey);
     Navigator.push(
         context,
         MaterialPageRoute(

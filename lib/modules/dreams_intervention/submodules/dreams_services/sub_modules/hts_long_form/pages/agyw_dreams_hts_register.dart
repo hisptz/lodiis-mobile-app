@@ -84,11 +84,13 @@ class _AgywDreamsHTSRegisterFormState extends State<AgywDreamsHTSRegisterForm> {
       Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
           .setCurrentAgywDream(agywDream);
       if (isComingFromPrep == true &&
-          dataObject[AgywDreamsHTSConstant.hivResultStatus] == 'Negative') {
+          dataObject[AgywDreamsHTSLongFormConstant.hivResultStatus] ==
+              'Negative') {
         Navigator.push(context,
             MaterialPageRoute(builder: (context) => AgywDreamsPrepFormPage()));
       } else if (isComingFromPrep == true &&
-          dataObject[AgywDreamsHTSConstant.hivResultStatus] == 'Positive') {
+          dataObject[AgywDreamsHTSLongFormConstant.hivResultStatus] ==
+              'Positive') {
         Timer(Duration(seconds: 1), () {
           setState(() {
             AppUtil.showToastMessage(

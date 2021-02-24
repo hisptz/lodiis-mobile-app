@@ -73,7 +73,8 @@ class _HTSIndexHomePageState extends State<HTSIndexHomePage> {
   void onAddIndexInfo(BuildContext context, AgywDream agywDream) {
     updateFormState(context, true, null);
     Provider.of<ServiceFormState>(context, listen: false).setFormFieldState(
-        AgywDreamsHTSConstant.htsToIndexLinkage, widget.htsIndexLinkage);
+        AgywDreamsHTSLongFormConstant.htsToIndexLinkage,
+        widget.htsIndexLinkage);
     Navigator.push(
         context,
         MaterialPageRoute(

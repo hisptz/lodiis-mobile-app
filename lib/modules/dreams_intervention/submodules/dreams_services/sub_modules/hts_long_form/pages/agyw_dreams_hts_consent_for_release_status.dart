@@ -72,26 +72,26 @@ class _AgywDreamsHTSConsentForReleaseStatusState
       });
       String eventDate = dataObject['eventDate'];
       String eventId = dataObject['eventId'];
-      dataObject[AgywDreamsHTSConstant.htsToIndexLinkage] =
-          dataObject[AgywDreamsHTSConstant.htsToIndexLinkage] ??
+      dataObject[AgywDreamsHTSLongFormConstant.htsToIndexLinkage] =
+          dataObject[AgywDreamsHTSLongFormConstant.htsToIndexLinkage] ??
               AppUtil.getUid();
       String htsToTBLinkageValue =
-          dataObject[AgywDreamsHTSConstant.htsToTBLinkage] ?? AppUtil.getUid();
-      dataObject[AgywDreamsHTSConstant.htsToTBLinkage] = htsToTBLinkageValue;
+          dataObject[AgywDreamsHTSLongFormConstant.htsToTBLinkage] ?? AppUtil.getUid();
+      dataObject[AgywDreamsHTSLongFormConstant.htsToTBLinkage] = htsToTBLinkageValue;
       String htsToHtsRegister =
-          dataObject[AgywDreamsHTSConstant.htsToHtsRegisterLinkage] ??
+          dataObject[AgywDreamsHTSLongFormConstant.htsToHtsRegisterLinkage] ??
               AppUtil.getUid();
-      dataObject[AgywDreamsHTSConstant.htsToHtsRegisterLinkage] =
+      dataObject[AgywDreamsHTSLongFormConstant.htsToHtsRegisterLinkage] =
           htsToHtsRegister;
       List<String> hiddenFields = [
-        AgywDreamsHTSConstant.htsToIndexLinkage,
-        AgywDreamsHTSConstant.htsToTBLinkage,
-        AgywDreamsHTSConstant.htsToHtsRegisterLinkage
+        AgywDreamsHTSLongFormConstant.htsToIndexLinkage,
+        AgywDreamsHTSLongFormConstant.htsToTBLinkage,
+        AgywDreamsHTSLongFormConstant.htsToHtsRegisterLinkage
       ];
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-          AgywDreamsHTSConstant.program,
-          AgywDreamsHTSConstant.programStage,
+          AgywDreamsHTSLongFormConstant.program,
+          AgywDreamsHTSLongFormConstant.programStage,
           agywDream.orgUnit,
           htsFormSections,
           dataObject,
@@ -99,11 +99,11 @@ class _AgywDreamsHTSConsentForReleaseStatusState
           agywDream.id,
           eventId,
           hiddenFields,
-          skippedFields: [AgywDreamsHTSConstant.bmiKey],
+          skippedFields: [AgywDreamsHTSLongFormConstant.bmiKey],
         );
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-          AgywDreamsHTSConstant.program,
-          AgywDreamsHTSConstant.htsRegisterProgramStage,
+          AgywDreamsHTSLongFormConstant.program,
+          AgywDreamsHTSLongFormConstant.htsRegisterProgramStage,
           agywDream.orgUnit,
           htsRegisterformSections,
           dataObject,
@@ -111,15 +111,15 @@ class _AgywDreamsHTSConsentForReleaseStatusState
           agywDream.id,
           eventId,
           hiddenFields,
-          skippedFields: [AgywDreamsHTSConstant.bmiKey],
+          skippedFields: [AgywDreamsHTSLongFormConstant.bmiKey],
         );
-        if (dataObject[AgywDreamsHTSConstant.hivResultStatus] == 'Positive') {
+        if (dataObject[AgywDreamsHTSLongFormConstant.hivResultStatus] == 'Positive') {
           Navigator.push(
               context,
               MaterialPageRoute(
                   builder: (context) => AgywDreamsHTSTBForm(
                       htsToTBLinkageValue:
-                          dataObject[AgywDreamsHTSConstant.htsToTBLinkage])));
+                          dataObject[AgywDreamsHTSLongFormConstant.htsToTBLinkage])));
         } else {
           Provider.of<ServiveEventDataState>(context, listen: false)
               .resetServiceEventDataState(agywDream.id);

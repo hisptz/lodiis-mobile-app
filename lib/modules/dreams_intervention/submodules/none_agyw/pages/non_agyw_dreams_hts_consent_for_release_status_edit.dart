@@ -65,15 +65,16 @@ class _AgywDreamsHTSConsentForReleaseStatusEditState
       List<String> hiddenFields = [];
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-            AgywDreamsHTSConstant.program,
-            AgywDreamsHTSConstant.programStage,
-            agywDream.orgUnit,
-            formSections,
-            dataObject,
-            eventDate,
-            agywDream.id,
-            eventId,
-            hiddenFields);
+          AgywDreamsHTSLongFormConstant.program,
+          AgywDreamsHTSLongFormConstant.programStage,
+          agywDream.orgUnit,
+          formSections,
+          dataObject,
+          eventDate,
+          agywDream.id,
+          eventId,
+          hiddenFields,
+        );
         Provider.of<ServiveEventDataState>(context, listen: false)
             .resetServiceEventDataState(agywDream.id);
         Timer(Duration(seconds: 1), () {

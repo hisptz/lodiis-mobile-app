@@ -1,4 +1,4 @@
-class AgywDreamsHTSConstant {
+class AgywDreamsHTSLongFormConstant {
   static final String program = 'hOEIHJDrrvz';
   static final String programStage = 'QNdBI9U7rnV';
   static final String htsRegisterProgramStage = "kq6qeEgbDVY";

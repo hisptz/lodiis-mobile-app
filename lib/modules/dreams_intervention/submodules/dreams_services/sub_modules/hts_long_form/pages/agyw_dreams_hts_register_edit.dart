@@ -92,8 +92,8 @@ class _AgywDreamsHTSRegisterFormEditState
         List<String> hiddenFields = [];
         try {
           await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-            AgywDreamsHTSConstant.program,
-            AgywDreamsHTSConstant.htsRegisterProgramStage,
+            AgywDreamsHTSLongFormConstant.program,
+            AgywDreamsHTSLongFormConstant.htsRegisterProgramStage,
             agywDream.orgUnit,
             formSections,
             dataObject,
@@ -101,7 +101,7 @@ class _AgywDreamsHTSRegisterFormEditState
             agywDream.id,
             eventId,
             hiddenFields,
-            skippedFields: [AgywDreamsHTSConstant.bmiKey],
+            skippedFields: [AgywDreamsHTSLongFormConstant.bmiKey],
           );
           Provider.of<ServiveEventDataState>(context, listen: false)
               .resetServiceEventDataState(agywDream.id);
@@ -116,7 +116,7 @@ class _AgywDreamsHTSRegisterFormEditState
                     : 'Form has been saved successfully',
                 position: ToastGravity.TOP,
               );
-              if (dataObject[AgywDreamsHTSConstant.hivResultStatus] ==
+              if (dataObject[AgywDreamsHTSLongFormConstant.hivResultStatus] ==
                   'Positive') {
                 // reset event id and event date
                 dataObject.remove('eventId');
@@ -127,7 +127,8 @@ class _AgywDreamsHTSRegisterFormEditState
                     MaterialPageRoute(
                         builder: (context) => AgywDreamsHTSTBForm(
                             htsToTBLinkageValue: dataObject[
-                                AgywDreamsHTSConstant.htsToTBLinkage])));
+                                AgywDreamsHTSLongFormConstant
+                                    .htsToTBLinkage])));
               } else {
                 Navigator.pop(context);
               }
