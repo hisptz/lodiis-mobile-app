@@ -16,7 +16,7 @@ import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_long_form/pages/agyw_dreams_hts_consent_subpart_form.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/prep/constants/prep_intake_constant.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/components/prep_visit_card.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/components/dreams_services_visit_card.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/prep/pages/agyw_dreams_prep_form.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/prep/pages/agyw_prep_visit_form.dart';
@@ -227,13 +227,14 @@ class _AgywDreamsPrepState extends State<AgywDreamsPrep> {
                                                       margin: EdgeInsets.only(
                                                         bottom: 15.0,
                                                       ),
-                                                      child: PrepVisitListCard(
+                                                      child:
+                                                          DreamsServiceVisitListCard(
                                                         visitName:
                                                             "Baseline Information",
-                                                        onEditPrep: () =>
+                                                        onEdit: () =>
                                                             onEditPrep(context,
                                                                 eventData),
-                                                        onViewPrep: () =>
+                                                        onView: () =>
                                                             onViewPrep(context,
                                                                 eventData),
                                                         eventData: eventData,
@@ -287,13 +288,14 @@ class _AgywDreamsPrepState extends State<AgywDreamsPrep> {
                                                                         .only(
                                                                   bottom: 15.0,
                                                                 ),
-                                                                child: PrepVisitListCard(
+                                                                child: DreamsServiceVisitListCard(
                                                                     visitName:
                                                                         "Prep Visit",
-                                                                    onEditPrep: () => onEditVisit(
-                                                                        context,
-                                                                        eventData),
-                                                                    onViewPrep: () =>
+                                                                    onEdit: () =>
+                                                                        onEditVisit(
+                                                                            context,
+                                                                            eventData),
+                                                                    onView: () =>
                                                                         onViewVisit(
                                                                             context,
                                                                             eventData),

@@ -15,7 +15,7 @@ import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hiv_reg/constants/hiv_prep_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hiv_reg/pages/agyw_dreams_hiv_register_form.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/components/prep_visit_card.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/components/dreams_services_visit_card.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:provider/provider.dart';
 
@@ -141,12 +141,13 @@ class _AgywDreamsHIVRegisterState extends State<AgywDreamsHIVRegister> {
                                                       margin: EdgeInsets.only(
                                                         bottom: 15.0,
                                                       ),
-                                                      child: PrepVisitListCard(
+                                                      child:
+                                                          DreamsServiceVisitListCard(
                                                         visitName: "IPC Visit",
-                                                        onEditPrep: () =>
+                                                        onEdit: () =>
                                                             onEditPrep(context,
                                                                 eventData),
-                                                        onViewPrep: () =>
+                                                        onView: () =>
                                                             onViewPrep(context,
                                                                 eventData),
                                                         eventData: eventData,

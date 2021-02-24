@@ -12,7 +12,7 @@ import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/components/prep_visit_card.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/components/dreams_services_visit_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/srh/constants/srh_client_intake_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/srh/pages/agyw_dreams_srh_form.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
@@ -143,14 +143,13 @@ class _AgywDreamsSRHState extends State<AgywDreamsSRH> {
                                                       margin: EdgeInsets.only(
                                                         bottom: 15.0,
                                                       ),
-                                                      child: PrepVisitListCard(
+                                                      child:
+                                                          DreamsServiceVisitListCard(
                                                         visitName: "SRH Visit",
-                                                        onEditPrep: () =>
-                                                            onEditSRH(context,
-                                                                eventData),
-                                                        onViewPrep: () =>
-                                                            onViewSRH(context,
-                                                                eventData),
+                                                        onEdit: () => onEditSRH(
+                                                            context, eventData),
+                                                        onView: () => onViewSRH(
+                                                            context, eventData),
                                                         eventData: eventData,
                                                         visitCount:
                                                             referralIndex,

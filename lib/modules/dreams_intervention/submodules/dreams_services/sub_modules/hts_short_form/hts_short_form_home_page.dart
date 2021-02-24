@@ -13,6 +13,7 @@ import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/components/dreams_services_visit_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_short_form/constants/agyw_dreams_hts_short_form.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_short_form/pages/agyw_dreams_hts_short_form.dart';
 import 'package:provider/provider.dart';
@@ -52,10 +53,18 @@ class _HTSShortFormHomePageState extends State<HTSShortFormHomePage> {
     }
   }
 
+  onEditHTS(BuildContext context, Events eventdata) {
+    updateFormState(context, true, eventdata);
+    redirectHTSShortForm(context);
+  }
+
+  onViewtHTS(BuildContext context, Events eventdata) {
+    updateFormState(context, false, eventdata);
+    redirectHTSShortForm(context);
+  }
+
   onAddHTS(BuildContext context, AgywDream agywDream) {
     updateFormState(context, true, null);
-    Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
-        .setCurrentAgywDream(agywDream);
     redirectHTSShortForm(context);
   }
 
@@ -133,9 +142,32 @@ class _HTSShortFormHomePageState extends State<HTSShortFormHomePage> {
                                                   vertical: 5.0,
                                                   horizontal: 13.0,
                                                 ),
-                                                child: Text(
-                                                  "List of forms with view and edit functionalities",
-                                                  //@TODO Implement listing with edit and view forms
+                                                child: Column(
+                                                  children: events
+                                                      .map((Events eventData) {
+                                                    sessionIndex--;
+                                                    return Container(
+                                                      margin: EdgeInsets.only(
+                                                        bottom: 15.0,
+                                                      ),
+                                                      child:
+                                                          DreamsServiceVisitListCard(
+                                                        visitName: "Visit ",
+                                                        onEdit: () => onEditHTS(
+                                                          context,
+                                                          eventData,
+                                                        ),
+                                                        onView: () =>
+                                                            onViewtHTS(
+                                                          context,
+                                                          eventData,
+                                                        ),
+                                                        eventData: eventData,
+                                                        visitCount:
+                                                            sessionIndex,
+                                                      ),
+                                                    );
+                                                  }).toList(),
                                                 ),
                                               ),
                                       ),
