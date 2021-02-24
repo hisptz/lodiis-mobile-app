@@ -9,7 +9,8 @@ class ServiceCardBottonAction extends StatelessWidget {
   const ServiceCardBottonAction({
     Key key,
     this.onOpenPrepForm,
-    this.onOpenHTSForm,
+    this.onOpenHTSShortForm,
+    this.onOpenHTSLongForm,
     this.onOpenSRHForm,
     this.onOpenCondomForm,
     this.onOpenContraceptivesForm,
@@ -22,7 +23,8 @@ class ServiceCardBottonAction extends StatelessWidget {
   }) : super(key: key);
 
   final VoidCallback onOpenPrepForm;
-  final VoidCallback onOpenHTSForm;
+  final VoidCallback onOpenHTSShortForm;
+  final VoidCallback onOpenHTSLongForm;
   final VoidCallback onOpenSRHForm;
   final VoidCallback onOpenMSGHIVForm;
   final VoidCallback onOpenCondomForm;
@@ -56,10 +58,13 @@ class ServiceCardBottonAction extends StatelessWidget {
                       scrollDirection: Axis.horizontal,
                       children: [
                         Visibility(
-                          visible: currentUserState.canManageHts,
+                          visible: currentUserState.canManageHtsLongForm ||
+                              currentUserState.canManageHtsShortForm,
                           child: Container(
                             child: InkWell(
-                              onTap: onOpenHTSForm,
+                              onTap: currentUserState.canManageHtsShortForm
+                                  ? onOpenHTSShortForm
+                                  : onOpenHTSLongForm,
                               child: Container(
                                 padding: EdgeInsets.symmetric(
                                   vertical: 5.0,

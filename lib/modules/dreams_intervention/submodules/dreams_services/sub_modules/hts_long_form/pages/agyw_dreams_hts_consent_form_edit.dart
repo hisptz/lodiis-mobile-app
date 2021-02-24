@@ -18,22 +18,22 @@ import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/consent_for_release_of_status.dart';
-import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/hts_consent.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_long_form/constants/agyw_dreams_hts_constant.dart';
+import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:provider/provider.dart';
 
-class AgywDreamsHTSConsentForReleaseStatusEdit extends StatefulWidget {
-  AgywDreamsHTSConsentForReleaseStatusEdit({Key key}) : super(key: key);
+class AgywDreamsHTSConsentFormEdit extends StatefulWidget {
+  AgywDreamsHTSConsentFormEdit({Key key}) : super(key: key);
 
   @override
-  _AgywDreamsHTSConsentForReleaseStatusEditState createState() =>
-      _AgywDreamsHTSConsentForReleaseStatusEditState();
+  _AgywDreamsHTSConsentFormEditState createState() =>
+      _AgywDreamsHTSConsentFormEditState();
 }
 
-class _AgywDreamsHTSConsentForReleaseStatusEditState
-    extends State<AgywDreamsHTSConsentForReleaseStatusEdit> {
-  final String label = 'Consent for release of status';
+class _AgywDreamsHTSConsentFormEditState
+    extends State<AgywDreamsHTSConsentFormEdit> {
+  final String label = 'HTS Consent';
   List<FormSection> formSections;
   bool isFormReady = false;
   bool isSaving = false;
@@ -41,7 +41,7 @@ class _AgywDreamsHTSConsentForReleaseStatusEditState
   @override
   void initState() {
     super.initState();
-    formSections = ConsentForReleaseOfStatus.getFormSections();
+    formSections = HTSConsent.getFormSections();
     Timer(Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
@@ -74,6 +74,7 @@ class _AgywDreamsHTSConsentForReleaseStatusEditState
           agywDream.id,
           eventId,
           hiddenFields,
+          skippedFields: [AgywDreamsHTSLongFormConstant.bmiKey],
         );
         Provider.of<ServiveEventDataState>(context, listen: false)
             .resetServiceEventDataState(agywDream.id);
@@ -176,10 +177,9 @@ class _AgywDreamsHTSConsentForReleaseStatusEditState
                                           buttonColor: Color(0xFF258DCC),
                                           fontSize: 15.0,
                                           onPressButton: () => onSaveForm(
-                                            context,
-                                            serviceFormState.formState,
-                                            agywDream,
-                                          ),
+                                              context,
+                                              serviceFormState.formState,
+                                              agywDream),
                                         ),
                                       )
                                     ],

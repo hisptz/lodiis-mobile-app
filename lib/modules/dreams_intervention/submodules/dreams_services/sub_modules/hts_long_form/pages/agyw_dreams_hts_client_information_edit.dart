@@ -18,22 +18,22 @@ import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/consent_for_release_of_status.dart';
-import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/client_information.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_long_form/constants/agyw_dreams_hts_constant.dart';
+import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:provider/provider.dart';
 
-class AgywDreamsHTSConsentForReleaseStatusEdit extends StatefulWidget {
-  AgywDreamsHTSConsentForReleaseStatusEdit({Key key}) : super(key: key);
+class AgywDreamsHTSClientInformationEdit extends StatefulWidget {
+  AgywDreamsHTSClientInformationEdit({Key key}) : super(key: key);
 
   @override
-  _AgywDreamsHTSConsentForReleaseStatusEditState createState() =>
-      _AgywDreamsHTSConsentForReleaseStatusEditState();
+  _AgywDreamsHTSClientInformationEditState createState() =>
+      _AgywDreamsHTSClientInformationEditState();
 }
 
-class _AgywDreamsHTSConsentForReleaseStatusEditState
-    extends State<AgywDreamsHTSConsentForReleaseStatusEdit> {
-  final String label = 'Consent for release of status';
+class _AgywDreamsHTSClientInformationEditState
+    extends State<AgywDreamsHTSClientInformationEdit> {
+  final String label = 'HTS Client Intake'; //Initially Client Information
   List<FormSection> formSections;
   bool isFormReady = false;
   bool isSaving = false;
@@ -41,7 +41,7 @@ class _AgywDreamsHTSConsentForReleaseStatusEditState
   @override
   void initState() {
     super.initState();
-    formSections = ConsentForReleaseOfStatus.getFormSections();
+    formSections = ClientInformation.getFormSections();
     Timer(Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
@@ -74,6 +74,7 @@ class _AgywDreamsHTSConsentForReleaseStatusEditState
           agywDream.id,
           eventId,
           hiddenFields,
+          skippedFields: [AgywDreamsHTSLongFormConstant.bmiKey],
         );
         Provider.of<ServiveEventDataState>(context, listen: false)
             .resetServiceEventDataState(agywDream.id);
