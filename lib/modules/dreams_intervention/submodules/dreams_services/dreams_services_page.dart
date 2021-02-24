@@ -21,8 +21,6 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_serv
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/srh/agyw_dreams_srh.dart';
 import 'package:provider/provider.dart';
 
-import 'sub_modules/hts/hts_home_page.dart';
-
 class DreamsServicesPage extends StatefulWidget {
   const DreamsServicesPage({Key key}) : super(key: key);
 
@@ -48,17 +46,32 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
     });
   }
 
-  void onOpenHTSForm(
+  void onOpenHTSLongForm(
     BuildContext context,
     AgywDream agywBeneficiary,
   ) {
     updateStateData(context, agywBeneficiary);
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => HTSHomePage(),
-      ),
-    );
+    // Navigator.push(
+    //   context,
+    //   MaterialPageRoute(
+    //     builder: (context) => HTSHomePage(),
+    //   ),
+    // );
+    print("open long form");
+  }
+
+  void onOpenHTSShortForm(
+    BuildContext context,
+    AgywDream agywBeneficiary,
+  ) {
+    updateStateData(context, agywBeneficiary);
+    // Navigator.push(
+    //   context,
+    //   MaterialPageRoute(
+    //     builder: (context) => HTSHomePage(),
+    //   ),
+    // );
+    print("open shor form");
   }
 
   void onOpenSRHForm(
@@ -252,7 +265,11 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
                           context,
                           agywBeneficiary,
                         ),
-                        onOpenHTSForm: () => onOpenHTSForm(
+                        onOpenHTSShortForm: () => onOpenHTSShortForm(
+                          context,
+                          agywBeneficiary,
+                        ),
+                        onOpenHTSLongForm: () => onOpenHTSLongForm(
                           context,
                           agywBeneficiary,
                         ),
