@@ -12,7 +12,7 @@ import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/components/prep_visit_card.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/components/dreams_services_visit_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/anc/constants/anc_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/anc/pages/agyw_dreams_anc_form.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
@@ -140,12 +140,13 @@ class _AgywDreamANCState extends State<AgywDreamANC> {
                                                       margin: EdgeInsets.only(
                                                         bottom: 15.0,
                                                       ),
-                                                      child: PrepVisitListCard(
+                                                      child:
+                                                          DreamsServiceVisitListCard(
                                                         visitName: "ANC VISIT ",
-                                                        onEditPrep: () =>
+                                                        onEdit: () =>
                                                             onEditPrep(context,
                                                                 eventData),
-                                                        onViewPrep: () =>
+                                                        onView: () =>
                                                             onViewPrep(context,
                                                                 eventData),
                                                         eventData: eventData,

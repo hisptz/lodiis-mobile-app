@@ -13,7 +13,8 @@ class CurrentUserState with ChangeNotifier {
   bool _canManageNoneAgyw;
   bool _canManageReferral;
   bool _canManageCLOReferral;
-  bool _canManageHts;
+  bool _canManageHtsShortForm;
+  bool _canManageHtsLongForm;
   bool _canManageHivReg;
   bool _canManageSrh;
   bool _canManagePrep;
@@ -35,7 +36,8 @@ class CurrentUserState with ChangeNotifier {
   bool get canManageNoneAgyw => _canManageNoneAgyw ?? false;
   bool get canManageReferral => _canManageReferral ?? false;
   bool get canManageCLOReferral => _canManageCLOReferral ?? false;
-  bool get canManageHts => _canManageHts ?? false;
+  bool get canManageHtsShortForm => _canManageHtsShortForm ?? false;
+  bool get canManageHtsLongForm => _canManageHtsLongForm ?? false;
   bool get canManageHivReg => _canManageHivReg ?? false;
   bool get canManageSrh => _canManageSrh ?? false;
   bool get canManagePrep => _canManagePrep ?? false;
@@ -65,8 +67,10 @@ class CurrentUserState with ChangeNotifier {
         userAccesses['canManageReferral'] == true;
     _canManageCLOReferral = userAccesses['canManageCLOReferral'] &&
         userAccesses['canManageCLOReferral'] == true;
-    _canManageHts =
-        userAccesses['canManageHts'] && userAccesses['canManageHts'] == true;
+    _canManageHtsShortForm = userAccesses['canManageHtsShortForm'] &&
+        userAccesses['canManageHtsShortForm'] == true;
+    _canManageHtsLongForm = userAccesses['canManageHtsLongForm'] &&
+        userAccesses['canManageHtsLongForm'] == true;
     _canManageHivReg = userAccesses['canManageHivReg'] &&
         userAccesses['canManageHivReg'] == true;
     _canManageSrh =

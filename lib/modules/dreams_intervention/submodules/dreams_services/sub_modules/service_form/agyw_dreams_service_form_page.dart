@@ -13,7 +13,7 @@ import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/models/service_event.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/components/prep_visit_card.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/components/dreams_services_visit_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/service_form/constants/service_form_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/service_form/pages/agyw_dreams_service_form.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
@@ -167,15 +167,16 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
                                                       margin: EdgeInsets.only(
                                                         bottom: 15.0,
                                                       ),
-                                                      child: PrepVisitListCard(
+                                                      child:
+                                                          DreamsServiceVisitListCard(
                                                         visitName: "Service",
-                                                        onEditPrep: () =>
+                                                        onEdit: () =>
                                                             onEditService(
                                                                 context,
                                                                 eventData,
                                                                 agywDream,
                                                                 serviceEvents),
-                                                        onViewPrep: () =>
+                                                        onView: () =>
                                                             onViewService(
                                                                 context,
                                                                 eventData,
