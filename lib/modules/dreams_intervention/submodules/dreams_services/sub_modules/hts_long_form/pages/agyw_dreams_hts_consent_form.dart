@@ -73,15 +73,18 @@ class _AgywDreamsHTSConsentFormState extends State<AgywDreamsHTSConsentForm> {
         .setCurrentAgywDream(agywDream);
     if (isConsentGiven(dataObject)) {
       Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => AgywDreamsHTSClientInformation(
-                    isComingFromPrep: isComingFromPrep,
-                  )));
+        context,
+        MaterialPageRoute(
+          builder: (context) => AgywDreamsHTSClientInformation(
+            isComingFromPrep: isComingFromPrep,
+          ),
+        ),
+      );
     } else {
       AppUtil.showToastMessage(
-          message: 'Cannot proceed without consent',
-          position: ToastGravity.TOP);
+        message: 'Cannot proceed without consent',
+        position: ToastGravity.TOP,
+      );
     }
   }
 
@@ -146,9 +149,10 @@ class _AgywDreamsHTSConsentFormState extends State<AgywDreamsHTSConsentForm> {
                                       buttonColor: Color(0xFF258DCC),
                                       fontSize: 15.0,
                                       onPressButton: () => onSaveForm(
-                                          context,
-                                          serviceFormState.formState,
-                                          agywDream),
+                                        context,
+                                        serviceFormState.formState,
+                                        agywDream,
+                                      ),
                                     ),
                                   )
                                 ],

@@ -14,6 +14,7 @@ import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_short_form/constants/agyw_dreams_hts_short_form.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_short_form/pages/agyw_dreams_hts_short_form.dart';
 import 'package:provider/provider.dart';
 
 class HTSShortFormHomePage extends StatefulWidget {
@@ -52,7 +53,21 @@ class _HTSShortFormHomePageState extends State<HTSShortFormHomePage> {
   }
 
   onAddHTS(BuildContext context, AgywDream agywDream) {
-    print("On add short form hts form");
+    updateFormState(context, true, null);
+    Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
+        .setCurrentAgywDream(agywDream);
+    redirectHTSShortForm(context);
+  }
+
+  redirectHTSShortForm(
+    BuildContext context,
+  ) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => AgywDreamsHTSShortForm(),
+      ),
+    );
   }
 
   @override
@@ -120,6 +135,7 @@ class _HTSShortFormHomePageState extends State<HTSShortFormHomePage> {
                                                 ),
                                                 child: Text(
                                                   "List of forms with view and edit functionalities",
+                                                  //@TODO Implement listing with edit and view forms
                                                 ),
                                               ),
                                       ),
