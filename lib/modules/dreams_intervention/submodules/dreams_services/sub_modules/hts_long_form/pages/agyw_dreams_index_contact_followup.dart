@@ -18,22 +18,21 @@ import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/consent_for_release_of_status.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/bio_data_information_about_elicited_sexual_partners.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_long_form/constants/agyw_dream_hts_follow_up.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_long_form/constants/agyw_dreams_hts_constant.dart';
 import 'package:provider/provider.dart';
 
-class AgywDreamsHTSConsentForReleaseStatusEdit extends StatefulWidget {
-  AgywDreamsHTSConsentForReleaseStatusEdit({Key key}) : super(key: key);
+class AgywDreamsIndexFollowUp extends StatefulWidget {
+  AgywDreamsIndexFollowUp({Key key}) : super(key: key);
 
   @override
-  _AgywDreamsHTSConsentForReleaseStatusEditState createState() =>
-      _AgywDreamsHTSConsentForReleaseStatusEditState();
+  _AgywDreamsIndexFollowUpState createState() =>
+      _AgywDreamsIndexFollowUpState();
 }
 
-class _AgywDreamsHTSConsentForReleaseStatusEditState
-    extends State<AgywDreamsHTSConsentForReleaseStatusEdit> {
-  final String label = 'Consent for release of status';
+class _AgywDreamsIndexFollowUpState extends State<AgywDreamsIndexFollowUp> {
+  final String label = 'HTS Index Follow Up';
   List<FormSection> formSections;
   bool isFormReady = false;
   bool isSaving = false;
@@ -41,8 +40,9 @@ class _AgywDreamsHTSConsentForReleaseStatusEditState
   @override
   void initState() {
     super.initState();
-    formSections = ConsentForReleaseOfStatus.getFormSections();
     Timer(Duration(seconds: 1), () {
+      formSections =
+          BioDataInformationAboutElicitedSexualPartners.getFormSections();
       setState(() {
         isFormReady = true;
       });
@@ -62,33 +62,35 @@ class _AgywDreamsHTSConsentForReleaseStatusEditState
       });
       String eventDate = dataObject['eventDate'];
       String eventId = dataObject['eventId'];
-      List<String> hiddenFields = [];
+      List<String> hiddenFields = [
+        AgywDreamsHTSFOLLOWUPConstant.indexContactToElicitedPartnerLinkage
+      ];
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-            AgywDreamsHTSConstant.program,
-            AgywDreamsHTSConstant.programStage,
-            agywDream.orgUnit,
-            formSections,
-            dataObject,
-            eventDate,
-            agywDream.id,
-            eventId,
-            hiddenFields);
+          AgywDreamsHTSFOLLOWUPConstant.program,
+          AgywDreamsHTSFOLLOWUPConstant.programStage,
+          agywDream.orgUnit,
+          formSections,
+          dataObject,
+          eventDate,
+          agywDream.id,
+          eventId,
+          hiddenFields,
+        );
         Provider.of<ServiveEventDataState>(context, listen: false)
             .resetServiceEventDataState(agywDream.id);
-        Timer(Duration(seconds: 1), () {
-          setState(() {
-            String currentLanguage =
-                Provider.of<LanguageTranslationState>(context, listen: false)
-                    .currentLanguage;
-            AppUtil.showToastMessage(
-              message: currentLanguage == 'lesotho'
-                  ? 'Fomo e bolokeile'
-                  : 'Form has been saved successfully',
-              position: ToastGravity.TOP,
-            );
-            Navigator.pop(context);
-          });
+        Timer(Duration(seconds: 1), () async {
+          setState(() {});
+          String currentLanguage =
+              Provider.of<LanguageTranslationState>(context, listen: false)
+                  .currentLanguage;
+          AppUtil.showToastMessage(
+            message: currentLanguage == 'lesotho'
+                ? 'Fomo e bolokeile'
+                : 'Form has been saved successfully',
+            position: ToastGravity.TOP,
+          );
+          Navigator.pop(context);
         });
       } catch (e) {
         Timer(Duration(seconds: 1), () {

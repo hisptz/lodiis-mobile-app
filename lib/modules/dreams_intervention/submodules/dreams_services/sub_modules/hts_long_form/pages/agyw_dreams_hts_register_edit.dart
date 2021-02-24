@@ -18,89 +18,137 @@ import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/consent_for_release_of_status.dart';
-import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/hts_register.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_long_form/constants/agyw_dreams_hts_constant.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_long_form/pages/agyw_dreams_hts_tb_screening.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_long_form/skip_logics/agyw_dreams_hts_register_skip_logic.dart';
+import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:provider/provider.dart';
 
-class AgywDreamsHTSConsentForReleaseStatusEdit extends StatefulWidget {
-  AgywDreamsHTSConsentForReleaseStatusEdit({Key key}) : super(key: key);
+class AgywDreamsHTSRegisterFormEdit extends StatefulWidget {
+  AgywDreamsHTSRegisterFormEdit({Key key}) : super(key: key);
 
   @override
-  _AgywDreamsHTSConsentForReleaseStatusEditState createState() =>
-      _AgywDreamsHTSConsentForReleaseStatusEditState();
+  _AgywDreamsHTSRegisterFormEditState createState() =>
+      _AgywDreamsHTSRegisterFormEditState();
 }
 
-class _AgywDreamsHTSConsentForReleaseStatusEditState
-    extends State<AgywDreamsHTSConsentForReleaseStatusEdit> {
-  final String label = 'Consent for release of status';
+class _AgywDreamsHTSRegisterFormEditState
+    extends State<AgywDreamsHTSRegisterFormEdit> {
+  final String label = 'HTS Register';
   List<FormSection> formSections;
+  final List<String> mandatoryFields = HTSRegister.getMandatoryFields();
+  final Map mandatoryFieldObject = Map();
   bool isFormReady = false;
   bool isSaving = false;
 
   @override
   void initState() {
     super.initState();
-    formSections = ConsentForReleaseOfStatus.getFormSections();
+    formSections = HTSRegister.getFormSections();
+    for (String id in mandatoryFields) {
+      mandatoryFieldObject[id] = true;
+    }
     Timer(Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
+        evaluateSkipLogics();
       });
     });
+  }
+
+  evaluateSkipLogics() {
+    Timer(
+      Duration(milliseconds: 200),
+      () async {
+        Map dataObject =
+            Provider.of<ServiceFormState>(context, listen: false).formState;
+        await AgywDreamsHTSRegisterSkipLogic.evaluateSkipLogics(
+          context,
+          formSections,
+          dataObject,
+        );
+      },
+    );
   }
 
   void onInputValueChange(String id, dynamic value) {
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState(id, value);
+    evaluateSkipLogics();
   }
 
   void onSaveForm(
       BuildContext context, Map dataObject, AgywDream agywDream) async {
-    if (FormUtil.geFormFilledStatus(dataObject, formSections)) {
-      setState(() {
-        isSaving = true;
-      });
-      String eventDate = dataObject['eventDate'];
-      String eventId = dataObject['eventId'];
-      List<String> hiddenFields = [];
-      try {
-        await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
+    bool hadAllMandatoryFilled =
+        AppUtil.hasAllMandarotyFieldsFilled(mandatoryFields, dataObject);
+    if (hadAllMandatoryFilled) {
+      if (FormUtil.geFormFilledStatus(dataObject, formSections)) {
+        setState(() {
+          isSaving = true;
+        });
+        String eventDate = dataObject['eventDate'];
+        String eventId = dataObject['eventId'];
+        List<String> hiddenFields = [];
+        try {
+          await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
             AgywDreamsHTSConstant.program,
-            AgywDreamsHTSConstant.programStage,
+            AgywDreamsHTSConstant.htsRegisterProgramStage,
             agywDream.orgUnit,
             formSections,
             dataObject,
             eventDate,
             agywDream.id,
             eventId,
-            hiddenFields);
-        Provider.of<ServiveEventDataState>(context, listen: false)
-            .resetServiceEventDataState(agywDream.id);
-        Timer(Duration(seconds: 1), () {
-          setState(() {
-            String currentLanguage =
-                Provider.of<LanguageTranslationState>(context, listen: false)
-                    .currentLanguage;
-            AppUtil.showToastMessage(
-              message: currentLanguage == 'lesotho'
-                  ? 'Fomo e bolokeile'
-                  : 'Form has been saved successfully',
-              position: ToastGravity.TOP,
-            );
-            Navigator.pop(context);
+            hiddenFields,
+            skippedFields: [AgywDreamsHTSConstant.bmiKey],
+          );
+          Provider.of<ServiveEventDataState>(context, listen: false)
+              .resetServiceEventDataState(agywDream.id);
+          Timer(Duration(seconds: 1), () {
+            setState(() {
+              String currentLanguage =
+                  Provider.of<LanguageTranslationState>(context, listen: false)
+                      .currentLanguage;
+              AppUtil.showToastMessage(
+                message: currentLanguage == 'lesotho'
+                    ? 'Fomo e bolokeile'
+                    : 'Form has been saved successfully',
+                position: ToastGravity.TOP,
+              );
+              if (dataObject[AgywDreamsHTSConstant.hivResultStatus] ==
+                  'Positive') {
+                // reset event id and event date
+                dataObject.remove('eventId');
+                dataObject.remove('eventDate');
+
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => AgywDreamsHTSTBForm(
+                            htsToTBLinkageValue: dataObject[
+                                AgywDreamsHTSConstant.htsToTBLinkage])));
+              } else {
+                Navigator.pop(context);
+              }
+            });
           });
-        });
-      } catch (e) {
-        Timer(Duration(seconds: 1), () {
-          setState(() {
-            AppUtil.showToastMessage(
-                message: e.toString(), position: ToastGravity.BOTTOM);
+        } catch (e) {
+          Timer(Duration(seconds: 1), () {
+            setState(() {
+              AppUtil.showToastMessage(
+                  message: e.toString(), position: ToastGravity.BOTTOM);
+            });
           });
-        });
+        }
+      } else {
+        AppUtil.showToastMessage(
+            message: 'Please fill at least one form field',
+            position: ToastGravity.TOP);
       }
     } else {
       AppUtil.showToastMessage(
-          message: 'Please fill at least one form field',
+          message: 'Please fill all mandatory field',
           position: ToastGravity.TOP);
     }
   }
@@ -152,8 +200,13 @@ class _AgywDreamsHTSConsentForReleaseStatusEditState
                                           right: 13.0,
                                         ),
                                         child: EntryFormContainer(
+                                          hiddenFields:
+                                              serviceFormState.hiddenFields,
+                                          hiddenSections:
+                                              serviceFormState.hiddenSections,
                                           formSections: formSections,
-                                          mandatoryFieldObject: Map(),
+                                          mandatoryFieldObject:
+                                              mandatoryFieldObject,
                                           isEditableMode:
                                               serviceFormState.isEditableMode,
                                           dataObject:
