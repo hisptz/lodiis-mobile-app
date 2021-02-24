@@ -126,7 +126,7 @@ class _AgywDreamsHIVRegisterState extends State<AgywDreamsHIVRegister> {
                                         ),
                                         child: events.length == 0
                                             ? Text(
-                                                'There is no VISIT at a moment')
+                                                'There is no visit at a moment')
                                             : Container(
                                                 margin: EdgeInsets.symmetric(
                                                   vertical: 5.0,

@@ -125,7 +125,7 @@ class _HTSShortFormHomePageState extends State<HTSShortFormHomePage> {
                                         child: events.length == 0
                                             ? Container(
                                                 child: Text(
-                                                  "There is no HTS visit at a moment",
+                                                  "There is no visit at a moment",
                                                 ),
                                               )
                                             : Container(

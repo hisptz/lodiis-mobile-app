@@ -133,7 +133,7 @@ class _AgywDreamContraceptivesState extends State<AgywDreamContraceptives> {
                                         ),
                                         child: events.length == 0
                                             ? Text(
-                                                'There is no Visit at a moment')
+                                                'There is no visit at a moment')
                                             : Container(
                                                 margin: EdgeInsets.symmetric(
                                                   vertical: 5.0,

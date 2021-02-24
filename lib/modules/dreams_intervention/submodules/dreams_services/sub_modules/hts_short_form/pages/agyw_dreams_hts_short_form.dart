@@ -15,6 +15,7 @@ import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/agyw_dreams_short_form.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_short_form/skip_logics/agyw_dreams_hts_short_form_skip_logics.dart';
 import 'package:provider/provider.dart';
 
 class AgywDreamsHTSShortForm extends StatefulWidget {
@@ -39,6 +40,7 @@ class _AgywDreamsHTSShortFormState extends State<AgywDreamsHTSShortForm> {
     Timer(Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
+        evaluateSkipLogics();
       });
     });
   }
@@ -46,13 +48,28 @@ class _AgywDreamsHTSShortFormState extends State<AgywDreamsHTSShortForm> {
   void onInputValueChange(String id, dynamic value) {
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState(id, value);
-    //@TODO add logics for skip logics if any
+    evaluateSkipLogics();
   }
 
   void onSaveForm(BuildContext context, Map dataObject, AgywDream agywDream) {
     //@TODO Contorll for saving the the form
     print("on saving data $agywDream");
     print(dataObject);
+  }
+
+  evaluateSkipLogics() {
+    Timer(
+      Duration(milliseconds: 200),
+      () async {
+        Map dataObject =
+            Provider.of<ServiceFormState>(context, listen: false).formState;
+        await AgywDreamSHTSShortFormSkipLogic.evaluateSkipLogics(
+          context,
+          formSections,
+          dataObject,
+        );
+      },
+    );
   }
 
   @override
@@ -124,9 +141,8 @@ class _AgywDreamsHTSShortFormState extends State<AgywDreamsHTSShortForm> {
                                         visible:
                                             serviceFormState.isEditableMode,
                                         child: EntryFormSaveButton(
-                                          label: isSaving
-                                              ? 'Saving ...'
-                                              : 'Save and Continue',
+                                          label:
+                                              isSaving ? 'Saving ...' : 'Save',
                                           labelColor: Colors.white,
                                           buttonColor: Color(0xFF258DCC),
                                           fontSize: 15.0,
