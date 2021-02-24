@@ -129,7 +129,7 @@ class _HTSLongFormHomePageState extends State<HTSLongFormHomePage> {
                                       ),
                                       child: events.length == 0
                                           ? Text(
-                                              'There is no HTS details at a moment')
+                                              'There is no HTS visit at a moment')
                                           : Container(
                                               margin: EdgeInsets.symmetric(
                                                 vertical: 5.0,
