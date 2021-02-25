@@ -74,7 +74,8 @@ class NoneAgywEnrollmentFormSection {
               InputFieldOption(code: 'F', name: 'F'),
               InputFieldOption(code: 'M', name: 'M'),
               InputFieldOption(code: 'CF', name: 'CF'),
-              InputFieldOption(code: 'CM', name: 'CM')
+              InputFieldOption(code: 'CM', name: 'CM'),
+              InputFieldOption(code: 'AGYW', name: 'AGYW'),
             ],
           ),
           InputField(
@@ -744,7 +745,9 @@ class NoneAgywEnrollmentFormSection {
                     name: 'PsychoSocial SupportSupport Group'),
                 InputFieldOption(
                     code: 'Nutritional DrugAlcohol Abuse',
-                    name: 'Nutritional DrugAlcohol Abuse')
+                    name: 'Nutritional DrugAlcohol Abuse'),
+                InputFieldOption(
+                    code: 'KB Intervention', name: 'KB Intervention'),
               ])
         ],
       ),

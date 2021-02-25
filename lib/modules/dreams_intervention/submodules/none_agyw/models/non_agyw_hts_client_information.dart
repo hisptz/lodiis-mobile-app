@@ -5,8 +5,7 @@ import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/input_field_option.dart';
 
 class NonAgywHTSClientInformation {
-
-  static List<String> getMandatoryField(){
+  static List<String> getMandatoryField() {
     return [
       'sJ35hsF6Lf9',
       'location',
@@ -93,6 +92,7 @@ class NonAgywHTSClientInformation {
                   InputFieldOption(code: 'TG SW', name: 'TG SW'),
                   InputFieldOption(code: 'TG NonSW', name: 'TG NonSW'),
                   InputFieldOption(code: 'PWID', name: 'PWID'),
+                  InputFieldOption(code: 'AGYWs', name: 'AGYWs'),
                   InputFieldOption(
                       code: 'Prisoner or enclosed',
                       name: 'Prisoner or enclosed')
@@ -191,7 +191,8 @@ class NonAgywHTSClientInformation {
                   InputFieldOption(code: 'F', name: 'F'),
                   InputFieldOption(code: 'M', name: 'M'),
                   InputFieldOption(code: 'CF', name: 'CF'),
-                  InputFieldOption(code: 'CM', name: 'CM')
+                  InputFieldOption(code: 'CM', name: 'CM'),
+                  InputFieldOption(code: 'AGYW', name: 'AGYW'),
                 ]),
             InputField(
                 id: 'XjHuTmtsXsz',
@@ -211,6 +212,8 @@ class NonAgywHTSClientInformation {
                   InputFieldOption(
                       code: 'Mobile testing', name: 'Mobile testing'),
                   InputFieldOption(code: 'Home-based', name: 'Home-based'),
+                  InputFieldOption(
+                      code: 'Community PrEP', name: 'Community PrEP'),
                   InputFieldOption(code: 'Other', name: 'Other'),
                 ],
                 inputColor: Color(0xFF258DCC),
@@ -255,6 +258,8 @@ class NonAgywHTSClientInformation {
                 options: [
                   InputFieldOption(code: 'None', name: 'None'),
                   InputFieldOption(code: 'Primary', name: 'Primary'),
+                  InputFieldOption(
+                      code: 'Secondary school', name: 'Secondary school'),
                   InputFieldOption(code: 'High school', name: 'High school'),
                   InputFieldOption(code: 'Tertiary', name: 'Tertiary'),
                 ]),
@@ -286,6 +291,8 @@ class NonAgywHTSClientInformation {
                   InputFieldOption(code: 'Radio or TV', name: 'Radio or TV'),
                   InputFieldOption(
                       code: 'Positive self-test', name: 'Positive self-test'),
+                  InputFieldOption(
+                      code: 'KB Field staff', name: 'KB Field staff'),
                   InputFieldOption(
                       code: 'PSI field or New Start staff',
                       name: 'PSI field or New Start staff'),
