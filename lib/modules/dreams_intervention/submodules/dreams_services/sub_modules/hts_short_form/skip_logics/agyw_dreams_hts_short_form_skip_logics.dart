@@ -23,7 +23,16 @@ class AgywDreamSHTSShortFormSkipLogic {
     }
     inputFieldIds = inputFieldIds.toSet().toList();
     for (String inputFieldId in inputFieldIds) {
-      //@TODO apply skip logics
+      var value = '${dataObject[inputFieldId]}';
+      if(inputFieldId == 'lvT9gfpHIlT' && dataObject[inputFieldId] == null){
+        hiddenFields['zbHpXUjGv5H'] = true;
+        hiddenFields['GHfoqXKlK6o'] = true;
+        hiddenFields['rJUdBXiukaI'] = true;
+      }
+      if(inputFieldId == 'zbHpXUjGv5H' && value  != 'true'){
+        hiddenFields['GHfoqXKlK6o'] = true;
+        hiddenFields['rJUdBXiukaI'] = true;
+      }
     }
     for (String sectionId in hiddenSections.keys) {
       List<FormSection> allFormSections =
