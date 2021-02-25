@@ -1,20 +1,26 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dream_current_selection_state.dart';
+import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
+import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
+import 'package:kb_mobile_app/core/utils/app_util.dart';
+import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/agyw_dreams_short_form.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_short_form/constants/agyw_dreams_hts_short_form.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_short_form/skip_logics/agyw_dreams_hts_short_form_skip_logics.dart';
 import 'package:provider/provider.dart';
 
@@ -28,6 +34,7 @@ class AgywDreamsHTSShortForm extends StatefulWidget {
 class _AgywDreamsHTSShortFormState extends State<AgywDreamsHTSShortForm> {
   final String label = "HTS Form";
   List<FormSection> formSections;
+  List<String> mandatoryFields = AgywDreamsShortForm.getMandatoryFields() ?? [];
   bool isFormReady = false;
   bool isSaving = false;
   Map mandatoryFieldObject;
@@ -37,6 +44,8 @@ class _AgywDreamsHTSShortFormState extends State<AgywDreamsHTSShortForm> {
     super.initState();
     formSections = AgywDreamsShortForm.getFormSections();
     mandatoryFieldObject = Map();
+    mandatoryFields
+        .forEach((field) => mandatoryFieldObject[field] = true);
     Timer(Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
@@ -51,10 +60,53 @@ class _AgywDreamsHTSShortFormState extends State<AgywDreamsHTSShortForm> {
     evaluateSkipLogics();
   }
 
-  void onSaveForm(BuildContext context, Map dataObject, AgywDream agywDream) {
-    //@TODO Contorll for saving the the form
-    print("on saving data $agywDream");
-    print(dataObject);
+  void onSaveForm(BuildContext context, Map dataObject, AgywDream agywDream) async {
+    String eventDate = dataObject['eventDate'];
+    String eventId = dataObject['eventId'];
+    bool hadAllMandatoryFilled =
+    AppUtil.hasAllMandarotyFieldsFilled(mandatoryFields, dataObject);
+    if(hadAllMandatoryFilled){
+      setState(() {
+        isSaving = true;
+      });
+      Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
+          .setCurrentAgywDream(agywDream);
+      await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
+        AgywDreamsHTSShortFormConstant.program,
+        AgywDreamsHTSShortFormConstant.programStage,
+        agywDream.orgUnit,
+        formSections,
+        dataObject,
+        eventDate,
+        agywDream.id,
+        eventId,
+        [], //Hidden fields
+        skippedFields: [],
+      );
+      Provider.of<ServiveEventDataState>(context, listen: false)
+          .resetServiceEventDataState(agywDream.id);
+
+      Timer(Duration(seconds: 1), () {
+        setState(() {
+          isSaving = false;
+          String currentLanguage =
+              Provider.of<LanguageTranslationState>(context, listen: false)
+                  .currentLanguage;
+          AppUtil.showToastMessage(
+            message: currentLanguage == 'lesotho'
+                ? 'Fomo e bolokeile'
+                : 'Form has been saved successfully',
+            position: ToastGravity.TOP,
+          );
+          Navigator.popUntil(context, (route) => route.isFirst);
+        });
+      });
+    }else{
+      AppUtil.showToastMessage(
+          message: 'Please fill all mandatory field',
+          position: ToastGravity.TOP);
+    }
+
   }
 
   evaluateSkipLogics() {
