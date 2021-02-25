@@ -21,7 +21,13 @@ class DreamsServicePrepIntakeInfo {
   }
 
   static List<String> getMandatoryField() {
-    const excludedFields = ['UL0xa3Sz9ML', 'de4zcWiZB5j'];
+    const excludedFields = [
+      'UL0xa3Sz9ML',
+      'de4zcWiZB5j',
+      'XfB60ruQI3I',
+      'W8LTmGz13QM',
+      'Ihu2PjZMh8B'
+    ];
     List<String> inputFields = FormUtil.getFormFieldIds(getFormSections());
     List<String> optionalFields =
         getCheckboxInputFieldOptions(getFormSections());

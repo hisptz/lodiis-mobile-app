@@ -91,6 +91,9 @@ class AgywDreamsPrepSkipLogic {
       if (inputFieldId == 'bZ8fTvAhdMS' && value != 'true') {
         hiddenFields['UL1Pq6sgvr2'] = true;
       }
+      if (inputFieldId == 'ov7UEdiyjJA' && value != 'true') {
+        hiddenFields['dpfubDzhwhX'] = true;
+      }
 
       if (inputFieldId == 'veoA322323t' &&
           !((value == 'true' && dataObject['bH9DpJOIutM'] == 'true') ||
@@ -122,11 +125,11 @@ class AgywDreamsPrepSkipLogic {
     for (String sectionId in hiddenSections.keys) {
       List<FormSection> allFormSections =
           FormUtil.getFlattenFormSections(formSections);
-      List<String> hidddenSectionInputFieldIds = FormUtil.getFormFieldIds(allFormSections
-          .where((formSection) => formSection.id == sectionId)
-          .toList());      
+      List<String> hidddenSectionInputFieldIds = FormUtil.getFormFieldIds(
+          allFormSections
+              .where((formSection) => formSection.id == sectionId)
+              .toList());
       for (String inputFieldId in hidddenSectionInputFieldIds) {
-
         hiddenFields[inputFieldId] = true;
       }
     }

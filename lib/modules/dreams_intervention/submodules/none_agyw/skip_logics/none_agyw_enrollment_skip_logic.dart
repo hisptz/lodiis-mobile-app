@@ -50,6 +50,9 @@ class NoneAgywEnrollmentSkipLogic {
       if (inputFieldId == 'IJUy3A0IVpr' && value != 'true') {
         hiddenFields['Hr43Ub9GNyP'] = true;
       }
+      if (inputFieldId == 'eOy1XwiYC8H' && value != 'true') {
+        hiddenFields['X2m9v2E5WaI'] = true;
+      }
     }
     for (String sectionId in hiddenSections.keys) {
       List<FormSection> allFormSections =
