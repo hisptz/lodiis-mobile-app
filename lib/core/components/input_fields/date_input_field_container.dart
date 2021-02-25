@@ -75,7 +75,8 @@ class _DateInputFieldContainerState extends State<DateInputFieldContainer> {
           ? '${widget.inputField.translatedName}'
           : '${widget.inputField.name}',
       initialDate: AppUtil.getDateIntoDateTimeFormat(_date),
-      firstDate: widget.inputField.disablePastPeriod ? DateTime.now() : firstDate,
+      firstDate:
+          widget.inputField.disablePastPeriod ? DateTime.now() : firstDate,
       confirmText: widget.currentLanguage == 'lesotho' ? 'Ok' : 'Ok',
       cancelText: widget.currentLanguage == 'lesotho' ? 'Cancel' : 'Cancel',
       lastDate: widget.inputField.allowFuturePeriod ||
@@ -114,7 +115,9 @@ class _DateInputFieldContainerState extends State<DateInputFieldContainer> {
               style: TextStyle().copyWith(
                 color: widget.inputField.inputColor,
               ),
-              onTap: () => onOpenDateSelection(context),
+              onTap: () => widget.inputField.isReadOnly
+                  ? null
+                  : onOpenDateSelection(context),
               readOnly: true,
               textInputAction: TextInputAction.done,
               decoration: InputDecoration(
