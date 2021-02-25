@@ -271,6 +271,7 @@ class NonAgywHTSRegister {
           id: 'FI9Wzzys767',
           name: 'TB screening',
           valueType: 'BOOLEAN',
+          isReadOnly: true,
           inputColor: Color(0xFF258DCC),
           labelColor: Color(0xFF737373),
         ),
