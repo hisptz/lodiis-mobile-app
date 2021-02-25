@@ -1059,12 +1059,14 @@ class DreamsServicePrepIntakeInfo {
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
                 name: 'HIV-negative',
+                isReadOnly: true,
                 valueType: 'BOOLEAN'),
             InputField(
                 id: 'vMR9VtzuH3R',
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
                 name: 'Date tested',
+                isReadOnly: true,
                 valueType: 'DATE'),
             InputField(
                 id: 'qgNIIJBeMBT',
