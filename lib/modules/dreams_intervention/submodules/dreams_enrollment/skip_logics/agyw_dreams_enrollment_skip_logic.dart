@@ -113,15 +113,18 @@ class AgywDreamsEnrollmentSkipLogic {
         hiddenFields['ODMyZc2F7uc'] = true;
       }
       if (inputFieldId == 'qTZtbRWe1Hb') {
-        if (value != 'true') {
-          hiddenFields['TJ5KB6GfZX4'] = true;
+        if(value == 'true'){
           assignInputFieldValue(context, 'JTNxMQPT134', 'true');
-        }
-        if (value == 'false') {
-          assignInputFieldValue(context, 'bApA6X6TVvJ', 'true');
-        } else {
           assignInputFieldValue(context, 'bApA6X6TVvJ', '');
+        }else{
+          hiddenFields['TJ5KB6GfZX4'] = true;
         }
+        if(value == 'false'){
+          assignInputFieldValue(context, 'bApA6X6TVvJ', 'true');
+          assignInputFieldValue(context, 'JTNxMQPT134', 'false');
+        }
+
+
       }
       if (inputFieldId == 'qTZtbRWe1Hb' && value != 'false') {
         hiddenFields['OA1dR8a4UWu'] = true;

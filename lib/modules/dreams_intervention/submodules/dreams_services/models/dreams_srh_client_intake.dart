@@ -207,12 +207,14 @@ class DreamsSrhClientIntake {
             InputField(
                 id: 'gCvMVscBNfk',
                 name: 'Weight',
+                description: 'Decimal values are allowed. e.g 4.1',
                 valueType: 'NUMBER',
                 inputColor: Color(0xFF258DCC),
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'x7Jzm67o0Ng',
                 name: 'Height (m)',
+                description: 'Decimal values are allowed. e.g 4.1',
                 valueType: 'NUMBER',
                 inputColor: Color(0xFF258DCC),
                 labelColor: Color(0xFF737373)),
