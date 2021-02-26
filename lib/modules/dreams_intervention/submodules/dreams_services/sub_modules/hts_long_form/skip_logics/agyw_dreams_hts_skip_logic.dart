@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_long_form/constants/agyw_dreams_hts_constant.dart';
 import 'package:provider/provider.dart';
 
 class AgywDreamsHTCSkipLogic {
@@ -20,6 +21,8 @@ class AgywDreamsHTCSkipLogic {
       inputFieldIds.add('$key');
     }
     inputFieldIds = inputFieldIds.toSet().toList();
+    dataObject[AgywDreamsHTSLongFormConstant.noOfPartnersDataElementKey] =
+        dataObject[AgywDreamsHTSLongFormConstant.noOfPartnersAttributeKey];
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
 

@@ -65,6 +65,24 @@ class ClientInformation {
                 valueType: 'TRUE_ONLY',
                 inputColor: Color(0xFF258DCC),
                 labelColor: Color(0xFF737373)),
+            InputField(
+                id: 'jetCbHYLuZc',
+                name: 'Priority Pop: AGYWs',
+                valueType: 'TRUE_ONLY',
+                inputColor: Color(0xFF258DCC),
+                labelColor: Color(0xFF737373)),
+            InputField(
+                id: 'IRLf0cgX1Vb',
+                name: 'Priority Pop: FSWs',
+                valueType: 'TRUE_ONLY',
+                inputColor: Color(0xFF258DCC),
+                labelColor: Color(0xFF737373)),
+            InputField(
+                id: 'FLzk3trHs3w',
+                name: 'Priority Pop: MSMs',
+                valueType: 'TRUE_ONLY',
+                inputColor: Color(0xFF258DCC),
+                labelColor: Color(0xFF737373)),
           ]),
       FormSection(
           name: 'Previous HIV test history',
@@ -250,11 +268,13 @@ class ClientInformation {
                 id: 'x7Jzm67o0Ng',
                 name: 'Height (m)',
                 valueType: 'NUMBER',
+                description: 'Decimal values are allowed. e.g 4.1',
                 inputColor: Color(0xFF258DCC),
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'gCvMVscBNfk',
                 name: 'Weight(kg)',
+                description: 'Decimal values are allowed. e.g 4.1',
                 valueType: 'NUMBER',
                 inputColor: Color(0xFF258DCC),
                 labelColor: Color(0xFF737373)),
@@ -328,6 +348,7 @@ class ClientInformation {
             InputField(
                 id: 'qS3VY5i86ZB',
                 name: 'Number of sexual partners in last 12  months',
+                isReadOnly: true,
                 valueType: 'INTEGER_ZERO_OR_POSITIVE',
                 inputColor: Color(0xFF258DCC),
                 labelColor: Color(0xFF737373)),
