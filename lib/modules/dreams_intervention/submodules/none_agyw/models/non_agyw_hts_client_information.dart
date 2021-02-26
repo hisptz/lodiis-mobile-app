@@ -571,7 +571,7 @@ class NonAgywHTSClientInformation {
         InputField(
             id: 'ZZBWYb9jzHE',
             name: 'Name of referral DNA PCR or ART facility',
-            valueType: 'TRUE_ONLY',
+            valueType: 'ORGANISATION_UNIT',
             inputColor: Color(0xFF258DCC),
             labelColor: Color(0xFF737373)),
         InputField(

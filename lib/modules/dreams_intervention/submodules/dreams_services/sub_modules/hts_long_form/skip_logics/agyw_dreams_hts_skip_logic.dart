@@ -8,9 +8,11 @@ class AgywDreamsHTCSkipLogic {
   static Map hiddenFields = Map();
   static Map hiddenSections = Map();
 
-  static Future evaluateSkipLogics(BuildContext context,
-      List<FormSection> formSections,
-      Map dataObject,) async {
+  static Future evaluateSkipLogics(
+    BuildContext context,
+    List<FormSection> formSections,
+    Map dataObject,
+  ) async {
     hiddenFields.clear();
     hiddenSections.clear();
     List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections);
@@ -56,15 +58,31 @@ class AgywDreamsHTCSkipLogic {
       if (inputFieldId == 'mhZeM9CuGQn' && value != 'null') {
         assignInputFieldValue(context, 'uRsImCXXDXe', value);
       }
+      if (inputFieldId == 'NpGma0GzvBk' && value != 'true') {
+        hiddenFields['Mcoc57TzQwX'] = true;
+        hiddenFields['O2IpQLJ64pU'] = true;
+        hiddenFields['MIda6PYnDe3'] = true;
+        hiddenFields['fPzwReDDMya'] = true;
+        hiddenFields['YstOYReVQSu'] = true;
+        hiddenFields['HPzl16DToJQ'] = true;
+        hiddenFields['DGxRatLifox'] = true;
+        hiddenFields['rvanxUEglQu'] = true;
+      }
+    }
+    List<String> fields = ['Mcoc57TzQwX', 'O2IpQLJ64pU'];
+    bool shouldShowNameOfFacilityField =
+        fields.any((field) => '${dataObject[field]}' == 'true');
+    if (!shouldShowNameOfFacilityField) {
+      hiddenFields['rvanxUEglQu'] = true;
     }
     for (String sectionId in hiddenSections.keys) {
       List<FormSection> allFormSections =
           FormUtil.getFlattenFormSections(formSections);
-      List<String> hidddenSectionInputFieldIds = FormUtil.getFormFieldIds(allFormSections
-          .where((formSection) => formSection.id == sectionId)
-          .toList());      
+      List<String> hidddenSectionInputFieldIds = FormUtil.getFormFieldIds(
+          allFormSections
+              .where((formSection) => formSection.id == sectionId)
+              .toList());
       for (String inputFieldId in hidddenSectionInputFieldIds) {
-
         hiddenFields[inputFieldId] = true;
       }
     }
@@ -82,15 +100,19 @@ class AgywDreamsHTCSkipLogic {
         .setHiddenFields(hiddenFields);
   }
 
-  static resetValuesForHiddenSections(BuildContext context,
-      List<FormSection> formSections,) {
+  static resetValuesForHiddenSections(
+    BuildContext context,
+    List<FormSection> formSections,
+  ) {
     Provider.of<ServiceFormState>(context, listen: false)
         .setHiddenSections(hiddenSections);
   }
 
-  static assignInputFieldValue(BuildContext context,
-      String inputFieldId,
-      String value,) {
+  static assignInputFieldValue(
+    BuildContext context,
+    String inputFieldId,
+    String value,
+  ) {
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState(inputFieldId, value);
   }
