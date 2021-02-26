@@ -71,7 +71,9 @@ class _AgywDreamsEnrollmentEditFormState
         'p33MrrhsQRz',
         'iY67qYnywgS',
         'rh881j2vfvT',
-        'AZCVLPzD0Vd'
+        'AZCVLPzD0Vd',
+        'cifBFSTHgv5',
+        'JTNxMQPT134'
       ];
       formSections = [
         riskAssessmentFormSections[0],
