@@ -76,7 +76,15 @@ class _NoneAgywEnrollmentEditFormState
           NoneAgywEnrollmentFormSection.getFormSections();
       prepScreeningFormSections =
           NoneAgywEnrollmentPrepScreening.getFormSections();
-      List<String> skippedInputs = ['location', 'WTZ7GLTrE8Q', 'rSP9c21JsfC'];
+      List<String> skippedInputs = [
+        'location',
+        'WTZ7GLTrE8Q',
+        'rSP9c21JsfC',
+        'ls9hlz2tyol',
+        'eXp9ASOufpR_bmi',
+        'FI9Wzzys767',
+        'dQBja8nUr18'
+      ];
       formSections = [
         ...htsConsentFormSections,
         clientIntakeFormSections[0],
