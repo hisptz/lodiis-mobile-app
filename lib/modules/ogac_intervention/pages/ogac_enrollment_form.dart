@@ -36,6 +36,7 @@ class _OgacEnrollemntFormState extends State<OgacEnrollemntForm> {
   final Map mandatoryFieldObject = Map();
   bool isSaving = false;
   bool isFormReady = false;
+  List unFilledMandatoryFields = [];
 
   @override
   void initState() {
@@ -121,6 +122,9 @@ class _OgacEnrollemntFormState extends State<OgacEnrollemntForm> {
             message: e.toString(), position: ToastGravity.BOTTOM);
       }
     } else {
+      setState(() {
+        unFilledMandatoryFields = AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+      });
       AppUtil.showToastMessage(
           message: 'Please fill all mandatory field',
           position: ToastGravity.TOP);
@@ -184,6 +188,8 @@ class _OgacEnrollemntFormState extends State<OgacEnrollemntForm> {
                                   mandatoryFieldObject: mandatoryFieldObject,
                                   dataObject: enrollmentFormState.formState,
                                   onInputValueChange: onInputValueChange,
+                                  unFilledMandatoryFields:
+                                  unFilledMandatoryFields,
                                 ),
                               ),
                               Container(

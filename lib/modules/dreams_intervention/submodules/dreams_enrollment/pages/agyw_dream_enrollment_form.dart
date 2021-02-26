@@ -39,6 +39,7 @@ class _AgywDreamsEnrollmentFormState extends State<AgywDreamsEnrollmentForm> {
   final String trackedEntityInstance = AppUtil.getUid();
   bool isFormReady = false;
   bool isSaving = false;
+  List unFilledMandatoryFields = [];
 
   @override
   void initState() {
@@ -119,6 +120,11 @@ class _AgywDreamsEnrollmentFormState extends State<AgywDreamsEnrollmentForm> {
         }
       });
     } else {
+
+      setState(() {
+        unFilledMandatoryFields =
+            AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+      });
       AppUtil.showToastMessage(
         message: 'Please fill all mandatory field',
         position: ToastGravity.TOP,
@@ -184,6 +190,8 @@ class _AgywDreamsEnrollmentFormState extends State<AgywDreamsEnrollmentForm> {
                                     mandatoryFieldObject: mandatoryFieldObject,
                                     dataObject: enrollmentFormState.formState,
                                     onInputValueChange: onInputValueChange,
+                                    unFilledMandatoryFields:
+                                        unFilledMandatoryFields,
                                   ),
                                 ),
                               ),

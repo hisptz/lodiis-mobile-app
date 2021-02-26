@@ -40,6 +40,7 @@ class _AgywDreamsServiceFormState extends State<AgywDreamsServiceForm> {
   final Map mandatoryFieldObject = Map();
   bool isFormReady = false;
   bool isSaving = false;
+  List unFilledMandatoryFields = [];
 
   @override
   void initState() {
@@ -147,6 +148,9 @@ class _AgywDreamsServiceFormState extends State<AgywDreamsServiceForm> {
         Navigator.pop(context);
       }
     } else {
+      setState(() {
+        unFilledMandatoryFields = AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+      });
       AppUtil.showToastMessage(
           message: 'Please fill all mandatory field',
           position: ToastGravity.TOP);
@@ -217,6 +221,8 @@ class _AgywDreamsServiceFormState extends State<AgywDreamsServiceForm> {
                                                 serviceFormState.formState,
                                             onInputValueChange:
                                                 onInputValueChange,
+                                            unFilledMandatoryFields:
+                                            unFilledMandatoryFields,
                                           ),
                                         ),
                                         Visibility(

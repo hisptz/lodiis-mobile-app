@@ -36,6 +36,7 @@ class _NoneAgywEnrollmentClientInTakeFormState
   final Map mandatoryFieldObject = Map();
   final String label = 'Non AGYW PReP Intake';
   bool isFormReady = false;
+  List unFilledMandatoryFields = [];
 
   @override
   void initState() {
@@ -78,6 +79,9 @@ class _NoneAgywEnrollmentClientInTakeFormState
             builder: (context) => NoneAgywEnrollmentPrepScreeningForm(),
           ));
     } else {
+      setState(() {
+        unFilledMandatoryFields = AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+      });
       AppUtil.showToastMessage(
         message: 'Please fill all mandatory field',
         position: ToastGravity.TOP,
@@ -139,7 +143,8 @@ class _NoneAgywEnrollmentClientInTakeFormState
                                     formSections: formSections,
                                     dataObject: enrollmentFormState.formState,
                                     mandatoryFieldObject: mandatoryFieldObject,
-                                    onInputValueChange: onInputValueChange,
+                                    onInputValueChange: onInputValueChange, unFilledMandatoryFields:
+                                  unFilledMandatoryFields,
                                   ),
                                 ),
                                 EntryFormSaveButton(

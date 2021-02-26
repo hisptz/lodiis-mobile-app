@@ -29,6 +29,27 @@ class AppUtil {
     return hasFilled;
   }
 
+  static List getUnFilledMandatoryFields(List mandatoryFields, Map dataObject, {Map hiddenFields = const {}}){
+    List unFilledMandatoryFields = [];
+    List fieldIds = dataObject.keys.toList();
+    List hiddenFieldsIds = hiddenFields.keys.toList();
+    //Remove all hidden fields which are mandatory from the list
+    List filteredMandatoryFields = mandatoryFields
+        .where((field) => hiddenFieldsIds.indexOf(field) < 0)
+        .toList();
+    for (var mandatoryField in filteredMandatoryFields) {
+      if (fieldIds.indexOf(mandatoryField) == -1) {
+        unFilledMandatoryFields.add(mandatoryField);
+      } else {
+        if ('${dataObject[mandatoryField]}'.trim() == '' ||
+            '${dataObject[mandatoryField]}'.trim() == 'null') {
+          unFilledMandatoryFields.add(mandatoryField);
+        }
+      }
+    }
+    return unFilledMandatoryFields;
+  }
+
   static void setStatusBarColor(Color color) {
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
