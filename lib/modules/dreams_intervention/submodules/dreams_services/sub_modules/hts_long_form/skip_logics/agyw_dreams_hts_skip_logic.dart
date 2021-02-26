@@ -2,15 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_long_form/constants/agyw_dreams_hts_constant.dart';
 import 'package:provider/provider.dart';
 
 class AgywDreamsHTCSkipLogic {
   static Map hiddenFields = Map();
   static Map hiddenSections = Map();
 
-  static Future evaluateSkipLogics(BuildContext context,
-      List<FormSection> formSections,
-      Map dataObject,) async {
+  static Future evaluateSkipLogics(
+    BuildContext context,
+    List<FormSection> formSections,
+    Map dataObject,
+  ) async {
     hiddenFields.clear();
     hiddenSections.clear();
     List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections);
@@ -18,6 +21,8 @@ class AgywDreamsHTCSkipLogic {
       inputFieldIds.add('$key');
     }
     inputFieldIds = inputFieldIds.toSet().toList();
+    dataObject[AgywDreamsHTSLongFormConstant.noOfPartnersDataElementKey] =
+        dataObject[AgywDreamsHTSLongFormConstant.noOfPartnersAttributeKey];
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
 
@@ -60,11 +65,11 @@ class AgywDreamsHTCSkipLogic {
     for (String sectionId in hiddenSections.keys) {
       List<FormSection> allFormSections =
           FormUtil.getFlattenFormSections(formSections);
-      List<String> hidddenSectionInputFieldIds = FormUtil.getFormFieldIds(allFormSections
-          .where((formSection) => formSection.id == sectionId)
-          .toList());      
+      List<String> hidddenSectionInputFieldIds = FormUtil.getFormFieldIds(
+          allFormSections
+              .where((formSection) => formSection.id == sectionId)
+              .toList());
       for (String inputFieldId in hidddenSectionInputFieldIds) {
-
         hiddenFields[inputFieldId] = true;
       }
     }
@@ -82,15 +87,19 @@ class AgywDreamsHTCSkipLogic {
         .setHiddenFields(hiddenFields);
   }
 
-  static resetValuesForHiddenSections(BuildContext context,
-      List<FormSection> formSections,) {
+  static resetValuesForHiddenSections(
+    BuildContext context,
+    List<FormSection> formSections,
+  ) {
     Provider.of<ServiceFormState>(context, listen: false)
         .setHiddenSections(hiddenSections);
   }
 
-  static assignInputFieldValue(BuildContext context,
-      String inputFieldId,
-      String value,) {
+  static assignInputFieldValue(
+    BuildContext context,
+    String inputFieldId,
+    String value,
+  ) {
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState(inputFieldId, value);
   }
