@@ -133,6 +133,24 @@ class NonAgywHTSClientInformation {
                 valueType: 'TRUE_ONLY',
                 inputColor: Color(0xFF258DCC),
                 labelColor: Color(0xFF737373)),
+            InputField(
+                id: 'xzxPpvkwVwB',
+                name: 'Priority Pop: AGYWs',
+                valueType: 'TRUE_ONLY',
+                inputColor: Color(0xFF258DCC),
+                labelColor: Color(0xFF737373)),
+            InputField(
+                id: 'rUEnqWa5ftH',
+                name: 'Priority Pop: FSWs',
+                valueType: 'TRUE_ONLY',
+                inputColor: Color(0xFF258DCC),
+                labelColor: Color(0xFF737373)),
+            InputField(
+                id: 'MW6q4xASzoN',
+                name: 'Priority Pop: MSMs',
+                valueType: 'TRUE_ONLY',
+                inputColor: Color(0xFF258DCC),
+                labelColor: Color(0xFF737373)),
           ]),
       FormSection(
           name: 'Previous HIV test history',

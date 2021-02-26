@@ -35,6 +35,7 @@ class _CasePlanGapFormContainerState extends State<CasePlanGapFormContainer>
   Map mandatoryFieldObject = Map();
   List mandatoryFields;
   Map dataObject;
+  List unFilledMandatoryFields = [];
 
   @override
   void initState() {
@@ -57,6 +58,9 @@ class _CasePlanGapFormContainerState extends State<CasePlanGapFormContainer>
     if (hadAllMandatoryFilled) {
       Navigator.pop(context, dataObject);
     } else {
+      setState(() {
+        unFilledMandatoryFields = AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+      });
       AppUtil.showToastMessage(
           message: 'Please fill all mandatory field',
           position: ToastGravity.TOP);
@@ -85,7 +89,8 @@ class _CasePlanGapFormContainerState extends State<CasePlanGapFormContainer>
             mandatoryFieldObject: mandatoryFieldObject,
             dataObject: dataObject,
             isEditableMode: widget.isEditableMode,
-            onInputValueChange: onInputValueChange,
+            onInputValueChange: onInputValueChange, unFilledMandatoryFields:
+          unFilledMandatoryFields,
           ),
           ClipRRect(
             borderRadius: BorderRadius.only(

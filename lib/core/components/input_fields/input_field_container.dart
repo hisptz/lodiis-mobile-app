@@ -59,7 +59,10 @@ class InputFieldContainer extends StatelessWidget {
                             ? inputField.translatedName
                             : inputField.name,
                         style: TextStyle(
-                          color: inputField.labelColor,
+                          color:
+                              inputField.hasError != null && inputField.hasError
+                                  ? Colors.red
+                                  : inputField.labelColor,
                           fontSize: 13.0,
                           fontWeight: FontWeight.normal,
                         ),

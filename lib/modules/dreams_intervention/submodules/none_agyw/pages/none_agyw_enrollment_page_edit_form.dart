@@ -55,6 +55,7 @@ class _NoneAgywEnrollmentEditFormState
           NoneAgywEnrollmentPrepScreening.getMandatoryField();
   bool isFormReady = false;
   bool isSaving = false;
+  List unFilledMandatoryFields = [];
 
   @override
   void initState() {
@@ -177,6 +178,9 @@ class _NoneAgywEnrollmentEditFormState
         }
       });
     } else {
+      setState(() {
+        unFilledMandatoryFields = AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+      });
       AppUtil.showToastMessage(
           message: 'Please fill all mandatory field',
           position: ToastGravity.TOP);
@@ -238,7 +242,8 @@ class _NoneAgywEnrollmentEditFormState
                                             enrollmentFormState.isEditableMode,
                                         dataObject:
                                             enrollmentFormState.formState,
-                                        onInputValueChange: onInputValueChange,
+                                        onInputValueChange: onInputValueChange, unFilledMandatoryFields:
+                                      unFilledMandatoryFields,
                                       ),
                                     ),
                                     EntryFormSaveButton(

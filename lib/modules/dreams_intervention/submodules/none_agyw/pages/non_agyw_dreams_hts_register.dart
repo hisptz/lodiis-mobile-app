@@ -36,7 +36,7 @@ class _NonAgywDreamsHTSRegisterFormState
   bool isFormReady = false;
   bool isSaving = false;
   bool isComingFromPrep;
-
+  List unFilledMandatoryFields = [];
   @override
   void initState() {
     super.initState();
@@ -85,6 +85,9 @@ class _NonAgywDreamsHTSRegisterFormState
         ),
       );
     } else {
+      setState(() {
+        unFilledMandatoryFields = AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+      });
       AppUtil.showToastMessage(
           message: 'Please fill all mandatory field',
           position: ToastGravity.TOP);
@@ -137,7 +140,8 @@ class _NonAgywDreamsHTSRegisterFormState
                                   isEditableMode:
                                       enrollmentFormState.isEditableMode,
                                   dataObject: enrollmentFormState.formState,
-                                  onInputValueChange: onInputValueChange,
+                                  onInputValueChange: onInputValueChange, unFilledMandatoryFields:
+                                unFilledMandatoryFields,
                                 ),
                               ),
                               Visibility(

@@ -15,6 +15,7 @@ class InputField {
   bool isReadOnly;
   bool allowFuturePeriod;
   bool disablePastPeriod;
+  bool hasError;
   int minAgeInYear;
   int maxAgeInYear;
   int numberOfMonth;
@@ -49,6 +50,7 @@ class InputField {
     this.maxAgeInYear,
     this.minAgeInYear,
     this.numberOfMonth,
+    this.hasError
   }) {
     this.allowedSelectedLevels = this.allowedSelectedLevels ?? [];
     this.allowFuturePeriod = this.allowFuturePeriod ?? false;

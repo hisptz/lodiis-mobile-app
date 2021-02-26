@@ -20,6 +20,7 @@ class EntryFormContainer extends StatelessWidget {
     this.onInputValueChange,
     this.elevation = 1.0,
     this.hiddenInputFieldOptions,
+    this.unFilledMandatoryFields,
   }) : super(key: key);
 
   final List<FormSection> formSections;
@@ -31,9 +32,11 @@ class EntryFormContainer extends StatelessWidget {
   final Map hiddenInputFieldOptions;
   final bool isEditableMode;
   final double elevation;
+  final List unFilledMandatoryFields;
 
   @override
   Widget build(BuildContext context) {
+    setFieldErrors();
     return Container(
       child: Consumer<LanguageTranslationState>(
         builder: (context, languageTranslationState, child) {
@@ -185,5 +188,17 @@ class EntryFormContainer extends StatelessWidget {
         },
       ),
     );
+  }
+
+  void setFieldErrors() {
+      if(unFilledMandatoryFields != null &&  unFilledMandatoryFields.isNotEmpty){
+          formSections.forEach((section) {
+              section.inputFields.forEach((inputField) {
+                    if(unFilledMandatoryFields.contains(inputField.id)){
+                      inputField.hasError = true;
+                    }
+              });
+          });
+      }
   }
 }
