@@ -55,44 +55,53 @@ class CurrentUserState with ChangeNotifier {
     dynamic userAccessConfigurations,
   ) {
     var userAccesses = userAccessConfigurations[implementingPartner] ?? Map();
-    _canManageDreams = userAccesses['canManageDreams'] &&
-        userAccesses['canManageDreams'] == true;
-    _canManageOGAC =
-        userAccesses['canManageOGAC'] && userAccesses['canManageOGAC'] == true;
-    _canManageOvc =
-        userAccesses['canManageOvc'] && userAccesses['canManageOvc'] == true;
-    _canManageNoneAgyw = userAccesses['canManageNoneAgyw'] &&
-        userAccesses['canManageNoneAgyw'] == true;
-    _canManageReferral = userAccesses['canManageReferral'] &&
-        userAccesses['canManageReferral'] == true;
-    _canManageCLOReferral = userAccesses['canManageCLOReferral'] &&
-        userAccesses['canManageCLOReferral'] == true;
-    _canManageHtsShortForm = userAccesses['canManageHtsShortForm'] &&
-        userAccesses['canManageHtsShortForm'] == true;
-    _canManageHtsLongForm = userAccesses['canManageHtsLongForm'] &&
-        userAccesses['canManageHtsLongForm'] == true;
-    _canManageHivReg = userAccesses['canManageHivReg'] &&
-        userAccesses['canManageHivReg'] == true;
-    _canManageSrh =
-        userAccesses['canManageSrh'] && userAccesses['canManageSrh'] == true;
-    _canManagePrep =
-        userAccesses['canManagePrep'] && userAccesses['canManagePrep'] == true;
-    _canManagePEP =
-        userAccesses['canManagePEP'] && userAccesses['canManagePEP'] == true;
-    _canManageCondom = userAccesses['canManageCondom'] &&
-        userAccesses['canManageCondom'] == true;
-    _canManageContraceptives = userAccesses['canManageContraceptives'] &&
-        userAccesses['canManageContraceptives'] == true;
-    _canManageMSGHIV = userAccesses['canManageMSGHIV'] &&
-        userAccesses['canManageMSGHIV'] == true;
-    _canManageArtRefill = userAccesses['canManageArtRefill'] &&
-        userAccesses['canManageArtRefill'] == true;
-    _canManageAnc =
-        userAccesses['canManageAnc'] && userAccesses['canManageAnc'] == true;
-    _canManageServiceForm = userAccesses['canManageServiceForm'] &&
-        userAccesses['canManageServiceForm'] == true;
-    _canManagePOSTGBV = userAccesses['canManagePOSTGBV'] &&
-        userAccesses['canManagePOSTGBV'] == true;
+    try {
+      _canManageDreams = userAccesses.containsKey('canManageDreams') &&
+          userAccesses['canManageDreams'] == true;
+      _canManageOGAC = userAccesses.containsKey('canManageOGAC') &&
+          userAccesses['canManageOGAC'] == true;
+      _canManageOvc = userAccesses.containsKey('canManageOvc') &&
+          userAccesses['canManageOvc'] == true;
+      _canManageNoneAgyw = userAccesses.containsKey('canManageNoneAgyw') &&
+          userAccesses['canManageNoneAgyw'] == true;
+      _canManageReferral = userAccesses.containsKey('canManageReferral') &&
+          userAccesses['canManageReferral'] == true;
+      _canManageCLOReferral =
+          userAccesses.containsKey('canManageCLOReferral') &&
+              userAccesses['canManageCLOReferral'] == true;
+      _canManageHtsShortForm =
+          userAccesses.containsKey('canManageHtsShortForm') &&
+              userAccesses['canManageHtsShortForm'] == true;
+      _canManageHtsLongForm =
+          userAccesses.containsKey('canManageHtsLongForm') &&
+              userAccesses['canManageHtsLongForm'] == true;
+      _canManageHivReg = userAccesses.containsKey('canManageHivReg') &&
+          userAccesses['canManageHivReg'] == true;
+      _canManageSrh = userAccesses.containsKey('canManageSrh') &&
+          userAccesses['canManageSrh'] == true;
+      _canManagePrep = userAccesses.containsKey('canManagePrep') &&
+          userAccesses['canManagePrep'] == true;
+      _canManagePEP = userAccesses.containsKey('canManagePEP') &&
+          userAccesses['canManagePEP'] == true;
+      _canManageCondom = userAccesses.containsKey('canManageCondom') &&
+          userAccesses['canManageCondom'] == true;
+      _canManageContraceptives =
+          userAccesses.containsKey('canManageContraceptives') &&
+              userAccesses['canManageContraceptives'] == true;
+      _canManageMSGHIV = userAccesses.containsKey('canManageMSGHIV') &&
+          userAccesses['canManageMSGHIV'] == true;
+      _canManageArtRefill = userAccesses.containsKey('canManageArtRefill') &&
+          userAccesses['canManageArtRefill'] == true;
+      _canManageAnc = userAccesses.containsKey('canManageAnc') &&
+          userAccesses['canManageAnc'] == true;
+      _canManageServiceForm =
+          userAccesses.containsKey('canManageServiceForm') &&
+              userAccesses['canManageServiceForm'] == true;
+      _canManagePOSTGBV = userAccesses.containsKey('canManagePOSTGBV') &&
+          userAccesses['canManagePOSTGBV'] == true;
+    } catch (error) {
+      print(error.toString());
+    }
     notifyListeners();
   }
 
