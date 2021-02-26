@@ -135,6 +135,7 @@ class NoneAgywEnrollmentPrepScreening {
                       id: 'dQBja8nUr18',
                       name: 'HIV-negative',
                       valueType: 'TRUE_ONLY',
+                      isReadOnly: true,
                       inputColor: Color(0xFF258DCC),
                       labelColor: Color(0xFF737373)),
                   InputField(
@@ -167,10 +168,17 @@ class NoneAgywEnrollmentPrepScreening {
                       name: 'Date tested',
                       valueType: 'DATE',
                       inputColor: Color(0xFF258DCC),
-                      labelColor: Color(0xFF737373)),
+                      labelColor: Color(0xFF737373),
+                      isReadOnly: true),
                   InputField(
                       id: 'uBJeTLcoAKM',
                       name: 'Type of test used',
+                      options: [
+                        InputFieldOption(code: 'Determine', name: 'Determine'),
+                        InputFieldOption(code: 'Unigold', name: 'Unigold'),
+                        InputFieldOption(code: 'Elisa', name: 'Elisa'),
+                        InputFieldOption(code: 'Other', name: 'Other')
+                      ],
                       valueType: 'TEXT',
                       inputColor: Color(0xFF258DCC),
                       labelColor: Color(0xFF737373)),

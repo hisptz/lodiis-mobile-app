@@ -61,6 +61,22 @@ class AgywDreamsHTCSkipLogic {
       if (inputFieldId == 'mhZeM9CuGQn' && value != 'null') {
         assignInputFieldValue(context, 'uRsImCXXDXe', value);
       }
+      if (inputFieldId == 'NpGma0GzvBk' && value != 'true') {
+        hiddenFields['Mcoc57TzQwX'] = true;
+        hiddenFields['O2IpQLJ64pU'] = true;
+        hiddenFields['MIda6PYnDe3'] = true;
+        hiddenFields['fPzwReDDMya'] = true;
+        hiddenFields['YstOYReVQSu'] = true;
+        hiddenFields['HPzl16DToJQ'] = true;
+        hiddenFields['DGxRatLifox'] = true;
+        hiddenFields['rvanxUEglQu'] = true;
+      }
+    }
+    List<String> fields = ['Mcoc57TzQwX', 'O2IpQLJ64pU'];
+    bool shouldShowNameOfFacilityField =
+        fields.any((field) => '${dataObject[field]}' == 'true');
+    if (!shouldShowNameOfFacilityField) {
+      hiddenFields['rvanxUEglQu'] = true;
     }
     for (String sectionId in hiddenSections.keys) {
       List<FormSection> allFormSections =

@@ -278,6 +278,7 @@ class HTSRegister {
           id: 'Io9EHy6EzgM',
           name: 'TB screening',
           valueType: 'BOOLEAN',
+          isReadOnly: true,
           inputColor: Color(0xFF258DCC),
           labelColor: Color(0xFF737373),
         ),

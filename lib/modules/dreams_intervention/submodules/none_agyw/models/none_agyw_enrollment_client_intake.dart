@@ -26,6 +26,7 @@ class NoneAgywEnrollmentFormSection {
               name: 'Location',
               translatedName: 'Sebaka',
               valueType: 'ORGANISATION_UNIT',
+              isReadOnly: true,
               allowedSelectedLevels: [3, 4],
               inputColor: Color(0xFF258DCC),
               labelColor: Color(0xFF737373)),
@@ -45,23 +46,27 @@ class NoneAgywEnrollmentFormSection {
               id: 'WTZ7GLTrE8Q',
               name: 'First Name',
               valueType: 'TEXT',
+              isReadOnly: true,
               inputColor: Color(0xFF258DCC),
               labelColor: Color(0xFF737373)),
           InputField(
               id: 's1HaiT6OllL',
               name: 'Middle Name',
+              isReadOnly: true,
               valueType: 'TEXT',
               inputColor: Color(0xFF258DCC),
               labelColor: Color(0xFF737373)),
           InputField(
               id: 'rSP9c21JsfC',
               name: 'Surname',
+              isReadOnly: true,
               valueType: 'TEXT',
               inputColor: Color(0xFF258DCC),
               labelColor: Color(0xFF737373)),
           InputField(
             id: 'sJ35hsF6Lf9',
             name: 'Client Type',
+            isReadOnly: true,
             valueType: 'TEXT',
             inputColor: Color(0xFF258DCC),
             labelColor: Color(0xFF737373),
@@ -69,7 +74,8 @@ class NoneAgywEnrollmentFormSection {
               InputFieldOption(code: 'F', name: 'F'),
               InputFieldOption(code: 'M', name: 'M'),
               InputFieldOption(code: 'CF', name: 'CF'),
-              InputFieldOption(code: 'CM', name: 'CM')
+              InputFieldOption(code: 'CM', name: 'CM'),
+              InputFieldOption(code: 'AGYW', name: 'AGYW'),
             ],
           ),
           InputField(
@@ -103,6 +109,7 @@ class NoneAgywEnrollmentFormSection {
             name: 'Sex',
             translatedName: 'Boleng',
             valueType: 'TEXT',
+            isReadOnly: true,
             inputColor: Color(0xFF258DCC),
             labelColor: Color(0xFF737373),
             options: [
@@ -113,6 +120,7 @@ class NoneAgywEnrollmentFormSection {
           InputField(
             id: 'qZP982qpSPS',
             name: 'Date of Birth',
+            isReadOnly: true,
             valueType: 'DATE',
             inputColor: Color(0xFF258DCC),
             labelColor: Color(0xFF737373),
@@ -251,8 +259,7 @@ class NoneAgywEnrollmentFormSection {
                   code: 'aayhISGUuut',
                   name: 'I Worried abut my partner’s behaviour/status'),
               InputFieldOption(
-                      code: 'lsFT00D6nOV',
-                      name:'I Have multiple partners.'),
+                  code: 'lsFT00D6nOV', name: 'I Have multiple partners.'),
               InputFieldOption(code: 'Wfnk8y9jxPA', name: 'My Partner is sick'),
               InputFieldOption(
                   code: 'jq8Lwo7mmKB',
@@ -738,7 +745,9 @@ class NoneAgywEnrollmentFormSection {
                     name: 'PsychoSocial SupportSupport Group'),
                 InputFieldOption(
                     code: 'Nutritional DrugAlcohol Abuse',
-                    name: 'Nutritional DrugAlcohol Abuse')
+                    name: 'Nutritional DrugAlcohol Abuse'),
+                InputFieldOption(
+                    code: 'KB Intervention', name: 'KB Intervention'),
               ])
         ],
       ),

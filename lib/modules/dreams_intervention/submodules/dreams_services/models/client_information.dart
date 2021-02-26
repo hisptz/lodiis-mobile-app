@@ -24,6 +24,7 @@ class ClientInformation {
                   InputFieldOption(code: 'TG SW', name: 'TG SW'),
                   InputFieldOption(code: 'TG NonSW', name: 'TG NonSW'),
                   InputFieldOption(code: 'PWID', name: 'PWID'),
+                  InputFieldOption(code: 'AGYWs', name: 'AGYWs'),
                   InputFieldOption(
                       code: 'Prisoner or enclosed',
                       name: 'Prisoner or enclosed')
@@ -158,6 +159,8 @@ class ClientInformation {
                   InputFieldOption(
                       code: 'Mobile testing', name: 'Mobile testing'),
                   InputFieldOption(code: 'Home-based', name: 'Home-based'),
+                  InputFieldOption(
+                      code: 'Community PrEP', name: 'Community PrEP'),
                   InputFieldOption(code: 'Other', name: 'Other'),
                 ],
                 inputColor: Color(0xFF258DCC),
@@ -202,6 +205,8 @@ class ClientInformation {
                 options: [
                   InputFieldOption(code: 'None', name: 'None'),
                   InputFieldOption(code: 'Primary', name: 'Primary'),
+                  InputFieldOption(
+                      code: 'Secondary school', name: 'Secondary school'),
                   InputFieldOption(code: 'High school', name: 'High school'),
                   InputFieldOption(code: 'Tertiary', name: 'Tertiary'),
                 ]),
@@ -233,6 +238,8 @@ class ClientInformation {
                   InputFieldOption(code: 'Radio or TV', name: 'Radio or TV'),
                   InputFieldOption(
                       code: 'Positive self-test', name: 'Positive self-test'),
+                  InputFieldOption(
+                      code: 'KB Field staff', name: 'KB Field staff'),
                   InputFieldOption(
                       code: 'PSI field or New Start staff',
                       name: 'PSI field or New Start staff'),
@@ -514,7 +521,7 @@ class ClientInformation {
         InputField(
             id: 'rvanxUEglQu',
             name: 'Name of referral DNA PCR or ART facility',
-            valueType: 'TRUE_ONLY',
+            valueType: 'ORGANISATION_UNIT',
             inputColor: Color(0xFF258DCC),
             labelColor: Color(0xFF737373)),
         InputField(

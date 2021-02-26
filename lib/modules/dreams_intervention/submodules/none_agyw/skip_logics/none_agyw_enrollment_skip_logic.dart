@@ -3,6 +3,7 @@ import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/constant/non_agyw_hts_constant.dart';
 import 'package:provider/provider.dart';
 
 class NoneAgywEnrollmentSkipLogic {
@@ -49,6 +50,26 @@ class NoneAgywEnrollmentSkipLogic {
       }
       if (inputFieldId == 'IJUy3A0IVpr' && value != 'true') {
         hiddenFields['Hr43Ub9GNyP'] = true;
+      }
+      if (inputFieldId == 'eOy1XwiYC8H' && value != 'true') {
+        hiddenFields['X2m9v2E5WaI'] = true;
+      }
+      // Assign HIV results
+      if (inputFieldId == 'dQBja8nUr18') {
+        if (dataObject[NonAgywDreamsHTSConstant.hivResultStatus] ==
+            'Negative') {
+          dataObject[inputFieldId] = 'true';
+        } else {
+          dataObject[inputFieldId] = 'false';
+        }
+      }
+      // Assign type of test used
+      // if (inputFieldId == '') {}
+      // Assign date tested
+      if (inputFieldId == 'oZPPEMZ0hXt') {
+        dataObject[inputFieldId] =
+            '${AppUtil.formattedDateTimeIntoString(DateTime.now())}';
+        print(dataObject[inputFieldId]);
       }
     }
     for (String sectionId in hiddenSections.keys) {

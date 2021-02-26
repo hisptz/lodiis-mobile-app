@@ -21,7 +21,13 @@ class DreamsServicePrepIntakeInfo {
   }
 
   static List<String> getMandatoryField() {
-    const excludedFields = ['UL0xa3Sz9ML', 'de4zcWiZB5j'];
+    const excludedFields = [
+      'UL0xa3Sz9ML',
+      'de4zcWiZB5j',
+      'XfB60ruQI3I',
+      'W8LTmGz13QM',
+      'Ihu2PjZMh8B'
+    ];
     List<String> inputFields = FormUtil.getFormFieldIds(getFormSections());
     List<String> optionalFields =
         getCheckboxInputFieldOptions(getFormSections());
@@ -1053,12 +1059,14 @@ class DreamsServicePrepIntakeInfo {
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
                 name: 'HIV-negative',
+                isReadOnly: true,
                 valueType: 'BOOLEAN'),
             InputField(
                 id: 'vMR9VtzuH3R',
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
                 name: 'Date tested',
+                isReadOnly: true,
                 valueType: 'DATE'),
             InputField(
                 id: 'qgNIIJBeMBT',

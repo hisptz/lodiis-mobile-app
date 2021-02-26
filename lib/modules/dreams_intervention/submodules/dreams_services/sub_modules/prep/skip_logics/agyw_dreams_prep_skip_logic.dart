@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
+import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_long_form/constants/agyw_dreams_hts_constant.dart';
 import 'package:provider/provider.dart';
 
 class AgywDreamsPrepSkipLogic {
@@ -67,6 +69,22 @@ class AgywDreamsPrepSkipLogic {
       if (inputFieldId == 'pQaAQdJnE1w' && value != 'Yes') {
         hiddenFields['DobfAIMBOvy'] = true;
       }
+      // Assign HIV results
+      if (inputFieldId == 'veoA322323t') {
+        if (dataObject[AgywDreamsHTSLongFormConstant.hivResultStatus] ==
+            'Negative') {
+          dataObject[inputFieldId] = 'true';
+        } else {
+          dataObject[inputFieldId] = 'false';
+        }
+      }
+      // Assign type of test used
+      // if (inputFieldId == '') {}
+      // Assign date tested
+      if (inputFieldId == 'vMR9VtzuH3R') {
+        dataObject[inputFieldId] =
+            '${AppUtil.formattedDateTimeIntoString(DateTime.now())}';
+      }
       if (inputFieldId == 'O8Fz5EWOOzU' && value != 'true') {
         hiddenFields['KLxWrSRAXfY'] = true;
       }
@@ -90,6 +108,9 @@ class AgywDreamsPrepSkipLogic {
       }
       if (inputFieldId == 'bZ8fTvAhdMS' && value != 'true') {
         hiddenFields['UL1Pq6sgvr2'] = true;
+      }
+      if (inputFieldId == 'ov7UEdiyjJA' && value != 'true') {
+        hiddenFields['dpfubDzhwhX'] = true;
       }
 
       if (inputFieldId == 'veoA322323t' &&
@@ -122,11 +143,11 @@ class AgywDreamsPrepSkipLogic {
     for (String sectionId in hiddenSections.keys) {
       List<FormSection> allFormSections =
           FormUtil.getFlattenFormSections(formSections);
-      List<String> hidddenSectionInputFieldIds = FormUtil.getFormFieldIds(allFormSections
-          .where((formSection) => formSection.id == sectionId)
-          .toList());      
+      List<String> hidddenSectionInputFieldIds = FormUtil.getFormFieldIds(
+          allFormSections
+              .where((formSection) => formSection.id == sectionId)
+              .toList());
       for (String inputFieldId in hidddenSectionInputFieldIds) {
-
         hiddenFields[inputFieldId] = true;
       }
     }
