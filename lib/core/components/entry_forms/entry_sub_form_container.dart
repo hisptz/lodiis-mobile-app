@@ -15,6 +15,7 @@ class EntrySubFormContainer extends StatelessWidget {
     this.onInputValueChange,
     this.hiddenFields,
     this.hiddenSections,
+    this.unFilledMandatoryFields,
   }) : super(key: key);
 
   final List<FormSection> subSections;
@@ -26,9 +27,11 @@ class EntrySubFormContainer extends StatelessWidget {
   final Map hiddenSections;
   final Map hiddenInputFieldOptions;
   final bool isEditableMode;
+  final List unFilledMandatoryFields;
 
   @override
   Widget build(BuildContext context) {
+    setFieldErrors();
     return Container(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -142,6 +145,7 @@ class EntrySubFormContainer extends StatelessWidget {
                             dataObject: dataObject,
                             mandatoryFieldObject: mandatoryFieldObject,
                             onInputValueChange: onInputValueChange,
+                            unFilledMandatoryFields: unFilledMandatoryFields,
                           ),
                         )
                       ],
@@ -151,5 +155,20 @@ class EntrySubFormContainer extends StatelessWidget {
             .toList(),
       ),
     );
+  }
+
+  void setFieldErrors() {
+    if(unFilledMandatoryFields != null &&  unFilledMandatoryFields.isNotEmpty){
+      subSections.forEach((section) {
+        section.inputFields.forEach((inputField) {
+          if(unFilledMandatoryFields.contains(inputField.id)){
+            inputField.hasError = true;
+          }else {
+            inputField.hasError = false;
+          }
+
+        });
+      });
+    }
   }
 }

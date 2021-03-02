@@ -146,8 +146,7 @@ class _AgywDreamServiceFormState extends State<AgywDreamServiceForm> {
                                           mandatoryFieldObject,
                                       dataObject: enrollmentFormState.formState,
                                       onInputValueChange: onInputValueChange,
-                                      unFilledMandatoryFields:
-                                      unFilledMandatoryFields,
+                                      unFilledMandatoryFields: unFilledMandatoryFields,
                                     ),
                                   ),
                                   EntryFormSaveButton(

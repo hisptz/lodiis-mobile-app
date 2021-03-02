@@ -127,7 +127,8 @@ class _AgywDreamsPrepFormPageState extends State<AgywDreamsPrepFormPage> {
       }
     } else {
       setState(() {
-        unFilledMandatoryFields = AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+        unFilledMandatoryFields =
+            AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
       });
       AppUtil.showToastMessage(
           message: 'Please fill all mandatory field',
@@ -197,7 +198,7 @@ class _AgywDreamsPrepFormPageState extends State<AgywDreamsPrepFormPage> {
                                             onInputValueChange:
                                                 onInputValueChange,
                                             unFilledMandatoryFields:
-                                            unFilledMandatoryFields,
+                                                unFilledMandatoryFields,
                                           ),
                                         ),
                                         Visibility(
