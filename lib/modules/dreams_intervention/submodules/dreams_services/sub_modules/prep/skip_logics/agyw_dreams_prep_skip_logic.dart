@@ -44,7 +44,9 @@ class AgywDreamsPrepSkipLogic {
       if (inputFieldId == 'kTHUZ8SOSXK' && value != 'true') {
         hiddenFields['aXAPMYFxMFC'] = true;
       }
-
+      if (inputFieldId == 'm8BvcCfyxQS' && value != 'true') {
+        hiddenFields['V99TfoAmnpE'] = true;
+      }
       if (inputFieldId == 'IrJBisQbxi6' && value != 'true') {
         hiddenFields['XnVcJkyoobx'] = true;
         hiddenFields['sUyz3SX93IM'] = true;
