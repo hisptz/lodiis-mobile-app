@@ -174,9 +174,11 @@ class _AgywDreamsHTSConsentFormState extends State<AgywDreamsHTSConsentForm> {
 
   getNoOfPartners(AgywDream agywDream) {
     List attributes = agywDream.trackeEntityInstanceData.attributes ?? [];
-    var noOfPartners = attributes.singleWhere((attribute) =>
-        attribute['attribute'] ==
-        AgywDreamsHTSLongFormConstant.noOfPartnersAttributeKey, orElse: ()=>null); //q8qPtzanSTU
-    return noOfPartners != null ? noOfPartners['value'] :  '';
+    var noOfPartners = attributes.singleWhere(
+        (attribute) =>
+            attribute['attribute'] ==
+            AgywDreamsHTSLongFormConstant.noOfPartnersAttributeKey,
+        orElse: () => null); //q8qPtzanSTU
+    return noOfPartners != null ? noOfPartners['value'] : '';
   }
 }
