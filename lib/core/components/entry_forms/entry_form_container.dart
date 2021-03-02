@@ -177,6 +177,8 @@ class EntryFormContainer extends StatelessWidget {
                                     isEditableMode: isEditableMode,
                                     mandatoryFieldObject: mandatoryFieldObject,
                                     onInputValueChange: onInputValueChange,
+                                    unFilledMandatoryFields:
+                                        unFilledMandatoryFields,
                                   )
                                 ],
                               ),
@@ -191,14 +193,16 @@ class EntryFormContainer extends StatelessWidget {
   }
 
   void setFieldErrors() {
-      if(unFilledMandatoryFields != null &&  unFilledMandatoryFields.isNotEmpty){
-          formSections.forEach((section) {
-              section.inputFields.forEach((inputField) {
-                    if(unFilledMandatoryFields.contains(inputField.id)){
-                      inputField.hasError = true;
-                    }
-              });
-          });
-      }
+    if (unFilledMandatoryFields != null && unFilledMandatoryFields.isNotEmpty) {
+      formSections.forEach((section) {
+        section.inputFields.forEach((inputField) {
+          if (unFilledMandatoryFields.contains(inputField.id)) {
+            inputField.hasError = true;
+          } else {
+            inputField.hasError = false;
+          }
+        });
+      });
+    }
   }
 }

@@ -86,7 +86,7 @@ class _AgywDreamsPrepState extends State<AgywDreamsPrep> {
   void onEditPrep(BuildContext context, Events eventdata) {
     updateFormState(context, true, eventdata);
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => AgywPrepVisitForm()));
+        context, MaterialPageRoute(builder: (context) => AgywDreamsPrepFormPage()));
   }
 
   void onAddVisit(BuildContext context, AgywDream agywDream) {
