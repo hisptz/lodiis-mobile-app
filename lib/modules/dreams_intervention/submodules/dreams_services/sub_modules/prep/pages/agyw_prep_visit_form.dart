@@ -38,6 +38,7 @@ class _AgywPrepVisitFormState extends State<AgywPrepVisitForm> {
   Map mandatoryFieldsObject = Map();
   bool isFormReady = false;
   bool isSaving = false;
+  List unFilledMandatoryFields = [];
 
   @override
   void initState() {
@@ -127,6 +128,9 @@ class _AgywPrepVisitFormState extends State<AgywPrepVisitForm> {
         });
       }
     } else {
+      setState(() {
+        unFilledMandatoryFields = AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+      });
       AppUtil.showToastMessage(
           message: 'Please fill all mandatory field',
           position: ToastGravity.TOP);
@@ -193,7 +197,8 @@ class _AgywPrepVisitFormState extends State<AgywPrepVisitForm> {
                                             dataObject:
                                                 serviceFormState.formState,
                                             onInputValueChange:
-                                                onInputValueChange,
+                                                onInputValueChange, unFilledMandatoryFields:
+                                          unFilledMandatoryFields,
                                           ),
                                         ),
                                         Visibility(

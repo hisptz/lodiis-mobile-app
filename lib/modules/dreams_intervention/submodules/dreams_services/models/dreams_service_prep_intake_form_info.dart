@@ -21,7 +21,13 @@ class DreamsServicePrepIntakeInfo {
   }
 
   static List<String> getMandatoryField() {
-    const excludedFields = ['UL0xa3Sz9ML', 'de4zcWiZB5j'];
+    const excludedFields = [
+      'UL0xa3Sz9ML',
+      'de4zcWiZB5j',
+      'XfB60ruQI3I',
+      'W8LTmGz13QM',
+      'Ihu2PjZMh8B'
+    ];
     List<String> inputFields = FormUtil.getFormFieldIds(getFormSections());
     List<String> optionalFields =
         getCheckboxInputFieldOptions(getFormSections());
@@ -64,6 +70,7 @@ class DreamsServicePrepIntakeInfo {
                   InputFieldOption(code: 'M', name: 'M'),
                   InputFieldOption(code: 'CF', name: 'CF'),
                   InputFieldOption(code: 'CM', name: 'CM'),
+                  InputFieldOption(code: 'AGYW', name: 'AGYW'),
                 ]),
             InputField(
                 id: 'Jhp451oeYyB',
@@ -604,6 +611,7 @@ class DreamsServicePrepIntakeInfo {
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
                 name: 'Rapid test Result #1',
+                isReadOnly: true,
                 options: [
                   InputFieldOption(code: 'Positive', name: 'Positive'),
                   InputFieldOption(code: 'Negative', name: 'Negative'),
@@ -621,6 +629,7 @@ class DreamsServicePrepIntakeInfo {
                 id: 'n0z9fo8UxDI',
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
+                isReadOnly: true,
                 name: 'Rapid test Result #2',
                 options: [
                   InputFieldOption(code: 'Positive', name: 'Positive'),
@@ -693,14 +702,9 @@ class DreamsServicePrepIntakeInfo {
                 id: 'c2BsZHprXrd',
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
+                isReadOnly: true,
                 name: 'Period between testing and Informed results?',
                 valueType: 'TEXT'),
-            // InputField(
-            //     id: 'c2BsZHprXrd',
-            //     inputColor: Color(0xFF1F8ECE),
-            //     labelColor: Color(0xFF737373),
-            //     name: 'Period between testing and Informed results?',
-            //     valueType: 'TEXT'),
             InputField(
                 id: 'cMEfQ0ir0Qy',
                 inputColor: Color(0xFF1F8ECE),
@@ -714,12 +718,12 @@ class DreamsServicePrepIntakeInfo {
                 name:
                     'Type of period used to monitor duration between testing and informed results',
                 valueType: 'TEXT'),
-            InputField(
-                id: 'gTvAQXCK4l7',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
-                name: 'Period number',
-                valueType: 'NUMBER'),
+            // InputField(
+            //     id: 'gTvAQXCK4l7',
+            //     inputColor: Color(0xFF1F8ECE),
+            //     labelColor: Color(0xFF737373),
+            //     name: 'Period number',
+            //     valueType: 'NUMBER'),
             InputField(
                 id: 'mYjT1FB8tQ8',
                 inputColor: Color(0xFF1F8ECE),
@@ -806,7 +810,9 @@ class DreamsServicePrepIntakeInfo {
                       name: 'PsychoSocial SupportSupport Group'),
                   InputFieldOption(
                       code: 'Nutritional DrugAlcohol Abuse',
-                      name: 'Nutritional DrugAlcohol Abuse')
+                      name: 'Nutritional DrugAlcohol Abuse'),
+                  InputFieldOption(
+                      code: 'KB Intervention', name: 'KB Intervention'),
                 ],
                 name: 'Referral made to',
                 valueType: 'TEXT'),
@@ -936,18 +942,21 @@ class DreamsServicePrepIntakeInfo {
                 id: 'gCvMVscBNfk',
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
+                isReadOnly: true,
                 name: 'Weight',
                 valueType: 'NUMBER'),
             InputField(
                 id: 'WeaVsrFcWne',
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
+                isReadOnly: true,
                 name: 'Blood Pressure Systolic (mmHg)',
                 valueType: 'NUMBER'),
             InputField(
                 id: 'RqWMrqUcDqv',
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
+                isReadOnly: true,
                 name: 'Blood Pressure Diastolic (mmHg)',
                 valueType: 'NUMBER'),
             InputField(
@@ -1053,12 +1062,14 @@ class DreamsServicePrepIntakeInfo {
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
                 name: 'HIV-negative',
+                isReadOnly: true,
                 valueType: 'BOOLEAN'),
             InputField(
                 id: 'vMR9VtzuH3R',
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
                 name: 'Date tested',
+                isReadOnly: true,
                 valueType: 'DATE'),
             InputField(
                 id: 'qgNIIJBeMBT',

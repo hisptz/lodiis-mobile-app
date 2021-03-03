@@ -36,6 +36,7 @@ class _OvcEnrollmentBasicInfoFormState
       OvcEnrollmentBasicInfo.getMandatoryField();
   final Map mandatoryFieldObject = Map();
   bool isFormReady = false;
+  List unFilledMandatoryFields = [];
   @override
   void initState() {
     super.initState();
@@ -84,6 +85,9 @@ class _OvcEnrollmentBasicInfoFormState
         );
       }
     } else {
+      setState(() {
+        unFilledMandatoryFields = AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+      });
       AppUtil.showToastMessage(
         message: 'Please fill all mandatory field',
         position: ToastGravity.TOP,
@@ -148,7 +152,8 @@ class _OvcEnrollmentBasicInfoFormState
                                     formSections: formSections,
                                     mandatoryFieldObject: mandatoryFieldObject,
                                     dataObject: enrollmentFormState.formState,
-                                    onInputValueChange: onInputValueChange,
+                                    onInputValueChange: onInputValueChange, unFilledMandatoryFields:
+                                          unFilledMandatoryFields,
                                   ),
                                 ),
                               ),

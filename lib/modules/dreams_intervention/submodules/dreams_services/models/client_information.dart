@@ -24,6 +24,7 @@ class ClientInformation {
                   InputFieldOption(code: 'TG SW', name: 'TG SW'),
                   InputFieldOption(code: 'TG NonSW', name: 'TG NonSW'),
                   InputFieldOption(code: 'PWID', name: 'PWID'),
+                  InputFieldOption(code: 'AGYWs', name: 'AGYWs'),
                   InputFieldOption(
                       code: 'Prisoner or enclosed',
                       name: 'Prisoner or enclosed')
@@ -61,6 +62,24 @@ class ClientInformation {
             InputField(
                 id: 'HthZdwsEkt5',
                 name: 'Priority Pop: Miner/ex worker',
+                valueType: 'TRUE_ONLY',
+                inputColor: Color(0xFF258DCC),
+                labelColor: Color(0xFF737373)),
+            InputField(
+                id: 'jetCbHYLuZc',
+                name: 'Priority Pop: AGYWs',
+                valueType: 'TRUE_ONLY',
+                inputColor: Color(0xFF258DCC),
+                labelColor: Color(0xFF737373)),
+            InputField(
+                id: 'IRLf0cgX1Vb',
+                name: 'Priority Pop: FSWs',
+                valueType: 'TRUE_ONLY',
+                inputColor: Color(0xFF258DCC),
+                labelColor: Color(0xFF737373)),
+            InputField(
+                id: 'FLzk3trHs3w',
+                name: 'Priority Pop: MSMs',
                 valueType: 'TRUE_ONLY',
                 inputColor: Color(0xFF258DCC),
                 labelColor: Color(0xFF737373)),
@@ -140,6 +159,8 @@ class ClientInformation {
                   InputFieldOption(
                       code: 'Mobile testing', name: 'Mobile testing'),
                   InputFieldOption(code: 'Home-based', name: 'Home-based'),
+                  InputFieldOption(
+                      code: 'Community PrEP', name: 'Community PrEP'),
                   InputFieldOption(code: 'Other', name: 'Other'),
                 ],
                 inputColor: Color(0xFF258DCC),
@@ -184,6 +205,8 @@ class ClientInformation {
                 options: [
                   InputFieldOption(code: 'None', name: 'None'),
                   InputFieldOption(code: 'Primary', name: 'Primary'),
+                  InputFieldOption(
+                      code: 'Secondary school', name: 'Secondary school'),
                   InputFieldOption(code: 'High school', name: 'High school'),
                   InputFieldOption(code: 'Tertiary', name: 'Tertiary'),
                 ]),
@@ -216,6 +239,8 @@ class ClientInformation {
                   InputFieldOption(
                       code: 'Positive self-test', name: 'Positive self-test'),
                   InputFieldOption(
+                      code: 'KB Field staff', name: 'KB Field staff'),
+                  InputFieldOption(
                       code: 'PSI field or New Start staff',
                       name: 'PSI field or New Start staff'),
                   InputFieldOption(
@@ -243,11 +268,13 @@ class ClientInformation {
                 id: 'x7Jzm67o0Ng',
                 name: 'Height (m)',
                 valueType: 'NUMBER',
+                description: 'Decimal values are allowed. e.g 4.1',
                 inputColor: Color(0xFF258DCC),
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'gCvMVscBNfk',
                 name: 'Weight(kg)',
+                description: 'Decimal values are allowed. e.g 4.1',
                 valueType: 'NUMBER',
                 inputColor: Color(0xFF258DCC),
                 labelColor: Color(0xFF737373)),
@@ -321,6 +348,7 @@ class ClientInformation {
             InputField(
                 id: 'qS3VY5i86ZB',
                 name: 'Number of sexual partners in last 12  months',
+                isReadOnly: true,
                 valueType: 'INTEGER_ZERO_OR_POSITIVE',
                 inputColor: Color(0xFF258DCC),
                 labelColor: Color(0xFF737373)),
@@ -493,7 +521,7 @@ class ClientInformation {
         InputField(
             id: 'rvanxUEglQu',
             name: 'Name of referral DNA PCR or ART facility',
-            valueType: 'TRUE_ONLY',
+            valueType: 'ORGANISATION_UNIT',
             inputColor: Color(0xFF258DCC),
             labelColor: Color(0xFF737373)),
         InputField(

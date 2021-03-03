@@ -167,6 +167,8 @@ class OvcReferral {
                         InputFieldOption(
                             code: 'Educational and vocational support',
                             name: 'Educational and vocational support'),
+                        InputFieldOption(
+                            code: 'Social grants', name: 'Social grants'),
                       ]),
                   InputField(
                     id: 'ubB83OWNWsv',
@@ -326,6 +328,8 @@ class OvcReferral {
                         InputFieldOption(
                             code: 'Educational and vocational support',
                             name: 'Educational and vocational support'),
+                        InputFieldOption(
+                            code: 'Social grants', name: 'Social grants'),
                       ]),
                   InputField(
                     id: 'jOXN2iPhkxj',

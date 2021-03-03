@@ -30,19 +30,21 @@ class AgywDreamsHTSRegisterSkipLogic {
         hiddenFields['beizqNyYP9a'] = true;
         hiddenFields['CCgL6RQ9BkR'] = true;
       }
-      if(inputFieldId == 'B9WDdd3feaQ' && value != 'true'){
-        hiddenFields['cGnoMSGCGBG']= true;
+      if (inputFieldId == 'B9WDdd3feaQ' && value != 'true') {
+        hiddenFields['cGnoMSGCGBG'] = true;
       }
-
+      if (inputFieldId == 'Io9EHy6EzgM') {
+        dataObject[inputFieldId] = dataObject['GO6QIfHE7Vc'];
+      }
     }
     for (String sectionId in hiddenSections.keys) {
       List<FormSection> allFormSections =
           FormUtil.getFlattenFormSections(formSections);
-      List<String> hidddenSectionInputFieldIds = FormUtil.getFormFieldIds(allFormSections
-          .where((formSection) => formSection.id == sectionId)
-          .toList());      
+      List<String> hidddenSectionInputFieldIds = FormUtil.getFormFieldIds(
+          allFormSections
+              .where((formSection) => formSection.id == sectionId)
+              .toList());
       for (String inputFieldId in hidddenSectionInputFieldIds) {
-
         hiddenFields[inputFieldId] = true;
       }
     }

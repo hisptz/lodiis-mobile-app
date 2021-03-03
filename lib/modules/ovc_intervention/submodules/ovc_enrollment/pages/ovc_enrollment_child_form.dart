@@ -40,6 +40,7 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
 
   Map hiddenFields = Map();
   Map hiddenSections = Map();
+  List unFilledMandatoryFields = [];
 
   @override
   void initState() {
@@ -117,11 +118,11 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
     for (String sectionId in hiddenSections.keys) {
       List<FormSection> allFormSections =
           FormUtil.getFlattenFormSections(formSections);
-      List<String> hidddenSectionInputFieldIds = FormUtil.getFormFieldIds(allFormSections
-          .where((formSection) => formSection.id == sectionId)
-          .toList());      
+      List<String> hidddenSectionInputFieldIds = FormUtil.getFormFieldIds(
+          allFormSections
+              .where((formSection) => formSection.id == sectionId)
+              .toList());
       for (String inputFieldId in hidddenSectionInputFieldIds) {
-
         hiddenFields[inputFieldId] = true;
       }
     }
@@ -234,6 +235,10 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
         }
       }
     } else {
+      setState(() {
+        unFilledMandatoryFields =
+            AppUtil.getUnFilledMandatoryFields(mandatoryFields, childMapObject);
+      });
       AppUtil.showToastMessage(
         message: 'Please fill all mandatory field',
         position: ToastGravity.TOP,
@@ -324,6 +329,8 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
                                 mandatoryFieldObject: mandatoryFieldObject,
                                 dataObject: childMapObject,
                                 onInputValueChange: onInputValueChange,
+                                unFilledMandatoryFields:
+                                    unFilledMandatoryFields,
                               ),
                             ),
                             EntryFormSaveButton(

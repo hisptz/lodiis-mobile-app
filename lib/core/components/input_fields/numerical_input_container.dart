@@ -30,6 +30,10 @@ class _NumericalInputFieldContainerState
     setState(() {
       _value = widget.inputValue;
     });
+    updateNumericalValue();
+  }
+
+  updateNumericalValue() {
     numericalController = TextEditingController(text: widget.inputValue);
   }
 
@@ -40,6 +44,15 @@ class _NumericalInputFieldContainerState
     });
 
     widget.onInputValueChange(value.trim());
+  }
+
+  @override
+  void didUpdateWidget(covariant NumericalInputFieldContainer oldWidget) {
+    super.didUpdateWidget(widget);
+    if (oldWidget.inputValue != widget.inputValue &&
+        widget.inputField.isReadOnly) {
+      updateNumericalValue();
+    }
   }
 
   @override

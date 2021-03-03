@@ -41,6 +41,7 @@ class _OvcEnrollmentChildEditViewFormState
 
   List<String> mandatoryFields;
   final Map mandatoryFieldObject = Map();
+  List unFilledMandatoryFields = [];
 
   @override
   void initState() {
@@ -123,6 +124,9 @@ class _OvcEnrollmentChildEditViewFormState
         }
       });
     } else {
+      setState(() {
+        unFilledMandatoryFields = AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+      });
       AppUtil.showToastMessage(
           message: 'Please fill all mandatory field',
           position: ToastGravity.TOP);
@@ -205,7 +209,8 @@ class _OvcEnrollmentChildEditViewFormState
                                             enrollmentFormState.isEditableMode,
                                         dataObject:
                                             enrollmentFormState.formState,
-                                        onInputValueChange: onInputValueChange,
+                                        onInputValueChange: onInputValueChange, unFilledMandatoryFields:
+                                      unFilledMandatoryFields,
                                       ),
                                     ),
                                     Visibility(

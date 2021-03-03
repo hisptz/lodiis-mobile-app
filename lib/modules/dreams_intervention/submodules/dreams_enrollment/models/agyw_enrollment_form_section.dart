@@ -616,6 +616,7 @@ class AgywEnrollmentFormSection {
           InputField(
               id: 'JTNxMQPT134',
               name: '201. Do you currently go to school?',
+              isReadOnly: true,
               translatedName: '201. Na nakong ea joale u kena sekolo?',
               valueType: 'BOOLEAN',
               inputColor: Color(0xFF258DCC),

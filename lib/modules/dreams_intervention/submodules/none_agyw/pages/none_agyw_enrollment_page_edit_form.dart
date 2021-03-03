@@ -55,6 +55,7 @@ class _NoneAgywEnrollmentEditFormState
           NoneAgywEnrollmentPrepScreening.getMandatoryField();
   bool isFormReady = false;
   bool isSaving = false;
+  List unFilledMandatoryFields = [];
 
   @override
   void initState() {
@@ -76,7 +77,15 @@ class _NoneAgywEnrollmentEditFormState
           NoneAgywEnrollmentFormSection.getFormSections();
       prepScreeningFormSections =
           NoneAgywEnrollmentPrepScreening.getFormSections();
-      List<String> skippedInputs = ['location', 'WTZ7GLTrE8Q', 'rSP9c21JsfC'];
+      List<String> skippedInputs = [
+        'location',
+        'WTZ7GLTrE8Q',
+        'rSP9c21JsfC',
+        'ls9hlz2tyol',
+        'eXp9ASOufpR_bmi',
+        'FI9Wzzys767',
+        'dQBja8nUr18'
+      ];
       formSections = [
         ...htsConsentFormSections,
         clientIntakeFormSections[0],
@@ -169,6 +178,9 @@ class _NoneAgywEnrollmentEditFormState
         }
       });
     } else {
+      setState(() {
+        unFilledMandatoryFields = AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+      });
       AppUtil.showToastMessage(
           message: 'Please fill all mandatory field',
           position: ToastGravity.TOP);
@@ -230,7 +242,8 @@ class _NoneAgywEnrollmentEditFormState
                                             enrollmentFormState.isEditableMode,
                                         dataObject:
                                             enrollmentFormState.formState,
-                                        onInputValueChange: onInputValueChange,
+                                        onInputValueChange: onInputValueChange, unFilledMandatoryFields:
+                                      unFilledMandatoryFields,
                                       ),
                                     ),
                                     EntryFormSaveButton(

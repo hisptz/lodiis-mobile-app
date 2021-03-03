@@ -46,7 +46,16 @@ class NonAgywDreamsHTCSkipLogic {
         hiddenFields['ECSlqcSEB9D'] = true;
         hiddenFields['z50tGzpCAow'] = true;
       }
-
+      if (inputFieldId == 'mmK9CT0n9BV' && value != 'true') {
+        hiddenFields['i0U8S4F3rTa'] = true;
+        hiddenFields['HD5YrKZXzQl'] = true;
+        hiddenFields['dOUKOAUsIgD'] = true;
+        hiddenFields['WZYXR6Azijc'] = true;
+        hiddenFields['XAHL4Ldyv3P'] = true;
+        hiddenFields['eBHVZQ8jWOm'] = true;
+        hiddenFields['odSWc26b9P6'] = true;
+        hiddenFields['ZZBWYb9jzHE'] = true;
+      }
       if (inputFieldId == 'RXS4fNXVKMl' && value != 'true') {
         hiddenFields['LZFhD0N9Zj5'] = true;
       }
@@ -56,6 +65,12 @@ class NonAgywDreamsHTCSkipLogic {
         dataObject['eXp9ASOufpR_bmi'] = calculateBMI(
             '${dataObject['eXp9ASOufpR']}', '${dataObject['qsujYWhB0DP']}');
       }
+    }
+    List<String> fields = ['i0U8S4F3rTa', 'HD5YrKZXzQl'];
+    bool shouldShowNameOfFacilityField =
+        fields.any((field) => '${dataObject[field]}' == 'true');
+    if (!shouldShowNameOfFacilityField) {
+      hiddenFields['ZZBWYb9jzHE'] = true;
     }
     for (String sectionId in hiddenSections.keys) {
       List<FormSection> allFormSections =

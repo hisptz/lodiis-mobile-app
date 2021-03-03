@@ -98,15 +98,17 @@ class DreamBeneficiaryCardServiceSummary extends StatelessWidget {
 
   bool isServiceProvided(
       Map serviceProgramStage, Map<String, List<Events>> serviceEvents) {
+    List<String> serviceProgramStageIds = serviceProgramStage['programStage'];
     List<Events> events = getEventList(serviceEvents);
-    List<String> programStageIds =
+    List programStageIds =
         events.map((Events event) => event.programStage).toSet().toList();
-    if (serviceProgramStage['programStage'] ==
-            ServiceFormConstant.programStage &&
-        programStageIds.indexOf(serviceProgramStage['programStage']) != -1) {
+    if (serviceProgramStageIds.contains(ServiceFormConstant.programStage) &&
+        programStageIds.indexWhere((programStageId) =>
+                serviceProgramStageIds.contains(programStageId)) !=
+            -1) {
       List<ServiceEvents> serviceEvents = [];
       events.removeWhere((Events event) =>
-          event.programStage != serviceProgramStage['programStage'] ?? '');
+          serviceProgramStageIds.contains(event.programStage));
       events.forEach((event) {
         serviceEvents.add(ServiceEvents().getServiceSessions(event));
       });
@@ -116,7 +118,8 @@ class DreamBeneficiaryCardServiceSummary extends StatelessWidget {
         }
       }
       return false;
-    } else if (programStageIds.indexOf(serviceProgramStage['programStage']) !=
+    } else if (programStageIds.indexWhere((programStageId) =>
+            serviceProgramStageIds.contains(programStageId)) !=
         -1) {
       return true;
     } else {
