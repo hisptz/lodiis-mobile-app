@@ -51,7 +51,8 @@ class _TextInputFieldContainerState extends State<TextInputFieldContainer> {
   @override
   void didUpdateWidget(covariant TextInputFieldContainer oldWidget) {
     super.didUpdateWidget(widget);
-    if (oldWidget.inputValue != widget.inputValue) {
+    if (oldWidget.inputValue != widget.inputValue &&
+        widget.inputField.isReadOnly) {
       updateTextValue();
     }
   }
