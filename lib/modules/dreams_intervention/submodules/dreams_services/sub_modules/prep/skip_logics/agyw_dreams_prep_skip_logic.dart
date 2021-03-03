@@ -33,11 +33,15 @@ class AgywDreamsPrepSkipLogic {
       hiddenFields[PrepIntakeConstant.dateBled3] = true;
     } else if (dataObject[AgywDreamsHTSLongFormConstant.t1Result] == null) {
       hiddenFields[PrepIntakeConstant.prepRapidTestResult1] = true;
+      hiddenFields[PrepIntakeConstant.prepRapidTestResult3] = true;
+      hiddenFields[PrepIntakeConstant.dateBled3] = true;
       hiddenFields[PrepIntakeConstant.dateBled1] = true;
       dataObject[PrepIntakeConstant.prepRapidTestResult2] =
           dataObject[AgywDreamsHTSLongFormConstant.t2Result];
     } else if (dataObject[AgywDreamsHTSLongFormConstant.t2Result] == null) {
       hiddenFields[PrepIntakeConstant.prepRapidTestResult2] = true;
+      hiddenFields[PrepIntakeConstant.prepRapidTestResult3] = true;
+      hiddenFields[PrepIntakeConstant.dateBled3] = true;
       hiddenFields[PrepIntakeConstant.dateBled2] = true;
       dataObject[PrepIntakeConstant.prepRapidTestResult1] =
           dataObject[AgywDreamsHTSLongFormConstant.t1Result];
@@ -46,6 +50,8 @@ class AgywDreamsPrepSkipLogic {
           dataObject[AgywDreamsHTSLongFormConstant.t1Result];
       dataObject[PrepIntakeConstant.prepRapidTestResult2] =
           dataObject[AgywDreamsHTSLongFormConstant.t2Result];
+      hiddenFields[PrepIntakeConstant.prepRapidTestResult3] = true;
+      hiddenFields[PrepIntakeConstant.dateBled3] = true;
     }
     for (var key in dataObject.keys) {
       inputFieldIds.add('$key');
@@ -230,6 +236,10 @@ class AgywDreamsPrepSkipLogic {
         } else {
           assignInputFieldValue(context,
               PrepIntakeConstant.prepPeriodBetweenTestingAndResults, '0');
+          assignInputFieldValue(
+              context,
+              PrepIntakeConstant.prepTypeOfPeriodBetweenTestingAndResults,
+              'days');
         }
       }
     }
