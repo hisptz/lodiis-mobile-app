@@ -49,7 +49,8 @@ class _NumericalInputFieldContainerState
   @override
   void didUpdateWidget(covariant NumericalInputFieldContainer oldWidget) {
     super.didUpdateWidget(widget);
-    if (oldWidget.inputValue != widget.inputValue) {
+    if (oldWidget.inputValue != widget.inputValue &&
+        widget.inputField.isReadOnly) {
       updateNumericalValue();
     }
   }

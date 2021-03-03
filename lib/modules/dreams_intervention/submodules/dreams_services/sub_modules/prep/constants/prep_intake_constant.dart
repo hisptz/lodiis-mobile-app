@@ -9,6 +9,7 @@ class PrepIntakeConstant {
   static final String dateBled2 = 'Z0Fs3Yr9CLN';
   static final String prepRapidTestResult3 = 'CuSRO5ijeqW';
   static final String dateBled3 = 'Phma8a6sS4P';
+  static final String clientInformedOfTestResults = 'DPTUH5fhDVC';
   static final String prepPeriodBetweenTestingAndResults = 'c2BsZHprXrd';
   static final String prepTypeOfPeriodBetweenTestingAndResults = 'cMEfQ0ir0Qy';
 }

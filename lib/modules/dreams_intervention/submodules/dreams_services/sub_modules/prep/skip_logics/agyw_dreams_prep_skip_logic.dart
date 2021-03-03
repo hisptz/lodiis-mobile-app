@@ -173,7 +173,7 @@ class AgywDreamsPrepSkipLogic {
       // Assign period between testing and results
       if (inputFieldId ==
               PrepIntakeConstant.prepPeriodBetweenTestingAndResults &&
-          dataObject['DPTUH5fhDVC'] != null) {
+          dataObject[PrepIntakeConstant.clientInformedOfTestResults] != null) {
         bool hasTestDate = true;
         DateTime resultDate = DateTime.parse('${dataObject['DPTUH5fhDVC']}');
         DateTime testDate;
