@@ -25,7 +25,6 @@ class DreamAgywReferralSkipLogic {
     inputFieldIds = inputFieldIds.toSet().toList();
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
-      print(value);
       if (inputFieldId == 'qAed23reDPP' && value != 'Community') {
         hiddenSections['SeRefoCo'] = true;
       }
@@ -34,7 +33,7 @@ class DreamAgywReferralSkipLogic {
       }
       if (inputFieldId == 'LLWTHwhnch0' && value != 'null') {
         Map hiddenOptions = Map();
-         if (value == 'Clinical Services') {
+        if (value == 'Clinical Services') {
           hiddenOptions['Youth friendly services'] = true;
           hiddenOptions['Gender Based Violence'] = true;
           hiddenOptions['Domestic Violence Support group'] = true;
@@ -47,6 +46,7 @@ class DreamAgywReferralSkipLogic {
           hiddenOptions['CAG'] = true;
           hiddenOptions['Home based care visits'] = true;
           hiddenOptions['Educational and vocational support'] = true;
+          hiddenOptions['Social grants'] = true;
         } else if (value == 'Post abuse case management') {
           hiddenOptions['Youth friendly services'] = true;
           hiddenOptions['Income generating activity'] = true;
@@ -75,6 +75,7 @@ class DreamAgywReferralSkipLogic {
           hiddenOptions['EID Testing'] = true;
           hiddenOptions['PrEP/PEP'] = true;
           hiddenOptions['PMTCT'] = true;
+          hiddenOptions['Social grants'] = true;
         } else if (value == 'Social Services') {
           hiddenOptions['Referral to post abuse care services'] = true;
           hiddenOptions['STI Screening'] = true;
@@ -117,6 +118,7 @@ class DreamAgywReferralSkipLogic {
           hiddenOptions['CAG'] = true;
           hiddenOptions['Home based care visits'] = true;
           hiddenOptions['Educational and vocational support'] = true;
+          hiddenOptions['Social grants'] = true;
         } else if (value == 'Post abuse case management') {
           hiddenOptions['Youth friendly services'] = true;
           hiddenOptions['Income generating activity'] = true;
@@ -145,6 +147,7 @@ class DreamAgywReferralSkipLogic {
           hiddenOptions['EID Testing'] = true;
           hiddenOptions['PrEP/PEP'] = true;
           hiddenOptions['PMTCT'] = true;
+          hiddenOptions['Social grants'] = true;
         } else if (value == 'Social Services') {
           hiddenOptions['Referral to post abuse care services'] = true;
           hiddenOptions['STI Screening'] = true;
@@ -176,11 +179,11 @@ class DreamAgywReferralSkipLogic {
     for (String sectionId in hiddenSections.keys) {
       List<FormSection> allFormSections =
           FormUtil.getFlattenFormSections(formSections);
-      List<String> hidddenSectionInputFieldIds = FormUtil.getFormFieldIds(allFormSections
-          .where((formSection) => formSection.id == sectionId)
-          .toList());      
+      List<String> hidddenSectionInputFieldIds = FormUtil.getFormFieldIds(
+          allFormSections
+              .where((formSection) => formSection.id == sectionId)
+              .toList());
       for (String inputFieldId in hidddenSectionInputFieldIds) {
-
         hiddenFields[inputFieldId] = true;
       }
     }

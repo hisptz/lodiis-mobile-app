@@ -130,6 +130,8 @@ class DreamAddReferral {
                         InputFieldOption(
                             code: 'Educational and vocational support',
                             name: 'Educational and vocational support'),
+                        InputFieldOption(
+                            code: 'Social grants', name: 'Social grants'),
                       ]),
                   InputField(
                     id: 'ubB83OWNWsv',
@@ -250,6 +252,8 @@ class DreamAddReferral {
                         InputFieldOption(
                             code: 'Educational and vocational support',
                             name: 'Educational and vocational support'),
+                        InputFieldOption(
+                            code: 'Social grants', name: 'Social grants'),
                       ]),
                   InputField(
                     id: 'jOXN2iPhkxj',
