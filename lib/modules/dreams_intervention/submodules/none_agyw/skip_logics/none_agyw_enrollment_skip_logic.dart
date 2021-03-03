@@ -54,6 +54,9 @@ class NoneAgywEnrollmentSkipLogic {
       if (inputFieldId == 'eOy1XwiYC8H' && value != 'true') {
         hiddenFields['X2m9v2E5WaI'] = true;
       }
+      if (inputFieldId == 'w4DBU1hJtxd' && value != 'true') {
+        hiddenFields['IYD4dA4EBnX'] = true;
+      }
       // Assign HIV results
       if (inputFieldId == 'dQBja8nUr18') {
         if (dataObject[NonAgywDreamsHTSConstant.hivResultStatus] ==

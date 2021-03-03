@@ -11,6 +11,7 @@ import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/hts_consent.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_long_form/constants/agyw_dreams_hts_constant.dart';
 import 'package:provider/provider.dart';
 import 'agyw_dreams_hts_client_information.dart';
 
@@ -69,6 +70,8 @@ class _AgywDreamsHTSConsentFormSubpartState
     Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
         .setCurrentAgywDream(agywDream);
     if (isConsentGiven(dataObject)) {
+      dataObject[AgywDreamsHTSLongFormConstant.noOfPartnersAttributeKey] =
+          getNoOfPartners(agywDream);
       Navigator.push(
           context,
           MaterialPageRoute(
@@ -80,6 +83,16 @@ class _AgywDreamsHTSConsentFormSubpartState
           message: 'Cannot proceed without consent',
           position: ToastGravity.TOP);
     }
+  }
+
+  getNoOfPartners(AgywDream agywDream) {
+    List attributes = agywDream.trackeEntityInstanceData.attributes ?? [];
+    var noOfPartners = attributes.singleWhere(
+        (attribute) =>
+            attribute['attribute'] ==
+            AgywDreamsHTSLongFormConstant.noOfPartnersAttributeKey,
+        orElse: () => null); //q8qPtzanSTU
+    return noOfPartners != null ? noOfPartners['value'] : '';
   }
 
   @override
@@ -120,8 +133,9 @@ class _AgywDreamsHTSConsentFormSubpartState
                             Visibility(
                               visible: serviceFormState.isEditableMode,
                               child: EntryFormSaveButton(
-                                label:
-                                    isSaving ? 'Saving ...' : 'Save and Continue',
+                                label: isSaving
+                                    ? 'Saving ...'
+                                    : 'Save and Continue',
                                 labelColor: Colors.white,
                                 buttonColor: Color(0xFF258DCC),
                                 fontSize: 15.0,
