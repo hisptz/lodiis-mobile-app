@@ -10,6 +10,8 @@ import 'package:provider/provider.dart';
 class AgywDreamsPrepSkipLogic {
   static Map hiddenFields = Map();
   static Map hiddenSections = Map();
+// fields to not be cleared when hidden
+  static List skippedFields = ['WeaVsrFcWne', 'RqWMrqUcDqv', 'gCvMVscBNfk'];
 
   static Future evaluateSkipLogics(
     BuildContext context,
@@ -273,7 +275,7 @@ class AgywDreamsPrepSkipLogic {
 
   static resetValuesForHiddenFields(BuildContext context, inputFieldIds) {
     for (String inputFieldId in inputFieldIds) {
-      if (hiddenFields[inputFieldId]) {
+      if (hiddenFields[inputFieldId] && !skippedFields.contains(inputFieldId)) {
         assignInputFieldValue(context, inputFieldId, null);
       }
     }
