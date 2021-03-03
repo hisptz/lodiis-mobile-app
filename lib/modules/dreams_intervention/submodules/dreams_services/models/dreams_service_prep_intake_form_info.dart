@@ -611,6 +611,7 @@ class DreamsServicePrepIntakeInfo {
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
                 name: 'Rapid test Result #1',
+                isReadOnly: true,
                 options: [
                   InputFieldOption(code: 'Positive', name: 'Positive'),
                   InputFieldOption(code: 'Negative', name: 'Negative'),
@@ -628,6 +629,7 @@ class DreamsServicePrepIntakeInfo {
                 id: 'n0z9fo8UxDI',
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
+                isReadOnly: true,
                 name: 'Rapid test Result #2',
                 options: [
                   InputFieldOption(code: 'Positive', name: 'Positive'),
@@ -700,14 +702,9 @@ class DreamsServicePrepIntakeInfo {
                 id: 'c2BsZHprXrd',
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
+                isReadOnly: true,
                 name: 'Period between testing and Informed results?',
                 valueType: 'TEXT'),
-            // InputField(
-            //     id: 'c2BsZHprXrd',
-            //     inputColor: Color(0xFF1F8ECE),
-            //     labelColor: Color(0xFF737373),
-            //     name: 'Period between testing and Informed results?',
-            //     valueType: 'TEXT'),
             InputField(
                 id: 'cMEfQ0ir0Qy',
                 inputColor: Color(0xFF1F8ECE),
@@ -721,12 +718,12 @@ class DreamsServicePrepIntakeInfo {
                 name:
                     'Type of period used to monitor duration between testing and informed results',
                 valueType: 'TEXT'),
-            InputField(
-                id: 'gTvAQXCK4l7',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
-                name: 'Period number',
-                valueType: 'NUMBER'),
+            // InputField(
+            //     id: 'gTvAQXCK4l7',
+            //     inputColor: Color(0xFF1F8ECE),
+            //     labelColor: Color(0xFF737373),
+            //     name: 'Period number',
+            //     valueType: 'NUMBER'),
             InputField(
                 id: 'mYjT1FB8tQ8',
                 inputColor: Color(0xFF1F8ECE),
