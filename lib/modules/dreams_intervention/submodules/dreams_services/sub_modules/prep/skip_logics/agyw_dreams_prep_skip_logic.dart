@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
+import 'package:kb_mobile_app/core/utils/date_conversion_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_long_form/constants/agyw_dreams_hts_constant.dart';
@@ -181,7 +182,8 @@ class AgywDreamsPrepSkipLogic {
               PrepIntakeConstant.prepPeriodBetweenTestingAndResults &&
           dataObject[PrepIntakeConstant.clientInformedOfTestResults] != null) {
         bool hasTestDate = true;
-        DateTime resultDate = DateTime.parse('${dataObject['DPTUH5fhDVC']}');
+        DateTime resultDate = DateTime.parse(
+            '${dataObject[PrepIntakeConstant.clientInformedOfTestResults]}');
         DateTime testDate;
         if (dataObject[PrepIntakeConstant.dateBled3] != '' &&
             dataObject[PrepIntakeConstant.dateBled3] != null) {
@@ -205,7 +207,8 @@ class AgywDreamsPrepSkipLogic {
               '';
           if (periodType == '') {
             String days =
-                getDaysBetweenTestingAndInformedResult(testDate, resultDate);
+                DateConversionUtil.getDaysBetweenTestingAndInformedResult(
+                    testDate, resultDate);
             assignInputFieldValue(context,
                 PrepIntakeConstant.prepPeriodBetweenTestingAndResults, days);
             assignInputFieldValue(
@@ -214,22 +217,26 @@ class AgywDreamsPrepSkipLogic {
                 'days');
           } else if (periodType == 'minutes') {
             String minutes =
-                getMinutesBetweenTestingAndInformedResult(testDate, resultDate);
+                DateConversionUtil.getMinutesBetweenTestingAndInformedResult(
+                    testDate, resultDate);
             assignInputFieldValue(context,
                 PrepIntakeConstant.prepPeriodBetweenTestingAndResults, minutes);
           } else if (periodType == 'hours') {
             String hours =
-                getHoursBetweenTestingAndInformedResult(testDate, resultDate);
+                DateConversionUtil.getHoursBetweenTestingAndInformedResult(
+                    testDate, resultDate);
             assignInputFieldValue(context,
                 PrepIntakeConstant.prepPeriodBetweenTestingAndResults, hours);
           } else if (periodType == 'days') {
             String days =
-                getDaysBetweenTestingAndInformedResult(testDate, resultDate);
+                DateConversionUtil.getDaysBetweenTestingAndInformedResult(
+                    testDate, resultDate);
             assignInputFieldValue(context,
                 PrepIntakeConstant.prepPeriodBetweenTestingAndResults, days);
           } else if (periodType == 'weeks') {
             String weeks =
-                getWeeksBetweenTestingAndInformedResult(testDate, resultDate);
+                DateConversionUtil.getWeeksBetweenTestingAndInformedResult(
+                    testDate, resultDate);
             assignInputFieldValue(context,
                 PrepIntakeConstant.prepPeriodBetweenTestingAndResults, weeks);
           }
@@ -256,31 +263,6 @@ class AgywDreamsPrepSkipLogic {
     }
     resetValuesForHiddenFields(context, hiddenFields.keys);
     resetValuesForHiddenSections(context, formSections);
-  }
-
-  static String getDaysBetweenTestingAndInformedResult(
-      DateTime testDate, DateTime resultDate) {
-    Duration days = resultDate.difference(testDate);
-    return '${days.inDays}';
-  }
-
-  static String getWeeksBetweenTestingAndInformedResult(
-      DateTime testDate, DateTime resultDate) {
-    Duration days = resultDate.difference(testDate);
-    double weeks = days.inDays / 7;
-    return '${weeks.floor()}';
-  }
-
-  static String getMinutesBetweenTestingAndInformedResult(
-      DateTime testDate, DateTime resultDate) {
-    Duration days = resultDate.difference(testDate);
-    return '${days.inMinutes}';
-  }
-
-  static String getHoursBetweenTestingAndInformedResult(
-      DateTime testDate, DateTime resultDate) {
-    Duration days = resultDate.difference(testDate);
-    return '${days.inHours}';
   }
 
   static resetValuesForHiddenFields(BuildContext context, inputFieldIds) {
