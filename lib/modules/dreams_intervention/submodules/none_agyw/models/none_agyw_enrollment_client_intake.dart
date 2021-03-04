@@ -576,6 +576,7 @@ class NoneAgywEnrollmentFormSection {
           InputField(
             id: 'aQv0U93Wg1R',
             name: 'Rapid test Result #1',
+            isReadOnly: true,
             valueType: 'TEXT',
             inputColor: Color(0xFF258DCC),
             labelColor: Color(0xFF737373),
@@ -594,6 +595,7 @@ class NoneAgywEnrollmentFormSection {
           InputField(
             id: 'QSknntVjZYx',
             name: 'Rapid test Result #2',
+            isReadOnly: true,
             valueType: 'TEXT',
             inputColor: Color(0xFF258DCC),
             labelColor: Color(0xFF737373),
@@ -612,6 +614,7 @@ class NoneAgywEnrollmentFormSection {
           InputField(
             id: 'PnFpOz95RuW',
             name: 'Rapid test Result #3',
+            isReadOnly: true,
             valueType: 'TEXT',
             inputColor: Color(0xFF258DCC),
             labelColor: Color(0xFF737373),
@@ -661,16 +664,23 @@ class NoneAgywEnrollmentFormSection {
             id: 'fs00ZqYiq6h',
             name: 'Period between testing and Informed results?',
             valueType: 'TEXT',
+            isReadOnly: true,
             inputColor: Color(0xFF258DCC),
             labelColor: Color(0xFF737373),
-            options: [
-              InputFieldOption(code: 'minutes', name: 'Minutes'),
-              InputFieldOption(code: 'hours', name: 'Hours'),
-              InputFieldOption(code: 'days', name: 'Days'),
-              InputFieldOption(code: 'weeks', name: 'Weeks'),
-              InputFieldOption(code: 'months', name: 'Months')
-            ],
           ),
+          InputField(
+              id: 'EY4roPkQlDi',
+              name:
+                  'Type of period used to monitor duration between testing and informed results',
+              valueType: 'TEXT',
+              inputColor: Color(0xFF1F8ECE),
+              labelColor: Color(0xFF737373),
+              options: [
+                InputFieldOption(code: 'minutes', name: 'minutes'),
+                InputFieldOption(code: 'hours', name: 'hours'),
+                InputFieldOption(code: 'days', name: 'days'),
+                InputFieldOption(code: 'weeks', name: 'weeks'),
+              ]),
           InputField(
               id: 'W8mAvBSM3Pg',
               name: 'Client received Post Test Counselling?',

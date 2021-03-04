@@ -5,6 +5,9 @@ import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/constant/non_agyw_hts_constant.dart';
 import 'package:provider/provider.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/constant/non_agyw_hts_constant.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/constant/non_agyw_prep_visit_constant.dart';
+import 'package:kb_mobile_app/core/utils/date_conversion_util.dart';
 
 class NoneAgywEnrollmentSkipLogic {
   static Map hiddenFields = Map();
@@ -73,6 +76,121 @@ class NoneAgywEnrollmentSkipLogic {
         dataObject[inputFieldId] =
             '${AppUtil.formattedDateTimeIntoString(DateTime.now())}';
         print(dataObject[inputFieldId]);
+      }
+      // assing Rapid test result
+      if (dataObject[NonAgywDreamsHTSConstant.t1Result] == null &&
+          dataObject[NonAgywDreamsHTSConstant.t2Result] == null) {
+        hiddenFields[NonAgywPrepVisitConstant.prepRapidTestResult1] = true;
+        hiddenFields[NonAgywPrepVisitConstant.prepRapidTestResult2] = true;
+        hiddenFields[NonAgywPrepVisitConstant.prepRapidTestResult3] = true;
+        hiddenFields[NonAgywPrepVisitConstant.dateBled1] = true;
+        hiddenFields[NonAgywPrepVisitConstant.dateBled2] = true;
+        hiddenFields[NonAgywPrepVisitConstant.dateBled3] = true;
+      } else if (dataObject[NonAgywDreamsHTSConstant.t1Result] == null) {
+        hiddenFields[NonAgywPrepVisitConstant.prepRapidTestResult1] = true;
+        hiddenFields[NonAgywPrepVisitConstant.prepRapidTestResult3] = true;
+        hiddenFields[NonAgywPrepVisitConstant.dateBled3] = true;
+        hiddenFields[NonAgywPrepVisitConstant.dateBled1] = true;
+        dataObject[NonAgywPrepVisitConstant.prepRapidTestResult2] =
+            dataObject[NonAgywDreamsHTSConstant.t2Result];
+      } else if (dataObject[NonAgywDreamsHTSConstant.t2Result] == null) {
+        hiddenFields[NonAgywPrepVisitConstant.prepRapidTestResult2] = true;
+        hiddenFields[NonAgywPrepVisitConstant.prepRapidTestResult3] = true;
+        hiddenFields[NonAgywPrepVisitConstant.dateBled3] = true;
+        hiddenFields[NonAgywPrepVisitConstant.dateBled2] = true;
+        dataObject[NonAgywPrepVisitConstant.prepRapidTestResult1] =
+            dataObject[NonAgywDreamsHTSConstant.t1Result];
+      } else {
+        dataObject[NonAgywPrepVisitConstant.prepRapidTestResult1] =
+            dataObject[NonAgywDreamsHTSConstant.t1Result];
+        dataObject[NonAgywPrepVisitConstant.prepRapidTestResult2] =
+            dataObject[NonAgywDreamsHTSConstant.t2Result];
+        hiddenFields[NonAgywPrepVisitConstant.prepRapidTestResult3] = true;
+        hiddenFields[NonAgywPrepVisitConstant.dateBled3] = true;
+      }
+      // calculate period between
+      if (inputFieldId ==
+              NonAgywPrepVisitConstant.prepPeriodBetweenTestingAndResults &&
+          dataObject[NonAgywPrepVisitConstant.clientInformedOfTestResults] !=
+              null) {
+        bool hasTestDate = true;
+        DateTime resultDate = DateTime.parse(
+            '${dataObject[NonAgywPrepVisitConstant.clientInformedOfTestResults]}');
+        DateTime testDate;
+        if (dataObject[NonAgywPrepVisitConstant.dateBled3] != '' &&
+            dataObject[NonAgywPrepVisitConstant.dateBled3] != null) {
+          testDate = DateTime.parse(
+              '${dataObject[NonAgywPrepVisitConstant.dateBled3]}');
+        } else if (dataObject[NonAgywPrepVisitConstant.dateBled2] != '' &&
+            dataObject[NonAgywPrepVisitConstant.dateBled2] != null) {
+          testDate = DateTime.parse(
+              '${dataObject[NonAgywPrepVisitConstant.dateBled2]}');
+        } else if (dataObject[NonAgywPrepVisitConstant.dateBled1] != '' &&
+            dataObject[NonAgywPrepVisitConstant.dateBled1] != null) {
+          testDate = DateTime.parse(
+              '${dataObject[NonAgywPrepVisitConstant.dateBled1]}');
+        } else {
+          hasTestDate = false;
+        }
+
+        if (hasTestDate) {
+          String periodType = dataObject[NonAgywPrepVisitConstant
+                  .prepTypeOfPeriodBetweenTestingAndResults] ??
+              '';
+          if (periodType == '') {
+            String days =
+                DateConversionUtil.getDaysBetweenTestingAndInformedResult(
+                    testDate, resultDate);
+            assignInputFieldValue(
+                context,
+                NonAgywPrepVisitConstant.prepPeriodBetweenTestingAndResults,
+                days);
+            assignInputFieldValue(
+                context,
+                NonAgywPrepVisitConstant
+                    .prepTypeOfPeriodBetweenTestingAndResults,
+                'days');
+          } else if (periodType == 'minutes') {
+            String minutes =
+                DateConversionUtil.getMinutesBetweenTestingAndInformedResult(
+                    testDate, resultDate);
+            assignInputFieldValue(
+                context,
+                NonAgywPrepVisitConstant.prepPeriodBetweenTestingAndResults,
+                minutes);
+          } else if (periodType == 'hours') {
+            String hours =
+                DateConversionUtil.getHoursBetweenTestingAndInformedResult(
+                    testDate, resultDate);
+            assignInputFieldValue(
+                context,
+                NonAgywPrepVisitConstant.prepPeriodBetweenTestingAndResults,
+                hours);
+          } else if (periodType == 'days') {
+            String days =
+                DateConversionUtil.getDaysBetweenTestingAndInformedResult(
+                    testDate, resultDate);
+            assignInputFieldValue(
+                context,
+                NonAgywPrepVisitConstant.prepPeriodBetweenTestingAndResults,
+                days);
+          } else if (periodType == 'weeks') {
+            String weeks =
+                DateConversionUtil.getWeeksBetweenTestingAndInformedResult(
+                    testDate, resultDate);
+            assignInputFieldValue(
+                context,
+                NonAgywPrepVisitConstant.prepPeriodBetweenTestingAndResults,
+                weeks);
+          }
+        } else {
+          assignInputFieldValue(context,
+              NonAgywPrepVisitConstant.prepPeriodBetweenTestingAndResults, '0');
+          assignInputFieldValue(
+              context,
+              NonAgywPrepVisitConstant.prepTypeOfPeriodBetweenTestingAndResults,
+              'days');
+        }
       }
     }
     for (String sectionId in hiddenSections.keys) {
