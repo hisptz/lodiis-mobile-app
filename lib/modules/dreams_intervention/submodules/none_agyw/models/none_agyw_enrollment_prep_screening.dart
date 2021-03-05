@@ -1,16 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/input_field_option.dart';
 
 class NoneAgywEnrollmentPrepScreening {
+  static List<String> getCheckboxInputFieldOptions(
+      List<FormSection> formSections) {
+    List<String> inputFieldOptions = [];
+    for (FormSection section in formSections) {
+      for (InputField field in section.inputFields) {
+        if (field.valueType == 'CHECK_BOX') {
+          for (InputFieldOption option in field.options) {
+            inputFieldOptions.add(option.code);
+          }
+        }
+      }
+    }
+    return inputFieldOptions;
+  }
+
   static List<String> getMandatoryField() {
-    return [
-      'w16L3KidzUp',
-      'sa81lAvBb7Y',
-      'nLLHqOGTQK9',
-      'dQBja8nUr18',
-    ];
+    const excludedFields = ['fchWv2MSmaS', 'heT7TrQQAA1', 'zGAjwEL0yL5'];
+    List<String> inputFields = FormUtil.getFormFieldIds(getFormSections());
+    List<String> optionalFields =
+        getCheckboxInputFieldOptions(getFormSections());
+    inputFields = inputFields
+        .where((field) => optionalFields.indexOf(field) < 0)
+        .toList()
+        .where((field) => excludedFields.indexOf(field) < 0)
+        .toList();
+    return inputFields;
   }
 
   static List<FormSection> getFormSections() {
