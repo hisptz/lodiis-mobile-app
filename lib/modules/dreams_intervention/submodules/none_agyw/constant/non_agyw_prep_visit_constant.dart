@@ -12,5 +12,6 @@ class NonAgywPrepVisitConstant {
   static final String dateBled3 = 'OY4b1YNhvJC';
   static final String clientInformedOfTestResults = 'cE1sgG2arw4';
   static final String prepPeriodBetweenTestingAndResults = 'fs00ZqYiq6h';
+  static final String clientWeight = 'cruxHKlynFI';
   static final String prepTypeOfPeriodBetweenTestingAndResults = 'EY4roPkQlDi';
 }

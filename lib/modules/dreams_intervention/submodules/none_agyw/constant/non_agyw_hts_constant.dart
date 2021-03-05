@@ -5,4 +5,5 @@ class NonAgywDreamsHTSConstant {
   static final String bmiKey = 'eXp9ASOufpR_bmi';
   static final String t1Result = 'sI1XSjzvOBd';
   static final String t2Result = 'gNp7fK7mFen';
+  static final String weight = 'eXp9ASOufpR';
 }
