@@ -268,7 +268,7 @@ class ClientInformation {
                 id: 'x7Jzm67o0Ng',
                 name: 'Height (m)',
                 valueType: 'NUMBER',
-                description: 'Decimal values are allowed. e.g 4.1',
+                description: 'Decimal values are allowed. e.g 1.4',
                 inputColor: Color(0xFF258DCC),
                 labelColor: Color(0xFF737373)),
             InputField(

@@ -11,6 +11,7 @@ import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
+import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
@@ -66,12 +67,14 @@ class _NoneAgywEnrollmentClientInTakeFormState
     );
   }
 
-  void onSaveAndContinue(BuildContext context, Map dataObject) async {
+  void onSaveAndContinue(BuildContext context, Map dataObject,
+      {Map hiddenFields = const {}}) async {
     CurrentUser user = await UserService().getCurrentUser();
     dataObject['klLkGxy328c'] =
         dataObject['klLkGxy328c'] ?? user.implementingPartner;
-    bool hadAllMandatoryFilled =
-        AppUtil.hasAllMandarotyFieldsFilled(mandatoryFields, dataObject);
+    bool hadAllMandatoryFilled = AppUtil.hasAllMandarotyFieldsFilled(
+        mandatoryFields, dataObject,
+        hiddenFields: hiddenFields);
     if (hadAllMandatoryFilled) {
       Navigator.push(
           context,
@@ -80,7 +83,8 @@ class _NoneAgywEnrollmentClientInTakeFormState
           ));
     } else {
       setState(() {
-        unFilledMandatoryFields = AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+        unFilledMandatoryFields =
+            AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
       });
       AppUtil.showToastMessage(
         message: 'Please fill all mandatory field',
@@ -143,8 +147,9 @@ class _NoneAgywEnrollmentClientInTakeFormState
                                     formSections: formSections,
                                     dataObject: enrollmentFormState.formState,
                                     mandatoryFieldObject: mandatoryFieldObject,
-                                    onInputValueChange: onInputValueChange, unFilledMandatoryFields:
-                                  unFilledMandatoryFields,
+                                    onInputValueChange: onInputValueChange,
+                                    unFilledMandatoryFields:
+                                        unFilledMandatoryFields,
                                   ),
                                 ),
                                 EntryFormSaveButton(
@@ -157,6 +162,8 @@ class _NoneAgywEnrollmentClientInTakeFormState
                                   onPressButton: () => onSaveAndContinue(
                                     context,
                                     enrollmentFormState.formState,
+                                    hiddenFields:
+                                        enrollmentFormState.hiddenFields,
                                   ),
                                 )
                               ],

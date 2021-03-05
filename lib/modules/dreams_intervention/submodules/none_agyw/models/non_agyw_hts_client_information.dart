@@ -11,7 +11,8 @@ class NonAgywHTSClientInformation {
       'location',
       'WTZ7GLTrE8Q',
       'rSP9c21JsfC',
-      'qZP982qpSPS'
+      'qZP982qpSPS',
+      'vIX4GTSCX4P'
     ];
   }
 
@@ -338,12 +339,14 @@ class NonAgywHTSClientInformation {
             InputField(
                 id: 'qsujYWhB0DP',
                 name: 'Height (m)',
+                description: 'Decimal values are allowed. e.g 1.4',
                 valueType: 'NUMBER',
                 inputColor: Color(0xFF258DCC),
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'eXp9ASOufpR',
                 name: 'Weight(kg)',
+                description: 'Decimal values are allowed. e.g 4.1',
                 valueType: 'NUMBER',
                 inputColor: Color(0xFF258DCC),
                 labelColor: Color(0xFF737373)),
