@@ -12,4 +12,5 @@ class PrepIntakeConstant {
   static final String clientInformedOfTestResults = 'DPTUH5fhDVC';
   static final String prepPeriodBetweenTestingAndResults = 'c2BsZHprXrd';
   static final String prepTypeOfPeriodBetweenTestingAndResults = 'cMEfQ0ir0Qy';
+  static final String clientWeight = 'GiwFq6VMdUm';
 }

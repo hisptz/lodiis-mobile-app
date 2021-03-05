@@ -25,6 +25,8 @@ class NoneAgywEnrollmentSkipLogic {
       inputFieldIds.add('$key');
     }
     inputFieldIds = inputFieldIds.toSet().toList();
+    dataObject[NonAgywPrepVisitConstant.clientWeight] =
+        dataObject[NonAgywDreamsHTSConstant.weight];
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
       if (inputFieldId == 'qZP982qpSPS') {
@@ -46,6 +48,22 @@ class NoneAgywEnrollmentSkipLogic {
       if (inputFieldId == 'ulJwlQIOLQA' && value != 'true') {
         hiddenFields['CcMOQFuS5Uy'] = true;
       }
+      if (inputFieldId == 'wI9gNztaVzD' && value != '1') {
+        hiddenFields['BL8liR3gxy6'] = true;
+      }
+      if (inputFieldId == 'W8mAvBSM3Pg' && value != 'true') {
+        hiddenFields['fT7eqY4H5f4'] = true;
+      }
+      if (inputFieldId == 'tB5Htsd5jlr' && value != 'true') {
+        hiddenFields['zXlncmz51aw'] = true;
+      }
+      if (inputFieldId == 'MlgzbQNpeqj' && value != 'true') {
+        hiddenFields['MlgzbQNpeqj_checkbox'] = true;
+      }
+      if (inputFieldId == 'RHPU8hatG4H' && value != 'Other') {
+        hiddenFields['DuWh8Gqwmjf'] = true;
+      }
+
       if (inputFieldId == 'WAlaenCYazT' && value != 'true') {
         hiddenFields['ZUhWRJSajUE'] = true;
         hiddenFields['K9y9eMHeSfa'] = true;
