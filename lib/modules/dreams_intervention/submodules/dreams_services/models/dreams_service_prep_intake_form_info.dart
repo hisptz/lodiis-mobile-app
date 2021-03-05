@@ -725,17 +725,17 @@ class DreamsServicePrepIntakeInfo {
             //     name: 'Period number',
             //     valueType: 'NUMBER'),
             InputField(
-                id: 'mYjT1FB8tQ8',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
-                name: 'Post Test Counselor Code',
-                valueType: 'TEXT'),
-            InputField(
                 id: 'FHlLCE5NcRE',
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
                 name: 'Client received Post Test Counselling?',
                 valueType: 'BOOLEAN'),
+            InputField(
+                id: 'mYjT1FB8tQ8',
+                inputColor: Color(0xFF1F8ECE),
+                labelColor: Color(0xFF737373),
+                name: 'Post Test Counselor Code',
+                valueType: 'TEXT'),
             InputField(
                 id: 'wig4mkuYyPe',
                 inputColor: Color(0xFF1F8ECE),
@@ -755,35 +755,28 @@ class DreamsServicePrepIntakeInfo {
                 name: 'Risk Reduction Plan Made?',
                 valueType: 'BOOLEAN'),
             InputField(
-                id: 'P43rMiJsvdN',
+                id: 'dTFwww2Lcbh_checkbox',
+                name: 'Plan',
+                valueType: 'CHECK_BOX',
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
-                name: 'Planned to reduce risk through use of condom',
-                valueType: 'BOOLEAN'),
-            InputField(
-                id: 'gcUUfyjuGYd',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
-                name: 'Planned to reduce risk through monogamy',
-                valueType: 'BOOLEAN'),
-            InputField(
-                id: 'QLpo44r78kP',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
-                name: 'Planned to reduce risk through abstinence',
-                valueType: 'BOOLEAN'),
-            InputField(
-                id: 'RIeqF1jCQqo',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
-                name: ' Planned to reduce risk through Treatment of STIs',
-                valueType: 'BOOLEAN'),
-            InputField(
-                id: 'zJGSraV1Fvk',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
-                name: 'Planned to reduce risk through Decreased # of partner',
-                valueType: 'BOOLEAN'),
+                options: [
+                  InputFieldOption(
+                      code: 'P43rMiJsvdN',
+                      name: 'Reduce risk through use of condom'),
+                  InputFieldOption(
+                      code: 'gcUUfyjuGYd',
+                      name: 'Reduce risk through monogamy'),
+                  InputFieldOption(
+                      code: 'QLpo44r78kP',
+                      name: 'Reduce risk through abstinence'),
+                  InputFieldOption(
+                      code: 'RIeqF1jCQqo',
+                      name: 'Reduce risk through Treatment of STIs'),
+                  InputFieldOption(
+                      code: 'zJGSraV1Fvk',
+                      name: 'Reduce risk through Decreased # of partner'),
+                ]),
             InputField(
                 id: 'O8Fz5EWOOzU',
                 inputColor: Color(0xFF1F8ECE),
@@ -827,6 +820,7 @@ class DreamsServicePrepIntakeInfo {
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
                 name: "Client's weight(KG)",
+                isReadOnly: true,
                 valueType: 'NUMBER'),
             InputField(
                 id: 'TRE8eTo7tWl',

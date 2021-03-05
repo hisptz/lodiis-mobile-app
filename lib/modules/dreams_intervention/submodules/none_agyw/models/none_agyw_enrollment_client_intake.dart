@@ -1,18 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/input_field_option.dart';
 
 class NoneAgywEnrollmentFormSection {
+  static List<String> getCheckboxInputFieldOptions(
+      List<FormSection> formSections) {
+    List<String> inputFieldOptions = [];
+    for (FormSection section in formSections) {
+      for (InputField field in section.inputFields) {
+        if (field.valueType == 'CHECK_BOX') {
+          for (InputFieldOption option in field.options) {
+            inputFieldOptions.add(option.code);
+          }
+        }
+      }
+    }
+    return inputFieldOptions;
+  }
+
   static List<String> getMandatoryField() {
-    return [
-      'sJ35hsF6Lf9',
-      'z9hUdWsyBXB',
-      'location',
-      'WTZ7GLTrE8Q',
-      'rSP9c21JsfC',
-      'qZP982qpSPS'
+    const excludedFields = [
+      's1HaiT6OllL',
     ];
+    List<String> inputFields = FormUtil.getFormFieldIds(getFormSections());
+    List<String> optionalFields =
+        getCheckboxInputFieldOptions(getFormSections());
+    inputFields = inputFields
+        .where((field) => optionalFields.indexOf(field) < 0)
+        .toList()
+        .where((field) => excludedFields.indexOf(field) < 0)
+        .toList();
+    return inputFields;
   }
 
   static List<FormSection> getFormSections() {
@@ -33,7 +53,8 @@ class NoneAgywEnrollmentFormSection {
           InputField(
               id: 'atNbeYwzMq6',
               name: 'Site Name',
-              valueType: 'TEXT',
+              valueType: 'ORGANISATION_UNIT',
+              allowedSelectedLevels: [4],
               inputColor: Color(0xFF258DCC),
               labelColor: Color(0xFF737373)),
           InputField(
@@ -183,7 +204,12 @@ class NoneAgywEnrollmentFormSection {
               id: 'IzpeMJCYdY3',
               name:
                   'Are you or your partner planning to have a child within next 2 years?',
-              valueType: 'BOOLEAN',
+              valueType: 'TEXT',
+              options: [
+                InputFieldOption(code: 'Yes', name: 'Yes'),
+                InputFieldOption(code: 'No', name: 'No'),
+                InputFieldOption(code: 'Don\'t Know', name: 'Don\'t Know')
+              ],
               inputColor: Color(0xFF258DCC),
               labelColor: Color(0xFF737373)),
           InputField(
@@ -363,20 +389,23 @@ class NoneAgywEnrollmentFormSection {
           InputField(
             id: 'MabTaKRVTk6',
             name:
-                'Has your most recent sex partiner been tested in the last 3 months?',
+                'Has your most recent sex partner been tested in the last 3 months?',
             valueType: 'TEXT',
             inputColor: Color(0xFF258DCC),
             labelColor: Color(0xFF737373),
             options: [
               InputFieldOption(
-                  code: 'Yes,result was negative 4',
-                  name: 'Yes,result was negative 4'),
+                  code: 'Yes, and the result was negative',
+                  name: 'Yes, and the result was negative'),
               InputFieldOption(
-                  code: 'Yes,result was positive 5',
-                  name: 'Yes,result was positive 5'),
+                  code: 'Yes, and the result was positive',
+                  name: 'Yes, and the result was positive'),
               InputFieldOption(
-                  code: 'Yes,but I don’t know the result 6',
-                  name: 'Yes,but I don’t know the result 6')
+                  code: 'Yes, but I don’t know the result',
+                  name: 'Yes, but I don’t know the result'),
+              InputFieldOption(code: 'No', name: 'No'),
+              InputFieldOption(code: 'Don\'t Know', name: 'Don\'t Know'),
+              InputFieldOption(code: 'N/A', name: 'N/A')
             ],
           ),
           InputField(
@@ -576,6 +605,7 @@ class NoneAgywEnrollmentFormSection {
           InputField(
             id: 'aQv0U93Wg1R',
             name: 'Rapid test Result #1',
+            isReadOnly: true,
             valueType: 'TEXT',
             inputColor: Color(0xFF258DCC),
             labelColor: Color(0xFF737373),
@@ -594,6 +624,7 @@ class NoneAgywEnrollmentFormSection {
           InputField(
             id: 'QSknntVjZYx',
             name: 'Rapid test Result #2',
+            isReadOnly: true,
             valueType: 'TEXT',
             inputColor: Color(0xFF258DCC),
             labelColor: Color(0xFF737373),
@@ -612,6 +643,7 @@ class NoneAgywEnrollmentFormSection {
           InputField(
             id: 'PnFpOz95RuW',
             name: 'Rapid test Result #3',
+            isReadOnly: true,
             valueType: 'TEXT',
             inputColor: Color(0xFF258DCC),
             labelColor: Color(0xFF737373),
@@ -661,22 +693,35 @@ class NoneAgywEnrollmentFormSection {
             id: 'fs00ZqYiq6h',
             name: 'Period between testing and Informed results?',
             valueType: 'TEXT',
+            isReadOnly: true,
             inputColor: Color(0xFF258DCC),
             labelColor: Color(0xFF737373),
-            options: [
-              InputFieldOption(code: 'minutes', name: 'Minutes'),
-              InputFieldOption(code: 'hours', name: 'Hours'),
-              InputFieldOption(code: 'days', name: 'Days'),
-              InputFieldOption(code: 'weeks', name: 'Weeks'),
-              InputFieldOption(code: 'months', name: 'Months')
-            ],
           ),
+          InputField(
+              id: 'EY4roPkQlDi',
+              name:
+                  'Type of period used to monitor duration between testing and informed results',
+              valueType: 'TEXT',
+              inputColor: Color(0xFF1F8ECE),
+              labelColor: Color(0xFF737373),
+              options: [
+                InputFieldOption(code: 'minutes', name: 'minutes'),
+                InputFieldOption(code: 'hours', name: 'hours'),
+                InputFieldOption(code: 'days', name: 'days'),
+                InputFieldOption(code: 'weeks', name: 'weeks'),
+              ]),
           InputField(
               id: 'W8mAvBSM3Pg',
               name: 'Client received Post Test Counselling?',
               valueType: 'BOOLEAN',
               inputColor: Color(0xFF258DCC),
               labelColor: Color(0xFF737373)),
+          InputField(
+              id: 'fT7eqY4H5f4',
+              inputColor: Color(0xFF1F8ECE),
+              labelColor: Color(0xFF737373),
+              name: 'Post Test Counselor Code',
+              valueType: 'TEXT'),
           InputField(
               id: 'tB5Htsd5jlr',
               name: 'Disclosure of Status Planned?',
@@ -696,7 +741,7 @@ class NoneAgywEnrollmentFormSection {
               inputColor: Color(0xFF258DCC),
               labelColor: Color(0xFF737373)),
           InputField(
-            id: '',
+            id: 'MlgzbQNpeqj_checkbox',
             name: 'Plan',
             valueType: 'CHECK_BOX',
             inputColor: Color(0xFF258DCC),
@@ -759,53 +804,54 @@ class NoneAgywEnrollmentFormSection {
                 id: 'cruxHKlynFI',
                 name: 'Client\'s weight(KG)',
                 valueType: 'NUMBER',
+                isReadOnly: true,
                 inputColor: Color(0xFF258DCC),
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'rSv8udBKoCv',
                 name: 'Sexual partner with HIV is not ART',
-                valueType: 'TRUE_ONLY',
+                valueType: 'BOOLEAN',
                 inputColor: Color(0xFF258DCC),
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'ZYhkYueaOxC',
                 name:
                     'Sexual partner who has been on ART for less than 6 months',
-                valueType: 'TRUE_ONLY',
+                valueType: 'BOOLEAN',
                 inputColor: Color(0xFF258DCC),
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'uvkZ4vHUzxv',
                 name:
                     'Sexual partner who has been on ART for more than 6 months but is not virally suppressed',
-                valueType: 'TRUE_ONLY',
+                valueType: 'BOOLEAN',
                 inputColor: Color(0xFF258DCC),
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'Se87hpRzGGB',
                 name:
                     'Vaginal or anal sexual intercourse without condoms with more than one partner',
-                valueType: 'TRUE_ONLY',
+                valueType: 'BOOLEAN',
                 inputColor: Color(0xFF258DCC),
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'NftUCxEqj1W',
                 name: 'A sexual partner with one or more HIV risk factors',
-                valueType: 'TRUE_ONLY',
+                valueType: 'BOOLEAN',
                 inputColor: Color(0xFF258DCC),
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'q3JCqCyX4aI',
                 name:
                     'A history of a sexually transmitted infection(STI)by lab testing or self-report or syndromic STI treatment',
-                valueType: 'TRUE_ONLY',
+                valueType: 'BOOLEAN',
                 inputColor: Color(0xFF258DCC),
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'rBktFvgfp52',
                 name:
                     'Client has requested PrEP and has received information on PrEP including which people would benefit from PrEP and client still feels they would benefit from PrEP',
-                valueType: 'TRUE_ONLY',
+                valueType: 'BOOLEAN',
                 inputColor: Color(0xFF258DCC),
                 labelColor: Color(0xFF737373)),
           ]),

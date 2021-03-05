@@ -11,4 +11,5 @@ class AgywDreamsHTSLongFormConstant {
   static final String noOfPartnersDataElementKey = 'qS3VY5i86ZB';
   static final String t1Result = 'sPdC9NxNEME';
   static final String t2Result = 'ZZcv0xCUXLP';
+  static final String weight = 'gCvMVscBNfk';
 }
