@@ -54,6 +54,8 @@ class AgywDreamsPrepSkipLogic {
       hiddenFields[PrepIntakeConstant.prepRapidTestResult3] = true;
       hiddenFields[PrepIntakeConstant.dateBled3] = true;
     }
+    dataObject[PrepIntakeConstant.clientWeight] =
+        dataObject[AgywDreamsHTSLongFormConstant.weight];
     for (var key in dataObject.keys) {
       inputFieldIds.add('$key');
     }
@@ -165,6 +167,18 @@ class AgywDreamsPrepSkipLogic {
       if ((inputFieldId == 'lMVSLtbHoT3' && value != 'Other') &&
           dataObject['BMqPyVMC6fT'] != 'Community program') {
         hiddenFields['uPpYQM3rAZ2'] = true;
+      }
+
+      if (inputFieldId == 'FHlLCE5NcRE' && value != 'true') {
+        hiddenFields['mYjT1FB8tQ8'] = true;
+      }
+
+      if (inputFieldId == 'wig4mkuYyPe' && value != 'true') {
+        hiddenFields['rBnPHOouOpm'] = true;
+      }
+
+      if (inputFieldId == 'dTFwww2Lcbh' && value != 'true') {
+        hiddenFields['dTFwww2Lcbh_checkbox'] = true;
       }
 
       if (inputFieldId == 'OlDYLVf0bRA' && value != 'Other') {
