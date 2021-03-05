@@ -491,7 +491,7 @@ class NoneAgywEnrollmentFormSection {
           InputField(
               id: 'oDnqGLMuwgo',
               name:
-                  'In last 12 months have you had shared needles for injections?',
+                  'In last 12 months have you had shared needles or injections?',
               valueType: 'BOOLEAN',
               inputColor: Color(0xFF258DCC),
               labelColor: Color(0xFF737373)),

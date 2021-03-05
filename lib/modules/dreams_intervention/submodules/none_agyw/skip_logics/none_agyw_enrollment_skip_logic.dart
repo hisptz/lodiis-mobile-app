@@ -27,6 +27,8 @@ class NoneAgywEnrollmentSkipLogic {
     inputFieldIds = inputFieldIds.toSet().toList();
     dataObject[NonAgywPrepVisitConstant.clientWeight] =
         dataObject[NonAgywDreamsHTSConstant.weight];
+    // assign facility name
+    dataObject['YDxOvZTdzAc'] = dataObject['atNbeYwzMq6'];
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
       if (inputFieldId == 'qZP982qpSPS') {
@@ -44,6 +46,9 @@ class NoneAgywEnrollmentSkipLogic {
       }
       if (inputFieldId == 'vUobJnyivtf' && value != 'true') {
         hiddenFields['Lj7CDNvvtw5'] = true;
+      }
+      if (inputFieldId == 'U90wPGZgftv' && value != '1') {
+        hiddenFields['hWBVFd8DTRj'] = true;
       }
       if (inputFieldId == 'ulJwlQIOLQA' && value != 'true') {
         hiddenFields['CcMOQFuS5Uy'] = true;
