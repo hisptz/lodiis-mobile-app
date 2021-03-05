@@ -26,7 +26,7 @@ class AppLanguage {
         id: 'english',
         name: 'English',
         translatedName: 'Sekhooa',
-        image: 'assets/logos/usa-flag.png',
+        image: 'assets/logos/lesotho-flag.png',
       ),
     ];
   }
