@@ -127,9 +127,11 @@ class _NoneAgywEnrollmentEditFormState
     evaluateSkipLogics();
   }
 
-  void onSaveForm(BuildContext context, Map dataObject) async {
-    bool hadAllMandatoryFilled =
-        AppUtil.hasAllMandarotyFieldsFilled(mandatoryFields, dataObject);
+  void onSaveForm(BuildContext context, Map dataObject,
+      {Map hiddenFields = const {}}) async {
+    bool hadAllMandatoryFilled = AppUtil.hasAllMandarotyFieldsFilled(
+        mandatoryFields, dataObject,
+        hiddenFields: hiddenFields);
     if (hadAllMandatoryFilled) {
       setState(() {
         isSaving = true;
@@ -179,7 +181,8 @@ class _NoneAgywEnrollmentEditFormState
       });
     } else {
       setState(() {
-        unFilledMandatoryFields = AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+        unFilledMandatoryFields =
+            AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
       });
       AppUtil.showToastMessage(
           message: 'Please fill all mandatory field',
@@ -242,8 +245,9 @@ class _NoneAgywEnrollmentEditFormState
                                             enrollmentFormState.isEditableMode,
                                         dataObject:
                                             enrollmentFormState.formState,
-                                        onInputValueChange: onInputValueChange, unFilledMandatoryFields:
-                                      unFilledMandatoryFields,
+                                        onInputValueChange: onInputValueChange,
+                                        unFilledMandatoryFields:
+                                            unFilledMandatoryFields,
                                       ),
                                     ),
                                     EntryFormSaveButton(
@@ -257,10 +261,10 @@ class _NoneAgywEnrollmentEditFormState
                                       fontSize: 15.0,
                                       onPressButton: () => isSaving
                                           ? null
-                                          : onSaveForm(
-                                              context,
+                                          : onSaveForm(context,
                                               enrollmentFormState.formState,
-                                            ),
+                                              hiddenFields: enrollmentFormState
+                                                  .hiddenFields),
                                     )
                                   ],
                                 ),

@@ -71,9 +71,11 @@ class _NoneAgywEnrollmentPrepScreeningFormState
     );
   }
 
-  void onSaveAndContinue(BuildContext context, Map dataObject) async {
-    bool hadAllMandatoryFilled =
-        AppUtil.hasAllMandarotyFieldsFilled(mandatoryFields, dataObject);
+  void onSaveAndContinue(BuildContext context, Map dataObject,
+      {Map hiddenFields = const {}}) async {
+    bool hadAllMandatoryFilled = AppUtil.hasAllMandarotyFieldsFilled(
+        mandatoryFields, dataObject,
+        hiddenFields: hiddenFields);
     if (hadAllMandatoryFilled) {
       setState(() {
         isSaving = true;
@@ -122,7 +124,8 @@ class _NoneAgywEnrollmentPrepScreeningFormState
       );
     } else {
       setState(() {
-        unFilledMandatoryFields = AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+        unFilledMandatoryFields =
+            AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
       });
       AppUtil.showToastMessage(
         message: 'Please fill all mandatory field',
@@ -188,21 +191,22 @@ class _NoneAgywEnrollmentPrepScreeningFormState
                                 mandatoryFieldObject: mandatoryFieldObject,
                                 onInputValueChange: onInputValueChange,
                                 unFilledMandatoryFields:
-                                unFilledMandatoryFields,
+                                    unFilledMandatoryFields,
                               ),
                             ),
                             EntryFormSaveButton(
-                              label: isSaving ? 'Saving...' :
-                              currentLanguage == 'lesotho'
-                                  ? 'Boloka ebe u fetela pele'
-                                  : 'Save and Continue',
+                              label: isSaving
+                                  ? 'Saving...'
+                                  : currentLanguage == 'lesotho'
+                                      ? 'Boloka ebe u fetela pele'
+                                      : 'Save and Continue',
                               labelColor: Colors.white,
                               buttonColor: Color(0xFF258DCC),
                               fontSize: 15.0,
                               onPressButton: () => onSaveAndContinue(
-                                context,
-                                enrollmentFormState.formState,
-                              ),
+                                  context, enrollmentFormState.formState,
+                                  hiddenFields:
+                                      enrollmentFormState.hiddenFields),
                             )
                           ],
                         ),
