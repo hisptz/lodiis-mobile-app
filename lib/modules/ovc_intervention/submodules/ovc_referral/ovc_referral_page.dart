@@ -121,7 +121,7 @@ class _OvcReferralPageState extends State<OvcReferralPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    child: FlatButton(
+                    child: TextButton(
                       onPressed: () => onViewRerral(
                         context,
                         ovcHouseHold,

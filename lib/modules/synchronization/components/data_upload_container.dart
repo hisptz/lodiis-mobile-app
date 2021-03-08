@@ -68,7 +68,10 @@ class DataUploadContainer extends StatelessWidget {
               ),
               Container(
                 margin: EdgeInsets.symmetric(vertical: 5.0),
-                padding: EdgeInsets.symmetric(vertical: 2.0, horizontal: 10.0),
+                padding: EdgeInsets.symmetric(
+                  vertical: 2.0,
+                  horizontal: 10.0,
+                ),
                 child: Row(
                   children: [
                     Expanded(
@@ -96,25 +99,32 @@ class DataUploadContainer extends StatelessWidget {
               Visibility(
                 visible: dataUploadProcesses.length > 0,
                 child: Container(
-                  margin: EdgeInsets.symmetric(vertical: 5.0),
+                  margin: EdgeInsets.symmetric(
+                    vertical: 5.0,
+                  ),
                   padding: EdgeInsets.all(10.0),
                   decoration: BoxDecoration(
                     border: dataUploadProcesses.length == 0
                         ? null
-                        : Border.all(color: Colors.blueGrey.withOpacity(0.2)),
+                        : Border.all(
+                            color: Colors.blueGrey.withOpacity(0.2),
+                          ),
                     borderRadius: BorderRadius.circular(12.0),
                   ),
                   child: Column(
                     children: dataUploadProcesses
                         .map((String process) => Container(
                               alignment: Alignment.centerLeft,
-                              margin: EdgeInsets.symmetric(vertical: 2.0),
+                              margin: EdgeInsets.symmetric(
+                                vertical: 2.0,
+                              ),
                               child: Text(
                                 process,
                                 style: TextStyle().copyWith(
-                                    fontSize: 12.0,
-                                    fontStyle: FontStyle.italic,
-                                    fontWeight: FontWeight.normal),
+                                  fontSize: 12.0,
+                                  fontStyle: FontStyle.italic,
+                                  fontWeight: FontWeight.normal,
+                                ),
                               ),
                             ))
                         .toList(),
@@ -122,28 +132,37 @@ class DataUploadContainer extends StatelessWidget {
                 ),
               ),
               Container(
-                margin: EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
+                margin: EdgeInsets.symmetric(
+                  horizontal: 20.0,
+                  vertical: 5.0,
+                ),
                 child: Row(
                   children: [
                     Expanded(
-                      child: FlatButton(
+                      child: TextButton(
+                        style: TextButton.styleFrom(
                           shape: RoundedRectangleBorder(
-                              side: BorderSide(color: Colors.blueGrey),
-                              borderRadius: BorderRadius.circular(12.0)),
-                          onPressed: isDataDownloadingActive ||
-                                  isDataUploadingActive ||
-                                  !hasUnsyncedData
-                              ? null
-                              : () {
-                                  this.onStartDataUpload();
-                                },
-                          child: Text(
-                            isDataUploadingActive
-                                ? 'Uploading data'
-                                : 'Upload Data',
-                            style: TextStyle().copyWith(
-                                fontSize: 12.0, color: Colors.blueGrey),
-                          )),
+                            side: BorderSide(color: Colors.blueGrey),
+                            borderRadius: BorderRadius.circular(12.0),
+                          ),
+                        ),
+                        onPressed: isDataDownloadingActive ||
+                                isDataUploadingActive ||
+                                !hasUnsyncedData
+                            ? null
+                            : () {
+                                this.onStartDataUpload();
+                              },
+                        child: Text(
+                          isDataUploadingActive
+                              ? 'Uploading data'
+                              : 'Upload Data',
+                          style: TextStyle().copyWith(
+                            fontSize: 12.0,
+                            color: Colors.blueGrey,
+                          ),
+                        ),
+                      ),
                     )
                   ],
                 ),

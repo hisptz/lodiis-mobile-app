@@ -54,7 +54,7 @@ class AddChildConfirmation extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
-                      child: FlatButton(
+                      child: TextButton(
                         onPressed: () => Navigator.pop(context, false),
                         child: Text(
                           currentLanguage == 'lesotho'
@@ -69,7 +69,7 @@ class AddChildConfirmation extends StatelessWidget {
                       ),
                     ),
                     Container(
-                      child: FlatButton(
+                      child: TextButton(
                         onPressed: () => Navigator.pop(context, true),
                         child: Text(
                           currentLanguage == 'lesotho' ? 'Eea' : 'Yes',

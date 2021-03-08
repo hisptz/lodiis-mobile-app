@@ -11,19 +11,19 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/o
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/constants/ovc_case_plan_constant.dart';
 
 class CasePlanFormContainer extends StatelessWidget {
-  CasePlanFormContainer({
-    Key key,
-    @required this.formSectionColor,
-    @required this.formSection,
-    @required this.isEditableMode,
-    @required this.dataObject,
-    this.isCasePlanForHouseHold = false,
-    this.onInputValueChange,
-    @required this.shouldEditCaseGapFollowUps,
-    @required this.shouldViewCaseGapFollowUp,
-    @required this.shouldAddCasePlanGap,
-    this.currentHouseHoldChild
-  }) : super(key: key);
+  CasePlanFormContainer(
+      {Key key,
+      @required this.formSectionColor,
+      @required this.formSection,
+      @required this.isEditableMode,
+      @required this.dataObject,
+      this.isCasePlanForHouseHold = false,
+      this.onInputValueChange,
+      @required this.shouldEditCaseGapFollowUps,
+      @required this.shouldViewCaseGapFollowUp,
+      @required this.shouldAddCasePlanGap,
+      this.currentHouseHoldChild})
+      : super(key: key);
 
   final Color formSectionColor;
   final FormSection formSection;
@@ -118,25 +118,31 @@ class CasePlanFormContainer extends StatelessWidget {
                   visible: (isEditableMode || shouldAddCasePlanGap),
                   child: Container(
                     margin: EdgeInsets.only(bottom: 10.0),
-                    child: FlatButton(
-                        onPressed: () => onAddNewGap(context),
-                        color: Colors.white,
-                        splashColor: formSectionColor.withOpacity(0.5),
+                    child: TextButton(
+                      style: TextButton.styleFrom(
+                        backgroundColor: Colors.white,
+                        onSurface: formSectionColor.withOpacity(0.5),
                         shape: RoundedRectangleBorder(
-                            side: BorderSide(color: formSectionColor),
-                            borderRadius: BorderRadius.circular(12.0)),
-                        child: Container(
-                          margin: EdgeInsets.symmetric(
-                            vertical: 15.0,
-                            horizontal: 40.0,
+                          side: BorderSide(color: formSectionColor),
+                          borderRadius: BorderRadius.circular(12.0),
+                        ),
+                      ),
+                      onPressed: () => onAddNewGap(context),
+                      child: Container(
+                        margin: EdgeInsets.symmetric(
+                          vertical: 15.0,
+                          horizontal: 40.0,
+                        ),
+                        child: Text(
+                          'Add Gap',
+                          style: TextStyle().copyWith(
+                            color: formSectionColor,
+                            fontSize: 14.0,
+                            fontWeight: FontWeight.w700,
                           ),
-                          child: Text('Add Gap',
-                              style: TextStyle().copyWith(
-                                color: formSectionColor,
-                                fontSize: 14.0,
-                                fontWeight: FontWeight.w700,
-                              )),
-                        )),
+                        ),
+                      ),
+                    ),
                   ),
                 )
               ],
