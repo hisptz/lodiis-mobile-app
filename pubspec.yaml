@@ -23,6 +23,7 @@ dependencies:
   sqflite:
   path:
   infinite_scroll_pagination: ^2.2.3
+  connectivity: ^3.0.2
 
 dev_dependencies:
   flutter_test:
