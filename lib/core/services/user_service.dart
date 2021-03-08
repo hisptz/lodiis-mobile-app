@@ -14,11 +14,16 @@ class UserService {
     String password,
   ) async {
     try {
-      var url =
-          'api/me.json?fields=id,name,programs,organisationUnits[id],attributeValues[value,attribute[id,name]]';
-      HttpService http =
-          new HttpService(username: username, password: password);
-      var response = await http.httpGet(url);
+      var url = 'api/me.json';
+      var queryParameters = {
+        "fields":
+            "id,name,programs,organisationUnits[id],attributeValues[value,attribute[id,name]]"
+      };
+      HttpService http = new HttpService(
+        username: username,
+        password: password,
+      );
+      var response = await http.httpGet(url, queryParameters: queryParameters);
       return response.statusCode == 200
           ? CurrentUser.fromJson(
               json.decode(response.body),
