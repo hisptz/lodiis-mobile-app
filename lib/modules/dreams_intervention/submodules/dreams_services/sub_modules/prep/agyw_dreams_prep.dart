@@ -85,8 +85,8 @@ class _AgywDreamsPrepState extends State<AgywDreamsPrep> {
 
   void onEditPrep(BuildContext context, Events eventdata) {
     updateFormState(context, true, eventdata);
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => AgywDreamsPrepFormPage()));
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => AgywDreamsPrepFormPage()));
   }
 
   void onAddVisit(BuildContext context, AgywDream agywDream) {
@@ -147,21 +147,22 @@ class _AgywDreamsPrepState extends State<AgywDreamsPrep> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(65.0),
-          child: Consumer<IntervetionCardState>(
-            builder: (context, intervetionCardState, child) {
-              InterventionCard activeInterventionProgram =
-                  intervetionCardState.currentIntervetionProgram;
-              return SubPageAppBar(
-                label: label,
-                activeInterventionProgram: activeInterventionProgram,
-              );
-            },
-          ),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(65.0),
+        child: Consumer<IntervetionCardState>(
+          builder: (context, intervetionCardState, child) {
+            InterventionCard activeInterventionProgram =
+                intervetionCardState.currentIntervetionProgram;
+            return SubPageAppBar(
+              label: label,
+              activeInterventionProgram: activeInterventionProgram,
+            );
+          },
         ),
-        body: SubPageBody(
-          body: Column(children: [
+      ),
+      body: SubPageBody(
+        body: Column(
+          children: [
             Consumer<DreamBenefeciarySelectionState>(
               builder: (context, dreamBenefeciarySelectionState, child) {
                 return Consumer<ServiveEventDataState>(
@@ -178,10 +179,6 @@ class _AgywDreamsPrepState extends State<AgywDreamsPrep> {
                     List<Events> visits = TrackedEntityInstanceUtil
                         .getAllEventListFromServiceDataState(
                             eventListByProgramStage, visitProgramStageIds);
-                    Events lastVisit = visits != null && visits.length > 0
-                        ? visits.last
-                        : null;
-                    int referralIndex = events.length;
                     int visitReferralIndex = visits.length;
                     return Container(
                       child: Column(
@@ -222,7 +219,6 @@ class _AgywDreamsPrepState extends State<AgywDreamsPrep> {
                                                 child: Column(
                                                   children: events
                                                       .map((Events eventData) {
-                                                    referralIndex--;
                                                     return Container(
                                                       margin: EdgeInsets.only(
                                                         bottom: 15.0,
@@ -256,9 +252,9 @@ class _AgywDreamsPrepState extends State<AgywDreamsPrep> {
                                                 Text(
                                                   "VISITS",
                                                   style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontSize: 18),
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 18,
+                                                  ),
                                                 ),
                                                 Container(
                                                   child: visits.length == 0
@@ -269,7 +265,9 @@ class _AgywDreamsPrepState extends State<AgywDreamsPrep> {
                                                             horizontal: 13.0,
                                                           ),
                                                           child: Text(
-                                                              'There is no Prep Visit at a moment'))
+                                                            'There is no Prep Visit at a moment',
+                                                          ),
+                                                        )
                                                       : Container(
                                                           margin: EdgeInsets
                                                               .symmetric(
@@ -288,24 +286,26 @@ class _AgywDreamsPrepState extends State<AgywDreamsPrep> {
                                                                         .only(
                                                                   bottom: 15.0,
                                                                 ),
-                                                                child: DreamsServiceVisitListCard(
-                                                                    visitName:
-                                                                        "Prep Visit",
-                                                                    onEdit: () =>
-                                                                        onEditVisit(
-                                                                            context,
-                                                                            eventData),
-                                                                    onView: () =>
-                                                                        onViewVisit(
-                                                                            context,
-                                                                            eventData),
-                                                                    eventData:
-                                                                        eventData,
-                                                                    visitCount:
-                                                                        count,
-                                                                    editDisabled:
-                                                                        !(visits.first ==
-                                                                            eventData)),
+                                                                child:
+                                                                    DreamsServiceVisitListCard(
+                                                                  visitName:
+                                                                      "Prep Visit",
+                                                                  onEdit: () =>
+                                                                      onEditVisit(
+                                                                          context,
+                                                                          eventData),
+                                                                  onView: () =>
+                                                                      onViewVisit(
+                                                                          context,
+                                                                          eventData),
+                                                                  eventData:
+                                                                      eventData,
+                                                                  visitCount:
+                                                                      count,
+                                                                  editDisabled:
+                                                                      !(visits.first ==
+                                                                          eventData),
+                                                                ),
                                                               );
                                                             }).toList(),
                                                           ),
@@ -326,7 +326,8 @@ class _AgywDreamsPrepState extends State<AgywDreamsPrep> {
                                                         fontSize: 15.0,
                                                         onPressButton: () =>
                                                             onAddVisit(context,
-                                                                agywDream))
+                                                                agywDream),
+                                                      )
                                                     : Text(
                                                         'Prep program was stopped')
                                               ]
@@ -342,8 +343,10 @@ class _AgywDreamsPrepState extends State<AgywDreamsPrep> {
                 );
               },
             ),
-          ]),
+          ],
         ),
-        bottomNavigationBar: InterventionBottomNavigationBarContainer());
+      ),
+      bottomNavigationBar: InterventionBottomNavigationBarContainer(),
+    );
   }
 }

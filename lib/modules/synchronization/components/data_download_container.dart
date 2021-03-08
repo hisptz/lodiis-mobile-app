@@ -14,7 +14,8 @@ class DataDownloadContainer extends StatelessWidget {
       this.onStartDataDownload,
       this.conflictCount,
       this.profileProgress,
-      this.eventsProgress, this.overallProgress})
+      this.eventsProgress,
+      this.overallProgress})
       : super(key: key);
 
   final bool isDataDownloadingActive;
@@ -106,7 +107,10 @@ class DataDownloadContainer extends StatelessWidget {
                       Container(
                         child: Column(
                           children: [
-                            Text('Service Data', textAlign: TextAlign.start,),
+                            Text(
+                              'Service Data',
+                              textAlign: TextAlign.start,
+                            ),
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Center(
@@ -169,15 +173,22 @@ class DataDownloadContainer extends StatelessWidget {
                         ),
                       ),
                       Expanded(
-                        child: FlatButton(
-                            shape: RoundedRectangleBorder(
-                                side: BorderSide(color: Colors.blueGrey[100]),
-                                borderRadius: BorderRadius.circular(25.0)),
+                        child: TextButton(
+                            style: TextButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                side: BorderSide(
+                                  color: Colors.blueGrey[100],
+                                ),
+                                borderRadius: BorderRadius.circular(25.0),
+                              ),
+                            ),
                             onPressed: () => this.onViewConflicts(),
                             child: Text(
                               "view conflicts",
                               style: TextStyle().copyWith(
-                                  fontSize: 11.0, color: Colors.blueGrey),
+                                fontSize: 11.0,
+                                color: Colors.blueGrey,
+                              ),
                             )),
                       )
                     ],
@@ -189,21 +200,27 @@ class DataDownloadContainer extends StatelessWidget {
                 child: Row(
                   children: [
                     Expanded(
-                      child: FlatButton(
+                      child: TextButton(
+                        style: TextButton.styleFrom(
                           shape: RoundedRectangleBorder(
-                              side: BorderSide(color: Colors.blueGrey),
-                              borderRadius: BorderRadius.circular(12.0)),
-                          onPressed:
-                              isDataDownloadingActive || isDataUploadingActive
-                                  ? null
-                                  : () => this.onStartDataDownload(),
-                          child: Text(
-                            isDataDownloadingActive
-                                ? 'Downloading data'
-                                : 'Download Data',
-                            style: TextStyle().copyWith(
-                                fontSize: 12.0, color: Colors.blueGrey),
-                          )),
+                            side: BorderSide(color: Colors.blueGrey),
+                            borderRadius: BorderRadius.circular(12.0),
+                          ),
+                        ),
+                        onPressed:
+                            isDataDownloadingActive || isDataUploadingActive
+                                ? null
+                                : () => this.onStartDataDownload(),
+                        child: Text(
+                          isDataDownloadingActive
+                              ? 'Downloading data'
+                              : 'Download Data',
+                          style: TextStyle().copyWith(
+                            fontSize: 12.0,
+                            color: Colors.blueGrey,
+                          ),
+                        ),
+                      ),
                     )
                   ],
                 ),

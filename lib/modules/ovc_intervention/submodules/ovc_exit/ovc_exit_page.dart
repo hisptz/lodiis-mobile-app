@@ -150,10 +150,12 @@ class _OvcExitPageState extends State<OvcExitPage> {
                       shrinkWrap: true,
                       children: [
                         Container(
-                          child: FlatButton(
-                            padding: EdgeInsets.symmetric(
-                              vertical: 5.0,
-                              horizontal: 0.0,
+                          child: TextButton(
+                            style: TextButton.styleFrom(
+                              padding: EdgeInsets.symmetric(
+                                vertical: 5.0,
+                                horizontal: 0.0,
+                              ),
                             ),
                             onPressed: () =>
                                 onViewGraduation(context, ovcHouseHold),
@@ -168,10 +170,12 @@ class _OvcExitPageState extends State<OvcExitPage> {
                           ),
                         ),
                         Container(
-                          child: FlatButton(
-                            padding: EdgeInsets.symmetric(
-                              vertical: 5.0,
-                              horizontal: 0.0,
+                          child: TextButton(
+                            style: TextButton.styleFrom(
+                              padding: EdgeInsets.symmetric(
+                                vertical: 5.0,
+                                horizontal: 0.0,
+                              ),
                             ),
                             onPressed: () => onViewExit(context, ovcHouseHold),
                             child: Text(
@@ -185,10 +189,12 @@ class _OvcExitPageState extends State<OvcExitPage> {
                           ),
                         ),
                         Container(
-                          child: FlatButton(
-                            padding: EdgeInsets.symmetric(
-                              vertical: 5.0,
-                              horizontal: 0.0,
+                          child: TextButton(
+                            style: TextButton.styleFrom(
+                              padding: EdgeInsets.symmetric(
+                                vertical: 5.0,
+                                horizontal: 0.0,
+                              ),
                             ),
                             onPressed: () =>
                                 onViewTransfer(context, ovcHouseHold),
@@ -203,10 +209,12 @@ class _OvcExitPageState extends State<OvcExitPage> {
                           ),
                         ),
                         Container(
-                          child: FlatButton(
-                            padding: EdgeInsets.symmetric(
-                              vertical: 5.0,
-                              horizontal: 0.0,
+                          child: TextButton(
+                            style: TextButton.styleFrom(
+                              padding: EdgeInsets.symmetric(
+                                vertical: 5.0,
+                                horizontal: 0.0,
+                              ),
                             ),
                             onPressed: () => onViewClosure(
                               context,
