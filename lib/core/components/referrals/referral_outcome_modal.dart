@@ -171,11 +171,14 @@ class _ReferralOutcomeModalState extends State<ReferralOutcomeModal> {
                   child: Row(
                     children: [
                       Expanded(
-                        child: FlatButton(
+                        child: TextButton(
                           onPressed: () => isSaving
                               ? null
-                              : this.onSaveForm(context,
-                                  serviceFormState.formState, widget.eventData),
+                              : this.onSaveForm(
+                                  context,
+                                  serviceFormState.formState,
+                                  widget.eventData,
+                                ),
                           child: Text(
                             isSaving ? 'SAVING OUTCOME ...' : 'SAVE OUTCOME',
                             style: TextStyle().copyWith(

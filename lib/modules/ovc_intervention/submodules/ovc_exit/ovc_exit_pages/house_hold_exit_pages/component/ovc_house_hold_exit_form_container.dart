@@ -148,18 +148,20 @@ class _OvcHouseHoldExitFormContainerState
                                   margin: EdgeInsets.symmetric(horizontal: 5.0),
                                   child: Visibility(
                                     visible: !serviceFormState.isEditableMode,
-                                    child: FlatButton(
-                                      onPressed: () => onEditForm(),
-                                      color: Colors.transparent,
-                                      shape: RoundedRectangleBorder(
-                                        side: BorderSide(
-                                          color: Color(0xFF4B9F46)
-                                              .withOpacity(0.3),
+                                    child: TextButton(
+                                      style: TextButton.styleFrom(
+                                        backgroundColor: Colors.transparent,
+                                        shape: RoundedRectangleBorder(
+                                          side: BorderSide(
+                                            color: Color(0xFF4B9F46)
+                                                .withOpacity(0.3),
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(12.0),
                                         ),
-                                        borderRadius:
-                                            BorderRadius.circular(12.0),
+                                        padding: EdgeInsets.all(5.0),
                                       ),
-                                      padding: EdgeInsets.all(5.0),
+                                      onPressed: () => onEditForm(),
                                       child: Container(
                                           child: Text(
                                         'Update',

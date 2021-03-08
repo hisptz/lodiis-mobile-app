@@ -5,7 +5,6 @@ import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/ovc_house_hold_child.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/skip_logics/ovc_case_plan_gap_skip_logic.dart';
-import 'package:provider/provider.dart';
 
 class CasePlanGapFormContainer extends StatefulWidget {
   const CasePlanGapFormContainer(
@@ -59,11 +58,13 @@ class _CasePlanGapFormContainerState extends State<CasePlanGapFormContainer>
       Navigator.pop(context, dataObject);
     } else {
       setState(() {
-        unFilledMandatoryFields = AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+        unFilledMandatoryFields =
+            AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
       });
       AppUtil.showToastMessage(
-          message: 'Please fill all mandatory field',
-          position: ToastGravity.TOP);
+        message: 'Please fill all mandatory field',
+        position: ToastGravity.TOP,
+      );
     }
   }
 
@@ -89,8 +90,8 @@ class _CasePlanGapFormContainerState extends State<CasePlanGapFormContainer>
             mandatoryFieldObject: mandatoryFieldObject,
             dataObject: dataObject,
             isEditableMode: widget.isEditableMode,
-            onInputValueChange: onInputValueChange, unFilledMandatoryFields:
-          unFilledMandatoryFields,
+            onInputValueChange: onInputValueChange,
+            unFilledMandatoryFields: unFilledMandatoryFields,
           ),
           ClipRRect(
             borderRadius: BorderRadius.only(
@@ -102,20 +103,25 @@ class _CasePlanGapFormContainerState extends State<CasePlanGapFormContainer>
               child: Row(
                 children: [
                   Expanded(
-                    child: FlatButton(
-                      color: widget.formSectionColor,
+                    child: TextButton(
+                      style: TextButton.styleFrom(
+                        backgroundColor: widget.formSectionColor,
+                      ),
                       onPressed: () => onSaveGapForm(context),
                       child: Container(
-                          alignment: Alignment.center,
-                          padding: EdgeInsets.symmetric(vertical: 22.0),
-                          child: Text(
-                            'ADD GAP',
-                            style: TextStyle().copyWith(
-                              color: Color(0xFFFAFAFA),
-                              fontSize: 14.0,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          )),
+                        alignment: Alignment.center,
+                        padding: EdgeInsets.symmetric(
+                          vertical: 22.0,
+                        ),
+                        child: Text(
+                          'ADD GAP',
+                          style: TextStyle().copyWith(
+                            color: Color(0xFFFAFAFA),
+                            fontSize: 14.0,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ),
                     ),
                   )
                 ],
