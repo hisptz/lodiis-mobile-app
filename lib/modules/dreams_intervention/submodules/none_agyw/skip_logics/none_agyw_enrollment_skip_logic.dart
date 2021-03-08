@@ -29,6 +29,9 @@ class NoneAgywEnrollmentSkipLogic {
         dataObject[NonAgywDreamsHTSConstant.weight];
     // assign facility name
     dataObject['YDxOvZTdzAc'] = dataObject['atNbeYwzMq6'];
+    // assign date
+    dataObject['oZPPEMZ0hXt'] =
+        '${AppUtil.formattedDateTimeIntoString(DateTime.now())}';
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
       if (inputFieldId == 'qZP982qpSPS') {
@@ -48,7 +51,7 @@ class NoneAgywEnrollmentSkipLogic {
         hiddenFields['Lj7CDNvvtw5'] = true;
       }
       if (inputFieldId == 'U90wPGZgftv' && value != '1') {
-        hiddenFields['hWBVFd8DTRj'] = true;
+        dataObject['hWBVFd8DTRj'] = 'false';
       }
       if (inputFieldId == 'ulJwlQIOLQA' && value != 'true') {
         hiddenFields['CcMOQFuS5Uy'] = true;
@@ -111,14 +114,6 @@ class NoneAgywEnrollmentSkipLogic {
       }
       // Assign type of test used
       // if (inputFieldId == '') {}
-      // Assign date tested
-      if (inputFieldId == 'oZPPEMZ0hXt') {
-        assignInputFieldValue(context, inputFieldId,
-            '${AppUtil.formattedDateTimeIntoString(DateTime.now())}');
-        // dataObject[inputFieldId] =
-        //     '${AppUtil.formattedDateTimeIntoString(DateTime.now())}';
-        // print(dataObject[inputFieldId]);
-      }
       // assing Rapid test result
       if (dataObject[NonAgywDreamsHTSConstant.t1Result] == null &&
           dataObject[NonAgywDreamsHTSConstant.t2Result] == null) {

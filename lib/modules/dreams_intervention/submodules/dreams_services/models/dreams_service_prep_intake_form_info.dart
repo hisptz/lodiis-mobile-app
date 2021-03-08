@@ -517,7 +517,7 @@ class DreamsServicePrepIntakeInfo {
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
                 name:
-                    'In last 12 months have you had shared needles for injections?',
+                    'In last 12 months have you shared needles for injections?',
                 valueType: 'BOOLEAN'),
             InputField(
                 id: 'kQULFUqgab0',

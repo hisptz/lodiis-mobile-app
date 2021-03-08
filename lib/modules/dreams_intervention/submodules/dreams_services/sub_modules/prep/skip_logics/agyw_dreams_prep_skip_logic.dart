@@ -101,6 +101,9 @@ class AgywDreamsPrepSkipLogic {
         hiddenFields['sUyz3SX93IM'] = true;
         hiddenFields['D1ukXCpeU0K'] = true;
       }
+      if (inputFieldId == 'U0E4mb8dSQN' && value == '0') {
+        dataObject['RZflOV27PW4'] = 'false';
+      }
       if (inputFieldId == 'kQULFUqgab0' && value != '1') {
         hiddenFields['WsZMwXWcHly'] = true;
       }
