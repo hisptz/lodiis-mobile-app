@@ -1,16 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/input_field_option.dart';
 
 class NoneAgywEnrollmentPrepScreening {
+  static List<String> getCheckboxInputFieldOptions(
+      List<FormSection> formSections) {
+    List<String> inputFieldOptions = [];
+    for (FormSection section in formSections) {
+      for (InputField field in section.inputFields) {
+        if (field.valueType == 'CHECK_BOX') {
+          for (InputFieldOption option in field.options) {
+            inputFieldOptions.add(option.code);
+          }
+        }
+      }
+    }
+    return inputFieldOptions;
+  }
+
   static List<String> getMandatoryField() {
-    return [
-      'w16L3KidzUp',
-      'sa81lAvBb7Y',
-      'nLLHqOGTQK9',
-      'dQBja8nUr18',
-    ];
+    const excludedFields = ['fchWv2MSmaS', 'heT7TrQQAA1', 'zGAjwEL0yL5'];
+    List<String> inputFields = FormUtil.getFormFieldIds(getFormSections());
+    List<String> optionalFields =
+        getCheckboxInputFieldOptions(getFormSections());
+    inputFields = inputFields
+        .where((field) => optionalFields.indexOf(field) < 0)
+        .toList()
+        .where((field) => excludedFields.indexOf(field) < 0)
+        .toList();
+    return inputFields;
   }
 
   static List<FormSection> getFormSections() {
@@ -26,6 +46,7 @@ class NoneAgywEnrollmentPrepScreening {
                   InputField(
                       id: 'YDxOvZTdzAc',
                       name: 'Facility Name',
+                      isReadOnly: true,
                       valueType: 'ORGANISATION_UNIT',
                       inputColor: Color(0xFF258DCC),
                       labelColor: Color(0xFF737373)),
@@ -102,26 +123,26 @@ class NoneAgywEnrollmentPrepScreening {
                       id: 'Ufy2ZT9yphQ',
                       name:
                           'Is the client currently taking nephrotoxic drugs. Refer to creatinine clearance job aid for list of nephrotoxic drugs. Consult doctor about alternative medication/management before initiating PrEP?',
-                      valueType: 'TRUE_ONLY',
+                      valueType: 'BOOLEAN',
                       inputColor: Color(0xFF258DCC),
                       labelColor: Color(0xFF737373)),
                   InputField(
                       id: 'nLLHqOGTQK9',
                       name: 'Has creatinine clearance (eGFR) <60 ml/min',
-                      valueType: 'TRUE_ONLY',
+                      valueType: 'BOOLEAN',
                       inputColor: Color(0xFF258DCC),
                       labelColor: Color(0xFF737373)),
                   InputField(
                       id: 'sa81lAvBb7Y',
                       name: 'Weight below 35kg',
-                      valueType: 'TRUE_ONLY',
+                      valueType: 'BOOLEAN',
                       inputColor: Color(0xFF258DCC),
                       labelColor: Color(0xFF737373)),
                   InputField(
                       id: 'wJ0ctEtFyzS',
                       name:
                           'Allergy or contraindication to any medicine in the PrEP regimen',
-                      valueType: 'TRUE_ONLY',
+                      valueType: 'BOOLEAN',
                       inputColor: Color(0xFF258DCC),
                       labelColor: Color(0xFF737373)),
                 ]),
@@ -134,27 +155,27 @@ class NoneAgywEnrollmentPrepScreening {
                   InputField(
                       id: 'dQBja8nUr18',
                       name: 'HIV-negative',
-                      valueType: 'TRUE_ONLY',
+                      valueType: 'BOOLEAN',
                       isReadOnly: true,
                       inputColor: Color(0xFF258DCC),
                       labelColor: Color(0xFF737373)),
                   InputField(
                       id: 'ACcf4Jyy30c',
                       name: 'At substantial risk of HIV',
-                      valueType: 'TRUE_ONLY',
+                      valueType: 'BOOLEAN',
                       inputColor: Color(0xFF258DCC),
                       labelColor: Color(0xFF737373)),
                   InputField(
                       id: 'wNIvEyH95EU',
                       name: 'Has no signs/symptoms of acute HIV infection',
-                      valueType: 'TRUE_ONLY',
+                      valueType: 'BOOLEAN',
                       inputColor: Color(0xFF258DCC),
                       labelColor: Color(0xFF737373)),
                   InputField(
                       id: 'z7eAqo0LMqi',
                       name:
                           'Has creatinine clearance (eGFR) >60 ml/min or patient has no risk factors for renal disease and the creatinine result is pending (see Creatinine clearance job aid for risk factors)',
-                      valueType: 'TRUE_ONLY',
+                      valueType: 'BOOLEAN',
                       inputColor: Color(0xFF258DCC),
                       labelColor: Color(0xFF737373)),
                 ]),
@@ -220,44 +241,45 @@ class NoneAgywEnrollmentPrepScreening {
                   InputField(
                       id: 'mdpVjiigyEe',
                       name: 'PrEP initiated',
-                      valueType: 'TRUE_ONLY',
+                      valueType: 'BOOLEAN',
                       inputColor: Color(0xFF258DCC),
                       labelColor: Color(0xFF737373)),
                   InputField(
                       id: 'QTHDGaiEgMk',
                       name: 'Initiated on PEP',
-                      valueType: 'TRUE_ONLY',
+                      valueType: 'BOOLEAN',
                       inputColor: Color(0xFF258DCC),
                       labelColor: Color(0xFF737373)),
                   InputField(
                       id: 'wSnrfl8u3Kw',
                       name: 'To start PrEP after completing PEP',
-                      valueType: 'TRUE_ONLY',
+                      valueType: 'BOOLEAN',
                       inputColor: Color(0xFF258DCC),
                       labelColor: Color(0xFF737373)),
                   InputField(
                       id: 'pcS3AkmRGnq',
                       name:
                           'PCR/HIV Ag test or follow-up HIV re-testing (if suspicion of acute HIV infection)',
-                      valueType: 'TRUE_ONLY',
+                      valueType: 'BOOLEAN',
                       inputColor: Color(0xFF258DCC),
                       labelColor: Color(0xFF737373)),
                   InputField(
                       id: 'ycrnvO8Am4c',
                       name: 'Client declined PrEP',
-                      valueType: 'TRUE_ONLY',
+                      valueType: 'BOOLEAN',
                       inputColor: Color(0xFF258DCC),
                       labelColor: Color(0xFF737373)),
                   InputField(
                       id: 'eOy1XwiYC8H',
                       name: 'Referred for PrEP at another facility',
-                      valueType: 'TRUE_ONLY',
+                      valueType: 'BOOLEAN',
                       inputColor: Color(0xFF258DCC),
                       labelColor: Color(0xFF737373)),
                   InputField(
                       id: 'X2m9v2E5WaI',
                       name: 'Name of facility PrEP referred',
-                      valueType: 'TEXT',
+                      allowedSelectedLevels: [4],
+                      valueType: 'ORGANISATION_UNIT',
                       inputColor: Color(0xFF258DCC),
                       labelColor: Color(0xFF737373)),
                 ]),

@@ -86,6 +86,17 @@ class DreamBeneficiaryCardBody extends StatelessWidget {
                         ),
                       ),
                       Visibility(
+                          visible: agywBeneficiary.beneficiaryType != '',
+                          child: Container(
+                            margin: EdgeInsets.only(bottom: 10),
+                            child: VerticalRowCardData(
+                              label: 'PrEP beneficiary type',
+                              value: agywBeneficiary.beneficiaryType,
+                              labelColor: labelColor,
+                              valueColor: valueColor,
+                            ),
+                          )),
+                      Visibility(
                         visible: canViewServiceCategory,
                         child: Container(
                           child: DreamBeneficiaryCardServiceSummary(

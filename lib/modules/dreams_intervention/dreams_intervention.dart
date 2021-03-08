@@ -8,6 +8,8 @@ import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/intervention_app_bar.dart';
 import 'package:kb_mobile_app/core/components/route_page_not_found.dart';
+import 'package:kb_mobile_app/core/constants/auto_synchronization.dart';
+import 'package:kb_mobile_app/core/services/auto_synchronization_service.dart';
 import 'package:kb_mobile_app/core/utils/app_bar_util.dart';
 import 'package:kb_mobile_app/models/Intervention_bottom_navigation.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
@@ -29,6 +31,9 @@ class DreamsIntervention extends StatefulWidget {
 class _DreamsInterventionState extends State<DreamsIntervention> {
   final bool disableSelectionOfActiveIntervention = true;
   bool isViewReady = false;
+  Timer periodicTimer;
+  StreamSubscription connectionSubscription;
+  int syncTimeout = AutoSynchronization.syncTimeout;
 
   @override
   void initState() {
@@ -38,6 +43,19 @@ class _DreamsInterventionState extends State<DreamsIntervention> {
         isViewReady = true;
       });
     });
+    connectionSubscription = AutoSynchronizationService()
+        .checkChangeOfDeviceConnectionStatus(context);
+    periodicTimer =
+        Timer.periodic(Duration(minutes: syncTimeout), (Timer timer) {
+      AutoSynchronizationService().startAutoDownload(context);
+    });
+  }
+
+  @override
+  void dispose() {
+    periodicTimer.cancel();
+    connectionSubscription.cancel();
+    super.dispose();
   }
 
   void onOpenMoreMenu(

@@ -54,6 +54,7 @@ class AgywDreamsPrepSkipLogic {
       hiddenFields[PrepIntakeConstant.prepRapidTestResult3] = true;
       hiddenFields[PrepIntakeConstant.dateBled3] = true;
     }
+
     dataObject[PrepIntakeConstant.clientWeight] =
         dataObject[AgywDreamsHTSLongFormConstant.weight];
     for (var key in dataObject.keys) {
@@ -68,7 +69,17 @@ class AgywDreamsPrepSkipLogic {
         hiddenFields['de4zcWiZB5j'] = true;
         hiddenFields['UL0xa3Sz9ML'] = true;
       }
-
+      if (inputFieldId == 'D26taDdz4YO') {
+        if (dataObject['FclxLnBHILO'] == 'Primary') {
+          dataObject[inputFieldId] = 'Less than Standard 7';
+        } else if (dataObject['FclxLnBHILO'] == 'Secondary school') {
+          dataObject[inputFieldId] = 'Secondary School';
+        } else if (dataObject['FclxLnBHILO'] == 'High school') {
+          dataObject[inputFieldId] = 'High School';
+        } else if (dataObject['FclxLnBHILO'] == 'None') {
+          dataObject[inputFieldId] = 'None';
+        }
+      }
       if (inputFieldId == 'Jhp451oeYyB' && value != 'true') {
         hiddenFields['p9AA21uFn2n'] = true;
         hiddenFields['Y0QGNDBCEbz'] = true;
@@ -89,6 +100,9 @@ class AgywDreamsPrepSkipLogic {
         hiddenFields['XnVcJkyoobx'] = true;
         hiddenFields['sUyz3SX93IM'] = true;
         hiddenFields['D1ukXCpeU0K'] = true;
+      }
+      if (inputFieldId == 'U0E4mb8dSQN' && value == '0') {
+        dataObject['RZflOV27PW4'] = 'false';
       }
       if (inputFieldId == 'kQULFUqgab0' && value != '1') {
         hiddenFields['WsZMwXWcHly'] = true;

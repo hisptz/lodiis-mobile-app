@@ -22,6 +22,7 @@ dependencies:
   fluttertoast: ^7.0.4
   sqflite:
   path:
+  connectivity: ^3.0.2
   infinite_scroll_pagination: ^3.0.0
 
 dev_dependencies:

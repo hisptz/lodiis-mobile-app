@@ -26,6 +26,11 @@ class NoneAgywEnrollmentSkipLogic {
     inputFieldIds = inputFieldIds.toSet().toList();
     dataObject[NonAgywPrepVisitConstant.clientWeight] =
         dataObject[NonAgywDreamsHTSConstant.weight];
+    // assign facility name
+    dataObject['YDxOvZTdzAc'] = dataObject['atNbeYwzMq6'];
+    // assign date
+    dataObject['oZPPEMZ0hXt'] =
+        '${AppUtil.formattedDateTimeIntoString(DateTime.now())}';
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
       if (inputFieldId == 'qZP982qpSPS') {
@@ -44,6 +49,9 @@ class NoneAgywEnrollmentSkipLogic {
       if (inputFieldId == 'vUobJnyivtf' && value != 'true') {
         hiddenFields['Lj7CDNvvtw5'] = true;
       }
+      if (inputFieldId == 'U90wPGZgftv' && value != '1') {
+        dataObject['hWBVFd8DTRj'] = 'false';
+      }
       if (inputFieldId == 'ulJwlQIOLQA' && value != 'true') {
         hiddenFields['CcMOQFuS5Uy'] = true;
       }
@@ -52,6 +60,17 @@ class NoneAgywEnrollmentSkipLogic {
       }
       if (inputFieldId == 'W8mAvBSM3Pg' && value != 'true') {
         hiddenFields['fT7eqY4H5f4'] = true;
+      }
+      if (inputFieldId == 'CHGgb5j2Q9C') {
+        if (dataObject['uQLJ4S06kfR'] == 'Primary') {
+          dataObject[inputFieldId] = 'Less than Standard 7';
+        } else if (dataObject['uQLJ4S06kfR'] == 'Secondary school') {
+          dataObject[inputFieldId] = 'Secondary School';
+        } else if (dataObject['uQLJ4S06kfR'] == 'High school') {
+          dataObject[inputFieldId] = 'High School';
+        } else if (dataObject['uQLJ4S06kfR'] == 'None') {
+          dataObject[inputFieldId] = 'None';
+        }
       }
       if (inputFieldId == 'tB5Htsd5jlr' && value != 'true') {
         hiddenFields['zXlncmz51aw'] = true;
@@ -77,6 +96,12 @@ class NoneAgywEnrollmentSkipLogic {
       if (inputFieldId == 'w4DBU1hJtxd' && value != 'true') {
         hiddenFields['IYD4dA4EBnX'] = true;
       }
+      if (inputFieldId == 'zGAjwEL0yL5' && value != '') {
+        hiddenFields['fufd2D8sYc3'] = true;
+      }
+      if (inputFieldId == 'uBJeTLcoAKM' && value != 'Other') {
+        hiddenFields['OLaa0ZiGMVu'] = true;
+      }
       // Assign HIV results
       if (inputFieldId == 'dQBja8nUr18') {
         if (dataObject[NonAgywDreamsHTSConstant.hivResultStatus] ==
@@ -88,12 +113,6 @@ class NoneAgywEnrollmentSkipLogic {
       }
       // Assign type of test used
       // if (inputFieldId == '') {}
-      // Assign date tested
-      if (inputFieldId == 'oZPPEMZ0hXt') {
-        dataObject[inputFieldId] =
-            '${AppUtil.formattedDateTimeIntoString(DateTime.now())}';
-        print(dataObject[inputFieldId]);
-      }
       // assing Rapid test result
       if (dataObject[NonAgywDreamsHTSConstant.t1Result] == null &&
           dataObject[NonAgywDreamsHTSConstant.t2Result] == null) {
