@@ -33,6 +33,8 @@ class InterventionBottomNavigationBar extends StatelessWidget {
       builder: (context, interventionBottomNavigationState, child) {
         return Consumer<CurrentUserState>(
           builder: (context, currentUserState, child) {
+            bool isCurrentUserKbDreamPartner =
+                currentUserState.isCurrentUserKbDreamPartner;
             if (!currentUserState.canManageReferral) {
               interventionBottomNavigations = interventionBottomNavigations
                   .where((nav) => nav.id != 'referral')
@@ -106,8 +108,17 @@ class InterventionBottomNavigationBar extends StatelessWidget {
                                       interventionBottomNavigation
                                               .translatedName !=
                                           null
-                                  ? interventionBottomNavigation.translatedName
-                                  : interventionBottomNavigation.name,
+                                  ? isCurrentUserKbDreamPartner &&
+                                          interventionBottomNavigation.id ==
+                                              "noneAgyw"
+                                      ? "KB Prep"
+                                      : interventionBottomNavigation
+                                          .translatedName
+                                  : isCurrentUserKbDreamPartner &&
+                                          interventionBottomNavigation.id ==
+                                              "noneAgyw"
+                                      ? "KB Prep"
+                                      : interventionBottomNavigation.name,
                               style: TextStyle(
                                 fontSize: 10,
                                 fontWeight: FontWeight.bold,

@@ -4,6 +4,8 @@ import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/models/organisation_unit.dart';
 
 class CurrentUserState with ChangeNotifier {
+  final List kbDreamsImplementatingPartners = ["KB-AGYW/DREAMS"];
+
   // initiat state
   CurrentUser _currentUser;
   String _currentUserLocations;
@@ -29,6 +31,9 @@ class CurrentUserState with ChangeNotifier {
 
   // selectors
   CurrentUser get currentUser => _currentUser;
+  bool get isCurrentUserKbDreamPartner =>
+      _currentUser != null &&
+      kbDreamsImplementatingPartners.contains(_currentUser.implementingPartner);
   String get currentUserLocations => _currentUserLocations ?? '';
   bool get canManageDreams => _canManageDreams ?? false;
   bool get canManageOGAC => _canManageOGAC ?? false;
