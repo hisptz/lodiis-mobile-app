@@ -76,9 +76,11 @@ class _HTSIndexHomePageState extends State<HTSIndexHomePage> {
         AgywDreamsHTSLongFormConstant.htsToIndexLinkage,
         widget.htsIndexLinkage);
     Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => AgywDreamsIndexInfoAboutPosClient()));
+      context,
+      MaterialPageRoute(
+        builder: (context) => AgywDreamsIndexInfoAboutPosClient(),
+      ),
+    );
   }
 
   List<String> programStageids = [
@@ -108,11 +110,11 @@ class _HTSIndexHomePageState extends State<HTSIndexHomePage> {
                     .toList();
                 AgywDreamsIndexInfoEvent indexEvent =
                     indexEvents.length > 0 ? indexEvents[0] : null;
-
                 return Container(
-                    child: Column(children: [
-                  Container(
-                      child: DreamsHTSIndexCard(
+                  child: Column(
+                    children: [
+                      Container(
+                        child: DreamsHTSIndexCard(
                           event: indexEvent,
                           canExpand: canExpand &&
                               indexEvent != null &&
@@ -138,13 +140,14 @@ class _HTSIndexHomePageState extends State<HTSIndexHomePage> {
                                       bottomRight: Radius.circular(12.0),
                                     ),
                               child: Container(
-                                decoration:
-                                    BoxDecoration(color: Color(0XFFF1FAFF)),
+                                decoration: BoxDecoration(
+                                  color: Color(0XFFF1FAFF),
+                                ),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Container(
-                                      child: FlatButton(
+                                      child: TextButton(
                                           onPressed: () => onAddIndexInfo(
                                               context, agywDream),
                                           child: Text(
@@ -162,8 +165,13 @@ class _HTSIndexHomePageState extends State<HTSIndexHomePage> {
                             ),
                           ),
                           cardBottonContent: DreamsHTSIndexCardBottonContent(
-                              event: indexEvent)))
-                ]));
+                            event: indexEvent,
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                );
               },
             );
           },

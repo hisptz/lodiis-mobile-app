@@ -167,7 +167,7 @@ class _ReferralOutComeCardState extends State<ReferralOutComeCard> {
                           Row(
                             children: [
                               Expanded(
-                                child: FlatButton(
+                                child: TextButton(
                                   onPressed: () =>
                                       this.onAddReferralOutCome(context),
                                   child: Text(

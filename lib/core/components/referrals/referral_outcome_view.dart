@@ -81,7 +81,9 @@ class ReferralOutComeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.all(Radius.circular(12.0)),
+      borderRadius: BorderRadius.all(
+        Radius.circular(12.0),
+      ),
       child: Column(
         children: [
           Container(
@@ -95,16 +97,19 @@ class ReferralOutComeView extends StatelessWidget {
                   child: Column(
                     children: [
                       Container(
-                        margin: EdgeInsets.symmetric(vertical: 5.0),
+                        margin: EdgeInsets.symmetric(
+                          vertical: 5.0,
+                        ),
                         child: Row(
                           children: [
                             Expanded(
                               child: Text(
                                 'Date client reached the referral station',
                                 style: TextStyle().copyWith(
-                                    fontSize: 14.0,
-                                    color: themeColor.withOpacity(0.8),
-                                    fontWeight: FontWeight.w500),
+                                  fontSize: 14.0,
+                                  color: themeColor.withOpacity(0.8),
+                                  fontWeight: FontWeight.w500,
+                                ),
                               ),
                             )
                           ],
@@ -117,9 +122,10 @@ class ReferralOutComeView extends StatelessWidget {
                               child: Text(
                                 referralOutComeEvent.dateClientReachStation,
                                 style: TextStyle().copyWith(
-                                    fontSize: 14.0,
-                                    color: Color(0xFF1A3518),
-                                    fontWeight: FontWeight.w500),
+                                  fontSize: 14.0,
+                                  color: Color(0xFF1A3518),
+                                  fontWeight: FontWeight.w500,
+                                ),
                               ),
                             ),
                           )
@@ -132,16 +138,19 @@ class ReferralOutComeView extends StatelessWidget {
                   child: Column(
                     children: [
                       Container(
-                        margin: EdgeInsets.symmetric(vertical: 5.0),
+                        margin: EdgeInsets.symmetric(
+                          vertical: 5.0,
+                        ),
                         child: Row(
                           children: [
                             Expanded(
                               child: Text(
                                 'Date service was provided',
                                 style: TextStyle().copyWith(
-                                    fontSize: 14.0,
-                                    color: themeColor.withOpacity(0.8),
-                                    fontWeight: FontWeight.w500),
+                                  fontSize: 14.0,
+                                  color: themeColor.withOpacity(0.8),
+                                  fontWeight: FontWeight.w500,
+                                ),
                               ),
                             ),
                           ],
@@ -154,9 +163,10 @@ class ReferralOutComeView extends StatelessWidget {
                               child: Text(
                                 referralOutComeEvent.dateServiceProvided,
                                 style: TextStyle().copyWith(
-                                    fontSize: 14.0,
-                                    color: Color(0xFF1A3518),
-                                    fontWeight: FontWeight.w500),
+                                  fontSize: 14.0,
+                                  color: Color(0xFF1A3518),
+                                  fontWeight: FontWeight.w500,
+                                ),
                               ),
                             ),
                           )
@@ -169,7 +179,9 @@ class ReferralOutComeView extends StatelessWidget {
                   child: Column(
                     children: [
                       Container(
-                        margin: EdgeInsets.symmetric(vertical: 5.0),
+                        margin: EdgeInsets.symmetric(
+                          vertical: 5.0,
+                        ),
                         child: Row(
                           children: [
                             Expanded(
@@ -253,7 +265,7 @@ class ReferralOutComeView extends StatelessWidget {
                             child: Row(
                               children: [
                                 Expanded(
-                                  child: FlatButton(
+                                  child: TextButton(
                                     onPressed: () => this
                                         .onAddReferralOutComeFollowUp(context),
                                     child: Text(

@@ -159,7 +159,7 @@ class _ReferralOutComeFollowUpModalState
                     child: Row(
                       children: [
                         Expanded(
-                          child: FlatButton(
+                          child: TextButton(
                             onPressed: () => isSaving
                                 ? null
                                 : this.onSaveForm(

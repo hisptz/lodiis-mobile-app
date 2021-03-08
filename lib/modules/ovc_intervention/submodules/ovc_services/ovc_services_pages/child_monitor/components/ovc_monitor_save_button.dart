@@ -32,32 +32,44 @@ class OvcMonitorSaveButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(
-          top: 20.0, bottom: 10.0, left: marginLeft, right: marginRight),
+        top: 20.0,
+        bottom: 10.0,
+        left: marginLeft,
+        right: marginRight,
+      ),
       child: Container(
-          width: width,
-          child: FlatButton(
-              color: buttonColor,
-              shape: RoundedRectangleBorder(
-                  side: BorderSide(
-                      color: borderColor == null
-                          ? Colors.transparent
-                          : borderColor),
-                  borderRadius: BorderRadius.circular(12.0)),
-              padding: EdgeInsets.all(10.0),
-              onPressed: onPressButton,
-              child: Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(20.0))),
-                child: Container(
-                  child: Text(
-                    label,
-                    style: TextStyle().copyWith(
-                        color: labelColor,
-                        fontSize: fontSize,
-                        fontWeight: FontWeight.w700),
-                  ),
+        width: width,
+        child: TextButton(
+          style: TextButton.styleFrom(
+            backgroundColor: buttonColor,
+            shape: RoundedRectangleBorder(
+              side: BorderSide(
+                color: borderColor == null ? Colors.transparent : borderColor,
+              ),
+              borderRadius: BorderRadius.circular(12.0),
+            ),
+            padding: EdgeInsets.all(10.0),
+          ),
+          onPressed: onPressButton,
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(
+                Radius.circular(20.0),
+              ),
+            ),
+            child: Container(
+              child: Text(
+                label,
+                style: TextStyle().copyWith(
+                  color: labelColor,
+                  fontSize: fontSize,
+                  fontWeight: FontWeight.w700,
                 ),
-              ))),
+              ),
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

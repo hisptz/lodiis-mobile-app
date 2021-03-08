@@ -200,8 +200,10 @@ class _CasePlanFollowUpFormContainerState
                                 OvcHouseHoldChild currentOvcHouseHoldChild =
                                     ovcHouseHoldCurrentSelectionState
                                         .currentOvcHouseHoldChild;
-                                return FlatButton(
-                                  color: formSectionColor,
+                                return TextButton(
+                                  style: TextButton.styleFrom(
+                                    backgroundColor: formSectionColor,
+                                  ),
                                   onPressed: () => onSaveGapForm(
                                       context,
                                       dataObject,

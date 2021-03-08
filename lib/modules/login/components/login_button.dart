@@ -17,14 +17,14 @@ class LoginButton extends StatelessWidget {
     return Container(
         width: MediaQuery.of(context).size.width,
         margin: EdgeInsets.only(top: 20),
-        child: FlatButton(
-          padding: EdgeInsets.symmetric(vertical: 15),
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
+        child: TextButton(
           onPressed: isLoginProcessActive ? null : onLogin,
-          color: Color(0xFF4B9F46),
-          splashColor: Color(0xFFB3EFA0),
-          disabledColor: Color(0xFF4B9F46),
+          style: TextButton.styleFrom(
+            padding: EdgeInsets.symmetric(vertical: 15),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12.0)),
+            backgroundColor: Color(0xFF4B9F46),
+          ),
           child: isLoginProcessActive
               ? Container(
                   height: 21.0,
