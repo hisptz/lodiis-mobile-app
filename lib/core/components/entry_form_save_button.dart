@@ -39,13 +39,15 @@ class EntryFormSaveButton extends StatelessWidget {
       ),
       child: Container(
         width: width,
-        child: FlatButton(
-          color: buttonColor,
-          shape: RoundedRectangleBorder(
-            side: BorderSide(
-              color: borderColor == null ? buttonColor : borderColor,
+        child: TextButton(
+          style: TextButton.styleFrom(
+            backgroundColor: buttonColor,
+            shape: RoundedRectangleBorder(
+              side: BorderSide(
+                color: borderColor == null ? buttonColor : borderColor,
+              ),
+              borderRadius: BorderRadius.circular(12.0),
             ),
-            borderRadius: BorderRadius.circular(12.0),
           ),
           onPressed: onPressButton,
           child: Container(

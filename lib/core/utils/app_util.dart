@@ -29,7 +29,8 @@ class AppUtil {
     return hasFilled;
   }
 
-  static List getUnFilledMandatoryFields(List mandatoryFields, Map dataObject, {Map hiddenFields = const {}}){
+  static List getUnFilledMandatoryFields(List mandatoryFields, Map dataObject,
+      {Map hiddenFields = const {}}) {
     List unFilledMandatoryFields = [];
     List fieldIds = dataObject.keys.toList();
     List hiddenFieldsIds = hiddenFields.keys.toList();
@@ -84,7 +85,10 @@ class AppUtil {
   }
 
   static Future<Position> getCurrentLocation() async {
-    return await getCurrentPosition(desiredAccuracy: LocationAccuracy.best);
+    Position position = await Geolocator.getCurrentPosition(
+      desiredAccuracy: LocationAccuracy.high,
+    );
+    return position;
   }
 
   static int getAgeInYear(String dateOfBirth) {

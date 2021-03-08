@@ -112,26 +112,34 @@ class ServiceFormContainer extends StatelessWidget {
                   visible: (isEditableMode || shouldEditCaseGapFollowUps) &&
                       !shouldViewCaseGapFollowUp,
                   child: Container(
-                    margin: EdgeInsets.only(bottom: 10.0),
-                    child: FlatButton(
-                        onPressed: () => onAddNewGap(context),
-                        color: Colors.white,
-                        splashColor: formSectionColor.withOpacity(0.5),
+                    margin: EdgeInsets.only(
+                      bottom: 10.0,
+                    ),
+                    child: TextButton(
+                      style: TextButton.styleFrom(
+                        backgroundColor: Colors.white,
+                        onSurface: formSectionColor.withOpacity(0.5),
                         shape: RoundedRectangleBorder(
-                            side: BorderSide(color: formSectionColor),
-                            borderRadius: BorderRadius.circular(12.0)),
-                        child: Container(
-                          margin: EdgeInsets.symmetric(
-                            vertical: 15.0,
-                            horizontal: 40.0,
+                          side: BorderSide(color: formSectionColor),
+                          borderRadius: BorderRadius.circular(12.0),
+                        ),
+                      ),
+                      onPressed: () => onAddNewGap(context),
+                      child: Container(
+                        margin: EdgeInsets.symmetric(
+                          vertical: 15.0,
+                          horizontal: 40.0,
+                        ),
+                        child: Text(
+                          'Add Gap',
+                          style: TextStyle().copyWith(
+                            color: formSectionColor,
+                            fontSize: 14.0,
+                            fontWeight: FontWeight.w700,
                           ),
-                          child: Text('Add Gap',
-                              style: TextStyle().copyWith(
-                                color: formSectionColor,
-                                fontSize: 14.0,
-                                fontWeight: FontWeight.w700,
-                              )),
-                        )),
+                        ),
+                      ),
+                    ),
                   ),
                 )
               ],

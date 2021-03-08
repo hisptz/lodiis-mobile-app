@@ -155,7 +155,7 @@ class _OvcServicesPageState extends State<OvcServicesPage> {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
-                          child: FlatButton(
+                          child: TextButton(
                             onPressed: () => onOpenHouseHoldAssess(
                               context,
                               ovcHouseHold,
@@ -174,7 +174,7 @@ class _OvcServicesPageState extends State<OvcServicesPage> {
                     ),
                     Container(
                       child: Container(
-                        child: FlatButton(
+                        child: TextButton(
                           onPressed: () => onOpenHouseHoldCasePlan(
                             context,
                             ovcHouseHold,
@@ -192,7 +192,7 @@ class _OvcServicesPageState extends State<OvcServicesPage> {
                     ),
                     Container(
                       child: Container(
-                        child: FlatButton(
+                        child: TextButton(
                           onPressed: () => onOpenHouseHoldService(
                             context,
                             ovcHouseHold,
@@ -212,7 +212,7 @@ class _OvcServicesPageState extends State<OvcServicesPage> {
                     ),
                     Container(
                       child: Container(
-                        child: FlatButton(
+                        child: TextButton(
                           onPressed: () => onOpenHouseHoldMonitor(
                             context,
                             ovcHouseHold,

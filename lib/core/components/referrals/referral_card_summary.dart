@@ -33,7 +33,10 @@ class ReferralCardSummary extends StatelessWidget {
           child: Column(
             children: [
               Container(
-                margin: EdgeInsets.symmetric(vertical: 15.0, horizontal: 15.0),
+                margin: EdgeInsets.symmetric(
+                  vertical: 15.0,
+                  horizontal: 15.0,
+                ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -50,23 +53,33 @@ class ReferralCardSummary extends StatelessWidget {
                       ),
                     ),
                     Visibility(
-                        visible: isCLOReferral ? true : false,
-                        child: Container(
-                          decoration: BoxDecoration(
-                              border: Border.all(color: Colors.black26),
-                              borderRadius: BorderRadius.circular(35.0)),
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 8.0, vertical: 2.0),
-                          child: isOutgoingCLOReferral ?Text(
-                            'Outgoing',
-                            style: TextStyle().copyWith(
-                                color: Color(0XFF536852), fontSize: 12.0),
-                          ):Text(
-                            'Incomming' ,
-                            style: TextStyle().copyWith(
-                                color: Color(0xFF4B9F46), fontSize: 12.0),
-                          ),
-                        )),
+                      visible: isCLOReferral ? true : false,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black26),
+                          borderRadius: BorderRadius.circular(35.0),
+                        ),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 8.0,
+                          vertical: 2.0,
+                        ),
+                        child: isOutgoingCLOReferral
+                            ? Text(
+                                'Outgoing',
+                                style: TextStyle().copyWith(
+                                  color: Color(0XFF536852),
+                                  fontSize: 12.0,
+                                ),
+                              )
+                            : Text(
+                                'Incomming',
+                                style: TextStyle().copyWith(
+                                  color: Color(0xFF4B9F46),
+                                  fontSize: 12.0,
+                                ),
+                              ),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -85,13 +98,14 @@ class ReferralCardSummary extends StatelessWidget {
                   bottomRight: Radius.circular(12.0),
                 ),
                 child: Container(
-                  decoration:
-                      BoxDecoration(color: borderColor.withOpacity(0.4)),
+                  decoration: BoxDecoration(
+                    color: borderColor.withOpacity(0.4),
+                  ),
                   child: Container(
-                      child: Row(
-                    children: [
-                      Expanded(
-                        child: FlatButton(
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: TextButton(
                             onPressed: onView,
                             child: Text(
                               'VIEW',
@@ -100,20 +114,22 @@ class ReferralCardSummary extends StatelessWidget {
                                 color: buttonLabelColor,
                                 fontWeight: FontWeight.w500,
                               ),
-                            )),
-                      ),
-                      Container(
-                        height: 20.0,
-                        decoration: BoxDecoration(
-                          border: Border(
-                            left: BorderSide(
-                                color: buttonLabelColor.withOpacity(0.3),
-                                width: 1.0),
+                            ),
                           ),
                         ),
-                      ),
-                      Expanded(
-                        child: FlatButton(
+                        Container(
+                          height: 20.0,
+                          decoration: BoxDecoration(
+                            border: Border(
+                              left: BorderSide(
+                                color: buttonLabelColor.withOpacity(0.3),
+                                width: 1.0,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: TextButton(
                             onPressed: onManage,
                             child: Text(
                               'MANAGE',
@@ -122,10 +138,12 @@ class ReferralCardSummary extends StatelessWidget {
                                 color: buttonLabelColor,
                                 fontWeight: FontWeight.w500,
                               ),
-                            )),
-                      ),
-                    ],
-                  )),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
               )
             ],

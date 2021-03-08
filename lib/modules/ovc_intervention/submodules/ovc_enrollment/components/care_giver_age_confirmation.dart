@@ -8,20 +8,27 @@ class CareGiverAgeConfirmation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 30.0),
-      margin: EdgeInsets.only(bottom: 20.0),
+      padding: EdgeInsets.symmetric(
+        horizontal: 30.0,
+      ),
+      margin: EdgeInsets.only(
+        bottom: 20.0,
+      ),
       child: Column(
         children: [
           Visibility(
             visible: true,
             child: Container(
-              padding: EdgeInsets.only(top: 15.0),
+              padding: EdgeInsets.only(
+                top: 15.0,
+              ),
               child: Text(
                 'You cannot enroll child headed Household',
                 style: TextStyle().copyWith(
-                    color: Color(0XFF1A3518),
-                    fontSize: 13.0,
-                    fontWeight: FontWeight.w400),
+                  color: Color(0XFF1A3518),
+                  fontSize: 13.0,
+                  fontWeight: FontWeight.w400,
+                ),
               ),
             ),
           ),
@@ -29,25 +36,29 @@ class CareGiverAgeConfirmation extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                child: FlatButton(
+                child: TextButton(
                   onPressed: () => Navigator.pop(context, false),
                   child: Text(
                     'Exit',
                     style: TextStyle().copyWith(
-                        color: Color(0xFF1A3518),
-                        fontSize: 14.0,
-                        fontWeight: FontWeight.bold),
+                      color: Color(0xFF1A3518),
+                      fontSize: 14.0,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ),
               Container(
-                child: FlatButton(
+                child: TextButton(
                   onPressed: () => Navigator.pop(context, true),
-                  child: Text('Go Back',
-                      style: TextStyle().copyWith(
-                          color: Color(0xFF4B9F46),
-                          fontSize: 14.0,
-                          fontWeight: FontWeight.w700)),
+                  child: Text(
+                    'Go Back',
+                    style: TextStyle().copyWith(
+                      color: Color(0xFF4B9F46),
+                      fontSize: 14.0,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
                 ),
               ),
             ],

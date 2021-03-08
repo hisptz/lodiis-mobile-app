@@ -88,15 +88,19 @@ class _ServiceGapFollowUpContainerState
                 visible: widget.shouldViewCaseGapFollowUp,
                 child: Container(
                   alignment: Alignment.center,
-                  margin: EdgeInsets.symmetric(vertical: 10.0),
-                  child: FlatButton(
-                    shape: RoundedRectangleBorder(
-                      side: BorderSide(
-                        color: widget.formSectionColor,
+                  margin: EdgeInsets.symmetric(
+                    vertical: 10.0,
+                  ),
+                  child: TextButton(
+                    style: TextButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        side: BorderSide(
+                          color: widget.formSectionColor,
+                        ),
+                        borderRadius: BorderRadius.circular(12.0),
                       ),
-                      borderRadius: BorderRadius.circular(12.0),
+                      padding: EdgeInsets.all(15.0),
                     ),
-                    padding: EdgeInsets.all(15.0),
                     onPressed: () => this.addNewFollowingUp(context),
                     child: Text(
                       'ADD FOLLOW-UP',

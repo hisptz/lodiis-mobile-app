@@ -130,22 +130,24 @@ class _LanguageSelectionContainerState
                               .toList(),
                         ),
                         Container(
-                          child: FlatButton(
+                          child: TextButton(
                             onPressed: _selectionLanguageCode == ''
                                 ? null
                                 : () => widget.onSetSelectedLanguage(
                                       _selectionLanguageCode,
                                     ),
-                            shape: RoundedRectangleBorder(
-                              side: BorderSide(
-                                color: _selectionLanguageCode != ''
-                                    ? Color(0xFFFAFAFA)
-                                    : Color(0xFF7FBA7C),
+                            style: TextButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                side: BorderSide(
+                                  color: _selectionLanguageCode != ''
+                                      ? Color(0xFFFAFAFA)
+                                      : Color(0xFF7FBA7C),
+                                ),
+                                borderRadius: BorderRadius.circular(12.0),
                               ),
-                              borderRadius: BorderRadius.circular(12.0),
-                            ),
-                            padding: EdgeInsets.symmetric(
-                              vertical: 15,
+                              padding: EdgeInsets.symmetric(
+                                vertical: 15,
+                              ),
                             ),
                             child: Container(
                               child: Text(

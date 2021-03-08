@@ -9,12 +9,20 @@ class OrganisationUnitService {
   List<OrganisationUnit> organisations = [];
   Future<dynamic> discoveringOrgananisationUnitsFromTheServer() async {
     List<OrganisationUnit> organisationUnitList = [];
-    var url =
-        "api/organisationUnits.json?fields=id,name,code,programs,parent[id,code],level,children[id]&paging=false";
+    var url = "api/organisationUnits.json";
+    var queryParameters = {
+      "fields": "id,name,code,programs,parent[id,code],level,children[id]",
+      "paging": "false"
+    };
     CurrentUser user = await UserService().getCurrentUser();
-    HttpService http =
-        HttpService(username: user.username, password: user.password);
-    var response = await http.httpGet(url);
+    HttpService http = HttpService(
+      username: user.username,
+      password: user.password,
+    );
+    var response = await http.httpGet(
+      url,
+      queryParameters: queryParameters,
+    );
     if (response.statusCode == 200) {
       var responseData = json.decode(response.body);
       for (var organisation in responseData["organisationUnits"]) {
