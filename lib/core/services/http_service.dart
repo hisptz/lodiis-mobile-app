@@ -18,8 +18,12 @@ class HttpService {
     return Uri.https(baseUrl, 'kbtraining/$url', queryParameters);
   }
 
-  Future<http.Response> httpPost(String url, body) async {
-    Uri apiUrl = getApiUrl(url);
+  Future<http.Response> httpPost(
+    String url,
+    body, {
+    Map<String, dynamic> queryParameters,
+  }) async {
+    Uri apiUrl = getApiUrl(url, queryParameters: queryParameters);
     return http.post(
       apiUrl,
       headers: {
@@ -30,8 +34,12 @@ class HttpService {
     );
   }
 
-  Future<http.Response> httpPut(String url, body) async {
-    Uri apiUrl = getApiUrl(url);
+  Future<http.Response> httpPut(
+    String url,
+    body, {
+    Map<String, dynamic> queryParameters,
+  }) async {
+    Uri apiUrl = getApiUrl(url, queryParameters: queryParameters);
     return http.put(
       apiUrl,
       headers: {
@@ -43,9 +51,10 @@ class HttpService {
   }
 
   Future<http.Response> httpDelete(
-    String url,
-  ) async {
-    Uri apiUrl = getApiUrl(url);
+    String url, {
+    Map<String, dynamic> queryParameters,
+  }) async {
+    Uri apiUrl = getApiUrl(url, queryParameters: queryParameters);
     return await http.delete(apiUrl, headers: {
       HttpHeaders.authorizationHeader: "Basic $basicAuth",
     });
@@ -56,15 +65,22 @@ class HttpService {
     Map<String, dynamic> queryParameters,
   }) async {
     Uri apiUrl = getApiUrl(url, queryParameters: queryParameters);
-    print(apiUrl);
     return await http.get(apiUrl, headers: {
       HttpHeaders.authorizationHeader: "Basic $basicAuth",
     });
   }
 
-  Future<http.Response> httpGetPagination(String url) async {
-    url = '$url&totalPages=true&pageSize=1&fields=none';
-    return await this.httpGet(url);
+  Future<http.Response> httpGetPagination(
+    String url,
+    Map<String, dynamic> queryParameters,
+  ) async {
+    var dataQueryParameters = {
+      "totalPages": "true",
+      "pageSize": "1",
+      "fields": "none",
+    };
+    dataQueryParameters.addAll(queryParameters);
+    return await this.httpGet(url, queryParameters: dataQueryParameters);
   }
 
   @override
