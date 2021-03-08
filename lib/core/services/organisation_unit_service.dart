@@ -23,7 +23,6 @@ class OrganisationUnitService {
       url,
       queryParameters: queryParameters,
     );
-    print(response.body);
     if (response.statusCode == 200) {
       var responseData = json.decode(response.body);
       for (var organisation in responseData["organisationUnits"]) {
