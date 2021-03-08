@@ -52,7 +52,9 @@ class _NoneAgywEnrollmentEditFormState
   final Map mandatoryFieldObject = Map();
   final List<String> mandatoryFields =
       NoneAgywEnrollmentFormSection.getMandatoryField() +
-          NoneAgywEnrollmentPrepScreening.getMandatoryField();
+          NoneAgywEnrollmentPrepScreening.getMandatoryField() +
+          NonAgywHTSClientInformation.getMandatoryField() +
+          NonAgywHTSRegister.getMandatoryFields();
   bool isFormReady = false;
   bool isSaving = false;
   List unFilledMandatoryFields = [];
@@ -88,10 +90,10 @@ class _NoneAgywEnrollmentEditFormState
       ];
       formSections = [
         ...htsConsentFormSections,
-        clientIntakeFormSections[0],
         ...htsClientInformationFormSections,
         ...htsRegisterFormSections,
         ...htsConsentForReleaseFormSections,
+        ...clientIntakeFormSections
       ];
       if (isBeneficiaryHIVNegative()) {
         formSections.addAll(prepScreeningFormSections);
