@@ -7,6 +7,8 @@ import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/intervention_app_bar.dart';
 import 'package:kb_mobile_app/core/components/route_page_not_found.dart';
+import 'package:kb_mobile_app/core/constants/auto_synchronization.dart';
+import 'package:kb_mobile_app/core/services/auto_synchronization_service.dart';
 import 'package:kb_mobile_app/core/utils/app_bar_util.dart';
 import 'package:kb_mobile_app/models/Intervention_bottom_navigation.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
@@ -28,6 +30,9 @@ class OvcIntervention extends StatefulWidget {
 class _OvcInterventionState extends State<OvcIntervention> {
   final bool disableSelectionOfActiveIntervention = true;
   bool isViewReady = false;
+  Timer periodicTimer;
+  StreamSubscription connectionSubscription;
+  int syncTimeout = AutoSynchronization.syncTimeout;
 
   @override
   void initState() {
@@ -37,6 +42,19 @@ class _OvcInterventionState extends State<OvcIntervention> {
         isViewReady = true;
       });
     });
+    connectionSubscription = AutoSynchronizationService()
+        .checkChangeOfDeviceConnectionStatus(context);
+    periodicTimer =
+        Timer.periodic(Duration(minutes: syncTimeout), (Timer timer) {
+      AutoSynchronizationService().startAutoDownload(context);
+    });
+  }
+
+  @override
+  void dispose() {
+    periodicTimer.cancel();
+    connectionSubscription.cancel();
+    super.dispose();
   }
 
   void onOpenMoreMenu(
@@ -65,80 +83,78 @@ class _OvcInterventionState extends State<OvcIntervention> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Consumer<IntervetionCardState>(
-          builder: (context, intervetionCardState, child) {
-            InterventionCard activeInterventionProgram =
-                intervetionCardState.currentIntervetionProgram;
-            return Scaffold(
-              appBar: PreferredSize(
-                preferredSize: Size.fromHeight(65),
-                child: InterventionAppBar(
-                  activeInterventionProgram: activeInterventionProgram,
-                  onClickHome: onClickHome,
-                  onAddHouseHold: () => onAddHouseHold(context),
-                  onOpenMoreMenu: () =>
-                      onOpenMoreMenu(context, activeInterventionProgram),
-                )),
-              body: Container(
-                child: !isViewReady
-                    ? Container(
-                        margin: EdgeInsets.only(top: 20.0),
-                        child: CircularProcessLoader(
-                          color: Colors.blueGrey,
+    return Scaffold(body: SafeArea(child: Consumer<IntervetionCardState>(
+      builder: (context, intervetionCardState, child) {
+        InterventionCard activeInterventionProgram =
+            intervetionCardState.currentIntervetionProgram;
+        return Scaffold(
+          appBar: PreferredSize(
+              preferredSize: Size.fromHeight(65),
+              child: InterventionAppBar(
+                activeInterventionProgram: activeInterventionProgram,
+                onClickHome: onClickHome,
+                onAddHouseHold: () => onAddHouseHold(context),
+                onOpenMoreMenu: () =>
+                    onOpenMoreMenu(context, activeInterventionProgram),
+              )),
+          body: Container(
+            child: !isViewReady
+                ? Container(
+                    margin: EdgeInsets.only(top: 20.0),
+                    child: CircularProcessLoader(
+                      color: Colors.blueGrey,
+                    ),
+                  )
+                : Container(
+                    child: Stack(
+                      fit: StackFit.expand,
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                              color: activeInterventionProgram.background),
                         ),
-                      )
-                    : Container(
-                        child: Stack(
-                            fit: StackFit.expand,
-                            children: [
-                              Container(
-                                decoration: BoxDecoration(
-                                    color: activeInterventionProgram.background),
-                              ),
-                              Consumer<InterventionBottomNavigationState>(
-                                builder: (context,
-                                    interventionBottomNavigationState, child) {
-                                  InterventionBottomNavigation
-                                      currentInterventionBottomNavigation =
-                                      interventionBottomNavigationState
-                                          .getCurrentInterventionBottomNavigation(
-                                              activeInterventionProgram);
-                                  return Container(
-                                    child: currentInterventionBottomNavigation.id ==
-                                            'services'
-                                        ? OvcServicesPage()
-                                        : currentInterventionBottomNavigation.id ==
-                                                'referral'
-                                            ? OvcReferralPage()
-                                            : currentInterventionBottomNavigation
-                                                        .id ==
-                                                    'enrollment'
-                                                ? OvcEnrollmentPage()
-                                                : currentInterventionBottomNavigation
-                                                            .id ==
-                                                        'exit'
-                                                    ? OvcExitPage()
-                                                    : currentInterventionBottomNavigation
-                                                                .id ==
-                                                            'records'
-                                                        ? OvcRecordsPage()
-                                                        : RoutePageNotFound(
-                                                            pageTitle:
-                                                                currentInterventionBottomNavigation
-                                                                    .id,
-                                                          ),
-                                  );
-                                },
-                              ),
-                            ],
-                          ),
-                      ),
-              ),
-              bottomNavigationBar: InterventionBottomNavigationBarContainer(),
-            );
-          },
-        )));
+                        Consumer<InterventionBottomNavigationState>(
+                          builder: (context, interventionBottomNavigationState,
+                              child) {
+                            InterventionBottomNavigation
+                                currentInterventionBottomNavigation =
+                                interventionBottomNavigationState
+                                    .getCurrentInterventionBottomNavigation(
+                                        activeInterventionProgram);
+                            return Container(
+                              child: currentInterventionBottomNavigation.id ==
+                                      'services'
+                                  ? OvcServicesPage()
+                                  : currentInterventionBottomNavigation.id ==
+                                          'referral'
+                                      ? OvcReferralPage()
+                                      : currentInterventionBottomNavigation
+                                                  .id ==
+                                              'enrollment'
+                                          ? OvcEnrollmentPage()
+                                          : currentInterventionBottomNavigation
+                                                      .id ==
+                                                  'exit'
+                                              ? OvcExitPage()
+                                              : currentInterventionBottomNavigation
+                                                          .id ==
+                                                      'records'
+                                                  ? OvcRecordsPage()
+                                                  : RoutePageNotFound(
+                                                      pageTitle:
+                                                          currentInterventionBottomNavigation
+                                                              .id,
+                                                    ),
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+          ),
+          bottomNavigationBar: InterventionBottomNavigationBarContainer(),
+        );
+      },
+    )));
   }
 }
