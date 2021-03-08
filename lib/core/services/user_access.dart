@@ -15,8 +15,10 @@ class UserAccess {
     String defaultUserAccessConfigs = DefaultUserAccess.getDefaultUserAccess();
     String currentUserAccessConfigs = "";
     try {
-      HttpService http =
-          new HttpService(username: username, password: password);
+      HttpService http = new HttpService(
+        username: username,
+        password: password,
+      );
       var response = await http.httpGet(url);
       currentUserAccessConfigs =
           response.statusCode == 200 ? response.body : defaultUserAccessConfigs;

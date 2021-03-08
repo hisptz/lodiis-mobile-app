@@ -34,13 +34,17 @@ class ReservedAttributeValueService {
 
   Future getReservedAttributeValuesFromTheServer(int numberToReserve) async {
     final String attribute = BeneficiaryIdentification.beneficiaryIndex;
-    String url =
-        'api/trackedEntityAttributes/$attribute/generateAndReserve?numberToReserve=$numberToReserve';
+    String url = 'api/trackedEntityAttributes/$attribute/generateAndReserve';
+    var queryParameters = {
+      "numberToReserve": "$numberToReserve",
+    };
     CurrentUser user = await UserService().getCurrentUser();
-    HttpService http =
-        HttpService(username: user.username, password: user.password);
+    HttpService http = HttpService(
+      username: user.username,
+      password: user.password,
+    );
     try {
-      var response = await http.httpGet(url);
+      var response = await http.httpGet(url, queryParameters: queryParameters);
       if (response.statusCode == 200) {
         var responseData = json.decode(response.body);
         for (var reserveValue in responseData) {

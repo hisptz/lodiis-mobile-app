@@ -25,32 +25,66 @@ class SynchronizationService {
   final String onlineSyncStatus = 'synced';
 
   SynchronizationService(
-      String username, String password, this.programs, this.orgUnitIds) {
-    httpClient = HttpService(username: username, password: password);
+    String username,
+    String password,
+    this.programs,
+    this.orgUnitIds,
+  ) {
+    httpClient = HttpService(
+      username: username,
+      password: password,
+    );
   }
 
-  Future<List<String>> getDataPaginationFilters(String url) async {
-    List<String> paginationFilter = [];
-    Response response = await httpClient.httpGetPagination("$url");
+  Future<List> getDataPaginationFilters(
+    String url, {
+    Map<String, dynamic> queryParameters,
+  }) async {
+    List paginationFilter = [];
+    Response response = await httpClient.httpGetPagination(
+      url,
+      queryParameters,
+    );
     Map<String, dynamic> pager = json.decode(response.body)['pager'];
     int pagetTotal = pager['total'];
     int pageSize = 500;
     int total = pagetTotal >= pageSize ? pagetTotal : pageSize;
     for (int page = 1; page <= (total / pageSize).round(); page++) {
-      paginationFilter.add("totalPages=true&pageSize=$pageSize&page=$page");
+      paginationFilter.add({
+        "totalPages": "true",
+        "page": "$page",
+        "pageSize": "$pageSize",
+      });
     }
     return paginationFilter;
   }
 
   Future<void> getAndSaveEventsFromServer(
-      String program, String userOrgId) async {
+    String program,
+    String userOrgId,
+  ) async {
     try {
-      List<String> pageFilters = await getDataPaginationFilters(
-          "api/events.json?ouMode=DESCENDANTS&orgUnit=$userOrgId&program=$program");
+      var queryParameters = {
+        "program": program,
+        "orgUnit": userOrgId,
+        "ouMode": "DESCENDANTS",
+      };
+      List pageFilters = await getDataPaginationFilters(
+        "api/events.json",
+        queryParameters: queryParameters,
+      );
       for (var pageFilter in pageFilters) {
-        String newTrackedInstanceUrl =
-            "api/events.json?ouMode=DESCENDANTS&orgUnit=$userOrgId&program=$program&fields=event,program,programStage,trackedEntityInstance,status,orgUnit,dataValues[dataElement,value,displayName],eventDate&$pageFilter";
-        Response response = await httpClient.httpGet(newTrackedInstanceUrl);
+        var dataQueryParameters = {
+          "fields":
+              "event,program,programStage,trackedEntityInstance,status,orgUnit,dataValues[dataElement,value,displayName],eventDate",
+        };
+        dataQueryParameters.addAll(queryParameters);
+        dataQueryParameters.addAll(pageFilter);
+        String newTrackedInstanceUrl = "api/events.json";
+        Response response = await httpClient.httpGet(
+          newTrackedInstanceUrl,
+          queryParameters: dataQueryParameters,
+        );
         if (response.statusCode == 200) {
           var responseData = json.decode(response.body);
           List<Events> events = responseData['events']
@@ -73,15 +107,32 @@ class SynchronizationService {
   }
 
   Future<List<TeiRelationship>> getTeiRelationshipsfromServer(
-      String program, String userOrgId) async {
+    String program,
+    String userOrgId,
+  ) async {
     List<TeiRelationship> teiRelationshipsFromServer = [];
     try {
-      List<String> pageFilters = await getDataPaginationFilters(
-          "api/relationships.json?ouMode=DESCENDANTS&orgUnit=$userOrgId&program=$program");
+      var queryParameters = {
+        "program": program,
+        "orgUnit": userOrgId,
+        "ouMode": "DESCENDANTS"
+      };
+      List pageFilters = await getDataPaginationFilters(
+        "api/relationships.json",
+        queryParameters: queryParameters,
+      );
       for (var pageFilter in pageFilters) {
-        String newTeiRelationshipsUrl =
-            "api/relationships.json?ouMode=DESCENDANTS&orgUnit=$userOrgId&program=$program&fields=relationships[relationshipType,relationship,from[trackedEntityInstance[trackedEntityInstance]],to[trackedEntityInstance[trackedEntityInstance]]]&$pageFilter";
-        Response response = await httpClient.httpGet(newTeiRelationshipsUrl);
+        var dataQueryParameters = {
+          "fields":
+              "relationships[relationshipType,relationship,from[trackedEntityInstance[trackedEntityInstance]],to[trackedEntityInstance[trackedEntityInstance]]]",
+        };
+        String newTeiRelationshipsUrl = "api/relationships.json";
+        dataQueryParameters.addAll(queryParameters);
+        dataQueryParameters.addAll(pageFilter);
+        Response response = await httpClient.httpGet(
+          newTeiRelationshipsUrl,
+          queryParameters: dataQueryParameters,
+        );
         if (response.statusCode == 200) {
           var responseData = json.decode(response.body);
           for (var teiRelationship in responseData["relationships"]) {
@@ -160,17 +211,32 @@ class SynchronizationService {
         enrollmentsAndRelationships['relationships']);
   }
 
-//Change from dynamic to TrackeEntityInstance
   Future<void> getAndSaveTrackedInstanceFromServer(
-      String program, String userOrgId) async {
-    List<String> pageFilters = await getDataPaginationFilters(
-        "api/trackedEntityInstances.json?ouMode=DESCENDANTS&ou=$userOrgId&program=$program");
+    String program,
+    String userOrgId,
+  ) async {
+    var queryParameters = {
+      "program": program,
+      "ou": userOrgId,
+      "ouMode": "DESCENDANTS"
+    };
+    List pageFilters = await getDataPaginationFilters(
+      "api/trackedEntityInstances.json",
+      queryParameters: queryParameters,
+    );
     for (var pageFilter in pageFilters) {
-      String newTrackedInstanceUrl =
-          "api/trackedEntityInstances.json?ouMode=DESCENDANTS&ou=$userOrgId&program=$program&fields=trackedEntityInstance,trackedEntityType,orgUnit,attributes[attribute,value, displayName],enrollments[enrollment,enrollmentDate,incidentDate,orgUnit,program,trackedEntityInstance,status]relationships[relationshipType,relationship,from[trackedEntityInstance[trackedEntityInstance]],to[trackedEntityInstance[trackedEntityInstance]]]&$pageFilter";
-
       try {
-        Response response = await httpClient.httpGet(newTrackedInstanceUrl);
+        var dataQueryParameters = {
+          "fields":
+              "trackedEntityInstance,trackedEntityType,orgUnit,attributes[attribute,value, displayName],enrollments[enrollment,enrollmentDate,incidentDate,orgUnit,program,trackedEntityInstance,status]relationships[relationshipType,relationship,from[trackedEntityInstance[trackedEntityInstance]],to[trackedEntityInstance[trackedEntityInstance]]]",
+        };
+        String newTrackedInstanceUrl = "api/trackedEntityInstances.json";
+        dataQueryParameters.addAll(queryParameters);
+        dataQueryParameters.addAll(pageFilter);
+        Response response = await httpClient.httpGet(
+          newTrackedInstanceUrl,
+          queryParameters: dataQueryParameters,
+        );
         if (response.statusCode == 200) {
           var responseData = json.decode(response.body);
           await saveTeis(responseData);
@@ -230,7 +296,7 @@ class SynchronizationService {
     List<Enrollment> teiEnrollments,
   ) async {
     List<String> syncedIds = [];
-    String url = 'api/trackedEntityInstances?strategy=CREATE_AND_UPDATE';
+    String url = 'api/trackedEntityInstances';
     Map body = Map();
     var enrollments = teiEnrollments
         .map((enrollment) => enrollment.toOffline(enrollment))
@@ -248,7 +314,14 @@ class SynchronizationService {
     }).toList();
 
     try {
-      var response = await httpClient.httpPost(url, json.encode(body));
+      var queryParameters = {
+        "strategy": "CREATE_AND_UPDATE",
+      };
+      var response = await httpClient.httpPost(
+        url,
+        json.encode(body),
+        queryParameters: queryParameters,
+      );
       if (response.statusCode >= 400 && response.statusCode != 409) {
         var message = _getHttpResponseAppLogs(response.body);
         AppLogs log =
@@ -284,7 +357,7 @@ class SynchronizationService {
     List<Events> teiEvents,
   ) async {
     List<String> syncedIds = [];
-    String url = 'api/events?strategy=CREATE_AND_UPDATE';
+    String url = 'api/events';
     Map body = Map();
     body['events'] = teiEvents.map((event) {
       var data = event.toOffline(event);
@@ -296,7 +369,14 @@ class SynchronizationService {
     }).toList();
 
     try {
-      var response = await httpClient.httpPost(url, json.encode(body));
+      var queryParameters = {
+        "strategy": "CREATE_AND_UPDATE",
+      };
+      var response = await httpClient.httpPost(
+        url,
+        json.encode(body),
+        queryParameters: queryParameters,
+      );
       if (response.statusCode >= 400 && response.statusCode != 409) {
         var message = _getHttpResponseAppLogs(response.body);
         AppLogs log =
@@ -326,12 +406,19 @@ class SynchronizationService {
     List<TeiRelationship> teiRelationShips,
   ) async {
     Map body = Map<String, dynamic>();
-    String url = 'api/relationships?strategy=CREATE_AND_UPDATE';
+    String url = 'api/relationships';
     body['relationships'] = teiRelationShips
         .map((relationship) => relationship.toOnline())
         .toList();
     try {
-      var response = await httpClient.httpPost(url, json.encode(body));
+      var queryParameters = {
+        "strategy": "CREATE_AND_UPDATE",
+      };
+      var response = await httpClient.httpPost(
+        url,
+        json.encode(body),
+        queryParameters: queryParameters,
+      );
       if (response.statusCode >= 400 && response.statusCode != 409) {
         var message = _getHttpResponseAppLogs(response.body);
         AppLogs log =

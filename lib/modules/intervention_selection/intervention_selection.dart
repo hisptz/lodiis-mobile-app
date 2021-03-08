@@ -51,7 +51,7 @@ class _InterventionSelectionState extends State<InterventionSelection> {
     // @TODO: set timer for recalling the sync method
     periodicTimer =
         Timer.periodic(Duration(minutes: syncTimeout), (Timer timer) {
-      startAutoSynchronization();
+      // startAutoSynchronization();
     });
   }
 
