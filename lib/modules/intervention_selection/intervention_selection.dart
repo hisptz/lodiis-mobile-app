@@ -1,6 +1,13 @@
 import 'dart:async';
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/app_state/synchronization_state/synchronization_state.dart';
+import 'package:kb_mobile_app/core/constants/app_logs.dart';
+import 'package:kb_mobile_app/core/offline_db/app_logs_offline/app_logs_offline_provider.dart';
+import 'package:kb_mobile_app/models/app_logs.dart';
+import 'package:provider/provider.dart';
 import 'package:kb_mobile_app/app_state/current_user_state/current_user_state.dart';
+import 'package:kb_mobile_app/app_state/device_connectivity_state/device_connectivity_state.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/ogac_intervention_list_state/ogac_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_intervention_list_state.dart';
@@ -10,7 +17,6 @@ import 'package:kb_mobile_app/core/services/reserved_attribute_value_service.dar
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/intervention_selection/components/intervention_selection_container.dart';
-import 'package:provider/provider.dart';
 
 class InterventionSelection extends StatefulWidget {
   @override
@@ -25,6 +31,10 @@ class _InterventionSelectionState extends State<InterventionSelection> {
 
   Color primmaryColor = CustomColor.defaultPrimaryColor;
   bool hasDataLoaded = false;
+  Timer periodicTimer;
+  StreamSubscription connectionSubscription;
+  // @TODO: syncTimeout to be set in the state and to be configurable
+  int syncTimeout = 30;
 
   void onIntervetionSelection(InterventionCard interventionProgram) {
     setState(() {
@@ -36,8 +46,72 @@ class _InterventionSelectionState extends State<InterventionSelection> {
   @override
   void initState() {
     super.initState();
-
     Timer(Duration(seconds: 2), updateDataStateLoadingStatus);
+    checkChangeOfDeviceConnectionStatus();
+    // @TODO: set timer for recalling the sync method
+    periodicTimer =
+        Timer.periodic(Duration(minutes: syncTimeout), (Timer timer) {
+      startAutoSynchronization();
+    });
+  }
+
+  @override
+  dispose() {
+    periodicTimer?.cancel();
+    connectionSubscription.cancel();
+    super.dispose();
+  }
+
+  void checkChangeOfDeviceConnectionStatus() async {
+    try {
+      connectionSubscription = Connectivity()
+          .onConnectivityChanged
+          .listen((ConnectivityResult connectivityResult) async {
+        if (connectivityResult == ConnectivityResult.wifi ||
+            connectivityResult == ConnectivityResult.mobile) {
+          Provider.of<DeviceConnectivityState>(context, listen: false)
+              .changeConnectivityStatus(isConnected: true);
+        } else if (connectivityResult == ConnectivityResult.none) {
+          Provider.of<DeviceConnectivityState>(context, listen: false)
+              .changeConnectivityStatus(isConnected: false);
+        } else {
+          Provider.of<DeviceConnectivityState>(context, listen: false)
+              .changeConnectivityStatus(isConnected: false);
+          AppLogs log = AppLogs(
+              type: AppLogsConstants.errorLogType,
+              message: 'Failed to get connectivity.');
+          await AppLogsOfflineProvider().addLogs(log);
+        }
+      });
+    } catch (error) {
+      AppLogs log = AppLogs(
+          type: AppLogsConstants.errorLogType, message: error.toString());
+      await AppLogsOfflineProvider().addLogs(log);
+    }
+  }
+
+  void startAutoSynchronization() async {
+    bool isOnline = Provider.of<DeviceConnectivityState>(context, listen: false)
+        .connectivityStatus;
+    if (isOnline) {
+      bool isDataUploadingActive =
+          Provider.of<SynchronizationState>(context, listen: false)
+              .isDataUploadingActive;
+      bool hasUnsyncedData =
+          Provider.of<SynchronizationState>(context, listen: false)
+              .hasUnsyncedData;
+
+      if (hasUnsyncedData && !isDataUploadingActive) {
+        await Provider.of<SynchronizationState>(context, listen: false)
+            .startDataUploadActivity();
+        Provider.of<SynchronizationState>(context, listen: false)
+            .startCheckingStatusOfUnsyncedData();
+      } else {
+        return;
+      }
+    } else {
+      return;
+    }
   }
 
   updateDataStateLoadingStatus() async {
