@@ -938,6 +938,7 @@ class DreamsServicePrepIntakeInfo {
                 labelColor: Color(0xFF737373),
                 isReadOnly: true,
                 name: 'Weight',
+                suffixLabel: 'Kg',
                 valueType: 'NUMBER'),
             InputField(
                 id: 'WeaVsrFcWne',
@@ -945,6 +946,7 @@ class DreamsServicePrepIntakeInfo {
                 labelColor: Color(0xFF737373),
                 isReadOnly: true,
                 name: 'Blood Pressure Systolic (mmHg)',
+                suffixLabel: 'mmHg',
                 valueType: 'NUMBER'),
             InputField(
                 id: 'RqWMrqUcDqv',
@@ -952,6 +954,7 @@ class DreamsServicePrepIntakeInfo {
                 labelColor: Color(0xFF737373),
                 isReadOnly: true,
                 name: 'Blood Pressure Diastolic (mmHg)',
+                suffixLabel: 'mmHg',
                 valueType: 'NUMBER'),
             InputField(
                 id: 'd3zHELPzSaH',

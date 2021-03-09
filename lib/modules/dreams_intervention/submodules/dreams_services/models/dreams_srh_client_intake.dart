@@ -207,6 +207,7 @@ class DreamsSrhClientIntake {
             InputField(
                 id: 'gCvMVscBNfk',
                 name: 'Weight',
+                suffixLabel: 'Kg',
                 description: 'Decimal values are allowed. e.g 4.1',
                 valueType: 'NUMBER',
                 inputColor: Color(0xFF258DCC),
@@ -214,19 +215,22 @@ class DreamsSrhClientIntake {
             InputField(
                 id: 'x7Jzm67o0Ng',
                 name: 'Height (m)',
-                description: 'Decimal values are allowed. e.g 4.1',
+                suffixLabel: 'm',
+                description: 'Decimal values are allowed. e.g 1.4',
                 valueType: 'NUMBER',
                 inputColor: Color(0xFF258DCC),
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'WeaVsrFcWne',
                 name: 'Blood Pressure Systolic (mmHg)',
+                suffixLabel: 'mmHg',
                 valueType: 'NUMBER',
                 inputColor: Color(0xFF258DCC),
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'RqWMrqUcDqv',
                 name: 'Blood PressureDiastolic (mmHg)',
+                suffixLabel: 'mmHg',
                 valueType: 'NUMBER',
                 inputColor: Color(0xFF258DCC),
                 labelColor: Color(0xFF737373))
