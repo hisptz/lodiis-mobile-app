@@ -353,11 +353,13 @@ class NonAgywHTSClientInformation {
                 name: 'Height (m)',
                 description: 'Decimal values are allowed. e.g 1.4',
                 valueType: 'NUMBER',
+                suffixLabel: 'm',
                 inputColor: Color(0xFF258DCC),
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'eXp9ASOufpR',
                 name: 'Weight(kg)',
+                suffixLabel: 'Kg',
                 description: 'Decimal values are allowed. e.g 4.1',
                 valueType: 'NUMBER',
                 inputColor: Color(0xFF258DCC),
@@ -372,12 +374,14 @@ class NonAgywHTSClientInformation {
             InputField(
                 id: 'ziQGNfxLkf4',
                 name: 'Blood Pressure Systolic (mmHg)',
+                suffixLabel: 'mmHg',
                 valueType: 'NUMBER',
                 inputColor: Color(0xFF258DCC),
                 labelColor: Color(0xFF737373)),
             InputField(
               id: 'nXbbRF4eD6Q',
               name: 'Blood Pressure Diastolic (mmHg)',
+              suffixLabel: 'mmHg',
               valueType: 'NUMBER',
               inputColor: Color(0xFF258DCC),
               labelColor: Color(0xFF737373),

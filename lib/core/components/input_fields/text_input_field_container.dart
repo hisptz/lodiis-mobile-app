@@ -84,6 +84,15 @@ class _TextInputFieldContainerState extends State<TextInputFieldContainer> {
               ),
             ),
           ),
+          Visibility(
+            child: Text(widget.inputField.suffixLabel ?? '',
+                style: TextStyle().copyWith(
+                  color: widget.inputField.inputColor,
+                )),
+            visible: widget.inputField.suffixLabel != '' &&
+                _value != null &&
+                '$_value'.trim() != '',
+          ),
           InputCheckedIcon(
             showTickedIcon: widget.showInputCheckedIcon &&
                 _value != null &&

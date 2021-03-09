@@ -39,6 +39,7 @@ class DreamsPrepFollwUpVisit {
                 id: 'gCvMVscBNfk',
                 name: 'Weight',
                 valueType: 'NUMBER',
+                suffixLabel: 'Kg',
                 inputColor: Color(0xFF258DCC),
                 labelColor: Color(0xFF737373)),
             InputField(
