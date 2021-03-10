@@ -18,6 +18,7 @@ class AgywDream {
   String createdDate;
   String searchableValue;
   String enrollment;
+  String beneficiaryType;
   TrackeEntityInstance trackeEntityInstanceData;
 
   AgywDream(
@@ -36,6 +37,7 @@ class AgywDream {
       this.createdDate,
       this.enrollment,
       this.searchableValue,
+      this.beneficiaryType,
       this.trackeEntityInstanceData});
   AgywDream fromTeiModel(
     TrackeEntityInstance trackeEntityInstance,
@@ -52,6 +54,8 @@ class AgywDream {
       'PN92g65TkVI',
       'VJiWumvINR6',
       'klLkGxy328c',
+      'vIX4GTSCX4P',
+      'vkd6o91n1IC',
       BeneficiaryIdentification.primaryUIC
     ];
     Map data = Map();
@@ -70,7 +74,8 @@ class AgywDream {
       age: age.toString(),
       ageBand: agywAgeBand(age) ?? '',
       primaryUIC: data[BeneficiaryIdentification.primaryUIC] ?? '',
-      sex: data['VJiWumvINR6'] ?? '',
+      sex: data['VJiWumvINR6'] ?? data['vIX4GTSCX4P'] ?? '',
+      beneficiaryType: data['vkd6o91n1IC'] ?? '',
       programStatus: data['PN92g65TkVI'] ?? '',
       orgUnit: orgUnit,
       location: location,

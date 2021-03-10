@@ -517,7 +517,7 @@ class DreamsServicePrepIntakeInfo {
                 inputColor: Color(0xFF1F8ECE),
                 labelColor: Color(0xFF737373),
                 name:
-                    'In last 12 months have you had shared needles for injections?',
+                    'In last 12 months have you shared needles for injections?',
                 valueType: 'BOOLEAN'),
             InputField(
                 id: 'kQULFUqgab0',
@@ -938,6 +938,7 @@ class DreamsServicePrepIntakeInfo {
                 labelColor: Color(0xFF737373),
                 isReadOnly: true,
                 name: 'Weight',
+                suffixLabel: 'Kg',
                 valueType: 'NUMBER'),
             InputField(
                 id: 'WeaVsrFcWne',
@@ -945,6 +946,7 @@ class DreamsServicePrepIntakeInfo {
                 labelColor: Color(0xFF737373),
                 isReadOnly: true,
                 name: 'Blood Pressure Systolic (mmHg)',
+                suffixLabel: 'mmHg',
                 valueType: 'NUMBER'),
             InputField(
                 id: 'RqWMrqUcDqv',
@@ -952,6 +954,7 @@ class DreamsServicePrepIntakeInfo {
                 labelColor: Color(0xFF737373),
                 isReadOnly: true,
                 name: 'Blood Pressure Diastolic (mmHg)',
+                suffixLabel: 'mmHg',
                 valueType: 'NUMBER'),
             InputField(
                 id: 'd3zHELPzSaH',

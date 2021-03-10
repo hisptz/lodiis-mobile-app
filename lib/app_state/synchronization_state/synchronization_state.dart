@@ -94,7 +94,7 @@ class SynchronizationState with ChangeNotifier {
     notifyListeners();
   }
 
-  void startCheckingStatusOfUnsyncedData() async {
+  Future<void> startCheckingStatusOfUnsyncedData() async {
     _dataDownloadProcess = [];
     _dataUploadProcess = [];
     updateUnsynceDataCheckingStatus(true);

@@ -59,11 +59,22 @@ class NonAgywDreamsHTCSkipLogic {
       if (inputFieldId == 'RXS4fNXVKMl' && value != 'true') {
         hiddenFields['LZFhD0N9Zj5'] = true;
       }
-
       if ('${dataObject['eXp9ASOufpR']}' != 'null' &&
           '${dataObject['qsujYWhB0DP']}' != 'null') {
         dataObject['eXp9ASOufpR_bmi'] = calculateBMI(
             '${dataObject['eXp9ASOufpR']}', '${dataObject['qsujYWhB0DP']}');
+      }
+      if (inputFieldId == 'vkd6o91n1IC') {
+        if (dataObject['vIX4GTSCX4P'] == 'Male') {
+          dataObject[inputFieldId] = 'NON-AGYW';
+        } else if (dataObject['vIX4GTSCX4P'] == 'Female') {
+          int age = int.parse('${dataObject['ls9hlz2tyol'] ?? '0'}');
+          if (age >= 9 && age <= 24) {
+            dataObject[inputFieldId] = 'AGYW';
+          } else {
+            dataObject[inputFieldId] = 'NON-AGYW';
+          }
+        }
       }
     }
     List<String> fields = ['i0U8S4F3rTa', 'HD5YrKZXzQl'];
