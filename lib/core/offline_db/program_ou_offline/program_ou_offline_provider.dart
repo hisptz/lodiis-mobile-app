@@ -27,6 +27,11 @@ class ProgramOuOfflineProvider extends OfflineDbProvider {
     return await dbClient.delete(table, where: '$id = ?', whereArgs: [id]);
   }
 
+  clearProgramOrganisationUnits() async {
+    var dbClient = await db;
+    return await dbClient.delete(table);
+  }
+
   Future<List> getProgramOrganisationUnits(String programId) async {
     List<String> organisationUnits = [];
     try {
