@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/app_state/login_form_state/login_form_state.dart';
 import 'package:kb_mobile_app/modules/login/components/login_form.dart';
+import 'package:provider/provider.dart';
 
 class LoginFormContainer extends StatelessWidget {
   const LoginFormContainer({
@@ -62,7 +64,28 @@ class LoginFormContainer extends StatelessWidget {
               child: LoginForm(
                 currentLanguage: currentLanguage,
               ),
-            )
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Consumer<LoginFormState>(builder: (context, loginFormState, child) {
+              return Container(
+                  child: Column(
+                children: [
+                  Column(
+                    children: [
+                      Text(
+                        loginFormState.currentLoginProcessMessage,
+                        style: TextStyle(
+                            color: const Color(0xFF737373),
+                            fontSize: 14.0,
+                            fontWeight: FontWeight.w600),
+                      )
+                    ],
+                  )
+                ],
+              ));
+            })
           ],
         ),
       ),

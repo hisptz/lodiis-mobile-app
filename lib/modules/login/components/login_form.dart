@@ -81,6 +81,8 @@ class _LoginFormState extends State<LoginForm> {
       loginFormState.setHasLoginErrorStatus(false);
       loginFormState.setIsLoginProcessActive(true);
       try {
+        Provider.of<LoginFormState>(context, listen: false)
+            .setCurrentLoginProcessMessage('Authenticating user..');
         CurrentUser user = await UserService().login(
           currentUser.username.trim(),
           currentUser.password.trim(),
@@ -92,13 +94,20 @@ class _LoginFormState extends State<LoginForm> {
             user.password,
           );
           await UserService().setCurrentUser(user);
+          Provider.of<LoginFormState>(context, listen: false)
+              .setCurrentLoginProcessMessage('Saving user Access...');
           await UserAccess()
               .savingUserAccessConfigurations(userAccessConfigurations);
           Provider.of<CurrentUserState>(context, listen: false)
               .setCurrentUser(user, userAccessConfigurations);
+          Provider.of<LoginFormState>(context, listen: false)
+              .setCurrentLoginProcessMessage(
+                  'Saving user organisation units...');
           await OrganisationUnitService()
               .discoveringOrgananisationUnitsFromTheServer();
           // load program's organisation units
+          Provider.of<LoginFormState>(context, listen: false)
+              .setCurrentLoginProcessMessage('Saving user programs...');
           List<String> programs = user.programs ?? [];
           for (String program in programs) {
             await ProgramService()
