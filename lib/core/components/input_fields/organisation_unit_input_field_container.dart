@@ -16,12 +16,14 @@ class OrganisationUnitInputFieldContainer extends StatefulWidget {
       {Key key,
       @required this.inputField,
       @required this.onInputValueChange,
-      this.inputValue})
+      this.inputValue,
+      this.filteredPrograms})
       : super(key: key);
 
   final InputField inputField;
   final Function onInputValueChange;
   final String inputValue;
+  final List<String> filteredPrograms;
 
   @override
   _OrganisationUnitInputFieldContainerState createState() =>
@@ -80,7 +82,8 @@ class _OrganisationUnitInputFieldContainerState
         child: OrganisationUnitTreeList(
             organisationUnitIds: userOrganisationUnits,
             labelColor: widget.inputField.labelColor,
-            allowedSelectedLevels: widget.inputField.allowedSelectedLevels),
+            allowedSelectedLevels: widget.inputField.allowedSelectedLevels,
+            filteredPrograms: widget.filteredPrograms),
       ),
     );
     OrganisationUnit organisationUnit =

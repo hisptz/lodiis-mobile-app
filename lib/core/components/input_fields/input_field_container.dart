@@ -18,10 +18,10 @@ class InputFieldContainer extends StatelessWidget {
     @required this.inputField,
     @required this.currentLanguage,
     @required this.hiddenInputFieldOptions,
+    @required this.hiddenFields,
     this.onInputValueChange,
     this.dataObject,
     this.mandatoryFieldObject,
-    @required this.hiddenFields,
     this.isEditableMode,
   }) : super(key: key);
 
@@ -309,6 +309,8 @@ class InputFieldContainer extends StatelessWidget {
                                                   'ORGANISATION_UNIT'
                                               ? OrganisationUnitInputFieldContainer(
                                                   inputField: inputField,
+                                                  filteredPrograms: inputField
+                                                      .filteredPrograms,
                                                   inputValue:
                                                       dataObject[inputField.id],
                                                   onInputValueChange:

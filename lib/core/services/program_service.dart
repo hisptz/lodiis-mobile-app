@@ -36,6 +36,11 @@ class ProgramService {
     }
   }
 
+  Future<List> getOfflineProgramOrganisationUnits(String programId) async {
+    return await ProgramOuOfflineProvider()
+        .getProgramOrganisationUnits(programId);
+  }
+
   setProgramOrganisationUnits(
       String program, List<String> organisationUnits) async {
     await ProgramOuOfflineProvider()

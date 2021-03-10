@@ -10,11 +10,13 @@ class OrganisationUnitList extends StatefulWidget {
     @required this.organisationUnit,
     @required this.labelColor,
     @required this.allowedSelectedLevels,
+    this.filteredPrograms = const [],
   }) : super(key: key);
 
   final OrganisationUnit organisationUnit;
   final Color labelColor;
   final List<int> allowedSelectedLevels;
+  final List<String> filteredPrograms;
 
   @override
   _OrganisationUnitListState createState() => _OrganisationUnitListState();
@@ -94,6 +96,7 @@ class _OrganisationUnitListState extends State<OrganisationUnitList> {
                   labelColor: widget.labelColor,
                   organisationUnitIds: widget.organisationUnit.children,
                   allowedSelectedLevels: widget.allowedSelectedLevels,
+                  filteredPrograms: widget.filteredPrograms,
                 ),
               ))
         ],
