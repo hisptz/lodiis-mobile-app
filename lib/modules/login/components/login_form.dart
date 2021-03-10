@@ -5,6 +5,7 @@ import 'package:kb_mobile_app/app_state/login_form_state/login_form_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/form_field_input_icon.dart';
 import 'package:kb_mobile_app/core/constants/custom_color.dart';
+import 'package:kb_mobile_app/core/services/program_service.dart';
 import 'package:kb_mobile_app/core/services/user_access.dart';
 import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
@@ -97,6 +98,12 @@ class _LoginFormState extends State<LoginForm> {
               .setCurrentUser(user, userAccessConfigurations);
           await OrganisationUnitService()
               .discoveringOrgananisationUnitsFromTheServer();
+          // load program's organisation units
+          List<String> programs = user.programs ?? [];
+          for (String program in programs) {
+            await ProgramService()
+                .discoverProgramOrganisationUnitsFromTheServer(program);
+          }
           Timer(Duration(seconds: 2), () {
             Navigator.pushReplacement(
               context,
