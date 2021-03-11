@@ -5,6 +5,7 @@ import 'package:kb_mobile_app/app_state/login_form_state/login_form_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/form_field_input_icon.dart';
 import 'package:kb_mobile_app/core/constants/custom_color.dart';
+import 'package:kb_mobile_app/core/services/program_service.dart';
 import 'package:kb_mobile_app/core/services/user_access.dart';
 import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
@@ -37,6 +38,7 @@ class _LoginFormState extends State<LoginForm> {
   void initState() {
     super.initState();
     this.loginFormState = Provider.of<LoginFormState>(context, listen: false);
+    this.loginFormState.setCurrentLoginProcessMessage('');
     UserService().getCurrentUser().then((CurrentUser user) {
       currentUser = user ??
           new CurrentUser(
@@ -80,6 +82,7 @@ class _LoginFormState extends State<LoginForm> {
       loginFormState.setHasLoginErrorStatus(false);
       loginFormState.setIsLoginProcessActive(true);
       try {
+        loginFormState.setCurrentLoginProcessMessage('Authenticating user');
         CurrentUser user = await UserService().login(
           currentUser.username.trim(),
           currentUser.password.trim(),
@@ -91,12 +94,22 @@ class _LoginFormState extends State<LoginForm> {
             user.password,
           );
           await UserService().setCurrentUser(user);
+          loginFormState.setCurrentLoginProcessMessage('Saving user access');
           await UserAccess()
               .savingUserAccessConfigurations(userAccessConfigurations);
           Provider.of<CurrentUserState>(context, listen: false)
               .setCurrentUser(user, userAccessConfigurations);
+          loginFormState.setCurrentLoginProcessMessage(
+                  "Saving user's assigned locations...");
           await OrganisationUnitService()
               .discoveringOrgananisationUnitsFromTheServer();
+          // load program's organisation units
+         loginFormState.setCurrentLoginProcessMessage("Saving assigned access for interventions");
+          List<String> programs = user.programs ?? [];
+          for (String program in programs) {
+            await ProgramService()
+                .discoverProgramOrganisationUnitsFromTheServer(program);
+          }
           Timer(Duration(seconds: 2), () {
             Navigator.pushReplacement(
               context,
@@ -112,9 +125,11 @@ class _LoginFormState extends State<LoginForm> {
           String message = 'Incorrect username or password';
           loginFormState.setHasLoginErrorStatus(true);
           AppUtil.showToastMessage(message: message);
+          loginFormState.setCurrentLoginProcessMessage('');
         }
       } catch (error) {
         loginFormState.setIsLoginProcessActive(false);
+        loginFormState.setCurrentLoginProcessMessage('');
         AppUtil.showToastMessage(
           message: error.toString() ?? error,
         );
