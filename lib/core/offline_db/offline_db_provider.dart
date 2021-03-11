@@ -20,7 +20,8 @@ class OfflineDbProvider {
     "CREATE TABLE IF NOT EXISTS tei_relationships (id TEXT PRIMARY KEY, relationshipType TEXT, fromTei TEXT, toTei TEXT)",
     "CREATE TABLE IF NOT EXISTS app_logs (id TEXT PRIMARY KEY, type TEXT, message TEXT, date TEXT)",
     "CREATE TABLE IF NOT EXISTS reserve_value (id TEXT PRIMARY KEY,attribute TEXT,value TEXT,expireDate TEXT)",
-    "CREATE TABLE IF NOT EXISTS current_user_access (id TEXT PRIMARY KEY, userAccess TEXT)"
+    "CREATE TABLE IF NOT EXISTS current_user_access (id TEXT PRIMARY KEY, userAccess TEXT)",
+    "CREATE TABLE IF NOT EXISTS program_ou (id TEXT PRIMARY KEY, program TEXT, organisationUnit TEXT) "
   ];
 
   final List<String> migrationQuery = [];

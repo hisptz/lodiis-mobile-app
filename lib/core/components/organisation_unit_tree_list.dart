@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/organisation_unit_list.dart';
 import 'package:kb_mobile_app/core/services/organisation_unit_service.dart';
+import 'package:kb_mobile_app/core/services/program_service.dart';
 import 'package:kb_mobile_app/models/organisation_unit.dart';
 
 class OrganisationUnitTreeList extends StatefulWidget {
@@ -10,11 +11,13 @@ class OrganisationUnitTreeList extends StatefulWidget {
     @required this.organisationUnitIds,
     @required this.labelColor,
     @required this.allowedSelectedLevels,
+    this.filteredPrograms = const [],
   }) : super(key: key);
 
   final List organisationUnitIds;
   final Color labelColor;
   final List<int> allowedSelectedLevels;
+  final List<String> filteredPrograms;
 
   @override
   _OrganisationUnitTreeListState createState() =>
@@ -34,6 +37,17 @@ class _OrganisationUnitTreeListState extends State<OrganisationUnitTreeList> {
   void discoveringOrganisatioUnits(List organisationUnitids) async {
     var data = await OrganisationUnitService()
         .getOrganisationUnits(organisationUnitids);
+    if (widget.filteredPrograms.length > 0) {
+      List<String> programsOrganisationUnits = [];
+      for (String program in widget.filteredPrograms) {
+        List<String> organisationUnits =
+            await ProgramService().getOfflineProgramOrganisationUnits(program);
+        programsOrganisationUnits.addAll(organisationUnits);
+      }
+      data.removeWhere(
+          (ou) => !programsOrganisationUnits.toSet().toList().contains(ou.id));
+    }
+
     setState(() {
       organisationUnits = data;
       isLoading = false;
@@ -57,6 +71,7 @@ class _OrganisationUnitTreeListState extends State<OrganisationUnitTreeList> {
                         OrganisationUnitList(
                           labelColor: widget.labelColor,
                           organisationUnit: organisationUnit,
+                          filteredPrograms: widget.filteredPrograms,
                           allowedSelectedLevels: widget.allowedSelectedLevels,
                         ))
                     .toList(),

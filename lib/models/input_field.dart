@@ -27,6 +27,7 @@ class InputField {
   bool hasSubInputField;
   InputField subInputField;
   List<int> allowedSelectedLevels;
+  List<String> filteredPrograms;
 
   InputField(
       {@required this.id,
@@ -52,6 +53,7 @@ class InputField {
       this.minAgeInYear,
       this.numberOfMonth,
       this.suffixLabel,
+      this.filteredPrograms,
       this.hasError}) {
     this.allowedSelectedLevels = this.allowedSelectedLevels ?? [];
     this.allowFuturePeriod = this.allowFuturePeriod ?? false;
@@ -61,6 +63,7 @@ class InputField {
     this.hasSubInputField = this.hasSubInputField ?? false;
     this.renderAsRadio = this.renderAsRadio ?? false;
     this.options = this.options ?? [];
+    this.filteredPrograms = this.filteredPrograms ?? [];
     this.inputColor = this.inputColor ?? Colors.black;
     this.labelColor = this.labelColor ?? Color(0xFF1A3518);
     this.background = this.background ?? Colors.transparent;

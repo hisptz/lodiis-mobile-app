@@ -34,7 +34,7 @@ class NonAgywDreamsHTCSkipLogic {
         hiddenFields['YzPuEq2nAIh'] = true;
       }
 
-      if (inputFieldId == 'sJ35hsF6Lf9' && value != 'C') {
+      if (inputFieldId == 'sJ35hsF6Lf9' && value != 'Couple') {
         hiddenFields['XjHuTmtsXsz'] = true;
       }
       if (inputFieldId == 'Lam6bSq1Zgk' && value != 'Other') {
