@@ -108,7 +108,8 @@ class _AgywDreamsHTSRegisterFormState extends State<AgywDreamsHTSRegisterForm> {
       }
     } else {
       setState(() {
-        unFilledMandatoryFields = AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+        unFilledMandatoryFields =
+            AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
       });
       AppUtil.showToastMessage(
           message: 'Please fill all mandatory field',
@@ -170,7 +171,8 @@ class _AgywDreamsHTSRegisterFormState extends State<AgywDreamsHTSRegisterForm> {
                                           serviceFormState.isEditableMode,
                                       dataObject: serviceFormState.formState,
                                       onInputValueChange: onInputValueChange,
-                                      unFilledMandatoryFields: unFilledMandatoryFields,
+                                      unFilledMandatoryFields:
+                                          unFilledMandatoryFields,
                                     ),
                                   ),
                                   Visibility(
