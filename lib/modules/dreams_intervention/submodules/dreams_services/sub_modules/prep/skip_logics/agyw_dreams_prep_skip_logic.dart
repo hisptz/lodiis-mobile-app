@@ -177,7 +177,15 @@ class AgywDreamsPrepSkipLogic {
               value != dataObject['veoA322323t'])) {
         hiddenSections['BsLnIfmtn'] = true;
       }
-
+      if (inputFieldId == 'Jhp451oeYyB') {
+        if (dataObject['UlombfpCloG'] == 'Couple') {
+          assignInputFieldValue(context, inputFieldId, 'true');
+        } else if (dataObject['UlombfpCloG'] == 'Individual') {
+          assignInputFieldValue(context, inputFieldId, 'false');
+        } else {
+          assignInputFieldValue(context, inputFieldId, null);
+        }
+      }
       if ((inputFieldId == 'lMVSLtbHoT3' && value != 'Other') &&
           dataObject['BMqPyVMC6fT'] != 'Community program') {
         hiddenFields['uPpYQM3rAZ2'] = true;

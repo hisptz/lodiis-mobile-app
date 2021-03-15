@@ -37,9 +37,14 @@ class NoneAgywEnrollmentSkipLogic {
         int age = AppUtil.getAgeInYear(value);
         assignInputFieldValue(context, 'ls9hlz2tyol', age.toString());
       }
-      if (inputFieldId == 'NDigy1JKTNV' &&
-          dataObject['sJ35hsF6Lf9'] == 'Couple') {
-        assignInputFieldValue(context, inputFieldId, 'true');
+      if (inputFieldId == 'NDigy1JKTNV') {
+        if (dataObject['sJ35hsF6Lf9'] == 'Couple') {
+          assignInputFieldValue(context, inputFieldId, 'true');
+        } else if (dataObject['sJ35hsF6Lf9'] == 'Individual') {
+          assignInputFieldValue(context, inputFieldId, 'false');
+        } else {
+          assignInputFieldValue(context, inputFieldId, null);
+        }
       }
       if (inputFieldId == 'NDigy1JKTNV' && value != 'true') {
         hiddenFields['wRU2FLKUXer'] = true;
