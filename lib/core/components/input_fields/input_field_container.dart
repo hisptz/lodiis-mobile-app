@@ -375,7 +375,8 @@ class InputFieldContainer extends StatelessWidget {
                   InputClearIcon(
                       showClearIcon: inputField != null &&
                           dataObject[inputField.id] != null &&
-                          dataObject[inputField.id] != '',
+                          dataObject[inputField.id] != '' &&
+                          inputField.isReadOnly == false,
                       onClearInput: () {
                         onInputValueChange(inputField.id, null);
                       })
