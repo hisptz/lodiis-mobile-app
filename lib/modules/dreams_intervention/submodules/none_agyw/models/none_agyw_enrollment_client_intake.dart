@@ -87,7 +87,6 @@ class NoneAgywEnrollmentFormSection {
           InputField(
             id: 'j5iIE2kifv4',
             name: 'Client Type',
-            isReadOnly: true,
             valueType: 'TEXT',
             inputColor: Color(0xFF258DCC),
             labelColor: Color(0xFF737373),
@@ -804,6 +803,7 @@ class NoneAgywEnrollmentFormSection {
                 name: 'Client\'s weight(KG)',
                 valueType: 'NUMBER',
                 isReadOnly: true,
+                suffixLabel: 'Kg',
                 inputColor: Color(0xFF258DCC),
                 labelColor: Color(0xFF737373)),
             InputField(

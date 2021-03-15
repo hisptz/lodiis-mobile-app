@@ -37,6 +37,10 @@ class NoneAgywEnrollmentSkipLogic {
         int age = AppUtil.getAgeInYear(value);
         assignInputFieldValue(context, 'ls9hlz2tyol', age.toString());
       }
+      if (inputFieldId == 'NDigy1JKTNV' &&
+          dataObject['sJ35hsF6Lf9'] == 'Couple') {
+        assignInputFieldValue(context, inputFieldId, 'true');
+      }
       if (inputFieldId == 'NDigy1JKTNV' && value != 'true') {
         hiddenFields['wRU2FLKUXer'] = true;
       }
@@ -49,8 +53,10 @@ class NoneAgywEnrollmentSkipLogic {
       if (inputFieldId == 'vUobJnyivtf' && value != 'true') {
         hiddenFields['Lj7CDNvvtw5'] = true;
       }
-      if (inputFieldId == 'U90wPGZgftv' && value != '1') {
-        dataObject['hWBVFd8DTRj'] = 'false';
+      if (inputFieldId == 'U90wPGZgftv') {
+        if (value == '0') {
+          dataObject['hWBVFd8DTRj'] = 'false';
+        }
       }
       if (inputFieldId == 'ulJwlQIOLQA' && value != 'true') {
         hiddenFields['CcMOQFuS5Uy'] = true;
