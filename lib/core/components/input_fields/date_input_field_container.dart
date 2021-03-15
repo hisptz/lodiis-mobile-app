@@ -35,6 +35,23 @@ class _DateInputFieldContainerState extends State<DateInputFieldContainer> {
     });
   }
 
+  @override
+  void didUpdateWidget(covariant DateInputFieldContainer oldWidget) {
+    super.didUpdateWidget(widget);
+    if (oldWidget.inputValue != widget.inputValue) {
+      if (widget.inputValue == null || widget.inputValue == '') {
+        resetDate();
+      }
+    }
+  }
+
+  resetDate() {
+    setState(() {
+      _date = null;
+      dateController = TextEditingController(text: _date);
+    });
+  }
+
   DateTime getDateFromGivenYear(int year,
       {int numberOfMonth = 0, int numberOfDays = 0}) {
     DateTime currentDate = DateTime.now();
@@ -131,7 +148,7 @@ class _DateInputFieldContainerState extends State<DateInputFieldContainer> {
             ),
           ),
           InputCheckedIcon(
-            showTickedIcon: _date != null,
+            showTickedIcon: _date != null && _date != '',
             color: widget.inputField.inputColor,
           )
         ],
