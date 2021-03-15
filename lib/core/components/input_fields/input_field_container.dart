@@ -376,7 +376,16 @@ class InputFieldContainer extends StatelessWidget {
                       showClearIcon: inputField != null &&
                           dataObject[inputField.id] != null &&
                           dataObject[inputField.id] != '' &&
-                          inputField.isReadOnly == false,
+                          inputField.isReadOnly == false &&
+                          ([
+                                'LONG_TEXT',
+                                'TEXT',
+                                'INTEGER_ZERO_OR_POSITIVE',
+                                'NUMBER',
+                                'PHONE_NUMBER',
+                                'CHECK_BOX'
+                              ].indexOf(inputField.valueType) ==
+                              -1),
                       onClearInput: () {
                         onInputValueChange(inputField.id, null);
                       })
