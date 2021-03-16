@@ -107,7 +107,7 @@ class _HTSShortFormHomePageState extends State<HTSShortFormHomePage> {
                   Map<String, List<Events>> eventListByProgramStage =
                       serviceFormState.eventListByProgramStage;
                   List<Events> events = TrackedEntityInstanceUtil
-                          .getAllEventListFromServiceDataState(
+                          .getAllEventListFromServiceDataStateByProgramStages(
                               eventListByProgramStage, programStageids)
                       .toList();
                   int sessionIndex = events.length + 1;

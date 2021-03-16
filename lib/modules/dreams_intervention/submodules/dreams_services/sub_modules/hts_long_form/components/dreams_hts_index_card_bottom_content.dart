@@ -147,7 +147,7 @@ class _DreamsHTSIndexCardBottonContentState
                 Map<String, List<Events>> eventListByProgramStage =
                     serviveEventDataState.eventListByProgramStage;
                 List<Events> events = TrackedEntityInstanceUtil
-                    .getAllEventListFromServiceDataState(
+                    .getAllEventListFromServiceDataStateByProgramStages(
                         eventListByProgramStage,
                         [AgywDreamsIndexContantConstant.programStage]);
                 List<IndexContactModel> indexContactEvents = events

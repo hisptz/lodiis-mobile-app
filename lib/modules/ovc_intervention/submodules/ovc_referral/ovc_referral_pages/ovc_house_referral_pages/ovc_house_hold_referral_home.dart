@@ -121,7 +121,7 @@ class _OvcHouseHoldReferralHomeState extends State<OvcHouseHoldReferralHome> {
                       Map<String, List<Events>> eventListByProgramStage =
                           serviceFormState.eventListByProgramStage;
                       List<Events> events = TrackedEntityInstanceUtil
-                          .getAllEventListFromServiceDataState(
+                          .getAllEventListFromServiceDataStateByProgramStages(
                               eventListByProgramStage, programStageids);
                       int referralIndex = events.length;
                       return Container(
@@ -155,7 +155,8 @@ class _OvcHouseHoldReferralHomeState extends State<OvcHouseHoldReferralHome> {
                                                   child: Column(
                                                     children: events.map(
                                                         (Events eventData) {
-                                                      int count = referralIndex--;
+                                                      int count =
+                                                          referralIndex--;
                                                       return Container(
                                                         margin: EdgeInsets.only(
                                                           bottom: 15.0,

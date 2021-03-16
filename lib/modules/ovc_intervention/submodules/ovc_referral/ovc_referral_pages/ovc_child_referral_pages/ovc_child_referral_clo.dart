@@ -99,8 +99,8 @@ class _OvcChildCLOReferralState extends State<OvcChildCLOReferral> {
               bool isLoading = serviceFormState.isLoading;
               Map<String, List<Events>> eventListByProgramStage =
                   serviceFormState.eventListByProgramStage;
-              List<Events> events =
-                  TrackedEntityInstanceUtil.getAllEventListFromServiceDataState(
+              List<Events> events = TrackedEntityInstanceUtil
+                  .getAllEventListFromServiceDataStateByProgramStages(
                       eventListByProgramStage, programStageids);
               int referralIndex = events.length;
               return Container(

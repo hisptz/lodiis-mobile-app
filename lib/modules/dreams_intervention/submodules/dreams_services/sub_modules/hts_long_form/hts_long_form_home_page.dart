@@ -107,7 +107,7 @@ class _HTSLongFormHomePageState extends State<HTSLongFormHomePage> {
                   Map<String, List<Events>> eventListByProgramStage =
                       serviceFormState.eventListByProgramStage;
                   List<Events> events = TrackedEntityInstanceUtil
-                          .getAllEventListFromServiceDataState(
+                          .getAllEventListFromServiceDataStateByProgramStages(
                               eventListByProgramStage, programStageids)
                       .toList();
                   int sessionIndex = events.length + 1;

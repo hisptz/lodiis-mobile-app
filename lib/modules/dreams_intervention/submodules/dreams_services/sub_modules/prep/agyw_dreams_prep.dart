@@ -173,11 +173,11 @@ class _AgywDreamsPrepState extends State<AgywDreamsPrep> {
                     Map<String, List<Events>> eventListByProgramStage =
                         serviceFormState.eventListByProgramStage;
                     List<Events> events = TrackedEntityInstanceUtil
-                        .getAllEventListFromServiceDataState(
+                        .getAllEventListFromServiceDataStateByProgramStages(
                             eventListByProgramStage, programStageids);
 
                     List<Events> visits = TrackedEntityInstanceUtil
-                        .getAllEventListFromServiceDataState(
+                        .getAllEventListFromServiceDataStateByProgramStages(
                             eventListByProgramStage, visitProgramStageIds);
                     int visitReferralIndex = visits.length;
                     return Container(

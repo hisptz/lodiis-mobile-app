@@ -190,7 +190,7 @@ class _AgywDreamsIndexFollowUpListState
                           serviceFormState.eventListByProgramStage;
                       List<Events> indexContactFollowUpEvents =
                           TrackedEntityInstanceUtil
-                              .getAllEventListFromServiceDataState(
+                              .getAllEventListFromServiceDataStateByProgramStages(
                                   eventListByProgramStage,
                                   [AgywDreamsHTSFOLLOWUPConstant.programStage]);
                       List<IndexContactFollowUpModel> followUpList =

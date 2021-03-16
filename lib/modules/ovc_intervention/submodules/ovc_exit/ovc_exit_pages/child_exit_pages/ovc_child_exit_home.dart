@@ -130,7 +130,7 @@ class OvcChildExitHome extends StatelessWidget {
                       programStageIds.add('$id');
                     }
                     List<Events> events = TrackedEntityInstanceUtil
-                        .getAllEventListFromServiceDataState(
+                        .getAllEventListFromServiceDataStateByProgramStages(
                             eventListByProgramStage, programStageIds);
                     bool shouldAllowAddNewButton = events
                             .map((Events event) => event.programStage)

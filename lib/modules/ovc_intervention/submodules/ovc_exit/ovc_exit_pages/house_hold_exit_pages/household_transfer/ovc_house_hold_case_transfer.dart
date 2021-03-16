@@ -141,7 +141,7 @@ class _OvcHouseHoldCaseTransferState extends State<OvcHouseHoldCaseTransfer> {
                             Map<String, List<Events>> eventListByProgramStage =
                                 serviveEventDataState.eventListByProgramStage;
                             List<Events> eventList = TrackedEntityInstanceUtil
-                                .getAllEventListFromServiceDataState(
+                                .getAllEventListFromServiceDataStateByProgramStages(
                                     eventListByProgramStage, programStageIds);
                             Events event =
                                 eventList.length > 0 ? eventList[0] : null;

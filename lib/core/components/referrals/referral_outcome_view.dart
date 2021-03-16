@@ -58,12 +58,13 @@ class ReferralOutComeView extends StatelessWidget {
   List<ReferralOutFollowUpComeEvent> getReferralOutComeFollowUps(
     Map<String, List<Events>> eventListByProgramStage,
   ) {
-    TrackedEntityInstanceUtil.getAllEventListFromServiceDataState(
+    TrackedEntityInstanceUtil
+        .getAllEventListFromServiceDataStateByProgramStages(
       eventListByProgramStage,
       [referralFollowUpStage],
     );
-    List<Events> events =
-        TrackedEntityInstanceUtil.getAllEventListFromServiceDataState(
+    List<Events> events = TrackedEntityInstanceUtil
+        .getAllEventListFromServiceDataStateByProgramStages(
       eventListByProgramStage,
       [referralFollowUpStage],
     );

@@ -37,8 +37,8 @@ class ReferralOutComeCardContainer extends StatelessWidget {
           bool isLoading = serviveEventDataState.isLoading;
           Map<String, List<Events>> eventListByProgramStage =
               serviveEventDataState.eventListByProgramStage;
-          List<Events> events =
-              TrackedEntityInstanceUtil.getAllEventListFromServiceDataState(
+          List<Events> events = TrackedEntityInstanceUtil
+              .getAllEventListFromServiceDataStateByProgramStages(
             eventListByProgramStage,
             [currentProgramStage],
           ).where((Events event) => event.event == currentEventId).toList();
