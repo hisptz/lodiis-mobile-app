@@ -3,11 +3,13 @@ import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:kb_mobile_app/app_state/current_user_state/current_user_state.dart';
 import 'package:kb_mobile_app/core/components/line_seperator.dart';
+import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:provider/provider.dart';
 
 class ServiceCardBottonAction extends StatelessWidget {
   const ServiceCardBottonAction({
     Key key,
+    this.agywBeneficiary,
     this.onOpenPrepForm,
     this.onOpenHTSShortForm,
     this.onOpenHTSLongForm,
@@ -22,6 +24,7 @@ class ServiceCardBottonAction extends StatelessWidget {
     this.onOpenServiceForm,
   }) : super(key: key);
 
+  final AgywDream agywBeneficiary;
   final VoidCallback onOpenPrepForm;
   final VoidCallback onOpenHTSShortForm;
   final VoidCallback onOpenHTSLongForm;
@@ -127,7 +130,8 @@ class ServiceCardBottonAction extends StatelessWidget {
                           ),
                         ),
                         Visibility(
-                          visible: currentUserState.canManagePrep,
+                          visible: currentUserState.canManagePrep &&
+                              int.parse(agywBeneficiary.age ?? '0') >= 15,
                           child: Container(
                             child: InkWell(
                               onTap: onOpenPrepForm,

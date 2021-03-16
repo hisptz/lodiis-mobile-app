@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/constants/ovc_intervention_constant.dart';
 
 class OvcEnrollmentConsent {
   static List<String> getMandatoryField() {
@@ -26,6 +27,7 @@ class OvcEnrollmentConsent {
             translatedName: 'Sebaka',
             valueType: 'ORGANISATION_UNIT',
             allowedSelectedLevels: [3, 4],
+            filteredPrograms: [OvcInterventionConstant.program],
             inputColor: Color(0xFF4B9F46),
             labelColor: Color(0xFF737373)),
         InputField(

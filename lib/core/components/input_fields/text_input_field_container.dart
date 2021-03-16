@@ -34,11 +34,14 @@ class _TextInputFieldContainerState extends State<TextInputFieldContainer> {
     setState(() {
       _value = widget.inputValue;
     });
-    updateTextValue();
+    updateTextValue(value: widget.inputValue);
   }
 
-  updateTextValue() {
-    this.textController = TextEditingController(text: widget.inputValue);
+  updateTextValue({String value = ''}) {
+    setState(() {
+      _value = value;
+    });
+    this.textController = TextEditingController(text: value);
   }
 
   onValueChange(String value) {
@@ -51,9 +54,13 @@ class _TextInputFieldContainerState extends State<TextInputFieldContainer> {
   @override
   void didUpdateWidget(covariant TextInputFieldContainer oldWidget) {
     super.didUpdateWidget(widget);
-    if (oldWidget.inputValue != widget.inputValue &&
-        widget.inputField.isReadOnly) {
-      updateTextValue();
+    if (oldWidget.inputValue != widget.inputValue) {
+      if (widget.inputField.isReadOnly) {
+        updateTextValue(value: widget.inputValue);
+      }
+      if (widget.inputValue == null || widget.inputValue == '') {
+        updateTextValue();
+      }
     }
   }
 

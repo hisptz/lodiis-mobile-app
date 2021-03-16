@@ -45,7 +45,7 @@ class NonAgywHTSConsent {
         InputField(
             id: 'nL0ybbExLV5',
             name:
-                'Do you agree that the results of the test may be anonymously used for purposes of research and data collection purposes, provided that such information is de-identified with sufficient safeguards as to confidentiality?',
+                'Do you agree that the results of the test may be anonymously used for purposes of research and data collection purposes, provided that such information is de-identified to ensure safeguards as to confidentiality?',
             valueType: 'BOOLEAN',
             inputColor: Color(0xFF258DCC),
             labelColor: Color(0xFF737373)),

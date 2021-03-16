@@ -30,6 +30,7 @@ class ReferralOutComeCard extends StatefulWidget {
     @required this.referralProgram,
     @required this.isOvcIntervention,
     this.isEditableMode = true,
+    this.isHouseHoldReferral = false,
   }) : super(key: key);
 
   final Events eventData;
@@ -39,6 +40,7 @@ class ReferralOutComeCard extends StatefulWidget {
   final String referralProgram;
   final bool isEditableMode;
   final bool isOvcIntervention;
+  final bool isHouseHoldReferral;
 
   @override
   _ReferralOutComeCardState createState() => _ReferralOutComeCardState();
@@ -49,6 +51,7 @@ class _ReferralOutComeCardState extends State<ReferralOutComeCard> {
   bool isreferralOutComeFilled = false;
   List<FormSection> referralOutcomeFormSections;
   List<FormSection> referralOutcomeFollowUpFormSections;
+  List<String> referralOutcomeMandatoryFields = [];
   List<String> hiddenFields = [];
   Color themeColor;
 
@@ -59,6 +62,8 @@ class _ReferralOutComeCardState extends State<ReferralOutComeCard> {
     if (widget.isOvcIntervention) {
       themeColor = const Color(0xFF4B9F46);
       referralOutcomeFormSections = OvcReferralOutCome.getFormSections();
+      referralOutcomeMandatoryFields
+          .addAll(OvcReferralOutCome.getMandatoryFields());
       hiddenFields
           .addAll(FormUtil.getFormFieldIds(OvcReferral.getFormSections()));
       referralOutcomeFollowUpFormSections =
@@ -66,6 +71,8 @@ class _ReferralOutComeCardState extends State<ReferralOutComeCard> {
     } else {
       themeColor = const Color(0xFF1F8ECE);
       referralOutcomeFormSections = DreamReferralOutCome.getFormSections();
+      referralOutcomeMandatoryFields
+          .addAll(DreamReferralOutCome.getMandatoryFields());
       hiddenFields
           .addAll(FormUtil.getFormFieldIds(DreamAddReferral.getFormSections()));
       referralOutcomeFollowUpFormSections =
@@ -97,6 +104,7 @@ class _ReferralOutComeCardState extends State<ReferralOutComeCard> {
       themeColor: themeColor,
       eventData: widget.eventData,
       referralOutcomeFormSections: referralOutcomeFormSections,
+      referralOutcomeMandatoryFields: referralOutcomeMandatoryFields,
       hiddenFields: hiddenFields,
       referralToFollowUpLinkage: widget.referralToFollowUpLinkage,
     );
@@ -145,6 +153,8 @@ class _ReferralOutComeCardState extends State<ReferralOutComeCard> {
                       referralToFollowUpLinkage:
                           widget.referralToFollowUpLinkage,
                       referralProgram: widget.referralProgram,
+                      onEditReferralOutCome: () =>
+                          this.onAddReferralOutCome(context),
                     ),
                   ),
                 ),

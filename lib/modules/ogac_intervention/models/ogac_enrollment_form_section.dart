@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/input_field_option.dart';
+import 'package:kb_mobile_app/modules/ogac_intervention/constants/ogac_intervention_constant.dart';
 
 class OgacInterventionFormSection {
   static List<String> getMandatoryField() {
@@ -64,6 +65,7 @@ class OgacInterventionFormSection {
             translatedName: 'Sebaka',
             valueType: 'ORGANISATION_UNIT',
             allowedSelectedLevels: [3, 4],
+            filteredPrograms: [OgacInterventionConstant.program],
             inputColor: Color(0xFFF05A2A),
             labelColor: Color(0xFF737373),
           ),

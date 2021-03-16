@@ -103,7 +103,7 @@ class _AgywDreamANCState extends State<AgywDreamANC> {
                     Map<String, List<Events>> eventListByProgramStage =
                         serviceFormState.eventListByProgramStage;
                     List<Events> events = TrackedEntityInstanceUtil
-                        .getAllEventListFromServiceDataState(
+                        .getAllEventListFromServiceDataStateByProgramStages(
                             eventListByProgramStage, programStageids);
                     int referralIndex = events.length + 1;
                     return Container(

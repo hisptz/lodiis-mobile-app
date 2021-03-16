@@ -257,6 +257,7 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
                   isVerticalLayout: agywBeneficiary.id == toggleCardId,
                 ),
                 cardBottonActions: ServiceCardBottonAction(
+                  agywBeneficiary: agywBeneficiary,
                   onOpenPrepForm: () => onOpenPrepForm(
                     context,
                     agywBeneficiary,

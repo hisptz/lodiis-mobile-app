@@ -192,7 +192,9 @@ class AgywEnrollmentFormSection {
               InputFieldOption(
                   code: 'Grandparent',
                   name: 'Grandparent',
-                  translatedName: 'Ke Nkhono/Ntate-moholo')
+                  translatedName: 'Ke Nkhono/Ntate-moholo'),
+              InputFieldOption(
+                  code: 'Spouse', name: 'Spouse', translatedName: 'Molekane')
             ],
           ),
         ],
