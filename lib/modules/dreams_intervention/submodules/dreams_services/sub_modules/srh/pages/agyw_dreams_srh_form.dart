@@ -106,7 +106,8 @@ class _AgywDreamsSrhFormState extends State<AgywDreamsSrhForm> {
     Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
         .setCurrentAgywDream(agywDream);
 
-    if(dataObject[SRHConstant.srhToSrhRegisterLinkage] != null && srhRegisterEvent == null){
+    if (dataObject[SRHConstant.srhToSrhRegisterLinkage] != null &&
+        srhRegisterEvent == null) {
       if (srhRegisterEvent != null) {
         //Basically checks if the form is in edit mode
         Navigator.pushReplacement(
@@ -121,10 +122,10 @@ class _AgywDreamsSrhFormState extends State<AgywDreamsSrhForm> {
             context,
             MaterialPageRoute(
                 builder: (context) => AgywDreamsSrhRegisterForm())).then(
-                (whereFrom) =>
-            whereFrom == 'fromSaving' ? Navigator.pop(context) : null);
+            (whereFrom) =>
+                whereFrom == 'fromSaving' ? Navigator.pop(context) : null);
       }
-    }else{
+    } else {
       String eventDate = dataObject['eventDate'];
       String eventId = dataObject['eventId'];
       List<String> hiddenFields = [];
@@ -160,8 +161,8 @@ class _AgywDreamsSrhFormState extends State<AgywDreamsSrhForm> {
               context,
               MaterialPageRoute(
                   builder: (context) => AgywDreamsSrhRegisterForm())).then(
-                  (whereFrom) =>
-              whereFrom == 'fromSaving' ? Navigator.pop(context) : null);
+              (whereFrom) =>
+                  whereFrom == 'fromSaving' ? Navigator.pop(context) : null);
         }
       } catch (e) {}
     }
@@ -178,8 +179,8 @@ class _AgywDreamsSrhFormState extends State<AgywDreamsSrhForm> {
     Map<String, List<Events>> eventListByProgramStage =
         Provider.of<ServiveEventDataState>(context, listen: false)
             .eventListByProgramStage;
-    List<Events> srhRegisterEvents =
-        TrackedEntityInstanceUtil.getAllEventListFromServiceDataState(
+    List<Events> srhRegisterEvents = TrackedEntityInstanceUtil
+        .getAllEventListFromServiceDataStateByProgramStages(
             eventListByProgramStage, [SRHConstant.srhRegisterProgramStage]);
 
     Events srhRegisterEvent = srhRegisterEvents.firstWhere(

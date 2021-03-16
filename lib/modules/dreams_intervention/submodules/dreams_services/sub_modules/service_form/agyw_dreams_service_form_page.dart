@@ -126,7 +126,7 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
                     Map<String, List<Events>> eventListByProgramStage =
                         serviceFormState.eventListByProgramStage;
                     List<Events> events = TrackedEntityInstanceUtil
-                        .getAllEventListFromServiceDataState(
+                        .getAllEventListFromServiceDataStateByProgramStages(
                             eventListByProgramStage, programStageids);
                     List<ServiceEvents> serviceEvents = events
                         .map((Events event) =>

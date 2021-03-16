@@ -147,12 +147,12 @@ class _HTSSubHomePageState extends State<HTSSubHomePage> {
   DreamsHTSEvent getHtsRegisterEventData(
       Map<String, List<Events>> eventListByProgramStage,
       List<DreamsHTSEvent> indexEvents) {
-    List<DreamsHTSEvent> events =
-        TrackedEntityInstanceUtil.getAllEventListFromServiceDataState(
+    List<DreamsHTSEvent> events = TrackedEntityInstanceUtil
+            .getAllEventListFromServiceDataStateByProgramStages(
                 eventListByProgramStage,
                 [AgywDreamsHTSLongFormConstant.htsRegisterProgramStage])
-            .map((Events eventData) => DreamsHTSEvent().fromTeiModel(eventData))
-            .toList();
+        .map((Events eventData) => DreamsHTSEvent().fromTeiModel(eventData))
+        .toList();
     List<DreamsHTSEvent> htsRegisterEvents = events
         .where((DreamsHTSEvent dreamsHTSEvent) =>
             indexEvents.indexWhere((DreamsHTSEvent event) =>
@@ -217,7 +217,7 @@ class _HTSSubHomePageState extends State<HTSSubHomePage> {
                     Map<String, List<Events>> eventListByProgramStage =
                         serviceFormState.eventListByProgramStage;
                     List<Events> events = TrackedEntityInstanceUtil
-                            .getAllEventListFromServiceDataState(
+                            .getAllEventListFromServiceDataStateByProgramStages(
                                 eventListByProgramStage, programStageids)
                         .where((Events eventData) =>
                             eventData.event == widget.eventId)

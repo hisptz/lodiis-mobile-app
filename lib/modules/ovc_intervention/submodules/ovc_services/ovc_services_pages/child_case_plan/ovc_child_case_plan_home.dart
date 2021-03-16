@@ -71,8 +71,8 @@ class OvcChildCasePlanHome extends StatelessWidget {
   }
 
   isCasePlanExit(Map<String, List<Events>> eventListByProgramStage) {
-    List<Events> events =
-        TrackedEntityInstanceUtil.getAllEventListFromServiceDataState(
+    List<Events> events = TrackedEntityInstanceUtil
+        .getAllEventListFromServiceDataStateByProgramStages(
             eventListByProgramStage, casePlanProgramStageIds);
     Map groupedEventByDates =
         TrackedEntityInstanceUtil.getGroupedEventByDates(events);

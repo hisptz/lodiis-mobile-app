@@ -99,7 +99,7 @@ class _HTSIndexHomePageState extends State<HTSIndexHomePage> {
                 Map<String, List<Events>> eventListByProgramStage =
                     serviceFormState.eventListByProgramStage;
                 List<Events> events = TrackedEntityInstanceUtil
-                    .getAllEventListFromServiceDataState(
+                    .getAllEventListFromServiceDataStateByProgramStages(
                         eventListByProgramStage, programStageids);
                 List<AgywDreamsIndexInfoEvent> indexEvents = events
                     .map((Events eventData) =>

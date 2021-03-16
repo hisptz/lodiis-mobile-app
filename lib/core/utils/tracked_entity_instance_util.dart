@@ -46,7 +46,7 @@ class TrackedEntityInstanceUtil {
     return events;
   }
 
-  static List<Events> getAllEventListFromServiceDataState(
+  static List<Events> getAllEventListFromServiceDataStateByProgramStages(
     Map<String, List<Events>> eventListByProgramStage,
     List<String> programStageids,
   ) {
