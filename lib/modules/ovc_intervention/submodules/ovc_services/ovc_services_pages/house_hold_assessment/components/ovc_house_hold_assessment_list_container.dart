@@ -29,8 +29,8 @@ class OvcHouseHoldAssessmentListContainer extends StatelessWidget {
         builder: (context, serviveEventDataState, child) {
           Map<String, List<Events>> eventListByProgramStage =
               serviveEventDataState.eventListByProgramStage;
-          List<Events> eventList =
-              TrackedEntityInstanceUtil.getAllEventListFromServiceDataState(
+          List<Events> eventList = TrackedEntityInstanceUtil
+              .getAllEventListFromServiceDataStateByProgramStages(
                   eventListByProgramStage, programStageIds);
           int assessmentIndex = eventList.length;
           return assessmentIndex == 0

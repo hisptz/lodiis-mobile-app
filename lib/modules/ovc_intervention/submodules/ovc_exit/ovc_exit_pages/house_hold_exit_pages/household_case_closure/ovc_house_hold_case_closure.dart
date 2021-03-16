@@ -147,7 +147,7 @@ class _OvcHouseHoldCaseClosureState extends State<OvcHouseHoldCaseClosure> {
                             Map<String, List<Events>> eventListByProgramStage =
                                 serviceEventDataState.eventListByProgramStage;
                             List<Events> eventList = TrackedEntityInstanceUtil
-                                    .getAllEventListFromServiceDataState(
+                                    .getAllEventListFromServiceDataStateByProgramStages(
                                         eventListByProgramStage,
                                         programStageIds) ??
                                 [];

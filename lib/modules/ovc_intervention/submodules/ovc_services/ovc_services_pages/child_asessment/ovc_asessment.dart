@@ -130,7 +130,7 @@ class OvcAssessmentServiceChildView extends StatelessWidget {
                             programStageids.add('$id');
                           }
                           List<Events> events = TrackedEntityInstanceUtil
-                              .getAllEventListFromServiceDataState(
+                              .getAllEventListFromServiceDataStateByProgramStages(
                                   eventListByProgramStage, programStageids);
                           return isLoading
                               ? CircularProcessLoader(

@@ -103,7 +103,7 @@ class _AgywDreamArtRefillState extends State<AgywDreamArtRefill> {
                     Map<String, List<Events>> eventListByProgramStage =
                         serviceFormState.eventListByProgramStage;
                     List<Events> events = TrackedEntityInstanceUtil
-                        .getAllEventListFromServiceDataState(
+                        .getAllEventListFromServiceDataStateByProgramStages(
                             eventListByProgramStage, programStageids);
                     int referralIndex = events.length + 1;
                     return Container(
