@@ -83,8 +83,8 @@ class _HTSTBHomePageState extends State<HTSTBHomePage> {
           bool isLoading = serviceFormState.isLoading;
           Map<String, List<Events>> eventListByProgramStage =
               serviceFormState.eventListByProgramStage;
-          List<Events> events =
-              TrackedEntityInstanceUtil.getAllEventListFromServiceDataState(
+          List<Events> events = TrackedEntityInstanceUtil
+              .getAllEventListFromServiceDataStateByProgramStages(
                   eventListByProgramStage, programStageids);
           List<DreamsHTSTBEvent> tbEvents = events
               .map((Events eventData) =>

@@ -38,7 +38,6 @@ class _LoginFormState extends State<LoginForm> {
   void initState() {
     super.initState();
     this.loginFormState = Provider.of<LoginFormState>(context, listen: false);
-    this.loginFormState.setCurrentLoginProcessMessage('');
     UserService().getCurrentUser().then((CurrentUser user) {
       currentUser = user ??
           new CurrentUser(
@@ -82,7 +81,7 @@ class _LoginFormState extends State<LoginForm> {
       loginFormState.setHasLoginErrorStatus(false);
       loginFormState.setIsLoginProcessActive(true);
       try {
-        loginFormState.setCurrentLoginProcessMessage('Authenticating user');
+        loginFormState.setCurrentLoginProcessMessage('Authenticating user...');
         CurrentUser user = await UserService().login(
           currentUser.username.trim(),
           currentUser.password.trim(),
@@ -94,17 +93,18 @@ class _LoginFormState extends State<LoginForm> {
             user.password,
           );
           await UserService().setCurrentUser(user);
-          loginFormState.setCurrentLoginProcessMessage('Saving user access');
+          loginFormState.setCurrentLoginProcessMessage('Saving user access...');
           await UserAccess()
               .savingUserAccessConfigurations(userAccessConfigurations);
           Provider.of<CurrentUserState>(context, listen: false)
               .setCurrentUser(user, userAccessConfigurations);
           loginFormState.setCurrentLoginProcessMessage(
-                  "Saving user's assigned locations...");
+              "Saving user's assigned locations...");
           await OrganisationUnitService()
               .discoveringOrgananisationUnitsFromTheServer();
           // load program's organisation units
-         loginFormState.setCurrentLoginProcessMessage("Saving assigned access for interventions");
+          loginFormState.setCurrentLoginProcessMessage(
+              "Saving assigned access for interventions...");
           List<String> programs = user.programs ?? [];
           for (String program in programs) {
             await ProgramService()

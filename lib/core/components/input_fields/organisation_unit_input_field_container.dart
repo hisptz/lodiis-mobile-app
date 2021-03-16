@@ -35,6 +35,7 @@ class _OrganisationUnitInputFieldContainerState
   TextEditingController organisationUnitController;
   List userOrganisationUnits = [];
   bool isLoading = true;
+  bool valueCleared = false;
   String _value;
 
   @override
@@ -44,6 +45,17 @@ class _OrganisationUnitInputFieldContainerState
       Duration(seconds: 1),
       () => getUserOrganisationunits(),
     );
+  }
+
+  @override
+  void didUpdateWidget(
+      covariant OrganisationUnitInputFieldContainer oldWidget) {
+    super.didUpdateWidget(widget);
+    if (oldWidget.inputValue != widget.inputValue) {
+      if (widget.inputValue == null || widget.inputValue == '') {
+        setOrganisationunit('');
+      }
+    }
   }
 
   void getUserOrganisationunits() async {
@@ -124,7 +136,7 @@ class _OrganisationUnitInputFieldContainerState
                   ),
           ),
           InputCheckedIcon(
-            showTickedIcon: _value != null,
+            showTickedIcon: _value != null && _value != '',
             color: widget.inputField.inputColor,
           )
         ],

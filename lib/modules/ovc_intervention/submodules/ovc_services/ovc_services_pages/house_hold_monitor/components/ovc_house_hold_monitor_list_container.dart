@@ -29,8 +29,8 @@ class OvcHouseHoldMonitorListContainer extends StatelessWidget {
         builder: (context, serviveEventDataState, child) {
           Map<String, List<Events>> eventListByProgramStage =
               serviveEventDataState.eventListByProgramStage;
-          List<Events> eventList =
-              TrackedEntityInstanceUtil.getAllEventListFromServiceDataState(
+          List<Events> eventList = TrackedEntityInstanceUtil
+              .getAllEventListFromServiceDataStateByProgramStages(
                   eventListByProgramStage, programStageIds);
           int monitorIndex = eventList.length;
           return monitorIndex == 0
@@ -65,20 +65,20 @@ class OvcHouseHoldMonitorListContainer extends StatelessWidget {
                                           child: RichText(
                                             text: TextSpan(
                                               text:
-                                                   'Visit ${monitorIndex + 1}   ',
-                                                    style: TextStyle().copyWith(
-                                                    color: Color(0xFF1A3518),
-                                                    fontSize: 14.0,
-                                                    fontWeight: FontWeight.w700,
+                                                  'Visit ${monitorIndex + 1}   ',
+                                              style: TextStyle().copyWith(
+                                                color: Color(0xFF1A3518),
+                                                fontSize: 14.0,
+                                                fontWeight: FontWeight.w700,
                                               ),
                                               children: [
                                                 TextSpan(
                                                   text:
-                                                  '${monitor.eventDate}   ',
+                                                      '${monitor.eventDate}   ',
                                                   style: TextStyle().copyWith(
-                                                  color: Color(0xFF92A791),
-                                                  fontSize: 12.0,
-                                                  fontWeight: FontWeight.w700,
+                                                    color: Color(0xFF92A791),
+                                                    fontSize: 12.0,
+                                                    fontWeight: FontWeight.w700,
                                                   ),
                                                 )
                                               ],
@@ -92,8 +92,7 @@ class OvcHouseHoldMonitorListContainer extends StatelessWidget {
                                         ),
                                         child: InkWell(
                                             onTap: () =>
-                                                onViewHouseHoldMonitor(
-                                                   monitor),
+                                                onViewHouseHoldMonitor(monitor),
                                             child: Container(
                                               height: iconHeight,
                                               width: iconHeight,
@@ -110,9 +109,8 @@ class OvcHouseHoldMonitorListContainer extends StatelessWidget {
                                           horizontal: 5.0,
                                         ),
                                         child: InkWell(
-                                          onTap: () =>
-                                                onEditHouseHoldMonitor(
-                                                    monitor),
+                                            onTap: () =>
+                                                onEditHouseHoldMonitor(monitor),
                                             child: Container(
                                               height: iconHeight,
                                               width: iconHeight,

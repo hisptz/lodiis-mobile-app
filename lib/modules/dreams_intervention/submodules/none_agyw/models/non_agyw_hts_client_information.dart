@@ -65,6 +65,8 @@ class NonAgywHTSClientInformation {
               id: 'qZP982qpSPS',
               name: 'Date of Birth',
               valueType: 'DATE',
+              minAgeInYear: 15,
+              numberOfMonth: 11,
               inputColor: Color(0xFF258DCC),
               labelColor: Color(0xFF737373),
             ),

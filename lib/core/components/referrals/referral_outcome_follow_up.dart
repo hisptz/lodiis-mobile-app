@@ -1,18 +1,44 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/core/components/line_seperator.dart';
+import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/referral_outcome_follow_up_event.dart';
+import 'package:provider/provider.dart';
 
 class ReferralOutComeFollowUp extends StatelessWidget {
-  const ReferralOutComeFollowUp({
-    Key key,
-    @required this.referralOutComeFollowUpEvents,
-    @required this.themeColor,
-  }) : super(key: key);
+  const ReferralOutComeFollowUp(
+      {Key key,
+      @required this.referralOutComeFollowUpEvents,
+      @required this.themeColor,
+      @required this.onEditFollowUp})
+      : super(key: key);
 
   final List<ReferralOutFollowUpComeEvent> referralOutComeFollowUpEvents;
   final Color themeColor;
+  final Function onEditFollowUp;
+  final double editIconHeight = 20;
+
+  void editOutComeFollowUp(BuildContext context, Events eventData) {
+    Provider.of<ServiceFormState>(context, listen: false).resetFormState();
+    Provider.of<ServiceFormState>(context, listen: false)
+        .updateFormEditabilityState(isEditableMode: true);
+    if (eventData != null) {
+      Provider.of<ServiceFormState>(context, listen: false)
+          .setFormFieldState('eventDate', eventData.eventDate);
+      Provider.of<ServiceFormState>(context, listen: false)
+          .setFormFieldState('eventId', eventData.event);
+      for (Map datavalue in eventData.dataValues) {
+        if (datavalue['value'] != '') {
+          Provider.of<ServiceFormState>(context, listen: false)
+              .setFormFieldState(datavalue['dataElement'], datavalue['value']);
+        }
+      }
+    }
+    onEditFollowUp();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,13 +60,33 @@ class ReferralOutComeFollowUp extends StatelessWidget {
                 Container(
                   alignment: Alignment.centerLeft,
                   margin: EdgeInsets.symmetric(vertical: 10.0),
-                  child: Text(
-                    'FOLLOW UP $index',
-                    style: TextStyle().copyWith(
-                      color: themeColor,
-                      fontWeight: FontWeight.w700,
-                      fontSize: 14.0,
-                    ),
+                  child: Row(
+                    children: [
+                      Expanded(
+                          child: Text(
+                        'FOLLOW UP $index',
+                        style: TextStyle().copyWith(
+                          color: themeColor,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 14.0,
+                        ),
+                      )),
+                      InkWell(
+                          onTap: () => {
+                                editOutComeFollowUp(context,
+                                    referralOutComeFollowUpEvent.eventData)
+                              },
+                          child: Container(
+                            height: editIconHeight,
+                            width: editIconHeight,
+                            margin: EdgeInsets.symmetric(
+                                vertical: 10, horizontal: 10),
+                            child: SvgPicture.asset(
+                              'assets/icons/edit-icon.svg',
+                              color: themeColor,
+                            ),
+                          ))
+                    ],
                   ),
                 ),
                 Container(

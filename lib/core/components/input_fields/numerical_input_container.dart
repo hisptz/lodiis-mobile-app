@@ -30,10 +30,13 @@ class _NumericalInputFieldContainerState
     setState(() {
       _value = widget.inputValue;
     });
-    updateNumericalValue();
+    updateNumericalValue(value: widget.inputValue);
   }
 
-  updateNumericalValue() {
+  updateNumericalValue({String value = ''}) {
+    setState(() {
+      _value = value;
+    });
     numericalController = TextEditingController(text: widget.inputValue);
   }
 
@@ -49,9 +52,13 @@ class _NumericalInputFieldContainerState
   @override
   void didUpdateWidget(covariant NumericalInputFieldContainer oldWidget) {
     super.didUpdateWidget(widget);
-    if (oldWidget.inputValue != widget.inputValue &&
-        widget.inputField.isReadOnly) {
-      updateNumericalValue();
+    if (oldWidget.inputValue != widget.inputValue) {
+      if (widget.inputField.isReadOnly) {
+        updateNumericalValue(value: widget.inputValue);
+      }
+      if (widget.inputValue == null || widget.inputValue == '') {
+        updateNumericalValue();
+      }
     }
   }
 

@@ -14,20 +14,22 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/o
 import 'package:provider/provider.dart';
 
 class ReferralOutcomeModal extends StatefulWidget {
-  const ReferralOutcomeModal({
-    Key key,
-    @required this.themeColor,
-    @required this.referralOutcomeFormSections,
-    @required this.eventData,
-    @required this.hiddenFields,
-    @required this.referralToFollowUpLinkage,
-  }) : super(key: key);
+  const ReferralOutcomeModal(
+      {Key key,
+      @required this.themeColor,
+      @required this.referralOutcomeFormSections,
+      @required this.eventData,
+      @required this.hiddenFields,
+      @required this.referralToFollowUpLinkage,
+      @required this.referralOutcomeMandatoryFields})
+      : super(key: key);
 
   final Color themeColor;
   final List<FormSection> referralOutcomeFormSections;
   final Events eventData;
   final String referralToFollowUpLinkage;
   final List<String> hiddenFields;
+  final List<String> referralOutcomeMandatoryFields;
 
   @override
   _ReferralOutcomeModalState createState() => _ReferralOutcomeModalState();
@@ -36,15 +38,19 @@ class ReferralOutcomeModal extends StatefulWidget {
 class _ReferralOutcomeModalState extends State<ReferralOutcomeModal> {
   bool isFormReady = false;
   bool isSaving = false;
+  Map referralOutcomeMandatoryFieldsObject = Map();
+  List unFilledMandatoryFields = [];
 
   @override
   void initState() {
     super.initState();
+    isFormReady = true;
+    for (String id in widget.referralOutcomeMandatoryFields ?? []) {
+      referralOutcomeMandatoryFieldsObject[id] = true;
+    }
+    evaluateSkipLogics();
     Timer(Duration(seconds: 1), () {
-      setState(() {
-        isFormReady = true;
-        evaluateSkipLogics();
-      });
+      setState(() {});
     });
   }
 
@@ -75,49 +81,62 @@ class _ReferralOutcomeModalState extends State<ReferralOutcomeModal> {
     Events eventData,
   ) async {
     if (getReferralOutComeStatus(dataObject)) {
-      setState(() {
-        isSaving = true;
-      });
-      try {
-        dataObject[widget.referralToFollowUpLinkage] =
-            dataObject[widget.referralToFollowUpLinkage] ?? AppUtil.getUid();
-        await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-          eventData.program,
-          eventData.programStage,
-          eventData.orgUnit,
-          widget.referralOutcomeFormSections,
-          dataObject,
-          eventData.eventDate,
-          eventData.trackedEntityInstance,
-          eventData.event,
-          widget.hiddenFields,
+      bool hadAllMandatoryFilled = AppUtil.hasAllMandarotyFieldsFilled(
+          widget.referralOutcomeMandatoryFields ?? [], dataObject);
+      if (hadAllMandatoryFilled) {
+        setState(() {
+          isSaving = true;
+        });
+        try {
+          dataObject[widget.referralToFollowUpLinkage] =
+              dataObject[widget.referralToFollowUpLinkage] ?? AppUtil.getUid();
+          await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
+            eventData.program,
+            eventData.programStage,
+            eventData.orgUnit,
+            widget.referralOutcomeFormSections,
+            dataObject,
+            eventData.eventDate,
+            eventData.trackedEntityInstance,
+            eventData.event,
+            widget.hiddenFields,
+          );
+          Provider.of<ServiveEventDataState>(context, listen: false)
+              .resetServiceEventDataState(eventData.trackedEntityInstance);
+          Timer(Duration(seconds: 1), () {
+            setState(() {
+              isSaving = false;
+              String currentLanguage =
+                  Provider.of<LanguageTranslationState>(context, listen: false)
+                      .currentLanguage;
+              AppUtil.showToastMessage(
+                message: currentLanguage == 'lesotho'
+                    ? 'Fomo e bolokeile'
+                    : 'Form has been saved successfully',
+                position: ToastGravity.TOP,
+              );
+              Navigator.pop(context);
+            });
+          });
+        } catch (e) {
+          Timer(Duration(seconds: 1), () {
+            setState(() {
+              isSaving = false;
+              AppUtil.showToastMessage(
+                  message: e.toString(), position: ToastGravity.BOTTOM);
+              Navigator.pop(context);
+            });
+          });
+        }
+      } else {
+        setState(() {
+          unFilledMandatoryFields = AppUtil.getUnFilledMandatoryFields(
+              widget.referralOutcomeMandatoryFields, dataObject);
+        });
+        AppUtil.showToastMessage(
+          message: 'Please fill all mandatory field',
+          position: ToastGravity.TOP,
         );
-        Provider.of<ServiveEventDataState>(context, listen: false)
-            .resetServiceEventDataState(eventData.trackedEntityInstance);
-        Timer(Duration(seconds: 1), () {
-          setState(() {
-            isSaving = false;
-            String currentLanguage =
-                Provider.of<LanguageTranslationState>(context, listen: false)
-                    .currentLanguage;
-            AppUtil.showToastMessage(
-              message: currentLanguage == 'lesotho'
-                  ? 'Fomo e bolokeile'
-                  : 'Form has been saved successfully',
-              position: ToastGravity.TOP,
-            );
-            Navigator.pop(context);
-          });
-        });
-      } catch (e) {
-        Timer(Duration(seconds: 1), () {
-          setState(() {
-            isSaving = false;
-            AppUtil.showToastMessage(
-                message: e.toString(), position: ToastGravity.BOTTOM);
-            Navigator.pop(context);
-          });
-        });
       }
     } else {
       AppUtil.showToastMessage(
@@ -158,7 +177,8 @@ class _ReferralOutcomeModalState extends State<ReferralOutcomeModal> {
                     hiddenFields: serviceFormState.hiddenFields,
                     elevation: 0.0,
                     formSections: widget.referralOutcomeFormSections,
-                    mandatoryFieldObject: Map(),
+                    mandatoryFieldObject: referralOutcomeMandatoryFieldsObject,
+                    unFilledMandatoryFields: unFilledMandatoryFields,
                     dataObject: serviceFormState.formState,
                     isEditableMode: serviceFormState.isEditableMode,
                     onInputValueChange: onInputValueChange,
