@@ -55,6 +55,18 @@ class ReferralOutComeView extends StatelessWidget {
     await AppUtil.showPopUpModal(context, modal, true);
   }
 
+  void onEeditOutComeFollowUp(BuildContext context) async {
+    Widget modal = ReferralOutComeFollowUpModal(
+      themeColor: themeColor,
+      referralProgram: referralProgram,
+      referralFollowUpStage: referralFollowUpStage,
+      referralToFollowUpLinkage: referralToFollowUpLinkage,
+      referralOutcomeFollowUpFormSections: referralOutcomeFollowUpFormSections,
+      beneficiary: beneficiary,
+    );
+    await AppUtil.showPopUpModal(context, modal, true);
+  }
+
   List<ReferralOutFollowUpComeEvent> getReferralOutComeFollowUps(
     Map<String, List<Events>> eventListByProgramStage,
   ) {
@@ -249,6 +261,7 @@ class ReferralOutComeView extends StatelessWidget {
                       ),
                       child: ReferralOutComeFollowUp(
                         themeColor: themeColor,
+                        onEditFollowUp: () => onEeditOutComeFollowUp(context),
                         referralOutComeFollowUpEvents:
                             referralOutComeFollowUpEvents,
                       ),
