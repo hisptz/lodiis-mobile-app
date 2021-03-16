@@ -149,12 +149,9 @@ class _ReferralDetailedCardState extends State<ReferralDetailedCard> {
                                 Visibility(
                                   visible: widget.isEditable &&
                                       referralOutComeEvent != null &&
-                                      (referralOutComeEvent
-                                                  .dateClientReachStation ==
-                                              '' ||
-                                          referralOutComeEvent
-                                                  .dateServiceProvided ==
-                                              ''),
+                                      referralOutComeEvent
+                                              .dateClientReachStation ==
+                                          '',
                                   child: InkWell(
                                     onTap: () => onEditRefferral(context),
                                     child: Container(
