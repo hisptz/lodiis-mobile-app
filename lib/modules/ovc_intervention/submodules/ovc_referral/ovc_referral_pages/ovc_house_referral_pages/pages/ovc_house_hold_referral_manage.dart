@@ -74,6 +74,7 @@ class _OvcHouseHoldReferralManageState
                                 labelColor: Color(0XFF92A791),
                                 valueColor: Color(0XFF536852),
                                 referralIndex: widget.referralIndex,
+                                isEditable: true,
                                 eventData: widget.eventData,
                               ),
                               ReferralOutComeCardContainer(

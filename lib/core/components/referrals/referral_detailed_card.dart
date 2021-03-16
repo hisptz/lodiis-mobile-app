@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/core/components/line_seperator.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/referral_event.dart';
+import 'package:kb_mobile_app/models/referral_outcome_event.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_referral/pages/dream_agyw_referral_form.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/ovc_referral_pages/ovc_child_referral_pages/pages/ovc_child_referral_add_form.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/ovc_referral_pages/ovc_house_referral_pages/pages/ovc_house_hold_add_referral_form.dart';
 import 'package:provider/provider.dart';
 
 class ReferralDetailedCard extends StatefulWidget {
@@ -14,6 +20,9 @@ class ReferralDetailedCard extends StatefulWidget {
     @required this.titleColor,
     @required this.labelColor,
     @required this.valueColor,
+    this.isOvcIntervention = true,
+    this.isHouseHoldReferral = false,
+    this.isEditable = false,
   }) : super(key: key);
 
   final Events eventData;
@@ -22,6 +31,9 @@ class ReferralDetailedCard extends StatefulWidget {
   final Color titleColor;
   final Color valueColor;
   final Color labelColor;
+  final bool isOvcIntervention;
+  final bool isHouseHoldReferral;
+  final bool isEditable;
 
   @override
   _ReferralDetailedCardState createState() => _ReferralDetailedCardState();
@@ -29,11 +41,69 @@ class ReferralDetailedCard extends StatefulWidget {
 
 class _ReferralDetailedCardState extends State<ReferralDetailedCard> {
   ReferralEvent ovcReferralCard;
+  double editIconHeight = 20;
+  ReferralOutComeEvent referralOutComeEvent;
+  Color buttonLabelColor;
 
   @override
   void initState() {
     super.initState();
     ovcReferralCard = ReferralEvent().fromTeiModel(widget.eventData);
+    if (widget.isOvcIntervention) {
+      buttonLabelColor = const Color(0xFF4B9F46);
+    } else {
+      buttonLabelColor = const Color(0xFF1F8ECE);
+    }
+    assignReferralOutComeEvent();
+    setState(() {});
+  }
+
+  assignReferralOutComeEvent() {
+    referralOutComeEvent =
+        ReferralOutComeEvent().fromTeiModel(widget.eventData, '');
+  }
+
+  // @override
+  // void didUpdateWidget(covariant ReferralDetailedCard oldWidget) {
+  //   super.didUpdateWidget(oldWidget);
+  //   assignReferralOutComeEvent();
+  //   setState(
+  //     () {},
+  //   );
+  // }
+
+  void updateFormState(
+    BuildContext context,
+    bool isEditableMode,
+    Events eventData,
+  ) {
+    Provider.of<ServiceFormState>(context, listen: false).resetFormState();
+    Provider.of<ServiceFormState>(context, listen: false)
+        .updateFormEditabilityState(isEditableMode: isEditableMode);
+    if (eventData != null) {
+      Provider.of<ServiceFormState>(context, listen: false)
+          .setFormFieldState('eventDate', eventData.eventDate);
+      Provider.of<ServiceFormState>(context, listen: false)
+          .setFormFieldState('eventId', eventData.event);
+      for (Map datavalue in eventData.dataValues) {
+        if (datavalue['value'] != '') {
+          Provider.of<ServiceFormState>(context, listen: false)
+              .setFormFieldState(datavalue['dataElement'], datavalue['value']);
+        }
+      }
+    }
+  }
+
+  onEditRefferral(BuildContext context) {
+    updateFormState(context, true, widget.eventData);
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => widget.isOvcIntervention
+                ? widget.isHouseHoldReferral
+                    ? OvcHouseHoldAddReferralForm()
+                    : OvcChildReferralAddForm()
+                : DreamAgywAddReferralForm()));
   }
 
   @override
@@ -62,7 +132,25 @@ class _ReferralDetailedCardState extends State<ReferralDetailedCard> {
                           fontSize: 14.0,
                         ),
                       ),
-                    )
+                    ),
+                    Visibility(
+                        visible: widget.isEditable &&
+                            referralOutComeEvent != null &&
+                            (referralOutComeEvent.dateClientReachStation ==
+                                    '' ||
+                                referralOutComeEvent.dateServiceProvided == ''),
+                        child: InkWell(
+                            onTap: () => onEditRefferral(context),
+                            child: Container(
+                              height: editIconHeight,
+                              width: editIconHeight,
+                              margin: EdgeInsets.symmetric(
+                                  vertical: 5, horizontal: 5),
+                              child: SvgPicture.asset(
+                                'assets/icons/edit-icon.svg',
+                                color: buttonLabelColor,
+                              ),
+                            )))
                   ],
                 ),
               ),

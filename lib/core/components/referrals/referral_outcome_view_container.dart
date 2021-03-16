@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/line_seperator.dart';
 import 'package:kb_mobile_app/core/components/referrals/referral_outcome_view.dart';
@@ -10,17 +11,18 @@ import 'package:kb_mobile_app/models/referral_outcome_event.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
 
 class ReferralOutComeViewContainer extends StatefulWidget {
-  const ReferralOutComeViewContainer({
-    Key key,
-    @required this.themeColor,
-    @required this.eventData,
-    @required this.beneficiary,
-    @required this.referralFollowUpStage,
-    @required this.referralToFollowUpLinkage,
-    @required this.referralProgram,
-    @required this.isEditableMode,
-    @required this.referralOutcomeFollowUpFormSections,
-  }) : super(key: key);
+  const ReferralOutComeViewContainer(
+      {Key key,
+      @required this.themeColor,
+      @required this.eventData,
+      @required this.beneficiary,
+      @required this.referralFollowUpStage,
+      @required this.referralToFollowUpLinkage,
+      @required this.referralProgram,
+      @required this.isEditableMode,
+      @required this.referralOutcomeFollowUpFormSections,
+      @required this.onEditReferralOutCome})
+      : super(key: key);
 
   final Color themeColor;
   final Events eventData;
@@ -30,6 +32,7 @@ class ReferralOutComeViewContainer extends StatefulWidget {
   final String referralProgram;
   final bool isEditableMode;
   final List<FormSection> referralOutcomeFollowUpFormSections;
+  final Function onEditReferralOutCome;
 
   @override
   _ReferralOutComeViewContainerState createState() =>
@@ -40,6 +43,7 @@ class _ReferralOutComeViewContainerState
     extends State<ReferralOutComeViewContainer> {
   ReferralOutComeEvent referralOutComeEvent;
   bool isViewReady = false;
+  double editIconHeight = 20;
 
   @override
   void initState() {
@@ -83,19 +87,43 @@ class _ReferralOutComeViewContainerState
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
-                    margin: EdgeInsets.symmetric(
-                      vertical: 10.0,
-                      horizontal: 20.0,
-                    ),
-                    child: Text(
-                      'OUTCOME',
-                      style: TextStyle().copyWith(
-                        color: Color(0xFF1A3518),
-                        fontSize: 14.0,
-                        fontWeight: FontWeight.w700,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        child: Container(
+                          margin: EdgeInsets.symmetric(
+                            vertical: 10.0,
+                            horizontal: 20.0,
+                          ),
+                          child: Text(
+                            'OUTCOME',
+                            style: TextStyle().copyWith(
+                              color: Color(0xFF1A3518),
+                              fontSize: 14.0,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
+                      Visibility(
+                          visible: widget.isEditableMode &&
+                              referralOutComeEvent != null,
+                          child: InkWell(
+                              onTap: widget.onEditReferralOutCome,
+                              child: Container(
+                                height: editIconHeight,
+                                width: editIconHeight,
+                                margin: EdgeInsets.symmetric(
+                                  vertical: 10.0,
+                                  horizontal: 20.0,
+                                ),
+                                child: SvgPicture.asset(
+                                  'assets/icons/edit-icon.svg',
+                                  color: widget.themeColor,
+                                ),
+                              )))
+                    ],
                   ),
                   LineSeperator(
                     color: Color(0xFFB2B7B9),

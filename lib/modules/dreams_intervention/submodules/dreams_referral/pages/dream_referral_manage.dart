@@ -70,8 +70,10 @@ class _DreamReferralManageState extends State<DreamReferralManage> {
                                   titleColor: Color(0xFF05131B),
                                   labelColor: Color(0XFF82898D),
                                   valueColor: Color(0XFF444E54),
+                                  isOvcIntervention: false,
                                   referralIndex: widget.referralIndex,
                                   eventData: widget.eventData,
+                                  isEditable: true,
                                 ),
                                 ReferralOutComeCardContainer(
                                   isOvcIntervention: false,

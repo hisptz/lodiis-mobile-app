@@ -30,6 +30,7 @@ class ReferralOutComeCard extends StatefulWidget {
     @required this.referralProgram,
     @required this.isOvcIntervention,
     this.isEditableMode = true,
+    this.isHouseHoldReferral = false,
   }) : super(key: key);
 
   final Events eventData;
@@ -39,6 +40,7 @@ class ReferralOutComeCard extends StatefulWidget {
   final String referralProgram;
   final bool isEditableMode;
   final bool isOvcIntervention;
+  final bool isHouseHoldReferral;
 
   @override
   _ReferralOutComeCardState createState() => _ReferralOutComeCardState();
@@ -145,6 +147,8 @@ class _ReferralOutComeCardState extends State<ReferralOutComeCard> {
                       referralToFollowUpLinkage:
                           widget.referralToFollowUpLinkage,
                       referralProgram: widget.referralProgram,
+                      onEditReferralOutCome: () =>
+                          this.onAddReferralOutCome(context),
                     ),
                   ),
                 ),
