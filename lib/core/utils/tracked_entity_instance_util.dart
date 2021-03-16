@@ -61,6 +61,20 @@ class TrackedEntityInstanceUtil {
     return events.reversed.toList();
   }
 
+  static List<Events> getAllEventListFromServiceDataState(
+    Map<String, List<Events>> eventListByProgramStage,
+  ) {
+    List<String> programStageids = eventListByProgramStage.keys.toList();
+    List<Events> events = [];
+    for (String programStageid in programStageids) {
+      try {
+        var data = eventListByProgramStage[programStageid] ?? [];
+        events.addAll(data);
+      } catch (e) {}
+    }
+    return events.reversed.toList();
+  }
+
   static Map getGroupedEventByDates(List<Events> events) {
     Map groupedEvents = Map();
     List<String> eventDates = events

@@ -25,7 +25,7 @@ class InputClearIcon extends StatelessWidget {
               icon: Container(
                 child: Icon(
                   Icons.delete,
-                  color: Colors.red,
+                  color: Colors.red.withOpacity(0.8),
                 ),
               ),
               onPressed: onClearInput,
