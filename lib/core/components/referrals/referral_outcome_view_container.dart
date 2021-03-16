@@ -2,13 +2,17 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/line_seperator.dart';
 import 'package:kb_mobile_app/core/components/referrals/referral_outcome_view.dart';
+import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/referral_outcome_event.dart';
+import 'package:kb_mobile_app/models/referral_outcome_follow_up_event.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
+import 'package:provider/provider.dart';
 
 class ReferralOutComeViewContainer extends StatefulWidget {
   const ReferralOutComeViewContainer(
@@ -64,6 +68,29 @@ class _ReferralOutComeViewContainerState
     );
   }
 
+  List<ReferralOutFollowUpComeEvent> getReferralOutComeFollowUps(
+    Map<String, List<Events>> eventListByProgramStage,
+  ) {
+    TrackedEntityInstanceUtil.getAllEventListFromServiceDataState(
+      eventListByProgramStage,
+      [widget.referralFollowUpStage],
+    );
+    List<Events> events =
+        TrackedEntityInstanceUtil.getAllEventListFromServiceDataState(
+      eventListByProgramStage,
+      [widget.referralFollowUpStage],
+    );
+    List<ReferralOutFollowUpComeEvent> referralOutComeFollowUps = events
+        .map((Events event) => ReferralOutFollowUpComeEvent()
+            .fromTeiModel(event, widget.referralToFollowUpLinkage))
+        .toList();
+    return referralOutComeFollowUps
+        .where((referralOutComeFollowUp) =>
+            referralOutComeFollowUp.referralReference ==
+            referralOutComeEvent.referralReference)
+        .toList();
+  }
+
   @override
   Widget build(BuildContext context) {
     return !isViewReady
@@ -106,23 +133,33 @@ class _ReferralOutComeViewContainerState
                           ),
                         ),
                       ),
-                      Visibility(
-                          visible: widget.isEditableMode &&
-                              referralOutComeEvent != null,
-                          child: InkWell(
-                              onTap: widget.onEditReferralOutCome,
-                              child: Container(
-                                height: editIconHeight,
-                                width: editIconHeight,
-                                margin: EdgeInsets.symmetric(
-                                  vertical: 10.0,
-                                  horizontal: 20.0,
-                                ),
-                                child: SvgPicture.asset(
-                                  'assets/icons/edit-icon.svg',
-                                  color: widget.themeColor,
-                                ),
-                              )))
+                      Container(child: Consumer<ServiveEventDataState>(
+                          builder: (context, serviveEventDataState, child) {
+                        Map<String, List<Events>> eventListByProgramStage =
+                            serviveEventDataState.eventListByProgramStage;
+                        List<ReferralOutFollowUpComeEvent>
+                            referralOutComeFollowUpEvents =
+                            getReferralOutComeFollowUps(
+                                eventListByProgramStage);
+                        return Visibility(
+                            visible: widget.isEditableMode &&
+                                referralOutComeEvent != null &&
+                                referralOutComeFollowUpEvents.length == 0,
+                            child: InkWell(
+                                onTap: widget.onEditReferralOutCome,
+                                child: Container(
+                                  height: editIconHeight,
+                                  width: editIconHeight,
+                                  margin: EdgeInsets.symmetric(
+                                    vertical: 10.0,
+                                    horizontal: 20.0,
+                                  ),
+                                  child: SvgPicture.asset(
+                                    'assets/icons/edit-icon.svg',
+                                    color: widget.themeColor,
+                                  ),
+                                )));
+                      }))
                     ],
                   ),
                   LineSeperator(
