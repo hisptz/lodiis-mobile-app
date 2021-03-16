@@ -16,7 +16,10 @@ class InputClearIcon extends StatelessWidget {
         ? Container()
         : Container(
             height: 20.0,
-            margin: EdgeInsets.only(left: 10, bottom: 5),
+            margin: EdgeInsets.only(
+              left: 8.0,
+              bottom: 5.0,
+            ),
             child: IconButton(
               padding: EdgeInsets.only(bottom: 10),
               icon: Container(

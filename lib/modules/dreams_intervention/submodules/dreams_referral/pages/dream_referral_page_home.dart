@@ -57,34 +57,46 @@ class _DreamAgywReferralPageState extends State<DreamAgywReferralPage> {
 
   void onAddRefferal(BuildContext context, AgywDream agywDream) {
     updateFormState(context, true, null);
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => DreamAgywAddReferralForm()));
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => DreamAgywAddReferralForm(),
+      ),
+    );
   }
 
   void onViewChildReferral(
-      BuildContext context, Events eventData, int referralIndex) {
+    BuildContext context,
+    Events eventData,
+    int referralIndex,
+  ) {
     updateFormState(context, false, eventData);
     Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => DreamReferralView(
-            eventData: eventData,
-            referralIndex: referralIndex,
-          ),
-        ));
+      context,
+      MaterialPageRoute(
+        builder: (context) => DreamReferralView(
+          eventData: eventData,
+          referralIndex: referralIndex,
+        ),
+      ),
+    );
   }
 
   void onManageChildReferral(
-      BuildContext context, Events eventData, int referralIndex) {
+    BuildContext context,
+    Events eventData,
+    int referralIndex,
+  ) {
     updateFormState(context, false, eventData);
     Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => DreamReferralManage(
-            eventData: eventData,
-            referralIndex: referralIndex,
-          ),
-        ));
+      context,
+      MaterialPageRoute(
+        builder: (context) => DreamReferralManage(
+          eventData: eventData,
+          referralIndex: referralIndex,
+        ),
+      ),
+    );
   }
 
   @override
