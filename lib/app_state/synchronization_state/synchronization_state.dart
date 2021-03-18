@@ -95,8 +95,8 @@ class SynchronizationState with ChangeNotifier {
   }
 
   Future<void> startCheckingStatusOfUnsyncedData() async {
-    _dataDownloadProcess = [];
-    _dataUploadProcess = [];
+    _dataDownloadProcess = _dataDownloadProcess ?? [];
+    _dataUploadProcess = _dataUploadProcess ?? [];
     updateUnsynceDataCheckingStatus(true);
     CurrentUser user = await UserService().getCurrentUser();
     _synchronizationService = SynchronizationService(
@@ -150,6 +150,7 @@ class SynchronizationState with ChangeNotifier {
         }
       }
       AppUtil.showToastMessage(message: 'Download successful');
+      _dataDownloadProcess = [];
       updateDataDownloadStatus(false);
     } catch (e) {
       _dataDownloadProcess = [];
@@ -282,9 +283,11 @@ class SynchronizationState with ChangeNotifier {
       var teiEvents = await _synchronizationService.getTeiEventsFromOfflineDb();
       if (teiEvents.length > 0) {
         addDataUploadProcess("Uploading beneficiary's service data");
+        _dataUploadProcess = [];
         await _synchronizationService.uploadTeiEventsToTheServer(teiEvents);
       }
     } catch (e) {
+      _dataUploadProcess = [];
       AppUtil.showToastMessage(message: 'Error uploading data');
       updateDataUploadStatus(false);
     }
