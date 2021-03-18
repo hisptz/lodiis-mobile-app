@@ -31,14 +31,11 @@ class EventOfflineProvider extends OfflineDbProvider {
     var dbClient = await db;
     var eventBatch = dbClient.batch();
     for (Events event in events) {
-      Map data = Events().toOffline(event);
-      data['id'] = data['event'];
-      data.remove('dataValues');
-      eventBatch.insert(table, data,
-          conflictAlgorithm: ConflictAlgorithm.replace);
+      addOrUpdateEvent(event);
     }
 
-    await eventBatch.commit(exclusive: true, noResult: true, continueOnError: true);
+    await eventBatch.commit(
+        exclusive: true, noResult: true, continueOnError: true);
   }
 
   Future<List<Events>> getTrackedEntityInstanceEvents(
