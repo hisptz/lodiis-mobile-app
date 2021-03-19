@@ -41,14 +41,16 @@ class _SynchronizationState extends State<Synchronization> {
   }
 
   void onStartDataDownload(BuildContext context) async {
-    await Provider.of<SynchronizationState>(context, listen: false)
-        .startDataDownloadActivity();
-    Provider.of<OvcInterventionListState>(context, listen: false)
-        .refreshOvcNumber();
-    Provider.of<DreamsInterventionListState>(context, listen: false)
-        .refreshBeneficiariesNumber();
-    Provider.of<OgacInterventionListState>(context, listen: false)
-        .refreshOgacList();
+    try {
+      await Provider.of<SynchronizationState>(context, listen: false)
+          .startDataDownloadActivity();
+      Provider.of<OvcInterventionListState>(context, listen: false)
+          .refreshOvcNumber();
+      Provider.of<DreamsInterventionListState>(context, listen: false)
+          .refreshBeneficiariesNumber();
+      Provider.of<OgacInterventionListState>(context, listen: false)
+          .refreshOgacList();
+    } catch (e) {}
   }
 
   @override
@@ -124,7 +126,7 @@ class _SynchronizationState extends State<Synchronization> {
                           Container(
                             margin: EdgeInsets.symmetric(vertical: 5.0),
                             child: DataDownloadContainer(
-                              overallProgress:overallProgress,
+                              overallProgress: overallProgress,
                               profileProgress: profileProgress,
                               eventsProgress: eventsProgress,
                               isDataDownloadingActive: isDataDownloadingActive,
