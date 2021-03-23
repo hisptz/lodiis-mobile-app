@@ -83,7 +83,7 @@ class _OgacInterventionState extends State<OgacIntervention> {
               intervetionCardState.currentIntervetionProgram;
           return Scaffold(
             appBar: PreferredSize(
-              preferredSize: Size.fromHeight(65),
+              preferredSize: Size.fromHeight(80),
               child: InterventionAppBar(
                 activeInterventionProgram: activeInterventionProgram,
                 onClickHome: onClickHome,
