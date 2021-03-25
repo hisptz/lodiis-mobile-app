@@ -193,6 +193,7 @@ class SynchronizationState with ChangeNotifier {
       AppUtil.showToastMessage(message: 'Download successful');
       _dataDownloadProcess = [];
       updateDataDownloadStatus(false);
+      setStatusMessageForAvailableDataFromServer('');
     } catch (e) {
       _dataDownloadProcess = [];
       updateDataDownloadStatus(false);
