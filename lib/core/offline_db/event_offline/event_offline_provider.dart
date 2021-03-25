@@ -109,4 +109,15 @@ class EventOfflineProvider extends OfflineDbProvider {
     } catch (e) {}
     return events..sort((b, a) => a.eventDate.compareTo(b.eventDate));
   }
+
+  Future<int> getOfflineEventCount(String programId, String orgUnitId) async {
+    int offlineEventsCount;
+    try {
+      var dbClient = await db;
+      offlineEventsCount = Sqflite.firstIntValue(await dbClient.rawQuery(
+          'SELECT COUNT(*) FROM $table WHERE $program = ? AND $orgUnit = ?',
+          ['$programId', '$orgUnitId']));
+    } catch (e) {}
+    return offlineEventsCount ?? 0;
+  }
 }

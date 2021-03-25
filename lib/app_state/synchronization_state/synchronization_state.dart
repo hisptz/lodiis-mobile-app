@@ -13,26 +13,34 @@ class SynchronizationState with ChangeNotifier {
   bool _isDataDownloadingActive;
   bool _hasUnsyncedData;
   bool _isUnsyncedCheckingActive = true;
+  bool _isCheckingForAvailableDataFromServer;
   SynchronizationService _synchronizationService;
   int _beneficiaryCount;
   int _beneficiaryServiceCount;
+  int _conflictLCount = 0;
+  String _statusMessageForAvailableDataFromServer;
   List<String> _dataDownloadProcess;
   List<String> _dataUploadProcess;
   List<Events> _eventFromServer;
   List<TrackeEntityInstance> _trackeEntityInstance;
   List<dynamic> _servertrackedEntityInstance;
+  List<Map<String, dynamic>> _events_1;
+  List<Map<String, dynamic>> _trackedInstance1;
   Map<String, List> _trackedInstance;
   Map<String, List> _events;
   Map<String, List> _relationships;
-  List<Map<String, dynamic>> _events_1;
-  List<Map<String, dynamic>> _trackedInstance1;
-  int _conflictLCount = 0;
   double profileProgress = 0.0;
   double eventsProgress = 0.0;
   double overallProgress = 0.0;
 
 // selectors
   bool get isDataUploadingActive => _isDataUploadingActive ?? false;
+
+  bool get isCheckingForAvailableDataFromServer =>
+      _isCheckingForAvailableDataFromServer ?? false;
+
+  String get statusMessageForAvailableDataFromServer =>
+      _statusMessageForAvailableDataFromServer ?? '';
 
   bool get hasUnsyncedData => _hasUnsyncedData ?? false;
 
@@ -79,6 +87,16 @@ class SynchronizationState with ChangeNotifier {
     notifyListeners();
   }
 
+  void updateStatusForAvailableDataFromServer(bool status) {
+    _isCheckingForAvailableDataFromServer = status;
+    notifyListeners();
+  }
+
+  void setStatusMessageForAvailableDataFromServer(String statusMessage) {
+    _statusMessageForAvailableDataFromServer = statusMessage;
+    notifyListeners();
+  }
+
   void updateDataDownloadStatus(bool status) {
     _isDataDownloadingActive = status;
     notifyListeners();
@@ -92,6 +110,29 @@ class SynchronizationState with ChangeNotifier {
   void addDataDownloadProcess(String process) {
     _dataDownloadProcess.add(process);
     notifyListeners();
+  }
+
+  checkingForAvaiableBeneficiaryData() async {
+    setStatusMessageForAvailableDataFromServer(
+        'Checking for available beneficiary data from server...');
+    CurrentUser currentUser = await UserService().getCurrentUser();
+    _synchronizationService = SynchronizationService(currentUser.username,
+        currentUser.password, currentUser.programs, currentUser.userOrgUnitIds);
+    int offlineEnrollmentsCount =
+        await _synchronizationService.getOfflineEnrollmentCount(currentUser);
+    int offlineEventsCount =
+        await _synchronizationService.getOfflineEventsCount(currentUser);
+    int onlineEnrollmentsCount =
+        await _synchronizationService.getOnlineEnrollmentsCount(currentUser);
+    int onlineEventsCount =
+        await _synchronizationService.getOnlineEventsCount(currentUser);
+    Timer(
+        Duration(seconds: 1),
+        () => setStatusMessageForAvailableDataFromServer(
+            onlineEventsCount > offlineEventsCount ||
+                    onlineEnrollmentsCount > offlineEnrollmentsCount
+                ? 'New beneficiary data are available, try to sync!'
+                : ''));
   }
 
   Future<void> startCheckingStatusOfUnsyncedData() async {
