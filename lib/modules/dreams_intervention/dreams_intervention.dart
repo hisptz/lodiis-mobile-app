@@ -100,7 +100,7 @@ class _DreamsInterventionState extends State<DreamsIntervention> {
               intervetionCardState.currentIntervetionProgram;
           return Scaffold(
             appBar: PreferredSize(
-              preferredSize: Size.fromHeight(80),
+              preferredSize: Size.fromHeight(90),
               child: InterventionAppBar(
                 activeInterventionProgram: activeInterventionProgram,
                 onClickHome: onClickHome,

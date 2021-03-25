@@ -4,6 +4,7 @@ import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_in
 import 'package:kb_mobile_app/app_state/intervention_bottom_navigation_state/intervention_bottom_navigation_state.dart';
 import 'package:kb_mobile_app/app_state/ogac_intervention_list_state/ogac_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_intervention_list_state.dart';
+import 'package:kb_mobile_app/core/components/data_download_message.dart';
 import 'package:kb_mobile_app/core/components/input_fields/text_input_field_container.dart';
 import 'package:kb_mobile_app/models/Intervention_bottom_navigation.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
@@ -205,12 +206,7 @@ class _InterventionAppBarState extends State<InterventionAppBar> {
         )
       ],
       bottom: PreferredSize(
-        preferredSize: Size.fromHeight(80.0),
-        child: Container(
-            padding: EdgeInsets.symmetric(vertical: 10.0),
-            child: Text('New beneficiary data are available, try to sync!',
-                style: TextStyle(color: Colors.white, fontSize: 14))),
-      ),
+          preferredSize: Size.fromHeight(100.0), child: DataDownloadMessage()),
     );
   }
 }
