@@ -43,20 +43,27 @@ class SynchronizationService {
     Map<String, dynamic> queryParameters,
   }) async {
     List paginationFilter = [];
-    Response response = await httpClient.httpGetPagination(
-      url,
-      queryParameters,
-    );
-    Map<String, dynamic> pager = json.decode(response.body)['pager'];
-    int pagetTotal = pager['total'];
-    int pageSize = 500;
-    int total = pagetTotal >= pageSize ? pagetTotal : pageSize;
-    for (int page = 1; page <= (total / pageSize).round(); page++) {
-      paginationFilter.add({
-        "totalPages": "true",
-        "page": "$page",
-        "pageSize": "$pageSize",
-      });
+    try {
+      Response response = await httpClient.httpGetPagination(
+        url,
+        queryParameters,
+      );
+      Map<String, dynamic> pager = json.decode(response.body)['pager'];
+      int pagetTotal = pager['total'];
+      int pageSize = 500;
+      int total = pagetTotal >= pageSize ? pagetTotal : pageSize;
+      for (int page = 1; page <= (total / pageSize).round(); page++) {
+        paginationFilter.add({
+          "totalPages": "true",
+          "page": "$page",
+          "pageSize": "$pageSize",
+        });
+      }
+    } catch (e) {
+      AppLogs log = AppLogs(
+          type: AppLogsConstants.errorLogType,
+          message: '(getDataPaginationFilters) ${e.toString()}');
+      await AppLogsOfflineProvider().addLogs(log);
     }
     return paginationFilter;
   }
