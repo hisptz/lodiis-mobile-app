@@ -13,26 +13,34 @@ class SynchronizationState with ChangeNotifier {
   bool _isDataDownloadingActive;
   bool _hasUnsyncedData;
   bool _isUnsyncedCheckingActive = true;
+  bool _isCheckingForAvailableDataFromServer;
   SynchronizationService _synchronizationService;
   int _beneficiaryCount;
   int _beneficiaryServiceCount;
+  int _conflictLCount = 0;
+  String _statusMessageForAvailableDataFromServer;
   List<String> _dataDownloadProcess;
   List<String> _dataUploadProcess;
   List<Events> _eventFromServer;
   List<TrackeEntityInstance> _trackeEntityInstance;
   List<dynamic> _servertrackedEntityInstance;
+  List<Map<String, dynamic>> _events_1;
+  List<Map<String, dynamic>> _trackedInstance1;
   Map<String, List> _trackedInstance;
   Map<String, List> _events;
   Map<String, List> _relationships;
-  List<Map<String, dynamic>> _events_1;
-  List<Map<String, dynamic>> _trackedInstance1;
-  int _conflictLCount = 0;
   double profileProgress = 0.0;
   double eventsProgress = 0.0;
   double overallProgress = 0.0;
 
 // selectors
   bool get isDataUploadingActive => _isDataUploadingActive ?? false;
+
+  bool get isCheckingForAvailableDataFromServer =>
+      _isCheckingForAvailableDataFromServer ?? false;
+
+  String get statusMessageForAvailableDataFromServer =>
+      _statusMessageForAvailableDataFromServer ?? '';
 
   bool get hasUnsyncedData => _hasUnsyncedData ?? false;
 
@@ -79,6 +87,16 @@ class SynchronizationState with ChangeNotifier {
     notifyListeners();
   }
 
+  void updateStatusForAvailableDataFromServer({bool status}) {
+    _isCheckingForAvailableDataFromServer = status;
+    notifyListeners();
+  }
+
+  void setStatusMessageForAvailableDataFromServer(String statusMessage) {
+    _statusMessageForAvailableDataFromServer = statusMessage;
+    notifyListeners();
+  }
+
   void updateDataDownloadStatus(bool status) {
     _isDataDownloadingActive = status;
     notifyListeners();
@@ -92,6 +110,29 @@ class SynchronizationState with ChangeNotifier {
   void addDataDownloadProcess(String process) {
     _dataDownloadProcess.add(process);
     notifyListeners();
+  }
+
+  checkingForAvaiableBeneficiaryData() async {
+    updateStatusForAvailableDataFromServer(status: true);
+    setStatusMessageForAvailableDataFromServer(
+        'Checking for available beneficiary data from server...');
+    CurrentUser currentUser = await UserService().getCurrentUser();
+    _synchronizationService = SynchronizationService(currentUser.username,
+        currentUser.password, currentUser.programs, currentUser.userOrgUnitIds);
+    int offlineEnrollmentsCount =
+        await _synchronizationService.getOfflineEnrollmentCount(currentUser);
+    int offlineEventsCount =
+        await _synchronizationService.getOfflineEventsCount(currentUser);
+    int onlineEnrollmentsCount =
+        await _synchronizationService.getOnlineEnrollmentsCount(currentUser);
+    int onlineEventsCount =
+        await _synchronizationService.getOnlineEventsCount(currentUser);
+    setStatusMessageForAvailableDataFromServer(
+        onlineEventsCount > offlineEventsCount ||
+                onlineEnrollmentsCount > offlineEnrollmentsCount
+            ? 'New beneficiary data are available, try to sync!'
+            : '');
+    updateStatusForAvailableDataFromServer(status: false);
   }
 
   Future<void> startCheckingStatusOfUnsyncedData() async {
@@ -152,6 +193,7 @@ class SynchronizationState with ChangeNotifier {
       AppUtil.showToastMessage(message: 'Download successful');
       _dataDownloadProcess = [];
       updateDataDownloadStatus(false);
+      setStatusMessageForAvailableDataFromServer('');
     } catch (e) {
       _dataDownloadProcess = [];
       updateDataDownloadStatus(false);
@@ -160,104 +202,6 @@ class SynchronizationState with ChangeNotifier {
     // await analysisOfDownloadedData();
     // await saveAllData();
   }
-
-  // Future analysisOfDownloadedData() async {
-  //   addDataDownloadProcess("Start analyse service data ");
-  //   await eventsAnalysisDownloadData();
-  //   addDataDownloadProcess("Start analyse profile data ");
-  //   await trackeEntityInstanceAnalysisDownloadData();
-  //   addDataDownloadProcess('Saving relationships');
-  //   updateDataDownloadStatus(false);
-  // }
-
-//   Future eventsAnalysisDownloadData() async {
-//     List<Events> offLineNonSyncEvents =
-//         await _synchronizationService.getTeiEventsFromOfflineDb();
-//     List offEventsAttributes = [];
-//     List onlineEventsAttributes = [];
-//     List offlineEventsToResolve = [];
-//     List onlineEventsToResolve = [];
-//
-// //get data value id which are not sync
-//     for (Events event in offLineNonSyncEvents) {
-//       offEventsAttributes.addAll(event.dataValues);
-//     }
-// //get data value id from online
-//     for (Events event in eventFromServer) {
-//       onlineEventsAttributes.addAll(event.dataValues);
-//       offEventsAttributes.forEach((offlinEventAttribute) {
-//         if (!onlineEventsAttributes.contains(offlinEventAttribute)) {
-//           //contain conflicts
-//           offlineEventsToResolve.add(offlinEventAttribute);
-//           onlineEventsToResolve.addAll(onlineEventsAttributes
-//               .where((onlineEventAttribute) =>
-//                   offlinEventAttribute['dataElement'] ==
-//                       onlineEventAttribute['dataElement'] &&
-//                   offlinEventAttribute['value'] !=
-//                       onlineEventAttribute['value'])
-//               .toList());
-//         } else {
-//           //no conflicts
-//           // print("no conflicts");
-//           // print(event);
-//           _synchronizationService.saveEventsToOffline(event);
-//         }
-//       });
-//     }
-//     _events = {
-//       "online": onlineEventsToResolve,
-//       "offline": offlineEventsToResolve,
-//     };
-//   }
-
-  // Future trackeEntityInstanceAnalysisDownloadData() async {
-  //   List<String> attributeIds = [];
-  //   _trackedInstance1 = [];
-  //
-  //   //get attributes
-  //   for (var trackedEntityInstance in servertrackedEntityInstance) {
-  //     TrackeEntityInstance trackeEntityInstance =
-  //         TrackeEntityInstance().fromJson(trackedEntityInstance);
-  //     attributeIds.add(trackeEntityInstance.attributes[0]['attribute']);
-  //   }
-  //   List offlineTrackedEntityInstanceattributes = await _synchronizationService
-  //       .getOfflineTrackedEntityAttributesValuesById(attributeIds);
-  //   for (var _trackedEntityInstance in servertrackedEntityInstance) {
-  //     TrackeEntityInstance trackeEntityInstance =
-  //         TrackeEntityInstance().fromJson(_trackedEntityInstance);
-  //
-  //     if (offlineTrackedEntityInstanceattributes == null ||
-  //         offlineTrackedEntityInstanceattributes.length < 1) {
-  //       await _synchronizationService
-  //           .saveTrackeEntityInstanceToOffline(trackeEntityInstance);
-  //       await _synchronizationService
-  //           .saveEnrollmentToOffline(_trackedEntityInstance['enrollments']);
-  //     } else {
-  //       //consider sync and unsync data comparison
-  //       offlineTrackedEntityInstanceattributes
-  //           .forEach((trackedAttribute) async {
-  //         if (trackedAttribute['attribute'] ==
-  //                 trackeEntityInstance.attributes[0]['attribute'] &&
-  //             trackedAttribute['value'] !=
-  //                 trackeEntityInstance.attributes[0]['value']) {
-  //           // _conflictLCount++;
-  //           _trackedInstance1.add({
-  //             "label": trackeEntityInstance.attributes[0]['displayName'],
-  //             "trackeEntityInstance": trackeEntityInstance,
-  //             "offline": trackedAttribute['value'],
-  //             "online": trackeEntityInstance.attributes[0]['value']
-  //           });
-  //         } else {
-  //           // Save data when no conflicts
-  //           await _synchronizationService
-  //               .saveTrackeEntityInstanceToOffline(trackeEntityInstance);
-  //           await _synchronizationService
-  //               .saveEnrollmentToOffline(_trackedEntityInstance['enrollments']);
-  //         }
-  //       });
-  //     }
-  //   }
-  // }
 
   Future startDataUploadActivity() async {
     _dataUploadProcess = [];

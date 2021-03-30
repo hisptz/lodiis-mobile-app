@@ -25,15 +25,16 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
         conflictAlgorithm: ConflictAlgorithm.replace);
   }
 
-  addOrUpdateMultipleEnrollments(List <Enrollment> enrollments)async {
+  addOrUpdateMultipleEnrollments(List<Enrollment> enrollments) async {
     var dbClient = await db;
     var enrollmentBatch = dbClient.batch();
-    for (Enrollment enrollment in enrollments){
-        Map data = Enrollment().toOffline(enrollment);
-        data['id'] = data['enrollment'];
-        enrollmentBatch.insert(table, data, conflictAlgorithm: ConflictAlgorithm.replace);
+    for (Enrollment enrollment in enrollments) {
+      Map data = Enrollment().toOffline(enrollment);
+      data['id'] = data['enrollment'];
+      enrollmentBatch.insert(table, data,
+          conflictAlgorithm: ConflictAlgorithm.replace);
     }
-     return await enrollmentBatch.commit(noResult: true, continueOnError: true);
+    return await enrollmentBatch.commit(noResult: true, continueOnError: true);
   }
 
   Future<List<Enrollment>> getEnrollements(String programId, {page}) async {
@@ -78,6 +79,18 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
         [];
 
     return enrollmentList.length;
+  }
+
+  Future<int> getOfflineEnrollmentsCount(
+      String programId, String orgUnitId) async {
+    int offlineEnrollmentsCount;
+    try {
+      var dbClient = await db;
+      offlineEnrollmentsCount = Sqflite.firstIntValue(await dbClient.rawQuery(
+          'SELECT COUNT(*) FROM $table WHERE $program = ? AND $orgUnit = ?',
+          ['$programId', '$orgUnitId']));
+    } catch (e) {}
+    return offlineEnrollmentsCount ?? 0;
   }
 
   Future<List<Enrollment>> getEnrollmentByStatus(

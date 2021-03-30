@@ -18,10 +18,10 @@ class UserOuOfflineProvider extends OfflineDbProvider {
     }
   }
 
-  deleteUserOrganisationUnits(String userId) async {
+  deleteUserOrganisationUnits(String user) async {
     var dbClient = await db;
     return await dbClient.delete(CurrentUser.userOrganisatonUnitTable,
-        where: '$id = ?', whereArgs: [userId]);
+        where: '$userId = ?', whereArgs: [user]);
   }
 
   Future<List> getUserOrganisationUnits(String currentUserId) async {
