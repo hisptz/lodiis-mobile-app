@@ -9,8 +9,10 @@ import 'package:kb_mobile_app/core/offline_db/tei_relationship_offline/tei_relat
 import 'package:kb_mobile_app/core/offline_db/tracked_entity_instance_offline/tracked_entity_instance_offline_attribute_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/tracked_entity_instance_offline/tracked_entity_instance_offline_provider.dart';
 import 'package:kb_mobile_app/core/services/http_service.dart';
+import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
+import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/models/enrollment.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/app_logs.dart';
@@ -41,20 +43,27 @@ class SynchronizationService {
     Map<String, dynamic> queryParameters,
   }) async {
     List paginationFilter = [];
-    Response response = await httpClient.httpGetPagination(
-      url,
-      queryParameters,
-    );
-    Map<String, dynamic> pager = json.decode(response.body)['pager'];
-    int pagetTotal = pager['total'];
-    int pageSize = 500;
-    int total = pagetTotal >= pageSize ? pagetTotal : pageSize;
-    for (int page = 1; page <= (total / pageSize).round(); page++) {
-      paginationFilter.add({
-        "totalPages": "true",
-        "page": "$page",
-        "pageSize": "$pageSize",
-      });
+    try {
+      Response response = await httpClient.httpGetPagination(
+        url,
+        queryParameters,
+      );
+      Map<String, dynamic> pager = json.decode(response.body)['pager'];
+      int pagetTotal = pager['total'];
+      int pageSize = 500;
+      int total = pagetTotal >= pageSize ? pagetTotal : pageSize;
+      for (int page = 1; page <= (total / pageSize).round(); page++) {
+        paginationFilter.add({
+          "totalPages": "true",
+          "page": "$page",
+          "pageSize": "$pageSize",
+        });
+      }
+    } catch (e) {
+      AppLogs log = AppLogs(
+          type: AppLogsConstants.errorLogType,
+          message: '(getDataPaginationFilters) ${e.toString()}');
+      await AppLogsOfflineProvider().addLogs(log);
     }
     return paginationFilter;
   }
@@ -284,6 +293,83 @@ class SynchronizationService {
 
   Future<List<TeiRelationship>> getTeiRelationShipFromOfflineDb() async {
     return await TeiRelatioShipOfflineProvider().getAllTeiRelationShips();
+  }
+
+  Future<int> getOfflineEventsCount(CurrentUser currentUser) async {
+    int eventsCount = 0;
+    for (String orgUnit in currentUser.userOrgUnitIds) {
+      for (String program in currentUser.programs) {
+        int count =
+            await EventOfflineProvider().getOfflineEventCount(program, orgUnit);
+        eventsCount += count;
+      }
+    }
+    return eventsCount;
+  }
+
+  Future<int> getOfflineEnrollmentCount(CurrentUser currentUser) async {
+    int enrollmentsCount = 0;
+    for (String orgUnit in currentUser.userOrgUnitIds) {
+      for (String program in currentUser.programs) {
+        int count = await EnrollmentOfflineProvider()
+            .getOfflineEnrollmentsCount(program, orgUnit);
+        enrollmentsCount += count;
+      }
+    }
+    return enrollmentsCount;
+  }
+
+  Future<int> getTotalFromPaginator(String url,
+      {Map<String, dynamic> queryParameters}) async {
+    Response response = await httpClient.httpGetPagination(
+      url,
+      queryParameters,
+    );
+    Map<String, dynamic> pager = json.decode(response.body)['pager'];
+    int pagetTotal = pager['total'] ?? 0;
+    return pagetTotal;
+  }
+
+  Future<int> getOnlineEnrollmentsCount(CurrentUser currentUser) async {
+    int enrollmentsCount = 0;
+    String url = 'api/trackedEntityInstances';
+    for (String orgUnit in currentUser.userOrgUnitIds) {
+      for (String program in currentUser.programs) {
+        var queryParameters = {
+          "program": program,
+          "ou": orgUnit,
+          "ouMode": "DESCENDANTS",
+          "fields": "none",
+          "pageSize": "1",
+          "totalPages": "true",
+        };
+        int count =
+            await getTotalFromPaginator(url, queryParameters: queryParameters);
+        enrollmentsCount += count;
+      }
+    }
+    return enrollmentsCount;
+  }
+
+  Future<int> getOnlineEventsCount(CurrentUser currentUser) async {
+    int eventsCount = 0;
+    String url = 'api/events';
+    for (String orgUnit in currentUser.userOrgUnitIds) {
+      for (String program in currentUser.programs) {
+        var queryParameters = {
+          "program": program,
+          "orgUnit": orgUnit,
+          "ouMode": "DESCENDANTS",
+          "fields": "none",
+          "pageSize": "1",
+          "totalPages": "true",
+        };
+        int count =
+            await getTotalFromPaginator(url, queryParameters: queryParameters);
+        eventsCount += count;
+      }
+    }
+    return eventsCount;
   }
 
   Future<List<Events>> getTeiEventsFromOfflineDb() async {
