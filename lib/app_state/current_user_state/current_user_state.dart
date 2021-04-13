@@ -19,7 +19,8 @@ class CurrentUserState with ChangeNotifier {
   bool _canManageHtsLongForm;
   bool _canManageHivReg;
   bool _canManageSrh;
-  bool _canManagePrep;
+  bool _canManagePrepLongForm;
+  bool _canManagePrepShortForm;
   bool _canManageMSGHIV;
   bool _canManageArtRefill;
   bool _canManageAnc;
@@ -45,7 +46,8 @@ class CurrentUserState with ChangeNotifier {
   bool get canManageHtsLongForm => _canManageHtsLongForm ?? false;
   bool get canManageHivReg => _canManageHivReg ?? false;
   bool get canManageSrh => _canManageSrh ?? false;
-  bool get canManagePrep => _canManagePrep ?? false;
+  bool get canManagePrepLongForm => _canManagePrepLongForm ?? false;
+  bool get canManagePrepShortForm => _canManagePrepShortForm ?? false;
   bool get canManageAnc => _canManageAnc ?? false;
   bool get canManageArtRefill => _canManageArtRefill ?? false;
   bool get canManageMSGHIV => _canManageMSGHIV ?? false;
@@ -84,8 +86,12 @@ class CurrentUserState with ChangeNotifier {
           userAccesses['canManageHivReg'] == true;
       _canManageSrh = userAccesses.containsKey('canManageSrh') &&
           userAccesses['canManageSrh'] == true;
-      _canManagePrep = userAccesses.containsKey('canManagePrep') &&
-          userAccesses['canManagePrep'] == true;
+      _canManagePrepLongForm =
+          userAccesses.containsKey('canManagePrepLongForm') &&
+              userAccesses['canManagePrepLongForm'] == true;
+      _canManagePrepShortForm =
+          userAccesses.containsKey('canManagePrepShortForm') &&
+              userAccesses['canManagePrepShortForm'] == true;
       _canManagePEP = userAccesses.containsKey('canManagePEP') &&
           userAccesses['canManagePEP'] == true;
       _canManageCondom = userAccesses.containsKey('canManageCondom') &&

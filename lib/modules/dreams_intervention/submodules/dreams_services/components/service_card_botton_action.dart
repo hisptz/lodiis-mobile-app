@@ -130,7 +130,8 @@ class ServiceCardBottonAction extends StatelessWidget {
                           ),
                         ),
                         Visibility(
-                          visible: currentUserState.canManagePrep &&
+                          visible: (currentUserState.canManagePrepLongForm ||
+                                  currentUserState.canManagePrepShortForm) &&
                               int.parse(agywBeneficiary.age ?? '0') >= 15,
                           child: Container(
                             child: InkWell(
