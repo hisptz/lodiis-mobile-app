@@ -5,7 +5,7 @@ class ServiceEvents {
   String programStage;
   String interventionType;
   String interventionGroup;
-  int numberaOfSessions;
+  int numberOfSessions;
   Events eventData;
 
   ServiceEvents(
@@ -14,7 +14,7 @@ class ServiceEvents {
       this.eventData,
       this.interventionType,
       this.interventionGroup,
-      this.numberaOfSessions});
+      this.numberOfSessions});
 
   ServiceEvents getServiceSessions(Events events) {
     List keys = [
@@ -30,14 +30,16 @@ class ServiceEvents {
       }
     }
 
-    var numberaOfSessions =
-        data['vL6NpUA0rIU'] != '' ? data['vL6NpUA0rIU'] : '0';
+    var numberOfSessions =
+        data['vL6NpUA0rIU'] != '' && data['vL6NpUA0rIU'] != null
+            ? data['vL6NpUA0rIU']
+            : '0';
     return ServiceEvents(
         event: events.event,
         programStage: events.programStage,
         interventionType: data['Eug4BXDFLym'] ?? '',
         interventionGroup: assignInterventionGroup(data['Eug4BXDFLym'] ?? ''),
-        numberaOfSessions: int.parse(numberaOfSessions),
+        numberOfSessions: int.parse(numberOfSessions) ?? 0,
         eventData: events);
   }
 
