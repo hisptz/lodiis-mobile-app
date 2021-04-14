@@ -131,7 +131,7 @@ class _AgywDreamsPrepShortFormHomePageState
                                 child: events.length == 0
                                     ? Container(
                                         child: Text(
-                                          "There is no visit at a moment",
+                                          "There is no PrEP at a moment",
                                         ),
                                       )
                                     : Container(
@@ -148,7 +148,7 @@ class _AgywDreamsPrepShortFormHomePageState
                                                 bottom: 15.0,
                                               ),
                                               child: DreamsServiceVisitListCard(
-                                                visitName: "Visit ",
+                                                visitName: "PrEP ",
                                                 onEdit: () => onEditPREP(
                                                   context,
                                                   eventData,
