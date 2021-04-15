@@ -49,8 +49,7 @@ class _NoneAgywEnrollmentEditFormState
   final String label = 'NonAgyw Enrolment Form';
   final Map mandatoryFieldObject = Map();
   final List<String> mandatoryFields =
-      NoneAgywEnrollmentPrepScreening.getMandatoryField() +
-          NonAgywHTSClientInformation.getMandatoryField() +
+      NonAgywHTSClientInformation.getMandatoryField() +
           NonAgywHTSRegister.getMandatoryFields();
   bool isFormReady = false;
   bool isSaving = false;
@@ -88,6 +87,8 @@ class _NoneAgywEnrollmentEditFormState
       ];
       if (isBeneficiaryHIVNegative()) {
         formSections.addAll(prepScreeningFormSections);
+        mandatoryFields
+            .addAll(NoneAgywEnrollmentPrepScreening.getMandatoryField());
       }
       formSections = FormUtil.getFormSectionWithReadOnlyStatus(
         formSections,
@@ -176,6 +177,7 @@ class _NoneAgywEnrollmentEditFormState
       setState(() {
         unFilledMandatoryFields =
             AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+        print('UNFILLED: $unFilledMandatoryFields');
       });
       AppUtil.showToastMessage(
           message: 'Please fill all mandatory field',
