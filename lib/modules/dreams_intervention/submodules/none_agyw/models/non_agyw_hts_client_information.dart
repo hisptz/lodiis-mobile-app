@@ -49,6 +49,12 @@ class NonAgywHTSClientInformation {
                 inputColor: Color(0xFF258DCC),
                 labelColor: Color(0xFF737373)),
             InputField(
+                id: 'RB8Wx75hGa4',
+                name: 'Village',
+                valueType: 'TEXT',
+                inputColor: Color(0xFF258DCC),
+                labelColor: Color(0xFF737373)),
+            InputField(
                 id: 'WTZ7GLTrE8Q',
                 name: 'First Name',
                 valueType: 'TEXT',
