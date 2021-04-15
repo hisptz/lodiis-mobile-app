@@ -1170,205 +1170,205 @@ class DreamsServicePrepIntakeInfo {
                 allowedSelectedLevels: [4],
                 valueType: 'ORGANISATION_UNIT'),
           ]),
-      FormSection(
-          id: 'BsLnIfmtn',
-          name: ' Baseline Information',
-          color: Color(0xFF1F8ECE),
-          inputFields: [
-            InputField(
-                id: 'tNPOFcRu6Uj',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
-                name: 'PrEP Patient Number',
-                valueType: 'NUMBER'),
-            InputField(
-                id: 'NpeW9958TcF',
-                name: 'Entry point for PrEP(community)',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
-                options: [
-                  InputFieldOption(
-                      code: 'Health facility outreach',
-                      name: 'Health facility outreach'),
-                  InputFieldOption(
-                      code: 'Community program',
-                      name: 'Community program (Specify)'),
-                ],
-                valueType: 'TEXT'),
-            InputField(
-                id: 'GqTYUcdyFv0',
-                name: 'Entry point for PrEP(Health facility)',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
-                options: [
-                  InputFieldOption(
-                      code: 'Adolescent corner/clinic',
-                      name: 'Adolescent corner/clinic'),
-                  InputFieldOption(code: 'ART', name: 'ART'),
-                  InputFieldOption(code: 'OPD', name: 'OPD'),
-                  InputFieldOption(code: 'Other', name: 'Other'),
-                ],
-                valueType: 'TEXT'),
-            InputField(
-                id: 'uPpYQM3rAZ2',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
-                name: 'Other entry point for PrEP',
-                valueType: 'TEXT'),
-            InputField(
-                id: 'BFTG6ilADjd',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
-                name:
-                    'Date of most recent negative HIV test before PrEP initiation',
-                valueType: 'DATE'),
-            InputField(
-                id: 'mSUNOhSO4c4',
-                allowFuturePeriod: true,
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
-                name: 'Date of PrEP initiation',
-                valueType: 'DATE'),
-            InputField(
-                id: 'qMaqhDQAoGj',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
-                name: 'Baseline creatinine',
-                valueType: 'NUMBER'),
-            InputField(
-                id: 'OmMTgtlqlYQ',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
-                name: 'CrCL',
-                valueType: 'NUMBER'),
-            InputField(
-                id: 'OlDYLVf0bRA',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
-                name: 'Indication for starting PrEP',
-                options: [
-                  InputFieldOption(
-                      code: 'Currently exchanges sex for money',
-                      name: 'Currently exchanges sex for money'),
-                  InputFieldOption(
-                      code: 'Currently pays for sex',
-                      name: 'Currently pays for sex'),
-                  InputFieldOption(
-                      code: 'Man who has sex with men',
-                      name: 'Man who has sex with men'),
-                  InputFieldOption(
-                      code: 'Transgender individual',
-                      name: 'Transgender individual'),
-                  InputFieldOption(
-                      code: 'Individual who injects drugs',
-                      name: 'Individual who injects drugs'),
-                  InputFieldOption(
-                      code:
-                          'In a serodiscordant relationship and HIV-positive partner is not on ART or has been on ART for < 12 months',
-                      name:
-                          'In a serodiscordant relationship and HIV-positive partner is not on ART or has been on ART for < 12 months'),
-                  InputFieldOption(
-                      code:
-                          "In a serodiscordant relationship and HIV-positive partner's last viral load is >= 1000 copies/ml OR viral load is not known but partner's ART adherence is believed to be poor",
-                      name:
-                          "In a serodiscordant relationship and HIV-positive partner's last viral load is >= 1000 copies/ml OR viral load is not known but partner's ART adherence is believed to be poor"),
-                  InputFieldOption(
-                      code: 'Has multiple concurrent sexual partners',
-                      name: 'Has multiple concurrent sexual partners'),
-                  InputFieldOption(
-                      code:
-                          'Individual believes their partner has multiple other concurrent sexual partners',
-                      name:
-                          'Individual believes their partner has multiple other concurrent sexual partners'),
-                  InputFieldOption(
-                      code:
-                          'Individual at high risk of being forced to have sex',
-                      name:
-                          'Individual at high risk of being forced to have sex'),
-                  InputFieldOption(code: 'Other', name: 'Other (Specify)'),
-                ],
-                valueType: 'TEXT'),
-            InputField(
-                id: 'UL1Pq6sgvr2',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
-                name: 'Other reason for starting PrEP',
-                valueType: 'TEXT'),
-            InputField(
-                id: 'vNyGPa7FbQm',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
-                name: 'Ever been on PrEP',
-                valueType: 'BOOLEAN'),
-            InputField(
-                id: 'UL0xa3Sz9ML',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
-                name: 'Date PrEP stopped',
-                valueType: 'DATE'),
-            InputField(
-                id: 'de4zcWiZB5j',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
-                name: 'Indication for stopping PrEP',
-                options: [
-                  InputFieldOption(
-                      code: 'Patient decision', name: 'Patient decision'),
-                  InputFieldOption(
-                      code: 'Poor adherence',
-                      name: 'Poor adherence (clinician decision)'),
-                  InputFieldOption(
-                      code: 'New HIV diagnosis', name: 'New HIV diagnosis'),
-                  InputFieldOption(
-                      code: 'Patient no longer at high risk for HIV infection',
-                      name:
-                          'Patient no longer at high risk for HIV infection (clinician decision)'),
-                  InputFieldOption(code: 'Other', name: 'Other (Specify)'),
-                ],
-                valueType: 'TEXT'),
-            InputField(
-                id: 'y7lRj3QSDkn',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
-                name: 'Other reason for stopping PrEP',
-                valueType: 'TEXT'),
-            InputField(
-                id: 'QInz3UAj6zC',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
-                name: 'Date initiated on ART',
-                valueType: 'DATE'),
-            InputField(
-                id: 'R63XVONUFeG',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
-                name: 'Unique ART Number',
-                valueType: 'NUMBER'),
-            InputField(
-                id: 'mPLGZsuyrvb',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
-                name: 'Pregnancy Test',
-                valueType: 'TEXT'),
-            InputField(
-                id: 'd9UoOBO2BWi',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
-                name: 'Hepatitis B Screening',
-                valueType: 'TEXT'),
-            InputField(
-                id: 'GMGpCj6Nkvd',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
-                name: 'RPR/VDRL  Screening',
-                valueType: 'TEXT'),
-            InputField(
-                id: 'NIZZ0Bj3XPU',
-                inputColor: Color(0xFF1F8ECE),
-                labelColor: Color(0xFF737373),
-                name: 'Date of initial visit',
-                valueType: 'DATE'),
-          ])
+      // FormSection(
+      //     id: 'BsLnIfmtn',
+      //     name: ' Baseline Information',
+      //     color: Color(0xFF1F8ECE),
+      //     inputFields: [
+      //       InputField(
+      //           id: 'tNPOFcRu6Uj',
+      //           inputColor: Color(0xFF1F8ECE),
+      //           labelColor: Color(0xFF737373),
+      //           name: 'PrEP Patient Number',
+      //           valueType: 'NUMBER'),
+      //       InputField(
+      //           id: 'NpeW9958TcF',
+      //           name: 'Entry point for PrEP(community)',
+      //           inputColor: Color(0xFF1F8ECE),
+      //           labelColor: Color(0xFF737373),
+      //           options: [
+      //             InputFieldOption(
+      //                 code: 'Health facility outreach',
+      //                 name: 'Health facility outreach'),
+      //             InputFieldOption(
+      //                 code: 'Community program',
+      //                 name: 'Community program (Specify)'),
+      //           ],
+      //           valueType: 'TEXT'),
+      //       InputField(
+      //           id: 'GqTYUcdyFv0',
+      //           name: 'Entry point for PrEP(Health facility)',
+      //           inputColor: Color(0xFF1F8ECE),
+      //           labelColor: Color(0xFF737373),
+      //           options: [
+      //             InputFieldOption(
+      //                 code: 'Adolescent corner/clinic',
+      //                 name: 'Adolescent corner/clinic'),
+      //             InputFieldOption(code: 'ART', name: 'ART'),
+      //             InputFieldOption(code: 'OPD', name: 'OPD'),
+      //             InputFieldOption(code: 'Other', name: 'Other'),
+      //           ],
+      //           valueType: 'TEXT'),
+      //       InputField(
+      //           id: 'uPpYQM3rAZ2',
+      //           inputColor: Color(0xFF1F8ECE),
+      //           labelColor: Color(0xFF737373),
+      //           name: 'Other entry point for PrEP',
+      //           valueType: 'TEXT'),
+      //       InputField(
+      //           id: 'BFTG6ilADjd',
+      //           inputColor: Color(0xFF1F8ECE),
+      //           labelColor: Color(0xFF737373),
+      //           name:
+      //               'Date of most recent negative HIV test before PrEP initiation',
+      //           valueType: 'DATE'),
+      //       InputField(
+      //           id: 'mSUNOhSO4c4',
+      //           allowFuturePeriod: true,
+      //           inputColor: Color(0xFF1F8ECE),
+      //           labelColor: Color(0xFF737373),
+      //           name: 'Date of PrEP initiation',
+      //           valueType: 'DATE'),
+      //       InputField(
+      //           id: 'qMaqhDQAoGj',
+      //           inputColor: Color(0xFF1F8ECE),
+      //           labelColor: Color(0xFF737373),
+      //           name: 'Baseline creatinine',
+      //           valueType: 'NUMBER'),
+      //       InputField(
+      //           id: 'OmMTgtlqlYQ',
+      //           inputColor: Color(0xFF1F8ECE),
+      //           labelColor: Color(0xFF737373),
+      //           name: 'CrCL',
+      //           valueType: 'NUMBER'),
+      //       InputField(
+      //           id: 'OlDYLVf0bRA',
+      //           inputColor: Color(0xFF1F8ECE),
+      //           labelColor: Color(0xFF737373),
+      //           name: 'Indication for starting PrEP',
+      //           options: [
+      //             InputFieldOption(
+      //                 code: 'Currently exchanges sex for money',
+      //                 name: 'Currently exchanges sex for money'),
+      //             InputFieldOption(
+      //                 code: 'Currently pays for sex',
+      //                 name: 'Currently pays for sex'),
+      //             InputFieldOption(
+      //                 code: 'Man who has sex with men',
+      //                 name: 'Man who has sex with men'),
+      //             InputFieldOption(
+      //                 code: 'Transgender individual',
+      //                 name: 'Transgender individual'),
+      //             InputFieldOption(
+      //                 code: 'Individual who injects drugs',
+      //                 name: 'Individual who injects drugs'),
+      //             InputFieldOption(
+      //                 code:
+      //                     'In a serodiscordant relationship and HIV-positive partner is not on ART or has been on ART for < 12 months',
+      //                 name:
+      //                     'In a serodiscordant relationship and HIV-positive partner is not on ART or has been on ART for < 12 months'),
+      //             InputFieldOption(
+      //                 code:
+      //                     "In a serodiscordant relationship and HIV-positive partner's last viral load is >= 1000 copies/ml OR viral load is not known but partner's ART adherence is believed to be poor",
+      //                 name:
+      //                     "In a serodiscordant relationship and HIV-positive partner's last viral load is >= 1000 copies/ml OR viral load is not known but partner's ART adherence is believed to be poor"),
+      //             InputFieldOption(
+      //                 code: 'Has multiple concurrent sexual partners',
+      //                 name: 'Has multiple concurrent sexual partners'),
+      //             InputFieldOption(
+      //                 code:
+      //                     'Individual believes their partner has multiple other concurrent sexual partners',
+      //                 name:
+      //                     'Individual believes their partner has multiple other concurrent sexual partners'),
+      //             InputFieldOption(
+      //                 code:
+      //                     'Individual at high risk of being forced to have sex',
+      //                 name:
+      //                     'Individual at high risk of being forced to have sex'),
+      //             InputFieldOption(code: 'Other', name: 'Other (Specify)'),
+      //           ],
+      //           valueType: 'TEXT'),
+      //       InputField(
+      //           id: 'UL1Pq6sgvr2',
+      //           inputColor: Color(0xFF1F8ECE),
+      //           labelColor: Color(0xFF737373),
+      //           name: 'Other reason for starting PrEP',
+      //           valueType: 'TEXT'),
+      //       InputField(
+      //           id: 'vNyGPa7FbQm',
+      //           inputColor: Color(0xFF1F8ECE),
+      //           labelColor: Color(0xFF737373),
+      //           name: 'Ever been on PrEP',
+      //           valueType: 'BOOLEAN'),
+      //       InputField(
+      //           id: 'UL0xa3Sz9ML',
+      //           inputColor: Color(0xFF1F8ECE),
+      //           labelColor: Color(0xFF737373),
+      //           name: 'Date PrEP stopped',
+      //           valueType: 'DATE'),
+      //       InputField(
+      //           id: 'de4zcWiZB5j',
+      //           inputColor: Color(0xFF1F8ECE),
+      //           labelColor: Color(0xFF737373),
+      //           name: 'Indication for stopping PrEP',
+      //           options: [
+      //             InputFieldOption(
+      //                 code: 'Patient decision', name: 'Patient decision'),
+      //             InputFieldOption(
+      //                 code: 'Poor adherence',
+      //                 name: 'Poor adherence (clinician decision)'),
+      //             InputFieldOption(
+      //                 code: 'New HIV diagnosis', name: 'New HIV diagnosis'),
+      //             InputFieldOption(
+      //                 code: 'Patient no longer at high risk for HIV infection',
+      //                 name:
+      //                     'Patient no longer at high risk for HIV infection (clinician decision)'),
+      //             InputFieldOption(code: 'Other', name: 'Other (Specify)'),
+      //           ],
+      //           valueType: 'TEXT'),
+      //       InputField(
+      //           id: 'y7lRj3QSDkn',
+      //           inputColor: Color(0xFF1F8ECE),
+      //           labelColor: Color(0xFF737373),
+      //           name: 'Other reason for stopping PrEP',
+      //           valueType: 'TEXT'),
+      //       InputField(
+      //           id: 'QInz3UAj6zC',
+      //           inputColor: Color(0xFF1F8ECE),
+      //           labelColor: Color(0xFF737373),
+      //           name: 'Date initiated on ART',
+      //           valueType: 'DATE'),
+      //       InputField(
+      //           id: 'R63XVONUFeG',
+      //           inputColor: Color(0xFF1F8ECE),
+      //           labelColor: Color(0xFF737373),
+      //           name: 'Unique ART Number',
+      //           valueType: 'NUMBER'),
+      //       InputField(
+      //           id: 'mPLGZsuyrvb',
+      //           inputColor: Color(0xFF1F8ECE),
+      //           labelColor: Color(0xFF737373),
+      //           name: 'Pregnancy Test',
+      //           valueType: 'TEXT'),
+      //       InputField(
+      //           id: 'd9UoOBO2BWi',
+      //           inputColor: Color(0xFF1F8ECE),
+      //           labelColor: Color(0xFF737373),
+      //           name: 'Hepatitis B Screening',
+      //           valueType: 'TEXT'),
+      //       InputField(
+      //           id: 'GMGpCj6Nkvd',
+      //           inputColor: Color(0xFF1F8ECE),
+      //           labelColor: Color(0xFF737373),
+      //           name: 'RPR/VDRL  Screening',
+      //           valueType: 'TEXT'),
+      //       InputField(
+      //           id: 'NIZZ0Bj3XPU',
+      //           inputColor: Color(0xFF1F8ECE),
+      //           labelColor: Color(0xFF737373),
+      //           name: 'Date of initial visit',
+      //           valueType: 'DATE'),
+      //     ])
     ];
   }
 }
