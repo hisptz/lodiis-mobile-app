@@ -10,7 +10,8 @@ class ServiceCardBottonAction extends StatelessWidget {
   const ServiceCardBottonAction({
     Key key,
     this.agywBeneficiary,
-    this.onOpenPrepForm,
+    this.onOpenPrepLongForm,
+    this.onOpenPrepShortForm,
     this.onOpenHTSShortForm,
     this.onOpenHTSLongForm,
     this.onOpenSRHForm,
@@ -25,7 +26,8 @@ class ServiceCardBottonAction extends StatelessWidget {
   }) : super(key: key);
 
   final AgywDream agywBeneficiary;
-  final VoidCallback onOpenPrepForm;
+  final VoidCallback onOpenPrepLongForm;
+  final VoidCallback onOpenPrepShortForm;
   final VoidCallback onOpenHTSShortForm;
   final VoidCallback onOpenHTSLongForm;
   final VoidCallback onOpenSRHForm;
@@ -130,11 +132,14 @@ class ServiceCardBottonAction extends StatelessWidget {
                           ),
                         ),
                         Visibility(
-                          visible: currentUserState.canManagePrep &&
+                          visible: (currentUserState.canManagePrepLongForm ||
+                                  currentUserState.canManagePrepShortForm) &&
                               int.parse(agywBeneficiary.age ?? '0') >= 15,
                           child: Container(
                             child: InkWell(
-                              onTap: onOpenPrepForm,
+                              onTap: currentUserState.canManagePrepShortForm
+                                  ? onOpenPrepShortForm
+                                  : onOpenPrepLongForm,
                               child: Container(
                                 padding: EdgeInsets.symmetric(
                                   vertical: 5.0,

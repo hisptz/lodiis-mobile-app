@@ -67,9 +67,9 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
     for (ServiceEvents event in serviceEvents ?? []) {
       if (aggregatedSession[event.interventionType] != null) {
         aggregatedSession[event.interventionType] =
-            aggregatedSession[event.interventionType] + event.numberaOfSessions;
+            aggregatedSession[event.interventionType] + event.numberOfSessions;
       } else {
-        aggregatedSession[event.interventionType] = event.numberaOfSessions;
+        aggregatedSession[event.interventionType] = event.numberOfSessions;
       }
     }
     return aggregatedSession;
