@@ -59,11 +59,11 @@ class NonAgywDreamsHTCSkipLogic {
       if (inputFieldId == 'RXS4fNXVKMl' && value != 'true') {
         hiddenFields['LZFhD0N9Zj5'] = true;
       }
-      if ('${dataObject['eXp9ASOufpR']}' != 'null' &&
-          '${dataObject['qsujYWhB0DP']}' != 'null') {
-        dataObject['eXp9ASOufpR_bmi'] = calculateBMI(
-            '${dataObject['eXp9ASOufpR']}', '${dataObject['qsujYWhB0DP']}');
-      }
+      // if ('${dataObject['eXp9ASOufpR']}' != 'null' &&
+      //     '${dataObject['qsujYWhB0DP']}' != 'null') {
+      //   dataObject['eXp9ASOufpR_bmi'] = calculateBMI(
+      //       '${dataObject['eXp9ASOufpR']}', '${dataObject['qsujYWhB0DP']}');
+      // }
       if (inputFieldId == 'vkd6o91n1IC') {
         if (dataObject['vIX4GTSCX4P'] == 'Male') {
           dataObject[inputFieldId] = 'NON-AGYW';
