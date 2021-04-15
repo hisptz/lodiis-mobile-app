@@ -116,9 +116,9 @@ class AgywDreamsPrepSkipLogic {
         hiddenFields['zs5TJVoHg9j'] = true;
       }
       //Assign Site name to Facility name
-      if (inputFieldId == 'BrcTtRhrxXp') {
-        dataObject['BrcTtRhrxXp'] = dataObject['lQ8XDsy6M6y'];
-      }
+      // if (inputFieldId == 'BrcTtRhrxXp') {
+      //   dataObject['BrcTtRhrxXp'] = dataObject['lQ8XDsy6M6y'];
+      // }
       //Substantial Risk and Eligibility
       if (inputFieldId == 'pQaAQdJnE1w' && value != 'Yes') {
         hiddenFields['DobfAIMBOvy'] = true;
@@ -142,10 +142,11 @@ class AgywDreamsPrepSkipLogic {
       if (inputFieldId == 'O8Fz5EWOOzU' && value != 'true') {
         hiddenFields['KLxWrSRAXfY'] = true;
       }
-      if (inputFieldId == 'rDV6sBIwivl' && value != 'true') {
-        hiddenSections['PeSfSRaE'] = true;
-        hiddenSections['BsLnIfmtn'] = true;
-      }
+
+      // if (inputFieldId == 'rDV6sBIwivl' && value != 'true') {
+      //   hiddenSections['PeSfSRaE'] = true;
+      //   hiddenSections['BsLnIfmtn'] = true;
+      // }
 
       if (inputFieldId == 'li1EJgHzWtV' && value != 'Other') {
         hiddenFields['GrChAWBTqTc'] = true;

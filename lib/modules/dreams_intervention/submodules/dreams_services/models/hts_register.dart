@@ -184,8 +184,8 @@ class HTSRegister {
           labelColor: Color(0xFF737373),
         ),
         InputField(
-          id: 'N8tlZl91pBY',
-          name: 'Final HIV Status',
+          id: 'idNHfBDFRwv',
+          name: 'DNA PCR Results',
           options: [
             InputFieldOption(code: 'Positive', name: 'Positive'),
             InputFieldOption(code: 'Negative', name: 'Negative'),
@@ -196,8 +196,8 @@ class HTSRegister {
           labelColor: Color(0xFF737373),
         ),
         InputField(
-          id: 'idNHfBDFRwv',
-          name: 'DNA PCR Results',
+          id: 'N8tlZl91pBY',
+          name: 'Final HIV Status',
           options: [
             InputFieldOption(code: 'Positive', name: 'Positive'),
             InputFieldOption(code: 'Negative', name: 'Negative'),

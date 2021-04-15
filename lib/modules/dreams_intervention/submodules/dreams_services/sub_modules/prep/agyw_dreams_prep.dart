@@ -226,7 +226,7 @@ class _AgywDreamsPrepState extends State<AgywDreamsPrep> {
                                                       child:
                                                           DreamsServiceVisitListCard(
                                                         visitName:
-                                                            "Baseline Information",
+                                                            "PrEP Screening",
                                                         onEdit: () =>
                                                             onEditPrep(context,
                                                                 eventData),

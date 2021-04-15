@@ -842,7 +842,7 @@ class NoneAgywEnrollmentFormSection {
             InputField(
                 id: 'q3JCqCyX4aI',
                 name:
-                    'A history of a sexually transmitted infection(STI)by lab testing or self-report or syndromic STI treatment',
+                    'A history of a sexually transmitted infection(STI) by lab testing or self-report or syndromic STI treatment',
                 valueType: 'BOOLEAN',
                 inputColor: Color(0xFF258DCC),
                 labelColor: Color(0xFF737373)),

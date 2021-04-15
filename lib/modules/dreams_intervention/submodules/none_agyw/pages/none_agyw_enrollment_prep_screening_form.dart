@@ -35,7 +35,7 @@ class _NoneAgywEnrollmentPrepScreeningFormState
   final List<String> mandatoryFields =
       NoneAgywEnrollmentPrepScreening.getMandatoryField();
   List<FormSection> formSections;
-  final String label = 'PrEP Screening';
+  final String label = 'PrEP Screening for Substantial Risk and Eligibility';
 
   final Map mandatoryFieldObject = Map();
   final String trackedEntityInstance = AppUtil.getUid();

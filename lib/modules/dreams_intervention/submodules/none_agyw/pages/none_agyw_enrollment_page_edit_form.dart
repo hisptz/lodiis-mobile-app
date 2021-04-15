@@ -41,19 +41,15 @@ class NoneAgywEnrollmentEditForm extends StatefulWidget {
 class _NoneAgywEnrollmentEditFormState
     extends State<NoneAgywEnrollmentEditForm> {
   List<FormSection> formSections;
-  List<FormSection> clientIntakeFormSections;
   List<FormSection> prepScreeningFormSections;
   List<FormSection> htsConsentFormSections;
   List<FormSection> htsClientInformationFormSections;
   List<FormSection> htsRegisterFormSections;
-  List<FormSection> htsConsentForReleaseFormSections;
 
   final String label = 'NonAgyw Enrolment Form';
   final Map mandatoryFieldObject = Map();
   final List<String> mandatoryFields =
-      NoneAgywEnrollmentFormSection.getMandatoryField() +
-          NoneAgywEnrollmentPrepScreening.getMandatoryField() +
-          NonAgywHTSClientInformation.getMandatoryField() +
+      NonAgywHTSClientInformation.getMandatoryField() +
           NonAgywHTSRegister.getMandatoryFields();
   bool isFormReady = false;
   bool isSaving = false;
@@ -67,16 +63,12 @@ class _NoneAgywEnrollmentEditFormState
       htsClientInformationFormSections =
           NonAgywHTSClientInformation.getFormSections();
       htsRegisterFormSections = NonAgywHTSRegister.getFormSections();
-      htsConsentForReleaseFormSections =
-          NonAgywHTSConsentForReleaseOfStatus.getFormSections();
 
       //Determine if the beneficiary is HIV Positive
 
       for (String id in mandatoryFields) {
         mandatoryFieldObject[id] = true;
       }
-      clientIntakeFormSections =
-          NoneAgywEnrollmentFormSection.getFormSections();
       prepScreeningFormSections =
           NoneAgywEnrollmentPrepScreening.getFormSections();
       List<String> skippedInputs = [
@@ -84,7 +76,7 @@ class _NoneAgywEnrollmentEditFormState
         'WTZ7GLTrE8Q',
         'rSP9c21JsfC',
         'ls9hlz2tyol',
-        'eXp9ASOufpR_bmi',
+        // 'eXp9ASOufpR_bmi',
         'FI9Wzzys767',
         'dQBja8nUr18'
       ];
@@ -92,11 +84,11 @@ class _NoneAgywEnrollmentEditFormState
         ...htsConsentFormSections,
         ...htsClientInformationFormSections,
         ...htsRegisterFormSections,
-        ...htsConsentForReleaseFormSections,
-        ...clientIntakeFormSections
       ];
       if (isBeneficiaryHIVNegative()) {
         formSections.addAll(prepScreeningFormSections);
+        mandatoryFields
+            .addAll(NoneAgywEnrollmentPrepScreening.getMandatoryField());
       }
       formSections = FormUtil.getFormSectionWithReadOnlyStatus(
         formSections,
@@ -185,6 +177,7 @@ class _NoneAgywEnrollmentEditFormState
       setState(() {
         unFilledMandatoryFields =
             AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+        print('UNFILLED: $unFilledMandatoryFields');
       });
       AppUtil.showToastMessage(
           message: 'Please fill all mandatory field',

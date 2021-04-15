@@ -4,9 +4,10 @@ import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:provider/provider.dart';
 
-class AgywDreamsHTSRegisterSkipLogic {
+class AgywDreamsPrepShortFormSkipLogic {
   static Map hiddenFields = Map();
   static Map hiddenSections = Map();
+  static List skippedFields = [];
 
   static Future evaluateSkipLogics(
     BuildContext context,
@@ -16,30 +17,16 @@ class AgywDreamsHTSRegisterSkipLogic {
     hiddenFields.clear();
     hiddenSections.clear();
     List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections);
-    for (var key in dataObject.keys) {
-      inputFieldIds.add('$key');
-    }
-    inputFieldIds = inputFieldIds.toSet().toList();
+
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
-      if (inputFieldId == 'Dzr6d0hPXjR' && value != 'Other(Specify)') {
-        hiddenFields['IHuXwqwWl9i'] = true;
-      }
-      if (inputFieldId == 'jO14p2Unvqm' && value != 'true') {
-        hiddenFields['UXXn9kAqASd'] = true;
-        hiddenFields['beizqNyYP9a'] = true;
-        hiddenFields['CCgL6RQ9BkR'] = true;
-      }
-      if (inputFieldId == 'B9WDdd3feaQ' && value != 'true') {
-        hiddenFields['cGnoMSGCGBG'] = true;
-      }
-      if (inputFieldId == 'Io9EHy6EzgM') {
-        dataObject[inputFieldId] = dataObject['GO6QIfHE7Vc'];
-      }
-      if (inputFieldId == 'TzQgZh4Emjc' && value == 'true') {
-        hiddenFields['c9QZUeAy0wW'] = true;
+
+      if (inputFieldId == 'VtmkYCQkBQw' && value != 'true') {
+        hiddenFields['lvT9gfpHIlT'] = true;
+        hiddenFields['XhMaVycZx8l'] = true;
       }
     }
+
     for (String sectionId in hiddenSections.keys) {
       List<FormSection> allFormSections =
           FormUtil.getFlattenFormSections(formSections);
@@ -57,7 +44,7 @@ class AgywDreamsHTSRegisterSkipLogic {
 
   static resetValuesForHiddenFields(BuildContext context, inputFieldIds) {
     for (String inputFieldId in inputFieldIds) {
-      if (hiddenFields[inputFieldId]) {
+      if (hiddenFields[inputFieldId] && !skippedFields.contains(inputFieldId)) {
         assignInputFieldValue(context, inputFieldId, null);
       }
     }
@@ -80,14 +67,5 @@ class AgywDreamsHTSRegisterSkipLogic {
   ) {
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState(inputFieldId, value);
-  }
-
-  static String calculateBMI(weight, height) {
-    double bmi;
-    try {
-      bmi =
-          double.parse(weight) / (double.parse(height) * double.parse(height));
-    } catch (e) {}
-    return bmi != null ? bmi.toStringAsPrecision(3) : '';
   }
 }

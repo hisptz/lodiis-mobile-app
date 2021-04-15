@@ -24,7 +24,7 @@ class HTSConsent {
         InputField(
             id: 'HZ4BrWoGNIO',
             name:
-                'Have you had sufficient opportunity to ask questions and to consider whether I want to proceed with the test?',
+                'Have you had sufficient opportunity to ask questions and to consider whether you want to proceed with the test?',
             valueType: 'BOOLEAN',
             inputColor: Color(0xFF258DCC),
             labelColor: Color(0xFF737373)),
@@ -52,7 +52,7 @@ class HTSConsent {
         InputField(
             id: 'rY4ei8RNw6c',
             name:
-                'Do you know that at any stage prior to the performance of the test, free to withdraw my consent to undergo the test?',
+                'Do you know that at any stage prior to the performance of the test, you are free to withdraw your consent to undergo the test?',
             valueType: 'BOOLEAN',
             inputColor: Color(0xFF258DCC),
             labelColor: Color(0xFF737373)),

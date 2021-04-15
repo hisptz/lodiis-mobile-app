@@ -36,6 +36,9 @@ class NonAgywDreamsHTSRegisterSkipLogic {
       if (inputFieldId == 'FI9Wzzys767') {
         dataObject[inputFieldId] = dataObject['LVcAj2cW778'];
       }
+      if (inputFieldId == 'VWa6pitIsPr' && value == 'true') {
+        hiddenFields['UTXsJZmGVDe'] = true;
+      }
     }
     for (String sectionId in hiddenSections.keys) {
       List<FormSection> allFormSections =
