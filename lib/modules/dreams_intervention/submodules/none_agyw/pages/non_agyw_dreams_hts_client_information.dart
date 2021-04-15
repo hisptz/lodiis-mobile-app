@@ -30,7 +30,7 @@ class NonAgywDreamsHTSClientInformation extends StatefulWidget {
 
 class _NonAgywDreamsHTSClientInformationState
     extends State<NonAgywDreamsHTSClientInformation> {
-  final String label = 'HTS Client Intake';
+  final String label = 'Client Bio';
   List<FormSection> formSections;
   List<String> mandatoryFields;
   Map mandatoryFieldsObject = Map();
@@ -78,7 +78,7 @@ class _NonAgywDreamsHTSClientInformationState
   }
 
   void onSaveForm(BuildContext context, Map dataObject, Map hiddenFields) {
-    dataObject.remove(NonAgywDreamsHTSConstant.bmiKey);
+    // dataObject.remove(NonAgywDreamsHTSConstant.bmiKey);
     if (AppUtil.hasAllMandarotyFieldsFilled(mandatoryFields, dataObject,
         hiddenFields: hiddenFields)) {
       Navigator.push(
@@ -89,7 +89,8 @@ class _NonAgywDreamsHTSClientInformationState
       );
     } else {
       setState(() {
-        unFilledMandatoryFields = AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+        unFilledMandatoryFields =
+            AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
       });
       AppUtil.showToastMessage(
           message: 'Please fill all mandatory field',
@@ -145,7 +146,7 @@ class _NonAgywDreamsHTSClientInformationState
                                   dataObject: enrollmentFormState.formState,
                                   onInputValueChange: onInputValueChange,
                                   unFilledMandatoryFields:
-                                  unFilledMandatoryFields,
+                                      unFilledMandatoryFields,
                                 ),
                               ),
                               Visibility(
