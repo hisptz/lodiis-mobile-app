@@ -31,7 +31,7 @@ class DreamsPrepFollwUpVisit {
           inputFields: [
             InputField(
                 id: 'Dl8JvQuOkAd',
-                name: 'Duration in weeks since starting PrEP',
+                name: 'Duration in weeks since starting PrEP (#weeks /52)',
                 valueType: 'NUMBER',
                 inputColor: Color(0xFF258DCC),
                 labelColor: Color(0xFF737373)),
@@ -153,7 +153,15 @@ class DreamsPrepFollwUpVisit {
                   InputFieldOption(code: 'TDFFTC', name: 'TDFFTC'),
                   InputFieldOption(code: 'TDF', name: 'TDF'),
                   InputFieldOption(code: 'Other', name: 'Other')
-                ])
+                ]),
+            InputField(
+                id: 'jjz5PgokIho',
+                name: 'Date of next visit',
+                disablePastPeriod: true,
+                allowFuturePeriod: true,
+                valueType: 'DATE',
+                inputColor: Color(0xFF258DCC),
+                labelColor: Color(0xFF737373)),
           ]),
       FormSection(
           id: 'Case_transfer',
@@ -164,12 +172,31 @@ class DreamsPrepFollwUpVisit {
                 id: 'MelgOQY7mDx',
                 name: 'Transfer date',
                 valueType: 'DATE',
+                allowFuturePeriod: true,
                 inputColor: Color(0xFF258DCC),
                 labelColor: Color(0xFF737373)),
             InputField(
-                id: 'Uou4yDFVQcH',
-                name: 'Where to',
+                id: 'lNCc9aHUtil',
+                name: 'Type of ransfer',
+                valueType: 'TEXT',
+                inputColor: Color(0xFF258DCC),
+                labelColor: Color(0xFF737373),
+                options: [
+                  InputFieldOption(code: 'Transfer in', name: 'Transfer in'),
+                  InputFieldOption(code: 'Transfer out', name: 'Transfer out'),
+                ]),
+            InputField(
+                id: 'wKvfACAobUq',
+                name: 'Transfer in',
                 valueType: 'ORGANISATION_UNIT',
+                allowedSelectedLevels: [4],
+                inputColor: Color(0xFF258DCC),
+                labelColor: Color(0xFF737373)),
+            InputField(
+                id: 'xle3XRoT8ip',
+                name: 'Transfer out',
+                valueType: 'ORGANISATION_UNIT',
+                allowedSelectedLevels: [4],
                 inputColor: Color(0xFF258DCC),
                 labelColor: Color(0xFF737373)),
             InputField(

@@ -24,13 +24,13 @@ class NoneAgywEnrollmentSkipLogic {
       inputFieldIds.add('$key');
     }
     inputFieldIds = inputFieldIds.toSet().toList();
-    dataObject[NonAgywPrepVisitConstant.clientWeight] =
-        dataObject[NonAgywDreamsHTSConstant.weight];
+    // dataObject[NonAgywPrepVisitConstant.clientWeight] =
+    //     dataObject[NonAgywDreamsHTSConstant.weight];
     // assign facility name
-    dataObject['YDxOvZTdzAc'] = dataObject['atNbeYwzMq6'];
+    // dataObject['YDxOvZTdzAc'] = dataObject['atNbeYwzMq6'];
     // assign date
-    dataObject['oZPPEMZ0hXt'] =
-        '${AppUtil.formattedDateTimeIntoString(DateTime.now())}';
+    // dataObject['oZPPEMZ0hXt'] =
+    //     '${AppUtil.formattedDateTimeIntoString(DateTime.now())}';
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
       if (inputFieldId == 'qZP982qpSPS') {

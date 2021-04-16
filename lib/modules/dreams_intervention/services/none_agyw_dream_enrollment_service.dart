@@ -50,11 +50,12 @@ class NoneAgywDreamEnrollmentService {
     inputFieldIds
         .addAll(FormUtil.getFormFieldIds(htsClientInformationFormSections));
     inputFieldIds.addAll(FormUtil.getFormFieldIds(htsRegisterFormSections));
-    inputFieldIds
-        .addAll(FormUtil.getFormFieldIds(htsConsentForReleaseFormSections));
+
+    // inputFieldIds
+    // .addAll(FormUtil.getFormFieldIds(htsConsentForReleaseFormSections));
 
     //Remove bmiKey
-    inputFieldIds.remove(NonAgywDreamsHTSConstant.bmiKey);
+    // inputFieldIds.remove(NonAgywDreamsHTSConstant.bmiKey);
 
     TrackeEntityInstance trackeEntityInstanceData =
         await FormUtil.geTrackedEntityInstanceEnrollmentPayLoad(

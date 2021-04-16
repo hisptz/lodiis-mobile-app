@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 class NonAgywDreamsHTCSkipLogic {
   static Map hiddenFields = Map();
   static Map hiddenSections = Map();
+  static Map hiddenInputFieldOptions = Map();
 
   static Future evaluateSkipLogics(
     BuildContext context,
@@ -16,7 +17,10 @@ class NonAgywDreamsHTCSkipLogic {
   ) async {
     hiddenFields.clear();
     hiddenSections.clear();
+    hiddenInputFieldOptions.clear();
+
     List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections);
+    Map hiddenOptions = Map();
     for (var key in dataObject.keys) {
       inputFieldIds.add('$key');
     }
@@ -26,6 +30,9 @@ class NonAgywDreamsHTCSkipLogic {
       if (inputFieldId == 'qZP982qpSPS') {
         int age = AppUtil.getAgeInYear(value);
         assignInputFieldValue(context, 'ls9hlz2tyol', age.toString());
+      }
+      if (inputFieldId == 'vIX4GTSCX4P' && value == 'Female') {
+        hiddenOptions['Circumsized'] = true;
       }
       if ((inputFieldId == 'J53jgfHiufC' && value != 'Other')) {
         hiddenFields['ybq5BQOdMG6'] = true;
@@ -59,11 +66,11 @@ class NonAgywDreamsHTCSkipLogic {
       if (inputFieldId == 'RXS4fNXVKMl' && value != 'true') {
         hiddenFields['LZFhD0N9Zj5'] = true;
       }
-      if ('${dataObject['eXp9ASOufpR']}' != 'null' &&
-          '${dataObject['qsujYWhB0DP']}' != 'null') {
-        dataObject['eXp9ASOufpR_bmi'] = calculateBMI(
-            '${dataObject['eXp9ASOufpR']}', '${dataObject['qsujYWhB0DP']}');
-      }
+      // if ('${dataObject['eXp9ASOufpR']}' != 'null' &&
+      //     '${dataObject['qsujYWhB0DP']}' != 'null') {
+      //   dataObject['eXp9ASOufpR_bmi'] = calculateBMI(
+      //       '${dataObject['eXp9ASOufpR']}', '${dataObject['qsujYWhB0DP']}');
+      // }
       if (inputFieldId == 'vkd6o91n1IC') {
         if (dataObject['vIX4GTSCX4P'] == 'Male') {
           dataObject[inputFieldId] = 'NON-AGYW';
@@ -83,6 +90,7 @@ class NonAgywDreamsHTCSkipLogic {
     if (!shouldShowNameOfFacilityField) {
       hiddenFields['ZZBWYb9jzHE'] = true;
     }
+    hiddenInputFieldOptions['VlLCik7OLHI'] = hiddenOptions;
     for (String sectionId in hiddenSections.keys) {
       List<FormSection> allFormSections =
           FormUtil.getFlattenFormSections(formSections);
@@ -95,6 +103,7 @@ class NonAgywDreamsHTCSkipLogic {
       }
     }
     resetValuesForHiddenFields(context, hiddenFields.keys);
+    resetValuesForHiddenInputFieldOptions(context, formSections);
     resetValuesForHiddenSections(context, formSections);
   }
 
@@ -106,6 +115,14 @@ class NonAgywDreamsHTCSkipLogic {
     }
     Provider.of<EnrollmentFormState>(context, listen: false)
         .setHiddenFields(hiddenFields);
+  }
+
+  static resetValuesForHiddenInputFieldOptions(
+    BuildContext context,
+    List<FormSection> formSections,
+  ) {
+    Provider.of<EnrollmentFormState>(context, listen: false)
+        .setHiddenInputFieldOptions(hiddenInputFieldOptions);
   }
 
   static resetValuesForHiddenSections(

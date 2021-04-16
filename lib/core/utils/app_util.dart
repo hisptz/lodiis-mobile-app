@@ -51,6 +51,25 @@ class AppUtil {
     return unFilledMandatoryFields;
   }
 
+  static bool getAtleastOneFormFieldsFilledStatus(
+    List fields,
+    Map dataObject,
+  ) {
+    List unFilledFields = [];
+    List fieldIds = dataObject.keys.toList();
+    for (var field in fields) {
+      if (fieldIds.indexOf(field) == -1) {
+        unFilledFields.add(field);
+      } else {
+        if ('${dataObject[field]}'.trim() == '' ||
+            '${dataObject[field]}'.trim() == 'null') {
+          unFilledFields.add(field);
+        }
+      }
+    }
+    return unFilledFields.length < fields.length;
+  }
+
   static void setStatusBarColor(Color color) {
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(

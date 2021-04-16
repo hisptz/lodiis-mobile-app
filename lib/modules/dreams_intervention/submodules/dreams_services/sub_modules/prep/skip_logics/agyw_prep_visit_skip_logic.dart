@@ -32,17 +32,28 @@ class AgywPrepSkipLogic {
       if (inputFieldId == 'oIrEIqHBvJ5' && value != 'Stopping PrEP') {
         hiddenSections['Stopping_PrEP'] = true;
       }
+      if (inputFieldId == 'lNCc9aHUtil') {
+        if (value == 'null' || value == '') {
+          hiddenFields['wKvfACAobUq'] = true;
+          hiddenFields['xle3XRoT8ip'] = true;
+        } else if (value != 'Transfer in') {
+          hiddenFields['wKvfACAobUq'] = true;
+        } else if (value != 'Transfer out') {
+          hiddenFields['xle3XRoT8ip'] = true;
+        }
+      }
     }
     for (String sectionId in hiddenSections.keys) {
       List<FormSection> allFormSections =
           FormUtil.getFlattenFormSections(formSections);
-      List<String> hidddenSectionInputFieldIds = FormUtil.getFormFieldIds(allFormSections
-          .where((formSection) => formSection.id == sectionId)
-          .toList());
+      List<String> hidddenSectionInputFieldIds = FormUtil.getFormFieldIds(
+          allFormSections
+              .where((formSection) => formSection.id == sectionId)
+              .toList());
       List<String> allInputFieldIds = FormUtil.getFormFieldIds(allFormSections
           .where((formSection) => formSection.id != sectionId)
           .toList());
-      
+
       for (String inputFieldId in hidddenSectionInputFieldIds) {
         if (allInputFieldIds.indexOf(inputFieldId) == -1) {
           hiddenFields[inputFieldId] = true;

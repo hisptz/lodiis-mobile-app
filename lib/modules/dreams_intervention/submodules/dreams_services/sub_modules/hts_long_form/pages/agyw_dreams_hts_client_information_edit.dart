@@ -33,7 +33,7 @@ class AgywDreamsHTSClientInformationEdit extends StatefulWidget {
 
 class _AgywDreamsHTSClientInformationEditState
     extends State<AgywDreamsHTSClientInformationEdit> {
-  final String label = 'HTS Client Intake'; //Initially Client Information
+  final String label = 'Client Bio'; //Initially Client Information
   List<FormSection> formSections;
   bool isFormReady = false;
   bool isSaving = false;

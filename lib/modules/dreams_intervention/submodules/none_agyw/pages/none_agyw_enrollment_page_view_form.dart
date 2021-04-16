@@ -33,11 +33,11 @@ class _NoneAgywEnrollmentViewFormState
     extends State<NoneAgywEnrollmentViewForm> {
   List<FormSection> formSections;
   List<FormSection> prepScreeningFormSections;
-  List<FormSection> enrollmentClientIntakeFormSections;
+  // List<FormSection> enrollmentClientIntakeFormSections;
   List<FormSection> htsConsentFormSections;
   List<FormSection> htsClientInformationFormSections;
   List<FormSection> htsRegisterFormSections;
-  List<FormSection> htsConsentForReleaseFormSections;
+  // List<FormSection> htsConsentForReleaseFormSections;
 
   final String label = 'None Agyw Enrolment Form';
   bool isFormReady = false;
@@ -51,23 +51,22 @@ class _NoneAgywEnrollmentViewFormState
       htsClientInformationFormSections =
           NonAgywHTSClientInformation.getFormSections();
       htsRegisterFormSections = NonAgywHTSRegister.getFormSections();
-      htsConsentForReleaseFormSections =
-          NonAgywHTSConsentForReleaseOfStatus.getFormSections();
-      enrollmentClientIntakeFormSections =
-          NoneAgywEnrollmentFormSection.getFormSections();
+      // htsConsentForReleaseFormSections =
+      //     NonAgywHTSConsentForReleaseOfStatus.getFormSections();
+      // enrollmentClientIntakeFormSections =
+      //     NoneAgywEnrollmentFormSection.getFormSections();
       formSections.addAll(htsConsentFormSections);
-      formSections.addAll(enrollmentClientIntakeFormSections
-          .map((FormSection consentFormSection) {
-        consentFormSection.name = 'HTS Client Intake Record';
-        List<InputField> inputFields = consentFormSection.inputFields
-            .where((InputField inputField) => inputField.id != 'location')
-            .toList();
-        consentFormSection.inputFields = inputFields;
-        return consentFormSection;
-      }).toList());
+      // formSections.addAll(enrollmentClientIntakeFormSections
+      //     .map((FormSection consentFormSection) {
+      //   consentFormSection.name = 'HTS Client Intake Record';
+      //   List<InputField> inputFields = consentFormSection.inputFields
+      //       .where((InputField inputField) => inputField.id != 'location')
+      //       .toList();
+      //   consentFormSection.inputFields = inputFields;
+      //   return consentFormSection;
+      // }).toList());
       formSections.addAll(htsClientInformationFormSections);
       formSections.addAll(htsRegisterFormSections);
-      formSections.addAll(htsConsentForReleaseFormSections);
       if (isBeneficiaryHIVNegative()) {
         prepScreeningFormSections =
             NoneAgywEnrollmentPrepScreening.getFormSections();

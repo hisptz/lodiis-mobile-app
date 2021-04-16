@@ -46,9 +46,9 @@ class NoneAgywEnrollmentPrepScreening {
                   InputField(
                       id: 'YDxOvZTdzAc',
                       name: 'Facility Name',
-                      isReadOnly: true,
                       valueType: 'ORGANISATION_UNIT',
                       inputColor: Color(0xFF258DCC),
+                      allowedSelectedLevels: [4],
                       labelColor: Color(0xFF737373)),
                   InputField(
                       id: 'yuOiCMwlOlb',
@@ -190,7 +190,7 @@ class NoneAgywEnrollmentPrepScreening {
                       valueType: 'DATE',
                       inputColor: Color(0xFF258DCC),
                       labelColor: Color(0xFF737373),
-                      isReadOnly: true),
+                      isReadOnly: false),
                   InputField(
                       id: 'uBJeTLcoAKM',
                       name: 'Type of test used',

@@ -5,6 +5,23 @@ import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/input_field_option.dart';
 
 class ClientInformation {
+  static List<String> getIndicationsForPrep() {
+    return [
+      'kv4FAx1Reck',
+      'TRE8eTo7tWl',
+      'zNz3aCntxv4',
+      'RLoCiIvo12e',
+      'yOplJCXAuiK',
+      'i46K5YYAxJu',
+      'fOAOOFLzuJJ',
+      'OXmIVzKnnfX',
+      'FHFDusOkEf7',
+      'gB1KMAsfA1H',
+      'mWO7YHLzyu4',
+      'hjKFMOVQ3Kt'
+    ];
+  }
+
   static List<FormSection> getFormSections() {
     return [
       FormSection(
@@ -123,6 +140,108 @@ class ClientInformation {
                   InputFieldOption(
                       code: 'Positve not on ART', name: 'Positve not on ART'),
                   InputFieldOption(code: 'Indeterminate', name: 'Indeterminate')
+                ]),
+          ]),
+      FormSection(
+          name: 'Risk assessment',
+          color: Color(0xFF737373),
+          inputFields: [
+            InputField(
+                id: 'SNGOfhanJia',
+                name: 'Pregnant/breastfeeding (clients or partner)',
+                valueType: 'BOOLEAN',
+                inputColor: Color(0xFF258DCC),
+                labelColor: Color(0xFF737373)),
+            InputField(
+                id: 'CR5xUFmPHVy',
+                name: 'Do you know your partners HIV status',
+                valueType: 'BOOLEAN',
+                inputColor: Color(0xFF258DCC),
+                labelColor: Color(0xFF737373)),
+            InputField(
+                id: 'ODv7ghspcbG',
+                name: "what's your partner HIV status",
+                valueType: 'TEXT',
+                inputColor: Color(0xFF258DCC),
+                labelColor: Color(0xFF737373),
+                options: [
+                  InputFieldOption(code: 'Positive', name: 'Positive'),
+                  InputFieldOption(code: 'Negative', name: 'Negative'),
+                  InputFieldOption(code: 'Unknown', name: 'Unknown'),
+                  InputFieldOption(code: 'No Response', name: 'No Response')
+                ]),
+            InputField(
+                id: 'DzRsmX6O9V6',
+                name: 'Are you?',
+                valueType: 'TEXT',
+                inputColor: Color(0xFF258DCC),
+                labelColor: Color(0xFF737373),
+                options: [
+                  InputFieldOption(code: 'Circumsized', name: 'Circumsized'),
+                  InputFieldOption(
+                      code: 'Genital sores or discharge',
+                      name: 'Genital sores or discharge')
+                ]),
+            InputField(
+                id: 'qS3VY5i86ZB',
+                name: 'Number of sexual partners in last 12  months',
+                isReadOnly: true,
+                valueType: 'INTEGER_ZERO_OR_POSITIVE',
+                inputColor: Color(0xFF258DCC),
+                labelColor: Color(0xFF737373)),
+          ]),
+      FormSection(
+          name: 'Indications for PrEP',
+          color: Color(0xFF737373),
+          inputFields: [
+            InputField(
+                id: 'indication4PrEP',
+                name: 'Indications for PrEP',
+                valueType: 'CHECK_BOX',
+                inputColor: Color(0xFF1F8ECE),
+                labelColor: Color(0xFF737373),
+                options: [
+                  InputFieldOption(
+                      code: 'kv4FAx1Reck',
+                      name:
+                          'Sexual partner with HIV who is not virally suppressed'),
+                  InputFieldOption(
+                      code: 'TRE8eTo7tWl',
+                      name: 'Sexual partner with HIV is not ART'),
+                  InputFieldOption(
+                      code: 'zNz3aCntxv4',
+                      name:
+                          'Sexual partner who has been on ART for less than 6 months'),
+                  InputFieldOption(
+                      code: 'RLoCiIvo12e',
+                      name:
+                          'Sexual partner who has been on ART for more than 6 months but is not virally suppressed'),
+                  InputFieldOption(
+                      code: 'yOplJCXAuiK', name: 'Women who want to conceive'),
+                  InputFieldOption(
+                      code: 'i46K5YYAxJu',
+                      name: 'Sexual partner with HIV, even if suppressed'),
+                  InputFieldOption(
+                      code: 'fOAOOFLzuJJ',
+                      name: 'Sexual partner with unknown HIV status'),
+                  InputFieldOption(
+                      code: 'OXmIVzKnnfX',
+                      name:
+                          'Vaginal or anal sexual intercourse without condoms with more than one partner in the past six months'),
+                  InputFieldOption(
+                      code: 'FHFDusOkEf7',
+                      name:
+                          'A sexual partner with one or more HIV risk factors in the past six months'),
+                  InputFieldOption(
+                      code: 'gB1KMAsfA1H',
+                      name:
+                          'A history of a sexually transmitted infection(STI) by lab testing or self-report or syndromic STI syndromic management in the past six months'),
+                  InputFieldOption(
+                      code: 'mWO7YHLzyu4',
+                      name:
+                          'Injecting drug user sharing needles and other injecting equipment'),
+                  InputFieldOption(
+                      code: 'hjKFMOVQ3Kt', name: 'Requesting PrEP'),
                 ]),
           ]),
       FormSection(
@@ -260,103 +379,55 @@ class ClientInformation {
                 inputColor: Color(0xFF258DCC),
                 labelColor: Color(0xFF737373)),
           ]),
-      FormSection(
-          name: 'Non-communicable diseases',
-          color: Color(0xFF737373),
-          inputFields: [
-            InputField(
-                id: 'x7Jzm67o0Ng',
-                name: 'Height (m)',
-                valueType: 'NUMBER',
-                description: 'Decimal values are allowed. e.g 1.4',
-                suffixLabel: 'm',
-                inputColor: Color(0xFF258DCC),
-                labelColor: Color(0xFF737373)),
-            InputField(
-                id: 'gCvMVscBNfk',
-                name: 'Weight(kg)',
-                description: 'Decimal values are allowed. e.g 4.1',
-                suffixLabel: 'Kg',
-                valueType: 'NUMBER',
-                inputColor: Color(0xFF258DCC),
-                labelColor: Color(0xFF737373)),
-            InputField(
-                id: 'gCvMVscBNfk_bmi',
-                name: 'BMI',
-                isReadOnly: true,
-                valueType: 'NUMBER',
-                inputColor: Color(0xFF258DCC),
-                labelColor: Color(0xFF737373)),
-            InputField(
-                id: 'WeaVsrFcWne',
-                name: 'Blood Pressure Systolic (mmHg)',
-                suffixLabel: 'mmHg',
-                valueType: 'NUMBER',
-                inputColor: Color(0xFF258DCC),
-                labelColor: Color(0xFF737373)),
-            InputField(
-              id: 'RqWMrqUcDqv',
-              name: 'Blood Pressure Diastolic (mmHg)',
-              suffixLabel: 'mmHg',
-              valueType: 'NUMBER',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373),
-            ),
-            InputField(
-                id: 'UlJr5baZcQj',
-                name: 'Glucose',
-                valueType: 'NUMBER',
-                inputColor: Color(0xFF258DCC),
-                labelColor: Color(0xFF737373)),
-          ]),
-      FormSection(
-          name: 'Risk assessment',
-          color: Color(0xFF737373),
-          inputFields: [
-            InputField(
-                id: 'SNGOfhanJia',
-                name: 'Pregnant/breastfeeding (clients or partner)',
-                valueType: 'BOOLEAN',
-                inputColor: Color(0xFF258DCC),
-                labelColor: Color(0xFF737373)),
-            InputField(
-                id: 'CR5xUFmPHVy',
-                name: 'Do you know your partners HIV status',
-                valueType: 'BOOLEAN',
-                inputColor: Color(0xFF258DCC),
-                labelColor: Color(0xFF737373)),
-            InputField(
-                id: 'ODv7ghspcbG',
-                name: "what's your partner HIV status",
-                valueType: 'TEXT',
-                inputColor: Color(0xFF258DCC),
-                labelColor: Color(0xFF737373),
-                options: [
-                  InputFieldOption(code: 'Positive', name: 'Positive'),
-                  InputFieldOption(code: 'Negative', name: 'Negative'),
-                  InputFieldOption(code: 'Unknown', name: 'Unknown'),
-                  InputFieldOption(code: 'No Response', name: 'No Response')
-                ]),
-            InputField(
-                id: 'DzRsmX6O9V6',
-                name: 'Are you?',
-                valueType: 'TEXT',
-                inputColor: Color(0xFF258DCC),
-                labelColor: Color(0xFF737373),
-                options: [
-                  InputFieldOption(code: 'Circumsized', name: 'Circumsized'),
-                  InputFieldOption(
-                      code: 'Genital sores or discharge',
-                      name: 'Genital sores or discharge')
-                ]),
-            InputField(
-                id: 'qS3VY5i86ZB',
-                name: 'Number of sexual partners in last 12  months',
-                isReadOnly: true,
-                valueType: 'INTEGER_ZERO_OR_POSITIVE',
-                inputColor: Color(0xFF258DCC),
-                labelColor: Color(0xFF737373)),
-          ]),
+      // FormSection(
+      //     name: 'Non-communicable diseases',
+      //     color: Color(0xFF737373),
+      //     inputFields: [
+      //       InputField(
+      //           id: 'x7Jzm67o0Ng',
+      //           name: 'Height (m)',
+      //           valueType: 'NUMBER',
+      //           description: 'Decimal values are allowed. e.g 1.4',
+      //           suffixLabel: 'm',
+      //           inputColor: Color(0xFF258DCC),
+      //           labelColor: Color(0xFF737373)),
+      //       InputField(
+      //           id: 'gCvMVscBNfk',
+      //           name: 'Weight(kg)',
+      //           description: 'Decimal values are allowed. e.g 4.1',
+      //           suffixLabel: 'Kg',
+      //           valueType: 'NUMBER',
+      //           inputColor: Color(0xFF258DCC),
+      //           labelColor: Color(0xFF737373)),
+      //       InputField(
+      //           id: 'gCvMVscBNfk_bmi',
+      //           name: 'BMI',
+      //           isReadOnly: true,
+      //           valueType: 'NUMBER',
+      //           inputColor: Color(0xFF258DCC),
+      //           labelColor: Color(0xFF737373)),
+      //       InputField(
+      //           id: 'WeaVsrFcWne',
+      //           name: 'Blood Pressure Systolic (mmHg)',
+      //           suffixLabel: 'mmHg',
+      //           valueType: 'NUMBER',
+      //           inputColor: Color(0xFF258DCC),
+      //           labelColor: Color(0xFF737373)),
+      //       InputField(
+      //         id: 'RqWMrqUcDqv',
+      //         name: 'Blood Pressure Diastolic (mmHg)',
+      //         suffixLabel: 'mmHg',
+      //         valueType: 'NUMBER',
+      //         inputColor: Color(0xFF258DCC),
+      //         labelColor: Color(0xFF737373),
+      //       ),
+      //       InputField(
+      //           id: 'UlJr5baZcQj',
+      //           name: 'Glucose',
+      //           valueType: 'NUMBER',
+      //           inputColor: Color(0xFF258DCC),
+      //           labelColor: Color(0xFF737373)),
+      //     ]),
       FormSection(name: 'HIV test', color: Color(0xFF737373), inputFields: [
         InputField(
             id: 'sPdC9NxNEME',
@@ -408,6 +479,16 @@ class ClientInformation {
               InputFieldOption(code: 'Positive', name: 'Positive'),
               InputFieldOption(code: 'Negative', name: 'Negative'),
               InputFieldOption(code: 'Out of stock', name: 'Out of stock')
+            ]),
+        InputField(
+            id: 'U0vFGj8vVzt',
+            name: 'T5: DNA PCR',
+            valueType: 'TEXT',
+            inputColor: Color(0xFF258DCC),
+            labelColor: Color(0xFF737373),
+            options: [
+              InputFieldOption(code: 'Positive', name: 'Positive'),
+              InputFieldOption(code: 'Negative', name: 'Negative'),
             ]),
         InputField(
             id: 'mhZeM9CuGQn',
