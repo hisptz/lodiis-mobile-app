@@ -20,14 +20,10 @@ import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/services/none_agyw_dream_enrollment_service.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/constant/non_agyw_hts_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/models/non_agyw_hts_client_information.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/models/non_agyw_hts_consent.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/models/non_agyw_hts_consent_for_release_of_status.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/models/non_agyw_hts_register.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/skip_logics/none_agyw_enrollment_skip_logic.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:provider/provider.dart';
-
-import '../models/none_agyw_enrollment_client_intake.dart';
 import '../models/none_agyw_enrollment_prep_screening.dart';
 
 class NoneAgywEnrollmentEditForm extends StatefulWidget {
@@ -42,7 +38,6 @@ class _NoneAgywEnrollmentEditFormState
     extends State<NoneAgywEnrollmentEditForm> {
   List<FormSection> formSections;
   List<FormSection> prepScreeningFormSections;
-  List<FormSection> htsConsentFormSections;
   List<FormSection> htsClientInformationFormSections;
   List<FormSection> htsRegisterFormSections;
 
@@ -59,16 +54,11 @@ class _NoneAgywEnrollmentEditFormState
   void initState() {
     super.initState();
     setState(() {
-      htsConsentFormSections = NonAgywHTSConsent.getFormSections();
       htsClientInformationFormSections =
           NonAgywHTSClientInformation.getFormSections();
       htsRegisterFormSections = NonAgywHTSRegister.getFormSections();
 
       //Determine if the beneficiary is HIV Positive
-
-      for (String id in mandatoryFields) {
-        mandatoryFieldObject[id] = true;
-      }
       prepScreeningFormSections =
           NoneAgywEnrollmentPrepScreening.getFormSections();
       List<String> skippedInputs = [
@@ -81,14 +71,18 @@ class _NoneAgywEnrollmentEditFormState
         'dQBja8nUr18'
       ];
       formSections = [
-        ...htsConsentFormSections,
         ...htsClientInformationFormSections,
         ...htsRegisterFormSections,
       ];
       if (isBeneficiaryHIVNegative()) {
+        mandatoryFields
+            .addAll(NoneAgywEnrollmentPrepScreening.getMandatoryField());
         formSections.addAll(prepScreeningFormSections);
         mandatoryFields
             .addAll(NoneAgywEnrollmentPrepScreening.getMandatoryField());
+      }
+      for (String id in mandatoryFields) {
+        mandatoryFieldObject[id] = true;
       }
       formSections = FormUtil.getFormSectionWithReadOnlyStatus(
         formSections,
@@ -234,6 +228,9 @@ class _NoneAgywEnrollmentEditFormState
                                         hiddenSections:
                                             enrollmentFormState.hiddenSections,
                                         formSections: formSections,
+                                        hiddenInputFieldOptions:
+                                            enrollmentFormState
+                                                .hiddenInputFieldOptions,
                                         mandatoryFieldObject:
                                             mandatoryFieldObject,
                                         isEditableMode:

@@ -74,7 +74,8 @@ class _AgywDreamServiceFormState extends State<AgywDreamServiceForm> {
           ));
     } else {
       setState(() {
-        unFilledMandatoryFields = AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+        unFilledMandatoryFields =
+            AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
       });
       AppUtil.showToastMessage(
         message: 'Please fill all mandatory field',
@@ -86,7 +87,7 @@ class _AgywDreamServiceFormState extends State<AgywDreamServiceForm> {
   void onInputValueChange(String id, dynamic value) {
     Provider.of<EnrollmentFormState>(context, listen: false)
         .setFormFieldState(id, value);
-     if (id == 'ls9hlz2tyol') {
+    if (id == 'ls9hlz2tyol') {
       Provider.of<EnrollmentFormState>(context, listen: false)
           .removeFieldFromState('UzQ533pOnvt');
     }
@@ -146,7 +147,8 @@ class _AgywDreamServiceFormState extends State<AgywDreamServiceForm> {
                                           mandatoryFieldObject,
                                       dataObject: enrollmentFormState.formState,
                                       onInputValueChange: onInputValueChange,
-                                      unFilledMandatoryFields: unFilledMandatoryFields,
+                                      unFilledMandatoryFields:
+                                          unFilledMandatoryFields,
                                     ),
                                   ),
                                   EntryFormSaveButton(

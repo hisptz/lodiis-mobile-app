@@ -131,7 +131,7 @@ class _AgywDreamsPrepShortFormHomePageState
                                 child: events.length == 0
                                     ? Container(
                                         child: Text(
-                                          "There is no PrEP at a moment",
+                                          "There is no PrEP visit at a moment",
                                         ),
                                       )
                                     : Container(
@@ -164,7 +164,7 @@ class _AgywDreamsPrepShortFormHomePageState
                                           }).toList(),
                                         ))),
                             EntryFormSaveButton(
-                              label: 'NEW PREP',
+                              label: 'ADD PREP VISIT',
                               labelColor: Colors.white,
                               buttonColor: Color(0xFF1F8ECE),
                               fontSize: 15.0,

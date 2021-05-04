@@ -23,7 +23,7 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/c
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/models/non_agyw_hts_client_information.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/models/non_agyw_hts_register.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/pages/none_agyw_enrollment_prep_screening_form.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/skip_logics/non_agyw_hts_register_skip_logic.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/skip_logics/none_agyw_enrollment_skip_logic.dart';
 import 'package:provider/provider.dart';
 
 class NonAgywDreamsHTSRegisterForm extends StatefulWidget {
@@ -76,7 +76,7 @@ class _NonAgywDreamsHTSRegisterFormState
       () async {
         Map dataObject =
             Provider.of<EnrollmentFormState>(context, listen: false).formState;
-        await NonAgywDreamsHTSRegisterSkipLogic.evaluateSkipLogics(
+        await NoneAgywEnrollmentSkipLogic.evaluateSkipLogics(
           context,
           formSections,
           dataObject,
