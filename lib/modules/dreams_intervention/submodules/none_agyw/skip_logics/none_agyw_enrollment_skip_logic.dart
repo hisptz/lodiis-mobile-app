@@ -11,6 +11,7 @@ import 'package:kb_mobile_app/core/utils/date_conversion_util.dart';
 class NoneAgywEnrollmentSkipLogic {
   static Map hiddenFields = Map();
   static Map hiddenSections = Map();
+  static Map hiddenInputFieldOptions = Map();
 
   static Future evaluateSkipLogics(
     BuildContext context,
@@ -19,7 +20,9 @@ class NoneAgywEnrollmentSkipLogic {
   ) async {
     hiddenFields.clear();
     hiddenSections.clear();
+    hiddenInputFieldOptions.clear();
     List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections);
+    Map hiddenOptions = Map();
     for (var key in dataObject.keys) {
       inputFieldIds.add('$key');
     }
@@ -112,6 +115,79 @@ class NoneAgywEnrollmentSkipLogic {
       }
       if (inputFieldId == 'uBJeTLcoAKM' && value != 'Other') {
         hiddenFields['OLaa0ZiGMVu'] = true;
+      }
+      if (inputFieldId == 'qZP982qpSPS') {
+        int age = AppUtil.getAgeInYear(value);
+        assignInputFieldValue(context, 'ls9hlz2tyol', age.toString());
+      }
+      if (inputFieldId == 'vIX4GTSCX4P' && value == 'Female') {
+        hiddenOptions['Circumsized'] = true;
+      }
+      if ((inputFieldId == 'J53jgfHiufC' && value != 'Other')) {
+        hiddenFields['ybq5BQOdMG6'] = true;
+      }
+      if (inputFieldId == 'G86T8BY1eVL' && value != 'Other') {
+        hiddenFields['YzPuEq2nAIh'] = true;
+      }
+
+      if (inputFieldId == 'sJ35hsF6Lf9' && value != 'Couple') {
+        hiddenFields['XjHuTmtsXsz'] = true;
+      }
+      if (inputFieldId == 'Lam6bSq1Zgk' && value != 'Other') {
+        hiddenFields['w6kNR0e4G6V'] = true;
+      }
+
+      if (inputFieldId == 'qvXYyTK9h2m' && value != 'true') {
+        hiddenFields['ZxXscC5W9qb'] = true;
+        hiddenFields['ECSlqcSEB9D'] = true;
+        hiddenFields['z50tGzpCAow'] = true;
+      }
+      if (inputFieldId == 'mmK9CT0n9BV' && value != 'true') {
+        hiddenFields['i0U8S4F3rTa'] = true;
+        hiddenFields['HD5YrKZXzQl'] = true;
+        hiddenFields['dOUKOAUsIgD'] = true;
+        hiddenFields['WZYXR6Azijc'] = true;
+        hiddenFields['XAHL4Ldyv3P'] = true;
+        hiddenFields['eBHVZQ8jWOm'] = true;
+        hiddenFields['odSWc26b9P6'] = true;
+        hiddenFields['ZZBWYb9jzHE'] = true;
+      }
+      if (inputFieldId == 'RXS4fNXVKMl' && value != 'true') {
+        hiddenFields['LZFhD0N9Zj5'] = true;
+      }
+      // if ('${dataObject['eXp9ASOufpR']}' != 'null' &&
+      //     '${dataObject['qsujYWhB0DP']}' != 'null') {
+      //   dataObject['eXp9ASOufpR_bmi'] = calculateBMI(
+      //       '${dataObject['eXp9ASOufpR']}', '${dataObject['qsujYWhB0DP']}');
+      // }
+      if (inputFieldId == 'vkd6o91n1IC') {
+        if (dataObject['vIX4GTSCX4P'] == 'Male') {
+          dataObject[inputFieldId] = 'NON-AGYW';
+        } else if (dataObject['vIX4GTSCX4P'] == 'Female') {
+          int age = int.parse('${dataObject['ls9hlz2tyol'] ?? '0'}');
+          if (age >= 15 && age <= 24) {
+            dataObject[inputFieldId] = 'AGYW';
+          } else {
+            dataObject[inputFieldId] = 'NON-AGYW';
+          }
+        }
+      }
+      if (inputFieldId == 'WsyK9VWBYOQ' && value != 'Other(Specify)') {
+        hiddenFields['Yk0afIAypzt'] = true;
+      }
+      if (inputFieldId == 'ses8fLQtfoi' && value != 'true') {
+        hiddenFields['aX0niP9AH6t'] = true;
+        hiddenFields['zcMQIn9jMRD'] = true;
+        hiddenFields['GwsIKCCsbSB'] = true;
+      }
+      if (inputFieldId == 'yvu29Wvtb41' && value != 'true') {
+        hiddenFields['CpGjlCaEcJt'] = true;
+      }
+      if (inputFieldId == 'FI9Wzzys767') {
+        dataObject[inputFieldId] = dataObject['LVcAj2cW778'];
+      }
+      if (inputFieldId == 'VWa6pitIsPr' && value == 'true') {
+        hiddenFields['UTXsJZmGVDe'] = true;
       }
       // Assign HIV results
       if (inputFieldId == 'dQBja8nUr18') {
@@ -240,6 +316,13 @@ class NoneAgywEnrollmentSkipLogic {
         }
       }
     }
+    List<String> fields = ['i0U8S4F3rTa', 'HD5YrKZXzQl'];
+    bool shouldShowNameOfFacilityField =
+        fields.any((field) => '${dataObject[field]}' == 'true');
+    if (!shouldShowNameOfFacilityField) {
+      hiddenFields['ZZBWYb9jzHE'] = true;
+    }
+    hiddenInputFieldOptions['VlLCik7OLHI'] = hiddenOptions;
     for (String sectionId in hiddenSections.keys) {
       List<FormSection> allFormSections =
           FormUtil.getFlattenFormSections(formSections);
@@ -252,6 +335,7 @@ class NoneAgywEnrollmentSkipLogic {
       }
     }
     resetValuesForHiddenFields(context, hiddenFields.keys);
+    resetValuesForHiddenInputFieldOptions(context, formSections);
     resetValuesForHiddenSections(context, formSections);
   }
 
@@ -263,6 +347,14 @@ class NoneAgywEnrollmentSkipLogic {
     }
     Provider.of<EnrollmentFormState>(context, listen: false)
         .setHiddenFields(hiddenFields);
+  }
+
+  static resetValuesForHiddenInputFieldOptions(
+    BuildContext context,
+    List<FormSection> formSections,
+  ) {
+    Provider.of<EnrollmentFormState>(context, listen: false)
+        .setHiddenInputFieldOptions(hiddenInputFieldOptions);
   }
 
   static resetValuesForHiddenSections(

@@ -12,10 +12,9 @@ import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/constant/non_agyw_hts_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/models/non_agyw_hts_client_information.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/pages/non_agyw_dreams_hts_register.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/skip_logics/non_agyw_hts_skip_logic.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/skip_logics/none_agyw_enrollment_skip_logic.dart';
 import 'package:provider/provider.dart';
 
 class NonAgywDreamsHTSClientInformation extends StatefulWidget {
@@ -62,7 +61,7 @@ class _NonAgywDreamsHTSClientInformationState
       () async {
         Map dataObject =
             Provider.of<EnrollmentFormState>(context, listen: false).formState;
-        await NonAgywDreamsHTCSkipLogic.evaluateSkipLogics(
+        await NoneAgywEnrollmentSkipLogic.evaluateSkipLogics(
           context,
           formSections,
           dataObject,
