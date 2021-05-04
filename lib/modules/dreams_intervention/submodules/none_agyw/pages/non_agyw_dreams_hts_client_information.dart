@@ -117,8 +117,6 @@ class _NonAgywDreamsHTSClientInformationState
         body: SubPageBody(
           body: Container(child: Consumer<EnrollmentFormState>(
             builder: (context, enrollmentFormState, child) {
-              print(
-                  'HIDDEN FIELDS:: ${enrollmentFormState.hiddenInputFieldOptions}');
               return Container(
                 child: Column(
                   children: [

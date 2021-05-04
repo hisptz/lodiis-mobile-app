@@ -21,13 +21,11 @@ import 'package:kb_mobile_app/modules/dreams_intervention/services/none_agyw_dre
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/constant/non_agyw_hts_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/models/non_agyw_hts_client_information.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/models/non_agyw_hts_consent.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/models/non_agyw_hts_consent_for_release_of_status.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/models/non_agyw_hts_register.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/skip_logics/non_agyw_hts_skip_logic.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/skip_logics/none_agyw_enrollment_skip_logic.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:provider/provider.dart';
-
-import '../models/none_agyw_enrollment_client_intake.dart';
 import '../models/none_agyw_enrollment_prep_screening.dart';
 
 class NoneAgywEnrollmentEditForm extends StatefulWidget {
@@ -65,10 +63,6 @@ class _NoneAgywEnrollmentEditFormState
       htsRegisterFormSections = NonAgywHTSRegister.getFormSections();
 
       //Determine if the beneficiary is HIV Positive
-
-      for (String id in mandatoryFields) {
-        mandatoryFieldObject[id] = true;
-      }
       prepScreeningFormSections =
           NoneAgywEnrollmentPrepScreening.getFormSections();
       List<String> skippedInputs = [
@@ -86,9 +80,14 @@ class _NoneAgywEnrollmentEditFormState
         ...htsRegisterFormSections,
       ];
       if (isBeneficiaryHIVNegative()) {
+        mandatoryFields
+            .addAll(NoneAgywEnrollmentPrepScreening.getMandatoryField());
         formSections.addAll(prepScreeningFormSections);
         mandatoryFields
             .addAll(NoneAgywEnrollmentPrepScreening.getMandatoryField());
+      }
+      for (String id in mandatoryFields) {
+        mandatoryFieldObject[id] = true;
       }
       formSections = FormUtil.getFormSectionWithReadOnlyStatus(
         formSections,
@@ -106,6 +105,8 @@ class _NoneAgywEnrollmentEditFormState
       () async {
         Map dataObject =
             Provider.of<EnrollmentFormState>(context, listen: false).formState;
+        await NonAgywDreamsHTCSkipLogic.evaluateSkipLogics(
+            context, formSections, dataObject);
         await NoneAgywEnrollmentSkipLogic.evaluateSkipLogics(
           context,
           formSections,
