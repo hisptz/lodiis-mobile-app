@@ -23,6 +23,19 @@ class DreamAddReferral {
                     options: [
                       InputFieldOption(code: 'Facility', name: 'Facility'),
                       InputFieldOption(code: 'Community', name: 'Community'),
+                    ]),
+                InputField(
+                    id: 'y0bvausyTyh',
+                    name: 'Implementing partner',
+                    valueType: 'TEXT',
+                    inputColor: Color(0xFF1F8ECE),
+                    labelColor: Color(0xFF737373),
+                    options: [
+                      InputFieldOption(code: 'EGPAF', name: 'EGPAF'),
+                      InputFieldOption(code: 'JHPIEGO', name: 'JHPIEGO'),
+                      InputFieldOption(
+                          code: 'KB-AGYW/DREAMS', name: 'KB-AGYW/DREAMS'),
+                      InputFieldOption(code: 'PSI', name: 'PSI'),
                     ])
               ],
             ),
