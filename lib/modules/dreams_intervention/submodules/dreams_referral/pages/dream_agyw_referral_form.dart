@@ -60,10 +60,10 @@ class _DreamAgywAddReferralFormState extends State<DreamAgywAddReferralForm> {
         Map dataObject =
             Provider.of<ServiceFormState>(context, listen: false).formState;
         await DreamAgywReferralSkipLogic.evaluateSkipLogics(
-          context,
-          formSections,
-          dataObject,
-        );
+            context,
+            formSections,
+            dataObject,
+            widget.currentUser.implementingPartner ?? '');
       },
     );
   }
