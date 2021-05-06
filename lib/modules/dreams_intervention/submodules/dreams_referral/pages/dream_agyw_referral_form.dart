@@ -15,6 +15,7 @@ import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
+import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
@@ -25,7 +26,9 @@ import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:provider/provider.dart';
 
 class DreamAgywAddReferralForm extends StatefulWidget {
-  DreamAgywAddReferralForm({Key key}) : super(key: key);
+  DreamAgywAddReferralForm({Key key, this.currentUser}) : super(key: key);
+
+  final CurrentUser currentUser;
 
   @override
   _DreamAgywAddReferralFormState createState() =>

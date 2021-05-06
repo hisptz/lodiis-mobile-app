@@ -9,8 +9,10 @@ import 'package:kb_mobile_app/core/components/referrals/referral_card_body_summa
 import 'package:kb_mobile_app/core/components/referrals/referral_card_summary.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
+import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
+import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
@@ -55,12 +57,15 @@ class _DreamAgywReferralPageState extends State<DreamAgywReferralPage> {
     }
   }
 
-  void onAddRefferal(BuildContext context, AgywDream agywDream) {
+  void onAddRefferal(BuildContext context, AgywDream agywDream) async {
+    CurrentUser user = await UserService().getCurrentUser();
     updateFormState(context, true, null);
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => DreamAgywAddReferralForm(),
+        builder: (context) => DreamAgywAddReferralForm(
+          currentUser: user,
+        ),
       ),
     );
   }
