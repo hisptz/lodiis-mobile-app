@@ -78,7 +78,7 @@ class DreamAddReferral {
                             code: 'Evaluation for ARVs/HAART',
                             name: 'Evaluation for ARVs/HAART'),
                         InputFieldOption(
-                            code: 'Post abuse case management',
+                            code: 'PostAbuseCaseManagement',
                             name: 'Post abuse case management'),
                         InputFieldOption(
                             code: 'ART and Adherence',
@@ -145,6 +145,36 @@ class DreamAddReferral {
                             name: 'Educational and vocational support'),
                         InputFieldOption(
                             code: 'Social grants', name: 'Social grants'),
+                        InputFieldOption(
+                            code: 'HIVPreventionMessaging',
+                            name: 'HIV Prevention Messaging'),
+                        InputFieldOption(
+                            code: 'Aflateen/toun', name: 'Aflateen/toun'),
+                        InputFieldOption(code: 'Go Girls', name: 'Go Girls'),
+                        InputFieldOption(
+                            code: 'PTS 4 NON-GRAD', name: 'PTS 4 NON-GRAD'),
+                        InputFieldOption(
+                            code: 'PTS 4-GRAD', name: 'PTS 4-GRAD'),
+                        InputFieldOption(code: 'SILC', name: 'SILC'),
+                        InputFieldOption(
+                            code: 'FINANCIAL EDUCATION',
+                            name: 'FINANCIAL EDUCATION'),
+                        InputFieldOption(
+                            code: 'SAVING GROUPS', name: 'SAVING GROUPS'),
+                        InputFieldOption(
+                            code: 'STEPPING STONES', name: 'STEPPING STONES'),
+                        InputFieldOption(code: 'IPC', name: 'IPC'),
+                        InputFieldOption(
+                            code: 'GBV Legal Protection',
+                            name: 'GBV Legal Protection'),
+                        InputFieldOption(
+                            code: 'GBV Legal Messaging',
+                            name: 'GBV Legal Messaging'),
+                        InputFieldOption(code: 'Parenting', name: 'Parenting'),
+                        InputFieldOption(code: 'VAC Legal', name: 'VAC Legal'),
+                        InputFieldOption(
+                            code: 'VAC Legal Messaging',
+                            name: 'VAC Legal Messaging'),
                       ]),
                   InputField(
                     id: 'ubB83OWNWsv',
@@ -200,7 +230,7 @@ class DreamAddReferral {
                             code: 'Evaluation for ARVs/HAART',
                             name: 'Evaluation for ARVs/HAART'),
                         InputFieldOption(
-                            code: 'Post abuse case management',
+                            code: 'PostAbuseCaseManagement',
                             name: 'Post abuse case management'),
                         InputFieldOption(
                             code: 'ART and Adherence',
@@ -267,6 +297,36 @@ class DreamAddReferral {
                             name: 'Educational and vocational support'),
                         InputFieldOption(
                             code: 'Social grants', name: 'Social grants'),
+                        InputFieldOption(
+                            code: 'HIVPreventionMessaging',
+                            name: 'HIV Prevention Messaging'),
+                        InputFieldOption(
+                            code: 'Aflateen/toun', name: 'Aflateen/toun'),
+                        InputFieldOption(code: 'Go Girls', name: 'Go Girls'),
+                        InputFieldOption(
+                            code: 'PTS 4 NON-GRAD', name: 'PTS 4 NON-GRAD'),
+                        InputFieldOption(
+                            code: 'PTS 4-GRAD', name: 'PTS 4-GRAD'),
+                        InputFieldOption(code: 'SILC', name: 'SILC'),
+                        InputFieldOption(
+                            code: 'FINANCIAL EDUCATION',
+                            name: 'FINANCIAL EDUCATION'),
+                        InputFieldOption(
+                            code: 'SAVING GROUPS', name: 'SAVING GROUPS'),
+                        InputFieldOption(
+                            code: 'STEPPING STONES', name: 'STEPPING STONES'),
+                        InputFieldOption(code: 'IPC', name: 'IPC'),
+                        InputFieldOption(
+                            code: 'GBV Legal Protection',
+                            name: 'GBV Legal Protection'),
+                        InputFieldOption(
+                            code: 'GBV Legal Messaging',
+                            name: 'GBV Legal Messaging'),
+                        InputFieldOption(code: 'Parenting', name: 'Parenting'),
+                        InputFieldOption(code: 'VAC Legal', name: 'VAC Legal'),
+                        InputFieldOption(
+                            code: 'VAC Legal Messaging',
+                            name: 'VAC Legal Messaging'),
                       ]),
                   InputField(
                     id: 'jOXN2iPhkxj',
