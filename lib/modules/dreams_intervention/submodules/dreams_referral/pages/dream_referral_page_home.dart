@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dream_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
+import 'package:kb_mobile_app/app_state/implementing_partner_referral_service_state/implementing_partner_referral_service_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
@@ -58,8 +59,11 @@ class _DreamAgywReferralPageState extends State<DreamAgywReferralPage> {
   }
 
   void onAddRefferal(BuildContext context, AgywDream agywDream) async {
+    Provider.of<ServiceFormState>(context, listen: false).resetFormState();
     CurrentUser user = await UserService().getCurrentUser();
-    updateFormState(context, true, null);
+    await Provider.of<ImplementingPartnerReferralServiceState>(context,
+            listen: false)
+        .setImplementingPartnerServices();
     Navigator.push(
       context,
       MaterialPageRoute(

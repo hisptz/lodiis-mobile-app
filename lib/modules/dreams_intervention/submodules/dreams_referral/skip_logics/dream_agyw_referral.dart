@@ -13,7 +13,8 @@ class DreamAgywReferralSkipLogic {
       BuildContext context,
       List<FormSection> formSections,
       Map dataObject,
-      String implementinPartner) async {
+      String currentImplementingPartner,
+      Map<String, dynamic> referralServicesByImplementingPartners) async {
     hiddenFields.clear();
     hiddenSections.clear();
     hiddenInputFieldOptions.clear();
@@ -22,12 +23,13 @@ class DreamAgywReferralSkipLogic {
     for (var key in dataObject.keys) {
       inputFieldIds.add('$key');
     }
+    String implementingPartnerValue = "${dataObject['y0bvausyTyh'] ?? ''}";
     inputFieldIds = inputFieldIds.toSet().toList();
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
       if (inputFieldId == 'qAed23reDPP') {
-        if ("${dataObject['y0bvausyTyh']}" == 'null' ||
-            "${dataObject['y0bvausyTyh']}" == '') {
+        if ("$implementingPartnerValue" == 'null' ||
+            "$implementingPartnerValue" == '') {
           hiddenSections['SeRefoCo'] = true;
           hiddenSections['SeRefoFa'] = true;
         } else {
@@ -40,7 +42,7 @@ class DreamAgywReferralSkipLogic {
       }
       if (inputFieldId == 'y0bvausyTyh') {
         Map implementingPartnerHiddenOptions = Map();
-        implementingPartnerHiddenOptions[implementinPartner] = true;
+        implementingPartnerHiddenOptions[currentImplementingPartner] = true;
         hiddenInputFieldOptions[inputFieldId] =
             implementingPartnerHiddenOptions;
       }
@@ -120,6 +122,12 @@ class DreamAgywReferralSkipLogic {
               true;
           referralServiceHiddenOptions['Violence Against Children'] = true;
         }
+        Map hiddenReferralServicesByImplemetingPartner =
+            getAllImplemetingPartnerHiddenServices(
+                referralServicesByImplementingPartners,
+                implementingPartnerValue);
+        referralServiceHiddenOptions
+            .addAll(hiddenReferralServicesByImplemetingPartner);
         hiddenInputFieldOptions['rsh5Kvx6qAU'] = referralServiceHiddenOptions;
       }
       if (inputFieldId == 'AuCryxQYmrk' && value != 'null') {
@@ -198,6 +206,12 @@ class DreamAgywReferralSkipLogic {
               true;
           referralServiceHiddenOptions['Violence Against Children'] = true;
         }
+        Map hiddenReferralServicesByImplemetingPartner =
+            getAllImplemetingPartnerHiddenServices(
+                referralServicesByImplementingPartners,
+                implementingPartnerValue);
+        referralServiceHiddenOptions
+            .addAll(hiddenReferralServicesByImplemetingPartner);
         hiddenInputFieldOptions['OrC9Bh2bcFz'] = referralServiceHiddenOptions;
       }
     }
@@ -215,6 +229,38 @@ class DreamAgywReferralSkipLogic {
     resetValuesForHiddenFields(context, hiddenFields.keys);
     resetValuesForHiddenInputFieldOptions(context);
     resetValuesForHiddenSections(context, formSections);
+  }
+
+  static Map getAllImplemetingPartnerHiddenServices(
+      Map<String, dynamic> referralServicesByImplementingPartners,
+      String implementingPartnerValue) {
+    List<String> referralServices =
+        getAllReferralServices(referralServicesByImplementingPartners);
+    List<String> allImplementingPartnerReferralServices =
+        getReferralServicesByIP(
+            data: referralServicesByImplementingPartners,
+            ip: implementingPartnerValue);
+    Map hiddedReferralServices = Map();
+    referralServices.forEach((service) => {
+          if (allImplementingPartnerReferralServices.indexOf(service) == -1)
+            {hiddedReferralServices[service] = true}
+        });
+
+    return hiddedReferralServices;
+  }
+
+  static List<String> getAllReferralServices(Map<String, dynamic> data) {
+    return (data.values)
+        .expand((item) => item)
+        .toList()
+        .map(((item) => item as String))
+        .toList();
+  }
+
+  static List<String> getReferralServicesByIP(
+      {Map<String, dynamic> data = const {}, String ip = ''}) {
+    List services = (data[ip] as List) ?? [];
+    return services.map((item) => item as String).toList();
   }
 
   static resetValuesForHiddenFields(BuildContext context, inputFieldIds) {
