@@ -156,6 +156,7 @@ class DreamAddReferral {
                         InputFieldOption(
                             code: 'PTS 4-GRAD', name: 'PTS 4-GRAD'),
                         InputFieldOption(code: 'SILC', name: 'SILC'),
+                        InputFieldOption(code: 'LBSE', name: 'LBSE'),
                         InputFieldOption(
                             code: 'FINANCIAL EDUCATION',
                             name: 'FINANCIAL EDUCATION'),
@@ -308,6 +309,7 @@ class DreamAddReferral {
                         InputFieldOption(
                             code: 'PTS 4-GRAD', name: 'PTS 4-GRAD'),
                         InputFieldOption(code: 'SILC', name: 'SILC'),
+                        InputFieldOption(code: 'LBSE', name: 'LBSE'),
                         InputFieldOption(
                             code: 'FINANCIAL EDUCATION',
                             name: 'FINANCIAL EDUCATION'),
