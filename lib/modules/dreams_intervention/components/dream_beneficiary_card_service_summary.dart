@@ -108,7 +108,7 @@ class DreamBeneficiaryCardServiceSummary extends StatelessWidget {
             -1) {
       List<ServiceEvents> serviceEvents = [];
       events.removeWhere((Events event) =>
-          serviceProgramStageIds.contains(event.programStage));
+          !serviceProgramStageIds.contains(event.programStage));
       events.forEach((event) {
         serviceEvents.add(ServiceEvents().getServiceSessions(event));
       });
