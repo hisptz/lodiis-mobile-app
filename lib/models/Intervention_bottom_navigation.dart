@@ -22,8 +22,12 @@ class InterventionBottomNavigation {
         svgIcon: 'assets/icons/services-navigation-icon.svg'),
     InterventionBottomNavigation(
         id: 'referral',
-        name: 'Referral',
+        name: 'Outgoing Referral',
         svgIcon: 'assets/icons/referral-navigation-icon.svg'),
+    InterventionBottomNavigation(
+        id: 'incomingReferral',
+        name: 'Incoming Referral',
+        svgIcon: 'assets/icons/incoming-referral-navigation-icon.svg'),
     InterventionBottomNavigation(
         id: 'enrollment',
         name: 'Enrollment',
