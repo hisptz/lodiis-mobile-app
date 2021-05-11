@@ -42,9 +42,7 @@ class _AgywDreamsEnrollmentEditFormState
   final String label = 'Agyw Enrolment Form';
   final Map mandatoryFieldObject = Map();
   final List<String> mandatoryFields =
-      AgywEnrollmentFormSection.getMandatoryField() +
-          AgywEnrollmentConcent.getMandatoryField() +
-          AgywEnrollmentRiskAssessment.getMandatoryField();
+      AgywEnrollmentFormSection.getMandatoryField();
   bool isFormReady = false;
   bool isSaving = false;
   List unFilledMandatoryFields = [];
@@ -168,7 +166,8 @@ class _AgywDreamsEnrollmentEditFormState
       });
     } else {
       setState(() {
-        unFilledMandatoryFields = AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+        unFilledMandatoryFields =
+            AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
       });
       AppUtil.showToastMessage(
         message: 'Please fill all mandatory field',
@@ -231,7 +230,7 @@ class _AgywDreamsEnrollmentEditFormState
                                   dataObject: enrollmentFormState.formState,
                                   onInputValueChange: onInputValueChange,
                                   unFilledMandatoryFields:
-                                  unFilledMandatoryFields,
+                                      unFilledMandatoryFields,
                                 ),
                               ),
                               EntryFormSaveButton(
