@@ -6,6 +6,7 @@ import 'package:kb_mobile_app/app_state/device_connectivity_state/device_connect
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/constants/custom_color.dart';
+import 'package:kb_mobile_app/core/services/implementing_partner_referral_config_service.dart';
 import 'package:kb_mobile_app/core/services/language_selection_service.dart';
 import 'package:kb_mobile_app/core/services/user_access.dart';
 import 'package:kb_mobile_app/core/services/user_service.dart';
@@ -48,6 +49,8 @@ class _SplashState extends State<Splash> {
             await UserAccess().getSavedUserAccessConfigurations();
         Provider.of<CurrentUserState>(context, listen: false)
             .setCurrentUser(user, userAccessConfigurations);
+        await ImplementingPartnerReferralConfigService()
+            .checkOfflineImplementingPartnerReferralServices();
       }
       setLandingPage(isUserLoginIn);
     } else {
