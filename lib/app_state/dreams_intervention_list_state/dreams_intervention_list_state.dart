@@ -17,6 +17,7 @@ class DreamsInterventionListState with ChangeNotifier {
   int _nonAgywNumberOfPages = 0;
   int _agywNextPage = 0;
   int _nonAgywNextPage = 0;
+  String _searchableValue = '';
 
   PagingController _agywPagingController;
 
@@ -38,18 +39,31 @@ class DreamsInterventionListState with ChangeNotifier {
   PagingController get nonAgywPagingController => _nonAgywPagingController;
 
   Future<void> _fetchAgywPage(int pageKey) async {
-    List<AgywDream> agywList =
-        await AgywDreamEnrollmentService().getAgywBenficiaryList(page: pageKey);
-
-    PaginationService.assignPagesToController(
-        _agywPagingController, agywList, pageKey, agywNumberOfPages);
+    String searchableValue = _searchableValue;
+    List<AgywDream> agywList = await AgywDreamEnrollmentService()
+        .getAgywBenficiaryList(page: pageKey, searchableValue: searchableValue);
+    if (agywList.isEmpty && pageKey < agywNumberOfPages) {
+      _fetchAgywPage(pageKey + 1);
+    } else {
+      getNumberOfPages();
+      PaginationService.assignPagesToController(
+          _agywPagingController, agywList, pageKey, agywNumberOfPages);
+    }
   }
 
   Future<void> _fetchNonAgywPage(int pageKey) async {
+    String searchableValue = _searchableValue;
+
     List<AgywDream> nonAgywList = await NoneAgywDreamEnrollmentService()
-        .getNonAgywBenficiaryList(page: pageKey);
-    PaginationService.assignPagesToController(
-        _nonAgywPagingController, nonAgywList, pageKey, nonAgywNumberOfPages);
+        .getNonAgywBenficiaryList(
+            page: pageKey, searchableValue: searchableValue);
+    if (nonAgywList.isEmpty && pageKey != agywNumberOfPages) {
+      _fetchNonAgywPage(pageKey + 1);
+    } else {
+      getNumberOfPages();
+      PaginationService.assignPagesToController(
+          _nonAgywPagingController, nonAgywList, pageKey, nonAgywNumberOfPages);
+    }
   }
 
   void initializePagination() {
@@ -103,20 +117,9 @@ class DreamsInterventionListState with ChangeNotifier {
       _nonAgywNextPage = _nonAgywPagingController.nextPageKey;
     }
     if (value.isNotEmpty) {
-      final filteredAgywDreamsList = _agywDreamsInterventionList
-          .where((AgywDream beneficiary) =>
-              beneficiary.searchableValue.indexOf(value.toLowerCase()) > -1)
-          .toList();
-
-      final filteredNonAgywDreamsList = _noneAgywDreamsInterventionList
-          .where((AgywDream beneficiary) =>
-              beneficiary.searchableValue.indexOf(value.toLowerCase()) > -1)
-          .toList();
-
-      _agywPagingController.itemList = filteredAgywDreamsList;
-      _agywPagingController.nextPageKey = null;
-      _nonAgywPagingController.itemList = filteredNonAgywDreamsList;
-      _nonAgywPagingController.nextPageKey = null;
+      _searchableValue = value;
+      notifyListeners();
+      refreshDreamsList();
     } else {
       _agywPagingController.itemList = _agywDreamsInterventionList;
       _agywPagingController.nextPageKey = _agywNextPage;

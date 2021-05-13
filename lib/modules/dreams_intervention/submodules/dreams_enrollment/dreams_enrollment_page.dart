@@ -98,7 +98,7 @@ class _DreamsEnrollmentPageState extends State<DreamsEnrollmentPage> {
               ),
               errorWidget: Center(
                 child: Text(
-                  'There is no beneficiary list at a moment',
+                  'Error in loading beneficiary list ',
                 ),
               ));
         },

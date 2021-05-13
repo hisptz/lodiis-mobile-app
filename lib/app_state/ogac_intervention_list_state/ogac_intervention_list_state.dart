@@ -12,6 +12,7 @@ class OgacInterventionListState with ChangeNotifier {
   int _numberOfOgac = 0;
   int _numberOfPages = 0;
   int _nextPage = 0;
+  String _searchableValue = '';
 
   PagingController _pagingController;
 
@@ -33,10 +34,16 @@ class OgacInterventionListState with ChangeNotifier {
   }
 
   Future<void> _fetchPage(int pageKey) async {
-    List ovcList =
-        await OgacEnrollementservice().getOgacBeneficiaries(page: pageKey);
-    PaginationService.assignPagesToController(
-        _pagingController, ovcList, pageKey, numberOfPages);
+    String searchableValue = _searchableValue;
+    List ovcList = await OgacEnrollementservice()
+        .getOgacBeneficiaries(page: pageKey, searchableValue: searchableValue);
+    if (ovcList.isEmpty && pageKey < numberOfPages) {
+      _fetchPage(pageKey + 1);
+    } else {
+      getNumberOfPages();
+      PaginationService.assignPagesToController(
+          _pagingController, ovcList, pageKey, numberOfPages);
+    }
   }
 
   Future<void> getBeneficiaryNumber() async {
@@ -63,13 +70,9 @@ class OgacInterventionListState with ChangeNotifier {
       _nextPage = _pagingController.nextPageKey;
     }
     if (value != '') {
-      final filteredHouseholds = _ogacInterventionList
-          .where((OgacBeneficiary beneficiary) =>
-              beneficiary.searchableValue.indexOf(value.toLowerCase()) > -1)
-          .toList();
-      _pagingController.itemList = filteredHouseholds;
-      //Preventing the controller from loading.
-      _pagingController.nextPageKey = null;
+      _searchableValue = value;
+      notifyListeners();
+      refreshOgacNumber();
     } else {
       _pagingController.itemList = _ogacInterventionList;
       _pagingController.nextPageKey = _nextPage;

@@ -56,11 +56,12 @@ class AgywDreamEnrollmentService {
     }
   }
 
-  Future<List<AgywDream>> getAgywBenficiaryList({page}) async {
+  Future<List<AgywDream>> getAgywBenficiaryList(
+      {page, String searchableValue = ''}) async {
     List<AgywDream> agywDreamList = [];
     try {
-      List<Enrollment> enrollments =
-          await EnrollmentOfflineProvider().getEnrollements(program, page: page);
+      List<Enrollment> enrollments = await EnrollmentOfflineProvider()
+          .getEnrollements(program, page: page);
       for (Enrollment enrollment in enrollments) {
         // get location
         List<OrganisationUnit> ous = await OrganisationUnitService()
@@ -79,11 +80,19 @@ class AgywDreamEnrollmentService {
         }
       }
     } catch (e) {}
-    return agywDreamList;
+    return searchableValue == ''
+        ? agywDreamList
+        : agywDreamList
+            .where((AgywDream beneficiary) =>
+                beneficiary.searchableValue
+                    .toLowerCase()
+                    .indexOf(searchableValue.toLowerCase()) !=
+                -1)
+            .toList();
+    ;
   }
 
-
-  Future<int> getAgywBeneficiaryCount() async{
+  Future<int> getAgywBeneficiaryCount() async {
     return await EnrollmentOfflineProvider().getEnrollmentsCount(program);
   }
 }
