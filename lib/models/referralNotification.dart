@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/models/referralEventNotification.dart';
 
@@ -35,12 +37,30 @@ class ReferralNotification {
     );
   }
 
-  factory ReferralNotification.toJSon() {
-    return null;
+  String toJson() {
+    Map data = toOffline();
+    data["referrals"] = referrals
+        .map((ReferralEventNotification referralEventNotification) =>
+            referralEventNotification.toJson())
+        .toList();
+    return json.encode(data);
+  }
+
+  Map toOffline() {
+    Map data = Map<String, dynamic>();
+    data["id"] = id;
+    data["implementingPartner"] = implementingPartner;
+    data["location"] = location;
+    data["tei"] = tei;
+    data["referrals"] = referrals
+        .map((ReferralEventNotification referralEventNotification) =>
+            referralEventNotification.toOffline())
+        .toList();
+    return data;
   }
 
   @override
   String toString() {
-    return "<$id $implementingPartner $location $tei>";
+    return "<$id $implementingPartner $location $tei $referrals>";
   }
 }

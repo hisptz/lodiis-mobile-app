@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 
 class ReferralEventNotification {
@@ -16,16 +18,27 @@ class ReferralEventNotification {
   factory ReferralEventNotification.fromJson(Map json) {
     String id = json["id"] ?? "";
     String tei = json["tei"] ?? "";
-    bool isCompleted = json["isCompleted"] ?? false;
+    dynamic isCompleted = json["isCompleted"];
     return ReferralEventNotification(
       id: id,
       tei: tei,
-      isCompleted: isCompleted,
+      isCompleted: "$isCompleted" == "1" || "$isCompleted" == "true",
     );
   }
 
-  factory ReferralEventNotification.toJSon() {
-    return null;
+  Map toJson() {
+    Map data = toOffline();
+    var isCompleted = data["isCompleted"];
+    data["isCompleted"] = "$isCompleted" == "1";
+    return data;
+  }
+
+  Map toOffline() {
+    Map data = Map<String, dynamic>();
+    data["id"] = id;
+    data["tei"] = tei;
+    data["isCompleted"] = "$isCompleted" == "true" ? 1 : 0;
+    return data;
   }
 
   @override
