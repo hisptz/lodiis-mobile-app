@@ -88,9 +88,12 @@ class DreamsInterventionListState with ChangeNotifier {
   }
 
   _fetchAgywPagePerIncomingReferral(int pageKey) async {
+    String searchableValue = _searchableValue;
     List<AgywDream> agywList = await AgywDreamEnrollmentService()
         .getAgywBenficiariesWithIncomingReferralList(
-            page: pageKey, teiList: teiWithIncomingReferral);
+            page: pageKey,
+            teiList: teiWithIncomingReferral,
+            searchableValue: searchableValue);
     if (agywList.isEmpty && pageKey < agywIncomingReferralNumberOfPages) {
       _fetchAgywPage(pageKey + 1);
     } else {

@@ -57,7 +57,7 @@ class AgywDreamEnrollmentService {
   }
 
   Future<List<AgywDream>> getAgywBenficiariesWithIncomingReferralList(
-      {int page, List teiList = const []}) async {
+      {int page, List teiList = const [], String searchableValue = ''}) async {
     List<AgywDream> agywDreamList = [];
     try {
       List<Enrollment> enrollments = await EnrollmentOfflineProvider()
@@ -80,7 +80,15 @@ class AgywDreamEnrollmentService {
         }
       }
     } catch (e) {}
-    return agywDreamList;
+    return searchableValue == ''
+        ? agywDreamList
+        : agywDreamList
+            .where((AgywDream beneficiary) =>
+                beneficiary.searchableValue
+                    .toLowerCase()
+                    .indexOf(searchableValue.toLowerCase()) !=
+                -1)
+            .toList();
   }
 
   Future<List<AgywDream>> getAgywBenficiaryList(
