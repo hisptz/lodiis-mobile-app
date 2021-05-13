@@ -56,6 +56,33 @@ class AgywDreamEnrollmentService {
     }
   }
 
+  Future<List<AgywDream>> getAgywBenficiariesWithIncomingReferralList(
+      {int page, List teiList = const []}) async {
+    List<AgywDream> agywDreamList = [];
+    try {
+      List<Enrollment> enrollments = await EnrollmentOfflineProvider()
+          .getFilteredEnrollments(program, page: page, requredTeiList: teiList);
+      for (Enrollment enrollment in enrollments) {
+        // get location
+        List<OrganisationUnit> ous = await OrganisationUnitService()
+            .getOrganisationUnits([enrollment.orgUnit]);
+        String location = ous.length > 0 ? ous[0].name : enrollment.orgUnit;
+        String orgUnit = enrollment.orgUnit;
+        String createdDate = enrollment.enrollmentDate;
+        String enrollmentId = enrollment.enrollment;
+
+        List<TrackeEntityInstance> dataHolds =
+            await TrackedEntityInstanceOfflineProvider()
+                .getTrackedEntityInstance([enrollment.trackedEntityInstance]);
+        for (TrackeEntityInstance tei in dataHolds) {
+          agywDreamList.add(AgywDream()
+              .fromTeiModel(tei, orgUnit, location, createdDate, enrollmentId));
+        }
+      }
+    } catch (e) {}
+    return agywDreamList;
+  }
+
   Future<List<AgywDream>> getAgywBenficiaryList(
       {page, String searchableValue = ''}) async {
     List<AgywDream> agywDreamList = [];
@@ -89,10 +116,15 @@ class AgywDreamEnrollmentService {
                     .indexOf(searchableValue.toLowerCase()) !=
                 -1)
             .toList();
-    ;
   }
 
   Future<int> getAgywBeneficiaryCount() async {
     return await EnrollmentOfflineProvider().getEnrollmentsCount(program);
+  }
+
+  Future<int> getIncomingReferralAgywBeneficiaryCount(
+      List<String> filteredTei) async {
+    return await EnrollmentOfflineProvider()
+        .getFilteredEnrollmentsCount(program, filteredTei);
   }
 }

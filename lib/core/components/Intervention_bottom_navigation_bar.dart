@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:kb_mobile_app/app_state/current_user_state/current_user_state.dart';
+import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_bottom_navigation_state/intervention_bottom_navigation_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/models/Intervention_bottom_navigation.dart';
@@ -20,6 +21,13 @@ class InterventionBottomNavigationBar extends StatelessWidget {
   void onTap(BuildContext context, int index, String id) {
     Provider.of<InterventionBottomNavigationState>(context, listen: false)
         .setCurrentInterventionBottomNavigationStatus(index, id);
+    if (id == 'incomingReferral') {
+      Provider.of<DreamsInterventionListState>(context, listen: false)
+          .setReferralStatus(isIncomingReferral: true);
+    } else {
+      Provider.of<DreamsInterventionListState>(context, listen: false)
+          .setReferralStatus(isIncomingReferral: false);
+    }
     if (Navigator.canPop(context)) {
       Navigator.popUntil(context, (route) => route.isFirst);
     }

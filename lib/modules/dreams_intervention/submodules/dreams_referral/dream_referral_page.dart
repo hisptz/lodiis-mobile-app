@@ -101,7 +101,7 @@ class _DreamsReferralPageState extends State<DreamsReferralPage> {
                   ),
                   cardBottonContent: Container(),
                 ),
-            pagingController: dreamInterventionListState.agywPagingController,
+            pagingController: dreamInterventionListState.getPagingController(),
             emptyListWidget: Center(
               child: Text(
                 'There is no beneficiary list at a moment',
