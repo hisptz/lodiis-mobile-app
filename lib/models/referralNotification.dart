@@ -11,6 +11,8 @@ class ReferralNotification {
   List<ReferralEventNotification> referrals;
 
   static final String implementingPartnerFormVariable = "y0bvausyTyh";
+  static final String facility = "jOXN2iPhkxj";
+  static final String communityCouncil = "ubB83OWNWsv";
 
   ReferralNotification({
     @required this.id,

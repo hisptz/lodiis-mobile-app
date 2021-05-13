@@ -13,7 +13,7 @@ class ReferralNotificationOfflineProvider extends OfflineDbProvider {
   final String location = "location";
   final String tei = "tei";
 
-  Future addOrUpdateReferralNotification(
+  addOrUpdateReferralNotification(
     List<ReferralNotification> referralNotifications,
   ) async {
     List<ReferralEventNotification> referralEvents = [];
