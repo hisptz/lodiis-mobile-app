@@ -7,7 +7,7 @@ import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/models/referralNotification.dart';
 
 class ReferralNotificationService {
-  final String dataStoreNameSpace = "kb-referral-notification";
+  final String apiUrlToDataStore = "api/dataStore/kb-referral-notification";
 
   discoveringAndSaveReferralNotificationFromServer() async {
     try {
@@ -18,13 +18,18 @@ class ReferralNotificationService {
       );
       String implementingPartner =
           currentUser.implementingPartner.split("/").join("-");
-      String url = "api/dataStore/$dataStoreNameSpace";
-      Response response = await httpService.httpGet(url, queryParameters: {});
+      Response response = await httpService.httpGet(
+        apiUrlToDataStore,
+        queryParameters: {},
+      );
       List<String> keysForReferralNotification = getKeysForReferralNofification(
         response,
         implementingPartner,
       );
-      print(keysForReferralNotification);
+      List<ReferralNotification> referralNofications =
+          await getReferralNotificationFromServer(
+              keysForReferralNotification, httpService);
+      print(referralNofications);
     } catch (error) {
       print("errror : $error");
     }
@@ -36,7 +41,15 @@ class ReferralNotificationService {
   ) async {
     List<ReferralNotification> referralNofications = [];
     try {
-      Response response = null;
+      for (String nameSpaceKey in keysForReferralNotification) {
+        Response response = await httpService.httpGet(
+          "$apiUrlToDataStore/$nameSpaceKey",
+          queryParameters: {},
+        );
+        for (Map data in json.decode(response.body)) {
+          referralNofications.add(ReferralNotification.fromJson(data));
+        }
+      }
     } catch (error) {
       print("error : $error");
     }

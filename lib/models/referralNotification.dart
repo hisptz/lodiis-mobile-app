@@ -41,6 +41,6 @@ class ReferralNotification {
 
   @override
   String toString() {
-    return "$id $implementingPartner $location $tei";
+    return "<$id $implementingPartner $location $tei>";
   }
 }
