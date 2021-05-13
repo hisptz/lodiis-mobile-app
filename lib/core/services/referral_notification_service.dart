@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart';
+import 'package:kb_mobile_app/core/offline_db/referral_nofification/referral_nofification_offline_provider.dart';
 import 'package:kb_mobile_app/core/services/http_service.dart';
 import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
@@ -26,10 +27,11 @@ class ReferralNotificationService {
         response,
         implementingPartner,
       );
-      List<ReferralNotification> referralNofications =
+      List<ReferralNotification> referralNotifications =
           await getReferralNotificationFromServer(
               keysForReferralNotification, httpService);
-      print(referralNofications);
+      await ReferralNotificationOfflineProvider()
+          .addOrUpdateReferralNotification(referralNotifications);
     } catch (error) {
       print("errror : $error");
     }
