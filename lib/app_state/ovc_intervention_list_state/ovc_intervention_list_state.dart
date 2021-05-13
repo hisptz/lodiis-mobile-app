@@ -84,6 +84,7 @@ class OvcInterventionListState with ChangeNotifier {
   Future<void> refreshOvcNumber() async {
     //write code to count and update number of Households and number of OVC
     _isLoading = true;
+    _searchableValue = '';
     notifyListeners();
     await getHouseholdCount();
     //Update number of Pages

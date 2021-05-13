@@ -83,6 +83,7 @@ class DreamsInterventionListState with ChangeNotifier {
 
   Future<void> refreshBeneficiariesNumber() async {
     _isLoading = true;
+    _searchableValue = '';
     notifyListeners();
     //write code to count and update number of Beneficiaries
     await getDreamsCount();

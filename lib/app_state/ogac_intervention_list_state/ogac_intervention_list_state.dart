@@ -52,6 +52,7 @@ class OgacInterventionListState with ChangeNotifier {
 
   Future<void> refreshOgacNumber() async {
     _isLoading = true;
+    _searchableValue = '';
     notifyListeners();
     await getBeneficiaryNumber();
     getNumberOfPages();

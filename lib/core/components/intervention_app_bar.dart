@@ -54,14 +54,31 @@ class _InterventionAppBarState extends State<InterventionAppBar> {
     searchedValued = value;
     isSearchActive = !isSearchActive;
     setState(() {});
-    onSearchBeneficiary(context, value);
+    if (isSearchActive) {
+      onSearchBeneficiary(context, value);
+    } else {
+      refreshBeneficiaryList(context);
+    }
   }
 
   void onInputValueChange(BuildContext context, String value) {
     if (_searchDebounce?.isActive ?? false) _searchDebounce.cancel();
-    _searchDebounce = Timer(const Duration(milliseconds: 200), () {
+    _searchDebounce = Timer(const Duration(milliseconds: 2000), () {
       onSearchBeneficiary(context, value);
     });
+  }
+
+  void refreshBeneficiaryList(BuildContext context) {
+    if (widget.activeInterventionProgram.id == 'ogac') {
+      Provider.of<OgacInterventionListState>(context, listen: false)
+          .refreshOgacNumber();
+    } else if (widget.activeInterventionProgram.id == 'dreams') {
+      Provider.of<DreamsInterventionListState>(context, listen: false)
+          .refreshBeneficiariesNumber();
+    } else if (widget.activeInterventionProgram.id == 'ovc') {
+      Provider.of<OvcInterventionListState>(context, listen: false)
+          .refreshOvcNumber();
+    }
   }
 
   void onSearchBeneficiary(BuildContext context, String value) {
