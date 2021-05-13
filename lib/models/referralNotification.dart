@@ -10,6 +10,8 @@ class ReferralNotification {
   String tei;
   List<ReferralEventNotification> referrals;
 
+  static final String implementingPartnerFormVariable = "y0bvausyTyh";
+
   ReferralNotification({
     @required this.id,
     @required this.implementingPartner,
