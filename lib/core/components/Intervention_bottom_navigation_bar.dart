@@ -136,7 +136,16 @@ class InterventionBottomNavigationBar extends StatelessWidget {
                                                         .id ==
                                                     "noneAgyw"
                                             ? "KB Prep"
-                                            : interventionBottomNavigation.name,
+                                            : interventionCardState
+                                                            .currentIntervetionProgram
+                                                            .id !=
+                                                        'dreams' &&
+                                                    interventionBottomNavigation
+                                                            .id ==
+                                                        "referral"
+                                                ? 'Referral'
+                                                : interventionBottomNavigation
+                                                    .name,
                                     style: TextStyle(
                                       fontSize: 10,
                                       fontWeight: FontWeight.bold,
