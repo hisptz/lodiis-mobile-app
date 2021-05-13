@@ -6,7 +6,7 @@ import 'package:kb_mobile_app/models/referralEventNotification.dart';
 class ReferralNotification {
   String id;
   String implementingPartner;
-  String location;
+  String nameSpaceKey;
   String tei;
   List<ReferralEventNotification> referrals;
 
@@ -17,7 +17,7 @@ class ReferralNotification {
   ReferralNotification({
     @required this.id,
     @required this.implementingPartner,
-    @required this.location,
+    @required this.nameSpaceKey,
     @required this.tei,
     this.referrals,
   }) {
@@ -27,7 +27,7 @@ class ReferralNotification {
   factory ReferralNotification.fromJson(Map data) {
     String id = data["id"] ?? "";
     String implementingPartner = data["implementingPartner"] ?? "";
-    String location = data["location"] ?? "";
+    String nameSpaceKey = data["nameSpaceKey"] ?? "";
     String tei = data["tei"] ?? "";
     List referrals = (data["referrals"] as List ?? [])
         .map((dynamic json) => ReferralEventNotification.fromJson(json))
@@ -35,7 +35,7 @@ class ReferralNotification {
     return ReferralNotification(
       id: id,
       implementingPartner: implementingPartner,
-      location: location,
+      nameSpaceKey: nameSpaceKey,
       tei: tei,
       referrals: referrals,
     );
@@ -54,7 +54,7 @@ class ReferralNotification {
     Map data = Map<String, dynamic>();
     data["id"] = id;
     data["implementingPartner"] = implementingPartner;
-    data["location"] = location;
+    data["nameSpaceKey"] = nameSpaceKey;
     data["tei"] = tei;
     data["referrals"] = referrals
         .map((ReferralEventNotification referralEventNotification) =>
@@ -65,6 +65,6 @@ class ReferralNotification {
 
   @override
   String toString() {
-    return "<$id $implementingPartner $location $tei $referrals>";
+    return "<$id $implementingPartner $nameSpaceKey $tei $referrals>";
   }
 }
