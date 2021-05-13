@@ -70,6 +70,10 @@ class DreamsInterventionListState with ChangeNotifier {
         : _agywPagingController;
   }
 
+  void setReferralStatus({bool isIncomingReferral}) {
+    _isIncomingReferral = isIncomingReferral;
+  }
+
   Future<void> _fetchAgywPage(int pageKey) async {
     String searchableValue = _searchableValue;
     List<AgywDream> agywList = await AgywDreamEnrollmentService()
@@ -83,16 +87,15 @@ class DreamsInterventionListState with ChangeNotifier {
     }
   }
 
-  void setReferralStatus({bool isIncomingReferral}) {
-    _isIncomingReferral = isIncomingReferral;
-  }
-
   _fetchAgywPagePerIncomingReferral(int pageKey) async {
+    String searchableValue = _searchableValue;
     List<AgywDream> agywList = await AgywDreamEnrollmentService()
         .getAgywBenficiariesWithIncomingReferralList(
-            page: pageKey, teiList: teiWithIncomingReferral);
+            page: pageKey,
+            teiList: teiWithIncomingReferral,
+            searchableValue: searchableValue);
     if (agywList.isEmpty && pageKey < agywIncomingReferralNumberOfPages) {
-      _fetchAgywPage(pageKey + 1);
+      _fetchAgywPagePerIncomingReferral(pageKey + 1);
     } else {
       getNumberOfPages();
       PaginationService.assignPagesToController(
