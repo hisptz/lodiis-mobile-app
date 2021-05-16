@@ -83,13 +83,14 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
 
   Future<int> getFilteredEnrollmentsCount(
       String programId, List<String> filteredTei) async {
+    String questionMarks = filteredTei.map((e) => '?').toList().join(',');
+
     var dbClient = await db;
     List<Map> enrollmentList = await dbClient.query(
           table,
           columns: [enrollment],
-          where:
-              '$trackedEntityInstance IN (${filteredTei.join(', ')}) AND $program = ?',
-          whereArgs: [programId],
+          where: '$trackedEntityInstance IN ($questionMarks) AND $program = ?',
+          whereArgs: [...filteredTei, programId],
         ) ??
         [];
 
@@ -100,6 +101,7 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
       {int page, List<String> requredTeiList}) async {
     List<Enrollment> enrollments = [];
     try {
+      String questionMarks = requredTeiList.map((e) => '?').toList().join(',');
       var dbClient = await db;
       List<Map> maps = await dbClient.query(table,
           columns: [
@@ -112,10 +114,9 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
             syncStatus,
             trackedEntityInstance
           ],
-          where:
-              "$trackedEntityInstance IN (${requredTeiList.join(', ')}) AND $program = ?",
+          where: "$trackedEntityInstance IN ($questionMarks) AND $program = ?",
           orderBy: '$enrollmentDate DESC',
-          whereArgs: [programId],
+          whereArgs: [...requredTeiList, programId],
           limit: page != null ? PaginationConstants.paginationLimit : null,
           offset:
               page != null ? page * PaginationConstants.paginationLimit : null);

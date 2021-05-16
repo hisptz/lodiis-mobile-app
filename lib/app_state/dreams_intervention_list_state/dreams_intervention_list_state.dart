@@ -25,16 +25,16 @@ class DreamsInterventionListState with ChangeNotifier {
   bool _isIncomingReferral = false;
 
   List<String> teiWithIncomingReferral = [
-    "'AcHjp6pHOvp'",
-    "'aBp0UUHv6vj'",
-    "'kvBOB0jj006'",
-    "'ZyMXziq9Qto'",
-    "'Fcj6O6vBj0O'",
-    "'AvHvUjvOvUv'",
-    "'fcHBHUOOOcv'",
-    "'ajB0B6pOc6c'",
-    "'FUHccp60jUO'",
-    "'ApHHUcBv6O0'"
+    'AcHjp6pHOvp',
+    'aBp0UUHv6vj',
+    'kvBOB0jj006',
+    'ZyMXziq9Qto',
+    'Fcj6O6vBj0O',
+    'AvHvUjvOvUv',
+    'fcHBHUOOOcv',
+    'ajB0B6pOc6c',
+    'FUHccp60jUO',
+    'ApHHUcBv6O0'
   ];
 
   PagingController _agywPagingController;
