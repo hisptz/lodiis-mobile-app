@@ -10,10 +10,11 @@ class DreamAgywReferralSkipLogic {
   static Map hiddenInputFieldOptions = Map();
 
   static Future evaluateSkipLogics(
-    BuildContext context,
-    List<FormSection> formSections,
-    Map dataObject,
-  ) async {
+      BuildContext context,
+      List<FormSection> formSections,
+      Map dataObject,
+      String currentImplementingPartner,
+      Map<String, dynamic> referralServicesByImplementingPartners) async {
     hiddenFields.clear();
     hiddenSections.clear();
     hiddenInputFieldOptions.clear();
@@ -22,158 +23,264 @@ class DreamAgywReferralSkipLogic {
     for (var key in dataObject.keys) {
       inputFieldIds.add('$key');
     }
+    String implementingPartnerValue = "${dataObject['y0bvausyTyh'] ?? ''}";
     inputFieldIds = inputFieldIds.toSet().toList();
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
-      if (inputFieldId == 'qAed23reDPP' && value != 'Community') {
-        hiddenSections['SeRefoCo'] = true;
+      if (inputFieldId == 'qAed23reDPP') {
+        if ("$implementingPartnerValue" == 'null' ||
+            "$implementingPartnerValue" == '') {
+          hiddenSections['SeRefoCo'] = true;
+          hiddenSections['SeRefoFa'] = true;
+        } else {
+          if (value != 'Community') {
+            hiddenSections['SeRefoCo'] = true;
+          } else if (value != 'Facility') {
+            hiddenSections['SeRefoFa'] = true;
+          }
+        }
       }
-      if (inputFieldId == 'qAed23reDPP' && value != 'Facility') {
-        hiddenSections['SeRefoFa'] = true;
+      if (inputFieldId == 'y0bvausyTyh') {
+        Map implementingPartnerHiddenOptions = Map();
+        implementingPartnerHiddenOptions[currentImplementingPartner] = true;
+        hiddenInputFieldOptions[inputFieldId] =
+            implementingPartnerHiddenOptions;
       }
       if (inputFieldId == 'LLWTHwhnch0' && value != 'null') {
-        Map hiddenOptions = Map();
+        Map referralServiceHiddenOptions = Map();
         if (value == 'Clinical Services') {
-          hiddenOptions['Youth friendly services'] = true;
-          hiddenOptions['Gender Based Violence'] = true;
-          hiddenOptions['Domestic Violence Support group'] = true;
-          hiddenOptions['Income generating activity'] = true;
-          hiddenOptions['Orphan Care & Support'] = true;
-          hiddenOptions['Psycho-social Support'] = true;
-          hiddenOptions['PLHIV support group'] = true;
-          hiddenOptions['Referral to post abuse care services'] = true;
-          hiddenOptions['Violence Against Children'] = true;
-          hiddenOptions['CAG'] = true;
-          hiddenOptions['Home based care visits'] = true;
-          hiddenOptions['Educational and vocational support'] = true;
-          hiddenOptions['Social grants'] = true;
+          referralServiceHiddenOptions['Youth friendly services'] = true;
+          referralServiceHiddenOptions['Gender Based Violence'] = true;
+          referralServiceHiddenOptions['Domestic Violence Support group'] =
+              true;
+          referralServiceHiddenOptions['Income generating activity'] = true;
+          referralServiceHiddenOptions['Orphan Care & Support'] = true;
+          referralServiceHiddenOptions['Psycho-social Support'] = true;
+          referralServiceHiddenOptions['PLHIV support group'] = true;
+          referralServiceHiddenOptions['Referral to post abuse care services'] =
+              true;
+          // rreferralServiceHiddenOptions['Violence Against Children'] = true;
+          // referralServiceHiddenOptions['CAG'] = true;
+          // referralServiceHiddenOptions['Home based care visits'] = true;
+          referralServiceHiddenOptions['Educational and vocational support'] =
+              true;
+          referralServiceHiddenOptions['Social grants'] = true;
+          referralServiceHiddenOptions['Aflateen/toun'] = true;
+          referralServiceHiddenOptions['Go Girls'] = true;
+          referralServiceHiddenOptions['PTS 4 NON-GRAD'] = true;
+          referralServiceHiddenOptions['PTS 4-GRAD'] = true;
+          referralServiceHiddenOptions['FINANCIAL EDUCATION'] = true;
+          referralServiceHiddenOptions['SAVING GROUPS'] = true;
+          referralServiceHiddenOptions['STEPPING STONES'] = true;
+          referralServiceHiddenOptions['GBV Legal Protection'] = true;
+          referralServiceHiddenOptions['GBV Legal Messaging'] = true;
+          referralServiceHiddenOptions['Parenting'] = true;
+          referralServiceHiddenOptions['VAC Legal Messaging'] = true;
+          referralServiceHiddenOptions['VAC Legal'] = true;
+          referralServiceHiddenOptions['PostAbuseCaseManagement'] = true;
+          referralServiceHiddenOptions['SILC'] = true;
+          referralServiceHiddenOptions['LBSE'] = true;
+          referralServiceHiddenOptions['IPC'] = true;
         } else if (value == 'Post abuse case management') {
-          hiddenOptions['Youth friendly services'] = true;
-          hiddenOptions['Income generating activity'] = true;
-          hiddenOptions['Orphan Care & Support'] = true;
-          hiddenOptions['Psycho-social Support'] = true;
-          hiddenOptions['PLHIV support group'] = true;
-          hiddenOptions['CAG'] = true;
-          hiddenOptions['Home based care visits'] = true;
-          hiddenOptions['Educational and vocational support'] = true;
-          hiddenOptions['STI Screening'] = true;
-          hiddenOptions['STI Treatment'] = true;
-          hiddenOptions['HIV Testing and counselling'] = true;
-          hiddenOptions['Evaluation for ARVs/HAART'] = true;
-          hiddenOptions['ART and Adherence'] = true;
-          hiddenOptions['PMTCT Services'] = true;
-          hiddenOptions['FamilyPlanningSRH'] = true;
-          hiddenOptions['Condom supply'] = true;
-          hiddenOptions['TB screening'] = true;
-          hiddenOptions['TB treatment'] = true;
-          hiddenOptions['Nutrition'] = true;
-          hiddenOptions['VMMC'] = true;
-          hiddenOptions['Cervical Cancer Screening'] = true;
-          hiddenOptions['ECD'] = true;
-          hiddenOptions['HTS'] = true;
-          hiddenOptions['ANC'] = true;
-          hiddenOptions['EID Testing'] = true;
-          hiddenOptions['PrEP/PEP'] = true;
-          hiddenOptions['PMTCT'] = true;
-          hiddenOptions['Social grants'] = true;
+          referralServiceHiddenOptions['Aflateen/toun'] = true;
+          referralServiceHiddenOptions['Go Girls'] = true;
+          referralServiceHiddenOptions['PTS 4 NON-GRAD'] = true;
+          referralServiceHiddenOptions['PTS 4-GRAD'] = true;
+          referralServiceHiddenOptions['FINANCIAL EDUCATION'] = true;
+          referralServiceHiddenOptions['SAVING GROUPS'] = true;
+          referralServiceHiddenOptions['STEPPING STONES'] = true;
+          referralServiceHiddenOptions['Parenting'] = true;
+          referralServiceHiddenOptions['SILC'] = true;
+          referralServiceHiddenOptions['LBSE'] = true;
+          referralServiceHiddenOptions['IPC'] = true;
+          referralServiceHiddenOptions['HIVPreventionMessaging'] = true;
+          referralServiceHiddenOptions['Youth friendly services'] = true;
+          referralServiceHiddenOptions['Income generating activity'] = true;
+          referralServiceHiddenOptions['Orphan Care & Support'] = true;
+          referralServiceHiddenOptions['Psycho-social Support'] = true;
+          referralServiceHiddenOptions['PLHIV support group'] = true;
+          // referralServiceHiddenOptions['CAG'] = true;
+          // referralServiceHiddenOptions['Home based care visits'] = true;
+          referralServiceHiddenOptions['Educational and vocational support'] =
+              true;
+          referralServiceHiddenOptions['STI Screening'] = true;
+          referralServiceHiddenOptions['STI Treatment'] = true;
+          referralServiceHiddenOptions['HIV Testing and counselling'] = true;
+          referralServiceHiddenOptions['Evaluation for ARVs/HAART'] = true;
+          referralServiceHiddenOptions['ART and Adherence'] = true;
+          // referralServiceHiddenOptions['PMTCT Services'] = true;
+          referralServiceHiddenOptions['FamilyPlanningSRH'] = true;
+          referralServiceHiddenOptions['Condom supply'] = true;
+          referralServiceHiddenOptions['TB screening'] = true;
+          referralServiceHiddenOptions['TB treatment'] = true;
+          referralServiceHiddenOptions['Nutrition'] = true;
+          // referralServiceHiddenOptions['VMMC'] = true;
+          referralServiceHiddenOptions['Cervical Cancer Screening'] = true;
+          // referralServiceHiddenOptions['ECD'] = true;
+          referralServiceHiddenOptions['HTS'] = true;
+          referralServiceHiddenOptions['ANC'] = true;
+          // referralServiceHiddenOptions['EID Testing'] = true;
+          referralServiceHiddenOptions['PrEP/PEP'] = true;
+          referralServiceHiddenOptions['PMTCT'] = true;
+          referralServiceHiddenOptions['Social grants'] = true;
         } else if (value == 'Social Services') {
-          hiddenOptions['Referral to post abuse care services'] = true;
-          hiddenOptions['STI Screening'] = true;
-          hiddenOptions['STI Treatment'] = true;
-          hiddenOptions['HIV Testing and counselling'] = true;
-          hiddenOptions['Evaluation for ARVs/HAART'] = true;
-          hiddenOptions['ART and Adherence'] = true;
-          hiddenOptions['PMTCT Services'] = true;
-          hiddenOptions['FamilyPlanningSRH'] = true;
-          hiddenOptions['Condom supply'] = true;
-          hiddenOptions['TB screening'] = true;
-          hiddenOptions['TB treatment'] = true;
-          hiddenOptions['Nutrition'] = true;
-          hiddenOptions['VMMC'] = true;
-          hiddenOptions['Cervical Cancer Screening'] = true;
-          hiddenOptions['ECD'] = true;
-          hiddenOptions['HTS'] = true;
-          hiddenOptions['ANC'] = true;
-          hiddenOptions['EID Testing'] = true;
-          hiddenOptions['PrEP/PEP'] = true;
-          hiddenOptions['PMTCT'] = true;
-          hiddenOptions['Gender Based Violence'] = true;
-          hiddenOptions['Domestic Violence Support group'] = true;
-          hiddenOptions['Violence Against Children'] = true;
+          referralServiceHiddenOptions['PostAbuseCaseManagement'] = true;
+          referralServiceHiddenOptions['GBV Legal Protection'] = true;
+          referralServiceHiddenOptions['GBV Legal Messaging'] = true;
+          referralServiceHiddenOptions['VAC Legal Messaging'] = true;
+          referralServiceHiddenOptions['VAC Legal'] = true;
+          referralServiceHiddenOptions['HIVPreventionMessaging'] = true;
+          referralServiceHiddenOptions['Referral to post abuse care services'] =
+              true;
+          referralServiceHiddenOptions['STI Screening'] = true;
+          referralServiceHiddenOptions['STI Treatment'] = true;
+          referralServiceHiddenOptions['HIV Testing and counselling'] = true;
+          referralServiceHiddenOptions['Evaluation for ARVs/HAART'] = true;
+          referralServiceHiddenOptions['ART and Adherence'] = true;
+          // referralServiceHiddenOptions['PMTCT Services'] = true;
+          referralServiceHiddenOptions['FamilyPlanningSRH'] = true;
+          referralServiceHiddenOptions['Condom supply'] = true;
+          referralServiceHiddenOptions['TB screening'] = true;
+          referralServiceHiddenOptions['TB treatment'] = true;
+          referralServiceHiddenOptions['Nutrition'] = true;
+          // referralServiceHiddenOptions['VMMC'] = true;
+          referralServiceHiddenOptions['Cervical Cancer Screening'] = true;
+          // referralServiceHiddenOptions['ECD'] = true;
+          referralServiceHiddenOptions['HTS'] = true;
+          referralServiceHiddenOptions['ANC'] = true;
+          // referralServiceHiddenOptions['EID Testing'] = true;
+          referralServiceHiddenOptions['PrEP/PEP'] = true;
+          referralServiceHiddenOptions['PMTCT'] = true;
+          referralServiceHiddenOptions['Gender Based Violence'] = true;
+          referralServiceHiddenOptions['Domestic Violence Support group'] =
+              true;
+          // rreferralServiceHiddenOptions['Violence Against Children'] = true;
         }
-        hiddenInputFieldOptions['rsh5Kvx6qAU'] = hiddenOptions;
+        Map hiddenReferralServicesByImplemetingPartner =
+            getAllImplemetingPartnerHiddenServices(
+                referralServicesByImplementingPartners,
+                implementingPartnerValue);
+        referralServiceHiddenOptions
+            .addAll(hiddenReferralServicesByImplemetingPartner);
+        hiddenInputFieldOptions['rsh5Kvx6qAU'] = referralServiceHiddenOptions;
       }
       if (inputFieldId == 'AuCryxQYmrk' && value != 'null') {
-        Map hiddenOptions = Map();
+        Map referralServiceHiddenOptions = Map();
         if (value == 'Clinical Services') {
-          hiddenOptions['Youth friendly services'] = true;
-          hiddenOptions['Gender Based Violence'] = true;
-          hiddenOptions['Domestic Violence Support group'] = true;
-          hiddenOptions['Income generating activity'] = true;
-          hiddenOptions['Orphan Care & Support'] = true;
-          hiddenOptions['Psycho-social Support'] = true;
-          hiddenOptions['PLHIV support group'] = true;
-          hiddenOptions['Referral to post abuse care services'] = true;
-          hiddenOptions['Violence Against Children'] = true;
-          hiddenOptions['CAG'] = true;
-          hiddenOptions['Home based care visits'] = true;
-          hiddenOptions['Educational and vocational support'] = true;
-          hiddenOptions['Social grants'] = true;
+          referralServiceHiddenOptions['Youth friendly services'] = true;
+          referralServiceHiddenOptions['Gender Based Violence'] = true;
+          referralServiceHiddenOptions['Domestic Violence Support group'] =
+              true;
+          referralServiceHiddenOptions['Income generating activity'] = true;
+          referralServiceHiddenOptions['Orphan Care & Support'] = true;
+          referralServiceHiddenOptions['Psycho-social Support'] = true;
+          referralServiceHiddenOptions['PLHIV support group'] = true;
+          referralServiceHiddenOptions['Referral to post abuse care services'] =
+              true;
+          // rreferralServiceHiddenOptions['Violence Against Children'] = true;
+          // referralServiceHiddenOptions['CAG'] = true;
+          // referralServiceHiddenOptions['Home based care visits'] = true;
+          referralServiceHiddenOptions['Educational and vocational support'] =
+              true;
+          referralServiceHiddenOptions['Social grants'] = true;
+          referralServiceHiddenOptions['Aflateen/toun'] = true;
+          referralServiceHiddenOptions['Go Girls'] = true;
+          referralServiceHiddenOptions['PTS 4 NON-GRAD'] = true;
+          referralServiceHiddenOptions['PTS 4-GRAD'] = true;
+          referralServiceHiddenOptions['FINANCIAL EDUCATION'] = true;
+          referralServiceHiddenOptions['SAVING GROUPS'] = true;
+          referralServiceHiddenOptions['STEPPING STONES'] = true;
+          referralServiceHiddenOptions['GBV Legal Protection'] = true;
+          referralServiceHiddenOptions['GBV Legal Messaging'] = true;
+          referralServiceHiddenOptions['Parenting'] = true;
+          referralServiceHiddenOptions['VAC Legal Messaging'] = true;
+          referralServiceHiddenOptions['VAC Legal'] = true;
+          referralServiceHiddenOptions['PostAbuseCaseManagement'] = true;
+          referralServiceHiddenOptions['SILC'] = true;
+          referralServiceHiddenOptions['LBSE'] = true;
+          referralServiceHiddenOptions['IPC'] = true;
         } else if (value == 'Post abuse case management') {
-          hiddenOptions['Youth friendly services'] = true;
-          hiddenOptions['Income generating activity'] = true;
-          hiddenOptions['Orphan Care & Support'] = true;
-          hiddenOptions['Psycho-social Support'] = true;
-          hiddenOptions['PLHIV support group'] = true;
-          hiddenOptions['CAG'] = true;
-          hiddenOptions['Home based care visits'] = true;
-          hiddenOptions['Educational and vocational support'] = true;
-          hiddenOptions['STI Screening'] = true;
-          hiddenOptions['STI Treatment'] = true;
-          hiddenOptions['HIV Testing and counselling'] = true;
-          hiddenOptions['Evaluation for ARVs/HAART'] = true;
-          hiddenOptions['ART and Adherence'] = true;
-          hiddenOptions['PMTCT Services'] = true;
-          hiddenOptions['FamilyPlanningSRH'] = true;
-          hiddenOptions['Condom supply'] = true;
-          hiddenOptions['TB screening'] = true;
-          hiddenOptions['TB treatment'] = true;
-          hiddenOptions['Nutrition'] = true;
-          hiddenOptions['VMMC'] = true;
-          hiddenOptions['Cervical Cancer Screening'] = true;
-          hiddenOptions['ECD'] = true;
-          hiddenOptions['HTS'] = true;
-          hiddenOptions['ANC'] = true;
-          hiddenOptions['EID Testing'] = true;
-          hiddenOptions['PrEP/PEP'] = true;
-          hiddenOptions['PMTCT'] = true;
-          hiddenOptions['Social grants'] = true;
+          referralServiceHiddenOptions['Aflateen/toun'] = true;
+          referralServiceHiddenOptions['Go Girls'] = true;
+          referralServiceHiddenOptions['PTS 4 NON-GRAD'] = true;
+          referralServiceHiddenOptions['PTS 4-GRAD'] = true;
+          referralServiceHiddenOptions['FINANCIAL EDUCATION'] = true;
+          referralServiceHiddenOptions['SAVING GROUPS'] = true;
+          referralServiceHiddenOptions['STEPPING STONES'] = true;
+          referralServiceHiddenOptions['Parenting'] = true;
+          referralServiceHiddenOptions['SILC'] = true;
+          referralServiceHiddenOptions['LBSE'] = true;
+          referralServiceHiddenOptions['IPC'] = true;
+          referralServiceHiddenOptions['HIVPreventionMessaging'] = true;
+          referralServiceHiddenOptions['Youth friendly services'] = true;
+          referralServiceHiddenOptions['Income generating activity'] = true;
+          referralServiceHiddenOptions['Orphan Care & Support'] = true;
+          referralServiceHiddenOptions['Psycho-social Support'] = true;
+          referralServiceHiddenOptions['PLHIV support group'] = true;
+          // referralServiceHiddenOptions['CAG'] = true;
+          // referralServiceHiddenOptions['Home based care visits'] = true;
+          referralServiceHiddenOptions['Educational and vocational support'] =
+              true;
+          referralServiceHiddenOptions['STI Screening'] = true;
+          referralServiceHiddenOptions['STI Treatment'] = true;
+          referralServiceHiddenOptions['HIV Testing and counselling'] = true;
+          referralServiceHiddenOptions['Evaluation for ARVs/HAART'] = true;
+          referralServiceHiddenOptions['ART and Adherence'] = true;
+          // referralServiceHiddenOptions['PMTCT Services'] = true;
+          referralServiceHiddenOptions['FamilyPlanningSRH'] = true;
+          referralServiceHiddenOptions['Condom supply'] = true;
+          referralServiceHiddenOptions['TB screening'] = true;
+          referralServiceHiddenOptions['TB treatment'] = true;
+          referralServiceHiddenOptions['Nutrition'] = true;
+          // referralServiceHiddenOptions['VMMC'] = true;
+          referralServiceHiddenOptions['Cervical Cancer Screening'] = true;
+          // referralServiceHiddenOptions['ECD'] = true;
+          referralServiceHiddenOptions['HTS'] = true;
+          referralServiceHiddenOptions['ANC'] = true;
+          // referralServiceHiddenOptions['EID Testing'] = true;
+          referralServiceHiddenOptions['PrEP/PEP'] = true;
+          referralServiceHiddenOptions['PMTCT'] = true;
+          referralServiceHiddenOptions['Social grants'] = true;
         } else if (value == 'Social Services') {
-          hiddenOptions['Referral to post abuse care services'] = true;
-          hiddenOptions['STI Screening'] = true;
-          hiddenOptions['STI Treatment'] = true;
-          hiddenOptions['HIV Testing and counselling'] = true;
-          hiddenOptions['Evaluation for ARVs/HAART'] = true;
-          hiddenOptions['ART and Adherence'] = true;
-          hiddenOptions['PMTCT Services'] = true;
-          hiddenOptions['FamilyPlanningSRH'] = true;
-          hiddenOptions['Condom supply'] = true;
-          hiddenOptions['TB screening'] = true;
-          hiddenOptions['TB treatment'] = true;
-          hiddenOptions['Nutrition'] = true;
-          hiddenOptions['VMMC'] = true;
-          hiddenOptions['Cervical Cancer Screening'] = true;
-          hiddenOptions['ECD'] = true;
-          hiddenOptions['HTS'] = true;
-          hiddenOptions['ANC'] = true;
-          hiddenOptions['EID Testing'] = true;
-          hiddenOptions['PrEP/PEP'] = true;
-          hiddenOptions['PMTCT'] = true;
-          hiddenOptions['Gender Based Violence'] = true;
-          hiddenOptions['Domestic Violence Support group'] = true;
-          hiddenOptions['Violence Against Children'] = true;
+          referralServiceHiddenOptions['PostAbuseCaseManagement'] = true;
+          referralServiceHiddenOptions['GBV Legal Protection'] = true;
+          referralServiceHiddenOptions['GBV Legal Messaging'] = true;
+          referralServiceHiddenOptions['VAC Legal Messaging'] = true;
+          referralServiceHiddenOptions['VAC Legal'] = true;
+          referralServiceHiddenOptions['HIVPreventionMessaging'] = true;
+          referralServiceHiddenOptions['Referral to post abuse care services'] =
+              true;
+          referralServiceHiddenOptions['STI Screening'] = true;
+          referralServiceHiddenOptions['STI Treatment'] = true;
+          referralServiceHiddenOptions['HIV Testing and counselling'] = true;
+          referralServiceHiddenOptions['Evaluation for ARVs/HAART'] = true;
+          referralServiceHiddenOptions['ART and Adherence'] = true;
+          // referralServiceHiddenOptions['PMTCT Services'] = true;
+          referralServiceHiddenOptions['FamilyPlanningSRH'] = true;
+          referralServiceHiddenOptions['Condom supply'] = true;
+          referralServiceHiddenOptions['TB screening'] = true;
+          referralServiceHiddenOptions['TB treatment'] = true;
+          referralServiceHiddenOptions['Nutrition'] = true;
+          // referralServiceHiddenOptions['VMMC'] = true;
+          referralServiceHiddenOptions['Cervical Cancer Screening'] = true;
+          // referralServiceHiddenOptions['ECD'] = true;
+          referralServiceHiddenOptions['HTS'] = true;
+          referralServiceHiddenOptions['ANC'] = true;
+          // referralServiceHiddenOptions['EID Testing'] = true;
+          referralServiceHiddenOptions['PrEP/PEP'] = true;
+          referralServiceHiddenOptions['PMTCT'] = true;
+          referralServiceHiddenOptions['Gender Based Violence'] = true;
+          referralServiceHiddenOptions['Domestic Violence Support group'] =
+              true;
+          // rreferralServiceHiddenOptions['Violence Against Children'] = true;
         }
-        hiddenInputFieldOptions['OrC9Bh2bcFz'] = hiddenOptions;
+        Map hiddenReferralServicesByImplemetingPartner =
+            getAllImplemetingPartnerHiddenServices(
+                referralServicesByImplementingPartners,
+                implementingPartnerValue);
+        referralServiceHiddenOptions
+            .addAll(hiddenReferralServicesByImplemetingPartner);
+        hiddenInputFieldOptions['OrC9Bh2bcFz'] = referralServiceHiddenOptions;
       }
     }
     for (String sectionId in hiddenSections.keys) {
@@ -190,6 +297,38 @@ class DreamAgywReferralSkipLogic {
     resetValuesForHiddenFields(context, hiddenFields.keys);
     resetValuesForHiddenInputFieldOptions(context);
     resetValuesForHiddenSections(context, formSections);
+  }
+
+  static Map getAllImplemetingPartnerHiddenServices(
+      Map<String, dynamic> referralServicesByImplementingPartners,
+      String implementingPartnerValue) {
+    List<String> referralServices =
+        getAllReferralServices(referralServicesByImplementingPartners);
+    List<String> allImplementingPartnerReferralServices =
+        getReferralServicesByIP(
+            data: referralServicesByImplementingPartners,
+            ip: implementingPartnerValue);
+    Map hiddedReferralServices = Map();
+    referralServices.forEach((service) => {
+          if (allImplementingPartnerReferralServices.indexOf(service) == -1)
+            {hiddedReferralServices[service] = true}
+        });
+
+    return hiddedReferralServices;
+  }
+
+  static List<String> getAllReferralServices(Map<String, dynamic> data) {
+    return (data.values)
+        .expand((item) => item)
+        .toList()
+        .map(((item) => item as String))
+        .toList();
+  }
+
+  static List<String> getReferralServicesByIP(
+      {Map<String, dynamic> data = const {}, String ip = ''}) {
+    List services = (data[ip] as List) ?? [];
+    return services.map((item) => item as String).toList();
   }
 
   static resetValuesForHiddenFields(BuildContext context, inputFieldIds) {

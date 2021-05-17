@@ -4,6 +4,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
+import 'package:kb_mobile_app/app_state/referral_nofitication_state/referral_nofitication_state.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
@@ -88,6 +89,11 @@ class _ReferralOutcomeModalState extends State<ReferralOutcomeModal> {
           isSaving = true;
         });
         try {
+          Provider.of<ReferralNotificationState>(context, listen: false)
+              .updateReferralNotificaionEvent(
+            eventData.event,
+            eventData.trackedEntityInstance,
+          );
           dataObject[widget.referralToFollowUpLinkage] =
               dataObject[widget.referralToFollowUpLinkage] ?? AppUtil.getUid();
           await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
