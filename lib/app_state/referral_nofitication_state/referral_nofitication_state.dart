@@ -17,18 +17,21 @@ class ReferralNotificationState with ChangeNotifier {
 
   // reducer for the state
   setCurrentImplementingPartner(String implementingPartner) {
-    print("implementingPartner $implementingPartner");
-    _currentImplementingPartner = implementingPartner;
+    _currentImplementingPartner = implementingPartner.split("/").join("-");
     notifyListeners();
-    print("implementingPartner $implementingPartner");
+    reloadReferralNotifications();
   }
 
   reloadReferralNotifications() async {
     _beneficiariesWithIncomingReferrals = [];
     _incommingReferrals = [];
     List<ReferralNotification> referralNofications =
-        await ReferralNotificationService()
-            .getReferralNotificationFromOffline();
+        (await ReferralNotificationService()
+                .getReferralNotificationFromOffline())
+            .where((ReferralNotification referralNotification) =>
+                referralNotification.implementingPartner ==
+                _currentImplementingPartner)
+            .toList();
     for (ReferralNotification referralNotification in referralNofications) {
       List<ReferralEventNotification> referrals = referralNotification.referrals
           .where((ReferralEventNotification referral) => !referral.isCompleted)
@@ -40,11 +43,15 @@ class ReferralNotificationState with ChangeNotifier {
             .toList());
       }
     }
+    _beneficiariesWithIncomingReferrals =
+        _beneficiariesWithIncomingReferrals.toSet().toList();
+    _incommingReferrals = _incommingReferrals.toSet().toList();
     notifyListeners();
   }
 
   updateReferralNotificaionEvent(String referralEventId, String tei) async {
     await ReferralNotificationService()
         .updateReferralNotificaionEvent(referralEventId, tei);
+    reloadReferralNotifications();
   }
 }
