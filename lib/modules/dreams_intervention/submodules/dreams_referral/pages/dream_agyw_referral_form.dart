@@ -172,11 +172,11 @@ class _DreamAgywAddReferralFormState extends State<DreamAgywAddReferralForm> {
         ? dataObject[ReferralNotification.communityCouncil] ?? ""
         : location;
     String tei = currentAgywDream.id ?? "";
-    String id = "${tei}_${location}_$eventId";
+    String nameSpaceKey = "${location}_$implementingPartner";
     ReferralNotification referralNotification = ReferralNotification(
-      id: id,
+      id: "${nameSpaceKey}_$tei",
       implementingPartner: implementingPartner,
-      location: location,
+      nameSpaceKey: nameSpaceKey,
       tei: tei,
       referrals: [
         ReferralEventNotification(

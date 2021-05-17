@@ -6,11 +6,11 @@ import 'package:sqflite/sqflite.dart';
 
 class ReferralNotificationOfflineProvider extends OfflineDbProvider {
   // table name
-  final table = "referral_notification";
+  final String table = "referral_notification";
   // columns
   final String id = "id";
   final String implementingPartner = "implementingPartner";
-  final String location = "location";
+  final String nameSpaceKey = "nameSpaceKey";
   final String tei = "tei";
 
   addOrUpdateReferralNotification(
@@ -40,5 +40,36 @@ class ReferralNotificationOfflineProvider extends OfflineDbProvider {
     } catch (error) {
       print(error);
     }
+  }
+
+  Future<List<ReferralNotification>> getReferralNotifications() async {
+    List<ReferralNotification> referralNotifications = [];
+    try {
+      var dbClient = await db;
+      List<Map> maps = await dbClient.query(
+        table,
+        columns: [id, implementingPartner, nameSpaceKey, tei],
+      );
+      if (maps.isNotEmpty) {
+        for (Map map in maps) {
+          ReferralNotification referralNotification =
+              ReferralNotification.fromJson(map);
+          List<ReferralEventNotification> referrals =
+              await ReferralEventNotificationOfflineProvider()
+                  .getReferralEventNotification([referralNotification.tei]);
+          referralNotification.referrals = referrals
+              .where((ReferralEventNotification referral) =>
+                  referral.nameSpaceKey == referralNotification.nameSpaceKey)
+              .toList();
+          referralNotifications.add(referralNotification);
+        }
+      }
+    } catch (error) {
+      print(error.toString());
+    }
+    return referralNotifications
+        .where((ReferralNotification referralNotification) =>
+            referralNotification.referrals.length > 0)
+        .toList();
   }
 }

@@ -4,10 +4,11 @@ import 'package:sqflite/sqflite.dart';
 
 class ReferralEventNotificationOfflineProvider extends OfflineDbProvider {
   // table name
-  final table = "referrak_event_notification";
-  // columns
-  String id = "id";
-  String tei = "tei";
+  final String table = "referrak_event_notification";
+  // column\
+  final String id = "id";
+  final String tei = "tei";
+  final String nameSpaceKey = "nameSpaceKey";
   String isCompleted = "isCompleted";
 
   addOrUpdateReferralEventNotification(
@@ -33,5 +34,34 @@ class ReferralEventNotificationOfflineProvider extends OfflineDbProvider {
     } catch (error) {
       print(error);
     }
+  }
+
+  Future<List<ReferralEventNotification>> getReferralEventNotification(
+    List<String> teiIds,
+  ) async {
+    List<ReferralEventNotification> referralEvents = [];
+    try {
+      var dbClient = await db;
+      String questionMarks = teiIds.map((e) => '?').toList().join(',');
+      List<Map> maps = await dbClient.query(
+        table,
+        columns: [
+          id,
+          tei,
+          nameSpaceKey,
+          isCompleted,
+        ],
+        where: '$tei IN ($questionMarks)',
+        whereArgs: teiIds,
+      );
+      if (maps.isNotEmpty) {
+        for (Map map in maps) {
+          referralEvents.add(ReferralEventNotification.fromJson(map));
+        }
+      }
+    } catch (error) {
+      print(error.toString());
+    }
+    return referralEvents;
   }
 }
