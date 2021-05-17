@@ -14,6 +14,7 @@ class DreamsServiceForm {
         InputField(
           id: 'W79837fEI3C',
           name: 'Name of Youth Mentor/Paralegal',
+          translatedName: 'Lebitso la Youth Mentor/ Paralegal',
           valueType: 'TEXT',
           inputColor: Color(0xFF258DCC),
           labelColor: Color(0xFF737373),
@@ -21,6 +22,7 @@ class DreamsServiceForm {
         InputField(
             id: 'Eug4BXDFLym',
             name: 'Type of Intervention',
+            translatedName: 'Mofuta oa Tsebeletso',
             valueType: 'TEXT',
             inputColor: Color(0xFF258DCC),
             labelColor: Color(0xFF737373),
@@ -49,6 +51,7 @@ class DreamsServiceForm {
         InputField(
           id: 'O7sjTjxUmEa',
           name: 'Session date',
+          translatedName: 'Letsatsi la Thupelo',
           valueType: 'DATE',
           inputColor: Color(0xFF258DCC),
           labelColor: Color(0xFF737373),
@@ -56,6 +59,7 @@ class DreamsServiceForm {
         InputField(
           id: 'vL6NpUA0rIU',
           name: 'Number of session',
+          translatedName: 'Palo ea Lithupelo',
           valueType: 'INTEGER_ZERO_OR_POSITIVE',
           inputColor: Color(0xFF258DCC),
           labelColor: Color(0xFF737373),
@@ -63,6 +67,7 @@ class DreamsServiceForm {
         InputField(
           id: 'FoLeDcnocv4',
           name: 'Number of Female condoms distributed',
+          translatedName: 'Palo ea  likhohlopo tsa basali tse fanoeng',
           valueType: 'INTEGER_ZERO_OR_POSITIVE',
           inputColor: Color(0xFF258DCC),
           labelColor: Color(0xFF737373),
@@ -70,6 +75,7 @@ class DreamsServiceForm {
         InputField(
           id: 'JjX25d72ume',
           name: 'Number of Male condoms distributed',
+          translatedName: 'Palo ea likhohlopo tsa banna tse fanoeng',
           valueType: 'INTEGER_ZERO_OR_POSITIVE',
           inputColor: Color(0xFF258DCC),
           labelColor: Color(0xFF737373),
@@ -77,6 +83,7 @@ class DreamsServiceForm {
         InputField(
           id: 'qxO13pu8vAk',
           name: 'Number of lubricants distributed',
+          translatedName: 'Palo ea lingobetsi tse fanoeng',
           valueType: 'INTEGER_ZERO_OR_POSITIVE',
           inputColor: Color(0xFF258DCC),
           labelColor: Color(0xFF737373),
@@ -84,6 +91,7 @@ class DreamsServiceForm {
         InputField(
           id: 'JGgGQZPZH4n',
           name: 'IEC Material Distributed',
+          translatedName: 'Palo ea lithusa-thuto (pamphlets) tse fanoeng',
           valueType: 'INTEGER_ZERO_OR_POSITIVE',
           inputColor: Color(0xFF258DCC),
           labelColor: Color(0xFF737373),

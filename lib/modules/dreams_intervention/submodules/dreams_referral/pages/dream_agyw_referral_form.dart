@@ -12,6 +12,7 @@ import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
+import 'package:kb_mobile_app/core/offline_db/referral_nofification/referral_nofification_offline_provider.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
@@ -19,6 +20,8 @@ import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
+import 'package:kb_mobile_app/models/referralEventNotification.dart';
+import 'package:kb_mobile_app/models/referralNotification.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_referral/constant/dream_agyw_referral_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_referral/models/dream_referral.dart';
@@ -169,6 +172,37 @@ class _DreamAgywAddReferralFormState extends State<DreamAgywAddReferralForm> {
           position: ToastGravity.TOP);
       Navigator.pop(context);
     }
+  }
+
+  updateReferralNotification(
+    String eventId,
+    Map dataObject,
+    AgywDream currentAgywDream,
+  ) async {
+    String implementingPartner =
+        dataObject[ReferralNotification.implementingPartnerFormVariable] ?? "";
+    implementingPartner = implementingPartner.split("/").join("-");
+    String location = dataObject[ReferralNotification.facility] ?? "";
+    location = location == ""
+        ? dataObject[ReferralNotification.communityCouncil] ?? ""
+        : location;
+    String tei = currentAgywDream.id ?? "";
+    String nameSpaceKey = "${location}_$implementingPartner";
+    ReferralNotification referralNotification = ReferralNotification(
+      id: "${nameSpaceKey}_$tei",
+      implementingPartner: implementingPartner,
+      nameSpaceKey: nameSpaceKey,
+      tei: tei,
+      referrals: [
+        ReferralEventNotification(
+          id: eventId,
+          tei: tei,
+          nameSpaceKey: nameSpaceKey,
+        )
+      ],
+    );
+    await ReferralNotificationOfflineProvider()
+        .addOrUpdateReferralNotification([referralNotification]);
   }
 
   @override

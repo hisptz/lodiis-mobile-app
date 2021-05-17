@@ -9,7 +9,9 @@ class ProgramOuOfflineProvider extends OfflineDbProvider {
   final String organisationUnit = 'organisationUnit';
 
   Future addProgramOrganisationUnit(
-      String program, List<String> organisationUnits) async {
+    String program,
+    List<String> organisationUnits,
+  ) async {
     var dbClient = await db;
     for (String organisationUnit in organisationUnits) {
       var data = Map<String, dynamic>();

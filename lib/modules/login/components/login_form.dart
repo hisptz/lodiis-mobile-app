@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/current_user_state/current_user_state.dart';
 import 'package:kb_mobile_app/app_state/login_form_state/login_form_state.dart';
+import 'package:kb_mobile_app/app_state/referral_nofitication_state/referral_nofitication_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/form_field_input_icon.dart';
 import 'package:kb_mobile_app/core/constants/custom_color.dart';
@@ -95,10 +96,13 @@ class _LoginFormState extends State<LoginForm> {
           );
           await UserService().setCurrentUser(user);
           loginFormState.setCurrentLoginProcessMessage('Saving user access...');
+
           await UserAccess()
               .savingUserAccessConfigurations(userAccessConfigurations);
           Provider.of<CurrentUserState>(context, listen: false)
               .setCurrentUser(user, userAccessConfigurations);
+          Provider.of<ReferralNotificationState>(context, listen: false)
+              .setCurrentImplementingPartner(user.implementingPartner);
           await ImplementingPartnerReferralConfigService()
               .addImplementingPartnerReferralServices(
                   user.username, user.password);
