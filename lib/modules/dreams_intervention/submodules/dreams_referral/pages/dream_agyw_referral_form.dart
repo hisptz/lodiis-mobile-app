@@ -182,6 +182,7 @@ class _DreamAgywAddReferralFormState extends State<DreamAgywAddReferralForm> {
         ReferralEventNotification(
           id: eventId,
           tei: tei,
+          nameSpaceKey: nameSpaceKey,
         )
       ],
     );

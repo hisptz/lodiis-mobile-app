@@ -65,6 +65,6 @@ class ReferralNotification {
 
   @override
   String toString() {
-    return "<$id $implementingPartner $nameSpaceKey $tei $referrals>";
+    return "<id : $id implementingPartner : $implementingPartner nameSpaceKey : $nameSpaceKey tei : $tei $referrals>";
   }
 }
