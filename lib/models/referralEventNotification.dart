@@ -28,19 +28,18 @@ class ReferralEventNotification {
     );
   }
 
-  Map toJson() {
-    Map data = toOffline();
-    var isCompleted = data["isCompleted"];
-    data["isCompleted"] = "$isCompleted" == "1";
-    return data;
-  }
-
-  Map toOffline() {
+  Map toOffline({
+    bool shoulTransaformCompleteStatus = false,
+  }) {
     Map data = Map<String, dynamic>();
     data["id"] = id;
     data["nameSpaceKey"] = nameSpaceKey;
     data["tei"] = tei;
-    data["isCompleted"] = "$isCompleted" == "true" ? 1 : 0;
+    data["isCompleted"] = shoulTransaformCompleteStatus
+        ? isCompleted
+        : "$isCompleted" == "true"
+            ? 1
+            : 0;
     return data;
   }
 

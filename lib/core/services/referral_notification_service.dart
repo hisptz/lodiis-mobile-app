@@ -15,11 +15,18 @@ class ReferralNotificationService {
   Future syncReferralNotifications() async {
     try {
       // @TODO implemententions missing
-      // getting offline referral notifications
-      // getting online notifications
+      List<ReferralNotification> onlineReferralNotifications =
+          await discoveringReferralNotificationFromServer();
+      List<ReferralNotification> offlineReferralNotifications =
+          await getReferralNotificationFromOffline();
+
+      print(onlineReferralNotifications);
+      print("\n");
+      print(offlineReferralNotifications);
       // sorting diff
       // update local
       // update online data
+      updateReferralNotificationToServer(offlineReferralNotifications);
     } catch (error) {
       print(error.toString());
     }
@@ -57,10 +64,30 @@ class ReferralNotificationService {
     List<ReferralNotification> referralNotifications,
   ) async {
     try {
-      // @TODO implemententions missing
-      // getting names spaces
-      // getting notifications by name spaces
-      // upload update data;
+      CurrentUser currentUser = await UserService().getCurrentUser();
+      HttpService httpService = HttpService(
+        username: currentUser.username,
+        password: currentUser.password,
+      );
+      List<String> nameSpaceKeys = (referralNotifications
+              .map((ReferralNotification referralNotification) =>
+                  referralNotification.nameSpaceKey)
+              .toList())
+          .toSet()
+          .toList();
+      for (String nameSpaceKey in nameSpaceKeys) {
+        String url = "$apiUrlToDataStore/$nameSpaceKey";
+        var jsonData = referralNotifications
+            .map((ReferralNotification referralNotification) =>
+                referralNotification.toJson())
+            .toList();
+        await httpService.httpDelete(url, queryParameters: {});
+        await httpService.httpPost(
+          "$apiUrlToDataStore/$nameSpaceKey",
+          json.encode(jsonData),
+          queryParameters: {},
+        );
+      }
     } catch (error) {
       print(error.toString());
     }

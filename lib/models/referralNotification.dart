@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/models/referralEventNotification.dart';
 
@@ -41,16 +39,7 @@ class ReferralNotification {
     );
   }
 
-  String toJson() {
-    Map data = toOffline();
-    data["referrals"] = referrals
-        .map((ReferralEventNotification referralEventNotification) =>
-            referralEventNotification.toJson())
-        .toList();
-    return json.encode(data);
-  }
-
-  Map toOffline() {
+  Map toOffline({bool shoulTransaformCompleteStatus = false}) {
     Map data = Map<String, dynamic>();
     data["id"] = id;
     data["implementingPartner"] = implementingPartner;
@@ -58,7 +47,9 @@ class ReferralNotification {
     data["tei"] = tei;
     data["referrals"] = referrals
         .map((ReferralEventNotification referralEventNotification) =>
-            referralEventNotification.toOffline())
+            referralEventNotification.toOffline(
+              shoulTransaformCompleteStatus: shoulTransaformCompleteStatus,
+            ))
         .toList();
     return data;
   }
