@@ -71,8 +71,7 @@ class AgywEnrollmentRiskAssessment {
           InputField(
               id: 'dxp3qM2TgUc',
               name: '1. Name of parent/caregiver',
-              translatedName:
-                  '1. Lebitso la motsoali/mohlokomeli',
+              translatedName: '1. Lebitso la motsoali/mohlokomeli',
               valueType: 'TEXT',
               inputColor: Color(0xFF258DCC),
               labelColor: Color(0xFF737373)),
@@ -199,7 +198,7 @@ class AgywEnrollmentRiskAssessment {
               InputFieldOption(
                   code: 'Single',
                   name: 'Single',
-                  translatedName: 'Haba nyalana'),
+                  translatedName: 'Ha a nyaloa'),
               InputFieldOption(
                   code: 'Widowed',
                   name: 'Widowed',
@@ -217,6 +216,8 @@ class AgywEnrollmentRiskAssessment {
           InputField(
               id: '',
               name: 'Have you been a member of',
+              translatedName:
+                  'Na u kile oa kena lithupelong tsa DREAMS tse latelang?',
               valueType: 'CHECK_BOX',
               inputColor: Color(0xFF258DCC),
               labelColor: Color(0xFF737373),
@@ -224,42 +225,70 @@ class AgywEnrollmentRiskAssessment {
               options: [
                 InputFieldOption(
                     code: 'dH0hCyp67mE',
-                    name: 'Parenting DREAMS intervention?'),
+                    name: 'Parenting DREAMS intervention?',
+                    translatedName: 'Lelapa la Rethabile (Parenting)'),
                 InputFieldOption(
                     code: 'auHaVN3ynaC',
                     name:
-                        'Social Assessts building (Go Girls/Orgac/Aflateen/Aflatoun/PTS DREAMS intervention?'),
+                        'Social Assessts building (Go Girls/Orgac/Aflateen/Aflatoun/PTS DREAMS intervention?',
+                    translatedName:
+                        'Social Assessts building (Go Girls/Orgac/Aflateen/Aflatoun/PTS'),
                 InputFieldOption(
                     code: 'EJIDVrxGMUB',
-                    name: 'SILC (Socio- Economic) DREAMS intervention?'),
+                    name: 'SILC (Socio- Economic) DREAMS intervention?',
+                    translatedName:
+                        'Mokhatlo oa Lipoloko Le Likalimo (SILC Socio- Economic 18+)'),
+                InputFieldOption(
+                    code: 'LpSAlQaaU2x',
+                    name:
+                        'Savings Group (Socio-Economic 10-17) DREAMS intervention?',
+                    translatedName:
+                        'Mokhatlo oa bana oa lipoloko (Savings Group 10-17)'),
                 InputFieldOption(
                     code: 'g5Vyffx2vQL',
-                    name: 'Steeping Stone DREAMS intervention?'),
+                    name: 'Steeping Stone DREAMS intervention?',
+                    translatedName: 'Stepping Stone'),
                 InputFieldOption(
                     code: 'yNl9YGbd3ps',
-                    name:
-                        'Condom Promotion and Provision DREAMS intervention?'),
+                    name: 'Condom Promotion and Provision DREAMS intervention?',
+                    translatedName:
+                        'Khothaletso ea Tšebeliso ea Likhohlopo le Phano ea tsona'),
                 InputFieldOption(
                     code: 'F7s1XFNiEEx',
-                    name: 'Contraceptive Mix DREAMS intervention?'),
+                    name: 'Contraceptive Mix DREAMS intervention?',
+                    translatedName: 'Mekhoa e Fapakaneng ea Lithibela-pelehi'),
                 InputFieldOption(
                     code: 'etOufdeoXVG',
                     name:
-                        'HIV and Violence Prevention (LBSE) DREAMS intervention?'),
+                        'HIV and Violence Prevention (LBSE) DREAMS intervention?',
+                    translatedName:
+                        'Kokoana-hloko ea HIV le Thibelo ea Tlhekefetso (LBSE)'),
                 InputFieldOption(
-                    code: 'O6aTNTaFqHx', name: 'HTS DREAMS intervention?'),
+                    code: 'O6aTNTaFqHx',
+                    name: 'HTS DREAMS intervention?',
+                    translatedName: 'Litšebeletso tsa Tlhahlobo ea HIV '),
                 InputFieldOption(
-                    code: 'Q0BCuDsN52v', name: 'PrEP DREAMS intervention?'),
+                    code: 'Q0BCuDsN52v',
+                    name: 'PrEP DREAMS intervention?',
+                    translatedName:
+                        'Lipilisi tse Thibelang Tšoaetso ea HIV (PREP)'),
                 InputFieldOption(
                     code: 'Ve9tcZoPoQk',
-                    name: 'Post-Violence Care DREAMS intervention?'),
+                    name: 'Post-Violence Care DREAMS intervention?',
+                    translatedName: 'Tlhokomelo Kamora Tlhekefetso'),
                 InputFieldOption(
                     code: 'IYhZVmA0ED1',
-                    name: 'HIV Risk Assessment Messaging DREAMS intervention?'),
+                    name: 'HIV Risk Assessment Messaging DREAMS intervention?',
+                    translatedName:
+                        'Melaetsa e Hlahlobang ho ba Kotsing ea Tšoaetso ea HIV'),
                 InputFieldOption(
-                    code: 'PdP87EJdp8D', name: 'VMMC DREAMS intervention?'),
+                    code: 'PdP87EJdp8D',
+                    name: 'VMMC DREAMS intervention?',
+                    translatedName: 'Ho rola katiba'),
                 InputFieldOption(
-                    code: 'uzfQwO4ypIP', name: 'ART DREAMS intervention?'),
+                    code: 'uzfQwO4ypIP',
+                    name: 'ART DREAMS intervention?',
+                    translatedName: 'Kalafo ea HIV ka Lipilisi '),
               ])
         ],
       ),
@@ -276,6 +305,7 @@ class AgywEnrollmentRiskAssessment {
               InputField(
                   id: 'fSQY2z3L0lp',
                   name: 'a. Have you ever had sex?',
+                  translatedName: 'a. Na u kile ua etsa thobalano?',
                   valueType: 'BOOLEAN',
                   inputColor: Color(0xFF258DCC),
                   labelColor: Color(0xFF737373)),
@@ -336,6 +366,7 @@ class AgywEnrollmentRiskAssessment {
               InputField(
                   id: 'fSQY2z3L0lp',
                   name: 'a. Have you ever had sex?',
+                  translatedName: 'a. Na u kile ua etsa thobalano?',
                   valueType: 'BOOLEAN',
                   inputColor: Color(0xFF258DCC),
                   labelColor: Color(0xFF737373)),
@@ -455,6 +486,7 @@ class AgywEnrollmentRiskAssessment {
               InputField(
                   id: 'afatGR9sy5Q',
                   name: 'b. Do you know where to get condoms?',
+                  translatedName: 'b. Na u tseba moo u ka fumanang likhohlopo?',
                   valueType: 'BOOLEAN',
                   inputColor: Color(0xFF258DCC),
                   labelColor: Color(0xFF737373)),
@@ -462,6 +494,8 @@ class AgywEnrollmentRiskAssessment {
                   id: 'yCmbCOTbH3R',
                   name:
                       'c. Did you use a condom during your last sexual activity?',
+                  translatedName:
+                      'c. Na u ile ua sebelisa khohlopo lekhetlong la ho qetela ha u ne u etsa thobalano?',
                   valueType: 'BOOLEAN',
                   inputColor: Color(0xFF258DCC),
                   labelColor: Color(0xFF737373)),
@@ -493,12 +527,16 @@ class AgywEnrollmentRiskAssessment {
                   id: 'VsqV6prIfm9',
                   name:
                       'b. Did you ever have someone touch you on your private parts without your concern?',
+                  translatedName:
+                      'b. Na ho kile ha eba le motho ea u phopholetsang ka bothong ntle le tumello ea hao?',
                   valueType: 'BOOLEAN',
                   inputColor: Color(0xFF258DCC),
                   labelColor: Color(0xFF737373)),
               InputField(
                   id: 'r0rKJA911ma',
                   name: 'c. Did you ever have forced sex?',
+                  translatedName:
+                      'c. Na u kile ua etsa thobalano e qobeletsoeng?',
                   valueType: 'BOOLEAN',
                   inputColor: Color(0xFF258DCC),
                   labelColor: Color(0xFF737373)),
@@ -506,6 +544,8 @@ class AgywEnrollmentRiskAssessment {
                   id: 'S4yWgL2zp2I',
                   name:
                       'd. Did you ever have forced unprotected sex while you wanted protected sex?',
+                  translatedName:
+                      'd. Na u kile ua qobelloa ho etsa thobalano e sa sireletsoang ha uena u ne u batla e sirelelitsoeng?',
                   valueType: 'BOOLEAN',
                   inputColor: Color(0xFF258DCC),
                   labelColor: Color(0xFF737373)),
@@ -521,6 +561,8 @@ class AgywEnrollmentRiskAssessment {
                   id: 'NhBs8uAiRPt',
                   name:
                       'a. Do you engage in sexual activities in exchange for money or any material things (including staying in a relationship for material or financial support)?',
+                  translatedName:
+                      'a. Na u kena thobalanong u shebile menyetla ea chelete kapa lintho tse ling tse molemo (ho kenyeletsa ho ba le likamano ka lebaka la tsehetso ea lichelete kapa lintho tse ling)? ',
                   valueType: 'BOOLEAN',
                   inputColor: Color(0xFF258DCC),
                   labelColor: Color(0xFF737373)),
@@ -863,15 +905,15 @@ class AgywEnrollmentRiskAssessment {
                   InputFieldOption(
                       code: 'Single Orphan(Mother)',
                       name: 'Single Orphan(Mother Died)',
-                      translatedName: 'Khutsana e le Mong (Mme)'),
+                      translatedName: 'Khutsana Khulu (ntate le mme)'),
                   InputFieldOption(
                       code: 'Single Orphan(Father)',
                       name: 'Single Orphan(Father Died)',
-                      translatedName: 'Khutsana e le Mong (Ntate)'),
+                      translatedName: 'Khutsana ka Motsoali a le mong (ntate)'),
                   InputFieldOption(
                       code: 'Double Orphan',
                       name: 'Double Orphan (Father & Mother Died)',
-                      translatedName: 'Likhutsana le le Mong (Ntate le Mme)'),
+                      translatedName: 'Khutsana Khulu (ntate le mme)'),
                 ],
               ),
               InputField(
@@ -942,15 +984,15 @@ class AgywEnrollmentRiskAssessment {
                   InputFieldOption(
                       code: 'Single Orphan(Mother)',
                       name: 'Single Orphan(Mother Died)',
-                      translatedName: 'Khutsana e le Mong (Mme)'),
+                      translatedName: 'Khutsana Khulu (ntate le mme)'),
                   InputFieldOption(
                       code: 'Single Orphan(Father)',
                       name: 'Single Orphan(Father Died)',
-                      translatedName: 'Khutsana e le Mong (Ntate)'),
+                      translatedName: 'Khutsana ka Motsoali a le mong (ntate)'),
                   InputFieldOption(
                       code: 'Double Orphan',
                       name: 'Double Orphan (Father & Mother Died)',
-                      translatedName: 'Likhutsana le le Mong (Ntate le Mme)'),
+                      translatedName: 'Khutsana Khulu (ntate le mme)'),
                 ],
               ),
               InputField(
@@ -1013,6 +1055,7 @@ class AgywEnrollmentRiskAssessment {
           InputField(
               id: 'HJIHPjOf5s1',
               name: 'Alcohol Use',
+              translatedName: 'Tsebeliso ea tai',
               valueType: 'TRUE_ONLY',
               inputColor: Color(0xFF258DCC),
               isReadOnly: true,
@@ -1020,6 +1063,7 @@ class AgywEnrollmentRiskAssessment {
           InputField(
               id: 'bApA6X6TVvJ',
               name: 'Out of school/Never schooled education/Enrollment',
+              translatedName: 'Boemo ba sekolo',
               valueType: 'TRUE_ONLY',
               inputColor: Color(0xFF258DCC),
               isReadOnly: true,
@@ -1027,6 +1071,7 @@ class AgywEnrollmentRiskAssessment {
           InputField(
               id: 'yc3BlUIEup3',
               name: 'Experience of violence',
+              translatedName: 'Tlhekefetso',
               valueType: 'TRUE_ONLY',
               inputColor: Color(0xFF258DCC),
               isReadOnly: true,
@@ -1034,6 +1079,7 @@ class AgywEnrollmentRiskAssessment {
           InputField(
               id: 'p33MrrhsQRz',
               name: 'Transactional Sex',
+              translatedName: 'Thobalano u shebile menyetla e itseng',
               valueType: 'TRUE_ONLY',
               inputColor: Color(0xFF258DCC),
               isReadOnly: true,
@@ -1041,6 +1087,7 @@ class AgywEnrollmentRiskAssessment {
           InputField(
               id: 'iY67qYnywgS',
               name: 'No or Irregular Condom use',
+              translatedName: 'Tsebeliso ea likhohlopo',
               valueType: 'TRUE_ONLY',
               inputColor: Color(0xFF258DCC),
               isReadOnly: true,
@@ -1048,6 +1095,7 @@ class AgywEnrollmentRiskAssessment {
           InputField(
               id: 'rh881j2vfvT',
               name: 'Sexually Transmitted Infection (STI) - (past or present)',
+              translatedName: 'Mafu a likobo',
               valueType: 'TRUE_ONLY',
               inputColor: Color(0xFF258DCC),
               isReadOnly: true,
@@ -1055,6 +1103,7 @@ class AgywEnrollmentRiskAssessment {
           InputField(
               id: 'AZCVLPzD0Vd',
               name: 'High number of sex partners',
+              translatedName: 'Palo ea batho bao u etsang thobalano le bona',
               valueType: 'TRUE_ONLY',
               inputColor: Color(0xFF258DCC),
               isReadOnly: true,
