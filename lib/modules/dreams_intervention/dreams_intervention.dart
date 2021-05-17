@@ -150,11 +150,15 @@ class _DreamsInterventionState extends State<DreamsIntervention> {
                                                         .id ==
                                                     'noneAgyw'
                                                 ? NoneAgyw()
-                                                : RoutePageNotFound(
-                                                    pageTitle:
-                                                        currentInterventionBottomNavigation
-                                                            .id,
-                                                  ),
+                                                : currentInterventionBottomNavigation
+                                                            .id ==
+                                                        'incomingReferral'
+                                                    ? DreamsReferralPage()
+                                                    : RoutePageNotFound(
+                                                        pageTitle:
+                                                            currentInterventionBottomNavigation
+                                                                .id,
+                                                      ),
                               );
                             },
                           ),

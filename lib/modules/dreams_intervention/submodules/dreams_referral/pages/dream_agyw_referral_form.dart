@@ -4,6 +4,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dream_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
+import 'package:kb_mobile_app/app_state/implementing_partner_referral_service_state/implementing_partner_referral_service_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar_container.dart';
@@ -11,12 +12,16 @@ import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
+import 'package:kb_mobile_app/core/offline_db/referral_nofification/referral_nofification_offline_provider.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
+import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
+import 'package:kb_mobile_app/models/referralEventNotification.dart';
+import 'package:kb_mobile_app/models/referralNotification.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_referral/constant/dream_agyw_referral_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_referral/models/dream_referral.dart';
@@ -25,7 +30,9 @@ import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:provider/provider.dart';
 
 class DreamAgywAddReferralForm extends StatefulWidget {
-  DreamAgywAddReferralForm({Key key}) : super(key: key);
+  DreamAgywAddReferralForm({Key key, this.currentUser}) : super(key: key);
+
+  final CurrentUser currentUser;
 
   @override
   _DreamAgywAddReferralFormState createState() =>
@@ -56,11 +63,16 @@ class _DreamAgywAddReferralFormState extends State<DreamAgywAddReferralForm> {
       () async {
         Map dataObject =
             Provider.of<ServiceFormState>(context, listen: false).formState;
+        Map<String, dynamic> implementingPartnerReferralServices =
+            Provider.of<ImplementingPartnerReferralServiceState>(context,
+                    listen: false)
+                .implementingPartnerServices;
         await DreamAgywReferralSkipLogic.evaluateSkipLogics(
-          context,
-          formSections,
-          dataObject,
-        );
+            context,
+            formSections,
+            dataObject,
+            widget.currentUser.implementingPartner ?? '',
+            implementingPartnerReferralServices ?? {});
       },
     );
   }
@@ -95,18 +107,26 @@ class _DreamAgywAddReferralFormState extends State<DreamAgywAddReferralForm> {
       List<String> hiddenFields = [
         DreamAgywReferralConstant.referralToFollowUpLinkage
       ];
-
       try {
-        await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-            DreamAgywReferralConstant.program,
-            DreamAgywReferralConstant.programStage,
-            currentAgywDream.orgUnit,
-            formSections,
-            dataObject,
-            eventDate,
-            currentAgywDream.id,
+        if (eventId == null) {
+          eventId = AppUtil.getUid();
+          await updateReferralNotification(
             eventId,
-            hiddenFields);
+            dataObject,
+            currentAgywDream,
+          );
+        }
+        await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
+          DreamAgywReferralConstant.program,
+          DreamAgywReferralConstant.programStage,
+          currentAgywDream.orgUnit,
+          formSections,
+          dataObject,
+          eventDate,
+          currentAgywDream.id,
+          eventId,
+          hiddenFields,
+        );
         Provider.of<ServiveEventDataState>(context, listen: false)
             .resetServiceEventDataState(currentAgywDream.id);
         Timer(Duration(seconds: 1), () {
@@ -123,11 +143,11 @@ class _DreamAgywAddReferralFormState extends State<DreamAgywAddReferralForm> {
             Navigator.pop(context);
           });
         });
-      } catch (e) {
+      } catch (error) {
         Timer(Duration(seconds: 1), () {
           setState(() {
             AppUtil.showToastMessage(
-                message: e.toString(), position: ToastGravity.BOTTOM);
+                message: error.toString(), position: ToastGravity.BOTTOM);
           });
         });
       }
@@ -137,6 +157,37 @@ class _DreamAgywAddReferralFormState extends State<DreamAgywAddReferralForm> {
           position: ToastGravity.TOP);
       Navigator.pop(context);
     }
+  }
+
+  updateReferralNotification(
+    String eventId,
+    Map dataObject,
+    AgywDream currentAgywDream,
+  ) async {
+    String implementingPartner =
+        dataObject[ReferralNotification.implementingPartnerFormVariable] ?? "";
+    implementingPartner = implementingPartner.split("/").join("-");
+    String location = dataObject[ReferralNotification.facility] ?? "";
+    location = location == ""
+        ? dataObject[ReferralNotification.communityCouncil] ?? ""
+        : location;
+    String tei = currentAgywDream.id ?? "";
+    String nameSpaceKey = "${location}_$implementingPartner";
+    ReferralNotification referralNotification = ReferralNotification(
+      id: "${nameSpaceKey}_$tei",
+      implementingPartner: implementingPartner,
+      nameSpaceKey: nameSpaceKey,
+      tei: tei,
+      referrals: [
+        ReferralEventNotification(
+          id: eventId,
+          tei: tei,
+          nameSpaceKey: nameSpaceKey,
+        )
+      ],
+    );
+    await ReferralNotificationOfflineProvider()
+        .addOrUpdateReferralNotification([referralNotification]);
   }
 
   @override

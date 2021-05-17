@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
+import 'package:kb_mobile_app/app_state/implementing_partner_referral_service_state/implementing_partner_referral_service_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/line_seperator.dart';
+import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
+import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/referral_event.dart';
 import 'package:kb_mobile_app/models/referral_outcome_event.dart';
@@ -83,7 +86,11 @@ class _ReferralDetailedCardState extends State<ReferralDetailedCard> {
     }
   }
 
-  onEditRefferral(BuildContext context) {
+  onEditRefferral(BuildContext context) async {
+    CurrentUser user = await UserService().getCurrentUser();
+    await Provider.of<ImplementingPartnerReferralServiceState>(context,
+            listen: false)
+        .setImplementingPartnerServices();
     updateFormState(context, true, widget.eventData);
     Navigator.push(
       context,
@@ -92,7 +99,9 @@ class _ReferralDetailedCardState extends State<ReferralDetailedCard> {
             ? widget.isHouseHoldReferral
                 ? OvcHouseHoldAddReferralForm()
                 : OvcChildReferralAddForm()
-            : DreamAgywAddReferralForm(),
+            : DreamAgywAddReferralForm(
+                currentUser: user,
+              ),
       ),
     );
   }
