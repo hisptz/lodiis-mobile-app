@@ -12,16 +12,26 @@ import 'package:kb_mobile_app/models/referralNotification.dart';
 class ReferralNotificationService {
   final String apiUrlToDataStore = "api/dataStore/kb-referral-notification";
 
-  Future<List<ReferralNotification>>
-      getReferralNotificationFromOffline() async {
-    List<ReferralNotification> referralNofications = [];
+  Future syncReferralNotifications() async {
     try {
-      referralNofications = await ReferralNotificationOfflineProvider()
-          .getReferralNotifications();
+      // @TODO implemententions missing
+      // getting offline referral notifications
+      // getting online notifications
+      // sorting diff
+      // update local
+      // update online data
     } catch (error) {
       print(error.toString());
     }
-    return referralNofications;
+  }
+
+  savingReferralNotificationToOfflineDb(
+    List<ReferralNotification> referralNotifications,
+  ) async {
+    try {
+      await ReferralNotificationOfflineProvider()
+          .addOrUpdateReferralNotification(referralNotifications);
+    } catch (errro) {}
   }
 
   updateReferralNotificaionEvent(String referralEventId, String tei) async {
@@ -43,7 +53,34 @@ class ReferralNotificationService {
     }
   }
 
-  discoveringAndSaveReferralNotificationFromServer() async {
+  updateReferralNotificationToServer(
+    List<ReferralNotification> referralNotifications,
+  ) async {
+    try {
+      // @TODO implemententions missing
+      // getting names spaces
+      // getting notifications by name spaces
+      // upload update data;
+    } catch (error) {
+      print(error.toString());
+    }
+  }
+
+  Future<List<ReferralNotification>>
+      getReferralNotificationFromOffline() async {
+    List<ReferralNotification> referralNofications = [];
+    try {
+      referralNofications = await ReferralNotificationOfflineProvider()
+          .getReferralNotifications();
+    } catch (error) {
+      print(error.toString());
+    }
+    return referralNofications;
+  }
+
+  Future<List<ReferralNotification>>
+      discoveringReferralNotificationFromServer() async {
+    List<ReferralNotification> referralNotifications = [];
     try {
       CurrentUser currentUser = await UserService().getCurrentUser();
       HttpService httpService = HttpService(
@@ -60,14 +97,14 @@ class ReferralNotificationService {
         response,
         implementingPartner,
       );
-      List<ReferralNotification> referralNotifications =
-          await getReferralNotificationFromServer(
-              keysForReferralNotification, httpService);
-      await ReferralNotificationOfflineProvider()
-          .addOrUpdateReferralNotification(referralNotifications);
+      referralNotifications = await getReferralNotificationFromServer(
+        keysForReferralNotification,
+        httpService,
+      );
     } catch (error) {
-      print("errror : $error");
+      print(error.toString());
     }
+    return referralNotifications;
   }
 
   Future<List<ReferralNotification>> getReferralNotificationFromServer(
