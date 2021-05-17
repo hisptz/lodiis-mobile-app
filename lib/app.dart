@@ -10,12 +10,14 @@ import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_house_hold_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
+import 'package:kb_mobile_app/app_state/implementing_partner_referral_service_state/implementing_partner_referral_service_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_bottom_navigation_state/intervention_bottom_navigation_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/app_state/login_form_state/login_form_state.dart';
 import 'package:kb_mobile_app/app_state/ogac_intervention_list_state/ogac_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_intervention_list_state.dart';
+import 'package:kb_mobile_app/app_state/referral_nofitication_state/referral_nofitication_state.dart';
 import 'package:kb_mobile_app/app_state/synchronization_state/synchronization_state.dart';
 import 'package:kb_mobile_app/core/constants/custom_color.dart';
 import 'package:kb_mobile_app/modules/splash/splash.dart';
@@ -35,6 +37,7 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(create: (_) => LoginFormState()),
           ChangeNotifierProvider(
               create: (_) => InterventionBottomNavigationState()),
+          ChangeNotifierProvider(create: (_) => ReferralNotificationState()),
           ChangeNotifierProvider(create: (_) => EnrollmentFormState()),
           ChangeNotifierProvider(create: (_) => ServiceFormState()),
           ChangeNotifierProvider(create: (_) => ServiveEventDataState()),
@@ -46,7 +49,9 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(create: (_) => OgacInterventionListState()),
           ChangeNotifierProvider(create: (_) => SynchronizationState()),
           ChangeNotifierProvider(create: (_) => AppLogsState()),
-          ChangeNotifierProvider(create: (_) => DeviceConnectivityState())
+          ChangeNotifierProvider(create: (_) => DeviceConnectivityState()),
+          ChangeNotifierProvider(
+              create: (_) => ImplementingPartnerReferralServiceState())
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,

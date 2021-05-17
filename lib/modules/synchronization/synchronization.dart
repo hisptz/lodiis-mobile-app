@@ -5,6 +5,7 @@ import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_in
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/app_state/ogac_intervention_list_state/ogac_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_intervention_list_state.dart';
+import 'package:kb_mobile_app/app_state/referral_nofitication_state/referral_nofitication_state.dart';
 import 'package:kb_mobile_app/app_state/synchronization_state/synchronization_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
@@ -44,6 +45,8 @@ class _SynchronizationState extends State<Synchronization> {
     try {
       await Provider.of<SynchronizationState>(context, listen: false)
           .startDataDownloadActivity();
+      await Provider.of<ReferralNotificationState>(context, listen: false)
+          .reloadReferralNotifications();
       Provider.of<OvcInterventionListState>(context, listen: false)
           .refreshOvcNumber();
       Provider.of<DreamsInterventionListState>(context, listen: false)

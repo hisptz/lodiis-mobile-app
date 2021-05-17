@@ -69,14 +69,15 @@ class CurrentUser {
                                         : implementingPartner;
     }
     return CurrentUser(
-        name: json['name'],
-        id: json['id'],
-        password: password,
-        username: username,
-        isLogin: true,
-        implementingPartner: implementingPartner,
-        programs: programList.map((program) => '$program').toList(),
-        userOrgUnitIds: userOrgUnitIds);
+      name: json['name'],
+      id: json['id'],
+      password: password,
+      username: username,
+      isLogin: true,
+      implementingPartner: implementingPartner,
+      programs: programList.map((program) => '$program').toList(),
+      userOrgUnitIds: userOrgUnitIds,
+    );
   }
 
   Map toOffline(CurrentUser user) {
