@@ -91,7 +91,9 @@ class _ReferralOutcomeModalState extends State<ReferralOutcomeModal> {
         try {
           Provider.of<ReferralNotificationState>(context, listen: false)
               .updateReferralNotificaionEvent(
-                  eventData.event, eventData.trackedEntityInstance);
+            eventData.event,
+            eventData.trackedEntityInstance,
+          );
           dataObject[widget.referralToFollowUpLinkage] =
               dataObject[widget.referralToFollowUpLinkage] ?? AppUtil.getUid();
           await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(

@@ -18,7 +18,6 @@ class ReferralNotificationService {
     try {
       referralNofications = await ReferralNotificationOfflineProvider()
           .getReferralNotifications();
-      print(referralNofications);
     } catch (error) {
       print(error.toString());
     }
