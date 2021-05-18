@@ -37,7 +37,12 @@ class ReferralNotificationService {
     } catch (errro) {}
   }
 
-  updateReferralNotificaionEvent(String referralEventId, String tei) async {
+  updateReferralNotificaionEvent(
+    String referralEventId,
+    String tei,
+    bool isCompleted,
+    bool isViewed,
+  ) async {
     try {
       List<ReferralEventNotification> referralEvents =
           await ReferralEventNotificationOfflineProvider()
@@ -45,7 +50,8 @@ class ReferralNotificationService {
       for (ReferralEventNotification referralEventNotification
           in referralEvents) {
         if (referralEventNotification.id == referralEventId) {
-          referralEventNotification.isCompleted = true;
+          referralEventNotification.isCompleted = isCompleted;
+          referralEventNotification.isViewed = isViewed;
           ReferralEventNotificationOfflineProvider()
               .addOrUpdateReferralEventNotification(
                   [referralEventNotification]);

@@ -4,6 +4,7 @@ import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_ev
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/implementing_partner_referral_service_state/implementing_partner_referral_service_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
+import 'package:kb_mobile_app/app_state/referral_nofitication_state/referral_nofitication_state.dart';
 import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/referrals/referral_card_body_summary.dart';
@@ -79,6 +80,7 @@ class _DreamAgywReferralPageState extends State<DreamAgywReferralPage> {
     Events eventData,
     int referralIndex,
   ) {
+    updateViewStatusOfReferralNotification(context, eventData);
     updateFormState(context, false, eventData);
     Navigator.push(
       context,
@@ -89,6 +91,25 @@ class _DreamAgywReferralPageState extends State<DreamAgywReferralPage> {
         ),
       ),
     );
+  }
+
+  void updateViewStatusOfReferralNotification(
+    BuildContext context,
+    Events eventData,
+  ) {
+    try {
+      bool isCompleted = true;
+      bool isViewed = false;
+      Provider.of<ReferralNotificationState>(context, listen: false)
+          .updateReferralNotificaionEvent(
+        eventData.event,
+        eventData.trackedEntityInstance,
+        isCompleted,
+        isViewed,
+      );
+    } catch (error) {
+      print(error.toString());
+    }
   }
 
   void onManageChildReferral(
