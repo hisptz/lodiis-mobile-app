@@ -83,7 +83,10 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
 
   Future<int> getFilteredEnrollmentsCount(
       String programId, List<String> filteredTei) async {
-    String questionMarks = filteredTei.map((e) => '?').toList().join(',');
+    String questionMarks = (filteredTei.isEmpty ? [''] : filteredTei)
+        .map((e) => '?')
+        .toList()
+        .join(',');
 
     var dbClient = await db;
     List<Map> enrollmentList = await dbClient.query(
@@ -93,7 +96,6 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
           whereArgs: [...filteredTei, programId],
         ) ??
         [];
-
     return enrollmentList.length;
   }
 
@@ -101,7 +103,10 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
       {int page, List<String> requredTeiList}) async {
     List<Enrollment> enrollments = [];
     try {
-      String questionMarks = requredTeiList.map((e) => '?').toList().join(',');
+      String questionMarks = (requredTeiList.isEmpty ? [''] : requredTeiList)
+          .map((e) => '?')
+          .toList()
+          .join(',');
       var dbClient = await db;
       List<Map> maps = await dbClient.query(table,
           columns: [
