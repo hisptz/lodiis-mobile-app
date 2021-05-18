@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/app_state/device_connectivity_state/device_connectivity_state.dart';
 import 'package:kb_mobile_app/app_state/synchronization_state/synchronization_state.dart';
 import 'package:kb_mobile_app/modules/synchronization/synchronization.dart';
 import 'package:provider/provider.dart';
@@ -31,10 +32,15 @@ class _DataDownloadMessageState extends State<DataDownloadMessage> {
   }
 
   void checkForAvailableBeneficiaryDataFromServer() {
-    Timer(
-        Duration(milliseconds: 200),
-        () => Provider.of<SynchronizationState>(context, listen: false)
-            .checkingForAvaiableBeneficiaryData());
+    Timer(Duration(milliseconds: 200), () {
+      bool connected =
+          Provider.of<DeviceConnectivityState>(context, listen: false)
+              .connectivityStatus;
+      if (connected) {
+        Provider.of<SynchronizationState>(context, listen: false)
+            .checkingForAvaiableBeneficiaryData();
+      }
+    });
   }
 
   @override
