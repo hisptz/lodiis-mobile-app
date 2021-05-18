@@ -14,6 +14,11 @@ class InterventionBottomNavigationState with ChangeNotifier {
     notifyListeners();
   }
 
+  void resetCurrentInterventionBottomNavigationIndex() {
+    _currentInterventionBottomNavigationIndex = 0;
+    notifyListeners();
+  }
+
   // Selectors
   int get currentInterventionBottomNavigationIndex =>
       _currentInterventionBottomNavigationIndex;

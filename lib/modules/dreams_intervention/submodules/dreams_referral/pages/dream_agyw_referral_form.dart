@@ -99,10 +99,7 @@ class _DreamAgywAddReferralFormState extends State<DreamAgywAddReferralForm> {
   void onSaveForm(
       BuildContext context, Map dataObject, AgywDream currentAgywDream,
       {Map hiddenFieldsObject = const {}}) async {
-    if (FormUtil.geFormFilledStatus(
-      dataObject,
-      formSections,
-    )) {
+    if (FormUtil.geFormFilledStatus(dataObject, formSections)) {
       bool hadAllMandatoryFilled = AppUtil.hasAllMandarotyFieldsFilled(
           mandatoryFields, dataObject,
           hiddenFields: hiddenFieldsObject);
@@ -119,18 +116,26 @@ class _DreamAgywAddReferralFormState extends State<DreamAgywAddReferralForm> {
         List<String> hiddenFields = [
           DreamAgywReferralConstant.referralToFollowUpLinkage
         ];
-
         try {
-          await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-              DreamAgywReferralConstant.program,
-              DreamAgywReferralConstant.programStage,
-              currentAgywDream.orgUnit,
-              formSections,
-              dataObject,
-              eventDate,
-              currentAgywDream.id,
+          if (eventId == null) {
+            eventId = AppUtil.getUid();
+            await updateReferralNotification(
               eventId,
-              hiddenFields);
+              dataObject,
+              currentAgywDream,
+            );
+          }
+          await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
+            DreamAgywReferralConstant.program,
+            DreamAgywReferralConstant.programStage,
+            currentAgywDream.orgUnit,
+            formSections,
+            dataObject,
+            eventDate,
+            currentAgywDream.id,
+            eventId,
+            hiddenFields,
+          );
           Provider.of<ServiveEventDataState>(context, listen: false)
               .resetServiceEventDataState(currentAgywDream.id);
           Timer(Duration(seconds: 1), () {
@@ -147,11 +152,11 @@ class _DreamAgywAddReferralFormState extends State<DreamAgywAddReferralForm> {
               Navigator.pop(context);
             });
           });
-        } catch (e) {
+        } catch (error) {
           Timer(Duration(seconds: 1), () {
             setState(() {
               AppUtil.showToastMessage(
-                  message: e.toString(), position: ToastGravity.BOTTOM);
+                  message: error.toString(), position: ToastGravity.BOTTOM);
             });
           });
         }

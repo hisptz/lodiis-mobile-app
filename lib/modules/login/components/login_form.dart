@@ -101,7 +101,7 @@ class _LoginFormState extends State<LoginForm> {
               .savingUserAccessConfigurations(userAccessConfigurations);
           Provider.of<CurrentUserState>(context, listen: false)
               .setCurrentUser(user, userAccessConfigurations);
-          Provider.of<ReferralNotificationState>(context, listen: false)
+          await Provider.of<ReferralNotificationState>(context, listen: false)
               .setCurrentImplementingPartner(user.implementingPartner);
           await ImplementingPartnerReferralConfigService()
               .addImplementingPartnerReferralServices(

@@ -82,6 +82,10 @@ class AppBarUtil {
   }
 
   static void _onLogOut(BuildContext context) async {
+    Provider.of<IntervetionCardState>(context, listen: false)
+        .resetCurrentInterventionProgram();
+    // Provider.of<InterventionBottomNavigationState>(context, listen: false)
+    //     .resetCurrentInterventionBottomNavigationIndex();
     await UserService().logout();
     Navigator.pushReplacement(
       context,

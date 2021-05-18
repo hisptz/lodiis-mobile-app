@@ -89,7 +89,7 @@ class _ReferralOutcomeModalState extends State<ReferralOutcomeModal> {
           isSaving = true;
         });
         try {
-          Provider.of<ReferralNotificationState>(context, listen: false)
+          await Provider.of<ReferralNotificationState>(context, listen: false)
               .updateReferralNotificaionEvent(
             eventData.event,
             eventData.trackedEntityInstance,
