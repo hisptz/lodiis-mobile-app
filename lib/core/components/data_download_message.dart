@@ -1,7 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/app_state/referral_nofitication_state/referral_nofitication_state.dart';
 import 'package:kb_mobile_app/app_state/synchronization_state/synchronization_state.dart';
+import 'package:kb_mobile_app/core/services/referral_notification_service.dart';
 import 'package:kb_mobile_app/modules/synchronization/synchronization.dart';
 import 'package:provider/provider.dart';
 
@@ -31,10 +33,13 @@ class _DataDownloadMessageState extends State<DataDownloadMessage> {
   }
 
   void checkForAvailableBeneficiaryDataFromServer() {
-    Timer(
-        Duration(milliseconds: 200),
-        () => Provider.of<SynchronizationState>(context, listen: false)
-            .checkingForAvaiableBeneficiaryData());
+    Timer(Duration(milliseconds: 200), () async {
+      await ReferralNotificationService().syncReferralNotifications();
+      await Provider.of<ReferralNotificationState>(context, listen: false)
+          .reloadReferralNotifications();
+      Provider.of<SynchronizationState>(context, listen: false)
+          .checkingForAvaiableBeneficiaryData();
+    });
   }
 
   @override

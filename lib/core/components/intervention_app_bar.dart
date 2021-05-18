@@ -206,7 +206,9 @@ class _InterventionAppBarState extends State<InterventionAppBar> {
         )
       ],
       bottom: PreferredSize(
-          preferredSize: Size.fromHeight(100.0), child: DataDownloadMessage()),
+        preferredSize: Size.fromHeight(100.0),
+        child: DataDownloadMessage(),
+      ),
     );
   }
 }

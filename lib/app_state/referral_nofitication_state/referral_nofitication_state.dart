@@ -49,9 +49,18 @@ class ReferralNotificationState with ChangeNotifier {
     notifyListeners();
   }
 
-  updateReferralNotificaionEvent(String referralEventId, String tei) async {
-    await ReferralNotificationService()
-        .updateReferralNotificaionEvent(referralEventId, tei);
+  updateReferralNotificaionEvent(
+    String referralEventId,
+    String tei,
+    bool isCompleted,
+    bool isViewed,
+  ) async {
+    await ReferralNotificationService().updateReferralNotificaionEvent(
+      referralEventId,
+      tei,
+      isCompleted,
+      isViewed,
+    );
     reloadReferralNotifications();
   }
 }
