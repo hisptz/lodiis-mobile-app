@@ -14,21 +14,15 @@ class ReferralNotificationService {
 
   Future syncReferralNotifications() async {
     try {
-      // @TODO implemententions missing
       List<ReferralNotification> onlineReferralNotifications =
           await discoveringReferralNotificationFromServer();
       List<ReferralNotification> offlineReferralNotifications =
           await getReferralNotificationFromOffline();
-
-      print('onlineReferralNotifications : $onlineReferralNotifications');
-      print("\n");
-      print("offlineReferralNotifications : $offlineReferralNotifications");
-      print("\n");
-      await savingReferralNotificationToOfflineDb(onlineReferralNotifications);
-      // sorting diff
-      // update local
-      // update online data
-      //  updateReferralNotificationToServer(offlineReferralNotifications);
+      List<ReferralNotification> referralNotifications =
+          getMergedReferralNotififcations(
+              onlineReferralNotifications, offlineReferralNotifications);
+      await savingReferralNotificationToOfflineDb(referralNotifications);
+      await updateReferralNotificationToServer(referralNotifications);
     } catch (error) {
       print(error.toString());
     }
@@ -177,5 +171,112 @@ class ReferralNotificationService {
       print("error : $error");
     }
     return selectedKeys;
+  }
+
+  List<ReferralNotification> getMergedReferralNotififcations(
+    List<ReferralNotification> onlineReferralNotifications,
+    List<ReferralNotification> offlineReferralNotifications,
+  ) {
+    List<ReferralNotification> referralNotifications = [];
+    try {
+      List<String> offlineReferralNotificationIds = offlineReferralNotifications
+          .map((ReferralNotification referralNotification) =>
+              referralNotification.id)
+          .toList();
+      List<String> conflictReferralNotificationIds =
+          (onlineReferralNotifications
+                  .map((ReferralNotification referralNotification) =>
+                      referralNotification.id)
+                  .toList())
+              .where((String id) => offlineReferralNotificationIds.contains(id))
+              .toList()
+              .toSet()
+              .toList();
+      referralNotifications.addAll(onlineReferralNotifications
+          .where((ReferralNotification referralNotification) =>
+              conflictReferralNotificationIds
+                  .indexOf(referralNotification.id) ==
+              -1)
+          .toList());
+      referralNotifications.addAll(offlineReferralNotifications
+          .where((ReferralNotification referralNotification) =>
+              conflictReferralNotificationIds
+                  .indexOf(referralNotification.id) ==
+              -1)
+          .toList());
+      for (String id in conflictReferralNotificationIds) {
+        ReferralNotification onlineReferralNotification =
+            onlineReferralNotifications.firstWhere(
+                (ReferralNotification referralNotification) =>
+                    referralNotification.id == id);
+        ReferralNotification offlineReferralNotification =
+            offlineReferralNotifications.firstWhere(
+                (ReferralNotification referralNotification) =>
+                    referralNotification.id == id);
+        List<ReferralEventNotification> referrals =
+            getMergedReferralEventNotififcations(
+                onlineReferralNotification.referrals,
+                offlineReferralNotification.referrals);
+        referralNotifications.add(ReferralNotification(
+          id: id,
+          implementingPartner: onlineReferralNotification.implementingPartner,
+          nameSpaceKey: onlineReferralNotification.nameSpaceKey,
+          tei: onlineReferralNotification.tei,
+          referrals: referrals,
+        ));
+      }
+    } catch (error) {
+      print(error.toString());
+    }
+    return referralNotifications;
+  }
+
+  List<ReferralEventNotification> getMergedReferralEventNotififcations(
+    List<ReferralEventNotification> onlineReferrals,
+    List<ReferralEventNotification> offlineReferrals,
+  ) {
+    List<ReferralEventNotification> referrals = [];
+    try {
+      List<String> offlineReferralIds = offlineReferrals
+          .map((ReferralEventNotification referralEventNotification) =>
+              referralEventNotification.id)
+          .toList();
+      List<String> conflictReferralIds = (onlineReferrals
+              .map((ReferralEventNotification referralEventNotification) =>
+                  referralEventNotification.id)
+              .toList())
+          .where((String id) => offlineReferralIds.contains(id))
+          .toList()
+          .toSet()
+          .toList();
+      referrals.addAll(onlineReferrals
+          .where((ReferralEventNotification referralEventNotification) =>
+              conflictReferralIds.indexOf(referralEventNotification.id) == -1)
+          .toList());
+      referrals.addAll(offlineReferrals
+          .where((ReferralEventNotification referralEventNotification) =>
+              conflictReferralIds.indexOf(referralEventNotification.id) == -1)
+          .toList());
+      for (String id in conflictReferralIds) {
+        ReferralEventNotification onlineReferral = onlineReferrals.firstWhere(
+            (ReferralEventNotification referralEventNotification) =>
+                referralEventNotification.id == id);
+        ReferralEventNotification offlineReferral = offlineReferrals.firstWhere(
+            (ReferralEventNotification referralEventNotification) =>
+                referralEventNotification.id == id);
+        if (offlineReferral.isViewed) {
+          referrals.add(offlineReferral);
+        } else if (onlineReferral.isViewed) {
+          referrals.add(onlineReferral);
+        } else if (onlineReferral.isCompleted) {
+          referrals.add(onlineReferral);
+        } else {
+          referrals.add(offlineReferral);
+        }
+      }
+    } catch (error) {
+      print(error.toString());
+    }
+    return referrals;
   }
 }
