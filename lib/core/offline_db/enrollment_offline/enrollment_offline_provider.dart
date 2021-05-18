@@ -81,6 +81,60 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
     return enrollmentList.length;
   }
 
+  Future<int> getFilteredEnrollmentsCount(
+      String programId, List<String> filteredTei) async {
+    String questionMarks = (filteredTei.isEmpty ? [''] : filteredTei)
+        .map((e) => '?')
+        .toList()
+        .join(',');
+
+    var dbClient = await db;
+    List<Map> enrollmentList = await dbClient.query(
+          table,
+          columns: [enrollment],
+          where: '$trackedEntityInstance IN ($questionMarks) AND $program = ?',
+          whereArgs: [...filteredTei, programId],
+        ) ??
+        [];
+    return enrollmentList.length;
+  }
+
+  Future<List<Enrollment>> getFilteredEnrollments(String programId,
+      {int page, List<String> requredTeiList}) async {
+    List<Enrollment> enrollments = [];
+    try {
+      String questionMarks = (requredTeiList.isEmpty ? [''] : requredTeiList)
+          .map((e) => '?')
+          .toList()
+          .join(',');
+      var dbClient = await db;
+      List<Map> maps = await dbClient.query(table,
+          columns: [
+            enrollment,
+            enrollmentDate,
+            incidentDate,
+            program,
+            orgUnit,
+            status,
+            syncStatus,
+            trackedEntityInstance
+          ],
+          where: "$trackedEntityInstance IN ($questionMarks) AND $program = ?",
+          orderBy: '$enrollmentDate DESC',
+          whereArgs: [...requredTeiList, programId],
+          limit: page != null ? PaginationConstants.paginationLimit : null,
+          offset:
+              page != null ? page * PaginationConstants.paginationLimit : null);
+      if (maps.isNotEmpty) {
+        for (Map map in maps) {
+          enrollments.add(Enrollment.fromOffline(map));
+        }
+      }
+    } catch (e) {}
+    return enrollments
+      ..sort((b, a) => a.enrollmentDate.compareTo(b.enrollmentDate));
+  }
+
   Future<int> getOfflineEnrollmentsCount(
       String programId, String orgUnitId) async {
     int offlineEnrollmentsCount;

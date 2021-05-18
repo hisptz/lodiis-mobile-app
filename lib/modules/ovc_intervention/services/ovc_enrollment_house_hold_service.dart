@@ -42,7 +42,8 @@ class OvcEnrollmentHouseHoldService {
             trackedEntityType,
             orgUnit,
             inputFieldIds,
-            dataObject, hasBeneficiaryId: false);
+            dataObject,
+            hasBeneficiaryId: false);
     await FormUtil.savingTrackeEntityInstance(trackeEntityInstanceData);
     if (shouldEnroll) {
       Enrollment enrollmentData = FormUtil.getEnrollmentPayLoad(
@@ -56,14 +57,15 @@ class OvcEnrollmentHouseHoldService {
     }
   }
 
-  Future<List<OvcHouseHold>> getHouseHoldList({page}) async {
+  Future<List<OvcHouseHold>> getHouseHoldList(
+      {page, String searchableValue = ''}) async {
     List<OvcHouseHold> ovchouseHoldList = [];
 
     List<TrackeEntityInstance> allTrackedEntityInstanceList = [];
 
     try {
-      List<Enrollment> enrollments =
-          await EnrollmentOfflineProvider().getEnrollements(program, page: page);
+      List<Enrollment> enrollments = await EnrollmentOfflineProvider()
+          .getEnrollements(program, page: page);
       allTrackedEntityInstanceList =
           await TrackedEntityInstanceOfflineProvider().getTrackedEntityInstance(
               enrollments.map((e) => e.trackedEntityInstance).toList());
@@ -76,10 +78,10 @@ class OvcEnrollmentHouseHoldService {
         String orgUnit = enrollment.orgUnit;
         String createdDate = enrollment.enrollmentDate;
         //loading households
-        List<TrackeEntityInstance> houseHolds =
-            allTrackedEntityInstanceList.where((tei) =>
-                tei.trackedEntityInstance ==
-                enrollment.trackedEntityInstance).toList();
+        List<TrackeEntityInstance> houseHolds = allTrackedEntityInstanceList
+            .where((tei) =>
+                tei.trackedEntityInstance == enrollment.trackedEntityInstance)
+            .toList();
         // loop house hold/caregiver
         for (TrackeEntityInstance tei in houseHolds) {
           List<TeiRelationship> relationships =
@@ -107,7 +109,15 @@ class OvcEnrollmentHouseHoldService {
         }
       }
     } catch (e) {}
-    return ovchouseHoldList;
+    return searchableValue == ''
+        ? ovchouseHoldList
+        : ovchouseHoldList
+            .where((OvcHouseHold beneficiary) =>
+                beneficiary.searchableValue
+                    .toLowerCase()
+                    .indexOf(searchableValue.toLowerCase()) !=
+                -1)
+            .toList();
   }
 
   Future<int> getHouseholdCount() async {

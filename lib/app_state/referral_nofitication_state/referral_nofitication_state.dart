@@ -16,13 +16,13 @@ class ReferralNotificationState with ChangeNotifier {
   List<String> get incomingReferrals => _incommingReferrals ?? [];
 
   // reducer for the state
-  setCurrentImplementingPartner(String implementingPartner) {
+  Future<void> setCurrentImplementingPartner(String implementingPartner) async {
     _currentImplementingPartner = implementingPartner.split("/").join("-");
     notifyListeners();
-    reloadReferralNotifications();
+    await reloadReferralNotifications();
   }
 
-  reloadReferralNotifications() async {
+  Future<void> reloadReferralNotifications() async {
     _beneficiariesWithIncomingReferrals = [];
     _incommingReferrals = [];
     List<ReferralNotification> referralNofications =

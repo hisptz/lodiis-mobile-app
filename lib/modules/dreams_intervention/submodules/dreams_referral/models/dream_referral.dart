@@ -4,6 +4,10 @@ import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/input_field_option.dart';
 
 class DreamAddReferral {
+  static List<String> getMandatoryFields() {
+    return ['qAed23reDPP', 'y0bvausyTyh', 'jOXN2iPhkxj', 'ubB83OWNWsv'];
+  }
+
   static List<FormSection> getFormSections() {
     return [
       FormSection(
