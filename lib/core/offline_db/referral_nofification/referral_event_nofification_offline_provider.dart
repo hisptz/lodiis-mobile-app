@@ -9,7 +9,8 @@ class ReferralEventNotificationOfflineProvider extends OfflineDbProvider {
   final String id = "id";
   final String tei = "tei";
   final String nameSpaceKey = "nameSpaceKey";
-  String isCompleted = "isCompleted";
+  final String isCompleted = "isCompleted";
+  final String isViewed = "isViewed";
 
   addOrUpdateReferralEventNotification(
     List<ReferralEventNotification> referralEvents,
@@ -50,6 +51,7 @@ class ReferralEventNotificationOfflineProvider extends OfflineDbProvider {
           tei,
           nameSpaceKey,
           isCompleted,
+          isViewed,
         ],
         where: '$tei IN ($questionMarks)',
         whereArgs: teiIds,

@@ -12,7 +12,7 @@ import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
-import 'package:kb_mobile_app/core/offline_db/referral_nofification/referral_nofification_offline_provider.dart';
+import 'package:kb_mobile_app/core/services/referral_notification_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
@@ -206,8 +206,8 @@ class _DreamAgywAddReferralFormState extends State<DreamAgywAddReferralForm> {
         )
       ],
     );
-    await ReferralNotificationOfflineProvider()
-        .addOrUpdateReferralNotification([referralNotification]);
+    await ReferralNotificationService()
+        .savingReferralNotificationToOfflineDb([referralNotification]);
   }
 
   @override
