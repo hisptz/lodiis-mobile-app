@@ -12,7 +12,7 @@ import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
-import 'package:kb_mobile_app/core/offline_db/referral_nofification/referral_nofification_offline_provider.dart';
+import 'package:kb_mobile_app/core/services/referral_notification_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
@@ -41,6 +41,9 @@ class DreamAgywAddReferralForm extends StatefulWidget {
 
 class _DreamAgywAddReferralFormState extends State<DreamAgywAddReferralForm> {
   final String label = 'Dream Referral Form';
+  final Map mandatoryFieldObject = Map();
+  final List<String> mandatoryFields = DreamAddReferral.getMandatoryFields();
+  List unFilledMandatoryFields = [];
   List<FormSection> formSections;
   bool isFormReady = false;
   bool isSaving = false;
@@ -51,6 +54,9 @@ class _DreamAgywAddReferralFormState extends State<DreamAgywAddReferralForm> {
     formSections = DreamAddReferral.getFormSections();
     Timer(Duration(seconds: 1), () {
       setState(() {
+        for (String id in mandatoryFields) {
+          mandatoryFieldObject[id] = true;
+        }
         isFormReady = true;
         evaluateSkipLogics();
       });
@@ -91,65 +97,79 @@ class _DreamAgywAddReferralFormState extends State<DreamAgywAddReferralForm> {
   }
 
   void onSaveForm(
-    BuildContext context,
-    Map dataObject,
-    AgywDream currentAgywDream,
-  ) async {
+      BuildContext context, Map dataObject, AgywDream currentAgywDream,
+      {Map hiddenFieldsObject = const {}}) async {
     if (FormUtil.geFormFilledStatus(dataObject, formSections)) {
-      setState(() {
-        isSaving = true;
-      });
-      String eventDate = dataObject['eventDate'];
-      String eventId = dataObject['eventId'];
-      dataObject[DreamAgywReferralConstant.referralToFollowUpLinkage] =
-          dataObject[DreamAgywReferralConstant.referralToFollowUpLinkage] ??
-              AppUtil.getUid();
-      List<String> hiddenFields = [
-        DreamAgywReferralConstant.referralToFollowUpLinkage
-      ];
-      try {
-        if (eventId == null) {
-          eventId = AppUtil.getUid();
-          await updateReferralNotification(
-            eventId,
-            dataObject,
-            currentAgywDream,
-          );
-        }
-        await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-          DreamAgywReferralConstant.program,
-          DreamAgywReferralConstant.programStage,
-          currentAgywDream.orgUnit,
-          formSections,
-          dataObject,
-          eventDate,
-          currentAgywDream.id,
-          eventId,
-          hiddenFields,
-        );
-        Provider.of<ServiveEventDataState>(context, listen: false)
-            .resetServiceEventDataState(currentAgywDream.id);
-        Timer(Duration(seconds: 1), () {
-          setState(() {
-            String currentLanguage =
-                Provider.of<LanguageTranslationState>(context, listen: false)
-                    .currentLanguage;
-            AppUtil.showToastMessage(
-              message: currentLanguage == 'lesotho'
-                  ? 'Fomo e bolokeile'
-                  : 'Form has been saved successfully',
-              position: ToastGravity.TOP,
+      bool hadAllMandatoryFilled = AppUtil.hasAllMandarotyFieldsFilled(
+          mandatoryFields, dataObject,
+          hiddenFields: hiddenFieldsObject);
+
+      if (hadAllMandatoryFilled) {
+        setState(() {
+          isSaving = true;
+        });
+        String eventDate = dataObject['eventDate'];
+        String eventId = dataObject['eventId'];
+        dataObject[DreamAgywReferralConstant.referralToFollowUpLinkage] =
+            dataObject[DreamAgywReferralConstant.referralToFollowUpLinkage] ??
+                AppUtil.getUid();
+        List<String> hiddenFields = [
+          DreamAgywReferralConstant.referralToFollowUpLinkage
+        ];
+        try {
+          if (eventId == null) {
+            eventId = AppUtil.getUid();
+            await updateReferralNotification(
+              eventId,
+              dataObject,
+              currentAgywDream,
             );
-            Navigator.pop(context);
+          }
+          await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
+            DreamAgywReferralConstant.program,
+            DreamAgywReferralConstant.programStage,
+            currentAgywDream.orgUnit,
+            formSections,
+            dataObject,
+            eventDate,
+            currentAgywDream.id,
+            eventId,
+            hiddenFields,
+          );
+          Provider.of<ServiveEventDataState>(context, listen: false)
+              .resetServiceEventDataState(currentAgywDream.id);
+          Timer(Duration(seconds: 1), () {
+            setState(() {
+              String currentLanguage =
+                  Provider.of<LanguageTranslationState>(context, listen: false)
+                      .currentLanguage;
+              AppUtil.showToastMessage(
+                message: currentLanguage == 'lesotho'
+                    ? 'Fomo e bolokeile'
+                    : 'Form has been saved successfully',
+                position: ToastGravity.TOP,
+              );
+              Navigator.pop(context);
+            });
           });
-        });
-      } catch (error) {
-        Timer(Duration(seconds: 1), () {
-          setState(() {
-            AppUtil.showToastMessage(
-                message: error.toString(), position: ToastGravity.BOTTOM);
+        } catch (error) {
+          Timer(Duration(seconds: 1), () {
+            setState(() {
+              AppUtil.showToastMessage(
+                  message: error.toString(), position: ToastGravity.BOTTOM);
+            });
           });
+        }
+      } else {
+        setState(() {
+          unFilledMandatoryFields = AppUtil.getUnFilledMandatoryFields(
+              mandatoryFields, dataObject,
+              hiddenFields: hiddenFieldsObject);
         });
+        AppUtil.showToastMessage(
+          message: 'Please fill all mandatory field',
+          position: ToastGravity.TOP,
+        );
       }
     } else {
       AppUtil.showToastMessage(
@@ -186,8 +206,8 @@ class _DreamAgywAddReferralFormState extends State<DreamAgywAddReferralForm> {
         )
       ],
     );
-    await ReferralNotificationOfflineProvider()
-        .addOrUpdateReferralNotification([referralNotification]);
+    await ReferralNotificationService()
+        .savingReferralNotificationToOfflineDb([referralNotification]);
   }
 
   @override
@@ -246,13 +266,16 @@ class _DreamAgywAddReferralFormState extends State<DreamAgywAddReferralForm> {
                                               serviceFormState
                                                   .hiddenInputFieldOptions,
                                           formSections: formSections,
-                                          mandatoryFieldObject: Map(),
+                                          mandatoryFieldObject:
+                                              mandatoryFieldObject,
                                           isEditableMode:
                                               serviceFormState.isEditableMode,
                                           dataObject:
                                               serviceFormState.formState,
                                           onInputValueChange:
                                               onInputValueChange,
+                                          unFilledMandatoryFields:
+                                              unFilledMandatoryFields,
                                         ),
                                       ),
                                       EntryFormSaveButton(
@@ -265,10 +288,11 @@ class _DreamAgywAddReferralFormState extends State<DreamAgywAddReferralForm> {
                                         buttonColor: Color(0xFF1F8ECE),
                                         fontSize: 15.0,
                                         onPressButton: () => onSaveForm(
-                                          context,
-                                          serviceFormState.formState,
-                                          currentAgywDream,
-                                        ),
+                                            context,
+                                            serviceFormState.formState,
+                                            currentAgywDream,
+                                            hiddenFieldsObject:
+                                                serviceFormState.hiddenFields),
                                       )
                                     ],
                                   )

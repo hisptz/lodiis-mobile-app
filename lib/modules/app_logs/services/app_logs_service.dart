@@ -6,7 +6,8 @@ class AppLogsService {
     await AppLogsOfflineProvider().addLogs(appLog);
   }
 
-  Future<List<AppLogs>> getAppLogs({int page}) async {
+  Future<List<AppLogs>> getAppLogs(
+      {int page, String searchableValue = ''}) async {
     List<AppLogs> appLogsList = [];
     try {
       List<AppLogs> appLogs =
@@ -14,7 +15,13 @@ class AppLogsService {
       appLogsList.addAll(appLogs);
     } catch (e) {}
 
-    return appLogsList;
+    return searchableValue == ''
+        ? appLogsList
+        : appLogsList.where((AppLogs logs) =>
+            logs.searchableValue
+                .toLowerCase()
+                .indexOf(searchableValue.toLowerCase()) !=
+            -1);
   }
 
   Future<int> getAppLogsCount() async {

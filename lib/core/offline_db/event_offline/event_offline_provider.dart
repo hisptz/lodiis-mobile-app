@@ -31,6 +31,7 @@ class EventOfflineProvider extends OfflineDbProvider {
     var dbClient = await db;
     var eventBatch = dbClient.batch();
     for (Events event in events) {
+      // TODO fix the download problem
       addOrUpdateEvent(event);
     }
 

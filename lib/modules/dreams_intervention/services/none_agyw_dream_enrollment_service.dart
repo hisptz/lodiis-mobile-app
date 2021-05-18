@@ -78,7 +78,8 @@ class NoneAgywDreamEnrollmentService {
     }
   }
 
-  Future<List<AgywDream>> getNonAgywBenficiaryList({int page}) async {
+  Future<List<AgywDream>> getNonAgywBenficiaryList(
+      {int page, String searchableValue = ''}) async {
     List<AgywDream> agywDreamList = [];
     try {
       List<Enrollment> enrollments = await EnrollmentOfflineProvider()
@@ -103,7 +104,15 @@ class NoneAgywDreamEnrollmentService {
       }
     } catch (e) {}
 
-    return agywDreamList;
+    return searchableValue == ''
+        ? agywDreamList
+        : agywDreamList
+            .where((AgywDream beneficiary) =>
+                beneficiary.searchableValue
+                    .toLowerCase()
+                    .indexOf(searchableValue.toLowerCase()) !=
+                -1)
+            .toList();
   }
 
   Future<int> getNonAgywBeneficiaryCount() async {

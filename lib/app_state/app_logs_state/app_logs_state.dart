@@ -12,6 +12,7 @@ class AppLogsState with ChangeNotifier {
   int _numberOfAppLogs = 0;
   int _numberOfPages = 0;
   int _nextPage = 0;
+  String _searchableValue = '';
 
   PagingController _pagingController;
 
@@ -46,12 +47,9 @@ class AppLogsState with ChangeNotifier {
       _nextPage = _pagingController.nextPageKey;
     }
     if (value.isNotEmpty) {
-      final filteredAppLogsList = _appLogsList
-          .where((AppLogs appLog) =>
-              appLog.searchableValue.indexOf(value.toLowerCase()) > -1)
-          .toList();
-      _pagingController.itemList = filteredAppLogsList;
-      _pagingController.nextPageKey = null;
+      _searchableValue = value;
+      notifyListeners();
+      refreshAppLogsList();
     } else {
       _pagingController.itemList = _appLogsList;
       _pagingController.nextPageKey = _nextPage;
@@ -61,13 +59,19 @@ class AppLogsState with ChangeNotifier {
   }
 
   Future<void> _fetchPage(int pageKey) async {
-    List<AppLogs> logsList = await AppLogsService().getAppLogs(page: pageKey);
-    PaginationService.assignPagesToController(
-      _pagingController,
-      logsList,
-      pageKey,
-      numberOfPages,
-    );
+    String searchableValue = _searchableValue;
+    List<AppLogs> logsList = await AppLogsService()
+        .getAppLogs(page: pageKey, searchableValue: searchableValue);
+    if (logsList.isEmpty && pageKey != numberOfPages) {
+      _fetchPage(pageKey + 1);
+    } else {
+      PaginationService.assignPagesToController(
+        _pagingController,
+        logsList,
+        pageKey,
+        numberOfPages,
+      );
+    }
   }
 
   void initializePagination() {

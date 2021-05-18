@@ -7,6 +7,7 @@ import 'package:kb_mobile_app/app_state/intervention_bottom_navigation_state/int
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/app_state/ogac_intervention_list_state/ogac_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_intervention_list_state.dart';
+import 'package:kb_mobile_app/app_state/referral_nofitication_state/referral_nofitication_state.dart';
 import 'package:kb_mobile_app/core/components/intervention_pop_up_menu.dart';
 import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
@@ -82,6 +83,10 @@ class AppBarUtil {
   }
 
   static void _onLogOut(BuildContext context) async {
+    Provider.of<IntervetionCardState>(context, listen: false)
+        .resetCurrentInterventionProgram();
+    Provider.of<InterventionBottomNavigationState>(context, listen: false)
+        .resetCurrentInterventionBottomNavigationIndex();
     await UserService().logout();
     Navigator.pushReplacement(
       context,
@@ -108,6 +113,12 @@ class AppBarUtil {
       await Provider.of<OvcInterventionListState>(context, listen: false)
           .refreshOvcNumber();
     } else if (id == 'dreams') {
+      List<String> teiWithIncomingReferral =
+          Provider.of<ReferralNotificationState>(context, listen: false)
+              .beneficiariesWithIncomingReferrals;
+      Provider.of<DreamsInterventionListState>(context, listen: false)
+          .setTeiWithIncomingReferral(
+              teiWithIncomingReferral: teiWithIncomingReferral);
       await Provider.of<DreamsInterventionListState>(context, listen: false)
           .refreshBeneficiariesNumber();
     } else if (id == 'ogac') {

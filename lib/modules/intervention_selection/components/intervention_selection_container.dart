@@ -3,8 +3,10 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/current_user_state/current_user_state.dart';
+import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
+import 'package:kb_mobile_app/app_state/referral_nofitication_state/referral_nofitication_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/route_page_not_found.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
@@ -90,6 +92,14 @@ class _InterventionSelectionContainerState
   void onInterventionButtonClick() {
     if (activeInterventionProgram != null &&
         activeInterventionProgram.id.isNotEmpty) {
+      if (activeInterventionProgram.id == 'dreams') {
+        List<String> teiWithIncomingReferral =
+            Provider.of<ReferralNotificationState>(context, listen: false)
+                .beneficiariesWithIncomingReferrals;
+        Provider.of<DreamsInterventionListState>(context, listen: false)
+            .setTeiWithIncomingReferral(
+                teiWithIncomingReferral: teiWithIncomingReferral);
+      }
       intervetionCardState
           .setCurrentInterventionProgram(activeInterventionProgram);
       Navigator.pushReplacement(
