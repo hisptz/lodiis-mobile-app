@@ -537,6 +537,8 @@ class AgywEnrollmentFormSection {
               id: 'BXUNH6LXeGA',
               name:
                   '114a. Female children below 18 years of age currently living in household',
+              translatedName:
+                  '114a. Palo ea banana ba lilelemo li ka tlase ho 18 ba phelang ka hara lelapa',
               valueType: 'INTEGER_ZERO_OR_POSITIVE',
               inputColor: Color(0xFF258DCC),
               labelColor: Color(0xFF737373)),
@@ -544,6 +546,8 @@ class AgywEnrollmentFormSection {
               id: 'kQehaqmaygZ',
               name:
                   '114b. Male children below 18 years of age currently living in household',
+              translatedName:
+                  '114b. Palo ea bashanyana ba lilelemo li ka tlase ho 18 ba phelang ka hara lelapa',
               valueType: 'INTEGER_ZERO_OR_POSITIVE',
               inputColor: Color(0xFF258DCC),
               labelColor: Color(0xFF737373)),
@@ -551,6 +555,8 @@ class AgywEnrollmentFormSection {
               id: 'rGAQnszNGVN',
               name:
                   '114c. Female aged 18 years and above currently living in household',
+              translatedName:
+                  '114c. Palo ea basali ba lilelemo li ka holimo ho 18 ba phelang ka hara lelapa',
               valueType: 'INTEGER_ZERO_OR_POSITIVE',
               inputColor: Color(0xFF258DCC),
               labelColor: Color(0xFF737373)),
@@ -558,6 +564,8 @@ class AgywEnrollmentFormSection {
               id: 'l9tcZ2TNgx6',
               name:
                   '114d. Male aged 18 years and above currently living in household',
+              translatedName:
+                  '114d. Palo ea banna ba lilelemo li ka holimo ho 18 ba phelang ka hara lelapa',
               valueType: 'INTEGER_ZERO_OR_POSITIVE',
               inputColor: Color(0xFF258DCC),
               labelColor: Color(0xFF737373)),
@@ -1172,6 +1180,8 @@ class AgywEnrollmentFormSection {
             id: 'lASgoPYJFDc',
             name:
                 'Was your last sexual partner same age, younger or older than you?',
+            translatedName:
+                'Motho oa ho qetela eo u bileng le likamano tsa thobalano le ena u ne a le moholo, a le monyane kapa le ne lele lithaka?',
             valueType: 'TEXT',
             inputColor: Color(0xFF258DCC),
             labelColor: Color(0xFF737373),
@@ -1184,6 +1194,8 @@ class AgywEnrollmentFormSection {
           InputField(
             id: 'aiXLkPRWtYb',
             name: 'Was your last sexual partner circumcised?',
+            translatedName:
+                'Na motho oa ho qetela eo u bileng le likamano tsa thobalano le eena o ne a rotse katiba (circumcised)?',
             valueType: 'TEXT',
             inputColor: Color(0xFF258DCC),
             labelColor: Color(0xFF737373),
@@ -1199,12 +1211,16 @@ class AgywEnrollmentFormSection {
           InputField(
               id: 'cVoH1CAuMTb',
               name: 'Do you know your last sexual partner HIV status?',
+              translatedName:
+                  'Na u tseba boemo ba tsoaetso ba motho oa ho qetela eo u bileng le likamano tsa thobalano le eena?',
               valueType: 'BOOLEAN',
               inputColor: Color(0xFF258DCC),
               labelColor: Color(0xFF737373)),
           InputField(
             id: 'jnO7z2XOLKv',
             name: 'How often did/do you use a condom with last partner?',
+            translatedName:
+                'Ke hangata ha kae u neng u sebelisa likhohlopo le motho oa ho qetela eo u bileng le likamano tsa thobalano le eena?',
             valueType: 'TEXT',
             inputColor: Color(0xFF258DCC),
             labelColor: Color(0xFF737373),
@@ -1218,6 +1234,8 @@ class AgywEnrollmentFormSection {
             id: 'QvjdlvdDG7B',
             name:
                 'Was your second to last sexual partner same age, younger or older than you?',
+            translatedName:
+                'Motho oa bobeli oa ho qetela eo u bileng le likamano tsa thobalano le ena u ne a le moholo, a le monyane kapa le ne lele lithaka?',
             valueType: 'TEXT',
             inputColor: Color(0xFF258DCC),
             labelColor: Color(0xFF737373),
@@ -1230,6 +1248,8 @@ class AgywEnrollmentFormSection {
           InputField(
             id: 'ZJ1O2mAvqwE',
             name: 'Was your second to last sexual partner circumcised?',
+            translatedName:
+                'Na motho oa bobeli oa ho qetela eo u bileng le likamano tsa thobalano le eena o ne a rotse katiba (circumcised)?',
             valueType: 'TEXT',
             inputColor: Color(0xFF258DCC),
             labelColor: Color(0xFF737373),
@@ -1246,6 +1266,8 @@ class AgywEnrollmentFormSection {
               id: 'vaDqnt0gK9y',
               name:
                   'Do you know your second to last sexual partner HIV status?',
+              translatedName:
+                  'Na u tseba boemo ba tsoaetso ba motho oa ho qetela eo u bileng le likamano tsa thobalano le eena?',
               valueType: 'BOOLEAN',
               inputColor: Color(0xFF258DCC),
               labelColor: Color(0xFF737373)),
@@ -1253,6 +1275,8 @@ class AgywEnrollmentFormSection {
             id: 'Ec5OLY5STtW',
             name:
                 'How often did/do you use a condom with second to last partner?',
+            translatedName:
+                'Ke hangata ha kae u neng u sebelisa likhohlopo le motho oa  bobeli oa ho qetela eo u bileng le likamano tsa thobalano le eena?',
             valueType: 'TEXT',
             inputColor: Color(0xFF258DCC),
             labelColor: Color(0xFF737373),
@@ -1266,6 +1290,8 @@ class AgywEnrollmentFormSection {
             id: 'jbKpQbrAoDh',
             name:
                 'Was your third last sexual partner same age, younger or older than you?',
+            translatedName:
+                'Motho oa boraro oa ho qetela eo u bileng le likamano tsa thobalano le ena u ne a le moholo, a le monyane kapa le ne lele lithaka?',
             valueType: 'TEXT',
             inputColor: Color(0xFF258DCC),
             labelColor: Color(0xFF737373),
@@ -1278,6 +1304,8 @@ class AgywEnrollmentFormSection {
           InputField(
             id: 'tO8VP3yEJHq',
             name: 'Was your third to last sexual partner circumcised?',
+            translatedName:
+                'Na motho oa boraro oa ho qetela eo u bileng le likamano tsa thobalano le eena o ne a rotse katiba (circumcised)?',
             valueType: 'TEXT',
             inputColor: Color(0xFF258DCC),
             labelColor: Color(0xFF737373),
@@ -1293,6 +1321,8 @@ class AgywEnrollmentFormSection {
           InputField(
               id: 'caGPbXZ8ATS',
               name: 'Do you know your third to last sexual partner HIV status?',
+              translatedName:
+                  'Na u tseba boemo ba tsoaetso ba motho oa boraro oa ho qetela eo u bileng le likamano tsa thobalano le eena?',
               valueType: 'BOOLEAN',
               inputColor: Color(0xFF258DCC),
               labelColor: Color(0xFF737373)),
@@ -1300,6 +1330,8 @@ class AgywEnrollmentFormSection {
             id: 'bhH17wShRcN',
             name:
                 'How often did/do you use a condom with third to last partner?',
+            translatedName:
+                'Ke hangata ha kae u neng u sebelisa likhohlopo le motho oa  boraro oa ho qetela eo u bileng le likamano tsa thobalano le eena?',
             valueType: 'TEXT',
             inputColor: Color(0xFF258DCC),
             labelColor: Color(0xFF737373),

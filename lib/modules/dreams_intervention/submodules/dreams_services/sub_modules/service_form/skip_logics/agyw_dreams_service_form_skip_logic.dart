@@ -63,6 +63,24 @@ class AgywDreamsServiceFormSkipLogic {
     }
     hiddenInputFieldOptions['Eug4BXDFLym'] = hiddenOptions;
 
+    for (String inputFieldId in inputFieldIds) {
+      String value = '${dataObject[inputFieldId]}';
+
+      if (inputFieldId == 'Eug4BXDFLym' &&
+          [
+                'FINANCIAL EDUCATION',
+                'SILC',
+                'SAVING GROUP',
+                'PTS 4 NON-GRADS',
+                'PTS 4-GRADS'
+              ].indexOf(value) !=
+              -1) {
+        hiddenFields['FoLeDcnocv4'] = true;
+        hiddenFields['JjX25d72ume'] = true;
+        hiddenFields['qxO13pu8vAk'] = true;
+      }
+    }
+
     for (String sectionId in hiddenSections.keys) {
       List<FormSection> allFormSections =
           FormUtil.getFlattenFormSections(formSections);

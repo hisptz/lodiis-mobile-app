@@ -22,6 +22,10 @@ class IntervetionCardState with ChangeNotifier {
     setCurrentInterventionProgram(interventions[index]);
   }
 
+  void resetCurrentInterventionProgram() {
+    _currentInterventionProgram = new InterventionCard(name: '');
+  }
+
   // selectors
   InterventionCard get currentIntervetionProgram => _currentInterventionProgram;
 }

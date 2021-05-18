@@ -56,7 +56,8 @@ class OgacEnrollementservice {
     );
   }
 
-  Future<List<OgacBeneficiary>> getOgacBeneficiaries({int page}) async {
+  Future<List<OgacBeneficiary>> getOgacBeneficiaries(
+      {int page, String searchableValue = ''}) async {
     List<OgacBeneficiary> ogacBeneficiaries = [];
     List<Enrollment> enrollments = await EnrollmentOfflineProvider()
         .getEnrollements(OgacInterventionConstant.program, page: page);
@@ -84,11 +85,20 @@ class OgacEnrollementservice {
         ));
       }
     }
-    return ogacBeneficiaries;
+    return searchableValue == ''
+        ? ogacBeneficiaries
+        : ogacBeneficiaries
+            .where((OgacBeneficiary beneficiary) =>
+                beneficiary.searchableValue
+                    .toLowerCase()
+                    .indexOf(searchableValue.toLowerCase()) !=
+                -1)
+            .toList();
   }
 
-  Future<int> getOgacBeneficiariesCount() async{
-    return await EnrollmentOfflineProvider().getEnrollmentsCount(OgacInterventionConstant.program);
+  Future<int> getOgacBeneficiariesCount() async {
+    return await EnrollmentOfflineProvider()
+        .getEnrollmentsCount(OgacInterventionConstant.program);
   }
 
   savingOgacBeneficiaryEvent(

@@ -50,7 +50,7 @@ class _SplashState extends State<Splash> {
             await UserAccess().getSavedUserAccessConfigurations();
         Provider.of<CurrentUserState>(context, listen: false)
             .setCurrentUser(user, userAccessConfigurations);
-        Provider.of<ReferralNotificationState>(context, listen: false)
+        await Provider.of<ReferralNotificationState>(context, listen: false)
             .setCurrentImplementingPartner(user.implementingPartner);
         await ImplementingPartnerReferralConfigService()
             .checkOfflineImplementingPartnerReferralServices();
