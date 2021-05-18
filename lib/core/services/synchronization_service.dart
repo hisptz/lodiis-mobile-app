@@ -264,7 +264,6 @@ class SynchronizationService {
     }
   }
 
-//TrackedEntityInstanceOfflineAttributeProvider
   Future saveEnrollmentToOffline(dynamic enrollments) async {
     for (var enrollment in enrollments) {
       EnrollmentOfflineProvider()

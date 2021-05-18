@@ -1,10 +1,11 @@
 import 'dart:async';
-
+import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/device_connectivity_state/device_connectivity_state.dart';
+import 'package:kb_mobile_app/app_state/referral_nofitication_state/referral_nofitication_state.dart';
 import 'package:kb_mobile_app/app_state/synchronization_state/synchronization_state.dart';
+import 'package:kb_mobile_app/core/services/referral_notification_service.dart';
 import 'package:kb_mobile_app/modules/synchronization/synchronization.dart';
-import 'package:provider/provider.dart';
 
 class DataDownloadMessage extends StatefulWidget {
   @override
@@ -31,7 +32,10 @@ class _DataDownloadMessageState extends State<DataDownloadMessage> {
     }
   }
 
-  void checkForAvailableBeneficiaryDataFromServer() {
+  void checkForAvailableBeneficiaryDataFromServer() async {
+    await ReferralNotificationService().syncReferralNotifications();
+    await Provider.of<ReferralNotificationState>(context, listen: false)
+        .reloadReferralNotifications();
     Timer(Duration(milliseconds: 200), () {
       bool connected =
           Provider.of<DeviceConnectivityState>(context, listen: false)

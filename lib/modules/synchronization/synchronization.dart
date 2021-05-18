@@ -10,6 +10,7 @@ import 'package:kb_mobile_app/app_state/synchronization_state/synchronization_st
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
+import 'package:kb_mobile_app/core/services/referral_notification_service.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/synchronization/components/data_upload_container.dart';
 import 'package:kb_mobile_app/modules/synchronization/conflict_on_download_page.dart';
@@ -31,6 +32,9 @@ class _SynchronizationState extends State<Synchronization> {
         .startDataUploadActivity();
     Provider.of<SynchronizationState>(context, listen: false)
         .startCheckingStatusOfUnsyncedData();
+    await ReferralNotificationService().syncReferralNotifications();
+    await Provider.of<ReferralNotificationState>(context, listen: false)
+        .reloadReferralNotifications();
   }
 
   void onViewConflicts(BuildContext context) async {
@@ -45,6 +49,7 @@ class _SynchronizationState extends State<Synchronization> {
     try {
       await Provider.of<SynchronizationState>(context, listen: false)
           .startDataDownloadActivity();
+      await ReferralNotificationService().syncReferralNotifications();
       await Provider.of<ReferralNotificationState>(context, listen: false)
           .reloadReferralNotifications();
       Provider.of<OvcInterventionListState>(context, listen: false)
@@ -114,17 +119,16 @@ class _SynchronizationState extends State<Synchronization> {
                           Container(
                             margin: EdgeInsets.symmetric(vertical: 5.0),
                             child: DataUploadContainer(
-                                beneficiaryCount: beneficiaryCount,
-                                beneficiaryServiceCount:
-                                    beneficiaryServiceCount,
-                                isDataDownloadingActive:
-                                    isDataDownloadingActive,
-                                isDataUploadingActive: isDataUploadingActive,
-                                hasUnsyncedData: hasUnsyncedData,
-                                dataUploadProcesses:
-                                    synchronizationState.dataUploadProcesses,
-                                onStartDataUpload: () =>
-                                    onStartDataUpload(context)),
+                              beneficiaryCount: beneficiaryCount,
+                              beneficiaryServiceCount: beneficiaryServiceCount,
+                              isDataDownloadingActive: isDataDownloadingActive,
+                              isDataUploadingActive: isDataUploadingActive,
+                              hasUnsyncedData: hasUnsyncedData,
+                              dataUploadProcesses:
+                                  synchronizationState.dataUploadProcesses,
+                              onStartDataUpload: () =>
+                                  onStartDataUpload(context),
+                            ),
                           ),
                           Container(
                             margin: EdgeInsets.symmetric(vertical: 5.0),

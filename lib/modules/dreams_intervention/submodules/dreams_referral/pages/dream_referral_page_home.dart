@@ -81,6 +81,7 @@ class _DreamAgywReferralPageState extends State<DreamAgywReferralPage> {
     Events eventData,
     int referralIndex,
   ) {
+    updateViewStatusOfReferralNotification(context, eventData);
     updateFormState(context, false, eventData);
     Navigator.push(
       context,
@@ -91,6 +92,25 @@ class _DreamAgywReferralPageState extends State<DreamAgywReferralPage> {
         ),
       ),
     );
+  }
+
+  void updateViewStatusOfReferralNotification(
+    BuildContext context,
+    Events eventData,
+  ) {
+    try {
+      bool isCompleted = true;
+      bool isViewed = false;
+      Provider.of<ReferralNotificationState>(context, listen: false)
+          .updateReferralNotificaionEvent(
+        eventData.event,
+        eventData.trackedEntityInstance,
+        isCompleted,
+        isViewed,
+      );
+    } catch (error) {
+      print(error.toString());
+    }
   }
 
   void onManageChildReferral(
