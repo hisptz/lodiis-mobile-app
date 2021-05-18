@@ -39,7 +39,7 @@ class ReferralNotification {
     );
   }
 
-  Map toOffline({bool shoulTransaformCompleteStatus = false}) {
+  Map toOffline({bool shoulTransaformBoolenValues = false}) {
     Map data = Map<String, dynamic>();
     data["id"] = id;
     data["implementingPartner"] = implementingPartner;
@@ -48,7 +48,7 @@ class ReferralNotification {
     data["referrals"] = referrals
         .map((ReferralEventNotification referralEventNotification) =>
             referralEventNotification.toOffline(
-              shoulTransaformCompleteStatus: shoulTransaformCompleteStatus,
+              shoulTransaformBoolenValues: shoulTransaformBoolenValues,
             ))
         .toList();
     return data;
@@ -56,6 +56,6 @@ class ReferralNotification {
 
   @override
   String toString() {
-    return "<id : $id implementingPartner : $implementingPartner nameSpaceKey : $nameSpaceKey tei : $tei $referrals>";
+    return "<id: $id implementingPartner: $implementingPartner nameSpaceKey: $nameSpaceKey tei: $tei referrals: $referrals>";
   }
 }

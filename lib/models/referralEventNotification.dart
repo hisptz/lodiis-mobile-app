@@ -5,14 +5,17 @@ class ReferralEventNotification {
   String tei;
   String nameSpaceKey;
   bool isCompleted;
+  bool isViewed;
 
   ReferralEventNotification({
     @required this.id,
     @required this.tei,
     @required this.nameSpaceKey,
     this.isCompleted,
+    this.isViewed,
   }) {
     this.isCompleted = this.isCompleted ?? false;
+    this.isViewed = this.isViewed ?? false;
   }
 
   factory ReferralEventNotification.fromJson(Map json) {
@@ -20,24 +23,31 @@ class ReferralEventNotification {
     String tei = json["tei"] ?? "";
     String nameSpaceKey = json["nameSpaceKey"] ?? "";
     dynamic isCompleted = json["isCompleted"];
+    dynamic isViewed = json["isViewed"];
     return ReferralEventNotification(
       id: id,
       tei: tei,
       nameSpaceKey: nameSpaceKey,
       isCompleted: "$isCompleted" == "1" || "$isCompleted" == "true",
+      isViewed: "$isViewed" == "1" || "$isViewed" == "true",
     );
   }
 
   Map toOffline({
-    bool shoulTransaformCompleteStatus = false,
+    bool shoulTransaformBoolenValues = false,
   }) {
     Map data = Map<String, dynamic>();
     data["id"] = id;
     data["nameSpaceKey"] = nameSpaceKey;
     data["tei"] = tei;
-    data["isCompleted"] = shoulTransaformCompleteStatus
+    data["isCompleted"] = shoulTransaformBoolenValues
         ? isCompleted
         : "$isCompleted" == "true"
+            ? 1
+            : 0;
+    data["isViewed"] = shoulTransaformBoolenValues
+        ? isViewed
+        : "$isViewed" == "true"
             ? 1
             : 0;
     return data;
@@ -45,6 +55,6 @@ class ReferralEventNotification {
 
   @override
   String toString() {
-    return "<id :$id, tei : $tei, nameSpaceKey : $nameSpaceKey, isCompleted: $isCompleted>";
+    return "<id: $id, tei: $tei, nameSpaceKey: $nameSpaceKey, isCompleted: $isCompleted isViewed: $isViewed>";
   }
 }

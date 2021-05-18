@@ -20,13 +20,15 @@ class ReferralNotificationService {
       List<ReferralNotification> offlineReferralNotifications =
           await getReferralNotificationFromOffline();
 
-      print(onlineReferralNotifications);
+      print('onlineReferralNotifications : $onlineReferralNotifications');
       print("\n");
-      print(offlineReferralNotifications);
+      print("offlineReferralNotifications : $offlineReferralNotifications");
+      print("\n");
+      await savingReferralNotificationToOfflineDb(onlineReferralNotifications);
       // sorting diff
       // update local
       // update online data
-      updateReferralNotificationToServer(offlineReferralNotifications);
+      //  updateReferralNotificationToServer(offlineReferralNotifications);
     } catch (error) {
       print(error.toString());
     }
@@ -77,14 +79,19 @@ class ReferralNotificationService {
           .toList();
       for (String nameSpaceKey in nameSpaceKeys) {
         String url = "$apiUrlToDataStore/$nameSpaceKey";
-        var jsonData = referralNotifications
+        var jsondata = (referralNotifications
+                .where((ReferralNotification referralNotification) =>
+                    referralNotification.nameSpaceKey == nameSpaceKey)
+                .toList())
             .map((ReferralNotification referralNotification) =>
-                referralNotification.toJson())
+                referralNotification.toOffline(
+                  shoulTransaformBoolenValues: true,
+                ))
             .toList();
         await httpService.httpDelete(url, queryParameters: {});
         await httpService.httpPost(
           "$apiUrlToDataStore/$nameSpaceKey",
-          json.encode(jsonData),
+          json.encode(jsondata),
           queryParameters: {},
         );
       }
@@ -115,7 +122,7 @@ class ReferralNotificationService {
         password: currentUser.password,
       );
       String implementingPartner =
-          currentUser.implementingPartner.split("/").join("-");
+          currentUser.implementingPartner.split("/").join("-").trim();
       Response response = await httpService.httpGet(
         apiUrlToDataStore,
         queryParameters: {},
@@ -162,7 +169,7 @@ class ReferralNotificationService {
     List<String> selectedKeys = [];
     try {
       for (String key in json.decode(response.body)) {
-        if (key.contains(implementingPartner)) {
+        if (key.indexOf(implementingPartner) > -1) {
           selectedKeys.add(key);
         }
       }
