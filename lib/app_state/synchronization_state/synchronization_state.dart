@@ -1,8 +1,11 @@
 import 'dart:async';
 import 'package:flutter/foundation.dart';
+import 'package:kb_mobile_app/core/constants/app_logs.dart';
+import 'package:kb_mobile_app/core/offline_db/app_logs_offline/app_logs_offline_provider.dart';
 import 'package:kb_mobile_app/core/services/synchronization_service.dart';
 import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
+import 'package:kb_mobile_app/models/app_logs.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
@@ -133,6 +136,33 @@ class SynchronizationState with ChangeNotifier {
             ? 'New beneficiary data are available, try to sync!'
             : '');
     updateStatusForAvailableDataFromServer(status: false);
+    try {
+      CurrentUser currentUser = await UserService().getCurrentUser();
+      _synchronizationService = SynchronizationService(
+          currentUser.username,
+          currentUser.password,
+          currentUser.programs,
+          currentUser.userOrgUnitIds);
+      int offlineEnrollmentsCount =
+          await _synchronizationService.getOfflineEnrollmentCount(currentUser);
+      int offlineEventsCount =
+          await _synchronizationService.getOfflineEventsCount(currentUser);
+      int onlineEnrollmentsCount =
+          await _synchronizationService.getOnlineEnrollmentsCount(currentUser);
+      int onlineEventsCount =
+          await _synchronizationService.getOnlineEventsCount(currentUser);
+      setStatusMessageForAvailableDataFromServer(
+          onlineEventsCount > offlineEventsCount ||
+                  onlineEnrollmentsCount > offlineEnrollmentsCount
+              ? 'New beneficiary data are available, try to sync!'
+              : '');
+      updateStatusForAvailableDataFromServer(status: false);
+    } catch (e) {
+      AppLogs log = AppLogs(
+          type: AppLogsConstants.errorLogType, message: '${e.toString()}');
+      await AppLogsOfflineProvider().addLogs(log);
+      setStatusMessageForAvailableDataFromServer('');
+    }
   }
 
   Future<void> startCheckingStatusOfUnsyncedData() async {
