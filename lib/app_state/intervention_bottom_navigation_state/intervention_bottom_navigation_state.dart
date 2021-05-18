@@ -24,6 +24,9 @@ class InterventionBottomNavigationState with ChangeNotifier {
   int get currentInterventionBottomNavigationIndex =>
       _currentInterventionBottomNavigationIndex;
 
+  String get currentInterventionBottomNavigationId =>
+      _currentInterventionBottomNavigationId;
+
   InterventionBottomNavigation getCurrentInterventionBottomNavigation(
       InterventionCard activeInterventionProgram) {
     List<InterventionBottomNavigation> interventionBottomNavigations =
