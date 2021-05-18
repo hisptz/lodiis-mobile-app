@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/app_state/current_user_state/current_user_state.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dream_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar_container.dart';
@@ -7,6 +8,7 @@ import 'package:kb_mobile_app/core/components/referrals/referral_detailed_card.d
 import 'package:kb_mobile_app/core/components/referrals/referral_outcome_card_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
+import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
@@ -29,6 +31,17 @@ class DreamReferralManage extends StatefulWidget {
 
 class _DreamReferralManageState extends State<DreamReferralManage> {
   final String label = 'Manage Agyw Referral';
+
+  bool shouldEditRefferal(List dataValues) {
+    CurrentUser user =
+        Provider.of<CurrentUserState>(context, listen: false).currentUser;
+    var referralImplementingPartner = dataValues.firstWhere((datavalue) =>
+        datavalue['dataElement'] ==
+        DreamAgywReferralConstant.referralImplementingPartner);
+    return referralImplementingPartner != null
+        ? referralImplementingPartner['value'] != user.implementingPartner
+        : true;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +86,8 @@ class _DreamReferralManageState extends State<DreamReferralManage> {
                                 isOvcIntervention: false,
                                 referralIndex: widget.referralIndex,
                                 eventData: widget.eventData,
-                                isEditable: true,
+                                isEditable: shouldEditRefferal(
+                                    widget.eventData.dataValues ?? []),
                               ),
                               ReferralOutComeCardContainer(
                                 isOvcIntervention: false,

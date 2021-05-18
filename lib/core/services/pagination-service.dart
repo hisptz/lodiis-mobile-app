@@ -27,7 +27,7 @@ class PaginationService {
     if (numberOfPages <= 0) {
       pagingController.appendLastPage(ovcList);
     } else {
-      if (pageKey == (numberOfPages - 1)) {
+      if (pageKey >= (numberOfPages - 1)) {
         pagingController.appendLastPage(ovcList);
       } else {
         pagingController.appendPage(ovcList, (pageKey + 1));

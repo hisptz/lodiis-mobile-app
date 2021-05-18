@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:async';
 import 'package:flutter_svg/svg.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_bottom_navigation_state/intervention_bottom_navigation_state.dart';
@@ -36,7 +37,9 @@ class InterventionAppBar extends StatefulWidget {
 }
 
 class _InterventionAppBarState extends State<InterventionAppBar> {
+  Timer _searchDebounce;
   bool isSearchActive = false;
+  String searchedValued = '';
   InputField inputField = InputField(
     id: 'search',
     name: '',
@@ -48,23 +51,57 @@ class _InterventionAppBarState extends State<InterventionAppBar> {
     BuildContext context,
   ) {
     String value = '';
+    searchedValued = value;
     isSearchActive = !isSearchActive;
     setState(() {});
-    onSearchBeneficiary(context, value);
+    if (isSearchActive) {
+      onSearchBeneficiary(context, value);
+    } else {
+      refreshBeneficiaryList(context);
+    }
+  }
+
+  void onInputValueChange(BuildContext context, String value) {
+    if (_searchDebounce?.isActive ?? false) _searchDebounce.cancel();
+    _searchDebounce = Timer(const Duration(milliseconds: 2000), () {
+      onSearchBeneficiary(context, value);
+    });
+  }
+
+  void refreshBeneficiaryList(BuildContext context) {
+    if (widget.activeInterventionProgram.id == 'ogac') {
+      Provider.of<OgacInterventionListState>(context, listen: false)
+          .refreshOgacNumber();
+    } else if (widget.activeInterventionProgram.id == 'dreams') {
+      Provider.of<DreamsInterventionListState>(context, listen: false)
+          .refreshBeneficiariesNumber();
+    } else if (widget.activeInterventionProgram.id == 'ovc') {
+      Provider.of<OvcInterventionListState>(context, listen: false)
+          .refreshOvcNumber();
+    }
   }
 
   void onSearchBeneficiary(BuildContext context, String value) {
     value = value.toLowerCase();
-    if (widget.activeInterventionProgram.id == 'ogac') {
-      Provider.of<OgacInterventionListState>(context, listen: false)
-          .searchOgacList(value);
-    } else if (widget.activeInterventionProgram.id == 'dreams') {
-      Provider.of<DreamsInterventionListState>(context, listen: false)
-          .searchAgywDreams(value);
-    } else if (widget.activeInterventionProgram.id == 'ovc') {
-      Provider.of<OvcInterventionListState>(context, listen: false)
-          .searchHouseHold(value);
+    if (searchedValued != value || searchedValued == '') {
+      searchedValued = value;
+      if (widget.activeInterventionProgram.id == 'ogac') {
+        Provider.of<OgacInterventionListState>(context, listen: false)
+            .searchOgacList(value);
+      } else if (widget.activeInterventionProgram.id == 'dreams') {
+        Provider.of<DreamsInterventionListState>(context, listen: false)
+            .searchAgywDreams(value);
+      } else if (widget.activeInterventionProgram.id == 'ovc') {
+        Provider.of<OvcInterventionListState>(context, listen: false)
+            .searchHouseHold(value);
+      }
     }
+  }
+
+  @override
+  void dispose() {
+    _searchDebounce?.cancel();
+    super.dispose();
   }
 
   @override

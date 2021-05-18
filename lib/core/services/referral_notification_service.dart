@@ -24,7 +24,8 @@ class ReferralNotificationService {
     return referralNofications;
   }
 
-  updateReferralNotificaionEvent(String referralEventId, String tei) async {
+  Future<void> updateReferralNotificaionEvent(
+      String referralEventId, String tei) async {
     try {
       List<ReferralEventNotification> referralEvents =
           await ReferralEventNotificationOfflineProvider()
