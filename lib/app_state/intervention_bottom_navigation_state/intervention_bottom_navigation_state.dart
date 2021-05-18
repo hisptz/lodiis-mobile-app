@@ -16,6 +16,7 @@ class InterventionBottomNavigationState with ChangeNotifier {
 
   void resetCurrentInterventionBottomNavigationIndex() {
     _currentInterventionBottomNavigationIndex = 0;
+    _currentInterventionBottomNavigationId = null;
     notifyListeners();
   }
 
