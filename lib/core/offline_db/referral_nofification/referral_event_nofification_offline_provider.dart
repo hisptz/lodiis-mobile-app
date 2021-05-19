@@ -4,7 +4,7 @@ import 'package:sqflite/sqflite.dart';
 
 class ReferralEventNotificationOfflineProvider extends OfflineDbProvider {
   // table name
-  final String table = "referrak_event_notification";
+  final String table = "referral_event_notification";
   // column\
   final String id = "id";
   final String tei = "tei";

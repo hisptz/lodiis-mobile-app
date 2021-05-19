@@ -4,6 +4,7 @@ import 'package:http/http.dart';
 import 'package:kb_mobile_app/core/offline_db/referral_nofification/referral_event_nofification_offline_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/referral_nofification/referral_nofification_offline_provider.dart';
 import 'package:kb_mobile_app/core/services/http_service.dart';
+import 'package:kb_mobile_app/core/services/organisation_unit_service.dart';
 import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/models/referralEventNotification.dart';
@@ -115,15 +116,17 @@ class ReferralNotificationService {
   Future<List<ReferralNotification>>
       discoveringReferralNotificationFromServer() async {
     List<ReferralNotification> referralNotifications = [];
+    List<String> locations = [];
     try {
       CurrentUser currentUser = await UserService().getCurrentUser();
       HttpService httpService = HttpService(
         username: currentUser.username,
         password: currentUser.password,
       );
-      //@TODO list possible name spaces
-      // get list of users with possible location to manage
-      //List<String> ous = currentUser.userOrgUnitIds;
+      for (String organisationUnitId in currentUser.userOrgUnitIds) {
+        locations.addAll(await OrganisationUnitService()
+            .getOrganisationUnitsInPathByOrganisationUnit(organisationUnitId));
+      }
       String implementingPartner =
           currentUser.implementingPartner.split("/").join("-").trim();
       Response response = await httpService.httpGet(
@@ -133,6 +136,7 @@ class ReferralNotificationService {
       List<String> keysForReferralNotification = getKeysForReferralNofification(
         response,
         implementingPartner,
+        locations,
       );
       referralNotifications = await getReferralNotificationFromServer(
         keysForReferralNotification,
@@ -168,12 +172,23 @@ class ReferralNotificationService {
   List<String> getKeysForReferralNofification(
     Response response,
     String implementingPartner,
+    List<String> locations,
   ) {
     List<String> selectedKeys = [];
     try {
-      for (String key in json.decode(response.body)) {
-        if (key.indexOf(implementingPartner) > -1) {
-          selectedKeys.add(key);
+      if (locations.length > 0) {
+        for (String key in json.decode(response.body)) {
+          if (key.indexOf(implementingPartner) > -1) {
+            selectedKeys.add(key);
+          }
+        }
+      } else {
+        for (String key in json.decode(response.body)) {
+          for (String location in locations) {
+            if (key.indexOf(location) > -1) {
+              selectedKeys.add(key);
+            }
+          }
         }
       }
     } catch (error) {
