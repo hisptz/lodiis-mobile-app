@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:kb_mobile_app/core/constants/app_logs.dart';
 import 'package:kb_mobile_app/core/offline_db/app_logs_offline/app_logs_offline_provider.dart';
+import 'package:kb_mobile_app/core/services/implementing_partner_config_service.dart';
 import 'package:kb_mobile_app/core/services/synchronization_service.dart';
 import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
@@ -192,11 +193,19 @@ class SynchronizationState with ChangeNotifier {
     addDataDownloadProcess("Start Downloading....");
     int count = 0;
     int totalCount = 0;
-    int total = _synchronizationService.orgUnitIds.length *
-        _synchronizationService.programs.length;
+    int total = 0;
     try {
+      CurrentUser currentUser = await UserService().getCurrentUser();
+      var implementingPartnerConfig = await ImplementingPartnerConfigService()
+          .getImplementingPartnerConfigFromTheServer(
+              currentUser.username, currentUser.password);
+      List currentUserPrograms =
+          implementingPartnerConfig[currentUser.implementingPartner];
+      total = _synchronizationService.orgUnitIds.length *
+          currentUserPrograms.length;
       for (String orgUnitId in _synchronizationService.orgUnitIds) {
-        for (String program in _synchronizationService.programs) {
+        for (String program in _synchronizationService.programs
+            .where((program) => currentUserPrograms.indexOf(program) != -1)) {
           count++;
           totalCount++;
           profileProgress = count / total;
@@ -209,7 +218,8 @@ class SynchronizationState with ChangeNotifier {
       }
       count = 0;
       for (String orgUnitId in _synchronizationService.orgUnitIds) {
-        for (String program in _synchronizationService.programs) {
+        for (String program in _synchronizationService.programs
+            .where((program) => currentUserPrograms.indexOf(program) != -1)) {
           count++;
           totalCount++;
           eventsProgress = count / total;
@@ -226,6 +236,9 @@ class SynchronizationState with ChangeNotifier {
       setStatusMessageForAvailableDataFromServer('');
     } catch (e) {
       _dataDownloadProcess = [];
+      AppLogs log = AppLogs(
+          type: AppLogsConstants.errorLogType, message: '${e.toString()}');
+      await AppLogsOfflineProvider().addLogs(log);
       updateDataDownloadStatus(false);
       AppUtil.showToastMessage(message: 'Error downloading data');
     }
