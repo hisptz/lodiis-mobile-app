@@ -27,7 +27,9 @@ class OfflineDbProvider {
     "CREATE TABLE IF NOT EXISTS referrak_event_notification (id TEXT PRIMARY KEY, tei TEXT, nameSpaceKey TEXT, isCompleted TEXT, isViewed TEXT)"
   ];
 
-  final List<String> migrationQuery = [];
+  final List<String> migrationQuery = [
+    "UPDATE tracked_entity_instance_attribute SET value = 'JHPIEGO' WHERE attribute = 'klLkGxy328c' AND value = 'JPHIEGO'"
+  ];
 
   Future<Database> get db async {
     if (_db != null) {
