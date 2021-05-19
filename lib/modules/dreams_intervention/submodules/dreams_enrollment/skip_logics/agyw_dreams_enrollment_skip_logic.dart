@@ -108,7 +108,11 @@ class AgywDreamsEnrollmentSkipLogic {
         } else {
           assignInputFieldValue(context, 'AZCVLPzD0Vd', '');
         }
+        if (age > 17) {
+          hiddenFields['Z7PTcgqwCLu'] = true;
+        }
       }
+
       if (inputFieldId == 'oEbOkfQY3NP' && value != 'Other') {
         hiddenFields['ODMyZc2F7uc'] = true;
       }
@@ -331,6 +335,7 @@ class AgywDreamsEnrollmentSkipLogic {
         hiddenFields['u4PdP8HWVrs'] = true;
         hiddenFields['XR1QhO62Zm9'] = true;
         hiddenFields['qjFPwTWaHhx'] = true;
+        hiddenFields['sNLZwEeOdZe'] = true;
       }
       if (inputFieldId == 'i32OwNqUYRn' && value != 'true') {
         hiddenFields['ClDEtAAqDPI'] = true;
