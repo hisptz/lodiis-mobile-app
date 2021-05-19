@@ -232,14 +232,39 @@ class InterventionBottomNavigationIcon extends StatelessWidget {
                 child: Container(
                   child: Consumer<ReferralNotificationState>(
                     builder: (context, referralNotificationState, child) {
-                      return Text(
-                        "9+",
-                        style: TextStyle().copyWith(
-                          color: currentInterventionBottomNavigation != null &&
-                                  currentInterventionBottomNavigation.id ==
-                                      interventionBottomNavigation.id
-                              ? Colors.white
-                              : inactiveColor,
+                      String incomingReferralsResolved =
+                          referralNotificationState.incomingReferralsResolved;
+                      String incomingReferralToResolve =
+                          referralNotificationState.incomingReferralToResolve;
+                      return ClipOval(
+                        clipBehavior: Clip.antiAliasWithSaveLayer,
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                            vertical: 3.0,
+                            horizontal: 5.0,
+                          ),
+                          color:
+                              (interventionBottomNavigation.id == "referral" &&
+                                          incomingReferralsResolved != "") ||
+                                      (interventionBottomNavigation.id ==
+                                              "incomingReferral" &&
+                                          incomingReferralToResolve != "")
+                                  ? inactiveColor.withOpacity(0.5)
+                                  : inactiveColor.withOpacity(0.0),
+                          child: Text(
+                            interventionBottomNavigation.id == "referral"
+                                ? incomingReferralsResolved
+                                : incomingReferralToResolve,
+                            style: TextStyle().copyWith(
+                              fontWeight: FontWeight.bold,
+                              color: currentInterventionBottomNavigation !=
+                                          null &&
+                                      currentInterventionBottomNavigation.id ==
+                                          interventionBottomNavigation.id
+                                  ? Colors.white
+                                  : inactiveColor,
+                            ),
+                          ),
                         ),
                       );
                     },
