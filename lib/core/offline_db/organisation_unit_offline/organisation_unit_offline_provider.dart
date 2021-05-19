@@ -1,6 +1,7 @@
 import 'package:kb_mobile_app/core/offline_db/offline_db_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/organisation_unit_offline/organisation_children_offline_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/organisation_unit_offline/organisation_program_offline_provider.dart';
+import 'package:kb_mobile_app/core/offline_db/organisation_unit_offline/organisation_unit_path_offline_provider.dart';
 import 'package:kb_mobile_app/models/organisation_unit.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -22,6 +23,8 @@ class OrganisationUnitOffline extends OfflineDbProvider {
           .addOrUpdateChildrenOrganisationUnits(organisationUnit);
       await OrganisationUnitProgramOfflineProvider()
           .addOrUpdateProgramOrganisationUnits(organisationUnit);
+      await OrganisationUnitPathOfflineProvider()
+          .addOrUpdateOrganisationUnitPath(organisationUnit);
     }
   }
 
@@ -41,13 +44,16 @@ class OrganisationUnitOffline extends OfflineDbProvider {
       );
       if (maps.isNotEmpty) {
         for (Map map in maps) {
-          String organizationUnitId = map['id'];
+          String organisationUnitId = map['id'];
+          String path = await OrganisationUnitPathOfflineProvider()
+              .getOrganiationUnitPath(organisationUnitId);
           List childrens = await OrganisationUnitChildrenOfflineProvider()
-              .getChildrenOrganisationUnits(organizationUnitId);
+              .getChildrenOrganisationUnits(organisationUnitId);
           List programs = await OrganisationUnitProgramOfflineProvider()
-              .getProgramOrganisationUnits(organizationUnitId);
+              .getProgramOrganisationUnits(organisationUnitId);
           OrganisationUnit organisationUnits =
               OrganisationUnit.fromOffline(map);
+          organisationUnits.path = path;
           organisationUnits.program = programs;
           organisationUnits.children = childrens;
           organisationUnitList.add(organisationUnits);
@@ -72,13 +78,16 @@ class OrganisationUnitOffline extends OfflineDbProvider {
           whereArgs: organisationIds);
       if (maps.isNotEmpty) {
         for (Map map in maps) {
-          String organizationUnitId = map['id'];
+          String organisationUnitId = map['id'];
+          String path = await OrganisationUnitPathOfflineProvider()
+              .getOrganiationUnitPath(organisationUnitId);
           List childrens = await OrganisationUnitChildrenOfflineProvider()
-              .getChildrenOrganisationUnits(organizationUnitId);
+              .getChildrenOrganisationUnits(organisationUnitId);
           List programs = await OrganisationUnitProgramOfflineProvider()
-              .getProgramOrganisationUnits(organizationUnitId);
+              .getProgramOrganisationUnits(organisationUnitId);
           OrganisationUnit organisationUnits =
               OrganisationUnit.fromOffline(map);
+          organisationUnits.path = path;
           organisationUnits.program = programs;
           organisationUnits.children = childrens;
           organisationUnitList.add(organisationUnits);

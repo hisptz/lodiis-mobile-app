@@ -3,6 +3,7 @@ class OrganisationUnit {
   String parent;
   String name;
   String code;
+  String path;
   int level;
   List program;
   List children;
@@ -19,7 +20,12 @@ class OrganisationUnit {
     this.code,
     this.program,
     this.children,
-  });
+    this.path,
+  }) {
+    this.children = this.children ?? [];
+    this.program = this.program ?? [];
+    this.path = this.path ?? "";
+  }
 
   factory OrganisationUnit.fromJson(Map<String, dynamic> json) {
     List programList = json["programs"] as List<dynamic>;
@@ -43,6 +49,7 @@ class OrganisationUnit {
             parentObj != null && parentObj['id'] != null ? parentObj['id'] : '',
         name: json["name"],
         level: json["level"],
+        path: json["path"],
         code: json['code'] != null
             ? json['code']
             : parentObj != null && parentObj['code'] != null
@@ -58,7 +65,6 @@ class OrganisationUnit {
     map['code'] = organisationUnit.code;
     map['parent'] = organisationUnit.parent;
     map["level"] = organisationUnit.level;
-
     return map;
   }
 
@@ -70,6 +76,7 @@ class OrganisationUnit {
     this.code = map["code"];
     this.children = [];
     this.program = [];
+    this.path = "";
   }
 
   @override
