@@ -14,31 +14,37 @@ class OrganisationUnitChildrenOfflineProvider extends OfflineDbProvider {
       var map = Map<String, dynamic>();
       map['id'] = id;
       map['organisationId'] = organisationUnit.id;
-      await dbClient.insert(OrganisationUnit.organisationChildrenTable, map,
-          conflictAlgorithm: ConflictAlgorithm.replace);
+      await dbClient.insert(
+        OrganisationUnit.organisationChildrenTable,
+        map,
+        conflictAlgorithm: ConflictAlgorithm.replace,
+      );
     }
   }
 
   deleteOrganisationChildren(String organisationUnitId) async {
     var dbClient = await db;
-    return await dbClient.delete(OrganisationUnit.organisationChildrenTable,
-        where: '$organisationId = ?', whereArgs: [organisationUnitId]);
+    return await dbClient.delete(
+      OrganisationUnit.organisationChildrenTable,
+      where: '$organisationId = ?',
+      whereArgs: [organisationUnitId],
+    );
   }
 
   Future<List> getChildrenOrganisationUnits(String organisationUnitId) async {
     List childrenOrganisationUnits = [];
     var dbClient = await db;
-    List<Map> maps = await dbClient
-        .query(OrganisationUnit.organisationChildrenTable, columns: [
-      id,
-      organisationId,
-    ]);
+    List<Map> maps = await dbClient.query(
+      OrganisationUnit.organisationChildrenTable,
+      columns: [
+        id,
+        organisationId,
+      ],
+      where: '$organisationId = ?',
+      whereArgs: [organisationUnitId],
+    );
     if (maps.isNotEmpty) {
-      for (Map map in maps) {
-        if (map['organisationId'] == organisationUnitId) {
-          childrenOrganisationUnits.add(map['id']);
-        }
-      }
+      childrenOrganisationUnits = maps.map((map) => map['id']).toList();
     }
     return childrenOrganisationUnits;
   }

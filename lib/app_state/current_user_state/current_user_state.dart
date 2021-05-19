@@ -111,7 +111,7 @@ class CurrentUserState with ChangeNotifier {
       _canManagePOSTGBV = userAccesses.containsKey('canManagePOSTGBV') &&
           userAccesses['canManagePOSTGBV'] == true;
     } catch (error) {
-      print(error.toString());
+      print("updateUserAccessStatus : ${error.toString()}");
     }
     notifyListeners();
   }

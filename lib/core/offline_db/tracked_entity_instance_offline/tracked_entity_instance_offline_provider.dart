@@ -47,6 +47,22 @@ class TrackedEntityInstanceOfflineProvider extends OfflineDbProvider {
         .addOrUpdateTrackedEntityAttributesValues(trackedEntityInstance);
   }
 
+  Future<List<String>> getAllOfflineTrackedEntitiyInstanceIds() async {
+    List<String> offlineTrackedEntityInstanceIds = [];
+    try {
+      var dbClient = await db;
+      List<Map> maps =
+          await dbClient.query(table, columns: [trackedEntityInstance]);
+      if (maps.isNotEmpty) {
+        offlineTrackedEntityInstanceIds.addAll(
+            maps.map((map) => map[trackedEntityInstance] as String).toList());
+      }
+    } catch (error) {
+      print("getAllOfflineTrackedEntitiyInstanceIds : ${error.toString()}");
+    }
+    return offlineTrackedEntityInstanceIds.toSet().toList();
+  }
+
   Future<List<TrackeEntityInstance>> getTrackedEntityInstance(
     List<String> trackedEntityInstanceIds,
   ) async {
