@@ -14,7 +14,7 @@ class OrganisationUnitPathOfflineProvider extends OfflineDbProvider {
   ) async {
     try {
       var dbClient = await db;
-      var map = Map();
+      var map = Map<String, dynamic>();
       map['id'] = organisationUnit.id;
       map['path'] = organisationUnit.path;
       await dbClient.insert(table, map,

@@ -161,12 +161,11 @@ class ReferralNotificationService {
           queryParameters: {},
         );
         for (Map data in json.decode(response.body)) {
-          print(nameSpaceKey);
-          // referralNofications.add(ReferralNotification.fromJson(data));
+          referralNofications.add(ReferralNotification.fromJson(data));
         }
       }
     } catch (error) {
-      print("error : $error");
+      print("discoveringReferralNotificationFromServer : ${error.toString()}");
     }
     return referralNofications;
   }
@@ -194,7 +193,7 @@ class ReferralNotificationService {
         }
       }
     } catch (error) {
-      print("error : $error");
+      print("getKeysForReferralNofification : ${error.toString()}");
     }
     return selectedKeys;
   }
