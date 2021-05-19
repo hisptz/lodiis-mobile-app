@@ -1,9 +1,12 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:kb_mobile_app/app_state/current_user_state/current_user_state.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_bottom_navigation_state/intervention_bottom_navigation_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
+import 'package:kb_mobile_app/app_state/referral_nofitication_state/referral_nofitication_state.dart';
 import 'package:kb_mobile_app/models/Intervention_bottom_navigation.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:provider/provider.dart';
@@ -111,21 +114,16 @@ class InterventionBottomNavigationBar extends StatelessWidget {
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 Container(
-                                  child: Container(
-                                    margin: EdgeInsets.only(
-                                      bottom: 9.0,
-                                    ),
-                                    child: SvgPicture.asset(
-                                      interventionBottomNavigation.svgIcon,
-                                      color: currentInterventionBottomNavigation !=
-                                                  null &&
-                                              currentInterventionBottomNavigation
-                                                      .id ==
-                                                  interventionBottomNavigation
-                                                      .id
-                                          ? Colors.white
-                                          : Color(0xFF737373),
-                                    ),
+                                  child: InterventionBottomNavigationIcon(
+                                    currentInterventionBottomNavigation:
+                                        currentInterventionBottomNavigation,
+                                    interventionBottomNavigation:
+                                        interventionBottomNavigation,
+                                    inactiveColor:
+                                        activeInterventionProgram.primmaryColor,
+                                    hasIndicatorValue: interventionCardState
+                                            .currentIntervetionProgram.id ==
+                                        'dreams',
                                   ),
                                 ),
                                 Container(
@@ -185,6 +183,98 @@ class InterventionBottomNavigationBar extends StatelessWidget {
           },
         );
       },
+    );
+  }
+}
+
+class InterventionBottomNavigationIcon extends StatelessWidget {
+  const InterventionBottomNavigationIcon(
+      {Key key,
+      @required this.currentInterventionBottomNavigation,
+      @required this.interventionBottomNavigation,
+      @required this.inactiveColor,
+      @required this.hasIndicatorValue})
+      : super(key: key);
+
+  final InterventionBottomNavigation currentInterventionBottomNavigation;
+  final InterventionBottomNavigation interventionBottomNavigation;
+  final Color inactiveColor;
+  final bool hasIndicatorValue;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      child: Stack(
+        children: [
+          Container(
+            alignment: Alignment.topCenter,
+            margin: EdgeInsets.symmetric(
+              vertical: 9.0,
+            ),
+            child: SvgPicture.asset(
+              interventionBottomNavigation.svgIcon,
+              color: currentInterventionBottomNavigation != null &&
+                      currentInterventionBottomNavigation.id ==
+                          interventionBottomNavigation.id
+                  ? Colors.white
+                  : Color(0xFF737373),
+            ),
+          ),
+          Container(
+            child: Positioned(
+              right: 0,
+              top: 0,
+              child: Visibility(
+                visible: hasIndicatorValue &&
+                    (interventionBottomNavigation.id == "referral" ||
+                        interventionBottomNavigation.id == "incomingReferral"),
+                child: Container(
+                  child: Consumer<ReferralNotificationState>(
+                    builder: (context, referralNotificationState, child) {
+                      String incomingReferralsResolved =
+                          referralNotificationState.incomingReferralsResolved;
+                      String incomingReferralToResolve =
+                          referralNotificationState.incomingReferralToResolve;
+                      return ClipOval(
+                        clipBehavior: Clip.antiAliasWithSaveLayer,
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                            vertical: 3.0,
+                            horizontal: 5.0,
+                          ),
+                          color:
+                              (interventionBottomNavigation.id == "referral" &&
+                                          incomingReferralsResolved != "") ||
+                                      (interventionBottomNavigation.id ==
+                                              "incomingReferral" &&
+                                          incomingReferralToResolve != "")
+                                  ? inactiveColor.withOpacity(0.5)
+                                  : inactiveColor.withOpacity(0.0),
+                          child: Text(
+                            interventionBottomNavigation.id == "referral"
+                                ? incomingReferralsResolved
+                                : incomingReferralToResolve,
+                            style: TextStyle().copyWith(
+                              fontWeight: FontWeight.bold,
+                              color: currentInterventionBottomNavigation !=
+                                          null &&
+                                      currentInterventionBottomNavigation.id ==
+                                          interventionBottomNavigation.id
+                                  ? Colors.white
+                                  : inactiveColor,
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
