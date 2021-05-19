@@ -62,6 +62,8 @@ class _DreamAgywReferralPageState extends State<DreamAgywReferralPage> {
 
   void onAddRefferal(BuildContext context, AgywDream agywDream) async {
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
+    Provider.of<ServiceFormState>(context, listen: false)
+        .updateFormEditabilityState(isEditableMode: true);
     CurrentUser user = await UserService().getCurrentUser();
     await Provider.of<ImplementingPartnerReferralServiceState>(context,
             listen: false)
