@@ -4,6 +4,7 @@ import 'package:http/http.dart';
 import 'package:kb_mobile_app/core/offline_db/referral_nofification/referral_event_nofification_offline_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/referral_nofification/referral_nofification_offline_provider.dart';
 import 'package:kb_mobile_app/core/services/http_service.dart';
+import 'package:kb_mobile_app/core/services/organisation_unit_service.dart';
 import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/models/referralEventNotification.dart';
@@ -24,7 +25,7 @@ class ReferralNotificationService {
       await savingReferralNotificationToOfflineDb(referralNotifications);
       await updateReferralNotificationToServer(referralNotifications);
     } catch (error) {
-      print(error.toString());
+      print("syncReferralNotifications : ${error.toString()}");
     }
   }
 
@@ -58,7 +59,7 @@ class ReferralNotificationService {
         }
       }
     } catch (error) {
-      print(error.toString());
+      print("updateReferralNotificaionEvent : ${error.toString()}");
     }
   }
 
@@ -96,7 +97,7 @@ class ReferralNotificationService {
         );
       }
     } catch (error) {
-      print(error.toString());
+      print("updateReferralNotificationToServer : ${error.toString()}");
     }
   }
 
@@ -107,7 +108,7 @@ class ReferralNotificationService {
       referralNofications = await ReferralNotificationOfflineProvider()
           .getReferralNotifications();
     } catch (error) {
-      print(error.toString());
+      print("getReferralNotificationFromOffline : ${error.toString()}");
     }
     return referralNofications;
   }
@@ -115,15 +116,18 @@ class ReferralNotificationService {
   Future<List<ReferralNotification>>
       discoveringReferralNotificationFromServer() async {
     List<ReferralNotification> referralNotifications = [];
+    List<String> locations = [];
     try {
       CurrentUser currentUser = await UserService().getCurrentUser();
       HttpService httpService = HttpService(
         username: currentUser.username,
         password: currentUser.password,
       );
-      //@TODO list possible name spaces
-      // get list of users with possible location to manage
-      //List<String> ous = currentUser.userOrgUnitIds;
+      for (String organisationUnitId in currentUser.userOrgUnitIds) {
+        locations.addAll(await OrganisationUnitService()
+            .getOrganisationUnitsInPathByOrganisationUnit(organisationUnitId));
+      }
+      locations = locations.toSet().toList();
       String implementingPartner =
           currentUser.implementingPartner.split("/").join("-").trim();
       Response response = await httpService.httpGet(
@@ -133,13 +137,14 @@ class ReferralNotificationService {
       List<String> keysForReferralNotification = getKeysForReferralNofification(
         response,
         implementingPartner,
+        locations.toSet().toList(),
       );
       referralNotifications = await getReferralNotificationFromServer(
         keysForReferralNotification,
         httpService,
       );
     } catch (error) {
-      print(error.toString());
+      print("discoveringReferralNotificationFromServer : ${error.toString()}");
     }
     return referralNotifications;
   }
@@ -160,7 +165,7 @@ class ReferralNotificationService {
         }
       }
     } catch (error) {
-      print("error : $error");
+      print("discoveringReferralNotificationFromServer : ${error.toString()}");
     }
     return referralNofications;
   }
@@ -168,16 +173,27 @@ class ReferralNotificationService {
   List<String> getKeysForReferralNofification(
     Response response,
     String implementingPartner,
+    List<String> locations,
   ) {
     List<String> selectedKeys = [];
     try {
-      for (String key in json.decode(response.body)) {
-        if (key.indexOf(implementingPartner) > -1) {
-          selectedKeys.add(key);
+      if (locations.isEmpty) {
+        for (String key in json.decode(response.body)) {
+          if (key.indexOf(implementingPartner) > -1) {
+            selectedKeys.add(key);
+          }
+        }
+      } else {
+        for (String key in json.decode(response.body)) {
+          for (String location in locations) {
+            if (key.indexOf(location) > -1) {
+              selectedKeys.add(key);
+            }
+          }
         }
       }
     } catch (error) {
-      print("error : $error");
+      print("getKeysForReferralNofification : ${error.toString()}");
     }
     return selectedKeys;
   }
@@ -235,7 +251,7 @@ class ReferralNotificationService {
         ));
       }
     } catch (error) {
-      print(error.toString());
+      print("getMergedReferralNotififcations : ${error.toString()}");
     }
     return referralNotifications;
   }
@@ -284,7 +300,7 @@ class ReferralNotificationService {
         }
       }
     } catch (error) {
-      print(error.toString());
+      print("getMergedReferralEventNotififcations : ${error.toString()}");
     }
     return referrals;
   }

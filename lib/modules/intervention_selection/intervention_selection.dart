@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:kb_mobile_app/app_state/referral_nofitication_state/referral_nofitication_state.dart';
 import 'package:provider/provider.dart';
 import 'package:kb_mobile_app/app_state/current_user_state/current_user_state.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
@@ -60,60 +59,64 @@ class _InterventionSelectionState extends State<InterventionSelection> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: SafeArea(
-            child: Stack(
-      fit: StackFit.expand,
-      children: [
-        Container(
-          decoration: BoxDecoration(color: primmaryColor),
-        ),
-        Container(child: Consumer<OvcInterventionListState>(
-          builder: (context, ovcInterventionListState, child) {
-            bool isOvcListLoading = ovcInterventionListState.isLoading;
-            int numberOfHouseHolds =
-                ovcInterventionListState.numberOfHouseHolds;
-            int numberOfOvcs = ovcInterventionListState.numberOfOvcs;
-            return Container(
-              child: Consumer<DreamsInterventionListState>(
-                builder: (context, dreamsInterventionListState, child) {
-                  bool isDreamsListLoading =
-                      dreamsInterventionListState.isLoading;
-                  int numberOfAgywDreamsBeneficiaries =
-                      dreamsInterventionListState
-                          .numberOfAgywDreamsBeneficiaries;
-                  int numberOfNoneAgywDreamsBeneficiaries =
-                      dreamsInterventionListState
-                          .numberOfNoneAgywDreamsBeneficiaries;
-                  return Consumer<OgacInterventionListState>(
-                    builder: (context, ogacInterventionListState, child) {
-                      int numberOfOgac = ogacInterventionListState.numberOfOgac;
-                      bool isOgacListLoading =
-                          ogacInterventionListState.isLoading;
-                      return Container(
-                        child: isDreamsListLoading ||
-                                isOvcListLoading ||
-                                isOgacListLoading
-                            ? CircularProcessLoader()
-                            : InterventionSelectionContainer(
-                                interventionPrograms: interventionPrograms,
-                                onIntervetionSelection: onIntervetionSelection,
-                                numberOfHouseHolds: numberOfHouseHolds,
-                                numberOfAgywDreamsBeneficiaries:
-                                    numberOfAgywDreamsBeneficiaries,
-                                numberOfNoneAgywDreamsBeneficiaries:
-                                    numberOfNoneAgywDreamsBeneficiaries,
-                                numberOfOvcs: numberOfOvcs,
-                                numberOfOgac: numberOfOgac,
-                              ),
+      body: SafeArea(
+        child: Stack(
+          fit: StackFit.expand,
+          children: [
+            Container(
+              decoration: BoxDecoration(color: primmaryColor),
+            ),
+            Container(child: Consumer<OvcInterventionListState>(
+              builder: (context, ovcInterventionListState, child) {
+                bool isOvcListLoading = ovcInterventionListState.isLoading;
+                int numberOfHouseHolds =
+                    ovcInterventionListState.numberOfHouseHolds;
+                int numberOfOvcs = ovcInterventionListState.numberOfOvcs;
+                return Container(
+                  child: Consumer<DreamsInterventionListState>(
+                    builder: (context, dreamsInterventionListState, child) {
+                      bool isDreamsListLoading =
+                          dreamsInterventionListState.isLoading;
+                      int numberOfAgywDreamsBeneficiaries =
+                          dreamsInterventionListState
+                              .numberOfAgywDreamsBeneficiaries;
+                      int numberOfNoneAgywDreamsBeneficiaries =
+                          dreamsInterventionListState
+                              .numberOfNoneAgywDreamsBeneficiaries;
+                      return Consumer<OgacInterventionListState>(
+                        builder: (context, ogacInterventionListState, child) {
+                          int numberOfOgac =
+                              ogacInterventionListState.numberOfOgac;
+                          bool isOgacListLoading =
+                              ogacInterventionListState.isLoading;
+                          return Container(
+                            child: isDreamsListLoading ||
+                                    isOvcListLoading ||
+                                    isOgacListLoading
+                                ? CircularProcessLoader()
+                                : InterventionSelectionContainer(
+                                    interventionPrograms: interventionPrograms,
+                                    onIntervetionSelection:
+                                        onIntervetionSelection,
+                                    numberOfHouseHolds: numberOfHouseHolds,
+                                    numberOfAgywDreamsBeneficiaries:
+                                        numberOfAgywDreamsBeneficiaries,
+                                    numberOfNoneAgywDreamsBeneficiaries:
+                                        numberOfNoneAgywDreamsBeneficiaries,
+                                    numberOfOvcs: numberOfOvcs,
+                                    numberOfOgac: numberOfOgac,
+                                  ),
+                          );
+                        },
                       );
                     },
-                  );
-                },
-              ),
-            );
-          },
-        )),
-      ],
-    )));
+                  ),
+                );
+              },
+            )),
+          ],
+        ),
+      ),
+    );
   }
 }

@@ -11,6 +11,7 @@ class OfflineDbProvider {
     "CREATE TABLE IF NOT EXISTS current_user_program (id TEXT PRIMARY KEY, userId TEXT)",
     "CREATE TABLE IF NOT EXISTS organisation_unit (id TEXT PRIMARY KEY, name TEXT, code TEXT, parent TEXT, level NUMBER)",
     "CREATE TABLE IF NOT EXISTS organisation_unit_children (id TEXT PRIMARY KEY, organisationId TEXT)",
+    "CREATE TABLE IF NOT EXISTS organisation_unit_path (id TEXT PRIMARY KEY, path TEXT)",
     "CREATE TABLE IF NOT EXISTS organisation_unit_program (id TEXT PRIMARY KEY ,programId TEXT, organisationId TEXT)",
     "CREATE TABLE IF NOT EXISTS tracked_entity_instance (id TEXT PRIMARY KEY, trackedEntityInstance TEXT, trackedEntityType TEXT,orgUnit TEXT,syncStatus TEXT )",
     "CREATE TABLE IF NOT EXISTS tracked_entity_instance_attribute (id TEXT PRIMARY KEY,  trackedEntityInstance TEXT,attribute TEXT, value TEXT)",
@@ -24,7 +25,7 @@ class OfflineDbProvider {
     "CREATE TABLE IF NOT EXISTS program_ou (id TEXT PRIMARY KEY, program TEXT, organisationUnit TEXT)",
     "CREATE TABLE IF NOT EXISTS implementing_partner_referral_Services (id TEXT PRIMARY KEY, services TEXT)",
     "CREATE TABLE IF NOT EXISTS referral_notification (id TEXT PRIMARY KEY, implementingPartner TEXT,nameSpaceKey TEXT, tei TEXT)",
-    "CREATE TABLE IF NOT EXISTS referrak_event_notification (id TEXT PRIMARY KEY, tei TEXT, nameSpaceKey TEXT, isCompleted TEXT, isViewed TEXT)"
+    "CREATE TABLE IF NOT EXISTS referral_event_notification (id TEXT PRIMARY KEY, tei TEXT, nameSpaceKey TEXT, isCompleted TEXT, isViewed TEXT)"
   ];
 
   final List<String> migrationQuery = [];

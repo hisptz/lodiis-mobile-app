@@ -4,7 +4,7 @@ import 'package:sqflite/sqflite.dart';
 
 class ReferralEventNotificationOfflineProvider extends OfflineDbProvider {
   // table name
-  final String table = "referrak_event_notification";
+  final String table = "referral_event_notification";
   // column\
   final String id = "id";
   final String tei = "tei";
@@ -33,7 +33,7 @@ class ReferralEventNotificationOfflineProvider extends OfflineDbProvider {
         exclusive: true,
       );
     } catch (error) {
-      print(error);
+      print("addOrUpdateReferralEventNotification : ${error.toString()}");
     }
   }
 
@@ -62,7 +62,7 @@ class ReferralEventNotificationOfflineProvider extends OfflineDbProvider {
         }
       }
     } catch (error) {
-      print(error.toString());
+      print("getReferralEventNotification : ${error.toString()}");
     }
     return referralEvents;
   }
