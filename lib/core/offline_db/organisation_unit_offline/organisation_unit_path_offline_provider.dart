@@ -14,7 +14,7 @@ class OrganisationUnitPathOfflineProvider extends OfflineDbProvider {
   ) async {
     try {
       var dbClient = await db;
-      var map = Map<String, dynamic>();
+      var map = Map();
       map['id'] = organisationUnit.id;
       map['path'] = organisationUnit.path;
       await dbClient.insert(table, map,
@@ -30,29 +30,31 @@ class OrganisationUnitPathOfflineProvider extends OfflineDbProvider {
     List<String> organisationUnitIds = [];
     try {
       var dbClient = await db;
-      List<Map<String, String>> maps = await dbClient.query(
+      List<Map> maps = await dbClient.query(
         table,
         columns: [id, path],
       );
       if (maps.isNotEmpty) {
         List<String> paths = maps
-            .map((map) => map[path])
+            .map((map) => "${map[path]}")
             .toList()
             .where((path) => path.contains(organisationUnitId))
             .toList();
         for (String path in paths) {
-          organisationUnitIds.addAll(path.split("/"));
+          List<String> splittedPath = path.split("/");
+          organisationUnitIds.addAll(
+            splittedPath.where(
+              (String path) =>
+                  splittedPath.indexOf(path) >=
+                  splittedPath.indexOf(organisationUnitId),
+            ),
+          );
         }
-        organisationUnitIds
-            .toSet()
-            .toList()
-            .map((String id) => id != "")
-            .toList();
       }
     } catch (error) {
       print(error.toString());
     }
-    return organisationUnitIds;
+    return organisationUnitIds.toList().toSet().toList();
   }
 
   Future<String> getOrganiationUnitPath(String organisationUnitId) async {

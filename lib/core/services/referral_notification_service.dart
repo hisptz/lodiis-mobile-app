@@ -127,6 +127,7 @@ class ReferralNotificationService {
         locations.addAll(await OrganisationUnitService()
             .getOrganisationUnitsInPathByOrganisationUnit(organisationUnitId));
       }
+      locations = locations.toSet().toList();
       String implementingPartner =
           currentUser.implementingPartner.split("/").join("-").trim();
       Response response = await httpService.httpGet(
@@ -136,7 +137,7 @@ class ReferralNotificationService {
       List<String> keysForReferralNotification = getKeysForReferralNofification(
         response,
         implementingPartner,
-        locations,
+        locations.toSet().toList(),
       );
       referralNotifications = await getReferralNotificationFromServer(
         keysForReferralNotification,
@@ -176,7 +177,7 @@ class ReferralNotificationService {
   ) {
     List<String> selectedKeys = [];
     try {
-      if (locations.length > 0) {
+      if (locations.isEmpty) {
         for (String key in json.decode(response.body)) {
           if (key.indexOf(implementingPartner) > -1) {
             selectedKeys.add(key);

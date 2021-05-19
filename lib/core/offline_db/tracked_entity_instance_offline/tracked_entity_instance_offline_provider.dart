@@ -48,8 +48,7 @@ class TrackedEntityInstanceOfflineProvider extends OfflineDbProvider {
   }
 
   Future<List<TrackeEntityInstance>> getTrackedEntityInstance(
-    List<String> trackedEntityInstanceIds,
-  ) async {
+      List<String> trackedEntityInstanceIds) async {
     List<TrackeEntityInstance> trackedEntityInstances = [];
     try {
       var dbClient = await db;
