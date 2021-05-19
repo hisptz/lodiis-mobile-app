@@ -38,7 +38,7 @@ class ReferralNotificationOfflineProvider extends OfflineDbProvider {
       await ReferralEventNotificationOfflineProvider()
           .addOrUpdateReferralEventNotification(referralEvents);
     } catch (error) {
-      print(error);
+      print("addOrUpdateReferralNotification : ${error.toString()}");
     }
   }
 
@@ -65,7 +65,7 @@ class ReferralNotificationOfflineProvider extends OfflineDbProvider {
         }
       }
     } catch (error) {
-      print(error.toString());
+      print("getReferralNotifications : ${error.toString()}");
     }
     return referralNotifications
         .where((ReferralNotification referralNotification) =>

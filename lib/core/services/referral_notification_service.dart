@@ -25,7 +25,7 @@ class ReferralNotificationService {
       await savingReferralNotificationToOfflineDb(referralNotifications);
       await updateReferralNotificationToServer(referralNotifications);
     } catch (error) {
-      print(error.toString());
+      print("syncReferralNotifications : ${error.toString()}");
     }
   }
 
@@ -59,7 +59,7 @@ class ReferralNotificationService {
         }
       }
     } catch (error) {
-      print(error.toString());
+      print("updateReferralNotificaionEvent : ${error.toString()}");
     }
   }
 
@@ -97,7 +97,7 @@ class ReferralNotificationService {
         );
       }
     } catch (error) {
-      print(error.toString());
+      print("updateReferralNotificationToServer : ${error.toString()}");
     }
   }
 
@@ -108,7 +108,7 @@ class ReferralNotificationService {
       referralNofications = await ReferralNotificationOfflineProvider()
           .getReferralNotifications();
     } catch (error) {
-      print(error.toString());
+      print("getReferralNotificationFromOffline : ${error.toString()}");
     }
     return referralNofications;
   }
@@ -144,7 +144,7 @@ class ReferralNotificationService {
         httpService,
       );
     } catch (error) {
-      print(error.toString());
+      print("discoveringReferralNotificationFromServer : ${error.toString()}");
     }
     return referralNotifications;
   }
@@ -161,7 +161,8 @@ class ReferralNotificationService {
           queryParameters: {},
         );
         for (Map data in json.decode(response.body)) {
-          referralNofications.add(ReferralNotification.fromJson(data));
+          print(nameSpaceKey);
+          // referralNofications.add(ReferralNotification.fromJson(data));
         }
       }
     } catch (error) {
@@ -251,7 +252,7 @@ class ReferralNotificationService {
         ));
       }
     } catch (error) {
-      print(error.toString());
+      print("getMergedReferralNotififcations : ${error.toString()}");
     }
     return referralNotifications;
   }
@@ -300,7 +301,7 @@ class ReferralNotificationService {
         }
       }
     } catch (error) {
-      print(error.toString());
+      print("getMergedReferralEventNotififcations : ${error.toString()}");
     }
     return referrals;
   }

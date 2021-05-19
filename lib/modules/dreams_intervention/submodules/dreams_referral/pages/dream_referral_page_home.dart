@@ -109,7 +109,7 @@ class _DreamAgywReferralPageState extends State<DreamAgywReferralPage> {
         isViewed,
       );
     } catch (error) {
-      print(error.toString());
+      print("updateViewStatusOfReferralNotification : ${error.toString()}");
     }
   }
 

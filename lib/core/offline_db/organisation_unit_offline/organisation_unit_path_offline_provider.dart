@@ -20,7 +20,7 @@ class OrganisationUnitPathOfflineProvider extends OfflineDbProvider {
       await dbClient.insert(table, map,
           conflictAlgorithm: ConflictAlgorithm.replace);
     } catch (error) {
-      print(error);
+      print("addOrUpdateOrganisationUnitPath : ${error.toString()}");
     }
   }
 
@@ -52,7 +52,8 @@ class OrganisationUnitPathOfflineProvider extends OfflineDbProvider {
         }
       }
     } catch (error) {
-      print(error.toString());
+      print(
+          "getOrganisationUnitsInPathByOrganisationUnit : ${error.toString()}");
     }
     return organisationUnitIds.toList().toSet().toList();
   }
@@ -71,7 +72,7 @@ class OrganisationUnitPathOfflineProvider extends OfflineDbProvider {
         organisationunitPath = maps.first["path"];
       }
     } catch (error) {
-      print(error.toString());
+      print("getOrganiationUnitPath : ${error.toString()}");
     }
     return organisationunitPath;
   }

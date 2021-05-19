@@ -36,7 +36,7 @@ class ReferralEventNotification {
   Map toOffline({
     bool shoulTransaformBoolenValues = false,
   }) {
-    Map data = Map<String, dynamic>();
+    Map data = Map();
     data["id"] = id;
     data["nameSpaceKey"] = nameSpaceKey;
     data["tei"] = tei;

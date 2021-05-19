@@ -33,7 +33,7 @@ class ReferralEventNotificationOfflineProvider extends OfflineDbProvider {
         exclusive: true,
       );
     } catch (error) {
-      print(error);
+      print("addOrUpdateReferralEventNotification : ${error.toString()}");
     }
   }
 
@@ -62,7 +62,7 @@ class ReferralEventNotificationOfflineProvider extends OfflineDbProvider {
         }
       }
     } catch (error) {
-      print(error.toString());
+      print("getReferralEventNotification : ${error.toString()}");
     }
     return referralEvents;
   }
