@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-class TrackeEntityInstance{
+class TrackeEntityInstance {
   String trackedEntityInstance;
   String trackedEntityType;
   String orgUnit;
@@ -13,7 +13,9 @@ class TrackeEntityInstance{
     this.orgUnit,
     this.syncStatus,
     this.attributes,
-  });
+  }) {
+    this.attributes = this.attributes ?? [];
+  }
 
   @override
   String toString() {
