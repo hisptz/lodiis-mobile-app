@@ -7,6 +7,7 @@ import 'package:kb_mobile_app/models/organisation_unit.dart';
 
 class OrganisationUnitService {
   List<OrganisationUnit> organisations = [];
+  //@TODO ou path for filtering referral notifications
   Future<dynamic> discoveringOrgananisationUnitsFromTheServer() async {
     List<OrganisationUnit> organisationUnitList = [];
     var url = "api/organisationUnits.json";

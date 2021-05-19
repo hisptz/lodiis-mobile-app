@@ -121,6 +121,9 @@ class ReferralNotificationService {
         username: currentUser.username,
         password: currentUser.password,
       );
+      //@TODO list possible name spaces
+      // get list of users with possible location to manage
+      //List<String> ous = currentUser.userOrgUnitIds;
       String implementingPartner =
           currentUser.implementingPartner.split("/").join("-").trim();
       Response response = await httpService.httpGet(

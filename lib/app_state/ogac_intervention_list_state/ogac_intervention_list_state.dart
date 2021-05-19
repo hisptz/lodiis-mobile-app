@@ -91,8 +91,19 @@ class OgacInterventionListState with ChangeNotifier {
   }
 
   //reducers
-  void refreshOgacList() async {
-    _pagingController.refresh();
+  Future<void> refreshOgacList() async {
+    _isLoading = true;
+    _searchableValue = '';
+    notifyListeners();
+    await getBeneficiaryNumber();
+    getNumberOfPages();
+    if (_pagingController == null) {
+      initializePagination();
+    } else {
+      _pagingController.refresh();
+    }
+    _isLoading = false;
+    notifyListeners();
   }
 
   void getNumberOfPages() {

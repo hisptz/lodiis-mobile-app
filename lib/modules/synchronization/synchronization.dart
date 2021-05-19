@@ -52,11 +52,17 @@ class _SynchronizationState extends State<Synchronization> {
       await ReferralNotificationService().syncReferralNotifications();
       await Provider.of<ReferralNotificationState>(context, listen: false)
           .reloadReferralNotifications();
-      Provider.of<OvcInterventionListState>(context, listen: false)
-          .refreshOvcNumber();
+      List<String> teiWithIncomingReferral =
+          Provider.of<ReferralNotificationState>(context, listen: false)
+              .beneficiariesWithIncomingReferrals;
       Provider.of<DreamsInterventionListState>(context, listen: false)
+          .setTeiWithIncomingReferral(
+              teiWithIncomingReferral: teiWithIncomingReferral);
+      await Provider.of<OvcInterventionListState>(context, listen: false)
+          .refreshOvcNumber();
+      await Provider.of<DreamsInterventionListState>(context, listen: false)
           .refreshBeneficiariesNumber();
-      Provider.of<OgacInterventionListState>(context, listen: false)
+      await Provider.of<OgacInterventionListState>(context, listen: false)
           .refreshOgacList();
     } catch (e) {}
   }
