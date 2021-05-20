@@ -249,14 +249,21 @@ class _DreamAgywReferralPageState extends State<DreamAgywReferralPage> {
                                                       ),
                                                     ),
                                             ),
-                                            EntryFormSaveButton(
-                                                label: 'ADD REFERRAL',
-                                                labelColor: Colors.white,
-                                                buttonColor: Color(0xFF1F8ECE),
-                                                fontSize: 15.0,
-                                                onPressButton: () =>
-                                                    onAddRefferal(
-                                                        context, agywDream))
+                                            Visibility(
+                                              visible:
+                                                  interventionBottomNavigationState
+                                                          .currentInterventionBottomNavigationId !=
+                                                      'incomingReferral',
+                                              child: EntryFormSaveButton(
+                                                  label: 'ADD REFERRAL',
+                                                  labelColor: Colors.white,
+                                                  buttonColor:
+                                                      Color(0xFF1F8ECE),
+                                                  fontSize: 15.0,
+                                                  onPressButton: () =>
+                                                      onAddRefferal(
+                                                          context, agywDream)),
+                                            )
                                           ],
                                         ),
                                 )
