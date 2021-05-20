@@ -1186,9 +1186,16 @@ class AgywEnrollmentFormSection {
             inputColor: Color(0xFF258DCC),
             labelColor: Color(0xFF737373),
             options: [
-              InputFieldOption(code: 'Same Age', name: 'Same Age'),
-              InputFieldOption(code: 'Younger', name: 'Younger'),
-              InputFieldOption(code: 'Older', name: 'Older')
+              InputFieldOption(
+                  code: 'Same Age',
+                  name: 'Same Age',
+                  translatedName: 'Thaka ea ka'),
+              InputFieldOption(
+                  code: 'Younger',
+                  name: 'Younger',
+                  translatedName: 'monyenyane ho ’na'),
+              InputFieldOption(
+                  code: 'Older', name: 'Older', translatedName: 'moholo ho ’na')
             ],
           ),
           InputField(
@@ -1225,9 +1232,18 @@ class AgywEnrollmentFormSection {
             inputColor: Color(0xFF258DCC),
             labelColor: Color(0xFF737373),
             options: [
-              InputFieldOption(code: 'Always', name: 'Always'),
-              InputFieldOption(code: 'Sometimes', name: 'Sometimes'),
-              InputFieldOption(code: "Never", name: "Never")
+              InputFieldOption(
+                  code: 'Always',
+                  name: 'Always',
+                  translatedName: 'Ka linako tsohle'),
+              InputFieldOption(
+                  code: 'Sometimes',
+                  name: 'Sometimes',
+                  translatedName: 'Ka linako tse ling'),
+              InputFieldOption(
+                  code: "Never",
+                  name: "Never",
+                  translatedName: 'Ha ke e-so e sebelise')
             ],
           ),
           InputField(
@@ -1240,9 +1256,16 @@ class AgywEnrollmentFormSection {
             inputColor: Color(0xFF258DCC),
             labelColor: Color(0xFF737373),
             options: [
-              InputFieldOption(code: 'Same Age', name: 'Same Age'),
-              InputFieldOption(code: 'Younger', name: 'Younger'),
-              InputFieldOption(code: 'Older', name: 'Older')
+              InputFieldOption(
+                  code: 'Same Age',
+                  name: 'Same Age',
+                  translatedName: 'Thaka ea ka'),
+              InputFieldOption(
+                  code: 'Younger',
+                  name: 'Younger',
+                  translatedName: 'monyenyane ho ’na'),
+              InputFieldOption(
+                  code: 'Older', name: 'Older', translatedName: 'moholo ho ’na')
             ],
           ),
           InputField(
@@ -1281,9 +1304,18 @@ class AgywEnrollmentFormSection {
             inputColor: Color(0xFF258DCC),
             labelColor: Color(0xFF737373),
             options: [
-              InputFieldOption(code: 'Always', name: 'Always'),
-              InputFieldOption(code: 'Sometimes', name: 'Sometimes'),
-              InputFieldOption(code: "Never", name: "Never")
+              InputFieldOption(
+                  code: 'Always',
+                  name: 'Always',
+                  translatedName: 'Ka linako tsohle'),
+              InputFieldOption(
+                  code: 'Sometimes',
+                  name: 'Sometimes',
+                  translatedName: 'Ka linako tse ling'),
+              InputFieldOption(
+                  code: "Never",
+                  name: "Never",
+                  translatedName: 'Ha ke e-so e sebelise')
             ],
           ),
           InputField(
@@ -1296,9 +1328,16 @@ class AgywEnrollmentFormSection {
             inputColor: Color(0xFF258DCC),
             labelColor: Color(0xFF737373),
             options: [
-              InputFieldOption(code: 'Same Age', name: 'Same Age'),
-              InputFieldOption(code: 'Younger', name: 'Younger'),
-              InputFieldOption(code: "Older", name: "Older")
+              InputFieldOption(
+                  code: 'Same Age',
+                  name: 'Same Age',
+                  translatedName: 'Thaka ea ka'),
+              InputFieldOption(
+                  code: 'Younger',
+                  name: 'Younger',
+                  translatedName: 'monyenyane ho ’na'),
+              InputFieldOption(
+                  code: "Older", name: "Older", translatedName: 'moholo ho ’na')
             ],
           ),
           InputField(
@@ -1336,9 +1375,18 @@ class AgywEnrollmentFormSection {
             inputColor: Color(0xFF258DCC),
             labelColor: Color(0xFF737373),
             options: [
-              InputFieldOption(code: 'Always', name: 'Always'),
-              InputFieldOption(code: 'Sometimes', name: 'Sometimes'),
-              InputFieldOption(code: "Never", name: "Never")
+              InputFieldOption(
+                  code: 'Always',
+                  name: 'Always',
+                  translatedName: 'Ka linako tsohle'),
+              InputFieldOption(
+                  code: 'Sometimes',
+                  name: 'Sometimes',
+                  translatedName: 'Ka linako tse ling'),
+              InputFieldOption(
+                  code: "Never",
+                  name: "Never",
+                  translatedName: 'Ha ke e-so e sebelise')
             ],
           ),
           InputField(
