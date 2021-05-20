@@ -1050,12 +1050,12 @@ class AgywEnrollmentFormSection {
                   name: 'Facility is too far away',
                   translatedName: 'Tleleniki e hole haholo'),
               InputFieldOption(
-                  code: 'I don’t know where clinic is',
-                  name: 'I don’t know where clinic is',
+                  code: "I don't know where clinic is",
+                  name: "I don't know where clinic is",
                   translatedName: 'Ha ke tsebe moo tleleniki e leng teng'),
               InputFieldOption(
-                  code: 'I can’t afford it',
-                  name: 'I can’t afford it',
+                  code: "I can't afford it",
+                  name: "I can't afford it",
                   translatedName: 'Ha ke na chelete'),
               InputFieldOption(
                   code: 'I feel healthy/not sick',
@@ -1083,8 +1083,8 @@ class AgywEnrollmentFormSection {
                   translatedName:
                       'Ke noa meriana/lipilisi tse sieo tleleniking'),
               InputFieldOption(
-                  code: 'Im too busy to go',
-                  name: 'Im too busy to go',
+                  code: "I'm too busy to go",
+                  name: "I'm too busy to go",
                   translatedName: 'Ha ke na nako ea ho ea tleleniking'),
               InputFieldOption(
                   code: 'Other',
