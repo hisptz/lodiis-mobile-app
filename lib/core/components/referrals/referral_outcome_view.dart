@@ -260,6 +260,7 @@ class ReferralOutComeView extends StatelessWidget {
                         left: 20.0,
                       ),
                       child: ReferralOutComeFollowUp(
+                        isEditableMode: isEditableMode,
                         themeColor: themeColor,
                         onEditFollowUp: () => onEeditOutComeFollowUp(context),
                         referralOutComeFollowUpEvents:
