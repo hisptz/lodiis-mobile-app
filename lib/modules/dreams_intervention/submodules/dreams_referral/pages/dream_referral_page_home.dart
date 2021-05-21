@@ -102,7 +102,7 @@ class _DreamAgywReferralPageState extends State<DreamAgywReferralPage> {
   ) {
     try {
       bool isCompleted = true;
-      bool isViewed = false;
+      bool isViewed = true;
       Provider.of<ReferralNotificationState>(context, listen: false)
           .updateReferralNotificaionEvent(
         eventData.event,
