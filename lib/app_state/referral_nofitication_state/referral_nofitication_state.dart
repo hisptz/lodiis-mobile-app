@@ -59,7 +59,7 @@ class ReferralNotificationState with ChangeNotifier {
           List<ReferralEventNotification> referrals = referralNotification
               .referrals
               .where((ReferralEventNotification referral) =>
-                  referral.isCompleted && referral.isViewed)
+                  referral.isCompleted && !referral.isViewed)
               .toList();
           incomingReferralsResolvedCount += referrals.length;
         }

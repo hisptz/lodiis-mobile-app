@@ -13,11 +13,13 @@ class ReferralOutComeFollowUp extends StatelessWidget {
       {Key key,
       @required this.referralOutComeFollowUpEvents,
       @required this.themeColor,
-      @required this.onEditFollowUp})
+      @required this.onEditFollowUp,
+      this.isEditableMode = true})
       : super(key: key);
 
   final List<ReferralOutFollowUpComeEvent> referralOutComeFollowUpEvents;
   final Color themeColor;
+  final isEditableMode;
   final Function onEditFollowUp;
   final double editIconHeight = 20;
 
@@ -71,21 +73,24 @@ class ReferralOutComeFollowUp extends StatelessWidget {
                           fontSize: 14.0,
                         ),
                       )),
-                      InkWell(
-                          onTap: () => {
-                                editOutComeFollowUp(context,
-                                    referralOutComeFollowUpEvent.eventData)
-                              },
-                          child: Container(
-                            height: editIconHeight,
-                            width: editIconHeight,
-                            margin: EdgeInsets.symmetric(
-                                vertical: 10, horizontal: 10),
-                            child: SvgPicture.asset(
-                              'assets/icons/edit-icon.svg',
-                              color: themeColor,
-                            ),
-                          ))
+                      Visibility(
+                        visible: isEditableMode,
+                        child: InkWell(
+                            onTap: () => {
+                                  editOutComeFollowUp(context,
+                                      referralOutComeFollowUpEvent.eventData)
+                                },
+                            child: Container(
+                              height: editIconHeight,
+                              width: editIconHeight,
+                              margin: EdgeInsets.symmetric(
+                                  vertical: 10, horizontal: 10),
+                              child: SvgPicture.asset(
+                                'assets/icons/edit-icon.svg',
+                                color: themeColor,
+                              ),
+                            )),
+                      )
                     ],
                   ),
                 ),
