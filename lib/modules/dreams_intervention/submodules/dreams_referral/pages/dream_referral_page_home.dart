@@ -18,6 +18,7 @@ import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
+import 'package:kb_mobile_app/models/referralEventNotification.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_referral/constant/dream_agyw_referral_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_referral/pages/dream_agyw_referral_form.dart';
@@ -78,7 +79,7 @@ class _DreamAgywReferralPageState extends State<DreamAgywReferralPage> {
     );
   }
 
-  void onViewChildReferral(
+  void onViewReferral(
     BuildContext context,
     Events eventData,
     int referralIndex,
@@ -101,21 +102,36 @@ class _DreamAgywReferralPageState extends State<DreamAgywReferralPage> {
     Events eventData,
   ) {
     try {
-      bool isCompleted = true;
-      bool isViewed = true;
-      Provider.of<ReferralNotificationState>(context, listen: false)
-          .updateReferralNotificaionEvent(
-        eventData.event,
-        eventData.trackedEntityInstance,
-        isCompleted,
-        isViewed,
-      );
+      String currentImplementingPartner =
+          Provider.of<ReferralNotificationState>(context, listen: false)
+              .currentImplementingPartner;
+      List<ReferralEventNotification> incommingResolvedReferrals =
+          Provider.of<ReferralNotificationState>(context, listen: false)
+              .incommingResolvedReferrals;
+      ReferralEventNotification incommingResolvedReferral =
+          incommingResolvedReferrals.firstWhere(
+              (ReferralEventNotification referralEventNotification) =>
+                  referralEventNotification.id == eventData.event &&
+                  referralEventNotification.fromImplementingPartner ==
+                      currentImplementingPartner &&
+                  referralEventNotification.isCompleted);
+      if (incommingResolvedReferral != null) {
+        bool isCompleted = true;
+        bool isViewed = true;
+        Provider.of<ReferralNotificationState>(context, listen: false)
+            .updateReferralNotificaionEvent(
+          eventData.event,
+          eventData.trackedEntityInstance,
+          isCompleted,
+          isViewed,
+        );
+      }
     } catch (error) {
       print("updateViewStatusOfReferralNotification : ${error.toString()}");
     }
   }
 
-  void onManageChildReferral(
+  void onManageReferral(
     BuildContext context,
     Events eventData,
     int referralIndex,
@@ -232,13 +248,13 @@ class _DreamAgywReferralPageState extends State<DreamAgywReferralPage> {
                                                                     eventData,
                                                               ),
                                                               onView: () =>
-                                                                  onViewChildReferral(
+                                                                  onViewReferral(
                                                                 context,
                                                                 eventData,
                                                                 count,
                                                               ),
                                                               onManage: () =>
-                                                                  onManageChildReferral(
+                                                                  onManageReferral(
                                                                 context,
                                                                 eventData,
                                                                 count,
