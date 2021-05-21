@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'package:flutter/foundation.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/core/constants/app_logs.dart';
 import 'package:kb_mobile_app/core/offline_db/app_logs_offline/app_logs_offline_provider.dart';
 import 'package:kb_mobile_app/core/services/implementing_partner_config_service.dart';
+import 'package:kb_mobile_app/core/services/referral_notification_service.dart';
 import 'package:kb_mobile_app/core/services/synchronization_service.dart';
 import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
@@ -230,7 +232,13 @@ class SynchronizationState with ChangeNotifier {
               program, orgUnitId);
         }
       }
-      AppUtil.showToastMessage(message: 'Download successful');
+      AppUtil.showToastMessage(
+        message: 'Start synchronisation of referral notitifcations',
+        position: ToastGravity.TOP,
+      );
+      await ReferralNotificationService().syncReferralNotifications();
+      AppUtil.showToastMessage(
+          message: 'Data has been successfully donwloaded');
       _dataDownloadProcess = [];
       updateDataDownloadStatus(false);
       setStatusMessageForAvailableDataFromServer('');
@@ -269,6 +277,11 @@ class SynchronizationState with ChangeNotifier {
         _dataUploadProcess = [];
         await _synchronizationService.uploadTeiEventsToTheServer(teiEvents);
       }
+      AppUtil.showToastMessage(
+        message: 'Start synchronisation of referral notitifcations',
+        position: ToastGravity.TOP,
+      );
+      await ReferralNotificationService().syncReferralNotifications();
     } catch (e) {
       _dataUploadProcess = [];
       AppUtil.showToastMessage(message: 'Error uploading data');
