@@ -4,6 +4,7 @@ class ReferralEventNotification {
   String id;
   String tei;
   String nameSpaceKey;
+  String fromImplementingPartner;
   bool isCompleted;
   bool isViewed;
 
@@ -11,6 +12,7 @@ class ReferralEventNotification {
     @required this.id,
     @required this.tei,
     @required this.nameSpaceKey,
+    @required this.fromImplementingPartner,
     this.isCompleted,
     this.isViewed,
   }) {
@@ -22,11 +24,13 @@ class ReferralEventNotification {
     String id = json["id"] ?? "";
     String tei = json["tei"] ?? "";
     String nameSpaceKey = json["nameSpaceKey"] ?? "";
+    String fromImplementingPartner = json["fromImplementingPartner"] ?? "";
     dynamic isCompleted = json["isCompleted"];
     dynamic isViewed = json["isViewed"];
     return ReferralEventNotification(
       id: id,
       tei: tei,
+      fromImplementingPartner: fromImplementingPartner,
       nameSpaceKey: nameSpaceKey,
       isCompleted: "$isCompleted" == "1" || "$isCompleted" == "true",
       isViewed: "$isViewed" == "1" || "$isViewed" == "true",
@@ -39,6 +43,7 @@ class ReferralEventNotification {
     var data = Map<String, dynamic>();
     data["id"] = id;
     data["nameSpaceKey"] = nameSpaceKey;
+    data["fromImplementingPartner"] = fromImplementingPartner;
     data["tei"] = tei;
     data["isCompleted"] = shoulTransaformBoolenValues
         ? isCompleted
@@ -55,6 +60,6 @@ class ReferralEventNotification {
 
   @override
   String toString() {
-    return "<id: $id, tei: $tei, nameSpaceKey: $nameSpaceKey, isCompleted: $isCompleted isViewed: $isViewed>";
+    return "<id: $id tei: $tei nameSpaceKey: $nameSpaceKey fromImplementingPartner: $fromImplementingPartner isCompleted: $isCompleted isViewed: $isViewed>";
   }
 }
