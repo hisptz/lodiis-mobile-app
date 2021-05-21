@@ -9,6 +9,7 @@ class ReferralEventNotificationOfflineProvider extends OfflineDbProvider {
   final String id = "id";
   final String tei = "tei";
   final String nameSpaceKey = "nameSpaceKey";
+  final String fromImplementingPartner = "fromImplementingPartner";
   final String isCompleted = "isCompleted";
   final String isViewed = "isViewed";
 
@@ -50,6 +51,7 @@ class ReferralEventNotificationOfflineProvider extends OfflineDbProvider {
           id,
           tei,
           nameSpaceKey,
+          fromImplementingPartner,
           isCompleted,
           isViewed,
         ],

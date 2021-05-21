@@ -25,7 +25,7 @@ class OfflineDbProvider {
     "CREATE TABLE IF NOT EXISTS program_ou (id TEXT PRIMARY KEY, program TEXT, organisationUnit TEXT)",
     "CREATE TABLE IF NOT EXISTS implementing_partner_referral_Services (id TEXT PRIMARY KEY, services TEXT)",
     "CREATE TABLE IF NOT EXISTS referral_notification (id TEXT PRIMARY KEY, implementingPartner TEXT,nameSpaceKey TEXT, tei TEXT)",
-    "CREATE TABLE IF NOT EXISTS referral_event_notification (id TEXT PRIMARY KEY, tei TEXT, nameSpaceKey TEXT, isCompleted TEXT, isViewed TEXT)"
+    "CREATE TABLE IF NOT EXISTS referral_event_notification (id TEXT PRIMARY KEY, tei TEXT, nameSpaceKey TEXT, fromImplementingPartner TEXT isCompleted TEXT, isViewed TEXT)"
   ];
 
   final List<String> migrationQuery = [

@@ -7,6 +7,7 @@ import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_fo
 import 'package:kb_mobile_app/app_state/implementing_partner_referral_service_state/implementing_partner_referral_service_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
+import 'package:kb_mobile_app/app_state/referral_nofitication_state/referral_nofitication_state.dart';
 import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
@@ -97,8 +98,11 @@ class _DreamAgywAddReferralFormState extends State<DreamAgywAddReferralForm> {
   }
 
   void onSaveForm(
-      BuildContext context, Map dataObject, AgywDream currentAgywDream,
-      {Map hiddenFieldsObject = const {}}) async {
+    BuildContext context,
+    Map dataObject,
+    AgywDream currentAgywDream, {
+    Map hiddenFieldsObject = const {},
+  }) async {
     if (FormUtil.geFormFilledStatus(dataObject, formSections)) {
       bool hadAllMandatoryFilled = AppUtil.hasAllMandarotyFieldsFilled(
           mandatoryFields, dataObject,
@@ -119,10 +123,14 @@ class _DreamAgywAddReferralFormState extends State<DreamAgywAddReferralForm> {
         try {
           if (eventId == null) {
             eventId = AppUtil.getUid();
+            String currentImplementingPartner =
+                Provider.of<ReferralNotificationState>(context, listen: false)
+                    .currentImplementingPartner;
             await updateReferralNotification(
               eventId,
               dataObject,
               currentAgywDream,
+              currentImplementingPartner,
             );
           }
           await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
@@ -183,6 +191,7 @@ class _DreamAgywAddReferralFormState extends State<DreamAgywAddReferralForm> {
     String eventId,
     Map dataObject,
     AgywDream currentAgywDream,
+    String currentImplementingPartner,
   ) async {
     String implementingPartner =
         dataObject[ReferralNotification.implementingPartnerFormVariable] ?? "";
@@ -202,6 +211,7 @@ class _DreamAgywAddReferralFormState extends State<DreamAgywAddReferralForm> {
         ReferralEventNotification(
           id: eventId,
           tei: tei,
+          fromImplementingPartner: currentImplementingPartner,
           nameSpaceKey: nameSpaceKey,
         )
       ],

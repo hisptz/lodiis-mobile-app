@@ -233,9 +233,11 @@ class InterventionBottomNavigationIcon extends StatelessWidget {
                   child: Consumer<ReferralNotificationState>(
                     builder: (context, referralNotificationState, child) {
                       String incomingReferralsResolved =
-                          referralNotificationState.incomingReferralsResolved;
+                          referralNotificationState
+                              .incomingReferralsResolvedIndicator;
                       String incomingReferralToResolve =
-                          referralNotificationState.incomingReferralToResolve;
+                          referralNotificationState
+                              .incomingReferralToResolveIndicator;
                       return ClipOval(
                         clipBehavior: Clip.antiAliasWithSaveLayer,
                         child: Container(

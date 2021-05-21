@@ -9,16 +9,21 @@ class ReferralNotificationState with ChangeNotifier {
   String _currentImplementingPartner;
   List<String> _beneficiariesWithIncomingReferrals;
   List<String> _incommingReferrals;
-  String _incomingReferralToResolve;
-  String _incomingReferralsResolved;
+  List<ReferralEventNotification> _incommingResolvedReferrals;
+  String _incomingReferralToResolveIndicator;
+  String _incomingReferralsResolvedIndicator;
 
   // Selectors
   String get currentImplementingPartner => _currentImplementingPartner ?? "";
   List<String> get beneficiariesWithIncomingReferrals =>
       _beneficiariesWithIncomingReferrals ?? [];
   List<String> get incomingReferrals => _incommingReferrals ?? [];
-  String get incomingReferralsResolved => _incomingReferralsResolved ?? "";
-  String get incomingReferralToResolve => _incomingReferralToResolve ?? "";
+  List<ReferralEventNotification> get incommingResolvedReferrals =>
+      _incommingResolvedReferrals ?? [];
+  String get incomingReferralsResolvedIndicator =>
+      _incomingReferralsResolvedIndicator ?? "";
+  String get incomingReferralToResolveIndicator =>
+      _incomingReferralToResolveIndicator ?? "";
 
   // reducer for the state
   Future<void> setCurrentImplementingPartner(String implementingPartner) async {
@@ -30,6 +35,7 @@ class ReferralNotificationState with ChangeNotifier {
   Future<void> reloadReferralNotifications() async {
     _beneficiariesWithIncomingReferrals = [];
     _incommingReferrals = [];
+    _incommingResolvedReferrals = [];
     int incomingReferralToResolveCount = 0;
     int incomingReferralsResolvedCount = 0;
     List<String> offlineTrackedEntityInstanceIds =
@@ -56,24 +62,26 @@ class ReferralNotificationState with ChangeNotifier {
                 .toList());
           }
         } else {
-          List<ReferralEventNotification> referrals = referralNotification
-              .referrals
+          _incommingResolvedReferrals.addAll(referralNotification.referrals
               .where((ReferralEventNotification referral) =>
-                  referral.isCompleted && !referral.isViewed)
-              .toList();
-          incomingReferralsResolvedCount += referrals.length;
+                  referral.isCompleted &&
+                  !referral.isViewed &&
+                  referral.fromImplementingPartner ==
+                      _currentImplementingPartner)
+              .toList());
         }
       }
     }
+    incomingReferralsResolvedCount = _incommingResolvedReferrals.length;
     _beneficiariesWithIncomingReferrals =
         _beneficiariesWithIncomingReferrals.toSet().toList();
     _incommingReferrals = _incommingReferrals.toSet().toList();
-    _incomingReferralsResolved = incomingReferralsResolvedCount == 0
+    _incomingReferralsResolvedIndicator = incomingReferralsResolvedCount == 0
         ? ""
         : incomingReferralsResolvedCount > 9
             ? "9+"
             : "$incomingReferralsResolvedCount";
-    _incomingReferralToResolve = incomingReferralToResolveCount == 0
+    _incomingReferralToResolveIndicator = incomingReferralToResolveCount == 0
         ? ""
         : incomingReferralToResolveCount > 9
             ? "9+"
