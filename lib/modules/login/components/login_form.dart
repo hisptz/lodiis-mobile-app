@@ -96,7 +96,6 @@ class _LoginFormState extends State<LoginForm> {
           );
           await UserService().setCurrentUser(user);
           loginFormState.setCurrentLoginProcessMessage('Saving user access...');
-
           await UserAccess()
               .savingUserAccessConfigurations(userAccessConfigurations);
           Provider.of<CurrentUserState>(context, listen: false)
@@ -110,7 +109,8 @@ class _LoginFormState extends State<LoginForm> {
               "Saving user's assigned locations...");
           await OrganisationUnitService()
               .discoveringOrgananisationUnitsFromTheServer();
-          // load program's organisation units
+          Provider.of<CurrentUserState>(context, listen: false)
+              .setCurrentUserCountryLevelReferences();
           loginFormState.setCurrentLoginProcessMessage(
               "Saving assigned access for interventions...");
           List<String> programs = user.programs ?? [];

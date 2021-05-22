@@ -9,6 +9,7 @@ class CurrentUserState with ChangeNotifier {
   // initiat state
   CurrentUser _currentUser;
   String _currentUserLocations;
+  List<String> _currentUserCountryLevelReferences;
   bool _canManageDreams;
   bool _canManageOGAC;
   bool _canManageOvc;
@@ -36,6 +37,8 @@ class CurrentUserState with ChangeNotifier {
       _currentUser != null &&
       kbDreamsImplementatingPartners.contains(_currentUser.implementingPartner);
   String get currentUserLocations => _currentUserLocations ?? '';
+  List<String> get currentUserCountryLevelReferences =>
+      _currentUserCountryLevelReferences ?? [];
   bool get canManageDreams => _canManageDreams ?? false;
   bool get canManageOGAC => _canManageOGAC ?? false;
   bool get canManageOvc => _canManageOvc ?? false;
@@ -128,6 +131,18 @@ class CurrentUserState with ChangeNotifier {
       userAccessConfigurations,
     );
     setCurrentUserLocation();
+  }
+
+  void setCurrentUserCountryLevelReferences() async {
+    int level = 1;
+    List<OrganisationUnit> organisationUnits =
+        await OrganisationUnitService().getOrganisationUnitsByLevel(level);
+    _currentUserCountryLevelReferences = organisationUnits
+        .map((OrganisationUnit organisationUnit) => organisationUnit.id)
+        .toList()
+        .toSet()
+        .toList();
+    notifyListeners();
   }
 
   void setCurrentUserLocation() async {
