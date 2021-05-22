@@ -11,6 +11,7 @@ class EntrySubFormContainer extends StatelessWidget {
     @required this.mandatoryFieldObject,
     @required this.currentLanguage,
     @required this.hiddenInputFieldOptions,
+    @required this.currentUserCountryLevelReferences,
     this.isEditableMode = true,
     this.onInputValueChange,
     this.hiddenFields,
@@ -28,6 +29,7 @@ class EntrySubFormContainer extends StatelessWidget {
   final Map hiddenInputFieldOptions;
   final bool isEditableMode;
   final List unFilledMandatoryFields;
+  final List<String> currentUserCountryLevelReferences;
 
   @override
   Widget build(BuildContext context) {
@@ -41,115 +43,122 @@ class EntrySubFormContainer extends StatelessWidget {
                 visible: hiddenSections == null ||
                     '${hiddenSections[subSection.id]}'.trim() != 'true',
                 child: Container(
-                    margin: EdgeInsets.symmetric(
-                        vertical: subSection.name != '' ? 5.0 : 0.0),
-                    decoration: BoxDecoration(
-                        border: Border(
-                            left: BorderSide(
-                                color: subSection.borderColor, width: 8.0)),
-                        color: subSection.backgroundColor),
-                    child: Column(
-                      children: [
-                        Visibility(
-                          visible: subSection.name != '',
-                          child: Container(
-                            padding: EdgeInsets.symmetric(
-                                vertical: 15.0, horizontal: 10.0),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  child: Text(
-                                    currentLanguage == 'lesotho' &&
-                                            subSection.translatedName != null
-                                        ? subSection.translatedName
-                                        : subSection.name,
-                                    style: TextStyle().copyWith(
-                                        color: subSection.color,
-                                        fontSize: 15.0,
-                                        fontWeight: FontWeight.bold),
+                  margin: EdgeInsets.symmetric(
+                      vertical: subSection.name != '' ? 5.0 : 0.0),
+                  decoration: BoxDecoration(
+                      border: Border(
+                          left: BorderSide(
+                              color: subSection.borderColor, width: 8.0)),
+                      color: subSection.backgroundColor),
+                  child: Column(
+                    children: [
+                      Visibility(
+                        visible: subSection.name != '',
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                              vertical: 15.0, horizontal: 10.0),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  currentLanguage == 'lesotho' &&
+                                          subSection.translatedName != null
+                                      ? subSection.translatedName
+                                      : subSection.name,
+                                  style: TextStyle().copyWith(
+                                      color: subSection.color,
+                                      fontSize: 15.0,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                      Visibility(
+                        visible: subSection.description != '',
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                              vertical: 15.0, horizontal: 10.0),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  currentLanguage == 'lesotho' &&
+                                          subSection.translatedDescription !=
+                                              null
+                                      ? subSection.translatedDescription
+                                      : subSection.description,
+                                  style: TextStyle().copyWith(
+                                      color: subSection.color,
+                                      fontSize: 14.0,
+                                      fontStyle: FontStyle.italic,
+                                      fontWeight: FontWeight.normal),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                      Container(
+                        child: Column(
+                          children: subSection.inputFields
+                              .map(
+                                (InputField inputField) => Visibility(
+                                  visible: hiddenFields == null ||
+                                      '${hiddenFields[inputField.id]}'.trim() !=
+                                          'true',
+                                  child: Container(
+                                    margin: EdgeInsets.only(
+                                      top: 10.0,
+                                    ),
+                                    padding: EdgeInsets.symmetric(
+                                      vertical: 10.0,
+                                      horizontal: inputField.background ==
+                                              Colors.transparent
+                                          ? 10.0
+                                          : 0.0,
+                                    ),
+                                    child: InputFieldContainer(
+                                      currentUserCountryLevelReferences:
+                                          currentUserCountryLevelReferences,
+                                      inputField: inputField,
+                                      hiddenFields: hiddenFields,
+                                      currentLanguage: currentLanguage,
+                                      isEditableMode: isEditableMode,
+                                      mandatoryFieldObject:
+                                          mandatoryFieldObject,
+                                      hiddenInputFieldOptions:
+                                          hiddenInputFieldOptions,
+                                      dataObject: dataObject,
+                                      onInputValueChange:
+                                          (String id, dynamic value) =>
+                                              onInputValueChange(id, value),
+                                    ),
                                   ),
-                                )
-                              ],
-                            ),
-                          ),
+                                ),
+                              )
+                              .toList(),
                         ),
-                        Visibility(
-                          visible: subSection.description != '',
-                          child: Container(
-                            padding: EdgeInsets.symmetric(
-                                vertical: 15.0, horizontal: 10.0),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  child: Text(
-                                    currentLanguage == 'lesotho' &&
-                                            subSection.translatedDescription !=
-                                                null
-                                        ? subSection.translatedDescription
-                                        : subSection.description,
-                                    style: TextStyle().copyWith(
-                                        color: subSection.color,
-                                        fontSize: 14.0,
-                                        fontStyle: FontStyle.italic,
-                                        fontWeight: FontWeight.normal),
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
+                      ),
+                      Container(
+                        child: EntrySubFormContainer(
+                          currentUserCountryLevelReferences:
+                              currentUserCountryLevelReferences,
+                          hiddenFields: hiddenFields,
+                          hiddenInputFieldOptions: hiddenInputFieldOptions,
+                          hiddenSections: hiddenSections,
+                          currentLanguage: currentLanguage,
+                          subSections: subSection.subSections,
+                          dataObject: dataObject,
+                          mandatoryFieldObject: mandatoryFieldObject,
+                          onInputValueChange: onInputValueChange,
+                          unFilledMandatoryFields: unFilledMandatoryFields,
                         ),
-                        Container(
-                          child: Column(
-                            children: subSection.inputFields
-                                .map((InputField inputField) => Visibility(
-                                      visible: hiddenFields == null ||
-                                          '${hiddenFields[inputField.id]}'
-                                                  .trim() !=
-                                              'true',
-                                      child: Container(
-                                        margin: EdgeInsets.only(
-                                          top: 10.0,
-                                        ),
-                                        padding: EdgeInsets.symmetric(
-                                          vertical: 10.0,
-                                          horizontal: inputField.background ==
-                                                  Colors.transparent
-                                              ? 10.0
-                                              : 0.0,
-                                        ),
-                                        child: InputFieldContainer(
-                                            inputField: inputField,
-                                            hiddenFields: hiddenFields,
-                                            currentLanguage: currentLanguage,
-                                            isEditableMode: isEditableMode,
-                                            mandatoryFieldObject:
-                                                mandatoryFieldObject,
-                                            hiddenInputFieldOptions:
-                                                hiddenInputFieldOptions,
-                                            dataObject: dataObject,
-                                            onInputValueChange: (String id,
-                                                    dynamic value) =>
-                                                onInputValueChange(id, value)),
-                                      ),
-                                    ))
-                                .toList(),
-                          ),
-                        ),
-                        Container(
-                          child: EntrySubFormContainer(
-                            hiddenFields: hiddenFields,
-                            hiddenInputFieldOptions: hiddenInputFieldOptions,
-                            hiddenSections: hiddenSections,
-                            currentLanguage: currentLanguage,
-                            subSections: subSection.subSections,
-                            dataObject: dataObject,
-                            mandatoryFieldObject: mandatoryFieldObject,
-                            onInputValueChange: onInputValueChange,
-                            unFilledMandatoryFields: unFilledMandatoryFields,
-                          ),
-                        )
-                      ],
-                    )),
+                      )
+                    ],
+                  ),
+                ),
               ),
             )
             .toList(),
@@ -158,15 +167,14 @@ class EntrySubFormContainer extends StatelessWidget {
   }
 
   void setFieldErrors() {
-    if(unFilledMandatoryFields != null &&  unFilledMandatoryFields.isNotEmpty){
+    if (unFilledMandatoryFields != null && unFilledMandatoryFields.isNotEmpty) {
       subSections.forEach((section) {
         section.inputFields.forEach((inputField) {
-          if(unFilledMandatoryFields.contains(inputField.id)){
+          if (unFilledMandatoryFields.contains(inputField.id)) {
             inputField.hasError = true;
-          }else {
+          } else {
             inputField.hasError = false;
           }
-
         });
       });
     }
