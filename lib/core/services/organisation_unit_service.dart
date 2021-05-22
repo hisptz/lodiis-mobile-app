@@ -29,7 +29,7 @@ class OrganisationUnitService {
       for (var organisation in responseData["organisationUnits"]) {
         organisationUnitList.add(OrganisationUnit.fromJson(organisation));
       }
-      setOrganisationUnits(organisationUnitList);
+      await setOrganisationUnits(organisationUnitList);
     } else {
       return null;
     }
@@ -44,6 +44,10 @@ class OrganisationUnitService {
       List organisationUnitids) async {
     return await OrganisationUnitOffline()
         .getOrganisationUnitById(organisationUnitids);
+  }
+
+  Future<List<OrganisationUnit>> getOrganisationUnitsByLevel(int level) async {
+    return await OrganisationUnitOffline().getOrganisationUnitsByLevel(level);
   }
 
   Future<List<String>> getOrganisationUnitsInPathByOrganisationUnit(

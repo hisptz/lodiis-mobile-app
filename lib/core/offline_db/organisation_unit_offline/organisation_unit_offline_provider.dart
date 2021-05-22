@@ -30,8 +30,11 @@ class OrganisationUnitOffline extends OfflineDbProvider {
 
   deleteOrganisation(String organisationId) async {
     var dbClient = await db;
-    return await dbClient.delete(OrganisationUnit.organisationUnitTable,
-        where: '$id = ?', whereArgs: [organisationId]);
+    return await dbClient.delete(
+      OrganisationUnit.organisationUnitTable,
+      where: '$id = ?',
+      whereArgs: [organisationId],
+    );
   }
 
   Future<List<OrganisationUnit>> getOrganisationUnits() async {
@@ -64,8 +67,42 @@ class OrganisationUnitOffline extends OfflineDbProvider {
     return organisationUnitList;
   }
 
+  Future<List<OrganisationUnit>> getOrganisationUnitsByLevel(
+    int ouLevel,
+  ) async {
+    List<OrganisationUnit> organisationUnitList = [];
+    try {
+      var dbClient = await db;
+      List<Map> maps = await dbClient.query(
+        OrganisationUnit.organisationUnitTable,
+        columns: [id, name, parent, level, code],
+        where: '$level = ?',
+        whereArgs: [ouLevel],
+      );
+      if (maps.isNotEmpty) {
+        for (Map map in maps) {
+          String organisationUnitId = map['id'];
+          String path = await OrganisationUnitPathOfflineProvider()
+              .getOrganiationUnitPath(organisationUnitId);
+          List childrens = await OrganisationUnitChildrenOfflineProvider()
+              .getChildrenOrganisationUnits(organisationUnitId);
+          List programs = await OrganisationUnitProgramOfflineProvider()
+              .getProgramOrganisationUnits(organisationUnitId);
+          OrganisationUnit organisationUnits =
+              OrganisationUnit.fromOffline(map);
+          organisationUnits.path = path;
+          organisationUnits.program = programs;
+          organisationUnits.children = childrens;
+          organisationUnitList.add(organisationUnits);
+        }
+      }
+    } catch (e) {}
+    return organisationUnitList;
+  }
+
   Future<List<OrganisationUnit>> getOrganisationUnitById(
-      List organisationIds) async {
+    List organisationIds,
+  ) async {
     List<OrganisationUnit> organisationUnitList = [];
     try {
       var dbClient = await db;
