@@ -12,16 +12,18 @@ import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/organisation_unit.dart';
 
 class OrganisationUnitInputFieldContainer extends StatefulWidget {
-  const OrganisationUnitInputFieldContainer(
-      {Key key,
-      @required this.inputField,
-      @required this.onInputValueChange,
-      this.inputValue,
-      this.filteredPrograms})
-      : super(key: key);
+  const OrganisationUnitInputFieldContainer({
+    Key key,
+    @required this.inputField,
+    @required this.onInputValueChange,
+    @required this.currentUserCountryLevelReferences,
+    this.inputValue,
+    this.filteredPrograms,
+  }) : super(key: key);
 
   final InputField inputField;
   final Function onInputValueChange;
+  final List<String> currentUserCountryLevelReferences;
   final String inputValue;
   final List<String> filteredPrograms;
 
@@ -92,10 +94,15 @@ class _OrganisationUnitInputFieldContainerState
           BoxDecoration(color: widget.inputField.labelColor.withOpacity(0.05)),
       child: SingleChildScrollView(
         child: OrganisationUnitTreeList(
-            organisationUnitIds: userOrganisationUnits,
-            labelColor: widget.inputField.labelColor,
-            allowedSelectedLevels: widget.inputField.allowedSelectedLevels,
-            filteredPrograms: widget.filteredPrograms),
+          organisationUnitIds:
+              widget.currentUserCountryLevelReferences.length > 0 &&
+                      widget.inputField.showCountryLevelTree
+                  ? widget.currentUserCountryLevelReferences
+                  : userOrganisationUnits,
+          labelColor: widget.inputField.labelColor,
+          allowedSelectedLevels: widget.inputField.allowedSelectedLevels,
+          filteredPrograms: widget.filteredPrograms,
+        ),
       ),
     );
     OrganisationUnit organisationUnit =

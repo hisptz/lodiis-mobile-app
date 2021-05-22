@@ -14,6 +14,7 @@ class InputField {
   bool renderAsRadio;
   bool isReadOnly;
   bool allowFuturePeriod;
+  bool showCountryLevelTree;
   bool disablePastPeriod;
   bool hasError;
   int minAgeInYear;
@@ -29,32 +30,36 @@ class InputField {
   List<int> allowedSelectedLevels;
   List<String> filteredPrograms;
 
-  InputField(
-      {@required this.id,
-      @required this.name,
-      @required this.valueType,
-      this.hasSubInputField,
-      this.description,
-      this.inputColor,
-      this.labelColor,
-      this.background,
-      this.renderAsRadio,
-      this.isReadOnly,
-      this.options,
-      this.subInputField,
-      this.allowedSelectedLevels,
-      this.allowFuturePeriod,
-      this.disablePastPeriod,
-      this.translatedName,
-      this.translatedDescription,
-      this.hint,
-      this.translatedHint,
-      this.maxAgeInYear,
-      this.minAgeInYear,
-      this.numberOfMonth,
-      this.suffixLabel,
-      this.filteredPrograms,
-      this.hasError}) {
+  InputField({
+    @required this.id,
+    @required this.name,
+    @required this.valueType,
+    this.hasSubInputField,
+    this.description,
+    this.inputColor,
+    this.labelColor,
+    this.background,
+    this.renderAsRadio,
+    this.isReadOnly,
+    this.options,
+    this.subInputField,
+    this.allowedSelectedLevels,
+    this.allowFuturePeriod,
+    this.disablePastPeriod,
+    this.translatedName,
+    this.translatedDescription,
+    this.hint,
+    this.translatedHint,
+    this.maxAgeInYear,
+    this.minAgeInYear,
+    this.numberOfMonth,
+    this.suffixLabel,
+    this.filteredPrograms,
+    this.hasError,
+    this.shouldUserCustomAgeLimit,
+    this.showCountryLevelTree,
+  }) {
+    this.showCountryLevelTree = this.showCountryLevelTree ?? false;
     this.allowedSelectedLevels = this.allowedSelectedLevels ?? [];
     this.allowFuturePeriod = this.allowFuturePeriod ?? false;
     this.disablePastPeriod = this.disablePastPeriod ?? false;
