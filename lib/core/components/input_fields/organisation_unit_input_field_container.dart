@@ -95,7 +95,8 @@ class _OrganisationUnitInputFieldContainerState
       child: SingleChildScrollView(
         child: OrganisationUnitTreeList(
           organisationUnitIds:
-              widget.currentUserCountryLevelReferences.length > 0
+              widget.currentUserCountryLevelReferences.length > 0 &&
+                      widget.inputField.showCountryLevelTree
                   ? widget.currentUserCountryLevelReferences
                   : userOrganisationUnits,
           labelColor: widget.inputField.labelColor,
