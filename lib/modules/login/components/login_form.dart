@@ -149,7 +149,6 @@ class _LoginFormState extends State<LoginForm> {
   Widget build(BuildContext context) {
     Color activeInputColor = Color(0xFF4B9F46);
     Color inActiveInputColor = Color(0xFFD2E7D1);
-
     return SingleChildScrollView(
       child: Consumer<LoginFormState>(
         builder: (context, loginFormState, child) {
@@ -160,7 +159,9 @@ class _LoginFormState extends State<LoginForm> {
           return currentUser == null
               ? Container(
                   child: CircularProcessLoader(
-                      color: CustomColor.defaultSecondaryColor, size: 2.0),
+                    color: CustomColor.defaultSecondaryColor,
+                    size: 2.0,
+                  ),
                 )
               : Column(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -192,13 +193,14 @@ class _LoginFormState extends State<LoginForm> {
                         style: LoginPageStyles.formInputValueStyle,
                         textInputAction: TextInputAction.done,
                         decoration: InputDecoration(
-                            border: InputBorder.none,
-                            prefixIcon: FormFieldInputIcon(
-                              backGroundColor: Color(0xFFEDF5EC),
-                              svgIcon: 'assets/icons/login-user-input.svg',
-                            ),
-                            prefixIconConstraints:
-                                LoginPageStyles.loginBoxConstraints),
+                          border: InputBorder.none,
+                          prefixIcon: FormFieldInputIcon(
+                            backGroundColor: Color(0xFFEDF5EC),
+                            svgIcon: 'assets/icons/login-user-input.svg',
+                          ),
+                          prefixIconConstraints:
+                              LoginPageStyles.loginBoxConstraints,
+                        ),
                       ),
                     ),
                     LineSeperator(
@@ -207,7 +209,9 @@ class _LoginFormState extends State<LoginForm> {
                           : inActiveInputColor,
                     ),
                     Container(
-                      margin: EdgeInsets.only(top: 10.0),
+                      margin: EdgeInsets.only(
+                        top: 10.0,
+                      ),
                       child: Row(
                         children: [
                           Text(

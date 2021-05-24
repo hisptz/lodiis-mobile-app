@@ -15,10 +15,18 @@ class LoginFormContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Container(
-      padding: EdgeInsets.only(top: 30, left: 30, right: 30, bottom: 70),
+      padding: EdgeInsets.only(
+        top: 30.0,
+        left: 30.0,
+        right: 30.0,
+        bottom: 70.0,
+      ),
       decoration: BoxDecoration(
-          color: const Color(0xFFFFFFFF),
-          borderRadius: BorderRadius.all(Radius.circular(32))),
+        color: const Color(0xFFFFFFFF),
+        borderRadius: BorderRadius.all(
+          Radius.circular(32.0),
+        ),
+      ),
       width: size.width * 0.8,
       child: Container(
         child: Column(
@@ -30,15 +38,16 @@ class LoginFormContainer extends StatelessWidget {
                   Text(
                     'Login',
                     style: TextStyle(
-                        color: const Color(0xFF387A34),
-                        fontSize: 24.0,
-                        fontWeight: FontWeight.w600),
+                      color: Color(0xFF387A34),
+                      fontSize: 24.0,
+                      fontWeight: FontWeight.w600,
+                    ),
                   )
                 ],
               ),
             ),
             SizedBox(
-              height: 10,
+              height: 10.0,
             ),
             Container(
               child: Column(
@@ -48,9 +57,10 @@ class LoginFormContainer extends StatelessWidget {
                       Text(
                         'Please enter your account details in order to login to the app',
                         style: TextStyle(
-                            color: const Color(0xFF737373),
-                            fontSize: 14.0,
-                            fontWeight: FontWeight.w600),
+                          color: Color(0xFF737373),
+                          fontSize: 14.0,
+                          fontWeight: FontWeight.w600,
+                        ),
                       )
                     ],
                   )
@@ -58,7 +68,7 @@ class LoginFormContainer extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: 10,
+              height: 10.0,
             ),
             Container(
               child: LoginForm(
@@ -66,25 +76,27 @@ class LoginFormContainer extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: 10,
+              height: 10.0,
             ),
             Consumer<LoginFormState>(builder: (context, loginFormState, child) {
               return Container(
-                  child: Column(
-                children: [
-                  Column(
-                    children: [
-                      Text(
-                        loginFormState.currentLoginProcessMessage,
-                        style: TextStyle(
+                child: Column(
+                  children: [
+                    Column(
+                      children: [
+                        Text(
+                          loginFormState.currentLoginProcessMessage,
+                          style: TextStyle(
                             color: const Color(0xFF737373),
                             fontSize: 14.0,
-                            fontWeight: FontWeight.w600),
-                      )
-                    ],
-                  )
-                ],
-              ));
+                            fontWeight: FontWeight.w600,
+                          ),
+                        )
+                      ],
+                    )
+                  ],
+                ),
+              );
             })
           ],
         ),
