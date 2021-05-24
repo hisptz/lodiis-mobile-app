@@ -7,7 +7,7 @@ class LoginTopIcon extends StatelessWidget {
   final double height = 5.0;
   final double width = 50.0;
   final double iconSize = 60.0;
-  final appLabel = "Training App";
+  final appLabel = "";
 
   @override
   Widget build(BuildContext context) {
