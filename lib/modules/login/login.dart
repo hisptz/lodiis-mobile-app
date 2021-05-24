@@ -12,6 +12,7 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  final String appLabel = "";
   @override
   void initState() {
     super.initState();
@@ -37,11 +38,16 @@ class _LoginState extends State<Login> {
                   return Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      LoginTopIcon(),
+                      LoginTopIcon(
+                        appLabel: appLabel,
+                      ),
                       SizedBox(
                         height: 10,
                       ),
-                      LoginFormContainer(currentLanguage: currentLanguage),
+                      LoginFormContainer(
+                        currentLanguage: currentLanguage,
+                        appLabel: appLabel,
+                      )
                     ],
                   );
                 },
