@@ -174,6 +174,7 @@ class OvcReferral {
                     id: 'ubB83OWNWsv',
                     name: 'Service Provider/Referred Organization at community',
                     valueType: 'ORGANISATION_UNIT',
+                    showCountryLevelTree: true,
                     inputColor: Color(0xFF4B9F46),
                     labelColor: Color(0xFF737373),
                   ),
@@ -337,6 +338,7 @@ class OvcReferral {
                     translatedName:
                         'Lebitso la setsi seo a fetisetsoang ho sona',
                     valueType: 'ORGANISATION_UNIT',
+                    showCountryLevelTree: true,
                     inputColor: Color(0xFF4B9F46),
                     labelColor: Color(0xFF737373),
                   ),

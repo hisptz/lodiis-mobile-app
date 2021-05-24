@@ -888,6 +888,7 @@ class DreamsServicePrepIntakeInfo {
                 labelColor: Color(0xFF737373),
                 allowedSelectedLevels: [4],
                 name: 'Facility Name',
+                showCountryLevelTree: true,
                 valueType: 'ORGANISATION_UNIT'),
             InputField(
                 id: 'uHrSSJghmTS',
@@ -1168,6 +1169,7 @@ class DreamsServicePrepIntakeInfo {
                 labelColor: Color(0xFF737373),
                 name: 'Name of facility PrEP referred',
                 allowedSelectedLevels: [4],
+                showCountryLevelTree: true,
                 valueType: 'ORGANISATION_UNIT'),
           ]),
       // FormSection(
