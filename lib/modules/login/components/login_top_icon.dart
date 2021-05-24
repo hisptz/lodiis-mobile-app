@@ -7,7 +7,12 @@ class LoginTopIcon extends StatelessWidget {
   final double height = 5.0;
   final double width = 50.0;
   final double iconSize = 60.0;
-  final appLabel = "Training App";
+  final appLabel;
+
+  const LoginTopIcon({
+    Key key,
+    @required this.appLabel,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +27,7 @@ class LoginTopIcon extends StatelessWidget {
           child: Text(
             appLabel,
             style: TextStyle().copyWith(
-              color: Color(0xFFFAFAFA),
+              color: Colors.redAccent,
               fontSize: 24.0,
               fontWeight: FontWeight.w600,
             ),

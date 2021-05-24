@@ -7,20 +7,17 @@ class LoginFormContainer extends StatelessWidget {
   const LoginFormContainer({
     Key key,
     @required this.currentLanguage,
+    @required this.appLabel,
   }) : super(key: key);
 
   final String currentLanguage;
+  final String appLabel;
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Container(
-      padding: EdgeInsets.only(
-        top: 30.0,
-        left: 30.0,
-        right: 30.0,
-        bottom: 70.0,
-      ),
+      padding: EdgeInsets.all(30.0),
       decoration: BoxDecoration(
         color: const Color(0xFFFFFFFF),
         borderRadius: BorderRadius.all(
@@ -87,7 +84,7 @@ class LoginFormContainer extends StatelessWidget {
                         Text(
                           loginFormState.currentLoginProcessMessage,
                           style: TextStyle(
-                            color: const Color(0xFF737373),
+                            color: Color(0xFF737373),
                             fontSize: 14.0,
                             fontWeight: FontWeight.w600,
                           ),
@@ -97,7 +94,20 @@ class LoginFormContainer extends StatelessWidget {
                   ],
                 ),
               );
-            })
+            }),
+            Container(
+              child: Visibility(
+                visible: appLabel != "",
+                child: Text(
+                  "NB : This is $appLabel",
+                  style: TextStyle().copyWith(
+                    color: Colors.redAccent,
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),
