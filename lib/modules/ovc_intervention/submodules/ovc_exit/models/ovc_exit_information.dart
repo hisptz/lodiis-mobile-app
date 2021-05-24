@@ -58,6 +58,7 @@ class OvcExitInformation {
                 name:
                     'What is a service provider/referred organization at facility?',
                 valueType: 'ORGANISATION_UNIT',
+                showCountryLevelTree: true,
                 inputColor: Color(0xFF07AD40),
                 labelColor: Color(0xFF737373)),
             InputField(

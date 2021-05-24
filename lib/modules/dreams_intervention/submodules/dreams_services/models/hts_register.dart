@@ -314,6 +314,7 @@ class HTSRegister {
           id: 'RJIRJBkyuaj',
           name: 'Referred Facility',
           valueType: 'ORGANISATION_UNIT',
+          showCountryLevelTree: true,
           allowedSelectedLevels: [4],
           inputColor: Color(0xFF258DCC),
           labelColor: Color(0xFF737373),

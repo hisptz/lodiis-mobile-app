@@ -607,6 +607,7 @@ class ClientInformation {
             id: 'rvanxUEglQu',
             name: 'Name of referral DNA PCR or ART facility',
             valueType: 'ORGANISATION_UNIT',
+            showCountryLevelTree: true,
             inputColor: Color(0xFF258DCC),
             labelColor: Color(0xFF737373)),
         InputField(

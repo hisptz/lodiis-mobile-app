@@ -71,6 +71,7 @@ class BioDataInformationAboutIndexPositiveClient {
                 id: 'rvZ3SgtvxB5',
                 name: 'ART enrolment facility',
                 valueType: 'ORGANISATION_UNIT',
+                showCountryLevelTree: true,
                 inputColor: Color(0xFF258DCC),
                 labelColor: Color(0xFF737373)),
             InputField(
@@ -83,7 +84,6 @@ class BioDataInformationAboutIndexPositiveClient {
                   InputFieldOption(code: 'Facility', name: 'Facility'),
                   InputFieldOption(code: 'Community', name: 'Community')
                 ]),
-           
           ]),
     ];
   }
