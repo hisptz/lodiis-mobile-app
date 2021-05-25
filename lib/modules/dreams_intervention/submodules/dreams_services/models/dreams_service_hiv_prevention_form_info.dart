@@ -45,6 +45,7 @@ class DreamsServiceHivPreventionInfo {
                   'District (where sessions/activities/meetings are completed)',
               valueType: 'ORGANISATION_UNIT',
               showCountryLevelTree: true,
+              allowedSelectedLevels: [3, 4],
               inputColor: Color(0xFF1F8ECE),
               labelColor: Color(0xFF737373),
             ),
@@ -55,6 +56,7 @@ class DreamsServiceHivPreventionInfo {
                 name:
                     'Council (where sessions/activities/meetings are completed)',
                 showCountryLevelTree: true,
+                allowedSelectedLevels: [3, 4],
                 valueType: 'ORGANISATION_UNIT'),
             InputField(
                 id: 'BJYUYd4JnuB',
