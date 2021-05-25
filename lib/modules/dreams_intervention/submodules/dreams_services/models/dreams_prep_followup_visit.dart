@@ -190,7 +190,7 @@ class DreamsPrepFollwUpVisit {
                 name: 'Transfer in',
                 valueType: 'ORGANISATION_UNIT',
                 showCountryLevelTree: true,
-                allowedSelectedLevels: [4],
+                allowedSelectedLevels: [3, 4],
                 inputColor: Color(0xFF258DCC),
                 labelColor: Color(0xFF737373)),
             InputField(
@@ -198,7 +198,7 @@ class DreamsPrepFollwUpVisit {
                 name: 'Transfer out',
                 valueType: 'ORGANISATION_UNIT',
                 showCountryLevelTree: true,
-                allowedSelectedLevels: [4],
+                allowedSelectedLevels: [3, 4],
                 inputColor: Color(0xFF258DCC),
                 labelColor: Color(0xFF737373)),
             InputField(
