@@ -47,7 +47,9 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(create: (_) => OvcInterventionListState()),
           ChangeNotifierProvider(create: (_) => DreamsInterventionListState()),
           ChangeNotifierProvider(create: (_) => OgacInterventionListState()),
-          ChangeNotifierProvider(create: (_) => SynchronizationState()),
+          ChangeNotifierProvider(
+              create: (BuildContext context) =>
+                  SynchronizationState(context: context)),
           ChangeNotifierProvider(create: (_) => AppLogsState()),
           ChangeNotifierProvider(create: (_) => DeviceConnectivityState()),
           ChangeNotifierProvider(
