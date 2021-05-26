@@ -12,13 +12,15 @@ import 'package:kb_mobile_app/core/components/sub_module_home_container.dart';
 import 'package:provider/provider.dart';
 import 'pages/dream_referral_page_home.dart';
 
-class DreamsReferralPage extends StatefulWidget {
-  const DreamsReferralPage({Key key}) : super(key: key);
+class DreamsIncomingReferralPage extends StatefulWidget {
+  const DreamsIncomingReferralPage({Key key}) : super(key: key);
   @override
-  _DreamsReferralPageState createState() => _DreamsReferralPageState();
+  _DreamsIncomingReferralPageState createState() =>
+      _DreamsIncomingReferralPageState();
 }
 
-class _DreamsReferralPageState extends State<DreamsReferralPage> {
+class _DreamsIncomingReferralPageState
+    extends State<DreamsIncomingReferralPage> {
   final String title = 'BENEFICIARY LIST';
   final bool canEdit = false;
   final bool canView = false;
@@ -50,7 +52,7 @@ class _DreamsReferralPageState extends State<DreamsReferralPage> {
       builder: (context, dreamInterventionListState, child) {
         return SubModuleHomeContainer(
           header:
-              '$title : ${dreamInterventionListState.numberOfAgywDreamsBeneficiaries} beneficiaries',
+              '$title : ${dreamInterventionListState.numberOfAgywDreamsIncomingReferralBeneficiaries} beneficiaries',
           bodyContents: _buildBody(),
         );
       },
@@ -104,7 +106,8 @@ class _DreamsReferralPageState extends State<DreamsReferralPage> {
                     ),
                     cardBottonContent: Container(),
                   ),
-              pagingController: dreamInterventionListState.agywPagingController,
+              pagingController: dreamInterventionListState
+                  .agywIncomingReferralPagingController,
               emptyListWidget: Center(
                 child: Text(
                   'There is no beneficiary list at a moment',

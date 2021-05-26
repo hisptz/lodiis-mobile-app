@@ -53,13 +53,10 @@ class DreamsInterventionListState with ChangeNotifier {
 
   PagingController get agywPagingController => _agywPagingController;
 
-  PagingController get nonAgywPagingController => _nonAgywPagingController;
+  PagingController get agywIncomingReferralPagingController =>
+      _agywIncomingReferralPagingController;
 
-  PagingController getPagingController() {
-    return _isIncomingReferral
-        ? _agywIncomingReferralPagingController
-        : _agywPagingController;
-  }
+  PagingController get nonAgywPagingController => _nonAgywPagingController;
 
   void setTeiWithIncomingReferral(
       {List<String> teiWithIncomingReferral = const []}) {
