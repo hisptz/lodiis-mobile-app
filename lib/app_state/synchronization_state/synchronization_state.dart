@@ -311,8 +311,9 @@ class SynchronizationState with ChangeNotifier {
       AppUtil.showToastMessage(message: 'Error uploading data');
       updateDataUploadStatus(false);
     }
-    Provider.of<SynchronizationState>(context, listen: false)
-        .startCheckingStatusOfUnsyncedData();
+    _dataUploadProcess = [];
+    notifyListeners();
+    await startCheckingStatusOfUnsyncedData();
     await Provider.of<ReferralNotificationState>(context, listen: false)
         .reloadReferralNotifications();
     updateDataUploadStatus(false);
