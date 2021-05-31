@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dream_current_selection_state.dart';
+import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/core/components/input_fields/search_input.dart';
 import 'package:kb_mobile_app/core/components/line_seperator.dart';
 import 'package:kb_mobile_app/core/components/material_card.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_referral/pages/dream_referral_page_home.dart';
+import 'package:provider/provider.dart';
 
 class DreamsOutgoingReferralsOutcome extends StatefulWidget {
   DreamsOutgoingReferralsOutcome({@required this.agywList});
@@ -19,8 +23,13 @@ class _DreamsOutgoingReferralsOutcomeState
   final String svgIcon = 'assets/icons/dreams-header-icon.svg';
   String searchedValue = '';
 
-  onView(AgywDream agyw) {
-    print('Viewing: ${agyw.id}');
+  onView(AgywDream agywBeneficiary) {
+    Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
+        .setCurrentAgywDream(agywBeneficiary);
+    Provider.of<ServiveEventDataState>(context, listen: false)
+        .resetServiceEventDataState(agywBeneficiary.id);
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => DreamAgywReferralPage()));
   }
 
   onSearchBeneficiary(String value) {
