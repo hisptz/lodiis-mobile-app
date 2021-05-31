@@ -17,13 +17,16 @@ class DreamsOutgoingReferralsOutcome extends StatefulWidget {
 class _DreamsOutgoingReferralsOutcomeState
     extends State<DreamsOutgoingReferralsOutcome> {
   final String svgIcon = 'assets/icons/dreams-header-icon.svg';
+  String searchedValue = '';
 
   onView(AgywDream agyw) {
     print('Viewing: ${agyw.id}');
   }
 
   onSearchBeneficiary(String value) {
-    print('Searching: $value');
+    setState(() {
+      searchedValue = value;
+    });
   }
 
   @override
@@ -43,7 +46,23 @@ class _DreamsOutgoingReferralsOutcomeState
             SizedBox(
               height: 10,
             ),
-            ...widget.agywList
+            Visibility(
+              child: Text('Searched Beneficiary not found!'),
+              visible: searchedValue != '' &&
+                  widget.agywList
+                          .where((agyw) =>
+                              '${agyw.toString()} ${agyw.primaryUIC}'
+                                  .toLowerCase()
+                                  .indexOf(searchedValue) !=
+                              -1)
+                          .length ==
+                      0,
+            ),
+            ...(widget.agywList.where((agyw) =>
+                    '${agyw.toString()} ${agyw.primaryUIC}'
+                        .toLowerCase()
+                        .indexOf(searchedValue) !=
+                    -1))
                 .map((agyw) => Container(
                       margin: EdgeInsets.symmetric(horizontal: 5.0),
                       child: MaterialCard(
