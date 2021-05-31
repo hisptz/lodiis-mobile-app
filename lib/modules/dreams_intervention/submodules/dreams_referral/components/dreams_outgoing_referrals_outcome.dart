@@ -28,6 +28,7 @@ class _DreamsOutgoingReferralsOutcomeState
         .setCurrentAgywDream(agywBeneficiary);
     Provider.of<ServiveEventDataState>(context, listen: false)
         .resetServiceEventDataState(agywBeneficiary.id);
+    Navigator.pop(context);
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => DreamAgywReferralPage()));
   }
