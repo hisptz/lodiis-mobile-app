@@ -3,9 +3,17 @@ import 'package:flutter_svg/svg.dart';
 import 'package:kb_mobile_app/core/components/material_card.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
 
-class DreamsOutgoingReferralsOutcome extends StatelessWidget {
+class DreamsOutgoingReferralsOutcome extends StatefulWidget {
   DreamsOutgoingReferralsOutcome({@required this.agywList});
   final List<AgywDream> agywList;
+
+  @override
+  _DreamsOutgoingReferralsOutcomeState createState() =>
+      _DreamsOutgoingReferralsOutcomeState();
+}
+
+class _DreamsOutgoingReferralsOutcomeState
+    extends State<DreamsOutgoingReferralsOutcome> {
   final String svgIcon = 'assets/icons/dreams-header-icon.svg';
 
   onView(AgywDream agyw) {
@@ -14,14 +22,13 @@ class DreamsOutgoingReferralsOutcome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double iconHeight = 25;
     return ClipRRect(
       borderRadius: BorderRadius.all(Radius.circular(12.0)),
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 10.0),
         child: Center(
           child: Column(
-              children: agywList
+              children: widget.agywList
                   .map((agyw) => Container(
                         margin: EdgeInsets.symmetric(horizontal: 5.0),
                         child: MaterialCard(
@@ -58,15 +65,20 @@ class DreamsOutgoingReferralsOutcome extends StatelessWidget {
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
                                               children: [
-                                                Text(
-                                                    '${agyw.firstname} ${agyw.surname}',
-                                                    style: TextStyle().copyWith(
-                                                        color:
-                                                            Color(0xFF05131B),
-                                                        fontSize: 14.0,
-                                                        fontWeight:
-                                                            FontWeight.bold)),
-                                                Text(agyw.primaryUIC)
+                                                Wrap(children: [
+                                                  Text(agyw.toString(),
+                                                      style: TextStyle()
+                                                          .copyWith(
+                                                              color: Color(
+                                                                  0xFF05131B),
+                                                              fontSize: 14.0,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold)),
+                                                ]),
+                                                Wrap(children: [
+                                                  Text(agyw.primaryUIC)
+                                                ])
                                               ],
                                             )),
                                       ],
