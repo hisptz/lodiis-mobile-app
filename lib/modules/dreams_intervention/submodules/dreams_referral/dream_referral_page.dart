@@ -5,10 +5,13 @@ import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_ev
 import 'package:kb_mobile_app/app_state/referral_nofitication_state/referral_nofitication_state.dart';
 import 'package:kb_mobile_app/core/components/line_seperator.dart';
 import 'package:kb_mobile_app/core/components/paginated_list_view.dart';
+import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_card_body.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_card.dart';
 import 'package:kb_mobile_app/core/components/sub_module_home_container.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/services/agyw_dream_enrollment_service.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_referral/components/dreams_outgoing_referrals_outcome.dart';
 import 'package:provider/provider.dart';
 import 'pages/dream_referral_page_home.dart';
 
@@ -44,15 +47,35 @@ class _DreamsReferralPageState extends State<DreamsReferralPage> {
         MaterialPageRoute(builder: (context) => DreamAgywReferralPage()));
   }
 
+  void onViewOutgoingReferralWithOutcome(BuildContext context) async {
+    List<String> incomingTeiWithOutcome =
+        Provider.of<ReferralNotificationState>(context, listen: false)
+            .teiWithIncommingResolvedReferrals;
+    List<AgywDream> agywList = await AgywDreamEnrollmentService()
+        .getAgywBenficiariesWithIncomingReferralList(
+            teiList: incomingTeiWithOutcome);
+    Widget modal = DreamsOutgoingReferralsOutcome(
+      agywList: agywList,
+    );
+    await AppUtil.showPopUpModal(context, modal, false);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Consumer<DreamsInterventionListState>(
       builder: (context, dreamInterventionListState, child) {
-        return SubModuleHomeContainer(
-          header:
-              '$title : ${dreamInterventionListState.numberOfAgywDreamsBeneficiaries} beneficiaries',
-          bodyContents: _buildBody(),
-        );
+        return Consumer<ReferralNotificationState>(
+            builder: (context, referralNotificationState, child) {
+          String incomingReferralsResolved =
+              referralNotificationState.incomingReferralsResolvedIndicator;
+          return SubModuleHomeContainer(
+            header:
+                '$title : ${dreamInterventionListState.numberOfAgywDreamsBeneficiaries} beneficiaries',
+            onOpenInfo: () => onViewOutgoingReferralWithOutcome(context),
+            hasInfo: incomingReferralsResolved != '',
+            bodyContents: _buildBody(),
+          );
+        });
       },
     );
   }
