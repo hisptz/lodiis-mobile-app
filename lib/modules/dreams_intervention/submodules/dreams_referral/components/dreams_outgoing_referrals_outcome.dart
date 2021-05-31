@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:kb_mobile_app/core/components/input_fields/search_input.dart';
+import 'package:kb_mobile_app/core/components/line_seperator.dart';
 import 'package:kb_mobile_app/core/components/material_card.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
 
@@ -35,6 +36,9 @@ class _DreamsOutgoingReferralsOutcomeState
           child: Column(children: [
             SearchInput(
               onSearch: (value) => onSearchBeneficiary(value),
+            ),
+            LineSeperator(
+              color: Color(0xFFE9F4FA),
             ),
             SizedBox(
               height: 10,
