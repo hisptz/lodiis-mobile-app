@@ -214,6 +214,14 @@ class AgywEnrollmentRiskAssessment {
             ],
           ),
           InputField(
+            id: 'RB8Wx75hGa4',
+            name: 'Village',
+            translatedName: 'Motse',
+            valueType: 'TEXT',
+            inputColor: Color(0xFF258DCC),
+            labelColor: Color(0xFF737373),
+          ),
+          InputField(
               id: '',
               name: 'Have you been a member of',
               translatedName:
