@@ -17,11 +17,13 @@ class AppLogsService {
 
     return searchableValue == ''
         ? appLogsList
-        : appLogsList.where((AppLogs logs) =>
-            logs.searchableValue
-                .toLowerCase()
-                .indexOf(searchableValue.toLowerCase()) !=
-            -1);
+        : appLogsList
+            .where((AppLogs logs) =>
+                logs.searchableValue
+                    .toLowerCase()
+                    .indexOf(searchableValue.toLowerCase()) !=
+                -1)
+            .toList();
   }
 
   Future<int> getAppLogsCount() async {

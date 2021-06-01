@@ -7,7 +7,7 @@ import 'package:kb_mobile_app/core/components/paginated_list_view.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/app_logs/components/app_logs_card.dart';
-import 'package:kb_mobile_app/modules/app_logs/components/app_logs_search.dart';
+import 'package:kb_mobile_app/core/components/input_fields/search_input.dart';
 import 'package:provider/provider.dart';
 
 class AppLogsPage extends StatefulWidget {
@@ -57,8 +57,8 @@ class _AppLogsState extends State<AppLogsPage> {
                 return Scaffold(
                   appBar: AppBar(
                     automaticallyImplyLeading: false,
-                    title: AppLogsSearch(
-                      onSearchLogs: (value) => onSearchLogs(value),
+                    title: SearchInput(
+                      onSearch: (value) => onSearchLogs(value),
                     ),
                     backgroundColor: Colors.white,
                   ),

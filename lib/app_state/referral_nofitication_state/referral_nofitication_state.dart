@@ -24,6 +24,16 @@ class ReferralNotificationState with ChangeNotifier {
       _incomingReferralsResolvedIndicator ?? "";
   String get incomingReferralToResolveIndicator =>
       _incomingReferralToResolveIndicator ?? "";
+  List<String> get teiWithIncommingResolvedReferrals =>
+      getListOfTeiWithIncomingResolvedReferrals();
+
+  List<String> getListOfTeiWithIncomingResolvedReferrals() {
+    List<String> teiList = [];
+    _incommingResolvedReferrals.forEach((referral) {
+      teiList.add(referral.tei);
+    });
+    return teiList.toSet().toList();
+  }
 
   // reducer for the state
   Future<void> setCurrentImplementingPartner(String implementingPartner) async {

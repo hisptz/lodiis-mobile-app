@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/core/components/input_fields/input_checked_icon.dart';
+import 'package:kb_mobile_app/core/components/input_fields/input_search_clear_icon.dart';
 import 'package:kb_mobile_app/core/components/input_fields/input_search_icon.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 
@@ -49,6 +50,11 @@ class _TextInputFieldContainerState extends State<TextInputFieldContainer> {
       _value = value;
     });
     widget.onInputValueChange(value.trim());
+  }
+
+  clearSearchValue() {
+    updateTextValue();
+    widget.onInputValueChange(_value);
   }
 
   @override
@@ -108,7 +114,14 @@ class _TextInputFieldContainerState extends State<TextInputFieldContainer> {
           ),
           Visibility(
             child: InputSearchIcon(),
-            visible: widget.showInputSearchIcon,
+            visible: widget.showInputSearchIcon && _value == '',
+          ),
+          Visibility(
+            child: GestureDetector(
+              child: InputSearchClearIcon(),
+              onTap: () => clearSearchValue(),
+            ),
+            visible: widget.showInputSearchIcon && _value != '',
           )
         ],
       ),

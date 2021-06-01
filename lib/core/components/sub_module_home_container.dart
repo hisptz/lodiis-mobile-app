@@ -6,12 +6,16 @@ import 'package:provider/provider.dart';
 class SubModuleHomeContainer extends StatelessWidget {
   final String header;
   final Widget bodyContents;
+  final Function onOpenInfo;
+  final bool hasInfo;
 
-  const SubModuleHomeContainer({
-    Key key,
-    this.header,
-    @required this.bodyContents,
-  }) : super(key: key);
+  const SubModuleHomeContainer(
+      {Key key,
+      this.header,
+      @required this.bodyContents,
+      this.onOpenInfo,
+      this.hasInfo = false})
+      : super(key: key);
 
   @override
   Widget build(
@@ -20,12 +24,29 @@ class SubModuleHomeContainer extends StatelessWidget {
     return Scaffold(
         appBar: header != null && header != ''
             ? AppBar(
-                title: Text(
-                  header,
-                  style: TextStyle().copyWith(
-                      color: Color(0xFF82898D),
-                      fontSize: 14.0,
-                      fontWeight: FontWeight.bold),
+                title: Container(
+                  child: Row(
+                    children: [
+                      Expanded(
+                          child: Text(
+                        header,
+                        style: TextStyle().copyWith(
+                            color: Color(0xFF82898D),
+                            fontSize: 14.0,
+                            fontWeight: FontWeight.bold),
+                      )),
+                      Visibility(
+                          visible: hasInfo,
+                          child: InkWell(
+                            onTap: onOpenInfo,
+                            child: Icon(
+                              Icons.info_outline,
+                              color: Color(0xFF82898D),
+                              size: 24.0,
+                            ),
+                          )),
+                    ],
+                  ),
                 ),
                 backgroundColor: Color(0xFFFFFFFF),
                 elevation: 1,

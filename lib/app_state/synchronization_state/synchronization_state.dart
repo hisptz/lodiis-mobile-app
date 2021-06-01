@@ -1,6 +1,11 @@
 import 'dart:async';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
+import 'package:kb_mobile_app/app_state/ogac_intervention_list_state/ogac_intervention_list_state.dart';
+import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_intervention_list_state.dart';
+import 'package:kb_mobile_app/app_state/referral_nofitication_state/referral_nofitication_state.dart';
 import 'package:kb_mobile_app/core/constants/app_logs.dart';
 import 'package:kb_mobile_app/core/offline_db/app_logs_offline/app_logs_offline_provider.dart';
 import 'package:kb_mobile_app/core/services/implementing_partner_config_service.dart';
@@ -12,8 +17,13 @@ import 'package:kb_mobile_app/models/app_logs.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
+import 'package:provider/provider.dart';
 
 class SynchronizationState with ChangeNotifier {
+  final BuildContext context;
+
+  SynchronizationState({this.context});
+
 // intial state
   bool _isDataUploadingActive;
   bool _isDataDownloadingActive;
@@ -250,6 +260,20 @@ class SynchronizationState with ChangeNotifier {
       updateDataDownloadStatus(false);
       AppUtil.showToastMessage(message: 'Error downloading data');
     }
+    await Provider.of<ReferralNotificationState>(context, listen: false)
+        .reloadReferralNotifications();
+    List<String> teiWithIncomingReferral =
+        Provider.of<ReferralNotificationState>(context, listen: false)
+            .beneficiariesWithIncomingReferrals;
+    Provider.of<DreamsInterventionListState>(context, listen: false)
+        .setTeiWithIncomingReferral(
+            teiWithIncomingReferral: teiWithIncomingReferral);
+    await Provider.of<OvcInterventionListState>(context, listen: false)
+        .refreshOvcNumber();
+    await Provider.of<DreamsInterventionListState>(context, listen: false)
+        .refreshBeneficiariesNumber();
+    await Provider.of<OgacInterventionListState>(context, listen: false)
+        .refreshOgacList();
   }
 
   Future startDataUploadActivity() async {
@@ -287,6 +311,11 @@ class SynchronizationState with ChangeNotifier {
       AppUtil.showToastMessage(message: 'Error uploading data');
       updateDataUploadStatus(false);
     }
+    _dataUploadProcess = [];
+    notifyListeners();
+    await startCheckingStatusOfUnsyncedData();
+    await Provider.of<ReferralNotificationState>(context, listen: false)
+        .reloadReferralNotifications();
     updateDataUploadStatus(false);
   }
 }
