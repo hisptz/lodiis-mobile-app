@@ -45,7 +45,7 @@ class AutoSynchronizationService {
               .hasUnsyncedData;
       if (hasUnsyncedData && !isDataUploadingActive) {
         await Provider.of<SynchronizationState>(context, listen: false)
-            .startDataUploadActivity();
+            .startDataUploadActivity(isAutoUpload: true);
         Provider.of<SynchronizationState>(context, listen: false)
             .startCheckingStatusOfUnsyncedData();
       } else {

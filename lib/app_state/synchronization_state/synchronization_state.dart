@@ -276,7 +276,7 @@ class SynchronizationState with ChangeNotifier {
         .refreshOgacList();
   }
 
-  Future startDataUploadActivity() async {
+  Future startDataUploadActivity({bool isAutoUpload = false}) async {
     _dataUploadProcess = [];
     updateDataUploadStatus(true);
     try {
@@ -287,19 +287,20 @@ class SynchronizationState with ChangeNotifier {
       if (teis.length > 0) {
         addDataUploadProcess("Uploading beneficiary's profile data");
         await _synchronizationService.uploadTeisToTheServer(
-            teis, teiEnrollments);
+            teis, teiEnrollments, isAutoUpload);
 
         var teiRelationships =
             await _synchronizationService.getTeiRelationShipFromOfflineDb();
-        await _synchronizationService
-            .uploadTeiRelationToTheServer(teiRelationships);
+        await _synchronizationService.uploadTeiRelationToTheServer(
+            teiRelationships, isAutoUpload);
       }
 
       var teiEvents = await _synchronizationService.getTeiEventsFromOfflineDb();
       if (teiEvents.length > 0) {
         addDataUploadProcess("Uploading beneficiary's service data");
         _dataUploadProcess = [];
-        await _synchronizationService.uploadTeiEventsToTheServer(teiEvents);
+        await _synchronizationService.uploadTeiEventsToTheServer(
+            teiEvents, isAutoUpload);
       }
       AppUtil.showToastMessage(
         message: 'Start synchronisation of referral notitifcations',
@@ -308,7 +309,9 @@ class SynchronizationState with ChangeNotifier {
       await ReferralNotificationService().syncReferralNotifications();
     } catch (e) {
       _dataUploadProcess = [];
-      AppUtil.showToastMessage(message: 'Error uploading data');
+      if (!isAutoUpload) {
+        AppUtil.showToastMessage(message: 'Error uploading data');
+      }
       updateDataUploadStatus(false);
     }
     _dataUploadProcess = [];
