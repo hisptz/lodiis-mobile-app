@@ -364,6 +364,9 @@ class AgywDreamsEnrollmentSkipLogic {
       if (inputFieldId == 'bBVCUqsdfL3' && value != 'true') {
         hiddenFields['NP7LbypO3li'] = true;
       }
+      if (inputFieldId == 'wfb1pQ1odtz' && value != 'Other') {
+        hiddenFields['yZtuWQz9RG8'] = true;
+      }
       if (inputFieldId == 'ZcfLYz7JlVo' && value != 'true') {
         hiddenFields['ZcfLYz7JlVo_checkbox'] = true;
         hiddenFields['prTJovIPAKu'] = true;
@@ -430,6 +433,17 @@ class AgywDreamsEnrollmentSkipLogic {
           assignInputFieldValue(context, 'p33MrrhsQRz', '');
         }
       }
+    }
+    // for enrollment module 6 questions
+    if ("${dataObject['i32OwNqUYRn']}" != 'true' &&
+        "${dataObject['NgIDtgfZMVH']}" != 'true' &&
+        "${dataObject['KNqzbD65UrN']}" != 'true' &&
+        "${dataObject['Zmt7PefVzk4']}" != 'true' &&
+        "${dataObject['NOJbkKuHccD']}" != 'true' &&
+        "${dataObject['mvPAYFoFQcW']}" != 'true' &&
+        "${dataObject['WwTI82dbYIc']}" != 'true' &&
+        "${dataObject['bBVCUqsdfL3']}" != 'true') {
+      hiddenFields['ZcfLYz7JlVo'] = true;
     }
     hiddenInputFieldOptions['UzQ533pOnvt'] = hiddenOptions;
     for (String sectionId in hiddenSections.keys) {

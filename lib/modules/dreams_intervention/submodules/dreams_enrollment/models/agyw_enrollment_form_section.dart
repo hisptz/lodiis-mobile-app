@@ -2098,6 +2098,14 @@ class AgywEnrollmentFormSection {
             ],
           ),
           InputField(
+            id: 'yZtuWQz9RG8',
+            name: 'Specify other type of drugs abuse/addiction used 12 months',
+            translatedName: 'Tse ling (li hlalose)',
+            valueType: 'TEXT',
+            inputColor: Color(0xFF258DCC),
+            labelColor: Color(0xFF737373),
+          ),
+          InputField(
               id: 'YSAyCyGWCaK',
               name:
                   '705. In the last 12 months have you engaged in brewing or selling alcohol and/or drugs of abuse or addiction?',
