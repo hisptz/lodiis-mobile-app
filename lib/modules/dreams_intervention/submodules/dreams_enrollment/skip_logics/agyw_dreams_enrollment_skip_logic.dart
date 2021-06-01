@@ -206,6 +206,9 @@ class AgywDreamsEnrollmentSkipLogic {
       if (inputFieldId == 'fEHah8SvP35' && value != 'true') {
         hiddenFields['uSxDP43mFEG'] = true;
       }
+      if (inputFieldId == 'iS9mAp3jDaU' && value != 'Other') {
+        hiddenFields['nuka3TRVCnJ'] = true;
+      }
       if (inputFieldId == 'JmiNCIwfZvh' && value != 'Other') {
         hiddenFields['HuGpuXtz673'] = true;
       }
