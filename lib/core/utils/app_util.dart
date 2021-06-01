@@ -141,11 +141,8 @@ class AppUtil {
     );
   }
 
-  static showPopUpModal(
-    BuildContext context,
-    Widget modal,
-    bool diablePadding,
-  ) {
+  static showPopUpModal(BuildContext context, Widget modal, bool diablePadding,
+      {String title = ''}) {
     return showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -167,17 +164,44 @@ class AppUtil {
                 child: Column(
                   children: [
                     Container(
+                      padding: EdgeInsets.symmetric(horizontal: 10.0),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          InkWell(
-                            onTap: () => Navigator.of(context).pop(),
+                          Expanded(
+                              flex: 10,
+                              child: title == ''
+                                  ? Container()
+                                  : Container(
+                                      child: Wrap(
+                                          alignment: WrapAlignment.start,
+                                          children: [
+                                            Text(
+                                              title,
+                                              style: TextStyle().copyWith(
+                                                  color: Color(0xFF82898D),
+                                                  fontSize: 14.0,
+                                                  fontWeight: FontWeight.bold),
+                                            )
+                                          ]),
+                                    )),
+                          Expanded(
+                            flex: 2,
                             child: Container(
-                              margin: EdgeInsets.all(10),
-                              height: 22,
-                              width: 22,
-                              child: SvgPicture.asset(
-                                'assets/icons/close_icon.svg',
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  InkWell(
+                                    onTap: () => Navigator.of(context).pop(),
+                                    child: Container(
+                                      margin: EdgeInsets.all(10),
+                                      height: 22,
+                                      width: 22,
+                                      child: SvgPicture.asset(
+                                        'assets/icons/close_icon.svg',
+                                      ),
+                                    ),
+                                  )
+                                ],
                               ),
                             ),
                           )

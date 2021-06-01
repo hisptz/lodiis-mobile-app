@@ -57,7 +57,8 @@ class _DreamsReferralPageState extends State<DreamsReferralPage> {
     Widget modal = DreamsOutgoingReferralsOutcome(
       agywList: agywList,
     );
-    await AppUtil.showPopUpModal(context, modal, false);
+    await AppUtil.showPopUpModal(context, modal, false,
+        title: 'Beneficiaries with referral outcome');
   }
 
   @override
