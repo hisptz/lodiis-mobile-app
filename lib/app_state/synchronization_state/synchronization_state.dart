@@ -178,10 +178,13 @@ class SynchronizationState with ChangeNotifier {
     }
   }
 
-  Future<void> startCheckingStatusOfUnsyncedData() async {
+  Future<void> startCheckingStatusOfUnsyncedData(
+      {bool isAutoUpload = false}) async {
     _dataDownloadProcess = _dataDownloadProcess ?? [];
     _dataUploadProcess = _dataUploadProcess ?? [];
-    updateUnsynceDataCheckingStatus(true);
+    if (!isAutoUpload) {
+      updateUnsynceDataCheckingStatus(true);
+    }
     CurrentUser user = await UserService().getCurrentUser();
     _synchronizationService = SynchronizationService(
         user.username, user.password, user.programs, user.userOrgUnitIds);
@@ -190,7 +193,9 @@ class SynchronizationState with ChangeNotifier {
     _beneficiaryServiceCount = teiEvents.length;
     _beneficiaryCount = teis.length;
     _hasUnsyncedData = teiEvents.length > 0 || teis.length > 0;
-    updateUnsynceDataCheckingStatus(false);
+    if (!isAutoUpload) {
+      updateUnsynceDataCheckingStatus(false);
+    }
   }
 
   Future startDataDownloadActivity() async {
@@ -316,7 +321,8 @@ class SynchronizationState with ChangeNotifier {
     }
     _dataUploadProcess = [];
     notifyListeners();
-    await startCheckingStatusOfUnsyncedData();
+    await startCheckingStatusOfUnsyncedData(isAutoUpload: isAutoUpload);
+    notifyListeners();
     await Provider.of<ReferralNotificationState>(context, listen: false)
         .reloadReferralNotifications();
     updateDataUploadStatus(false);
