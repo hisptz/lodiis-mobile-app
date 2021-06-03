@@ -33,7 +33,7 @@ class AutoSynchronizationService {
 
   void startAutoDownload(BuildContext context) async {
     await Provider.of<SynchronizationState>(context, listen: false)
-        .startCheckingStatusOfUnsyncedData();
+        .startCheckingStatusOfUnsyncedData(isAutoUpload: true);
     bool isOnline = Provider.of<DeviceConnectivityState>(context, listen: false)
         .connectivityStatus;
     if (isOnline) {
@@ -45,9 +45,7 @@ class AutoSynchronizationService {
               .hasUnsyncedData;
       if (hasUnsyncedData && !isDataUploadingActive) {
         await Provider.of<SynchronizationState>(context, listen: false)
-            .startDataUploadActivity();
-        Provider.of<SynchronizationState>(context, listen: false)
-            .startCheckingStatusOfUnsyncedData();
+            .startDataUploadActivity(isAutoUpload: true);
       } else {
         return;
       }

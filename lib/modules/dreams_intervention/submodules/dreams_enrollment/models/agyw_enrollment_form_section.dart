@@ -195,9 +195,18 @@ class AgywEnrollmentFormSection {
                   name: 'Grandparent',
                   translatedName: 'Ke Nkhono/Ntate-moholo'),
               InputFieldOption(
-                  code: 'Spouse', name: 'Spouse', translatedName: 'Molekane')
+                  code: 'Spouse', name: 'Spouse', translatedName: 'Molekane'),
+              InputFieldOption(
+                  code: 'Other', name: 'Other', translatedName: 'Tse ling')
             ],
           ),
+          InputField(
+              id: 'nuka3TRVCnJ',
+              name: 'Other relationship to caregiver',
+              translatedName: 'Tse ling (hlalosa)',
+              valueType: 'TEXT',
+              inputColor: Color(0xFF258DCC),
+              labelColor: Color(0xFF737373)),
         ],
       ),
       FormSection(
@@ -2087,6 +2096,14 @@ class AgywEnrollmentFormSection {
               InputFieldOption(
                   code: 'Other', name: 'Other', translatedName: 'Tse ling')
             ],
+          ),
+          InputField(
+            id: 'yZtuWQz9RG8',
+            name: 'Specify other type of drugs abuse/addiction used 12 months',
+            translatedName: 'Tse ling (li hlalose)',
+            valueType: 'TEXT',
+            inputColor: Color(0xFF258DCC),
+            labelColor: Color(0xFF737373),
           ),
           InputField(
               id: 'YSAyCyGWCaK',
