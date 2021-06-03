@@ -1,6 +1,9 @@
+import 'package:kb_mobile_app/core/constants/service_implementing_partner.dart';
 import 'package:kb_mobile_app/core/offline_db/event_offline/event_offline_provider.dart';
+import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
+import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 
@@ -25,6 +28,18 @@ class TrackedEntityInstanceUtil {
     inputFieldIds.addAll(hiddenFields);
 
     inputFieldIds.removeWhere((field) => skippedFields.indexOf(field) > -1);
+
+    // assign implementing partner
+    if (eventId == null) {
+      inputFieldIds
+          .add(ServiceImplementingPartner().implementingPartnerDataElement);
+      CurrentUser user = await UserService().getCurrentUser();
+      dataObject[ServiceImplementingPartner().implementingPartnerDataElement] =
+          dataObject[ServiceImplementingPartner()
+                  .implementingPartnerDataElement] ??
+              user.implementingPartner;
+    }
+
     eventId =
         eventId == null ? dataObject['eventId'] ?? AppUtil.getUid() : eventId;
     //clear unwanted object from the mapper : an object in clo question which signifies form to save
