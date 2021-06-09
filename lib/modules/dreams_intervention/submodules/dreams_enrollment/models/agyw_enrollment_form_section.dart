@@ -109,6 +109,7 @@ class AgywEnrollmentFormSection {
                   'Ha karabo e le “E”, ke k’hanseleng/seterekeng sefe?',
               valueType: 'ORGANISATION_UNIT',
               allowedSelectedLevels: [3],
+              showCountryLevelTree: true,
               inputColor: Color(0xFF258DCC),
               labelColor: Color(0xFF737373)),
           InputField(
@@ -1042,6 +1043,7 @@ class AgywEnrollmentFormSection {
               translatedName:
                   '305. Nakong ea joale ke tleleniki efe moo u fumanang litšebeletso tsa HIV?',
               valueType: 'ORGANISATION_UNIT',
+              showCountryLevelTree: true,
               inputColor: Color(0xFF258DCC),
               labelColor: Color(0xFF737373)),
           InputField(
@@ -1464,6 +1466,7 @@ class AgywEnrollmentFormSection {
                   '505. U tsamaea tleleniking efe ho fumana litšebeletso tsa bokhachane?',
               valueType: 'ORGANISATION_UNIT',
               inputColor: Color(0xFF258DCC),
+              showCountryLevelTree: true,
               labelColor: Color(0xFF737373)),
           InputField(
               id: 'Gs4ArB4ToX5',
