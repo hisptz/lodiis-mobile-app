@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/core/components/input_fields/text_input_field_container.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 
-class AppLogsSearch extends StatelessWidget {
-  AppLogsSearch({
+class SearchInput extends StatelessWidget {
+  SearchInput({
     Key key,
-    this.onSearchLogs,
+    this.onSearch,
   }) : super(key: key);
 
-  final Function onSearchLogs;
+  final Function onSearch;
 
   final InputField inputField = InputField(
     id: 'search',
@@ -38,7 +38,7 @@ class AppLogsSearch extends StatelessWidget {
           inputValue: '',
           showInputCheckedIcon: false,
           showInputSearchIcon: true,
-          onInputValueChange: (dynamic value) => onSearchLogs(value),
+          onInputValueChange: (dynamic value) => onSearch(value),
         ),
       ),
     );

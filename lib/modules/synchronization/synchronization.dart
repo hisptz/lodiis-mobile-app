@@ -1,11 +1,6 @@
 import 'dart:async';
-import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
-import 'package:kb_mobile_app/app_state/ogac_intervention_list_state/ogac_intervention_list_state.dart';
-import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_intervention_list_state.dart';
-import 'package:kb_mobile_app/app_state/referral_nofitication_state/referral_nofitication_state.dart';
 import 'package:kb_mobile_app/app_state/synchronization_state/synchronization_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
@@ -29,10 +24,6 @@ class _SynchronizationState extends State<Synchronization> {
   void onStartDataUpload(BuildContext context) async {
     await Provider.of<SynchronizationState>(context, listen: false)
         .startDataUploadActivity();
-    Provider.of<SynchronizationState>(context, listen: false)
-        .startCheckingStatusOfUnsyncedData();
-    await Provider.of<ReferralNotificationState>(context, listen: false)
-        .reloadReferralNotifications();
   }
 
   void onViewConflicts(BuildContext context) async {
@@ -47,20 +38,6 @@ class _SynchronizationState extends State<Synchronization> {
     try {
       await Provider.of<SynchronizationState>(context, listen: false)
           .startDataDownloadActivity();
-      await Provider.of<ReferralNotificationState>(context, listen: false)
-          .reloadReferralNotifications();
-      List<String> teiWithIncomingReferral =
-          Provider.of<ReferralNotificationState>(context, listen: false)
-              .beneficiariesWithIncomingReferrals;
-      Provider.of<DreamsInterventionListState>(context, listen: false)
-          .setTeiWithIncomingReferral(
-              teiWithIncomingReferral: teiWithIncomingReferral);
-      await Provider.of<OvcInterventionListState>(context, listen: false)
-          .refreshOvcNumber();
-      await Provider.of<DreamsInterventionListState>(context, listen: false)
-          .refreshBeneficiariesNumber();
-      await Provider.of<OgacInterventionListState>(context, listen: false)
-          .refreshOgacList();
     } catch (e) {}
   }
 

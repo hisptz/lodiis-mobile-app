@@ -1,6 +1,11 @@
 import 'dart:async';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
+import 'package:kb_mobile_app/app_state/ogac_intervention_list_state/ogac_intervention_list_state.dart';
+import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_intervention_list_state.dart';
+import 'package:kb_mobile_app/app_state/referral_nofitication_state/referral_nofitication_state.dart';
 import 'package:kb_mobile_app/core/constants/app_logs.dart';
 import 'package:kb_mobile_app/core/offline_db/app_logs_offline/app_logs_offline_provider.dart';
 import 'package:kb_mobile_app/core/services/implementing_partner_config_service.dart';
@@ -12,8 +17,13 @@ import 'package:kb_mobile_app/models/app_logs.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
+import 'package:provider/provider.dart';
 
 class SynchronizationState with ChangeNotifier {
+  final BuildContext context;
+
+  SynchronizationState({this.context});
+
 // intial state
   bool _isDataUploadingActive;
   bool _isDataDownloadingActive;
@@ -168,10 +178,13 @@ class SynchronizationState with ChangeNotifier {
     }
   }
 
-  Future<void> startCheckingStatusOfUnsyncedData() async {
+  Future<void> startCheckingStatusOfUnsyncedData(
+      {bool isAutoUpload = false}) async {
     _dataDownloadProcess = _dataDownloadProcess ?? [];
     _dataUploadProcess = _dataUploadProcess ?? [];
-    updateUnsynceDataCheckingStatus(true);
+    if (!isAutoUpload) {
+      updateUnsynceDataCheckingStatus(true);
+    }
     CurrentUser user = await UserService().getCurrentUser();
     _synchronizationService = SynchronizationService(
         user.username, user.password, user.programs, user.userOrgUnitIds);
@@ -180,7 +193,9 @@ class SynchronizationState with ChangeNotifier {
     _beneficiaryServiceCount = teiEvents.length;
     _beneficiaryCount = teis.length;
     _hasUnsyncedData = teiEvents.length > 0 || teis.length > 0;
-    updateUnsynceDataCheckingStatus(false);
+    if (!isAutoUpload) {
+      updateUnsynceDataCheckingStatus(false);
+    }
   }
 
   Future startDataDownloadActivity() async {
@@ -250,9 +265,23 @@ class SynchronizationState with ChangeNotifier {
       updateDataDownloadStatus(false);
       AppUtil.showToastMessage(message: 'Error downloading data');
     }
+    await Provider.of<ReferralNotificationState>(context, listen: false)
+        .reloadReferralNotifications();
+    List<String> teiWithIncomingReferral =
+        Provider.of<ReferralNotificationState>(context, listen: false)
+            .beneficiariesWithIncomingReferrals;
+    Provider.of<DreamsInterventionListState>(context, listen: false)
+        .setTeiWithIncomingReferral(
+            teiWithIncomingReferral: teiWithIncomingReferral);
+    await Provider.of<OvcInterventionListState>(context, listen: false)
+        .refreshOvcNumber();
+    await Provider.of<DreamsInterventionListState>(context, listen: false)
+        .refreshBeneficiariesNumber();
+    await Provider.of<OgacInterventionListState>(context, listen: false)
+        .refreshOgacList();
   }
 
-  Future startDataUploadActivity() async {
+  Future startDataUploadActivity({bool isAutoUpload = false}) async {
     _dataUploadProcess = [];
     updateDataUploadStatus(true);
     try {
@@ -263,19 +292,20 @@ class SynchronizationState with ChangeNotifier {
       if (teis.length > 0) {
         addDataUploadProcess("Uploading beneficiary's profile data");
         await _synchronizationService.uploadTeisToTheServer(
-            teis, teiEnrollments);
+            teis, teiEnrollments, isAutoUpload);
 
         var teiRelationships =
             await _synchronizationService.getTeiRelationShipFromOfflineDb();
-        await _synchronizationService
-            .uploadTeiRelationToTheServer(teiRelationships);
+        await _synchronizationService.uploadTeiRelationToTheServer(
+            teiRelationships, isAutoUpload);
       }
 
       var teiEvents = await _synchronizationService.getTeiEventsFromOfflineDb();
       if (teiEvents.length > 0) {
         addDataUploadProcess("Uploading beneficiary's service data");
         _dataUploadProcess = [];
-        await _synchronizationService.uploadTeiEventsToTheServer(teiEvents);
+        await _synchronizationService.uploadTeiEventsToTheServer(
+            teiEvents, isAutoUpload);
       }
       AppUtil.showToastMessage(
         message: 'Start synchronisation of referral notitifcations',
@@ -284,9 +314,17 @@ class SynchronizationState with ChangeNotifier {
       await ReferralNotificationService().syncReferralNotifications();
     } catch (e) {
       _dataUploadProcess = [];
-      AppUtil.showToastMessage(message: 'Error uploading data');
+      if (!isAutoUpload) {
+        AppUtil.showToastMessage(message: 'Error uploading data');
+      }
       updateDataUploadStatus(false);
     }
+    _dataUploadProcess = [];
+    notifyListeners();
+    await startCheckingStatusOfUnsyncedData(isAutoUpload: isAutoUpload);
+    notifyListeners();
+    await Provider.of<ReferralNotificationState>(context, listen: false)
+        .reloadReferralNotifications();
     updateDataUploadStatus(false);
   }
 }

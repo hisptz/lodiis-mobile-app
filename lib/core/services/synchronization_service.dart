@@ -375,10 +375,8 @@ class SynchronizationService {
         .getTrackedEntityInstanceEventsByStatus(offlineSyncStatus);
   }
 
-  Future uploadTeisToTheServer(
-    List<TrackeEntityInstance> teis,
-    List<Enrollment> teiEnrollments,
-  ) async {
+  Future uploadTeisToTheServer(List<TrackeEntityInstance> teis,
+      List<Enrollment> teiEnrollments, bool isAutoUpload) async {
     List<String> syncedIds = [];
     String url = 'api/trackedEntityInstances';
     Map body = Map();
@@ -411,14 +409,19 @@ class SynchronizationService {
         AppLogs log =
             AppLogs(type: AppLogsConstants.errorLogType, message: message);
         await AppLogsOfflineProvider().addLogs(log);
-        AppUtil.showToastMessage(message: 'Error uploading data');
+        if (!isAutoUpload) {
+          AppUtil.showToastMessage(message: 'Error uploading data');
+        }
       }
       syncedIds = await _getReferenceids(json.decode(response.body));
     } catch (e) {
       AppLogs log = AppLogs(
           type: AppLogsConstants.errorLogType, message: '${e.toString()}');
       await AppLogsOfflineProvider().addLogs(log);
-      AppUtil.showToastMessage(message: 'Error uploading data');
+      if (!isAutoUpload) {
+        AppUtil.showToastMessage(message: 'Error uploading data');
+      }
+
       throw e;
     }
     if (syncedIds.length > 0) {
@@ -438,8 +441,7 @@ class SynchronizationService {
   }
 
   Future uploadTeiEventsToTheServer(
-    List<Events> teiEvents,
-  ) async {
+      List<Events> teiEvents, bool isAutoUpload) async {
     List<String> syncedIds = [];
     String url = 'api/events';
     Map body = Map();
@@ -466,14 +468,19 @@ class SynchronizationService {
         AppLogs log =
             AppLogs(type: AppLogsConstants.errorLogType, message: message);
         await AppLogsOfflineProvider().addLogs(log);
-        AppUtil.showToastMessage(message: 'Error uploading data');
+        if (!isAutoUpload) {
+          AppUtil.showToastMessage(message: 'Error uploading data');
+        }
       }
       syncedIds = await _getReferenceids(json.decode(response.body));
     } catch (e) {
       AppLogs log = AppLogs(
           type: AppLogsConstants.errorLogType, message: '${e.toString()}');
       await AppLogsOfflineProvider().addLogs(log);
-      AppUtil.showToastMessage(message: 'Error uploading data');
+      if (!isAutoUpload) {
+        AppUtil.showToastMessage(message: 'Error uploading data');
+      }
+
       throw e;
     }
     if (syncedIds.length > 0) {
@@ -487,8 +494,7 @@ class SynchronizationService {
   }
 
   Future uploadTeiRelationToTheServer(
-    List<TeiRelationship> teiRelationShips,
-  ) async {
+      List<TeiRelationship> teiRelationShips, bool isAutoUpload) async {
     Map body = Map<String, dynamic>();
     String url = 'api/relationships';
     body['relationships'] = teiRelationShips
@@ -508,13 +514,18 @@ class SynchronizationService {
         AppLogs log =
             AppLogs(type: AppLogsConstants.errorLogType, message: message);
         await AppLogsOfflineProvider().addLogs(log);
-        AppUtil.showToastMessage(message: 'Error uploading data');
+        if (!isAutoUpload) {
+          AppUtil.showToastMessage(message: 'Error uploading data');
+        }
       }
     } catch (e) {
       AppLogs log = AppLogs(
           type: AppLogsConstants.errorLogType, message: '${e.toString()}');
       await AppLogsOfflineProvider().addLogs(log);
-      AppUtil.showToastMessage(message: 'Error uploading data');
+      if (!isAutoUpload) {
+        AppUtil.showToastMessage(message: 'Error uploading data');
+      }
+
       throw e;
     }
   }
