@@ -413,7 +413,7 @@ class SynchronizationService {
           AppUtil.showToastMessage(message: 'Error uploading data');
         }
       }
-      syncedIds = await _getReferenceids(json.decode(response.body));
+      syncedIds = await _getReferenceIds(json.decode(response.body));
     } catch (e) {
       AppLogs log = AppLogs(
           type: AppLogsConstants.errorLogType, message: '${e.toString()}');
@@ -472,7 +472,7 @@ class SynchronizationService {
           AppUtil.showToastMessage(message: 'Error uploading data');
         }
       }
-      syncedIds = await _getReferenceids(json.decode(response.body));
+      syncedIds = await _getReferenceIds(json.decode(response.body));
     } catch (e) {
       AppLogs log = AppLogs(
           type: AppLogsConstants.errorLogType, message: '${e.toString()}');
@@ -550,8 +550,9 @@ class SynchronizationService {
     return '$status: $description';
   }
 
-  Future<List<String>> _getReferenceids(Map body) async {
+  Future<List<String>> _getReferenceIds(Map body) async {
     List<String> referenceIds = [];
+    List<String> unsyncedDueToEnrollment = [];
     var bodyResponse = body['response'];
     var importSummaries = bodyResponse['importSummaries'] ?? [];
     for (var importSummary in importSummaries) {
@@ -568,6 +569,9 @@ class SynchronizationService {
             AppUtil.showToastMessage(message: 'Error uploading data');
           }
         } else if (importSummary['description'] != null) {
+          if (importSummary['description'].contains('is not enrolled')) {
+            unsyncedDueToEnrollment.add(importSummary['reference']);
+          }
           AppLogs log = AppLogs(
               type: AppLogsConstants.errorLogType,
               message: importSummary['description']);
@@ -576,6 +580,64 @@ class SynchronizationService {
         }
       }
     }
+    if (unsyncedDueToEnrollment.isNotEmpty) {
+      List<Enrollment> unsyncedEnrollment =
+          await checkForUnenrolledBeneficiaries(unsyncedDueToEnrollment);
+      await uploadUnsyncedEnrollments(unsyncedEnrollment);
+    }
     return referenceIds;
+  }
+
+  Future uploadUnsyncedEnrollments(List<Enrollment> teiEnrollments) async {
+    List<String> syncedIds = [];
+    String url = 'api/enrollments';
+    Map body = Map();
+    body['enrollments'] = teiEnrollments
+        .map((enrollment) => enrollment.toOffline(enrollment))
+        .toList();
+    try {
+      var queryParameters = {
+        "strategy": "CREATE_AND_UPDATE",
+      };
+      var response = await httpClient.httpPost(
+        url,
+        json.encode(body),
+        queryParameters: queryParameters,
+      );
+      if (response.statusCode >= 400 && response.statusCode != 409) {
+        var message = _getHttpResponseAppLogs(response.body);
+        AppLogs log =
+            AppLogs(type: AppLogsConstants.errorLogType, message: message);
+        await AppLogsOfflineProvider().addLogs(log);
+        AppUtil.showToastMessage(message: 'Error uploading data');
+      }
+      syncedIds = await _getReferenceIds(json.decode(response.body));
+    } catch (e) {
+      AppLogs log = AppLogs(
+          type: AppLogsConstants.errorLogType, message: '${e.toString()}');
+      await AppLogsOfflineProvider().addLogs(log);
+      AppUtil.showToastMessage(message: 'Error uploading data');
+      throw e;
+    }
+    if (syncedIds.length > 0) {
+      for (Enrollment teiEnrollment in teiEnrollments) {
+        if (syncedIds.indexOf(teiEnrollment.trackedEntityInstance) > -1) {
+          teiEnrollment.syncStatus = 'synced';
+          FormUtil.savingEnrollment(teiEnrollment);
+        }
+      }
+    }
+  }
+
+  Future<List<Enrollment>> checkForUnenrolledBeneficiaries(
+      List<String> eventIds) async {
+    List<Events> eventsWithoutEnrollment = await EventOfflineProvider()
+        .getTrackedEntityInstanceEventsByStatus('', eventList: eventIds);
+    List<String> teiNotEnrolled = eventsWithoutEnrollment
+        .map((Events event) => event.trackedEntityInstance)
+        .toList();
+    List<Enrollment> unsyncedEnrollments = await EnrollmentOfflineProvider()
+        .getEnrollmentsFromTeiList(teiNotEnrolled);
+    return unsyncedEnrollments;
   }
 }
