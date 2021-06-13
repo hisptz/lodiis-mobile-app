@@ -81,6 +81,36 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
     return enrollmentList.length;
   }
 
+  Future<List<Enrollment>> getEnrollmentsFromTeiList(
+      List<String> requiredTeiList) async {
+    List<Enrollment> enrollments = [];
+    try {
+      String questionMarks = (requiredTeiList.isEmpty ? [''] : requiredTeiList)
+          .map((e) => '?')
+          .toList()
+          .join(',');
+      var dbClient = await db;
+      List<Map> maps = await dbClient.query(table,
+          columns: [
+            enrollment,
+            enrollmentDate,
+            incidentDate,
+            program,
+            orgUnit,
+            trackedEntityInstance
+          ],
+          where: "$trackedEntityInstance IN ($questionMarks)",
+          whereArgs: [...requiredTeiList]);
+
+      if (maps.isNotEmpty) {
+        for (Map map in maps) {
+          enrollments.add(Enrollment.fromOffline(map));
+        }
+      }
+    } catch (e) {}
+    return enrollments;
+  }
+
   Future<int> getFilteredEnrollmentsCount(
       String programId, List<String> filteredTei) async {
     String questionMarks = (filteredTei.isEmpty ? [''] : filteredTei)
@@ -100,10 +130,10 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
   }
 
   Future<List<Enrollment>> getFilteredEnrollments(String programId,
-      {int page, List<String> requredTeiList}) async {
+      {int page, List<String> requiredTeiList}) async {
     List<Enrollment> enrollments = [];
     try {
-      String questionMarks = (requredTeiList.isEmpty ? [''] : requredTeiList)
+      String questionMarks = (requiredTeiList.isEmpty ? [''] : requiredTeiList)
           .map((e) => '?')
           .toList()
           .join(',');
@@ -121,7 +151,7 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
           ],
           where: "$trackedEntityInstance IN ($questionMarks) AND $program = ?",
           orderBy: '$enrollmentDate DESC',
-          whereArgs: [...requredTeiList, programId],
+          whereArgs: [...requiredTeiList, programId],
           limit: page != null ? PaginationConstants.paginationLimit : null,
           offset:
               page != null ? page * PaginationConstants.paginationLimit : null);
