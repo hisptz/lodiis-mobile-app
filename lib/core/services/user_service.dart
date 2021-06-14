@@ -18,7 +18,7 @@ class UserService {
       var url = 'api/me.json';
       var queryParameters = {
         "fields":
-            "id,name,programs,organisationUnits[id],attributeValues[value,attribute[id,name]]"
+            "id,name,email,phoneNumber,programs,organisationUnits[id],attributeValues[value,attribute[id,name]],userGroups[name],userCredentials[userRoles[name]]"
       };
       HttpService http = new HttpService(
         username: username,
@@ -38,6 +38,9 @@ class UserService {
   }
 
   Future logout() async {
+    //@TODO handling offline issues here
+    // password
+    // clearing of database
     CurrentUser user = await getCurrentUser();
     if (user != null) {
       user.isLogin = false;
