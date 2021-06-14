@@ -8,7 +8,7 @@ import 'package:kb_mobile_app/core/services/preference_provider.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
 
 class UserService {
-  final String preferenceKey = 'currrent_user';
+  final String preferenceKey = 'current_user';
 
   Future<dynamic> login(
     String username,
