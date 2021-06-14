@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/current_user_state/current_user_state.dart';
+import 'package:kb_mobile_app/app_state/device_connectivity_state/device_connectivity_state.dart';
 import 'package:kb_mobile_app/app_state/login_form_state/login_form_state.dart';
 import 'package:kb_mobile_app/app_state/referral_nofitication_state/referral_nofitication_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
@@ -76,6 +77,10 @@ class _LoginFormState extends State<LoginForm> {
   }
 
   void onLogin(bool isLoginProcessActive) async {
+    //@TODO checking status of online or offline
+    bool isOnline = Provider.of<DeviceConnectivityState>(context, listen: false)
+        .connectivityStatus;
+    print("isOnline : $isOnline");
     bool status = currentUser.isCurrentUserSet();
     FocusScope.of(context).unfocus();
     updateInputActiveStatus('');

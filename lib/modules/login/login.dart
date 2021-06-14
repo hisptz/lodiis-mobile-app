@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/core/constants/custom_color.dart';
+import 'package:kb_mobile_app/core/services/auto_synchronization_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/modules/login/components/login_form_container.dart';
 import 'package:kb_mobile_app/modules/login/components/login_top_icon.dart';
@@ -13,49 +16,61 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   final String appLabel = "Training App";
+  StreamSubscription connectionSubscription;
   @override
   void initState() {
     super.initState();
+    connectionSubscription = AutoSynchronizationService()
+        .checkChangeOfDeviceConnectionStatus(context);
     AppUtil.setStatusBarColor(CustomColor.defaultPrimaryColor);
+  }
+
+  @override
+  void dispose() {
+    connectionSubscription.cancel();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: Scaffold(
-      body: Stack(
-        fit: StackFit.expand,
-        children: [
-          Container(
-            decoration: BoxDecoration(color: CustomColor.defaultPrimaryColor),
-          ),
-          SingleChildScrollView(
-            child: Container(
-              child: Consumer<LanguageTranslationState>(
-                builder: (context, languageTranslationState, child) {
-                  String currentLanguage =
-                      languageTranslationState.currentLanguage;
-                  return Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      LoginTopIcon(
-                        appLabel: appLabel,
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      LoginFormContainer(
-                        currentLanguage: currentLanguage,
-                        appLabel: appLabel,
-                      )
-                    ],
-                  );
-                },
+      child: Scaffold(
+        body: Stack(
+          fit: StackFit.expand,
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                color: CustomColor.defaultPrimaryColor,
               ),
             ),
-          )
-        ],
+            SingleChildScrollView(
+              child: Container(
+                child: Consumer<LanguageTranslationState>(
+                  builder: (context, languageTranslationState, child) {
+                    String currentLanguage =
+                        languageTranslationState.currentLanguage;
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        LoginTopIcon(
+                          appLabel: appLabel,
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        LoginFormContainer(
+                          currentLanguage: currentLanguage,
+                          appLabel: appLabel,
+                        )
+                      ],
+                    );
+                  },
+                ),
+              ),
+            )
+          ],
+        ),
       ),
-    ));
+    );
   }
 }
