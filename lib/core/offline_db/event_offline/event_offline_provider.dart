@@ -81,11 +81,12 @@ class EventOfflineProvider extends OfflineDbProvider {
   }
 
   Future<List<Events>> getTrackedEntityInstanceEventsByStatus(
-    String eventSyncStatus,
-  ) async {
+      String eventSyncStatus,
+      {List<String> eventList = const []}) async {
     List<Events> events = [];
     try {
       var dbClient = await db;
+      String questionMarks = eventList.map((e) => '?').toList().join(',');
       List<Map> maps = await dbClient.query(
         table,
         columns: [
@@ -99,8 +100,10 @@ class EventOfflineProvider extends OfflineDbProvider {
           orgUnit,
           syncStatus,
         ],
-        where: '$syncStatus = ?',
-        whereArgs: [eventSyncStatus],
+        where: eventList.isEmpty
+            ? '$syncStatus = ?'
+            : '$event IN ($questionMarks)',
+        whereArgs: eventList.isEmpty ? [eventSyncStatus] : [...eventList],
       );
       if (maps.isNotEmpty) {
         for (Map map in maps) {
