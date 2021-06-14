@@ -384,7 +384,7 @@ class SynchronizationService {
         .where((enrollment) =>
             unsyncedTeis.indexWhere((tei) =>
                 tei.trackedEntityInstance ==
-                enrollment.trackedEntityInstance) !=
+                enrollment.trackedEntityInstance) ==
             -1)
         .toList();
     Map body = Map();
@@ -421,7 +421,7 @@ class SynchronizationService {
     }
     if (syncedIds.length > 0) {
       for (Enrollment teiEnrollment in teiEnrollments) {
-        if (syncedIds.indexOf(teiEnrollment.trackedEntityInstance) > -1) {
+        if (syncedIds.indexOf(teiEnrollment.enrollment) > -1) {
           teiEnrollment.syncStatus = 'synced';
           FormUtil.savingEnrollment(teiEnrollment);
         }
@@ -490,7 +490,7 @@ class SynchronizationService {
         .where((Events event) =>
             teiEnrollments.indexWhere((enrollment) =>
                 enrollment.trackedEntityInstance ==
-                event.trackedEntityInstance) !=
+                event.trackedEntityInstance) ==
             -1)
         .map((Events event) {
       var data = event.toOffline(event);
