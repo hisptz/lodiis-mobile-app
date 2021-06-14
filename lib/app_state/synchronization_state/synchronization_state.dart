@@ -45,12 +45,24 @@ class SynchronizationState with ChangeNotifier {
   Map<String, List> _trackedInstance;
   Map<String, List> _events;
   Map<String, List> _relationships;
-  double profileProgress = 0.0;
-  double eventsProgress = 0.0;
-  double overallProgress = 0.0;
+  double profileDataDownloadProgress = 0.0;
+  double eventsDataDownloadProgress = 0.0;
+  double overallDownloadProgress = 0.0;
+  double profileDataUploadProgress = 0.0;
+  double eventsDataUploadProgress = 0.0;
+  double overallUploadProgress = 0.0;
 
 // selectors
   bool get isDataUploadingActive => _isDataUploadingActive ?? false;
+
+  double get overallSyncProgress =>
+      overallUploadProgress + overallDownloadProgress;
+
+  double get eventsSyncProgress =>
+      eventsDataUploadProgress + eventsDataDownloadProgress;
+
+  double get profileSyncProgress =>
+      profileDataUploadProgress + profileDataDownloadProgress;
 
   bool get isCheckingForAvailableDataFromServer =>
       _isCheckingForAvailableDataFromServer ?? false;
@@ -198,14 +210,31 @@ class SynchronizationState with ChangeNotifier {
     }
   }
 
+  Future startSyncActivity({String syncAction}) async {
+    switch (syncAction) {
+      case 'Download':
+        startDataDownloadActivity();
+        break;
+      case 'Upload':
+        startDataUploadActivity();
+        break;
+      case 'Download and Upload':
+        startDataDownloadActivity();
+        startDataUploadActivity();
+        break;
+      default:
+        break;
+    }
+  }
+
   Future startDataDownloadActivity() async {
     _dataDownloadProcess = [];
     _eventFromServer = [];
     _servertrackedEntityInstance = [];
     _trackeEntityInstance = [];
-    profileProgress = 0.0;
-    eventsProgress = 0.0;
-    overallProgress = 0.0;
+    profileDataDownloadProgress = 0.0;
+    eventsDataDownloadProgress = 0.0;
+    overallDownloadProgress = 0.0;
     updateDataDownloadStatus(true);
     addDataDownloadProcess("Start Downloading....");
     int count = 0;
@@ -225,8 +254,8 @@ class SynchronizationState with ChangeNotifier {
             .where((program) => currentUserPrograms.indexOf(program) != -1)) {
           count++;
           totalCount++;
-          profileProgress = count / total;
-          overallProgress = totalCount / (total * 2);
+          profileDataDownloadProgress = count / total;
+          overallDownloadProgress = totalCount / (total * 2);
           addDataDownloadProcess(
               "Download and saving profile data $count/$total");
           await _synchronizationService.getAndSaveTrackedInstanceFromServer(
@@ -239,8 +268,8 @@ class SynchronizationState with ChangeNotifier {
             .where((program) => currentUserPrograms.indexOf(program) != -1)) {
           count++;
           totalCount++;
-          eventsProgress = count / total;
-          overallProgress = totalCount / (total * 2);
+          eventsDataDownloadProgress = count / total;
+          overallDownloadProgress = totalCount / (total * 2);
           addDataDownloadProcess(
               "Download and saving service data $count/$total");
           await _synchronizationService.getAndSaveEventsFromServer(
@@ -283,17 +312,33 @@ class SynchronizationState with ChangeNotifier {
 
   Future startDataUploadActivity({bool isAutoUpload = false}) async {
     _dataUploadProcess = [];
+    profileDataUploadProgress = 0.0;
+    eventsDataUploadProgress = 0.0;
+    overallUploadProgress = 0.0;
     updateDataUploadStatus(true);
     try {
+      int count = 0;
       addDataUploadProcess('Prepare offline data to upload');
       var teis = await _synchronizationService.getTeisFromOfflineDb();
-      var teiEnrollments =
-          await _synchronizationService.getTeiEnrollmentFromOfflineDb();
+
       if (teis.length > 0) {
         addDataUploadProcess("Uploading beneficiary's profile data");
-        await _synchronizationService.uploadTeisToTheServer(
-            teis, teiEnrollments, isAutoUpload);
+        count++;
+        profileDataUploadProgress = count / 3;
+        overallUploadProgress = count / 4;
+        await _synchronizationService.uploadTeisToTheServer(teis, isAutoUpload);
 
+        count++;
+        profileDataUploadProgress = count / 3;
+        overallUploadProgress = count / 4;
+        var teiEnrollments =
+            await _synchronizationService.getTeiEnrollmentFromOfflineDb();
+        await _synchronizationService.uploadEnrollmentsToTheServer(
+            teiEnrollments, isAutoUpload);
+
+        count++;
+        profileDataUploadProgress = count / 3;
+        overallUploadProgress = count / 4;
         var teiRelationships =
             await _synchronizationService.getTeiRelationShipFromOfflineDb();
         await _synchronizationService.uploadTeiRelationToTheServer(
@@ -304,11 +349,14 @@ class SynchronizationState with ChangeNotifier {
       if (teiEvents.length > 0) {
         addDataUploadProcess("Uploading beneficiary's service data");
         _dataUploadProcess = [];
+        count++;
+        eventsDataUploadProgress = count / 4;
+        overallUploadProgress = count / 4;
         await _synchronizationService.uploadTeiEventsToTheServer(
             teiEvents, isAutoUpload);
       }
       AppUtil.showToastMessage(
-        message: 'Start synchronisation of referral notitifcations',
+        message: 'Start synchronisation of referral notifications',
         position: ToastGravity.TOP,
       );
       await ReferralNotificationService().syncReferralNotifications();
