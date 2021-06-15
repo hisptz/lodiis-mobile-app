@@ -336,7 +336,6 @@ class SynchronizationService {
         var queryParameters = {
           "program": program,
           "ou": orgUnit,
-          "ouMode": "DESCENDANTS",
           "fields": "none",
           "pageSize": "1",
           "totalPages": "true",
@@ -357,7 +356,6 @@ class SynchronizationService {
         var queryParameters = {
           "program": program,
           "orgUnit": orgUnit,
-          "ouMode": "DESCENDANTS",
           "fields": "none",
           "pageSize": "1",
           "totalPages": "true",

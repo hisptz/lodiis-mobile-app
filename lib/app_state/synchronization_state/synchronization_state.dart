@@ -145,23 +145,6 @@ class SynchronizationState with ChangeNotifier {
     updateStatusForAvailableDataFromServer(status: true);
     setStatusMessageForAvailableDataFromServer(
         'Checking for available beneficiary data from server...');
-    CurrentUser currentUser = await UserService().getCurrentUser();
-    _synchronizationService = SynchronizationService(currentUser.username,
-        currentUser.password, currentUser.programs, currentUser.userOrgUnitIds);
-    int offlineEnrollmentsCount =
-        await _synchronizationService.getOfflineEnrollmentCount(currentUser);
-    int offlineEventsCount =
-        await _synchronizationService.getOfflineEventsCount(currentUser);
-    int onlineEnrollmentsCount =
-        await _synchronizationService.getOnlineEnrollmentsCount(currentUser);
-    int onlineEventsCount =
-        await _synchronizationService.getOnlineEventsCount(currentUser);
-    setStatusMessageForAvailableDataFromServer(
-        onlineEventsCount > offlineEventsCount ||
-                onlineEnrollmentsCount > offlineEnrollmentsCount
-            ? 'New beneficiary data are available, try to sync!'
-            : '');
-    updateStatusForAvailableDataFromServer(status: false);
     try {
       CurrentUser currentUser = await UserService().getCurrentUser();
       _synchronizationService = SynchronizationService(
