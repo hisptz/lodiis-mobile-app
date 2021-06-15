@@ -226,7 +226,7 @@ class SynchronizationState with ChangeNotifier {
         await startDataUploadActivity();
         break;
       case 'Download and Upload':
-        await startDataDownloadActivity();
+        await startDataDownloadActivity(skipUpload: false);
         await startDataUploadActivity();
         break;
       default:
@@ -234,7 +234,7 @@ class SynchronizationState with ChangeNotifier {
     }
   }
 
-  Future startDataDownloadActivity() async {
+  Future startDataDownloadActivity({bool skipUpload = true}) async {
     _dataDownloadProcess = [];
     _eventFromServer = [];
     _servertrackedEntityInstance = [];
@@ -283,11 +283,13 @@ class SynchronizationState with ChangeNotifier {
               program, orgUnitId);
         }
       }
-      AppUtil.showToastMessage(
-        message: 'Start synchronisation of referral notitifcations',
-        position: ToastGravity.TOP,
-      );
-      await ReferralNotificationService().syncReferralNotifications();
+      if (skipUpload) {
+        AppUtil.showToastMessage(
+          message: 'Start synchronisation of referral notitifcations',
+          position: ToastGravity.TOP,
+        );
+        await ReferralNotificationService().syncReferralNotifications();
+      }
       AppUtil.showToastMessage(
           message: 'Data has been successfully donwloaded');
       _dataDownloadProcess = [];
