@@ -55,8 +55,9 @@ class SynchronizationState with ChangeNotifier {
 // selectors
   bool get isDataUploadingActive => _isDataUploadingActive ?? false;
 
-  double get overallSyncProgress =>
-      overallUploadProgress + overallDownloadProgress;
+  double get overallSyncProgress => hasUnsyncedData
+      ? (overallUploadProgress + overallDownloadProgress) / 2
+      : overallUploadProgress + overallDownloadProgress;
 
   double get eventsSyncProgress =>
       eventsDataUploadProgress + eventsDataDownloadProgress;
@@ -211,16 +212,22 @@ class SynchronizationState with ChangeNotifier {
   }
 
   Future startSyncActivity({String syncAction}) async {
+    profileDataDownloadProgress = 0.0;
+    eventsDataDownloadProgress = 0.0;
+    overallDownloadProgress = 0.0;
+    profileDataUploadProgress = 0.0;
+    eventsDataUploadProgress = 0.0;
+    overallUploadProgress = 0.0;
     switch (syncAction) {
       case 'Download':
-        startDataDownloadActivity();
+        await startDataDownloadActivity();
         break;
       case 'Upload':
-        startDataUploadActivity();
+        await startDataUploadActivity();
         break;
       case 'Download and Upload':
-        startDataDownloadActivity();
-        startDataUploadActivity();
+        await startDataDownloadActivity();
+        await startDataUploadActivity();
         break;
       default:
         break;
@@ -317,41 +324,55 @@ class SynchronizationState with ChangeNotifier {
     overallUploadProgress = 0.0;
     updateDataUploadStatus(true);
     try {
-      int count = 0;
+      int profileCount = 0;
+      int profileTotalCount = 1;
+      int eventsCount = 0;
+      int eventsTotalCount = 1;
       addDataUploadProcess('Prepare offline data to upload');
-      var teis = await _synchronizationService.getTeisFromOfflineDb();
 
+      var teis = await _synchronizationService.getTeisFromOfflineDb();
+      profileCount++;
+      profileTotalCount++;
+      profileDataUploadProgress = profileCount / profileTotalCount;
+      overallUploadProgress =
+          (profileDataUploadProgress + eventsDataUploadProgress) / 2;
       if (teis.length > 0) {
         addDataUploadProcess("Uploading beneficiary's profile data");
-        count++;
-        profileDataUploadProgress = count / 3;
-        overallUploadProgress = count / 4;
         await _synchronizationService.uploadTeisToTheServer(teis, isAutoUpload);
+      }
 
-        count++;
-        profileDataUploadProgress = count / 3;
-        overallUploadProgress = count / 4;
-        var teiEnrollments =
-            await _synchronizationService.getTeiEnrollmentFromOfflineDb();
+      var teiEnrollments =
+          await _synchronizationService.getTeiEnrollmentFromOfflineDb();
+      profileCount++;
+      profileTotalCount++;
+      profileDataUploadProgress = profileCount / profileTotalCount;
+      overallUploadProgress =
+          (profileDataUploadProgress + eventsDataUploadProgress) / 2;
+      if (teiEnrollments.length > 0) {
         await _synchronizationService.uploadEnrollmentsToTheServer(
             teiEnrollments, isAutoUpload);
+      }
 
-        count++;
-        profileDataUploadProgress = count / 3;
-        overallUploadProgress = count / 4;
-        var teiRelationships =
-            await _synchronizationService.getTeiRelationShipFromOfflineDb();
+      var teiRelationships =
+          await _synchronizationService.getTeiRelationShipFromOfflineDb();
+      profileCount++;
+      profileDataUploadProgress = profileCount / profileTotalCount;
+      overallUploadProgress =
+          (profileDataUploadProgress + eventsDataUploadProgress) / 2;
+      if (teiRelationships.length > 0) {
         await _synchronizationService.uploadTeiRelationToTheServer(
             teiRelationships, isAutoUpload);
       }
 
       var teiEvents = await _synchronizationService.getTeiEventsFromOfflineDb();
+      eventsCount++;
+      eventsDataUploadProgress = eventsCount / eventsTotalCount;
+      overallUploadProgress =
+          profileDataUploadProgress + eventsDataUploadProgress;
       if (teiEvents.length > 0) {
         addDataUploadProcess("Uploading beneficiary's service data");
         _dataUploadProcess = [];
-        count++;
-        eventsDataUploadProgress = count / 4;
-        overallUploadProgress = count / 4;
+
         await _synchronizationService.uploadTeiEventsToTheServer(
             teiEvents, isAutoUpload);
       }

@@ -13,7 +13,6 @@ import 'package:kb_mobile_app/modules/synchronization/components/synchronization
 import 'package:kb_mobile_app/modules/synchronization/components/synchronization_progress.dart';
 import 'package:kb_mobile_app/modules/synchronization/conflict_on_download_page.dart';
 import 'package:provider/provider.dart';
-import 'components/data_download_container.dart';
 
 class Synchronization extends StatefulWidget {
   Synchronization({Key key, this.synchronizationAction}) : super(key: key);
