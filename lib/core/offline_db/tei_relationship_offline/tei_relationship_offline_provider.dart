@@ -10,6 +10,7 @@ class TeiRelatioShipOfflineProvider extends OfflineDbProvider {
   final String relationshipType = 'relationshipType';
   final String fromTei = 'fromTei';
   final String toTei = 'toTei';
+  final String syncStatus = 'syncStatus';
 
   addOrUpdateMultipleTeiRelationships(
       List<TeiRelationship> relationships) async {
@@ -59,18 +60,16 @@ class TeiRelatioShipOfflineProvider extends OfflineDbProvider {
     return teiRelationships;
   }
 
-  Future<List<TeiRelationship>> getAllTeiRelationShips() async {
+  Future<List<TeiRelationship>> getAllTeiRelationShips(
+      String teiRelationshipSyncStatus) async {
     List<TeiRelationship> teiRelationships = [];
     try {
       var dbClient = await db;
       List<Map> maps = await dbClient.query(
         table,
-        columns: [
-          id,
-          relationshipType,
-          fromTei,
-          toTei,
-        ],
+        columns: [id, relationshipType, fromTei, toTei, syncStatus],
+        where: '$syncStatus = ?',
+        whereArgs: [teiRelationshipSyncStatus],
       );
       if (maps.isNotEmpty) {
         for (Map map in maps) {
