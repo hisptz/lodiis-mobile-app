@@ -290,7 +290,8 @@ class SynchronizationService {
   }
 
   Future<List<TeiRelationship>> getTeiRelationShipFromOfflineDb() async {
-    return await TeiRelatioShipOfflineProvider().getAllTeiRelationShips();
+    return await TeiRelatioShipOfflineProvider()
+        .getAllTeiRelationShips(offlineSyncStatus);
   }
 
   Future<int> getOfflineEventsCount(CurrentUser currentUser) async {
@@ -541,6 +542,7 @@ class SynchronizationService {
   Future uploadTeiRelationToTheServer(
       List<TeiRelationship> teiRelationShips, bool isAutoUpload) async {
     Map body = Map<String, dynamic>();
+    List<String> syncedIds = [];
     String url = 'api/relationships';
     body['relationships'] = teiRelationShips
         .map((relationship) => relationship.toOnline())
@@ -563,6 +565,7 @@ class SynchronizationService {
           AppUtil.showToastMessage(message: 'Error uploading data');
         }
       }
+      syncedIds = await _getReferenceIds(json.decode(response.body));
     } catch (e) {
       AppLogs log = AppLogs(
           type: AppLogsConstants.errorLogType, message: '${e.toString()}');
@@ -572,6 +575,15 @@ class SynchronizationService {
       }
 
       throw e;
+    }
+
+    if (syncedIds.length > 0) {
+      for (TeiRelationship teiRelationship in teiRelationShips) {
+        if (syncedIds.indexOf(teiRelationship.id) > -1) {
+          teiRelationship.syncStatus = 'synced';
+          FormUtil.savingTeiRelationship(teiRelationship);
+        }
+      }
     }
   }
 

@@ -5,13 +5,14 @@ class TeiRelationship {
   String relationshipType;
   String fromTei;
   String toTei;
+  String syncStatus;
 
-  TeiRelationship({
-    this.id,
-    this.fromTei,
-    this.relationshipType,
-    this.toTei,
-  });
+  TeiRelationship(
+      {this.id,
+      this.fromTei,
+      this.relationshipType,
+      this.toTei,
+      this.syncStatus});
 
   @override
   String toString() {
@@ -20,11 +21,11 @@ class TeiRelationship {
 
   TeiRelationship fromJson(dynamic json) {
     return TeiRelationship(
-      id: json['id'],
-      fromTei: json['fromTei'],
-      relationshipType: json['relationshipType'],
-      toTei: json['toTei'],
-    );
+        id: json['id'],
+        fromTei: json['fromTei'],
+        relationshipType: json['relationshipType'],
+        toTei: json['toTei'],
+        syncStatus: json['syncStatus'] ?? 'synced');
   }
 
   TeiRelationship fromOnline(dynamic json) {
@@ -38,6 +39,7 @@ class TeiRelationship {
 
     return TeiRelationship(
       id: json['relationship'],
+      syncStatus: json['syncStatus'] ?? 'synced',
       fromTei: fromTei,
       relationshipType: json['relationshipType'],
       toTei: toTei,
@@ -48,6 +50,7 @@ class TeiRelationship {
     Map data = new Map<String, dynamic>();
     data['relationshipType'] = relationshipType;
     data['relationship'] = id;
+    data['syncStatus'] = syncStatus;
 
     Map from = new Map<String, dynamic>();
     Map fromTrackedEntityInstance = {'trackedEntityInstance': fromTei};
@@ -72,6 +75,7 @@ class TeiRelationship {
     mapData['relationshipType'] = teiRelationshipData.relationshipType;
     mapData['fromTei'] = teiRelationshipData.fromTei;
     mapData['toTei'] = teiRelationshipData.toTei;
+    mapData['syncStatus'] = teiRelationshipData.syncStatus;
     return mapData;
   }
 
@@ -80,5 +84,6 @@ class TeiRelationship {
     this.relationshipType = mapData['relationshipType'];
     this.fromTei = mapData['fromTei'];
     this.toTei = mapData['toTei'];
+    this.syncStatus = mapData['syncStatus'];
   }
 }

@@ -27,6 +27,7 @@ class TeiRelatioShipOfflineProvider extends OfflineDbProvider {
         noResult: true, continueOnError: true, exclusive: true);
   }
 
+// TODO Check why syncStatus is not passed
   addOrUpdateTeirelationShip(TeiRelationship teiRelationship) async {
     var dbClient = await db;
     var data = TeiRelationship().toOffline(teiRelationship);
@@ -42,12 +43,7 @@ class TeiRelatioShipOfflineProvider extends OfflineDbProvider {
       var dbClient = await db;
       List<Map> maps = await dbClient.query(
         table,
-        columns: [
-          id,
-          relationshipType,
-          fromTei,
-          toTei,
-        ],
+        columns: [id, relationshipType, fromTei, toTei, syncStatus],
         where: '$fromTei = ?',
         whereArgs: [fromTeiId],
       );

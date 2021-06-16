@@ -29,10 +29,8 @@ class OfflineDbProvider {
   ];
 
   final List<String> migrationQuery = [
-    // update JHPIEGO Implementing partner typo
     "UPDATE tracked_entity_instance_attribute SET value = 'JHPIEGO' WHERE attribute = 'klLkGxy328c' AND value = 'JPHIEGO'",
-    // add syncStatus field on tei_relationship table
-    "ALTER TABLE tei_relationships ADD COLUMN syncStatus TEXT DEFAULT 'not-synced'"
+    "ALTER TABLE tei_relationships ADD syncStatus TEXT DEFAULT 'not-synced'"
   ];
 
   Future<Database> get db async {
