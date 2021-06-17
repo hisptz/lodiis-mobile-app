@@ -34,7 +34,6 @@ class _TrueOnlyInputFieldContainerState
   @override
   void initState() {
     super.initState();
-    //@TODO Translation for switch values
     yesLabel = widget.currentLanguage == 'lesotho' ? 'E' : yesLabel;
     noLabel = widget.currentLanguage == 'lesotho' ? 'Che' : noLabel;
     updateInputValueState();
