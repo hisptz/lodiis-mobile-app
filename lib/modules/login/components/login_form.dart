@@ -80,74 +80,102 @@ class _LoginFormState extends State<LoginForm> {
     //@TODO checking status of online or offline
     bool isOnline = Provider.of<DeviceConnectivityState>(context, listen: false)
         .connectivityStatus;
-    print("isOnline : $isOnline");
     bool status = currentUser.isCurrentUserSet();
     FocusScope.of(context).unfocus();
     updateInputActiveStatus('');
     if (!isLoginProcessActive && status) {
       loginFormState.setHasLoginErrorStatus(false);
       loginFormState.setIsLoginProcessActive(true);
-      try {
-        loginFormState.setCurrentLoginProcessMessage('Authenticating user...');
-        CurrentUser user = await UserService().login(
-          currentUser.username.trim(),
-          currentUser.password.trim(),
+      loginFormState.setCurrentLoginProcessMessage('Authenticating user...');
+      if (isOnline) {
+        await onlineAthentication(
+          username: currentUser.username.trim(),
+          password: currentUser.password.trim(),
         );
-        if (user != null) {
-          var userAccessConfigurations =
-              await UserAccess().getUserAccessConfigurationsFromTheServer(
-            user.username,
-            user.password,
-          );
-          await UserService().setCurrentUser(user);
-          loginFormState.setCurrentLoginProcessMessage('Saving user access...');
-          await UserAccess()
-              .savingUserAccessConfigurations(userAccessConfigurations);
-          Provider.of<CurrentUserState>(context, listen: false)
-              .setCurrentUser(user, userAccessConfigurations);
-          await Provider.of<ReferralNotificationState>(context, listen: false)
-              .setCurrentImplementingPartner(user.implementingPartner);
-          await ImplementingPartnerReferralConfigService()
-              .addImplementingPartnerReferralServices(
-                  user.username, user.password);
-          loginFormState.setCurrentLoginProcessMessage(
-              "Saving user's assigned locations...");
-          await OrganisationUnitService()
-              .discoveringOrgananisationUnitsFromTheServer();
-          Provider.of<CurrentUserState>(context, listen: false)
-              .setCurrentUserCountryLevelReferences();
-          loginFormState.setCurrentLoginProcessMessage(
-              "Saving assigned access for interventions...");
-          List<String> programs = user.programs ?? [];
-          for (String program in programs) {
-            await ProgramService()
-                .discoverProgramOrganisationUnitsFromTheServer(program);
-          }
-          Timer(Duration(seconds: 2), () {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) => InterventionSelection(),
-              ),
-            ).then(
-              (value) => loginFormState.setIsLoginProcessActive(false),
-            );
-          });
-        } else {
-          loginFormState.setIsLoginProcessActive(false);
-          String message = 'Incorrect username or password';
-          loginFormState.setHasLoginErrorStatus(true);
-          AppUtil.showToastMessage(message: message);
-          loginFormState.setCurrentLoginProcessMessage('');
-        }
-      } catch (error) {
-        loginFormState.setIsLoginProcessActive(false);
-        loginFormState.setCurrentLoginProcessMessage('');
-        AppUtil.showToastMessage(
-          message: error.toString() ?? error,
+      } else {
+        await offlineAthentication(
+          username: currentUser.username.trim(),
+          password: currentUser.password.trim(),
         );
       }
     }
+  }
+
+  Future<void> offlineAthentication({String username, String password}) async {
+    print("offlineAthentication");
+    print("username : $username :: passowrd : $password");
+    resetLoginFormState();
+  }
+
+  Future<void> onlineAthentication({String username, String password}) async {
+    try {
+      CurrentUser user = await UserService().login(username, password);
+      if (user != null) {
+        var userAccessConfigurations =
+            await UserAccess().getUserAccessConfigurationsFromTheServer(
+          user.username,
+          user.password,
+        );
+        await UserService().setCurrentUser(user);
+        loginFormState.setCurrentLoginProcessMessage('Saving user access...');
+        await UserAccess()
+            .savingUserAccessConfigurations(userAccessConfigurations);
+        Provider.of<CurrentUserState>(context, listen: false)
+            .setCurrentUser(user, userAccessConfigurations);
+        await Provider.of<ReferralNotificationState>(context, listen: false)
+            .setCurrentImplementingPartner(user.implementingPartner);
+        await ImplementingPartnerReferralConfigService()
+            .addImplementingPartnerReferralServices(
+                user.username, user.password);
+        loginFormState.setCurrentLoginProcessMessage(
+            "Saving user's assigned locations...");
+        await OrganisationUnitService()
+            .discoveringOrgananisationUnitsFromTheServer();
+        Provider.of<CurrentUserState>(context, listen: false)
+            .setCurrentUserCountryLevelReferences();
+        loginFormState.setCurrentLoginProcessMessage(
+            "Saving assigned access for interventions...");
+        List<String> programs = user.programs ?? [];
+        for (String program in programs) {
+          await ProgramService()
+              .discoverProgramOrganisationUnitsFromTheServer(program);
+        }
+        redirectToLoginPage();
+      } else {
+        String message = 'Incorrect username or password';
+        resetLoginFormState(
+          toastMessage: message,
+          showErrorOnInputFields: true,
+        );
+      }
+    } catch (error) {
+      resetLoginFormState(
+          toastMessage: error.toString() ?? error,
+          showErrorOnInputFields: false);
+    }
+  }
+
+  void resetLoginFormState({
+    bool showErrorOnInputFields = false,
+    String toastMessage = "",
+  }) {
+    loginFormState.setIsLoginProcessActive(false);
+    loginFormState.setHasLoginErrorStatus(showErrorOnInputFields);
+    AppUtil.showToastMessage(message: toastMessage);
+    loginFormState.setCurrentLoginProcessMessage('');
+  }
+
+  void redirectToLoginPage() {
+    Timer(Duration(seconds: 2), () {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => InterventionSelection(),
+        ),
+      ).then(
+        (value) => loginFormState.setIsLoginProcessActive(false),
+      );
+    });
   }
 
   @override

@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/core/constants/custom_color.dart';
-import 'package:kb_mobile_app/core/services/auto_synchronization_service.dart';
+import 'package:kb_mobile_app/core/services/device_connectivity_provider.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/modules/login/components/login_form_container.dart';
 import 'package:kb_mobile_app/modules/login/components/login_top_icon.dart';
@@ -20,7 +20,7 @@ class _LoginState extends State<Login> {
   @override
   void initState() {
     super.initState();
-    connectionSubscription = AutoSynchronizationService()
+    connectionSubscription = DeviceConnectivityProvider()
         .checkChangeOfDeviceConnectionStatus(context);
     AppUtil.setStatusBarColor(CustomColor.defaultPrimaryColor);
   }
