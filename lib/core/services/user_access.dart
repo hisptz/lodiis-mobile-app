@@ -13,7 +13,7 @@ class UserAccess {
     String password,
   ) async {
     String defaultUserAccessConfigs = DefaultUserAccess.getDefaultUserAccess();
-    String currentUserAccessConfigs = "";
+    dynamic currentUserAccessConfigs = "";
     try {
       HttpService http = new HttpService(
         username: username,
@@ -26,7 +26,7 @@ class UserAccess {
     return json.decode(currentUserAccessConfigs);
   }
 
-  Future savingUserAccessConfigurations(userAccessConfigs) async {
+  Future<void> savingUserAccessConfigurations(userAccessConfigs) async {
     try {
       String userAccessData = json.encode(userAccessConfigs);
       await UserAccessOfflineProvider()

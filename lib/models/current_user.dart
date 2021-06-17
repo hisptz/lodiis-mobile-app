@@ -4,6 +4,8 @@ class CurrentUser {
   String username;
   String password;
   String implementingPartner;
+  String userRoles;
+  String userGroups;
   bool isLogin;
   List userOrgUnitIds;
   List programs;
@@ -21,7 +23,14 @@ class CurrentUser {
     this.implementingPartner,
     this.userOrgUnitIds,
     this.programs,
-  });
+    this.userRoles,
+    this.userGroups,
+  }) {
+    this.userOrgUnitIds = this.userOrgUnitIds ?? [];
+    this.programs = this.programs ?? [];
+    this.userRoles = this.userRoles ?? "";
+    this.userGroups = this.userGroups ?? "";
+  }
 
   bool isCurrentUserSet() {
     return username != null &&
@@ -40,6 +49,8 @@ class CurrentUser {
     String username,
     String password,
   ) {
+    //@TODO getting user groups and user roles
+    // userGroups[name],userCredentials[userRoles[name]]
     List programList = json['programs'] as List<dynamic>;
     List organisationUnitList = json['organisationUnits'] as List<dynamic>;
     List userOrgUnitIds = [];
@@ -100,5 +111,7 @@ class CurrentUser {
     this.implementingPartner = mapData['implementingPartner'];
     this.userOrgUnitIds = [];
     this.programs = [];
+    this.userGroups = "";
+    this.userRoles = "";
   }
 }
