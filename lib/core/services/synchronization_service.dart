@@ -48,9 +48,9 @@ class SynchronizationService {
         queryParameters,
       );
       Map<String, dynamic> pager = json.decode(response.body)['pager'];
-      int pagetTotal = pager['total'];
+      int pageTotal = pager['total'];
       int pageSize = 500;
-      int total = pagetTotal >= pageSize ? pagetTotal : pageSize;
+      int total = pageTotal >= pageSize ? pageTotal : pageSize;
       for (int page = 1; page <= (total / pageSize).round(); page++) {
         paginationFilter.add({
           "totalPages": "true",
@@ -325,8 +325,8 @@ class SynchronizationService {
       queryParameters,
     );
     Map<String, dynamic> pager = json.decode(response.body)['pager'];
-    int pagetTotal = pager['total'] ?? 0;
-    return pagetTotal;
+    int pageTotal = pager['total'] ?? 0;
+    return pageTotal;
   }
 
   Future<int> getOnlineEnrollmentsCount(CurrentUser currentUser) async {
@@ -408,7 +408,8 @@ class SynchronizationService {
           AppUtil.showToastMessage(message: 'Error uploading data');
         }
       }
-      syncedIds = await _getReferenceIds(json.decode(response.body));
+      var referenceIds = await _getReferenceIds(json.decode(response.body));
+      syncedIds = referenceIds['syncedIds'];
     } catch (e) {
       AppLogs log = AppLogs(
           type: AppLogsConstants.errorLogType, message: '${e.toString()}');
@@ -458,7 +459,8 @@ class SynchronizationService {
           AppUtil.showToastMessage(message: 'Error uploading data');
         }
       }
-      syncedIds = await _getReferenceIds(json.decode(response.body));
+      var referenceIds = await _getReferenceIds(json.decode(response.body));
+      syncedIds = referenceIds['syncedIds'];
     } catch (e) {
       AppLogs log = AppLogs(
           type: AppLogsConstants.errorLogType, message: '${e.toString()}');
@@ -479,9 +481,10 @@ class SynchronizationService {
     }
   }
 
-  Future uploadTeiEventsToTheServer(
-      List<Events> teiEvents, bool isAutoUpload) async {
+  Future uploadTeiEventsToTheServer(List<Events> teiEvents, bool isAutoUpload,
+      {bool checkEnrollments = true}) async {
     List<String> syncedIds = [];
+    List<String> unsyncedDueToEnrollment = [];
     String url = 'api/events';
     var teiEnrollments = await getTeiEnrollmentFromOfflineDb();
     Map body = Map();
@@ -518,7 +521,18 @@ class SynchronizationService {
           AppUtil.showToastMessage(message: 'Error uploading data');
         }
       }
-      syncedIds = await _getReferenceIds(json.decode(response.body));
+      var referenceIds = await _getReferenceIds(json.decode(response.body));
+      syncedIds = referenceIds['syncedIds'];
+      unsyncedDueToEnrollment = referenceIds['unsyncedDueToEnrollment'];
+      if (unsyncedDueToEnrollment.isNotEmpty && checkEnrollments) {
+        List<Enrollment> unsyncedEnrollment =
+            await checkForUnenrolledBeneficiaries(unsyncedDueToEnrollment);
+        if (unsyncedEnrollment.isNotEmpty) {
+          await uploadUnsyncedEnrollments(unsyncedEnrollment);
+          await uploadTeiEventsToTheServer(teiEvents, isAutoUpload,
+              checkEnrollments: false);
+        }
+      }
     } catch (e) {
       AppLogs log = AppLogs(
           type: AppLogsConstants.errorLogType, message: '${e.toString()}');
@@ -565,7 +579,8 @@ class SynchronizationService {
           AppUtil.showToastMessage(message: 'Error uploading data');
         }
       }
-      syncedIds = await _getReferenceIds(json.decode(response.body));
+      var referenceIds = await _getReferenceIds(json.decode(response.body));
+      syncedIds = referenceIds['syncedIds'];
     } catch (e) {
       AppLogs log = AppLogs(
           type: AppLogsConstants.errorLogType, message: '${e.toString()}');
@@ -607,14 +622,15 @@ class SynchronizationService {
     return '$status: $description';
   }
 
-  Future<List<String>> _getReferenceIds(Map body) async {
-    List<String> referenceIds = [];
+  Future<Map<String, List<String>>> _getReferenceIds(Map body) async {
+    List<String> syncedIds = [];
+    List<String> unsyncedDueToEnrollment = [];
     var bodyResponse = body['response'];
     var importSummaries = bodyResponse['importSummaries'] ?? [];
     for (var importSummary in importSummaries) {
       if (importSummary['status'] == 'SUCCESS' &&
           importSummary['reference'] != null) {
-        referenceIds.add(importSummary['reference']);
+        syncedIds.add(importSummary['reference']);
       } else {
         if (importSummary['conflicts'] != null) {
           for (var conflict in importSummary['conflicts']) {
@@ -625,6 +641,9 @@ class SynchronizationService {
             AppUtil.showToastMessage(message: 'Error uploading data');
           }
         } else if (importSummary['description'] != null) {
+          if (importSummary['description'].contains('is not enrolled')) {
+            unsyncedDueToEnrollment.add(importSummary['reference']);
+          }
           AppLogs log = AppLogs(
               type: AppLogsConstants.errorLogType,
               message: importSummary['description']);
@@ -633,6 +652,63 @@ class SynchronizationService {
         }
       }
     }
+    Map<String, List<String>> referenceIds = Map();
+    referenceIds['syncedIds'] = syncedIds;
+    referenceIds['unsyncedDueToEnrollment'] = unsyncedDueToEnrollment;
     return referenceIds;
+  }
+
+  Future uploadUnsyncedEnrollments(List<Enrollment> teiEnrollments) async {
+    List<String> syncedIds = [];
+    String url = 'api/enrollments';
+    Map body = Map();
+    body['enrollments'] = teiEnrollments
+        .map((enrollment) => enrollment.toOffline(enrollment))
+        .toList();
+    try {
+      var queryParameters = {
+        "strategy": "CREATE_AND_UPDATE",
+      };
+      var response = await httpClient.httpPost(
+        url,
+        json.encode(body),
+        queryParameters: queryParameters,
+      );
+      if (response.statusCode >= 400 && response.statusCode != 409) {
+        var message = _getHttpResponseAppLogs(response.body);
+        AppLogs log =
+            AppLogs(type: AppLogsConstants.errorLogType, message: message);
+        await AppLogsOfflineProvider().addLogs(log);
+        AppUtil.showToastMessage(message: 'Error uploading data');
+      }
+      var referenceIds = await _getReferenceIds(json.decode(response.body));
+      syncedIds = referenceIds['syncedIds'];
+    } catch (e) {
+      AppLogs log = AppLogs(
+          type: AppLogsConstants.errorLogType, message: '${e.toString()}');
+      await AppLogsOfflineProvider().addLogs(log);
+      AppUtil.showToastMessage(message: 'Error uploading data');
+      throw e;
+    }
+    if (syncedIds.length > 0) {
+      for (Enrollment teiEnrollment in teiEnrollments) {
+        if (syncedIds.indexOf(teiEnrollment.trackedEntityInstance) > -1) {
+          teiEnrollment.syncStatus = 'synced';
+          FormUtil.savingEnrollment(teiEnrollment);
+        }
+      }
+    }
+  }
+
+  Future<List<Enrollment>> checkForUnenrolledBeneficiaries(
+      List<String> eventIds) async {
+    List<Events> eventsWithoutEnrollment = await EventOfflineProvider()
+        .getTrackedEntityInstanceEventsByStatus('', eventList: eventIds);
+    List<String> teiNotEnrolled = eventsWithoutEnrollment
+        .map((Events event) => event.trackedEntityInstance)
+        .toList();
+    List<Enrollment> unsyncedEnrollments = await EnrollmentOfflineProvider()
+        .getEnrollmentsFromTeiList(teiNotEnrolled);
+    return unsyncedEnrollments;
   }
 }

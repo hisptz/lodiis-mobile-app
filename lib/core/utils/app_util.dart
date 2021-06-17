@@ -133,12 +133,13 @@ class AppUtil {
     String message,
     ToastGravity position = ToastGravity.BOTTOM,
   }) {
-    Fluttertoast.showToast(
-      msg: message,
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: position,
-      backgroundColor: Color(0xFF656565),
-    );
+    if (message.isNotEmpty)
+      Fluttertoast.showToast(
+        msg: message,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: position,
+        backgroundColor: Color(0xFF656565),
+      );
   }
 
   static showPopUpModal(BuildContext context, Widget modal, bool diablePadding,

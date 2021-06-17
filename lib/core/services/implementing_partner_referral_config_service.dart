@@ -12,8 +12,7 @@ class ImplementingPartnerReferralConfigService {
   ) async {
     String defaultReferralServices =
         DefaultImplementingPartnerReferralServices.getDefaultService();
-    String currentReferralServices = '';
-
+    String currentReferralServices = "";
     try {
       HttpService http = new HttpService(
         username: username,
@@ -23,6 +22,7 @@ class ImplementingPartnerReferralConfigService {
       currentReferralServices =
           response.statusCode == 200 ? response.body : defaultReferralServices;
     } catch (error) {
+      currentReferralServices = defaultReferralServices;
       print(
           'getImplementingPartnerReferralServicesFromTheServer: ${error.toString()}');
     }
@@ -54,8 +54,9 @@ class ImplementingPartnerReferralConfigService {
               username, password);
       ImplementingPartnerReferralService implementingPartnerReferralService =
           new ImplementingPartnerReferralService(
-              id: DefaultImplementingPartnerReferralServices.referralServicesId,
-              services: referralServices);
+        id: DefaultImplementingPartnerReferralServices.referralServicesId,
+        services: referralServices,
+      );
       await ImplementingPartnerReferralServicesOfflineProvider()
           .addOrUpdateReferralServices(implementingPartnerReferralService);
     } catch (e) {

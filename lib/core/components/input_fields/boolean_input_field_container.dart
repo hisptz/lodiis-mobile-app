@@ -24,7 +24,6 @@ class BooleanInputFieldContainer extends StatefulWidget {
 
 class _BooleanInputFieldContainerState
     extends State<BooleanInputFieldContainer> {
-  //@TODO add translation on options codes
   final List<InputFieldOption> options = [
     InputFieldOption(
       name: 'Yes',

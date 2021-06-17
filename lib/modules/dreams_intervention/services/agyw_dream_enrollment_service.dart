@@ -61,7 +61,8 @@ class AgywDreamEnrollmentService {
     List<AgywDream> agywDreamList = [];
     try {
       List<Enrollment> enrollments = await EnrollmentOfflineProvider()
-          .getFilteredEnrollments(program, page: page, requredTeiList: teiList);
+          .getFilteredEnrollments(program,
+              page: page, requiredTeiList: teiList);
       for (Enrollment enrollment in enrollments) {
         // get location
         List<OrganisationUnit> ous = await OrganisationUnitService()

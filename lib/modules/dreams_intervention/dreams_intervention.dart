@@ -10,6 +10,7 @@ import 'package:kb_mobile_app/core/components/intervention_app_bar.dart';
 import 'package:kb_mobile_app/core/components/route_page_not_found.dart';
 import 'package:kb_mobile_app/core/constants/auto_synchronization.dart';
 import 'package:kb_mobile_app/core/services/auto_synchronization_service.dart';
+import 'package:kb_mobile_app/core/services/device_connectivity_provider.dart';
 import 'package:kb_mobile_app/core/utils/app_bar_util.dart';
 import 'package:kb_mobile_app/models/Intervention_bottom_navigation.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
@@ -44,7 +45,7 @@ class _DreamsInterventionState extends State<DreamsIntervention> {
         isViewReady = true;
       });
     });
-    connectionSubscription = AutoSynchronizationService()
+    connectionSubscription = DeviceConnectivityProvider()
         .checkChangeOfDeviceConnectionStatus(context);
     periodicTimer =
         Timer.periodic(Duration(minutes: syncTimeout), (Timer timer) {
