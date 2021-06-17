@@ -32,8 +32,8 @@ class UserService {
               password,
             )
           : null;
-    } catch (e) {
-      throw e;
+    } catch (error) {
+      throw error;
     }
   }
 
