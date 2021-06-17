@@ -12,6 +12,7 @@ import 'package:kb_mobile_app/core/components/input_fields/text_input_field_cont
 import 'package:kb_mobile_app/core/components/input_fields/true_only_input_field_container.dart';
 import 'package:kb_mobile_app/core/components/line_seperator.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
+import 'package:kb_mobile_app/models/input_field_option.dart';
 
 class InputFieldContainer extends StatelessWidget {
   const InputFieldContainer({
@@ -175,8 +176,6 @@ class InputFieldContainer extends StatelessWidget {
   }
 
   Widget _getInputFieldLabel(InputField inputField) {
-    //@TODO handling view for data  based on option sets
-    //@TODO translation of boolean or true only values
     dynamic value =
         inputField != null && '${dataObject[inputField.id]}' != 'null'
             ? '${dataObject[inputField.id]}'
@@ -185,19 +184,24 @@ class InputFieldContainer extends StatelessWidget {
       if (inputField.valueType == "BOOLEAN") {
         value = value == 'true'
             ? currentLanguage == 'lesotho'
-                ? 'Yes'
+                ? 'E'
                 : 'Yes'
             : value == 'false'
                 ? currentLanguage == 'lesotho'
-                    ? 'No'
+                    ? 'Che'
                     : 'No'
                 : value;
       } else if (inputField.valueType == 'TRUE_ONLY') {
         value = value == 'true'
             ? currentLanguage == 'lesotho'
-                ? 'Yes'
+                ? 'E'
                 : 'Yes'
             : value;
+      } else if (inputField.options.isNotEmpty) {
+        InputFieldOption option = inputField.options.firstWhere(
+            (InputFieldOption option) =>
+                option.code != null && option.code == value);
+        value = option != null ? option.name : value;
       }
     }
     return Container(
