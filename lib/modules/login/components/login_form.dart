@@ -42,6 +42,7 @@ class _LoginFormState extends State<LoginForm> {
     super.initState();
     this.loginFormState = Provider.of<LoginFormState>(context, listen: false);
     UserService().getCurrentUser().then((CurrentUser user) {
+      user.password = "";
       currentUser = user ??
           new CurrentUser(
             username: '',
@@ -77,7 +78,6 @@ class _LoginFormState extends State<LoginForm> {
   }
 
   void onLogin(bool isLoginProcessActive) async {
-    //@TODO checking status of online or offline
     bool isOnline = Provider.of<DeviceConnectivityState>(context, listen: false)
         .connectivityStatus;
     bool status = currentUser.isCurrentUserSet();
@@ -102,37 +102,45 @@ class _LoginFormState extends State<LoginForm> {
   }
 
   Future<void> offlineAthentication({String username, String password}) async {
-    print("offlineAthentication");
-    print("username : $username :: passowrd : $password");
-    resetLoginFormState();
+    try {
+      CurrentUser user = await UserService().login(
+        username: username,
+        password: password,
+        isOnlineAthentication: false,
+      );
+      if (user != null) {
+        var userAccessConfigurations =
+            await UserAccess().getSavedUserAccessConfigurations();
+        await setCurrentUserAccess(user, userAccessConfigurations);
+        redirectToLoginPage();
+      }
+    } catch (error) {
+      resetLoginFormState(
+        showErrorOnInputFields: true,
+        toastMessage: error.toString() ?? error,
+      );
+    }
   }
 
   Future<void> onlineAthentication({String username, String password}) async {
     try {
-      CurrentUser user = await UserService().login(username, password);
+      CurrentUser user = await UserService().login(
+        username: username,
+        password: password,
+      );
       if (user != null) {
+        UserService().resetUserAssociatedMetadata(user.id);
+        resetLoginFormState();
         var userAccessConfigurations =
             await UserAccess().getUserAccessConfigurationsFromTheServer(
           user.username,
           user.password,
         );
-        await UserService().setCurrentUser(user);
-        loginFormState.setCurrentLoginProcessMessage('Saving user access...');
-        await UserAccess()
-            .savingUserAccessConfigurations(userAccessConfigurations);
-        Provider.of<CurrentUserState>(context, listen: false)
-            .setCurrentUser(user, userAccessConfigurations);
-        await Provider.of<ReferralNotificationState>(context, listen: false)
-            .setCurrentImplementingPartner(user.implementingPartner);
-        await ImplementingPartnerReferralConfigService()
-            .addImplementingPartnerReferralServices(
-                user.username, user.password);
+        await setCurrentUserAccess(user, userAccessConfigurations);
         loginFormState.setCurrentLoginProcessMessage(
             "Saving user's assigned locations...");
         await OrganisationUnitService()
             .discoveringOrgananisationUnitsFromTheServer();
-        Provider.of<CurrentUserState>(context, listen: false)
-            .setCurrentUserCountryLevelReferences();
         loginFormState.setCurrentLoginProcessMessage(
             "Saving assigned access for interventions...");
         List<String> programs = user.programs ?? [];
@@ -155,6 +163,19 @@ class _LoginFormState extends State<LoginForm> {
     }
   }
 
+  Future<void> setCurrentUserAccess(
+      CurrentUser user, userAccessConfigurations) async {
+    await UserService().setCurrentUser(user);
+    loginFormState.setCurrentLoginProcessMessage('Saving user access...');
+    await UserAccess().savingUserAccessConfigurations(userAccessConfigurations);
+    Provider.of<CurrentUserState>(context, listen: false)
+        .setCurrentUser(user, userAccessConfigurations);
+    await Provider.of<ReferralNotificationState>(context, listen: false)
+        .setCurrentImplementingPartner(user.implementingPartner);
+    await ImplementingPartnerReferralConfigService()
+        .addImplementingPartnerReferralServices(user.username, user.password);
+  }
+
   void resetLoginFormState({
     bool showErrorOnInputFields = false,
     String toastMessage = "",
@@ -166,6 +187,8 @@ class _LoginFormState extends State<LoginForm> {
   }
 
   void redirectToLoginPage() {
+    Provider.of<CurrentUserState>(context, listen: false)
+        .setCurrentUserCountryLevelReferences();
     Timer(Duration(seconds: 2), () {
       Navigator.pushReplacement(
         context,
