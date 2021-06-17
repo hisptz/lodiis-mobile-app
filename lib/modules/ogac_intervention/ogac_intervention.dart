@@ -7,6 +7,7 @@ import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/intervention_app_bar.dart';
 import 'package:kb_mobile_app/core/constants/auto_synchronization.dart';
 import 'package:kb_mobile_app/core/services/auto_synchronization_service.dart';
+import 'package:kb_mobile_app/core/services/device_connectivity_provider.dart';
 import 'package:kb_mobile_app/core/utils/app_bar_util.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/ogac_intervention/pages/ogac_enrollment_form.dart';
@@ -35,7 +36,7 @@ class _OgacInterventionState extends State<OgacIntervention> {
         isViewReady = true;
       });
     });
-    connectionSubscription = AutoSynchronizationService()
+    connectionSubscription = DeviceConnectivityProvider()
         .checkChangeOfDeviceConnectionStatus(context);
     periodicTimer =
         Timer.periodic(Duration(minutes: syncTimeout), (Timer timer) {
