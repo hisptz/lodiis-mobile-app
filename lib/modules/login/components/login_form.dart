@@ -42,12 +42,12 @@ class _LoginFormState extends State<LoginForm> {
     super.initState();
     this.loginFormState = Provider.of<LoginFormState>(context, listen: false);
     UserService().getCurrentUser().then((CurrentUser user) {
-      user.password = "";
       currentUser = user ??
           new CurrentUser(
             username: '',
             password: '',
           );
+      currentUser.password = "";
       usernameController =
           new TextEditingController(text: currentUser.username);
       passwordController =
