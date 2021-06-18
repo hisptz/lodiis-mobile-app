@@ -2,6 +2,7 @@ import 'package:kb_mobile_app/core/offline_db/enrollment_offline/enrollment_offl
 import 'package:kb_mobile_app/core/offline_db/tei_relationship_offline/tei_relationship_offline_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/tracked_entity_instance_offline/tracked_entity_instance_offline_provider.dart';
 import 'package:kb_mobile_app/core/services/organisation_unit_service.dart';
+import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/enrollment.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
@@ -111,13 +112,12 @@ class OvcEnrollmentHouseHoldService {
     } catch (e) {}
     return searchableValue == ''
         ? ovchouseHoldList
-        : ovchouseHoldList
-            .where((OvcHouseHold beneficiary) =>
-                beneficiary.searchableValue
-                    .toLowerCase()
-                    .indexOf(searchableValue.toLowerCase()) !=
-                -1)
-            .toList();
+        : ovchouseHoldList.where((OvcHouseHold beneficiary) {
+            bool isBeneficiaryFound = AppUtil().searchFromString(
+                searchableString: beneficiary.searchableValue,
+                searchedValue: searchableValue);
+            return isBeneficiaryFound;
+          }).toList();
   }
 
   Future<int> getHouseholdCount() async {

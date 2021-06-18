@@ -129,6 +129,16 @@ class AppUtil {
     return age;
   }
 
+  bool searchFromString({String searchableString, String searchedValue}) {
+    List<String> searchedSubString = searchedValue.split(' ');
+    for (String str in searchedSubString) {
+      if (searchableString.toLowerCase().indexOf(str.toLowerCase()) == -1) {
+        return false;
+      }
+    }
+    return true;
+  }
+
   static showToastMessage({
     String message,
     ToastGravity position = ToastGravity.BOTTOM,
