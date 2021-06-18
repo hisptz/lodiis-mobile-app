@@ -59,11 +59,9 @@ class SynchronizationState with ChangeNotifier {
       ? (overallUploadProgress + overallDownloadProgress) / 2
       : overallUploadProgress + overallDownloadProgress;
 
-  double get eventsSyncProgress =>
-      eventsDataUploadProgress + eventsDataDownloadProgress;
+  double get eventsSyncProgress => eventsDataUploadProgress;
 
-  double get profileSyncProgress =>
-      profileDataUploadProgress + profileDataDownloadProgress;
+  double get profileSyncProgress => profileDataUploadProgress;
 
   bool get isCheckingForAvailableDataFromServer =>
       _isCheckingForAvailableDataFromServer ?? false;
@@ -310,17 +308,17 @@ class SynchronizationState with ChangeNotifier {
     updateDataUploadStatus(true);
     try {
       int profileCount = 0;
-      int profileTotalCount = 1;
+      int profileTotalCount = 3;
       int eventsCount = 0;
       int eventsTotalCount = 1;
       addDataUploadProcess('Prepare offline data to upload');
 
       var teis = await _synchronizationService.getTeisFromOfflineDb();
       profileCount++;
-      profileTotalCount++;
       profileDataUploadProgress = profileCount / profileTotalCount;
       overallUploadProgress =
           (profileDataUploadProgress + eventsDataUploadProgress) / 2;
+      notifyListeners();
       if (teis.length > 0) {
         addDataUploadProcess("Uploading beneficiary's profile data");
         await _synchronizationService.uploadTeisToTheServer(teis, isAutoUpload);
@@ -329,10 +327,10 @@ class SynchronizationState with ChangeNotifier {
       var teiEnrollments =
           await _synchronizationService.getTeiEnrollmentFromOfflineDb();
       profileCount++;
-      profileTotalCount++;
       profileDataUploadProgress = profileCount / profileTotalCount;
       overallUploadProgress =
           (profileDataUploadProgress + eventsDataUploadProgress) / 2;
+      notifyListeners();
       if (teiEnrollments.length > 0) {
         await _synchronizationService.uploadEnrollmentsToTheServer(
             teiEnrollments, isAutoUpload);
@@ -344,6 +342,7 @@ class SynchronizationState with ChangeNotifier {
       profileDataUploadProgress = profileCount / profileTotalCount;
       overallUploadProgress =
           (profileDataUploadProgress + eventsDataUploadProgress) / 2;
+      notifyListeners();
       if (teiRelationships.length > 0) {
         await _synchronizationService.uploadTeiRelationToTheServer(
             teiRelationships, isAutoUpload);
@@ -354,6 +353,7 @@ class SynchronizationState with ChangeNotifier {
       eventsDataUploadProgress = eventsCount / eventsTotalCount;
       overallUploadProgress =
           profileDataUploadProgress + eventsDataUploadProgress;
+      notifyListeners();
       if (teiEvents.length > 0) {
         addDataUploadProcess("Uploading beneficiary's service data");
         _dataUploadProcess = [];
