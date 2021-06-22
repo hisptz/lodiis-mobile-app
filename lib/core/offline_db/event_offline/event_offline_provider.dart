@@ -1,5 +1,6 @@
 import 'package:kb_mobile_app/core/offline_db/event_offline/event_offline_data_value.dart';
 import 'package:kb_mobile_app/core/offline_db/offline_db_provider.dart';
+import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -27,20 +28,24 @@ class EventOfflineProvider extends OfflineDbProvider {
     await EventOfflineDataValueProvider().addOrUpdateEventDataValues(event);
   }
 
-  addOrUpdateMultipleEvents(List<Events> events) async {
+  addOrUpdateMultipleEvents(List<dynamic> events) async {
     var dbClient = await db;
-    var eventBatch = dbClient.batch();
-    for (Events event in events) {
-      Map data = Events().toOffline(event);
-      data['id'] = data['event'];
-      data.remove('dataValues');
-      eventBatch.insert(table, data,
-          conflictAlgorithm: ConflictAlgorithm.replace);
-      await EventOfflineDataValueProvider().addOrUpdateEventDataValues(event);
-    }
+    List<List<dynamic>> chunkedEvents =
+        AppUtil().chunkItems(items: events, size: 100);
+    for (List<dynamic> eventsGroup in chunkedEvents) {
+      var eventBatch = dbClient.batch();
+      for (dynamic event in eventsGroup) {
+        Map data = Events().toOffline(event);
+        data['id'] = data['event'];
+        data.remove('dataValues');
+        eventBatch.insert(table, data,
+            conflictAlgorithm: ConflictAlgorithm.replace);
+        await EventOfflineDataValueProvider().addOrUpdateEventDataValues(event);
+      }
 
-    await eventBatch.commit(
-        exclusive: true, noResult: true, continueOnError: true);
+      await eventBatch.commit(
+          exclusive: true, noResult: true, continueOnError: true);
+    }
   }
 
   Future<List<String>> getAllOfflineEventIds() async {

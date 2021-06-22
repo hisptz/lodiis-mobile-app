@@ -1,5 +1,6 @@
 import 'package:kb_mobile_app/core/offline_db/offline_db_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/tracked_entity_instance_offline/tracked_entity_instance_offline_attribute_provider.dart';
+import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -14,24 +15,31 @@ class TrackedEntityInstanceOfflineProvider extends OfflineDbProvider {
   final String syncStatus = 'syncStatus';
 
   addOrUpdateMultipleTrackedEntityInstance(
-      List<TrackeEntityInstance> trackedEntityInstances) async {
+      List<dynamic> trackedEntityInstances) async {
     var dbClient = await db;
-    var trackedEntityBatch = dbClient.batch();
-    List attributesList = [];
 
-    for (TrackeEntityInstance trackedEntityInstance in trackedEntityInstances) {
-      Map data = TrackeEntityInstance().toOffline(trackedEntityInstance);
-      data.remove('attributes');
-      data['id'] = data['trackedEntityInstance'];
-      trackedEntityBatch.insert(table, data,
-          conflictAlgorithm: ConflictAlgorithm.replace);
-      attributesList.addAll(TrackedEntityInstanceOfflineAttributeProvider()
-          .getTrackedEntityAttributes(trackedEntityInstance));
+    List<List<dynamic>> chunkedTrackedEntityInstances =
+        AppUtil().chunkItems(items: trackedEntityInstances, size: 100);
+
+    for (List<dynamic> trackedEntityInstancesGroup
+        in chunkedTrackedEntityInstances) {
+      var trackedEntityBatch = dbClient.batch();
+      List attributesList = [];
+
+      for (dynamic trackedEntityInstance in trackedEntityInstancesGroup) {
+        Map data = TrackeEntityInstance().toOffline(trackedEntityInstance);
+        data.remove('attributes');
+        data['id'] = data['trackedEntityInstance'];
+        trackedEntityBatch.insert(table, data,
+            conflictAlgorithm: ConflictAlgorithm.replace);
+        attributesList.addAll(TrackedEntityInstanceOfflineAttributeProvider()
+            .getTrackedEntityAttributes(trackedEntityInstance));
+      }
+      await trackedEntityBatch.commit(
+          continueOnError: true, noResult: true, exclusive: true);
+      await TrackedEntityInstanceOfflineAttributeProvider()
+          .addOrUpdateMultipleTrackedEntityInstanceAttributes(attributesList);
     }
-    await trackedEntityBatch.commit(
-        continueOnError: true, noResult: true, exclusive: true);
-    await TrackedEntityInstanceOfflineAttributeProvider()
-        .addOrUpdateMultipleTrackedEntityInstanceAttributes(attributesList);
   }
 
   addOrUpdateTrackedEntityInstance(

@@ -248,12 +248,14 @@ class SynchronizationState with ChangeNotifier {
         }
       }
       AppUtil.showToastMessage(
-        message: 'Start synchronisation of referral notitifcations',
+        message: 'Start synchronization of referral notifications',
         position: ToastGravity.TOP,
       );
       await ReferralNotificationService().syncReferralNotifications();
+      await refreshBeneficiaryCounts();
       AppUtil.showToastMessage(
-          message: 'Data has been successfully donwloaded');
+          message: 'Data has been successfully downloaded');
+
       _dataDownloadProcess = [];
       updateDataDownloadStatus(false);
       setStatusMessageForAvailableDataFromServer('');
@@ -265,6 +267,9 @@ class SynchronizationState with ChangeNotifier {
       updateDataDownloadStatus(false);
       AppUtil.showToastMessage(message: 'Error downloading data');
     }
+  }
+
+  Future refreshBeneficiaryCounts() async {
     await Provider.of<ReferralNotificationState>(context, listen: false)
         .reloadReferralNotifications();
     List<String> teiWithIncomingReferral =
@@ -308,7 +313,7 @@ class SynchronizationState with ChangeNotifier {
             teiEvents, isAutoUpload);
       }
       AppUtil.showToastMessage(
-        message: 'Start synchronisation of referral notitifcations',
+        message: 'Start synchronization of referral notifications',
         position: ToastGravity.TOP,
       );
       await ReferralNotificationService().syncReferralNotifications();

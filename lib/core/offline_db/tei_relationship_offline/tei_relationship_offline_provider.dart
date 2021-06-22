@@ -1,4 +1,5 @@
 import 'package:kb_mobile_app/core/offline_db/offline_db_provider.dart';
+import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/tei_relationship.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -11,19 +12,21 @@ class TeiRelatioShipOfflineProvider extends OfflineDbProvider {
   final String fromTei = 'fromTei';
   final String toTei = 'toTei';
 
-  addOrUpdateMultipleTeiRelationships(
-      List<TeiRelationship> relationships) async {
+  addOrUpdateMultipleTeiRelationships(List<dynamic> relationships) async {
     var dbClient = await db;
-    var relationshipBatch = dbClient.batch();
+    List<List<dynamic>> chunkedRelationship =
+        AppUtil().chunkItems(items: relationships, size: 100);
+    for (List<dynamic> relationshipsGroup in chunkedRelationship) {
+      var relationshipBatch = dbClient.batch();
+      for (dynamic relationship in relationshipsGroup) {
+        var data = TeiRelationship().toOffline(relationship);
+        relationshipBatch.insert(table, data,
+            conflictAlgorithm: ConflictAlgorithm.replace);
+      }
 
-    for (TeiRelationship relationship in relationships) {
-      var data = TeiRelationship().toOffline(relationship);
-      relationshipBatch.insert(table, data,
-          conflictAlgorithm: ConflictAlgorithm.replace);
+      await relationshipBatch.commit(
+          noResult: true, continueOnError: true, exclusive: true);
     }
-
-    await relationshipBatch.commit(
-        noResult: true, continueOnError: true, exclusive: true);
   }
 
   addOrUpdateTeirelationShip(TeiRelationship teiRelationship) async {
