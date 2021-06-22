@@ -29,22 +29,27 @@ class EventOfflineProvider extends OfflineDbProvider {
   }
 
   addOrUpdateMultipleEvents(List<dynamic> events) async {
-    var dbClient = await db;
-    List<List<dynamic>> chunkedEvents =
-        AppUtil().chunkItems(items: events, size: 100);
-    for (List<dynamic> eventsGroup in chunkedEvents) {
-      var eventBatch = dbClient.batch();
-      for (dynamic event in eventsGroup) {
-        Map data = Events().toOffline(event);
-        data['id'] = data['event'];
-        data.remove('dataValues');
-        eventBatch.insert(table, data,
-            conflictAlgorithm: ConflictAlgorithm.replace);
-        await EventOfflineDataValueProvider().addOrUpdateEventDataValues(event);
-      }
+    try {
+      var dbClient = await db;
+      List<List<dynamic>> chunkedEvents =
+          AppUtil().chunkItems(items: events, size: 100);
+      for (List<dynamic> eventsGroup in chunkedEvents) {
+        var eventBatch = dbClient.batch();
+        for (dynamic event in eventsGroup) {
+          Map data = Events().toOffline(event);
+          data['id'] = data['event'];
+          data.remove('dataValues');
+          eventBatch.insert(table, data,
+              conflictAlgorithm: ConflictAlgorithm.replace);
+          await EventOfflineDataValueProvider()
+              .addOrUpdateEventDataValues(event);
+        }
 
-      await eventBatch.commit(
-          exclusive: true, noResult: true, continueOnError: true);
+        await eventBatch.commit(
+            exclusive: true, noResult: true, continueOnError: true);
+      }
+    } catch (e) {
+      throw e;
     }
   }
 

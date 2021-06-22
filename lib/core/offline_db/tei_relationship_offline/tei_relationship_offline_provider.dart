@@ -13,19 +13,23 @@ class TeiRelatioShipOfflineProvider extends OfflineDbProvider {
   final String toTei = 'toTei';
 
   addOrUpdateMultipleTeiRelationships(List<dynamic> relationships) async {
-    var dbClient = await db;
-    List<List<dynamic>> chunkedRelationship =
-        AppUtil().chunkItems(items: relationships, size: 100);
-    for (List<dynamic> relationshipsGroup in chunkedRelationship) {
-      var relationshipBatch = dbClient.batch();
-      for (dynamic relationship in relationshipsGroup) {
-        var data = TeiRelationship().toOffline(relationship);
-        relationshipBatch.insert(table, data,
-            conflictAlgorithm: ConflictAlgorithm.replace);
-      }
+    try {
+      var dbClient = await db;
+      List<List<dynamic>> chunkedRelationship =
+          AppUtil().chunkItems(items: relationships, size: 100);
+      for (List<dynamic> relationshipsGroup in chunkedRelationship) {
+        var relationshipBatch = dbClient.batch();
+        for (dynamic relationship in relationshipsGroup) {
+          var data = TeiRelationship().toOffline(relationship);
+          relationshipBatch.insert(table, data,
+              conflictAlgorithm: ConflictAlgorithm.replace);
+        }
 
-      await relationshipBatch.commit(
-          noResult: true, continueOnError: true, exclusive: true);
+        await relationshipBatch.commit(
+            noResult: true, continueOnError: true, exclusive: true);
+      }
+    } catch (e) {
+      throw e;
     }
   }
 
