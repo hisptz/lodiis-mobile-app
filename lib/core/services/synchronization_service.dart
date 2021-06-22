@@ -168,7 +168,11 @@ class SynchronizationService {
   }
 
   Future saveEventsToOffline(List<Events> events) async {
-    await EventOfflineProvider().addOrUpdateMultipleEvents(events);
+    try {
+      await EventOfflineProvider().addOrUpdateMultipleEvents(events);
+    } catch (e) {
+      throw e;
+    }
   }
 
   Future saveTeiRelationshipToOffline(TeiRelationship relationship) async {
@@ -211,15 +215,19 @@ class SynchronizationService {
   }
 
   Future<void> saveTeis(var responseData) async {
-    Map enrollmentsAndRelationships =
-        getEnrollmentsAndRelationshipsFromResponse(responseData);
-    TrackedEntityInstanceOfflineProvider()
-        .addOrUpdateMultipleTrackedEntityInstance(
-            getTeiFromResponse(responseData));
-    EnrollmentOfflineProvider().addOrUpdateMultipleEnrollments(
-        enrollmentsAndRelationships['enrollments']);
-    TeiRelatioShipOfflineProvider().addOrUpdateMultipleTeiRelationships(
-        enrollmentsAndRelationships['relationships']);
+    try {
+      Map enrollmentsAndRelationships =
+          getEnrollmentsAndRelationshipsFromResponse(responseData);
+      TrackedEntityInstanceOfflineProvider()
+          .addOrUpdateMultipleTrackedEntityInstance(
+              getTeiFromResponse(responseData));
+      EnrollmentOfflineProvider().addOrUpdateMultipleEnrollments(
+          enrollmentsAndRelationships['enrollments']);
+      TeiRelatioShipOfflineProvider().addOrUpdateMultipleTeiRelationships(
+          enrollmentsAndRelationships['relationships']);
+    } catch (e) {
+      throw e;
+    }
   }
 
   Future<void> getAndSaveTrackedInstanceFromServer(

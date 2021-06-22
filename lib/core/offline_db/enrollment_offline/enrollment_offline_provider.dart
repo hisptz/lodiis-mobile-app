@@ -27,19 +27,23 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
   }
 
   addOrUpdateMultipleEnrollments(List<dynamic> enrollments) async {
-    var dbClient = await db;
-    List<List<dynamic>> chunkedEnrollments =
-        AppUtil().chunkItems(items: enrollments, size: 100);
-    for (List<dynamic> enrollmentsGroup in chunkedEnrollments) {
-      var enrollmentBatch = dbClient.batch();
-      for (dynamic enrollment in enrollmentsGroup) {
-        Map data = Enrollment().toOffline(enrollment);
-        data['id'] = data['enrollment'];
-        enrollmentBatch.insert(table, data,
-            conflictAlgorithm: ConflictAlgorithm.replace);
+    try {
+      var dbClient = await db;
+      List<List<dynamic>> chunkedEnrollments =
+          AppUtil().chunkItems(items: enrollments, size: 100);
+      for (List<dynamic> enrollmentsGroup in chunkedEnrollments) {
+        var enrollmentBatch = dbClient.batch();
+        for (dynamic enrollment in enrollmentsGroup) {
+          Map data = Enrollment().toOffline(enrollment);
+          data['id'] = data['enrollment'];
+          enrollmentBatch.insert(table, data,
+              conflictAlgorithm: ConflictAlgorithm.replace);
+        }
+        return await enrollmentBatch.commit(
+            noResult: true, continueOnError: true);
       }
-      return await enrollmentBatch.commit(
-          noResult: true, continueOnError: true);
+    } catch (e) {
+      throw e;
     }
   }
 
