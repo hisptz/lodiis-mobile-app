@@ -100,10 +100,12 @@ class SynchronizationService {
               ?.toList();
           saveEventsToOffline(events);
         } else {
-          AppLogs log = AppLogs(
-              type: AppLogsConstants.errorLogType,
-              message: _getHttpResponseAppLogs(response.body));
-          await AppLogsOfflineProvider().addLogs(log);
+          String errorMessage = await _getHttpResponseAppLogs(response.body);
+          if (errorMessage.isNotEmpty) {
+            AppLogs log = AppLogs(
+                type: AppLogsConstants.errorLogType, message: errorMessage);
+            await AppLogsOfflineProvider().addLogs(log);
+          }
         }
       }
     } catch (e) {
@@ -148,10 +150,12 @@ class SynchronizationService {
                 .add(TeiRelationship().fromOnline(teiRelationship));
           }
         } else {
-          AppLogs log = AppLogs(
-              type: AppLogsConstants.errorLogType,
-              message: _getHttpResponseAppLogs(response.body));
-          await AppLogsOfflineProvider().addLogs(log);
+          String errorMessage = await _getHttpResponseAppLogs(response.body);
+          if (errorMessage.isNotEmpty) {
+            AppLogs log = AppLogs(
+                type: AppLogsConstants.errorLogType, message: errorMessage);
+            await AppLogsOfflineProvider().addLogs(log);
+          }
           return null;
         }
       }
@@ -249,10 +253,12 @@ class SynchronizationService {
           var responseData = json.decode(response.body);
           await saveTeis(responseData);
         } else {
-          AppLogs log = AppLogs(
-              type: AppLogsConstants.errorLogType,
-              message: _getHttpResponseAppLogs(response.body));
-          await AppLogsOfflineProvider().addLogs(log);
+          String errorMessage = await _getHttpResponseAppLogs(response.body);
+          if (errorMessage.isNotEmpty) {
+            AppLogs log = AppLogs(
+                type: AppLogsConstants.errorLogType, message: errorMessage);
+            await AppLogsOfflineProvider().addLogs(log);
+          }
           return null;
         }
       } catch (e) {
@@ -375,6 +381,7 @@ class SynchronizationService {
         .getTrackedEntityInstanceEventsByStatus(offlineSyncStatus);
   }
 
+// TODO Add try catch to capture the error
   Future uploadTeisToTheServer(List<TrackeEntityInstance> teis,
       List<Enrollment> teiEnrollments, bool isAutoUpload) async {
     List<String> syncedIds = [];
@@ -405,10 +412,12 @@ class SynchronizationService {
         queryParameters: queryParameters,
       );
       if (response.statusCode >= 400 && response.statusCode != 409) {
-        var message = _getHttpResponseAppLogs(response.body);
-        AppLogs log =
-            AppLogs(type: AppLogsConstants.errorLogType, message: message);
-        await AppLogsOfflineProvider().addLogs(log);
+        var message = await _getHttpResponseAppLogs(response.body);
+        if (message.isNotEmpty) {
+          AppLogs log =
+              AppLogs(type: AppLogsConstants.errorLogType, message: message);
+          await AppLogsOfflineProvider().addLogs(log);
+        }
         if (!isAutoUpload) {
           AppUtil.showToastMessage(message: 'Error uploading data');
         }
@@ -466,10 +475,12 @@ class SynchronizationService {
         queryParameters: queryParameters,
       );
       if (response.statusCode >= 400 && response.statusCode != 409) {
-        var message = _getHttpResponseAppLogs(response.body);
-        AppLogs log =
-            AppLogs(type: AppLogsConstants.errorLogType, message: message);
-        await AppLogsOfflineProvider().addLogs(log);
+        var message = await _getHttpResponseAppLogs(response.body);
+        if (message.isNotEmpty) {
+          AppLogs log =
+              AppLogs(type: AppLogsConstants.errorLogType, message: message);
+          await AppLogsOfflineProvider().addLogs(log);
+        }
         if (!isAutoUpload) {
           AppUtil.showToastMessage(message: 'Error uploading data');
         }
@@ -493,7 +504,6 @@ class SynchronizationService {
       if (!isAutoUpload) {
         AppUtil.showToastMessage(message: 'Error uploading data');
       }
-
       throw e;
     }
     if (syncedIds.length > 0) {
@@ -523,10 +533,12 @@ class SynchronizationService {
         queryParameters: queryParameters,
       );
       if (response.statusCode >= 400 && response.statusCode != 409) {
-        var message = _getHttpResponseAppLogs(response.body);
-        AppLogs log =
-            AppLogs(type: AppLogsConstants.errorLogType, message: message);
-        await AppLogsOfflineProvider().addLogs(log);
+        var message = await _getHttpResponseAppLogs(response.body);
+        if (message.isNotEmpty) {
+          AppLogs log =
+              AppLogs(type: AppLogsConstants.errorLogType, message: message);
+          await AppLogsOfflineProvider().addLogs(log);
+        }
         if (!isAutoUpload) {
           AppUtil.showToastMessage(message: 'Error uploading data');
         }
@@ -538,61 +550,104 @@ class SynchronizationService {
       if (!isAutoUpload) {
         AppUtil.showToastMessage(message: 'Error uploading data');
       }
-
       throw e;
     }
   }
 
-  String _getHttpResponseAppLogs(String responseBody) {
-    int descriptionStart = responseBody.lastIndexOf('<b>Description</b> ');
-    int descriptionEnd = responseBody.lastIndexOf('</p>');
-    int httpStatusStart = responseBody.lastIndexOf('<h1>HTTP');
-    int httpStatusEnd = responseBody.lastIndexOf('</h1>');
+  String getNginxErrorMessage(String responseBody) {
+    String errorMessage = '';
+    try {
+      int errorMessageStart = responseBody.lastIndexOf('<h1>');
+      int errorMessageEnd = responseBody.lastIndexOf('</h1>');
+      if (errorMessageStart != -1 && errorMessageEnd != -1) {
+        errorMessage = responseBody
+            .substring(errorMessageStart, errorMessageEnd)
+            .replaceAll(new RegExp('<h1>'), '')
+            .trim();
+      }
+    } catch (e) {
+      throw e;
+    }
+    return errorMessage;
+  }
 
-    String description = responseBody
-        .substring(descriptionStart, descriptionEnd)
-        .replaceAll(new RegExp('<b>Description</b>'), '')
-        .trimLeft()
-        .trimRight();
-    String status = responseBody
-        .substring(httpStatusStart, httpStatusEnd)
-        .replaceAll(new RegExp('<h1>'), '')
-        .trimLeft()
-        .trimRight();
+  String getDhis2TomcatErrorMessage(String responseBody) {
+    String errorMessage = '';
+    try {
+      String status = '';
+      String description = '';
+      int descriptionStart = responseBody.lastIndexOf('<b>Description</b> ');
+      int descriptionEnd = responseBody.lastIndexOf('</p>');
+      int httpStatusStart = responseBody.lastIndexOf('<h1>HTTP');
+      int httpStatusEnd = responseBody.lastIndexOf('</h1>');
+      if (descriptionStart != -1 &&
+          descriptionEnd != -1 &&
+          httpStatusStart != -1 &&
+          httpStatusEnd != -1) {
+        description = responseBody
+            .substring(descriptionStart, descriptionEnd)
+            .replaceAll(new RegExp('<b>Description</b>'), '')
+            .trim();
+        status = responseBody
+            .substring(httpStatusStart, httpStatusEnd)
+            .replaceAll(new RegExp('<h1>'), '')
+            .trim();
+        errorMessage = '$status : $description';
+      }
+    } catch (e) {
+      throw e;
+    }
+    return errorMessage;
+  }
 
-    return '$status: $description';
+  Future<String> _getHttpResponseAppLogs(String responseBody) async {
+    String logMessage = '';
+    try {
+      if (responseBody.toLowerCase().contains('nginx')) {
+        logMessage = getNginxErrorMessage(responseBody);
+      } else {
+        logMessage = getDhis2TomcatErrorMessage(responseBody);
+      }
+    } catch (error) {
+      AppLogs log = AppLogs(
+          type: AppLogsConstants.errorLogType, message: '${error.toString()}');
+      await AppLogsOfflineProvider().addLogs(log);
+    }
+    return logMessage;
   }
 
   Future<Map<String, List<String>>> _getReferenceIds(Map body) async {
     List<String> syncedIds = [];
     List<String> unsyncedDueToEnrollment = [];
-    var bodyResponse = body['response'];
-    var importSummaries = bodyResponse['importSummaries'] ?? [];
-    for (var importSummary in importSummaries) {
-      if (importSummary['status'] == 'SUCCESS' &&
-          importSummary['reference'] != null) {
-        syncedIds.add(importSummary['reference']);
-      } else {
-        if (importSummary['conflicts'] != null) {
-          for (var conflict in importSummary['conflicts']) {
+    try {
+      var bodyResponse = body['response'];
+      var importSummaries = bodyResponse['importSummaries'] ?? [];
+      for (var importSummary in importSummaries) {
+        if (importSummary['status'] == 'SUCCESS' &&
+            importSummary['reference'] != null) {
+          syncedIds.add(importSummary['reference']);
+        } else {
+          if (importSummary['conflicts'] != null) {
+            for (var conflict in importSummary['conflicts']) {
+              AppLogs log = AppLogs(
+                  type: AppLogsConstants.errorLogType,
+                  message: "${conflict['object']}: ${conflict['value']}");
+              await AppLogsOfflineProvider().addLogs(log);
+              AppUtil.showToastMessage(message: 'Error uploading data');
+            }
+          } else if (importSummary['description'] != null) {
+            if (importSummary['description'].contains('is not enrolled')) {
+              unsyncedDueToEnrollment.add(importSummary['reference']);
+            }
             AppLogs log = AppLogs(
                 type: AppLogsConstants.errorLogType,
-                message: "${conflict['object']}: ${conflict['value']}");
+                message: importSummary['description']);
             await AppLogsOfflineProvider().addLogs(log);
             AppUtil.showToastMessage(message: 'Error uploading data');
           }
-        } else if (importSummary['description'] != null) {
-          if (importSummary['description'].contains('is not enrolled')) {
-            unsyncedDueToEnrollment.add(importSummary['reference']);
-          }
-          AppLogs log = AppLogs(
-              type: AppLogsConstants.errorLogType,
-              message: importSummary['description']);
-          await AppLogsOfflineProvider().addLogs(log);
-          AppUtil.showToastMessage(message: 'Error uploading data');
         }
       }
-    }
+    } catch (error) {}
     Map<String, List<String>> referenceIds = Map();
     referenceIds['syncedIds'] = syncedIds;
     referenceIds['unsyncedDueToEnrollment'] = unsyncedDueToEnrollment;
@@ -616,10 +671,12 @@ class SynchronizationService {
         queryParameters: queryParameters,
       );
       if (response.statusCode >= 400 && response.statusCode != 409) {
-        var message = _getHttpResponseAppLogs(response.body);
-        AppLogs log =
-            AppLogs(type: AppLogsConstants.errorLogType, message: message);
-        await AppLogsOfflineProvider().addLogs(log);
+        var message = await _getHttpResponseAppLogs(response.body);
+        if (message.isNotEmpty) {
+          AppLogs log =
+              AppLogs(type: AppLogsConstants.errorLogType, message: message);
+          await AppLogsOfflineProvider().addLogs(log);
+        }
         AppUtil.showToastMessage(message: 'Error uploading data');
       }
       var referenceIds = await _getReferenceIds(json.decode(response.body));

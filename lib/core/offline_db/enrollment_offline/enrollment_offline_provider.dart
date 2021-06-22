@@ -1,5 +1,6 @@
 import 'package:kb_mobile_app/core/constants/pagination.dart';
 import 'package:kb_mobile_app/core/offline_db/offline_db_provider.dart';
+import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/enrollment.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -25,16 +26,21 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
         conflictAlgorithm: ConflictAlgorithm.replace);
   }
 
-  addOrUpdateMultipleEnrollments(List<Enrollment> enrollments) async {
+  addOrUpdateMultipleEnrollments(List<dynamic> enrollments) async {
     var dbClient = await db;
-    var enrollmentBatch = dbClient.batch();
-    for (Enrollment enrollment in enrollments) {
-      Map data = Enrollment().toOffline(enrollment);
-      data['id'] = data['enrollment'];
-      enrollmentBatch.insert(table, data,
-          conflictAlgorithm: ConflictAlgorithm.replace);
+    List<List<dynamic>> chunkedEnrollments =
+        AppUtil().chunkItems(items: enrollments, size: 100);
+    for (List<dynamic> enrollmentsGroup in chunkedEnrollments) {
+      var enrollmentBatch = dbClient.batch();
+      for (dynamic enrollment in enrollmentsGroup) {
+        Map data = Enrollment().toOffline(enrollment);
+        data['id'] = data['enrollment'];
+        enrollmentBatch.insert(table, data,
+            conflictAlgorithm: ConflictAlgorithm.replace);
+      }
+      return await enrollmentBatch.commit(
+          noResult: true, continueOnError: true);
     }
-    return await enrollmentBatch.commit(noResult: true, continueOnError: true);
   }
 
   Future<List<Enrollment>> getEnrollements(String programId, {page}) async {
