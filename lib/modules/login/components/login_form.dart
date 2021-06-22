@@ -130,7 +130,6 @@ class _LoginFormState extends State<LoginForm> {
       );
       if (user != null) {
         UserService().resetUserAssociatedMetadata(user.id);
-        resetLoginFormState();
         var userAccessConfigurations =
             await UserAccess().getUserAccessConfigurationsFromTheServer(
           user.username,

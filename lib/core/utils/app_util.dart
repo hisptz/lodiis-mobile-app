@@ -165,15 +165,20 @@ class AppUtil {
       );
   }
 
-  static showPopUpModal(BuildContext context, Widget modal, bool diablePadding,
-      {String title = ''}) {
+  static showPopUpModal(
+    BuildContext context,
+    Widget modal,
+    bool diablePadding, {
+    String title = '',
+  }) {
     return showDialog(
       context: context,
       builder: (BuildContext context) {
         return Dialog(
           elevation: 10,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(22.0)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(22.0),
+          ),
           child: Container(
             child: Padding(
               padding: diablePadding
@@ -188,26 +193,31 @@ class AppUtil {
                 child: Column(
                   children: [
                     Container(
-                      padding: EdgeInsets.symmetric(horizontal: 10.0),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 10.0,
+                      ),
                       child: Row(
                         children: [
                           Expanded(
-                              flex: 10,
-                              child: title == ''
-                                  ? Container()
-                                  : Container(
-                                      child: Wrap(
-                                          alignment: WrapAlignment.start,
-                                          children: [
-                                            Text(
-                                              title,
-                                              style: TextStyle().copyWith(
-                                                  color: Color(0xFF82898D),
-                                                  fontSize: 14.0,
-                                                  fontWeight: FontWeight.bold),
-                                            )
-                                          ]),
-                                    )),
+                            flex: 10,
+                            child: title == ''
+                                ? Container()
+                                : Container(
+                                    child: Wrap(
+                                      alignment: WrapAlignment.start,
+                                      children: [
+                                        Text(
+                                          title,
+                                          style: TextStyle().copyWith(
+                                            color: Color(0xFF82898D),
+                                            fontSize: 14.0,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                          ),
                           Expanded(
                             flex: 2,
                             child: Container(

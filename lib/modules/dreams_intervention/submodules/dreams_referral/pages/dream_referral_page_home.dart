@@ -19,6 +19,7 @@ import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/models/referralEventNotification.dart';
+import 'package:kb_mobile_app/models/referral_outcome_event.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_referral/constant/dream_agyw_referral_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_referral/pages/dream_agyw_referral_form.dart';
@@ -102,6 +103,10 @@ class _DreamAgywReferralPageState extends State<DreamAgywReferralPage> {
     Events eventData,
   ) {
     try {
+      ReferralOutComeEvent referralOutComeEvent =
+          ReferralOutComeEvent().fromTeiModel(eventData, "");
+      bool hasReferralOutCome =
+          referralOutComeEvent.dateClientReachStation != "";
       String currentImplementingPartner =
           Provider.of<ReferralNotificationState>(context, listen: false)
               .currentImplementingPartner;
@@ -115,7 +120,7 @@ class _DreamAgywReferralPageState extends State<DreamAgywReferralPage> {
                   referralEventNotification.fromImplementingPartner ==
                       currentImplementingPartner &&
                   referralEventNotification.isCompleted);
-      if (incommingResolvedReferral != null) {
+      if (incommingResolvedReferral != null && hasReferralOutCome) {
         bool isCompleted = true;
         bool isViewed = true;
         Provider.of<ReferralNotificationState>(context, listen: false)
