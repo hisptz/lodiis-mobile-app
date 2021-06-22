@@ -1,4 +1,5 @@
 import 'package:kb_mobile_app/core/offline_db/app_logs_offline/app_logs_offline_provider.dart';
+import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/app_logs.dart';
 
 class AppLogsService {
@@ -18,11 +19,9 @@ class AppLogsService {
     return searchableValue == ''
         ? appLogsList
         : appLogsList
-            .where((AppLogs logs) =>
-                logs.searchableValue
-                    .toLowerCase()
-                    .indexOf(searchableValue.toLowerCase()) !=
-                -1)
+            .where((AppLogs logs) => AppUtil().searchFromString(
+                searchableString: logs.searchableValue,
+                searchedValue: searchableValue))
             .toList();
   }
 

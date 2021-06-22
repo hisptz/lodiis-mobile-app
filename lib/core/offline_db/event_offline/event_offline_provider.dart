@@ -43,6 +43,20 @@ class EventOfflineProvider extends OfflineDbProvider {
         exclusive: true, noResult: true, continueOnError: true);
   }
 
+  Future<List<String>> getAllOfflineEventIds() async {
+    List<String> offlineEventIds = [];
+    try {
+      var dbClient = await db;
+      List<Map> maps = await dbClient.query(table, columns: [id]);
+      if (maps.isNotEmpty) {
+        offlineEventIds.addAll(maps.map((map) => map[id] as String).toList());
+      }
+    } catch (error) {
+      print("getAllOfflineTrackedEntitiyInstanceIds : ${error.toString()}");
+    }
+    return offlineEventIds.toSet().toList();
+  }
+
   Future<List<Events>> getTrackedEntityInstanceEvents(
     List<String> trackedEntityInstanceIds,
   ) async {

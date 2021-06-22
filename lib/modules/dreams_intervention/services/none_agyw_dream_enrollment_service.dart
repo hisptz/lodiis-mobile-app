@@ -1,6 +1,7 @@
 import 'package:kb_mobile_app/core/offline_db/enrollment_offline/enrollment_offline_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/tracked_entity_instance_offline/tracked_entity_instance_offline_provider.dart';
 import 'package:kb_mobile_app/core/services/organisation_unit_service.dart';
+import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/enrollment.dart';
@@ -106,13 +107,12 @@ class NoneAgywDreamEnrollmentService {
 
     return searchableValue == ''
         ? agywDreamList
-        : agywDreamList
-            .where((AgywDream beneficiary) =>
-                beneficiary.searchableValue
-                    .toLowerCase()
-                    .indexOf(searchableValue.toLowerCase()) !=
-                -1)
-            .toList();
+        : agywDreamList.where((AgywDream beneficiary) {
+            bool isBeneficiaryFound = AppUtil().searchFromString(
+                searchableString: beneficiary.searchableValue,
+                searchedValue: searchableValue);
+            return isBeneficiaryFound;
+          }).toList();
   }
 
   Future<int> getNonAgywBeneficiaryCount() async {
