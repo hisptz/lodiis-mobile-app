@@ -7,10 +7,10 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
 
 class AppUtil {
-  static bool hasAllMandarotyFieldsFilled(List mandatoryFields, Map dataObject,
+  static bool hasAllMandarotyFieldsFilled(List mandatoryFields, Map datadynamic,
       {Map hiddenFields = const {}}) {
     bool hasFilled = true;
-    List fieldIds = dataObject.keys.toList();
+    List fieldIds = datadynamic.keys.toList();
     List hiddenFieldsIds = hiddenFields.keys.toList();
     //Remove all hidden fields which are mandatory from the list
     List filteredMandatoryFields = mandatoryFields
@@ -20,8 +20,8 @@ class AppUtil {
       if (fieldIds.indexOf(mandatoryField) == -1) {
         hasFilled = false;
       } else {
-        if ('${dataObject[mandatoryField]}'.trim() == '' ||
-            '${dataObject[mandatoryField]}'.trim() == 'null') {
+        if ('${datadynamic[mandatoryField]}'.trim() == '' ||
+            '${datadynamic[mandatoryField]}'.trim() == 'null') {
           hasFilled = false;
         }
       }
@@ -29,10 +29,10 @@ class AppUtil {
     return hasFilled;
   }
 
-  static List getUnFilledMandatoryFields(List mandatoryFields, Map dataObject,
+  static List getUnFilledMandatoryFields(List mandatoryFields, Map datadynamic,
       {Map hiddenFields = const {}}) {
     List unFilledMandatoryFields = [];
-    List fieldIds = dataObject.keys.toList();
+    List fieldIds = datadynamic.keys.toList();
     List hiddenFieldsIds = hiddenFields.keys.toList();
     //Remove all hidden fields which are mandatory from the list
     List filteredMandatoryFields = mandatoryFields
@@ -42,8 +42,8 @@ class AppUtil {
       if (fieldIds.indexOf(mandatoryField) == -1) {
         unFilledMandatoryFields.add(mandatoryField);
       } else {
-        if ('${dataObject[mandatoryField]}'.trim() == '' ||
-            '${dataObject[mandatoryField]}'.trim() == 'null') {
+        if ('${datadynamic[mandatoryField]}'.trim() == '' ||
+            '${datadynamic[mandatoryField]}'.trim() == 'null') {
           unFilledMandatoryFields.add(mandatoryField);
         }
       }
@@ -53,16 +53,16 @@ class AppUtil {
 
   static bool getAtleastOneFormFieldsFilledStatus(
     List fields,
-    Map dataObject,
+    Map datadynamic,
   ) {
     List unFilledFields = [];
-    List fieldIds = dataObject.keys.toList();
+    List fieldIds = datadynamic.keys.toList();
     for (var field in fields) {
       if (fieldIds.indexOf(field) == -1) {
         unFilledFields.add(field);
       } else {
-        if ('${dataObject[field]}'.trim() == '' ||
-            '${dataObject[field]}'.trim() == 'null') {
+        if ('${datadynamic[field]}'.trim() == '' ||
+            '${datadynamic[field]}'.trim() == 'null') {
           unFilledFields.add(field);
         }
       }
@@ -129,6 +129,29 @@ class AppUtil {
     return age;
   }
 
+  List<List<dynamic>> chunkItems({List<dynamic> items = const [], int size}) {
+    List<List<dynamic>> groupedItems = [];
+    size = size ?? items.length;
+    for (var count = 1; count <= (items.length / size).ceil(); count++) {
+      int start = (count - 1) * size;
+      int end = (count * size);
+      List<dynamic> subList =
+          items.sublist(start, end > items.length ? items.length : end);
+      groupedItems.add(subList);
+    }
+    return groupedItems;
+  }
+
+  bool searchFromString({String searchableString, String searchedValue}) {
+    List<String> searchedSubString = searchedValue.split(' ');
+    for (String str in searchedSubString) {
+      if (searchableString.toLowerCase().indexOf(str.toLowerCase()) == -1) {
+        return false;
+      }
+    }
+    return true;
+  }
+
   static showToastMessage({
     String message,
     ToastGravity position = ToastGravity.BOTTOM,
@@ -142,15 +165,20 @@ class AppUtil {
       );
   }
 
-  static showPopUpModal(BuildContext context, Widget modal, bool diablePadding,
-      {String title = ''}) {
+  static showPopUpModal(
+    BuildContext context,
+    Widget modal,
+    bool diablePadding, {
+    String title = '',
+  }) {
     return showDialog(
       context: context,
       builder: (BuildContext context) {
         return Dialog(
           elevation: 10,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(22.0)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(22.0),
+          ),
           child: Container(
             child: Padding(
               padding: diablePadding
@@ -165,7 +193,9 @@ class AppUtil {
                 child: Column(
                   children: [
                     Container(
-                      padding: EdgeInsets.symmetric(horizontal: 10.0),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 10.0,
+                      ),
                       child: Row(
                         children: [
                           Expanded(

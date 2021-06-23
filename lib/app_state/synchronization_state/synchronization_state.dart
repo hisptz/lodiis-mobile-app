@@ -9,6 +9,7 @@ import 'package:kb_mobile_app/app_state/referral_nofitication_state/referral_nof
 import 'package:kb_mobile_app/core/constants/app_logs.dart';
 import 'package:kb_mobile_app/core/offline_db/app_logs_offline/app_logs_offline_provider.dart';
 import 'package:kb_mobile_app/core/services/implementing_partner_config_service.dart';
+import 'package:kb_mobile_app/core/services/preference_provider.dart';
 import 'package:kb_mobile_app/core/services/referral_notification_service.dart';
 import 'package:kb_mobile_app/core/services/synchronization_service.dart';
 import 'package:kb_mobile_app/core/services/user_service.dart';
@@ -21,6 +22,7 @@ import 'package:provider/provider.dart';
 
 class SynchronizationState with ChangeNotifier {
   final BuildContext context;
+  final String lastSyncDatePreferenceKey = "lastSyncDatePreferenceKey";
 
   SynchronizationState({this.context});
 
@@ -229,6 +231,10 @@ class SynchronizationState with ChangeNotifier {
     int totalCount = 0;
     int total = 0;
     try {
+      String lastSyncDate = await PreferenceProvider.getPreferenceValue(
+          lastSyncDatePreferenceKey);
+      lastSyncDate = lastSyncDate ??
+          AppUtil.formattedDateTimeIntoString(new DateTime(2020));
       CurrentUser currentUser = await UserService().getCurrentUser();
       var implementingPartnerConfig = await ImplementingPartnerConfigService()
           .getImplementingPartnerConfigFromTheServer(
@@ -247,7 +253,7 @@ class SynchronizationState with ChangeNotifier {
           addDataDownloadProcess(
               "Download and saving profile data $count/$total");
           await _synchronizationService.getAndSaveTrackedInstanceFromServer(
-              program, orgUnitId);
+              program, orgUnitId, lastSyncDate);
         }
       }
       count = 0;
@@ -261,21 +267,24 @@ class SynchronizationState with ChangeNotifier {
           addDataDownloadProcess(
               "Download and saving service data $count/$total");
           await _synchronizationService.getAndSaveEventsFromServer(
-              program, orgUnitId);
+              program, orgUnitId, lastSyncDate);
         }
       }
-      if (skipUpload) {
-        AppUtil.showToastMessage(
-          message: 'Start synchronisation of referral notitifcations',
-          position: ToastGravity.TOP,
-        );
-        await ReferralNotificationService().syncReferralNotifications();
-      }
       AppUtil.showToastMessage(
-          message: 'Data has been successfully donwloaded');
+        message: 'Start synchronization of referral notifications',
+        position: ToastGravity.TOP,
+      );
+      await ReferralNotificationService().syncReferralNotifications();
+      await refreshBeneficiaryCounts();
+      AppUtil.showToastMessage(
+          message: 'Data has been successfully downloaded');
+
       _dataDownloadProcess = [];
       updateDataDownloadStatus(false);
       setStatusMessageForAvailableDataFromServer('');
+      lastSyncDate = AppUtil.formattedDateTimeIntoString(new DateTime.now());
+      await PreferenceProvider.setPreferenceValue(
+          lastSyncDatePreferenceKey, lastSyncDate);
     } catch (e) {
       _dataDownloadProcess = [];
       AppLogs log = AppLogs(
@@ -284,6 +293,9 @@ class SynchronizationState with ChangeNotifier {
       updateDataDownloadStatus(false);
       AppUtil.showToastMessage(message: 'Error downloading data');
     }
+  }
+
+  Future refreshBeneficiaryCounts() async {
     await Provider.of<ReferralNotificationState>(context, listen: false)
         .reloadReferralNotifications();
     List<String> teiWithIncomingReferral =
@@ -362,7 +374,7 @@ class SynchronizationState with ChangeNotifier {
             teiEvents, isAutoUpload);
       }
       AppUtil.showToastMessage(
-        message: 'Start synchronisation of referral notifications',
+        message: 'Start synchronization of referral notifications',
         position: ToastGravity.TOP,
       );
       await ReferralNotificationService().syncReferralNotifications();
