@@ -16,29 +16,33 @@ class TrackedEntityInstanceOfflineProvider extends OfflineDbProvider {
 
   addOrUpdateMultipleTrackedEntityInstance(
       List<dynamic> trackedEntityInstances) async {
-    var dbClient = await db;
+    try {
+      var dbClient = await db;
 
-    List<List<dynamic>> chunkedTrackedEntityInstances =
-        AppUtil().chunkItems(items: trackedEntityInstances, size: 100);
+      List<List<dynamic>> chunkedTrackedEntityInstances =
+          AppUtil().chunkItems(items: trackedEntityInstances, size: 100);
 
-    for (List<dynamic> trackedEntityInstancesGroup
-        in chunkedTrackedEntityInstances) {
-      var trackedEntityBatch = dbClient.batch();
-      List attributesList = [];
+      for (List<dynamic> trackedEntityInstancesGroup
+          in chunkedTrackedEntityInstances) {
+        var trackedEntityBatch = dbClient.batch();
+        List attributesList = [];
 
-      for (dynamic trackedEntityInstance in trackedEntityInstancesGroup) {
-        Map data = TrackeEntityInstance().toOffline(trackedEntityInstance);
-        data.remove('attributes');
-        data['id'] = data['trackedEntityInstance'];
-        trackedEntityBatch.insert(table, data,
-            conflictAlgorithm: ConflictAlgorithm.replace);
-        attributesList.addAll(TrackedEntityInstanceOfflineAttributeProvider()
-            .getTrackedEntityAttributes(trackedEntityInstance));
+        for (dynamic trackedEntityInstance in trackedEntityInstancesGroup) {
+          Map data = TrackeEntityInstance().toOffline(trackedEntityInstance);
+          data.remove('attributes');
+          data['id'] = data['trackedEntityInstance'];
+          trackedEntityBatch.insert(table, data,
+              conflictAlgorithm: ConflictAlgorithm.replace);
+          attributesList.addAll(TrackedEntityInstanceOfflineAttributeProvider()
+              .getTrackedEntityAttributes(trackedEntityInstance));
+        }
+        await trackedEntityBatch.commit(
+            continueOnError: true, noResult: true, exclusive: true);
+        await TrackedEntityInstanceOfflineAttributeProvider()
+            .addOrUpdateMultipleTrackedEntityInstanceAttributes(attributesList);
       }
-      await trackedEntityBatch.commit(
-          continueOnError: true, noResult: true, exclusive: true);
-      await TrackedEntityInstanceOfflineAttributeProvider()
-          .addOrUpdateMultipleTrackedEntityInstanceAttributes(attributesList);
+    } catch (e) {
+      throw e;
     }
   }
 

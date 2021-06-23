@@ -49,7 +49,7 @@ class SynchronizationService {
       );
       Map<String, dynamic> pager = json.decode(response.body)['pager'];
       int pagetTotal = pager['total'];
-      int pageSize = 500;
+      int pageSize = 1000;
       int total = pagetTotal >= pageSize ? pagetTotal : pageSize;
       for (int page = 1; page <= (total / pageSize).round(); page++) {
         paginationFilter.add({
@@ -68,14 +68,13 @@ class SynchronizationService {
   }
 
   Future<void> getAndSaveEventsFromServer(
-    String program,
-    String userOrgId,
-  ) async {
+      String program, String userOrgId, String lastSyncDate) async {
     try {
       var queryParameters = {
         "program": program,
         "orgUnit": userOrgId,
         "ouMode": "DESCENDANTS",
+        "lastUpdatedStartDate": lastSyncDate,
       };
       List pageFilters = await getDataPaginationFilters(
         "api/events.json",
@@ -169,7 +168,11 @@ class SynchronizationService {
   }
 
   Future saveEventsToOffline(List<Events> events) async {
-    await EventOfflineProvider().addOrUpdateMultipleEvents(events);
+    try {
+      await EventOfflineProvider().addOrUpdateMultipleEvents(events);
+    } catch (e) {
+      throw e;
+    }
   }
 
   Future saveTeiRelationshipToOffline(TeiRelationship relationship) async {
@@ -212,25 +215,28 @@ class SynchronizationService {
   }
 
   Future<void> saveTeis(var responseData) async {
-    Map enrollmentsAndRelationships =
-        getEnrollmentsAndRelationshipsFromResponse(responseData);
-    TrackedEntityInstanceOfflineProvider()
-        .addOrUpdateMultipleTrackedEntityInstance(
-            getTeiFromResponse(responseData));
-    EnrollmentOfflineProvider().addOrUpdateMultipleEnrollments(
-        enrollmentsAndRelationships['enrollments']);
-    TeiRelatioShipOfflineProvider().addOrUpdateMultipleTeiRelationships(
-        enrollmentsAndRelationships['relationships']);
+    try {
+      Map enrollmentsAndRelationships =
+          getEnrollmentsAndRelationshipsFromResponse(responseData);
+      TrackedEntityInstanceOfflineProvider()
+          .addOrUpdateMultipleTrackedEntityInstance(
+              getTeiFromResponse(responseData));
+      EnrollmentOfflineProvider().addOrUpdateMultipleEnrollments(
+          enrollmentsAndRelationships['enrollments']);
+      TeiRelatioShipOfflineProvider().addOrUpdateMultipleTeiRelationships(
+          enrollmentsAndRelationships['relationships']);
+    } catch (e) {
+      throw e;
+    }
   }
 
   Future<void> getAndSaveTrackedInstanceFromServer(
-    String program,
-    String userOrgId,
-  ) async {
+      String program, String userOrgId, String lastSyncDate) async {
     var queryParameters = {
       "program": program,
       "ou": userOrgId,
-      "ouMode": "DESCENDANTS"
+      "ouMode": "DESCENDANTS",
+      "lastUpdatedStartDate": lastSyncDate,
     };
     List pageFilters = await getDataPaginationFilters(
       "api/trackedEntityInstances.json",
@@ -381,7 +387,6 @@ class SynchronizationService {
         .getTrackedEntityInstanceEventsByStatus(offlineSyncStatus);
   }
 
-// TODO Add try catch to capture the error
   Future uploadTeisToTheServer(List<TrackeEntityInstance> teis,
       List<Enrollment> teiEnrollments, bool isAutoUpload) async {
     List<String> syncedIds = [];
