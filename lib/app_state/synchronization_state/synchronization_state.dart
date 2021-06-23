@@ -27,8 +27,8 @@ class SynchronizationState with ChangeNotifier {
   SynchronizationState({this.context});
 
 // intial state
-  bool _isDataUploadingActive;
-  bool _isDataDownloadingActive;
+  bool _isDataUploadingActive = false;
+  bool _isDataDownloadingActive = false;
   bool _hasUnsyncedData;
   bool _isUnsyncedCheckingActive = true;
   bool _isCheckingForAvailableDataFromServer;
@@ -61,9 +61,17 @@ class SynchronizationState with ChangeNotifier {
       ? (overallUploadProgress + overallDownloadProgress) / 2
       : overallUploadProgress + overallDownloadProgress;
 
-  double get eventsSyncProgress => eventsDataUploadProgress;
+  double get eventsSyncProgress => _isDataUploadingActive
+      ? eventsDataUploadProgress
+      : _isDataDownloadingActive
+          ? eventsDataDownloadProgress
+          : 0.0;
 
-  double get profileSyncProgress => profileDataUploadProgress;
+  double get profileSyncProgress => _isDataUploadingActive
+      ? profileDataUploadProgress
+      : _isDataDownloadingActive
+          ? profileDataDownloadProgress
+          : 0.0;
 
   bool get isCheckingForAvailableDataFromServer =>
       _isCheckingForAvailableDataFromServer ?? false;
@@ -250,6 +258,7 @@ class SynchronizationState with ChangeNotifier {
           totalCount++;
           profileDataDownloadProgress = count / total;
           overallDownloadProgress = totalCount / (total * 2);
+          notifyListeners();
           addDataDownloadProcess(
               "Download and saving profile data $count/$total");
           await _synchronizationService.getAndSaveTrackedInstanceFromServer(
@@ -264,6 +273,7 @@ class SynchronizationState with ChangeNotifier {
           totalCount++;
           eventsDataDownloadProgress = count / total;
           overallDownloadProgress = totalCount / (total * 2);
+          notifyListeners();
           addDataDownloadProcess(
               "Download and saving service data $count/$total");
           await _synchronizationService.getAndSaveEventsFromServer(
