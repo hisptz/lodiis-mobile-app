@@ -79,6 +79,22 @@ class _AgywDreamsServiceFormState extends State<AgywDreamsServiceForm> {
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState(id, value);
     evaluateSkipLogics();
+    if (id == 'Eug4BXDFLym') {
+      Timer(Duration(milliseconds: 200), () async {
+        Map dataObject =
+            Provider.of<ServiceFormState>(context, listen: false).formState;
+        if (dataObject['vL6NpUA0rIU'] != null) {
+          bool allowedNumberOfSessions =
+              AgywDreamsServiceFormSkipLogic.evaluateSkipLogicsBySession(
+                  dataObject);
+          if (!allowedNumberOfSessions) {
+            AppUtil.showToastMessage(
+                message: 'You have reached the maximum number of sessions',
+                position: ToastGravity.TOP);
+          }
+        }
+      });
+    }
   }
 
   void onSaveForm(
