@@ -83,7 +83,6 @@ class AgywDreamsServiceFormSkipLogic {
           String numberOfSessionInputField = 'vL6NpUA0rIU';
           assignInputFieldValue(
               context, numberOfSessionInputField, '$currentSession');
-          print('dataObject:: $dataObject');
         }
       }
     }

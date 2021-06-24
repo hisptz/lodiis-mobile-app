@@ -7,8 +7,10 @@ import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
+import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
+import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/models/service_event.dart';
@@ -80,8 +82,12 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
   }
 
   void onAddService(BuildContext context, AgywDream agywDream,
-      List<ServiceEvents> serviceEvents) {
+      List<ServiceEvents> serviceEvents) async {
     updateFormState(context, true, null, agywDream, serviceEvents);
+    CurrentUser currentUser = await UserService().getCurrentUser();
+    String youthMentorName = currentUser.name;
+    Provider.of<ServiceFormState>(context, listen: false)
+        .setFormFieldState('W79837fEI3C', youthMentorName);
     Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
         .setCurrentAgywDream(agywDream);
     Navigator.push(context,

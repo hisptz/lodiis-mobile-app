@@ -13,6 +13,7 @@ class DreamsServiceForm {
       FormSection(name: 'Service Form', color: Color(0xFF737373), inputFields: [
         InputField(
           id: 'W79837fEI3C',
+          isReadOnly: true,
           name: 'Name of Youth Mentor/Paralegal',
           translatedName: 'Lebitso la Youth Mentor/ Paralegal',
           valueType: 'TEXT',
