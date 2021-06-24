@@ -10,15 +10,13 @@ class AgywDreamsServiceFormSkipLogic {
   static Map hiddenInputFieldOptions = Map();
 
   static Future evaluateSkipLogics(
-    BuildContext context,
-    List<FormSection> formSections,
-    Map dataObject,
-  ) async {
+      BuildContext context, List<FormSection> formSections, Map dataObject,
+      {bool isFormEdited}) async {
     hiddenFields.clear();
     hiddenSections.clear();
     hiddenInputFieldOptions.clear();
     Map hiddenOptions = Map();
-
+    Map sessionsPerIntervention = dataObject['eventSessions'];
     List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections);
     for (var key in dataObject.keys) {
       inputFieldIds.add('$key');
@@ -66,18 +64,26 @@ class AgywDreamsServiceFormSkipLogic {
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
 
-      if (inputFieldId == 'Eug4BXDFLym' &&
-          [
-                'FINANCIAL EDUCATION',
-                'SILC',
-                'SAVING GROUP',
-                'PTS 4 NON-GRADS',
-                'PTS 4-GRADS'
-              ].indexOf(value) !=
-              -1) {
-        hiddenFields['FoLeDcnocv4'] = true;
-        hiddenFields['JjX25d72ume'] = true;
-        hiddenFields['qxO13pu8vAk'] = true;
+      if (inputFieldId == 'Eug4BXDFLym') {
+        if ([
+              'FINANCIAL EDUCATION',
+              'SILC',
+              'SAVING GROUP',
+              'PTS 4 NON-GRADS',
+              'PTS 4-GRADS'
+            ].indexOf(value) !=
+            -1) {
+          hiddenFields['FoLeDcnocv4'] = true;
+          hiddenFields['JjX25d72ume'] = true;
+          hiddenFields['qxO13pu8vAk'] = true;
+        }
+
+        if (value != '' && value != 'null' && !isFormEdited) {
+          int currentSession = (sessionsPerIntervention[value] ?? 0) + 1;
+          String numberOfSessionInputField = 'vL6NpUA0rIU';
+          assignInputFieldValue(
+              context, numberOfSessionInputField, '$currentSession');
+        }
       }
     }
 

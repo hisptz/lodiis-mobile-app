@@ -40,7 +40,7 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
       Events eventData,
       AgywDream agywDream,
       List<ServiceEvents> serviceEvents) {
-    Map serviceEventSessions = aggregateServiceSessions(serviceEvents);
+    Map serviceEventSessions = getSessionNumbers(serviceEvents);
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
     Provider.of<ServiceFormState>(context, listen: false)
         .updateFormEditabilityState(isEditableMode: isEditableMode);
@@ -62,17 +62,21 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
     }
   }
 
-  Map aggregateServiceSessions(List<ServiceEvents> serviceEvents) {
-    Map aggregatedSession = Map();
+  Map getSessionNumbers(List<ServiceEvents> serviceEvents) {
+    Map eventsWithLastSessionNumber = Map();
     for (ServiceEvents event in serviceEvents ?? []) {
-      if (aggregatedSession[event.interventionType] != null) {
-        aggregatedSession[event.interventionType] =
-            aggregatedSession[event.interventionType] + event.numberOfSessions;
+      if (eventsWithLastSessionNumber[event.interventionType] != null) {
+        eventsWithLastSessionNumber[event.interventionType] =
+            eventsWithLastSessionNumber[event.interventionType] <
+                    event.sessionNumber
+                ? event.sessionNumber
+                : eventsWithLastSessionNumber[event.interventionType];
       } else {
-        aggregatedSession[event.interventionType] = event.numberOfSessions;
+        eventsWithLastSessionNumber[event.interventionType] =
+            event.sessionNumber;
       }
     }
-    return aggregatedSession;
+    return eventsWithLastSessionNumber;
   }
 
   void onAddService(BuildContext context, AgywDream agywDream,
@@ -94,8 +98,12 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
   void onEditService(BuildContext context, Events eventdata,
       AgywDream agywDream, List<ServiceEvents> serviceEvents) {
     updateFormState(context, true, eventdata, agywDream, serviceEvents);
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => AgywDreamsServiceForm()));
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => AgywDreamsServiceForm(
+                  isFormEdited: true,
+                )));
   }
 
   @override
