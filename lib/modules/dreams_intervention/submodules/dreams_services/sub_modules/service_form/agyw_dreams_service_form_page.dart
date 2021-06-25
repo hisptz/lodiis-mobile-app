@@ -7,8 +7,10 @@ import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
+import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
+import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/models/service_event.dart';
@@ -40,7 +42,7 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
       Events eventData,
       AgywDream agywDream,
       List<ServiceEvents> serviceEvents) {
-    Map serviceEventSessions = aggregateServiceSessions(serviceEvents);
+    Map serviceEventSessions = getSessionNumbers(serviceEvents);
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
     Provider.of<ServiceFormState>(context, listen: false)
         .updateFormEditabilityState(isEditableMode: isEditableMode);
@@ -62,22 +64,30 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
     }
   }
 
-  Map aggregateServiceSessions(List<ServiceEvents> serviceEvents) {
-    Map aggregatedSession = Map();
+  Map getSessionNumbers(List<ServiceEvents> serviceEvents) {
+    Map eventsWithLastSessionNumber = Map();
     for (ServiceEvents event in serviceEvents ?? []) {
-      if (aggregatedSession[event.interventionType] != null) {
-        aggregatedSession[event.interventionType] =
-            aggregatedSession[event.interventionType] + event.numberOfSessions;
+      if (eventsWithLastSessionNumber[event.interventionType] != null) {
+        eventsWithLastSessionNumber[event.interventionType] =
+            eventsWithLastSessionNumber[event.interventionType] <
+                    event.sessionNumber
+                ? event.sessionNumber
+                : eventsWithLastSessionNumber[event.interventionType];
       } else {
-        aggregatedSession[event.interventionType] = event.numberOfSessions;
+        eventsWithLastSessionNumber[event.interventionType] =
+            event.sessionNumber;
       }
     }
-    return aggregatedSession;
+    return eventsWithLastSessionNumber;
   }
 
   void onAddService(BuildContext context, AgywDream agywDream,
-      List<ServiceEvents> serviceEvents) {
+      List<ServiceEvents> serviceEvents) async {
     updateFormState(context, true, null, agywDream, serviceEvents);
+    CurrentUser currentUser = await UserService().getCurrentUser();
+    String youthMentorName = currentUser.name;
+    Provider.of<ServiceFormState>(context, listen: false)
+        .setFormFieldState('W79837fEI3C', youthMentorName);
     Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
         .setCurrentAgywDream(agywDream);
     Navigator.push(context,
@@ -94,8 +104,12 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
   void onEditService(BuildContext context, Events eventdata,
       AgywDream agywDream, List<ServiceEvents> serviceEvents) {
     updateFormState(context, true, eventdata, agywDream, serviceEvents);
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => AgywDreamsServiceForm()));
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => AgywDreamsServiceForm(
+                  isFormEdited: true,
+                )));
   }
 
   @override

@@ -19,6 +19,20 @@ class DreamAddReferral {
               color: Color(0xFF737373),
               inputFields: [
                 InputField(
+                    id: 'phoneNumber',
+                    name: 'Phone number',
+                    valueType: 'TEXT',
+                    isReadOnly: true,
+                    inputColor: Color(0xFF1F8ECE),
+                    labelColor: Color(0xFF737373)),
+                InputField(
+                    id: 'village',
+                    name: 'Village',
+                    isReadOnly: true,
+                    valueType: 'TEXT',
+                    inputColor: Color(0xFF1F8ECE),
+                    labelColor: Color(0xFF737373)),
+                InputField(
                     id: 'qAed23reDPP',
                     name: 'Services Referred for at',
                     valueType: 'TEXT',
@@ -46,7 +60,7 @@ class DreamAddReferral {
             FormSection(
                 id: 'SeRefoCo',
                 name: 'Service referred for at Community',
-                color: Color(0xFF1B3519),
+                color: Color(0xFF737373),
                 inputFields: [
                   InputField(
                       id: 'LLWTHwhnch0',
@@ -201,7 +215,7 @@ class DreamAddReferral {
             FormSection(
                 id: 'SeRefoFa',
                 name: 'Service referred for at Facility',
-                color: Color(0xFF1B3519),
+                color: Color(0xFF737373),
                 inputFields: [
                   InputField(
                       id: 'AuCryxQYmrk',
@@ -355,7 +369,7 @@ class DreamAddReferral {
                 ]),
             FormSection(
                 name: 'Completed by the Referring Organization',
-                color: Color(0xFF1B3519),
+                color: Color(0xFF737373),
                 inputFields: [
                   InputField(
                     id: 'tRvDAZxam3P',

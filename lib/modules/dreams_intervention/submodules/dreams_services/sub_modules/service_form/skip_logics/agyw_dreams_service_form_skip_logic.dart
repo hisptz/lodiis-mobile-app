@@ -10,15 +10,13 @@ class AgywDreamsServiceFormSkipLogic {
   static Map hiddenInputFieldOptions = Map();
 
   static Future evaluateSkipLogics(
-    BuildContext context,
-    List<FormSection> formSections,
-    Map dataObject,
-  ) async {
+      BuildContext context, List<FormSection> formSections, Map dataObject,
+      {bool isFormEdited}) async {
     hiddenFields.clear();
     hiddenSections.clear();
     hiddenInputFieldOptions.clear();
     Map hiddenOptions = Map();
-
+    Map sessionsPerIntervention = dataObject['eventSessions'];
     List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections);
     for (var key in dataObject.keys) {
       inputFieldIds.add('$key');
@@ -66,18 +64,26 @@ class AgywDreamsServiceFormSkipLogic {
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
 
-      if (inputFieldId == 'Eug4BXDFLym' &&
-          [
-                'FINANCIAL EDUCATION',
-                'SILC',
-                'SAVING GROUP',
-                'PTS 4 NON-GRADS',
-                'PTS 4-GRADS'
-              ].indexOf(value) !=
-              -1) {
-        hiddenFields['FoLeDcnocv4'] = true;
-        hiddenFields['JjX25d72ume'] = true;
-        hiddenFields['qxO13pu8vAk'] = true;
+      if (inputFieldId == 'Eug4BXDFLym') {
+        if ([
+              'FINANCIAL EDUCATION',
+              'SILC',
+              'SAVING GROUP',
+              'PTS 4 NON-GRADS',
+              'PTS 4-GRADS'
+            ].indexOf(value) !=
+            -1) {
+          hiddenFields['FoLeDcnocv4'] = true;
+          hiddenFields['JjX25d72ume'] = true;
+          hiddenFields['qxO13pu8vAk'] = true;
+        }
+
+        if (value != '' && value != 'null' && !isFormEdited) {
+          int currentSession = (sessionsPerIntervention[value] ?? 0) + 1;
+          String numberOfSessionInputField = 'vL6NpUA0rIU';
+          assignInputFieldValue(
+              context, numberOfSessionInputField, '$currentSession');
+        }
       }
     }
 
@@ -100,7 +106,6 @@ class AgywDreamsServiceFormSkipLogic {
   static bool evaluateSkipLogicsBySession(Map dataObject) {
     String interventionType = dataObject['Eug4BXDFLym'] ?? '';
     Map eventSessions = dataObject['eventSessions'] ?? Map();
-    int previousSession = eventSessions[interventionType] ?? 0;
     int sessions = 0;
     try {
       sessions = '${dataObject['vL6NpUA0rIU']}' != 'null'
@@ -110,30 +115,30 @@ class AgywDreamsServiceFormSkipLogic {
     // print(dataObject);
     if (sessions != 0) {
       if (interventionType == 'AFLATEEN/TOUN') {
-        return (sessions + previousSession) <= 12 ? true : false;
+        return (sessions) <= 12 ? true : false;
       } else if (interventionType == 'PTS 4-GRADS') {
-        return (sessions + previousSession) <= 10 ? true : false;
+        return (sessions) <= 10 ? true : false;
       } else if (interventionType == 'PTS 4 NON-GRADS') {
-        return (sessions + previousSession) <= 11 ? true : false;
+        return (sessions) <= 11 ? true : false;
       } else if (interventionType == 'Go Girls') {
-        return (sessions + previousSession) <= 15 ? true : false;
+        return (sessions) <= 15 ? true : false;
       } else if (interventionType == 'SILC') {
-        return (sessions + previousSession) <= 12 ? true : false;
+        return (sessions) <= 12 ? true : false;
       } else if (interventionType == 'SAVING GROUP') {
       } else if (interventionType == 'FINANCIAL EDUCATION') {
-        return (sessions + previousSession) <= 14 ? true : false;
+        return (sessions) <= 14 ? true : false;
       } else if (interventionType == 'STEPPING STONES') {
-        return (sessions + previousSession) <= 11 ? true : false;
+        return (sessions) <= 11 ? true : false;
       } else if (interventionType == 'IPC') {
-        return (sessions + previousSession) <= 4 ? true : false;
+        return (sessions) <= 4 ? true : false;
       } else if (interventionType == 'LBSE') {
-        return (sessions + previousSession) <= 6 ? true : false;
+        return (sessions) <= 6 ? true : false;
       } else if (interventionType == 'PARENTING') {
-        return (sessions + previousSession) <= 14 ? true : false;
+        return (sessions) <= 14 ? true : false;
       } else if (interventionType == 'GBV Legal') {
-        return (sessions + previousSession) <= 1 ? true : false;
+        return (sessions) <= 1 ? true : false;
       } else if (interventionType == 'VAC Legal') {
-        return (sessions + previousSession) <= 1 ? true : false;
+        return (sessions) <= 1 ? true : false;
       } else if (interventionType == 'VAC Legal Messaging') {
         return true;
       }

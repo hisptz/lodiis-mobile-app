@@ -27,8 +27,9 @@ import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:provider/provider.dart';
 
 class AgywDreamsServiceForm extends StatefulWidget {
-  AgywDreamsServiceForm({Key key}) : super(key: key);
+  AgywDreamsServiceForm({Key key, this.isFormEdited: false}) : super(key: key);
 
+  final bool isFormEdited;
   @override
   _AgywDreamsServiceFormState createState() => _AgywDreamsServiceFormState();
 }
@@ -68,10 +69,8 @@ class _AgywDreamsServiceFormState extends State<AgywDreamsServiceForm> {
         dataObject['implementingPatner'] =
             '${currentUser.implementingPartner ?? ''}';
         await AgywDreamsServiceFormSkipLogic.evaluateSkipLogics(
-          context,
-          formSections,
-          dataObject,
-        );
+            context, formSections, dataObject,
+            isFormEdited: widget.isFormEdited);
       },
     );
   }
@@ -80,6 +79,22 @@ class _AgywDreamsServiceFormState extends State<AgywDreamsServiceForm> {
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState(id, value);
     evaluateSkipLogics();
+    if (id == 'Eug4BXDFLym') {
+      Timer(Duration(milliseconds: 200), () async {
+        Map dataObject =
+            Provider.of<ServiceFormState>(context, listen: false).formState;
+        if (dataObject['vL6NpUA0rIU'] != null) {
+          bool allowedNumberOfSessions =
+              AgywDreamsServiceFormSkipLogic.evaluateSkipLogicsBySession(
+                  dataObject);
+          if (!allowedNumberOfSessions) {
+            AppUtil.showToastMessage(
+                message: 'You have reached the maximum number of sessions',
+                position: ToastGravity.TOP);
+          }
+        }
+      });
+    }
   }
 
   void onSaveForm(
@@ -149,7 +164,8 @@ class _AgywDreamsServiceFormState extends State<AgywDreamsServiceForm> {
       }
     } else {
       setState(() {
-        unFilledMandatoryFields = AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+        unFilledMandatoryFields =
+            AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
       });
       AppUtil.showToastMessage(
           message: 'Please fill all mandatory field',
@@ -222,7 +238,7 @@ class _AgywDreamsServiceFormState extends State<AgywDreamsServiceForm> {
                                             onInputValueChange:
                                                 onInputValueChange,
                                             unFilledMandatoryFields:
-                                            unFilledMandatoryFields,
+                                                unFilledMandatoryFields,
                                           ),
                                         ),
                                         Visibility(
