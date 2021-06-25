@@ -116,6 +116,8 @@ class _DreamAgywAddReferralFormState extends State<DreamAgywAddReferralForm> {
         });
         String eventDate = dataObject['eventDate'];
         String eventId = dataObject['eventId'];
+        dataObject.remove('village');
+        dataObject.remove('phoneNumber');
         dataObject[DreamAgywReferralConstant.referralToFollowUpLinkage] =
             dataObject[DreamAgywReferralConstant.referralToFollowUpLinkage] ??
                 AppUtil.getUid();
@@ -143,16 +145,16 @@ class _DreamAgywAddReferralFormState extends State<DreamAgywAddReferralForm> {
             );
           }
           await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-            DreamAgywReferralConstant.program,
-            DreamAgywReferralConstant.programStage,
-            currentAgywDream.orgUnit,
-            formSections,
-            dataObject,
-            eventDate,
-            currentAgywDream.id,
-            eventId,
-            hiddenFields,
-          );
+              DreamAgywReferralConstant.program,
+              DreamAgywReferralConstant.programStage,
+              currentAgywDream.orgUnit,
+              formSections,
+              dataObject,
+              eventDate,
+              currentAgywDream.id,
+              eventId,
+              hiddenFields,
+              skippedFields: ['village', 'phoneNumber']);
           Provider.of<ServiveEventDataState>(context, listen: false)
               .resetServiceEventDataState(currentAgywDream.id);
           Timer(Duration(seconds: 1), () {
