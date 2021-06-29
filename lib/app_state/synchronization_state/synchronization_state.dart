@@ -135,22 +135,12 @@ class SynchronizationState with ChangeNotifier {
     setStatusMessageForAvailableDataFromServer(
         'Checking for available beneficiary data from server...');
     CurrentUser currentUser = await UserService().getCurrentUser();
+    String lastSyncDate =
+        await PreferenceProvider.getPreferenceValue(lastSyncDatePreferenceKey);
+    lastSyncDate =
+        lastSyncDate ?? AppUtil.formattedDateTimeIntoString(new DateTime(2020));
     _synchronizationService = SynchronizationService(currentUser.username,
         currentUser.password, currentUser.programs, currentUser.userOrgUnitIds);
-    int offlineEnrollmentsCount =
-        await _synchronizationService.getOfflineEnrollmentCount(currentUser);
-    int offlineEventsCount =
-        await _synchronizationService.getOfflineEventsCount(currentUser);
-    int onlineEnrollmentsCount =
-        await _synchronizationService.getOnlineEnrollmentsCount(currentUser);
-    int onlineEventsCount =
-        await _synchronizationService.getOnlineEventsCount(currentUser);
-    setStatusMessageForAvailableDataFromServer(
-        onlineEventsCount > offlineEventsCount ||
-                onlineEnrollmentsCount > offlineEnrollmentsCount
-            ? 'New beneficiary data are available, try to sync!'
-            : '');
-    updateStatusForAvailableDataFromServer(status: false);
     try {
       CurrentUser currentUser = await UserService().getCurrentUser();
       _synchronizationService = SynchronizationService(
@@ -158,26 +148,21 @@ class SynchronizationState with ChangeNotifier {
           currentUser.password,
           currentUser.programs,
           currentUser.userOrgUnitIds);
-      int offlineEnrollmentsCount =
-          await _synchronizationService.getOfflineEnrollmentCount(currentUser);
-      int offlineEventsCount =
-          await _synchronizationService.getOfflineEventsCount(currentUser);
-      int onlineEnrollmentsCount =
-          await _synchronizationService.getOnlineEnrollmentsCount(currentUser);
-      int onlineEventsCount =
-          await _synchronizationService.getOnlineEventsCount(currentUser);
+      int onlineEnrollmentsCount = await _synchronizationService
+          .getOnlineEnrollmentsCount(currentUser, lastSyncDate);
+      int onlineEventsCount = await _synchronizationService
+          .getOnlineEventsCount(currentUser, lastSyncDate);
       setStatusMessageForAvailableDataFromServer(
-          onlineEventsCount > offlineEventsCount ||
-                  onlineEnrollmentsCount > offlineEnrollmentsCount
+          onlineEventsCount > 0 || onlineEnrollmentsCount > 0
               ? 'New beneficiary data are available, try to sync!'
               : '');
-      updateStatusForAvailableDataFromServer(status: false);
     } catch (e) {
       AppLogs log = AppLogs(
           type: AppLogsConstants.errorLogType, message: '${e.toString()}');
       await AppLogsOfflineProvider().addLogs(log);
       setStatusMessageForAvailableDataFromServer('');
     }
+    updateStatusForAvailableDataFromServer(status: false);
   }
 
   Future<void> startCheckingStatusOfUnsyncedData(
