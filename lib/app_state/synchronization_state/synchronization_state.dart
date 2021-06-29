@@ -271,7 +271,8 @@ class SynchronizationState with ChangeNotifier {
     } catch (e) {
       _dataDownloadProcess = [];
       AppLogs log = AppLogs(
-          type: AppLogsConstants.errorLogType, message: '${e.toString()}');
+          type: AppLogsConstants.errorLogType,
+          message: 'startDataDownloadActivity: ${e.toString()}');
       await AppLogsOfflineProvider().addLogs(log);
       updateDataDownloadStatus(false);
       AppUtil.showToastMessage(message: 'Error downloading data');

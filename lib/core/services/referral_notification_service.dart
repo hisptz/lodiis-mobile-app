@@ -1,11 +1,14 @@
 import 'dart:convert';
 
 import 'package:http/http.dart';
+import 'package:kb_mobile_app/core/constants/app_logs.dart';
+import 'package:kb_mobile_app/core/offline_db/app_logs_offline/app_logs_offline_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/referral_nofification/referral_event_nofification_offline_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/referral_nofification/referral_nofification_offline_provider.dart';
 import 'package:kb_mobile_app/core/services/http_service.dart';
 import 'package:kb_mobile_app/core/services/organisation_unit_service.dart';
 import 'package:kb_mobile_app/core/services/user_service.dart';
+import 'package:kb_mobile_app/models/app_logs.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/models/referralEventNotification.dart';
 import 'package:kb_mobile_app/models/referralNotification.dart';
@@ -35,7 +38,14 @@ class ReferralNotificationService {
     try {
       await ReferralNotificationOfflineProvider()
           .addOrUpdateReferralNotification(referralNotifications);
-    } catch (errro) {}
+    } catch (error) {
+      AppLogs log = AppLogs(
+          type: AppLogsConstants.errorLogType,
+          message:
+              'savingReferralNotificationToOfflineDb: ${error.toString()}');
+      await AppLogsOfflineProvider().addLogs(log);
+      throw error;
+    }
   }
 
   updateReferralNotificaionEvent(

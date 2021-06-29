@@ -431,7 +431,8 @@ class SynchronizationService {
       syncedIds = referenceIds['syncedIds'];
     } catch (e) {
       AppLogs log = AppLogs(
-          type: AppLogsConstants.errorLogType, message: '${e.toString()}');
+          type: AppLogsConstants.errorLogType,
+          message: 'uploadTeisToTheServer: ${e.toString()}');
       await AppLogsOfflineProvider().addLogs(log);
       if (!isAutoUpload) {
         AppUtil.showToastMessage(message: 'Error uploading data');
@@ -504,7 +505,8 @@ class SynchronizationService {
       }
     } catch (e) {
       AppLogs log = AppLogs(
-          type: AppLogsConstants.errorLogType, message: '${e.toString()}');
+          type: AppLogsConstants.errorLogType,
+          message: 'uploadTeiEventsToTheServer: ${e.toString()}');
       await AppLogsOfflineProvider().addLogs(log);
       if (!isAutoUpload) {
         AppUtil.showToastMessage(message: 'Error uploading data');
@@ -550,7 +552,8 @@ class SynchronizationService {
       }
     } catch (e) {
       AppLogs log = AppLogs(
-          type: AppLogsConstants.errorLogType, message: '${e.toString()}');
+          type: AppLogsConstants.errorLogType,
+          message: 'uploadTeiRelationToTheServer: ${e.toString()}');
       await AppLogsOfflineProvider().addLogs(log);
       if (!isAutoUpload) {
         AppUtil.showToastMessage(message: 'Error uploading data');
