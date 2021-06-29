@@ -13,8 +13,14 @@ class AppLogsService {
     try {
       List<AppLogs> appLogs =
           await AppLogsOfflineProvider().getLogs(page: page);
-      appLogsList.addAll(appLogs);
-    } catch (e) {}
+      List<AppLogs> refactoredAppLogs = appLogs.map((log) {
+        log.message = getFormattedMessage(log.message ?? '');
+        return log;
+      }).toList();
+      appLogsList.addAll(refactoredAppLogs);
+    } catch (e) {
+      print('Error: $e');
+    }
 
     return searchableValue == ''
         ? appLogsList
@@ -23,6 +29,41 @@ class AppLogsService {
                 searchableString: logs.searchableValue,
                 searchedValue: searchableValue))
             .toList();
+  }
+
+  String getFormattedMessage(String message) {
+    String formattedMessage = '';
+    RegExp connectionRegex = RegExp(r"([c, C]onnection)");
+    RegExp accessRegex = RegExp(r"(access)");
+    RegExp enrollmentRegex = RegExp(r"(not enrolled)");
+    RegExp socketRegex = RegExp(r"(SocketException)");
+    RegExp eventForTeiNotExistRegex = RegExp(
+        r"Event.trackedEntityInstance does not point to a valid tracked entity instance");
+    RegExp eventForStageNotExistRegex =
+        RegExp(r"Event.programStage does not point to a valid programStage");
+    RegExp attributeRegEx = RegExp(r"Attribute.value");
+    RegExp notValidRegEx = RegExp(r"is not a valid");
+
+    // Check for possible error messages
+    if (connectionRegex.hasMatch(message)) {
+      formattedMessage = 'Internet connection error';
+    } else if (accessRegex.hasMatch(message)) {
+      formattedMessage = 'Current user has no proper access';
+    } else if (enrollmentRegex.hasMatch(message)) {
+      formattedMessage = 'Beneficiaries not enrolled to program';
+    } else if (socketRegex.hasMatch(message)) {
+      formattedMessage = 'Failed to connect to the server';
+    } else if (eventForTeiNotExistRegex.hasMatch(message)) {
+      formattedMessage = 'Can not upload services for unenrolled beneficiaries';
+    } else if (eventForStageNotExistRegex.hasMatch(message)) {
+      formattedMessage = 'Can not upload services for unknown program stage';
+    } else if (attributeRegEx.hasMatch(message) ||
+        notValidRegEx.hasMatch(message)) {
+      formattedMessage = 'Attribute has invalid value type';
+    } else {
+      formattedMessage = message;
+    }
+    return formattedMessage;
   }
 
   Future<int> getAppLogsCount() async {
