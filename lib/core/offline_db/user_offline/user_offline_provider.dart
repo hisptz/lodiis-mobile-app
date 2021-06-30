@@ -55,7 +55,6 @@ class UserOfflineProvider extends OfflineDbProvider {
           CurrentUser user = CurrentUser.fromOffline(map);
           user.programs = programs;
           user.userOrgUnitIds = userOrgUnitIds;
-          print(user);
           //@TODO getting user groups and user roles
           users.add(user);
         }

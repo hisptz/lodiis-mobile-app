@@ -57,13 +57,17 @@ class OfflineDbProvider {
 
   onCreate(Database db, int version) async {
     for (String query in initialQuery) {
-      await db.execute(query);
+      try {
+        await db.execute(query);
+      } catch (error) {}
     }
   }
 
   onUpgrade(Database db, int oldVersion, int version) async {
     for (String query in migrationQuery) {
-      await db.execute(query);
+      try {
+        await db.execute(query);
+      } catch (error) {}
     }
   }
 
