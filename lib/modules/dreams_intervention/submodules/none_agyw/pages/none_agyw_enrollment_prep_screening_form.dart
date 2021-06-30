@@ -84,11 +84,16 @@ class _NoneAgywEnrollmentPrepScreeningFormState
       dataObject['PN92g65TkVI'] = dataObject['PN92g65TkVI'] ?? 'Active';
       dataObject['klLkGxy328c'] =
           dataObject['klLkGxy328c'] ?? user.implementingPartner;
+      if (user.subImplementingPartner != '') {
+        dataObject['fQInK8s2RNR'] =
+            dataObject['fQInK8s2RNR'] ?? user.subImplementingPartner;
+      }
       List<String> hiddenFields = [
         BeneficiaryIdentification.beneficiaryId,
         BeneficiaryIdentification.beneficiaryIndex,
         'PN92g65TkVI',
-        'klLkGxy328c'
+        'klLkGxy328c',
+        'fQInK8s2RNR'
       ];
       String orgUnit = dataObject['location'];
       await NoneAgywDreamEnrollmentService().savingNonAgwyBeneficiary(

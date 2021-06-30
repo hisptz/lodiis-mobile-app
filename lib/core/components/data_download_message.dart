@@ -39,7 +39,7 @@ class _DataDownloadMessageState extends State<DataDownloadMessage> {
     await ReferralNotificationService().syncReferralNotifications();
     await Provider.of<ReferralNotificationState>(context, listen: false)
         .reloadReferralNotifications();
-    Timer(Duration(milliseconds: 200), () {
+    Timer(Duration(milliseconds: 100), () {
       bool connected =
           Provider.of<DeviceConnectivityState>(context, listen: false)
               .connectivityStatus;

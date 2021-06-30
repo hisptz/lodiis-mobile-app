@@ -126,7 +126,7 @@ class CurrentUser {
         if (attributeId ==
             CurrentUserImplementingPartner.subImplementingPartnerAttribute) {
           subImplementingPartner = CurrentUserImplementingPartner
-              .getCurrentUserSubImplementingPartiner(attributeValue['value']);
+              .getCurrentUserSubImplementingPartner(attributeValue['value']);
         }
       }
     }
@@ -145,7 +145,7 @@ class CurrentUser {
         if (attributeId ==
             CurrentUserImplementingPartner.implementPartnerAttribute) {
           implementingPartner =
-              CurrentUserImplementingPartner.getCurrentUserImplementingPartiner(
+              CurrentUserImplementingPartner.getCurrentUserImplementingPartner(
                   attributeValue['value']);
         }
       }

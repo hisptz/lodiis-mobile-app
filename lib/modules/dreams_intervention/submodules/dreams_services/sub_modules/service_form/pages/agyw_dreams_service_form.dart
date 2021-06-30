@@ -36,6 +36,8 @@ class AgywDreamsServiceForm extends StatefulWidget {
 
 class _AgywDreamsServiceFormState extends State<AgywDreamsServiceForm> {
   final String label = 'Service Form';
+  final String sessionNumberInputField = 'vL6NpUA0rIU';
+  final String typeOfIntervention = 'Eug4BXDFLym';
   List<FormSection> formSections;
   final List<String> mandatoryFields = DreamsServiceForm.getMandatoryField();
   final Map mandatoryFieldObject = Map();
@@ -79,17 +81,18 @@ class _AgywDreamsServiceFormState extends State<AgywDreamsServiceForm> {
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState(id, value);
     evaluateSkipLogics();
-    if (id == 'Eug4BXDFLym') {
+    if (id == sessionNumberInputField || id == typeOfIntervention) {
       Timer(Duration(milliseconds: 200), () async {
         Map dataObject =
             Provider.of<ServiceFormState>(context, listen: false).formState;
-        if (dataObject['vL6NpUA0rIU'] != null) {
+        if (dataObject[sessionNumberInputField] != null) {
           bool allowedNumberOfSessions =
               AgywDreamsServiceFormSkipLogic.evaluateSkipLogicsBySession(
                   dataObject);
           if (!allowedNumberOfSessions) {
             AppUtil.showToastMessage(
-                message: 'You have reached the maximum number of sessions',
+                message:
+                    "You have reached the maximum number of sessions for ${dataObject[typeOfIntervention]}",
                 position: ToastGravity.TOP);
           }
         }
@@ -153,7 +156,8 @@ class _AgywDreamsServiceFormState extends State<AgywDreamsServiceForm> {
           }
         } else {
           AppUtil.showToastMessage(
-              message: 'You have reached the maximum number of sessions',
+              message:
+                  "You have reached the maximum number of sessions for ${dataObject[typeOfIntervention]}",
               position: ToastGravity.TOP);
         }
       } else {

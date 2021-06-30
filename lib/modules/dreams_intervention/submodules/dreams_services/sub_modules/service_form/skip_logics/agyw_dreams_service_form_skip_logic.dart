@@ -16,7 +16,6 @@ class AgywDreamsServiceFormSkipLogic {
     hiddenSections.clear();
     hiddenInputFieldOptions.clear();
     Map hiddenOptions = Map();
-    Map sessionsPerIntervention = dataObject['eventSessions'];
     List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections);
     for (var key in dataObject.keys) {
       inputFieldIds.add('$key');
@@ -77,24 +76,17 @@ class AgywDreamsServiceFormSkipLogic {
           hiddenFields['JjX25d72ume'] = true;
           hiddenFields['qxO13pu8vAk'] = true;
         }
-
-        if (value != '' && value != 'null' && !isFormEdited) {
-          int currentSession = (sessionsPerIntervention[value] ?? 0) + 1;
-          String numberOfSessionInputField = 'vL6NpUA0rIU';
-          assignInputFieldValue(
-              context, numberOfSessionInputField, '$currentSession');
-        }
       }
     }
 
     for (String sectionId in hiddenSections.keys) {
       List<FormSection> allFormSections =
           FormUtil.getFlattenFormSections(formSections);
-      List<String> hidddenSectionInputFieldIds = FormUtil.getFormFieldIds(
+      List<String> hiddenSectionInputFieldIds = FormUtil.getFormFieldIds(
           allFormSections
               .where((formSection) => formSection.id == sectionId)
               .toList());
-      for (String inputFieldId in hidddenSectionInputFieldIds) {
+      for (String inputFieldId in hiddenSectionInputFieldIds) {
         hiddenFields[inputFieldId] = true;
       }
     }
@@ -105,15 +97,13 @@ class AgywDreamsServiceFormSkipLogic {
 
   static bool evaluateSkipLogicsBySession(Map dataObject) {
     String interventionType = dataObject['Eug4BXDFLym'] ?? '';
-    Map eventSessions = dataObject['eventSessions'] ?? Map();
     int sessions = 0;
     try {
       sessions = '${dataObject['vL6NpUA0rIU']}' != 'null'
           ? int.parse(dataObject['vL6NpUA0rIU'])
           : sessions;
     } catch (e) {}
-    // print(dataObject);
-    if (sessions != 0) {
+    if (sessions >= 0) {
       if (interventionType == 'AFLATEEN/TOUN') {
         return (sessions) <= 12 ? true : false;
       } else if (interventionType == 'PTS 4-GRADS') {

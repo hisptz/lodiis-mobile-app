@@ -341,42 +341,56 @@ class SynchronizationService {
     return pageTotal;
   }
 
-  Future<int> getOnlineEnrollmentsCount(CurrentUser currentUser) async {
+  Future<int> getOnlineEnrollmentsCount(
+      CurrentUser currentUser, String lastSyncDate) async {
     int enrollmentsCount = 0;
     String url = 'api/trackedEntityInstances';
-    for (String orgUnit in currentUser.userOrgUnitIds) {
-      for (String program in currentUser.programs) {
-        var queryParameters = {
-          "program": program,
-          "ou": orgUnit,
-          "fields": "none",
-          "pageSize": "1",
-          "totalPages": "true",
-        };
-        int count =
-            await getTotalFromPaginator(url, queryParameters: queryParameters);
-        enrollmentsCount += count;
+    try {
+      for (String orgUnit in currentUser.userOrgUnitIds) {
+        for (String program in currentUser.programs) {
+          var queryParameters = {
+            "program": program,
+            "ou": orgUnit,
+            "ouMode": "DESCENDANTS",
+            "fields": "none",
+            "pageSize": "1",
+            "totalPages": "true",
+            "lastUpdatedStartDate": lastSyncDate,
+          };
+          int count = await getTotalFromPaginator(url,
+              queryParameters: queryParameters);
+          enrollmentsCount += count;
+        }
       }
+    } catch (e) {
+      throw e;
     }
     return enrollmentsCount;
   }
 
-  Future<int> getOnlineEventsCount(CurrentUser currentUser) async {
+  Future<int> getOnlineEventsCount(
+      CurrentUser currentUser, String lastSyncDate) async {
     int eventsCount = 0;
     String url = 'api/events';
-    for (String orgUnit in currentUser.userOrgUnitIds) {
-      for (String program in currentUser.programs) {
-        var queryParameters = {
-          "program": program,
-          "orgUnit": orgUnit,
-          "fields": "none",
-          "pageSize": "1",
-          "totalPages": "true",
-        };
-        int count =
-            await getTotalFromPaginator(url, queryParameters: queryParameters);
-        eventsCount += count;
+    try {
+      for (String orgUnit in currentUser.userOrgUnitIds) {
+        for (String program in currentUser.programs) {
+          var queryParameters = {
+            "program": program,
+            "orgUnit": orgUnit,
+            "ouMode": "DESCENDANTS",
+            "fields": "none",
+            "pageSize": "1",
+            "totalPages": "true",
+            "lastUpdatedStartDate": lastSyncDate,
+          };
+          int count = await getTotalFromPaginator(url,
+              queryParameters: queryParameters);
+          eventsCount += count;
+        }
       }
+    } catch (e) {
+      throw e;
     }
     return eventsCount;
   }
@@ -477,7 +491,8 @@ class SynchronizationService {
       syncedIds = referenceIds['syncedIds'];
     } catch (e) {
       AppLogs log = AppLogs(
-          type: AppLogsConstants.errorLogType, message: '${e.toString()}');
+          type: AppLogsConstants.errorLogType,
+          message: 'uploadTeisToTheServer: ${e.toString()}');
       await AppLogsOfflineProvider().addLogs(log);
       if (!isAutoUpload) {
         AppUtil.showToastMessage(message: 'Error uploading data');
@@ -551,7 +566,8 @@ class SynchronizationService {
       }
     } catch (e) {
       AppLogs log = AppLogs(
-          type: AppLogsConstants.errorLogType, message: '${e.toString()}');
+          type: AppLogsConstants.errorLogType,
+          message: 'uploadTeiEventsToTheServer: ${e.toString()}');
       await AppLogsOfflineProvider().addLogs(log);
       if (!isAutoUpload) {
         AppUtil.showToastMessage(message: 'Error uploading data');
@@ -600,7 +616,8 @@ class SynchronizationService {
       syncedIds = referenceIds['syncedIds'];
     } catch (e) {
       AppLogs log = AppLogs(
-          type: AppLogsConstants.errorLogType, message: '${e.toString()}');
+          type: AppLogsConstants.errorLogType,
+          message: 'uploadTeiRelationToTheServer: ${e.toString()}');
       await AppLogsOfflineProvider().addLogs(log);
       if (!isAutoUpload) {
         AppUtil.showToastMessage(message: 'Error uploading data');
