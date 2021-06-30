@@ -13,6 +13,7 @@ class UserOfflineProvider extends OfflineDbProvider {
   String password = 'password';
   String isLogin = 'isLogin';
   String implementingPartner = 'implementingPartner';
+  String subImplementingPartner = 'subImplementingPartner';
 
   addOrUpdateUser(CurrentUser user) async {
     var dbClient = await db;
@@ -41,6 +42,7 @@ class UserOfflineProvider extends OfflineDbProvider {
           password,
           isLogin,
           implementingPartner,
+          subImplementingPartner,
         ],
       );
       if (maps.isNotEmpty) {

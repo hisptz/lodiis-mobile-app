@@ -5,10 +5,10 @@ class OfflineDbProvider {
   final String databaseName = "kb_ovc_dreams_mobile_app_testing";
   Database _db;
   // Script for migrations as well as intialization of tables
-  //@TODO adding tracking tables for current user info;
   final List<String> initialQuery = [
     "CREATE TABLE IF NOT EXISTS current_user (id TEXT PRIMARY KEY, name TEXT, username TEXT, password TEXT , implementingPartner TEXT ,isLogin INTEGER)",
     "CREATE TABLE IF NOT EXISTS current_user_ou (id TEXT PRIMARY KEY, userId TEXT)",
+    "CREATE TABLE IF NOT EXISTS current_user_info (id TEXT PRIMARY KEY, email TEXT, phoneNumber TEXT, userRoles TEXT, userGroups TEXT)",
     "CREATE TABLE IF NOT EXISTS current_user_program (id TEXT PRIMARY KEY, userId TEXT)",
     "CREATE TABLE IF NOT EXISTS organisation_unit (id TEXT PRIMARY KEY, name TEXT, code TEXT, parent TEXT, level NUMBER)",
     "CREATE TABLE IF NOT EXISTS organisation_unit_children (id TEXT PRIMARY KEY, organisationId TEXT)",
@@ -30,7 +30,8 @@ class OfflineDbProvider {
   ];
 
   final List<String> migrationQuery = [
-    "UPDATE tracked_entity_instance_attribute SET value = 'JHPIEGO' WHERE attribute = 'klLkGxy328c' AND value = 'JPHIEGO'"
+    "UPDATE tracked_entity_instance_attribute SET value = 'JHPIEGO' WHERE attribute = 'klLkGxy328c' AND value = 'JPHIEGO'",
+    "ALTER TABLE current_user ADD subImplementingPartner TEXT DEFAULT ''"
   ];
 
   Future<Database> get db async {
