@@ -22,7 +22,7 @@ class UserService {
         var url = 'api/me.json';
         var queryParameters = {
           "fields":
-              "id,name,email,phoneNumber,programs,organisationUnits[id],attributeValues[value,attribute[id,name]],userGroups[name],userCredentials[userRoles[name]]"
+              "id,name,email,phoneNumber,programs,organisationUnits[id],attributeValues[value,attribute[id]],userGroups[name],userCredentials[userRoles[name]]"
         };
         HttpService http = new HttpService(
           username: username,
