@@ -1,9 +1,12 @@
+import 'package:kb_mobile_app/core/constants/current_user_contants.dart';
+
 class CurrentUser {
   String id;
   String name;
   String username;
   String password;
   String implementingPartner;
+  String subImplementingPartner;
   String userRoles;
   String userGroups;
   bool isLogin;
@@ -21,6 +24,7 @@ class CurrentUser {
     this.password,
     this.isLogin,
     this.implementingPartner,
+    this.subImplementingPartner,
     this.userOrgUnitIds,
     this.programs,
     this.userRoles,
@@ -41,7 +45,7 @@ class CurrentUser {
 
   @override
   String toString() {
-    return 'Curremt user is $username $id $name $implementingPartner $programs $userOrgUnitIds ';
+    return 'Curremt user is $username $id $name $implementingPartner->$subImplementingPartner $programs $userOrgUnitIds ';
   }
 
   factory CurrentUser.fromJson(
@@ -58,37 +62,70 @@ class CurrentUser {
       userOrgUnitIds.add(organisationUnit['id']);
     }
     List attributeValues = json['attributeValues'] as List<dynamic>;
-    String implementingPartner = '';
-    for (var attributeValue in attributeValues) {
-      if (attributeValue['value'] != null)
-        implementingPartner = attributeValue['value'] == 'vVMJBQvvm5D'
-            ? 'PSI'
-            : attributeValue['value'] == 'tmuVlsiEjUi'
-                ? 'EGPAF'
-                : attributeValue['value'] == 'A5VS8GCyb8t'
-                    ? 'JHPIEGO'
-                    : attributeValue['value'] == 'SdDDPA28oVh'
-                        ? 'KB-Case Management'
-                        : attributeValue['value'] == 'KixA3B2O8Rp'
-                            ? 'KB-AGYW/DREAMS'
-                            : attributeValue['value'] == 'NuxoYkqopE2'
-                                ? 'CLO'
-                                : attributeValue['value'] == 'H2CE3Iwdf7v'
-                                    ? 'Super user'
-                                    : attributeValue['value'] == 'RoLA6GyxTlS'
-                                        ? 'Paralegal'
-                                        : implementingPartner;
-    }
+    String subImplementingPartner =
+        getCurrentUserSuImplementingPartner(attributeValues);
+    String implementingPartner =
+        getCurrentUserImplementingPartner(attributeValues);
+    print("implementingPartner : " + implementingPartner);
+    print("subImplementingPartner : " + subImplementingPartner);
     return CurrentUser(
       name: json['name'],
       id: json['id'],
       password: password,
       username: username,
       isLogin: true,
+      subImplementingPartner: subImplementingPartner,
       implementingPartner: implementingPartner,
       programs: programList.map((program) => '$program').toList(),
       userOrgUnitIds: userOrgUnitIds,
     );
+  }
+
+  static String getCurrentUserRoles() {
+    return "";
+  }
+
+  static String getCurrentUserGroups() {
+    return "";
+  }
+
+  static String getCurrentUserSuImplementingPartner(
+    List<dynamic> attributeValues,
+  ) {
+    String subImplementingPartner = '';
+    for (var attributeValue in attributeValues) {
+      if (attributeValue['value'] != null &&
+          attributeValue['attribute'] != null) {
+        Map attribute = attributeValue['attribute'];
+        String attributeId = attribute["id"] ?? "";
+        if (attributeId ==
+            CurrentUserImplementingPartner.subImplementingPartnerAttribute) {
+          subImplementingPartner = CurrentUserImplementingPartner
+              .getCurrentUserSubImplementingPartiner(attributeValue['value']);
+        }
+      }
+    }
+    return subImplementingPartner;
+  }
+
+  static String getCurrentUserImplementingPartner(
+    List<dynamic> attributeValues,
+  ) {
+    String implementingPartner = '';
+    for (var attributeValue in attributeValues) {
+      if (attributeValue['value'] != null &&
+          attributeValue['attribute'] != null) {
+        Map attribute = attributeValue['attribute'];
+        String attributeId = attribute["id"] ?? "";
+        if (attributeId ==
+            CurrentUserImplementingPartner.implementPartnerAttribute) {
+          implementingPartner =
+              CurrentUserImplementingPartner.getCurrentUserImplementingPartiner(
+                  attributeValue['value']);
+        }
+      }
+    }
+    return implementingPartner;
   }
 
   Map toOffline(CurrentUser user) {
@@ -98,6 +135,7 @@ class CurrentUser {
     data['username'] = user.username;
     data['password'] = user.password;
     data['isLogin'] = user.isLogin ? 1 : 0;
+    data['subImplementingPartner'] = user.subImplementingPartner;
     data['implementingPartner'] = user.implementingPartner;
     return data;
   }
@@ -109,6 +147,7 @@ class CurrentUser {
     this.password = mapData['password'];
     this.isLogin = '${mapData['isLogin']}' == '1';
     this.implementingPartner = mapData['implementingPartner'];
+    this.subImplementingPartner = mapData['subImplementingPartner'];
     this.userOrgUnitIds = [];
     this.programs = [];
     this.userGroups = "";
