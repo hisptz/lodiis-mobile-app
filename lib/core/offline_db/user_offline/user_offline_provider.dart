@@ -12,6 +12,10 @@ class UserOfflineProvider extends OfflineDbProvider {
   String username = 'username';
   String password = 'password';
   String isLogin = 'isLogin';
+  String email = 'email';
+  String phoneNumber = 'phoneNumber';
+  String userGroups = 'userGroups';
+  String userRoles = 'userRoles';
   String implementingPartner = 'implementingPartner';
   String subImplementingPartner = 'subImplementingPartner';
 
@@ -38,6 +42,10 @@ class UserOfflineProvider extends OfflineDbProvider {
         columns: [
           id,
           name,
+          phoneNumber,
+          email,
+          userGroups,
+          userRoles,
           username,
           password,
           isLogin,
@@ -55,7 +63,6 @@ class UserOfflineProvider extends OfflineDbProvider {
           CurrentUser user = CurrentUser.fromOffline(map);
           user.programs = programs;
           user.userOrgUnitIds = userOrgUnitIds;
-          //@TODO getting user groups and user roles
           users.add(user);
         }
       }

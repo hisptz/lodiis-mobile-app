@@ -5,6 +5,8 @@ class CurrentUser {
   String name;
   String username;
   String password;
+  String email;
+  String phoneNumber;
   String implementingPartner;
   String subImplementingPartner;
   String userRoles;
@@ -21,6 +23,8 @@ class CurrentUser {
     this.id,
     this.name,
     this.username,
+    this.email,
+    this.phoneNumber,
     this.password,
     this.isLogin,
     this.implementingPartner,
@@ -30,6 +34,8 @@ class CurrentUser {
     this.userRoles,
     this.userGroups,
   }) {
+    this.email = this.email ?? "";
+    this.phoneNumber = this.phoneNumber ?? "";
     this.userOrgUnitIds = this.userOrgUnitIds ?? [];
     this.programs = this.programs ?? [];
     this.userRoles = this.userRoles ?? "";
@@ -45,7 +51,7 @@ class CurrentUser {
 
   @override
   String toString() {
-    return 'Curremt user is $username $id $name $implementingPartner->$subImplementingPartner $programs $userOrgUnitIds ';
+    return 'Curremt user is $username $id $name $implementingPartner->$subImplementingPartner';
   }
 
   factory CurrentUser.fromJson(
@@ -53,8 +59,6 @@ class CurrentUser {
     String username,
     String password,
   ) {
-    //@TODO getting user groups and user roles
-    // userGroups[name],userCredentials[userRoles[name]]
     List programList = json['programs'] as List<dynamic>;
     List organisationUnitList = json['organisationUnits'] as List<dynamic>;
     List userOrgUnitIds = [];
@@ -66,11 +70,17 @@ class CurrentUser {
         getCurrentUserSuImplementingPartner(attributeValues);
     String implementingPartner =
         getCurrentUserImplementingPartner(attributeValues);
+    String userGroups = getCurrentUserGroups(json);
+    String userRoles = getCurrentUserRoles(json);
     return CurrentUser(
       name: json['name'],
       id: json['id'],
       password: password,
       username: username,
+      email: json["email"],
+      phoneNumber: json["phoneNumber"],
+      userGroups: userGroups,
+      userRoles: userRoles,
       isLogin: true,
       subImplementingPartner: subImplementingPartner,
       implementingPartner: implementingPartner,
@@ -79,12 +89,29 @@ class CurrentUser {
     );
   }
 
-  static String getCurrentUserRoles() {
-    return "";
+  static String getCurrentUserRoles(
+    dynamic json,
+  ) {
+    Map userCredentials = json["userCredentials"];
+    List userRolesList = userCredentials['userRoles'] as List<dynamic>;
+    return userRolesList
+        .map((dynamic userRole) => userRole["name"] ?? "")
+        .toList()
+        .toSet()
+        .toList()
+        .join(", ");
   }
 
-  static String getCurrentUserGroups() {
-    return "";
+  static String getCurrentUserGroups(
+    dynamic json,
+  ) {
+    List userGroupsList = json['userGroups'] as List<dynamic>;
+    return userGroupsList
+        .map((dynamic userGroup) => userGroup["name"] ?? "")
+        .toList()
+        .toSet()
+        .toList()
+        .join(", ");
   }
 
   static String getCurrentUserSuImplementingPartner(
@@ -131,6 +158,10 @@ class CurrentUser {
     data['id'] = user.id;
     data['name'] = user.name;
     data['username'] = user.username;
+    data['email'] = user.email;
+    data['phoneNumber'] = user.phoneNumber;
+    data['userGroups'] = user.userGroups;
+    data['userRoles'] = user.userRoles;
     data['password'] = user.password;
     data['isLogin'] = user.isLogin ? 1 : 0;
     data['subImplementingPartner'] = user.subImplementingPartner;
@@ -143,12 +174,14 @@ class CurrentUser {
     this.name = mapData['name'];
     this.username = mapData['username'];
     this.password = mapData['password'];
+    this.email = mapData['email'];
+    this.phoneNumber = mapData['phoneNumber'];
+    this.userGroups = mapData['userGroups'];
+    this.userRoles = mapData['userRoles'];
     this.isLogin = '${mapData['isLogin']}' == '1';
     this.implementingPartner = mapData['implementingPartner'];
     this.subImplementingPartner = mapData['subImplementingPartner'];
     this.userOrgUnitIds = [];
     this.programs = [];
-    this.userGroups = "";
-    this.userRoles = "";
   }
 }
