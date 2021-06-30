@@ -61,6 +61,15 @@ class OvcHouseHold {
         data[attribute] = '${attributOj['value']}'.trim() ?? '';
       }
     }
+    // Children count per sex
+    int maleCount = children
+        .where((child) => child.sex.toLowerCase() == 'male')
+        .toList()
+        .length;
+    int femaleCount = children
+        .where((child) => child.sex.toLowerCase() == 'female')
+        .toList()
+        .length;
     return OvcHouseHold(
         id: tei.trackedEntityInstance,
         firstName: data['WTZ7GLTrE8Q'] ?? '',
@@ -69,8 +78,8 @@ class OvcHouseHold {
         location: location,
         orgUnit: orgUnit,
         createdDate: createdDate,
-        ovcMaleCount: data['kQehaqmaygZ'] ?? '',
-        ovcFemaleCount: data['BXUNH6LXeGA'] ?? '',
+        ovcMaleCount: '$maleCount',
+        ovcFemaleCount: '$femaleCount',
         primaryUIC: data[BeneficiaryIdentification.primaryUIC] ?? '',
         secondaryUIC: data[BeneficiaryIdentification.secondaryUIC] ?? '',
         houseHoldStatus: data['PN92g65TkVI'] ?? '',

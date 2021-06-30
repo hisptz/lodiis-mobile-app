@@ -165,7 +165,7 @@ class ReferralNotificationService {
         }
       }
     } catch (error) {
-      print("discoveringReferralNotificationFromServer : ${error.toString()}");
+      print("getReferralNotificationFromServer : ${error.toString()}");
     }
     return referralNofications;
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class EntryFormSaveButton extends StatelessWidget {
   const EntryFormSaveButton(
@@ -13,7 +14,10 @@ class EntryFormSaveButton extends StatelessWidget {
       this.horizontal = 10.0,
       this.vertical = 15.0,
       this.borderColor,
-      this.onPressButton})
+      this.onPressButton,
+      this.svgIconPath,
+      this.svgIconHeight = 20.0,
+      this.svgIconWidth = 20.0})
       : super(key: key);
 
   final String label;
@@ -27,6 +31,9 @@ class EntryFormSaveButton extends StatelessWidget {
   final double vertical;
   final double horizontal;
   final Color borderColor;
+  final String svgIconPath;
+  final double svgIconHeight;
+  final double svgIconWidth;
 
   @override
   Widget build(BuildContext context) {
@@ -65,14 +72,37 @@ class EntryFormSaveButton extends StatelessWidget {
                 Expanded(
                   child: Container(
                     alignment: Alignment.center,
-                    child: Text(
-                      label,
-                      style: TextStyle().copyWith(
-                        color: labelColor,
-                        fontSize: fontSize,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
+                    child: svgIconPath != null
+                        ? Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(label,
+                                  style: TextStyle().copyWith(
+                                    color: labelColor,
+                                    fontSize: fontSize,
+                                    fontWeight: FontWeight.w700,
+                                  )),
+                              Container(
+                                height: svgIconHeight,
+                                width: svgIconWidth,
+                                margin: EdgeInsets.symmetric(
+                                  horizontal: 5.0,
+                                ),
+                                child: SvgPicture.asset(
+                                  svgIconPath,
+                                  color: labelColor,
+                                ),
+                              )
+                            ],
+                          )
+                        : Text(
+                            label,
+                            style: TextStyle().copyWith(
+                              color: labelColor,
+                              fontSize: fontSize,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
                   ),
                 ),
               ],
