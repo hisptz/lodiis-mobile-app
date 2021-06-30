@@ -40,7 +40,6 @@ class OfflineDbProvider {
       return _db;
     }
     _db = await init();
-    this.onCreate(_db, migrationQuery.length + 1);
     return _db;
   }
 
@@ -51,12 +50,22 @@ class OfflineDbProvider {
       path,
       version: migrationQuery.length + 1,
       onUpgrade: onUpgrade,
+      onConfigure: onConfigure,
       onCreate: onCreate,
+      onDowngrade: onDowngrade,
+      onOpen: onOpen,
     );
   }
 
+  onOpen(Database db) {}
+
+  onDowngrade(Database db, int oldVersion, int newVersion) {}
+
+  onConfigure(Database db) {}
+
   onCreate(Database db, int version) async {
-    for (String query in initialQuery) {
+    List queries = [...initialQuery, ...migrationQuery];
+    for (String query in queries) {
       try {
         await db.execute(query);
       } catch (error) {}
@@ -72,7 +81,9 @@ class OfflineDbProvider {
   }
 
   close() async {
-    var dbClient = await db;
-    dbClient.close();
+    try {
+      var dbClient = await db;
+      dbClient.close();
+    } catch (e) {}
   }
 }
