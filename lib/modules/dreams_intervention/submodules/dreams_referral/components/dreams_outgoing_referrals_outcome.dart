@@ -74,7 +74,8 @@ class _DreamsOutgoingReferralsOutcomeState
                         .indexOf(searchedValue) !=
                     -1))
                 .map((agyw) => Container(
-                      margin: EdgeInsets.symmetric(horizontal: 5.0),
+                      margin:
+                          EdgeInsets.symmetric(horizontal: 5.0, vertical: 10.0),
                       child: MaterialCard(
                         body: GestureDetector(
                           onTap: () => onView(agyw),

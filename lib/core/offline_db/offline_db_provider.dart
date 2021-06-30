@@ -31,7 +31,8 @@ class OfflineDbProvider {
 
   final List<String> migrationQuery = [
     "UPDATE tracked_entity_instance_attribute SET value = 'JHPIEGO' WHERE attribute = 'klLkGxy328c' AND value = 'JPHIEGO'",
-    "ALTER TABLE current_user ADD subImplementingPartner TEXT DEFAULT ''"
+    "ALTER TABLE current_user ADD subImplementingPartner TEXT DEFAULT ''",
+    "ALTER TABLE tei_relationships ADD syncStatus TEXT DEFAULT 'not-synced'"
   ];
 
   Future<Database> get db async {
