@@ -66,8 +66,6 @@ class CurrentUser {
         getCurrentUserSuImplementingPartner(attributeValues);
     String implementingPartner =
         getCurrentUserImplementingPartner(attributeValues);
-    print("implementingPartner : " + implementingPartner);
-    print("subImplementingPartner : " + subImplementingPartner);
     return CurrentUser(
       name: json['name'],
       id: json['id'],
