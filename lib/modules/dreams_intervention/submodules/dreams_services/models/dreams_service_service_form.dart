@@ -60,7 +60,6 @@ class DreamsServiceForm {
         InputField(
           id: 'vL6NpUA0rIU',
           name: 'Number of session',
-          isReadOnly: true,
           translatedName: 'Palo ea Lithupelo',
           valueType: 'INTEGER_ZERO_OR_POSITIVE',
           inputColor: Color(0xFF258DCC),
