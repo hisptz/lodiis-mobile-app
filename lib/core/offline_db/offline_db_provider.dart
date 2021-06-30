@@ -8,7 +8,6 @@ class OfflineDbProvider {
   final List<String> initialQuery = [
     "CREATE TABLE IF NOT EXISTS current_user (id TEXT PRIMARY KEY, name TEXT, username TEXT, password TEXT , implementingPartner TEXT ,isLogin INTEGER)",
     "CREATE TABLE IF NOT EXISTS current_user_ou (id TEXT PRIMARY KEY, userId TEXT)",
-    "CREATE TABLE IF NOT EXISTS current_user_info (id TEXT PRIMARY KEY, email TEXT, phoneNumber TEXT, userRoles TEXT, userGroups TEXT)",
     "CREATE TABLE IF NOT EXISTS current_user_program (id TEXT PRIMARY KEY, userId TEXT)",
     "CREATE TABLE IF NOT EXISTS organisation_unit (id TEXT PRIMARY KEY, name TEXT, code TEXT, parent TEXT, level NUMBER)",
     "CREATE TABLE IF NOT EXISTS organisation_unit_children (id TEXT PRIMARY KEY, organisationId TEXT)",
@@ -32,9 +31,12 @@ class OfflineDbProvider {
   final List<String> migrationQuery = [
     "UPDATE tracked_entity_instance_attribute SET value = 'JHPIEGO' WHERE attribute = 'klLkGxy328c' AND value = 'JPHIEGO'",
     "ALTER TABLE current_user ADD subImplementingPartner TEXT DEFAULT ''",
+    "ALTER TABLE current_user ADD phoneNumber TEXT DEFAULT 'phoneNumber'",
+    "ALTER TABLE current_user ADD email TEXT DEFAULT 'email'",
+    "ALTER TABLE current_user ADD userRoles TEXT DEFAULT 'userRoles'",
+    "ALTER TABLE current_user ADD userGroups TEXT DEFAULT 'userGroups'",
     "ALTER TABLE tei_relationships ADD syncStatus TEXT DEFAULT 'not-synced'"
   ];
-
   Future<Database> get db async {
     if (_db != null) {
       return _db;
