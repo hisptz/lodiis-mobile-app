@@ -103,8 +103,7 @@ class AgywDreamsServiceFormSkipLogic {
           ? int.parse(dataObject['vL6NpUA0rIU'])
           : sessions;
     } catch (e) {}
-    // print(dataObject);
-    if (sessions != 0) {
+    if (sessions >= 0) {
       if (interventionType == 'AFLATEEN/TOUN') {
         return (sessions) <= 12 ? true : false;
       } else if (interventionType == 'PTS 4-GRADS') {
