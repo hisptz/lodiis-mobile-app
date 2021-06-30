@@ -1,25 +1,29 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/app_state/synchronization_state/synchronization_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
+import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
-import 'package:kb_mobile_app/modules/synchronization/components/data_upload_container.dart';
+import 'package:kb_mobile_app/modules/synchronization/components/offline_data_summary.dart';
+import 'package:kb_mobile_app/modules/synchronization/components/synchronization_action_form.dart';
+import 'package:kb_mobile_app/modules/synchronization/components/synchronization_progress.dart';
 import 'package:kb_mobile_app/modules/synchronization/conflict_on_download_page.dart';
 import 'package:provider/provider.dart';
-import 'components/data_download_container.dart';
 
 class Synchronization extends StatefulWidget {
-  Synchronization({Key key}) : super(key: key);
-
+  Synchronization({Key key, this.synchronizationAction}) : super(key: key);
+  final String synchronizationAction;
   @override
   _SynchronizationState createState() => _SynchronizationState();
 }
 
 class _SynchronizationState extends State<Synchronization> {
   final String label = 'Data Synchronization';
+  String selectedSyncAction = '';
 
   void onStartDataUpload(BuildContext context) async {
     await Provider.of<SynchronizationState>(context, listen: false)
@@ -41,11 +45,27 @@ class _SynchronizationState extends State<Synchronization> {
     } catch (e) {}
   }
 
+  void initializeSynchronization(BuildContext context,
+      {String syncAction, bool isSyncActive = false}) async {
+    if (!isSyncActive) {
+      setState(() {
+        selectedSyncAction = syncAction;
+      });
+      await Provider.of<SynchronizationState>(context, listen: false)
+          .startSyncActivity(syncAction: syncAction);
+    } else {
+      AppUtil.showToastMessage(
+          message: 'Synchronization is in progress',
+          position: ToastGravity.BOTTOM);
+    }
+  }
+
   @override
   void initState() {
     super.initState();
     Timer(Duration(milliseconds: 100), () {
       setState(() {
+        selectedSyncAction = widget.synchronizationAction ?? '';
         Provider.of<SynchronizationState>(context, listen: false)
             .startCheckingStatusOfUnsyncedData();
       });
@@ -84,9 +104,16 @@ class _SynchronizationState extends State<Synchronization> {
               int beneficiaryCount = synchronizationState.beneficiaryCount;
               int beneficiaryServiceCount =
                   synchronizationState.beneficiaryServiceCount;
-              double profileProgress = synchronizationState.profileProgress;
-              double eventsProgress = synchronizationState.eventsProgress;
-              double overallProgress = synchronizationState.overallProgress;
+              double profileSyncProgress =
+                  synchronizationState.profileSyncProgress;
+              double eventsSyncProgress =
+                  synchronizationState.eventsSyncProgress;
+              double overallSyncProgress =
+                  synchronizationState.overallSyncProgress;
+              double overallDownloadProgress =
+                  synchronizationState.overallDownloadProgress;
+              double overallUploadProgress =
+                  synchronizationState.overallUploadProgress;
               return isUnsyncedCheckingActive
                   ? Container(
                       child: CircularProcessLoader(
@@ -98,32 +125,37 @@ class _SynchronizationState extends State<Synchronization> {
                         children: [
                           Container(
                             margin: EdgeInsets.symmetric(vertical: 5.0),
-                            child: DataUploadContainer(
-                              beneficiaryCount: beneficiaryCount,
-                              beneficiaryServiceCount: beneficiaryServiceCount,
-                              isDataDownloadingActive: isDataDownloadingActive,
-                              isDataUploadingActive: isDataUploadingActive,
-                              hasUnsyncedData: hasUnsyncedData,
-                              dataUploadProcesses:
-                                  synchronizationState.dataUploadProcesses,
-                              onStartDataUpload: () =>
-                                  onStartDataUpload(context),
-                            ),
+                            child: OfflineDataSummary(
+                                beneficiaryCount: beneficiaryCount,
+                                beneficiaryServiceCount:
+                                    beneficiaryServiceCount),
                           ),
                           Container(
                             margin: EdgeInsets.symmetric(vertical: 5.0),
-                            child: DataDownloadContainer(
-                              overallProgress: overallProgress,
-                              profileProgress: profileProgress,
-                              eventsProgress: eventsProgress,
-                              isDataDownloadingActive: isDataDownloadingActive,
-                              isDataUploadingActive: isDataUploadingActive,
-                              conflictCount: synchronizationState.conflictCount,
-                              onStartDataDownload: () =>
-                                  onStartDataDownload(context),
-                              dataDownloadProcesses:
-                                  synchronizationState.dataDownloadProcesses,
-                              onViewConflicts: () => onViewConflicts(context),
+                            child: SynchronizationActionForm(
+                                selectedSyncAction:
+                                    widget.synchronizationAction,
+                                onInitializeSyncAction: (String syncAction) =>
+                                    initializeSynchronization(context,
+                                        syncAction: syncAction,
+                                        isSyncActive:
+                                            (isDataDownloadingActive ||
+                                                isDataUploadingActive))),
+                          ),
+                          Visibility(
+                            visible: isDataDownloadingActive ||
+                                isDataUploadingActive,
+                            child: Container(
+                              child: SynchronizationProgress(
+                                syncAction: selectedSyncAction,
+                                hasUnsyncedData: hasUnsyncedData,
+                                eventsSyncProgress: eventsSyncProgress,
+                                profileSyncProgress: profileSyncProgress,
+                                overallSyncProgress: overallSyncProgress,
+                                overallDownloadProgress:
+                                    overallDownloadProgress,
+                                overallUploadProgress: overallUploadProgress,
+                              ),
                             ),
                           ),
                         ],

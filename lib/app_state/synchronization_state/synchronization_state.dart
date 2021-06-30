@@ -27,8 +27,8 @@ class SynchronizationState with ChangeNotifier {
   SynchronizationState({this.context});
 
 // intial state
-  bool _isDataUploadingActive;
-  bool _isDataDownloadingActive;
+  bool _isDataUploadingActive = false;
+  bool _isDataDownloadingActive = false;
   bool _hasUnsyncedData;
   bool _isUnsyncedCheckingActive = true;
   bool _isCheckingForAvailableDataFromServer;
@@ -47,12 +47,31 @@ class SynchronizationState with ChangeNotifier {
   Map<String, List> _trackedInstance;
   Map<String, List> _events;
   Map<String, List> _relationships;
-  double profileProgress = 0.0;
-  double eventsProgress = 0.0;
-  double overallProgress = 0.0;
+  double profileDataDownloadProgress = 0.0;
+  double eventsDataDownloadProgress = 0.0;
+  double overallDownloadProgress = 0.0;
+  double profileDataUploadProgress = 0.0;
+  double eventsDataUploadProgress = 0.0;
+  double overallUploadProgress = 0.0;
 
 // selectors
   bool get isDataUploadingActive => _isDataUploadingActive ?? false;
+
+  double get overallSyncProgress => hasUnsyncedData
+      ? (overallUploadProgress + overallDownloadProgress) / 2
+      : overallUploadProgress + overallDownloadProgress;
+
+  double get eventsSyncProgress => _isDataUploadingActive
+      ? eventsDataUploadProgress
+      : _isDataDownloadingActive
+          ? eventsDataDownloadProgress
+          : 0.0;
+
+  double get profileSyncProgress => _isDataUploadingActive
+      ? profileDataUploadProgress
+      : _isDataDownloadingActive
+          ? profileDataDownloadProgress
+          : 0.0;
 
   bool get isCheckingForAvailableDataFromServer =>
       _isCheckingForAvailableDataFromServer ?? false;
@@ -185,14 +204,37 @@ class SynchronizationState with ChangeNotifier {
     }
   }
 
-  Future startDataDownloadActivity() async {
+  Future startSyncActivity({String syncAction}) async {
+    profileDataDownloadProgress = 0.0;
+    eventsDataDownloadProgress = 0.0;
+    overallDownloadProgress = 0.0;
+    profileDataUploadProgress = 0.0;
+    eventsDataUploadProgress = 0.0;
+    overallUploadProgress = 0.0;
+    switch (syncAction) {
+      case 'Download':
+        await startDataDownloadActivity();
+        break;
+      case 'Upload':
+        await startDataUploadActivity();
+        break;
+      case 'Download and Upload':
+        await startDataDownloadActivity(skipUpload: false);
+        await startDataUploadActivity();
+        break;
+      default:
+        break;
+    }
+  }
+
+  Future startDataDownloadActivity({bool skipUpload = true}) async {
     _dataDownloadProcess = [];
     _eventFromServer = [];
     _servertrackedEntityInstance = [];
     _trackeEntityInstance = [];
-    profileProgress = 0.0;
-    eventsProgress = 0.0;
-    overallProgress = 0.0;
+    profileDataDownloadProgress = 0.0;
+    eventsDataDownloadProgress = 0.0;
+    overallDownloadProgress = 0.0;
     updateDataDownloadStatus(true);
     addDataDownloadProcess("Start Downloading....");
     int count = 0;
@@ -216,8 +258,9 @@ class SynchronizationState with ChangeNotifier {
             .where((program) => currentUserPrograms.indexOf(program) != -1)) {
           count++;
           totalCount++;
-          profileProgress = count / total;
-          overallProgress = totalCount / (total * 2);
+          profileDataDownloadProgress = count / total;
+          overallDownloadProgress = totalCount / (total * 2);
+          notifyListeners();
           addDataDownloadProcess(
               "Download and saving profile data $count/$total");
           await _synchronizationService.getAndSaveTrackedInstanceFromServer(
@@ -230,8 +273,9 @@ class SynchronizationState with ChangeNotifier {
             .where((program) => currentUserPrograms.indexOf(program) != -1)) {
           count++;
           totalCount++;
-          eventsProgress = count / total;
-          overallProgress = totalCount / (total * 2);
+          eventsDataDownloadProgress = count / total;
+          overallDownloadProgress = totalCount / (total * 2);
+          notifyListeners();
           addDataDownloadProcess(
               "Download and saving service data $count/$total");
           await _synchronizationService.getAndSaveEventsFromServer(
@@ -283,27 +327,62 @@ class SynchronizationState with ChangeNotifier {
 
   Future startDataUploadActivity({bool isAutoUpload = false}) async {
     _dataUploadProcess = [];
+    profileDataUploadProgress = 0.0;
+    eventsDataUploadProgress = 0.0;
+    overallUploadProgress = 0.0;
     updateDataUploadStatus(true);
     try {
+      int profileCount = 0;
+      int profileTotalCount = 3;
+      int eventsCount = 0;
+      int eventsTotalCount = 1;
       addDataUploadProcess('Prepare offline data to upload');
+
       var teis = await _synchronizationService.getTeisFromOfflineDb();
-      var teiEnrollments =
-          await _synchronizationService.getTeiEnrollmentFromOfflineDb();
+      profileCount++;
+      profileDataUploadProgress = profileCount / profileTotalCount;
+      overallUploadProgress =
+          (profileDataUploadProgress + eventsDataUploadProgress) / 2;
+      notifyListeners();
       if (teis.length > 0) {
         addDataUploadProcess("Uploading beneficiary's profile data");
-        await _synchronizationService.uploadTeisToTheServer(
-            teis, teiEnrollments, isAutoUpload);
+        await _synchronizationService.uploadTeisToTheServer(teis, isAutoUpload);
+      }
 
-        var teiRelationships =
-            await _synchronizationService.getTeiRelationShipFromOfflineDb();
+      var teiEnrollments =
+          await _synchronizationService.getTeiEnrollmentFromOfflineDb();
+      profileCount++;
+      profileDataUploadProgress = profileCount / profileTotalCount;
+      overallUploadProgress =
+          (profileDataUploadProgress + eventsDataUploadProgress) / 2;
+      notifyListeners();
+      if (teiEnrollments.length > 0) {
+        await _synchronizationService.uploadEnrollmentsToTheServer(
+            teiEnrollments, isAutoUpload);
+      }
+
+      var teiRelationships =
+          await _synchronizationService.getTeiRelationShipFromOfflineDb();
+      profileCount++;
+      profileDataUploadProgress = profileCount / profileTotalCount;
+      overallUploadProgress =
+          (profileDataUploadProgress + eventsDataUploadProgress) / 2;
+      notifyListeners();
+      if (teiRelationships.length > 0) {
         await _synchronizationService.uploadTeiRelationToTheServer(
             teiRelationships, isAutoUpload);
       }
 
       var teiEvents = await _synchronizationService.getTeiEventsFromOfflineDb();
+      eventsCount++;
+      eventsDataUploadProgress = eventsCount / eventsTotalCount;
+      overallUploadProgress =
+          profileDataUploadProgress + eventsDataUploadProgress;
+      notifyListeners();
       if (teiEvents.length > 0) {
         addDataUploadProcess("Uploading beneficiary's service data");
         _dataUploadProcess = [];
+
         await _synchronizationService.uploadTeiEventsToTheServer(
             teiEvents, isAutoUpload);
       }
