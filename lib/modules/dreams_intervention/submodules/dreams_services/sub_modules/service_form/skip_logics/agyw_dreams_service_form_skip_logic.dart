@@ -30,8 +30,9 @@ class AgywDreamsServiceFormSkipLogic {
     if (agywDreamAge < 10 || agywDreamAge > 17) {
       hiddenOptions['AFLATEEN/TOUN'] = true;
       hiddenOptions['PARENTING'] = true;
-      hiddenOptions['VAC Legal'] = true;
+      hiddenOptions['VAC Messaging'] = true;
       hiddenOptions['SAVING GROUP'] = true;
+      hiddenOptions['VAC Legal Messaging'] = true;
     }
     if (agywDreamAge < 10 || agywDreamAge > 19) {
       hiddenOptions['LBSE'] = true;
@@ -43,7 +44,7 @@ class AgywDreamsServiceFormSkipLogic {
       hiddenOptions['Go Girls'] = true;
       hiddenOptions['PTS 4-GRADS'] = true;
       hiddenOptions['SILC'] = true;
-      hiddenOptions['GBV Legal'] = true;
+      hiddenOptions['GBV Messaging'] = true;
     }
     if (agywDreamAge < 16) {
       hiddenOptions['PTS 4 NON-GRADS'] = true;
@@ -125,9 +126,9 @@ class AgywDreamsServiceFormSkipLogic {
         return (sessions) <= 6 ? true : false;
       } else if (interventionType == 'PARENTING') {
         return (sessions) <= 14 ? true : false;
-      } else if (interventionType == 'GBV Legal') {
+      } else if (interventionType == 'GBV Messaging') {
         return (sessions) <= 1 ? true : false;
-      } else if (interventionType == 'VAC Legal') {
+      } else if (interventionType == 'VAC Messaging') {
         return (sessions) <= 1 ? true : false;
       } else if (interventionType == 'VAC Legal Messaging') {
         return true;

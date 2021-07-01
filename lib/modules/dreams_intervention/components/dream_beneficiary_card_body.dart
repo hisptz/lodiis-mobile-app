@@ -194,7 +194,7 @@ class DreamBeneficiaryCardBody extends StatelessWidget {
           'programStage': ['Gk494qKQP8B']
         },
         {
-          'name': 'GBV LEGAL',
+          'name': 'GBV Messaging',
           'programStage': ['bDJq2JWVTbC']
         },
       ],
@@ -246,7 +246,7 @@ class DreamBeneficiaryCardBody extends StatelessWidget {
           'programStage': ['CEyIqiOZOwx']
         },
         {
-          'name': 'VAC LEGAL',
+          'name': 'VAC Messaging',
           'programStage': ['bDJq2JWVTbC']
         },
         {
