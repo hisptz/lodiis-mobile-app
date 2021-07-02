@@ -26,7 +26,7 @@ class NoneAgywPrep extends StatefulWidget {
 }
 
 class _NoneAgywPrepState extends State<NoneAgywPrep> {
-  final String label = 'Prep';
+  final String label = 'PrEP';
   List<String> programStageids = [NonAgywPrepVisitConstant.programStage];
 
   @override
@@ -127,7 +127,7 @@ class _NoneAgywPrepState extends State<NoneAgywPrep> {
                                         ),
                                         child: events.length == 0
                                             ? Text(
-                                                'There is no Prep Visit at a moment')
+                                                'There is no PrEP Visit at a moment')
                                             : Container(
                                                 margin: EdgeInsets.symmetric(
                                                   vertical: 5.0,
@@ -175,7 +175,7 @@ class _NoneAgywPrepState extends State<NoneAgywPrep> {
                                               padding: const EdgeInsets.only(
                                                   bottom: 20.0),
                                               child: Text(
-                                                  'Prep program was stopped'),
+                                                  'PrEP program was stopped'),
                                             )
                                     ],
                                   ),

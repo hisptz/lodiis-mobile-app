@@ -136,14 +136,14 @@ class InterventionBottomNavigationBar extends StatelessWidget {
                                                 interventionBottomNavigation
                                                         .id ==
                                                     "noneAgyw"
-                                            ? "KB Prep"
+                                            ? "KB PrEP"
                                             : interventionBottomNavigation
                                                 .translatedName
                                         : isCurrentUserKbDreamPartner &&
                                                 interventionBottomNavigation
                                                         .id ==
                                                     "noneAgyw"
-                                            ? "KB Prep"
+                                            ? "KB PrEP"
                                             : interventionCardState
                                                             .currentIntervetionProgram
                                                             .id !=
