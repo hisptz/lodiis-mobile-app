@@ -101,16 +101,16 @@ class _ReferralOutcomeModalState extends State<ReferralOutcomeModal> {
           dataObject[widget.referralToFollowUpLinkage] =
               dataObject[widget.referralToFollowUpLinkage] ?? AppUtil.getUid();
           await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-            eventData.program,
-            eventData.programStage,
-            eventData.orgUnit,
-            widget.referralOutcomeFormSections,
-            dataObject,
-            eventData.eventDate,
-            eventData.trackedEntityInstance,
-            eventData.event,
-            widget.hiddenFields,
-          );
+              eventData.program,
+              eventData.programStage,
+              eventData.orgUnit,
+              widget.referralOutcomeFormSections,
+              dataObject,
+              eventData.eventDate,
+              eventData.trackedEntityInstance,
+              eventData.event,
+              widget.hiddenFields,
+              skippedFields: ['phoneNumber', 'village']);
           Provider.of<ServiveEventDataState>(context, listen: false)
               .resetServiceEventDataState(eventData.trackedEntityInstance);
           Timer(Duration(seconds: 1), () {
