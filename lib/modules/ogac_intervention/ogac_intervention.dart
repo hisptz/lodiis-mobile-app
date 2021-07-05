@@ -8,8 +8,12 @@ import 'package:kb_mobile_app/core/components/intervention_app_bar.dart';
 import 'package:kb_mobile_app/core/constants/auto_synchronization.dart';
 import 'package:kb_mobile_app/core/services/auto_synchronization_service.dart';
 import 'package:kb_mobile_app/core/services/device_connectivity_provider.dart';
+import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/utils/app_bar_util.dart';
+import 'package:kb_mobile_app/core/utils/app_resume_routes/app_resume_route.dart';
+import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
+import 'package:kb_mobile_app/modules/ogac_intervention/constants/ogac_intervention_constant.dart';
 import 'package:kb_mobile_app/modules/ogac_intervention/pages/ogac_enrollment_form.dart';
 import 'package:kb_mobile_app/modules/ogac_intervention/pages/ogac_intervention_home.dart';
 import 'package:provider/provider.dart';
@@ -62,17 +66,29 @@ class _OgacInterventionState extends State<OgacIntervention> {
     );
   }
 
-  void onClickHome() {
-    // print('on onClickHome');
-  }
+  void onClickHome() {}
 
-  void onAddOgacBeneficiary(BuildContext context) {
-    Provider.of<EnrollmentFormState>(context, listen: false).resetFormState();
-    Navigator.push(context, MaterialPageRoute(
-      builder: (context) {
-        return OgacEnrollemntForm();
-      },
-    ));
+  void onAddOgacBeneficiary(BuildContext context) async {
+    String beneficiaryId = "";
+    String formAutoSaveid =
+        "${OgacInterventionConstant.pageModule}_$beneficiaryId";
+    FormAutoSave formAutoSave =
+        await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveid);
+    bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
+        .shouldResumeWithUnSavedChanges(context, formAutoSave);
+    if (shouldResumeWithUnSavedChanges) {
+      AppResumeRoute().redirectToPages(context, formAutoSave);
+    } else {
+      Provider.of<EnrollmentFormState>(context, listen: false).resetFormState();
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) {
+            return OgacEnrollemntForm();
+          },
+        ),
+      );
+    }
   }
 
   @override

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -11,9 +12,12 @@ import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.d
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/core/constants/beneficiary_identification.dart';
+import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
+import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
+import 'package:kb_mobile_app/modules/ogac_intervention/constants/ogac_intervention_constant.dart';
 import 'package:kb_mobile_app/modules/ogac_intervention/models/ogac_enrollment_form_section.dart';
 import 'package:kb_mobile_app/modules/ogac_intervention/services/ogac_enrollment_service.dart';
 import 'package:kb_mobile_app/modules/ogac_intervention/skip_logics/ogac_intervention_skip_logic.dart';
@@ -28,12 +32,12 @@ class OgacEnrollemntForm extends StatefulWidget {
 }
 
 class _OgacEnrollemntFormState extends State<OgacEnrollemntForm> {
-  List<FormSection> formSections;
-  List<FormSection> stageFormSections;
   final String label = 'OGAC Enrollment Form';
   final List<String> mandatoryFields =
       OgacInterventionFormSection.getMandatoryField();
   final Map mandatoryFieldObject = Map();
+  List<FormSection> formSections;
+  List<FormSection> stageFormSections;
   bool isSaving = false;
   bool isFormReady = false;
   List unFilledMandatoryFields = [];
@@ -66,6 +70,30 @@ class _OgacEnrollemntFormState extends State<OgacEnrollemntForm> {
         );
       },
     );
+  }
+
+  void onUpdateFormAutoSaveState(BuildContext context) async {
+    Map dataObject =
+        Provider.of<EnrollmentFormState>(context, listen: false).formState;
+    String beneficiaryId = dataObject['trackedEntityInstance'] ?? "";
+    String id = "${OgacInterventionConstant.pageModule}_$beneficiaryId";
+    FormAutoSave formAutoSave = FormAutoSave(
+      id: id,
+      beneficiaryId: beneficiaryId,
+      pageModule: OgacInterventionConstant.pageModule,
+      nextPageModule: OgacInterventionConstant.nextPageModule,
+      data: jsonEncode(dataObject),
+    );
+    await FormAutoSaveOfflineService().saveFormAutoSaveData(formAutoSave);
+  }
+
+  void clearFormAutoSaveState(BuildContext context) async {
+    Map dataObject =
+        Provider.of<EnrollmentFormState>(context, listen: false).formState;
+    String beneficiaryId = dataObject['trackedEntityInstance'] ?? "";
+    String formAutoSaveid =
+        "${OgacInterventionConstant.pageModule}_$beneficiaryId";
+    await FormAutoSaveOfflineService().deleteSavedFormAutoData(formAutoSaveid);
   }
 
   void onSaveAndContinue(BuildContext context, Map dataObject) async {
@@ -111,6 +139,7 @@ class _OgacEnrollemntFormState extends State<OgacEnrollemntForm> {
                   : 'Form has been saved successfully',
               position: ToastGravity.TOP,
             );
+            clearFormAutoSaveState(context);
             Navigator.popUntil(context, (route) => route.isFirst);
           }
         });
@@ -123,7 +152,8 @@ class _OgacEnrollemntFormState extends State<OgacEnrollemntForm> {
       }
     } else {
       setState(() {
-        unFilledMandatoryFields = AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+        unFilledMandatoryFields =
+            AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
       });
       AppUtil.showToastMessage(
           message: 'Please fill all mandatory field',
@@ -135,6 +165,7 @@ class _OgacEnrollemntFormState extends State<OgacEnrollemntForm> {
     Provider.of<EnrollmentFormState>(context, listen: false)
         .setFormFieldState(id, value);
     evaluateSkipLogics();
+    onUpdateFormAutoSaveState(context);
   }
 
   @override
@@ -189,7 +220,7 @@ class _OgacEnrollemntFormState extends State<OgacEnrollemntForm> {
                                   dataObject: enrollmentFormState.formState,
                                   onInputValueChange: onInputValueChange,
                                   unFilledMandatoryFields:
-                                  unFilledMandatoryFields,
+                                      unFilledMandatoryFields,
                                 ),
                               ),
                               Container(

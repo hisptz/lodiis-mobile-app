@@ -4,8 +4,12 @@ import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment
 import 'package:kb_mobile_app/app_state/ogac_intervention_list_state/ogac_intervention_list_state.dart';
 import 'package:kb_mobile_app/core/components/paginated_list_view.dart';
 import 'package:kb_mobile_app/core/components/sub_module_home_container.dart';
+import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
+import 'package:kb_mobile_app/core/utils/app_resume_routes/app_resume_route.dart';
+import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/ogac_beneficiary.dart';
 import 'package:kb_mobile_app/modules/ogac_intervention/components/ogac_beneficiary_card.dart';
+import 'package:kb_mobile_app/modules/ogac_intervention/constants/ogac_intervention_constant.dart';
 import 'package:kb_mobile_app/modules/ogac_intervention/pages/ogac_enrollment_form.dart';
 import 'package:provider/provider.dart';
 
@@ -54,7 +58,6 @@ class OgacInterventionHome extends StatelessWidget {
         Provider.of<EnrollmentFormState>(context, listen: false)
             .setFormFieldState(dataValue['dataElement'], dataValue['value']);
       }
-      //Provider.of<EnrollmentFormState>(context, listen: false).setFormFieldState(id, value);
     }
     Navigator.push(context, MaterialPageRoute(
       builder: (context) {
@@ -73,17 +76,43 @@ class OgacInterventionHome extends StatelessWidget {
   void onEditBeneficiary(
     BuildContext context,
     OgacBeneficiary ogacBeneficary,
-  ) {
-    onUpdateFormState(context, ogacBeneficary, true);
+  ) async {
+    String beneficiaryId = ogacBeneficary.id ?? "";
+    String formAutoSaveid =
+        "${OgacInterventionConstant.pageModule}_$beneficiaryId";
+    FormAutoSave formAutoSave =
+        await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveid);
+    bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
+        .shouldResumeWithUnSavedChanges(context, formAutoSave,
+            beneficiaryName: ogacBeneficary.toString());
+    if (shouldResumeWithUnSavedChanges) {
+      AppResumeRoute().redirectToPages(context, formAutoSave);
+    } else {
+      onUpdateFormState(context, ogacBeneficary, true);
+    }
   }
 
-  void onAddOgacBeneficiary(BuildContext context) {
-    Provider.of<EnrollmentFormState>(context, listen: false).resetFormState();
-    Navigator.push(context, MaterialPageRoute(
-      builder: (context) {
-        return OgacEnrollemntForm();
-      },
-    ));
+  void onAddOgacBeneficiary(BuildContext context) async {
+    String beneficiaryId = "";
+    String formAutoSaveid =
+        "${OgacInterventionConstant.pageModule}_$beneficiaryId";
+    FormAutoSave formAutoSave =
+        await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveid);
+    bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
+        .shouldResumeWithUnSavedChanges(context, formAutoSave);
+    if (shouldResumeWithUnSavedChanges) {
+      AppResumeRoute().redirectToPages(context, formAutoSave);
+    } else {
+      Provider.of<EnrollmentFormState>(context, listen: false).resetFormState();
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) {
+            return OgacEnrollemntForm();
+          },
+        ),
+      );
+    }
   }
 
   @override
@@ -105,57 +134,62 @@ class OgacInterventionHome extends StatelessWidget {
         child: Consumer<OgacInterventionListState>(
           builder: (context, ogacInterventionListState, child) {
             return CustomPaginatedListView(
-                childBuilder: (context, ogacBeneficary, child) =>
-                    OgacBeneficiaryCard(
-                      ogacBeneficary: ogacBeneficary,
-                      onEditBeneficiary: () =>
-                          onEditBeneficiary(context, ogacBeneficary),
-                      onViewBeneficiary: () =>
-                          onViewBeneficiary(context, ogacBeneficary),
+              childBuilder: (context, ogacBeneficary, child) =>
+                  OgacBeneficiaryCard(
+                ogacBeneficary: ogacBeneficary,
+                onEditBeneficiary: () =>
+                    onEditBeneficiary(context, ogacBeneficary),
+                onViewBeneficiary: () =>
+                    onViewBeneficiary(context, ogacBeneficary),
+              ),
+              pagingController: ogacInterventionListState.pagingController,
+              emptyListWidget: Center(
+                child: Column(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(
+                        top: 10.0,
+                      ),
+                      child: Text(
+                        'There is no OGAC beneficiaries enrolled at moment',
+                      ),
                     ),
-                pagingController: ogacInterventionListState.pagingController,
-                emptyListWidget: Center(
-                  child: Column(
-                    children: [
-                      Container(
-                        margin: EdgeInsets.only(top: 10.0),
-                        child: Text(
-                          'There is no OGAC beneficiaries enrolled at moment',
+                    Container(
+                      child: IconButton(
+                        icon: SvgPicture.asset(
+                          'assets/icons/add-beneficiary.svg',
+                          color: Colors.blueGrey,
                         ),
+                        onPressed: () => onAddOgacBeneficiary(context),
                       ),
-                      Container(
-                        child: IconButton(
-                          icon: SvgPicture.asset(
-                            'assets/icons/add-beneficiary.svg',
-                            color: Colors.blueGrey,
-                          ),
-                          onPressed: () => onAddOgacBeneficiary(context),
-                        ),
-                      )
-                    ],
-                  ),
+                    )
+                  ],
                 ),
-                errorWidget: Center(
-                  child: Column(
-                    children: [
-                      Container(
-                        margin: EdgeInsets.only(top: 10.0),
-                        child: Text(
-                          'There is no OGAC beneficiaries enrolled at moment',
-                        ),
+              ),
+              errorWidget: Center(
+                child: Column(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(
+                        top: 10.0,
                       ),
-                      Container(
-                        child: IconButton(
-                          icon: SvgPicture.asset(
-                            'assets/icons/add-beneficiary.svg',
-                            color: Colors.blueGrey,
-                          ),
-                          onPressed: () => onAddOgacBeneficiary(context),
+                      child: Text(
+                        'There is no OGAC beneficiaries enrolled at moment',
+                      ),
+                    ),
+                    Container(
+                      child: IconButton(
+                        icon: SvgPicture.asset(
+                          'assets/icons/add-beneficiary.svg',
+                          color: Colors.blueGrey,
                         ),
-                      )
-                    ],
-                  ),
-                ));
+                        onPressed: () => onAddOgacBeneficiary(context),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            );
           },
         ),
       ),
