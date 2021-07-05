@@ -27,21 +27,27 @@ class AppResumeRoute
 
   Future<bool> shouldResumeWithUnSavedChanges(
     BuildContext context,
-    FormAutoSave formAutoSave,
-  ) async {
+    FormAutoSave formAutoSave, {
+    String beneficiaryName = "",
+  }) async {
     bool diablePadding = false;
     bool shouldResumeFormState = false;
     if (formAutoSave.hasFormAutoSaveData()) {
       String pageModule = formAutoSave.pageModule;
-      Widget modal = getConfirmationWidget(pageModule, context);
-      dynamic hasConfirmResume =
-          await AppUtil.showPopUpModal(context, modal, diablePadding);
+      Widget modal = getConfirmationWidget(context, pageModule);
+      String title = beneficiaryName;
+      dynamic hasConfirmResume = await AppUtil.showPopUpModal(
+        context,
+        modal,
+        diablePadding,
+        title: title,
+      );
       shouldResumeFormState = "$hasConfirmResume" == "true";
     }
     return shouldResumeFormState;
   }
 
-  Widget getConfirmationWidget(String pageModule, BuildContext context) {
+  Widget getConfirmationWidget(BuildContext context, String pageModule) {
     return Container(
       padding: EdgeInsets.symmetric(
         horizontal: 10.0,
@@ -54,7 +60,10 @@ class AppResumeRoute
             ),
             child: Text(
               "You have unsaved data on $pageModule module, Do want to continue?",
-              style: TextStyle().copyWith(),
+              style: TextStyle().copyWith(
+                color: Color(0xFF82898D),
+                fontSize: 14.0,
+              ),
             ),
           ),
           Container(
@@ -76,7 +85,10 @@ class AppResumeRoute
                       child: Container(
                         child: Text(
                           "Continue",
-                          style: TextStyle().copyWith(),
+                          style: TextStyle().copyWith(
+                            color: Color(0xFF82898D),
+                            fontSize: 14.0,
+                          ),
                         ),
                       ),
                     ),
@@ -93,7 +105,10 @@ class AppResumeRoute
                       child: Container(
                         child: Text(
                           "Discard changes",
-                          style: TextStyle().copyWith(),
+                          style: TextStyle().copyWith(
+                            color: Color(0xFF82898D),
+                            fontSize: 14.0,
+                          ),
                         ),
                       ),
                     ),

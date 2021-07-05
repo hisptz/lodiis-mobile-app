@@ -19,13 +19,13 @@ class FormAutoSave {
     return data.isNotEmpty && data != "";
   }
 
-  Map toOffline() {
+  Map toOffline(FormAutoSave formAutoSave) {
     Map mapData = Map<String, dynamic>();
-    mapData['id'] = id;
-    mapData['beneficiaryId'] = beneficiaryId;
-    mapData['pageModule'] = pageModule;
-    mapData['nextPageModule'] = nextPageModule;
-    mapData['data'] = data;
+    mapData['id'] = formAutoSave.id;
+    mapData['beneficiaryId'] = formAutoSave.beneficiaryId;
+    mapData['pageModule'] = formAutoSave.pageModule;
+    mapData['nextPageModule'] = formAutoSave.nextPageModule;
+    mapData['data'] = formAutoSave.data;
     return mapData;
   }
 
