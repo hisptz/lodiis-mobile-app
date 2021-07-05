@@ -85,10 +85,7 @@ class AppResumeRoute
                       child: Container(
                         child: Text(
                           "Continue",
-                          style: TextStyle().copyWith(
-                            color: Color(0xFF82898D),
-                            fontSize: 14.0,
-                          ),
+                          style: TextStyle().copyWith(),
                         ),
                       ),
                     ),
@@ -105,10 +102,7 @@ class AppResumeRoute
                       child: Container(
                         child: Text(
                           "Discard changes",
-                          style: TextStyle().copyWith(
-                            color: Color(0xFF82898D),
-                            fontSize: 14.0,
-                          ),
+                          style: TextStyle().copyWith(),
                         ),
                       ),
                     ),
