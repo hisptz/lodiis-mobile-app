@@ -25,8 +25,22 @@ class FormAutoSaveOfflineProvider extends OfflineDbProvider {
     } catch (error) {}
   }
 
+  Future deleteSavedFormAutoFormData(
+    String formAutoSaveid,
+  ) async {
+    try {
+      var dbClient = await db;
+      dbClient.delete(
+        table,
+        where: '$id = ?',
+        whereArgs: [formAutoSaveid],
+      );
+    } catch (erroe) {}
+  }
+
   Future<FormAutoSave> getSavedFormAutoSaveFormDataById(
-      String formAutoSaveid) async {
+    String formAutoSaveid,
+  ) async {
     List<FormAutoSave> formAutoSaveList = [];
     try {
       var dbClient = await db;
