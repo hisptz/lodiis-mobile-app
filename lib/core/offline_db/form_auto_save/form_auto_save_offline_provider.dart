@@ -16,7 +16,7 @@ class FormAutoSaveOfflineProvider extends OfflineDbProvider {
   addOrUpdateFormAutoSaveFormData(FormAutoSave formAutoSave) async {
     try {
       var dbClient = await db;
-      Map data = FormAutoSave().toOffline();
+      Map data = FormAutoSave().toOffline(formAutoSave);
       await dbClient.insert(
         table,
         data,
