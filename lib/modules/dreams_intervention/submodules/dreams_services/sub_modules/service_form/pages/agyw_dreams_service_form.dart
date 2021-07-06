@@ -110,49 +110,65 @@ class _AgywDreamsServiceFormState extends State<AgywDreamsServiceForm> {
             AgywDreamsServiceFormSkipLogic.evaluateSkipLogicsBySession(
                 dataObject);
         if (shouldSaveForm) {
-          setState(() {
-            isSaving = true;
-          });
-          String eventDate = dataObject['eventDate'];
-          String eventId = dataObject['eventId'];
-          dataObject.remove('implementingPatner');
-          List<String> hiddenFields = [];
-          try {
-            await TrackedEntityInstanceUtil
-                .savingTrackedEntityInstanceEventData(
-                    ServiceFormConstant.program,
-                    ServiceFormConstant.programStage,
-                    agywDream.orgUnit,
-                    formSections,
-                    dataObject,
-                    eventDate,
-                    agywDream.id,
-                    eventId,
-                    hiddenFields);
-            Provider.of<ServiveEventDataState>(context, listen: false)
-                .resetServiceEventDataState(agywDream.id);
-            Timer(Duration(seconds: 1), () {
-              setState(() {
-                isSaving = false;
-              });
-              String currentLanguage =
-                  Provider.of<LanguageTranslationState>(context, listen: false)
-                      .currentLanguage;
-              AppUtil.showToastMessage(
-                message: currentLanguage == 'lesotho'
-                    ? 'Fomo e bolokeile'
-                    : 'Form has been saved successfully',
-                position: ToastGravity.TOP,
-              );
-              Navigator.pop(context);
+          bool sessionAlreadyExists = AgywDreamsServiceFormSkipLogic
+              .evaluateSkipLogicBySessionReoccurrence(dataObject);
+          if (sessionAlreadyExists) {
+            AppUtil.showToastMessage(
+                message:
+                    "Sessions ${dataObject[sessionNumberInputField]} for ${dataObject[typeOfIntervention]} already exists",
+                position: ToastGravity.TOP);
+          } else {
+            setState(() {
+              isSaving = true;
             });
-          } catch (e) {
-            Timer(Duration(seconds: 1), () {
-              setState(() {
+            String eventDate = dataObject['eventDate'];
+            String eventId = dataObject['eventId'];
+            dataObject.remove('implementingPatner');
+            List<String> hiddenFields = [];
+            List<String> skippedFields = [
+              'interventionSessions',
+              'eventSessions'
+            ];
+
+            try {
+              await TrackedEntityInstanceUtil
+                  .savingTrackedEntityInstanceEventData(
+                      ServiceFormConstant.program,
+                      ServiceFormConstant.programStage,
+                      agywDream.orgUnit,
+                      formSections,
+                      dataObject,
+                      eventDate,
+                      agywDream.id,
+                      eventId,
+                      hiddenFields,
+                      skippedFields: skippedFields);
+              Provider.of<ServiveEventDataState>(context, listen: false)
+                  .resetServiceEventDataState(agywDream.id);
+              Timer(Duration(seconds: 1), () {
+                setState(() {
+                  isSaving = false;
+                });
+                String currentLanguage = Provider.of<LanguageTranslationState>(
+                        context,
+                        listen: false)
+                    .currentLanguage;
                 AppUtil.showToastMessage(
-                    message: e.toString(), position: ToastGravity.BOTTOM);
+                  message: currentLanguage == 'lesotho'
+                      ? 'Fomo e bolokeile'
+                      : 'Form has been saved successfully',
+                  position: ToastGravity.TOP,
+                );
+                Navigator.pop(context);
               });
-            });
+            } catch (e) {
+              Timer(Duration(seconds: 1), () {
+                setState(() {
+                  AppUtil.showToastMessage(
+                      message: e.toString(), position: ToastGravity.BOTTOM);
+                });
+              });
+            }
           }
         } else {
           AppUtil.showToastMessage(

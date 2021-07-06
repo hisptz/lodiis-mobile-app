@@ -95,6 +95,21 @@ class AgywDreamsServiceFormSkipLogic {
     resetValuesForHiddenInputFieldOptions(context, formSections);
   }
 
+  static bool evaluateSkipLogicBySessionReoccurrence(Map dataObject) {
+    String interventionType = dataObject['Eug4BXDFLym'] ?? '';
+    Map sessionsPerInterventions = dataObject['interventionSessions'];
+    int currentSession = 0;
+    try {
+      currentSession = '${dataObject['vL6NpUA0rIU']}' != 'null'
+          ? int.parse(dataObject['vL6NpUA0rIU'])
+          : currentSession;
+    } catch (e) {}
+
+    List interventionSessions =
+        sessionsPerInterventions[interventionType] ?? [];
+    return currentSession != 0 && interventionSessions.contains(currentSession);
+  }
+
   static bool evaluateSkipLogicsBySession(Map dataObject) {
     String interventionType = dataObject['Eug4BXDFLym'] ?? '';
     int sessions = 0;
