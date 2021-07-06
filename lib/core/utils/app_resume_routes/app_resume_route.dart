@@ -72,20 +72,31 @@ class AppResumeRoute
               vertical: 10.0,
             ),
             child: Row(
-              mainAxisSize: MainAxisSize.min,
               children: [
                 Expanded(
                   child: Container(
-                    margin: EdgeInsets.symmetric(
-                      horizontal: 10.0,
+                    padding: EdgeInsets.only(
+                      right: 5.0,
                     ),
-                    child: MaterialButton(
-                      color: Colors.greenAccent,
+                    child: TextButton(
                       onPressed: () => Navigator.pop(context, true),
+                      style: TextButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          side: BorderSide(
+                            color: Color(0xFF7FBA7C),
+                          ),
+                          borderRadius: BorderRadius.circular(12.0),
+                        ),
+                        padding: EdgeInsets.symmetric(
+                          vertical: 15,
+                        ),
+                      ),
                       child: Container(
                         child: Text(
                           "Continue",
-                          style: TextStyle().copyWith(),
+                          style: TextStyle(
+                            color: Color(0xFF7FBA7C),
+                          ),
                         ),
                       ),
                     ),
@@ -93,21 +104,33 @@ class AppResumeRoute
                 ),
                 Expanded(
                   child: Container(
-                    margin: EdgeInsets.symmetric(
-                      horizontal: 10.0,
+                    padding: EdgeInsets.only(
+                      left: 5.0,
                     ),
-                    child: MaterialButton(
-                      color: Colors.redAccent,
+                    child: TextButton(
                       onPressed: () => Navigator.pop(context),
+                      style: TextButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          side: BorderSide(
+                            color: Colors.redAccent,
+                          ),
+                          borderRadius: BorderRadius.circular(12.0),
+                        ),
+                        padding: EdgeInsets.symmetric(
+                          vertical: 15,
+                        ),
+                      ),
                       child: Container(
                         child: Text(
                           "Discard changes",
-                          style: TextStyle().copyWith(),
+                          style: TextStyle(
+                            color: Colors.redAccent,
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
+                )
               ],
             ),
           ),
