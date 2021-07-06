@@ -6,7 +6,7 @@ import 'package:kb_mobile_app/core/utils/app_resume_routes/ovc_routes/ovc_enroll
 import 'package:kb_mobile_app/core/utils/app_resume_routes/ovc_routes/ovc_services_route.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/form_auto_save.dart';
-import 'package:kb_mobile_app/modules/ogac_intervention/constants/ogac_intervention_constant.dart';
+import 'package:kb_mobile_app/modules/ogac_intervention/constants/ogac_routes_constant.dart';
 
 class AppResumeRoute
     with
@@ -19,8 +19,7 @@ class AppResumeRoute
     BuildContext context,
     FormAutoSave formAutoSave,
   ) {
-    if (formAutoSave.nextPageModule ==
-        OgacInterventionConstant.nextPageModule) {
+    if (formAutoSave.nextPageModule == OgacRoutesConstant.nextPageModule) {
       redirectToOgacEnrollmemntForm(context, formAutoSave);
     }
   }

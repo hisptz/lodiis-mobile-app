@@ -9,7 +9,7 @@ import 'package:kb_mobile_app/core/utils/app_resume_routes/app_resume_route.dart
 import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/ogac_beneficiary.dart';
 import 'package:kb_mobile_app/modules/ogac_intervention/components/ogac_beneficiary_card.dart';
-import 'package:kb_mobile_app/modules/ogac_intervention/constants/ogac_intervention_constant.dart';
+import 'package:kb_mobile_app/modules/ogac_intervention/constants/ogac_routes_constant.dart';
 import 'package:kb_mobile_app/modules/ogac_intervention/pages/ogac_enrollment_form.dart';
 import 'package:provider/provider.dart';
 
@@ -78,8 +78,7 @@ class OgacInterventionHome extends StatelessWidget {
     OgacBeneficiary ogacBeneficary,
   ) async {
     String beneficiaryId = ogacBeneficary.id ?? "";
-    String formAutoSaveid =
-        "${OgacInterventionConstant.pageModule}_$beneficiaryId";
+    String formAutoSaveid = "${OgacRoutesConstant.pageModule}_$beneficiaryId";
     FormAutoSave formAutoSave =
         await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveid);
     bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
@@ -94,8 +93,7 @@ class OgacInterventionHome extends StatelessWidget {
 
   void onAddOgacBeneficiary(BuildContext context) async {
     String beneficiaryId = "";
-    String formAutoSaveid =
-        "${OgacInterventionConstant.pageModule}_$beneficiaryId";
+    String formAutoSaveid = "${OgacRoutesConstant.pageModule}_$beneficiaryId";
     FormAutoSave formAutoSave =
         await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveid);
     bool shouldResumeWithUnSavedChanges = await AppResumeRoute()

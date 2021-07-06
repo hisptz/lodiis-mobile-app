@@ -17,7 +17,7 @@ import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
-import 'package:kb_mobile_app/modules/ogac_intervention/constants/ogac_intervention_constant.dart';
+import 'package:kb_mobile_app/modules/ogac_intervention/constants/ogac_routes_constant.dart';
 import 'package:kb_mobile_app/modules/ogac_intervention/models/ogac_enrollment_form_section.dart';
 import 'package:kb_mobile_app/modules/ogac_intervention/services/ogac_enrollment_service.dart';
 import 'package:kb_mobile_app/modules/ogac_intervention/skip_logics/ogac_intervention_skip_logic.dart';
@@ -76,12 +76,12 @@ class _OgacEnrollemntFormState extends State<OgacEnrollemntForm> {
     Map dataObject =
         Provider.of<EnrollmentFormState>(context, listen: false).formState;
     String beneficiaryId = dataObject['trackedEntityInstance'] ?? "";
-    String id = "${OgacInterventionConstant.pageModule}_$beneficiaryId";
+    String id = "${OgacRoutesConstant.pageModule}_$beneficiaryId";
     FormAutoSave formAutoSave = FormAutoSave(
       id: id,
       beneficiaryId: beneficiaryId,
-      pageModule: OgacInterventionConstant.pageModule,
-      nextPageModule: OgacInterventionConstant.nextPageModule,
+      pageModule: OgacRoutesConstant.pageModule,
+      nextPageModule: OgacRoutesConstant.nextPageModule,
       data: jsonEncode(dataObject),
     );
     await FormAutoSaveOfflineService().saveFormAutoSaveData(formAutoSave);
@@ -91,8 +91,7 @@ class _OgacEnrollemntFormState extends State<OgacEnrollemntForm> {
     Map dataObject =
         Provider.of<EnrollmentFormState>(context, listen: false).formState;
     String beneficiaryId = dataObject['trackedEntityInstance'] ?? "";
-    String formAutoSaveid =
-        "${OgacInterventionConstant.pageModule}_$beneficiaryId";
+    String formAutoSaveid = "${OgacRoutesConstant.pageModule}_$beneficiaryId";
     await FormAutoSaveOfflineService().deleteSavedFormAutoData(formAutoSaveid);
   }
 

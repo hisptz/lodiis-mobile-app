@@ -13,10 +13,11 @@ import 'package:kb_mobile_app/core/utils/app_bar_util.dart';
 import 'package:kb_mobile_app/core/utils/app_resume_routes/app_resume_route.dart';
 import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
-import 'package:kb_mobile_app/modules/ogac_intervention/constants/ogac_intervention_constant.dart';
 import 'package:kb_mobile_app/modules/ogac_intervention/pages/ogac_enrollment_form.dart';
 import 'package:kb_mobile_app/modules/ogac_intervention/pages/ogac_intervention_home.dart';
 import 'package:provider/provider.dart';
+
+import 'constants/ogac_routes_constant.dart';
 
 class OgacIntervention extends StatefulWidget {
   OgacIntervention({Key key}) : super(key: key);
@@ -70,8 +71,7 @@ class _OgacInterventionState extends State<OgacIntervention> {
 
   void onAddOgacBeneficiary(BuildContext context) async {
     String beneficiaryId = "";
-    String formAutoSaveid =
-        "${OgacInterventionConstant.pageModule}_$beneficiaryId";
+    String formAutoSaveid = "${OgacRoutesConstant.pageModule}_$beneficiaryId";
     FormAutoSave formAutoSave =
         await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveid);
     bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
