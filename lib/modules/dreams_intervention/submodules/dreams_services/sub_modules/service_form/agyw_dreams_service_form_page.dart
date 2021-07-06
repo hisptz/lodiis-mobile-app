@@ -44,7 +44,7 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
       List<ServiceEvents> serviceEvents) {
     Map serviceEventSessions = getLastSessionNumbers(serviceEvents);
     Map<String, List<int>> interventionSessions =
-        getSessionsPerIntervention(serviceEvents);
+        getSessionsPerIntervention(serviceEvents, eventData);
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
     Provider.of<ServiceFormState>(context, listen: false)
         .updateFormEditabilityState(isEditableMode: isEditableMode);
@@ -86,9 +86,13 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
   }
 
   Map<String, List<int>> getSessionsPerIntervention(
-      List<ServiceEvents> serviceEvents) {
+      List<ServiceEvents> serviceEvents, Events currentEvent) {
     Map<String, List<int>> interventionSessions = Map();
-    for (ServiceEvents event in serviceEvents ?? []) {
+    String currentEventId =
+        currentEvent != null ? currentEvent.event ?? '' : '';
+    (serviceEvents ?? [])
+        .removeWhere((eventData) => eventData.event == currentEventId);
+    for (ServiceEvents event in (serviceEvents ?? [])) {
       if (interventionSessions[event.interventionType] != null) {
         interventionSessions[event.interventionType].add(event.sessionNumber);
         interventionSessions[event.interventionType].sort();
