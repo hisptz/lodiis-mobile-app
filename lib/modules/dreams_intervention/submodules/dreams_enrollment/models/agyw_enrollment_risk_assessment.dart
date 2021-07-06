@@ -145,7 +145,7 @@ class AgywEnrollmentRiskAssessment {
             labelColor: Color(0xFF737373),
             maxAgeInYear: 24,
             numberOfMonth: 11,
-            minAgeInYear: 9,
+            minAgeInYear: 10,
             hint: "Beneficiary's age should be from 9 - 24 years",
           ),
           InputField(
