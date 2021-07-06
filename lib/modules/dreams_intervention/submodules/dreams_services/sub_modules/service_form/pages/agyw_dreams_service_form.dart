@@ -89,10 +89,17 @@ class _AgywDreamsServiceFormState extends State<AgywDreamsServiceForm> {
           bool allowedNumberOfSessions =
               AgywDreamsServiceFormSkipLogic.evaluateSkipLogicsBySession(
                   dataObject);
+          bool sessionAlreadyExists = AgywDreamsServiceFormSkipLogic
+              .evaluateSkipLogicBySessionReoccurrence(dataObject);
           if (!allowedNumberOfSessions) {
             AppUtil.showToastMessage(
                 message:
                     "You have reached the maximum number of sessions for ${dataObject[typeOfIntervention]}",
+                position: ToastGravity.TOP);
+          } else if (sessionAlreadyExists) {
+            AppUtil.showToastMessage(
+                message:
+                    "Sessions ${dataObject[sessionNumberInputField]} for ${dataObject[typeOfIntervention]} already exists",
                 position: ToastGravity.TOP);
           }
         }

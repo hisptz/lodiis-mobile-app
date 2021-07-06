@@ -107,7 +107,9 @@ class AgywDreamsServiceFormSkipLogic {
 
     List interventionSessions =
         sessionsPerInterventions[interventionType] ?? [];
-    return currentSession != 0 && interventionSessions.contains(currentSession);
+    return interventionType != ''
+        ? currentSession != 0 && interventionSessions.contains(currentSession)
+        : false;
   }
 
   static bool evaluateSkipLogicsBySession(Map dataObject) {
