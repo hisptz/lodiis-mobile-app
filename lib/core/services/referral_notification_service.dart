@@ -164,6 +164,7 @@ class ReferralNotificationService {
     HttpService httpService,
   ) async {
     List<ReferralNotification> referralNofications = [];
+    // TODO Check why notification are not synced
     try {
       for (String nameSpaceKey in keysForReferralNotification) {
         Response response = await httpService.httpGet(

@@ -42,7 +42,9 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
       Events eventData,
       AgywDream agywDream,
       List<ServiceEvents> serviceEvents) {
-    Map serviceEventSessions = getSessionNumbers(serviceEvents);
+    Map serviceEventSessions = getLastSessionNumbers(serviceEvents);
+    Map<String, List<int>> interventionSessions =
+        getSessionsPerIntervention(serviceEvents, eventData);
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
     Provider.of<ServiceFormState>(context, listen: false)
         .updateFormEditabilityState(isEditableMode: isEditableMode);
@@ -50,6 +52,8 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
         .setFormFieldState('age', agywDream.age);
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState('eventSessions', serviceEventSessions);
+    Provider.of<ServiceFormState>(context, listen: false)
+        .setFormFieldState('interventionSessions', interventionSessions);
     if (eventData != null) {
       Provider.of<ServiceFormState>(context, listen: false)
           .setFormFieldState('eventDate', eventData.eventDate);
@@ -64,7 +68,7 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
     }
   }
 
-  Map getSessionNumbers(List<ServiceEvents> serviceEvents) {
+  Map getLastSessionNumbers(List<ServiceEvents> serviceEvents) {
     Map eventsWithLastSessionNumber = Map();
     for (ServiceEvents event in serviceEvents ?? []) {
       if (eventsWithLastSessionNumber[event.interventionType] != null) {
@@ -79,6 +83,24 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
       }
     }
     return eventsWithLastSessionNumber;
+  }
+
+  Map<String, List<int>> getSessionsPerIntervention(
+      List<ServiceEvents> serviceEvents, Events currentEvent) {
+    Map<String, List<int>> interventionSessions = Map();
+    String currentEventId =
+        currentEvent != null ? currentEvent.event ?? '' : '';
+    (serviceEvents ?? [])
+        .removeWhere((eventData) => eventData.event == currentEventId);
+    for (ServiceEvents event in (serviceEvents ?? [])) {
+      if (interventionSessions[event.interventionType] != null) {
+        interventionSessions[event.interventionType].add(event.sessionNumber);
+        interventionSessions[event.interventionType].sort();
+      } else {
+        interventionSessions[event.interventionType] = [event.sessionNumber];
+      }
+    }
+    return interventionSessions;
   }
 
   void onAddService(BuildContext context, AgywDream agywDream,
@@ -146,7 +168,7 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
                         .map((Events event) =>
                             ServiceEvents().getServiceSessions(event))
                         .toList();
-                    int referralIndex = events.length + 1;
+                    int serviceIndex = events.length + 1;
                     return Container(
                       child: Column(
                         children: [
@@ -175,7 +197,7 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
                                                 child: Column(
                                                   children: events
                                                       .map((Events eventData) {
-                                                    referralIndex--;
+                                                    serviceIndex--;
 
                                                     return Container(
                                                       margin: EdgeInsets.only(
@@ -197,7 +219,7 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
                                                                 agywDream),
                                                         eventData: eventData,
                                                         visitCount:
-                                                            referralIndex,
+                                                            serviceIndex,
                                                       ),
                                                     );
                                                   }).toList(),
