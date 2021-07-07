@@ -45,8 +45,7 @@ class _AgywDreamsHTSShortFormState extends State<AgywDreamsHTSShortForm> {
     super.initState();
     formSections = AgywDreamsShortForm.getFormSections();
     mandatoryFieldObject = Map();
-    mandatoryFields
-        .forEach((field) => mandatoryFieldObject[field] = true);
+    mandatoryFields.forEach((field) => mandatoryFieldObject[field] = true);
     Timer(Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
@@ -61,12 +60,13 @@ class _AgywDreamsHTSShortFormState extends State<AgywDreamsHTSShortForm> {
     evaluateSkipLogics();
   }
 
-  void onSaveForm(BuildContext context, Map dataObject, AgywDream agywDream) async {
+  void onSaveForm(
+      BuildContext context, Map dataObject, AgywDream agywDream) async {
     String eventDate = dataObject['eventDate'];
     String eventId = dataObject['eventId'];
     bool hadAllMandatoryFilled =
-    AppUtil.hasAllMandarotyFieldsFilled(mandatoryFields, dataObject);
-    if(hadAllMandatoryFilled){
+        AppUtil.hasAllMandarotyFieldsFilled(mandatoryFields, dataObject);
+    if (hadAllMandatoryFilled) {
       setState(() {
         isSaving = true;
       });
@@ -102,15 +102,15 @@ class _AgywDreamsHTSShortFormState extends State<AgywDreamsHTSShortForm> {
           Navigator.popUntil(context, (route) => route.isFirst);
         });
       });
-    }else{
+    } else {
       setState(() {
-        unFilledMandatoryFields = AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+        unFilledMandatoryFields =
+            AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
       });
       AppUtil.showToastMessage(
           message: 'Please fill all mandatory field',
           position: ToastGravity.TOP);
     }
-
   }
 
   evaluateSkipLogics() {
@@ -146,76 +146,85 @@ class _AgywDreamsHTSShortFormState extends State<AgywDreamsHTSShortForm> {
       ),
       body: SubPageBody(
         body: Container(
-          child: Consumer<DreamBenefeciarySelectionState>(
-            builder: (context, dreamBenefeciarySelectionState, child) {
-              return Consumer<ServiceFormState>(
-                builder: (context, serviceFormState, child) {
-                  AgywDream agywDream =
-                      dreamBenefeciarySelectionState.currentAgywDream;
-                  return Container(
-                    child: Column(
-                      children: [
-                        DreamBenefeciaryTopHeader(
-                          agywDream: agywDream,
-                        ),
-                        Container(
-                          child: !isFormReady
-                              ? Container(
-                                  child: CircularProcessLoader(
-                                    color: Colors.blueGrey,
-                                  ),
-                                )
-                              : Container(
-                                  child: Column(
-                                    children: [
-                                      Container(
-                                        margin: EdgeInsets.only(
-                                          top: 10.0,
-                                          left: 13.0,
-                                          right: 13.0,
-                                        ),
-                                        child: EntryFormContainer(
-                                          formSections: formSections,
-                                          mandatoryFieldObject:
-                                              mandatoryFieldObject,
-                                          hiddenFields:
-                                              serviceFormState.hiddenFields,
-                                          hiddenSections:
-                                              serviceFormState.hiddenSections,
-                                          hiddenInputFieldOptions:
-                                              serviceFormState
-                                                  .hiddenInputFieldOptions,
-                                          isEditableMode:
-                                              serviceFormState.isEditableMode,
-                                          dataObject:
-                                              serviceFormState.formState,
-                                          onInputValueChange:
-                                              onInputValueChange, unFilledMandatoryFields:
-                                        unFilledMandatoryFields,
-                                        ),
+          child: Consumer<LanguageTranslationState>(
+            builder: (context, languageTranslationState, child) {
+              String currentLanguage = languageTranslationState.currentLanguage;
+              return Consumer<DreamBenefeciarySelectionState>(
+                builder: (context, dreamBenefeciarySelectionState, child) {
+                  return Consumer<ServiceFormState>(
+                    builder: (context, serviceFormState, child) {
+                      AgywDream agywDream =
+                          dreamBenefeciarySelectionState.currentAgywDream;
+                      return Container(
+                        child: Column(
+                          children: [
+                            DreamBenefeciaryTopHeader(
+                              agywDream: agywDream,
+                            ),
+                            Container(
+                              child: !isFormReady
+                                  ? Container(
+                                      child: CircularProcessLoader(
+                                        color: Colors.blueGrey,
                                       ),
-                                      Visibility(
-                                        visible:
-                                            serviceFormState.isEditableMode,
-                                        child: EntryFormSaveButton(
-                                          label:
-                                              isSaving ? 'Saving ...' : 'Save',
-                                          labelColor: Colors.white,
-                                          buttonColor: Color(0xFF258DCC),
-                                          fontSize: 15.0,
-                                          onPressButton: () => onSaveForm(
-                                            context,
-                                            serviceFormState.formState,
-                                            agywDream,
+                                    )
+                                  : Container(
+                                      child: Column(
+                                        children: [
+                                          Container(
+                                            margin: EdgeInsets.only(
+                                              top: 10.0,
+                                              left: 13.0,
+                                              right: 13.0,
+                                            ),
+                                            child: EntryFormContainer(
+                                              formSections: formSections,
+                                              mandatoryFieldObject:
+                                                  mandatoryFieldObject,
+                                              hiddenFields:
+                                                  serviceFormState.hiddenFields,
+                                              hiddenSections: serviceFormState
+                                                  .hiddenSections,
+                                              hiddenInputFieldOptions:
+                                                  serviceFormState
+                                                      .hiddenInputFieldOptions,
+                                              isEditableMode: serviceFormState
+                                                  .isEditableMode,
+                                              dataObject:
+                                                  serviceFormState.formState,
+                                              onInputValueChange:
+                                                  onInputValueChange,
+                                              unFilledMandatoryFields:
+                                                  unFilledMandatoryFields,
+                                            ),
                                           ),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                        )
-                      ],
-                    ),
+                                          Visibility(
+                                            visible:
+                                                serviceFormState.isEditableMode,
+                                            child: EntryFormSaveButton(
+                                              label: isSaving
+                                                  ? 'Saving ...'
+                                                  : currentLanguage != 'lesotho'
+                                                      ? 'Save'
+                                                      : 'Boloka',
+                                              labelColor: Colors.white,
+                                              buttonColor: Color(0xFF258DCC),
+                                              fontSize: 15.0,
+                                              onPressButton: () => onSaveForm(
+                                                context,
+                                                serviceFormState.formState,
+                                                agywDream,
+                                              ),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                            )
+                          ],
+                        ),
+                      );
+                    },
                   );
                 },
               );
