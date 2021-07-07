@@ -61,6 +61,7 @@ class OvcEnrollmentNoneParticipation {
               labelColor: Color(0xFF737373),
               minAgeInYear: 18,
               hint: "Beneficiary's age should be from 18 years and above",
+              translatedHint: "Lilemo tsa setho li be 18+",
             ),
             InputField(
               id: 'mZs1YsN56cR',

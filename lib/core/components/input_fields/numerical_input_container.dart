@@ -42,11 +42,18 @@ class _NumericalInputFieldContainerState
 
   void onValueChange(String value) {
     // @TODO handling error messages
+    String sanitizedValue = value;
+    if (!sanitizedValue.contains('.')) {
+      sanitizedValue = '${int.parse(sanitizedValue)}';
+    } else {
+      sanitizedValue = '${double.parse(sanitizedValue)}';
+    }
+
     setState(() {
-      _value = value;
+      _value = sanitizedValue;
     });
 
-    widget.onInputValueChange(value.trim());
+    widget.onInputValueChange(sanitizedValue.trim());
   }
 
   @override
