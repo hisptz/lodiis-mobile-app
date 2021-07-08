@@ -31,6 +31,20 @@ class AppLogsService {
             .toList();
   }
 
+  Future<List<Map>> getAllAppLogs() async {
+    List<Map> appLogsList = [];
+    try {
+      List<AppLogs> appLogs = await AppLogsOfflineProvider().getLogs();
+      List<Map> refactoredAppLogs = appLogs.map((log) {
+        return AppLogs().toOffline(log);
+      }).toList();
+      appLogsList.addAll(refactoredAppLogs);
+    } catch (e) {
+      print('Error: $e');
+    }
+    return appLogsList;
+  }
+
   String getFormattedMessage(String message) {
     String formattedMessage = '';
     try {

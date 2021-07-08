@@ -11,6 +11,10 @@ class AppLogsOfflineProvider extends OfflineDbProvider {
   final String message = 'message';
   final String date = 'date';
 
+  List<String> getTableColumns() {
+    return [id, date, type, message];
+  }
+
   Future<void> addLogs(AppLogs logData) async {
     var dbClient = await db;
     Map data = AppLogs().toOffline(logData);
