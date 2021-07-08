@@ -31,8 +31,6 @@ class _ServiceGapFollowUpContainerState
     extends State<ServiceGapFollowUpContainer> {
   String casePlanGapToFollowinUpLinkageValue;
 
-  // todo using stage management to tget update list
-
   @override
   void initState() {
     super.initState();

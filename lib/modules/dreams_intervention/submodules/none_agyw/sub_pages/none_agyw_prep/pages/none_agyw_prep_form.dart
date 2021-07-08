@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dream_current_selection_state.dart';
@@ -11,12 +12,15 @@ import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
+import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
+import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/constants/dreams_routes_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/dreams_prep_followup_visit.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/constant/non_agyw_prep_visit_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/skip_logics/none_agyw_prep_skip_logic.dart';
@@ -71,10 +75,46 @@ class _NoneAgywPrepFormState extends State<NoneAgywPrepForm> {
     );
   }
 
-  void onInputValueChange(String id, dynamic value) {
+  void onUpdateFormAutoSaveState(
+    BuildContext context,
+    String beneficiaryId, {
+    bool isSaveForm = false,
+  }) async {
+    Map dataObject =
+        Provider.of<ServiceFormState>(context, listen: false).formState;
+    String eventId = dataObject['eventId'] ?? "";
+    String id =
+        "${DreamsRoutesConstant.noneAgywPrepFormPage}_${beneficiaryId}_$eventId";
+    FormAutoSave formAutoSave = FormAutoSave(
+      id: id,
+      beneficiaryId: beneficiaryId,
+      pageModule: DreamsRoutesConstant.noneAgywPrepFormPage,
+      nextPageModule: isSaveForm
+          ? DreamsRoutesConstant.noneAgywPrepFormNextPage
+          : DreamsRoutesConstant.noneAgywPrepFormPage,
+      data: jsonEncode(dataObject),
+    );
+    await FormAutoSaveOfflineService().saveFormAutoSaveData(formAutoSave);
+  }
+
+  void clearFormAutoSaveState(
+    BuildContext context,
+    String beneficiaryId,
+  ) async {
+    Map dataObject =
+        Provider.of<ServiceFormState>(context, listen: false).formState;
+    String eventId = dataObject['eventId'] ?? "";
+    String formAutoSaveid =
+        "${DreamsRoutesConstant.noneAgywPrepFormPage}_${beneficiaryId}_$eventId";
+    await FormAutoSaveOfflineService().deleteSavedFormAutoData(formAutoSaveid);
+  }
+
+  void onInputValueChange(String id, dynamic value, String beneficiaryId) {
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState(id, value);
     evaluateSkipLogics();
+    print("id->$id value->$value beneficiaryId->$beneficiaryId ");
+    onUpdateFormAutoSaveState(context, beneficiaryId);
   }
 
   void onSaveForm(BuildContext context, Map dataObject, AgywDream agywDream,
@@ -103,6 +143,7 @@ class _NoneAgywPrepFormState extends State<NoneAgywPrepForm> {
             hiddenFields);
         Provider.of<ServiveEventDataState>(context, listen: false)
             .resetServiceEventDataState(agywDream.id);
+        clearFormAutoSaveState(context, agywDream.id);
         Timer(Duration(seconds: 1), () {
           setState(() {
             isSaving = false;
@@ -128,7 +169,9 @@ class _NoneAgywPrepFormState extends State<NoneAgywPrepForm> {
       }
     } else {
       setState(() {
-        unFilledMandatoryFields = AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject , hiddenFields: hiddenFields);
+        unFilledMandatoryFields = AppUtil.getUnFilledMandatoryFields(
+            mandatoryFields, dataObject,
+            hiddenFields: hiddenFields);
       });
       AppUtil.showToastMessage(
           message: 'Please fill all mandatory field',
@@ -195,9 +238,12 @@ class _NoneAgywPrepFormState extends State<NoneAgywPrepForm> {
                                                 serviceFormState.isEditableMode,
                                             dataObject:
                                                 serviceFormState.formState,
-                                            onInputValueChange:
-                                                onInputValueChange,
-                                            unFilledMandatoryFields: unFilledMandatoryFields,
+                                            onInputValueChange: (String id,
+                                                    dynamic value) =>
+                                                onInputValueChange(
+                                                    id, value, agywDream.id),
+                                            unFilledMandatoryFields:
+                                                unFilledMandatoryFields,
                                           ),
                                         ),
                                         Visibility(
