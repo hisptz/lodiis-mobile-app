@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/core/utils/app_resume_routes/dreams_routes/dreams_enrollment_route.dart';
 import 'package:kb_mobile_app/core/utils/app_resume_routes/dreams_routes/dreams_services_route.dart';
+import 'package:kb_mobile_app/core/utils/app_resume_routes/helpers/app_resume_route_util.dart';
 import 'package:kb_mobile_app/core/utils/app_resume_routes/ogac_routes/ogac_enrollment_route.dart';
 import 'package:kb_mobile_app/core/utils/app_resume_routes/ovc_routes/ovc_enrollment_route.dart';
 import 'package:kb_mobile_app/core/utils/app_resume_routes/ovc_routes/ovc_services_route.dart';
@@ -19,8 +20,12 @@ class AppResumeRoute
     BuildContext context,
     FormAutoSave formAutoSave,
   ) {
+    //@TODO add routes for none agyw beneficiciaries
     if (formAutoSave.nextPageModule == OgacRoutesConstant.nextPageModule) {
       redirectToOgacEnrollmemntForm(context, formAutoSave);
+    } else {
+      print("$formAutoSave \n");
+      print("Not page to redirect ${formAutoSave.nextPageModule}\n\n");
     }
   }
 
@@ -33,7 +38,8 @@ class AppResumeRoute
     bool shouldResumeFormState = false;
     if (formAutoSave.hasFormAutoSaveData()) {
       String pageModule = formAutoSave.pageModule;
-      Widget modal = getConfirmationWidget(context, pageModule);
+      Widget modal =
+          AppResumeRouteUtil.getConfirmationWidget(context, pageModule);
       String title = beneficiaryName;
       dynamic hasConfirmResume = await AppUtil.showPopUpModal(
         context,
@@ -44,97 +50,5 @@ class AppResumeRoute
       shouldResumeFormState = "$hasConfirmResume" == "true";
     }
     return shouldResumeFormState;
-  }
-
-  Widget getConfirmationWidget(BuildContext context, String pageModule) {
-    return Container(
-      padding: EdgeInsets.symmetric(
-        horizontal: 10.0,
-      ),
-      child: Column(
-        children: [
-          Container(
-            margin: EdgeInsets.symmetric(
-              vertical: 10.0,
-            ),
-            child: Text(
-              "You have unsaved data on $pageModule module, Do want to continue?",
-              style: TextStyle().copyWith(
-                color: Color(0xFF82898D),
-                fontSize: 14.0,
-              ),
-            ),
-          ),
-          Container(
-            alignment: Alignment.center,
-            margin: EdgeInsets.symmetric(
-              vertical: 10.0,
-            ),
-            child: Row(
-              children: [
-                Expanded(
-                  child: Container(
-                    padding: EdgeInsets.only(
-                      right: 5.0,
-                    ),
-                    child: TextButton(
-                      onPressed: () => Navigator.pop(context, true),
-                      style: TextButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          side: BorderSide(
-                            color: Color(0xFF7FBA7C),
-                          ),
-                          borderRadius: BorderRadius.circular(12.0),
-                        ),
-                        padding: EdgeInsets.symmetric(
-                          vertical: 15,
-                        ),
-                      ),
-                      child: Container(
-                        child: Text(
-                          "Continue",
-                          style: TextStyle(
-                            color: Color(0xFF7FBA7C),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: Container(
-                    padding: EdgeInsets.only(
-                      left: 5.0,
-                    ),
-                    child: TextButton(
-                      onPressed: () => Navigator.pop(context),
-                      style: TextButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          side: BorderSide(
-                            color: Colors.redAccent,
-                          ),
-                          borderRadius: BorderRadius.circular(12.0),
-                        ),
-                        padding: EdgeInsets.symmetric(
-                          vertical: 15,
-                        ),
-                      ),
-                      child: Container(
-                        child: Text(
-                          "Discard changes",
-                          style: TextStyle(
-                            color: Colors.redAccent,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                )
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
   }
 }
