@@ -29,7 +29,7 @@ class AgywDreamsPrepFormPageBody extends StatefulWidget {
 
 class _AgywDreamsPrepFormPageBodyState
     extends State<AgywDreamsPrepFormPageBody> {
-  final String label = 'AGYW Prep Intake Form';
+  final String label = 'AGYW PrEP Intake Form';
   List<FormSection> formSections;
   bool isFormReady = false;
   bool isSaving = false;

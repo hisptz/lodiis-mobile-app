@@ -30,7 +30,7 @@ class AgywDreamsPrep extends StatefulWidget {
 }
 
 class _AgywDreamsPrepState extends State<AgywDreamsPrep> {
-  final String label = 'AGYW Prep';
+  final String label = 'AGYW PrEP';
   List<String> programStageids = [PrepIntakeConstant.programStage];
   List<String> visitProgramStageIds = [
     PrepIntakeConstant.prepVisitProgramStage
@@ -265,7 +265,7 @@ class _AgywDreamsPrepState extends State<AgywDreamsPrep> {
                                                             horizontal: 13.0,
                                                           ),
                                                           child: Text(
-                                                            'There is no Prep Visit at a moment',
+                                                            'There is no PrEP Visit at a moment',
                                                           ),
                                                         )
                                                       : Container(
@@ -289,7 +289,7 @@ class _AgywDreamsPrepState extends State<AgywDreamsPrep> {
                                                                 child:
                                                                     DreamsServiceVisitListCard(
                                                                   visitName:
-                                                                      "Prep Visit",
+                                                                      "PrEP Visit",
                                                                   onEdit: () =>
                                                                       onEditVisit(
                                                                           context,
@@ -329,7 +329,7 @@ class _AgywDreamsPrepState extends State<AgywDreamsPrep> {
                                                                 agywDream),
                                                       )
                                                     : Text(
-                                                        'Prep program was stopped')
+                                                        'PrEP program was stopped')
                                               ]
                                             : [],
                                       ),

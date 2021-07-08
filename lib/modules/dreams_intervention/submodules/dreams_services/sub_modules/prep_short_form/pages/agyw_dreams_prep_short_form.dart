@@ -32,7 +32,7 @@ class AgywDreamsPrepShortForm extends StatefulWidget {
 }
 
 class _AgywDreamsPrepShortFormState extends State<AgywDreamsPrepShortForm> {
-  final String label = 'AGYW Prep Form';
+  final String label = 'AGYW PrEP Form';
   List<FormSection> formSections;
   List<String> mandatoryFields;
   Map mandatoryFieldObject = Map();
