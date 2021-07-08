@@ -1,5 +1,7 @@
 class DreamsRoutesConstant {
   // routes constants for none agyw
+  static final String noneAgywEnrollmentPage = "None Agyw Enrollment Form";
+  static final String noneAgywEnrollmentNextPage = "None Agyw Enrollment Form";
   static final String noneAgywHtsConsentPage = "HTS Consent";
   static final String noneAgywHtsConsentNextPage = "Client Bio";
   static final String noneAgywHtsClientInfoPage = "Client Bio";
