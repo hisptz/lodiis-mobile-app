@@ -17,4 +17,6 @@ class DreamsRoutesConstant {
   static final String noneAgywPrepFormNextPage = "PREP VISIT";
 
   // routes contants for agyw beneficiaries
+  static final String agywEnrollmentPage = "Agyw Enrollment Form";
+  static final String agywEnrollmentNextPage = "Agyw Enrollment Form";
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/core/utils/app_resume_routes/utils/app_resume_route_util.dart';
 import 'package:kb_mobile_app/models/form_auto_save.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/pages/agyw_dreams_enrollment_edit_form.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/pages/non_agyw_dreams_hts_client_information.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/pages/non_agyw_dreams_hts_consent_form.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/pages/non_agyw_dreams_hts_register.dart';
@@ -88,5 +89,15 @@ class DreamsEnrollmentRoute {
   }
 
   //@TODO redirect for agyw/dreams beneficiaries
+  redirectToAgywEnrollment(BuildContext context, FormAutoSave formAutoSave) {
+    AppResumeRouteUtil.setEnrollmentFormState(context, formAutoSave);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => AgywDreamsEnrollmentEditForm(),
+      ),
+    );
+  }
+
   redirectToAgyw(BuildContext context, FormAutoSave formAutoSave) {}
 }

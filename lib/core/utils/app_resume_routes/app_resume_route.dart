@@ -42,7 +42,7 @@ class AppResumeRoute
       redirectToNoneAgywPrepVisit(context, formAutoSave);
     } else if (formAutoSave.nextPageModule ==
         DreamsRoutesConstant.noneAgywEnrollmentNextPage) {
-      redirectToOgacEnrollmemntForm(context, formAutoSave);
+      redirectToNoneAgywEnrollment(context, formAutoSave);
     } else {
       print("$formAutoSave \n");
       print("Not page to redirect ${formAutoSave.nextPageModule}\n\n");
