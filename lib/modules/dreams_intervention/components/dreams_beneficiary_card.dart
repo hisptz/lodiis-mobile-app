@@ -50,8 +50,12 @@ class DreamsBeneficiaryCard extends StatelessWidget {
         : "${DreamsRoutesConstant.noneAgywEnrollmentPage}_$beneficiaryId";
     FormAutoSave formAutoSave =
         await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveid);
-    bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
-        .shouldResumeWithUnSavedChanges(context, formAutoSave);
+    bool shouldResumeWithUnSavedChanges =
+        await AppResumeRoute().shouldResumeWithUnSavedChanges(
+      context,
+      formAutoSave,
+      beneficiaryName: agywDream.toString(),
+    );
     if (shouldResumeWithUnSavedChanges) {
       AppResumeRoute().redirectToPages(context, formAutoSave);
     } else {
