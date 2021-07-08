@@ -113,7 +113,6 @@ class _NoneAgywPrepFormState extends State<NoneAgywPrepForm> {
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState(id, value);
     evaluateSkipLogics();
-    print("id->$id value->$value beneficiaryId->$beneficiaryId ");
     onUpdateFormAutoSaveState(context, beneficiaryId);
   }
 

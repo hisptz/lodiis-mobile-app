@@ -45,7 +45,7 @@ class _NoneAgywEnrollmentEditFormState
   List<FormSection> htsClientInformationFormSections;
   List<FormSection> htsRegisterFormSections;
 
-  final String label = 'NonAgyw Enrolment Form';
+  final String label = 'None Agyw Enrollment Form';
   final Map mandatoryFieldObject = Map();
   final List<String> mandatoryFields =
       NonAgywHTSClientInformation.getMandatoryField() +
@@ -118,15 +118,15 @@ class _NoneAgywEnrollmentEditFormState
   }) async {
     Map dataObject =
         Provider.of<EnrollmentFormState>(context, listen: false).formState;
-    String beneficiaryId = "";
-    String id = "${DreamsRoutesConstant.noneAgywHtsConsentPage}_$beneficiaryId";
+    String beneficiaryId = dataObject['trackedEntityInstance'] ?? "";
+    String id = "${DreamsRoutesConstant.noneAgywEnrollmentPage}_$beneficiaryId";
     FormAutoSave formAutoSave = FormAutoSave(
       id: id,
       beneficiaryId: beneficiaryId,
-      pageModule: DreamsRoutesConstant.noneAgywHtsRegisterPage,
+      pageModule: DreamsRoutesConstant.noneAgywEnrollmentPage,
       nextPageModule: isSaveForm
-          ? DreamsRoutesConstant.noneAgywHtsRegisterNextPage
-          : DreamsRoutesConstant.noneAgywHtsRegisterPage,
+          ? DreamsRoutesConstant.noneAgywEnrollmentNextPage
+          : DreamsRoutesConstant.noneAgywEnrollmentPage,
       data: jsonEncode(dataObject),
     );
     await FormAutoSaveOfflineService().saveFormAutoSaveData(formAutoSave);
@@ -137,7 +137,7 @@ class _NoneAgywEnrollmentEditFormState
         Provider.of<EnrollmentFormState>(context, listen: false).formState;
     String beneficiaryId = dataObject['trackedEntityInstance'] ?? "";
     String formAutoSaveid =
-        "${DreamsRoutesConstant.noneAgywHtsConsentPage}_$beneficiaryId";
+        "${DreamsRoutesConstant.noneAgywEnrollmentPage}_$beneficiaryId";
     await FormAutoSaveOfflineService().deleteSavedFormAutoData(formAutoSaveid);
   }
 

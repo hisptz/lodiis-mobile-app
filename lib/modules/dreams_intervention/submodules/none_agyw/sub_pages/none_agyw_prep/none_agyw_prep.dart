@@ -30,7 +30,7 @@ class NoneAgywPrep extends StatefulWidget {
 }
 
 class _NoneAgywPrepState extends State<NoneAgywPrep> {
-  final String label = 'Prep';
+  final String label = 'PrEP';
   List<String> programStageids = [NonAgywPrepVisitConstant.programStage];
 
   @override
@@ -70,25 +70,28 @@ class _NoneAgywPrepState extends State<NoneAgywPrep> {
     String eventId = "";
     String beneficiaryId = agywDream.id;
     String formAutoSaveid =
-        "${DreamsRoutesConstant.noneAgywHtsConsentPage}_${beneficiaryId}_$eventId";
+        "${DreamsRoutesConstant.noneAgywPrepFormPage}_${beneficiaryId}_$eventId";
     FormAutoSave formAutoSave =
         await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveid);
-    bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
-        .shouldResumeWithUnSavedChanges(context, formAutoSave);
+    bool shouldResumeWithUnSavedChanges =
+        await AppResumeRoute().shouldResumeWithUnSavedChanges(
+      context,
+      formAutoSave,
+      beneficiaryName: agywDream.toString(),
+    );
     if (shouldResumeWithUnSavedChanges) {
       AppResumeRoute().redirectToPages(context, formAutoSave);
     } else {
-      print("Not continue");
+      updateFormState(context, true, null);
+      Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
+          .setCurrentAgywDream(agywDream);
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => NoneAgywPrepForm(),
+        ),
+      );
     }
-    updateFormState(context, true, null);
-    Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
-        .setCurrentAgywDream(agywDream);
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => NoneAgywPrepForm(),
-      ),
-    );
   }
 
   void onViewPrep(BuildContext context, Events eventdata) {
@@ -102,14 +105,19 @@ class _NoneAgywPrepState extends State<NoneAgywPrep> {
   }
 
   void onEditPrep(
-      BuildContext context, Events eventdata, String beneficiaryId) async {
-    String eventId = "";
+      BuildContext context, Events eventdata, AgywDream agywDream) async {
+    String beneficiaryId = agywDream.id;
+    String eventId = eventdata.event ?? "";
     String formAutoSaveid =
-        "${DreamsRoutesConstant.noneAgywHtsConsentPage}_${beneficiaryId}_$eventId";
+        "${DreamsRoutesConstant.noneAgywPrepFormPage}_${beneficiaryId}_$eventId";
     FormAutoSave formAutoSave =
         await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveid);
-    bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
-        .shouldResumeWithUnSavedChanges(context, formAutoSave);
+    bool shouldResumeWithUnSavedChanges =
+        await AppResumeRoute().shouldResumeWithUnSavedChanges(
+      context,
+      formAutoSave,
+      beneficiaryName: agywDream.toString(),
+    );
     if (shouldResumeWithUnSavedChanges) {
       AppResumeRoute().redirectToPages(context, formAutoSave);
     } else {
@@ -194,7 +202,7 @@ class _NoneAgywPrepState extends State<NoneAgywPrep> {
                                                       onEdit: () => onEditPrep(
                                                         context,
                                                         eventData,
-                                                        agywDream.id,
+                                                        agywDream,
                                                       ),
                                                       onView: () => onViewPrep(
                                                         context,
