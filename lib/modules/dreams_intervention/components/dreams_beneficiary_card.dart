@@ -39,17 +39,20 @@ class DreamsBeneficiaryCard extends StatelessWidget {
   final VoidCallback onCardToogle;
   final String svgIcon = 'assets/icons/dreams-header-icon.svg';
 
+  //@TODO handling logics for resume on  edit beneficiary card
   void onEdit(BuildContext context) {
     updateEnrollmentFormStateData(context, true);
     Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => isAgywEnrollment
-              ? AgywDreamsEnrollmentEditForm()
-              : NoneAgywEnrollmentEditForm(),
-        ));
+      context,
+      MaterialPageRoute(
+        builder: (context) => isAgywEnrollment
+            ? AgywDreamsEnrollmentEditForm()
+            : NoneAgywEnrollmentEditForm(),
+      ),
+    );
   }
 
+  //@TODO checking this has it has special on both dreams and none-agyw
   void updateEnrollmentFormStateData(BuildContext context, bool edit) {
     TrackeEntityInstance teiData = agywDream.trackeEntityInstanceData;
     Provider.of<EnrollmentFormState>(context, listen: false).resetFormState();
@@ -68,8 +71,7 @@ class DreamsBeneficiaryCard extends StatelessWidget {
     Provider.of<EnrollmentFormState>(context, listen: false)
         .setFormFieldState('incidentDate', agywDream.createdDate);
     Provider.of<EnrollmentFormState>(context, listen: false).setFormFieldState(
-        isAgywEnrollment ? 'KvmQjZbGZQU' : 'd8uBlGOpFhJ',
-        agywDream.primaryUIC);
+        isAgywEnrollment ? 'KvmQjZbGZQU' : 'd8uBlGOpFhJ', agywDream.primaryUIC);
 
     for (Map attributeObj in teiData.attributes) {
       if (attributeObj['value'] != '' && '${attributeObj['value']}' != 'null') {
@@ -83,12 +85,13 @@ class DreamsBeneficiaryCard extends StatelessWidget {
   void onView(BuildContext context) {
     updateEnrollmentFormStateData(context, false);
     Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => isAgywEnrollment
-              ? AgywDreamsEnrollmentViewForm()
-              : NoneAgywEnrollmentViewForm(),
-        ));
+      context,
+      MaterialPageRoute(
+        builder: (context) => isAgywEnrollment
+            ? AgywDreamsEnrollmentViewForm()
+            : NoneAgywEnrollmentViewForm(),
+      ),
+    );
   }
 
   @override
