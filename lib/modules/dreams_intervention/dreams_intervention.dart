@@ -11,9 +11,13 @@ import 'package:kb_mobile_app/core/components/route_page_not_found.dart';
 import 'package:kb_mobile_app/core/constants/auto_synchronization.dart';
 import 'package:kb_mobile_app/core/services/auto_synchronization_service.dart';
 import 'package:kb_mobile_app/core/services/device_connectivity_provider.dart';
+import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/utils/app_bar_util.dart';
+import 'package:kb_mobile_app/core/utils/app_resume_routes/app_resume_route.dart';
 import 'package:kb_mobile_app/models/Intervention_bottom_navigation.dart';
+import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/constants/dreams_routes_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/dreams_enrollment_page.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/pages/agyw_dreams_consent.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_referral/dream_referral_page.dart';
@@ -71,26 +75,52 @@ class _DreamsInterventionState extends State<DreamsIntervention> {
     );
   }
 
-  void onClickHome() {
-    // print('on onClickHome');
+  void onClickHome() {}
+
+  void onAddNoneAgywBeneficiary(BuildContext context) async {
+    String beneficiaryId = "";
+    String formAutoSaveid =
+        "${DreamsRoutesConstant.noneAgywHtsConsentPage}_$beneficiaryId";
+    FormAutoSave formAutoSave =
+        await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveid);
+    bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
+        .shouldResumeWithUnSavedChanges(context, formAutoSave);
+    if (shouldResumeWithUnSavedChanges) {
+      AppResumeRoute().redirectToPages(context, formAutoSave);
+    } else {
+      Provider.of<EnrollmentFormState>(context, listen: false).resetFormState();
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) {
+            return NonAgywDreamsHTSConsentForm();
+          },
+        ),
+      );
+    }
   }
 
-  void onAddNoneAgywBeneficiary(BuildContext context) {
-    Provider.of<EnrollmentFormState>(context, listen: false).resetFormState();
-    Navigator.push(context, MaterialPageRoute(
-      builder: (context) {
-        return NonAgywDreamsHTSConsentForm();
-      },
-    ));
-  }
-
-  void onAddAgywBeneficiary(BuildContext context) {
-    Provider.of<EnrollmentFormState>(context, listen: false).resetFormState();
-    Navigator.push(context, MaterialPageRoute(
-      builder: (context) {
-        return AgywDreamsConsentForm();
-      },
-    ));
+  void onAddAgywBeneficiary(BuildContext context) async {
+    String beneficiaryId = "";
+    String formAutoSaveid =
+        "${DreamsRoutesConstant.agywConsentPage}_$beneficiaryId";
+    FormAutoSave formAutoSave =
+        await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveid);
+    bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
+        .shouldResumeWithUnSavedChanges(context, formAutoSave);
+    if (shouldResumeWithUnSavedChanges) {
+      AppResumeRoute().redirectToPages(context, formAutoSave);
+    } else {
+      Provider.of<EnrollmentFormState>(context, listen: false).resetFormState();
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) {
+            return AgywDreamsConsentForm();
+          },
+        ),
+      );
+    }
   }
 
   @override

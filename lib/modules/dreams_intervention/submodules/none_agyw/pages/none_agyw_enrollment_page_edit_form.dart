@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
@@ -11,12 +12,15 @@ import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.d
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/core/constants/beneficiary_identification.dart';
+import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
+import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/constants/dreams_routes_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/services/none_agyw_dream_enrollment_service.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/constant/non_agyw_hts_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/models/non_agyw_hts_client_information.dart';
@@ -41,7 +45,7 @@ class _NoneAgywEnrollmentEditFormState
   List<FormSection> htsClientInformationFormSections;
   List<FormSection> htsRegisterFormSections;
 
-  final String label = 'NonAgyw Enrolment Form';
+  final String label = 'None Agyw Enrollment Form';
   final Map mandatoryFieldObject = Map();
   final List<String> mandatoryFields =
       NonAgywHTSClientInformation.getMandatoryField() +
@@ -57,8 +61,6 @@ class _NoneAgywEnrollmentEditFormState
       htsClientInformationFormSections =
           NonAgywHTSClientInformation.getFormSections();
       htsRegisterFormSections = NonAgywHTSRegister.getFormSections();
-
-      //Determine if the beneficiary is HIV Positive
       prepScreeningFormSections =
           NoneAgywEnrollmentPrepScreening.getFormSections();
       List<String> skippedInputs = [
@@ -66,7 +68,6 @@ class _NoneAgywEnrollmentEditFormState
         'WTZ7GLTrE8Q',
         'rSP9c21JsfC',
         'ls9hlz2tyol',
-        // 'eXp9ASOufpR_bmi',
         'FI9Wzzys767',
         'dQBja8nUr18'
       ];
@@ -109,10 +110,40 @@ class _NoneAgywEnrollmentEditFormState
     );
   }
 
+  void onUpdateFormAutoSaveState(
+    BuildContext context, {
+    bool isSaveForm = false,
+  }) async {
+    Map dataObject =
+        Provider.of<EnrollmentFormState>(context, listen: false).formState;
+    String beneficiaryId = dataObject['trackedEntityInstance'] ?? "";
+    String id = "${DreamsRoutesConstant.noneAgywEnrollmentPage}_$beneficiaryId";
+    FormAutoSave formAutoSave = FormAutoSave(
+      id: id,
+      beneficiaryId: beneficiaryId,
+      pageModule: DreamsRoutesConstant.noneAgywEnrollmentPage,
+      nextPageModule: isSaveForm
+          ? DreamsRoutesConstant.noneAgywEnrollmentNextPage
+          : DreamsRoutesConstant.noneAgywEnrollmentPage,
+      data: jsonEncode(dataObject),
+    );
+    await FormAutoSaveOfflineService().saveFormAutoSaveData(formAutoSave);
+  }
+
+  void clearFormAutoSaveState(BuildContext context) async {
+    Map dataObject =
+        Provider.of<EnrollmentFormState>(context, listen: false).formState;
+    String beneficiaryId = dataObject['trackedEntityInstance'] ?? "";
+    String formAutoSaveid =
+        "${DreamsRoutesConstant.noneAgywEnrollmentPage}_$beneficiaryId";
+    await FormAutoSaveOfflineService().deleteSavedFormAutoData(formAutoSaveid);
+  }
+
   void onInputValueChange(String id, dynamic value) {
     Provider.of<EnrollmentFormState>(context, listen: false)
         .setFormFieldState(id, value);
     evaluateSkipLogics();
+    onUpdateFormAutoSaveState(context);
   }
 
   void onSaveForm(BuildContext context, Map dataObject,
@@ -150,6 +181,7 @@ class _NoneAgywEnrollmentEditFormState
       );
       Provider.of<DreamsInterventionListState>(context, listen: false)
           .refreshDreamsList();
+      clearFormAutoSaveState(context);
       Timer(Duration(seconds: 1), () {
         if (Navigator.canPop(context)) {
           setState(() {

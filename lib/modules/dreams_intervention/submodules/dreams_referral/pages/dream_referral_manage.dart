@@ -35,9 +35,11 @@ class _DreamReferralManageState extends State<DreamReferralManage> {
   bool shouldEditRefferal(List dataValues) {
     CurrentUser user =
         Provider.of<CurrentUserState>(context, listen: false).currentUser;
-    var referralImplementingPartner = dataValues.firstWhere((datavalue) =>
-        datavalue['dataElement'] ==
-        DreamAgywReferralConstant.referralImplementingPartner);
+    var referralImplementingPartner = dataValues.firstWhere(
+        (datavalue) =>
+            datavalue['dataElement'] ==
+            DreamAgywReferralConstant.referralImplementingPartner,
+        orElse: () => null);
     return referralImplementingPartner != null
         ? referralImplementingPartner['value'] != user.implementingPartner
         : true;

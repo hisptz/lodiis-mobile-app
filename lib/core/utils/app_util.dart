@@ -199,22 +199,26 @@ class AppUtil {
                       child: Row(
                         children: [
                           Expanded(
-                              flex: 9,
-                              child: title == ''
-                                  ? Container()
-                                  : Container(
-                                      child: Wrap(
-                                          alignment: WrapAlignment.start,
-                                          children: [
-                                            Text(
-                                              title,
-                                              style: TextStyle().copyWith(
-                                                  color: Color(0xFF82898D),
-                                                  fontSize: 14.0,
-                                                  fontWeight: FontWeight.bold),
-                                            )
-                                          ]),
-                                    )),
+                            flex: 9,
+                            child: title == ''
+                                ? Container()
+                                : Container(
+                                    alignment: Alignment.center,
+                                    child: Wrap(
+                                      alignment: WrapAlignment.start,
+                                      children: [
+                                        Text(
+                                          title,
+                                          style: TextStyle().copyWith(
+                                            color: Color(0xFF82898D),
+                                            fontSize: 14.0,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                          ),
                           Expanded(
                             flex: 2,
                             child: Container(

@@ -200,7 +200,8 @@ class InputFieldContainer extends StatelessWidget {
       } else if (inputField.options.isNotEmpty) {
         InputFieldOption option = inputField.options.firstWhere(
             (InputFieldOption option) =>
-                option.code != null && option.code == value);
+                option.code != null && option.code == value,
+            orElse: () => null);
         value = option != null ? option.name : value;
       }
     }

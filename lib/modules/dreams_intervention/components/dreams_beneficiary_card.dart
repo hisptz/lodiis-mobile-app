@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
 import 'package:kb_mobile_app/core/components/material_card.dart';
+import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
+import 'package:kb_mobile_app/core/utils/app_resume_routes/app_resume_route.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
+import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_card_header.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/constants/dreams_routes_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/pages/agyw_dreams_enrollment_edit_form.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/pages/agwy_dreams_enrollment_view_form.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/pages/none_agyw_enrollment_page_edit_form.dart';
@@ -39,15 +43,28 @@ class DreamsBeneficiaryCard extends StatelessWidget {
   final VoidCallback onCardToogle;
   final String svgIcon = 'assets/icons/dreams-header-icon.svg';
 
-  void onEdit(BuildContext context) {
-    updateEnrollmentFormStateData(context, true);
-    Navigator.push(
+  void onEdit(BuildContext context) async {
+    String beneficiaryId = agywDream.id;
+    String formAutoSaveid = isAgywEnrollment
+        ? "${DreamsRoutesConstant.agywEnrollmentFormEditPage}_$beneficiaryId"
+        : "${DreamsRoutesConstant.noneAgywEnrollmentPage}_$beneficiaryId";
+    FormAutoSave formAutoSave =
+        await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveid);
+    bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
+        .shouldResumeWithUnSavedChanges(context, formAutoSave);
+    if (shouldResumeWithUnSavedChanges) {
+      AppResumeRoute().redirectToPages(context, formAutoSave);
+    } else {
+      updateEnrollmentFormStateData(context, true);
+      Navigator.push(
         context,
         MaterialPageRoute(
           builder: (context) => isAgywEnrollment
               ? AgywDreamsEnrollmentEditForm()
               : NoneAgywEnrollmentEditForm(),
-        ));
+        ),
+      );
+    }
   }
 
   void updateEnrollmentFormStateData(BuildContext context, bool edit) {
@@ -68,8 +85,7 @@ class DreamsBeneficiaryCard extends StatelessWidget {
     Provider.of<EnrollmentFormState>(context, listen: false)
         .setFormFieldState('incidentDate', agywDream.createdDate);
     Provider.of<EnrollmentFormState>(context, listen: false).setFormFieldState(
-        isAgywEnrollment ? 'KvmQjZbGZQU' : 'd8uBlGOpFhJ',
-        agywDream.primaryUIC);
+        isAgywEnrollment ? 'KvmQjZbGZQU' : 'd8uBlGOpFhJ', agywDream.primaryUIC);
 
     for (Map attributeObj in teiData.attributes) {
       if (attributeObj['value'] != '' && '${attributeObj['value']}' != 'null') {
@@ -83,12 +99,13 @@ class DreamsBeneficiaryCard extends StatelessWidget {
   void onView(BuildContext context) {
     updateEnrollmentFormStateData(context, false);
     Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => isAgywEnrollment
-              ? AgywDreamsEnrollmentViewForm()
-              : NoneAgywEnrollmentViewForm(),
-        ));
+      context,
+      MaterialPageRoute(
+        builder: (context) => isAgywEnrollment
+            ? AgywDreamsEnrollmentViewForm()
+            : NoneAgywEnrollmentViewForm(),
+      ),
+    );
   }
 
   @override

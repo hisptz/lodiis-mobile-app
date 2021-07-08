@@ -29,6 +29,7 @@ class OfflineDbProvider {
   ];
 
   final List<String> migrationQuery = [
+    "CREATE TABLE IF NOT EXISTS form_auto_save (id TEXT PRIMARY KEY, beneficiaryId TEXT, pageModule TEXT, nextPageModule TEXT, data TEXT)",
     "UPDATE tracked_entity_instance_attribute SET value = 'JHPIEGO' WHERE attribute = 'klLkGxy328c' AND value = 'JPHIEGO'",
     "ALTER TABLE current_user ADD subImplementingPartner TEXT DEFAULT ''",
     "ALTER TABLE current_user ADD phoneNumber TEXT DEFAULT 'phoneNumber'",

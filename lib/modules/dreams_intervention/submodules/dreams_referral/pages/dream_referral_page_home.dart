@@ -129,7 +129,8 @@ class _DreamAgywReferralPageState extends State<DreamAgywReferralPage> {
                   referralEventNotification.id == eventData.event &&
                   referralEventNotification.fromImplementingPartner ==
                       currentImplementingPartner &&
-                  referralEventNotification.isCompleted);
+                  referralEventNotification.isCompleted,
+              orElse: () => null);
       if (incommingResolvedReferral != null && hasReferralOutCome) {
         bool isCompleted = true;
         bool isViewed = true;

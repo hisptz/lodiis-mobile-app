@@ -27,7 +27,6 @@ class OvcEnrollmentChildService {
     inputFieldIds.addAll(hiddenFields);
     List childTeiReferences = [];
     for (Map dataObject in childrenObjects) {
-      // @TODO generation of beneficiary ids
       String trackedEntityInstance =
           dataObject['trackedEntityInstance'] ?? AppUtil.getUid();
       String enrollment = dataObject['enrollment'];
