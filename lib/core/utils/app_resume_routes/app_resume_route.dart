@@ -26,7 +26,7 @@ class AppResumeRoute
     if (formAutoSave.nextPageModule == OgacRoutesConstant.nextPageModule) {
       redirectToOgacEnrollmemntForm(context, formAutoSave);
     } else if (formAutoSave.nextPageModule ==
-        DreamsRoutesConstant.noneAgywHtsConsentPage) {
+        DreamsRoutesConstant.noneAgywHtsConsentNextPage) {
       redirectToNoneAgywHtsConsent(context, formAutoSave);
     } else if (formAutoSave.nextPageModule ==
         DreamsRoutesConstant.noneAgywHtsConsentNextPage) {
@@ -43,6 +43,21 @@ class AppResumeRoute
     } else if (formAutoSave.nextPageModule ==
         DreamsRoutesConstant.noneAgywEnrollmentNextPage) {
       redirectToNoneAgywEnrollment(context, formAutoSave);
+    } else if (formAutoSave.nextPageModule ==
+        DreamsRoutesConstant.agywConsentNextPage) {
+      redirectToAgywConsentForm(context, formAutoSave);
+    } else if (formAutoSave.nextPageModule ==
+        DreamsRoutesConstant.agywRiskAssessmentNextPage) {
+      redirectToAgywRiskAssessment(context, formAutoSave);
+    } else if (formAutoSave.nextPageModule ==
+        DreamsRoutesConstant.agywEnrollmentFormNextPage) {
+      redirectToAgywEnrollmentForm(context, formAutoSave);
+    } else if (formAutoSave.nextPageModule ==
+        DreamsRoutesConstant.agywNoneParticipationNextPage) {
+      redirectToAgywNoneParticipationForm(context, formAutoSave);
+    } else if (formAutoSave.nextPageModule ==
+        DreamsRoutesConstant.agywEnrollmentFormEditNextPage) {
+      redirectToAgywEnrollmentEditForm(context, formAutoSave);
     } else {
       print("$formAutoSave \n");
       print("Not page to redirect ${formAutoSave.nextPageModule}\n\n");
