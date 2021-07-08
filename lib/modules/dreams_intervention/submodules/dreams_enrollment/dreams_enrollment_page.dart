@@ -31,12 +31,16 @@ class _DreamsEnrollmentPageState extends State<DreamsEnrollmentPage> {
   }
 
   void onAddAgywBeneficiary(BuildContext context) {
+    //@TODO logics for checking app resumefunctionalities
     Provider.of<EnrollmentFormState>(context, listen: false).resetFormState();
-    Navigator.push(context, MaterialPageRoute(
-      builder: (context) {
-        return AgywDreamsConsentForm();
-      },
-    ));
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
+          return AgywDreamsConsentForm();
+        },
+      ),
+    );
   }
 
   @override
@@ -57,50 +61,51 @@ class _DreamsEnrollmentPageState extends State<DreamsEnrollmentPage> {
       child: Consumer<DreamsInterventionListState>(
         builder: (context, dreamInterventionListState, child) {
           return CustomPaginatedListView(
-              childBuilder: (context, agywBeneficiary, child) =>
-                  DreamsBeneficiaryCard(
-                    isAgywEnrollment: true,
-                    agywDream: agywBeneficiary,
-                    canEdit: canEdit,
-                    canExpand: canExpand,
-                    beneficiaryName: agywBeneficiary.toString(),
-                    canView: canView,
-                    isExpanded: agywBeneficiary.id == toggleCardId,
-                    onCardToogle: () {
-                      onCardToogle(agywBeneficiary.id);
-                    },
-                    cardBody: DreamBeneficiaryCardBody(
-                        agywBeneficiary: agywBeneficiary,
-                        isVerticalLayout: agywBeneficiary.id == toggleCardId),
-                    cardBottonActions: Container(),
-                    cardBottonContent: Container(),
+            childBuilder: (context, agywBeneficiary, child) =>
+                DreamsBeneficiaryCard(
+              isAgywEnrollment: true,
+              agywDream: agywBeneficiary,
+              canEdit: canEdit,
+              canExpand: canExpand,
+              beneficiaryName: agywBeneficiary.toString(),
+              canView: canView,
+              isExpanded: agywBeneficiary.id == toggleCardId,
+              onCardToogle: () {
+                onCardToogle(agywBeneficiary.id);
+              },
+              cardBody: DreamBeneficiaryCardBody(
+                  agywBeneficiary: agywBeneficiary,
+                  isVerticalLayout: agywBeneficiary.id == toggleCardId),
+              cardBottonActions: Container(),
+              cardBottonContent: Container(),
+            ),
+            pagingController: dreamInterventionListState.agywPagingController,
+            emptyListWidget: Column(
+              children: [
+                Center(
+                  child: Text(
+                    'There is no beneficiary list at a moment',
                   ),
-              pagingController: dreamInterventionListState.agywPagingController,
-              emptyListWidget: Column(
-                children: [
-                  Center(
-                    child: Text(
-                      'There is no beneficiary list at a moment',
-                    ),
-                  ),
-                  Center(
-                    child: Container(
-                      child: IconButton(
-                        icon: SvgPicture.asset(
-                          'assets/icons/add-beneficiary.svg',
-                          color: Colors.blueGrey,
-                        ),
-                        onPressed: () => onAddAgywBeneficiary(context),
-                      ),
-                    ),
-                  )
-                ],
-              ),
-              errorWidget: Center(
-                child: Text(
-                  'Error in loading beneficiary list ',
                 ),
-              ));
+                Center(
+                  child: Container(
+                    child: IconButton(
+                      icon: SvgPicture.asset(
+                        'assets/icons/add-beneficiary.svg',
+                        color: Colors.blueGrey,
+                      ),
+                      onPressed: () => onAddAgywBeneficiary(context),
+                    ),
+                  ),
+                )
+              ],
+            ),
+            errorWidget: Center(
+              child: Text(
+                'Error in loading beneficiary list ',
+              ),
+            ),
+          );
         },
       ),
     );

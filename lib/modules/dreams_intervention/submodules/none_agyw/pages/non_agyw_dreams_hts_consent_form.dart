@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
@@ -8,16 +9,20 @@ import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
+import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
+import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/constants/dreams_routes_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/models/non_agyw_hts_consent.dart';
 import 'package:provider/provider.dart';
 import 'non_agyw_dreams_hts_client_information.dart';
 
 class NonAgywDreamsHTSConsentForm extends StatefulWidget {
-  NonAgywDreamsHTSConsentForm({Key key, this.isComingFromPrep}) : super(key: key);
+  NonAgywDreamsHTSConsentForm({Key key, this.isComingFromPrep})
+      : super(key: key);
 
   final bool isComingFromPrep;
 
@@ -26,7 +31,8 @@ class NonAgywDreamsHTSConsentForm extends StatefulWidget {
       _NonAgywDreamsHTSConsentFormState();
 }
 
-class _NonAgywDreamsHTSConsentFormState extends State<NonAgywDreamsHTSConsentForm> {
+class _NonAgywDreamsHTSConsentFormState
+    extends State<NonAgywDreamsHTSConsentForm> {
   final String label = 'HTS Consent';
   List<FormSection> formSections;
   bool isFormReady = false;
@@ -45,9 +51,30 @@ class _NonAgywDreamsHTSConsentFormState extends State<NonAgywDreamsHTSConsentFor
     });
   }
 
+  void onUpdateFormAutoSaveState(
+    BuildContext context, {
+    bool isSaveForm = false,
+  }) async {
+    Map dataObject =
+        Provider.of<EnrollmentFormState>(context, listen: false).formState;
+    String beneficiaryId = "";
+    String id = "${DreamsRoutesConstant.noneAgywHtsConsentPage}_$beneficiaryId";
+    FormAutoSave formAutoSave = FormAutoSave(
+      id: id,
+      beneficiaryId: beneficiaryId,
+      pageModule: DreamsRoutesConstant.noneAgywHtsConsentPage,
+      nextPageModule: isSaveForm
+          ? DreamsRoutesConstant.noneAgywHtsConsentNextPage
+          : DreamsRoutesConstant.noneAgywHtsConsentPage,
+      data: jsonEncode(dataObject),
+    );
+    await FormAutoSaveOfflineService().saveFormAutoSaveData(formAutoSave);
+  }
+
   void onInputValueChange(String id, dynamic value) {
     Provider.of<EnrollmentFormState>(context, listen: false)
         .setFormFieldState(id, value);
+    onUpdateFormAutoSaveState(context);
   }
 
   bool isConsentGiven(Map dataObject) {
@@ -66,87 +93,93 @@ class _NonAgywDreamsHTSConsentFormState extends State<NonAgywDreamsHTSConsentFor
   }
 
   void onSaveForm(BuildContext context, Map dataObject) {
-    
     if (isConsentGiven(dataObject)) {
+      onUpdateFormAutoSaveState(context, isSaveForm: true);
       Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => NonAgywDreamsHTSClientInformation()));
+        context,
+        MaterialPageRoute(
+          builder: (context) => NonAgywDreamsHTSClientInformation(),
+        ),
+      );
     } else {
       AppUtil.showToastMessage(
-          message: 'Cannot proceed without consent',
-          position: ToastGravity.TOP);
+        message: 'Cannot proceed without consent',
+        position: ToastGravity.TOP,
+      );
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(65.0),
-          child: Consumer<IntervetionCardState>(
-            builder: (context, intervetionCardState, child) {
-              InterventionCard activeInterventionProgram =
-                  intervetionCardState.currentIntervetionProgram;
-              return SubPageAppBar(
-                label: label,
-                activeInterventionProgram: activeInterventionProgram,
-              );
-            },
-          ),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(65.0),
+        child: Consumer<IntervetionCardState>(
+          builder: (context, intervetionCardState, child) {
+            InterventionCard activeInterventionProgram =
+                intervetionCardState.currentIntervetionProgram;
+            return SubPageAppBar(
+              label: label,
+              activeInterventionProgram: activeInterventionProgram,
+            );
+          },
         ),
-        body: SubPageBody(
-          body: Container(child: Consumer<EnrollmentFormState>(
+      ),
+      body: SubPageBody(
+        body: Container(
+          child: Consumer<EnrollmentFormState>(
             builder: (context, enrollmentFormState, child) {
               return Container(
                 child: Column(
                   children: [
                     !isFormReady
                         ? Container(
-                      child: CircularProcessLoader(
-                        color: Colors.blueGrey,
-                      ),
-                    )
-                        : Column(
-                      children: [
-                        Container(
-                          margin: EdgeInsets.only(
-                            top: 10.0,
-                            left: 13.0,
-                            right: 13.0,
-                          ),
-                          child: EntryFormContainer(
-                            formSections: formSections,
-                            mandatoryFieldObject: Map(),
-                            isEditableMode:
-                            enrollmentFormState.isEditableMode,
-                            dataObject: enrollmentFormState.formState,
-                            onInputValueChange: onInputValueChange,
-                          ),
-                        ),
-                        Visibility(
-                          visible: enrollmentFormState.isEditableMode,
-                          child: EntryFormSaveButton(
-                            label: isSaving
-                                ? 'Saving ...'
-                                : 'Save and Continue',
-                            labelColor: Colors.white,
-                            buttonColor: Color(0xFF258DCC),
-                            fontSize: 15.0,
-                            onPressButton: () => onSaveForm(
-                              context,
-                              enrollmentFormState.formState,
+                            child: CircularProcessLoader(
+                              color: Colors.blueGrey,
                             ),
-                          ),
-                        )
-                      ],
-                    )
+                          )
+                        : Column(
+                            children: [
+                              Container(
+                                margin: EdgeInsets.only(
+                                  top: 10.0,
+                                  left: 13.0,
+                                  right: 13.0,
+                                ),
+                                child: EntryFormContainer(
+                                  formSections: formSections,
+                                  mandatoryFieldObject: Map(),
+                                  isEditableMode:
+                                      enrollmentFormState.isEditableMode,
+                                  dataObject: enrollmentFormState.formState,
+                                  onInputValueChange: onInputValueChange,
+                                ),
+                              ),
+                              Visibility(
+                                visible: enrollmentFormState.isEditableMode,
+                                child: EntryFormSaveButton(
+                                  label: isSaving
+                                      ? 'Saving ...'
+                                      : 'Save and Continue',
+                                  labelColor: Colors.white,
+                                  buttonColor: Color(0xFF258DCC),
+                                  fontSize: 15.0,
+                                  onPressButton: () => onSaveForm(
+                                    context,
+                                    enrollmentFormState.formState,
+                                  ),
+                                ),
+                              )
+                            ],
+                          )
                   ],
                 ),
               );
             },
-          )),
+          ),
         ),
-        bottomNavigationBar: InterventionBottomNavigationBarContainer());
+      ),
+      bottomNavigationBar: InterventionBottomNavigationBarContainer(),
+    );
   }
 }

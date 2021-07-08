@@ -129,9 +129,9 @@ class AppBarUtil {
         .setCurrentInterventionProgramId(id);
     Provider.of<InterventionBottomNavigationState>(context, listen: false)
         .setCurrentInterventionBottomNavigationStatus(0, null);
-    Timer(
-      Duration(milliseconds: 10),
-      () => Navigator.pushReplacement(
+    Timer(Duration(milliseconds: 10), () {
+      Navigator.popUntil(context, (route) => route.isFirst);
+      Navigator.pushReplacement(
         context,
         MaterialPageRoute(
           builder: (context) {
@@ -142,7 +142,7 @@ class AppBarUtil {
                     : DreamsIntervention();
           },
         ),
-      ),
-    );
+      );
+    });
   }
 }
