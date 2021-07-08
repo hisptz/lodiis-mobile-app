@@ -100,17 +100,27 @@ class _DreamsInterventionState extends State<DreamsIntervention> {
     }
   }
 
-  void onAddAgywBeneficiary(BuildContext context) {
-    //@TODO logics for checking app resumefunctionalities
-    Provider.of<EnrollmentFormState>(context, listen: false).resetFormState();
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) {
-          return AgywDreamsConsentForm();
-        },
-      ),
-    );
+  void onAddAgywBeneficiary(BuildContext context) async {
+    String beneficiaryId = "";
+    String formAutoSaveid =
+        "${DreamsRoutesConstant.agywConsentPage}_$beneficiaryId";
+    FormAutoSave formAutoSave =
+        await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveid);
+    bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
+        .shouldResumeWithUnSavedChanges(context, formAutoSave);
+    if (shouldResumeWithUnSavedChanges) {
+      AppResumeRoute().redirectToPages(context, formAutoSave);
+    } else {
+      Provider.of<EnrollmentFormState>(context, listen: false).resetFormState();
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) {
+            return AgywDreamsConsentForm();
+          },
+        ),
+      );
+    }
   }
 
   @override

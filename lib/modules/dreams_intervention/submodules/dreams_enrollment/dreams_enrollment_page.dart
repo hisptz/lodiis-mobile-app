@@ -3,9 +3,13 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
 import 'package:kb_mobile_app/core/components/paginated_list_view.dart';
+import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
+import 'package:kb_mobile_app/core/utils/app_resume_routes/app_resume_route.dart';
+import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_card_body.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_card.dart';
 import 'package:kb_mobile_app/core/components/sub_module_home_container.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/constants/dreams_routes_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/pages/agyw_dreams_consent.dart';
 import 'package:provider/provider.dart';
 
@@ -30,17 +34,27 @@ class _DreamsEnrollmentPageState extends State<DreamsEnrollmentPage> {
     });
   }
 
-  void onAddAgywBeneficiary(BuildContext context) {
-    //@TODO logics for checking app resumefunctionalities
-    Provider.of<EnrollmentFormState>(context, listen: false).resetFormState();
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) {
-          return AgywDreamsConsentForm();
-        },
-      ),
-    );
+  void onAddAgywBeneficiary(BuildContext context) async {
+    String beneficiaryId = "";
+    String formAutoSaveid =
+        "${DreamsRoutesConstant.agywConsentPage}_$beneficiaryId";
+    FormAutoSave formAutoSave =
+        await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveid);
+    bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
+        .shouldResumeWithUnSavedChanges(context, formAutoSave);
+    if (shouldResumeWithUnSavedChanges) {
+      AppResumeRoute().redirectToPages(context, formAutoSave);
+    } else {
+      Provider.of<EnrollmentFormState>(context, listen: false).resetFormState();
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) {
+            return AgywDreamsConsentForm();
+          },
+        ),
+      );
+    }
   }
 
   @override
@@ -74,8 +88,9 @@ class _DreamsEnrollmentPageState extends State<DreamsEnrollmentPage> {
                 onCardToogle(agywBeneficiary.id);
               },
               cardBody: DreamBeneficiaryCardBody(
-                  agywBeneficiary: agywBeneficiary,
-                  isVerticalLayout: agywBeneficiary.id == toggleCardId),
+                agywBeneficiary: agywBeneficiary,
+                isVerticalLayout: agywBeneficiary.id == toggleCardId,
+              ),
               cardBottonActions: Container(),
               cardBottonContent: Container(),
             ),

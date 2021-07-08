@@ -26,7 +26,7 @@ class AppResumeRoute
     if (formAutoSave.nextPageModule == OgacRoutesConstant.nextPageModule) {
       redirectToOgacEnrollmemntForm(context, formAutoSave);
     } else if (formAutoSave.nextPageModule ==
-        DreamsRoutesConstant.noneAgywHtsConsentPage) {
+        DreamsRoutesConstant.noneAgywHtsConsentNextPage) {
       redirectToNoneAgywHtsConsent(context, formAutoSave);
     } else if (formAutoSave.nextPageModule ==
         DreamsRoutesConstant.noneAgywHtsConsentNextPage) {
@@ -42,7 +42,22 @@ class AppResumeRoute
       redirectToNoneAgywPrepVisit(context, formAutoSave);
     } else if (formAutoSave.nextPageModule ==
         DreamsRoutesConstant.noneAgywEnrollmentNextPage) {
-      redirectToOgacEnrollmemntForm(context, formAutoSave);
+      redirectToNoneAgywEnrollment(context, formAutoSave);
+    } else if (formAutoSave.nextPageModule ==
+        DreamsRoutesConstant.agywConsentPage) {
+      redirectToAgywConsentForm(context, formAutoSave);
+    } else if (formAutoSave.nextPageModule ==
+        DreamsRoutesConstant.agywConsentNextPage) {
+      redirectToAgywRiskAssessment(context, formAutoSave);
+    } else if (formAutoSave.nextPageModule ==
+        DreamsRoutesConstant.agywRiskAssessmentNextPage) {
+      redirectToAgywEnrollmentForm(context, formAutoSave);
+    } else if (formAutoSave.nextPageModule ==
+        DreamsRoutesConstant.agywNoneParticipationNextPage) {
+      redirectToAgywNoneParticipationForm(context, formAutoSave);
+    } else if (formAutoSave.nextPageModule ==
+        DreamsRoutesConstant.agywEnrollmentFormEditNextPage) {
+      redirectToAgywEnrollmentEditForm(context, formAutoSave);
     } else {
       print("$formAutoSave \n");
       print("Not page to redirect ${formAutoSave.nextPageModule}\n\n");

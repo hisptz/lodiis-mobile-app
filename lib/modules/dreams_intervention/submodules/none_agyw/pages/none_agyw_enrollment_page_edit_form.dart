@@ -61,7 +61,6 @@ class _NoneAgywEnrollmentEditFormState
       htsClientInformationFormSections =
           NonAgywHTSClientInformation.getFormSections();
       htsRegisterFormSections = NonAgywHTSRegister.getFormSections();
-      //Determine if the beneficiary is HIV Positive
       prepScreeningFormSections =
           NoneAgywEnrollmentPrepScreening.getFormSections();
       List<String> skippedInputs = [
@@ -69,7 +68,6 @@ class _NoneAgywEnrollmentEditFormState
         'WTZ7GLTrE8Q',
         'rSP9c21JsfC',
         'ls9hlz2tyol',
-        // 'eXp9ASOufpR_bmi',
         'FI9Wzzys767',
         'dQBja8nUr18'
       ];
