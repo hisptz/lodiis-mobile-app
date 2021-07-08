@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -11,10 +12,13 @@ import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
+import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
+import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/constants/dreams_routes_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/services/agyw_dream_enrollment_none_participation_service.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/models/agyw_enrollment_none_participation.dart';
 import 'package:provider/provider.dart';
@@ -52,6 +56,40 @@ class _AgywEnrollmentNoneParticipationFormState
     });
   }
 
+  void onUpdateFormAutoSaveState(
+    BuildContext context, {
+    bool isSaveForm = false,
+  }) async {
+    String beneficiaryId = "";
+    Map dataObject =
+        Provider.of<EnrollmentFormState>(context, listen: false).formState;
+    String id = "${DreamsRoutesConstant.agywConsentPage}_$beneficiaryId";
+    FormAutoSave formAutoSave = FormAutoSave(
+      id: id,
+      beneficiaryId: beneficiaryId,
+      pageModule: DreamsRoutesConstant.agywNoneParticipationPage,
+      nextPageModule: isSaveForm
+          ? DreamsRoutesConstant.agywNoneParticipationNextPage
+          : DreamsRoutesConstant.agywNoneParticipationPage,
+      data: jsonEncode(dataObject),
+    );
+    await FormAutoSaveOfflineService().saveFormAutoSaveData(formAutoSave);
+  }
+
+  void clearFormAutoSaveState(BuildContext context) async {
+    String beneficiaryId = "";
+    String formAutoSaveid =
+        "${DreamsRoutesConstant.agywConsentPage}_$beneficiaryId";
+    await FormAutoSaveOfflineService().deleteSavedFormAutoData(formAutoSaveid);
+  }
+
+  void onInputValueChange(String id, dynamic value) {
+    Provider.of<EnrollmentFormState>(context, listen: false)
+        .setFormFieldState(id, value);
+    autoFillInputFields(id, value);
+    //@TODO update unsaved data on offline state
+  }
+
   void onSaveAndContinue(BuildContext context, Map dataObject) async {
     bool hadAllMandatoryFilled =
         AppUtil.hasAllMandarotyFieldsFilled(mandatoryFields, dataObject);
@@ -63,6 +101,7 @@ class _AgywEnrollmentNoneParticipationFormState
           .saveNoneParticipationForm(formSections, dataObject, eventId);
       Provider.of<DreamsInterventionListState>(context, listen: false)
           .refreshDreamsList();
+      clearFormAutoSaveState(context);
       Timer(Duration(seconds: 1), () {
         if (Navigator.canPop(context)) {
           setState(() {
@@ -82,11 +121,13 @@ class _AgywEnrollmentNoneParticipationFormState
       });
     } else {
       setState(() {
-        unFilledMandatoryFields = AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+        unFilledMandatoryFields =
+            AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
       });
       AppUtil.showToastMessage(
-          message: 'Please fill all mandatory field',
-          position: ToastGravity.TOP);
+        message: 'Please fill all mandatory field',
+        position: ToastGravity.TOP,
+      );
     }
   }
 
@@ -96,12 +137,6 @@ class _AgywEnrollmentNoneParticipationFormState
       Provider.of<EnrollmentFormState>(context, listen: false)
           .setFormFieldState('mZs1YsN56cR', age.toString());
     }
-  }
-
-  void onInputValueChange(String id, dynamic value) {
-    Provider.of<EnrollmentFormState>(context, listen: false)
-        .setFormFieldState(id, value);
-    autoFillInputFields(id, value);
   }
 
   @override
@@ -123,7 +158,10 @@ class _AgywEnrollmentNoneParticipationFormState
         ),
         body: SubPageBody(
           body: Container(
-            margin: EdgeInsets.symmetric(vertical: 16.0, horizontal: 13.0),
+            margin: EdgeInsets.symmetric(
+              vertical: 16.0,
+              horizontal: 13.0,
+            ),
             child: !isFormReady
                 ? Column(
                     children: [
@@ -150,7 +188,7 @@ class _AgywEnrollmentNoneParticipationFormState
                                   dataObject: enrollmentFormState.formState,
                                   onInputValueChange: onInputValueChange,
                                   unFilledMandatoryFields:
-                                  unFilledMandatoryFields,
+                                      unFilledMandatoryFields,
                                 ),
                               ),
                               EntryFormSaveButton(

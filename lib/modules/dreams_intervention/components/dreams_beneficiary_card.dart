@@ -43,11 +43,10 @@ class DreamsBeneficiaryCard extends StatelessWidget {
   final VoidCallback onCardToogle;
   final String svgIcon = 'assets/icons/dreams-header-icon.svg';
 
-  //@TODO handling logics for resume on  edit beneficiary card
   void onEdit(BuildContext context) async {
     String beneficiaryId = agywDream.id;
     String formAutoSaveid = isAgywEnrollment
-        ? "${DreamsRoutesConstant.agywEnrollmentPage}_$beneficiaryId"
+        ? "${DreamsRoutesConstant.agywEnrollmentFormEditPage}_$beneficiaryId"
         : "${DreamsRoutesConstant.noneAgywEnrollmentPage}_$beneficiaryId";
     FormAutoSave formAutoSave =
         await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveid);
