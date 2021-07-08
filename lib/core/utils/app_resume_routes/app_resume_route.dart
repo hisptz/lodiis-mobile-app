@@ -44,13 +44,13 @@ class AppResumeRoute
         DreamsRoutesConstant.noneAgywEnrollmentNextPage) {
       redirectToNoneAgywEnrollment(context, formAutoSave);
     } else if (formAutoSave.nextPageModule ==
-        DreamsRoutesConstant.agywConsentNextPage) {
+        DreamsRoutesConstant.agywConsentPage) {
       redirectToAgywConsentForm(context, formAutoSave);
     } else if (formAutoSave.nextPageModule ==
-        DreamsRoutesConstant.agywRiskAssessmentNextPage) {
+        DreamsRoutesConstant.agywConsentNextPage) {
       redirectToAgywRiskAssessment(context, formAutoSave);
     } else if (formAutoSave.nextPageModule ==
-        DreamsRoutesConstant.agywEnrollmentFormNextPage) {
+        DreamsRoutesConstant.agywRiskAssessmentNextPage) {
       redirectToAgywEnrollmentForm(context, formAutoSave);
     } else if (formAutoSave.nextPageModule ==
         DreamsRoutesConstant.agywNoneParticipationNextPage) {
