@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
+import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:provider/provider.dart';
 
@@ -14,6 +15,20 @@ class AppResumeRouteUtil {
     Map<String, dynamic> dataObject = jsonDecode(formAutoSave.data);
     for (String id in dataObject.keys) {
       Provider.of<EnrollmentFormState>(context, listen: false)
+          .setFormFieldState(id, dataObject[id]);
+    }
+  }
+
+  static void setServiceFormState(
+    BuildContext context,
+    FormAutoSave formAutoSave,
+  ) {
+    Provider.of<ServiceFormState>(context, listen: false).resetFormState();
+    Provider.of<ServiceFormState>(context, listen: false)
+        .updateFormEditabilityState(isEditableMode: true);
+    Map<String, dynamic> dataObject = jsonDecode(formAutoSave.data);
+    for (String id in dataObject.keys) {
+      Provider.of<ServiceFormState>(context, listen: false)
           .setFormFieldState(id, dataObject[id]);
     }
   }
@@ -79,7 +94,7 @@ class AppResumeRouteUtil {
                       left: 5.0,
                     ),
                     child: TextButton(
-                      onPressed: () => Navigator.pop(context),
+                      onPressed: () => Navigator.pop(context, false),
                       style: TextButton.styleFrom(
                         shape: RoundedRectangleBorder(
                           side: BorderSide(
