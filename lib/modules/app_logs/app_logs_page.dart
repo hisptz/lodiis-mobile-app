@@ -38,7 +38,6 @@ class _AppLogsState extends State<AppLogsPage> {
         AppUtil.showToastMessage(message: 'Failed to save logs file');
         return;
       }
-      AppUtil.showToastMessage(message: 'Saved the logs successfully');
     }
   }
 

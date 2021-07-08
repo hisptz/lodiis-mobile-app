@@ -22,20 +22,29 @@ class AppLogsHelper {
       }
       return directory.path;
     } else {
+      AppUtil.showToastMessage(
+          message: 'Application was not given access to phone storage');
       return '';
     }
   }
 
   static Future<File> get _localFile async {
     final path = await _appPath;
-    CurrentUser user = await UserService().getCurrentUser();
-    return File('$path/${user.username}-logs.xlsx');
+    if (path != '') {
+      CurrentUser user = await UserService().getCurrentUser();
+      return File('$path/${user.username}-logs.xlsx');
+    } else {
+      return null;
+    }
   }
 
   static Future<void> writeToExcelFile(dynamic fileBytes) async {
     try {
       final file = await _localFile;
-      file..writeAsBytesSync(fileBytes, mode: FileMode.write);
+      if (file != null) {
+        file..writeAsBytesSync(fileBytes, mode: FileMode.write);
+        AppUtil.showToastMessage(message: 'Saved the logs successfully');
+      }
     } catch (e) {
       throw e;
     }
