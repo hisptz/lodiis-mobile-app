@@ -58,10 +58,10 @@ class ServiceEvents {
       return 'HIV & VIOLENCE PREVENTION';
     } else if (interventionType == 'PARENTING') {
       return 'PARENTING';
-    } else if (interventionType == 'GBV Legal') {
-      return 'GBV LEGAL';
-    } else if (interventionType == 'VAC Legal') {
-      return 'VAC LEGAL';
+    } else if (interventionType == 'GBV Messaging') {
+      return 'GBV Messaging';
+    } else if (interventionType == 'VAC Messaging') {
+      return 'VAC Messaging';
     } else if (interventionType == 'VAC Legal Messaging') {
       return 'VAC LEGAL MESSAGING';
     } else if (interventionType == 'GBV Legal Messaging') {
