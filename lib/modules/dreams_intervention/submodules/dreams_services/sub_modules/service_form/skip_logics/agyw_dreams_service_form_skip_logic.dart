@@ -133,8 +133,9 @@ class AgywDreamsServiceFormSkipLogic {
       } else if (interventionType == 'SILC') {
         return (sessions) <= 12 ? true : false;
       } else if (interventionType == 'SAVING GROUP') {
+        return (sessions) <= 12 ? true : false;
       } else if (interventionType == 'FINANCIAL EDUCATION') {
-        return (sessions) <= 14 ? true : false;
+        return (sessions) <= 4 ? true : false;
       } else if (interventionType == 'STEPPING STONES') {
         return (sessions) <= 11 ? true : false;
       } else if (interventionType == 'IPC') {
@@ -148,6 +149,8 @@ class AgywDreamsServiceFormSkipLogic {
       } else if (interventionType == 'VAC Messaging') {
         return (sessions) <= 1 ? true : false;
       } else if (interventionType == 'VAC Legal Messaging') {
+        return true;
+      } else if (interventionType == 'GBV Legal Messaging') {
         return true;
       }
     }
