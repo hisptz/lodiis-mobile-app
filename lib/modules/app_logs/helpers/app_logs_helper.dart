@@ -3,15 +3,16 @@ import 'package:excel/excel.dart';
 import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:kb_mobile_app/core/offline_db/app_logs_offline/app_logs_offline_provider.dart';
 import 'package:kb_mobile_app/modules/app_logs/services/app_logs_service.dart';
 
 class AppLogsHelper {
   static Future<String> get _appPath async {
-    final folderName = "Lesotho OVC-DREAMS";
-    final directory = Directory("storage/emulated/0/$folderName/logs");
-    if (await _requestStoragePermission(Permission.storage)) {
+    final directory = await getExternalStorageDirectory();
+    bool permission = await _requestStoragePermission(Permission.storage);
+    if (permission) {
       if (!await directory.exists()) {
         try {
           var createdDir = await directory.create(recursive: true);
@@ -41,8 +42,8 @@ class AppLogsHelper {
   static Future<void> writeToExcelFile(dynamic fileBytes) async {
     try {
       final file = await _localFile;
-      if (file != null) {
-        file..writeAsBytesSync(fileBytes, mode: FileMode.write);
+      if (file != null && fileBytes != null) {
+        file..writeAsBytes(fileBytes, mode: FileMode.write);
         AppUtil.showToastMessage(message: 'Saved the logs successfully');
       }
     } catch (e) {
