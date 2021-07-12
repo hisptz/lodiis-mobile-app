@@ -75,6 +75,9 @@ class AgywDreamsEnrollmentSkipLogic {
         if (age < 9 || age > 11) {
           hiddenFields['x6VFmJLsqgx'] = true;
         }
+        if (age >= 18) {
+          hiddenSections['householdInformation'] = true;
+        }
         if (age >= 9 && age <= 24) {
           assignInputFieldValue(context, 'cifBFSTHgv5', 'true');
         } else {
