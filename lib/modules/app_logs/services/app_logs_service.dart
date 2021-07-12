@@ -48,7 +48,7 @@ class AppLogsService {
   String getFormattedMessage(String message) {
     String formattedMessage = '';
     try {
-      RegExp connectionRegex = RegExp(r"([c, C]onnection)");
+      RegExp connectionRegex = RegExp(r"(timed out)");
       RegExp accessRegex = RegExp(r"(access)");
       RegExp enrollmentRegex = RegExp(r"(not enrolled)");
       RegExp socketRegex = RegExp(r"(SocketException)");
@@ -60,14 +60,14 @@ class AppLogsService {
       RegExp notValidRegEx = RegExp(r"is not a valid");
 
       // Check for possible error messages
-      if (connectionRegex.hasMatch(message)) {
+      if (socketRegex.hasMatch(message)) {
         formattedMessage = 'Internet connection error';
       } else if (accessRegex.hasMatch(message)) {
         formattedMessage = 'Current user has no proper access';
       } else if (enrollmentRegex.hasMatch(message)) {
         String program = getProgramName(message);
         formattedMessage = 'Beneficiaries not enrolled to$program program.';
-      } else if (socketRegex.hasMatch(message)) {
+      } else if (connectionRegex.hasMatch(message)) {
         formattedMessage = 'Failed to connect to the server';
       } else if (eventForTeiNotExistRegex.hasMatch(message)) {
         formattedMessage =
