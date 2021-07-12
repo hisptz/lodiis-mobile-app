@@ -1,5 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/app_state/app_info_state/app_info_state.dart';
 import 'package:kb_mobile_app/app_state/app_logs_state/app_logs_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
@@ -28,11 +28,14 @@ class _AppLogsState extends State<AppLogsPage> {
     Provider.of<AppLogsState>(context, listen: false).searchAppLogs(value);
   }
 
-  Future<void> onDownloadLogs() async {
-    var excel = await AppLogsHelper.generateLogsExcel();
+  Future<void> onDownloadLogs(BuildContext context) async {
+    String appVersion =
+        Provider.of<AppInfoState>(context, listen: false).currentAppVersion;
+    var excel = await AppLogsHelper.generateLogsExcel(appVersion);
     if (excel != null) {
       try {
         var fileBytes = excel.save();
+
         await AppLogsHelper.writeToExcelFile(fileBytes);
       } catch (e) {
         AppUtil.showToastMessage(message: 'Failed to save logs file');
@@ -71,7 +74,7 @@ class _AppLogsState extends State<AppLogsPage> {
                 backgroundColor: intervetionCardState
                     .currentIntervetionProgram.primmaryColor,
                 onPressed: () async {
-                  await onDownloadLogs();
+                  await onDownloadLogs(context);
                 },
                 tooltip: 'download',
                 child: Icon(Icons.download),
