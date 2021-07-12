@@ -108,12 +108,17 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
     updateFormState(context, true, null, agywDream, serviceEvents);
     CurrentUser currentUser = await UserService().getCurrentUser();
     String youthMentorName = currentUser.name;
+    String implementingPartner = currentUser.implementingPartner;
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState('W79837fEI3C', youthMentorName);
     Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
         .setCurrentAgywDream(agywDream);
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => AgywDreamsServiceForm()));
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => AgywDreamsServiceForm(
+                  currentUserImplementingPartner: implementingPartner,
+                )));
   }
 
   void onViewService(
@@ -124,13 +129,19 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
   }
 
   void onEditService(BuildContext context, Events eventdata,
-      AgywDream agywDream, List<ServiceEvents> serviceEvents) {
+      AgywDream agywDream, List<ServiceEvents> serviceEvents) async {
+    CurrentUser currentUser = await UserService().getCurrentUser();
+    String youthMentorName = currentUser.name;
+    String implementingPartner = currentUser.implementingPartner;
+    Provider.of<ServiceFormState>(context, listen: false)
+        .setFormFieldState('W79837fEI3C', youthMentorName);
     updateFormState(context, true, eventdata, agywDream, serviceEvents);
     Navigator.push(
         context,
         MaterialPageRoute(
             builder: (context) => AgywDreamsServiceForm(
                   isFormEdited: true,
+                  currentUserImplementingPartner: implementingPartner,
                 )));
   }
 
