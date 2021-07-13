@@ -42,7 +42,9 @@ class TrackedEntityInstanceOfflineAttributeProvider extends OfflineDbProvider {
       }
       await attributesBatch.commit(
           exclusive: true, noResult: true, continueOnError: true);
-    } catch (e) {}
+    } catch (e) {
+      print(e);
+    }
   }
 
   List getTrackedEntityAttributes(TrackeEntityInstance trackedEntityInstance) {
@@ -95,7 +97,7 @@ class TrackedEntityInstanceOfflineAttributeProvider extends OfflineDbProvider {
       String questionMarks = attributeIds.map((e) => '?').toList().join(',');
       List<Map> maps = await dbClient.query(
         table,
-        columns: [attribute, value],
+        columns: [id, trackedEntityInstance, attribute, value],
         where: '$attribute IN ($questionMarks)',
         whereArgs: attributeIds,
       );
