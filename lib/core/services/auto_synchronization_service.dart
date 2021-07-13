@@ -26,8 +26,9 @@ class AutoSynchronizationService {
           Provider.of<SynchronizationState>(context, listen: false)
               .hasUnsyncedData;
       if (hasUnsyncedData && !isDataSyncActive) {
-        await Provider.of<SynchronizationState>(context, listen: false)
-            .startDataUploadActivity(isAutoUpload: true);
+        // @TODO Enable auto data upload later
+        // await Provider.of<SynchronizationState>(context, listen: false)
+        //     .startDataUploadActivity(isAutoUpload: true);
       } else {
         return;
       }
