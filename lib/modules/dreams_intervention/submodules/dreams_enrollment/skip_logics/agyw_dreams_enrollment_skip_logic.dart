@@ -44,7 +44,6 @@ class AgywDreamsEnrollmentSkipLogic {
           hiddenSections['7_A_M'] = true;
           hiddenSections['8_O_O_S'] = true;
           hiddenSections['9_O_H'] = true;
-          dataObject['s1eRvsL2Ly4'] = 'Single';
         }
         if (age >= 15 && age <= 19) {
           hiddenFields['VsqV6prIfm9'] = true;
@@ -75,6 +74,9 @@ class AgywDreamsEnrollmentSkipLogic {
         }
         if (age < 9 || age > 11) {
           hiddenFields['x6VFmJLsqgx'] = true;
+        }
+        if (age >= 18) {
+          hiddenSections['householdInformation'] = true;
         }
         if (age >= 9 && age <= 24) {
           assignInputFieldValue(context, 'cifBFSTHgv5', 'true');

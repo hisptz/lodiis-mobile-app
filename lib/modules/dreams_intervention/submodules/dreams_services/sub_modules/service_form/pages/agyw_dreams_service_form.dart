@@ -27,9 +27,12 @@ import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:provider/provider.dart';
 
 class AgywDreamsServiceForm extends StatefulWidget {
-  AgywDreamsServiceForm({Key key, this.isFormEdited: false}) : super(key: key);
+  AgywDreamsServiceForm(
+      {Key key, this.isFormEdited: false, this.currentUserImplementingPartner})
+      : super(key: key);
 
   final bool isFormEdited;
+  final String currentUserImplementingPartner;
   @override
   _AgywDreamsServiceFormState createState() => _AgywDreamsServiceFormState();
 }
@@ -68,11 +71,10 @@ class _AgywDreamsServiceFormState extends State<AgywDreamsServiceForm> {
             Provider.of<ServiceFormState>(context, listen: false).formState;
         CurrentUser currentUser =
             Provider.of<CurrentUserState>(context, listen: false).currentUser;
-        dataObject['implementingPatner'] =
-            '${currentUser.implementingPartner ?? ''}';
         await AgywDreamsServiceFormSkipLogic.evaluateSkipLogics(
             context, formSections, dataObject,
-            isFormEdited: widget.isFormEdited);
+            isFormEdited: widget.isFormEdited,
+            implementingPartner: widget.currentUserImplementingPartner);
       },
     );
   }
@@ -130,7 +132,6 @@ class _AgywDreamsServiceFormState extends State<AgywDreamsServiceForm> {
             });
             String eventDate = dataObject['eventDate'];
             String eventId = dataObject['eventId'];
-            dataObject.remove('implementingPatner');
             List<String> hiddenFields = [];
             List<String> skippedFields = [
               'interventionSessions',

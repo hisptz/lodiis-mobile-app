@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
+import 'package:path/path.dart';
 import 'package:provider/provider.dart';
 
 class AgywDreamsServiceFormSkipLogic {
@@ -11,7 +12,7 @@ class AgywDreamsServiceFormSkipLogic {
 
   static Future evaluateSkipLogics(
       BuildContext context, List<FormSection> formSections, Map dataObject,
-      {bool isFormEdited}) async {
+      {bool isFormEdited, String implementingPartner}) async {
     hiddenFields.clear();
     hiddenSections.clear();
     hiddenInputFieldOptions.clear();
@@ -54,10 +55,24 @@ class AgywDreamsServiceFormSkipLogic {
       hiddenOptions['IPC'] = true;
     }
 
-    // skip logic as per implementing patner
-    if (dataObject['implementingPatner'] != 'Paralegal') {
+    // skip logic as per implementing partner
+    if (implementingPartner != 'Paralegal') {
       hiddenOptions['VAC Legal Messaging'] = true;
       hiddenOptions['GBV Legal Messaging'] = true;
+    } else {
+      hiddenOptions['LBSE'] = true;
+      hiddenOptions['FINANCIAL EDUCATION'] = true;
+      hiddenOptions['STEPPING STONES'] = true;
+      hiddenOptions['IPC'] = true;
+      hiddenOptions['PTS 4 NON-GRADS'] = true;
+      hiddenOptions['Go Girls'] = true;
+      hiddenOptions['PTS 4-GRADS'] = true;
+      hiddenOptions['SILC'] = true;
+      hiddenOptions['GBV Messaging'] = true;
+      hiddenOptions['AFLATEEN/TOUN'] = true;
+      hiddenOptions['PARENTING'] = true;
+      hiddenOptions['VAC Messaging'] = true;
+      hiddenOptions['SAVING GROUP'] = true;
     }
     hiddenInputFieldOptions['Eug4BXDFLym'] = hiddenOptions;
 
@@ -133,8 +148,9 @@ class AgywDreamsServiceFormSkipLogic {
       } else if (interventionType == 'SILC') {
         return (sessions) <= 12 ? true : false;
       } else if (interventionType == 'SAVING GROUP') {
+        return (sessions) <= 12 ? true : false;
       } else if (interventionType == 'FINANCIAL EDUCATION') {
-        return (sessions) <= 14 ? true : false;
+        return (sessions) <= 4 ? true : false;
       } else if (interventionType == 'STEPPING STONES') {
         return (sessions) <= 11 ? true : false;
       } else if (interventionType == 'IPC') {
@@ -148,6 +164,8 @@ class AgywDreamsServiceFormSkipLogic {
       } else if (interventionType == 'VAC Messaging') {
         return (sessions) <= 1 ? true : false;
       } else if (interventionType == 'VAC Legal Messaging') {
+        return true;
+      } else if (interventionType == 'GBV Legal Messaging') {
         return true;
       }
     }
