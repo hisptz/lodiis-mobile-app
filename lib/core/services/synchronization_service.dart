@@ -449,7 +449,7 @@ class SynchronizationService {
       for (Enrollment teiEnrollment in teiEnrollments) {
         if (syncedIds.indexOf(teiEnrollment.enrollment) > -1) {
           teiEnrollment.syncStatus = 'synced';
-          FormUtil.savingEnrollment(teiEnrollment);
+          await FormUtil.savingEnrollment(teiEnrollment);
         }
       }
     }
@@ -504,7 +504,7 @@ class SynchronizationService {
       for (TrackeEntityInstance tei in teis) {
         if (syncedIds.indexOf(tei.trackedEntityInstance) > -1) {
           tei.syncStatus = 'synced';
-          FormUtil.savingTrackeEntityInstance(tei);
+          await FormUtil.savingTrackeEntityInstance(tei);
         }
       }
     }
@@ -559,7 +559,7 @@ class SynchronizationService {
         List<Enrollment> unsyncedEnrollment =
             await checkForUnenrolledBeneficiaries(unsyncedDueToEnrollment);
         if (unsyncedEnrollment.isNotEmpty) {
-          await uploadUnsyncedEnrollments(unsyncedEnrollment);
+          await uploadEnrollmentsToTheServer(unsyncedEnrollment, isAutoUpload);
           await uploadTeiEventsToTheServer(teiEvents, isAutoUpload,
               checkEnrollments: false);
         }
@@ -578,7 +578,7 @@ class SynchronizationService {
       for (Events event in teiEvents) {
         if (syncedIds.indexOf(event.event) > -1) {
           event.syncStatus = 'synced';
-          FormUtil.savingEvent(event);
+          await FormUtil.savingEvent(event);
         }
       }
     }
@@ -629,7 +629,7 @@ class SynchronizationService {
       for (TeiRelationship teiRelationship in teiRelationShips) {
         if (syncedIds.indexOf(teiRelationship.id) > -1) {
           teiRelationship.syncStatus = 'synced';
-          FormUtil.savingTeiRelationship(teiRelationship);
+          await FormUtil.savingTeiRelationship(teiRelationship);
         }
       }
     }
@@ -682,7 +682,7 @@ class SynchronizationService {
   }
 
   Future<String> _getHttpResponseAppLogs(String responseBody) async {
-    String logMessage = '';
+    String logMessage = '$responseBody';
     try {
       if (responseBody.toLowerCase().contains('nginx')) {
         logMessage = getNginxErrorMessage(responseBody);
@@ -733,50 +733,6 @@ class SynchronizationService {
     referenceIds['syncedIds'] = syncedIds;
     referenceIds['unsyncedDueToEnrollment'] = unsyncedDueToEnrollment;
     return referenceIds;
-  }
-
-  Future uploadUnsyncedEnrollments(List<Enrollment> teiEnrollments) async {
-    List<String> syncedIds = [];
-    String url = 'api/enrollments';
-    Map body = Map();
-    body['enrollments'] = teiEnrollments
-        .map((enrollment) => enrollment.toOffline(enrollment))
-        .toList();
-    try {
-      var queryParameters = {
-        "strategy": "CREATE_AND_UPDATE",
-      };
-      var response = await httpClient.httpPost(
-        url,
-        json.encode(body),
-        queryParameters: queryParameters,
-      );
-      if (response.statusCode >= 400 && response.statusCode != 409) {
-        var message = await _getHttpResponseAppLogs(response.body);
-        if (message.isNotEmpty) {
-          AppLogs log =
-              AppLogs(type: AppLogsConstants.errorLogType, message: message);
-          await AppLogsOfflineProvider().addLogs(log);
-        }
-        AppUtil.showToastMessage(message: 'Error uploading data');
-      }
-      var referenceIds = await _getReferenceIds(json.decode(response.body));
-      syncedIds = referenceIds['syncedIds'];
-    } catch (e) {
-      AppLogs log = AppLogs(
-          type: AppLogsConstants.errorLogType, message: '${e.toString()}');
-      await AppLogsOfflineProvider().addLogs(log);
-      AppUtil.showToastMessage(message: 'Error uploading data');
-      throw e;
-    }
-    if (syncedIds.length > 0) {
-      for (Enrollment teiEnrollment in teiEnrollments) {
-        if (syncedIds.indexOf(teiEnrollment.trackedEntityInstance) > -1) {
-          teiEnrollment.syncStatus = 'synced';
-          FormUtil.savingEnrollment(teiEnrollment);
-        }
-      }
-    }
   }
 
   Future<List<Enrollment>> checkForUnenrolledBeneficiaries(
