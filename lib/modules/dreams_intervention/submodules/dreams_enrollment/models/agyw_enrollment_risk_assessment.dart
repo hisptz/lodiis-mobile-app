@@ -258,6 +258,7 @@ class AgywEnrollmentRiskAssessment {
         ],
       ),
       FormSection(
+        id: 'householdInformation',
         name: 'Household Information',
         color: Color(0xFF258DCC),
         inputFields: [

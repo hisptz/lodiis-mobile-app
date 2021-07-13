@@ -19,6 +19,7 @@ import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
+import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/constants/dreams_routes_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/services/agyw_dream_enrollment_service.dart';
@@ -76,10 +77,30 @@ class _AgywDreamsEnrollmentEditFormState
         'rh881j2vfvT',
         'AZCVLPzD0Vd',
         'cifBFSTHgv5',
-        'JTNxMQPT134'
+        'JTNxMQPT134',
+        'ls9hlz2tyol',
+        'VJiWumvINR6',
       ];
+      List<String> readOnlyFields = [
+        'ls9hlz2tyol',
+        'VJiWumvINR6',
+        'qZP982qpSPS',
+      ];
+      FormSection demographicInformationFormSection =
+          riskAssessmentFormSections[0];
+      FormSection householdInformationFormSection =
+          riskAssessmentFormSections[1];
+      demographicInformationFormSection.inputFields =
+          demographicInformationFormSection.inputFields
+              .map((InputField inputField) {
+        if (readOnlyFields.contains(inputField.id)) {
+          inputField.isReadOnly = true;
+        }
+        return inputField;
+      }).toList();
       formSections = [
-        riskAssessmentFormSections[0],
+        demographicInformationFormSection,
+        householdInformationFormSection,
       ];
       enrollmentFormSections.forEach((enrollmentFormsection) {
         formSections.add(enrollmentFormsection);

@@ -60,14 +60,22 @@ class AppLogsHelper {
     }
   }
 
-  static dynamic generateLogsExcel() async {
+  static dynamic generateLogsExcel(String appVersion) async {
     try {
       var excel = Excel.createExcel();
       excel.rename('Sheet1', 'app-logs');
       Sheet sheetObject = excel['app-logs'];
       List<String> tableHeaders = AppLogsOfflineProvider().getTableColumns();
-      int rowCount = 0;
+      int rowCount = 1;
+
+      // Insert app version row
+      List<String> appVersionRow = ['Application Verison', appVersion];
+      sheetObject.insertRowIterables(appVersionRow, 0);
+
+      // Insert table header row
       sheetObject.insertRowIterables(tableHeaders, rowCount);
+
+      // Insert data rows
       List<List<String>> rows = await getExcelRows(tableHeaders);
       for (List<String> row in rows) {
         rowCount++;
