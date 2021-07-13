@@ -1,6 +1,8 @@
 import 'package:kb_mobile_app/core/offline_db/app_logs_offline/app_logs_offline_provider.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/app_logs.dart';
+import 'package:kb_mobile_app/modules/app_logs/constants/program_stages_constants.dart';
+import 'package:kb_mobile_app/modules/app_logs/constants/programs_constants.dart';
 
 class AppLogsService {
   Future<void> saveLogs(AppLogs appLog) async {
@@ -63,7 +65,8 @@ class AppLogsService {
       if (socketRegex.hasMatch(message)) {
         formattedMessage = 'Internet connection error';
       } else if (accessRegex.hasMatch(message)) {
-        formattedMessage = 'Current user has no proper access';
+        String programStage = getProgramStageName(message);
+        formattedMessage = 'Current user has no access $programStage';
       } else if (enrollmentRegex.hasMatch(message)) {
         String program = getProgramName(message);
         formattedMessage = 'Beneficiaries not enrolled to$program program.';
@@ -86,23 +89,28 @@ class AppLogsService {
     return formattedMessage;
   }
 
+  String getProgramStageName(String message) {
+    // program list with their uids
+    Map programStages = ProgramStagesConstants.programStages;
+    String programStage = '';
+    programStages.forEach((id, name) {
+      if (message.contains(id)) {
+        programStage = 'to $name';
+        return programStage;
+      }
+    });
+
+    return programStage;
+  }
+
   String getProgramName(String message) {
     // program list with their uids
-    Map programs = {
-      "dwtPhZrg2k7": "OGAC",
-      "hOEIHJDrrvz": "AGYW/DREAMS",
-      "M4uWNFJNMIR": "AGYW/Dreams None Participation Form",
-      "AxscuxwznKK": "None Participation to Programme",
-      "BNsDaCclOiu": "Caregiver",
-      "CK4iMK8b0aZ": "NON-AGYW/DREAMS",
-      "em38qztTI8s": "OVC",
-    };
-
+    Map programs = ProgramsConstants.programs;
     String program = '';
     programs.forEach((id, name) {
-      print(name);
       if (message.contains(id)) {
         program = ' $name';
+        return program;
       }
     });
 
