@@ -15,7 +15,6 @@ dependencies:
   geolocator: ^7.0.1
   cupertino_icons: ^1.0.2
   shared_preferences: ^2.0.3
-  flutter_svg: ^0.19.3
   google_fonts: ^2.0.0
   http: ^0.13.0
   random_color: ^1.0.5
@@ -24,6 +23,10 @@ dependencies:
   path:
   connectivity: ^3.0.2
   infinite_scroll_pagination: ^3.0.0
+  permission_handler: ^8.1.2
+  path_provider: ^2.0.2
+  flutter_svg: ^0.22.0
+  excel: ^2.0.0-null-safety-3
 
 dev_dependencies:
   flutter_test:

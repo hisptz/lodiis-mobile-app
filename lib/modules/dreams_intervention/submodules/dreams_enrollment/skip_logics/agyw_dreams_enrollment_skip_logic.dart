@@ -31,14 +31,9 @@ class AgywDreamsEnrollmentSkipLogic {
         int age = AppUtil.getAgeInYear(value);
         assignInputFieldValue(context, 'ls9hlz2tyol', age.toString());
         if (age >= 9 && age <= 14) {
-          // hiddenFields['yU4tNjFpQIq'] = true;
-          // hiddenFields['wGFmu7DhNGV'] = true;
-          // hiddenFields['G1s75wng5DY'] = true;
           hiddenFields['bkpG276xEk9'] = true;
           hiddenFields['VomsiFza9mn'] = true;
           hiddenFields['NhBs8uAiRPt'] = true;
-          // hiddenFields['afatGR9sy5Q'] = true;
-          // hiddenFields['yCmbCOTbH3R'] = true;
           hiddenOptions['15-19'] = true;
           hiddenOptions['20-24'] = true;
           hiddenSections['1_M_S_P'] = true;
@@ -49,7 +44,6 @@ class AgywDreamsEnrollmentSkipLogic {
           hiddenSections['7_A_M'] = true;
           hiddenSections['8_O_O_S'] = true;
           hiddenSections['9_O_H'] = true;
-          dataObject['s1eRvsL2Ly4'] = 'Single';
         }
         if (age >= 15 && age <= 19) {
           hiddenFields['VsqV6prIfm9'] = true;
@@ -65,7 +59,6 @@ class AgywDreamsEnrollmentSkipLogic {
           hiddenSections['8_O_H'] = true;
         }
         if (age >= 20 && age <= 24) {
-          // hiddenFields['zowQOCZivv8'] = true;
           hiddenFields['VsqV6prIfm9'] = true;
           hiddenFields['r0rKJA911ma'] = true;
           hiddenFields['S4yWgL2zp2I'] = true;
@@ -81,6 +74,9 @@ class AgywDreamsEnrollmentSkipLogic {
         }
         if (age < 9 || age > 11) {
           hiddenFields['x6VFmJLsqgx'] = true;
+        }
+        if (age >= 18) {
+          hiddenSections['householdInformation'] = true;
         }
         if (age >= 9 && age <= 24) {
           assignInputFieldValue(context, 'cifBFSTHgv5', 'true');

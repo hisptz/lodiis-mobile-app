@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/core/components/input_fields/input_checked_icon.dart';
+import 'package:kb_mobile_app/core/services/data_quality_service.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 
 class NumericalInputFieldContainer extends StatefulWidget {
@@ -41,12 +42,12 @@ class _NumericalInputFieldContainerState
   }
 
   void onValueChange(String value) {
-    // @TODO handling error messages
+    String sanitizedValue =
+        DataQualityService.getSanitizedNumericalValue(value);
     setState(() {
-      _value = value;
+      _value = sanitizedValue;
     });
-
-    widget.onInputValueChange(value.trim());
+    widget.onInputValueChange(sanitizedValue.trim());
   }
 
   @override

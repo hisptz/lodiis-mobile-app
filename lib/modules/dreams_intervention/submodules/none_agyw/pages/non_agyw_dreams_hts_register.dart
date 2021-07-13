@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
@@ -11,13 +12,16 @@ import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.d
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/core/constants/beneficiary_identification.dart';
+import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
+import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/constants/dreams_routes_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/services/none_agyw_dream_enrollment_service.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/constant/non_agyw_hts_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/models/non_agyw_hts_client_information.dart';
@@ -85,10 +89,40 @@ class _NonAgywDreamsHTSRegisterFormState
     );
   }
 
+  void onUpdateFormAutoSaveState(
+    BuildContext context, {
+    bool isSaveForm = false,
+  }) async {
+    Map dataObject =
+        Provider.of<EnrollmentFormState>(context, listen: false).formState;
+    String beneficiaryId = "";
+    String id = "${DreamsRoutesConstant.noneAgywHtsConsentPage}_$beneficiaryId";
+    FormAutoSave formAutoSave = FormAutoSave(
+      id: id,
+      beneficiaryId: beneficiaryId,
+      pageModule: DreamsRoutesConstant.noneAgywHtsRegisterPage,
+      nextPageModule: isSaveForm
+          ? DreamsRoutesConstant.noneAgywHtsRegisterNextPage
+          : DreamsRoutesConstant.noneAgywHtsRegisterPage,
+      data: jsonEncode(dataObject),
+    );
+    await FormAutoSaveOfflineService().saveFormAutoSaveData(formAutoSave);
+  }
+
+  void clearFormAutoSaveState(BuildContext context) async {
+    Map dataObject =
+        Provider.of<EnrollmentFormState>(context, listen: false).formState;
+    String beneficiaryId = dataObject['trackedEntityInstance'] ?? "";
+    String formAutoSaveid =
+        "${DreamsRoutesConstant.noneAgywHtsConsentPage}_$beneficiaryId";
+    await FormAutoSaveOfflineService().deleteSavedFormAutoData(formAutoSaveid);
+  }
+
   void onInputValueChange(String id, dynamic value) {
     Provider.of<EnrollmentFormState>(context, listen: false)
         .setFormFieldState(id, value);
     evaluateSkipLogics();
+    onUpdateFormAutoSaveState(context);
   }
 
   void onSaveForm(BuildContext context, Map dataObject) async {
@@ -96,10 +130,13 @@ class _NonAgywDreamsHTSRegisterFormState
       try {
         if (dataObject[NonAgywDreamsHTSConstant.hivResultStatus] ==
             'Negative') {
+          onUpdateFormAutoSaveState(context, isSaveForm: true);
           Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => NoneAgywEnrollmentPrepScreeningForm()));
+            context,
+            MaterialPageRoute(
+              builder: (context) => NoneAgywEnrollmentPrepScreeningForm(),
+            ),
+          );
         } else {
           setState(() {
             isSaving = true;
@@ -108,11 +145,16 @@ class _NonAgywDreamsHTSRegisterFormState
           dataObject['PN92g65TkVI'] = dataObject['PN92g65TkVI'] ?? 'Active';
           dataObject['klLkGxy328c'] =
               dataObject['klLkGxy328c'] ?? user.implementingPartner;
+          if (user.subImplementingPartner != '') {
+            dataObject['fQInK8s2RNR'] =
+                dataObject['fQInK8s2RNR'] ?? user.subImplementingPartner;
+          }
           List<String> hiddenFields = [
             BeneficiaryIdentification.beneficiaryId,
             BeneficiaryIdentification.beneficiaryIndex,
             'PN92g65TkVI',
             'klLkGxy328c',
+            'fQInK8s2RNR'
           ];
           String orgUnit = dataObject['location'];
           await NoneAgywDreamEnrollmentService().savingNonAgwyBeneficiary(
@@ -124,6 +166,7 @@ class _NonAgywDreamsHTSRegisterFormState
             null,
             hiddenFields,
           );
+          clearFormAutoSaveState(context);
           Provider.of<DreamsInterventionListState>(context, listen: false)
               .onNonAgywBeneficiaryAdd();
           Timer(
@@ -152,35 +195,39 @@ class _NonAgywDreamsHTSRegisterFormState
         Timer(Duration(seconds: 1), () {
           setState(() {
             AppUtil.showToastMessage(
-                message: e.toString(), position: ToastGravity.BOTTOM);
+              message: e.toString(),
+              position: ToastGravity.BOTTOM,
+            );
           });
         });
       }
     } else {
       AppUtil.showToastMessage(
-          message: 'Please fill at least one form field',
-          position: ToastGravity.TOP);
+        message: 'Please fill at least one form field',
+        position: ToastGravity.TOP,
+      );
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(65.0),
-          child: Consumer<IntervetionCardState>(
-            builder: (context, intervetionCardState, child) {
-              InterventionCard activeInterventionProgram =
-                  intervetionCardState.currentIntervetionProgram;
-              return SubPageAppBar(
-                label: label,
-                activeInterventionProgram: activeInterventionProgram,
-              );
-            },
-          ),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(65.0),
+        child: Consumer<IntervetionCardState>(
+          builder: (context, intervetionCardState, child) {
+            InterventionCard activeInterventionProgram =
+                intervetionCardState.currentIntervetionProgram;
+            return SubPageAppBar(
+              label: label,
+              activeInterventionProgram: activeInterventionProgram,
+            );
+          },
         ),
-        body: SubPageBody(
-          body: Container(child: Consumer<EnrollmentFormState>(
+      ),
+      body: SubPageBody(
+        body: Container(
+          child: Consumer<EnrollmentFormState>(
             builder: (context, enrollmentFormState, child) {
               return Container(
                 child: Column(
@@ -224,7 +271,9 @@ class _NonAgywDreamsHTSRegisterFormState
                                   buttonColor: Color(0xFF258DCC),
                                   fontSize: 15.0,
                                   onPressButton: () => onSaveForm(
-                                      context, enrollmentFormState.formState),
+                                    context,
+                                    enrollmentFormState.formState,
+                                  ),
                                 ),
                               )
                             ],
@@ -233,8 +282,10 @@ class _NonAgywDreamsHTSRegisterFormState
                 ),
               );
             },
-          )),
+          ),
         ),
-        bottomNavigationBar: InterventionBottomNavigationBarContainer());
+      ),
+      bottomNavigationBar: InterventionBottomNavigationBarContainer(),
+    );
   }
 }

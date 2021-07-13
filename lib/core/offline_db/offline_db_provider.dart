@@ -5,7 +5,6 @@ class OfflineDbProvider {
   final String databaseName = "kb_ovc_dreams_mobile_app";
   Database _db;
   // Script for migrations as well as intialization of tables
-  //@TODO adding tracking tables for current user info;
   final List<String> initialQuery = [
     "CREATE TABLE IF NOT EXISTS current_user (id TEXT PRIMARY KEY, name TEXT, username TEXT, password TEXT , implementingPartner TEXT ,isLogin INTEGER)",
     "CREATE TABLE IF NOT EXISTS current_user_ou (id TEXT PRIMARY KEY, userId TEXT)",
@@ -30,15 +29,20 @@ class OfflineDbProvider {
   ];
 
   final List<String> migrationQuery = [
-    "UPDATE tracked_entity_instance_attribute SET value = 'JHPIEGO' WHERE attribute = 'klLkGxy328c' AND value = 'JPHIEGO'"
+    "CREATE TABLE IF NOT EXISTS form_auto_save (id TEXT PRIMARY KEY, beneficiaryId TEXT, pageModule TEXT, nextPageModule TEXT, data TEXT)",
+    "UPDATE tracked_entity_instance_attribute SET value = 'JHPIEGO' WHERE attribute = 'klLkGxy328c' AND value = 'JPHIEGO'",
+    "ALTER TABLE current_user ADD subImplementingPartner TEXT DEFAULT ''",
+    "ALTER TABLE current_user ADD phoneNumber TEXT DEFAULT 'phoneNumber'",
+    "ALTER TABLE current_user ADD email TEXT DEFAULT 'email'",
+    "ALTER TABLE current_user ADD userRoles TEXT DEFAULT 'userRoles'",
+    "ALTER TABLE current_user ADD userGroups TEXT DEFAULT 'userGroups'",
+    "ALTER TABLE tei_relationships ADD syncStatus TEXT DEFAULT 'not-synced'"
   ];
-
   Future<Database> get db async {
     if (_db != null) {
       return _db;
     }
     _db = await init();
-    this.onCreate(_db, migrationQuery.length + 1);
     return _db;
   }
 
@@ -49,24 +53,40 @@ class OfflineDbProvider {
       path,
       version: migrationQuery.length + 1,
       onUpgrade: onUpgrade,
+      onConfigure: onConfigure,
       onCreate: onCreate,
+      onDowngrade: onDowngrade,
+      onOpen: onOpen,
     );
   }
 
+  onOpen(Database db) {}
+
+  onDowngrade(Database db, int oldVersion, int newVersion) {}
+
+  onConfigure(Database db) {}
+
   onCreate(Database db, int version) async {
-    for (String query in initialQuery) {
-      await db.execute(query);
+    List queries = [...initialQuery, ...migrationQuery];
+    for (String query in queries) {
+      try {
+        await db.execute(query);
+      } catch (error) {}
     }
   }
 
   onUpgrade(Database db, int oldVersion, int version) async {
     for (String query in migrationQuery) {
-      await db.execute(query);
+      try {
+        await db.execute(query);
+      } catch (error) {}
     }
   }
 
   close() async {
-    var dbClient = await db;
-    dbClient.close();
+    try {
+      var dbClient = await db;
+      dbClient.close();
+    } catch (e) {}
   }
 }

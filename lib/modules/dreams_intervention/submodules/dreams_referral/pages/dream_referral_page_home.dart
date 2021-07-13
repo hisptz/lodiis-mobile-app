@@ -62,10 +62,20 @@ class _DreamAgywReferralPageState extends State<DreamAgywReferralPage> {
     }
   }
 
+  void setBeneficiaryPhoneNumberVillage({AgywDream agywDream}) {
+    // Assign village
+    Provider.of<ServiceFormState>(context, listen: false)
+        .setFormFieldState('village', agywDream.village ?? '');
+    // Assign phone number
+    Provider.of<ServiceFormState>(context, listen: false)
+        .setFormFieldState('phoneNumber', agywDream.phoneNumber ?? '');
+  }
+
   void onAddRefferal(BuildContext context, AgywDream agywDream) async {
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
     Provider.of<ServiceFormState>(context, listen: false)
         .updateFormEditabilityState(isEditableMode: true);
+    setBeneficiaryPhoneNumberVillage(agywDream: agywDream);
     CurrentUser user = await UserService().getCurrentUser();
     await Provider.of<ImplementingPartnerReferralServiceState>(context,
             listen: false)
@@ -119,7 +129,8 @@ class _DreamAgywReferralPageState extends State<DreamAgywReferralPage> {
                   referralEventNotification.id == eventData.event &&
                   referralEventNotification.fromImplementingPartner ==
                       currentImplementingPartner &&
-                  referralEventNotification.isCompleted);
+                  referralEventNotification.isCompleted,
+              orElse: () => null);
       if (incommingResolvedReferral != null && hasReferralOutCome) {
         bool isCompleted = true;
         bool isViewed = true;

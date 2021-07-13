@@ -179,7 +179,7 @@ class _OvcExitPageState extends State<OvcExitPage> {
                             ),
                             onPressed: () => onViewExit(context, ovcHouseHold),
                             child: Text(
-                              'EXIT',
+                              currentLanguage != 'lesotho' ? 'EXIT' : 'Koala',
                               style: TextStyle().copyWith(
                                 fontSize: 12.0,
                                 color: Color(0xFF4B9F46),

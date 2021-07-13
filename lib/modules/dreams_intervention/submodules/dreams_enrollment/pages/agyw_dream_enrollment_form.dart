@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
@@ -11,11 +12,14 @@ import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.d
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/core/constants/beneficiary_identification.dart';
+import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
+import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/constants/dreams_routes_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/services/agyw_dream_enrollment_service.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/models/agyw_enrollment_form_section.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/skip_logics/agyw_dreams_enrollment_skip_logic.dart';
@@ -69,8 +73,45 @@ class _AgywDreamsEnrollmentFormState extends State<AgywDreamsEnrollmentForm> {
     );
   }
 
-  void onSaveAndContinue(BuildContext context, Map dataObject,
-      {Map hiddenFields = const {}}) async {
+  void onUpdateFormAutoSaveState(
+    BuildContext context, {
+    bool isSaveForm = false,
+  }) async {
+    String beneficiaryId = "";
+    Map dataObject =
+        Provider.of<EnrollmentFormState>(context, listen: false).formState;
+    String id = "${DreamsRoutesConstant.agywConsentPage}_$beneficiaryId";
+    FormAutoSave formAutoSave = FormAutoSave(
+      id: id,
+      beneficiaryId: beneficiaryId,
+      pageModule: DreamsRoutesConstant.agywEnrollmentFormPage,
+      nextPageModule: isSaveForm
+          ? DreamsRoutesConstant.agywEnrollmentFormNextPage
+          : DreamsRoutesConstant.agywEnrollmentFormPage,
+      data: jsonEncode(dataObject),
+    );
+    await FormAutoSaveOfflineService().saveFormAutoSaveData(formAutoSave);
+  }
+
+  void clearFormAutoSaveState(BuildContext context) async {
+    String beneficiaryId = "";
+    String formAutoSaveid =
+        "${DreamsRoutesConstant.agywConsentPage}_$beneficiaryId";
+    await FormAutoSaveOfflineService().deleteSavedFormAutoData(formAutoSaveid);
+  }
+
+  void onInputValueChange(String id, dynamic value) {
+    Provider.of<EnrollmentFormState>(context, listen: false)
+        .setFormFieldState(id, value);
+    evaluateSkipLogics();
+    onUpdateFormAutoSaveState(context);
+  }
+
+  void onSaveAndContinue(
+    BuildContext context,
+    Map dataObject, {
+    Map hiddenFields = const {},
+  }) async {
     bool hadAllMandatoryFilled = AppUtil.hasAllMandarotyFieldsFilled(
       mandatoryFields,
       dataObject,
@@ -84,11 +125,17 @@ class _AgywDreamsEnrollmentFormState extends State<AgywDreamsEnrollmentForm> {
       dataObject['PN92g65TkVI'] = dataObject['PN92g65TkVI'] ?? 'Active';
       dataObject['klLkGxy328c'] =
           dataObject['klLkGxy328c'] ?? user.implementingPartner;
+      if (user.subImplementingPartner != '') {
+        dataObject['fQInK8s2RNR'] =
+            dataObject['fQInK8s2RNR'] ?? user.subImplementingPartner;
+      }
+
       List<String> hiddenFields = [
         BeneficiaryIdentification.beneficiaryId,
         BeneficiaryIdentification.beneficiaryIndex,
         'PN92g65TkVI',
-        'klLkGxy328c'
+        'klLkGxy328c',
+        'fQInK8s2RNR'
       ];
       String orgUnit = dataObject['location'];
       await AgywDreamEnrollmentService().savingAgwyBeneficiary(
@@ -102,6 +149,7 @@ class _AgywDreamsEnrollmentFormState extends State<AgywDreamsEnrollmentForm> {
       );
       Provider.of<DreamsInterventionListState>(context, listen: false)
           .onAgywBeneficiaryAdd();
+      clearFormAutoSaveState(context);
       Timer(Duration(seconds: 1), () {
         if (Navigator.canPop(context)) {
           setState(() {
@@ -120,7 +168,6 @@ class _AgywDreamsEnrollmentFormState extends State<AgywDreamsEnrollmentForm> {
         }
       });
     } else {
-
       setState(() {
         unFilledMandatoryFields =
             AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
@@ -130,12 +177,6 @@ class _AgywDreamsEnrollmentFormState extends State<AgywDreamsEnrollmentForm> {
         position: ToastGravity.TOP,
       );
     }
-  }
-
-  void onInputValueChange(String id, dynamic value) {
-    Provider.of<EnrollmentFormState>(context, listen: false)
-        .setFormFieldState(id, value);
-    evaluateSkipLogics();
   }
 
   @override
@@ -157,7 +198,10 @@ class _AgywDreamsEnrollmentFormState extends State<AgywDreamsEnrollmentForm> {
         ),
         body: SubPageBody(
           body: Container(
-            margin: EdgeInsets.symmetric(vertical: 16.0, horizontal: 13.0),
+            margin: EdgeInsets.symmetric(
+              vertical: 16.0,
+              horizontal: 13.0,
+            ),
             child: !isFormReady
                 ? Column(
                     children: [

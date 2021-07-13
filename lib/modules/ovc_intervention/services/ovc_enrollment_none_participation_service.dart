@@ -32,11 +32,20 @@ class OvcNoneParticipationService {
     if (eventId == null) {
       inputFieldIds
           .add(ServiceImplementingPartner().implementingPartnerDataElement);
+      inputFieldIds
+          .add(ServiceImplementingPartner().subImplementingPartnerDataElement);
       CurrentUser user = await UserService().getCurrentUser();
       dataObject[ServiceImplementingPartner().implementingPartnerDataElement] =
           dataObject[ServiceImplementingPartner()
                   .implementingPartnerDataElement] ??
               user.implementingPartner;
+      if (user.subImplementingPartner != '') {
+        dataObject[ServiceImplementingPartner()
+            .subImplementingPartnerDataElement] = dataObject[
+                ServiceImplementingPartner()
+                    .subImplementingPartnerDataElement] ??
+            user.subImplementingPartner;
+      }
     }
 
     eventId =

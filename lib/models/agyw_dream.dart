@@ -19,6 +19,8 @@ class AgywDream {
   String searchableValue;
   String enrollment;
   String beneficiaryType;
+  String phoneNumber;
+  String village;
   TrackeEntityInstance trackeEntityInstanceData;
 
   AgywDream(
@@ -38,6 +40,8 @@ class AgywDream {
       this.enrollment,
       this.searchableValue,
       this.beneficiaryType,
+      this.phoneNumber,
+      this.village,
       this.trackeEntityInstanceData});
   AgywDream fromTeiModel(
     TrackeEntityInstance trackeEntityInstance,
@@ -53,6 +57,8 @@ class AgywDream {
       'qZP982qpSPS',
       'PN92g65TkVI',
       'VJiWumvINR6',
+      'tNdoR0jYr7R',
+      'RB8Wx75hGa4',
       'klLkGxy328c',
       'vIX4GTSCX4P',
       'vkd6o91n1IC',
@@ -77,6 +83,8 @@ class AgywDream {
       sex: data['VJiWumvINR6'] ?? data['vIX4GTSCX4P'] ?? '',
       beneficiaryType: data['vkd6o91n1IC'] ?? '',
       programStatus: data['PN92g65TkVI'] ?? '',
+      village: data['RB8Wx75hGa4'] ?? '',
+      phoneNumber: data['tNdoR0jYr7R'] ?? '',
       orgUnit: orgUnit,
       location: location,
       createdDate: createdDate,

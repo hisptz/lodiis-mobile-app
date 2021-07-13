@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
@@ -11,12 +12,16 @@ import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.d
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/core/constants/beneficiary_identification.dart';
+import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
+import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
+import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/constants/dreams_routes_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/services/agyw_dream_enrollment_service.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/skip_logics/agyw_dreams_enrollment_skip_logic.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
@@ -72,10 +77,30 @@ class _AgywDreamsEnrollmentEditFormState
         'rh881j2vfvT',
         'AZCVLPzD0Vd',
         'cifBFSTHgv5',
-        'JTNxMQPT134'
+        'JTNxMQPT134',
+        'ls9hlz2tyol',
+        'VJiWumvINR6',
       ];
+      List<String> readOnlyFields = [
+        'ls9hlz2tyol',
+        'VJiWumvINR6',
+        'qZP982qpSPS',
+      ];
+      FormSection demographicInformationFormSection =
+          riskAssessmentFormSections[0];
+      FormSection householdInformationFormSection =
+          riskAssessmentFormSections[1];
+      demographicInformationFormSection.inputFields =
+          demographicInformationFormSection.inputFields
+              .map((InputField inputField) {
+        if (readOnlyFields.contains(inputField.id)) {
+          inputField.isReadOnly = true;
+        }
+        return inputField;
+      }).toList();
       formSections = [
-        riskAssessmentFormSections[0],
+        demographicInformationFormSection,
+        householdInformationFormSection,
       ];
       enrollmentFormSections.forEach((enrollmentFormsection) {
         formSections.add(enrollmentFormsection);
@@ -105,10 +130,41 @@ class _AgywDreamsEnrollmentEditFormState
     );
   }
 
+  void onUpdateFormAutoSaveState(
+    BuildContext context, {
+    bool isSaveForm = false,
+  }) async {
+    Map dataObject =
+        Provider.of<EnrollmentFormState>(context, listen: false).formState;
+    String beneficiaryId = dataObject['trackedEntityInstance'] ?? "";
+    String id =
+        "${DreamsRoutesConstant.agywEnrollmentFormEditPage}_$beneficiaryId";
+    FormAutoSave formAutoSave = FormAutoSave(
+      id: id,
+      beneficiaryId: beneficiaryId,
+      pageModule: DreamsRoutesConstant.agywEnrollmentFormEditPage,
+      nextPageModule: isSaveForm
+          ? DreamsRoutesConstant.agywEnrollmentFormEditNextPage
+          : DreamsRoutesConstant.agywEnrollmentFormEditPage,
+      data: jsonEncode(dataObject),
+    );
+    await FormAutoSaveOfflineService().saveFormAutoSaveData(formAutoSave);
+  }
+
+  void clearFormAutoSaveState(BuildContext context) async {
+    Map dataObject =
+        Provider.of<EnrollmentFormState>(context, listen: false).formState;
+    String beneficiaryId = dataObject['trackedEntityInstance'] ?? "";
+    String formAutoSaveid =
+        "${DreamsRoutesConstant.agywEnrollmentFormEditPage}_$beneficiaryId";
+    await FormAutoSaveOfflineService().deleteSavedFormAutoData(formAutoSaveid);
+  }
+
   void onInputValueChange(String id, dynamic value) {
     Provider.of<EnrollmentFormState>(context, listen: false)
         .setFormFieldState(id, value);
     evaluateSkipLogics();
+    onUpdateFormAutoSaveState(context);
   }
 
   void onSaveForm(BuildContext context, Map dataObject,
@@ -147,6 +203,7 @@ class _AgywDreamsEnrollmentEditFormState
       );
       Provider.of<DreamsInterventionListState>(context, listen: false)
           .refreshDreamsList();
+      clearFormAutoSaveState(context);
       Timer(Duration(seconds: 1), () {
         if (Navigator.canPop(context)) {
           setState(() {

@@ -32,6 +32,7 @@ class OvcExitInformationForm extends StatefulWidget {
 class _OvcExitInformationFormState extends State<OvcExitInformationForm>
     with OvcCaseExitSkipLogic {
   final String label = 'Exit';
+  final String translatedLabel = 'Koalac';
   List<FormSection> formSections;
   bool isFormReady = false;
   bool isSaving = false;
@@ -131,13 +132,19 @@ class _OvcExitInformationFormState extends State<OvcExitInformationForm>
     return Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(65.0),
-          child: Consumer<IntervetionCardState>(
-            builder: (context, intervetionCardState, child) {
-              InterventionCard activeInterventionProgram =
-                  intervetionCardState.currentIntervetionProgram;
-              return SubPageAppBar(
-                label: label,
-                activeInterventionProgram: activeInterventionProgram,
+          child: Consumer<LanguageTranslationState>(
+            builder: (context, languageTranslationState, child) {
+              String currentLanguage = languageTranslationState.currentLanguage;
+              return Consumer<IntervetionCardState>(
+                builder: (context, intervetionCardState, child) {
+                  InterventionCard activeInterventionProgram =
+                      intervetionCardState.currentIntervetionProgram;
+                  return SubPageAppBar(
+                    label:
+                        currentLanguage == 'lesotho' ? translatedLabel : label,
+                    activeInterventionProgram: activeInterventionProgram,
+                  );
+                },
               );
             },
           ),

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:kb_mobile_app/modules/synchronization/constants/synchronization_actions_constants.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/device_connectivity_state/device_connectivity_state.dart';
@@ -26,7 +27,9 @@ class _DataDownloadMessageState extends State<DataDownloadMessage> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => Synchronization(),
+          builder: (context) => Synchronization(
+            synchronizationAction: SynchronizationActionsConstants().download,
+          ),
         ),
       );
     }
@@ -36,7 +39,7 @@ class _DataDownloadMessageState extends State<DataDownloadMessage> {
     await ReferralNotificationService().syncReferralNotifications();
     await Provider.of<ReferralNotificationState>(context, listen: false)
         .reloadReferralNotifications();
-    Timer(Duration(milliseconds: 200), () {
+    Timer(Duration(milliseconds: 100), () {
       bool connected =
           Provider.of<DeviceConnectivityState>(context, listen: false)
               .connectivityStatus;

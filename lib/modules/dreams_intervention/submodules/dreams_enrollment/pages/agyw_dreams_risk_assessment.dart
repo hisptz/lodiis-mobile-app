@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -10,22 +11,26 @@ import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
+import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
+import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/constants/dreams_routes_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/models/agyw_enrollment_risk_assessment.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/skip_logics/agyw_dreams_enrollment_skip_logic.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:provider/provider.dart';
 import 'agyw_dream_enrollment_form.dart';
 
-class AgywDreamServiceForm extends StatefulWidget {
-  const AgywDreamServiceForm({Key key}) : super(key: key);
+class AgywDreamRiskAssessment extends StatefulWidget {
+  const AgywDreamRiskAssessment({Key key}) : super(key: key);
   @override
-  _AgywDreamServiceFormState createState() => _AgywDreamServiceFormState();
+  _AgywDreamRiskAssessmentState createState() =>
+      _AgywDreamRiskAssessmentState();
 }
 
-class _AgywDreamServiceFormState extends State<AgywDreamServiceForm> {
+class _AgywDreamRiskAssessmentState extends State<AgywDreamRiskAssessment> {
   List<FormSection> formSections;
   final String label = 'Risk Assessment';
   final List<String> mandatoryFields =
@@ -61,17 +66,50 @@ class _AgywDreamServiceFormState extends State<AgywDreamServiceForm> {
     );
   }
 
+  void onUpdateFormAutoSaveState(
+    BuildContext context, {
+    bool isSaveForm = false,
+  }) async {
+    String beneficiaryId = "";
+    Map dataObject =
+        Provider.of<EnrollmentFormState>(context, listen: false).formState;
+    String id = "${DreamsRoutesConstant.agywConsentPage}_$beneficiaryId";
+    FormAutoSave formAutoSave = FormAutoSave(
+      id: id,
+      beneficiaryId: beneficiaryId,
+      pageModule: DreamsRoutesConstant.agywRiskAssessmentPage,
+      nextPageModule: isSaveForm
+          ? DreamsRoutesConstant.agywRiskAssessmentNextPage
+          : DreamsRoutesConstant.agywRiskAssessmentPage,
+      data: jsonEncode(dataObject),
+    );
+    await FormAutoSaveOfflineService().saveFormAutoSaveData(formAutoSave);
+  }
+
+  void onInputValueChange(String id, dynamic value) {
+    Provider.of<EnrollmentFormState>(context, listen: false)
+        .setFormFieldState(id, value);
+    if (id == 'ls9hlz2tyol') {
+      Provider.of<EnrollmentFormState>(context, listen: false)
+          .removeFieldFromState('UzQ533pOnvt');
+    }
+    evaluateSkipLogics();
+    onUpdateFormAutoSaveState(context);
+  }
+
   void onSaveAndContinue(BuildContext context, Map dataObject,
       {Map hiddenFields = const {}}) {
     bool hadAllMandatoryFilled = AppUtil.hasAllMandarotyFieldsFilled(
         mandatoryFields, dataObject,
         hiddenFields: hiddenFields);
     if (hadAllMandatoryFilled) {
+      onUpdateFormAutoSaveState(context, isSaveForm: true);
       Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => AgywDreamsEnrollmentForm(),
-          ));
+        context,
+        MaterialPageRoute(
+          builder: (context) => AgywDreamsEnrollmentForm(),
+        ),
+      );
     } else {
       setState(() {
         unFilledMandatoryFields =
@@ -84,95 +122,88 @@ class _AgywDreamServiceFormState extends State<AgywDreamServiceForm> {
     }
   }
 
-  void onInputValueChange(String id, dynamic value) {
-    Provider.of<EnrollmentFormState>(context, listen: false)
-        .setFormFieldState(id, value);
-    if (id == 'ls9hlz2tyol') {
-      Provider.of<EnrollmentFormState>(context, listen: false)
-          .removeFieldFromState('UzQ533pOnvt');
-    }
-    evaluateSkipLogics();
-  }
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: Scaffold(
-            appBar: PreferredSize(
-              preferredSize: Size.fromHeight(65.0),
-              child: Consumer<IntervetionCardState>(
-                builder: (context, intervetionCardState, child) {
-                  InterventionCard activeInterventionProgram =
-                      intervetionCardState.currentIntervetionProgram;
-                  return SubPageAppBar(
-                    label: label,
-                    activeInterventionProgram: activeInterventionProgram,
-                  );
-                },
-              ),
+      child: Scaffold(
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(65.0),
+          child: Consumer<IntervetionCardState>(
+            builder: (context, intervetionCardState, child) {
+              InterventionCard activeInterventionProgram =
+                  intervetionCardState.currentIntervetionProgram;
+              return SubPageAppBar(
+                label: label,
+                activeInterventionProgram: activeInterventionProgram,
+              );
+            },
+          ),
+        ),
+        body: SubPageBody(
+          body: Container(
+            margin: EdgeInsets.symmetric(
+              vertical: 16.0,
+              horizontal: 13.0,
             ),
-            body: SubPageBody(
-              body: Container(
-                margin: EdgeInsets.symmetric(vertical: 16.0, horizontal: 13.0),
-                child: !isFormReady
-                    ? Column(
-                        children: [
-                          Center(
-                            child: CircularProcessLoader(
-                              color: Colors.blueGrey,
-                            ),
-                          )
-                        ],
-                      )
-                    : Container(
-                        child: Consumer<LanguageTranslationState>(
-                          builder: (context, languageTranslationState, child) {
-                            String currentLanguage =
-                                languageTranslationState.currentLanguage;
-                            return Consumer<EnrollmentFormState>(
-                              builder: (context, enrollmentFormState, child) =>
-                                  Column(
-                                children: [
-                                  Container(
-                                    child: EntryFormContainer(
-                                      hiddenFields:
-                                          enrollmentFormState.hiddenFields,
-                                      hiddenSections:
-                                          enrollmentFormState.hiddenSections,
-                                      hiddenInputFieldOptions:
-                                          enrollmentFormState
-                                              .hiddenInputFieldOptions,
-                                      formSections: formSections,
-                                      mandatoryFieldObject:
-                                          mandatoryFieldObject,
-                                      dataObject: enrollmentFormState.formState,
-                                      onInputValueChange: onInputValueChange,
-                                      unFilledMandatoryFields:
-                                          unFilledMandatoryFields,
-                                    ),
-                                  ),
-                                  EntryFormSaveButton(
-                                    label: currentLanguage == 'lesotho'
-                                        ? 'Boloka ebe u fetela pele'
-                                        : 'Save and Continue',
-                                    labelColor: Colors.white,
-                                    buttonColor: Color(0xFF258DCC),
-                                    fontSize: 15.0,
-                                    onPressButton: () => onSaveAndContinue(
-                                      context,
-                                      enrollmentFormState.formState,
-                                      hiddenFields:
-                                          enrollmentFormState.hiddenFields,
-                                    ),
-                                  )
-                                ],
-                              ),
-                            );
-                          },
+            child: !isFormReady
+                ? Column(
+                    children: [
+                      Center(
+                        child: CircularProcessLoader(
+                          color: Colors.blueGrey,
                         ),
-                      ),
-              ),
-            ),
-            bottomNavigationBar: InterventionBottomNavigationBarContainer()));
+                      )
+                    ],
+                  )
+                : Container(
+                    child: Consumer<LanguageTranslationState>(
+                      builder: (context, languageTranslationState, child) {
+                        String currentLanguage =
+                            languageTranslationState.currentLanguage;
+                        return Consumer<EnrollmentFormState>(
+                          builder: (context, enrollmentFormState, child) =>
+                              Column(
+                            children: [
+                              Container(
+                                child: EntryFormContainer(
+                                  hiddenFields:
+                                      enrollmentFormState.hiddenFields,
+                                  hiddenSections:
+                                      enrollmentFormState.hiddenSections,
+                                  hiddenInputFieldOptions: enrollmentFormState
+                                      .hiddenInputFieldOptions,
+                                  formSections: formSections,
+                                  mandatoryFieldObject: mandatoryFieldObject,
+                                  dataObject: enrollmentFormState.formState,
+                                  onInputValueChange: onInputValueChange,
+                                  unFilledMandatoryFields:
+                                      unFilledMandatoryFields,
+                                ),
+                              ),
+                              EntryFormSaveButton(
+                                label: currentLanguage == 'lesotho'
+                                    ? 'Boloka ebe u fetela pele'
+                                    : 'Save and Continue',
+                                labelColor: Colors.white,
+                                buttonColor: Color(0xFF258DCC),
+                                fontSize: 15.0,
+                                onPressButton: () => onSaveAndContinue(
+                                  context,
+                                  enrollmentFormState.formState,
+                                  hiddenFields:
+                                      enrollmentFormState.hiddenFields,
+                                ),
+                              )
+                            ],
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+          ),
+        ),
+        bottomNavigationBar: InterventionBottomNavigationBarContainer(),
+      ),
+    );
   }
 }

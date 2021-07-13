@@ -17,13 +17,15 @@ class AutoSynchronizationService {
     bool isOnline = Provider.of<DeviceConnectivityState>(context, listen: false)
         .connectivityStatus;
     if (isOnline) {
-      bool isDataUploadingActive =
+      bool isDataSyncActive =
           Provider.of<SynchronizationState>(context, listen: false)
-              .isDataUploadingActive;
+                  .isDataUploadingActive ||
+              Provider.of<SynchronizationState>(context, listen: false)
+                  .isDataDownloadingActive;
       bool hasUnsyncedData =
           Provider.of<SynchronizationState>(context, listen: false)
               .hasUnsyncedData;
-      if (hasUnsyncedData && !isDataUploadingActive) {
+      if (hasUnsyncedData && !isDataSyncActive) {
         await Provider.of<SynchronizationState>(context, listen: false)
             .startDataUploadActivity(isAutoUpload: true);
       } else {

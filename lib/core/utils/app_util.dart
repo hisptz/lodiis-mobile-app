@@ -199,10 +199,11 @@ class AppUtil {
                       child: Row(
                         children: [
                           Expanded(
-                            flex: 10,
+                            flex: 9,
                             child: title == ''
                                 ? Container()
                                 : Container(
+                                    alignment: Alignment.center,
                                     child: Wrap(
                                       alignment: WrapAlignment.start,
                                       children: [

@@ -23,7 +23,7 @@ class ImplementingPartnerConfigService {
           ? response.body
           : defaultImplementingPartnerConfig;
     } catch (error) {
-      print('getImplementingPartnerConfigFromTheServer: ${error.toString()}');
+      throw error;
     }
     return json.decode(currentImplementingPartnerConfig);
   }

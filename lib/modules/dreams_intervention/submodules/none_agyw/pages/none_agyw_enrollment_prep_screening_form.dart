@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
@@ -11,11 +12,14 @@ import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.d
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/core/constants/beneficiary_identification.dart';
+import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
+import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/constants/dreams_routes_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/services/none_agyw_dream_enrollment_service.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/models/none_agyw_enrollment_prep_screening.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/skip_logics/none_agyw_enrollment_skip_logic.dart';
@@ -71,6 +75,42 @@ class _NoneAgywEnrollmentPrepScreeningFormState
     );
   }
 
+  void onUpdateFormAutoSaveState(
+    BuildContext context, {
+    bool isSaveForm = false,
+  }) async {
+    Map dataObject =
+        Provider.of<EnrollmentFormState>(context, listen: false).formState;
+    String beneficiaryId = "";
+    String id = "${DreamsRoutesConstant.noneAgywHtsConsentPage}_$beneficiaryId";
+    FormAutoSave formAutoSave = FormAutoSave(
+      id: id,
+      beneficiaryId: beneficiaryId,
+      pageModule: DreamsRoutesConstant.noneAgywPrepScreeningPage,
+      nextPageModule: isSaveForm
+          ? DreamsRoutesConstant.noneAgywPrepScreeningNextPage
+          : DreamsRoutesConstant.noneAgywPrepScreeningPage,
+      data: jsonEncode(dataObject),
+    );
+    await FormAutoSaveOfflineService().saveFormAutoSaveData(formAutoSave);
+  }
+
+  void clearFormAutoSaveState(BuildContext context) async {
+    Map dataObject =
+        Provider.of<EnrollmentFormState>(context, listen: false).formState;
+    String beneficiaryId = dataObject['trackedEntityInstance'] ?? "";
+    String formAutoSaveid =
+        "${DreamsRoutesConstant.noneAgywHtsConsentPage}_$beneficiaryId";
+    await FormAutoSaveOfflineService().deleteSavedFormAutoData(formAutoSaveid);
+  }
+
+  void onInputValueChange(String id, dynamic value) {
+    Provider.of<EnrollmentFormState>(context, listen: false)
+        .setFormFieldState(id, value);
+    evaluateSkipLogics();
+    onUpdateFormAutoSaveState(context);
+  }
+
   void onSaveAndContinue(BuildContext context, Map dataObject,
       {Map hiddenFields = const {}}) async {
     bool hadAllMandatoryFilled = AppUtil.hasAllMandarotyFieldsFilled(
@@ -84,11 +124,16 @@ class _NoneAgywEnrollmentPrepScreeningFormState
       dataObject['PN92g65TkVI'] = dataObject['PN92g65TkVI'] ?? 'Active';
       dataObject['klLkGxy328c'] =
           dataObject['klLkGxy328c'] ?? user.implementingPartner;
+      if (user.subImplementingPartner != '') {
+        dataObject['fQInK8s2RNR'] =
+            dataObject['fQInK8s2RNR'] ?? user.subImplementingPartner;
+      }
       List<String> hiddenFields = [
         BeneficiaryIdentification.beneficiaryId,
         BeneficiaryIdentification.beneficiaryIndex,
         'PN92g65TkVI',
-        'klLkGxy328c'
+        'klLkGxy328c',
+        'fQInK8s2RNR'
       ];
       String orgUnit = dataObject['location'];
       await NoneAgywDreamEnrollmentService().savingNonAgwyBeneficiary(
@@ -105,6 +150,7 @@ class _NoneAgywEnrollmentPrepScreeningFormState
       Timer(
         Duration(seconds: 1),
         () {
+          clearFormAutoSaveState(context);
           if (Navigator.canPop(context)) {
             setState(() {
               isSaving = false;
@@ -132,12 +178,6 @@ class _NoneAgywEnrollmentPrepScreeningFormState
         position: ToastGravity.TOP,
       );
     }
-  }
-
-  void onInputValueChange(String id, dynamic value) {
-    Provider.of<EnrollmentFormState>(context, listen: false)
-        .setFormFieldState(id, value);
-    evaluateSkipLogics();
   }
 
   @override

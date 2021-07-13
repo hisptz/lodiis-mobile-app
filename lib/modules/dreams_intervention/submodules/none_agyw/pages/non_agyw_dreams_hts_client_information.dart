@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
@@ -8,10 +9,13 @@ import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
+import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
+import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/constants/dreams_routes_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/models/non_agyw_hts_client_information.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/pages/non_agyw_dreams_hts_register.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/skip_logics/none_agyw_enrollment_skip_logic.dart';
@@ -70,16 +74,40 @@ class _NonAgywDreamsHTSClientInformationState
     );
   }
 
+  void onUpdateFormAutoSaveState(
+    BuildContext context, {
+    bool isSaveForm = false,
+  }) async {
+    Map dataObject =
+        Provider.of<EnrollmentFormState>(context, listen: false).formState;
+    String beneficiaryId = "";
+    String id = "${DreamsRoutesConstant.noneAgywHtsConsentPage}_$beneficiaryId";
+    FormAutoSave formAutoSave = FormAutoSave(
+      id: id,
+      beneficiaryId: beneficiaryId,
+      pageModule: DreamsRoutesConstant.noneAgywHtsClientInfoPage,
+      nextPageModule: isSaveForm
+          ? DreamsRoutesConstant.noneAgywHtsClientInfoNextPage
+          : DreamsRoutesConstant.noneAgywHtsClientInfoPage,
+      data: jsonEncode(dataObject),
+    );
+    await FormAutoSaveOfflineService().saveFormAutoSaveData(formAutoSave);
+  }
+
   void onInputValueChange(String id, dynamic value) {
     Provider.of<EnrollmentFormState>(context, listen: false)
         .setFormFieldState(id, value);
     evaluateSkipLogics();
+    onUpdateFormAutoSaveState(context);
   }
 
   void onSaveForm(BuildContext context, Map dataObject, Map hiddenFields) {
-    // dataObject.remove(NonAgywDreamsHTSConstant.bmiKey);
-    if (AppUtil.hasAllMandarotyFieldsFilled(mandatoryFields, dataObject,
-        hiddenFields: hiddenFields)) {
+    if (AppUtil.hasAllMandarotyFieldsFilled(
+      mandatoryFields,
+      dataObject,
+      hiddenFields: hiddenFields,
+    )) {
+      onUpdateFormAutoSaveState(context, isSaveForm: true);
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -92,29 +120,31 @@ class _NonAgywDreamsHTSClientInformationState
             AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
       });
       AppUtil.showToastMessage(
-          message: 'Please fill all mandatory field',
-          position: ToastGravity.TOP);
+        message: 'Please fill all mandatory field',
+        position: ToastGravity.TOP,
+      );
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(65.0),
-          child: Consumer<IntervetionCardState>(
-            builder: (context, intervetionCardState, child) {
-              InterventionCard activeInterventionProgram =
-                  intervetionCardState.currentIntervetionProgram;
-              return SubPageAppBar(
-                label: label,
-                activeInterventionProgram: activeInterventionProgram,
-              );
-            },
-          ),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(65.0),
+        child: Consumer<IntervetionCardState>(
+          builder: (context, intervetionCardState, child) {
+            InterventionCard activeInterventionProgram =
+                intervetionCardState.currentIntervetionProgram;
+            return SubPageAppBar(
+              label: label,
+              activeInterventionProgram: activeInterventionProgram,
+            );
+          },
         ),
-        body: SubPageBody(
-          body: Container(child: Consumer<EnrollmentFormState>(
+      ),
+      body: SubPageBody(
+        body: Container(
+          child: Consumer<EnrollmentFormState>(
             builder: (context, enrollmentFormState, child) {
               return Container(
                 child: Column(
@@ -160,9 +190,10 @@ class _NonAgywDreamsHTSClientInformationState
                                   buttonColor: Color(0xFF258DCC),
                                   fontSize: 15.0,
                                   onPressButton: () => onSaveForm(
-                                      context,
-                                      enrollmentFormState.formState,
-                                      enrollmentFormState.hiddenFields),
+                                    context,
+                                    enrollmentFormState.formState,
+                                    enrollmentFormState.hiddenFields,
+                                  ),
                                 ),
                               )
                             ],
@@ -171,8 +202,10 @@ class _NonAgywDreamsHTSClientInformationState
                 ),
               );
             },
-          )),
+          ),
         ),
-        bottomNavigationBar: InterventionBottomNavigationBarContainer());
+      ),
+      bottomNavigationBar: InterventionBottomNavigationBarContainer(),
+    );
   }
 }

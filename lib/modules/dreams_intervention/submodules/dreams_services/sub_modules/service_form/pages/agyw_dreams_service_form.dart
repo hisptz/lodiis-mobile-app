@@ -27,14 +27,20 @@ import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:provider/provider.dart';
 
 class AgywDreamsServiceForm extends StatefulWidget {
-  AgywDreamsServiceForm({Key key}) : super(key: key);
+  AgywDreamsServiceForm(
+      {Key key, this.isFormEdited: false, this.currentUserImplementingPartner})
+      : super(key: key);
 
+  final bool isFormEdited;
+  final String currentUserImplementingPartner;
   @override
   _AgywDreamsServiceFormState createState() => _AgywDreamsServiceFormState();
 }
 
 class _AgywDreamsServiceFormState extends State<AgywDreamsServiceForm> {
   final String label = 'Service Form';
+  final String sessionNumberInputField = 'vL6NpUA0rIU';
+  final String typeOfIntervention = 'Eug4BXDFLym';
   List<FormSection> formSections;
   final List<String> mandatoryFields = DreamsServiceForm.getMandatoryField();
   final Map mandatoryFieldObject = Map();
@@ -65,13 +71,10 @@ class _AgywDreamsServiceFormState extends State<AgywDreamsServiceForm> {
             Provider.of<ServiceFormState>(context, listen: false).formState;
         CurrentUser currentUser =
             Provider.of<CurrentUserState>(context, listen: false).currentUser;
-        dataObject['implementingPatner'] =
-            '${currentUser.implementingPartner ?? ''}';
         await AgywDreamsServiceFormSkipLogic.evaluateSkipLogics(
-          context,
-          formSections,
-          dataObject,
-        );
+            context, formSections, dataObject,
+            isFormEdited: widget.isFormEdited,
+            implementingPartner: widget.currentUserImplementingPartner);
       },
     );
   }
@@ -80,6 +83,30 @@ class _AgywDreamsServiceFormState extends State<AgywDreamsServiceForm> {
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState(id, value);
     evaluateSkipLogics();
+    if (id == sessionNumberInputField || id == typeOfIntervention) {
+      Timer(Duration(milliseconds: 200), () async {
+        Map dataObject =
+            Provider.of<ServiceFormState>(context, listen: false).formState;
+        if (dataObject[sessionNumberInputField] != null) {
+          bool allowedNumberOfSessions =
+              AgywDreamsServiceFormSkipLogic.evaluateSkipLogicsBySession(
+                  dataObject);
+          bool sessionAlreadyExists = AgywDreamsServiceFormSkipLogic
+              .evaluateSkipLogicBySessionReoccurrence(dataObject);
+          if (!allowedNumberOfSessions) {
+            AppUtil.showToastMessage(
+                message:
+                    "You have reached the maximum number of sessions for ${dataObject[typeOfIntervention]}",
+                position: ToastGravity.TOP);
+          } else if (sessionAlreadyExists) {
+            AppUtil.showToastMessage(
+                message:
+                    "Sessions ${dataObject[sessionNumberInputField]} for ${dataObject[typeOfIntervention]} already exists",
+                position: ToastGravity.TOP);
+          }
+        }
+      });
+    }
   }
 
   void onSaveForm(
@@ -92,53 +119,69 @@ class _AgywDreamsServiceFormState extends State<AgywDreamsServiceForm> {
             AgywDreamsServiceFormSkipLogic.evaluateSkipLogicsBySession(
                 dataObject);
         if (shouldSaveForm) {
-          setState(() {
-            isSaving = true;
-          });
-          String eventDate = dataObject['eventDate'];
-          String eventId = dataObject['eventId'];
-          dataObject.remove('implementingPatner');
-          List<String> hiddenFields = [];
-          try {
-            await TrackedEntityInstanceUtil
-                .savingTrackedEntityInstanceEventData(
-                    ServiceFormConstant.program,
-                    ServiceFormConstant.programStage,
-                    agywDream.orgUnit,
-                    formSections,
-                    dataObject,
-                    eventDate,
-                    agywDream.id,
-                    eventId,
-                    hiddenFields);
-            Provider.of<ServiveEventDataState>(context, listen: false)
-                .resetServiceEventDataState(agywDream.id);
-            Timer(Duration(seconds: 1), () {
-              setState(() {
-                isSaving = false;
-              });
-              String currentLanguage =
-                  Provider.of<LanguageTranslationState>(context, listen: false)
-                      .currentLanguage;
-              AppUtil.showToastMessage(
-                message: currentLanguage == 'lesotho'
-                    ? 'Fomo e bolokeile'
-                    : 'Form has been saved successfully',
-                position: ToastGravity.TOP,
-              );
-              Navigator.pop(context);
+          bool sessionAlreadyExists = AgywDreamsServiceFormSkipLogic
+              .evaluateSkipLogicBySessionReoccurrence(dataObject);
+          if (sessionAlreadyExists) {
+            AppUtil.showToastMessage(
+                message:
+                    "Sessions ${dataObject[sessionNumberInputField]} for ${dataObject[typeOfIntervention]} already exists",
+                position: ToastGravity.TOP);
+          } else {
+            setState(() {
+              isSaving = true;
             });
-          } catch (e) {
-            Timer(Duration(seconds: 1), () {
-              setState(() {
+            String eventDate = dataObject['eventDate'];
+            String eventId = dataObject['eventId'];
+            List<String> hiddenFields = [];
+            List<String> skippedFields = [
+              'interventionSessions',
+              'eventSessions'
+            ];
+
+            try {
+              await TrackedEntityInstanceUtil
+                  .savingTrackedEntityInstanceEventData(
+                      ServiceFormConstant.program,
+                      ServiceFormConstant.programStage,
+                      agywDream.orgUnit,
+                      formSections,
+                      dataObject,
+                      eventDate,
+                      agywDream.id,
+                      eventId,
+                      hiddenFields,
+                      skippedFields: skippedFields);
+              Provider.of<ServiveEventDataState>(context, listen: false)
+                  .resetServiceEventDataState(agywDream.id);
+              Timer(Duration(seconds: 1), () {
+                setState(() {
+                  isSaving = false;
+                });
+                String currentLanguage = Provider.of<LanguageTranslationState>(
+                        context,
+                        listen: false)
+                    .currentLanguage;
                 AppUtil.showToastMessage(
-                    message: e.toString(), position: ToastGravity.BOTTOM);
+                  message: currentLanguage == 'lesotho'
+                      ? 'Fomo e bolokeile'
+                      : 'Form has been saved successfully',
+                  position: ToastGravity.TOP,
+                );
+                Navigator.pop(context);
               });
-            });
+            } catch (e) {
+              Timer(Duration(seconds: 1), () {
+                setState(() {
+                  AppUtil.showToastMessage(
+                      message: e.toString(), position: ToastGravity.BOTTOM);
+                });
+              });
+            }
           }
         } else {
           AppUtil.showToastMessage(
-              message: 'You have reached the maximum number of sessions',
+              message:
+                  "You have reached the maximum number of sessions for ${dataObject[typeOfIntervention]}",
               position: ToastGravity.TOP);
         }
       } else {
@@ -149,7 +192,8 @@ class _AgywDreamsServiceFormState extends State<AgywDreamsServiceForm> {
       }
     } else {
       setState(() {
-        unFilledMandatoryFields = AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+        unFilledMandatoryFields =
+            AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
       });
       AppUtil.showToastMessage(
           message: 'Please fill all mandatory field',
@@ -222,7 +266,7 @@ class _AgywDreamsServiceFormState extends State<AgywDreamsServiceForm> {
                                             onInputValueChange:
                                                 onInputValueChange,
                                             unFilledMandatoryFields:
-                                            unFilledMandatoryFields,
+                                                unFilledMandatoryFields,
                                           ),
                                         ),
                                         Visibility(
