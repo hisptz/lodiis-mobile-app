@@ -23,7 +23,7 @@ class DataQualityService {
         .toList()
         .toSet()
         .toList();
-    print(attributeIds);
+    // @TODO filtering list with those who fail to sync
     List attributes = await TrackedEntityInstanceOfflineAttributeProvider()
         .getTrackedEntityAttributesValuesById(attributeIds);
     for (Map attributeObject in attributes) {
@@ -88,7 +88,4 @@ class DataQualityService {
     formSections.addAll(noneAgywPrepScreening);
     return formSections;
   }
-
-  // updating numericla values for inputs fields
-
 }
