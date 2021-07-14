@@ -523,15 +523,8 @@ class SynchronizationService {
       {bool checkEnrollments = true}) async {
     List<String> syncedIds = [];
     String url = 'api/events';
-    var teiEnrollments = await getTeiEnrollmentFromOfflineDb();
     Map body = Map();
-    body['events'] = teiEvents
-        .where((Events event) =>
-            teiEnrollments.indexWhere((enrollment) =>
-                enrollment.trackedEntityInstance ==
-                event.trackedEntityInstance) ==
-            -1)
-        .map((Events event) {
+    body['events'] = teiEvents.map((Events event) {
       var data = event.toOffline(event);
       if (data['trackedEntityInstance'] == null ||
           data['trackedEntityInstance'] == '') {
@@ -539,7 +532,6 @@ class SynchronizationService {
       }
       return data;
     }).toList();
-
     try {
       var queryParameters = {
         "strategy": "CREATE_AND_UPDATE",
@@ -598,19 +590,18 @@ class SynchronizationService {
         referenceIds['unsyncedDueToEnrollment'] ?? [];
     List<String> unsyncedDueMissingBeneficary =
         referenceIds['unsyncedDueMissingBeneficary'] ?? [];
-    List unsyncedEventIds = [
+    List<String> unsyncedEventIds = [
       ...unsyncedDueMissingBeneficary,
       ...unsyncedDueToEnrollment
     ];
-    List<String> teiIds = await EventOfflineProvider()
-        .getTrackedEntityInstanceIdsByIds(unsyncedEventIds);
     if (unsyncedEventIds.isNotEmpty && checkEnrollments) {
+      List<String> teiIds = await EventOfflineProvider()
+          .getTrackedEntityInstanceIdsByIds(unsyncedEventIds);
       List<Enrollment> unsyncedTeiEnrollments =
           await EnrollmentOfflineProvider().getEnrollmentsFromTeiList(teiIds);
       List<TrackeEntityInstance> unsyncedTeis =
           await TrackedEntityInstanceOfflineProvider()
               .getTrackedEntityInstanceByIds(teiIds);
-      // @TODO apply batching on data upload
       List<Events> unsyncedTeiEvents = teiEvents
           .where((Events eventData) =>
               unsyncedEventIds.indexOf(eventData.event ?? "") > -1)
@@ -763,6 +754,7 @@ class SynchronizationService {
               AppUtil.showToastMessage(message: 'Error uploading data');
             }
           } else if (importSummary['description'] != null) {
+            print(importSummary['description']);
             if ("${importSummary['description']}"
                 .toLowerCase()
                 .contains('is not enrolled')) {
