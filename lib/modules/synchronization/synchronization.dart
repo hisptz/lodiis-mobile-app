@@ -65,7 +65,12 @@ class _SynchronizationState extends State<Synchronization> {
     super.initState();
     Timer(Duration(milliseconds: 100), () {
       setState(() {
-        selectedSyncAction = widget.synchronizationAction ?? '';
+        String currentSyncAction =
+            Provider.of<SynchronizationState>(context, listen: false)
+                .currentSyncAction;
+        selectedSyncAction = currentSyncAction != ''
+            ? currentSyncAction
+            : widget.synchronizationAction ?? '';
         Provider.of<SynchronizationState>(context, listen: false)
             .startCheckingStatusOfUnsyncedData();
       });
@@ -133,8 +138,7 @@ class _SynchronizationState extends State<Synchronization> {
                           Container(
                             margin: EdgeInsets.symmetric(vertical: 5.0),
                             child: SynchronizationActionForm(
-                                selectedSyncAction:
-                                    widget.synchronizationAction,
+                                selectedSyncAction: selectedSyncAction,
                                 onInitializeSyncAction: (String syncAction) =>
                                     initializeSynchronization(context,
                                         syncAction: syncAction,

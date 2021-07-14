@@ -50,6 +50,7 @@ class SynchronizationState with ChangeNotifier {
   Map<String, List> _trackedInstance;
   Map<String, List> _events;
   Map<String, List> _relationships;
+  String _currentSyncAction = '';
   double profileDataDownloadProgress = 0.0;
   double eventsDataDownloadProgress = 0.0;
   double overallDownloadProgress = 0.0;
@@ -81,6 +82,8 @@ class SynchronizationState with ChangeNotifier {
 
   String get statusMessageForAvailableDataFromServer =>
       _statusMessageForAvailableDataFromServer ?? '';
+
+  String get currentSyncAction => _currentSyncAction ?? '';
 
   bool get hasUnsyncedData => _hasUnsyncedData ?? false;
 
@@ -215,6 +218,9 @@ class SynchronizationState with ChangeNotifier {
     profileDataUploadProgress = 0.0;
     eventsDataUploadProgress = 0.0;
     overallUploadProgress = 0.0;
+    _currentSyncAction = syncAction;
+    notifyListeners();
+    print('_currentSyncAction: $_currentSyncAction');
     switch (syncAction) {
       case 'Download':
         await startDataDownloadActivity();
@@ -229,6 +235,9 @@ class SynchronizationState with ChangeNotifier {
       default:
         break;
     }
+    //  reset sync action
+    _currentSyncAction = '';
+    notifyListeners();
   }
 
   Future startDataDownloadActivity({bool skipUpload = true}) async {
