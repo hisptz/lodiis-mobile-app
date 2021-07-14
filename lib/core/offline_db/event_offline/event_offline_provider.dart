@@ -93,7 +93,7 @@ class EventOfflineProvider extends OfflineDbProvider {
         if (maps.isNotEmpty) {
           for (Map map in maps) {
             List dataValues = await EventOfflineDataValueProvider()
-                .getEventDataValues(map['id']);
+                .getEventDataValuesByEventId(map['id']);
             Events eventData = Events.fromOffline(map);
             eventData.dataValues = dataValues;
             events.add(eventData);
@@ -132,7 +132,7 @@ class EventOfflineProvider extends OfflineDbProvider {
       if (maps.isNotEmpty) {
         for (Map map in maps) {
           List dataValues = await EventOfflineDataValueProvider()
-              .getEventDataValues(map['id']);
+              .getEventDataValuesByEventId(map['id']);
           Events eventData = Events.fromOffline(map);
           eventData.dataValues = dataValues;
           events.add(eventData);
@@ -142,14 +142,26 @@ class EventOfflineProvider extends OfflineDbProvider {
     return events..sort((b, a) => a.eventDate.compareTo(b.eventDate));
   }
 
-  Future<int> getEventsCountBySyncStatus(String status) async {
-    int eventsCount;
+  Future<List<String>> getTrackedEntityInstanceIdsByIds(
+    List<String> eventIds,
+  ) async {
+    List<String> teiIds = [];
     try {
       var dbClient = await db;
-      eventsCount = Sqflite.firstIntValue(await dbClient.rawQuery(
-          'SELECT COUNT(*) FROM $table WHERE $syncStatus = ?', ['$status']));
+      String questionMarks = eventIds.map((e) => '?').toList().join(',');
+      List<Map> maps = await dbClient.query(
+        table,
+        columns: [
+          trackedEntityInstance,
+        ],
+        where: '$event IN ($questionMarks)',
+        whereArgs: [...eventIds],
+      );
+      if (maps.isNotEmpty) {
+        teiIds.addAll(maps.map((Map map) => map[trackedEntityInstance] ?? ""));
+      }
     } catch (e) {}
-    return eventsCount ?? 0;
+    return teiIds;
   }
 
   Future<int> getOfflineEventCount(String programId, String orgUnitId) async {

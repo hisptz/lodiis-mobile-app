@@ -89,13 +89,11 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
   }
 
   Future<List<Enrollment>> getEnrollmentsFromTeiList(
-      List<String> requiredTeiList) async {
+      List<String> teiIds) async {
     List<Enrollment> enrollments = [];
     try {
-      String questionMarks = (requiredTeiList.isEmpty ? [''] : requiredTeiList)
-          .map((e) => '?')
-          .toList()
-          .join(',');
+      String questionMarks =
+          (teiIds.isEmpty ? [''] : teiIds).map((e) => '?').toList().join(',');
       var dbClient = await db;
       List<Map> maps = await dbClient.query(table,
           columns: [
@@ -107,7 +105,7 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
             trackedEntityInstance
           ],
           where: "$trackedEntityInstance IN ($questionMarks)",
-          whereArgs: [...requiredTeiList]);
+          whereArgs: [...teiIds]);
 
       if (maps.isNotEmpty) {
         for (Map map in maps) {

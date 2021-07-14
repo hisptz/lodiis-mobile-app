@@ -68,8 +68,11 @@ class OvcEnrollmentHouseHoldService {
       List<Enrollment> enrollments = await EnrollmentOfflineProvider()
           .getEnrollements(program, page: page);
       allTrackedEntityInstanceList =
-          await TrackedEntityInstanceOfflineProvider().getTrackedEntityInstance(
-              enrollments.map((e) => e.trackedEntityInstance).toList());
+          await TrackedEntityInstanceOfflineProvider()
+              .getTrackedEntityInstanceByIds(enrollments
+                  .map((Enrollment enrollment) =>
+                      enrollment.trackedEntityInstance)
+                  .toList());
 
       for (Enrollment enrollment in enrollments) {
         // get location
@@ -93,7 +96,7 @@ class OvcEnrollmentHouseHoldService {
               .toList();
           List<TrackeEntityInstance> houseHoldChildrenTeiData =
               await TrackedEntityInstanceOfflineProvider()
-                  .getTrackedEntityInstance(childTeiIds);
+                  .getTrackedEntityInstanceByIds(childTeiIds);
           //assign household data
           List<OvcHouseHoldChild> houseHoldChildren = houseHoldChildrenTeiData
               .map((TrackeEntityInstance child) =>
