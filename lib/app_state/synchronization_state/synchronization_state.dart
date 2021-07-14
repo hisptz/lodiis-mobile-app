@@ -16,13 +16,16 @@ import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/app_logs.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
+import 'package:kb_mobile_app/models/enrollment.dart';
 import 'package:kb_mobile_app/models/events.dart';
+import 'package:kb_mobile_app/models/tei_relationship.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
 import 'package:provider/provider.dart';
 
 class SynchronizationState with ChangeNotifier {
   final BuildContext context;
   final String lastSyncDatePreferenceKey = "lastSyncDatePreferenceKey";
+  final int dataUploadBatchSize = 50;
 
   SynchronizationState({this.context});
 
@@ -194,11 +197,12 @@ class SynchronizationState with ChangeNotifier {
     CurrentUser user = await UserService().getCurrentUser();
     _synchronizationService = SynchronizationService(
         user.username, user.password, user.programs, user.userOrgUnitIds);
-    var teis = await _synchronizationService.getTeisFromOfflineDb();
-    var teiEvents = await _synchronizationService.getTeiEventsFromOfflineDb();
-    _beneficiaryServiceCount = teiEvents.length;
-    _beneficiaryCount = teis.length;
-    _hasUnsyncedData = teiEvents.length > 0 || teis.length > 0;
+    int unsyncedTeiCount = await _synchronizationService.getUnsyncedTeiCount();
+    int unsyncedEventsCount =
+        await _synchronizationService.getUnsyncedEventsCount();
+    _beneficiaryServiceCount = unsyncedEventsCount;
+    _beneficiaryCount = unsyncedTeiCount;
+    _hasUnsyncedData = unsyncedEventsCount > 0 || unsyncedTeiCount > 0;
     if (!isAutoUpload) {
       updateUnsynceDataCheckingStatus(false);
     }
@@ -346,7 +350,12 @@ class SynchronizationState with ChangeNotifier {
       notifyListeners();
       if (teis.length > 0) {
         addDataUploadProcess("Uploading beneficiary's profile data");
-        await _synchronizationService.uploadTeisToTheServer(teis, isAutoUpload);
+        List<List<dynamic>> chunkedTeis =
+            AppUtil.chunkItems(items: teis, size: dataUploadBatchSize);
+        for (List<dynamic> teiChunk in chunkedTeis) {
+          await _synchronizationService.uploadTeisToTheServer(
+              teiChunk, isAutoUpload);
+        }
       }
 
       var teiEnrollments =
@@ -357,8 +366,12 @@ class SynchronizationState with ChangeNotifier {
           (profileDataUploadProgress + eventsDataUploadProgress) / 2;
       notifyListeners();
       if (teiEnrollments.length > 0) {
-        await _synchronizationService.uploadEnrollmentsToTheServer(
-            teiEnrollments, isAutoUpload);
+        List<List<dynamic>> chunkedTeiEnrollments = AppUtil.chunkItems(
+            items: teiEnrollments, size: dataUploadBatchSize * 2);
+        for (List<dynamic> teiEnrollmentChunk in chunkedTeiEnrollments) {
+          await _synchronizationService.uploadEnrollmentsToTheServer(
+              teiEnrollmentChunk, isAutoUpload);
+        }
       }
 
       var teiRelationships =
@@ -369,8 +382,12 @@ class SynchronizationState with ChangeNotifier {
           (profileDataUploadProgress + eventsDataUploadProgress) / 2;
       notifyListeners();
       if (teiRelationships.length > 0) {
-        await _synchronizationService.uploadTeiRelationToTheServer(
-            teiRelationships, isAutoUpload);
+        List<List<dynamic>> chunkedTeiRelationships = AppUtil.chunkItems(
+            items: teiRelationships, size: dataUploadBatchSize * 2);
+        for (List<dynamic> teiRelationshipChunk in chunkedTeiRelationships) {
+          await _synchronizationService.uploadTeiRelationToTheServer(
+              teiRelationshipChunk, isAutoUpload);
+        }
       }
 
       var teiEvents = await _synchronizationService.getTeiEventsFromOfflineDb();
@@ -381,10 +398,12 @@ class SynchronizationState with ChangeNotifier {
       notifyListeners();
       if (teiEvents.length > 0) {
         addDataUploadProcess("Uploading beneficiary's service data");
-        _dataUploadProcess = [];
-
-        await _synchronizationService.uploadTeiEventsToTheServer(
-            teiEvents, isAutoUpload);
+        List<List<dynamic>> chunkedTeiEvents =
+            AppUtil.chunkItems(items: teiEvents, size: dataUploadBatchSize * 2);
+        for (List<dynamic> teiEventsChunk in chunkedTeiEvents) {
+          await _synchronizationService.uploadTeiEventsToTheServer(
+              teiEventsChunk, isAutoUpload);
+        }
       }
       AppUtil.showToastMessage(
         message: 'Start synchronization of referral notifications',
@@ -392,7 +411,6 @@ class SynchronizationState with ChangeNotifier {
       );
       await ReferralNotificationService().syncReferralNotifications();
     } catch (e) {
-      _dataUploadProcess = [];
       if (!isAutoUpload) {
         AppUtil.showToastMessage(message: 'Error uploading data');
       }
