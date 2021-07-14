@@ -296,6 +296,11 @@ class SynchronizationService {
         .getTrackedEntityInstanceByStatus(offlineSyncStatus);
   }
 
+  Future<int> getUnsyncedTeiCount() async {
+    return await TrackedEntityInstanceOfflineProvider()
+        .getTeiCountBySyncStatus(offlineSyncStatus);
+  }
+
   Future<List<Enrollment>> getTeiEnrollmentFromOfflineDb() async {
     return await EnrollmentOfflineProvider()
         .getEnrollmentByStatus(offlineSyncStatus);
@@ -398,6 +403,11 @@ class SynchronizationService {
   Future<List<Events>> getTeiEventsFromOfflineDb() async {
     return await EventOfflineProvider()
         .getTrackedEntityInstanceEventsByStatus(offlineSyncStatus);
+  }
+
+  Future<int> getUnsyncedEventsCount() async {
+    return await EventOfflineProvider()
+        .getEventsCountBySyncStatus(offlineSyncStatus);
   }
 
   Future uploadEnrollmentsToTheServer(
@@ -657,24 +667,32 @@ class SynchronizationService {
     try {
       String status = '';
       String description = '';
-      int descriptionStart = responseBody.lastIndexOf('<b>Description</b> ');
-      int descriptionEnd = responseBody.lastIndexOf('</p>');
-      int httpStatusStart = responseBody.lastIndexOf('<h1>HTTP');
-      int httpStatusEnd = responseBody.lastIndexOf('</h1>');
-      if (descriptionStart != -1 &&
-          descriptionEnd != -1 &&
-          httpStatusStart != -1 &&
-          httpStatusEnd != -1) {
-        description = responseBody
-            .substring(descriptionStart, descriptionEnd)
-            .replaceAll(new RegExp('<b>Description</b>'), '')
-            .trim();
-        status = responseBody
-            .substring(httpStatusStart, httpStatusEnd)
-            .replaceAll(new RegExp('<h1>'), '')
-            .trim();
-        errorMessage = '$status : $description';
+      if ("$responseBody".toLowerCase().contains("<body")) {
+        int descriptionStart = responseBody.lastIndexOf('<b>Description</b> ');
+        int descriptionEnd = responseBody.lastIndexOf('</p>');
+        int httpStatusStart = responseBody.lastIndexOf('<h1>HTTP');
+        int httpStatusEnd = responseBody.lastIndexOf('</h1>');
+        if (descriptionStart != -1 &&
+            descriptionEnd != -1 &&
+            httpStatusStart != -1 &&
+            httpStatusEnd != -1) {
+          description = responseBody
+              .substring(descriptionStart, descriptionEnd)
+              .replaceAll(new RegExp('<b>Description</b>'), '')
+              .trim();
+          status = responseBody
+              .substring(httpStatusStart, httpStatusEnd)
+              .replaceAll(new RegExp('<h1>'), '')
+              .trim();
+        } else {
+          errorMessage = "$responseBody";
+        }
+      } else {
+        Map body = json.decode(responseBody);
+        status = body["httpStatus"] ?? "Error";
+        description = body["message"] ?? "$responseBody";
       }
+      errorMessage = '$status : $description';
     } catch (e) {
       throw e;
     }

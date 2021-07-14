@@ -20,7 +20,7 @@ class TrackedEntityInstanceOfflineProvider extends OfflineDbProvider {
       var dbClient = await db;
 
       List<List<dynamic>> chunkedTrackedEntityInstances =
-          AppUtil().chunkItems(items: trackedEntityInstances, size: 100);
+          AppUtil.chunkItems(items: trackedEntityInstances, size: 100);
 
       for (List<dynamic> trackedEntityInstancesGroup
           in chunkedTrackedEntityInstances) {
@@ -107,6 +107,16 @@ class TrackedEntityInstanceOfflineProvider extends OfflineDbProvider {
       }
     } catch (e) {}
     return trackedEntityInstances;
+  }
+
+  Future<int> getTeiCountBySyncStatus(String status) async {
+    int teiCount;
+    try {
+      var dbClient = await db;
+      teiCount = Sqflite.firstIntValue(await dbClient.rawQuery(
+          'SELECT COUNT(*) FROM $table WHERE $syncStatus = ?', ['$status']));
+    } catch (e) {}
+    return teiCount ?? 0;
   }
 
   Future<List<TrackeEntityInstance>> getTrackedEntityInstanceByStatus(
