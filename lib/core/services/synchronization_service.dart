@@ -47,6 +47,7 @@ class SynchronizationService {
         url,
         queryParameters,
       );
+      //@TODO checking for success to set above if (response.statusCode == 200) {}
       Map<String, dynamic> pager = json.decode(response.body)['pager'];
       int pagetTotal = pager['total'];
       int pageSize = 1000;
@@ -510,6 +511,7 @@ class SynchronizationService {
     }
   }
 
+  //@TODO adding aditional parameter for controll reupload beneficiaries
   Future uploadTeiEventsToTheServer(List<Events> teiEvents, bool isAutoUpload,
       {bool checkEnrollments = true}) async {
     List<String> syncedIds = [];
@@ -552,6 +554,7 @@ class SynchronizationService {
           AppUtil.showToastMessage(message: 'Error uploading data');
         }
       }
+      // support for getting unsynced beneficariaies with
       var referenceIds = await _getReferenceIds(json.decode(response.body));
       syncedIds = referenceIds['syncedIds'];
       unsyncedDueToEnrollment = referenceIds['unsyncedDueToEnrollment'];
@@ -559,6 +562,7 @@ class SynchronizationService {
         List<Enrollment> unsyncedEnrollment =
             await checkForUnenrolledBeneficiaries(unsyncedDueToEnrollment);
         if (unsyncedEnrollment.isNotEmpty) {
+          //@TODO extract seperate function for handle reupload of beneficiaries
           await uploadEnrollmentsToTheServer(unsyncedEnrollment, isAutoUpload);
           await uploadTeiEventsToTheServer(teiEvents, isAutoUpload,
               checkEnrollments: false);
@@ -701,7 +705,8 @@ class SynchronizationService {
     List<String> syncedIds = [];
     List<String> unsyncedDueToEnrollment = [];
     try {
-      var bodyResponse = body['response'];
+      //@TODO extract beneficiraries to be re-enrolled
+      var bodyResponse = body['response'] ?? Map();
       var importSummaries = bodyResponse['importSummaries'] ?? [];
       for (var importSummary in importSummaries) {
         if (importSummary['status'] == 'SUCCESS' &&
@@ -737,6 +742,7 @@ class SynchronizationService {
 
   Future<List<Enrollment>> checkForUnenrolledBeneficiaries(
       List<String> eventIds) async {
+    //@TODO refactor get TEIs ids by event ids
     List<Events> eventsWithoutEnrollment = await EventOfflineProvider()
         .getTrackedEntityInstanceEventsByStatus('', eventList: eventIds);
     List<String> teiNotEnrolled = eventsWithoutEnrollment
