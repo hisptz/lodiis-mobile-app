@@ -75,7 +75,7 @@ class TrackedEntityInstanceOfflineProvider extends OfflineDbProvider {
     return offlineTrackedEntityInstanceIds.toSet().toList();
   }
 
-  Future<List<TrackeEntityInstance>> getTrackedEntityInstance(
+  Future<List<TrackeEntityInstance>> getTrackedEntityInstanceByIds(
     List<String> trackedEntityInstanceIds,
   ) async {
     List<TrackeEntityInstance> trackedEntityInstances = [];

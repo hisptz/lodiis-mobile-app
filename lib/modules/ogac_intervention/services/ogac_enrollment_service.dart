@@ -71,7 +71,8 @@ class OgacEnrollementservice {
       String enrollmentId = enrollment.enrollment;
       List<TrackeEntityInstance> ogacBeneficiaryList =
           await TrackedEntityInstanceOfflineProvider()
-              .getTrackedEntityInstance([enrollment.trackedEntityInstance]);
+              .getTrackedEntityInstanceByIds(
+                  [enrollment.trackedEntityInstance]);
       for (TrackeEntityInstance tei in ogacBeneficiaryList) {
         List<Events> eventList = await EventOfflineProvider()
             .getTrackedEntityInstanceEvents([tei.trackedEntityInstance]);

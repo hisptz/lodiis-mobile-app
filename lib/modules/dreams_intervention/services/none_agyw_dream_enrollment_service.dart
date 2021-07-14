@@ -51,12 +51,6 @@ class NoneAgywDreamEnrollmentService {
         .addAll(FormUtil.getFormFieldIds(htsClientInformationFormSections));
     inputFieldIds.addAll(FormUtil.getFormFieldIds(htsRegisterFormSections));
 
-    // inputFieldIds
-    // .addAll(FormUtil.getFormFieldIds(htsConsentForReleaseFormSections));
-
-    //Remove bmiKey
-    // inputFieldIds.remove(NonAgywDreamsHTSConstant.bmiKey);
-
     TrackeEntityInstance trackeEntityInstanceData =
         await FormUtil.geTrackedEntityInstanceEnrollmentPayLoad(
             trackedEntityInstance,
@@ -95,7 +89,8 @@ class NoneAgywDreamEnrollmentService {
         String enrollmentId = enrollment.enrollment;
         List<TrackeEntityInstance> dataHolds =
             await TrackedEntityInstanceOfflineProvider()
-                .getTrackedEntityInstance([enrollment.trackedEntityInstance]);
+                .getTrackedEntityInstanceByIds(
+                    [enrollment.trackedEntityInstance]);
         for (TrackeEntityInstance tei in dataHolds) {
           try {
             agywDreamList.add(AgywDream().fromTeiModel(
