@@ -754,7 +754,6 @@ class SynchronizationService {
               AppUtil.showToastMessage(message: 'Error uploading data');
             }
           } else if (importSummary['description'] != null) {
-            print(importSummary['description']);
             if ("${importSummary['description']}"
                 .toLowerCase()
                 .contains('is not enrolled')) {
