@@ -93,7 +93,7 @@ class EventOfflineProvider extends OfflineDbProvider {
         if (maps.isNotEmpty) {
           for (Map map in maps) {
             List dataValues = await EventOfflineDataValueProvider()
-                .getEventDataValues(map['id']);
+                .getEventDataValuesByEventId(map['id']);
             Events eventData = Events.fromOffline(map);
             eventData.dataValues = dataValues;
             events.add(eventData);
@@ -132,7 +132,7 @@ class EventOfflineProvider extends OfflineDbProvider {
       if (maps.isNotEmpty) {
         for (Map map in maps) {
           List dataValues = await EventOfflineDataValueProvider()
-              .getEventDataValues(map['id']);
+              .getEventDataValuesByEventId(map['id']);
           Events eventData = Events.fromOffline(map);
           eventData.dataValues = dataValues;
           events.add(eventData);
@@ -140,6 +140,27 @@ class EventOfflineProvider extends OfflineDbProvider {
       }
     } catch (e) {}
     return events..sort((b, a) => a.eventDate.compareTo(b.eventDate));
+  }
+
+  Future<List<String>> getTrackedEntityInstanceIdsByIds(
+    List<String> eventIds,
+  ) async {
+    List<String> teiIds = [];
+    try {
+      var dbClient = await db;
+      List<Map> maps = await dbClient.query(
+        table,
+        columns: [
+          trackedEntityInstance,
+        ],
+        where: '$event = ?',
+        whereArgs: [...eventIds],
+      );
+      if (maps.isNotEmpty) {
+        teiIds.addAll(maps.map((Map map) => map[trackedEntityInstance] ?? ""));
+      }
+    } catch (e) {}
+    return teiIds;
   }
 
   Future<int> getOfflineEventCount(String programId, String orgUnitId) async {
