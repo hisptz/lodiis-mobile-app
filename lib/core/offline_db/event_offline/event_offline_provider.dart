@@ -148,12 +148,13 @@ class EventOfflineProvider extends OfflineDbProvider {
     List<String> teiIds = [];
     try {
       var dbClient = await db;
+      String questionMarks = eventIds.map((e) => '?').toList().join(',');
       List<Map> maps = await dbClient.query(
         table,
         columns: [
           trackedEntityInstance,
         ],
-        where: '$event = ?',
+        where: '$event IN ($questionMarks)',
         whereArgs: [...eventIds],
       );
       if (maps.isNotEmpty) {
