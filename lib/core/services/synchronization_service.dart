@@ -47,17 +47,25 @@ class SynchronizationService {
         url,
         queryParameters,
       );
-      //@TODO checking for success to set above if (response.statusCode == 200) {}
-      Map<String, dynamic> pager = json.decode(response.body)['pager'];
-      int pagetTotal = pager['total'];
-      int pageSize = 1000;
-      int total = pagetTotal >= pageSize ? pagetTotal : pageSize;
-      for (int page = 1; page <= (total / pageSize).round(); page++) {
-        paginationFilter.add({
-          "totalPages": "true",
-          "page": "$page",
-          "pageSize": "$pageSize",
-        });
+      if (response.statusCode == 200) {
+        Map<String, dynamic> pager = json.decode(response.body)['pager'];
+        int pagetTotal = pager['total'];
+        int pageSize = 1000;
+        int total = pagetTotal >= pageSize ? pagetTotal : pageSize;
+        for (int page = 1; page <= (total / pageSize).round(); page++) {
+          paginationFilter.add({
+            "totalPages": "true",
+            "page": "$page",
+            "pageSize": "$pageSize",
+          });
+        }
+      } else {
+        String errorMessage = await _getHttpResponseAppLogs(response.body);
+        if (errorMessage.isNotEmpty) {
+          AppLogs log = AppLogs(
+              type: AppLogsConstants.errorLogType, message: errorMessage);
+          await AppLogsOfflineProvider().addLogs(log);
+        }
       }
     } catch (e) {
       AppLogs log = AppLogs(
