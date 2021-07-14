@@ -56,13 +56,12 @@ class AppLogsOfflineProvider extends OfflineDbProvider {
   }
 
   Future<int> getAppLogsCount() async {
-    List<Map> appLogs = [];
+    int logsCount;
     try {
       var dbClient = await db;
-      List<Map> maps = await dbClient.query(table, columns: [id]);
-      appLogs.addAll(maps);
+      logsCount = Sqflite.firstIntValue(
+          await dbClient.rawQuery('SELECT COUNT(*) FROM $table'));
     } catch (e) {}
-
-    return appLogs.length;
+    return logsCount ?? 0;
   }
 }

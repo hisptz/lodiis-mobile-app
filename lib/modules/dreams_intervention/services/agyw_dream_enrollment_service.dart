@@ -75,7 +75,8 @@ class AgywDreamEnrollmentService {
 
         List<TrackeEntityInstance> dataHolds =
             await TrackedEntityInstanceOfflineProvider()
-                .getTrackedEntityInstance([enrollment.trackedEntityInstance]);
+                .getTrackedEntityInstanceByIds(
+                    [enrollment.trackedEntityInstance]);
         for (TrackeEntityInstance tei in dataHolds) {
           agywDreamList.add(AgywDream()
               .fromTeiModel(tei, orgUnit, location, createdDate, enrollmentId));
@@ -109,7 +110,8 @@ class AgywDreamEnrollmentService {
 
         List<TrackeEntityInstance> dataHolds =
             await TrackedEntityInstanceOfflineProvider()
-                .getTrackedEntityInstance([enrollment.trackedEntityInstance]);
+                .getTrackedEntityInstanceByIds(
+                    [enrollment.trackedEntityInstance]);
         for (TrackeEntityInstance tei in dataHolds) {
           agywDreamList.add(AgywDream()
               .fromTeiModel(tei, orgUnit, location, createdDate, enrollmentId));

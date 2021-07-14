@@ -30,7 +30,7 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
     try {
       var dbClient = await db;
       List<List<dynamic>> chunkedEnrollments =
-          AppUtil().chunkItems(items: enrollments, size: 100);
+          AppUtil.chunkItems(items: enrollments, size: 100);
       for (List<dynamic> enrollmentsGroup in chunkedEnrollments) {
         var enrollmentBatch = dbClient.batch();
         for (dynamic enrollment in enrollmentsGroup) {
@@ -79,26 +79,21 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
   }
 
   Future<int> getEnrollmentsCount(String programId) async {
-    var dbClient = await db;
-    List<Map> enrollmentList = await dbClient.query(
-          table,
-          columns: [enrollment],
-          where: '$program = ?',
-          whereArgs: [programId],
-        ) ??
-        [];
-
-    return enrollmentList.length;
+    int enrollmentsCount;
+    try {
+      var dbClient = await db;
+      enrollmentsCount = Sqflite.firstIntValue(await dbClient.rawQuery(
+          'SELECT COUNT(*) FROM $table WHERE $program = ?', ['$programId']));
+    } catch (e) {}
+    return enrollmentsCount ?? 0;
   }
 
   Future<List<Enrollment>> getEnrollmentsFromTeiList(
-      List<String> requiredTeiList) async {
+      List<String> teiIds) async {
     List<Enrollment> enrollments = [];
     try {
-      String questionMarks = (requiredTeiList.isEmpty ? [''] : requiredTeiList)
-          .map((e) => '?')
-          .toList()
-          .join(',');
+      String questionMarks =
+          (teiIds.isEmpty ? [''] : teiIds).map((e) => '?').toList().join(',');
       var dbClient = await db;
       List<Map> maps = await dbClient.query(table,
           columns: [
@@ -110,7 +105,7 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
             trackedEntityInstance
           ],
           where: "$trackedEntityInstance IN ($questionMarks)",
-          whereArgs: [...requiredTeiList]);
+          whereArgs: [...teiIds]);
 
       if (maps.isNotEmpty) {
         for (Map map in maps) {

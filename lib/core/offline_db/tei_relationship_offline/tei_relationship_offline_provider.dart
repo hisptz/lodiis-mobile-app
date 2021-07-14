@@ -17,7 +17,7 @@ class TeiRelatioShipOfflineProvider extends OfflineDbProvider {
     try {
       var dbClient = await db;
       List<List<dynamic>> chunkedRelationship =
-          AppUtil().chunkItems(items: relationships, size: 100);
+          AppUtil.chunkItems(items: relationships, size: 100);
       for (List<dynamic> relationshipsGroup in chunkedRelationship) {
         var relationshipBatch = dbClient.batch();
         for (dynamic relationship in relationshipsGroup) {
