@@ -164,6 +164,18 @@ class EventOfflineProvider extends OfflineDbProvider {
     return teiIds;
   }
 
+  Future<int> getEventsCountBySyncStatus(String status) async {
+    int eventsCounts;
+    try {
+      var dbClient = await db;
+      eventsCounts = Sqflite.firstIntValue(await dbClient
+          .rawQuery('SELECT COUNT(*) FROM $table WHERE $syncStatus = ?', [
+        '$status',
+      ]));
+    } catch (e) {}
+    return eventsCounts ?? 0;
+  }
+
   Future<int> getOfflineEventCount(String programId, String orgUnitId) async {
     int offlineEventsCount;
     try {
