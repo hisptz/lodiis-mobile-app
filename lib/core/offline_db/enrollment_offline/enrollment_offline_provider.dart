@@ -79,16 +79,13 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
   }
 
   Future<int> getEnrollmentsCount(String programId) async {
-    var dbClient = await db;
-    List<Map> enrollmentList = await dbClient.query(
-          table,
-          columns: [enrollment],
-          where: '$program = ?',
-          whereArgs: [programId],
-        ) ??
-        [];
-
-    return enrollmentList.length;
+    int enrollmentsCount;
+    try {
+      var dbClient = await db;
+      enrollmentsCount = Sqflite.firstIntValue(await dbClient.rawQuery(
+          'SELECT COUNT(*) FROM $table WHERE $program = ?', ['$programId']));
+    } catch (e) {}
+    return enrollmentsCount ?? 0;
   }
 
   Future<List<Enrollment>> getEnrollmentsFromTeiList(
