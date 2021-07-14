@@ -32,7 +32,7 @@ class EventOfflineProvider extends OfflineDbProvider {
     try {
       var dbClient = await db;
       List<List<dynamic>> chunkedEvents =
-          AppUtil().chunkItems(items: events, size: 100);
+          AppUtil.chunkItems(items: events, size: 100);
       for (List<dynamic> eventsGroup in chunkedEvents) {
         var eventBatch = dbClient.batch();
         for (dynamic event in eventsGroup) {

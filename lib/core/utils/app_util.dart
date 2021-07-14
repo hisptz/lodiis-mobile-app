@@ -129,7 +129,7 @@ class AppUtil {
     return age;
   }
 
-  List<List<dynamic>> chunkItems(
+  static List<List<dynamic>> chunkItems(
       {List<dynamic> items = const [], int size = 0}) {
     List<List<dynamic>> groupedItems = [];
     size = size != 0 ? size : items.length;

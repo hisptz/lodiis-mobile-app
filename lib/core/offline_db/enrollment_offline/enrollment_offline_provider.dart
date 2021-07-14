@@ -30,7 +30,7 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
     try {
       var dbClient = await db;
       List<List<dynamic>> chunkedEnrollments =
-          AppUtil().chunkItems(items: enrollments, size: 100);
+          AppUtil.chunkItems(items: enrollments, size: 100);
       for (List<dynamic> enrollmentsGroup in chunkedEnrollments) {
         var enrollmentBatch = dbClient.batch();
         for (dynamic enrollment in enrollmentsGroup) {
