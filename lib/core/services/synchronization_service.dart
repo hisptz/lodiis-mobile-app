@@ -712,8 +712,8 @@ class SynchronizationService {
   Future<Map<String, List<String>>> _getReferenceIds(Map body) async {
     List<String> syncedIds = [];
     List<String> unsyncedDueToEnrollment = [];
+    List<String> unsyncedDueMissingBeneficaries = [];
     try {
-      //@TODO extract beneficiraries to be re-enrolled
       var bodyResponse = body['response'] ?? Map();
       var importSummaries = bodyResponse['importSummaries'] ?? [];
       for (var importSummary in importSummaries) {
@@ -730,8 +730,14 @@ class SynchronizationService {
               AppUtil.showToastMessage(message: 'Error uploading data');
             }
           } else if (importSummary['description'] != null) {
-            if (importSummary['description'].contains('is not enrolled')) {
+            if ("${importSummary['description']}"
+                .toLowerCase()
+                .contains('is not enrolled')) {
               unsyncedDueToEnrollment.add(importSummary['reference']);
+            } else if ("${importSummary['description']}".toLowerCase().contains(
+                'Event.trackedEntityInstance does not point to a valid tracked entity instance'
+                    .toLowerCase())) {
+              unsyncedDueMissingBeneficaries.add(importSummary['reference']);
             }
             AppLogs log = AppLogs(
                 type: AppLogsConstants.errorLogType,
@@ -745,6 +751,8 @@ class SynchronizationService {
     Map<String, List<String>> referenceIds = Map();
     referenceIds['syncedIds'] = syncedIds;
     referenceIds['unsyncedDueToEnrollment'] = unsyncedDueToEnrollment;
+    referenceIds['unsyncedDueMissingBeneficaries'] =
+        unsyncedDueMissingBeneficaries;
     return referenceIds;
   }
 
