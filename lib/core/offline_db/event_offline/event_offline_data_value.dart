@@ -28,7 +28,7 @@ class EventOfflineDataValueProvider extends OfflineDbProvider {
     } catch (e) {}
   }
 
-  Future<List> getEventDataValues(
+  Future<List> getEventDataValuesByEventId(
     String eventId,
   ) async {
     List dataValues = [];

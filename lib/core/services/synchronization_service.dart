@@ -47,17 +47,25 @@ class SynchronizationService {
         url,
         queryParameters,
       );
-      //@TODO checking for success to set above if (response.statusCode == 200) {}
-      Map<String, dynamic> pager = json.decode(response.body)['pager'];
-      int pagetTotal = pager['total'];
-      int pageSize = 1000;
-      int total = pagetTotal >= pageSize ? pagetTotal : pageSize;
-      for (int page = 1; page <= (total / pageSize).round(); page++) {
-        paginationFilter.add({
-          "totalPages": "true",
-          "page": "$page",
-          "pageSize": "$pageSize",
-        });
+      if (response.statusCode == 200) {
+        Map<String, dynamic> pager = json.decode(response.body)['pager'];
+        int pagetTotal = pager['total'];
+        int pageSize = 1000;
+        int total = pagetTotal >= pageSize ? pagetTotal : pageSize;
+        for (int page = 1; page <= (total / pageSize).round(); page++) {
+          paginationFilter.add({
+            "totalPages": "true",
+            "page": "$page",
+            "pageSize": "$pageSize",
+          });
+        }
+      } else {
+        String errorMessage = await _getHttpResponseAppLogs(response.body);
+        if (errorMessage.isNotEmpty) {
+          AppLogs log = AppLogs(
+              type: AppLogsConstants.errorLogType, message: errorMessage);
+          await AppLogsOfflineProvider().addLogs(log);
+        }
       }
     } catch (e) {
       AppLogs log = AppLogs(
@@ -189,8 +197,8 @@ class SynchronizationService {
   }
 
   Future<List> getOfflineEventsAttributesValuesById(String eventIds) async {
-    List entityInstanceAttributes =
-        await EventOfflineDataValueProvider().getEventDataValues(eventIds);
+    List entityInstanceAttributes = await EventOfflineDataValueProvider()
+        .getEventDataValuesByEventId(eventIds);
     return entityInstanceAttributes;
   }
 
@@ -511,21 +519,12 @@ class SynchronizationService {
     }
   }
 
-  //@TODO adding aditional parameter for controll reupload beneficiaries
   Future uploadTeiEventsToTheServer(List<Events> teiEvents, bool isAutoUpload,
       {bool checkEnrollments = true}) async {
     List<String> syncedIds = [];
-    List<String> unsyncedDueToEnrollment = [];
     String url = 'api/events';
-    var teiEnrollments = await getTeiEnrollmentFromOfflineDb();
     Map body = Map();
-    body['events'] = teiEvents
-        .where((Events event) =>
-            teiEnrollments.indexWhere((enrollment) =>
-                enrollment.trackedEntityInstance ==
-                event.trackedEntityInstance) ==
-            -1)
-        .map((Events event) {
+    body['events'] = teiEvents.map((Events event) {
       var data = event.toOffline(event);
       if (data['trackedEntityInstance'] == null ||
           data['trackedEntityInstance'] == '') {
@@ -533,7 +532,6 @@ class SynchronizationService {
       }
       return data;
     }).toList();
-
     try {
       var queryParameters = {
         "strategy": "CREATE_AND_UPDATE",
@@ -554,29 +552,23 @@ class SynchronizationService {
           AppUtil.showToastMessage(message: 'Error uploading data');
         }
       }
-      // support for getting unsynced beneficariaies with
       var referenceIds = await _getReferenceIds(json.decode(response.body));
       syncedIds = referenceIds['syncedIds'];
-      unsyncedDueToEnrollment = referenceIds['unsyncedDueToEnrollment'];
-      if (unsyncedDueToEnrollment.isNotEmpty && checkEnrollments) {
-        List<Enrollment> unsyncedEnrollment =
-            await checkForUnenrolledBeneficiaries(unsyncedDueToEnrollment);
-        if (unsyncedEnrollment.isNotEmpty) {
-          //@TODO extract seperate function for handle reupload of beneficiaries
-          await uploadEnrollmentsToTheServer(unsyncedEnrollment, isAutoUpload);
-          await uploadTeiEventsToTheServer(teiEvents, isAutoUpload,
-              checkEnrollments: false);
-        }
-      }
-    } catch (e) {
+      await reUploadBeneficiariesWithUnsyncedServices(
+        referenceIds,
+        checkEnrollments,
+        isAutoUpload,
+        teiEvents,
+      );
+    } catch (error) {
       AppLogs log = AppLogs(
           type: AppLogsConstants.errorLogType,
-          message: 'uploadTeiEventsToTheServer: ${e.toString()}');
+          message: 'uploadTeiEventsToTheServer: ${error.toString()}');
       await AppLogsOfflineProvider().addLogs(log);
       if (!isAutoUpload) {
         AppUtil.showToastMessage(message: 'Error uploading data');
       }
-      throw e;
+      throw error;
     }
     if (syncedIds.length > 0) {
       for (Events event in teiEvents) {
@@ -584,6 +576,46 @@ class SynchronizationService {
           event.syncStatus = 'synced';
           await FormUtil.savingEvent(event);
         }
+      }
+    }
+  }
+
+  Future<void> reUploadBeneficiariesWithUnsyncedServices(
+    Map referenceIds,
+    bool checkEnrollments,
+    bool isAutoUpload,
+    List<Events> teiEvents,
+  ) async {
+    List<String> unsyncedDueToEnrollment =
+        referenceIds['unsyncedDueToEnrollment'] ?? [];
+    List<String> unsyncedDueMissingBeneficary =
+        referenceIds['unsyncedDueMissingBeneficary'] ?? [];
+    List<String> unsyncedEventIds = [
+      ...unsyncedDueMissingBeneficary,
+      ...unsyncedDueToEnrollment
+    ];
+    if (unsyncedEventIds.isNotEmpty && checkEnrollments) {
+      List<String> teiIds = await EventOfflineProvider()
+          .getTrackedEntityInstanceIdsByIds(unsyncedEventIds);
+      List<Enrollment> unsyncedTeiEnrollments =
+          await EnrollmentOfflineProvider().getEnrollmentsFromTeiList(teiIds);
+      List<TrackeEntityInstance> unsyncedTeis =
+          await TrackedEntityInstanceOfflineProvider()
+              .getTrackedEntityInstanceByIds(teiIds);
+      List<Events> unsyncedTeiEvents = teiEvents
+          .where((Events eventData) =>
+              unsyncedEventIds.indexOf(eventData.event ?? "") > -1)
+          .toList();
+      if (unsyncedTeis.isNotEmpty) {
+        await uploadTeisToTheServer(unsyncedTeis, isAutoUpload);
+      }
+      if (unsyncedTeiEnrollments.isNotEmpty) {
+        await uploadEnrollmentsToTheServer(
+            unsyncedTeiEnrollments, isAutoUpload);
+      }
+      if (unsyncedTeiEvents.isNotEmpty) {
+        await uploadTeiEventsToTheServer(unsyncedTeiEvents, isAutoUpload,
+            checkEnrollments: false);
       }
     }
   }
@@ -704,8 +736,8 @@ class SynchronizationService {
   Future<Map<String, List<String>>> _getReferenceIds(Map body) async {
     List<String> syncedIds = [];
     List<String> unsyncedDueToEnrollment = [];
+    List<String> unsyncedDueMissingBeneficary = [];
     try {
-      //@TODO extract beneficiraries to be re-enrolled
       var bodyResponse = body['response'] ?? Map();
       var importSummaries = bodyResponse['importSummaries'] ?? [];
       for (var importSummary in importSummaries) {
@@ -722,8 +754,14 @@ class SynchronizationService {
               AppUtil.showToastMessage(message: 'Error uploading data');
             }
           } else if (importSummary['description'] != null) {
-            if (importSummary['description'].contains('is not enrolled')) {
+            if ("${importSummary['description']}"
+                .toLowerCase()
+                .contains('is not enrolled')) {
               unsyncedDueToEnrollment.add(importSummary['reference']);
+            } else if ("${importSummary['description']}".toLowerCase().contains(
+                'Event.trackedEntityInstance does not point to a valid tracked entity instance'
+                    .toLowerCase())) {
+              unsyncedDueMissingBeneficary.add(importSummary['reference']);
             }
             AppLogs log = AppLogs(
                 type: AppLogsConstants.errorLogType,
@@ -737,19 +775,7 @@ class SynchronizationService {
     Map<String, List<String>> referenceIds = Map();
     referenceIds['syncedIds'] = syncedIds;
     referenceIds['unsyncedDueToEnrollment'] = unsyncedDueToEnrollment;
+    referenceIds['unsyncedDueMissingBeneficary'] = unsyncedDueMissingBeneficary;
     return referenceIds;
-  }
-
-  Future<List<Enrollment>> checkForUnenrolledBeneficiaries(
-      List<String> eventIds) async {
-    //@TODO refactor get TEIs ids by event ids
-    List<Events> eventsWithoutEnrollment = await EventOfflineProvider()
-        .getTrackedEntityInstanceEventsByStatus('', eventList: eventIds);
-    List<String> teiNotEnrolled = eventsWithoutEnrollment
-        .map((Events event) => event.trackedEntityInstance)
-        .toList();
-    List<Enrollment> unsyncedEnrollments = await EnrollmentOfflineProvider()
-        .getEnrollmentsFromTeiList(teiNotEnrolled);
-    return unsyncedEnrollments;
   }
 }
