@@ -349,6 +349,8 @@ class SynchronizationState with ChangeNotifier {
       int profileTotalCount = 3;
       double eventsCount = 0;
       int eventsTotalCount = 1;
+      bool conflictOnTeisImport = false;
+      bool conflictOnEventsImport = false;
       addDataUploadProcess('Prepare offline data to upload');
 
       var teis = await _synchronizationService.getTeisFromOfflineDb();
@@ -358,8 +360,9 @@ class SynchronizationState with ChangeNotifier {
             AppUtil.chunkItems(items: teis, size: dataUploadBatchSize);
         int batch = 1;
         for (List<dynamic> teiChunk in chunkedTeis) {
-          await _synchronizationService.uploadTeisToTheServer(
-              teiChunk, isAutoUpload);
+          bool conflictOnImport = await _synchronizationService
+              .uploadTeisToTheServer(teiChunk, isAutoUpload);
+          conflictOnTeisImport = conflictOnTeisImport || conflictOnImport;
 
           profileCount = profileCount + (batch / chunkedTeis.length);
           profileDataUploadProgress = profileCount / profileTotalCount;
@@ -384,8 +387,9 @@ class SynchronizationState with ChangeNotifier {
         List<List<dynamic>> chunkedTeiEnrollments = AppUtil.chunkItems(
             items: teiEnrollments, size: dataUploadBatchSize * 2);
         for (List<dynamic> teiEnrollmentChunk in chunkedTeiEnrollments) {
-          await _synchronizationService.uploadEnrollmentsToTheServer(
-              teiEnrollmentChunk, isAutoUpload);
+          bool conflictOnImport = await _synchronizationService
+              .uploadEnrollmentsToTheServer(teiEnrollmentChunk, isAutoUpload);
+          conflictOnTeisImport = conflictOnTeisImport || conflictOnImport;
 
           profileCount = profileCount + (batch / chunkedTeiEnrollments.length);
           profileDataUploadProgress = profileCount / profileTotalCount;
@@ -411,8 +415,9 @@ class SynchronizationState with ChangeNotifier {
 
         int batch = 1;
         for (List<dynamic> teiRelationshipChunk in chunkedTeiRelationships) {
-          await _synchronizationService.uploadTeiRelationToTheServer(
-              teiRelationshipChunk, isAutoUpload);
+          bool conflictOnImport = await _synchronizationService
+              .uploadTeiRelationToTheServer(teiRelationshipChunk, isAutoUpload);
+          conflictOnTeisImport = conflictOnTeisImport || conflictOnImport;
 
           profileCount =
               profileCount + (batch / chunkedTeiRelationships.length);
@@ -439,8 +444,9 @@ class SynchronizationState with ChangeNotifier {
 
         int batch = 1;
         for (List<dynamic> teiEventsChunk in chunkedTeiEvents) {
-          await _synchronizationService.uploadTeiEventsToTheServer(
-              teiEventsChunk, isAutoUpload);
+          bool conflictOnImport = await _synchronizationService
+              .uploadTeiEventsToTheServer(teiEventsChunk, isAutoUpload);
+          conflictOnEventsImport = conflictOnEventsImport || conflictOnImport;
 
           eventsCount = eventsCount + (batch / chunkedTeiEvents.length);
           eventsDataUploadProgress = eventsCount / eventsTotalCount;
@@ -461,6 +467,13 @@ class SynchronizationState with ChangeNotifier {
         position: ToastGravity.TOP,
       );
       await ReferralNotificationService().syncReferralNotifications();
+      if (conflictOnTeisImport && conflictOnEventsImport) {
+        AppUtil.showToastMessage(message: 'Error uploading data');
+      } else if (conflictOnTeisImport) {
+        AppUtil.showToastMessage(message: 'Error uploading some Beneficiaries');
+      } else if (conflictOnEventsImport) {
+        AppUtil.showToastMessage(message: 'Error uploading some Services');
+      }
     } catch (e) {
       if (!isAutoUpload) {
         AppUtil.showToastMessage(message: 'Error uploading data');
