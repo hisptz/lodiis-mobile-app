@@ -419,10 +419,11 @@ class SynchronizationService {
         .getEventsCountBySyncStatus(offlineSyncStatus);
   }
 
-  Future uploadEnrollmentsToTheServer(
+  Future<bool> uploadEnrollmentsToTheServer(
       List<Enrollment> teiEnrollments, bool isAutoUpload) async {
     List<String> syncedIds = [];
     String url = 'api/enrollments';
+    bool conflictOnImport = false;
     List<TrackeEntityInstance> unsyncedTeis = await getTeisFromOfflineDb();
     var enrollments = teiEnrollments
         .where((enrollment) =>
@@ -454,6 +455,7 @@ class SynchronizationService {
         }
       }
       var referenceIds = await _getReferenceIds(json.decode(response.body));
+      conflictOnImport = referenceIds['conflictOnImport'];
       syncedIds = referenceIds['syncedIds'];
     } catch (e) {
       AppLogs log = AppLogs(
@@ -472,12 +474,15 @@ class SynchronizationService {
         }
       }
     }
+
+    return conflictOnImport;
   }
 
-  Future uploadTeisToTheServer(
+  Future<bool> uploadTeisToTheServer(
       List<TrackeEntityInstance> teis, bool isAutoUpload) async {
     List<String> syncedIds = [];
     String url = 'api/trackedEntityInstances';
+    bool conflictOnImport = false;
     Map body = Map();
     body['trackedEntityInstances'] = teis.map((tei) {
       var data = tei.toOffline(tei);
@@ -508,6 +513,7 @@ class SynchronizationService {
       }
       var referenceIds = await _getReferenceIds(json.decode(response.body));
       syncedIds = referenceIds['syncedIds'];
+      conflictOnImport = referenceIds['conflictOnImport'];
     } catch (e) {
       AppLogs log = AppLogs(
           type: AppLogsConstants.errorLogType,
@@ -527,12 +533,16 @@ class SynchronizationService {
         }
       }
     }
+
+    return conflictOnImport;
   }
 
-  Future uploadTeiEventsToTheServer(List<Events> teiEvents, bool isAutoUpload,
+  Future<bool> uploadTeiEventsToTheServer(
+      List<Events> teiEvents, bool isAutoUpload,
       {bool checkEnrollments = true}) async {
     List<String> syncedIds = [];
     String url = 'api/events';
+    bool conflictOnImport = false;
     Map body = Map();
     body['events'] = teiEvents.map((Events event) {
       var data = event.toOffline(event);
@@ -564,6 +574,7 @@ class SynchronizationService {
       }
       var referenceIds = await _getReferenceIds(json.decode(response.body));
       syncedIds = referenceIds['syncedIds'];
+      conflictOnImport = referenceIds['conflictOnImport'];
       await reUploadBeneficiariesWithUnsyncedServices(
         referenceIds,
         checkEnrollments,
@@ -588,6 +599,7 @@ class SynchronizationService {
         }
       }
     }
+    return conflictOnImport;
   }
 
   Future<void> reUploadBeneficiariesWithUnsyncedServices(
@@ -630,11 +642,12 @@ class SynchronizationService {
     }
   }
 
-  Future uploadTeiRelationToTheServer(
+  Future<bool> uploadTeiRelationToTheServer(
       List<TeiRelationship> teiRelationShips, bool isAutoUpload) async {
     Map body = Map<String, dynamic>();
     List<String> syncedIds = [];
     String url = 'api/relationships';
+    bool conflictOnImport = false;
     body['relationships'] = teiRelationShips
         .map((relationship) => relationship.toOnline())
         .toList();
@@ -660,6 +673,7 @@ class SynchronizationService {
       }
       var referenceIds = await _getReferenceIds(json.decode(response.body));
       syncedIds = referenceIds['syncedIds'];
+      conflictOnImport = referenceIds['conflictOnImport'];
     } catch (e) {
       AppLogs log = AppLogs(
           type: AppLogsConstants.errorLogType,
@@ -679,6 +693,8 @@ class SynchronizationService {
         }
       }
     }
+
+    return conflictOnImport;
   }
 
   String getNginxErrorMessage(String responseBody) {
@@ -751,10 +767,11 @@ class SynchronizationService {
     return logMessage;
   }
 
-  Future<Map<String, List<String>>> _getReferenceIds(Map body) async {
+  Future<Map<String, dynamic>> _getReferenceIds(Map body) async {
     List<String> syncedIds = [];
     List<String> unsyncedDueToEnrollment = [];
     List<String> unsyncedDueMissingBeneficary = [];
+    bool conflictOnImport = false;
     try {
       var bodyResponse = body['response'] ?? Map();
       var importSummaries = bodyResponse['importSummaries'] ?? [];
@@ -785,15 +802,22 @@ class SynchronizationService {
                 type: AppLogsConstants.errorLogType,
                 message: importSummary['description']);
             await AppLogsOfflineProvider().addLogs(log);
-            AppUtil.showToastMessage(message: 'Error uploading data');
+            conflictOnImport = true;
           }
         }
       }
-    } catch (error) {}
-    Map<String, List<String>> referenceIds = Map();
+    } catch (error) {
+      AppLogs log = AppLogs(
+          type: AppLogsConstants.errorLogType,
+          message: '_getReferenceIds: ${error.toString()}');
+      await AppLogsOfflineProvider().addLogs(log);
+    }
+
+    Map<String, dynamic> referenceIds = Map();
     referenceIds['syncedIds'] = syncedIds;
     referenceIds['unsyncedDueToEnrollment'] = unsyncedDueToEnrollment;
     referenceIds['unsyncedDueMissingBeneficary'] = unsyncedDueMissingBeneficary;
+    referenceIds['conflictOnImport'] = conflictOnImport;
     return referenceIds;
   }
 }

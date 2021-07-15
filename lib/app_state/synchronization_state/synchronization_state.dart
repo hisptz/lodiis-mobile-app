@@ -345,80 +345,135 @@ class SynchronizationState with ChangeNotifier {
     overallUploadProgress = 0.0;
     updateDataUploadStatus(true);
     try {
-      int profileCount = 0;
+      double profileCount = 0;
       int profileTotalCount = 3;
-      int eventsCount = 0;
+      double eventsCount = 0;
       int eventsTotalCount = 1;
+      bool conflictOnTeisImport = false;
+      bool conflictOnEventsImport = false;
       addDataUploadProcess('Prepare offline data to upload');
 
       var teis = await _synchronizationService.getTeisFromOfflineDb();
-      profileCount++;
-      profileDataUploadProgress = profileCount / profileTotalCount;
-      overallUploadProgress =
-          (profileDataUploadProgress + eventsDataUploadProgress) / 2;
-      notifyListeners();
       if (teis.length > 0) {
         addDataUploadProcess("Uploading beneficiary's profile data");
         List<List<dynamic>> chunkedTeis =
             AppUtil.chunkItems(items: teis, size: dataUploadBatchSize);
+        int batch = 1;
         for (List<dynamic> teiChunk in chunkedTeis) {
-          await _synchronizationService.uploadTeisToTheServer(
-              teiChunk, isAutoUpload);
+          bool conflictOnImport = await _synchronizationService
+              .uploadTeisToTheServer(teiChunk, isAutoUpload);
+          conflictOnTeisImport = conflictOnTeisImport || conflictOnImport;
+
+          profileCount = profileCount + (batch / chunkedTeis.length);
+          profileDataUploadProgress = profileCount / profileTotalCount;
+          overallUploadProgress =
+              (profileDataUploadProgress + eventsDataUploadProgress) / 2;
+          notifyListeners();
+          ++batch;
         }
+      } else {
+        ++profileCount;
+        profileDataUploadProgress = profileCount / profileTotalCount;
+        overallUploadProgress =
+            (profileDataUploadProgress + eventsDataUploadProgress) / 2;
+        notifyListeners();
       }
 
       var teiEnrollments =
           await _synchronizationService.getTeiEnrollmentFromOfflineDb();
-      profileCount++;
-      profileDataUploadProgress = profileCount / profileTotalCount;
-      overallUploadProgress =
-          (profileDataUploadProgress + eventsDataUploadProgress) / 2;
-      notifyListeners();
+
       if (teiEnrollments.length > 0) {
+        int batch = 1;
         List<List<dynamic>> chunkedTeiEnrollments = AppUtil.chunkItems(
             items: teiEnrollments, size: dataUploadBatchSize * 2);
         for (List<dynamic> teiEnrollmentChunk in chunkedTeiEnrollments) {
-          await _synchronizationService.uploadEnrollmentsToTheServer(
-              teiEnrollmentChunk, isAutoUpload);
+          bool conflictOnImport = await _synchronizationService
+              .uploadEnrollmentsToTheServer(teiEnrollmentChunk, isAutoUpload);
+          conflictOnTeisImport = conflictOnTeisImport || conflictOnImport;
+
+          profileCount = profileCount + (batch / chunkedTeiEnrollments.length);
+          profileDataUploadProgress = profileCount / profileTotalCount;
+          overallUploadProgress =
+              (profileDataUploadProgress + eventsDataUploadProgress) / 2;
+          notifyListeners();
+          ++batch;
         }
+      } else {
+        ++profileCount;
+        profileDataUploadProgress = profileCount / profileTotalCount;
+        overallUploadProgress =
+            (profileDataUploadProgress + eventsDataUploadProgress) / 2;
+        notifyListeners();
       }
 
       var teiRelationships =
           await _synchronizationService.getTeiRelationShipFromOfflineDb();
-      profileCount++;
-      profileDataUploadProgress = profileCount / profileTotalCount;
-      overallUploadProgress =
-          (profileDataUploadProgress + eventsDataUploadProgress) / 2;
-      notifyListeners();
+
       if (teiRelationships.length > 0) {
         List<List<dynamic>> chunkedTeiRelationships = AppUtil.chunkItems(
             items: teiRelationships, size: dataUploadBatchSize * 2);
+
+        int batch = 1;
         for (List<dynamic> teiRelationshipChunk in chunkedTeiRelationships) {
-          await _synchronizationService.uploadTeiRelationToTheServer(
-              teiRelationshipChunk, isAutoUpload);
+          bool conflictOnImport = await _synchronizationService
+              .uploadTeiRelationToTheServer(teiRelationshipChunk, isAutoUpload);
+          conflictOnTeisImport = conflictOnTeisImport || conflictOnImport;
+
+          profileCount =
+              profileCount + (batch / chunkedTeiRelationships.length);
+          profileDataUploadProgress = profileCount / profileTotalCount;
+          overallUploadProgress =
+              (profileDataUploadProgress + eventsDataUploadProgress) / 2;
+          notifyListeners();
+          ++batch;
         }
+      } else {
+        ++profileCount;
+        profileDataUploadProgress = profileCount / profileTotalCount;
+        overallUploadProgress =
+            (profileDataUploadProgress + eventsDataUploadProgress) / 2;
+        notifyListeners();
       }
 
       var teiEvents = await _synchronizationService.getTeiEventsFromOfflineDb();
-      eventsCount++;
-      eventsDataUploadProgress = eventsCount / eventsTotalCount;
-      overallUploadProgress =
-          profileDataUploadProgress + eventsDataUploadProgress;
-      notifyListeners();
+
       if (teiEvents.length > 0) {
         addDataUploadProcess("Uploading beneficiary's service data");
         List<List<dynamic>> chunkedTeiEvents =
             AppUtil.chunkItems(items: teiEvents, size: dataUploadBatchSize * 2);
+
+        int batch = 1;
         for (List<dynamic> teiEventsChunk in chunkedTeiEvents) {
-          await _synchronizationService.uploadTeiEventsToTheServer(
-              teiEventsChunk, isAutoUpload);
+          bool conflictOnImport = await _synchronizationService
+              .uploadTeiEventsToTheServer(teiEventsChunk, isAutoUpload);
+          conflictOnEventsImport = conflictOnEventsImport || conflictOnImport;
+
+          eventsCount = eventsCount + (batch / chunkedTeiEvents.length);
+          eventsDataUploadProgress = eventsCount / eventsTotalCount;
+          overallUploadProgress =
+              profileDataUploadProgress + eventsDataUploadProgress;
+          notifyListeners();
+          ++batch;
         }
+      } else {
+        ++eventsCount;
+        eventsDataUploadProgress = eventsCount / eventsTotalCount;
+        overallUploadProgress =
+            profileDataUploadProgress + eventsDataUploadProgress;
+        notifyListeners();
       }
       AppUtil.showToastMessage(
         message: 'Start synchronization of referral notifications',
         position: ToastGravity.TOP,
       );
       await ReferralNotificationService().syncReferralNotifications();
+      if (conflictOnTeisImport && conflictOnEventsImport) {
+        AppUtil.showToastMessage(message: 'Error uploading data');
+      } else if (conflictOnTeisImport) {
+        AppUtil.showToastMessage(message: 'Error uploading some Beneficiaries');
+      } else if (conflictOnEventsImport) {
+        AppUtil.showToastMessage(message: 'Error uploading some Services');
+      }
     } catch (e) {
       if (!isAutoUpload) {
         AppUtil.showToastMessage(message: 'Error uploading data');
