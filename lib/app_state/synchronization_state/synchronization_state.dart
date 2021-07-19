@@ -220,7 +220,6 @@ class SynchronizationState with ChangeNotifier {
     overallUploadProgress = 0.0;
     _currentSyncAction = syncAction;
     notifyListeners();
-    print('_currentSyncAction: $_currentSyncAction');
     switch (syncAction) {
       case 'Download':
         await startDataDownloadActivity();
@@ -467,12 +466,15 @@ class SynchronizationState with ChangeNotifier {
         position: ToastGravity.TOP,
       );
       await ReferralNotificationService().syncReferralNotifications();
-      if (conflictOnTeisImport && conflictOnEventsImport) {
-        AppUtil.showToastMessage(message: 'Error uploading data');
-      } else if (conflictOnTeisImport) {
-        AppUtil.showToastMessage(message: 'Error uploading some Beneficiaries');
-      } else if (conflictOnEventsImport) {
-        AppUtil.showToastMessage(message: 'Error uploading some Services');
+      if (!isAutoUpload) {
+        if (conflictOnTeisImport && conflictOnEventsImport) {
+          AppUtil.showToastMessage(message: 'Error uploading data');
+        } else if (conflictOnTeisImport) {
+          AppUtil.showToastMessage(
+              message: 'Error uploading some Beneficiaries');
+        } else if (conflictOnEventsImport) {
+          AppUtil.showToastMessage(message: 'Error uploading some Services');
+        }
       }
     } catch (e) {
       if (!isAutoUpload) {

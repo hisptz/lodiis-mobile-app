@@ -30,8 +30,6 @@ class _SynchronizationActionFormState extends State<SynchronizationActionForm> {
     id: 'sync',
     name: 'Sync action',
     valueType: 'TEXT',
-    inputColor: Color(0xFF258DCC),
-    labelColor: Color(0xFF737373),
     options: [
       InputFieldOption(
           code: SynchronizationActionsConstants().download, name: 'Download'),
