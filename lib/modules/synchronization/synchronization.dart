@@ -150,6 +150,7 @@ class _SynchronizationState extends State<Synchronization> {
                             visible: isDataDownloadingActive ||
                                 isDataUploadingActive,
                             child: Container(
+                              margin: EdgeInsets.symmetric(vertical: 5.0),
                               child: SynchronizationProgress(
                                 syncAction: selectedSyncAction,
                                 hasUnsyncedData: hasUnsyncedData,
