@@ -1613,9 +1613,9 @@ class AgywEnrollmentFormSection {
         name: 'Enrollment Module 6:  Gender-based Violence',
         translatedName: 'Karolo ea 6: Tlhekefetso ea basali GBV',
         description:
-            'INTERVIEWER SAY:  The next section goes over a few questions about your experiences with violence.  Now I will ask you some questions about your sexual activity in order to gain a better understanding of some life issues. Let me reassure you that your answers are completely confidential. If you are uncomfortable with any questions, please let me know. Remember, there is no right or wrong answer. ',
+            'INTERVIEWER SAY:  The next section goes over a few questions about your experiences with violence.  Now I will ask you some questions about your sexual activity in order to gain a better understanding of some life issues. Let me reassure you that your answers are completely confidential. If you are uncomfortable with any questions, please let me know. Remember, there is no right or wrong answer. \nHas the following happend to you with any man (e.g boyfriend/spouse/family member/neighbour etc?) \nEver and if Yes, has it happend in the past 3 months?',
         translatedDescription:
-            'MOTHO EA BOTSANG LIPOTSO A RE:  Karolo ena e latelang ea lipotso e holima seo u se tsebang ka tlhekefetso. Ke tla u botsa lipotso ka litaba tsa hao tse amanang le thobalano e le ho utloisisa lintlha tse ling tse amanang le bophelo. Ke batla ho u tiisetsa hore likarabo tsa hao li tla bolokoa e le lekunutu. Haeba u utloa lipotso tsa ka li u beha tsietsing, u mpolelle. Hopola hore ha ho karabo e nepahetseng kapa a fosahetseng.',
+            'MOTHO EA BOTSANG LIPOTSO A RE:  Karolo ena e latelang ea lipotso e holima seo u se tsebang ka tlhekefetso. Ke tla u botsa lipotso ka litaba tsa hao tse amanang le thobalano e le ho utloisisa lintlha tse ling tse amanang le bophelo. Ke batla ho u tiisetsa hore likarabo tsa hao li tla bolokoa e le lekunutu. Haeba u utloa lipotso tsa ka li u beha tsietsing, u mpolelle. Hopola hore ha ho karabo e nepahetseng kapa a fosahetseng. \nNa liketsahalo tse latelang li kile tsa etsoa ho uena ke motho oa monna (mohlala: mohlankana/monna/ oa hao, setho sa lelapa, kapa mohaisane joalo-joalo?)',
         color: Color(0xFF258DCC),
         inputFields: [
           InputField(
@@ -2069,35 +2069,43 @@ class AgywEnrollmentFormSection {
               inputColor: Color(0xFF258DCC),
               labelColor: Color(0xFF737373)),
           InputField(
-            id: 'wfb1pQ1odtz',
+            id: 'ypeOfDrugUsed',
             name:
                 '704. Which type of drugs of abuse/addiction have you used in the last 12 months?',
             translatedName:
                 '704. Likhoeling tse 12 tse fetileng, u kile oa sebelisa mefuta efe ea lithethefatsi?',
-            valueType: 'TEXT',
+            valueType: 'CHECK_BOX',
             inputColor: Color(0xFF258DCC),
             labelColor: Color(0xFF737373),
             options: [
               InputFieldOption(
-                  code: 'Marijoana or Matekoane',
+                  code: 'LUfX3TMLmvl',
                   name: 'Marijoana or Matekoane',
                   translatedName: 'Matekoane'),
               InputFieldOption(
-                  code: 'Glue or Petrol or Gundi',
+                  code: 'oNMUWj5OmDr',
                   name: 'Glue or Petrol or Gundi',
                   translatedName: 'Glue/Petrol'),
               InputFieldOption(
-                  code: 'Cocaine', name: 'Cocaine', translatedName: 'Cocaine'),
+                  code: 'unqP2uT3uD9',
+                  name: 'Cocaine',
+                  translatedName: 'Cocaine'),
               InputFieldOption(
-                  code: 'Heroin', name: 'Heroin', translatedName: 'Heroin'),
+                  code: 'aGrDT7Cuiag',
+                  name: 'Heroin',
+                  translatedName: 'Heroin'),
               InputFieldOption(
-                  code: 'Mandrax', name: 'Mandrax', translatedName: 'Mandrax'),
+                  code: 'psrnUniyPWZ',
+                  name: 'Mandrax',
+                  translatedName: 'Mandrax'),
               InputFieldOption(
-                  code: 'Cigarettes or Tobacco',
+                  code: 'qQ4DKYTCtnb',
                   name: 'Cigarettes or Tobacco',
                   translatedName: 'Lisakarete/Koae'),
               InputFieldOption(
-                  code: 'Other', name: 'Other', translatedName: 'Tse ling')
+                  code: 'L65TAJtipUT',
+                  name: 'Other',
+                  translatedName: 'Tse ling')
             ],
           ),
           InputField(
