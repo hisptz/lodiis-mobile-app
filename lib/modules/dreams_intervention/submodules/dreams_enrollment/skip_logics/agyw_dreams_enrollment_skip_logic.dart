@@ -360,7 +360,7 @@ class AgywDreamsEnrollmentSkipLogic {
       if (inputFieldId == 'bBVCUqsdfL3' && value != 'true') {
         hiddenFields['NP7LbypO3li'] = true;
       }
-      if (inputFieldId == 'wfb1pQ1odtz' && value != 'Other') {
+      if (inputFieldId == 'ypeOfDrugUsed' && value != 'L65TAJtipUT') {
         hiddenFields['yZtuWQz9RG8'] = true;
       }
       if (inputFieldId == 'ZcfLYz7JlVo' && value != 'true') {
@@ -393,7 +393,7 @@ class AgywDreamsEnrollmentSkipLogic {
         hiddenFields['JSBixuSLIC5'] = true;
       }
       if (inputFieldId == 'o9tReELSzRN' && value != 'true') {
-        hiddenFields['wfb1pQ1odtz'] = true;
+        hiddenFields['ypeOfDrugUsed'] = true;
         hiddenFields['YSAyCyGWCaK'] = true;
       }
 
