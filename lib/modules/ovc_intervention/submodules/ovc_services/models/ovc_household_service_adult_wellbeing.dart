@@ -96,7 +96,7 @@ class OvcHouseHoldServiceAdultWellbeing {
                   InputFieldOption(
                       code: 'zk0W0bDbTls',
                       name: 'Taking care of animals',
-                      translatedName: 'Hokomela liphoofolo'),
+                      translatedName: 'Ho hlokomela liphoofolo'),
                   InputFieldOption(
                       code: 'iSE037kVfFJ',
                       name: 'Provide food & other household items',

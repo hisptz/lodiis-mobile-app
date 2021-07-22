@@ -85,7 +85,8 @@ class OvcExitInformation {
                       code: 'Over 18-20 years and out of school',
                       name: 'Over 18-20 years and out of school'),
                   InputFieldOption(code: 'Duplicated', name: 'Duplicated'),
-                  InputFieldOption(code: 'Other', name: 'Other'),
+                  InputFieldOption(
+                      code: 'Other', name: 'Other', translatedName: 'Tse ling'),
                 ]),
             InputField(
                 id: 'q3mJ2FfV3oR',
