@@ -116,8 +116,11 @@ class OvchouseHoldAssessmentSkipLogic {
       }
       if (inputFieldId == 'SLajij5j1KI' && value != 'Yes') {
         hiddenFields['RxvDeJX3b3k'] = true;
+        hiddenFields['E4UFvIBBEDk'] = true;
       }
-
+      if (inputFieldId == 'RxvDeJX3b3k' && value != 'true') {
+        hiddenFields['E4UFvIBBEDk'] = true;
+      }
       if (inputFieldId == 'doJJzw4NX8m' && value == 'true') {
         hiddenFields['doJJzw4NX8m_checkbox'] = true;
       }
@@ -156,11 +159,11 @@ class OvchouseHoldAssessmentSkipLogic {
     for (String sectionId in hiddenSections.keys) {
       List<FormSection> allFormSections =
           FormUtil.getFlattenFormSections(formSections);
-      List<String> hidddenSectionInputFieldIds = FormUtil.getFormFieldIds(allFormSections
-          .where((formSection) => formSection.id == sectionId)
-          .toList());      
+      List<String> hidddenSectionInputFieldIds = FormUtil.getFormFieldIds(
+          allFormSections
+              .where((formSection) => formSection.id == sectionId)
+              .toList());
       for (String inputFieldId in hidddenSectionInputFieldIds) {
-
         hiddenFields[inputFieldId] = true;
       }
     }
