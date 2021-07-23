@@ -360,7 +360,7 @@ class AgywDreamsEnrollmentSkipLogic {
       if (inputFieldId == 'bBVCUqsdfL3' && value != 'true') {
         hiddenFields['NP7LbypO3li'] = true;
       }
-      if (inputFieldId == 'ypeOfDrugUsed' && value != 'L65TAJtipUT') {
+      if (inputFieldId == 'L65TAJtipUT' && value != 'true') {
         hiddenFields['yZtuWQz9RG8'] = true;
       }
       if (inputFieldId == 'ZcfLYz7JlVo' && value != 'true') {

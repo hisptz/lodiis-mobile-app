@@ -729,7 +729,7 @@ class OvcServicesWellbeingAssessment {
             InputField(
                 id: 'ef1ixon3YBh',
                 name: '63. OVC ever been tested for HIV?',
-                translatedName: '63. na OVC o kile a hlahlobela HIV?',
+                translatedName: '63. Na ngoana o kile a hlahlobela HIV?',
                 valueType: 'BOOLEAN',
                 inputColor: Color(0xFF2895F0),
                 labelColor: Color(0xFF1A3518)),
@@ -1031,8 +1031,17 @@ class OvcServicesWellbeingAssessment {
                       name:
                           'The doctor at the clinic near us doesn’t treat us well',
                       translatedName:
-                          'Ngaka e setsing se haufinyane ha e re sebeletse hantle.')
+                          'Ngaka e setsing se haufinyane ha e re sebeletse hantle.'),
+                  InputFieldOption(
+                      code: 'PErwPNVDZl1',
+                      name: 'Other',
+                      translatedName: 'Tse ling')
                 ]),
+            InputField(
+                id: 'aRrET00WEbz',
+                name: 'Other, Specify',
+                translatedName: 'Tse ling, hlakisa',
+                valueType: 'TEXT'),
             InputField(
                 id: 'iZGQ4iWkWNu',
                 name: '68. Has the child’s status been shared with the child?',
@@ -1195,19 +1204,19 @@ class OvcServicesWellbeingAssessment {
                       translatedName: 'Ha hona Karabo')
                 ]),
             InputField(
+                id: 'jxOMACHmXXO',
+                name: 'From whom?',
+                translatedName: 'Ho tsoa ho mang?',
+                valueType: 'TEXT',
+                inputColor: Color(0xFFEE6E22),
+                labelColor: Color(0xFF1A3518)),
+            InputField(
                 id: 'M0lo7wANrwN',
                 name:
                     '75. Does the child feel that the abuse problem has been resolved?',
                 translatedName:
                     '75. Na ngoana o utloa eka bothata ba tlhekefetso bo felile?',
                 valueType: 'BOOLEAN',
-                inputColor: Color(0xFFEE6E22),
-                labelColor: Color(0xFF1A3518)),
-            InputField(
-                id: 'jxOMACHmXXO',
-                name: 'From whom?',
-                translatedName: 'Ho tsoa ho mang?',
-                valueType: 'TEXT',
                 inputColor: Color(0xFFEE6E22),
                 labelColor: Color(0xFF1A3518)),
             InputField(

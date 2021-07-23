@@ -96,7 +96,7 @@ class OvcHouseHoldServiceAdultWellbeing {
                   InputFieldOption(
                       code: 'zk0W0bDbTls',
                       name: 'Taking care of animals',
-                      translatedName: 'Hokomela liphoofolo'),
+                      translatedName: 'Ho hlokomela liphoofolo'),
                   InputFieldOption(
                       code: 'iSE037kVfFJ',
                       name: 'Provide food & other household items',
@@ -118,7 +118,7 @@ class OvcHouseHoldServiceAdultWellbeing {
                 inputColor: Color(0xFF4B9F46),
                 labelColor: Color(0xFF1A3518)),
             InputField(
-                id: '',
+                id: 'income_source',
                 translatedName: '3. U fumana chelete joang?',
                 name: '3. What is your source of income?',
                 valueType: 'CHECK_BOX',
@@ -141,7 +141,18 @@ class OvcHouseHoldServiceAdultWellbeing {
                       code: 'LGrG9fGZfXP',
                       name: 'Unemployed',
                       translatedName: 'Ha ke sebetse'),
+                  InputFieldOption(
+                      code: 'Js9auywpL0O',
+                      name: 'Other',
+                      translatedName: 'Tse ling'),
                 ]),
+            InputField(
+                id: 'SQUodtvxYLs',
+                name: 'Other, Specify',
+                translatedName: 'Tse ling, hlakisa',
+                valueType: 'TEXT',
+                inputColor: Color(0xFF4B9F46),
+                labelColor: Color(0xFF1A3518)),
             InputField(
                 id: 'ZuaV20IvVV2',
                 name: '4. Is your work regular or irregular?',
