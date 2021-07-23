@@ -1031,8 +1031,17 @@ class OvcServicesWellbeingAssessment {
                       name:
                           'The doctor at the clinic near us doesn’t treat us well',
                       translatedName:
-                          'Ngaka e setsing se haufinyane ha e re sebeletse hantle.')
+                          'Ngaka e setsing se haufinyane ha e re sebeletse hantle.'),
+                  InputFieldOption(
+                      code: 'PErwPNVDZl1',
+                      name: 'Other',
+                      translatedName: 'Tse ling')
                 ]),
+            InputField(
+                id: 'aRrET00WEbz',
+                name: 'Other, Specify',
+                translatedName: 'Tse ling, hlakisa',
+                valueType: 'TEXT'),
             InputField(
                 id: 'iZGQ4iWkWNu',
                 name: '68. Has the child’s status been shared with the child?',

@@ -250,6 +250,9 @@ class OvcChildWellBeingAssessmentSkipLogic {
         if (inputFieldId == 'f2GIuwu1LGh' && value != 'Other') {
           hiddenFields['DrPdwo3pKfN'] = true;
         }
+        if (inputFieldId == 'PErwPNVDZl1' && value != '') {
+          hiddenFields['aRrET00WEbz'] = true;
+        }
         if (inputFieldId == 'gAzb8e8cLga' && value != 'Other, specify') {
           hiddenFields['oJVaLuSykXO'] = true;
         }

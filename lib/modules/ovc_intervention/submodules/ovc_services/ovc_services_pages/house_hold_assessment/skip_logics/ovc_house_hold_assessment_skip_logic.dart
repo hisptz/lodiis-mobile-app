@@ -108,6 +108,10 @@ class OvchouseHoldAssessmentSkipLogic {
         hiddenFields['Icb6vUJXVDX'] = true;
       }
 
+      if (inputFieldId == 'Js9auywpL0O' && value != 'true') {
+        hiddenFields['SQUodtvxYLs'] = true;
+      }
+
       if (inputFieldId == 'sLyfb45aLkl' && value != '1') {
         hiddenFields['aRNGDZcwWmS'] = true;
       }
