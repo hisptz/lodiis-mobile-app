@@ -16,8 +16,10 @@ import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/constants/agyw_dreams_without_enrollment_criteria_constants.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/constants/dreams_routes_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/models/agyw_enrollment_risk_assessment.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/pages/agyw_dreams_without_enrollment_form.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/skip_logics/agyw_dreams_enrollment_skip_logic.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:provider/provider.dart';
@@ -97,6 +99,26 @@ class _AgywDreamRiskAssessmentState extends State<AgywDreamRiskAssessment> {
     onUpdateFormAutoSaveState(context);
   }
 
+  bool hasEnrollmentCriteria(Map dataObject) {
+    List<String> enrollmentCriteria = [
+      'B4ojlzKypUF',
+      'HJIHPjOf5s1',
+      'bApA6X6TVvJ',
+      'yc3BlUIEup3',
+      'p33MrrhsQRz',
+      'iY67qYnywgS',
+      'rh881j2vfvT',
+      'AZCVLPzD0Vd',
+    ];
+    for (var criteria in enrollmentCriteria) {
+      if (dataObject[criteria] != null && dataObject[criteria] != '') {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
   void onSaveAndContinue(BuildContext context, Map dataObject,
       {Map hiddenFields = const {}}) {
     bool hadAllMandatoryFilled = AppUtil.hasAllMandarotyFieldsFilled(
@@ -104,10 +126,29 @@ class _AgywDreamRiskAssessmentState extends State<AgywDreamRiskAssessment> {
         hiddenFields: hiddenFields);
     if (hadAllMandatoryFilled) {
       onUpdateFormAutoSaveState(context, isSaveForm: true);
+      bool beneficiaryHasEnrollmentCriteria = hasEnrollmentCriteria(dataObject);
+      if (!beneficiaryHasEnrollmentCriteria) {
+        final List<AgywDreamsWithoutEnrollmentCriteriaConstant>
+            agywWithoutEnrollmentConstants =
+            AgywDreamsWithoutEnrollmentCriteriaConstant
+                .getDreamsWithoutEnrollmentCriteriaConstants();
+        for (AgywDreamsWithoutEnrollmentCriteriaConstant agywConstant
+            in agywWithoutEnrollmentConstants) {
+          String dataElement = agywConstant.dataElement;
+          String attribute = agywConstant.attribute;
+          if (dataObject.keys.toList().indexOf(attribute) != -1) {
+            Provider.of<EnrollmentFormState>(context, listen: false)
+                .setFormFieldState(dataElement, dataObject[attribute]);
+          }
+        }
+      }
+
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => AgywDreamsEnrollmentForm(),
+          builder: (context) => beneficiaryHasEnrollmentCriteria
+              ? AgywDreamsEnrollmentForm()
+              : AgywDreamsWithoutEnrollmentCriteriaForm(),
         ),
       );
     } else {
