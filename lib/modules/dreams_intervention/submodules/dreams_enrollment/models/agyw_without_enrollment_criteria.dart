@@ -49,6 +49,7 @@ class AgywWithoutEnrollmentCriteria {
                 name: 'Date of Birth',
                 translatedName: 'Letsatsi la tsoalo ',
                 valueType: 'DATE',
+                isReadOnly: true,
                 inputColor: Color(0xFF258DCC),
                 labelColor: Color(0xFF737373),
                 maxAgeInYear: 24,
