@@ -66,6 +66,20 @@ class DreamsServiceForm {
           labelColor: Color(0xFF737373),
         ),
         InputField(
+          id: 'JT7pbPBJkoF',
+          name: 'Caregiver first name',
+          valueType: 'TEXT',
+          inputColor: Color(0xFF258DCC),
+          labelColor: Color(0xFF737373),
+        ),
+        InputField(
+          id: 'QATqUC6i5x2',
+          name: 'Caregiver surname',
+          valueType: 'TEXT',
+          inputColor: Color(0xFF258DCC),
+          labelColor: Color(0xFF737373),
+        ),
+        InputField(
           id: 'FoLeDcnocv4',
           name: 'Number of Female condoms distributed',
           translatedName: 'Palo ea  likhohlopo tsa basali tse fanoeng',
