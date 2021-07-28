@@ -250,7 +250,7 @@ class OvcChildWellBeingAssessmentSkipLogic {
         if (inputFieldId == 'f2GIuwu1LGh' && value != 'Other') {
           hiddenFields['DrPdwo3pKfN'] = true;
         }
-        if (inputFieldId == 'PErwPNVDZl1' && value != '') {
+        if (inputFieldId == 'PErwPNVDZl1' && value != 'Other') {
           hiddenFields['aRrET00WEbz'] = true;
         }
         if (inputFieldId == 'gAzb8e8cLga' && value != 'Other, specify') {
@@ -270,7 +270,8 @@ class OvcChildWellBeingAssessmentSkipLogic {
         if (inputFieldId == 'RykOGTu3wcd') {
           if (value != 'Yes') {
             hiddenFields['iUO02DiUftg'] = true;
-          } else if (value == 'No') {
+          }
+          if (value == 'No') {
             hiddenFields['HqNP6ovZw3p'] = true;
           }
         }

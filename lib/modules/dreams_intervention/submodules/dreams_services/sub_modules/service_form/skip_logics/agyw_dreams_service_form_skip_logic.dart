@@ -91,6 +91,11 @@ class AgywDreamsServiceFormSkipLogic {
           hiddenFields['JjX25d72ume'] = true;
           hiddenFields['qxO13pu8vAk'] = true;
         }
+
+        if (value != 'PARENTING') {
+          hiddenFields['JT7pbPBJkoF'] = true;
+          hiddenFields['QATqUC6i5x2'] = true;
+        }
       }
     }
 
