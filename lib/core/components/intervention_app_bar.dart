@@ -11,6 +11,7 @@ import 'package:kb_mobile_app/models/Intervention_bottom_navigation.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:provider/provider.dart';
+import 'package:rxdart/rxdart.dart';
 
 class InterventionAppBar extends StatefulWidget {
   const InterventionAppBar(
@@ -37,9 +38,8 @@ class InterventionAppBar extends StatefulWidget {
 }
 
 class _InterventionAppBarState extends State<InterventionAppBar> {
-  Timer _searchDebounce;
   bool isSearchActive = false;
-  String searchedValued = '';
+  final PublishSubject<String> _searchedValued = PublishSubject<String>();
   InputField inputField = InputField(
     id: 'search',
     name: '',
@@ -51,7 +51,7 @@ class _InterventionAppBarState extends State<InterventionAppBar> {
     BuildContext context,
   ) {
     String value = '';
-    searchedValued = value;
+    _searchedValued.add(value);
     isSearchActive = !isSearchActive;
     setState(() {});
     if (isSearchActive) {
@@ -59,13 +59,6 @@ class _InterventionAppBarState extends State<InterventionAppBar> {
     } else {
       refreshBeneficiaryList(context);
     }
-  }
-
-  void onInputValueChange(BuildContext context, String value) {
-    if (_searchDebounce?.isActive ?? false) _searchDebounce.cancel();
-    _searchDebounce = Timer(const Duration(milliseconds: 2000), () {
-      onSearchBeneficiary(context, value);
-    });
   }
 
   void refreshBeneficiaryList(BuildContext context) {
@@ -81,26 +74,31 @@ class _InterventionAppBarState extends State<InterventionAppBar> {
     }
   }
 
-  void onSearchBeneficiary(BuildContext context, String value) {
+  void onSearchInputValueChange(BuildContext context, String value) {
     value = value.toLowerCase();
-    if (searchedValued != value || searchedValued == '') {
-      searchedValued = value;
+    _searchedValued.add(value);
+    onSearchBeneficiary(context, value);
+  }
+
+  void onSearchBeneficiary(BuildContext context, String value) {
+    _searchedValued
+        .debounce((_) => TimerStream(true, Duration(milliseconds: 500)))
+        .listen((searchedValue) async {
       if (widget.activeInterventionProgram.id == 'ogac') {
         Provider.of<OgacInterventionListState>(context, listen: false)
-            .searchOgacList(value);
+            .searchOgacList(searchedValue);
       } else if (widget.activeInterventionProgram.id == 'dreams') {
         Provider.of<DreamsInterventionListState>(context, listen: false)
-            .searchAgywDreams(value);
+            .searchAgywDreams(searchedValue);
       } else if (widget.activeInterventionProgram.id == 'ovc') {
         Provider.of<OvcInterventionListState>(context, listen: false)
-            .searchHouseHold(value);
+            .searchHouseHold(searchedValue);
       }
-    }
+    });
   }
 
   @override
   void dispose() {
-    _searchDebounce?.cancel();
     super.dispose();
   }
 
@@ -177,7 +175,7 @@ class _InterventionAppBarState extends State<InterventionAppBar> {
                   inputValue: '',
                   showInputCheckedIcon: false,
                   onInputValueChange: (dynamic value) =>
-                      onSearchBeneficiary(context, value),
+                      onSearchInputValueChange(context, value),
                 ),
               ),
             ),
