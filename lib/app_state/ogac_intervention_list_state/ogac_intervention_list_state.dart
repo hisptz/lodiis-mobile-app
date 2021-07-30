@@ -73,7 +73,7 @@ class OgacInterventionListState with ChangeNotifier {
     if (value != '') {
       _searchableValue = value;
       notifyListeners();
-      refreshOgacNumber();
+      refreshOgacList();
     } else {
       _pagingController.itemList = _ogacInterventionList;
       _pagingController.nextPageKey = _nextPage;
@@ -93,7 +93,6 @@ class OgacInterventionListState with ChangeNotifier {
   //reducers
   Future<void> refreshOgacList() async {
     _isLoading = true;
-    _searchableValue = '';
     notifyListeners();
     await getBeneficiaryNumber();
     getNumberOfPages();
