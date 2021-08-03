@@ -28,7 +28,7 @@ class ReferralOutComeView extends StatelessWidget {
   final ReferralOutComeEvent referralOutComeEvent;
   final List<FormSection> referralOutcomeFollowUpFormSections;
   final Color themeColor;
-  final TrackeEntityInstance beneficiary;
+  final TrackedEntityInstance beneficiary;
   final String referralFollowUpStage;
   final String referralToFollowUpLinkage;
   final String referralProgram;
@@ -233,10 +233,10 @@ class ReferralOutComeView extends StatelessWidget {
             ),
           ),
           Container(
-            child: Consumer<ServiveEventDataState>(
-              builder: (context, serviveEventDataState, child) {
+            child: Consumer<ServiceEventDataState>(
+              builder: (context, serviceEventDataState, child) {
                 Map<String, List<Events>> eventListByProgramStage =
-                    serviveEventDataState.eventListByProgramStage;
+                    serviceEventDataState.eventListByProgramStage;
                 List<ReferralOutFollowUpComeEvent>
                     referralOutComeFollowUpEvents =
                     getReferralOutComeFollowUps(eventListByProgramStage);

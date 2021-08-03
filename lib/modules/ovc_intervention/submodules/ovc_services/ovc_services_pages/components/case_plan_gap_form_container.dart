@@ -53,7 +53,7 @@ class _CasePlanGapFormContainerState extends State<CasePlanGapFormContainer>
 
   onSaveGapForm(BuildContext context) {
     bool hadAllMandatoryFilled =
-        AppUtil.hasAllMandarotyFieldsFilled(mandatoryFields, dataObject);
+        AppUtil.hasAllMandatoryFieldsFilled(mandatoryFields, dataObject);
     if (hadAllMandatoryFilled) {
       Navigator.pop(context, dataObject);
     } else {

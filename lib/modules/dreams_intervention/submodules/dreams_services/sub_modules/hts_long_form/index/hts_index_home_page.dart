@@ -37,7 +37,7 @@ class _HTSIndexHomePageState extends State<HTSIndexHomePage> {
 
   String toggleCardId = '';
 
-  void onCardToogle(String cardId) {
+  void onCardToggle(String cardId) {
     setState(() {
       toggleCardId = canExpand && cardId != toggleCardId ? cardId : '';
     });
@@ -61,10 +61,10 @@ class _HTSIndexHomePageState extends State<HTSIndexHomePage> {
           .setFormFieldState('eventDate', eventData.eventDate);
       Provider.of<ServiceFormState>(context, listen: false)
           .setFormFieldState('eventId', eventData.event);
-      for (Map datavalue in eventData.dataValues) {
-        if (datavalue['value'] != '') {
+      for (Map dataValue in eventData.dataValues) {
+        if (dataValue['value'] != '') {
           Provider.of<ServiceFormState>(context, listen: false)
-              .setFormFieldState(datavalue['dataElement'], datavalue['value']);
+              .setFormFieldState(dataValue['dataElement'], dataValue['value']);
         }
       }
     }
@@ -83,24 +83,24 @@ class _HTSIndexHomePageState extends State<HTSIndexHomePage> {
     );
   }
 
-  List<String> programStageids = [
+  List<String> programStageIds = [
     AgywDreamsIndexPositiveConstant.programStage,
   ];
   @override
   Widget build(BuildContext context) {
     return Container(
       child: Container(
-        child: Consumer<DreamBenefeciarySelectionState>(
-          builder: (context, dreamBenefeciarySelectionState, child) {
-            return Consumer<ServiveEventDataState>(
+        child: Consumer<DreamBeneficiarySelectionState>(
+          builder: (context, dreamBeneficiarySelectionState, child) {
+            return Consumer<ServiceEventDataState>(
               builder: (context, serviceFormState, child) {
                 AgywDream agywDream =
-                    dreamBenefeciarySelectionState.currentAgywDream;
+                    dreamBeneficiarySelectionState.currentAgywDream;
                 Map<String, List<Events>> eventListByProgramStage =
                     serviceFormState.eventListByProgramStage;
                 List<Events> events = TrackedEntityInstanceUtil
                     .getAllEventListFromServiceDataStateByProgramStages(
-                        eventListByProgramStage, programStageids);
+                        eventListByProgramStage, programStageIds);
                 List<AgywDreamsIndexInfoEvent> indexEvents = events
                     .map((Events eventData) =>
                         AgywDreamsIndexInfoEvent().fromTeiModel(eventData))
@@ -123,13 +123,13 @@ class _HTSIndexHomePageState extends State<HTSIndexHomePage> {
                           canView: canView,
                           isExpanded: indexEvent != null &&
                               indexEvent.id == toggleCardId,
-                          onCardToogle: indexEvent == null
+                          onCardToggle: indexEvent == null
                               ? null
                               : () {
-                                  onCardToogle(indexEvent.id);
+                                  onCardToggle(indexEvent.id);
                                 },
                           cardBody: DreamsHTSIndexCardBody(event: indexEvent),
-                          cardBottonActions: Visibility(
+                          cardButtonActions: Visibility(
                             visible: indexEvent == null,
                             child: ClipRRect(
                               borderRadius: indexEvent != null &&
@@ -164,7 +164,7 @@ class _HTSIndexHomePageState extends State<HTSIndexHomePage> {
                               ),
                             ),
                           ),
-                          cardBottonContent: DreamsHTSIndexCardBottonContent(
+                          cardButtonContent: DreamsHTSIndexCardButtonContent(
                             event: indexEvent,
                           ),
                         ),

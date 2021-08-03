@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
-import 'package:kb_mobile_app/core/components/line_seperator.dart';
+import 'package:kb_mobile_app/core/components/line_separator.dart';
 import 'package:kb_mobile_app/core/components/referrals/referral_outcome_view.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/events.dart';
@@ -30,7 +30,7 @@ class ReferralOutComeViewContainer extends StatefulWidget {
 
   final Color themeColor;
   final Events eventData;
-  final TrackeEntityInstance beneficiary;
+  final TrackedEntityInstance beneficiary;
   final String referralFollowUpStage;
   final String referralToFollowUpLinkage;
   final String referralProgram;
@@ -134,10 +134,10 @@ class _ReferralOutComeViewContainerState
                           ),
                         ),
                       ),
-                      Container(child: Consumer<ServiveEventDataState>(
-                          builder: (context, serviveEventDataState, child) {
+                      Container(child: Consumer<ServiceEventDataState>(
+                          builder: (context, serviceEventDataState, child) {
                         Map<String, List<Events>> eventListByProgramStage =
-                            serviveEventDataState.eventListByProgramStage;
+                            serviceEventDataState.eventListByProgramStage;
                         List<ReferralOutFollowUpComeEvent>
                             referralOutComeFollowUpEvents =
                             getReferralOutComeFollowUps(
@@ -163,7 +163,7 @@ class _ReferralOutComeViewContainerState
                       }))
                     ],
                   ),
-                  LineSeperator(
+                  LineSeparator(
                     color: Color(0xFFB2B7B9),
                     height: 1.0,
                   ),

@@ -48,7 +48,7 @@ class ReferralNotificationService {
     }
   }
 
-  updateReferralNotificaionEvent(
+  updateReferralNotificationEvent(
     String referralEventId,
     String tei,
     bool isCompleted,
@@ -69,7 +69,7 @@ class ReferralNotificationService {
         }
       }
     } catch (error) {
-      print("updateReferralNotificaionEvent : ${error.toString()}");
+      print("updateReferralNotificationEvent : ${error.toString()}");
     }
   }
 

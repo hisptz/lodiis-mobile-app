@@ -24,14 +24,14 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_e
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_pages/child_exit_pages/skip_logics/ovc_child_case_plan_graduation_skip_logic.dart';
 import 'package:provider/provider.dart';
 
-class OvcExitCasePlanGraduationRedinessForm extends StatefulWidget {
+class OvcExitCasePlanGraduationReadinessForm extends StatefulWidget {
   @override
-  _OvcExitCasePlanGraduationRedinessFormState createState() =>
-      _OvcExitCasePlanGraduationRedinessFormState();
+  _OvcExitCasePlanGraduationReadinessFormState createState() =>
+      _OvcExitCasePlanGraduationReadinessFormState();
 }
 
-class _OvcExitCasePlanGraduationRedinessFormState
-    extends State<OvcExitCasePlanGraduationRedinessForm> {
+class _OvcExitCasePlanGraduationReadinessFormState
+    extends State<OvcExitCasePlanGraduationReadinessForm> {
   final String label = 'Case plan Graduation Readiness';
   List<FormSection> formSections;
   bool isFormReady = false;
@@ -40,7 +40,7 @@ class _OvcExitCasePlanGraduationRedinessFormState
   @override
   void initState() {
     super.initState();
-    formSections = OvcExitCasePlanGraduationRediness.getFormSections();
+    formSections = OvcExitCasePlanGraduationReadiness.getFormSections();
     Timer(Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
@@ -83,8 +83,8 @@ class _OvcExitCasePlanGraduationRedinessFormState
       String eventId = dataObject['eventId'];
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-            OvcExitCasePlanGraduationRedinessConstant.program,
-            OvcExitCasePlanGraduationRedinessConstant.programStage,
+            OvcExitCasePlanGraduationReadinessConstant.program,
+            OvcExitCasePlanGraduationReadinessConstant.programStage,
             currentOvcHouseHoldChild.orgUnit,
             formSections,
             dataObject,
@@ -92,7 +92,7 @@ class _OvcExitCasePlanGraduationRedinessFormState
             currentOvcHouseHoldChild.id,
             eventId,
             null);
-        Provider.of<ServiveEventDataState>(context, listen: false)
+        Provider.of<ServiceEventDataState>(context, listen: false)
             .resetServiceEventDataState(currentOvcHouseHoldChild.id);
 
         Timer(Duration(seconds: 1), () {
@@ -132,10 +132,10 @@ class _OvcExitCasePlanGraduationRedinessFormState
     return Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(65.0),
-          child: Consumer<IntervetionCardState>(
-            builder: (context, intervetionCardState, child) {
+          child: Consumer<InterventionCardState>(
+            builder: (context, interventionCardState, child) {
               InterventionCard activeInterventionProgram =
-                  intervetionCardState.currentIntervetionProgram;
+                  interventionCardState.currentInterventionProgram;
               return SubPageAppBar(
                 label: label,
                 activeInterventionProgram: activeInterventionProgram,

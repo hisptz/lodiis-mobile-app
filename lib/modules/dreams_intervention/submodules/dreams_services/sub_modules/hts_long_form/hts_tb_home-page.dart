@@ -29,7 +29,7 @@ class _HTSTBHomePageState extends State<HTSTBHomePage> {
   final bool canEdit = true;
   final bool canView = true;
 
-  List<String> programStageids = [AgywDreamsHTSTBConstant.programStage];
+  List<String> programStageIds = [AgywDreamsHTSTBConstant.programStage];
   @override
   void initState() {
     super.initState();
@@ -51,10 +51,10 @@ class _HTSTBHomePageState extends State<HTSTBHomePage> {
       Provider.of<ServiceFormState>(context, listen: false).setFormFieldState(
           AgywDreamsHTSLongFormConstant.hivResultStatus,
           widget.hivResultStatus ?? '');
-      for (Map datavalue in eventData.datavalues) {
-        if (datavalue['value'] != '') {
+      for (Map dataValue in eventData.dataValues) {
+        if (dataValue['value'] != '') {
           Provider.of<ServiceFormState>(context, listen: false)
-              .setFormFieldState(datavalue['dataElement'], datavalue['value']);
+              .setFormFieldState(dataValue['dataElement'], dataValue['value']);
         }
       }
     }
@@ -78,14 +78,14 @@ class _HTSTBHomePageState extends State<HTSTBHomePage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Container(child: Consumer<ServiveEventDataState>(
+      child: Container(child: Consumer<ServiceEventDataState>(
         builder: (context, serviceFormState, child) {
           bool isLoading = serviceFormState.isLoading;
           Map<String, List<Events>> eventListByProgramStage =
               serviceFormState.eventListByProgramStage;
           List<Events> events = TrackedEntityInstanceUtil
               .getAllEventListFromServiceDataStateByProgramStages(
-                  eventListByProgramStage, programStageids);
+                  eventListByProgramStage, programStageIds);
           List<DreamsHTSTBEvent> tbEvents = events
               .map((Events eventData) =>
                   DreamsHTSTBEvent().fromTeiModel(eventData))

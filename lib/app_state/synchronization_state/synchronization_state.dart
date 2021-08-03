@@ -5,7 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/ogac_intervention_list_state/ogac_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_intervention_list_state.dart';
-import 'package:kb_mobile_app/app_state/referral_nofitication_state/referral_nofitication_state.dart';
+import 'package:kb_mobile_app/app_state/referral_notification_state/referral_notification_state.dart';
 import 'package:kb_mobile_app/core/constants/app_logs.dart';
 import 'package:kb_mobile_app/core/offline_db/app_logs_offline/app_logs_offline_provider.dart';
 import 'package:kb_mobile_app/core/services/implementing_partner_config_service.dart';
@@ -29,7 +29,7 @@ class SynchronizationState with ChangeNotifier {
 
   SynchronizationState({this.context});
 
-// intial state
+// initial state
   bool _isDataUploadingActive = false;
   bool _isDataDownloadingActive = false;
   bool _hasUnsyncedData;
@@ -43,7 +43,7 @@ class SynchronizationState with ChangeNotifier {
   List<String> _dataDownloadProcess;
   List<String> _dataUploadProcess;
   List<Events> _eventFromServer;
-  List<TrackeEntityInstance> _trackeEntityInstance;
+  List<TrackedEntityInstance> _trackedEntityInstance;
   List<dynamic> _servertrackedEntityInstance;
   List<Map<String, dynamic>> _events_1;
   List<Map<String, dynamic>> _trackedInstance1;
@@ -103,8 +103,8 @@ class SynchronizationState with ChangeNotifier {
 
   int get conflictCount => _conflictLCount ?? 0;
 
-  List<TrackeEntityInstance> get trackedEntityInstanceFromServer =>
-      _trackeEntityInstance ?? [];
+  List<TrackedEntityInstance> get trackedEntityInstanceFromServer =>
+      _trackedEntityInstance ?? [];
 
   List<dynamic> get servertrackedEntityInstance =>
       _servertrackedEntityInstance ?? [];
@@ -243,7 +243,7 @@ class SynchronizationState with ChangeNotifier {
     _dataDownloadProcess = [];
     _eventFromServer = [];
     _servertrackedEntityInstance = [];
-    _trackeEntityInstance = [];
+    _trackedEntityInstance = [];
     profileDataDownloadProgress = 0.0;
     eventsDataDownloadProgress = 0.0;
     overallDownloadProgress = 0.0;

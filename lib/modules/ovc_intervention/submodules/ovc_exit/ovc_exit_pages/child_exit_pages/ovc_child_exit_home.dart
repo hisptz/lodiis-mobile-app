@@ -60,7 +60,7 @@ class OvcChildExitHome extends StatelessWidget {
                           context,
                           MaterialPageRoute(
                               builder: (context) =>
-                                  OvcExitCasePlanGraduationRedinessForm()))
+                                  OvcExitCasePlanGraduationReadinessForm()))
                       : print(exitResponse);
     }
   }
@@ -70,10 +70,10 @@ class OvcChildExitHome extends StatelessWidget {
         .setFormFieldState('eventDate', eventData.eventDate);
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState('eventId', eventData.event);
-    for (Map datavalue in eventData.dataValues) {
-      if (datavalue['value'] != '') {
+    for (Map dataValue in eventData.dataValues) {
+      if (dataValue['value'] != '') {
         Provider.of<ServiceFormState>(context, listen: false)
-            .setFormFieldState(datavalue['dataElement'], datavalue['value']);
+            .setFormFieldState(dataValue['dataElement'], dataValue['value']);
       }
     }
   }
@@ -103,10 +103,10 @@ class OvcChildExitHome extends StatelessWidget {
     return Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(65.0),
-          child: Consumer<IntervetionCardState>(
-            builder: (context, intervetionCardState, child) {
+          child: Consumer<InterventionCardState>(
+            builder: (context, interventionCardState, child) {
               InterventionCard activeInterventionProgram =
-                  intervetionCardState.currentIntervetionProgram;
+                  interventionCardState.currentInterventionProgram;
               return SubPageAppBar(
                 label: label,
                 activeInterventionProgram: activeInterventionProgram,
@@ -119,11 +119,11 @@ class OvcChildExitHome extends StatelessWidget {
             child: Column(children: [
               OvcChildInfoTopHeader(),
               Container(
-                child: Consumer<ServiveEventDataState>(
-                  builder: (context, serviveEventDataState, child) {
-                    bool isLoading = serviveEventDataState.isLoading;
+                child: Consumer<ServiceEventDataState>(
+                  builder: (context, serviceEventDataState, child) {
+                    bool isLoading = serviceEventDataState.isLoading;
                     Map<String, List<Events>> eventListByProgramStage =
-                        serviveEventDataState.eventListByProgramStage;
+                        serviceEventDataState.eventListByProgramStage;
                     Map programStageMap =
                         OvcExitConstant.getOvcExitProgramStageMap();
                     for (var id in programStageMap.keys.toList()) {

@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
-import 'package:kb_mobile_app/core/components/line_seperator.dart';
+import 'package:kb_mobile_app/core/components/line_separator.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/referral_outcome_follow_up_event.dart';
 import 'package:provider/provider.dart';
@@ -32,10 +32,10 @@ class ReferralOutComeFollowUp extends StatelessWidget {
           .setFormFieldState('eventDate', eventData.eventDate);
       Provider.of<ServiceFormState>(context, listen: false)
           .setFormFieldState('eventId', eventData.event);
-      for (Map datavalue in eventData.dataValues) {
-        if (datavalue['value'] != '') {
+      for (Map dataValue in eventData.dataValues) {
+        if (dataValue['value'] != '') {
           Provider.of<ServiceFormState>(context, listen: false)
-              .setFormFieldState(datavalue['dataElement'], datavalue['value']);
+              .setFormFieldState(dataValue['dataElement'], dataValue['value']);
         }
       }
     }
@@ -57,7 +57,7 @@ class ReferralOutComeFollowUp extends StatelessWidget {
             child: Column(
               children: [
                 Container(
-                  child: LineSeperator(color: themeColor.withOpacity(0.2)),
+                  child: LineSeparator(color: themeColor.withOpacity(0.2)),
                 ),
                 Container(
                   alignment: Alignment.centerLeft,
@@ -95,7 +95,7 @@ class ReferralOutComeFollowUp extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  child: LineSeperator(color: themeColor.withOpacity(0.2)),
+                  child: LineSeparator(color: themeColor.withOpacity(0.2)),
                 ),
                 Container(
                   margin: EdgeInsets.only(left: 15.0, top: 5.0),

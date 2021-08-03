@@ -65,12 +65,12 @@ class _AgywDreamsHTSShortFormState extends State<AgywDreamsHTSShortForm> {
     String eventDate = dataObject['eventDate'];
     String eventId = dataObject['eventId'];
     bool hadAllMandatoryFilled =
-        AppUtil.hasAllMandarotyFieldsFilled(mandatoryFields, dataObject);
+        AppUtil.hasAllMandatoryFieldsFilled(mandatoryFields, dataObject);
     if (hadAllMandatoryFilled) {
       setState(() {
         isSaving = true;
       });
-      Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
+      Provider.of<DreamBeneficiarySelectionState>(context, listen: false)
           .setCurrentAgywDream(agywDream);
       await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
         AgywDreamsHTSShortFormConstant.program,
@@ -84,7 +84,7 @@ class _AgywDreamsHTSShortFormState extends State<AgywDreamsHTSShortForm> {
         [], //Hidden fields
         skippedFields: [],
       );
-      Provider.of<ServiveEventDataState>(context, listen: false)
+      Provider.of<ServiceEventDataState>(context, listen: false)
           .resetServiceEventDataState(agywDream.id);
 
       Timer(Duration(seconds: 1), () {
@@ -119,7 +119,7 @@ class _AgywDreamsHTSShortFormState extends State<AgywDreamsHTSShortForm> {
       () async {
         Map dataObject =
             Provider.of<ServiceFormState>(context, listen: false).formState;
-        await AgywDreamSHTSShortFormSkipLogic.evaluateSkipLogics(
+        await AgywDreamsHTSShortFormSkipLogic.evaluateSkipLogics(
           context,
           formSections,
           dataObject,
@@ -133,10 +133,10 @@ class _AgywDreamsHTSShortFormState extends State<AgywDreamsHTSShortForm> {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(65.0),
-        child: Consumer<IntervetionCardState>(
-          builder: (context, intervetionCardState, child) {
+        child: Consumer<InterventionCardState>(
+          builder: (context, interventionCardState, child) {
             InterventionCard activeInterventionProgram =
-                intervetionCardState.currentIntervetionProgram;
+                interventionCardState.currentInterventionProgram;
             return SubPageAppBar(
               label: label,
               activeInterventionProgram: activeInterventionProgram,
@@ -149,16 +149,16 @@ class _AgywDreamsHTSShortFormState extends State<AgywDreamsHTSShortForm> {
           child: Consumer<LanguageTranslationState>(
             builder: (context, languageTranslationState, child) {
               String currentLanguage = languageTranslationState.currentLanguage;
-              return Consumer<DreamBenefeciarySelectionState>(
-                builder: (context, dreamBenefeciarySelectionState, child) {
+              return Consumer<DreamBeneficiarySelectionState>(
+                builder: (context, dreamBeneficiarySelectionState, child) {
                   return Consumer<ServiceFormState>(
                     builder: (context, serviceFormState, child) {
                       AgywDream agywDream =
-                          dreamBenefeciarySelectionState.currentAgywDream;
+                          dreamBeneficiarySelectionState.currentAgywDream;
                       return Container(
                         child: Column(
                           children: [
-                            DreamBenefeciaryTopHeader(
+                            DreamBeneficiaryTopHeader(
                               agywDream: agywDream,
                             ),
                             Container(

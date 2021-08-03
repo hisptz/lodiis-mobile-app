@@ -4,7 +4,7 @@ import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dream_cur
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
-import 'package:kb_mobile_app/core/components/line_seperator.dart';
+import 'package:kb_mobile_app/core/components/line_separator.dart';
 import 'package:kb_mobile_app/core/components/paginated_list_view.dart';
 import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/utils/app_resume_routes/app_resume_route.dart';
@@ -34,16 +34,16 @@ class _NoneAgywState extends State<NoneAgyw> {
 
   String toggleCardId = '';
 
-  void onCardToogle(String cardId) {
+  void onCardToggle(String cardId) {
     setState(() {
       toggleCardId = canExpand && cardId != toggleCardId ? cardId : '';
     });
   }
 
   void onOpenPrep(BuildContext context, AgywDream agywDream) {
-    Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
+    Provider.of<DreamBeneficiarySelectionState>(context, listen: false)
         .setCurrentAgywDream(agywDream);
-    Provider.of<ServiveEventDataState>(context, listen: false)
+    Provider.of<ServiceEventDataState>(context, listen: false)
         .resetServiceEventDataState(agywDream.id);
     Navigator.push(
         context,
@@ -54,10 +54,10 @@ class _NoneAgywState extends State<NoneAgyw> {
 
   void onAddNoneAgywBeneficiary(BuildContext context) async {
     String beneficiaryId = "";
-    String formAutoSaveid =
+    String formAutoSaveId =
         "${DreamsRoutesConstant.noneAgywHtsConsentPage}_$beneficiaryId";
     FormAutoSave formAutoSave =
-        await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveid);
+        await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
     bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
         .shouldResumeWithUnSavedChanges(context, formAutoSave);
     if (shouldResumeWithUnSavedChanges) {
@@ -119,7 +119,7 @@ class _NoneAgywState extends State<NoneAgyw> {
           pagingController: dreamInterventionListState.nonAgywPagingController,
           childBuilder: (context, agywBeneficiary, child) {
             List dataObject =
-                agywBeneficiary.trackeEntityInstanceData.attributes;
+                agywBeneficiary.trackedEntityInstanceData.attributes;
             List filteredDataObject = dataObject
                 .where((element) =>
                     element['attribute'] ==
@@ -138,17 +138,17 @@ class _NoneAgywState extends State<NoneAgyw> {
               beneficiaryName: agywBeneficiary.toString(),
               canView: canView,
               isExpanded: agywBeneficiary.id == toggleCardId,
-              onCardToogle: () {
-                onCardToogle(agywBeneficiary.id);
+              onCardToggle: () {
+                onCardToggle(agywBeneficiary.id);
               },
               cardBody: DreamBeneficiaryCardBody(
                   agywBeneficiary: agywBeneficiary,
                   isVerticalLayout: agywBeneficiary.id == toggleCardId),
-              cardBottonActions: isBeneficiaryHIVNegative
+              cardButtonActions: isBeneficiaryHIVNegative
                   ? Container(
                       child: Column(
                         children: [
-                          LineSeperator(
+                          LineSeparator(
                             color: Color(0xFFE9F4FA),
                           ),
                           Container(
@@ -169,7 +169,7 @@ class _NoneAgywState extends State<NoneAgyw> {
                       ),
                     )
                   : Container(),
-              cardBottonContent: Container(),
+              cardButtonContent: Container(),
             );
           },
         );

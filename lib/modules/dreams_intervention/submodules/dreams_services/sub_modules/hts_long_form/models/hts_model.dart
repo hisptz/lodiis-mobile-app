@@ -6,7 +6,7 @@ class DreamsHTSEvent {
   String htsIndexLinkage;
   String htsTBLinkage;
   String htsToHtsRegisterLinkage;
-  dynamic datavalues;
+  dynamic dataValues;
   Events eventData;
 
   DreamsHTSEvent({
@@ -15,7 +15,7 @@ class DreamsHTSEvent {
     this.htsIndexLinkage,
     this.htsTBLinkage,
     this.htsToHtsRegisterLinkage,
-    this.datavalues,
+    this.dataValues,
     this.eventData,
   });
 
@@ -31,7 +31,7 @@ class DreamsHTSEvent {
     return DreamsHTSEvent(
       id: eventData.event,
       date: eventData.eventDate,
-      datavalues: eventData.dataValues,
+      dataValues: eventData.dataValues,
       htsIndexLinkage: data['vbnWGqIQoAN'] ?? '',
       htsTBLinkage: data['A4Fl5p0ZBhX'] ?? '',
       htsToHtsRegisterLinkage: data['icla65Bvljz'] ?? '',
@@ -41,6 +41,6 @@ class DreamsHTSEvent {
 
   @override
   String toString() {
-    return '$id $date $datavalues';
+    return '$id $date $dataValues';
   }
 }

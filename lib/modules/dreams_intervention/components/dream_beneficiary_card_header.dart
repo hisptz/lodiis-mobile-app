@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:kb_mobile_app/core/components/line_seperator.dart';
+import 'package:kb_mobile_app/core/components/line_separator.dart';
 
 class DreamBeneficiaryCardHeader extends StatelessWidget {
   const DreamBeneficiaryCardHeader({
@@ -11,7 +11,7 @@ class DreamBeneficiaryCardHeader extends StatelessWidget {
     @required this.canView,
     @required this.canExpand,
     @required this.isExpanded,
-    this.isAcvtive = true,
+    this.isActive = true,
     this.onEdit,
     this.onView,
     this.onToggleCard,
@@ -23,7 +23,7 @@ class DreamBeneficiaryCardHeader extends StatelessWidget {
   final bool canView;
   final bool canExpand;
   final bool isExpanded;
-  final bool isAcvtive;
+  final bool isActive;
 
   final VoidCallback onEdit;
   final VoidCallback onView;
@@ -71,16 +71,16 @@ class DreamBeneficiaryCardHeader extends StatelessWidget {
                   child: Container(
                 margin: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
                 decoration: BoxDecoration(
-                    color: isAcvtive ? Color(0xFFF0F8FE) : Color(0xFFFFF5F5),
+                    color: isActive ? Color(0xFFF0F8FE) : Color(0xFFFFF5F5),
                     border: Border.all(
                         color:
-                            isAcvtive ? Color(0xFF1F8DCE) : Color(0xFFC81314)),
+                            isActive ? Color(0xFF1F8DCE) : Color(0xFFC81314)),
                     borderRadius: BorderRadius.circular(35.0)),
                 padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 2.0),
                 child: Text(
-                  isAcvtive ? 'Active' : 'Inactive',
+                  isActive ? 'Active' : 'Inactive',
                   style: TextStyle().copyWith(
-                      color: isAcvtive ? Color(0xFF1F8DCE) : Color(0xFFC81314),
+                      color: isActive ? Color(0xFF1F8DCE) : Color(0xFFC81314),
                       fontSize: 12.0),
                 ),
               )),
@@ -140,7 +140,7 @@ class DreamBeneficiaryCardHeader extends StatelessWidget {
             ],
           ),
         ),
-        LineSeperator(
+        LineSeparator(
           color: Color(0xFFE9F4FA),
         ),
         SizedBox(

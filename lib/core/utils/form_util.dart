@@ -107,7 +107,7 @@ class FormUtil {
     return inputFields;
   }
 
-  static Future<TrackeEntityInstance> geTrackedEntityInstanceEnrollmentPayLoad(
+  static Future<TrackedEntityInstance> geTrackedEntityInstanceEnrollmentPayLoad(
       String trackedEntityInstance,
       String trackedEntityType,
       String orgUnit,
@@ -143,7 +143,7 @@ class FormUtil {
         .join(',');
     dynamic trackedEnrityInstanceJson =
         '{"trackedEntityInstance":"$trackedEntityInstance", "trackedEntityType":"$trackedEntityType", "orgUnit":"$orgUnit","syncStatus":"not-synced","attributes":[$attributes] }';
-    return TrackeEntityInstance()
+    return TrackedEntityInstance()
         .fromJson(json.decode(trackedEnrityInstanceJson));
   }
 
@@ -204,8 +204,8 @@ class FormUtil {
     return Events().fromJson(json.decode(eventJson));
   }
 
-  static Future savingTrackeEntityInstance(
-    TrackeEntityInstance trackedEntityInstance,
+  static Future savingTrackedEntityInstance(
+    TrackedEntityInstance trackedEntityInstance,
   ) async {
     await TrackedEntityInstanceOfflineProvider()
         .addOrUpdateTrackedEntityInstance(trackedEntityInstance);
@@ -213,7 +213,7 @@ class FormUtil {
   }
 
   static Future savingEnrollment(Enrollment enrollment) async {
-    await EnrollmentOfflineProvider().addOrUpdateEnrollement(enrollment);
+    await EnrollmentOfflineProvider().addOrUpdateEnrollment(enrollment);
   }
 
   static Future savingTeiRelationship(TeiRelationship teiRelationship) async {

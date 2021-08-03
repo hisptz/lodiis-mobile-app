@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_house_hold_current_selection_state.dart';
-import 'package:kb_mobile_app/core/components/line_seperator.dart';
+import 'package:kb_mobile_app/core/components/line_separator.dart';
 import 'package:kb_mobile_app/models/ovc_house_hold_child.dart';
 import 'package:provider/provider.dart';
 
@@ -42,7 +42,7 @@ class OvcChildAssessmentSelection extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Container(
-                        child: LineSeperator(
+                        child: LineSeparator(
                           color: Color(0xFFE0E6E0),
                           height: 1.0,
                         ),

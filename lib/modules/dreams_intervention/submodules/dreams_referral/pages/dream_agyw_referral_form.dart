@@ -7,7 +7,7 @@ import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_fo
 import 'package:kb_mobile_app/app_state/implementing_partner_referral_service_state/implementing_partner_referral_service_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
-import 'package:kb_mobile_app/app_state/referral_nofitication_state/referral_nofitication_state.dart';
+import 'package:kb_mobile_app/app_state/referral_notification_state/referral_notification_state.dart';
 import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
@@ -106,7 +106,7 @@ class _DreamAgywAddReferralFormState extends State<DreamAgywAddReferralForm> {
     Map hiddenFieldsObject = const {},
   }) async {
     if (FormUtil.geFormFilledStatus(dataObject, formSections)) {
-      bool hadAllMandatoryFilled = AppUtil.hasAllMandarotyFieldsFilled(
+      bool hadAllMandatoryFilled = AppUtil.hasAllMandatoryFieldsFilled(
           mandatoryFields, dataObject,
           hiddenFields: hiddenFieldsObject);
 
@@ -155,7 +155,7 @@ class _DreamAgywAddReferralFormState extends State<DreamAgywAddReferralForm> {
               eventId,
               hiddenFields,
               skippedFields: ['village', 'phoneNumber']);
-          Provider.of<ServiveEventDataState>(context, listen: false)
+          Provider.of<ServiceEventDataState>(context, listen: false)
               .resetServiceEventDataState(currentAgywDream.id);
           Timer(Duration(seconds: 1), () {
             setState(() {
@@ -236,10 +236,10 @@ class _DreamAgywAddReferralFormState extends State<DreamAgywAddReferralForm> {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(65.0),
-        child: Consumer<IntervetionCardState>(
-          builder: (context, intervetionCardState, child) {
+        child: Consumer<InterventionCardState>(
+          builder: (context, interventionCardState, child) {
             InterventionCard activeInterventionProgram =
-                intervetionCardState.currentIntervetionProgram;
+                interventionCardState.currentInterventionProgram;
             return SubPageAppBar(
               label: label,
               activeInterventionProgram: activeInterventionProgram,
@@ -252,7 +252,7 @@ class _DreamAgywAddReferralFormState extends State<DreamAgywAddReferralForm> {
           child: Consumer<LanguageTranslationState>(
             builder: (context, languageTranslationState, child) {
               String currentLanguage = languageTranslationState.currentLanguage;
-              return Consumer<DreamBenefeciarySelectionState>(
+              return Consumer<DreamBeneficiarySelectionState>(
                 builder:
                     (context, dreamBeneficiaryCurrentSelectionState, child) {
                   AgywDream currentAgywDream =
@@ -262,7 +262,7 @@ class _DreamAgywAddReferralFormState extends State<DreamAgywAddReferralForm> {
                       return Container(
                         child: Column(
                           children: [
-                            DreamBenefeciaryTopHeader(
+                            DreamBeneficiaryTopHeader(
                                 agywDream: currentAgywDream),
                             !isFormReady
                                 ? Container(

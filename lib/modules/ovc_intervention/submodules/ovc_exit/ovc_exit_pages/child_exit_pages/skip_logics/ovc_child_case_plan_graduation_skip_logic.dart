@@ -25,7 +25,7 @@ class OvcChildCasePlanGraduationSkipLogic {
       if (inputFieldId == 'RK3fD7HvH9Q' && value != 'true') {
         hiddenFields['wGeVdyVO5hE'] = true;
       }
-      if(inputFieldId == 'l9HIQkANCHj' && value != 'true') {
+      if (inputFieldId == 'l9HIQkANCHj' && value != 'true') {
         hiddenFields['l9HIQkANCHj_checkbox'] = true;
       }
       if (inputFieldId == 'fffETOzhGsU' && value != 'true') {
@@ -38,11 +38,11 @@ class OvcChildCasePlanGraduationSkipLogic {
     for (String sectionId in hiddenSections.keys) {
       List<FormSection> allFormSections =
           FormUtil.getFlattenFormSections(formSections);
-      List<String> hidddenSectionInputFieldIds = FormUtil.getFormFieldIds(allFormSections
-          .where((formSection) => formSection.id == sectionId)
-          .toList());      
-      for (String inputFieldId in hidddenSectionInputFieldIds) {
-
+      List<String> hiddenSectionInputFieldIds = FormUtil.getFormFieldIds(
+          allFormSections
+              .where((formSection) => formSection.id == sectionId)
+              .toList());
+      for (String inputFieldId in hiddenSectionInputFieldIds) {
         hiddenFields[inputFieldId] = true;
       }
     }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kb_mobile_app/core/components/line_seperator.dart';
+import 'package:kb_mobile_app/core/components/line_separator.dart';
 import 'package:kb_mobile_app/core/components/material_card.dart';
 
 class OfflineDataSummary extends StatelessWidget {
@@ -27,7 +27,7 @@ class OfflineDataSummary extends StatelessWidget {
                       fontWeight: FontWeight.w500,
                     )),
               ),
-              LineSeperator(color: Colors.blueGrey.withOpacity(0.2)),
+              LineSeparator(color: Colors.blueGrey.withOpacity(0.2)),
               Container(
                 margin: EdgeInsets.symmetric(vertical: 5.0),
                 padding: EdgeInsets.symmetric(vertical: 2.0, horizontal: 10.0),

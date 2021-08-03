@@ -7,7 +7,7 @@ import 'package:kb_mobile_app/modules/dreams_intervention/services/agyw_dream_en
 import 'package:kb_mobile_app/modules/dreams_intervention/services/none_agyw_dream_enrollment_service.dart';
 
 class DreamsInterventionListState with ChangeNotifier {
-  // intial state
+  // initial state
   List<AgywDream> _agywDreamsInterventionList = <AgywDream>[];
   List<AgywDream> _agywDreamsIncomingReferralList = <AgywDream>[];
   List<AgywDream> _noneAgywDreamsInterventionList = <AgywDream>[];
@@ -72,7 +72,8 @@ class DreamsInterventionListState with ChangeNotifier {
   Future<void> _fetchAgywPage(int pageKey) async {
     String searchableValue = _searchableValue;
     List<AgywDream> agywList = await AgywDreamEnrollmentService()
-        .getAgywBenficiaryList(page: pageKey, searchableValue: searchableValue);
+        .getAgywBeneficiaryList(
+            page: pageKey, searchableValue: searchableValue);
     if (agywList.isEmpty && pageKey < agywNumberOfPages) {
       _fetchAgywPage(pageKey + 1);
     } else {
@@ -105,7 +106,7 @@ class DreamsInterventionListState with ChangeNotifier {
     String searchableValue = _searchableValue;
 
     List<AgywDream> nonAgywList = await NoneAgywDreamEnrollmentService()
-        .getNonAgywBenficiaryList(
+        .getNonAgywBeneficiaryList(
             page: pageKey, searchableValue: searchableValue);
     if (nonAgywList.isEmpty && pageKey != agywNumberOfPages) {
       _fetchNonAgywPage(pageKey + 1);

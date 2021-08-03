@@ -5,7 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_house_hold_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
-import 'package:kb_mobile_app/core/components/line_seperator.dart';
+import 'package:kb_mobile_app/core/components/line_separator.dart';
 import 'package:kb_mobile_app/models/ovc_house_hold.dart';
 import 'package:kb_mobile_app/models/ovc_house_hold_child.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
@@ -15,8 +15,8 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/o
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/ovc_child_service_home.dart';
 import 'package:provider/provider.dart';
 
-class OvcHouseHoldCardBottonContent extends StatelessWidget {
-  const OvcHouseHoldCardBottonContent({
+class OvcHouseHoldCardButtonContent extends StatelessWidget {
+  const OvcHouseHoldCardButtonContent({
     Key key,
     @required this.ovcHouseHold,
     @required this.canAddChild,
@@ -42,7 +42,7 @@ class OvcHouseHoldCardBottonContent extends StatelessWidget {
     OvcHouseHoldChild child,
     bool isEditableMode,
   ) {
-    TrackeEntityInstance teiData = child.teiData;
+    TrackedEntityInstance teiData = child.teiData;
     // Set hidden fields for editing
     Provider.of<EnrollmentFormState>(context, listen: false).resetFormState();
     Provider.of<EnrollmentFormState>(context, listen: false)
@@ -72,7 +72,7 @@ class OvcHouseHoldCardBottonContent extends StatelessWidget {
     Provider.of<OvcHouseHoldCurrentSelectionState>(context, listen: false)
         .setCurrentHouseHold(ovcHouseHold);
     if (child != null) {
-      Provider.of<ServiveEventDataState>(context, listen: false)
+      Provider.of<ServiceEventDataState>(context, listen: false)
           .resetServiceEventDataState(child.id);
       Provider.of<OvcHouseHoldCurrentSelectionState>(context, listen: false)
           .setCurrentHouseHoldChild(child);
@@ -153,7 +153,7 @@ class OvcHouseHoldCardBottonContent extends StatelessWidget {
     return Container(
       child: Column(
         children: [
-          LineSeperator(
+          LineSeparator(
             color: Color(0xFFECF5EC),
           ),
           Container(
@@ -289,7 +289,7 @@ class OvcHouseHoldCardBottonContent extends StatelessWidget {
           Visibility(
               visible: canAddChild,
               child: Container(
-                child: LineSeperator(
+                child: LineSeparator(
                   color: Color(0xFFECF5EC),
                 ),
               )),

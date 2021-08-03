@@ -13,7 +13,7 @@ class OvcHouseHoldChild {
   String orgUnit;
   String createdDate;
   String hivStatus;
-  TrackeEntityInstance teiData;
+  TrackedEntityInstance teiData;
 
   OvcHouseHoldChild({
     this.id,
@@ -31,7 +31,7 @@ class OvcHouseHoldChild {
   });
 
   OvcHouseHoldChild fromTeiModel(
-    TrackeEntityInstance tei,
+    TrackedEntityInstance tei,
     String orgUnit,
     String createdDate,
   ) {

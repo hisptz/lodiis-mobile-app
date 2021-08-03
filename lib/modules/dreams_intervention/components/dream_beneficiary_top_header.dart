@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
-import 'package:kb_mobile_app/core/components/line_seperator.dart';
+import 'package:kb_mobile_app/core/components/line_separator.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:provider/provider.dart';
 
-class DreamBenefeciaryTopHeader extends StatelessWidget {
-  const DreamBenefeciaryTopHeader({
+class DreamBeneficiaryTopHeader extends StatelessWidget {
+  const DreamBeneficiaryTopHeader({
     @required this.agywDream,
     Key key,
   }) : super(key: key);
@@ -59,7 +59,7 @@ class DreamBenefeciaryTopHeader extends StatelessWidget {
                     ),
                     Container(
                       margin: EdgeInsets.only(top: 5.0),
-                      child: LineSeperator(color: Color(0XFFE9F4FA)),
+                      child: LineSeparator(color: Color(0XFFE9F4FA)),
                     ),
                     Container(
                         margin: EdgeInsets.symmetric(

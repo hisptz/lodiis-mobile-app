@@ -23,16 +23,16 @@ class DreamsBeneficiaryCard extends StatelessWidget {
     @required this.isExpanded,
     @required this.beneficiaryName,
     @required this.cardBody,
-    @required this.cardBottonActions,
-    @required this.cardBottonContent,
+    @required this.cardButtonActions,
+    @required this.cardButtonContent,
     @required this.agywDream,
     @required this.isAgywEnrollment,
-    this.onCardToogle,
+    this.onCardToggle,
   }) : super(key: key);
 
   final Widget cardBody;
-  final Widget cardBottonActions;
-  final Widget cardBottonContent;
+  final Widget cardButtonActions;
+  final Widget cardButtonContent;
   final bool canEdit;
   final bool canView;
   final bool canExpand;
@@ -40,16 +40,16 @@ class DreamsBeneficiaryCard extends StatelessWidget {
   final String beneficiaryName;
   final AgywDream agywDream;
   final bool isAgywEnrollment;
-  final VoidCallback onCardToogle;
+  final VoidCallback onCardToggle;
   final String svgIcon = 'assets/icons/dreams-header-icon.svg';
 
   void onEdit(BuildContext context) async {
     String beneficiaryId = agywDream.id;
-    String formAutoSaveid = isAgywEnrollment
+    String formAutoSaveId = isAgywEnrollment
         ? "${DreamsRoutesConstant.agywEnrollmentFormEditPage}_$beneficiaryId"
         : "${DreamsRoutesConstant.noneAgywEnrollmentPage}_$beneficiaryId";
     FormAutoSave formAutoSave =
-        await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveid);
+        await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
     bool shouldResumeWithUnSavedChanges =
         await AppResumeRoute().shouldResumeWithUnSavedChanges(
       context,
@@ -72,7 +72,7 @@ class DreamsBeneficiaryCard extends StatelessWidget {
   }
 
   void updateEnrollmentFormStateData(BuildContext context, bool edit) {
-    TrackeEntityInstance teiData = agywDream.trackeEntityInstanceData;
+    TrackedEntityInstance teiData = agywDream.trackedEntityInstanceData;
     Provider.of<EnrollmentFormState>(context, listen: false).resetFormState();
     Provider.of<EnrollmentFormState>(context, listen: false)
         .updateFormEditabilityState(isEditableMode: edit);
@@ -127,16 +127,16 @@ class DreamsBeneficiaryCard extends StatelessWidget {
                 canExpand: canExpand,
                 canView: canView,
                 isExpanded: isExpanded,
-                onToggleCard: onCardToogle,
+                onToggleCard: onCardToggle,
                 onEdit: () => onEdit(context),
                 onView: () => onView(context),
               ),
               cardBody,
-              cardBottonActions,
+              cardButtonActions,
               Visibility(
                   visible: isExpanded,
                   child: Container(
-                    child: cardBottonContent,
+                    child: cardButtonContent,
                   ))
             ],
           ),

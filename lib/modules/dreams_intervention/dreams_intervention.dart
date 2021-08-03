@@ -81,10 +81,10 @@ class _DreamsInterventionState extends State<DreamsIntervention> {
 
   void onAddNoneAgywBeneficiary(BuildContext context) async {
     String beneficiaryId = "";
-    String formAutoSaveid =
+    String formAutoSaveId =
         "${DreamsRoutesConstant.noneAgywHtsConsentPage}_$beneficiaryId";
     FormAutoSave formAutoSave =
-        await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveid);
+        await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
     bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
         .shouldResumeWithUnSavedChanges(context, formAutoSave);
     if (shouldResumeWithUnSavedChanges) {
@@ -104,10 +104,10 @@ class _DreamsInterventionState extends State<DreamsIntervention> {
 
   void onAddAgywBeneficiary(BuildContext context) async {
     String beneficiaryId = "";
-    String formAutoSaveid =
+    String formAutoSaveId =
         "${DreamsRoutesConstant.agywConsentPage}_$beneficiaryId";
     FormAutoSave formAutoSave =
-        await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveid);
+        await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
     bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
         .shouldResumeWithUnSavedChanges(context, formAutoSave);
     if (shouldResumeWithUnSavedChanges) {
@@ -128,10 +128,10 @@ class _DreamsInterventionState extends State<DreamsIntervention> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Consumer<IntervetionCardState>(
-        builder: (context, intervetionCardState, child) {
+      child: Consumer<InterventionCardState>(
+        builder: (context, interventionCardState, child) {
           InterventionCard activeInterventionProgram =
-              intervetionCardState.currentIntervetionProgram;
+              interventionCardState.currentInterventionProgram;
           return Scaffold(
             appBar: PreferredSize(
               preferredSize: Size.fromHeight(90),

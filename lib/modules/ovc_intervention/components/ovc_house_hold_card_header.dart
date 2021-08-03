@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:kb_mobile_app/core/components/line_seperator.dart';
+import 'package:kb_mobile_app/core/components/line_separator.dart';
 import 'package:kb_mobile_app/models/ovc_house_hold.dart';
 
 class OvcHouseHoldCardHeader extends StatelessWidget {
@@ -123,7 +123,7 @@ class OvcHouseHoldCardHeader extends StatelessWidget {
             ],
           ),
         ),
-        LineSeperator(
+        LineSeparator(
           color: Color(0xFFECF5EC),
         ),
         SizedBox(

@@ -28,7 +28,7 @@ class AgywDreamsPrepShortFormHomePage extends StatefulWidget {
 class _AgywDreamsPrepShortFormHomePageState
     extends State<AgywDreamsPrepShortFormHomePage> {
   final String label = 'AGYW PrEP';
-  List<String> programStageids = [PrepIntakeShortFormConstants.programStage];
+  List<String> programStageIds = [PrepIntakeShortFormConstants.programStage];
 
   @override
   void initState() {
@@ -48,10 +48,10 @@ class _AgywDreamsPrepShortFormHomePageState
           .setFormFieldState('eventDate', eventData.eventDate);
       Provider.of<ServiceFormState>(context, listen: false)
           .setFormFieldState('eventId', eventData.event);
-      for (Map datavalue in eventData.dataValues) {
-        if (datavalue['value'] != '') {
+      for (Map dataValue in eventData.dataValues) {
+        if (dataValue['value'] != '') {
           Provider.of<ServiceFormState>(context, listen: false)
-              .setFormFieldState(datavalue['dataElement'], datavalue['value']);
+              .setFormFieldState(dataValue['dataElement'], dataValue['value']);
         }
       }
     }
@@ -62,13 +62,13 @@ class _AgywDreamsPrepShortFormHomePageState
         MaterialPageRoute(builder: (context) => AgywDreamsPrepShortForm()));
   }
 
-  onEditPREP(BuildContext context, Events eventdata) {
-    updateFormState(context, true, eventdata);
+  onEditPREP(BuildContext context, Events eventData) {
+    updateFormState(context, true, eventData);
     redirectPrepShortForm(context);
   }
 
-  onViewPREP(BuildContext context, Events eventdata) {
-    updateFormState(context, false, eventdata);
+  onViewPREP(BuildContext context, Events eventData) {
+    updateFormState(context, false, eventData);
     redirectPrepShortForm(context);
   }
 
@@ -82,10 +82,10 @@ class _AgywDreamsPrepShortFormHomePageState
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(65.0),
-        child: Consumer<IntervetionCardState>(
-          builder: (context, intervetionCardState, child) {
+        child: Consumer<InterventionCardState>(
+          builder: (context, interventionCardState, child) {
             InterventionCard activeInterventionProgram =
-                intervetionCardState.currentIntervetionProgram;
+                interventionCardState.currentInterventionProgram;
             return SubPageAppBar(
               label: label,
               activeInterventionProgram: activeInterventionProgram,
@@ -95,24 +95,24 @@ class _AgywDreamsPrepShortFormHomePageState
       ),
       body: SubPageBody(
           body: Column(children: [
-        Consumer<DreamBenefeciarySelectionState>(
-            builder: (context, dreamBenefeciarySelectionState, child) {
-          return Consumer<ServiveEventDataState>(
+        Consumer<DreamBeneficiarySelectionState>(
+            builder: (context, dreamBeneficiarySelectionState, child) {
+          return Consumer<ServiceEventDataState>(
               builder: (context, serviceFormState, child) {
             AgywDream agywDream =
-                dreamBenefeciarySelectionState.currentAgywDream;
+                dreamBeneficiarySelectionState.currentAgywDream;
             bool isLoading = serviceFormState.isLoading;
             Map<String, List<Events>> eventListByProgramStage =
                 serviceFormState.eventListByProgramStage;
             List<Events> events = TrackedEntityInstanceUtil
                     .getAllEventListFromServiceDataStateByProgramStages(
-                        eventListByProgramStage, programStageids)
+                        eventListByProgramStage, programStageIds)
                 .toList();
             int sessionIndex = events.length + 1;
             return Container(
                 child: Column(children: [
               Container(
-                child: DreamBenefeciaryTopHeader(
+                child: DreamBeneficiaryTopHeader(
                   agywDream: agywDream,
                 ),
               ),

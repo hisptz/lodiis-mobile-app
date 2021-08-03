@@ -92,7 +92,7 @@ class _OvcExitInformationFormState extends State<OvcExitInformationForm>
             currentOvcHouseHoldChild.id,
             eventId,
             null);
-        Provider.of<ServiveEventDataState>(context, listen: false)
+        Provider.of<ServiceEventDataState>(context, listen: false)
             .resetServiceEventDataState(currentOvcHouseHoldChild.id);
 
         Timer(Duration(seconds: 1), () {
@@ -135,10 +135,10 @@ class _OvcExitInformationFormState extends State<OvcExitInformationForm>
           child: Consumer<LanguageTranslationState>(
             builder: (context, languageTranslationState, child) {
               String currentLanguage = languageTranslationState.currentLanguage;
-              return Consumer<IntervetionCardState>(
-                builder: (context, intervetionCardState, child) {
+              return Consumer<InterventionCardState>(
+                builder: (context, interventionCardState, child) {
                   InterventionCard activeInterventionProgram =
-                      intervetionCardState.currentIntervetionProgram;
+                      interventionCardState.currentInterventionProgram;
                   return SubPageAppBar(
                     label:
                         currentLanguage == 'lesotho' ? translatedLabel : label,

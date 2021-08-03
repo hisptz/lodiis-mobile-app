@@ -43,8 +43,8 @@ class _AgywPrepVisitFormState extends State<AgywPrepVisitForm> {
   @override
   void initState() {
     super.initState();
-    formSections = DreamsPrepFollwUpVisit.getFormSections();
-    mandatoryFields = DreamsPrepFollwUpVisit.getMandatoryField();
+    formSections = DreamsPrepFollowUpVisit.getFormSections();
+    mandatoryFields = DreamsPrepFollowUpVisit.getMandatoryField();
     for (String fieldId in mandatoryFields) {
       mandatoryFieldsObject[fieldId] = true;
     }
@@ -80,7 +80,7 @@ class _AgywPrepVisitFormState extends State<AgywPrepVisitForm> {
 
   void onSaveForm(BuildContext context, Map dataObject, AgywDream agywDream,
       {hiddenFields: const {}}) async {
-    bool hasAllMandatoryFieldsFilled = AppUtil.hasAllMandarotyFieldsFilled(
+    bool hasAllMandatoryFieldsFilled = AppUtil.hasAllMandatoryFieldsFilled(
         mandatoryFields, dataObject,
         hiddenFields: hiddenFields);
 
@@ -102,7 +102,7 @@ class _AgywPrepVisitFormState extends State<AgywPrepVisitForm> {
             agywDream.id,
             eventId,
             hiddenFields);
-        Provider.of<ServiveEventDataState>(context, listen: false)
+        Provider.of<ServiceEventDataState>(context, listen: false)
             .resetServiceEventDataState(agywDream.id);
         Timer(Duration(seconds: 1), () {
           setState(() {
@@ -129,7 +129,8 @@ class _AgywPrepVisitFormState extends State<AgywPrepVisitForm> {
       }
     } else {
       setState(() {
-        unFilledMandatoryFields = AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+        unFilledMandatoryFields =
+            AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
       });
       AppUtil.showToastMessage(
           message: 'Please fill all mandatory field',
@@ -142,10 +143,10 @@ class _AgywPrepVisitFormState extends State<AgywPrepVisitForm> {
     return Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(65.0),
-          child: Consumer<IntervetionCardState>(
-            builder: (context, intervetionCardState, child) {
+          child: Consumer<InterventionCardState>(
+            builder: (context, interventionCardState, child) {
               InterventionCard activeInterventionProgram =
-                  intervetionCardState.currentIntervetionProgram;
+                  interventionCardState.currentInterventionProgram;
               return SubPageAppBar(
                 label: label,
                 activeInterventionProgram: activeInterventionProgram,
@@ -159,7 +160,7 @@ class _AgywPrepVisitFormState extends State<AgywPrepVisitForm> {
               builder: (context, languageTranslationState, child) {
                 String currentLanguage =
                     languageTranslationState.currentLanguage;
-                return Consumer<DreamBenefeciarySelectionState>(
+                return Consumer<DreamBeneficiarySelectionState>(
                   builder: (context, agywState, child) {
                     AgywDream agywDream = agywState.currentAgywDream;
                     return Consumer<ServiceFormState>(
@@ -167,7 +168,7 @@ class _AgywPrepVisitFormState extends State<AgywPrepVisitForm> {
                         return Container(
                           child: Column(
                             children: [
-                              DreamBenefeciaryTopHeader(
+                              DreamBeneficiaryTopHeader(
                                 agywDream: agywDream,
                               ),
                               !isFormReady
@@ -197,8 +198,9 @@ class _AgywPrepVisitFormState extends State<AgywPrepVisitForm> {
                                             dataObject:
                                                 serviceFormState.formState,
                                             onInputValueChange:
-                                                onInputValueChange, unFilledMandatoryFields:
-                                          unFilledMandatoryFields,
+                                                onInputValueChange,
+                                            unFilledMandatoryFields:
+                                                unFilledMandatoryFields,
                                           ),
                                         ),
                                         Visibility(

@@ -3,7 +3,7 @@ import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/input_field_option.dart';
 
-class DreamsPrepFollwUpVisit {
+class DreamsPrepFollowUpVisit {
   static List<String> getMandatoryField() {
     return ["m0G5RLlWR9W"];
   }

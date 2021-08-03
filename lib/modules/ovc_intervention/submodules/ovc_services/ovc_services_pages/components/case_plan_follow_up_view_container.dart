@@ -87,11 +87,11 @@ class _CasePlanFollowUpViewContainerState
       child: Consumer<LanguageTranslationState>(
         builder: (context, languageTranslationState, child) {
           String currentLanguage = languageTranslationState.currentLanguage;
-          return Consumer<ServiveEventDataState>(
-            builder: (context, serviveEventDataState, child) {
-              bool isLoading = serviveEventDataState.isLoading;
+          return Consumer<ServiceEventDataState>(
+            builder: (context, serviceEventDataState, child) {
+              bool isLoading = serviceEventDataState.isLoading;
               Map<String, List<Events>> eventListByProgramStage =
-                  serviveEventDataState.eventListByProgramStage;
+                  serviceEventDataState.eventListByProgramStage;
               List<Events> events = TrackedEntityInstanceUtil
                   .getAllEventListFromServiceDataStateByProgramStages(
                       eventListByProgramStage, [programStage]);

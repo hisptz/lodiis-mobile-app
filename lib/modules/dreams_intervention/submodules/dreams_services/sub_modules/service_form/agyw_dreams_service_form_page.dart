@@ -30,7 +30,7 @@ class AgywDreamsServiceFormPage extends StatefulWidget {
 
 class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
   final String label = 'Service Form';
-  List<String> programStageids = [ServiceFormConstant.programStage];
+  List<String> programStageIds = [ServiceFormConstant.programStage];
   @override
   void initState() {
     super.initState();
@@ -59,10 +59,10 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
           .setFormFieldState('eventDate', eventData.eventDate);
       Provider.of<ServiceFormState>(context, listen: false)
           .setFormFieldState('eventId', eventData.event);
-      for (Map datavalue in eventData.dataValues) {
-        if (datavalue['value'] != '') {
+      for (Map dataValue in eventData.dataValues) {
+        if (dataValue['value'] != '') {
           Provider.of<ServiceFormState>(context, listen: false)
-              .setFormFieldState(datavalue['dataElement'], datavalue['value']);
+              .setFormFieldState(dataValue['dataElement'], dataValue['value']);
         }
       }
     }
@@ -111,7 +111,7 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
     String implementingPartner = currentUser.implementingPartner;
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState('W79837fEI3C', youthMentorName);
-    Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
+    Provider.of<DreamBeneficiarySelectionState>(context, listen: false)
         .setCurrentAgywDream(agywDream);
     Navigator.push(
         context,
@@ -122,20 +122,20 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
   }
 
   void onViewService(
-      BuildContext context, Events eventdata, AgywDream agywDream) {
-    updateFormState(context, false, eventdata, agywDream, null);
+      BuildContext context, Events eventData, AgywDream agywDream) {
+    updateFormState(context, false, eventData, agywDream, null);
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => AgywDreamsServiceForm()));
   }
 
-  void onEditService(BuildContext context, Events eventdata,
+  void onEditService(BuildContext context, Events eventData,
       AgywDream agywDream, List<ServiceEvents> serviceEvents) async {
     CurrentUser currentUser = await UserService().getCurrentUser();
     String youthMentorName = currentUser.name;
     String implementingPartner = currentUser.implementingPartner;
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState('W79837fEI3C', youthMentorName);
-    updateFormState(context, true, eventdata, agywDream, serviceEvents);
+    updateFormState(context, true, eventData, agywDream, serviceEvents);
     Navigator.push(
         context,
         MaterialPageRoute(
@@ -150,10 +150,10 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
     return Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(65.0),
-          child: Consumer<IntervetionCardState>(
-            builder: (context, intervetionCardState, child) {
+          child: Consumer<InterventionCardState>(
+            builder: (context, interventionCardState, child) {
               InterventionCard activeInterventionProgram =
-                  intervetionCardState.currentIntervetionProgram;
+                  interventionCardState.currentInterventionProgram;
               return SubPageAppBar(
                 label: label,
                 activeInterventionProgram: activeInterventionProgram,
@@ -163,18 +163,18 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
         ),
         body: SubPageBody(
           body: Container(
-            child: Consumer<DreamBenefeciarySelectionState>(
-              builder: (context, dreamBenefeciarySelectionState, child) {
-                return Consumer<ServiveEventDataState>(
+            child: Consumer<DreamBeneficiarySelectionState>(
+              builder: (context, dreamBeneficiarySelectionState, child) {
+                return Consumer<ServiceEventDataState>(
                   builder: (context, serviceFormState, child) {
                     AgywDream agywDream =
-                        dreamBenefeciarySelectionState.currentAgywDream;
+                        dreamBeneficiarySelectionState.currentAgywDream;
                     bool isLoading = serviceFormState.isLoading;
                     Map<String, List<Events>> eventListByProgramStage =
                         serviceFormState.eventListByProgramStage;
                     List<Events> events = TrackedEntityInstanceUtil
                         .getAllEventListFromServiceDataStateByProgramStages(
-                            eventListByProgramStage, programStageids);
+                            eventListByProgramStage, programStageIds);
                     List<ServiceEvents> serviceEvents = events
                         .map((Events event) =>
                             ServiceEvents().getServiceSessions(event))
@@ -183,7 +183,7 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
                     return Container(
                       child: Column(
                         children: [
-                          DreamBenefeciaryTopHeader(
+                          DreamBeneficiaryTopHeader(
                             agywDream: agywDream,
                           ),
                           Container(

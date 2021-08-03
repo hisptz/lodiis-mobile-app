@@ -67,7 +67,7 @@ class _AgywDreamsHTSConsentFormSubpartState
   }
 
   void onSaveForm(BuildContext context, Map dataObject, AgywDream agywDream) {
-    Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
+    Provider.of<DreamBeneficiarySelectionState>(context, listen: false)
         .setCurrentAgywDream(agywDream);
     if (isConsentGiven(dataObject)) {
       dataObject[AgywDreamsHTSLongFormConstant.noOfPartnersAttributeKey] =
@@ -86,7 +86,7 @@ class _AgywDreamsHTSConsentFormSubpartState
   }
 
   getNoOfPartners(AgywDream agywDream) {
-    List attributes = agywDream.trackeEntityInstanceData.attributes ?? [];
+    List attributes = agywDream.trackedEntityInstanceData.attributes ?? [];
     var noOfPartners = attributes.singleWhere(
         (attribute) =>
             attribute['attribute'] ==
@@ -97,7 +97,7 @@ class _AgywDreamsHTSConsentFormSubpartState
 
   @override
   Widget build(BuildContext context) {
-    return Container(child: Consumer<DreamBenefeciarySelectionState>(
+    return Container(child: Consumer<DreamBeneficiarySelectionState>(
       builder: (context, nonAgywState, child) {
         AgywDream agywDream = nonAgywState.currentAgywDream;
         return Consumer<ServiceFormState>(
@@ -105,7 +105,7 @@ class _AgywDreamsHTSConsentFormSubpartState
             return Container(
               child: Column(
                 children: [
-                  DreamBenefeciaryTopHeader(
+                  DreamBeneficiaryTopHeader(
                     agywDream: agywDream,
                   ),
                   !isFormReady

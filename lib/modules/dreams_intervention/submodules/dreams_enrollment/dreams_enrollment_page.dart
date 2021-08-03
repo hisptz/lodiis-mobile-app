@@ -28,7 +28,7 @@ class _DreamsEnrollmentPageState extends State<DreamsEnrollmentPage> {
 
   String toggleCardId = '';
 
-  void onCardToogle(String cardId) {
+  void onCardToggle(String cardId) {
     setState(() {
       toggleCardId = canExpand && cardId != toggleCardId ? cardId : '';
     });
@@ -36,10 +36,10 @@ class _DreamsEnrollmentPageState extends State<DreamsEnrollmentPage> {
 
   void onAddAgywBeneficiary(BuildContext context) async {
     String beneficiaryId = "";
-    String formAutoSaveid =
+    String formAutoSaveId =
         "${DreamsRoutesConstant.agywConsentPage}_$beneficiaryId";
     FormAutoSave formAutoSave =
-        await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveid);
+        await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
     bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
         .shouldResumeWithUnSavedChanges(context, formAutoSave);
     if (shouldResumeWithUnSavedChanges) {
@@ -84,15 +84,15 @@ class _DreamsEnrollmentPageState extends State<DreamsEnrollmentPage> {
               beneficiaryName: agywBeneficiary.toString(),
               canView: canView,
               isExpanded: agywBeneficiary.id == toggleCardId,
-              onCardToogle: () {
-                onCardToogle(agywBeneficiary.id);
+              onCardToggle: () {
+                onCardToggle(agywBeneficiary.id);
               },
               cardBody: DreamBeneficiaryCardBody(
                 agywBeneficiary: agywBeneficiary,
                 isVerticalLayout: agywBeneficiary.id == toggleCardId,
               ),
-              cardBottonActions: Container(),
-              cardBottonContent: Container(),
+              cardButtonActions: Container(),
+              cardButtonContent: Container(),
             ),
             pagingController: dreamInterventionListState.agywPagingController,
             emptyListWidget: Column(

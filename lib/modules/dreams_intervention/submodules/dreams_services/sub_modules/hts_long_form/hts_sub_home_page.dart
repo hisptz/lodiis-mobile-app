@@ -47,13 +47,13 @@ class _HTSSubHomePageState extends State<HTSSubHomePage> {
 
   String toggleCardId = '';
 
-  void onCardToogle(String cardId) {
+  void onCardToggle(String cardId) {
     setState(() {
       toggleCardId = canExpand && cardId != toggleCardId ? cardId : '';
     });
   }
 
-  List<String> programStageids = [
+  List<String> programStageIds = [
     AgywDreamsHTSLongFormConstant.programStage,
   ];
 
@@ -75,69 +75,69 @@ class _HTSSubHomePageState extends State<HTSSubHomePage> {
           .setFormFieldState('eventDate', eventData.date);
       Provider.of<ServiceFormState>(context, listen: false)
           .setFormFieldState('eventId', eventData.id);
-      for (Map datavalue in eventData.datavalues) {
-        if (datavalue['value'] != '') {
+      for (Map dataValue in eventData.dataValues) {
+        if (dataValue['value'] != '') {
           Provider.of<ServiceFormState>(context, listen: false)
-              .setFormFieldState(datavalue['dataElement'], datavalue['value']);
+              .setFormFieldState(dataValue['dataElement'], dataValue['value']);
         }
       }
     }
   }
 
-  void onViewConsent(BuildContext context, DreamsHTSEvent eventdata) {
-    updateFormState(context, false, eventdata);
+  void onViewConsent(BuildContext context, DreamsHTSEvent eventData) {
+    updateFormState(context, false, eventData);
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => AgywDreamsHTSConsentForm()));
   }
 
-  void onEditConsent(BuildContext context, DreamsHTSEvent eventdata) {
-    updateFormState(context, true, eventdata);
+  void onEditConsent(BuildContext context, DreamsHTSEvent eventData) {
+    updateFormState(context, true, eventData);
     Navigator.push(
         context,
         MaterialPageRoute(
             builder: (context) => AgywDreamsHTSConsentFormEdit()));
   }
 
-  void onViewIntake(BuildContext context, DreamsHTSEvent eventdata) {
-    updateFormState(context, false, eventdata);
+  void onViewIntake(BuildContext context, DreamsHTSEvent eventData) {
+    updateFormState(context, false, eventData);
     Navigator.push(
         context,
         MaterialPageRoute(
             builder: (context) => AgywDreamsHTSClientInformation()));
   }
 
-  void onEditIntake(BuildContext context, DreamsHTSEvent eventdata) {
-    updateFormState(context, true, eventdata);
+  void onEditIntake(BuildContext context, DreamsHTSEvent eventData) {
+    updateFormState(context, true, eventData);
     Navigator.push(
         context,
         MaterialPageRoute(
             builder: (context) => AgywDreamsHTSClientInformationEdit()));
   }
 
-  void onViewStatus(BuildContext context, DreamsHTSEvent eventdata) {
-    updateFormState(context, false, eventdata);
+  void onViewStatus(BuildContext context, DreamsHTSEvent eventData) {
+    updateFormState(context, false, eventData);
     Navigator.push(
         context,
         MaterialPageRoute(
             builder: (context) => AgywDreamsHTSConsentForReleaseStatus()));
   }
 
-  void onEditStatus(BuildContext context, DreamsHTSEvent eventdata) {
-    updateFormState(context, true, eventdata);
+  void onEditStatus(BuildContext context, DreamsHTSEvent eventData) {
+    updateFormState(context, true, eventData);
     Navigator.push(
         context,
         MaterialPageRoute(
             builder: (context) => AgywDreamsHTSConsentForReleaseStatusEdit()));
   }
 
-  void onViewRegister(BuildContext context, DreamsHTSEvent eventdata) {
-    updateFormState(context, false, eventdata);
+  void onViewRegister(BuildContext context, DreamsHTSEvent eventData) {
+    updateFormState(context, false, eventData);
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => AgywDreamsHTSRegisterForm()));
   }
 
-  void onEditRegister(BuildContext context, DreamsHTSEvent eventdata) {
-    updateFormState(context, true, eventdata);
+  void onEditRegister(BuildContext context, DreamsHTSEvent eventData) {
+    updateFormState(context, true, eventData);
     Navigator.push(
         context,
         MaterialPageRoute(
@@ -166,7 +166,7 @@ class _HTSSubHomePageState extends State<HTSSubHomePage> {
   bool canAccessIndexContactsInformation(
       DreamsHTSEvent dreamsHtsRegisterEvent) {
     bool canAccessIndexContact = dreamsHtsRegisterEvent != null
-        ? dreamsHtsRegisterEvent.datavalues.indexWhere((dataValue) =>
+        ? dreamsHtsRegisterEvent.dataValues.indexWhere((dataValue) =>
                 dataValue['dataElement'] ==
                     AgywDreamsHTSLongFormConstant.hivResultStatus &&
                 dataValue['value'] == 'Positive') !=
@@ -177,11 +177,11 @@ class _HTSSubHomePageState extends State<HTSSubHomePage> {
 
   String getHtsRegisterHivStatus(DreamsHTSEvent dreamsHtsRegisterEvent) {
     if (dreamsHtsRegisterEvent != null) {
-      int dataElementIndex = dreamsHtsRegisterEvent.datavalues.indexWhere(
+      int dataElementIndex = dreamsHtsRegisterEvent.dataValues.indexWhere(
           (dataValue) =>
               dataValue['dataElement'] ==
               AgywDreamsHTSLongFormConstant.hivResultStatus);
-      return dreamsHtsRegisterEvent.datavalues
+      return dreamsHtsRegisterEvent.dataValues
               .elementAt(dataElementIndex)['value'] ??
           '';
     } else {
@@ -194,10 +194,10 @@ class _HTSSubHomePageState extends State<HTSSubHomePage> {
     return Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(65.0),
-          child: Consumer<IntervetionCardState>(
-            builder: (context, intervetionCardState, child) {
+          child: Consumer<InterventionCardState>(
+            builder: (context, interventionCardState, child) {
               InterventionCard activeInterventionProgram =
-                  intervetionCardState.currentIntervetionProgram;
+                  interventionCardState.currentInterventionProgram;
               return SubPageAppBar(
                 label: label,
                 activeInterventionProgram: activeInterventionProgram,
@@ -207,18 +207,18 @@ class _HTSSubHomePageState extends State<HTSSubHomePage> {
         ),
         body: SubPageBody(
           body: Container(
-            child: Consumer<DreamBenefeciarySelectionState>(
-              builder: (context, dreamBenefeciarySelectionState, child) {
-                return Consumer<ServiveEventDataState>(
+            child: Consumer<DreamBeneficiarySelectionState>(
+              builder: (context, dreamBeneficiarySelectionState, child) {
+                return Consumer<ServiceEventDataState>(
                   builder: (context, serviceFormState, child) {
                     AgywDream agywDream =
-                        dreamBenefeciarySelectionState.currentAgywDream;
+                        dreamBeneficiarySelectionState.currentAgywDream;
                     bool isLoading = serviceFormState.isLoading;
                     Map<String, List<Events>> eventListByProgramStage =
                         serviceFormState.eventListByProgramStage;
                     List<Events> events = TrackedEntityInstanceUtil
                             .getAllEventListFromServiceDataStateByProgramStages(
-                                eventListByProgramStage, programStageids)
+                                eventListByProgramStage, programStageIds)
                         .where((Events eventData) =>
                             eventData.event == widget.eventId)
                         .toList();
@@ -236,7 +236,7 @@ class _HTSSubHomePageState extends State<HTSSubHomePage> {
                     return Container(
                       child: Column(
                         children: [
-                          DreamBenefeciaryTopHeader(
+                          DreamBeneficiaryTopHeader(
                             agywDream: agywDream,
                           ),
                           Container(

@@ -5,7 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
-import 'package:kb_mobile_app/core/components/line_seperator.dart';
+import 'package:kb_mobile_app/core/components/line_separator.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/events.dart';
@@ -17,8 +17,8 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_serv
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_long_form/pages/agyw_dreams_index_contact.dart';
 import 'package:provider/provider.dart';
 
-class DreamsHTSIndexCardBottonContent extends StatefulWidget {
-  const DreamsHTSIndexCardBottonContent({
+class DreamsHTSIndexCardButtonContent extends StatefulWidget {
+  const DreamsHTSIndexCardButtonContent({
     Key key,
     this.event,
   }) : super(key: key);
@@ -26,12 +26,12 @@ class DreamsHTSIndexCardBottonContent extends StatefulWidget {
   final AgywDreamsIndexInfoEvent event;
 
   @override
-  _DreamsHTSIndexCardBottonContentState createState() =>
-      _DreamsHTSIndexCardBottonContentState();
+  _DreamsHTSIndexCardButtonContentState createState() =>
+      _DreamsHTSIndexCardButtonContentState();
 }
 
-class _DreamsHTSIndexCardBottonContentState
-    extends State<DreamsHTSIndexCardBottonContent> {
+class _DreamsHTSIndexCardButtonContentState
+    extends State<DreamsHTSIndexCardButtonContent> {
   @override
   void initState() {
     super.initState();
@@ -50,10 +50,10 @@ class _DreamsHTSIndexCardBottonContentState
           .setFormFieldState('eventDate', eventData.date);
       Provider.of<ServiceFormState>(context, listen: false)
           .setFormFieldState('eventId', eventData.id);
-      for (Map datavalue in eventData.dataValues) {
-        if (datavalue['value'] != '') {
+      for (Map dataValue in eventData.dataValues) {
+        if (dataValue['value'] != '') {
           Provider.of<ServiceFormState>(context, listen: false)
-              .setFormFieldState(datavalue['dataElement'], datavalue['value']);
+              .setFormFieldState(dataValue['dataElement'], dataValue['value']);
         }
       }
     }
@@ -113,7 +113,7 @@ class _DreamsHTSIndexCardBottonContentState
     return Container(
       child: Column(
         children: [
-          LineSeperator(
+          LineSeparator(
             color: Color(0xFFECF5EC),
           ),
           Container(
@@ -141,15 +141,15 @@ class _DreamsHTSIndexCardBottonContentState
           ),
           Container(
             margin: EdgeInsets.symmetric(horizontal: 13.0, vertical: 10.0),
-            child: Consumer<ServiveEventDataState>(
-              builder: (context, serviveEventDataState, child) {
-                bool isLoading = serviveEventDataState.isLoading;
+            child: Consumer<ServiceEventDataState>(
+              builder: (context, serviceEventDataState, child) {
+                bool isLoading = serviceEventDataState.isLoading;
                 Map<String, List<Events>> eventListByProgramStage =
-                    serviveEventDataState.eventListByProgramStage;
+                    serviceEventDataState.eventListByProgramStage;
                 List<Events> events = TrackedEntityInstanceUtil
                     .getAllEventListFromServiceDataStateByProgramStages(
                         eventListByProgramStage,
-                        [AgywDreamsIndexContantConstant.programStage]);
+                        [AgywDreamsIndexConstantConstant.programStage]);
                 List<IndexContactModel> indexContactEvents = events
                     .map((Events eventData) =>
                         IndexContactModel().fromTeiModel(eventData))
@@ -222,7 +222,7 @@ class _DreamsHTSIndexCardBottonContentState
                                           ))),
                                 ),
                                 Visibility(
-                                  //visible: canFollowUpChilddInfo,
+                                  //visible: canFollowUpChildInfo,
                                   child: Container(
                                       margin: EdgeInsets.only(left: 10.0),
                                       child: InkWell(
@@ -249,7 +249,7 @@ class _DreamsHTSIndexCardBottonContentState
           ),
           Visibility(
               child: Container(
-            child: LineSeperator(
+            child: LineSeparator(
               color: Color(0xFFECF5EC),
             ),
           )),

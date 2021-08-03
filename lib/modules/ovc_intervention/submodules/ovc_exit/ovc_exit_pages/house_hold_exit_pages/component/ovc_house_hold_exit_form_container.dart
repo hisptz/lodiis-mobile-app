@@ -105,10 +105,10 @@ class _OvcHouseHoldExitFormContainerState
           .setFormFieldState('eventDate', event.eventDate);
       Provider.of<ServiceFormState>(context, listen: false)
           .setFormFieldState('eventId', event.event);
-      for (Map datavalue in event.dataValues) {
-        if (datavalue['value'] != '') {
+      for (Map dataValue in event.dataValues) {
+        if (dataValue['value'] != '') {
           Provider.of<ServiceFormState>(context, listen: false)
-              .setFormFieldState(datavalue['dataElement'], datavalue['value']);
+              .setFormFieldState(dataValue['dataElement'], dataValue['value']);
         }
       }
     }

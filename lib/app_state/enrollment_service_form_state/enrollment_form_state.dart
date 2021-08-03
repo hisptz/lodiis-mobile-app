@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 
 class EnrollmentFormState with ChangeNotifier {
-  // intial state
+  // initial state
   Map _formState = Map();
   Map _hiddenFields = Map();
   Map _hiddenInputFieldOptions = Map();

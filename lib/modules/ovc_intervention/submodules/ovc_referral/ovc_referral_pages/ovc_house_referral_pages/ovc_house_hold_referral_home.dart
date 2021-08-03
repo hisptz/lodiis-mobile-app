@@ -32,7 +32,7 @@ class OvcHouseHoldReferralHome extends StatefulWidget {
 
 class _OvcHouseHoldReferralHomeState extends State<OvcHouseHoldReferralHome> {
   final String label = 'Household Referral';
-  List<String> programStageids = [OvcHouseHoldReferralConstant.referralStage];
+  List<String> programStageIds = [OvcHouseHoldReferralConstant.referralStage];
 
   void updateFormState(
     BuildContext context,
@@ -47,16 +47,16 @@ class _OvcHouseHoldReferralHomeState extends State<OvcHouseHoldReferralHome> {
           .setFormFieldState('eventDate', eventData.eventDate);
       Provider.of<ServiceFormState>(context, listen: false)
           .setFormFieldState('eventId', eventData.event);
-      for (Map datavalue in eventData.dataValues) {
-        if (datavalue['value'] != '') {
+      for (Map dataValue in eventData.dataValues) {
+        if (dataValue['value'] != '') {
           Provider.of<ServiceFormState>(context, listen: false)
-              .setFormFieldState(datavalue['dataElement'], datavalue['value']);
+              .setFormFieldState(dataValue['dataElement'], dataValue['value']);
         }
       }
     }
   }
 
-  void onAddRefferal(BuildContext context, OvcHouseHold child) {
+  void onAddReferral(BuildContext context, OvcHouseHold child) {
     updateFormState(context, true, null);
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => OvcHouseHoldAddReferralForm()));
@@ -95,10 +95,10 @@ class _OvcHouseHoldReferralHomeState extends State<OvcHouseHoldReferralHome> {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(65.0),
-        child: Consumer<IntervetionCardState>(
-          builder: (context, intervetionCardState, child) {
+        child: Consumer<InterventionCardState>(
+          builder: (context, interventionCardState, child) {
             InterventionCard activeInterventionProgram =
-                intervetionCardState.currentIntervetionProgram;
+                interventionCardState.currentInterventionProgram;
             return SubPageAppBar(
               label: label,
               activeInterventionProgram: activeInterventionProgram,
@@ -113,7 +113,7 @@ class _OvcHouseHoldReferralHomeState extends State<OvcHouseHoldReferralHome> {
               String currentLanguage = languageTranslationState.currentLanguage;
               return Consumer<OvcHouseHoldCurrentSelectionState>(
                 builder: (context, ovcHouseHoldCurrentSelectionState, child) {
-                  return Consumer<ServiveEventDataState>(
+                  return Consumer<ServiceEventDataState>(
                     builder: (context, serviceFormState, child) {
                       OvcHouseHold currentOvcHouseHold =
                           ovcHouseHoldCurrentSelectionState.currentOvcHouseHold;
@@ -122,7 +122,7 @@ class _OvcHouseHoldReferralHomeState extends State<OvcHouseHoldReferralHome> {
                           serviceFormState.eventListByProgramStage;
                       List<Events> events = TrackedEntityInstanceUtil
                           .getAllEventListFromServiceDataStateByProgramStages(
-                              eventListByProgramStage, programStageids);
+                              eventListByProgramStage, programStageIds);
                       int referralIndex = events.length;
                       return Container(
                         child: Column(
@@ -204,7 +204,7 @@ class _OvcHouseHoldReferralHomeState extends State<OvcHouseHoldReferralHome> {
                                           labelColor: Colors.white,
                                           buttonColor: Color(0xFF4B9F46),
                                           fontSize: 15.0,
-                                          onPressButton: () => onAddRefferal(
+                                          onPressButton: () => onAddReferral(
                                             context,
                                             currentOvcHouseHold,
                                           ),

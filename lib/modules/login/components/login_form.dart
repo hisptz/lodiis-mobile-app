@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/current_user_state/current_user_state.dart';
 import 'package:kb_mobile_app/app_state/device_connectivity_state/device_connectivity_state.dart';
 import 'package:kb_mobile_app/app_state/login_form_state/login_form_state.dart';
-import 'package:kb_mobile_app/app_state/referral_nofitication_state/referral_nofitication_state.dart';
+import 'package:kb_mobile_app/app_state/referral_notification_state/referral_notification_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/form_field_input_icon.dart';
 import 'package:kb_mobile_app/core/constants/custom_color.dart';
@@ -15,7 +15,7 @@ import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/modules/intervention_selection/intervention_selection.dart';
 import 'package:kb_mobile_app/modules/login/components/login_button.dart';
-import 'package:kb_mobile_app/core/components/line_seperator.dart';
+import 'package:kb_mobile_app/core/components/line_separator.dart';
 import 'package:kb_mobile_app/modules/login/constants/login_style.dart';
 import 'package:provider/provider.dart';
 import 'package:kb_mobile_app/core/services/organisation_unit_service.dart';
@@ -227,8 +227,8 @@ class _LoginFormState extends State<LoginForm> {
                           Text(
                             'Username',
                             style: !hasLoginFormError
-                                ? LoginPageStyles.formLableStyle
-                                : LoginPageStyles.formLableStyle.copyWith(
+                                ? LoginPageStyles.formLabelStyle
+                                : LoginPageStyles.formLabelStyle.copyWith(
                                     color: Colors.redAccent,
                                   ),
                           )
@@ -258,7 +258,7 @@ class _LoginFormState extends State<LoginForm> {
                         ),
                       ),
                     ),
-                    LineSeperator(
+                    LineSeparator(
                       color: activeInput == 'username'
                           ? activeInputColor
                           : inActiveInputColor,
@@ -272,8 +272,8 @@ class _LoginFormState extends State<LoginForm> {
                           Text(
                             'Password',
                             style: !hasLoginFormError
-                                ? LoginPageStyles.formLableStyle
-                                : LoginPageStyles.formLableStyle.copyWith(
+                                ? LoginPageStyles.formLabelStyle
+                                : LoginPageStyles.formLabelStyle.copyWith(
                                     color: Colors.redAccent,
                                   ),
                           )
@@ -320,7 +320,7 @@ class _LoginFormState extends State<LoginForm> {
                         ),
                       ),
                     ),
-                    LineSeperator(
+                    LineSeparator(
                       color: activeInput == 'password'
                           ? activeInputColor
                           : inActiveInputColor,

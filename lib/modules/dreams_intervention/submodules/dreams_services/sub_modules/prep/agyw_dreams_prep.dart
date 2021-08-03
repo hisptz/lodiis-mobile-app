@@ -31,7 +31,7 @@ class AgywDreamsPrep extends StatefulWidget {
 
 class _AgywDreamsPrepState extends State<AgywDreamsPrep> {
   final String label = 'AGYW PrEP';
-  List<String> programStageids = [PrepIntakeConstant.programStage];
+  List<String> programStageIds = [PrepIntakeConstant.programStage];
   List<String> visitProgramStageIds = [
     PrepIntakeConstant.prepVisitProgramStage
   ];
@@ -54,10 +54,10 @@ class _AgywDreamsPrepState extends State<AgywDreamsPrep> {
           .setFormFieldState('eventDate', eventData.eventDate);
       Provider.of<ServiceFormState>(context, listen: false)
           .setFormFieldState('eventId', eventData.event);
-      for (Map datavalue in eventData.dataValues) {
-        if (datavalue['value'] != '') {
+      for (Map dataValue in eventData.dataValues) {
+        if (dataValue['value'] != '') {
           Provider.of<ServiceFormState>(context, listen: false)
-              .setFormFieldState(datavalue['dataElement'], datavalue['value']);
+              .setFormFieldState(dataValue['dataElement'], dataValue['value']);
         }
       }
     }
@@ -65,7 +65,7 @@ class _AgywDreamsPrepState extends State<AgywDreamsPrep> {
 
   void onAddPrep(BuildContext context, AgywDream agywDream) {
     updateFormState(context, true, null);
-    Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
+    Provider.of<DreamBeneficiarySelectionState>(context, listen: false)
         .setCurrentAgywDream(agywDream);
     if (int.parse(agywDream.age) >= 15 && int.parse(agywDream.age) <= 24) {
       Navigator.push(context,
@@ -77,21 +77,21 @@ class _AgywDreamsPrepState extends State<AgywDreamsPrep> {
     }
   }
 
-  void onViewPrep(BuildContext context, Events eventdata) {
-    updateFormState(context, false, eventdata);
+  void onViewPrep(BuildContext context, Events eventData) {
+    updateFormState(context, false, eventData);
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => AgywDreamsPrepFormPage()));
   }
 
-  void onEditPrep(BuildContext context, Events eventdata) {
-    updateFormState(context, true, eventdata);
+  void onEditPrep(BuildContext context, Events eventData) {
+    updateFormState(context, true, eventData);
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => AgywDreamsPrepFormPage()));
   }
 
   void onAddVisit(BuildContext context, AgywDream agywDream) {
     updateFormState(context, true, null);
-    Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
+    Provider.of<DreamBeneficiarySelectionState>(context, listen: false)
         .setCurrentAgywDream(agywDream);
     if (int.parse(agywDream.age) >= 15 && int.parse(agywDream.age) <= 24) {
       Navigator.push(context,
@@ -103,14 +103,14 @@ class _AgywDreamsPrepState extends State<AgywDreamsPrep> {
     }
   }
 
-  void onViewVisit(BuildContext context, Events eventdata) {
-    updateFormState(context, false, eventdata);
+  void onViewVisit(BuildContext context, Events eventData) {
+    updateFormState(context, false, eventData);
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => AgywPrepVisitForm()));
   }
 
-  void onEditVisit(BuildContext context, Events eventdata) {
-    updateFormState(context, true, eventdata);
+  void onEditVisit(BuildContext context, Events eventData) {
+    updateFormState(context, true, eventData);
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => AgywPrepVisitForm()));
   }
@@ -149,10 +149,10 @@ class _AgywDreamsPrepState extends State<AgywDreamsPrep> {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(65.0),
-        child: Consumer<IntervetionCardState>(
-          builder: (context, intervetionCardState, child) {
+        child: Consumer<InterventionCardState>(
+          builder: (context, interventionCardState, child) {
             InterventionCard activeInterventionProgram =
-                intervetionCardState.currentIntervetionProgram;
+                interventionCardState.currentInterventionProgram;
             return SubPageAppBar(
               label: label,
               activeInterventionProgram: activeInterventionProgram,
@@ -163,18 +163,18 @@ class _AgywDreamsPrepState extends State<AgywDreamsPrep> {
       body: SubPageBody(
         body: Column(
           children: [
-            Consumer<DreamBenefeciarySelectionState>(
-              builder: (context, dreamBenefeciarySelectionState, child) {
-                return Consumer<ServiveEventDataState>(
+            Consumer<DreamBeneficiarySelectionState>(
+              builder: (context, dreamBeneficiarySelectionState, child) {
+                return Consumer<ServiceEventDataState>(
                   builder: (context, serviceFormState, child) {
                     AgywDream agywDream =
-                        dreamBenefeciarySelectionState.currentAgywDream;
+                        dreamBeneficiarySelectionState.currentAgywDream;
                     bool isLoading = serviceFormState.isLoading;
                     Map<String, List<Events>> eventListByProgramStage =
                         serviceFormState.eventListByProgramStage;
                     List<Events> events = TrackedEntityInstanceUtil
                         .getAllEventListFromServiceDataStateByProgramStages(
-                            eventListByProgramStage, programStageids);
+                            eventListByProgramStage, programStageIds);
 
                     List<Events> visits = TrackedEntityInstanceUtil
                         .getAllEventListFromServiceDataStateByProgramStages(
@@ -185,7 +185,7 @@ class _AgywDreamsPrepState extends State<AgywDreamsPrep> {
                         children: [
                           Container(
                             child: events.length > 0
-                                ? DreamBenefeciaryTopHeader(
+                                ? DreamBeneficiaryTopHeader(
                                     agywDream: agywDream,
                                   )
                                 : null,

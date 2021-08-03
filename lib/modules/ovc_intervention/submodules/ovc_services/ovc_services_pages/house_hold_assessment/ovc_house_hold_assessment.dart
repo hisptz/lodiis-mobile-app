@@ -35,10 +35,10 @@ class OvcHouseHoldAssessment extends StatelessWidget {
           .setFormFieldState('eventDate', assessment.eventDate);
       Provider.of<ServiceFormState>(context, listen: false)
           .setFormFieldState('eventId', assessment.event);
-      for (Map datavalue in assessment.dataValues) {
-        if (datavalue['value'] != '') {
+      for (Map dataValue in assessment.dataValues) {
+        if (dataValue['value'] != '') {
           Provider.of<ServiceFormState>(context, listen: false)
-              .setFormFieldState(datavalue['dataElement'], datavalue['value']);
+              .setFormFieldState(dataValue['dataElement'], dataValue['value']);
         }
       }
     }
@@ -68,10 +68,10 @@ class OvcHouseHoldAssessment extends StatelessWidget {
     return Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(65.0),
-          child: Consumer<IntervetionCardState>(
-            builder: (context, intervetionCardState, child) {
+          child: Consumer<InterventionCardState>(
+            builder: (context, interventionCardState, child) {
               InterventionCard activeInterventionProgram =
-                  intervetionCardState.currentIntervetionProgram;
+                  interventionCardState.currentInterventionProgram;
               return SubPageAppBar(
                 label: label,
                 activeInterventionProgram: activeInterventionProgram,
@@ -99,11 +99,11 @@ class OvcHouseHoldAssessment extends StatelessWidget {
                                 ovcHouseHoldCurrentSelectionState
                                     .currentOvcHouseHold;
                             return Container(
-                              child: Consumer<ServiveEventDataState>(
+                              child: Consumer<ServiceEventDataState>(
                                 builder:
-                                    (context, serviveEventDataState, child) {
+                                    (context, serviceEventDataState, child) {
                                   bool isLoading =
-                                      serviveEventDataState.isLoading;
+                                      serviceEventDataState.isLoading;
                                   return isLoading
                                       ? CircularProcessLoader(
                                           color: Colors.blueGrey,

@@ -32,12 +32,12 @@ class DreamReferralManage extends StatefulWidget {
 class _DreamReferralManageState extends State<DreamReferralManage> {
   final String label = 'Manage Agyw Referral';
 
-  bool shouldEditRefferal(List dataValues) {
+  bool shouldEditReferral(List dataValues) {
     CurrentUser user =
         Provider.of<CurrentUserState>(context, listen: false).currentUser;
     var referralImplementingPartner = dataValues.firstWhere(
-        (datavalue) =>
-            datavalue['dataElement'] ==
+        (dataValue) =>
+            dataValue['dataElement'] ==
             DreamAgywReferralConstant.referralImplementingPartner,
         orElse: () => null);
     return referralImplementingPartner != null
@@ -50,10 +50,10 @@ class _DreamReferralManageState extends State<DreamReferralManage> {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(65.0),
-        child: Consumer<IntervetionCardState>(
-          builder: (context, intervetionCardState, child) {
+        child: Consumer<InterventionCardState>(
+          builder: (context, interventionCardState, child) {
             InterventionCard activeInterventionProgram =
-                intervetionCardState.currentIntervetionProgram;
+                interventionCardState.currentInterventionProgram;
             return SubPageAppBar(
               label: label,
               activeInterventionProgram: activeInterventionProgram,
@@ -63,14 +63,14 @@ class _DreamReferralManageState extends State<DreamReferralManage> {
       ),
       body: SubPageBody(
         body: Container(
-          child: Consumer<DreamBenefeciarySelectionState>(
+          child: Consumer<DreamBeneficiarySelectionState>(
             builder: (context, dreamCurrentSelectionState, child) {
               var currentDreamAgywBeneficiary =
                   dreamCurrentSelectionState.currentAgywDream;
               return Container(
                 child: Column(
                   children: [
-                    DreamBenefeciaryTopHeader(
+                    DreamBeneficiaryTopHeader(
                         agywDream: currentDreamAgywBeneficiary),
                     Container(
                       margin: EdgeInsets.symmetric(
@@ -88,7 +88,7 @@ class _DreamReferralManageState extends State<DreamReferralManage> {
                                 isOvcIntervention: false,
                                 referralIndex: widget.referralIndex,
                                 eventData: widget.eventData,
-                                isEditable: shouldEditRefferal(
+                                isEditable: shouldEditReferral(
                                     widget.eventData.dataValues ?? []),
                               ),
                               ReferralOutComeCardContainer(
@@ -97,7 +97,7 @@ class _DreamReferralManageState extends State<DreamReferralManage> {
                                 currentProgramStage:
                                     widget.eventData.programStage,
                                 beneficiary: currentDreamAgywBeneficiary
-                                    .trackeEntityInstanceData,
+                                    .trackedEntityInstanceData,
                                 referralProgram:
                                     DreamAgywReferralConstant.program,
                                 referralFollowUpStage: DreamAgywReferralConstant

@@ -6,7 +6,7 @@ import 'package:kb_mobile_app/app_state/current_user_state/current_user_state.da
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_bottom_navigation_state/intervention_bottom_navigation_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
-import 'package:kb_mobile_app/app_state/referral_nofitication_state/referral_nofitication_state.dart';
+import 'package:kb_mobile_app/app_state/referral_notification_state/referral_notification_state.dart';
 import 'package:kb_mobile_app/models/Intervention_bottom_navigation.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:provider/provider.dart';
@@ -43,7 +43,7 @@ class InterventionBottomNavigationBar extends StatelessWidget {
     List<InterventionBottomNavigation> interventionBottomNavigations =
         InterventionBottomNavigation.getInterventionNavigationButtons(
             activeInterventionProgram);
-    return Consumer<IntervetionCardState>(
+    return Consumer<InterventionCardState>(
       builder: (context, interventionCardState, child) {
         return Consumer<InterventionBottomNavigationState>(
           builder: (context, interventionBottomNavigationState, child) {
@@ -62,7 +62,7 @@ class InterventionBottomNavigationBar extends StatelessWidget {
                       .where((nav) => nav.id != 'noneAgyw')
                       .toList();
                 }
-                if (interventionCardState.currentIntervetionProgram.id !=
+                if (interventionCardState.currentInterventionProgram.id !=
                     'dreams') {
                   interventionBottomNavigations = interventionBottomNavigations
                       .where((nav) => nav.id != 'incomingReferral')
@@ -100,7 +100,7 @@ class InterventionBottomNavigationBar extends StatelessWidget {
                           ),
                           decoration: BoxDecoration(
                             color: currentIndex == index
-                                ? activeInterventionProgram.primmaryColor
+                                ? activeInterventionProgram.primaryColor
                                 : Colors.transparent,
                             borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(12.0),
@@ -120,9 +120,9 @@ class InterventionBottomNavigationBar extends StatelessWidget {
                                     interventionBottomNavigation:
                                         interventionBottomNavigation,
                                     inactiveColor:
-                                        activeInterventionProgram.primmaryColor,
+                                        activeInterventionProgram.primaryColor,
                                     hasIndicatorValue: interventionCardState
-                                            .currentIntervetionProgram.id ==
+                                            .currentInterventionProgram.id ==
                                         'dreams',
                                   ),
                                 ),
@@ -145,7 +145,7 @@ class InterventionBottomNavigationBar extends StatelessWidget {
                                                     "noneAgyw"
                                             ? "KB PrEP"
                                             : interventionCardState
-                                                            .currentIntervetionProgram
+                                                            .currentInterventionProgram
                                                             .id !=
                                                         'dreams' &&
                                                     interventionBottomNavigation

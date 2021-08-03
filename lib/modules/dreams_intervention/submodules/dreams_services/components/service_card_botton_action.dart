@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:kb_mobile_app/app_state/current_user_state/current_user_state.dart';
-import 'package:kb_mobile_app/core/components/line_seperator.dart';
+import 'package:kb_mobile_app/core/components/line_separator.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:provider/provider.dart';
 
-class ServiceCardBottonAction extends StatelessWidget {
-  const ServiceCardBottonAction({
+class ServiceCardButtonAction extends StatelessWidget {
+  const ServiceCardButtonAction({
     Key key,
     this.agywBeneficiary,
     this.onOpenPrepLongForm,
@@ -47,7 +47,7 @@ class ServiceCardBottonAction extends StatelessWidget {
         builder: (context, currentUserState, child) {
           return Column(
             children: [
-              LineSeperator(
+              LineSeparator(
                 color: Color(0xFFE9F4FA),
               ),
               ClipRRect(

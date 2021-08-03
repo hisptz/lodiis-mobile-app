@@ -39,8 +39,8 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
 
   String toggleCardId = '';
 
-  void onCardToogle(BuildContext context, String trackedEntityInstance) {
-    Provider.of<ServiveEventDataState>(context, listen: false)
+  void onCardToggle(BuildContext context, String trackedEntityInstance) {
+    Provider.of<ServiceEventDataState>(context, listen: false)
         .resetServiceEventDataState(trackedEntityInstance);
     setState(() {
       toggleCardId = canExpand && trackedEntityInstance != toggleCardId
@@ -122,7 +122,7 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => AgywDreamMSGHIVRegiser(),
+        builder: (context) => AgywDreamMSGHIVRegister(),
       ),
     );
   }
@@ -222,9 +222,9 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
     BuildContext context,
     AgywDream agywBeneficiary,
   ) {
-    Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
+    Provider.of<DreamBeneficiarySelectionState>(context, listen: false)
         .setCurrentAgywDream(agywBeneficiary);
-    Provider.of<ServiveEventDataState>(context, listen: false)
+    Provider.of<ServiceEventDataState>(context, listen: false)
         .resetServiceEventDataState(agywBeneficiary.id);
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
     Provider.of<ServiceFormState>(context, listen: false)
@@ -259,8 +259,8 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
                 beneficiaryName: agywBeneficiary.toString(),
                 canView: canView,
                 isExpanded: agywBeneficiary.id == toggleCardId,
-                onCardToogle: () {
-                  onCardToogle(
+                onCardToggle: () {
+                  onCardToggle(
                     context,
                     agywBeneficiary.id,
                   );
@@ -270,7 +270,7 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
                   canViewServiceCategory: true,
                   isVerticalLayout: agywBeneficiary.id == toggleCardId,
                 ),
-                cardBottonActions: ServiceCardBottonAction(
+                cardButtonActions: ServiceCardButtonAction(
                   agywBeneficiary: agywBeneficiary,
                   onOpenPrepLongForm: () => onOpenPrepLongForm(
                     context,
@@ -325,7 +325,7 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
                     agywBeneficiary,
                   ),
                 ),
-                cardBottonContent: Container(),
+                cardButtonContent: Container(),
               ),
               pagingController: dreamInterventionListState.agywPagingController,
               emptyListWidget: Center(

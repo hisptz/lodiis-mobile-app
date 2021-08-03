@@ -39,7 +39,7 @@ class _AgywDreamsHTSConsentForReleaseStatusState
     extends State<AgywDreamsHTSConsentForReleaseStatus> {
   final String label = 'Consent for Release of Status';
   List<FormSection> formSections;
-  List<FormSection> htsRegisterformSections;
+  List<FormSection> htsRegisterFormSections;
   List<FormSection> htsFormSections = [];
   bool isFormReady = false;
   bool isSaving = false;
@@ -48,7 +48,7 @@ class _AgywDreamsHTSConsentForReleaseStatusState
   void initState() {
     super.initState();
     formSections = ConsentForReleaseOfStatus.getFormSections();
-    htsRegisterformSections = HTSRegister.getFormSections();
+    htsRegisterFormSections = HTSRegister.getFormSections();
     htsFormSections.addAll(formSections);
     htsFormSections.addAll(ClientInformation.getFormSections());
     htsFormSections.addAll(HTSConsent.getFormSections());
@@ -76,8 +76,10 @@ class _AgywDreamsHTSConsentForReleaseStatusState
           dataObject[AgywDreamsHTSLongFormConstant.htsToIndexLinkage] ??
               AppUtil.getUid();
       String htsToTBLinkageValue =
-          dataObject[AgywDreamsHTSLongFormConstant.htsToTBLinkage] ?? AppUtil.getUid();
-      dataObject[AgywDreamsHTSLongFormConstant.htsToTBLinkage] = htsToTBLinkageValue;
+          dataObject[AgywDreamsHTSLongFormConstant.htsToTBLinkage] ??
+              AppUtil.getUid();
+      dataObject[AgywDreamsHTSLongFormConstant.htsToTBLinkage] =
+          htsToTBLinkageValue;
       String htsToHtsRegister =
           dataObject[AgywDreamsHTSLongFormConstant.htsToHtsRegisterLinkage] ??
               AppUtil.getUid();
@@ -105,7 +107,7 @@ class _AgywDreamsHTSConsentForReleaseStatusState
           AgywDreamsHTSLongFormConstant.program,
           AgywDreamsHTSLongFormConstant.htsRegisterProgramStage,
           agywDream.orgUnit,
-          htsRegisterformSections,
+          htsRegisterFormSections,
           dataObject,
           eventDate,
           agywDream.id,
@@ -113,15 +115,16 @@ class _AgywDreamsHTSConsentForReleaseStatusState
           hiddenFields,
           skippedFields: [AgywDreamsHTSLongFormConstant.bmiKey],
         );
-        if (dataObject[AgywDreamsHTSLongFormConstant.hivResultStatus] == 'Positive') {
+        if (dataObject[AgywDreamsHTSLongFormConstant.hivResultStatus] ==
+            'Positive') {
           Navigator.push(
               context,
               MaterialPageRoute(
                   builder: (context) => AgywDreamsHTSTBForm(
-                      htsToTBLinkageValue:
-                          dataObject[AgywDreamsHTSLongFormConstant.htsToTBLinkage])));
+                      htsToTBLinkageValue: dataObject[
+                          AgywDreamsHTSLongFormConstant.htsToTBLinkage])));
         } else {
-          Provider.of<ServiveEventDataState>(context, listen: false)
+          Provider.of<ServiceEventDataState>(context, listen: false)
               .resetServiceEventDataState(agywDream.id);
           Timer(Duration(seconds: 1), () {
             setState(() {
@@ -158,10 +161,10 @@ class _AgywDreamsHTSConsentForReleaseStatusState
     return Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(65.0),
-          child: Consumer<IntervetionCardState>(
-            builder: (context, intervetionCardState, child) {
+          child: Consumer<InterventionCardState>(
+            builder: (context, interventionCardState, child) {
               InterventionCard activeInterventionProgram =
-                  intervetionCardState.currentIntervetionProgram;
+                  interventionCardState.currentInterventionProgram;
               return SubPageAppBar(
                 label: label,
                 activeInterventionProgram: activeInterventionProgram,
@@ -170,7 +173,7 @@ class _AgywDreamsHTSConsentForReleaseStatusState
           ),
         ),
         body: SubPageBody(
-          body: Container(child: Consumer<DreamBenefeciarySelectionState>(
+          body: Container(child: Consumer<DreamBeneficiarySelectionState>(
             builder: (context, nonAgywState, child) {
               AgywDream agywDream = nonAgywState.currentAgywDream;
               return Consumer<ServiceFormState>(
@@ -178,7 +181,7 @@ class _AgywDreamsHTSConsentForReleaseStatusState
                   return Container(
                     child: Column(
                       children: [
-                        DreamBenefeciaryTopHeader(
+                        DreamBeneficiaryTopHeader(
                           agywDream: agywDream,
                         ),
                         !isFormReady

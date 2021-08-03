@@ -28,7 +28,7 @@ class _OvcRecordsPageState extends State<OvcRecordsPage> {
 
   String toggleCardId = '';
 
-  void onCardToogle(String cardId) {
+  void onCardToggle(String cardId) {
     setState(() {
       toggleCardId = canExpand && cardId != toggleCardId ? cardId : '';
     });
@@ -67,14 +67,14 @@ class _OvcRecordsPageState extends State<OvcRecordsPage> {
                   canExpand: canExpand,
                   canView: canView,
                   isExpanded: ovcHouseHold.id == toggleCardId,
-                  onCardToogle: () {
-                    onCardToogle(ovcHouseHold.id);
+                  onCardToggle: () {
+                    onCardToggle(ovcHouseHold.id);
                   },
                   cardBody: OvcHouseHoldCardBody(
                     ovcHouseHold: ovcHouseHold,
                   ),
-                  cardBottonActions: Container(),
-                  cardBottonContent: OvcHouseHoldCardBottonContent(
+                  cardButtonActions: Container(),
+                  cardButtonContent: OvcHouseHoldCardButtonContent(
                     currentLanguage: currentLanguage,
                     ovcHouseHold: ovcHouseHold,
                     canAddChild: canAddChild,

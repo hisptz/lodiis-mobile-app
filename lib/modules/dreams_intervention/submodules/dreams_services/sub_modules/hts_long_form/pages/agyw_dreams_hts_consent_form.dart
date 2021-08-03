@@ -70,7 +70,7 @@ class _AgywDreamsHTSConsentFormState extends State<AgywDreamsHTSConsentForm> {
   }
 
   void onSaveForm(BuildContext context, Map dataObject, AgywDream agywDream) {
-    Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
+    Provider.of<DreamBeneficiarySelectionState>(context, listen: false)
         .setCurrentAgywDream(agywDream);
     if (isConsentGiven(dataObject)) {
       //add no of sexual partners to dataObject
@@ -97,10 +97,10 @@ class _AgywDreamsHTSConsentFormState extends State<AgywDreamsHTSConsentForm> {
     return Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(65.0),
-          child: Consumer<IntervetionCardState>(
-            builder: (context, intervetionCardState, child) {
+          child: Consumer<InterventionCardState>(
+            builder: (context, interventionCardState, child) {
               InterventionCard activeInterventionProgram =
-                  intervetionCardState.currentIntervetionProgram;
+                  interventionCardState.currentInterventionProgram;
               return SubPageAppBar(
                 label: label,
                 activeInterventionProgram: activeInterventionProgram,
@@ -109,7 +109,7 @@ class _AgywDreamsHTSConsentFormState extends State<AgywDreamsHTSConsentForm> {
           ),
         ),
         body: SubPageBody(
-          body: Container(child: Consumer<DreamBenefeciarySelectionState>(
+          body: Container(child: Consumer<DreamBeneficiarySelectionState>(
             builder: (context, nonAgywState, child) {
               AgywDream agywDream = nonAgywState.currentAgywDream;
               return Consumer<ServiceFormState>(
@@ -117,7 +117,7 @@ class _AgywDreamsHTSConsentFormState extends State<AgywDreamsHTSConsentForm> {
                   return Container(
                     child: Column(
                       children: [
-                        DreamBenefeciaryTopHeader(
+                        DreamBeneficiaryTopHeader(
                           agywDream: agywDream,
                         ),
                         !isFormReady
@@ -173,7 +173,7 @@ class _AgywDreamsHTSConsentFormState extends State<AgywDreamsHTSConsentForm> {
   }
 
   getNoOfPartners(AgywDream agywDream) {
-    List attributes = agywDream.trackeEntityInstanceData.attributes ?? [];
+    List attributes = agywDream.trackedEntityInstanceData.attributes ?? [];
     var noOfPartners = attributes.singleWhere(
         (attribute) =>
             attribute['attribute'] ==

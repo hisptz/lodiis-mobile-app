@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kb_mobile_app/core/components/line_seperator.dart';
+import 'package:kb_mobile_app/core/components/line_separator.dart';
 import 'package:kb_mobile_app/core/components/material_card.dart';
 import 'package:kb_mobile_app/core/constants/app_logs.dart';
 import 'package:kb_mobile_app/models/app_logs.dart';
@@ -67,7 +67,7 @@ class AppLogsCard extends StatelessWidget {
                 ],
               ),
             ),
-            LineSeperator(
+            LineSeparator(
               color: currentInterventionColor.withOpacity(0.3),
             ),
             SizedBox(

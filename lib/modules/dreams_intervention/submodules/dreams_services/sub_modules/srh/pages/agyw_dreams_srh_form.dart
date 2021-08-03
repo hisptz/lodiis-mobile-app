@@ -103,7 +103,7 @@ class _AgywDreamsSrhFormState extends State<AgywDreamsSrhForm> {
     setState(() {
       isFormSaving = true;
     });
-    Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
+    Provider.of<DreamBeneficiarySelectionState>(context, listen: false)
         .setCurrentAgywDream(agywDream);
 
     if (dataObject[SRHConstant.srhToSrhRegisterLinkage] != null &&
@@ -177,7 +177,7 @@ class _AgywDreamsSrhFormState extends State<AgywDreamsSrhForm> {
     String srhToSrhRegisterLinkage =
         dataObject[SRHConstant.srhToSrhRegisterLinkage];
     Map<String, List<Events>> eventListByProgramStage =
-        Provider.of<ServiveEventDataState>(context, listen: false)
+        Provider.of<ServiceEventDataState>(context, listen: false)
             .eventListByProgramStage;
     List<Events> srhRegisterEvents = TrackedEntityInstanceUtil
         .getAllEventListFromServiceDataStateByProgramStages(
@@ -200,10 +200,10 @@ class _AgywDreamsSrhFormState extends State<AgywDreamsSrhForm> {
     return Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(65.0),
-          child: Consumer<IntervetionCardState>(
-            builder: (context, intervetionCardState, child) {
+          child: Consumer<InterventionCardState>(
+            builder: (context, interventionCardState, child) {
               InterventionCard activeInterventionProgram =
-                  intervetionCardState.currentIntervetionProgram;
+                  interventionCardState.currentInterventionProgram;
               return SubPageAppBar(
                 label: label,
                 activeInterventionProgram: activeInterventionProgram,
@@ -212,21 +212,21 @@ class _AgywDreamsSrhFormState extends State<AgywDreamsSrhForm> {
           ),
         ),
         body: SubPageBody(
-          body: Container(child: Consumer<DreamBenefeciarySelectionState>(
+          body: Container(child: Consumer<DreamBeneficiarySelectionState>(
             builder: (context, nonAgywState, child) {
               AgywDream agywDream = nonAgywState.currentAgywDream;
               return Consumer<LanguageTranslationState>(
                 builder: (context, languageTranslationState, child) {
                   String currentLanguage =
                       languageTranslationState.currentLanguage;
-                  return Consumer<ServiveEventDataState>(
+                  return Consumer<ServiceEventDataState>(
                     builder: (context, serviceEventDataState, child) =>
                         Consumer<ServiceFormState>(
                       builder: (context, serviceFormState, child) {
                         return Container(
                           child: Column(
                             children: [
-                              DreamBenefeciaryTopHeader(
+                              DreamBeneficiaryTopHeader(
                                 agywDream: agywDream,
                               ),
                               !isFormReady

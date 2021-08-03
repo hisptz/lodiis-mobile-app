@@ -15,10 +15,10 @@ class InterventionBottomNavigationBarContainer extends StatelessWidget {
     return Container(
       child: Consumer<LanguageTranslationState>(
         builder: (context, languageTranslationState, child) {
-          return Consumer<IntervetionCardState>(
-            builder: (context, intervetionCardState, child) {
+          return Consumer<InterventionCardState>(
+            builder: (context, interventionCardState, child) {
               InterventionCard activeInterventionProgram =
-                  intervetionCardState.currentIntervetionProgram;
+                  interventionCardState.currentInterventionProgram;
               return InterventionBottomNavigationBar(
                 activeInterventionProgram: activeInterventionProgram,
                 currentLanguage: languageTranslationState.currentLanguage,

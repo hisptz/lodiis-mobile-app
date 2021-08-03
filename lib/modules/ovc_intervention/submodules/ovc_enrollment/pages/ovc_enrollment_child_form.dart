@@ -118,11 +118,11 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
     for (String sectionId in hiddenSections.keys) {
       List<FormSection> allFormSections =
           FormUtil.getFlattenFormSections(formSections);
-      List<String> hidddenSectionInputFieldIds = FormUtil.getFormFieldIds(
+      List<String> hiddenSectionInputFieldIds = FormUtil.getFormFieldIds(
           allFormSections
               .where((formSection) => formSection.id == sectionId)
               .toList());
-      for (String inputFieldId in hidddenSectionInputFieldIds) {
+      for (String inputFieldId in hiddenSectionInputFieldIds) {
         hiddenFields[inputFieldId] = true;
       }
     }
@@ -202,7 +202,7 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
 
   void onSaveAndContinue(BuildContext context) async {
     bool hadAllMandatoryFilled =
-        AppUtil.hasAllMandarotyFieldsFilled(mandatoryFields, childMapObject);
+        AppUtil.hasAllMandatoryFieldsFilled(mandatoryFields, childMapObject);
     if (hadAllMandatoryFilled) {
       String name = childMapObject['WTZ7GLTrE8Q'] ?? '';
       Widget modal = AddChildConfirmation(name: name);
@@ -276,10 +276,10 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
       child: Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(65.0),
-          child: Consumer<IntervetionCardState>(
-            builder: (context, intervetionCardState, child) {
+          child: Consumer<InterventionCardState>(
+            builder: (context, interventionCardState, child) {
               InterventionCard activeInterventionProgram =
-                  intervetionCardState.currentIntervetionProgram;
+                  interventionCardState.currentInterventionProgram;
               return SubPageAppBar(
                 label: label,
                 activeInterventionProgram: activeInterventionProgram,

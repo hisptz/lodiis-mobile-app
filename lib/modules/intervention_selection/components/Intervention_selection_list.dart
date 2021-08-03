@@ -6,7 +6,7 @@ class InterventionSelectionList extends StatefulWidget {
   InterventionSelectionList({
     Key key,
     @required this.interventionPrograms,
-    this.onIntervetionSelection,
+    this.onInterventionSelection,
     @required this.numberOfAgywDreamsBeneficiaries,
     @required this.numberOfNoneAgywDreamsBeneficiaries,
     @required this.numberOfHouseHolds,
@@ -15,7 +15,7 @@ class InterventionSelectionList extends StatefulWidget {
   }) : super(key: key);
 
   final List<InterventionCard> interventionPrograms;
-  final Function(InterventionCard) onIntervetionSelection;
+  final Function(InterventionCard) onInterventionSelection;
 
   final int numberOfNoneAgywDreamsBeneficiaries;
   final int numberOfAgywDreamsBeneficiaries;
@@ -34,7 +34,7 @@ class _InterventionSelectionListState extends State<InterventionSelectionList> {
   void setSelectedCard(InterventionCard interventionProgram) {
     setState(() {
       interventionProgramId = interventionProgram.id;
-      widget.onIntervetionSelection(interventionProgram);
+      widget.onInterventionSelection(interventionProgram);
     });
   }
 

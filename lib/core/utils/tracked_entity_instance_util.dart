@@ -72,11 +72,11 @@ class TrackedEntityInstanceUtil {
 
   static List<Events> getAllEventListFromServiceDataStateByProgramStages(
     Map<String, List<Events>> eventListByProgramStage,
-    List<String> programStageids,
+    List<String> programStageIds,
   ) {
-    programStageids = programStageids.toSet().toList();
+    programStageIds = programStageIds.toSet().toList();
     List<Events> events = [];
-    for (String programStageid in programStageids) {
+    for (String programStageid in programStageIds) {
       try {
         var data = eventListByProgramStage[programStageid] ?? [];
         events.addAll(data);
@@ -88,9 +88,9 @@ class TrackedEntityInstanceUtil {
   static List<Events> getAllEventListFromServiceDataState(
     Map<String, List<Events>> eventListByProgramStage,
   ) {
-    List<String> programStageids = eventListByProgramStage.keys.toList();
+    List<String> programStageIds = eventListByProgramStage.keys.toList();
     List<Events> events = [];
-    for (String programStageid in programStageids) {
+    for (String programStageid in programStageIds) {
       try {
         var data = eventListByProgramStage[programStageid] ?? [];
         events.addAll(data);

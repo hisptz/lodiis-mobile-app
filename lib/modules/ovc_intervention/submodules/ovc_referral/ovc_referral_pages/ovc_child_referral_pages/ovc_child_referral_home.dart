@@ -29,7 +29,7 @@ class OvcChildReferralHome extends StatefulWidget {
 
 class _OvcChildReferralHomeState extends State<OvcChildReferralHome> {
   final String label = 'Child Referral';
-  final List<String> programStageids = [OvcChildReferralConstant.referralStage];
+  final List<String> programStageIds = [OvcChildReferralConstant.referralStage];
   bool isCloReferralSelected = false;
 
   void updateFormState(
@@ -46,18 +46,18 @@ class _OvcChildReferralHomeState extends State<OvcChildReferralHome> {
             .setFormFieldState('eventDate', eventData.eventDate);
         Provider.of<ServiceFormState>(context, listen: false)
             .setFormFieldState('eventId', eventData.event);
-        for (Map datavalue in eventData.dataValues) {
-          if (datavalue['value'] != '') {
+        for (Map dataValue in eventData.dataValues) {
+          if (dataValue['value'] != '') {
             Provider.of<ServiceFormState>(context, listen: false)
                 .setFormFieldState(
-                    datavalue['dataElement'], datavalue['value']);
+                    dataValue['dataElement'], dataValue['value']);
           }
         }
       }
     }
   }
 
-  void onAddRefferal(BuildContext context, OvcHouseHoldChild child) {
+  void onAddReferral(BuildContext context, OvcHouseHoldChild child) {
     updateFormState(context, true, null);
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => OvcChildReferralAddForm()));
@@ -84,7 +84,7 @@ class _OvcChildReferralHomeState extends State<OvcChildReferralHome> {
   }
 
   void onReferralSelection(BuildContext context) {
-     setState(() {
+    setState(() {
       isCloReferralSelected = false;
     });
   }
@@ -108,10 +108,10 @@ class _OvcChildReferralHomeState extends State<OvcChildReferralHome> {
     return Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(65.0),
-          child: Consumer<IntervetionCardState>(
-            builder: (context, intervetionCardState, child) {
+          child: Consumer<InterventionCardState>(
+            builder: (context, interventionCardState, child) {
               InterventionCard activeInterventionProgram =
-                  intervetionCardState.currentIntervetionProgram;
+                  interventionCardState.currentInterventionProgram;
               return SubPageAppBar(
                 label: label,
                 activeInterventionProgram: activeInterventionProgram,
@@ -123,7 +123,7 @@ class _OvcChildReferralHomeState extends State<OvcChildReferralHome> {
           body: Container(
             child: Consumer<OvcHouseHoldCurrentSelectionState>(
               builder: (context, ovcHouseHoldCurrentSelectionState, child) {
-                return Consumer<ServiveEventDataState>(
+                return Consumer<ServiceEventDataState>(
                   builder: (context, serviceFormState, child) {
                     bool isLoading = serviceFormState.isLoading;
 
@@ -145,7 +145,7 @@ class _OvcChildReferralHomeState extends State<OvcChildReferralHome> {
                                         onSelectReferral: () =>
                                             onReferralSelection(context),
                                       ),
-                                   isCloReferralSelected
+                                      isCloReferralSelected
                                           ? OvcChildCLOReferral()
                                           : OvcChildReferral()
                                     ],
@@ -163,4 +163,3 @@ class _OvcChildReferralHomeState extends State<OvcChildReferralHome> {
         bottomNavigationBar: InterventionBottomNavigationBarContainer());
   }
 }
-

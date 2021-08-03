@@ -1,13 +1,13 @@
 import 'dart:convert';
 
-class TrackeEntityInstance {
+class TrackedEntityInstance {
   String trackedEntityInstance;
   String trackedEntityType;
   String orgUnit;
   String syncStatus;
   dynamic attributes;
 
-  TrackeEntityInstance({
+  TrackedEntityInstance({
     this.trackedEntityInstance,
     this.trackedEntityType,
     this.orgUnit,
@@ -22,8 +22,8 @@ class TrackeEntityInstance {
     return 'trackedEntityInstance $trackedEntityInstance';
   }
 
-  TrackeEntityInstance fromJson(dynamic json) {
-    return TrackeEntityInstance(
+  TrackedEntityInstance fromJson(dynamic json) {
+    return TrackedEntityInstance(
         trackedEntityInstance: json['trackedEntityInstance'],
         trackedEntityType: json['trackedEntityType'],
         orgUnit: json['orgUnit'],
@@ -31,22 +31,22 @@ class TrackeEntityInstance {
         syncStatus: json['syncStatus'] ?? 'synced');
   }
 
-  String toJson(TrackeEntityInstance trackeEntityInstanceObj) {
-    return json.encode(toOffline(trackeEntityInstanceObj));
+  String toJson(TrackedEntityInstance trackedEntityInstanceObj) {
+    return json.encode(toOffline(trackedEntityInstanceObj));
   }
 
-  Map toOffline(TrackeEntityInstance trackeEntityInstanceObj) {
+  Map toOffline(TrackedEntityInstance trackedEntityInstanceObj) {
     Map mapData = Map<String, dynamic>();
     mapData['trackedEntityInstance'] =
-        trackeEntityInstanceObj.trackedEntityInstance;
-    mapData['trackedEntityType'] = trackeEntityInstanceObj.trackedEntityType;
-    mapData['orgUnit'] = trackeEntityInstanceObj.orgUnit;
-    mapData['syncStatus'] = trackeEntityInstanceObj.syncStatus;
-    mapData['attributes'] = trackeEntityInstanceObj.attributes;
+        trackedEntityInstanceObj.trackedEntityInstance;
+    mapData['trackedEntityType'] = trackedEntityInstanceObj.trackedEntityType;
+    mapData['orgUnit'] = trackedEntityInstanceObj.orgUnit;
+    mapData['syncStatus'] = trackedEntityInstanceObj.syncStatus;
+    mapData['attributes'] = trackedEntityInstanceObj.attributes;
     return mapData;
   }
 
-  TrackeEntityInstance.fromOffline(Map<String, dynamic> mapData) {
+  TrackedEntityInstance.fromOffline(Map<String, dynamic> mapData) {
     this.trackedEntityInstance = mapData['trackedEntityInstance'];
     this.trackedEntityType = mapData['trackedEntityType'];
     this.orgUnit = mapData['orgUnit'];

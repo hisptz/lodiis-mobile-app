@@ -73,9 +73,9 @@ class _OgacInterventionState extends State<OgacIntervention> {
 
   void onAddOgacBeneficiary(BuildContext context) async {
     String beneficiaryId = "";
-    String formAutoSaveid = "${OgacRoutesConstant.pageModule}_$beneficiaryId";
+    String formAutoSaveId = "${OgacRoutesConstant.pageModule}_$beneficiaryId";
     FormAutoSave formAutoSave =
-        await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveid);
+        await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
     bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
         .shouldResumeWithUnSavedChanges(context, formAutoSave);
     if (shouldResumeWithUnSavedChanges) {
@@ -86,7 +86,7 @@ class _OgacInterventionState extends State<OgacIntervention> {
         context,
         MaterialPageRoute(
           builder: (context) {
-            return OgacEnrollemntForm();
+            return OgacEnrollmentForm();
           },
         ),
       );
@@ -96,10 +96,10 @@ class _OgacInterventionState extends State<OgacIntervention> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(body: SafeArea(
-      child: Consumer<IntervetionCardState>(
-        builder: (context, intervetionCardState, child) {
+      child: Consumer<InterventionCardState>(
+        builder: (context, interventionCardState, child) {
           InterventionCard activeInterventionProgram =
-              intervetionCardState.currentIntervetionProgram;
+              interventionCardState.currentInterventionProgram;
           return Scaffold(
             appBar: PreferredSize(
               preferredSize: Size.fromHeight(90),

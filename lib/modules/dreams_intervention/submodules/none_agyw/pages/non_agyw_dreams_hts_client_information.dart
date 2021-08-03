@@ -102,7 +102,7 @@ class _NonAgywDreamsHTSClientInformationState
   }
 
   void onSaveForm(BuildContext context, Map dataObject, Map hiddenFields) {
-    if (AppUtil.hasAllMandarotyFieldsFilled(
+    if (AppUtil.hasAllMandatoryFieldsFilled(
       mandatoryFields,
       dataObject,
       hiddenFields: hiddenFields,
@@ -131,10 +131,10 @@ class _NonAgywDreamsHTSClientInformationState
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(65.0),
-        child: Consumer<IntervetionCardState>(
-          builder: (context, intervetionCardState, child) {
+        child: Consumer<InterventionCardState>(
+          builder: (context, interventionCardState, child) {
             InterventionCard activeInterventionProgram =
-                intervetionCardState.currentIntervetionProgram;
+                interventionCardState.currentInterventionProgram;
             return SubPageAppBar(
               label: label,
               activeInterventionProgram: activeInterventionProgram,

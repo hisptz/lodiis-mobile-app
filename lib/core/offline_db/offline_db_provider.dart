@@ -4,7 +4,7 @@ import 'package:sqflite/sqflite.dart';
 class OfflineDbProvider {
   final String databaseName = "kb_ovc_dreams_mobile_app_testing";
   Database _db;
-  // Script for migrations as well as intialization of tables
+  // Script for migrations as well as initialization of tables
   final List<String> initialQuery = [
     "CREATE TABLE IF NOT EXISTS current_user (id TEXT PRIMARY KEY, name TEXT, username TEXT, password TEXT , implementingPartner TEXT ,isLogin INTEGER)",
     "CREATE TABLE IF NOT EXISTS current_user_ou (id TEXT PRIMARY KEY, userId TEXT)",

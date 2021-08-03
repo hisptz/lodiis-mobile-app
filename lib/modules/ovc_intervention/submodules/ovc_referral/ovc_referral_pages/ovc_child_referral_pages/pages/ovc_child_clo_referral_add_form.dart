@@ -77,7 +77,8 @@ class _OvcChildCLOReferralAddFormState
     Map dataObject,
     OvcHouseHoldChild currentOvcHouseHoldChild,
   ) async {
-    if (dataObject.keys.length > 1) {// Setting to 1 ignores the first field (NbQGlx6QZpK_clo_type)
+    if (dataObject.keys.length > 1) {
+      // Setting to 1 ignores the first field (NbQGlx6QZpK_clo_type)
       setState(() {
         isSaving = true;
       });
@@ -93,20 +94,19 @@ class _OvcChildCLOReferralAddFormState
       try {
         // print(dataObject['']);
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-          OvcChildCLOReferralConstant.program,
-          dataObject['NbQGlx6QZpK_clo_type'] == "NbQGlx6QZpK_OnGoing"
-              ? OvcChildCLOReferralConstant.referralCLOOutGoingStage
-              : OvcChildCLOReferralConstant.referralCLOOutReceivedStage,
-          currentOvcHouseHoldChild.orgUnit,
-          formSections,
-          dataObject,
-          eventDate,
-          currentOvcHouseHoldChild.id,
-          eventId,
-          hiddenFields,
-          skippedFields: ['NbQGlx6QZpK_clo_type']
-        );
-        Provider.of<ServiveEventDataState>(context, listen: false)
+            OvcChildCLOReferralConstant.program,
+            dataObject['NbQGlx6QZpK_clo_type'] == "NbQGlx6QZpK_OnGoing"
+                ? OvcChildCLOReferralConstant.referralCLOOutGoingStage
+                : OvcChildCLOReferralConstant.referralCLOOutReceivedStage,
+            currentOvcHouseHoldChild.orgUnit,
+            formSections,
+            dataObject,
+            eventDate,
+            currentOvcHouseHoldChild.id,
+            eventId,
+            hiddenFields,
+            skippedFields: ['NbQGlx6QZpK_clo_type']);
+        Provider.of<ServiceEventDataState>(context, listen: false)
             .resetServiceEventDataState(currentOvcHouseHoldChild.id);
         Timer(Duration(seconds: 1), () {
           setState(() {
@@ -144,10 +144,10 @@ class _OvcChildCLOReferralAddFormState
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(65.0),
-        child: Consumer<IntervetionCardState>(
-          builder: (context, intervetionCardState, child) {
+        child: Consumer<InterventionCardState>(
+          builder: (context, interventionCardState, child) {
             InterventionCard activeInterventionProgram =
-                intervetionCardState.currentIntervetionProgram;
+                interventionCardState.currentInterventionProgram;
             return SubPageAppBar(
               label: label,
               activeInterventionProgram: activeInterventionProgram,

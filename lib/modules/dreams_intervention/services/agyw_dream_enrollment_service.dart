@@ -22,7 +22,7 @@ class AgywDreamEnrollmentService {
   final List<FormSection> enrollmentFormSections =
       AgywEnrollmentFormSection.getFormSections();
 
-  Future savingAgwyBeneficiary(
+  Future savingAgywBeneficiary(
       Map dataObject,
       String trackedEntityInstance,
       String orgUnit,
@@ -35,7 +35,7 @@ class AgywDreamEnrollmentService {
     inputFieldIds.addAll(FormUtil.getFormFieldIds(concentFormSections));
     inputFieldIds.addAll(FormUtil.getFormFieldIds(enrollmentFormSections));
 
-    TrackeEntityInstance trackeEntityInstanceData =
+    TrackedEntityInstance trackedEntityInstanceData =
         await FormUtil.geTrackedEntityInstanceEnrollmentPayLoad(
             trackedEntityInstance,
             trackedEntityType,
@@ -43,7 +43,7 @@ class AgywDreamEnrollmentService {
             inputFieldIds,
             dataObject,
             hasBeneficiaryId: false);
-    await FormUtil.savingTrackeEntityInstance(trackeEntityInstanceData);
+    await FormUtil.savingTrackedEntityInstance(trackedEntityInstanceData);
     if (dataObject['trackedEntityInstance'] == null) {
       Enrollment enrollmentData = FormUtil.getEnrollmentPayLoad(
         enrollment,
@@ -73,11 +73,11 @@ class AgywDreamEnrollmentService {
         String createdDate = enrollment.enrollmentDate;
         String enrollmentId = enrollment.enrollment;
 
-        List<TrackeEntityInstance> dataHolds =
+        List<TrackedEntityInstance> dataHolds =
             await TrackedEntityInstanceOfflineProvider()
                 .getTrackedEntityInstanceByIds(
                     [enrollment.trackedEntityInstance]);
-        for (TrackeEntityInstance tei in dataHolds) {
+        for (TrackedEntityInstance tei in dataHolds) {
           agywDreamList.add(AgywDream()
               .fromTeiModel(tei, orgUnit, location, createdDate, enrollmentId));
         }
@@ -93,12 +93,12 @@ class AgywDreamEnrollmentService {
           }).toList();
   }
 
-  Future<List<AgywDream>> getAgywBenficiaryList(
+  Future<List<AgywDream>> getAgywBeneficiaryList(
       {page, String searchableValue = ''}) async {
     List<AgywDream> agywDreamList = [];
     try {
-      List<Enrollment> enrollments = await EnrollmentOfflineProvider()
-          .getEnrollements(program, page: page);
+      List<Enrollment> enrollments =
+          await EnrollmentOfflineProvider().getEnrollments(program, page: page);
       for (Enrollment enrollment in enrollments) {
         // get location
         List<OrganisationUnit> ous = await OrganisationUnitService()
@@ -108,11 +108,11 @@ class AgywDreamEnrollmentService {
         String createdDate = enrollment.enrollmentDate;
         String enrollmentId = enrollment.enrollment;
 
-        List<TrackeEntityInstance> dataHolds =
+        List<TrackedEntityInstance> dataHolds =
             await TrackedEntityInstanceOfflineProvider()
                 .getTrackedEntityInstanceByIds(
                     [enrollment.trackedEntityInstance]);
-        for (TrackeEntityInstance tei in dataHolds) {
+        for (TrackedEntityInstance tei in dataHolds) {
           agywDreamList.add(AgywDream()
               .fromTeiModel(tei, orgUnit, location, createdDate, enrollmentId));
         }

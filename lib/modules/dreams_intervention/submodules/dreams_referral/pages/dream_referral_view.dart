@@ -35,10 +35,10 @@ class _DreamReferralViewState extends State<DreamReferralView> {
     return Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(65.0),
-          child: Consumer<IntervetionCardState>(
-            builder: (context, intervetionCardState, child) {
+          child: Consumer<InterventionCardState>(
+            builder: (context, interventionCardState, child) {
               InterventionCard activeInterventionProgram =
-                  intervetionCardState.currentIntervetionProgram;
+                  interventionCardState.currentInterventionProgram;
               return SubPageAppBar(
                 label: label,
                 activeInterventionProgram: activeInterventionProgram,
@@ -48,14 +48,14 @@ class _DreamReferralViewState extends State<DreamReferralView> {
         ),
         body: SubPageBody(
           body: Container(
-            child: Consumer<DreamBenefeciarySelectionState>(
+            child: Consumer<DreamBeneficiarySelectionState>(
               builder: (context, dreamCurrentSelectionState, child) {
                 var currentDreamAgywBeneficiary =
                     dreamCurrentSelectionState.currentAgywDream;
                 return Container(
                   child: Column(
                     children: [
-                      DreamBenefeciaryTopHeader(
+                      DreamBeneficiaryTopHeader(
                           agywDream: currentDreamAgywBeneficiary),
                       Container(
                         margin: EdgeInsets.symmetric(
@@ -77,7 +77,7 @@ class _DreamReferralViewState extends State<DreamReferralView> {
                                 ReferralOutComeCard(
                                   isOvcIntervention: false,
                                   beneficiary: currentDreamAgywBeneficiary
-                                      .trackeEntityInstanceData,
+                                      .trackedEntityInstanceData,
                                   eventData: widget.eventData,
                                   isEditableMode: false,
                                   referralProgram:

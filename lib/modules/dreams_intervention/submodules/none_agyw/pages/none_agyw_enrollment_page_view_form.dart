@@ -48,20 +48,7 @@ class _NoneAgywEnrollmentViewFormState
       htsClientInformationFormSections =
           NonAgywHTSClientInformation.getFormSections();
       htsRegisterFormSections = NonAgywHTSRegister.getFormSections();
-      // htsConsentForReleaseFormSections =
-      //     NonAgywHTSConsentForReleaseOfStatus.getFormSections();
-      // enrollmentClientIntakeFormSections =
-      //     NoneAgywEnrollmentFormSection.getFormSections();
       formSections.addAll(htsConsentFormSections);
-      // formSections.addAll(enrollmentClientIntakeFormSections
-      //     .map((FormSection consentFormSection) {
-      //   consentFormSection.name = 'HTS Client Intake Record';
-      //   List<InputField> inputFields = consentFormSection.inputFields
-      //       .where((InputField inputField) => inputField.id != 'location')
-      //       .toList();
-      //   consentFormSection.inputFields = inputFields;
-      //   return consentFormSection;
-      // }).toList());
       formSections.addAll(htsClientInformationFormSections);
       formSections.addAll(htsRegisterFormSections);
       if (isBeneficiaryHIVNegative()) {
@@ -95,10 +82,10 @@ class _NoneAgywEnrollmentViewFormState
         child: Scaffold(
             appBar: PreferredSize(
               preferredSize: Size.fromHeight(65.0),
-              child: Consumer<IntervetionCardState>(
-                builder: (context, intervetionCardState, child) {
+              child: Consumer<InterventionCardState>(
+                builder: (context, interventionCardState, child) {
                   InterventionCard activeInterventionProgram =
-                      intervetionCardState.currentIntervetionProgram;
+                      interventionCardState.currentInterventionProgram;
                   return SubPageAppBar(
                     label: label,
                     activeInterventionProgram: activeInterventionProgram,

@@ -10,7 +10,7 @@ import 'package:kb_mobile_app/modules/dreams_intervention/constants/agyw_dreams_
 class AgywDreamsNoneParticipationService {
   final String program = AgywDreamsEnrollmentNoneParticipationConstant.program;
   final String programStage =
-      AgywDreamsEnrollmentNoneParticipationConstant.porgramStage;
+      AgywDreamsEnrollmentNoneParticipationConstant.programStage;
 
   final List<AgywDreamsEnrollmentNoneParticipationConstant>
       noneParticipationConstants = AgywDreamsEnrollmentNoneParticipationConstant

@@ -102,8 +102,8 @@ class _AgywDreamsEnrollmentEditFormState
         demographicInformationFormSection,
         householdInformationFormSection,
       ];
-      enrollmentFormSections.forEach((enrollmentFormsection) {
-        formSections.add(enrollmentFormsection);
+      enrollmentFormSections.forEach((enrollmentFormSection) {
+        formSections.add(enrollmentFormSection);
       });
       formSections = FormUtil.getFormSectionWithReadOnlyStatus(
         formSections,
@@ -155,9 +155,9 @@ class _AgywDreamsEnrollmentEditFormState
     Map dataObject =
         Provider.of<EnrollmentFormState>(context, listen: false).formState;
     String beneficiaryId = dataObject['trackedEntityInstance'] ?? "";
-    String formAutoSaveid =
+    String formAutoSaveId =
         "${DreamsRoutesConstant.agywEnrollmentFormEditPage}_$beneficiaryId";
-    await FormAutoSaveOfflineService().deleteSavedFormAutoData(formAutoSaveid);
+    await FormAutoSaveOfflineService().deleteSavedFormAutoData(formAutoSaveId);
   }
 
   void onInputValueChange(String id, dynamic value) {
@@ -169,7 +169,7 @@ class _AgywDreamsEnrollmentEditFormState
 
   void onSaveForm(BuildContext context, Map dataObject,
       {Map hiddenFields = const {}}) async {
-    bool hadAllMandatoryFilled = AppUtil.hasAllMandarotyFieldsFilled(
+    bool hadAllMandatoryFilled = AppUtil.hasAllMandatoryFieldsFilled(
       mandatoryFields,
       dataObject,
       hiddenFields: hiddenFields,
@@ -192,7 +192,7 @@ class _AgywDreamsEnrollmentEditFormState
         'PN92g65TkVI',
         'klLkGxy328c'
       ];
-      await AgywDreamEnrollmentService().savingAgwyBeneficiary(
+      await AgywDreamEnrollmentService().savingAgywBeneficiary(
         dataObject,
         trackedEntityInstance,
         orgUnit,
@@ -239,10 +239,10 @@ class _AgywDreamsEnrollmentEditFormState
       child: Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(65.0),
-          child: Consumer<IntervetionCardState>(
-            builder: (context, intervetionCardState, child) {
+          child: Consumer<InterventionCardState>(
+            builder: (context, interventionCardState, child) {
               InterventionCard activeInterventionProgram =
-                  intervetionCardState.currentIntervetionProgram;
+                  interventionCardState.currentInterventionProgram;
               return SubPageAppBar(
                 label: label,
                 activeInterventionProgram: activeInterventionProgram,

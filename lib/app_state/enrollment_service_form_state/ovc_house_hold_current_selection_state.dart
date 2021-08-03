@@ -3,7 +3,7 @@ import 'package:kb_mobile_app/models/ovc_house_hold.dart';
 import 'package:kb_mobile_app/models/ovc_house_hold_child.dart';
 
 class OvcHouseHoldCurrentSelectionState with ChangeNotifier {
-  // initiat state
+  // initiate state
   OvcHouseHold _currentOvcHouseHold;
   OvcHouseHoldChild _currentOvcHouseHoldChild;
 

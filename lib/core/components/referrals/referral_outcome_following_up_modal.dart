@@ -27,7 +27,7 @@ class ReferralOutComeFollowUpModal extends StatefulWidget {
   final Color themeColor;
   final String referralToFollowUpLinkage;
   final List<FormSection> referralOutcomeFollowUpFormSections;
-  final TrackeEntityInstance beneficiary;
+  final TrackedEntityInstance beneficiary;
   final String referralFollowUpStage;
   final String referralProgram;
 
@@ -80,7 +80,7 @@ class _ReferralOutComeFollowUpModalState
         Timer(Duration(seconds: 1), () {
           setState(() {
             isSaving = false;
-            Provider.of<ServiveEventDataState>(context, listen: false)
+            Provider.of<ServiceEventDataState>(context, listen: false)
                 .resetServiceEventDataState(
                     widget.beneficiary.trackedEntityInstance);
             String currentLanguage =

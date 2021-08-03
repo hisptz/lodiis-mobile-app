@@ -79,10 +79,10 @@ class _AgywDreamsIndexFollowUpListState
           .setFormFieldState('eventDate', eventData.date);
       Provider.of<ServiceFormState>(context, listen: false)
           .setFormFieldState('eventId', eventData.id);
-      for (Map datavalue in eventData.dataValues) {
-        if (datavalue['value'] != '') {
+      for (Map dataValue in eventData.dataValues) {
+        if (dataValue['value'] != '') {
           Provider.of<ServiceFormState>(context, listen: false)
-              .setFormFieldState(datavalue['dataElement'], datavalue['value']);
+              .setFormFieldState(dataValue['dataElement'], dataValue['value']);
         }
       }
     }
@@ -97,12 +97,12 @@ class _AgywDreamsIndexFollowUpListState
       String eventDate = dataObject['eventDate'];
       String eventId = dataObject['eventId'];
       List<String> hiddenFields = [
-        AgywDreamsHTSFOLLOWUPConstant.indexContactToElicitedPartnerLinkage
+        AgywDreamsHTSFollowUpConstant.indexContactToElicitedPartnerLinkage
       ];
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-          AgywDreamsHTSFOLLOWUPConstant.program,
-          AgywDreamsHTSFOLLOWUPConstant.programStage,
+          AgywDreamsHTSFollowUpConstant.program,
+          AgywDreamsHTSFollowUpConstant.programStage,
           agywDream.orgUnit,
           formSections,
           dataObject,
@@ -111,7 +111,7 @@ class _AgywDreamsIndexFollowUpListState
           eventId,
           hiddenFields,
         );
-        Provider.of<ServiveEventDataState>(context, listen: false)
+        Provider.of<ServiceEventDataState>(context, listen: false)
             .resetServiceEventDataState(agywDream.id);
         Timer(Duration(seconds: 1), () async {
           setState(() {});
@@ -150,7 +150,7 @@ class _AgywDreamsIndexFollowUpListState
   void onAddFollowUp() {
     updateFormState(context, true, null);
     Provider.of<ServiceFormState>(context, listen: false).setFormFieldState(
-        AgywDreamsHTSFOLLOWUPConstant.indexContactToElicitedPartnerLinkage,
+        AgywDreamsHTSFollowUpConstant.indexContactToElicitedPartnerLinkage,
         widget.indexContactEvent.indexContactToElicitedPartnerLinkage);
     Navigator.push(
       context,
@@ -165,10 +165,10 @@ class _AgywDreamsIndexFollowUpListState
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(65.0),
-        child: Consumer<IntervetionCardState>(
-          builder: (context, intervetionCardState, child) {
+        child: Consumer<InterventionCardState>(
+          builder: (context, interventionCardState, child) {
             InterventionCard activeInterventionProgram =
-                intervetionCardState.currentIntervetionProgram;
+                interventionCardState.currentInterventionProgram;
             return SubPageAppBar(
               label: label,
               activeInterventionProgram: activeInterventionProgram,
@@ -180,9 +180,9 @@ class _AgywDreamsIndexFollowUpListState
         body: Container(
           child: Consumer<LanguageTranslationState>(
             builder: (context, languageTranslationState, child) {
-              return Consumer<DreamBenefeciarySelectionState>(
+              return Consumer<DreamBeneficiarySelectionState>(
                 builder: (context, dreamBeneficiarySelectionState, child) {
-                  return Consumer<ServiveEventDataState>(
+                  return Consumer<ServiceEventDataState>(
                     builder: (context, serviceFormState, child) {
                       AgywDream agywDream =
                           dreamBeneficiarySelectionState.currentAgywDream;
@@ -192,7 +192,7 @@ class _AgywDreamsIndexFollowUpListState
                           TrackedEntityInstanceUtil
                               .getAllEventListFromServiceDataStateByProgramStages(
                                   eventListByProgramStage,
-                                  [AgywDreamsHTSFOLLOWUPConstant.programStage]);
+                                  [AgywDreamsHTSFollowUpConstant.programStage]);
                       List<IndexContactFollowUpModel> followUpList =
                           indexContactFollowUpEvents
                               .map((e) =>
@@ -208,7 +208,7 @@ class _AgywDreamsIndexFollowUpListState
                       int eventNo = followUpList.length + 1;
                       return Column(
                         children: [
-                          DreamBenefeciaryTopHeader(
+                          DreamBeneficiaryTopHeader(
                             agywDream: agywDream,
                           ),
                           Padding(

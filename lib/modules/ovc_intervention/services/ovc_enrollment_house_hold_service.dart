@@ -22,7 +22,7 @@ class OvcEnrollmentHouseHoldService {
   final List<String> hiddenFields = OvcEnrollmentHouseHold.getHiddenField();
   final List<String> consentFields = OvcEnrollmentConstant.getConsentFields();
 
-  Future savingHouseHoldform(
+  Future savingHouseHoldForm(
       Map dataObject,
       String trackedEntityInstance,
       String orgUnit,
@@ -37,7 +37,7 @@ class OvcEnrollmentHouseHoldService {
     hiddenFields = hiddenFields ?? [];
     inputFieldIds.addAll(consentFields);
     inputFieldIds.addAll(hiddenFields);
-    TrackeEntityInstance trackeEntityInstanceData =
+    TrackedEntityInstance trackedEntityInstanceData =
         await FormUtil.geTrackedEntityInstanceEnrollmentPayLoad(
             trackedEntityInstance,
             trackedEntityType,
@@ -45,7 +45,7 @@ class OvcEnrollmentHouseHoldService {
             inputFieldIds,
             dataObject,
             hasBeneficiaryId: false);
-    await FormUtil.savingTrackeEntityInstance(trackeEntityInstanceData);
+    await FormUtil.savingTrackedEntityInstance(trackedEntityInstanceData);
     if (shouldEnroll) {
       Enrollment enrollmentData = FormUtil.getEnrollmentPayLoad(
           enrollment,
@@ -62,11 +62,11 @@ class OvcEnrollmentHouseHoldService {
       {page, String searchableValue = ''}) async {
     List<OvcHouseHold> ovchouseHoldList = [];
 
-    List<TrackeEntityInstance> allTrackedEntityInstanceList = [];
+    List<TrackedEntityInstance> allTrackedEntityInstanceList = [];
 
     try {
-      List<Enrollment> enrollments = await EnrollmentOfflineProvider()
-          .getEnrollements(program, page: page);
+      List<Enrollment> enrollments =
+          await EnrollmentOfflineProvider().getEnrollments(program, page: page);
       allTrackedEntityInstanceList =
           await TrackedEntityInstanceOfflineProvider()
               .getTrackedEntityInstanceByIds(enrollments
@@ -82,31 +82,31 @@ class OvcEnrollmentHouseHoldService {
         String orgUnit = enrollment.orgUnit;
         String createdDate = enrollment.enrollmentDate;
         //loading households
-        List<TrackeEntityInstance> houseHolds = allTrackedEntityInstanceList
+        List<TrackedEntityInstance> houseHolds = allTrackedEntityInstanceList
             .where((tei) =>
                 tei.trackedEntityInstance == enrollment.trackedEntityInstance)
             .toList();
         // loop house hold/caregiver
-        for (TrackeEntityInstance tei in houseHolds) {
+        for (TrackedEntityInstance tei in houseHolds) {
           List<TeiRelationship> relationships =
               await TeiRelatioShipOfflineProvider()
                   .getTeirelationShips(tei.trackedEntityInstance);
           List<String> childTeiIds = relationships
               .map((TeiRelationship relationship) => relationship.toTei)
               .toList();
-          List<TrackeEntityInstance> houseHoldChildrenTeiData =
+          List<TrackedEntityInstance> houseHoldChildrenTeiData =
               await TrackedEntityInstanceOfflineProvider()
                   .getTrackedEntityInstanceByIds(childTeiIds);
           //assign household data
           List<OvcHouseHoldChild> houseHoldChildren = houseHoldChildrenTeiData
-              .map((TrackeEntityInstance child) =>
+              .map((TrackedEntityInstance child) =>
                   OvcHouseHoldChild().fromTeiModel(child, orgUnit, createdDate))
               .toList();
           // update ovc counts
           try {
             tei =
                 getUpdatedHouseHoldWithOvcCounts(tei, houseHoldChildrenTeiData);
-            FormUtil.savingTrackeEntityInstance(tei);
+            FormUtil.savingTrackedEntityInstance(tei);
           } catch (e) {}
           ovchouseHoldList.add(OvcHouseHold().fromTeiModel(
               tei, location, orgUnit, createdDate, houseHoldChildren));
@@ -127,9 +127,9 @@ class OvcEnrollmentHouseHoldService {
     return await EnrollmentOfflineProvider().getEnrollmentsCount(program);
   }
 
-  TrackeEntityInstance getUpdatedHouseHoldWithOvcCounts(
-    TrackeEntityInstance trackeEntityInstanceData,
-    List<TrackeEntityInstance> houseHoldChildren,
+  TrackedEntityInstance getUpdatedHouseHoldWithOvcCounts(
+    TrackedEntityInstance trackedEntityInstanceData,
+    List<TrackedEntityInstance> houseHoldChildren,
   ) {
     int male = 0;
     int female = 0;
@@ -148,7 +148,7 @@ class OvcEnrollmentHouseHoldService {
       }
     }
     List<dynamic> attributes = [];
-    for (Map attributeObj in trackeEntityInstanceData.attributes) {
+    for (Map attributeObj in trackedEntityInstanceData.attributes) {
       String value = attributeObj['value'];
       if (attributeObj['attribute'] == 'kQehaqmaygZ') {
         value = male.toString();
@@ -161,7 +161,7 @@ class OvcEnrollmentHouseHoldService {
       newMap['value'] = value;
       attributes.add(newMap);
     }
-    trackeEntityInstanceData.attributes = attributes;
-    return trackeEntityInstanceData;
+    trackedEntityInstanceData.attributes = attributes;
+    return trackedEntityInstanceData;
   }
 }

@@ -23,13 +23,13 @@ class _InterventionSelectionState extends State<InterventionSelection> {
   List<InterventionCard> interventionPrograms =
       InterventionCard.getInterventions();
 
-  Color primmaryColor = CustomColor.defaultPrimaryColor;
+  Color primaryColor = CustomColor.defaultPrimaryColor;
   bool hasDataLoaded = false;
 
-  void onIntervetionSelection(InterventionCard interventionProgram) {
+  void onInterventionSelection(InterventionCard interventionProgram) {
     setState(() {
-      AppUtil.setStatusBarColor(interventionProgram.primmaryColor);
-      primmaryColor = interventionProgram.primmaryColor;
+      AppUtil.setStatusBarColor(interventionProgram.primaryColor);
+      primaryColor = interventionProgram.primaryColor;
     });
   }
 
@@ -64,7 +64,7 @@ class _InterventionSelectionState extends State<InterventionSelection> {
           fit: StackFit.expand,
           children: [
             Container(
-              decoration: BoxDecoration(color: primmaryColor),
+              decoration: BoxDecoration(color: primaryColor),
             ),
             Container(child: Consumer<OvcInterventionListState>(
               builder: (context, ovcInterventionListState, child) {
@@ -96,8 +96,8 @@ class _InterventionSelectionState extends State<InterventionSelection> {
                                 ? CircularProcessLoader()
                                 : InterventionSelectionContainer(
                                     interventionPrograms: interventionPrograms,
-                                    onIntervetionSelection:
-                                        onIntervetionSelection,
+                                    onInterventionSelection:
+                                        onInterventionSelection,
                                     numberOfHouseHolds: numberOfHouseHolds,
                                     numberOfAgywDreamsBeneficiaries:
                                         numberOfAgywDreamsBeneficiaries,

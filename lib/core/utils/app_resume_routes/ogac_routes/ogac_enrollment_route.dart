@@ -13,7 +13,7 @@ class OgacEnrollmentRoute {
       context,
       MaterialPageRoute(
         builder: (context) {
-          return OgacEnrollemntForm();
+          return OgacEnrollmentForm();
         },
       ),
     );

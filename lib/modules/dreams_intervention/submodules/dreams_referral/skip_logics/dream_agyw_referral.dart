@@ -154,14 +154,14 @@ class DreamAgywReferralSkipLogic {
           referralServiceHiddenOptions['Gender Based Violence'] = true;
           referralServiceHiddenOptions['Domestic Violence Support group'] =
               true;
-          // rreferralServiceHiddenOptions['Violence Against Children'] = true;
+          // referralServiceHiddenOptions['Violence Against Children'] = true;
         }
-        Map hiddenReferralServicesByImplemetingPartner =
-            getAllImplemetingPartnerHiddenServices(
+        Map hiddenReferralServicesByImplementingPartner =
+            getAllImplementingPartnerHiddenServices(
                 referralServicesByImplementingPartners,
                 implementingPartnerValue);
         referralServiceHiddenOptions
-            .addAll(hiddenReferralServicesByImplemetingPartner);
+            .addAll(hiddenReferralServicesByImplementingPartner);
         hiddenInputFieldOptions['rsh5Kvx6qAU'] = referralServiceHiddenOptions;
       }
       if (inputFieldId == 'AuCryxQYmrk' && value != 'null') {
@@ -177,7 +177,7 @@ class DreamAgywReferralSkipLogic {
           referralServiceHiddenOptions['PLHIV support group'] = true;
           referralServiceHiddenOptions['Referral to post abuse care services'] =
               true;
-          // rreferralServiceHiddenOptions['Violence Against Children'] = true;
+          // referralServiceHiddenOptions['Violence Against Children'] = true;
           // referralServiceHiddenOptions['CAG'] = true;
           // referralServiceHiddenOptions['Home based care visits'] = true;
           referralServiceHiddenOptions['Educational and vocational support'] =
@@ -274,23 +274,23 @@ class DreamAgywReferralSkipLogic {
               true;
           // rreferralServiceHiddenOptions['Violence Against Children'] = true;
         }
-        Map hiddenReferralServicesByImplemetingPartner =
-            getAllImplemetingPartnerHiddenServices(
+        Map hiddenReferralServicesByImplementingPartner =
+            getAllImplementingPartnerHiddenServices(
                 referralServicesByImplementingPartners,
                 implementingPartnerValue);
         referralServiceHiddenOptions
-            .addAll(hiddenReferralServicesByImplemetingPartner);
+            .addAll(hiddenReferralServicesByImplementingPartner);
         hiddenInputFieldOptions['OrC9Bh2bcFz'] = referralServiceHiddenOptions;
       }
     }
     for (String sectionId in hiddenSections.keys) {
       List<FormSection> allFormSections =
           FormUtil.getFlattenFormSections(formSections);
-      List<String> hidddenSectionInputFieldIds = FormUtil.getFormFieldIds(
+      List<String> hiddenSectionInputFieldIds = FormUtil.getFormFieldIds(
           allFormSections
               .where((formSection) => formSection.id == sectionId)
               .toList());
-      for (String inputFieldId in hidddenSectionInputFieldIds) {
+      for (String inputFieldId in hiddenSectionInputFieldIds) {
         hiddenFields[inputFieldId] = true;
       }
     }
@@ -299,7 +299,7 @@ class DreamAgywReferralSkipLogic {
     resetValuesForHiddenSections(context, formSections);
   }
 
-  static Map getAllImplemetingPartnerHiddenServices(
+  static Map getAllImplementingPartnerHiddenServices(
       Map<String, dynamic> referralServicesByImplementingPartners,
       String implementingPartnerValue) {
     List<String> referralServices =
@@ -308,13 +308,13 @@ class DreamAgywReferralSkipLogic {
         getReferralServicesByIP(
             data: referralServicesByImplementingPartners,
             ip: implementingPartnerValue);
-    Map hiddedReferralServices = Map();
+    Map hiddenReferralServices = Map();
     referralServices.forEach((service) => {
           if (allImplementingPartnerReferralServices.indexOf(service) == -1)
-            {hiddedReferralServices[service] = true}
+            {hiddenReferralServices[service] = true}
         });
 
-    return hiddedReferralServices;
+    return hiddenReferralServices;
   }
 
   static List<String> getAllReferralServices(Map<String, dynamic> data) {

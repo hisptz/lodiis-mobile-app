@@ -27,13 +27,6 @@ class NoneAgywEnrollmentSkipLogic {
       inputFieldIds.add('$key');
     }
     inputFieldIds = inputFieldIds.toSet().toList();
-    // dataObject[NonAgywPrepVisitConstant.clientWeight] =
-    //     dataObject[NonAgywDreamsHTSConstant.weight];
-    // assign facility name
-    // dataObject['YDxOvZTdzAc'] = dataObject['atNbeYwzMq6'];
-    // assign date
-    // dataObject['oZPPEMZ0hXt'] =
-    //     '${AppUtil.formattedDateTimeIntoString(DateTime.now())}';
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
       if (inputFieldId == 'qZP982qpSPS') {
@@ -155,11 +148,6 @@ class NoneAgywEnrollmentSkipLogic {
       if (inputFieldId == 'RXS4fNXVKMl' && value != 'true') {
         hiddenFields['LZFhD0N9Zj5'] = true;
       }
-      // if ('${dataObject['eXp9ASOufpR']}' != 'null' &&
-      //     '${dataObject['qsujYWhB0DP']}' != 'null') {
-      //   dataObject['eXp9ASOufpR_bmi'] = calculateBMI(
-      //       '${dataObject['eXp9ASOufpR']}', '${dataObject['qsujYWhB0DP']}');
-      // }
       if (inputFieldId == 'vkd6o91n1IC') {
         if (dataObject['vIX4GTSCX4P'] == 'Male') {
           dataObject[inputFieldId] = 'NON-AGYW';
@@ -200,7 +188,7 @@ class NoneAgywEnrollmentSkipLogic {
       }
       // Assign type of test used
       // if (inputFieldId == '') {}
-      // assing Rapid test result
+      // assigning Rapid test result
       if (dataObject[NonAgywDreamsHTSConstant.t1Result] == null &&
           dataObject[NonAgywDreamsHTSConstant.t2Result] == null) {
         hiddenFields[NonAgywPrepVisitConstant.prepRapidTestResult1] = true;
@@ -326,11 +314,11 @@ class NoneAgywEnrollmentSkipLogic {
     for (String sectionId in hiddenSections.keys) {
       List<FormSection> allFormSections =
           FormUtil.getFlattenFormSections(formSections);
-      List<String> hidddenSectionInputFieldIds = FormUtil.getFormFieldIds(
+      List<String> hiddenSectionInputFieldIds = FormUtil.getFormFieldIds(
           allFormSections
               .where((formSection) => formSection.id == sectionId)
               .toList());
-      for (String inputFieldId in hidddenSectionInputFieldIds) {
+      for (String inputFieldId in hiddenSectionInputFieldIds) {
         hiddenFields[inputFieldId] = true;
       }
     }

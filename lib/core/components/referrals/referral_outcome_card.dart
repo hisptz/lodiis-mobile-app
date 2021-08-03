@@ -4,7 +4,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
-import 'package:kb_mobile_app/core/components/line_seperator.dart';
+import 'package:kb_mobile_app/core/components/line_separator.dart';
 import 'package:kb_mobile_app/core/components/referrals/referral_outcome_view_container.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
@@ -34,7 +34,7 @@ class ReferralOutComeCard extends StatefulWidget {
   }) : super(key: key);
 
   final Events eventData;
-  final TrackeEntityInstance beneficiary;
+  final TrackedEntityInstance beneficiary;
   final String referralFollowUpStage;
   final String referralToFollowUpLinkage;
   final String referralProgram;
@@ -90,10 +90,10 @@ class _ReferralOutComeCardState extends State<ReferralOutComeCard> {
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
     Provider.of<ServiceFormState>(context, listen: false)
         .updateFormEditabilityState(isEditableMode: true);
-    for (Map datavalue in eventData.dataValues) {
-      if (datavalue['value'] != '') {
+    for (Map dataValue in eventData.dataValues) {
+      if (dataValue['value'] != '') {
         Provider.of<ServiceFormState>(context, listen: false)
-            .setFormFieldState(datavalue['dataElement'], datavalue['value']);
+            .setFormFieldState(dataValue['dataElement'], dataValue['value']);
       }
     }
   }
@@ -171,7 +171,7 @@ class _ReferralOutComeCardState extends State<ReferralOutComeCard> {
                       ),
                       child: Column(
                         children: [
-                          LineSeperator(
+                          LineSeparator(
                             color: themeColor.withOpacity(0.2),
                           ),
                           Row(

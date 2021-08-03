@@ -21,7 +21,7 @@ class AgywDream {
   String beneficiaryType;
   String phoneNumber;
   String village;
-  TrackeEntityInstance trackeEntityInstanceData;
+  TrackedEntityInstance trackedEntityInstanceData;
 
   AgywDream(
       {this.id,
@@ -42,9 +42,9 @@ class AgywDream {
       this.beneficiaryType,
       this.phoneNumber,
       this.village,
-      this.trackeEntityInstanceData});
+      this.trackedEntityInstanceData});
   AgywDream fromTeiModel(
-    TrackeEntityInstance trackeEntityInstance,
+    TrackedEntityInstance trackedEntityInstance,
     String orgUnit,
     String location,
     String createdDate,
@@ -65,7 +65,7 @@ class AgywDream {
       BeneficiaryIdentification.primaryUIC
     ];
     Map data = Map();
-    for (Map detailObj in trackeEntityInstance.attributes) {
+    for (Map detailObj in trackedEntityInstance.attributes) {
       String attribute = detailObj['attribute'];
       if (attribute != null && keys.indexOf(attribute) > -1) {
         data[attribute] = '${detailObj['value']}'.trim() ?? '';
@@ -73,7 +73,7 @@ class AgywDream {
     }
     int age = AppUtil.getAgeInYear(data['qZP982qpSPS']);
     return AgywDream(
-      id: trackeEntityInstance.trackedEntityInstance,
+      id: trackedEntityInstance.trackedEntityInstance,
       firstname: data['WTZ7GLTrE8Q'] ?? '',
       middlename: data['s1HaiT6OllL'] ?? '',
       surname: data['rSP9c21JsfC'] ?? '',
@@ -93,7 +93,7 @@ class AgywDream {
       searchableValue:
           "${data['WTZ7GLTrE8Q'] ?? ''} ${data['s1HaiT6OllL'] ?? ''} ${data['rSP9c21JsfC'] ?? ''} $age ${agywAgeBand(age) ?? ''} ${data[BeneficiaryIdentification.beneficiaryId] ?? ''} ${data['VJiWumvINR6'] ?? ''} ${data['klLkGxy328c'] ?? ''} $location $createdDate"
               .toLowerCase(),
-      trackeEntityInstanceData: trackeEntityInstance,
+      trackedEntityInstanceData: trackedEntityInstance,
     );
   }
 

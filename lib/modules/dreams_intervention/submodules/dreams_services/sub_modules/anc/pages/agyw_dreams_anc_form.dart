@@ -90,7 +90,7 @@ class _AgywDreamsANCFormState extends State<AgywDreamsANCForm> {
             agywDream.id,
             eventId,
             hiddenFields);
-        Provider.of<ServiveEventDataState>(context, listen: false)
+        Provider.of<ServiceEventDataState>(context, listen: false)
             .resetServiceEventDataState(agywDream.id);
         Timer(Duration(seconds: 1), () {
           setState(() {
@@ -127,10 +127,10 @@ class _AgywDreamsANCFormState extends State<AgywDreamsANCForm> {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(65.0),
-        child: Consumer<IntervetionCardState>(
-          builder: (context, intervetionCardState, child) {
+        child: Consumer<InterventionCardState>(
+          builder: (context, interventionCardState, child) {
             InterventionCard activeInterventionProgram =
-                intervetionCardState.currentIntervetionProgram;
+                interventionCardState.currentInterventionProgram;
             return SubPageAppBar(
               label: label,
               activeInterventionProgram: activeInterventionProgram,
@@ -143,7 +143,7 @@ class _AgywDreamsANCFormState extends State<AgywDreamsANCForm> {
           child: Consumer<LanguageTranslationState>(
             builder: (context, languageTranslationState, child) {
               String currentLanguage = languageTranslationState.currentLanguage;
-              return Consumer<DreamBenefeciarySelectionState>(
+              return Consumer<DreamBeneficiarySelectionState>(
                 builder: (context, nonAgywState, child) {
                   AgywDream agywDream = nonAgywState.currentAgywDream;
                   return Consumer<ServiceFormState>(
@@ -151,7 +151,7 @@ class _AgywDreamsANCFormState extends State<AgywDreamsANCForm> {
                       return Container(
                         child: Column(
                           children: [
-                            DreamBenefeciaryTopHeader(
+                            DreamBeneficiaryTopHeader(
                               agywDream: agywDream,
                             ),
                             !isFormReady

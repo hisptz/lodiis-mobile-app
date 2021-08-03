@@ -18,7 +18,7 @@ class IndexContactFollowUpModel {
 
   IndexContactFollowUpModel fromTeiModel(Events eventData) {
     List keys = [
-      AgywDreamsHTSFOLLOWUPConstant.indexContactToElicitedPartnerLinkage
+      AgywDreamsHTSFollowUpConstant.indexContactToElicitedPartnerLinkage
     ];
     Map data = Map();
     for (Map detailObj in eventData.dataValues) {
@@ -31,7 +31,7 @@ class IndexContactFollowUpModel {
       id: eventData.event,
       date: eventData.eventDate,
       dataValues: eventData.dataValues,
-      indexContactToElicitedPartnerLinkage: data[AgywDreamsHTSFOLLOWUPConstant
+      indexContactToElicitedPartnerLinkage: data[AgywDreamsHTSFollowUpConstant
               .indexContactToElicitedPartnerLinkage] ??
           '',
       eventData: eventData,

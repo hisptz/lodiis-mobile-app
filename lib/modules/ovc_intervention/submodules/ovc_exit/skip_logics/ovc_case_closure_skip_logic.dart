@@ -27,9 +27,6 @@ mixin OvcCaseClosureSkipLogic {
     }
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
-      // if(inputFieldId == 'S6vcaNyPT5a' ) {
-      //   // print(value);
-      // }
 
       if (inputFieldId == 'D9boflKTCM4' && value == 'CasePlanAchievement') {
         hiddenFields['Mgvli43II0y'] = false;
@@ -55,11 +52,11 @@ mixin OvcCaseClosureSkipLogic {
     for (String sectionId in hiddenSections.keys) {
       List<FormSection> allFormSections =
           FormUtil.getFlattenFormSections(formSections);
-      List<String> hidddenSectionInputFieldIds = FormUtil.getFormFieldIds(allFormSections
-          .where((formSection) => formSection.id == sectionId)
-          .toList());      
-      for (String inputFieldId in hidddenSectionInputFieldIds) {
-
+      List<String> hiddenSectionInputFieldIds = FormUtil.getFormFieldIds(
+          allFormSections
+              .where((formSection) => formSection.id == sectionId)
+              .toList());
+      for (String inputFieldId in hiddenSectionInputFieldIds) {
         hiddenFields[inputFieldId] = true;
       }
     }

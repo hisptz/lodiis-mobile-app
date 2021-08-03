@@ -104,10 +104,10 @@ class OvcHouseHoldService extends StatelessWidget {
     return Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(65.0),
-          child: Consumer<IntervetionCardState>(
-            builder: (context, intervetionCardState, child) {
+          child: Consumer<InterventionCardState>(
+            builder: (context, interventionCardState, child) {
               InterventionCard activeInterventionProgram =
-                  intervetionCardState.currentIntervetionProgram;
+                  interventionCardState.currentInterventionProgram;
               return SubPageAppBar(
                 label: label,
                 activeInterventionProgram: activeInterventionProgram,
@@ -128,11 +128,11 @@ class OvcHouseHoldService extends StatelessWidget {
                         currentOvcHouseHold: currentOvcHouseHold,
                       ),
                       Container(
-                        child: Consumer<ServiveEventDataState>(
-                          builder: (context, serviveEventDataState, child) {
-                            bool isLoading = serviveEventDataState.isLoading;
+                        child: Consumer<ServiceEventDataState>(
+                          builder: (context, serviceEventDataState, child) {
+                            bool isLoading = serviceEventDataState.isLoading;
                             Map<String, List<Events>> eventListByProgramStage =
-                                serviveEventDataState.eventListByProgramStage;
+                                serviceEventDataState.eventListByProgramStage;
                             return isLoading
                                 ? CircularProcessLoader(
                                     color: Colors.blueGrey,

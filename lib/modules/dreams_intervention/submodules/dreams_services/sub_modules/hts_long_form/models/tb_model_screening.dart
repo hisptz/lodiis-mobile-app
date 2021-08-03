@@ -4,20 +4,18 @@ class DreamsHTSTBEvent {
   String id;
   String date;
   String htsTBLinkage;
-  dynamic datavalues;
+  dynamic dataValues;
   Events eventData;
 
   DreamsHTSTBEvent({
     this.id,
     this.date,
     this.htsTBLinkage,
-    this.datavalues,
+    this.dataValues,
     this.eventData,
   });
 
- DreamsHTSTBEvent fromTeiModel(
-    Events eventData
-  ) {
+  DreamsHTSTBEvent fromTeiModel(Events eventData) {
     List keys = [
       'A4Fl5p0ZBhX',
     ];
@@ -31,7 +29,7 @@ class DreamsHTSTBEvent {
     return DreamsHTSTBEvent(
       id: eventData.event,
       date: eventData.eventDate,
-      datavalues:eventData.dataValues,
+      dataValues: eventData.dataValues,
       htsTBLinkage: data['A4Fl5p0ZBhX'] ?? '',
       eventData: eventData,
     );
@@ -39,6 +37,6 @@ class DreamsHTSTBEvent {
 
   @override
   String toString() {
-    return '$id $date $datavalues';
+    return '$id $date $dataValues';
   }
 }

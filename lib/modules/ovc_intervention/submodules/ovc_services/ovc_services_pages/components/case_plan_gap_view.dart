@@ -4,7 +4,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_house_hold_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
-import 'package:kb_mobile_app/core/components/line_seperator.dart';
+import 'package:kb_mobile_app/core/components/line_separator.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
@@ -130,7 +130,7 @@ class _CasePlanGapViewState extends State<CasePlanGapView> {
       String beneficiaryId = widget.isCasePlanForHouseHold
           ? currentOvcHouseHold.id
           : currentOvcHouseHoldChild.id;
-      Provider.of<ServiveEventDataState>(context, listen: false)
+      Provider.of<ServiceEventDataState>(context, listen: false)
           .resetServiceEventDataState(beneficiaryId);
       await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
         program,
@@ -270,7 +270,7 @@ class _CasePlanGapViewState extends State<CasePlanGapView> {
                                         ),
                                       ],
                                     ),
-                                    LineSeperator(
+                                    LineSeparator(
                                         color: widget.formSectionColor
                                             .withOpacity(0.5))
                                   ],

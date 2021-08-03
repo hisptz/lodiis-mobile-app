@@ -92,7 +92,7 @@ class _OvcEnrollmentHouseHoldEditFormState
 
   void onSaveForm(BuildContext context, Map dataObject) async {
     bool hadAllMandatoryFilled =
-        AppUtil.hasAllMandarotyFieldsFilled(mandatoryFields, dataObject);
+        AppUtil.hasAllMandatoryFieldsFilled(mandatoryFields, dataObject);
     if (hadAllMandatoryFilled) {
       setState(() {
         isSaving = true;
@@ -107,7 +107,7 @@ class _OvcEnrollmentHouseHoldEditFormState
         BeneficiaryIdentification.beneficiaryIndex,
         'PN92g65TkVI'
       ];
-      await OvcEnrollmentHouseHoldService().savingHouseHoldform(
+      await OvcEnrollmentHouseHoldService().savingHouseHoldForm(
         dataObject,
         trackedEntityInstance,
         orgUnit,
@@ -138,7 +138,8 @@ class _OvcEnrollmentHouseHoldEditFormState
       });
     } else {
       setState(() {
-        unFilledMandatoryFields = AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+        unFilledMandatoryFields =
+            AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
       });
       AppUtil.showToastMessage(
           message: 'Please fill all mandatory field',
@@ -152,10 +153,10 @@ class _OvcEnrollmentHouseHoldEditFormState
         child: Scaffold(
             appBar: PreferredSize(
               preferredSize: Size.fromHeight(65.0),
-              child: Consumer<IntervetionCardState>(
-                builder: (context, intervetionCardState, child) {
+              child: Consumer<InterventionCardState>(
+                builder: (context, interventionCardState, child) {
                   InterventionCard activeInterventionProgram =
-                      intervetionCardState.currentIntervetionProgram;
+                      interventionCardState.currentInterventionProgram;
                   return SubPageAppBar(
                     label: label,
                     activeInterventionProgram: activeInterventionProgram,
@@ -195,7 +196,7 @@ class _OvcEnrollmentHouseHoldEditFormState
                                     dataObject: enrollmentFormState.formState,
                                     onInputValueChange: onInputValueChange,
                                     unFilledMandatoryFields:
-                                    unFilledMandatoryFields,
+                                        unFilledMandatoryFields,
                                   ),
                                 ),
                                 EntryFormSaveButton(

@@ -118,7 +118,7 @@ class _CasePlanFollowUpFormContainerState
           setState(() {
             isSaving = false;
           });
-          Provider.of<ServiveEventDataState>(context, listen: false)
+          Provider.of<ServiceEventDataState>(context, listen: false)
               .resetServiceEventDataState(beneficiaryId);
           String currentLanguage =
               Provider.of<LanguageTranslationState>(context, listen: false)

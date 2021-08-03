@@ -50,18 +50,6 @@ class OvcHouseHoldEnrollmentSkipLogic {
 
     if (dataObject['children'] != null) {
       List<Map> children = dataObject['children'];
-
-      // if (children.every((child) => '${child['YR7Xxk14qoP']}' == 'false')) {
-      //   assignInputFieldValue(context, 'mZsmHPVyXV1', 'false');
-      // } else {
-      //   assignInputFieldValue(context, 'mZsmHPVyXV1', 'true');
-      // }
-
-      // if (children.every((child) => '${child['wmKqYZML8GA']}' == 'false')) {
-      //   assignInputFieldValue(context, 'M9uM11xcHG3', 'false');
-      // } else {
-      //   assignInputFieldValue(context, 'M9uM11xcHG3', 'true');
-      // }
       try {
         if (children
             .every((child) => int.parse('${child['ls9hlz2tyol']}') > 5)) {
@@ -145,11 +133,11 @@ class OvcHouseHoldEnrollmentSkipLogic {
     for (String sectionId in hiddenSections.keys) {
       List<FormSection> allFormSections =
           FormUtil.getFlattenFormSections(formSections);
-      List<String> hidddenSectionInputFieldIds = FormUtil.getFormFieldIds(allFormSections
-          .where((formSection) => formSection.id == sectionId)
-          .toList());      
-      for (String inputFieldId in hidddenSectionInputFieldIds) {
-
+      List<String> hiddenSectionInputFieldIds = FormUtil.getFormFieldIds(
+          allFormSections
+              .where((formSection) => formSection.id == sectionId)
+              .toList());
+      for (String inputFieldId in hiddenSectionInputFieldIds) {
         hiddenFields[inputFieldId] = true;
       }
     }

@@ -16,7 +16,6 @@ import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
-import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
@@ -69,8 +68,6 @@ class _AgywDreamsServiceFormState extends State<AgywDreamsServiceForm> {
       () async {
         Map dataObject =
             Provider.of<ServiceFormState>(context, listen: false).formState;
-        CurrentUser currentUser =
-            Provider.of<CurrentUserState>(context, listen: false).currentUser;
         await AgywDreamsServiceFormSkipLogic.evaluateSkipLogics(
             context, formSections, dataObject,
             isFormEdited: widget.isFormEdited,
@@ -112,7 +109,7 @@ class _AgywDreamsServiceFormState extends State<AgywDreamsServiceForm> {
   void onSaveForm(
       BuildContext context, Map dataObject, AgywDream agywDream) async {
     bool hadAllMandatoryFilled =
-        AppUtil.hasAllMandarotyFieldsFilled(mandatoryFields, dataObject);
+        AppUtil.hasAllMandatoryFieldsFilled(mandatoryFields, dataObject);
     if (hadAllMandatoryFilled) {
       if (FormUtil.geFormFilledStatus(dataObject, formSections)) {
         bool shouldSaveForm =
@@ -151,7 +148,7 @@ class _AgywDreamsServiceFormState extends State<AgywDreamsServiceForm> {
                       eventId,
                       hiddenFields,
                       skippedFields: skippedFields);
-              Provider.of<ServiveEventDataState>(context, listen: false)
+              Provider.of<ServiceEventDataState>(context, listen: false)
                   .resetServiceEventDataState(agywDream.id);
               Timer(Duration(seconds: 1), () {
                 setState(() {
@@ -206,10 +203,10 @@ class _AgywDreamsServiceFormState extends State<AgywDreamsServiceForm> {
     return Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(65.0),
-          child: Consumer<IntervetionCardState>(
-            builder: (context, intervetionCardState, child) {
+          child: Consumer<InterventionCardState>(
+            builder: (context, interventionCardState, child) {
               InterventionCard activeInterventionProgram =
-                  intervetionCardState.currentIntervetionProgram;
+                  interventionCardState.currentInterventionProgram;
               return SubPageAppBar(
                 label: label,
                 activeInterventionProgram: activeInterventionProgram,
@@ -223,7 +220,7 @@ class _AgywDreamsServiceFormState extends State<AgywDreamsServiceForm> {
               builder: (context, languageTranslationState, child) {
                 String currentLanguage =
                     languageTranslationState.currentLanguage;
-                return Consumer<DreamBenefeciarySelectionState>(
+                return Consumer<DreamBeneficiarySelectionState>(
                   builder: (context, nonAgywState, child) {
                     AgywDream agywDream = nonAgywState.currentAgywDream;
                     return Consumer<ServiceFormState>(
@@ -231,7 +228,7 @@ class _AgywDreamsServiceFormState extends State<AgywDreamsServiceForm> {
                         return Container(
                           child: Column(
                             children: [
-                              DreamBenefeciaryTopHeader(
+                              DreamBeneficiaryTopHeader(
                                 agywDream: agywDream,
                               ),
                               !isFormReady

@@ -17,29 +17,28 @@ class OvcHouseHoldCard extends StatelessWidget {
     @required this.canExpand,
     @required this.isExpanded,
     @required this.cardBody,
-    @required this.cardBottonActions,
-    @required this.cardBottonContent,
-    this.onCardToogle,
+    @required this.cardButtonActions,
+    @required this.cardButtonContent,
+    this.onCardToggle,
   }) : super(key: key);
 
   final OvcHouseHold ovcHouseHold;
   final Widget cardBody;
-  final Widget cardBottonActions;
-  final Widget cardBottonContent;
+  final Widget cardButtonActions;
+  final Widget cardButtonContent;
   final bool canEdit;
   final bool canView;
   final bool canExpand;
   final bool isExpanded;
- 
 
-  final VoidCallback onCardToogle;
+  final VoidCallback onCardToggle;
   final String svgIcon = 'assets/icons/hh_icon.svg';
 
   void updateEnrollmentFormStateData(
     BuildContext context,
     bool isEditableMode,
   ) {
-    TrackeEntityInstance teiData = ovcHouseHold.teiData;
+    TrackedEntityInstance teiData = ovcHouseHold.teiData;
     Provider.of<EnrollmentFormState>(context, listen: false).resetFormState();
     Provider.of<EnrollmentFormState>(context, listen: false)
         .updateFormEditabilityState(isEditableMode: isEditableMode);
@@ -100,13 +99,13 @@ class OvcHouseHoldCard extends StatelessWidget {
                   canExpand: canExpand,
                   canView: canView,
                   isExpanded: isExpanded,
-                  onToggleCard: onCardToogle,
+                  onToggleCard: onCardToggle,
                   onEdit: () => onEditHouseHold(context),
                   onView: () => onViewHouseHold(context),
                 )),
                 cardBody,
-                cardBottonActions,
-                Visibility(visible: isExpanded, child: cardBottonContent),
+                cardButtonActions,
+                Visibility(visible: isExpanded, child: cardButtonContent),
               ],
             ),
           ),

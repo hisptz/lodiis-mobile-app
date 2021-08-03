@@ -3,7 +3,7 @@ import 'package:kb_mobile_app/app_state/current_user_state/current_user_state.da
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_sub_form_container.dart';
 import 'package:kb_mobile_app/core/components/input_fields/input_field_container.dart';
-import 'package:kb_mobile_app/core/components/line_seperator.dart';
+import 'package:kb_mobile_app/core/components/line_separator.dart';
 import 'package:kb_mobile_app/core/components/material_card.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
@@ -126,7 +126,7 @@ class EntryFormContainer extends StatelessWidget {
                                       Visibility(
                                         visible: formSection.name != '',
                                         child: Container(
-                                            child: LineSeperator(
+                                            child: LineSeparator(
                                                 color: formSection.color
                                                     .withOpacity(0.1))),
                                       ),

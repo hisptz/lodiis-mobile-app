@@ -5,7 +5,7 @@ class AgywDreamsEnrollmentNoneParticipationConstant {
   String dataElement;
 
   static String program = 'M4uWNFJNMIR';
-  static String porgramStage = 'uctHRP6BBXP';
+  static String programStage = 'uctHRP6BBXP';
 
   AgywDreamsEnrollmentNoneParticipationConstant(
       {@required this.attribute, @required this.dataElement});

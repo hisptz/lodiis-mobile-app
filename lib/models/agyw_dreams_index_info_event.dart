@@ -12,7 +12,7 @@ class AgywDreamsIndexInfoEvent {
   String htsIndexLinkage;
   String indexInfoToIndexContactLinkage;
   String indexContactToElicitedPartnerLinkage;
-  dynamic datavalues;
+  dynamic dataValues;
 
   Events eventData;
 
@@ -26,7 +26,7 @@ class AgywDreamsIndexInfoEvent {
     this.htsIndexLinkage,
     this.indexInfoToIndexContactLinkage,
     this.indexContactToElicitedPartnerLinkage,
-    this.datavalues,
+    this.dataValues,
     this.eventData,
   });
 
@@ -38,7 +38,7 @@ class AgywDreamsIndexInfoEvent {
       'rvZ3SgtvxB5',
       AgywDreamsIndexPositiveConstant.htsToIndexLinkage,
       AgywDreamsIndexPositiveConstant.indexInfoToIndexContactLinkage,
-      AgywDreamsHTSFOLLOWUPConstant.indexContactToElicitedPartnerLinkage
+      AgywDreamsHTSFollowUpConstant.indexContactToElicitedPartnerLinkage
     ];
     Map data = Map();
     for (Map detailObj in eventData.dataValues) {
@@ -50,7 +50,7 @@ class AgywDreamsIndexInfoEvent {
     return AgywDreamsIndexInfoEvent(
       id: eventData.event,
       date: eventData.eventDate,
-      datavalues: eventData.dataValues,
+      dataValues: eventData.dataValues,
       consent: data['eT9Dk0tPnHe'] ?? '',
       onART: data['ePGwxaqA5Po'] ?? '',
       startDateART: data['qdN6oXzoUCg'] ?? '',
@@ -60,7 +60,7 @@ class AgywDreamsIndexInfoEvent {
       indexInfoToIndexContactLinkage: data[
               AgywDreamsIndexPositiveConstant.indexInfoToIndexContactLinkage] ??
           '',
-      indexContactToElicitedPartnerLinkage: data[AgywDreamsHTSFOLLOWUPConstant
+      indexContactToElicitedPartnerLinkage: data[AgywDreamsHTSFollowUpConstant
               .indexContactToElicitedPartnerLinkage] ??
           '',
       eventData: eventData,
@@ -69,6 +69,6 @@ class AgywDreamsIndexInfoEvent {
 
   @override
   String toString() {
-    return '$id $date $datavalues';
+    return '$id $date $dataValues';
   }
 }

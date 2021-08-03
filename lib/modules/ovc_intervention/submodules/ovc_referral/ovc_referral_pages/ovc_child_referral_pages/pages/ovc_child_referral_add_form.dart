@@ -106,7 +106,7 @@ class _OvcChildReferralAddFormState extends State<OvcChildReferralAddForm> {
           eventId,
           hiddenFields,
         );
-        Provider.of<ServiveEventDataState>(context, listen: false)
+        Provider.of<ServiceEventDataState>(context, listen: false)
             .resetServiceEventDataState(currentOvcHouseHoldChild.id);
         Timer(Duration(seconds: 1), () {
           setState(() {
@@ -149,10 +149,10 @@ class _OvcChildReferralAddFormState extends State<OvcChildReferralAddForm> {
         child: Consumer<LanguageTranslationState>(
           builder: (context, languageTranslationState, child) {
             String currentLanguage = languageTranslationState.currentLanguage;
-            return Consumer<IntervetionCardState>(
-              builder: (context, intervetionCardState, child) {
+            return Consumer<InterventionCardState>(
+              builder: (context, interventionCardState, child) {
                 InterventionCard activeInterventionProgram =
-                    intervetionCardState.currentIntervetionProgram;
+                    interventionCardState.currentInterventionProgram;
                 return SubPageAppBar(
                   label: currentLanguage == 'lesotho'
                       ? 'Fomo ea Referral ea ngoana'

@@ -7,7 +7,7 @@ import 'package:kb_mobile_app/modules/ovc_intervention/services/ovc_enrollment_c
 import 'package:kb_mobile_app/modules/ovc_intervention/services/ovc_enrollment_house_hold_service.dart';
 
 class OvcInterventionListState with ChangeNotifier {
-  // intial state
+  // initial state
   List<OvcHouseHold> _ovcInterventionList = <OvcHouseHold>[];
   PagingController _pagingController;
   bool _isLoading = true;

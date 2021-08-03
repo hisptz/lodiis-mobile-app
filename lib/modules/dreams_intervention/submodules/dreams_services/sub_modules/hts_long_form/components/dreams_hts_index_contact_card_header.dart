@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kb_mobile_app/core/components/line_seperator.dart';
+import 'package:kb_mobile_app/core/components/line_separator.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_long_form/models/index_contact_model.dart';
 
 class DreamsHTSIndexContactCardHeader extends StatelessWidget {
@@ -40,7 +40,7 @@ class DreamsHTSIndexContactCardHeader extends StatelessWidget {
             ],
           ),
         ),
-        LineSeperator(
+        LineSeparator(
           color: Color(0xFFECF5EC),
         ),
         SizedBox(

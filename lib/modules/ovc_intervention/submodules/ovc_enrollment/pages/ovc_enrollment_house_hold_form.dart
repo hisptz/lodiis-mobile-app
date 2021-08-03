@@ -58,7 +58,7 @@ class _OvcEnrollmentHouseHoldFormState
 
   void onSaveAndContinue(BuildContext context, Map dataObject) async {
     bool hadAllMandatoryFilled =
-        AppUtil.hasAllMandarotyFieldsFilled(mandatoryFields, dataObject);
+        AppUtil.hasAllMandatoryFieldsFilled(mandatoryFields, dataObject);
     if (hadAllMandatoryFilled) {
       setState(() {
         isSaving = true;
@@ -72,7 +72,7 @@ class _OvcEnrollmentHouseHoldFormState
       List<Map> childrenObjects = dataObject['children'];
       String orgUnit = dataObject['location'];
       bool shouldEnroll = true;
-      await OvcEnrollmentHouseHoldService().savingHouseHoldform(
+      await OvcEnrollmentHouseHoldService().savingHouseHoldForm(
         dataObject,
         trackedEntityInstance,
         orgUnit,
@@ -91,7 +91,8 @@ class _OvcEnrollmentHouseHoldFormState
         shouldEnroll,
         hiddenFields,
       );
-      await Provider.of<OvcInterventionListState>(context, listen: false).onHouseholdAdd();
+      await Provider.of<OvcInterventionListState>(context, listen: false)
+          .onHouseholdAdd();
       Timer(Duration(seconds: 1), () {
         if (Navigator.canPop(context)) {
           setState(() {
@@ -111,7 +112,8 @@ class _OvcEnrollmentHouseHoldFormState
       });
     } else {
       setState(() {
-        unFilledMandatoryFields = AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+        unFilledMandatoryFields =
+            AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
       });
       AppUtil.showToastMessage(
           message: 'Please fill all mandatory field',
@@ -146,10 +148,10 @@ class _OvcEnrollmentHouseHoldFormState
         child: Scaffold(
             appBar: PreferredSize(
               preferredSize: Size.fromHeight(65.0),
-              child: Consumer<IntervetionCardState>(
-                builder: (context, intervetionCardState, child) {
+              child: Consumer<InterventionCardState>(
+                builder: (context, interventionCardState, child) {
                   InterventionCard activeInterventionProgram =
-                      intervetionCardState.currentIntervetionProgram;
+                      interventionCardState.currentInterventionProgram;
                   return SubPageAppBar(
                     label: label,
                     activeInterventionProgram: activeInterventionProgram,
@@ -189,8 +191,9 @@ class _OvcEnrollmentHouseHoldFormState
                                             dataObject:
                                                 enrollmentFormState.formState,
                                             onInputValueChange:
-                                                onInputValueChange, unFilledMandatoryFields:
-                                          unFilledMandatoryFields,
+                                                onInputValueChange,
+                                            unFilledMandatoryFields:
+                                                unFilledMandatoryFields,
                                           ),
                                         ),
                                         EntryFormSaveButton(

@@ -105,7 +105,7 @@ class _InterventionAppBarState extends State<InterventionAppBar> {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: widget.activeInterventionProgram.primmaryColor,
+      backgroundColor: widget.activeInterventionProgram.primaryColor,
       title: Row(
         children: [
           Container(

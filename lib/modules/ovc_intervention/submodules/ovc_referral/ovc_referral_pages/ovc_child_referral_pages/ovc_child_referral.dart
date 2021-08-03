@@ -24,7 +24,7 @@ class OvcChildReferral extends StatefulWidget {
 }
 
 class _OvcChildReferralState extends State<OvcChildReferral> {
-  final List<String> programStageids = [OvcChildReferralConstant.referralStage];
+  final List<String> programStageIds = [OvcChildReferralConstant.referralStage];
   void updateFormState(
     BuildContext context,
     bool isEditableMode,
@@ -39,18 +39,18 @@ class _OvcChildReferralState extends State<OvcChildReferral> {
             .setFormFieldState('eventDate', eventData.eventDate);
         Provider.of<ServiceFormState>(context, listen: false)
             .setFormFieldState('eventId', eventData.event);
-        for (Map datavalue in eventData.dataValues) {
-          if (datavalue['value'] != '') {
+        for (Map dataValue in eventData.dataValues) {
+          if (dataValue['value'] != '') {
             Provider.of<ServiceFormState>(context, listen: false)
                 .setFormFieldState(
-                    datavalue['dataElement'], datavalue['value']);
+                    dataValue['dataElement'], dataValue['value']);
           }
         }
       }
     }
   }
 
-  void onAddRefferal(BuildContext context, OvcHouseHoldChild child) {
+  void onAddReferral(BuildContext context, OvcHouseHoldChild child) {
     updateFormState(context, true, null);
     Navigator.push(
       context,
@@ -100,7 +100,7 @@ class _OvcChildReferralState extends State<OvcChildReferral> {
           String currentLanguage = languageTranslationState.currentLanguage;
           return Consumer<OvcHouseHoldCurrentSelectionState>(
             builder: (context, ovcHouseHoldCurrentSelectionState, child) {
-              return Consumer<ServiveEventDataState>(
+              return Consumer<ServiceEventDataState>(
                 builder: (context, serviceFormState, child) {
                   OvcHouseHoldChild currentOvcHouseHoldChild =
                       ovcHouseHoldCurrentSelectionState
@@ -110,7 +110,7 @@ class _OvcChildReferralState extends State<OvcChildReferral> {
                       serviceFormState.eventListByProgramStage;
                   List<Events> events = TrackedEntityInstanceUtil
                       .getAllEventListFromServiceDataStateByProgramStages(
-                          eventListByProgramStage, programStageids);
+                          eventListByProgramStage, programStageIds);
                   int referralIndex = events.length;
                   return Container(
                     child: Column(
@@ -189,7 +189,7 @@ class _OvcChildReferralState extends State<OvcChildReferral> {
                                         labelColor: Colors.white,
                                         buttonColor: Color(0xFF4B9F46),
                                         fontSize: 15.0,
-                                        onPressButton: () => onAddRefferal(
+                                        onPressButton: () => onAddReferral(
                                           context,
                                           currentOvcHouseHoldChild,
                                         ),

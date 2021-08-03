@@ -25,10 +25,10 @@ class OvcHouseHoldAssessmentListContainer extends StatelessWidget {
       margin: EdgeInsets.symmetric(
         vertical: 5.0,
       ),
-      child: Consumer<ServiveEventDataState>(
-        builder: (context, serviveEventDataState, child) {
+      child: Consumer<ServiceEventDataState>(
+        builder: (context, serviceEventDataState, child) {
           Map<String, List<Events>> eventListByProgramStage =
-              serviveEventDataState.eventListByProgramStage;
+              serviceEventDataState.eventListByProgramStage;
           List<Events> eventList = TrackedEntityInstanceUtil
               .getAllEventListFromServiceDataStateByProgramStages(
                   eventListByProgramStage, programStageIds);

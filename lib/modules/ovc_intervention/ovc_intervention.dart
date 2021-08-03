@@ -79,7 +79,7 @@ class _OvcInterventionState extends State<OvcIntervention> {
     Provider.of<EnrollmentFormState>(context, listen: false).resetFormState();
     Navigator.push(context, MaterialPageRoute(
       builder: (context) {
-        return OvcEnrollmentConsetForm();
+        return OvcEnrollmentConsentForm();
       },
     ));
   }
@@ -88,10 +88,10 @@ class _OvcInterventionState extends State<OvcIntervention> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Consumer<IntervetionCardState>(
-          builder: (context, intervetionCardState, child) {
+        child: Consumer<InterventionCardState>(
+          builder: (context, interventionCardState, child) {
             InterventionCard activeInterventionProgram =
-                intervetionCardState.currentIntervetionProgram;
+                interventionCardState.currentInterventionProgram;
             return Scaffold(
               appBar: PreferredSize(
                   preferredSize: Size.fromHeight(90),

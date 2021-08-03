@@ -69,7 +69,7 @@ class _OvcHouseHoldExitState extends State<OvcHouseHoldExit> {
             currentOvcHouseHold.id,
             eventId,
             null);
-        Provider.of<ServiveEventDataState>(context, listen: false)
+        Provider.of<ServiceEventDataState>(context, listen: false)
             .resetServiceEventDataState(currentOvcHouseHold.id);
         Timer(Duration(seconds: 1), () {
           setState(() {
@@ -108,10 +108,10 @@ class _OvcHouseHoldExitState extends State<OvcHouseHoldExit> {
     return Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(65.0),
-          child: Consumer<IntervetionCardState>(
-            builder: (context, intervetionCardState, child) {
+          child: Consumer<InterventionCardState>(
+            builder: (context, interventionCardState, child) {
               InterventionCard activeInterventionProgram =
-                  intervetionCardState.currentIntervetionProgram;
+                  interventionCardState.currentInterventionProgram;
               return SubPageAppBar(
                 label: label,
                 activeInterventionProgram: activeInterventionProgram,
@@ -132,11 +132,11 @@ class _OvcHouseHoldExitState extends State<OvcHouseHoldExit> {
                         currentOvcHouseHold: currentOvcHouseHold,
                       ),
                       Container(
-                        child: Consumer<ServiveEventDataState>(
-                          builder: (context, serviveEventDataState, child) {
-                            bool isLoading = serviveEventDataState.isLoading;
+                        child: Consumer<ServiceEventDataState>(
+                          builder: (context, serviceEventDataState, child) {
+                            bool isLoading = serviceEventDataState.isLoading;
                             Map<String, List<Events>> eventListByProgramStage =
-                                serviveEventDataState.eventListByProgramStage;
+                                serviceEventDataState.eventListByProgramStage;
                             List<Events> eventList = TrackedEntityInstanceUtil
                                 .getAllEventListFromServiceDataStateByProgramStages(
                                     eventListByProgramStage, programStageIds);

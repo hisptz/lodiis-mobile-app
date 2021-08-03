@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_house_hold_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
-import 'package:kb_mobile_app/core/components/line_seperator.dart';
+import 'package:kb_mobile_app/core/components/line_separator.dart';
 import 'package:provider/provider.dart';
 
 class OvcChildInfoTopHeader extends StatelessWidget {
@@ -65,7 +65,7 @@ class OvcChildInfoTopHeader extends StatelessWidget {
                         ),
                         Container(
                           margin: EdgeInsets.only(top: 5.0),
-                          child: LineSeperator(color: Color(0XFFECF5EC)),
+                          child: LineSeparator(color: Color(0XFFECF5EC)),
                         ),
                         Container(
                             margin: EdgeInsets.symmetric(

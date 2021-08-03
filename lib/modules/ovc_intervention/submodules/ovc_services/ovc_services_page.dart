@@ -36,7 +36,7 @@ class _OvcServicesPageState extends State<OvcServicesPage> {
 
   String toggleCardId = '';
 
-  void onCardToogle(String cardId) {
+  void onCardToggle(String cardId) {
     setState(() {
       toggleCardId = canExpand && cardId != toggleCardId ? cardId : '';
     });
@@ -46,7 +46,7 @@ class _OvcServicesPageState extends State<OvcServicesPage> {
       BuildContext context, OvcHouseHold ovcHouseHold) {
     Provider.of<OvcHouseHoldCurrentSelectionState>(context, listen: false)
         .setCurrentHouseHold(ovcHouseHold);
-    Provider.of<ServiveEventDataState>(context, listen: false)
+    Provider.of<ServiceEventDataState>(context, listen: false)
         .resetServiceEventDataState(ovcHouseHold.id);
   }
 
@@ -126,13 +126,13 @@ class _OvcServicesPageState extends State<OvcServicesPage> {
           canExpand: canExpand,
           canView: canView,
           isExpanded: ovcHouseHold.id == toggleCardId,
-          onCardToogle: () {
-            onCardToogle(ovcHouseHold.id);
+          onCardToggle: () {
+            onCardToggle(ovcHouseHold.id);
           },
           cardBody: OvcHouseHoldCardBody(
             ovcHouseHold: ovcHouseHold,
           ),
-          cardBottonActions: ClipRRect(
+          cardButtonActions: ClipRRect(
             borderRadius: ovcHouseHold.id == toggleCardId
                 ? BorderRadius.zero
                 : BorderRadius.only(
@@ -231,7 +231,7 @@ class _OvcServicesPageState extends State<OvcServicesPage> {
                   ],
                 )),
           ),
-          cardBottonContent: OvcHouseHoldCardBottonContent(
+          cardButtonContent: OvcHouseHoldCardButtonContent(
             currentLanguage: currentLanguage,
             ovcHouseHold: ovcHouseHold,
             canAddChild: canAddChild,

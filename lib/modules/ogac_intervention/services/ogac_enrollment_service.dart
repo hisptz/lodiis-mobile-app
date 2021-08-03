@@ -14,8 +14,8 @@ import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
 import 'package:kb_mobile_app/modules/ogac_intervention/constants/ogac_intervention_constant.dart';
 import 'package:kb_mobile_app/modules/ogac_intervention/models/ogac_enrollment_form_section.dart';
 
-class OgacEnrollementservice {
-  Future savingOgacBeneficiaryEnrollement(
+class OgacEnrollmentService {
+  Future savingOgacBeneficiaryEnrollment(
     Map dataObject,
     String trackedEntityInstance,
     String orgUnit,
@@ -31,14 +31,14 @@ class OgacEnrollementservice {
     );
     hiddenFields = hiddenFields ?? [];
     inputFieldIds.addAll(hiddenFields);
-    TrackeEntityInstance trackeEntityInstanceData =
+    TrackedEntityInstance trackedEntityInstanceData =
         await FormUtil.geTrackedEntityInstanceEnrollmentPayLoad(
             trackedEntityInstance,
             OgacInterventionConstant.trackedEntityType,
             orgUnit,
             inputFieldIds,
             dataObject);
-    await FormUtil.savingTrackeEntityInstance(trackeEntityInstanceData);
+    await FormUtil.savingTrackedEntityInstance(trackedEntityInstanceData);
     if (dataObject['trackedEntityInstance'] == null) {
       Enrollment enrollmentData = FormUtil.getEnrollmentPayLoad(
         enrollment,
@@ -61,7 +61,7 @@ class OgacEnrollementservice {
       {int page, String searchableValue = ''}) async {
     List<OgacBeneficiary> ogacBeneficiaries = [];
     List<Enrollment> enrollments = await EnrollmentOfflineProvider()
-        .getEnrollements(OgacInterventionConstant.program, page: page);
+        .getEnrollments(OgacInterventionConstant.program, page: page);
     for (Enrollment enrollment in enrollments) {
       List<OrganisationUnit> ous = await OrganisationUnitService()
           .getOrganisationUnits([enrollment.orgUnit]);
@@ -69,11 +69,11 @@ class OgacEnrollementservice {
       String orgUnit = enrollment.orgUnit;
       String createdDate = enrollment.enrollmentDate;
       String enrollmentId = enrollment.enrollment;
-      List<TrackeEntityInstance> ogacBeneficiaryList =
+      List<TrackedEntityInstance> ogacBeneficiaryList =
           await TrackedEntityInstanceOfflineProvider()
               .getTrackedEntityInstanceByIds(
                   [enrollment.trackedEntityInstance]);
-      for (TrackeEntityInstance tei in ogacBeneficiaryList) {
+      for (TrackedEntityInstance tei in ogacBeneficiaryList) {
         List<Events> eventList = await EventOfflineProvider()
             .getTrackedEntityInstanceEvents([tei.trackedEntityInstance]);
         Events eventData = eventList.length > 0 ? eventList[0] : null;

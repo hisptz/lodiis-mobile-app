@@ -19,7 +19,7 @@ class DreamBeneficiaryCardServiceSummary extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(top: 10.0),
-      child: Consumer<ServiveEventDataState>(
+      child: Consumer<ServiceEventDataState>(
         builder: (context, serviceEventDataState, child) {
           bool eventsLoading = serviceEventDataState.isLoading;
           Map<String, List<Events>> serviceEvents =

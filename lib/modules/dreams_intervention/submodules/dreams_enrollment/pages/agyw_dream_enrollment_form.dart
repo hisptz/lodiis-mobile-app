@@ -95,9 +95,9 @@ class _AgywDreamsEnrollmentFormState extends State<AgywDreamsEnrollmentForm> {
 
   void clearFormAutoSaveState(BuildContext context) async {
     String beneficiaryId = "";
-    String formAutoSaveid =
+    String formAutoSaveId =
         "${DreamsRoutesConstant.agywConsentPage}_$beneficiaryId";
-    await FormAutoSaveOfflineService().deleteSavedFormAutoData(formAutoSaveid);
+    await FormAutoSaveOfflineService().deleteSavedFormAutoData(formAutoSaveId);
   }
 
   void onInputValueChange(String id, dynamic value) {
@@ -112,7 +112,7 @@ class _AgywDreamsEnrollmentFormState extends State<AgywDreamsEnrollmentForm> {
     Map dataObject, {
     Map hiddenFields = const {},
   }) async {
-    bool hadAllMandatoryFilled = AppUtil.hasAllMandarotyFieldsFilled(
+    bool hadAllMandatoryFilled = AppUtil.hasAllMandatoryFieldsFilled(
       mandatoryFields,
       dataObject,
       hiddenFields: hiddenFields,
@@ -138,7 +138,7 @@ class _AgywDreamsEnrollmentFormState extends State<AgywDreamsEnrollmentForm> {
         'fQInK8s2RNR'
       ];
       String orgUnit = dataObject['location'];
-      await AgywDreamEnrollmentService().savingAgwyBeneficiary(
+      await AgywDreamEnrollmentService().savingAgywBeneficiary(
         dataObject,
         trackedEntityInstance,
         orgUnit,
@@ -185,10 +185,10 @@ class _AgywDreamsEnrollmentFormState extends State<AgywDreamsEnrollmentForm> {
       child: Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(65.0),
-          child: Consumer<IntervetionCardState>(
-            builder: (context, intervetionCardState, child) {
+          child: Consumer<InterventionCardState>(
+            builder: (context, interventionCardState, child) {
               InterventionCard activeInterventionProgram =
-                  intervetionCardState.currentIntervetionProgram;
+                  interventionCardState.currentInterventionProgram;
               return SubPageAppBar(
                 label: label,
                 activeInterventionProgram: activeInterventionProgram,

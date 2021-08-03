@@ -87,7 +87,7 @@ class _AgywDreamsPrepFormPageBodyState
             agywDream.id,
             eventId,
             hiddenFields);
-        Provider.of<ServiveEventDataState>(context, listen: false)
+        Provider.of<ServiceEventDataState>(context, listen: false)
             .resetServiceEventDataState(agywDream.id);
         Timer(Duration(seconds: 1), () {
           setState(() {
@@ -125,7 +125,7 @@ class _AgywDreamsPrepFormPageBodyState
       child: Consumer<LanguageTranslationState>(
         builder: (context, languageTranslationState, child) {
           String currentLanguage = languageTranslationState.currentLanguage;
-          return Consumer<DreamBenefeciarySelectionState>(
+          return Consumer<DreamBeneficiarySelectionState>(
             builder: (context, nonAgywState, child) {
               AgywDream agywDream = nonAgywState.currentAgywDream;
               return Consumer<ServiceFormState>(
@@ -133,7 +133,7 @@ class _AgywDreamsPrepFormPageBodyState
                   return Container(
                     child: Column(
                       children: [
-                        DreamBenefeciaryTopHeader(
+                        DreamBeneficiaryTopHeader(
                           agywDream: agywDream,
                         ),
                         !isFormReady

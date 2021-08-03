@@ -7,7 +7,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
 
 class AppUtil {
-  static bool hasAllMandarotyFieldsFilled(List mandatoryFields, Map datadynamic,
+  static bool hasAllMandatoryFieldsFilled(List mandatoryFields, Map datadynamic,
       {Map hiddenFields = const {}}) {
     bool hasFilled = true;
     List fieldIds = datadynamic.keys.toList();

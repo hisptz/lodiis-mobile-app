@@ -152,7 +152,7 @@ class _OvcHouseHoldCasePlanFormState extends State<OvcHouseHoldCasePlanForm> {
         isSaving = true;
       });
       await savingDomainsAndGaps(dataObject, currentOvcHouseHold);
-      Provider.of<ServiveEventDataState>(context, listen: false)
+      Provider.of<ServiceEventDataState>(context, listen: false)
           .resetServiceEventDataState(currentOvcHouseHold.id);
       Timer(Duration(seconds: 1), () {
         if (Navigator.canPop(context)) {
@@ -183,10 +183,10 @@ class _OvcHouseHoldCasePlanFormState extends State<OvcHouseHoldCasePlanForm> {
     return Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(65.0),
-          child: Consumer<IntervetionCardState>(
-            builder: (context, intervetionCardState, child) {
+          child: Consumer<InterventionCardState>(
+            builder: (context, interventionCardState, child) {
               InterventionCard activeInterventionProgram =
-                  intervetionCardState.currentIntervetionProgram;
+                  interventionCardState.currentInterventionProgram;
               return SubPageAppBar(
                 label: label,
                 activeInterventionProgram: activeInterventionProgram,

@@ -32,7 +32,7 @@ class _OvcReferralPageState extends State<OvcReferralPage> {
 
   String toggleCardId = '';
 
-  void onCardToogle(String cardId) {
+  void onCardToggle(String cardId) {
     setState(() {
       toggleCardId = canExpand && cardId != toggleCardId ? cardId : '';
     });
@@ -42,7 +42,7 @@ class _OvcReferralPageState extends State<OvcReferralPage> {
       BuildContext context, OvcHouseHold ovcHouseHold) {
     Provider.of<OvcHouseHoldCurrentSelectionState>(context, listen: false)
         .setCurrentHouseHold(ovcHouseHold);
-    Provider.of<ServiveEventDataState>(context, listen: false)
+    Provider.of<ServiceEventDataState>(context, listen: false)
         .resetServiceEventDataState(ovcHouseHold.id);
   }
 
@@ -100,13 +100,13 @@ class _OvcReferralPageState extends State<OvcReferralPage> {
           canExpand: canExpand,
           canView: canView,
           isExpanded: ovcHouseHold.id == toggleCardId,
-          onCardToogle: () {
-            onCardToogle(ovcHouseHold.id);
+          onCardToggle: () {
+            onCardToggle(ovcHouseHold.id);
           },
           cardBody: OvcHouseHoldCardBody(
             ovcHouseHold: ovcHouseHold,
           ),
-          cardBottonActions: ClipRRect(
+          cardButtonActions: ClipRRect(
             borderRadius: ovcHouseHold.id == toggleCardId
                 ? BorderRadius.zero
                 : BorderRadius.only(
@@ -140,7 +140,7 @@ class _OvcReferralPageState extends State<OvcReferralPage> {
               ),
             ),
           ),
-          cardBottonContent: OvcHouseHoldCardBottonContent(
+          cardButtonContent: OvcHouseHoldCardButtonContent(
             currentLanguage: currentLanguage,
             ovcHouseHold: ovcHouseHold,
             canAddChild: canAddChild,

@@ -29,10 +29,10 @@ class OvcHouseHoldGraduationListContainer extends StatelessWidget {
       child: Consumer<LanguageTranslationState>(
         builder: (context, languageTranslationState, child) {
           String currentLanguage = languageTranslationState.currentLanguage;
-          return Consumer<ServiveEventDataState>(
-            builder: (context, serviveEventDataState, child) {
+          return Consumer<ServiceEventDataState>(
+            builder: (context, serviceEventDataState, child) {
               Map<String, List<Events>> eventListByProgramStage =
-                  serviveEventDataState.eventListByProgramStage;
+                  serviceEventDataState.eventListByProgramStage;
               List<Events> eventList = TrackedEntityInstanceUtil
                   .getAllEventListFromServiceDataStateByProgramStages(
                       eventListByProgramStage, programStageIds);

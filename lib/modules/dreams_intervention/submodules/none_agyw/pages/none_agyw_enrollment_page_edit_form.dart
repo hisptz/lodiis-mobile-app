@@ -134,9 +134,9 @@ class _NoneAgywEnrollmentEditFormState
     Map dataObject =
         Provider.of<EnrollmentFormState>(context, listen: false).formState;
     String beneficiaryId = dataObject['trackedEntityInstance'] ?? "";
-    String formAutoSaveid =
+    String formAutoSaveId =
         "${DreamsRoutesConstant.noneAgywEnrollmentPage}_$beneficiaryId";
-    await FormAutoSaveOfflineService().deleteSavedFormAutoData(formAutoSaveid);
+    await FormAutoSaveOfflineService().deleteSavedFormAutoData(formAutoSaveId);
   }
 
   void onInputValueChange(String id, dynamic value) {
@@ -148,7 +148,7 @@ class _NoneAgywEnrollmentEditFormState
 
   void onSaveForm(BuildContext context, Map dataObject,
       {Map hiddenFields = const {}}) async {
-    bool hadAllMandatoryFilled = AppUtil.hasAllMandarotyFieldsFilled(
+    bool hadAllMandatoryFilled = AppUtil.hasAllMandatoryFieldsFilled(
         mandatoryFields, dataObject,
         hiddenFields: hiddenFields);
     if (hadAllMandatoryFilled) {
@@ -170,7 +170,7 @@ class _NoneAgywEnrollmentEditFormState
         'PN92g65TkVI',
         'klLkGxy328c'
       ];
-      await NoneAgywDreamEnrollmentService().savingNonAgwyBeneficiary(
+      await NoneAgywDreamEnrollmentService().savingNonAgywBeneficiary(
         dataObject,
         trackedEntityInstance,
         orgUnit,
@@ -217,10 +217,10 @@ class _NoneAgywEnrollmentEditFormState
         child: Scaffold(
             appBar: PreferredSize(
               preferredSize: Size.fromHeight(65.0),
-              child: Consumer<IntervetionCardState>(
-                builder: (context, intervetionCardState, child) {
+              child: Consumer<InterventionCardState>(
+                builder: (context, interventionCardState, child) {
                   InterventionCard activeInterventionProgram =
-                      intervetionCardState.currentIntervetionProgram;
+                      interventionCardState.currentInterventionProgram;
                   return SubPageAppBar(
                     label: label,
                     activeInterventionProgram: activeInterventionProgram,

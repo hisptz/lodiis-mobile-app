@@ -40,7 +40,7 @@ class _AgywDreamsCondomsFormState extends State<AgywDreamsCondomsForm> {
   @override
   void initState() {
     super.initState();
-    formSections = DreamsCondomsform.getFormSections();
+    formSections = DreamsCondomsForm.getFormSections();
     Timer(Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
@@ -90,7 +90,7 @@ class _AgywDreamsCondomsFormState extends State<AgywDreamsCondomsForm> {
             agywDream.id,
             eventId,
             hiddenFields);
-        Provider.of<ServiveEventDataState>(context, listen: false)
+        Provider.of<ServiceEventDataState>(context, listen: false)
             .resetServiceEventDataState(agywDream.id);
         Timer(Duration(seconds: 1), () {
           setState(() {
@@ -126,10 +126,10 @@ class _AgywDreamsCondomsFormState extends State<AgywDreamsCondomsForm> {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(65.0),
-        child: Consumer<IntervetionCardState>(
-          builder: (context, intervetionCardState, child) {
+        child: Consumer<InterventionCardState>(
+          builder: (context, interventionCardState, child) {
             InterventionCard activeInterventionProgram =
-                intervetionCardState.currentIntervetionProgram;
+                interventionCardState.currentInterventionProgram;
             return SubPageAppBar(
               label: label,
               activeInterventionProgram: activeInterventionProgram,
@@ -142,7 +142,7 @@ class _AgywDreamsCondomsFormState extends State<AgywDreamsCondomsForm> {
           child: Consumer<LanguageTranslationState>(
             builder: (context, languageTranslationState, child) {
               String currentLanguage = languageTranslationState.currentLanguage;
-              return Consumer<DreamBenefeciarySelectionState>(
+              return Consumer<DreamBeneficiarySelectionState>(
                 builder: (context, nonAgywState, child) {
                   AgywDream agywDream = nonAgywState.currentAgywDream;
                   return Consumer<ServiceFormState>(
@@ -150,7 +150,7 @@ class _AgywDreamsCondomsFormState extends State<AgywDreamsCondomsForm> {
                       return Container(
                         child: Column(
                           children: [
-                            DreamBenefeciaryTopHeader(
+                            DreamBeneficiaryTopHeader(
                               agywDream: agywDream,
                             ),
                             !isFormReady

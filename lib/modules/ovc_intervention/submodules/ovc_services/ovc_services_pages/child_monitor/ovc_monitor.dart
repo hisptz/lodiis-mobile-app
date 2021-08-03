@@ -63,10 +63,10 @@ class OvcMonitorChildView extends StatelessWidget {
         .setFormFieldState('eventDate', eventData.eventDate);
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState('eventId', eventData.event);
-    for (Map datavalue in eventData.dataValues) {
-      if (datavalue['value'] != '') {
+    for (Map dataValue in eventData.dataValues) {
+      if (dataValue['value'] != '') {
         Provider.of<ServiceFormState>(context, listen: false)
-            .setFormFieldState(datavalue['dataElement'], datavalue['value']);
+            .setFormFieldState(dataValue['dataElement'], dataValue['value']);
       }
     }
   }
@@ -96,10 +96,10 @@ class OvcMonitorChildView extends StatelessWidget {
     return Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(65.0),
-          child: Consumer<IntervetionCardState>(
-            builder: (context, intervetionCardState, child) {
+          child: Consumer<InterventionCardState>(
+            builder: (context, interventionCardState, child) {
               InterventionCard activeInterventionProgram =
-                  intervetionCardState.currentIntervetionProgram;
+                  interventionCardState.currentInterventionProgram;
               return SubPageAppBar(
                 label: label,
                 activeInterventionProgram: activeInterventionProgram,
@@ -112,20 +112,20 @@ class OvcMonitorChildView extends StatelessWidget {
             child: Column(children: [
               OvcChildInfoTopHeader(),
               Container(
-                child: Consumer<ServiveEventDataState>(
-                  builder: (context, serviveEventDataState, child) {
-                    bool isLoading = serviveEventDataState.isLoading;
+                child: Consumer<ServiceEventDataState>(
+                  builder: (context, serviceEventDataState, child) {
+                    bool isLoading = serviceEventDataState.isLoading;
                     Map<String, List<Events>> eventListByProgramStage =
-                        serviveEventDataState.eventListByProgramStage;
+                        serviceEventDataState.eventListByProgramStage;
                     Map programStageMap =
                         OvcMonitorConstant.getOvcMonitorProgramStageMap();
-                    List<String> programStageids = [];
+                    List<String> programStageIds = [];
                     for (var id in programStageMap.keys.toList()) {
-                      programStageids.add('$id');
+                      programStageIds.add('$id');
                     }
                     List<Events> events = TrackedEntityInstanceUtil
                         .getAllEventListFromServiceDataStateByProgramStages(
-                            eventListByProgramStage, programStageids);
+                            eventListByProgramStage, programStageIds);
 
                     return isLoading
                         ? CircularProcessLoader(

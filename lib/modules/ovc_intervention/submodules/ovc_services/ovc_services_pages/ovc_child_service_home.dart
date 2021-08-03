@@ -20,8 +20,8 @@ import 'child_service/ovc_service_child.dart';
 
 class OvcChildServiceHome extends StatelessWidget {
   final String label = 'Child';
-  final List<OvcChildServiceHomeContant> ovcChildServiceHomeCards =
-      OvcChildServiceHomeContant.getOvcChildServiceHomeContant();
+  final List<OvcChildServiceHomeConstant> ovcChildServiceHomeCards =
+      OvcChildServiceHomeConstant.getOvcChildServiceHomeConstant();
 
   void onOpenChildAssessment(BuildContext context) {
     Navigator.push(
@@ -64,7 +64,7 @@ class OvcChildServiceHome extends StatelessWidget {
   }
 
   int getCountValueForOvcServiceChildCard(
-    OvcChildServiceHomeContant ovcChildServiceHomeCard,
+    OvcChildServiceHomeConstant ovcChildServiceHomeCard,
     Map eventListByProgramStage,
   ) {
     int countValue = 0;
@@ -86,10 +86,10 @@ class OvcChildServiceHome extends StatelessWidget {
     return Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(65.0),
-          child: Consumer<IntervetionCardState>(
-            builder: (context, intervetionCardState, child) {
+          child: Consumer<InterventionCardState>(
+            builder: (context, interventionCardState, child) {
               InterventionCard activeInterventionProgram =
-                  intervetionCardState.currentIntervetionProgram;
+                  interventionCardState.currentInterventionProgram;
               return SubPageAppBar(
                 label: label,
                 activeInterventionProgram: activeInterventionProgram,
@@ -103,11 +103,11 @@ class OvcChildServiceHome extends StatelessWidget {
               children: [
                 OvcChildInfoTopHeader(),
                 Container(
-                  child: Consumer<ServiveEventDataState>(
-                    builder: (context, serviveEventDataState, child) {
-                      bool isLoading = serviveEventDataState.isLoading;
+                  child: Consumer<ServiceEventDataState>(
+                    builder: (context, serviceEventDataState, child) {
+                      bool isLoading = serviceEventDataState.isLoading;
                       var eventListByProgramStage =
-                          serviveEventDataState.eventListByProgramStage;
+                          serviceEventDataState.eventListByProgramStage;
                       return isLoading
                           ? Container(
                               margin: EdgeInsets.only(top: 20.0),
@@ -125,7 +125,7 @@ class OvcChildServiceHome extends StatelessWidget {
                                 crossAxisSpacing: 10.0,
                                 shrinkWrap: true,
                                 children: ovcChildServiceHomeCards.map(
-                                  (OvcChildServiceHomeContant
+                                  (OvcChildServiceHomeConstant
                                       ovcChildServiceHomeCard) {
                                     int countValue =
                                         getCountValueForOvcServiceChildCard(

@@ -121,7 +121,7 @@ class _AgywDreamRiskAssessmentState extends State<AgywDreamRiskAssessment> {
 
   void onSaveAndContinue(BuildContext context, Map dataObject,
       {Map hiddenFields = const {}}) {
-    bool hadAllMandatoryFilled = AppUtil.hasAllMandarotyFieldsFilled(
+    bool hadAllMandatoryFilled = AppUtil.hasAllMandatoryFieldsFilled(
         mandatoryFields, dataObject,
         hiddenFields: hiddenFields);
     if (hadAllMandatoryFilled) {
@@ -169,10 +169,10 @@ class _AgywDreamRiskAssessmentState extends State<AgywDreamRiskAssessment> {
       child: Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(65.0),
-          child: Consumer<IntervetionCardState>(
-            builder: (context, intervetionCardState, child) {
+          child: Consumer<InterventionCardState>(
+            builder: (context, interventionCardState, child) {
               InterventionCard activeInterventionProgram =
-                  intervetionCardState.currentIntervetionProgram;
+                  interventionCardState.currentInterventionProgram;
               return SubPageAppBar(
                 label: label,
                 activeInterventionProgram: activeInterventionProgram,

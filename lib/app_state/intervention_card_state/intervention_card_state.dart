@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 
-class IntervetionCardState with ChangeNotifier {
+class InterventionCardState with ChangeNotifier {
   // initial state
   final List<InterventionCard> interventions =
       InterventionCard.getInterventions();
@@ -12,7 +12,7 @@ class IntervetionCardState with ChangeNotifier {
   void setCurrentInterventionProgram(
       InterventionCard currentInterventionProgram) {
     _currentInterventionProgram = currentInterventionProgram;
-    AppUtil.setStatusBarColor(currentInterventionProgram.primmaryColor);
+    AppUtil.setStatusBarColor(currentInterventionProgram.primaryColor);
     notifyListeners();
   }
 
@@ -27,5 +27,6 @@ class IntervetionCardState with ChangeNotifier {
   }
 
   // selectors
-  InterventionCard get currentIntervetionProgram => _currentInterventionProgram;
+  InterventionCard get currentInterventionProgram =>
+      _currentInterventionProgram;
 }

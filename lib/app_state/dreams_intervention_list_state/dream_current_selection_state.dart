@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
 
-class DreamBenefeciarySelectionState with ChangeNotifier {
-  // initiat state
+class DreamBeneficiarySelectionState with ChangeNotifier {
+  // initiate state
   AgywDream _currentAgywDream;
 
   // selectors

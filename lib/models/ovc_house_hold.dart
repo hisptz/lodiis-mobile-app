@@ -17,7 +17,7 @@ class OvcHouseHold {
   String houseHoldStatus;
   String searchableValue;
   List<OvcHouseHoldChild> children;
-  TrackeEntityInstance teiData;
+  TrackedEntityInstance teiData;
 
   OvcHouseHold({
     this.id,
@@ -38,7 +38,7 @@ class OvcHouseHold {
   });
 
   OvcHouseHold fromTeiModel(
-    TrackeEntityInstance tei,
+    TrackedEntityInstance tei,
     String location,
     String orgUnit,
     String createdDate,

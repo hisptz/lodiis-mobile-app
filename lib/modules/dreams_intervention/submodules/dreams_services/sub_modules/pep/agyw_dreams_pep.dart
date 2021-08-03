@@ -27,7 +27,7 @@ class AgywDreamPEP extends StatefulWidget {
 
 class _AgywDreamPEPState extends State<AgywDreamPEP> {
   final String label = 'PEP';
-  List<String> programStageids = [PepConstant.programStage];
+  List<String> programStageIds = [PepConstant.programStage];
   @override
   void initState() {
     super.initState();
@@ -46,10 +46,10 @@ class _AgywDreamPEPState extends State<AgywDreamPEP> {
           .setFormFieldState('eventDate', eventData.eventDate);
       Provider.of<ServiceFormState>(context, listen: false)
           .setFormFieldState('eventId', eventData.event);
-      for (Map datavalue in eventData.dataValues) {
-        if (datavalue['value'] != '') {
+      for (Map dataValue in eventData.dataValues) {
+        if (dataValue['value'] != '') {
           Provider.of<ServiceFormState>(context, listen: false)
-              .setFormFieldState(datavalue['dataElement'], datavalue['value']);
+              .setFormFieldState(dataValue['dataElement'], dataValue['value']);
         }
       }
     }
@@ -57,20 +57,20 @@ class _AgywDreamPEPState extends State<AgywDreamPEP> {
 
   void onAddPrep(BuildContext context, AgywDream agywDream) {
     updateFormState(context, true, null);
-    Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
+    Provider.of<DreamBeneficiarySelectionState>(context, listen: false)
         .setCurrentAgywDream(agywDream);
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => AgywDreamsPEPForm()));
   }
 
-  void onViewPrep(BuildContext context, Events eventdata) {
-    updateFormState(context, false, eventdata);
+  void onViewPrep(BuildContext context, Events eventData) {
+    updateFormState(context, false, eventData);
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => AgywDreamsPEPForm()));
   }
 
-  void onEditPrep(BuildContext context, Events eventdata) {
-    updateFormState(context, true, eventdata);
+  void onEditPrep(BuildContext context, Events eventData) {
+    updateFormState(context, true, eventData);
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => AgywDreamsPEPForm()));
   }
@@ -80,10 +80,10 @@ class _AgywDreamPEPState extends State<AgywDreamPEP> {
     return Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(65.0),
-          child: Consumer<IntervetionCardState>(
-            builder: (context, intervetionCardState, child) {
+          child: Consumer<InterventionCardState>(
+            builder: (context, interventionCardState, child) {
               InterventionCard activeInterventionProgram =
-                  intervetionCardState.currentIntervetionProgram;
+                  interventionCardState.currentInterventionProgram;
               return SubPageAppBar(
                 label: label,
                 activeInterventionProgram: activeInterventionProgram,
@@ -93,23 +93,23 @@ class _AgywDreamPEPState extends State<AgywDreamPEP> {
         ),
         body: SubPageBody(
           body: Container(
-            child: Consumer<DreamBenefeciarySelectionState>(
-              builder: (context, dreamBenefeciarySelectionState, child) {
-                return Consumer<ServiveEventDataState>(
+            child: Consumer<DreamBeneficiarySelectionState>(
+              builder: (context, dreamBeneficiarySelectionState, child) {
+                return Consumer<ServiceEventDataState>(
                   builder: (context, serviceFormState, child) {
                     AgywDream agywDream =
-                        dreamBenefeciarySelectionState.currentAgywDream;
+                        dreamBeneficiarySelectionState.currentAgywDream;
                     bool isLoading = serviceFormState.isLoading;
                     Map<String, List<Events>> eventListByProgramStage =
                         serviceFormState.eventListByProgramStage;
                     List<Events> events = TrackedEntityInstanceUtil
                         .getAllEventListFromServiceDataStateByProgramStages(
-                            eventListByProgramStage, programStageids);
+                            eventListByProgramStage, programStageIds);
                     int referralIndex = events.length + 1;
                     return Container(
                       child: Column(
                         children: [
-                          DreamBenefeciaryTopHeader(
+                          DreamBeneficiaryTopHeader(
                             agywDream: agywDream,
                           ),
                           Container(

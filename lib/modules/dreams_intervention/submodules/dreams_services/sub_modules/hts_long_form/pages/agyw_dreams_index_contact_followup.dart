@@ -63,12 +63,12 @@ class _AgywDreamsIndexFollowUpState extends State<AgywDreamsIndexFollowUp> {
       String eventDate = dataObject['eventDate'];
       String eventId = dataObject['eventId'];
       List<String> hiddenFields = [
-        AgywDreamsHTSFOLLOWUPConstant.indexContactToElicitedPartnerLinkage
+        AgywDreamsHTSFollowUpConstant.indexContactToElicitedPartnerLinkage
       ];
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-          AgywDreamsHTSFOLLOWUPConstant.program,
-          AgywDreamsHTSFOLLOWUPConstant.programStage,
+          AgywDreamsHTSFollowUpConstant.program,
+          AgywDreamsHTSFollowUpConstant.programStage,
           agywDream.orgUnit,
           formSections,
           dataObject,
@@ -77,7 +77,7 @@ class _AgywDreamsIndexFollowUpState extends State<AgywDreamsIndexFollowUp> {
           eventId,
           hiddenFields,
         );
-        Provider.of<ServiveEventDataState>(context, listen: false)
+        Provider.of<ServiceEventDataState>(context, listen: false)
             .resetServiceEventDataState(agywDream.id);
         Timer(Duration(seconds: 1), () async {
           setState(() {});
@@ -112,10 +112,10 @@ class _AgywDreamsIndexFollowUpState extends State<AgywDreamsIndexFollowUp> {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(65.0),
-        child: Consumer<IntervetionCardState>(
-          builder: (context, intervetionCardState, child) {
+        child: Consumer<InterventionCardState>(
+          builder: (context, interventionCardState, child) {
             InterventionCard activeInterventionProgram =
-                intervetionCardState.currentIntervetionProgram;
+                interventionCardState.currentInterventionProgram;
             return SubPageAppBar(
               label: label,
               activeInterventionProgram: activeInterventionProgram,
@@ -128,7 +128,7 @@ class _AgywDreamsIndexFollowUpState extends State<AgywDreamsIndexFollowUp> {
           child: Consumer<LanguageTranslationState>(
             builder: (context, languageTranslationState, child) {
               String currentLanguage = languageTranslationState.currentLanguage;
-              return Consumer<DreamBenefeciarySelectionState>(
+              return Consumer<DreamBeneficiarySelectionState>(
                 builder: (context, nonAgywState, child) {
                   AgywDream agywDream = nonAgywState.currentAgywDream;
                   return Consumer<ServiceFormState>(
@@ -136,7 +136,7 @@ class _AgywDreamsIndexFollowUpState extends State<AgywDreamsIndexFollowUp> {
                       return Container(
                         child: Column(
                           children: [
-                            DreamBenefeciaryTopHeader(
+                            DreamBeneficiaryTopHeader(
                               agywDream: agywDream,
                             ),
                             !isFormReady
