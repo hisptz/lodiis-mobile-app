@@ -21,6 +21,10 @@ class DreamsRoutesConstant {
       "Agyw None Participation Form";
   static final String agywNoneParticipationNextPage =
       "Agyw None Participation Form";
+  static final String agywWithoutEnrollmentCriteriaPage =
+      "Agyw None Participation Form";
+  static final String agywWithoutEnrollmentCriteriaNextPage =
+      "Agyw None Participation Form";
   static final String agywEnrollmentFormEditPage = "Agyw Enrollment Form";
   static final String agywEnrollmentFormEditNextPage = "Agyw Enrollment Form";
   static final String agywConsentPage = "Agyw Consent Form";

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/core/components/input_fields/text_input_field_container.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
+import 'package:rxdart/rxdart.dart';
 
 class SearchInput extends StatelessWidget {
   SearchInput({
@@ -10,11 +11,20 @@ class SearchInput extends StatelessWidget {
 
   final Function onSearch;
 
+  final PublishSubject<String> _searchedValued = PublishSubject<String>();
   final InputField inputField = InputField(
     id: 'search',
     name: '',
     valueType: 'TEXT',
   );
+
+  onSearchInputValueChange(String value) {
+    _searchedValued
+        .debounce((_) => TimerStream(true, Duration(milliseconds: 500)))
+        .listen((searchedValue) async {
+      onSearch(searchedValue);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +48,11 @@ class SearchInput extends StatelessWidget {
           inputValue: '',
           showInputCheckedIcon: false,
           showInputSearchIcon: true,
-          onInputValueChange: (dynamic value) => onSearch(value),
+          onInputValueChange: (dynamic value) {
+            value = value.toLowerCase();
+            _searchedValued.add(value);
+            onSearchInputValueChange(value);
+          },
         ),
       ),
     );

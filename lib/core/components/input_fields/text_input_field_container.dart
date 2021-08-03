@@ -28,6 +28,7 @@ class TextInputFieldContainer extends StatefulWidget {
 class _TextInputFieldContainerState extends State<TextInputFieldContainer> {
   TextEditingController textController;
   String _value;
+  String _lastInputValue = '';
 
   @override
   void initState() {
@@ -46,10 +47,13 @@ class _TextInputFieldContainerState extends State<TextInputFieldContainer> {
   }
 
   onValueChange(String value) {
-    setState(() {
-      _value = value;
-    });
-    widget.onInputValueChange(value.trim());
+    if (_lastInputValue != value) {
+      setState(() {
+        _value = value;
+        _lastInputValue = _value;
+      });
+      widget.onInputValueChange(value.trim());
+    }
   }
 
   clearSearchValue() {
