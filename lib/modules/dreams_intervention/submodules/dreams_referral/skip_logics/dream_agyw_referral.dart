@@ -33,10 +33,13 @@ class DreamAgywReferralSkipLogic {
           hiddenSections['SeRefoCo'] = true;
           hiddenSections['SeRefoFa'] = true;
         } else {
-          if (value != 'Community') {
-            hiddenSections['SeRefoCo'] = true;
-          } else if (value != 'Facility') {
+          if (value == 'Community') {
             hiddenSections['SeRefoFa'] = true;
+          } else if (value == 'Facility') {
+            hiddenSections['SeRefoCo'] = true;
+          } else {
+            hiddenSections['SeRefoFa'] = true;
+            hiddenSections['SeRefoCo'] = true;
           }
         }
       }
