@@ -200,8 +200,8 @@ class DreamBeneficiaryCardBody extends StatelessWidget {
       ],
       [
         {
-          'name': 'SRH',
-          'programStage': ['K61XAaNlbbU']
+          'name': 'PEP',
+          'programStage': ['CEyIqiOZOwx']
         },
         {
           'name': 'HIV MESSAGING',
@@ -242,11 +242,11 @@ class DreamBeneficiaryCardBody extends StatelessWidget {
       ],
       [
         {
-          'name': 'PEP',
-          'programStage': ['CEyIqiOZOwx']
+          'name': 'VAC Messaging',
+          'programStage': ['bDJq2JWVTbC']
         },
         {
-          'name': 'VAC Messaging',
+          'name': 'VAC LEGAL MESSAGING',
           'programStage': ['bDJq2JWVTbC']
         },
         {
@@ -256,13 +256,10 @@ class DreamBeneficiaryCardBody extends StatelessWidget {
       ],
       [
         {
-          'name': 'VAC LEGAL MESSAGING',
-          'programStage': ['bDJq2JWVTbC']
-        },
-        {
           'name': 'GBV LEGAL MESSAGING',
           'programStage': ['bDJq2JWVTbC']
         },
+        {'name': ''},
         {'name': ''},
       ]
     ];

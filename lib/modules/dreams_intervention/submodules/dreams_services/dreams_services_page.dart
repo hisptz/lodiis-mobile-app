@@ -15,13 +15,11 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_serv
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/contraceptives/agyw_dreams_contraceptives.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_long_form/hts_long_form_home_page.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_short_form/hts_short_form_home_page.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/msg_hiv/agyw_dreams_msg_hiv_register.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/pep/agyw_dreams_pep.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/post_gbv/agyw_dreams_post_gbv.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/prep/agyw_dreams_prep.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/prep_short_form/agyw_dreams_prep_short_form_home_page.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/service_form/agyw_dreams_service_form_page.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/srh/agyw_dreams_srh.dart';
 import 'package:provider/provider.dart';
 
 class DreamsServicesPage extends StatefulWidget {
@@ -75,19 +73,6 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
     );
   }
 
-  void onOpenSRHForm(
-    BuildContext context,
-    AgywDream agywBeneficiary,
-  ) {
-    updateStateData(context, agywBeneficiary);
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => AgywDreamsSRH(),
-      ),
-    );
-  }
-
   void onOpenPrepLongForm(
     BuildContext context,
     AgywDream agywBeneficiary,
@@ -110,19 +95,6 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
       context,
       MaterialPageRoute(
         builder: (context) => AgywDreamsPrepShortFormHomePage(),
-      ),
-    );
-  }
-
-  void onOpenMSGHIVForm(
-    BuildContext context,
-    AgywDream agywBeneficiary,
-  ) {
-    updateStateData(context, agywBeneficiary);
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => AgywDreamMSGHIVRegister(),
       ),
     );
   }
@@ -280,10 +252,6 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
                     context,
                     agywBeneficiary,
                   ),
-                  onOpenSRHForm: () => onOpenSRHForm(
-                    context,
-                    agywBeneficiary,
-                  ),
                   onOpenHTSShortForm: () => onOpenHTSShortForm(
                     context,
                     agywBeneficiary,
@@ -297,10 +265,6 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
                     agywBeneficiary,
                   ),
                   onOpenContraceptivesForm: () => onOpenContraceptivesForm(
-                    context,
-                    agywBeneficiary,
-                  ),
-                  onOpenMSGHIVForm: () => onOpenMSGHIVForm(
                     context,
                     agywBeneficiary,
                   ),

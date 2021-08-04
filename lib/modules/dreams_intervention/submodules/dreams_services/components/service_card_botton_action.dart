@@ -14,7 +14,6 @@ class ServiceCardButtonAction extends StatelessWidget {
     this.onOpenPrepShortForm,
     this.onOpenHTSShortForm,
     this.onOpenHTSLongForm,
-    this.onOpenSRHForm,
     this.onOpenCondomForm,
     this.onOpenContraceptivesForm,
     this.onOpenMSGHIVForm,
@@ -30,7 +29,6 @@ class ServiceCardButtonAction extends StatelessWidget {
   final VoidCallback onOpenPrepShortForm;
   final VoidCallback onOpenHTSShortForm;
   final VoidCallback onOpenHTSLongForm;
-  final VoidCallback onOpenSRHForm;
   final VoidCallback onOpenMSGHIVForm;
   final VoidCallback onOpenCondomForm;
   final VoidCallback onOpenContraceptivesForm;
@@ -82,43 +80,6 @@ class ServiceCardButtonAction extends StatelessWidget {
                                     padding: const EdgeInsets.all(8.0),
                                     child: Text(
                                       'HTS',
-                                      style: TextStyle().copyWith(
-                                        fontSize: 12.0,
-                                        fontWeight: FontWeight.normal,
-                                        color: Color(0xFF1F8ECE),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Visibility(
-                          visible: currentUserState.canManageSrh,
-                          child: Container(
-                            child: InkWell(
-                              onTap: onOpenSRHForm,
-                              child: Container(
-                                padding: EdgeInsets.symmetric(
-                                  vertical: 5.0,
-                                ),
-                                margin: EdgeInsets.symmetric(
-                                  vertical: 5.0,
-                                ),
-                                decoration: BoxDecoration(
-                                  border: Border(
-                                    left: BorderSide(
-                                      width: 1,
-                                      color: Color(0xFF8EBAD3),
-                                    ),
-                                  ),
-                                ),
-                                child: Center(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(
-                                      'SRH',
                                       style: TextStyle().copyWith(
                                         fontSize: 12.0,
                                         fontWeight: FontWeight.normal,
