@@ -43,4 +43,6 @@ class DreamsRoutesConstant {
   static final String agywDreamsCondomsFormNextPage = "Condoms";
   static final String agywDreamsContraceptivesPage = "Contraceptives form";
   static final String agywDreamsContraceptivesNextPage = "Contraceptives form";
+  static final String agywDreamsHTSShortFormPage = "HTS Form";
+  static final String agywDreamsHTSShortFormNextPage = "HTS Form";
 }
