@@ -37,4 +37,6 @@ class DreamsRoutesConstant {
   // routes for agyw services
   static final String agywDreamsANCFormPage = "ANC form";
   static final String agywDreamsANCFormNextPage = "ANC form";
+  static final String agywDreamsArtRefillPage = "ART Re-fill";
+  static final String agywDreamsArtRefillNextPage = "ART Re-fill";
 }
