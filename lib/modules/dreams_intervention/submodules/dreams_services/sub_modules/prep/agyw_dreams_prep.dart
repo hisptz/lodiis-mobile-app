@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dream_current_selection_state.dart';
+import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
@@ -13,7 +13,7 @@ import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_top_header.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_long_form/pages/agyw_dreams_hts_consent_subpart_form.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/prep/constants/prep_intake_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/components/dreams_services_visit_card.dart';
@@ -65,7 +65,7 @@ class _AgywDreamsPrepState extends State<AgywDreamsPrep> {
 
   void onAddPrep(BuildContext context, AgywDream agywDream) {
     updateFormState(context, true, null);
-    Provider.of<DreamBeneficiarySelectionState>(context, listen: false)
+    Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
         .setCurrentAgywDream(agywDream);
     if (int.parse(agywDream.age) >= 15 && int.parse(agywDream.age) <= 24) {
       Navigator.push(context,
@@ -91,7 +91,7 @@ class _AgywDreamsPrepState extends State<AgywDreamsPrep> {
 
   void onAddVisit(BuildContext context, AgywDream agywDream) {
     updateFormState(context, true, null);
-    Provider.of<DreamBeneficiarySelectionState>(context, listen: false)
+    Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
         .setCurrentAgywDream(agywDream);
     if (int.parse(agywDream.age) >= 15 && int.parse(agywDream.age) <= 24) {
       Navigator.push(context,
@@ -163,7 +163,7 @@ class _AgywDreamsPrepState extends State<AgywDreamsPrep> {
       body: SubPageBody(
         body: Column(
           children: [
-            Consumer<DreamBeneficiarySelectionState>(
+            Consumer<DreamsBeneficiarySelectionState>(
               builder: (context, dreamBeneficiarySelectionState, child) {
                 return Consumer<ServiceEventDataState>(
                   builder: (context, serviceFormState, child) {
@@ -185,7 +185,7 @@ class _AgywDreamsPrepState extends State<AgywDreamsPrep> {
                         children: [
                           Container(
                             child: events.length > 0
-                                ? DreamBeneficiaryTopHeader(
+                                ? DreamsBeneficiaryTopHeader(
                                     agywDream: agywDream,
                                   )
                                 : null,
@@ -224,7 +224,7 @@ class _AgywDreamsPrepState extends State<AgywDreamsPrep> {
                                                         bottom: 15.0,
                                                       ),
                                                       child:
-                                                          DreamsServiceVisitListCard(
+                                                          DreamsServiceVisitCard(
                                                         visitName:
                                                             "PrEP Screening",
                                                         onEdit: () =>
@@ -287,7 +287,7 @@ class _AgywDreamsPrepState extends State<AgywDreamsPrep> {
                                                                   bottom: 15.0,
                                                                 ),
                                                                 child:
-                                                                    DreamsServiceVisitListCard(
+                                                                    DreamsServiceVisitCard(
                                                                   visitName:
                                                                       "PrEP Visit",
                                                                   onEdit: () =>

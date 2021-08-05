@@ -16,7 +16,7 @@ import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/modules/intervention_selection/intervention_selection.dart';
 import 'package:kb_mobile_app/modules/login/components/login_button.dart';
 import 'package:kb_mobile_app/core/components/line_separator.dart';
-import 'package:kb_mobile_app/modules/login/constants/login_style.dart';
+import 'package:kb_mobile_app/modules/login/constants/login_page_style.dart';
 import 'package:provider/provider.dart';
 import 'package:kb_mobile_app/core/services/organisation_unit_service.dart';
 
@@ -88,12 +88,12 @@ class _LoginFormState extends State<LoginForm> {
       loginFormState.setIsLoginProcessActive(true);
       loginFormState.setCurrentLoginProcessMessage('Authenticating user...');
       if (isOnline) {
-        await onlineAthentication(
+        await onlineAuthentication(
           username: currentUser.username.trim(),
           password: currentUser.password.trim(),
         );
       } else {
-        await offlineAthentication(
+        await offlineAuthentication(
           username: currentUser.username.trim(),
           password: currentUser.password.trim(),
         );
@@ -101,12 +101,12 @@ class _LoginFormState extends State<LoginForm> {
     }
   }
 
-  Future<void> offlineAthentication({String username, String password}) async {
+  Future<void> offlineAuthentication({String username, String password}) async {
     try {
       CurrentUser user = await UserService().login(
         username: username,
         password: password,
-        isOnlineAthentication: false,
+        isOnlineAuthentication: false,
       );
       if (user != null) {
         var userAccessConfigurations =
@@ -122,7 +122,7 @@ class _LoginFormState extends State<LoginForm> {
     }
   }
 
-  Future<void> onlineAthentication({String username, String password}) async {
+  Future<void> onlineAuthentication({String username, String password}) async {
     try {
       CurrentUser user = await UserService().login(
         username: username,

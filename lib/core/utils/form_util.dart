@@ -83,17 +83,17 @@ class FormUtil {
 
   static bool geFormFilledStatus(
       Map dataObject, List<FormSection> formSections) {
-    bool isformFilled = false;
+    bool isFormFilled = false;
     if (dataObject.keys.length > 0) {
       List<String> inputFields = getFormFieldIds(formSections);
       for (String id in inputFields) {
         if (dataObject.containsKey(id) && '${dataObject[id]}'.trim() != '') {
-          isformFilled = true;
+          isFormFilled = true;
         }
       }
     }
 
-    return isformFilled;
+    return isFormFilled;
   }
 
   static List<InputField> getFormInputFields(List<FormSection> formSections) {
@@ -141,10 +141,10 @@ class FormUtil {
         })
         .toList()
         .join(',');
-    dynamic trackedEnrityInstanceJson =
+    dynamic trackedEntityInstanceJson =
         '{"trackedEntityInstance":"$trackedEntityInstance", "trackedEntityType":"$trackedEntityType", "orgUnit":"$orgUnit","syncStatus":"not-synced","attributes":[$attributes] }';
     return TrackedEntityInstance()
-        .fromJson(json.decode(trackedEnrityInstanceJson));
+        .fromJson(json.decode(trackedEntityInstanceJson));
   }
 
   static Enrollment getEnrollmentPayLoad(
@@ -217,8 +217,8 @@ class FormUtil {
   }
 
   static Future savingTeiRelationship(TeiRelationship teiRelationship) async {
-    await TeiRelatioShipOfflineProvider()
-        .addOrUpdateTeirelationShip(teiRelationship);
+    await TeiRelationshipOfflineProvider()
+        .addOrUpdateTeiRelationship(teiRelationship);
   }
 
   static Future savingEvent(Events event) async {

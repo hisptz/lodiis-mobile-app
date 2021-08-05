@@ -31,12 +31,12 @@ class _OrganisationUnitTreeListState extends State<OrganisationUnitTreeList> {
   @override
   void initState() {
     super.initState();
-    discoveringOrganisatioUnits(widget.organisationUnitIds);
+    discoveringOrganisationUnits(widget.organisationUnitIds);
   }
 
-  void discoveringOrganisatioUnits(List organisationUnitids) async {
+  void discoveringOrganisationUnits(List organisationUnitIds) async {
     var data = await OrganisationUnitService()
-        .getOrganisationUnits(organisationUnitids);
+        .getOrganisationUnits(organisationUnitIds);
     if (widget.filteredPrograms.length > 0) {
       List<String> programsOrganisationUnits = [];
       for (String program in widget.filteredPrograms) {

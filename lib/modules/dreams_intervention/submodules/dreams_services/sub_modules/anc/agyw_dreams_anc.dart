@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dream_current_selection_state.dart';
+import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
@@ -11,21 +11,21 @@ import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_top_header.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/components/dreams_services_visit_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/anc/constants/anc_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/anc/pages/agyw_dreams_anc_form.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:provider/provider.dart';
 
-class AgywDreamANC extends StatefulWidget {
-  AgywDreamANC({Key key}) : super(key: key);
+class AgywDreamsANC extends StatefulWidget {
+  AgywDreamsANC({Key key}) : super(key: key);
 
   @override
-  _AgywDreamANCState createState() => _AgywDreamANCState();
+  _AgywDreamsANCState createState() => _AgywDreamsANCState();
 }
 
-class _AgywDreamANCState extends State<AgywDreamANC> {
+class _AgywDreamsANCState extends State<AgywDreamsANC> {
   final String label = 'ANC';
   List<String> programStageIds = [ANCConstant.programStage];
   @override
@@ -57,7 +57,7 @@ class _AgywDreamANCState extends State<AgywDreamANC> {
 
   void onAddPrep(BuildContext context, AgywDream agywDream) {
     updateFormState(context, true, null);
-    Provider.of<DreamBeneficiarySelectionState>(context, listen: false)
+    Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
         .setCurrentAgywDream(agywDream);
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => AgywDreamsANCForm()));
@@ -93,7 +93,7 @@ class _AgywDreamANCState extends State<AgywDreamANC> {
         ),
         body: SubPageBody(
           body: Container(
-            child: Consumer<DreamBeneficiarySelectionState>(
+            child: Consumer<DreamsBeneficiarySelectionState>(
               builder: (context, dreamBeneficiarySelectionState, child) {
                 return Consumer<ServiceEventDataState>(
                   builder: (context, serviceFormState, child) {
@@ -109,7 +109,7 @@ class _AgywDreamANCState extends State<AgywDreamANC> {
                     return Container(
                       child: Column(
                         children: [
-                          DreamBeneficiaryTopHeader(
+                          DreamsBeneficiaryTopHeader(
                             agywDream: agywDream,
                           ),
                           Container(
@@ -141,7 +141,7 @@ class _AgywDreamANCState extends State<AgywDreamANC> {
                                                         bottom: 15.0,
                                                       ),
                                                       child:
-                                                          DreamsServiceVisitListCard(
+                                                          DreamsServiceVisitCard(
                                                         visitName: "ANC VISIT ",
                                                         onEdit: () =>
                                                             onEditPrep(context,

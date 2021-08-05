@@ -1,4 +1,4 @@
-import 'package:kb_mobile_app/core/offline_db/event_offline/event_offline_data_value.dart';
+import 'package:kb_mobile_app/core/offline_db/event_offline/event_offline_data_value_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/offline_db_provider.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/events.dart';

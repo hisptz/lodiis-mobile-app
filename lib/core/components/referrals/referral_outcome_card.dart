@@ -12,11 +12,11 @@ import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
 import 'package:kb_mobile_app/core/components/referrals/referral_outcome_modal.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_referral/models/dream_referral.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_referral/models/dream_referral_followup.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_referral/models/dream_referral_outcome.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_referral/models/dreams_referral.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_referral/models/dreams_referral_follow_up.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_referral/models/dreams_referral_outcome.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/models/ovc_referral.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/models/ovc_referral_followup.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/models/ovc_referral_follow_up.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/models/ovc_referral_outcome.dart';
 import 'package:provider/provider.dart';
 
@@ -30,7 +30,7 @@ class ReferralOutComeCard extends StatefulWidget {
     @required this.referralProgram,
     @required this.isOvcIntervention,
     this.isEditableMode = true,
-    this.isHouseHoldReferral = false,
+    this.isHouseholdReferral = false,
   }) : super(key: key);
 
   final Events eventData;
@@ -40,7 +40,7 @@ class ReferralOutComeCard extends StatefulWidget {
   final String referralProgram;
   final bool isEditableMode;
   final bool isOvcIntervention;
-  final bool isHouseHoldReferral;
+  final bool isHouseholdReferral;
 
   @override
   _ReferralOutComeCardState createState() => _ReferralOutComeCardState();
@@ -48,7 +48,7 @@ class ReferralOutComeCard extends StatefulWidget {
 
 class _ReferralOutComeCardState extends State<ReferralOutComeCard> {
   bool isFormReady = false;
-  bool isreferralOutComeFilled = false;
+  bool isReferralOutComeFilled = false;
   List<FormSection> referralOutcomeFormSections;
   List<FormSection> referralOutcomeFollowUpFormSections;
   List<String> referralOutcomeMandatoryFields = [];
@@ -70,17 +70,17 @@ class _ReferralOutComeCardState extends State<ReferralOutComeCard> {
           OvcReferralFollowUp.getFormSections();
     } else {
       themeColor = const Color(0xFF1F8ECE);
-      referralOutcomeFormSections = DreamReferralOutCome.getFormSections();
+      referralOutcomeFormSections = DreamsReferralOutCome.getFormSections();
       referralOutcomeMandatoryFields
-          .addAll(DreamReferralOutCome.getMandatoryFields());
+          .addAll(DreamsReferralOutCome.getMandatoryFields());
       hiddenFields
-          .addAll(FormUtil.getFormFieldIds(DreamAddReferral.getFormSections()));
+          .addAll(FormUtil.getFormFieldIds(DreamsReferral.getFormSections()));
       referralOutcomeFollowUpFormSections =
-          DreamReferralFollowUp.getFormSections();
+          DreamsReferralFollowUp.getFormSections();
     }
 
     Timer(Duration(seconds: 1), () {
-      isreferralOutComeFilled = getReferralOutComeStatus();
+      isReferralOutComeFilled = getReferralOutComeStatus();
       isFormReady = true;
       setState(() {});
     });
@@ -112,7 +112,7 @@ class _ReferralOutComeCardState extends State<ReferralOutComeCard> {
   }
 
   bool getReferralOutComeStatus() {
-    bool isreferralOutcomeFilled = false;
+    bool isReferralOutComeFilled = false;
     List<String> inputFields =
         FormUtil.getFormFieldIds(referralOutcomeFormSections);
     for (Map dataValue in widget.eventData.dataValues) {
@@ -121,10 +121,10 @@ class _ReferralOutComeCardState extends State<ReferralOutComeCard> {
       if (dataElement != null &&
           inputFields.indexOf(dataElement) > -1 &&
           value != null) {
-        isreferralOutcomeFilled = true;
+        isReferralOutComeFilled = true;
       }
     }
-    return isreferralOutcomeFilled;
+    return isReferralOutComeFilled;
   }
 
   @override
@@ -141,7 +141,7 @@ class _ReferralOutComeCardState extends State<ReferralOutComeCard> {
                 Container(
                   margin: EdgeInsets.only(bottom: 10.0),
                   child: Visibility(
-                    visible: isreferralOutComeFilled,
+                    visible: isReferralOutComeFilled,
                     child: ReferralOutComeViewContainer(
                       isEditableMode: widget.isEditableMode,
                       themeColor: themeColor,
@@ -159,7 +159,7 @@ class _ReferralOutComeCardState extends State<ReferralOutComeCard> {
                   ),
                 ),
                 Visibility(
-                  visible: widget.isEditableMode && !isreferralOutComeFilled,
+                  visible: widget.isEditableMode && !isReferralOutComeFilled,
                   child: ClipRRect(
                     borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(12.0),

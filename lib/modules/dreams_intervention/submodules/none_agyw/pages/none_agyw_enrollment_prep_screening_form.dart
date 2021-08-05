@@ -20,7 +20,7 @@ import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/constants/dreams_routes_constant.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/services/none_agyw_dream_enrollment_service.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/services/none_agyw_dreams_enrollment_service.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/models/none_agyw_enrollment_prep_screening.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/skip_logics/none_agyw_enrollment_skip_logic.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
@@ -136,7 +136,7 @@ class _NoneAgywEnrollmentPrepScreeningFormState
         'fQInK8s2RNR'
       ];
       String orgUnit = dataObject['location'];
-      await NoneAgywDreamEnrollmentService().savingNonAgywBeneficiary(
+      await NoneAgywDreamsEnrollmentService().savingNonAgywBeneficiary(
         dataObject,
         trackedEntityInstance,
         orgUnit,

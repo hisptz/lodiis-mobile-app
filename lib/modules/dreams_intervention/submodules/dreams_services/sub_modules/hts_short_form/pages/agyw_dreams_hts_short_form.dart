@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dream_current_selection_state.dart';
+import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
@@ -18,7 +18,7 @@ import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_top_header.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/agyw_dreams_short_form.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_short_form/constants/agyw_dreams_hts_short_form.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_short_form/skip_logics/agyw_dreams_hts_short_form_skip_logics.dart';
@@ -70,7 +70,7 @@ class _AgywDreamsHTSShortFormState extends State<AgywDreamsHTSShortForm> {
       setState(() {
         isSaving = true;
       });
-      Provider.of<DreamBeneficiarySelectionState>(context, listen: false)
+      Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
           .setCurrentAgywDream(agywDream);
       await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
         AgywDreamsHTSShortFormConstant.program,
@@ -149,7 +149,7 @@ class _AgywDreamsHTSShortFormState extends State<AgywDreamsHTSShortForm> {
           child: Consumer<LanguageTranslationState>(
             builder: (context, languageTranslationState, child) {
               String currentLanguage = languageTranslationState.currentLanguage;
-              return Consumer<DreamBeneficiarySelectionState>(
+              return Consumer<DreamsBeneficiarySelectionState>(
                 builder: (context, dreamBeneficiarySelectionState, child) {
                   return Consumer<ServiceFormState>(
                     builder: (context, serviceFormState, child) {
@@ -158,7 +158,7 @@ class _AgywDreamsHTSShortFormState extends State<AgywDreamsHTSShortForm> {
                       return Container(
                         child: Column(
                           children: [
-                            DreamBeneficiaryTopHeader(
+                            DreamsBeneficiaryTopHeader(
                               agywDream: agywDream,
                             ),
                             Container(

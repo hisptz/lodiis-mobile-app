@@ -60,7 +60,7 @@ class _OvcEnrollmentNoneParticipationFormState
       setState(() {
         isSaving = true;
       });
-      await OvcNoneParticipationService()
+      await OvcEnrollmentNoneParticipationService()
           .saveNoneParticipationForm(formSections, dataObject, eventId);
       Provider.of<OvcInterventionListState>(context, listen: false)
           .refreshOvcList();

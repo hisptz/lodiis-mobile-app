@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dream_current_selection_state.dart';
+import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
@@ -11,7 +11,7 @@ import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_top_header.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_long_form/pages/agyw_dreams_hts_client_information.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_long_form/pages/agyw_dreams_hts_consent_form.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_long_form/pages/agyw_dreams_hts_consent_form_edit.dart';
@@ -20,7 +20,7 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_serv
 import 'package:provider/provider.dart';
 import 'components/dreams_sub_hts_list_card.dart';
 import 'constants/agyw_dreams_hts_constant.dart';
-import 'models/hts_model.dart';
+import 'models/dreams_hts_event.dart';
 import 'pages/agyw_dreams_hts_client_information_edit.dart';
 import 'pages/agyw_dreams_hts_consent_for_release_status.dart';
 import 'pages/agyw_dreams_hts_consent_for_release_status_edit.dart';
@@ -207,7 +207,7 @@ class _HTSSubHomePageState extends State<HTSSubHomePage> {
         ),
         body: SubPageBody(
           body: Container(
-            child: Consumer<DreamBeneficiarySelectionState>(
+            child: Consumer<DreamsBeneficiarySelectionState>(
               builder: (context, dreamBeneficiarySelectionState, child) {
                 return Consumer<ServiceEventDataState>(
                   builder: (context, serviceFormState, child) {
@@ -236,7 +236,7 @@ class _HTSSubHomePageState extends State<HTSSubHomePage> {
                     return Container(
                       child: Column(
                         children: [
-                          DreamBeneficiaryTopHeader(
+                          DreamsBeneficiaryTopHeader(
                             agywDream: agywDream,
                           ),
                           Container(

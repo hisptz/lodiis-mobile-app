@@ -9,7 +9,7 @@ class InterventionSelectionList extends StatefulWidget {
     this.onInterventionSelection,
     @required this.numberOfAgywDreamsBeneficiaries,
     @required this.numberOfNoneAgywDreamsBeneficiaries,
-    @required this.numberOfHouseHolds,
+    @required this.numberOfHouseholds,
     @required this.numberOfOvcs,
     @required this.numberOfOgac,
   }) : super(key: key);
@@ -19,7 +19,7 @@ class InterventionSelectionList extends StatefulWidget {
 
   final int numberOfNoneAgywDreamsBeneficiaries;
   final int numberOfAgywDreamsBeneficiaries;
-  final int numberOfHouseHolds;
+  final int numberOfHouseholds;
   final int numberOfOvcs;
   final int numberOfOgac;
 
@@ -53,7 +53,7 @@ class _InterventionSelectionListState extends State<InterventionSelectionList> {
                       widget.numberOfAgywDreamsBeneficiaries,
                   numberOfNoneAgywDreamsBeneficiaries:
                       widget.numberOfNoneAgywDreamsBeneficiaries,
-                  numberOfHouseHolds: widget.numberOfHouseHolds,
+                  numberOfHouseholds: widget.numberOfHouseholds,
                   numberOfOvcs: widget.numberOfOvcs,
                   numberOfOgac: widget.numberOfOgac,
                 ),

@@ -45,7 +45,7 @@ class ReferralOutComeViewContainer extends StatefulWidget {
 
 class _ReferralOutComeViewContainerState
     extends State<ReferralOutComeViewContainer> {
-  ReferralOutComeEvent referralOutComeEvent;
+  ReferralOutcomeEvent referralOutComeEvent;
   bool isViewReady = false;
   double editIconHeight = 20;
 
@@ -60,7 +60,7 @@ class _ReferralOutComeViewContainerState
         setState(
           () {
             isViewReady = true;
-            referralOutComeEvent = ReferralOutComeEvent().fromTeiModel(
+            referralOutComeEvent = ReferralOutcomeEvent().fromTeiModel(
                 widget.eventData, widget.referralToFollowUpLinkage);
           },
         );
@@ -68,7 +68,7 @@ class _ReferralOutComeViewContainerState
     );
   }
 
-  List<ReferralOutFollowUpComeEvent> getReferralOutComeFollowUps(
+  List<ReferralOutcomeFollowUpEvent> getReferralOutComeFollowUps(
     Map<String, List<Events>> eventListByProgramStage,
   ) {
     TrackedEntityInstanceUtil
@@ -81,8 +81,8 @@ class _ReferralOutComeViewContainerState
       eventListByProgramStage,
       [widget.referralFollowUpStage],
     );
-    List<ReferralOutFollowUpComeEvent> referralOutComeFollowUps = events
-        .map((Events event) => ReferralOutFollowUpComeEvent()
+    List<ReferralOutcomeFollowUpEvent> referralOutComeFollowUps = events
+        .map((Events event) => ReferralOutcomeFollowUpEvent()
             .fromTeiModel(event, widget.referralToFollowUpLinkage))
         .toList();
     return referralOutComeFollowUps
@@ -138,7 +138,7 @@ class _ReferralOutComeViewContainerState
                           builder: (context, serviceEventDataState, child) {
                         Map<String, List<Events>> eventListByProgramStage =
                             serviceEventDataState.eventListByProgramStage;
-                        List<ReferralOutFollowUpComeEvent>
+                        List<ReferralOutcomeFollowUpEvent>
                             referralOutComeFollowUpEvents =
                             getReferralOutComeFollowUps(
                                 eventListByProgramStage);

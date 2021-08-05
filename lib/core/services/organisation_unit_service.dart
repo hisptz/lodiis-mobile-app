@@ -36,18 +36,19 @@ class OrganisationUnitService {
   }
 
   setOrganisationUnits(List<OrganisationUnit> organisationUnit) async {
-    await OrganisationUnitOffline()
+    await OrganisationUnitOfflineProvider()
         .addOrUpdateOrganisationUnits(organisationUnit);
   }
 
   Future<List<OrganisationUnit>> getOrganisationUnits(
-      List organisationUnitids) async {
-    return await OrganisationUnitOffline()
-        .getOrganisationUnitById(organisationUnitids);
+      List organisationUnitIds) async {
+    return await OrganisationUnitOfflineProvider()
+        .getOrganisationUnitById(organisationUnitIds);
   }
 
   Future<List<OrganisationUnit>> getOrganisationUnitsByLevel(int level) async {
-    return await OrganisationUnitOffline().getOrganisationUnitsByLevel(level);
+    return await OrganisationUnitOfflineProvider()
+        .getOrganisationUnitsByLevel(level);
   }
 
   Future<List<String>> getOrganisationUnitsInPathByOrganisationUnit(

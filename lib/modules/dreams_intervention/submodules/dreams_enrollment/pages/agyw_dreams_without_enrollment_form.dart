@@ -19,7 +19,7 @@ import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/constants/dreams_routes_constant.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/services/agyw_dream_without_enrollment_criteria_service.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/services/agyw_dreams_without_enrollment_criteria_service.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/models/agyw_without_enrollment_criteria.dart';
 import 'package:provider/provider.dart';
 

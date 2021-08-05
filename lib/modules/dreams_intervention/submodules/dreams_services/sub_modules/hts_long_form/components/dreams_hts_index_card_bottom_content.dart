@@ -12,8 +12,8 @@ import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/agyw_dreams_index_info_event.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_long_form/constants/agyw_dreams_hts_index_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_long_form/constants/agyw_dreams_index_contact_constant.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_long_form/models/index_contact_model.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_long_form/pages/agyw_dreams_hts_index_contact_followup_list.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_long_form/models/index_contact.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_long_form/pages/agyw_dreams_hts_index_contact_follow_up_list.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_long_form/pages/agyw_dreams_index_contact.dart';
 import 'package:provider/provider.dart';
 
@@ -40,7 +40,7 @@ class _DreamsHTSIndexCardButtonContentState
   void updateFormState(
     BuildContext context,
     bool isEditableMode,
-    IndexContactModel eventData,
+    IndexContact eventData,
   ) {
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
     Provider.of<ServiceFormState>(context, listen: false)
@@ -59,7 +59,7 @@ class _DreamsHTSIndexCardButtonContentState
     }
   }
 
-  void onEditIndexContact(BuildContext context, IndexContactModel eventData) {
+  void onEditIndexContact(BuildContext context, IndexContact eventData) {
     updateFormState(context, true, eventData);
     Navigator.push(
         context,
@@ -68,7 +68,7 @@ class _DreamsHTSIndexCardButtonContentState
         ));
   }
 
-  void onViewIndexContact(BuildContext context, IndexContactModel eventData) {
+  void onViewIndexContact(BuildContext context, IndexContact eventData) {
     updateFormState(context, false, eventData);
     Navigator.push(
       context,
@@ -80,12 +80,12 @@ class _DreamsHTSIndexCardButtonContentState
 
   void onFollowUpIndexContact(
     BuildContext context,
-    IndexContactModel eventData,
+    IndexContact eventData,
   ) {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => AgywDreamsIndexFollowUpList(
+        builder: (context) => AgywDreamsHTSIndexFollowUpList(
           indexContactEvent: eventData,
           indexInfoEvent: widget.event,
         ),
@@ -150,9 +150,9 @@ class _DreamsHTSIndexCardButtonContentState
                     .getAllEventListFromServiceDataStateByProgramStages(
                         eventListByProgramStage,
                         [AgywDreamsIndexConstantConstant.programStage]);
-                List<IndexContactModel> indexContactEvents = events
+                List<IndexContact> indexContactEvents = events
                     .map((Events eventData) =>
-                        IndexContactModel().fromTeiModel(eventData))
+                        IndexContact().fromTeiModel(eventData))
                     .toList()
                     .where((element) =>
                         widget.event != null &&
@@ -167,7 +167,7 @@ class _DreamsHTSIndexCardButtonContentState
                             horizontal: 5.0, vertical: 0.0),
                         child: Column(
                             children: indexContactEvents
-                                .map((IndexContactModel eventData) {
+                                .map((IndexContact eventData) {
                           return Row(
                             children: [
                               Expanded(

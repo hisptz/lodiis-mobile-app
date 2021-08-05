@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dream_current_selection_state.dart';
+import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
@@ -16,8 +16,8 @@ import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/dreams_prep_followup_visit.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_top_header.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/dreams_prep_follow_up_visit.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/prep/constants/prep_intake_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/prep/skip_logics/agyw_prep_visit_skip_logic.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/constant/non_agyw_prep_visit_constant.dart';
@@ -160,7 +160,7 @@ class _AgywPrepVisitFormState extends State<AgywPrepVisitForm> {
               builder: (context, languageTranslationState, child) {
                 String currentLanguage =
                     languageTranslationState.currentLanguage;
-                return Consumer<DreamBeneficiarySelectionState>(
+                return Consumer<DreamsBeneficiarySelectionState>(
                   builder: (context, agywState, child) {
                     AgywDream agywDream = agywState.currentAgywDream;
                     return Consumer<ServiceFormState>(
@@ -168,7 +168,7 @@ class _AgywPrepVisitFormState extends State<AgywPrepVisitForm> {
                         return Container(
                           child: Column(
                             children: [
-                              DreamBeneficiaryTopHeader(
+                              DreamsBeneficiaryTopHeader(
                                 agywDream: agywDream,
                               ),
                               !isFormReady

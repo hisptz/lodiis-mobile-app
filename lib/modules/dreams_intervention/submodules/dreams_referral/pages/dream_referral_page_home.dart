@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dream_current_selection_state.dart';
+import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/implementing_partner_referral_service_state/implementing_partner_referral_service_state.dart';
@@ -18,25 +18,27 @@ import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
-import 'package:kb_mobile_app/models/referralEventNotification.dart';
+import 'package:kb_mobile_app/models/referral_event_notification.dart';
 import 'package:kb_mobile_app/models/referral_outcome_event.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_referral/constant/dream_agyw_referral_constant.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_top_header.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_referral/constant/dreams_agyw_referral_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_referral/pages/dream_agyw_referral_form.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_referral/pages/dream_referral_manage.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_referral/pages/dream_referral_view.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:provider/provider.dart';
 
-class DreamAgywReferralPage extends StatefulWidget {
-  DreamAgywReferralPage({Key key}) : super(key: key);
+class DreamsAgywReferralPage extends StatefulWidget {
+  DreamsAgywReferralPage({Key key}) : super(key: key);
   @override
-  _DreamAgywReferralPageState createState() => _DreamAgywReferralPageState();
+  _DreamsAgywReferralPageState createState() => _DreamsAgywReferralPageState();
 }
 
-class _DreamAgywReferralPageState extends State<DreamAgywReferralPage> {
+class _DreamsAgywReferralPageState extends State<DreamsAgywReferralPage> {
   final String label = 'Agyw Referral';
-  final List<String> programStageIds = [DreamAgywReferralConstant.programStage];
+  final List<String> programStageIds = [
+    DreamsAgywReferralConstant.programStage
+  ];
   void updateFormState(
     BuildContext context,
     bool isEditableMode,
@@ -83,7 +85,7 @@ class _DreamAgywReferralPageState extends State<DreamAgywReferralPage> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => DreamAgywAddReferralForm(
+        builder: (context) => DreamsAgywAddReferralForm(
           currentUser: user,
         ),
       ),
@@ -100,7 +102,7 @@ class _DreamAgywReferralPageState extends State<DreamAgywReferralPage> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => DreamReferralView(
+        builder: (context) => DreamsReferralView(
           eventData: eventData,
           referralIndex: referralIndex,
         ),
@@ -113,8 +115,8 @@ class _DreamAgywReferralPageState extends State<DreamAgywReferralPage> {
     Events eventData,
   ) {
     try {
-      ReferralOutComeEvent referralOutComeEvent =
-          ReferralOutComeEvent().fromTeiModel(eventData, "");
+      ReferralOutcomeEvent referralOutComeEvent =
+          ReferralOutcomeEvent().fromTeiModel(eventData, "");
       bool hasReferralOutCome =
           referralOutComeEvent.dateClientReachStation != "";
       String currentImplementingPartner =
@@ -156,7 +158,7 @@ class _DreamAgywReferralPageState extends State<DreamAgywReferralPage> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => DreamReferralManage(
+        builder: (context) => DreamsReferralManage(
           eventData: eventData,
           referralIndex: referralIndex,
         ),
@@ -182,7 +184,7 @@ class _DreamAgywReferralPageState extends State<DreamAgywReferralPage> {
         ),
         body: SubPageBody(
           body: Container(
-            child: Consumer<DreamBeneficiarySelectionState>(
+            child: Consumer<DreamsBeneficiarySelectionState>(
               builder: (context, dreamAgywState, child) {
                 return Consumer<InterventionBottomNavigationState>(builder:
                     (context, interventionBottomNavigationState, child) {
@@ -211,7 +213,7 @@ class _DreamAgywReferralPageState extends State<DreamAgywReferralPage> {
                           return Container(
                             child: Column(
                               children: [
-                                DreamBeneficiaryTopHeader(
+                                DreamsBeneficiaryTopHeader(
                                   agywDream: agywDream,
                                 ),
                                 Container(

@@ -360,7 +360,7 @@ class InputFieldContainer extends StatelessWidget {
                                                           )
                                                         : inputField.valueType ==
                                                                 'COORDINATE'
-                                                            ? CoordinteInputFieldContainer(
+                                                            ? CoordinateInputFieldContainer(
                                                                 inputField:
                                                                     inputField,
                                                                 inputValue:

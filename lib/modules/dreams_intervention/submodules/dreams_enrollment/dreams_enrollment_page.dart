@@ -6,7 +6,7 @@ import 'package:kb_mobile_app/core/components/paginated_list_view.dart';
 import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/utils/app_resume_routes/app_resume_route.dart';
 import 'package:kb_mobile_app/models/form_auto_save.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_card_body.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_card_body.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_card.dart';
 import 'package:kb_mobile_app/core/components/sub_module_home_container.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/constants/dreams_routes_constant.dart';
@@ -87,7 +87,7 @@ class _DreamsEnrollmentPageState extends State<DreamsEnrollmentPage> {
               onCardToggle: () {
                 onCardToggle(agywBeneficiary.id);
               },
-              cardBody: DreamBeneficiaryCardBody(
+              cardBody: DreamsBeneficiaryCardBody(
                 agywBeneficiary: agywBeneficiary,
                 isVerticalLayout: agywBeneficiary.id == toggleCardId,
               ),

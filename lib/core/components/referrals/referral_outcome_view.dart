@@ -25,7 +25,7 @@ class ReferralOutComeView extends StatelessWidget {
     @required this.isEditableMode,
   }) : super(key: key);
 
-  final ReferralOutComeEvent referralOutComeEvent;
+  final ReferralOutcomeEvent referralOutComeEvent;
   final List<FormSection> referralOutcomeFollowUpFormSections;
   final Color themeColor;
   final TrackedEntityInstance beneficiary;
@@ -55,7 +55,7 @@ class ReferralOutComeView extends StatelessWidget {
     await AppUtil.showPopUpModal(context, modal, true);
   }
 
-  void onEeditOutComeFollowUp(BuildContext context) async {
+  void onEditOutComeFollowUp(BuildContext context) async {
     Widget modal = ReferralOutComeFollowUpModal(
       themeColor: themeColor,
       referralProgram: referralProgram,
@@ -67,7 +67,7 @@ class ReferralOutComeView extends StatelessWidget {
     await AppUtil.showPopUpModal(context, modal, true);
   }
 
-  List<ReferralOutFollowUpComeEvent> getReferralOutComeFollowUps(
+  List<ReferralOutcomeFollowUpEvent> getReferralOutComeFollowUps(
     Map<String, List<Events>> eventListByProgramStage,
   ) {
     TrackedEntityInstanceUtil
@@ -80,8 +80,8 @@ class ReferralOutComeView extends StatelessWidget {
       eventListByProgramStage,
       [referralFollowUpStage],
     );
-    List<ReferralOutFollowUpComeEvent> referralOutComeFollowUps = events
-        .map((Events event) => ReferralOutFollowUpComeEvent()
+    List<ReferralOutcomeFollowUpEvent> referralOutComeFollowUps = events
+        .map((Events event) => ReferralOutcomeFollowUpEvent()
             .fromTeiModel(event, referralToFollowUpLinkage))
         .toList();
     return referralOutComeFollowUps
@@ -237,7 +237,7 @@ class ReferralOutComeView extends StatelessWidget {
               builder: (context, serviceEventDataState, child) {
                 Map<String, List<Events>> eventListByProgramStage =
                     serviceEventDataState.eventListByProgramStage;
-                List<ReferralOutFollowUpComeEvent>
+                List<ReferralOutcomeFollowUpEvent>
                     referralOutComeFollowUpEvents =
                     getReferralOutComeFollowUps(eventListByProgramStage);
                 bool canAddFollowUp = true;
@@ -262,7 +262,7 @@ class ReferralOutComeView extends StatelessWidget {
                       child: ReferralOutComeFollowUp(
                         isEditableMode: isEditableMode,
                         themeColor: themeColor,
-                        onEditFollowUp: () => onEeditOutComeFollowUp(context),
+                        onEditFollowUp: () => onEditOutComeFollowUp(context),
                         referralOutComeFollowUpEvents:
                             referralOutComeFollowUpEvents,
                       ),
@@ -270,7 +270,7 @@ class ReferralOutComeView extends StatelessWidget {
                     Container(
                       child: Visibility(
                         visible: isEditableMode &&
-                            referralOutComeEvent.requredFollowUp,
+                            referralOutComeEvent.requiredFollowUp,
                         child: Container(
                           decoration: BoxDecoration(
                             color: themeColor,

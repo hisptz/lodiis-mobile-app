@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dream_current_selection_state.dart';
+import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
@@ -11,21 +11,21 @@ import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_top_header.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/components/dreams_services_visit_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/art_refill/constants/art_refill_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/art_refill/pages/agyw_dreams_art_refill_form.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:provider/provider.dart';
 
-class AgywDreamArtRefill extends StatefulWidget {
-  AgywDreamArtRefill({Key key}) : super(key: key);
+class AgywDreamsArtRefill extends StatefulWidget {
+  AgywDreamsArtRefill({Key key}) : super(key: key);
 
   @override
-  _AgywDreamArtRefillState createState() => _AgywDreamArtRefillState();
+  _AgywDreamsArtRefillState createState() => _AgywDreamsArtRefillState();
 }
 
-class _AgywDreamArtRefillState extends State<AgywDreamArtRefill> {
+class _AgywDreamsArtRefillState extends State<AgywDreamsArtRefill> {
   final String label = 'ART Re-fill';
   List<String> programStageIds = [ARTRefillConstant.programStage];
   @override
@@ -57,7 +57,7 @@ class _AgywDreamArtRefillState extends State<AgywDreamArtRefill> {
 
   void onAddPrep(BuildContext context, AgywDream agywDream) {
     updateFormState(context, true, null);
-    Provider.of<DreamBeneficiarySelectionState>(context, listen: false)
+    Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
         .setCurrentAgywDream(agywDream);
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => AgywDreamsARTRefillForm()));
@@ -93,7 +93,7 @@ class _AgywDreamArtRefillState extends State<AgywDreamArtRefill> {
         ),
         body: SubPageBody(
           body: Container(
-            child: Consumer<DreamBeneficiarySelectionState>(
+            child: Consumer<DreamsBeneficiarySelectionState>(
               builder: (context, dreamBeneficiarySelectionState, child) {
                 return Consumer<ServiceEventDataState>(
                   builder: (context, serviceFormState, child) {
@@ -109,7 +109,7 @@ class _AgywDreamArtRefillState extends State<AgywDreamArtRefill> {
                     return Container(
                       child: Column(
                         children: [
-                          DreamBeneficiaryTopHeader(
+                          DreamsBeneficiaryTopHeader(
                             agywDream: agywDream,
                           ),
                           Container(
@@ -141,7 +141,7 @@ class _AgywDreamArtRefillState extends State<AgywDreamArtRefill> {
                                                         bottom: 15.0,
                                                       ),
                                                       child:
-                                                          DreamsServiceVisitListCard(
+                                                          DreamsServiceVisitCard(
                                                         visitName:
                                                             "ART Re-fill",
                                                         onEdit: () =>

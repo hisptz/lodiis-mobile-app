@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dream_current_selection_state.dart';
+import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
@@ -12,7 +12,7 @@ import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_top_header.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/components/dreams_services_visit_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_short_form/constants/agyw_dreams_hts_short_form.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_short_form/pages/agyw_dreams_hts_short_form.dart';
@@ -97,7 +97,7 @@ class _HTSShortFormHomePageState extends State<HTSShortFormHomePage> {
       ),
       body: SubPageBody(
         body: Container(
-          child: Consumer<DreamBeneficiarySelectionState>(
+          child: Consumer<DreamsBeneficiarySelectionState>(
             builder: (context, dreamBeneficiarySelectionState, child) {
               return Consumer<ServiceEventDataState>(
                 builder: (context, serviceFormState, child) {
@@ -114,7 +114,7 @@ class _HTSShortFormHomePageState extends State<HTSShortFormHomePage> {
                   return Container(
                     child: Column(
                       children: [
-                        DreamBeneficiaryTopHeader(
+                        DreamsBeneficiaryTopHeader(
                           agywDream: agywDream,
                         ),
                         Container(
@@ -151,7 +151,7 @@ class _HTSShortFormHomePageState extends State<HTSShortFormHomePage> {
                                                         bottom: 15.0,
                                                       ),
                                                       child:
-                                                          DreamsServiceVisitListCard(
+                                                          DreamsServiceVisitCard(
                                                         visitName: "Visit ",
                                                         onEdit: () => onEditHTS(
                                                           context,

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dream_current_selection_state.dart';
+import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/referral_notification_state/referral_notification_state.dart';
 import 'package:kb_mobile_app/core/components/line_separator.dart';
 import 'package:kb_mobile_app/core/components/paginated_list_view.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_card_body.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_card_body.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_card.dart';
 import 'package:kb_mobile_app/core/components/sub_module_home_container.dart';
 import 'package:provider/provider.dart';
@@ -38,12 +38,12 @@ class _DreamsIncomingReferralPageState
     BuildContext context,
     AgywDream agywBeneficiary,
   ) {
-    Provider.of<DreamBeneficiarySelectionState>(context, listen: false)
+    Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
         .setCurrentAgywDream(agywBeneficiary);
     Provider.of<ServiceEventDataState>(context, listen: false)
         .resetServiceEventDataState(agywBeneficiary.id);
     Navigator.push(context,
-        MaterialPageRoute(builder: (context) => DreamAgywReferralPage()));
+        MaterialPageRoute(builder: (context) => DreamsAgywReferralPage()));
   }
 
   @override
@@ -78,7 +78,7 @@ class _DreamsIncomingReferralPageState
                     onCardToggle: () {
                       onCardToggle(agywBeneficiary.id);
                     },
-                    cardBody: DreamBeneficiaryCardBody(
+                    cardBody: DreamsBeneficiaryCardBody(
                         agywBeneficiary: agywBeneficiary,
                         isVerticalLayout: agywBeneficiary.id == toggleCardId),
                     cardButtonActions: Container(

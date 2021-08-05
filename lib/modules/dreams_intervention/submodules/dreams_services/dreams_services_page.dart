@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dream_current_selection_state.dart';
+import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/core/components/paginated_list_view.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_card_body.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_card_body.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_card.dart';
 import 'package:kb_mobile_app/core/components/sub_module_home_container.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/components/service_card_botton_action.dart';
@@ -15,6 +15,7 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_serv
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/contraceptives/agyw_dreams_contraceptives.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_long_form/hts_long_form_home_page.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_short_form/hts_short_form_home_page.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/msg_hiv/agyw_dreams_msg_hiv_register.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/pep/agyw_dreams_pep.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/post_gbv/agyw_dreams_post_gbv.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/prep/agyw_dreams_prep.dart';
@@ -107,7 +108,7 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => AgywDreamCondoms(),
+        builder: (context) => AgywDreamsCondoms(),
       ),
     );
   }
@@ -125,6 +126,19 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
     );
   }
 
+  void onOpenMSGHIVForm(
+    BuildContext context,
+    AgywDream agywBeneficiary,
+  ) {
+    updateStateData(context, agywBeneficiary);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => AgywDreamsMSGHIVRegister(),
+      ),
+    );
+  }
+
   void onOpenANCForm(
     BuildContext context,
     AgywDream agywBeneficiary,
@@ -133,7 +147,7 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => AgywDreamANC(),
+        builder: (context) => AgywDreamsANC(),
       ),
     );
   }
@@ -146,7 +160,7 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => AgywDreamPostGBV(),
+        builder: (context) => AgywDreamsPostGBV(),
       ),
     );
   }
@@ -159,7 +173,7 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => AgywDreamArtRefill(),
+        builder: (context) => AgywDreamsArtRefill(),
       ),
     );
   }
@@ -172,7 +186,7 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => AgywDreamPEP(),
+        builder: (context) => AgywDreamsPEP(),
       ),
     );
   }
@@ -194,7 +208,7 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
     BuildContext context,
     AgywDream agywBeneficiary,
   ) {
-    Provider.of<DreamBeneficiarySelectionState>(context, listen: false)
+    Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
         .setCurrentAgywDream(agywBeneficiary);
     Provider.of<ServiceEventDataState>(context, listen: false)
         .resetServiceEventDataState(agywBeneficiary.id);
@@ -237,7 +251,7 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
                     agywBeneficiary.id,
                   );
                 },
-                cardBody: DreamBeneficiaryCardBody(
+                cardBody: DreamsBeneficiaryCardBody(
                   agywBeneficiary: agywBeneficiary,
                   canViewServiceCategory: true,
                   isVerticalLayout: agywBeneficiary.id == toggleCardId,
@@ -269,6 +283,10 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
                     agywBeneficiary,
                   ),
                   onOpenANCForm: () => onOpenANCForm(
+                    context,
+                    agywBeneficiary,
+                  ),
+                  onOpenMSGHIVForm: () => onOpenMSGHIVForm(
                     context,
                     agywBeneficiary,
                   ),

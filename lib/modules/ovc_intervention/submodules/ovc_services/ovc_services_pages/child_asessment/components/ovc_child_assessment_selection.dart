@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_house_hold_current_selection_state.dart';
+import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_household_current_selection_state.dart';
 import 'package:kb_mobile_app/core/components/line_separator.dart';
-import 'package:kb_mobile_app/models/ovc_house_hold_child.dart';
+import 'package:kb_mobile_app/models/ovc_household_child.dart';
 import 'package:provider/provider.dart';
 
 class OvcChildAssessmentSelection extends StatelessWidget {
@@ -24,12 +24,12 @@ class OvcChildAssessmentSelection extends StatelessWidget {
               ),
             ),
           ),
-          Container(child: Consumer<OvcHouseHoldCurrentSelectionState>(
-            builder: (context, ovcHouseHoldCurrentSelectionState, child) {
-              OvcHouseHoldChild currentOvcHouseHoldChild =
-                  ovcHouseHoldCurrentSelectionState.currentOvcHouseHoldChild;
-              int age = int.parse(currentOvcHouseHoldChild.age);
-              String hivStatus = currentOvcHouseHoldChild.hivStatus;
+          Container(child: Consumer<OvcHouseholdCurrentSelectionState>(
+            builder: (context, ovcHouseholdCurrentSelectionState, child) {
+              OvcHouseholdChild currentOvcHouseholdChild =
+                  ovcHouseholdCurrentSelectionState.currentOvcHouseholdChild;
+              int age = int.parse(currentOvcHouseholdChild.age);
+              String hivStatus = currentOvcHouseholdChild.hivStatus;
               if (age < 5) {
                 assessmentTitles.add('TB');
               }

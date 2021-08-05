@@ -22,9 +22,9 @@ class AppResumeRoute
     BuildContext context,
     FormAutoSave formAutoSave,
   ) {
-    //@TODO add routes for agyw/dreams beneficiciaries
+    //@TODO add routes for agyw/dreams beneficiaries
     if (formAutoSave.nextPageModule == OgacRoutesConstant.nextPageModule) {
-      redirectToOgacEnrollmemntForm(context, formAutoSave);
+      redirectToOgacEnrollmentForm(context, formAutoSave);
     } else if (formAutoSave.nextPageModule ==
         DreamsRoutesConstant.noneAgywHtsConsentNextPage) {
       redirectToNoneAgywHtsConsent(context, formAutoSave);
@@ -69,7 +69,7 @@ class AppResumeRoute
     FormAutoSave formAutoSave, {
     String beneficiaryName = "",
   }) async {
-    bool diablePadding = false;
+    bool disablePadding = false;
     bool shouldResumeFormState = false;
     if (formAutoSave.hasFormAutoSaveData()) {
       String pageModule = formAutoSave.nextPageModule;
@@ -79,7 +79,7 @@ class AppResumeRoute
       dynamic hasConfirmResume = await AppUtil.showPopUpModal(
         context,
         modal,
-        diablePadding,
+        disablePadding,
         title: title,
       );
       shouldResumeFormState = "$hasConfirmResume" == "true";

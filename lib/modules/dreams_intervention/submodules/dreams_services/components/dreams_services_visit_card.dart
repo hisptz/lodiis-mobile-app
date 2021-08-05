@@ -3,8 +3,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:kb_mobile_app/core/components/material_card.dart';
 import 'package:kb_mobile_app/models/events.dart';
 
-class DreamsServiceVisitListCard extends StatelessWidget {
-  const DreamsServiceVisitListCard({
+class DreamsServiceVisitCard extends StatelessWidget {
+  const DreamsServiceVisitCard({
     Key key,
     @required this.eventData,
     @required this.visitName,

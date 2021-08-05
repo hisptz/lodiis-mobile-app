@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dream_current_selection_state.dart';
+import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar_container.dart';
@@ -13,7 +13,7 @@ import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_top_header.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/hts_register.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_long_form/constants/agyw_dreams_hts_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_long_form/skip_logics/agyw_dreams_hts_register_skip_logic.dart';
@@ -82,7 +82,7 @@ class _AgywDreamsHTSRegisterFormState extends State<AgywDreamsHTSRegisterForm> {
     bool hadAllMandatoryFilled =
         AppUtil.hasAllMandatoryFieldsFilled(mandatoryFields, dataObject);
     if (hadAllMandatoryFilled) {
-      Provider.of<DreamBeneficiarySelectionState>(context, listen: false)
+      Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
           .setCurrentAgywDream(agywDream);
       if (isComingFromPrep == true &&
           dataObject[AgywDreamsHTSLongFormConstant.hivResultStatus] ==
@@ -134,7 +134,7 @@ class _AgywDreamsHTSRegisterFormState extends State<AgywDreamsHTSRegisterForm> {
           ),
         ),
         body: SubPageBody(
-          body: Container(child: Consumer<DreamBeneficiarySelectionState>(
+          body: Container(child: Consumer<DreamsBeneficiarySelectionState>(
             builder: (context, nonAgywState, child) {
               AgywDream agywDream = nonAgywState.currentAgywDream;
               return Consumer<ServiceFormState>(
@@ -142,7 +142,7 @@ class _AgywDreamsHTSRegisterFormState extends State<AgywDreamsHTSRegisterForm> {
                   return Container(
                     child: Column(
                       children: [
-                        DreamBeneficiaryTopHeader(
+                        DreamsBeneficiaryTopHeader(
                           agywDream: agywDream,
                         ),
                         !isFormReady

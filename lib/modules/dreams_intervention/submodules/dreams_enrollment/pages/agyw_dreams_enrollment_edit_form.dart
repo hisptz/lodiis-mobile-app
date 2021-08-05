@@ -22,7 +22,7 @@ import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/constants/dreams_routes_constant.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/services/agyw_dream_enrollment_service.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/services/agyw_dreams_enrollment_service.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/skip_logics/agyw_dreams_enrollment_skip_logic.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:provider/provider.dart';
@@ -192,7 +192,7 @@ class _AgywDreamsEnrollmentEditFormState
         'PN92g65TkVI',
         'klLkGxy328c'
       ];
-      await AgywDreamEnrollmentService().savingAgywBeneficiary(
+      await AgywDreamsEnrollmentService().savingAgywBeneficiary(
         dataObject,
         trackedEntityInstance,
         orgUnit,

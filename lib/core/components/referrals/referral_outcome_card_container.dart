@@ -17,7 +17,7 @@ class ReferralOutComeCardContainer extends StatelessWidget {
     @required this.referralToFollowUpLinkage,
     @required this.referralProgram,
     @required this.isOvcIntervention,
-    this.isHouseHoldReferral = false,
+    this.isHouseholdReferral = false,
   }) : super(key: key);
 
   final String currentProgramStage;
@@ -27,7 +27,7 @@ class ReferralOutComeCardContainer extends StatelessWidget {
   final String referralToFollowUpLinkage;
   final String referralProgram;
   final bool isOvcIntervention;
-  final bool isHouseHoldReferral;
+  final bool isHouseholdReferral;
 
   @override
   Widget build(BuildContext context) {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dream_current_selection_state.dart';
+import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
@@ -11,7 +11,7 @@ import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_top_header.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/components/dreams_services_visit_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/condoms/pages/agyw_dreams_condoms_form.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
@@ -19,14 +19,14 @@ import 'package:provider/provider.dart';
 
 import 'constants/condoms_constant.dart';
 
-class AgywDreamCondoms extends StatefulWidget {
-  AgywDreamCondoms({Key key}) : super(key: key);
+class AgywDreamsCondoms extends StatefulWidget {
+  AgywDreamsCondoms({Key key}) : super(key: key);
 
   @override
-  _AgywDreamCondomsState createState() => _AgywDreamCondomsState();
+  _AgywDreamsCondomsState createState() => _AgywDreamsCondomsState();
 }
 
-class _AgywDreamCondomsState extends State<AgywDreamCondoms> {
+class _AgywDreamsCondomsState extends State<AgywDreamsCondoms> {
   final String label = 'Condoms';
   List<String> programStageIds = [CondomsConstant.programStage];
   @override
@@ -58,7 +58,7 @@ class _AgywDreamCondomsState extends State<AgywDreamCondoms> {
 
   void onAddPrep(BuildContext context, AgywDream agywDream) {
     updateFormState(context, true, null);
-    Provider.of<DreamBeneficiarySelectionState>(context, listen: false)
+    Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
         .setCurrentAgywDream(agywDream);
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => AgywDreamsCondomsForm()));
@@ -94,7 +94,7 @@ class _AgywDreamCondomsState extends State<AgywDreamCondoms> {
         ),
         body: SubPageBody(
           body: Container(
-            child: Consumer<DreamBeneficiarySelectionState>(
+            child: Consumer<DreamsBeneficiarySelectionState>(
               builder: (context, dreamBeneficiarySelectionState, child) {
                 return Consumer<ServiceEventDataState>(
                   builder: (context, serviceFormState, child) {
@@ -110,7 +110,7 @@ class _AgywDreamCondomsState extends State<AgywDreamCondoms> {
                     return Container(
                       child: Column(
                         children: [
-                          DreamBeneficiaryTopHeader(
+                          DreamsBeneficiaryTopHeader(
                             agywDream: agywDream,
                           ),
                           Container(
@@ -142,7 +142,7 @@ class _AgywDreamCondomsState extends State<AgywDreamCondoms> {
                                                         bottom: 15.0,
                                                       ),
                                                       child:
-                                                          DreamsServiceVisitListCard(
+                                                          DreamsServiceVisitCard(
                                                         visitName: "Visit",
                                                         onEdit: () =>
                                                             onEditPrep(context,

@@ -76,9 +76,9 @@ class TrackedEntityInstanceUtil {
   ) {
     programStageIds = programStageIds.toSet().toList();
     List<Events> events = [];
-    for (String programStageid in programStageIds) {
+    for (String programStageId in programStageIds) {
       try {
-        var data = eventListByProgramStage[programStageid] ?? [];
+        var data = eventListByProgramStage[programStageId] ?? [];
         events.addAll(data);
       } catch (e) {}
     }
@@ -90,9 +90,9 @@ class TrackedEntityInstanceUtil {
   ) {
     List<String> programStageIds = eventListByProgramStage.keys.toList();
     List<Events> events = [];
-    for (String programStageid in programStageIds) {
+    for (String programStageId in programStageIds) {
       try {
-        var data = eventListByProgramStage[programStageid] ?? [];
+        var data = eventListByProgramStage[programStageId] ?? [];
         events.addAll(data);
       } catch (e) {}
     }

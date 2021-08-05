@@ -1,4 +1,4 @@
-import 'package:kb_mobile_app/core/constants/current_user_contants.dart';
+import 'package:kb_mobile_app/core/constants/current_user_implementing_partner.dart';
 
 class CurrentUser {
   String id;
@@ -17,7 +17,7 @@ class CurrentUser {
 
   static final String userTable = 'current_user';
   static final String userProgramTable = 'current_user_program';
-  static final String userOrganisatonUnitTable = 'current_user_ou';
+  static final String userOrganisationUnitTable = 'current_user_ou';
 
   CurrentUser({
     this.id,
@@ -51,7 +51,7 @@ class CurrentUser {
 
   @override
   String toString() {
-    return 'Curremt user is $username $id $name $implementingPartner->$subImplementingPartner';
+    return 'Current user is $username $id $name $implementingPartner->$subImplementingPartner';
   }
 
   factory CurrentUser.fromJson(

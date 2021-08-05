@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_house_hold_current_selection_state.dart';
+import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_household_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_intervention_list_state.dart';
 import 'package:kb_mobile_app/core/components/paginated_list_view.dart';
 import 'package:kb_mobile_app/core/components/sub_module_home_container.dart';
-import 'package:kb_mobile_app/models/ovc_house_hold.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold_card.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold_card_body.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold_card_botton_content.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/ovc_referral_pages/ovc_house_referral_pages/ovc_house_hold_referral_home.dart';
+import 'package:kb_mobile_app/models/ovc_household.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_household_card.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_household_card_body.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_household_card_botton_content.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/ovc_referral_pages/ovc_house_referral_pages/ovc_household_referral_home.dart';
 import 'package:provider/provider.dart';
 
 class OvcReferralPage extends StatefulWidget {
@@ -38,18 +38,18 @@ class _OvcReferralPageState extends State<OvcReferralPage> {
     });
   }
 
-  void setOvcHouseHoldCurrentSelection(
-      BuildContext context, OvcHouseHold ovcHouseHold) {
-    Provider.of<OvcHouseHoldCurrentSelectionState>(context, listen: false)
-        .setCurrentHouseHold(ovcHouseHold);
+  void setOvcHouseholdCurrentSelection(
+      BuildContext context, OvcHousehold ovcHousehold) {
+    Provider.of<OvcHouseholdCurrentSelectionState>(context, listen: false)
+        .setCurrentHousehold(ovcHousehold);
     Provider.of<ServiceEventDataState>(context, listen: false)
-        .resetServiceEventDataState(ovcHouseHold.id);
+        .resetServiceEventDataState(ovcHousehold.id);
   }
 
-  void onViewRerral(BuildContext context, OvcHouseHold ovcHouseHold) {
-    setOvcHouseHoldCurrentSelection(context, ovcHouseHold);
+  void onViewRerral(BuildContext context, OvcHousehold ovcHousehold) {
+    setOvcHouseholdCurrentSelection(context, ovcHousehold);
     Navigator.push(context,
-        MaterialPageRoute(builder: (context) => OvcHouseHoldReferralHome()));
+        MaterialPageRoute(builder: (context) => OvcHouseholdReferralHome()));
   }
 
   @override
@@ -62,9 +62,9 @@ class _OvcReferralPageState extends State<OvcReferralPage> {
             builder: (context, ovcInterventionListState, child) {
               String header = currentLanguage == 'lesotho'
                   ? 'Lethathamo la malapa'.toUpperCase() +
-                      ': ${ovcInterventionListState.numberOfHouseHolds} Malapa'
+                      ': ${ovcInterventionListState.numberOfHouseholds} Malapa'
                   : 'Household list'.toUpperCase() +
-                      ': ${ovcInterventionListState.numberOfHouseHolds} households';
+                      ': ${ovcInterventionListState.numberOfHouseholds} households';
               return SubModuleHomeContainer(
                 header: header,
                 bodyContents: _buildBody(currentLanguage),
@@ -94,20 +94,20 @@ class _OvcReferralPageState extends State<OvcReferralPage> {
                 : 'There is no household enrolled at moment',
           ),
         ),
-        childBuilder: (context, ovcHouseHold, index) => OvcHouseHoldCard(
-          ovcHouseHold: ovcHouseHold,
+        childBuilder: (context, ovcHousehold, index) => OvcHouseholdCard(
+          ovcHousehold: ovcHousehold,
           canEdit: canEdit,
           canExpand: canExpand,
           canView: canView,
-          isExpanded: ovcHouseHold.id == toggleCardId,
+          isExpanded: ovcHousehold.id == toggleCardId,
           onCardToggle: () {
-            onCardToggle(ovcHouseHold.id);
+            onCardToggle(ovcHousehold.id);
           },
-          cardBody: OvcHouseHoldCardBody(
-            ovcHouseHold: ovcHouseHold,
+          cardBody: OvcHouseholdCardBody(
+            ovcHousehold: ovcHousehold,
           ),
           cardButtonActions: ClipRRect(
-            borderRadius: ovcHouseHold.id == toggleCardId
+            borderRadius: ovcHousehold.id == toggleCardId
                 ? BorderRadius.zero
                 : BorderRadius.only(
                     bottomLeft: Radius.circular(12.0),
@@ -124,7 +124,7 @@ class _OvcReferralPageState extends State<OvcReferralPage> {
                     child: TextButton(
                       onPressed: () => onViewRerral(
                         context,
-                        ovcHouseHold,
+                        ovcHousehold,
                       ),
                       child: Text(
                         'REFERRAL',
@@ -140,9 +140,9 @@ class _OvcReferralPageState extends State<OvcReferralPage> {
               ),
             ),
           ),
-          cardButtonContent: OvcHouseHoldCardButtonContent(
+          cardButtonContent: OvcHouseholdCardButtonContent(
             currentLanguage: currentLanguage,
-            ovcHouseHold: ovcHouseHold,
+            ovcHousehold: ovcHousehold,
             canAddChild: canAddChild,
             canViewChildInfo: canViewChildInfo,
             canEditChildInfo: canEditChildInfo,

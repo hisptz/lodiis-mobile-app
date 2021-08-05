@@ -17,7 +17,7 @@ class ReferralOutComeFollowUp extends StatelessWidget {
       this.isEditableMode = true})
       : super(key: key);
 
-  final List<ReferralOutFollowUpComeEvent> referralOutComeFollowUpEvents;
+  final List<ReferralOutcomeFollowUpEvent> referralOutComeFollowUpEvents;
   final Color themeColor;
   final isEditableMode;
   final Function onEditFollowUp;

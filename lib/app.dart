@@ -4,10 +4,10 @@ import 'package:kb_mobile_app/app_state/app_info_state/app_info_state.dart';
 import 'package:kb_mobile_app/app_state/app_logs_state/app_logs_state.dart';
 import 'package:kb_mobile_app/app_state/current_user_state/current_user_state.dart';
 import 'package:kb_mobile_app/app_state/device_connectivity_state/device_connectivity_state.dart';
-import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dream_current_selection_state.dart';
+import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
-import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_house_hold_current_selection_state.dart';
+import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_household_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/implementing_partner_referral_service_state/implementing_partner_referral_service_state.dart';
@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(create: (_) => CurrentUserState()),
           ChangeNotifierProvider(create: (_) => InterventionCardState()),
           ChangeNotifierProvider(
-              create: (_) => DreamBeneficiarySelectionState()),
+              create: (_) => DreamsBeneficiarySelectionState()),
           ChangeNotifierProvider(create: (_) => LoginFormState()),
           ChangeNotifierProvider(
               create: (_) => InterventionBottomNavigationState()),
@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(create: (_) => ServiceFormState()),
           ChangeNotifierProvider(create: (_) => ServiceEventDataState()),
           ChangeNotifierProvider(
-            create: (_) => OvcHouseHoldCurrentSelectionState(),
+            create: (_) => OvcHouseholdCurrentSelectionState(),
           ),
           ChangeNotifierProvider(create: (_) => OvcInterventionListState()),
           ChangeNotifierProvider(create: (_) => DreamsInterventionListState()),

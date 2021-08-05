@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dream_current_selection_state.dart';
+import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
@@ -17,7 +17,7 @@ import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_top_header.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/bio_data_information_about_index_positive_client.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_long_form/constants/agyw_dreams_index_positive_constant.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
@@ -158,7 +158,7 @@ class _AgywDreamsIndexInfoAboutPosClientState
               builder: (context, languageTranslationState, child) {
                 String currentLanguage =
                     languageTranslationState.currentLanguage;
-                return Consumer<DreamBeneficiarySelectionState>(
+                return Consumer<DreamsBeneficiarySelectionState>(
                   builder: (context, nonAgywState, child) {
                     AgywDream agywDream = nonAgywState.currentAgywDream;
                     return Consumer<ServiceFormState>(
@@ -166,7 +166,7 @@ class _AgywDreamsIndexInfoAboutPosClientState
                         return Container(
                           child: Column(
                             children: [
-                              DreamBeneficiaryTopHeader(
+                              DreamsBeneficiaryTopHeader(
                                 agywDream: agywDream,
                               ),
                               !isFormReady

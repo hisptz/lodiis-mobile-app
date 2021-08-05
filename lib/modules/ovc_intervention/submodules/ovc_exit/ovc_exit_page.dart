@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_house_hold_current_selection_state.dart';
+import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_household_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_intervention_list_state.dart';
 import 'package:kb_mobile_app/core/components/paginated_list_view.dart';
 import 'package:kb_mobile_app/core/components/sub_module_home_container.dart';
-import 'package:kb_mobile_app/models/ovc_house_hold.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold_card.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold_card_body.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold_card_botton_content.dart';
+import 'package:kb_mobile_app/models/ovc_household.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_household_card.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_household_card_body.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_household_card_botton_content.dart';
 import 'package:provider/provider.dart';
-import 'ovc_exit_pages/house_hold_exit_pages/household_graduation/ovc_house_hold_graduation.dart';
-import 'ovc_exit_pages/house_hold_exit_pages/household_case_closure/ovc_house_hold_case_closure.dart';
-import 'ovc_exit_pages/house_hold_exit_pages/household_exit/ovc_house_hold_exit.dart';
-import 'ovc_exit_pages/house_hold_exit_pages/household_transfer/ovc_house_hold_case_transfer.dart';
+import 'ovc_exit_pages/household_exit_pages/household_graduation/ovc_household_graduation.dart';
+import 'ovc_exit_pages/household_exit_pages/household_case_closure/ovc_household_case_closure.dart';
+import 'ovc_exit_pages/household_exit_pages/household_exit/ovc_household_exit.dart';
+import 'ovc_exit_pages/household_exit_pages/household_transfer/ovc_household_case_transfer.dart';
 
 class OvcExitPage extends StatefulWidget {
   const OvcExitPage({Key key}) : super(key: key);
@@ -41,50 +41,50 @@ class _OvcExitPageState extends State<OvcExitPage> {
     });
   }
 
-  void setOvcHouseHoldCurrentSelection(
-      BuildContext context, OvcHouseHold ovcHouseHold) {
-    Provider.of<OvcHouseHoldCurrentSelectionState>(context, listen: false)
-        .setCurrentHouseHold(ovcHouseHold);
+  void setOvcHouseholdCurrentSelection(
+      BuildContext context, OvcHousehold ovcHousehold) {
+    Provider.of<OvcHouseholdCurrentSelectionState>(context, listen: false)
+        .setCurrentHousehold(ovcHousehold);
     Provider.of<ServiceEventDataState>(context, listen: false)
-        .resetServiceEventDataState(ovcHouseHold.id);
+        .resetServiceEventDataState(ovcHousehold.id);
   }
 
-  void onViewGraduation(BuildContext context, OvcHouseHold ovcHouseHold) {
-    setOvcHouseHoldCurrentSelection(context, ovcHouseHold);
+  void onViewGraduation(BuildContext context, OvcHousehold ovcHousehold) {
+    setOvcHouseholdCurrentSelection(context, ovcHousehold);
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => OvcHouseHoldGraduation(),
+        builder: (context) => OvcHouseholdGraduation(),
       ),
     );
   }
 
-  void onViewExit(BuildContext context, OvcHouseHold ovcHouseHold) {
-    setOvcHouseHoldCurrentSelection(context, ovcHouseHold);
+  void onViewExit(BuildContext context, OvcHousehold ovcHousehold) {
+    setOvcHouseholdCurrentSelection(context, ovcHousehold);
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => OvcHouseHoldExit(),
+        builder: (context) => OvcHouseholdExit(),
       ),
     );
   }
 
-  void onViewTransfer(BuildContext context, OvcHouseHold ovcHouseHold) {
-    setOvcHouseHoldCurrentSelection(context, ovcHouseHold);
+  void onViewTransfer(BuildContext context, OvcHousehold ovcHousehold) {
+    setOvcHouseholdCurrentSelection(context, ovcHousehold);
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => OvcHouseHoldCaseTransfer(),
+        builder: (context) => OvcHouseholdCaseTransfer(),
       ),
     );
   }
 
-  void onViewClosure(BuildContext context, OvcHouseHold ovcHouseHold) {
-    setOvcHouseHoldCurrentSelection(context, ovcHouseHold);
+  void onViewClosure(BuildContext context, OvcHousehold ovcHousehold) {
+    setOvcHouseholdCurrentSelection(context, ovcHousehold);
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => OvcHouseHoldCaseClosure(),
+        builder: (context) => OvcHouseholdCaseClosure(),
       ),
     );
   }
@@ -99,9 +99,9 @@ class _OvcExitPageState extends State<OvcExitPage> {
             builder: (context, ovcInterventionListState, child) {
               String header = currentLanguage == 'lesotho'
                   ? 'Lethathamo la malapa'.toUpperCase() +
-                      ': ${ovcInterventionListState.numberOfHouseHolds} Malapa'
+                      ': ${ovcInterventionListState.numberOfHouseholds} Malapa'
                   : 'Household list'.toUpperCase() +
-                      ': ${ovcInterventionListState.numberOfHouseHolds} households';
+                      ': ${ovcInterventionListState.numberOfHouseholds} households';
               return SubModuleHomeContainer(
                 header: header,
                 bodyContents: _buildBody(currentLanguage),
@@ -118,20 +118,20 @@ class _OvcExitPageState extends State<OvcExitPage> {
     return Consumer<OvcInterventionListState>(
         builder: (context, ovcListState, child) => CustomPaginatedListView(
               pagingController: ovcListState.pagingController,
-              childBuilder: (context, ovcHouseHold, index) => OvcHouseHoldCard(
-                ovcHouseHold: ovcHouseHold,
+              childBuilder: (context, ovcHousehold, index) => OvcHouseholdCard(
+                ovcHousehold: ovcHousehold,
                 canEdit: canEdit,
                 canExpand: canExpand,
                 canView: canView,
-                isExpanded: ovcHouseHold.id == toggleCardId,
+                isExpanded: ovcHousehold.id == toggleCardId,
                 onCardToggle: () {
-                  onCardToggle(ovcHouseHold.id);
+                  onCardToggle(ovcHousehold.id);
                 },
-                cardBody: OvcHouseHoldCardBody(
-                  ovcHouseHold: ovcHouseHold,
+                cardBody: OvcHouseholdCardBody(
+                  ovcHousehold: ovcHousehold,
                 ),
                 cardButtonActions: ClipRRect(
-                  borderRadius: ovcHouseHold.id == toggleCardId
+                  borderRadius: ovcHousehold.id == toggleCardId
                       ? BorderRadius.zero
                       : BorderRadius.only(
                           bottomLeft: Radius.circular(12.0),
@@ -158,7 +158,7 @@ class _OvcExitPageState extends State<OvcExitPage> {
                               ),
                             ),
                             onPressed: () =>
-                                onViewGraduation(context, ovcHouseHold),
+                                onViewGraduation(context, ovcHousehold),
                             child: Text(
                               'GRADUATION',
                               style: TextStyle().copyWith(
@@ -177,7 +177,7 @@ class _OvcExitPageState extends State<OvcExitPage> {
                                 horizontal: 0.0,
                               ),
                             ),
-                            onPressed: () => onViewExit(context, ovcHouseHold),
+                            onPressed: () => onViewExit(context, ovcHousehold),
                             child: Text(
                               currentLanguage != 'lesotho' ? 'EXIT' : 'Koala',
                               style: TextStyle().copyWith(
@@ -197,7 +197,7 @@ class _OvcExitPageState extends State<OvcExitPage> {
                               ),
                             ),
                             onPressed: () =>
-                                onViewTransfer(context, ovcHouseHold),
+                                onViewTransfer(context, ovcHousehold),
                             child: Text(
                               'TRANSFER',
                               style: TextStyle().copyWith(
@@ -218,7 +218,7 @@ class _OvcExitPageState extends State<OvcExitPage> {
                             ),
                             onPressed: () => onViewClosure(
                               context,
-                              ovcHouseHold,
+                              ovcHousehold,
                             ),
                             child: Text(
                               'CLOSURE',
@@ -234,9 +234,9 @@ class _OvcExitPageState extends State<OvcExitPage> {
                     ),
                   ),
                 ),
-                cardButtonContent: OvcHouseHoldCardButtonContent(
+                cardButtonContent: OvcHouseholdCardButtonContent(
                   currentLanguage: currentLanguage,
-                  ovcHouseHold: ovcHouseHold,
+                  ovcHousehold: ovcHousehold,
                   canAddChild: canAddChild,
                   canViewChildInfo: canViewChildInfo,
                   canEditChildInfo: canEditChildInfo,

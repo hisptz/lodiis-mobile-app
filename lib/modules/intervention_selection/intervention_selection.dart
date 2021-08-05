@@ -69,8 +69,8 @@ class _InterventionSelectionState extends State<InterventionSelection> {
             Container(child: Consumer<OvcInterventionListState>(
               builder: (context, ovcInterventionListState, child) {
                 bool isOvcListLoading = ovcInterventionListState.isLoading;
-                int numberOfHouseHolds =
-                    ovcInterventionListState.numberOfHouseHolds;
+                int numberOfHouseholds =
+                    ovcInterventionListState.numberOfHouseholds;
                 int numberOfOvcs = ovcInterventionListState.numberOfOvcs;
                 return Container(
                   child: Consumer<DreamsInterventionListState>(
@@ -98,7 +98,7 @@ class _InterventionSelectionState extends State<InterventionSelection> {
                                     interventionPrograms: interventionPrograms,
                                     onInterventionSelection:
                                         onInterventionSelection,
-                                    numberOfHouseHolds: numberOfHouseHolds,
+                                    numberOfHouseholds: numberOfHouseholds,
                                     numberOfAgywDreamsBeneficiaries:
                                         numberOfAgywDreamsBeneficiaries,
                                     numberOfNoneAgywDreamsBeneficiaries:

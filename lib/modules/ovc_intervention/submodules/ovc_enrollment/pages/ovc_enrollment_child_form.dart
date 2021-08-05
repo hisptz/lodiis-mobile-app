@@ -18,7 +18,7 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/components/enrolled_children_list.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/constants/ovc_enrollment_child_form_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/models/ovc_enrollment_child.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/pages/ovc_enrollment_house_hold_form.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/pages/ovc_enrollment_household_form.dart';
 import 'package:provider/provider.dart';
 
 class OvcEnrollmentChildForm extends StatefulWidget {
@@ -229,7 +229,7 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => OvcEnrollmentHouseHoldForm(),
+              builder: (context) => OvcEnrollmentHouseholdForm(),
             ),
           );
         }
@@ -265,7 +265,7 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => OvcEnrollmentHouseHoldForm(),
+        builder: (context) => OvcEnrollmentHouseholdForm(),
       ),
     );
   }

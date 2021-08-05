@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dream_current_selection_state.dart';
+import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
@@ -14,7 +14,7 @@ import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/models/service_event.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_top_header.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/components/dreams_services_visit_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/service_form/constants/service_form_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/service_form/pages/agyw_dreams_service_form.dart';
@@ -111,7 +111,7 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
     String implementingPartner = currentUser.implementingPartner;
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState('W79837fEI3C', youthMentorName);
-    Provider.of<DreamBeneficiarySelectionState>(context, listen: false)
+    Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
         .setCurrentAgywDream(agywDream);
     Navigator.push(
         context,
@@ -163,7 +163,7 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
         ),
         body: SubPageBody(
           body: Container(
-            child: Consumer<DreamBeneficiarySelectionState>(
+            child: Consumer<DreamsBeneficiarySelectionState>(
               builder: (context, dreamBeneficiarySelectionState, child) {
                 return Consumer<ServiceEventDataState>(
                   builder: (context, serviceFormState, child) {
@@ -183,7 +183,7 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
                     return Container(
                       child: Column(
                         children: [
-                          DreamBeneficiaryTopHeader(
+                          DreamsBeneficiaryTopHeader(
                             agywDream: agywDream,
                           ),
                           Container(
@@ -215,7 +215,7 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
                                                         bottom: 15.0,
                                                       ),
                                                       child:
-                                                          DreamsServiceVisitListCard(
+                                                          DreamsServiceVisitCard(
                                                         visitName: "Service",
                                                         onEdit: () =>
                                                             onEditService(

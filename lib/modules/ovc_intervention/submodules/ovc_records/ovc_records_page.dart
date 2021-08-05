@@ -3,9 +3,9 @@ import 'package:kb_mobile_app/app_state/language_translation_state/language_tran
 import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_intervention_list_state.dart';
 import 'package:kb_mobile_app/core/components/paginated_list_view.dart';
 import 'package:kb_mobile_app/core/components/sub_module_home_container.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold_card.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold_card_body.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold_card_botton_content.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_household_card.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_household_card_body.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_household_card_botton_content.dart';
 import 'package:provider/provider.dart';
 
 class OvcRecordsPage extends StatefulWidget {
@@ -44,9 +44,9 @@ class _OvcRecordsPageState extends State<OvcRecordsPage> {
             builder: (context, ovcInterventionListState, child) {
               String header = currentLanguage == 'lesotho'
                   ? 'Lethathamo la malapa'.toUpperCase() +
-                      ': ${ovcInterventionListState.numberOfHouseHolds} Malapa'
+                      ': ${ovcInterventionListState.numberOfHouseholds} Malapa'
                   : 'Household list'.toUpperCase() +
-                      ': ${ovcInterventionListState.numberOfHouseHolds} households';
+                      ': ${ovcInterventionListState.numberOfHouseholds} households';
               return SubModuleHomeContainer(
                 header: header,
                 bodyContents: _buildBody(currentLanguage),
@@ -61,22 +61,22 @@ class _OvcRecordsPageState extends State<OvcRecordsPage> {
   Widget _buildBody(String currentLanguage) {
     return Consumer<OvcInterventionListState>(
         builder: (context, ovcListState, child) => CustomPaginatedListView(
-            childBuilder: (context, ovcHouseHold, index) => OvcHouseHoldCard(
-                  ovcHouseHold: ovcHouseHold,
+            childBuilder: (context, ovcHousehold, index) => OvcHouseholdCard(
+                  ovcHousehold: ovcHousehold,
                   canEdit: canEdit,
                   canExpand: canExpand,
                   canView: canView,
-                  isExpanded: ovcHouseHold.id == toggleCardId,
+                  isExpanded: ovcHousehold.id == toggleCardId,
                   onCardToggle: () {
-                    onCardToggle(ovcHouseHold.id);
+                    onCardToggle(ovcHousehold.id);
                   },
-                  cardBody: OvcHouseHoldCardBody(
-                    ovcHouseHold: ovcHouseHold,
+                  cardBody: OvcHouseholdCardBody(
+                    ovcHousehold: ovcHousehold,
                   ),
                   cardButtonActions: Container(),
-                  cardButtonContent: OvcHouseHoldCardButtonContent(
+                  cardButtonContent: OvcHouseholdCardButtonContent(
                     currentLanguage: currentLanguage,
-                    ovcHouseHold: ovcHouseHold,
+                    ovcHousehold: ovcHousehold,
                     canAddChild: canAddChild,
                     canViewChildInfo: canViewChildInfo,
                     canEditChildInfo: canEditChildInfo,

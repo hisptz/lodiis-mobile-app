@@ -118,7 +118,7 @@ class _AgywEnrollmentConsentFormState extends State<AgywDreamsConsentForm> {
         context,
         MaterialPageRoute(
           builder: (context) => hasConsent
-              ? AgywDreamRiskAssessment()
+              ? AgywDreamsRiskAssessment()
               : AgywEnrollmentNoneParticipationForm(),
         ),
       );

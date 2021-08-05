@@ -156,15 +156,15 @@ class _ReferralOutcomeModalState extends State<ReferralOutcomeModal> {
   }
 
   bool getReferralOutComeStatus(Map dataObject) {
-    bool isreferralOutcomeFilled = false;
+    bool isReferralOutcomeFilled = false;
     List<String> inputFields =
         FormUtil.getFormFieldIds(widget.referralOutcomeFormSections);
     for (String id in inputFields) {
       if (dataObject.containsKey(id) && '${dataObject[id]}'.trim() != '') {
-        isreferralOutcomeFilled = true;
+        isReferralOutcomeFilled = true;
       }
     }
-    return isreferralOutcomeFilled;
+    return isReferralOutcomeFilled;
   }
 
   @override

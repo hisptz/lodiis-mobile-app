@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/core/components/line_separator.dart';
 import 'package:kb_mobile_app/core/components/material_card.dart';
-import 'package:kb_mobile_app/core/constants/app_logs.dart';
+import 'package:kb_mobile_app/core/constants/app_logs_constants.dart';
 import 'package:kb_mobile_app/models/app_logs.dart';
 
 class AppLogsCard extends StatelessWidget {

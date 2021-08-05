@@ -5,8 +5,8 @@ import 'package:kb_mobile_app/core/components/input_fields/input_checked_icon.da
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 
-class CoordinteInputFieldContainer extends StatefulWidget {
-  const CoordinteInputFieldContainer(
+class CoordinateInputFieldContainer extends StatefulWidget {
+  const CoordinateInputFieldContainer(
       {Key key,
       @required this.inputField,
       @required this.onInputValueChange,
@@ -18,12 +18,12 @@ class CoordinteInputFieldContainer extends StatefulWidget {
   final String inputValue;
 
   @override
-  _CoordinteInputFieldContainerState createState() =>
-      _CoordinteInputFieldContainerState();
+  _CoordinateInputFieldContainerState createState() =>
+      _CoordinateInputFieldContainerState();
 }
 
-class _CoordinteInputFieldContainerState
-    extends State<CoordinteInputFieldContainer> {
+class _CoordinateInputFieldContainerState
+    extends State<CoordinateInputFieldContainer> {
   String _longLatValue;
   bool isCoordinateSet = false;
   TextEditingController coordinateController;

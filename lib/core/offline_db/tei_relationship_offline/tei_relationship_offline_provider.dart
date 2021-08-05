@@ -3,10 +3,10 @@ import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/tei_relationship.dart';
 import 'package:sqflite/sqflite.dart';
 
-class TeiRelatioShipOfflineProvider extends OfflineDbProvider {
+class TeiRelationshipOfflineProvider extends OfflineDbProvider {
   final String table = 'tei_relationships';
 
-  // colums
+  // columns
   final String id = 'id';
   final String relationshipType = 'relationshipType';
   final String fromTei = 'fromTei';
@@ -34,14 +34,14 @@ class TeiRelatioShipOfflineProvider extends OfflineDbProvider {
     }
   }
 
-  addOrUpdateTeirelationShip(TeiRelationship teiRelationship) async {
+  addOrUpdateTeiRelationship(TeiRelationship teiRelationship) async {
     var dbClient = await db;
     var data = TeiRelationship().toOffline(teiRelationship);
     await dbClient.insert(table, data,
         conflictAlgorithm: ConflictAlgorithm.replace);
   }
 
-  Future<List<TeiRelationship>> getTeirelationShips(
+  Future<List<TeiRelationship>> getTeiRelationships(
     String fromTeiId,
   ) async {
     List<TeiRelationship> teiRelationships = [];

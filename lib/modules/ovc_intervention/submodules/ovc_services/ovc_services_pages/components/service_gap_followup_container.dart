@@ -8,7 +8,7 @@ class ServiceGapFollowUpContainer extends StatefulWidget {
   const ServiceGapFollowUpContainer({
     Key key,
     @required this.formSectionColor,
-    @required this.isCasePlanForHouseHold,
+    @required this.isCasePlanForHousehold,
     @required this.casePlanGap,
     @required this.shouldEditCaseGapFollowUps,
     @required this.shouldViewCaseGapFollowUp,
@@ -17,7 +17,7 @@ class ServiceGapFollowUpContainer extends StatefulWidget {
 
   final Map casePlanGap;
   final Color formSectionColor;
-  final bool isCasePlanForHouseHold;
+  final bool isCasePlanForHousehold;
   final bool shouldEditCaseGapFollowUps;
   final bool shouldViewCaseGapFollowUp;
   final String domainId;
@@ -29,17 +29,16 @@ class ServiceGapFollowUpContainer extends StatefulWidget {
 
 class _ServiceGapFollowUpContainerState
     extends State<ServiceGapFollowUpContainer> {
-  String casePlanGapToFollowinUpLinkageValue;
+  String casePlanGapToFollowUpLinkageValue;
 
   @override
   void initState() {
     super.initState();
     setState(() {
-      String casePlanGapToFollowinUpLinkage =
-          OvcCasePlanConstant.casePlanGapToFollowinUpLinkage;
-      casePlanGapToFollowinUpLinkageValue =
-          widget.casePlanGap[casePlanGapToFollowinUpLinkage] ??
-              AppUtil.getUid();
+      String casePlanGapToFollowUpLinkage =
+          OvcCasePlanConstant.casePlanGapToFollowUpLinkage;
+      casePlanGapToFollowUpLinkageValue =
+          widget.casePlanGap[casePlanGapToFollowUpLinkage] ?? AppUtil.getUid();
     });
   }
 
@@ -50,12 +49,12 @@ class _ServiceGapFollowUpContainerState
         dataObject[key] = widget.casePlanGap[key];
       }
     }
-    dataObject[OvcCasePlanConstant.casePlanGapToFollowinUpLinkage] =
-        casePlanGapToFollowinUpLinkageValue;
+    dataObject[OvcCasePlanConstant.casePlanGapToFollowUpLinkage] =
+        casePlanGapToFollowUpLinkageValue;
     Widget modal = CasePlanFollowUpFormContainer(
       dataObject: dataObject,
       domainId: widget.domainId,
-      isCasePlanForHouseHold: widget.isCasePlanForHouseHold,
+      isCasePlanForHousehold: widget.isCasePlanForHousehold,
       isEditableMode: widget.shouldViewCaseGapFollowUp,
     );
     await AppUtil.showPopUpModal(context, modal, true);
@@ -76,10 +75,10 @@ class _ServiceGapFollowUpContainerState
                   casePlanGap: widget.casePlanGap,
                   domainId: widget.domainId,
                   themeColor: widget.formSectionColor,
-                  casePlanGapToFollowinUpLinkageValue:
-                      casePlanGapToFollowinUpLinkageValue,
+                  casePlanGapToFollowUpLinkageValue:
+                      casePlanGapToFollowUpLinkageValue,
                   shouldEditCaseGapFollowUps: widget.shouldEditCaseGapFollowUps,
-                  isCasePlanForHouseHold: widget.isCasePlanForHouseHold,
+                  isCasePlanForHousehold: widget.isCasePlanForHousehold,
                 ),
               ),
               Visibility(

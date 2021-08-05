@@ -23,16 +23,16 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enro
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/skip_logics/agyw_dreams_enrollment_skip_logic.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:provider/provider.dart';
-import 'agyw_dream_enrollment_form.dart';
+import 'agyw_dreams_enrollment_form.dart';
 
-class AgywDreamRiskAssessment extends StatefulWidget {
-  const AgywDreamRiskAssessment({Key key}) : super(key: key);
+class AgywDreamsRiskAssessment extends StatefulWidget {
+  const AgywDreamsRiskAssessment({Key key}) : super(key: key);
   @override
-  _AgywDreamRiskAssessmentState createState() =>
-      _AgywDreamRiskAssessmentState();
+  _AgywDreamsRiskAssessmentState createState() =>
+      _AgywDreamsRiskAssessmentState();
 }
 
-class _AgywDreamRiskAssessmentState extends State<AgywDreamRiskAssessment> {
+class _AgywDreamsRiskAssessmentState extends State<AgywDreamsRiskAssessment> {
   List<FormSection> formSections;
   final String label = 'Risk Assessment';
   final List<String> mandatoryFields =

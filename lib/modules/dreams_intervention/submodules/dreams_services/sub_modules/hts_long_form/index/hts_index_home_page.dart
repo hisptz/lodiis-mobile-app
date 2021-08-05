@@ -3,10 +3,10 @@ import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_long_form/components/dreams_hts_index_card_bottom_content.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_long_form/constants/agyw_dreams_hts_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_long_form/constants/agyw_dreams_index_positive_constant.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_long_form/models/index_contact_model.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_long_form/models/index_contact.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_long_form/pages/agyw_dreams_index_information_about_pos_client.dart';
 import 'package:provider/provider.dart';
-import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dream_current_selection_state.dart';
+import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
@@ -23,7 +23,7 @@ class HTSIndexHomePage extends StatefulWidget {
   }) : super(key: key);
 
   final String htsIndexLinkage;
-  final IndexContactModel people;
+  final IndexContact people;
 
   @override
   _HTSIndexHomePageState createState() => _HTSIndexHomePageState();
@@ -90,7 +90,7 @@ class _HTSIndexHomePageState extends State<HTSIndexHomePage> {
   Widget build(BuildContext context) {
     return Container(
       child: Container(
-        child: Consumer<DreamBeneficiarySelectionState>(
+        child: Consumer<DreamsBeneficiarySelectionState>(
           builder: (context, dreamBeneficiarySelectionState, child) {
             return Consumer<ServiceEventDataState>(
               builder: (context, serviceFormState, child) {

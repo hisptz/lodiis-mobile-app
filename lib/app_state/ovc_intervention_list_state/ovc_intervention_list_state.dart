@@ -2,16 +2,16 @@ import 'package:flutter/foundation.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:kb_mobile_app/core/constants/pagination.dart';
 import 'package:kb_mobile_app/core/services/pagination-service.dart';
-import 'package:kb_mobile_app/models/ovc_house_hold.dart';
+import 'package:kb_mobile_app/models/ovc_household.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/services/ovc_enrollment_child_services.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/services/ovc_enrollment_house_hold_service.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/services/ovc_enrollment_household_service.dart';
 
 class OvcInterventionListState with ChangeNotifier {
   // initial state
-  List<OvcHouseHold> _ovcInterventionList = <OvcHouseHold>[];
+  List<OvcHousehold> _ovcInterventionList = <OvcHousehold>[];
   PagingController _pagingController;
   bool _isLoading = true;
-  int _numberOfHouseHolds = 0;
+  int _numberOfHouseholds = 0;
   int _numberOfOvcs = 0;
   int _numberOfPages = 0;
   int _nextPage = 0;
@@ -19,7 +19,7 @@ class OvcInterventionListState with ChangeNotifier {
 
   bool get isLoading => _isLoading != null ? _isLoading : false;
 
-  int get numberOfHouseHolds => _numberOfHouseHolds;
+  int get numberOfHouseholds => _numberOfHouseholds;
 
   int get numberOfOvcs => _numberOfOvcs;
 
@@ -28,7 +28,7 @@ class OvcInterventionListState with ChangeNotifier {
   PagingController get pagingController => _pagingController;
 
   void initializePagination() {
-    _pagingController = PagingController<int, OvcHouseHold>(
+    _pagingController = PagingController<int, OvcHousehold>(
       firstPageKey: 0,
     );
     PaginationService.initializePagination(
@@ -39,7 +39,7 @@ class OvcInterventionListState with ChangeNotifier {
 
   Future<void> _fetchPage(int pageKey) async {
     String searchableValue = _searchableValue;
-    List ovcList = await OvcEnrollmentHouseHoldService().getHouseHoldList(
+    List ovcList = await OvcEnrollmentHouseholdService().getHouseholdList(
             page: pageKey, searchableValue: searchableValue) ??
         [];
     if (ovcList.isEmpty && pageKey < numberOfPages) {
@@ -54,18 +54,18 @@ class OvcInterventionListState with ChangeNotifier {
   // reducers
   void updateNumerOfOvcBeneficiaries() {
     _isLoading = false;
-    searchHouseHold('');
+    searchHousehold('');
   }
 
   Future<void> getHouseholdCount() async {
-    _numberOfHouseHolds =
-        await OvcEnrollmentHouseHoldService().getHouseholdCount();
+    _numberOfHouseholds =
+        await OvcEnrollmentHouseholdService().getHouseholdCount();
     _numberOfOvcs = await OvcEnrollmentChildService().getOvcCount();
   }
 
-  void searchHouseHold(String value) {
+  void searchHousehold(String value) {
     if (_ovcInterventionList.isEmpty) {
-      _ovcInterventionList = _pagingController.itemList ?? <OvcHouseHold>[];
+      _ovcInterventionList = _pagingController.itemList ?? <OvcHousehold>[];
       _nextPage = _pagingController.nextPageKey;
     }
     if (value != '') {
@@ -76,7 +76,7 @@ class OvcInterventionListState with ChangeNotifier {
       _pagingController.itemList = _ovcInterventionList;
       _pagingController.nextPageKey = _nextPage;
 
-      _ovcInterventionList = <OvcHouseHold>[];
+      _ovcInterventionList = <OvcHousehold>[];
       _nextPage = 0;
     }
   }
@@ -103,7 +103,7 @@ class OvcInterventionListState with ChangeNotifier {
   }
 
   Future<void> onHouseholdAdd() async {
-    _numberOfHouseHolds = _numberOfHouseHolds + 1;
+    _numberOfHouseholds = _numberOfHouseholds + 1;
     _numberOfOvcs = await OvcEnrollmentChildService().getOvcCount();
     getNumberOfPages();
     notifyListeners();
@@ -117,9 +117,9 @@ class OvcInterventionListState with ChangeNotifier {
   }
 
   void getNumberOfPages() {
-    if (numberOfHouseHolds != null) {
+    if (numberOfHouseholds != null) {
       _numberOfPages =
-          (numberOfHouseHolds / PaginationConstants.paginationLimit).ceil();
+          (numberOfHouseholds / PaginationConstants.paginationLimit).ceil();
     }
   }
 }

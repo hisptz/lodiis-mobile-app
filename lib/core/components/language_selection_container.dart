@@ -27,7 +27,7 @@ class LanguageSelectionContainer extends StatefulWidget {
 
 class _LanguageSelectionContainerState
     extends State<LanguageSelectionContainer> {
-  List<AppLanguage> supportedLangauges = AppLanguage.getSupporttedLanguage();
+  List<AppLanguage> supportedLanguages = AppLanguage.getSupportedLanguage();
   String _selectionLanguageCode = '';
 
   void onSelectLanguageCard(
@@ -111,17 +111,17 @@ class _LanguageSelectionContainerState
                           mainAxisSpacing: 30.0,
                           crossAxisSpacing: 30.0,
                           shrinkWrap: true,
-                          children: supportedLangauges
-                              .map((AppLanguage supportedLangauge) => Container(
+                          children: supportedLanguages
+                              .map((AppLanguage supportedLanguage) => Container(
                                     child: GestureDetector(
                                       onTap: () => onSelectLanguageCard(
-                                        supportedLangauge,
+                                        supportedLanguage,
                                       ),
                                       child: LanguageSelectionCard(
                                         size: size,
                                         color: color,
                                         currentLanguage: widget.currentLanguage,
-                                        appLanguage: supportedLangauge,
+                                        appLanguage: supportedLanguage,
                                         selectionLanguage:
                                             _selectionLanguageCode,
                                       ),

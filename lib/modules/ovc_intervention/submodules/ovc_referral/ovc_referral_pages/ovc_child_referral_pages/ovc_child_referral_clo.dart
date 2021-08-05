@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_house_hold_current_selection_state.dart';
+import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_household_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/referrals/clo_referral_card_body_summary.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/events.dart';
-import 'package:kb_mobile_app/models/ovc_house_hold_child.dart';
+import 'package:kb_mobile_app/models/ovc_household_child.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:kb_mobile_app/core/components/referrals/referral_card_summary.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/ovc_referral_pages/ovc_child_referral_pages/constants/ovc_child_clo_referral_constant.dart';
@@ -53,7 +53,7 @@ class _OvcChildCLOReferralState extends State<OvcChildCLOReferral> {
     }
   }
 
-  void onAddReferral(BuildContext context, OvcHouseHoldChild child) {
+  void onAddReferral(BuildContext context, OvcHouseholdChild child) {
     updateFormState(context, true, null);
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => OvcChildCLOReferralAddForm()));
@@ -90,12 +90,12 @@ class _OvcChildCLOReferralState extends State<OvcChildCLOReferral> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Consumer<OvcHouseHoldCurrentSelectionState>(
-        builder: (context, ovcHouseHoldCurrentSelectionState, child) {
+      child: Consumer<OvcHouseholdCurrentSelectionState>(
+        builder: (context, ovcHouseholdCurrentSelectionState, child) {
           return Consumer<ServiceEventDataState>(
             builder: (context, serviceFormState, child) {
-              OvcHouseHoldChild currentOvcHouseHoldChild =
-                  ovcHouseHoldCurrentSelectionState.currentOvcHouseHoldChild;
+              OvcHouseholdChild currentOvcHouseholdChild =
+                  ovcHouseholdCurrentSelectionState.currentOvcHouseholdChild;
               bool isLoading = serviceFormState.isLoading;
               Map<String, List<Events>> eventListByProgramStage =
                   serviceFormState.eventListByProgramStage;
@@ -179,7 +179,7 @@ class _OvcChildCLOReferralState extends State<OvcChildCLOReferral> {
                                     buttonColor: Color(0xFF4B9F46),
                                     fontSize: 15.0,
                                     onPressButton: () => onAddReferral(
-                                        context, currentOvcHouseHoldChild))
+                                        context, currentOvcHouseholdChild))
                               ],
                             ),
                     )

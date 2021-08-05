@@ -45,7 +45,7 @@ class _DataDownloadMessageState extends State<DataDownloadMessage> {
               .connectivityStatus;
       if (connected) {
         Provider.of<SynchronizationState>(context, listen: false)
-            .checkingForAvaiableBeneficiaryData();
+            .checkingForAvailableBeneficiaryData();
       }
     });
   }

@@ -59,8 +59,8 @@ class OvcServiceSubPageChildView extends StatelessWidget {
       map['gaps'] = map['gaps'] ?? [];
       map[OvcCasePlanConstant.casePlanToGapLinkage] =
           map[OvcCasePlanConstant.casePlanToGapLinkage] ?? casePlanToGapLinkage;
-      map[OvcCasePlanConstant.casePlanGapToFollowinUpLinkage] =
-          map[OvcCasePlanConstant.casePlanGapToFollowinUpLinkage] ??
+      map[OvcCasePlanConstant.casePlanGapToFollowUpLinkage] =
+          map[OvcCasePlanConstant.casePlanGapToFollowUpLinkage] ??
               AppUtil.getUid();
       map[OvcCasePlanConstant.casePlanDomainType] = formSection.id;
       Provider.of<ServiceFormState>(context, listen: false)

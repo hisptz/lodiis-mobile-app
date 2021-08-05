@@ -1,17 +1,17 @@
 import 'dart:convert';
 
 import 'package:http/http.dart';
-import 'package:kb_mobile_app/core/constants/app_logs.dart';
+import 'package:kb_mobile_app/core/constants/app_logs_constants.dart';
 import 'package:kb_mobile_app/core/offline_db/app_logs_offline/app_logs_offline_provider.dart';
-import 'package:kb_mobile_app/core/offline_db/referral_nofification/referral_event_nofification_offline_provider.dart';
-import 'package:kb_mobile_app/core/offline_db/referral_nofification/referral_nofification_offline_provider.dart';
+import 'package:kb_mobile_app/core/offline_db/referral_notification/referral_event_notification_offline_provider.dart';
+import 'package:kb_mobile_app/core/offline_db/referral_notification/referral_notification_offline_provider.dart';
 import 'package:kb_mobile_app/core/services/http_service.dart';
 import 'package:kb_mobile_app/core/services/organisation_unit_service.dart';
 import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/models/app_logs.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
-import 'package:kb_mobile_app/models/referralEventNotification.dart';
-import 'package:kb_mobile_app/models/referralNotification.dart';
+import 'package:kb_mobile_app/models/referral_event_notification.dart';
+import 'package:kb_mobile_app/models/referral_notification.dart';
 
 class ReferralNotificationService {
   final String apiUrlToDataStore = "api/dataStore/kb-referral-notification";
@@ -23,7 +23,7 @@ class ReferralNotificationService {
       List<ReferralNotification> offlineReferralNotifications =
           await getReferralNotificationFromOffline();
       List<ReferralNotification> referralNotifications =
-          getMergedReferralNotififcations(
+          getMergedReferralNotifications(
               onlineReferralNotifications, offlineReferralNotifications);
       await savingReferralNotificationToOfflineDb(referralNotifications);
       await updateReferralNotificationToServer(referralNotifications);
@@ -96,7 +96,7 @@ class ReferralNotificationService {
                 .toList())
             .map((ReferralNotification referralNotification) =>
                 referralNotification.toOffline(
-                  shoulTransaformBoolenValues: true,
+                  shouldTransformBooleanValues: true,
                 ))
             .toList();
         await httpService.httpDelete(url, queryParameters: {});
@@ -209,7 +209,7 @@ class ReferralNotificationService {
     return selectedKeys;
   }
 
-  List<ReferralNotification> getMergedReferralNotififcations(
+  List<ReferralNotification> getMergedReferralNotifications(
     List<ReferralNotification> onlineReferralNotifications,
     List<ReferralNotification> offlineReferralNotifications,
   ) {
@@ -250,7 +250,7 @@ class ReferralNotificationService {
                 (ReferralNotification referralNotification) =>
                     referralNotification.id == id);
         List<ReferralEventNotification> referrals =
-            getMergedReferralEventNotififcations(
+            getMergedReferralEventNotifications(
                 onlineReferralNotification.referrals,
                 offlineReferralNotification.referrals);
         referralNotifications.add(ReferralNotification(
@@ -262,12 +262,12 @@ class ReferralNotificationService {
         ));
       }
     } catch (error) {
-      print("getMergedReferralNotififcations : ${error.toString()}");
+      print("getMergedReferralNotifications : ${error.toString()}");
     }
     return referralNotifications;
   }
 
-  List<ReferralEventNotification> getMergedReferralEventNotififcations(
+  List<ReferralEventNotification> getMergedReferralEventNotifications(
     List<ReferralEventNotification> onlineReferrals,
     List<ReferralEventNotification> offlineReferrals,
   ) {
@@ -311,7 +311,7 @@ class ReferralNotificationService {
         }
       }
     } catch (error) {
-      print("getMergedReferralEventNotififcations : ${error.toString()}");
+      print("getMergedReferralEventNotifications : ${error.toString()}");
     }
     return referrals;
   }

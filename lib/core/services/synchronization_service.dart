@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'package:http/http.dart';
-import 'package:kb_mobile_app/core/constants/app_logs.dart';
+import 'package:kb_mobile_app/core/constants/app_logs_constants.dart';
 import 'package:kb_mobile_app/core/offline_db/app_logs_offline/app_logs_offline_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/enrollment_offline/enrollment_offline_provider.dart';
-import 'package:kb_mobile_app/core/offline_db/event_offline/event_offline_data_value.dart';
+import 'package:kb_mobile_app/core/offline_db/event_offline/event_offline_data_value_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/event_offline/event_offline_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/tei_relationship_offline/tei_relationship_offline_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/tracked_entity_instance_offline/tracked_entity_instance_offline_attribute_provider.dart';
@@ -185,8 +185,8 @@ class SynchronizationService {
   }
 
   Future saveTeiRelationshipToOffline(TeiRelationship relationship) async {
-    await TeiRelatioShipOfflineProvider()
-        .addOrUpdateTeirelationShip(relationship);
+    await TeiRelationshipOfflineProvider()
+        .addOrUpdateTeiRelationship(relationship);
   }
 
   Future saveRelationshipsToOffline(List<dynamic> relationships) async {
@@ -232,7 +232,7 @@ class SynchronizationService {
               getTeiFromResponse(responseData));
       EnrollmentOfflineProvider().addOrUpdateMultipleEnrollments(
           enrollmentsAndRelationships['enrollments']);
-      TeiRelatioShipOfflineProvider().addOrUpdateMultipleTeiRelationships(
+      TeiRelationshipOfflineProvider().addOrUpdateMultipleTeiRelationships(
           enrollmentsAndRelationships['relationships']);
     } catch (e) {
       throw e;
@@ -316,7 +316,7 @@ class SynchronizationService {
   }
 
   Future<List<TeiRelationship>> getTeiRelationShipFromOfflineDb() async {
-    return await TeiRelatioShipOfflineProvider()
+    return await TeiRelationshipOfflineProvider()
         .getAllTeiRelationShips(offlineSyncStatus);
   }
 

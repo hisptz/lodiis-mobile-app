@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
-import 'package:kb_mobile_app/models/ovc_house_hold_child.dart';
+import 'package:kb_mobile_app/models/ovc_household_child.dart';
 
 mixin OvcCasePlanGapSkipLogic {
   Map hiddenFields = Map();
@@ -10,7 +10,7 @@ mixin OvcCasePlanGapSkipLogic {
 
   Future evaluateSkipLogics(
       BuildContext context, List<FormSection> formSections, Map dataObject,
-      {OvcHouseHoldChild currentHouseHoldChild}) async {
+      {OvcHouseholdChild currentHouseholdChild}) async {
     hiddenFields.clear();
     hiddenSections.clear();
     List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections);
@@ -18,7 +18,7 @@ mixin OvcCasePlanGapSkipLogic {
       inputFieldIds.add('$key');
     }
     inputFieldIds = inputFieldIds.toSet().toList();
-    evaluateAgeSkipLogics(inputFieldIds, currentHouseHoldChild);
+    evaluateAgeSkipLogics(inputFieldIds, currentHouseholdChild);
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
       if (inputFieldId == 'XoSPWmpWXCy' && value != 'true') {
@@ -293,9 +293,9 @@ mixin OvcCasePlanGapSkipLogic {
   }
 
   void evaluateAgeSkipLogics(
-      List<String> inputFieldIds, OvcHouseHoldChild currentHouseHoldChild) {
+      List<String> inputFieldIds, OvcHouseholdChild currentHouseholdChild) {
     try {
-      int age = int.parse(currentHouseHoldChild.age);
+      int age = int.parse(currentHouseholdChild.age);
       //Domain health
       if (age > 5) {
         hiddenFields['x4yAqv4z2Xv'] = true;

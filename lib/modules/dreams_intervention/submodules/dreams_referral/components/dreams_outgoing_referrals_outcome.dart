@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dream_current_selection_state.dart';
+import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/core/components/input_fields/search_input.dart';
 import 'package:kb_mobile_app/core/components/line_separator.dart';
@@ -24,13 +24,13 @@ class _DreamsOutgoingReferralsOutcomeState
   String searchedValue = '';
 
   onView(AgywDream agywBeneficiary) {
-    Provider.of<DreamBeneficiarySelectionState>(context, listen: false)
+    Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
         .setCurrentAgywDream(agywBeneficiary);
     Provider.of<ServiceEventDataState>(context, listen: false)
         .resetServiceEventDataState(agywBeneficiary.id);
     Navigator.pop(context);
     Navigator.push(context,
-        MaterialPageRoute(builder: (context) => DreamAgywReferralPage()));
+        MaterialPageRoute(builder: (context) => DreamsAgywReferralPage()));
   }
 
   onSearchBeneficiary(String value) {

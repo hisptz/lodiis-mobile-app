@@ -6,12 +6,12 @@ import 'package:kb_mobile_app/core/utils/app_resume_routes/app_resume_route.dart
 import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_card_header.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_card_header.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/constants/dreams_routes_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/pages/agyw_dreams_enrollment_edit_form.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/pages/agwy_dreams_enrollment_view_form.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/pages/none_agyw_enrollment_page_edit_form.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/pages/none_agyw_enrollment_page_view_form.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/pages/none_agyw_enrollment_edit_form.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/pages/none_agyw_enrollment_view_form.dart';
 import 'package:provider/provider.dart';
 
 class DreamsBeneficiaryCard extends StatelessWidget {
@@ -120,7 +120,7 @@ class DreamsBeneficiaryCard extends StatelessWidget {
         body: Container(
           child: Column(
             children: [
-              DreamBeneficiaryCardHeader(
+              DreamsBeneficiaryCardHeader(
                 svgIcon: svgIcon,
                 beneficiaryName: beneficiaryName,
                 canEdit: canEdit,
