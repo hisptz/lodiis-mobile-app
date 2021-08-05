@@ -16,7 +16,7 @@ class DreamsRoutesConstant {
   static final String noneAgywPrepFormPage = "PREP VISIT";
   static final String noneAgywPrepFormNextPage = "PREP VISIT";
 
-  // routes constants for agyw beneficiaries
+  // routes constants for agyw beneficiaries enrollments
   static final String agywNoneParticipationPage =
       "Agyw None Participation Form";
   static final String agywNoneParticipationNextPage =
@@ -33,4 +33,8 @@ class DreamsRoutesConstant {
   static final String agywRiskAssessmentNextPage = "DREAMS Enrollment Form";
   static final String agywEnrollmentFormPage = "DREAMS Enrollment Form";
   static final String agywEnrollmentFormNextPage = "DREAMS Enrollment Form";
+
+  // routes for agyw services
+  static final String agywDreamsANCFormPage = "ANC form";
+  static final String agywDreamsANCFormNextPage = "ANC form";
 }
