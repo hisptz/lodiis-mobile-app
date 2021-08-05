@@ -39,4 +39,6 @@ class DreamsRoutesConstant {
   static final String agywDreamsANCFormNextPage = "ANC form";
   static final String agywDreamsArtRefillPage = "ART Re-fill";
   static final String agywDreamsArtRefillNextPage = "ART Re-fill";
+  static final String agywDreamsCondomsFormPage = "Condoms";
+  static final String agywDreamsCondomsFormNextPage = "Condoms";
 }
