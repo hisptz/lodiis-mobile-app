@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:kb_mobile_app/core/components/material_card.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_long_form/models/hts_model.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_long_form/models/tb_model_screening.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_long_form/models/dreams_hts_event.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_long_form/models/dreams_hts_tb_screening_event.dart';
 
 class DreamsHTSTBScreeningCard extends StatefulWidget {
   const DreamsHTSTBScreeningCard({
@@ -14,7 +14,7 @@ class DreamsHTSTBScreeningCard extends StatefulWidget {
 
   final Function onViewTB;
   final Function onEditTB;
-  final DreamsHTSTBEvent tbEvents;
+  final DreamsHTSTBScreeningEvent tbEvents;
 
   @override
   _DreamsHTSTBScreeningCardState createState() =>

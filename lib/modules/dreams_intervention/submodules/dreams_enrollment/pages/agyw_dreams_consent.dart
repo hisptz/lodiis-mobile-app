@@ -28,11 +28,11 @@ class AgywDreamsConsentForm extends StatefulWidget {
   const AgywDreamsConsentForm({Key key}) : super(key: key);
 
   @override
-  _AgywEnrollmentConsetFormState createState() =>
-      _AgywEnrollmentConsetFormState();
+  _AgywEnrollmentConsentFormState createState() =>
+      _AgywEnrollmentConsentFormState();
 }
 
-class _AgywEnrollmentConsetFormState extends State<AgywDreamsConsentForm> {
+class _AgywEnrollmentConsentFormState extends State<AgywDreamsConsentForm> {
   List<FormSection> formSections;
   final String label = 'Consent Form';
   final List<String> mandatoryFields =
@@ -101,7 +101,7 @@ class _AgywEnrollmentConsetFormState extends State<AgywDreamsConsentForm> {
 
   void onSaveAndContinue(BuildContext context, Map dataObject) {
     bool hadAllMandatoryFilled =
-        AppUtil.hasAllMandarotyFieldsFilled(mandatoryFields, dataObject);
+        AppUtil.hasAllMandatoryFieldsFilled(mandatoryFields, dataObject);
     if (hadAllMandatoryFilled) {
       bool hasConsent = dataObject['EsrJ2dgIMHY'];
       AppUtil.showToastMessage(
@@ -118,7 +118,7 @@ class _AgywEnrollmentConsetFormState extends State<AgywDreamsConsentForm> {
         context,
         MaterialPageRoute(
           builder: (context) => hasConsent
-              ? AgywDreamRiskAssessment()
+              ? AgywDreamsRiskAssessment()
               : AgywEnrollmentNoneParticipationForm(),
         ),
       );
@@ -140,10 +140,10 @@ class _AgywEnrollmentConsetFormState extends State<AgywDreamsConsentForm> {
       child: Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(65.0),
-          child: Consumer<IntervetionCardState>(
-            builder: (context, intervetionCardState, child) {
+          child: Consumer<InterventionCardState>(
+            builder: (context, interventionCardState, child) {
               InterventionCard activeInterventionProgram =
-                  intervetionCardState.currentIntervetionProgram;
+                  interventionCardState.currentInterventionProgram;
               return SubPageAppBar(
                 label: label,
                 activeInterventionProgram: activeInterventionProgram,

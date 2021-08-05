@@ -21,10 +21,10 @@ import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/constants/dreams_routes_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/dreams_enrollment_page.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/pages/agyw_dreams_consent.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_referral/dream_referral_page.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_referral/dreams_referral_page.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_referral/dreams_incoming_referral_page.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/dreams_services_page.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/none_agyw_page.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/none_agyw.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/pages/non_agyw_dreams_hts_consent_form.dart';
 import 'package:provider/provider.dart';
 
@@ -81,10 +81,10 @@ class _DreamsInterventionState extends State<DreamsIntervention> {
 
   void onAddNoneAgywBeneficiary(BuildContext context) async {
     String beneficiaryId = "";
-    String formAutoSaveid =
+    String formAutoSaveId =
         "${DreamsRoutesConstant.noneAgywHtsConsentPage}_$beneficiaryId";
     FormAutoSave formAutoSave =
-        await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveid);
+        await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
     bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
         .shouldResumeWithUnSavedChanges(context, formAutoSave);
     if (shouldResumeWithUnSavedChanges) {
@@ -104,10 +104,10 @@ class _DreamsInterventionState extends State<DreamsIntervention> {
 
   void onAddAgywBeneficiary(BuildContext context) async {
     String beneficiaryId = "";
-    String formAutoSaveid =
+    String formAutoSaveId =
         "${DreamsRoutesConstant.agywConsentPage}_$beneficiaryId";
     FormAutoSave formAutoSave =
-        await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveid);
+        await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
     bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
         .shouldResumeWithUnSavedChanges(context, formAutoSave);
     if (shouldResumeWithUnSavedChanges) {
@@ -128,10 +128,10 @@ class _DreamsInterventionState extends State<DreamsIntervention> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Consumer<IntervetionCardState>(
-        builder: (context, intervetionCardState, child) {
+      child: Consumer<InterventionCardState>(
+        builder: (context, interventionCardState, child) {
           InterventionCard activeInterventionProgram =
-              intervetionCardState.currentIntervetionProgram;
+              interventionCardState.currentInterventionProgram;
           return Scaffold(
             appBar: PreferredSize(
               preferredSize: Size.fromHeight(90),

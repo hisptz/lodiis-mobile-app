@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 
 class LanguageTranslationState with ChangeNotifier {
-  // initital state
+  // initial state
   String _currentLanguage;
 
   // selectors

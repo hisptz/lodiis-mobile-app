@@ -10,7 +10,7 @@ import 'package:kb_mobile_app/core/components/input_fields/phone_number_input_fi
 import 'package:kb_mobile_app/core/components/input_fields/select_input_field.dart';
 import 'package:kb_mobile_app/core/components/input_fields/text_input_field_container.dart';
 import 'package:kb_mobile_app/core/components/input_fields/true_only_input_field_container.dart';
-import 'package:kb_mobile_app/core/components/line_seperator.dart';
+import 'package:kb_mobile_app/core/components/line_separator.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/input_field_option.dart';
 
@@ -165,7 +165,7 @@ class InputFieldContainer extends StatelessWidget {
                     : _getInputFieldLabel(inputField),
               ),
             ),
-            LineSeperator(
+            LineSeparator(
               color:
                   inputField.inputColor.withOpacity(0.3) ?? Colors.transparent,
             )
@@ -360,7 +360,7 @@ class InputFieldContainer extends StatelessWidget {
                                                           )
                                                         : inputField.valueType ==
                                                                 'COORDINATE'
-                                                            ? CoordinteInputFieldContainer(
+                                                            ? CoordinateInputFieldContainer(
                                                                 inputField:
                                                                     inputField,
                                                                 inputValue:

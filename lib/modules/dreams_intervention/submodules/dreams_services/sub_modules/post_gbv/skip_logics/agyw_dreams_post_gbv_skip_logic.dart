@@ -9,10 +9,10 @@ class AgywDreamsPostGbvSkipLogic {
   static Map hiddenSections = Map();
 
   static Future evaluateSkipLogics(
-      BuildContext context,
-      List<FormSection> formSections,
-      Map dataObject,
-      ) async {
+    BuildContext context,
+    List<FormSection> formSections,
+    Map dataObject,
+  ) async {
     hiddenFields.clear();
     hiddenSections.clear();
     List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections);
@@ -24,15 +24,16 @@ class AgywDreamsPostGbvSkipLogic {
       String value = '${dataObject[inputFieldId]}';
       if (inputFieldId == 'lvT9gfpHIlT' && value == 'null') {
         hiddenFields['mnYT2rZyGgJ'] = true;
-      }    }
+      }
+    }
     for (String sectionId in hiddenSections.keys) {
       List<FormSection> allFormSections =
           FormUtil.getFlattenFormSections(formSections);
-      List<String> hidddenSectionInputFieldIds = FormUtil.getFormFieldIds(allFormSections
-          .where((formSection) => formSection.id == sectionId)
-          .toList());      
-      for (String inputFieldId in hidddenSectionInputFieldIds) {
-
+      List<String> hiddenSectionInputFieldIds = FormUtil.getFormFieldIds(
+          allFormSections
+              .where((formSection) => formSection.id == sectionId)
+              .toList());
+      for (String inputFieldId in hiddenSectionInputFieldIds) {
         hiddenFields[inputFieldId] = true;
       }
     }
@@ -51,18 +52,18 @@ class AgywDreamsPostGbvSkipLogic {
   }
 
   static resetValuesForHiddenSections(
-      BuildContext context,
-      List<FormSection> formSections,
-      ) {
+    BuildContext context,
+    List<FormSection> formSections,
+  ) {
     Provider.of<ServiceFormState>(context, listen: false)
         .setHiddenSections(hiddenSections);
   }
 
   static assignInputFieldValue(
-      BuildContext context,
-      String inputFieldId,
-      String value,
-      ) {
+    BuildContext context,
+    String inputFieldId,
+    String value,
+  ) {
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState(inputFieldId, value);
   }

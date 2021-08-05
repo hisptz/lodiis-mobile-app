@@ -9,7 +9,7 @@ import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
-import 'package:kb_mobile_app/models/ovc_house_hold_child.dart';
+import 'package:kb_mobile_app/models/ovc_household_child.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_child_info_top_header.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_caseplan.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_child_caseplan_gaps.dart';
@@ -75,7 +75,7 @@ class _OcvServiceCasePlanFormState extends State<OcvServiceCasePlanForm> {
 
   Future savingDomainsAndGaps(
     Map dataObject,
-    OvcHouseHoldChild currentOvcHouseHoldChild,
+    OvcHouseholdChild currentOvcHouseholdChild,
   ) async {
     String casePlanFirstGoal = OvcCasePlanConstant.casePlanFirstGoal;
     for (String domainType in dataObject.keys.toList()) {
@@ -99,28 +99,28 @@ class _OcvServiceCasePlanFormState extends State<OcvServiceCasePlanForm> {
           await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
             OvcChildCasePlanConstant.program,
             OvcChildCasePlanConstant.casePlanProgramStage,
-            currentOvcHouseHoldChild.orgUnit,
+            currentOvcHouseholdChild.orgUnit,
             domainFormSections,
             domainDataObject,
             domainDataObject['eventDate'],
-            currentOvcHouseHoldChild.id,
+            currentOvcHouseholdChild.id,
             domainDataObject['eventId'],
             hiddenFields,
           );
           hiddenFields = [
             OvcCasePlanConstant.casePlanToGapLinkage,
-            OvcCasePlanConstant.casePlanGapToFollowinUpLinkage
+            OvcCasePlanConstant.casePlanGapToFollowUpLinkage
           ];
           for (Map domainGapDataObject in domainDataObject['gaps']) {
             await TrackedEntityInstanceUtil
                 .savingTrackedEntityInstanceEventData(
               OvcChildCasePlanConstant.program,
               OvcChildCasePlanConstant.casePlanGapProgramStage,
-              currentOvcHouseHoldChild.orgUnit,
+              currentOvcHouseholdChild.orgUnit,
               domainGapFormSections,
               domainGapDataObject,
               domainGapDataObject['eventDate'],
-              currentOvcHouseHoldChild.id,
+              currentOvcHouseholdChild.id,
               domainGapDataObject['eventId'],
               hiddenFields,
             );
@@ -135,10 +135,10 @@ class _OcvServiceCasePlanFormState extends State<OcvServiceCasePlanForm> {
     return Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(65.0),
-          child: Consumer<IntervetionCardState>(
-            builder: (context, intervetionCardState, child) {
+          child: Consumer<InterventionCardState>(
+            builder: (context, interventionCardState, child) {
               InterventionCard activeInterventionProgram =
-                  intervetionCardState.currentIntervetionProgram;
+                  interventionCardState.currentInterventionProgram;
               return SubPageAppBar(
                 label: label,
                 activeInterventionProgram: activeInterventionProgram,

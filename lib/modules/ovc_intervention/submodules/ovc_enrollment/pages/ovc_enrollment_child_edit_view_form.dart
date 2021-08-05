@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
-import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_house_hold_current_selection_state.dart';
+import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_household_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_intervention_list_state.dart';
@@ -15,9 +15,9 @@ import 'package:kb_mobile_app/core/constants/beneficiary_identification.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
-import 'package:kb_mobile_app/models/ovc_house_hold.dart';
+import 'package:kb_mobile_app/models/ovc_household.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold_top_header.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_household_top_header.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/services/ovc_enrollment_child_services.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/models/ovc_enrollment_child.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/skip_logics/ovc_child_enrollment_skip_logic.dart';
@@ -74,7 +74,7 @@ class _OvcEnrollmentChildEditViewFormState
 
   void onSaveForm(BuildContext context, Map dataObject) async {
     bool hadAllMandatoryFilled =
-        AppUtil.hasAllMandarotyFieldsFilled(mandatoryFields, dataObject);
+        AppUtil.hasAllMandatoryFieldsFilled(mandatoryFields, dataObject);
     if (hadAllMandatoryFilled) {
       setState(() {
         isSaving = true;
@@ -125,7 +125,8 @@ class _OvcEnrollmentChildEditViewFormState
       });
     } else {
       setState(() {
-        unFilledMandatoryFields = AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+        unFilledMandatoryFields =
+            AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
       });
       AppUtil.showToastMessage(
           message: 'Please fill all mandatory field',
@@ -145,10 +146,10 @@ class _OvcEnrollmentChildEditViewFormState
       child: Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(65.0),
-          child: Consumer<IntervetionCardState>(
-            builder: (context, intervetionCardState, child) {
+          child: Consumer<InterventionCardState>(
+            builder: (context, interventionCardState, child) {
               InterventionCard activeInterventionProgram =
-                  intervetionCardState.currentIntervetionProgram;
+                  interventionCardState.currentInterventionProgram;
               return SubPageAppBar(
                 label: label,
                 activeInterventionProgram: activeInterventionProgram,
@@ -171,14 +172,14 @@ class _OvcEnrollmentChildEditViewFormState
                 : Column(
                     children: [
                       Container(
-                        child: Consumer<OvcHouseHoldCurrentSelectionState>(
-                          builder: (context, ovcHouseHoldCurrentSelectionState,
+                        child: Consumer<OvcHouseholdCurrentSelectionState>(
+                          builder: (context, ovcHouseholdCurrentSelectionState,
                               child) {
-                            OvcHouseHold currentOvcHouseHold =
-                                ovcHouseHoldCurrentSelectionState
-                                    .currentOvcHouseHold;
-                            return OvcHouseHoldInfoTopHeader(
-                              currentOvcHouseHold: currentOvcHouseHold,
+                            OvcHousehold currentOvcHousehold =
+                                ovcHouseholdCurrentSelectionState
+                                    .currentOvcHousehold;
+                            return OvcHouseholdInfoTopHeader(
+                              currentOvcHousehold: currentOvcHousehold,
                             );
                           },
                         ),
@@ -209,8 +210,9 @@ class _OvcEnrollmentChildEditViewFormState
                                             enrollmentFormState.isEditableMode,
                                         dataObject:
                                             enrollmentFormState.formState,
-                                        onInputValueChange: onInputValueChange, unFilledMandatoryFields:
-                                      unFilledMandatoryFields,
+                                        onInputValueChange: onInputValueChange,
+                                        unFilledMandatoryFields:
+                                            unFilledMandatoryFields,
                                       ),
                                     ),
                                     Visibility(

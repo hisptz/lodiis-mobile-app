@@ -22,7 +22,7 @@ class OgacInterventionHome extends StatelessWidget {
 
   void onUpdateFormState(
     BuildContext context,
-    OgacBeneficiary ogacBeneficary,
+    OgacBeneficiary ogacBeneficiary,
     bool isEditableMode,
   ) {
     Provider.of<EnrollmentFormState>(context, listen: false).resetFormState();
@@ -30,72 +30,72 @@ class OgacInterventionHome extends StatelessWidget {
         .updateFormEditabilityState(isEditableMode: isEditableMode);
     Provider.of<EnrollmentFormState>(context, listen: false).setFormFieldState(
         'location',
-        isEditableMode ? ogacBeneficary.orgUnit : ogacBeneficary.location);
+        isEditableMode ? ogacBeneficiary.orgUnit : ogacBeneficiary.location);
     Provider.of<EnrollmentFormState>(context, listen: false)
-        .setFormFieldState('trackedEntityInstance', ogacBeneficary.id);
+        .setFormFieldState('trackedEntityInstance', ogacBeneficiary.id);
     Provider.of<EnrollmentFormState>(context, listen: false)
-        .setFormFieldState('orgUnit', ogacBeneficary.orgUnit);
+        .setFormFieldState('orgUnit', ogacBeneficiary.orgUnit);
     Provider.of<EnrollmentFormState>(context, listen: false)
-        .setFormFieldState('enrollment', ogacBeneficary.enrollment);
+        .setFormFieldState('enrollment', ogacBeneficiary.enrollment);
     Provider.of<EnrollmentFormState>(context, listen: false)
-        .setFormFieldState('enrollmentDate', ogacBeneficary.createdDate);
+        .setFormFieldState('enrollmentDate', ogacBeneficiary.createdDate);
     Provider.of<EnrollmentFormState>(context, listen: false)
-        .setFormFieldState('incidentDate', ogacBeneficary.createdDate);
-    if (ogacBeneficary.trackeEntityInstanceData != null) {
+        .setFormFieldState('incidentDate', ogacBeneficiary.createdDate);
+    if (ogacBeneficiary.trackedEntityInstanceData != null) {
       for (Map attributeObj
-          in ogacBeneficary.trackeEntityInstanceData.attributes) {
+          in ogacBeneficiary.trackedEntityInstanceData.attributes) {
         Provider.of<EnrollmentFormState>(context, listen: false)
             .setFormFieldState(
                 attributeObj['attribute'], attributeObj['value']);
       }
     }
-    if (ogacBeneficary.eventData != null) {
+    if (ogacBeneficiary.eventData != null) {
       Provider.of<EnrollmentFormState>(context, listen: false)
-          .setFormFieldState('eventDate', ogacBeneficary.eventData.eventDate);
+          .setFormFieldState('eventDate', ogacBeneficiary.eventData.eventDate);
       Provider.of<EnrollmentFormState>(context, listen: false)
-          .setFormFieldState('eventId', ogacBeneficary.eventData.event);
-      for (Map dataValue in ogacBeneficary.eventData.dataValues) {
+          .setFormFieldState('eventId', ogacBeneficiary.eventData.event);
+      for (Map dataValue in ogacBeneficiary.eventData.dataValues) {
         Provider.of<EnrollmentFormState>(context, listen: false)
             .setFormFieldState(dataValue['dataElement'], dataValue['value']);
       }
     }
     Navigator.push(context, MaterialPageRoute(
       builder: (context) {
-        return OgacEnrollemntForm();
+        return OgacEnrollmentForm();
       },
     ));
   }
 
   void onViewBeneficiary(
     BuildContext context,
-    OgacBeneficiary ogacBeneficary,
+    OgacBeneficiary ogacBeneficiary,
   ) {
-    onUpdateFormState(context, ogacBeneficary, false);
+    onUpdateFormState(context, ogacBeneficiary, false);
   }
 
   void onEditBeneficiary(
     BuildContext context,
-    OgacBeneficiary ogacBeneficary,
+    OgacBeneficiary ogacBeneficiary,
   ) async {
-    String beneficiaryId = ogacBeneficary.id ?? "";
-    String formAutoSaveid = "${OgacRoutesConstant.pageModule}_$beneficiaryId";
+    String beneficiaryId = ogacBeneficiary.id ?? "";
+    String formAutoSaveId = "${OgacRoutesConstant.pageModule}_$beneficiaryId";
     FormAutoSave formAutoSave =
-        await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveid);
+        await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
     bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
         .shouldResumeWithUnSavedChanges(context, formAutoSave,
-            beneficiaryName: ogacBeneficary.toString());
+            beneficiaryName: ogacBeneficiary.toString());
     if (shouldResumeWithUnSavedChanges) {
       AppResumeRoute().redirectToPages(context, formAutoSave);
     } else {
-      onUpdateFormState(context, ogacBeneficary, true);
+      onUpdateFormState(context, ogacBeneficiary, true);
     }
   }
 
   void onAddOgacBeneficiary(BuildContext context) async {
     String beneficiaryId = "";
-    String formAutoSaveid = "${OgacRoutesConstant.pageModule}_$beneficiaryId";
+    String formAutoSaveId = "${OgacRoutesConstant.pageModule}_$beneficiaryId";
     FormAutoSave formAutoSave =
-        await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveid);
+        await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
     bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
         .shouldResumeWithUnSavedChanges(context, formAutoSave);
     if (shouldResumeWithUnSavedChanges) {
@@ -106,7 +106,7 @@ class OgacInterventionHome extends StatelessWidget {
         context,
         MaterialPageRoute(
           builder: (context) {
-            return OgacEnrollemntForm();
+            return OgacEnrollmentForm();
           },
         ),
       );
@@ -132,13 +132,13 @@ class OgacInterventionHome extends StatelessWidget {
         child: Consumer<OgacInterventionListState>(
           builder: (context, ogacInterventionListState, child) {
             return CustomPaginatedListView(
-              childBuilder: (context, ogacBeneficary, child) =>
+              childBuilder: (context, ogacBeneficiary, child) =>
                   OgacBeneficiaryCard(
-                ogacBeneficary: ogacBeneficary,
+                ogacBeneficiary: ogacBeneficiary,
                 onEditBeneficiary: () =>
-                    onEditBeneficiary(context, ogacBeneficary),
+                    onEditBeneficiary(context, ogacBeneficiary),
                 onViewBeneficiary: () =>
-                    onViewBeneficiary(context, ogacBeneficary),
+                    onViewBeneficiary(context, ogacBeneficiary),
               ),
               pagingController: ogacInterventionListState.pagingController,
               emptyListWidget: Center(

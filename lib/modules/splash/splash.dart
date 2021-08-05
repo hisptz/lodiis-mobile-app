@@ -4,7 +4,7 @@ import 'package:kb_mobile_app/app_state/app_info_state/app_info_state.dart';
 import 'package:kb_mobile_app/app_state/current_user_state/current_user_state.dart';
 import 'package:kb_mobile_app/app_state/device_connectivity_state/device_connectivity_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
-import 'package:kb_mobile_app/app_state/referral_nofitication_state/referral_nofitication_state.dart';
+import 'package:kb_mobile_app/app_state/referral_notification_state/referral_notification_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/constants/custom_color.dart';
 import 'package:kb_mobile_app/core/services/implementing_partner_referral_config_service.dart';
@@ -16,7 +16,7 @@ import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/modules/intervention_selection/intervention_selection.dart';
 import 'package:kb_mobile_app/modules/language_selection/language_selection.dart';
 import 'package:kb_mobile_app/modules/login/login.dart';
-import 'package:kb_mobile_app/modules/splash/components/splash_implementer_list.dart';
+import 'package:kb_mobile_app/modules/splash/components/splash_implementing_partner_list.dart';
 import 'package:provider/provider.dart';
 
 class Splash extends StatefulWidget {

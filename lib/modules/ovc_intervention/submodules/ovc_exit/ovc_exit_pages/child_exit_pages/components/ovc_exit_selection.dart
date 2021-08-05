@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kb_mobile_app/core/components/line_seperator.dart';
+import 'package:kb_mobile_app/core/components/line_separator.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_pages/child_exit_pages/constants/ovc_exit_constant.dart';
 
 class OvcChildExitSelection extends StatefulWidget {
@@ -27,7 +27,7 @@ class _OvcChildExitSelectionState extends State<OvcChildExitSelection> {
         exitTitles.add(programStageMap[id]);
       }
     }
-    if(widget.programStageIdsWithData.isEmpty){
+    if (widget.programStageIdsWithData.isEmpty) {
       setState(() {
         exitTitles.remove(programStageMap[OvcExitConstant.caseClosureKey]);
       });
@@ -58,7 +58,7 @@ class _OvcChildExitSelectionState extends State<OvcChildExitSelection> {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Container(
-                      child: LineSeperator(
+                      child: LineSeparator(
                         color: Color(0xFFE0E6E0),
                         height: 1.0,
                       ),

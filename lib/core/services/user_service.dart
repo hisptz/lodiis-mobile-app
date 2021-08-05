@@ -9,16 +9,16 @@ import 'package:kb_mobile_app/core/services/preference_provider.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
 
 class UserService {
-  final String preferenceKey = 'currrent_user';
+  final String preferenceKey = 'current_user';
 
   Future<CurrentUser> login({
     @required String username,
     @required String password,
-    isOnlineAthentication = true,
+    isOnlineAuthentication = true,
   }) async {
     CurrentUser user;
     try {
-      if (isOnlineAthentication) {
+      if (isOnlineAuthentication) {
         var url = 'api/me.json';
         var queryParameters = {
           "fields":

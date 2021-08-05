@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
-import 'package:kb_mobile_app/core/components/line_seperator.dart';
+import 'package:kb_mobile_app/core/components/line_separator.dart';
 import 'package:kb_mobile_app/core/components/material_card.dart';
 import 'package:kb_mobile_app/modules/synchronization/constants/synchronization_actions_constants.dart';
 import 'package:provider/provider.dart';
@@ -48,7 +48,7 @@ class _SynchronizationProgressState extends State<SynchronizationProgress> {
                     fontWeight: FontWeight.w500,
                   )),
             ),
-            LineSeperator(color: Colors.blueGrey.withOpacity(0.2)),
+            LineSeparator(color: Colors.blueGrey.withOpacity(0.2)),
             Container(
               margin: EdgeInsets.only(top: 5.0),
               child: Text(
@@ -70,10 +70,10 @@ class _SynchronizationProgressState extends State<SynchronizationProgress> {
                       child: LinearProgressIndicator(
                         backgroundColor: Colors.grey,
                         valueColor: AlwaysStoppedAnimation<Color>(
-                            Provider.of<IntervetionCardState>(context,
+                            Provider.of<InterventionCardState>(context,
                                     listen: false)
-                                .currentIntervetionProgram
-                                .primmaryColor),
+                                .currentInterventionProgram
+                                .primaryColor),
                         minHeight: 10.0,
                         value: widget.overallSyncProgress ?? 0,
                       ),
@@ -96,10 +96,10 @@ class _SynchronizationProgressState extends State<SynchronizationProgress> {
                         child: LinearProgressIndicator(
                           backgroundColor: Colors.grey,
                           valueColor: AlwaysStoppedAnimation<Color>(
-                              Provider.of<IntervetionCardState>(context,
+                              Provider.of<InterventionCardState>(context,
                                       listen: false)
-                                  .currentIntervetionProgram
-                                  .primmaryColor),
+                                  .currentInterventionProgram
+                                  .primaryColor),
                           minHeight: 10.0,
                           value: widget.overallDownloadProgress ?? 0,
                         ),
@@ -124,10 +124,10 @@ class _SynchronizationProgressState extends State<SynchronizationProgress> {
                         child: LinearProgressIndicator(
                           backgroundColor: Colors.grey,
                           valueColor: AlwaysStoppedAnimation<Color>(
-                              Provider.of<IntervetionCardState>(context,
+                              Provider.of<InterventionCardState>(context,
                                       listen: false)
-                                  .currentIntervetionProgram
-                                  .primmaryColor),
+                                  .currentInterventionProgram
+                                  .primaryColor),
                           minHeight: 10.0,
                           value: widget.overallUploadProgress ?? 0,
                         ),
@@ -151,10 +151,10 @@ class _SynchronizationProgressState extends State<SynchronizationProgress> {
                         child: LinearProgressIndicator(
                           backgroundColor: Colors.grey,
                           valueColor: AlwaysStoppedAnimation<Color>(
-                              Provider.of<IntervetionCardState>(context,
+                              Provider.of<InterventionCardState>(context,
                                       listen: false)
-                                  .currentIntervetionProgram
-                                  .primmaryColor),
+                                  .currentInterventionProgram
+                                  .primaryColor),
                           minHeight: 10.0,
                           value: widget.profileSyncProgress ?? 0,
                         ),
@@ -178,10 +178,10 @@ class _SynchronizationProgressState extends State<SynchronizationProgress> {
                         child: LinearProgressIndicator(
                           backgroundColor: Colors.grey,
                           valueColor: AlwaysStoppedAnimation<Color>(
-                              Provider.of<IntervetionCardState>(context,
+                              Provider.of<InterventionCardState>(context,
                                       listen: false)
-                                  .currentIntervetionProgram
-                                  .primmaryColor),
+                                  .currentInterventionProgram
+                                  .primaryColor),
                           minHeight: 10.0,
                           value: widget.eventsSyncProgress ?? 0,
                         ),

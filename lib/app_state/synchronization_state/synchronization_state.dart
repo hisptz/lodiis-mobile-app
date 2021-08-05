@@ -5,8 +5,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/ogac_intervention_list_state/ogac_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_intervention_list_state.dart';
-import 'package:kb_mobile_app/app_state/referral_nofitication_state/referral_nofitication_state.dart';
-import 'package:kb_mobile_app/core/constants/app_logs.dart';
+import 'package:kb_mobile_app/app_state/referral_notification_state/referral_notification_state.dart';
+import 'package:kb_mobile_app/core/constants/app_logs_constants.dart';
 import 'package:kb_mobile_app/core/offline_db/app_logs_offline/app_logs_offline_provider.dart';
 import 'package:kb_mobile_app/core/services/implementing_partner_config_service.dart';
 import 'package:kb_mobile_app/core/services/preference_provider.dart';
@@ -16,9 +16,7 @@ import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/app_logs.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
-import 'package:kb_mobile_app/models/enrollment.dart';
 import 'package:kb_mobile_app/models/events.dart';
-import 'package:kb_mobile_app/models/tei_relationship.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
 import 'package:provider/provider.dart';
 
@@ -29,7 +27,7 @@ class SynchronizationState with ChangeNotifier {
 
   SynchronizationState({this.context});
 
-// intial state
+// initial state
   bool _isDataUploadingActive = false;
   bool _isDataDownloadingActive = false;
   bool _hasUnsyncedData;
@@ -43,8 +41,8 @@ class SynchronizationState with ChangeNotifier {
   List<String> _dataDownloadProcess;
   List<String> _dataUploadProcess;
   List<Events> _eventFromServer;
-  List<TrackeEntityInstance> _trackeEntityInstance;
-  List<dynamic> _servertrackedEntityInstance;
+  List<TrackedEntityInstance> _trackedEntityInstance;
+  List<dynamic> _serverTrackedEntityInstance;
   List<Map<String, dynamic>> _events_1;
   List<Map<String, dynamic>> _trackedInstance1;
   Map<String, List> _trackedInstance;
@@ -103,11 +101,11 @@ class SynchronizationState with ChangeNotifier {
 
   int get conflictCount => _conflictLCount ?? 0;
 
-  List<TrackeEntityInstance> get trackedEntityInstanceFromServer =>
-      _trackeEntityInstance ?? [];
+  List<TrackedEntityInstance> get trackedEntityInstanceFromServer =>
+      _trackedEntityInstance ?? [];
 
-  List<dynamic> get servertrackedEntityInstance =>
-      _servertrackedEntityInstance ?? [];
+  List<dynamic> get serverTrackedEntityInstance =>
+      _serverTrackedEntityInstance ?? [];
 
   Map<String, List> get trackedInstance => _trackedInstance ?? {};
 
@@ -125,7 +123,7 @@ class SynchronizationState with ChangeNotifier {
     notifyListeners();
   }
 
-  void updateUnsynceDataCheckingStatus(bool status) {
+  void updateUnsyncedDataCheckingStatus(bool status) {
     _isUnsyncedCheckingActive = status;
     notifyListeners();
   }
@@ -155,7 +153,7 @@ class SynchronizationState with ChangeNotifier {
     notifyListeners();
   }
 
-  checkingForAvaiableBeneficiaryData() async {
+  checkingForAvailableBeneficiaryData() async {
     updateStatusForAvailableDataFromServer(status: true);
     setStatusMessageForAvailableDataFromServer(
         'Checking for available beneficiary data from server...');
@@ -195,7 +193,7 @@ class SynchronizationState with ChangeNotifier {
     _dataDownloadProcess = _dataDownloadProcess ?? [];
     _dataUploadProcess = _dataUploadProcess ?? [];
     if (!isAutoUpload) {
-      updateUnsynceDataCheckingStatus(true);
+      updateUnsyncedDataCheckingStatus(true);
     }
     CurrentUser user = await UserService().getCurrentUser();
     _synchronizationService = SynchronizationService(
@@ -207,7 +205,7 @@ class SynchronizationState with ChangeNotifier {
     _beneficiaryCount = unsyncedTeiCount;
     _hasUnsyncedData = unsyncedEventsCount > 0 || unsyncedTeiCount > 0;
     if (!isAutoUpload) {
-      updateUnsynceDataCheckingStatus(false);
+      updateUnsyncedDataCheckingStatus(false);
     }
   }
 
@@ -242,8 +240,8 @@ class SynchronizationState with ChangeNotifier {
   Future startDataDownloadActivity({bool skipUpload = true}) async {
     _dataDownloadProcess = [];
     _eventFromServer = [];
-    _servertrackedEntityInstance = [];
-    _trackeEntityInstance = [];
+    _serverTrackedEntityInstance = [];
+    _trackedEntityInstance = [];
     profileDataDownloadProgress = 0.0;
     eventsDataDownloadProgress = 0.0;
     overallDownloadProgress = 0.0;

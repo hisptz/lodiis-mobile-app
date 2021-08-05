@@ -26,20 +26,20 @@ class FormAutoSaveOfflineProvider extends OfflineDbProvider {
   }
 
   Future deleteSavedFormAutoFormData(
-    String formAutoSaveid,
+    String formAutoSaveId,
   ) async {
     try {
       var dbClient = await db;
       dbClient.delete(
         table,
         where: '$id = ?',
-        whereArgs: [formAutoSaveid],
+        whereArgs: [formAutoSaveId],
       );
     } catch (erroe) {}
   }
 
   Future<FormAutoSave> getSavedFormAutoSaveFormDataById(
-    String formAutoSaveid,
+    String formAutoSaveId,
   ) async {
     List<FormAutoSave> formAutoSaveList = [];
     try {
@@ -54,7 +54,7 @@ class FormAutoSaveOfflineProvider extends OfflineDbProvider {
           data,
         ],
         where: '$id = ?',
-        whereArgs: [formAutoSaveid],
+        whereArgs: [formAutoSaveId],
       );
       if (maps.isNotEmpty) {
         for (Map mapData in maps) {
@@ -64,6 +64,6 @@ class FormAutoSaveOfflineProvider extends OfflineDbProvider {
     } catch (error) {}
     return formAutoSaveList.isNotEmpty
         ? formAutoSaveList.first
-        : FormAutoSave(id: formAutoSaveid);
+        : FormAutoSave(id: formAutoSaveId);
   }
 }

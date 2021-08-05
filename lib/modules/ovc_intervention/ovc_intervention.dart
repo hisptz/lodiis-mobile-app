@@ -75,11 +75,11 @@ class _OvcInterventionState extends State<OvcIntervention> {
     // print('on onClickHome');
   }
 
-  void onAddHouseHold(BuildContext context) {
+  void onAddHousehold(BuildContext context) {
     Provider.of<EnrollmentFormState>(context, listen: false).resetFormState();
     Navigator.push(context, MaterialPageRoute(
       builder: (context) {
-        return OvcEnrollmentConsetForm();
+        return OvcEnrollmentConsentForm();
       },
     ));
   }
@@ -88,17 +88,17 @@ class _OvcInterventionState extends State<OvcIntervention> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Consumer<IntervetionCardState>(
-          builder: (context, intervetionCardState, child) {
+        child: Consumer<InterventionCardState>(
+          builder: (context, interventionCardState, child) {
             InterventionCard activeInterventionProgram =
-                intervetionCardState.currentIntervetionProgram;
+                interventionCardState.currentInterventionProgram;
             return Scaffold(
               appBar: PreferredSize(
                   preferredSize: Size.fromHeight(90),
                   child: InterventionAppBar(
                     activeInterventionProgram: activeInterventionProgram,
                     onClickHome: onClickHome,
-                    onAddHouseHold: () => onAddHouseHold(context),
+                    onAddHousehold: () => onAddHousehold(context),
                     onOpenMoreMenu: () =>
                         onOpenMoreMenu(context, activeInterventionProgram),
                   )),

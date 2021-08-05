@@ -1,3 +1,3 @@
 class OvcServicesRoute {
-  //@TODO implement routes for ovc servives
+  //@TODO implement routes for ovc services
 }

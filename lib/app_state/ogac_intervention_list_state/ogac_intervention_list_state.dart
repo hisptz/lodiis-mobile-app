@@ -35,7 +35,7 @@ class OgacInterventionListState with ChangeNotifier {
 
   Future<void> _fetchPage(int pageKey) async {
     String searchableValue = _searchableValue;
-    List ovcList = await OgacEnrollementservice()
+    List ovcList = await OgacEnrollmentService()
         .getOgacBeneficiaries(page: pageKey, searchableValue: searchableValue);
     if (ovcList.isEmpty && pageKey < numberOfPages) {
       _fetchPage(pageKey + 1);
@@ -47,7 +47,7 @@ class OgacInterventionListState with ChangeNotifier {
   }
 
   Future<void> getBeneficiaryNumber() async {
-    _numberOfOgac = await OgacEnrollementservice().getOgacBeneficiariesCount();
+    _numberOfOgac = await OgacEnrollmentService().getOgacBeneficiariesCount();
   }
 
   Future<void> refreshOgacNumber() async {

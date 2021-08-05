@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:kb_mobile_app/core/components/line_seperator.dart';
+import 'package:kb_mobile_app/core/components/line_separator.dart';
 import 'package:kb_mobile_app/models/agyw_dreams_index_info_event.dart';
 
 class DreamsHTSIndexCardHeader extends StatelessWidget {
@@ -109,7 +109,7 @@ class DreamsHTSIndexCardHeader extends StatelessWidget {
             ],
           ),
         ),
-        LineSeperator(
+        LineSeparator(
           color: Color(0xFFECF5EC),
         ),
         SizedBox(

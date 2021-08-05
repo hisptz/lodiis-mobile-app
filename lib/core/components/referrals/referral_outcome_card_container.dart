@@ -17,26 +17,26 @@ class ReferralOutComeCardContainer extends StatelessWidget {
     @required this.referralToFollowUpLinkage,
     @required this.referralProgram,
     @required this.isOvcIntervention,
-    this.isHouseHoldReferral = false,
+    this.isHouseholdReferral = false,
   }) : super(key: key);
 
   final String currentProgramStage;
   final String currentEventId;
-  final TrackeEntityInstance beneficiary;
+  final TrackedEntityInstance beneficiary;
   final String referralFollowUpStage;
   final String referralToFollowUpLinkage;
   final String referralProgram;
   final bool isOvcIntervention;
-  final bool isHouseHoldReferral;
+  final bool isHouseholdReferral;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Consumer<ServiveEventDataState>(
-        builder: (context, serviveEventDataState, child) {
-          bool isLoading = serviveEventDataState.isLoading;
+      child: Consumer<ServiceEventDataState>(
+        builder: (context, serviceEventDataState, child) {
+          bool isLoading = serviceEventDataState.isLoading;
           Map<String, List<Events>> eventListByProgramStage =
-              serviveEventDataState.eventListByProgramStage;
+              serviceEventDataState.eventListByProgramStage;
           List<Events> events = TrackedEntityInstanceUtil
               .getAllEventListFromServiceDataStateByProgramStages(
             eventListByProgramStage,

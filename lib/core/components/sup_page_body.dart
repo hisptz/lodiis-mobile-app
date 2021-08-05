@@ -10,10 +10,10 @@ class SubPageBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<IntervetionCardState>(
-      builder: (context, intervetionCardState, child) {
+    return Consumer<InterventionCardState>(
+      builder: (context, interventionCardState, child) {
         InterventionCard activeInterventionProgram =
-            intervetionCardState.currentIntervetionProgram;
+            interventionCardState.currentInterventionProgram;
         return Stack(
           fit: StackFit.expand,
           children: [

@@ -83,17 +83,17 @@ class FormUtil {
 
   static bool geFormFilledStatus(
       Map dataObject, List<FormSection> formSections) {
-    bool isformFilled = false;
+    bool isFormFilled = false;
     if (dataObject.keys.length > 0) {
       List<String> inputFields = getFormFieldIds(formSections);
       for (String id in inputFields) {
         if (dataObject.containsKey(id) && '${dataObject[id]}'.trim() != '') {
-          isformFilled = true;
+          isFormFilled = true;
         }
       }
     }
 
-    return isformFilled;
+    return isFormFilled;
   }
 
   static List<InputField> getFormInputFields(List<FormSection> formSections) {
@@ -107,7 +107,7 @@ class FormUtil {
     return inputFields;
   }
 
-  static Future<TrackeEntityInstance> geTrackedEntityInstanceEnrollmentPayLoad(
+  static Future<TrackedEntityInstance> geTrackedEntityInstanceEnrollmentPayLoad(
       String trackedEntityInstance,
       String trackedEntityType,
       String orgUnit,
@@ -141,10 +141,10 @@ class FormUtil {
         })
         .toList()
         .join(',');
-    dynamic trackedEnrityInstanceJson =
+    dynamic trackedEntityInstanceJson =
         '{"trackedEntityInstance":"$trackedEntityInstance", "trackedEntityType":"$trackedEntityType", "orgUnit":"$orgUnit","syncStatus":"not-synced","attributes":[$attributes] }';
-    return TrackeEntityInstance()
-        .fromJson(json.decode(trackedEnrityInstanceJson));
+    return TrackedEntityInstance()
+        .fromJson(json.decode(trackedEntityInstanceJson));
   }
 
   static Enrollment getEnrollmentPayLoad(
@@ -204,8 +204,8 @@ class FormUtil {
     return Events().fromJson(json.decode(eventJson));
   }
 
-  static Future savingTrackeEntityInstance(
-    TrackeEntityInstance trackedEntityInstance,
+  static Future savingTrackedEntityInstance(
+    TrackedEntityInstance trackedEntityInstance,
   ) async {
     await TrackedEntityInstanceOfflineProvider()
         .addOrUpdateTrackedEntityInstance(trackedEntityInstance);
@@ -213,12 +213,12 @@ class FormUtil {
   }
 
   static Future savingEnrollment(Enrollment enrollment) async {
-    await EnrollmentOfflineProvider().addOrUpdateEnrollement(enrollment);
+    await EnrollmentOfflineProvider().addOrUpdateEnrollment(enrollment);
   }
 
   static Future savingTeiRelationship(TeiRelationship teiRelationship) async {
-    await TeiRelatioShipOfflineProvider()
-        .addOrUpdateTeirelationShip(teiRelationship);
+    await TeiRelationshipOfflineProvider()
+        .addOrUpdateTeiRelationship(teiRelationship);
   }
 
   static Future savingEvent(Events event) async {

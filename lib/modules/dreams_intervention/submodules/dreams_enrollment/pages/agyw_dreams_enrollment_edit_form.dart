@@ -22,7 +22,7 @@ import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/constants/dreams_routes_constant.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/services/agyw_dream_enrollment_service.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/services/agyw_dreams_enrollment_service.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/skip_logics/agyw_dreams_enrollment_skip_logic.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:provider/provider.dart';
@@ -102,8 +102,8 @@ class _AgywDreamsEnrollmentEditFormState
         demographicInformationFormSection,
         householdInformationFormSection,
       ];
-      enrollmentFormSections.forEach((enrollmentFormsection) {
-        formSections.add(enrollmentFormsection);
+      enrollmentFormSections.forEach((enrollmentFormSection) {
+        formSections.add(enrollmentFormSection);
       });
       formSections = FormUtil.getFormSectionWithReadOnlyStatus(
         formSections,
@@ -155,9 +155,9 @@ class _AgywDreamsEnrollmentEditFormState
     Map dataObject =
         Provider.of<EnrollmentFormState>(context, listen: false).formState;
     String beneficiaryId = dataObject['trackedEntityInstance'] ?? "";
-    String formAutoSaveid =
+    String formAutoSaveId =
         "${DreamsRoutesConstant.agywEnrollmentFormEditPage}_$beneficiaryId";
-    await FormAutoSaveOfflineService().deleteSavedFormAutoData(formAutoSaveid);
+    await FormAutoSaveOfflineService().deleteSavedFormAutoData(formAutoSaveId);
   }
 
   void onInputValueChange(String id, dynamic value) {
@@ -169,7 +169,7 @@ class _AgywDreamsEnrollmentEditFormState
 
   void onSaveForm(BuildContext context, Map dataObject,
       {Map hiddenFields = const {}}) async {
-    bool hadAllMandatoryFilled = AppUtil.hasAllMandarotyFieldsFilled(
+    bool hadAllMandatoryFilled = AppUtil.hasAllMandatoryFieldsFilled(
       mandatoryFields,
       dataObject,
       hiddenFields: hiddenFields,
@@ -192,7 +192,7 @@ class _AgywDreamsEnrollmentEditFormState
         'PN92g65TkVI',
         'klLkGxy328c'
       ];
-      await AgywDreamEnrollmentService().savingAgwyBeneficiary(
+      await AgywDreamsEnrollmentService().savingAgywBeneficiary(
         dataObject,
         trackedEntityInstance,
         orgUnit,
@@ -239,10 +239,10 @@ class _AgywDreamsEnrollmentEditFormState
       child: Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(65.0),
-          child: Consumer<IntervetionCardState>(
-            builder: (context, intervetionCardState, child) {
+          child: Consumer<InterventionCardState>(
+            builder: (context, interventionCardState, child) {
               InterventionCard activeInterventionProgram =
-                  intervetionCardState.currentIntervetionProgram;
+                  interventionCardState.currentInterventionProgram;
               return SubPageAppBar(
                 label: label,
                 activeInterventionProgram: activeInterventionProgram,

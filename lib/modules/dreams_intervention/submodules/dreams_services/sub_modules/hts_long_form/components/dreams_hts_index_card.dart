@@ -12,25 +12,25 @@ class DreamsHTSIndexCard extends StatelessWidget {
     Key key,
     @required this.event,
     @required this.cardBody,
-    @required this.cardBottonActions,
-    @required this.cardBottonContent,
+    @required this.cardButtonActions,
+    @required this.cardButtonContent,
     @required this.canExpand,
     @required this.canEdit,
     @required this.canView,
     @required this.isExpanded,
-    this.onCardToogle,
+    this.onCardToggle,
   }) : super(key: key);
 
   final AgywDreamsIndexInfoEvent event;
   final Widget cardBody;
-  final Widget cardBottonActions;
-  final Widget cardBottonContent;
+  final Widget cardButtonActions;
+  final Widget cardButtonContent;
   final bool canExpand;
   final bool isExpanded;
   final bool canEdit;
   final bool canView;
 
-  final VoidCallback onCardToogle;
+  final VoidCallback onCardToggle;
   final String svgIcon = 'assets/icons/hh_icon.svg';
 
   void updateFormState(
@@ -46,10 +46,10 @@ class DreamsHTSIndexCard extends StatelessWidget {
           .setFormFieldState('eventDate', eventData.date);
       Provider.of<ServiceFormState>(context, listen: false)
           .setFormFieldState('eventId', eventData.id);
-      for (Map datavalue in eventData.datavalues) {
-        if (datavalue['value'] != '') {
+      for (Map dataValue in eventData.dataValues) {
+        if (dataValue['value'] != '') {
           Provider.of<ServiceFormState>(context, listen: false)
-              .setFormFieldState(datavalue['dataElement'], datavalue['value']);
+              .setFormFieldState(dataValue['dataElement'], dataValue['value']);
         }
       }
     }
@@ -90,13 +90,13 @@ class DreamsHTSIndexCard extends StatelessWidget {
                   svgIcon: svgIcon,
                   canExpand: canExpand,
                   isExpanded: isExpanded,
-                  onToggleCard: onCardToogle,
+                  onToggleCard: onCardToggle,
                   onEdit: () => onEditIndexInfo(context, event),
                   onView: () => onViewIndexInfo(context, event),
                 )),
                 cardBody,
-                cardBottonActions,
-                Visibility(visible: isExpanded, child: cardBottonContent),
+                cardButtonActions,
+                Visibility(visible: isExpanded, child: cardButtonContent),
               ],
             ),
           ),

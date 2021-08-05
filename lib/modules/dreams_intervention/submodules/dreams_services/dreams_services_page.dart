@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dream_current_selection_state.dart';
+import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/core/components/paginated_list_view.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_card_body.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_card_body.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_card.dart';
 import 'package:kb_mobile_app/core/components/sub_module_home_container.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/components/service_card_botton_action.dart';
@@ -21,7 +21,6 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_serv
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/prep/agyw_dreams_prep.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/prep_short_form/agyw_dreams_prep_short_form_home_page.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/service_form/agyw_dreams_service_form_page.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/srh/agyw_dreams_srh.dart';
 import 'package:provider/provider.dart';
 
 class DreamsServicesPage extends StatefulWidget {
@@ -39,8 +38,8 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
 
   String toggleCardId = '';
 
-  void onCardToogle(BuildContext context, String trackedEntityInstance) {
-    Provider.of<ServiveEventDataState>(context, listen: false)
+  void onCardToggle(BuildContext context, String trackedEntityInstance) {
+    Provider.of<ServiceEventDataState>(context, listen: false)
         .resetServiceEventDataState(trackedEntityInstance);
     setState(() {
       toggleCardId = canExpand && trackedEntityInstance != toggleCardId
@@ -75,19 +74,6 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
     );
   }
 
-  void onOpenSRHForm(
-    BuildContext context,
-    AgywDream agywBeneficiary,
-  ) {
-    updateStateData(context, agywBeneficiary);
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => AgywDreamsSRH(),
-      ),
-    );
-  }
-
   void onOpenPrepLongForm(
     BuildContext context,
     AgywDream agywBeneficiary,
@@ -114,19 +100,6 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
     );
   }
 
-  void onOpenMSGHIVForm(
-    BuildContext context,
-    AgywDream agywBeneficiary,
-  ) {
-    updateStateData(context, agywBeneficiary);
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => AgywDreamMSGHIVRegiser(),
-      ),
-    );
-  }
-
   void onOpenCondomForm(
     BuildContext context,
     AgywDream agywBeneficiary,
@@ -135,7 +108,7 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => AgywDreamCondoms(),
+        builder: (context) => AgywDreamsCondoms(),
       ),
     );
   }
@@ -153,6 +126,19 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
     );
   }
 
+  void onOpenMSGHIVForm(
+    BuildContext context,
+    AgywDream agywBeneficiary,
+  ) {
+    updateStateData(context, agywBeneficiary);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => AgywDreamsMSGHIVRegister(),
+      ),
+    );
+  }
+
   void onOpenANCForm(
     BuildContext context,
     AgywDream agywBeneficiary,
@@ -161,7 +147,7 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => AgywDreamANC(),
+        builder: (context) => AgywDreamsANC(),
       ),
     );
   }
@@ -174,7 +160,7 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => AgywDreamPostGBV(),
+        builder: (context) => AgywDreamsPostGBV(),
       ),
     );
   }
@@ -187,7 +173,7 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => AgywDreamArtRefill(),
+        builder: (context) => AgywDreamsArtRefill(),
       ),
     );
   }
@@ -200,7 +186,7 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => AgywDreamPEP(),
+        builder: (context) => AgywDreamsPEP(),
       ),
     );
   }
@@ -222,9 +208,9 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
     BuildContext context,
     AgywDream agywBeneficiary,
   ) {
-    Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
+    Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
         .setCurrentAgywDream(agywBeneficiary);
-    Provider.of<ServiveEventDataState>(context, listen: false)
+    Provider.of<ServiceEventDataState>(context, listen: false)
         .resetServiceEventDataState(agywBeneficiary.id);
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
     Provider.of<ServiceFormState>(context, listen: false)
@@ -259,28 +245,24 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
                 beneficiaryName: agywBeneficiary.toString(),
                 canView: canView,
                 isExpanded: agywBeneficiary.id == toggleCardId,
-                onCardToogle: () {
-                  onCardToogle(
+                onCardToggle: () {
+                  onCardToggle(
                     context,
                     agywBeneficiary.id,
                   );
                 },
-                cardBody: DreamBeneficiaryCardBody(
+                cardBody: DreamsBeneficiaryCardBody(
                   agywBeneficiary: agywBeneficiary,
                   canViewServiceCategory: true,
                   isVerticalLayout: agywBeneficiary.id == toggleCardId,
                 ),
-                cardBottonActions: ServiceCardBottonAction(
+                cardButtonActions: ServiceCardButtonAction(
                   agywBeneficiary: agywBeneficiary,
                   onOpenPrepLongForm: () => onOpenPrepLongForm(
                     context,
                     agywBeneficiary,
                   ),
                   onOpenPrepShortForm: () => onOpenPrepShortForm(
-                    context,
-                    agywBeneficiary,
-                  ),
-                  onOpenSRHForm: () => onOpenSRHForm(
                     context,
                     agywBeneficiary,
                   ),
@@ -300,11 +282,11 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
                     context,
                     agywBeneficiary,
                   ),
-                  onOpenMSGHIVForm: () => onOpenMSGHIVForm(
+                  onOpenANCForm: () => onOpenANCForm(
                     context,
                     agywBeneficiary,
                   ),
-                  onOpenANCForm: () => onOpenANCForm(
+                  onOpenMSGHIVForm: () => onOpenMSGHIVForm(
                     context,
                     agywBeneficiary,
                   ),
@@ -325,7 +307,7 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
                     agywBeneficiary,
                   ),
                 ),
-                cardBottonContent: Container(),
+                cardButtonContent: Container(),
               ),
               pagingController: dreamInterventionListState.agywPagingController,
               emptyListWidget: Center(

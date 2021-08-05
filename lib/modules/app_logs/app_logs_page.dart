@@ -47,10 +47,10 @@ class _AppLogsState extends State<AppLogsPage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Consumer<IntervetionCardState>(
-        builder: (context, intervetionCardState, child) {
+      child: Consumer<InterventionCardState>(
+        builder: (context, interventionCardState, child) {
           InterventionCard activeInterventionProgram =
-              intervetionCardState.currentIntervetionProgram;
+              interventionCardState.currentInterventionProgram;
           return SafeArea(
             child: Scaffold(
               appBar: PreferredSize(
@@ -71,8 +71,8 @@ class _AppLogsState extends State<AppLogsPage> {
                     ),
                   )),
               floatingActionButton: FloatingActionButton(
-                backgroundColor: intervetionCardState
-                    .currentIntervetionProgram.primmaryColor,
+                backgroundColor: interventionCardState
+                    .currentInterventionProgram.primaryColor,
                 onPressed: () async {
                   await onDownloadLogs(context);
                 },

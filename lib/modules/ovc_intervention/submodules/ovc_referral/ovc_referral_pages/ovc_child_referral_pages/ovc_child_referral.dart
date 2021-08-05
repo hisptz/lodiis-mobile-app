@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_house_hold_current_selection_state.dart';
+import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_household_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/events.dart';
-import 'package:kb_mobile_app/models/ovc_house_hold_child.dart';
+import 'package:kb_mobile_app/models/ovc_household_child.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:kb_mobile_app/core/components/referrals/referral_card_summary.dart';
 import 'package:kb_mobile_app/core/components/referrals/referral_card_body_summary.dart';
@@ -24,7 +24,7 @@ class OvcChildReferral extends StatefulWidget {
 }
 
 class _OvcChildReferralState extends State<OvcChildReferral> {
-  final List<String> programStageids = [OvcChildReferralConstant.referralStage];
+  final List<String> programStageIds = [OvcChildReferralConstant.referralStage];
   void updateFormState(
     BuildContext context,
     bool isEditableMode,
@@ -39,18 +39,18 @@ class _OvcChildReferralState extends State<OvcChildReferral> {
             .setFormFieldState('eventDate', eventData.eventDate);
         Provider.of<ServiceFormState>(context, listen: false)
             .setFormFieldState('eventId', eventData.event);
-        for (Map datavalue in eventData.dataValues) {
-          if (datavalue['value'] != '') {
+        for (Map dataValue in eventData.dataValues) {
+          if (dataValue['value'] != '') {
             Provider.of<ServiceFormState>(context, listen: false)
                 .setFormFieldState(
-                    datavalue['dataElement'], datavalue['value']);
+                    dataValue['dataElement'], dataValue['value']);
           }
         }
       }
     }
   }
 
-  void onAddRefferal(BuildContext context, OvcHouseHoldChild child) {
+  void onAddReferral(BuildContext context, OvcHouseholdChild child) {
     updateFormState(context, true, null);
     Navigator.push(
       context,
@@ -98,19 +98,19 @@ class _OvcChildReferralState extends State<OvcChildReferral> {
       child: Consumer<LanguageTranslationState>(
         builder: (context, languageTranslationState, child) {
           String currentLanguage = languageTranslationState.currentLanguage;
-          return Consumer<OvcHouseHoldCurrentSelectionState>(
-            builder: (context, ovcHouseHoldCurrentSelectionState, child) {
-              return Consumer<ServiveEventDataState>(
+          return Consumer<OvcHouseholdCurrentSelectionState>(
+            builder: (context, ovcHouseholdCurrentSelectionState, child) {
+              return Consumer<ServiceEventDataState>(
                 builder: (context, serviceFormState, child) {
-                  OvcHouseHoldChild currentOvcHouseHoldChild =
-                      ovcHouseHoldCurrentSelectionState
-                          .currentOvcHouseHoldChild;
+                  OvcHouseholdChild currentOvcHouseholdChild =
+                      ovcHouseholdCurrentSelectionState
+                          .currentOvcHouseholdChild;
                   bool isLoading = serviceFormState.isLoading;
                   Map<String, List<Events>> eventListByProgramStage =
                       serviceFormState.eventListByProgramStage;
                   List<Events> events = TrackedEntityInstanceUtil
                       .getAllEventListFromServiceDataStateByProgramStages(
-                          eventListByProgramStage, programStageids);
+                          eventListByProgramStage, programStageIds);
                   int referralIndex = events.length;
                   return Container(
                     child: Column(
@@ -189,9 +189,9 @@ class _OvcChildReferralState extends State<OvcChildReferral> {
                                         labelColor: Colors.white,
                                         buttonColor: Color(0xFF4B9F46),
                                         fontSize: 15.0,
-                                        onPressButton: () => onAddRefferal(
+                                        onPressButton: () => onAddReferral(
                                           context,
-                                          currentOvcHouseHoldChild,
+                                          currentOvcHouseholdChild,
                                         ),
                                       )
                                     ],

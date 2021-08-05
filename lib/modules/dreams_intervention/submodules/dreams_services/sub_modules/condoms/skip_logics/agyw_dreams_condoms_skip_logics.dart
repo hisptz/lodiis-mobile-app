@@ -4,15 +4,15 @@ import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:provider/provider.dart';
 
-class AgywDreamsCondomSkipLogic {
+class AgywDreamsCondomsSkipLogic {
   static Map hiddenFields = Map();
   static Map hiddenSections = Map();
 
   static Future evaluateSkipLogics(
-      BuildContext context,
-      List<FormSection> formSections,
-      Map dataObject,
-      ) async {
+    BuildContext context,
+    List<FormSection> formSections,
+    Map dataObject,
+  ) async {
     hiddenFields.clear();
     hiddenSections.clear();
     List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections);
@@ -26,18 +26,18 @@ class AgywDreamsCondomSkipLogic {
         hiddenFields['sdgj99xGuv3'] = true;
         hiddenFields['uciT2F6ByYO'] = true;
       }
-      if(inputFieldId == 'uciT2F6ByYO' && value != 'true'){
+      if (inputFieldId == 'uciT2F6ByYO' && value != 'true') {
         hiddenFields['sdgj99xGuv3'] = true;
       }
     }
     for (String sectionId in hiddenSections.keys) {
       List<FormSection> allFormSections =
           FormUtil.getFlattenFormSections(formSections);
-      List<String> hidddenSectionInputFieldIds = FormUtil.getFormFieldIds(allFormSections
-          .where((formSection) => formSection.id == sectionId)
-          .toList());      
-      for (String inputFieldId in hidddenSectionInputFieldIds) {
-
+      List<String> hiddenSectionInputFieldIds = FormUtil.getFormFieldIds(
+          allFormSections
+              .where((formSection) => formSection.id == sectionId)
+              .toList());
+      for (String inputFieldId in hiddenSectionInputFieldIds) {
         hiddenFields[inputFieldId] = true;
       }
     }
@@ -56,18 +56,18 @@ class AgywDreamsCondomSkipLogic {
   }
 
   static resetValuesForHiddenSections(
-      BuildContext context,
-      List<FormSection> formSections,
-      ) {
+    BuildContext context,
+    List<FormSection> formSections,
+  ) {
     Provider.of<ServiceFormState>(context, listen: false)
         .setHiddenSections(hiddenSections);
   }
 
   static assignInputFieldValue(
-      BuildContext context,
-      String inputFieldId,
-      String value,
-      ) {
+    BuildContext context,
+    String inputFieldId,
+    String value,
+  ) {
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState(inputFieldId, value);
   }

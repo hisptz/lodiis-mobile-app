@@ -5,7 +5,7 @@ import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_fo
 import 'package:kb_mobile_app/app_state/implementing_partner_referral_service_state/implementing_partner_referral_service_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
-import 'package:kb_mobile_app/core/components/line_seperator.dart';
+import 'package:kb_mobile_app/core/components/line_separator.dart';
 import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
@@ -14,7 +14,7 @@ import 'package:kb_mobile_app/models/referral_event.dart';
 import 'package:kb_mobile_app/models/referral_outcome_event.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_referral/pages/dream_agyw_referral_form.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/ovc_referral_pages/ovc_child_referral_pages/pages/ovc_child_referral_add_form.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/ovc_referral_pages/ovc_house_referral_pages/pages/ovc_house_hold_add_referral_form.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/ovc_referral_pages/ovc_house_referral_pages/pages/ovc_household_add_referral_form.dart';
 import 'package:provider/provider.dart';
 
 class ReferralDetailedCard extends StatefulWidget {
@@ -27,7 +27,7 @@ class ReferralDetailedCard extends StatefulWidget {
     @required this.labelColor,
     @required this.valueColor,
     this.isOvcIntervention = true,
-    this.isHouseHoldReferral = false,
+    this.isHouseholdReferral = false,
     this.isEditable = false,
   }) : super(key: key);
 
@@ -38,7 +38,7 @@ class ReferralDetailedCard extends StatefulWidget {
   final Color valueColor;
   final Color labelColor;
   final bool isOvcIntervention;
-  final bool isHouseHoldReferral;
+  final bool isHouseholdReferral;
   final bool isEditable;
 
   @override
@@ -48,7 +48,7 @@ class ReferralDetailedCard extends StatefulWidget {
 class _ReferralDetailedCardState extends State<ReferralDetailedCard> {
   ReferralEvent ovcReferralCard;
   double editIconHeight = 20;
-  ReferralOutComeEvent referralOutComeEvent;
+  ReferralOutcomeEvent referralOutComeEvent;
   Color buttonLabelColor;
 
   @override
@@ -61,7 +61,7 @@ class _ReferralDetailedCardState extends State<ReferralDetailedCard> {
 
   void onUpdateEventData(Events eventData) {
     ovcReferralCard = ReferralEvent().fromTeiModel(eventData);
-    referralOutComeEvent = ReferralOutComeEvent().fromTeiModel(eventData, "");
+    referralOutComeEvent = ReferralOutcomeEvent().fromTeiModel(eventData, "");
   }
 
   void updateFormState(
@@ -77,16 +77,16 @@ class _ReferralDetailedCardState extends State<ReferralDetailedCard> {
           .setFormFieldState('eventDate', eventData.eventDate);
       Provider.of<ServiceFormState>(context, listen: false)
           .setFormFieldState('eventId', eventData.event);
-      for (Map datavalue in eventData.dataValues) {
-        if (datavalue['value'] != '') {
+      for (Map dataValue in eventData.dataValues) {
+        if (dataValue['value'] != '') {
           Provider.of<ServiceFormState>(context, listen: false)
-              .setFormFieldState(datavalue['dataElement'], datavalue['value']);
+              .setFormFieldState(dataValue['dataElement'], dataValue['value']);
         }
       }
     }
   }
 
-  onEditRefferral(BuildContext context) async {
+  onEditReferral(BuildContext context) async {
     CurrentUser user = await UserService().getCurrentUser();
     await Provider.of<ImplementingPartnerReferralServiceState>(context,
             listen: false)
@@ -96,10 +96,10 @@ class _ReferralDetailedCardState extends State<ReferralDetailedCard> {
       context,
       MaterialPageRoute(
         builder: (context) => widget.isOvcIntervention
-            ? widget.isHouseHoldReferral
-                ? OvcHouseHoldAddReferralForm()
+            ? widget.isHouseholdReferral
+                ? OvcHouseholdAddReferralForm()
                 : OvcChildReferralAddForm()
-            : DreamAgywAddReferralForm(
+            : DreamsAgywAddReferralForm(
                 currentUser: user,
               ),
       ),
@@ -112,7 +112,7 @@ class _ReferralDetailedCardState extends State<ReferralDetailedCard> {
       child: Consumer<LanguageTranslationState>(
         builder: (context, languageTranslationState, child) {
           String currentLanguage = languageTranslationState.currentLanguage;
-          return Consumer<ServiveEventDataState>(
+          return Consumer<ServiceEventDataState>(
             builder: (context, serviceFormState, child) {
               Map<String, List<Events>> eventListByProgramStage =
                   serviceFormState.eventListByProgramStage;
@@ -162,7 +162,7 @@ class _ReferralDetailedCardState extends State<ReferralDetailedCard> {
                                               .dateClientReachStation ==
                                           '',
                                   child: InkWell(
-                                    onTap: () => onEditRefferral(context),
+                                    onTap: () => onEditReferral(context),
                                     child: Container(
                                       height: editIconHeight,
                                       width: editIconHeight,
@@ -180,7 +180,7 @@ class _ReferralDetailedCardState extends State<ReferralDetailedCard> {
                               ],
                             ),
                           ),
-                          LineSeperator(
+                          LineSeparator(
                             color: widget.borderColor,
                             height: 2,
                           ),

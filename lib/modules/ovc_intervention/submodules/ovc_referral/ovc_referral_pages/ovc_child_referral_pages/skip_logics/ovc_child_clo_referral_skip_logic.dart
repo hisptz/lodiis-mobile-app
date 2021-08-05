@@ -19,7 +19,6 @@ class OvcChildCLOReferralSkipLogic {
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
 
-      
       if ((inputFieldId == 'NbQGlx6QZpK_clo_type' &&
           value != 'NbQGlx6QZpK_Received')) {
         hiddenSections['OIUDljKyNgy_clo_received'] = true;
@@ -32,11 +31,11 @@ class OvcChildCLOReferralSkipLogic {
     for (String sectionId in hiddenSections.keys) {
       List<FormSection> allFormSections =
           FormUtil.getFlattenFormSections(formSections);
-      List<String> hidddenSectionInputFieldIds = FormUtil.getFormFieldIds(allFormSections
-          .where((formSection) => formSection.id == sectionId)
-          .toList());      
-      for (String inputFieldId in hidddenSectionInputFieldIds) {
-
+      List<String> hiddenSectionInputFieldIds = FormUtil.getFormFieldIds(
+          allFormSections
+              .where((formSection) => formSection.id == sectionId)
+              .toList());
+      for (String inputFieldId in hiddenSectionInputFieldIds) {
         hiddenFields[inputFieldId] = true;
       }
     }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dream_current_selection_state.dart';
+import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
@@ -11,7 +11,7 @@ import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_top_header.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_long_form/pages/agyw_dreams_hts_consent_form.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:provider/provider.dart';
@@ -28,7 +28,7 @@ class HTSLongFormHomePage extends StatefulWidget {
 
 class _HTSLongFormHomePageState extends State<HTSLongFormHomePage> {
   final String label = 'HTS';
-  List<String> programStageids = [AgywDreamsHTSLongFormConstant.programStage];
+  List<String> programStageIds = [AgywDreamsHTSLongFormConstant.programStage];
 
   @override
   void initState() {
@@ -48,10 +48,10 @@ class _HTSLongFormHomePageState extends State<HTSLongFormHomePage> {
           .setFormFieldState('eventDate', eventData.eventDate);
       Provider.of<ServiceFormState>(context, listen: false)
           .setFormFieldState('eventId', eventData.event);
-      for (Map datavalue in eventData.dataValues) {
-        if (datavalue['value'] != '') {
+      for (Map dataValue in eventData.dataValues) {
+        if (dataValue['value'] != '') {
           Provider.of<ServiceFormState>(context, listen: false)
-              .setFormFieldState(datavalue['dataElement'], datavalue['value']);
+              .setFormFieldState(dataValue['dataElement'], dataValue['value']);
         }
       }
     }
@@ -59,7 +59,7 @@ class _HTSLongFormHomePageState extends State<HTSLongFormHomePage> {
 
   void onAddHTS(BuildContext context, AgywDream agywDream) {
     updateFormState(context, true, null);
-    Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
+    Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
         .setCurrentAgywDream(agywDream);
     Navigator.push(
       context,
@@ -84,10 +84,10 @@ class _HTSLongFormHomePageState extends State<HTSLongFormHomePage> {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(65.0),
-        child: Consumer<IntervetionCardState>(
-          builder: (context, intervetionCardState, child) {
+        child: Consumer<InterventionCardState>(
+          builder: (context, interventionCardState, child) {
             InterventionCard activeInterventionProgram =
-                intervetionCardState.currentIntervetionProgram;
+                interventionCardState.currentInterventionProgram;
             return SubPageAppBar(
               label: label,
               activeInterventionProgram: activeInterventionProgram,
@@ -97,24 +97,24 @@ class _HTSLongFormHomePageState extends State<HTSLongFormHomePage> {
       ),
       body: SubPageBody(
         body: Container(
-          child: Consumer<DreamBenefeciarySelectionState>(
-            builder: (context, dreamBenefeciarySelectionState, child) {
-              return Consumer<ServiveEventDataState>(
+          child: Consumer<DreamsBeneficiarySelectionState>(
+            builder: (context, dreamBeneficiarySelectionState, child) {
+              return Consumer<ServiceEventDataState>(
                 builder: (context, serviceFormState, child) {
                   AgywDream agywDream =
-                      dreamBenefeciarySelectionState.currentAgywDream;
+                      dreamBeneficiarySelectionState.currentAgywDream;
                   bool isLoading = serviceFormState.isLoading;
                   Map<String, List<Events>> eventListByProgramStage =
                       serviceFormState.eventListByProgramStage;
                   List<Events> events = TrackedEntityInstanceUtil
                           .getAllEventListFromServiceDataStateByProgramStages(
-                              eventListByProgramStage, programStageids)
+                              eventListByProgramStage, programStageIds)
                       .toList();
                   int sessionIndex = events.length + 1;
                   return Container(
                     child: Column(
                       children: [
-                        DreamBenefeciaryTopHeader(
+                        DreamsBeneficiaryTopHeader(
                           agywDream: agywDream,
                         ),
                         Container(

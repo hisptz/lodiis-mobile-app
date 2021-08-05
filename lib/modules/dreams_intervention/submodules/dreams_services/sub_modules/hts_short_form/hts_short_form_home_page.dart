@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dream_current_selection_state.dart';
+import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
@@ -12,7 +12,7 @@ import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_top_header.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/components/dreams_services_visit_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_short_form/constants/agyw_dreams_hts_short_form.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_short_form/pages/agyw_dreams_hts_short_form.dart';
@@ -27,7 +27,7 @@ class HTSShortFormHomePage extends StatefulWidget {
 
 class _HTSShortFormHomePageState extends State<HTSShortFormHomePage> {
   final String label = 'HTS';
-  final List<String> programStageids = [
+  final List<String> programStageIds = [
     AgywDreamsHTSShortFormConstant.programStage
   ];
 
@@ -44,22 +44,22 @@ class _HTSShortFormHomePageState extends State<HTSShortFormHomePage> {
           .setFormFieldState('eventDate', eventData.eventDate);
       Provider.of<ServiceFormState>(context, listen: false)
           .setFormFieldState('eventId', eventData.event);
-      for (Map datavalue in eventData.dataValues) {
-        if (datavalue['value'] != '') {
+      for (Map dataValue in eventData.dataValues) {
+        if (dataValue['value'] != '') {
           Provider.of<ServiceFormState>(context, listen: false)
-              .setFormFieldState(datavalue['dataElement'], datavalue['value']);
+              .setFormFieldState(dataValue['dataElement'], dataValue['value']);
         }
       }
     }
   }
 
-  onEditHTS(BuildContext context, Events eventdata) {
-    updateFormState(context, true, eventdata);
+  onEditHTS(BuildContext context, Events eventData) {
+    updateFormState(context, true, eventData);
     redirectHTSShortForm(context);
   }
 
-  onViewtHTS(BuildContext context, Events eventdata) {
-    updateFormState(context, false, eventdata);
+  onViewtHTS(BuildContext context, Events eventData) {
+    updateFormState(context, false, eventData);
     redirectHTSShortForm(context);
   }
 
@@ -84,10 +84,10 @@ class _HTSShortFormHomePageState extends State<HTSShortFormHomePage> {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(65.0),
-        child: Consumer<IntervetionCardState>(
-          builder: (context, intervetionCardState, child) {
+        child: Consumer<InterventionCardState>(
+          builder: (context, interventionCardState, child) {
             InterventionCard activeInterventionProgram =
-                intervetionCardState.currentIntervetionProgram;
+                interventionCardState.currentInterventionProgram;
             return SubPageAppBar(
               label: label,
               activeInterventionProgram: activeInterventionProgram,
@@ -97,24 +97,24 @@ class _HTSShortFormHomePageState extends State<HTSShortFormHomePage> {
       ),
       body: SubPageBody(
         body: Container(
-          child: Consumer<DreamBenefeciarySelectionState>(
-            builder: (context, dreamBenefeciarySelectionState, child) {
-              return Consumer<ServiveEventDataState>(
+          child: Consumer<DreamsBeneficiarySelectionState>(
+            builder: (context, dreamBeneficiarySelectionState, child) {
+              return Consumer<ServiceEventDataState>(
                 builder: (context, serviceFormState, child) {
                   AgywDream agywDream =
-                      dreamBenefeciarySelectionState.currentAgywDream;
+                      dreamBeneficiarySelectionState.currentAgywDream;
                   bool isLoading = serviceFormState.isLoading;
                   Map<String, List<Events>> eventListByProgramStage =
                       serviceFormState.eventListByProgramStage;
                   List<Events> events = TrackedEntityInstanceUtil
                           .getAllEventListFromServiceDataStateByProgramStages(
-                              eventListByProgramStage, programStageids)
+                              eventListByProgramStage, programStageIds)
                       .toList();
                   int sessionIndex = events.length + 1;
                   return Container(
                     child: Column(
                       children: [
-                        DreamBenefeciaryTopHeader(
+                        DreamsBeneficiaryTopHeader(
                           agywDream: agywDream,
                         ),
                         Container(
@@ -151,7 +151,7 @@ class _HTSShortFormHomePageState extends State<HTSShortFormHomePage> {
                                                         bottom: 15.0,
                                                       ),
                                                       child:
-                                                          DreamsServiceVisitListCard(
+                                                          DreamsServiceVisitCard(
                                                         visitName: "Visit ",
                                                         onEdit: () => onEditHTS(
                                                           context,

@@ -2,19 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:kb_mobile_app/app_state/current_user_state/current_user_state.dart';
-import 'package:kb_mobile_app/core/components/line_seperator.dart';
+import 'package:kb_mobile_app/core/components/line_separator.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:provider/provider.dart';
 
-class ServiceCardBottonAction extends StatelessWidget {
-  const ServiceCardBottonAction({
+class ServiceCardButtonAction extends StatelessWidget {
+  const ServiceCardButtonAction({
     Key key,
     this.agywBeneficiary,
     this.onOpenPrepLongForm,
     this.onOpenPrepShortForm,
     this.onOpenHTSShortForm,
     this.onOpenHTSLongForm,
-    this.onOpenSRHForm,
     this.onOpenCondomForm,
     this.onOpenContraceptivesForm,
     this.onOpenMSGHIVForm,
@@ -30,7 +29,6 @@ class ServiceCardBottonAction extends StatelessWidget {
   final VoidCallback onOpenPrepShortForm;
   final VoidCallback onOpenHTSShortForm;
   final VoidCallback onOpenHTSLongForm;
-  final VoidCallback onOpenSRHForm;
   final VoidCallback onOpenMSGHIVForm;
   final VoidCallback onOpenCondomForm;
   final VoidCallback onOpenContraceptivesForm;
@@ -47,7 +45,7 @@ class ServiceCardBottonAction extends StatelessWidget {
         builder: (context, currentUserState, child) {
           return Column(
             children: [
-              LineSeperator(
+              LineSeparator(
                 color: Color(0xFFE9F4FA),
               ),
               ClipRRect(
@@ -82,43 +80,6 @@ class ServiceCardBottonAction extends StatelessWidget {
                                     padding: const EdgeInsets.all(8.0),
                                     child: Text(
                                       'HTS',
-                                      style: TextStyle().copyWith(
-                                        fontSize: 12.0,
-                                        fontWeight: FontWeight.normal,
-                                        color: Color(0xFF1F8ECE),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Visibility(
-                          visible: currentUserState.canManageSrh,
-                          child: Container(
-                            child: InkWell(
-                              onTap: onOpenSRHForm,
-                              child: Container(
-                                padding: EdgeInsets.symmetric(
-                                  vertical: 5.0,
-                                ),
-                                margin: EdgeInsets.symmetric(
-                                  vertical: 5.0,
-                                ),
-                                decoration: BoxDecoration(
-                                  border: Border(
-                                    left: BorderSide(
-                                      width: 1,
-                                      color: Color(0xFF8EBAD3),
-                                    ),
-                                  ),
-                                ),
-                                child: Center(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(
-                                      'SRH',
                                       style: TextStyle().copyWith(
                                         fontSize: 12.0,
                                         fontWeight: FontWeight.normal,

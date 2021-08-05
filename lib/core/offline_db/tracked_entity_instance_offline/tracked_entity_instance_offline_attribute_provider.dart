@@ -12,7 +12,7 @@ class TrackedEntityInstanceOfflineAttributeProvider extends OfflineDbProvider {
   final String value = 'value';
 
   addOrUpdateTrackedEntityAttributesValues(
-    TrackeEntityInstance trackedEntityInstanceData,
+    TrackedEntityInstance trackedEntityInstanceData,
   ) async {
     var dbClient = await db;
     try {
@@ -47,7 +47,7 @@ class TrackedEntityInstanceOfflineAttributeProvider extends OfflineDbProvider {
     }
   }
 
-  List getTrackedEntityAttributes(TrackeEntityInstance trackedEntityInstance) {
+  List getTrackedEntityAttributes(TrackedEntityInstance trackedEntityInstance) {
     List attributes = trackedEntityInstance.attributes as List<dynamic>;
     List attributesObjects = [];
     try {

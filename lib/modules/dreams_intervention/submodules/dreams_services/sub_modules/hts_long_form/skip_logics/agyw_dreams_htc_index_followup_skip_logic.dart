@@ -4,7 +4,7 @@ import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:provider/provider.dart';
 
-class AgywDreamsHTCIndexFolloUpLogic {
+class AgywDreamsHTCIndexFollowUpLogic {
   static Map hiddenFields = Map();
   static Map hiddenSections = Map();
 
@@ -26,16 +26,16 @@ class AgywDreamsHTCIndexFolloUpLogic {
       if (inputFieldId == 'qjMmrl5bpCx' && value != 'true') {
         hiddenFields['XZBP09HGzqn'] = true;
         hiddenFields['kV6uCz4uLLR'] = true;
-         hiddenFields['rE25suIpzDK'] = true;
+        hiddenFields['rE25suIpzDK'] = true;
       }
-
     }
     for (String sectionId in hiddenSections.keys) {
       List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections
           .where((formSection) => formSection.id == sectionId)
           .toList());
-      for (String inputFieldId in inputFieldIds){
-        hiddenFields[inputFieldId] = true;      }
+      for (String inputFieldId in inputFieldIds) {
+        hiddenFields[inputFieldId] = true;
+      }
     }
     resetValuesForHiddenFields(context, hiddenFields.keys);
     resetValuesForHiddenSections(context, formSections);

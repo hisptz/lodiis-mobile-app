@@ -28,7 +28,7 @@ class SubPageAppBar extends StatelessWidget {
         style:
             TextStyle().copyWith(fontSize: 19.0, fontWeight: FontWeight.bold),
       ),
-      backgroundColor: activeInterventionProgram.primmaryColor,
+      backgroundColor: activeInterventionProgram.primaryColor,
       actions: [
         Visibility(
           visible: disableSelectionOfActiveIntervention,

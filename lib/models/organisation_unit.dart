@@ -32,15 +32,15 @@ class OrganisationUnit {
     List childrenList = json["children"] as List<dynamic>;
     dynamic parentObj = json["parent"];
     List<String> programs = [];
-    List<String> childrens = [];
+    List<String> children = [];
     for (var program in programList) {
       if (program['id'] != null) {
         programs.add(program['id']);
       }
     }
-    for (var children in childrenList) {
-      if (children['id'] != null) {
-        childrens.add(children['id']);
+    for (var child in childrenList) {
+      if (child['id'] != null) {
+        children.add(child['id']);
       }
     }
     return OrganisationUnit(
@@ -56,7 +56,7 @@ class OrganisationUnit {
                 ? parentObj['code']
                 : '',
         program: programs,
-        children: childrens);
+        children: children);
   }
   Map toOffline(OrganisationUnit organisationUnit) {
     var map = Map<String, dynamic>();
