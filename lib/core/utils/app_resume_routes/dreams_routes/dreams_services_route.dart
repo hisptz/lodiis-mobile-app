@@ -6,6 +6,7 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_serv
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/condoms/pages/agyw_dreams_condoms_form.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/contraceptives/pages/agyw_dreams_contraceptives_form.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_short_form/pages/agyw_dreams_hts_short_form.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/msg_hiv/pages/agyw_dreams_msg_hiv_form.dart';
 
 class DreamsServicesRoute {
   //@TODO redirect for None agyw beneficiaries
@@ -72,6 +73,17 @@ class DreamsServicesRoute {
       context,
       MaterialPageRoute(
         builder: (context) => AgywDreamsHTSShortForm(),
+      ),
+    );
+  }
+
+  redirectToAgywDreamsMSGHIVForm(
+      BuildContext context, FormAutoSave formAutoSave) {
+    AppResumeRouteUtil.setServiceFormState(context, formAutoSave);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => AgywDreamsMSGHIVForm(),
       ),
     );
   }
