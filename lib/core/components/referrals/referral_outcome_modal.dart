@@ -4,7 +4,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
-import 'package:kb_mobile_app/app_state/referral_nofitication_state/referral_nofitication_state.dart';
+import 'package:kb_mobile_app/app_state/referral_notification_state/referral_notification_state.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
@@ -82,7 +82,7 @@ class _ReferralOutcomeModalState extends State<ReferralOutcomeModal> {
     Events eventData,
   ) async {
     if (getReferralOutComeStatus(dataObject)) {
-      bool hadAllMandatoryFilled = AppUtil.hasAllMandarotyFieldsFilled(
+      bool hadAllMandatoryFilled = AppUtil.hasAllMandatoryFieldsFilled(
           widget.referralOutcomeMandatoryFields ?? [], dataObject);
       if (hadAllMandatoryFilled) {
         setState(() {
@@ -92,7 +92,7 @@ class _ReferralOutcomeModalState extends State<ReferralOutcomeModal> {
           bool isCompleted = true;
           bool isViewed = false;
           Provider.of<ReferralNotificationState>(context, listen: false)
-              .updateReferralNotificaionEvent(
+              .updateReferralNotificationEvent(
             eventData.event,
             eventData.trackedEntityInstance,
             isCompleted,
@@ -111,7 +111,7 @@ class _ReferralOutcomeModalState extends State<ReferralOutcomeModal> {
               eventData.event,
               widget.hiddenFields,
               skippedFields: ['phoneNumber', 'village']);
-          Provider.of<ServiveEventDataState>(context, listen: false)
+          Provider.of<ServiceEventDataState>(context, listen: false)
               .resetServiceEventDataState(eventData.trackedEntityInstance);
           Timer(Duration(seconds: 1), () {
             setState(() {
@@ -156,15 +156,15 @@ class _ReferralOutcomeModalState extends State<ReferralOutcomeModal> {
   }
 
   bool getReferralOutComeStatus(Map dataObject) {
-    bool isreferralOutcomeFilled = false;
+    bool isReferralOutcomeFilled = false;
     List<String> inputFields =
         FormUtil.getFormFieldIds(widget.referralOutcomeFormSections);
     for (String id in inputFields) {
       if (dataObject.containsKey(id) && '${dataObject[id]}'.trim() != '') {
-        isreferralOutcomeFilled = true;
+        isReferralOutcomeFilled = true;
       }
     }
-    return isreferralOutcomeFilled;
+    return isReferralOutcomeFilled;
   }
 
   @override

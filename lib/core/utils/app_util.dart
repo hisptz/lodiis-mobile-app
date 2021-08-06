@@ -7,10 +7,10 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
 
 class AppUtil {
-  static bool hasAllMandarotyFieldsFilled(List mandatoryFields, Map datadynamic,
+  static bool hasAllMandatoryFieldsFilled(List mandatoryFields, Map dataDynamic,
       {Map hiddenFields = const {}}) {
     bool hasFilled = true;
-    List fieldIds = datadynamic.keys.toList();
+    List fieldIds = dataDynamic.keys.toList();
     List hiddenFieldsIds = hiddenFields.keys.toList();
     //Remove all hidden fields which are mandatory from the list
     List filteredMandatoryFields = mandatoryFields
@@ -20,8 +20,8 @@ class AppUtil {
       if (fieldIds.indexOf(mandatoryField) == -1) {
         hasFilled = false;
       } else {
-        if ('${datadynamic[mandatoryField]}'.trim() == '' ||
-            '${datadynamic[mandatoryField]}'.trim() == 'null') {
+        if ('${dataDynamic[mandatoryField]}'.trim() == '' ||
+            '${dataDynamic[mandatoryField]}'.trim() == 'null') {
           hasFilled = false;
         }
       }
@@ -29,10 +29,10 @@ class AppUtil {
     return hasFilled;
   }
 
-  static List getUnFilledMandatoryFields(List mandatoryFields, Map datadynamic,
+  static List getUnFilledMandatoryFields(List mandatoryFields, Map dataDynamic,
       {Map hiddenFields = const {}}) {
     List unFilledMandatoryFields = [];
-    List fieldIds = datadynamic.keys.toList();
+    List fieldIds = dataDynamic.keys.toList();
     List hiddenFieldsIds = hiddenFields.keys.toList();
     //Remove all hidden fields which are mandatory from the list
     List filteredMandatoryFields = mandatoryFields
@@ -42,8 +42,8 @@ class AppUtil {
       if (fieldIds.indexOf(mandatoryField) == -1) {
         unFilledMandatoryFields.add(mandatoryField);
       } else {
-        if ('${datadynamic[mandatoryField]}'.trim() == '' ||
-            '${datadynamic[mandatoryField]}'.trim() == 'null') {
+        if ('${dataDynamic[mandatoryField]}'.trim() == '' ||
+            '${dataDynamic[mandatoryField]}'.trim() == 'null') {
           unFilledMandatoryFields.add(mandatoryField);
         }
       }
@@ -51,18 +51,18 @@ class AppUtil {
     return unFilledMandatoryFields;
   }
 
-  static bool getAtleastOneFormFieldsFilledStatus(
+  static bool getAtLeastOneFormFieldsFilledStatus(
     List fields,
-    Map datadynamic,
+    Map dataDynamic,
   ) {
     List unFilledFields = [];
-    List fieldIds = datadynamic.keys.toList();
+    List fieldIds = dataDynamic.keys.toList();
     for (var field in fields) {
       if (fieldIds.indexOf(field) == -1) {
         unFilledFields.add(field);
       } else {
-        if ('${datadynamic[field]}'.trim() == '' ||
-            '${datadynamic[field]}'.trim() == 'null') {
+        if ('${dataDynamic[field]}'.trim() == '' ||
+            '${dataDynamic[field]}'.trim() == 'null') {
           unFilledFields.add(field);
         }
       }

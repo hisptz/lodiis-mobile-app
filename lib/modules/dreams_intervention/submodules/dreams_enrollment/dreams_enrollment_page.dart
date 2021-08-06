@@ -6,7 +6,7 @@ import 'package:kb_mobile_app/core/components/paginated_list_view.dart';
 import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/utils/app_resume_routes/app_resume_route.dart';
 import 'package:kb_mobile_app/models/form_auto_save.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_card_body.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_card_body.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_card.dart';
 import 'package:kb_mobile_app/core/components/sub_module_home_container.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/constants/dreams_routes_constant.dart';
@@ -28,7 +28,7 @@ class _DreamsEnrollmentPageState extends State<DreamsEnrollmentPage> {
 
   String toggleCardId = '';
 
-  void onCardToogle(String cardId) {
+  void onCardToggle(String cardId) {
     setState(() {
       toggleCardId = canExpand && cardId != toggleCardId ? cardId : '';
     });
@@ -36,10 +36,10 @@ class _DreamsEnrollmentPageState extends State<DreamsEnrollmentPage> {
 
   void onAddAgywBeneficiary(BuildContext context) async {
     String beneficiaryId = "";
-    String formAutoSaveid =
+    String formAutoSaveId =
         "${DreamsRoutesConstant.agywConsentPage}_$beneficiaryId";
     FormAutoSave formAutoSave =
-        await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveid);
+        await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
     bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
         .shouldResumeWithUnSavedChanges(context, formAutoSave);
     if (shouldResumeWithUnSavedChanges) {
@@ -84,15 +84,15 @@ class _DreamsEnrollmentPageState extends State<DreamsEnrollmentPage> {
               beneficiaryName: agywBeneficiary.toString(),
               canView: canView,
               isExpanded: agywBeneficiary.id == toggleCardId,
-              onCardToogle: () {
-                onCardToogle(agywBeneficiary.id);
+              onCardToggle: () {
+                onCardToggle(agywBeneficiary.id);
               },
-              cardBody: DreamBeneficiaryCardBody(
+              cardBody: DreamsBeneficiaryCardBody(
                 agywBeneficiary: agywBeneficiary,
                 isVerticalLayout: agywBeneficiary.id == toggleCardId,
               ),
-              cardBottonActions: Container(),
-              cardBottonContent: Container(),
+              cardButtonActions: Container(),
+              cardButtonContent: Container(),
             ),
             pagingController: dreamInterventionListState.agywPagingController,
             emptyListWidget: Column(

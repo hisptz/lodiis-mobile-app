@@ -32,18 +32,18 @@ class OvcChildSchoolMonitoringSkipLogic {
         hiddenFields['vigylZN5Wjz'] = true;
       }
 
-      if (inputFieldId == 'O8VSN74kSJx' && value != 'true'){
+      if (inputFieldId == 'O8VSN74kSJx' && value != 'true') {
         hiddenFields['na5YEZYwY0l'] = true;
       }
     }
     for (String sectionId in hiddenSections.keys) {
       List<FormSection> allFormSections =
           FormUtil.getFlattenFormSections(formSections);
-      List<String> hidddenSectionInputFieldIds = FormUtil.getFormFieldIds(allFormSections
-          .where((formSection) => formSection.id == sectionId)
-          .toList());      
-      for (String inputFieldId in hidddenSectionInputFieldIds) {
-
+      List<String> hiddenSectionInputFieldIds = FormUtil.getFormFieldIds(
+          allFormSections
+              .where((formSection) => formSection.id == sectionId)
+              .toList());
+      for (String inputFieldId in hiddenSectionInputFieldIds) {
         hiddenFields[inputFieldId] = true;
       }
     }

@@ -24,14 +24,14 @@ import 'package:kb_mobile_app/modules/ogac_intervention/skip_logics/ogac_interve
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:provider/provider.dart';
 
-class OgacEnrollemntForm extends StatefulWidget {
-  OgacEnrollemntForm({Key key}) : super(key: key);
+class OgacEnrollmentForm extends StatefulWidget {
+  OgacEnrollmentForm({Key key}) : super(key: key);
 
   @override
-  _OgacEnrollemntFormState createState() => _OgacEnrollemntFormState();
+  _OgacEnrollmentFormState createState() => _OgacEnrollmentFormState();
 }
 
-class _OgacEnrollemntFormState extends State<OgacEnrollemntForm> {
+class _OgacEnrollmentFormState extends State<OgacEnrollmentForm> {
   final String label = 'OGAC Enrollment Form';
   final List<String> mandatoryFields =
       OgacInterventionFormSection.getMandatoryField();
@@ -91,13 +91,13 @@ class _OgacEnrollemntFormState extends State<OgacEnrollemntForm> {
     Map dataObject =
         Provider.of<EnrollmentFormState>(context, listen: false).formState;
     String beneficiaryId = dataObject['trackedEntityInstance'] ?? "";
-    String formAutoSaveid = "${OgacRoutesConstant.pageModule}_$beneficiaryId";
-    await FormAutoSaveOfflineService().deleteSavedFormAutoData(formAutoSaveid);
+    String formAutoSaveId = "${OgacRoutesConstant.pageModule}_$beneficiaryId";
+    await FormAutoSaveOfflineService().deleteSavedFormAutoData(formAutoSaveId);
   }
 
   void onSaveAndContinue(BuildContext context, Map dataObject) async {
     bool hadAllMandatoryFilled =
-        AppUtil.hasAllMandarotyFieldsFilled(mandatoryFields, dataObject);
+        AppUtil.hasAllMandatoryFieldsFilled(mandatoryFields, dataObject);
     if (hadAllMandatoryFilled) {
       setState(() {
         isSaving = true;
@@ -113,7 +113,7 @@ class _OgacEnrollemntFormState extends State<OgacEnrollemntForm> {
         BeneficiaryIdentification.beneficiaryIndex,
       ];
       try {
-        await OgacEnrollementservice().savingOgacBeneficiaryEnrollement(
+        await OgacEnrollmentService().savingOgacBeneficiaryEnrollment(
           dataObject,
           trackedEntityInstance,
           orgUnit,
@@ -173,10 +173,10 @@ class _OgacEnrollemntFormState extends State<OgacEnrollemntForm> {
       child: Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(65.0),
-          child: Consumer<IntervetionCardState>(
-            builder: (context, intervetionCardState, child) {
+          child: Consumer<InterventionCardState>(
+            builder: (context, interventionCardState, child) {
               InterventionCard activeInterventionProgram =
-                  intervetionCardState.currentIntervetionProgram;
+                  interventionCardState.currentInterventionProgram;
               return SubPageAppBar(
                 label: label,
                 activeInterventionProgram: activeInterventionProgram,

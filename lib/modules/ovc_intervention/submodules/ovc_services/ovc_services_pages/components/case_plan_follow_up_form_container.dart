@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_house_hold_current_selection_state.dart';
+import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_household_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
@@ -9,13 +9,13 @@ import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.d
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
-import 'package:kb_mobile_app/models/ovc_house_hold.dart';
-import 'package:kb_mobile_app/models/ovc_house_hold_child.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/house_hold_service_followup.dart';
+import 'package:kb_mobile_app/models/ovc_household.dart';
+import 'package:kb_mobile_app/models/ovc_household_child.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/household_service_followup.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_child_service_followup.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_case_plan/constants/ovc_child_case_plan_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/constants/ovc_case_plan_constant.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/house_hold_case_plan/constants/ovc_house_hold_case_plan_constant.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/household_case_plan/constants/ovc_household_case_plan_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/skip_logics/ovc_case_plan_follow_up_skip_logic.dart';
 import 'package:provider/provider.dart';
 
@@ -23,13 +23,13 @@ class CasePlanFollowUpFormContainer extends StatefulWidget {
   const CasePlanFollowUpFormContainer({
     Key key,
     @required this.dataObject,
-    @required this.isCasePlanForHouseHold,
+    @required this.isCasePlanForHousehold,
     @required this.domainId,
     @required this.isEditableMode,
   }) : super(key: key);
 
   final Map dataObject;
-  final bool isCasePlanForHouseHold;
+  final bool isCasePlanForHousehold;
   final String domainId;
   final bool isEditableMode;
 
@@ -55,7 +55,7 @@ class _CasePlanFollowUpFormContainerState
     Timer(Duration(seconds: 1), () {
       setState(() {
         mandatoryFieldObject = Map();
-        formSections = widget.isCasePlanForHouseHold
+        formSections = widget.isCasePlanForHousehold
             ? HouseholdServiceFollowup.getFormSections()
             : OvcServicesChildServiceFollowup.getFormSections();
         formSections = formSections
@@ -78,29 +78,29 @@ class _CasePlanFollowUpFormContainerState
   void onSaveGapForm(
     BuildContext context,
     Map dataObject,
-    OvcHouseHold currentOvcHouseHold,
-    OvcHouseHoldChild currentOvcHouseHoldChild,
+    OvcHousehold currentOvcHousehold,
+    OvcHouseholdChild currentOvcHouseholdChild,
   ) async {
     if (widget.dataObject.keys.length > 1) {
       setState(() {
         isSaving = true;
       });
-      String program = widget.isCasePlanForHouseHold
-          ? OvcHouseHoldCasePlanConstant.program
+      String program = widget.isCasePlanForHousehold
+          ? OvcHouseholdCasePlanConstant.program
           : OvcChildCasePlanConstant.program;
-      String programStage = widget.isCasePlanForHouseHold
-          ? OvcHouseHoldCasePlanConstant.casePlanGapFollowUpProgramStage
+      String programStage = widget.isCasePlanForHousehold
+          ? OvcHouseholdCasePlanConstant.casePlanGapFollowUpProgramStage
           : OvcChildCasePlanConstant.casePlanGapFollowUpProgramStage;
-      String orgUnit = widget.isCasePlanForHouseHold
-          ? currentOvcHouseHold.orgUnit
-          : currentOvcHouseHoldChild.orgUnit;
-      String beneficiaryId = widget.isCasePlanForHouseHold
-          ? currentOvcHouseHold.id
-          : currentOvcHouseHoldChild.id;
+      String orgUnit = widget.isCasePlanForHousehold
+          ? currentOvcHousehold.orgUnit
+          : currentOvcHouseholdChild.orgUnit;
+      String beneficiaryId = widget.isCasePlanForHousehold
+          ? currentOvcHousehold.id
+          : currentOvcHouseholdChild.id;
       String eventDate = dataObject['eventDate'];
       String eventId = dataObject['eventId'];
       List<String> hiddenFields = [
-        OvcCasePlanConstant.casePlanGapToFollowinUpLinkage
+        OvcCasePlanConstant.casePlanGapToFollowUpLinkage
       ];
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
@@ -118,7 +118,7 @@ class _CasePlanFollowUpFormContainerState
           setState(() {
             isSaving = false;
           });
-          Provider.of<ServiveEventDataState>(context, listen: false)
+          Provider.of<ServiceEventDataState>(context, listen: false)
               .resetServiceEventDataState(beneficiaryId);
           String currentLanguage =
               Provider.of<LanguageTranslationState>(context, listen: false)
@@ -188,18 +188,18 @@ class _CasePlanFollowUpFormContainerState
                       child: Row(
                         children: [
                           Expanded(
-                            child: Consumer<OvcHouseHoldCurrentSelectionState>(
+                            child: Consumer<OvcHouseholdCurrentSelectionState>(
                               builder: (
                                 context,
-                                ovcHouseHoldCurrentSelectionState,
+                                ovcHouseholdCurrentSelectionState,
                                 child,
                               ) {
-                                OvcHouseHold currentOvcHouseHold =
-                                    ovcHouseHoldCurrentSelectionState
-                                        .currentOvcHouseHold;
-                                OvcHouseHoldChild currentOvcHouseHoldChild =
-                                    ovcHouseHoldCurrentSelectionState
-                                        .currentOvcHouseHoldChild;
+                                OvcHousehold currentOvcHousehold =
+                                    ovcHouseholdCurrentSelectionState
+                                        .currentOvcHousehold;
+                                OvcHouseholdChild currentOvcHouseholdChild =
+                                    ovcHouseholdCurrentSelectionState
+                                        .currentOvcHouseholdChild;
                                 return TextButton(
                                   style: TextButton.styleFrom(
                                     backgroundColor: formSectionColor,
@@ -207,8 +207,8 @@ class _CasePlanFollowUpFormContainerState
                                   onPressed: () => onSaveGapForm(
                                       context,
                                       dataObject,
-                                      currentOvcHouseHold,
-                                      currentOvcHouseHoldChild),
+                                      currentOvcHousehold,
+                                      currentOvcHouseholdChild),
                                   child: Container(
                                     alignment: Alignment.center,
                                     padding:

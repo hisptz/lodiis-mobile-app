@@ -82,7 +82,7 @@ class OvcExitCasePlanGraduationFormInfo {
                 inputColor: Color(0xFF4B9F46),
                 labelColor: Color(0xFF1A3518),
                 name:
-                    'For the child(ren) identified at high risk of HIV, has documentation of all childrens completed referrals for HIV testing services been documented in their case file',
+                    'For the child(ren) identified at high risk of HIV, has documentation of all children completed referrals for HIV testing services been documented in their case file',
                 valueType: 'BOOLEAN'),
             InputField(
                 id: 'f69qW9zJ1Tp',

@@ -9,9 +9,9 @@ import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_child_info_top_header.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_asessment/ovc_asessment.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_case_plan/ovc_child_case_plan_home.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_monitor/ovc_monitor.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_asessment/ovc_child_asessment.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_case_plan/ovc_child_case_plan.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_monitor/ovc_child_monitor.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_service/ovc_service_child.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/components/ovc_service_child_card.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/constants/ovc_child_service_home_constant.dart';
@@ -20,14 +20,14 @@ import 'child_service/ovc_service_child.dart';
 
 class OvcChildServiceHome extends StatelessWidget {
   final String label = 'Child';
-  final List<OvcChildServiceHomeContant> ovcChildServiceHomeCards =
-      OvcChildServiceHomeContant.getOvcChildServiceHomeContant();
+  final List<OvcChildServiceHomeConstant> ovcChildServiceHomeCards =
+      OvcChildServiceHomeConstant.getOvcChildServiceHomeConstant();
 
   void onOpenChildAssessment(BuildContext context) {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => OvcAssessmentServiceChildView(),
+        builder: (context) => OvcChildAssessment(),
       ),
     );
   }
@@ -36,7 +36,7 @@ class OvcChildServiceHome extends StatelessWidget {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => OvcChildCasePlanHome(),
+        builder: (context) => OvcChildCasePlan(),
       ),
     );
   }
@@ -45,7 +45,7 @@ class OvcChildServiceHome extends StatelessWidget {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => OvcMonitorChildView(),
+        builder: (context) => OvcChildMonitor(),
       ),
     );
   }
@@ -59,12 +59,12 @@ class OvcChildServiceHome extends StatelessWidget {
     );
   }
 
-  void childHouseHold() {
+  void childHousehold() {
     // print('go to house child hold');
   }
 
   int getCountValueForOvcServiceChildCard(
-    OvcChildServiceHomeContant ovcChildServiceHomeCard,
+    OvcChildServiceHomeConstant ovcChildServiceHomeCard,
     Map eventListByProgramStage,
   ) {
     int countValue = 0;
@@ -86,10 +86,10 @@ class OvcChildServiceHome extends StatelessWidget {
     return Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(65.0),
-          child: Consumer<IntervetionCardState>(
-            builder: (context, intervetionCardState, child) {
+          child: Consumer<InterventionCardState>(
+            builder: (context, interventionCardState, child) {
               InterventionCard activeInterventionProgram =
-                  intervetionCardState.currentIntervetionProgram;
+                  interventionCardState.currentInterventionProgram;
               return SubPageAppBar(
                 label: label,
                 activeInterventionProgram: activeInterventionProgram,
@@ -103,11 +103,11 @@ class OvcChildServiceHome extends StatelessWidget {
               children: [
                 OvcChildInfoTopHeader(),
                 Container(
-                  child: Consumer<ServiveEventDataState>(
-                    builder: (context, serviveEventDataState, child) {
-                      bool isLoading = serviveEventDataState.isLoading;
+                  child: Consumer<ServiceEventDataState>(
+                    builder: (context, serviceEventDataState, child) {
+                      bool isLoading = serviceEventDataState.isLoading;
                       var eventListByProgramStage =
-                          serviveEventDataState.eventListByProgramStage;
+                          serviceEventDataState.eventListByProgramStage;
                       return isLoading
                           ? Container(
                               margin: EdgeInsets.only(top: 20.0),
@@ -125,7 +125,7 @@ class OvcChildServiceHome extends StatelessWidget {
                                 crossAxisSpacing: 10.0,
                                 shrinkWrap: true,
                                 children: ovcChildServiceHomeCards.map(
-                                  (OvcChildServiceHomeContant
+                                  (OvcChildServiceHomeConstant
                                       ovcChildServiceHomeCard) {
                                     int countValue =
                                         getCountValueForOvcServiceChildCard(

@@ -31,16 +31,15 @@ class OvcEnrollmentChildService {
           dataObject['trackedEntityInstance'] ?? AppUtil.getUid();
       String enrollment = dataObject['enrollment'];
       childTeiReferences.add(trackedEntityInstance);
-      TrackeEntityInstance trackeEntityInstanceData =
+      TrackedEntityInstance trackedEntityInstanceData =
           await FormUtil.geTrackedEntityInstanceEnrollmentPayLoad(
-        trackedEntityInstance,
-        trackedEntityType,
-        orgUnit,
-        inputFieldIds,
-        dataObject,
-        hasBeneficiaryId: false
-      );
-      await FormUtil.savingTrackeEntityInstance(trackeEntityInstanceData);
+              trackedEntityInstance,
+              trackedEntityType,
+              orgUnit,
+              inputFieldIds,
+              dataObject,
+              hasBeneficiaryId: false);
+      await FormUtil.savingTrackedEntityInstance(trackedEntityInstanceData);
       if (shouldEnroll) {
         Enrollment enrollmentData = FormUtil.getEnrollmentPayLoad(
           enrollment,
@@ -60,7 +59,7 @@ class OvcEnrollmentChildService {
     }
   }
 
-  Future<int> getOvcCount() async{
+  Future<int> getOvcCount() async {
     return await EnrollmentOfflineProvider().getEnrollmentsCount(program);
   }
 }

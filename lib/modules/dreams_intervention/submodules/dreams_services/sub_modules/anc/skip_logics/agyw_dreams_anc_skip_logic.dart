@@ -25,15 +25,16 @@ class AgywDreamsANCSkipLogic {
       if (inputFieldId == 'lvT9gfpHIlT' && value == 'null') {
         hiddenFields['irtbsom4W8P'] = true;
         hiddenFields['m4cRnpwgOlY'] = true;
-      }    }
+      }
+    }
     for (String sectionId in hiddenSections.keys) {
       List<FormSection> allFormSections =
           FormUtil.getFlattenFormSections(formSections);
-      List<String> hidddenSectionInputFieldIds = FormUtil.getFormFieldIds(allFormSections
-          .where((formSection) => formSection.id == sectionId)
-          .toList());      
-      for (String inputFieldId in hidddenSectionInputFieldIds) {
-
+      List<String> hiddenSectionInputFieldIds = FormUtil.getFormFieldIds(
+          allFormSections
+              .where((formSection) => formSection.id == sectionId)
+              .toList());
+      for (String inputFieldId in hiddenSectionInputFieldIds) {
         hiddenFields[inputFieldId] = true;
       }
     }

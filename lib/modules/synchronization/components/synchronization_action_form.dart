@@ -4,7 +4,7 @@ import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_car
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:kb_mobile_app/core/components/input_fields/select_input_field.dart';
-import 'package:kb_mobile_app/core/components/line_seperator.dart';
+import 'package:kb_mobile_app/core/components/line_separator.dart';
 import 'package:kb_mobile_app/core/components/material_card.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
@@ -82,9 +82,10 @@ class _SynchronizationActionFormState extends State<SynchronizationActionForm> {
               child: SelectInputField(
                 hiddenInputFieldOptions: Map(),
                 currentLanguage: languageTranslationState.currentLanguage,
-                color: Provider.of<IntervetionCardState>(context, listen: false)
-                    .currentIntervetionProgram
-                    .primmaryColor,
+                color:
+                    Provider.of<InterventionCardState>(context, listen: false)
+                        .currentInterventionProgram
+                        .primaryColor,
                 isReadOnly: syncActionInput.isReadOnly,
                 renderAsRadio: syncActionInput.renderAsRadio,
                 onInputValueChange: (dynamic value) =>
@@ -93,11 +94,12 @@ class _SynchronizationActionFormState extends State<SynchronizationActionForm> {
                 selectedOption: selectedSyncAction ?? widget.selectedSyncAction,
               ),
             ),
-            LineSeperator(
-                color: Provider.of<IntervetionCardState>(context, listen: false)
-                    .currentIntervetionProgram
-                    .primmaryColor
-                    .withOpacity(0.3)),
+            LineSeparator(
+                color:
+                    Provider.of<InterventionCardState>(context, listen: false)
+                        .currentInterventionProgram
+                        .primaryColor
+                        .withOpacity(0.3)),
             Center(
               child: Container(
                 margin: EdgeInsets.only(top: 15.0),
@@ -125,9 +127,9 @@ class _SynchronizationActionFormState extends State<SynchronizationActionForm> {
                   svgIconWidth: 15.0,
                   labelColor: Colors.white,
                   buttonColor:
-                      Provider.of<IntervetionCardState>(context, listen: false)
-                          .currentIntervetionProgram
-                          .primmaryColor,
+                      Provider.of<InterventionCardState>(context, listen: false)
+                          .currentInterventionProgram
+                          .primaryColor,
                   fontSize: 15.0,
                   onPressButton: () => {onSyncButtonPress()},
                 ),

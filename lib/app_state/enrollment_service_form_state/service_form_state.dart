@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 
 class ServiceFormState with ChangeNotifier {
-  // intial state
+  // initial state
   Map _formState = Map();
   Map _hiddenFields = Map();
   Map _hiddenSections = Map();

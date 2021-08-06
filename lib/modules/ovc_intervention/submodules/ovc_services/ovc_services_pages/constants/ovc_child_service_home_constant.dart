@@ -1,4 +1,4 @@
-class OvcChildServiceHomeContant {
+class OvcChildServiceHomeConstant {
   String id;
   String title;
   String translatedTitle;
@@ -6,7 +6,7 @@ class OvcChildServiceHomeContant {
   bool groupByDate;
   List<String> programStages;
 
-  OvcChildServiceHomeContant({
+  OvcChildServiceHomeConstant({
     this.id,
     this.title,
     this.translatedTitle,
@@ -18,20 +18,20 @@ class OvcChildServiceHomeContant {
     this.groupByDate = this.groupByDate ?? false;
   }
 
-  static List<OvcChildServiceHomeContant> getOvcChildServiceHomeContant() {
+  static List<OvcChildServiceHomeConstant> getOvcChildServiceHomeConstant() {
     return [
-      OvcChildServiceHomeContant(
+      OvcChildServiceHomeConstant(
           id: 'assessment',
           title: 'Assessment',
           icon: 'assets/icons/child_assessment_ovc_icon.svg',
           programStages: ['Pb1Gb4Aky92', 'GPg1J1xIHT6', 'RJTRRO0wg8H']),
-      OvcChildServiceHomeContant(
+      OvcChildServiceHomeConstant(
           id: 'casePlan',
           title: 'Case Plan',
           icon: 'assets/icons/child_case_plan_ovc_icon.svg',
           groupByDate: true,
           programStages: ['ZHjrdThi7Bz']),
-      OvcChildServiceHomeContant(
+      OvcChildServiceHomeConstant(
         id: 'services',
         title: 'Services',
         translatedTitle: 'Litsebeletso',
@@ -39,7 +39,7 @@ class OvcChildServiceHomeContant {
         groupByDate: true,
         programStages: ['ZHjrdThi7Bz'],
       ),
-      OvcChildServiceHomeContant(
+      OvcChildServiceHomeConstant(
         id: 'monitor',
         title: 'Monitor',
         icon: 'assets/icons/child_monitor_ovc_icon.svg',

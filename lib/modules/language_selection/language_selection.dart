@@ -66,10 +66,10 @@ class _LanguageSelectionState extends State<LanguageSelection> {
               ? null
               : PreferredSize(
                   preferredSize: Size.fromHeight(65.0),
-                  child: Consumer<IntervetionCardState>(
-                    builder: (context, intervetionCardState, child) {
+                  child: Consumer<InterventionCardState>(
+                    builder: (context, interventionCardState, child) {
                       InterventionCard activeInterventionProgram =
-                          intervetionCardState.currentIntervetionProgram;
+                          interventionCardState.currentInterventionProgram;
                       return Container(
                         child: Consumer<LanguageTranslationState>(
                           builder: (context, languageTranslationState, child) {

@@ -18,7 +18,7 @@ class InterventionAppBar extends StatefulWidget {
       {Key key,
       @required this.activeInterventionProgram,
       this.onClickHome,
-      this.onAddHouseHold,
+      this.onAddHousehold,
       this.onOpenMoreMenu,
       this.onAddAgywBeneficiary,
       this.onAddNoneAgywBeneficiary,
@@ -26,7 +26,7 @@ class InterventionAppBar extends StatefulWidget {
       : super(key: key);
 
   final InterventionCard activeInterventionProgram;
-  final VoidCallback onAddHouseHold;
+  final VoidCallback onAddHousehold;
   final VoidCallback onAddAgywBeneficiary;
   final VoidCallback onAddNoneAgywBeneficiary;
   final VoidCallback onAddOgacBeneficiary;
@@ -93,7 +93,7 @@ class _InterventionAppBarState extends State<InterventionAppBar> {
             .searchAgywDreams(searchedValue);
       } else if (widget.activeInterventionProgram.id == 'ovc') {
         Provider.of<OvcInterventionListState>(context, listen: false)
-            .searchHouseHold(searchedValue);
+            .searchHousehold(searchedValue);
       }
     });
   }
@@ -106,7 +106,7 @@ class _InterventionAppBarState extends State<InterventionAppBar> {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: widget.activeInterventionProgram.primmaryColor,
+      backgroundColor: widget.activeInterventionProgram.primaryColor,
       title: Row(
         children: [
           Container(
@@ -223,7 +223,7 @@ class _InterventionAppBarState extends State<InterventionAppBar> {
                               ? widget.onAddAgywBeneficiary
                               : widget.activeInterventionProgram.id == 'ogac'
                                   ? widget.onAddOgacBeneficiary
-                                  : widget.onAddHouseHold,
+                                  : widget.onAddHousehold,
                     ),
                   ),
                 );

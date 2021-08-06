@@ -7,7 +7,7 @@ class ServiceGapViewContainer extends StatelessWidget {
     @required this.casePlanGaps,
     @required this.formSectionColor,
     @required this.domainId,
-    @required this.isCasePlanForHouseHold,
+    @required this.isCasePlanForHousehold,
     @required this.shouldEditCaseGapFollowUps,
     @required this.shouldViewCaseGapFollowUp,
   }) : super(key: key);
@@ -15,7 +15,7 @@ class ServiceGapViewContainer extends StatelessWidget {
   final List<dynamic> casePlanGaps;
   final Color formSectionColor;
   final String domainId;
-  final bool isCasePlanForHouseHold;
+  final bool isCasePlanForHousehold;
   final bool shouldEditCaseGapFollowUps;
   final bool shouldViewCaseGapFollowUp;
 
@@ -34,7 +34,7 @@ class ServiceGapViewContainer extends StatelessWidget {
               gapIndex: gapIndex,
               domainId: domainId,
               casePlanGap: casePlanGap,
-              isCasePlanForHouseHold: isCasePlanForHouseHold,
+              isCasePlanForHousehold: isCasePlanForHousehold,
               formSectionColor: formSectionColor,
               shouldEditCaseGapFollowUps: shouldEditCaseGapFollowUps,
               shouldViewCaseGapFollowUp: shouldViewCaseGapFollowUp,

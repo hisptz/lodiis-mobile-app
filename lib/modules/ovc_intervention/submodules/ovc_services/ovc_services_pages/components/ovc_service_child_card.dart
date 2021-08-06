@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
-import 'package:kb_mobile_app/core/components/line_seperator.dart';
+import 'package:kb_mobile_app/core/components/line_separator.dart';
 import 'package:kb_mobile_app/core/components/material_card.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/constants/ovc_child_service_home_constant.dart';
 import 'package:provider/provider.dart';
 
 class OvcServiceChildCard extends StatelessWidget {
-  final OvcChildServiceHomeContant ovcChildServiceHomeCard;
+  final OvcChildServiceHomeConstant ovcChildServiceHomeCard;
   final String countValue;
 
   OvcServiceChildCard({
@@ -67,7 +67,7 @@ class OvcServiceChildCard extends StatelessWidget {
               margin: EdgeInsets.only(
                 top: 5.0,
               ),
-              child: LineSeperator(
+              child: LineSeparator(
                 color: Color(0xFFECF9EB),
               ),
             ),

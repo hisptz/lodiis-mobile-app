@@ -7,7 +7,7 @@ class CasePlanGapFollowUpContainer extends StatefulWidget {
   const CasePlanGapFollowUpContainer({
     Key key,
     @required this.formSectionColor,
-    @required this.isCasePlanForHouseHold,
+    @required this.isCasePlanForHousehold,
     @required this.casePlanGap,
     @required this.shouldEditCaseGapFollowUps,
     @required this.shouldViewCaseGapFollowUp,
@@ -16,7 +16,7 @@ class CasePlanGapFollowUpContainer extends StatefulWidget {
 
   final Map casePlanGap;
   final Color formSectionColor;
-  final bool isCasePlanForHouseHold;
+  final bool isCasePlanForHousehold;
   final bool shouldEditCaseGapFollowUps;
   final bool shouldViewCaseGapFollowUp;
   final String domainId;
@@ -28,17 +28,16 @@ class CasePlanGapFollowUpContainer extends StatefulWidget {
 
 class _CasePlanGapFollowUpContainerState
     extends State<CasePlanGapFollowUpContainer> {
-  String casePlanGapToFollowinUpLinkageValue;
+  String casePlanGapToFollowUpLinkageValue;
 
   @override
   void initState() {
     super.initState();
     setState(() {
-      String casePlanGapToFollowinUpLinkage =
-          OvcCasePlanConstant.casePlanGapToFollowinUpLinkage;
-      casePlanGapToFollowinUpLinkageValue =
-          widget.casePlanGap[casePlanGapToFollowinUpLinkage] ??
-              AppUtil.getUid();
+      String casePlanGapToFollowUpLinkage =
+          OvcCasePlanConstant.casePlanGapToFollowUpLinkage;
+      casePlanGapToFollowUpLinkageValue =
+          widget.casePlanGap[casePlanGapToFollowUpLinkage] ?? AppUtil.getUid();
     });
   }
 
@@ -57,10 +56,10 @@ class _CasePlanGapFollowUpContainerState
                   casePlanGap: widget.casePlanGap,
                   domainId: widget.domainId,
                   themeColor: widget.formSectionColor,
-                  casePlanGapToFollowinUpLinkageValue:
-                      casePlanGapToFollowinUpLinkageValue,
+                  casePlanGapToFollowUpLinkageValue:
+                      casePlanGapToFollowUpLinkageValue,
                   shouldEditCaseGapFollowUps: widget.shouldEditCaseGapFollowUps,
-                  isCasePlanForHouseHold: widget.isCasePlanForHouseHold,
+                  isCasePlanForHousehold: widget.isCasePlanForHousehold,
                 ),
               ),
             ],

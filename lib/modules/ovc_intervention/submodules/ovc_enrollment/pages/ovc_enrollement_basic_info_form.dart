@@ -14,10 +14,10 @@ import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/components/care_giver_age_confirmation.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/components/caregiver_age_confirmation.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/models/ovc_enrollement_basic_info.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/pages/ovc_enrollment_child_form.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/skip_logics/ovc_house_hold_enrollment_skip_logic.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/skip_logics/ovc_household_enrollment_skip_logic.dart';
 import 'package:provider/provider.dart';
 
 class OvcEnrollmentBasicInfoForm extends StatefulWidget {
@@ -56,7 +56,7 @@ class _OvcEnrollmentBasicInfoFormState
       () async {
         Map dataObject =
             Provider.of<EnrollmentFormState>(context, listen: false).formState;
-        await OvcHouseHoldEnrollmentSkipLogic.evaluateSkipLogics(
+        await OvcHouseholdEnrollmentSkipLogic.evaluateSkipLogics(
           context,
           formSections,
           dataObject,
@@ -67,11 +67,11 @@ class _OvcEnrollmentBasicInfoFormState
 
   void onSaveAndContinue(BuildContext context, Map dataObject) async {
     bool hadAllMandatoryFilled =
-        AppUtil.hasAllMandarotyFieldsFilled(mandatoryFields, dataObject);
+        AppUtil.hasAllMandatoryFieldsFilled(mandatoryFields, dataObject);
     int careGiverAge = int.parse(dataObject['ls9hlz2tyol']);
     if (hadAllMandatoryFilled) {
       if (careGiverAge < 18) {
-        Widget modal = CareGiverAgeConfirmation();
+        Widget modal = CaregiverAgeConfirmation();
         bool response = await AppUtil.showPopUpModal(context, modal, false);
         response
             ? Navigator.canPop(context)
@@ -86,7 +86,8 @@ class _OvcEnrollmentBasicInfoFormState
       }
     } else {
       setState(() {
-        unFilledMandatoryFields = AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+        unFilledMandatoryFields =
+            AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
       });
       AppUtil.showToastMessage(
         message: 'Please fill all mandatory field',
@@ -107,10 +108,10 @@ class _OvcEnrollmentBasicInfoFormState
       child: Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(65.0),
-          child: Consumer<IntervetionCardState>(
-            builder: (context, intervetionCardState, child) {
+          child: Consumer<InterventionCardState>(
+            builder: (context, interventionCardState, child) {
               InterventionCard activeInterventionProgram =
-                  intervetionCardState.currentIntervetionProgram;
+                  interventionCardState.currentInterventionProgram;
               return SubPageAppBar(
                 label: label,
                 activeInterventionProgram: activeInterventionProgram,
@@ -152,8 +153,9 @@ class _OvcEnrollmentBasicInfoFormState
                                     formSections: formSections,
                                     mandatoryFieldObject: mandatoryFieldObject,
                                     dataObject: enrollmentFormState.formState,
-                                    onInputValueChange: onInputValueChange, unFilledMandatoryFields:
-                                          unFilledMandatoryFields,
+                                    onInputValueChange: onInputValueChange,
+                                    unFilledMandatoryFields:
+                                        unFilledMandatoryFields,
                                   ),
                                 ),
                               ),

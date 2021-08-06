@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kb_mobile_app/core/components/line_seperator.dart';
+import 'package:kb_mobile_app/core/components/line_separator.dart';
 import 'package:kb_mobile_app/core/components/material_card.dart';
 
 class ReferralCardSummary extends StatelessWidget {
@@ -72,7 +72,7 @@ class ReferralCardSummary extends StatelessWidget {
                                 ),
                               )
                             : Text(
-                                'Incomming',
+                                'Incoming',
                                 style: TextStyle().copyWith(
                                   color: Color(0xFF4B9F46),
                                   fontSize: 12.0,
@@ -83,12 +83,12 @@ class ReferralCardSummary extends StatelessWidget {
                   ],
                 ),
               ),
-              LineSeperator(
+              LineSeparator(
                 color: borderColor,
                 height: 2,
               ),
               cardBody,
-              LineSeperator(
+              LineSeparator(
                 color: borderColor,
                 height: 2,
               ),

@@ -4,7 +4,7 @@ import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:provider/provider.dart';
 
-class AgywDreamSHTSShortFormSkipLogic {
+class AgywDreamsHTSShortFormSkipLogic {
   static Map hiddenFields = Map();
   static Map hiddenSections = Map();
   static Map hiddenInputFieldOptions = Map();
@@ -24,12 +24,12 @@ class AgywDreamSHTSShortFormSkipLogic {
     inputFieldIds = inputFieldIds.toSet().toList();
     for (String inputFieldId in inputFieldIds) {
       var value = '${dataObject[inputFieldId]}';
-      if(inputFieldId == 'lvT9gfpHIlT' && dataObject[inputFieldId] == null){
+      if (inputFieldId == 'lvT9gfpHIlT' && dataObject[inputFieldId] == null) {
         hiddenFields['zbHpXUjGv5H'] = true;
         hiddenFields['GHfoqXKlK6o'] = true;
         hiddenFields['rJUdBXiukaI'] = true;
       }
-      if(inputFieldId == 'zbHpXUjGv5H' && value  != 'true'){
+      if (inputFieldId == 'zbHpXUjGv5H' && value != 'true') {
         hiddenFields['GHfoqXKlK6o'] = true;
         hiddenFields['rJUdBXiukaI'] = true;
       }
@@ -37,11 +37,11 @@ class AgywDreamSHTSShortFormSkipLogic {
     for (String sectionId in hiddenSections.keys) {
       List<FormSection> allFormSections =
           FormUtil.getFlattenFormSections(formSections);
-      List<String> hidddenSectionInputFieldIds = FormUtil.getFormFieldIds(
+      List<String> hiddenSectionInputFieldIds = FormUtil.getFormFieldIds(
           allFormSections
               .where((formSection) => formSection.id == sectionId)
               .toList());
-      for (String inputFieldId in hidddenSectionInputFieldIds) {
+      for (String inputFieldId in hiddenSectionInputFieldIds) {
         hiddenFields[inputFieldId] = true;
       }
     }

@@ -23,13 +23,13 @@ class _InterventionSelectionState extends State<InterventionSelection> {
   List<InterventionCard> interventionPrograms =
       InterventionCard.getInterventions();
 
-  Color primmaryColor = CustomColor.defaultPrimaryColor;
+  Color primaryColor = CustomColor.defaultPrimaryColor;
   bool hasDataLoaded = false;
 
-  void onIntervetionSelection(InterventionCard interventionProgram) {
+  void onInterventionSelection(InterventionCard interventionProgram) {
     setState(() {
-      AppUtil.setStatusBarColor(interventionProgram.primmaryColor);
-      primmaryColor = interventionProgram.primmaryColor;
+      AppUtil.setStatusBarColor(interventionProgram.primaryColor);
+      primaryColor = interventionProgram.primaryColor;
     });
   }
 
@@ -64,13 +64,13 @@ class _InterventionSelectionState extends State<InterventionSelection> {
           fit: StackFit.expand,
           children: [
             Container(
-              decoration: BoxDecoration(color: primmaryColor),
+              decoration: BoxDecoration(color: primaryColor),
             ),
             Container(child: Consumer<OvcInterventionListState>(
               builder: (context, ovcInterventionListState, child) {
                 bool isOvcListLoading = ovcInterventionListState.isLoading;
-                int numberOfHouseHolds =
-                    ovcInterventionListState.numberOfHouseHolds;
+                int numberOfHouseholds =
+                    ovcInterventionListState.numberOfHouseholds;
                 int numberOfOvcs = ovcInterventionListState.numberOfOvcs;
                 return Container(
                   child: Consumer<DreamsInterventionListState>(
@@ -96,9 +96,9 @@ class _InterventionSelectionState extends State<InterventionSelection> {
                                 ? CircularProcessLoader()
                                 : InterventionSelectionContainer(
                                     interventionPrograms: interventionPrograms,
-                                    onIntervetionSelection:
-                                        onIntervetionSelection,
-                                    numberOfHouseHolds: numberOfHouseHolds,
+                                    onInterventionSelection:
+                                        onInterventionSelection,
+                                    numberOfHouseholds: numberOfHouseholds,
                                     numberOfAgywDreamsBeneficiaries:
                                         numberOfAgywDreamsBeneficiaries,
                                     numberOfNoneAgywDreamsBeneficiaries:

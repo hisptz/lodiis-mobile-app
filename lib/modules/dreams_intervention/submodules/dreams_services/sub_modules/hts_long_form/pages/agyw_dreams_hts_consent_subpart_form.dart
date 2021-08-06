@@ -1,14 +1,14 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dream_current_selection_state.dart';
+import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_top_header.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/hts_consent.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_long_form/constants/agyw_dreams_hts_constant.dart';
@@ -67,7 +67,7 @@ class _AgywDreamsHTSConsentFormSubpartState
   }
 
   void onSaveForm(BuildContext context, Map dataObject, AgywDream agywDream) {
-    Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
+    Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
         .setCurrentAgywDream(agywDream);
     if (isConsentGiven(dataObject)) {
       dataObject[AgywDreamsHTSLongFormConstant.noOfPartnersAttributeKey] =
@@ -86,7 +86,7 @@ class _AgywDreamsHTSConsentFormSubpartState
   }
 
   getNoOfPartners(AgywDream agywDream) {
-    List attributes = agywDream.trackeEntityInstanceData.attributes ?? [];
+    List attributes = agywDream.trackedEntityInstanceData.attributes ?? [];
     var noOfPartners = attributes.singleWhere(
         (attribute) =>
             attribute['attribute'] ==
@@ -97,7 +97,7 @@ class _AgywDreamsHTSConsentFormSubpartState
 
   @override
   Widget build(BuildContext context) {
-    return Container(child: Consumer<DreamBenefeciarySelectionState>(
+    return Container(child: Consumer<DreamsBeneficiarySelectionState>(
       builder: (context, nonAgywState, child) {
         AgywDream agywDream = nonAgywState.currentAgywDream;
         return Consumer<ServiceFormState>(
@@ -105,7 +105,7 @@ class _AgywDreamsHTSConsentFormSubpartState
             return Container(
               child: Column(
                 children: [
-                  DreamBenefeciaryTopHeader(
+                  DreamsBeneficiaryTopHeader(
                     agywDream: agywDream,
                   ),
                   !isFormReady

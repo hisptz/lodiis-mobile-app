@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dream_current_selection_state.dart';
+import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
@@ -19,9 +19,9 @@ import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_top_header.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/constants/dreams_routes_constant.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/dreams_prep_followup_visit.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/dreams_prep_follow_up_visit.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/constant/non_agyw_prep_visit_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/skip_logics/none_agyw_prep_skip_logic.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
@@ -46,8 +46,8 @@ class _NoneAgywPrepFormState extends State<NoneAgywPrepForm> {
   @override
   void initState() {
     super.initState();
-    formSections = DreamsPrepFollwUpVisit.getFormSections();
-    mandatoryFields = DreamsPrepFollwUpVisit.getMandatoryField();
+    formSections = DreamsPrepFollowUpVisit.getFormSections();
+    mandatoryFields = DreamsPrepFollowUpVisit.getMandatoryField();
     for (String fieldId in mandatoryFields) {
       mandatoryFieldsObject[fieldId] = true;
     }
@@ -104,9 +104,9 @@ class _NoneAgywPrepFormState extends State<NoneAgywPrepForm> {
     Map dataObject =
         Provider.of<ServiceFormState>(context, listen: false).formState;
     String eventId = dataObject['eventId'] ?? "";
-    String formAutoSaveid =
+    String formAutoSaveId =
         "${DreamsRoutesConstant.noneAgywPrepFormPage}_${beneficiaryId}_$eventId";
-    await FormAutoSaveOfflineService().deleteSavedFormAutoData(formAutoSaveid);
+    await FormAutoSaveOfflineService().deleteSavedFormAutoData(formAutoSaveId);
   }
 
   void onInputValueChange(String id, dynamic value, String beneficiaryId) {
@@ -118,7 +118,7 @@ class _NoneAgywPrepFormState extends State<NoneAgywPrepForm> {
 
   void onSaveForm(BuildContext context, Map dataObject, AgywDream agywDream,
       {hiddenFields: const {}}) async {
-    bool hasAllMandatoryFieldsFilled = AppUtil.hasAllMandarotyFieldsFilled(
+    bool hasAllMandatoryFieldsFilled = AppUtil.hasAllMandatoryFieldsFilled(
         mandatoryFields, dataObject,
         hiddenFields: hiddenFields);
 
@@ -140,7 +140,7 @@ class _NoneAgywPrepFormState extends State<NoneAgywPrepForm> {
             agywDream.id,
             eventId,
             hiddenFields);
-        Provider.of<ServiveEventDataState>(context, listen: false)
+        Provider.of<ServiceEventDataState>(context, listen: false)
             .resetServiceEventDataState(agywDream.id);
         clearFormAutoSaveState(context, agywDream.id);
         Timer(Duration(seconds: 1), () {
@@ -183,10 +183,10 @@ class _NoneAgywPrepFormState extends State<NoneAgywPrepForm> {
     return Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(65.0),
-          child: Consumer<IntervetionCardState>(
-            builder: (context, intervetionCardState, child) {
+          child: Consumer<InterventionCardState>(
+            builder: (context, interventionCardState, child) {
               InterventionCard activeInterventionProgram =
-                  intervetionCardState.currentIntervetionProgram;
+                  interventionCardState.currentInterventionProgram;
               return SubPageAppBar(
                 label: label,
                 activeInterventionProgram: activeInterventionProgram,
@@ -200,7 +200,7 @@ class _NoneAgywPrepFormState extends State<NoneAgywPrepForm> {
               builder: (context, languageTranslationState, child) {
                 String currentLanguage =
                     languageTranslationState.currentLanguage;
-                return Consumer<DreamBenefeciarySelectionState>(
+                return Consumer<DreamsBeneficiarySelectionState>(
                   builder: (context, nonAgywState, child) {
                     AgywDream agywDream = nonAgywState.currentAgywDream;
                     return Consumer<ServiceFormState>(
@@ -208,7 +208,7 @@ class _NoneAgywPrepFormState extends State<NoneAgywPrepForm> {
                         return Container(
                           child: Column(
                             children: [
-                              DreamBenefeciaryTopHeader(
+                              DreamsBeneficiaryTopHeader(
                                 agywDream: agywDream,
                               ),
                               !isFormReady

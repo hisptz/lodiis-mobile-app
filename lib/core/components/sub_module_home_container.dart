@@ -54,10 +54,10 @@ class SubModuleHomeContainer extends StatelessWidget {
             : null,
         body: Stack(
           children: [
-            Consumer<IntervetionCardState>(
-              builder: (context, intervetionCardState, child) {
+            Consumer<InterventionCardState>(
+              builder: (context, interventionCardState, child) {
                 InterventionCard activeInterventionProgram =
-                    intervetionCardState.currentIntervetionProgram;
+                    interventionCardState.currentInterventionProgram;
                 return Container(
                   decoration: BoxDecoration(
                       color: activeInterventionProgram.background),

@@ -18,7 +18,7 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/components/enrolled_children_list.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/constants/ovc_enrollment_child_form_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/models/ovc_enrollment_child.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/pages/ovc_enrollment_house_hold_form.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/pages/ovc_enrollment_household_form.dart';
 import 'package:provider/provider.dart';
 
 class OvcEnrollmentChildForm extends StatefulWidget {
@@ -118,11 +118,11 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
     for (String sectionId in hiddenSections.keys) {
       List<FormSection> allFormSections =
           FormUtil.getFlattenFormSections(formSections);
-      List<String> hidddenSectionInputFieldIds = FormUtil.getFormFieldIds(
+      List<String> hiddenSectionInputFieldIds = FormUtil.getFormFieldIds(
           allFormSections
               .where((formSection) => formSection.id == sectionId)
               .toList());
-      for (String inputFieldId in hidddenSectionInputFieldIds) {
+      for (String inputFieldId in hiddenSectionInputFieldIds) {
         hiddenFields[inputFieldId] = true;
       }
     }
@@ -202,7 +202,7 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
 
   void onSaveAndContinue(BuildContext context) async {
     bool hadAllMandatoryFilled =
-        AppUtil.hasAllMandarotyFieldsFilled(mandatoryFields, childMapObject);
+        AppUtil.hasAllMandatoryFieldsFilled(mandatoryFields, childMapObject);
     if (hadAllMandatoryFilled) {
       String name = childMapObject['WTZ7GLTrE8Q'] ?? '';
       Widget modal = AddChildConfirmation(name: name);
@@ -229,7 +229,7 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => OvcEnrollmentHouseHoldForm(),
+              builder: (context) => OvcEnrollmentHouseholdForm(),
             ),
           );
         }
@@ -265,7 +265,7 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => OvcEnrollmentHouseHoldForm(),
+        builder: (context) => OvcEnrollmentHouseholdForm(),
       ),
     );
   }
@@ -276,10 +276,10 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
       child: Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(65.0),
-          child: Consumer<IntervetionCardState>(
-            builder: (context, intervetionCardState, child) {
+          child: Consumer<InterventionCardState>(
+            builder: (context, interventionCardState, child) {
               InterventionCard activeInterventionProgram =
-                  intervetionCardState.currentIntervetionProgram;
+                  interventionCardState.currentInterventionProgram;
               return SubPageAppBar(
                 label: label,
                 activeInterventionProgram: activeInterventionProgram,
