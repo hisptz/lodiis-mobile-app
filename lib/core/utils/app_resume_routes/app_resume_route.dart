@@ -76,6 +76,9 @@ class AppResumeRoute
     } else if (formAutoSave.nextPageModule ==
         DreamsRoutesConstant.agywDreamsMSGHIVFormNextPage) {
       redirectToAgywDreamsMSGHIVForm(context, formAutoSave);
+    } else if (formAutoSave.nextPageModule ==
+        DreamsRoutesConstant.agywDreamsPEPFormNextPage) {
+      redirectToAgywDreamsPEPForm(context, formAutoSave);
     } else {
       print("$formAutoSave \n");
       print("Not page to redirect ${formAutoSave.nextPageModule}\n\n");
