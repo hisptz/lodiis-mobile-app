@@ -7,14 +7,18 @@ import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
+import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/services/user_service.dart';
+import 'package:kb_mobile_app/core/utils/app_resume_routes/app_resume_route.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/models/events.dart';
+import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/models/service_event.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_top_header.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/constants/dreams_routes_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/components/dreams_services_visit_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/service_form/constants/service_form_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/service_form/pages/agyw_dreams_service_form.dart';
@@ -106,19 +110,32 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
   void onAddService(BuildContext context, AgywDream agywDream,
       List<ServiceEvents> serviceEvents) async {
     updateFormState(context, true, null, agywDream, serviceEvents);
-    CurrentUser currentUser = await UserService().getCurrentUser();
-    String youthMentorName = currentUser.name;
-    String implementingPartner = currentUser.implementingPartner;
-    Provider.of<ServiceFormState>(context, listen: false)
-        .setFormFieldState('W79837fEI3C', youthMentorName);
-    Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
-        .setCurrentAgywDream(agywDream);
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => AgywDreamsServiceForm(
-                  currentUserImplementingPartner: implementingPartner,
-                )));
+
+    String beneficiaryId = agywDream.id;
+    String formAutoSaveId =
+        "${DreamsRoutesConstant.agywDreamsServiceFormPage}_$beneficiaryId";
+    FormAutoSave formAutoSave =
+        await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
+    bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
+        .shouldResumeWithUnSavedChanges(context, formAutoSave);
+
+    if (shouldResumeWithUnSavedChanges) {
+      AppResumeRoute().redirectToPages(context, formAutoSave);
+    } else {
+      CurrentUser currentUser = await UserService().getCurrentUser();
+      String youthMentorName = currentUser.name;
+      String implementingPartner = currentUser.implementingPartner;
+      Provider.of<ServiceFormState>(context, listen: false)
+          .setFormFieldState('W79837fEI3C', youthMentorName);
+      Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
+          .setCurrentAgywDream(agywDream);
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => AgywDreamsServiceForm(
+                    currentUserImplementingPartner: implementingPartner,
+                  )));
+    }
   }
 
   void onViewService(

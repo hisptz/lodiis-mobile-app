@@ -49,12 +49,23 @@ class DreamsRoutesConstant {
   static final String agywDreamsMSGHIVFormNextPage = "MSG HIV form";
   static final String agywDreamsPEPFormPage = "PEP form";
   static final String agywDreamsPEPFormNextPage = "PEP form";
-  static final String agywDreamsPrEPFormPage = "";
+  // TODO add for staged forms
+  static final String agywDreamsPrEPLongFormPage = "";
   static final String agywDreamsPrEPFormNextPage = "";
+  static final String agywDreamsHTSLongFormPage = "";
+  static final String agywDreamsHTSLongFormNextPage = "";
   static final String agywDreamsPrEPShortFormPage = "AGYW PrEP Form";
   static final String agywDreamsPrEPShortFormNextPage = "AGYW PrEP Form";
-  static final String agywDreamsServiceFormPage = "";
-  static final String agywDreamsServiceFormNextPage = "";
+  static final String agywDreamsServiceFormPage = "Service Form";
+  static final String agywDreamsServiceFormNextPage = "Service Form";
   static final String agywDreamsPostGBVFormPage = "POST GBV form";
   static final String agywDreamsPostGBVFormNextPage = "POST GBV form";
+
+  // routes for agyw referrals
+  static final String agywDreamsReferralPage = "";
+  static final String agywDreamsReferralNextPage = "";
+  static final String agywDreamsReferralOutcomePage = "";
+  static final String agywDreamsReferralOutcomeNextPage = "";
+  static final String agywDreamsReferralFollowUpPage = "";
+  static final String agywDreamsReferralOutFollowUpNextPage = "";
 }
