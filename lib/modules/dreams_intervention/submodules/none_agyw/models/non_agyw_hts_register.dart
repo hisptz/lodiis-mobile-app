@@ -308,6 +308,7 @@ class NonAgywHTSRegister {
           name: 'Referred Facility',
           valueType: 'ORGANISATION_UNIT',
           allowedSelectedLevels: [4],
+          showCountryLevelTree: true,
           inputColor: Color(0xFF258DCC),
           labelColor: Color(0xFF737373),
         ),
