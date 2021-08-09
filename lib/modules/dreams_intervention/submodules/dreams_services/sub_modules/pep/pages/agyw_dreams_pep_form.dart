@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_current_selection_state.dart';
@@ -11,13 +12,16 @@ import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
+import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
+import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_top_header.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/constants/dreams_routes_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/dreams_service_pep_form_info.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/pep/constants/pep_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/pep/skip_logics/agyw_dreams_pep_skip_logic.dart';
@@ -68,6 +72,7 @@ class _AgywDreamsPEPFormState extends State<AgywDreamsPEPForm> {
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState(id, value);
     evaluateSkipLogics();
+    onUpdateFormAutoSaveState(context);
   }
 
   void onSaveForm(
@@ -105,6 +110,7 @@ class _AgywDreamsPEPFormState extends State<AgywDreamsPEPForm> {
                 : 'Form has been saved successfully',
             position: ToastGravity.TOP,
           );
+          clearFormAutoSaveState(context, agywDream.id);
           Navigator.pop(context);
         });
       } catch (e) {
@@ -120,6 +126,39 @@ class _AgywDreamsPEPFormState extends State<AgywDreamsPEPForm> {
           message: 'Please fill at least one form field',
           position: ToastGravity.TOP);
     }
+  }
+
+  void clearFormAutoSaveState(
+      BuildContext context, String beneficiaryId) async {
+    String formAutoSaveId =
+        "${DreamsRoutesConstant.agywDreamsPEPFormPage}_$beneficiaryId";
+    await FormAutoSaveOfflineService().deleteSavedFormAutoData(formAutoSaveId);
+  }
+
+  void onUpdateFormAutoSaveState(
+    BuildContext context, {
+    bool isSaveForm = false,
+    String nextPageModule = "",
+  }) async {
+    var agyw =
+        Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
+            .currentAgywDream;
+    String beneficiaryId = agyw.id;
+    Map dataObject =
+        Provider.of<ServiceFormState>(context, listen: false).formState;
+    String id = "${DreamsRoutesConstant.agywDreamsPEPFormPage}_$beneficiaryId";
+    FormAutoSave formAutoSave = FormAutoSave(
+      id: id,
+      beneficiaryId: beneficiaryId,
+      pageModule: DreamsRoutesConstant.agywDreamsPEPFormPage,
+      nextPageModule: isSaveForm
+          ? nextPageModule != ""
+              ? nextPageModule
+              : DreamsRoutesConstant.agywDreamsPEPFormNextPage
+          : DreamsRoutesConstant.agywDreamsPEPFormPage,
+      data: jsonEncode(dataObject),
+    );
+    await FormAutoSaveOfflineService().saveFormAutoSaveData(formAutoSave);
   }
 
   @override

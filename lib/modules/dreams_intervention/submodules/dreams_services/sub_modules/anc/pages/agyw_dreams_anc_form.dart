@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_current_selection_state.dart';
@@ -11,13 +12,16 @@ import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
+import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
+import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_top_header.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/constants/dreams_routes_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/dreams_service_anc_form_info.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/anc/constants/anc_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/anc/skip_logics/agyw_dreams_anc_skip_logic.dart';
@@ -32,7 +36,7 @@ class AgywDreamsANCForm extends StatefulWidget {
 }
 
 class _AgywDreamsANCFormState extends State<AgywDreamsANCForm> {
-  final String label = 'ANC  form';
+  final String label = 'ANC form';
   List<FormSection> formSections;
   bool isFormReady = false;
   bool isSaving = false;
@@ -68,6 +72,7 @@ class _AgywDreamsANCFormState extends State<AgywDreamsANCForm> {
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState(id, value);
     evaluateSkipLogics();
+    onUpdateFormAutoSaveState(context);
   }
 
   void onSaveForm(
@@ -103,6 +108,7 @@ class _AgywDreamsANCFormState extends State<AgywDreamsANCForm> {
                   : 'Form has been saved successfully',
               position: ToastGravity.TOP,
             );
+            clearFormAutoSaveState(context, agywDream.id);
             Navigator.pop(context);
           });
         });
@@ -120,6 +126,39 @@ class _AgywDreamsANCFormState extends State<AgywDreamsANCForm> {
         position: ToastGravity.TOP,
       );
     }
+  }
+
+  void clearFormAutoSaveState(
+      BuildContext context, String beneficiaryId) async {
+    String formAutoSaveId =
+        "${DreamsRoutesConstant.agywDreamsANCFormPage}_$beneficiaryId";
+    await FormAutoSaveOfflineService().deleteSavedFormAutoData(formAutoSaveId);
+  }
+
+  void onUpdateFormAutoSaveState(
+    BuildContext context, {
+    bool isSaveForm = false,
+    String nextPageModule = "",
+  }) async {
+    var agyw =
+        Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
+            .currentAgywDream;
+    String beneficiaryId = agyw.id;
+    Map dataObject =
+        Provider.of<ServiceFormState>(context, listen: false).formState;
+    String id = "${DreamsRoutesConstant.agywDreamsANCFormPage}_$beneficiaryId";
+    FormAutoSave formAutoSave = FormAutoSave(
+      id: id,
+      beneficiaryId: beneficiaryId,
+      pageModule: DreamsRoutesConstant.agywDreamsANCFormPage,
+      nextPageModule: isSaveForm
+          ? nextPageModule != ""
+              ? nextPageModule
+              : DreamsRoutesConstant.agywDreamsANCFormNextPage
+          : DreamsRoutesConstant.agywDreamsANCFormPage,
+      data: jsonEncode(dataObject),
+    );
+    await FormAutoSaveOfflineService().saveFormAutoSaveData(formAutoSave);
   }
 
   @override
@@ -144,8 +183,9 @@ class _AgywDreamsANCFormState extends State<AgywDreamsANCForm> {
             builder: (context, languageTranslationState, child) {
               String currentLanguage = languageTranslationState.currentLanguage;
               return Consumer<DreamsBeneficiarySelectionState>(
-                builder: (context, nonAgywState, child) {
-                  AgywDream agywDream = nonAgywState.currentAgywDream;
+                builder: (context, dreamsBeneficiarySelectionState, child) {
+                  AgywDream agywDream =
+                      dreamsBeneficiarySelectionState.currentAgywDream;
                   return Consumer<ServiceFormState>(
                     builder: (context, serviceFormState, child) {
                       return Container(

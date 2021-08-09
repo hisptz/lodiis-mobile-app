@@ -16,7 +16,7 @@ class DreamsRoutesConstant {
   static final String noneAgywPrepFormPage = "PREP VISIT";
   static final String noneAgywPrepFormNextPage = "PREP VISIT";
 
-  // routes constants for agyw beneficiaries
+  // routes constants for agyw beneficiaries enrollments
   static final String agywNoneParticipationPage =
       "Agyw None Participation Form";
   static final String agywNoneParticipationNextPage =
@@ -33,4 +33,39 @@ class DreamsRoutesConstant {
   static final String agywRiskAssessmentNextPage = "DREAMS Enrollment Form";
   static final String agywEnrollmentFormPage = "DREAMS Enrollment Form";
   static final String agywEnrollmentFormNextPage = "DREAMS Enrollment Form";
+
+  // routes for agyw services
+  static final String agywDreamsANCFormPage = "ANC form";
+  static final String agywDreamsANCFormNextPage = "ANC form";
+  static final String agywDreamsArtRefillPage = "ART Re-fill";
+  static final String agywDreamsArtRefillNextPage = "ART Re-fill";
+  static final String agywDreamsCondomsFormPage = "Condoms";
+  static final String agywDreamsCondomsFormNextPage = "Condoms";
+  static final String agywDreamsContraceptivesPage = "Contraceptives form";
+  static final String agywDreamsContraceptivesNextPage = "Contraceptives form";
+  static final String agywDreamsHTSShortFormPage = "HTS Form";
+  static final String agywDreamsHTSShortFormNextPage = "HTS Form";
+  static final String agywDreamsMSGHIVFormPage = "MSG HIV form";
+  static final String agywDreamsMSGHIVFormNextPage = "MSG HIV form";
+  static final String agywDreamsPEPFormPage = "PEP form";
+  static final String agywDreamsPEPFormNextPage = "PEP form";
+  // TODO add for staged forms
+  static final String agywDreamsPrEPLongFormPage = "";
+  static final String agywDreamsPrEPFormNextPage = "";
+  static final String agywDreamsHTSLongFormPage = "";
+  static final String agywDreamsHTSLongFormNextPage = "";
+  static final String agywDreamsPrEPShortFormPage = "AGYW PrEP Form";
+  static final String agywDreamsPrEPShortFormNextPage = "AGYW PrEP Form";
+  static final String agywDreamsServiceFormPage = "Service Form";
+  static final String agywDreamsServiceFormNextPage = "Service Form";
+  static final String agywDreamsPostGBVFormPage = "POST GBV form";
+  static final String agywDreamsPostGBVFormNextPage = "POST GBV form";
+
+  // routes for agyw referrals
+  static final String agywDreamsReferralPage = "";
+  static final String agywDreamsReferralNextPage = "";
+  static final String agywDreamsReferralOutcomePage = "";
+  static final String agywDreamsReferralOutcomeNextPage = "";
+  static final String agywDreamsReferralFollowUpPage = "";
+  static final String agywDreamsReferralOutFollowUpNextPage = "";
 }

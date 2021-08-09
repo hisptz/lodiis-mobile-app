@@ -8,26 +8,29 @@ import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
+import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
+import 'package:kb_mobile_app/core/utils/app_resume_routes/app_resume_route.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/events.dart';
+import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_top_header.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/constants/dreams_routes_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/components/dreams_services_visit_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/msg_hiv/constants/msg_hiv_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/msg_hiv/pages/agyw_dreams_msg_hiv_form.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:provider/provider.dart';
 
-class AgywDreamsMSGHIVRegister extends StatefulWidget {
-  AgywDreamsMSGHIVRegister({Key key}) : super(key: key);
+class AgywDreamsMSGHIV extends StatefulWidget {
+  AgywDreamsMSGHIV({Key key}) : super(key: key);
 
   @override
-  _AgywDreamsMSGHIVRegisterState createState() =>
-      _AgywDreamsMSGHIVRegisterState();
+  _AgywDreamsMSGHIVState createState() => _AgywDreamsMSGHIVState();
 }
 
-class _AgywDreamsMSGHIVRegisterState extends State<AgywDreamsMSGHIVRegister> {
+class _AgywDreamsMSGHIVState extends State<AgywDreamsMSGHIV> {
   final String label = 'HIV Messaging';
   List<String> programStageIds = [MSGHIVConstant.programStage];
   @override
@@ -57,12 +60,24 @@ class _AgywDreamsMSGHIVRegisterState extends State<AgywDreamsMSGHIVRegister> {
     }
   }
 
-  void onAddPrep(BuildContext context, AgywDream agywDream) {
+  void onAddPrep(BuildContext context, AgywDream agywDream) async {
     updateFormState(context, true, null);
-    Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
-        .setCurrentAgywDream(agywDream);
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => AgywDreamsMSGHIVForm()));
+    String beneficiaryId = agywDream.id;
+    String formAutoSaveId =
+        "${DreamsRoutesConstant.agywDreamsMSGHIVFormPage}_$beneficiaryId";
+    FormAutoSave formAutoSave =
+        await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
+    bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
+        .shouldResumeWithUnSavedChanges(context, formAutoSave);
+
+    if (shouldResumeWithUnSavedChanges) {
+      AppResumeRoute().redirectToPages(context, formAutoSave);
+    } else {
+      Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
+          .setCurrentAgywDream(agywDream);
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => AgywDreamsMSGHIVForm()));
+    }
   }
 
   void onViewPrep(BuildContext context, Events eventData) {

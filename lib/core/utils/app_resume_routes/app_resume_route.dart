@@ -58,6 +58,36 @@ class AppResumeRoute
     } else if (formAutoSave.nextPageModule ==
         DreamsRoutesConstant.agywEnrollmentFormEditNextPage) {
       redirectToAgywEnrollmentEditForm(context, formAutoSave);
+    } else if (formAutoSave.nextPageModule ==
+        DreamsRoutesConstant.agywDreamsANCFormNextPage) {
+      redirectToAgywDreamsANCForm(context, formAutoSave);
+    } else if (formAutoSave.nextPageModule ==
+        DreamsRoutesConstant.agywDreamsArtRefillNextPage) {
+      redirectToAgywDreamsArtRefillForm(context, formAutoSave);
+    } else if (formAutoSave.nextPageModule ==
+        DreamsRoutesConstant.agywDreamsCondomsFormNextPage) {
+      redirectToAgywDreamsCondomsForm(context, formAutoSave);
+    } else if (formAutoSave.nextPageModule ==
+        DreamsRoutesConstant.agywDreamsContraceptivesNextPage) {
+      redirectToAgywDreamsContraceptivesForm(context, formAutoSave);
+    } else if (formAutoSave.nextPageModule ==
+        DreamsRoutesConstant.agywDreamsHTSShortFormNextPage) {
+      redirectToAgywDreamsHTSShortForm(context, formAutoSave);
+    } else if (formAutoSave.nextPageModule ==
+        DreamsRoutesConstant.agywDreamsMSGHIVFormNextPage) {
+      redirectToAgywDreamsMSGHIVForm(context, formAutoSave);
+    } else if (formAutoSave.nextPageModule ==
+        DreamsRoutesConstant.agywDreamsPEPFormNextPage) {
+      redirectToAgywDreamsPEPForm(context, formAutoSave);
+    } else if (formAutoSave.nextPageModule ==
+        DreamsRoutesConstant.agywDreamsPrEPShortFormNextPage) {
+      redirectToAgywDreamsPrEPShortForm(context, formAutoSave);
+    } else if (formAutoSave.nextPageModule ==
+        DreamsRoutesConstant.agywDreamsServiceFormNextPage) {
+      redirectToAgywDreamsServiceForm(context, formAutoSave);
+    } else if (formAutoSave.nextPageModule ==
+        DreamsRoutesConstant.agywDreamsPostGBVFormNextPage) {
+      redirectToAgywDreamsPostGBVForm(context, formAutoSave);
     } else {
       print("$formAutoSave \n");
       print("Not page to redirect ${formAutoSave.nextPageModule}\n\n");

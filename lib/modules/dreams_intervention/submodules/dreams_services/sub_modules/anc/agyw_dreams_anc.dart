@@ -7,11 +7,15 @@ import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
+import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
+import 'package:kb_mobile_app/core/utils/app_resume_routes/app_resume_route.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/events.dart';
+import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_top_header.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/constants/dreams_routes_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/components/dreams_services_visit_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/anc/constants/anc_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/anc/pages/agyw_dreams_anc_form.dart';
@@ -55,12 +59,24 @@ class _AgywDreamsANCState extends State<AgywDreamsANC> {
     }
   }
 
-  void onAddPrep(BuildContext context, AgywDream agywDream) {
+  void onAddPrep(BuildContext context, AgywDream agywDream) async {
     updateFormState(context, true, null);
-    Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
-        .setCurrentAgywDream(agywDream);
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => AgywDreamsANCForm()));
+    String beneficiaryId = agywDream.id;
+    String formAutoSaveId =
+        "${DreamsRoutesConstant.agywDreamsANCFormPage}_$beneficiaryId";
+    FormAutoSave formAutoSave =
+        await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
+    bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
+        .shouldResumeWithUnSavedChanges(context, formAutoSave);
+
+    if (shouldResumeWithUnSavedChanges) {
+      AppResumeRoute().redirectToPages(context, formAutoSave);
+    } else {
+      Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
+          .setCurrentAgywDream(agywDream);
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => AgywDreamsANCForm()));
+    }
   }
 
   void onViewPrep(BuildContext context, Events eventData) {
