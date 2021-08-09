@@ -875,7 +875,7 @@ class OvcServicesWellbeingAssessment {
                 translatedName: '17.U nka litlhare setsing sefe sa bophelo?',
                 valueType: 'ORGANISATION_UNIT',
                 showCountryLevelTree: true,
-                allowedSelectedLevels: [3, 4],
+                allowedSelectedLevels: [4],
                 inputColor: Color(0xFF2895F0),
                 labelColor: Color(0xFF1A3518)),
             InputField(
@@ -986,7 +986,7 @@ class OvcServicesWellbeingAssessment {
                     '66. U mo isa setsing sefe sa bophelo bakeng sa litlharo?',
                 valueType: 'ORGANISATION_UNIT',
                 showCountryLevelTree: true,
-                allowedSelectedLevels: [3, 4],
+                allowedSelectedLevels: [4],
                 inputColor: Color(0xFF2895F0),
                 labelColor: Color(0xFF1A3518)),
             InputField(
