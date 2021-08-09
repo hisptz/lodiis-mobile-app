@@ -13,7 +13,7 @@ import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
-import 'package:kb_mobile_app/core/constants/service_implementing_partner.dart';
+import 'package:kb_mobile_app/core/constants/user_account_reference.dart';
 import 'package:kb_mobile_app/core/services/referral_notification_service.dart';
 import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
@@ -128,11 +128,10 @@ class _DreamsAgywAddReferralFormState extends State<DreamsAgywAddReferralForm> {
           if (eventId == null) {
             // Assign data element
             CurrentUser user = await UserService().getCurrentUser();
-            dataObject[ServiceImplementingPartner()
-                .implementingPartnerDataElement] = dataObject[
-                    ServiceImplementingPartner()
-                        .implementingPartnerDataElement] ??
-                user.implementingPartner;
+            dataObject[UserAccountReference.implementingPartnerDataElement] =
+                dataObject[
+                        UserAccountReference.implementingPartnerDataElement] ??
+                    user.implementingPartner;
             eventId = AppUtil.getUid();
             String currentImplementingPartner =
                 Provider.of<ReferralNotificationState>(context, listen: false)
