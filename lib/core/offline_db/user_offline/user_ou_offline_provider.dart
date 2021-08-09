@@ -13,14 +13,14 @@ class UserOuOfflineProvider extends OfflineDbProvider {
       var data = Map<String, dynamic>();
       data['id'] = id;
       data['userId'] = user.id;
-      await dbClient.insert(CurrentUser.userOrganisatonUnitTable, data,
+      await dbClient.insert(CurrentUser.userOrganisationUnitTable, data,
           conflictAlgorithm: ConflictAlgorithm.replace);
     }
   }
 
   deleteUserOrganisationUnits(String user) async {
     var dbClient = await db;
-    return await dbClient.delete(CurrentUser.userOrganisatonUnitTable,
+    return await dbClient.delete(CurrentUser.userOrganisationUnitTable,
         where: '$userId = ?', whereArgs: [user]);
   }
 
@@ -29,7 +29,7 @@ class UserOuOfflineProvider extends OfflineDbProvider {
     try {
       var dbClient = await db;
       List<Map> maps =
-          await dbClient.query(CurrentUser.userOrganisatonUnitTable, columns: [
+          await dbClient.query(CurrentUser.userOrganisationUnitTable, columns: [
         id,
         userId,
       ]);

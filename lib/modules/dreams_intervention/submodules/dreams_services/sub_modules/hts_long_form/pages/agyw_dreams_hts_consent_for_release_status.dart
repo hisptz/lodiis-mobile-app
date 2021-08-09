@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dream_current_selection_state.dart';
+import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
@@ -17,7 +17,7 @@ import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_top_header.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/client_information.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/consent_for_release_of_status.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/hts_consent.dart';
@@ -39,7 +39,7 @@ class _AgywDreamsHTSConsentForReleaseStatusState
     extends State<AgywDreamsHTSConsentForReleaseStatus> {
   final String label = 'Consent for Release of Status';
   List<FormSection> formSections;
-  List<FormSection> htsRegisterformSections;
+  List<FormSection> htsRegisterFormSections;
   List<FormSection> htsFormSections = [];
   bool isFormReady = false;
   bool isSaving = false;
@@ -48,7 +48,7 @@ class _AgywDreamsHTSConsentForReleaseStatusState
   void initState() {
     super.initState();
     formSections = ConsentForReleaseOfStatus.getFormSections();
-    htsRegisterformSections = HTSRegister.getFormSections();
+    htsRegisterFormSections = HTSRegister.getFormSections();
     htsFormSections.addAll(formSections);
     htsFormSections.addAll(ClientInformation.getFormSections());
     htsFormSections.addAll(HTSConsent.getFormSections());
@@ -76,8 +76,10 @@ class _AgywDreamsHTSConsentForReleaseStatusState
           dataObject[AgywDreamsHTSLongFormConstant.htsToIndexLinkage] ??
               AppUtil.getUid();
       String htsToTBLinkageValue =
-          dataObject[AgywDreamsHTSLongFormConstant.htsToTBLinkage] ?? AppUtil.getUid();
-      dataObject[AgywDreamsHTSLongFormConstant.htsToTBLinkage] = htsToTBLinkageValue;
+          dataObject[AgywDreamsHTSLongFormConstant.htsToTBLinkage] ??
+              AppUtil.getUid();
+      dataObject[AgywDreamsHTSLongFormConstant.htsToTBLinkage] =
+          htsToTBLinkageValue;
       String htsToHtsRegister =
           dataObject[AgywDreamsHTSLongFormConstant.htsToHtsRegisterLinkage] ??
               AppUtil.getUid();
@@ -105,7 +107,7 @@ class _AgywDreamsHTSConsentForReleaseStatusState
           AgywDreamsHTSLongFormConstant.program,
           AgywDreamsHTSLongFormConstant.htsRegisterProgramStage,
           agywDream.orgUnit,
-          htsRegisterformSections,
+          htsRegisterFormSections,
           dataObject,
           eventDate,
           agywDream.id,
@@ -113,15 +115,16 @@ class _AgywDreamsHTSConsentForReleaseStatusState
           hiddenFields,
           skippedFields: [AgywDreamsHTSLongFormConstant.bmiKey],
         );
-        if (dataObject[AgywDreamsHTSLongFormConstant.hivResultStatus] == 'Positive') {
+        if (dataObject[AgywDreamsHTSLongFormConstant.hivResultStatus] ==
+            'Positive') {
           Navigator.push(
               context,
               MaterialPageRoute(
                   builder: (context) => AgywDreamsHTSTBForm(
-                      htsToTBLinkageValue:
-                          dataObject[AgywDreamsHTSLongFormConstant.htsToTBLinkage])));
+                      htsToTBLinkageValue: dataObject[
+                          AgywDreamsHTSLongFormConstant.htsToTBLinkage])));
         } else {
-          Provider.of<ServiveEventDataState>(context, listen: false)
+          Provider.of<ServiceEventDataState>(context, listen: false)
               .resetServiceEventDataState(agywDream.id);
           Timer(Duration(seconds: 1), () {
             setState(() {
@@ -158,10 +161,10 @@ class _AgywDreamsHTSConsentForReleaseStatusState
     return Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(65.0),
-          child: Consumer<IntervetionCardState>(
-            builder: (context, intervetionCardState, child) {
+          child: Consumer<InterventionCardState>(
+            builder: (context, interventionCardState, child) {
               InterventionCard activeInterventionProgram =
-                  intervetionCardState.currentIntervetionProgram;
+                  interventionCardState.currentInterventionProgram;
               return SubPageAppBar(
                 label: label,
                 activeInterventionProgram: activeInterventionProgram,
@@ -170,7 +173,7 @@ class _AgywDreamsHTSConsentForReleaseStatusState
           ),
         ),
         body: SubPageBody(
-          body: Container(child: Consumer<DreamBenefeciarySelectionState>(
+          body: Container(child: Consumer<DreamsBeneficiarySelectionState>(
             builder: (context, nonAgywState, child) {
               AgywDream agywDream = nonAgywState.currentAgywDream;
               return Consumer<ServiceFormState>(
@@ -178,7 +181,7 @@ class _AgywDreamsHTSConsentForReleaseStatusState
                   return Container(
                     child: Column(
                       children: [
-                        DreamBenefeciaryTopHeader(
+                        DreamsBeneficiaryTopHeader(
                           agywDream: agywDream,
                         ),
                         !isFormReady

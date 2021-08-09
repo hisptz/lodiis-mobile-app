@@ -7,7 +7,7 @@ class InterventionCard {
   String shortName;
   String translatedShortName;
   String svgIcon;
-  Color primmaryColor;
+  Color primaryColor;
   Color secondaryColor;
   Color svgIconColor;
   Color svgIconBorderColor;
@@ -24,7 +24,7 @@ class InterventionCard {
     this.translatedShortName,
     this.shortName,
     this.svgIcon,
-    this.primmaryColor,
+    this.primaryColor,
     this.secondaryColor,
     this.svgIconColor,
     this.svgIconBorderColor,
@@ -42,7 +42,7 @@ class InterventionCard {
         name: 'OVCs and caregivers',
         shortName: 'OVC',
         svgIcon: 'assets/icons/ovc-icon.svg',
-        primmaryColor: Color(0xFF4B9F46),
+        primaryColor: Color(0xFF4B9F46),
         secondaryColor: Color(0xFF63BC48),
         svgIconColor: Color(0xFFB9F8A6),
         svgIconBorderColor: Color(0xFF6CBA63),
@@ -57,7 +57,7 @@ class InterventionCard {
         name: 'DREAMS - AGYW',
         shortName: 'DREAMS',
         svgIcon: 'assets/icons/dreams-icon.svg',
-        primmaryColor: Color(0xFF1C7AB2),
+        primaryColor: Color(0xFF1C7AB2),
         secondaryColor: Color(0xFF1F8ECE),
         svgIconColor: Color(0xFF8FD6FF),
         svgIconBorderColor: Color(0xFF8FD6FF),
@@ -72,7 +72,7 @@ class InterventionCard {
         name: '9-14 OGAC',
         shortName: 'OGAC',
         svgIcon: 'assets/icons/ogac-icon.svg',
-        primmaryColor: Color(0xFFF05A2A),
+        primaryColor: Color(0xFFF05A2A),
         secondaryColor: Color(0xFFF05A2A).withOpacity(0.8),
         svgIconColor: Colors.white,
         svgIconBorderColor: Colors.white,

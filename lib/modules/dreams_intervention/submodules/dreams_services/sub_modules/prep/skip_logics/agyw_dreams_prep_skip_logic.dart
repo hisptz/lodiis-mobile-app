@@ -23,7 +23,7 @@ class AgywDreamsPrepSkipLogic {
     hiddenSections.clear();
     List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections);
 
-    // assing Rapid test result
+    // assigning Rapid test result
     if (dataObject[AgywDreamsHTSLongFormConstant.t1Result] == null &&
         dataObject[AgywDreamsHTSLongFormConstant.t2Result] == null) {
       hiddenFields[PrepIntakeConstant.prepRapidTestResult1] = true;
@@ -290,11 +290,11 @@ class AgywDreamsPrepSkipLogic {
     for (String sectionId in hiddenSections.keys) {
       List<FormSection> allFormSections =
           FormUtil.getFlattenFormSections(formSections);
-      List<String> hidddenSectionInputFieldIds = FormUtil.getFormFieldIds(
+      List<String> hiddenSectionInputFieldIds = FormUtil.getFormFieldIds(
           allFormSections
               .where((formSection) => formSection.id == sectionId)
               .toList());
-      for (String inputFieldId in hidddenSectionInputFieldIds) {
+      for (String inputFieldId in hiddenSectionInputFieldIds) {
         hiddenFields[inputFieldId] = true;
       }
     }

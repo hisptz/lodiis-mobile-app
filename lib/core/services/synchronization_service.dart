@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'package:http/http.dart';
-import 'package:kb_mobile_app/core/constants/app_logs.dart';
+import 'package:kb_mobile_app/core/constants/app_logs_constants.dart';
 import 'package:kb_mobile_app/core/offline_db/app_logs_offline/app_logs_offline_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/enrollment_offline/enrollment_offline_provider.dart';
-import 'package:kb_mobile_app/core/offline_db/event_offline/event_offline_data_value.dart';
+import 'package:kb_mobile_app/core/offline_db/event_offline/event_offline_data_value_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/event_offline/event_offline_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/tei_relationship_offline/tei_relationship_offline_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/tracked_entity_instance_offline/tracked_entity_instance_offline_attribute_provider.dart';
@@ -185,8 +185,8 @@ class SynchronizationService {
   }
 
   Future saveTeiRelationshipToOffline(TeiRelationship relationship) async {
-    await TeiRelatioShipOfflineProvider()
-        .addOrUpdateTeirelationShip(relationship);
+    await TeiRelationshipOfflineProvider()
+        .addOrUpdateTeiRelationship(relationship);
   }
 
   Future saveRelationshipsToOffline(List<dynamic> relationships) async {
@@ -202,10 +202,10 @@ class SynchronizationService {
     return entityInstanceAttributes;
   }
 
-  List<TrackeEntityInstance> getTeiFromResponse(responseData) {
+  List<TrackedEntityInstance> getTeiFromResponse(responseData) {
     return responseData['trackedEntityInstances']
-        ?.map<TrackeEntityInstance>(
-            (instance) => TrackeEntityInstance().fromJson(instance))
+        ?.map<TrackedEntityInstance>(
+            (instance) => TrackedEntityInstance().fromJson(instance))
         ?.toList();
   }
 
@@ -232,7 +232,7 @@ class SynchronizationService {
               getTeiFromResponse(responseData));
       EnrollmentOfflineProvider().addOrUpdateMultipleEnrollments(
           enrollmentsAndRelationships['enrollments']);
-      TeiRelatioShipOfflineProvider().addOrUpdateMultipleTeiRelationships(
+      TeiRelationshipOfflineProvider().addOrUpdateMultipleTeiRelationships(
           enrollmentsAndRelationships['relationships']);
     } catch (e) {
       throw e;
@@ -288,7 +288,7 @@ class SynchronizationService {
   Future saveEnrollmentToOffline(dynamic enrollments) async {
     for (var enrollment in enrollments) {
       EnrollmentOfflineProvider()
-          .addOrUpdateEnrollement(Enrollment().fromJson(enrollment));
+          .addOrUpdateEnrollment(Enrollment().fromJson(enrollment));
     }
   }
 
@@ -300,7 +300,7 @@ class SynchronizationService {
     return entityInstanceAttributes;
   }
 
-  Future<List<TrackeEntityInstance>> getTeisFromOfflineDb() async {
+  Future<List<TrackedEntityInstance>> getTeisFromOfflineDb() async {
     return await TrackedEntityInstanceOfflineProvider()
         .getTrackedEntityInstanceByStatus(offlineSyncStatus);
   }
@@ -316,7 +316,7 @@ class SynchronizationService {
   }
 
   Future<List<TeiRelationship>> getTeiRelationShipFromOfflineDb() async {
-    return await TeiRelatioShipOfflineProvider()
+    return await TeiRelationshipOfflineProvider()
         .getAllTeiRelationShips(offlineSyncStatus);
   }
 
@@ -424,7 +424,7 @@ class SynchronizationService {
     List<String> syncedIds = [];
     String url = 'api/enrollments';
     bool conflictOnImport = false;
-    List<TrackeEntityInstance> unsyncedTeis = await getTeisFromOfflineDb();
+    List<TrackedEntityInstance> unsyncedTeis = await getTeisFromOfflineDb();
     var enrollments = teiEnrollments
         .where((enrollment) =>
             unsyncedTeis.indexWhere((tei) =>
@@ -476,7 +476,7 @@ class SynchronizationService {
   }
 
   Future<bool> uploadTeisToTheServer(
-      List<TrackeEntityInstance> teis, bool isAutoUpload) async {
+      List<TrackedEntityInstance> teis, bool isAutoUpload) async {
     List<String> syncedIds = [];
     String url = 'api/trackedEntityInstances';
     bool conflictOnImport = false;
@@ -518,10 +518,10 @@ class SynchronizationService {
       throw e;
     }
     if (syncedIds.length > 0) {
-      for (TrackeEntityInstance tei in teis) {
+      for (TrackedEntityInstance tei in teis) {
         if (syncedIds.indexOf(tei.trackedEntityInstance) > -1) {
           tei.syncStatus = 'synced';
-          await FormUtil.savingTrackeEntityInstance(tei);
+          await FormUtil.savingTrackedEntityInstance(tei);
         }
       }
     }
@@ -609,7 +609,7 @@ class SynchronizationService {
           .getTrackedEntityInstanceIdsByIds(unsyncedEventIds);
       List<Enrollment> unsyncedTeiEnrollments =
           await EnrollmentOfflineProvider().getEnrollmentsFromTeiList(teiIds);
-      List<TrackeEntityInstance> unsyncedTeis =
+      List<TrackedEntityInstance> unsyncedTeis =
           await TrackedEntityInstanceOfflineProvider()
               .getTrackedEntityInstanceByIds(teiIds);
       List<Events> unsyncedTeiEvents = teiEvents

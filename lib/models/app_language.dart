@@ -15,7 +15,7 @@ class AppLanguage {
     this.isDefault = this.isDefault ?? false;
   }
 
-  static List<AppLanguage> getSupporttedLanguage() {
+  static List<AppLanguage> getSupportedLanguage() {
     return [
       AppLanguage(
           id: 'lesotho',

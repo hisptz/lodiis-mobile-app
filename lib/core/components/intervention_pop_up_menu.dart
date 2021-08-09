@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/current_user_state/current_user_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
-import 'package:kb_mobile_app/core/components/line_seperator.dart';
+import 'package:kb_mobile_app/core/components/line_separator.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/models/intervention_pop_action_menu.dart';
 import 'package:provider/provider.dart';
@@ -64,7 +64,7 @@ class InterventionPopUpMenu extends StatelessWidget {
                       return new InterventionPopActionMenu(
                           id: interventionProgram.id,
                           name: 'Switch to ${interventionProgram.shortName}',
-                          color: interventionProgram.primmaryColor,
+                          color: interventionProgram.primaryColor,
                           fontWeight: FontWeight.bold);
                     },
                   ),
@@ -103,7 +103,7 @@ class InterventionPopUpMenu extends StatelessWidget {
                                       )
                                     ],
                                   ),
-                                  LineSeperator(
+                                  LineSeparator(
                                     color: Color(0xFFE0E6E0),
                                     height: 1,
                                   )

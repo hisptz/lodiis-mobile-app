@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_house_hold_current_selection_state.dart';
+import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_household_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
@@ -16,7 +16,7 @@ import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
-import 'package:kb_mobile_app/models/ovc_house_hold_child.dart';
+import 'package:kb_mobile_app/models/ovc_household_child.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_child_info_top_header.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_school_monitoring.dart';
@@ -72,7 +72,7 @@ class _OvcSchoolMonitoringFormState extends State<OvcSchoolMonitoringForm> {
   void onSaveForm(
     BuildContext context,
     Map dataObject,
-    OvcHouseHoldChild currentOvcHouseHoldChild,
+    OvcHouseholdChild currentOvcHouseholdChild,
   ) async {
     if (FormUtil.geFormFilledStatus(dataObject, formSections)) {
       setState(() {
@@ -84,15 +84,15 @@ class _OvcSchoolMonitoringFormState extends State<OvcSchoolMonitoringForm> {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
             OvcSchoolMonitoringConstant.program,
             OvcSchoolMonitoringConstant.programStage,
-            currentOvcHouseHoldChild.orgUnit,
+            currentOvcHouseholdChild.orgUnit,
             formSections,
             dataObject,
             eventDate,
-            currentOvcHouseHoldChild.id,
+            currentOvcHouseholdChild.id,
             eventId,
             null);
-        Provider.of<ServiveEventDataState>(context, listen: false)
-            .resetServiceEventDataState(currentOvcHouseHoldChild.id);
+        Provider.of<ServiceEventDataState>(context, listen: false)
+            .resetServiceEventDataState(currentOvcHouseholdChild.id);
         Timer(Duration(seconds: 1), () {
           setState(() {
             isSaving = false;
@@ -130,10 +130,10 @@ class _OvcSchoolMonitoringFormState extends State<OvcSchoolMonitoringForm> {
     return Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(65.0),
-          child: Consumer<IntervetionCardState>(
-            builder: (context, intervetionCardState, child) {
+          child: Consumer<InterventionCardState>(
+            builder: (context, interventionCardState, child) {
               InterventionCard activeInterventionProgram =
-                  intervetionCardState.currentIntervetionProgram;
+                  interventionCardState.currentInterventionProgram;
               return SubPageAppBar(
                 label: label,
                 activeInterventionProgram: activeInterventionProgram,
@@ -147,11 +147,11 @@ class _OvcSchoolMonitoringFormState extends State<OvcSchoolMonitoringForm> {
               builder: (context, languageTranslationState, child) {
                 String currentLanguage =
                     languageTranslationState.currentLanguage;
-                return Consumer<OvcHouseHoldCurrentSelectionState>(
-                  builder: (context, ovcHouseHoldCurrentSelectionState, child) {
-                    OvcHouseHoldChild currentOvcHouseHoldChild =
-                        ovcHouseHoldCurrentSelectionState
-                            .currentOvcHouseHoldChild;
+                return Consumer<OvcHouseholdCurrentSelectionState>(
+                  builder: (context, ovcHouseholdCurrentSelectionState, child) {
+                    OvcHouseholdChild currentOvcHouseholdChild =
+                        ovcHouseholdCurrentSelectionState
+                            .currentOvcHouseholdChild;
                     return Consumer<ServiceFormState>(
                       builder: (context, serviceFormState, child) {
                         return Container(
@@ -203,7 +203,7 @@ class _OvcSchoolMonitoringFormState extends State<OvcSchoolMonitoringForm> {
                                               onPressButton: () => onSaveForm(
                                                   context,
                                                   serviceFormState.formState,
-                                                  currentOvcHouseHoldChild),
+                                                  currentOvcHouseholdChild),
                                             ),
                                           )
                                         ],

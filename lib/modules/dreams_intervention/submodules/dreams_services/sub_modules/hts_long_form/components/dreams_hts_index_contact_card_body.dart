@@ -1,6 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_long_form/models/index_contact_model.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_long_form/models/index_contact.dart';
 
 class DreamsHTSIndexContactCardBody extends StatelessWidget {
   DreamsHTSIndexContactCardBody({
@@ -8,7 +8,7 @@ class DreamsHTSIndexContactCardBody extends StatelessWidget {
     this.event,
   }) : super(key: key);
 
-  final IndexContactModel event;
+  final IndexContact event;
 
   @override
   Widget build(BuildContext context) {

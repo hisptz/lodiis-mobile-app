@@ -7,8 +7,8 @@ class DreamsHTSIndexCardBody extends StatelessWidget {
   DreamsHTSIndexCardBody({
     Key key,
     this.event,
-    Container cardBottonActions,
-    DreamsHTSIndexCardBottonContent cardBottonContent,
+    Container cardButtonActions,
+    DreamsHTSIndexCardButtonContent cardButtonContent,
   }) : super(key: key);
 
   final AgywDreamsIndexInfoEvent event;

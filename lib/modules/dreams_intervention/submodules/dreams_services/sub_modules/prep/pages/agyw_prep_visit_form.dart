@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dream_current_selection_state.dart';
+import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
@@ -16,8 +16,8 @@ import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/dreams_prep_followup_visit.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_top_header.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/dreams_prep_follow_up_visit.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/prep/constants/prep_intake_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/prep/skip_logics/agyw_prep_visit_skip_logic.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/constant/non_agyw_prep_visit_constant.dart';
@@ -43,8 +43,8 @@ class _AgywPrepVisitFormState extends State<AgywPrepVisitForm> {
   @override
   void initState() {
     super.initState();
-    formSections = DreamsPrepFollwUpVisit.getFormSections();
-    mandatoryFields = DreamsPrepFollwUpVisit.getMandatoryField();
+    formSections = DreamsPrepFollowUpVisit.getFormSections();
+    mandatoryFields = DreamsPrepFollowUpVisit.getMandatoryField();
     for (String fieldId in mandatoryFields) {
       mandatoryFieldsObject[fieldId] = true;
     }
@@ -80,7 +80,7 @@ class _AgywPrepVisitFormState extends State<AgywPrepVisitForm> {
 
   void onSaveForm(BuildContext context, Map dataObject, AgywDream agywDream,
       {hiddenFields: const {}}) async {
-    bool hasAllMandatoryFieldsFilled = AppUtil.hasAllMandarotyFieldsFilled(
+    bool hasAllMandatoryFieldsFilled = AppUtil.hasAllMandatoryFieldsFilled(
         mandatoryFields, dataObject,
         hiddenFields: hiddenFields);
 
@@ -102,7 +102,7 @@ class _AgywPrepVisitFormState extends State<AgywPrepVisitForm> {
             agywDream.id,
             eventId,
             hiddenFields);
-        Provider.of<ServiveEventDataState>(context, listen: false)
+        Provider.of<ServiceEventDataState>(context, listen: false)
             .resetServiceEventDataState(agywDream.id);
         Timer(Duration(seconds: 1), () {
           setState(() {
@@ -129,7 +129,8 @@ class _AgywPrepVisitFormState extends State<AgywPrepVisitForm> {
       }
     } else {
       setState(() {
-        unFilledMandatoryFields = AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+        unFilledMandatoryFields =
+            AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
       });
       AppUtil.showToastMessage(
           message: 'Please fill all mandatory field',
@@ -142,10 +143,10 @@ class _AgywPrepVisitFormState extends State<AgywPrepVisitForm> {
     return Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(65.0),
-          child: Consumer<IntervetionCardState>(
-            builder: (context, intervetionCardState, child) {
+          child: Consumer<InterventionCardState>(
+            builder: (context, interventionCardState, child) {
               InterventionCard activeInterventionProgram =
-                  intervetionCardState.currentIntervetionProgram;
+                  interventionCardState.currentInterventionProgram;
               return SubPageAppBar(
                 label: label,
                 activeInterventionProgram: activeInterventionProgram,
@@ -159,7 +160,7 @@ class _AgywPrepVisitFormState extends State<AgywPrepVisitForm> {
               builder: (context, languageTranslationState, child) {
                 String currentLanguage =
                     languageTranslationState.currentLanguage;
-                return Consumer<DreamBenefeciarySelectionState>(
+                return Consumer<DreamsBeneficiarySelectionState>(
                   builder: (context, agywState, child) {
                     AgywDream agywDream = agywState.currentAgywDream;
                     return Consumer<ServiceFormState>(
@@ -167,7 +168,7 @@ class _AgywPrepVisitFormState extends State<AgywPrepVisitForm> {
                         return Container(
                           child: Column(
                             children: [
-                              DreamBenefeciaryTopHeader(
+                              DreamsBeneficiaryTopHeader(
                                 agywDream: agywDream,
                               ),
                               !isFormReady
@@ -197,8 +198,9 @@ class _AgywPrepVisitFormState extends State<AgywPrepVisitForm> {
                                             dataObject:
                                                 serviceFormState.formState,
                                             onInputValueChange:
-                                                onInputValueChange, unFilledMandatoryFields:
-                                          unFilledMandatoryFields,
+                                                onInputValueChange,
+                                            unFilledMandatoryFields:
+                                                unFilledMandatoryFields,
                                           ),
                                         ),
                                         Visibility(

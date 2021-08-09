@@ -82,10 +82,10 @@ class _SynchronizationState extends State<Synchronization> {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(65.0),
-        child: Consumer<IntervetionCardState>(
-          builder: (context, intervetionCardState, child) {
+        child: Consumer<InterventionCardState>(
+          builder: (context, interventionCardState, child) {
             InterventionCard activeInterventionProgram =
-                intervetionCardState.currentIntervetionProgram;
+                interventionCardState.currentInterventionProgram;
             return SubPageAppBar(
               label: label,
               activeInterventionProgram: activeInterventionProgram,

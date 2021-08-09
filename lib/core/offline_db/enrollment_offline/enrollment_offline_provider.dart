@@ -18,7 +18,7 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
   final String status = 'status';
   final String syncStatus = 'syncStatus';
 
-  addOrUpdateEnrollement(Enrollment enrollment) async {
+  addOrUpdateEnrollment(Enrollment enrollment) async {
     var dbClient = await db;
     Map data = Enrollment().toOffline(enrollment);
     data['id'] = data['enrollment'];
@@ -47,7 +47,7 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
     }
   }
 
-  Future<List<Enrollment>> getEnrollements(String programId, {page}) async {
+  Future<List<Enrollment>> getEnrollments(String programId, {page}) async {
     List<Enrollment> enrollments = [];
     try {
       var dbClient = await db;

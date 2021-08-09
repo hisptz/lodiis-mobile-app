@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dream_current_selection_state.dart';
+import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar_container.dart';
@@ -13,7 +13,7 @@ import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_top_header.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/hts_consent.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_long_form/constants/agyw_dreams_hts_constant.dart';
@@ -70,7 +70,7 @@ class _AgywDreamsHTSConsentFormState extends State<AgywDreamsHTSConsentForm> {
   }
 
   void onSaveForm(BuildContext context, Map dataObject, AgywDream agywDream) {
-    Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
+    Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
         .setCurrentAgywDream(agywDream);
     if (isConsentGiven(dataObject)) {
       //add no of sexual partners to dataObject
@@ -97,10 +97,10 @@ class _AgywDreamsHTSConsentFormState extends State<AgywDreamsHTSConsentForm> {
     return Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(65.0),
-          child: Consumer<IntervetionCardState>(
-            builder: (context, intervetionCardState, child) {
+          child: Consumer<InterventionCardState>(
+            builder: (context, interventionCardState, child) {
               InterventionCard activeInterventionProgram =
-                  intervetionCardState.currentIntervetionProgram;
+                  interventionCardState.currentInterventionProgram;
               return SubPageAppBar(
                 label: label,
                 activeInterventionProgram: activeInterventionProgram,
@@ -109,7 +109,7 @@ class _AgywDreamsHTSConsentFormState extends State<AgywDreamsHTSConsentForm> {
           ),
         ),
         body: SubPageBody(
-          body: Container(child: Consumer<DreamBenefeciarySelectionState>(
+          body: Container(child: Consumer<DreamsBeneficiarySelectionState>(
             builder: (context, nonAgywState, child) {
               AgywDream agywDream = nonAgywState.currentAgywDream;
               return Consumer<ServiceFormState>(
@@ -117,7 +117,7 @@ class _AgywDreamsHTSConsentFormState extends State<AgywDreamsHTSConsentForm> {
                   return Container(
                     child: Column(
                       children: [
-                        DreamBenefeciaryTopHeader(
+                        DreamsBeneficiaryTopHeader(
                           agywDream: agywDream,
                         ),
                         !isFormReady
@@ -173,7 +173,7 @@ class _AgywDreamsHTSConsentFormState extends State<AgywDreamsHTSConsentForm> {
   }
 
   getNoOfPartners(AgywDream agywDream) {
-    List attributes = agywDream.trackeEntityInstanceData.attributes ?? [];
+    List attributes = agywDream.trackedEntityInstanceData.attributes ?? [];
     var noOfPartners = attributes.singleWhere(
         (attribute) =>
             attribute['attribute'] ==

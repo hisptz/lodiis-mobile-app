@@ -7,11 +7,12 @@ import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/constants/ovc_enrollement_none_participation_constant.dart';
 
-class OvcNoneParticipationService {
+class OvcEnrollmentNoneParticipationService {
   final String program = OvcEnrollmentNoneParticipationConstant.program;
   final String programStage =
       OvcEnrollmentNoneParticipationConstant.programStage;
-  final List<OvcEnrollmentNoneParticipationConstant> noneParticipationContants =
+  final List<OvcEnrollmentNoneParticipationConstant>
+      noneParticipationConstants =
       OvcEnrollmentNoneParticipationConstant.getNoneParticipationConstant();
 
   Future saveNoneParticipationForm(
@@ -19,10 +20,10 @@ class OvcNoneParticipationService {
     List<String> inputFieldIds = FormUtil.getFormFieldIds(
       formSections,
     );
-    for (OvcEnrollmentNoneParticipationConstant noneParticipationContant
-        in noneParticipationContants) {
-      String dataElement = noneParticipationContant.dataElement;
-      String attribute = noneParticipationContant.attribute;
+    for (OvcEnrollmentNoneParticipationConstant noneParticipationConstant
+        in noneParticipationConstants) {
+      String dataElement = noneParticipationConstant.dataElement;
+      String attribute = noneParticipationConstant.attribute;
       inputFieldIds.add(dataElement);
       if (dataObject.keys.toList().indexOf(attribute) != -1) {
         dataObject[dataElement] = dataObject[attribute];

@@ -1,6 +1,6 @@
 import 'package:kb_mobile_app/models/events.dart';
 
-class ReferralOutFollowUpComeEvent {
+class ReferralOutcomeFollowUpEvent {
   String id;
   String followUpDate;
   String followUpStatus;
@@ -9,7 +9,7 @@ class ReferralOutFollowUpComeEvent {
   bool additionalFollowUpRequired;
   Events eventData;
 
-  ReferralOutFollowUpComeEvent({
+  ReferralOutcomeFollowUpEvent({
     this.id,
     this.followUpDate,
     this.followUpStatus,
@@ -19,7 +19,7 @@ class ReferralOutFollowUpComeEvent {
     this.eventData,
   });
 
-  ReferralOutFollowUpComeEvent fromTeiModel(
+  ReferralOutcomeFollowUpEvent fromTeiModel(
     Events eventData,
     String referralToFollowUpLinkage,
   ) {
@@ -37,7 +37,7 @@ class ReferralOutFollowUpComeEvent {
         data[dataElement] = '${detailObj['value']}'.trim() ?? '';
       }
     }
-    return ReferralOutFollowUpComeEvent(
+    return ReferralOutcomeFollowUpEvent(
       id: eventData.event,
       followUpDate: data['DPf5mUDoZMy'] ?? '',
       followUpStatus: data['VHe4ctA0bqU'] ?? '',

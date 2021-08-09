@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
-import 'package:kb_mobile_app/core/components/line_seperator.dart';
+import 'package:kb_mobile_app/core/components/line_separator.dart';
 import 'package:kb_mobile_app/core/components/material_card.dart';
 import 'package:kb_mobile_app/models/ogac_beneficiary.dart';
 import 'package:provider/provider.dart';
@@ -9,12 +9,12 @@ import 'package:provider/provider.dart';
 class OgacBeneficiaryCard extends StatelessWidget {
   const OgacBeneficiaryCard({
     Key key,
-    @required this.ogacBeneficary,
+    @required this.ogacBeneficiary,
     this.onViewBeneficiary,
     this.onEditBeneficiary,
   }) : super(key: key);
 
-  final OgacBeneficiary ogacBeneficary;
+  final OgacBeneficiary ogacBeneficiary;
   final VoidCallback onViewBeneficiary;
   final VoidCallback onEditBeneficiary;
 
@@ -36,7 +36,7 @@ class OgacBeneficiaryCard extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Text(
-                        ogacBeneficary.toString(),
+                        ogacBeneficiary.toString(),
                         style: TextStyle().copyWith(
                           color: Color(0xFF651900),
                           fontSize: 14.0,
@@ -78,7 +78,7 @@ class OgacBeneficiaryCard extends StatelessWidget {
                 ),
               ),
               Container(
-                child: LineSeperator(
+                child: LineSeparator(
                   color: Color(0xFFF05A2A).withOpacity(0.4),
                 ),
               ),
@@ -109,7 +109,7 @@ class OgacBeneficiaryCard extends StatelessWidget {
                                 Expanded(
                                   flex: 2,
                                   child: Text(
-                                    ogacBeneficary.benefecaryId,
+                                    ogacBeneficiary.beneficiaryId,
                                     style: TextStyle().copyWith(
                                       color: Color(0xFF651900).withOpacity(0.8),
                                       fontSize: 14.0,
@@ -139,7 +139,7 @@ class OgacBeneficiaryCard extends StatelessWidget {
                                 Expanded(
                                   flex: 2,
                                   child: Text(
-                                    ogacBeneficary.age,
+                                    ogacBeneficiary.age,
                                     style: TextStyle().copyWith(
                                       color: Color(0xFF651900).withOpacity(0.8),
                                       fontSize: 14.0,
@@ -169,7 +169,7 @@ class OgacBeneficiaryCard extends StatelessWidget {
                                 Expanded(
                                   flex: 2,
                                   child: Text(
-                                    ogacBeneficary.sex,
+                                    ogacBeneficiary.sex,
                                     style: TextStyle().copyWith(
                                       color: Color(0xFF651900).withOpacity(0.8),
                                       fontSize: 14.0,
@@ -199,7 +199,7 @@ class OgacBeneficiaryCard extends StatelessWidget {
                                 Expanded(
                                   flex: 2,
                                   child: Text(
-                                    ogacBeneficary.location,
+                                    ogacBeneficiary.location,
                                     style: TextStyle().copyWith(
                                       color: Color(0xFF651900).withOpacity(0.8),
                                       fontSize: 14.0,
@@ -227,7 +227,7 @@ class OgacBeneficiaryCard extends StatelessWidget {
                                 Expanded(
                                   flex: 2,
                                   child: Text(
-                                    ogacBeneficary.createdDate,
+                                    ogacBeneficiary.createdDate,
                                     style: TextStyle().copyWith(
                                       color: Color(0xFF651900).withOpacity(0.8),
                                       fontSize: 14.0,

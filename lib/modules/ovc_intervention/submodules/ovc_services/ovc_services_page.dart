@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_house_hold_current_selection_state.dart';
+import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_household_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_intervention_list_state.dart';
 import 'package:kb_mobile_app/core/components/paginated_list_view.dart';
 import 'package:kb_mobile_app/core/components/sub_module_home_container.dart';
-import 'package:kb_mobile_app/models/ovc_house_hold.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold_card.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold_card_body.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_house_hold_card_botton_content.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/house_hold_assessment/ovc_house_hold_assessment.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/house_hold_case_plan/ovc_house_hold_case_plan_home.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/house_hold_monitor/ovc_house_hold_monitor.dart';
+import 'package:kb_mobile_app/models/ovc_household.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_household_card.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_household_card_body.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_household_card_botton_content.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/household_assessment/ovc_household_assessment.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/household_case_plan/ovc_household_case_plan_home.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/household_monitor/ovc_household_monitor.dart';
 import 'package:provider/provider.dart';
 
-import 'ovc_services_pages/house_hold_service/ovc_house_hold_service.dart';
+import 'ovc_services_pages/household_service/ovc_household_service.dart';
 
 class OvcServicesPage extends StatefulWidget {
   const OvcServicesPage({Key key}) : super(key: key);
@@ -36,57 +36,57 @@ class _OvcServicesPageState extends State<OvcServicesPage> {
 
   String toggleCardId = '';
 
-  void onCardToogle(String cardId) {
+  void onCardToggle(String cardId) {
     setState(() {
       toggleCardId = canExpand && cardId != toggleCardId ? cardId : '';
     });
   }
 
-  void setOvcHouseHoldCurrentSelection(
-      BuildContext context, OvcHouseHold ovcHouseHold) {
-    Provider.of<OvcHouseHoldCurrentSelectionState>(context, listen: false)
-        .setCurrentHouseHold(ovcHouseHold);
-    Provider.of<ServiveEventDataState>(context, listen: false)
-        .resetServiceEventDataState(ovcHouseHold.id);
+  void setOvcHouseholdCurrentSelection(
+      BuildContext context, OvcHousehold ovcHousehold) {
+    Provider.of<OvcHouseholdCurrentSelectionState>(context, listen: false)
+        .setCurrentHousehold(ovcHousehold);
+    Provider.of<ServiceEventDataState>(context, listen: false)
+        .resetServiceEventDataState(ovcHousehold.id);
   }
 
-  void onOpenHouseHoldAssess(BuildContext context, OvcHouseHold ovcHouseHold) {
-    setOvcHouseHoldCurrentSelection(context, ovcHouseHold);
+  void onOpenHouseholdAssess(BuildContext context, OvcHousehold ovcHousehold) {
+    setOvcHouseholdCurrentSelection(context, ovcHousehold);
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => OvcHouseHoldAssessment(),
+        builder: (context) => OvcHouseholdAssessment(),
       ),
     );
   }
 
-  void onOpenHouseHoldCasePlan(
-      BuildContext context, OvcHouseHold ovcHouseHold) {
-    setOvcHouseHoldCurrentSelection(context, ovcHouseHold);
+  void onOpenHouseholdCasePlan(
+      BuildContext context, OvcHousehold ovcHousehold) {
+    setOvcHouseholdCurrentSelection(context, ovcHousehold);
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => OvcHouseHoldCasePlanHome(),
+        builder: (context) => OvcHouseholdCasePlanHome(),
       ),
     );
   }
 
-  void onOpenHouseHoldMonitor(BuildContext context, OvcHouseHold ovcHouseHold) {
-    setOvcHouseHoldCurrentSelection(context, ovcHouseHold);
+  void onOpenHouseholdMonitor(BuildContext context, OvcHousehold ovcHousehold) {
+    setOvcHouseholdCurrentSelection(context, ovcHousehold);
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => OvcHouseHoldMonitor(),
+        builder: (context) => OvcHouseholdMonitor(),
       ),
     );
   }
 
-  void onOpenHouseHoldService(BuildContext context, OvcHouseHold ovcHouseHold) {
-    setOvcHouseHoldCurrentSelection(context, ovcHouseHold);
+  void onOpenHouseholdService(BuildContext context, OvcHousehold ovcHousehold) {
+    setOvcHouseholdCurrentSelection(context, ovcHousehold);
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => OvcHouseHoldService(),
+        builder: (context) => OvcHouseholdService(),
       ),
     );
   }
@@ -101,9 +101,9 @@ class _OvcServicesPageState extends State<OvcServicesPage> {
             builder: (context, ovcInterventionListState, child) {
               String header = currentLanguage == 'lesotho'
                   ? 'Lethathamo la malapa'.toUpperCase() +
-                      ': ${ovcInterventionListState.numberOfHouseHolds} Malapa'
+                      ': ${ovcInterventionListState.numberOfHouseholds} Malapa'
                   : 'Household list'.toUpperCase() +
-                      ': ${ovcInterventionListState.numberOfHouseHolds} households';
+                      ': ${ovcInterventionListState.numberOfHouseholds} households';
               return SubModuleHomeContainer(
                 header: header,
                 bodyContents: _buildBody(currentLanguage),
@@ -120,20 +120,20 @@ class _OvcServicesPageState extends State<OvcServicesPage> {
     return Consumer<OvcInterventionListState>(
       builder: (context, ovcListState, child) => CustomPaginatedListView(
         pagingController: ovcListState.pagingController,
-        childBuilder: (context, ovcHouseHold, index) => OvcHouseHoldCard(
-          ovcHouseHold: ovcHouseHold,
+        childBuilder: (context, ovcHousehold, index) => OvcHouseholdCard(
+          ovcHousehold: ovcHousehold,
           canEdit: canEdit,
           canExpand: canExpand,
           canView: canView,
-          isExpanded: ovcHouseHold.id == toggleCardId,
-          onCardToogle: () {
-            onCardToogle(ovcHouseHold.id);
+          isExpanded: ovcHousehold.id == toggleCardId,
+          onCardToggle: () {
+            onCardToggle(ovcHousehold.id);
           },
-          cardBody: OvcHouseHoldCardBody(
-            ovcHouseHold: ovcHouseHold,
+          cardBody: OvcHouseholdCardBody(
+            ovcHousehold: ovcHousehold,
           ),
-          cardBottonActions: ClipRRect(
-            borderRadius: ovcHouseHold.id == toggleCardId
+          cardButtonActions: ClipRRect(
+            borderRadius: ovcHousehold.id == toggleCardId
                 ? BorderRadius.zero
                 : BorderRadius.only(
                     bottomLeft: Radius.circular(12.0),
@@ -156,9 +156,9 @@ class _OvcServicesPageState extends State<OvcServicesPage> {
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
                           child: TextButton(
-                            onPressed: () => onOpenHouseHoldAssess(
+                            onPressed: () => onOpenHouseholdAssess(
                               context,
-                              ovcHouseHold,
+                              ovcHousehold,
                             ),
                             child: Text(
                               'ASSESS',
@@ -175,9 +175,9 @@ class _OvcServicesPageState extends State<OvcServicesPage> {
                     Container(
                       child: Container(
                         child: TextButton(
-                          onPressed: () => onOpenHouseHoldCasePlan(
+                          onPressed: () => onOpenHouseholdCasePlan(
                             context,
-                            ovcHouseHold,
+                            ovcHousehold,
                           ),
                           child: Text(
                             'PLAN',
@@ -193,9 +193,9 @@ class _OvcServicesPageState extends State<OvcServicesPage> {
                     Container(
                       child: Container(
                         child: TextButton(
-                          onPressed: () => onOpenHouseHoldService(
+                          onPressed: () => onOpenHouseholdService(
                             context,
-                            ovcHouseHold,
+                            ovcHousehold,
                           ),
                           child: Text(
                             currentLanguage == 'lesotho'
@@ -213,9 +213,9 @@ class _OvcServicesPageState extends State<OvcServicesPage> {
                     Container(
                       child: Container(
                         child: TextButton(
-                          onPressed: () => onOpenHouseHoldMonitor(
+                          onPressed: () => onOpenHouseholdMonitor(
                             context,
-                            ovcHouseHold,
+                            ovcHousehold,
                           ),
                           child: Text(
                             'MONITOR',
@@ -231,9 +231,9 @@ class _OvcServicesPageState extends State<OvcServicesPage> {
                   ],
                 )),
           ),
-          cardBottonContent: OvcHouseHoldCardBottonContent(
+          cardButtonContent: OvcHouseholdCardButtonContent(
             currentLanguage: currentLanguage,
-            ovcHouseHold: ovcHouseHold,
+            ovcHousehold: ovcHousehold,
             canAddChild: canAddChild,
             canViewChildInfo: canViewChildInfo,
             canEditChildInfo: canEditChildInfo,

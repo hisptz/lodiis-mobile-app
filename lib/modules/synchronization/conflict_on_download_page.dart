@@ -19,8 +19,8 @@ class ConflictOnDownloadPage extends StatefulWidget {
 class _ConflictOnDownloadPageState extends State<ConflictOnDownloadPage> {
   final String label = 'Download Conflicts';
 
-  void onAcceptConflict(TrackeEntityInstance trackeEntityInstance) async {
-    await FormUtil.savingTrackeEntityInstance(trackeEntityInstance);
+  void onAcceptConflict(TrackedEntityInstance trackedEntityInstance) async {
+    await FormUtil.savingTrackedEntityInstance(trackedEntityInstance);
   }
 
   void onDiscardConflict() {
@@ -32,10 +32,10 @@ class _ConflictOnDownloadPageState extends State<ConflictOnDownloadPage> {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(65.0),
-        child: Consumer<IntervetionCardState>(
-          builder: (context, intervetionCardState, child) {
+        child: Consumer<InterventionCardState>(
+          builder: (context, interventionCardState, child) {
             InterventionCard activeInterventionProgram =
-                intervetionCardState.currentIntervetionProgram;
+                interventionCardState.currentInterventionProgram;
             return SubPageAppBar(
               label: label,
               activeInterventionProgram: activeInterventionProgram,
@@ -109,7 +109,7 @@ class _ConflictOnDownloadPageState extends State<ConflictOnDownloadPage> {
                                           GestureDetector(
                                             onTap: () => onAcceptConflict(
                                                 trackedInstance[
-                                                    'trackeEntityInstance']),
+                                                    'trackedEntityInstance']),
                                             child: Container(
                                               height: 25,
                                               width: 320,

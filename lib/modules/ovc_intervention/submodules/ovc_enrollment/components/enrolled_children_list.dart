@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
-import 'package:kb_mobile_app/core/components/line_seperator.dart';
+import 'package:kb_mobile_app/core/components/line_separator.dart';
 import 'package:kb_mobile_app/core/components/material_card.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
@@ -63,7 +63,7 @@ class EnrolledChildrenList extends StatelessWidget {
                 Visibility(
                   visible: title != '',
                   child: Container(
-                    child: LineSeperator(
+                    child: LineSeparator(
                       color: Color(0xFF1A3518).withOpacity(0.1),
                     ),
                   ),

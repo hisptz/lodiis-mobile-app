@@ -69,7 +69,7 @@ class AppLogsHelper {
       int rowCount = 1;
 
       // Insert app version row
-      List<String> appVersionRow = ['Application Verison', appVersion];
+      List<String> appVersionRow = ['Application Version', appVersion];
       sheetObject.insertRowIterables(appVersionRow, 0);
 
       // Insert table header row

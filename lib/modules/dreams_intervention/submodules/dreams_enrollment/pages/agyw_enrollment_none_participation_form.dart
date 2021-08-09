@@ -19,7 +19,7 @@ import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/constants/dreams_routes_constant.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/services/agyw_dream_enrollment_none_participation_service.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/services/agyw_dreams_enrollment_none_participation_service.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/models/agyw_enrollment_none_participation.dart';
 import 'package:provider/provider.dart';
 
@@ -78,21 +78,21 @@ class _AgywEnrollmentNoneParticipationFormState
 
   void clearFormAutoSaveState(BuildContext context) async {
     String beneficiaryId = "";
-    String formAutoSaveid =
+    String formAutoSaveId =
         "${DreamsRoutesConstant.agywConsentPage}_$beneficiaryId";
-    await FormAutoSaveOfflineService().deleteSavedFormAutoData(formAutoSaveid);
+    await FormAutoSaveOfflineService().deleteSavedFormAutoData(formAutoSaveId);
   }
 
   void onInputValueChange(String id, dynamic value) {
     Provider.of<EnrollmentFormState>(context, listen: false)
         .setFormFieldState(id, value);
     autoFillInputFields(id, value);
-    //@TODO update unsaved data on offline state
+    onUpdateFormAutoSaveState(context);
   }
 
   void onSaveAndContinue(BuildContext context, Map dataObject) async {
     bool hadAllMandatoryFilled =
-        AppUtil.hasAllMandarotyFieldsFilled(mandatoryFields, dataObject);
+        AppUtil.hasAllMandatoryFieldsFilled(mandatoryFields, dataObject);
     if (hadAllMandatoryFilled) {
       setState(() {
         isSaving = true;
@@ -145,10 +145,10 @@ class _AgywEnrollmentNoneParticipationFormState
       child: Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(65.0),
-          child: Consumer<IntervetionCardState>(
-            builder: (context, intervetionCardState, child) {
+          child: Consumer<InterventionCardState>(
+            builder: (context, interventionCardState, child) {
               InterventionCard activeInterventionProgram =
-                  intervetionCardState.currentIntervetionProgram;
+                  interventionCardState.currentInterventionProgram;
               return SubPageAppBar(
                 label: label,
                 activeInterventionProgram: activeInterventionProgram,

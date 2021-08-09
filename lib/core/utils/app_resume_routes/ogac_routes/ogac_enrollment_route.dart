@@ -4,7 +4,7 @@ import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/modules/ogac_intervention/pages/ogac_enrollment_form.dart';
 
 class OgacEnrollmentRoute {
-  redirectToOgacEnrollmemntForm(
+  redirectToOgacEnrollmentForm(
     BuildContext context,
     FormAutoSave formAutoSave,
   ) {
@@ -13,7 +13,7 @@ class OgacEnrollmentRoute {
       context,
       MaterialPageRoute(
         builder: (context) {
-          return OgacEnrollemntForm();
+          return OgacEnrollmentForm();
         },
       ),
     );

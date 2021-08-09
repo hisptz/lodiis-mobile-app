@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dream_current_selection_state.dart';
+import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
@@ -14,7 +14,7 @@ import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_top_header.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/constants/dreams_routes_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/components/dreams_services_visit_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/constant/non_agyw_prep_visit_constant.dart';
@@ -31,7 +31,7 @@ class NoneAgywPrep extends StatefulWidget {
 
 class _NoneAgywPrepState extends State<NoneAgywPrep> {
   final String label = 'PrEP';
-  List<String> programStageids = [NonAgywPrepVisitConstant.programStage];
+  List<String> programStageIds = [NonAgywPrepVisitConstant.programStage];
 
   @override
   void initState() {
@@ -57,10 +57,10 @@ class _NoneAgywPrepState extends State<NoneAgywPrep> {
           .setFormFieldState('eventDate', eventData.eventDate);
       Provider.of<ServiceFormState>(context, listen: false)
           .setFormFieldState('eventId', eventData.event);
-      for (Map datavalue in eventData.dataValues) {
-        if (datavalue['value'] != '') {
+      for (Map dataValue in eventData.dataValues) {
+        if (dataValue['value'] != '') {
           Provider.of<ServiceFormState>(context, listen: false)
-              .setFormFieldState(datavalue['dataElement'], datavalue['value']);
+              .setFormFieldState(dataValue['dataElement'], dataValue['value']);
         }
       }
     }
@@ -69,10 +69,10 @@ class _NoneAgywPrepState extends State<NoneAgywPrep> {
   void onAddPrep(BuildContext context, AgywDream agywDream) async {
     String eventId = "";
     String beneficiaryId = agywDream.id;
-    String formAutoSaveid =
+    String formAutoSaveId =
         "${DreamsRoutesConstant.noneAgywPrepFormPage}_${beneficiaryId}_$eventId";
     FormAutoSave formAutoSave =
-        await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveid);
+        await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
     bool shouldResumeWithUnSavedChanges =
         await AppResumeRoute().shouldResumeWithUnSavedChanges(
       context,
@@ -83,7 +83,7 @@ class _NoneAgywPrepState extends State<NoneAgywPrep> {
       AppResumeRoute().redirectToPages(context, formAutoSave);
     } else {
       updateFormState(context, true, null);
-      Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
+      Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
           .setCurrentAgywDream(agywDream);
       Navigator.push(
         context,
@@ -94,8 +94,8 @@ class _NoneAgywPrepState extends State<NoneAgywPrep> {
     }
   }
 
-  void onViewPrep(BuildContext context, Events eventdata) {
-    updateFormState(context, false, eventdata);
+  void onViewPrep(BuildContext context, Events eventData) {
+    updateFormState(context, false, eventData);
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -105,13 +105,13 @@ class _NoneAgywPrepState extends State<NoneAgywPrep> {
   }
 
   void onEditPrep(
-      BuildContext context, Events eventdata, AgywDream agywDream) async {
+      BuildContext context, Events eventData, AgywDream agywDream) async {
     String beneficiaryId = agywDream.id;
-    String eventId = eventdata.event ?? "";
-    String formAutoSaveid =
+    String eventId = eventData.event ?? "";
+    String formAutoSaveId =
         "${DreamsRoutesConstant.noneAgywPrepFormPage}_${beneficiaryId}_$eventId";
     FormAutoSave formAutoSave =
-        await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveid);
+        await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
     bool shouldResumeWithUnSavedChanges =
         await AppResumeRoute().shouldResumeWithUnSavedChanges(
       context,
@@ -121,7 +121,7 @@ class _NoneAgywPrepState extends State<NoneAgywPrep> {
     if (shouldResumeWithUnSavedChanges) {
       AppResumeRoute().redirectToPages(context, formAutoSave);
     } else {
-      updateFormState(context, true, eventdata);
+      updateFormState(context, true, eventData);
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -136,10 +136,10 @@ class _NoneAgywPrepState extends State<NoneAgywPrep> {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(65.0),
-        child: Consumer<IntervetionCardState>(
-          builder: (context, intervetionCardState, child) {
+        child: Consumer<InterventionCardState>(
+          builder: (context, interventionCardState, child) {
             InterventionCard activeInterventionProgram =
-                intervetionCardState.currentIntervetionProgram;
+                interventionCardState.currentInterventionProgram;
             return SubPageAppBar(
               label: label,
               activeInterventionProgram: activeInterventionProgram,
@@ -149,24 +149,24 @@ class _NoneAgywPrepState extends State<NoneAgywPrep> {
       ),
       body: SubPageBody(
         body: Container(
-          child: Consumer<DreamBenefeciarySelectionState>(
-            builder: (context, dreamBenefeciarySelectionState, child) {
-              return Consumer<ServiveEventDataState>(
+          child: Consumer<DreamsBeneficiarySelectionState>(
+            builder: (context, dreamBeneficiarySelectionState, child) {
+              return Consumer<ServiceEventDataState>(
                 builder: (context, serviceFormState, child) {
                   AgywDream agywDream =
-                      dreamBenefeciarySelectionState.currentAgywDream;
+                      dreamBeneficiarySelectionState.currentAgywDream;
                   bool isLoading = serviceFormState.isLoading;
                   Map<String, List<Events>> eventListByProgramStage =
                       serviceFormState.eventListByProgramStage;
                   List<Events> events = TrackedEntityInstanceUtil
                       .getAllEventListFromServiceDataStateByProgramStages(
-                          eventListByProgramStage, programStageids);
+                          eventListByProgramStage, programStageIds);
                   int referralIndex = events.length + 1;
 
                   return Container(
                     child: Column(
                       children: [
-                        DreamBenefeciaryTopHeader(
+                        DreamsBeneficiaryTopHeader(
                           agywDream: agywDream,
                         ),
                         Container(
@@ -197,7 +197,7 @@ class _NoneAgywPrepState extends State<NoneAgywPrep> {
                                                       bottom: 15.0,
                                                     ),
                                                     child:
-                                                        DreamsServiceVisitListCard(
+                                                        DreamsServiceVisitCard(
                                                       visitName: "PREP Visit",
                                                       onEdit: () => onEditPrep(
                                                         context,

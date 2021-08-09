@@ -4,7 +4,7 @@ import 'package:kb_mobile_app/core/components/material_card.dart';
 import 'package:kb_mobile_app/models/agyw_dreams_index_info_event.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_long_form/components/dreams_hts_index_contact_card_body.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_long_form/components/dreams_hts_index_contact_card_header.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_long_form/models/index_contact_model.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_long_form/models/index_contact.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_long_form/pages/agyw_dreams_index_information_about_pos_client.dart';
 import 'package:provider/provider.dart';
 
@@ -14,7 +14,7 @@ class DreamsHTSIndexContactCard extends StatelessWidget {
     @required this.event,
   }) : super(key: key);
 
-  final IndexContactModel event;
+  final IndexContact event;
   final String svgIcon = 'assets/icons/hh_icon.svg';
 
   void updateFormState(
@@ -30,10 +30,10 @@ class DreamsHTSIndexContactCard extends StatelessWidget {
           .setFormFieldState('eventDate', eventData.date);
       Provider.of<ServiceFormState>(context, listen: false)
           .setFormFieldState('eventId', eventData.id);
-      for (Map datavalue in eventData.datavalues) {
-        if (datavalue['value'] != '') {
+      for (Map dataValue in eventData.dataValues) {
+        if (dataValue['value'] != '') {
           Provider.of<ServiceFormState>(context, listen: false)
-              .setFormFieldState(datavalue['dataElement'], datavalue['value']);
+              .setFormFieldState(dataValue['dataElement'], dataValue['value']);
         }
       }
     }

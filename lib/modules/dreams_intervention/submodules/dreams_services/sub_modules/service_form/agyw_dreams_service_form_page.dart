@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dream_current_selection_state.dart';
+import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
@@ -14,7 +14,7 @@ import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/models/service_event.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_top_header.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/components/dreams_services_visit_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/service_form/constants/service_form_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/service_form/pages/agyw_dreams_service_form.dart';
@@ -30,7 +30,7 @@ class AgywDreamsServiceFormPage extends StatefulWidget {
 
 class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
   final String label = 'Service Form';
-  List<String> programStageids = [ServiceFormConstant.programStage];
+  List<String> programStageIds = [ServiceFormConstant.programStage];
   @override
   void initState() {
     super.initState();
@@ -59,10 +59,10 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
           .setFormFieldState('eventDate', eventData.eventDate);
       Provider.of<ServiceFormState>(context, listen: false)
           .setFormFieldState('eventId', eventData.event);
-      for (Map datavalue in eventData.dataValues) {
-        if (datavalue['value'] != '') {
+      for (Map dataValue in eventData.dataValues) {
+        if (dataValue['value'] != '') {
           Provider.of<ServiceFormState>(context, listen: false)
-              .setFormFieldState(datavalue['dataElement'], datavalue['value']);
+              .setFormFieldState(dataValue['dataElement'], dataValue['value']);
         }
       }
     }
@@ -111,7 +111,7 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
     String implementingPartner = currentUser.implementingPartner;
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState('W79837fEI3C', youthMentorName);
-    Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
+    Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
         .setCurrentAgywDream(agywDream);
     Navigator.push(
         context,
@@ -122,20 +122,20 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
   }
 
   void onViewService(
-      BuildContext context, Events eventdata, AgywDream agywDream) {
-    updateFormState(context, false, eventdata, agywDream, null);
+      BuildContext context, Events eventData, AgywDream agywDream) {
+    updateFormState(context, false, eventData, agywDream, null);
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => AgywDreamsServiceForm()));
   }
 
-  void onEditService(BuildContext context, Events eventdata,
+  void onEditService(BuildContext context, Events eventData,
       AgywDream agywDream, List<ServiceEvents> serviceEvents) async {
     CurrentUser currentUser = await UserService().getCurrentUser();
     String youthMentorName = currentUser.name;
     String implementingPartner = currentUser.implementingPartner;
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState('W79837fEI3C', youthMentorName);
-    updateFormState(context, true, eventdata, agywDream, serviceEvents);
+    updateFormState(context, true, eventData, agywDream, serviceEvents);
     Navigator.push(
         context,
         MaterialPageRoute(
@@ -150,10 +150,10 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
     return Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(65.0),
-          child: Consumer<IntervetionCardState>(
-            builder: (context, intervetionCardState, child) {
+          child: Consumer<InterventionCardState>(
+            builder: (context, interventionCardState, child) {
               InterventionCard activeInterventionProgram =
-                  intervetionCardState.currentIntervetionProgram;
+                  interventionCardState.currentInterventionProgram;
               return SubPageAppBar(
                 label: label,
                 activeInterventionProgram: activeInterventionProgram,
@@ -163,18 +163,18 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
         ),
         body: SubPageBody(
           body: Container(
-            child: Consumer<DreamBenefeciarySelectionState>(
-              builder: (context, dreamBenefeciarySelectionState, child) {
-                return Consumer<ServiveEventDataState>(
+            child: Consumer<DreamsBeneficiarySelectionState>(
+              builder: (context, dreamBeneficiarySelectionState, child) {
+                return Consumer<ServiceEventDataState>(
                   builder: (context, serviceFormState, child) {
                     AgywDream agywDream =
-                        dreamBenefeciarySelectionState.currentAgywDream;
+                        dreamBeneficiarySelectionState.currentAgywDream;
                     bool isLoading = serviceFormState.isLoading;
                     Map<String, List<Events>> eventListByProgramStage =
                         serviceFormState.eventListByProgramStage;
                     List<Events> events = TrackedEntityInstanceUtil
                         .getAllEventListFromServiceDataStateByProgramStages(
-                            eventListByProgramStage, programStageids);
+                            eventListByProgramStage, programStageIds);
                     List<ServiceEvents> serviceEvents = events
                         .map((Events event) =>
                             ServiceEvents().getServiceSessions(event))
@@ -183,7 +183,7 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
                     return Container(
                       child: Column(
                         children: [
-                          DreamBenefeciaryTopHeader(
+                          DreamsBeneficiaryTopHeader(
                             agywDream: agywDream,
                           ),
                           Container(
@@ -215,7 +215,7 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
                                                         bottom: 15.0,
                                                       ),
                                                       child:
-                                                          DreamsServiceVisitListCard(
+                                                          DreamsServiceVisitCard(
                                                         visitName: "Service",
                                                         onEdit: () =>
                                                             onEditService(

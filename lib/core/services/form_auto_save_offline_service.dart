@@ -8,13 +8,13 @@ class FormAutoSaveOfflineService {
         .addOrUpdateFormAutoSaveFormData(formAutoSave);
   }
 
-  Future<FormAutoSave> getSavedFormAutoData(String formAutoSaveid) async {
+  Future<FormAutoSave> getSavedFormAutoData(String formAutoSaveId) async {
     return await FormAutoSaveOfflineProvider()
-        .getSavedFormAutoSaveFormDataById(formAutoSaveid);
+        .getSavedFormAutoSaveFormDataById(formAutoSaveId);
   }
 
-  Future deleteSavedFormAutoData(String formAutoSaveid) async {
+  Future deleteSavedFormAutoData(String formAutoSaveId) async {
     return await FormAutoSaveOfflineProvider()
-        .deleteSavedFormAutoFormData(formAutoSaveid);
+        .deleteSavedFormAutoFormData(formAutoSaveId);
   }
 }

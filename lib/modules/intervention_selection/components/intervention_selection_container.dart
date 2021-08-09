@@ -6,7 +6,7 @@ import 'package:kb_mobile_app/app_state/current_user_state/current_user_state.da
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
-import 'package:kb_mobile_app/app_state/referral_nofitication_state/referral_nofitication_state.dart';
+import 'package:kb_mobile_app/app_state/referral_notification_state/referral_notification_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/route_page_not_found.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
@@ -22,19 +22,19 @@ class InterventionSelectionContainer extends StatefulWidget {
   const InterventionSelectionContainer({
     Key key,
     @required this.interventionPrograms,
-    @required this.onIntervetionSelection,
+    @required this.onInterventionSelection,
     @required this.numberOfAgywDreamsBeneficiaries,
     @required this.numberOfNoneAgywDreamsBeneficiaries,
-    @required this.numberOfHouseHolds,
+    @required this.numberOfHouseholds,
     @required this.numberOfOvcs,
     @required this.numberOfOgac,
   }) : super(key: key);
 
   final List<InterventionCard> interventionPrograms;
-  final Function(InterventionCard) onIntervetionSelection;
+  final Function(InterventionCard) onInterventionSelection;
   final int numberOfNoneAgywDreamsBeneficiaries;
   final int numberOfAgywDreamsBeneficiaries;
-  final int numberOfHouseHolds;
+  final int numberOfHouseholds;
   final int numberOfOvcs;
   final int numberOfOgac;
 
@@ -49,14 +49,14 @@ class _InterventionSelectionContainerState
   InterventionCard activeInterventionProgram;
   List<InterventionCard> interventionPrograms = [];
   bool isLoading = true;
-  IntervetionCardState intervetionCardState;
+  InterventionCardState interventionCardState;
   CurrentUserState currentUserState;
 
   @override
   void initState() {
     super.initState();
-    intervetionCardState =
-        Provider.of<IntervetionCardState>(context, listen: false);
+    interventionCardState =
+        Provider.of<InterventionCardState>(context, listen: false);
     currentUserState = Provider.of<CurrentUserState>(context, listen: false);
     Timer(Duration(seconds: 1), () {
       checkingForAutoSelectionOfIntervention(currentUserState);
@@ -82,7 +82,7 @@ class _InterventionSelectionContainerState
 
   void onSelectingInterventionProgram(
       InterventionCard currentInterventionProgram) {
-    widget.onIntervetionSelection(currentInterventionProgram);
+    widget.onInterventionSelection(currentInterventionProgram);
     activeInterventionProgram = currentInterventionProgram;
     setState(() {
       isInterventionSelected = true;
@@ -100,7 +100,7 @@ class _InterventionSelectionContainerState
             .setTeiWithIncomingReferral(
                 teiWithIncomingReferral: teiWithIncomingReferral);
       }
-      intervetionCardState
+      interventionCardState
           .setCurrentInterventionProgram(activeInterventionProgram);
       Navigator.pushReplacement(
           context,
@@ -114,7 +114,7 @@ class _InterventionSelectionContainerState
                           : RoutePageNotFound(
                               pageTitle:
                                   '${activeInterventionProgram.name} is not found',
-                              color: activeInterventionProgram.primmaryColor)));
+                              color: activeInterventionProgram.primaryColor)));
     }
   }
 
@@ -181,13 +181,13 @@ class _InterventionSelectionContainerState
                       Container(
                         child: InterventionSelectionList(
                           interventionPrograms: interventionPrograms,
-                          onIntervetionSelection:
+                          onInterventionSelection:
                               onSelectingInterventionProgram,
                           numberOfAgywDreamsBeneficiaries:
                               widget.numberOfAgywDreamsBeneficiaries,
                           numberOfNoneAgywDreamsBeneficiaries:
                               widget.numberOfNoneAgywDreamsBeneficiaries,
-                          numberOfHouseHolds: widget.numberOfHouseHolds,
+                          numberOfHouseholds: widget.numberOfHouseholds,
                           numberOfOvcs: widget.numberOfOvcs,
                           numberOfOgac: widget.numberOfOgac,
                         ),

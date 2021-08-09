@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_house_hold_current_selection_state.dart';
+import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_household_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
-import 'package:kb_mobile_app/core/components/line_seperator.dart';
+import 'package:kb_mobile_app/core/components/line_separator.dart';
 import 'package:provider/provider.dart';
 
 class OvcChildInfoTopHeader extends StatelessWidget {
@@ -15,12 +15,12 @@ class OvcChildInfoTopHeader extends StatelessWidget {
       child: Consumer<LanguageTranslationState>(
         builder: (context, languageTranslationState, child) {
           String currentLanguage = languageTranslationState.currentLanguage;
-          return Consumer<OvcHouseHoldCurrentSelectionState>(
-            builder: (context, ovcHouseHoldCurrentSelectionState, child) {
-              var currentOvcHouseHoldChild =
-                  ovcHouseHoldCurrentSelectionState.currentOvcHouseHoldChild;
-              var currentOvcHouseHold =
-                  ovcHouseHoldCurrentSelectionState.currentOvcHouseHold;
+          return Consumer<OvcHouseholdCurrentSelectionState>(
+            builder: (context, ovcHouseholdCurrentSelectionState, child) {
+              var currentOvcHouseholdChild =
+                  ovcHouseholdCurrentSelectionState.currentOvcHouseholdChild;
+              var currentOvcHousehold =
+                  ovcHouseholdCurrentSelectionState.currentOvcHousehold;
               return Material(
                 type: MaterialType.card,
                 elevation: 1.0,
@@ -38,7 +38,7 @@ class OvcChildInfoTopHeader extends StatelessWidget {
                                   margin: EdgeInsets.symmetric(
                                       horizontal: 10.0, vertical: 5.0),
                                   child: Text(
-                                    currentOvcHouseHoldChild.toString(),
+                                    currentOvcHouseholdChild.toString(),
                                     style: TextStyle().copyWith(
                                         color: Color(0xFF1A3518),
                                         fontSize: 14.0,
@@ -52,7 +52,7 @@ class OvcChildInfoTopHeader extends StatelessWidget {
                                   margin: EdgeInsets.symmetric(
                                       horizontal: 10.0, vertical: 5.0),
                                   child: Text(
-                                    currentOvcHouseHoldChild.primaryUIC,
+                                    currentOvcHouseholdChild.primaryUIC,
                                     style: TextStyle().copyWith(
                                         color: Color(0xFF1A3518),
                                         fontSize: 14.0,
@@ -65,7 +65,7 @@ class OvcChildInfoTopHeader extends StatelessWidget {
                         ),
                         Container(
                           margin: EdgeInsets.only(top: 5.0),
-                          child: LineSeperator(color: Color(0XFFECF5EC)),
+                          child: LineSeparator(color: Color(0XFFECF5EC)),
                         ),
                         Container(
                             margin: EdgeInsets.symmetric(
@@ -90,7 +90,7 @@ class OvcChildInfoTopHeader extends StatelessWidget {
                                         children: [
                                           TextSpan(
                                             text:
-                                                currentOvcHouseHoldChild.sex ??
+                                                currentOvcHouseholdChild.sex ??
                                                     "",
                                             style: TextStyle().copyWith(
                                               fontSize: 12.0,
@@ -115,7 +115,7 @@ class OvcChildInfoTopHeader extends StatelessWidget {
                                         ),
                                         children: [
                                           TextSpan(
-                                            text: currentOvcHouseHoldChild.age,
+                                            text: currentOvcHouseholdChild.age,
                                             style: TextStyle().copyWith(
                                               fontSize: 12.0,
                                               fontWeight: FontWeight.w500,
@@ -139,7 +139,7 @@ class OvcChildInfoTopHeader extends StatelessWidget {
                                         ),
                                         children: [
                                           TextSpan(
-                                            text: currentOvcHouseHoldChild
+                                            text: currentOvcHouseholdChild
                                                 .hivStatus,
                                             style: TextStyle().copyWith(
                                               fontSize: 12.0,
@@ -166,7 +166,7 @@ class OvcChildInfoTopHeader extends StatelessWidget {
                                         children: [
                                           TextSpan(
                                             text:
-                                                currentOvcHouseHold.toString(),
+                                                currentOvcHousehold.toString(),
                                             style: TextStyle().copyWith(
                                               fontSize: 12.0,
                                               fontWeight: FontWeight.w500,

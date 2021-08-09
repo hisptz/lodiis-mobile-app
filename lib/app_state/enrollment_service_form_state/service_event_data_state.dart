@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/events.dart';
 
-class ServiveEventDataState with ChangeNotifier {
+class ServiceEventDataState with ChangeNotifier {
   // initial state
   bool _isLoading = false;
   Map _eventListByProgramStage = Map<String, List<Events>>();

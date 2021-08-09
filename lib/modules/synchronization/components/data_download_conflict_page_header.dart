@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kb_mobile_app/core/components/line_seperator.dart';
+import 'package:kb_mobile_app/core/components/line_separator.dart';
 
 class DataDownloadConflictPageHeader extends StatelessWidget {
   const DataDownloadConflictPageHeader({Key key}) : super(key: key);
@@ -11,7 +11,7 @@ class DataDownloadConflictPageHeader extends StatelessWidget {
         padding: EdgeInsets.symmetric(vertical: 10),
         child: Column(
           children: [
-            LineSeperator(
+            LineSeparator(
               color: Colors.grey,
               height: 1,
             ),
@@ -30,7 +30,7 @@ class DataDownloadConflictPageHeader extends StatelessWidget {
             Padding(
               padding: EdgeInsets.symmetric(vertical: 10),
             ),
-            LineSeperator(
+            LineSeparator(
               color: Colors.grey,
               height: 1,
             )

@@ -1,6 +1,6 @@
 //  final String label = 'HIV Register';
 import 'package:flutter/material.dart';
-import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dream_current_selection_state.dart';
+import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
@@ -12,23 +12,24 @@ import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/components/dream_beneficiary_top_header.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_top_header.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/components/dreams_services_visit_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/msg_hiv/constants/msg_hiv_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/msg_hiv/pages/agyw_dreams_msg_hiv_form.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:provider/provider.dart';
 
-class AgywDreamMSGHIVRegiser extends StatefulWidget {
-  AgywDreamMSGHIVRegiser({Key key}) : super(key: key);
+class AgywDreamsMSGHIVRegister extends StatefulWidget {
+  AgywDreamsMSGHIVRegister({Key key}) : super(key: key);
 
   @override
-  _AgywDreamMSGHIVRegiserState createState() => _AgywDreamMSGHIVRegiserState();
+  _AgywDreamsMSGHIVRegisterState createState() =>
+      _AgywDreamsMSGHIVRegisterState();
 }
 
-class _AgywDreamMSGHIVRegiserState extends State<AgywDreamMSGHIVRegiser> {
+class _AgywDreamsMSGHIVRegisterState extends State<AgywDreamsMSGHIVRegister> {
   final String label = 'HIV Messaging';
-  List<String> programStageids = [MSGHIVConstant.programStage];
+  List<String> programStageIds = [MSGHIVConstant.programStage];
   @override
   void initState() {
     super.initState();
@@ -47,10 +48,10 @@ class _AgywDreamMSGHIVRegiserState extends State<AgywDreamMSGHIVRegiser> {
           .setFormFieldState('eventDate', eventData.eventDate);
       Provider.of<ServiceFormState>(context, listen: false)
           .setFormFieldState('eventId', eventData.event);
-      for (Map datavalue in eventData.dataValues) {
-        if (datavalue['value'] != '') {
+      for (Map dataValue in eventData.dataValues) {
+        if (dataValue['value'] != '') {
           Provider.of<ServiceFormState>(context, listen: false)
-              .setFormFieldState(datavalue['dataElement'], datavalue['value']);
+              .setFormFieldState(dataValue['dataElement'], dataValue['value']);
         }
       }
     }
@@ -58,20 +59,20 @@ class _AgywDreamMSGHIVRegiserState extends State<AgywDreamMSGHIVRegiser> {
 
   void onAddPrep(BuildContext context, AgywDream agywDream) {
     updateFormState(context, true, null);
-    Provider.of<DreamBenefeciarySelectionState>(context, listen: false)
+    Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
         .setCurrentAgywDream(agywDream);
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => AgywDreamsMSGHIVForm()));
   }
 
-  void onViewPrep(BuildContext context, Events eventdata) {
-    updateFormState(context, false, eventdata);
+  void onViewPrep(BuildContext context, Events eventData) {
+    updateFormState(context, false, eventData);
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => AgywDreamsMSGHIVForm()));
   }
 
-  void onEditPrep(BuildContext context, Events eventdata) {
-    updateFormState(context, true, eventdata);
+  void onEditPrep(BuildContext context, Events eventData) {
+    updateFormState(context, true, eventData);
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => AgywDreamsMSGHIVForm()));
   }
@@ -81,10 +82,10 @@ class _AgywDreamMSGHIVRegiserState extends State<AgywDreamMSGHIVRegiser> {
     return Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(65.0),
-          child: Consumer<IntervetionCardState>(
-            builder: (context, intervetionCardState, child) {
+          child: Consumer<InterventionCardState>(
+            builder: (context, interventionCardState, child) {
               InterventionCard activeInterventionProgram =
-                  intervetionCardState.currentIntervetionProgram;
+                  interventionCardState.currentInterventionProgram;
               return SubPageAppBar(
                 label: label,
                 activeInterventionProgram: activeInterventionProgram,
@@ -94,23 +95,23 @@ class _AgywDreamMSGHIVRegiserState extends State<AgywDreamMSGHIVRegiser> {
         ),
         body: SubPageBody(
           body: Container(
-            child: Consumer<DreamBenefeciarySelectionState>(
-              builder: (context, dreamBenefeciarySelectionState, child) {
-                return Consumer<ServiveEventDataState>(
+            child: Consumer<DreamsBeneficiarySelectionState>(
+              builder: (context, dreamBeneficiarySelectionState, child) {
+                return Consumer<ServiceEventDataState>(
                   builder: (context, serviceFormState, child) {
                     AgywDream agywDream =
-                        dreamBenefeciarySelectionState.currentAgywDream;
+                        dreamBeneficiarySelectionState.currentAgywDream;
                     bool isLoading = serviceFormState.isLoading;
                     Map<String, List<Events>> eventListByProgramStage =
                         serviceFormState.eventListByProgramStage;
                     List<Events> events = TrackedEntityInstanceUtil
                         .getAllEventListFromServiceDataStateByProgramStages(
-                            eventListByProgramStage, programStageids);
+                            eventListByProgramStage, programStageIds);
                     int referralIndex = events.length + 1;
                     return Container(
                       child: Column(
                         children: [
-                          DreamBenefeciaryTopHeader(
+                          DreamsBeneficiaryTopHeader(
                             agywDream: agywDream,
                           ),
                           Container(
@@ -141,7 +142,7 @@ class _AgywDreamMSGHIVRegiserState extends State<AgywDreamMSGHIVRegiser> {
                                                         bottom: 15.0,
                                                       ),
                                                       child:
-                                                          DreamsServiceVisitListCard(
+                                                          DreamsServiceVisitCard(
                                                         visitName: "Visit ",
                                                         onEdit: () =>
                                                             onEditPrep(context,

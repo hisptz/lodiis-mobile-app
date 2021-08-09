@@ -10,13 +10,13 @@ class OgacBeneficiary {
   String surname;
   String age;
   String sex;
-  String benefecaryId;
+  String beneficiaryId;
   String location;
   String orgUnit;
   String createdDate;
   String searchableValue;
   String enrollment;
-  TrackeEntityInstance trackeEntityInstanceData;
+  TrackedEntityInstance trackedEntityInstanceData;
   Events eventData;
 
   OgacBeneficiary({
@@ -25,18 +25,18 @@ class OgacBeneficiary {
     this.middlename,
     this.surname,
     this.age,
-    this.benefecaryId,
+    this.beneficiaryId,
     this.sex,
     this.location,
     this.orgUnit,
     this.createdDate,
     this.enrollment,
     this.searchableValue,
-    this.trackeEntityInstanceData,
+    this.trackedEntityInstanceData,
     this.eventData,
   });
   OgacBeneficiary fromTeiModel(
-    TrackeEntityInstance trackeEntityInstance,
+    TrackedEntityInstance trackedEntityInstance,
     String orgUnit,
     String location,
     String createdDate,
@@ -53,7 +53,7 @@ class OgacBeneficiary {
       BeneficiaryIdentification.beneficiaryId
     ];
     Map data = Map();
-    for (Map detailObj in trackeEntityInstance.attributes) {
+    for (Map detailObj in trackedEntityInstance.attributes) {
       String attribute = detailObj['attribute'];
       if (attribute != null && keys.indexOf(attribute) > -1) {
         data[attribute] = '${detailObj['value']}'.trim() ?? '';
@@ -61,12 +61,12 @@ class OgacBeneficiary {
     }
     int age = AppUtil.getAgeInYear(data['qZP982qpSPS']);
     return OgacBeneficiary(
-      id: trackeEntityInstance.trackedEntityInstance,
+      id: trackedEntityInstance.trackedEntityInstance,
       firstname: data['WTZ7GLTrE8Q'] ?? '',
       middlename: data['s1HaiT6OllL'] ?? '',
       surname: data['rSP9c21JsfC'] ?? '',
       age: age.toString(),
-      benefecaryId: data[BeneficiaryIdentification.beneficiaryId] ?? '',
+      beneficiaryId: data[BeneficiaryIdentification.beneficiaryId] ?? '',
       sex: data['vIX4GTSCX4P'] ?? '',
       searchableValue:
           "${data['WTZ7GLTrE8Q'] ?? ''} ${data['s1HaiT6OllL'] ?? ''} ${data['rSP9c21JsfC'] ?? ''} $age ${data[BeneficiaryIdentification.beneficiaryId] ?? ''} ${data['vIX4GTSCX4P'] ?? ''} $location $createdDate"
@@ -75,7 +75,7 @@ class OgacBeneficiary {
       location: location,
       createdDate: createdDate,
       enrollment: enrollment,
-      trackeEntityInstanceData: trackeEntityInstance,
+      trackedEntityInstanceData: trackedEntityInstance,
       eventData: eventData,
     );
   }

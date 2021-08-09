@@ -3,9 +3,9 @@ import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.d
 import 'package:kb_mobile_app/core/components/material_card.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
-import 'package:kb_mobile_app/models/ovc_house_hold_child.dart';
+import 'package:kb_mobile_app/models/ovc_household_child.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_child_caseplan_gaps.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_house_hold_case_plan_gaps.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_household_case_plan_gaps.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/components/case_plan_gap_form_container.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/components/case_plan_gap_view_container.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/constants/ovc_case_plan_constant.dart';
@@ -17,12 +17,12 @@ class CasePlanFormContainer extends StatelessWidget {
       @required this.formSection,
       @required this.isEditableMode,
       @required this.dataObject,
-      this.isCasePlanForHouseHold = false,
+      this.isCasePlanForHousehold = false,
       this.onInputValueChange,
       @required this.shouldEditCaseGapFollowUps,
       @required this.shouldViewCaseGapFollowUp,
       @required this.shouldAddCasePlanGap,
-      this.currentHouseHoldChild})
+      this.currentHouseholdChild})
       : super(key: key);
 
   final Color formSectionColor;
@@ -30,23 +30,23 @@ class CasePlanFormContainer extends StatelessWidget {
   final bool isEditableMode;
   final Map dataObject;
   final Function onInputValueChange;
-  final bool isCasePlanForHouseHold;
+  final bool isCasePlanForHousehold;
   final bool shouldEditCaseGapFollowUps;
   final bool shouldAddCasePlanGap;
   final bool shouldViewCaseGapFollowUp;
-  final OvcHouseHoldChild currentHouseHoldChild;
+  final OvcHouseholdChild currentHouseholdChild;
 
   final String caseToGapLinkage = OvcCasePlanConstant.casePlanToGapLinkage;
-  final String casePlanGapToFollowinUpLinkage =
-      OvcCasePlanConstant.casePlanGapToFollowinUpLinkage;
+  final String casePlanGapToFollowUpLinkage =
+      OvcCasePlanConstant.casePlanGapToFollowUpLinkage;
 
   void onAddNewGap(BuildContext context) async {
     Map gapDataObject = Map();
-    gapDataObject[casePlanGapToFollowinUpLinkage] =
-        gapDataObject[casePlanGapToFollowinUpLinkage] ?? AppUtil.getUid();
+    gapDataObject[casePlanGapToFollowUpLinkage] =
+        gapDataObject[casePlanGapToFollowUpLinkage] ?? AppUtil.getUid();
     gapDataObject[caseToGapLinkage] =
         dataObject[caseToGapLinkage] ?? AppUtil.getUid();
-    List<FormSection> formSections = isCasePlanForHouseHold
+    List<FormSection> formSections = isCasePlanForHousehold
         ? OvcHouseholdServicesCasePlanGaps.getFormSections()
             .where((FormSection form) => form.id == formSection.id)
             .toList()
@@ -58,9 +58,9 @@ class CasePlanFormContainer extends StatelessWidget {
       return form;
     }).toList();
     Widget modal = CasePlanGapFormContainer(
-      currentHouseHoldChild: currentHouseHoldChild,
+      currentHouseholdChild: currentHouseholdChild,
       formSections: formSections,
-      isCasePlanForHouseHold: isCasePlanForHouseHold,
+      isCasePlanForHousehold: isCasePlanForHousehold,
       isEditableMode: isEditableMode,
       formSectionColor: formSectionColor,
       dataObject: gapDataObject,
@@ -109,7 +109,7 @@ class CasePlanFormContainer extends StatelessWidget {
                 CasePlanGapViewContainer(
                   casePlanGaps: dataObject['gaps'] ?? [],
                   domainId: formSection.id,
-                  isCasePlanForHouseHold: isCasePlanForHouseHold,
+                  isCasePlanForHousehold: isCasePlanForHousehold,
                   formSectionColor: formSectionColor,
                   shouldEditCaseGapFollowUps: shouldEditCaseGapFollowUps,
                   shouldViewCaseGapFollowUp: shouldViewCaseGapFollowUp,

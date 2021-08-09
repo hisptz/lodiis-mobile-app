@@ -18,15 +18,15 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/pages/ovc_enrollement_none_participation_form.dart';
 import 'package:provider/provider.dart';
 
-class OvcEnrollmentConsetForm extends StatefulWidget {
-  const OvcEnrollmentConsetForm({Key key}) : super(key: key);
+class OvcEnrollmentConsentForm extends StatefulWidget {
+  const OvcEnrollmentConsentForm({Key key}) : super(key: key);
 
   @override
-  _OvcEnrollmentConsetFormState createState() =>
-      _OvcEnrollmentConsetFormState();
+  _OvcEnrollmentConsentFormState createState() =>
+      _OvcEnrollmentConsentFormState();
 }
 
-class _OvcEnrollmentConsetFormState extends State<OvcEnrollmentConsetForm> {
+class _OvcEnrollmentConsentFormState extends State<OvcEnrollmentConsentForm> {
   List<FormSection> formSections;
   final String label = 'Consent Form';
   final List<String> consentFields = OvcEnrollmentConstant.getConsentFields();
@@ -51,7 +51,7 @@ class _OvcEnrollmentConsetFormState extends State<OvcEnrollmentConsetForm> {
 
   void onSaveAndContinue(BuildContext context, Map dataObject) {
     bool hadAllMandatoryFilled =
-        AppUtil.hasAllMandarotyFieldsFilled(mandatoryFields, dataObject);
+        AppUtil.hasAllMandatoryFieldsFilled(mandatoryFields, dataObject);
     if (hadAllMandatoryFilled) {
       Navigator.push(
         context,
@@ -65,7 +65,8 @@ class _OvcEnrollmentConsetFormState extends State<OvcEnrollmentConsetForm> {
       );
     } else {
       setState(() {
-        unFilledMandatoryFields = AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+        unFilledMandatoryFields =
+            AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
       });
       AppUtil.showToastMessage(
         message: 'Please fill all mandatory field',
@@ -85,10 +86,10 @@ class _OvcEnrollmentConsetFormState extends State<OvcEnrollmentConsetForm> {
       child: Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(65.0),
-          child: Consumer<IntervetionCardState>(
-            builder: (context, intervetionCardState, child) {
+          child: Consumer<InterventionCardState>(
+            builder: (context, interventionCardState, child) {
               InterventionCard activeInterventionProgram =
-                  intervetionCardState.currentIntervetionProgram;
+                  interventionCardState.currentInterventionProgram;
               return SubPageAppBar(
                 label: label,
                 activeInterventionProgram: activeInterventionProgram,
@@ -128,7 +129,7 @@ class _OvcEnrollmentConsetFormState extends State<OvcEnrollmentConsetForm> {
                                   dataObject: enrollmentFormState.formState,
                                   onInputValueChange: onInputValueChange,
                                   unFilledMandatoryFields:
-                                  unFilledMandatoryFields,
+                                      unFilledMandatoryFields,
                                 ),
                               ),
                               EntryFormSaveButton(

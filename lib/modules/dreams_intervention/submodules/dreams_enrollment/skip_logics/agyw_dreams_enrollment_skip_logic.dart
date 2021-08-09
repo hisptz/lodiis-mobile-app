@@ -452,12 +452,12 @@ class AgywDreamsEnrollmentSkipLogic {
           .toList();
       List<String> filteredFormSectionsInputFieldIds =
           FormUtil.getFormFieldIds(filteredFormSections);
-      List<String> hidddenSectionInputFieldIds = FormUtil.getFormFieldIds(
+      List<String> hiddenSectionInputFieldIds = FormUtil.getFormFieldIds(
           allFormSections
               .where((formSection) => formSection.id == sectionId)
               .toList());
 
-      for (String inputFieldId in hidddenSectionInputFieldIds) {
+      for (String inputFieldId in hiddenSectionInputFieldIds) {
         if (filteredFormSectionsInputFieldIds.indexOf(inputFieldId) == -1) {
           hiddenFields[inputFieldId] = true;
         }

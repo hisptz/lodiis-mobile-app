@@ -5,28 +5,28 @@ import 'package:kb_mobile_app/app_state/language_translation_state/language_tran
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
-import 'package:kb_mobile_app/models/case_plan_gap_followup.dart';
+import 'package:kb_mobile_app/models/case_plan_gap_follow_up.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_case_plan/constants/ovc_child_case_plan_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/components/case_plan_follow_up_form_container.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/constants/ovc_case_plan_constant.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/house_hold_case_plan/constants/ovc_house_hold_case_plan_constant.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/household_case_plan/constants/ovc_household_case_plan_constant.dart';
 import 'package:provider/provider.dart';
 
 class CasePlanFollowUpViewContainer extends StatefulWidget {
   const CasePlanFollowUpViewContainer({
     Key key,
-    @required this.casePlanGapToFollowinUpLinkageValue,
+    @required this.casePlanGapToFollowUpLinkageValue,
     @required this.shouldEditCaseGapFollowUps,
-    @required this.isCasePlanForHouseHold,
+    @required this.isCasePlanForHousehold,
     @required this.themeColor,
     @required this.domainId,
     @required this.casePlanGap,
   }) : super(key: key);
 
-  final String casePlanGapToFollowinUpLinkageValue;
+  final String casePlanGapToFollowUpLinkageValue;
   final bool shouldEditCaseGapFollowUps;
-  final bool isCasePlanForHouseHold;
+  final bool isCasePlanForHousehold;
   final String domainId;
   final Color themeColor;
   final Map casePlanGap;
@@ -39,8 +39,8 @@ class CasePlanFollowUpViewContainer extends StatefulWidget {
 class _CasePlanFollowUpViewContainerState
     extends State<CasePlanFollowUpViewContainer> {
   String programStage;
-  String casePlanGapToFollowinUpLinkage =
-      OvcCasePlanConstant.casePlanGapToFollowinUpLinkage;
+  String casePlanGapToFollowUpLinkage =
+      OvcCasePlanConstant.casePlanGapToFollowUpLinkage;
   bool isViewReady = false;
   double iconHeight = 15.0;
 
@@ -62,7 +62,7 @@ class _CasePlanFollowUpViewContainerState
     Widget modal = CasePlanFollowUpFormContainer(
       dataObject: dataObject,
       domainId: widget.domainId,
-      isCasePlanForHouseHold: widget.isCasePlanForHouseHold,
+      isCasePlanForHousehold: widget.isCasePlanForHousehold,
       isEditableMode: true,
     );
     await AppUtil.showPopUpModal(context, modal, true);
@@ -72,11 +72,11 @@ class _CasePlanFollowUpViewContainerState
   void initState() {
     super.initState();
     setState(() {
-      programStage = widget.isCasePlanForHouseHold
-          ? OvcHouseHoldCasePlanConstant.casePlanGapFollowUpProgramStage
+      programStage = widget.isCasePlanForHousehold
+          ? OvcHouseholdCasePlanConstant.casePlanGapFollowUpProgramStage
           : OvcChildCasePlanConstant.casePlanGapFollowUpProgramStage;
-      casePlanGapToFollowinUpLinkage =
-          OvcCasePlanConstant.casePlanGapToFollowinUpLinkage;
+      casePlanGapToFollowUpLinkage =
+          OvcCasePlanConstant.casePlanGapToFollowUpLinkage;
       isViewReady = true;
     });
   }
@@ -87,21 +87,21 @@ class _CasePlanFollowUpViewContainerState
       child: Consumer<LanguageTranslationState>(
         builder: (context, languageTranslationState, child) {
           String currentLanguage = languageTranslationState.currentLanguage;
-          return Consumer<ServiveEventDataState>(
-            builder: (context, serviveEventDataState, child) {
-              bool isLoading = serviveEventDataState.isLoading;
+          return Consumer<ServiceEventDataState>(
+            builder: (context, serviceEventDataState, child) {
+              bool isLoading = serviceEventDataState.isLoading;
               Map<String, List<Events>> eventListByProgramStage =
-                  serviveEventDataState.eventListByProgramStage;
+                  serviceEventDataState.eventListByProgramStage;
               List<Events> events = TrackedEntityInstanceUtil
                   .getAllEventListFromServiceDataStateByProgramStages(
                       eventListByProgramStage, [programStage]);
               List<CasePlanGapFollowUp> casePlanFollowups = events
                   .map((Events eventData) => CasePlanGapFollowUp()
-                      .fromTeiModel(eventData, casePlanGapToFollowinUpLinkage))
+                      .fromTeiModel(eventData, casePlanGapToFollowUpLinkage))
                   .toList()
                   .where((CasePlanGapFollowUp casePlanFollowup) =>
-                      casePlanFollowup.casePlanGapToFollowinUpLinkage ==
-                      widget.casePlanGapToFollowinUpLinkageValue)
+                      casePlanFollowup.casePlanGapToFollowUpLinkage ==
+                      widget.casePlanGapToFollowUpLinkageValue)
                   .toList();
               return Container(
                 child: isLoading || !isViewReady
