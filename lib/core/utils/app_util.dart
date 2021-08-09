@@ -143,7 +143,6 @@ class AppUtil {
     return groupedItems;
   }
 
-//@TODO checking this function
   bool searchFromString({String searchableString, String searchedValue}) {
     List<String> searchedSubString = searchedValue.split(' ');
     for (String str in searchedSubString) {

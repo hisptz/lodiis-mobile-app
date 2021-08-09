@@ -80,7 +80,6 @@ class _InterventionAppBarState extends State<InterventionAppBar> {
     onSearchBeneficiary(context, value);
   }
 
-  // @TODO handling if searched vaulue is passed correctly
   void onSearchBeneficiary(BuildContext context, String value) {
     _searchedValued
         .debounce((_) => TimerStream(true, Duration(milliseconds: 500)))
