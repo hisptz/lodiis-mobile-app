@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/core/utils/app_resume_routes/utils/app_resume_route_util.dart';
+import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/models/form_auto_save.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_referral/pages/dream_agyw_referral_form.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/anc/pages/agyw_dreams_anc_form.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/art_refill/pages/agyw_dreams_art_refill_form.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/condoms/pages/agyw_dreams_condoms_form.dart';
@@ -131,6 +134,20 @@ class DreamsServicesRoute {
       context,
       MaterialPageRoute(
         builder: (context) => AgywDreamsPrepShortForm(),
+      ),
+    );
+  }
+
+  redirectToAgywDreamsReferralForm(
+      BuildContext context, FormAutoSave formAutoSave) async {
+    CurrentUser currentUser = await UserService().getCurrentUser();
+    AppResumeRouteUtil.setServiceFormState(context, formAutoSave);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => DreamsAgywAddReferralForm(
+          currentUser: currentUser,
+        ),
       ),
     );
   }

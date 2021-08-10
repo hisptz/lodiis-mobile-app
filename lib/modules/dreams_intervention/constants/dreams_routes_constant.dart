@@ -62,10 +62,6 @@ class DreamsRoutesConstant {
   static final String agywDreamsPostGBVFormNextPage = "POST GBV form";
 
   // routes for agyw referrals
-  static final String agywDreamsReferralPage = "";
-  static final String agywDreamsReferralNextPage = "";
-  static final String agywDreamsReferralOutcomePage = "";
-  static final String agywDreamsReferralOutcomeNextPage = "";
-  static final String agywDreamsReferralFollowUpPage = "";
-  static final String agywDreamsReferralOutFollowUpNextPage = "";
+  static final String agywDreamsReferralPage = "Dream Referral Form";
+  static final String agywDreamsReferralNextPage = "Dream Referral Form";
 }
