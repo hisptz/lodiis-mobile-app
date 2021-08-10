@@ -87,6 +87,7 @@ class _AgywEnrollmentNoneParticipationFormState
     Provider.of<EnrollmentFormState>(context, listen: false)
         .setFormFieldState(id, value);
     autoFillInputFields(id, value);
+    onUpdateFormAutoSaveState(context);
     //@TODO update unsaved data on offline state
   }
 
@@ -116,6 +117,7 @@ class _AgywEnrollmentNoneParticipationFormState
                 : 'Form has been saved successfully',
             position: ToastGravity.TOP,
           );
+          clearFormAutoSaveState(context);
           Navigator.popUntil(context, (route) => route.isFirst);
         }
       });

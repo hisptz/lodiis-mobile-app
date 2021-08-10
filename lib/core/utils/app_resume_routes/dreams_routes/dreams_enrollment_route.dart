@@ -5,6 +5,7 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enro
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/pages/agyw_dreams_consent.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/pages/agyw_dreams_enrollment_edit_form.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/pages/agyw_dreams_risk_assessment.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/pages/agyw_enrollment_none_participation_form.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/pages/non_agyw_dreams_hts_client_information.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/pages/non_agyw_dreams_hts_consent_form.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/pages/non_agyw_dreams_hts_register.dart';
@@ -138,7 +139,7 @@ class DreamsEnrollmentRoute {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => AgywDreamsEnrollmentEditForm(),
+        builder: (context) => AgywEnrollmentNoneParticipationForm(),
       ),
     );
   }
