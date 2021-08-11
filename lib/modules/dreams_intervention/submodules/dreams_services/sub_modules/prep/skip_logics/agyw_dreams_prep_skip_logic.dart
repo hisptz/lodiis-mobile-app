@@ -136,8 +136,8 @@ class AgywDreamsPrepSkipLogic {
       // if (inputFieldId == '') {}
       // Assign date tested
       if (inputFieldId == 'vMR9VtzuH3R') {
-        dataObject[inputFieldId] =
-            '${AppUtil.formattedDateTimeIntoString(DateTime.now())}';
+        String date = '${AppUtil.formattedDateTimeIntoString(DateTime.now())}';
+        dataObject[inputFieldId] = date;
       }
       if (inputFieldId == 'O8Fz5EWOOzU' && value != 'true') {
         hiddenFields['KLxWrSRAXfY'] = true;

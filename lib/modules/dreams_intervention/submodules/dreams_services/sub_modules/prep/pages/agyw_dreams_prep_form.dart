@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_current_selection_state.dart';
@@ -11,12 +12,15 @@ import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
+import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
+import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_top_header.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/constants/dreams_routes_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/dreams_service_prep_intake_form_info.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/prep/constants/prep_intake_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/prep/skip_logics/agyw_dreams_prep_skip_logic.dart';
@@ -70,10 +74,11 @@ class _AgywDreamsPrepFormPageState extends State<AgywDreamsPrepFormPage> {
     );
   }
 
-  void onInputValueChange(String id, dynamic value) {
+  void onInputValueChange(String id, dynamic value) async {
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState(id, value);
     evaluateSkipLogics();
+    await onUpdateFormAutoSaveState(context);
   }
 
   void onSaveForm(BuildContext context, Map dataObject, AgywDream agywDream,
@@ -102,7 +107,7 @@ class _AgywDreamsPrepFormPageState extends State<AgywDreamsPrepFormPage> {
             hiddenFields);
         Provider.of<ServiceEventDataState>(context, listen: false)
             .resetServiceEventDataState(agywDream.id);
-        Timer(Duration(seconds: 1), () {
+        Timer(Duration(seconds: 1), () async {
           setState(() {
             isSaving = false;
           });
@@ -115,6 +120,9 @@ class _AgywDreamsPrepFormPageState extends State<AgywDreamsPrepFormPage> {
                 : 'Form has been saved successfully',
             position: ToastGravity.TOP,
           );
+          // TODO uncomment this
+          await onUpdateFormAutoSaveState(context, isSaveForm: true);
+          // clearFormAutoSaveState(context);
           Navigator.popUntil(context, (route) => route.isFirst);
         });
       } catch (e) {
@@ -134,6 +142,40 @@ class _AgywDreamsPrepFormPageState extends State<AgywDreamsPrepFormPage> {
           message: 'Please fill all mandatory field',
           position: ToastGravity.TOP);
     }
+  }
+
+  Future<void> onUpdateFormAutoSaveState(
+    BuildContext context, {
+    bool isSaveForm = false,
+  }) async {
+    AgywDream agywDream =
+        Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
+            .currentAgywDream;
+    String beneficiaryId = agywDream.id;
+    Map dataObject =
+        Provider.of<ServiceFormState>(context, listen: false).formState;
+    String id =
+        "${DreamsRoutesConstant.agywDreamsPrEPHTSConsentPage}_$beneficiaryId";
+    FormAutoSave formAutoSave = FormAutoSave(
+      id: id,
+      beneficiaryId: beneficiaryId,
+      pageModule: DreamsRoutesConstant.agywDreamsPrEPLongFormPage,
+      nextPageModule: isSaveForm
+          ? DreamsRoutesConstant.agywDreamsPrEPFormNextPage
+          : DreamsRoutesConstant.agywDreamsPrEPLongFormPage,
+      data: jsonEncode(dataObject),
+    );
+    await FormAutoSaveOfflineService().saveFormAutoSaveData(formAutoSave);
+  }
+
+  void clearFormAutoSaveState(BuildContext context) async {
+    AgywDream agywDream =
+        Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
+            .currentAgywDream;
+    String beneficiaryId = agywDream.id;
+    String formAutoSaveId =
+        "${DreamsRoutesConstant.agywDreamsPrEPHTSConsentPage}_$beneficiaryId";
+    await FormAutoSaveOfflineService().deleteSavedFormAutoData(formAutoSaveId);
   }
 
   @override
