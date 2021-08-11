@@ -91,6 +91,19 @@ class AppResumeRoute
     } else if (formAutoSave.nextPageModule ==
         DreamsRoutesConstant.agywDreamsReferralNextPage) {
       redirectToAgywDreamsReferralForm(context, formAutoSave);
+    } else if (formAutoSave.nextPageModule ==
+        DreamsRoutesConstant.agywDreamsPrEPHTSConsentPage) {
+      redirectToAgywDreamsPrEPHTSConcentForm(context, formAutoSave);
+    } else if (formAutoSave.nextPageModule ==
+        DreamsRoutesConstant.agywDreamsPrEPHTSConsentNextPage) {
+      redirectToAgywDreamsPrEPHTSClientInformationForm(context, formAutoSave);
+    } else if (formAutoSave.nextPageModule ==
+        DreamsRoutesConstant.agywDreamsPrEPHTSClientInformationNextPage) {
+      redirectToAgywDreamsPrEPHTSRegisterForm(context, formAutoSave);
+    } else if (formAutoSave.nextPageModule ==
+        DreamsRoutesConstant.agywDreamsPrEPHTSRegisterNextPage) {
+      print('Hello');
+      redirectToAgywDreamsPrEPLongForm(context, formAutoSave);
     } else {
       print("$formAutoSave \n");
       print("Not page to redirect ${formAutoSave.nextPageModule}\n\n");

@@ -49,9 +49,20 @@ class DreamsRoutesConstant {
   static final String agywDreamsMSGHIVFormNextPage = "MSG HIV form";
   static final String agywDreamsPEPFormPage = "PEP form";
   static final String agywDreamsPEPFormNextPage = "PEP form";
-  // TODO add for staged forms
-  static final String agywDreamsPrEPLongFormPage = "";
-  static final String agywDreamsPrEPFormNextPage = "";
+  static final String agywDreamsPrEPHTSConsentPage = "HTS Consent (PrEP)";
+  static final String agywDreamsPrEPHTSConsentNextPage = "Client Bio (PrEP)";
+  static final String agywDreamsPrEPHTSClientInformationPage =
+      "Client Bio (PrEP)";
+  static final String agywDreamsPrEPHTSClientInformationNextPage =
+      "HTS Register (PrEP)";
+  static final String agywDreamsPrEPHTSRegisterPage = "HTS Register (PrEP)";
+  static final String agywDreamsPrEPHTSRegisterNextPage =
+      "DREAMS PrEP Screening for Substantial Risk and Eligibility";
+  static final String agywDreamsPrEPLongFormPage =
+      "DREAMS PrEP Screening for Substantial Risk and Eligibility";
+  static final String agywDreamsPrEPFormNextPage =
+      "DREAMS PrEP Screening for Substantial Risk and Eligibility";
+  // TODO add for HTS Long form
   static final String agywDreamsHTSLongFormPage = "";
   static final String agywDreamsHTSLongFormNextPage = "";
   static final String agywDreamsPrEPShortFormPage = "AGYW PrEP Form";
