@@ -102,8 +102,10 @@ class AppResumeRoute
       redirectToAgywDreamsPrEPHTSRegisterForm(context, formAutoSave);
     } else if (formAutoSave.nextPageModule ==
         DreamsRoutesConstant.agywDreamsPrEPHTSRegisterNextPage) {
-      print('Hello');
       redirectToAgywDreamsPrEPLongForm(context, formAutoSave);
+    } else if (formAutoSave.nextPageModule ==
+        DreamsRoutesConstant.agywDreamsPrepVisitFormNextPage) {
+      redirectToAgywDreamsPrEPVisitForm(context, formAutoSave);
     } else {
       print("$formAutoSave \n");
       print("Not page to redirect ${formAutoSave.nextPageModule}\n\n");

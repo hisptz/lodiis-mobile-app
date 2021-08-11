@@ -17,6 +17,7 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_serv
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/post_gbv/pages/agyw_dreams_post_gbv_form.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/prep/agyw_dreams_prep.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/prep/pages/agyw_dreams_prep_form.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/prep/pages/agyw_prep_visit_form.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/prep_short_form/pages/agyw_dreams_prep_short_form.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/service_form/pages/agyw_dreams_service_form.dart';
 
@@ -201,6 +202,17 @@ class DreamsServicesRoute {
       context,
       MaterialPageRoute(
         builder: (context) => AgywDreamsPrepFormPage(),
+      ),
+    );
+  }
+
+  redirectToAgywDreamsPrEPVisitForm(
+      BuildContext context, FormAutoSave formAutoSave) {
+    AppResumeRouteUtil.setServiceFormState(context, formAutoSave);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => AgywPrepVisitForm(),
       ),
     );
   }

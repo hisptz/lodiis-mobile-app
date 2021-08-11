@@ -62,6 +62,8 @@ class DreamsRoutesConstant {
       "DREAMS PrEP Screening for Substantial Risk and Eligibility";
   static final String agywDreamsPrEPFormNextPage =
       "DREAMS PrEP Screening for Substantial Risk and Eligibility";
+  static final String agywDreamsPrepVisitFormPage = "DREAMS PREP VISIT";
+  static final String agywDreamsPrepVisitFormNextPage = "DREAMS PREP VISIT";
   // TODO add for HTS Long form
   static final String agywDreamsHTSLongFormPage = "";
   static final String agywDreamsHTSLongFormNextPage = "";
