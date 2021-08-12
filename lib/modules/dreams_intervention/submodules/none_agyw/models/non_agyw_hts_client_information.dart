@@ -763,6 +763,8 @@ class NonAgywHTSClientInformation {
             id: 'ZZBWYb9jzHE',
             name: 'Name of referral DNA PCR or ART facility',
             valueType: 'ORGANISATION_UNIT',
+            allowedSelectedLevels: [3,4],
+            showCountryLevelTree: true,
             inputColor: Color(0xFF258DCC),
             labelColor: Color(0xFF737373)),
         InputField(

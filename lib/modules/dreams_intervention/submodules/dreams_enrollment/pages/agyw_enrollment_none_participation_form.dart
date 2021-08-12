@@ -88,7 +88,6 @@ class _AgywEnrollmentNoneParticipationFormState
         .setFormFieldState(id, value);
     autoFillInputFields(id, value);
     onUpdateFormAutoSaveState(context);
-    //@TODO update unsaved data on offline state
   }
 
   void onSaveAndContinue(BuildContext context, Map dataObject) async {
