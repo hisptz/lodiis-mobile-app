@@ -8,6 +8,7 @@ import 'package:kb_mobile_app/modules/ogac_intervention/models/ogac_enrollment_f
 
 class DataQualityService {
   static String getSanitizedNumericalValue(String value) {
+    value = value.trim() == '' ? '0' : value;
     return !value.contains('.')
         ? '${int.parse(value)}'
         : '${double.parse(value)}';

@@ -116,6 +116,7 @@ class _AgywEnrollmentNoneParticipationFormState
                 : 'Form has been saved successfully',
             position: ToastGravity.TOP,
           );
+          clearFormAutoSaveState(context);
           Navigator.popUntil(context, (route) => route.isFirst);
         }
       });

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class FormAutoSave {
   String id;
   String beneficiaryId;
@@ -25,8 +27,15 @@ class FormAutoSave {
     mapData['beneficiaryId'] = formAutoSave.beneficiaryId;
     mapData['pageModule'] = formAutoSave.pageModule;
     mapData['nextPageModule'] = formAutoSave.nextPageModule;
-    mapData['data'] = formAutoSave.data;
+    mapData['data'] = sanitizeJsonData(jsonObject: formAutoSave.data);
     return mapData;
+  }
+
+// remove all the fields that are not in the form
+  String sanitizeJsonData({String jsonObject = ''}) {
+    Map<String, dynamic> jsonMap = json.decode(jsonObject);
+    jsonMap.removeWhere((key, value) => value == null || value == '');
+    return json.encode(jsonMap);
   }
 
   FormAutoSave.fromOffline(Map<String, dynamic> mapData) {
