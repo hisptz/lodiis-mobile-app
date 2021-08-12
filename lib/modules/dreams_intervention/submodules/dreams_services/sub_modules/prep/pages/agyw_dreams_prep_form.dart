@@ -74,7 +74,7 @@ class _AgywDreamsPrepFormPageState extends State<AgywDreamsPrepFormPage> {
     );
   }
 
-  void onInputValueChange(String id, dynamic value) {
+  void onInputValueChange(String id, dynamic value) async {
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState(id, value);
     evaluateSkipLogics();
