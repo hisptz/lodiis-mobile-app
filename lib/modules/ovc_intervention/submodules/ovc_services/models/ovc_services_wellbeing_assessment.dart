@@ -238,7 +238,7 @@ class OvcServicesWellbeingAssessment {
             InputField(
                 id: 'pczeYqyA3Bj',
                 name: '48. What form?',
-                translatedName: 'Ka foromo sefe?',
+                translatedName: 'Ka foromo efe?',
                 valueType: 'NUMBER',
                 inputColor: Color(0xFF9B2BAE),
                 labelColor: Color(0xFF284227)),
@@ -267,7 +267,7 @@ class OvcServicesWellbeingAssessment {
             InputField(
                 id: 'KlbW2l1L1NC',
                 name: '5. What level of education where you last year?',
-                translatedName: '5. Ke seemo sefe sa thuto moo o fetileng?',
+                translatedName: '5. Ke boemo bofe ba thuto boo u bo fetileng?',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF9B2BAE),
                 labelColor: Color(0xFF284227),
