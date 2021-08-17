@@ -90,6 +90,8 @@ class OvcChildWellBeingAssessmentSkipLogic {
       hiddenFields['OBugEkynJG0'] = true;
       hiddenFields['OBugEkynJG0_checkbox'] = true;
       hiddenFields['xQjn7WKtJvm'] = true;
+      hiddenFields['dTiDozleQuO'] = true;
+      hiddenFields['dTiDozleQuO_checkbox'] = true;
     }
 
     void hideForCaregiver() {
@@ -146,7 +148,7 @@ class OvcChildWellBeingAssessmentSkipLogic {
     if (age >= 14) {
       hideForChild();
     } else {
-      if (age >= 5) {
+      if (age > 5) {
         hideMalnutritionQuestions();
       }
       hideForCaregiver();
