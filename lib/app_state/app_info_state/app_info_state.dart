@@ -1,5 +1,4 @@
 import 'package:flutter/foundation.dart';
-import 'package:get_version/get_version.dart';
 
 class AppInfoState with ChangeNotifier {
   String _currentAppName;
@@ -14,10 +13,11 @@ class AppInfoState with ChangeNotifier {
 
   void setCurrentAppInfo() async {
     try {
-      _currentAppId = await GetVersion.appID;
-      _currentAppVersion = await GetVersion.projectVersion;
-      _currentAppName = await GetVersion.appName;
-      _currentPlatformVersion = await GetVersion.platformVersion;
+      // TODO add a way to get the app info from the platform
+      _currentAppId = '';
+      _currentAppVersion = '';
+      _currentAppName = '';
+      _currentPlatformVersion = '';
     } catch (error) {}
     notifyListeners();
   }

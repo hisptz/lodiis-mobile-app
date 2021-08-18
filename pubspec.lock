@@ -155,7 +155,7 @@ packages:
       name: fluttertoast
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "7.1.8"
+    version: "8.0.8"
   geolocator:
     dependency: "direct main"
     description:
@@ -177,13 +177,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.4"
-  get_version:
-    dependency: "direct main"
-    description:
-      name: get_version
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.2.2"
   google_fonts:
     dependency: "direct main"
     description:
@@ -240,13 +233,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.0"
-  package_info:
-    dependency: transitive
-    description:
-      name: package_info
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.4.3+4"
   path:
     dependency: "direct main"
     description:
