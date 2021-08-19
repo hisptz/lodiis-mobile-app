@@ -1,10 +1,10 @@
 import 'package:flutter/foundation.dart';
 
 class AppInfoState with ChangeNotifier {
-  String _currentAppName;
-  String _currentAppVersion;
-  String _currentAppId;
-  String _currentPlatformVersion;
+  String? _currentAppName;
+  String? _currentAppVersion;
+  String? _currentAppId;
+  String? _currentPlatformVersion;
 
   String get currentAppName => _currentAppName ?? '';
   String get currentAppVersion => _currentAppVersion ?? '';
