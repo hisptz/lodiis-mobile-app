@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'dart:convert';
 import 'package:kb_mobile_app/core/constants/default_implementing_partner_referral_service.dart';
@@ -11,9 +13,10 @@ class ImplementingPartnerReferralServiceState with ChangeNotifier {
 
   Future<void> setImplementingPartnerServices() async {
     String referralJsonData =
-        await ImplementingPartnerReferralServicesOfflineProvider()
+        await (ImplementingPartnerReferralServicesOfflineProvider()
             .getImplementingPartnerReferralServices(
-                DefaultImplementingPartnerReferralServices.referralServicesId);
+                DefaultImplementingPartnerReferralServices
+                    .referralServicesId) as FutureOr<String>);
     Map<String, dynamic> referralServices = jsonDecode(referralJsonData);
     _implementingPartnerReferralServices.addAll(referralServices);
   }

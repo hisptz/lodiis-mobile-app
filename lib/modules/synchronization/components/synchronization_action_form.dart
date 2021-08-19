@@ -14,11 +14,11 @@ import 'package:provider/provider.dart';
 
 class SynchronizationActionForm extends StatefulWidget {
   const SynchronizationActionForm(
-      {Key key, this.selectedSyncAction, this.onInitializeSyncAction})
+      {Key? key, this.selectedSyncAction, this.onInitializeSyncAction})
       : super(key: key);
 
-  final String selectedSyncAction;
-  final Function(String) onInitializeSyncAction;
+  final String? selectedSyncAction;
+  final Function(String?)? onInitializeSyncAction;
 
   @override
   _SynchronizationActionFormState createState() =>
@@ -43,7 +43,7 @@ class _SynchronizationActionFormState extends State<SynchronizationActionForm> {
       ),
     ],
   );
-  String selectedSyncAction;
+  String? selectedSyncAction;
 
   void onSyncActionSelection(BuildContext context, String value) {
     setState(() {
@@ -53,9 +53,9 @@ class _SynchronizationActionFormState extends State<SynchronizationActionForm> {
 
   onSyncButtonPress() {
     if (selectedSyncAction != null) {
-      widget.onInitializeSyncAction(selectedSyncAction);
+      widget.onInitializeSyncAction!(selectedSyncAction);
     } else if (widget.selectedSyncAction != null) {
-      widget.onInitializeSyncAction(widget.selectedSyncAction);
+      widget.onInitializeSyncAction!(widget.selectedSyncAction);
     } else {
       AppUtil.showToastMessage(
           message: 'Please Select Sync Action', position: ToastGravity.BOTTOM);
@@ -98,7 +98,7 @@ class _SynchronizationActionFormState extends State<SynchronizationActionForm> {
                 color:
                     Provider.of<InterventionCardState>(context, listen: false)
                         .currentInterventionProgram
-                        .primaryColor
+                        .primaryColor!
                         .withOpacity(0.3)),
             Center(
               child: Container(

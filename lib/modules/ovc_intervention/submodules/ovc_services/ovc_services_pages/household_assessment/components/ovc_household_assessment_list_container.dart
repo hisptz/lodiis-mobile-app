@@ -8,15 +8,15 @@ import 'package:provider/provider.dart';
 
 class OvcHouseholdAssessmentListContainer extends StatelessWidget {
   OvcHouseholdAssessmentListContainer({
-    Key key,
-    @required this.programStageIds,
+    Key? key,
+    required this.programStageIds,
     this.onViewHouseholdAssessment,
     this.onEditHouseholdAssessment,
   }) : super(key: key);
 
   final List<String> programStageIds;
-  final Function onViewHouseholdAssessment;
-  final Function onEditHouseholdAssessment;
+  final Function? onViewHouseholdAssessment;
+  final Function? onEditHouseholdAssessment;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ class OvcHouseholdAssessmentListContainer extends StatelessWidget {
       ),
       child: Consumer<ServiceEventDataState>(
         builder: (context, serviceEventDataState, child) {
-          Map<String, List<Events>> eventListByProgramStage =
+          Map<String?, List<Events>> eventListByProgramStage =
               serviceEventDataState.eventListByProgramStage;
           List<Events> eventList = TrackedEntityInstanceUtil
               .getAllEventListFromServiceDataStateByProgramStages(
@@ -92,7 +92,7 @@ class OvcHouseholdAssessmentListContainer extends StatelessWidget {
                                         ),
                                         child: InkWell(
                                             onTap: () =>
-                                                onViewHouseholdAssessment(
+                                                onViewHouseholdAssessment!(
                                                     assessment),
                                             child: Container(
                                               height: iconHeight,
@@ -111,7 +111,7 @@ class OvcHouseholdAssessmentListContainer extends StatelessWidget {
                                         ),
                                         child: InkWell(
                                             onTap: () =>
-                                                onEditHouseholdAssessment(
+                                                onEditHouseholdAssessment!(
                                                     assessment),
                                             child: Container(
                                               height: iconHeight,

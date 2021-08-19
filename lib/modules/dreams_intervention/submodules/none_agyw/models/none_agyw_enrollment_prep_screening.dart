@@ -9,9 +9,9 @@ class NoneAgywEnrollmentPrepScreening {
       List<FormSection> formSections) {
     List<String> inputFieldOptions = [];
     for (FormSection section in formSections) {
-      for (InputField field in section.inputFields) {
+      for (InputField field in section.inputFields!) {
         if (field.valueType == 'CHECK_BOX') {
-          for (InputFieldOption option in field.options) {
+          for (InputFieldOption option in field.options!) {
             inputFieldOptions.add(option.code);
           }
         }

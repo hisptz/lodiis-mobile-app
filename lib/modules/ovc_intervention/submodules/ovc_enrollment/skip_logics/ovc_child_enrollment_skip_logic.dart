@@ -134,7 +134,7 @@ class OvcChildEnrollmentSkipLogic {
   static assignInputFieldValue(
     BuildContext context,
     String inputFieldId,
-    String value,
+    String? value,
   ) {
     Provider.of<EnrollmentFormState>(context, listen: false)
         .setFormFieldState(inputFieldId, value);

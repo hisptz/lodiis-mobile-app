@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 
 class ServiceCardButtonAction extends StatelessWidget {
   const ServiceCardButtonAction({
-    Key key,
+    Key? key,
     this.agywBeneficiary,
     this.onOpenPrepLongForm,
     this.onOpenPrepShortForm,
@@ -24,19 +24,19 @@ class ServiceCardButtonAction extends StatelessWidget {
     this.onOpenServiceForm,
   }) : super(key: key);
 
-  final AgywDream agywBeneficiary;
-  final VoidCallback onOpenPrepLongForm;
-  final VoidCallback onOpenPrepShortForm;
-  final VoidCallback onOpenHTSShortForm;
-  final VoidCallback onOpenHTSLongForm;
-  final VoidCallback onOpenMSGHIVForm;
-  final VoidCallback onOpenCondomForm;
-  final VoidCallback onOpenContraceptivesForm;
-  final VoidCallback onOpenPostGBVForm;
-  final VoidCallback onOpenPEPForm;
-  final VoidCallback onOpenANCForm;
-  final VoidCallback onOpenArtRefillForm;
-  final VoidCallback onOpenServiceForm;
+  final AgywDream? agywBeneficiary;
+  final VoidCallback? onOpenPrepLongForm;
+  final VoidCallback? onOpenPrepShortForm;
+  final VoidCallback? onOpenHTSShortForm;
+  final VoidCallback? onOpenHTSLongForm;
+  final VoidCallback? onOpenMSGHIVForm;
+  final VoidCallback? onOpenCondomForm;
+  final VoidCallback? onOpenContraceptivesForm;
+  final VoidCallback? onOpenPostGBVForm;
+  final VoidCallback? onOpenPEPForm;
+  final VoidCallback? onOpenANCForm;
+  final VoidCallback? onOpenArtRefillForm;
+  final VoidCallback? onOpenServiceForm;
 
   @override
   Widget build(BuildContext context) {
@@ -95,7 +95,7 @@ class ServiceCardButtonAction extends StatelessWidget {
                         Visibility(
                           visible: (currentUserState.canManagePrepLongForm ||
                                   currentUserState.canManagePrepShortForm) &&
-                              int.parse(agywBeneficiary.age ?? '0') >= 15,
+                              int.parse(agywBeneficiary!.age ?? '0') >= 15,
                           child: Container(
                             child: InkWell(
                               onTap: currentUserState.canManagePrepShortForm

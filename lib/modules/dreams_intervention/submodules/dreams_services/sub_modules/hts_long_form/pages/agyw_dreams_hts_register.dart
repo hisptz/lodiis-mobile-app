@@ -27,8 +27,8 @@ import 'package:provider/provider.dart';
 import 'agyw_dreams_hts_consent_for_release_status.dart';
 
 class AgywDreamsHTSRegisterForm extends StatefulWidget {
-  AgywDreamsHTSRegisterForm({Key key, this.isComingFromPrep}) : super(key: key);
-  final bool isComingFromPrep;
+  AgywDreamsHTSRegisterForm({Key? key, this.isComingFromPrep}) : super(key: key);
+  final bool? isComingFromPrep;
 
   @override
   _AgywDreamsHTSRegisterFormState createState() =>
@@ -37,12 +37,12 @@ class AgywDreamsHTSRegisterForm extends StatefulWidget {
 
 class _AgywDreamsHTSRegisterFormState extends State<AgywDreamsHTSRegisterForm> {
   final String label = 'HTS Register';
-  List<FormSection> formSections;
+  List<FormSection>? formSections;
   final List<String> mandatoryFields = HTSRegister.getMandatoryFields();
   final Map mandatoryFieldObject = Map();
   bool isFormReady = false;
   bool isSaving = false;
-  bool isComingFromPrep;
+  bool? isComingFromPrep;
   List unFilledMandatoryFields = [];
 
   @override
@@ -69,7 +69,7 @@ class _AgywDreamsHTSRegisterFormState extends State<AgywDreamsHTSRegisterForm> {
             Provider.of<ServiceFormState>(context, listen: false).formState;
         await AgywDreamsHTSRegisterSkipLogic.evaluateSkipLogics(
           context,
-          formSections,
+          formSections!,
           dataObject,
         );
       },
@@ -83,7 +83,7 @@ class _AgywDreamsHTSRegisterFormState extends State<AgywDreamsHTSRegisterForm> {
     onUpdateFormAutoSaveState(context);
   }
 
-  void onSaveForm(BuildContext context, Map dataObject, AgywDream agywDream) {
+  void onSaveForm(BuildContext context, Map dataObject, AgywDream? agywDream) {
     bool hadAllMandatoryFilled =
         AppUtil.hasAllMandatoryFieldsFilled(mandatoryFields, dataObject);
     if (hadAllMandatoryFilled) {
@@ -131,12 +131,12 @@ class _AgywDreamsHTSRegisterFormState extends State<AgywDreamsHTSRegisterForm> {
   }) async {
     AgywDream agywDream =
         Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
-            .currentAgywDream;
-    String beneficiaryId = agywDream.id;
+            .currentAgywDream!;
+    String? beneficiaryId = agywDream.id;
     Map dataObject =
         Provider.of<ServiceFormState>(context, listen: false).formState;
     String id =
-        "${isComingFromPrep ? DreamsRoutesConstant.agywDreamsPrEPHTSConsentPage : ''}_$beneficiaryId";
+        "${isComingFromPrep! ? DreamsRoutesConstant.agywDreamsPrEPHTSConsentPage : ''}_$beneficiaryId";
     FormAutoSave formAutoSave = FormAutoSave(
       id: id,
       beneficiaryId: beneficiaryId,
@@ -154,8 +154,8 @@ class _AgywDreamsHTSRegisterFormState extends State<AgywDreamsHTSRegisterForm> {
   void clearFormAutoSaveState(BuildContext context) async {
     AgywDream agywDream =
         Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
-            .currentAgywDream;
-    String beneficiaryId = agywDream.id;
+            .currentAgywDream!;
+    String? beneficiaryId = agywDream.id;
     String formAutoSaveId =
         "${DreamsRoutesConstant.agywDreamsPrEPHTSConsentPage}_$beneficiaryId";
     await FormAutoSaveOfflineService().deleteSavedFormAutoData(formAutoSaveId);
@@ -180,7 +180,7 @@ class _AgywDreamsHTSRegisterFormState extends State<AgywDreamsHTSRegisterForm> {
         body: SubPageBody(
           body: Container(child: Consumer<DreamsBeneficiarySelectionState>(
             builder: (context, nonAgywState, child) {
-              AgywDream agywDream = nonAgywState.currentAgywDream;
+              AgywDream? agywDream = nonAgywState.currentAgywDream;
               return Consumer<ServiceFormState>(
                 builder: (context, serviceFormState, child) {
                   return Container(

@@ -40,7 +40,7 @@ class OvcChildMonitor extends StatelessWidget {
   }
 
   void onRedirectToMonitorForm(
-      BuildContext context, String monitorResponse, bool isEditableMode) {
+      BuildContext context, String? monitorResponse, bool isEditableMode) {
     Provider.of<ServiceFormState>(context, listen: false)
         .updateFormEditabilityState(isEditableMode: isEditableMode);
     if (monitorResponse != null) {
@@ -73,7 +73,7 @@ class OvcChildMonitor extends StatelessWidget {
 
   void onEditMonitor(
     BuildContext context,
-    String monitorResponse,
+    String? monitorResponse,
     Events eventData,
   ) {
     bool isEditableMode = true;
@@ -83,7 +83,7 @@ class OvcChildMonitor extends StatelessWidget {
 
   void onViewMonitor(
     BuildContext context,
-    String monitorResponse,
+    String? monitorResponse,
     Events eventData,
   ) {
     bool isEditableMode = false;
@@ -115,7 +115,7 @@ class OvcChildMonitor extends StatelessWidget {
                 child: Consumer<ServiceEventDataState>(
                   builder: (context, serviceEventDataState, child) {
                     bool isLoading = serviceEventDataState.isLoading;
-                    Map<String, List<Events>> eventListByProgramStage =
+                    Map<String?, List<Events>> eventListByProgramStage =
                         serviceEventDataState.eventListByProgramStage;
                     Map programStageMap =
                         OvcMonitorConstant.getOvcMonitorProgramStageMap();
@@ -145,14 +145,14 @@ class OvcChildMonitor extends StatelessWidget {
                                               eventData: eventData,
                                               programStageMap: programStageMap,
                                               onEditMonitor: () {
-                                                String monitorResponse =
+                                                String? monitorResponse =
                                                     programStageMap[
                                                         eventData.programStage];
                                                 onEditMonitor(context,
                                                     monitorResponse, eventData);
                                               },
                                               onViewMonitor: () {
-                                                String monitorResponse =
+                                                String? monitorResponse =
                                                     programStageMap[
                                                         eventData.programStage];
                                                 onViewMonitor(context,

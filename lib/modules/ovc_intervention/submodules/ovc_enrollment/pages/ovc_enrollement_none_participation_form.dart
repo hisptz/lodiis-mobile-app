@@ -20,7 +20,7 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment
 import 'package:provider/provider.dart';
 
 class OvcEnrollmentNoneParticipationForm extends StatefulWidget {
-  OvcEnrollmentNoneParticipationForm({Key key}) : super(key: key);
+  OvcEnrollmentNoneParticipationForm({Key? key}) : super(key: key);
 
   @override
   _OvcEnrollmentNoneParticipationFormState createState() =>
@@ -29,7 +29,7 @@ class OvcEnrollmentNoneParticipationForm extends StatefulWidget {
 
 class _OvcEnrollmentNoneParticipationFormState
     extends State<OvcEnrollmentNoneParticipationForm> {
-  List<FormSection> formSections;
+  List<FormSection>? formSections;
   final String label = 'None Participation Form';
   final List<String> mandatoryFields =
       OvcEnrollmentNoneParticipation.getMandatoryField();
@@ -61,7 +61,7 @@ class _OvcEnrollmentNoneParticipationFormState
         isSaving = true;
       });
       await OvcEnrollmentNoneParticipationService()
-          .saveNoneParticipationForm(formSections, dataObject, eventId);
+          .saveNoneParticipationForm(formSections!, dataObject, eventId);
       Provider.of<OvcInterventionListState>(context, listen: false)
           .refreshOvcList();
       Timer(Duration(seconds: 1), () {
@@ -69,7 +69,7 @@ class _OvcEnrollmentNoneParticipationFormState
           setState(() {
             isSaving = false;
           });
-          String currentLanguage =
+          String? currentLanguage =
               Provider.of<LanguageTranslationState>(context, listen: false)
                   .currentLanguage;
           AppUtil.showToastMessage(
@@ -139,7 +139,7 @@ class _OvcEnrollmentNoneParticipationFormState
                 : Container(
                     child: Consumer<LanguageTranslationState>(
                       builder: (context, languageTranslationState, child) {
-                        String currentLanguage =
+                        String? currentLanguage =
                             languageTranslationState.currentLanguage;
                         return Consumer<EnrollmentFormState>(
                           builder: (context, enrollmentFormState, child) =>

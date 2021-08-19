@@ -4,12 +4,12 @@ import 'package:kb_mobile_app/core/components/material_card.dart';
 
 class ReferralCardSummary extends StatelessWidget {
   ReferralCardSummary({
-    Key key,
-    @required this.count,
-    @required this.cardBody,
-    @required this.borderColor,
-    @required this.buttonLabelColor,
-    @required this.titleColor,
+    Key? key,
+    required this.count,
+    required this.cardBody,
+    required this.borderColor,
+    required this.buttonLabelColor,
+    required this.titleColor,
     this.isOutgoingCLOReferral = false,
     this.isCLOReferral = false,
     this.onView,
@@ -20,8 +20,8 @@ class ReferralCardSummary extends StatelessWidget {
   final Color buttonLabelColor;
   final Color titleColor;
   final Widget cardBody;
-  final Function onView;
-  final Function onManage;
+  final Function? onView;
+  final Function? onManage;
   final bool isCLOReferral;
   final bool isOutgoingCLOReferral;
 
@@ -106,7 +106,7 @@ class ReferralCardSummary extends StatelessWidget {
                       children: [
                         Expanded(
                           child: TextButton(
-                            onPressed: onView,
+                            onPressed: onView as void Function()?,
                             child: Text(
                               'VIEW',
                               style: TextStyle().copyWith(
@@ -130,7 +130,7 @@ class ReferralCardSummary extends StatelessWidget {
                         ),
                         Expanded(
                           child: TextButton(
-                            onPressed: onManage,
+                            onPressed: onManage as void Function()?,
                             child: Text(
                               'MANAGE',
                               style: TextStyle().copyWith(

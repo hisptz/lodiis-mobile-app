@@ -24,7 +24,7 @@ import 'package:provider/provider.dart';
 import 'constants/contraceptives_constant.dart';
 
 class AgywDreamContraceptives extends StatefulWidget {
-  AgywDreamContraceptives({Key key}) : super(key: key);
+  AgywDreamContraceptives({Key? key}) : super(key: key);
 
   @override
   _AgywDreamContraceptivesState createState() =>
@@ -42,7 +42,7 @@ class _AgywDreamContraceptivesState extends State<AgywDreamContraceptives> {
   void updateFormState(
     BuildContext context,
     bool isEditableMode,
-    Events eventData,
+    Events? eventData,
   ) {
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
     Provider.of<ServiceFormState>(context, listen: false)
@@ -63,7 +63,7 @@ class _AgywDreamContraceptivesState extends State<AgywDreamContraceptives> {
 
   void onAddPrep(BuildContext context, AgywDream agywDream) async {
     updateFormState(context, true, null);
-    String beneficiaryId = agywDream.id;
+    String? beneficiaryId = agywDream.id;
     String formAutoSaveId =
         "${DreamsRoutesConstant.agywDreamsContraceptivesPage}_$beneficiaryId";
     FormAutoSave formAutoSave =
@@ -121,10 +121,10 @@ class _AgywDreamContraceptivesState extends State<AgywDreamContraceptives> {
               builder: (context, dreamBeneficiarySelectionState, child) {
                 return Consumer<ServiceEventDataState>(
                   builder: (context, serviceFormState, child) {
-                    AgywDream agywDream =
+                    AgywDream? agywDream =
                         dreamBeneficiarySelectionState.currentAgywDream;
                     bool isLoading = serviceFormState.isLoading;
-                    Map<String, List<Events>> eventListByProgramStage =
+                    Map<String?, List<Events>> eventListByProgramStage =
                         serviceFormState.eventListByProgramStage;
                     List<Events> events = TrackedEntityInstanceUtil
                         .getAllEventListFromServiceDataStateByProgramStages(
@@ -188,7 +188,7 @@ class _AgywDreamContraceptivesState extends State<AgywDreamContraceptives> {
                                           buttonColor: Color(0xFF1F8ECE),
                                           fontSize: 15.0,
                                           onPressButton: () =>
-                                              onAddPrep(context, agywDream))
+                                              onAddPrep(context, agywDream!))
                                     ],
                                   ),
                           ),

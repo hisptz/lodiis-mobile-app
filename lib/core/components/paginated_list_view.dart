@@ -4,16 +4,16 @@ import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 
 class CustomPaginatedListView extends StatelessWidget {
   final Function childBuilder;
-  final PagingController pagingController;
+  final PagingController? pagingController;
   final Widget emptyListWidget;
   final Widget errorWidget;
 
   const CustomPaginatedListView(
-      {Key key,
-      @required this.childBuilder,
-      @required this.pagingController,
-      @required this.emptyListWidget,
-      @required this.errorWidget})
+      {Key? key,
+      required this.childBuilder,
+      required this.pagingController,
+      required this.emptyListWidget,
+      required this.errorWidget})
       : super(key: key);
 
   @override
@@ -24,7 +24,7 @@ class CustomPaginatedListView extends StatelessWidget {
           primary: true,
           scrollDirection: Axis.vertical,
           shrinkWrap: true,
-          pagingController: pagingController,
+          pagingController: pagingController!,
           builderDelegate: PagedChildBuilderDelegate(
             noItemsFoundIndicatorBuilder: (context) => emptyListWidget,
             firstPageProgressIndicatorBuilder: (context) => Container(
@@ -44,7 +44,8 @@ class CustomPaginatedListView extends StatelessWidget {
                 ),
               ),
             ),
-            itemBuilder: childBuilder,
+            itemBuilder:
+                childBuilder as Widget Function(BuildContext, Widget, int),
           )),
     );
   }

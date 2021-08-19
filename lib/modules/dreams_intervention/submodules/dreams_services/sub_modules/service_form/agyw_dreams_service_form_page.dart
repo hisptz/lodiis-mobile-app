@@ -26,7 +26,7 @@ import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:provider/provider.dart';
 
 class AgywDreamsServiceFormPage extends StatefulWidget {
-  AgywDreamsServiceFormPage({Key key}) : super(key: key);
+  AgywDreamsServiceFormPage({Key? key}) : super(key: key);
 
   @override
   _AgywDreamsServiceFormPage createState() => _AgywDreamsServiceFormPage();
@@ -43,11 +43,11 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
   void updateFormState(
       BuildContext context,
       bool isEditableMode,
-      Events eventData,
+      Events? eventData,
       AgywDream agywDream,
-      List<ServiceEvents> serviceEvents) {
+      List<ServiceEvents>? serviceEvents) {
     Map serviceEventSessions = getLastSessionNumbers(serviceEvents);
-    Map<String, List<int>> interventionSessions =
+    Map<String?, List<int?>> interventionSessions =
         getSessionsPerIntervention(serviceEvents, eventData);
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
     Provider.of<ServiceFormState>(context, listen: false)
@@ -72,7 +72,7 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
     }
   }
 
-  Map getLastSessionNumbers(List<ServiceEvents> serviceEvents) {
+  Map getLastSessionNumbers(List<ServiceEvents>? serviceEvents) {
     Map eventsWithLastSessionNumber = Map();
     for (ServiceEvents event in serviceEvents ?? []) {
       if (eventsWithLastSessionNumber[event.interventionType] != null) {
@@ -89,17 +89,17 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
     return eventsWithLastSessionNumber;
   }
 
-  Map<String, List<int>> getSessionsPerIntervention(
-      List<ServiceEvents> serviceEvents, Events currentEvent) {
-    Map<String, List<int>> interventionSessions = Map();
+  Map<String?, List<int?>> getSessionsPerIntervention(
+      List<ServiceEvents>? serviceEvents, Events? currentEvent) {
+    Map<String?, List<int?>> interventionSessions = Map();
     String currentEventId =
         currentEvent != null ? currentEvent.event ?? '' : '';
     (serviceEvents ?? [])
         .removeWhere((eventData) => eventData.event == currentEventId);
     for (ServiceEvents event in (serviceEvents ?? [])) {
       if (interventionSessions[event.interventionType] != null) {
-        interventionSessions[event.interventionType].add(event.sessionNumber);
-        interventionSessions[event.interventionType].sort();
+        interventionSessions[event.interventionType]!.add(event.sessionNumber);
+        interventionSessions[event.interventionType]!.sort();
       } else {
         interventionSessions[event.interventionType] = [event.sessionNumber];
       }
@@ -111,7 +111,7 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
       List<ServiceEvents> serviceEvents) async {
     updateFormState(context, true, null, agywDream, serviceEvents);
 
-    String beneficiaryId = agywDream.id;
+    String? beneficiaryId = agywDream.id;
     String formAutoSaveId =
         "${DreamsRoutesConstant.agywDreamsServiceFormPage}_$beneficiaryId";
     FormAutoSave formAutoSave =
@@ -122,9 +122,9 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
     if (shouldResumeWithUnSavedChanges) {
       AppResumeRoute().redirectToPages(context, formAutoSave);
     } else {
-      CurrentUser currentUser = await UserService().getCurrentUser();
-      String youthMentorName = currentUser.name;
-      String implementingPartner = currentUser.implementingPartner;
+      CurrentUser? currentUser = await (UserService().getCurrentUser());
+      String? youthMentorName = currentUser!.name;
+      String? implementingPartner = currentUser.implementingPartner;
       Provider.of<ServiceFormState>(context, listen: false)
           .setFormFieldState('W79837fEI3C', youthMentorName);
       Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
@@ -147,9 +147,9 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
 
   void onEditService(BuildContext context, Events eventData,
       AgywDream agywDream, List<ServiceEvents> serviceEvents) async {
-    CurrentUser currentUser = await UserService().getCurrentUser();
-    String youthMentorName = currentUser.name;
-    String implementingPartner = currentUser.implementingPartner;
+    CurrentUser? currentUser = await (UserService().getCurrentUser());
+    String? youthMentorName = currentUser!.name;
+    String? implementingPartner = currentUser.implementingPartner;
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState('W79837fEI3C', youthMentorName);
     updateFormState(context, true, eventData, agywDream, serviceEvents);
@@ -184,10 +184,10 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
               builder: (context, dreamBeneficiarySelectionState, child) {
                 return Consumer<ServiceEventDataState>(
                   builder: (context, serviceFormState, child) {
-                    AgywDream agywDream =
+                    AgywDream? agywDream =
                         dreamBeneficiarySelectionState.currentAgywDream;
                     bool isLoading = serviceFormState.isLoading;
-                    Map<String, List<Events>> eventListByProgramStage =
+                    Map<String?, List<Events>> eventListByProgramStage =
                         serviceFormState.eventListByProgramStage;
                     List<Events> events = TrackedEntityInstanceUtil
                         .getAllEventListFromServiceDataStateByProgramStages(
@@ -238,13 +238,13 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
                                                             onEditService(
                                                                 context,
                                                                 eventData,
-                                                                agywDream,
+                                                                agywDream!,
                                                                 serviceEvents),
                                                         onView: () =>
                                                             onViewService(
                                                                 context,
                                                                 eventData,
-                                                                agywDream),
+                                                                agywDream!),
                                                         eventData: eventData,
                                                         visitCount:
                                                             serviceIndex,
@@ -261,7 +261,7 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
                                           fontSize: 15.0,
                                           onPressButton: () => onAddService(
                                               context,
-                                              agywDream,
+                                              agywDream!,
                                               serviceEvents))
                                     ],
                                   ),

@@ -35,9 +35,9 @@ class _SplashState extends State<Splash> {
   }
 
   void checkingLanguageSelectionAndCurrentUser() async {
-    CurrentUser user = await UserService().getCurrentUser();
-    bool isUserLoginIn = user != null ? user.isLogin : false;
-    String currentLanguage =
+    CurrentUser? user = await UserService().getCurrentUser();
+    bool? isUserLoginIn = user != null ? user.isLogin : false;
+    String? currentLanguage =
         await LanguageSelectionService.getCurrentLanguageSelection();
     Provider.of<AppInfoState>(context, listen: false).setCurrentAppInfo();
     Provider.of<DeviceConnectivityState>(context, listen: false)
@@ -45,15 +45,15 @@ class _SplashState extends State<Splash> {
     if (currentLanguage != null) {
       Provider.of<LanguageTranslationState>(context, listen: false)
           .setLanguageTranslation(currentLanguage);
-      if (isUserLoginIn) {
+      if (isUserLoginIn!) {
         var userAccessConfigurations =
             await UserAccess().getSavedUserAccessConfigurations();
         Provider.of<CurrentUserState>(context, listen: false)
-            .setCurrentUser(user, userAccessConfigurations);
+            .setCurrentUser(user!, userAccessConfigurations);
         Provider.of<CurrentUserState>(context, listen: false)
             .setCurrentUserCountryLevelReferences();
         await Provider.of<ReferralNotificationState>(context, listen: false)
-            .setCurrentImplementingPartner(user.implementingPartner);
+            .setCurrentImplementingPartner(user.implementingPartner!);
         await ImplementingPartnerReferralConfigService()
             .checkOfflineImplementingPartnerReferralServices();
       }
@@ -75,14 +75,14 @@ class _SplashState extends State<Splash> {
     );
   }
 
-  void setLandingPage(bool isUserLoginIn) {
+  void setLandingPage(bool? isUserLoginIn) {
     Timer(
       Duration(seconds: 2),
       () => Navigator.pushReplacement(
         context,
         MaterialPageRoute(
           builder: (context) =>
-              isUserLoginIn ? InterventionSelection() : Login(),
+              isUserLoginIn! ? InterventionSelection() : Login(),
         ),
       ),
     );

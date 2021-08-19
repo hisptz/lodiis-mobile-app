@@ -23,7 +23,7 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment
 import 'package:provider/provider.dart';
 
 class OvcEnrollmentHouseholdForm extends StatefulWidget {
-  const OvcEnrollmentHouseholdForm({Key key}) : super(key: key);
+  const OvcEnrollmentHouseholdForm({Key? key}) : super(key: key);
 
   @override
   _OvcEnrollmentHouseholdFormState createState() =>
@@ -32,7 +32,7 @@ class OvcEnrollmentHouseholdForm extends StatefulWidget {
 
 class _OvcEnrollmentHouseholdFormState
     extends State<OvcEnrollmentHouseholdForm> {
-  List<FormSection> formSections;
+  List<FormSection>? formSections;
   final String label = 'Household information';
   final List<String> mandatoryFields =
       OvcEnrollmentHousehold.getMandatoryField();
@@ -70,7 +70,7 @@ class _OvcEnrollmentHouseholdFormState
         'PN92g65TkVI'
       ];
       List<Map> childrenObjects = dataObject['children'];
-      String orgUnit = dataObject['location'];
+      String? orgUnit = dataObject['location'];
       bool shouldEnroll = true;
       await OvcEnrollmentHouseholdService().savingHouseholdForm(
         dataObject,
@@ -98,7 +98,7 @@ class _OvcEnrollmentHouseholdFormState
           setState(() {
             isSaving = false;
           });
-          String currentLanguage =
+          String? currentLanguage =
               Provider.of<LanguageTranslationState>(context, listen: false)
                   .currentLanguage;
           AppUtil.showToastMessage(
@@ -129,7 +129,7 @@ class _OvcEnrollmentHouseholdFormState
             Provider.of<EnrollmentFormState>(context, listen: false).formState;
         await OvcHouseholdEnrollmentSkipLogic.evaluateSkipLogics(
           context,
-          formSections,
+          formSections!,
           dataObject,
         );
       },

@@ -10,7 +10,7 @@ class AppLogsService {
   }
 
   Future<List<AppLogs>> getAppLogs(
-      {int page, String searchableValue = ''}) async {
+      {int? page, String searchableValue = ''}) async {
     List<AppLogs> appLogsList = [];
     try {
       List<AppLogs> appLogs =
@@ -96,7 +96,6 @@ class AppLogsService {
     programStages.forEach((id, name) {
       if (message.contains(id)) {
         programStage = 'to $name';
-        return programStage;
       }
     });
 
@@ -110,7 +109,6 @@ class AppLogsService {
     programs.forEach((id, name) {
       if (message.contains(id)) {
         program = ' $name';
-        return program;
       }
     });
 

@@ -10,7 +10,7 @@ mixin OvcCasePlanGapSkipLogic {
 
   Future evaluateSkipLogics(
       BuildContext context, List<FormSection> formSections, Map dataObject,
-      {OvcHouseholdChild currentHouseholdChild}) async {
+      {required OvcHouseholdChild currentHouseholdChild}) async {
     hiddenFields.clear();
     hiddenSections.clear();
     List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections);
@@ -287,7 +287,7 @@ mixin OvcCasePlanGapSkipLogic {
   assignInputFieldValue(
     BuildContext context,
     String inputFieldId,
-    String value,
+    String? value,
   ) {
     childMapObject[inputFieldId] = value;
   }
@@ -295,7 +295,7 @@ mixin OvcCasePlanGapSkipLogic {
   void evaluateAgeSkipLogics(
       List<String> inputFieldIds, OvcHouseholdChild currentHouseholdChild) {
     try {
-      int age = int.parse(currentHouseholdChild.age);
+      int age = int.parse(currentHouseholdChild.age!);
       //Domain health
       if (age > 5) {
         hiddenFields['x4yAqv4z2Xv'] = true;

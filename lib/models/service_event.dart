@@ -1,12 +1,12 @@
 import 'package:kb_mobile_app/models/events.dart';
 
 class ServiceEvents {
-  String event;
-  String programStage;
-  String interventionType;
-  String interventionGroup;
-  int sessionNumber;
-  Events eventData;
+  String? event;
+  String? programStage;
+  String? interventionType;
+  String? interventionGroup;
+  int? sessionNumber;
+  Events? eventData;
 
   ServiceEvents(
       {this.event,
@@ -24,9 +24,9 @@ class ServiceEvents {
 
     Map data = Map();
     for (Map dataValues in events.dataValues) {
-      String attribute = dataValues['dataElement'];
+      String? attribute = dataValues['dataElement'];
       if (attribute != null && keys.indexOf(attribute) > -1) {
-        data[attribute] = '${dataValues['value']}'.trim() ?? '';
+        data[attribute] = '${dataValues['value']}'.trim();
       }
     }
 
@@ -38,7 +38,7 @@ class ServiceEvents {
         programStage: events.programStage,
         interventionType: data['Eug4BXDFLym'] ?? '',
         interventionGroup: assignInterventionGroup(data['Eug4BXDFLym'] ?? ''),
-        sessionNumber: int.parse(sessionNumber) ?? 0,
+        sessionNumber: int.parse(sessionNumber),
         eventData: events);
   }
 

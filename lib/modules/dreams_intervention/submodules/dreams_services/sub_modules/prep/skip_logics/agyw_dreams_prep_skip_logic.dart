@@ -221,7 +221,7 @@ class AgywDreamsPrepSkipLogic {
         bool hasTestDate = true;
         DateTime resultDate = DateTime.parse(
             '${dataObject[PrepIntakeConstant.clientInformedOfTestResults]}');
-        DateTime testDate;
+        late DateTime testDate;
         if (dataObject[PrepIntakeConstant.dateBled3] != '' &&
             dataObject[PrepIntakeConstant.dateBled3] != null) {
           testDate =
@@ -323,7 +323,7 @@ class AgywDreamsPrepSkipLogic {
   static assignInputFieldValue(
     BuildContext context,
     String inputFieldId,
-    String value,
+    String? value,
   ) {
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState(inputFieldId, value);

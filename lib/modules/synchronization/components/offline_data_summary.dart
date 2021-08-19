@@ -4,9 +4,9 @@ import 'package:kb_mobile_app/core/components/material_card.dart';
 
 class OfflineDataSummary extends StatelessWidget {
   const OfflineDataSummary(
-      {Key key,
-      @required this.beneficiaryCount,
-      @required this.beneficiaryServiceCount})
+      {Key? key,
+      required this.beneficiaryCount,
+      required this.beneficiaryServiceCount})
       : super(key: key);
 
   final int beneficiaryCount;

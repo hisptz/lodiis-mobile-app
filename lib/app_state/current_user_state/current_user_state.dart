@@ -7,37 +7,37 @@ class CurrentUserState with ChangeNotifier {
   final List kbDreamsImplementatingPartners = ["KB-AGYW/DREAMS"];
 
   // initiat state
-  CurrentUser _currentUser;
-  String _currentUserLocations;
-  List<String> _currentUserCountryLevelReferences;
-  bool _canManageDreams;
-  bool _canManageOGAC;
-  bool _canManageOvc;
-  bool _canManageNoneAgyw;
-  bool _canManageReferral;
-  bool _canManageCLOReferral;
-  bool _canManageHtsShortForm;
-  bool _canManageHtsLongForm;
-  bool _canManageHivReg;
-  bool _canManageSrh;
-  bool _canManagePrepLongForm;
-  bool _canManagePrepShortForm;
-  bool _canManageMSGHIV;
-  bool _canManageArtRefill;
-  bool _canManageAnc;
-  bool _canManageCondom;
-  bool _canManageContraceptives;
-  bool _canManagePOSTGBV;
-  bool _canManagePEP;
-  bool _canManageServiceForm;
+  CurrentUser? _currentUser;
+  String? _currentUserLocations;
+  List<String?>? _currentUserCountryLevelReferences;
+  bool? _canManageDreams;
+  bool? _canManageOGAC;
+  bool? _canManageOvc;
+  bool? _canManageNoneAgyw;
+  bool? _canManageReferral;
+  bool? _canManageCLOReferral;
+  bool? _canManageHtsShortForm;
+  bool? _canManageHtsLongForm;
+  bool? _canManageHivReg;
+  bool? _canManageSrh;
+  bool? _canManagePrepLongForm;
+  bool? _canManagePrepShortForm;
+  bool? _canManageMSGHIV;
+  bool? _canManageArtRefill;
+  bool? _canManageAnc;
+  bool? _canManageCondom;
+  bool? _canManageContraceptives;
+  bool? _canManagePOSTGBV;
+  bool? _canManagePEP;
+  bool? _canManageServiceForm;
 
   // selectors
-  CurrentUser get currentUser => _currentUser;
+  CurrentUser? get currentUser => _currentUser;
   bool get isCurrentUserKbDreamPartner =>
       _currentUser != null &&
-      kbDreamsImplementatingPartners.contains(_currentUser.implementingPartner);
+      kbDreamsImplementatingPartners.contains(_currentUser!.implementingPartner);
   String get currentUserLocations => _currentUserLocations ?? '';
-  List<String> get currentUserCountryLevelReferences =>
+  List<String?> get currentUserCountryLevelReferences =>
       _currentUserCountryLevelReferences ?? [];
   bool get canManageDreams => _canManageDreams ?? false;
   bool get canManageOGAC => _canManageOGAC ?? false;
@@ -61,7 +61,7 @@ class CurrentUserState with ChangeNotifier {
   bool get canManageServiceForm => _canManageServiceForm ?? false;
 
   void updateUserAccessStatus(
-    String implementingPartner,
+    String? implementingPartner,
     dynamic userAccessConfigurations,
   ) {
     var userAccesses = userAccessConfigurations[implementingPartner] ?? Map();
@@ -125,7 +125,7 @@ class CurrentUserState with ChangeNotifier {
     dynamic userAccessConfigurations,
   ) {
     _currentUser = user;
-    String implementingPartner = user.implementingPartner;
+    String? implementingPartner = user.implementingPartner;
     updateUserAccessStatus(
       implementingPartner,
       userAccessConfigurations,
@@ -147,9 +147,9 @@ class CurrentUserState with ChangeNotifier {
 
   void setCurrentUserLocation() async {
     String locations = '';
-    if (_currentUser != null && _currentUser.userOrgUnitIds != null) {
+    if (_currentUser != null && _currentUser!.userOrgUnitIds != null) {
       List<OrganisationUnit> organisationUnits = await OrganisationUnitService()
-          .getOrganisationUnits(_currentUser.userOrgUnitIds);
+          .getOrganisationUnits(_currentUser!.userOrgUnitIds!);
       locations = organisationUnits
           .map((OrganisationUnit organisationUnit) =>
               organisationUnit.name ?? '')

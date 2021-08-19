@@ -32,7 +32,7 @@ class OvcServiceMonitoringForm extends StatefulWidget {
 
 class _OvcServiceMonitoringFormState extends State<OvcServiceMonitoringForm> {
   final String label = 'Ongoing monitoring tool';
-  List<FormSection> formSections;
+  List<FormSection>? formSections;
   bool isFormReady = false;
   bool isSaving = false;
 
@@ -56,7 +56,7 @@ class _OvcServiceMonitoringFormState extends State<OvcServiceMonitoringForm> {
             Provider.of<ServiceFormState>(context, listen: false).formState;
         await OvcChildServiceMonitoringSkipLogic.evaluateSkipLogics(
           context,
-          formSections,
+          formSections!,
           dataObject,
         );
       },
@@ -72,20 +72,20 @@ class _OvcServiceMonitoringFormState extends State<OvcServiceMonitoringForm> {
   void onSaveForm(
     BuildContext context,
     Map dataObject,
-    OvcHouseholdChild currentOvcHouseholdChild,
+    OvcHouseholdChild? currentOvcHouseholdChild,
   ) async {
     if (FormUtil.geFormFilledStatus(dataObject, formSections)) {
       setState(() {
         isSaving = true;
       });
-      String eventDate = dataObject['eventDate'];
-      String eventId = dataObject['eventId'];
+      String? eventDate = dataObject['eventDate'];
+      String? eventId = dataObject['eventId'];
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
             OvcServiceMonitoringConstant.program,
             OvcServiceMonitoringConstant.programStage,
-            currentOvcHouseholdChild.orgUnit,
-            formSections,
+            currentOvcHouseholdChild!.orgUnit,
+            formSections!,
             dataObject,
             eventDate,
             currentOvcHouseholdChild.id,
@@ -97,7 +97,7 @@ class _OvcServiceMonitoringFormState extends State<OvcServiceMonitoringForm> {
           setState(() {
             isSaving = false;
           });
-          String currentLanguage =
+          String? currentLanguage =
               Provider.of<LanguageTranslationState>(context, listen: false)
                   .currentLanguage;
           AppUtil.showToastMessage(
@@ -145,11 +145,11 @@ class _OvcServiceMonitoringFormState extends State<OvcServiceMonitoringForm> {
           body: Container(
             child: Consumer<LanguageTranslationState>(
               builder: (context, languageTranslationState, child) {
-                String currentLanguage =
+                String? currentLanguage =
                     languageTranslationState.currentLanguage;
                 return Consumer<OvcHouseholdCurrentSelectionState>(
                   builder: (context, ovcHouseholdCurrentSelectionState, child) {
-                    OvcHouseholdChild currentOvcHouseholdChild =
+                    OvcHouseholdChild? currentOvcHouseholdChild =
                         ovcHouseholdCurrentSelectionState
                             .currentOvcHouseholdChild;
                     return Consumer<ServiceFormState>(

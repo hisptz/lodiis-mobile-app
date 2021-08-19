@@ -8,7 +8,7 @@ import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:provider/provider.dart';
 
 class AboutApp extends StatefulWidget {
-  AboutApp({Key key}) : super(key: key);
+  AboutApp({Key? key}) : super(key: key);
 
   @override
   _AboutAppState createState() => _AboutAppState();
@@ -39,7 +39,7 @@ class _AboutAppState extends State<AboutApp> {
         body: Container(
           child: Consumer<LanguageTranslationState>(
             builder: (context, languageTranslationState, child) {
-              String currentLanguage = languageTranslationState.currentLanguage;
+              String? currentLanguage = languageTranslationState.currentLanguage;
               return Consumer<AppInfoState>(
                 builder: (context, appInfoState, child) {
                   return Container(

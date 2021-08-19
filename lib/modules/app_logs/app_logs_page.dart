@@ -14,7 +14,7 @@ import 'package:provider/provider.dart';
 
 class AppLogsPage extends StatefulWidget {
   const AppLogsPage({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   _AppLogsState createState() => _AppLogsState();
@@ -58,7 +58,7 @@ class _AppLogsState extends State<AppLogsPage> {
                   child: Container(
                     child: Consumer<LanguageTranslationState>(
                       builder: (context, languageTranslationState, child) {
-                        String currentLanguage =
+                        String? currentLanguage =
                             languageTranslationState.currentLanguage;
                         return SubPageAppBar(
                           label: currentLanguage == 'lesotho'

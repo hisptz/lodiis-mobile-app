@@ -9,7 +9,7 @@ import 'package:provider/provider.dart';
 
 class DreamsBeneficiaryCardServiceSummary extends StatelessWidget {
   const DreamsBeneficiaryCardServiceSummary(
-      {Key key, @required this.services, @required this.labelColor})
+      {Key? key, required this.services, required this.labelColor})
       : super(key: key);
 
   final List<List<Map>> services;
@@ -22,7 +22,7 @@ class DreamsBeneficiaryCardServiceSummary extends StatelessWidget {
       child: Consumer<ServiceEventDataState>(
         builder: (context, serviceEventDataState, child) {
           bool eventsLoading = serviceEventDataState.isLoading;
-          Map<String, List<Events>> serviceEvents =
+          Map<String?, List<Events>> serviceEvents =
               serviceEventDataState.eventListByProgramStage;
           return eventsLoading
               ? Container(
@@ -41,9 +41,9 @@ class DreamsBeneficiaryCardServiceSummary extends StatelessWidget {
                           children: [
                             Expanded(
                                 child: Table(
-                              children: (services ?? []).map((List serviceRow) {
+                              children: (services).map((List serviceRow) {
                                 return TableRow(
-                                    children: (serviceRow ?? []).map((service) {
+                                    children: (serviceRow).map((service) {
                                   return TableCell(
                                     child: Container(
                                       padding: EdgeInsets.only(
@@ -97,7 +97,7 @@ class DreamsBeneficiaryCardServiceSummary extends StatelessWidget {
   }
 
   bool isServiceProvided(
-      Map serviceProgramStage, Map<String, List<Events>> serviceEvents) {
+      Map serviceProgramStage, Map<String?, List<Events>> serviceEvents) {
     List<String> serviceProgramStageIds = serviceProgramStage['programStage'];
     List<Events> events = getEventList(serviceEvents);
     List programStageIds =
@@ -127,7 +127,7 @@ class DreamsBeneficiaryCardServiceSummary extends StatelessWidget {
     }
   }
 
-  List<Events> getEventList(Map<String, List<Events>> serviceEvents) {
+  List<Events> getEventList(Map<String?, List<Events>> serviceEvents) {
     List<List<Events>> sanitizedList = [];
     serviceEvents.forEach((key, value) {
       sanitizedList.add(value);

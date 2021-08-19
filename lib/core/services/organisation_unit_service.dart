@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'package:kb_mobile_app/core/offline_db/organisation_unit_offline/organisation_unit_offline_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/organisation_unit_offline/organisation_unit_path_offline_provider.dart';
@@ -15,9 +16,9 @@ class OrganisationUnitService {
       "fields": "id,name,code,programs,parent[id,code],level,path,children[id]",
       "paging": "false"
     };
-    CurrentUser user = await UserService().getCurrentUser();
+    CurrentUser? user = await (UserService().getCurrentUser());
     HttpService http = HttpService(
-      username: user.username,
+      username: user!.username,
       password: user.password,
     );
     var response = await http.httpGet(
@@ -51,8 +52,8 @@ class OrganisationUnitService {
         .getOrganisationUnitsByLevel(level);
   }
 
-  Future<List<String>> getOrganisationUnitsInPathByOrganisationUnit(
-    String organisationUnitId,
+  Future<List<String?>> getOrganisationUnitsInPathByOrganisationUnit(
+    String? organisationUnitId,
   ) async {
     return await OrganisationUnitPathOfflineProvider()
         .getOrganisationUnitsInPathByOrganisationUnit(organisationUnitId);

@@ -330,7 +330,7 @@ class DreamsAgywReferralSkipLogic {
 
   static List<String> getReferralServicesByIP(
       {Map<String, dynamic> data = const {}, String ip = ''}) {
-    List services = (data[ip] as List) ?? [];
+    List services = (data[ip] as List?) ?? [];
     return services.map((item) => item as String).toList();
   }
 
@@ -360,7 +360,7 @@ class DreamsAgywReferralSkipLogic {
   static assignInputFieldValue(
     BuildContext context,
     String inputFieldId,
-    String value,
+    String? value,
   ) {
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState(inputFieldId, value);

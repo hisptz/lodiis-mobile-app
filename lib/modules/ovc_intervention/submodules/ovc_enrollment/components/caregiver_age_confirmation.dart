@@ -4,14 +4,14 @@ import 'package:provider/provider.dart';
 
 class CaregiverAgeConfirmation extends StatelessWidget {
   const CaregiverAgeConfirmation({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Consumer<LanguageTranslationState>(
         builder: (context, languageTranslationState, child) {
-      String currentLanguage = languageTranslationState.currentLanguage;
+      String? currentLanguage = languageTranslationState.currentLanguage;
       return Container(
         padding: EdgeInsets.symmetric(
           horizontal: 30.0,

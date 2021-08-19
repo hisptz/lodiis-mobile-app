@@ -1,35 +1,29 @@
 import 'package:kb_mobile_app/models/events.dart';
 
 class CLOReferralEvent {
-  String id;
-  String referralDate;
-  String referralFor;
-  String outComeStatus;
-  String communityPartner;
-  String referralType;
+  String? id;
+  String? referralDate;
+  String? referralFor;
+  String? outComeStatus;
+  String? communityPartner;
+  String? referralType;
 
-  CLOReferralEvent({
-    this.id,
-    this.referralDate,
-    this.referralFor,
-    this.outComeStatus,
-    this.communityPartner
-  });
+  CLOReferralEvent(
+      {this.id,
+      this.referralDate,
+      this.referralFor,
+      this.outComeStatus,
+      this.communityPartner});
 
   CLOReferralEvent fromTeiModel(
     Events eventData,
   ) {
-    List keys = [
-      'OIUDljKyNgy',
-      'rWIw1JHPiTo',
-      'pdUklLmaauR',
-      'RiNop7mvTRW'
-    ];
+    List keys = ['OIUDljKyNgy', 'rWIw1JHPiTo', 'pdUklLmaauR', 'RiNop7mvTRW'];
     Map data = Map();
     for (Map detailObj in eventData.dataValues) {
-      String attribute = detailObj['dataElement'];
+      String? attribute = detailObj['dataElement'];
       if (attribute != null && keys.indexOf(attribute) > -1) {
-        data[attribute] = '${detailObj['value']}'.trim() ?? '';
+        data[attribute] = '${detailObj['value']}'.trim();
       }
     }
     return CLOReferralEvent(

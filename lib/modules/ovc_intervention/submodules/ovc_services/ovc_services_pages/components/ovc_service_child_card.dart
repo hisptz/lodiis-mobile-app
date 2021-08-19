@@ -11,8 +11,8 @@ class OvcServiceChildCard extends StatelessWidget {
   final String countValue;
 
   OvcServiceChildCard({
-    @required this.ovcChildServiceHomeCard,
-    @required this.countValue,
+    required this.ovcChildServiceHomeCard,
+    required this.countValue,
   });
 
   @override
@@ -57,7 +57,7 @@ class OvcServiceChildCard extends StatelessWidget {
                       bottom: 9,
                     ),
                     child: SvgPicture.asset(
-                      ovcChildServiceHomeCard.icon,
+                      ovcChildServiceHomeCard.icon!,
                     ),
                   )
                 ],
@@ -77,13 +77,13 @@ class OvcServiceChildCard extends StatelessWidget {
               ),
               child: Consumer<LanguageTranslationState>(
                 builder: (context, languageTranslationState, child) {
-                  String currentLanguage =
+                  String? currentLanguage =
                       languageTranslationState.currentLanguage;
                   return Text(
                     currentLanguage == 'lesotho' &&
                             ovcChildServiceHomeCard.translatedTitle != null
-                        ? ovcChildServiceHomeCard.translatedTitle
-                        : ovcChildServiceHomeCard.title,
+                        ? ovcChildServiceHomeCard.translatedTitle!
+                        : ovcChildServiceHomeCard.title!,
                     style: TextStyle().copyWith(
                       color: Color(0xFF143D14),
                       fontSize: 12.0,

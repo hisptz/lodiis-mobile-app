@@ -146,7 +146,7 @@ class DreamsServicesRoute {
 
   redirectToAgywDreamsReferralForm(
       BuildContext context, FormAutoSave formAutoSave) async {
-    CurrentUser currentUser = await UserService().getCurrentUser();
+    CurrentUser? currentUser = await UserService().getCurrentUser();
     AppResumeRouteUtil.setServiceFormState(context, formAutoSave);
     Navigator.push(
       context,

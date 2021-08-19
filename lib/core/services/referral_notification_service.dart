@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:http/http.dart';
 import 'package:kb_mobile_app/core/constants/app_logs_constants.dart';
 import 'package:kb_mobile_app/core/offline_db/app_logs_offline/app_logs_offline_provider.dart';
@@ -49,8 +48,8 @@ class ReferralNotificationService {
   }
 
   updateReferralNotificationEvent(
-    String referralEventId,
-    String tei,
+    String? referralEventId,
+    String? tei,
     bool isCompleted,
     bool isViewed,
   ) async {
@@ -77,9 +76,9 @@ class ReferralNotificationService {
     List<ReferralNotification> referralNotifications,
   ) async {
     try {
-      CurrentUser currentUser = await UserService().getCurrentUser();
+      CurrentUser? currentUser = await (UserService().getCurrentUser());
       HttpService httpService = HttpService(
-        username: currentUser.username,
+        username: currentUser!.username,
         password: currentUser.password,
       );
       List<String> nameSpaceKeys = (referralNotifications
@@ -126,20 +125,20 @@ class ReferralNotificationService {
   Future<List<ReferralNotification>>
       discoveringReferralNotificationFromServer() async {
     List<ReferralNotification> referralNotifications = [];
-    List<String> locations = [];
+    List<String?> locations = [];
     try {
-      CurrentUser currentUser = await UserService().getCurrentUser();
+      CurrentUser? currentUser = await (UserService().getCurrentUser());
       HttpService httpService = HttpService(
-        username: currentUser.username,
+        username: currentUser!.username,
         password: currentUser.password,
       );
-      for (String organisationUnitId in currentUser.userOrgUnitIds) {
+      for (String? organisationUnitId in currentUser.userOrgUnitIds ?? []) {
         locations.addAll(await OrganisationUnitService()
             .getOrganisationUnitsInPathByOrganisationUnit(organisationUnitId));
       }
       locations = locations.toSet().toList();
       String implementingPartner =
-          currentUser.implementingPartner.split("/").join("-").trim();
+          currentUser.implementingPartner!.split("/").join("-").trim();
       Response response = await httpService.httpGet(
         apiUrlToDataStore,
         queryParameters: {},
@@ -184,7 +183,7 @@ class ReferralNotificationService {
   List<String> getKeysForReferralNofification(
     Response response,
     String implementingPartner,
-    List<String> locations,
+    List<String?> locations,
   ) {
     List<String> selectedKeys = [];
     try {
@@ -196,8 +195,8 @@ class ReferralNotificationService {
         }
       } else {
         for (String key in json.decode(response.body)) {
-          for (String location in locations) {
-            if (key.indexOf(location) > -1) {
+          for (String? location in locations) {
+            if (key.indexOf(location!) > -1) {
               selectedKeys.add(key);
             }
           }
@@ -251,8 +250,8 @@ class ReferralNotificationService {
                     referralNotification.id == id);
         List<ReferralEventNotification> referrals =
             getMergedReferralEventNotifications(
-                onlineReferralNotification.referrals,
-                offlineReferralNotification.referrals);
+                onlineReferralNotification.referrals!,
+                offlineReferralNotification.referrals!);
         referralNotifications.add(ReferralNotification(
           id: id,
           implementingPartner: onlineReferralNotification.implementingPartner,
@@ -300,11 +299,11 @@ class ReferralNotificationService {
         ReferralEventNotification offlineReferral = offlineReferrals.firstWhere(
             (ReferralEventNotification referralEventNotification) =>
                 referralEventNotification.id == id);
-        if (offlineReferral.isViewed) {
+        if (offlineReferral.isViewed!) {
           referrals.add(offlineReferral);
-        } else if (onlineReferral.isViewed) {
+        } else if (onlineReferral.isViewed!) {
           referrals.add(onlineReferral);
-        } else if (onlineReferral.isCompleted) {
+        } else if (onlineReferral.isCompleted!) {
           referrals.add(onlineReferral);
         } else {
           referrals.add(offlineReferral);

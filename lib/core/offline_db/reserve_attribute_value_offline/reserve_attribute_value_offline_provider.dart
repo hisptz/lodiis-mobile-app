@@ -14,8 +14,8 @@ class ReserveAttributeValueOfflineProvider extends OfflineDbProvider {
     var dbClient = await db;
     for (ReservedAttributeValue reservedValue in reservedAttributeValues) {
       try {
-        await dbClient.insert(
-            reservedValueTable, reservedValue.toOffline(reservedValue),
+        await dbClient!.insert(reservedValueTable,
+            reservedValue.toOffline(reservedValue) as Map<String, Object?>,
             conflictAlgorithm: ConflictAlgorithm.replace);
       } catch (e) {}
     }
@@ -25,7 +25,7 @@ class ReserveAttributeValueOfflineProvider extends OfflineDbProvider {
     List<ReservedAttributeValue> reservedAttributeValues = [];
     try {
       var dbClient = await db;
-      List<Map> maps = await dbClient.query(
+      List<Map> maps = await dbClient!.query(
         reservedValueTable,
         columns: [
           id,
@@ -36,7 +36,8 @@ class ReserveAttributeValueOfflineProvider extends OfflineDbProvider {
       );
       if (maps.isNotEmpty) {
         for (Map map in maps) {
-          reservedAttributeValues.add(ReservedAttributeValue.fromOffline(map));
+          reservedAttributeValues.add(
+              ReservedAttributeValue.fromOffline(map as Map<String, dynamic>));
         }
       }
     } catch (e) {}
@@ -44,12 +45,12 @@ class ReserveAttributeValueOfflineProvider extends OfflineDbProvider {
   }
 
   Future deleteReserveAttributeValues(
-    List<String> reservedAttributeValueIds,
+    List<String?> reservedAttributeValueIds,
   ) async {
     var dbClient = await db;
     String questionMark =
         reservedAttributeValueIds.map((e) => '?').toList().join(',');
-    await dbClient.delete(reservedValueTable,
+    await dbClient!.delete(reservedValueTable,
         where: '$id IN ($questionMark)', whereArgs: reservedAttributeValueIds);
   }
 }

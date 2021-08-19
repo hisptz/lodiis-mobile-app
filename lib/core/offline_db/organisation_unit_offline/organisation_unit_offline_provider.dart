@@ -16,8 +16,8 @@ class OrganisationUnitOfflineProvider extends OfflineDbProvider {
   addOrUpdateOrganisationUnits(List<OrganisationUnit> organisationUnits) async {
     var dbClient = await db;
     for (OrganisationUnit organisationUnit in organisationUnits) {
-      await dbClient.insert(OrganisationUnit.organisationUnitTable,
-          organisationUnit.toOffline(organisationUnit),
+      await dbClient!.insert(OrganisationUnit.organisationUnitTable,
+          organisationUnit.toOffline(organisationUnit) as Map<String, Object?>,
           conflictAlgorithm: ConflictAlgorithm.replace);
       await OrganisationUnitChildrenOfflineProvider()
           .addOrUpdateChildrenOrganisationUnits(organisationUnit);
@@ -30,7 +30,7 @@ class OrganisationUnitOfflineProvider extends OfflineDbProvider {
 
   deleteOrganisation(String organisationId) async {
     var dbClient = await db;
-    return await dbClient.delete(
+    return await dbClient!.delete(
       OrganisationUnit.organisationUnitTable,
       where: '$id = ?',
       whereArgs: [organisationId],
@@ -41,21 +41,21 @@ class OrganisationUnitOfflineProvider extends OfflineDbProvider {
     List<OrganisationUnit> organisationUnitList = [];
     try {
       var dbClient = await db;
-      List<Map> maps = await dbClient.query(
+      List<Map> maps = await dbClient!.query(
         OrganisationUnit.organisationUnitTable,
         columns: [id, name, parent, level, code],
       );
       if (maps.isNotEmpty) {
         for (Map map in maps) {
-          String organisationUnitId = map['id'];
-          String path = await OrganisationUnitPathOfflineProvider()
+          String? organisationUnitId = map['id'];
+          String? path = await OrganisationUnitPathOfflineProvider()
               .getOrganiationUnitPath(organisationUnitId);
           List children = await OrganisationUnitChildrenOfflineProvider()
               .getChildrenOrganisationUnits(organisationUnitId);
           List programs = await OrganisationUnitProgramOfflineProvider()
               .getProgramOrganisationUnits(organisationUnitId);
           OrganisationUnit organisationUnits =
-              OrganisationUnit.fromOffline(map);
+              OrganisationUnit.fromOffline(map as Map<String, dynamic>);
           organisationUnits.path = path;
           organisationUnits.program = programs;
           organisationUnits.children = children;
@@ -63,7 +63,7 @@ class OrganisationUnitOfflineProvider extends OfflineDbProvider {
         }
       }
     } catch (e) {}
-    organisationUnitList.sort((a, b) => a.name.compareTo(b.name));
+    organisationUnitList.sort((a, b) => a.name!.compareTo(b.name!));
     return organisationUnitList;
   }
 
@@ -73,7 +73,7 @@ class OrganisationUnitOfflineProvider extends OfflineDbProvider {
     List<OrganisationUnit> organisationUnitList = [];
     try {
       var dbClient = await db;
-      List<Map> maps = await dbClient.query(
+      List<Map> maps = await dbClient!.query(
         OrganisationUnit.organisationUnitTable,
         columns: [id, name, parent, level, code],
         where: '$level = ?',
@@ -81,15 +81,15 @@ class OrganisationUnitOfflineProvider extends OfflineDbProvider {
       );
       if (maps.isNotEmpty) {
         for (Map map in maps) {
-          String organisationUnitId = map['id'];
-          String path = await OrganisationUnitPathOfflineProvider()
+          String? organisationUnitId = map['id'];
+          String? path = await OrganisationUnitPathOfflineProvider()
               .getOrganiationUnitPath(organisationUnitId);
           List children = await OrganisationUnitChildrenOfflineProvider()
               .getChildrenOrganisationUnits(organisationUnitId);
           List programs = await OrganisationUnitProgramOfflineProvider()
               .getProgramOrganisationUnits(organisationUnitId);
           OrganisationUnit organisationUnits =
-              OrganisationUnit.fromOffline(map);
+              OrganisationUnit.fromOffline(map as Map<String, dynamic>);
           organisationUnits.path = path;
           organisationUnits.program = programs;
           organisationUnits.children = children;
@@ -107,7 +107,7 @@ class OrganisationUnitOfflineProvider extends OfflineDbProvider {
     try {
       var dbClient = await db;
       String questionMark = organisationIds.map((e) => '?').toList().join(',');
-      List<Map> maps = await dbClient.query(
+      List<Map> maps = await dbClient!.query(
           OrganisationUnit.organisationUnitTable,
           columns: [id, name, parent, level, code],
           orderBy: name,
@@ -115,15 +115,15 @@ class OrganisationUnitOfflineProvider extends OfflineDbProvider {
           whereArgs: organisationIds);
       if (maps.isNotEmpty) {
         for (Map map in maps) {
-          String organisationUnitId = map['id'];
-          String path = await OrganisationUnitPathOfflineProvider()
+          String? organisationUnitId = map['id'];
+          String? path = await OrganisationUnitPathOfflineProvider()
               .getOrganiationUnitPath(organisationUnitId);
           List children = await OrganisationUnitChildrenOfflineProvider()
               .getChildrenOrganisationUnits(organisationUnitId);
           List programs = await OrganisationUnitProgramOfflineProvider()
               .getProgramOrganisationUnits(organisationUnitId);
           OrganisationUnit organisationUnits =
-              OrganisationUnit.fromOffline(map);
+              OrganisationUnit.fromOffline(map as Map<String, dynamic>);
           organisationUnits.path = path;
           organisationUnits.program = programs;
           organisationUnits.children = children;
@@ -131,7 +131,7 @@ class OrganisationUnitOfflineProvider extends OfflineDbProvider {
         }
       }
     } catch (e) {}
-    organisationUnitList.sort((a, b) => a.name.compareTo(b.name));
+    organisationUnitList.sort((a, b) => a.name!.compareTo(b.name!));
     return organisationUnitList;
   }
 }

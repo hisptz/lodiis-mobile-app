@@ -19,11 +19,11 @@ import 'package:provider/provider.dart';
 
 class DreamsHTSIndexCardButtonContent extends StatefulWidget {
   const DreamsHTSIndexCardButtonContent({
-    Key key,
+    Key? key,
     this.event,
   }) : super(key: key);
 
-  final AgywDreamsIndexInfoEvent event;
+  final AgywDreamsIndexInfoEvent? event;
 
   @override
   _DreamsHTSIndexCardButtonContentState createState() =>
@@ -40,7 +40,7 @@ class _DreamsHTSIndexCardButtonContentState
   void updateFormState(
     BuildContext context,
     bool isEditableMode,
-    IndexContact eventData,
+    IndexContact? eventData,
   ) {
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
     Provider.of<ServiceFormState>(context, listen: false)
@@ -93,11 +93,11 @@ class _DreamsHTSIndexCardButtonContentState
     );
   }
 
-  void onAddNewIndexContact(BuildContext context, AgywDream agywDream) {
+  void onAddNewIndexContact(BuildContext context, AgywDream? agywDream) {
     updateFormState(context, true, null);
     Provider.of<ServiceFormState>(context, listen: false).setFormFieldState(
       AgywDreamsHTSIndexConstant.indexInfoToIndexContactLinkage,
-      widget.event.indexInfoToIndexContactLinkage,
+      widget.event!.indexInfoToIndexContactLinkage,
     );
     Navigator.push(
       context,
@@ -109,7 +109,7 @@ class _DreamsHTSIndexCardButtonContentState
 
   @override
   Widget build(BuildContext context) {
-    AgywDream agywDream;
+    AgywDream? agywDream;
     return Container(
       child: Column(
         children: [
@@ -144,7 +144,7 @@ class _DreamsHTSIndexCardButtonContentState
             child: Consumer<ServiceEventDataState>(
               builder: (context, serviceEventDataState, child) {
                 bool isLoading = serviceEventDataState.isLoading;
-                Map<String, List<Events>> eventListByProgramStage =
+                Map<String?, List<Events>> eventListByProgramStage =
                     serviceEventDataState.eventListByProgramStage;
                 List<Events> events = TrackedEntityInstanceUtil
                     .getAllEventListFromServiceDataStateByProgramStages(
@@ -157,7 +157,7 @@ class _DreamsHTSIndexCardButtonContentState
                     .where((element) =>
                         widget.event != null &&
                         element.indexInfoToIndexContactLinkage ==
-                            widget.event.indexInfoToIndexContactLinkage)
+                            widget.event!.indexInfoToIndexContactLinkage)
                     .toList();
                 return isLoading
                     ? Container(

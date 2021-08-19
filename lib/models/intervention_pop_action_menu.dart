@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 class InterventionPopActionMenu {
-  String id;
-  String name;
-  String translatedName;
-  Color color;
+  String? id;
+  String? name;
+  String? translatedName;
+  Color? color;
   FontWeight fontWeight;
 
   InterventionPopActionMenu({

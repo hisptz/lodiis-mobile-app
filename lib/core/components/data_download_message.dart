@@ -17,9 +17,16 @@ class _DataDownloadMessageState extends State<DataDownloadMessage> {
   @override
   void initState() {
     super.initState();
-    setState(() {
-      checkForAvailableBeneficiaryDataFromServer();
-    });
+    if (this.mounted) {
+      setState(() {
+        checkForAvailableBeneficiaryDataFromServer();
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   void onOpenSyncModule(BuildContext context, bool isCheckingForAvailableData) {
@@ -42,7 +49,7 @@ class _DataDownloadMessageState extends State<DataDownloadMessage> {
     Timer(Duration(milliseconds: 100), () {
       bool connected =
           Provider.of<DeviceConnectivityState>(context, listen: false)
-              .connectivityStatus;
+              .connectivityStatus!;
       if (connected) {
         Provider.of<SynchronizationState>(context, listen: false)
             .checkingForAvailableBeneficiaryData();

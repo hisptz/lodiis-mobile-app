@@ -27,7 +27,7 @@ class OvcChildExitHome extends StatelessWidget {
   final List<String> programStageIds = [];
 
   void onAddNewExit(BuildContext context, List<Events> events) async {
-    List<String> programStageIdsWithData =
+    List<String?> programStageIdsWithData =
         events.map((Events event) => event.programStage).toList();
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
     Widget model = OvcChildExitSelection(
@@ -38,7 +38,7 @@ class OvcChildExitHome extends StatelessWidget {
   }
 
   void onRedirectToExitForm(
-      BuildContext context, String exitResponse, bool isEditableMode) {
+      BuildContext context, String? exitResponse, bool isEditableMode) {
     Provider.of<ServiceFormState>(context, listen: false)
         .updateFormEditabilityState(isEditableMode: isEditableMode);
     if (exitResponse != null) {
@@ -80,7 +80,7 @@ class OvcChildExitHome extends StatelessWidget {
 
   void onViewExit(
     BuildContext context,
-    String exitResponse,
+    String? exitResponse,
     Events eventData,
   ) {
     bool isEditableMode = false;
@@ -90,7 +90,7 @@ class OvcChildExitHome extends StatelessWidget {
 
   void onEditExit(
     BuildContext context,
-    String exitResponse,
+    String? exitResponse,
     Events eventData,
   ) {
     bool isEditableMode = true;
@@ -122,7 +122,7 @@ class OvcChildExitHome extends StatelessWidget {
                 child: Consumer<ServiceEventDataState>(
                   builder: (context, serviceEventDataState, child) {
                     bool isLoading = serviceEventDataState.isLoading;
-                    Map<String, List<Events>> eventListByProgramStage =
+                    Map<String?, List<Events>> eventListByProgramStage =
                         serviceEventDataState.eventListByProgramStage;
                     Map programStageMap =
                         OvcExitConstant.getOvcExitProgramStageMap();
@@ -158,7 +158,7 @@ class OvcChildExitHome extends StatelessWidget {
                                                   programStageMap:
                                                       programStageMap,
                                                   onEditExit: () {
-                                                    String exitResponse =
+                                                    String? exitResponse =
                                                         programStageMap[
                                                             eventData
                                                                 .programStage];
@@ -168,7 +168,7 @@ class OvcChildExitHome extends StatelessWidget {
                                                         eventData);
                                                   },
                                                   onViewExit: () {
-                                                    String exitResponse =
+                                                    String? exitResponse =
                                                         programStageMap[
                                                             eventData
                                                                 .programStage];

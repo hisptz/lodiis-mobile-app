@@ -14,22 +14,22 @@ class OvcEnrollmentChildService {
   final List<FormSection> formSections = OvcEnrollmentChild.getFormSections();
 
   Future savingChildrenEnrollmentForms(
-    String parentTrackedEntityInstance,
-    String orgUnit,
+    String? parentTrackedEntityInstance,
+    String? orgUnit,
     List<Map> childrenObjects,
-    String enrollmentDate,
-    String incidentDate,
+    String? enrollmentDate,
+    String? incidentDate,
     bool shouldEnroll,
     List<String> hiddenFields,
   ) async {
-    hiddenFields = hiddenFields ?? [];
+    hiddenFields = hiddenFields;
     List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections);
     inputFieldIds.addAll(hiddenFields);
     List childTeiReferences = [];
     for (Map dataObject in childrenObjects) {
       String trackedEntityInstance =
           dataObject['trackedEntityInstance'] ?? AppUtil.getUid();
-      String enrollment = dataObject['enrollment'];
+      String? enrollment = dataObject['enrollment'];
       childTeiReferences.add(trackedEntityInstance);
       TrackedEntityInstance trackedEntityInstanceData =
           await FormUtil.geTrackedEntityInstanceEnrollmentPayLoad(

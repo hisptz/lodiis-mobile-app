@@ -1,10 +1,10 @@
 import 'dart:convert';
 
 class TrackedEntityInstance {
-  String trackedEntityInstance;
-  String trackedEntityType;
-  String orgUnit;
-  String syncStatus;
+  String? trackedEntityInstance;
+  String? trackedEntityType;
+  String? orgUnit;
+  String? syncStatus;
   dynamic attributes;
 
   TrackedEntityInstance({

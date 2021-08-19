@@ -1,19 +1,19 @@
 import 'package:kb_mobile_app/core/constants/current_user_implementing_partner.dart';
 
 class CurrentUser {
-  String id;
-  String name;
-  String username;
-  String password;
-  String email;
-  String phoneNumber;
-  String implementingPartner;
-  String subImplementingPartner;
-  String userRoles;
-  String userGroups;
-  bool isLogin;
-  List userOrgUnitIds;
-  List programs;
+  String? id;
+  String? name;
+  String? username;
+  String? password;
+  String? email;
+  String? phoneNumber;
+  String? implementingPartner;
+  String? subImplementingPartner;
+  String? userRoles;
+  String? userGroups;
+  bool? isLogin;
+  List? userOrgUnitIds;
+  List? programs;
 
   static final String userTable = 'current_user';
   static final String userProgramTable = 'current_user_program';
@@ -44,9 +44,9 @@ class CurrentUser {
 
   bool isCurrentUserSet() {
     return username != null &&
-        username.isNotEmpty &&
+        username!.isNotEmpty &&
         password != null &&
-        password.isNotEmpty;
+        password!.isNotEmpty;
   }
 
   @override
@@ -56,8 +56,8 @@ class CurrentUser {
 
   factory CurrentUser.fromJson(
     dynamic json,
-    String username,
-    String password,
+    String? username,
+    String? password,
   ) {
     List programList = json['programs'] as List<dynamic>;
     List organisationUnitList = json['organisationUnits'] as List<dynamic>;
@@ -163,7 +163,7 @@ class CurrentUser {
     data['userGroups'] = user.userGroups;
     data['userRoles'] = user.userRoles;
     data['password'] = user.password;
-    data['isLogin'] = user.isLogin ? 1 : 0;
+    data['isLogin'] = user.isLogin! ? 1 : 0;
     data['subImplementingPartner'] = user.subImplementingPartner;
     data['implementingPartner'] = user.implementingPartner;
     return data;

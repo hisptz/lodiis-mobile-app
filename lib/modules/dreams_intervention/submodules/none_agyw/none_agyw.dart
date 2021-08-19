@@ -20,7 +20,7 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/s
 import 'package:provider/provider.dart';
 
 class NoneAgyw extends StatefulWidget {
-  const NoneAgyw({Key key}) : super(key: key);
+  const NoneAgyw({Key? key}) : super(key: key);
 
   @override
   _NoneAgywState createState() => _NoneAgywState();
@@ -32,9 +32,9 @@ class _NoneAgywState extends State<NoneAgyw> {
   final bool canView = true;
   final bool canExpand = true;
 
-  String toggleCardId = '';
+  String? toggleCardId = '';
 
-  void onCardToggle(String cardId) {
+  void onCardToggle(String? cardId) {
     setState(() {
       toggleCardId = canExpand && cardId != toggleCardId ? cardId : '';
     });

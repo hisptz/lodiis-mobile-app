@@ -120,7 +120,7 @@ class AppResumeRoute
     bool disablePadding = false;
     bool shouldResumeFormState = false;
     if (formAutoSave.hasFormAutoSaveData()) {
-      String pageModule = formAutoSave.nextPageModule;
+      String? pageModule = formAutoSave.nextPageModule;
       Widget modal =
           AppResumeRouteUtil.getConfirmationWidget(context, pageModule);
       String title = beneficiaryName;

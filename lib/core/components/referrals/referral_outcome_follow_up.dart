@@ -10,20 +10,20 @@ import 'package:provider/provider.dart';
 
 class ReferralOutComeFollowUp extends StatelessWidget {
   const ReferralOutComeFollowUp(
-      {Key key,
-      @required this.referralOutComeFollowUpEvents,
-      @required this.themeColor,
-      @required this.onEditFollowUp,
+      {Key? key,
+      required this.referralOutComeFollowUpEvents,
+      required this.themeColor,
+      required this.onEditFollowUp,
       this.isEditableMode = true})
       : super(key: key);
 
   final List<ReferralOutcomeFollowUpEvent> referralOutComeFollowUpEvents;
-  final Color themeColor;
+  final Color? themeColor;
   final isEditableMode;
   final Function onEditFollowUp;
   final double editIconHeight = 20;
 
-  void editOutComeFollowUp(BuildContext context, Events eventData) {
+  void editOutComeFollowUp(BuildContext context, Events? eventData) {
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
     Provider.of<ServiceFormState>(context, listen: false)
         .updateFormEditabilityState(isEditableMode: true);
@@ -57,7 +57,7 @@ class ReferralOutComeFollowUp extends StatelessWidget {
             child: Column(
               children: [
                 Container(
-                  child: LineSeparator(color: themeColor.withOpacity(0.2)),
+                  child: LineSeparator(color: themeColor!.withOpacity(0.2)),
                 ),
                 Container(
                   alignment: Alignment.centerLeft,
@@ -95,7 +95,7 @@ class ReferralOutComeFollowUp extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  child: LineSeparator(color: themeColor.withOpacity(0.2)),
+                  child: LineSeparator(color: themeColor!.withOpacity(0.2)),
                 ),
                 Container(
                   margin: EdgeInsets.only(left: 15.0, top: 5.0),
@@ -110,7 +110,7 @@ class ReferralOutComeFollowUp extends StatelessWidget {
                               'Follow-up date',
                               style: TextStyle().copyWith(
                                 fontSize: 14.0,
-                                color: themeColor.withOpacity(0.8),
+                                color: themeColor!.withOpacity(0.8),
                                 fontWeight: FontWeight.w500,
                               ),
                             ))
@@ -122,7 +122,7 @@ class ReferralOutComeFollowUp extends StatelessWidget {
                           children: [
                             Expanded(
                                 child: Text(
-                              referralOutComeFollowUpEvent.followUpDate,
+                              referralOutComeFollowUpEvent.followUpDate!,
                               style: TextStyle().copyWith(
                                 fontSize: 14.0,
                                 color: Color(0xFF1A3518),
@@ -141,7 +141,7 @@ class ReferralOutComeFollowUp extends StatelessWidget {
                               'Follow-up Status',
                               style: TextStyle().copyWith(
                                 fontSize: 14.0,
-                                color: themeColor.withOpacity(0.8),
+                                color: themeColor!.withOpacity(0.8),
                                 fontWeight: FontWeight.w500,
                               ),
                             ))
@@ -153,7 +153,7 @@ class ReferralOutComeFollowUp extends StatelessWidget {
                           children: [
                             Expanded(
                                 child: Text(
-                              referralOutComeFollowUpEvent.followUpStatus,
+                              referralOutComeFollowUpEvent.followUpStatus!,
                               style: TextStyle().copyWith(
                                 fontSize: 14.0,
                                 color: Color(0xFF1A3518),
@@ -172,7 +172,7 @@ class ReferralOutComeFollowUp extends StatelessWidget {
                               'Comments or next steps',
                               style: TextStyle().copyWith(
                                 fontSize: 14.0,
-                                color: themeColor.withOpacity(0.8),
+                                color: themeColor!.withOpacity(0.8),
                                 fontWeight: FontWeight.w500,
                               ),
                             ))
@@ -184,7 +184,7 @@ class ReferralOutComeFollowUp extends StatelessWidget {
                           children: [
                             Expanded(
                                 child: Text(
-                              referralOutComeFollowUpEvent.comments,
+                              referralOutComeFollowUpEvent.comments!,
                               style: TextStyle().copyWith(
                                 fontSize: 14.0,
                                 color: Color(0xFF1A3518),

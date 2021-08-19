@@ -13,7 +13,7 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/o
 import 'package:provider/provider.dart';
 
 class OvcReferralPage extends StatefulWidget {
-  const OvcReferralPage({Key key}) : super(key: key);
+  const OvcReferralPage({Key? key}) : super(key: key);
 
   @override
   _OvcReferralPageState createState() => _OvcReferralPageState();
@@ -30,9 +30,9 @@ class _OvcReferralPageState extends State<OvcReferralPage> {
   final bool canViewChildReferral = true;
   final bool canViewChildExit = false;
 
-  String toggleCardId = '';
+  String? toggleCardId = '';
 
-  void onCardToggle(String cardId) {
+  void onCardToggle(String? cardId) {
     setState(() {
       toggleCardId = canExpand && cardId != toggleCardId ? cardId : '';
     });
@@ -57,7 +57,7 @@ class _OvcReferralPageState extends State<OvcReferralPage> {
     return Container(
       child: Consumer<LanguageTranslationState>(
         builder: (context, languageTranslationState, child) {
-          String currentLanguage = languageTranslationState.currentLanguage;
+          String? currentLanguage = languageTranslationState.currentLanguage;
           return Consumer<OvcInterventionListState>(
             builder: (context, ovcInterventionListState, child) {
               String header = currentLanguage == 'lesotho'
@@ -76,7 +76,7 @@ class _OvcReferralPageState extends State<OvcReferralPage> {
     );
   }
 
-  Widget _buildBody(String currentLanguage) {
+  Widget _buildBody(String? currentLanguage) {
     return Consumer<OvcInterventionListState>(
       builder: (context, ovcList, child) => CustomPaginatedListView(
         pagingController: ovcList.pagingController,

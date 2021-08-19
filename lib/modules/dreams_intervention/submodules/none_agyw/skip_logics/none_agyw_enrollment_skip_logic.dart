@@ -227,7 +227,7 @@ class NoneAgywEnrollmentSkipLogic {
         bool hasTestDate = true;
         DateTime resultDate = DateTime.parse(
             '${dataObject[NonAgywPrepVisitConstant.clientInformedOfTestResults]}');
-        DateTime testDate;
+        late DateTime testDate;
         if (dataObject[NonAgywPrepVisitConstant.dateBled3] != '' &&
             dataObject[NonAgywPrepVisitConstant.dateBled3] != null) {
           testDate = DateTime.parse(
@@ -356,7 +356,7 @@ class NoneAgywEnrollmentSkipLogic {
   static assignInputFieldValue(
     BuildContext context,
     String inputFieldId,
-    String value,
+    String? value,
   ) {
     Provider.of<EnrollmentFormState>(context, listen: false)
         .setFormFieldState(inputFieldId, value);

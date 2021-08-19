@@ -21,10 +21,10 @@ import 'package:provider/provider.dart';
 import 'non_agyw_dreams_hts_client_information.dart';
 
 class NonAgywDreamsHTSConsentForm extends StatefulWidget {
-  NonAgywDreamsHTSConsentForm({Key key, this.isComingFromPrep})
+  NonAgywDreamsHTSConsentForm({Key? key, this.isComingFromPrep})
       : super(key: key);
 
-  final bool isComingFromPrep;
+  final bool? isComingFromPrep;
 
   @override
   _NonAgywDreamsHTSConsentFormState createState() =>
@@ -34,10 +34,10 @@ class NonAgywDreamsHTSConsentForm extends StatefulWidget {
 class _NonAgywDreamsHTSConsentFormState
     extends State<NonAgywDreamsHTSConsentForm> {
   final String label = 'HTS Consent';
-  List<FormSection> formSections;
+  List<FormSection>? formSections;
   bool isFormReady = false;
   bool isSaving = false;
-  bool isComingFromPrep;
+  bool? isComingFromPrep;
 
   @override
   void initState() {

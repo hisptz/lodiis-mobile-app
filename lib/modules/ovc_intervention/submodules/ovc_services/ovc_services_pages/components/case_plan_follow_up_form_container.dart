@@ -21,16 +21,16 @@ import 'package:provider/provider.dart';
 
 class CasePlanFollowUpFormContainer extends StatefulWidget {
   const CasePlanFollowUpFormContainer({
-    Key key,
-    @required this.dataObject,
-    @required this.isCasePlanForHousehold,
-    @required this.domainId,
-    @required this.isEditableMode,
+    Key? key,
+    required this.dataObject,
+    required this.isCasePlanForHousehold,
+    required this.domainId,
+    required this.isEditableMode,
   }) : super(key: key);
 
   final Map dataObject;
   final bool isCasePlanForHousehold;
-  final String domainId;
+  final String? domainId;
   final bool isEditableMode;
 
   @override
@@ -43,10 +43,10 @@ class _CasePlanFollowUpFormContainerState
     with OvcCasePlanFollowUpSkipLogic {
   bool isFormReady = false;
   bool isSaving = false;
-  List<FormSection> formSections;
-  Map mandatoryFieldObject;
-  Color formSectionColor;
-  Map dataObject;
+  List<FormSection>? formSections;
+  Map? mandatoryFieldObject;
+  Color? formSectionColor;
+  Map? dataObject;
 
   @override
   void initState() {
@@ -58,28 +58,28 @@ class _CasePlanFollowUpFormContainerState
         formSections = widget.isCasePlanForHousehold
             ? HouseholdServiceFollowup.getFormSections()
             : OvcServicesChildServiceFollowup.getFormSections();
-        formSections = formSections
+        formSections = formSections!
             .where((formSection) => formSection.id == widget.domainId)
             .toList();
-        formSectionColor = formSections.length > 0
-            ? formSections[0].borderColor
+        formSectionColor = formSections!.length > 0
+            ? formSections![0].borderColor
             : Colors.transparent;
-        formSections = formSections.map((formSection) {
+        formSections = formSections!.map((formSection) {
           formSection.borderColor = Colors.transparent;
           return formSection;
         }).toList();
         isFormReady = true;
       });
-      evaluateSkipLogics(context, formSections, widget.dataObject);
+      evaluateSkipLogics(context, formSections!, widget.dataObject);
       setState(() {});
     });
   }
 
   void onSaveGapForm(
     BuildContext context,
-    Map dataObject,
-    OvcHousehold currentOvcHousehold,
-    OvcHouseholdChild currentOvcHouseholdChild,
+    Map? dataObject,
+    OvcHousehold? currentOvcHousehold,
+    OvcHouseholdChild? currentOvcHouseholdChild,
   ) async {
     if (widget.dataObject.keys.length > 1) {
       setState(() {
@@ -91,14 +91,14 @@ class _CasePlanFollowUpFormContainerState
       String programStage = widget.isCasePlanForHousehold
           ? OvcHouseholdCasePlanConstant.casePlanGapFollowUpProgramStage
           : OvcChildCasePlanConstant.casePlanGapFollowUpProgramStage;
-      String orgUnit = widget.isCasePlanForHousehold
-          ? currentOvcHousehold.orgUnit
-          : currentOvcHouseholdChild.orgUnit;
-      String beneficiaryId = widget.isCasePlanForHousehold
-          ? currentOvcHousehold.id
-          : currentOvcHouseholdChild.id;
-      String eventDate = dataObject['eventDate'];
-      String eventId = dataObject['eventId'];
+      String? orgUnit = widget.isCasePlanForHousehold
+          ? currentOvcHousehold!.orgUnit
+          : currentOvcHouseholdChild!.orgUnit;
+      String? beneficiaryId = widget.isCasePlanForHousehold
+          ? currentOvcHousehold!.id
+          : currentOvcHouseholdChild!.id;
+      String? eventDate = dataObject!['eventDate'];
+      String? eventId = dataObject['eventId'];
       List<String> hiddenFields = [
         OvcCasePlanConstant.casePlanGapToFollowUpLinkage
       ];
@@ -107,7 +107,7 @@ class _CasePlanFollowUpFormContainerState
           program,
           programStage,
           orgUnit,
-          formSections,
+          formSections!,
           dataObject,
           eventDate,
           beneficiaryId,
@@ -120,7 +120,7 @@ class _CasePlanFollowUpFormContainerState
           });
           Provider.of<ServiceEventDataState>(context, listen: false)
               .resetServiceEventDataState(beneficiaryId);
-          String currentLanguage =
+          String? currentLanguage =
               Provider.of<LanguageTranslationState>(context, listen: false)
                   .currentLanguage;
           AppUtil.showToastMessage(
@@ -152,7 +152,7 @@ class _CasePlanFollowUpFormContainerState
     setState(() {
       widget.dataObject[id] = value;
     });
-    evaluateSkipLogics(context, formSections, widget.dataObject);
+    evaluateSkipLogics(context, formSections!, widget.dataObject);
     setState(() {});
   }
 
@@ -194,10 +194,10 @@ class _CasePlanFollowUpFormContainerState
                                 ovcHouseholdCurrentSelectionState,
                                 child,
                               ) {
-                                OvcHousehold currentOvcHousehold =
+                                OvcHousehold? currentOvcHousehold =
                                     ovcHouseholdCurrentSelectionState
                                         .currentOvcHousehold;
-                                OvcHouseholdChild currentOvcHouseholdChild =
+                                OvcHouseholdChild? currentOvcHouseholdChild =
                                     ovcHouseholdCurrentSelectionState
                                         .currentOvcHouseholdChild;
                                 return TextButton(

@@ -28,7 +28,7 @@ import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:provider/provider.dart';
 
 class NoneAgywPrepForm extends StatefulWidget {
-  NoneAgywPrepForm({Key key}) : super(key: key);
+  NoneAgywPrepForm({Key? key}) : super(key: key);
 
   @override
   _NoneAgywPrepFormState createState() => _NoneAgywPrepFormState();
@@ -36,8 +36,8 @@ class NoneAgywPrepForm extends StatefulWidget {
 
 class _NoneAgywPrepFormState extends State<NoneAgywPrepForm> {
   final String label = 'PREP VISIT';
-  List<FormSection> formSections;
-  List<String> mandatoryFields;
+  List<FormSection>? formSections;
+  late List<String> mandatoryFields;
   Map mandatoryFieldsObject = Map();
   bool isFormReady = false;
   bool isSaving = false;
@@ -67,7 +67,7 @@ class _NoneAgywPrepFormState extends State<NoneAgywPrepForm> {
             Provider.of<ServiceFormState>(context, listen: false).formState;
         await NoneAgywPrepSkipLogic.evaluateSkipLogics(
           context,
-          formSections,
+          formSections!,
           dataObject,
         );
         evaluatePrePMandatoryFieldChange(dataObject);
@@ -77,7 +77,7 @@ class _NoneAgywPrepFormState extends State<NoneAgywPrepForm> {
 
   void onUpdateFormAutoSaveState(
     BuildContext context,
-    String beneficiaryId, {
+    String? beneficiaryId, {
     bool isSaveForm = false,
   }) async {
     Map dataObject =
@@ -99,7 +99,7 @@ class _NoneAgywPrepFormState extends State<NoneAgywPrepForm> {
 
   void clearFormAutoSaveState(
     BuildContext context,
-    String beneficiaryId,
+    String? beneficiaryId,
   ) async {
     Map dataObject =
         Provider.of<ServiceFormState>(context, listen: false).formState;
@@ -109,14 +109,14 @@ class _NoneAgywPrepFormState extends State<NoneAgywPrepForm> {
     await FormAutoSaveOfflineService().deleteSavedFormAutoData(formAutoSaveId);
   }
 
-  void onInputValueChange(String id, dynamic value, String beneficiaryId) {
+  void onInputValueChange(String id, dynamic value, String? beneficiaryId) {
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState(id, value);
     evaluateSkipLogics();
     onUpdateFormAutoSaveState(context, beneficiaryId);
   }
 
-  void onSaveForm(BuildContext context, Map dataObject, AgywDream agywDream,
+  void onSaveForm(BuildContext context, Map dataObject, AgywDream? agywDream,
       {hiddenFields: const {}}) async {
     bool hasAllMandatoryFieldsFilled = AppUtil.hasAllMandatoryFieldsFilled(
         mandatoryFields, dataObject,
@@ -126,15 +126,15 @@ class _NoneAgywPrepFormState extends State<NoneAgywPrepForm> {
       setState(() {
         isSaving = true;
       });
-      String eventDate = dataObject['eventDate'];
-      String eventId = dataObject['eventId'];
+      String? eventDate = dataObject['eventDate'];
+      String? eventId = dataObject['eventId'];
       List<String> hiddenFields = [];
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
             NonAgywPrepVisitConstant.program,
             NonAgywPrepVisitConstant.programStage,
-            agywDream.orgUnit,
-            formSections,
+            agywDream!.orgUnit,
+            formSections!,
             dataObject,
             eventDate,
             agywDream.id,
@@ -147,7 +147,7 @@ class _NoneAgywPrepFormState extends State<NoneAgywPrepForm> {
           setState(() {
             isSaving = false;
           });
-          String currentLanguage =
+          String? currentLanguage =
               Provider.of<LanguageTranslationState>(context, listen: false)
                   .currentLanguage;
           AppUtil.showToastMessage(
@@ -198,11 +198,11 @@ class _NoneAgywPrepFormState extends State<NoneAgywPrepForm> {
           body: Container(
             child: Consumer<LanguageTranslationState>(
               builder: (context, languageTranslationState, child) {
-                String currentLanguage =
+                String? currentLanguage =
                     languageTranslationState.currentLanguage;
                 return Consumer<DreamsBeneficiarySelectionState>(
                   builder: (context, nonAgywState, child) {
-                    AgywDream agywDream = nonAgywState.currentAgywDream;
+                    AgywDream? agywDream = nonAgywState.currentAgywDream;
                     return Consumer<ServiceFormState>(
                       builder: (context, serviceFormState, child) {
                         return Container(
@@ -240,7 +240,7 @@ class _NoneAgywPrepFormState extends State<NoneAgywPrepForm> {
                                             onInputValueChange: (String id,
                                                     dynamic value) =>
                                                 onInputValueChange(
-                                                    id, value, agywDream.id),
+                                                    id, value, agywDream!.id),
                                             unFilledMandatoryFields:
                                                 unFilledMandatoryFields,
                                           ),

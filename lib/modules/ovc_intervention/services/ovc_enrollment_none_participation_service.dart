@@ -35,12 +35,12 @@ class OvcEnrollmentNoneParticipationService {
           .add(ServiceImplementingPartner().implementingPartnerDataElement);
       inputFieldIds
           .add(ServiceImplementingPartner().subImplementingPartnerDataElement);
-      CurrentUser user = await UserService().getCurrentUser();
+      CurrentUser? user = await (UserService().getCurrentUser());
       dataObject[ServiceImplementingPartner().implementingPartnerDataElement] =
           dataObject[ServiceImplementingPartner()
                   .implementingPartnerDataElement] ??
-              user.implementingPartner;
-      if (user.subImplementingPartner != '') {
+              user!.implementingPartner;
+      if (user!.subImplementingPartner != '') {
         dataObject[ServiceImplementingPartner()
             .subImplementingPartnerDataElement] = dataObject[
                 ServiceImplementingPartner()

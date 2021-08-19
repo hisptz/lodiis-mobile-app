@@ -29,7 +29,7 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_serv
 import 'package:provider/provider.dart';
 
 class AgywDreamsPrepShortForm extends StatefulWidget {
-  AgywDreamsPrepShortForm({Key key}) : super(key: key);
+  AgywDreamsPrepShortForm({Key? key}) : super(key: key);
   @override
   _AgywDreamsPrepShortFormState createState() =>
       _AgywDreamsPrepShortFormState();
@@ -37,8 +37,8 @@ class AgywDreamsPrepShortForm extends StatefulWidget {
 
 class _AgywDreamsPrepShortFormState extends State<AgywDreamsPrepShortForm> {
   final String label = 'AGYW PrEP Form';
-  List<FormSection> formSections;
-  List<String> mandatoryFields;
+  List<FormSection>? formSections;
+  late List<String> mandatoryFields;
   Map mandatoryFieldObject = Map();
   bool isFormReady = false;
   bool isSaving = false;
@@ -68,7 +68,7 @@ class _AgywDreamsPrepShortFormState extends State<AgywDreamsPrepShortForm> {
             Provider.of<ServiceFormState>(context, listen: false).formState;
         await AgywDreamsPrepShortFormSkipLogic.evaluateSkipLogics(
           context,
-          formSections,
+          formSections!,
           dataObject,
         );
       },
@@ -82,7 +82,7 @@ class _AgywDreamsPrepShortFormState extends State<AgywDreamsPrepShortForm> {
     onUpdateFormAutoSaveState(context);
   }
 
-  void onSaveForm(BuildContext context, Map dataObject, AgywDream agywDream,
+  void onSaveForm(BuildContext context, Map dataObject, AgywDream? agywDream,
       {hiddenFields = const {}}) async {
     bool hadAllMandatoryFilled = AppUtil.hasAllMandatoryFieldsFilled(
         mandatoryFields, dataObject,
@@ -92,15 +92,15 @@ class _AgywDreamsPrepShortFormState extends State<AgywDreamsPrepShortForm> {
       setState(() {
         isSaving = true;
       });
-      String eventDate = dataObject['eventDate'];
-      String eventId = dataObject['eventId'];
+      String? eventDate = dataObject['eventDate'];
+      String? eventId = dataObject['eventId'];
       List<String> hiddenFields = [];
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
             PrepIntakeShortFormConstants.program,
             PrepIntakeShortFormConstants.programStage,
-            agywDream.orgUnit,
-            formSections,
+            agywDream!.orgUnit,
+            formSections!,
             dataObject,
             eventDate,
             agywDream.id,
@@ -112,7 +112,7 @@ class _AgywDreamsPrepShortFormState extends State<AgywDreamsPrepShortForm> {
           setState(() {
             isSaving = false;
           });
-          String currentLanguage =
+          String? currentLanguage =
               Provider.of<LanguageTranslationState>(context, listen: false)
                   .currentLanguage;
           AppUtil.showToastMessage(
@@ -144,7 +144,7 @@ class _AgywDreamsPrepShortFormState extends State<AgywDreamsPrepShortForm> {
   }
 
   void clearFormAutoSaveState(
-      BuildContext context, String beneficiaryId) async {
+      BuildContext context, String? beneficiaryId) async {
     String formAutoSaveId =
         "${DreamsRoutesConstant.agywDreamsPrEPShortFormPage}_$beneficiaryId";
     await FormAutoSaveOfflineService().deleteSavedFormAutoData(formAutoSaveId);
@@ -157,8 +157,8 @@ class _AgywDreamsPrepShortFormState extends State<AgywDreamsPrepShortForm> {
   }) async {
     var agyw =
         Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
-            .currentAgywDream;
-    String beneficiaryId = agyw.id;
+            .currentAgywDream!;
+    String? beneficiaryId = agyw.id;
     Map dataObject =
         Provider.of<ServiceFormState>(context, listen: false).formState;
     String id =
@@ -196,10 +196,10 @@ class _AgywDreamsPrepShortFormState extends State<AgywDreamsPrepShortForm> {
         body: SubPageBody(body: Container(child:
             Consumer<LanguageTranslationState>(
                 builder: (context, languageTranslationState, child) {
-          String currentLanguage = languageTranslationState.currentLanguage;
+          String? currentLanguage = languageTranslationState.currentLanguage;
           return Consumer<DreamsBeneficiarySelectionState>(
               builder: (context, nonAgywState, child) {
-            AgywDream agywDream = nonAgywState.currentAgywDream;
+            AgywDream? agywDream = nonAgywState.currentAgywDream;
             return Consumer<ServiceFormState>(
                 builder: (context, serviceFormState, child) {
               return Container(

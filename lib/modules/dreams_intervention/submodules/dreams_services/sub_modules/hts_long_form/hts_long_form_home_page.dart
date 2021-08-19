@@ -20,7 +20,7 @@ import 'constants/agyw_dreams_hts_constant.dart';
 import 'hts_sub_home_page.dart';
 
 class HTSLongFormHomePage extends StatefulWidget {
-  HTSLongFormHomePage({Key key}) : super(key: key);
+  HTSLongFormHomePage({Key? key}) : super(key: key);
 
   @override
   _HTSLongFormHomePageState createState() => _HTSLongFormHomePageState();
@@ -38,7 +38,7 @@ class _HTSLongFormHomePageState extends State<HTSLongFormHomePage> {
   void updateFormState(
     BuildContext context,
     bool isEditableMode,
-    Events eventData,
+    Events? eventData,
   ) {
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
     Provider.of<ServiceFormState>(context, listen: false)
@@ -57,7 +57,7 @@ class _HTSLongFormHomePageState extends State<HTSLongFormHomePage> {
     }
   }
 
-  void onAddHTS(BuildContext context, AgywDream agywDream) {
+  void onAddHTS(BuildContext context, AgywDream? agywDream) {
     updateFormState(context, true, null);
     Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
         .setCurrentAgywDream(agywDream);
@@ -101,10 +101,10 @@ class _HTSLongFormHomePageState extends State<HTSLongFormHomePage> {
             builder: (context, dreamBeneficiarySelectionState, child) {
               return Consumer<ServiceEventDataState>(
                 builder: (context, serviceFormState, child) {
-                  AgywDream agywDream =
+                  AgywDream? agywDream =
                       dreamBeneficiarySelectionState.currentAgywDream;
                   bool isLoading = serviceFormState.isLoading;
-                  Map<String, List<Events>> eventListByProgramStage =
+                  Map<String?, List<Events>> eventListByProgramStage =
                       serviceFormState.eventListByProgramStage;
                   List<Events> events = TrackedEntityInstanceUtil
                           .getAllEventListFromServiceDataStateByProgramStages(

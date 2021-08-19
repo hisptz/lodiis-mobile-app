@@ -34,13 +34,13 @@ class OvcChildCasePlan extends StatelessWidget {
   updateformState(
     BuildContext context,
     bool isEditableMode,
-    List<Events> casePlanEvents,
-    Map<String, List<Events>> eventListByProgramStage,
+    List<Events>? casePlanEvents,
+    Map<String?, List<Events>> eventListByProgramStage,
   ) {
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
     Provider.of<ServiceFormState>(context, listen: false)
         .updateFormEditabilityState(isEditableMode: isEditableMode);
-    Map sanitizedDataObject;
+    Map? sanitizedDataObject;
     if (casePlanEvents != null) {
       List<Events> casePlanGapsEvents = eventListByProgramStage[
               OvcChildCasePlanConstant.casePlanGapProgramStage] ??
@@ -52,7 +52,7 @@ class OvcChildCasePlan extends StatelessWidget {
       );
     }
     for (FormSection formSection in OvcServicesCasePlan.getFormSections()) {
-      String formSectionId = formSection.id;
+      String? formSectionId = formSection.id;
       String casePlanToGapLinkage = AppUtil.getUid();
       Map map = sanitizedDataObject != null &&
               sanitizedDataObject.containsKey(formSectionId)
@@ -70,7 +70,7 @@ class OvcChildCasePlan extends StatelessWidget {
     }
   }
 
-  isCasePlanExit(Map<String, List<Events>> eventListByProgramStage) {
+  isCasePlanExit(Map<String?, List<Events>> eventListByProgramStage) {
     List<Events> events = TrackedEntityInstanceUtil
         .getAllEventListFromServiceDataStateByProgramStages(
             eventListByProgramStage, casePlanProgramStageIds);
@@ -82,7 +82,7 @@ class OvcChildCasePlan extends StatelessWidget {
 
   void onAddNewAssessment(
     BuildContext context,
-    Map<String, List<Events>> eventListByProgramStage,
+    Map<String?, List<Events>> eventListByProgramStage,
   ) {
     bool isEditableMode = true;
     if (isCasePlanExit(eventListByProgramStage)) {
@@ -103,7 +103,7 @@ class OvcChildCasePlan extends StatelessWidget {
   void onEditCasePlan(
     BuildContext context,
     List<Events> casePlanEvents,
-    Map<String, List<Events>> eventListByProgramStage,
+    Map<String?, List<Events>> eventListByProgramStage,
   ) {
     bool isEditableMode = true;
     updateformState(
@@ -121,7 +121,7 @@ class OvcChildCasePlan extends StatelessWidget {
   void onViewCasePlan(
     BuildContext context,
     List<Events> casePlanEvents,
-    Map<String, List<Events>> eventListByProgramStage,
+    Map<String?, List<Events>> eventListByProgramStage,
   ) {
     bool isEditableMode = false;
     updateformState(
@@ -160,7 +160,7 @@ class OvcChildCasePlan extends StatelessWidget {
                 child: Consumer<ServiceEventDataState>(
                   builder: (context, serviceEventDataState, child) {
                     bool isLoading = serviceEventDataState.isLoading;
-                    Map<String, List<Events>> eventListByProgramStage =
+                    Map<String?, List<Events>> eventListByProgramStage =
                         serviceEventDataState.eventListByProgramStage;
                     return isLoading
                         ? CircularProcessLoader(
