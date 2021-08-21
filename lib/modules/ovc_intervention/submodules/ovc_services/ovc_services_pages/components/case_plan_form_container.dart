@@ -65,8 +65,7 @@ class CasePlanFormContainer extends StatelessWidget {
       formSectionColor: formSectionColor,
       dataObject: gapDataObject,
     );
-    // TODO See where there is a problem
-    Map response = await AppUtil.showPopUpModal(context, modal, true);
+    Map? response = await AppUtil.showPopUpModal(context, modal, true);
     if (response != null) {
       dataObject!['gaps'].add(response);
       onValueChange('gaps', dataObject!['gaps']);

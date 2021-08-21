@@ -596,11 +596,11 @@ class SynchronizationService {
     bool isAutoUpload,
     List<Events> teiEvents,
   ) async {
-    List<String> unsyncedDueToEnrollment =
+    List<String?> unsyncedDueToEnrollment =
         referenceIds['unsyncedDueToEnrollment'] ?? [];
-    List<String> unsyncedDueMissingBeneficiary =
+    List<String?> unsyncedDueMissingBeneficiary =
         referenceIds['unsyncedDueMissingBeneficiary'] ?? [];
-    List<String> unsyncedEventIds = [
+    List<String?> unsyncedEventIds = [
       ...unsyncedDueMissingBeneficiary,
       ...unsyncedDueToEnrollment
     ];

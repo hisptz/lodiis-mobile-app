@@ -12,12 +12,11 @@ class ImplementingPartnerReferralServiceState with ChangeNotifier {
       _implementingPartnerReferralServices;
 
   Future<void> setImplementingPartnerServices() async {
-    String referralJsonData =
+    String? referralJsonData =
         await (ImplementingPartnerReferralServicesOfflineProvider()
             .getImplementingPartnerReferralServices(
-                DefaultImplementingPartnerReferralServices
-                    .referralServicesId) as FutureOr<String>);
-    Map<String, dynamic> referralServices = jsonDecode(referralJsonData);
+                DefaultImplementingPartnerReferralServices.referralServicesId));
+    Map<String, dynamic> referralServices = jsonDecode(referralJsonData!);
     _implementingPartnerReferralServices.addAll(referralServices);
   }
 }

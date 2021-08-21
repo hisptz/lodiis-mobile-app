@@ -37,9 +37,6 @@ class _OrganisationUnitTreeListState extends State<OrganisationUnitTreeList> {
   }
 
   void discoveringOrganisationUnits(List organisationUnitIds) async {
-    print('organisationUnitIds: ${widget.organisationUnitIds}');
-    print('allowedSelectedLevels: ${widget.allowedSelectedLevels}');
-    print('filteredPrograms: ${widget.filteredPrograms}');
     var data = await OrganisationUnitService()
         .getOrganisationUnits(organisationUnitIds);
     if (widget.filteredPrograms!.length > 0) {

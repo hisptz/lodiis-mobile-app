@@ -25,7 +25,7 @@ class TrackedEntityInstanceUtil {
     List<String> inputFieldIds = FormUtil.getFormFieldIds(
       formSections,
     );
-    inputFieldIds.addAll(hiddenFields!);
+    inputFieldIds.addAll(hiddenFields ?? []);
 
     inputFieldIds.removeWhere((field) => skippedFields!.indexOf(field) > -1);
 

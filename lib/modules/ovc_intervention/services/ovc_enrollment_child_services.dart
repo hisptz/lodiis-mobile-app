@@ -16,7 +16,7 @@ class OvcEnrollmentChildService {
   Future savingChildrenEnrollmentForms(
     String? parentTrackedEntityInstance,
     String? orgUnit,
-    List<Map> childrenObjects,
+    List<Map?> childrenObjects,
     String? enrollmentDate,
     String? incidentDate,
     bool shouldEnroll,
@@ -26,9 +26,9 @@ class OvcEnrollmentChildService {
     List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections);
     inputFieldIds.addAll(hiddenFields);
     List childTeiReferences = [];
-    for (Map dataObject in childrenObjects) {
+    for (Map? dataObject in childrenObjects) {
       String trackedEntityInstance =
-          dataObject['trackedEntityInstance'] ?? AppUtil.getUid();
+          dataObject!['trackedEntityInstance'] ?? AppUtil.getUid();
       String? enrollment = dataObject['enrollment'];
       childTeiReferences.add(trackedEntityInstance);
       TrackedEntityInstance trackedEntityInstanceData =

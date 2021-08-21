@@ -43,14 +43,14 @@ class _DataDownloadMessageState extends State<DataDownloadMessage> {
   }
 
   void checkForAvailableBeneficiaryDataFromServer() async {
-    await ReferralNotificationService().syncReferralNotifications();
-    await Provider.of<ReferralNotificationState>(context, listen: false)
-        .reloadReferralNotifications();
-    Timer(Duration(milliseconds: 100), () {
+    Timer(Duration(milliseconds: 100), () async {
       bool connected =
           Provider.of<DeviceConnectivityState>(context, listen: false)
               .connectivityStatus!;
       if (connected) {
+        await ReferralNotificationService().syncReferralNotifications();
+        await Provider.of<ReferralNotificationState>(context, listen: false)
+            .reloadReferralNotifications();
         Provider.of<SynchronizationState>(context, listen: false)
             .checkingForAvailableBeneficiaryData();
       }

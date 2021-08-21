@@ -73,7 +73,7 @@ class OvcServiceChildCard extends StatelessWidget {
             ),
             Container(
               margin: EdgeInsets.symmetric(
-                vertical: 10.0,
+                vertical: 1.0,
               ),
               child: Consumer<LanguageTranslationState>(
                 builder: (context, languageTranslationState, child) {

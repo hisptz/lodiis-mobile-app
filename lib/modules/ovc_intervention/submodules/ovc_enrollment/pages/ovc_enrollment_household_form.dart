@@ -69,7 +69,7 @@ class _OvcEnrollmentHouseholdFormState
         BeneficiaryIdentification.beneficiaryIndex,
         'PN92g65TkVI'
       ];
-      List<Map> childrenObjects = dataObject['children'];
+      List<Map?> childrenObjects = dataObject['children'];
       String? orgUnit = dataObject['location'];
       bool shouldEnroll = true;
       await OvcEnrollmentHouseholdService().savingHouseholdForm(

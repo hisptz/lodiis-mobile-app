@@ -143,7 +143,7 @@ class EventOfflineProvider extends OfflineDbProvider {
   }
 
   Future<List<String>> getTrackedEntityInstanceIdsByIds(
-    List<String> eventIds,
+    List<String?> eventIds,
   ) async {
     List<String> teiIds = [];
     try {

@@ -47,7 +47,7 @@ class _CasePlanGapFormContainerState extends State<CasePlanGapFormContainer>
       dataObject = widget.dataObject;
     });
     evaluateSkipLogics(context, widget.formSections, dataObject!,
-        currentHouseholdChild: widget.currentHouseholdChild!);
+        currentHouseholdChild: widget.currentHouseholdChild);
     setState(() {});
   }
 
@@ -73,7 +73,7 @@ class _CasePlanGapFormContainerState extends State<CasePlanGapFormContainer>
       dataObject![id] = value;
     });
     evaluateSkipLogics(context, widget.formSections, dataObject!,
-        currentHouseholdChild: widget.currentHouseholdChild!);
+        currentHouseholdChild: widget.currentHouseholdChild);
     setState(() {});
   }
 

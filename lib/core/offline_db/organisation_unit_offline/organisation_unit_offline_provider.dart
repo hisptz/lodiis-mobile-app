@@ -101,18 +101,19 @@ class OrganisationUnitOfflineProvider extends OfflineDbProvider {
   }
 
   Future<List<OrganisationUnit>> getOrganisationUnitById(
-    List organisationIds,
+    List? organisationIds,
   ) async {
     List<OrganisationUnit> organisationUnitList = [];
     try {
       var dbClient = await db;
-      String questionMark = organisationIds.map((e) => '?').toList().join(',');
+      String questionMark =
+          (organisationIds ?? []).map((e) => '?').toList().join(',');
       List<Map> maps = await dbClient!.query(
           OrganisationUnit.organisationUnitTable,
           columns: [id, name, parent, level, code],
           orderBy: name,
           where: '$id IN ($questionMark)',
-          whereArgs: organisationIds);
+          whereArgs: organisationIds ?? ['']);
       if (maps.isNotEmpty) {
         for (Map map in maps) {
           String? organisationUnitId = map['id'];
