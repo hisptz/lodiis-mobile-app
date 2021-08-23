@@ -46,14 +46,16 @@ class _OvcHouseholdExitFormContainerState
   @override
   void initState() {
     super.initState();
-    Timer(Duration(seconds: 1), () {
-      bool isEditableMode = widget.event == null;
-      updateFormState(context, isEditableMode, widget.event);
-      setState(() {
-        isFormReady = true;
-        evaluateSkipLogics();
+    if (!isFormReady)
+      Timer(Duration(seconds: 1), () {
+        bool isEditableMode = widget.event == null;
+        print("Here on the forms initiations==> $isFormReady");
+        updateFormState(context, isEditableMode, widget.event);
+        setState(() {
+          isFormReady = true;
+          evaluateSkipLogics();
+        });
       });
-    });
   }
 
   evaluateSkipLogics() {
