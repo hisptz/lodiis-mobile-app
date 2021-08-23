@@ -15,15 +15,15 @@ import 'package:kb_mobile_app/modules/synchronization/conflict_on_download_page.
 import 'package:provider/provider.dart';
 
 class Synchronization extends StatefulWidget {
-  Synchronization({Key key, this.synchronizationAction}) : super(key: key);
-  final String synchronizationAction;
+  Synchronization({Key? key, this.synchronizationAction}) : super(key: key);
+  final String? synchronizationAction;
   @override
   _SynchronizationState createState() => _SynchronizationState();
 }
 
 class _SynchronizationState extends State<Synchronization> {
   final String label = 'Data Synchronization';
-  String selectedSyncAction = '';
+  String? selectedSyncAction = '';
 
   void onStartDataUpload(BuildContext context) async {
     await Provider.of<SynchronizationState>(context, listen: false)
@@ -46,7 +46,7 @@ class _SynchronizationState extends State<Synchronization> {
   }
 
   void initializeSynchronization(BuildContext context,
-      {String syncAction, bool isSyncActive = false}) async {
+      {String? syncAction, bool isSyncActive = false}) async {
     if (!isSyncActive) {
       setState(() {
         selectedSyncAction = syncAction;
@@ -139,7 +139,7 @@ class _SynchronizationState extends State<Synchronization> {
                             margin: EdgeInsets.symmetric(vertical: 5.0),
                             child: SynchronizationActionForm(
                                 selectedSyncAction: selectedSyncAction,
-                                onInitializeSyncAction: (String syncAction) =>
+                                onInitializeSyncAction: (String? syncAction) =>
                                     initializeSynchronization(context,
                                         syncAction: syncAction,
                                         isSyncActive:

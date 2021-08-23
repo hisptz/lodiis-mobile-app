@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 
 class OvcMonitorSaveButton extends StatelessWidget {
   const OvcMonitorSaveButton(
-      {Key key,
+      {Key? key,
       this.width = double.infinity,
-      @required this.label,
-      @required this.labelColor,
-      @required this.buttonColor,
+      required this.label,
+      required this.labelColor,
+      required this.buttonColor,
       this.marginLeft = 25.0,
       this.marginRight = 24.0,
       this.fontSize = 15.0,
@@ -20,13 +20,13 @@ class OvcMonitorSaveButton extends StatelessWidget {
   final Color labelColor;
   final double fontSize;
   final Color buttonColor;
-  final Function onPressButton;
+  final Function? onPressButton;
   final double width;
   final double marginLeft;
   final double marginRight;
   final double vertical;
   final double horizontal;
-  final Color borderColor;
+  final Color? borderColor;
 
   @override
   Widget build(BuildContext context) {
@@ -44,13 +44,13 @@ class OvcMonitorSaveButton extends StatelessWidget {
             backgroundColor: buttonColor,
             shape: RoundedRectangleBorder(
               side: BorderSide(
-                color: borderColor == null ? Colors.transparent : borderColor,
+                color: borderColor == null ? Colors.transparent : borderColor!,
               ),
               borderRadius: BorderRadius.circular(12.0),
             ),
             padding: EdgeInsets.all(10.0),
           ),
-          onPressed: onPressButton,
+          onPressed: onPressButton as void Function()?,
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.all(

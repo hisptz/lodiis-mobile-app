@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:collection/collection.dart' show IterableExtension;
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_household_current_selection_state.dart';
@@ -42,7 +43,7 @@ class _OvcHouseholdCaseClosureState extends State<OvcHouseholdCaseClosure> {
   ];
 
   bool isSaving = false;
-  List<FormSection> formSections;
+  List<FormSection>? formSections;
   bool isFormReady = false;
 
   @override
@@ -59,20 +60,20 @@ class _OvcHouseholdCaseClosureState extends State<OvcHouseholdCaseClosure> {
   void onSaveForm(
     BuildContext context,
     Map dataObject,
-    OvcHousehold currentOvcHousehold,
+    OvcHousehold? currentOvcHousehold,
   ) async {
     if (FormUtil.geFormFilledStatus(dataObject, formSections)) {
       setState(() {
         isSaving = true;
       });
-      String eventDate = dataObject['eventDate'];
-      String eventId = dataObject['eventId'];
+      String? eventDate = dataObject['eventDate'];
+      String? eventId = dataObject['eventId'];
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
             OvcHouseholdCaseClosureConstant.program,
             OvcHouseholdCaseClosureConstant.programStage,
-            currentOvcHousehold.orgUnit,
-            formSections,
+            currentOvcHousehold!.orgUnit,
+            formSections!,
             dataObject,
             eventDate,
             currentOvcHousehold.id,
@@ -84,7 +85,7 @@ class _OvcHouseholdCaseClosureState extends State<OvcHouseholdCaseClosure> {
           setState(() {
             isSaving = false;
           });
-          String currentLanguage =
+          String? currentLanguage =
               Provider.of<LanguageTranslationState>(context, listen: false)
                   .currentLanguage;
           AppUtil.showToastMessage(
@@ -132,7 +133,7 @@ class _OvcHouseholdCaseClosureState extends State<OvcHouseholdCaseClosure> {
           body: Container(
             child: Consumer<OvcHouseholdCurrentSelectionState>(
               builder: (context, ovcHouseholdCurrentSelectionState, child) {
-                OvcHousehold currentOvcHousehold =
+                OvcHousehold? currentOvcHousehold =
                     ovcHouseholdCurrentSelectionState.currentOvcHousehold;
                 return Container(
                   child: Column(
@@ -144,19 +145,14 @@ class _OvcHouseholdCaseClosureState extends State<OvcHouseholdCaseClosure> {
                         child: Consumer<ServiceEventDataState>(
                           builder: (context, serviceEventDataState, child) {
                             bool isLoading = serviceEventDataState.isLoading;
-                            Map<String, List<Events>> eventListByProgramStage =
+                            Map<String?, List<Events>> eventListByProgramStage =
                                 serviceEventDataState.eventListByProgramStage;
                             List<Events> eventList = TrackedEntityInstanceUtil
-                                    .getAllEventListFromServiceDataStateByProgramStages(
-                                        eventListByProgramStage,
-                                        programStageIds) ??
-                                [];
-                            Events event = eventList.firstWhere(
-                                (e) =>
-                                    e.programStage ==
-                                    OvcHouseholdCaseClosureConstant
-                                        .programStage,
-                                orElse: () => null);
+                                .getAllEventListFromServiceDataStateByProgramStages(
+                                    eventListByProgramStage, programStageIds);
+                            Events? event = eventList.firstWhereOrNull((e) =>
+                                e.programStage ==
+                                OvcHouseholdCaseClosureConstant.programStage);
                             bool isDisabled = shouldDisableClosure(eventList);
 
                             return isLoading

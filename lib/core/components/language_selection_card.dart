@@ -5,19 +5,19 @@ import 'package:kb_mobile_app/models/app_language.dart';
 
 class LanguageSelectionCard extends StatelessWidget {
   const LanguageSelectionCard({
-    Key key,
-    @required this.size,
-    @required this.appLanguage,
-    @required this.currentLanguage,
-    @required this.selectionLanguage,
-    @required this.color,
+    Key? key,
+    required this.size,
+    required this.appLanguage,
+    required this.currentLanguage,
+    required this.selectionLanguage,
+    required this.color,
   }) : super(key: key);
 
   final Size size;
-  final String currentLanguage;
+  final String? currentLanguage;
   final AppLanguage appLanguage;
-  final String selectionLanguage;
-  final Color color;
+  final String? selectionLanguage;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
@@ -29,13 +29,13 @@ class LanguageSelectionCard extends StatelessWidget {
             CircleAvatar(
               radius: size.width * 0.06,
               backgroundColor: Color(0xFFF3F3F3),
-              backgroundImage: AssetImage(appLanguage.image),
+              backgroundImage: AssetImage(appLanguage.image!),
             ),
             Container(
               child: Text(currentLanguage == 'lesotho' &&
                       appLanguage.translatedName != null
-                  ? appLanguage.translatedName
-                  : appLanguage.name),
+                  ? appLanguage.translatedName!
+                  : appLanguage.name!),
             ),
             Container(
               child: SvgPicture.asset(

@@ -5,11 +5,11 @@ import 'package:rxdart/rxdart.dart';
 
 class SearchInput extends StatelessWidget {
   SearchInput({
-    Key key,
+    Key? key,
     this.onSearch,
   }) : super(key: key);
 
-  final Function onSearch;
+  final Function? onSearch;
 
   final PublishSubject<String> _searchedValued = PublishSubject<String>();
   final InputField inputField = InputField(
@@ -22,7 +22,7 @@ class SearchInput extends StatelessWidget {
     _searchedValued
         .debounce((_) => TimerStream(true, Duration(milliseconds: 500)))
         .listen((searchedValue) async {
-      onSearch(searchedValue);
+      onSearch!(searchedValue);
     });
   }
 

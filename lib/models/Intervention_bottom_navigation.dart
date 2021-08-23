@@ -1,10 +1,10 @@
 import 'package:kb_mobile_app/models/intervention_card.dart';
 
 class InterventionBottomNavigation {
-  String id;
-  String name;
-  String translatedName;
-  String svgIcon;
+  String? id;
+  String? name;
+  String? translatedName;
+  String? svgIcon;
 
   InterventionBottomNavigation({
     this.id,

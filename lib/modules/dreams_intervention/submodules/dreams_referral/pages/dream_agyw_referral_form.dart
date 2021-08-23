@@ -14,7 +14,7 @@ import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
-import 'package:kb_mobile_app/core/constants/service_implementing_partner.dart';
+import 'package:kb_mobile_app/core/constants/user_account_reference.dart';
 import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/services/referral_notification_service.dart';
 import 'package:kb_mobile_app/core/services/user_service.dart';
@@ -37,9 +37,9 @@ import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:provider/provider.dart';
 
 class DreamsAgywAddReferralForm extends StatefulWidget {
-  DreamsAgywAddReferralForm({Key key, this.currentUser}) : super(key: key);
+  DreamsAgywAddReferralForm({Key? key, this.currentUser}) : super(key: key);
 
-  final CurrentUser currentUser;
+  final CurrentUser? currentUser;
 
   @override
   _DreamsAgywAddReferralFormState createState() =>
@@ -51,7 +51,7 @@ class _DreamsAgywAddReferralFormState extends State<DreamsAgywAddReferralForm> {
   final Map mandatoryFieldObject = Map();
   final List<String> mandatoryFields = DreamsReferral.getMandatoryFields();
   List unFilledMandatoryFields = [];
-  List<FormSection> formSections;
+  List<FormSection>? formSections;
   bool isFormReady = false;
   bool isSaving = false;
 
@@ -82,10 +82,10 @@ class _DreamsAgywAddReferralFormState extends State<DreamsAgywAddReferralForm> {
                 .implementingPartnerServices;
         await DreamsAgywReferralSkipLogic.evaluateSkipLogics(
             context,
-            formSections,
+            formSections!,
             dataObject,
-            widget.currentUser.implementingPartner ?? '',
-            implementingPartnerReferralServices ?? {});
+            widget.currentUser!.implementingPartner ?? '',
+            implementingPartnerReferralServices);
       },
     );
   }
@@ -107,7 +107,7 @@ class _DreamsAgywAddReferralFormState extends State<DreamsAgywAddReferralForm> {
   void onSaveForm(
     BuildContext context,
     Map dataObject,
-    AgywDream currentAgywDream, {
+    AgywDream? currentAgywDream, {
     Map hiddenFieldsObject = const {},
   }) async {
     if (FormUtil.geFormFilledStatus(dataObject, formSections)) {
@@ -119,8 +119,8 @@ class _DreamsAgywAddReferralFormState extends State<DreamsAgywAddReferralForm> {
         setState(() {
           isSaving = true;
         });
-        String eventDate = dataObject['eventDate'];
-        String eventId = dataObject['eventId'];
+        String? eventDate = dataObject['eventDate'];
+        String? eventId = dataObject['eventId'];
         dataObject.remove('village');
         dataObject.remove('phoneNumber');
         dataObject[DreamsAgywReferralConstant.referralToFollowUpLinkage] =
@@ -132,12 +132,11 @@ class _DreamsAgywAddReferralFormState extends State<DreamsAgywAddReferralForm> {
         try {
           if (eventId == null) {
             // Assign data element
-            CurrentUser user = await UserService().getCurrentUser();
-            dataObject[ServiceImplementingPartner()
-                .implementingPartnerDataElement] = dataObject[
-                    ServiceImplementingPartner()
-                        .implementingPartnerDataElement] ??
-                user.implementingPartner;
+            CurrentUser? user = await UserService().getCurrentUser();
+            dataObject[UserAccountReference.implementingPartnerDataElement] =
+                dataObject[
+                        UserAccountReference.implementingPartnerDataElement] ??
+                    user!.implementingPartner;
             eventId = AppUtil.getUid();
             String currentImplementingPartner =
                 Provider.of<ReferralNotificationState>(context, listen: false)
@@ -145,15 +144,15 @@ class _DreamsAgywAddReferralFormState extends State<DreamsAgywAddReferralForm> {
             await updateReferralNotification(
               eventId,
               dataObject,
-              currentAgywDream,
+              currentAgywDream!,
               currentImplementingPartner,
             );
           }
           await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
               DreamsAgywReferralConstant.program,
               DreamsAgywReferralConstant.programStage,
-              currentAgywDream.orgUnit,
-              formSections,
+              currentAgywDream!.orgUnit,
+              formSections!,
               dataObject,
               eventDate,
               currentAgywDream.id,
@@ -164,7 +163,7 @@ class _DreamsAgywAddReferralFormState extends State<DreamsAgywAddReferralForm> {
               .resetServiceEventDataState(currentAgywDream.id);
           Timer(Duration(seconds: 1), () {
             setState(() {
-              String currentLanguage =
+              String? currentLanguage =
                   Provider.of<LanguageTranslationState>(context, listen: false)
                       .currentLanguage;
               AppUtil.showToastMessage(
@@ -238,7 +237,7 @@ class _DreamsAgywAddReferralFormState extends State<DreamsAgywAddReferralForm> {
   }
 
   void clearFormAutoSaveState(
-      BuildContext context, String beneficiaryId) async {
+      BuildContext context, String? beneficiaryId) async {
     String formAutoSaveId =
         "${DreamsRoutesConstant.agywDreamsANCFormPage}_$beneficiaryId";
     await FormAutoSaveOfflineService().deleteSavedFormAutoData(formAutoSaveId);
@@ -251,8 +250,8 @@ class _DreamsAgywAddReferralFormState extends State<DreamsAgywAddReferralForm> {
   }) async {
     var agyw =
         Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
-            .currentAgywDream;
-    String beneficiaryId = agyw.id;
+            .currentAgywDream!;
+    String? beneficiaryId = agyw.id;
     Map dataObject =
         Provider.of<ServiceFormState>(context, listen: false).formState;
     String id = "${DreamsRoutesConstant.agywDreamsReferralPage}_$beneficiaryId";
@@ -290,11 +289,12 @@ class _DreamsAgywAddReferralFormState extends State<DreamsAgywAddReferralForm> {
         body: Container(
           child: Consumer<LanguageTranslationState>(
             builder: (context, languageTranslationState, child) {
-              String currentLanguage = languageTranslationState.currentLanguage;
+              String? currentLanguage =
+                  languageTranslationState.currentLanguage;
               return Consumer<DreamsBeneficiarySelectionState>(
                 builder:
                     (context, dreamBeneficiaryCurrentSelectionState, child) {
-                  AgywDream currentAgywDream =
+                  AgywDream? currentAgywDream =
                       dreamBeneficiaryCurrentSelectionState.currentAgywDream;
                   return Consumer<ServiceFormState>(
                     builder: (context, serviceFormState, child) {

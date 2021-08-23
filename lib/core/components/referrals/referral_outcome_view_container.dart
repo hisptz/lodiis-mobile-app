@@ -16,26 +16,26 @@ import 'package:provider/provider.dart';
 
 class ReferralOutComeViewContainer extends StatefulWidget {
   const ReferralOutComeViewContainer(
-      {Key key,
-      @required this.themeColor,
-      @required this.eventData,
-      @required this.beneficiary,
-      @required this.referralFollowUpStage,
-      @required this.referralToFollowUpLinkage,
-      @required this.referralProgram,
-      @required this.isEditableMode,
-      @required this.referralOutcomeFollowUpFormSections,
-      @required this.onEditReferralOutCome})
+      {Key? key,
+      required this.themeColor,
+      required this.eventData,
+      required this.beneficiary,
+      required this.referralFollowUpStage,
+      required this.referralToFollowUpLinkage,
+      required this.referralProgram,
+      required this.isEditableMode,
+      required this.referralOutcomeFollowUpFormSections,
+      required this.onEditReferralOutCome})
       : super(key: key);
 
-  final Color themeColor;
+  final Color? themeColor;
   final Events eventData;
-  final TrackedEntityInstance beneficiary;
+  final TrackedEntityInstance? beneficiary;
   final String referralFollowUpStage;
   final String referralToFollowUpLinkage;
   final String referralProgram;
   final bool isEditableMode;
-  final List<FormSection> referralOutcomeFollowUpFormSections;
+  final List<FormSection>? referralOutcomeFollowUpFormSections;
   final Function onEditReferralOutCome;
 
   @override
@@ -45,7 +45,7 @@ class ReferralOutComeViewContainer extends StatefulWidget {
 
 class _ReferralOutComeViewContainerState
     extends State<ReferralOutComeViewContainer> {
-  ReferralOutcomeEvent referralOutComeEvent;
+  ReferralOutcomeEvent? referralOutComeEvent;
   bool isViewReady = false;
   double editIconHeight = 20;
 
@@ -69,7 +69,7 @@ class _ReferralOutComeViewContainerState
   }
 
   List<ReferralOutcomeFollowUpEvent> getReferralOutComeFollowUps(
-    Map<String, List<Events>> eventListByProgramStage,
+    Map<String?, List<Events>> eventListByProgramStage,
   ) {
     TrackedEntityInstanceUtil
         .getAllEventListFromServiceDataStateByProgramStages(
@@ -88,7 +88,7 @@ class _ReferralOutComeViewContainerState
     return referralOutComeFollowUps
         .where((referralOutComeFollowUp) =>
             referralOutComeFollowUp.referralReference ==
-            referralOutComeEvent.referralReference)
+            referralOutComeEvent!.referralReference)
         .toList();
   }
 
@@ -136,7 +136,7 @@ class _ReferralOutComeViewContainerState
                       ),
                       Container(child: Consumer<ServiceEventDataState>(
                           builder: (context, serviceEventDataState, child) {
-                        Map<String, List<Events>> eventListByProgramStage =
+                        Map<String?, List<Events>> eventListByProgramStage =
                             serviceEventDataState.eventListByProgramStage;
                         List<ReferralOutcomeFollowUpEvent>
                             referralOutComeFollowUpEvents =
@@ -147,7 +147,7 @@ class _ReferralOutComeViewContainerState
                                 referralOutComeEvent != null &&
                                 referralOutComeFollowUpEvents.length == 0,
                             child: InkWell(
-                                onTap: widget.onEditReferralOutCome,
+                                onTap: widget.onEditReferralOutCome as void Function()?,
                                 child: Container(
                                   height: editIconHeight,
                                   width: editIconHeight,

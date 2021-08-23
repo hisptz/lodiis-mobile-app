@@ -49,10 +49,10 @@ class OvcHouseholdEnrollmentSkipLogic {
     }
 
     if (dataObject['children'] != null) {
-      List<Map> children = dataObject['children'];
+      List<Map?> children = dataObject['children'] ?? [];
       try {
-        if (children
-            .every((child) => int.parse('${child['ls9hlz2tyol']}') > 5)) {
+        if (children.every(
+            (child) => int.parse('${child?['ls9hlz2tyol'] ?? '0'}') > 5)) {
           hiddenFields['NqoQ5BNNoob'] = true;
           hiddenFields['NAMKqy2KVKk'] = true;
         }
@@ -166,7 +166,7 @@ class OvcHouseholdEnrollmentSkipLogic {
   static assignInputFieldValue(
     BuildContext context,
     String inputFieldId,
-    String value,
+    String? value,
   ) {
     Provider.of<EnrollmentFormState>(context, listen: false)
         .setFormFieldState(inputFieldId, value);

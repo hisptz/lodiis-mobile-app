@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:kb_mobile_app/core/constants/default_implementing_partner_referral_service.dart';
 import 'package:kb_mobile_app/core/offline_db/implementing_partner_referral_services_offline/implementing_partner_referral_services_offline_provider.dart';
 import 'package:kb_mobile_app/core/services/http_service.dart';
@@ -7,8 +9,8 @@ class ImplementingPartnerReferralConfigService {
   final String url = "api/dataStore/kb-mobile-app/referral-services";
 
   Future<dynamic> getImplementingPartnerReferralServicesFromTheServer(
-    String username,
-    String password,
+    String? username,
+    String? password,
   ) async {
     String defaultReferralServices =
         DefaultImplementingPartnerReferralServices.getDefaultService();
@@ -45,13 +47,13 @@ class ImplementingPartnerReferralConfigService {
   }
 
   Future<void> addImplementingPartnerReferralServices(
-    String username,
-    String password,
+    String? username,
+    String? password,
   ) async {
     try {
       String referralServices =
-          await getImplementingPartnerReferralServicesFromTheServer(
-              username, password);
+          await (getImplementingPartnerReferralServicesFromTheServer(
+              username, password));
       ImplementingPartnerReferralService implementingPartnerReferralService =
           new ImplementingPartnerReferralService(
         id: DefaultImplementingPartnerReferralServices.referralServicesId,

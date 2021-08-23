@@ -20,7 +20,7 @@ import 'package:provider/provider.dart';
 
 class OcvServiceCasePlanForm extends StatefulWidget {
   const OcvServiceCasePlanForm({
-    Key key,
+    Key? key,
     this.shouldEditCaseGapFollowUps = false,
     this.shouldViewCaseGapFollowUp = false,
   }) : super(key: key);
@@ -34,7 +34,7 @@ class OcvServiceCasePlanForm extends StatefulWidget {
 
 class _OcvServiceCasePlanFormState extends State<OcvServiceCasePlanForm> {
   final String label = 'Service Follow up';
-  List<FormSection> formSections;
+  late List<FormSection> formSections;
   Map borderColors = Map();
 
   bool isSaving = false;
@@ -54,7 +54,7 @@ class _OcvServiceCasePlanFormState extends State<OcvServiceCasePlanForm> {
     });
   }
 
-  onInputValueChange(String formSectionId, dynamic value) {
+  onInputValueChange(String? formSectionId, dynamic value) {
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState(formSectionId, value);
   }

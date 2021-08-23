@@ -1,13 +1,13 @@
 import 'package:kb_mobile_app/models/events.dart';
 
 class ReferralOutcomeFollowUpEvent {
-  String id;
-  String followUpDate;
-  String followUpStatus;
-  String comments;
-  String referralReference;
-  bool additionalFollowUpRequired;
-  Events eventData;
+  String? id;
+  String? followUpDate;
+  String? followUpStatus;
+  String? comments;
+  String? referralReference;
+  bool? additionalFollowUpRequired;
+  Events? eventData;
 
   ReferralOutcomeFollowUpEvent({
     this.id,
@@ -32,9 +32,9 @@ class ReferralOutcomeFollowUpEvent {
     ];
     Map data = Map();
     for (Map detailObj in eventData.dataValues) {
-      String dataElement = detailObj['dataElement'];
+      String? dataElement = detailObj['dataElement'];
       if (dataElement != null && keys.indexOf(dataElement) > -1) {
-        data[dataElement] = '${detailObj['value']}'.trim() ?? '';
+        data[dataElement] = '${detailObj['value']}'.trim();
       }
     }
     return ReferralOutcomeFollowUpEvent(

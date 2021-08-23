@@ -22,7 +22,7 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment
 import 'package:provider/provider.dart';
 
 class OvcEnrollmentChildForm extends StatefulWidget {
-  const OvcEnrollmentChildForm({Key key}) : super(key: key);
+  const OvcEnrollmentChildForm({Key? key}) : super(key: key);
 
   @override
   _OvcEnrollmentChildFormState createState() => _OvcEnrollmentChildFormState();
@@ -31,9 +31,9 @@ class OvcEnrollmentChildForm extends StatefulWidget {
 class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
   final List<FormSection> formSections = OvcEnrollmentChild.getFormSections();
   final String label = 'Child vulnerability form';
-  final List<Map> childMapObjects = [];
+  final List<Map?> childMapObjects = [];
   bool isLoading = true;
-  Map childMapObject;
+  Map? childMapObject;
   final List<String> mandatoryFields = OvcEnrollmentChild.getMandatoryField();
   final Map mandatoryFieldObject = Map();
   bool onSkipButton = false;
@@ -53,7 +53,7 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
     resetMapObject(childMapObject);
   }
 
-  void resetMapObject(Map map) {
+  void resetMapObject(Map? map) {
     setState(() {
       if (map != null) {
         //Check for Duplicates
@@ -63,7 +63,7 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
         }
       }
       childMapObject = Map();
-      childMapObject['PN92g65TkVI'] = 'Active';
+      childMapObject!['PN92g65TkVI'] = 'Active';
       isLoading = false;
       evaluateSkipLogics();
     });
@@ -74,7 +74,7 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
     hiddenSections.clear();
     List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections);
     for (String inputFieldId in inputFieldIds) {
-      String value = '${childMapObject[inputFieldId]}';
+      String value = '${childMapObject![inputFieldId]}';
       if (inputFieldId == 'qZP982qpSPS') {
         int age = AppUtil.getAgeInYear(value);
         assignInputFieldValue('ls9hlz2tyol', age.toString());
@@ -140,12 +140,12 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
 
   assignInputFieldValue(
     String inputFieldId,
-    String value,
+    String? value,
   ) {
-    childMapObject[inputFieldId] = value;
+    childMapObject![inputFieldId] = value;
   }
 
-  assignPrimaryVulnerability(Map dataObject) {
+  assignPrimaryVulnerability(Map? dataObject) {
     List<String> vulnerabilities = [
       'wmKqYZML8GA',
       'GMcljM7jbNG',
@@ -165,7 +165,7 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
       'Child living with disability'
     ];
     for (var vulnerabilityKey in vulnerabilities) {
-      if (dataObject[vulnerabilityKey] == true) {
+      if (dataObject![vulnerabilityKey] == true) {
         assignInputFieldValue(
             OvcEnrollmentChildConstant.primaryVulnerabilityKey,
             primaryVulnerabilitiesOptions[
@@ -175,7 +175,7 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
         continue;
     }
     if (vulnerabilities.every((element) =>
-        (dataObject[element] == false || dataObject[element] == null))) {
+        (dataObject![element] == false || dataObject[element] == null))) {
       assignInputFieldValue(
           OvcEnrollmentChildConstant.primaryVulnerabilityKey, null);
     }
@@ -184,8 +184,8 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
   void updateOvcCount() {
     int male = 0;
     int female = 0;
-    for (Map childMapObject in childMapObjects) {
-      String sexValue = childMapObject['vIX4GTSCX4P'];
+    for (Map? childMapObject in childMapObjects) {
+      String? sexValue = childMapObject!['vIX4GTSCX4P'];
       if (sexValue != null) {
         if (sexValue == 'Male') {
           male++;
@@ -202,9 +202,9 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
 
   void onSaveAndContinue(BuildContext context) async {
     bool hadAllMandatoryFilled =
-        AppUtil.hasAllMandatoryFieldsFilled(mandatoryFields, childMapObject);
+        AppUtil.hasAllMandatoryFieldsFilled(mandatoryFields, childMapObject!);
     if (hadAllMandatoryFilled) {
-      String name = childMapObject['WTZ7GLTrE8Q'] ?? '';
+      String name = childMapObject!['WTZ7GLTrE8Q'] ?? '';
       Widget modal = AddChildConfirmation(name: name);
       bool response = await AppUtil.showPopUpModal(context, modal, false);
       if (response != null) {
@@ -218,8 +218,8 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
         } else {
           setState(() {
             if (!isADuplicateChildObject(childMapObject)) {
-              childMapObject['fullName'] =
-                  '${childMapObject['WTZ7GLTrE8Q']} ${childMapObject['rSP9c21JsfC']}';
+              childMapObject!['fullName'] =
+                  '${childMapObject!['WTZ7GLTrE8Q']} ${childMapObject!['rSP9c21JsfC']}';
               childMapObjects.add(childMapObject);
             }
           });
@@ -236,8 +236,8 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
       }
     } else {
       setState(() {
-        unFilledMandatoryFields =
-            AppUtil.getUnFilledMandatoryFields(mandatoryFields, childMapObject);
+        unFilledMandatoryFields = AppUtil.getUnFilledMandatoryFields(
+            mandatoryFields, childMapObject!);
       });
       AppUtil.showToastMessage(
         message: 'Please fill all mandatory field',
@@ -247,14 +247,14 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
   }
 
   void onInputValueChange(String id, dynamic value) {
-    childMapObject[id] = value;
+    childMapObject![id] = value;
     evaluateSkipLogics();
   }
 
-  void onSkip(Map childMapObject) {
+  void onSkip(Map? childMapObject) {
     setState(() {
       if (isADuplicateChildObject(childMapObject)) {
-        childMapObject['fullName'] =
+        childMapObject!['fullName'] =
             '${childMapObject['WTZ7GLTrE8Q']} ${childMapObject['rSP9c21JsfC']}';
         childMapObjects.add(childMapObject);
       }
@@ -291,7 +291,7 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
           body: Container(
             child: Consumer<LanguageTranslationState>(
               builder: (context, languageTranslationState, child) {
-                String currentLanguage =
+                String? currentLanguage =
                     languageTranslationState.currentLanguage;
                 return Container(
                   margin: EdgeInsets.symmetric(
@@ -316,8 +316,8 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
                                       bottom: 12.0,
                                     ),
                                     child: EnrolledChildrenList(childMapObjects
-                                        .map<String>(
-                                            (child) => child['fullName'])
+                                        .map<String?>(
+                                            (child) => child!['fullName'])
                                         .toList()),
                                   )
                                 : Container(),
@@ -372,10 +372,10 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
     );
   }
 
-  bool isADuplicateChildObject(Map map) {
+  bool isADuplicateChildObject(Map? map) {
     bool isDuplicate = false;
     childMapObjects.forEach((child) {
-      if (child['WTZ7GLTrE8Q'] == map['WTZ7GLTrE8Q']) {
+      if (child!['WTZ7GLTrE8Q'] == map!['WTZ7GLTrE8Q']) {
         //Compares if firstName are equal
         isDuplicate = true;
       }

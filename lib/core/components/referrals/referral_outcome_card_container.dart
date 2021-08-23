@@ -9,20 +9,20 @@ import 'package:provider/provider.dart';
 
 class ReferralOutComeCardContainer extends StatelessWidget {
   const ReferralOutComeCardContainer({
-    Key key,
-    @required this.currentProgramStage,
-    @required this.currentEventId,
-    @required this.beneficiary,
-    @required this.referralFollowUpStage,
-    @required this.referralToFollowUpLinkage,
-    @required this.referralProgram,
-    @required this.isOvcIntervention,
+    Key? key,
+    required this.currentProgramStage,
+    required this.currentEventId,
+    required this.beneficiary,
+    required this.referralFollowUpStage,
+    required this.referralToFollowUpLinkage,
+    required this.referralProgram,
+    required this.isOvcIntervention,
     this.isHouseholdReferral = false,
   }) : super(key: key);
 
-  final String currentProgramStage;
-  final String currentEventId;
-  final TrackedEntityInstance beneficiary;
+  final String? currentProgramStage;
+  final String? currentEventId;
+  final TrackedEntityInstance? beneficiary;
   final String referralFollowUpStage;
   final String referralToFollowUpLinkage;
   final String referralProgram;
@@ -35,14 +35,14 @@ class ReferralOutComeCardContainer extends StatelessWidget {
       child: Consumer<ServiceEventDataState>(
         builder: (context, serviceEventDataState, child) {
           bool isLoading = serviceEventDataState.isLoading;
-          Map<String, List<Events>> eventListByProgramStage =
+          Map<String?, List<Events>> eventListByProgramStage =
               serviceEventDataState.eventListByProgramStage;
           List<Events> events = TrackedEntityInstanceUtil
               .getAllEventListFromServiceDataStateByProgramStages(
             eventListByProgramStage,
             [currentProgramStage],
           ).where((Events event) => event.event == currentEventId).toList();
-          Events eventData = events.length > 0 ? events[0] : null;
+          Events? eventData = events.length > 0 ? events[0] : null;
           return isLoading
               ? Container(
                   child: CircularProcessLoader(

@@ -27,7 +27,7 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_serv
 import 'package:provider/provider.dart';
 
 class AgywDreamsPrep extends StatefulWidget {
-  AgywDreamsPrep({Key key}) : super(key: key);
+  AgywDreamsPrep({Key? key}) : super(key: key);
 
   @override
   _AgywDreamsPrepState createState() => _AgywDreamsPrepState();
@@ -48,7 +48,7 @@ class _AgywDreamsPrepState extends State<AgywDreamsPrep> {
   void updateFormState(
     BuildContext context,
     bool isEditableMode,
-    Events eventData,
+    Events? eventData,
   ) {
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
     Provider.of<ServiceFormState>(context, listen: false)
@@ -71,7 +71,7 @@ class _AgywDreamsPrepState extends State<AgywDreamsPrep> {
     updateFormState(context, true, null);
     Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
         .setCurrentAgywDream(agywDream);
-    if (int.parse(agywDream.age) >= 15 && int.parse(agywDream.age) < 25) {
+    if (int.parse(agywDream.age!) >= 15 && int.parse(agywDream.age!) < 25) {
       Navigator.push(context,
           MaterialPageRoute(builder: (context) => AgywPrepVisitForm()));
     } else {
@@ -97,9 +97,9 @@ class _AgywDreamsPrepState extends State<AgywDreamsPrep> {
     updateFormState(context, true, null);
     Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
         .setCurrentAgywDream(agywDream);
-    if (int.parse(agywDream.age) >= 15 && int.parse(agywDream.age) <= 24) {
-      if (int.parse(agywDream.age) >= 15 && int.parse(agywDream.age) < 25) {
-        String beneficiaryId = agywDream.id;
+    if (int.parse(agywDream.age!) >= 15 && int.parse(agywDream.age!) <= 24) {
+      if (int.parse(agywDream.age!) >= 15 && int.parse(agywDream.age!) < 25) {
+        String? beneficiaryId = agywDream.id;
         String formAutoSaveId =
             "${DreamsRoutesConstant.agywDreamsPrepVisitFormPage}_$beneficiaryId";
         FormAutoSave formAutoSave = await FormAutoSaveOfflineService()
@@ -185,10 +185,10 @@ class _AgywDreamsPrepState extends State<AgywDreamsPrep> {
               builder: (context, dreamBeneficiarySelectionState, child) {
                 return Consumer<ServiceEventDataState>(
                   builder: (context, serviceFormState, child) {
-                    AgywDream agywDream =
+                    AgywDream? agywDream =
                         dreamBeneficiarySelectionState.currentAgywDream;
                     bool isLoading = serviceFormState.isLoading;
-                    Map<String, List<Events>> eventListByProgramStage =
+                    Map<String?, List<Events>> eventListByProgramStage =
                         serviceFormState.eventListByProgramStage;
                     List<Events> events = TrackedEntityInstanceUtil
                         .getAllEventListFromServiceDataStateByProgramStages(
@@ -344,7 +344,7 @@ class _AgywDreamsPrepState extends State<AgywDreamsPrep> {
                                                         fontSize: 15.0,
                                                         onPressButton: () =>
                                                             onAddVisit(context,
-                                                                agywDream),
+                                                                agywDream!),
                                                       )
                                                     : Text(
                                                         'PrEP program was stopped')

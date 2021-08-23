@@ -6,8 +6,8 @@ class ImplementingPartnerConfigService {
   final String url = "api/dataStore/kb-mobile-app/implementing-partner-program";
 
   Future<dynamic> getImplementingPartnerConfigFromTheServer(
-    String username,
-    String password,
+    String? username,
+    String? password,
   ) async {
     String defaultImplementingPartnerConfig =
         DefaultImplementingPartnerConfig.getDefaultConfig();

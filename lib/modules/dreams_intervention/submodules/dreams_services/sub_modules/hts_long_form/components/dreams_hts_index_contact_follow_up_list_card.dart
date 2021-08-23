@@ -9,12 +9,12 @@ import 'package:provider/provider.dart';
 
 class DreamsHTSIndexContactFollowUpListCard extends StatelessWidget {
   final IndexContactFollowUp indexContactFollowUpModel;
-  final int followUpNo;
-  final bool isEditable;
+  final int? followUpNo;
+  final bool? isEditable;
 
   const DreamsHTSIndexContactFollowUpListCard({
-    Key key,
-    @required this.indexContactFollowUpModel,
+    Key? key,
+    required this.indexContactFollowUpModel,
     this.followUpNo,
     this.isEditable,
   }) : super(key: key);
@@ -23,7 +23,7 @@ class DreamsHTSIndexContactFollowUpListCard extends StatelessWidget {
     BuildContext context,
     bool isEditableMode,
   ) {
-    Events eventData = indexContactFollowUpModel.eventData;
+    Events? eventData = indexContactFollowUpModel.eventData;
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
     Provider.of<ServiceFormState>(context, listen: false)
         .updateFormEditabilityState(isEditableMode: isEditableMode);

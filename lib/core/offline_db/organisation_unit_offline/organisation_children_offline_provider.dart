@@ -4,17 +4,17 @@ import 'package:sqflite/sqflite.dart';
 
 class OrganisationUnitChildrenOfflineProvider extends OfflineDbProvider {
   // columns
-  String id = 'id';
+  String? id = 'id';
   String organisationId = 'organisationId';
 
   addOrUpdateChildrenOrganisationUnits(
       OrganisationUnit organisationUnit) async {
     var dbClient = await db;
-    for (id in organisationUnit.children) {
+    for (id in organisationUnit.children ?? []) {
       var map = Map<String, dynamic>();
       map['id'] = id;
       map['organisationId'] = organisationUnit.id;
-      await dbClient.insert(
+      await dbClient!.insert(
         OrganisationUnit.organisationChildrenTable,
         map,
         conflictAlgorithm: ConflictAlgorithm.replace,
@@ -24,20 +24,20 @@ class OrganisationUnitChildrenOfflineProvider extends OfflineDbProvider {
 
   deleteOrganisationChildren(String organisationUnitId) async {
     var dbClient = await db;
-    return await dbClient.delete(
+    return await dbClient!.delete(
       OrganisationUnit.organisationChildrenTable,
       where: '$organisationId = ?',
       whereArgs: [organisationUnitId],
     );
   }
 
-  Future<List> getChildrenOrganisationUnits(String organisationUnitId) async {
+  Future<List> getChildrenOrganisationUnits(String? organisationUnitId) async {
     List childrenOrganisationUnits = [];
     var dbClient = await db;
-    List<Map> maps = await dbClient.query(
+    List<Map> maps = await dbClient!.query(
       OrganisationUnit.organisationChildrenTable,
       columns: [
-        id,
+        id!,
         organisationId,
       ],
       where: '$organisationId = ?',

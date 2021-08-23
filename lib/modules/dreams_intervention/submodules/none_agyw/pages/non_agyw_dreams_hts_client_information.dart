@@ -22,9 +22,9 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/s
 import 'package:provider/provider.dart';
 
 class NonAgywDreamsHTSClientInformation extends StatefulWidget {
-  NonAgywDreamsHTSClientInformation({Key key, this.isComingFromPrep})
+  NonAgywDreamsHTSClientInformation({Key? key, this.isComingFromPrep})
       : super(key: key);
-  final bool isComingFromPrep;
+  final bool? isComingFromPrep;
 
   @override
   _NonAgywDreamsHTSClientInformationState createState() =>
@@ -34,12 +34,12 @@ class NonAgywDreamsHTSClientInformation extends StatefulWidget {
 class _NonAgywDreamsHTSClientInformationState
     extends State<NonAgywDreamsHTSClientInformation> {
   final String label = 'Client Bio';
-  List<FormSection> formSections;
-  List<String> mandatoryFields;
+  List<FormSection>? formSections;
+  late List<String> mandatoryFields;
   Map mandatoryFieldsObject = Map();
   bool isFormReady = false;
   bool isSaving = false;
-  bool isComingFromPrep;
+  bool? isComingFromPrep;
   List unFilledMandatoryFields = [];
 
   @override
@@ -67,7 +67,7 @@ class _NonAgywDreamsHTSClientInformationState
             Provider.of<EnrollmentFormState>(context, listen: false).formState;
         await NoneAgywEnrollmentSkipLogic.evaluateSkipLogics(
           context,
-          formSections,
+          formSections!,
           dataObject,
         );
       },

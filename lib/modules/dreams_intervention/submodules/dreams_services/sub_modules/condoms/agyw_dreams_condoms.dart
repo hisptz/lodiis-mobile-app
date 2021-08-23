@@ -24,7 +24,7 @@ import 'package:provider/provider.dart';
 import 'constants/condoms_constant.dart';
 
 class AgywDreamsCondoms extends StatefulWidget {
-  AgywDreamsCondoms({Key key}) : super(key: key);
+  AgywDreamsCondoms({Key? key}) : super(key: key);
 
   @override
   _AgywDreamsCondomsState createState() => _AgywDreamsCondomsState();
@@ -41,7 +41,7 @@ class _AgywDreamsCondomsState extends State<AgywDreamsCondoms> {
   void updateFormState(
     BuildContext context,
     bool isEditableMode,
-    Events eventData,
+    Events? eventData,
   ) {
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
     Provider.of<ServiceFormState>(context, listen: false)
@@ -62,7 +62,7 @@ class _AgywDreamsCondomsState extends State<AgywDreamsCondoms> {
 
   void onAddPrep(BuildContext context, AgywDream agywDream) async {
     updateFormState(context, true, null);
-    String beneficiaryId = agywDream.id;
+    String? beneficiaryId = agywDream.id;
     String formAutoSaveId =
         "${DreamsRoutesConstant.agywDreamsCondomsFormPage}_$beneficiaryId";
     FormAutoSave formAutoSave =
@@ -114,10 +114,10 @@ class _AgywDreamsCondomsState extends State<AgywDreamsCondoms> {
               builder: (context, dreamBeneficiarySelectionState, child) {
                 return Consumer<ServiceEventDataState>(
                   builder: (context, serviceFormState, child) {
-                    AgywDream agywDream =
+                    AgywDream? agywDream =
                         dreamBeneficiarySelectionState.currentAgywDream;
                     bool isLoading = serviceFormState.isLoading;
-                    Map<String, List<Events>> eventListByProgramStage =
+                    Map<String?, List<Events>> eventListByProgramStage =
                         serviceFormState.eventListByProgramStage;
                     List<Events> events = TrackedEntityInstanceUtil
                         .getAllEventListFromServiceDataStateByProgramStages(
@@ -181,7 +181,7 @@ class _AgywDreamsCondomsState extends State<AgywDreamsCondoms> {
                                           buttonColor: Color(0xFF1F8ECE),
                                           fontSize: 15.0,
                                           onPressButton: () =>
-                                              onAddPrep(context, agywDream))
+                                              onAddPrep(context, agywDream!))
                                     ],
                                   ),
                           ),

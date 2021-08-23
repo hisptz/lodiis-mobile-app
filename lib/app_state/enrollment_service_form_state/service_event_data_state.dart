@@ -7,18 +7,18 @@ import 'package:kb_mobile_app/models/events.dart';
 class ServiceEventDataState with ChangeNotifier {
   // initial state
   bool _isLoading = false;
-  Map _eventListByProgramStage = Map<String, List<Events>>();
+  Map _eventListByProgramStage = Map<String?, List<Events>>();
 
   // selector
   bool get isLoading => _isLoading;
 
-  Map<String, List<Events>> get eventListByProgramStage =>
-      _eventListByProgramStage ?? Map<String, List<Events>>();
+  Map<String?, List<Events>> get eventListByProgramStage =>
+      _eventListByProgramStage as Map<String?, List<Events>>? ?? Map<String, List<Events>>();
 
   // reducer
 
   void resetServiceEventDataState(
-    String trackedEntityInstance,
+    String? trackedEntityInstance,
   ) async {
     _isLoading = true;
     _eventListByProgramStage.clear();
@@ -26,9 +26,9 @@ class ServiceEventDataState with ChangeNotifier {
     List<Events> eventList =
         await TrackedEntityInstanceUtil.getSavedTrackedEntityInstanceEventData(
             trackedEntityInstance);
-    List<String> programStages =
+    List<String?> programStages =
         eventList.map((Events event) => event.programStage).toList();
-    for (String programStage in programStages) {
+    for (String? programStage in programStages) {
       _eventListByProgramStage[programStage] = eventList
           .where((Events event) => event.programStage == programStage)
           .toList();

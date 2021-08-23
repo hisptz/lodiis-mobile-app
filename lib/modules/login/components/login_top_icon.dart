@@ -10,8 +10,8 @@ class LoginTopIcon extends StatelessWidget {
   final appLabel;
 
   const LoginTopIcon({
-    Key key,
-    @required this.appLabel,
+    Key? key,
+    required this.appLabel,
   }) : super(key: key);
 
   @override

@@ -21,7 +21,7 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment
 import 'package:provider/provider.dart';
 
 class OvcEnrollmentBasicInfoForm extends StatefulWidget {
-  const OvcEnrollmentBasicInfoForm({Key key}) : super(key: key);
+  const OvcEnrollmentBasicInfoForm({Key? key}) : super(key: key);
 
   @override
   _OvcEnrollmentBasicInfoFormState createState() =>
@@ -135,7 +135,7 @@ class _OvcEnrollmentBasicInfoFormState
                 : Container(
                     child: Consumer<LanguageTranslationState>(
                       builder: (context, languageTranslationState, child) {
-                        String currentLanguage =
+                        String? currentLanguage =
                             languageTranslationState.currentLanguage;
                         return Consumer<EnrollmentFormState>(
                           builder: (context, enrollmentFormState, child) =>

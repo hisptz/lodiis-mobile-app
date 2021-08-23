@@ -9,15 +9,15 @@ import 'package:provider/provider.dart';
 
 class OvcHouseholdGraduationListContainer extends StatelessWidget {
   OvcHouseholdGraduationListContainer({
-    Key key,
-    @required this.programStageIds,
+    Key? key,
+    required this.programStageIds,
     this.onViewHouseholdAchievement,
     this.onEditHouseholdAchievement,
   }) : super(key: key);
 
   final List<String> programStageIds;
-  final Function onViewHouseholdAchievement;
-  final Function onEditHouseholdAchievement;
+  final Function? onViewHouseholdAchievement;
+  final Function? onEditHouseholdAchievement;
 
   @override
   Widget build(BuildContext context) {
@@ -28,10 +28,10 @@ class OvcHouseholdGraduationListContainer extends StatelessWidget {
       ),
       child: Consumer<LanguageTranslationState>(
         builder: (context, languageTranslationState, child) {
-          String currentLanguage = languageTranslationState.currentLanguage;
+          String? currentLanguage = languageTranslationState.currentLanguage;
           return Consumer<ServiceEventDataState>(
             builder: (context, serviceEventDataState, child) {
-              Map<String, List<Events>> eventListByProgramStage =
+              Map<String?, List<Events>> eventListByProgramStage =
                   serviceEventDataState.eventListByProgramStage;
               List<Events> eventList = TrackedEntityInstanceUtil
                   .getAllEventListFromServiceDataStateByProgramStages(
@@ -109,7 +109,7 @@ class OvcHouseholdGraduationListContainer extends StatelessWidget {
                                               ),
                                               child: InkWell(
                                                 onTap: () =>
-                                                    onViewHouseholdAchievement(
+                                                    onViewHouseholdAchievement!(
                                                         achievement),
                                                 child: Container(
                                                   height: iconHeight,
@@ -131,7 +131,7 @@ class OvcHouseholdGraduationListContainer extends StatelessWidget {
                                               ),
                                               child: InkWell(
                                                 onTap: () =>
-                                                    onEditHouseholdAchievement(
+                                                    onEditHouseholdAchievement!(
                                                         achievement),
                                                 child: Container(
                                                   height: iconHeight,

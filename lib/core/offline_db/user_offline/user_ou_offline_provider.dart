@@ -4,33 +4,33 @@ import 'package:sqflite/sqflite.dart';
 
 class UserOuOfflineProvider extends OfflineDbProvider {
   // columns
-  String id = 'id';
+  String? id = 'id';
   String userId = 'userId';
 
   addOrUpdateUserOrganisationUnits(CurrentUser user) async {
     var dbClient = await db;
-    for (id in user.userOrgUnitIds) {
+    for (id in user.userOrgUnitIds ?? []) {
       var data = Map<String, dynamic>();
       data['id'] = id;
       data['userId'] = user.id;
-      await dbClient.insert(CurrentUser.userOrganisationUnitTable, data,
+      await dbClient!.insert(CurrentUser.userOrganisationUnitTable, data,
           conflictAlgorithm: ConflictAlgorithm.replace);
     }
   }
 
-  deleteUserOrganisationUnits(String user) async {
+  deleteUserOrganisationUnits(String? user) async {
     var dbClient = await db;
-    return await dbClient.delete(CurrentUser.userOrganisationUnitTable,
+    return await dbClient!.delete(CurrentUser.userOrganisationUnitTable,
         where: '$userId = ?', whereArgs: [user]);
   }
 
-  Future<List> getUserOrganisationUnits(String currentUserId) async {
+  Future<List> getUserOrganisationUnits(String? currentUserId) async {
     List userOrganisationUnits = [];
     try {
       var dbClient = await db;
-      List<Map> maps =
-          await dbClient.query(CurrentUser.userOrganisationUnitTable, columns: [
-        id,
+      List<Map> maps = await dbClient!
+          .query(CurrentUser.userOrganisationUnitTable, columns: [
+        id!,
         userId,
       ]);
       if (maps.isNotEmpty) {

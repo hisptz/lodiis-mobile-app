@@ -4,13 +4,13 @@ import 'package:kb_mobile_app/core/components/line_separator.dart';
 
 class DreamsBeneficiaryCardHeader extends StatelessWidget {
   const DreamsBeneficiaryCardHeader({
-    Key key,
-    @required this.svgIcon,
-    @required this.beneficiaryName,
-    @required this.canEdit,
-    @required this.canView,
-    @required this.canExpand,
-    @required this.isExpanded,
+    Key? key,
+    required this.svgIcon,
+    required this.beneficiaryName,
+    required this.canEdit,
+    required this.canView,
+    required this.canExpand,
+    required this.isExpanded,
     this.isActive = true,
     this.onEdit,
     this.onView,
@@ -25,9 +25,9 @@ class DreamsBeneficiaryCardHeader extends StatelessWidget {
   final bool isExpanded;
   final bool isActive;
 
-  final VoidCallback onEdit;
-  final VoidCallback onView;
-  final VoidCallback onToggleCard;
+  final VoidCallback? onEdit;
+  final VoidCallback? onView;
+  final VoidCallback? onToggleCard;
 
   @override
   Widget build(BuildContext context) {

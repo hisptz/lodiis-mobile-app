@@ -26,14 +26,14 @@ import 'package:provider/provider.dart';
 import 'agyw_dreams_enrollment_form.dart';
 
 class AgywDreamsRiskAssessment extends StatefulWidget {
-  const AgywDreamsRiskAssessment({Key key}) : super(key: key);
+  const AgywDreamsRiskAssessment({Key? key}) : super(key: key);
   @override
   _AgywDreamsRiskAssessmentState createState() =>
       _AgywDreamsRiskAssessmentState();
 }
 
 class _AgywDreamsRiskAssessmentState extends State<AgywDreamsRiskAssessment> {
-  List<FormSection> formSections;
+  List<FormSection>? formSections;
   final String label = 'Risk Assessment';
   final List<String> mandatoryFields =
       AgywEnrollmentRiskAssessment.getMandatoryField();
@@ -61,7 +61,7 @@ class _AgywDreamsRiskAssessmentState extends State<AgywDreamsRiskAssessment> {
             Provider.of<EnrollmentFormState>(context, listen: false).formState;
         await AgywDreamsEnrollmentSkipLogic.evaluateSkipLogics(
           context,
-          formSections,
+          formSections!,
           dataObject,
         );
       },
@@ -199,7 +199,7 @@ class _AgywDreamsRiskAssessmentState extends State<AgywDreamsRiskAssessment> {
                 : Container(
                     child: Consumer<LanguageTranslationState>(
                       builder: (context, languageTranslationState, child) {
-                        String currentLanguage =
+                        String? currentLanguage =
                             languageTranslationState.currentLanguage;
                         return Consumer<EnrollmentFormState>(
                           builder: (context, enrollmentFormState, child) =>

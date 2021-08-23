@@ -442,12 +442,12 @@ class AgywDreamsEnrollmentSkipLogic {
       hiddenFields['ZcfLYz7JlVo'] = true;
     }
     hiddenInputFieldOptions['UzQ533pOnvt'] = hiddenOptions;
-    for (String sectionId in hiddenSections.keys) {
+    for (String? sectionId in hiddenSections.keys) {
       List<FormSection> allFormSections =
           FormUtil.getFlattenFormSections(formSections);
       List<FormSection> filteredFormSections = allFormSections
           .where((formSection) =>
-              formSection.subSections.isEmpty &&
+              formSection.subSections!.isEmpty &&
               (hiddenSections.keys.toList()).indexOf(formSection.id) == -1)
           .toList();
       List<String> filteredFormSectionsInputFieldIds =
@@ -497,7 +497,7 @@ class AgywDreamsEnrollmentSkipLogic {
   static assignInputFieldValue(
     BuildContext context,
     String inputFieldId,
-    String value,
+    String? value,
   ) {
     Provider.of<EnrollmentFormState>(context, listen: false)
         .setFormFieldState(inputFieldId, value);

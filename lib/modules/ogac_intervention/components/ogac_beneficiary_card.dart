@@ -8,15 +8,15 @@ import 'package:provider/provider.dart';
 
 class OgacBeneficiaryCard extends StatelessWidget {
   const OgacBeneficiaryCard({
-    Key key,
-    @required this.ogacBeneficiary,
+    Key? key,
+    required this.ogacBeneficiary,
     this.onViewBeneficiary,
     this.onEditBeneficiary,
   }) : super(key: key);
 
   final OgacBeneficiary ogacBeneficiary;
-  final VoidCallback onViewBeneficiary;
-  final VoidCallback onEditBeneficiary;
+  final VoidCallback? onViewBeneficiary;
+  final VoidCallback? onEditBeneficiary;
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +85,7 @@ class OgacBeneficiaryCard extends StatelessWidget {
               Container(
                 child: Consumer<LanguageTranslationState>(
                   builder: (context, languageTranslationState, child) {
-                    String currentLanguage =
+                    String? currentLanguage =
                         languageTranslationState.currentLanguage;
                     return Container(
                       padding: EdgeInsets.symmetric(
@@ -109,7 +109,7 @@ class OgacBeneficiaryCard extends StatelessWidget {
                                 Expanded(
                                   flex: 2,
                                   child: Text(
-                                    ogacBeneficiary.beneficiaryId,
+                                    ogacBeneficiary.beneficiaryId!,
                                     style: TextStyle().copyWith(
                                       color: Color(0xFF651900).withOpacity(0.8),
                                       fontSize: 14.0,
@@ -139,7 +139,7 @@ class OgacBeneficiaryCard extends StatelessWidget {
                                 Expanded(
                                   flex: 2,
                                   child: Text(
-                                    ogacBeneficiary.age,
+                                    ogacBeneficiary.age!,
                                     style: TextStyle().copyWith(
                                       color: Color(0xFF651900).withOpacity(0.8),
                                       fontSize: 14.0,
@@ -169,7 +169,7 @@ class OgacBeneficiaryCard extends StatelessWidget {
                                 Expanded(
                                   flex: 2,
                                   child: Text(
-                                    ogacBeneficiary.sex,
+                                    ogacBeneficiary.sex!,
                                     style: TextStyle().copyWith(
                                       color: Color(0xFF651900).withOpacity(0.8),
                                       fontSize: 14.0,
@@ -199,7 +199,7 @@ class OgacBeneficiaryCard extends StatelessWidget {
                                 Expanded(
                                   flex: 2,
                                   child: Text(
-                                    ogacBeneficiary.location,
+                                    ogacBeneficiary.location!,
                                     style: TextStyle().copyWith(
                                       color: Color(0xFF651900).withOpacity(0.8),
                                       fontSize: 14.0,
@@ -227,7 +227,7 @@ class OgacBeneficiaryCard extends StatelessWidget {
                                 Expanded(
                                   flex: 2,
                                   child: Text(
-                                    ogacBeneficiary.createdDate,
+                                    ogacBeneficiary.createdDate!,
                                     style: TextStyle().copyWith(
                                       color: Color(0xFF651900).withOpacity(0.8),
                                       fontSize: 14.0,

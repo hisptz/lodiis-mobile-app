@@ -23,7 +23,7 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_serv
 import 'package:provider/provider.dart';
 
 class HTSShortFormHomePage extends StatefulWidget {
-  HTSShortFormHomePage({Key key}) : super(key: key);
+  HTSShortFormHomePage({Key? key}) : super(key: key);
 
   @override
   _HTSShortFormHomePageState createState() => _HTSShortFormHomePageState();
@@ -38,7 +38,7 @@ class _HTSShortFormHomePageState extends State<HTSShortFormHomePage> {
   void updateFormState(
     BuildContext context,
     bool isEditableMode,
-    Events eventData,
+    Events? eventData,
   ) {
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
     Provider.of<ServiceFormState>(context, listen: false)
@@ -69,7 +69,7 @@ class _HTSShortFormHomePageState extends State<HTSShortFormHomePage> {
 
   onAddHTS(BuildContext context, AgywDream agywDream) async {
     updateFormState(context, true, null);
-    String beneficiaryId = agywDream.id;
+    String? beneficiaryId = agywDream.id;
     String formAutoSaveId =
         "${DreamsRoutesConstant.agywDreamsHTSShortFormPage}_$beneficiaryId";
     FormAutoSave formAutoSave =
@@ -119,10 +119,10 @@ class _HTSShortFormHomePageState extends State<HTSShortFormHomePage> {
             builder: (context, dreamBeneficiarySelectionState, child) {
               return Consumer<ServiceEventDataState>(
                 builder: (context, serviceFormState, child) {
-                  AgywDream agywDream =
+                  AgywDream? agywDream =
                       dreamBeneficiarySelectionState.currentAgywDream;
                   bool isLoading = serviceFormState.isLoading;
-                  Map<String, List<Events>> eventListByProgramStage =
+                  Map<String?, List<Events>> eventListByProgramStage =
                       serviceFormState.eventListByProgramStage;
                   List<Events> events = TrackedEntityInstanceUtil
                           .getAllEventListFromServiceDataStateByProgramStages(
@@ -196,7 +196,7 @@ class _HTSShortFormHomePageState extends State<HTSShortFormHomePage> {
                                         fontSize: 15.0,
                                         onPressButton: () => onAddHTS(
                                           context,
-                                          agywDream,
+                                          agywDream!,
                                         ),
                                       )
                                     ],

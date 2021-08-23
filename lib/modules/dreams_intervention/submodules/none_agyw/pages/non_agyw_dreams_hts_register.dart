@@ -31,9 +31,9 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/s
 import 'package:provider/provider.dart';
 
 class NonAgywDreamsHTSRegisterForm extends StatefulWidget {
-  NonAgywDreamsHTSRegisterForm({Key key, this.isComingFromPrep})
+  NonAgywDreamsHTSRegisterForm({Key? key, this.isComingFromPrep})
       : super(key: key);
-  final bool isComingFromPrep;
+  final bool? isComingFromPrep;
 
   @override
   _NonAgywDreamsHTSRegisterFormState createState() =>
@@ -43,14 +43,14 @@ class NonAgywDreamsHTSRegisterForm extends StatefulWidget {
 class _NonAgywDreamsHTSRegisterFormState
     extends State<NonAgywDreamsHTSRegisterForm> {
   final String label = 'HTS Register';
-  List<FormSection> formSections;
+  List<FormSection>? formSections;
   final List<String> mandatoryFields = NonAgywHTSRegister.getMandatoryFields();
   final List<String> indicationForPrEPFields =
       NonAgywHTSClientInformation.getIndicationsForPrep();
   final Map mandatoryFieldObject = Map();
   bool isFormReady = false;
   bool isSaving = false;
-  bool isComingFromPrep;
+  bool? isComingFromPrep;
   List<FormSection> allFormSections = [];
   List unFilledMandatoryFields = [];
   final String trackedEntityInstance = AppUtil.getUid();
@@ -60,7 +60,7 @@ class _NonAgywDreamsHTSRegisterFormState
     super.initState();
     isComingFromPrep = widget.isComingFromPrep;
     formSections = NonAgywHTSRegister.getFormSections();
-    allFormSections.addAll(formSections);
+    allFormSections.addAll(formSections!);
     allFormSections.addAll(NonAgywHTSClientInformation.getFormSections());
 
     for (String id in mandatoryFields) {
@@ -82,7 +82,7 @@ class _NonAgywDreamsHTSRegisterFormState
             Provider.of<EnrollmentFormState>(context, listen: false).formState;
         await NoneAgywEnrollmentSkipLogic.evaluateSkipLogics(
           context,
-          formSections,
+          formSections!,
           dataObject,
         );
       },
@@ -141,11 +141,11 @@ class _NonAgywDreamsHTSRegisterFormState
           setState(() {
             isSaving = true;
           });
-          CurrentUser user = await UserService().getCurrentUser();
+          CurrentUser? user = await (UserService().getCurrentUser());
           dataObject['PN92g65TkVI'] = dataObject['PN92g65TkVI'] ?? 'Active';
           dataObject['klLkGxy328c'] =
-              dataObject['klLkGxy328c'] ?? user.implementingPartner;
-          if (user.subImplementingPartner != '') {
+              dataObject['klLkGxy328c'] ?? user!.implementingPartner;
+          if (user!.subImplementingPartner != '') {
             dataObject['fQInK8s2RNR'] =
                 dataObject['fQInK8s2RNR'] ?? user.subImplementingPartner;
           }
@@ -156,7 +156,7 @@ class _NonAgywDreamsHTSRegisterFormState
             'klLkGxy328c',
             'fQInK8s2RNR'
           ];
-          String orgUnit = dataObject['location'];
+          String? orgUnit = dataObject['location'];
           await NoneAgywDreamsEnrollmentService().savingNonAgywBeneficiary(
             dataObject,
             trackedEntityInstance,
@@ -176,7 +176,7 @@ class _NonAgywDreamsHTSRegisterFormState
                 setState(() {
                   isSaving = false;
                 });
-                String currentLanguage = Provider.of<LanguageTranslationState>(
+                String? currentLanguage = Provider.of<LanguageTranslationState>(
                         context,
                         listen: false)
                     .currentLanguage;

@@ -6,10 +6,10 @@ import 'package:provider/provider.dart';
 
 class OvcHouseholdInfoTopHeader extends StatelessWidget {
   const OvcHouseholdInfoTopHeader({
-    Key key,
-    @required this.currentOvcHousehold,
+    Key? key,
+    required this.currentOvcHousehold,
   }) : super(key: key);
-  final OvcHousehold currentOvcHousehold;
+  final OvcHousehold? currentOvcHousehold;
   final String svgIcon = 'assets/icons/hh_icon.svg';
 
   @override
@@ -17,7 +17,7 @@ class OvcHouseholdInfoTopHeader extends StatelessWidget {
     return Container(
       child: Consumer<LanguageTranslationState>(
         builder: (context, languageTranslationState, child) {
-          String currentLanguage = languageTranslationState.currentLanguage;
+          String? currentLanguage = languageTranslationState.currentLanguage;
           return Material(
             type: MaterialType.card,
             elevation: 1.0,

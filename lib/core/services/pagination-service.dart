@@ -3,16 +3,16 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 class PaginationService {
   static void initializePagination(
-      {@required bool mounted,
-      @required PagingController pagingController,
-      @required Function fetchPage}) {
+      {required bool mounted,
+      required PagingController? pagingController,
+      required Function fetchPage}) {
     try {
       if (mounted) {
-        pagingController.addPageRequestListener((pageKey) {
+        pagingController!.addPageRequestListener((pageKey) {
           fetchPage(pageKey);
         });
       } else {
-        pagingController.removePageRequestListener((pageKey) {
+        pagingController!.removePageRequestListener((pageKey) {
           fetchPage(pageKey);
         });
         pagingController.dispose();
@@ -22,15 +22,15 @@ class PaginationService {
     }
   }
 
-  static void assignPagesToController(PagingController pagingController,
+  static void assignPagesToController(PagingController? pagingController,
       List ovcList, int pageKey, int numberOfPages) {
     if (numberOfPages <= 0) {
-      pagingController.appendLastPage(ovcList);
+      pagingController!.appendLastPage(ovcList);
     } else {
       if (pageKey >= (numberOfPages - 1)) {
-        pagingController.appendLastPage(ovcList);
+        pagingController!.appendLastPage(ovcList);
       } else {
-        pagingController.appendPage(ovcList, (pageKey + 1));
+        pagingController!.appendPage(ovcList, (pageKey + 1));
       }
     }
   }

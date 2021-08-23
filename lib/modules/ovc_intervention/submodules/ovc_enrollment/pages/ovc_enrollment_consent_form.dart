@@ -19,7 +19,7 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment
 import 'package:provider/provider.dart';
 
 class OvcEnrollmentConsentForm extends StatefulWidget {
-  const OvcEnrollmentConsentForm({Key key}) : super(key: key);
+  const OvcEnrollmentConsentForm({Key? key}) : super(key: key);
 
   @override
   _OvcEnrollmentConsentFormState createState() =>
@@ -27,7 +27,7 @@ class OvcEnrollmentConsentForm extends StatefulWidget {
 }
 
 class _OvcEnrollmentConsentFormState extends State<OvcEnrollmentConsentForm> {
-  List<FormSection> formSections;
+  List<FormSection>? formSections;
   final String label = 'Consent Form';
   final List<String> consentFields = OvcEnrollmentConstant.getConsentFields();
   final List<String> mandatoryFields = OvcEnrollmentConsent.getMandatoryField();
@@ -116,7 +116,7 @@ class _OvcEnrollmentConsentFormState extends State<OvcEnrollmentConsentForm> {
                 : Container(
                     child: Consumer<LanguageTranslationState>(
                       builder: (context, languageTranslationState, child) {
-                        String currentLanguage =
+                        String? currentLanguage =
                             languageTranslationState.currentLanguage;
                         return Consumer<EnrollmentFormState>(
                           builder: (context, enrollmentFormState, child) =>

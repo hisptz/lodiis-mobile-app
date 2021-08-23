@@ -5,14 +5,14 @@ import 'package:kb_mobile_app/models/events.dart';
 
 class DreamsHTSListCard extends StatelessWidget {
   const DreamsHTSListCard({
-    Key key,
-    @required this.eventData,
-    @required this.sessionCount,
+    Key? key,
+    required this.eventData,
+    required this.sessionCount,
     this.onViewHTS,
   }) : super(key: key);
 
   final Events eventData;
-  final Function onViewHTS;
+  final Function? onViewHTS;
   final int sessionCount;
 
   @override
@@ -61,7 +61,7 @@ class DreamsHTSListCard extends StatelessWidget {
                       horizontal: 5.0,
                     ),
                     child: InkWell(
-                        onTap: onViewHTS,
+                        onTap: onViewHTS as void Function()?,
                         child: Container(
                           height: iconHeight,
                           width: iconHeight,

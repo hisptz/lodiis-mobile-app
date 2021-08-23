@@ -5,13 +5,13 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_serv
 
 class DreamsHTSIndexCardBody extends StatelessWidget {
   DreamsHTSIndexCardBody({
-    Key key,
+    Key? key,
     this.event,
-    Container cardButtonActions,
-    DreamsHTSIndexCardButtonContent cardButtonContent,
+    Container? cardButtonActions,
+    DreamsHTSIndexCardButtonContent? cardButtonContent,
   }) : super(key: key);
 
-  final AgywDreamsIndexInfoEvent event;
+  final AgywDreamsIndexInfoEvent? event;
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +70,7 @@ class DreamsHTSIndexCardBody extends StatelessWidget {
                           Expanded(
                               flex: 2,
                               child: Text(
-                                event.date,
+                                event!.date!,
                                 style: TextStyle().copyWith(
                                     fontSize: 14.0,
                                     color: Color(0XFF536852),
@@ -96,7 +96,7 @@ class DreamsHTSIndexCardBody extends StatelessWidget {
                           Expanded(
                               flex: 2,
                               child: Text(
-                                event.onART == 'true' ? 'Yes' : 'No',
+                                event!.onART == 'true' ? 'Yes' : 'No',
                                 style: TextStyle().copyWith(
                                     fontSize: 14.0,
                                     color: Color(0XFF536852),

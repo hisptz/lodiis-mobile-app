@@ -16,7 +16,7 @@ class ReservedAttributeValueService {
     List<ReservedAttributeValue> allReservedValues =
         await ReserveAttributeValueOfflineProvider()
             .getReserveAttributeValues();
-    List<String> expireReserveValueObjectIds =
+    List<String?> expireReserveValueObjectIds =
         await getExpiredReserveAttributeValues();
     int numberToReserve = maxNumberToReserve +
         expireReserveValueObjectIds.length -
@@ -27,7 +27,7 @@ class ReservedAttributeValueService {
               expireReserveValueObjectIds)
           : await null;
       List<ReservedAttributeValue> data =
-          await getReservedAttributeValuesFromTheServer(numberToReserve);
+          await (getReservedAttributeValuesFromTheServer(numberToReserve));
       saveReservedAttributeValues(data);
     }
   }
@@ -38,9 +38,9 @@ class ReservedAttributeValueService {
     var queryParameters = {
       "numberToReserve": "$numberToReserve",
     };
-    CurrentUser user = await UserService().getCurrentUser();
+    CurrentUser? user = await (UserService().getCurrentUser());
     HttpService http = HttpService(
-      username: user.username,
+      username: user!.username,
       password: user.password,
     );
     try {
@@ -61,7 +61,7 @@ class ReservedAttributeValueService {
         .addOrUpdateReservedAttributeValues(reservedAttributeValues);
   }
 
-  Future<String> getReservedAttributeValue() async {
+  Future<String?> getReservedAttributeValue() async {
     List<ReservedAttributeValue> reservedAttributeValues =
         await ReserveAttributeValueOfflineProvider()
             .getReserveAttributeValues();
@@ -71,20 +71,20 @@ class ReservedAttributeValueService {
   }
 
   Future deleteExpireReservedAttributeValues(
-      List<String> expireReservedAttributeValueIds) async {
+      List<String?> expireReservedAttributeValueIds) async {
     return await ReserveAttributeValueOfflineProvider()
         .deleteReserveAttributeValues(expireReservedAttributeValueIds);
   }
 
-  Future<List<String>> getExpiredReserveAttributeValues() async {
+  Future<List<String?>> getExpiredReserveAttributeValues() async {
     DateTime date = DateTime.now();
-    List<String> expireReserveValueObjectIds = [];
+    List<String?> expireReserveValueObjectIds = [];
     List<ReservedAttributeValue> reservedAttributeValues =
         await ReserveAttributeValueOfflineProvider()
             .getReserveAttributeValues();
     for (ReservedAttributeValue reservedAttributeValue
         in reservedAttributeValues) {
-      DateTime todayDate = DateTime.parse(reservedAttributeValue.expireDate);
+      DateTime todayDate = DateTime.parse(reservedAttributeValue.expireDate!);
       if (todayDate.difference(date).inDays < 0) {
         expireReserveValueObjectIds.add(reservedAttributeValue.id);
       }
@@ -93,8 +93,8 @@ class ReservedAttributeValueService {
   }
 
   Future cleanUsedReservedAttributeValues() async {
-    List<String> trackedEntityValues = [];
-    List<String> usedReservedValueIds = [];
+    List<String?> trackedEntityValues = [];
+    List<String?> usedReservedValueIds = [];
     List<ReservedAttributeValue> reservedAttributeValues =
         await ReserveAttributeValueOfflineProvider()
             .getReserveAttributeValues();

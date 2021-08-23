@@ -17,13 +17,13 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_serv
 
 class HTSIndexHomePage extends StatefulWidget {
   HTSIndexHomePage({
-    Key key,
-    @required this.htsIndexLinkage,
+    Key? key,
+    required this.htsIndexLinkage,
     this.people,
   }) : super(key: key);
 
-  final String htsIndexLinkage;
-  final IndexContact people;
+  final String? htsIndexLinkage;
+  final IndexContact? people;
 
   @override
   _HTSIndexHomePageState createState() => _HTSIndexHomePageState();
@@ -35,9 +35,9 @@ class _HTSIndexHomePageState extends State<HTSIndexHomePage> {
   final bool canEdit = true;
   final bool canView = true;
 
-  String toggleCardId = '';
+  String? toggleCardId = '';
 
-  void onCardToggle(String cardId) {
+  void onCardToggle(String? cardId) {
     setState(() {
       toggleCardId = canExpand && cardId != toggleCardId ? cardId : '';
     });
@@ -51,7 +51,7 @@ class _HTSIndexHomePageState extends State<HTSIndexHomePage> {
   void updateFormState(
     BuildContext context,
     bool isEditableMode,
-    Events eventData,
+    Events? eventData,
   ) {
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
     Provider.of<ServiceFormState>(context, listen: false)
@@ -70,7 +70,7 @@ class _HTSIndexHomePageState extends State<HTSIndexHomePage> {
     }
   }
 
-  void onAddIndexInfo(BuildContext context, AgywDream agywDream) {
+  void onAddIndexInfo(BuildContext context, AgywDream? agywDream) {
     updateFormState(context, true, null);
     Provider.of<ServiceFormState>(context, listen: false).setFormFieldState(
         AgywDreamsHTSLongFormConstant.htsToIndexLinkage,
@@ -94,9 +94,9 @@ class _HTSIndexHomePageState extends State<HTSIndexHomePage> {
           builder: (context, dreamBeneficiarySelectionState, child) {
             return Consumer<ServiceEventDataState>(
               builder: (context, serviceFormState, child) {
-                AgywDream agywDream =
+                AgywDream? agywDream =
                     dreamBeneficiarySelectionState.currentAgywDream;
-                Map<String, List<Events>> eventListByProgramStage =
+                Map<String?, List<Events>> eventListByProgramStage =
                     serviceFormState.eventListByProgramStage;
                 List<Events> events = TrackedEntityInstanceUtil
                     .getAllEventListFromServiceDataStateByProgramStages(
@@ -108,7 +108,7 @@ class _HTSIndexHomePageState extends State<HTSIndexHomePage> {
                     .where((element) =>
                         element.htsIndexLinkage == widget.htsIndexLinkage)
                     .toList();
-                AgywDreamsIndexInfoEvent indexEvent =
+                AgywDreamsIndexInfoEvent? indexEvent =
                     indexEvents.length > 0 ? indexEvents[0] : null;
                 return Container(
                   child: Column(

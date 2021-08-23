@@ -30,11 +30,11 @@ import 'package:provider/provider.dart';
 
 class AgywDreamsServiceForm extends StatefulWidget {
   AgywDreamsServiceForm(
-      {Key key, this.isFormEdited: false, this.currentUserImplementingPartner})
+      {Key? key, this.isFormEdited: false, this.currentUserImplementingPartner})
       : super(key: key);
 
   final bool isFormEdited;
-  final String currentUserImplementingPartner;
+  final String? currentUserImplementingPartner;
   @override
   _AgywDreamsServiceFormState createState() => _AgywDreamsServiceFormState();
 }
@@ -43,7 +43,7 @@ class _AgywDreamsServiceFormState extends State<AgywDreamsServiceForm> {
   final String label = 'Service Form';
   final String sessionNumberInputField = 'vL6NpUA0rIU';
   final String typeOfIntervention = 'Eug4BXDFLym';
-  List<FormSection> formSections;
+  List<FormSection>? formSections;
   final List<String> mandatoryFields = DreamsServiceForm.getMandatoryField();
   final Map mandatoryFieldObject = Map();
   bool isFormReady = false;
@@ -72,7 +72,7 @@ class _AgywDreamsServiceFormState extends State<AgywDreamsServiceForm> {
         Map dataObject =
             Provider.of<ServiceFormState>(context, listen: false).formState;
         await AgywDreamsServiceFormSkipLogic.evaluateSkipLogics(
-            context, formSections, dataObject,
+            context, formSections!, dataObject,
             isFormEdited: widget.isFormEdited,
             implementingPartner: widget.currentUserImplementingPartner);
       },
@@ -111,7 +111,7 @@ class _AgywDreamsServiceFormState extends State<AgywDreamsServiceForm> {
   }
 
   void onSaveForm(
-      BuildContext context, Map dataObject, AgywDream agywDream) async {
+      BuildContext context, Map dataObject, AgywDream? agywDream) async {
     bool hadAllMandatoryFilled =
         AppUtil.hasAllMandatoryFieldsFilled(mandatoryFields, dataObject);
     if (hadAllMandatoryFilled) {
@@ -131,8 +131,8 @@ class _AgywDreamsServiceFormState extends State<AgywDreamsServiceForm> {
             setState(() {
               isSaving = true;
             });
-            String eventDate = dataObject['eventDate'];
-            String eventId = dataObject['eventId'];
+            String? eventDate = dataObject['eventDate'];
+            String? eventId = dataObject['eventId'];
             List<String> hiddenFields = [];
             List<String> skippedFields = [
               'interventionSessions',
@@ -144,8 +144,8 @@ class _AgywDreamsServiceFormState extends State<AgywDreamsServiceForm> {
                   .savingTrackedEntityInstanceEventData(
                       ServiceFormConstant.program,
                       ServiceFormConstant.programStage,
-                      agywDream.orgUnit,
-                      formSections,
+                      agywDream!.orgUnit,
+                      formSections!,
                       dataObject,
                       eventDate,
                       agywDream.id,
@@ -158,7 +158,7 @@ class _AgywDreamsServiceFormState extends State<AgywDreamsServiceForm> {
                 setState(() {
                   isSaving = false;
                 });
-                String currentLanguage = Provider.of<LanguageTranslationState>(
+                String? currentLanguage = Provider.of<LanguageTranslationState>(
                         context,
                         listen: false)
                     .currentLanguage;
@@ -204,7 +204,7 @@ class _AgywDreamsServiceFormState extends State<AgywDreamsServiceForm> {
   }
 
   void clearFormAutoSaveState(
-      BuildContext context, String beneficiaryId) async {
+      BuildContext context, String? beneficiaryId) async {
     String formAutoSaveId =
         "${DreamsRoutesConstant.agywDreamsServiceFormPage}_$beneficiaryId";
     await FormAutoSaveOfflineService().deleteSavedFormAutoData(formAutoSaveId);
@@ -217,8 +217,8 @@ class _AgywDreamsServiceFormState extends State<AgywDreamsServiceForm> {
   }) async {
     var agyw =
         Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
-            .currentAgywDream;
-    String beneficiaryId = agyw.id;
+            .currentAgywDream!;
+    String? beneficiaryId = agyw.id;
     Map dataObject =
         Provider.of<ServiceFormState>(context, listen: false).formState;
     String id =
@@ -257,11 +257,11 @@ class _AgywDreamsServiceFormState extends State<AgywDreamsServiceForm> {
           body: Container(
             child: Consumer<LanguageTranslationState>(
               builder: (context, languageTranslationState, child) {
-                String currentLanguage =
+                String? currentLanguage =
                     languageTranslationState.currentLanguage;
                 return Consumer<DreamsBeneficiarySelectionState>(
                   builder: (context, nonAgywState, child) {
-                    AgywDream agywDream = nonAgywState.currentAgywDream;
+                    AgywDream? agywDream = nonAgywState.currentAgywDream;
                     return Consumer<ServiceFormState>(
                       builder: (context, serviceFormState, child) {
                         return Container(
