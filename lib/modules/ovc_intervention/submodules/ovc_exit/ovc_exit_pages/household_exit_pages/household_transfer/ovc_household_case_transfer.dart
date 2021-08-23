@@ -149,7 +149,7 @@ class _OvcHouseholdCaseTransferState extends State<OvcHouseholdCaseTransfer> {
                                   eventListByProgramStage, programStageIds);
                           Events? event =
                               eventList.length > 0 ? eventList[0] : null;
-                          return isLoading
+                          return isLoading && !isFormReady
                               ? CircularProcessLoader(
                                   color: Colors.blueGrey,
                                 )

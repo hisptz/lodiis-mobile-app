@@ -138,6 +138,7 @@ class _OvcHouseholdExitState extends State<OvcHouseholdExit> {
                     Container(
                       child: Consumer<ServiceEventDataState>(
                         builder: (context, serviceEventDataState, child) {
+                          bool isLoading = serviceEventDataState.isLoading;
                           Map<String?, List<Events>> eventListByProgramStage =
                               serviceEventDataState.eventListByProgramStage;
                           List<Events> eventList = TrackedEntityInstanceUtil
@@ -145,7 +146,7 @@ class _OvcHouseholdExitState extends State<OvcHouseholdExit> {
                                   eventListByProgramStage, programStageIds);
                           Events? event =
                               eventList.length > 0 ? eventList[0] : null;
-                          return isFormReady
+                          return isLoading && !isFormReady
                               ? CircularProcessLoader(
                                   color: Colors.blueGrey,
                                 )

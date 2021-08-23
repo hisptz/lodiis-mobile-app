@@ -162,11 +162,11 @@ class _OvcHouseholdCaseClosureState extends State<OvcHouseholdCaseClosure> {
                               e.programStage ==
                               OvcHouseholdCaseClosureConstant.programStage);
                           bool isDisabled = shouldDisableClosure(eventList);
-                          return isLoading
+                          return isLoading && !isFormReady
                               ? CircularProcessLoader(
                                   color: Colors.blueGrey,
                                 )
-                              : isDisabled
+                              : !isLoading && isDisabled
                                   ? Container(
                                       height: 100.0,
                                       child: Center(
