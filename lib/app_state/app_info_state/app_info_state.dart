@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:new_version/new_version.dart';
 
 class AppInfoState with ChangeNotifier {
   String? _currentAppName;
@@ -13,6 +14,15 @@ class AppInfoState with ChangeNotifier {
 
   void setCurrentAppInfo() async {
     try {
+      //@TODO add contansts
+      final newVersion = NewVersion(
+        androidId: 'chingalo.family.todo_app',
+      );
+      final status = await newVersion.getVersionStatus();
+      print("${status!.canUpdate}");
+      print("${status.localVersion}");
+      print("${status.storeVersion}");
+      print("${status.releaseNotes}");
       // TODO add a way to get the app info from the platform
       _currentAppId = '';
       _currentAppVersion = '';
