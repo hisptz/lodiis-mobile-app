@@ -11,22 +11,22 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/o
 
 class ServiceFormContainer extends StatelessWidget {
   ServiceFormContainer({
-    Key key,
-    @required this.formSectionColor,
-    @required this.formSection,
-    @required this.isEditableMode,
-    @required this.dataObject,
+    Key? key,
+    required this.formSectionColor,
+    required this.formSection,
+    required this.isEditableMode,
+    required this.dataObject,
     this.isCasePlanForHousehold = false,
     this.onInputValueChange,
-    @required this.shouldEditCaseGapFollowUps,
-    @required this.shouldViewCaseGapFollowUp,
+    required this.shouldEditCaseGapFollowUps,
+    required this.shouldViewCaseGapFollowUp,
   }) : super(key: key);
 
-  final Color formSectionColor;
+  final Color? formSectionColor;
   final FormSection formSection;
   final bool isEditableMode;
-  final Map dataObject;
-  final Function onInputValueChange;
+  final Map? dataObject;
+  final Function? onInputValueChange;
   final bool isCasePlanForHousehold;
   final bool shouldEditCaseGapFollowUps;
   final bool shouldViewCaseGapFollowUp;
@@ -40,7 +40,7 @@ class ServiceFormContainer extends StatelessWidget {
     gapDataObject[casePlanGapToFollowUpLinkage] =
         gapDataObject[casePlanGapToFollowUpLinkage] ?? AppUtil.getUid();
     gapDataObject[caseToGapLinkage] =
-        dataObject[caseToGapLinkage] ?? AppUtil.getUid();
+        dataObject![caseToGapLinkage] ?? AppUtil.getUid();
     List<FormSection> formSections = isCasePlanForHousehold
         ? OvcHouseholdServicesCasePlanGaps.getFormSections()
             .where((FormSection form) => form.id == formSection.id)
@@ -61,14 +61,14 @@ class ServiceFormContainer extends StatelessWidget {
     );
     Map response = await AppUtil.showPopUpModal(context, modal, true);
     if (response != null) {
-      dataObject['gaps'].add(response);
-      onValueChange('gaps', dataObject['gaps']);
+      dataObject!['gaps'].add(response);
+      onValueChange('gaps', dataObject!['gaps']);
     }
   }
 
   void onValueChange(String id, dynamic value) {
-    dataObject[id] = value;
-    onInputValueChange(dataObject);
+    dataObject![id] = value;
+    onInputValueChange!(dataObject);
   }
 
   @override
@@ -86,7 +86,7 @@ class ServiceFormContainer extends StatelessWidget {
             decoration: BoxDecoration(
                 border: Border(
               left: BorderSide(
-                color: formSectionColor,
+                color: formSectionColor!,
                 width: 8.0,
               ),
             )),
@@ -101,7 +101,7 @@ class ServiceFormContainer extends StatelessWidget {
                   onInputValueChange: onValueChange,
                 ),
                 ServiceGapViewContainer(
-                  casePlanGaps: dataObject['gaps'] ?? [],
+                  casePlanGaps: dataObject!['gaps'] ?? [],
                   domainId: formSection.id,
                   isCasePlanForHousehold: isCasePlanForHousehold,
                   formSectionColor: formSectionColor,
@@ -118,9 +118,9 @@ class ServiceFormContainer extends StatelessWidget {
                     child: TextButton(
                       style: TextButton.styleFrom(
                         backgroundColor: Colors.white,
-                        onSurface: formSectionColor.withOpacity(0.5),
+                        onSurface: formSectionColor!.withOpacity(0.5),
                         shape: RoundedRectangleBorder(
-                          side: BorderSide(color: formSectionColor),
+                          side: BorderSide(color: formSectionColor!),
                           borderRadius: BorderRadius.circular(12.0),
                         ),
                       ),

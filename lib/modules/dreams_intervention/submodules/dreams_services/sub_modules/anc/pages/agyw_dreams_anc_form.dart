@@ -29,7 +29,7 @@ import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:provider/provider.dart';
 
 class AgywDreamsANCForm extends StatefulWidget {
-  AgywDreamsANCForm({Key key}) : super(key: key);
+  AgywDreamsANCForm({Key? key}) : super(key: key);
 
   @override
   _AgywDreamsANCFormState createState() => _AgywDreamsANCFormState();
@@ -37,7 +37,7 @@ class AgywDreamsANCForm extends StatefulWidget {
 
 class _AgywDreamsANCFormState extends State<AgywDreamsANCForm> {
   final String label = 'ANC form';
-  List<FormSection> formSections;
+  List<FormSection>? formSections;
   bool isFormReady = false;
   bool isSaving = false;
 
@@ -61,7 +61,7 @@ class _AgywDreamsANCFormState extends State<AgywDreamsANCForm> {
             Provider.of<ServiceFormState>(context, listen: false).formState;
         await AgywDreamsANCSkipLogic.evaluateSkipLogics(
           context,
-          formSections,
+          formSections!,
           dataObject,
         );
       },
@@ -76,20 +76,20 @@ class _AgywDreamsANCFormState extends State<AgywDreamsANCForm> {
   }
 
   void onSaveForm(
-      BuildContext context, Map dataObject, AgywDream agywDream) async {
+      BuildContext context, Map dataObject, AgywDream? agywDream) async {
     if (FormUtil.geFormFilledStatus(dataObject, formSections)) {
       setState(() {
         isSaving = true;
       });
-      String eventDate = dataObject['eventDate'];
-      String eventId = dataObject['eventId'];
+      String? eventDate = dataObject['eventDate'];
+      String? eventId = dataObject['eventId'];
       List<String> hiddenFields = [];
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
             ANCConstant.program,
             ANCConstant.programStage,
-            agywDream.orgUnit,
-            formSections,
+            agywDream!.orgUnit,
+            formSections!,
             dataObject,
             eventDate,
             agywDream.id,
@@ -99,7 +99,7 @@ class _AgywDreamsANCFormState extends State<AgywDreamsANCForm> {
             .resetServiceEventDataState(agywDream.id);
         Timer(Duration(seconds: 1), () {
           setState(() {
-            String currentLanguage =
+            String? currentLanguage =
                 Provider.of<LanguageTranslationState>(context, listen: false)
                     .currentLanguage;
             AppUtil.showToastMessage(
@@ -129,7 +129,7 @@ class _AgywDreamsANCFormState extends State<AgywDreamsANCForm> {
   }
 
   void clearFormAutoSaveState(
-      BuildContext context, String beneficiaryId) async {
+      BuildContext context, String? beneficiaryId) async {
     String formAutoSaveId =
         "${DreamsRoutesConstant.agywDreamsANCFormPage}_$beneficiaryId";
     await FormAutoSaveOfflineService().deleteSavedFormAutoData(formAutoSaveId);
@@ -142,8 +142,8 @@ class _AgywDreamsANCFormState extends State<AgywDreamsANCForm> {
   }) async {
     var agyw =
         Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
-            .currentAgywDream;
-    String beneficiaryId = agyw.id;
+            .currentAgywDream!;
+    String? beneficiaryId = agyw.id;
     Map dataObject =
         Provider.of<ServiceFormState>(context, listen: false).formState;
     String id = "${DreamsRoutesConstant.agywDreamsANCFormPage}_$beneficiaryId";
@@ -181,10 +181,10 @@ class _AgywDreamsANCFormState extends State<AgywDreamsANCForm> {
         body: Container(
           child: Consumer<LanguageTranslationState>(
             builder: (context, languageTranslationState, child) {
-              String currentLanguage = languageTranslationState.currentLanguage;
+              String? currentLanguage = languageTranslationState.currentLanguage;
               return Consumer<DreamsBeneficiarySelectionState>(
                 builder: (context, dreamsBeneficiarySelectionState, child) {
-                  AgywDream agywDream =
+                  AgywDream? agywDream =
                       dreamsBeneficiarySelectionState.currentAgywDream;
                   return Consumer<ServiceFormState>(
                     builder: (context, serviceFormState, child) {

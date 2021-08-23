@@ -10,7 +10,7 @@ import 'package:provider/provider.dart';
 
 class LanguageSelection extends StatefulWidget {
   const LanguageSelection({
-    Key key,
+    Key? key,
     this.showLanguageSettingAppBar = false,
   }) : super(key: key);
 
@@ -73,7 +73,7 @@ class _LanguageSelectionState extends State<LanguageSelection> {
                       return Container(
                         child: Consumer<LanguageTranslationState>(
                           builder: (context, languageTranslationState, child) {
-                            String currentLanguage =
+                            String? currentLanguage =
                                 languageTranslationState.currentLanguage;
                             return SubPageAppBar(
                               label: currentLanguage == 'lesotho'
@@ -92,7 +92,7 @@ class _LanguageSelectionState extends State<LanguageSelection> {
           body: Container(
             child: Consumer<LanguageTranslationState>(
               builder: (context, languageTranslationState, child) {
-                String currentLanguage =
+                String? currentLanguage =
                     languageTranslationState.currentLanguage;
                 return LanguageSelectionContainer(
                   currentLanguage: currentLanguage,

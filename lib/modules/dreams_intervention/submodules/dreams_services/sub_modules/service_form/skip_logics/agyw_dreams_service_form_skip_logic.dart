@@ -11,7 +11,7 @@ class AgywDreamsServiceFormSkipLogic {
 
   static Future evaluateSkipLogics(
       BuildContext context, List<FormSection> formSections, Map dataObject,
-      {bool isFormEdited, String implementingPartner}) async {
+      {bool? isFormEdited, String? implementingPartner}) async {
     hiddenFields.clear();
     hiddenSections.clear();
     hiddenInputFieldOptions.clear();
@@ -205,7 +205,7 @@ class AgywDreamsServiceFormSkipLogic {
   static assignInputFieldValue(
     BuildContext context,
     String inputFieldId,
-    String value,
+    String? value,
   ) {
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState(inputFieldId, value);

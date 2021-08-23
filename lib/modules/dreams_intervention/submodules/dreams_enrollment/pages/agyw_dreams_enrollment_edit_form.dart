@@ -31,7 +31,7 @@ import '../models/agyw_enrollment_form_section.dart';
 import '../models/agyw_enrollment_risk_assessment.dart';
 
 class AgywDreamsEnrollmentEditForm extends StatefulWidget {
-  const AgywDreamsEnrollmentEditForm({Key key}) : super(key: key);
+  const AgywDreamsEnrollmentEditForm({Key? key}) : super(key: key);
 
   @override
   _AgywDreamsEnrollmentEditFormState createState() =>
@@ -40,10 +40,10 @@ class AgywDreamsEnrollmentEditForm extends StatefulWidget {
 
 class _AgywDreamsEnrollmentEditFormState
     extends State<AgywDreamsEnrollmentEditForm> {
-  List<FormSection> formSections;
-  List<FormSection> enrollmentFormSections;
-  List<FormSection> consentFormSections;
-  List<FormSection> riskAssessmentFormSections;
+  List<FormSection>? formSections;
+  late List<FormSection> enrollmentFormSections;
+  List<FormSection>? consentFormSections;
+  late List<FormSection> riskAssessmentFormSections;
   final String label = 'Agyw Enrolment Form';
   final Map mandatoryFieldObject = Map();
   final List<String> mandatoryFields =
@@ -91,7 +91,7 @@ class _AgywDreamsEnrollmentEditFormState
       FormSection householdInformationFormSection =
           riskAssessmentFormSections[1];
       demographicInformationFormSection.inputFields =
-          demographicInformationFormSection.inputFields
+          demographicInformationFormSection.inputFields!
               .map((InputField inputField) {
         if (readOnlyFields.contains(inputField.id)) {
           inputField.isReadOnly = true;
@@ -103,10 +103,10 @@ class _AgywDreamsEnrollmentEditFormState
         householdInformationFormSection,
       ];
       enrollmentFormSections.forEach((enrollmentFormSection) {
-        formSections.add(enrollmentFormSection);
+        formSections!.add(enrollmentFormSection);
       });
       formSections = FormUtil.getFormSectionWithReadOnlyStatus(
-        formSections,
+        formSections!,
         false,
         skippedInputs,
       );
@@ -123,7 +123,7 @@ class _AgywDreamsEnrollmentEditFormState
             Provider.of<EnrollmentFormState>(context, listen: false).formState;
         await AgywDreamsEnrollmentSkipLogic.evaluateSkipLogics(
           context,
-          formSections,
+          formSections!,
           dataObject,
         );
       },
@@ -178,14 +178,14 @@ class _AgywDreamsEnrollmentEditFormState
       setState(() {
         isSaving = true;
       });
-      CurrentUser user = await UserService().getCurrentUser();
-      String trackedEntityInstance = dataObject['trackedEntityInstance'];
-      String orgUnit = dataObject['orgUnit'];
-      String enrollment = dataObject['enrollment'];
-      String enrollmentDate = dataObject['enrollmentDate'];
-      String incidentDate = dataObject['incidentDate'];
+      CurrentUser? user = await UserService().getCurrentUser();
+      String? trackedEntityInstance = dataObject['trackedEntityInstance'];
+      String? orgUnit = dataObject['orgUnit'];
+      String? enrollment = dataObject['enrollment'];
+      String? enrollmentDate = dataObject['enrollmentDate'];
+      String? incidentDate = dataObject['incidentDate'];
       dataObject['klLkGxy328c'] =
-          dataObject['klLkGxy328c'] ?? user.implementingPartner;
+          dataObject['klLkGxy328c'] ?? user!.implementingPartner;
       List<String> hiddenFields = [
         BeneficiaryIdentification.beneficiaryId,
         BeneficiaryIdentification.beneficiaryIndex,
@@ -209,7 +209,7 @@ class _AgywDreamsEnrollmentEditFormState
           setState(() {
             isSaving = false;
           });
-          String currentLanguage =
+          String? currentLanguage =
               Provider.of<LanguageTranslationState>(context, listen: false)
                   .currentLanguage;
           AppUtil.showToastMessage(
@@ -268,7 +268,7 @@ class _AgywDreamsEnrollmentEditFormState
                   : Container(
                       child: Consumer<LanguageTranslationState>(
                           builder: (context, languageTranslationState, child) {
-                        String currentLanguage =
+                        String? currentLanguage =
                             languageTranslationState.currentLanguage;
                         return Consumer<EnrollmentFormState>(
                           builder: (context, enrollmentFormState, child) =>

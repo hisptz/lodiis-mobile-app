@@ -33,7 +33,7 @@ class _OvcHouseholdExitState extends State<OvcHouseholdExit> {
   final List<String> programStageIds = [OvcHouseholdExitConstant.programStage];
 
   bool isSaving = false;
-  List<FormSection> formSections;
+  List<FormSection>? formSections;
   bool isFormReady = false;
 
   @override
@@ -50,20 +50,20 @@ class _OvcHouseholdExitState extends State<OvcHouseholdExit> {
   void onSaveForm(
     BuildContext context,
     Map dataObject,
-    OvcHousehold currentOvcHousehold,
+    OvcHousehold? currentOvcHousehold,
   ) async {
     if (FormUtil.geFormFilledStatus(dataObject, formSections)) {
       setState(() {
         isSaving = true;
       });
-      String eventDate = dataObject['eventDate'];
-      String eventId = dataObject['eventId'];
+      String? eventDate = dataObject['eventDate'];
+      String? eventId = dataObject['eventId'];
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
             OvcHouseholdExitConstant.program,
             OvcHouseholdExitConstant.programStage,
-            currentOvcHousehold.orgUnit,
-            formSections,
+            currentOvcHousehold!.orgUnit,
+            formSections!,
             dataObject,
             eventDate,
             currentOvcHousehold.id,
@@ -75,7 +75,7 @@ class _OvcHouseholdExitState extends State<OvcHouseholdExit> {
           setState(() {
             isSaving = false;
           });
-          String currentLanguage =
+          String? currentLanguage =
               Provider.of<LanguageTranslationState>(context, listen: false)
                   .currentLanguage;
           AppUtil.showToastMessage(
@@ -123,7 +123,7 @@ class _OvcHouseholdExitState extends State<OvcHouseholdExit> {
           body: Container(
             child: Consumer<OvcHouseholdCurrentSelectionState>(
               builder: (context, ovcHouseholdCurrentSelectionState, child) {
-                OvcHousehold currentOvcHousehold =
+                OvcHousehold? currentOvcHousehold =
                     ovcHouseholdCurrentSelectionState.currentOvcHousehold;
                 return Container(
                   child: Column(
@@ -135,12 +135,12 @@ class _OvcHouseholdExitState extends State<OvcHouseholdExit> {
                         child: Consumer<ServiceEventDataState>(
                           builder: (context, serviceEventDataState, child) {
                             bool isLoading = serviceEventDataState.isLoading;
-                            Map<String, List<Events>> eventListByProgramStage =
+                            Map<String?, List<Events>> eventListByProgramStage =
                                 serviceEventDataState.eventListByProgramStage;
                             List<Events> eventList = TrackedEntityInstanceUtil
                                 .getAllEventListFromServiceDataStateByProgramStages(
                                     eventListByProgramStage, programStageIds);
-                            Events event =
+                            Events? event =
                                 eventList.length > 0 ? eventList[0] : null;
                             return isLoading
                                 ? CircularProcessLoader(

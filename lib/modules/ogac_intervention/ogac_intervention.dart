@@ -21,7 +21,7 @@ import 'package:provider/provider.dart';
 import 'constants/ogac_routes_constant.dart';
 
 class OgacIntervention extends StatefulWidget {
-  OgacIntervention({Key key}) : super(key: key);
+  OgacIntervention({Key? key}) : super(key: key);
 
   @override
   _OgacInterventionState createState() => _OgacInterventionState();
@@ -30,8 +30,8 @@ class OgacIntervention extends StatefulWidget {
 class _OgacInterventionState extends State<OgacIntervention> {
   final bool disableSelectionOfActiveIntervention = true;
   bool isViewReady = false;
-  Timer periodicTimer;
-  StreamSubscription connectionSubscription;
+  late Timer periodicTimer;
+  late StreamSubscription connectionSubscription;
   int syncTimeout = AutoSynchronization.syncTimeout;
 
   @override

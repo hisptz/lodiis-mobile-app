@@ -15,20 +15,20 @@ import 'package:provider/provider.dart';
 
 class CasePlanFollowUpViewContainer extends StatefulWidget {
   const CasePlanFollowUpViewContainer({
-    Key key,
-    @required this.casePlanGapToFollowUpLinkageValue,
-    @required this.shouldEditCaseGapFollowUps,
-    @required this.isCasePlanForHousehold,
-    @required this.themeColor,
-    @required this.domainId,
-    @required this.casePlanGap,
+    Key? key,
+    required this.casePlanGapToFollowUpLinkageValue,
+    required this.shouldEditCaseGapFollowUps,
+    required this.isCasePlanForHousehold,
+    required this.themeColor,
+    required this.domainId,
+    required this.casePlanGap,
   }) : super(key: key);
 
-  final String casePlanGapToFollowUpLinkageValue;
+  final String? casePlanGapToFollowUpLinkageValue;
   final bool shouldEditCaseGapFollowUps;
   final bool isCasePlanForHousehold;
-  final String domainId;
-  final Color themeColor;
+  final String? domainId;
+  final Color? themeColor;
   final Map casePlanGap;
 
   @override
@@ -38,7 +38,7 @@ class CasePlanFollowUpViewContainer extends StatefulWidget {
 
 class _CasePlanFollowUpViewContainerState
     extends State<CasePlanFollowUpViewContainer> {
-  String programStage;
+  String? programStage;
   String casePlanGapToFollowUpLinkage =
       OvcCasePlanConstant.casePlanGapToFollowUpLinkage;
   bool isViewReady = false;
@@ -51,7 +51,7 @@ class _CasePlanFollowUpViewContainerState
     Map dataObject = Map();
     dataObject['eventDate'] = casePlanFollowup.date;
     dataObject['eventId'] = casePlanFollowup.id;
-    for (Map dataValue in casePlanFollowup.eventData.dataValues) {
+    for (Map dataValue in casePlanFollowup.eventData!.dataValues) {
       if ('${dataValue['value']}'.isNotEmpty)
         dataObject[dataValue['dataElement']] = dataValue['value'];
     }
@@ -86,11 +86,11 @@ class _CasePlanFollowUpViewContainerState
     return Container(
       child: Consumer<LanguageTranslationState>(
         builder: (context, languageTranslationState, child) {
-          String currentLanguage = languageTranslationState.currentLanguage;
+          String? currentLanguage = languageTranslationState.currentLanguage;
           return Consumer<ServiceEventDataState>(
             builder: (context, serviceEventDataState, child) {
               bool isLoading = serviceEventDataState.isLoading;
-              Map<String, List<Events>> eventListByProgramStage =
+              Map<String?, List<Events>> eventListByProgramStage =
                   serviceEventDataState.eventListByProgramStage;
               List<Events> events = TrackedEntityInstanceUtil
                   .getAllEventListFromServiceDataStateByProgramStages(
@@ -199,7 +199,7 @@ class _CasePlanFollowUpViewContainerState
                                                     children: [
                                                       TableCell(
                                                         child: Text(
-                                                          casePlanFollowup.date,
+                                                          casePlanFollowup.date!,
                                                           style: TextStyle()
                                                               .copyWith(
                                                             color: Color(
@@ -213,7 +213,7 @@ class _CasePlanFollowUpViewContainerState
                                                       TableCell(
                                                         child: Text(
                                                           casePlanFollowup
-                                                              .result,
+                                                              .result!,
                                                           style: TextStyle()
                                                               .copyWith(
                                                             color: Color(
@@ -227,7 +227,7 @@ class _CasePlanFollowUpViewContainerState
                                                       TableCell(
                                                         child: Text(
                                                           casePlanFollowup
-                                                              .reason,
+                                                              .reason!,
                                                           style: TextStyle()
                                                               .copyWith(
                                                             color: Color(

@@ -7,10 +7,10 @@ import 'package:provider/provider.dart';
 
 class CLOReferralCardBodySummary extends StatefulWidget {
   CLOReferralCardBodySummary({
-    Key key,
-    @required this.referralEvent,
-    @required this.labelColor,
-    @required this.valueColor,
+    Key? key,
+    required this.referralEvent,
+    required this.labelColor,
+    required this.valueColor,
   }) : super(key: key);
 
   final Events referralEvent;
@@ -24,7 +24,7 @@ class CLOReferralCardBodySummary extends StatefulWidget {
 
 class _CLOReferralCardBodySummaryState
     extends State<CLOReferralCardBodySummary> {
-  CLOReferralEvent ovcCLOReferralCard;
+  CLOReferralEvent? ovcCLOReferralCard;
 
   @override
   void initState() {
@@ -36,7 +36,7 @@ class _CLOReferralCardBodySummaryState
   Widget build(BuildContext context) {
     return Consumer<LanguageTranslationState>(
         builder: (context, languageTranslationState, child) {
-      String currentLanguage = languageTranslationState.currentLanguage;
+      String? currentLanguage = languageTranslationState.currentLanguage;
       return Visibility(
         visible: ovcCLOReferralCard != null,
         child: Container(
@@ -61,7 +61,7 @@ class _CLOReferralCardBodySummaryState
                     Expanded(
                       flex: 2,
                       child: Text(
-                        ovcCLOReferralCard.referralDate,
+                        ovcCLOReferralCard!.referralDate!,
                         style: TextStyle().copyWith(
                             fontSize: 14.0,
                             color: widget.valueColor,
@@ -89,7 +89,7 @@ class _CLOReferralCardBodySummaryState
                     Expanded(
                       flex: 2,
                       child: Text(
-                        ovcCLOReferralCard.referralFor,
+                        ovcCLOReferralCard!.referralFor!,
                         style: TextStyle().copyWith(
                             fontSize: 14.0,
                             color: widget.valueColor,
@@ -117,7 +117,7 @@ class _CLOReferralCardBodySummaryState
                     Expanded(
                       flex: 2,
                       child: Text(
-                        ovcCLOReferralCard.outComeStatus,
+                        ovcCLOReferralCard!.outComeStatus!,
                         style: TextStyle().copyWith(
                             fontSize: 14.0,
                             color: widget.valueColor,
@@ -144,7 +144,7 @@ class _CLOReferralCardBodySummaryState
                     Expanded(
                       flex: 2,
                       child: Text(
-                        ovcCLOReferralCard.communityPartner,
+                        ovcCLOReferralCard!.communityPartner!,
                         style: TextStyle().copyWith(
                             fontSize: 14.0,
                             color: widget.valueColor,

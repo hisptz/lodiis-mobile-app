@@ -17,9 +17,16 @@ class _DataDownloadMessageState extends State<DataDownloadMessage> {
   @override
   void initState() {
     super.initState();
-    setState(() {
-      checkForAvailableBeneficiaryDataFromServer();
-    });
+    if (this.mounted) {
+      setState(() {
+        checkForAvailableBeneficiaryDataFromServer();
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   void onOpenSyncModule(BuildContext context, bool isCheckingForAvailableData) {
@@ -36,14 +43,14 @@ class _DataDownloadMessageState extends State<DataDownloadMessage> {
   }
 
   void checkForAvailableBeneficiaryDataFromServer() async {
-    await ReferralNotificationService().syncReferralNotifications();
-    await Provider.of<ReferralNotificationState>(context, listen: false)
-        .reloadReferralNotifications();
-    Timer(Duration(milliseconds: 100), () {
+    Timer(Duration(milliseconds: 100), () async {
       bool connected =
           Provider.of<DeviceConnectivityState>(context, listen: false)
-              .connectivityStatus;
+              .connectivityStatus!;
       if (connected) {
+        await ReferralNotificationService().syncReferralNotifications();
+        await Provider.of<ReferralNotificationState>(context, listen: false)
+            .reloadReferralNotifications();
         Provider.of<SynchronizationState>(context, listen: false)
             .checkingForAvailableBeneficiaryData();
       }

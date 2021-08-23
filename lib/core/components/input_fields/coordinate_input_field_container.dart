@@ -7,15 +7,15 @@ import 'package:kb_mobile_app/models/input_field.dart';
 
 class CoordinateInputFieldContainer extends StatefulWidget {
   const CoordinateInputFieldContainer(
-      {Key key,
-      @required this.inputField,
-      @required this.onInputValueChange,
+      {Key? key,
+      required this.inputField,
+      required this.onInputValueChange,
       this.inputValue})
       : super(key: key);
 
   final InputField inputField;
   final Function onInputValueChange;
-  final String inputValue;
+  final String? inputValue;
 
   @override
   _CoordinateInputFieldContainerState createState() =>
@@ -24,9 +24,9 @@ class CoordinateInputFieldContainer extends StatefulWidget {
 
 class _CoordinateInputFieldContainerState
     extends State<CoordinateInputFieldContainer> {
-  String _longLatValue;
+  String? _longLatValue;
   bool isCoordinateSet = false;
-  TextEditingController coordinateController;
+  TextEditingController? coordinateController;
 
   @override
   void initState() {
@@ -34,14 +34,14 @@ class _CoordinateInputFieldContainerState
     setCurrentLocation(widget.inputValue);
   }
 
-  setCurrentLocation(String value) async {
+  setCurrentLocation(String? value) async {
     if (value == null) {
       Position currentPosition = await AppUtil.getCurrentLocation();
       value =
           '${currentPosition.longitude.toString()},${currentPosition.latitude.toString()}';
     }
     setState(() {
-      _longLatValue = value.replaceAll('[', '').replaceAll(']', '');
+      _longLatValue = value!.replaceAll('[', '').replaceAll(']', '');
       coordinateController = TextEditingController(text: _longLatValue);
       isCoordinateSet = true;
     });

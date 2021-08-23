@@ -3,11 +3,11 @@ import 'package:flutter_svg/svg.dart';
 
 class EntryFormSaveButton extends StatelessWidget {
   const EntryFormSaveButton(
-      {Key key,
+      {Key? key,
       this.width = double.infinity,
-      @required this.label,
-      @required this.labelColor,
-      @required this.buttonColor,
+      required this.label,
+      required this.labelColor,
+      required this.buttonColor,
       this.marginLeft = 65.0,
       this.marginRight = 64.0,
       this.fontSize = 15.0,
@@ -23,15 +23,15 @@ class EntryFormSaveButton extends StatelessWidget {
   final String label;
   final Color labelColor;
   final double fontSize;
-  final Color buttonColor;
-  final Function onPressButton;
+  final Color? buttonColor;
+  final Function? onPressButton;
   final double width;
   final double marginLeft;
   final double marginRight;
   final double vertical;
   final double horizontal;
-  final Color borderColor;
-  final String svgIconPath;
+  final Color? borderColor;
+  final String? svgIconPath;
   final double svgIconHeight;
   final double svgIconWidth;
 
@@ -51,12 +51,12 @@ class EntryFormSaveButton extends StatelessWidget {
             backgroundColor: buttonColor,
             shape: RoundedRectangleBorder(
               side: BorderSide(
-                color: borderColor == null ? buttonColor : borderColor,
+                color: borderColor == null ? buttonColor! : borderColor!,
               ),
               borderRadius: BorderRadius.circular(12.0),
             ),
           ),
-          onPressed: onPressButton,
+          onPressed: onPressButton as void Function()?,
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.all(
@@ -89,7 +89,7 @@ class EntryFormSaveButton extends StatelessWidget {
                                   horizontal: 5.0,
                                 ),
                                 child: SvgPicture.asset(
-                                  svgIconPath,
+                                  svgIconPath!,
                                   color: labelColor,
                                 ),
                               )

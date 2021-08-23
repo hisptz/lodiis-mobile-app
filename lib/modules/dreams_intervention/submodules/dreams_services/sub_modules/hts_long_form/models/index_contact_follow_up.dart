@@ -2,11 +2,11 @@ import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_long_form/constants/agyw_dreams_hts_follow_up_constant.dart';
 
 class IndexContactFollowUp {
-  String id;
-  String date;
+  String? id;
+  String? date;
   dynamic dataValues;
-  Events eventData;
-  String indexContactToElicitedPartnerLinkage;
+  Events? eventData;
+  String? indexContactToElicitedPartnerLinkage;
 
   IndexContactFollowUp({
     this.id,
@@ -22,9 +22,9 @@ class IndexContactFollowUp {
     ];
     Map data = Map();
     for (Map detailObj in eventData.dataValues) {
-      String attribute = detailObj['dataElement'];
+      String? attribute = detailObj['dataElement'];
       if (attribute != null && keys.indexOf(attribute) > -1) {
-        data[attribute] = '${detailObj['value']}'.trim() ?? '';
+        data[attribute] = '${detailObj['value']}'.trim();
       }
     }
     return IndexContactFollowUp(

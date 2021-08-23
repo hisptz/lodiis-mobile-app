@@ -21,9 +21,9 @@ import 'package:provider/provider.dart';
 import 'agyw_dreams_hts_client_information.dart';
 
 class AgywDreamsHTSConsentForm extends StatefulWidget {
-  AgywDreamsHTSConsentForm({Key key, this.isComingFromPrep}) : super(key: key);
+  AgywDreamsHTSConsentForm({Key? key, this.isComingFromPrep}) : super(key: key);
 
-  final bool isComingFromPrep;
+  final bool? isComingFromPrep;
 
   @override
   _AgywDreamsHTSConsentFormState createState() =>
@@ -32,10 +32,10 @@ class AgywDreamsHTSConsentForm extends StatefulWidget {
 
 class _AgywDreamsHTSConsentFormState extends State<AgywDreamsHTSConsentForm> {
   final String label = 'HTS Consent';
-  List<FormSection> formSections;
+  List<FormSection>? formSections;
   bool isFormReady = false;
   bool isSaving = false;
-  bool isComingFromPrep;
+  bool? isComingFromPrep;
 
   @override
   void initState() {
@@ -69,13 +69,13 @@ class _AgywDreamsHTSConsentFormState extends State<AgywDreamsHTSConsentForm> {
         '${dataObject[field]}' == 'false' || '${dataObject[field]}' == 'null');
   }
 
-  void onSaveForm(BuildContext context, Map dataObject, AgywDream agywDream) {
+  void onSaveForm(BuildContext context, Map dataObject, AgywDream? agywDream) {
     Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
         .setCurrentAgywDream(agywDream);
     if (isConsentGiven(dataObject)) {
       //add no of sexual partners to dataObject
       dataObject[AgywDreamsHTSLongFormConstant.noOfPartnersAttributeKey] =
-          getNoOfPartners(agywDream);
+          getNoOfPartners(agywDream!);
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -111,7 +111,7 @@ class _AgywDreamsHTSConsentFormState extends State<AgywDreamsHTSConsentForm> {
         body: SubPageBody(
           body: Container(child: Consumer<DreamsBeneficiarySelectionState>(
             builder: (context, nonAgywState, child) {
-              AgywDream agywDream = nonAgywState.currentAgywDream;
+              AgywDream? agywDream = nonAgywState.currentAgywDream;
               return Consumer<ServiceFormState>(
                 builder: (context, serviceFormState, child) {
                   return Container(
@@ -173,7 +173,7 @@ class _AgywDreamsHTSConsentFormState extends State<AgywDreamsHTSConsentForm> {
   }
 
   getNoOfPartners(AgywDream agywDream) {
-    List attributes = agywDream.trackedEntityInstanceData.attributes ?? [];
+    List attributes = agywDream.trackedEntityInstanceData!.attributes ?? [];
     var noOfPartners = attributes.singleWhere(
         (attribute) =>
             attribute['attribute'] ==

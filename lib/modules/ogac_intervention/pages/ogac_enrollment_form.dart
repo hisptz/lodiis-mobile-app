@@ -25,7 +25,7 @@ import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:provider/provider.dart';
 
 class OgacEnrollmentForm extends StatefulWidget {
-  OgacEnrollmentForm({Key key}) : super(key: key);
+  OgacEnrollmentForm({Key? key}) : super(key: key);
 
   @override
   _OgacEnrollmentFormState createState() => _OgacEnrollmentFormState();
@@ -36,8 +36,8 @@ class _OgacEnrollmentFormState extends State<OgacEnrollmentForm> {
   final List<String> mandatoryFields =
       OgacInterventionFormSection.getMandatoryField();
   final Map mandatoryFieldObject = Map();
-  List<FormSection> formSections;
-  List<FormSection> stageFormSections;
+  List<FormSection>? formSections;
+  late List<FormSection> stageFormSections;
   bool isSaving = false;
   bool isFormReady = false;
   List unFilledMandatoryFields = [];
@@ -51,7 +51,7 @@ class _OgacEnrollmentFormState extends State<OgacEnrollmentForm> {
       }
       formSections = OgacInterventionFormSection.getEnrollmentFormSections();
       stageFormSections = OgacInterventionFormSection.getStageFormSections();
-      formSections.addAll(stageFormSections);
+      formSections!.addAll(stageFormSections);
       isFormReady = true;
       evaluateSkipLogics();
     });
@@ -65,7 +65,7 @@ class _OgacEnrollmentFormState extends State<OgacEnrollmentForm> {
             Provider.of<EnrollmentFormState>(context, listen: false).formState;
         await OgacInterventionSkipLogic.evaluateSkipLogics(
           context,
-          formSections,
+          formSections!,
           dataObject,
         );
       },
@@ -104,10 +104,10 @@ class _OgacEnrollmentFormState extends State<OgacEnrollmentForm> {
       });
       String trackedEntityInstance =
           dataObject['trackedEntityInstance'] ?? AppUtil.getUid();
-      String orgUnit = dataObject['location'];
-      String enrollment = dataObject['enrollment'];
-      String enrollmentDate = dataObject['enrollmentDate'];
-      String incidentDate = dataObject['incidentDate'];
+      String? orgUnit = dataObject['location'];
+      String? enrollment = dataObject['enrollment'];
+      String? enrollmentDate = dataObject['enrollmentDate'];
+      String? incidentDate = dataObject['incidentDate'];
       List<String> hiddenFields = [
         BeneficiaryIdentification.beneficiaryId,
         BeneficiaryIdentification.beneficiaryIndex,
@@ -129,7 +129,7 @@ class _OgacEnrollmentFormState extends State<OgacEnrollmentForm> {
             setState(() {
               isSaving = false;
             });
-            String currentLanguage =
+            String? currentLanguage =
                 Provider.of<LanguageTranslationState>(context, listen: false)
                     .currentLanguage;
             AppUtil.showToastMessage(
@@ -200,7 +200,7 @@ class _OgacEnrollmentFormState extends State<OgacEnrollmentForm> {
                 : Container(
                     child: Consumer<LanguageTranslationState>(
                       builder: (context, languageTranslationState, child) {
-                        String currentLanguage =
+                        String? currentLanguage =
                             languageTranslationState.currentLanguage;
                         return Consumer<EnrollmentFormState>(
                           builder: (context, enrollmentFormState, child) =>

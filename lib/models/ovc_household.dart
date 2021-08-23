@@ -3,21 +3,21 @@ import 'package:kb_mobile_app/models/ovc_household_child.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
 
 class OvcHousehold {
-  String id;
-  String firstName;
-  String middleName;
-  String surname;
-  String location;
-  String orgUnit;
-  String createdDate;
-  String primaryUIC;
-  String secondaryUIC;
-  String ovcMaleCount;
-  String ovcFemaleCount;
-  String houseHoldStatus;
-  String searchableValue;
-  List<OvcHouseholdChild> children;
-  TrackedEntityInstance teiData;
+  String? id;
+  String? firstName;
+  String? middleName;
+  String? surname;
+  String? location;
+  String? orgUnit;
+  String? createdDate;
+  String? primaryUIC;
+  String? secondaryUIC;
+  String? ovcMaleCount;
+  String? ovcFemaleCount;
+  String? houseHoldStatus;
+  String? searchableValue;
+  List<OvcHouseholdChild>? children;
+  TrackedEntityInstance? teiData;
 
   OvcHousehold({
     this.id,
@@ -39,9 +39,9 @@ class OvcHousehold {
 
   OvcHousehold fromTeiModel(
     TrackedEntityInstance tei,
-    String location,
-    String orgUnit,
-    String createdDate,
+    String? location,
+    String? orgUnit,
+    String? createdDate,
     List<OvcHouseholdChild> children,
   ) {
     List keys = [
@@ -56,18 +56,18 @@ class OvcHousehold {
     ];
     Map data = Map();
     for (Map attributeObject in tei.attributes) {
-      String attribute = attributeObject['attribute'];
+      String? attribute = attributeObject['attribute'];
       if (attribute != null && keys.indexOf(attribute) > -1) {
-        data[attribute] = '${attributeObject['value']}'.trim() ?? '';
+        data[attribute] = '${attributeObject['value']}'.trim();
       }
     }
     // Children count per sex
     int maleCount = children
-        .where((child) => child.sex.toLowerCase() == 'male')
+        .where((child) => child.sex!.toLowerCase() == 'male')
         .toList()
         .length;
     int femaleCount = children
-        .where((child) => child.sex.toLowerCase() == 'female')
+        .where((child) => child.sex!.toLowerCase() == 'female')
         .toList()
         .length;
     return OvcHousehold(

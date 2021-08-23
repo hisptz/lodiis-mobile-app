@@ -5,15 +5,15 @@ import 'package:kb_mobile_app/models/input_field.dart';
 
 class NumericalInputFieldContainer extends StatefulWidget {
   const NumericalInputFieldContainer(
-      {Key key,
-      @required this.inputField,
-      @required this.onInputValueChange,
+      {Key? key,
+      required this.inputField,
+      required this.onInputValueChange,
       this.inputValue})
       : super(key: key);
 
   final InputField inputField;
   final Function onInputValueChange;
-  final String inputValue;
+  final String? inputValue;
 
   @override
   _NumericalInputFieldContainerState createState() =>
@@ -22,8 +22,8 @@ class NumericalInputFieldContainer extends StatefulWidget {
 
 class _NumericalInputFieldContainerState
     extends State<NumericalInputFieldContainer> {
-  TextEditingController numericalController;
-  String _value;
+  TextEditingController? numericalController;
+  String? _value;
 
   @override
   void initState() {
@@ -34,7 +34,7 @@ class _NumericalInputFieldContainerState
     updateNumericalValue(value: widget.inputValue);
   }
 
-  updateNumericalValue({String value = ''}) {
+  updateNumericalValue({String? value = ''}) {
     setState(() {
       _value = value;
     });
@@ -54,7 +54,7 @@ class _NumericalInputFieldContainerState
   void didUpdateWidget(covariant NumericalInputFieldContainer oldWidget) {
     super.didUpdateWidget(widget);
     if (oldWidget.inputValue != widget.inputValue) {
-      if (widget.inputField.isReadOnly) {
+      if (widget.inputField.isReadOnly!) {
         updateNumericalValue(value: widget.inputValue);
       }
       if (widget.inputValue == null || widget.inputValue == '') {
@@ -70,8 +70,8 @@ class _NumericalInputFieldContainerState
         children: [
           Expanded(
             child: TextFormField(
-              readOnly: widget.inputField.isReadOnly,
-              controller: widget.inputField.isReadOnly
+              readOnly: widget.inputField.isReadOnly!,
+              controller: widget.inputField.isReadOnly!
                   ? TextEditingController(
                       text: widget.inputValue,
                     )

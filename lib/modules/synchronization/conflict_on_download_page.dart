@@ -11,7 +11,7 @@ import 'package:kb_mobile_app/modules/synchronization/components/data_download_c
 import 'package:provider/provider.dart';
 
 class ConflictOnDownloadPage extends StatefulWidget {
-  ConflictOnDownloadPage({Key key}) : super(key: key);
+  ConflictOnDownloadPage({Key? key}) : super(key: key);
   @override
   _ConflictOnDownloadPageState createState() => _ConflictOnDownloadPageState();
 }

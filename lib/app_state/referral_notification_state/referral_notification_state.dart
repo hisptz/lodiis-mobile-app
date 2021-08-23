@@ -7,18 +7,18 @@ import 'package:kb_mobile_app/models/referral_notification.dart';
 
 class ReferralNotificationState with ChangeNotifier {
   // initial state
-  String _currentImplementingPartner;
-  List<String> _beneficiariesWithIncomingReferrals;
-  List<String> _incomingReferrals;
-  List<ReferralEventNotification> _incomingResolvedReferrals;
-  String _incomingReferralToResolveIndicator;
-  String _incomingReferralsResolvedIndicator;
+  String? _currentImplementingPartner;
+  List<String>? _beneficiariesWithIncomingReferrals;
+  List<String>? _incomingReferrals;
+  List<ReferralEventNotification>? _incomingResolvedReferrals;
+  String? _incomingReferralToResolveIndicator;
+  String? _incomingReferralsResolvedIndicator;
 
   // Selectors
   String get currentImplementingPartner => _currentImplementingPartner ?? "";
   List<String> get beneficiariesWithIncomingReferrals =>
       _beneficiariesWithIncomingReferrals ?? [];
-  List<String> get incomingReferrals => _incomingReferrals ?? [];
+  List<String?> get incomingReferrals => _incomingReferrals ?? [];
   List<ReferralEventNotification> get incomingResolvedReferrals =>
       _incomingResolvedReferrals ?? [];
   String get incomingReferralsResolvedIndicator =>
@@ -30,7 +30,7 @@ class ReferralNotificationState with ChangeNotifier {
 
   List<String> getListOfTeiWithIncomingResolvedReferrals() {
     List<String> teiList = [];
-    _incomingResolvedReferrals.forEach((referral) {
+    _incomingResolvedReferrals!.forEach((referral) {
       teiList.add(referral.tei);
     });
     return teiList.toSet().toList();
@@ -49,9 +49,9 @@ class ReferralNotificationState with ChangeNotifier {
     _incomingResolvedReferrals = [];
     int incomingReferralToResolveCount = 0;
     int incomingReferralsResolvedCount = 0;
-    List<String> offlineEventIds =
+    List<String?> offlineEventIds =
         await EventOfflineProvider().getAllOfflineEventIds();
-    List<String> offlineTrackedEntityInstanceIds =
+    List<String?> offlineTrackedEntityInstanceIds =
         await TrackedEntityInstanceOfflineProvider()
             .getAllOfflineTrackedEntitiyInstanceIds();
     List<ReferralNotification> allReferralNofications =
@@ -63,26 +63,27 @@ class ReferralNotificationState with ChangeNotifier {
         if (referralNotification.implementingPartner ==
             _currentImplementingPartner) {
           List<ReferralEventNotification> referrals = referralNotification
-              .referrals
-              .where(
-                  (ReferralEventNotification referral) => !referral.isCompleted)
+              .referrals!
+              .where((ReferralEventNotification referral) =>
+                  !referral.isCompleted!)
               .toList();
           if (referrals.isNotEmpty) {
             List<String> filteredReferralIds = referrals
-                .map((ReferralEventNotification referral) => referral.id ?? "")
+                .map((ReferralEventNotification referral) => referral.id)
                 .toList()
                 .where((String id) => offlineEventIds.contains(id))
                 .toList();
             if (filteredReferralIds.isNotEmpty) {
-              _beneficiariesWithIncomingReferrals.add(referralNotification.tei);
-              _incomingReferrals.addAll(filteredReferralIds);
+              _beneficiariesWithIncomingReferrals!
+                  .add(referralNotification.tei);
+              _incomingReferrals!.addAll(filteredReferralIds);
             }
           }
         } else {
-          _incomingResolvedReferrals.addAll(referralNotification.referrals
+          _incomingResolvedReferrals!.addAll(referralNotification.referrals!
               .where((ReferralEventNotification referral) =>
-                  referral.isCompleted &&
-                  !referral.isViewed &&
+                  referral.isCompleted! &&
+                  !referral.isViewed! &&
                   referral.fromImplementingPartner ==
                       _currentImplementingPartner &&
                   offlineEventIds.contains(referral.id))
@@ -91,10 +92,10 @@ class ReferralNotificationState with ChangeNotifier {
       }
     }
     _beneficiariesWithIncomingReferrals =
-        _beneficiariesWithIncomingReferrals.toSet().toList();
-    _incomingReferrals = _incomingReferrals.toSet().toList();
-    incomingReferralsResolvedCount = _incomingResolvedReferrals.length;
-    incomingReferralToResolveCount = _incomingReferrals.length;
+        _beneficiariesWithIncomingReferrals!.toSet().toList();
+    _incomingReferrals = _incomingReferrals!.toSet().toList();
+    incomingReferralsResolvedCount = _incomingResolvedReferrals!.length;
+    incomingReferralToResolveCount = _incomingReferrals!.length;
 
     _incomingReferralsResolvedIndicator = incomingReferralsResolvedCount == 0
         ? ""
@@ -110,8 +111,8 @@ class ReferralNotificationState with ChangeNotifier {
   }
 
   updateReferralNotificationEvent(
-    String referralEventId,
-    String tei,
+    String? referralEventId,
+    String? tei,
     bool isCompleted,
     bool isViewed,
   ) async {

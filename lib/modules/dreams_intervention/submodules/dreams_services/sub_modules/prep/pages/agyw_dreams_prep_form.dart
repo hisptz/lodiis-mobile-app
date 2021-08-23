@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_current_selection_state.dart';
@@ -11,12 +12,15 @@ import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
+import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
+import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_top_header.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/constants/dreams_routes_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/dreams_service_prep_intake_form_info.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/prep/constants/prep_intake_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/prep/skip_logics/agyw_dreams_prep_skip_logic.dart';
@@ -24,7 +28,7 @@ import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:provider/provider.dart';
 
 class AgywDreamsPrepFormPage extends StatefulWidget {
-  AgywDreamsPrepFormPage({Key key}) : super(key: key);
+  AgywDreamsPrepFormPage({Key? key}) : super(key: key);
 
   @override
   _AgywDreamsPrepFormPageState createState() => _AgywDreamsPrepFormPageState();
@@ -32,8 +36,8 @@ class AgywDreamsPrepFormPage extends StatefulWidget {
 
 class _AgywDreamsPrepFormPageState extends State<AgywDreamsPrepFormPage> {
   final String label = 'PrEP Screening for Substantial Risk and Eligibility';
-  List<FormSection> formSections;
-  List<String> mandatoryFields;
+  List<FormSection>? formSections;
+  late List<String> mandatoryFields;
   Map mandatoryFieldObject = Map();
   bool isFormReady = false;
   bool isSaving = false;
@@ -63,20 +67,21 @@ class _AgywDreamsPrepFormPageState extends State<AgywDreamsPrepFormPage> {
             Provider.of<ServiceFormState>(context, listen: false).formState;
         await AgywDreamsPrepSkipLogic.evaluateSkipLogics(
           context,
-          formSections,
+          formSections!,
           dataObject,
         );
       },
     );
   }
 
-  void onInputValueChange(String id, dynamic value) {
+  void onInputValueChange(String id, dynamic value) async {
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState(id, value);
     evaluateSkipLogics();
+    onUpdateFormAutoSaveState(context);
   }
 
-  void onSaveForm(BuildContext context, Map dataObject, AgywDream agywDream,
+  void onSaveForm(BuildContext context, Map dataObject, AgywDream? agywDream,
       {hiddenFields = const {}}) async {
     bool hadAllMandatoryFilled = AppUtil.hasAllMandatoryFieldsFilled(
         mandatoryFields, dataObject,
@@ -86,15 +91,15 @@ class _AgywDreamsPrepFormPageState extends State<AgywDreamsPrepFormPage> {
       setState(() {
         isSaving = true;
       });
-      String eventDate = dataObject['eventDate'];
-      String eventId = dataObject['eventId'];
+      String? eventDate = dataObject['eventDate'];
+      String? eventId = dataObject['eventId'];
       List<String> hiddenFields = [];
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
             PrepIntakeConstant.program,
             PrepIntakeConstant.programStage,
-            agywDream.orgUnit,
-            formSections,
+            agywDream!.orgUnit,
+            formSections!,
             dataObject,
             eventDate,
             agywDream.id,
@@ -102,11 +107,11 @@ class _AgywDreamsPrepFormPageState extends State<AgywDreamsPrepFormPage> {
             hiddenFields);
         Provider.of<ServiceEventDataState>(context, listen: false)
             .resetServiceEventDataState(agywDream.id);
-        Timer(Duration(seconds: 1), () {
+        Timer(Duration(seconds: 1), () async {
           setState(() {
             isSaving = false;
           });
-          String currentLanguage =
+          String? currentLanguage =
               Provider.of<LanguageTranslationState>(context, listen: false)
                   .currentLanguage;
           AppUtil.showToastMessage(
@@ -115,6 +120,7 @@ class _AgywDreamsPrepFormPageState extends State<AgywDreamsPrepFormPage> {
                 : 'Form has been saved successfully',
             position: ToastGravity.TOP,
           );
+          clearFormAutoSaveState(context);
           Navigator.popUntil(context, (route) => route.isFirst);
         });
       } catch (e) {
@@ -134,6 +140,40 @@ class _AgywDreamsPrepFormPageState extends State<AgywDreamsPrepFormPage> {
           message: 'Please fill all mandatory field',
           position: ToastGravity.TOP);
     }
+  }
+
+  void onUpdateFormAutoSaveState(
+    BuildContext context, {
+    bool isSaveForm = false,
+  }) async {
+    AgywDream agywDream =
+        Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
+            .currentAgywDream!;
+    String? beneficiaryId = agywDream.id;
+    Map dataObject =
+        Provider.of<ServiceFormState>(context, listen: false).formState;
+    String id =
+        "${DreamsRoutesConstant.agywDreamsPrEPHTSConsentPage}_$beneficiaryId";
+    FormAutoSave formAutoSave = FormAutoSave(
+      id: id,
+      beneficiaryId: beneficiaryId,
+      pageModule: DreamsRoutesConstant.agywDreamsPrEPLongFormPage,
+      nextPageModule: isSaveForm
+          ? DreamsRoutesConstant.agywDreamsPrEPFormNextPage
+          : DreamsRoutesConstant.agywDreamsPrEPLongFormPage,
+      data: jsonEncode(dataObject),
+    );
+    await FormAutoSaveOfflineService().saveFormAutoSaveData(formAutoSave);
+  }
+
+  void clearFormAutoSaveState(BuildContext context) async {
+    AgywDream agywDream =
+        Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
+            .currentAgywDream!;
+    String? beneficiaryId = agywDream.id;
+    String formAutoSaveId =
+        "${DreamsRoutesConstant.agywDreamsPrEPHTSConsentPage}_$beneficiaryId";
+    await FormAutoSaveOfflineService().deleteSavedFormAutoData(formAutoSaveId);
   }
 
   @override
@@ -156,11 +196,11 @@ class _AgywDreamsPrepFormPageState extends State<AgywDreamsPrepFormPage> {
           body: Container(
             child: Consumer<LanguageTranslationState>(
               builder: (context, languageTranslationState, child) {
-                String currentLanguage =
+                String? currentLanguage =
                     languageTranslationState.currentLanguage;
                 return Consumer<DreamsBeneficiarySelectionState>(
                   builder: (context, nonAgywState, child) {
-                    AgywDream agywDream = nonAgywState.currentAgywDream;
+                    AgywDream? agywDream = nonAgywState.currentAgywDream;
                     return Consumer<ServiceFormState>(
                       builder: (context, serviceFormState, child) {
                         return Container(

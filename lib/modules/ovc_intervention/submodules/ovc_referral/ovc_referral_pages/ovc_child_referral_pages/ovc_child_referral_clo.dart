@@ -16,7 +16,7 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/o
 import 'package:provider/provider.dart';
 
 class OvcChildCLOReferral extends StatefulWidget {
-  OvcChildCLOReferral({Key key}) : super(key: key);
+  OvcChildCLOReferral({Key? key}) : super(key: key);
   @override
   _OvcChildCLOReferralState createState() => _OvcChildCLOReferralState();
 }
@@ -31,7 +31,7 @@ class _OvcChildCLOReferralState extends State<OvcChildCLOReferral> {
   void updateFormState(
     BuildContext context,
     bool isEditableMode,
-    Events eventData,
+    Events? eventData,
   ) {
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
     Provider.of<ServiceFormState>(context, listen: false)
@@ -53,7 +53,7 @@ class _OvcChildCLOReferralState extends State<OvcChildCLOReferral> {
     }
   }
 
-  void onAddReferral(BuildContext context, OvcHouseholdChild child) {
+  void onAddReferral(BuildContext context, OvcHouseholdChild? child) {
     updateFormState(context, true, null);
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => OvcChildCLOReferralAddForm()));
@@ -94,10 +94,10 @@ class _OvcChildCLOReferralState extends State<OvcChildCLOReferral> {
         builder: (context, ovcHouseholdCurrentSelectionState, child) {
           return Consumer<ServiceEventDataState>(
             builder: (context, serviceFormState, child) {
-              OvcHouseholdChild currentOvcHouseholdChild =
+              OvcHouseholdChild? currentOvcHouseholdChild =
                   ovcHouseholdCurrentSelectionState.currentOvcHouseholdChild;
               bool isLoading = serviceFormState.isLoading;
-              Map<String, List<Events>> eventListByProgramStage =
+              Map<String?, List<Events>> eventListByProgramStage =
                   serviceFormState.eventListByProgramStage;
               List<Events> events = TrackedEntityInstanceUtil
                   .getAllEventListFromServiceDataStateByProgramStages(

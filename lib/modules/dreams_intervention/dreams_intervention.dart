@@ -29,7 +29,7 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/p
 import 'package:provider/provider.dart';
 
 class DreamsIntervention extends StatefulWidget {
-  const DreamsIntervention({Key key}) : super(key: key);
+  const DreamsIntervention({Key? key}) : super(key: key);
 
   @override
   _DreamsInterventionState createState() => _DreamsInterventionState();
@@ -38,8 +38,8 @@ class DreamsIntervention extends StatefulWidget {
 class _DreamsInterventionState extends State<DreamsIntervention> {
   final bool disableSelectionOfActiveIntervention = true;
   bool isViewReady = false;
-  Timer periodicTimer;
-  StreamSubscription connectionSubscription;
+  late Timer periodicTimer;
+  late StreamSubscription connectionSubscription;
   int syncTimeout = AutoSynchronization.syncTimeout;
 
   @override

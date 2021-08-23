@@ -17,19 +17,19 @@ import 'package:provider/provider.dart';
 
 class OvcHouseholdCardButtonContent extends StatelessWidget {
   const OvcHouseholdCardButtonContent({
-    Key key,
-    @required this.ovcHousehold,
-    @required this.canAddChild,
-    @required this.canViewChildInfo,
-    @required this.canViewChildService,
-    @required this.canViewChildReferral,
-    @required this.canViewChildExit,
-    @required this.canEditChildInfo,
-    @required this.currentLanguage,
+    Key? key,
+    required this.ovcHousehold,
+    required this.canAddChild,
+    required this.canViewChildInfo,
+    required this.canViewChildService,
+    required this.canViewChildReferral,
+    required this.canViewChildExit,
+    required this.canEditChildInfo,
+    required this.currentLanguage,
   }) : super(key: key);
 
   final OvcHousehold ovcHousehold;
-  final String currentLanguage;
+  final String? currentLanguage;
   final bool canAddChild;
   final bool canViewChildInfo;
   final bool canEditChildInfo;
@@ -42,7 +42,7 @@ class OvcHouseholdCardButtonContent extends StatelessWidget {
     OvcHouseholdChild child,
     bool isEditableMode,
   ) {
-    TrackedEntityInstance teiData = child.teiData;
+    TrackedEntityInstance teiData = child.teiData!;
     // Set hidden fields for editing
     Provider.of<EnrollmentFormState>(context, listen: false).resetFormState();
     Provider.of<EnrollmentFormState>(context, listen: false)
@@ -68,7 +68,7 @@ class OvcHouseholdCardButtonContent extends StatelessWidget {
   }
 
   void setOvcHouseholdCurrentSelection(
-      BuildContext context, OvcHouseholdChild child) {
+      BuildContext context, OvcHouseholdChild? child) {
     Provider.of<OvcHouseholdCurrentSelectionState>(context, listen: false)
         .setCurrentHousehold(ovcHousehold);
     if (child != null) {
@@ -187,9 +187,9 @@ class OvcHouseholdCardButtonContent extends StatelessWidget {
               vertical: 10.0,
             ),
             child: Column(
-              children: ovcHousehold.children.map(
+              children: ovcHousehold.children!.map(
                 (OvcHouseholdChild child) {
-                  int index = ovcHousehold.children.indexOf(child) + 1;
+                  int index = ovcHousehold.children!.indexOf(child) + 1;
                   return Row(
                     children: [
                       Expanded(

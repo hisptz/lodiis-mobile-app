@@ -4,13 +4,13 @@ import 'package:kb_mobile_app/core/components/material_card.dart';
 
 class DataUploadContainer extends StatelessWidget {
   const DataUploadContainer({
-    Key key,
-    @required this.beneficiaryCount,
-    @required this.beneficiaryServiceCount,
-    @required this.isDataDownloadingActive,
-    @required this.isDataUploadingActive,
-    @required this.hasUnsyncedData,
-    @required this.dataUploadProcesses,
+    Key? key,
+    required this.beneficiaryCount,
+    required this.beneficiaryServiceCount,
+    required this.isDataDownloadingActive,
+    required this.isDataUploadingActive,
+    required this.hasUnsyncedData,
+    required this.dataUploadProcesses,
     this.onStartDataUpload,
   }) : super(key: key);
 
@@ -19,7 +19,7 @@ class DataUploadContainer extends StatelessWidget {
   final bool isDataDownloadingActive;
   final bool isDataUploadingActive;
   final bool hasUnsyncedData;
-  final Function onStartDataUpload;
+  final Function? onStartDataUpload;
   final List<String> dataUploadProcesses;
 
   @override
@@ -151,7 +151,7 @@ class DataUploadContainer extends StatelessWidget {
                                 !hasUnsyncedData
                             ? null
                             : () {
-                                this.onStartDataUpload();
+                                this.onStartDataUpload!();
                               },
                         child: Text(
                           isDataUploadingActive

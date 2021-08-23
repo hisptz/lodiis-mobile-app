@@ -1,11 +1,11 @@
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 
 class AppLogs {
-  String id;
-  String type;
-  String message;
-  String date;
-  String searchableValue;
+  String? id;
+  String? type;
+  String? message;
+  String? date;
+  String? searchableValue;
 
   AppLogs({
     this.id,
@@ -35,6 +35,6 @@ class AppLogs {
     this.message = mapData['message'];
     this.date = mapData['date'];
     this.searchableValue =
-        '${type.toLowerCase()} ${message.toLowerCase()} $date';
+        '${type!.toLowerCase()} ${message!.toLowerCase()} $date';
   }
 }

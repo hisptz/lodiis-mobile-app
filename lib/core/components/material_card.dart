@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 class MaterialCard extends StatelessWidget {
   const MaterialCard({
-    Key key,
-    @required this.body,
+    Key? key,
+    required this.body,
     this.elevation = 1.0,
   }) : super(key: key);
   final Widget body;

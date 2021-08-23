@@ -8,15 +8,15 @@ import 'package:provider/provider.dart';
 
 class CasePlanHomeListContainer extends StatelessWidget {
   const CasePlanHomeListContainer({
-    Key key,
-    @required this.programStageIds,
+    Key? key,
+    required this.programStageIds,
     this.onEditCasePlan,
     this.onViewCasePlan,
   }) : super(key: key);
 
   final List<String> programStageIds;
-  final Function onViewCasePlan;
-  final Function onEditCasePlan;
+  final Function? onViewCasePlan;
+  final Function? onEditCasePlan;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ class CasePlanHomeListContainer extends StatelessWidget {
       ),
       child: Consumer<ServiceEventDataState>(
         builder: (context, serviceEventDataState, child) {
-          Map<String, List<Events>> eventListByProgramStage =
+          Map<String?, List<Events>> eventListByProgramStage =
               serviceEventDataState.eventListByProgramStage;
           List<Events> events = TrackedEntityInstanceUtil
               .getAllEventListFromServiceDataStateByProgramStages(
@@ -100,7 +100,7 @@ class CasePlanHomeListContainer extends StatelessWidget {
                                           horizontal: 5.0,
                                         ),
                                         child: InkWell(
-                                            onTap: () => onViewCasePlan(
+                                            onTap: () => onViewCasePlan!(
                                                 groupedEventByDates[
                                                     assessmentDate]),
                                             child: Container(
@@ -119,7 +119,7 @@ class CasePlanHomeListContainer extends StatelessWidget {
                                           horizontal: 5.0,
                                         ),
                                         child: InkWell(
-                                            onTap: () => onEditCasePlan(
+                                            onTap: () => onEditCasePlan!(
                                                 groupedEventByDates[
                                                     assessmentDate]),
                                             child: Container(

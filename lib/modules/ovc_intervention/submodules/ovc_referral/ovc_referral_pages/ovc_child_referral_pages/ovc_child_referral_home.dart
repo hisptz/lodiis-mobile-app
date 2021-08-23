@@ -21,7 +21,7 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/o
 import 'package:provider/provider.dart';
 
 class OvcChildReferralHome extends StatefulWidget {
-  OvcChildReferralHome({Key key}) : super(key: key);
+  OvcChildReferralHome({Key? key}) : super(key: key);
 
   @override
   _OvcChildReferralHomeState createState() => _OvcChildReferralHomeState();
@@ -35,7 +35,7 @@ class _OvcChildReferralHomeState extends State<OvcChildReferralHome> {
   void updateFormState(
     BuildContext context,
     bool isEditableMode,
-    Events eventData,
+    Events? eventData,
   ) {
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
     Provider.of<ServiceFormState>(context, listen: false)

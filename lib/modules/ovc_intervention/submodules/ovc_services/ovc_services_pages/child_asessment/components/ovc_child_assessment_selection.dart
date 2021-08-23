@@ -27,9 +27,9 @@ class OvcChildAssessmentSelection extends StatelessWidget {
           Container(child: Consumer<OvcHouseholdCurrentSelectionState>(
             builder: (context, ovcHouseholdCurrentSelectionState, child) {
               OvcHouseholdChild currentOvcHouseholdChild =
-                  ovcHouseholdCurrentSelectionState.currentOvcHouseholdChild;
-              int age = int.parse(currentOvcHouseholdChild.age);
-              String hivStatus = currentOvcHouseholdChild.hivStatus;
+                  ovcHouseholdCurrentSelectionState.currentOvcHouseholdChild!;
+              int age = int.parse(currentOvcHouseholdChild.age!);
+              String? hivStatus = currentOvcHouseholdChild.hivStatus;
               if (age < 5) {
                 assessmentTitles.add('TB');
               }

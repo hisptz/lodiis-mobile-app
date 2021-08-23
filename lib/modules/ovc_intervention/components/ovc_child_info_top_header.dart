@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 
 class OvcChildInfoTopHeader extends StatelessWidget {
   const OvcChildInfoTopHeader({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -14,11 +14,11 @@ class OvcChildInfoTopHeader extends StatelessWidget {
     return Container(
       child: Consumer<LanguageTranslationState>(
         builder: (context, languageTranslationState, child) {
-          String currentLanguage = languageTranslationState.currentLanguage;
+          String? currentLanguage = languageTranslationState.currentLanguage;
           return Consumer<OvcHouseholdCurrentSelectionState>(
             builder: (context, ovcHouseholdCurrentSelectionState, child) {
               var currentOvcHouseholdChild =
-                  ovcHouseholdCurrentSelectionState.currentOvcHouseholdChild;
+                  ovcHouseholdCurrentSelectionState.currentOvcHouseholdChild!;
               var currentOvcHousehold =
                   ovcHouseholdCurrentSelectionState.currentOvcHousehold;
               return Material(
@@ -52,7 +52,7 @@ class OvcChildInfoTopHeader extends StatelessWidget {
                                   margin: EdgeInsets.symmetric(
                                       horizontal: 10.0, vertical: 5.0),
                                   child: Text(
-                                    currentOvcHouseholdChild.primaryUIC,
+                                    currentOvcHouseholdChild.primaryUIC!,
                                     style: TextStyle().copyWith(
                                         color: Color(0xFF1A3518),
                                         fontSize: 14.0,

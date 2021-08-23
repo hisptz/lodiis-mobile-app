@@ -14,7 +14,7 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enro
 import 'package:provider/provider.dart';
 
 class DreamsEnrollmentPage extends StatefulWidget {
-  const DreamsEnrollmentPage({Key key}) : super(key: key);
+  const DreamsEnrollmentPage({Key? key}) : super(key: key);
 
   @override
   _DreamsEnrollmentPageState createState() => _DreamsEnrollmentPageState();
@@ -26,9 +26,9 @@ class _DreamsEnrollmentPageState extends State<DreamsEnrollmentPage> {
   final bool canView = true;
   final bool canExpand = true;
 
-  String toggleCardId = '';
+  String? toggleCardId = '';
 
-  void onCardToggle(String cardId) {
+  void onCardToggle(String? cardId) {
     setState(() {
       toggleCardId = canExpand && cardId != toggleCardId ? cardId : '';
     });

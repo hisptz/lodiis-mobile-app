@@ -108,7 +108,7 @@ class AppBarUtil {
   }
 
   static Future<void> _onSwitchToIntervention(
-      BuildContext context, String id) async {
+      BuildContext context, String? id) async {
     if (id == 'ovc') {
       await Provider.of<OvcInterventionListState>(context, listen: false)
           .refreshOvcNumber();

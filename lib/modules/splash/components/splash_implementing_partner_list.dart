@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kb_mobile_app/core/constants/custom_dimension.dart';
 
 class SplashImplementingPartnerList extends StatelessWidget {
-  const SplashImplementingPartnerList({Key key}) : super(key: key);
+  const SplashImplementingPartnerList({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

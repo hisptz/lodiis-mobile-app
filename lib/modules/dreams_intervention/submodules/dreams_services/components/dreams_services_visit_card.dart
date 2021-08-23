@@ -5,9 +5,9 @@ import 'package:kb_mobile_app/models/events.dart';
 
 class DreamsServiceVisitCard extends StatelessWidget {
   const DreamsServiceVisitCard({
-    Key key,
-    @required this.eventData,
-    @required this.visitName,
+    Key? key,
+    required this.eventData,
+    required this.visitName,
     this.visitCount,
     this.onView,
     this.onEdit,
@@ -15,11 +15,11 @@ class DreamsServiceVisitCard extends StatelessWidget {
   }) : super(key: key);
 
   final Events eventData;
-  final Function onView;
-  final Function onEdit;
-  final int visitCount;
+  final Function? onView;
+  final Function? onEdit;
+  final int? visitCount;
   final String visitName;
-  final bool editDisabled;
+  final bool? editDisabled;
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +71,7 @@ class DreamsServiceVisitCard extends StatelessWidget {
                       horizontal: 5.0,
                     ),
                     child: InkWell(
-                      onTap: onView,
+                      onTap: onView as void Function()?,
                       child: Container(
                         height: iconHeight,
                         width: iconHeight,
@@ -91,7 +91,7 @@ class DreamsServiceVisitCard extends StatelessWidget {
                       horizontal: 5.0,
                     ),
                     child: InkWell(
-                      onTap: editDisabled == true ? null : onEdit,
+                      onTap: editDisabled == true ? null : onEdit as void Function()?,
                       child: Container(
                         height: iconHeight,
                         width: iconHeight,

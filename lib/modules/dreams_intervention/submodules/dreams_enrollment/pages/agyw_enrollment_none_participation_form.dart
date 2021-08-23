@@ -24,7 +24,7 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enro
 import 'package:provider/provider.dart';
 
 class AgywEnrollmentNoneParticipationForm extends StatefulWidget {
-  AgywEnrollmentNoneParticipationForm({Key key}) : super(key: key);
+  AgywEnrollmentNoneParticipationForm({Key? key}) : super(key: key);
 
   @override
   _AgywEnrollmentNoneParticipationFormState createState() =>
@@ -33,7 +33,7 @@ class AgywEnrollmentNoneParticipationForm extends StatefulWidget {
 
 class _AgywEnrollmentNoneParticipationFormState
     extends State<AgywEnrollmentNoneParticipationForm> {
-  List<FormSection> formSections;
+  List<FormSection>? formSections;
   final String label = 'None Participation Form';
   final List<String> mandatoryFields =
       AgywEnrollmentNoneParticipation.getMandatoryField();
@@ -98,7 +98,7 @@ class _AgywEnrollmentNoneParticipationFormState
         isSaving = true;
       });
       await AgywDreamsNoneParticipationService()
-          .saveNoneParticipationForm(formSections, dataObject, eventId);
+          .saveNoneParticipationForm(formSections!, dataObject, eventId);
       Provider.of<DreamsInterventionListState>(context, listen: false)
           .refreshDreamsList();
       clearFormAutoSaveState(context);
@@ -107,7 +107,7 @@ class _AgywEnrollmentNoneParticipationFormState
           setState(() {
             isSaving = false;
           });
-          String currentLanguage =
+          String? currentLanguage =
               Provider.of<LanguageTranslationState>(context, listen: false)
                   .currentLanguage;
           AppUtil.showToastMessage(
@@ -116,6 +116,7 @@ class _AgywEnrollmentNoneParticipationFormState
                 : 'Form has been saved successfully',
             position: ToastGravity.TOP,
           );
+          clearFormAutoSaveState(context);
           Navigator.popUntil(context, (route) => route.isFirst);
         }
       });
@@ -175,7 +176,7 @@ class _AgywEnrollmentNoneParticipationFormState
                 : Container(
                     child: Consumer<LanguageTranslationState>(
                       builder: (context, languageTranslationState, child) {
-                        String currentLanguage =
+                        String? currentLanguage =
                             languageTranslationState.currentLanguage;
                         return Consumer<EnrollmentFormState>(
                           builder: (context, enrollmentFormState, child) =>

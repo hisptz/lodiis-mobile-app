@@ -27,13 +27,13 @@ import 'pages/agyw_dreams_hts_consent_for_release_status_edit.dart';
 
 class HTSSubHomePage extends StatefulWidget {
   HTSSubHomePage({
-    Key key,
-    @required this.eventId,
+    Key? key,
+    required this.eventId,
     this.htsIndexLinkage,
   }) : super(key: key);
 
-  final String eventId;
-  final DreamsHTSEvent htsIndexLinkage;
+  final String? eventId;
+  final DreamsHTSEvent? htsIndexLinkage;
 
   @override
   _HTSSubHomePageState createState() => _HTSSubHomePageState();
@@ -65,7 +65,7 @@ class _HTSSubHomePageState extends State<HTSSubHomePage> {
   void updateFormState(
     BuildContext context,
     bool isEditableMode,
-    DreamsHTSEvent eventData,
+    DreamsHTSEvent? eventData,
   ) {
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
     Provider.of<ServiceFormState>(context, listen: false)
@@ -130,13 +130,13 @@ class _HTSSubHomePageState extends State<HTSSubHomePage> {
             builder: (context) => AgywDreamsHTSConsentForReleaseStatusEdit()));
   }
 
-  void onViewRegister(BuildContext context, DreamsHTSEvent eventData) {
+  void onViewRegister(BuildContext context, DreamsHTSEvent? eventData) {
     updateFormState(context, false, eventData);
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => AgywDreamsHTSRegisterForm()));
   }
 
-  void onEditRegister(BuildContext context, DreamsHTSEvent eventData) {
+  void onEditRegister(BuildContext context, DreamsHTSEvent? eventData) {
     updateFormState(context, true, eventData);
     Navigator.push(
         context,
@@ -144,8 +144,8 @@ class _HTSSubHomePageState extends State<HTSSubHomePage> {
             builder: (context) => AgywDreamsHTSRegisterFormEdit()));
   }
 
-  DreamsHTSEvent getHtsRegisterEventData(
-      Map<String, List<Events>> eventListByProgramStage,
+  DreamsHTSEvent? getHtsRegisterEventData(
+      Map<String?, List<Events>> eventListByProgramStage,
       List<DreamsHTSEvent> indexEvents) {
     List<DreamsHTSEvent> events = TrackedEntityInstanceUtil
             .getAllEventListFromServiceDataStateByProgramStages(
@@ -164,7 +164,7 @@ class _HTSSubHomePageState extends State<HTSSubHomePage> {
   }
 
   bool canAccessIndexContactsInformation(
-      DreamsHTSEvent dreamsHtsRegisterEvent) {
+      DreamsHTSEvent? dreamsHtsRegisterEvent) {
     bool canAccessIndexContact = dreamsHtsRegisterEvent != null
         ? dreamsHtsRegisterEvent.dataValues.indexWhere((dataValue) =>
                 dataValue['dataElement'] ==
@@ -175,9 +175,9 @@ class _HTSSubHomePageState extends State<HTSSubHomePage> {
     return canAccessIndexContact;
   }
 
-  String getHtsRegisterHivStatus(DreamsHTSEvent dreamsHtsRegisterEvent) {
+  String getHtsRegisterHivStatus(DreamsHTSEvent? dreamsHtsRegisterEvent) {
     if (dreamsHtsRegisterEvent != null) {
-      int dataElementIndex = dreamsHtsRegisterEvent.dataValues.indexWhere(
+      int? dataElementIndex = dreamsHtsRegisterEvent.dataValues.indexWhere(
           (dataValue) =>
               dataValue['dataElement'] ==
               AgywDreamsHTSLongFormConstant.hivResultStatus);
@@ -211,10 +211,10 @@ class _HTSSubHomePageState extends State<HTSSubHomePage> {
               builder: (context, dreamBeneficiarySelectionState, child) {
                 return Consumer<ServiceEventDataState>(
                   builder: (context, serviceFormState, child) {
-                    AgywDream agywDream =
+                    AgywDream? agywDream =
                         dreamBeneficiarySelectionState.currentAgywDream;
                     bool isLoading = serviceFormState.isLoading;
-                    Map<String, List<Events>> eventListByProgramStage =
+                    Map<String?, List<Events>> eventListByProgramStage =
                         serviceFormState.eventListByProgramStage;
                     List<Events> events = TrackedEntityInstanceUtil
                             .getAllEventListFromServiceDataStateByProgramStages(
@@ -226,7 +226,7 @@ class _HTSSubHomePageState extends State<HTSSubHomePage> {
                         .map((Events eventData) =>
                             DreamsHTSEvent().fromTeiModel(eventData))
                         .toList();
-                    DreamsHTSEvent htsRegisterEventData =
+                    DreamsHTSEvent? htsRegisterEventData =
                         getHtsRegisterEventData(
                             eventListByProgramStage, indexEvents);
                     bool canAccessIndexContacts =

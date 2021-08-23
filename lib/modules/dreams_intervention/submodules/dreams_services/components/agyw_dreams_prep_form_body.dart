@@ -20,7 +20,7 @@ import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:provider/provider.dart';
 
 class AgywDreamsPrepFormPageBody extends StatefulWidget {
-  AgywDreamsPrepFormPageBody({Key key}) : super(key: key);
+  AgywDreamsPrepFormPageBody({Key? key}) : super(key: key);
 
   @override
   _AgywDreamsPrepFormPageBodyState createState() =>
@@ -30,7 +30,7 @@ class AgywDreamsPrepFormPageBody extends StatefulWidget {
 class _AgywDreamsPrepFormPageBodyState
     extends State<AgywDreamsPrepFormPageBody> {
   final String label = 'AGYW PrEP Intake Form';
-  List<FormSection> formSections;
+  List<FormSection>? formSections;
   bool isFormReady = false;
   bool isSaving = false;
 
@@ -54,7 +54,7 @@ class _AgywDreamsPrepFormPageBodyState
             Provider.of<ServiceFormState>(context, listen: false).formState;
         await AgywDreamsPrepSkipLogic.evaluateSkipLogics(
           context,
-          formSections,
+          formSections!,
           dataObject,
         );
       },
@@ -68,20 +68,20 @@ class _AgywDreamsPrepFormPageBodyState
   }
 
   void onSaveForm(
-      BuildContext context, Map dataObject, AgywDream agywDream) async {
+      BuildContext context, Map dataObject, AgywDream? agywDream) async {
     if (FormUtil.geFormFilledStatus(dataObject, formSections)) {
       setState(() {
         isSaving = true;
       });
-      String eventDate = dataObject['eventDate'];
-      String eventId = dataObject['eventId'];
+      String? eventDate = dataObject['eventDate'];
+      String? eventId = dataObject['eventId'];
       List<String> hiddenFields = [];
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
             PrepIntakeConstant.program,
             PrepIntakeConstant.programStage,
-            agywDream.orgUnit,
-            formSections,
+            agywDream!.orgUnit,
+            formSections!,
             dataObject,
             eventDate,
             agywDream.id,
@@ -91,7 +91,7 @@ class _AgywDreamsPrepFormPageBodyState
             .resetServiceEventDataState(agywDream.id);
         Timer(Duration(seconds: 1), () {
           setState(() {
-            String currentLanguage =
+            String? currentLanguage =
                 Provider.of<LanguageTranslationState>(context, listen: false)
                     .currentLanguage;
             AppUtil.showToastMessage(
@@ -124,10 +124,10 @@ class _AgywDreamsPrepFormPageBodyState
     return Container(
       child: Consumer<LanguageTranslationState>(
         builder: (context, languageTranslationState, child) {
-          String currentLanguage = languageTranslationState.currentLanguage;
+          String? currentLanguage = languageTranslationState.currentLanguage;
           return Consumer<DreamsBeneficiarySelectionState>(
             builder: (context, nonAgywState, child) {
-              AgywDream agywDream = nonAgywState.currentAgywDream;
+              AgywDream? agywDream = nonAgywState.currentAgywDream;
               return Consumer<ServiceFormState>(
                 builder: (context, serviceFormState, child) {
                   return Container(

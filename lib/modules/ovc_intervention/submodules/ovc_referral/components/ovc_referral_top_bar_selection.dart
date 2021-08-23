@@ -6,8 +6,8 @@ class OvcReferralTopBarSelection extends StatelessWidget {
   final bool isClicked;
 
   OvcReferralTopBarSelection(
-      {@required this.onSelectCLOReferral,
-      @required this.onSelectReferral,
+      {required this.onSelectCLOReferral,
+      required this.onSelectReferral,
       this.isClicked = false});
 
   @override

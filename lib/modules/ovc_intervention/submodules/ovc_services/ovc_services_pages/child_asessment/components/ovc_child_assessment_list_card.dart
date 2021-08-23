@@ -5,17 +5,17 @@ import 'package:kb_mobile_app/models/events.dart';
 
 class OvcChildAssessmentListCard extends StatelessWidget {
   const OvcChildAssessmentListCard({
-    Key key,
-    @required this.eventData,
-    @required this.programStageMap,
+    Key? key,
+    required this.eventData,
+    required this.programStageMap,
     this.onViewAssessment,
     this.onEditAssessment,
   }) : super(key: key);
 
   final Events eventData;
   final Map programStageMap;
-  final Function onViewAssessment;
-  final Function onEditAssessment;
+  final Function? onViewAssessment;
+  final Function? onEditAssessment;
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +63,7 @@ class OvcChildAssessmentListCard extends StatelessWidget {
                       horizontal: 5.0,
                     ),
                     child: InkWell(
-                        onTap: onViewAssessment,
+                        onTap: onViewAssessment as void Function()?,
                         child: Container(
                           height: iconHeight,
                           width: iconHeight,
@@ -80,7 +80,7 @@ class OvcChildAssessmentListCard extends StatelessWidget {
                       horizontal: 5.0,
                     ),
                     child: InkWell(
-                        onTap: onEditAssessment,
+                        onTap: onEditAssessment as void Function()?,
                         child: Container(
                           height: iconHeight,
                           width: iconHeight,

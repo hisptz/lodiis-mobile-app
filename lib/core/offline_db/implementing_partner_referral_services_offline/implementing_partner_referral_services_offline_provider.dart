@@ -16,7 +16,7 @@ class ImplementingPartnerReferralServicesOfflineProvider
     try {
       Map data =
           ImplementingPartnerReferralService().toOffline(referralService);
-      await dbClient.insert(table, data,
+      await dbClient!.insert(table, data as Map<String, Object?>,
           conflictAlgorithm: ConflictAlgorithm.replace);
     } catch (e) {
       print('addOrUpdateReferralServices: ${e.toString()}');
@@ -27,24 +27,25 @@ class ImplementingPartnerReferralServicesOfflineProvider
     List<Map> appLogs = [];
     try {
       var dbClient = await db;
-      List<Map> maps = await dbClient.query(table, columns: [id]);
+      List<Map> maps = await dbClient!.query(table, columns: [id]);
       appLogs.addAll(maps);
     } catch (e) {}
 
     return appLogs.length > 0;
   }
 
-  Future<String> getImplementingPartnerReferralServices(
+  Future<String?> getImplementingPartnerReferralServices(
       String serviceId) async {
     List<ImplementingPartnerReferralService> referralServices = [];
     try {
       var dbClient = await db;
-      List<Map> mapeServices = await dbClient.query(table,
+      List<Map> mapeServices = await dbClient!.query(table,
           columns: [services], where: '$id = ?', whereArgs: [serviceId]);
       if (mapeServices.isNotEmpty) {
         for (Map mapeService in mapeServices) {
           ImplementingPartnerReferralService service =
-              ImplementingPartnerReferralService.fromOffline(mapeService);
+              ImplementingPartnerReferralService.fromOffline(
+                  mapeService as Map<String, dynamic>);
           referralServices.add(service);
         }
       }

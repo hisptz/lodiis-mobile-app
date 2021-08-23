@@ -16,9 +16,9 @@ import 'package:provider/provider.dart';
 
 class OvcChildReferralManage extends StatefulWidget {
   OvcChildReferralManage({
-    Key key,
-    @required this.eventData,
-    @required this.referralIndex,
+    Key? key,
+    required this.eventData,
+    required this.referralIndex,
   }) : super(key: key);
 
   final Events eventData;
@@ -52,7 +52,7 @@ class _OvcChildReferralManageState extends State<OvcChildReferralManage> {
             child: Consumer<OvcHouseholdCurrentSelectionState>(
               builder: (context, ovcHouseholdCurrentSelectionState, child) {
                 OvcHouseholdChild currentOvcHouseholdChild =
-                    ovcHouseholdCurrentSelectionState.currentOvcHouseholdChild;
+                    ovcHouseholdCurrentSelectionState.currentOvcHouseholdChild!;
                 return Container(
                   child: Column(
                     children: [

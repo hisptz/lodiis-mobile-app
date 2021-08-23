@@ -24,7 +24,7 @@ import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:provider/provider.dart';
 
 class AgywDreamsIndexFollowUp extends StatefulWidget {
-  AgywDreamsIndexFollowUp({Key key}) : super(key: key);
+  AgywDreamsIndexFollowUp({Key? key}) : super(key: key);
 
   @override
   _AgywDreamsIndexFollowUpState createState() =>
@@ -33,7 +33,7 @@ class AgywDreamsIndexFollowUp extends StatefulWidget {
 
 class _AgywDreamsIndexFollowUpState extends State<AgywDreamsIndexFollowUp> {
   final String label = 'HTS Index Follow Up';
-  List<FormSection> formSections;
+  List<FormSection>? formSections;
   bool isFormReady = false;
   bool isSaving = false;
 
@@ -55,13 +55,13 @@ class _AgywDreamsIndexFollowUpState extends State<AgywDreamsIndexFollowUp> {
   }
 
   void onSaveForm(
-      BuildContext context, Map dataObject, AgywDream agywDream) async {
+      BuildContext context, Map dataObject, AgywDream? agywDream) async {
     if (FormUtil.geFormFilledStatus(dataObject, formSections)) {
       setState(() {
         isSaving = true;
       });
-      String eventDate = dataObject['eventDate'];
-      String eventId = dataObject['eventId'];
+      String? eventDate = dataObject['eventDate'];
+      String? eventId = dataObject['eventId'];
       List<String> hiddenFields = [
         AgywDreamsHTSFollowUpConstant.indexContactToElicitedPartnerLinkage
       ];
@@ -69,8 +69,8 @@ class _AgywDreamsIndexFollowUpState extends State<AgywDreamsIndexFollowUp> {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
           AgywDreamsHTSFollowUpConstant.program,
           AgywDreamsHTSFollowUpConstant.programStage,
-          agywDream.orgUnit,
-          formSections,
+          agywDream!.orgUnit,
+          formSections!,
           dataObject,
           eventDate,
           agywDream.id,
@@ -81,7 +81,7 @@ class _AgywDreamsIndexFollowUpState extends State<AgywDreamsIndexFollowUp> {
             .resetServiceEventDataState(agywDream.id);
         Timer(Duration(seconds: 1), () async {
           setState(() {});
-          String currentLanguage =
+          String? currentLanguage =
               Provider.of<LanguageTranslationState>(context, listen: false)
                   .currentLanguage;
           AppUtil.showToastMessage(
@@ -127,10 +127,10 @@ class _AgywDreamsIndexFollowUpState extends State<AgywDreamsIndexFollowUp> {
         body: Container(
           child: Consumer<LanguageTranslationState>(
             builder: (context, languageTranslationState, child) {
-              String currentLanguage = languageTranslationState.currentLanguage;
+              String? currentLanguage = languageTranslationState.currentLanguage;
               return Consumer<DreamsBeneficiarySelectionState>(
                 builder: (context, nonAgywState, child) {
-                  AgywDream agywDream = nonAgywState.currentAgywDream;
+                  AgywDream? agywDream = nonAgywState.currentAgywDream;
                   return Consumer<ServiceFormState>(
                     builder: (context, serviceFormState, child) {
                       return Container(

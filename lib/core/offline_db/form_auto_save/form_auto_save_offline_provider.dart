@@ -17,25 +17,25 @@ class FormAutoSaveOfflineProvider extends OfflineDbProvider {
     try {
       var dbClient = await db;
       Map data = FormAutoSave().toOffline(formAutoSave);
-      await dbClient.insert(
+      await dbClient!.insert(
         table,
-        data,
+        data as Map<String, Object?>,
         conflictAlgorithm: ConflictAlgorithm.replace,
       );
     } catch (error) {}
   }
 
   Future deleteSavedFormAutoFormData(
-    String formAutoSaveId,
+    String? formAutoSaveId,
   ) async {
     try {
       var dbClient = await db;
-      dbClient.delete(
+      dbClient!.delete(
         table,
         where: '$id = ?',
         whereArgs: [formAutoSaveId],
       );
-    } catch (erroe) {}
+    } catch (error) {}
   }
 
   Future<FormAutoSave> getSavedFormAutoSaveFormDataById(
@@ -44,7 +44,7 @@ class FormAutoSaveOfflineProvider extends OfflineDbProvider {
     List<FormAutoSave> formAutoSaveList = [];
     try {
       var dbClient = await db;
-      List<Map> maps = await dbClient.query(
+      List<Map> maps = await dbClient!.query(
         table,
         columns: [
           id,
@@ -58,7 +58,8 @@ class FormAutoSaveOfflineProvider extends OfflineDbProvider {
       );
       if (maps.isNotEmpty) {
         for (Map mapData in maps) {
-          formAutoSaveList.add(FormAutoSave.fromOffline(mapData));
+          formAutoSaveList
+              .add(FormAutoSave.fromOffline(mapData as Map<String, dynamic>));
         }
       }
     } catch (error) {}

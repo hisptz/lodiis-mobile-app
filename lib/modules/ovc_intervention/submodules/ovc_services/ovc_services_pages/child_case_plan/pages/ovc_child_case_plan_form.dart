@@ -27,7 +27,7 @@ import 'package:provider/provider.dart';
 
 class OcvChildCasePlanForm extends StatefulWidget {
   const OcvChildCasePlanForm({
-    Key key,
+    Key? key,
     this.shouldEditCaseGapFollowUps = false,
     this.shouldViewCaseGapFollowUp = false,
     this.shouldAddCasePlanGap = false,
@@ -43,7 +43,7 @@ class OcvChildCasePlanForm extends StatefulWidget {
 
 class _OcvChildCasePlanFormState extends State<OcvChildCasePlanForm> {
   final String label = 'Child Case Plan Form';
-  List<FormSection> formSections;
+  late List<FormSection> formSections;
   Map borderColors = Map();
 
   bool isSaving = false;
@@ -63,7 +63,7 @@ class _OcvChildCasePlanFormState extends State<OcvChildCasePlanForm> {
     });
   }
 
-  onInputValueChange(String formSectionId, dynamic value) {
+  onInputValueChange(String? formSectionId, dynamic value) {
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState(formSectionId, value);
   }
@@ -71,7 +71,7 @@ class _OcvChildCasePlanFormState extends State<OcvChildCasePlanForm> {
   bool isAllDomainGoalAndGapFilled(Map dataObject) {
     bool isAllDomainFilled = true;
     String casePlanFirstGoal = OvcCasePlanConstant.casePlanFirstGoal;
-    for (String domainType in dataObject.keys.toList()) {
+    for (String? domainType in dataObject.keys.toList()) {
       Map domainDataObject = dataObject[domainType];
       if (domainDataObject['gaps'].length > 0 &&
           (domainDataObject[casePlanFirstGoal] == null ||
@@ -87,7 +87,7 @@ class _OcvChildCasePlanFormState extends State<OcvChildCasePlanForm> {
     OvcHouseholdChild currentOvcHouseholdChild,
   ) async {
     String casePlanFirstGoal = OvcCasePlanConstant.casePlanFirstGoal;
-    for (String domainType in dataObject.keys.toList()) {
+    for (String? domainType in dataObject.keys.toList()) {
       Map domainDataObject = dataObject[domainType];
       if (domainDataObject['gaps'].length > 0 &&
           (domainDataObject[casePlanFirstGoal] != null ||
@@ -157,7 +157,7 @@ class _OcvChildCasePlanFormState extends State<OcvChildCasePlanForm> {
           setState(() {
             isSaving = false;
           });
-          String currentLanguage =
+          String? currentLanguage =
               Provider.of<LanguageTranslationState>(context, listen: false)
                   .currentLanguage;
           AppUtil.showToastMessage(
@@ -196,16 +196,16 @@ class _OcvChildCasePlanFormState extends State<OcvChildCasePlanForm> {
           body: Container(
             child: Consumer<LanguageTranslationState>(
               builder: (context, languageTranslationState, child) {
-                String currentLanguage =
+                String? currentLanguage =
                     languageTranslationState.currentLanguage;
                 return Consumer<OvcHouseholdCurrentSelectionState>(
                   builder: (context, ovcHouseholdCurrentSelectionState, child) {
                     OvcHouseholdChild currentOvcHouseholdChild =
                         ovcHouseholdCurrentSelectionState
-                            .currentOvcHouseholdChild;
+                            .currentOvcHouseholdChild!;
                     int age = 5;
                     try {
-                      age = int.parse(currentOvcHouseholdChild.age);
+                      age = int.parse(currentOvcHouseholdChild.age!);
                     } catch (e) {
                       print(e);
                     }

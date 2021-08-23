@@ -16,7 +16,7 @@ class InterventionCardState with ChangeNotifier {
     notifyListeners();
   }
 
-  void setCurrentInterventionProgramId(String id) {
+  void setCurrentInterventionProgramId(String? id) {
     int index = interventions
         .indexWhere((InterventionCard intervention) => id == intervention.id);
     setCurrentInterventionProgram(interventions[index]);

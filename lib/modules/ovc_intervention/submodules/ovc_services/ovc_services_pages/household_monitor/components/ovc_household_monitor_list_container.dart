@@ -8,15 +8,15 @@ import 'package:provider/provider.dart';
 
 class OvcHouseholdMonitorListContainer extends StatelessWidget {
   OvcHouseholdMonitorListContainer({
-    Key key,
-    @required this.programStageIds,
+    Key? key,
+    required this.programStageIds,
     this.onViewHouseholdMonitor,
     this.onEditHouseholdMonitor,
   }) : super(key: key);
 
   final List<String> programStageIds;
-  final Function onViewHouseholdMonitor;
-  final Function onEditHouseholdMonitor;
+  final Function? onViewHouseholdMonitor;
+  final Function? onEditHouseholdMonitor;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ class OvcHouseholdMonitorListContainer extends StatelessWidget {
       ),
       child: Consumer<ServiceEventDataState>(
         builder: (context, serviceEventDataState, child) {
-          Map<String, List<Events>> eventListByProgramStage =
+          Map<String?, List<Events>> eventListByProgramStage =
               serviceEventDataState.eventListByProgramStage;
           List<Events> eventList = TrackedEntityInstanceUtil
               .getAllEventListFromServiceDataStateByProgramStages(
@@ -92,7 +92,7 @@ class OvcHouseholdMonitorListContainer extends StatelessWidget {
                                         ),
                                         child: InkWell(
                                             onTap: () =>
-                                                onViewHouseholdMonitor(monitor),
+                                                onViewHouseholdMonitor!(monitor),
                                             child: Container(
                                               height: iconHeight,
                                               width: iconHeight,
@@ -110,7 +110,7 @@ class OvcHouseholdMonitorListContainer extends StatelessWidget {
                                         ),
                                         child: InkWell(
                                             onTap: () =>
-                                                onEditHouseholdMonitor(monitor),
+                                                onEditHouseholdMonitor!(monitor),
                                             child: Container(
                                               height: iconHeight,
                                               width: iconHeight,

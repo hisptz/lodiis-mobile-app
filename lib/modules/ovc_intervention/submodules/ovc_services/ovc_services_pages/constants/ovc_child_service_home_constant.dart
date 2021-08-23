@@ -1,10 +1,10 @@
 class OvcChildServiceHomeConstant {
-  String id;
-  String title;
-  String translatedTitle;
-  String icon;
-  bool groupByDate;
-  List<String> programStages;
+  String? id;
+  String? title;
+  String? translatedTitle;
+  String? icon;
+  bool? groupByDate;
+  List<String>? programStages;
 
   OvcChildServiceHomeConstant({
     this.id,

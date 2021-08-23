@@ -25,7 +25,7 @@ class OvcHouseholdGraduation extends StatelessWidget {
   ];
 
   void updateFormState(
-      BuildContext context, bool isEditableMode, Events graduation) {
+      BuildContext context, bool isEditableMode, Events? graduation) {
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
     Provider.of<ServiceFormState>(context, listen: false)
         .updateFormEditabilityState(isEditableMode: isEditableMode);
@@ -53,18 +53,18 @@ class OvcHouseholdGraduation extends StatelessWidget {
 
   void onAddNewHouseholdAchievement(
     BuildContext context,
-    OvcHousehold houseHold,
+    OvcHousehold? houseHold,
   ) {
     updateFormState(context, true, null);
   }
 
   void onViewHouseholdAchievement(
-      BuildContext context, OvcHousehold houseHold, Events graduation) {
+      BuildContext context, OvcHousehold? houseHold, Events graduation) {
     updateFormState(context, false, graduation);
   }
 
   void onEditHouseholdAchievement(
-      BuildContext context, OvcHousehold houseHold, Events graduation) {
+      BuildContext context, OvcHousehold? houseHold, Events graduation) {
     updateFormState(context, true, graduation);
   }
 
@@ -88,7 +88,7 @@ class OvcHouseholdGraduation extends StatelessWidget {
         body: Container(
           child: Consumer<LanguageTranslationState>(
             builder: (context, languageTranslationState, child) {
-              String currentLanguage = languageTranslationState.currentLanguage;
+              String? currentLanguage = languageTranslationState.currentLanguage;
               return Consumer<OvcHouseholdCurrentSelectionState>(
                 builder: (context, ovcHouseholdCurrentSelectionState, child) {
                   var currentOvcHousehold =
@@ -103,7 +103,7 @@ class OvcHouseholdGraduation extends StatelessWidget {
                           child: Consumer<OvcHouseholdCurrentSelectionState>(
                             builder: (context,
                                 ovcHouseholdCurrentSelectionState, child) {
-                              OvcHousehold currentOvcHousehold =
+                              OvcHousehold? currentOvcHousehold =
                                   ovcHouseholdCurrentSelectionState
                                       .currentOvcHousehold;
                               return Container(

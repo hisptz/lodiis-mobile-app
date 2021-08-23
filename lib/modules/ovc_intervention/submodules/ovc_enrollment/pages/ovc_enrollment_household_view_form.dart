@@ -17,7 +17,7 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment
 import 'package:provider/provider.dart';
 
 class OvcEnrollmentHouseholdViewForm extends StatefulWidget {
-  const OvcEnrollmentHouseholdViewForm({Key key}) : super(key: key);
+  const OvcEnrollmentHouseholdViewForm({Key? key}) : super(key: key);
 
   @override
   _OvcEnrollmentHouseholdViewFormState createState() =>
@@ -26,9 +26,9 @@ class OvcEnrollmentHouseholdViewForm extends StatefulWidget {
 
 class _OvcEnrollmentHouseholdViewFormState
     extends State<OvcEnrollmentHouseholdViewForm> {
-  List<FormSection> formSections;
-  List<FormSection> enrollmentFormSections;
-  List<FormSection> consentFormSections;
+  List<FormSection>? formSections;
+  late List<FormSection> enrollmentFormSections;
+  late List<FormSection> consentFormSections;
 
   final String label = 'Household vulnerability and prioritization form';
 
@@ -41,14 +41,14 @@ class _OvcEnrollmentHouseholdViewFormState
       consentFormSections = OvcEnrollmentConsent.getFormSections();
       formSections = consentFormSections.map((FormSection consentFormSection) {
         consentFormSection.name = 'Consent Form';
-        List<InputField> inputFields = consentFormSection.inputFields
+        List<InputField> inputFields = consentFormSection.inputFields!
             .where((InputField inputField) => inputField.id != 'location')
             .toList();
         consentFormSection.inputFields = inputFields;
         return consentFormSection;
       }).toList();
       enrollmentFormSections = OvcEnrollmentHousehold.getFormSections();
-      formSections.addAll(enrollmentFormSections);
+      formSections!.addAll(enrollmentFormSections);
       isFormReady = true;
       evaluateSkipLogics();
     });
@@ -62,7 +62,7 @@ class _OvcEnrollmentHouseholdViewFormState
             Provider.of<EnrollmentFormState>(context, listen: false).formState;
         await OvcHouseholdEnrollmentSkipLogic.evaluateSkipLogics(
           context,
-          formSections,
+          formSections!,
           dataObject,
         );
       },

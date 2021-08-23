@@ -32,10 +32,10 @@ import 'agyw_dreams_index_contact_followup.dart';
 
 class AgywDreamsHTSIndexFollowUpList extends StatefulWidget {
   AgywDreamsHTSIndexFollowUpList(
-      {Key key, this.indexContactEvent, this.indexInfoEvent})
+      {Key? key, this.indexContactEvent, this.indexInfoEvent})
       : super(key: key);
-  final IndexContact indexContactEvent;
-  final AgywDreamsIndexInfoEvent indexInfoEvent;
+  final IndexContact? indexContactEvent;
+  final AgywDreamsIndexInfoEvent? indexInfoEvent;
 
   @override
   _AgywDreamsHTSIndexFollowUpListState createState() =>
@@ -45,7 +45,7 @@ class AgywDreamsHTSIndexFollowUpList extends StatefulWidget {
 class _AgywDreamsHTSIndexFollowUpListState
     extends State<AgywDreamsHTSIndexFollowUpList> {
   final String label = 'HTS Index Follow Up';
-  List<FormSection> formSections;
+  List<FormSection>? formSections;
   bool isFormReady = false;
   bool isSaving = false;
 
@@ -69,7 +69,7 @@ class _AgywDreamsHTSIndexFollowUpListState
   void updateFormState(
     BuildContext context,
     bool isEditableMode,
-    IndexContact eventData,
+    IndexContact? eventData,
   ) {
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
     Provider.of<ServiceFormState>(context, listen: false)
@@ -94,8 +94,8 @@ class _AgywDreamsHTSIndexFollowUpListState
       setState(() {
         isSaving = true;
       });
-      String eventDate = dataObject['eventDate'];
-      String eventId = dataObject['eventId'];
+      String? eventDate = dataObject['eventDate'];
+      String? eventId = dataObject['eventId'];
       List<String> hiddenFields = [
         AgywDreamsHTSFollowUpConstant.indexContactToElicitedPartnerLinkage
       ];
@@ -104,7 +104,7 @@ class _AgywDreamsHTSIndexFollowUpListState
           AgywDreamsHTSFollowUpConstant.program,
           AgywDreamsHTSFollowUpConstant.programStage,
           agywDream.orgUnit,
-          formSections,
+          formSections!,
           dataObject,
           eventDate,
           agywDream.id,
@@ -115,7 +115,7 @@ class _AgywDreamsHTSIndexFollowUpListState
             .resetServiceEventDataState(agywDream.id);
         Timer(Duration(seconds: 1), () async {
           setState(() {});
-          String currentLanguage =
+          String? currentLanguage =
               Provider.of<LanguageTranslationState>(context, listen: false)
                   .currentLanguage;
           AppUtil.showToastMessage(
@@ -151,7 +151,7 @@ class _AgywDreamsHTSIndexFollowUpListState
     updateFormState(context, true, null);
     Provider.of<ServiceFormState>(context, listen: false).setFormFieldState(
         AgywDreamsHTSFollowUpConstant.indexContactToElicitedPartnerLinkage,
-        widget.indexContactEvent.indexContactToElicitedPartnerLinkage);
+        widget.indexContactEvent!.indexContactToElicitedPartnerLinkage);
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -184,9 +184,9 @@ class _AgywDreamsHTSIndexFollowUpListState
                 builder: (context, dreamBeneficiarySelectionState, child) {
                   return Consumer<ServiceEventDataState>(
                     builder: (context, serviceFormState, child) {
-                      AgywDream agywDream =
+                      AgywDream? agywDream =
                           dreamBeneficiarySelectionState.currentAgywDream;
-                      Map<String, List<Events>> eventListByProgramStage =
+                      Map<String?, List<Events>> eventListByProgramStage =
                           serviceFormState.eventListByProgramStage;
                       List<Events> indexContactFollowUpEvents =
                           TrackedEntityInstanceUtil
@@ -201,7 +201,7 @@ class _AgywDreamsHTSIndexFollowUpListState
                               .where((element) =>
                                   element
                                       .indexContactToElicitedPartnerLinkage ==
-                                  widget.indexContactEvent
+                                  widget.indexContactEvent!
                                       .indexContactToElicitedPartnerLinkage)
                               .toList();
 
