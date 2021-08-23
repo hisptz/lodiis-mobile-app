@@ -4,15 +4,15 @@ import 'package:kb_mobile_app/models/input_field.dart';
 
 class PhoneNumberInputFieldContainer extends StatefulWidget {
   const PhoneNumberInputFieldContainer(
-      {Key key,
-      @required this.inputField,
-      @required this.onInputValueChange,
+      {Key? key,
+      required this.inputField,
+      required this.onInputValueChange,
       this.inputValue})
       : super(key: key);
 
   final InputField inputField;
   final Function onInputValueChange;
-  final String inputValue;
+  final String? inputValue;
 
   @override
   _PhoneNumberInputFieldContainerState createState() =>
@@ -21,8 +21,8 @@ class PhoneNumberInputFieldContainer extends StatefulWidget {
 
 class _PhoneNumberInputFieldContainerState
     extends State<PhoneNumberInputFieldContainer> {
-  TextEditingController phoneNumberController;
-  String _value;
+  TextEditingController? phoneNumberController;
+  String? _value;
 
   @override
   void initState() {
@@ -48,7 +48,7 @@ class _PhoneNumberInputFieldContainerState
         children: [
           Expanded(
             child: TextFormField(
-              readOnly: widget.inputField.isReadOnly,
+              readOnly: widget.inputField.isReadOnly!,
               controller: phoneNumberController,
               keyboardType: TextInputType.phone,
               onChanged: onValueChange,

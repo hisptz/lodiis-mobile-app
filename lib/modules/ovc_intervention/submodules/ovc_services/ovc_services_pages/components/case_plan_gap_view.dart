@@ -23,18 +23,18 @@ import 'package:provider/provider.dart';
 
 class CasePlanGapView extends StatefulWidget {
   const CasePlanGapView({
-    Key key,
-    @required this.casePlanGap,
-    @required this.isCasePlanForHousehold,
-    @required this.domainId,
-    @required this.gapIndex,
-    @required this.shouldEditCaseGapFollowUps,
-    @required this.shouldViewCaseGapFollowUp,
-    @required this.formSectionColor,
+    Key? key,
+    required this.casePlanGap,
+    required this.isCasePlanForHousehold,
+    required this.domainId,
+    required this.gapIndex,
+    required this.shouldEditCaseGapFollowUps,
+    required this.shouldViewCaseGapFollowUp,
+    required this.formSectionColor,
   }) : super(key: key);
   final Map casePlanGap;
-  final Color formSectionColor;
-  final String domainId;
+  final Color? formSectionColor;
+  final String? domainId;
   final int gapIndex;
   final bool isCasePlanForHousehold;
   final bool shouldEditCaseGapFollowUps;
@@ -46,7 +46,7 @@ class CasePlanGapView extends StatefulWidget {
 
 class _CasePlanGapViewState extends State<CasePlanGapView> {
   List<InputField> inputFields = [];
-  List<FormSection> gapViewformSections;
+  List<FormSection>? gapViewformSections;
   String label = 'Gap ';
   double iconHeight = 15.0;
 
@@ -91,8 +91,8 @@ class _CasePlanGapViewState extends State<CasePlanGapView> {
 
   void onEditCasePlanGap(
     BuildContext context,
-    OvcHousehold currentOvcHousehold,
-    OvcHouseholdChild currentOvcHouseholdChild,
+    OvcHousehold? currentOvcHousehold,
+    OvcHouseholdChild? currentOvcHouseholdChild,
   ) async {
     List<FormSection> formSections = widget.isCasePlanForHousehold
         ? OvcHouseholdServicesCasePlanGaps.getFormSections()
@@ -124,12 +124,12 @@ class _CasePlanGapViewState extends State<CasePlanGapView> {
       String programStage = widget.isCasePlanForHousehold
           ? OvcHouseholdCasePlanConstant.casePlanGapProgramStage
           : OvcChildCasePlanConstant.casePlanGapProgramStage;
-      String orgUnit = widget.isCasePlanForHousehold
-          ? currentOvcHousehold.orgUnit
-          : currentOvcHouseholdChild.orgUnit;
-      String beneficiaryId = widget.isCasePlanForHousehold
-          ? currentOvcHousehold.id
-          : currentOvcHouseholdChild.id;
+      String? orgUnit = widget.isCasePlanForHousehold
+          ? currentOvcHousehold!.orgUnit
+          : currentOvcHouseholdChild!.orgUnit;
+      String? beneficiaryId = widget.isCasePlanForHousehold
+          ? currentOvcHousehold!.id
+          : currentOvcHouseholdChild!.id;
       Provider.of<ServiceEventDataState>(context, listen: false)
           .resetServiceEventDataState(beneficiaryId);
       await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
@@ -143,7 +143,7 @@ class _CasePlanGapViewState extends State<CasePlanGapView> {
         response['eventId'],
         hiddenFields,
       );
-      String currentLanguage =
+      String? currentLanguage =
           Provider.of<LanguageTranslationState>(context, listen: false)
               .currentLanguage;
       AppUtil.showToastMessage(
@@ -160,7 +160,7 @@ class _CasePlanGapViewState extends State<CasePlanGapView> {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 10.0),
       decoration: BoxDecoration(
-        color: widget.formSectionColor.withOpacity(0.2),
+        color: widget.formSectionColor!.withOpacity(0.2),
       ),
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 20.0),
@@ -192,10 +192,10 @@ class _CasePlanGapViewState extends State<CasePlanGapView> {
                           ovcHouseholdCurrentSelectionState,
                           child,
                         ) {
-                          OvcHousehold currentOvcHousehold =
+                          OvcHousehold? currentOvcHousehold =
                               ovcHouseholdCurrentSelectionState
                                   .currentOvcHousehold;
-                          OvcHouseholdChild currentOvcHouseholdChild =
+                          OvcHouseholdChild? currentOvcHouseholdChild =
                               ovcHouseholdCurrentSelectionState
                                   .currentOvcHouseholdChild;
                           return Container(
@@ -271,7 +271,7 @@ class _CasePlanGapViewState extends State<CasePlanGapView> {
                                       ],
                                     ),
                                     LineSeparator(
-                                        color: widget.formSectionColor
+                                        color: widget.formSectionColor!
                                             .withOpacity(0.5))
                                   ],
                                 )))

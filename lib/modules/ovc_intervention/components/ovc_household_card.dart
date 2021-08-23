@@ -10,15 +10,15 @@ import 'package:provider/provider.dart';
 
 class OvcHouseholdCard extends StatelessWidget {
   OvcHouseholdCard({
-    Key key,
-    @required this.ovcHousehold,
-    @required this.canEdit,
-    @required this.canView,
-    @required this.canExpand,
-    @required this.isExpanded,
-    @required this.cardBody,
-    @required this.cardButtonActions,
-    @required this.cardButtonContent,
+    Key? key,
+    required this.ovcHousehold,
+    required this.canEdit,
+    required this.canView,
+    required this.canExpand,
+    required this.isExpanded,
+    required this.cardBody,
+    required this.cardButtonActions,
+    required this.cardButtonContent,
     this.onCardToggle,
   }) : super(key: key);
 
@@ -31,14 +31,14 @@ class OvcHouseholdCard extends StatelessWidget {
   final bool canExpand;
   final bool isExpanded;
 
-  final VoidCallback onCardToggle;
+  final VoidCallback? onCardToggle;
   final String svgIcon = 'assets/icons/hh_icon.svg';
 
   void updateEnrollmentFormStateData(
     BuildContext context,
     bool isEditableMode,
   ) {
-    TrackedEntityInstance teiData = ovcHousehold.teiData;
+    TrackedEntityInstance teiData = ovcHousehold.teiData!;
     Provider.of<EnrollmentFormState>(context, listen: false).resetFormState();
     Provider.of<EnrollmentFormState>(context, listen: false)
         .updateFormEditabilityState(isEditableMode: isEditableMode);

@@ -12,7 +12,7 @@ class OvcCasePlanConstant {
   ) {
     Map sanitizedDataObject = Map();
     List<Map> mappedCasePlanGaps =
-        OvcCasePlanConstant.getMappedCasePlanGaps(casePlanGapsEvents);
+        OvcCasePlanConstant.getMappedCasePlanGaps(casePlanGapsEvents) as List<Map<dynamic, dynamic>>;
     for (Events casePlanEvent in casePlanEvents) {
       Map data = OvcCasePlanConstant.getMappedEventObject(casePlanEvent);
       String casePlanToGapLinkageValue =

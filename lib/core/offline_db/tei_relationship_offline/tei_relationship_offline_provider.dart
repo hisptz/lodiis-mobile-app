@@ -19,10 +19,10 @@ class TeiRelationshipOfflineProvider extends OfflineDbProvider {
       List<List<dynamic>> chunkedRelationship =
           AppUtil.chunkItems(items: relationships, size: 100);
       for (List<dynamic> relationshipsGroup in chunkedRelationship) {
-        var relationshipBatch = dbClient.batch();
+        var relationshipBatch = dbClient!.batch();
         for (dynamic relationship in relationshipsGroup) {
           var data = TeiRelationship().toOffline(relationship);
-          relationshipBatch.insert(table, data,
+          relationshipBatch.insert(table, data as Map<String, Object?>,
               conflictAlgorithm: ConflictAlgorithm.replace);
         }
 
@@ -37,17 +37,17 @@ class TeiRelationshipOfflineProvider extends OfflineDbProvider {
   addOrUpdateTeiRelationship(TeiRelationship teiRelationship) async {
     var dbClient = await db;
     var data = TeiRelationship().toOffline(teiRelationship);
-    await dbClient.insert(table, data,
+    await dbClient!.insert(table, data as Map<String, Object?>,
         conflictAlgorithm: ConflictAlgorithm.replace);
   }
 
   Future<List<TeiRelationship>> getTeiRelationships(
-    String fromTeiId,
+    String? fromTeiId,
   ) async {
     List<TeiRelationship> teiRelationships = [];
     try {
       var dbClient = await db;
-      List<Map> maps = await dbClient.query(
+      List<Map> maps = await dbClient!.query(
         table,
         columns: [id, relationshipType, fromTei, toTei, syncStatus],
         where: '$fromTei = ?',
@@ -55,7 +55,8 @@ class TeiRelationshipOfflineProvider extends OfflineDbProvider {
       );
       if (maps.isNotEmpty) {
         for (Map map in maps) {
-          teiRelationships.add(TeiRelationship.fromOffline(map));
+          teiRelationships
+              .add(TeiRelationship.fromOffline(map as Map<String, dynamic>));
         }
       }
     } catch (e) {}
@@ -67,7 +68,7 @@ class TeiRelationshipOfflineProvider extends OfflineDbProvider {
     List<TeiRelationship> teiRelationships = [];
     try {
       var dbClient = await db;
-      List<Map> maps = await dbClient.query(
+      List<Map> maps = await dbClient!.query(
         table,
         columns: [id, relationshipType, fromTei, toTei, syncStatus],
         where: '$syncStatus = ?',
@@ -75,7 +76,8 @@ class TeiRelationshipOfflineProvider extends OfflineDbProvider {
       );
       if (maps.isNotEmpty) {
         for (Map map in maps) {
-          teiRelationships.add(TeiRelationship.fromOffline(map));
+          teiRelationships
+              .add(TeiRelationship.fromOffline(map as Map<String, dynamic>));
         }
       }
     } catch (e) {}

@@ -23,7 +23,7 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/o
 import 'package:provider/provider.dart';
 
 class OvcIntervention extends StatefulWidget {
-  const OvcIntervention({Key key}) : super(key: key);
+  const OvcIntervention({Key? key}) : super(key: key);
 
   @override
   _OvcInterventionState createState() => _OvcInterventionState();
@@ -32,8 +32,8 @@ class OvcIntervention extends StatefulWidget {
 class _OvcInterventionState extends State<OvcIntervention> {
   final bool disableSelectionOfActiveIntervention = true;
   bool isViewReady = false;
-  Timer periodicTimer;
-  StreamSubscription connectionSubscription;
+  late Timer periodicTimer;
+  late StreamSubscription connectionSubscription;
   int syncTimeout = AutoSynchronization.syncTimeout;
 
   @override

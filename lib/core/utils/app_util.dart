@@ -70,7 +70,7 @@ class AppUtil {
     return unFilledFields.length < fields.length;
   }
 
-  static void setStatusBarColor(Color color) {
+  static void setStatusBarColor(Color? color) {
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
         statusBarColor: color,
@@ -110,7 +110,7 @@ class AppUtil {
     return position;
   }
 
-  static int getAgeInYear(String dateOfBirth) {
+  static int getAgeInYear(String? dateOfBirth) {
     int age = 0;
     try {
       DateTime currentDate = DateTime.now();
@@ -143,10 +143,10 @@ class AppUtil {
     return groupedItems;
   }
 
-  bool searchFromString({String searchableString, String searchedValue}) {
+  bool searchFromString({String? searchableString, required String searchedValue}) {
     List<String> searchedSubString = searchedValue.split(' ');
     for (String str in searchedSubString) {
-      if (searchableString.toLowerCase().indexOf(str.toLowerCase()) == -1) {
+      if (searchableString!.toLowerCase().indexOf(str.toLowerCase()) == -1) {
         return false;
       }
     }
@@ -154,7 +154,7 @@ class AppUtil {
   }
 
   static showToastMessage({
-    String message,
+    required String message,
     ToastGravity position = ToastGravity.BOTTOM,
   }) {
     if (message.isNotEmpty)

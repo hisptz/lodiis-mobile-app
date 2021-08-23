@@ -10,11 +10,11 @@ import 'package:provider/provider.dart';
 
 class DreamsHTSIndexContactCard extends StatelessWidget {
   const DreamsHTSIndexContactCard({
-    Key key,
-    @required this.event,
+    Key? key,
+    required this.event,
   }) : super(key: key);
 
-  final IndexContact event;
+  final IndexContact? event;
   final String svgIcon = 'assets/icons/hh_icon.svg';
 
   void updateFormState(

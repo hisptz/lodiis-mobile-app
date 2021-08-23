@@ -7,8 +7,8 @@ import 'package:provider/provider.dart';
 
 class OvcHouseholdCardBody extends StatelessWidget {
   OvcHouseholdCardBody({
-    Key key,
-    @required this.ovcHousehold,
+    Key? key,
+    required this.ovcHousehold,
   }) : super(key: key);
 
   final OvcHousehold ovcHousehold;
@@ -18,7 +18,7 @@ class OvcHouseholdCardBody extends StatelessWidget {
     return Container(
       child: Consumer<LanguageTranslationState>(
         builder: (context, languageTranslationState, child) {
-          String currentLanguage = languageTranslationState.currentLanguage;
+          String? currentLanguage = languageTranslationState.currentLanguage;
           return Container(
             margin: EdgeInsets.symmetric(
               horizontal: 13.0,
@@ -81,7 +81,7 @@ class OvcHouseholdCardBody extends StatelessWidget {
                       Expanded(
                         flex: 2,
                         child: Text(
-                          ovcHousehold.createdDate,
+                          ovcHousehold.createdDate!,
                           style: TextStyle().copyWith(
                             fontSize: 14.0,
                             color: Color(0XFF536852),
@@ -113,7 +113,7 @@ class OvcHouseholdCardBody extends StatelessWidget {
                       Expanded(
                         flex: 2,
                         child: Text(
-                          ovcHousehold.location,
+                          ovcHousehold.location!,
                           style: TextStyle().copyWith(
                             fontSize: 14.0,
                             color: Color(0XFF536852),

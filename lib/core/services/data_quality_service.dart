@@ -8,6 +8,7 @@ import 'package:kb_mobile_app/modules/ogac_intervention/models/ogac_enrollment_f
 
 class DataQualityService {
   static String getSanitizedNumericalValue(String value) {
+    value = value.trim() == '' ? '0' : value;
     return !value.contains('.')
         ? '${int.parse(value)}'
         : '${double.parse(value)}';
@@ -47,10 +48,10 @@ class DataQualityService {
     List<InputField> numericalInputFields = [];
     for (FormSection formSection in formSections) {
       numericalInputFields
-          .addAll(getInputFieldsByType(formSection.inputFields, valueType));
-      if (formSection.subSections.isNotEmpty) {
+          .addAll(getInputFieldsByType(formSection.inputFields!, valueType));
+      if (formSection.subSections!.isNotEmpty) {
         numericalInputFields
-            .addAll(getNumericalInputFields(formSection.subSections));
+            .addAll(getNumericalInputFields(formSection.subSections!));
       }
     }
     return numericalInputFields;

@@ -16,17 +16,17 @@ import 'package:provider/provider.dart';
 
 class ReferralOutcomeModal extends StatefulWidget {
   const ReferralOutcomeModal(
-      {Key key,
-      @required this.themeColor,
-      @required this.referralOutcomeFormSections,
-      @required this.eventData,
-      @required this.hiddenFields,
-      @required this.referralToFollowUpLinkage,
-      @required this.referralOutcomeMandatoryFields})
+      {Key? key,
+      required this.themeColor,
+      required this.referralOutcomeFormSections,
+      required this.eventData,
+      required this.hiddenFields,
+      required this.referralToFollowUpLinkage,
+      required this.referralOutcomeMandatoryFields})
       : super(key: key);
 
-  final Color themeColor;
-  final List<FormSection> referralOutcomeFormSections;
+  final Color? themeColor;
+  final List<FormSection>? referralOutcomeFormSections;
   final Events eventData;
   final String referralToFollowUpLinkage;
   final List<String> hiddenFields;
@@ -46,7 +46,7 @@ class _ReferralOutcomeModalState extends State<ReferralOutcomeModal> {
   void initState() {
     super.initState();
     isFormReady = true;
-    for (String id in widget.referralOutcomeMandatoryFields ?? []) {
+    for (String id in widget.referralOutcomeMandatoryFields) {
       referralOutcomeMandatoryFieldsObject[id] = true;
     }
     evaluateSkipLogics();
@@ -63,7 +63,7 @@ class _ReferralOutcomeModalState extends State<ReferralOutcomeModal> {
             Provider.of<ServiceFormState>(context, listen: false).formState;
         await OvcReferralOutcomeSkipLogic.evaluateSkipLogics(
           context,
-          widget.referralOutcomeFormSections,
+          widget.referralOutcomeFormSections!,
           dataObject,
         );
       },
@@ -83,7 +83,7 @@ class _ReferralOutcomeModalState extends State<ReferralOutcomeModal> {
   ) async {
     if (getReferralOutComeStatus(dataObject)) {
       bool hadAllMandatoryFilled = AppUtil.hasAllMandatoryFieldsFilled(
-          widget.referralOutcomeMandatoryFields ?? [], dataObject);
+          widget.referralOutcomeMandatoryFields, dataObject);
       if (hadAllMandatoryFilled) {
         setState(() {
           isSaving = true;
@@ -104,7 +104,7 @@ class _ReferralOutcomeModalState extends State<ReferralOutcomeModal> {
               eventData.program,
               eventData.programStage,
               eventData.orgUnit,
-              widget.referralOutcomeFormSections,
+              widget.referralOutcomeFormSections!,
               dataObject,
               eventData.eventDate,
               eventData.trackedEntityInstance,
@@ -116,7 +116,7 @@ class _ReferralOutcomeModalState extends State<ReferralOutcomeModal> {
           Timer(Duration(seconds: 1), () {
             setState(() {
               isSaving = false;
-              String currentLanguage =
+              String? currentLanguage =
                   Provider.of<LanguageTranslationState>(context, listen: false)
                       .currentLanguage;
               AppUtil.showToastMessage(
@@ -158,7 +158,7 @@ class _ReferralOutcomeModalState extends State<ReferralOutcomeModal> {
   bool getReferralOutComeStatus(Map dataObject) {
     bool isReferralOutcomeFilled = false;
     List<String> inputFields =
-        FormUtil.getFormFieldIds(widget.referralOutcomeFormSections);
+        FormUtil.getFormFieldIds(widget.referralOutcomeFormSections!);
     for (String id in inputFields) {
       if (dataObject.containsKey(id) && '${dataObject[id]}'.trim() != '') {
         isReferralOutcomeFilled = true;

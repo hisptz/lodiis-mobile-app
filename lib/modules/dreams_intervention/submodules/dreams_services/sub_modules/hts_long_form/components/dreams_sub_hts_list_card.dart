@@ -7,8 +7,8 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_serv
 
 class DreamsSubHTSListCard extends StatefulWidget {
   const DreamsSubHTSListCard(
-      {Key key,
-      @required this.eventData,
+      {Key? key,
+      required this.eventData,
       this.canAccessIndexContact,
       this.hivResultStatus,
       this.onViewConsent,
@@ -21,16 +21,16 @@ class DreamsSubHTSListCard extends StatefulWidget {
       this.onEditRegister})
       : super(key: key);
 
-  final bool canAccessIndexContact;
-  final String hivResultStatus;
-  final Function onViewConsent;
-  final Function onEditConsent;
-  final Function onViewIntake;
-  final Function onEditIntake;
-  final Function onViewStatus;
-  final Function onEditStatus;
-  final Function onViewRegister;
-  final Function onEditRegister;
+  final bool? canAccessIndexContact;
+  final String? hivResultStatus;
+  final Function? onViewConsent;
+  final Function? onEditConsent;
+  final Function? onViewIntake;
+  final Function? onEditIntake;
+  final Function? onViewStatus;
+  final Function? onEditStatus;
+  final Function? onViewRegister;
+  final Function? onEditRegister;
   final DreamsHTSEvent eventData;
 
   @override
@@ -38,7 +38,7 @@ class DreamsSubHTSListCard extends StatefulWidget {
 }
 
 class _DreamsSubHTSListCardState extends State<DreamsSubHTSListCard> {
-  DreamsHTSEvent dreamsHTSEventCard;
+  DreamsHTSEvent? dreamsHTSEventCard;
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +89,7 @@ class _DreamsSubHTSListCardState extends State<DreamsSubHTSListCard> {
                           horizontal: 5.0,
                         ),
                         child: InkWell(
-                            onTap: widget.onViewConsent,
+                            onTap: widget.onViewConsent as void Function()?,
                             child: Container(
                               height: iconHeight,
                               width: iconHeight,
@@ -106,7 +106,7 @@ class _DreamsSubHTSListCardState extends State<DreamsSubHTSListCard> {
                           horizontal: 5.0,
                         ),
                         child: InkWell(
-                            onTap: widget.onEditConsent,
+                            onTap: widget.onEditConsent as void Function()?,
                             child: Container(
                               height: iconHeight,
                               width: iconHeight,
@@ -161,7 +161,7 @@ class _DreamsSubHTSListCardState extends State<DreamsSubHTSListCard> {
                           horizontal: 5.0,
                         ),
                         child: InkWell(
-                            onTap: widget.onViewIntake,
+                            onTap: widget.onViewIntake as void Function()?,
                             child: Container(
                               height: iconHeight,
                               width: iconHeight,
@@ -178,7 +178,7 @@ class _DreamsSubHTSListCardState extends State<DreamsSubHTSListCard> {
                           horizontal: 5.0,
                         ),
                         child: InkWell(
-                            onTap: widget.onEditIntake,
+                            onTap: widget.onEditIntake as void Function()?,
                             child: Container(
                               height: iconHeight,
                               width: iconHeight,
@@ -233,7 +233,7 @@ class _DreamsSubHTSListCardState extends State<DreamsSubHTSListCard> {
                           horizontal: 5.0,
                         ),
                         child: InkWell(
-                            onTap: widget.onViewRegister,
+                            onTap: widget.onViewRegister as void Function()?,
                             child: Container(
                               height: iconHeight,
                               width: iconHeight,
@@ -250,7 +250,7 @@ class _DreamsSubHTSListCardState extends State<DreamsSubHTSListCard> {
                           horizontal: 5.0,
                         ),
                         child: InkWell(
-                            onTap: widget.onEditRegister,
+                            onTap: widget.onEditRegister as void Function()?,
                             child: Container(
                               height: iconHeight,
                               width: iconHeight,
@@ -305,7 +305,7 @@ class _DreamsSubHTSListCardState extends State<DreamsSubHTSListCard> {
                           horizontal: 5.0,
                         ),
                         child: InkWell(
-                            onTap: widget.onViewStatus,
+                            onTap: widget.onViewStatus as void Function()?,
                             child: Container(
                               height: iconHeight,
                               width: iconHeight,
@@ -322,7 +322,7 @@ class _DreamsSubHTSListCardState extends State<DreamsSubHTSListCard> {
                           horizontal: 5.0,
                         ),
                         child: InkWell(
-                            onTap: widget.onEditStatus,
+                            onTap: widget.onEditStatus as void Function()?,
                             child: Container(
                               height: iconHeight,
                               width: iconHeight,
@@ -340,12 +340,12 @@ class _DreamsSubHTSListCardState extends State<DreamsSubHTSListCard> {
               ),
             ),
             Visibility(
-                visible: widget.canAccessIndexContact,
+                visible: widget.canAccessIndexContact!,
                 child: HTSTBHomePage(
                     htsToTBLinkageValue: widget.eventData.htsTBLinkage,
                     hivResultStatus: widget.hivResultStatus)),
             Visibility(
-                visible: widget.canAccessIndexContact,
+                visible: widget.canAccessIndexContact!,
                 child: HTSIndexHomePage(
                     htsIndexLinkage: widget.eventData.htsIndexLinkage))
           ],

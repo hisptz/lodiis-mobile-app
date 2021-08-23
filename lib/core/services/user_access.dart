@@ -9,8 +9,8 @@ class UserAccess {
   final String userAccessId = "user-access";
 
   Future<dynamic> getUserAccessConfigurationsFromTheServer(
-    String username,
-    String password,
+    String? username,
+    String? password,
   ) async {
     String defaultUserAccessConfigs = DefaultUserAccess.getDefaultUserAccess();
     dynamic currentUserAccessConfigs = "";

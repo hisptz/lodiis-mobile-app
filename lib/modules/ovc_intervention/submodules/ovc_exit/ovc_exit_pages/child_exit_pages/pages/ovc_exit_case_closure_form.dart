@@ -32,7 +32,7 @@ class OvcExitCaseClosureForm extends StatefulWidget {
 class _OvcExitCaseClosureFormState extends State<OvcExitCaseClosureForm>
     with OvcCaseClosureSkipLogic {
   final String label = 'Case closure';
-  List<FormSection> formSections;
+  List<FormSection>? formSections;
   bool isFormReady = false;
   bool isSaving = false;
 
@@ -56,7 +56,7 @@ class _OvcExitCaseClosureFormState extends State<OvcExitCaseClosureForm>
             Provider.of<ServiceFormState>(context, listen: false).formState;
         await evaluateCaseClosureSkipLogics(
           context,
-          formSections,
+          formSections!,
           dataObject,
         );
       },
@@ -72,20 +72,20 @@ class _OvcExitCaseClosureFormState extends State<OvcExitCaseClosureForm>
   void onSaveForm(
     BuildContext context,
     Map dataObject,
-    OvcHouseholdChild currentOvcHouseholdChild,
+    OvcHouseholdChild? currentOvcHouseholdChild,
   ) async {
     if (FormUtil.geFormFilledStatus(dataObject, formSections)) {
       setState(() {
         isSaving = true;
       });
-      String eventDate = dataObject['eventDate'];
-      String eventId = dataObject['eventId'];
+      String? eventDate = dataObject['eventDate'];
+      String? eventId = dataObject['eventId'];
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
             OvcExitCaseClosureConstant.program,
             OvcExitCaseClosureConstant.programStage,
-            currentOvcHouseholdChild.orgUnit,
-            formSections,
+            currentOvcHouseholdChild!.orgUnit,
+            formSections!,
             dataObject,
             eventDate,
             currentOvcHouseholdChild.id,
@@ -98,7 +98,7 @@ class _OvcExitCaseClosureFormState extends State<OvcExitCaseClosureForm>
           setState(() {
             isSaving = false;
           });
-          String currentLanguage =
+          String? currentLanguage =
               Provider.of<LanguageTranslationState>(context, listen: false)
                   .currentLanguage;
           AppUtil.showToastMessage(
@@ -146,11 +146,11 @@ class _OvcExitCaseClosureFormState extends State<OvcExitCaseClosureForm>
           body: Container(
             child: Consumer<LanguageTranslationState>(
               builder: (context, languageTranslationState, child) {
-                String currentLanguage =
+                String? currentLanguage =
                     languageTranslationState.currentLanguage;
                 return Consumer<OvcHouseholdCurrentSelectionState>(
                   builder: (context, ovcHouseholdCurrentSelectionState, child) {
-                    OvcHouseholdChild currentOvcHouseholdChild =
+                    OvcHouseholdChild? currentOvcHouseholdChild =
                         ovcHouseholdCurrentSelectionState
                             .currentOvcHouseholdChild;
                     return Consumer<ServiceFormState>(

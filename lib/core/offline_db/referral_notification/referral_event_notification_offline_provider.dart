@@ -18,13 +18,13 @@ class ReferralEventNotificationOfflineProvider extends OfflineDbProvider {
   ) async {
     try {
       var dbClient = await db;
-      var dbClientBatch = dbClient.batch();
+      var dbClientBatch = dbClient!.batch();
       for (ReferralEventNotification referralEventNotification
           in referralEvents) {
         Map data = referralEventNotification.toOffline();
         dbClientBatch.insert(
           table,
-          data,
+          data as Map<String, Object?>,
           conflictAlgorithm: ConflictAlgorithm.replace,
         );
       }
@@ -39,13 +39,13 @@ class ReferralEventNotificationOfflineProvider extends OfflineDbProvider {
   }
 
   Future<List<ReferralEventNotification>> getReferralEventNotification(
-    List<String> teiIds,
+    List<String?> teiIds,
   ) async {
     List<ReferralEventNotification> referralEvents = [];
     try {
       var dbClient = await db;
       String questionMarks = teiIds.map((e) => '?').toList().join(',');
-      List<Map> maps = await dbClient.query(
+      List<Map> maps = await dbClient!.query(
         table,
         columns: [
           id,

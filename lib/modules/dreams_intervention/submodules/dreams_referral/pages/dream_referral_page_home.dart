@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart' show IterableExtension;
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
@@ -12,15 +13,19 @@ import 'package:kb_mobile_app/core/components/referrals/referral_card_body_summa
 import 'package:kb_mobile_app/core/components/referrals/referral_card_summary.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
+import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/services/user_service.dart';
+import 'package:kb_mobile_app/core/utils/app_resume_routes/app_resume_route.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/models/events.dart';
+import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/models/referral_event_notification.dart';
 import 'package:kb_mobile_app/models/referral_outcome_event.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_top_header.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/constants/dreams_routes_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_referral/constant/dreams_agyw_referral_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_referral/pages/dream_agyw_referral_form.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_referral/pages/dream_referral_manage.dart';
@@ -29,7 +34,7 @@ import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:provider/provider.dart';
 
 class DreamsAgywReferralPage extends StatefulWidget {
-  DreamsAgywReferralPage({Key key}) : super(key: key);
+  DreamsAgywReferralPage({Key? key}) : super(key: key);
   @override
   _DreamsAgywReferralPageState createState() => _DreamsAgywReferralPageState();
 }
@@ -64,7 +69,7 @@ class _DreamsAgywReferralPageState extends State<DreamsAgywReferralPage> {
     }
   }
 
-  void setBeneficiaryPhoneNumberVillage({AgywDream agywDream}) {
+  void setBeneficiaryPhoneNumberVillage({required AgywDream agywDream}) {
     // Assign village
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState('village', agywDream.village ?? '');
@@ -78,18 +83,29 @@ class _DreamsAgywReferralPageState extends State<DreamsAgywReferralPage> {
     Provider.of<ServiceFormState>(context, listen: false)
         .updateFormEditabilityState(isEditableMode: true);
     setBeneficiaryPhoneNumberVillage(agywDream: agywDream);
-    CurrentUser user = await UserService().getCurrentUser();
+    CurrentUser? user = await UserService().getCurrentUser();
     await Provider.of<ImplementingPartnerReferralServiceState>(context,
             listen: false)
         .setImplementingPartnerServices();
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => DreamsAgywAddReferralForm(
-          currentUser: user,
+    String formAutoSaveId =
+        "${DreamsRoutesConstant.agywDreamsReferralPage}_${agywDream.id}";
+    FormAutoSave formAutoSave =
+        await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
+    bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
+        .shouldResumeWithUnSavedChanges(context, formAutoSave);
+
+    if (shouldResumeWithUnSavedChanges) {
+      AppResumeRoute().redirectToPages(context, formAutoSave);
+    } else {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => DreamsAgywAddReferralForm(
+            currentUser: user,
+          ),
         ),
-      ),
-    );
+      );
+    }
   }
 
   void onViewReferral(
@@ -125,14 +141,13 @@ class _DreamsAgywReferralPageState extends State<DreamsAgywReferralPage> {
       List<ReferralEventNotification> incomingResolvedReferrals =
           Provider.of<ReferralNotificationState>(context, listen: false)
               .incomingResolvedReferrals;
-      ReferralEventNotification incomingResolvedReferral =
-          incomingResolvedReferrals.firstWhere(
+      ReferralEventNotification? incomingResolvedReferral =
+          incomingResolvedReferrals.firstWhereOrNull(
               (ReferralEventNotification referralEventNotification) =>
                   referralEventNotification.id == eventData.event &&
                   referralEventNotification.fromImplementingPartner ==
                       currentImplementingPartner &&
-                  referralEventNotification.isCompleted,
-              orElse: () => null);
+                  referralEventNotification.isCompleted!);
       if (incomingResolvedReferral != null && hasReferralOutCome) {
         bool isCompleted = true;
         bool isViewed = true;
@@ -192,16 +207,16 @@ class _DreamsAgywReferralPageState extends State<DreamsAgywReferralPage> {
                     builder: (context, referralNotificationState, child) {
                       return Consumer<ServiceEventDataState>(
                         builder: (context, serviceFormState, child) {
-                          AgywDream agywDream = dreamAgywState.currentAgywDream;
+                          AgywDream? agywDream = dreamAgywState.currentAgywDream;
                           bool isLoading = serviceFormState.isLoading;
-                          Map<String, List<Events>> eventListByProgramStage =
+                          Map<String?, List<Events>> eventListByProgramStage =
                               serviceFormState.eventListByProgramStage;
-                          List<String> incomingReferrals =
+                          List<String?> incomingReferrals =
                               referralNotificationState.incomingReferrals;
                           List<Events> events = TrackedEntityInstanceUtil
                               .getAllEventListFromServiceDataStateByProgramStages(
                                   eventListByProgramStage, programStageIds);
-                          String currentInterventionBottomNavigationId =
+                          String? currentInterventionBottomNavigationId =
                               interventionBottomNavigationState
                                   .currentInterventionBottomNavigationId;
                           if (currentInterventionBottomNavigationId ==
@@ -296,7 +311,7 @@ class _DreamsAgywReferralPageState extends State<DreamsAgywReferralPage> {
                                                   fontSize: 15.0,
                                                   onPressButton: () =>
                                                       onAddReferral(
-                                                          context, agywDream)),
+                                                          context, agywDream!)),
                                             )
                                           ],
                                         ),

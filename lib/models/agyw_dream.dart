@@ -3,25 +3,25 @@ import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
 
 class AgywDream {
-  String id;
-  String firstname;
-  String middlename;
-  String surname;
-  String age;
-  String ageBand;
-  String sex;
-  String programStatus;
-  String primaryUIC;
-  String enrolledOrganisation;
-  String location;
-  String orgUnit;
-  String createdDate;
-  String searchableValue;
-  String enrollment;
-  String beneficiaryType;
-  String phoneNumber;
-  String village;
-  TrackedEntityInstance trackedEntityInstanceData;
+  String? id;
+  String? firstname;
+  String? middlename;
+  String? surname;
+  String? age;
+  String? ageBand;
+  String? sex;
+  String? programStatus;
+  String? primaryUIC;
+  String? enrolledOrganisation;
+  String? location;
+  String? orgUnit;
+  String? createdDate;
+  String? searchableValue;
+  String? enrollment;
+  String? beneficiaryType;
+  String? phoneNumber;
+  String? village;
+  TrackedEntityInstance? trackedEntityInstanceData;
 
   AgywDream(
       {this.id,
@@ -45,10 +45,10 @@ class AgywDream {
       this.trackedEntityInstanceData});
   AgywDream fromTeiModel(
     TrackedEntityInstance trackedEntityInstance,
-    String orgUnit,
-    String location,
-    String createdDate,
-    String enrollment,
+    String? orgUnit,
+    String? location,
+    String? createdDate,
+    String? enrollment,
   ) {
     List keys = [
       'WTZ7GLTrE8Q',
@@ -66,9 +66,9 @@ class AgywDream {
     ];
     Map data = Map();
     for (Map detailObj in trackedEntityInstance.attributes) {
-      String attribute = detailObj['attribute'];
+      String? attribute = detailObj['attribute'];
       if (attribute != null && keys.indexOf(attribute) > -1) {
-        data[attribute] = '${detailObj['value']}'.trim() ?? '';
+        data[attribute] = '${detailObj['value']}'.trim();
       }
     }
     int age = AppUtil.getAgeInYear(data['qZP982qpSPS']);
@@ -78,7 +78,7 @@ class AgywDream {
       middlename: data['s1HaiT6OllL'] ?? '',
       surname: data['rSP9c21JsfC'] ?? '',
       age: age.toString(),
-      ageBand: agywAgeBand(age) ?? '',
+      ageBand: agywAgeBand(age),
       primaryUIC: data[BeneficiaryIdentification.primaryUIC] ?? '',
       sex: data['VJiWumvINR6'] ?? data['vIX4GTSCX4P'] ?? '',
       beneficiaryType: data['vkd6o91n1IC'] ?? '',
@@ -91,7 +91,7 @@ class AgywDream {
       enrollment: enrollment,
       enrolledOrganisation: data['klLkGxy328c'] ?? '',
       searchableValue:
-          "${data['WTZ7GLTrE8Q'] ?? ''} ${data['s1HaiT6OllL'] ?? ''} ${data['rSP9c21JsfC'] ?? ''} $age ${agywAgeBand(age) ?? ''} ${data[BeneficiaryIdentification.beneficiaryId] ?? ''} ${data['VJiWumvINR6'] ?? ''} ${data['klLkGxy328c'] ?? ''} $location $createdDate"
+          "${data['WTZ7GLTrE8Q'] ?? ''} ${data['s1HaiT6OllL'] ?? ''} ${data['rSP9c21JsfC'] ?? ''} $age ${agywAgeBand(age)} ${data[BeneficiaryIdentification.beneficiaryId] ?? ''} ${data['VJiWumvINR6'] ?? ''} ${data['klLkGxy328c'] ?? ''} $location $createdDate"
               .toLowerCase(),
       trackedEntityInstanceData: trackedEntityInstance,
     );

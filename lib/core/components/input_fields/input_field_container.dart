@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart' show IterableExtension;
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/core/components/input_fields/boolean_input_field_container.dart';
 import 'package:kb_mobile_app/core/components/input_fields/check_box_list_input_field.dart';
@@ -16,12 +17,12 @@ import 'package:kb_mobile_app/models/input_field_option.dart';
 
 class InputFieldContainer extends StatelessWidget {
   const InputFieldContainer({
-    Key key,
-    @required this.inputField,
-    @required this.currentLanguage,
-    @required this.hiddenInputFieldOptions,
-    @required this.hiddenFields,
-    @required this.currentUserCountryLevelReferences,
+    Key? key,
+    required this.inputField,
+    required this.currentLanguage,
+    required this.hiddenInputFieldOptions,
+    required this.hiddenFields,
+    required this.currentUserCountryLevelReferences,
     this.onInputValueChange,
     this.dataObject,
     this.mandatoryFieldObject,
@@ -29,14 +30,14 @@ class InputFieldContainer extends StatelessWidget {
   }) : super(key: key);
 
   final InputField inputField;
-  final String currentLanguage;
-  final bool isEditableMode;
-  final Function onInputValueChange;
-  final Map dataObject;
-  final Map mandatoryFieldObject;
+  final String? currentLanguage;
+  final bool? isEditableMode;
+  final Function? onInputValueChange;
+  final Map? dataObject;
+  final Map? mandatoryFieldObject;
   final Map hiddenInputFieldOptions;
-  final Map hiddenFields;
-  final List<String> currentUserCountryLevelReferences;
+  final Map? hiddenFields;
+  final List<String?> currentUserCountryLevelReferences;
 
   @override
   Widget build(BuildContext context) {
@@ -63,17 +64,17 @@ class InputFieldContainer extends StatelessWidget {
                             ? inputField.translatedName
                             : inputField.name,
                         style: TextStyle(
-                          color:
-                              inputField.hasError != null && inputField.hasError
-                                  ? Colors.red
-                                  : inputField.labelColor,
+                          color: inputField.hasError != null &&
+                                  inputField.hasError!
+                              ? Colors.red
+                              : inputField.labelColor,
                           fontSize: 13.0,
                           fontWeight: FontWeight.normal,
                         ),
                         children: [
                           TextSpan(
                             text: mandatoryFieldObject != null &&
-                                    mandatoryFieldObject[inputField.id] == true
+                                    mandatoryFieldObject![inputField.id] == true
                                 ? ' *'
                                 : '',
                             style: TextStyle(
@@ -98,8 +99,8 @@ class InputFieldContainer extends StatelessWidget {
                       child: Text(
                         currentLanguage == 'lesotho' &&
                                 inputField.translatedDescription != null
-                            ? inputField.translatedDescription
-                            : inputField.description,
+                            ? inputField.translatedDescription!
+                            : inputField.description!,
                         style: TextStyle().copyWith(
                           color: inputField.labelColor,
                           fontSize: 12.0,
@@ -113,16 +114,16 @@ class InputFieldContainer extends StatelessWidget {
               ),
             ),
             Visibility(
-              visible: inputField.hasSubInputField &&
+              visible: inputField.hasSubInputField! &&
                   inputField.subInputField != null &&
                   (hiddenFields == null ||
-                      '${hiddenFields[inputField.id]}'.trim() != 'true'),
+                      '${hiddenFields![inputField.id]}'.trim() != 'true'),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Expanded(
                     child: Container(
-                      child: isEditableMode
+                      child: isEditableMode!
                           ? _getInputField(inputField)
                           : _getInputFieldLabel(inputField),
                     ),
@@ -137,16 +138,17 @@ class InputFieldContainer extends StatelessWidget {
                             child: Text(
                               inputField.subInputField != null
                                   ? currentLanguage == 'lesotho' &&
-                                          inputField.subInputField
+                                          inputField.subInputField!
                                                   .translatedName !=
                                               null
-                                      ? inputField.subInputField.translatedName
-                                      : inputField.subInputField.name
+                                      ? inputField
+                                          .subInputField!.translatedName!
+                                      : inputField.subInputField!.name
                                   : '',
                             ),
                           ),
                           Container(
-                            child: isEditableMode
+                            child: isEditableMode!
                                 ? _getInputField(inputField.subInputField)
                                 : _getInputFieldLabel(inputField.subInputField),
                           ),
@@ -158,16 +160,15 @@ class InputFieldContainer extends StatelessWidget {
               ),
             ),
             Visibility(
-              visible: !inputField.hasSubInputField,
+              visible: !inputField.hasSubInputField!,
               child: Container(
-                child: isEditableMode
+                child: isEditableMode!
                     ? _getInputField(inputField)
                     : _getInputFieldLabel(inputField),
               ),
             ),
             LineSeparator(
-              color:
-                  inputField.inputColor.withOpacity(0.3) ?? Colors.transparent,
+              color: inputField.inputColor!.withOpacity(0.3),
             )
           ],
         ),
@@ -175,10 +176,10 @@ class InputFieldContainer extends StatelessWidget {
     );
   }
 
-  Widget _getInputFieldLabel(InputField inputField) {
+  Widget _getInputFieldLabel(InputField? inputField) {
     dynamic value =
-        inputField != null && '${dataObject[inputField.id]}' != 'null'
-            ? '${dataObject[inputField.id]}'
+        inputField != null && '${dataObject![inputField.id]}' != 'null'
+            ? '${dataObject![inputField.id]}'
             : '   ';
     if (inputField != null) {
       if (inputField.valueType == "BOOLEAN") {
@@ -197,11 +198,10 @@ class InputFieldContainer extends StatelessWidget {
                 ? 'E'
                 : 'Yes'
             : value;
-      } else if (inputField.options.isNotEmpty) {
-        InputFieldOption option = inputField.options.firstWhere(
+      } else if (inputField.options!.isNotEmpty) {
+        InputFieldOption? option = inputField.options!.firstWhereOrNull(
             (InputFieldOption option) =>
-                option.code != null && option.code == value,
-            orElse: () => null);
+                option.code != null && option.code == value);
         value = option != null ? option.name : value;
       }
     }
@@ -236,7 +236,7 @@ class InputFieldContainer extends StatelessWidget {
     );
   }
 
-  Widget _getInputField(InputField inputField) {
+  Widget _getInputField(InputField? inputField) {
     return Container(
       child: inputField != null
           ? Container(
@@ -248,11 +248,11 @@ class InputFieldContainer extends StatelessWidget {
                             currentLanguage: currentLanguage,
                             inputField: inputField,
                             onInputValueChange: (id, value) {
-                              this.onInputValueChange(id, value);
+                              this.onInputValueChange!(id, value);
                             },
                             dataObject: dataObject,
                           )
-                        : inputField.options.length > 0
+                        : inputField.options!.length > 0
                             ? SelectInputField(
                                 hiddenInputFieldOptions:
                                     hiddenInputFieldOptions[inputField.id] ??
@@ -262,17 +262,17 @@ class InputFieldContainer extends StatelessWidget {
                                 isReadOnly: inputField.isReadOnly,
                                 renderAsRadio: inputField.renderAsRadio,
                                 onInputValueChange: (dynamic value) => this
-                                    .onInputValueChange(inputField.id, value),
+                                    .onInputValueChange!(inputField.id, value),
                                 options: inputField.options,
-                                selectedOption: dataObject[inputField.id],
+                                selectedOption: dataObject![inputField.id],
                               )
                             : inputField.valueType == 'TEXT' ||
                                     inputField.valueType == 'LONG_TEXT'
                                 ? TextInputFieldContainer(
                                     inputField: inputField,
-                                    inputValue: dataObject[inputField.id],
-                                    onInputValueChange: (dynamic value) => this
-                                        .onInputValueChange(
+                                    inputValue: dataObject![inputField.id],
+                                    onInputValueChange: (dynamic value) =>
+                                        this.onInputValueChange!(
                                             inputField.id, value),
                                   )
                                 : inputField.valueType ==
@@ -280,19 +280,19 @@ class InputFieldContainer extends StatelessWidget {
                                         inputField.valueType == 'NUMBER'
                                     ? NumericalInputFieldContainer(
                                         inputField: inputField,
-                                        inputValue: dataObject[inputField.id],
+                                        inputValue: dataObject![inputField.id],
                                         onInputValueChange: (dynamic value) =>
-                                            this.onInputValueChange(
+                                            this.onInputValueChange!(
                                                 inputField.id, value),
                                       )
                                     : inputField.valueType == 'PHONE_NUMBER'
                                         ? PhoneNumberInputFieldContainer(
                                             inputField: inputField,
                                             inputValue:
-                                                dataObject[inputField.id],
+                                                dataObject![inputField.id],
                                             onInputValueChange:
-                                                (dynamic value) => this
-                                                    .onInputValueChange(
+                                                (dynamic value) =>
+                                                    this.onInputValueChange!(
                                                         inputField.id, value),
                                           )
                                         : inputField.valueType == 'BOOLEAN'
@@ -301,12 +301,11 @@ class InputFieldContainer extends StatelessWidget {
                                                     currentLanguage,
                                                 inputField: inputField,
                                                 inputValue:
-                                                    dataObject[inputField.id],
-                                                onInputValueChange:
-                                                    (dynamic value) => this
-                                                        .onInputValueChange(
-                                                            inputField.id,
-                                                            value),
+                                                    dataObject![inputField.id],
+                                                onInputValueChange: (dynamic
+                                                        value) =>
+                                                    this.onInputValueChange!(
+                                                        inputField.id, value),
                                               )
                                             : inputField.valueType ==
                                                     'TRUE_ONLY'
@@ -314,24 +313,24 @@ class InputFieldContainer extends StatelessWidget {
                                                     currentLanguage:
                                                         currentLanguage,
                                                     inputField: inputField,
-                                                    inputValue: dataObject[
+                                                    inputValue: dataObject![
                                                         inputField.id],
-                                                    onInputValueChange:
-                                                        (dynamic value) => this
-                                                            .onInputValueChange(
-                                                                inputField.id,
-                                                                value),
+                                                    onInputValueChange: (dynamic
+                                                            value) =>
+                                                        this.onInputValueChange!(
+                                                            inputField.id,
+                                                            value),
                                                   )
                                                 : inputField.valueType == 'DATE'
                                                     ? DateInputFieldContainer(
                                                         inputField: inputField,
                                                         currentLanguage:
                                                             currentLanguage,
-                                                        inputValue: dataObject[
+                                                        inputValue: dataObject![
                                                             inputField.id],
                                                         onInputValueChange:
-                                                            (dynamic value) => this
-                                                                .onInputValueChange(
+                                                            (dynamic value) =>
+                                                                this.onInputValueChange!(
                                                                     inputField
                                                                         .id,
                                                                     value),
@@ -347,13 +346,13 @@ class InputFieldContainer extends StatelessWidget {
                                                                 inputField
                                                                     .filteredPrograms,
                                                             inputValue:
-                                                                dataObject[
+                                                                dataObject![
                                                                     inputField
                                                                         .id],
                                                             onInputValueChange:
                                                                 (dynamic
                                                                         value) =>
-                                                                    this.onInputValueChange(
+                                                                    this.onInputValueChange!(
                                                                         inputField
                                                                             .id,
                                                                         value),
@@ -364,12 +363,12 @@ class InputFieldContainer extends StatelessWidget {
                                                                 inputField:
                                                                     inputField,
                                                                 inputValue:
-                                                                    dataObject[
+                                                                    dataObject![
                                                                         inputField
                                                                             .id],
                                                                 onInputValueChange: (dynamic
                                                                         value) =>
-                                                                    this.onInputValueChange(
+                                                                    this.onInputValueChange!(
                                                                         inputField
                                                                             .id,
                                                                         value),
@@ -382,11 +381,11 @@ class InputFieldContainer extends StatelessWidget {
                   ),
                   InputClearIcon(
                       showClearIcon: inputField != null &&
-                          dataObject[inputField.id] != null &&
-                          dataObject[inputField.id] != '' &&
+                          dataObject![inputField.id] != null &&
+                          dataObject![inputField.id] != '' &&
                           inputField.isReadOnly == false,
                       onClearInput: () {
-                        onInputValueChange(inputField.id, null);
+                        onInputValueChange!(inputField.id, null);
                       })
                 ],
               ),

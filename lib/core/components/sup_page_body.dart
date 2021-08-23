@@ -4,7 +4,7 @@ import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:provider/provider.dart';
 
 class SubPageBody extends StatelessWidget {
-  const SubPageBody({Key key, @required this.body}) : super(key: key);
+  const SubPageBody({Key? key, required this.body}) : super(key: key);
 
   final Widget body;
 

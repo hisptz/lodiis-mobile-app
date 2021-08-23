@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 
 class InterventionCard {
-  String id;
-  String name;
-  String translatedName;
-  String shortName;
-  String translatedShortName;
-  String svgIcon;
-  Color primaryColor;
-  Color secondaryColor;
-  Color svgIconColor;
-  Color svgIconBorderColor;
-  Color svgBackgroundColor;
-  Color background;
-  Color nameColor;
-  Color countLabelColor;
-  Color countColor;
+  String? id;
+  String? name;
+  String? translatedName;
+  String? shortName;
+  String? translatedShortName;
+  String? svgIcon;
+  Color? primaryColor;
+  Color? secondaryColor;
+  Color? svgIconColor;
+  Color? svgIconBorderColor;
+  Color? svgBackgroundColor;
+  Color? background;
+  Color? nameColor;
+  Color? countLabelColor;
+  Color? countColor;
 
   InterventionCard({
     this.id,

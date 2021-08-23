@@ -24,7 +24,7 @@ class OvcHouseholdAssessment extends StatelessWidget {
   ];
 
   void updateFormState(
-      BuildContext context, bool isEditableMode, Events assessment) {
+      BuildContext context, bool isEditableMode, Events? assessment) {
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
     Provider.of<ServiceFormState>(context, listen: false)
         .updateFormEditabilityState(isEditableMode: isEditableMode);
@@ -48,18 +48,18 @@ class OvcHouseholdAssessment extends StatelessWidget {
 
   void onAddNewHouseholdAssessment(
     BuildContext context,
-    OvcHousehold houseHold,
+    OvcHousehold? houseHold,
   ) {
     updateFormState(context, true, null);
   }
 
   void onViewHouseholdAssessment(
-      BuildContext context, OvcHousehold houseHold, Events assessment) {
+      BuildContext context, OvcHousehold? houseHold, Events assessment) {
     updateFormState(context, false, assessment);
   }
 
   void onEditHouseholdAssessment(
-      BuildContext context, OvcHousehold houseHold, Events assessment) {
+      BuildContext context, OvcHousehold? houseHold, Events assessment) {
     updateFormState(context, true, assessment);
   }
 
@@ -95,7 +95,7 @@ class OvcHouseholdAssessment extends StatelessWidget {
                         child: Consumer<OvcHouseholdCurrentSelectionState>(
                           builder: (context, ovcHouseholdCurrentSelectionState,
                               child) {
-                            OvcHousehold currentOvcHousehold =
+                            OvcHousehold? currentOvcHousehold =
                                 ovcHouseholdCurrentSelectionState
                                     .currentOvcHousehold;
                             return Container(

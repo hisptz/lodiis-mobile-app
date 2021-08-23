@@ -18,7 +18,7 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enro
 import 'package:provider/provider.dart';
 
 class AgywDreamsEnrollmentViewForm extends StatefulWidget {
-  const AgywDreamsEnrollmentViewForm({Key key}) : super(key: key);
+  const AgywDreamsEnrollmentViewForm({Key? key}) : super(key: key);
 
   @override
   _AgywDreamsEnrollmentViewFormState createState() =>
@@ -27,10 +27,10 @@ class AgywDreamsEnrollmentViewForm extends StatefulWidget {
 
 class _AgywDreamsEnrollmentViewFormState
     extends State<AgywDreamsEnrollmentViewForm> {
-  List<FormSection> formSections;
-  List<FormSection> enrollmentFormSections;
-  List<FormSection> consentFormSections;
-  List<FormSection> riskAssessmentFormSections;
+  List<FormSection>? formSections;
+  late List<FormSection> enrollmentFormSections;
+  late List<FormSection> consentFormSections;
+  late List<FormSection> riskAssessmentFormSections;
   final String label = 'Agyw Enrolment Form';
 
   bool isFormReady = false;
@@ -42,7 +42,7 @@ class _AgywDreamsEnrollmentViewFormState
       consentFormSections = AgywEnrollmentConcent.getFormSections();
       formSections = consentFormSections.map((FormSection consentFormSection) {
         consentFormSection.name = 'Consent';
-        List<InputField> inputFields = consentFormSection.inputFields
+        List<InputField> inputFields = consentFormSection.inputFields!
             .where((InputField inputField) => inputField.id != 'location')
             .toList();
         consentFormSection.inputFields = inputFields;
@@ -51,8 +51,8 @@ class _AgywDreamsEnrollmentViewFormState
       enrollmentFormSections = AgywEnrollmentFormSection.getFormSections();
       riskAssessmentFormSections =
           AgywEnrollmentRiskAssessment.getFormSections();
-      formSections.addAll(riskAssessmentFormSections);
-      formSections.addAll(enrollmentFormSections);
+      formSections!.addAll(riskAssessmentFormSections);
+      formSections!.addAll(enrollmentFormSections);
       isFormReady = true;
       evaluateSkipLogics();
     });
@@ -66,7 +66,7 @@ class _AgywDreamsEnrollmentViewFormState
             Provider.of<EnrollmentFormState>(context, listen: false).formState;
         await AgywDreamsEnrollmentSkipLogic.evaluateSkipLogics(
           context,
-          formSections,
+          formSections!,
           dataObject,
         );
       },

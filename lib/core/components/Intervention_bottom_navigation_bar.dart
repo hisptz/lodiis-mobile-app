@@ -13,15 +13,15 @@ import 'package:provider/provider.dart';
 
 class InterventionBottomNavigationBar extends StatelessWidget {
   const InterventionBottomNavigationBar({
-    Key key,
-    @required this.activeInterventionProgram,
-    @required this.currentLanguage,
+    Key? key,
+    required this.activeInterventionProgram,
+    required this.currentLanguage,
   }) : super(key: key);
 
   final InterventionCard activeInterventionProgram;
-  final String currentLanguage;
+  final String? currentLanguage;
 
-  void onTap(BuildContext context, int index, String id) {
+  void onTap(BuildContext context, int index, String? id) {
     Provider.of<InterventionBottomNavigationState>(context, listen: false)
         .setCurrentInterventionBottomNavigationStatus(index, id);
     if (activeInterventionProgram.id == 'dreams') {
@@ -138,7 +138,7 @@ class InterventionBottomNavigationBar extends StatelessWidget {
                                                     "noneAgyw"
                                             ? "KB PrEP"
                                             : interventionBottomNavigation
-                                                .translatedName
+                                                .translatedName!
                                         : isCurrentUserKbDreamPartner &&
                                                 interventionBottomNavigation
                                                         .id ==
@@ -153,7 +153,7 @@ class InterventionBottomNavigationBar extends StatelessWidget {
                                                         "referral"
                                                 ? 'Referral'
                                                 : interventionBottomNavigation
-                                                    .name,
+                                                    .name!,
                                     style: TextStyle(
                                       fontSize: 10,
                                       fontWeight: FontWeight.bold,
@@ -189,16 +189,16 @@ class InterventionBottomNavigationBar extends StatelessWidget {
 
 class InterventionBottomNavigationIcon extends StatelessWidget {
   const InterventionBottomNavigationIcon(
-      {Key key,
-      @required this.currentInterventionBottomNavigation,
-      @required this.interventionBottomNavigation,
-      @required this.inactiveColor,
-      @required this.hasIndicatorValue})
+      {Key? key,
+      required this.currentInterventionBottomNavigation,
+      required this.interventionBottomNavigation,
+      required this.inactiveColor,
+      required this.hasIndicatorValue})
       : super(key: key);
 
   final InterventionBottomNavigation currentInterventionBottomNavigation;
   final InterventionBottomNavigation interventionBottomNavigation;
-  final Color inactiveColor;
+  final Color? inactiveColor;
   final bool hasIndicatorValue;
 
   @override
@@ -213,7 +213,7 @@ class InterventionBottomNavigationIcon extends StatelessWidget {
               vertical: 9.0,
             ),
             child: SvgPicture.asset(
-              interventionBottomNavigation.svgIcon,
+              interventionBottomNavigation.svgIcon!,
               color: currentInterventionBottomNavigation != null &&
                       currentInterventionBottomNavigation.id ==
                           interventionBottomNavigation.id
@@ -251,8 +251,8 @@ class InterventionBottomNavigationIcon extends StatelessWidget {
                                       (interventionBottomNavigation.id ==
                                               "incomingReferral" &&
                                           incomingReferralToResolve != "")
-                                  ? inactiveColor.withOpacity(0.5)
-                                  : inactiveColor.withOpacity(0.0),
+                                  ? inactiveColor!.withOpacity(0.5)
+                                  : inactiveColor!.withOpacity(0.0),
                           child: Text(
                             interventionBottomNavigation.id == "referral"
                                 ? incomingReferralsResolved

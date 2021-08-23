@@ -6,17 +6,17 @@ import 'package:provider/provider.dart';
 
 class DreamsBeneficiaryTopHeader extends StatelessWidget {
   const DreamsBeneficiaryTopHeader({
-    @required this.agywDream,
-    Key key,
+    required this.agywDream,
+    Key? key,
   }) : super(key: key);
 
-  final AgywDream agywDream;
+  final AgywDream? agywDream;
   @override
   Widget build(BuildContext context) {
     return Container(
       child: Consumer<LanguageTranslationState>(
         builder: (context, languageTranslationState, child) {
-          String currentLanguage = languageTranslationState.currentLanguage;
+          String? currentLanguage = languageTranslationState.currentLanguage;
           return Material(
             type: MaterialType.card,
             elevation: 1.0,
@@ -46,7 +46,7 @@ class DreamsBeneficiaryTopHeader extends StatelessWidget {
                             child: Container(
                               alignment: Alignment.centerRight,
                               child: Text(
-                                agywDream.primaryUIC,
+                                agywDream!.primaryUIC!,
                                 style: TextStyle().copyWith(
                                     color: Color(0xFF05131B),
                                     fontSize: 14.0,
@@ -82,7 +82,7 @@ class DreamsBeneficiaryTopHeader extends StatelessWidget {
                                     ),
                                     children: [
                                       TextSpan(
-                                        text: agywDream.sex,
+                                        text: agywDream!.sex,
                                         style: TextStyle().copyWith(
                                           fontSize: 12.0,
                                           fontWeight: FontWeight.w500,
@@ -106,7 +106,7 @@ class DreamsBeneficiaryTopHeader extends StatelessWidget {
                                     ),
                                     children: [
                                       TextSpan(
-                                        text: agywDream.age,
+                                        text: agywDream!.age,
                                         style: TextStyle().copyWith(
                                           fontSize: 12.0,
                                           fontWeight: FontWeight.w500,
@@ -129,7 +129,7 @@ class DreamsBeneficiaryTopHeader extends StatelessWidget {
                                     ),
                                     children: [
                                       TextSpan(
-                                        text: agywDream.programStatus,
+                                        text: agywDream!.programStatus,
                                         style: TextStyle().copyWith(
                                           fontSize: 12.0,
                                           fontWeight: FontWeight.w500,

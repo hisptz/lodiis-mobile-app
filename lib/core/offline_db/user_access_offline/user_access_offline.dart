@@ -15,7 +15,7 @@ class UserAccessOfflineProvider extends OfflineDbProvider {
     var data = Map<String, dynamic>();
     data[id] = userAccessId;
     data[userAccess] = userAccessData;
-    await dbClient.insert(
+    await dbClient!.insert(
       tableName,
       data,
       conflictAlgorithm: ConflictAlgorithm.replace,
@@ -26,7 +26,7 @@ class UserAccessOfflineProvider extends OfflineDbProvider {
     var userAccessConfig;
     try {
       var dbClient = await db;
-      List<Map> maps = await dbClient.query(
+      List<Map> maps = await dbClient!.query(
         tableName,
         columns: [
           id,

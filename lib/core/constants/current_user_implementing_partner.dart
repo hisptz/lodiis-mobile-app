@@ -2,12 +2,12 @@ class CurrentUserImplementingPartner {
   static final String implementPartnerAttribute = "wpiLo7DTwKF";
   static final String subImplementingPartnerAttribute = "P7YnaTZTSKl";
 
-  static String getCurrentUserImplementingPartner(String attributeValue) {
+  static String getCurrentUserImplementingPartner(String? attributeValue) {
     Map implementingPartnerMapping = getImplementingPartnerMapping();
     return implementingPartnerMapping[attributeValue] ?? "";
   }
 
-  static String getCurrentUserSubImplementingPartner(String attributeValue) {
+  static String getCurrentUserSubImplementingPartner(String? attributeValue) {
     Map subImplementingPartnerMapping = getSubImplementingPartnerMapping();
     return subImplementingPartnerMapping[attributeValue] ?? "";
   }

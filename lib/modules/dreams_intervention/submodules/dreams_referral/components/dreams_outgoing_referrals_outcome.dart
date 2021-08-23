@@ -10,7 +10,7 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_refe
 import 'package:provider/provider.dart';
 
 class DreamsOutgoingReferralsOutcome extends StatefulWidget {
-  DreamsOutgoingReferralsOutcome({@required this.agywList});
+  DreamsOutgoingReferralsOutcome({required this.agywList});
   final List<AgywDream> agywList;
 
   @override
@@ -120,7 +120,7 @@ class _DreamsOutgoingReferralsOutcomeState
                                                             FontWeight.bold)),
                                               ]),
                                               Wrap(children: [
-                                                Text(agyw.primaryUIC)
+                                                Text(agyw.primaryUIC!)
                                               ])
                                             ],
                                           )),

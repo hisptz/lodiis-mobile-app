@@ -5,21 +5,21 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/o
 
 class CasePlanGapFollowUpContainer extends StatefulWidget {
   const CasePlanGapFollowUpContainer({
-    Key key,
-    @required this.formSectionColor,
-    @required this.isCasePlanForHousehold,
-    @required this.casePlanGap,
-    @required this.shouldEditCaseGapFollowUps,
-    @required this.shouldViewCaseGapFollowUp,
-    @required this.domainId,
+    Key? key,
+    required this.formSectionColor,
+    required this.isCasePlanForHousehold,
+    required this.casePlanGap,
+    required this.shouldEditCaseGapFollowUps,
+    required this.shouldViewCaseGapFollowUp,
+    required this.domainId,
   }) : super(key: key);
 
   final Map casePlanGap;
-  final Color formSectionColor;
+  final Color? formSectionColor;
   final bool isCasePlanForHousehold;
   final bool shouldEditCaseGapFollowUps;
   final bool shouldViewCaseGapFollowUp;
-  final String domainId;
+  final String? domainId;
 
   @override
   _CasePlanGapFollowUpContainerState createState() =>
@@ -28,7 +28,7 @@ class CasePlanGapFollowUpContainer extends StatefulWidget {
 
 class _CasePlanGapFollowUpContainerState
     extends State<CasePlanGapFollowUpContainer> {
-  String casePlanGapToFollowUpLinkageValue;
+  String? casePlanGapToFollowUpLinkageValue;
 
   @override
   void initState() {

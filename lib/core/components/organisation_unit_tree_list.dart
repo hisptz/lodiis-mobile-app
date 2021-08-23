@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/organisation_unit_list.dart';
@@ -7,17 +9,17 @@ import 'package:kb_mobile_app/models/organisation_unit.dart';
 
 class OrganisationUnitTreeList extends StatefulWidget {
   const OrganisationUnitTreeList({
-    Key key,
-    @required this.organisationUnitIds,
-    @required this.labelColor,
-    @required this.allowedSelectedLevels,
+    Key? key,
+    required this.organisationUnitIds,
+    required this.labelColor,
+    required this.allowedSelectedLevels,
     this.filteredPrograms = const [],
   }) : super(key: key);
 
-  final List organisationUnitIds;
-  final Color labelColor;
-  final List<int> allowedSelectedLevels;
-  final List<String> filteredPrograms;
+  final List? organisationUnitIds;
+  final Color? labelColor;
+  final List<int?>? allowedSelectedLevels;
+  final List<String>? filteredPrograms;
 
   @override
   _OrganisationUnitTreeListState createState() =>
@@ -26,21 +28,21 @@ class OrganisationUnitTreeList extends StatefulWidget {
 
 class _OrganisationUnitTreeListState extends State<OrganisationUnitTreeList> {
   bool isLoading = true;
-  List<OrganisationUnit> organisationUnits;
+  late List<OrganisationUnit> organisationUnits;
 
   @override
   void initState() {
     super.initState();
-    discoveringOrganisationUnits(widget.organisationUnitIds);
+    discoveringOrganisationUnits(widget.organisationUnitIds!);
   }
 
   void discoveringOrganisationUnits(List organisationUnitIds) async {
     var data = await OrganisationUnitService()
         .getOrganisationUnits(organisationUnitIds);
-    if (widget.filteredPrograms.length > 0) {
-      List<String> programsOrganisationUnits = [];
-      for (String program in widget.filteredPrograms) {
-        List<String> organisationUnits =
+    if (widget.filteredPrograms!.length > 0) {
+      List<String?> programsOrganisationUnits = [];
+      for (String program in widget.filteredPrograms!) {
+        List<String?> organisationUnits =
             await ProgramService().getOfflineProgramOrganisationUnits(program);
         programsOrganisationUnits.addAll(organisationUnits);
       }

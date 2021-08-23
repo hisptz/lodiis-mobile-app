@@ -28,7 +28,7 @@ import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:provider/provider.dart';
 
 class AgywDreamsHTSConsentForReleaseStatus extends StatefulWidget {
-  AgywDreamsHTSConsentForReleaseStatus({Key key}) : super(key: key);
+  AgywDreamsHTSConsentForReleaseStatus({Key? key}) : super(key: key);
 
   @override
   _AgywDreamsHTSConsentForReleaseStatusState createState() =>
@@ -38,8 +38,8 @@ class AgywDreamsHTSConsentForReleaseStatus extends StatefulWidget {
 class _AgywDreamsHTSConsentForReleaseStatusState
     extends State<AgywDreamsHTSConsentForReleaseStatus> {
   final String label = 'Consent for Release of Status';
-  List<FormSection> formSections;
-  List<FormSection> htsRegisterFormSections;
+  List<FormSection>? formSections;
+  late List<FormSection> htsRegisterFormSections;
   List<FormSection> htsFormSections = [];
   bool isFormReady = false;
   bool isSaving = false;
@@ -49,7 +49,7 @@ class _AgywDreamsHTSConsentForReleaseStatusState
     super.initState();
     formSections = ConsentForReleaseOfStatus.getFormSections();
     htsRegisterFormSections = HTSRegister.getFormSections();
-    htsFormSections.addAll(formSections);
+    htsFormSections.addAll(formSections!);
     htsFormSections.addAll(ClientInformation.getFormSections());
     htsFormSections.addAll(HTSConsent.getFormSections());
     Timer(Duration(seconds: 1), () {
@@ -65,13 +65,13 @@ class _AgywDreamsHTSConsentForReleaseStatusState
   }
 
   void onSaveForm(
-      BuildContext context, Map dataObject, AgywDream agywDream) async {
+      BuildContext context, Map dataObject, AgywDream? agywDream) async {
     if (FormUtil.geFormFilledStatus(dataObject, formSections)) {
       setState(() {
         isSaving = true;
       });
-      String eventDate = dataObject['eventDate'];
-      String eventId = dataObject['eventId'];
+      String? eventDate = dataObject['eventDate'];
+      String? eventId = dataObject['eventId'];
       dataObject[AgywDreamsHTSLongFormConstant.htsToIndexLinkage] =
           dataObject[AgywDreamsHTSLongFormConstant.htsToIndexLinkage] ??
               AppUtil.getUid();
@@ -94,7 +94,7 @@ class _AgywDreamsHTSConsentForReleaseStatusState
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
           AgywDreamsHTSLongFormConstant.program,
           AgywDreamsHTSLongFormConstant.programStage,
-          agywDream.orgUnit,
+          agywDream!.orgUnit,
           htsFormSections,
           dataObject,
           eventDate,
@@ -128,7 +128,7 @@ class _AgywDreamsHTSConsentForReleaseStatusState
               .resetServiceEventDataState(agywDream.id);
           Timer(Duration(seconds: 1), () {
             setState(() {
-              String currentLanguage =
+              String? currentLanguage =
                   Provider.of<LanguageTranslationState>(context, listen: false)
                       .currentLanguage;
               AppUtil.showToastMessage(
@@ -175,7 +175,7 @@ class _AgywDreamsHTSConsentForReleaseStatusState
         body: SubPageBody(
           body: Container(child: Consumer<DreamsBeneficiarySelectionState>(
             builder: (context, nonAgywState, child) {
-              AgywDream agywDream = nonAgywState.currentAgywDream;
+              AgywDream? agywDream = nonAgywState.currentAgywDream;
               return Consumer<ServiceFormState>(
                 builder: (context, serviceFormState, child) {
                   return Container(

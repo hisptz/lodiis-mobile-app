@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 class InputClearIcon extends StatelessWidget {
   const InputClearIcon({
-    Key key,
-    @required this.showClearIcon,
-    @required this.onClearInput,
+    Key? key,
+    required this.showClearIcon,
+    required this.onClearInput,
   }) : super(key: key);
 
   final bool showClearIcon;
@@ -28,7 +28,7 @@ class InputClearIcon extends StatelessWidget {
                   color: Colors.red.withOpacity(0.8),
                 ),
               ),
-              onPressed: onClearInput,
+              onPressed: onClearInput as void Function()?,
             ),
           );
   }

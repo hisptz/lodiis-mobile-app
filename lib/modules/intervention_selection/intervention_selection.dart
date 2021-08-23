@@ -23,7 +23,7 @@ class _InterventionSelectionState extends State<InterventionSelection> {
   List<InterventionCard> interventionPrograms =
       InterventionCard.getInterventions();
 
-  Color primaryColor = CustomColor.defaultPrimaryColor;
+  Color? primaryColor = CustomColor.defaultPrimaryColor;
   bool hasDataLoaded = false;
 
   void onInterventionSelection(InterventionCard interventionProgram) {

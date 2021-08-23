@@ -35,7 +35,7 @@ class OvcChildAssessment extends StatelessWidget {
   }
 
   void onRedirectToAssessmentForm(
-      BuildContext context, String assessmentResponse, bool isEditableMode) {
+      BuildContext context, String? assessmentResponse, bool isEditableMode) {
     Provider.of<ServiceFormState>(context, listen: false)
         .updateFormEditabilityState(isEditableMode: isEditableMode);
     if (assessmentResponse != null) {
@@ -59,7 +59,7 @@ class OvcChildAssessment extends StatelessWidget {
   }
 
   void updateFormStateData(
-      BuildContext context, Events eventData, OvcHouseholdChild child) {
+      BuildContext context, Events? eventData, OvcHouseholdChild child) {
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState('age', child.age);
@@ -77,14 +77,14 @@ class OvcChildAssessment extends StatelessWidget {
     }
   }
 
-  void onViewAssessment(BuildContext context, String assessmentResponse,
+  void onViewAssessment(BuildContext context, String? assessmentResponse,
       Events eventData, OvcHouseholdChild child) {
     bool isEditableMode = false;
     updateFormStateData(context, eventData, child);
     onRedirectToAssessmentForm(context, assessmentResponse, isEditableMode);
   }
 
-  void onEditAssessment(BuildContext context, String assessmentResponse,
+  void onEditAssessment(BuildContext context, String? assessmentResponse,
       Events eventData, OvcHouseholdChild child) {
     bool isEditableMode = true;
     updateFormStateData(context, eventData, child);
@@ -112,7 +112,7 @@ class OvcChildAssessment extends StatelessWidget {
           body: Container(
             child: Consumer<OvcHouseholdCurrentSelectionState>(
               builder: (context, ovcHouseholdCurrentSelectionState, child) {
-                OvcHouseholdChild currentOvcHouseholdChild =
+                OvcHouseholdChild? currentOvcHouseholdChild =
                     ovcHouseholdCurrentSelectionState.currentOvcHouseholdChild;
                 return Column(children: [
                   OvcChildInfoTopHeader(),
@@ -121,7 +121,7 @@ class OvcChildAssessment extends StatelessWidget {
                       child: Consumer<ServiceEventDataState>(
                         builder: (context, serviceEventDataState, child) {
                           bool isLoading = serviceEventDataState.isLoading;
-                          Map<String, List<Events>> eventListByProgramStage =
+                          Map<String?, List<Events>> eventListByProgramStage =
                               serviceEventDataState.eventListByProgramStage;
                           Map programStageMap = OvcAssessmentConstant
                               .getOvcAssessmentProgramStageMap();
@@ -151,7 +151,7 @@ class OvcChildAssessment extends StatelessWidget {
                                                     programStageMap:
                                                         programStageMap,
                                                     onEditAssessment: () {
-                                                      String
+                                                      String?
                                                           assessmentResponse =
                                                           programStageMap[
                                                               eventData
@@ -160,10 +160,10 @@ class OvcChildAssessment extends StatelessWidget {
                                                           context,
                                                           assessmentResponse,
                                                           eventData,
-                                                          currentOvcHouseholdChild);
+                                                          currentOvcHouseholdChild!);
                                                     },
                                                     onViewAssessment: () {
-                                                      String
+                                                      String?
                                                           assessmentResponse =
                                                           programStageMap[
                                                               eventData
@@ -172,7 +172,7 @@ class OvcChildAssessment extends StatelessWidget {
                                                           context,
                                                           assessmentResponse,
                                                           eventData,
-                                                          currentOvcHouseholdChild);
+                                                          currentOvcHouseholdChild!);
                                                     },
                                                   ))
                                               .toList(),
@@ -189,7 +189,7 @@ class OvcChildAssessment extends StatelessWidget {
                     fontSize: 14,
                     buttonColor: Color(0xFF4B9F46),
                     onPressButton: () => onAddNewChildAssessment(
-                        context, currentOvcHouseholdChild),
+                        context, currentOvcHouseholdChild!),
                   ))
                 ]);
               },

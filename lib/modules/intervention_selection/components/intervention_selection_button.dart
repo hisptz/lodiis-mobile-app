@@ -4,13 +4,13 @@ import 'package:provider/provider.dart';
 
 class InterventionSelectionButton extends StatelessWidget {
   const InterventionSelectionButton(
-      {Key key,
-      @required this.isInterventionSelected,
+      {Key? key,
+      required this.isInterventionSelected,
       this.onInterventionButtonClick})
       : super(key: key);
 
   final bool isInterventionSelected;
-  final VoidCallback onInterventionButtonClick;
+  final VoidCallback? onInterventionButtonClick;
 
   @override
   Widget build(BuildContext context) {

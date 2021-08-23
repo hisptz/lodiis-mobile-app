@@ -14,27 +14,27 @@ import 'package:provider/provider.dart';
 
 class ReferralOutComeView extends StatelessWidget {
   const ReferralOutComeView({
-    Key key,
-    @required this.themeColor,
-    @required this.referralOutComeEvent,
-    @required this.beneficiary,
-    @required this.referralFollowUpStage,
-    @required this.referralToFollowUpLinkage,
-    @required this.referralOutcomeFollowUpFormSections,
-    @required this.referralProgram,
-    @required this.isEditableMode,
+    Key? key,
+    required this.themeColor,
+    required this.referralOutComeEvent,
+    required this.beneficiary,
+    required this.referralFollowUpStage,
+    required this.referralToFollowUpLinkage,
+    required this.referralOutcomeFollowUpFormSections,
+    required this.referralProgram,
+    required this.isEditableMode,
   }) : super(key: key);
 
-  final ReferralOutcomeEvent referralOutComeEvent;
-  final List<FormSection> referralOutcomeFollowUpFormSections;
-  final Color themeColor;
-  final TrackedEntityInstance beneficiary;
+  final ReferralOutcomeEvent? referralOutComeEvent;
+  final List<FormSection>? referralOutcomeFollowUpFormSections;
+  final Color? themeColor;
+  final TrackedEntityInstance? beneficiary;
   final String referralFollowUpStage;
   final String referralToFollowUpLinkage;
   final String referralProgram;
   final bool isEditableMode;
 
-  void updateFormState(BuildContext context, String referralReference) {
+  void updateFormState(BuildContext context, String? referralReference) {
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
     Provider.of<ServiceFormState>(context, listen: false)
         .updateFormEditabilityState(isEditableMode: true);
@@ -43,7 +43,7 @@ class ReferralOutComeView extends StatelessWidget {
   }
 
   void onAddReferralOutComeFollowUp(BuildContext context) async {
-    updateFormState(context, referralOutComeEvent.referralReference);
+    updateFormState(context, referralOutComeEvent!.referralReference);
     Widget modal = ReferralOutComeFollowUpModal(
       themeColor: themeColor,
       referralProgram: referralProgram,
@@ -68,7 +68,7 @@ class ReferralOutComeView extends StatelessWidget {
   }
 
   List<ReferralOutcomeFollowUpEvent> getReferralOutComeFollowUps(
-    Map<String, List<Events>> eventListByProgramStage,
+    Map<String?, List<Events>> eventListByProgramStage,
   ) {
     TrackedEntityInstanceUtil
         .getAllEventListFromServiceDataStateByProgramStages(
@@ -87,7 +87,7 @@ class ReferralOutComeView extends StatelessWidget {
     return referralOutComeFollowUps
         .where((referralOutComeFollowUp) =>
             referralOutComeFollowUp.referralReference ==
-            referralOutComeEvent.referralReference)
+            referralOutComeEvent!.referralReference)
         .toList();
   }
 
@@ -120,7 +120,7 @@ class ReferralOutComeView extends StatelessWidget {
                                 'Date client reached the referral station',
                                 style: TextStyle().copyWith(
                                   fontSize: 14.0,
-                                  color: themeColor.withOpacity(0.8),
+                                  color: themeColor!.withOpacity(0.8),
                                   fontWeight: FontWeight.w500,
                                 ),
                               ),
@@ -133,7 +133,7 @@ class ReferralOutComeView extends StatelessWidget {
                           Expanded(
                             child: Container(
                               child: Text(
-                                referralOutComeEvent.dateClientReachStation,
+                                referralOutComeEvent!.dateClientReachStation!,
                                 style: TextStyle().copyWith(
                                   fontSize: 14.0,
                                   color: Color(0xFF1A3518),
@@ -161,7 +161,7 @@ class ReferralOutComeView extends StatelessWidget {
                                 'Date service was provided',
                                 style: TextStyle().copyWith(
                                   fontSize: 14.0,
-                                  color: themeColor.withOpacity(0.8),
+                                  color: themeColor!.withOpacity(0.8),
                                   fontWeight: FontWeight.w500,
                                 ),
                               ),
@@ -174,7 +174,7 @@ class ReferralOutComeView extends StatelessWidget {
                           Expanded(
                             child: Container(
                               child: Text(
-                                referralOutComeEvent.dateServiceProvided,
+                                referralOutComeEvent!.dateServiceProvided!,
                                 style: TextStyle().copyWith(
                                   fontSize: 14.0,
                                   color: Color(0xFF1A3518),
@@ -202,7 +202,7 @@ class ReferralOutComeView extends StatelessWidget {
                                 'Comments or next steps',
                                 style: TextStyle().copyWith(
                                   fontSize: 14.0,
-                                  color: themeColor.withOpacity(0.8),
+                                  color: themeColor!.withOpacity(0.8),
                                   fontWeight: FontWeight.w500,
                                 ),
                               ),
@@ -215,7 +215,7 @@ class ReferralOutComeView extends StatelessWidget {
                           Expanded(
                             child: Container(
                               child: Text(
-                                referralOutComeEvent.comments,
+                                referralOutComeEvent!.comments!,
                                 style: TextStyle().copyWith(
                                   fontSize: 14.0,
                                   color: Color(0xFF1A3518),
@@ -235,18 +235,18 @@ class ReferralOutComeView extends StatelessWidget {
           Container(
             child: Consumer<ServiceEventDataState>(
               builder: (context, serviceEventDataState, child) {
-                Map<String, List<Events>> eventListByProgramStage =
+                Map<String?, List<Events>> eventListByProgramStage =
                     serviceEventDataState.eventListByProgramStage;
                 List<ReferralOutcomeFollowUpEvent>
                     referralOutComeFollowUpEvents =
                     getReferralOutComeFollowUps(eventListByProgramStage);
-                bool canAddFollowUp = true;
+                bool? canAddFollowUp = true;
                 referralOutComeFollowUpEvents
                     .forEach((referralOutcomeFollowUpEvent) {
                   if (referralOutcomeFollowUpEvent.additionalFollowUpRequired !=
                           null &&
                       !referralOutcomeFollowUpEvent
-                          .additionalFollowUpRequired) {
+                          .additionalFollowUpRequired!) {
                     canAddFollowUp =
                         referralOutcomeFollowUpEvent.additionalFollowUpRequired;
                   }
@@ -270,13 +270,13 @@ class ReferralOutComeView extends StatelessWidget {
                     Container(
                       child: Visibility(
                         visible: isEditableMode &&
-                            referralOutComeEvent.requiredFollowUp,
+                            referralOutComeEvent!.requiredFollowUp!,
                         child: Container(
                           decoration: BoxDecoration(
                             color: themeColor,
                           ),
                           child: Visibility(
-                            visible: canAddFollowUp,
+                            visible: canAddFollowUp!,
                             child: Row(
                               children: [
                                 Expanded(

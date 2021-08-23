@@ -5,12 +5,12 @@ import 'package:provider/provider.dart';
 
 class LoginFormContainer extends StatelessWidget {
   const LoginFormContainer({
-    Key key,
-    @required this.currentLanguage,
-    @required this.appLabel,
+    Key? key,
+    required this.currentLanguage,
+    required this.appLabel,
   }) : super(key: key);
 
-  final String currentLanguage;
+  final String? currentLanguage;
   final String appLabel;
 
   @override

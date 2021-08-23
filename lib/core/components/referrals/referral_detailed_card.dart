@@ -19,13 +19,13 @@ import 'package:provider/provider.dart';
 
 class ReferralDetailedCard extends StatefulWidget {
   const ReferralDetailedCard({
-    Key key,
-    @required this.eventData,
-    @required this.referralIndex,
-    @required this.borderColor,
-    @required this.titleColor,
-    @required this.labelColor,
-    @required this.valueColor,
+    Key? key,
+    required this.eventData,
+    required this.referralIndex,
+    required this.borderColor,
+    required this.titleColor,
+    required this.labelColor,
+    required this.valueColor,
     this.isOvcIntervention = true,
     this.isHouseholdReferral = false,
     this.isEditable = false,
@@ -46,10 +46,10 @@ class ReferralDetailedCard extends StatefulWidget {
 }
 
 class _ReferralDetailedCardState extends State<ReferralDetailedCard> {
-  ReferralEvent ovcReferralCard;
+  ReferralEvent? ovcReferralCard;
   double editIconHeight = 20;
-  ReferralOutcomeEvent referralOutComeEvent;
-  Color buttonLabelColor;
+  ReferralOutcomeEvent? referralOutComeEvent;
+  Color? buttonLabelColor;
 
   @override
   void initState() {
@@ -87,7 +87,7 @@ class _ReferralDetailedCardState extends State<ReferralDetailedCard> {
   }
 
   onEditReferral(BuildContext context) async {
-    CurrentUser user = await UserService().getCurrentUser();
+    CurrentUser? user = await UserService().getCurrentUser();
     await Provider.of<ImplementingPartnerReferralServiceState>(context,
             listen: false)
         .setImplementingPartnerServices();
@@ -111,10 +111,10 @@ class _ReferralDetailedCardState extends State<ReferralDetailedCard> {
     return Container(
       child: Consumer<LanguageTranslationState>(
         builder: (context, languageTranslationState, child) {
-          String currentLanguage = languageTranslationState.currentLanguage;
+          String? currentLanguage = languageTranslationState.currentLanguage;
           return Consumer<ServiceEventDataState>(
             builder: (context, serviceFormState, child) {
-              Map<String, List<Events>> eventListByProgramStage =
+              Map<String?, List<Events>> eventListByProgramStage =
                   serviceFormState.eventListByProgramStage;
               List<Events> eventList =
                   TrackedEntityInstanceUtil.getAllEventListFromServiceDataState(
@@ -158,7 +158,7 @@ class _ReferralDetailedCardState extends State<ReferralDetailedCard> {
                                 Visibility(
                                   visible: widget.isEditable &&
                                       referralOutComeEvent != null &&
-                                      referralOutComeEvent
+                                      referralOutComeEvent!
                                               .dateClientReachStation ==
                                           '',
                                   child: InkWell(
@@ -216,7 +216,7 @@ class _ReferralDetailedCardState extends State<ReferralDetailedCard> {
                                         Expanded(
                                           flex: 2,
                                           child: Text(
-                                            ovcReferralCard.date,
+                                            ovcReferralCard!.date!,
                                             style: TextStyle().copyWith(
                                               fontSize: 14.0,
                                               color: widget.valueColor,
@@ -250,7 +250,7 @@ class _ReferralDetailedCardState extends State<ReferralDetailedCard> {
                                         Expanded(
                                           flex: 2,
                                           child: Text(
-                                            ovcReferralCard.serviceMode,
+                                            ovcReferralCard!.serviceMode!,
                                             style: TextStyle().copyWith(
                                               fontSize: 14.0,
                                               color: widget.valueColor,
@@ -282,7 +282,7 @@ class _ReferralDetailedCardState extends State<ReferralDetailedCard> {
                                         Expanded(
                                           flex: 2,
                                           child: Text(
-                                            ovcReferralCard.category,
+                                            ovcReferralCard!.category!,
                                             style: TextStyle().copyWith(
                                               fontSize: 14.0,
                                               color: widget.valueColor,
@@ -316,7 +316,7 @@ class _ReferralDetailedCardState extends State<ReferralDetailedCard> {
                                         Expanded(
                                           flex: 2,
                                           child: Text(
-                                            ovcReferralCard.type,
+                                            ovcReferralCard!.type!,
                                             style: TextStyle().copyWith(
                                               fontSize: 14.0,
                                               color: widget.valueColor,
@@ -349,7 +349,7 @@ class _ReferralDetailedCardState extends State<ReferralDetailedCard> {
                                           flex: 2,
                                           child: Container(
                                             child: Text(
-                                              ovcReferralCard.status,
+                                              ovcReferralCard!.status!,
                                               style: TextStyle().copyWith(
                                                 fontSize: 14.0,
                                                 color: widget.valueColor,
@@ -383,7 +383,7 @@ class _ReferralDetailedCardState extends State<ReferralDetailedCard> {
                                           flex: 2,
                                           child: Container(
                                             child: Text(
-                                              ovcReferralCard.comments,
+                                              ovcReferralCard!.comments!,
                                               style: TextStyle().copyWith(
                                                 fontSize: 14.0,
                                                 color: widget.valueColor,

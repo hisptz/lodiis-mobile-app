@@ -19,14 +19,14 @@ class ReferralNotificationOfflineProvider extends OfflineDbProvider {
     List<ReferralEventNotification> referralEvents = [];
     try {
       var dbClient = await db;
-      var dbClientBatch = dbClient.batch();
+      var dbClientBatch = dbClient!.batch();
       for (ReferralNotification referralNotification in referralNotifications) {
-        referralEvents.addAll(referralNotification.referrals);
+        referralEvents.addAll(referralNotification.referrals!);
         Map data = referralNotification.toOffline();
         data.remove('referrals');
         dbClientBatch.insert(
           table,
-          data,
+          data as Map<String, Object?>,
           conflictAlgorithm: ConflictAlgorithm.replace,
         );
       }
@@ -47,7 +47,7 @@ class ReferralNotificationOfflineProvider extends OfflineDbProvider {
     List<ReferralNotification> referralNotifications = [];
     try {
       var dbClient = await db;
-      List<Map> maps = await dbClient.query(
+      List<Map> maps = await dbClient!.query(
         table,
         columns: [id, implementingPartner, nameSpaceKey, tei],
       );
@@ -70,7 +70,7 @@ class ReferralNotificationOfflineProvider extends OfflineDbProvider {
     }
     return referralNotifications
         .where((ReferralNotification referralNotification) =>
-            referralNotification.referrals.length > 0)
+            referralNotification.referrals!.length > 0)
         .toList();
   }
 }

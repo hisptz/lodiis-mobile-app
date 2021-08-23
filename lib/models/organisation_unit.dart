@@ -1,12 +1,12 @@
 class OrganisationUnit {
-  String id;
-  String parent;
-  String name;
-  String code;
-  String path;
-  int level;
-  List program;
-  List children;
+  String? id;
+  String? parent;
+  String? name;
+  String? code;
+  String? path;
+  int? level;
+  List? program;
+  List? children;
   //tables for organisations Units
   static const String organisationProgramTable = 'organisation_unit_program';
   static const String organisationChildrenTable = 'organisation_unit_children';
@@ -31,8 +31,8 @@ class OrganisationUnit {
     List programList = json["programs"] as List<dynamic>;
     List childrenList = json["children"] as List<dynamic>;
     dynamic parentObj = json["parent"];
-    List<String> programs = [];
-    List<String> children = [];
+    List<String?> programs = [];
+    List<String?> children = [];
     for (var program in programList) {
       if (program['id'] != null) {
         programs.add(program['id']);

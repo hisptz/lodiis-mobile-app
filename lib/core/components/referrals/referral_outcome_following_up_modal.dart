@@ -15,19 +15,19 @@ import 'package:provider/provider.dart';
 
 class ReferralOutComeFollowUpModal extends StatefulWidget {
   const ReferralOutComeFollowUpModal({
-    Key key,
-    @required this.themeColor,
-    @required this.referralToFollowUpLinkage,
-    @required this.referralOutcomeFollowUpFormSections,
-    @required this.beneficiary,
-    @required this.referralFollowUpStage,
-    @required this.referralProgram,
+    Key? key,
+    required this.themeColor,
+    required this.referralToFollowUpLinkage,
+    required this.referralOutcomeFollowUpFormSections,
+    required this.beneficiary,
+    required this.referralFollowUpStage,
+    required this.referralProgram,
   }) : super(key: key);
 
-  final Color themeColor;
+  final Color? themeColor;
   final String referralToFollowUpLinkage;
-  final List<FormSection> referralOutcomeFollowUpFormSections;
-  final TrackedEntityInstance beneficiary;
+  final List<FormSection>? referralOutcomeFollowUpFormSections;
+  final TrackedEntityInstance? beneficiary;
   final String referralFollowUpStage;
   final String referralProgram;
 
@@ -69,11 +69,11 @@ class _ReferralOutComeFollowUpModalState
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
           widget.referralProgram,
           widget.referralFollowUpStage,
-          widget.beneficiary.orgUnit,
-          widget.referralOutcomeFollowUpFormSections,
+          widget.beneficiary!.orgUnit,
+          widget.referralOutcomeFollowUpFormSections!,
           dataObject,
           null,
-          widget.beneficiary.trackedEntityInstance,
+          widget.beneficiary!.trackedEntityInstance,
           null,
           [widget.referralToFollowUpLinkage],
         );
@@ -82,8 +82,8 @@ class _ReferralOutComeFollowUpModalState
             isSaving = false;
             Provider.of<ServiceEventDataState>(context, listen: false)
                 .resetServiceEventDataState(
-                    widget.beneficiary.trackedEntityInstance);
-            String currentLanguage =
+                    widget.beneficiary!.trackedEntityInstance);
+            String? currentLanguage =
                 Provider.of<LanguageTranslationState>(context, listen: false)
                     .currentLanguage;
             AppUtil.showToastMessage(
@@ -118,7 +118,7 @@ class _ReferralOutComeFollowUpModalState
   bool getReferralOutComeFollowUpStatus(Map dataObject) {
     bool isReferralOutcomeFilled = false;
     List<String> inputFields =
-        FormUtil.getFormFieldIds(widget.referralOutcomeFollowUpFormSections);
+        FormUtil.getFormFieldIds(widget.referralOutcomeFollowUpFormSections!);
     for (String id in inputFields) {
       if (dataObject.containsKey(id) && '${dataObject[id]}'.trim() != '') {
         isReferralOutcomeFilled = true;

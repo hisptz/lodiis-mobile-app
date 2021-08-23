@@ -6,24 +6,24 @@ import 'package:kb_mobile_app/models/input_field_option.dart';
 
 class SelectInputField extends StatefulWidget {
   const SelectInputField({
-    Key key,
+    Key? key,
     this.color,
-    @required this.options,
-    @required this.selectedOption,
-    @required this.onInputValueChange,
-    @required this.isReadOnly,
-    @required this.currentLanguage,
-    @required this.hiddenInputFieldOptions,
+    required this.options,
+    required this.selectedOption,
+    required this.onInputValueChange,
+    required this.isReadOnly,
+    required this.currentLanguage,
+    required this.hiddenInputFieldOptions,
     this.renderAsRadio,
   }) : super(key: key);
 
-  final Color color;
-  final bool isReadOnly;
-  final List<InputFieldOption> options;
+  final Color? color;
+  final bool? isReadOnly;
+  final List<InputFieldOption>? options;
   final dynamic selectedOption;
   final Function onInputValueChange;
-  final bool renderAsRadio;
-  final String currentLanguage;
+  final bool? renderAsRadio;
+  final String? currentLanguage;
   final Map hiddenInputFieldOptions;
 
   @override
@@ -33,7 +33,7 @@ class SelectInputField extends StatefulWidget {
 class _SelectInputFieldState extends State<SelectInputField> {
   dynamic _selectedOption;
   Map _hiddenInputFieldOptions = Map();
-  List<InputFieldOption> _options;
+  List<InputFieldOption>? _options;
 
   @override
   void initState() {
@@ -42,9 +42,8 @@ class _SelectInputFieldState extends State<SelectInputField> {
   }
 
   updateInputValueState(dynamic value) {
-    _hiddenInputFieldOptions =
-        widget.hiddenInputFieldOptions ?? _hiddenInputFieldOptions;
-    _options = widget.options.where((InputFieldOption option) {
+    _hiddenInputFieldOptions = widget.hiddenInputFieldOptions;
+    _options = widget.options!.where((InputFieldOption option) {
       return _hiddenInputFieldOptions[option.code] == null ||
           (_hiddenInputFieldOptions[option.code] != null &&
               '${_hiddenInputFieldOptions[option.code]}' != 'true');
@@ -69,7 +68,7 @@ class _SelectInputFieldState extends State<SelectInputField> {
 
   @override
   Widget build(BuildContext context) {
-    return widget.renderAsRadio
+    return widget.renderAsRadio!
         ? Container(
             child: RadioInputFieldContainer(
               options: _options,
@@ -95,9 +94,9 @@ class _SelectInputFieldState extends State<SelectInputField> {
 
 class SelectionOptionContainer extends StatelessWidget {
   const SelectionOptionContainer({
-    Key key,
-    @required selectedOption,
-    @required List<InputFieldOption> options,
+    Key? key,
+    required selectedOption,
+    required List<InputFieldOption>? options,
     this.color,
     this.isReadOnly,
     this.onValueChange,
@@ -107,17 +106,18 @@ class SelectionOptionContainer extends StatelessWidget {
         super(key: key);
 
   final dynamic _selectedOption;
-  final List<InputFieldOption> _options;
-  final Color color;
-  final bool isReadOnly;
-  final String currentLanguage;
-  final Function onValueChange;
+  final List<InputFieldOption>? _options;
+  final Color? color;
+  final bool? isReadOnly;
+  final String? currentLanguage;
+  final Function? onValueChange;
   @override
   Widget build(BuildContext context) {
-    void onChange(value){
+    void onChange(value) {
       FocusScope.of(context).requestFocus(new FocusNode());
-      onValueChange(value);
+      onValueChange!(value);
     }
+
     return Row(
       children: [
         Expanded(
@@ -137,16 +137,19 @@ class SelectionOptionContainer extends StatelessWidget {
               height: 0,
               color: Colors.transparent,
             ),
-            onChanged: isReadOnly ? null : onChange,
-            disabledHint: Text(_selectedOption ?? '', style: TextStyle(color: color),),
-            items: _options.map<DropdownMenuItem<dynamic>>(
+            onChanged: isReadOnly! ? null : onChange,
+            disabledHint: Text(
+              _selectedOption ?? '',
+              style: TextStyle(color: color),
+            ),
+            items: _options!.map<DropdownMenuItem<dynamic>>(
               (InputFieldOption option) {
                 return DropdownMenuItem<dynamic>(
                   value: option.code,
                   child: Text(
                     currentLanguage == 'lesotho' &&
                             option.translatedName != null
-                        ? option.translatedName
+                        ? option.translatedName!
                         : option.name,
                   ),
                 );

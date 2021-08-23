@@ -26,7 +26,7 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/o
 import 'package:provider/provider.dart';
 
 class OvcHouseholdMonitorForm extends StatefulWidget {
-  const OvcHouseholdMonitorForm({Key key}) : super(key: key);
+  const OvcHouseholdMonitorForm({Key? key}) : super(key: key);
 
   @override
   _OvcHouseholdMonitorFormState createState() =>
@@ -35,7 +35,7 @@ class OvcHouseholdMonitorForm extends StatefulWidget {
 
 class _OvcHouseholdMonitorFormState extends State<OvcHouseholdMonitorForm> {
   final String label = 'Household Service monitoring tool';
-  List<FormSection> formSections;
+  List<FormSection>? formSections;
   bool isFormReady = false;
   bool isSaving = false;
 
@@ -59,7 +59,7 @@ class _OvcHouseholdMonitorFormState extends State<OvcHouseholdMonitorForm> {
             Provider.of<ServiceFormState>(context, listen: false).formState;
         await OvcHouseholdMonitoringSkipLogic.evaluateSkipLogics(
           context,
-          formSections,
+          formSections!,
           dataObject,
         );
       },
@@ -75,20 +75,20 @@ class _OvcHouseholdMonitorFormState extends State<OvcHouseholdMonitorForm> {
   void onSaveForm(
     BuildContext context,
     Map dataObject,
-    OvcHousehold currentOvcHousehold,
+    OvcHousehold? currentOvcHousehold,
   ) async {
     if (FormUtil.geFormFilledStatus(dataObject, formSections)) {
       setState(() {
         isSaving = true;
       });
-      String eventDate = dataObject['eventDate'];
-      String eventId = dataObject['eventId'];
+      String? eventDate = dataObject['eventDate'];
+      String? eventId = dataObject['eventId'];
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
             OvcHouseholdMonitorConstant.program,
             OvcHouseholdMonitorConstant.programStage,
-            currentOvcHousehold.orgUnit,
-            formSections,
+            currentOvcHousehold!.orgUnit,
+            formSections!,
             dataObject,
             eventDate,
             currentOvcHousehold.id,
@@ -100,7 +100,7 @@ class _OvcHouseholdMonitorFormState extends State<OvcHouseholdMonitorForm> {
           setState(() {
             isSaving = false;
           });
-          String currentLanguage =
+          String? currentLanguage =
               Provider.of<LanguageTranslationState>(context, listen: false)
                   .currentLanguage;
           AppUtil.showToastMessage(
@@ -148,7 +148,7 @@ class _OvcHouseholdMonitorFormState extends State<OvcHouseholdMonitorForm> {
           body: Container(
             child: Consumer<LanguageTranslationState>(
               builder: (context, languageTranslationState, child) {
-                String currentLanguage =
+                String? currentLanguage =
                     languageTranslationState.currentLanguage;
                 return Consumer<OvcHouseholdCurrentSelectionState>(
                   builder: (context, ovcHouseholdCurrentSelectionState, child) {

@@ -4,18 +4,18 @@ import 'package:kb_mobile_app/modules/intervention_selection/components/Interven
 
 class InterventionSelectionList extends StatefulWidget {
   InterventionSelectionList({
-    Key key,
-    @required this.interventionPrograms,
+    Key? key,
+    required this.interventionPrograms,
     this.onInterventionSelection,
-    @required this.numberOfAgywDreamsBeneficiaries,
-    @required this.numberOfNoneAgywDreamsBeneficiaries,
-    @required this.numberOfHouseholds,
-    @required this.numberOfOvcs,
-    @required this.numberOfOgac,
+    required this.numberOfAgywDreamsBeneficiaries,
+    required this.numberOfNoneAgywDreamsBeneficiaries,
+    required this.numberOfHouseholds,
+    required this.numberOfOvcs,
+    required this.numberOfOgac,
   }) : super(key: key);
 
   final List<InterventionCard> interventionPrograms;
-  final Function(InterventionCard) onInterventionSelection;
+  final Function(InterventionCard)? onInterventionSelection;
 
   final int numberOfNoneAgywDreamsBeneficiaries;
   final int numberOfAgywDreamsBeneficiaries;
@@ -29,12 +29,12 @@ class InterventionSelectionList extends StatefulWidget {
 }
 
 class _InterventionSelectionListState extends State<InterventionSelectionList> {
-  String interventionProgramId = '';
+  String? interventionProgramId = '';
 
   void setSelectedCard(InterventionCard interventionProgram) {
     setState(() {
       interventionProgramId = interventionProgram.id;
-      widget.onInterventionSelection(interventionProgram);
+      widget.onInterventionSelection!(interventionProgram);
     });
   }
 

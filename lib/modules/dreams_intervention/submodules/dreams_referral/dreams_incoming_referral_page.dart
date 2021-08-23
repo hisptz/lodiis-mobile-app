@@ -13,7 +13,7 @@ import 'package:provider/provider.dart';
 import 'pages/dream_referral_page_home.dart';
 
 class DreamsIncomingReferralPage extends StatefulWidget {
-  const DreamsIncomingReferralPage({Key key}) : super(key: key);
+  const DreamsIncomingReferralPage({Key? key}) : super(key: key);
   @override
   _DreamsIncomingReferralPageState createState() =>
       _DreamsIncomingReferralPageState();
@@ -26,9 +26,9 @@ class _DreamsIncomingReferralPageState
   final bool canView = false;
   final bool canExpand = true;
 
-  String toggleCardId = '';
+  String? toggleCardId = '';
 
-  void onCardToggle(String cardId) {
+  void onCardToggle(String? cardId) {
     setState(() {
       toggleCardId = canExpand && cardId != toggleCardId ? cardId : '';
     });

@@ -8,13 +8,13 @@ import 'package:provider/provider.dart';
 
 class ServicesHomeListContainer extends StatelessWidget {
   const ServicesHomeListContainer({
-    Key key,
-    @required this.programStageIds,
+    Key? key,
+    required this.programStageIds,
     this.onViewCasePlan,
   }) : super(key: key);
 
   final List<String> programStageIds;
-  final Function onViewCasePlan;
+  final Function? onViewCasePlan;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class ServicesHomeListContainer extends StatelessWidget {
       ),
       child: Consumer<ServiceEventDataState>(
         builder: (context, serviceEventDataState, child) {
-          Map<String, List<Events>> eventListByProgramStage =
+          Map<String?, List<Events>> eventListByProgramStage =
               serviceEventDataState.eventListByProgramStage;
           List<Events> events = TrackedEntityInstanceUtil
               .getAllEventListFromServiceDataStateByProgramStages(
@@ -98,7 +98,7 @@ class ServicesHomeListContainer extends StatelessWidget {
                                           horizontal: 5.0,
                                         ),
                                         child: InkWell(
-                                            onTap: () => onViewCasePlan(
+                                            onTap: () => onViewCasePlan!(
                                                 groupedEventByDates[
                                                     assessmentDate]),
                                             child: Container(

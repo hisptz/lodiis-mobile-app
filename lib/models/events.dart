@@ -1,14 +1,14 @@
 import 'dart:convert';
 
 class Events {
-  String event;
-  String eventDate;
-  String program;
-  String programStage;
-  String trackedEntityInstance;
-  String status;
-  String orgUnit;
-  String syncStatus;
+  String? event;
+  String? eventDate;
+  String? program;
+  String? programStage;
+  String? trackedEntityInstance;
+  String? status;
+  String? orgUnit;
+  String? syncStatus;
   dynamic dataValues;
 
   Events({

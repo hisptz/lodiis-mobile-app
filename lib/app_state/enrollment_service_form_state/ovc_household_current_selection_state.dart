@@ -4,12 +4,12 @@ import 'package:kb_mobile_app/models/ovc_household_child.dart';
 
 class OvcHouseholdCurrentSelectionState with ChangeNotifier {
   // initiate state
-  OvcHousehold _currentOvcHousehold;
-  OvcHouseholdChild _currentOvcHouseholdChild;
+  OvcHousehold? _currentOvcHousehold;
+  OvcHouseholdChild? _currentOvcHouseholdChild;
 
   // selectors
-  OvcHousehold get currentOvcHousehold => _currentOvcHousehold;
-  OvcHouseholdChild get currentOvcHouseholdChild => _currentOvcHouseholdChild;
+  OvcHousehold? get currentOvcHousehold => _currentOvcHousehold;
+  OvcHouseholdChild? get currentOvcHouseholdChild => _currentOvcHouseholdChild;
 
   //reducers
   void setCurrentHousehold(OvcHousehold currentOvcHousehold) {

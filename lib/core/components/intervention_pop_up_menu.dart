@@ -8,9 +8,9 @@ import 'package:provider/provider.dart';
 
 class InterventionPopUpMenu extends StatelessWidget {
   const InterventionPopUpMenu({
-    Key key,
-    @required this.activeInterventionProgram,
-    @required this.disableSelectionOfActiveIntervention,
+    Key? key,
+    required this.activeInterventionProgram,
+    required this.disableSelectionOfActiveIntervention,
   }) : super(key: key);
 
   final InterventionCard activeInterventionProgram;
@@ -27,7 +27,7 @@ class InterventionPopUpMenu extends StatelessWidget {
       child: Container(
         child: Consumer<LanguageTranslationState>(
           builder: (context, languageTranslationState, child) {
-            String currentLanguage = languageTranslationState.currentLanguage;
+            String? currentLanguage = languageTranslationState.currentLanguage;
             return Consumer<CurrentUserState>(
               builder: (context, currentUserState, child) {
                 List<InterventionPopActionMenu> popUpMenus =
@@ -93,8 +93,8 @@ class InterventionPopUpMenu extends StatelessWidget {
                                           currentLanguage == 'lesotho' &&
                                                   popUpMenu.translatedName !=
                                                       null
-                                              ? popUpMenu.translatedName
-                                              : popUpMenu.name,
+                                              ? popUpMenu.translatedName!
+                                              : popUpMenu.name!,
                                           style: TextStyle(
                                               color: popUpMenu.color,
                                               fontSize: 14.0,

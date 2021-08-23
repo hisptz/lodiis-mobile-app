@@ -12,7 +12,7 @@ class AppResumeRouteUtil {
     FormAutoSave formAutoSave,
   ) {
     Provider.of<EnrollmentFormState>(context, listen: false).resetFormState();
-    Map<String, dynamic> dataObject = jsonDecode(formAutoSave.data);
+    Map<String, dynamic> dataObject = jsonDecode(formAutoSave.data!);
     for (String id in dataObject.keys) {
       Provider.of<EnrollmentFormState>(context, listen: false)
           .setFormFieldState(id, dataObject[id]);
@@ -26,14 +26,14 @@ class AppResumeRouteUtil {
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
     Provider.of<ServiceFormState>(context, listen: false)
         .updateFormEditabilityState(isEditableMode: true);
-    Map<String, dynamic> dataObject = jsonDecode(formAutoSave.data);
+    Map<String, dynamic> dataObject = jsonDecode(formAutoSave.data!);
     for (String id in dataObject.keys) {
       Provider.of<ServiceFormState>(context, listen: false)
           .setFormFieldState(id, dataObject[id]);
     }
   }
 
-  static Widget getConfirmationWidget(BuildContext context, String pageModule) {
+  static Widget getConfirmationWidget(BuildContext context, String? pageModule) {
     return Container(
       padding: EdgeInsets.symmetric(
         horizontal: 10.0,

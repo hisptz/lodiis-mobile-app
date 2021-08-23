@@ -26,7 +26,7 @@ import 'package:provider/provider.dart';
 
 class AgywDreamsIndexInfoAboutPosClient extends StatefulWidget {
   AgywDreamsIndexInfoAboutPosClient({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -37,7 +37,7 @@ class AgywDreamsIndexInfoAboutPosClient extends StatefulWidget {
 class _AgywDreamsIndexInfoAboutPosClientState
     extends State<AgywDreamsIndexInfoAboutPosClient> {
   final String label = 'Index Information about positive client';
-  List<FormSection> formSections;
+  List<FormSection>? formSections;
   bool isFormReady = false;
   bool isSaving = false;
 
@@ -63,7 +63,7 @@ class _AgywDreamsIndexInfoAboutPosClientState
         await AgywDreamsIndexInformationAboutPosClientSkipLogic
             .evaluateSkipLogics(
           context,
-          formSections,
+          formSections!,
           dataObject,
         );
       },
@@ -77,14 +77,14 @@ class _AgywDreamsIndexInfoAboutPosClientState
   }
 
   void onSaveForm(
-      BuildContext context, Map dataObject, AgywDream agywDream) async {
+      BuildContext context, Map dataObject, AgywDream? agywDream) async {
     if (FormUtil.geFormFilledStatus(dataObject, formSections)) {
       setState(() {
         isSaving = true;
       });
       // print(dataObject.keys.length);
-      String eventDate = dataObject['eventDate'];
-      String eventId = dataObject['eventId'];
+      String? eventDate = dataObject['eventDate'];
+      String? eventId = dataObject['eventId'];
       dataObject[AgywDreamsIndexPositiveConstant
           .indexInfoToIndexContactLinkage] = dataObject[
               AgywDreamsIndexPositiveConstant.indexInfoToIndexContactLinkage] ??
@@ -97,8 +97,8 @@ class _AgywDreamsIndexInfoAboutPosClientState
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
             AgywDreamsIndexPositiveConstant.program,
             AgywDreamsIndexPositiveConstant.programStage,
-            agywDream.orgUnit,
-            formSections,
+            agywDream!.orgUnit,
+            formSections!,
             dataObject,
             eventDate,
             agywDream.id,
@@ -110,7 +110,7 @@ class _AgywDreamsIndexInfoAboutPosClientState
           setState(() {
             isSaving = false;
           });
-          String currentLanguage =
+          String? currentLanguage =
               Provider.of<LanguageTranslationState>(context, listen: false)
                   .currentLanguage;
           AppUtil.showToastMessage(
@@ -156,11 +156,11 @@ class _AgywDreamsIndexInfoAboutPosClientState
           body: Container(
             child: Consumer<LanguageTranslationState>(
               builder: (context, languageTranslationState, child) {
-                String currentLanguage =
+                String? currentLanguage =
                     languageTranslationState.currentLanguage;
                 return Consumer<DreamsBeneficiarySelectionState>(
                   builder: (context, nonAgywState, child) {
-                    AgywDream agywDream = nonAgywState.currentAgywDream;
+                    AgywDream? agywDream = nonAgywState.currentAgywDream;
                     return Consumer<ServiceFormState>(
                       builder: (context, serviceFormState, child) {
                         return Container(

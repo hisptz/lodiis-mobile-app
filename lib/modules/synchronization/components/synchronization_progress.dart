@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 
 class SynchronizationProgress extends StatefulWidget {
   const SynchronizationProgress(
-      {Key key,
+      {Key? key,
       this.syncAction,
       this.hasUnsyncedData,
       this.overallSyncProgress,
@@ -17,13 +17,13 @@ class SynchronizationProgress extends StatefulWidget {
       this.overallDownloadProgress})
       : super(key: key);
 
-  final String syncAction;
-  final bool hasUnsyncedData;
-  final double eventsSyncProgress;
-  final double profileSyncProgress;
-  final double overallUploadProgress;
-  final double overallDownloadProgress;
-  final double overallSyncProgress;
+  final String? syncAction;
+  final bool? hasUnsyncedData;
+  final double? eventsSyncProgress;
+  final double? profileSyncProgress;
+  final double? overallUploadProgress;
+  final double? overallDownloadProgress;
+  final double? overallSyncProgress;
 
   @override
   _SynchronizationProgressState createState() =>
@@ -69,7 +69,7 @@ class _SynchronizationProgressState extends State<SynchronizationProgress> {
                     child: Center(
                       child: LinearProgressIndicator(
                         backgroundColor: Colors.grey,
-                        valueColor: AlwaysStoppedAnimation<Color>(
+                        valueColor: AlwaysStoppedAnimation<Color?>(
                             Provider.of<InterventionCardState>(context,
                                     listen: false)
                                 .currentInterventionProgram
@@ -95,7 +95,7 @@ class _SynchronizationProgressState extends State<SynchronizationProgress> {
                       child: Center(
                         child: LinearProgressIndicator(
                           backgroundColor: Colors.grey,
-                          valueColor: AlwaysStoppedAnimation<Color>(
+                          valueColor: AlwaysStoppedAnimation<Color?>(
                               Provider.of<InterventionCardState>(context,
                                       listen: false)
                                   .currentInterventionProgram
@@ -112,7 +112,7 @@ class _SynchronizationProgressState extends State<SynchronizationProgress> {
             Visibility(
               visible: widget.syncAction ==
                       SynchronizationActionsConstants().downloadAndUpload &&
-                  widget.hasUnsyncedData,
+                  widget.hasUnsyncedData!,
               child: Container(
                 margin: EdgeInsets.only(top: 10.0),
                 child: Column(
@@ -123,7 +123,7 @@ class _SynchronizationProgressState extends State<SynchronizationProgress> {
                       child: Center(
                         child: LinearProgressIndicator(
                           backgroundColor: Colors.grey,
-                          valueColor: AlwaysStoppedAnimation<Color>(
+                          valueColor: AlwaysStoppedAnimation<Color?>(
                               Provider.of<InterventionCardState>(context,
                                       listen: false)
                                   .currentInterventionProgram
@@ -150,7 +150,7 @@ class _SynchronizationProgressState extends State<SynchronizationProgress> {
                       child: Center(
                         child: LinearProgressIndicator(
                           backgroundColor: Colors.grey,
-                          valueColor: AlwaysStoppedAnimation<Color>(
+                          valueColor: AlwaysStoppedAnimation<Color?>(
                               Provider.of<InterventionCardState>(context,
                                       listen: false)
                                   .currentInterventionProgram
@@ -177,7 +177,7 @@ class _SynchronizationProgressState extends State<SynchronizationProgress> {
                       child: Center(
                         child: LinearProgressIndicator(
                           backgroundColor: Colors.grey,
-                          valueColor: AlwaysStoppedAnimation<Color>(
+                          valueColor: AlwaysStoppedAnimation<Color?>(
                               Provider.of<InterventionCardState>(context,
                                       listen: false)
                                   .currentInterventionProgram

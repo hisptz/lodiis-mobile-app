@@ -13,11 +13,11 @@ import 'package:provider/provider.dart';
 
 class HTSTBHomePage extends StatefulWidget {
   HTSTBHomePage(
-      {Key key, @required this.htsToTBLinkageValue, this.hivResultStatus})
+      {Key? key, required this.htsToTBLinkageValue, this.hivResultStatus})
       : super(key: key);
 
-  final String htsToTBLinkageValue;
-  final String hivResultStatus;
+  final String? htsToTBLinkageValue;
+  final String? hivResultStatus;
 
   @override
   _HTSTBHomePageState createState() => _HTSTBHomePageState();
@@ -38,7 +38,7 @@ class _HTSTBHomePageState extends State<HTSTBHomePage> {
   void updateFormState(
     BuildContext context,
     bool isEditableMode,
-    DreamsHTSTBScreeningEvent eventData,
+    DreamsHTSTBScreeningEvent? eventData,
   ) {
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
     Provider.of<ServiceFormState>(context, listen: false)
@@ -60,19 +60,19 @@ class _HTSTBHomePageState extends State<HTSTBHomePage> {
     }
   }
 
-  void onViewTB(BuildContext context, DreamsHTSTBScreeningEvent eventData) {
+  void onViewTB(BuildContext context, DreamsHTSTBScreeningEvent? eventData) {
     updateFormState(context, false, eventData);
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => AgywDreamsHTSTBForm()));
   }
 
-  void onEditTB(BuildContext context, DreamsHTSTBScreeningEvent eventData) {
+  void onEditTB(BuildContext context, DreamsHTSTBScreeningEvent? eventData) {
     updateFormState(context, true, eventData);
     Navigator.push(
         context,
         MaterialPageRoute(
             builder: (context) => AgywDreamsHTSTBForm(
-                htsToTBLinkageValue: eventData.htsTBLinkage)));
+                htsToTBLinkageValue: eventData!.htsTBLinkage)));
   }
 
   @override
@@ -81,7 +81,7 @@ class _HTSTBHomePageState extends State<HTSTBHomePage> {
       child: Container(child: Consumer<ServiceEventDataState>(
         builder: (context, serviceFormState, child) {
           bool isLoading = serviceFormState.isLoading;
-          Map<String, List<Events>> eventListByProgramStage =
+          Map<String?, List<Events>> eventListByProgramStage =
               serviceFormState.eventListByProgramStage;
           List<Events> events = TrackedEntityInstanceUtil
               .getAllEventListFromServiceDataStateByProgramStages(
@@ -93,7 +93,7 @@ class _HTSTBHomePageState extends State<HTSTBHomePage> {
               .where((element) =>
                   element.htsTBLinkage == widget.htsToTBLinkageValue)
               .toList();
-          DreamsHTSTBScreeningEvent tbEvent =
+          DreamsHTSTBScreeningEvent? tbEvent =
               tbEvents.length > 0 ? tbEvents[0] : null;
           return Container(
               child: isLoading

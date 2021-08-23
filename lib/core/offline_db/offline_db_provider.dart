@@ -1,9 +1,11 @@
+import 'dart:async';
+
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
 class OfflineDbProvider {
   final String databaseName = "kb_ovc_dreams_mobile_app_testing";
-  Database _db;
+  Database? _db;
   // Script for migrations as well as initialization of tables
   final List<String> initialQuery = [
     "CREATE TABLE IF NOT EXISTS current_user (id TEXT PRIMARY KEY, name TEXT, username TEXT, password TEXT , implementingPartner TEXT ,isLogin INTEGER)",
@@ -38,7 +40,7 @@ class OfflineDbProvider {
     "ALTER TABLE current_user ADD userGroups TEXT DEFAULT 'userGroups'",
     "ALTER TABLE tei_relationships ADD syncStatus TEXT DEFAULT 'not-synced'"
   ];
-  Future<Database> get db async {
+  Future<Database?> get db async {
     if (_db != null) {
       return _db;
     }
@@ -86,7 +88,7 @@ class OfflineDbProvider {
   close() async {
     try {
       var dbClient = await db;
-      dbClient.close();
+      dbClient!.close();
     } catch (e) {}
   }
 }

@@ -8,21 +8,21 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/o
 
 class CasePlanGapFormContainer extends StatefulWidget {
   const CasePlanGapFormContainer(
-      {Key key,
-      @required this.formSections,
-      @required this.isEditableMode,
-      @required this.formSectionColor,
-      @required this.dataObject,
-      @required this.isCasePlanForHousehold,
+      {Key? key,
+      required this.formSections,
+      required this.isEditableMode,
+      required this.formSectionColor,
+      required this.dataObject,
+      required this.isCasePlanForHousehold,
       this.currentHouseholdChild})
       : super(key: key);
 
   final List<FormSection> formSections;
   final bool isEditableMode;
-  final Color formSectionColor;
+  final Color? formSectionColor;
   final Map dataObject;
   final bool isCasePlanForHousehold;
-  final OvcHouseholdChild currentHouseholdChild;
+  final OvcHouseholdChild? currentHouseholdChild;
 
   @override
   _CasePlanGapFormContainerState createState() =>
@@ -32,8 +32,8 @@ class CasePlanGapFormContainer extends StatefulWidget {
 class _CasePlanGapFormContainerState extends State<CasePlanGapFormContainer>
     with OvcCasePlanGapSkipLogic {
   Map mandatoryFieldObject = Map();
-  List mandatoryFields;
-  Map dataObject;
+  late List mandatoryFields;
+  Map? dataObject;
   List unFilledMandatoryFields = [];
 
   @override
@@ -44,22 +44,22 @@ class _CasePlanGapFormContainerState extends State<CasePlanGapFormContainer>
       for (String id in mandatoryFields) {
         mandatoryFieldObject[id] = true;
       }
-      dataObject = widget.dataObject ?? Map();
+      dataObject = widget.dataObject;
     });
-    evaluateSkipLogics(context, widget.formSections, dataObject,
+    evaluateSkipLogics(context, widget.formSections, dataObject!,
         currentHouseholdChild: widget.currentHouseholdChild);
     setState(() {});
   }
 
   onSaveGapForm(BuildContext context) {
     bool hadAllMandatoryFilled =
-        AppUtil.hasAllMandatoryFieldsFilled(mandatoryFields, dataObject);
+        AppUtil.hasAllMandatoryFieldsFilled(mandatoryFields, dataObject!);
     if (hadAllMandatoryFilled) {
       Navigator.pop(context, dataObject);
     } else {
       setState(() {
         unFilledMandatoryFields =
-            AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+            AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject!);
       });
       AppUtil.showToastMessage(
         message: 'Please fill all mandatory field',
@@ -70,9 +70,9 @@ class _CasePlanGapFormContainerState extends State<CasePlanGapFormContainer>
 
   void onInputValueChange(String id, dynamic value) {
     setState(() {
-      dataObject[id] = value;
+      dataObject![id] = value;
     });
-    evaluateSkipLogics(context, widget.formSections, dataObject,
+    evaluateSkipLogics(context, widget.formSections, dataObject!,
         currentHouseholdChild: widget.currentHouseholdChild);
     setState(() {});
   }

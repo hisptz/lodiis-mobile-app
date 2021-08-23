@@ -7,10 +7,10 @@ import 'package:provider/provider.dart';
 
 class ReferralCardBodySummary extends StatefulWidget {
   ReferralCardBodySummary({
-    Key key,
-    @required this.referralEvent,
-    @required this.labelColor,
-    @required this.valueColor,
+    Key? key,
+    required this.referralEvent,
+    required this.labelColor,
+    required this.valueColor,
   }) : super(key: key);
 
   final Events referralEvent;
@@ -23,7 +23,7 @@ class ReferralCardBodySummary extends StatefulWidget {
 }
 
 class _ReferralCardBodySummaryState extends State<ReferralCardBodySummary> {
-  ReferralEvent ovcReferralCard;
+  ReferralEvent? ovcReferralCard;
 
   @override
   void initState() {
@@ -36,7 +36,7 @@ class _ReferralCardBodySummaryState extends State<ReferralCardBodySummary> {
     return Container(
       child: Consumer<LanguageTranslationState>(
         builder: (context, languageTranslationState, child) {
-          String currentLanguage = languageTranslationState.currentLanguage;
+          String? currentLanguage = languageTranslationState.currentLanguage;
           return Visibility(
             visible: ovcReferralCard != null,
             child: Container(
@@ -66,7 +66,7 @@ class _ReferralCardBodySummaryState extends State<ReferralCardBodySummary> {
                         Expanded(
                           flex: 2,
                           child: Text(
-                            ovcReferralCard.date,
+                            ovcReferralCard!.date!,
                             style: TextStyle().copyWith(
                               fontSize: 14.0,
                               color: widget.valueColor,
@@ -99,7 +99,7 @@ class _ReferralCardBodySummaryState extends State<ReferralCardBodySummary> {
                         Expanded(
                           flex: 2,
                           child: Text(
-                            ovcReferralCard.serviceMode,
+                            ovcReferralCard!.serviceMode!,
                             style: TextStyle().copyWith(
                               fontSize: 14.0,
                               color: widget.valueColor,
@@ -130,7 +130,7 @@ class _ReferralCardBodySummaryState extends State<ReferralCardBodySummary> {
                         Expanded(
                           flex: 2,
                           child: Text(
-                            ovcReferralCard.category,
+                            ovcReferralCard!.category!,
                             style: TextStyle().copyWith(
                               fontSize: 14.0,
                               color: widget.valueColor,
@@ -159,7 +159,7 @@ class _ReferralCardBodySummaryState extends State<ReferralCardBodySummary> {
                         Expanded(
                           flex: 2,
                           child: Text(
-                            ovcReferralCard.type,
+                            ovcReferralCard!.type!,
                             style: TextStyle().copyWith(
                               fontSize: 14.0,
                               color: widget.valueColor,
@@ -191,7 +191,7 @@ class _ReferralCardBodySummaryState extends State<ReferralCardBodySummary> {
                           flex: 2,
                           child: Container(
                             child: Text(
-                              ovcReferralCard.status,
+                              ovcReferralCard!.status!,
                               style: TextStyle().copyWith(
                                 fontSize: 14.0,
                                 color: widget.valueColor,
