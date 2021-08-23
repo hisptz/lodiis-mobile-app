@@ -63,15 +63,16 @@ class _OvcHouseholdCaseTransferState extends State<OvcHouseholdCaseTransfer> {
       String? eventId = dataObject['eventId'];
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-            OvcHouseholdCaseTransferConstant.program,
-            OvcHouseholdCaseTransferConstant.programStage,
-            currentOvcHousehold!.orgUnit,
-            formSections!,
-            dataObject,
-            eventDate,
-            currentOvcHousehold.id,
-            eventId,
-            null);
+          OvcHouseholdCaseTransferConstant.program,
+          OvcHouseholdCaseTransferConstant.programStage,
+          currentOvcHousehold!.orgUnit,
+          formSections!,
+          dataObject,
+          eventDate,
+          currentOvcHousehold.id,
+          eventId,
+          null,
+        );
         Provider.of<ServiceEventDataState>(context, listen: false)
             .resetServiceEventDataState(currentOvcHousehold.id);
         Timer(Duration(seconds: 1), () {
@@ -94,82 +95,88 @@ class _OvcHouseholdCaseTransferState extends State<OvcHouseholdCaseTransfer> {
           setState(() {
             isSaving = false;
             AppUtil.showToastMessage(
-                message: e.toString(), position: ToastGravity.BOTTOM);
+              message: e.toString(),
+              position: ToastGravity.BOTTOM,
+            );
             Navigator.pop(context);
           });
         });
       }
     } else {
       AppUtil.showToastMessage(
-          message: 'Please fill at least one form field',
-          position: ToastGravity.TOP);
+        message: 'Please fill at least one form field',
+        position: ToastGravity.TOP,
+      );
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(65.0),
-          child: Consumer<InterventionCardState>(
-            builder: (context, interventionCardState, child) {
-              InterventionCard activeInterventionProgram =
-                  interventionCardState.currentInterventionProgram;
-              return SubPageAppBar(
-                label: label,
-                activeInterventionProgram: activeInterventionProgram,
-              );
-            },
-          ),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(65.0),
+        child: Consumer<InterventionCardState>(
+          builder: (context, interventionCardState, child) {
+            InterventionCard activeInterventionProgram =
+                interventionCardState.currentInterventionProgram;
+            return SubPageAppBar(
+              label: label,
+              activeInterventionProgram: activeInterventionProgram,
+            );
+          },
         ),
-        body: SubPageBody(
-          body: Container(
-            child: Consumer<OvcHouseholdCurrentSelectionState>(
-              builder: (context, ovcHouseholdCurrentSelectionState, child) {
-                OvcHousehold? currentOvcHousehold =
-                    ovcHouseholdCurrentSelectionState.currentOvcHousehold;
-                return Container(
-                  child: Column(
-                    children: [
-                      OvcHouseholdInfoTopHeader(
-                        currentOvcHousehold: currentOvcHousehold,
-                      ),
-                      Container(
-                        child: Consumer<ServiceEventDataState>(
-                          builder: (context, serviceEventDataState, child) {
-                            bool isLoading = serviceEventDataState.isLoading;
-                            Map<String?, List<Events>> eventListByProgramStage =
-                                serviceEventDataState.eventListByProgramStage;
-                            List<Events> eventList = TrackedEntityInstanceUtil
-                                .getAllEventListFromServiceDataStateByProgramStages(
-                                    eventListByProgramStage, programStageIds);
-                            Events? event =
-                                eventList.length > 0 ? eventList[0] : null;
-                            return isLoading
-                                ? CircularProcessLoader(
-                                    color: Colors.blueGrey,
-                                  )
-                                : Container(
-                                    child: OvcHouseholdExitFormContainer(
+      ),
+      body: SubPageBody(
+        body: Container(
+          child: Consumer<OvcHouseholdCurrentSelectionState>(
+            builder: (context, ovcHouseholdCurrentSelectionState, child) {
+              OvcHousehold? currentOvcHousehold =
+                  ovcHouseholdCurrentSelectionState.currentOvcHousehold;
+              return Container(
+                child: Column(
+                  children: [
+                    OvcHouseholdInfoTopHeader(
+                      currentOvcHousehold: currentOvcHousehold,
+                    ),
+                    Container(
+                      child: Consumer<ServiceEventDataState>(
+                        builder: (context, serviceEventDataState, child) {
+                          bool isLoading = serviceEventDataState.isLoading;
+                          Map<String?, List<Events>> eventListByProgramStage =
+                              serviceEventDataState.eventListByProgramStage;
+                          List<Events> eventList = TrackedEntityInstanceUtil
+                              .getAllEventListFromServiceDataStateByProgramStages(
+                                  eventListByProgramStage, programStageIds);
+                          Events? event =
+                              eventList.length > 0 ? eventList[0] : null;
+                          return isLoading && !isFormReady
+                              ? CircularProcessLoader(
+                                  color: Colors.blueGrey,
+                                )
+                              : Container(
+                                  child: OvcHouseholdExitFormContainer(
                                     event: event,
                                     isSaving: isSaving,
                                     exitType: 'transfer',
                                     formSections: formSections,
                                     onSaveForm: (dataObject) => this.onSaveForm(
-                                        context,
-                                        dataObject,
-                                        currentOvcHousehold),
-                                  ));
-                          },
-                        ),
-                      )
-                    ],
-                  ),
-                );
-              },
-            ),
+                                      context,
+                                      dataObject,
+                                      currentOvcHousehold,
+                                    ),
+                                  ),
+                                );
+                        },
+                      ),
+                    )
+                  ],
+                ),
+              );
+            },
           ),
         ),
-        bottomNavigationBar: InterventionBottomNavigationBarContainer());
+      ),
+      bottomNavigationBar: InterventionBottomNavigationBarContainer(),
+    );
   }
 }

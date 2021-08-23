@@ -39,7 +39,8 @@ class _AboutAppState extends State<AboutApp> {
         body: Container(
           child: Consumer<LanguageTranslationState>(
             builder: (context, languageTranslationState, child) {
-              String? currentLanguage = languageTranslationState.currentLanguage;
+              String? currentLanguage =
+                  languageTranslationState.currentLanguage;
               return Consumer<AppInfoState>(
                 builder: (context, appInfoState, child) {
                   return Container(
@@ -91,17 +92,6 @@ class _AboutAppState extends State<AboutApp> {
                                 ),
                                 child: Text(
                                   'App Id : ${appInfoState.currentAppId}',
-                                  style: TextStyle().copyWith(
-                                    fontSize: 14.0,
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                margin: EdgeInsets.only(
-                                  bottom: 5.0,
-                                ),
-                                child: Text(
-                                  'Device version : ${appInfoState.currentPlatformVersion}',
                                   style: TextStyle().copyWith(
                                     fontSize: 14.0,
                                   ),
