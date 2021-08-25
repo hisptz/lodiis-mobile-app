@@ -12,7 +12,9 @@ import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.d
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/core/constants/beneficiary_identification.dart';
+import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
+import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
@@ -67,9 +69,22 @@ class _OvcEnrollmentHouseholdFormState
       List<String> hiddenFields = [
         BeneficiaryIdentification.beneficiaryId,
         BeneficiaryIdentification.beneficiaryIndex,
-        'PN92g65TkVI'
+        'PN92g65TkVI',
+        'klLkGxy328c',
+        'DdnlE8kmIkT',
+        'fQInK8s2RNR'
       ];
       List<Map?> childrenObjects = dataObject['children'];
+
+      // Assign implementing partner and service provider to caregiver
+      CurrentUser? user = await UserService().getCurrentUser();
+      dataObject['klLkGxy328c'] =
+          dataObject['klLkGxy328c'] ?? user!.implementingPartner;
+      dataObject['DdnlE8kmIkT'] = dataObject['DdnlE8kmIkT'] ?? user!.username;
+      if (user!.subImplementingPartner != '') {
+        dataObject['fQInK8s2RNR'] =
+            dataObject['fQInK8s2RNR'] ?? user.subImplementingPartner;
+      }
       String? orgUnit = dataObject['location'];
       bool shouldEnroll = true;
       await OvcEnrollmentHouseholdService().savingHouseholdForm(

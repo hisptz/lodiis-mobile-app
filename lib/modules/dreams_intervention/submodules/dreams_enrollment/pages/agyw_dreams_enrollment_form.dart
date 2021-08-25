@@ -125,6 +125,7 @@ class _AgywDreamsEnrollmentFormState extends State<AgywDreamsEnrollmentForm> {
       dataObject['PN92g65TkVI'] = dataObject['PN92g65TkVI'] ?? 'Active';
       dataObject['klLkGxy328c'] =
           dataObject['klLkGxy328c'] ?? user!.implementingPartner;
+      dataObject['DdnlE8kmIkT'] = dataObject[''] ?? user!.username;
       if (user!.subImplementingPartner != '') {
         dataObject['fQInK8s2RNR'] =
             dataObject['fQInK8s2RNR'] ?? user.subImplementingPartner;
@@ -135,7 +136,8 @@ class _AgywDreamsEnrollmentFormState extends State<AgywDreamsEnrollmentForm> {
         BeneficiaryIdentification.beneficiaryIndex,
         'PN92g65TkVI',
         'klLkGxy328c',
-        'fQInK8s2RNR'
+        'fQInK8s2RNR',
+        'DdnlE8kmIkT'
       ];
       String? orgUnit = dataObject['location'];
       await AgywDreamsEnrollmentService().savingAgywBeneficiary(

@@ -9,8 +9,10 @@ import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
+import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
+import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
@@ -207,6 +209,7 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
       String name = childMapObject!['WTZ7GLTrE8Q'] ?? '';
       Widget modal = AddChildConfirmation(name: name);
       bool response = await AppUtil.showPopUpModal(context, modal, false);
+      CurrentUser? user = await (UserService().getCurrentUser());
       if (response != null) {
         if (response) {
           setState(() {
@@ -218,6 +221,16 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
         } else {
           setState(() {
             if (!isADuplicateChildObject(childMapObject)) {
+              // Assign implementing partner and service provider
+              childMapObject!['klLkGxy328c'] =
+                  childMapObject!['klLkGxy328c'] ?? user!.implementingPartner;
+              childMapObject!['DdnlE8kmIkT'] =
+                  childMapObject!['DdnlE8kmIkT'] ?? user!.username;
+              if (user!.subImplementingPartner != '') {
+                childMapObject!['fQInK8s2RNR'] =
+                    childMapObject!['fQInK8s2RNR'] ??
+                        user.subImplementingPartner;
+              }
               childMapObject!['fullName'] =
                   '${childMapObject!['WTZ7GLTrE8Q']} ${childMapObject!['rSP9c21JsfC']}';
               childMapObjects.add(childMapObject);
