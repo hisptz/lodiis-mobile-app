@@ -47,7 +47,7 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
       AgywDream agywDream,
       List<ServiceEvents>? serviceEvents) {
     Map serviceEventSessions = getLastSessionNumbers(serviceEvents);
-    Map<String?, List<int?>> interventionSessions =
+    Map<String?, List<String?>> interventionSessions =
         getSessionsPerIntervention(serviceEvents, eventData);
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
     Provider.of<ServiceFormState>(context, listen: false)
@@ -89,9 +89,9 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
     return eventsWithLastSessionNumber;
   }
 
-  Map<String?, List<int?>> getSessionsPerIntervention(
+  Map<String?, List<String?>> getSessionsPerIntervention(
       List<ServiceEvents>? serviceEvents, Events? currentEvent) {
-    Map<String?, List<int?>> interventionSessions = Map();
+    Map<String?, List<String?>> interventionSessions = Map();
     String currentEventId =
         currentEvent != null ? currentEvent.event ?? '' : '';
     (serviceEvents ?? [])
