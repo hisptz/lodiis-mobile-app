@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/constants/agyw_dreams_service_form_sessions.dart';
 import 'package:provider/provider.dart';
 
 class AgywDreamsServiceFormSkipLogic {
@@ -118,62 +119,33 @@ class AgywDreamsServiceFormSkipLogic {
   static bool evaluateSkipLogicBySessionReoccurrence(Map dataObject) {
     String interventionType = dataObject['Eug4BXDFLym'] ?? '';
     Map sessionsPerInterventions = dataObject['interventionSessions'];
-    int currentSession = 0;
+    String currentSession = '';
     try {
       currentSession = '${dataObject['vL6NpUA0rIU']}' != 'null'
-          ? int.parse(dataObject['vL6NpUA0rIU'])
+          ? '${dataObject['vL6NpUA0rIU']}'
           : currentSession;
     } catch (e) {}
 
     List interventionSessions =
         sessionsPerInterventions[interventionType] ?? [];
     return interventionType != ''
-        ? currentSession != 0 && interventionSessions.contains(currentSession)
+        ? currentSession != '' && interventionSessions.contains(currentSession)
         : false;
   }
 
   static bool evaluateSkipLogicsBySession(Map dataObject) {
-    String interventionType = dataObject['Eug4BXDFLym'] ?? '';
-    int sessions = 0;
-    try {
-      sessions = '${dataObject['vL6NpUA0rIU']}' != 'null'
-          ? int.parse(dataObject['vL6NpUA0rIU'])
-          : sessions;
-    } catch (e) {}
-    if (sessions >= 0) {
-      if (interventionType == 'AFLATEEN/TOUN') {
-        return (sessions) <= 12 ? true : false;
-      } else if (interventionType == 'PTS 4-GRADS') {
-        return (sessions) <= 10 ? true : false;
-      } else if (interventionType == 'PTS 4 NON-GRADS') {
-        return (sessions) <= 11 ? true : false;
-      } else if (interventionType == 'Go Girls') {
-        return (sessions) <= 15 ? true : false;
-      } else if (interventionType == 'SILC') {
-        return (sessions) <= 12 ? true : false;
-      } else if (interventionType == 'SAVING GROUP') {
-        return (sessions) <= 12 ? true : false;
-      } else if (interventionType == 'FINANCIAL EDUCATION') {
-        return (sessions) <= 4 ? true : false;
-      } else if (interventionType == 'STEPPING STONES') {
-        return (sessions) <= 11 ? true : false;
-      } else if (interventionType == 'IPC') {
-        return (sessions) <= 4 ? true : false;
-      } else if (interventionType == 'LBSE') {
-        return (sessions) <= 6 ? true : false;
-      } else if (interventionType == 'PARENTING') {
-        return (sessions) <= 14 ? true : false;
-      } else if (interventionType == 'GBV Messaging') {
-        return (sessions) <= 1 ? true : false;
-      } else if (interventionType == 'VAC Messaging') {
-        return (sessions) <= 1 ? true : false;
-      } else if (interventionType == 'VAC Legal Messaging') {
-        return true;
-      } else if (interventionType == 'GBV Legal Messaging') {
-        return true;
-      }
-    }
-    return false;
+    final String sessionNumberInputField = 'vL6NpUA0rIU';
+    final String typeOfIntervention = 'Eug4BXDFLym';
+
+    String interventionType = dataObject[typeOfIntervention] ?? '';
+    String sessionNumber = dataObject[sessionNumberInputField] ?? '';
+
+    List sessionMapping =
+        AgywDreamsServiceFormSessions.sessionMapping[interventionType] ?? [];
+
+    return sessionNumber.isEmpty || sessionMapping.isEmpty
+        ? true
+        : sessionMapping.contains(sessionNumber.toLowerCase());
   }
 
   static resetValuesForHiddenFields(BuildContext context, inputFieldIds) {
