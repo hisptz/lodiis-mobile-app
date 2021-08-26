@@ -3,6 +3,7 @@ import 'package:kb_mobile_app/models/ovc_household_child.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
 
 class OvcHousehold {
+  //@TODO adding missing contact info, village and phone number
   String? id;
   String? firstName;
   String? middleName;

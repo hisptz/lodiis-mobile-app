@@ -1,6 +1,6 @@
 import 'package:kb_mobile_app/models/events.dart';
 
-class ServiceEvents {
+class ServiceEvent {
   String? event;
   String? programStage;
   String? interventionType;
@@ -8,7 +8,7 @@ class ServiceEvents {
   int? sessionNumber;
   Events? eventData;
 
-  ServiceEvents(
+  ServiceEvent(
       {this.event,
       this.programStage,
       this.eventData,
@@ -16,7 +16,7 @@ class ServiceEvents {
       this.interventionGroup,
       this.sessionNumber});
 
-  ServiceEvents getServiceSessions(Events events) {
+  ServiceEvent getServiceSessions(Events events) {
     List keys = [
       'Eug4BXDFLym',
       'vL6NpUA0rIU',
@@ -33,7 +33,7 @@ class ServiceEvents {
     var sessionNumber = data['vL6NpUA0rIU'] != '' && data['vL6NpUA0rIU'] != null
         ? data['vL6NpUA0rIU']
         : '0';
-    return ServiceEvents(
+    return ServiceEvent(
         event: events.event,
         programStage: events.programStage,
         interventionType: data['Eug4BXDFLym'] ?? '',

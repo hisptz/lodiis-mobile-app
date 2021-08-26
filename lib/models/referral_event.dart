@@ -1,6 +1,9 @@
 import 'package:kb_mobile_app/models/events.dart';
 
 class ReferralEvent {
+  //@TODO Add location where service has been referred to
+  // @TODO add IP who has issued referrals
+  //@TODO add Ip where referrels has issues to
   String? id;
   String? date;
   String? serviceMode;
