@@ -5,12 +5,12 @@ import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_bene
 import 'package:provider/provider.dart';
 
 class DreamsBeneficiaryCardBody extends StatelessWidget {
-  const DreamsBeneficiaryCardBody(
-      {Key? key,
-      required this.isVerticalLayout,
-      required this.agywBeneficiary,
-      this.canViewServiceCategory = false})
-      : super(key: key);
+  const DreamsBeneficiaryCardBody({
+    Key? key,
+    required this.isVerticalLayout,
+    required this.agywBeneficiary,
+    required this.canViewServiceCategory,
+  }) : super(key: key);
 
   final bool isVerticalLayout;
   final bool canViewServiceCategory;
