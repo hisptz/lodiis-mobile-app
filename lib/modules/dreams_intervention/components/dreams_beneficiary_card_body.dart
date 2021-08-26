@@ -97,7 +97,7 @@ class DreamsBeneficiaryCardBody extends StatelessWidget {
                             ),
                           )),
                       Visibility(
-                        visible: canViewServiceCategory,
+                        visible: canViewServiceCategory && isVerticalLayout,
                         child: Container(
                           child: DreamsBeneficiaryCardServiceSummary(
                             services: getServices(),

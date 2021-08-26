@@ -8,9 +8,11 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_serv
 import 'package:provider/provider.dart';
 
 class DreamsBeneficiaryCardServiceSummary extends StatelessWidget {
-  const DreamsBeneficiaryCardServiceSummary(
-      {Key? key, required this.services, required this.labelColor})
-      : super(key: key);
+  const DreamsBeneficiaryCardServiceSummary({
+    Key? key,
+    required this.services,
+    required this.labelColor,
+  }) : super(key: key);
 
   final List<List<Map>> services;
   final Color labelColor;
