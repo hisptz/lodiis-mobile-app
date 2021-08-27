@@ -13,7 +13,6 @@ class OvcHouseholdInfoTopHeader extends StatelessWidget {
   final String svgIcon = 'assets/icons/hh_icon.svg';
 
   Expanded _getOvcHouseholdDetailsWidget({
-    String? currentLanguage,
     required String key,
     required String value,
   }) {
@@ -78,21 +77,18 @@ class OvcHouseholdInfoTopHeader extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       _getOvcHouseholdDetailsWidget(
-                        currentLanguage: currentLanguage,
                         key: currentLanguage == 'lesotho'
                             ? 'Mohlokomeli'
                             : 'Caregiver',
                         value: currentOvcHousehold.toString(),
                       ),
                       _getOvcHouseholdDetailsWidget(
-                        currentLanguage: currentLanguage,
                         key: currentLanguage == 'lesotho'
                             ? 'Nomoro ea mohala'
                             : 'Phone #',
                         value: currentOvcHousehold!.phoneNumber ?? '',
                       ),
                       _getOvcHouseholdDetailsWidget(
-                        currentLanguage: currentLanguage,
                         key: currentLanguage == 'lesotho' ? 'Motse' : 'Village',
                         value: currentOvcHousehold!.village ?? '',
                       ),
