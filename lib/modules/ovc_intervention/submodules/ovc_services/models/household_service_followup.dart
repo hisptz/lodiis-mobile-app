@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
-import 'package:kb_mobile_app/models/input_field_option.dart';
 
 class HouseholdServiceFollowup {
   static List<FormSection> getFormSections() {
@@ -14,35 +13,13 @@ class HouseholdServiceFollowup {
           borderColor: Color(0xFF4D9E49),
           inputFields: [
             InputField(
-                id: 'KDSYFiIefGN',
-                name: 'HTS Follow-up date',
-                translatedName: 'Letsatsi la ho latela HTS',
-                allowFuturePeriod: true,
-                disablePastPeriod: true,
-                valueType: 'DATE',
-                inputColor: Color(0xFF4D9E49),
-                labelColor: Color(0xFF737373)),
-            InputField(
-                id: 'JnqldNamliR',
-                name: 'HTS Service Provision Status',
-                translatedName: 'Boemo ba Phano ea Litšebeletso ea HTS',
-                valueType: 'TEXT',
-                inputColor: Color(0xFF4D9E49),
-                labelColor: Color(0xFF737373),
-                options: [
-                  InputFieldOption(
-                      code: 'Achieved',
-                      name: 'Achieved',
-                      translatedName: 'Hona le katleho'),
-                  InputFieldOption(
-                      code: 'In progress',
-                      name: 'In progress',
-                      translatedName: 'Tsoelo pele'),
-                  InputFieldOption(
-                      code: 'Not achieved',
-                      name: 'Not achieved',
-                      translatedName: 'Ha ho katleho e fihletsoeng')
-                ]),
+              id: 'JnqldNamliR',
+              name: 'HTS Service provided',
+              // translatedName: 'Boemo ba Phano ea Litšebeletso ea HTS',
+              valueType: 'TRUE_ONLY',
+              inputColor: Color(0xFF4D9E49),
+              labelColor: Color(0xFF737373),
+            ),
             InputField(
                 id: 'CNnzifTDF5a',
                 name: 'HTS Service Provision Date',
@@ -51,6 +28,14 @@ class HouseholdServiceFollowup {
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
             InputField(
+              id: 'UQKbbPTRaB8',
+              name: 'HTS session number',
+              // translatedName: 'Boemo ba Phano ea Litšebeletso ea HTS',
+              valueType: 'TEXT',
+              inputColor: Color(0xFF4D9E49),
+              labelColor: Color(0xFF737373),
+            ),
+            InputField(
                 id: 'sxlVgySosg3',
                 name: 'HTS Comment',
                 translatedName: 'Tlhaloso ea HTS',
@@ -58,35 +43,13 @@ class HouseholdServiceFollowup {
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
             InputField(
-                id: 'f0oxTNNwdgP',
-                name: 'HIVTREAT Follow-up date',
-                allowFuturePeriod: true,
-                disablePastPeriod: true,
-                translatedName: 'Letsatsi la ho latela HIVTREAT',
-                valueType: 'DATE',
-                inputColor: Color(0xFF4D9E49),
-                labelColor: Color(0xFF737373)),
-            InputField(
-                id: 'YFgrURiwirq',
-                name: 'HIVTREAT Service Provision Status',
-                translatedName: 'Boemo ba Phano ea Litšebeletso ea HIVTREAT',
-                valueType: 'TEXT',
-                inputColor: Color(0xFF4D9E49),
-                labelColor: Color(0xFF737373),
-                options: [
-                  InputFieldOption(
-                      code: 'Achieved',
-                      name: 'Achieved',
-                      translatedName: 'Hona le katleho'),
-                  InputFieldOption(
-                      code: 'In progress',
-                      name: 'In progress',
-                      translatedName: 'Tsoelo pele'),
-                  InputFieldOption(
-                      code: 'Not achieved',
-                      name: 'Not achieved',
-                      translatedName: 'Ha ho katleho e fihletsoeng')
-                ]),
+              id: 'YFgrURiwirq',
+              name: 'HIVTREAT Service provided',
+              // translatedName: 'Boemo ba Phano ea Litšebeletso ea HIVTREAT',
+              valueType: 'TRUE_ONLY',
+              inputColor: Color(0xFF4D9E49),
+              labelColor: Color(0xFF737373),
+            ),
             InputField(
                 id: 'LtiZFxXw0Wc',
                 name: 'HIVTREAT Service Provision Date',
@@ -95,6 +58,14 @@ class HouseholdServiceFollowup {
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
             InputField(
+              id: '',
+              name: 'HIVTREAT session number',
+              // translatedName: 'Boemo ba Phano ea Litšebeletso ea HTS',
+              valueType: 'TEXT',
+              inputColor: Color(0xFF4D9E49),
+              labelColor: Color(0xFF737373),
+            ),
+            InputField(
                 id: 'i9icxSZ8HCf',
                 name: 'HIVTREAT Comment',
                 translatedName: 'Tlhaloso ea HIVTREAT',
@@ -102,35 +73,13 @@ class HouseholdServiceFollowup {
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
             InputField(
-                id: 'zosvtbskE9R',
-                name: 'HIVS&D Follow-up date',
-                allowFuturePeriod: true,
-                disablePastPeriod: true,
-                translatedName: 'Letsatsi la ho latela HIVS&D',
-                valueType: 'DATE',
-                inputColor: Color(0xFF4D9E49),
-                labelColor: Color(0xFF737373)),
-            InputField(
-                id: 'HzI5X2yHef6',
-                name: 'HIVS&D Service Provision Status',
-                translatedName: 'Boemo ba Phano ea Litšebeletso ea HIVS&D',
-                valueType: 'TEXT',
-                inputColor: Color(0xFF4D9E49),
-                labelColor: Color(0xFF737373),
-                options: [
-                  InputFieldOption(
-                      code: 'Achieved',
-                      name: 'Achieved',
-                      translatedName: 'Hona le katleho'),
-                  InputFieldOption(
-                      code: 'In progress',
-                      name: 'In progress',
-                      translatedName: 'Tsoelo pele'),
-                  InputFieldOption(
-                      code: 'Not achieved',
-                      name: 'Not achieved',
-                      translatedName: 'Ha ho katleho e fihletsoeng')
-                ]),
+              id: 'HzI5X2yHef6',
+              name: 'HIVS&D Service provided',
+              // translatedName: 'Boemo ba Phano ea Litšebeletso ea HIVS&D',
+              valueType: 'TRUE_ONLY',
+              inputColor: Color(0xFF4D9E49),
+              labelColor: Color(0xFF737373),
+            ),
             InputField(
                 id: 'GyG2HcLsVka',
                 name: 'HIVS&D Service Provision Date',
@@ -139,6 +88,14 @@ class HouseholdServiceFollowup {
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
             InputField(
+              id: '',
+              name: 'HIVS&D session number',
+              // translatedName: 'Boemo ba Phano ea Litšebeletso ea HTS',
+              valueType: 'TEXT',
+              inputColor: Color(0xFF4D9E49),
+              labelColor: Color(0xFF737373),
+            ),
+            InputField(
                 id: 'y8ToqnbVz1o',
                 name: 'HIVS&D Comment',
                 translatedName: 'Tlhaloso ea HIVS&D',
@@ -146,35 +103,13 @@ class HouseholdServiceFollowup {
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
             InputField(
-                id: 't6FoYSa8TuZ',
-                name: 'HEALTH Follow-up date',
-                allowFuturePeriod: true,
-                disablePastPeriod: true,
-                translatedName: 'Letsatsi la ho latela HEALTH',
-                valueType: 'DATE',
-                inputColor: Color(0xFF4D9E49),
-                labelColor: Color(0xFF737373)),
-            InputField(
-                id: 'eqhzeRBMftZ',
-                name: 'HEALTH Service Provision Status',
-                translatedName: 'Boemo ba Phano ea Litšebeletso ea HEALTH',
-                valueType: 'TEXT',
-                inputColor: Color(0xFF4D9E49),
-                labelColor: Color(0xFF737373),
-                options: [
-                  InputFieldOption(
-                      code: 'Achieved',
-                      name: 'Achieved',
-                      translatedName: 'Hona le katleho'),
-                  InputFieldOption(
-                      code: 'In progress',
-                      name: 'In progress',
-                      translatedName: 'Tsoelo pele'),
-                  InputFieldOption(
-                      code: 'Not achieved',
-                      name: 'Not achieved',
-                      translatedName: 'Ha ho katleho e fihletsoeng')
-                ]),
+              id: 'eqhzeRBMftZ',
+              name: 'HEALTH Service provided',
+              // translatedName: 'Boemo ba Phano ea Litšebeletso ea HEALTH',
+              valueType: 'TRUE_ONLY',
+              inputColor: Color(0xFF4D9E49),
+              labelColor: Color(0xFF737373),
+            ),
             InputField(
                 id: 'F8x8QAoFQBO',
                 name: 'HEALTH Service Provision Date',
@@ -183,6 +118,14 @@ class HouseholdServiceFollowup {
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
             InputField(
+              id: '',
+              name: 'HEALTH session number',
+              // translatedName: 'Boemo ba Phano ea Litšebeletso ea HEALTH',
+              valueType: 'TEXT',
+              inputColor: Color(0xFF4D9E49),
+              labelColor: Color(0xFF737373),
+            ),
+            InputField(
                 id: 'AStxMCkJhi5',
                 name: 'HEALTH Comment',
                 translatedName: 'Tlhaloso ea HEALTH',
@@ -190,35 +133,12 @@ class HouseholdServiceFollowup {
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
             InputField(
-                id: 'GcqCEwXQumn',
-                name: 'PRG&L Follow-up date',
-                allowFuturePeriod: true,
-                disablePastPeriod: true,
-                translatedName: 'Letsatsi la ho latela PRG&L',
-                valueType: 'DATE',
-                inputColor: Color(0xFF4D9E49),
-                labelColor: Color(0xFF737373)),
-            InputField(
-                id: 'ESIjwQ9S6Ic',
-                name: 'PRG&L Service Provision Status',
-                translatedName: 'Boemo ba Phano ea Litšebeletso ea PRG&L',
-                valueType: 'TEXT',
-                inputColor: Color(0xFF4D9E49),
-                labelColor: Color(0xFF737373),
-                options: [
-                  InputFieldOption(
-                      code: 'Achieved',
-                      name: 'Achieved',
-                      translatedName: 'Hona le katleho'),
-                  InputFieldOption(
-                      code: 'In progress',
-                      name: 'In progress',
-                      translatedName: 'Tsoelo pele'),
-                  InputFieldOption(
-                      code: 'Not achieved',
-                      name: 'Not achieved',
-                      translatedName: 'Ha ho katleho e fihletsoeng')
-                ]),
+              id: 'ESIjwQ9S6Ic',
+              name: 'PRG&L Service provided',
+              valueType: 'TRUE_ONLY',
+              inputColor: Color(0xFF4D9E49),
+              labelColor: Color(0xFF737373),
+            ),
             InputField(
                 id: 'EYv3aMwJOUN',
                 name: 'PRG&L Service Provision Date',
@@ -227,6 +147,14 @@ class HouseholdServiceFollowup {
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
             InputField(
+              id: '',
+              name: 'PRG&L session number',
+              // translatedName: 'Boemo ba Phano ea Litšebeletso ea PRG&L',
+              valueType: 'TEXT',
+              inputColor: Color(0xFF4D9E49),
+              labelColor: Color(0xFF737373),
+            ),
+            InputField(
                 id: 'GISFLEttRtU',
                 name: 'PRG&L Comment',
                 translatedName: 'Tlhaloso ea PRG&L',
@@ -234,35 +162,13 @@ class HouseholdServiceFollowup {
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
             InputField(
-                id: 'slcUWMY6BBO',
-                name: 'SAIDS Follow-up date',
-                allowFuturePeriod: true,
-                disablePastPeriod: true,
-                translatedName: 'Letsatsi la ho latela SAIDS',
-                valueType: 'DATE',
-                inputColor: Color(0xFF4D9E49),
-                labelColor: Color(0xFF737373)),
-            InputField(
-                id: 'r8wPQAog7PJ',
-                name: 'SAIDS Service Provision Status',
-                translatedName: 'Boemo ba Phano ea Litšebeletso ea SAIDS',
-                valueType: 'TEXT',
-                inputColor: Color(0xFF4D9E49),
-                labelColor: Color(0xFF737373),
-                options: [
-                  InputFieldOption(
-                      code: 'Achieved',
-                      name: 'Achieved',
-                      translatedName: 'Hona le katleho'),
-                  InputFieldOption(
-                      code: 'In progress',
-                      name: 'In progress',
-                      translatedName: 'Tsoelo pele'),
-                  InputFieldOption(
-                      code: 'Not achieved',
-                      name: 'Not achieved',
-                      translatedName: 'Ha ho katleho e fihletsoeng')
-                ]),
+              id: 'r8wPQAog7PJ',
+              name: 'SAIDS Service provided',
+              // translatedName: 'Boemo ba Phano ea Litšebeletso ea SAIDS',
+              valueType: 'TRUE_ONLY',
+              inputColor: Color(0xFF4D9E49),
+              labelColor: Color(0xFF737373),
+            ),
             InputField(
                 id: 'EgbO5h9cs5D',
                 name: 'SAIDS Service Provision Date',
@@ -271,6 +177,14 @@ class HouseholdServiceFollowup {
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
             InputField(
+              id: '',
+              name: 'SAIDS session number',
+              // translatedName: 'Boemo ba Phano ea Litšebeletso ea SAIDS',
+              valueType: 'TEXT',
+              inputColor: Color(0xFF4D9E49),
+              labelColor: Color(0xFF737373),
+            ),
+            InputField(
                 id: 'itTgPQ0OrMU',
                 name: 'SAIDS Comment',
                 translatedName: 'Tlhaloso ea SAIDS',
@@ -278,35 +192,13 @@ class HouseholdServiceFollowup {
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
             InputField(
-                id: 'Pfp7l7WWLEY',
-                name: 'WASHMES Follow-up date',
-                allowFuturePeriod: true,
-                disablePastPeriod: true,
-                translatedName: 'Letsatsi la ho latela WASHMES',
-                valueType: 'DATE',
-                inputColor: Color(0xFF4D9E49),
-                labelColor: Color(0xFF737373)),
-            InputField(
-                id: 'gV77yUM8NK8',
-                name: 'WASHMES Service Provision Status',
-                translatedName: 'Boemo ba Phano ea Litšebeletso ea WASHMES',
-                valueType: 'TEXT',
-                inputColor: Color(0xFF4D9E49),
-                labelColor: Color(0xFF737373),
-                options: [
-                  InputFieldOption(
-                      code: 'Achieved',
-                      name: 'Achieved',
-                      translatedName: 'Hona le katleho'),
-                  InputFieldOption(
-                      code: 'In progress',
-                      name: 'In progress',
-                      translatedName: 'Tsoelo pele'),
-                  InputFieldOption(
-                      code: 'Not achieved',
-                      name: 'Not achieved',
-                      translatedName: 'Ha ho katleho e fihletsoeng')
-                ]),
+              id: 'gV77yUM8NK8',
+              name: 'WASHMES Service provided',
+              // translatedName: 'Boemo ba Phano ea Litšebeletso ea WASHMES',
+              valueType: 'TRUE_ONLY',
+              inputColor: Color(0xFF4D9E49),
+              labelColor: Color(0xFF737373),
+            ),
             InputField(
                 id: 'aqJBZDBzh4m',
                 name: 'WASHMES Service Provision Date',
@@ -315,6 +207,14 @@ class HouseholdServiceFollowup {
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
             InputField(
+              id: '',
+              name: 'WASHMES session number',
+              // translatedName: 'Boemo ba Phano ea Litšebeletso ea WASHMES',
+              valueType: 'TEXT',
+              inputColor: Color(0xFF4D9E49),
+              labelColor: Color(0xFF737373),
+            ),
+            InputField(
                 id: 'JFlnkaXlXm5',
                 name: 'WASHMES Comment',
                 translatedName: 'Tlhaloso ea WASHMES',
@@ -322,35 +222,13 @@ class HouseholdServiceFollowup {
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
             InputField(
-                id: 'ipDfOPUCPlB',
-                name: 'SOACKAGE Follow-up date',
-                allowFuturePeriod: true,
-                disablePastPeriod: true,
-                translatedName: 'Letsatsi la ho latela SOACKAGE',
-                valueType: 'DATE',
-                inputColor: Color(0xFF4D9E49),
-                labelColor: Color(0xFF737373)),
-            InputField(
-                id: 'qL9c5r7c6kK',
-                name: 'SOACKAGE Service Provision Status',
-                translatedName: 'Boemo ba Phano ea Litšebeletso ea SOACKAGE',
-                valueType: 'TEXT',
-                inputColor: Color(0xFF4D9E49),
-                labelColor: Color(0xFF737373),
-                options: [
-                  InputFieldOption(
-                      code: 'Achieved',
-                      name: 'Achieved',
-                      translatedName: 'Hona le katleho'),
-                  InputFieldOption(
-                      code: 'In progress',
-                      name: 'In progress',
-                      translatedName: 'Tsoelo pele'),
-                  InputFieldOption(
-                      code: 'Not achieved',
-                      name: 'Not achieved',
-                      translatedName: 'Ha ho katleho e fihletsoeng')
-                ]),
+              id: 'qL9c5r7c6kK',
+              name: 'SOACKAGE Service provided',
+              // translatedName: 'Boemo ba Phano ea Litšebeletso ea SOACKAGE',
+              valueType: 'TRUE_ONLY',
+              inputColor: Color(0xFF4D9E49),
+              labelColor: Color(0xFF737373),
+            ),
             InputField(
                 id: 'pUphS6E1Gu5',
                 name: 'SOACKAGE Service Provision Date',
@@ -359,6 +237,14 @@ class HouseholdServiceFollowup {
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
             InputField(
+              id: '',
+              name: 'SOACKAGE session number',
+              // translatedName: 'Boemo ba Phano ea Litšebeletso ea SOACKAGE',
+              valueType: 'TEXT',
+              inputColor: Color(0xFF4D9E49),
+              labelColor: Color(0xFF737373),
+            ),
+            InputField(
                 id: 'SODPuEmHEGV',
                 name: 'SOACKAGE Comment',
                 translatedName: 'Tlhaloso ea SOACKAGE',
@@ -366,35 +252,13 @@ class HouseholdServiceFollowup {
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
             InputField(
-                id: 'qfs6yQfH7lk',
-                name: 'TIPPY Follow-up date',
-                allowFuturePeriod: true,
-                disablePastPeriod: true,
-                translatedName: 'Letsatsi la ho latela TIPPY',
-                valueType: 'DATE',
-                inputColor: Color(0xFF4D9E49),
-                labelColor: Color(0xFF737373)),
-            InputField(
-                id: 'FRWCmEerPic',
-                name: 'TIPPY Service Provision Status',
-                translatedName: 'Boemo ba Phano ea Litšebeletso ea TIPPY',
-                valueType: 'TEXT',
-                inputColor: Color(0xFF4D9E49),
-                labelColor: Color(0xFF737373),
-                options: [
-                  InputFieldOption(
-                      code: 'Achieved',
-                      name: 'Achieved',
-                      translatedName: 'Hona le katleho'),
-                  InputFieldOption(
-                      code: 'In progress',
-                      name: 'In progress',
-                      translatedName: 'Tsoelo pele'),
-                  InputFieldOption(
-                      code: 'Not achieved',
-                      name: 'Not achieved',
-                      translatedName: 'Ha ho katleho e fihletsoeng')
-                ]),
+              id: 'FRWCmEerPic',
+              name: 'TIPPY Service provided',
+              // translatedName: 'Boemo ba Phano ea Litšebeletso ea TIPPY',
+              valueType: 'TRUE_ONLY',
+              inputColor: Color(0xFF4D9E49),
+              labelColor: Color(0xFF737373),
+            ),
             InputField(
                 id: 'lQYnoeqfKpe',
                 name: 'TIPPY Service Provision Date',
@@ -402,6 +266,14 @@ class HouseholdServiceFollowup {
                 valueType: 'DATE',
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
+            InputField(
+              id: '',
+              name: 'TIPPY session number',
+              // translatedName: 'Boemo ba Phano ea Litšebeletso ea TIPPY',
+              valueType: 'TEXT',
+              inputColor: Color(0xFF4D9E49),
+              labelColor: Color(0xFF737373),
+            ),
             InputField(
                 id: 'w4EYZpbtUV8',
                 name: 'TIPPY Comment',
@@ -418,40 +290,25 @@ class HouseholdServiceFollowup {
           borderColor: Color(0xFF0000FF),
           inputFields: [
             InputField(
-                id: 'xSpmXkwsULS',
-                name: 'SILC Follow-up date',
-                translatedName: 'Letsatsi la ho latela SILC',
-                allowFuturePeriod: true,
-                disablePastPeriod: true,
-                valueType: 'DATE',
-                inputColor: Color(0xFF0000FF),
-                labelColor: Color(0xFF737373)),
-            InputField(
-                id: 'xTO562B5g53',
-                name: 'SILC Service Provision Status',
-                translatedName: 'Boemo ba Phano ea Litšebeletso ea SILC',
-                valueType: 'TEXT',
-                inputColor: Color(0xFF0000FF),
-                labelColor: Color(0xFF737373),
-                options: [
-                  InputFieldOption(
-                      code: 'Achieved',
-                      name: 'Achieved',
-                      translatedName: 'Hona le katleho'),
-                  InputFieldOption(
-                      code: 'In progress',
-                      name: 'In progress',
-                      translatedName: 'Tsoelo pele'),
-                  InputFieldOption(
-                      code: 'Not achieved',
-                      name: 'Not achieved',
-                      translatedName: 'Ha ho katleho e fihletsoeng')
-                ]),
+              id: 'xTO562B5g53',
+              name: 'SILC Service provided',
+              // translatedName: 'Boemo ba Phano ea Litšebeletso ea SILC',
+              valueType: 'TRUE_ONLY',
+              inputColor: Color(0xFF0000FF),
+              labelColor: Color(0xFF737373),
+            ),
             InputField(
                 id: 'uOMr56xoKDh',
                 name: 'SILC Service Provision Date',
                 translatedName: 'Letsatsi la Kabo ea Litšebeletso tsa SILC',
                 valueType: 'DATE',
+                inputColor: Color(0xFF0000FF),
+                labelColor: Color(0xFF737373)),
+            InputField(
+                id: '',
+                name: 'SILC session number',
+                // translatedName: 'Boemo ba Phano ea Litšebeletso ea SILC',
+                valueType: 'TEXT',
                 inputColor: Color(0xFF0000FF),
                 labelColor: Color(0xFF737373)),
             InputField(
@@ -462,40 +319,25 @@ class HouseholdServiceFollowup {
                 inputColor: Color(0xFF0000FF),
                 labelColor: Color(0xFF737373)),
             InputField(
-                id: 'dWu9d1DgNkz',
-                name: 'FE Follow-up date',
-                allowFuturePeriod: true,
-                disablePastPeriod: true,
-                translatedName: 'Letsatsi la ho latela FE',
-                valueType: 'DATE',
-                inputColor: Color(0xFF0000FF),
-                labelColor: Color(0xFF737373)),
-            InputField(
-                id: 'lpTVK3t1Ahk',
-                name: 'FE Service Provision Status',
-                translatedName: 'Boemo ba Phano ea Litšebeletso ea FE',
-                valueType: 'TEXT',
-                inputColor: Color(0xFF0000FF),
-                labelColor: Color(0xFF737373),
-                options: [
-                  InputFieldOption(
-                      code: 'Achieved',
-                      name: 'Achieved',
-                      translatedName: 'Hona le katleho'),
-                  InputFieldOption(
-                      code: 'In progress',
-                      name: 'In progress',
-                      translatedName: 'Tsoelo pele'),
-                  InputFieldOption(
-                      code: 'Not achieved',
-                      name: 'Not achieved',
-                      translatedName: 'Ha ho katleho e fihletsoeng')
-                ]),
+              id: 'lpTVK3t1Ahk',
+              name: 'FE Service provided',
+              // translatedName: 'Boemo ba Phano ea Litšebeletso ea FE',
+              valueType: 'TRUE_ONLY',
+              inputColor: Color(0xFF0000FF),
+              labelColor: Color(0xFF737373),
+            ),
             InputField(
                 id: 'j1yzHzO0w6w',
                 name: 'FE Service Provision Date',
                 translatedName: 'Letsatsi la Kabo ea Litšebeletso tsa FE',
                 valueType: 'DATE',
+                inputColor: Color(0xFF0000FF),
+                labelColor: Color(0xFF737373)),
+            InputField(
+                id: '',
+                name: 'FE session number',
+                // translatedName: 'Boemo ba Phano ea Litšebeletso ea FE',
+                valueType: 'TEXT',
                 inputColor: Color(0xFF0000FF),
                 labelColor: Color(0xFF737373)),
             InputField(
@@ -506,42 +348,27 @@ class HouseholdServiceFollowup {
                 inputColor: Color(0xFF0000FF),
                 labelColor: Color(0xFF737373)),
             InputField(
-                id: 'XXUKujRHZpn',
-                name: 'EST COOPRTVS Follow-up date',
-                allowFuturePeriod: true,
-                disablePastPeriod: true,
-                translatedName: 'Letsatsi la ho latela EST COOPRTVS',
-                valueType: 'DATE',
-                inputColor: Color(0xFF0000FF),
-                labelColor: Color(0xFF737373)),
-            InputField(
-                id: 'kcoDiGNXWpA',
-                name: 'EST COOPRTVS Service Provision Status',
-                translatedName:
-                    'Boemo ba Phano ea Litšebeletso ea EST COOPRTVS',
-                valueType: 'TEXT',
-                inputColor: Color(0xFF0000FF),
-                labelColor: Color(0xFF737373),
-                options: [
-                  InputFieldOption(
-                      code: 'Achieved',
-                      name: 'Achieved',
-                      translatedName: 'Hona le katleho'),
-                  InputFieldOption(
-                      code: 'In progress',
-                      name: 'In progress',
-                      translatedName: 'Tsoelo pele'),
-                  InputFieldOption(
-                      code: 'Not achieved',
-                      name: 'Not achieved',
-                      translatedName: 'Ha ho katleho e fihletsoeng')
-                ]),
+              id: 'kcoDiGNXWpA',
+              name: 'EST COOPRTVS Service provided',
+              // translatedName:
+              //     'Boemo ba Phano ea Litšebeletso ea EST COOPRTVS',
+              valueType: 'TRUE_ONLY',
+              inputColor: Color(0xFF0000FF),
+              labelColor: Color(0xFF737373),
+            ),
             InputField(
                 id: 'qwmtkJDotBk',
                 name: 'EST COOPRTVS Service Provision Date',
                 translatedName:
                     'Letsatsi la Kabo ea Litšebeletso tsa EST COOPRTVS',
                 valueType: 'DATE',
+                inputColor: Color(0xFF0000FF),
+                labelColor: Color(0xFF737373)),
+            InputField(
+                id: '',
+                name: 'EST COOPRTVS session number',
+                // translatedName: 'Boemo ba Phano ea Litšebeletso ea EST COOPRTVS',
+                valueType: 'TEXT',
                 inputColor: Color(0xFF0000FF),
                 labelColor: Color(0xFF737373)),
             InputField(
@@ -552,42 +379,27 @@ class HouseholdServiceFollowup {
                 inputColor: Color(0xFF0000FF),
                 labelColor: Color(0xFF737373)),
             InputField(
-                id: 'LseJW3MfsQB',
-                name: 'FUNCT COOPRTVS Follow-up date',
-                allowFuturePeriod: true,
-                disablePastPeriod: true,
-                translatedName: 'Letsatsi la ho latela FUNCT COOPRTVS',
-                valueType: 'DATE',
-                inputColor: Color(0xFF0000FF),
-                labelColor: Color(0xFF737373)),
-            InputField(
-                id: 'fgDPoYtifQI',
-                name: 'FUNCT COOPRTVS Service Provision Status',
-                translatedName:
-                    'Boemo ba Phano ea Litšebeletso ea FUNCT COOPRTVS',
-                valueType: 'TEXT',
-                inputColor: Color(0xFF0000FF),
-                labelColor: Color(0xFF737373),
-                options: [
-                  InputFieldOption(
-                      code: 'Achieved',
-                      name: 'Achieved',
-                      translatedName: 'Hona le katleho'),
-                  InputFieldOption(
-                      code: 'In progress',
-                      name: 'In progress',
-                      translatedName: 'Tsoelo pele'),
-                  InputFieldOption(
-                      code: 'Not achieved',
-                      name: 'Not achieved',
-                      translatedName: 'Ha ho katleho e fihletsoeng')
-                ]),
+              id: 'fgDPoYtifQI',
+              name: 'FUNCT COOPRTVS Service provided',
+              // translatedName:
+              //     'Boemo ba Phano ea Litšebeletso ea FUNCT COOPRTVS',
+              valueType: 'TRUE_ONLY',
+              inputColor: Color(0xFF0000FF),
+              labelColor: Color(0xFF737373),
+            ),
             InputField(
                 id: 'lbCCs00yuGQ',
                 name: 'FUNCT COOPRTVS Service Provision Date',
                 translatedName:
                     'Letsatsi la Kabo ea Litšebeletso tsa FUNCT COOPRTVS',
                 valueType: 'DATE',
+                inputColor: Color(0xFF0000FF),
+                labelColor: Color(0xFF737373)),
+            InputField(
+                id: '',
+                name: 'FUNCT COOPRTVS session number',
+                // translatedName: 'Boemo ba Phano ea Litšebeletso ea FUNCT COOPRTVS',
+                valueType: 'TEXT',
                 inputColor: Color(0xFF0000FF),
                 labelColor: Color(0xFF737373)),
             InputField(
@@ -598,42 +410,27 @@ class HouseholdServiceFollowup {
                 inputColor: Color(0xFF0000FF),
                 labelColor: Color(0xFF737373)),
             InputField(
-                id: 'btnRZtDTyBN',
-                name: 'MARKT COOPRTVS Follow-up date',
-                allowFuturePeriod: true,
-                disablePastPeriod: true,
-                translatedName: 'Letsatsi la ho latela MARKT COOPRTVS',
-                valueType: 'DATE',
-                inputColor: Color(0xFF0000FF),
-                labelColor: Color(0xFF737373)),
-            InputField(
-                id: 'cbqS6IoSbwI',
-                name: 'MARKT COOPRTVS Service Provision Status',
-                translatedName:
-                    'Boemo ba Phano ea Litšebeletso ea MARKT COOPRTVS',
-                valueType: 'TEXT',
-                inputColor: Color(0xFF0000FF),
-                labelColor: Color(0xFF737373),
-                options: [
-                  InputFieldOption(
-                      code: 'Achieved',
-                      name: 'Achieved',
-                      translatedName: 'Hona le katleho'),
-                  InputFieldOption(
-                      code: 'In progress',
-                      name: 'In progress',
-                      translatedName: 'Tsoelo pele'),
-                  InputFieldOption(
-                      code: 'Not achieved',
-                      name: 'Not achieved',
-                      translatedName: 'Ha ho katleho e fihletsoeng')
-                ]),
+              id: 'cbqS6IoSbwI',
+              name: 'MARKT COOPRTVS Service provided',
+              // translatedName:
+              //     'Boemo ba Phano ea Litšebeletso ea MARKT COOPRTVS',
+              valueType: 'TRUE_ONLY',
+              inputColor: Color(0xFF0000FF),
+              labelColor: Color(0xFF737373),
+            ),
             InputField(
                 id: 'zKkaaSt1c8V',
                 name: 'MARKT COOPRTVS Service Provision Date',
                 translatedName:
                     'Letsatsi la Kabo ea Litšebeletso tsa MARKT COOPRTVS',
                 valueType: 'DATE',
+                inputColor: Color(0xFF0000FF),
+                labelColor: Color(0xFF737373)),
+            InputField(
+                id: '',
+                name: 'MARKT COOPRTVS session number',
+                // translatedName: 'Boemo ba Phano ea Litšebeletso ea MARKT COOPRTVS',
+                valueType: 'TEXT',
                 inputColor: Color(0xFF0000FF),
                 labelColor: Color(0xFF737373)),
             InputField(
@@ -644,40 +441,25 @@ class HouseholdServiceFollowup {
                 inputColor: Color(0xFF0000FF),
                 labelColor: Color(0xFF737373)),
             InputField(
-                id: 'O84rxMOQ52U',
-                name: 'K/TPLOTS Follow-up date',
-                allowFuturePeriod: true,
-                disablePastPeriod: true,
-                translatedName: 'Letsatsi la ho latela K/TPLOTS',
+              id: 'lEkrLOFmLrH',
+              name: 'K/TPLOTS Service provided',
+              // translatedName: 'Boemo ba Phano ea Litšebeletso ea K/TPLOTS',
+              valueType: 'TRUE_ONLY',
+              inputColor: Color(0xFF0000FF),
+              labelColor: Color(0xFF737373),
+            ),
+            InputField(
+                id: 'F8ALMOcc6C1',
+                name: 'K/TPLOTS Service Provision Date',
+                // translatedName: 'Letsatsi la Kabo ea Litšebeletso tsa K/TPLOTS',
                 valueType: 'DATE',
                 inputColor: Color(0xFF0000FF),
                 labelColor: Color(0xFF737373)),
             InputField(
-                id: 'lEkrLOFmLrH',
-                name: 'K/TPLOTS Service Provision Status',
-                translatedName: 'Boemo ba Phano ea Litšebeletso ea K/TPLOTS',
+                id: '',
+                name: 'K/TPLOTS session number',
+                // translatedName: 'Boemo ba Phano ea Litšebeletso ea K/TPLOTS',
                 valueType: 'TEXT',
-                inputColor: Color(0xFF0000FF),
-                labelColor: Color(0xFF737373),
-                options: [
-                  InputFieldOption(
-                      code: 'Achieved',
-                      name: 'Achieved',
-                      translatedName: 'Hona le katleho'),
-                  InputFieldOption(
-                      code: 'In progress',
-                      name: 'In progress',
-                      translatedName: 'Tsoelo pele'),
-                  InputFieldOption(
-                      code: 'Not achieved',
-                      name: 'Not achieved',
-                      translatedName: 'Ha ho katleho e fihletsoeng')
-                ]),
-            InputField(
-                id: 'F8ALMOcc6C1',
-                name: 'K/TPLOTS Service Provision Date',
-                translatedName: 'Letsatsi la Kabo ea Litšebeletso tsa K/TPLOTS',
-                valueType: 'DATE',
                 inputColor: Color(0xFF0000FF),
                 labelColor: Color(0xFF737373)),
             InputField(
@@ -696,40 +478,25 @@ class HouseholdServiceFollowup {
           borderColor: Color(0xFF0F9587),
           inputFields: [
             InputField(
-                id: 'dXmaqyn9DME',
-                name: 'P&FC Follow-up date',
-                allowFuturePeriod: true,
-                disablePastPeriod: true,
-                translatedName: 'Letsatsi la ho latela P&FC',
-                valueType: 'DATE',
-                inputColor: Color(0xFF0F9587),
-                labelColor: Color(0xFF737373)),
-            InputField(
-                id: 'gwwUOs6yt6C',
-                name: 'P&FC Service Provision Status',
-                translatedName: 'Boemo ba Phano ea Litšebeletso ea P&FC',
-                valueType: 'TEXT',
-                inputColor: Color(0xFF0F9587),
-                labelColor: Color(0xFF737373),
-                options: [
-                  InputFieldOption(
-                      code: 'Achieved',
-                      name: 'Achieved',
-                      translatedName: 'Hona le katleho'),
-                  InputFieldOption(
-                      code: 'In progress',
-                      name: 'In progress',
-                      translatedName: 'Tsoelo pele'),
-                  InputFieldOption(
-                      code: 'Not achieved',
-                      name: 'Not achieved',
-                      translatedName: 'Ha ho katleho e fihletsoeng')
-                ]),
+              id: 'gwwUOs6yt6C',
+              name: 'P&FC Service provided',
+              // translatedName: 'Boemo ba Phano ea Litšebeletso ea P&FC',
+              valueType: 'TRUE_ONLY',
+              inputColor: Color(0xFF0F9587),
+              labelColor: Color(0xFF737373),
+            ),
             InputField(
                 id: 'w2HlBCfHbZR',
                 name: 'P&FC Service Provision Date',
                 translatedName: 'Letsatsi la Kabo ea Litšebeletso tsa P&FC',
                 valueType: 'DATE',
+                inputColor: Color(0xFF0F9587),
+                labelColor: Color(0xFF737373)),
+            InputField(
+                id: '',
+                name: 'P&FC session number',
+                // translatedName: 'Boemo ba Phano ea Litšebeletso ea P&FC',
+                valueType: 'TEXT',
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
             InputField(
@@ -740,40 +507,25 @@ class HouseholdServiceFollowup {
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
             InputField(
-                id: 'gEoY9RmjQAk',
-                name: 'VAC Follow-up date',
-                allowFuturePeriod: true,
-                disablePastPeriod: true,
-                translatedName: 'Letsatsi la ho latela VAC',
-                valueType: 'DATE',
-                inputColor: Color(0xFF0F9587),
-                labelColor: Color(0xFF737373)),
-            InputField(
-                id: 'rMtSykWZ4HB',
-                name: 'VAC Service Provision Status',
-                translatedName: 'Boemo ba Phano ea Litšebeletso ea VAC',
-                valueType: 'TEXT',
-                inputColor: Color(0xFF0F9587),
-                labelColor: Color(0xFF737373),
-                options: [
-                  InputFieldOption(
-                      code: 'Achieved',
-                      name: 'Achieved',
-                      translatedName: 'Hona le katleho'),
-                  InputFieldOption(
-                      code: 'In progress',
-                      name: 'In progress',
-                      translatedName: 'Tsoelo pele'),
-                  InputFieldOption(
-                      code: 'Not achieved',
-                      name: 'Not achieved',
-                      translatedName: 'Ha ho katleho e fihletsoeng')
-                ]),
+              id: 'rMtSykWZ4HB',
+              name: 'VAC Service provided',
+              // translatedName: 'Boemo ba Phano ea Litšebeletso ea VAC',
+              valueType: 'TRUE_ONLY',
+              inputColor: Color(0xFF0F9587),
+              labelColor: Color(0xFF737373),
+            ),
             InputField(
                 id: 'qwnfgBG2web',
                 name: 'VAC Service Provision Date',
                 translatedName: 'Letsatsi la Kabo ea Litšebeletso tsa VAC',
                 valueType: 'DATE',
+                inputColor: Color(0xFF0F9587),
+                labelColor: Color(0xFF737373)),
+            InputField(
+                id: '',
+                name: 'VAC session number',
+                // translatedName: 'Boemo ba Phano ea Litšebeletso ea VAC',
+                valueType: 'TEXT',
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
             InputField(
@@ -784,42 +536,27 @@ class HouseholdServiceFollowup {
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
             InputField(
-                id: 'iQ1FizjOkkl',
-                name: 'VAC Legal Messaging Follow-up date',
-                allowFuturePeriod: true,
-                disablePastPeriod: true,
-                translatedName: 'Letsatsi la ho latela VAC Legal Messaging',
-                valueType: 'DATE',
-                inputColor: Color(0xFF0F9587),
-                labelColor: Color(0xFF737373)),
-            InputField(
-                id: 'QDFZ03HbjGj',
-                name: 'VAC Legal Messaging Provision Status',
-                translatedName:
-                    'Boemo ba Phano ea Litšebeletso ea VAC Legal Messaging',
-                valueType: 'TEXT',
-                inputColor: Color(0xFF0F9587),
-                labelColor: Color(0xFF737373),
-                options: [
-                  InputFieldOption(
-                      code: 'Achieved',
-                      name: 'Achieved',
-                      translatedName: 'Hona le katleho'),
-                  InputFieldOption(
-                      code: 'In progress',
-                      name: 'In progress',
-                      translatedName: 'Tsoelo pele'),
-                  InputFieldOption(
-                      code: 'Not achieved',
-                      name: 'Not achieved',
-                      translatedName: 'Ha ho katleho e fihletsoeng')
-                ]),
+              id: 'QDFZ03HbjGj',
+              name: 'VAC Legal Messaging Service provided',
+              // translatedName:
+              //     'Boemo ba Phano ea Litšebeletso ea VAC Legal Messaging',
+              valueType: 'TRUE_ONLY',
+              inputColor: Color(0xFF0F9587),
+              labelColor: Color(0xFF737373),
+            ),
             InputField(
                 id: 'Dw1xLXILErU',
                 name: 'VAC Legal Messaging Provision Date',
                 translatedName:
                     'Letsatsi la Kabo ea Litšebeletso tsa VAC Legal Messaging',
                 valueType: 'DATE',
+                inputColor: Color(0xFF0F9587),
+                labelColor: Color(0xFF737373)),
+            InputField(
+                id: '',
+                name: 'VAC Legal Messaging session number',
+                // translatedName: 'Boemo ba Phano ea Litšebeletso ea P&FC',
+                valueType: 'TEXT',
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
             InputField(
@@ -830,41 +567,26 @@ class HouseholdServiceFollowup {
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
             InputField(
-                id: 'ZeDSleJMfKr',
-                name: 'SURVIVORS Follow-up date',
-                allowFuturePeriod: true,
-                disablePastPeriod: true,
-                translatedName: 'Letsatsi la ho latela SURVIVORS',
-                valueType: 'DATE',
-                inputColor: Color(0xFF0F9587),
-                labelColor: Color(0xFF737373)),
-            InputField(
-                id: 'cuy4Ai7mBbA',
-                name: 'SURVIVORS Service Provision Status',
-                translatedName: 'Boemo ba Phano ea Litšebeletso ea SURVIVORS',
-                valueType: 'TEXT',
-                inputColor: Color(0xFF0F9587),
-                labelColor: Color(0xFF737373),
-                options: [
-                  InputFieldOption(
-                      code: 'Achieved',
-                      name: 'Achieved',
-                      translatedName: 'Hona le katleho'),
-                  InputFieldOption(
-                      code: 'In progress',
-                      name: 'In progress',
-                      translatedName: 'Tsoelo pele'),
-                  InputFieldOption(
-                      code: 'Not achieved',
-                      name: 'Not achieved',
-                      translatedName: 'Ha ho katleho e fihletsoeng')
-                ]),
+              id: 'cuy4Ai7mBbA',
+              name: 'SURVIVORS Service provided',
+              // translatedName: 'Boemo ba Phano ea Litšebeletso ea SURVIVORS',
+              valueType: 'TRUE_ONLY',
+              inputColor: Color(0xFF0F9587),
+              labelColor: Color(0xFF737373),
+            ),
             InputField(
                 id: 'C5bhgqcq6Qn',
                 name: 'SURVIVORS Service Provision Date',
                 translatedName:
                     'Letsatsi la Kabo ea Litšebeletso tsa SURVIVORS',
                 valueType: 'DATE',
+                inputColor: Color(0xFF0F9587),
+                labelColor: Color(0xFF737373)),
+            InputField(
+                id: '',
+                name: 'SURVIVORS session number',
+                // translatedName: 'Boemo ba Phano ea Litšebeletso ea SURVIVORS',
+                valueType: 'TEXT',
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
             InputField(
@@ -875,40 +597,25 @@ class HouseholdServiceFollowup {
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
             InputField(
-                id: 'BJ0jXcce2sw',
-                name: 'COUNSEL Follow-up date',
-                allowFuturePeriod: true,
-                disablePastPeriod: true,
-                translatedName: 'Letsatsi la ho latela COUNSEL',
-                valueType: 'DATE',
-                inputColor: Color(0xFF0F9587),
-                labelColor: Color(0xFF737373)),
-            InputField(
-                id: 'ysDSdiL7wNx',
-                name: 'COUNSEL Service Provision Status',
-                translatedName: 'Boemo ba Phano ea Litšebeletso ea COUNSEL',
-                valueType: 'TEXT',
-                inputColor: Color(0xFF0F9587),
-                labelColor: Color(0xFF737373),
-                options: [
-                  InputFieldOption(
-                      code: 'Achieved',
-                      name: 'Achieved',
-                      translatedName: 'Hona le katleho'),
-                  InputFieldOption(
-                      code: 'In progress',
-                      name: 'In progress',
-                      translatedName: 'Tsoelo pele'),
-                  InputFieldOption(
-                      code: 'Not achieved',
-                      name: 'Not achieved',
-                      translatedName: 'Ha ho katleho e fihletsoeng')
-                ]),
+              id: 'ysDSdiL7wNx',
+              name: 'COUNSEL Service provided',
+              // translatedName: 'Boemo ba Phano ea Litšebeletso ea COUNSEL',
+              valueType: 'TRUE_ONLY',
+              inputColor: Color(0xFF0F9587),
+              labelColor: Color(0xFF737373),
+            ),
             InputField(
                 id: 'pBVmFpsSGN7',
                 name: 'COUNSEL Service Provision Date',
                 translatedName: 'Letsatsi la Kabo ea Litšebeletso tsa COUNSEL',
                 valueType: 'DATE',
+                inputColor: Color(0xFF0F9587),
+                labelColor: Color(0xFF737373)),
+            InputField(
+                id: '',
+                name: 'COUNSEL session number',
+                // translatedName: 'Boemo ba Phano ea Litšebeletso ea COUNSEL',
+                valueType: 'TEXT',
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
             InputField(
@@ -919,40 +626,25 @@ class HouseholdServiceFollowup {
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
             InputField(
-                id: 'RZR0kUm9Ov8',
-                name: 'ABUSE Follow-up date',
-                allowFuturePeriod: true,
-                disablePastPeriod: true,
-                translatedName: 'Letsatsi la ho latela ABUSE',
-                valueType: 'DATE',
-                inputColor: Color(0xFF0F9587),
-                labelColor: Color(0xFF737373)),
-            InputField(
-                id: 'UZJ9vqIabAY',
-                name: 'ABUSE Service Provision Status',
-                translatedName: 'Boemo ba Phano ea Litšebeletso ea ABUSE',
-                valueType: 'TEXT',
-                inputColor: Color(0xFF0F9587),
-                labelColor: Color(0xFF737373),
-                options: [
-                  InputFieldOption(
-                      code: 'Achieved',
-                      name: 'Achieved',
-                      translatedName: 'Hona le katleho'),
-                  InputFieldOption(
-                      code: 'In progress',
-                      name: 'In progress',
-                      translatedName: 'Tsoelo pele'),
-                  InputFieldOption(
-                      code: 'Not achieved',
-                      name: 'Not achieved',
-                      translatedName: 'Ha ho katleho e fihletsoeng')
-                ]),
+              id: 'UZJ9vqIabAY',
+              name: 'ABUSE Service provided',
+              // translatedName: 'Boemo ba Phano ea Litšebeletso ea ABUSE',
+              valueType: 'TRUE_ONLY',
+              inputColor: Color(0xFF0F9587),
+              labelColor: Color(0xFF737373),
+            ),
             InputField(
                 id: 'pGDK3Y7tN2B',
                 name: 'ABUSE Service Provision Date',
                 translatedName: 'Letsatsi la Kabo ea Litšebeletso tsa ABUSE',
                 valueType: 'DATE',
+                inputColor: Color(0xFF0F9587),
+                labelColor: Color(0xFF737373)),
+            InputField(
+                id: '',
+                name: 'ABUSE session number',
+                // translatedName: 'Boemo ba Phano ea Litšebeletso ea ABUSE',
+                valueType: 'TEXT',
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
             InputField(
@@ -963,40 +655,25 @@ class HouseholdServiceFollowup {
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
             InputField(
-                id: 'UVD4nyRh9G4',
-                name: 'LEGALPROT Follow-up date',
-                allowFuturePeriod: true,
-                disablePastPeriod: true,
-                translatedName: 'Letsatsi la ho latela LEGALPROT',
-                valueType: 'DATE',
-                inputColor: Color(0xFF0F9587),
-                labelColor: Color(0xFF737373)),
-            InputField(
-                id: 'gfKsz88uxtg',
-                name: 'LEGALPROT Service Provision Status',
-                translatedName: 'Boemo ba Phano ea Litšebeletso ea LEGALPROT',
-                valueType: 'TEXT',
-                inputColor: Color(0xFF0F9587),
-                labelColor: Color(0xFF737373),
-                options: [
-                  InputFieldOption(
-                      code: 'Achieved',
-                      name: 'Achieved',
-                      translatedName: 'Hona le katleho'),
-                  InputFieldOption(
-                      code: 'In progress',
-                      name: 'In progress',
-                      translatedName: 'Tsoelo pele'),
-                  InputFieldOption(
-                      code: 'Not achieved',
-                      name: 'Not achieved',
-                      translatedName: 'Ha ho katleho e fihletsoeng')
-                ]),
+              id: 'gfKsz88uxtg',
+              name: 'LEGALPROT Service provided',
+              // translatedName: 'Boemo ba Phano ea Litšebeletso ea LEGALPROT',
+              valueType: 'TRUE_ONLY',
+              inputColor: Color(0xFF0F9587),
+              labelColor: Color(0xFF737373),
+            ),
             InputField(
                 id: 'P06od0qmlSR',
                 name: 'LEGALPROT Service Provision Date',
                 translatedName:
                     'Letsatsi la Kabo ea Litšebeletso tsa LEGALPROT',
+                valueType: 'TEXT',
+                inputColor: Color(0xFF0F9587),
+                labelColor: Color(0xFF737373)),
+            InputField(
+                id: '',
+                name: 'LEGALPROT session number',
+                // translatedName: 'Boemo ba Phano ea Litšebeletso ea LEGALPROT',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
@@ -1008,41 +685,26 @@ class HouseholdServiceFollowup {
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
             InputField(
-                id: 'yHtXXWgvUPI',
-                name: 'BIRTHCERT Follow-up Date',
-                allowFuturePeriod: true,
-                disablePastPeriod: true,
-                translatedName: 'Letsatsi la ho latela BIRTHCERT',
-                valueType: 'DATE',
-                inputColor: Color(0xFF0F9587),
-                labelColor: Color(0xFF737373)),
-            InputField(
-                id: 'aGChpBlIzcd',
-                name: 'BIRTHCERT Service Provision Status',
-                translatedName: 'Boemo ba Phano ea Litšebeletso ea BIRTHCERT',
-                valueType: 'TEXT',
-                inputColor: Color(0xFF0F9587),
-                labelColor: Color(0xFF737373),
-                options: [
-                  InputFieldOption(
-                      code: 'Achieved',
-                      name: 'Achieved',
-                      translatedName: 'Hona le katleho'),
-                  InputFieldOption(
-                      code: 'In progress',
-                      name: 'In progress',
-                      translatedName: 'Tsoelo pele'),
-                  InputFieldOption(
-                      code: 'Not achieved',
-                      name: 'Not achieved',
-                      translatedName: 'Ha ho katleho e fihletsoeng')
-                ]),
+              id: 'aGChpBlIzcd',
+              name: 'BIRTHCERT Service provided',
+              // translatedName: 'Boemo ba Phano ea Litšebeletso ea BIRTHCERT',
+              valueType: 'TRUE_ONLY',
+              inputColor: Color(0xFF0F9587),
+              labelColor: Color(0xFF737373),
+            ),
             InputField(
                 id: 'AXLxNo9pz8c',
                 name: 'BIRTHCERT Service Provision Date',
                 translatedName:
                     'Letsatsi la Kabo ea Litšebeletso tsa BIRTHCERT',
                 valueType: 'DATE',
+                inputColor: Color(0xFF0F9587),
+                labelColor: Color(0xFF737373)),
+            InputField(
+                id: '',
+                name: 'BIRTHCERT session number',
+                // translatedName: 'Boemo ba Phano ea Litšebeletso ea BIRTHCERT',
+                valueType: 'TEXT',
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
             InputField(
@@ -1061,40 +723,25 @@ class HouseholdServiceFollowup {
           borderColor: Color(0xFF9B2BAE),
           inputFields: [
             InputField(
-                id: 'nqip0DmFucC',
-                name: 'PTS4G Follow-up date',
-                allowFuturePeriod: true,
-                disablePastPeriod: true,
-                translatedName: 'Letsatsi la ho latela PTS4G',
-                valueType: 'DATE',
-                inputColor: Color(0xFF9B2BAE),
-                labelColor: Color(0xFF737373)),
-            InputField(
-                id: 'EYhFIkTpUS3',
-                name: 'PTS4G Service Provision Status',
-                translatedName: 'Boemo ba Phano ea Litšebeletso ea PTS4G',
-                valueType: 'TEXT',
-                inputColor: Color(0xFF9B2BAE),
-                labelColor: Color(0xFF737373),
-                options: [
-                  InputFieldOption(
-                      code: 'Achieved',
-                      name: 'Achieved',
-                      translatedName: 'Hona le katleho'),
-                  InputFieldOption(
-                      code: 'In progress',
-                      name: 'In progress',
-                      translatedName: 'Tsoelo pele'),
-                  InputFieldOption(
-                      code: 'Not achieved',
-                      name: 'Not achieved',
-                      translatedName: 'Ha ho katleho e fihletsoeng')
-                ]),
+              id: 'EYhFIkTpUS3',
+              name: 'PTS4G Service provided',
+              // translatedName: 'Boemo ba Phano ea Litšebeletso ea PTS4G',
+              valueType: 'TRUE_ONLY',
+              inputColor: Color(0xFF9B2BAE),
+              labelColor: Color(0xFF737373),
+            ),
             InputField(
                 id: 'rM13n9K4vE7',
                 name: 'PTS4G Service Provision Date',
                 translatedName: 'Letsatsi la Kabo ea Litšebeletso tsa PTS4G',
                 valueType: 'DATE',
+                inputColor: Color(0xFF9B2BAE),
+                labelColor: Color(0xFF737373)),
+            InputField(
+                id: '',
+                name: 'PTS4G session number',
+                // translatedName: 'Boemo ba Phano ea Litšebeletso ea PTS4G',
+                valueType: 'TEXT',
                 inputColor: Color(0xFF9B2BAE),
                 labelColor: Color(0xFF737373)),
             InputField(
@@ -1105,40 +752,25 @@ class HouseholdServiceFollowup {
                 inputColor: Color(0xFF9B2BAE),
                 labelColor: Color(0xFF737373)),
             InputField(
-                id: 'CiDZ0bP8sUk',
-                name: 'PTS4NG Follow-up date',
-                allowFuturePeriod: true,
-                disablePastPeriod: true,
-                translatedName: 'Letsatsi la ho latela PTS4NG',
-                valueType: 'DATE',
-                inputColor: Color(0xFF9B2BAE),
-                labelColor: Color(0xFF737373)),
-            InputField(
-                id: 'IiKUlAeSIE3',
-                name: 'PTS4NG Service Provision Status',
-                translatedName: 'Boemo ba Phano ea Litšebeletso ea PTS4NG',
-                valueType: 'TEXT',
-                inputColor: Color(0xFF9B2BAE),
-                labelColor: Color(0xFF737373),
-                options: [
-                  InputFieldOption(
-                      code: 'Achieved',
-                      name: 'Achieved',
-                      translatedName: 'Hona le katleho'),
-                  InputFieldOption(
-                      code: 'In progress',
-                      name: 'In progress',
-                      translatedName: 'Tsoelo pele'),
-                  InputFieldOption(
-                      code: 'Not achieved',
-                      name: 'Not achieved',
-                      translatedName: 'Ha ho katleho e fihletsoeng')
-                ]),
+              id: 'IiKUlAeSIE3',
+              name: 'PTS4NG Service provided',
+              // translatedName: 'Boemo ba Phano ea Litšebeletso ea PTS4NG',
+              valueType: 'TRUE_ONLY',
+              inputColor: Color(0xFF9B2BAE),
+              labelColor: Color(0xFF737373),
+            ),
             InputField(
                 id: 'rUCb6Afcz9U',
                 name: 'PTS4NG Service Provision Date',
                 translatedName: 'Letsatsi la Kabo ea Litšebeletso tsa PTS4NG',
                 valueType: 'DATE',
+                inputColor: Color(0xFF9B2BAE),
+                labelColor: Color(0xFF737373)),
+            InputField(
+                id: '',
+                name: 'PTS4NG session number',
+                // translatedName: 'Boemo ba Phano ea Litšebeletso ea PTS4NG',
+                valueType: 'TEXT',
                 inputColor: Color(0xFF9B2BAE),
                 labelColor: Color(0xFF737373)),
             InputField(
@@ -1149,40 +781,25 @@ class HouseholdServiceFollowup {
                 inputColor: Color(0xFF9B2BAE),
                 labelColor: Color(0xFF737373)),
             InputField(
-                id: 'VNX4rtSJ4GQ',
-                name: 'HWCLUB Follow-up date',
-                allowFuturePeriod: true,
-                disablePastPeriod: true,
-                translatedName: 'Letsatsi la ho latela HWCLUB',
-                valueType: 'DATE',
-                inputColor: Color(0xFF9B2BAE),
-                labelColor: Color(0xFF737373)),
-            InputField(
-                id: 'hg2bpp1HqwU',
-                name: 'HWCLUB Service Provision Status',
-                translatedName: 'Boemo ba Phano ea Litšebeletso ea HWCLUB',
-                valueType: 'TEXT',
-                inputColor: Color(0xFF9B2BAE),
-                labelColor: Color(0xFF737373),
-                options: [
-                  InputFieldOption(
-                      code: 'Achieved',
-                      name: 'Achieved',
-                      translatedName: 'Hona le katleho'),
-                  InputFieldOption(
-                      code: 'In progress',
-                      name: 'In progress',
-                      translatedName: 'Tsoelo pele'),
-                  InputFieldOption(
-                      code: 'Not achieved',
-                      name: 'Not achieved',
-                      translatedName: 'Ha ho katleho e fihletsoeng')
-                ]),
+              id: 'hg2bpp1HqwU',
+              name: 'HWCLUB Service provided',
+              // translatedName: 'Boemo ba Phano ea Litšebeletso ea HWCLUB',
+              valueType: 'TRUE_ONLY',
+              inputColor: Color(0xFF9B2BAE),
+              labelColor: Color(0xFF737373),
+            ),
             InputField(
                 id: 'wB2jXLTYtDb',
                 name: 'HWCLUB Service Provision Date',
                 translatedName: 'Letsatsi la Kabo ea Litšebeletso tsa HWCLUB',
                 valueType: 'DATE',
+                inputColor: Color(0xFF9B2BAE),
+                labelColor: Color(0xFF737373)),
+            InputField(
+                id: '',
+                name: 'HWCLUB session number',
+                // translatedName: 'Boemo ba Phano ea Litšebeletso ea HWCLUB',
+                valueType: 'TEXT',
                 inputColor: Color(0xFF9B2BAE),
                 labelColor: Color(0xFF737373)),
             InputField(
@@ -1199,37 +816,23 @@ class HouseholdServiceFollowup {
           borderColor: Color(0xFF4D9E49),
           inputFields: [
             InputField(
-                id: 'akYwcu3idMK',
-                name: 'OTHER ACTIVITIES Follow-up date',
-                allowFuturePeriod: true,
-                disablePastPeriod: true,
-                valueType: 'DATE',
-                inputColor: Color(0xFF4D9E49),
-                labelColor: Color(0xFF737373)),
-            InputField(
-                id: 'TSx4O9Tf5v2',
-                name: 'OTHER ACTIVITIES Service Provision Status',
-                valueType: 'TEXT',
-                inputColor: Color(0xFF4D9E49),
-                labelColor: Color(0xFF737373),
-                options: [
-                  InputFieldOption(
-                      code: 'Achieved',
-                      name: 'Achieved',
-                      translatedName: 'Hona le katleho'),
-                  InputFieldOption(
-                      code: 'In progress',
-                      name: 'In progress',
-                      translatedName: 'Tsoelo pele'),
-                  InputFieldOption(
-                      code: 'Not achieved',
-                      name: 'Not achieved',
-                      translatedName: 'Ha ho katleho e fihletsoeng')
-                ]),
+              id: 'TSx4O9Tf5v2',
+              name: 'OTHER ACTIVITIES Service provided',
+              valueType: 'TRUE_ONLY',
+              inputColor: Color(0xFF4D9E49),
+              labelColor: Color(0xFF737373),
+            ),
             InputField(
                 id: 'x5VlMVD2a4E',
                 name: 'OTHER ACTIVITIES Service Provision Date',
                 valueType: 'DATE',
+                inputColor: Color(0xFF4D9E49),
+                labelColor: Color(0xFF737373)),
+            InputField(
+                id: '',
+                name: 'OTHER ACTIVITIES session number',
+                // translatedName: 'Boemo ba Phano ea Litšebeletso ea OTHER ACTIVITIES',
+                valueType: 'TEXT',
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
             InputField(
