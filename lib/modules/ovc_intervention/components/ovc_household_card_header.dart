@@ -29,6 +29,36 @@ class OvcHouseholdCardHeader extends StatelessWidget {
   final VoidCallback? onView;
   final VoidCallback? onToggleCard;
 
+  Visibility _getOvcHouseHoldCardHeaderIcon({
+    required double iconHeight,
+    required bool isVisible,
+    required String svgIcon,
+    required Color iconColor,
+    VoidCallback? onTap,
+  }) {
+    return Visibility(
+      visible: isVisible,
+      child: Expanded(
+        flex: 1,
+        child: InkWell(
+          onTap: onTap,
+          child: Container(
+            height: iconHeight * 0.8,
+            width: iconHeight,
+            margin: EdgeInsets.symmetric(
+              vertical: 5.0,
+              horizontal: 5.0,
+            ),
+            child: SvgPicture.asset(
+              svgIcon,
+              color: iconColor,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     double iconHeight = 20.0;
@@ -39,87 +69,54 @@ class OvcHouseholdCardHeader extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
+              _getOvcHouseHoldCardHeaderIcon(
+                iconHeight: iconHeight,
+                isVisible: true,
+                svgIcon: svgIcon,
+                iconColor: Color(0xFF4B9F46),
+              ),
               Visibility(
-                  visible: true,
-                  child: Expanded(
-                    flex: 1,
-                    child: Container(
-                      child: Container(
-                          height: iconHeight,
-                          width: iconHeight,
-                          child: SvgPicture.asset(
-                            svgIcon,
-                          )),
+                visible: true,
+                child: Expanded(
+                  flex: canEdit && canView ? 9 : 10,
+                  child: Container(
+                    padding: EdgeInsets.only(
+                      left: 5.0,
                     ),
-                  )),
-              Visibility(
-                  visible: true,
-                  child: Expanded(
-                    flex: canEdit && canView ? 9 : 10,
-                    child: Container(
-                      padding: EdgeInsets.only(left: 5.0),
-                      child: Text(
-                        ovcHousehold!.primaryUIC!,
-                        style: TextStyle().copyWith(
-                            color: Color(0xFF1A3518),
-                            fontSize: 14.0,
-                            fontWeight: FontWeight.w700),
+                    child: Text(
+                      ovcHousehold!.primaryUIC!,
+                      style: TextStyle().copyWith(
+                        color: Color(0xFF1A3518),
+                        fontSize: 14.0,
+                        fontWeight: FontWeight.w700,
                       ),
                     ),
-                  )),
-              Visibility(
-                  visible: canView,
-                  child: Expanded(
-                    flex: 1,
-                    child: InkWell(
-                        onTap: onView,
-                        child: Container(
-                          height: iconHeight,
-                          width: iconHeight,
-                          margin:
-                              EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-                          child: SvgPicture.asset(
-                            'assets/icons/expand_icon.svg',
-                            color: Color(0xFF4B9F46),
-                          ),
-                        )),
-                  )),
-              Visibility(
-                  visible: canEdit,
-                  child: Expanded(
-                    flex: 1,
-                    child: InkWell(
-                        onTap: onEdit,
-                        child: Container(
-                          height: iconHeight,
-                          width: iconHeight,
-                          margin:
-                              EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-                          child: SvgPicture.asset(
-                            'assets/icons/edit-icon.svg',
-                            color: Color(0xFF4B9F46),
-                          ),
-                        )),
-                  )),
-              Visibility(
-                  visible: canExpand,
-                  child: Expanded(
-                    flex: 1,
-                    child: InkWell(
-                        onTap: onToggleCard,
-                        child: Container(
-                          height: iconHeight * 0.8,
-                          width: iconHeight,
-                          margin:
-                              EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-                          child: SvgPicture.asset(
-                            isExpanded
-                                ? 'assets/icons/chevron_up.svg'
-                                : 'assets/icons/chevron_down.svg',
-                            color: Color(0xFF05131B),
-                          ),
-                        )),
-                  )),
+                  ),
+                ),
+              ),
+              _getOvcHouseHoldCardHeaderIcon(
+                iconHeight: iconHeight,
+                isVisible: canView,
+                onTap: onView,
+                svgIcon: 'assets/icons/expand_icon.svg',
+                iconColor: Color(0xFF4B9F46),
+              ),
+              _getOvcHouseHoldCardHeaderIcon(
+                iconHeight: iconHeight,
+                isVisible: canEdit,
+                onTap: onEdit,
+                svgIcon: 'assets/icons/edit-icon.svg',
+                iconColor: Color(0xFF4B9F46),
+              ),
+              _getOvcHouseHoldCardHeaderIcon(
+                iconHeight: iconHeight,
+                isVisible: canExpand,
+                onTap: onToggleCard,
+                svgIcon: isExpanded
+                    ? 'assets/icons/chevron_up.svg'
+                    : 'assets/icons/chevron_down.svg',
+                iconColor: Color(0xFF05131B),
+              ),
             ],
           ),
         ),
