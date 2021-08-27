@@ -73,8 +73,16 @@ class OgacBeneficiaryCardBody extends StatelessWidget {
                   value: ogacBeneficiary.sex!,
                 ),
                 _getRowBeneficiaryData(
+                  key: 'Phone number',
+                  value: ogacBeneficiary.phoneNumber!,
+                ),
+                _getRowBeneficiaryData(
                   key: currentLanguage == 'lesotho' ? 'Sebaka' : 'Location',
                   value: ogacBeneficiary.location!,
+                ),
+                _getRowBeneficiaryData(
+                  key: 'Village',
+                  value: ogacBeneficiary.village!,
                 ),
                 _getRowBeneficiaryData(
                   key: 'Created on',
