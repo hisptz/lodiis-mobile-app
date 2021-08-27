@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/core/components/line_separator.dart';
 import 'package:kb_mobile_app/core/components/material_card.dart';
 import 'package:kb_mobile_app/models/ogac_beneficiary.dart';
 import 'package:kb_mobile_app/modules/ogac_intervention/components/ogac_beneficiary_card_body.dart';
 import 'package:kb_mobile_app/modules/ogac_intervention/components/ogac_beneficiary_card_top.dart';
-import 'package:provider/provider.dart';
 
 class OgacBeneficiaryCard extends StatelessWidget {
   const OgacBeneficiaryCard({
@@ -18,9 +16,6 @@ class OgacBeneficiaryCard extends StatelessWidget {
   final OgacBeneficiary ogacBeneficiary;
   final VoidCallback? onViewBeneficiary;
   final VoidCallback? onEditBeneficiary;
-
-  //@TODO add row for display contact info
-  // refactor repeatable rows
 
   @override
   Widget build(BuildContext context) {
