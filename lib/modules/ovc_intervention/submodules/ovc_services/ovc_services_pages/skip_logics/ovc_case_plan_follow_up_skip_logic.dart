@@ -19,9 +19,227 @@ mixin OvcCasePlanFollowUpSkipLogic {
       inputFieldIds.add('$key');
     }
     inputFieldIds = inputFieldIds.toSet().toList();
+
     for (String inputFieldId in inputFieldIds) {
-      hiddenFields[inputFieldId] = true;
+      hiddenFields[inputFieldId] = false;
+      // hiding service fields based on offered services.
+      // HEALTH DOMAIN
+      // String value = '${dataObject[inputFieldId]}';
+      // if (inputFieldId == 'JnqldNamliR' && value == 'true') {
+      //   hiddenFields['CNnzifTDF5a'] == false;
+      //   hiddenFields['UQKbbPTRaB8'] == false;
+      //   hiddenFields['sxlVgySosg3'] == false;
+      // } else if (inputFieldId == 'BYu8pI5kGXF' && value == 'true') {
+      //   hiddenFields['u8r8p0a3JqU'] == false;
+      //   hiddenFields['W5lbgijaXA6'] == false;
+      //   hiddenFields[''] == false;
+      // } else if (inputFieldId == 'YFgrURiwirq' && value == 'true') {
+      //   hiddenFields['LtiZFxXw0Wc'] == false;
+      //   hiddenFields['i9icxSZ8HCf'] == false;
+      //   hiddenFields[''] == false;
+      // } else if (inputFieldId == 'HzI5X2yHef6' && value == 'true') {
+      //   hiddenFields['GyG2HcLsVka'] == false;
+      //   hiddenFields['y8ToqnbVz1o'] == false;
+      //   hiddenFields[''] == false;
+      // } else if (inputFieldId == 'eqhzeRBMftZ' && value == 'true') {
+      //   hiddenFields['F8x8QAoFQBO'] == false;
+      //   hiddenFields['AStxMCkJhi5'] == false;
+      //   hiddenFields[''] == false;
+      // } else if (inputFieldId == 'ESIjwQ9S6Ic' && value == 'true') {
+      //   hiddenFields['EYv3aMwJOUN'] == false;
+      //   hiddenFields['GISFLEttRtU'] == false;
+      //   hiddenFields[''] == false;
+      // } else if (inputFieldId == 'r8wPQAog7PJ' && value == 'true') {
+      //   hiddenFields['EgbO5h9cs5D'] == false;
+      //   hiddenFields['itTgPQ0OrMU'] == false;
+      //   hiddenFields[''] == false;
+      // } else if (inputFieldId == 'UKczyQWCB0L' && value == 'true') {
+      //   hiddenFields['jsEr16lnber'] == false;
+      //   hiddenFields['wZLjymsKsuj'] == false;
+      //   hiddenFields[''] == false;
+      // } else if (inputFieldId == 'KkqMjxjAR7g' && value == 'true') {
+      //   hiddenFields['gYAZrh9o1DB'] == false;
+      //   hiddenFields['Jxlug5I3kdu'] == false;
+      //   hiddenFields[''] == false;
+      // } else if (inputFieldId == 'mRoO7kgpgVg' && value == 'true') {
+      //   hiddenFields['CIRXgKGOmSI'] == false;
+      //   hiddenFields['YSsfKXdIRLG'] == false;
+      //   hiddenFields[''] == false;
+      // } else if (inputFieldId == 'GNQ3gDA2CTI' && value == 'true') {
+      //   hiddenFields['oTSVSO3iHTk'] == false;
+      //   hiddenFields['aDOvfQ1wdIX'] == false;
+      //   hiddenFields[''] == false;
+      // } else if (inputFieldId == 'gSp9bgPW52L' && value == 'true') {
+      //   hiddenFields['fVpcWBp0Ngp'] == false;
+      //   hiddenFields['pSkl6ibruvU'] == false;
+      //   hiddenFields[''] == false;
+      // } else if (inputFieldId == 'mY7GqOTKtsQ' && value == 'true') {
+      //   hiddenFields['h6obb1v1stw'] == false;
+      //   hiddenFields['kBivIQr6mrW'] == false;
+      //   hiddenFields[''] == false;
+      // } else if (inputFieldId == 'zK7kMYpgPQn' && value == 'true') {
+      //   hiddenFields['GtejBpkVvtD'] == false;
+      //   hiddenFields['g2X9vUL2d9m'] == false;
+      //   hiddenFields[''] == false;
+      // } else if (inputFieldId == 'tnspdPfpuXm' && value == 'true') {
+      //   hiddenFields['V1HnY5m2Pmv'] == false;
+      //   hiddenFields['eXh6Gag1uwp'] == false;
+      //   hiddenFields[''] == false;
+      // } else if (inputFieldId == 'QnFYeBNZlbf' && value == 'true') {
+      //   hiddenFields['EnrZPBFxZuX'] == false;
+      //   hiddenFields['xdI5atw8DC4'] == false;
+      //   hiddenFields[''] == false;
+      // }
+
+      // // STABLE DOMAIN
+      // else if (inputFieldId == 'KvLYMr8F4vg' && value == 'true') {
+      //   hiddenFields['hnMy2l2pB3z'] == false;
+      //   hiddenFields['TN5r1EFmHWz'] == false;
+      //   hiddenFields[''] == false;
+      // } else if (inputFieldId == 'AnnOS2m6LZK' && value == 'true') {
+      //   hiddenFields['UHWzhDsQdoB'] == false;
+      //   hiddenFields['xECpX8Vt1rT'] == false;
+      //   hiddenFields[''] == false;
+      // } else if (inputFieldId == 'kcoDiGNXWpA' && value == 'true') {
+      //   hiddenFields['qwmtkJDotBk'] == false;
+      //   hiddenFields['Z6VwHVRIh48'] == false;
+      //   hiddenFields[''] == false;
+      // } else if (inputFieldId == 'fgDPoYtifQI' && value == 'true') {
+      //   hiddenFields['lbCCs00yuGQ'] == false;
+      //   hiddenFields['TNmg7uRUWgC'] == false;
+      //   hiddenFields[''] == false;
+      // } else if (inputFieldId == 'cbqS6IoSbwI' && value == 'true') {
+      //   hiddenFields['zKkaaSt1c8V'] == false;
+      //   hiddenFields['KpUgwivl5Cr'] == false;
+      //   hiddenFields[''] == false;
+      // } else if (inputFieldId == 'gV77yUM8NK8' && value == 'true') {
+      //   hiddenFields['aqJBZDBzh4m'] == false;
+      //   hiddenFields['JFlnkaXlXm5'] == false;
+      //   hiddenFields[''] == false;
+      // } else if (inputFieldId == 'qL9c5r7c6kK' && value == 'true') {
+      //   hiddenFields['pUphS6E1Gu5'] == false;
+      //   hiddenFields['SODPuEmHEGV'] == false;
+      //   hiddenFields[''] == false;
+      // } else if (inputFieldId == 'FRWCmEerPic' && value == 'true') {
+      //   hiddenFields['lQYnoeqfKpe'] == false;
+      //   hiddenFields['w4EYZpbtUV8'] == false;
+      //   hiddenFields[''] == false;
+      // } else if (inputFieldId == 'xTO562B5g53' && value == 'true') {
+      //   hiddenFields['uOMr56xoKDh'] == false;
+      //   hiddenFields['hMdC0CMKSGn'] == false;
+      //   hiddenFields[''] == false;
+      // } else if (inputFieldId == 'lpTVK3t1Ahk' && value == 'true') {
+      //   hiddenFields['j1yzHzO0w6w'] == false;
+      //   hiddenFields['QnfPxpJvb1D'] == false;
+      //   hiddenFields[''] == false;
+      // } else if (inputFieldId == 'lEkrLOFmLrH' && value == 'true') {
+      //   hiddenFields['F8ALMOcc6C1'] == false;
+      //   hiddenFields['p77CBdxxtHI'] == false;
+      //   hiddenFields[''] == false;
+      // }
+
+      // // SAFE DOMAIN
+      // else if (inputFieldId == 'RNKOtUtLT4c' && value == 'true') {
+      //   hiddenFields['sa79KxTFGFA'] == false;
+      //   hiddenFields['EB3JPVqMdb4'] == false;
+      //   hiddenFields[''] == false;
+      // } else if (inputFieldId == 'GImA3HB9YK5' && value == 'true') {
+      //   hiddenFields['fFuabYbLUjz'] == false;
+      //   hiddenFields['IFggJCXLYPD'] == false;
+      //   hiddenFields[''] == false;
+      // } else if (inputFieldId == 'Fj2RbXsb8Yj' && value == 'true') {
+      //   hiddenFields['f90c5olxs5Z'] == false;
+      //   hiddenFields['EPwDypaz61A'] == false;
+      //   hiddenFields[''] == false;
+      // } else if (inputFieldId == 'rMtSykWZ4HB' && value == 'true') {
+      //   hiddenFields['qwnfgBG2web'] == false;
+      //   hiddenFields['OMhFxj6SYhM'] == false;
+      //   hiddenFields[''] == false;
+      // } else if (inputFieldId == 'QDFZ03HbjGj' && value == 'true') {
+      //   hiddenFields['Dw1xLXILErU'] == false;
+      //   hiddenFields['KWk8waoLO7N'] == false;
+      //   hiddenFields[''] == false;
+      // } else if (inputFieldId == 'cuy4Ai7mBbA' && value == 'true') {
+      //   hiddenFields['C5bhgqcq6Qn'] == false;
+      //   hiddenFields['h10Iktl4KKR'] == false;
+      //   hiddenFields[''] == false;
+      // } else if (inputFieldId == 'ysDSdiL7wNx' && value == 'true') {
+      //   hiddenFields['pBVmFpsSGN7'] == false;
+      //   hiddenFields['XUoqvbk0uVH'] == false;
+      //   hiddenFields[''] == false;
+      // } else if (inputFieldId == 'vj0R7ySdigX' && value == 'true') {
+      //   hiddenFields['yW0TrzEslYO'] == false;
+      //   hiddenFields['tmi1jtKYZs0'] == false;
+      //   hiddenFields[''] == false;
+      // } else if (inputFieldId == 'JlRnllAlSk0' && value == 'true') {
+      //   hiddenFields['VlOw6vrLsp5'] == false;
+      //   hiddenFields['ONC3bpjq525'] == false;
+      //   hiddenFields[''] == false;
+      // } else if (inputFieldId == 'UZJ9vqIabAY' && value == 'true') {
+      //   hiddenFields['pGDK3Y7tN2B'] == false;
+      //   hiddenFields['U8h0daQzXXk'] == false;
+      //   hiddenFields[''] == false;
+      // } else if (inputFieldId == 'gfKsz88uxtg' && value == 'true') {
+      //   hiddenFields['P06od0qmlSR'] == false;
+      //   hiddenFields['iz4CvIFovsF'] == false;
+      //   hiddenFields[''] == false;
+      // } else if (inputFieldId == 'aGChpBlIzcd' && value == 'true') {
+      //   hiddenFields['AXLxNo9pz8c'] == false;
+      //   hiddenFields['cb773khL7XB'] == false;
+      //   hiddenFields[''] == false;
+      // } else if (inputFieldId == 'gwwUOs6yt6C' && value == 'true') {
+      //   hiddenFields['w2HlBCfHbZR'] == false;
+      //   hiddenFields['aG42nUguLLW'] == false;
+      //   hiddenFields[''] == false;
+      // } else if (inputFieldId == 'gfKsz88uxtg' && value == 'true') {
+      //   hiddenFields['P06od0qmlSR'] == false;
+      //   hiddenFields['iz4CvIFovsF'] == false;
+      //   hiddenFields[''] == false;
+      // }
+
+      // // SCHOOLED DOMAIN
+      // else if (inputFieldId == 'LcIB5EL3IjT' && value == 'true') {
+      //   hiddenFields['zYrrrFd48S5'] == false;
+      //   hiddenFields['WVsVwfErZ7V'] == false;
+      //   hiddenFields[''] == false;
+      // } else if (inputFieldId == 'EYhFIkTpUS3' && value == 'true') {
+      //   hiddenFields['rM13n9K4vE7'] == false;
+      //   hiddenFields['VlReEXXH1WN'] == false;
+      //   hiddenFields[''] == false;
+      // } else if (inputFieldId == 'IiKUlAeSIE3' && value == 'true') {
+      //   hiddenFields['rUCb6Afcz9U'] == false;
+      //   hiddenFields['sD0zbIksKTY'] == false;
+      //   hiddenFields[''] == false;
+      // } else if (inputFieldId == 'hg2bpp1HqwU' && value == 'true') {
+      //   hiddenFields['wB2jXLTYtDb'] == false;
+      //   hiddenFields['Riyr0nniCVo'] == false;
+      //   hiddenFields[''] == false;
+      // } else if (inputFieldId == 'fvgPnlOD7e9' && value == 'true') {
+      //   hiddenFields['JFetYCY5tza'] == false;
+      //   hiddenFields['yuwtSD8EyoY'] == false;
+      //   hiddenFields[''] == false;
+      // } else if (inputFieldId == 'MeMaUvt3O8j' && value == 'true') {
+      //   hiddenFields['KZIjTeMl7sj'] == false;
+      //   hiddenFields['KppYygPZ8BL'] == false;
+      //   hiddenFields[''] == false;
+      // } else if (inputFieldId == 'WQlWXUmYjI2' && value == 'true') {
+      //   hiddenFields['gAMv1jxS0rh'] == false;
+      //   hiddenFields['CxREUNzKxHB'] == false;
+      //   hiddenFields[''] == false;
+      // } else if (inputFieldId == 'Zc0M1jsbfyA' && value == 'true') {
+      //   hiddenFields['mLjRp8wJ8aW'] == false;
+      //   hiddenFields['QCbFgssCzeF'] == false;
+      //   hiddenFields[''] == false;
+      // }
+
+      // // Other activities
+      // else if (inputFieldId == 'TSx4O9Tf5v2' && value == 'true') {
+      //   hiddenFields['x5VlMVD2a4E'] == false;
+      //   hiddenFields['rJaHpLnWvfg'] == false;
+      //   hiddenFields[''] == false;
+      // }
     }
+
     dataObject.forEach((key, value) {
       if (key == 'ylSjcj6cv42' && value == 'true') {
         hiddenFields['f0oxTNNwdgP'] = false;

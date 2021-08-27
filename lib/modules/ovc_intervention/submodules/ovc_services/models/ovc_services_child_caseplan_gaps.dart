@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
-import 'package:kb_mobile_app/models/input_field_option.dart';
 
 class OvcServicesChildCasePlanGaps {
   static List<FormSection> getFormSections() {
@@ -28,28 +27,18 @@ class OvcServicesChildCasePlanGaps {
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
             InputField(
-                id: 'lDxuiUg9TOM',
-                name: '(HIVSCREEN) Responsible person(Internal/External)',
-                translatedName:
-                    '(HIVSCREEN) Motho ea ikarabellang (ka hare ho lelapa/ka ntle ho lelapa)',
+                id: 'iWH5MhwPSbD',
+                name: '(HIVSCREEN) Name of responsible internal person',
+                // translatedName:
+                //     'Lebitso la motho ea ikarabellang bakeng sa HIVSCREEN',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4D9E49),
-                labelColor: Color(0xFF737373),
-                options: [
-                  InputFieldOption(
-                      code: 'Internal',
-                      name: 'Internal',
-                      translatedName: 'Ka hare ho lelapa'),
-                  InputFieldOption(
-                      code: 'External',
-                      name: 'External',
-                      translatedName: 'Ka ntle ho lelapa')
-                ]),
+                labelColor: Color(0xFF737373)),
             InputField(
-                id: 'iWH5MhwPSbD',
-                name: '(HIVSCREEN) Name of responsible person',
-                translatedName:
-                    'Lebitso la motho ea ikarabellang bakeng sa HIVSCREEN',
+                id: '',
+                name: '(HIVSCREEN) Name of responsible external Person',
+                // translatedName:
+                //     'Lebitso la motho ea ikarabellang bakeng sa HIVSCREEN',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
@@ -69,28 +58,18 @@ class OvcServicesChildCasePlanGaps {
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
             InputField(
-                id: 'CxwbNfPmiN9',
-                name: '(HTS) Responsible person(Internal/External)',
-                translatedName:
-                    '(HTS) Motho ea ikarabellang (ka hare ho lelapa/ka ntle ho lelapa)',
+                id: 'vqf67Edjw4y',
+                name: '(HTS) Name of responsible internal Person',
+                // translatedName:
+                //     'Lebitso la motho ea ikarabellang bakeng sa HTS',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4D9E49),
-                labelColor: Color(0xFF737373),
-                options: [
-                  InputFieldOption(
-                      code: 'Internal',
-                      name: 'Internal',
-                      translatedName: 'Ka hare ho lelapa'),
-                  InputFieldOption(
-                      code: 'External',
-                      name: 'External',
-                      translatedName: 'Ka ntle ho lelapa')
-                ]),
+                labelColor: Color(0xFF737373)),
             InputField(
-                id: 'vqf67Edjw4y',
-                name: '(HTS) Name of responsible person',
-                translatedName:
-                    'Lebitso la motho ea ikarabellang bakeng sa HTS',
+                id: 'bQtXR6iQyo8',
+                name: '(HTS) Name of responsible external Person',
+                // translatedName:
+                //     'Lebitso la motho ea ikarabellang bakeng sa HTS',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
@@ -110,28 +89,18 @@ class OvcServicesChildCasePlanGaps {
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
             InputField(
-                id: 'JDqgRJlOSeZ',
-                name: '(HIVTREAT) Responsible person(Internal/External)',
-                translatedName:
-                    '(HIVTREAT) Motho ea ikarabellang (ka hare ho lelapa/ka ntle ho lelapa)',
+                id: 'elqeNdaYNTS',
+                name: '(HIVTREAT) Name of responsible internal person',
+                // translatedName:
+                //     'Lebitso la motho ea ikarabellang bakeng sa HIVTREAT',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4D9E49),
-                labelColor: Color(0xFF737373),
-                options: [
-                  InputFieldOption(
-                      code: 'Internal',
-                      name: 'Internal',
-                      translatedName: 'Ka hare ho lelapa'),
-                  InputFieldOption(
-                      code: 'External',
-                      name: 'External',
-                      translatedName: 'Ka ntle ho lelapa')
-                ]),
+                labelColor: Color(0xFF737373)),
             InputField(
-                id: 'elqeNdaYNTS',
-                name: '(HIVTREAT) Name of responsible person',
-                translatedName:
-                    'Lebitso la motho ea ikarabellang bakeng sa HIVTREAT',
+                id: '',
+                name: '(HIVTREAT) Name of responsible external Person',
+                // translatedName:
+                //     'Lebitso la motho ea ikarabellang bakeng sa HIVTREAT',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
@@ -151,28 +120,18 @@ class OvcServicesChildCasePlanGaps {
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
             InputField(
-                id: 'Fmsfd0cXF5w',
-                name: '(HIVS&D) Responsible person(Internal/External)',
-                translatedName:
-                    '(HIVS&D) Motho ea ikarabellang (ka hare ho lelapa/ka ntle ho lelapa)',
+                id: 'b6hvMQuH3oJ',
+                name: '(HIVS&D) Name of responsible internal person',
+                // translatedName:
+                //     'Lebitso la motho ea ikarabellang bakeng sa HIVS&D',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4D9E49),
-                labelColor: Color(0xFF737373),
-                options: [
-                  InputFieldOption(
-                      code: 'Internal',
-                      name: 'Internal',
-                      translatedName: 'Ka hare ho lelapa'),
-                  InputFieldOption(
-                      code: 'External',
-                      name: 'External',
-                      translatedName: 'Ka ntle ho lelapa')
-                ]),
+                labelColor: Color(0xFF737373)),
             InputField(
-                id: 'b6hvMQuH3oJ',
-                name: '(HIVS&D) Name of responsible person',
-                translatedName:
-                    'Lebitso la motho ea ikarabellang bakeng sa HIVS&D',
+                id: '',
+                name: '(HIVS&D) Name of responsible external Person',
+                // translatedName:
+                //     'Lebitso la motho ea ikarabellang bakeng sa HIVS&D',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
@@ -192,28 +151,18 @@ class OvcServicesChildCasePlanGaps {
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
             InputField(
-                id: 'cHWpS3Pa71v',
-                name: '(HEALTH) Responsible person(Internal/External)',
-                translatedName:
-                    '(HEALTH) Motho ea ikarabellang (ka hare ho lelapa/ka ntle ho lelapa)',
+                id: 'G6GkSeccLmB',
+                name: '(HEALTH) Name of responsible internal person',
+                // translatedName:
+                //     'Lebitso la motho ea ikarabellang bakeng sa HEALTH',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4D9E49),
-                labelColor: Color(0xFF737373),
-                options: [
-                  InputFieldOption(
-                      code: 'Internal',
-                      name: 'Internal',
-                      translatedName: 'Ka hare ho lelapa'),
-                  InputFieldOption(
-                      code: 'External',
-                      name: 'External',
-                      translatedName: 'Ka ntle ho lelapa')
-                ]),
+                labelColor: Color(0xFF737373)),
             InputField(
-                id: 'G6GkSeccLmB',
-                name: '(HEALTH) Name of responsible person',
-                translatedName:
-                    'Lebitso la motho ea ikarabellang bakeng sa HEALTH',
+                id: '',
+                name: '(HEALTH) Name of responsible external Person',
+                // translatedName:
+                //     'Lebitso la motho ea ikarabellang bakeng sa HEALTH',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
@@ -233,28 +182,18 @@ class OvcServicesChildCasePlanGaps {
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
             InputField(
-                id: 'HbjnW1JjroQ',
-                name: '(PRG&L) Responsible person(Internal/External)',
-                translatedName:
-                    '(PRG&L) Motho ea ikarabellang (ka hare ho lelapa/ka ntle ho lelapa)',
+                id: 'GnsYKEE2fnr',
+                name: '(PRG&L) Name of responsible internal person',
+                // translatedName:
+                //     'Lebitso la motho ea ikarabellang bakeng sa PRG&L',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4D9E49),
-                labelColor: Color(0xFF737373),
-                options: [
-                  InputFieldOption(
-                      code: 'Internal',
-                      name: 'Internal',
-                      translatedName: 'Ka hare ho lelapa'),
-                  InputFieldOption(
-                      code: 'External',
-                      name: 'External',
-                      translatedName: 'Ka ntle ho lelapa')
-                ]),
+                labelColor: Color(0xFF737373)),
             InputField(
-                id: 'GnsYKEE2fnr',
-                name: '(PRG&L) Name of responsible person',
-                translatedName:
-                    'Lebitso la motho ea ikarabellang bakeng sa PRG&L',
+                id: '',
+                name: '(PRG&L) Name of responsible external Person',
+                // translatedName:
+                //     'Lebitso la motho ea ikarabellang bakeng sa PRG&L',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
@@ -274,28 +213,18 @@ class OvcServicesChildCasePlanGaps {
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
             InputField(
-                id: 'b3vvyHQKsoK',
-                name: '(SAIDS) Responsible person(Internal/External)',
-                translatedName:
-                    '(SAIDS) Motho ea ikarabellang (ka hare ho lelapa/ka ntle ho lelapa)',
+                id: 'emAJOTWYHVq',
+                name: '(SAIDS) Name of responsible internal person',
+                // translatedName:
+                //     'Lebitso la motho ea ikarabellang bakeng sa SAIDS',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4D9E49),
-                labelColor: Color(0xFF737373),
-                options: [
-                  InputFieldOption(
-                      code: 'Internal',
-                      name: 'Internal',
-                      translatedName: 'Ka hare ho lelapa'),
-                  InputFieldOption(
-                      code: 'External',
-                      name: 'External',
-                      translatedName: 'Ka ntle ho lelapa')
-                ]),
+                labelColor: Color(0xFF737373)),
             InputField(
-                id: 'emAJOTWYHVq',
-                name: '(SAIDS) Name of responsible person',
-                translatedName:
-                    'Lebitso la motho ea ikarabellang bakeng sa SAIDS',
+                id: '',
+                name: '(SAIDS) Name of responsible external Person',
+                // translatedName:
+                //     'Lebitso la motho ea ikarabellang bakeng sa SAIDS',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
@@ -315,28 +244,18 @@ class OvcServicesChildCasePlanGaps {
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
             InputField(
-                id: 'B1yERoBbRzH',
-                name: '(IMMUNIZE) Responsible person(Internal/External)',
-                translatedName:
-                    '(IMMUNIZE) Motho ea ikarabellang (ka hare ho lelapa/ka ntle ho lelapa)',
+                id: 'tYYpfnshIvw',
+                name: '(IMMUNIZE) Name of responsible internal person',
+                // translatedName:
+                //     'Lebitso la motho ea ikarabellang bakeng sa IMMUNIZE',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4D9E49),
-                labelColor: Color(0xFF737373),
-                options: [
-                  InputFieldOption(
-                      code: 'Internal',
-                      name: 'Internal',
-                      translatedName: 'Ka hare ho lelapa'),
-                  InputFieldOption(
-                      code: 'External',
-                      name: 'External',
-                      translatedName: 'Ka ntle ho lelapa')
-                ]),
+                labelColor: Color(0xFF737373)),
             InputField(
-                id: 'tYYpfnshIvw',
-                name: '(IMMUNIZE) Name of responsible person',
-                translatedName:
-                    'Lebitso la motho ea ikarabellang bakeng sa IMMUNIZE',
+                id: '',
+                name: '(IMMUNIZE) Name of responsible external Person',
+                // translatedName:
+                //     'Lebitso la motho ea ikarabellang bakeng sa IMMUNIZE',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
@@ -356,28 +275,18 @@ class OvcServicesChildCasePlanGaps {
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
             InputField(
-                id: 'KzxrHSAQQa0',
-                name: '(MALNU) Responsible person(Internal/External)',
-                translatedName:
-                    '(MALNU) Motho ea ikarabellang (ka hare ho lelapa/ka ntle ho lelapa)',
+                id: 'SOPRtGCfa5Z',
+                name: '(MALNU) Name of responsible internal person',
+                // translatedName:
+                //     'Lebitso la motho ea ikarabellang bakeng sa MALNU',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4D9E49),
-                labelColor: Color(0xFF737373),
-                options: [
-                  InputFieldOption(
-                      code: 'Internal',
-                      name: 'Internal',
-                      translatedName: 'Ka hare ho lelapa'),
-                  InputFieldOption(
-                      code: 'External',
-                      name: 'External',
-                      translatedName: 'Ka ntle ho lelapa')
-                ]),
+                labelColor: Color(0xFF737373)),
             InputField(
-                id: 'SOPRtGCfa5Z',
-                name: '(MALNU) Name of responsible person',
-                translatedName:
-                    'Lebitso la motho ea ikarabellang bakeng sa MALNU',
+                id: '',
+                name: '(MALNU) Name of responsible external Person',
+                // translatedName:
+                //     'Lebitso la motho ea ikarabellang bakeng sa MALNU',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
@@ -397,28 +306,18 @@ class OvcServicesChildCasePlanGaps {
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
             InputField(
-                id: 'thVPqfmKo4X',
-                name: '(CCFLS) Responsible person(Internal/External)',
-                translatedName:
-                    '(CCFLS) Motho ea ikarabellang (ka hare ho lelapa/ka ntle ho lelapa)',
+                id: 'DQab5Id3WMj',
+                name: '(CCFLS) Name of responsible internal person',
+                // translatedName:
+                //     'Lebitso la motho ea ikarabellang bakeng sa CCFLS',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4D9E49),
-                labelColor: Color(0xFF737373),
-                options: [
-                  InputFieldOption(
-                      code: 'Internal',
-                      name: 'Internal',
-                      translatedName: 'Ka hare ho lelapa'),
-                  InputFieldOption(
-                      code: 'External',
-                      name: 'External',
-                      translatedName: 'Ka ntle ho lelapa')
-                ]),
+                labelColor: Color(0xFF737373)),
             InputField(
-                id: 'DQab5Id3WMj',
-                name: '(CCFLS) Name of responsible person',
-                translatedName:
-                    'Lebitso la motho ea ikarabellang bakeng sa CCFLS',
+                id: '',
+                name: '(CCFLS) Name of responsible external Person',
+                // translatedName:
+                //     'Lebitso la motho ea ikarabellang bakeng sa CCFLS',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
@@ -438,28 +337,18 @@ class OvcServicesChildCasePlanGaps {
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
             InputField(
-                id: 'I0s1qoxF2wl',
-                name: '(STIMULATE) Responsible person(Internal/External)',
-                translatedName:
-                    '(STIMULATE) Motho ea ikarabellang (ka hare ho lelapa/ka ntle ho lelapa)',
+                id: 'c5vtF9QMiVU',
+                name: '(STIMULATE) Name of responsible internal person',
+                // translatedName:
+                //     'Lebitso la motho ea ikarabellang bakeng sa STIMULATE',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4D9E49),
-                labelColor: Color(0xFF737373),
-                options: [
-                  InputFieldOption(
-                      code: 'Internal',
-                      name: 'Internal',
-                      translatedName: 'Ka hare ho lelapa'),
-                  InputFieldOption(
-                      code: 'External',
-                      name: 'External',
-                      translatedName: 'Ka ntle ho lelapa')
-                ]),
+                labelColor: Color(0xFF737373)),
             InputField(
-                id: 'c5vtF9QMiVU',
-                name: '(STIMULATE) Name of responsible person',
-                translatedName:
-                    'Lebitso la motho ea ikarabellang bakeng sa STIMULATE',
+                id: '',
+                name: '(STIMULATE) Name of responsible external Person',
+                // translatedName:
+                //     'Lebitso la motho ea ikarabellang bakeng sa STIMULATE',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
@@ -479,28 +368,18 @@ class OvcServicesChildCasePlanGaps {
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
             InputField(
-                id: 't9HMcipzuSf',
-                name: '(TBSCREEN) Responsible person(Internal/External)',
-                translatedName:
-                    '(TBSCREEN) Motho ea ikarabellang (ka hare ho lelapa/ka ntle ho lelapa)',
+                id: 'Zdv3luz9Fja',
+                name: '(TBSCREEN) Name of responsible internal person',
+                // translatedName:
+                //     'Lebitso la motho ea ikarabellang bakeng sa TBSCREEN',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4D9E49),
-                labelColor: Color(0xFF737373),
-                options: [
-                  InputFieldOption(
-                      code: 'Internal',
-                      name: 'Internal',
-                      translatedName: 'Ka hare ho lelapa'),
-                  InputFieldOption(
-                      code: 'External',
-                      name: 'External',
-                      translatedName: 'Ka ntle ho lelapa')
-                ]),
+                labelColor: Color(0xFF737373)),
             InputField(
-                id: 'Zdv3luz9Fja',
-                name: '(TBSCREEN) Name of responsible person',
-                translatedName:
-                    'Lebitso la motho ea ikarabellang bakeng sa TBSCREEN',
+                id: '',
+                name: '(TBSCREEN) Name of responsible external Person',
+                // translatedName:
+                //     'Lebitso la motho ea ikarabellang bakeng sa TBSCREEN',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
@@ -520,28 +399,18 @@ class OvcServicesChildCasePlanGaps {
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
             InputField(
-                id: 'epF36cYU1Em',
-                name: '(TBREFER) Responsible person(Internal/External)',
-                translatedName:
-                    '(TBREFER) Motho ea ikarabellang (ka hare ho lelapa/ka ntle ho lelapa)',
+                id: 'zVUhTogG1qE',
+                name: '(TBREFER) Name of responsible internal person',
+                // translatedName:
+                //     'Lebitso la motho ea ikarabellang bakeng sa TBREFER',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4D9E49),
-                labelColor: Color(0xFF737373),
-                options: [
-                  InputFieldOption(
-                      code: 'Internal',
-                      name: 'Internal',
-                      translatedName: 'Ka hare ho lelapa'),
-                  InputFieldOption(
-                      code: 'External',
-                      name: 'External',
-                      translatedName: 'Ka ntle ho lelapa')
-                ]),
+                labelColor: Color(0xFF737373)),
             InputField(
-                id: 'zVUhTogG1qE',
-                name: '(TBREFER) Name of responsible person',
-                translatedName:
-                    'Lebitso la motho ea ikarabellang bakeng sa TBREFER',
+                id: '',
+                name: '(TBREFER) Name of responsible external Person',
+                // translatedName:
+                //     'Lebitso la motho ea ikarabellang bakeng sa TBREFER',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
@@ -561,28 +430,18 @@ class OvcServicesChildCasePlanGaps {
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
             InputField(
-                id: 'PVWwxGicRIl',
-                name: '(FOODPREP) Responsible person(Internal/External)',
-                translatedName:
-                    '(FOODPREP) Motho ea ikarabellang (ka hare ho lelapa/ka ntle ho lelapa)',
+                id: 'DWIqhVfMZrD',
+                name: '(FOODPREP) Name of responsible internal person',
+                // translatedName:
+                //     'Lebitso la motho ea ikarabellang bakeng sa FOODPREP',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4D9E49),
-                labelColor: Color(0xFF737373),
-                options: [
-                  InputFieldOption(
-                      code: 'Internal',
-                      name: 'Internal',
-                      translatedName: 'Ka hare ho lelapa'),
-                  InputFieldOption(
-                      code: 'External',
-                      name: 'External',
-                      translatedName: 'Ka ntle ho lelapa')
-                ]),
+                labelColor: Color(0xFF737373)),
             InputField(
-                id: 'DWIqhVfMZrD',
-                name: '(FOODPREP) Name of responsible person',
-                translatedName:
-                    'Lebitso la motho ea ikarabellang bakeng sa FOODPREP',
+                id: '',
+                name: '(FOODPREP) Name of responsible external Person',
+                // translatedName:
+                //     'Lebitso la motho ea ikarabellang bakeng sa FOODPREP',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
@@ -602,28 +461,18 @@ class OvcServicesChildCasePlanGaps {
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
             InputField(
-                id: 'WiJd5cYINcp',
-                name: '(FOODPREV) Responsible person(Internal/External)',
-                translatedName:
-                    '(FOODPREV) Motho ea ikarabellang (ka hare ho lelapa/ka ntle ho lelapa)',
+                id: 'jvxeGCV3VZf',
+                name: '(FOODPREV) Name of responsible internal person',
+                // translatedName:
+                //     'Lebitso la motho ea ikarabellang bakeng sa FOODPREV',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4D9E49),
-                labelColor: Color(0xFF737373),
-                options: [
-                  InputFieldOption(
-                      code: 'Internal',
-                      name: 'Internal',
-                      translatedName: 'Ka hare ho lelapa'),
-                  InputFieldOption(
-                      code: 'External',
-                      name: 'External',
-                      translatedName: 'Ka ntle ho lelapa')
-                ]),
+                labelColor: Color(0xFF737373)),
             InputField(
-                id: 'jvxeGCV3VZf',
-                name: '(FOODPREV) Name of responsible person',
-                translatedName:
-                    'Lebitso la motho ea ikarabellang bakeng sa FOODPREV',
+                id: '',
+                name: '(FOODPREV) Name of responsible external Person',
+                // translatedName:
+                //     'Lebitso la motho ea ikarabellang bakeng sa FOODPREV',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
@@ -643,28 +492,18 @@ class OvcServicesChildCasePlanGaps {
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
             InputField(
-                id: 'kyie4dHxpeC',
-                name: '(FOODSUPP) Responsible person(Internal/External)',
-                translatedName:
-                    '(FOODSUPP) Motho ea ikarabellang (ka hare ho lelapa/ka ntle ho lelapa)',
+                id: 'whcEPShYGkD',
+                name: '(FOODSUPP) Name of responsible internal person',
+                // translatedName:
+                //     'Lebitso la motho ea ikarabellang bakeng sa FOODSUPP',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4D9E49),
-                labelColor: Color(0xFF737373),
-                options: [
-                  InputFieldOption(
-                      code: 'Internal',
-                      name: 'Internal',
-                      translatedName: 'Ka hare ho lelapa'),
-                  InputFieldOption(
-                      code: 'External',
-                      name: 'External',
-                      translatedName: 'Ka ntle ho lelapa')
-                ]),
+                labelColor: Color(0xFF737373)),
             InputField(
-                id: 'whcEPShYGkD',
-                name: '(FOODSUPP) Name of responsible person',
-                translatedName:
-                    'Lebitso la motho ea ikarabellang bakeng sa FOODSUPP',
+                id: '',
+                name: '(FOODSUPP) Name of responsible external Person',
+                // translatedName:
+                //     'Lebitso la motho ea ikarabellang bakeng sa FOODSUPP',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
@@ -699,28 +538,18 @@ class OvcServicesChildCasePlanGaps {
                 inputColor: Color(0xFF0000FF),
                 labelColor: Color(0xFF737373)),
             InputField(
-                id: 'j6rrXcnGpvo',
-                name: '(OVCFUND) Responsible person(Internal/External)',
-                translatedName:
-                    '(OVCFUND) Motho ea ikarabellang (ka hare ho lelapa/ka ntle ho lelapa)',
+                id: 'KKZBSXc1Sg3',
+                name: '(OVCFUND) Name of responsible internal person',
+                // translatedName:
+                //     'Lebitso la motho ea ikarabellang bakeng sa OVCFUND',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0000FF),
-                labelColor: Color(0xFF737373),
-                options: [
-                  InputFieldOption(
-                      code: 'Internal',
-                      name: 'Internal',
-                      translatedName: 'Ka hare ho lelapa'),
-                  InputFieldOption(
-                      code: 'External',
-                      name: 'External',
-                      translatedName: 'Ka ntle ho lelapa')
-                ]),
+                labelColor: Color(0xFF737373)),
             InputField(
-                id: 'KKZBSXc1Sg3',
-                name: '(OVCFUND) Name of responsible person',
-                translatedName:
-                    'Lebitso la motho ea ikarabellang bakeng sa OVCFUND',
+                id: '',
+                name: '(OVCFUND) Name of responsible external Person',
+                // translatedName:
+                //     'Lebitso la motho ea ikarabellang bakeng sa OVCFUND',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0000FF),
                 labelColor: Color(0xFF737373)),
@@ -740,28 +569,18 @@ class OvcServicesChildCasePlanGaps {
                 inputColor: Color(0xFF0000FF),
                 labelColor: Color(0xFF737373)),
             InputField(
-                id: 'oASchGdCDjh',
-                name: '(SGROUP) Responsible person(Internal/External)',
-                translatedName:
-                    '(SGROUP) Motho ea ikarabellang (ka hare ho lelapa/ka ntle ho lelapa)',
+                id: 'ZQ6jDrZ54ic',
+                name: '(SGROUP) Name of responsible internal person',
+                // translatedName:
+                //     'Lebitso la motho ea ikarabellang bakeng sa SGROUP',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0000FF),
-                labelColor: Color(0xFF737373),
-                options: [
-                  InputFieldOption(
-                      code: 'Internal',
-                      name: 'Internal',
-                      translatedName: 'Ka hare ho lelapa'),
-                  InputFieldOption(
-                      code: 'External',
-                      name: 'External',
-                      translatedName: 'Ka ntle ho lelapa')
-                ]),
+                labelColor: Color(0xFF737373)),
             InputField(
-                id: 'ZQ6jDrZ54ic',
-                name: '(SGROUP) Name of responsible person',
-                translatedName:
-                    'Lebitso la motho ea ikarabellang bakeng sa SGROUP',
+                id: '',
+                name: '(SGROUP) Name of responsible external Person',
+                // translatedName:
+                //     'Lebitso la motho ea ikarabellang bakeng sa SGROUP',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0000FF),
                 labelColor: Color(0xFF737373)),
@@ -781,28 +600,18 @@ class OvcServicesChildCasePlanGaps {
                 inputColor: Color(0xFF0000FF),
                 labelColor: Color(0xFF737373)),
             InputField(
-                id: 'Am9LJf6APMW',
-                name: '(EST COOPRTVS) Responsible person(Internal/External)',
-                translatedName:
-                    '(EST COOPRTVS) Motho ea ikarabellang (ka hare ho lelapa/ka ntle ho lelapa)',
+                id: 'xse9M31M9z1',
+                name: '(EST COOPRTVS) Name of responsible internal person',
+                // translatedName:
+                //     'Lebitso la motho ea ikarabellang bakeng sa EST COOPRTVS',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0000FF),
-                labelColor: Color(0xFF737373),
-                options: [
-                  InputFieldOption(
-                      code: 'Internal',
-                      name: 'Internal',
-                      translatedName: 'Ka hare ho lelapa'),
-                  InputFieldOption(
-                      code: 'External',
-                      name: 'External',
-                      translatedName: 'Ka ntle ho lelapa')
-                ]),
+                labelColor: Color(0xFF737373)),
             InputField(
-                id: 'xse9M31M9z1',
-                name: '(EST COOPRTVS) Name of responsible person',
-                translatedName:
-                    'Lebitso la motho ea ikarabellang bakeng sa EST COOPRTVS',
+                id: '',
+                name: '(EST COOPRTVS) Name of responsible external Person',
+                // translatedName:
+                //     'Lebitso la motho ea ikarabellang bakeng sa EST COOPRTVS',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0000FF),
                 labelColor: Color(0xFF737373)),
@@ -822,28 +631,18 @@ class OvcServicesChildCasePlanGaps {
                 inputColor: Color(0xFF0000FF),
                 labelColor: Color(0xFF737373)),
             InputField(
-                id: 'aN9rwRWUOr9',
-                name: '(FUNCT COOPRTVS) Responsible person(Internal/External)',
-                translatedName:
-                    '(FUNCT COOPRTVS) Motho ea ikarabellang (ka hare ho lelapa/ka ntle ho lelapa)',
+                id: 'cKJggm2OXFQ',
+                name: '(FUNCT COOPRTVS) Name of responsible internal person',
+                // translatedName:
+                //     'Lebitso la motho ea ikarabellang bakeng sa FUNCT COOPRTVS',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0000FF),
-                labelColor: Color(0xFF737373),
-                options: [
-                  InputFieldOption(
-                      code: 'Internal',
-                      name: 'Internal',
-                      translatedName: 'Ka hare ho lelapa'),
-                  InputFieldOption(
-                      code: 'External',
-                      name: 'External',
-                      translatedName: 'Ka ntle ho lelapa')
-                ]),
+                labelColor: Color(0xFF737373)),
             InputField(
-                id: 'cKJggm2OXFQ',
-                name: '(FUNCT COOPRTVS) Name of responsible person',
-                translatedName:
-                    'Lebitso la motho ea ikarabellang bakeng sa FUNCT COOPRTVS',
+                id: '',
+                name: '(FUNCT COOPRTVS) Name of responsible external Person',
+                // translatedName:
+                //     'Lebitso la motho ea ikarabellang bakeng sa COOPTRVTS',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0000FF),
                 labelColor: Color(0xFF737373)),
@@ -863,28 +662,18 @@ class OvcServicesChildCasePlanGaps {
                 inputColor: Color(0xFF0000FF),
                 labelColor: Color(0xFF737373)),
             InputField(
-                id: 'ixFuNoQKLoB',
-                name: '(MARKT COOPRTVS) Responsible person(Internal/External)',
-                translatedName:
-                    '(MARKT COOPRTVS) Motho ea ikarabellang (ka hare ho lelapa/ka ntle ho lelapa)',
+                id: 'a9geBDwDmXA',
+                name: '(MARKT COOPRTVS) Name of responsible internal person',
+                // translatedName:
+                //     'Lebitso la motho ea ikarabellang bakeng sa MARKT COOPRTVS',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0000FF),
-                labelColor: Color(0xFF737373),
-                options: [
-                  InputFieldOption(
-                      code: 'Internal',
-                      name: 'Internal',
-                      translatedName: 'Ka hare ho lelapa'),
-                  InputFieldOption(
-                      code: 'External',
-                      name: 'External',
-                      translatedName: 'Ka ntle ho lelapa')
-                ]),
+                labelColor: Color(0xFF737373)),
             InputField(
-                id: 'a9geBDwDmXA',
-                name: '(MARKT COOPRTVS) Name of responsible person',
-                translatedName:
-                    'Lebitso la motho ea ikarabellang bakeng sa MARKT COOPRTVS',
+                id: '',
+                name: '(MARKT COOPRTVS) Name of responsible external Person',
+                // translatedName:
+                //     'Lebitso la motho ea ikarabellang bakeng sa MARKT COOP',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0000FF),
                 labelColor: Color(0xFF737373)),
@@ -919,28 +708,18 @@ class OvcServicesChildCasePlanGaps {
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
             InputField(
-                id: 'HfJSiIYVwn9',
-                name: '(SLION ) Responsible person(Internal/External)',
-                translatedName:
-                    '(SLION) Motho ea ikarabellang (ka hare ho lelapa/ka ntle ho lelapa)',
+                id: 'GjIU252Rcvq',
+                name: '(SLION) Name of responsible internal person',
+                // translatedName:
+                //     'Lebitso la motho ea ikarabellang bakeng sa SLION',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0F9587),
-                labelColor: Color(0xFF737373),
-                options: [
-                  InputFieldOption(
-                      code: 'Internal',
-                      name: 'Internal',
-                      translatedName: 'Ka hare ho lelapa'),
-                  InputFieldOption(
-                      code: 'External',
-                      name: 'External',
-                      translatedName: 'Ka ntle ho lelapa')
-                ]),
+                labelColor: Color(0xFF737373)),
             InputField(
-                id: 'GjIU252Rcvq',
-                name: '(SLION ) Name of responsible person',
-                translatedName:
-                    'Lebitso la motho ea ikarabellang bakeng sa SLION',
+                id: '',
+                name: '(SLION) Name of responsible external Person',
+                // translatedName:
+                //     'Lebitso la motho ea ikarabellang bakeng sa SLION',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
@@ -960,28 +739,18 @@ class OvcServicesChildCasePlanGaps {
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
             InputField(
-                id: 'ldXiV8hkfjt',
-                name: '(RTEEN) Responsible person(Internal/External)',
-                translatedName:
-                    '(RTEEN) Motho ea ikarabellang (ka hare ho lelapa/ka ntle ho lelapa)',
+                id: 'E2CWztOcx2X',
+                name: '(RTEEN) Name of responsible internal person',
+                // translatedName:
+                //     'Lebitso la motho ea ikarabellang bakeng sa RTEEN',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0F9587),
-                labelColor: Color(0xFF737373),
-                options: [
-                  InputFieldOption(
-                      code: 'Internal',
-                      name: 'Internal',
-                      translatedName: 'Ka hare ho lelapa'),
-                  InputFieldOption(
-                      code: 'External',
-                      name: 'External',
-                      translatedName: 'Ka ntle ho lelapa')
-                ]),
+                labelColor: Color(0xFF737373)),
             InputField(
-                id: 'E2CWztOcx2X',
-                name: '(RTEEN) Name of responsible person',
-                translatedName:
-                    'Lebitso la motho ea ikarabellang bakeng sa RTEEN',
+                id: '',
+                name: '(RTEEN) Name of responsible external Person',
+                // translatedName:
+                //     'Lebitso la motho ea ikarabellang bakeng sa RTEEN',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
@@ -1001,28 +770,18 @@ class OvcServicesChildCasePlanGaps {
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
             InputField(
-                id: 'cVOG90HglRW',
-                name: '(RKIDS) Responsible person(Internal/External)',
-                translatedName:
-                    '(RKIDS) Motho ea ikarabellang (ka hare ho lelapa/ka ntle ho lelapa)',
+                id: 'kGQwyzaP5Km',
+                name: '(RKIDS) Name of responsible internal person',
+                // translatedName:
+                //     'Lebitso la motho ea ikarabellang bakeng sa RKIDS',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0F9587),
-                labelColor: Color(0xFF737373),
-                options: [
-                  InputFieldOption(
-                      code: 'Internal',
-                      name: 'Internal',
-                      translatedName: 'Ka hare ho lelapa'),
-                  InputFieldOption(
-                      code: 'External',
-                      name: 'External',
-                      translatedName: 'Ka ntle ho lelapa')
-                ]),
+                labelColor: Color(0xFF737373)),
             InputField(
-                id: 'kGQwyzaP5Km',
-                name: '(RKIDS) Name of responsible person',
-                translatedName:
-                    'Lebitso la motho ea ikarabellang bakeng sa RKIDS',
+                id: '',
+                name: '(RKIDS) Name of responsible external Person',
+                // translatedName:
+                //     'Lebitso la motho ea ikarabellang bakeng sa RKIDS',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
@@ -1042,28 +801,18 @@ class OvcServicesChildCasePlanGaps {
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
             InputField(
-                id: 'xMrGYeREh1d',
-                name: '(VAC) Responsible person(Internal/External)',
-                translatedName:
-                    '(VAC) Motho ea ikarabellang (ka hare ho lelapa/ka ntle ho lelapa)',
+                id: 'jKqWohAPqyW',
+                name: '(VAC) Name of responsible internal person',
+                // translatedName:
+                //     'Lebitso la motho ea ikarabellang bakeng sa VAC',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0F9587),
-                labelColor: Color(0xFF737373),
-                options: [
-                  InputFieldOption(
-                      code: 'Internal',
-                      name: 'Internal',
-                      translatedName: 'Ka hare ho lelapa'),
-                  InputFieldOption(
-                      code: 'External',
-                      name: 'External',
-                      translatedName: 'Ka ntle ho lelapa')
-                ]),
+                labelColor: Color(0xFF737373)),
             InputField(
-                id: 'jKqWohAPqyW',
-                name: '(VAC) Name of responsible person',
-                translatedName:
-                    'Lebitso la motho ea ikarabellang bakeng sa VAC',
+                id: '',
+                name: '(VAC) Name of responsible external Person',
+                // translatedName:
+                //     'Lebitso la motho ea ikarabellang bakeng sa VAC',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
@@ -1075,7 +824,7 @@ class OvcServicesChildCasePlanGaps {
                 valueType: 'DATE',
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
-                InputField(
+            InputField(
                 id: 'AaqeRcyjbyS',
                 name: 'VAC Legal Messaging',
                 translatedName: 'Tšebeletso a VAC Legal Messaging',
@@ -1083,28 +832,20 @@ class OvcServicesChildCasePlanGaps {
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
             InputField(
-                id: 'RCDsibNNIWq',
-                name: '(VAC Legal Messaging) Responsible person(Internal/External)',
-                translatedName:
-                    '(VAC Legal Messaging) Motho ea ikarabellang (ka hare ho lelapa/ka ntle ho lelapa)',
+                id: 'TizNGPP6e1d',
+                name:
+                    '(VAC Legal Messaging) Name of responsible internal person',
+                // translatedName:
+                //     'Lebitso la motho ea ikarabellang bakeng sa VAC Legal Messaging',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0F9587),
-                labelColor: Color(0xFF737373),
-                options: [
-                  InputFieldOption(
-                      code: 'Internal',
-                      name: 'Internal',
-                      translatedName: 'Ka hare ho lelapa'),
-                  InputFieldOption(
-                      code: 'External',
-                      name: 'External',
-                      translatedName: 'Ka ntle ho lelapa')
-                ]),
+                labelColor: Color(0xFF737373)),
             InputField(
-                id: 'TizNGPP6e1d',
-                name: '(VAC Legal Messaging) Name of responsible person',
-                translatedName:
-                    'Lebitso la motho ea ikarabellang bakeng sa VAC Legal Messaging',
+                id: '',
+                name:
+                    '(VAC Legal Messaging) Name of responsible external Person',
+                // translatedName:
+                //     'Lebitso la motho ea ikarabellang bakeng sa VAC Legal Messaging',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
@@ -1112,7 +853,8 @@ class OvcServicesChildCasePlanGaps {
                 id: 'A4xYu8BYOg7',
                 allowFuturePeriod: true,
                 name: '(VAC Legal Messaging) Projected date for completion',
-                translatedName: 'Letsatsi la VAC Legal Messaging le tla phetheloa',
+                translatedName:
+                    'Letsatsi la VAC Legal Messaging le tla phetheloa',
                 valueType: 'DATE',
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
@@ -1124,28 +866,18 @@ class OvcServicesChildCasePlanGaps {
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
             InputField(
-                id: 'VL3CAgTpdqK',
-                name: '(SURVIVORS) Responsible person(Internal/External)',
-                translatedName:
-                    '(SURVIVORS) Motho ea ikarabellang (ka hare ho lelapa/ka ntle ho lelapa)',
+                id: 'UDYd31rUKgN',
+                name: '(SURVIVORS) Name of responsible internal person',
+                // translatedName:
+                //     'Lebitso la motho ea ikarabellang bakeng sa SURVIVORS',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0F9587),
-                labelColor: Color(0xFF737373),
-                options: [
-                  InputFieldOption(
-                      code: 'Internal',
-                      name: 'Internal',
-                      translatedName: 'Ka hare ho lelapa'),
-                  InputFieldOption(
-                      code: 'External',
-                      name: 'External',
-                      translatedName: 'Ka ntle ho lelapa')
-                ]),
+                labelColor: Color(0xFF737373)),
             InputField(
-                id: 'UDYd31rUKgN',
-                name: '(SURVIVORS) Name of responsible person',
-                translatedName:
-                    'Lebitso la motho ea ikarabellang bakeng sa SURVIVORS',
+                id: '',
+                name: '(SURVIVORS) Name of responsible external Person',
+                // translatedName:
+                //     'Lebitso la motho ea ikarabellang bakeng sa SURVIVORS',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
@@ -1164,28 +896,18 @@ class OvcServicesChildCasePlanGaps {
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
             InputField(
-                id: 'tPDgzkbmywi',
-                name: '(COUNSEL) Responsible person(Internal/External)',
-                translatedName:
-                    '(COUNSEL) Motho ea ikarabellang (ka hare ho lelapa/ka ntle ho lelapa)',
+                id: 'kGoKVtkQxvk',
+                name: '(COUNSEL) Name of responsible internal person',
+                // translatedName:
+                //     'Lebitso la motho ea ikarabellang bakeng sa COUNSEL',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0F9587),
-                labelColor: Color(0xFF737373),
-                options: [
-                  InputFieldOption(
-                      code: 'Internal',
-                      name: 'Internal',
-                      translatedName: 'Ka hare ho lelapa'),
-                  InputFieldOption(
-                      code: 'External',
-                      name: 'External',
-                      translatedName: 'Ka ntle ho lelapa')
-                ]),
+                labelColor: Color(0xFF737373)),
             InputField(
-                id: 'kGoKVtkQxvk',
-                name: '(COUNSEL) Name of responsible person',
-                translatedName:
-                    'Lebitso la motho ea ikarabellang bakeng sa COUNSEL',
+                id: '',
+                name: '(COUNSEL) Name of responsible external Person',
+                // translatedName:
+                //     'Lebitso la motho ea ikarabellang bakeng sa COUNSEL',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
@@ -1205,28 +927,18 @@ class OvcServicesChildCasePlanGaps {
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
             InputField(
-                id: 'UR5q3bp0Qez',
-                name: '(FCARE) Responsible person(Internal/External)',
-                translatedName:
-                    '(FCARE) Motho ea ikarabellang (ka hare ho lelapa/ka ntle ho lelapa)',
+                id: 'kRwTftt9Nl0',
+                name: '(FCARE) Name of responsible internal person',
+                // translatedName:
+                //     'Lebitso la motho ea ikarabellang bakeng sa FCARE',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0F9587),
-                labelColor: Color(0xFF737373),
-                options: [
-                  InputFieldOption(
-                      code: 'Internal',
-                      name: 'Internal',
-                      translatedName: 'Ka hare ho lelapa'),
-                  InputFieldOption(
-                      code: 'External',
-                      name: 'External',
-                      translatedName: 'Ka ntle ho lelapa')
-                ]),
+                labelColor: Color(0xFF737373)),
             InputField(
-                id: 'kRwTftt9Nl0',
-                name: '(FCARE) Name of responsible person',
-                translatedName:
-                    'Lebitso la motho ea ikarabellang bakeng sa FCARE',
+                id: '',
+                name: '(FCARE) Name of responsible external Person',
+                // translatedName:
+                //     'Lebitso la motho ea ikarabellang bakeng sa FCARE',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
@@ -1246,28 +958,18 @@ class OvcServicesChildCasePlanGaps {
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
             InputField(
-                id: 'vis25l3jzKh',
-                name: '(SHELTER) Responsible person(Internal/External)',
-                translatedName:
-                    '(SHELTER) Motho ea ikarabellang (ka hare ho lelapa/ka ntle ho lelapa)',
+                id: 'vODRi6sq3Pn',
+                name: '(SHELTER) Name of responsible internal person',
+                // translatedName:
+                //     'Lebitso la motho ea ikarabellang bakeng sa SHELTER',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0F9587),
-                labelColor: Color(0xFF737373),
-                options: [
-                  InputFieldOption(
-                      code: 'Internal',
-                      name: 'Internal',
-                      translatedName: 'Ka hare ho lelapa'),
-                  InputFieldOption(
-                      code: 'External',
-                      name: 'External',
-                      translatedName: 'Ka ntle ho lelapa')
-                ]),
+                labelColor: Color(0xFF737373)),
             InputField(
-                id: 'vODRi6sq3Pn',
-                name: '(SHELTER) Name of responsible person',
-                translatedName:
-                    'Lebitso la motho ea ikarabellang bakeng sa SHELTER',
+                id: '',
+                name: '(SHELTER) Name of responsible external Person',
+                // translatedName:
+                //     'Lebitso la motho ea ikarabellang bakeng sa SHELTER',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
@@ -1287,28 +989,18 @@ class OvcServicesChildCasePlanGaps {
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
             InputField(
-                id: 'UVuBtkjHQ95',
-                name: '(ABUSE) Responsible person(Internal/External)',
-                translatedName:
-                    '(ABUSE) Motho ea ikarabellang (ka hare ho lelapa/ka ntle ho lelapa)',
+                id: 'oth3dRYox12',
+                name: '(ABUSE) Name of responsible internal person',
+                // translatedName:
+                //     'Lebitso la motho ea ikarabellang bakeng sa ABUSE',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0F9587),
-                labelColor: Color(0xFF737373),
-                options: [
-                  InputFieldOption(
-                      code: 'Internal',
-                      name: 'Internal',
-                      translatedName: 'Ka hare ho lelapa'),
-                  InputFieldOption(
-                      code: 'External',
-                      name: 'External',
-                      translatedName: 'Ka ntle ho lelapa')
-                ]),
+                labelColor: Color(0xFF737373)),
             InputField(
-                id: 'oth3dRYox12',
-                name: '(ABUSE) Name of responsible person',
-                translatedName:
-                    'Lebitso la motho ea ikarabellang bakeng sa ABUSE',
+                id: '',
+                name: '(ABUSE) Name of responsible external Person',
+                // translatedName:
+                //     'Lebitso la motho ea ikarabellang bakeng sa ABUSE',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
@@ -1328,28 +1020,18 @@ class OvcServicesChildCasePlanGaps {
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
             InputField(
-                id: 'Hvvdmc2rsKl',
-                name: '(LEGALPROT) Responsible person(Internal/External)',
-                translatedName:
-                    '(LEGALPROT) Motho ea ikarabellang (ka hare ho lelapa/ka ntle ho lelapa)',
+                id: 'dJR6GJyHCTr',
+                name: '(LEGALPROT) Name of responsible internal person',
+                // translatedName:
+                //     'Lebitso la motho ea ikarabellang bakeng sa LEGALPROT',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0F9587),
-                labelColor: Color(0xFF737373),
-                options: [
-                  InputFieldOption(
-                      code: 'Internal',
-                      name: 'Internal',
-                      translatedName: 'Ka hare ho lelapa'),
-                  InputFieldOption(
-                      code: 'External',
-                      name: 'External',
-                      translatedName: 'Ka ntle ho lelapa')
-                ]),
+                labelColor: Color(0xFF737373)),
             InputField(
-                id: 'dJR6GJyHCTr',
-                name: '(LEGALPROT) Name of responsible person',
-                translatedName:
-                    'Lebitso la motho ea ikarabellang bakeng sa LEGALPROT',
+                id: '',
+                name: '(LEGALPROT) Name of responsible external Person',
+                // translatedName:
+                //     'Lebitso la motho ea ikarabellang bakeng sa LEGALPROT',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
@@ -1369,28 +1051,18 @@ class OvcServicesChildCasePlanGaps {
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
             InputField(
-                id: 'psqUATvYzdu',
-                name: '(BIRTHCERT) Responsible person(Internal/External)',
-                translatedName:
-                    '(BIRTHCERT) Motho ea ikarabellang (ka hare ho lelapa/ka ntle ho lelapa)',
+                id: 'LDH3TLjHUYK',
+                name: '(BIRTHCERT) Name of responsible internal person',
+                // translatedName:
+                //     'Lebitso la motho ea ikarabellang bakeng sa BIRTHCERT',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0F9587),
-                labelColor: Color(0xFF737373),
-                options: [
-                  InputFieldOption(
-                      code: 'Internal',
-                      name: 'Internal',
-                      translatedName: 'Ka hare ho lelapa'),
-                  InputFieldOption(
-                      code: 'External',
-                      name: 'External',
-                      translatedName: 'Ka ntle ho lelapa')
-                ]),
+                labelColor: Color(0xFF737373)),
             InputField(
-                id: 'LDH3TLjHUYK',
-                name: '(BIRTHCERT) Name of responsible person',
-                translatedName:
-                    'Lebitso la motho ea ikarabellang bakeng sa BIRTHCERT',
+                id: '',
+                name: '(BIRTHCERT) Name of responsible external Person',
+                // translatedName:
+                //     'Lebitso la motho ea ikarabellang bakeng sa BIRTHCERT',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
@@ -1406,7 +1078,7 @@ class OvcServicesChildCasePlanGaps {
       FormSection(
           id: 'Schooled',
           name: 'DOMAIN SCHOOLED',
-          translatedName:'TSA SEKOLO',
+          translatedName: 'TSA SEKOLO',
           color: Color(0xFF9B2BAE),
           borderColor: Color(0xFF9B2BAE),
           inputFields: [
@@ -1425,28 +1097,18 @@ class OvcServicesChildCasePlanGaps {
                 inputColor: Color(0xFF9B2BAE),
                 labelColor: Color(0xFF737373)),
             InputField(
-                id: 'NwrsMPc0Per',
-                name: '(AFLAS) Responsible person(Internal/External)',
-                translatedName:
-                    '(AFLAS) Motho ea ikarabellang (ka hare ho lelapa/ka ntle ho lelapa)',
+                id: 'JiqD0sYv7pH',
+                name: '(AFLAS) Name of responsible internal person',
+                // translatedName:
+                //     'Lebitso la motho ea ikarabellang bakeng sa AFLAS',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF9B2BAE),
-                labelColor: Color(0xFF737373),
-                options: [
-                  InputFieldOption(
-                      code: 'Internal',
-                      name: 'Internal',
-                      translatedName: 'Ka hare ho lelapa'),
-                  InputFieldOption(
-                      code: 'External',
-                      name: 'External',
-                      translatedName: 'Ka ntle ho lelapa')
-                ]),
+                labelColor: Color(0xFF737373)),
             InputField(
-                id: 'JiqD0sYv7pH',
-                name: '(AFLAS) Name of responsible person',
-                translatedName:
-                    'Lebitso la motho ea ikarabellang bakeng sa AFLAS',
+                id: '',
+                name: '(AFLAS) Name of responsible external Person',
+                // translatedName:
+                //     'Lebitso la motho ea ikarabellang bakeng sa AFLAS',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF9B2BAE),
                 labelColor: Color(0xFF737373)),
@@ -1466,28 +1128,18 @@ class OvcServicesChildCasePlanGaps {
                 inputColor: Color(0xFF9B2BAE),
                 labelColor: Color(0xFF737373)),
             InputField(
-                id: 'y9Qs6zDLZM2',
-                name: '(PTS4G) Responsible person(Internal/External)',
-                translatedName:
-                    '(PTS4G) Motho ea ikarabellang (ka hare ho lelapa/ka ntle ho lelapa)',
+                id: 'do1fAllY7Jv',
+                name: '(PTS4G) Name of responsible internal person',
+                // translatedName:
+                //     'Lebitso la motho ea ikarabellang bakeng sa PTS4G',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF9B2BAE),
-                labelColor: Color(0xFF737373),
-                options: [
-                  InputFieldOption(
-                      code: 'Internal',
-                      name: 'Internal',
-                      translatedName: 'Ka hare ho lelapa'),
-                  InputFieldOption(
-                      code: 'External',
-                      name: 'External',
-                      translatedName: 'Ka ntle ho lelapa')
-                ]),
+                labelColor: Color(0xFF737373)),
             InputField(
-                id: 'do1fAllY7Jv',
-                name: '(PTS4G) Name of responsible person',
-                translatedName:
-                    'Lebitso la motho ea ikarabellang bakeng sa PTS4G',
+                id: '',
+                name: '(PTS4G) Name of responsible external Person',
+                // translatedName:
+                //     'Lebitso la motho ea ikarabellang bakeng sa PTS4G',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF9B2BAE),
                 labelColor: Color(0xFF737373)),
@@ -1507,28 +1159,18 @@ class OvcServicesChildCasePlanGaps {
                 inputColor: Color(0xFF9B2BAE),
                 labelColor: Color(0xFF737373)),
             InputField(
-                id: 'LXX0ixRx2IT',
-                name: '(PTS4NG) Responsible person(Internal/External)',
-                translatedName:
-                    '(PTS4NG) Motho ea ikarabellang (ka hare ho lelapa/ka ntle ho lelapa)',
+                id: 'k9R0AUmBqHS',
+                name: '(PTS4NG) Name of responsible internal person',
+                // translatedName:
+                //     'Lebitso la motho ea ikarabellang bakeng sa PTS4NG',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF9B2BAE),
-                labelColor: Color(0xFF737373),
-                options: [
-                  InputFieldOption(
-                      code: 'Internal',
-                      name: 'Internal',
-                      translatedName: 'Ka hare ho lelapa'),
-                  InputFieldOption(
-                      code: 'External',
-                      name: 'External',
-                      translatedName: 'Ka ntle ho lelapa')
-                ]),
+                labelColor: Color(0xFF737373)),
             InputField(
-                id: 'k9R0AUmBqHS',
-                name: '(PTS4NG) Name of responsible person',
-                translatedName:
-                    'Lebitso la motho ea ikarabellang bakeng sa PTS4NG',
+                id: '',
+                name: '(PTS4NG) Name of responsible external Person',
+                // translatedName:
+                //     'Lebitso la motho ea ikarabellang bakeng sa PTS4NG',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF9B2BAE),
                 labelColor: Color(0xFF737373)),
@@ -1548,28 +1190,18 @@ class OvcServicesChildCasePlanGaps {
                 inputColor: Color(0xFF9B2BAE),
                 labelColor: Color(0xFF737373)),
             InputField(
-                id: 'fVfftqUpEMa',
-                name: '(HWCLUB) Responsible person(Internal/External)',
-                translatedName:
-                    '(HWCLUB) Motho ea ikarabellang (ka hare ho lelapa/ka ntle ho lelapa)',
+                id: 'kfcqLf2d2dc',
+                name: '(HWCLUB) Name of responsible internal person',
+                // translatedName:
+                //     'Lebitso la motho ea ikarabellang bakeng sa HWCLUB',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF9B2BAE),
-                labelColor: Color(0xFF737373),
-                options: [
-                  InputFieldOption(
-                      code: 'Internal',
-                      name: 'Internal',
-                      translatedName: 'Ka hare ho lelapa'),
-                  InputFieldOption(
-                      code: 'External',
-                      name: 'External',
-                      translatedName: 'Ka ntle ho lelapa')
-                ]),
+                labelColor: Color(0xFF737373)),
             InputField(
-                id: 'kfcqLf2d2dc',
-                name: '(HWCLUB) Name of responsible person',
-                translatedName:
-                    'Lebitso la motho ea ikarabellang bakeng sa HWCLUB',
+                id: '',
+                name: '(HWCLUB) Name of responsible external Person',
+                // translatedName:
+                //     'Lebitso la motho ea ikarabellang bakeng sa HWCLUB',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF9B2BAE),
                 labelColor: Color(0xFF737373)),
@@ -1589,28 +1221,18 @@ class OvcServicesChildCasePlanGaps {
                 inputColor: Color(0xFF9B2BAE),
                 labelColor: Color(0xFF737373)),
             InputField(
-                id: 'hLafgW56GqY',
-                name: '(BURSARY) Responsible person(Internal/External)',
-                translatedName:
-                    '(BURSARY) Motho ea ikarabellang (ka hare ho lelapa/ka ntle ho lelapa)',
+                id: 'dSS3xEVkH26',
+                name: '(BURSARY) Name of responsible internal person',
+                // translatedName:
+                //     'Lebitso la motho ea ikarabellang bakeng sa BURSARY',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF9B2BAE),
-                labelColor: Color(0xFF737373),
-                options: [
-                  InputFieldOption(
-                      code: 'Internal',
-                      name: 'Internal',
-                      translatedName: 'Ka hare ho lelapa'),
-                  InputFieldOption(
-                      code: 'External',
-                      name: 'External',
-                      translatedName: 'Ka ntle ho lelapa')
-                ]),
+                labelColor: Color(0xFF737373)),
             InputField(
-                id: 'dSS3xEVkH26',
-                name: '(BURSARY) Name of responsible person',
-                translatedName:
-                    'Lebitso la motho ea ikarabellang bakeng sa BURSARY',
+                id: '',
+                name: '(BURSARY) Name of responsible external Person',
+                // translatedName:
+                //     'Lebitso la motho ea ikarabellang bakeng sa BURSARY',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF9B2BAE),
                 labelColor: Color(0xFF737373)),
@@ -1630,28 +1252,18 @@ class OvcServicesChildCasePlanGaps {
                 inputColor: Color(0xFF9B2BAE),
                 labelColor: Color(0xFF737373)),
             InputField(
-                id: 'TdReJf2LTXA',
-                name: '(SFEES) Responsible person(Internal/External)',
-                translatedName:
-                    '(SFEES) Motho ea ikarabellang (ka hare ho lelapa/ka ntle ho lelapa)',
+                id: 'EonyCjxIh5l',
+                name: '(SFEES) Name of responsible internal person',
+                // translatedName:
+                //     'Lebitso la motho ea ikarabellang bakeng sa SFEES',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF9B2BAE),
-                labelColor: Color(0xFF737373),
-                options: [
-                  InputFieldOption(
-                      code: 'Internal',
-                      name: 'Internal',
-                      translatedName: 'Ka hare ho lelapa'),
-                  InputFieldOption(
-                      code: 'External',
-                      name: 'External',
-                      translatedName: 'Ka ntle ho lelapa')
-                ]),
+                labelColor: Color(0xFF737373)),
             InputField(
-                id: 'EonyCjxIh5l',
-                name: '(SFEES) Name of responsible person',
-                translatedName:
-                    'Lebitso la motho ea ikarabellang bakeng sa SFEES',
+                id: '',
+                name: '(SFEES) Name of responsible external Person',
+                // translatedName:
+                //     'Lebitso la motho ea ikarabellang bakeng sa SFEES',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF9B2BAE),
                 labelColor: Color(0xFF737373)),
@@ -1671,28 +1283,18 @@ class OvcServicesChildCasePlanGaps {
                 inputColor: Color(0xFF9B2BAE),
                 labelColor: Color(0xFF737373)),
             InputField(
-                id: 'VSVJitLJCmb',
-                name: '(SMATERIAL) Responsible person(Internal/External)',
-                translatedName:
-                    '(SMATERIAL) Motho ea ikarabellang (ka hare ho lelapa/ka ntle ho lelapa)',
+                id: 'XFY4FxA7ymC',
+                name: '(SMATERIAL) Name of responsible internal person',
+                // translatedName:
+                //     'Lebitso la motho ea ikarabellang bakeng sa SMATERIAL',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF9B2BAE),
-                labelColor: Color(0xFF737373),
-                options: [
-                  InputFieldOption(
-                      code: 'Internal',
-                      name: 'Internal',
-                      translatedName: 'Ka hare ho lelapa'),
-                  InputFieldOption(
-                      code: 'External',
-                      name: 'External',
-                      translatedName: 'Ka ntle ho lelapa')
-                ]),
+                labelColor: Color(0xFF737373)),
             InputField(
-                id: 'XFY4FxA7ymC',
-                name: '(SMATERIAL) Name of responsible person',
-                translatedName:
-                    'Lebitso la motho ea ikarabellang bakeng sa SMATERIAL',
+                id: '',
+                name: '(SMATERIAL) Name of responsible external Person',
+                // translatedName:
+                //     'Lebitso la motho ea ikarabellang bakeng sa SMATERIAL',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF9B2BAE),
                 labelColor: Color(0xFF737373)),
@@ -1712,28 +1314,18 @@ class OvcServicesChildCasePlanGaps {
                 inputColor: Color(0xFF9B2BAE),
                 labelColor: Color(0xFF737373)),
             InputField(
-                id: 'ZEC0IXEd8KX',
-                name: '(REENROL) Responsible person(Internal/External)',
-                translatedName:
-                    '(REENROL) Motho ea ikarabellang (ka hare ho lelapa/ka ntle ho lelapa)',
+                id: 'fT9sHAd6Gvw',
+                name: '(REENROL) Name of responsible internal person',
+                // translatedName:
+                //     'Lebitso la motho ea ikarabellang bakeng sa REENROL',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF9B2BAE),
-                labelColor: Color(0xFF737373),
-                options: [
-                  InputFieldOption(
-                      code: 'Internal',
-                      name: 'Internal',
-                      translatedName: 'Ka hare ho lelapa'),
-                  InputFieldOption(
-                      code: 'External',
-                      name: 'External',
-                      translatedName: 'Ka ntle ho lelapa')
-                ]),
+                labelColor: Color(0xFF737373)),
             InputField(
-                id: 'fT9sHAd6Gvw',
-                name: '(REENROL) Name of responsible person',
-                translatedName:
-                    'Lebitso la motho ea ikarabellang bakeng sa REENROL',
+                id: '',
+                name: '(REENROL) Name of responsible external Person',
+                // translatedName:
+                //     'Lebitso la motho ea ikarabellang bakeng sa REENROL',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF9B2BAE),
                 labelColor: Color(0xFF737373)),
@@ -1766,29 +1358,18 @@ class OvcServicesChildCasePlanGaps {
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
             InputField(
-                id: 'JJrN3c03i7f',
-                name:
-                    '(Other activities) Responsible person(Internal/External)',
-                translatedName:
-                'Motho ea ikarabellang (ka hare ho lelapa/ka ntle ho lelapa) Mesebetsi e meng',
+                id: 'Mq7g4k4lk44',
+                name: '(Other activities) Name of responsible internal person',
+                // translatedName:
+                //     'Lebitso la motho ea ikarabellang bakeng sa Mesebetsi e meng',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4D9E49),
-                labelColor: Color(0xFF737373),
-                options: [
-                  InputFieldOption(
-                      code: 'Internal',
-                      name: 'Internal',
-                      translatedName: 'Ka hare ho lelapa'),
-                  InputFieldOption(
-                      code: 'External',
-                      name: 'External',
-                      translatedName: 'Ka ntle ho lelapa')
-                ]),
+                labelColor: Color(0xFF737373)),
             InputField(
-                id: 'Mq7g4k4lk44',
-                name: '(Other activities) Name of responsible person',
-                translatedName:
-                'Lebitso la motho ea ikarabellang bakeng sa Mesebetsi e meng',
+                id: '',
+                name: '(Other activities) Name of responsible external Person',
+                // translatedName:
+                //     'Lebitso la motho ea ikarabellang bakeng sa Mesebetsi e meng',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
