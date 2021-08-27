@@ -12,6 +12,8 @@ class OgacBeneficiary {
   String? sex;
   String? beneficiaryId;
   String? location;
+  String? phoneNumber;
+  String? village;
   String? orgUnit;
   String? createdDate;
   String? searchableValue;
@@ -28,6 +30,8 @@ class OgacBeneficiary {
     this.beneficiaryId,
     this.sex,
     this.location,
+    this.phoneNumber,
+    this.village,
     this.orgUnit,
     this.createdDate,
     this.enrollment,
@@ -44,6 +48,8 @@ class OgacBeneficiary {
     Events? eventData,
   ) {
     List keys = [
+      'RB8Wx75hGa4',
+      'tNdoR0jYr7R',
       'WTZ7GLTrE8Q',
       's1HaiT6OllL',
       'rSP9c21JsfC',
@@ -73,6 +79,8 @@ class OgacBeneficiary {
               .toLowerCase(),
       orgUnit: orgUnit,
       location: location,
+      phoneNumber: data["tNdoR0jYr7R"] ?? "",
+      village: data["RB8Wx75hGa4"] ?? "",
       createdDate: createdDate,
       enrollment: enrollment,
       trackedEntityInstanceData: trackedEntityInstance,

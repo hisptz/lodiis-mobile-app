@@ -12,6 +12,8 @@ class OvcHouseholdInfoTopHeader extends StatelessWidget {
   final OvcHousehold? currentOvcHousehold;
   final String svgIcon = 'assets/icons/hh_icon.svg';
 
+  //@TODO add row for display contact info
+
   @override
   Widget build(BuildContext context) {
     return Container(

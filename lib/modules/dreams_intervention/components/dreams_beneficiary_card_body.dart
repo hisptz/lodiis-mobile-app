@@ -18,6 +18,9 @@ class DreamsBeneficiaryCardBody extends StatelessWidget {
   final Color valueColor = const Color(0xFF444E54);
   final AgywDream agywBeneficiary;
 
+  //@TODO refactor repeatable codes
+  // @TODO adding contact info on vertical view
+
   @override
   Widget build(BuildContext context) {
     return Container(

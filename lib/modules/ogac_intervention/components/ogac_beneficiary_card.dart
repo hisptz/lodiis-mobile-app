@@ -18,6 +18,9 @@ class OgacBeneficiaryCard extends StatelessWidget {
   final VoidCallback? onViewBeneficiary;
   final VoidCallback? onEditBeneficiary;
 
+  //@TODO add row for display contact info
+  // refactor repeatable rows
+
   @override
   Widget build(BuildContext context) {
     double iconHeight = 20;
