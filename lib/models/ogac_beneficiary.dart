@@ -66,6 +66,8 @@ class OgacBeneficiary {
       }
     }
     int age = AppUtil.getAgeInYear(data['qZP982qpSPS']);
+    String phoneNumber = data["tNdoR0jYr7R"] ?? '';
+    String village = data["RB8Wx75hGa4"] ?? '';
     return OgacBeneficiary(
       id: trackedEntityInstance.trackedEntityInstance,
       firstname: data['WTZ7GLTrE8Q'] ?? '',
@@ -79,8 +81,8 @@ class OgacBeneficiary {
               .toLowerCase(),
       orgUnit: orgUnit,
       location: location,
-      phoneNumber: data["tNdoR0jYr7R"] ?? '',
-      village: data["RB8Wx75hGa4"] ?? '',
+      phoneNumber: phoneNumber != "" ? phoneNumber : 'N/A',
+      village: village != "" ? village : 'N/A',
       createdDate: createdDate,
       enrollment: enrollment,
       trackedEntityInstanceData: trackedEntityInstance,
