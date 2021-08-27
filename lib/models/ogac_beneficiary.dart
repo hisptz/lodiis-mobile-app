@@ -75,12 +75,12 @@ class OgacBeneficiary {
       beneficiaryId: data[BeneficiaryIdentification.beneficiaryId] ?? '',
       sex: data['vIX4GTSCX4P'] ?? '',
       searchableValue:
-          "${data['WTZ7GLTrE8Q'] ?? ''} ${data['s1HaiT6OllL'] ?? ''} ${data['rSP9c21JsfC'] ?? ''} $age ${data[BeneficiaryIdentification.beneficiaryId] ?? ''} ${data['vIX4GTSCX4P'] ?? ''} $location $createdDate"
+          "${data['WTZ7GLTrE8Q'] ?? ''} ${data['s1HaiT6OllL'] ?? ''} ${data['rSP9c21JsfC'] ?? ''} $age ${data[BeneficiaryIdentification.beneficiaryId] ?? ''} ${data['vIX4GTSCX4P'] ?? ''} ${data['RB8Wx75hGa4']} $location $createdDate"
               .toLowerCase(),
       orgUnit: orgUnit,
       location: location,
-      phoneNumber: data["tNdoR0jYr7R"] ?? "",
-      village: data["RB8Wx75hGa4"] ?? "",
+      phoneNumber: data["tNdoR0jYr7R"] ?? '',
+      village: data["RB8Wx75hGa4"] ?? '',
       createdDate: createdDate,
       enrollment: enrollment,
       trackedEntityInstanceData: trackedEntityInstance,

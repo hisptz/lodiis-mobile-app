@@ -59,11 +59,14 @@ class OgacInterventionHome extends StatelessWidget {
             .setFormFieldState(dataValue['dataElement'], dataValue['value']);
       }
     }
-    Navigator.push(context, MaterialPageRoute(
-      builder: (context) {
-        return OgacEnrollmentForm();
-      },
-    ));
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
+          return OgacEnrollmentForm();
+        },
+      ),
+    );
   }
 
   void onViewBeneficiary(
