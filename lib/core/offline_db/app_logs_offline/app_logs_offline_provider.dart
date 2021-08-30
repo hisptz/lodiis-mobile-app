@@ -26,6 +26,13 @@ class AppLogsOfflineProvider extends OfflineDbProvider {
     }
   }
 
+  Future<void> clearLogs() async {
+    var dbClient = await db;
+    var batch = dbClient!.batch();
+    batch.delete(table);
+    await batch.commit(noResult: true);
+  }
+
   Future<List<AppLogs>> getLogs({int? page}) async {
     List<AppLogs> logs = [];
 

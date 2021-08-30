@@ -44,6 +44,10 @@ class _AppLogsState extends State<AppLogsPage> {
     }
   }
 
+  Future<void> clearAllLogs(BuildContext context) async {
+    await Provider.of<AppLogsState>(context, listen: false).clearLogs();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -84,9 +88,19 @@ class _AppLogsState extends State<AppLogsPage> {
                   return Scaffold(
                     appBar: AppBar(
                       automaticallyImplyLeading: false,
-                      title: SearchInput(
-                        onSearch: (value) => onSearchLogs(context, value),
-                      ),
+                      title: Row(children: <Widget>[
+                        Expanded(
+                            child: SearchInput(
+                          onSearch: (value) => onSearchLogs(context, value),
+                        )),
+                        IconButton(
+                            iconSize: 30,
+                            icon: Icon(Icons.delete),
+                            color: Colors.red.withOpacity(0.8),
+                            onPressed: () {
+                              clearAllLogs(context);
+                            })
+                      ]),
                       backgroundColor: Colors.white,
                     ),
                     body: Container(

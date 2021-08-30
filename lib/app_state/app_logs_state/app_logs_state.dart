@@ -43,7 +43,8 @@ class AppLogsState with ChangeNotifier {
 
   void searchAppLogs(String value) {
     if (_appLogsList.isEmpty) {
-      _appLogsList = _pagingController!.itemList as List<AppLogs>? ?? <AppLogs>[];
+      _appLogsList =
+          _pagingController!.itemList as List<AppLogs>? ?? <AppLogs>[];
       _nextPage = _pagingController!.nextPageKey;
     }
     if (value.isNotEmpty) {
@@ -72,6 +73,11 @@ class AppLogsState with ChangeNotifier {
         numberOfPages,
       );
     }
+  }
+
+  Future<void> clearLogs() async {
+    await AppLogsService().clearLogs();
+    await refreshAppLogsList();
   }
 
   void initializePagination() {
