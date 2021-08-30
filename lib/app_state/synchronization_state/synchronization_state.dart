@@ -465,10 +465,12 @@ class SynchronizationState with ChangeNotifier {
             profileDataUploadProgress + eventsDataUploadProgress;
         notifyListeners();
       }
-      AppUtil.showToastMessage(
-        message: 'Start synchronization of referral notifications',
-        position: ToastGravity.TOP,
-      );
+      if (!isAutoUpload) {
+        AppUtil.showToastMessage(
+          message: 'Start synchronization of referral notifications',
+          position: ToastGravity.TOP,
+        );
+      }
       await ReferralNotificationService().syncReferralNotifications();
       if (!isAutoUpload) {
         if (conflictOnTeisImport && conflictOnEventsImport) {

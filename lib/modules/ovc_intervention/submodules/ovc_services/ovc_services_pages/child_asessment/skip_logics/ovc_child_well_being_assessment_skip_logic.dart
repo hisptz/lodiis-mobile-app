@@ -85,6 +85,15 @@ class OvcChildWellBeingAssessmentSkipLogic {
       hiddenFields['wP7nZkrJIlp'] = true;
     }
 
+// hideMalnutrition
+    void hideMalnutritionQuestions() {
+      hiddenFields['OBugEkynJG0'] = true;
+      hiddenFields['OBugEkynJG0_checkbox'] = true;
+      hiddenFields['xQjn7WKtJvm'] = true;
+      hiddenFields['dTiDozleQuO'] = true;
+      hiddenFields['dTiDozleQuO_checkbox'] = true;
+    }
+
     void hideForCaregiver() {
       hiddenFields['lt88RMPaBPg'] = true;
       hiddenFields['TWvKsmKyCSc'] = true;
@@ -139,6 +148,9 @@ class OvcChildWellBeingAssessmentSkipLogic {
     if (age >= 14) {
       hideForChild();
     } else {
+      if (age > 5) {
+        hideMalnutritionQuestions();
+      }
       hideForCaregiver();
     }
 
@@ -393,6 +405,10 @@ class OvcChildWellBeingAssessmentSkipLogic {
           hiddenFields['IUdOAhmhqj1'] = true;
           hiddenFields['pczeYqyA3Bj'] = true;
           hiddenFields['TRuxsvRahqm'] = true;
+          hiddenFields['KlbW2l1L1NC'] = true;
+          hiddenFields['ot2CtK0hAHo'] = true;
+          hiddenFields['dwJns2uXUcG'] = true;
+          hiddenFields['tnaSD0CNrHH'] = true;
         }
         if (inputFieldId == 'BvEsLzWsL3Z' && value != 'Primary') {
           hiddenFields['TRuxsvRahqm'] = true;
@@ -404,7 +420,6 @@ class OvcChildWellBeingAssessmentSkipLogic {
           hiddenFields['IUdOAhmhqj1'] = true;
           hiddenFields['dwJns2uXUcG'] = true;
         }
-
         if (inputFieldId == 'KlbW2l1L1NC' && value != 'Primary') {
           hiddenFields['TRuxsvRahqm'] = true;
         }
