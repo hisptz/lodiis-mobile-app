@@ -6,10 +6,10 @@ import 'package:provider/provider.dart';
 
 class DataDownloadContainer extends StatelessWidget {
   const DataDownloadContainer(
-      {Key key,
-      @required this.isDataDownloadingActive,
-      @required this.isDataUploadingActive,
-      @required this.dataDownloadProcesses,
+      {Key? key,
+      required this.isDataDownloadingActive,
+      required this.isDataUploadingActive,
+      required this.dataDownloadProcesses,
       this.onViewConflicts,
       this.onStartDataDownload,
       this.conflictCount,
@@ -20,13 +20,13 @@ class DataDownloadContainer extends StatelessWidget {
 
   final bool isDataDownloadingActive;
   final bool isDataUploadingActive;
-  final Function onStartDataDownload;
-  final Function onViewConflicts;
+  final Function? onStartDataDownload;
+  final Function? onViewConflicts;
   final List<String> dataDownloadProcesses;
-  final int conflictCount;
-  final double profileProgress;
-  final double eventsProgress;
-  final double overallProgress;
+  final int? conflictCount;
+  final double? profileProgress;
+  final double? eventsProgress;
+  final double? overallProgress;
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +69,7 @@ class DataDownloadContainer extends StatelessWidget {
                               child: Center(
                                 child: LinearProgressIndicator(
                                   backgroundColor: Colors.grey,
-                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                  valueColor: AlwaysStoppedAnimation<Color?>(
                                       Provider.of<InterventionCardState>(
                                               context,
                                               listen: false)
@@ -92,7 +92,7 @@ class DataDownloadContainer extends StatelessWidget {
                               child: Center(
                                 child: LinearProgressIndicator(
                                   backgroundColor: Colors.grey,
-                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                  valueColor: AlwaysStoppedAnimation<Color?>(
                                       Provider.of<InterventionCardState>(
                                               context,
                                               listen: false)
@@ -118,7 +118,7 @@ class DataDownloadContainer extends StatelessWidget {
                               child: Center(
                                 child: LinearProgressIndicator(
                                   backgroundColor: Colors.grey,
-                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                  valueColor: AlwaysStoppedAnimation<Color?>(
                                       Provider.of<InterventionCardState>(
                                               context,
                                               listen: false)
@@ -150,7 +150,7 @@ class DataDownloadContainer extends StatelessWidget {
                 ),
               ),
               Visibility(
-                visible: conflictCount > 0,
+                visible: conflictCount! > 0,
                 child: Container(
                   margin: EdgeInsets.symmetric(vertical: 5.0),
                   padding: EdgeInsets.symmetric(vertical: 2.0, horizontal: 1.0),
@@ -180,12 +180,12 @@ class DataDownloadContainer extends StatelessWidget {
                             style: TextButton.styleFrom(
                               shape: RoundedRectangleBorder(
                                 side: BorderSide(
-                                  color: Colors.blueGrey[100],
+                                  color: Colors.blueGrey[100]!,
                                 ),
                                 borderRadius: BorderRadius.circular(25.0),
                               ),
                             ),
-                            onPressed: () => this.onViewConflicts(),
+                            onPressed: () => this.onViewConflicts!(),
                             child: Text(
                               "view conflicts",
                               style: TextStyle().copyWith(
@@ -213,7 +213,7 @@ class DataDownloadContainer extends StatelessWidget {
                         onPressed:
                             isDataDownloadingActive || isDataUploadingActive
                                 ? null
-                                : () => this.onStartDataDownload(),
+                                : () => this.onStartDataDownload!(),
                         child: Text(
                           isDataDownloadingActive
                               ? 'Downloading data'

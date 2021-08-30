@@ -5,19 +5,19 @@ import 'package:kb_mobile_app/models/ovc_household.dart';
 
 class OvcHouseholdCardHeader extends StatelessWidget {
   OvcHouseholdCardHeader({
-    Key key,
-    @required this.ovcHousehold,
-    @required this.svgIcon,
-    @required this.canEdit,
-    @required this.canView,
-    @required this.canExpand,
-    @required this.isExpanded,
+    Key? key,
+    required this.ovcHousehold,
+    required this.svgIcon,
+    required this.canEdit,
+    required this.canView,
+    required this.canExpand,
+    required this.isExpanded,
     this.onEdit,
     this.onView,
     this.onToggleCard,
   }) : super(key: key);
 
-  final OvcHousehold ovcHousehold;
+  final OvcHousehold? ovcHousehold;
 
   final String svgIcon;
   final bool canEdit;
@@ -25,9 +25,9 @@ class OvcHouseholdCardHeader extends StatelessWidget {
   final bool canExpand;
   final bool isExpanded;
 
-  final VoidCallback onEdit;
-  final VoidCallback onView;
-  final VoidCallback onToggleCard;
+  final VoidCallback? onEdit;
+  final VoidCallback? onView;
+  final VoidCallback? onToggleCard;
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +59,7 @@ class OvcHouseholdCardHeader extends StatelessWidget {
                     child: Container(
                       padding: EdgeInsets.only(left: 5.0),
                       child: Text(
-                        ovcHousehold.primaryUIC,
+                        ovcHousehold!.primaryUIC!,
                         style: TextStyle().copyWith(
                             color: Color(0xFF1A3518),
                             fontSize: 14.0,

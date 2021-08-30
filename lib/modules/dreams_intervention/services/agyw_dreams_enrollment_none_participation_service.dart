@@ -1,4 +1,4 @@
-import 'package:kb_mobile_app/core/constants/service_implementing_partner.dart';
+import 'package:kb_mobile_app/core/constants/user_account_reference.dart';
 import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
@@ -34,21 +34,17 @@ class AgywDreamsNoneParticipationService {
 
     // assign implementing partner
     if (eventId == null) {
-      inputFieldIds
-          .add(ServiceImplementingPartner().implementingPartnerDataElement);
-      inputFieldIds
-          .add(ServiceImplementingPartner().subImplementingPartnerDataElement);
-      CurrentUser user = await UserService().getCurrentUser();
-      dataObject[ServiceImplementingPartner().implementingPartnerDataElement] =
-          dataObject[ServiceImplementingPartner()
-                  .implementingPartnerDataElement] ??
-              user.implementingPartner;
-      if (user.subImplementingPartner != '') {
-        dataObject[ServiceImplementingPartner()
-            .subImplementingPartnerDataElement] = dataObject[
-                ServiceImplementingPartner()
-                    .subImplementingPartnerDataElement] ??
-            user.subImplementingPartner;
+      inputFieldIds.add(UserAccountReference.implementingPartnerDataElement);
+      inputFieldIds.add(UserAccountReference.subImplementingPartnerDataElement);
+      CurrentUser? user = await (UserService().getCurrentUser());
+      dataObject[UserAccountReference.implementingPartnerDataElement] =
+          dataObject[UserAccountReference.implementingPartnerDataElement] ??
+              user!.implementingPartner;
+      if (user!.subImplementingPartner != '') {
+        dataObject[UserAccountReference.subImplementingPartnerDataElement] =
+            dataObject[
+                    UserAccountReference.subImplementingPartnerDataElement] ??
+                user.subImplementingPartner;
       }
     }
 

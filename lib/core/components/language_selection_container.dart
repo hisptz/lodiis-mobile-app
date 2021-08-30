@@ -8,17 +8,17 @@ import 'package:provider/provider.dart';
 
 class LanguageSelectionContainer extends StatefulWidget {
   const LanguageSelectionContainer({
-    Key key,
-    @required this.selectionLanguageCode,
-    @required this.currentLanguage,
-    @required this.showLanguageSettingAppBar,
+    Key? key,
+    required this.selectionLanguageCode,
+    required this.currentLanguage,
+    required this.showLanguageSettingAppBar,
     this.onSetSelectedLanguage,
   }) : super(key: key);
 
   final String selectionLanguageCode;
-  final String currentLanguage;
+  final String? currentLanguage;
   final bool showLanguageSettingAppBar;
-  final Function onSetSelectedLanguage;
+  final Function? onSetSelectedLanguage;
 
   @override
   _LanguageSelectionContainerState createState() =>
@@ -28,7 +28,7 @@ class LanguageSelectionContainer extends StatefulWidget {
 class _LanguageSelectionContainerState
     extends State<LanguageSelectionContainer> {
   List<AppLanguage> supportedLanguages = AppLanguage.getSupportedLanguage();
-  String _selectionLanguageCode = '';
+  String? _selectionLanguageCode = '';
 
   void onSelectLanguageCard(
     AppLanguage selectionLanguage,
@@ -54,7 +54,7 @@ class _LanguageSelectionContainerState
         builder: (context, interventionCardState, child) {
           InterventionCard currentInterventionProgram =
               interventionCardState.currentInterventionProgram;
-          Color color = currentInterventionProgram.id == null
+          Color? color = currentInterventionProgram.id == null
               ? Color(0xFF4B9F46) //Color(0XFF14A337)
               : currentInterventionProgram.primaryColor;
           return Stack(
@@ -133,7 +133,7 @@ class _LanguageSelectionContainerState
                           child: TextButton(
                             onPressed: _selectionLanguageCode == ''
                                 ? null
-                                : () => widget.onSetSelectedLanguage(
+                                : () => widget.onSetSelectedLanguage!(
                                       _selectionLanguageCode,
                                     ),
                             style: TextButton.styleFrom(

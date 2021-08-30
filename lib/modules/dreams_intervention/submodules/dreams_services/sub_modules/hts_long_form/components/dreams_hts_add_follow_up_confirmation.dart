@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class DreamsHTSAddFollowUpConfirmation extends StatelessWidget {
-  const DreamsHTSAddFollowUpConfirmation({Key key, @required this.name})
+  const DreamsHTSAddFollowUpConfirmation({Key? key, required this.name})
       : super(key: key);
   final String name;
 

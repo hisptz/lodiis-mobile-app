@@ -29,7 +29,7 @@ import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:provider/provider.dart';
 
 class AgywDreamsPEPForm extends StatefulWidget {
-  AgywDreamsPEPForm({Key key}) : super(key: key);
+  AgywDreamsPEPForm({Key? key}) : super(key: key);
 
   @override
   _AgywDreamsPEPFormState createState() => _AgywDreamsPEPFormState();
@@ -37,7 +37,7 @@ class AgywDreamsPEPForm extends StatefulWidget {
 
 class _AgywDreamsPEPFormState extends State<AgywDreamsPEPForm> {
   final String label = 'PEP form';
-  List<FormSection> formSections;
+  List<FormSection>? formSections;
   bool isFormReady = false;
   bool isSaving = false;
 
@@ -61,7 +61,7 @@ class _AgywDreamsPEPFormState extends State<AgywDreamsPEPForm> {
             Provider.of<ServiceFormState>(context, listen: false).formState;
         await AgywDreamsPepSkipLogic.evaluateSkipLogics(
           context,
-          formSections,
+          formSections!,
           dataObject,
         );
       },
@@ -76,20 +76,20 @@ class _AgywDreamsPEPFormState extends State<AgywDreamsPEPForm> {
   }
 
   void onSaveForm(
-      BuildContext context, Map dataObject, AgywDream agywDream) async {
+      BuildContext context, Map dataObject, AgywDream? agywDream) async {
     if (FormUtil.geFormFilledStatus(dataObject, formSections)) {
       setState(() {
         isSaving = true;
       });
-      String eventDate = dataObject['eventDate'];
-      String eventId = dataObject['eventId'];
+      String? eventDate = dataObject['eventDate'];
+      String? eventId = dataObject['eventId'];
       List<String> hiddenFields = [];
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
             PepConstant.program,
             PepConstant.programStage,
-            agywDream.orgUnit,
-            formSections,
+            agywDream!.orgUnit,
+            formSections!,
             dataObject,
             eventDate,
             agywDream.id,
@@ -101,7 +101,7 @@ class _AgywDreamsPEPFormState extends State<AgywDreamsPEPForm> {
           setState(() {
             isSaving = false;
           });
-          String currentLanguage =
+          String? currentLanguage =
               Provider.of<LanguageTranslationState>(context, listen: false)
                   .currentLanguage;
           AppUtil.showToastMessage(
@@ -129,7 +129,7 @@ class _AgywDreamsPEPFormState extends State<AgywDreamsPEPForm> {
   }
 
   void clearFormAutoSaveState(
-      BuildContext context, String beneficiaryId) async {
+      BuildContext context, String? beneficiaryId) async {
     String formAutoSaveId =
         "${DreamsRoutesConstant.agywDreamsPEPFormPage}_$beneficiaryId";
     await FormAutoSaveOfflineService().deleteSavedFormAutoData(formAutoSaveId);
@@ -142,8 +142,8 @@ class _AgywDreamsPEPFormState extends State<AgywDreamsPEPForm> {
   }) async {
     var agyw =
         Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
-            .currentAgywDream;
-    String beneficiaryId = agyw.id;
+            .currentAgywDream!;
+    String? beneficiaryId = agyw.id;
     Map dataObject =
         Provider.of<ServiceFormState>(context, listen: false).formState;
     String id = "${DreamsRoutesConstant.agywDreamsPEPFormPage}_$beneficiaryId";
@@ -181,11 +181,11 @@ class _AgywDreamsPEPFormState extends State<AgywDreamsPEPForm> {
           body: Container(
             child: Consumer<LanguageTranslationState>(
               builder: (context, languageTranslationState, child) {
-                String currentLanguage =
+                String? currentLanguage =
                     languageTranslationState.currentLanguage;
                 return Consumer<DreamsBeneficiarySelectionState>(
                   builder: (context, nonAgywState, child) {
-                    AgywDream agywDream = nonAgywState.currentAgywDream;
+                    AgywDream? agywDream = nonAgywState.currentAgywDream;
                     return Consumer<ServiceFormState>(
                       builder: (context, serviceFormState, child) {
                         return Container(

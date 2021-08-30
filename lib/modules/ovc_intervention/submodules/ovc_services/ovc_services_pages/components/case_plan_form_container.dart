@@ -12,29 +12,29 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/o
 
 class CasePlanFormContainer extends StatelessWidget {
   CasePlanFormContainer(
-      {Key key,
-      @required this.formSectionColor,
-      @required this.formSection,
-      @required this.isEditableMode,
-      @required this.dataObject,
+      {Key? key,
+      required this.formSectionColor,
+      required this.formSection,
+      required this.isEditableMode,
+      required this.dataObject,
       this.isCasePlanForHousehold = false,
       this.onInputValueChange,
-      @required this.shouldEditCaseGapFollowUps,
-      @required this.shouldViewCaseGapFollowUp,
-      @required this.shouldAddCasePlanGap,
+      required this.shouldEditCaseGapFollowUps,
+      required this.shouldViewCaseGapFollowUp,
+      required this.shouldAddCasePlanGap,
       this.currentHouseholdChild})
       : super(key: key);
 
-  final Color formSectionColor;
+  final Color? formSectionColor;
   final FormSection formSection;
   final bool isEditableMode;
-  final Map dataObject;
-  final Function onInputValueChange;
+  final Map? dataObject;
+  final Function? onInputValueChange;
   final bool isCasePlanForHousehold;
   final bool shouldEditCaseGapFollowUps;
   final bool shouldAddCasePlanGap;
   final bool shouldViewCaseGapFollowUp;
-  final OvcHouseholdChild currentHouseholdChild;
+  final OvcHouseholdChild? currentHouseholdChild;
 
   final String caseToGapLinkage = OvcCasePlanConstant.casePlanToGapLinkage;
   final String casePlanGapToFollowUpLinkage =
@@ -45,7 +45,7 @@ class CasePlanFormContainer extends StatelessWidget {
     gapDataObject[casePlanGapToFollowUpLinkage] =
         gapDataObject[casePlanGapToFollowUpLinkage] ?? AppUtil.getUid();
     gapDataObject[caseToGapLinkage] =
-        dataObject[caseToGapLinkage] ?? AppUtil.getUid();
+        dataObject![caseToGapLinkage] ?? AppUtil.getUid();
     List<FormSection> formSections = isCasePlanForHousehold
         ? OvcHouseholdServicesCasePlanGaps.getFormSections()
             .where((FormSection form) => form.id == formSection.id)
@@ -65,16 +65,16 @@ class CasePlanFormContainer extends StatelessWidget {
       formSectionColor: formSectionColor,
       dataObject: gapDataObject,
     );
-    Map response = await AppUtil.showPopUpModal(context, modal, true);
+    Map? response = await AppUtil.showPopUpModal(context, modal, true);
     if (response != null) {
-      dataObject['gaps'].add(response);
-      onValueChange('gaps', dataObject['gaps']);
+      dataObject!['gaps'].add(response);
+      onValueChange('gaps', dataObject!['gaps']);
     }
   }
 
   void onValueChange(String id, dynamic value) {
-    dataObject[id] = value;
-    onInputValueChange(dataObject);
+    dataObject![id] = value;
+    onInputValueChange!(dataObject);
   }
 
   @override
@@ -92,7 +92,7 @@ class CasePlanFormContainer extends StatelessWidget {
             decoration: BoxDecoration(
                 border: Border(
               left: BorderSide(
-                color: formSectionColor,
+                color: formSectionColor!,
                 width: 8.0,
               ),
             )),
@@ -107,7 +107,7 @@ class CasePlanFormContainer extends StatelessWidget {
                   onInputValueChange: onValueChange,
                 ),
                 CasePlanGapViewContainer(
-                  casePlanGaps: dataObject['gaps'] ?? [],
+                  casePlanGaps: dataObject!['gaps'] ?? [],
                   domainId: formSection.id,
                   isCasePlanForHousehold: isCasePlanForHousehold,
                   formSectionColor: formSectionColor,
@@ -121,9 +121,9 @@ class CasePlanFormContainer extends StatelessWidget {
                     child: TextButton(
                       style: TextButton.styleFrom(
                         backgroundColor: Colors.white,
-                        onSurface: formSectionColor.withOpacity(0.5),
+                        onSurface: formSectionColor!.withOpacity(0.5),
                         shape: RoundedRectangleBorder(
-                          side: BorderSide(color: formSectionColor),
+                          side: BorderSide(color: formSectionColor!),
                           borderRadius: BorderRadius.circular(12.0),
                         ),
                       ),

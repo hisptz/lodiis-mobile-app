@@ -23,7 +23,7 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/s
 import 'package:provider/provider.dart';
 
 class NoneAgywPrep extends StatefulWidget {
-  NoneAgywPrep({Key key}) : super(key: key);
+  NoneAgywPrep({Key? key}) : super(key: key);
 
   @override
   _NoneAgywPrepState createState() => _NoneAgywPrepState();
@@ -47,7 +47,7 @@ class _NoneAgywPrepState extends State<NoneAgywPrep> {
   void updateFormState(
     BuildContext context,
     bool isEditableMode,
-    Events eventData,
+    Events? eventData,
   ) {
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
     Provider.of<ServiceFormState>(context, listen: false)
@@ -68,7 +68,7 @@ class _NoneAgywPrepState extends State<NoneAgywPrep> {
 
   void onAddPrep(BuildContext context, AgywDream agywDream) async {
     String eventId = "";
-    String beneficiaryId = agywDream.id;
+    String? beneficiaryId = agywDream.id;
     String formAutoSaveId =
         "${DreamsRoutesConstant.noneAgywPrepFormPage}_${beneficiaryId}_$eventId";
     FormAutoSave formAutoSave =
@@ -106,7 +106,7 @@ class _NoneAgywPrepState extends State<NoneAgywPrep> {
 
   void onEditPrep(
       BuildContext context, Events eventData, AgywDream agywDream) async {
-    String beneficiaryId = agywDream.id;
+    String? beneficiaryId = agywDream.id;
     String eventId = eventData.event ?? "";
     String formAutoSaveId =
         "${DreamsRoutesConstant.noneAgywPrepFormPage}_${beneficiaryId}_$eventId";
@@ -153,10 +153,10 @@ class _NoneAgywPrepState extends State<NoneAgywPrep> {
             builder: (context, dreamBeneficiarySelectionState, child) {
               return Consumer<ServiceEventDataState>(
                 builder: (context, serviceFormState, child) {
-                  AgywDream agywDream =
+                  AgywDream? agywDream =
                       dreamBeneficiarySelectionState.currentAgywDream;
                   bool isLoading = serviceFormState.isLoading;
-                  Map<String, List<Events>> eventListByProgramStage =
+                  Map<String?, List<Events>> eventListByProgramStage =
                       serviceFormState.eventListByProgramStage;
                   List<Events> events = TrackedEntityInstanceUtil
                       .getAllEventListFromServiceDataStateByProgramStages(
@@ -202,7 +202,7 @@ class _NoneAgywPrepState extends State<NoneAgywPrep> {
                                                       onEdit: () => onEditPrep(
                                                         context,
                                                         eventData,
-                                                        agywDream,
+                                                        agywDream!,
                                                       ),
                                                       onView: () => onViewPrep(
                                                         context,
@@ -225,7 +225,7 @@ class _NoneAgywPrepState extends State<NoneAgywPrep> {
                                             buttonColor: Color(0xFF1F8ECE),
                                             fontSize: 15.0,
                                             onPressButton: () =>
-                                                onAddPrep(context, agywDream),
+                                                onAddPrep(context, agywDream!),
                                           )
                                         : Padding(
                                             padding: const EdgeInsets.only(

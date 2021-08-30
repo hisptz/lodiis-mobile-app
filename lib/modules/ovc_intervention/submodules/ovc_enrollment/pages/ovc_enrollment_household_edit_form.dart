@@ -24,7 +24,7 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment
 import 'package:provider/provider.dart';
 
 class OvcEnrollmentHouseholdEditForm extends StatefulWidget {
-  const OvcEnrollmentHouseholdEditForm({Key key}) : super(key: key);
+  const OvcEnrollmentHouseholdEditForm({Key? key}) : super(key: key);
 
   @override
   _OvcEnrollmentHouseholdEditFormState createState() =>
@@ -33,8 +33,8 @@ class OvcEnrollmentHouseholdEditForm extends StatefulWidget {
 
 class _OvcEnrollmentHouseholdEditFormState
     extends State<OvcEnrollmentHouseholdEditForm> {
-  List<FormSection> formSections;
-  List<FormSection> enrollmentFormSections;
+  List<FormSection>? formSections;
+  late List<FormSection> enrollmentFormSections;
   final String label = 'Household vulnerability and prioritization form';
   final Map mandatoryFieldObject = Map();
   final List<String> mandatoryFields =
@@ -60,7 +60,7 @@ class _OvcEnrollmentHouseholdEditFormState
       ];
       formSections = [enrollmentFormSections[0]];
       formSections = FormUtil.getFormSectionWithReadOnlyStatus(
-        formSections,
+        formSections!,
         false,
         skippedInputs,
       );
@@ -77,7 +77,7 @@ class _OvcEnrollmentHouseholdEditFormState
             Provider.of<EnrollmentFormState>(context, listen: false).formState;
         await OvcHouseholdEnrollmentSkipLogic.evaluateSkipLogics(
           context,
-          formSections,
+          formSections!,
           dataObject,
         );
       },
@@ -97,11 +97,11 @@ class _OvcEnrollmentHouseholdEditFormState
       setState(() {
         isSaving = true;
       });
-      String trackedEntityInstance = dataObject['trackedEntityInstance'];
-      String orgUnit = dataObject['orgUnit'];
-      String enrollment = dataObject['enrollment'];
-      String enrollmentDate = dataObject['enrollmentDate'];
-      String incidentDate = dataObject['incidentDate'];
+      String? trackedEntityInstance = dataObject['trackedEntityInstance'];
+      String? orgUnit = dataObject['orgUnit'];
+      String? enrollment = dataObject['enrollment'];
+      String? enrollmentDate = dataObject['enrollmentDate'];
+      String? incidentDate = dataObject['incidentDate'];
       List<String> hiddenFields = [
         BeneficiaryIdentification.beneficiaryId,
         BeneficiaryIdentification.beneficiaryIndex,
@@ -124,7 +124,7 @@ class _OvcEnrollmentHouseholdEditFormState
           setState(() {
             isSaving = false;
           });
-          String currentLanguage =
+          String? currentLanguage =
               Provider.of<LanguageTranslationState>(context, listen: false)
                   .currentLanguage;
           AppUtil.showToastMessage(

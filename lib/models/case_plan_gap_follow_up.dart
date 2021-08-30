@@ -1,12 +1,12 @@
 import 'package:kb_mobile_app/models/events.dart';
 
 class CasePlanGapFollowUp {
-  String id;
-  String date;
-  String result;
-  String reason;
-  String casePlanGapToFollowUpLinkage;
-  Events eventData;
+  String? id;
+  String? date;
+  String? result;
+  String? reason;
+  String? casePlanGapToFollowUpLinkage;
+  Events? eventData;
 
   CasePlanGapFollowUp({
     this.id,
@@ -133,9 +133,9 @@ class CasePlanGapFollowUp {
     String followupResults = '';
     String followUpReason = '';
     for (Map detailObj in eventData.dataValues) {
-      String dataElement = detailObj['dataElement'];
+      String? dataElement = detailObj['dataElement'];
       if (dataElement != null && dataElement == casePlanGapToFollowUpLinkage) {
-        data[dataElement] = '${detailObj['value']}'.trim() ?? '';
+        data[dataElement] = '${detailObj['value']}'.trim();
       } else if (dataElement != null && resultIds.indexOf(dataElement) > -1) {
         followupResults =
             detailObj['value'] != null && '${detailObj['value']}'.trim() != ''

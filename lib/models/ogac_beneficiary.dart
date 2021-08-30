@@ -4,20 +4,20 @@ import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
 
 class OgacBeneficiary {
-  String id;
-  String firstname;
-  String middlename;
-  String surname;
-  String age;
-  String sex;
-  String beneficiaryId;
-  String location;
-  String orgUnit;
-  String createdDate;
-  String searchableValue;
-  String enrollment;
-  TrackedEntityInstance trackedEntityInstanceData;
-  Events eventData;
+  String? id;
+  String? firstname;
+  String? middlename;
+  String? surname;
+  String? age;
+  String? sex;
+  String? beneficiaryId;
+  String? location;
+  String? orgUnit;
+  String? createdDate;
+  String? searchableValue;
+  String? enrollment;
+  TrackedEntityInstance? trackedEntityInstanceData;
+  Events? eventData;
 
   OgacBeneficiary({
     this.id,
@@ -37,11 +37,11 @@ class OgacBeneficiary {
   });
   OgacBeneficiary fromTeiModel(
     TrackedEntityInstance trackedEntityInstance,
-    String orgUnit,
-    String location,
-    String createdDate,
-    String enrollment,
-    Events eventData,
+    String? orgUnit,
+    String? location,
+    String? createdDate,
+    String? enrollment,
+    Events? eventData,
   ) {
     List keys = [
       'WTZ7GLTrE8Q',
@@ -54,9 +54,9 @@ class OgacBeneficiary {
     ];
     Map data = Map();
     for (Map detailObj in trackedEntityInstance.attributes) {
-      String attribute = detailObj['attribute'];
+      String? attribute = detailObj['attribute'];
       if (attribute != null && keys.indexOf(attribute) > -1) {
-        data[attribute] = '${detailObj['value']}'.trim() ?? '';
+        data[attribute] = '${detailObj['value']}'.trim();
       }
     }
     int age = AppUtil.getAgeInYear(data['qZP982qpSPS']);

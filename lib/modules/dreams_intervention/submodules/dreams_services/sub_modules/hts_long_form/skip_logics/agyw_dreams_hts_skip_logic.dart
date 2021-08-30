@@ -114,14 +114,14 @@ class AgywDreamsHTCSkipLogic {
   static assignInputFieldValue(
     BuildContext context,
     String inputFieldId,
-    String value,
+    String? value,
   ) {
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState(inputFieldId, value);
   }
 
   static String calculateBMI(weight, height) {
-    double bmi;
+    double? bmi;
     try {
       bmi =
           double.parse(weight) / (double.parse(height) * double.parse(height));

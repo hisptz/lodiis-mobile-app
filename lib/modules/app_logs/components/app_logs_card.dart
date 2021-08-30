@@ -6,20 +6,20 @@ import 'package:kb_mobile_app/models/app_logs.dart';
 
 class AppLogsCard extends StatelessWidget {
   AppLogsCard({
-    Key key,
-    @required this.appLog,
-    @required this.currentInterventionColor,
+    Key? key,
+    required this.appLog,
+    required this.currentInterventionColor,
   }) : super(key: key);
 
   final AppLogs appLog;
-  final Color currentInterventionColor;
+  final Color? currentInterventionColor;
 
   @override
   Widget build(BuildContext context) {
     String logDateString =
-        appLog != null && appLog.date != null ? appLog.date.split(' ')[0] : '';
+        appLog != null && appLog.date != null ? appLog.date!.split(' ')[0] : '';
     String logTimeString =
-        appLog != null && appLog.date != null ? appLog.date.split(' ')[1] : '';
+        appLog != null && appLog.date != null ? appLog.date!.split(' ')[1] : '';
     return MaterialCard(
       body: Container(
         child: Column(
@@ -68,7 +68,7 @@ class AppLogsCard extends StatelessWidget {
               ),
             ),
             LineSeparator(
-              color: currentInterventionColor.withOpacity(0.3),
+              color: currentInterventionColor!.withOpacity(0.3),
             ),
             SizedBox(
               height: 5,
@@ -83,7 +83,7 @@ class AppLogsCard extends StatelessWidget {
                   Expanded(
                     flex: 1,
                     child: Text(
-                      appLog.message,
+                      appLog.message!,
                       style: TextStyle().copyWith(
                         fontSize: 14.0,
                       ),

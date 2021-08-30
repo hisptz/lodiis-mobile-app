@@ -22,19 +22,19 @@ import 'package:provider/provider.dart';
 
 class ReferralOutComeCard extends StatefulWidget {
   const ReferralOutComeCard({
-    Key key,
-    @required this.eventData,
-    @required this.beneficiary,
-    @required this.referralFollowUpStage,
-    @required this.referralToFollowUpLinkage,
-    @required this.referralProgram,
-    @required this.isOvcIntervention,
+    Key? key,
+    required this.eventData,
+    required this.beneficiary,
+    required this.referralFollowUpStage,
+    required this.referralToFollowUpLinkage,
+    required this.referralProgram,
+    required this.isOvcIntervention,
     this.isEditableMode = true,
     this.isHouseholdReferral = false,
   }) : super(key: key);
 
   final Events eventData;
-  final TrackedEntityInstance beneficiary;
+  final TrackedEntityInstance? beneficiary;
   final String referralFollowUpStage;
   final String referralToFollowUpLinkage;
   final String referralProgram;
@@ -49,11 +49,11 @@ class ReferralOutComeCard extends StatefulWidget {
 class _ReferralOutComeCardState extends State<ReferralOutComeCard> {
   bool isFormReady = false;
   bool isReferralOutComeFilled = false;
-  List<FormSection> referralOutcomeFormSections;
-  List<FormSection> referralOutcomeFollowUpFormSections;
+  List<FormSection>? referralOutcomeFormSections;
+  List<FormSection>? referralOutcomeFollowUpFormSections;
   List<String> referralOutcomeMandatoryFields = [];
   List<String> hiddenFields = [];
-  Color themeColor;
+  Color? themeColor;
 
   @override
   void initState() {
@@ -114,10 +114,10 @@ class _ReferralOutComeCardState extends State<ReferralOutComeCard> {
   bool getReferralOutComeStatus() {
     bool isReferralOutComeFilled = false;
     List<String> inputFields =
-        FormUtil.getFormFieldIds(referralOutcomeFormSections);
+        FormUtil.getFormFieldIds(referralOutcomeFormSections!);
     for (Map dataValue in widget.eventData.dataValues) {
-      String dataElement = dataValue['dataElement'];
-      String value = dataValue['value'];
+      String? dataElement = dataValue['dataElement'];
+      String? value = dataValue['value'];
       if (dataElement != null &&
           inputFields.indexOf(dataElement) > -1 &&
           value != null) {
@@ -167,12 +167,12 @@ class _ReferralOutComeCardState extends State<ReferralOutComeCard> {
                     ),
                     child: Container(
                       decoration: BoxDecoration(
-                        color: themeColor.withOpacity(0.03),
+                        color: themeColor!.withOpacity(0.03),
                       ),
                       child: Column(
                         children: [
                           LineSeparator(
-                            color: themeColor.withOpacity(0.2),
+                            color: themeColor!.withOpacity(0.2),
                           ),
                           Row(
                             children: [

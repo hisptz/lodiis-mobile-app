@@ -17,9 +17,9 @@ import 'package:provider/provider.dart';
 
 class DreamsReferralManage extends StatefulWidget {
   DreamsReferralManage({
-    Key key,
-    @required this.eventData,
-    @required this.referralIndex,
+    Key? key,
+    required this.eventData,
+    required this.referralIndex,
   }) : super(key: key);
 
   final Events eventData;
@@ -33,7 +33,7 @@ class _DreamsReferralManageState extends State<DreamsReferralManage> {
   final String label = 'Manage Agyw Referral';
 
   bool shouldEditReferral(List dataValues) {
-    CurrentUser user =
+    CurrentUser? user =
         Provider.of<CurrentUserState>(context, listen: false).currentUser;
     var referralImplementingPartner = dataValues.firstWhere(
         (dataValue) =>
@@ -41,7 +41,7 @@ class _DreamsReferralManageState extends State<DreamsReferralManage> {
             DreamsAgywReferralConstant.referralImplementingPartner,
         orElse: () => null);
     return referralImplementingPartner != null
-        ? referralImplementingPartner['value'] != user.implementingPartner
+        ? referralImplementingPartner['value'] != user!.implementingPartner
         : true;
   }
 
@@ -66,7 +66,7 @@ class _DreamsReferralManageState extends State<DreamsReferralManage> {
           child: Consumer<DreamsBeneficiarySelectionState>(
             builder: (context, dreamCurrentSelectionState, child) {
               var currentDreamsAgywBeneficiary =
-                  dreamCurrentSelectionState.currentAgywDream;
+                  dreamCurrentSelectionState.currentAgywDream!;
               return Container(
                 child: Column(
                   children: [

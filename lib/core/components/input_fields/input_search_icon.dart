@@ -4,7 +4,7 @@ import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:provider/provider.dart';
 
 class InputSearchIcon extends StatelessWidget {
-  const InputSearchIcon({Key key}) : super(key: key);
+  const InputSearchIcon({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

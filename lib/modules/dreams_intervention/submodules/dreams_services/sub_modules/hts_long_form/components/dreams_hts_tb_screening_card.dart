@@ -6,15 +6,15 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_serv
 
 class DreamsHTSTBScreeningCard extends StatefulWidget {
   const DreamsHTSTBScreeningCard({
-    Key key,
-    @required this.tbEvents,
+    Key? key,
+    required this.tbEvents,
     this.onViewTB,
     this.onEditTB,
   }) : super(key: key);
 
-  final Function onViewTB;
-  final Function onEditTB;
-  final DreamsHTSTBScreeningEvent tbEvents;
+  final Function? onViewTB;
+  final Function? onEditTB;
+  final DreamsHTSTBScreeningEvent? tbEvents;
 
   @override
   _DreamsHTSTBScreeningCardState createState() =>
@@ -22,7 +22,7 @@ class DreamsHTSTBScreeningCard extends StatefulWidget {
 }
 
 class _DreamsHTSTBScreeningCardState extends State<DreamsHTSTBScreeningCard> {
-  DreamsHTSEvent dreamsHTSEventCard;
+  DreamsHTSEvent? dreamsHTSEventCard;
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +50,7 @@ class _DreamsHTSTBScreeningCardState extends State<DreamsHTSTBScreeningCard> {
                               child: Expanded(
                                 child: RichText(
                                   text: TextSpan(
-                                    text: '${widget.tbEvents.date}   ',
+                                    text: '${widget.tbEvents!.date}   ',
                                     style: TextStyle().copyWith(
                                       color: Color(0xFF82898D),
                                       fontSize: 12.0,
@@ -75,7 +75,7 @@ class _DreamsHTSTBScreeningCardState extends State<DreamsHTSTBScreeningCard> {
                                 horizontal: 5.0,
                               ),
                               child: InkWell(
-                                  onTap: widget.onViewTB,
+                                  onTap: widget.onViewTB as void Function()?,
                                   child: Container(
                                     height: iconHeight,
                                     width: iconHeight,
@@ -92,7 +92,7 @@ class _DreamsHTSTBScreeningCardState extends State<DreamsHTSTBScreeningCard> {
                                 horizontal: 5.0,
                               ),
                               child: InkWell(
-                                  onTap: widget.onEditTB,
+                                  onTap: widget.onEditTB as void Function()?,
                                   child: Container(
                                     height: iconHeight,
                                     width: iconHeight,

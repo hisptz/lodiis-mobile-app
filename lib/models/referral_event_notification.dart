@@ -5,14 +5,14 @@ class ReferralEventNotification {
   String tei;
   String nameSpaceKey;
   String fromImplementingPartner;
-  bool isCompleted;
-  bool isViewed;
+  bool? isCompleted;
+  bool? isViewed;
 
   ReferralEventNotification({
-    @required this.id,
-    @required this.tei,
-    @required this.nameSpaceKey,
-    @required this.fromImplementingPartner,
+    required this.id,
+    required this.tei,
+    required this.nameSpaceKey,
+    required this.fromImplementingPartner,
     this.isCompleted,
     this.isViewed,
   }) {

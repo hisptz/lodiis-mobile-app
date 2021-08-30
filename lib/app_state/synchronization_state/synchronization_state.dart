@@ -16,12 +16,14 @@ import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/app_logs.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
+import 'package:kb_mobile_app/models/enrollment.dart';
 import 'package:kb_mobile_app/models/events.dart';
+import 'package:kb_mobile_app/models/tei_relationship.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
 import 'package:provider/provider.dart';
 
 class SynchronizationState with ChangeNotifier {
-  final BuildContext context;
+  final BuildContext? context;
   final String lastSyncDatePreferenceKey = "lastSyncDatePreferenceKey";
   final int dataUploadBatchSize = 50;
 
@@ -30,25 +32,25 @@ class SynchronizationState with ChangeNotifier {
 // initial state
   bool _isDataUploadingActive = false;
   bool _isDataDownloadingActive = false;
-  bool _hasUnsyncedData;
+  bool? _hasUnsyncedData;
   bool _isUnsyncedCheckingActive = true;
-  bool _isCheckingForAvailableDataFromServer;
-  SynchronizationService _synchronizationService;
-  int _beneficiaryCount;
-  int _beneficiaryServiceCount;
+  bool? _isCheckingForAvailableDataFromServer;
+  late SynchronizationService _synchronizationService;
+  int? _beneficiaryCount;
+  int? _beneficiaryServiceCount;
   int _conflictLCount = 0;
-  String _statusMessageForAvailableDataFromServer;
-  List<String> _dataDownloadProcess;
-  List<String> _dataUploadProcess;
-  List<Events> _eventFromServer;
-  List<TrackedEntityInstance> _trackedEntityInstance;
-  List<dynamic> _serverTrackedEntityInstance;
-  List<Map<String, dynamic>> _events_1;
-  List<Map<String, dynamic>> _trackedInstance1;
-  Map<String, List> _trackedInstance;
-  Map<String, List> _events;
-  Map<String, List> _relationships;
-  String _currentSyncAction = '';
+  String? _statusMessageForAvailableDataFromServer;
+  List<String>? _dataDownloadProcess;
+  List<String>? _dataUploadProcess;
+  List<Events>? _eventFromServer;
+  List<TrackedEntityInstance>? _trackedEntityInstance;
+  List<dynamic>? _serverTrackedEntityInstance;
+  List<Map<String, dynamic>>? _events_1;
+  List<Map<String, dynamic>>? _trackedInstance1;
+  Map<String, List>? _trackedInstance;
+  Map<String, List>? _events;
+  Map<String, List>? _relationships;
+  String? _currentSyncAction = '';
   double profileDataDownloadProgress = 0.0;
   double eventsDataDownloadProgress = 0.0;
   double overallDownloadProgress = 0.0;
@@ -57,7 +59,7 @@ class SynchronizationState with ChangeNotifier {
   double overallUploadProgress = 0.0;
 
 // selectors
-  bool get isDataUploadingActive => _isDataUploadingActive ?? false;
+  bool get isDataUploadingActive => _isDataUploadingActive;
 
   double get overallSyncProgress => hasUnsyncedData
       ? (overallUploadProgress + overallDownloadProgress) / 2
@@ -85,9 +87,9 @@ class SynchronizationState with ChangeNotifier {
 
   bool get hasUnsyncedData => _hasUnsyncedData ?? false;
 
-  bool get isUnsyncedCheckingActive => _isUnsyncedCheckingActive ?? false;
+  bool get isUnsyncedCheckingActive => _isUnsyncedCheckingActive;
 
-  bool get isDataDownloadingActive => _isDataDownloadingActive ?? false;
+  bool get isDataDownloadingActive => _isDataDownloadingActive;
 
   int get beneficiaryCount => _beneficiaryCount ?? 0;
 
@@ -99,7 +101,7 @@ class SynchronizationState with ChangeNotifier {
 
   List<Events> get eventFromServer => _eventFromServer ?? [];
 
-  int get conflictCount => _conflictLCount ?? 0;
+  int get conflictCount => _conflictLCount;
 
   List<TrackedEntityInstance> get trackedEntityInstanceFromServer =>
       _trackedEntityInstance ?? [];
@@ -128,7 +130,7 @@ class SynchronizationState with ChangeNotifier {
     notifyListeners();
   }
 
-  void updateStatusForAvailableDataFromServer({bool status}) {
+  void updateStatusForAvailableDataFromServer({bool? status}) {
     _isCheckingForAvailableDataFromServer = status;
     notifyListeners();
   }
@@ -144,12 +146,12 @@ class SynchronizationState with ChangeNotifier {
   }
 
   void addDataUploadProcess(String process) {
-    _dataUploadProcess.add(process);
+    _dataUploadProcess!.add(process);
     notifyListeners();
   }
 
   void addDataDownloadProcess(String process) {
-    _dataDownloadProcess.add(process);
+    _dataDownloadProcess!.add(process);
     notifyListeners();
   }
 
@@ -157,17 +159,17 @@ class SynchronizationState with ChangeNotifier {
     updateStatusForAvailableDataFromServer(status: true);
     setStatusMessageForAvailableDataFromServer(
         'Checking for available beneficiary data from server...');
-    CurrentUser currentUser = await UserService().getCurrentUser();
-    String lastSyncDate =
+    CurrentUser? currentUser = await (UserService().getCurrentUser());
+    String? lastSyncDate =
         await PreferenceProvider.getPreferenceValue(lastSyncDatePreferenceKey);
     lastSyncDate =
         lastSyncDate ?? AppUtil.formattedDateTimeIntoString(new DateTime(2020));
-    _synchronizationService = SynchronizationService(currentUser.username,
+    _synchronizationService = SynchronizationService(currentUser!.username,
         currentUser.password, currentUser.programs, currentUser.userOrgUnitIds);
     try {
-      CurrentUser currentUser = await UserService().getCurrentUser();
+      CurrentUser? currentUser = await (UserService().getCurrentUser());
       _synchronizationService = SynchronizationService(
-          currentUser.username,
+          currentUser!.username,
           currentUser.password,
           currentUser.programs,
           currentUser.userOrgUnitIds);
@@ -195,9 +197,9 @@ class SynchronizationState with ChangeNotifier {
     if (!isAutoUpload) {
       updateUnsyncedDataCheckingStatus(true);
     }
-    CurrentUser user = await UserService().getCurrentUser();
+    CurrentUser? user = await (UserService().getCurrentUser());
     _synchronizationService = SynchronizationService(
-        user.username, user.password, user.programs, user.userOrgUnitIds);
+        user!.username, user.password, user.programs, user.userOrgUnitIds);
     int unsyncedTeiCount = await _synchronizationService.getUnsyncedTeiCount();
     int unsyncedEventsCount =
         await _synchronizationService.getUnsyncedEventsCount();
@@ -209,7 +211,7 @@ class SynchronizationState with ChangeNotifier {
     }
   }
 
-  Future startSyncActivity({String syncAction}) async {
+  Future startSyncActivity({String? syncAction}) async {
     profileDataDownloadProgress = 0.0;
     eventsDataDownloadProgress = 0.0;
     overallDownloadProgress = 0.0;
@@ -251,20 +253,20 @@ class SynchronizationState with ChangeNotifier {
     int totalCount = 0;
     int total = 0;
     try {
-      String lastSyncDate = await PreferenceProvider.getPreferenceValue(
+      String? lastSyncDate = await PreferenceProvider.getPreferenceValue(
           lastSyncDatePreferenceKey);
       lastSyncDate = lastSyncDate ??
           AppUtil.formattedDateTimeIntoString(new DateTime(2020));
-      CurrentUser currentUser = await UserService().getCurrentUser();
+      CurrentUser? currentUser = await (UserService().getCurrentUser());
       var implementingPartnerConfig = await ImplementingPartnerConfigService()
           .getImplementingPartnerConfigFromTheServer(
-              currentUser.username, currentUser.password);
+              currentUser!.username, currentUser.password);
       List currentUserPrograms =
           implementingPartnerConfig[currentUser.implementingPartner];
-      total = _synchronizationService.orgUnitIds.length *
+      total = _synchronizationService.orgUnitIds!.length *
           currentUserPrograms.length;
-      for (String orgUnitId in _synchronizationService.orgUnitIds) {
-        for (String program in _synchronizationService.programs
+      for (String? orgUnitId in _synchronizationService.orgUnitIds ?? []) {
+        for (String? program in _synchronizationService.programs!
             .where((program) => currentUserPrograms.indexOf(program) != -1)) {
           count++;
           totalCount++;
@@ -278,8 +280,8 @@ class SynchronizationState with ChangeNotifier {
         }
       }
       count = 0;
-      for (String orgUnitId in _synchronizationService.orgUnitIds) {
-        for (String program in _synchronizationService.programs
+      for (String? orgUnitId in _synchronizationService.orgUnitIds ?? []) {
+        for (String? program in _synchronizationService.programs!
             .where((program) => currentUserPrograms.indexOf(program) != -1)) {
           count++;
           totalCount++;
@@ -319,19 +321,19 @@ class SynchronizationState with ChangeNotifier {
   }
 
   Future refreshBeneficiaryCounts() async {
-    await Provider.of<ReferralNotificationState>(context, listen: false)
+    await Provider.of<ReferralNotificationState>(context!, listen: false)
         .reloadReferralNotifications();
     List<String> teiWithIncomingReferral =
-        Provider.of<ReferralNotificationState>(context, listen: false)
+        Provider.of<ReferralNotificationState>(context!, listen: false)
             .beneficiariesWithIncomingReferrals;
-    Provider.of<DreamsInterventionListState>(context, listen: false)
+    Provider.of<DreamsInterventionListState>(context!, listen: false)
         .setTeiWithIncomingReferral(
             teiWithIncomingReferral: teiWithIncomingReferral);
-    await Provider.of<OvcInterventionListState>(context, listen: false)
+    await Provider.of<OvcInterventionListState>(context!, listen: false)
         .refreshOvcNumber();
-    await Provider.of<DreamsInterventionListState>(context, listen: false)
+    await Provider.of<DreamsInterventionListState>(context!, listen: false)
         .refreshBeneficiariesNumber();
-    await Provider.of<OgacInterventionListState>(context, listen: false)
+    await Provider.of<OgacInterventionListState>(context!, listen: false)
         .refreshOgacList();
   }
 
@@ -357,8 +359,9 @@ class SynchronizationState with ChangeNotifier {
             AppUtil.chunkItems(items: teis, size: dataUploadBatchSize);
         int batch = 1;
         for (List<dynamic> teiChunk in chunkedTeis) {
-          bool conflictOnImport = await _synchronizationService
-              .uploadTeisToTheServer(teiChunk, isAutoUpload);
+          bool conflictOnImport =
+              await _synchronizationService.uploadTeisToTheServer(
+                  teiChunk as List<TrackedEntityInstance>, isAutoUpload);
           conflictOnTeisImport = conflictOnTeisImport || conflictOnImport;
 
           profileCount = profileCount + (batch / chunkedTeis.length);
@@ -384,8 +387,9 @@ class SynchronizationState with ChangeNotifier {
         List<List<dynamic>> chunkedTeiEnrollments = AppUtil.chunkItems(
             items: teiEnrollments, size: dataUploadBatchSize * 2);
         for (List<dynamic> teiEnrollmentChunk in chunkedTeiEnrollments) {
-          bool conflictOnImport = await _synchronizationService
-              .uploadEnrollmentsToTheServer(teiEnrollmentChunk, isAutoUpload);
+          bool conflictOnImport =
+              await _synchronizationService.uploadEnrollmentsToTheServer(
+                  teiEnrollmentChunk as List<Enrollment>, isAutoUpload);
           conflictOnTeisImport = conflictOnTeisImport || conflictOnImport;
 
           profileCount = profileCount + (batch / chunkedTeiEnrollments.length);
@@ -412,8 +416,9 @@ class SynchronizationState with ChangeNotifier {
 
         int batch = 1;
         for (List<dynamic> teiRelationshipChunk in chunkedTeiRelationships) {
-          bool conflictOnImport = await _synchronizationService
-              .uploadTeiRelationToTheServer(teiRelationshipChunk, isAutoUpload);
+          bool conflictOnImport =
+              await _synchronizationService.uploadTeiRelationToTheServer(
+                  teiRelationshipChunk as List<TeiRelationship>, isAutoUpload);
           conflictOnTeisImport = conflictOnTeisImport || conflictOnImport;
 
           profileCount =
@@ -441,8 +446,9 @@ class SynchronizationState with ChangeNotifier {
 
         int batch = 1;
         for (List<dynamic> teiEventsChunk in chunkedTeiEvents) {
-          bool conflictOnImport = await _synchronizationService
-              .uploadTeiEventsToTheServer(teiEventsChunk, isAutoUpload);
+          bool conflictOnImport =
+              await _synchronizationService.uploadTeiEventsToTheServer(
+                  teiEventsChunk as List<Events>, isAutoUpload);
           conflictOnEventsImport = conflictOnEventsImport || conflictOnImport;
 
           eventsCount = eventsCount + (batch / chunkedTeiEvents.length);
@@ -486,7 +492,7 @@ class SynchronizationState with ChangeNotifier {
     notifyListeners();
     await startCheckingStatusOfUnsyncedData(isAutoUpload: isAutoUpload);
     notifyListeners();
-    await Provider.of<ReferralNotificationState>(context, listen: false)
+    await Provider.of<ReferralNotificationState>(context!, listen: false)
         .reloadReferralNotifications();
     updateDataUploadStatus(false);
   }

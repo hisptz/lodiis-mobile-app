@@ -5,16 +5,16 @@ import 'package:kb_mobile_app/models/input_field.dart';
 
 class DateInputFieldContainer extends StatefulWidget {
   const DateInputFieldContainer({
-    Key key,
-    @required this.inputField,
-    @required this.onInputValueChange,
-    @required this.currentLanguage,
+    Key? key,
+    required this.inputField,
+    required this.onInputValueChange,
+    required this.currentLanguage,
     this.inputValue,
   }) : super(key: key);
   final InputField inputField;
   final Function onInputValueChange;
-  final String currentLanguage;
-  final String inputValue;
+  final String? currentLanguage;
+  final String? inputValue;
 
   @override
   _DateInputFieldContainerState createState() =>
@@ -22,9 +22,9 @@ class DateInputFieldContainer extends StatefulWidget {
 }
 
 class _DateInputFieldContainerState extends State<DateInputFieldContainer> {
-  TextEditingController dateController;
+  TextEditingController? dateController;
 
-  String _date;
+  String? _date;
 
   @override
   void initState() {
@@ -71,7 +71,7 @@ class _DateInputFieldContainerState extends State<DateInputFieldContainer> {
     DateTime firstDate = getDateFromGivenYear(
         widget.inputField.maxAgeInYear != null ? maxAgeInYear : limit,
         numberOfMonth: widget.inputField.numberOfMonth != null
-            ? widget.inputField.numberOfMonth + 1
+            ? widget.inputField.numberOfMonth! + 1
             : 0,
         numberOfDays: 1);
     DateTime currentDate = DateTime.now();
@@ -80,27 +80,27 @@ class _DateInputFieldContainerState extends State<DateInputFieldContainer> {
         AppUtil.formattedDateTimeIntoString(
           numberOfYearBetweenCurrentAndMaxDate >= 0 ? lastDate : currentDate,
         );
-    DateTime date = await showDatePicker(
-      builder: (BuildContext context, Widget child) {
+    DateTime? date = await showDatePicker(
+      builder: (BuildContext context, Widget? child) {
         return Theme(
           data: ThemeData.light().copyWith(
             colorScheme: ColorScheme.light().copyWith(
               primary: widget.inputField.inputColor,
             ),
           ),
-          child: child,
+          child: child!,
         );
       },
       context: context,
       fieldLabelText: widget.currentLanguage == 'lesotho'
           ? '${widget.inputField.translatedName}'
           : '${widget.inputField.name}',
-      initialDate: AppUtil.getDateIntoDateTimeFormat(_date),
+      initialDate: AppUtil.getDateIntoDateTimeFormat(_date!),
       firstDate:
-          widget.inputField.disablePastPeriod ? DateTime.now() : firstDate,
+          widget.inputField.disablePastPeriod! ? DateTime.now() : firstDate,
       confirmText: widget.currentLanguage == 'lesotho' ? 'Ok' : 'Ok',
       cancelText: widget.currentLanguage == 'lesotho' ? 'Cancel' : 'Cancel',
-      lastDate: widget.inputField.allowFuturePeriod ||
+      lastDate: widget.inputField.allowFuturePeriod! ||
               numberOfYearBetweenCurrentAndMaxDate >= 0
           ? lastDate
           : DateTime.now(),
@@ -136,7 +136,7 @@ class _DateInputFieldContainerState extends State<DateInputFieldContainer> {
               style: TextStyle().copyWith(
                 color: widget.inputField.inputColor,
               ),
-              onTap: () => widget.inputField.isReadOnly
+              onTap: () => widget.inputField.isReadOnly!
                   ? null
                   : onOpenDateSelection(context),
               readOnly: true,

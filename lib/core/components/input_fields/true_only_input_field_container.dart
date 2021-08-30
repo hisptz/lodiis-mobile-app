@@ -6,15 +6,15 @@ import 'package:kb_mobile_app/models/input_field.dart';
 
 class TrueOnlyInputFieldContainer extends StatefulWidget {
   const TrueOnlyInputFieldContainer({
-    Key key,
-    @required this.inputField,
-    @required this.onInputValueChange,
-    @required this.currentLanguage,
+    Key? key,
+    required this.inputField,
+    required this.onInputValueChange,
+    required this.currentLanguage,
     this.inputValue,
   }) : super(key: key);
 
   final InputField inputField;
-  final String currentLanguage;
+  final String? currentLanguage;
   final Function onInputValueChange;
   final dynamic inputValue;
 
@@ -25,8 +25,8 @@ class TrueOnlyInputFieldContainer extends StatefulWidget {
 
 class _TrueOnlyInputFieldContainerState
     extends State<TrueOnlyInputFieldContainer> {
-  bool _value;
-  String _swithLabel;
+  late bool _value;
+  String? _swithLabel;
   Color inActiveColor = Color(0xFF737373);
   String yesLabel = 'Yes';
   String noLabel = 'Yes';
@@ -86,7 +86,7 @@ class _TrueOnlyInputFieldContainerState
             activeColor: widget.inputField.inputColor,
             trackColor: inActiveColor,
             value: _value,
-            onChanged: widget.inputField.isReadOnly
+            onChanged: widget.inputField.isReadOnly!
                 ? null
                 : (bool value) {
                     onSetValue(value);

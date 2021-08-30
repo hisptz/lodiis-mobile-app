@@ -5,17 +5,17 @@ import 'package:kb_mobile_app/models/events.dart';
 
 class OvcExitListCard extends StatelessWidget {
   const OvcExitListCard({
-    Key key,
-    @required this.eventData,
-    @required this.programStageMap,
+    Key? key,
+    required this.eventData,
+    required this.programStageMap,
     this.onViewExit,
     this.onEditExit,
   }) : super(key: key);
 
   final Events eventData;
   final Map programStageMap;
-  final Function onViewExit;
-  final Function onEditExit;
+  final Function? onViewExit;
+  final Function? onEditExit;
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +63,7 @@ class OvcExitListCard extends StatelessWidget {
                       horizontal: 5.0,
                     ),
                     child: InkWell(
-                        onTap: onViewExit,
+                        onTap: onViewExit as void Function()?,
                         child: Container(
                           height: iconHeight,
                           width: iconHeight,
@@ -80,7 +80,7 @@ class OvcExitListCard extends StatelessWidget {
                       horizontal: 5.0,
                     ),
                     child: InkWell(
-                        onTap: onEditExit,
+                        onTap: onEditExit as void Function()?,
                         child: Container(
                           height: iconHeight,
                           width: iconHeight,

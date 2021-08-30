@@ -28,7 +28,7 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_serv
 import 'package:provider/provider.dart';
 
 class DreamsServicesPage extends StatefulWidget {
-  const DreamsServicesPage({Key key}) : super(key: key);
+  const DreamsServicesPage({Key? key}) : super(key: key);
 
   @override
   _DreamsServicesPageState createState() => _DreamsServicesPageState();
@@ -40,9 +40,9 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
   final bool canView = false;
   final bool canExpand = true;
 
-  String toggleCardId = '';
+  String? toggleCardId = '';
 
-  void onCardToggle(BuildContext context, String trackedEntityInstance) {
+  void onCardToggle(BuildContext context, String? trackedEntityInstance) {
     Provider.of<ServiceEventDataState>(context, listen: false)
         .resetServiceEventDataState(trackedEntityInstance);
     setState(() {
@@ -83,7 +83,7 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
     AgywDream agywBeneficiary,
   ) async {
     updateStateData(context, agywBeneficiary);
-    String beneficiaryId = agywBeneficiary.id;
+    String? beneficiaryId = agywBeneficiary.id;
     String formAutoSaveId =
         "${DreamsRoutesConstant.agywDreamsPrEPHTSConsentPage}_$beneficiaryId";
     FormAutoSave formAutoSave =

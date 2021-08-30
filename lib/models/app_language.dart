@@ -1,9 +1,9 @@
 class AppLanguage {
-  String id;
-  String name;
-  String translatedName;
-  bool isDefault;
-  String image;
+  String? id;
+  String? name;
+  String? translatedName;
+  bool? isDefault;
+  String? image;
 
   AppLanguage({
     this.id,

@@ -5,10 +5,10 @@ import 'package:kb_mobile_app/models/intervention_card.dart';
 class InterventionBottomNavigationState with ChangeNotifier {
   // initial state
   int _currentInterventionBottomNavigationIndex = 0;
-  String _currentInterventionBottomNavigationId;
+  String? _currentInterventionBottomNavigationId;
 
   // Reducers
-  void setCurrentInterventionBottomNavigationStatus(int index, String id) {
+  void setCurrentInterventionBottomNavigationStatus(int index, String? id) {
     _currentInterventionBottomNavigationIndex = index;
     _currentInterventionBottomNavigationId = id;
     notifyListeners();
@@ -24,7 +24,7 @@ class InterventionBottomNavigationState with ChangeNotifier {
   int get currentInterventionBottomNavigationIndex =>
       _currentInterventionBottomNavigationIndex;
 
-  String get currentInterventionBottomNavigationId =>
+  String? get currentInterventionBottomNavigationId =>
       _currentInterventionBottomNavigationId;
 
   InterventionBottomNavigation getCurrentInterventionBottomNavigation(

@@ -25,7 +25,7 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/o
 import 'package:provider/provider.dart';
 
 class OvcChildCLOReferralAddForm extends StatefulWidget {
-  OvcChildCLOReferralAddForm({Key key}) : super(key: key);
+  OvcChildCLOReferralAddForm({Key? key}) : super(key: key);
 
   @override
   _OvcChildCLOReferralAddFormState createState() =>
@@ -35,7 +35,7 @@ class OvcChildCLOReferralAddForm extends StatefulWidget {
 class _OvcChildCLOReferralAddFormState
     extends State<OvcChildCLOReferralAddForm> {
   final String label = 'Child CLO Referral Form';
-  List<FormSection> formSections;
+  List<FormSection>? formSections;
   bool isFormReady = false;
   bool isSaving = false;
 
@@ -59,7 +59,7 @@ class _OvcChildCLOReferralAddFormState
             Provider.of<ServiceFormState>(context, listen: false).formState;
         await OvcChildCLOReferralSkipLogic.evaluateSkipLogics(
           context,
-          formSections,
+          formSections!,
           dataObject,
         );
       },
@@ -75,15 +75,15 @@ class _OvcChildCLOReferralAddFormState
   void onSaveForm(
     BuildContext context,
     Map dataObject,
-    OvcHouseholdChild currentOvcHouseholdChild,
+    OvcHouseholdChild? currentOvcHouseholdChild,
   ) async {
     if (dataObject.keys.length > 1) {
       // Setting to 1 ignores the first field (NbQGlx6QZpK_clo_type)
       setState(() {
         isSaving = true;
       });
-      String eventDate = dataObject['eventDate'];
-      String eventId = dataObject['eventId'];
+      String? eventDate = dataObject['eventDate'];
+      String? eventId = dataObject['eventId'];
       dataObject[OvcChildReferralConstant.referralToFollowUpLinkage] =
           dataObject[OvcChildReferralConstant.referralToFollowUpLinkage] ??
               AppUtil.getUid();
@@ -98,8 +98,8 @@ class _OvcChildCLOReferralAddFormState
             dataObject['NbQGlx6QZpK_clo_type'] == "NbQGlx6QZpK_OnGoing"
                 ? OvcChildCLOReferralConstant.referralCLOOutGoingStage
                 : OvcChildCLOReferralConstant.referralCLOOutReceivedStage,
-            currentOvcHouseholdChild.orgUnit,
-            formSections,
+            currentOvcHouseholdChild!.orgUnit,
+            formSections!,
             dataObject,
             eventDate,
             currentOvcHouseholdChild.id,
@@ -112,7 +112,7 @@ class _OvcChildCLOReferralAddFormState
           setState(() {
             isSaving = false;
           });
-          String currentLanguage =
+          String? currentLanguage =
               Provider.of<LanguageTranslationState>(context, listen: false)
                   .currentLanguage;
           AppUtil.showToastMessage(
@@ -159,10 +159,10 @@ class _OvcChildCLOReferralAddFormState
         body: Container(
           child: Consumer<LanguageTranslationState>(
             builder: (context, languageTranslationState, child) {
-              String currentLanguage = languageTranslationState.currentLanguage;
+              String? currentLanguage = languageTranslationState.currentLanguage;
               return Consumer<OvcHouseholdCurrentSelectionState>(
                 builder: (context, ovcHouseholdCurrentSelectionState, child) {
-                  OvcHouseholdChild currentOvcHouseholdChild =
+                  OvcHouseholdChild? currentOvcHouseholdChild =
                       ovcHouseholdCurrentSelectionState
                           .currentOvcHouseholdChild;
                   return Consumer<ServiceFormState>(

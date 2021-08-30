@@ -17,7 +17,7 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/o
 import 'package:provider/provider.dart';
 
 class OvcChildReferral extends StatefulWidget {
-  OvcChildReferral({Key key}) : super(key: key);
+  OvcChildReferral({Key? key}) : super(key: key);
 
   @override
   _OvcChildReferralState createState() => _OvcChildReferralState();
@@ -28,7 +28,7 @@ class _OvcChildReferralState extends State<OvcChildReferral> {
   void updateFormState(
     BuildContext context,
     bool isEditableMode,
-    Events eventData,
+    Events? eventData,
   ) {
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
     Provider.of<ServiceFormState>(context, listen: false)
@@ -50,7 +50,7 @@ class _OvcChildReferralState extends State<OvcChildReferral> {
     }
   }
 
-  void onAddReferral(BuildContext context, OvcHouseholdChild child) {
+  void onAddReferral(BuildContext context, OvcHouseholdChild? child) {
     updateFormState(context, true, null);
     Navigator.push(
       context,
@@ -97,16 +97,16 @@ class _OvcChildReferralState extends State<OvcChildReferral> {
     return Container(
       child: Consumer<LanguageTranslationState>(
         builder: (context, languageTranslationState, child) {
-          String currentLanguage = languageTranslationState.currentLanguage;
+          String? currentLanguage = languageTranslationState.currentLanguage;
           return Consumer<OvcHouseholdCurrentSelectionState>(
             builder: (context, ovcHouseholdCurrentSelectionState, child) {
               return Consumer<ServiceEventDataState>(
                 builder: (context, serviceFormState, child) {
-                  OvcHouseholdChild currentOvcHouseholdChild =
+                  OvcHouseholdChild? currentOvcHouseholdChild =
                       ovcHouseholdCurrentSelectionState
                           .currentOvcHouseholdChild;
                   bool isLoading = serviceFormState.isLoading;
-                  Map<String, List<Events>> eventListByProgramStage =
+                  Map<String?, List<Events>> eventListByProgramStage =
                       serviceFormState.eventListByProgramStage;
                   List<Events> events = TrackedEntityInstanceUtil
                       .getAllEventListFromServiceDataStateByProgramStages(

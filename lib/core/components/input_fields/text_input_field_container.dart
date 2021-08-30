@@ -6,8 +6,8 @@ import 'package:kb_mobile_app/models/input_field.dart';
 
 class TextInputFieldContainer extends StatefulWidget {
   const TextInputFieldContainer({
-    Key key,
-    @required this.inputField,
+    Key? key,
+    required this.inputField,
     this.onInputValueChange,
     this.inputValue,
     this.showInputCheckedIcon = true,
@@ -15,8 +15,8 @@ class TextInputFieldContainer extends StatefulWidget {
   }) : super(key: key);
 
   final InputField inputField;
-  final Function onInputValueChange;
-  final String inputValue;
+  final Function? onInputValueChange;
+  final String? inputValue;
   final bool showInputCheckedIcon;
   final bool showInputSearchIcon;
 
@@ -26,9 +26,9 @@ class TextInputFieldContainer extends StatefulWidget {
 }
 
 class _TextInputFieldContainerState extends State<TextInputFieldContainer> {
-  TextEditingController textController;
-  String _value;
-  String _lastInputValue = '';
+  TextEditingController? textController;
+  String? _value;
+  String? _lastInputValue = '';
 
   @override
   void initState() {
@@ -39,7 +39,7 @@ class _TextInputFieldContainerState extends State<TextInputFieldContainer> {
     updateTextValue(value: widget.inputValue);
   }
 
-  updateTextValue({String value = ''}) {
+  updateTextValue({String? value = ''}) {
     setState(() {
       _value = value;
     });
@@ -52,20 +52,20 @@ class _TextInputFieldContainerState extends State<TextInputFieldContainer> {
         _value = value;
         _lastInputValue = _value;
       });
-      widget.onInputValueChange(value.trim());
+      widget.onInputValueChange!(value.trim());
     }
   }
 
   clearSearchValue() {
     updateTextValue();
-    widget.onInputValueChange(_value);
+    widget.onInputValueChange!(_value);
   }
 
   @override
   void didUpdateWidget(covariant TextInputFieldContainer oldWidget) {
     super.didUpdateWidget(widget);
     if (oldWidget.inputValue != widget.inputValue) {
-      if (widget.inputField.isReadOnly) {
+      if (widget.inputField.isReadOnly!) {
         updateTextValue(value: widget.inputValue);
       }
       if (widget.inputValue == null || widget.inputValue == '') {
@@ -81,8 +81,8 @@ class _TextInputFieldContainerState extends State<TextInputFieldContainer> {
         children: [
           Expanded(
             child: TextFormField(
-              readOnly: widget.inputField.isReadOnly,
-              controller: widget.inputField.isReadOnly
+              readOnly: widget.inputField.isReadOnly!,
+              controller: widget.inputField.isReadOnly!
                   ? TextEditingController(
                       text: widget.inputValue,
                     )

@@ -3,18 +3,18 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/o
 
 class ServiceGapViewContainer extends StatelessWidget {
   const ServiceGapViewContainer({
-    Key key,
-    @required this.casePlanGaps,
-    @required this.formSectionColor,
-    @required this.domainId,
-    @required this.isCasePlanForHousehold,
-    @required this.shouldEditCaseGapFollowUps,
-    @required this.shouldViewCaseGapFollowUp,
+    Key? key,
+    required this.casePlanGaps,
+    required this.formSectionColor,
+    required this.domainId,
+    required this.isCasePlanForHousehold,
+    required this.shouldEditCaseGapFollowUps,
+    required this.shouldViewCaseGapFollowUp,
   }) : super(key: key);
 
   final List<dynamic> casePlanGaps;
-  final Color formSectionColor;
-  final String domainId;
+  final Color? formSectionColor;
+  final String? domainId;
   final bool isCasePlanForHousehold;
   final bool shouldEditCaseGapFollowUps;
   final bool shouldViewCaseGapFollowUp;

@@ -11,10 +11,10 @@ import 'package:provider/provider.dart';
 
 class EntryFormContainer extends StatelessWidget {
   const EntryFormContainer({
-    Key key,
-    @required this.formSections,
-    @required this.dataObject,
-    @required this.mandatoryFieldObject,
+    Key? key,
+    required this.formSections,
+    required this.dataObject,
+    required this.mandatoryFieldObject,
     this.hiddenFields,
     this.hiddenSections,
     this.isEditableMode = true,
@@ -24,16 +24,16 @@ class EntryFormContainer extends StatelessWidget {
     this.unFilledMandatoryFields,
   }) : super(key: key);
 
-  final List<FormSection> formSections;
-  final Function onInputValueChange;
-  final Map dataObject;
-  final Map hiddenFields;
-  final Map hiddenSections;
-  final Map mandatoryFieldObject;
-  final Map hiddenInputFieldOptions;
+  final List<FormSection>? formSections;
+  final Function? onInputValueChange;
+  final Map? dataObject;
+  final Map? hiddenFields;
+  final Map? hiddenSections;
+  final Map? mandatoryFieldObject;
+  final Map? hiddenInputFieldOptions;
   final bool isEditableMode;
   final double elevation;
-  final List unFilledMandatoryFields;
+  final List? unFilledMandatoryFields;
 
   @override
   Widget build(BuildContext context) {
@@ -41,16 +41,16 @@ class EntryFormContainer extends StatelessWidget {
     return Container(
       child: Consumer<LanguageTranslationState>(
         builder: (context, languageTranslationState, child) {
-          String currentLanguage = languageTranslationState.currentLanguage;
+          String? currentLanguage = languageTranslationState.currentLanguage;
           return Consumer<CurrentUserState>(
             builder: (context, currentUserState, child) {
-              List<String> currentUserCountryLevelReferences =
+              List<String?> currentUserCountryLevelReferences =
                   currentUserState.currentUserCountryLevelReferences;
               return Column(
-                children: formSections
+                children: formSections!
                     .map((FormSection formSection) => Visibility(
                           visible: hiddenSections == null ||
-                              '${hiddenSections[formSection.id]}'.trim() !=
+                              '${hiddenSections![formSection.id]}'.trim() !=
                                   'true',
                           child: Container(
                             margin: EdgeInsets.only(bottom: 10.0),
@@ -61,7 +61,7 @@ class EntryFormContainer extends StatelessWidget {
                                   decoration: BoxDecoration(
                                       border: Border(
                                         left: BorderSide(
-                                            color: formSection.borderColor,
+                                            color: formSection.borderColor!,
                                             width: 8.0),
                                       ),
                                       color: formSection.backgroundColor),
@@ -81,7 +81,7 @@ class EntryFormContainer extends StatelessWidget {
                                                         formSection
                                                                 .translatedName !=
                                                             null
-                                                    ? formSection.translatedName
+                                                    ? formSection.translatedName!
                                                     : formSection.name,
                                                 style: TextStyle().copyWith(
                                                     color: formSection.color,
@@ -108,8 +108,8 @@ class EntryFormContainer extends StatelessWidget {
                                                                   .translatedDescription !=
                                                               null
                                                       ? formSection
-                                                          .translatedDescription
-                                                      : formSection.description,
+                                                          .translatedDescription!
+                                                      : formSection.description!,
                                                   style: TextStyle().copyWith(
                                                       color: formSection.color,
                                                       fontSize: 14.0,
@@ -138,13 +138,13 @@ class EntryFormContainer extends StatelessWidget {
                                         child: Column(
                                           mainAxisAlignment:
                                               MainAxisAlignment.start,
-                                          children: formSection.inputFields
+                                          children: formSection.inputFields!
                                               .map(
                                                 (InputField inputField) =>
                                                     Visibility(
                                                   visible: hiddenFields ==
                                                           null ||
-                                                      '${hiddenFields[inputField.id]}'
+                                                      '${hiddenFields![inputField.id]}'
                                                               .trim() !=
                                                           'true',
                                                   child: Container(
@@ -171,7 +171,7 @@ class EntryFormContainer extends StatelessWidget {
                                                       onInputValueChange: (String
                                                                   id,
                                                               dynamic value) =>
-                                                          onInputValueChange(
+                                                          onInputValueChange!(
                                                               id, value),
                                                     ),
                                                   ),
@@ -212,10 +212,10 @@ class EntryFormContainer extends StatelessWidget {
   }
 
   void setFieldErrors() {
-    if (unFilledMandatoryFields != null && unFilledMandatoryFields.isNotEmpty) {
-      formSections.forEach((section) {
-        section.inputFields.forEach((inputField) {
-          if (unFilledMandatoryFields.contains(inputField.id)) {
+    if (unFilledMandatoryFields != null && unFilledMandatoryFields!.isNotEmpty) {
+      formSections!.forEach((section) {
+        section.inputFields!.forEach((inputField) {
+          if (unFilledMandatoryFields!.contains(inputField.id)) {
             inputField.hasError = true;
           } else {
             inputField.hasError = false;

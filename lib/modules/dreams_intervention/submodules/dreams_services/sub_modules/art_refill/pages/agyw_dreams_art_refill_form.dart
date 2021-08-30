@@ -29,7 +29,7 @@ import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:provider/provider.dart';
 
 class AgywDreamsARTRefillForm extends StatefulWidget {
-  AgywDreamsARTRefillForm({Key key}) : super(key: key);
+  AgywDreamsARTRefillForm({Key? key}) : super(key: key);
 
   @override
   _AgywDreamsARTRefillFormState createState() =>
@@ -38,7 +38,7 @@ class AgywDreamsARTRefillForm extends StatefulWidget {
 
 class _AgywDreamsARTRefillFormState extends State<AgywDreamsARTRefillForm> {
   final String label = 'ART Re-fill form';
-  List<FormSection> formSections;
+  List<FormSection>? formSections;
   bool isFormReady = false;
   bool isSaving = false;
 
@@ -62,7 +62,7 @@ class _AgywDreamsARTRefillFormState extends State<AgywDreamsARTRefillForm> {
             Provider.of<ServiceFormState>(context, listen: false).formState;
         await AgywDreamsArtReFillSkipLogic.evaluateSkipLogics(
           context,
-          formSections,
+          formSections!,
           dataObject,
         );
       },
@@ -77,20 +77,20 @@ class _AgywDreamsARTRefillFormState extends State<AgywDreamsARTRefillForm> {
   }
 
   void onSaveForm(
-      BuildContext context, Map dataObject, AgywDream agywDream) async {
+      BuildContext context, Map dataObject, AgywDream? agywDream) async {
     if (FormUtil.geFormFilledStatus(dataObject, formSections)) {
       setState(() {
         isSaving = true;
       });
-      String eventDate = dataObject['eventDate'];
-      String eventId = dataObject['eventId'];
+      String? eventDate = dataObject['eventDate'];
+      String? eventId = dataObject['eventId'];
       List<String> hiddenFields = [];
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
             ARTRefillConstant.program,
             ARTRefillConstant.programStage,
-            agywDream.orgUnit,
-            formSections,
+            agywDream!.orgUnit,
+            formSections!,
             dataObject,
             eventDate,
             agywDream.id,
@@ -100,7 +100,7 @@ class _AgywDreamsARTRefillFormState extends State<AgywDreamsARTRefillForm> {
             .resetServiceEventDataState(agywDream.id);
         Timer(Duration(seconds: 1), () {
           setState(() {
-            String currentLanguage =
+            String? currentLanguage =
                 Provider.of<LanguageTranslationState>(context, listen: false)
                     .currentLanguage;
             AppUtil.showToastMessage(
@@ -129,7 +129,7 @@ class _AgywDreamsARTRefillFormState extends State<AgywDreamsARTRefillForm> {
   }
 
   void clearFormAutoSaveState(
-      BuildContext context, String beneficiaryId) async {
+      BuildContext context, String? beneficiaryId) async {
     String formAutoSaveId =
         "${DreamsRoutesConstant.agywDreamsArtRefillPage}_$beneficiaryId";
     await FormAutoSaveOfflineService().deleteSavedFormAutoData(formAutoSaveId);
@@ -142,8 +142,8 @@ class _AgywDreamsARTRefillFormState extends State<AgywDreamsARTRefillForm> {
   }) async {
     var agyw =
         Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
-            .currentAgywDream;
-    String beneficiaryId = agyw.id;
+            .currentAgywDream!;
+    String? beneficiaryId = agyw.id;
     Map dataObject =
         Provider.of<ServiceFormState>(context, listen: false).formState;
     String id =
@@ -182,10 +182,10 @@ class _AgywDreamsARTRefillFormState extends State<AgywDreamsARTRefillForm> {
         body: Container(
           child: Consumer<LanguageTranslationState>(
             builder: (context, languageTranslationState, child) {
-              String currentLanguage = languageTranslationState.currentLanguage;
+              String? currentLanguage = languageTranslationState.currentLanguage;
               return Consumer<DreamsBeneficiarySelectionState>(
                 builder: (context, nonAgywState, child) {
-                  AgywDream agywDream = nonAgywState.currentAgywDream;
+                  AgywDream? agywDream = nonAgywState.currentAgywDream;
                   return Consumer<ServiceFormState>(
                     builder: (context, serviceFormState, child) {
                       return Container(

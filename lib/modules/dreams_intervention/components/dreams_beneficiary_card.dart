@@ -16,17 +16,17 @@ import 'package:provider/provider.dart';
 
 class DreamsBeneficiaryCard extends StatelessWidget {
   const DreamsBeneficiaryCard({
-    Key key,
-    @required this.canEdit,
-    @required this.canView,
-    @required this.canExpand,
-    @required this.isExpanded,
-    @required this.beneficiaryName,
-    @required this.cardBody,
-    @required this.cardButtonActions,
-    @required this.cardButtonContent,
-    @required this.agywDream,
-    @required this.isAgywEnrollment,
+    Key? key,
+    required this.canEdit,
+    required this.canView,
+    required this.canExpand,
+    required this.isExpanded,
+    required this.beneficiaryName,
+    required this.cardBody,
+    required this.cardButtonActions,
+    required this.cardButtonContent,
+    required this.agywDream,
+    required this.isAgywEnrollment,
     this.onCardToggle,
   }) : super(key: key);
 
@@ -40,11 +40,11 @@ class DreamsBeneficiaryCard extends StatelessWidget {
   final String beneficiaryName;
   final AgywDream agywDream;
   final bool isAgywEnrollment;
-  final VoidCallback onCardToggle;
+  final VoidCallback? onCardToggle;
   final String svgIcon = 'assets/icons/dreams-header-icon.svg';
 
   void onEdit(BuildContext context) async {
-    String beneficiaryId = agywDream.id;
+    String? beneficiaryId = agywDream.id;
     String formAutoSaveId = isAgywEnrollment
         ? "${DreamsRoutesConstant.agywEnrollmentFormEditPage}_$beneficiaryId"
         : "${DreamsRoutesConstant.noneAgywEnrollmentPage}_$beneficiaryId";
@@ -72,7 +72,7 @@ class DreamsBeneficiaryCard extends StatelessWidget {
   }
 
   void updateEnrollmentFormStateData(BuildContext context, bool edit) {
-    TrackedEntityInstance teiData = agywDream.trackedEntityInstanceData;
+    TrackedEntityInstance teiData = agywDream.trackedEntityInstanceData!;
     Provider.of<EnrollmentFormState>(context, listen: false).resetFormState();
     Provider.of<EnrollmentFormState>(context, listen: false)
         .updateFormEditabilityState(isEditableMode: edit);

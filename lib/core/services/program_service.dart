@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:kb_mobile_app/core/offline_db/program_ou_offline/program_ou_offline_provider.dart';
@@ -7,16 +8,16 @@ import 'package:kb_mobile_app/models/current_user.dart';
 
 class ProgramService {
   Future<dynamic> discoverProgramOrganisationUnitsFromTheServer(
-      String program) async {
+      String? program) async {
     List<String> programOrganisationUnits = [];
     var url = "api/programs/$program.json";
     var queryParameters = {
       "fields": "organisationUnits[id,path]",
       "paging": "false"
     };
-    CurrentUser user = await UserService().getCurrentUser();
+    CurrentUser? user = await (UserService().getCurrentUser());
     HttpService http = HttpService(
-      username: user.username,
+      username: user!.username,
       password: user.password,
     );
     var response = await http.httpGet(
@@ -36,13 +37,14 @@ class ProgramService {
     }
   }
 
-  Future<List> getOfflineProgramOrganisationUnits(String programId) async {
+  Future<List<String?>> getOfflineProgramOrganisationUnits(
+      String programId) async {
     return await ProgramOuOfflineProvider()
         .getProgramOrganisationUnits(programId);
   }
 
   setProgramOrganisationUnits(
-      String program, List<String> organisationUnits) async {
+      String? program, List<String> organisationUnits) async {
     await ProgramOuOfflineProvider()
         .addProgramOrganisationUnit(program, organisationUnits);
   }

@@ -5,18 +5,18 @@ import 'package:kb_mobile_app/models/input_field_option.dart';
 
 class CheckBoxListInputField extends StatefulWidget {
   const CheckBoxListInputField({
-    Key key,
-    @required this.inputField,
-    @required this.dataObject,
-    @required this.currentLanguage,
+    Key? key,
+    required this.inputField,
+    required this.dataObject,
+    required this.currentLanguage,
     this.isReadOnly = false,
     this.onInputValueChange,
   }) : super(key: key);
 
   final InputField inputField;
-  final String currentLanguage;
-  final Map dataObject;
-  final Function onInputValueChange;
+  final String? currentLanguage;
+  final Map? dataObject;
+  final Function? onInputValueChange;
   final bool isReadOnly;
 
   @override
@@ -34,8 +34,8 @@ class _CheckBoxListInputFieldState extends State<CheckBoxListInputField> {
 
   updateInputValueState() {
     setState(() {
-      for (InputFieldOption option in widget.inputField.options) {
-        _inputValue[option.code] = widget.dataObject[option.code] ?? false;
+      for (InputFieldOption option in widget.inputField.options!) {
+        _inputValue[option.code] = widget.dataObject![option.code] ?? false;
       }
     });
   }
@@ -50,17 +50,17 @@ class _CheckBoxListInputFieldState extends State<CheckBoxListInputField> {
   Widget build(BuildContext context) {
     return Container(
       child: Column(
-        children: widget.inputField.options
+        children: widget.inputField.options!
             .map((InputFieldOption option) => CheckBoxInputField(
                   isReadOnly: widget.isReadOnly,
                   label: widget.currentLanguage == 'lesotho' &&
                           option.translatedName != null
                       ? option.translatedName
                       : option.name,
-                  value: widget.dataObject[option.code],
+                  value: widget.dataObject![option.code],
                   color: widget.inputField.inputColor,
                   onInputValueChange: (dynamic value) =>
-                      widget.onInputValueChange(option.code, '$value'),
+                      widget.onInputValueChange!(option.code, '$value'),
                 ))
             .toList(),
       ),

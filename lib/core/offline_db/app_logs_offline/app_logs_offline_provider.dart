@@ -19,19 +19,19 @@ class AppLogsOfflineProvider extends OfflineDbProvider {
     var dbClient = await db;
     Map data = AppLogs().toOffline(logData);
     try {
-      await dbClient.insert(table, data,
+      await dbClient!.insert(table, data as Map<String, Object?>,
           conflictAlgorithm: ConflictAlgorithm.replace);
     } catch (e) {
       print(e.toString());
     }
   }
 
-  Future<List<AppLogs>> getLogs({int page}) async {
+  Future<List<AppLogs>> getLogs({int? page}) async {
     List<AppLogs> logs = [];
 
     try {
       var dbClient = await db;
-      List<Map> maps = await dbClient.query(
+      List<Map> maps = await dbClient!.query(
         table,
         columns: [
           id,
@@ -46,21 +46,21 @@ class AppLogsOfflineProvider extends OfflineDbProvider {
       );
       if (maps.isNotEmpty) {
         for (Map map in maps) {
-          AppLogs log = AppLogs.fromOffline(map);
+          AppLogs log = AppLogs.fromOffline(map as Map<String, dynamic>);
           logs.add(log);
         }
       }
     } catch (e) {}
 
-    return logs..sort((b, a) => a.date.compareTo(b.date));
+    return logs..sort((b, a) => a.date!.compareTo(b.date!));
   }
 
   Future<int> getAppLogsCount() async {
-    int logsCount;
+    int? logsCount;
     try {
       var dbClient = await db;
       logsCount = Sqflite.firstIntValue(
-          await dbClient.rawQuery('SELECT COUNT(*) FROM $table'));
+          await dbClient!.rawQuery('SELECT COUNT(*) FROM $table'));
     } catch (e) {}
     return logsCount ?? 0;
   }

@@ -5,20 +5,18 @@ publish_to: "none"
 version: 1.2.5+38
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
   provider: ^5.0.0
-  get_version: ^0.2.2
   geolocator: ^7.0.1
   cupertino_icons: ^1.0.2
   shared_preferences: ^2.0.3
   google_fonts: ^2.0.0
   http: ^0.13.0
   random_color: ^1.0.5
-  fluttertoast: ^7.0.4
   sqflite:
   path:
   connectivity: ^3.0.2
@@ -28,6 +26,9 @@ dependencies:
   flutter_svg: ^0.22.0
   excel: ^2.0.0-null-safety-3
   rxdart: ^0.27.1
+  fluttertoast: ^8.0.8
+  collection: ^1.15.0-nullsafety.4
+  new_version: ^0.2.2
 
 dev_dependencies:
   flutter_test:

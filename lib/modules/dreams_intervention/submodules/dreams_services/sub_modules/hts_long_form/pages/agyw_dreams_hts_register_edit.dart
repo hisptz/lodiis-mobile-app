@@ -26,7 +26,7 @@ import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:provider/provider.dart';
 
 class AgywDreamsHTSRegisterFormEdit extends StatefulWidget {
-  AgywDreamsHTSRegisterFormEdit({Key key}) : super(key: key);
+  AgywDreamsHTSRegisterFormEdit({Key? key}) : super(key: key);
 
   @override
   _AgywDreamsHTSRegisterFormEditState createState() =>
@@ -36,7 +36,7 @@ class AgywDreamsHTSRegisterFormEdit extends StatefulWidget {
 class _AgywDreamsHTSRegisterFormEditState
     extends State<AgywDreamsHTSRegisterFormEdit> {
   final String label = 'HTS Register';
-  List<FormSection> formSections;
+  List<FormSection>? formSections;
   final List<String> mandatoryFields = HTSRegister.getMandatoryFields();
   final Map mandatoryFieldObject = Map();
   bool isFormReady = false;
@@ -66,7 +66,7 @@ class _AgywDreamsHTSRegisterFormEditState
             Provider.of<ServiceFormState>(context, listen: false).formState;
         await AgywDreamsHTSRegisterSkipLogic.evaluateSkipLogics(
           context,
-          formSections,
+          formSections!,
           dataObject,
         );
       },
@@ -80,7 +80,7 @@ class _AgywDreamsHTSRegisterFormEditState
   }
 
   void onSaveForm(
-      BuildContext context, Map dataObject, AgywDream agywDream) async {
+      BuildContext context, Map dataObject, AgywDream? agywDream) async {
     bool hadAllMandatoryFilled =
         AppUtil.hasAllMandatoryFieldsFilled(mandatoryFields, dataObject);
     if (hadAllMandatoryFilled) {
@@ -88,15 +88,15 @@ class _AgywDreamsHTSRegisterFormEditState
         setState(() {
           isSaving = true;
         });
-        String eventDate = dataObject['eventDate'];
-        String eventId = dataObject['eventId'];
+        String? eventDate = dataObject['eventDate'];
+        String? eventId = dataObject['eventId'];
         List<String> hiddenFields = [];
         try {
           await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
             AgywDreamsHTSLongFormConstant.program,
             AgywDreamsHTSLongFormConstant.htsRegisterProgramStage,
-            agywDream.orgUnit,
-            formSections,
+            agywDream!.orgUnit,
+            formSections!,
             dataObject,
             eventDate,
             agywDream.id,
@@ -108,7 +108,7 @@ class _AgywDreamsHTSRegisterFormEditState
               .resetServiceEventDataState(agywDream.id);
           Timer(Duration(seconds: 1), () {
             setState(() {
-              String currentLanguage =
+              String? currentLanguage =
                   Provider.of<LanguageTranslationState>(context, listen: false)
                       .currentLanguage;
               AppUtil.showToastMessage(
@@ -179,10 +179,10 @@ class _AgywDreamsHTSRegisterFormEditState
         body: Container(
           child: Consumer<LanguageTranslationState>(
             builder: (context, languageTranslationState, child) {
-              String currentLanguage = languageTranslationState.currentLanguage;
+              String? currentLanguage = languageTranslationState.currentLanguage;
               return Consumer<DreamsBeneficiarySelectionState>(
                 builder: (context, nonAgywState, child) {
-                  AgywDream agywDream = nonAgywState.currentAgywDream;
+                  AgywDream? agywDream = nonAgywState.currentAgywDream;
                   return Consumer<ServiceFormState>(
                     builder: (context, serviceFormState, child) {
                       return Container(

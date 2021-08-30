@@ -23,7 +23,7 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_serv
 import 'package:provider/provider.dart';
 
 class AgywDreamsPrepShortFormHomePage extends StatefulWidget {
-  AgywDreamsPrepShortFormHomePage({Key key}) : super(key: key);
+  AgywDreamsPrepShortFormHomePage({Key? key}) : super(key: key);
   @override
   _AgywDreamsPrepShortFormHomePageState createState() =>
       _AgywDreamsPrepShortFormHomePageState();
@@ -42,7 +42,7 @@ class _AgywDreamsPrepShortFormHomePageState
   void updateFormState(
     BuildContext context,
     bool isEditableMode,
-    Events eventData,
+    Events? eventData,
   ) {
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
     Provider.of<ServiceFormState>(context, listen: false)
@@ -78,7 +78,7 @@ class _AgywDreamsPrepShortFormHomePageState
 
   onAddPREP(BuildContext context, AgywDream agywDream) async {
     updateFormState(context, true, null);
-    String beneficiaryId = agywDream.id;
+    String? beneficiaryId = agywDream.id;
     String formAutoSaveId =
         "${DreamsRoutesConstant.agywDreamsPrEPShortFormPage}_$beneficiaryId";
     FormAutoSave formAutoSave =
@@ -115,10 +115,10 @@ class _AgywDreamsPrepShortFormHomePageState
             builder: (context, dreamBeneficiarySelectionState, child) {
           return Consumer<ServiceEventDataState>(
               builder: (context, serviceFormState, child) {
-            AgywDream agywDream =
+            AgywDream? agywDream =
                 dreamBeneficiarySelectionState.currentAgywDream;
             bool isLoading = serviceFormState.isLoading;
-            Map<String, List<Events>> eventListByProgramStage =
+            Map<String?, List<Events>> eventListByProgramStage =
                 serviceFormState.eventListByProgramStage;
             List<Events> events = TrackedEntityInstanceUtil
                     .getAllEventListFromServiceDataStateByProgramStages(
@@ -186,7 +186,7 @@ class _AgywDreamsPrepShortFormHomePageState
                               fontSize: 15.0,
                               onPressButton: () => onAddPREP(
                                 context,
-                                agywDream,
+                                agywDream!,
                               ),
                             )
                           ],

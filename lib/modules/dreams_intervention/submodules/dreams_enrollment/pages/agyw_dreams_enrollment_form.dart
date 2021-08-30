@@ -27,7 +27,7 @@ import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:provider/provider.dart';
 
 class AgywDreamsEnrollmentForm extends StatefulWidget {
-  const AgywDreamsEnrollmentForm({Key key}) : super(key: key);
+  const AgywDreamsEnrollmentForm({Key? key}) : super(key: key);
 
   @override
   _AgywDreamsEnrollmentFormState createState() =>
@@ -35,7 +35,7 @@ class AgywDreamsEnrollmentForm extends StatefulWidget {
 }
 
 class _AgywDreamsEnrollmentFormState extends State<AgywDreamsEnrollmentForm> {
-  List<FormSection> formSections;
+  List<FormSection>? formSections;
   final String label = 'DREAMS Enrollment Form';
   final List<String> mandatoryFields =
       AgywEnrollmentFormSection.getMandatoryField();
@@ -66,7 +66,7 @@ class _AgywDreamsEnrollmentFormState extends State<AgywDreamsEnrollmentForm> {
             Provider.of<EnrollmentFormState>(context, listen: false).formState;
         await AgywDreamsEnrollmentSkipLogic.evaluateSkipLogics(
           context,
-          formSections,
+          formSections!,
           dataObject,
         );
       },
@@ -121,11 +121,11 @@ class _AgywDreamsEnrollmentFormState extends State<AgywDreamsEnrollmentForm> {
       setState(() {
         isSaving = true;
       });
-      CurrentUser user = await UserService().getCurrentUser();
+      CurrentUser? user = await (UserService().getCurrentUser());
       dataObject['PN92g65TkVI'] = dataObject['PN92g65TkVI'] ?? 'Active';
       dataObject['klLkGxy328c'] =
-          dataObject['klLkGxy328c'] ?? user.implementingPartner;
-      if (user.subImplementingPartner != '') {
+          dataObject['klLkGxy328c'] ?? user!.implementingPartner;
+      if (user!.subImplementingPartner != '') {
         dataObject['fQInK8s2RNR'] =
             dataObject['fQInK8s2RNR'] ?? user.subImplementingPartner;
       }
@@ -137,7 +137,7 @@ class _AgywDreamsEnrollmentFormState extends State<AgywDreamsEnrollmentForm> {
         'klLkGxy328c',
         'fQInK8s2RNR'
       ];
-      String orgUnit = dataObject['location'];
+      String? orgUnit = dataObject['location'];
       await AgywDreamsEnrollmentService().savingAgywBeneficiary(
         dataObject,
         trackedEntityInstance,
@@ -155,7 +155,7 @@ class _AgywDreamsEnrollmentFormState extends State<AgywDreamsEnrollmentForm> {
           setState(() {
             isSaving = false;
           });
-          String currentLanguage =
+          String? currentLanguage =
               Provider.of<LanguageTranslationState>(context, listen: false)
                   .currentLanguage;
           AppUtil.showToastMessage(
@@ -215,7 +215,7 @@ class _AgywDreamsEnrollmentFormState extends State<AgywDreamsEnrollmentForm> {
                 : Container(
                     child: Consumer<LanguageTranslationState>(
                       builder: (context, languageTranslationState, child) {
-                        String currentLanguage =
+                        String? currentLanguage =
                             languageTranslationState.currentLanguage;
                         return Consumer<EnrollmentFormState>(
                           builder: (context, enrollmentFormState, child) =>

@@ -29,7 +29,7 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_serv
 import 'package:provider/provider.dart';
 
 class AgywDreamsHTSShortForm extends StatefulWidget {
-  AgywDreamsHTSShortForm({Key key}) : super(key: key);
+  AgywDreamsHTSShortForm({Key? key}) : super(key: key);
 
   @override
   _AgywDreamsHTSShortFormState createState() => _AgywDreamsHTSShortFormState();
@@ -37,11 +37,11 @@ class AgywDreamsHTSShortForm extends StatefulWidget {
 
 class _AgywDreamsHTSShortFormState extends State<AgywDreamsHTSShortForm> {
   final String label = "HTS Form";
-  List<FormSection> formSections;
-  List<String> mandatoryFields = AgywDreamsShortForm.getMandatoryFields() ?? [];
+  List<FormSection>? formSections;
+  List<String> mandatoryFields = AgywDreamsShortForm.getMandatoryFields();
   bool isFormReady = false;
   bool isSaving = false;
-  Map mandatoryFieldObject;
+  Map? mandatoryFieldObject;
   List unFilledMandatoryFields = [];
 
   @override
@@ -49,7 +49,7 @@ class _AgywDreamsHTSShortFormState extends State<AgywDreamsHTSShortForm> {
     super.initState();
     formSections = AgywDreamsShortForm.getFormSections();
     mandatoryFieldObject = Map();
-    mandatoryFields.forEach((field) => mandatoryFieldObject[field] = true);
+    mandatoryFields.forEach((field) => mandatoryFieldObject![field] = true);
     Timer(Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
@@ -66,9 +66,9 @@ class _AgywDreamsHTSShortFormState extends State<AgywDreamsHTSShortForm> {
   }
 
   void onSaveForm(
-      BuildContext context, Map dataObject, AgywDream agywDream) async {
-    String eventDate = dataObject['eventDate'];
-    String eventId = dataObject['eventId'];
+      BuildContext context, Map dataObject, AgywDream? agywDream) async {
+    String? eventDate = dataObject['eventDate'];
+    String? eventId = dataObject['eventId'];
     bool hadAllMandatoryFilled =
         AppUtil.hasAllMandatoryFieldsFilled(mandatoryFields, dataObject);
     if (hadAllMandatoryFilled) {
@@ -80,8 +80,8 @@ class _AgywDreamsHTSShortFormState extends State<AgywDreamsHTSShortForm> {
       await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
         AgywDreamsHTSShortFormConstant.program,
         AgywDreamsHTSShortFormConstant.programStage,
-        agywDream.orgUnit,
-        formSections,
+        agywDream!.orgUnit,
+        formSections!,
         dataObject,
         eventDate,
         agywDream.id,
@@ -95,7 +95,7 @@ class _AgywDreamsHTSShortFormState extends State<AgywDreamsHTSShortForm> {
       Timer(Duration(seconds: 1), () {
         setState(() {
           isSaving = false;
-          String currentLanguage =
+          String? currentLanguage =
               Provider.of<LanguageTranslationState>(context, listen: false)
                   .currentLanguage;
           AppUtil.showToastMessage(
@@ -127,7 +127,7 @@ class _AgywDreamsHTSShortFormState extends State<AgywDreamsHTSShortForm> {
             Provider.of<ServiceFormState>(context, listen: false).formState;
         await AgywDreamsHTSShortFormSkipLogic.evaluateSkipLogics(
           context,
-          formSections,
+          formSections!,
           dataObject,
         );
       },
@@ -135,7 +135,7 @@ class _AgywDreamsHTSShortFormState extends State<AgywDreamsHTSShortForm> {
   }
 
   void clearFormAutoSaveState(
-      BuildContext context, String beneficiaryId) async {
+      BuildContext context, String? beneficiaryId) async {
     String formAutoSaveId =
         "${DreamsRoutesConstant.agywDreamsHTSShortFormPage}_$beneficiaryId";
     await FormAutoSaveOfflineService().deleteSavedFormAutoData(formAutoSaveId);
@@ -148,8 +148,8 @@ class _AgywDreamsHTSShortFormState extends State<AgywDreamsHTSShortForm> {
   }) async {
     var agyw =
         Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
-            .currentAgywDream;
-    String beneficiaryId = agyw.id;
+            .currentAgywDream!;
+    String? beneficiaryId = agyw.id;
     Map dataObject =
         Provider.of<ServiceFormState>(context, listen: false).formState;
     String id =
@@ -188,12 +188,13 @@ class _AgywDreamsHTSShortFormState extends State<AgywDreamsHTSShortForm> {
         body: Container(
           child: Consumer<LanguageTranslationState>(
             builder: (context, languageTranslationState, child) {
-              String currentLanguage = languageTranslationState.currentLanguage;
+              String? currentLanguage =
+                  languageTranslationState.currentLanguage;
               return Consumer<DreamsBeneficiarySelectionState>(
                 builder: (context, dreamBeneficiarySelectionState, child) {
                   return Consumer<ServiceFormState>(
                     builder: (context, serviceFormState, child) {
-                      AgywDream agywDream =
+                      AgywDream? agywDream =
                           dreamBeneficiarySelectionState.currentAgywDream;
                       return Container(
                         child: Column(

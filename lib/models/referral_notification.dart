@@ -6,17 +6,17 @@ class ReferralNotification {
   String implementingPartner;
   String nameSpaceKey;
   String tei;
-  List<ReferralEventNotification> referrals;
+  List<ReferralEventNotification>? referrals;
 
   static final String implementingPartnerFormVariable = "y0bvausyTyh";
   static final String facility = "jOXN2iPhkxj";
   static final String communityCouncil = "ubB83OWNWsv";
 
   ReferralNotification({
-    @required this.id,
-    @required this.implementingPartner,
-    @required this.nameSpaceKey,
-    @required this.tei,
+    required this.id,
+    required this.implementingPartner,
+    required this.nameSpaceKey,
+    required this.tei,
     this.referrals,
   }) {
     this.referrals = this.referrals ?? [];
@@ -27,7 +27,7 @@ class ReferralNotification {
     String implementingPartner = data["implementingPartner"] ?? "";
     String nameSpaceKey = data["nameSpaceKey"] ?? "";
     String tei = data["tei"] ?? "";
-    List referrals = (data["referrals"] as List ?? [])
+    List referrals = (data["referrals"] as List? ?? [])
         .map((dynamic json) => ReferralEventNotification.fromJson(json))
         .toList();
     return ReferralNotification(
@@ -35,7 +35,7 @@ class ReferralNotification {
       implementingPartner: implementingPartner,
       nameSpaceKey: nameSpaceKey,
       tei: tei,
-      referrals: referrals,
+      referrals: referrals as List<ReferralEventNotification>?,
     );
   }
 
@@ -45,7 +45,7 @@ class ReferralNotification {
     data["implementingPartner"] = implementingPartner;
     data["nameSpaceKey"] = nameSpaceKey;
     data["tei"] = tei;
-    data["referrals"] = referrals
+    data["referrals"] = referrals!
         .map((ReferralEventNotification referralEventNotification) =>
             referralEventNotification.toOffline(
               shouldTransformBooleanValues: shouldTransformBooleanValues,

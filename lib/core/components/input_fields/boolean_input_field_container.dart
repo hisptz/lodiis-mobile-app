@@ -5,15 +5,15 @@ import 'package:kb_mobile_app/models/input_field_option.dart';
 
 class BooleanInputFieldContainer extends StatefulWidget {
   const BooleanInputFieldContainer(
-      {Key key,
-      @required this.inputField,
-      @required this.onInputValueChange,
-      @required this.currentLanguage,
+      {Key? key,
+      required this.inputField,
+      required this.onInputValueChange,
+      required this.currentLanguage,
       this.inputValue})
       : super(key: key);
 
   final InputField inputField;
-  final String currentLanguage;
+  final String? currentLanguage;
   final Function onInputValueChange;
   final dynamic inputValue;
 
@@ -36,7 +36,7 @@ class _BooleanInputFieldContainerState
       code: false,
     ),
   ];
-  bool _inputValue;
+  bool? _inputValue;
 
   @override
   void initState() {

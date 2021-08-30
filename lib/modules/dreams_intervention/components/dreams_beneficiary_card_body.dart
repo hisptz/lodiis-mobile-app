@@ -6,9 +6,9 @@ import 'package:provider/provider.dart';
 
 class DreamsBeneficiaryCardBody extends StatelessWidget {
   const DreamsBeneficiaryCardBody(
-      {Key key,
-      @required this.isVerticalLayout,
-      @required this.agywBeneficiary,
+      {Key? key,
+      required this.isVerticalLayout,
+      required this.agywBeneficiary,
       this.canViewServiceCategory = false})
       : super(key: key);
 
@@ -23,7 +23,7 @@ class DreamsBeneficiaryCardBody extends StatelessWidget {
     return Container(
       child: Consumer<LanguageTranslationState>(
         builder: (context, languageTranslationState, child) {
-          String currentLanguage = languageTranslationState.currentLanguage;
+          String? currentLanguage = languageTranslationState.currentLanguage;
           return Container(
             margin: EdgeInsets.symmetric(horizontal: 13.0, vertical: 20.0),
             child: isVerticalLayout
@@ -268,17 +268,17 @@ class DreamsBeneficiaryCardBody extends StatelessWidget {
 
 class HorizontalRowCardData extends StatelessWidget {
   const HorizontalRowCardData({
-    Key key,
-    @required this.labelColor,
-    @required this.valueColor,
-    @required this.label,
-    @required this.value,
+    Key? key,
+    required this.labelColor,
+    required this.valueColor,
+    required this.label,
+    required this.value,
   }) : super(key: key);
 
   final Color labelColor;
   final Color valueColor;
   final String label;
-  final String value;
+  final String? value;
 
   @override
   Widget build(BuildContext context) {
@@ -308,17 +308,17 @@ class HorizontalRowCardData extends StatelessWidget {
 
 class VerticalRowCardData extends StatelessWidget {
   const VerticalRowCardData({
-    Key key,
-    @required this.labelColor,
-    @required this.valueColor,
-    @required this.label,
-    @required this.value,
+    Key? key,
+    required this.labelColor,
+    required this.valueColor,
+    required this.label,
+    required this.value,
   }) : super(key: key);
 
   final Color labelColor;
   final Color valueColor;
   final String label;
-  final String value;
+  final String? value;
 
   @override
   Widget build(BuildContext context) {
@@ -333,7 +333,7 @@ class VerticalRowCardData extends StatelessWidget {
         )),
         Expanded(
             child: Text(
-          value,
+          value!,
           style: TextStyle().copyWith(
               color: valueColor, fontSize: 14.0, fontWeight: FontWeight.w500),
         ))

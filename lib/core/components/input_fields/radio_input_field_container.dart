@@ -3,21 +3,21 @@ import 'package:kb_mobile_app/models/input_field_option.dart';
 
 class RadioInputFieldContainer extends StatefulWidget {
   const RadioInputFieldContainer({
-    Key key,
-    @required this.options,
-    @required this.currentValue,
-    @required this.onInputValueChange,
-    @required this.isReadOnly,
-    @required this.currentLanguage,
+    Key? key,
+    required this.options,
+    required this.currentValue,
+    required this.onInputValueChange,
+    required this.isReadOnly,
+    required this.currentLanguage,
     this.activeColor,
   }) : super(key: key);
 
-  final List<InputFieldOption> options;
-  final String currentLanguage;
+  final List<InputFieldOption>? options;
+  final String? currentLanguage;
   final dynamic currentValue;
   final Function onInputValueChange;
-  final Color activeColor;
-  final bool isReadOnly;
+  final Color? activeColor;
+  final bool? isReadOnly;
 
   @override
   _RadioInputFieldContainerState createState() =>
@@ -56,7 +56,7 @@ class _RadioInputFieldContainerState extends State<RadioInputFieldContainer> {
       alignment: Alignment.centerLeft,
       padding: EdgeInsets.symmetric(vertical: 10.0),
       child: Wrap(
-        children: widget.options
+        children: widget.options!
             .map(
               (InputFieldOption option) => Container(
                 child: Row(
@@ -67,13 +67,13 @@ class _RadioInputFieldContainerState extends State<RadioInputFieldContainer> {
                       activeColor: widget.activeColor,
                       value: option.code,
                       groupValue: _currentValue,
-                      onChanged: widget.isReadOnly ? null : setSelectedOption,
+                      onChanged: widget.isReadOnly! ? null : setSelectedOption,
                     ),
                     Container(
                       child: Text(
                         widget.currentLanguage == 'lesotho' &&
                                 option.translatedName != null
-                            ? option.translatedName
+                            ? option.translatedName!
                             : option.name,
                         style: TextStyle().copyWith(
                           color: _currentValue == option.code

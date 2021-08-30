@@ -11,12 +11,12 @@ import 'package:kb_mobile_app/models/current_user.dart';
 class UserService {
   final String preferenceKey = 'current_user';
 
-  Future<CurrentUser> login({
-    @required String username,
-    @required String password,
+  Future<CurrentUser?> login({
+    required String? username,
+    required String? password,
     isOnlineAuthentication = true,
   }) async {
-    CurrentUser user;
+    CurrentUser? user;
     try {
       if (isOnlineAuthentication) {
         var url = 'api/me.json';
@@ -55,22 +55,22 @@ class UserService {
   }
 
   Future logout() async {
-    CurrentUser user = await getCurrentUser();
+    CurrentUser? user = await getCurrentUser();
     if (user != null) {
       user.isLogin = false;
       await setCurrentUser(user);
     }
   }
 
-  Future<CurrentUser> getCurrentUser() async {
-    String userId = await PreferenceProvider.getPreferenceValue(preferenceKey);
+  Future<CurrentUser?> getCurrentUser() async {
+    String? userId = await PreferenceProvider.getPreferenceValue(preferenceKey);
     List<CurrentUser> users = await UserOfflineProvider().getUsers();
     List<CurrentUser> filteredUsers =
         users.where((CurrentUser user) => user.id == userId).toList();
     return filteredUsers.length > 0 ? filteredUsers[0] : null;
   }
 
-  resetUserAssociatedMetadata(String userId) async {
+  resetUserAssociatedMetadata(String? userId) async {
     await UserOuOfflineProvider().deleteUserOrganisationUnits(userId);
     await UserProgramOfflineProvider().deleteUserPrograms(userId);
     await ProgramOuOfflineProvider().clearProgramOrganisationUnits();
@@ -82,7 +82,7 @@ class UserService {
     await UserOfflineProvider().addOrUpdateUser(user);
     await PreferenceProvider.setPreferenceValue(
       preferenceKey,
-      user.id,
+      user.id!,
     );
   }
 }

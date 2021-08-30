@@ -2,10 +2,10 @@ import 'package:kb_mobile_app/core/constants/beneficiary_identification.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 
 class ReservedAttributeValue {
-  String id;
-  String attribute;
-  String value;
-  String expireDate;
+  String? id;
+  String? attribute;
+  String? value;
+  String? expireDate;
 
   ReservedAttributeValue({
     this.id,

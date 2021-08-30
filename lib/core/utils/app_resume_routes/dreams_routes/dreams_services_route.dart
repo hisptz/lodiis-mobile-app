@@ -9,7 +9,6 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_serv
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/condoms/pages/agyw_dreams_condoms_form.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/contraceptives/pages/agyw_dreams_contraceptives_form.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_long_form/pages/agyw_dreams_hts_client_information.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_long_form/pages/agyw_dreams_hts_consent_form.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_long_form/pages/agyw_dreams_hts_register.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_short_form/pages/agyw_dreams_hts_short_form.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/msg_hiv/pages/agyw_dreams_msg_hiv_form.dart';
@@ -24,7 +23,6 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_serv
 class DreamsServicesRoute {
   //@TODO redirect for None agyw beneficiaries
 
-  //@TODO redirect for agyw/dreams beneficiaries
   redirectToAgywDreamsANCForm(
     BuildContext context,
     FormAutoSave formAutoSave,
@@ -146,7 +144,7 @@ class DreamsServicesRoute {
 
   redirectToAgywDreamsReferralForm(
       BuildContext context, FormAutoSave formAutoSave) async {
-    CurrentUser currentUser = await UserService().getCurrentUser();
+    CurrentUser? currentUser = await UserService().getCurrentUser();
     AppResumeRouteUtil.setServiceFormState(context, formAutoSave);
     Navigator.push(
       context,

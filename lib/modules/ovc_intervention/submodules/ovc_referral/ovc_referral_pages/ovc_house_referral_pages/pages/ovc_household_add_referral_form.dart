@@ -25,7 +25,7 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/o
 import 'package:provider/provider.dart';
 
 class OvcHouseholdAddReferralForm extends StatefulWidget {
-  OvcHouseholdAddReferralForm({Key key}) : super(key: key);
+  OvcHouseholdAddReferralForm({Key? key}) : super(key: key);
 
   @override
   _OvcHouseholdAddReferralFormState createState() =>
@@ -35,7 +35,7 @@ class OvcHouseholdAddReferralForm extends StatefulWidget {
 class _OvcHouseholdAddReferralFormState
     extends State<OvcHouseholdAddReferralForm> {
   //final String label = 'Household Referral Form';
-  List<FormSection> formSections;
+  List<FormSection>? formSections;
   bool isFormReady = false;
   bool isSaving = false;
 
@@ -59,7 +59,7 @@ class _OvcHouseholdAddReferralFormState
             Provider.of<ServiceFormState>(context, listen: false).formState;
         await OvcHouseholdReferralSkipLogic.evaluateSkipLogics(
           context,
-          formSections,
+          formSections!,
           dataObject,
         );
       },
@@ -82,14 +82,14 @@ class _OvcHouseholdAddReferralFormState
   void onSaveForm(
     BuildContext context,
     Map dataObject,
-    OvcHousehold currentOvcHousehold,
+    OvcHousehold? currentOvcHousehold,
   ) async {
     if (FormUtil.geFormFilledStatus(dataObject, formSections)) {
       setState(() {
         isSaving = true;
       });
-      String eventDate = dataObject['eventDate'];
-      String eventId = dataObject['eventId'];
+      String? eventDate = dataObject['eventDate'];
+      String? eventId = dataObject['eventId'];
       dataObject[OvcHouseholdReferralConstant.referralToFollowUpLinkage] =
           dataObject[OvcHouseholdReferralConstant.referralToFollowUpLinkage] ??
               AppUtil.getUid();
@@ -100,8 +100,8 @@ class _OvcHouseholdAddReferralFormState
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
             OvcHouseholdReferralConstant.program,
             OvcHouseholdReferralConstant.referralStage,
-            currentOvcHousehold.orgUnit,
-            formSections,
+            currentOvcHousehold!.orgUnit,
+            formSections!,
             dataObject,
             eventDate,
             currentOvcHousehold.id,
@@ -113,7 +113,7 @@ class _OvcHouseholdAddReferralFormState
           setState(() {
             isSaving = true;
           });
-          String currentLanguage =
+          String? currentLanguage =
               Provider.of<LanguageTranslationState>(context, listen: false)
                   .currentLanguage;
           AppUtil.showToastMessage(
@@ -146,7 +146,7 @@ class _OvcHouseholdAddReferralFormState
         preferredSize: Size.fromHeight(65.0),
         child: Consumer<LanguageTranslationState>(
           builder: (context, languageTranslationState, child) {
-            String currentLanguage = languageTranslationState.currentLanguage;
+            String? currentLanguage = languageTranslationState.currentLanguage;
             return Consumer<InterventionCardState>(
               builder: (context, interventionCardState, child) {
                 InterventionCard activeInterventionProgram =
@@ -166,10 +166,10 @@ class _OvcHouseholdAddReferralFormState
         body: Container(
           child: Consumer<LanguageTranslationState>(
             builder: (context, languageTranslationState, child) {
-              String currentLanguage = languageTranslationState.currentLanguage;
+              String? currentLanguage = languageTranslationState.currentLanguage;
               return Consumer<OvcHouseholdCurrentSelectionState>(
                 builder: (context, ovcHouseholdCurrentSelectionState, child) {
-                  OvcHousehold currentOvcHousehold =
+                  OvcHousehold? currentOvcHousehold =
                       ovcHouseholdCurrentSelectionState.currentOvcHousehold;
                   return Consumer<ServiceFormState>(
                     builder: (context, serviceFormState, child) {

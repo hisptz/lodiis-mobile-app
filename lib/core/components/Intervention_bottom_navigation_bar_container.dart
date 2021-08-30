@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 
 class InterventionBottomNavigationBarContainer extends StatelessWidget {
   const InterventionBottomNavigationBarContainer({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

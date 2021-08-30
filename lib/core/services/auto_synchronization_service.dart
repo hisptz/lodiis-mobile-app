@@ -15,7 +15,7 @@ class AutoSynchronizationService {
     await Provider.of<SynchronizationState>(context, listen: false)
         .startCheckingStatusOfUnsyncedData(isAutoUpload: true);
     bool isOnline = Provider.of<DeviceConnectivityState>(context, listen: false)
-        .connectivityStatus;
+        .connectivityStatus!;
     if (isOnline) {
       bool isDataSyncActive =
           Provider.of<SynchronizationState>(context, listen: false)

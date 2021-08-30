@@ -293,7 +293,7 @@ mixin OvcCasePlanFollowUpSkipLogic {
   assignInputFieldValue(
     BuildContext context,
     String inputFieldId,
-    String value,
+    String? value,
   ) {
     childMapObject[inputFieldId] = value;
   }

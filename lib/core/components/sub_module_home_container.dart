@@ -4,15 +4,15 @@ import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:provider/provider.dart';
 
 class SubModuleHomeContainer extends StatelessWidget {
-  final String header;
+  final String? header;
   final Widget bodyContents;
-  final Function onOpenInfo;
+  final Function? onOpenInfo;
   final bool hasInfo;
 
   const SubModuleHomeContainer(
-      {Key key,
+      {Key? key,
       this.header,
-      @required this.bodyContents,
+      required this.bodyContents,
       this.onOpenInfo,
       this.hasInfo = false})
       : super(key: key);
@@ -29,7 +29,7 @@ class SubModuleHomeContainer extends StatelessWidget {
                     children: [
                       Expanded(
                           child: Text(
-                        header,
+                        header!,
                         style: TextStyle().copyWith(
                             color: Color(0xFF82898D),
                             fontSize: 14.0,
@@ -38,7 +38,7 @@ class SubModuleHomeContainer extends StatelessWidget {
                       Visibility(
                           visible: hasInfo,
                           child: InkWell(
-                            onTap: onOpenInfo,
+                            onTap: onOpenInfo as void Function()?,
                             child: Icon(
                               Icons.info_outline,
                               color: Color(0xFF82898D),

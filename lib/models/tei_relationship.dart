@@ -1,11 +1,11 @@
 import 'dart:convert';
 
 class TeiRelationship {
-  String id;
-  String relationshipType;
-  String fromTei;
-  String toTei;
-  String syncStatus;
+  String? id;
+  String? relationshipType;
+  String? fromTei;
+  String? toTei;
+  String? syncStatus;
 
   TeiRelationship(
       {this.id,

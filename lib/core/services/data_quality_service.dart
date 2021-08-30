@@ -48,10 +48,10 @@ class DataQualityService {
     List<InputField> numericalInputFields = [];
     for (FormSection formSection in formSections) {
       numericalInputFields
-          .addAll(getInputFieldsByType(formSection.inputFields, valueType));
-      if (formSection.subSections.isNotEmpty) {
+          .addAll(getInputFieldsByType(formSection.inputFields!, valueType));
+      if (formSection.subSections!.isNotEmpty) {
         numericalInputFields
-            .addAll(getNumericalInputFields(formSection.subSections));
+            .addAll(getNumericalInputFields(formSection.subSections!));
       }
     }
     return numericalInputFields;

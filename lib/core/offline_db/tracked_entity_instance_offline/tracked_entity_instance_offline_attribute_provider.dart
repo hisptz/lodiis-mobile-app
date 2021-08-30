@@ -16,17 +16,17 @@ class TrackedEntityInstanceOfflineAttributeProvider extends OfflineDbProvider {
   ) async {
     var dbClient = await db;
     try {
-      List attributes = trackedEntityInstanceData.attributes as List<dynamic>;
-      String trackedEntityInstance =
+      List attributes = trackedEntityInstanceData.attributes ?? [];
+      String? trackedEntityInstance =
           trackedEntityInstanceData.trackedEntityInstance;
       for (Map attributeObj in attributes) {
-        String attribute = attributeObj['attribute'];
+        String? attribute = attributeObj['attribute'];
         Map data = Map<String, dynamic>();
         data['id'] = '$trackedEntityInstance-$attribute';
         data['trackedEntityInstance'] = trackedEntityInstance;
         data['attribute'] = attribute;
         data['value'] = attributeObj['value'] ?? '';
-        await dbClient.insert(table, data,
+        await dbClient!.insert(table, data as Map<String, Object?>,
             conflictAlgorithm: ConflictAlgorithm.replace);
       }
     } catch (e) {}
@@ -34,7 +34,7 @@ class TrackedEntityInstanceOfflineAttributeProvider extends OfflineDbProvider {
 
   addOrUpdateMultipleTrackedEntityInstanceAttributes(List attributes) async {
     var dbClient = await db;
-    var attributesBatch = dbClient.batch();
+    var attributesBatch = dbClient!.batch();
     try {
       for (var attribute in attributes) {
         attributesBatch.insert(table, attribute,
@@ -48,13 +48,13 @@ class TrackedEntityInstanceOfflineAttributeProvider extends OfflineDbProvider {
   }
 
   List getTrackedEntityAttributes(TrackedEntityInstance trackedEntityInstance) {
-    List attributes = trackedEntityInstance.attributes as List<dynamic>;
+    List attributes = trackedEntityInstance.attributes ?? [];
     List attributesObjects = [];
     try {
-      String trackedEntityInstanceId =
+      String? trackedEntityInstanceId =
           trackedEntityInstance.trackedEntityInstance;
       for (Map attributeObj in attributes) {
-        String attribute = attributeObj['attribute'];
+        String? attribute = attributeObj['attribute'];
         Map data = Map<String, dynamic>();
         data['id'] = '$trackedEntityInstance-$attribute';
         data['trackedEntityInstance'] = trackedEntityInstanceId;
@@ -68,12 +68,12 @@ class TrackedEntityInstanceOfflineAttributeProvider extends OfflineDbProvider {
   }
 
   Future<List> getTrackedEntityAttributesValues(
-    String trackedEntityInstanceId,
+    String? trackedEntityInstanceId,
   ) async {
     List attributes = [];
     try {
       var dbClient = await db;
-      List<Map> maps = await dbClient.query(
+      List<Map> maps = await dbClient!.query(
         table,
         columns: [attribute, value],
         where: '$trackedEntityInstance = ?',
@@ -95,7 +95,7 @@ class TrackedEntityInstanceOfflineAttributeProvider extends OfflineDbProvider {
     try {
       var dbClient = await db;
       String questionMarks = attributeIds.map((e) => '?').toList().join(',');
-      List<Map> maps = await dbClient.query(
+      List<Map> maps = await dbClient!.query(
         table,
         columns: [id, trackedEntityInstance, attribute, value],
         where: '$attribute IN ($questionMarks)',

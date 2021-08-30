@@ -19,15 +19,15 @@ import 'package:kb_mobile_app/models/tei_relationship.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
 
 class SynchronizationService {
-  HttpService httpClient;
-  final List programs;
-  final List orgUnitIds;
+  late HttpService httpClient;
+  final List? programs;
+  final List? orgUnitIds;
   final String offlineSyncStatus = 'not-synced';
   final String onlineSyncStatus = 'synced';
 
   SynchronizationService(
-    String username,
-    String password,
+    String? username,
+    String? password,
     this.programs,
     this.orgUnitIds,
   ) {
@@ -39,7 +39,7 @@ class SynchronizationService {
 
   Future<List> getDataPaginationFilters(
     String url, {
-    Map<String, dynamic> queryParameters,
+    required Map<String, dynamic> queryParameters,
   }) async {
     List paginationFilter = [];
     try {
@@ -77,7 +77,7 @@ class SynchronizationService {
   }
 
   Future<void> getAndSaveEventsFromServer(
-      String program, String userOrgId, String lastSyncDate) async {
+      String? program, String? userOrgId, String lastSyncDate) async {
     try {
       var queryParameters = {
         "program": program,
@@ -90,7 +90,7 @@ class SynchronizationService {
         queryParameters: queryParameters,
       );
       for (var pageFilter in pageFilters) {
-        var dataQueryParameters = {
+        Map<String, String?> dataQueryParameters = {
           "fields":
               "event,program,programStage,trackedEntityInstance,status,orgUnit,dataValues[dataElement,value,displayName],eventDate",
         };
@@ -124,7 +124,7 @@ class SynchronizationService {
     }
   }
 
-  Future<List<TeiRelationship>> getTeiRelationshipsfromServer(
+  Future<List<TeiRelationship>?> getTeiRelationshipsfromServer(
     String program,
     String userOrgId,
   ) async {
@@ -202,7 +202,7 @@ class SynchronizationService {
     return entityInstanceAttributes;
   }
 
-  List<TrackedEntityInstance> getTeiFromResponse(responseData) {
+  List<TrackedEntityInstance>? getTeiFromResponse(responseData) {
     return responseData['trackedEntityInstances']
         ?.map<TrackedEntityInstance>(
             (instance) => TrackedEntityInstance().fromJson(instance))
@@ -229,7 +229,7 @@ class SynchronizationService {
           getEnrollmentsAndRelationshipsFromResponse(responseData);
       TrackedEntityInstanceOfflineProvider()
           .addOrUpdateMultipleTrackedEntityInstance(
-              getTeiFromResponse(responseData));
+              getTeiFromResponse(responseData)!);
       EnrollmentOfflineProvider().addOrUpdateMultipleEnrollments(
           enrollmentsAndRelationships['enrollments']);
       TeiRelationshipOfflineProvider().addOrUpdateMultipleTeiRelationships(
@@ -240,7 +240,7 @@ class SynchronizationService {
   }
 
   Future<void> getAndSaveTrackedInstanceFromServer(
-      String program, String userOrgId, String lastSyncDate) async {
+      String? program, String? userOrgId, String lastSyncDate) async {
     var queryParameters = {
       "program": program,
       "ou": userOrgId,
@@ -253,7 +253,7 @@ class SynchronizationService {
     );
     for (var pageFilter in pageFilters) {
       try {
-        var dataQueryParameters = {
+        Map<String, String?> dataQueryParameters = {
           "fields":
               "trackedEntityInstance,trackedEntityType,orgUnit,attributes[attribute,value,displayName],enrollments[enrollment,enrollmentDate,incidentDate,orgUnit,program,trackedEntityInstance,status],relationships[relationshipType,relationship,from[trackedEntityInstance[trackedEntityInstance]],to[trackedEntityInstance[trackedEntityInstance]]]",
         };
@@ -322,8 +322,8 @@ class SynchronizationService {
 
   Future<int> getOfflineEventsCount(CurrentUser currentUser) async {
     int eventsCount = 0;
-    for (String orgUnit in currentUser.userOrgUnitIds) {
-      for (String program in currentUser.programs) {
+    for (String? orgUnit in currentUser.userOrgUnitIds ?? []) {
+      for (String? program in currentUser.programs ?? []) {
         int count =
             await EventOfflineProvider().getOfflineEventCount(program, orgUnit);
         eventsCount += count;
@@ -334,8 +334,8 @@ class SynchronizationService {
 
   Future<int> getOfflineEnrollmentCount(CurrentUser currentUser) async {
     int enrollmentsCount = 0;
-    for (String orgUnit in currentUser.userOrgUnitIds) {
-      for (String program in currentUser.programs) {
+    for (String? orgUnit in currentUser.userOrgUnitIds ?? []) {
+      for (String? program in currentUser.programs ?? []) {
         int count = await EnrollmentOfflineProvider()
             .getOfflineEnrollmentsCount(program, orgUnit);
         enrollmentsCount += count;
@@ -345,7 +345,7 @@ class SynchronizationService {
   }
 
   Future<int> getTotalFromPaginator(String url,
-      {Map<String, dynamic> queryParameters}) async {
+      {required Map<String, dynamic> queryParameters}) async {
     Response response = await httpClient.httpGetPagination(
       url,
       queryParameters,
@@ -360,8 +360,8 @@ class SynchronizationService {
     int enrollmentsCount = 0;
     String url = 'api/trackedEntityInstances';
     try {
-      for (String orgUnit in currentUser.userOrgUnitIds) {
-        for (String program in currentUser.programs) {
+      for (String? orgUnit in currentUser.userOrgUnitIds ?? []) {
+        for (String? program in currentUser.programs ?? []) {
           var queryParameters = {
             "program": program,
             "ou": orgUnit,
@@ -387,8 +387,8 @@ class SynchronizationService {
     int eventsCount = 0;
     String url = 'api/events';
     try {
-      for (String orgUnit in currentUser.userOrgUnitIds) {
-        for (String program in currentUser.programs) {
+      for (String? orgUnit in currentUser.userOrgUnitIds ?? []) {
+        for (String? program in currentUser.programs ?? []) {
           var queryParameters = {
             "program": program,
             "orgUnit": orgUnit,
@@ -421,7 +421,7 @@ class SynchronizationService {
 
   Future<bool> uploadEnrollmentsToTheServer(
       List<Enrollment> teiEnrollments, bool isAutoUpload) async {
-    List<String> syncedIds = [];
+    List<String?>? syncedIds = [];
     String url = 'api/enrollments';
     bool conflictOnImport = false;
     List<TrackedEntityInstance> unsyncedTeis = await getTeisFromOfflineDb();
@@ -463,7 +463,7 @@ class SynchronizationService {
       await AppLogsOfflineProvider().addLogs(log);
       throw e;
     }
-    if (syncedIds.length > 0) {
+    if (syncedIds!.length > 0) {
       for (Enrollment teiEnrollment in teiEnrollments) {
         if (syncedIds.indexOf(teiEnrollment.enrollment) > -1) {
           teiEnrollment.syncStatus = 'synced';
@@ -477,7 +477,7 @@ class SynchronizationService {
 
   Future<bool> uploadTeisToTheServer(
       List<TrackedEntityInstance> teis, bool isAutoUpload) async {
-    List<String> syncedIds = [];
+    List<String?>? syncedIds = [];
     String url = 'api/trackedEntityInstances';
     bool conflictOnImport = false;
     Map body = Map();
@@ -517,7 +517,7 @@ class SynchronizationService {
       await AppLogsOfflineProvider().addLogs(log);
       throw e;
     }
-    if (syncedIds.length > 0) {
+    if (syncedIds!.length > 0) {
       for (TrackedEntityInstance tei in teis) {
         if (syncedIds.indexOf(tei.trackedEntityInstance) > -1) {
           tei.syncStatus = 'synced';
@@ -532,7 +532,7 @@ class SynchronizationService {
   Future<bool> uploadTeiEventsToTheServer(
       List<Events> teiEvents, bool isAutoUpload,
       {bool checkEnrollments = true}) async {
-    List<String> syncedIds = [];
+    List<String?>? syncedIds = [];
     String url = 'api/events';
     bool conflictOnImport = false;
     Map body = Map();
@@ -579,7 +579,7 @@ class SynchronizationService {
       await AppLogsOfflineProvider().addLogs(log);
       throw error;
     }
-    if (syncedIds.length > 0) {
+    if (syncedIds!.length > 0) {
       for (Events event in teiEvents) {
         if (syncedIds.indexOf(event.event) > -1) {
           event.syncStatus = 'synced';
@@ -596,11 +596,11 @@ class SynchronizationService {
     bool isAutoUpload,
     List<Events> teiEvents,
   ) async {
-    List<String> unsyncedDueToEnrollment =
+    List<String?> unsyncedDueToEnrollment =
         referenceIds['unsyncedDueToEnrollment'] ?? [];
-    List<String> unsyncedDueMissingBeneficiary =
+    List<String?> unsyncedDueMissingBeneficiary =
         referenceIds['unsyncedDueMissingBeneficiary'] ?? [];
-    List<String> unsyncedEventIds = [
+    List<String?> unsyncedEventIds = [
       ...unsyncedDueMissingBeneficiary,
       ...unsyncedDueToEnrollment
     ];
@@ -633,7 +633,7 @@ class SynchronizationService {
   Future<bool> uploadTeiRelationToTheServer(
       List<TeiRelationship> teiRelationShips, bool isAutoUpload) async {
     Map body = Map<String, dynamic>();
-    List<String> syncedIds = [];
+    List<String?>? syncedIds = [];
     String url = 'api/relationships';
     bool conflictOnImport = false;
     body['relationships'] = teiRelationShips
@@ -669,7 +669,7 @@ class SynchronizationService {
       throw e;
     }
 
-    if (syncedIds.length > 0) {
+    if (syncedIds!.length > 0) {
       for (TeiRelationship teiRelationship in teiRelationShips) {
         if (syncedIds.indexOf(teiRelationship.id) > -1) {
           teiRelationship.syncStatus = 'synced';
@@ -753,9 +753,9 @@ class SynchronizationService {
   }
 
   Future<Map<String, dynamic>> _getReferenceIds(Map body) async {
-    List<String> syncedIds = [];
-    List<String> unsyncedDueToEnrollment = [];
-    List<String> unsyncedDueMissingBeneficiary = [];
+    List<String?> syncedIds = [];
+    List<String?> unsyncedDueToEnrollment = [];
+    List<String?> unsyncedDueMissingBeneficiary = [];
     bool conflictOnImport = false;
     try {
       var bodyResponse = body['response'] ?? Map();

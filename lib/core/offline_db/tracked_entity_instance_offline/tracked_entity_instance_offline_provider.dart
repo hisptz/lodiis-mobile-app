@@ -24,14 +24,14 @@ class TrackedEntityInstanceOfflineProvider extends OfflineDbProvider {
 
       for (List<dynamic> trackedEntityInstancesGroup
           in chunkedTrackedEntityInstances) {
-        var trackedEntityBatch = dbClient.batch();
+        var trackedEntityBatch = dbClient!.batch();
         List attributesList = [];
 
         for (dynamic trackedEntityInstance in trackedEntityInstancesGroup) {
           Map data = TrackedEntityInstance().toOffline(trackedEntityInstance);
           data.remove('attributes');
           data['id'] = data['trackedEntityInstance'];
-          trackedEntityBatch.insert(table, data,
+          trackedEntityBatch.insert(table, data as Map<String, Object?>,
               conflictAlgorithm: ConflictAlgorithm.replace);
           attributesList.addAll(TrackedEntityInstanceOfflineAttributeProvider()
               .getTrackedEntityAttributes(trackedEntityInstance));
@@ -53,21 +53,21 @@ class TrackedEntityInstanceOfflineProvider extends OfflineDbProvider {
     Map data = TrackedEntityInstance().toOffline(trackedEntityInstance);
     data.remove('attributes');
     data['id'] = data['trackedEntityInstance'];
-    await dbClient.insert(table, data,
+    await dbClient!.insert(table, data as Map<String, Object?>,
         conflictAlgorithm: ConflictAlgorithm.replace);
     await TrackedEntityInstanceOfflineAttributeProvider()
         .addOrUpdateTrackedEntityAttributesValues(trackedEntityInstance);
   }
 
-  Future<List<String>> getAllOfflineTrackedEntitiyInstanceIds() async {
-    List<String> offlineTrackedEntityInstanceIds = [];
+  Future<List<String?>> getAllOfflineTrackedEntitiyInstanceIds() async {
+    List<String?> offlineTrackedEntityInstanceIds = [];
     try {
       var dbClient = await db;
       List<Map> maps =
-          await dbClient.query(table, columns: [trackedEntityInstance]);
+          await dbClient!.query(table, columns: [trackedEntityInstance]);
       if (maps.isNotEmpty) {
         offlineTrackedEntityInstanceIds.addAll(
-            maps.map((map) => map[trackedEntityInstance] as String).toList());
+            maps.map((map) => map[trackedEntityInstance] as String?).toList());
       }
     } catch (error) {
       print("getAllOfflineTrackedEntitiyInstanceIds : ${error.toString()}");
@@ -76,14 +76,14 @@ class TrackedEntityInstanceOfflineProvider extends OfflineDbProvider {
   }
 
   Future<List<TrackedEntityInstance>> getTrackedEntityInstanceByIds(
-    List<String> trackedEntityInstanceIds,
+    List<String?> trackedEntityInstanceIds,
   ) async {
     List<TrackedEntityInstance> trackedEntityInstances = [];
     try {
       var dbClient = await db;
       String questionMarks =
           trackedEntityInstanceIds.map((e) => '?').toList().join(',');
-      List<Map> maps = await dbClient.query(
+      List<Map> maps = await dbClient!.query(
         table,
         columns: [
           trackedEntityInstance,
@@ -96,11 +96,12 @@ class TrackedEntityInstanceOfflineProvider extends OfflineDbProvider {
       );
       if (maps.isNotEmpty) {
         for (Map map in maps) {
-          String trackedEntityInstanceId = map['trackedEntityInstance'];
+          String? trackedEntityInstanceId = map['trackedEntityInstance'];
           List attributes =
               await TrackedEntityInstanceOfflineAttributeProvider()
                   .getTrackedEntityAttributesValues(trackedEntityInstanceId);
-          TrackedEntityInstance tei = TrackedEntityInstance.fromOffline(map);
+          TrackedEntityInstance tei =
+              TrackedEntityInstance.fromOffline(map as Map<String, dynamic>);
           tei.attributes = attributes;
           trackedEntityInstances.add(tei);
         }
@@ -110,10 +111,10 @@ class TrackedEntityInstanceOfflineProvider extends OfflineDbProvider {
   }
 
   Future<int> getTeiCountBySyncStatus(String status) async {
-    int teiCount;
+    int? teiCount;
     try {
       var dbClient = await db;
-      teiCount = Sqflite.firstIntValue(await dbClient.rawQuery(
+      teiCount = Sqflite.firstIntValue(await dbClient!.rawQuery(
           'SELECT COUNT(*) FROM $table WHERE $syncStatus = ?', ['$status']));
     } catch (e) {}
     return teiCount ?? 0;
@@ -125,7 +126,7 @@ class TrackedEntityInstanceOfflineProvider extends OfflineDbProvider {
     List<TrackedEntityInstance> trackedEntityInstances = [];
     try {
       var dbClient = await db;
-      List<Map> maps = await dbClient.query(
+      List<Map> maps = await dbClient!.query(
         table,
         columns: [
           trackedEntityInstance,
@@ -138,11 +139,12 @@ class TrackedEntityInstanceOfflineProvider extends OfflineDbProvider {
       );
       if (maps.isNotEmpty) {
         for (Map map in maps) {
-          String trackedEntityInstanceId = map['trackedEntityInstance'];
+          String? trackedEntityInstanceId = map['trackedEntityInstance'];
           List attributes =
               await TrackedEntityInstanceOfflineAttributeProvider()
                   .getTrackedEntityAttributesValues(trackedEntityInstanceId);
-          TrackedEntityInstance tei = TrackedEntityInstance.fromOffline(map);
+          TrackedEntityInstance tei =
+              TrackedEntityInstance.fromOffline(map as Map<String, dynamic>);
           tei.attributes = attributes;
           trackedEntityInstances.add(tei);
         }

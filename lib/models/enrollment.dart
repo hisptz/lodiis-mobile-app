@@ -1,14 +1,14 @@
 import 'dart:convert';
 
 class Enrollment {
-  String enrollment;
-  String enrollmentDate;
-  String incidentDate;
-  String program;
-  String orgUnit;
-  String trackedEntityInstance;
-  String status;
-  String syncStatus;
+  String? enrollment;
+  String? enrollmentDate;
+  String? incidentDate;
+  String? program;
+  String? orgUnit;
+  String? trackedEntityInstance;
+  String? status;
+  String? syncStatus;
 
   Enrollment(
       {this.enrollment,

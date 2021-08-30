@@ -24,9 +24,9 @@ import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:provider/provider.dart';
 
 class AgywDreamsHTSClientInformation extends StatefulWidget {
-  AgywDreamsHTSClientInformation({Key key, this.isComingFromPrep})
+  AgywDreamsHTSClientInformation({Key? key, this.isComingFromPrep})
       : super(key: key);
-  final bool isComingFromPrep;
+  final bool? isComingFromPrep;
 
   @override
   _AgywDreamsHTSClientInformationState createState() =>
@@ -36,10 +36,10 @@ class AgywDreamsHTSClientInformation extends StatefulWidget {
 class _AgywDreamsHTSClientInformationState
     extends State<AgywDreamsHTSClientInformation> {
   final String label = 'Client Bio'; //Initially Client Information
-  List<FormSection> formSections;
+  List<FormSection>? formSections;
   bool isFormReady = false;
   bool isSaving = false;
-  bool isComingFromPrep;
+  bool? isComingFromPrep;
 
   @override
   void initState() {
@@ -62,7 +62,7 @@ class _AgywDreamsHTSClientInformationState
             Provider.of<ServiceFormState>(context, listen: false).formState;
         await AgywDreamsHTCSkipLogic.evaluateSkipLogics(
           context,
-          formSections,
+          formSections!,
           dataObject,
         );
       },
@@ -76,7 +76,7 @@ class _AgywDreamsHTSClientInformationState
     onUpdateFormAutoSaveState(context);
   }
 
-  void onSaveForm(BuildContext context, Map dataObject, AgywDream agywDream) {
+  void onSaveForm(BuildContext context, Map dataObject, AgywDream? agywDream) {
     Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
         .setCurrentAgywDream(agywDream);
     dataObject.remove(AgywDreamsHTSLongFormConstant.bmiKey);
@@ -96,12 +96,12 @@ class _AgywDreamsHTSClientInformationState
   }) async {
     AgywDream agywDream =
         Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
-            .currentAgywDream;
-    String beneficiaryId = agywDream.id;
+            .currentAgywDream!;
+    String? beneficiaryId = agywDream.id;
     Map dataObject =
         Provider.of<ServiceFormState>(context, listen: false).formState;
     String id =
-        "${isComingFromPrep ? DreamsRoutesConstant.agywDreamsPrEPHTSConsentPage : ''}_$beneficiaryId";
+        "${isComingFromPrep! ? DreamsRoutesConstant.agywDreamsPrEPHTSConsentPage : ''}_$beneficiaryId";
     FormAutoSave formAutoSave = FormAutoSave(
       id: id,
       beneficiaryId: beneficiaryId,
@@ -135,7 +135,7 @@ class _AgywDreamsHTSClientInformationState
         body: SubPageBody(
           body: Container(child: Consumer<DreamsBeneficiarySelectionState>(
             builder: (context, nonAgywState, child) {
-              AgywDream agywDream = nonAgywState.currentAgywDream;
+              AgywDream? agywDream = nonAgywState.currentAgywDream;
               return Consumer<ServiceFormState>(
                 builder: (context, serviceFormState, child) {
                   return Container(

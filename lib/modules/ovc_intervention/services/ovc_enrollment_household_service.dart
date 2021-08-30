@@ -24,17 +24,17 @@ class OvcEnrollmentHouseholdService {
 
   Future savingHouseholdForm(
       Map dataObject,
-      String trackedEntityInstance,
-      String orgUnit,
-      String enrollment,
-      String enrollmentDate,
-      String incidentDate,
+      String? trackedEntityInstance,
+      String? orgUnit,
+      String? enrollment,
+      String? enrollmentDate,
+      String? incidentDate,
       bool shouldEnroll,
       List<String> hiddenFields) async {
     List<String> inputFieldIds = FormUtil.getFormFieldIds(
       formSections,
     );
-    hiddenFields = hiddenFields ?? [];
+    hiddenFields = hiddenFields;
     inputFieldIds.addAll(consentFields);
     inputFieldIds.addAll(hiddenFields);
     TrackedEntityInstance trackedEntityInstanceData =
@@ -78,9 +78,9 @@ class OvcEnrollmentHouseholdService {
         // get location
         List<OrganisationUnit> ous = await OrganisationUnitService()
             .getOrganisationUnits([enrollment.orgUnit]);
-        String location = ous.length > 0 ? ous[0].name : enrollment.orgUnit;
-        String orgUnit = enrollment.orgUnit;
-        String createdDate = enrollment.enrollmentDate;
+        String? location = ous.length > 0 ? ous[0].name : enrollment.orgUnit;
+        String? orgUnit = enrollment.orgUnit;
+        String? createdDate = enrollment.enrollmentDate;
         //loading households
         List<TrackedEntityInstance> houseHolds = allTrackedEntityInstanceList
             .where((tei) =>
@@ -91,7 +91,7 @@ class OvcEnrollmentHouseholdService {
           List<TeiRelationship> relationships =
               await TeiRelationshipOfflineProvider()
                   .getTeiRelationships(tei.trackedEntityInstance);
-          List<String> childTeiIds = relationships
+          List<String?> childTeiIds = relationships
               .map((TeiRelationship relationship) => relationship.toTei)
               .toList();
           List<TrackedEntityInstance> houseHoldChildrenTeiData =
@@ -136,7 +136,7 @@ class OvcEnrollmentHouseholdService {
     for (var child in houseHoldChildren) {
       for (var attributeObj in child.attributes) {
         if (attributeObj['attribute'] == 'vIX4GTSCX4P') {
-          String sexValue = attributeObj['value'];
+          String? sexValue = attributeObj['value'];
           if (sexValue != null) {
             if (sexValue == 'Male') {
               male++;
@@ -149,7 +149,7 @@ class OvcEnrollmentHouseholdService {
     }
     List<dynamic> attributes = [];
     for (Map attributeObj in trackedEntityInstanceData.attributes) {
-      String value = attributeObj['value'];
+      String? value = attributeObj['value'];
       if (attributeObj['attribute'] == 'kQehaqmaygZ') {
         value = male.toString();
       }

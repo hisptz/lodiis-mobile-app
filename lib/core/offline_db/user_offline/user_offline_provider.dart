@@ -21,7 +21,8 @@ class UserOfflineProvider extends OfflineDbProvider {
 
   addOrUpdateUser(CurrentUser user) async {
     var dbClient = await db;
-    await dbClient.insert(CurrentUser.userTable, user.toOffline(user),
+    await dbClient!.insert(
+        CurrentUser.userTable, user.toOffline(user) as Map<String, Object?>,
         conflictAlgorithm: ConflictAlgorithm.replace);
     await UserOuOfflineProvider().addOrUpdateUserOrganisationUnits(user);
     await UserProgramOfflineProvider().addOrUpdateUserPrograms(user);
@@ -29,7 +30,7 @@ class UserOfflineProvider extends OfflineDbProvider {
 
   deleteUser(String userId) async {
     var dbClient = await db;
-    return await dbClient
+    return await dbClient!
         .delete(CurrentUser.userTable, where: '$id = ?', whereArgs: [userId]);
   }
 
@@ -37,7 +38,7 @@ class UserOfflineProvider extends OfflineDbProvider {
     List<CurrentUser> users = [];
     try {
       var dbClient = await db;
-      List<Map> maps = await dbClient.query(
+      List<Map> maps = await dbClient!.query(
         CurrentUser.userTable,
         columns: [
           id,
@@ -55,12 +56,13 @@ class UserOfflineProvider extends OfflineDbProvider {
       );
       if (maps.isNotEmpty) {
         for (Map map in maps) {
-          String userId = map['id'];
+          String? userId = map['id'];
           List userOrgUnitIds =
               await UserOuOfflineProvider().getUserOrganisationUnits(userId);
           List programs =
               await UserProgramOfflineProvider().getUserPrograms(userId);
-          CurrentUser user = CurrentUser.fromOffline(map);
+          CurrentUser user =
+              CurrentUser.fromOffline(map as Map<String, dynamic>);
           user.programs = programs;
           user.userOrgUnitIds = userOrgUnitIds;
           users.add(user);
