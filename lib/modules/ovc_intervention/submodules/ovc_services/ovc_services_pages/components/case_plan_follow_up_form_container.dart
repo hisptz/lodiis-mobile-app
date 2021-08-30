@@ -215,8 +215,8 @@ class _CasePlanFollowUpFormContainerState
                                         EdgeInsets.symmetric(vertical: 22.0),
                                     child: Text(
                                       isSaving
-                                          ? 'SAVING FOLLOW-UP ...'
-                                          : 'SAVE FOLLOW-UP',
+                                          ? 'SAVING SERVICE ...'
+                                          : 'SAVE SERVICE',
                                       style: TextStyle().copyWith(
                                         color: Color(0xFFFAFAFA),
                                         fontSize: 14.0,

@@ -20,7 +20,7 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/o
 import 'package:provider/provider.dart';
 
 class OvcServiceSubPageChildView extends StatelessWidget {
-  final String label = 'Service Follow Up';
+  final String label = 'Service Provision';
   final List<String> casePlanProgramStageIds = [
     OvcChildCasePlanConstant.casePlanProgramStage
   ];

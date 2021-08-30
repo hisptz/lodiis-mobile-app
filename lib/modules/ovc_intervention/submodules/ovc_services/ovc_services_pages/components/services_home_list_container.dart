@@ -81,7 +81,7 @@ class ServicesHomeListContainer extends StatelessWidget {
                                               children: [
                                                 TextSpan(
                                                   text:
-                                                      'Services followup(Case plan ${assessmentIndex + 1})',
+                                                      'Services Provision(Case plan ${assessmentIndex + 1})',
                                                   style: TextStyle().copyWith(
                                                     color: Color(0xFF1A3518),
                                                     fontSize: 14.0,

@@ -33,7 +33,7 @@ class OcvServiceCasePlanForm extends StatefulWidget {
 }
 
 class _OcvServiceCasePlanFormState extends State<OcvServiceCasePlanForm> {
-  final String label = 'Service Follow up';
+  final String label = 'Service Provision';
   late List<FormSection> formSections;
   Map borderColors = Map();
 

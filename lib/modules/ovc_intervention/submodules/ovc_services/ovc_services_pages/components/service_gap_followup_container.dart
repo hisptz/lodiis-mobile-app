@@ -100,7 +100,7 @@ class _ServiceGapFollowUpContainerState
                     ),
                     onPressed: () => this.addNewFollowingUp(context),
                     child: Text(
-                      'ADD FOLLOW-UP',
+                      'ADD SERVICE',
                       style: TextStyle().copyWith(
                         color: widget.formSectionColor,
                         fontSize: 14.0,

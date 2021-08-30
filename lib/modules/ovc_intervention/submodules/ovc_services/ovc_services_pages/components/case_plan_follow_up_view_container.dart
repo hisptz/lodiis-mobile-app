@@ -123,7 +123,7 @@ class _CasePlanFollowUpViewContainerState
                                   children: [
                                     Expanded(
                                       child: Text(
-                                        'Follow-up',
+                                        'Services',
                                         style: TextStyle().copyWith(
                                           color: widget.themeColor,
                                           fontSize: 14.0,
@@ -199,7 +199,8 @@ class _CasePlanFollowUpViewContainerState
                                                     children: [
                                                       TableCell(
                                                         child: Text(
-                                                          casePlanFollowup.date!,
+                                                          casePlanFollowup
+                                                              .date!,
                                                           style: TextStyle()
                                                               .copyWith(
                                                             color: Color(

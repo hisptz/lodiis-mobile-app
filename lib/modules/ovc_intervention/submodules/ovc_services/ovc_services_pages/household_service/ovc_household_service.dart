@@ -21,7 +21,7 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/o
 import 'package:provider/provider.dart';
 
 class OvcHouseholdService extends StatelessWidget {
-  final String label = 'Household Service Follow Up';
+  final String label = 'Household Service Provision';
 
   final List<String> casePlanProgramStageIds = [
     OvcHouseholdCasePlanConstant.casePlanProgramStage
