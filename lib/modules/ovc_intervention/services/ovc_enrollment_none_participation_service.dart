@@ -29,7 +29,6 @@ class OvcEnrollmentNoneParticipationService {
         dataObject[dataElement] = dataObject[attribute];
       }
     }
-
     if (eventId == null) {
       inputFieldIds.add(UserAccountReference.implementingPartnerDataElement);
       inputFieldIds.add(UserAccountReference.subImplementingPartnerDataElement);
@@ -37,6 +36,9 @@ class OvcEnrollmentNoneParticipationService {
       dataObject[UserAccountReference.implementingPartnerDataElement] =
           dataObject[UserAccountReference.implementingPartnerDataElement] ??
               user!.implementingPartner;
+      dataObject[UserAccountReference.serviceProviderDataElement] =
+          dataObject[UserAccountReference.serviceProviderDataElement] ??
+              user!.username;
       if (user!.subImplementingPartner != '') {
         dataObject[UserAccountReference.subImplementingPartnerDataElement] =
             dataObject[

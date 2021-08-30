@@ -26,6 +26,9 @@ class AgywDreamsWithoutEnrollmentCriteriaService {
       dataObject[UserAccountReference.implementingPartnerDataElement] =
           dataObject[UserAccountReference.implementingPartnerDataElement] ??
               user!.implementingPartner;
+      dataObject[UserAccountReference.serviceProviderDataElement] =
+          dataObject[UserAccountReference.serviceProviderDataElement] ??
+              user!.username;
       if (user!.subImplementingPartner != '') {
         dataObject[UserAccountReference.subImplementingPartnerDataElement] =
             dataObject[
