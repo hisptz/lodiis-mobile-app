@@ -97,8 +97,9 @@ class AgywDreamsEnrollmentService {
       {page, String searchableValue = ''}) async {
     List<AgywDream> agywDreamList = [];
     try {
-      List<Enrollment> enrollments =
-          await EnrollmentOfflineProvider().getEnrollments(program, page: page);
+      List<Enrollment> enrollments = await EnrollmentOfflineProvider()
+          .getEnrollments(program,
+              page: page, isSearching: searchableValue != '');
       for (Enrollment enrollment in enrollments) {
         // get location
         List<OrganisationUnit> ous = await OrganisationUnitService()
