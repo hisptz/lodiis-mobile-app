@@ -6,6 +6,7 @@ import 'package:kb_mobile_app/app_state/implementing_partner_referral_service_st
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/line_separator.dart';
+import 'package:kb_mobile_app/core/components/referrals/referral_card_data.dart';
 import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
@@ -26,6 +27,7 @@ class ReferralDetailedCard extends StatefulWidget {
     required this.titleColor,
     required this.labelColor,
     required this.valueColor,
+    required this.isIncommingReferral,
     this.isOvcIntervention = true,
     this.isHouseholdReferral = false,
     this.isEditable = false,
@@ -40,13 +42,15 @@ class ReferralDetailedCard extends StatefulWidget {
   final bool isOvcIntervention;
   final bool isHouseholdReferral;
   final bool isEditable;
+  final bool isIncommingReferral;
 
   @override
   _ReferralDetailedCardState createState() => _ReferralDetailedCardState();
 }
 
 class _ReferralDetailedCardState extends State<ReferralDetailedCard> {
-  ReferralEvent? ovcReferralCard;
+  ReferralEvent? referralDataCard;
+  bool isLoading = true;
   double editIconHeight = 20;
   ReferralOutcomeEvent? referralOutComeEvent;
   Color? buttonLabelColor;
@@ -59,9 +63,13 @@ class _ReferralDetailedCardState extends State<ReferralDetailedCard> {
     setState(() {});
   }
 
-  void onUpdateEventData(Events eventData) {
-    ovcReferralCard = ReferralEvent().fromTeiModel(eventData);
-    referralOutComeEvent = ReferralOutcomeEvent().fromTeiModel(eventData, "");
+  void onUpdateEventData(Events eventData) async {
+    if (isLoading) {
+      referralDataCard = await ReferralEvent().fromTeiModel(eventData);
+      referralOutComeEvent = ReferralOutcomeEvent().fromTeiModel(eventData, "");
+      isLoading = false;
+      setState(() {});
+    }
   }
 
   void updateFormState(
@@ -127,7 +135,7 @@ class _ReferralDetailedCardState extends State<ReferralDetailedCard> {
                   onUpdateEventData(currentReferralEvent);
                 }
               }
-              return ovcReferralCard == null
+              return isLoading || referralDataCard == null
                   ? Container(
                       child: CircularProcessLoader(
                         color: Colors.grey,
@@ -185,217 +193,18 @@ class _ReferralDetailedCardState extends State<ReferralDetailedCard> {
                             height: 2,
                           ),
                           Visibility(
-                            visible: ovcReferralCard != null,
+                            visible: referralDataCard != null,
                             child: Container(
                               margin: EdgeInsets.symmetric(
                                 horizontal: 13.0,
                                 vertical: 10.0,
                               ),
-                              child: Column(
-                                children: [
-                                  Container(
-                                    margin: EdgeInsets.symmetric(
-                                      vertical: 2.0,
-                                    ),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Expanded(
-                                          child: Text(
-                                            currentLanguage == 'lesotho'
-                                                ? 'Letsatsi'
-                                                : 'Date',
-                                            style: TextStyle().copyWith(
-                                              fontSize: 14.0,
-                                              color: widget.labelColor,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                          ),
-                                        ),
-                                        Expanded(
-                                          flex: 2,
-                                          child: Text(
-                                            ovcReferralCard!.date!,
-                                            style: TextStyle().copyWith(
-                                              fontSize: 14.0,
-                                              color: widget.valueColor,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.symmetric(
-                                      vertical: 2.0,
-                                    ),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Expanded(
-                                          child: Text(
-                                            currentLanguage == 'lesotho'
-                                                ? 'Tsela ea tsebetso'
-                                                : 'Service mode',
-                                            style: TextStyle().copyWith(
-                                              fontSize: 14.0,
-                                              color: widget.labelColor,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                          ),
-                                        ),
-                                        Expanded(
-                                          flex: 2,
-                                          child: Text(
-                                            ovcReferralCard!.serviceMode!,
-                                            style: TextStyle().copyWith(
-                                              fontSize: 14.0,
-                                              color: widget.valueColor,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.symmetric(
-                                      vertical: 2.0,
-                                    ),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Expanded(
-                                          child: Text(
-                                            'Category',
-                                            style: TextStyle().copyWith(
-                                              fontSize: 14.0,
-                                              color: widget.labelColor,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                          ),
-                                        ),
-                                        Expanded(
-                                          flex: 2,
-                                          child: Text(
-                                            ovcReferralCard!.category!,
-                                            style: TextStyle().copyWith(
-                                              fontSize: 14.0,
-                                              color: widget.valueColor,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.symmetric(
-                                      vertical: 2.0,
-                                    ),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Expanded(
-                                          child: Text(
-                                            currentLanguage == 'lesotho'
-                                                ? 'Mofuta'
-                                                : 'Type',
-                                            style: TextStyle().copyWith(
-                                              fontSize: 14.0,
-                                              color: widget.labelColor,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                          ),
-                                        ),
-                                        Expanded(
-                                          flex: 2,
-                                          child: Text(
-                                            ovcReferralCard!.type!,
-                                            style: TextStyle().copyWith(
-                                              fontSize: 14.0,
-                                              color: widget.valueColor,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.symmetric(
-                                      vertical: 2.0,
-                                    ),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Expanded(
-                                          child: Text(
-                                            'Status',
-                                            style: TextStyle().copyWith(
-                                              fontSize: 14.0,
-                                              color: widget.labelColor,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                          ),
-                                        ),
-                                        Expanded(
-                                          flex: 2,
-                                          child: Container(
-                                            child: Text(
-                                              ovcReferralCard!.status!,
-                                              style: TextStyle().copyWith(
-                                                fontSize: 14.0,
-                                                color: widget.valueColor,
-                                                fontWeight: FontWeight.w500,
-                                              ),
-                                            ),
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.symmetric(
-                                      vertical: 2.0,
-                                    ),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Expanded(
-                                          child: Text(
-                                            'Comments',
-                                            style: TextStyle().copyWith(
-                                              fontSize: 14.0,
-                                              color: widget.labelColor,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                          ),
-                                        ),
-                                        Expanded(
-                                          flex: 2,
-                                          child: Container(
-                                            child: Text(
-                                              ovcReferralCard!.comments!,
-                                              style: TextStyle().copyWith(
-                                                fontSize: 14.0,
-                                                color: widget.valueColor,
-                                                fontWeight: FontWeight.w500,
-                                              ),
-                                            ),
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  )
-                                ],
+                              child: ReferralCardData(
+                                currentLanguage: currentLanguage!,
+                                labelColor: widget.labelColor,
+                                valueColor: widget.valueColor,
+                                referralDataCard: referralDataCard!,
+                                isIncommingReferral: widget.isIncommingReferral,
                               ),
                             ),
                           )

@@ -146,9 +146,10 @@ class _CLOReferralCardBodySummaryState
                       child: Text(
                         ovcCLOReferralCard!.communityPartner!,
                         style: TextStyle().copyWith(
-                            fontSize: 14.0,
-                            color: widget.valueColor,
-                            fontWeight: FontWeight.w500),
+                          fontSize: 14.0,
+                          color: widget.valueColor,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
                     )
                   ],

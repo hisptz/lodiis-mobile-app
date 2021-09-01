@@ -232,6 +232,7 @@ class _OvcServicesPageState extends State<OvcServicesPage> {
                 )),
           ),
           cardButtonContent: OvcHouseholdCardButtonContent(
+            isIncommingReferral: false,
             currentLanguage: currentLanguage,
             ovcHousehold: ovcHousehold,
             canAddChild: canAddChild,
