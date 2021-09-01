@@ -81,11 +81,12 @@ class _DreamsAgywAddReferralFormState extends State<DreamsAgywAddReferralForm> {
                     listen: false)
                 .implementingPartnerServices;
         await DreamsAgywReferralSkipLogic.evaluateSkipLogics(
-            context,
-            formSections!,
-            dataObject,
-            widget.currentUser!.implementingPartner ?? '',
-            implementingPartnerReferralServices);
+          context,
+          formSections!,
+          dataObject,
+          widget.currentUser!.implementingPartner ?? '',
+          implementingPartnerReferralServices,
+        );
       },
     );
   }
@@ -121,8 +122,6 @@ class _DreamsAgywAddReferralFormState extends State<DreamsAgywAddReferralForm> {
         });
         String? eventDate = dataObject['eventDate'];
         String? eventId = dataObject['eventId'];
-        dataObject.remove('village');
-        dataObject.remove('phoneNumber');
         dataObject[DreamsAgywReferralConstant.referralToFollowUpLinkage] =
             dataObject[DreamsAgywReferralConstant.referralToFollowUpLinkage] ??
                 AppUtil.getUid();

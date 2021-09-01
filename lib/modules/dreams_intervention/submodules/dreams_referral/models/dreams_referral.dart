@@ -106,7 +106,6 @@ class DreamsReferral {
                         InputFieldOption(
                             code: 'Cervical Cancer Screening',
                             name: 'Cervical Cancer Screening'),
-                        // InputFieldOption(code: 'ECD', name: 'ECD'),
                         InputFieldOption(
                             code: 'FamilyPlanningSRH',
                             name: 'Family planning/SRH'),
@@ -116,12 +115,8 @@ class DreamsReferral {
                             code: 'TB screening', name: 'TB screening'),
                         InputFieldOption(
                             code: 'TB treatment', name: 'TB treatment'),
-                        // InputFieldOption(code: 'Nutrition', name: 'Nutrition'),
                         InputFieldOption(code: 'HTS', name: 'HTS'),
                         InputFieldOption(code: 'ANC', name: 'ANC'),
-                        // InputFieldOption(code: 'VMMC', name: 'VMMC'),
-                        // InputFieldOption(
-                        //     code: 'EID Testing', name: 'EID Testing'),
                         InputFieldOption(code: 'PrEP/PEP', name: 'PrEP/PEP'),
                         InputFieldOption(code: 'PMTCT', name: 'PMTCT'),
                         InputFieldOption(
@@ -151,13 +146,6 @@ class DreamsReferral {
                         InputFieldOption(
                             code: 'Referral to post abuse care services',
                             name: 'Referral to post abuse care services'),
-                        // InputFieldOption(
-                        //     code: 'Violence Against Children',
-                        //     name: 'Violence Against Children'),
-                        // InputFieldOption(code: 'CAG', name: 'CAG'),
-                        // InputFieldOption(
-                        //     code: 'Home based care visits',
-                        //     name: 'Home based care visits'),
                         InputFieldOption(
                             code: 'Educational and vocational support',
                             name: 'Educational and vocational support'),
@@ -256,12 +244,9 @@ class DreamsReferral {
                         InputFieldOption(
                             code: 'ART and Adherence',
                             name: 'ART and Adherence'),
-                        // InputFieldOption(
-                        //     code: 'PMTCT Services', name: 'PMTCT Services'),
                         InputFieldOption(
                             code: 'Cervical Cancer Screening',
                             name: 'Cervical Cancer Screening'),
-                        // InputFieldOption(code: 'ECD', name: 'ECD'),
                         InputFieldOption(
                             code: 'FamilyPlanningSRH',
                             name: 'Family planning/SRH'),
@@ -274,9 +259,6 @@ class DreamsReferral {
                         // InputFieldOption(code: 'Nutrition', name: 'Nutrition'),
                         InputFieldOption(code: 'HTS', name: 'HTS'),
                         InputFieldOption(code: 'ANC', name: 'ANC'),
-                        // InputFieldOption(code: 'VMMC', name: 'VMMC'),
-                        // InputFieldOption(
-                        //     code: 'EID Testing', name: 'EID Testing'),
                         InputFieldOption(code: 'PrEP/PEP', name: 'PrEP/PEP'),
                         InputFieldOption(code: 'PMTCT', name: 'PMTCT'),
                         InputFieldOption(
@@ -306,13 +288,6 @@ class DreamsReferral {
                         InputFieldOption(
                             code: 'Referral to post abuse care services',
                             name: 'Referral to post abuse care services'),
-                        // InputFieldOption(
-                        //     code: 'Violence Against Children',
-                        //     name: 'Violence Against Children'),
-                        // InputFieldOption(code: 'CAG', name: 'CAG'),
-                        // InputFieldOption(
-                        //     code: 'Home based care visits',
-                        //     name: 'Home based care visits'),
                         InputFieldOption(
                             code: 'Educational and vocational support',
                             name: 'Educational and vocational support'),
