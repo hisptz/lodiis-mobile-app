@@ -47,6 +47,7 @@ class ReferralDetailedCard extends StatefulWidget {
 
 class _ReferralDetailedCardState extends State<ReferralDetailedCard> {
   ReferralEvent? ovcReferralCard;
+  bool isLoading = true;
   double editIconHeight = 20;
   ReferralOutcomeEvent? referralOutComeEvent;
   Color? buttonLabelColor;
@@ -59,9 +60,13 @@ class _ReferralDetailedCardState extends State<ReferralDetailedCard> {
     setState(() {});
   }
 
-  void onUpdateEventData(Events eventData) {
-    ovcReferralCard = ReferralEvent().fromTeiModel(eventData);
-    referralOutComeEvent = ReferralOutcomeEvent().fromTeiModel(eventData, "");
+  void onUpdateEventData(Events eventData) async {
+    if (isLoading) {
+      ovcReferralCard = await ReferralEvent().fromTeiModel(eventData);
+      referralOutComeEvent = ReferralOutcomeEvent().fromTeiModel(eventData, "");
+      isLoading = false;
+      setState(() {});
+    }
   }
 
   void updateFormState(
@@ -127,7 +132,7 @@ class _ReferralDetailedCardState extends State<ReferralDetailedCard> {
                   onUpdateEventData(currentReferralEvent);
                 }
               }
-              return ovcReferralCard == null
+              return isLoading || ovcReferralCard == null
                   ? Container(
                       child: CircularProcessLoader(
                         color: Colors.grey,
