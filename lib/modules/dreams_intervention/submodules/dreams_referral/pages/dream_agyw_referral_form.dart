@@ -148,16 +148,17 @@ class _DreamsAgywAddReferralFormState extends State<DreamsAgywAddReferralForm> {
             );
           }
           await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-              DreamsAgywReferralConstant.program,
-              DreamsAgywReferralConstant.programStage,
-              currentAgywDream!.orgUnit,
-              formSections!,
-              dataObject,
-              eventDate,
-              currentAgywDream.id,
-              eventId,
-              hiddenFields,
-              skippedFields: ['village', 'phoneNumber']);
+            DreamsAgywReferralConstant.program,
+            DreamsAgywReferralConstant.programStage,
+            currentAgywDream!.orgUnit,
+            formSections!,
+            dataObject,
+            eventDate,
+            currentAgywDream.id,
+            eventId,
+            hiddenFields,
+            skippedFields: [],
+          );
           Provider.of<ServiceEventDataState>(context, listen: false)
               .resetServiceEventDataState(currentAgywDream.id);
           Timer(Duration(seconds: 1), () {

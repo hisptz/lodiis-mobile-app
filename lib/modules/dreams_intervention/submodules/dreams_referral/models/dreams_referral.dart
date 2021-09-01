@@ -19,20 +19,6 @@ class DreamsReferral {
               color: Color(0xFF737373),
               inputFields: [
                 InputField(
-                    id: 'phoneNumber',
-                    name: 'Phone number',
-                    valueType: 'TEXT',
-                    isReadOnly: true,
-                    inputColor: Color(0xFF1F8ECE),
-                    labelColor: Color(0xFF737373)),
-                InputField(
-                    id: 'village',
-                    name: 'Village',
-                    isReadOnly: true,
-                    valueType: 'TEXT',
-                    inputColor: Color(0xFF1F8ECE),
-                    labelColor: Color(0xFF737373)),
-                InputField(
                     id: 'qAed23reDPP',
                     name: 'Services Referred for at',
                     valueType: 'TEXT',

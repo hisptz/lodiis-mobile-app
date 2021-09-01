@@ -74,20 +74,10 @@ class _DreamsAgywReferralPageState extends State<DreamsAgywReferralPage> {
     }
   }
 
-  void setBeneficiaryPhoneNumberVillage({required AgywDream agywDream}) {
-    // Assign village
-    Provider.of<ServiceFormState>(context, listen: false)
-        .setFormFieldState('village', agywDream.village ?? '');
-    // Assign phone number
-    Provider.of<ServiceFormState>(context, listen: false)
-        .setFormFieldState('phoneNumber', agywDream.phoneNumber ?? '');
-  }
-
   void onAddReferral(BuildContext context, AgywDream agywDream) async {
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
     Provider.of<ServiceFormState>(context, listen: false)
         .updateFormEditabilityState(isEditableMode: true);
-    setBeneficiaryPhoneNumberVillage(agywDream: agywDream);
     CurrentUser? user = await UserService().getCurrentUser();
     await Provider.of<ImplementingPartnerReferralServiceState>(context,
             listen: false)
