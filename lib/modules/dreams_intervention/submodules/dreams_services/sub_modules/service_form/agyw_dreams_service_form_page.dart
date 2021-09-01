@@ -40,7 +40,6 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
     super.initState();
   }
 
-  //@TODO checking skip logics for sessions for dream services
   void updateFormState(
     BuildContext context,
     bool isEditableMode,
@@ -48,8 +47,6 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
     AgywDream agywDream,
     List<ServiceEvent>? serviceEvents,
   ) {
-    Map serviceEventSessions = getLastSessionNumbers(serviceEvents);
-    print(serviceEventSessions);
     Map<String?, List<String?>> interventionSessions =
         getSessionsPerIntervention(serviceEvents, eventData)
             as Map<String?, List<String?>>;
@@ -58,8 +55,6 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
         .updateFormEditabilityState(isEditableMode: isEditableMode);
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState('age', agywDream.age);
-    Provider.of<ServiceFormState>(context, listen: false)
-        .setFormFieldState('eventSessions', serviceEventSessions);
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState('interventionSessions', interventionSessions);
     if (eventData != null) {
@@ -74,28 +69,6 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
         }
       }
     }
-  }
-
-  Map getLastSessionNumbers(List<ServiceEvent>? serviceEvents) {
-    Map eventsWithLastSessionNumber = Map();
-    for (ServiceEvent event in serviceEvents ?? []) {
-      if (eventsWithLastSessionNumber[event.interventionType] != null) {
-        try {
-          //@TODO handling alphabetical sessions
-          eventsWithLastSessionNumber[event.interventionType] =
-              int.parse(eventsWithLastSessionNumber[event.interventionType]) <
-                      int.parse(event.sessionNumber!)
-                  ? event.sessionNumber
-                  : eventsWithLastSessionNumber[event.interventionType];
-        } catch (e) {
-          print(e.toString());
-        }
-      } else {
-        eventsWithLastSessionNumber[event.interventionType] =
-            event.sessionNumber;
-      }
-    }
-    return eventsWithLastSessionNumber;
   }
 
   Map<String?, List<dynamic>> getSessionsPerIntervention(
@@ -144,11 +117,13 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
       Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
           .setCurrentAgywDream(agywDream);
       Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => AgywDreamsServiceForm(
-                    currentUserImplementingPartner: implementingPartner,
-                  )));
+        context,
+        MaterialPageRoute(
+          builder: (context) => AgywDreamsServiceForm(
+            currentUserImplementingPartner: implementingPartner,
+          ),
+        ),
+      );
     }
   }
 
