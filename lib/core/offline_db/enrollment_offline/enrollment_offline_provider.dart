@@ -47,7 +47,8 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
     }
   }
 
-  Future<List<Enrollment>> getEnrollments(String programId, {page}) async {
+  Future<List<Enrollment>> getEnrollments(String programId,
+      {int? page, bool isSearching = false}) async {
     List<Enrollment> enrollments = [];
     try {
       var dbClient = await db;
@@ -66,8 +67,11 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
           orderBy: '$enrollmentDate DESC',
           whereArgs: [programId],
           limit: page != null ? PaginationConstants.paginationLimit : null,
-          offset:
-              page != null ? page * PaginationConstants.paginationLimit : null);
+          offset: page != null
+              ? isSearching
+                  ? page * PaginationConstants.searchingPaginationLimit
+                  : page * PaginationConstants.paginationLimit
+              : null);
       if (maps.isNotEmpty) {
         for (Map map in maps) {
           enrollments.add(Enrollment.fromOffline(map as Map<String, dynamic>));

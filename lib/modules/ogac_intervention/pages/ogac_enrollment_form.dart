@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:kb_mobile_app/app_state/current_user_state/current_user_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
@@ -13,7 +14,9 @@ import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/core/constants/beneficiary_identification.dart';
 import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
+import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
+import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
@@ -102,6 +105,15 @@ class _OgacEnrollmentFormState extends State<OgacEnrollmentForm> {
       setState(() {
         isSaving = true;
       });
+
+      CurrentUser? user = await (UserService().getCurrentUser());
+      dataObject['klLkGxy328c'] =
+          dataObject['klLkGxy328c'] ?? user!.implementingPartner;
+      dataObject['DdnlE8kmIkT'] = dataObject['DdnlE8kmIkT'] ?? user!.username;
+      if (user!.subImplementingPartner != '') {
+        dataObject['fQInK8s2RNR'] =
+            dataObject['fQInK8s2RNR'] ?? user.subImplementingPartner;
+      }
       String trackedEntityInstance =
           dataObject['trackedEntityInstance'] ?? AppUtil.getUid();
       String? orgUnit = dataObject['location'];
@@ -111,6 +123,9 @@ class _OgacEnrollmentFormState extends State<OgacEnrollmentForm> {
       List<String> hiddenFields = [
         BeneficiaryIdentification.beneficiaryId,
         BeneficiaryIdentification.beneficiaryIndex,
+        'klLkGxy328c',
+        'DdnlE8kmIkT',
+        'fQInK8s2RNR'
       ];
       try {
         await OgacEnrollmentService().savingOgacBeneficiaryEnrollment(

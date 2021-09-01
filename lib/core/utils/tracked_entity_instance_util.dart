@@ -29,14 +29,18 @@ class TrackedEntityInstanceUtil {
 
     inputFieldIds.removeWhere((field) => skippedFields!.indexOf(field) > -1);
 
-    // assign implementing partner
+    // assign implementing partner and service provider
     if (eventId == null) {
       inputFieldIds.add(UserAccountReference.implementingPartnerDataElement);
       inputFieldIds.add(UserAccountReference.subImplementingPartnerDataElement);
+      inputFieldIds.add(UserAccountReference.serviceProviderDataElement);
       CurrentUser? user = await (UserService().getCurrentUser());
       dataObject![UserAccountReference.implementingPartnerDataElement] =
           dataObject[UserAccountReference.implementingPartnerDataElement] ??
               user!.implementingPartner;
+      dataObject[UserAccountReference.serviceProviderDataElement] =
+          dataObject[UserAccountReference.serviceProviderDataElement] ??
+              user!.username;
       if (user!.subImplementingPartner != '') {
         dataObject[UserAccountReference.subImplementingPartnerDataElement] =
             dataObject[

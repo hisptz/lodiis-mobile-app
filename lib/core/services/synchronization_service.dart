@@ -771,8 +771,8 @@ class SynchronizationService {
                   type: AppLogsConstants.errorLogType,
                   message: "${conflict['object']}: ${conflict['value']}");
               await AppLogsOfflineProvider().addLogs(log);
-              AppUtil.showToastMessage(message: 'Error uploading data');
             }
+            conflictOnImport = true;
           } else if (importSummary['description'] != null) {
             if ("${importSummary['description']}"
                 .toLowerCase()
