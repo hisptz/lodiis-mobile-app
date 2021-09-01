@@ -23,7 +23,12 @@ import 'package:provider/provider.dart';
 import 'pages/ovc_household_add_referral_form.dart';
 
 class OvcHouseholdReferralHome extends StatefulWidget {
-  OvcHouseholdReferralHome({Key? key}) : super(key: key);
+  OvcHouseholdReferralHome({
+    Key? key,
+    required this.isIncommingReferral,
+  }) : super(key: key);
+
+  final bool isIncommingReferral;
 
   @override
   _OvcHouseholdReferralHomeState createState() =>
@@ -68,12 +73,15 @@ class _OvcHouseholdReferralHomeState extends State<OvcHouseholdReferralHome> {
     int referralIndex,
   ) {
     Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => OvcHouseholdReferralView(
-                  eventData: eventData,
-                  referralIndex: referralIndex,
-                )));
+      context,
+      MaterialPageRoute(
+        builder: (context) => OvcHouseholdReferralView(
+          eventData: eventData,
+          referralIndex: referralIndex,
+          isIncommingReferral: widget.isIncommingReferral,
+        ),
+      ),
+    );
   }
 
   void onManageHouseholdReferral(
@@ -82,12 +90,15 @@ class _OvcHouseholdReferralHomeState extends State<OvcHouseholdReferralHome> {
     referralIndex,
   ) {
     Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => OvcHouseholdReferralManage(
-                  eventData: eventData,
-                  referralIndex: referralIndex,
-                )));
+      context,
+      MaterialPageRoute(
+        builder: (context) => OvcHouseholdReferralManage(
+          eventData: eventData,
+          referralIndex: referralIndex,
+          isIncommingReferral: widget.isIncommingReferral,
+        ),
+      ),
+    );
   }
 
   @override
@@ -110,7 +121,8 @@ class _OvcHouseholdReferralHomeState extends State<OvcHouseholdReferralHome> {
         body: Container(
           child: Consumer<LanguageTranslationState>(
             builder: (context, languageTranslationState, child) {
-              String? currentLanguage = languageTranslationState.currentLanguage;
+              String? currentLanguage =
+                  languageTranslationState.currentLanguage;
               return Consumer<OvcHouseholdCurrentSelectionState>(
                 builder: (context, ovcHouseholdCurrentSelectionState, child) {
                   return Consumer<ServiceEventDataState>(
@@ -172,6 +184,8 @@ class _OvcHouseholdReferralHomeState extends State<OvcHouseholdReferralHome> {
                                                           count: count,
                                                           cardBody:
                                                               ReferralCardBodySummary(
+                                                            isIncommingReferral:
+                                                                false,
                                                             labelColor: Color(
                                                                 0XFF92A791),
                                                             valueColor: Color(

@@ -20,6 +20,7 @@ class AppInfoState with ChangeNotifier {
       );
       final status = await newVersion.getVersionStatus();
       _canUpdate = status!.canUpdate;
+      //@TODO adding modal in case of need for app update
       _currentAppVersion = status.localVersion;
       _currentAppId = AppInfoReference.androidId;
       _currentAppName = AppInfoReference.currentAppName;

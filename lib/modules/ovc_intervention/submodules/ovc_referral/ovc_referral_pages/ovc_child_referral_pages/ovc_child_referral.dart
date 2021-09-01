@@ -17,7 +17,12 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/o
 import 'package:provider/provider.dart';
 
 class OvcChildReferral extends StatefulWidget {
-  OvcChildReferral({Key? key}) : super(key: key);
+  OvcChildReferral({
+    Key? key,
+    required this.isIncommingReferral,
+  }) : super(key: key);
+
+  final bool isIncommingReferral;
 
   @override
   _OvcChildReferralState createState() => _OvcChildReferralState();
@@ -71,6 +76,7 @@ class _OvcChildReferralState extends State<OvcChildReferral> {
         builder: (context) => OvcChildReferralView(
           eventData: eventData,
           referralIndex: referralIndex,
+          isIncommingReferral: widget.isIncommingReferral,
         ),
       ),
     );
@@ -87,6 +93,7 @@ class _OvcChildReferralState extends State<OvcChildReferral> {
         builder: (context) => OvcChildReferralManage(
           eventData: eventData,
           referralIndex: referralIndex,
+          isIncommingReferral: widget.isIncommingReferral,
         ),
       ),
     );
@@ -157,6 +164,9 @@ class _OvcChildReferralState extends State<OvcChildReferral> {
                                                         count: count,
                                                         cardBody:
                                                             ReferralCardBodySummary(
+                                                          isIncommingReferral:
+                                                              widget
+                                                                  .isIncommingReferral,
                                                           labelColor:
                                                               Color(0XFF92A791),
                                                           valueColor:

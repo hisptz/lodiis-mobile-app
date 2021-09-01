@@ -9,6 +9,38 @@ class OvcChildInfoTopHeader extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
+  Expanded _getOvcChildInfoDetailsWidget({
+    String? currentLanguage,
+    required String key,
+    required Color keyColor,
+    required String value,
+    required Color valueColor,
+    required double fontSize,
+  }) {
+    return Expanded(
+      child: RichText(
+        text: TextSpan(
+          text: key != '' ? '$key: ' : '',
+          style: TextStyle().copyWith(
+            fontSize: fontSize,
+            fontWeight: FontWeight.w500,
+            color: keyColor,
+          ),
+          children: [
+            TextSpan(
+              text: value,
+              style: TextStyle().copyWith(
+                fontSize: fontSize,
+                fontWeight: FontWeight.w500,
+                color: valueColor,
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -25,161 +57,128 @@ class OvcChildInfoTopHeader extends StatelessWidget {
                 type: MaterialType.card,
                 elevation: 1.0,
                 child: Container(
-                    margin:
-                        EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
-                    child: Column(
-                      children: [
-                        Container(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Expanded(
-                                child: Container(
-                                  margin: EdgeInsets.symmetric(
-                                      horizontal: 10.0, vertical: 5.0),
-                                  child: Text(
-                                    currentOvcHouseholdChild.toString(),
-                                    style: TextStyle().copyWith(
-                                        color: Color(0xFF1A3518),
-                                        fontSize: 14.0,
-                                        fontWeight: FontWeight.w700),
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                child: Container(
-                                  alignment: Alignment.centerRight,
-                                  margin: EdgeInsets.symmetric(
-                                      horizontal: 10.0, vertical: 5.0),
-                                  child: Text(
-                                    currentOvcHouseholdChild.primaryUIC!,
-                                    style: TextStyle().copyWith(
-                                        color: Color(0xFF1A3518),
-                                        fontSize: 14.0,
-                                        fontWeight: FontWeight.w700),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
+                  margin: EdgeInsets.symmetric(
+                    vertical: 10.0,
+                    horizontal: 10.0,
+                  ),
+                  child: Column(
+                    children: [
+                      Container(
+                        margin: EdgeInsets.symmetric(
+                          horizontal: 10.0,
+                          vertical: 5.0,
                         ),
-                        Container(
-                          margin: EdgeInsets.only(top: 5.0),
-                          child: LineSeparator(color: Color(0XFFECF5EC)),
-                        ),
-                        Container(
-                            margin: EdgeInsets.symmetric(
-                              horizontal: 10.0,
-                              vertical: 10.0,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            _getOvcChildInfoDetailsWidget(
+                              currentLanguage: currentLanguage,
+                              key: "",
+                              value: currentOvcHouseholdChild.toString(),
+                              keyColor: Color(0xFF1A3518),
+                              valueColor: Color(0xFF1A3518),
+                              fontSize: 14.0,
                             ),
-                            child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Expanded(
-                                    child: RichText(
-                                      text: TextSpan(
-                                        text: currentLanguage == 'lesotho'
-                                            ? 'Boleng  '
-                                            : 'Sex  ',
-                                        style: TextStyle().copyWith(
-                                          fontSize: 12.0,
-                                          fontWeight: FontWeight.w500,
-                                          color: Color(0xFF92A791),
-                                        ),
-                                        children: [
-                                          TextSpan(
-                                            text:
-                                                currentOvcHouseholdChild.sex ??
-                                                    "",
-                                            style: TextStyle().copyWith(
-                                              fontSize: 12.0,
-                                              fontWeight: FontWeight.w500,
-                                              color: Color(0xFF4B9F46),
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: RichText(
-                                      text: TextSpan(
-                                        text: currentLanguage == 'lesotho'
-                                            ? 'Lilemo  '
-                                            : 'Age  ',
-                                        style: TextStyle().copyWith(
-                                          fontSize: 12.0,
-                                          fontWeight: FontWeight.w500,
-                                          color: Color(0xFF92A791),
-                                        ),
-                                        children: [
-                                          TextSpan(
-                                            text: currentOvcHouseholdChild.age,
-                                            style: TextStyle().copyWith(
-                                              fontSize: 12.0,
-                                              fontWeight: FontWeight.w500,
-                                              color: Color(0xFF4B9F46),
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: RichText(
-                                      text: TextSpan(
-                                        text: currentLanguage == 'lesotho'
-                                            ? 'HIV Status '
-                                            : 'HIV Status  ',
-                                        style: TextStyle().copyWith(
-                                          fontSize: 12.0,
-                                          fontWeight: FontWeight.w500,
-                                          color: Color(0xFF92A791),
-                                        ),
-                                        children: [
-                                          TextSpan(
-                                            text: currentOvcHouseholdChild
-                                                .hivStatus,
-                                            style: TextStyle().copyWith(
-                                              fontSize: 12.0,
-                                              fontWeight: FontWeight.w500,
-                                              color: Color(0xFF4B9F46),
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    flex: 2,
-                                    child: RichText(
-                                      text: TextSpan(
-                                        text: currentLanguage == 'lesotho'
-                                            ? 'Mohlokomeli  '
-                                            : 'Caregiver  ',
-                                        style: TextStyle().copyWith(
-                                          fontSize: 12.0,
-                                          fontWeight: FontWeight.w500,
-                                          color: Color(0xFF92A791),
-                                        ),
-                                        children: [
-                                          TextSpan(
-                                            text:
-                                                currentOvcHousehold.toString(),
-                                            style: TextStyle().copyWith(
-                                              fontSize: 12.0,
-                                              fontWeight: FontWeight.w500,
-                                              color: Color(0xFF4B9F46),
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ]))
-                      ],
-                    )),
+                            _getOvcChildInfoDetailsWidget(
+                              currentLanguage: currentLanguage,
+                              key: "",
+                              value: currentOvcHouseholdChild.primaryUIC ?? "",
+                              keyColor: Color(0xFF1A3518),
+                              valueColor: Color(0xFF1A3518),
+                              fontSize: 14.0,
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(top: 5.0),
+                        child: LineSeparator(color: Color(0XFFECF5EC)),
+                      ),
+                      Container(
+                        margin: EdgeInsets.symmetric(
+                          horizontal: 10.0,
+                          vertical: 5.0,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            _getOvcChildInfoDetailsWidget(
+                              currentLanguage: currentLanguage,
+                              key: currentLanguage == 'lesotho'
+                                  ? 'Boleng'
+                                  : 'Sex',
+                              value: currentOvcHouseholdChild.sex ?? "",
+                              keyColor: Color(0xFF92A791),
+                              valueColor: Color(0xFF4B9F46),
+                              fontSize: 12.0,
+                            ),
+                            _getOvcChildInfoDetailsWidget(
+                              currentLanguage: currentLanguage,
+                              key: currentLanguage == 'lesotho'
+                                  ? 'Lilemo'
+                                  : 'Age',
+                              value: currentOvcHouseholdChild.age ?? "",
+                              keyColor: Color(0xFF92A791),
+                              valueColor: Color(0xFF4B9F46),
+                              fontSize: 12.0,
+                            ),
+                            _getOvcChildInfoDetailsWidget(
+                              currentLanguage: currentLanguage,
+                              key: currentLanguage == 'lesotho'
+                                  ? 'HIV Status'
+                                  : 'HIV Status',
+                              value: currentOvcHouseholdChild.hivStatus ?? "",
+                              keyColor: Color(0xFF92A791),
+                              valueColor: Color(0xFF4B9F46),
+                              fontSize: 12.0,
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.symmetric(
+                          horizontal: 10.0,
+                          vertical: 5.0,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            _getOvcChildInfoDetailsWidget(
+                              currentLanguage: currentLanguage,
+                              key: currentLanguage == 'lesotho'
+                                  ? 'Mohlokomeli'
+                                  : 'Caregiver',
+                              value: currentOvcHousehold.toString(),
+                              keyColor: Color(0xFF92A791),
+                              valueColor: Color(0xFF4B9F46),
+                              fontSize: 12.0,
+                            ),
+                            _getOvcChildInfoDetailsWidget(
+                              currentLanguage: currentLanguage,
+                              key: currentLanguage == 'lesotho'
+                                  ? 'Nomoro ea mohala'
+                                  : 'Phone #',
+                              value: currentOvcHousehold!.phoneNumber ?? '',
+                              keyColor: Color(0xFF92A791),
+                              valueColor: Color(0xFF4B9F46),
+                              fontSize: 12.0,
+                            ),
+                            _getOvcChildInfoDetailsWidget(
+                              currentLanguage: currentLanguage,
+                              key: currentLanguage == 'lesotho'
+                                  ? 'Motse'
+                                  : 'Village',
+                              value: currentOvcHousehold.village ?? '',
+                              keyColor: Color(0xFF92A791),
+                              valueColor: Color(0xFF4B9F46),
+                              fontSize: 12.0,
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ),
               );
             },
           );

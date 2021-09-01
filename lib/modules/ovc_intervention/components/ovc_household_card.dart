@@ -92,20 +92,24 @@ class OvcHouseholdCard extends StatelessWidget {
             child: Column(
               children: [
                 Container(
-                    child: OvcHouseholdCardHeader(
-                  ovcHousehold: ovcHousehold,
-                  svgIcon: svgIcon,
-                  canEdit: canEdit,
-                  canExpand: canExpand,
-                  canView: canView,
-                  isExpanded: isExpanded,
-                  onToggleCard: onCardToggle,
-                  onEdit: () => onEditHousehold(context),
-                  onView: () => onViewHousehold(context),
-                )),
+                  child: OvcHouseholdCardHeader(
+                    ovcHousehold: ovcHousehold,
+                    svgIcon: svgIcon,
+                    canEdit: canEdit,
+                    canExpand: canExpand,
+                    canView: canView,
+                    isExpanded: isExpanded,
+                    onToggleCard: onCardToggle,
+                    onEdit: () => onEditHousehold(context),
+                    onView: () => onViewHousehold(context),
+                  ),
+                ),
                 cardBody,
                 cardButtonActions,
-                Visibility(visible: isExpanded, child: cardButtonContent),
+                Visibility(
+                  visible: isExpanded,
+                  child: cardButtonContent,
+                ),
               ],
             ),
           ),

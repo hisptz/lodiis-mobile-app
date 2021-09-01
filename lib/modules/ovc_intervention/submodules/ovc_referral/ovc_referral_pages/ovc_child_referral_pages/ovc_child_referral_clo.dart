@@ -17,11 +17,13 @@ import 'package:provider/provider.dart';
 
 class OvcChildCLOReferral extends StatefulWidget {
   OvcChildCLOReferral({Key? key}) : super(key: key);
+
   @override
   _OvcChildCLOReferralState createState() => _OvcChildCLOReferralState();
 }
 
 class _OvcChildCLOReferralState extends State<OvcChildCLOReferral> {
+  final bool isIncommingReferral = false;
   final String label = 'Child Referral';
   final List<String> programStageIds = [
     OvcChildCLOReferralConstant.referralCLOOutGoingStage,
@@ -55,8 +57,12 @@ class _OvcChildCLOReferralState extends State<OvcChildCLOReferral> {
 
   void onAddReferral(BuildContext context, OvcHouseholdChild? child) {
     updateFormState(context, true, null);
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => OvcChildCLOReferralAddForm()));
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => OvcChildCLOReferralAddForm(),
+      ),
+    );
   }
 
   void onViewChildReferral(
@@ -65,12 +71,15 @@ class _OvcChildCLOReferralState extends State<OvcChildCLOReferral> {
     int referralIndex,
   ) {
     Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => OvcChildReferralView(
-                  eventData: eventData,
-                  referralIndex: referralIndex,
-                )));
+      context,
+      MaterialPageRoute(
+        builder: (context) => OvcChildReferralView(
+          eventData: eventData,
+          referralIndex: referralIndex,
+          isIncommingReferral: isIncommingReferral,
+        ),
+      ),
+    );
   }
 
   void onManageChildReferral(
@@ -79,12 +88,15 @@ class _OvcChildCLOReferralState extends State<OvcChildCLOReferral> {
     int referralIndex,
   ) {
     Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => OvcChildReferralManage(
-                  eventData: eventData,
-                  referralIndex: referralIndex,
-                )));
+      context,
+      MaterialPageRoute(
+        builder: (context) => OvcChildReferralManage(
+          eventData: eventData,
+          referralIndex: referralIndex,
+          isIncommingReferral: isIncommingReferral,
+        ),
+      ),
+    );
   }
 
   @override
@@ -174,12 +186,13 @@ class _OvcChildCLOReferralState extends State<OvcChildCLOReferral> {
                                         ),
                                 ),
                                 EntryFormSaveButton(
-                                    label: 'ADD CLO REFERRAL',
-                                    labelColor: Colors.white,
-                                    buttonColor: Color(0xFF4B9F46),
-                                    fontSize: 15.0,
-                                    onPressButton: () => onAddReferral(
-                                        context, currentOvcHouseholdChild))
+                                  label: 'ADD CLO REFERRAL',
+                                  labelColor: Colors.white,
+                                  buttonColor: Color(0xFF4B9F46),
+                                  fontSize: 15.0,
+                                  onPressButton: () => onAddReferral(
+                                      context, currentOvcHouseholdChild),
+                                )
                               ],
                             ),
                     )
