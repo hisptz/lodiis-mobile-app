@@ -20,36 +20,42 @@ class ReferralCardData extends StatelessWidget {
   Container _getReferralCardDataWidget({
     required String key,
     required String value,
+    bool isVisible = true,
   }) {
     return Container(
-      margin: EdgeInsets.symmetric(
-        vertical: 2.0,
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Expanded(
-            child: Text(
-              key,
-              style: TextStyle().copyWith(
-                fontSize: 14.0,
-                color: labelColor,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
+      child: Visibility(
+        visible: isVisible,
+        child: Container(
+          margin: EdgeInsets.symmetric(
+            vertical: 2.0,
           ),
-          Expanded(
-            flex: 2,
-            child: Text(
-              value != "" ? value : 'N/A',
-              style: TextStyle().copyWith(
-                fontSize: 14.0,
-                color: valueColor,
-                fontWeight: FontWeight.w500,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Expanded(
+                child: Text(
+                  key,
+                  style: TextStyle().copyWith(
+                    fontSize: 14.0,
+                    color: labelColor,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
               ),
-            ),
-          )
-        ],
+              Expanded(
+                flex: 2,
+                child: Text(
+                  value != "" ? value : 'N/A',
+                  style: TextStyle().copyWith(
+                    fontSize: 14.0,
+                    color: valueColor,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -76,6 +82,15 @@ class ReferralCardData extends StatelessWidget {
           _getReferralCardDataWidget(
             key: 'Referred to',
             value: referralDataCard.location!,
+          ),
+          _getReferralCardDataWidget(
+            isVisible: referralDataCard.referredToIp!.isNotEmpty,
+            key: isIncommingReferral
+                ? 'Referred issued from '
+                : 'Referred issued to ',
+            value: isIncommingReferral
+                ? referralDataCard.referredFromIp!
+                : referralDataCard.referredToIp!,
           ),
           _getReferralCardDataWidget(
             key: currentLanguage == 'lesotho' ? 'Mofuta' : 'Type',

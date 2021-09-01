@@ -33,7 +33,6 @@ class _ReferralCardBodySummaryState extends State<ReferralCardBodySummary> {
   @override
   void initState() {
     super.initState();
-    print("isIncommingReferral=>${widget.isIncommingReferral}");
     getAndAssignReferralCardData();
   }
 
