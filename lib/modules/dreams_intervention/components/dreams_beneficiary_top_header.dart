@@ -49,7 +49,6 @@ class DreamsBeneficiaryTopHeader extends StatelessWidget {
     );
   }
 
-  //@TODO add row for display contact info
   @override
   Widget build(BuildContext context) {
     return Container(

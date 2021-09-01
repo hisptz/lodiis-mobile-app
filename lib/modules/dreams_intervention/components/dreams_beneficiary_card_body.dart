@@ -19,9 +19,6 @@ class DreamsBeneficiaryCardBody extends StatelessWidget {
   final Color valueColor = const Color(0xFF444E54);
   final AgywDream agywBeneficiary;
 
-  //@TODO refactor repeatable codes
-  // @TODO adding contact info on vertical view
-
   Expanded _getHorizontalRowCardData({
     required Color labelColor,
     required Color valueColor,
@@ -54,6 +51,44 @@ class DreamsBeneficiaryCardBody extends StatelessWidget {
     );
   }
 
+  Container _getVerticalRowCardData({
+    required Color labelColor,
+    required Color valueColor,
+    required String label,
+    String? value,
+  }) {
+    return Container(
+      margin: EdgeInsets.only(
+        bottom: 10.0,
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Expanded(
+            child: Text(
+              label,
+              style: TextStyle().copyWith(
+                color: labelColor,
+                fontSize: 14.0,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+          Expanded(
+            child: Text(
+              value!,
+              style: TextStyle().copyWith(
+                color: valueColor,
+                fontSize: 14.0,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -68,37 +103,37 @@ class DreamsBeneficiaryCardBody extends StatelessWidget {
             child: isVerticalLayout
                 ? Column(
                     children: [
-                      VerticalRowCardData(
+                      _getVerticalRowCardData(
                         label: 'Created',
                         value: agywBeneficiary.createdDate,
                         labelColor: labelColor,
                         valueColor: valueColor,
                       ),
-                      VerticalRowCardData(
+                      _getVerticalRowCardData(
                         label: 'Primary UIC',
                         value: agywBeneficiary.primaryUIC,
                         labelColor: labelColor,
                         valueColor: valueColor,
                       ),
-                      VerticalRowCardData(
+                      _getVerticalRowCardData(
                         label: currentLanguage == 'lesotho' ? 'Lilemo' : 'Age',
                         value: agywBeneficiary.age.toString(),
                         labelColor: labelColor,
                         valueColor: valueColor,
                       ),
-                      VerticalRowCardData(
+                      _getVerticalRowCardData(
                         label: 'Age band',
                         value: agywBeneficiary.ageBand,
                         labelColor: labelColor,
                         valueColor: valueColor,
                       ),
-                      VerticalRowCardData(
+                      _getVerticalRowCardData(
                         label: currentLanguage == 'lesotho' ? 'Boleng' : 'Sex',
                         value: agywBeneficiary.sex,
                         labelColor: labelColor,
                         valueColor: valueColor,
                       ),
-                      VerticalRowCardData(
+                      _getVerticalRowCardData(
                         label: currentLanguage == 'lesotho'
                             ? 'Nomoro ea mohala'
                             : 'Phone #',
@@ -106,7 +141,7 @@ class DreamsBeneficiaryCardBody extends StatelessWidget {
                         labelColor: labelColor,
                         valueColor: valueColor,
                       ),
-                      VerticalRowCardData(
+                      _getVerticalRowCardData(
                         label: currentLanguage == 'lesotho'
                             ? 'Sebaka'
                             : 'Location',
@@ -114,14 +149,14 @@ class DreamsBeneficiaryCardBody extends StatelessWidget {
                         labelColor: labelColor,
                         valueColor: valueColor,
                       ),
-                      VerticalRowCardData(
+                      _getVerticalRowCardData(
                         label:
                             currentLanguage == 'lesotho' ? 'Motse' : 'Village',
                         value: agywBeneficiary.village,
                         labelColor: labelColor,
                         valueColor: valueColor,
                       ),
-                      VerticalRowCardData(
+                      _getVerticalRowCardData(
                         label: 'Enrolled Organisation unit',
                         value: agywBeneficiary.enrolledOrganisation,
                         labelColor: labelColor,
@@ -129,7 +164,7 @@ class DreamsBeneficiaryCardBody extends StatelessWidget {
                       ),
                       Visibility(
                           visible: agywBeneficiary.beneficiaryType != '',
-                          child: VerticalRowCardData(
+                          child: _getVerticalRowCardData(
                             label: 'PrEP beneficiary type',
                             value: agywBeneficiary.beneficiaryType,
                             labelColor: labelColor,
@@ -218,55 +253,6 @@ class DreamsBeneficiaryCardBody extends StatelessWidget {
                   ),
           );
         },
-      ),
-    );
-  }
-}
-
-class VerticalRowCardData extends StatelessWidget {
-  const VerticalRowCardData({
-    Key? key,
-    required this.labelColor,
-    required this.valueColor,
-    required this.label,
-    required this.value,
-  }) : super(key: key);
-
-  final Color labelColor;
-  final Color valueColor;
-  final String label;
-  final String? value;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(
-        bottom: 10.0,
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Expanded(
-            child: Text(
-              label,
-              style: TextStyle().copyWith(
-                color: labelColor,
-                fontSize: 14.0,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ),
-          Expanded(
-            child: Text(
-              value!,
-              style: TextStyle().copyWith(
-                color: valueColor,
-                fontSize: 14.0,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          )
-        ],
       ),
     );
   }
