@@ -23,7 +23,7 @@ mixin OvcCasePlanGapSkipLogic {
       evaluateAgeSkipLogics(inputFieldIds, currentHouseholdChild);
     }
 
-//@TODO Skip logics for extenal person
+//@TODO Skip logics for extenal person on OVCs
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
       if (inputFieldId == 'XoSPWmpWXCy' && value != 'true') {
@@ -36,150 +36,151 @@ mixin OvcCasePlanGapSkipLogic {
         hiddenFields['JDqgRJlOSeZ'] = true;
         hiddenFields['elqeNdaYNTS'] = true;
         hiddenFields['qMrZcC7VvCV'] = true;
-        hiddenFields[''] = true;
+        hiddenFields['IhzyIy3tzo0'] = true;
       }
       if (inputFieldId == 'cx4xBY4jZXM' && value != 'true') {
         hiddenFields['Fmsfd0cXF5w'] = true;
         hiddenFields['b6hvMQuH3oJ'] = true;
         hiddenFields['SIEeRmPm0Q0'] = true;
-        hiddenFields[''] = true;
+        hiddenFields['iy0KZ7K4qld'] = true;
       }
       if (inputFieldId == 'AxtahhoHcXV' && value != 'true') {
         hiddenFields['cHWpS3Pa71v'] = true;
         hiddenFields['G6GkSeccLmB'] = true;
         hiddenFields['ugZKkd3UMNF'] = true;
-        hiddenFields[''] = true;
+        hiddenFields['GULhHDCXRvz'] = true;
       }
       if (inputFieldId == 'd2vXxEPeCq7' && value != 'true') {
         hiddenFields['HbjnW1JjroQ'] = true;
         hiddenFields['GnsYKEE2fnr'] = true;
         hiddenFields['kpzlTeM0673'] = true;
-        hiddenFields[''] = true;
+        hiddenFields['X2CA3iQZU74'] = true;
       }
       if (inputFieldId == 'dTFLFtUUeEK' && value != 'true') {
         hiddenFields['b3vvyHQKsoK'] = true;
         hiddenFields['emAJOTWYHVq'] = true;
         hiddenFields['jlu7TDN7khJ'] = true;
-        hiddenFields[''] = true;
+        hiddenFields['lwa1qFrFISz'] = true;
       }
       if (inputFieldId == 'Hvq9oisH7Gt' && value != 'true') {
         hiddenFields['pRhbAQNT0NO'] = true;
         hiddenFields['ue6xLPEURqt'] = true;
         hiddenFields['tQ3pKyJ0X9d'] = true;
+        hiddenFields['vIbKIUgzBU4'] = true;
       }
       if (inputFieldId == 'qTf8VSoojJ2' && value != 'true') {
         hiddenFields['qV0BwfYa8yU'] = true;
         hiddenFields['ontonbgTJ8k'] = true;
         hiddenFields['M2Aqvn027cd'] = true;
-        hiddenFields[''] = true;
+        hiddenFields['AjYKLfIQPtT'] = true;
       }
       if (inputFieldId == 'DQxqyncQtwm' && value != 'true') {
         hiddenFields['LPDcGvb5bp7'] = true;
         hiddenFields['P4I6rK6Xqxw'] = true;
         hiddenFields['YJXb5rSVP0L'] = true;
-        hiddenFields[''] = true;
+        hiddenFields['WFKe1YpH1uK'] = true;
       }
       if (inputFieldId == 'e6NV2ZAzFEh' && value != 'true') {
         hiddenFields['UJIxjjBeJTh'] = true;
         hiddenFields['JtfKB58MvNK'] = true;
         hiddenFields['Hdf3EtTGfAb'] = true;
-        hiddenFields[''] = true;
+        hiddenFields['MMjndp2xsoQ'] = true;
       }
       if (inputFieldId == 'kvF996ugmMl' && value != 'true') {
         hiddenFields['x29nktyRKEn'] = true;
         hiddenFields['OMtcDA7tcVL'] = true;
         hiddenFields['zVCkEJuy2t8'] = true;
-        hiddenFields[''] = true;
+        hiddenFields['Mz24UpWclb3'] = true;
       }
       if (inputFieldId == 'iiJpQsEE4qx' && value != 'true') {
         hiddenFields['Am9LJf6APMW'] = true;
         hiddenFields['xse9M31M9z1'] = true;
         hiddenFields['nIoqbMHf3AS'] = true;
-        hiddenFields[''] = true;
+        hiddenFields['uLi7eqd0eEy'] = true;
       }
       if (inputFieldId == 'ithLHgsAoxs' && value != 'true') {
         hiddenFields['aN9rwRWUOr9'] = true;
         hiddenFields['cKJggm2OXFQ'] = true;
         hiddenFields['kCoBEKqJelO'] = true;
-        hiddenFields[''] = true;
+        hiddenFields['NUXAxwvM3FE'] = true;
       }
       if (inputFieldId == 'JqGGsDlZh8T' && value != 'true') {
         hiddenFields['ixFuNoQKLoB'] = true;
         hiddenFields['a9geBDwDmXA'] = true;
         hiddenFields['XODRLh84TdQ'] = true;
-        hiddenFields[''] = true;
+        hiddenFields['s5mJvzRyfmW'] = true;
       }
       if (inputFieldId == 'WrjNxZBVHCL' && value != 'true') {
         hiddenFields['aUJZcOapflH'] = true;
         hiddenFields['NWBZilCPutW'] = true;
         hiddenFields['d3k97F0fS2y'] = true;
-        hiddenFields[''] = true;
+        hiddenFields['boUUP8UeWDL'] = true;
       }
       if (inputFieldId == 'PoxYSqq8Hgz' && value != 'true') {
         hiddenFields['ond1LSLwHBC'] = true;
         hiddenFields['O3mOdzWYmg3'] = true;
         hiddenFields['fCDk1LxN484'] = true;
-        hiddenFields[''] = true;
+        hiddenFields['WFscqdyjgUy'] = true;
       }
       if (inputFieldId == 'aPmPhwm8Zln' && value != 'true') {
         hiddenFields['xMrGYeREh1d'] = true;
         hiddenFields['jKqWohAPqyW'] = true;
         hiddenFields['wGrQeSydiwd'] = true;
-        hiddenFields[''] = true;
+        hiddenFields['U8jnyQsnfBD'] = true;
       }
       if (inputFieldId == 'AaqeRcyjbyS' && value != 'true') {
         hiddenFields['RCDsibNNIWq'] = true;
         hiddenFields['TizNGPP6e1d'] = true;
         hiddenFields['A4xYu8BYOg7'] = true;
-        hiddenFields[''] = true;
+        hiddenFields['Q7GxvZD6h99'] = true;
       }
       if (inputFieldId == 'Vd8dV7OweWB' && value != 'true') {
         hiddenFields['VL3CAgTpdqK'] = true;
         hiddenFields['UDYd31rUKgN'] = true;
         hiddenFields['ZO2Zg7kaYyD'] = true;
-        hiddenFields[''] = true;
+        hiddenFields['XvOgqGxX39f'] = true;
       }
       if (inputFieldId == 'Ccp4Odlh3BE' && value != 'true') {
         hiddenFields['tPDgzkbmywi'] = true;
         hiddenFields['kGoKVtkQxvk'] = true;
         hiddenFields['Io9nnYXCvWR'] = true;
-        hiddenFields[''] = true;
+        hiddenFields['yoI0bu18mPo'] = true;
       }
       if (inputFieldId == 'yf6KmY3Rm5I' && value != 'true') {
         hiddenFields['UVuBtkjHQ95'] = true;
         hiddenFields['oth3dRYox12'] = true;
         hiddenFields['YtwjCoHKA9G'] = true;
-        hiddenFields[''] = true;
+        hiddenFields['RsCebbDkMx9'] = true;
       }
       if (inputFieldId == 'WdZ3PnW5yV6' && value != 'true') {
         hiddenFields['Hvvdmc2rsKl'] = true;
         hiddenFields['dJR6GJyHCTr'] = true;
         hiddenFields['OIw6D3I6BmY'] = true;
-        hiddenFields[''] = true;
+        hiddenFields['cu1UkUUTbME'] = true;
       }
       if (inputFieldId == 'hS7aONLz2cq' && value != 'true') {
         hiddenFields['psqUATvYzdu'] = true;
         hiddenFields['LDH3TLjHUYK'] = true;
         hiddenFields['SvkvfRNqyh2'] = true;
-        hiddenFields[''] = true;
+        hiddenFields['Pd5CyDu2Z54'] = true;
       }
       if (inputFieldId == 'TQSMaZgfZPO' && value != 'true') {
         hiddenFields['y9Qs6zDLZM2'] = true;
         hiddenFields['do1fAllY7Jv'] = true;
         hiddenFields['mvuyd2jt4Jz'] = true;
-        hiddenFields[''] = true;
+        hiddenFields['y5v9t8Skiyi'] = true;
       }
       if (inputFieldId == 'SN2kJN3jAG9' && value != 'true') {
         hiddenFields['LXX0ixRx2IT'] = true;
         hiddenFields['k9R0AUmBqHS'] = true;
         hiddenFields['bIMwh3ONDGq'] = true;
-        hiddenFields[''] = true;
+        hiddenFields['k2eUheeYmfk'] = true;
       }
       if (inputFieldId == 'X47zxNAqMv0' && value != 'true') {
         hiddenFields['fVfftqUpEMa'] = true;
         hiddenFields['kfcqLf2d2dc'] = true;
         hiddenFields['rPhOdwWvfOA'] = true;
-        hiddenFields[''] = true;
+        hiddenFields['ewpLauNhb8N'] = true;
       }
       if (inputFieldId == 'yJQi4cbzeBF' && value != 'true') {
         hiddenFields['lDxuiUg9TOM'] = true;
@@ -316,7 +317,7 @@ mixin OvcCasePlanGapSkipLogic {
       if (inputFieldId == 'ksc7ov3MihX' && value != 'true') {
         hiddenFields['Mq7g4k4lk44'] = true;
         hiddenFields['LGsvIyYkrP8'] = true;
-        hiddenFields[''] = true;
+        hiddenFields['XSTUvAjvijB'] = true;
       }
     }
     for (String sectionId in hiddenSections.keys) {
