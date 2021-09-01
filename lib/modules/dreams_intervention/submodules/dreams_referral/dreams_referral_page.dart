@@ -26,6 +26,7 @@ class _DreamsReferralPageState extends State<DreamsReferralPage> {
   final bool canEdit = false;
   final bool canView = false;
   final bool canExpand = true;
+  final bool isIncommingReferral = false;
 
   String? toggleCardId = '';
 
@@ -47,8 +48,14 @@ class _DreamsReferralPageState extends State<DreamsReferralPage> {
         .setCurrentAgywDream(agywBeneficiary);
     Provider.of<ServiceEventDataState>(context, listen: false)
         .resetServiceEventDataState(agywBeneficiary.id);
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => DreamsAgywReferralPage()));
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => DreamsAgywReferralPage(
+          isIncommingReferral: isIncommingReferral,
+        ),
+      ),
+    );
   }
 
   void onViewOutgoingReferralWithOutcome(BuildContext context) async {
@@ -60,6 +67,7 @@ class _DreamsReferralPageState extends State<DreamsReferralPage> {
             teiList: incomingTeiWithOutcome);
     Widget modal = DreamsOutgoingReferralsOutcome(
       agywList: agywList,
+      isIncommingReferral: isIncommingReferral,
     );
     await AppUtil.showPopUpModal(context, modal, false,
         title: 'Beneficiaries with referral outcome');
@@ -101,12 +109,12 @@ class _DreamsReferralPageState extends State<DreamsReferralPage> {
               beneficiaryName: agywBeneficiary.toString(),
               canView: canView,
               isExpanded: agywBeneficiary.id == toggleCardId,
-               onCardToggle: () {
-                  onCardToggle(
-                    context,
-                    agywBeneficiary.id,
-                  );
-                },
+              onCardToggle: () {
+                onCardToggle(
+                  context,
+                  agywBeneficiary.id,
+                );
+              },
               cardBody: DreamsBeneficiaryCardBody(
                 agywBeneficiary: agywBeneficiary,
                 canViewServiceCategory: true,

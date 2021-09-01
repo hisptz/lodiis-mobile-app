@@ -20,10 +20,12 @@ class OvcChildReferralView extends StatefulWidget {
     Key? key,
     required this.eventData,
     required this.referralIndex,
+    required this.isIncommingReferral,
   }) : super(key: key);
 
   final Events eventData;
   final int referralIndex;
+  final bool isIncommingReferral;
 
   @override
   _OvcChildReferralViewState createState() => _OvcChildReferralViewState();
@@ -71,6 +73,8 @@ class _OvcChildReferralViewState extends State<OvcChildReferralView> {
                                   titleColor: Color(0xFF1B3518),
                                   labelColor: Color(0XFF92A791),
                                   valueColor: Color(0XFF536852),
+                                  isIncommingReferral:
+                                      widget.isIncommingReferral,
                                   referralIndex: widget.referralIndex,
                                   eventData: widget.eventData,
                                 ),

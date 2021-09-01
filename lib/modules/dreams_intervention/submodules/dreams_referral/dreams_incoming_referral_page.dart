@@ -25,6 +25,7 @@ class _DreamsIncomingReferralPageState
   final bool canEdit = false;
   final bool canView = false;
   final bool canExpand = true;
+  final bool isIncommingReferral = true;
 
   String? toggleCardId = '';
 
@@ -46,8 +47,14 @@ class _DreamsIncomingReferralPageState
         .setCurrentAgywDream(agywBeneficiary);
     Provider.of<ServiceEventDataState>(context, listen: false)
         .resetServiceEventDataState(agywBeneficiary.id);
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => DreamsAgywReferralPage()));
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => DreamsAgywReferralPage(
+          isIncommingReferral: isIncommingReferral,
+        ),
+      ),
+    );
   }
 
   @override

@@ -13,7 +13,12 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/o
 import 'package:provider/provider.dart';
 
 class OvcReferralPage extends StatefulWidget {
-  const OvcReferralPage({Key? key}) : super(key: key);
+  const OvcReferralPage({
+    Key? key,
+    this.isIncommingReferral = false,
+  }) : super(key: key);
+
+  final bool isIncommingReferral;
 
   @override
   _OvcReferralPageState createState() => _OvcReferralPageState();
@@ -48,8 +53,14 @@ class _OvcReferralPageState extends State<OvcReferralPage> {
 
   void onViewRerral(BuildContext context, OvcHousehold ovcHousehold) {
     setOvcHouseholdCurrentSelection(context, ovcHousehold);
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => OvcHouseholdReferralHome()));
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => OvcHouseholdReferralHome(
+          isIncommingReferral: widget.isIncommingReferral,
+        ),
+      ),
+    );
   }
 
   @override
@@ -149,6 +160,7 @@ class _OvcReferralPageState extends State<OvcReferralPage> {
             canViewChildService: canViewChildService,
             canViewChildReferral: canViewChildReferral,
             canViewChildExit: canViewChildExit,
+            isIncommingReferral: widget.isIncommingReferral,
           ),
         ),
       ),

@@ -99,11 +99,13 @@ class ReferralEvent {
           .where((id) => id != '')
           .toSet()
           .toList();
-      print("$referenceIds => $ouIds");
       if (ouIds.isNotEmpty) {
         List<OrganisationUnit> ous =
             await OrganisationUnitService().getOrganisationUnits(ouIds);
-        print(ous);
+        location = ous
+            .map((OrganisationUnit organisationUnit) => organisationUnit.name)
+            .toList()
+            .join(", ");
       }
     } on Exception catch (e) {
       print(e.toString());

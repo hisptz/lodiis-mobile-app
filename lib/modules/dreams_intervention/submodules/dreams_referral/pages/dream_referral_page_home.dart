@@ -34,7 +34,12 @@ import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:provider/provider.dart';
 
 class DreamsAgywReferralPage extends StatefulWidget {
-  DreamsAgywReferralPage({Key? key}) : super(key: key);
+  DreamsAgywReferralPage({
+    Key? key,
+    required this.isIncommingReferral,
+  }) : super(key: key);
+
+  final bool isIncommingReferral;
   @override
   _DreamsAgywReferralPageState createState() => _DreamsAgywReferralPageState();
 }
@@ -121,6 +126,7 @@ class _DreamsAgywReferralPageState extends State<DreamsAgywReferralPage> {
         builder: (context) => DreamsReferralView(
           eventData: eventData,
           referralIndex: referralIndex,
+          isIncommingReferral: widget.isIncommingReferral,
         ),
       ),
     );
@@ -176,6 +182,7 @@ class _DreamsAgywReferralPageState extends State<DreamsAgywReferralPage> {
         builder: (context) => DreamsReferralManage(
           eventData: eventData,
           referralIndex: referralIndex,
+          isIncommingReferral: widget.isIncommingReferral,
         ),
       ),
     );
@@ -184,150 +191,154 @@ class _DreamsAgywReferralPageState extends State<DreamsAgywReferralPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(65.0),
-          child: Consumer<InterventionCardState>(
-            builder: (context, interventionCardState, child) {
-              InterventionCard activeInterventionProgram =
-                  interventionCardState.currentInterventionProgram;
-              return SubPageAppBar(
-                label: label,
-                activeInterventionProgram: activeInterventionProgram,
-              );
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(65.0),
+        child: Consumer<InterventionCardState>(
+          builder: (context, interventionCardState, child) {
+            InterventionCard activeInterventionProgram =
+                interventionCardState.currentInterventionProgram;
+            return SubPageAppBar(
+              label: label,
+              activeInterventionProgram: activeInterventionProgram,
+            );
+          },
+        ),
+      ),
+      body: SubPageBody(
+        body: Container(
+          child: Consumer<DreamsBeneficiarySelectionState>(
+            builder: (context, dreamAgywState, child) {
+              return Consumer<InterventionBottomNavigationState>(
+                  builder: (context, interventionBottomNavigationState, child) {
+                return Consumer<ReferralNotificationState>(
+                  builder: (context, referralNotificationState, child) {
+                    return Consumer<ServiceEventDataState>(
+                      builder: (context, serviceFormState, child) {
+                        AgywDream? agywDream = dreamAgywState.currentAgywDream;
+                        bool isLoading = serviceFormState.isLoading;
+                        Map<String?, List<Events>> eventListByProgramStage =
+                            serviceFormState.eventListByProgramStage;
+                        List<String?> incomingReferrals =
+                            referralNotificationState.incomingReferrals;
+                        List<Events> events = TrackedEntityInstanceUtil
+                            .getAllEventListFromServiceDataStateByProgramStages(
+                                eventListByProgramStage, programStageIds);
+                        String? currentInterventionBottomNavigationId =
+                            interventionBottomNavigationState
+                                .currentInterventionBottomNavigationId;
+                        if (currentInterventionBottomNavigationId ==
+                            'incomingReferral') {
+                          events.removeWhere((event) =>
+                              incomingReferrals.indexOf(event.event) == -1);
+                        }
+                        int referralIndex = events.length;
+                        return Container(
+                          child: Column(
+                            children: [
+                              DreamsBeneficiaryTopHeader(
+                                agywDream: agywDream,
+                              ),
+                              Container(
+                                child: isLoading
+                                    ? CircularProcessLoader(
+                                        color: Colors.blueGrey,
+                                      )
+                                    : Column(
+                                        children: [
+                                          Container(
+                                            margin: EdgeInsets.symmetric(
+                                              vertical: 10.0,
+                                            ),
+                                            child: events.length == 0
+                                                ? Text(
+                                                    'There is no Beneficiary Referrals at a moment')
+                                                : Container(
+                                                    margin:
+                                                        EdgeInsets.symmetric(
+                                                      vertical: 5.0,
+                                                      horizontal: 13.0,
+                                                    ),
+                                                    child: Column(
+                                                      children: events.map(
+                                                          (Events eventData) {
+                                                        int count =
+                                                            referralIndex--;
+                                                        return Container(
+                                                          margin:
+                                                              EdgeInsets.only(
+                                                            bottom: 15.0,
+                                                          ),
+                                                          child:
+                                                              ReferralCardSummary(
+                                                            borderColor: Color(
+                                                                0xFFE9F4FA),
+                                                            buttonLabelColor:
+                                                                Color(
+                                                                    0xFF1F8ECE),
+                                                            titleColor: Color(
+                                                                0xFF05131B),
+                                                            count: count,
+                                                            cardBody:
+                                                                ReferralCardBodySummary(
+                                                              isIncommingReferral:
+                                                                  widget
+                                                                      .isIncommingReferral,
+                                                              labelColor: Color(
+                                                                  0XFF82898D),
+                                                              valueColor: Color(
+                                                                  0XFF444E54),
+                                                              referralEvent:
+                                                                  eventData,
+                                                            ),
+                                                            onView: () =>
+                                                                onViewReferral(
+                                                              context,
+                                                              eventData,
+                                                              count,
+                                                            ),
+                                                            onManage: () =>
+                                                                onManageReferral(
+                                                              context,
+                                                              eventData,
+                                                              count,
+                                                            ),
+                                                          ),
+                                                        );
+                                                      }).toList(),
+                                                    ),
+                                                  ),
+                                          ),
+                                          Visibility(
+                                            visible:
+                                                interventionBottomNavigationState
+                                                        .currentInterventionBottomNavigationId !=
+                                                    'incomingReferral',
+                                            child: EntryFormSaveButton(
+                                              label: 'ADD REFERRAL',
+                                              labelColor: Colors.white,
+                                              buttonColor: Color(0xFF1F8ECE),
+                                              fontSize: 15.0,
+                                              onPressButton: () =>
+                                                  onAddReferral(
+                                                      context, agywDream!),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                              )
+                            ],
+                          ),
+                        );
+                      },
+                    );
+                  },
+                );
+              });
             },
           ),
         ),
-        body: SubPageBody(
-          body: Container(
-            child: Consumer<DreamsBeneficiarySelectionState>(
-              builder: (context, dreamAgywState, child) {
-                return Consumer<InterventionBottomNavigationState>(builder:
-                    (context, interventionBottomNavigationState, child) {
-                  return Consumer<ReferralNotificationState>(
-                    builder: (context, referralNotificationState, child) {
-                      return Consumer<ServiceEventDataState>(
-                        builder: (context, serviceFormState, child) {
-                          AgywDream? agywDream = dreamAgywState.currentAgywDream;
-                          bool isLoading = serviceFormState.isLoading;
-                          Map<String?, List<Events>> eventListByProgramStage =
-                              serviceFormState.eventListByProgramStage;
-                          List<String?> incomingReferrals =
-                              referralNotificationState.incomingReferrals;
-                          List<Events> events = TrackedEntityInstanceUtil
-                              .getAllEventListFromServiceDataStateByProgramStages(
-                                  eventListByProgramStage, programStageIds);
-                          String? currentInterventionBottomNavigationId =
-                              interventionBottomNavigationState
-                                  .currentInterventionBottomNavigationId;
-                          if (currentInterventionBottomNavigationId ==
-                              'incomingReferral') {
-                            events.removeWhere((event) =>
-                                incomingReferrals.indexOf(event.event) == -1);
-                          }
-                          int referralIndex = events.length;
-                          return Container(
-                            child: Column(
-                              children: [
-                                DreamsBeneficiaryTopHeader(
-                                  agywDream: agywDream,
-                                ),
-                                Container(
-                                  child: isLoading
-                                      ? CircularProcessLoader(
-                                          color: Colors.blueGrey,
-                                        )
-                                      : Column(
-                                          children: [
-                                            Container(
-                                              margin: EdgeInsets.symmetric(
-                                                vertical: 10.0,
-                                              ),
-                                              child: events.length == 0
-                                                  ? Text(
-                                                      'There is no Beneficiary Referrals at a moment')
-                                                  : Container(
-                                                      margin:
-                                                          EdgeInsets.symmetric(
-                                                        vertical: 5.0,
-                                                        horizontal: 13.0,
-                                                      ),
-                                                      child: Column(
-                                                        children: events.map(
-                                                            (Events eventData) {
-                                                          int count =
-                                                              referralIndex--;
-                                                          return Container(
-                                                            margin:
-                                                                EdgeInsets.only(
-                                                              bottom: 15.0,
-                                                            ),
-                                                            child:
-                                                                ReferralCardSummary(
-                                                              borderColor: Color(
-                                                                  0xFFE9F4FA),
-                                                              buttonLabelColor:
-                                                                  Color(
-                                                                      0xFF1F8ECE),
-                                                              titleColor: Color(
-                                                                  0xFF05131B),
-                                                              count: count,
-                                                              cardBody:
-                                                                  ReferralCardBodySummary(
-                                                                labelColor: Color(
-                                                                    0XFF82898D),
-                                                                valueColor: Color(
-                                                                    0XFF444E54),
-                                                                referralEvent:
-                                                                    eventData,
-                                                              ),
-                                                              onView: () =>
-                                                                  onViewReferral(
-                                                                context,
-                                                                eventData,
-                                                                count,
-                                                              ),
-                                                              onManage: () =>
-                                                                  onManageReferral(
-                                                                context,
-                                                                eventData,
-                                                                count,
-                                                              ),
-                                                            ),
-                                                          );
-                                                        }).toList(),
-                                                      ),
-                                                    ),
-                                            ),
-                                            Visibility(
-                                              visible:
-                                                  interventionBottomNavigationState
-                                                          .currentInterventionBottomNavigationId !=
-                                                      'incomingReferral',
-                                              child: EntryFormSaveButton(
-                                                  label: 'ADD REFERRAL',
-                                                  labelColor: Colors.white,
-                                                  buttonColor:
-                                                      Color(0xFF1F8ECE),
-                                                  fontSize: 15.0,
-                                                  onPressButton: () =>
-                                                      onAddReferral(
-                                                          context, agywDream!)),
-                                            )
-                                          ],
-                                        ),
-                                )
-                              ],
-                            ),
-                          );
-                        },
-                      );
-                    },
-                  );
-                });
-              },
-            ),
-          ),
-        ),
-        bottomNavigationBar: InterventionBottomNavigationBarContainer());
+      ),
+      bottomNavigationBar: InterventionBottomNavigationBarContainer(),
+    );
   }
 }

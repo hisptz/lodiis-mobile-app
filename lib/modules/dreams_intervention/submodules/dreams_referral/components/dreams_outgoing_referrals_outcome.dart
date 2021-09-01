@@ -10,8 +10,12 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_refe
 import 'package:provider/provider.dart';
 
 class DreamsOutgoingReferralsOutcome extends StatefulWidget {
-  DreamsOutgoingReferralsOutcome({required this.agywList});
+  DreamsOutgoingReferralsOutcome({
+    required this.agywList,
+    required this.isIncommingReferral,
+  });
   final List<AgywDream> agywList;
+  final bool isIncommingReferral;
 
   @override
   _DreamsOutgoingReferralsOutcomeState createState() =>
@@ -29,8 +33,14 @@ class _DreamsOutgoingReferralsOutcomeState
     Provider.of<ServiceEventDataState>(context, listen: false)
         .resetServiceEventDataState(agywBeneficiary.id);
     Navigator.pop(context);
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => DreamsAgywReferralPage()));
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => DreamsAgywReferralPage(
+          isIncommingReferral: widget.isIncommingReferral,
+        ),
+      ),
+    );
   }
 
   onSearchBeneficiary(String value) {
