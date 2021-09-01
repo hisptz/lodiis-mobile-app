@@ -20,10 +20,12 @@ class DreamsReferralManage extends StatefulWidget {
     Key? key,
     required this.eventData,
     required this.referralIndex,
+    required this.isIncommingReferral,
   }) : super(key: key);
 
   final Events eventData;
   final int referralIndex;
+  final bool isIncommingReferral;
 
   @override
   _DreamsReferralManageState createState() => _DreamsReferralManageState();
@@ -90,6 +92,7 @@ class _DreamsReferralManageState extends State<DreamsReferralManage> {
                                 eventData: widget.eventData,
                                 isEditable: shouldEditReferral(
                                     widget.eventData.dataValues ?? []),
+                                isIncommingReferral: widget.isIncommingReferral,
                               ),
                               ReferralOutComeCardContainer(
                                 isOvcIntervention: false,

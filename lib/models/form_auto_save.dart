@@ -31,7 +31,6 @@ class FormAutoSave {
     return mapData;
   }
 
-// remove all the fields that are not in the form
   String sanitizeJsonData({String jsonObject = ''}) {
     Map<String, dynamic> jsonMap = json.decode(jsonObject);
     jsonMap.removeWhere((key, value) => value == null || value == '');

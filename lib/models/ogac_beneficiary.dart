@@ -12,6 +12,8 @@ class OgacBeneficiary {
   String? sex;
   String? beneficiaryId;
   String? location;
+  String? phoneNumber;
+  String? village;
   String? orgUnit;
   String? createdDate;
   String? searchableValue;
@@ -28,6 +30,8 @@ class OgacBeneficiary {
     this.beneficiaryId,
     this.sex,
     this.location,
+    this.phoneNumber,
+    this.village,
     this.orgUnit,
     this.createdDate,
     this.enrollment,
@@ -44,6 +48,8 @@ class OgacBeneficiary {
     Events? eventData,
   ) {
     List keys = [
+      'RB8Wx75hGa4',
+      'tNdoR0jYr7R',
       'WTZ7GLTrE8Q',
       's1HaiT6OllL',
       'rSP9c21JsfC',
@@ -60,6 +66,8 @@ class OgacBeneficiary {
       }
     }
     int age = AppUtil.getAgeInYear(data['qZP982qpSPS']);
+    String phoneNumber = data["tNdoR0jYr7R"] ?? '';
+    String village = data["RB8Wx75hGa4"] ?? '';
     return OgacBeneficiary(
       id: trackedEntityInstance.trackedEntityInstance,
       firstname: data['WTZ7GLTrE8Q'] ?? '',
@@ -69,10 +77,12 @@ class OgacBeneficiary {
       beneficiaryId: data[BeneficiaryIdentification.beneficiaryId] ?? '',
       sex: data['vIX4GTSCX4P'] ?? '',
       searchableValue:
-          "${data['WTZ7GLTrE8Q'] ?? ''} ${data['s1HaiT6OllL'] ?? ''} ${data['rSP9c21JsfC'] ?? ''} $age ${data[BeneficiaryIdentification.beneficiaryId] ?? ''} ${data['vIX4GTSCX4P'] ?? ''} $location $createdDate"
+          "${data['WTZ7GLTrE8Q'] ?? ''} ${data['s1HaiT6OllL'] ?? ''} ${data['rSP9c21JsfC'] ?? ''} $age ${data[BeneficiaryIdentification.beneficiaryId] ?? ''} ${data['vIX4GTSCX4P'] ?? ''} ${data['RB8Wx75hGa4']} $location $createdDate"
               .toLowerCase(),
       orgUnit: orgUnit,
       location: location,
+      phoneNumber: phoneNumber != "" ? phoneNumber : 'N/A',
+      village: village != "" ? village : 'N/A',
       createdDate: createdDate,
       enrollment: enrollment,
       trackedEntityInstanceData: trackedEntityInstance,

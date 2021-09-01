@@ -26,6 +26,7 @@ class OvcHouseholdCardButtonContent extends StatelessWidget {
     required this.canViewChildExit,
     required this.canEditChildInfo,
     required this.currentLanguage,
+    this.isIncommingReferral = false,
   }) : super(key: key);
 
   final OvcHousehold ovcHousehold;
@@ -36,6 +37,7 @@ class OvcHouseholdCardButtonContent extends StatelessWidget {
   final bool canViewChildService;
   final bool canViewChildReferral;
   final bool canViewChildExit;
+  final bool isIncommingReferral;
 
   void updateEnrollmentFormStateData(
     BuildContext context,
@@ -133,7 +135,9 @@ class OvcHouseholdCardButtonContent extends StatelessWidget {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => OvcChildReferralHome(),
+        builder: (context) => OvcChildReferralHome(
+          isIncommingReferral: isIncommingReferral,
+        ),
       ),
     );
   }

@@ -60,6 +60,7 @@ class TrackedEntityInstanceUtil {
   static Future<List<Events>> getSavedTrackedEntityInstanceEventData(
     String? trackedEntityInstance,
   ) async {
+    //@TODO sort by event dates
     List<Events> events = [];
     List<String?> trackedEntityInstanceIds = [];
     try {
@@ -82,7 +83,7 @@ class TrackedEntityInstanceUtil {
         events.addAll(data);
       } catch (e) {}
     }
-    return events.reversed.toList();
+    return events.toList();
   }
 
   static List<Events> getAllEventListFromServiceDataState(

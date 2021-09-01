@@ -60,13 +60,14 @@ class OvcEnrollmentHouseholdService {
 
   Future<List<OvcHousehold>> getHouseholdList(
       {page, String searchableValue = ''}) async {
-    List<OvcHousehold> ovchouseHoldList = [];
+    List<OvcHousehold> ovcHouseHoldList = [];
 
     List<TrackedEntityInstance> allTrackedEntityInstanceList = [];
 
     try {
-      List<Enrollment> enrollments =
-          await EnrollmentOfflineProvider().getEnrollments(program, page: page);
+      List<Enrollment> enrollments = await EnrollmentOfflineProvider()
+          .getEnrollments(program,
+              page: page, isSearching: searchableValue != '');
       allTrackedEntityInstanceList =
           await TrackedEntityInstanceOfflineProvider()
               .getTrackedEntityInstanceByIds(enrollments
@@ -108,14 +109,14 @@ class OvcEnrollmentHouseholdService {
                 getUpdatedHouseholdWithOvcCounts(tei, houseHoldChildrenTeiData);
             FormUtil.savingTrackedEntityInstance(tei);
           } catch (e) {}
-          ovchouseHoldList.add(OvcHousehold().fromTeiModel(
+          ovcHouseHoldList.add(OvcHousehold().fromTeiModel(
               tei, location, orgUnit, createdDate, houseHoldChildren));
         }
       }
     } catch (e) {}
     return searchableValue == ''
-        ? ovchouseHoldList
-        : ovchouseHoldList.where((OvcHousehold beneficiary) {
+        ? ovcHouseHoldList
+        : ovcHouseHoldList.where((OvcHousehold beneficiary) {
             bool isBeneficiaryFound = AppUtil().searchFromString(
                 searchableString: beneficiary.searchableValue,
                 searchedValue: searchableValue);

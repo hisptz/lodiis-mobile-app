@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/models/referral_event_notification.dart';
 
 class ReferralNotification {

@@ -72,6 +72,8 @@ class AgywDream {
       }
     }
     int age = AppUtil.getAgeInYear(data['qZP982qpSPS']);
+    String phoneNumber = data["tNdoR0jYr7R"] ?? '';
+    String village = data["RB8Wx75hGa4"] ?? '';
     return AgywDream(
       id: trackedEntityInstance.trackedEntityInstance,
       firstname: data['WTZ7GLTrE8Q'] ?? '',
@@ -83,8 +85,8 @@ class AgywDream {
       sex: data['VJiWumvINR6'] ?? data['vIX4GTSCX4P'] ?? '',
       beneficiaryType: data['vkd6o91n1IC'] ?? '',
       programStatus: data['PN92g65TkVI'] ?? '',
-      village: data['RB8Wx75hGa4'] ?? '',
-      phoneNumber: data['tNdoR0jYr7R'] ?? '',
+      phoneNumber: phoneNumber != "" ? phoneNumber : 'N/A',
+      village: village != "" ? village : 'N/A',
       orgUnit: orgUnit,
       location: location,
       createdDate: createdDate,

@@ -61,7 +61,8 @@ class OgacEnrollmentService {
       {int? page, String searchableValue = ''}) async {
     List<OgacBeneficiary> ogacBeneficiaries = [];
     List<Enrollment> enrollments = await EnrollmentOfflineProvider()
-        .getEnrollments(OgacInterventionConstant.program, page: page);
+        .getEnrollments(OgacInterventionConstant.program,
+            page: page, isSearching: searchableValue != '');
     for (Enrollment enrollment in enrollments) {
       List<OrganisationUnit> ous = await OrganisationUnitService()
           .getOrganisationUnits([enrollment.orgUnit]);

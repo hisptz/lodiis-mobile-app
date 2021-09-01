@@ -11,6 +11,44 @@ class DreamsBeneficiaryTopHeader extends StatelessWidget {
   }) : super(key: key);
 
   final AgywDream? agywDream;
+
+  Expanded _getDreamBeneficiaryDetailsWidget({
+    required String key,
+    required Color keyColor,
+    required String value,
+    required Color valueColor,
+    required double fontSize,
+  }) {
+    return Expanded(
+      child: Container(
+        margin: EdgeInsets.symmetric(
+          horizontal: 10.0,
+          vertical: 5.0,
+        ),
+        child: RichText(
+          text: TextSpan(
+            text: key != '' ? '$key: ' : "",
+            style: TextStyle().copyWith(
+              fontSize: fontSize,
+              fontWeight: FontWeight.w500,
+              color: keyColor,
+            ),
+            children: [
+              TextSpan(
+                text: value,
+                style: TextStyle().copyWith(
+                  fontSize: fontSize,
+                  fontWeight: FontWeight.w500,
+                  color: valueColor,
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -21,128 +59,86 @@ class DreamsBeneficiaryTopHeader extends StatelessWidget {
             type: MaterialType.card,
             elevation: 1.0,
             child: Container(
-                margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
-                child: Column(
-                  children: [
-                    Container(
-                      margin: EdgeInsets.symmetric(
-                        horizontal: 10.0,
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Expanded(
-                            child: Container(
-                              child: Text(
-                                agywDream.toString(),
-                                style: TextStyle().copyWith(
-                                    color: Color(0xFF05131B),
-                                    fontSize: 14.0,
-                                    fontWeight: FontWeight.w700),
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            child: Container(
-                              alignment: Alignment.centerRight,
-                              child: Text(
-                                agywDream!.primaryUIC!,
-                                style: TextStyle().copyWith(
-                                    color: Color(0xFF05131B),
-                                    fontSize: 14.0,
-                                    fontWeight: FontWeight.w700),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+              margin: EdgeInsets.symmetric(
+                vertical: 10.0,
+                horizontal: 10.0,
+              ),
+              child: Column(
+                children: [
+                  Container(
+                    margin: EdgeInsets.symmetric(
+                      horizontal: 10.0,
                     ),
-                    Container(
-                      margin: EdgeInsets.only(top: 5.0),
-                      child: LineSeparator(color: Color(0XFFE9F4FA)),
-                    ),
-                    Container(
-                        margin: EdgeInsets.symmetric(
-                          horizontal: 10.0,
-                          vertical: 10.0,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        _getDreamBeneficiaryDetailsWidget(
+                          key: '',
+                          value: agywDream.toString(),
+                          keyColor: Color(0xFF05131B),
+                          valueColor: Color(0xFF05131B),
+                          fontSize: 14.0,
                         ),
-                        child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Expanded(
-                                child: RichText(
-                                  text: TextSpan(
-                                    text: currentLanguage == 'lesotho'
-                                        ? 'Boleng  '
-                                        : 'Sex  ',
-                                    style: TextStyle().copyWith(
-                                      fontSize: 12.0,
-                                      fontWeight: FontWeight.w500,
-                                      color: Color(0xFF82898D),
-                                    ),
-                                    children: [
-                                      TextSpan(
-                                        text: agywDream!.sex,
-                                        style: TextStyle().copyWith(
-                                          fontSize: 12.0,
-                                          fontWeight: FontWeight.w500,
-                                          color: Color(0xFF1F8ECE),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                child: RichText(
-                                  text: TextSpan(
-                                    text: currentLanguage == 'lesotho'
-                                        ? 'Lilemo  '
-                                        : 'Age  ',
-                                    style: TextStyle().copyWith(
-                                      fontSize: 12.0,
-                                      fontWeight: FontWeight.w500,
-                                      color: Color(0xFF82898D),
-                                    ),
-                                    children: [
-                                      TextSpan(
-                                        text: agywDream!.age,
-                                        style: TextStyle().copyWith(
-                                          fontSize: 12.0,
-                                          fontWeight: FontWeight.w500,
-                                          color: Color(0xFF1F8ECE),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                flex: 2,
-                                child: RichText(
-                                  text: TextSpan(
-                                    text: 'Status  ',
-                                    style: TextStyle().copyWith(
-                                      fontSize: 12.0,
-                                      fontWeight: FontWeight.w500,
-                                      color: Color(0xFF82898D),
-                                    ),
-                                    children: [
-                                      TextSpan(
-                                        text: agywDream!.programStatus,
-                                        style: TextStyle().copyWith(
-                                          fontSize: 12.0,
-                                          fontWeight: FontWeight.w500,
-                                          color: Color(0xFF1F8ECE),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ]))
-                  ],
-                )),
+                        _getDreamBeneficiaryDetailsWidget(
+                          key: '',
+                          value: agywDream!.primaryUIC!,
+                          keyColor: Color(0xFF05131B),
+                          valueColor: Color(0xFF05131B),
+                          fontSize: 14.0,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(top: 5.0),
+                    child: LineSeparator(color: Color(0XFFE9F4FA)),
+                  ),
+                  Container(
+                    margin: EdgeInsets.symmetric(
+                      horizontal: 10.0,
+                      vertical: 5.0,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        _getDreamBeneficiaryDetailsWidget(
+                          key: currentLanguage == 'lesotho' ? 'Boleng' : 'Sex',
+                          value: agywDream!.sex!,
+                          keyColor: Color(0xFF82898D),
+                          valueColor: Color(0xFF1F8ECE),
+                          fontSize: 12.0,
+                        ),
+                        _getDreamBeneficiaryDetailsWidget(
+                          key: currentLanguage == 'lesotho' ? 'Lilemo' : 'Age',
+                          value: agywDream!.age!,
+                          keyColor: Color(0xFF82898D),
+                          valueColor: Color(0xFF1F8ECE),
+                          fontSize: 12.0,
+                        ),
+                        _getDreamBeneficiaryDetailsWidget(
+                          key: currentLanguage == 'lesotho'
+                              ? 'Nomoro ea mohala'
+                              : 'Phone #',
+                          value: agywDream!.phoneNumber!,
+                          keyColor: Color(0xFF82898D),
+                          valueColor: Color(0xFF1F8ECE),
+                          fontSize: 12.0,
+                        ),
+                        _getDreamBeneficiaryDetailsWidget(
+                          key: currentLanguage == 'lesotho'
+                              ? 'Motse'
+                              : 'Village',
+                          value: agywDream!.village!,
+                          keyColor: Color(0xFF82898D),
+                          valueColor: Color(0xFF1F8ECE),
+                          fontSize: 12.0,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
           );
         },
       ),
