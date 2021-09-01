@@ -107,7 +107,7 @@ class ReferralEvent {
             .toList()
             .join(", ");
       }
-    } on Exception catch (e) {
+    } catch (e) {
       print(e.toString());
     }
 

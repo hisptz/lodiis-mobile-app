@@ -40,6 +40,7 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
     super.initState();
   }
 
+  //@TODO checking skip logics for sessions for dream services
   void updateFormState(
     BuildContext context,
     bool isEditableMode,
@@ -48,6 +49,7 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
     List<ServiceEvent>? serviceEvents,
   ) {
     Map serviceEventSessions = getLastSessionNumbers(serviceEvents);
+    print(serviceEventSessions);
     Map<String?, List<String?>> interventionSessions =
         getSessionsPerIntervention(serviceEvents, eventData)
             as Map<String?, List<String?>>;
@@ -78,11 +80,16 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
     Map eventsWithLastSessionNumber = Map();
     for (ServiceEvent event in serviceEvents ?? []) {
       if (eventsWithLastSessionNumber[event.interventionType] != null) {
-        eventsWithLastSessionNumber[event.interventionType] =
-            eventsWithLastSessionNumber[event.interventionType] <
-                    event.sessionNumber
-                ? event.sessionNumber
-                : eventsWithLastSessionNumber[event.interventionType];
+        try {
+          //@TODO handling alphabetical sessions
+          eventsWithLastSessionNumber[event.interventionType] =
+              int.parse(eventsWithLastSessionNumber[event.interventionType]) <
+                      int.parse(event.sessionNumber!)
+                  ? event.sessionNumber
+                  : eventsWithLastSessionNumber[event.interventionType];
+        } catch (e) {
+          print(e.toString());
+        }
       } else {
         eventsWithLastSessionNumber[event.interventionType] =
             event.sessionNumber;
