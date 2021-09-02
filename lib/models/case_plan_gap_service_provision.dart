@@ -152,11 +152,7 @@ class CasePlanGapServiceProvision {
       id: eventData.event,
       casePlanGapToFollowUpLinkage: data[casePlanGapToFollowUpLinkage] ?? '',
       date: eventData.eventDate,
-      result: followupResults.isEmpty
-          ? followupResults
-          : "$followupResults" == "true"
-              ? "Yes"
-              : "No",
+      result: "$followupResults" == "true" ? "Yes" : "No",
       reason: followUpReason,
       eventData: eventData,
     );
