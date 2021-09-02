@@ -231,45 +231,38 @@ class _OcvChildCasePlanFormState extends State<OcvChildCasePlanForm> {
                                       child: Column(
                                         children: formSections
                                             .map(
-                                              (FormSection formSection) =>
-                                                  age < // Remove the domain schooled for children younger than 5
-                                                              5 &&
-                                                          formSection.id ==
-                                                              'Schooled'
-                                                      ? Container()
-                                                      : CasePlanFormContainer(
-                                                          currentHouseholdChild:
-                                                              currentOvcHouseholdChild,
-                                                          shouldAddCasePlanGap:
-                                                              widget
-                                                                  .shouldAddCasePlanGap,
-                                                          shouldEditCaseGapFollowUps:
-                                                              widget
-                                                                  .shouldEditCaseGapFollowUps,
-                                                          shouldViewCaseGapFollowUp:
-                                                              widget
-                                                                  .shouldViewCaseGapFollowUp,
-                                                          formSectionColor:
-                                                              borderColors[
-                                                                  formSection
-                                                                      .id],
-                                                          formSection:
-                                                              formSection,
-                                                          dataObject:
-                                                              dataObject[
-                                                                  formSection
-                                                                      .id],
-                                                          isEditableMode:
-                                                              serviceFormState
-                                                                  .isEditableMode,
-                                                          onInputValueChange: (
-                                                            dynamic value,
-                                                          ) =>
-                                                              onInputValueChange(
-                                                                  formSection
-                                                                      .id,
-                                                                  value),
-                                                        ),
+                                              (FormSection formSection) => (age <
+                                                          5 &&
+                                                      formSection.id ==
+                                                          'Schooled')
+                                                  ? Container()
+                                                  : CasePlanFormContainer(
+                                                      currentHouseholdChild:
+                                                          currentOvcHouseholdChild,
+                                                      shouldAddCasePlanGap: widget
+                                                          .shouldAddCasePlanGap,
+                                                      shouldEditCaseGapFollowUps:
+                                                          widget
+                                                              .shouldEditCaseGapFollowUps,
+                                                      shouldViewCaseGapFollowUp:
+                                                          widget
+                                                              .shouldViewCaseGapFollowUp,
+                                                      formSectionColor:
+                                                          borderColors[
+                                                              formSection.id],
+                                                      formSection: formSection,
+                                                      dataObject: dataObject[
+                                                          formSection.id],
+                                                      isEditableMode:
+                                                          serviceFormState
+                                                              .isEditableMode,
+                                                      onInputValueChange: (
+                                                        dynamic value,
+                                                      ) =>
+                                                          onInputValueChange(
+                                                            formSection.id,
+                                                            value,
+                                                          )),
                                             )
                                             .toList(),
                                       ),
@@ -286,9 +279,10 @@ class _OcvChildCasePlanFormState extends State<OcvChildCasePlanForm> {
                                         buttonColor: Color(0xFF4B9F46),
                                         fontSize: 15.0,
                                         onPressButton: () => onSaveForm(
-                                            context,
-                                            serviceFormState.formState,
-                                            currentOvcHouseholdChild),
+                                          context,
+                                          serviceFormState.formState,
+                                          currentOvcHouseholdChild,
+                                        ),
                                       ),
                                     )
                                   ],
