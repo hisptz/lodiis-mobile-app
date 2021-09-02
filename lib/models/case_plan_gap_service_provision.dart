@@ -1,6 +1,6 @@
 import 'package:kb_mobile_app/models/events.dart';
 
-class CasePlanGapFollowUp {
+class CasePlanGapServiceProvision {
   String? id;
   String? date;
   String? result;
@@ -8,7 +8,7 @@ class CasePlanGapFollowUp {
   String? casePlanGapToFollowUpLinkage;
   Events? eventData;
 
-  CasePlanGapFollowUp({
+  CasePlanGapServiceProvision({
     this.id,
     this.date,
     this.result,
@@ -17,7 +17,7 @@ class CasePlanGapFollowUp {
     this.eventData,
   });
 
-  CasePlanGapFollowUp fromTeiModel(
+  CasePlanGapServiceProvision fromTeiModel(
     Events eventData,
     String casePlanGapToFollowUpLinkage,
   ) {
@@ -148,11 +148,15 @@ class CasePlanGapFollowUp {
                 : followUpReason;
       }
     }
-    return CasePlanGapFollowUp(
+    return CasePlanGapServiceProvision(
       id: eventData.event,
       casePlanGapToFollowUpLinkage: data[casePlanGapToFollowUpLinkage] ?? '',
       date: eventData.eventDate,
-      result: followupResults,
+      result: followupResults.isEmpty
+          ? followupResults
+          : "$followupResults" == "true"
+              ? "Yes"
+              : "No",
       reason: followUpReason,
       eventData: eventData,
     );
