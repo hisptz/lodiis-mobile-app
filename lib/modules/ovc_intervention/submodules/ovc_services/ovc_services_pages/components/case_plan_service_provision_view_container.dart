@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/components/service_gap_view.dart';
 
-class ServiceGapViewContainer extends StatelessWidget {
-  const ServiceGapViewContainer({
+class CasePlanServiceProvisionViewContainer extends StatelessWidget {
+  const CasePlanServiceProvisionViewContainer({
     Key? key,
     required this.casePlanGaps,
     required this.formSectionColor,
