@@ -183,10 +183,9 @@ mixin OvcCasePlanGapSkipLogic {
         hiddenFields['ewpLauNhb8N'] = true;
       }
       if (inputFieldId == 'yJQi4cbzeBF' && value != 'true') {
-        hiddenFields['lDxuiUg9TOM'] = true;
-        hiddenFields['iWH5MhwPSbD'] = true;
+        hiddenFields['l8HRb7CFYOW'] = true;
+        hiddenFields['H4TLyWdOdrI'] = true;
         hiddenFields['DqlxkJ0dMA2'] = true;
-        hiddenFields[''] = true;
       }
       if (inputFieldId == 'x4yAqv4z2Xv' && value != 'true') {
         hiddenFields['B1yERoBbRzH'] = true;
