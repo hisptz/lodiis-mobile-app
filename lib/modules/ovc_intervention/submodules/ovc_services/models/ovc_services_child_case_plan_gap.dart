@@ -924,7 +924,7 @@ class OvcServicesChildCasePlanGap {
                 name: 'FCARE',
                 translatedName: 'Tšebeletso a FCARE',
                 valueType: 'TRUE_ONLY',
-                inputColor: Color(0xFF4D9E49),
+                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'kRwTftt9Nl0',
