@@ -77,13 +77,13 @@ class _CasePlanGapViewState extends State<CasePlanGapView> {
             : '   ';
     if (inputField != null) {
       if (inputField.valueType == 'BOOLEAN') {
-        value = value == 'true'
+        value = '$value' == 'true'
             ? 'Yes'
             : value == 'false'
                 ? 'No'
                 : value;
       } else if (inputField.valueType == 'TRUE_ONLY') {
-        value = value == 'true' ? 'Yes' : value;
+        value = '$value' == 'true' ? 'Yes' : value;
       }
     }
     return value.toString();
