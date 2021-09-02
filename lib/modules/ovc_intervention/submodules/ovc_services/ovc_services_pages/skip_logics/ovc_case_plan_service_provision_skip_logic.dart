@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 
-mixin OvcCasePlanFollowUpSkipLogic {
+mixin OvcCasePlanServiceProvisionSkipLogic {
   Map hiddenFields = Map();
   Map hiddenSections = Map();
   Map childMapObject = Map();
@@ -24,7 +24,6 @@ mixin OvcCasePlanFollowUpSkipLogic {
       hiddenFields[inputFieldId] = true;
     }
 
-    //@TODO adding skip logics for session numbers
     dataObject.forEach((key, value) {
       if (key == 'ylSjcj6cv42' && value == 'true') {
         hiddenFields['YFgrURiwirq'] = false;
