@@ -5,7 +5,7 @@ import 'package:kb_mobile_app/app_state/language_translation_state/language_tran
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
-import 'package:kb_mobile_app/models/case_plan_gap_follow_up.dart';
+import 'package:kb_mobile_app/models/case_plan_gap_service_provision.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_case_plan/constants/ovc_child_case_plan_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/components/case_plan_service_provision_form_container.dart';
@@ -46,12 +46,12 @@ class _CasePlanFollowUpViewContainerState
 
   void onEditCasePlanFollowUp(
     BuildContext context,
-    CasePlanGapFollowUp casePlanFollowup,
+    CasePlanGapServiceProvision casePlanGapServiceProvision,
   ) async {
     Map dataObject = Map();
-    dataObject['eventDate'] = casePlanFollowup.date;
-    dataObject['eventId'] = casePlanFollowup.id;
-    for (Map dataValue in casePlanFollowup.eventData!.dataValues) {
+    dataObject['eventDate'] = casePlanGapServiceProvision.date;
+    dataObject['eventId'] = casePlanGapServiceProvision.id;
+    for (Map dataValue in casePlanGapServiceProvision.eventData!.dataValues) {
       if ('${dataValue['value']}'.isNotEmpty)
         dataObject[dataValue['dataElement']] = dataValue['value'];
     }
@@ -95,11 +95,11 @@ class _CasePlanFollowUpViewContainerState
               List<Events> events = TrackedEntityInstanceUtil
                   .getAllEventListFromServiceDataStateByProgramStages(
                       eventListByProgramStage, [programStage]);
-              List<CasePlanGapFollowUp> casePlanFollowups = events
-                  .map((Events eventData) => CasePlanGapFollowUp()
+              List<CasePlanGapServiceProvision> casePlanFollowups = events
+                  .map((Events eventData) => CasePlanGapServiceProvision()
                       .fromTeiModel(eventData, casePlanGapToFollowUpLinkage))
                   .toList()
-                  .where((CasePlanGapFollowUp casePlanFollowup) =>
+                  .where((CasePlanGapServiceProvision casePlanFollowup) =>
                       casePlanFollowup.casePlanGapToFollowUpLinkage ==
                       widget.casePlanGapToFollowUpLinkageValue)
                   .toList();
@@ -139,7 +139,8 @@ class _CasePlanFollowUpViewContainerState
                               child: Column(
                                 children: casePlanFollowups
                                     .map(
-                                      (CasePlanGapFollowUp casePlanFollowup) =>
+                                      (CasePlanGapServiceProvision
+                                              casePlanGapServiceProvision) =>
                                           Container(
                                         margin: EdgeInsets.symmetric(
                                           vertical: 10.0,
@@ -160,7 +161,8 @@ class _CasePlanFollowUpViewContainerState
                                                           style: TextStyle()
                                                               .copyWith(
                                                             color: Color(
-                                                                0xFF8A9589),
+                                                              0xFF8A9589,
+                                                            ),
                                                             fontSize: 12.0,
                                                             fontWeight:
                                                                 FontWeight.w500,
@@ -169,7 +171,7 @@ class _CasePlanFollowUpViewContainerState
                                                       ),
                                                       TableCell(
                                                         child: Text(
-                                                          'Results',
+                                                          'Service provided',
                                                           style: TextStyle()
                                                               .copyWith(
                                                             color: Color(
@@ -199,7 +201,7 @@ class _CasePlanFollowUpViewContainerState
                                                     children: [
                                                       TableCell(
                                                         child: Text(
-                                                          casePlanFollowup
+                                                          casePlanGapServiceProvision
                                                               .date!,
                                                           style: TextStyle()
                                                               .copyWith(
@@ -213,7 +215,7 @@ class _CasePlanFollowUpViewContainerState
                                                       ),
                                                       TableCell(
                                                         child: Text(
-                                                          casePlanFollowup
+                                                          casePlanGapServiceProvision
                                                               .result!,
                                                           style: TextStyle()
                                                               .copyWith(
@@ -227,7 +229,7 @@ class _CasePlanFollowUpViewContainerState
                                                       ),
                                                       TableCell(
                                                         child: Text(
-                                                          casePlanFollowup
+                                                          casePlanGapServiceProvision
                                                               .reason!,
                                                           style: TextStyle()
                                                               .copyWith(
@@ -253,7 +255,7 @@ class _CasePlanFollowUpViewContainerState
                                                     onTap: () =>
                                                         onEditCasePlanFollowUp(
                                                       context,
-                                                      casePlanFollowup,
+                                                      casePlanGapServiceProvision,
                                                     ),
                                                     child: Container(
                                                       height: iconHeight,

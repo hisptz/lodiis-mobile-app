@@ -12,11 +12,11 @@ import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/ovc_household.dart';
 import 'package:kb_mobile_app/models/ovc_household_child.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/household_service_provision.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_child_service_followup.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_child_service_provision.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_case_plan/constants/ovc_child_case_plan_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/constants/ovc_case_plan_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/household_case_plan/constants/ovc_household_case_plan_constant.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/skip_logics/ovc_case_plan_follow_up_skip_logic.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/skip_logics/ovc_case_plan_service_provision_skip_logic.dart';
 import 'package:provider/provider.dart';
 
 class CasePlanServiceProvisionFormContainer extends StatefulWidget {
@@ -40,7 +40,7 @@ class CasePlanServiceProvisionFormContainer extends StatefulWidget {
 
 class _CasePlanServiceProvisionFormContainerState
     extends State<CasePlanServiceProvisionFormContainer>
-    with OvcCasePlanFollowUpSkipLogic {
+    with OvcCasePlanServiceProvisionSkipLogic {
   bool isFormReady = false;
   bool isSaving = false;
   List<FormSection>? formSections;
@@ -57,7 +57,7 @@ class _CasePlanServiceProvisionFormContainerState
         mandatoryFieldObject = Map();
         formSections = widget.isCasePlanForHousehold
             ? HouseholdServiceProvision.getFormSections()
-            : OvcServicesChildServiceFollowup.getFormSections();
+            : OvcServicesChildServiceProvision.getFormSections();
         formSections = formSections!
             .where((formSection) => formSection.id == widget.domainId)
             .toList();
@@ -75,6 +75,7 @@ class _CasePlanServiceProvisionFormContainerState
     });
   }
 
+//@TODO naming conversion on program stage refererenes
   void onSaveGapForm(
     BuildContext context,
     Map? dataObject,

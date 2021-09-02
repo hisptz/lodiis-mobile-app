@@ -19,7 +19,7 @@ import 'package:kb_mobile_app/models/ovc_household_child.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_child_info_top_header.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_case_plan.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_child_caseplan_gaps.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_child_case_plan_gap.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_case_plan/constants/ovc_child_case_plan_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/components/case_plan_form_container.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/constants/ovc_case_plan_constant.dart';
@@ -101,7 +101,7 @@ class _OcvChildCasePlanFormState extends State<OcvChildCasePlanForm> {
               .where((FormSection formSection) => formSection.id == domainType)
               .toList();
           List<FormSection> domainGapFormSections =
-              OvcServicesChildCasePlanGaps.getFormSections()
+              OvcServicesChildCasePlanGap.getFormSections()
                   .where(
                       (FormSection formSection) => formSection.id == domainType)
                   .toList();
@@ -231,45 +231,38 @@ class _OcvChildCasePlanFormState extends State<OcvChildCasePlanForm> {
                                       child: Column(
                                         children: formSections
                                             .map(
-                                              (FormSection formSection) =>
-                                                  age < // Remove the domain schooled for children younger than 5
-                                                              5 &&
-                                                          formSection.id ==
-                                                              'Schooled'
-                                                      ? Container()
-                                                      : CasePlanFormContainer(
-                                                          currentHouseholdChild:
-                                                              currentOvcHouseholdChild,
-                                                          shouldAddCasePlanGap:
-                                                              widget
-                                                                  .shouldAddCasePlanGap,
-                                                          shouldEditCaseGapFollowUps:
-                                                              widget
-                                                                  .shouldEditCaseGapFollowUps,
-                                                          shouldViewCaseGapFollowUp:
-                                                              widget
-                                                                  .shouldViewCaseGapFollowUp,
-                                                          formSectionColor:
-                                                              borderColors[
-                                                                  formSection
-                                                                      .id],
-                                                          formSection:
-                                                              formSection,
-                                                          dataObject:
-                                                              dataObject[
-                                                                  formSection
-                                                                      .id],
-                                                          isEditableMode:
-                                                              serviceFormState
-                                                                  .isEditableMode,
-                                                          onInputValueChange: (
-                                                            dynamic value,
-                                                          ) =>
-                                                              onInputValueChange(
-                                                                  formSection
-                                                                      .id,
-                                                                  value),
-                                                        ),
+                                              (FormSection formSection) => (age <
+                                                          5 &&
+                                                      formSection.id ==
+                                                          'Schooled')
+                                                  ? Container()
+                                                  : CasePlanFormContainer(
+                                                      currentHouseholdChild:
+                                                          currentOvcHouseholdChild,
+                                                      shouldAddCasePlanGap: widget
+                                                          .shouldAddCasePlanGap,
+                                                      shouldEditCaseGapFollowUps:
+                                                          widget
+                                                              .shouldEditCaseGapFollowUps,
+                                                      shouldViewCaseGapFollowUp:
+                                                          widget
+                                                              .shouldViewCaseGapFollowUp,
+                                                      formSectionColor:
+                                                          borderColors[
+                                                              formSection.id],
+                                                      formSection: formSection,
+                                                      dataObject: dataObject[
+                                                          formSection.id],
+                                                      isEditableMode:
+                                                          serviceFormState
+                                                              .isEditableMode,
+                                                      onInputValueChange: (
+                                                        dynamic value,
+                                                      ) =>
+                                                          onInputValueChange(
+                                                            formSection.id,
+                                                            value,
+                                                          )),
                                             )
                                             .toList(),
                                       ),
@@ -286,9 +279,10 @@ class _OcvChildCasePlanFormState extends State<OcvChildCasePlanForm> {
                                         buttonColor: Color(0xFF4B9F46),
                                         fontSize: 15.0,
                                         onPressButton: () => onSaveForm(
-                                            context,
-                                            serviceFormState.formState,
-                                            currentOvcHouseholdChild),
+                                          context,
+                                          serviceFormState.formState,
+                                          currentOvcHouseholdChild,
+                                        ),
                                       ),
                                     )
                                   ],

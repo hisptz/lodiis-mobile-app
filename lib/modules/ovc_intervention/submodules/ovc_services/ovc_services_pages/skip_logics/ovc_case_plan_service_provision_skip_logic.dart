@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 
-mixin OvcCasePlanFollowUpSkipLogic {
+mixin OvcCasePlanServiceProvisionSkipLogic {
   Map hiddenFields = Map();
   Map hiddenSections = Map();
   Map childMapObject = Map();
@@ -24,7 +24,6 @@ mixin OvcCasePlanFollowUpSkipLogic {
       hiddenFields[inputFieldId] = true;
     }
 
-    //@TODO adding skip logics for session numbers
     dataObject.forEach((key, value) {
       if (key == 'ylSjcj6cv42' && value == 'true') {
         hiddenFields['YFgrURiwirq'] = false;
@@ -249,7 +248,7 @@ mixin OvcCasePlanFollowUpSkipLogic {
         if (inputValue == 'true') {
           hiddenFields['u8r8p0a3JqU'] = false;
           hiddenFields['W5lbgijaXA6'] = false;
-          hiddenFields[''] = false;
+          hiddenFields['EXYGq5lJI1v'] = false;
         }
       } else if (key == 'x4yAqv4z2Xv' && value == 'true') {
         hiddenFields['UKczyQWCB0L'] = false;
@@ -257,7 +256,7 @@ mixin OvcCasePlanFollowUpSkipLogic {
         if (inputValue == 'true') {
           hiddenFields['jsEr16lnber'] = false;
           hiddenFields['wZLjymsKsuj'] = false;
-          hiddenFields[''] = false;
+          hiddenFields['LUyWbpKKNgW'] = false;
         }
       } else if (key == 'AM9oJCOHM7f' && value == 'true') {
         hiddenFields['KkqMjxjAR7g'] = false;
@@ -265,7 +264,7 @@ mixin OvcCasePlanFollowUpSkipLogic {
         if (inputValue == 'true') {
           hiddenFields['gYAZrh9o1DB'] = false;
           hiddenFields['Jxlug5I3kdu'] = false;
-          hiddenFields[''] = false;
+          hiddenFields['uqYcjiXv41F'] = false;
         }
       } else if (key == 'hJUuQ648wVF' && value == 'true') {
         hiddenFields['mRoO7kgpgVg'] = false;
@@ -273,7 +272,7 @@ mixin OvcCasePlanFollowUpSkipLogic {
         if (inputValue == 'true') {
           hiddenFields['CIRXgKGOmSI'] = false;
           hiddenFields['YSsfKXdIRLG'] = false;
-          hiddenFields[''] = false;
+          hiddenFields['wfiqfXHUBde'] = false;
         }
       } else if (key == 'BJrrrqQqwQO' && value == 'true') {
         hiddenFields['GNQ3gDA2CTI'] = false;
@@ -281,7 +280,7 @@ mixin OvcCasePlanFollowUpSkipLogic {
         if (inputValue == 'true') {
           hiddenFields['oTSVSO3iHTk'] = false;
           hiddenFields['aDOvfQ1wdIX'] = false;
-          hiddenFields[''] = false;
+          hiddenFields['PYMmQdzlPLJ'] = false;
         }
       } else if (key == 'LswSBpMoG5C' && value == 'true') {
         hiddenFields['gSp9bgPW52L'] = false;
@@ -289,7 +288,7 @@ mixin OvcCasePlanFollowUpSkipLogic {
         if (inputValue == 'true') {
           hiddenFields['fVpcWBp0Ngp'] = false;
           hiddenFields['pSkl6ibruvU'] = false;
-          hiddenFields[''] = false;
+          hiddenFields['x7J6mbgCF10'] = false;
         }
       } else if (key == 'gCKoJgBFdob' && value == 'true') {
         hiddenFields['mY7GqOTKtsQ'] = false;
@@ -297,7 +296,7 @@ mixin OvcCasePlanFollowUpSkipLogic {
         if (inputValue == 'true') {
           hiddenFields['h6obb1v1stw'] = false;
           hiddenFields['kBivIQr6mrW'] = false;
-          hiddenFields[''] = false;
+          hiddenFields['ydZH3TOpsXS'] = false;
         }
       } else if (key == 'JSQ3xP1NhuN' && value == 'true') {
         hiddenFields['zK7kMYpgPQn'] = false;
@@ -305,7 +304,7 @@ mixin OvcCasePlanFollowUpSkipLogic {
         if (inputValue == 'true') {
           hiddenFields['GtejBpkVvtD'] = false;
           hiddenFields['g2X9vUL2d9m'] = false;
-          hiddenFields[''] = false;
+          hiddenFields['F6z3SQxLskG'] = false;
         }
       } else if (key == 'AwWKp6KmqgY' && value == 'true') {
         hiddenFields['tnspdPfpuXm'] = false;
@@ -313,7 +312,7 @@ mixin OvcCasePlanFollowUpSkipLogic {
         if (inputValue == 'true') {
           hiddenFields['V1HnY5m2Pmv'] = false;
           hiddenFields['eXh6Gag1uwp'] = false;
-          hiddenFields[''] = false;
+          hiddenFields['YRUnLuPerwn'] = false;
         }
       } else if (key == 'EaJTFrklMo5' && value == 'true') {
         hiddenFields['QnFYeBNZlbf'] = false;
@@ -321,7 +320,7 @@ mixin OvcCasePlanFollowUpSkipLogic {
         if (inputValue == 'true') {
           hiddenFields['EnrZPBFxZuX'] = false;
           hiddenFields['xdI5atw8DC4'] = false;
-          hiddenFields[''] = false;
+          hiddenFields['vXuVPQLxw1d'] = false;
         }
       } else if (key == 'HsxFZOuV4oZ' && value == 'true') {
         hiddenFields['KvLYMr8F4vg'] = false;
@@ -329,7 +328,7 @@ mixin OvcCasePlanFollowUpSkipLogic {
         if (inputValue == 'true') {
           hiddenFields['hnMy2l2pB3z'] = false;
           hiddenFields['TN5r1EFmHWz'] = false;
-          hiddenFields[''] = false;
+          hiddenFields['InQiKRJfuZW'] = false;
         }
       } else if (key == 'yPP7lkomNfK' && value == 'true') {
         hiddenFields['AnnOS2m6LZK'] = false;
@@ -337,7 +336,7 @@ mixin OvcCasePlanFollowUpSkipLogic {
         if (inputValue == 'true') {
           hiddenFields['UHWzhDsQdoB'] = false;
           hiddenFields['xECpX8Vt1rT'] = false;
-          hiddenFields[''] = false;
+          hiddenFields['WA8MAXBxaD1'] = false;
         }
       } else if (key == 'uQiyym8SEvd' && value == 'true') {
         hiddenFields['RNKOtUtLT4c'] = false;
@@ -345,7 +344,7 @@ mixin OvcCasePlanFollowUpSkipLogic {
         if (inputValue == 'true') {
           hiddenFields['sa79KxTFGFA'] = false;
           hiddenFields['EB3JPVqMdb4'] = false;
-          hiddenFields[''] = false;
+          hiddenFields['FAqGmEGN1sa'] = false;
         }
       } else if (key == 'WiPTQhWLVU1' && value == 'true') {
         hiddenFields['GImA3HB9YK5'] = false;
@@ -353,7 +352,7 @@ mixin OvcCasePlanFollowUpSkipLogic {
         if (inputValue == 'true') {
           hiddenFields['fFuabYbLUjz'] = false;
           hiddenFields['IFggJCXLYPD'] = false;
-          hiddenFields[''] = false;
+          hiddenFields['QBNhlIan0LR'] = false;
         }
       } else if (key == 'neF08iYV9Os' && value == 'true') {
         hiddenFields['Fj2RbXsb8Yj'] = false;
@@ -361,7 +360,7 @@ mixin OvcCasePlanFollowUpSkipLogic {
         if (inputValue == 'true') {
           hiddenFields['f90c5olxs5Z'] = false;
           hiddenFields['EPwDypaz61A'] = false;
-          hiddenFields[''] = false;
+          hiddenFields['xbMtMJ9Uo5j'] = false;
         }
       } else if (key == 'GO3Ojp1UEX7' && value == 'true') {
         hiddenFields['vj0R7ySdigX'] = false;
@@ -369,7 +368,7 @@ mixin OvcCasePlanFollowUpSkipLogic {
         if (inputValue == 'true') {
           hiddenFields['yW0TrzEslYO'] = false;
           hiddenFields['tmi1jtKYZs0'] = false;
-          hiddenFields[''] = false;
+          hiddenFields['HtBtsU71Can'] = false;
         }
       } else if (key == 'exHDkX1gPiC' && value == 'true') {
         hiddenFields['JlRnllAlSk0'] = false;
@@ -377,7 +376,7 @@ mixin OvcCasePlanFollowUpSkipLogic {
         if (inputValue == 'true') {
           hiddenFields['VlOw6vrLsp5'] = false;
           hiddenFields['ONC3bpjq525'] = false;
-          hiddenFields[''] = false;
+          hiddenFields['RcKIwnxrhqw'] = false;
         }
       } else if (key == 'Cb8qzfdrg7d' && value == 'true') {
         hiddenFields['LcIB5EL3IjT'] = false;
@@ -385,7 +384,7 @@ mixin OvcCasePlanFollowUpSkipLogic {
         if (inputValue == 'true') {
           hiddenFields['zYrrrFd48S5'] = false;
           hiddenFields['WVsVwfErZ7V'] = false;
-          hiddenFields[''] = false;
+          hiddenFields['g0WhpZC7Rhe'] = false;
         }
       } else if (key == 'qraZh4n14S4' && value == 'true') {
         hiddenFields['fvgPnlOD7e9'] = false;
@@ -393,7 +392,7 @@ mixin OvcCasePlanFollowUpSkipLogic {
         if (inputValue == 'true') {
           hiddenFields['JFetYCY5tza'] = false;
           hiddenFields['yuwtSD8EyoY'] = false;
-          hiddenFields[''] = false;
+          hiddenFields['LO3eAKwk0gW'] = false;
         }
       } else if (key == 'TdReJf2LTXA' && value == 'true') {
         hiddenFields['MeMaUvt3O8j'] = false;
@@ -401,7 +400,7 @@ mixin OvcCasePlanFollowUpSkipLogic {
         if (inputValue == 'true') {
           hiddenFields['KZIjTeMl7sj'] = false;
           hiddenFields['KppYygPZ8BL'] = false;
-          hiddenFields[''] = false;
+          hiddenFields['J8iM7Hh2z3K'] = false;
         }
       } else if (key == 'q2N7p3UbvSF' && value == 'true') {
         hiddenFields['WQlWXUmYjI2'] = false;
@@ -409,7 +408,7 @@ mixin OvcCasePlanFollowUpSkipLogic {
         if (inputValue == 'true') {
           hiddenFields['gAMv1jxS0rh'] = false;
           hiddenFields['CxREUNzKxHB'] = false;
-          hiddenFields[''] = false;
+          hiddenFields['FYBjYHD8050'] = false;
         }
       } else if (key == 'NcMANzhhphO' && value == 'true') {
         hiddenFields['Zc0M1jsbfyA'] = false;
@@ -417,7 +416,7 @@ mixin OvcCasePlanFollowUpSkipLogic {
         if (inputValue == 'true') {
           hiddenFields['mLjRp8wJ8aW'] = false;
           hiddenFields['QCbFgssCzeF'] = false;
-          hiddenFields[''] = false;
+          hiddenFields['yvAIdXNQevG'] = false;
         }
       } else if (key == 'ksc7ov3MihX' && value == 'true') {
         hiddenFields['TSx4O9Tf5v2'] = false;
