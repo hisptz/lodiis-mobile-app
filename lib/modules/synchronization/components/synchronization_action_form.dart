@@ -108,6 +108,9 @@ class _SynchronizationActionFormState extends State<SynchronizationActionForm> {
               child: Container(
                 margin: EdgeInsets.only(top: 15.0),
                 child: EntryFormSaveButton(
+                  marginLeft: 80.0,
+                  marginRight: 80.0,
+                  vertical: 5.0,
                   label: 'Sync',
                   svgIconPath: selectedSyncAction ==
                               SynchronizationActionsConstants().download ||

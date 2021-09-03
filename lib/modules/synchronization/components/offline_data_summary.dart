@@ -20,7 +20,8 @@ class OfflineDataSummary extends StatelessWidget {
           child: Column(
             children: [
               Container(
-                margin: EdgeInsets.symmetric(vertical: 5.0),
+                alignment: Alignment.centerLeft,
+                margin: EdgeInsets.symmetric(vertical: 10.0),
                 child: Text('Offline data summary',
                     style: TextStyle().copyWith(
                       fontSize: 14.0,

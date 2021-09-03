@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
+import 'package:kb_mobile_app/app_state/synchronization_state/synchronization_state.dart';
 import 'package:kb_mobile_app/core/components/line_separator.dart';
 import 'package:kb_mobile_app/core/components/material_card.dart';
 import 'package:kb_mobile_app/modules/synchronization/constants/synchronization_actions_constants.dart';
@@ -31,9 +33,14 @@ class SynchronizationProgress extends StatefulWidget {
 }
 
 class _SynchronizationProgressState extends State<SynchronizationProgress> {
+  Future<void> stopSynchronization(BuildContext context) async {
+    Provider.of<SynchronizationState>(context, listen: false)
+        .stopSyncActivity();
+  }
+
   @override
   Widget build(BuildContext context) {
-    String title = 'Sync Progress';
+    String title = 'Synchronization Progress';
     return Container(
       child: MaterialCard(
           body: Container(
@@ -41,13 +48,43 @@ class _SynchronizationProgressState extends State<SynchronizationProgress> {
         child: Column(
           children: [
             Container(
-              margin: EdgeInsets.symmetric(vertical: 5.0),
-              child: Text(title,
-                  style: TextStyle().copyWith(
-                    fontSize: 14.0,
-                    fontWeight: FontWeight.w500,
-                  )),
-            ),
+                margin: EdgeInsets.symmetric(vertical: 5.0),
+                // ),
+                child: Row(children: [
+                  Expanded(
+                    flex: 9,
+                    child: Center(
+                      child: Container(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            title,
+                            style: TextStyle().copyWith(
+                              fontSize: 14.0,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          )),
+                    ),
+                  ),
+                  Expanded(
+                      flex: 2,
+                      child: Container(
+                          child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          InkWell(
+                            onTap: () => stopSynchronization(context),
+                            child: Container(
+                              margin: EdgeInsets.all(10),
+                              height: 22,
+                              width: 22,
+                              child: SvgPicture.asset(
+                                'assets/icons/close_icon.svg',
+                              ),
+                            ),
+                          )
+                        ],
+                      )))
+                ])),
             LineSeparator(color: Colors.blueGrey.withOpacity(0.2)),
             Container(
               margin: EdgeInsets.only(top: 5.0),

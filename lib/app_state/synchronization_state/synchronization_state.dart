@@ -51,6 +51,8 @@ class SynchronizationState with ChangeNotifier {
   Map<String, List>? _events;
   Map<String, List>? _relationships;
   String? _currentSyncAction = '';
+  bool _dataUploadStopped = true;
+  bool _dataDownloadStopped = true;
   double profileDataDownloadProgress = 0.0;
   double eventsDataDownloadProgress = 0.0;
   double overallDownloadProgress = 0.0;
@@ -211,6 +213,22 @@ class SynchronizationState with ChangeNotifier {
     }
   }
 
+  stopSyncActivity() async {
+    _isDataDownloadingActive = false;
+    _isDataUploadingActive = false;
+    _dataUploadStopped = true;
+    _dataDownloadStopped = true;
+    profileDataDownloadProgress = 0.0;
+    eventsDataDownloadProgress = 0.0;
+    overallDownloadProgress = 0.0;
+    profileDataUploadProgress = 0.0;
+    eventsDataUploadProgress = 0.0;
+    overallUploadProgress = 0.0;
+    _currentSyncAction = '';
+    notifyListeners();
+    await refreshBeneficiaryCounts();
+  }
+
   Future startSyncActivity({String? syncAction}) async {
     profileDataDownloadProgress = 0.0;
     eventsDataDownloadProgress = 0.0;
@@ -247,6 +265,7 @@ class SynchronizationState with ChangeNotifier {
     profileDataDownloadProgress = 0.0;
     eventsDataDownloadProgress = 0.0;
     overallDownloadProgress = 0.0;
+    _dataDownloadStopped = false;
     updateDataDownloadStatus(true);
     addDataDownloadProcess("Start Downloading....");
     int count = 0;
@@ -268,6 +287,9 @@ class SynchronizationState with ChangeNotifier {
       for (String? orgUnitId in _synchronizationService.orgUnitIds ?? []) {
         for (String? program in _synchronizationService.programs!
             .where((program) => currentUserPrograms.indexOf(program) != -1)) {
+          if (_dataDownloadStopped) {
+            return;
+          }
           count++;
           totalCount++;
           profileDataDownloadProgress = count / total;
@@ -283,6 +305,9 @@ class SynchronizationState with ChangeNotifier {
       for (String? orgUnitId in _synchronizationService.orgUnitIds ?? []) {
         for (String? program in _synchronizationService.programs!
             .where((program) => currentUserPrograms.indexOf(program) != -1)) {
+          if (_dataDownloadStopped) {
+            return;
+          }
           count++;
           totalCount++;
           eventsDataDownloadProgress = count / total;
@@ -342,6 +367,7 @@ class SynchronizationState with ChangeNotifier {
     profileDataUploadProgress = 0.0;
     eventsDataUploadProgress = 0.0;
     overallUploadProgress = 0.0;
+    _dataUploadStopped = false;
     updateDataUploadStatus(true);
     try {
       double profileCount = 0;
@@ -359,6 +385,9 @@ class SynchronizationState with ChangeNotifier {
             AppUtil.chunkItems(items: teis, size: dataUploadBatchSize);
         int batch = 1;
         for (List<dynamic> teiChunk in chunkedTeis) {
+          if (_dataUploadStopped) {
+            return;
+          }
           bool conflictOnImport =
               await _synchronizationService.uploadTeisToTheServer(
                   teiChunk as List<TrackedEntityInstance>, isAutoUpload);
@@ -387,6 +416,9 @@ class SynchronizationState with ChangeNotifier {
         List<List<dynamic>> chunkedTeiEnrollments = AppUtil.chunkItems(
             items: teiEnrollments, size: dataUploadBatchSize * 2);
         for (List<dynamic> teiEnrollmentChunk in chunkedTeiEnrollments) {
+          if (_dataUploadStopped) {
+            return;
+          }
           bool conflictOnImport =
               await _synchronizationService.uploadEnrollmentsToTheServer(
                   teiEnrollmentChunk as List<Enrollment>, isAutoUpload);
@@ -416,6 +448,9 @@ class SynchronizationState with ChangeNotifier {
 
         int batch = 1;
         for (List<dynamic> teiRelationshipChunk in chunkedTeiRelationships) {
+          if (_dataUploadStopped) {
+            return;
+          }
           bool conflictOnImport =
               await _synchronizationService.uploadTeiRelationToTheServer(
                   teiRelationshipChunk as List<TeiRelationship>, isAutoUpload);
@@ -446,6 +481,9 @@ class SynchronizationState with ChangeNotifier {
 
         int batch = 1;
         for (List<dynamic> teiEventsChunk in chunkedTeiEvents) {
+          if (_dataUploadStopped) {
+            return;
+          }
           bool conflictOnImport =
               await _synchronizationService.uploadTeiEventsToTheServer(
                   teiEventsChunk as List<Events>, isAutoUpload);
