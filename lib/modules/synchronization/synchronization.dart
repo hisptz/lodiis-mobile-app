@@ -1,12 +1,10 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/app_state/synchronization_state/synchronization_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
-import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/synchronization/components/offline_data_summary.dart';
 import 'package:kb_mobile_app/modules/synchronization/components/synchronization_action_form.dart';
@@ -46,18 +44,12 @@ class _SynchronizationState extends State<Synchronization> {
   }
 
   void initializeSynchronization(BuildContext context,
-      {String? syncAction, bool isSyncActive = false}) async {
-    if (!isSyncActive) {
-      setState(() {
-        selectedSyncAction = syncAction;
-      });
-      await Provider.of<SynchronizationState>(context, listen: false)
-          .startSyncActivity(syncAction: syncAction);
-    } else {
-      AppUtil.showToastMessage(
-          message: 'Synchronization is in progress',
-          position: ToastGravity.BOTTOM);
-    }
+      {String? syncAction}) async {
+    setState(() {
+      selectedSyncAction = syncAction;
+    });
+    await Provider.of<SynchronizationState>(context, listen: false)
+        .startSyncActivity(syncAction: syncAction);
   }
 
   @override
@@ -119,6 +111,8 @@ class _SynchronizationState extends State<Synchronization> {
                   synchronizationState.overallDownloadProgress;
               double overallUploadProgress =
                   synchronizationState.overallUploadProgress;
+              bool isSyncActive =
+                  (isDataDownloadingActive || isDataUploadingActive);
               return isUnsyncedCheckingActive
                   ? Container(
                       child: CircularProcessLoader(
@@ -139,12 +133,10 @@ class _SynchronizationState extends State<Synchronization> {
                             margin: EdgeInsets.symmetric(vertical: 5.0),
                             child: SynchronizationActionForm(
                                 selectedSyncAction: selectedSyncAction,
+                                isSyncActive: isSyncActive,
                                 onInitializeSyncAction: (String? syncAction) =>
                                     initializeSynchronization(context,
-                                        syncAction: syncAction,
-                                        isSyncActive:
-                                            (isDataDownloadingActive ||
-                                                isDataUploadingActive))),
+                                        syncAction: syncAction)),
                           ),
                           Visibility(
                             visible: isDataDownloadingActive ||
