@@ -5,7 +5,7 @@ class ServiceEvent {
   String? programStage;
   String? interventionType;
   String? interventionGroup;
-  int? sessionNumber;
+  String? sessionNumber;
   Events? eventData;
 
   ServiceEvent(
@@ -38,7 +38,7 @@ class ServiceEvent {
         programStage: events.programStage,
         interventionType: data['Eug4BXDFLym'] ?? '',
         interventionGroup: assignInterventionGroup(data['Eug4BXDFLym'] ?? ''),
-        sessionNumber: int.parse(sessionNumber),
+        sessionNumber: '$sessionNumber'.toLowerCase(),
         eventData: events);
   }
 

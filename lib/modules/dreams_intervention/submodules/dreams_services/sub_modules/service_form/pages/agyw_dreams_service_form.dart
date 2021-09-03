@@ -97,7 +97,7 @@ class _AgywDreamsServiceFormState extends State<AgywDreamsServiceForm> {
           if (!allowedNumberOfSessions) {
             AppUtil.showToastMessage(
                 message:
-                    "You have reached the maximum number of sessions for ${dataObject[typeOfIntervention]}",
+                    "Sessions ${dataObject[sessionNumberInputField]} is not valid for ${dataObject[typeOfIntervention]}",
                 position: ToastGravity.TOP);
           } else if (sessionAlreadyExists) {
             AppUtil.showToastMessage(

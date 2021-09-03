@@ -4,13 +4,6 @@ import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/organisation_unit.dart';
 
 class ReferralEvent {
-  //@TODO Add location where service has been referred to
-  // @TODO add IP who has issued referrals
-  //@TODO add Ip where referrels has issues to
-
-  // ['jOXN2iPhkxj','ubB83OWNWsv]=> locations to referals
-  // referrece to => y0bvausyTyh
-  // referal from => UserAccountReference.implementingPartnerDataElement
   String? id;
   String? date;
   String? serviceMode;
@@ -107,7 +100,7 @@ class ReferralEvent {
             .toList()
             .join(", ");
       }
-    } on Exception catch (e) {
+    } catch (e) {
       print(e.toString());
     }
 

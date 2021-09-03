@@ -89,6 +89,10 @@ class AppLogsService {
     return formattedMessage;
   }
 
+  Future<void> clearLogs() async {
+    await AppLogsOfflineProvider().clearLogs();
+  }
+
   String getProgramStageName(String message) {
     // program list with their uids
     Map programStages = ProgramStagesConstants.programStages;

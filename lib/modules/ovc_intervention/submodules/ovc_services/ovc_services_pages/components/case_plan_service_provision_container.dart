@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/components/case_plan_follow_up_form_container.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/components/case_plan_service_provision_form_container.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/components/case_plan_follow_up_view_container.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/constants/ovc_case_plan_constant.dart';
 
-class ServiceGapFollowUpContainer extends StatefulWidget {
-  const ServiceGapFollowUpContainer({
+class CasePlanServiceProvisionContainer extends StatefulWidget {
+  const CasePlanServiceProvisionContainer({
     Key? key,
     required this.formSectionColor,
     required this.isCasePlanForHousehold,
@@ -23,12 +23,12 @@ class ServiceGapFollowUpContainer extends StatefulWidget {
   final String? domainId;
 
   @override
-  _ServiceGapFollowUpContainerState createState() =>
-      _ServiceGapFollowUpContainerState();
+  _CasePlanServiceProvisionContainerState createState() =>
+      _CasePlanServiceProvisionContainerState();
 }
 
-class _ServiceGapFollowUpContainerState
-    extends State<ServiceGapFollowUpContainer> {
+class _CasePlanServiceProvisionContainerState
+    extends State<CasePlanServiceProvisionContainer> {
   String? casePlanGapToFollowUpLinkageValue;
 
   @override
@@ -51,7 +51,7 @@ class _ServiceGapFollowUpContainerState
     }
     dataObject[OvcCasePlanConstant.casePlanGapToFollowUpLinkage] =
         casePlanGapToFollowUpLinkageValue;
-    Widget modal = CasePlanFollowUpFormContainer(
+    Widget modal = CasePlanServiceProvisionFormContainer(
       dataObject: dataObject,
       domainId: widget.domainId,
       isCasePlanForHousehold: widget.isCasePlanForHousehold,
@@ -100,7 +100,7 @@ class _ServiceGapFollowUpContainerState
                     ),
                     onPressed: () => this.addNewFollowingUp(context),
                     child: Text(
-                      'ADD FOLLOW-UP',
+                      'ADD SERVICE',
                       style: TextStyle().copyWith(
                         color: widget.formSectionColor,
                         fontSize: 14.0,

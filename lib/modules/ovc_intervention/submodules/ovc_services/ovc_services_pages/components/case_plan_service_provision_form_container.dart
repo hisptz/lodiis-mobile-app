@@ -11,16 +11,16 @@ import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/ovc_household.dart';
 import 'package:kb_mobile_app/models/ovc_household_child.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/household_service_followup.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_child_service_followup.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/household_service_provision.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_child_service_provision.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_case_plan/constants/ovc_child_case_plan_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/constants/ovc_case_plan_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/household_case_plan/constants/ovc_household_case_plan_constant.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/skip_logics/ovc_case_plan_follow_up_skip_logic.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/skip_logics/ovc_case_plan_service_provision_skip_logic.dart';
 import 'package:provider/provider.dart';
 
-class CasePlanFollowUpFormContainer extends StatefulWidget {
-  const CasePlanFollowUpFormContainer({
+class CasePlanServiceProvisionFormContainer extends StatefulWidget {
+  const CasePlanServiceProvisionFormContainer({
     Key? key,
     required this.dataObject,
     required this.isCasePlanForHousehold,
@@ -34,13 +34,13 @@ class CasePlanFollowUpFormContainer extends StatefulWidget {
   final bool isEditableMode;
 
   @override
-  _CasePlanFollowUpFormContainerState createState() =>
-      _CasePlanFollowUpFormContainerState();
+  _CasePlanServiceProvisionFormContainerState createState() =>
+      _CasePlanServiceProvisionFormContainerState();
 }
 
-class _CasePlanFollowUpFormContainerState
-    extends State<CasePlanFollowUpFormContainer>
-    with OvcCasePlanFollowUpSkipLogic {
+class _CasePlanServiceProvisionFormContainerState
+    extends State<CasePlanServiceProvisionFormContainer>
+    with OvcCasePlanServiceProvisionSkipLogic {
   bool isFormReady = false;
   bool isSaving = false;
   List<FormSection>? formSections;
@@ -56,8 +56,8 @@ class _CasePlanFollowUpFormContainerState
       setState(() {
         mandatoryFieldObject = Map();
         formSections = widget.isCasePlanForHousehold
-            ? HouseholdServiceFollowup.getFormSections()
-            : OvcServicesChildServiceFollowup.getFormSections();
+            ? HouseholdServiceProvision.getFormSections()
+            : OvcServicesChildServiceProvision.getFormSections();
         formSections = formSections!
             .where((formSection) => formSection.id == widget.domainId)
             .toList();
@@ -75,6 +75,7 @@ class _CasePlanFollowUpFormContainerState
     });
   }
 
+//@TODO naming conversion on program stage refererenes
   void onSaveGapForm(
     BuildContext context,
     Map? dataObject,
@@ -136,7 +137,9 @@ class _CasePlanFollowUpFormContainerState
           setState(() {
             isSaving = false;
             AppUtil.showToastMessage(
-                message: e.toString(), position: ToastGravity.BOTTOM);
+              message: e.toString(),
+              position: ToastGravity.BOTTOM,
+            );
             Navigator.pop(context);
           });
         });
@@ -215,8 +218,8 @@ class _CasePlanFollowUpFormContainerState
                                         EdgeInsets.symmetric(vertical: 22.0),
                                     child: Text(
                                       isSaving
-                                          ? 'SAVING FOLLOW-UP ...'
-                                          : 'SAVE FOLLOW-UP',
+                                          ? 'SAVING SERVICE ...'
+                                          : 'SAVE SERVICE',
                                       style: TextStyle().copyWith(
                                         color: Color(0xFFFAFAFA),
                                         fontSize: 14.0,

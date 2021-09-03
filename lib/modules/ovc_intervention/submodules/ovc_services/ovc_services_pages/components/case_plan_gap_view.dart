@@ -12,7 +12,7 @@ import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/ovc_household.dart';
 import 'package:kb_mobile_app/models/ovc_household_child.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_child_caseplan_gaps.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_child_case_plan_gap.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_household_case_plan_gaps.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_case_plan/constants/ovc_child_case_plan_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/components/case_plan_follow_up_container.dart';
@@ -60,7 +60,7 @@ class _CasePlanGapViewState extends State<CasePlanGapView> {
           ? OvcHouseholdServicesCasePlanGaps.getFormSections()
               .where((FormSection form) => form.id == widget.domainId)
               .toList()
-          : OvcServicesChildCasePlanGaps.getFormSections()
+          : OvcServicesChildCasePlanGap.getFormSections()
               .where((FormSection form) => form.id == widget.domainId)
               .toList();
       List keys = widget.casePlanGap.keys.toList();
@@ -77,13 +77,13 @@ class _CasePlanGapViewState extends State<CasePlanGapView> {
             : '   ';
     if (inputField != null) {
       if (inputField.valueType == 'BOOLEAN') {
-        value = value == 'true'
+        value = '$value' == 'true'
             ? 'Yes'
             : value == 'false'
                 ? 'No'
                 : value;
       } else if (inputField.valueType == 'TRUE_ONLY') {
-        value = value == 'true' ? 'Yes' : value;
+        value = '$value' == 'true' ? 'Yes' : value;
       }
     }
     return value.toString();
@@ -98,7 +98,7 @@ class _CasePlanGapViewState extends State<CasePlanGapView> {
         ? OvcHouseholdServicesCasePlanGaps.getFormSections()
             .where((FormSection form) => form.id == widget.domainId)
             .toList()
-        : OvcServicesChildCasePlanGaps.getFormSections()
+        : OvcServicesChildCasePlanGap.getFormSections()
             .where((FormSection form) => form.id == widget.domainId)
             .toList();
     formSections = formSections.map((FormSection form) {

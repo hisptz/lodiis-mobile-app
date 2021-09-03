@@ -47,16 +47,14 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
     AgywDream agywDream,
     List<ServiceEvent>? serviceEvents,
   ) {
-    Map serviceEventSessions = getLastSessionNumbers(serviceEvents);
-    Map<String?, List<int?>> interventionSessions =
-        getSessionsPerIntervention(serviceEvents, eventData);
+    Map<String?, List<String?>> interventionSessions =
+        getSessionsPerIntervention(serviceEvents, eventData)
+            as Map<String?, List<String?>>;
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
     Provider.of<ServiceFormState>(context, listen: false)
         .updateFormEditabilityState(isEditableMode: isEditableMode);
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState('age', agywDream.age);
-    Provider.of<ServiceFormState>(context, listen: false)
-        .setFormFieldState('eventSessions', serviceEventSessions);
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState('interventionSessions', interventionSessions);
     if (eventData != null) {
@@ -73,38 +71,21 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
     }
   }
 
-  Map getLastSessionNumbers(List<ServiceEvent>? serviceEvents) {
-    Map eventsWithLastSessionNumber = Map();
-    for (ServiceEvent event in serviceEvents ?? []) {
-      if (eventsWithLastSessionNumber[event.interventionType] != null) {
-        eventsWithLastSessionNumber[event.interventionType] =
-            eventsWithLastSessionNumber[event.interventionType] <
-                    event.sessionNumber
-                ? event.sessionNumber
-                : eventsWithLastSessionNumber[event.interventionType];
-      } else {
-        eventsWithLastSessionNumber[event.interventionType] =
-            event.sessionNumber;
-      }
-    }
-    return eventsWithLastSessionNumber;
-  }
-
-  Map<String?, List<int?>> getSessionsPerIntervention(
+  Map<String?, List<dynamic>> getSessionsPerIntervention(
     List<ServiceEvent>? serviceEvents,
     Events? currentEvent,
   ) {
-    Map<String?, List<int?>> interventionSessions = Map();
+    Map<String?, List<String>> interventionSessions = Map();
     String currentEventId =
         currentEvent != null ? currentEvent.event ?? '' : '';
     (serviceEvents ?? [])
         .removeWhere((eventData) => eventData.event == currentEventId);
     for (ServiceEvent event in (serviceEvents ?? [])) {
       if (interventionSessions[event.interventionType] != null) {
-        interventionSessions[event.interventionType]!.add(event.sessionNumber);
+        interventionSessions[event.interventionType]!.add(event.sessionNumber!);
         interventionSessions[event.interventionType]!.sort();
       } else {
-        interventionSessions[event.interventionType] = [event.sessionNumber];
+        interventionSessions[event.interventionType] = [event.sessionNumber!];
       }
     }
     return interventionSessions;
@@ -136,11 +117,13 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
       Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
           .setCurrentAgywDream(agywDream);
       Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => AgywDreamsServiceForm(
-                    currentUserImplementingPartner: implementingPartner,
-                  )));
+        context,
+        MaterialPageRoute(
+          builder: (context) => AgywDreamsServiceForm(
+            currentUserImplementingPartner: implementingPartner,
+          ),
+        ),
+      );
     }
   }
 

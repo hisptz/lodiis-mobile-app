@@ -203,7 +203,6 @@ class _NoneAgywEnrollmentEditFormState
       setState(() {
         unFilledMandatoryFields =
             AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
-        print('UNFILLED: $unFilledMandatoryFields');
       });
       AppUtil.showToastMessage(
           message: 'Please fill all mandatory field',

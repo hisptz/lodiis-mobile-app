@@ -3,10 +3,10 @@ import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.d
 import 'package:kb_mobile_app/core/components/material_card.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_child_caseplan_gaps.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_child_case_plan_gap.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_household_case_plan_gaps.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/components/case_plan_gap_form_container.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/components/service_gap_view_container.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/components/case_plan_service_provision_view_container.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/constants/ovc_case_plan_constant.dart';
 
 class ServiceFormContainer extends StatelessWidget {
@@ -45,7 +45,7 @@ class ServiceFormContainer extends StatelessWidget {
         ? OvcHouseholdServicesCasePlanGaps.getFormSections()
             .where((FormSection form) => form.id == formSection.id)
             .toList()
-        : OvcServicesChildCasePlanGaps.getFormSections()
+        : OvcServicesChildCasePlanGap.getFormSections()
             .where((FormSection form) => form.id == formSection.id)
             .toList();
     formSections = formSections.map((FormSection form) {
@@ -100,7 +100,7 @@ class ServiceFormContainer extends StatelessWidget {
                   isEditableMode: isEditableMode,
                   onInputValueChange: onValueChange,
                 ),
-                ServiceGapViewContainer(
+                CasePlanServiceProvisionViewContainer(
                   casePlanGaps: dataObject!['gaps'] ?? [],
                   domainId: formSection.id,
                   isCasePlanForHousehold: isCasePlanForHousehold,
