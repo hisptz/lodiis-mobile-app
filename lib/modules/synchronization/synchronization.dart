@@ -10,6 +10,7 @@ import 'package:kb_mobile_app/modules/synchronization/components/offline_data_su
 import 'package:kb_mobile_app/modules/synchronization/components/synchronization_action_form.dart';
 import 'package:kb_mobile_app/modules/synchronization/components/synchronization_progress.dart';
 import 'package:kb_mobile_app/modules/synchronization/conflict_on_download_page.dart';
+import 'package:kb_mobile_app/modules/synchronization/constants/synchronization_actions_constants.dart';
 import 'package:provider/provider.dart';
 
 class Synchronization extends StatefulWidget {
@@ -132,7 +133,13 @@ class _SynchronizationState extends State<Synchronization> {
                           Container(
                             margin: EdgeInsets.symmetric(vertical: 5.0),
                             child: SynchronizationActionForm(
-                                selectedSyncAction: selectedSyncAction,
+                                selectedSyncAction: selectedSyncAction != ''
+                                    ? selectedSyncAction
+                                    : beneficiaryCount > 0 ||
+                                            beneficiaryServiceCount > 0
+                                        ? SynchronizationActionsConstants()
+                                            .upload
+                                        : '',
                                 isSyncActive: isSyncActive,
                                 onInitializeSyncAction: (String? syncAction) =>
                                     initializeSynchronization(context,
