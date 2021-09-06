@@ -18,13 +18,16 @@ import 'package:kb_mobile_app/models/app_logs.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/models/enrollment.dart';
 import 'package:kb_mobile_app/models/events.dart';
+import 'package:kb_mobile_app/models/referral_notification.dart';
 import 'package:kb_mobile_app/models/tei_relationship.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
 import 'package:provider/provider.dart';
 
 class SynchronizationState with ChangeNotifier {
   final BuildContext? context;
-  final String lastSyncDatePreferenceKey = "lastSyncDatePreferenceKey";
+  final String lastDataDownloadDatePreferenceKey = "lastSyncDatePreferenceKey";
+  final String lastDataUploadDatePreferenceKey =
+      "lastDataUploadDatePreferenceKey";
   final int dataUploadBatchSize = 50;
 
   SynchronizationState({this.context});
@@ -162,8 +165,8 @@ class SynchronizationState with ChangeNotifier {
     setStatusMessageForAvailableDataFromServer(
         'Checking for available beneficiary data from server...');
     CurrentUser? currentUser = await (UserService().getCurrentUser());
-    String? lastSyncDate =
-        await PreferenceProvider.getPreferenceValue(lastSyncDatePreferenceKey);
+    String? lastSyncDate = await PreferenceProvider.getPreferenceValue(
+        lastDataDownloadDatePreferenceKey);
     lastSyncDate =
         lastSyncDate ?? AppUtil.formattedDateTimeIntoString(new DateTime(2020));
     _synchronizationService = SynchronizationService(currentUser!.username,
@@ -273,7 +276,7 @@ class SynchronizationState with ChangeNotifier {
     int total = 0;
     try {
       String? lastSyncDate = await PreferenceProvider.getPreferenceValue(
-          lastSyncDatePreferenceKey);
+          lastDataDownloadDatePreferenceKey);
       lastSyncDate = lastSyncDate ??
           AppUtil.formattedDateTimeIntoString(new DateTime(2020));
       CurrentUser? currentUser = await (UserService().getCurrentUser());
@@ -323,7 +326,7 @@ class SynchronizationState with ChangeNotifier {
         message: 'Start synchronization of referral notifications',
         position: ToastGravity.TOP,
       );
-      await ReferralNotificationService().syncReferralNotifications();
+      await syncReferralNotifications();
       await refreshBeneficiaryCounts();
       AppUtil.showToastMessage(
           message: 'Data has been successfully downloaded');
@@ -333,7 +336,7 @@ class SynchronizationState with ChangeNotifier {
       setStatusMessageForAvailableDataFromServer('');
       lastSyncDate = AppUtil.formattedDateTimeIntoString(new DateTime.now());
       await PreferenceProvider.setPreferenceValue(
-          lastSyncDatePreferenceKey, lastSyncDate);
+          lastDataDownloadDatePreferenceKey, lastSyncDate);
     } catch (e) {
       _dataDownloadProcess = [];
       AppLogs log = AppLogs(
@@ -509,7 +512,7 @@ class SynchronizationState with ChangeNotifier {
           position: ToastGravity.TOP,
         );
       }
-      await ReferralNotificationService().syncReferralNotifications();
+      await syncReferralNotifications();
       if (!isAutoUpload) {
         if (conflictOnTeisImport && conflictOnEventsImport) {
           AppUtil.showToastMessage(message: 'Error uploading data');
@@ -532,6 +535,30 @@ class SynchronizationState with ChangeNotifier {
     notifyListeners();
     await Provider.of<ReferralNotificationState>(context!, listen: false)
         .reloadReferralNotifications();
+    String lastDataUploadDate =
+        AppUtil.formattedDateTimeIntoString(new DateTime.now());
+    await PreferenceProvider.setPreferenceValue(
+        lastDataUploadDatePreferenceKey, lastDataUploadDate);
     updateDataUploadStatus(false);
+  }
+
+  Future syncReferralNotifications() async {
+    try {
+      List<ReferralNotification> onlineReferralNotifications =
+          await ReferralNotificationService()
+              .discoveringReferralNotificationFromServer();
+      List<ReferralNotification> offlineReferralNotifications =
+          await ReferralNotificationService()
+              .getReferralNotificationFromOffline();
+      List<ReferralNotification> referralNotifications =
+          ReferralNotificationService().getMergedReferralNotifications(
+              onlineReferralNotifications, offlineReferralNotifications);
+      await ReferralNotificationService()
+          .savingReferralNotificationToOfflineDb(referralNotifications);
+      await ReferralNotificationService()
+          .updateReferralNotificationToServer(referralNotifications);
+    } catch (error) {
+      print("syncReferralNotifications : ${error.toString()}");
+    }
   }
 }
