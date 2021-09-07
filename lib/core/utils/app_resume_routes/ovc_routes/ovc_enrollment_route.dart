@@ -3,6 +3,7 @@ import 'package:kb_mobile_app/core/utils/app_resume_routes/utils/app_resume_rout
 import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/pages/ovc_enrollement_basic_info_form.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/pages/ovc_enrollement_none_participation_form.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/pages/ovc_enrollment_child_edit_view_form.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/pages/ovc_enrollment_child_form.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/pages/ovc_enrollment_consent_form.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/pages/ovc_enrollment_household_edit_form.dart';
@@ -88,7 +89,7 @@ class OvcEnrollmentRoute {
     BuildContext context,
     FormAutoSave formAutoSave,
   ) {
-    redirectToOvcEnrollmentChildForm(context, formAutoSave);
+    AppResumeRouteUtil.setEnrollmentFormState(context, formAutoSave);
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -99,18 +100,18 @@ class OvcEnrollmentRoute {
     );
   }
 
-  // redirectTo(
-  //   BuildContext context,
-  //   FormAutoSave formAutoSave,
-  // ) {
-  //   AppResumeRouteUtil.setEnrollmentFormState(context, formAutoSave);
-  //   Navigator.push(
-  //     context,
-  //     MaterialPageRoute(
-  //       builder: (context) {
-  //         return OgacEnrollmentForm();
-  //       },
-  //     ),
-  //   );
-  // }
+  redirectToOvcEnrollmentChildEditViewForm(
+    BuildContext context,
+    FormAutoSave formAutoSave,
+  ) {
+    AppResumeRouteUtil.setEnrollmentFormState(context, formAutoSave);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
+          return OvcEnrollmentChildEditViewForm();
+        },
+      ),
+    );
+  }
 }

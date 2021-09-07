@@ -12,7 +12,7 @@ class OvcRoutesConstant {
       "Child vulnerability form";
   static final String ovcChildVulnerabilityFormNextPage =
       "Household information";
-  static final String ovcBasicCaregiverInformationFormEditNextPage =
+  static final String ovcChildVulnerabilityEditFormNextPage =
       "Child vulnerability form.";
   static final String ovcChildVulnerabilityEditFormPage =
       "Child vulnerability form.";

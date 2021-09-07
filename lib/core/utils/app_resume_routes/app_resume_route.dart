@@ -124,6 +124,9 @@ class AppResumeRoute
     } else if (formAutoSave.nextPageModule ==
         OvcRoutesConstant.ovcEnrollmentHouseholdEditFormNextPage) {
       redirectToOvcEnrollmentHouseholdEditForm(context, formAutoSave);
+    } else if (formAutoSave.nextPageModule ==
+        OvcRoutesConstant.ovcChildVulnerabilityEditFormNextPage) {
+      redirectToOvcEnrollmentChildEditViewForm(context, formAutoSave);
     } else {
       print("$formAutoSave \n");
       print("Not page to redirect ${formAutoSave.nextPageModule}\n\n");

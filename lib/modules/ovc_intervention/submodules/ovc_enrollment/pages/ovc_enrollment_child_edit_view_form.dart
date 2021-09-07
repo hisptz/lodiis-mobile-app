@@ -165,7 +165,7 @@ class _OvcEnrollmentChildEditViewFormState
       nextPageModule: isSaveForm
           ? nextPageModule != ""
               ? nextPageModule
-              : OvcRoutesConstant.ovcBasicCaregiverInformationFormEditNextPage
+              : OvcRoutesConstant.ovcChildVulnerabilityEditFormNextPage
           : OvcRoutesConstant.ovcChildVulnerabilityEditFormPage,
       data: jsonEncode(dataObject),
     );
