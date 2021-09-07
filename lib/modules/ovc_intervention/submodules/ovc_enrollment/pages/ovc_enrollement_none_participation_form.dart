@@ -82,13 +82,13 @@ class _OvcEnrollmentNoneParticipationFormState
         }
       });
     } else {
-      setState(() {
-        unFilledMandatoryFields =
-            AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
-      });
+      unFilledMandatoryFields =
+          AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+      setState(() {});
       AppUtil.showToastMessage(
-          message: 'Please fill all mandatory field',
-          position: ToastGravity.TOP);
+        message: 'Please fill all mandatory field',
+        position: ToastGravity.TOP,
+      );
     }
   }
 
@@ -125,7 +125,10 @@ class _OvcEnrollmentNoneParticipationFormState
         ),
         body: SubPageBody(
           body: Container(
-            margin: EdgeInsets.symmetric(vertical: 16.0, horizontal: 13.0),
+            margin: EdgeInsets.symmetric(
+              vertical: 16.0,
+              horizontal: 13.0,
+            ),
             child: !isFormReady
                 ? Column(
                     children: [

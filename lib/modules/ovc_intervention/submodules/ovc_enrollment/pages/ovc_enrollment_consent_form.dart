@@ -64,10 +64,9 @@ class _OvcEnrollmentConsentFormState extends State<OvcEnrollmentConsentForm> {
         ),
       );
     } else {
-      setState(() {
-        unFilledMandatoryFields =
-            AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
-      });
+      unFilledMandatoryFields =
+          AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+      setState(() {});
       AppUtil.showToastMessage(
         message: 'Please fill all mandatory field',
         position: ToastGravity.TOP,

@@ -40,14 +40,13 @@ class _OvcEnrollmentBasicInfoFormState
   @override
   void initState() {
     super.initState();
-    setState(() {
-      for (String id in mandatoryFields) {
-        mandatoryFieldObject[id] = true;
-      }
-      formSections = OvcEnrollmentBasicInfo.getFormSections();
-      isFormReady = true;
-      evaluateSkipLogics();
-    });
+    for (String id in mandatoryFields) {
+      mandatoryFieldObject[id] = true;
+    }
+    formSections = OvcEnrollmentBasicInfo.getFormSections();
+    isFormReady = true;
+    evaluateSkipLogics();
+    setState(() {});
   }
 
   evaluateSkipLogics() {
