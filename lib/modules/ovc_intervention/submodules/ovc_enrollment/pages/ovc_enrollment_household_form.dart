@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -12,12 +13,15 @@ import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.d
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/core/constants/beneficiary_identification.dart';
+import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
+import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/constants/ovc_routes_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/services/ovc_enrollment_child_services.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/services/ovc_enrollment_household_service.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/models/ovc_enrollment_household.dart';
@@ -74,9 +78,10 @@ class _OvcEnrollmentHouseholdFormState
         'DdnlE8kmIkT',
         'fQInK8s2RNR'
       ];
-      List<Map?> childrenObjects = dataObject['children'];
-
-      // Assign implementing partner and service provider to caregiver
+      List<Map?> childMapObjects = [];
+      for (Map childObj in dataObject["children"]) {
+        childMapObjects.add(childObj);
+      }
       CurrentUser? user = await UserService().getCurrentUser();
       dataObject['klLkGxy328c'] =
           dataObject['klLkGxy328c'] ?? user!.implementingPartner;
@@ -100,7 +105,7 @@ class _OvcEnrollmentHouseholdFormState
       await OvcEnrollmentChildService().savingChildrenEnrollmentForms(
         trackedEntityInstance,
         orgUnit,
-        childrenObjects,
+        childMapObjects,
         null,
         null,
         shouldEnroll,
@@ -108,11 +113,10 @@ class _OvcEnrollmentHouseholdFormState
       );
       await Provider.of<OvcInterventionListState>(context, listen: false)
           .onHouseholdAdd();
+      clearFormAutoSaveState(context);
       Timer(Duration(seconds: 1), () {
         if (Navigator.canPop(context)) {
-          setState(() {
-            isSaving = false;
-          });
+          isSaving = false;
           String? currentLanguage =
               Provider.of<LanguageTranslationState>(context, listen: false)
                   .currentLanguage;
@@ -122,6 +126,7 @@ class _OvcEnrollmentHouseholdFormState
                 : 'Form has been saved successfully',
             position: ToastGravity.TOP,
           );
+          setState(() {});
           Navigator.popUntil(context, (route) => route.isFirst);
         }
       });
@@ -134,6 +139,43 @@ class _OvcEnrollmentHouseholdFormState
         position: ToastGravity.TOP,
       );
     }
+  }
+
+  void clearFormAutoSaveState(BuildContext context) async {
+    String beneficiaryId = "";
+    String formAutoSaveId =
+        "${OvcRoutesConstant.ovcConcentFormPage}_$beneficiaryId";
+    await FormAutoSaveOfflineService().deleteSavedFormAutoData(formAutoSaveId);
+  }
+
+  void onUpdateFormAutoSaveState(
+    BuildContext context, {
+    bool isSaveForm = false,
+    String nextPageModule = "",
+  }) async {
+    String beneficiaryId = "";
+    Map dataObject =
+        Provider.of<EnrollmentFormState>(context, listen: false).formState;
+    String id = "${OvcRoutesConstant.ovcConcentFormPage}_$beneficiaryId";
+    FormAutoSave formAutoSave = FormAutoSave(
+      id: id,
+      beneficiaryId: beneficiaryId,
+      pageModule: OvcRoutesConstant.ovcHouseholdInformationFormPage,
+      nextPageModule: isSaveForm
+          ? nextPageModule != ""
+              ? nextPageModule
+              : OvcRoutesConstant.ovcHouseholdInformationFormNextPage
+          : OvcRoutesConstant.ovcHouseholdInformationFormPage,
+      data: jsonEncode(dataObject),
+    );
+    await FormAutoSaveOfflineService().saveFormAutoSaveData(formAutoSave);
+  }
+
+  void onInputValueChange(String id, dynamic value) {
+    Provider.of<EnrollmentFormState>(context, listen: false)
+        .setFormFieldState(id, value);
+    evaluateSkipLogics();
+    onUpdateFormAutoSaveState(context);
   }
 
   evaluateSkipLogics() {
@@ -149,12 +191,6 @@ class _OvcEnrollmentHouseholdFormState
         );
       },
     );
-  }
-
-  void onInputValueChange(String id, dynamic value) {
-    Provider.of<EnrollmentFormState>(context, listen: false)
-        .setFormFieldState(id, value);
-    evaluateSkipLogics();
   }
 
   @override

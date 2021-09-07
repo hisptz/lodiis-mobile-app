@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
@@ -9,13 +10,16 @@ import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
+import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
+import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/constants/ovc_routes_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/components/add_child_confirmation.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/components/enrolled_children_list.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/constants/ovc_enrollment_child_form_constant.dart';
@@ -38,7 +42,6 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
   Map? childMapObject;
   final List<String> mandatoryFields = OvcEnrollmentChild.getMandatoryField();
   final Map mandatoryFieldObject = Map();
-  bool onSkipButton = false;
 
   Map hiddenFields = Map();
   Map hiddenSections = Map();
@@ -47,25 +50,38 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
   @override
   void initState() {
     super.initState();
-    setState(() {
-      for (String id in mandatoryFields) {
-        mandatoryFieldObject[id] = true;
-      }
-    });
+    for (String id in mandatoryFields) {
+      mandatoryFieldObject[id] = true;
+    }
+    assignChildrenOnAutoSaving();
+    setState(() {});
     resetMapObject(childMapObject);
+  }
+
+  void assignChildrenOnAutoSaving() {
+    try {
+      Map dataObject =
+          Provider.of<EnrollmentFormState>(context, listen: false).formState;
+      for (Map childObj in dataObject["children"]) {
+        childMapObjects.add(childObj);
+      }
+    } catch (e) {
+      print(e.toString());
+    }
   }
 
   void resetMapObject(Map? map) {
     setState(() {
       if (map != null) {
-        //Check for Duplicates
         if (!isADuplicateChildObject(map)) {
           map['fullName'] = '${map['WTZ7GLTrE8Q']} ${map['rSP9c21JsfC']}';
           childMapObjects.add(map);
+          Provider.of<EnrollmentFormState>(context, listen: false)
+              .setFormFieldState('children', childMapObjects);
+          onUpdateFormAutoSaveState(context);
         }
       }
       childMapObject = Map();
-      childMapObject!['PN92g65TkVI'] = 'Active';
       isLoading = false;
       evaluateSkipLogics();
     });
@@ -209,36 +225,20 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
       String name = childMapObject!['WTZ7GLTrE8Q'] ?? '';
       Widget modal = AddChildConfirmation(name: name);
       bool response = await AppUtil.showPopUpModal(context, modal, false);
-      CurrentUser? user = await (UserService().getCurrentUser());
       if (response != null) {
         if (response) {
-          setState(() {
-            isLoading = true;
-            onSkipButton = true;
-          });
-          Timer(Duration(milliseconds: 500),
-              () => resetMapObject(childMapObject));
+          isLoading = true;
+          updateChildMapObjectsOnState(context);
+          setState(() {});
+          Timer(
+            Duration(milliseconds: 500),
+            () => resetMapObject(childMapObject),
+          );
         } else {
-          setState(() {
-            if (!isADuplicateChildObject(childMapObject)) {
-              // Assign implementing partner and service provider
-              childMapObject!['klLkGxy328c'] =
-                  childMapObject!['klLkGxy328c'] ?? user!.implementingPartner;
-              childMapObject!['DdnlE8kmIkT'] =
-                  childMapObject!['DdnlE8kmIkT'] ?? user!.username;
-              if (user!.subImplementingPartner != '') {
-                childMapObject!['fQInK8s2RNR'] =
-                    childMapObject!['fQInK8s2RNR'] ??
-                        user.subImplementingPartner;
-              }
-              childMapObject!['fullName'] =
-                  '${childMapObject!['WTZ7GLTrE8Q']} ${childMapObject!['rSP9c21JsfC']}';
-              childMapObjects.add(childMapObject);
-            }
-          });
-          updateOvcCount();
-          Provider.of<EnrollmentFormState>(context, listen: false)
-              .setFormFieldState('children', childMapObjects);
+          updateChildMapObjectsOnState(
+            context,
+            isSaveForm: true,
+          );
           Navigator.push(
             context,
             MaterialPageRoute(
@@ -259,9 +259,64 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
     }
   }
 
+  void updateChildMapObjectsOnState(
+    BuildContext context, {
+    bool shouldAddChildObject = true,
+    bool isSaveForm = false,
+  }) async {
+    CurrentUser? user = await (UserService().getCurrentUser());
+    bool isDupliocateChild = !isADuplicateChildObject(childMapObject);
+    if (isDupliocateChild) {
+      childMapObject!['PN92g65TkVI'] = 'Active';
+      childMapObject!['klLkGxy328c'] =
+          childMapObject!['klLkGxy328c'] ?? user!.implementingPartner;
+      childMapObject!['DdnlE8kmIkT'] =
+          childMapObject!['DdnlE8kmIkT'] ?? user!.username;
+      if (user!.subImplementingPartner != '') {
+        childMapObject!['fQInK8s2RNR'] =
+            childMapObject!['fQInK8s2RNR'] ?? user.subImplementingPartner;
+      }
+      childMapObject!['fullName'] =
+          '${childMapObject!['WTZ7GLTrE8Q']} ${childMapObject!['rSP9c21JsfC']}';
+      if (shouldAddChildObject) {
+        childMapObjects.add(childMapObject);
+        setState(() {});
+      }
+    }
+    updateOvcCount();
+    Provider.of<EnrollmentFormState>(context, listen: false)
+        .setFormFieldState('children', childMapObjects);
+    onUpdateFormAutoSaveState(context, isSaveForm: isSaveForm);
+    setState(() {});
+  }
+
+  void onUpdateFormAutoSaveState(
+    BuildContext context, {
+    bool isSaveForm = false,
+    String nextPageModule = "",
+  }) async {
+    String beneficiaryId = "";
+    Map dataObject =
+        Provider.of<EnrollmentFormState>(context, listen: false).formState;
+    String id = "${OvcRoutesConstant.ovcConcentFormPage}_$beneficiaryId";
+    FormAutoSave formAutoSave = FormAutoSave(
+      id: id,
+      beneficiaryId: beneficiaryId,
+      pageModule: OvcRoutesConstant.ovcChildVulnerabilityFormPage,
+      nextPageModule: isSaveForm
+          ? nextPageModule != ""
+              ? nextPageModule
+              : OvcRoutesConstant.ovcChildVulnerabilityFormNextPage
+          : OvcRoutesConstant.ovcChildVulnerabilityFormPage,
+      data: jsonEncode(dataObject),
+    );
+    await FormAutoSaveOfflineService().saveFormAutoSaveData(formAutoSave);
+  }
+
   void onInputValueChange(String id, dynamic value) {
     childMapObject![id] = value;
     evaluateSkipLogics();
+    updateChildMapObjectsOnState(context, shouldAddChildObject: false);
   }
 
   void onSkip(Map? childMapObject) {
@@ -281,6 +336,16 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
         builder: (context) => OvcEnrollmentHouseholdForm(),
       ),
     );
+  }
+
+  bool isADuplicateChildObject(Map? map) {
+    bool isDuplicate = false;
+    childMapObjects.forEach((child) {
+      if (child!['WTZ7GLTrE8Q'] == map!['WTZ7GLTrE8Q']) {
+        isDuplicate = true;
+      }
+    });
+    return isDuplicate;
   }
 
   @override
@@ -356,7 +421,7 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
                               onPressButton: () => onSaveAndContinue(context),
                             ),
                             Visibility(
-                              visible: onSkipButton,
+                              visible: childMapObjects.isNotEmpty,
                               child: Container(
                                 child: TextButton(
                                   onPressed: () => onSkip(childMapObject),
@@ -383,16 +448,5 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
         bottomNavigationBar: InterventionBottomNavigationBarContainer(),
       ),
     );
-  }
-
-  bool isADuplicateChildObject(Map? map) {
-    bool isDuplicate = false;
-    childMapObjects.forEach((child) {
-      if (child!['WTZ7GLTrE8Q'] == map!['WTZ7GLTrE8Q']) {
-        //Compares if firstName are equal
-        isDuplicate = true;
-      }
-    });
-    return isDuplicate;
   }
 }
