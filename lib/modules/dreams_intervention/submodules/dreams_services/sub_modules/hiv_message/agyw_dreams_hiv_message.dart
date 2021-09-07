@@ -60,21 +60,19 @@ class _AgywDreamHIVMessageState extends State<AgywDreamHIVMessage> {
     }
   }
 
-  void onAddPrep(BuildContext context, AgywDream agywDream) async {
+  void onAddHIVMessageForm(BuildContext context, AgywDream agywDream) async {
     updateFormState(context, true, null);
     String? beneficiaryId = agywDream.id;
+    String eventId = "";
     String formAutoSaveId =
-        "${DreamsRoutesConstant.agywDreamHIVMessageFormPage}_$beneficiaryId";
+        "${DreamsRoutesConstant.agywDreamHIVMessageFormPage}_${beneficiaryId}_$eventId";
     FormAutoSave formAutoSave =
         await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
     bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
         .shouldResumeWithUnSavedChanges(context, formAutoSave);
-
     if (shouldResumeWithUnSavedChanges) {
       AppResumeRoute().redirectToPages(context, formAutoSave);
     } else {
-      Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
-          .setCurrentAgywDream(agywDream);
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -84,7 +82,7 @@ class _AgywDreamHIVMessageState extends State<AgywDreamHIVMessage> {
     }
   }
 
-  void onViewPrep(BuildContext context, Events eventData) {
+  void onViewHIVMessageForm(BuildContext context, Events eventData) {
     updateFormState(context, false, eventData);
     Navigator.push(
       context,
@@ -94,15 +92,34 @@ class _AgywDreamHIVMessageState extends State<AgywDreamHIVMessage> {
     );
   }
 
-  void onEditPrep(BuildContext context, Events eventData) {
-    // @TODO editing hiv message
+  void onEditHIVMessageForm(
+    BuildContext context,
+    Events eventData,
+    AgywDream agywDream,
+  ) async {
     updateFormState(context, true, eventData);
-    Navigator.push(
+    String? beneficiaryId = agywDream.id;
+    String? eventId = eventData.event;
+    String formAutoSaveId =
+        "${DreamsRoutesConstant.agywDreamHIVMessageFormPage}_${beneficiaryId}_$eventId";
+    FormAutoSave formAutoSave =
+        await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
+    bool shouldResumeWithUnSavedChanges =
+        await AppResumeRoute().shouldResumeWithUnSavedChanges(
       context,
-      MaterialPageRoute(
-        builder: (context) => AgywDreamHIVMessageForm(),
-      ),
+      formAutoSave,
+      beneficiaryName: agywDream.toString(),
     );
+    if (shouldResumeWithUnSavedChanges) {
+      AppResumeRoute().redirectToPages(context, formAutoSave);
+    } else {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => AgywDreamHIVMessageForm(),
+        ),
+      );
+    }
   }
 
   @override
@@ -172,10 +189,16 @@ class _AgywDreamHIVMessageState extends State<AgywDreamHIVMessage> {
                                                     child:
                                                         DreamsServiceVisitCard(
                                                       visitName: "Visit ",
-                                                      onEdit: () => onEditPrep(
-                                                          context, eventData),
-                                                      onView: () => onViewPrep(
-                                                          context, eventData),
+                                                      onEdit: () =>
+                                                          onEditHIVMessageForm(
+                                                        context,
+                                                        eventData,
+                                                        agywDream!,
+                                                      ),
+                                                      onView: () =>
+                                                          onViewHIVMessageForm(
+                                                              context,
+                                                              eventData),
                                                       eventData: eventData,
                                                       visitCount: referralIndex,
                                                     ),
@@ -189,8 +212,10 @@ class _AgywDreamHIVMessageState extends State<AgywDreamHIVMessage> {
                                       labelColor: Colors.white,
                                       buttonColor: Color(0xFF1F8ECE),
                                       fontSize: 15.0,
-                                      onPressButton: () =>
-                                          onAddPrep(context, agywDream!),
+                                      onPressButton: () => onAddHIVMessageForm(
+                                        context,
+                                        agywDream!,
+                                      ),
                                     )
                                   ],
                                 ),

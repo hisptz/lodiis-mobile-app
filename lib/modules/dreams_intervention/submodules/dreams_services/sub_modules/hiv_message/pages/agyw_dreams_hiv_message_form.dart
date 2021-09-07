@@ -111,7 +111,7 @@ class _AgywDreamHIVMessageFormState extends State<AgywDreamHIVMessageForm> {
                 : 'Form has been saved successfully',
             position: ToastGravity.TOP,
           );
-          clearFormAutoSaveState(context, agywDream.id);
+          clearFormAutoSaveState(context, agywDream.id, eventId ?? "");
           Navigator.pop(context);
         });
       } catch (e) {
@@ -130,9 +130,9 @@ class _AgywDreamHIVMessageFormState extends State<AgywDreamHIVMessageForm> {
   }
 
   void clearFormAutoSaveState(
-      BuildContext context, String? beneficiaryId) async {
+      BuildContext context, String? beneficiaryId, String? eventId) async {
     String formAutoSaveId =
-        "${DreamsRoutesConstant.agywDreamHIVMessageFormPage}_$beneficiaryId";
+        "${DreamsRoutesConstant.agywDreamHIVMessageFormPage}_${beneficiaryId}_$eventId";
     await FormAutoSaveOfflineService().deleteSavedFormAutoData(formAutoSaveId);
   }
 
@@ -147,8 +147,9 @@ class _AgywDreamHIVMessageFormState extends State<AgywDreamHIVMessageForm> {
     String? beneficiaryId = agyw.id;
     Map dataObject =
         Provider.of<ServiceFormState>(context, listen: false).formState;
+    String? eventId = dataObject['eventId'] ?? "";
     String id =
-        "${DreamsRoutesConstant.agywDreamHIVMessageFormPage}_$beneficiaryId";
+        "${DreamsRoutesConstant.agywDreamHIVMessageFormPage}_${beneficiaryId}_$eventId";
     FormAutoSave formAutoSave = FormAutoSave(
       id: id,
       beneficiaryId: beneficiaryId,
