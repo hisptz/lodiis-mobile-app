@@ -59,6 +59,7 @@ class OvcHousehold {
       'kQehaqmaygZ',
       'BXUNH6LXeGA',
       'PN92g65TkVI',
+      'RB8Wx75hGa4',
       BeneficiaryIdentification.primaryUIC,
       BeneficiaryIdentification.secondaryUIC
     ];
