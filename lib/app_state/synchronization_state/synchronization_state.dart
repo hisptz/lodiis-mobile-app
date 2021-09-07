@@ -21,6 +21,7 @@ import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/referral_notification.dart';
 import 'package:kb_mobile_app/models/tei_relationship.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
+import 'package:kb_mobile_app/modules/synchronization/constants/synchronization_actions_constants.dart';
 import 'package:provider/provider.dart';
 
 class SynchronizationState with ChangeNotifier {
@@ -56,6 +57,7 @@ class SynchronizationState with ChangeNotifier {
   String? _currentSyncAction = '';
   bool _dataUploadStopped = true;
   bool _dataDownloadStopped = true;
+  double _notificationProgress = 0.0;
   double profileDataDownloadProgress = 0.0;
   double eventsDataDownloadProgress = 0.0;
   double overallDownloadProgress = 0.0;
@@ -66,9 +68,17 @@ class SynchronizationState with ChangeNotifier {
 // selectors
   bool get isDataUploadingActive => _isDataUploadingActive;
 
-  double get overallSyncProgress => hasUnsyncedData
-      ? (overallUploadProgress + overallDownloadProgress) / 2
-      : overallUploadProgress + overallDownloadProgress;
+  double get notificationProgress => _notificationProgress;
+
+  double get overallSyncProgress =>
+      _currentSyncAction == SynchronizationActionsConstants().downloadAndUpload
+          ? (overallUploadProgress +
+                  overallDownloadProgress +
+                  notificationProgress) /
+              3
+          : ((overallUploadProgress + overallDownloadProgress) +
+                  notificationProgress) /
+              2;
 
   double get eventsSyncProgress => _isDataUploadingActive
       ? eventsDataUploadProgress
@@ -150,16 +160,6 @@ class SynchronizationState with ChangeNotifier {
     notifyListeners();
   }
 
-  void addDataUploadProcess(String process) {
-    _dataUploadProcess!.add(process);
-    notifyListeners();
-  }
-
-  void addDataDownloadProcess(String process) {
-    _dataDownloadProcess!.add(process);
-    notifyListeners();
-  }
-
   checkingForAvailableBeneficiaryData() async {
     updateStatusForAvailableDataFromServer(status: true);
     setStatusMessageForAvailableDataFromServer(
@@ -197,11 +197,11 @@ class SynchronizationState with ChangeNotifier {
 
   Future<void> startCheckingStatusOfUnsyncedData(
       {bool isAutoUpload = false}) async {
-    _dataDownloadProcess = _dataDownloadProcess ?? [];
-    _dataUploadProcess = _dataUploadProcess ?? [];
-    if (!isAutoUpload) {
-      updateUnsyncedDataCheckingStatus(true);
-    }
+    // _dataDownloadProcess = _dataDownloadProcess ?? [];
+    // _dataUploadProcess = _dataUploadProcess ?? [];
+    // if (!isAutoUpload) {
+    //   updateUnsyncedDataCheckingStatus(true);
+    // }
     CurrentUser? user = await (UserService().getCurrentUser());
     _synchronizationService = SynchronizationService(
         user!.username, user.password, user.programs, user.userOrgUnitIds);
@@ -227,6 +227,7 @@ class SynchronizationState with ChangeNotifier {
     profileDataUploadProgress = 0.0;
     eventsDataUploadProgress = 0.0;
     overallUploadProgress = 0.0;
+    _notificationProgress = 0.0;
     _currentSyncAction = '';
     notifyListeners();
     await refreshBeneficiaryCounts();
@@ -239,6 +240,7 @@ class SynchronizationState with ChangeNotifier {
     profileDataUploadProgress = 0.0;
     eventsDataUploadProgress = 0.0;
     overallUploadProgress = 0.0;
+    _notificationProgress = 0.0;
     _currentSyncAction = syncAction;
     notifyListeners();
     switch (syncAction) {
@@ -255,22 +257,22 @@ class SynchronizationState with ChangeNotifier {
       default:
         break;
     }
-    //  reset sync action
+    await syncReferralNotifications();
+
+    _dataDownloadProcess = [];
+    _dataUploadProcess = [];
+    updateDataDownloadStatus(false);
+    updateDataUploadStatus(false);
     _currentSyncAction = '';
     notifyListeners();
   }
 
   Future startDataDownloadActivity({bool skipUpload = true}) async {
-    _dataDownloadProcess = [];
-    _eventFromServer = [];
-    _serverTrackedEntityInstance = [];
-    _trackedEntityInstance = [];
     profileDataDownloadProgress = 0.0;
     eventsDataDownloadProgress = 0.0;
     overallDownloadProgress = 0.0;
     _dataDownloadStopped = false;
     updateDataDownloadStatus(true);
-    addDataDownloadProcess("Start Downloading....");
     int count = 0;
     int totalCount = 0;
     int total = 0;
@@ -293,17 +295,16 @@ class SynchronizationState with ChangeNotifier {
           if (_dataDownloadStopped) {
             return;
           }
+          await _synchronizationService.getAndSaveTrackedInstanceFromServer(
+              program, orgUnitId, lastSyncDate);
           count++;
           totalCount++;
           profileDataDownloadProgress = count / total;
           overallDownloadProgress = totalCount / (total * 2);
           notifyListeners();
-          addDataDownloadProcess(
-              "Download and saving profile data $count/$total");
-          await _synchronizationService.getAndSaveTrackedInstanceFromServer(
-              program, orgUnitId, lastSyncDate);
         }
       }
+
       count = 0;
       for (String? orgUnitId in _synchronizationService.orgUnitIds ?? []) {
         for (String? program in _synchronizationService.programs!
@@ -311,28 +312,18 @@ class SynchronizationState with ChangeNotifier {
           if (_dataDownloadStopped) {
             return;
           }
+          await _synchronizationService.getAndSaveEventsFromServer(
+              program, orgUnitId, lastSyncDate);
           count++;
           totalCount++;
           eventsDataDownloadProgress = count / total;
           overallDownloadProgress = totalCount / (total * 2);
           notifyListeners();
-          addDataDownloadProcess(
-              "Download and saving service data $count/$total");
-          await _synchronizationService.getAndSaveEventsFromServer(
-              program, orgUnitId, lastSyncDate);
         }
       }
-      AppUtil.showToastMessage(
-        message: 'Start synchronization of referral notifications',
-        position: ToastGravity.TOP,
-      );
-      await syncReferralNotifications();
       await refreshBeneficiaryCounts();
       AppUtil.showToastMessage(
           message: 'Data has been successfully downloaded');
-
-      _dataDownloadProcess = [];
-      updateDataDownloadStatus(false);
       setStatusMessageForAvailableDataFromServer('');
       lastSyncDate = AppUtil.formattedDateTimeIntoString(new DateTime.now());
       await PreferenceProvider.setPreferenceValue(
@@ -379,11 +370,9 @@ class SynchronizationState with ChangeNotifier {
       int eventsTotalCount = 1;
       bool conflictOnTeisImport = false;
       bool conflictOnEventsImport = false;
-      addDataUploadProcess('Prepare offline data to upload');
 
       var teis = await _synchronizationService.getTeisFromOfflineDb();
       if (teis.length > 0) {
-        addDataUploadProcess("Uploading beneficiary's profile data");
         List<List<dynamic>> chunkedTeis =
             AppUtil.chunkItems(items: teis, size: dataUploadBatchSize);
         int batch = 1;
@@ -413,7 +402,6 @@ class SynchronizationState with ChangeNotifier {
 
       var teiEnrollments =
           await _synchronizationService.getTeiEnrollmentFromOfflineDb();
-
       if (teiEnrollments.length > 0) {
         int batch = 1;
         List<List<dynamic>> chunkedTeiEnrollments = AppUtil.chunkItems(
@@ -444,7 +432,6 @@ class SynchronizationState with ChangeNotifier {
 
       var teiRelationships =
           await _synchronizationService.getTeiRelationShipFromOfflineDb();
-
       if (teiRelationships.length > 0) {
         List<List<dynamic>> chunkedTeiRelationships = AppUtil.chunkItems(
             items: teiRelationships, size: dataUploadBatchSize * 2);
@@ -478,7 +465,6 @@ class SynchronizationState with ChangeNotifier {
       var teiEvents = await _synchronizationService.getTeiEventsFromOfflineDb();
 
       if (teiEvents.length > 0) {
-        addDataUploadProcess("Uploading beneficiary's service data");
         List<List<dynamic>> chunkedTeiEvents =
             AppUtil.chunkItems(items: teiEvents, size: dataUploadBatchSize * 2);
 
@@ -495,7 +481,7 @@ class SynchronizationState with ChangeNotifier {
           eventsCount = eventsCount + (batch / chunkedTeiEvents.length);
           eventsDataUploadProgress = eventsCount / eventsTotalCount;
           overallUploadProgress =
-              profileDataUploadProgress + eventsDataUploadProgress;
+              (profileDataUploadProgress + eventsDataUploadProgress) / 2;
           notifyListeners();
           ++batch;
         }
@@ -503,16 +489,9 @@ class SynchronizationState with ChangeNotifier {
         ++eventsCount;
         eventsDataUploadProgress = eventsCount / eventsTotalCount;
         overallUploadProgress =
-            profileDataUploadProgress + eventsDataUploadProgress;
+            (profileDataUploadProgress + eventsDataUploadProgress) / 2;
         notifyListeners();
       }
-      if (!isAutoUpload) {
-        AppUtil.showToastMessage(
-          message: 'Start synchronization of referral notifications',
-          position: ToastGravity.TOP,
-        );
-      }
-      await syncReferralNotifications();
       if (!isAutoUpload) {
         if (conflictOnTeisImport && conflictOnEventsImport) {
           AppUtil.showToastMessage(message: 'Error uploading data');
@@ -527,9 +506,7 @@ class SynchronizationState with ChangeNotifier {
       if (!isAutoUpload) {
         AppUtil.showToastMessage(message: 'Error uploading data');
       }
-      updateDataUploadStatus(false);
     }
-    _dataUploadProcess = [];
     notifyListeners();
     await startCheckingStatusOfUnsyncedData(isAutoUpload: isAutoUpload);
     notifyListeners();
@@ -539,24 +516,48 @@ class SynchronizationState with ChangeNotifier {
         AppUtil.formattedDateTimeIntoString(new DateTime.now());
     await PreferenceProvider.setPreferenceValue(
         lastDataUploadDatePreferenceKey, lastDataUploadDate);
-    updateDataUploadStatus(false);
   }
 
   Future syncReferralNotifications() async {
+    AppUtil.showToastMessage(
+      message: 'Start synchronization of referral notifications',
+      position: ToastGravity.TOP,
+    );
+    int totalCount = 5;
+    int count = 0;
     try {
       List<ReferralNotification> onlineReferralNotifications =
           await ReferralNotificationService()
               .discoveringReferralNotificationFromServer();
+      ++count;
+      _notificationProgress = count / totalCount;
+      notifyListeners();
+
       List<ReferralNotification> offlineReferralNotifications =
           await ReferralNotificationService()
               .getReferralNotificationFromOffline();
+      ++count;
+      _notificationProgress = count / totalCount;
+      notifyListeners();
+
       List<ReferralNotification> referralNotifications =
           ReferralNotificationService().getMergedReferralNotifications(
               onlineReferralNotifications, offlineReferralNotifications);
+      ++count;
+      _notificationProgress = count / totalCount;
+      notifyListeners();
+
       await ReferralNotificationService()
           .savingReferralNotificationToOfflineDb(referralNotifications);
+      ++count;
+      _notificationProgress = count / totalCount;
+      notifyListeners();
+
       await ReferralNotificationService()
           .updateReferralNotificationToServer(referralNotifications);
+      ++count;
+      _notificationProgress = count / totalCount;
+      notifyListeners();
     } catch (error) {
       print("syncReferralNotifications : ${error.toString()}");
     }

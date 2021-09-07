@@ -16,7 +16,8 @@ class SynchronizationProgress extends StatefulWidget {
       this.eventsSyncProgress,
       this.profileSyncProgress,
       this.overallUploadProgress,
-      this.overallDownloadProgress})
+      this.overallDownloadProgress,
+      this.notificationSyncProgress})
       : super(key: key);
 
   final String? syncAction;
@@ -26,6 +27,7 @@ class SynchronizationProgress extends StatefulWidget {
   final double? overallUploadProgress;
   final double? overallDownloadProgress;
   final double? overallSyncProgress;
+  final double? notificationSyncProgress;
 
   @override
   _SynchronizationProgressState createState() =>
@@ -148,8 +150,7 @@ class _SynchronizationProgressState extends State<SynchronizationProgress> {
             ),
             Visibility(
               visible: widget.syncAction ==
-                      SynchronizationActionsConstants().downloadAndUpload &&
-                  widget.hasUnsyncedData!,
+                  SynchronizationActionsConstants().downloadAndUpload,
               child: Container(
                 margin: EdgeInsets.only(top: 10.0),
                 child: Column(
@@ -226,6 +227,29 @@ class _SynchronizationProgressState extends State<SynchronizationProgress> {
                     ),
                   ],
                 ),
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.only(top: 10.0),
+              child: Column(
+                children: [
+                  Text('Notifications'),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Center(
+                      child: LinearProgressIndicator(
+                        backgroundColor: Colors.grey,
+                        valueColor: AlwaysStoppedAnimation<Color?>(
+                            Provider.of<InterventionCardState>(context,
+                                    listen: false)
+                                .currentInterventionProgram
+                                .primaryColor),
+                        minHeight: 10.0,
+                        value: widget.notificationSyncProgress ?? 0,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           ],

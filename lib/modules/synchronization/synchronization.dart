@@ -112,6 +112,8 @@ class _SynchronizationState extends State<Synchronization> {
                   synchronizationState.overallDownloadProgress;
               double overallUploadProgress =
                   synchronizationState.overallUploadProgress;
+              double notificationSyncProgress =
+                  synchronizationState.notificationProgress;
               bool isSyncActive =
                   (isDataDownloadingActive || isDataUploadingActive);
               return isUnsyncedCheckingActive
@@ -152,6 +154,8 @@ class _SynchronizationState extends State<Synchronization> {
                               margin: EdgeInsets.symmetric(vertical: 5.0),
                               child: SynchronizationProgress(
                                 syncAction: selectedSyncAction,
+                                notificationSyncProgress:
+                                    notificationSyncProgress,
                                 hasUnsyncedData: hasUnsyncedData,
                                 eventsSyncProgress: eventsSyncProgress,
                                 profileSyncProgress: profileSyncProgress,
