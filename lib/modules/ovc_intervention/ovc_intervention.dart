@@ -11,9 +11,13 @@ import 'package:kb_mobile_app/core/constants/auto_synchronization.dart';
 import 'package:kb_mobile_app/core/services/auto_synchronization_service.dart';
 import 'package:kb_mobile_app/core/services/data_quality_service.dart';
 import 'package:kb_mobile_app/core/services/device_connectivity_provider.dart';
+import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/utils/app_bar_util.dart';
+import 'package:kb_mobile_app/core/utils/app_resume_routes/app_resume_route.dart';
 import 'package:kb_mobile_app/models/Intervention_bottom_navigation.dart';
+import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/constants/ovc_routes_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/ovc_enrollment_page.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/pages/ovc_enrollment_consent_form.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_page.dart';
@@ -75,13 +79,25 @@ class _OvcInterventionState extends State<OvcIntervention> {
     // print('on onClickHome');
   }
 
-  void onAddHousehold(BuildContext context) {
+  void onAddHousehold(BuildContext context) async {
+    String beneficiaryId = "";
+    String formAutoSaveId =
+        "${OvcRoutesConstant.ovcConcentFormPage}_$beneficiaryId";
+    FormAutoSave formAutoSave =
+        await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
+    bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
+        .shouldResumeWithUnSavedChanges(context, formAutoSave);
     Provider.of<EnrollmentFormState>(context, listen: false).resetFormState();
-    Navigator.push(context, MaterialPageRoute(
-      builder: (context) {
-        return OvcEnrollmentConsentForm();
-      },
-    ));
+    if (shouldResumeWithUnSavedChanges) {
+      AppResumeRoute().redirectToPages(context, formAutoSave);
+    } else {
+      Provider.of<EnrollmentFormState>(context, listen: false).resetFormState();
+      Navigator.push(context, MaterialPageRoute(
+        builder: (context) {
+          return OvcEnrollmentConsentForm();
+        },
+      ));
+    }
   }
 
   @override

@@ -26,7 +26,7 @@ class OvcHouseholdInfoTopHeader extends StatelessWidget {
           text: TextSpan(
             text: '$key: ',
             style: TextStyle().copyWith(
-              fontSize: 14.0,
+              fontSize: 12.0,
               fontWeight: FontWeight.w500,
               color: Color(0xFF92A791),
             ),
@@ -34,7 +34,7 @@ class OvcHouseholdInfoTopHeader extends StatelessWidget {
               TextSpan(
                 text: value,
                 style: TextStyle().copyWith(
-                  fontSize: 14.0,
+                  fontSize: 12.0,
                   fontWeight: FontWeight.w500,
                   color: Color(0xFF536852),
                 ),
