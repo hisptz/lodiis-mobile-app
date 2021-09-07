@@ -18,13 +18,17 @@ import 'package:kb_mobile_app/models/app_logs.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/models/enrollment.dart';
 import 'package:kb_mobile_app/models/events.dart';
+import 'package:kb_mobile_app/models/referral_notification.dart';
 import 'package:kb_mobile_app/models/tei_relationship.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
+import 'package:kb_mobile_app/modules/synchronization/constants/synchronization_actions_constants.dart';
 import 'package:provider/provider.dart';
 
 class SynchronizationState with ChangeNotifier {
   final BuildContext? context;
-  final String lastSyncDatePreferenceKey = "lastSyncDatePreferenceKey";
+  final String lastDataDownloadDatePreferenceKey = "lastSyncDatePreferenceKey";
+  final String lastDataUploadDatePreferenceKey =
+      "lastDataUploadDatePreferenceKey";
   final int dataUploadBatchSize = 50;
 
   SynchronizationState({this.context});
@@ -51,6 +55,9 @@ class SynchronizationState with ChangeNotifier {
   Map<String, List>? _events;
   Map<String, List>? _relationships;
   String? _currentSyncAction = '';
+  bool _dataUploadStopped = true;
+  bool _dataDownloadStopped = true;
+  double _notificationProgress = 0.0;
   double profileDataDownloadProgress = 0.0;
   double eventsDataDownloadProgress = 0.0;
   double overallDownloadProgress = 0.0;
@@ -61,9 +68,17 @@ class SynchronizationState with ChangeNotifier {
 // selectors
   bool get isDataUploadingActive => _isDataUploadingActive;
 
-  double get overallSyncProgress => hasUnsyncedData
-      ? (overallUploadProgress + overallDownloadProgress) / 2
-      : overallUploadProgress + overallDownloadProgress;
+  double get notificationProgress => _notificationProgress;
+
+  double get overallSyncProgress =>
+      _currentSyncAction == SynchronizationActionsConstants().downloadAndUpload
+          ? (overallUploadProgress +
+                  overallDownloadProgress +
+                  notificationProgress) /
+              3
+          : ((overallUploadProgress + overallDownloadProgress) +
+                  notificationProgress) /
+              2;
 
   double get eventsSyncProgress => _isDataUploadingActive
       ? eventsDataUploadProgress
@@ -145,23 +160,13 @@ class SynchronizationState with ChangeNotifier {
     notifyListeners();
   }
 
-  void addDataUploadProcess(String process) {
-    _dataUploadProcess!.add(process);
-    notifyListeners();
-  }
-
-  void addDataDownloadProcess(String process) {
-    _dataDownloadProcess!.add(process);
-    notifyListeners();
-  }
-
   checkingForAvailableBeneficiaryData() async {
     updateStatusForAvailableDataFromServer(status: true);
     setStatusMessageForAvailableDataFromServer(
         'Checking for available beneficiary data from server...');
     CurrentUser? currentUser = await (UserService().getCurrentUser());
-    String? lastSyncDate =
-        await PreferenceProvider.getPreferenceValue(lastSyncDatePreferenceKey);
+    String? lastSyncDate = await PreferenceProvider.getPreferenceValue(
+        lastDataDownloadDatePreferenceKey);
     lastSyncDate =
         lastSyncDate ?? AppUtil.formattedDateTimeIntoString(new DateTime(2020));
     _synchronizationService = SynchronizationService(currentUser!.username,
@@ -192,11 +197,11 @@ class SynchronizationState with ChangeNotifier {
 
   Future<void> startCheckingStatusOfUnsyncedData(
       {bool isAutoUpload = false}) async {
-    _dataDownloadProcess = _dataDownloadProcess ?? [];
-    _dataUploadProcess = _dataUploadProcess ?? [];
-    if (!isAutoUpload) {
-      updateUnsyncedDataCheckingStatus(true);
-    }
+    // _dataDownloadProcess = _dataDownloadProcess ?? [];
+    // _dataUploadProcess = _dataUploadProcess ?? [];
+    // if (!isAutoUpload) {
+    //   updateUnsyncedDataCheckingStatus(true);
+    // }
     CurrentUser? user = await (UserService().getCurrentUser());
     _synchronizationService = SynchronizationService(
         user!.username, user.password, user.programs, user.userOrgUnitIds);
@@ -211,6 +216,23 @@ class SynchronizationState with ChangeNotifier {
     }
   }
 
+  stopSyncActivity() async {
+    _isDataDownloadingActive = false;
+    _isDataUploadingActive = false;
+    _dataUploadStopped = true;
+    _dataDownloadStopped = true;
+    profileDataDownloadProgress = 0.0;
+    eventsDataDownloadProgress = 0.0;
+    overallDownloadProgress = 0.0;
+    profileDataUploadProgress = 0.0;
+    eventsDataUploadProgress = 0.0;
+    overallUploadProgress = 0.0;
+    _notificationProgress = 0.0;
+    _currentSyncAction = '';
+    notifyListeners();
+    await refreshBeneficiaryCounts();
+  }
+
   Future startSyncActivity({String? syncAction}) async {
     profileDataDownloadProgress = 0.0;
     eventsDataDownloadProgress = 0.0;
@@ -218,6 +240,7 @@ class SynchronizationState with ChangeNotifier {
     profileDataUploadProgress = 0.0;
     eventsDataUploadProgress = 0.0;
     overallUploadProgress = 0.0;
+    _notificationProgress = 0.0;
     _currentSyncAction = syncAction;
     notifyListeners();
     switch (syncAction) {
@@ -234,27 +257,28 @@ class SynchronizationState with ChangeNotifier {
       default:
         break;
     }
-    //  reset sync action
+    await syncReferralNotifications();
+
+    _dataDownloadProcess = [];
+    _dataUploadProcess = [];
+    updateDataDownloadStatus(false);
+    updateDataUploadStatus(false);
     _currentSyncAction = '';
     notifyListeners();
   }
 
   Future startDataDownloadActivity({bool skipUpload = true}) async {
-    _dataDownloadProcess = [];
-    _eventFromServer = [];
-    _serverTrackedEntityInstance = [];
-    _trackedEntityInstance = [];
     profileDataDownloadProgress = 0.0;
     eventsDataDownloadProgress = 0.0;
     overallDownloadProgress = 0.0;
+    _dataDownloadStopped = false;
     updateDataDownloadStatus(true);
-    addDataDownloadProcess("Start Downloading....");
     int count = 0;
     int totalCount = 0;
     int total = 0;
     try {
       String? lastSyncDate = await PreferenceProvider.getPreferenceValue(
-          lastSyncDatePreferenceKey);
+          lastDataDownloadDatePreferenceKey);
       lastSyncDate = lastSyncDate ??
           AppUtil.formattedDateTimeIntoString(new DateTime(2020));
       CurrentUser? currentUser = await (UserService().getCurrentUser());
@@ -268,47 +292,42 @@ class SynchronizationState with ChangeNotifier {
       for (String? orgUnitId in _synchronizationService.orgUnitIds ?? []) {
         for (String? program in _synchronizationService.programs!
             .where((program) => currentUserPrograms.indexOf(program) != -1)) {
+          if (_dataDownloadStopped) {
+            return;
+          }
+          await _synchronizationService.getAndSaveTrackedInstanceFromServer(
+              program, orgUnitId, lastSyncDate);
           count++;
           totalCount++;
           profileDataDownloadProgress = count / total;
           overallDownloadProgress = totalCount / (total * 2);
           notifyListeners();
-          addDataDownloadProcess(
-              "Download and saving profile data $count/$total");
-          await _synchronizationService.getAndSaveTrackedInstanceFromServer(
-              program, orgUnitId, lastSyncDate);
         }
       }
+
       count = 0;
       for (String? orgUnitId in _synchronizationService.orgUnitIds ?? []) {
         for (String? program in _synchronizationService.programs!
             .where((program) => currentUserPrograms.indexOf(program) != -1)) {
+          if (_dataDownloadStopped) {
+            return;
+          }
+          await _synchronizationService.getAndSaveEventsFromServer(
+              program, orgUnitId, lastSyncDate);
           count++;
           totalCount++;
           eventsDataDownloadProgress = count / total;
           overallDownloadProgress = totalCount / (total * 2);
           notifyListeners();
-          addDataDownloadProcess(
-              "Download and saving service data $count/$total");
-          await _synchronizationService.getAndSaveEventsFromServer(
-              program, orgUnitId, lastSyncDate);
         }
       }
-      AppUtil.showToastMessage(
-        message: 'Start synchronization of referral notifications',
-        position: ToastGravity.TOP,
-      );
-      await ReferralNotificationService().syncReferralNotifications();
       await refreshBeneficiaryCounts();
       AppUtil.showToastMessage(
           message: 'Data has been successfully downloaded');
-
-      _dataDownloadProcess = [];
-      updateDataDownloadStatus(false);
       setStatusMessageForAvailableDataFromServer('');
       lastSyncDate = AppUtil.formattedDateTimeIntoString(new DateTime.now());
       await PreferenceProvider.setPreferenceValue(
-          lastSyncDatePreferenceKey, lastSyncDate);
+          lastDataDownloadDatePreferenceKey, lastSyncDate);
     } catch (e) {
       _dataDownloadProcess = [];
       AppLogs log = AppLogs(
@@ -342,6 +361,7 @@ class SynchronizationState with ChangeNotifier {
     profileDataUploadProgress = 0.0;
     eventsDataUploadProgress = 0.0;
     overallUploadProgress = 0.0;
+    _dataUploadStopped = false;
     updateDataUploadStatus(true);
     try {
       double profileCount = 0;
@@ -350,15 +370,16 @@ class SynchronizationState with ChangeNotifier {
       int eventsTotalCount = 1;
       bool conflictOnTeisImport = false;
       bool conflictOnEventsImport = false;
-      addDataUploadProcess('Prepare offline data to upload');
 
       var teis = await _synchronizationService.getTeisFromOfflineDb();
       if (teis.length > 0) {
-        addDataUploadProcess("Uploading beneficiary's profile data");
         List<List<dynamic>> chunkedTeis =
             AppUtil.chunkItems(items: teis, size: dataUploadBatchSize);
         int batch = 1;
         for (List<dynamic> teiChunk in chunkedTeis) {
+          if (_dataUploadStopped) {
+            return;
+          }
           bool conflictOnImport =
               await _synchronizationService.uploadTeisToTheServer(
                   teiChunk as List<TrackedEntityInstance>, isAutoUpload);
@@ -381,12 +402,14 @@ class SynchronizationState with ChangeNotifier {
 
       var teiEnrollments =
           await _synchronizationService.getTeiEnrollmentFromOfflineDb();
-
       if (teiEnrollments.length > 0) {
         int batch = 1;
         List<List<dynamic>> chunkedTeiEnrollments = AppUtil.chunkItems(
             items: teiEnrollments, size: dataUploadBatchSize * 2);
         for (List<dynamic> teiEnrollmentChunk in chunkedTeiEnrollments) {
+          if (_dataUploadStopped) {
+            return;
+          }
           bool conflictOnImport =
               await _synchronizationService.uploadEnrollmentsToTheServer(
                   teiEnrollmentChunk as List<Enrollment>, isAutoUpload);
@@ -409,13 +432,15 @@ class SynchronizationState with ChangeNotifier {
 
       var teiRelationships =
           await _synchronizationService.getTeiRelationShipFromOfflineDb();
-
       if (teiRelationships.length > 0) {
         List<List<dynamic>> chunkedTeiRelationships = AppUtil.chunkItems(
             items: teiRelationships, size: dataUploadBatchSize * 2);
 
         int batch = 1;
         for (List<dynamic> teiRelationshipChunk in chunkedTeiRelationships) {
+          if (_dataUploadStopped) {
+            return;
+          }
           bool conflictOnImport =
               await _synchronizationService.uploadTeiRelationToTheServer(
                   teiRelationshipChunk as List<TeiRelationship>, isAutoUpload);
@@ -440,12 +465,14 @@ class SynchronizationState with ChangeNotifier {
       var teiEvents = await _synchronizationService.getTeiEventsFromOfflineDb();
 
       if (teiEvents.length > 0) {
-        addDataUploadProcess("Uploading beneficiary's service data");
         List<List<dynamic>> chunkedTeiEvents =
             AppUtil.chunkItems(items: teiEvents, size: dataUploadBatchSize * 2);
 
         int batch = 1;
         for (List<dynamic> teiEventsChunk in chunkedTeiEvents) {
+          if (_dataUploadStopped) {
+            return;
+          }
           bool conflictOnImport =
               await _synchronizationService.uploadTeiEventsToTheServer(
                   teiEventsChunk as List<Events>, isAutoUpload);
@@ -454,7 +481,7 @@ class SynchronizationState with ChangeNotifier {
           eventsCount = eventsCount + (batch / chunkedTeiEvents.length);
           eventsDataUploadProgress = eventsCount / eventsTotalCount;
           overallUploadProgress =
-              profileDataUploadProgress + eventsDataUploadProgress;
+              (profileDataUploadProgress + eventsDataUploadProgress) / 2;
           notifyListeners();
           ++batch;
         }
@@ -462,16 +489,9 @@ class SynchronizationState with ChangeNotifier {
         ++eventsCount;
         eventsDataUploadProgress = eventsCount / eventsTotalCount;
         overallUploadProgress =
-            profileDataUploadProgress + eventsDataUploadProgress;
+            (profileDataUploadProgress + eventsDataUploadProgress) / 2;
         notifyListeners();
       }
-      if (!isAutoUpload) {
-        AppUtil.showToastMessage(
-          message: 'Start synchronization of referral notifications',
-          position: ToastGravity.TOP,
-        );
-      }
-      await ReferralNotificationService().syncReferralNotifications();
       if (!isAutoUpload) {
         if (conflictOnTeisImport && conflictOnEventsImport) {
           AppUtil.showToastMessage(message: 'Error uploading data');
@@ -486,14 +506,60 @@ class SynchronizationState with ChangeNotifier {
       if (!isAutoUpload) {
         AppUtil.showToastMessage(message: 'Error uploading data');
       }
-      updateDataUploadStatus(false);
     }
-    _dataUploadProcess = [];
     notifyListeners();
     await startCheckingStatusOfUnsyncedData(isAutoUpload: isAutoUpload);
     notifyListeners();
     await Provider.of<ReferralNotificationState>(context!, listen: false)
         .reloadReferralNotifications();
-    updateDataUploadStatus(false);
+    String lastDataUploadDate =
+        AppUtil.formattedDateTimeIntoString(new DateTime.now());
+    await PreferenceProvider.setPreferenceValue(
+        lastDataUploadDatePreferenceKey, lastDataUploadDate);
+  }
+
+  Future syncReferralNotifications() async {
+    AppUtil.showToastMessage(
+      message: 'Start synchronization of referral notifications',
+      position: ToastGravity.TOP,
+    );
+    int totalCount = 5;
+    int count = 0;
+    try {
+      List<ReferralNotification> onlineReferralNotifications =
+          await ReferralNotificationService()
+              .discoveringReferralNotificationFromServer();
+      ++count;
+      _notificationProgress = count / totalCount;
+      notifyListeners();
+
+      List<ReferralNotification> offlineReferralNotifications =
+          await ReferralNotificationService()
+              .getReferralNotificationFromOffline();
+      ++count;
+      _notificationProgress = count / totalCount;
+      notifyListeners();
+
+      List<ReferralNotification> referralNotifications =
+          ReferralNotificationService().getMergedReferralNotifications(
+              onlineReferralNotifications, offlineReferralNotifications);
+      ++count;
+      _notificationProgress = count / totalCount;
+      notifyListeners();
+
+      await ReferralNotificationService()
+          .savingReferralNotificationToOfflineDb(referralNotifications);
+      ++count;
+      _notificationProgress = count / totalCount;
+      notifyListeners();
+
+      await ReferralNotificationService()
+          .updateReferralNotificationToServer(referralNotifications);
+      ++count;
+      _notificationProgress = count / totalCount;
+      notifyListeners();
+    } catch (error) {
+      print("syncReferralNotifications : ${error.toString()}");
+    }
   }
 }

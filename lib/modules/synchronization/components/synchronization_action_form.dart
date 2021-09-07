@@ -14,10 +14,14 @@ import 'package:provider/provider.dart';
 
 class SynchronizationActionForm extends StatefulWidget {
   const SynchronizationActionForm(
-      {Key? key, this.selectedSyncAction, this.onInitializeSyncAction})
+      {Key? key,
+      this.selectedSyncAction,
+      this.onInitializeSyncAction,
+      this.isSyncActive = false})
       : super(key: key);
 
   final String? selectedSyncAction;
+  final bool isSyncActive;
   final Function(String?)? onInitializeSyncAction;
 
   @override
@@ -86,7 +90,7 @@ class _SynchronizationActionFormState extends State<SynchronizationActionForm> {
                     Provider.of<InterventionCardState>(context, listen: false)
                         .currentInterventionProgram
                         .primaryColor,
-                isReadOnly: syncActionInput.isReadOnly,
+                isReadOnly: widget.isSyncActive,
                 renderAsRadio: syncActionInput.renderAsRadio,
                 onInputValueChange: (dynamic value) =>
                     onSyncActionSelection(context, value),
@@ -104,6 +108,9 @@ class _SynchronizationActionFormState extends State<SynchronizationActionForm> {
               child: Container(
                 margin: EdgeInsets.only(top: 15.0),
                 child: EntryFormSaveButton(
+                  marginLeft: 80.0,
+                  marginRight: 80.0,
+                  vertical: 5.0,
                   label: 'Sync',
                   svgIconPath: selectedSyncAction ==
                               SynchronizationActionsConstants().download ||
@@ -131,7 +138,8 @@ class _SynchronizationActionFormState extends State<SynchronizationActionForm> {
                           .currentInterventionProgram
                           .primaryColor,
                   fontSize: 15.0,
-                  onPressButton: () => {onSyncButtonPress()},
+                  onPressButton: () =>
+                      !widget.isSyncActive ? onSyncButtonPress() : null,
                 ),
               ),
             )
