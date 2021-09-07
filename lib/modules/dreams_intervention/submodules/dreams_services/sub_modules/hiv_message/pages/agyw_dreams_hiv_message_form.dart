@@ -23,19 +23,20 @@ import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_top_header.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/constants/dreams_routes_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/dreams_service_msg_hiv_form_info.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/msg_hiv/constants/msg_hiv_constant.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/msg_hiv/skip_logics/agyw_dreams_msg_hiv_skip_logic.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hiv_message/constants/hiv_message_constant.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hiv_message/skip_logics/agyw_dreams_hiv_message_skip_logic.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:provider/provider.dart';
 
-class AgywDreamsMSGHIVForm extends StatefulWidget {
-  AgywDreamsMSGHIVForm({Key? key}) : super(key: key);
+class AgywDreamHIVMessageForm extends StatefulWidget {
+  AgywDreamHIVMessageForm({Key? key}) : super(key: key);
 
   @override
-  _AgywDreamsMSGHIVFormState createState() => _AgywDreamsMSGHIVFormState();
+  _AgywDreamHIVMessageFormState createState() =>
+      _AgywDreamHIVMessageFormState();
 }
 
-class _AgywDreamsMSGHIVFormState extends State<AgywDreamsMSGHIVForm> {
+class _AgywDreamHIVMessageFormState extends State<AgywDreamHIVMessageForm> {
   final String label = 'MSG HIV form';
   List<FormSection>? formSections;
   bool isFormReady = false;
@@ -59,7 +60,7 @@ class _AgywDreamsMSGHIVFormState extends State<AgywDreamsMSGHIVForm> {
       () async {
         Map dataObject =
             Provider.of<ServiceFormState>(context, listen: false).formState;
-        await AgywDreamsMSGHIVSkipLogic.evaluateSkipLogics(
+        await AgywDreamHIVMessageSkipLogic.evaluateSkipLogics(
           context,
           formSections!,
           dataObject,
@@ -86,8 +87,8 @@ class _AgywDreamsMSGHIVFormState extends State<AgywDreamsMSGHIVForm> {
       List<String> hiddenFields = [];
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-            MSGHIVConstant.program,
-            MSGHIVConstant.programStage,
+            HIVMessageConstant.program,
+            HIVMessageConstant.programStage,
             agywDream!.orgUnit,
             formSections!,
             dataObject,
@@ -131,7 +132,7 @@ class _AgywDreamsMSGHIVFormState extends State<AgywDreamsMSGHIVForm> {
   void clearFormAutoSaveState(
       BuildContext context, String? beneficiaryId) async {
     String formAutoSaveId =
-        "${DreamsRoutesConstant.agywDreamsMSGHIVFormPage}_$beneficiaryId";
+        "${DreamsRoutesConstant.agywDreamHIVMessageFormPage}_$beneficiaryId";
     await FormAutoSaveOfflineService().deleteSavedFormAutoData(formAutoSaveId);
   }
 
@@ -147,16 +148,16 @@ class _AgywDreamsMSGHIVFormState extends State<AgywDreamsMSGHIVForm> {
     Map dataObject =
         Provider.of<ServiceFormState>(context, listen: false).formState;
     String id =
-        "${DreamsRoutesConstant.agywDreamsMSGHIVFormPage}_$beneficiaryId";
+        "${DreamsRoutesConstant.agywDreamHIVMessageFormPage}_$beneficiaryId";
     FormAutoSave formAutoSave = FormAutoSave(
       id: id,
       beneficiaryId: beneficiaryId,
-      pageModule: DreamsRoutesConstant.agywDreamsMSGHIVFormPage,
+      pageModule: DreamsRoutesConstant.agywDreamHIVMessageFormPage,
       nextPageModule: isSaveForm
           ? nextPageModule != ""
               ? nextPageModule
-              : DreamsRoutesConstant.agywDreamsMSGHIVFormNextPage
-          : DreamsRoutesConstant.agywDreamsMSGHIVFormPage,
+              : DreamsRoutesConstant.agywDreamHIVMessageFormNextPage
+          : DreamsRoutesConstant.agywDreamHIVMessageFormPage,
       data: jsonEncode(dataObject),
     );
     await FormAutoSaveOfflineService().saveFormAutoSaveData(formAutoSave);

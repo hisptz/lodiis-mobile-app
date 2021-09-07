@@ -45,8 +45,8 @@ class DreamsRoutesConstant {
   static final String agywDreamsContraceptivesNextPage = "Contraceptives form";
   static final String agywDreamsHTSShortFormPage = "HTS Form";
   static final String agywDreamsHTSShortFormNextPage = "HTS Form";
-  static final String agywDreamsMSGHIVFormPage = "MSG HIV form";
-  static final String agywDreamsMSGHIVFormNextPage = "MSG HIV form";
+  static final String agywDreamHIVMessageFormPage = "MSG HIV form";
+  static final String agywDreamHIVMessageFormNextPage = "MSG HIV form";
   static final String agywDreamsPEPFormPage = "PEP form";
   static final String agywDreamsPEPFormNextPage = "PEP form";
   static final String agywDreamsPrEPHTSConsentPage = "HTS Consent (PrEP)";

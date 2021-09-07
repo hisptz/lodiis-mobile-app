@@ -74,7 +74,7 @@ class AppResumeRoute
         DreamsRoutesConstant.agywDreamsHTSShortFormNextPage) {
       redirectToAgywDreamsHTSShortForm(context, formAutoSave);
     } else if (formAutoSave.nextPageModule ==
-        DreamsRoutesConstant.agywDreamsMSGHIVFormNextPage) {
+        DreamsRoutesConstant.agywDreamHIVMessageFormNextPage) {
       redirectToAgywDreamsMSGHIVForm(context, formAutoSave);
     } else if (formAutoSave.nextPageModule ==
         DreamsRoutesConstant.agywDreamsPEPFormNextPage) {
