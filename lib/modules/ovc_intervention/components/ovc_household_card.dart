@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
 import 'package:kb_mobile_app/core/components/material_card.dart';
+import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
+import 'package:kb_mobile_app/core/utils/app_resume_routes/app_resume_route.dart';
+import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/ovc_household.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_household_card_header.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/constants/ovc_routes_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/pages/ovc_enrollment_household_edit_form.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/pages/ovc_enrollment_household_view_form.dart';
 import 'package:provider/provider.dart';
@@ -66,27 +70,50 @@ class OvcHouseholdCard extends StatelessWidget {
     }
   }
 
-  void onEditHousehold(BuildContext context) {
-    updateEnrollmentFormStateData(context, true);
-    Navigator.push(
+  void onEditHousehold(BuildContext context) async {
+    String? beneficiaryId = ovcHousehold.id;
+    String formAutoSaveId =
+        "${OvcRoutesConstant.ovcEnrollmentHouseholdEditFormPage}_$beneficiaryId";
+    FormAutoSave formAutoSave =
+        await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
+    bool shouldResumeWithUnSavedChanges =
+        await AppResumeRoute().shouldResumeWithUnSavedChanges(
+      context,
+      formAutoSave,
+      beneficiaryName: ovcHousehold.toString(),
+    );
+    if (shouldResumeWithUnSavedChanges) {
+      AppResumeRoute().redirectToPages(context, formAutoSave);
+    } else {
+      updateEnrollmentFormStateData(context, true);
+      Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => OvcEnrollmentHouseholdEditForm()));
+          builder: (context) => OvcEnrollmentHouseholdEditForm(),
+        ),
+      );
+    }
   }
 
   void onViewHousehold(BuildContext context) {
     updateEnrollmentFormStateData(context, false);
     Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => OvcEnrollmentHouseholdViewForm()));
+      context,
+      MaterialPageRoute(
+        builder: (context) => OvcEnrollmentHouseholdViewForm(),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
       child: Container(
-        margin: EdgeInsets.only(bottom: 16.0, right: 13.0, left: 13.0),
+        margin: EdgeInsets.only(
+          bottom: 16.0,
+          right: 13.0,
+          left: 13.0,
+        ),
         child: MaterialCard(
           body: Container(
             child: Column(

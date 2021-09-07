@@ -15,6 +15,10 @@ class OvcRoutesConstant {
   static final String ovcHouseholdInformationFormPage = "Household information";
   static final String ovcHouseholdInformationFormNextPage =
       "Household information";
+  static final String ovcEnrollmentHouseholdEditFormPage =
+      "Household vulnerability and prioritization form";
+  static final String ovcEnrollmentHouseholdEditFormNextPage =
+      "Household vulnerability and prioritization form";
   //@TODO Routes constants for services of caregiver/household
   //@TODO routes constants for services of children
 

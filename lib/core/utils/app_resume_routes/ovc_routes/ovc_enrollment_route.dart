@@ -5,6 +5,7 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/pages/ovc_enrollement_none_participation_form.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/pages/ovc_enrollment_child_form.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/pages/ovc_enrollment_consent_form.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/pages/ovc_enrollment_household_edit_form.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/pages/ovc_enrollment_household_form.dart';
 
 class OvcEnrollmentRoute {
@@ -78,6 +79,21 @@ class OvcEnrollmentRoute {
       MaterialPageRoute(
         builder: (context) {
           return OvcEnrollmentHouseholdForm();
+        },
+      ),
+    );
+  }
+
+  redirectToOvcEnrollmentHouseholdEditForm(
+    BuildContext context,
+    FormAutoSave formAutoSave,
+  ) {
+    redirectToOvcEnrollmentChildForm(context, formAutoSave);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
+          return OvcEnrollmentHouseholdEditForm();
         },
       ),
     );
