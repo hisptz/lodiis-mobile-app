@@ -2,7 +2,8 @@ class OvcRoutesConstant {
   static final String ovcConcentFormPage = "Consent Form";
   static final String ovcConcentFormNextPage = "Basic caregiver information";
   static final String ovcNoneParticipationFormPage = "None Participation Form";
-  static final String ovcNoneParticipationNextPage = "None Participation Form";
+  static final String ovcNoneParticipationFormNextPage =
+      "None Participation Form";
   static final String ovcBasicCaregiverInformationFormPage =
       "Basic caregiver information";
   static final String ovcBasicCaregiverInformationFormNextPage =
