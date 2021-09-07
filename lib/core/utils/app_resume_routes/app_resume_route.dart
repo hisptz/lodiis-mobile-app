@@ -10,6 +10,7 @@ import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/constants/dreams_routes_constant.dart';
 import 'package:kb_mobile_app/modules/ogac_intervention/constants/ogac_routes_constant.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/constants/ovc_routes_constant.dart';
 
 class AppResumeRoute
     with
@@ -22,11 +23,10 @@ class AppResumeRoute
     BuildContext context,
     FormAutoSave formAutoSave,
   ) {
-    //@TODO add routes for agyw/dreams beneficiaries
     if (formAutoSave.nextPageModule == OgacRoutesConstant.nextPageModule) {
       redirectToOgacEnrollmentForm(context, formAutoSave);
     } else if (formAutoSave.nextPageModule ==
-        DreamsRoutesConstant.noneAgywHtsConsentNextPage) {
+        DreamsRoutesConstant.noneAgywHtsConsentPage) {
       redirectToNoneAgywHtsConsent(context, formAutoSave);
     } else if (formAutoSave.nextPageModule ==
         DreamsRoutesConstant.noneAgywHtsConsentNextPage) {
@@ -106,6 +106,21 @@ class AppResumeRoute
     } else if (formAutoSave.nextPageModule ==
         DreamsRoutesConstant.agywDreamsPrepVisitFormNextPage) {
       redirectToAgywDreamsPrEPVisitForm(context, formAutoSave);
+    } else if (formAutoSave.nextPageModule ==
+        OvcRoutesConstant.ovcConcentFormPage) {
+      redirectToOvcEnrollmentConsentForm(context, formAutoSave);
+    } else if (formAutoSave.nextPageModule ==
+        OvcRoutesConstant.ovcNoneParticipationFormPage) {
+      redirectToOvcEnrollmentNoneParticipationForm(context, formAutoSave);
+    } else if (formAutoSave.nextPageModule ==
+        OvcRoutesConstant.ovcConcentFormNextPage) {
+      redirectToOvcEnrollmentBasicInfoForm(context, formAutoSave);
+    } else if (formAutoSave.nextPageModule ==
+        OvcRoutesConstant.ovcBasicCaregiverInformationFormNextPage) {
+      redirectToOvcEnrollmentChildForm(context, formAutoSave);
+    } else if (formAutoSave.nextPageModule ==
+        OvcRoutesConstant.ovcChildVulnerabilityFormNextPage) {
+      redirectToOvcEnrollmentHouseholdForm(context, formAutoSave);
     } else {
       print("$formAutoSave \n");
       print("Not page to redirect ${formAutoSave.nextPageModule}\n\n");
