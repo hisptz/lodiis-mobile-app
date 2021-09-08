@@ -41,7 +41,10 @@ class OvcChildCasePlan extends StatelessWidget {
     Provider.of<ServiceFormState>(context, listen: false)
         .updateFormEditabilityState(isEditableMode: isEditableMode);
     Map? sanitizedDataObject;
+    String? eventDate;
     if (casePlanEvents != null) {
+      eventDate =
+          casePlanEvents.length > 0 ? casePlanEvents[0].eventDate : eventDate;
       List<Events> casePlanGapsEvents = eventListByProgramStage[
               OvcChildCasePlanConstant.casePlanGapProgramStage] ??
           [];
@@ -58,7 +61,9 @@ class OvcChildCasePlan extends StatelessWidget {
               sanitizedDataObject.containsKey(formSectionId)
           ? sanitizedDataObject[formSectionId]
           : Map();
+
       map['gaps'] = map['gaps'] ?? [];
+      map['eventDate'] = map['eventDate'] ?? eventDate;
       map[OvcCasePlanConstant.casePlanToGapLinkage] =
           map[OvcCasePlanConstant.casePlanToGapLinkage] ?? casePlanToGapLinkage;
       map[OvcCasePlanConstant.casePlanGapToFollowUpLinkage] =
