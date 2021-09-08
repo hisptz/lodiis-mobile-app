@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:kb_mobile_app/core/services/organisation_unit_service.dart';
+import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/models/organisation_unit.dart';
 
@@ -10,6 +11,7 @@ class CurrentUserState with ChangeNotifier {
   CurrentUser? _currentUser;
   String? _currentUserLocations;
   List<String?>? _currentUserCountryLevelReferences;
+  bool? _canCurrentUserDoDataEntry;
   bool? _canManageDreams;
   bool? _canManageOGAC;
   bool? _canManageOvc;
@@ -33,9 +35,11 @@ class CurrentUserState with ChangeNotifier {
 
   // selectors
   CurrentUser? get currentUser => _currentUser;
+  bool get canCurrentUserDoDataEntry => _canCurrentUserDoDataEntry!;
   bool get isCurrentUserKbDreamPartner =>
       _currentUser != null &&
-      kbDreamsImplementatingPartners.contains(_currentUser!.implementingPartner);
+      kbDreamsImplementatingPartners
+          .contains(_currentUser!.implementingPartner);
   String get currentUserLocations => _currentUserLocations ?? '';
   List<String?> get currentUserCountryLevelReferences =>
       _currentUserCountryLevelReferences ?? [];
@@ -157,6 +161,13 @@ class CurrentUserState with ChangeNotifier {
           .join(', ');
     }
     _currentUserLocations = locations;
+    notifyListeners();
+  }
+
+  void getAndSetCurrentUserDataEntryAuthorityStatus() async {
+    bool status = await UserService().getCurrentUserDataEntryAuthorityStatus();
+    await UserService().setDataEntryAuthorityStatus(status);
+    _canCurrentUserDoDataEntry = status;
     notifyListeners();
   }
 }
