@@ -164,7 +164,7 @@ class CurrentUserState with ChangeNotifier {
     notifyListeners();
   }
 
-  void getAndSetCurrentUserDataEntryAuthorityStatus() async {
+  Future getAndSetCurrentUserDataEntryAuthorityStatus() async {
     bool status = await UserService().getCurrentUserDataEntryAuthorityStatus();
     await UserService().setDataEntryAuthorityStatus(status);
     _canCurrentUserDoDataEntry = status;
