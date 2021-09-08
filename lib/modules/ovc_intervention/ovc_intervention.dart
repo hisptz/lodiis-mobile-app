@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/app_state/current_user_state/current_user_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_bottom_navigation_state/intervention_bottom_navigation_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
@@ -53,6 +54,8 @@ class _OvcInterventionState extends State<OvcIntervention> {
         .checkChangeOfDeviceConnectionStatus(context);
     periodicTimer =
         Timer.periodic(Duration(minutes: syncTimeout), (Timer timer) {
+      Provider.of<CurrentUserState>(context, listen: false)
+          .getAndSetCurrentUserDataEntryAuthorityStatus();
       AutoSynchronizationService().startAutoDownload(context);
     });
   }

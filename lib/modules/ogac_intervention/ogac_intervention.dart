@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/app_state/current_user_state/current_user_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
@@ -47,6 +48,8 @@ class _OgacInterventionState extends State<OgacIntervention> {
         .checkChangeOfDeviceConnectionStatus(context);
     periodicTimer =
         Timer.periodic(Duration(minutes: syncTimeout), (Timer timer) {
+      Provider.of<CurrentUserState>(context, listen: false)
+          .getAndSetCurrentUserDataEntryAuthorityStatus();
       AutoSynchronizationService().startAutoDownload(context);
     });
   }
@@ -95,47 +98,55 @@ class _OgacInterventionState extends State<OgacIntervention> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: SafeArea(
-      child: Consumer<InterventionCardState>(
-        builder: (context, interventionCardState, child) {
-          InterventionCard activeInterventionProgram =
-              interventionCardState.currentInterventionProgram;
-          return Scaffold(
-            appBar: PreferredSize(
-              preferredSize: Size.fromHeight(90),
-              child: InterventionAppBar(
-                activeInterventionProgram: activeInterventionProgram,
-                onClickHome: onClickHome,
-                onAddOgacBeneficiary: () => onAddOgacBeneficiary(context),
-                onOpenMoreMenu: () =>
-                    onOpenMoreMenu(context, activeInterventionProgram),
+    return Scaffold(
+      body: SafeArea(
+        child: Consumer<InterventionCardState>(
+          builder: (context, interventionCardState, child) {
+            InterventionCard activeInterventionProgram =
+                interventionCardState.currentInterventionProgram;
+            return Scaffold(
+              appBar: PreferredSize(
+                preferredSize: Size.fromHeight(90),
+                child: InterventionAppBar(
+                  activeInterventionProgram: activeInterventionProgram,
+                  onClickHome: onClickHome,
+                  onAddOgacBeneficiary: () => onAddOgacBeneficiary(context),
+                  onOpenMoreMenu: () => onOpenMoreMenu(
+                    context,
+                    activeInterventionProgram,
+                  ),
+                ),
               ),
-            ),
-            body: Container(
-              child: !isViewReady
-                  ? Container(
-                      margin: EdgeInsets.only(top: 20.0),
-                      child: CircularProcessLoader(
-                        color: Colors.blueGrey,
+              body: Container(
+                child: !isViewReady
+                    ? Container(
+                        margin: EdgeInsets.only(
+                          top: 20.0,
+                        ),
+                        child: CircularProcessLoader(
+                          color: Colors.blueGrey,
+                        ),
+                      )
+                    : Container(
+                        child: Stack(
+                          fit: StackFit.expand,
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                color: activeInterventionProgram.background,
+                              ),
+                            ),
+                            Container(
+                              child: OgacInterventionHome(),
+                            ),
+                          ],
+                        ),
                       ),
-                    )
-                  : Container(
-                      child: Stack(
-                      fit: StackFit.expand,
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                              color: activeInterventionProgram.background),
-                        ),
-                        Container(
-                          child: OgacInterventionHome(),
-                        ),
-                      ],
-                    )),
-            ),
-          );
-        },
+              ),
+            );
+          },
+        ),
       ),
-    ));
+    );
   }
 }

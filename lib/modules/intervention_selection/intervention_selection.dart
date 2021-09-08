@@ -24,7 +24,6 @@ class _InterventionSelectionState extends State<InterventionSelection> {
       InterventionCard.getInterventions();
 
   Color? primaryColor = CustomColor.defaultPrimaryColor;
-  bool hasDataLoaded = false;
 
   void onInterventionSelection(InterventionCard interventionProgram) {
     setState(() {
@@ -41,6 +40,9 @@ class _InterventionSelectionState extends State<InterventionSelection> {
 
   updateDataStateLoadingStatus() async {
     try {
+      Provider.of<CurrentUserState>(context, listen: false)
+          .getAndSetCurrentUserDataEntryAuthorityStatus();
+      print("Other data loading");
       await ReservedAttributeValueService().generateReservedAttributeValues();
       Provider.of<OvcInterventionListState>(context, listen: false)
           .refreshOvcNumber();
@@ -50,9 +52,6 @@ class _InterventionSelectionState extends State<InterventionSelection> {
           .refreshOgacNumber();
       Provider.of<CurrentUserState>(context, listen: false)
           .setCurrentUserLocation();
-      setState(() {
-        hasDataLoaded = true;
-      });
     } catch (error) {}
   }
 
