@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:kb_mobile_app/core/constants/pagination.dart';
-import 'package:kb_mobile_app/core/services/pagination-service.dart';
+import 'package:kb_mobile_app/core/services/pagination_service.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/services/agyw_dreams_enrollment_service.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/services/none_agyw_dreams_enrollment_service.dart';
@@ -61,7 +61,7 @@ class DreamsInterventionListState with ChangeNotifier {
   void setTeiWithIncomingReferral(
       {List<String> teiWithIncomingReferral = const []}) {
     _teiWithIncomingReferral = teiWithIncomingReferral;
-    refreshDreamsList();
+    refreshAllDreamsLists();
     notifyListeners();
   }
 
@@ -141,7 +141,6 @@ class DreamsInterventionListState with ChangeNotifier {
     _isLoading = true;
     _searchableValue = '';
     notifyListeners();
-    //write code to count and update number of Beneficiaries
     await getDreamsCount();
     getNumberOfPages();
     if (_nonAgywPagingController == null ||
@@ -177,19 +176,21 @@ class DreamsInterventionListState with ChangeNotifier {
     }
     if (_agywDreamsIncomingReferralList.isEmpty) {
       _agywDreamsIncomingReferralList =
-          _agywIncomingReferralPagingController!.itemList as List<AgywDream>? ?? <AgywDream>[];
+          _agywIncomingReferralPagingController!.itemList as List<AgywDream>? ??
+              <AgywDream>[];
       _agywIncomingReferralNextPage =
           _agywIncomingReferralPagingController!.nextPageKey;
     }
     if (_noneAgywDreamsInterventionList.isEmpty) {
       _noneAgywDreamsInterventionList =
-          _nonAgywPagingController!.itemList as List<AgywDream>? ?? <AgywDream>[];
+          _nonAgywPagingController!.itemList as List<AgywDream>? ??
+              <AgywDream>[];
       _nonAgywNextPage = _nonAgywPagingController!.nextPageKey;
     }
     if (value.isNotEmpty) {
       _searchableValue = value;
       notifyListeners();
-      refreshDreamsList();
+      refreshAllDreamsLists();
     } else {
       _agywPagingController!.itemList = _agywDreamsInterventionList;
       _agywPagingController!.nextPageKey = _agywNextPage;
@@ -215,19 +216,34 @@ class DreamsInterventionListState with ChangeNotifier {
         _numberOfNoneAgywDreamsBeneficiaries + 1;
     getNumberOfPages();
     notifyListeners();
-    refreshDreamsList();
+    refreshAllDreamsLists();
   }
 
   void onAgywBeneficiaryAdd() {
     _numberOfAgywDreamsBeneficiaries = _numberOfAgywDreamsBeneficiaries + 1;
     getNumberOfPages();
     notifyListeners();
-    refreshDreamsList();
+    refreshAllDreamsLists();
   }
 
-  void refreshDreamsList() async {
+  void refreshAllDreamsLists() async {
     _agywPagingController!.refresh();
     _nonAgywPagingController!.refresh();
+    _agywIncomingReferralPagingController!.refresh();
+    notifyListeners();
+  }
+
+  void refreshAgywDreamsList() async {
+    _agywPagingController!.refresh();
+    notifyListeners();
+  }
+
+  void refreshNonAgywDreamsList() async {
+    _nonAgywPagingController!.refresh();
+    notifyListeners();
+  }
+
+  void refreshAgywIncomingReferralDreamsList() async {
     _agywIncomingReferralPagingController!.refresh();
     notifyListeners();
   }
