@@ -22,64 +22,63 @@ class AccessToDataEntryActionButton extends StatelessWidget {
         right: 10.0,
       ),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Expanded(
-            child: Container(
-              padding: EdgeInsets.only(
-                right: 5.0,
-              ),
-              child: TextButton(
-                onPressed: onLogout,
-                style: TextButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    side: BorderSide(
-                      color: activeInterventionProgram.primaryColor ??
-                          Color(0xFFFAFAFA),
-                    ),
-                    borderRadius: BorderRadius.circular(12.0),
+          Container(
+            padding: EdgeInsets.only(
+              right: 5.0,
+            ),
+            child: TextButton(
+              onPressed: onLogout,
+              style: TextButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                  side: BorderSide(
+                    color: activeInterventionProgram.primaryColor ??
+                        Color(0xFFFAFAFA),
                   ),
-                  padding: EdgeInsets.symmetric(
-                    vertical: 15,
-                  ),
+                  borderRadius: BorderRadius.circular(12.0),
                 ),
-                child: Container(
-                  child: Text(
-                    "Log out",
-                    style: TextStyle(
-                      color: activeInterventionProgram.primaryColor ??
-                          Color(0xFFFAFAFA),
-                    ),
+                padding: EdgeInsets.symmetric(
+                  vertical: 15,
+                ),
+              ),
+              child: Container(
+                margin: EdgeInsets.symmetric(horizontal: 50.0),
+                child: Text(
+                  "Log out",
+                  style: TextStyle(
+                    color: activeInterventionProgram.primaryColor ??
+                        Color(0xFFFAFAFA),
                   ),
                 ),
               ),
             ),
           ),
-          Expanded(
-            child: Container(
-              padding: EdgeInsets.only(
-                left: 5.0,
-              ),
-              child: TextButton(
-                onPressed: onCloseApp,
-                style: TextButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    side: BorderSide(
-                      color: activeInterventionProgram.primaryColor ??
-                          Color(0xFFFAFAFA),
-                    ),
-                    borderRadius: BorderRadius.circular(12.0),
+          Container(
+            padding: EdgeInsets.only(
+              left: 5.0,
+            ),
+            child: TextButton(
+              onPressed: onCloseApp,
+              style: TextButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                  side: BorderSide(
+                    color: activeInterventionProgram.primaryColor ??
+                        Color(0xFFFAFAFA),
                   ),
-                  padding: EdgeInsets.symmetric(
-                    vertical: 15,
-                  ),
+                  borderRadius: BorderRadius.circular(12.0),
                 ),
-                child: Container(
-                  child: Text(
-                    "Close App",
-                    style: TextStyle(
-                      color: activeInterventionProgram.primaryColor ??
-                          Color(0xFFFAFAFA),
-                    ),
+                padding: EdgeInsets.symmetric(
+                  vertical: 15,
+                ),
+              ),
+              child: Container(
+                margin: EdgeInsets.symmetric(horizontal: 50.0),
+                child: Text(
+                  "Close App",
+                  style: TextStyle(
+                    color: activeInterventionProgram.primaryColor ??
+                        Color(0xFFFAFAFA),
                   ),
                 ),
               ),
