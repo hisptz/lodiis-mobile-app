@@ -144,16 +144,18 @@ class _InterventionSelectionContainerState
                                   ? 'Sebaka : '
                                   : 'Location : ',
                               style: TextStyle().copyWith(
-                                  fontSize: 20.0,
-                                  fontWeight: FontWeight.w500,
-                                  color: Color(0xFFFAFAFA)),
+                                fontSize: 20.0,
+                                fontWeight: FontWeight.w500,
+                                color: Color(0xFFFAFAFA),
+                              ),
                               children: [
                                 TextSpan(
                                   text: locations,
                                   style: TextStyle().copyWith(
-                                      fontSize: 16.0,
-                                      fontWeight: FontWeight.normal,
-                                      color: Color(0xFFFAFAFA)),
+                                    fontSize: 16.0,
+                                    fontWeight: FontWeight.normal,
+                                    color: Color(0xFFFAFAFA),
+                                  ),
                                 ),
                               ],
                             ),

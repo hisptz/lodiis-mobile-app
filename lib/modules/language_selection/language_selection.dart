@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/app_state/current_user_state/current_user_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
+import 'package:kb_mobile_app/core/components/access_to_data_entry/access_to_data_entry_warning.dart';
 import 'package:kb_mobile_app/core/components/language_selection_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/services/language_selection_service.dart';
@@ -90,22 +92,33 @@ class _LanguageSelectionState extends State<LanguageSelection> {
                   ),
                 ),
           body: Container(
-            child: Consumer<LanguageTranslationState>(
-              builder: (context, languageTranslationState, child) {
-                String? currentLanguage =
-                    languageTranslationState.currentLanguage;
-                return LanguageSelectionContainer(
-                  currentLanguage: currentLanguage,
-                  selectionLanguageCode: selectionLanguageCode,
-                  showLanguageSettingAppBar: widget.showLanguageSettingAppBar,
-                  onSetSelectedLanguage: (String selectionLanguageCode) =>
-                      onSetSelectedLanguage(
-                    context,
-                    selectionLanguageCode,
-                  ),
-                );
-              },
-            ),
+            child: Consumer<CurrentUserState>(
+                builder: (context, currentUserState, child) {
+              bool hasAccessToDataEntry =
+                  currentUserState.canCurrentUserDoDataEntry;
+              return !hasAccessToDataEntry
+                  ? AccessToDataEntryWarning()
+                  : Container(
+                      child: Consumer<LanguageTranslationState>(
+                        builder: (context, languageTranslationState, child) {
+                          String? currentLanguage =
+                              languageTranslationState.currentLanguage;
+                          return LanguageSelectionContainer(
+                            currentLanguage: currentLanguage,
+                            selectionLanguageCode: selectionLanguageCode,
+                            showLanguageSettingAppBar:
+                                widget.showLanguageSettingAppBar,
+                            onSetSelectedLanguage:
+                                (String selectionLanguageCode) =>
+                                    onSetSelectedLanguage(
+                              context,
+                              selectionLanguageCode,
+                            ),
+                          );
+                        },
+                      ),
+                    );
+            }),
           ),
         ),
       ),
