@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:kb_mobile_app/core/components/access_to_data_entry_warning.dart';
+import 'package:kb_mobile_app/core/components/access_to_data_entry/access_to_data_entry_warning.dart';
 import 'package:provider/provider.dart';
 import 'package:kb_mobile_app/app_state/current_user_state/current_user_state.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
@@ -77,7 +77,12 @@ class _InterventionSelectionState extends State<InterventionSelection> {
                     bool hasAccessToDataEntry =
                         currentUserState.canCurrentUserDoDataEntry;
                     return !hasAccessToDataEntry
-                        ? AccessToDataEntryWarning()
+                        ? Container(
+                            margin: EdgeInsets.only(
+                              top: MediaQuery.of(context).size.height * 0.12,
+                            ),
+                            child: AccessToDataEntryWarning(),
+                          )
                         : Container(
                             child: Consumer<DreamsInterventionListState>(
                               builder: (context, dreamsInterventionListState,

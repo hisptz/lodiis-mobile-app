@@ -5,6 +5,7 @@ import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_car
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/core/components/paginated_list_view.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
+import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/app_logs/components/app_logs_card.dart';
@@ -48,6 +49,7 @@ class _AppLogsState extends State<AppLogsPage> {
     await Provider.of<AppLogsState>(context, listen: false).clearLogs();
   }
 
+//@TODO refactor to using sub pages widget
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -83,37 +85,38 @@ class _AppLogsState extends State<AppLogsPage> {
                 tooltip: 'download',
                 child: Icon(Icons.download),
               ),
-              body: Consumer<AppLogsState>(
-                builder: (context, appLogsState, child) {
-                  return Scaffold(
-                    appBar: AppBar(
-                      automaticallyImplyLeading: false,
-                      title: Row(children: <Widget>[
-                        Expanded(
-                            child: SearchInput(
-                          onSearch: (value) => onSearchLogs(context, value),
-                        )),
-                        IconButton(
-                            iconSize: 30,
-                            icon: Icon(Icons.delete),
-                            color: Colors.red.withOpacity(0.8),
-                            onPressed: () {
-                              clearAllLogs(context);
-                            })
-                      ]),
-                      backgroundColor: Colors.white,
-                    ),
-                    body: Container(
-                      child: Stack(
-                        fit: StackFit.expand,
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                                color: activeInterventionProgram.background),
-                          ),
-                          Container(
-                            child: Container(
-                              child: CustomPaginatedListView(
+              body: SubPageBody(
+                body: Consumer<AppLogsState>(
+                  builder: (context, appLogsState, child) {
+                    return Scaffold(
+                      appBar: AppBar(
+                        automaticallyImplyLeading: false,
+                        title: Row(children: <Widget>[
+                          Expanded(
+                              child: SearchInput(
+                            onSearch: (value) => onSearchLogs(context, value),
+                          )),
+                          IconButton(
+                              iconSize: 30,
+                              icon: Icon(Icons.delete),
+                              color: Colors.red.withOpacity(0.8),
+                              onPressed: () {
+                                clearAllLogs(context);
+                              })
+                        ]),
+                        backgroundColor: Colors.white,
+                      ),
+                      body: Container(
+                        child: Stack(
+                          fit: StackFit.expand,
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                  color: activeInterventionProgram.background),
+                            ),
+                            Container(
+                              child: Container(
+                                child: CustomPaginatedListView(
                                   childBuilder: (context, appLog, child) =>
                                       Container(
                                           margin: EdgeInsets.symmetric(
@@ -137,14 +140,16 @@ class _AppLogsState extends State<AppLogsPage> {
                                     child: Text(
                                       'There are no application logs list at a moment.',
                                     ),
-                                  )),
-                            ),
-                          )
-                        ],
+                                  ),
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
                       ),
-                    ),
-                  );
-                },
+                    );
+                  },
+                ),
               ),
             ),
           );
