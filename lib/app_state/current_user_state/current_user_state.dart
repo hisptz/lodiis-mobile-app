@@ -35,7 +35,8 @@ class CurrentUserState with ChangeNotifier {
 
   // selectors
   CurrentUser? get currentUser => _currentUser;
-  bool get canCurrentUserDoDataEntry => _canCurrentUserDoDataEntry!;
+  bool get canCurrentUserDoDataEntry =>
+      _canCurrentUserDoDataEntry == null ? true : _canCurrentUserDoDataEntry!;
   bool get isCurrentUserKbDreamPartner =>
       _currentUser != null &&
       kbDreamsImplementatingPartners
