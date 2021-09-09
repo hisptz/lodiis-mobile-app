@@ -40,7 +40,7 @@ class AppBarUtil {
           response.id == 'ogac') {
         await _onSwitchToIntervention(context, response.id);
       } else if (response.id == 'logout') {
-        _onLogOut(context);
+        onLogOut(context);
       } else if (response.id == 'sync') {
         _onOpenSyncModule(context);
       } else if (response.id == 'language_setting') {
@@ -82,7 +82,7 @@ class AppBarUtil {
     );
   }
 
-  static void _onLogOut(BuildContext context) async {
+  static void onLogOut(BuildContext context) async {
     Provider.of<InterventionCardState>(context, listen: false)
         .resetCurrentInterventionProgram();
     Provider.of<InterventionBottomNavigationState>(context, listen: false)
