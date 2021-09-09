@@ -110,32 +110,39 @@ class EventOfflineProvider extends OfflineDbProvider {
     List<Events> events = [];
     try {
       var dbClient = await db;
-      String questionMarks = eventList.map((e) => '?').toList().join(',');
-      List<Map> maps = await dbClient!.query(
-        table,
-        columns: [
-          id,
-          event,
-          eventDate,
-          program,
-          programStage,
-          trackedEntityInstance,
-          status,
-          orgUnit,
-          syncStatus,
-        ],
-        where: eventList.isEmpty
-            ? '$syncStatus = ?'
-            : '$event IN ($questionMarks)',
-        whereArgs: eventList.isEmpty ? [eventSyncStatus] : [...eventList],
-      );
-      if (maps.isNotEmpty) {
-        for (Map map in maps) {
-          List dataValues = await EventOfflineDataValueProvider()
-              .getEventDataValuesByEventId(map['id']);
-          Events eventData = Events.fromOffline(map as Map<String, dynamic>);
-          eventData.dataValues = dataValues;
-          events.add(eventData);
+
+      List<List<String?>> chunkedEventList =
+          AppUtil.chunkItems(items: eventList, size: 50).cast<List<String?>>();
+      for (List<String?> eventListGroup in chunkedEventList) {
+        String questionMarks =
+            eventListGroup.map((e) => '?').toList().join(',');
+        List<Map> maps = await dbClient!.query(
+          table,
+          columns: [
+            id,
+            event,
+            eventDate,
+            program,
+            programStage,
+            trackedEntityInstance,
+            status,
+            orgUnit,
+            syncStatus,
+          ],
+          where: eventList.isEmpty
+              ? '$syncStatus = ?'
+              : '$event IN ($questionMarks)',
+          whereArgs:
+              eventListGroup.isEmpty ? [eventSyncStatus] : [...eventListGroup],
+        );
+        if (maps.isNotEmpty) {
+          for (Map map in maps) {
+            List dataValues = await EventOfflineDataValueProvider()
+                .getEventDataValuesByEventId(map['id']);
+            Events eventData = Events.fromOffline(map as Map<String, dynamic>);
+            eventData.dataValues = dataValues;
+            events.add(eventData);
+          }
         }
       }
     } catch (e) {}
@@ -148,17 +155,22 @@ class EventOfflineProvider extends OfflineDbProvider {
     List<String> teiIds = [];
     try {
       var dbClient = await db;
-      String questionMarks = eventIds.map((e) => '?').toList().join(',');
-      List<Map> maps = await dbClient!.query(
-        table,
-        columns: [
-          trackedEntityInstance,
-        ],
-        where: '$event IN ($questionMarks)',
-        whereArgs: [...eventIds],
-      );
-      if (maps.isNotEmpty) {
-        teiIds.addAll(maps.map((Map map) => map[trackedEntityInstance] ?? ""));
+      List<List<String?>> chunkedEventIds =
+          AppUtil.chunkItems(items: eventIds, size: 50).cast<List<String?>>();
+      for (List<String?> eventIdsGroup in chunkedEventIds) {
+        String questionMarks = eventIdsGroup.map((e) => '?').toList().join(',');
+        List<Map> maps = await dbClient!.query(
+          table,
+          columns: [
+            trackedEntityInstance,
+          ],
+          where: '$event IN ($questionMarks)',
+          whereArgs: [...eventIdsGroup],
+        );
+        if (maps.isNotEmpty) {
+          teiIds
+              .addAll(maps.map((Map map) => map[trackedEntityInstance] ?? ""));
+        }
       }
     } catch (e) {}
     return teiIds;
