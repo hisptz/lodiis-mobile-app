@@ -61,7 +61,7 @@ class DreamsInterventionListState with ChangeNotifier {
   void setTeiWithIncomingReferral(
       {List<String> teiWithIncomingReferral = const []}) {
     _teiWithIncomingReferral = teiWithIncomingReferral;
-    refreshDreamsList();
+    refreshAllDreamsLists();
     notifyListeners();
   }
 
@@ -141,7 +141,6 @@ class DreamsInterventionListState with ChangeNotifier {
     _isLoading = true;
     _searchableValue = '';
     notifyListeners();
-    //write code to count and update number of Beneficiaries
     await getDreamsCount();
     getNumberOfPages();
     if (_nonAgywPagingController == null ||
@@ -191,7 +190,7 @@ class DreamsInterventionListState with ChangeNotifier {
     if (value.isNotEmpty) {
       _searchableValue = value;
       notifyListeners();
-      refreshDreamsList();
+      refreshAllDreamsLists();
     } else {
       _agywPagingController!.itemList = _agywDreamsInterventionList;
       _agywPagingController!.nextPageKey = _agywNextPage;
@@ -217,19 +216,34 @@ class DreamsInterventionListState with ChangeNotifier {
         _numberOfNoneAgywDreamsBeneficiaries + 1;
     getNumberOfPages();
     notifyListeners();
-    refreshDreamsList();
+    refreshAllDreamsLists();
   }
 
   void onAgywBeneficiaryAdd() {
     _numberOfAgywDreamsBeneficiaries = _numberOfAgywDreamsBeneficiaries + 1;
     getNumberOfPages();
     notifyListeners();
-    refreshDreamsList();
+    refreshAllDreamsLists();
   }
 
-  void refreshDreamsList() async {
+  void refreshAllDreamsLists() async {
     _agywPagingController!.refresh();
     _nonAgywPagingController!.refresh();
+    _agywIncomingReferralPagingController!.refresh();
+    notifyListeners();
+  }
+
+  void refreshAgywDreamsList() async {
+    _agywPagingController!.refresh();
+    notifyListeners();
+  }
+
+  void refreshNonAgywDreamsList() async {
+    _nonAgywPagingController!.refresh();
+    notifyListeners();
+  }
+
+  void refreshAgywIncomingReferralDreamsList() async {
     _agywIncomingReferralPagingController!.refresh();
     notifyListeners();
   }
