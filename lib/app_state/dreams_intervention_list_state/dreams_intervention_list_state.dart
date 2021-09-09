@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:kb_mobile_app/core/constants/pagination.dart';
-import 'package:kb_mobile_app/core/services/pagination-service.dart';
+import 'package:kb_mobile_app/core/services/pagination_service.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/services/agyw_dreams_enrollment_service.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/services/none_agyw_dreams_enrollment_service.dart';
@@ -177,13 +177,15 @@ class DreamsInterventionListState with ChangeNotifier {
     }
     if (_agywDreamsIncomingReferralList.isEmpty) {
       _agywDreamsIncomingReferralList =
-          _agywIncomingReferralPagingController!.itemList as List<AgywDream>? ?? <AgywDream>[];
+          _agywIncomingReferralPagingController!.itemList as List<AgywDream>? ??
+              <AgywDream>[];
       _agywIncomingReferralNextPage =
           _agywIncomingReferralPagingController!.nextPageKey;
     }
     if (_noneAgywDreamsInterventionList.isEmpty) {
       _noneAgywDreamsInterventionList =
-          _nonAgywPagingController!.itemList as List<AgywDream>? ?? <AgywDream>[];
+          _nonAgywPagingController!.itemList as List<AgywDream>? ??
+              <AgywDream>[];
       _nonAgywNextPage = _nonAgywPagingController!.nextPageKey;
     }
     if (value.isNotEmpty) {
