@@ -28,10 +28,20 @@ class InterventionBottomNavigationBar extends StatelessWidget {
       if (id == 'incomingReferral') {
         Provider.of<DreamsInterventionListState>(context, listen: false)
             .setReferralStatus(isIncomingReferral: true);
+        Provider.of<DreamsInterventionListState>(context, listen: false)
+            .refreshAgywIncomingReferralDreamsList();
+      } else if (id == 'noneAgyw') {
+        Provider.of<DreamsInterventionListState>(context, listen: false)
+            .refreshNonAgywDreamsList();
       } else {
         Provider.of<DreamsInterventionListState>(context, listen: false)
             .setReferralStatus(isIncomingReferral: false);
+        Provider.of<DreamsInterventionListState>(context, listen: false)
+            .refreshAgywDreamsList();
       }
+    } else if (activeInterventionProgram.id == 'ovc') {
+      // Provider.of<OvcInterventionListState>(context, listen: false)
+      //     .refreshOvcList();
     }
     if (Navigator.canPop(context)) {
       Navigator.popUntil(context, (route) => route.isFirst);
@@ -157,12 +167,9 @@ class InterventionBottomNavigationBar extends StatelessWidget {
                                     style: TextStyle(
                                       fontSize: 10,
                                       fontWeight: FontWeight.bold,
-                                      color: currentInterventionBottomNavigation !=
-                                                  null &&
-                                              currentInterventionBottomNavigation
-                                                      .id ==
-                                                  interventionBottomNavigation
-                                                      .id
+                                      color: currentInterventionBottomNavigation
+                                                  .id ==
+                                              interventionBottomNavigation.id
                                           ? Colors.white
                                           : Color(0xFF737373),
                                     ),
@@ -214,9 +221,8 @@ class InterventionBottomNavigationIcon extends StatelessWidget {
             ),
             child: SvgPicture.asset(
               interventionBottomNavigation.svgIcon!,
-              color: currentInterventionBottomNavigation != null &&
-                      currentInterventionBottomNavigation.id ==
-                          interventionBottomNavigation.id
+              color: currentInterventionBottomNavigation.id ==
+                      interventionBottomNavigation.id
                   ? Colors.white
                   : Color(0xFF737373),
             ),
@@ -259,10 +265,8 @@ class InterventionBottomNavigationIcon extends StatelessWidget {
                                 : incomingReferralToResolve,
                             style: TextStyle().copyWith(
                               fontWeight: FontWeight.bold,
-                              color: currentInterventionBottomNavigation !=
-                                          null &&
-                                      currentInterventionBottomNavigation.id ==
-                                          interventionBottomNavigation.id
+                              color: currentInterventionBottomNavigation.id ==
+                                      interventionBottomNavigation.id
                                   ? Colors.white
                                   : inactiveColor,
                             ),

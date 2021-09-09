@@ -96,24 +96,32 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
       List<String> teiIds) async {
     List<Enrollment> enrollments = [];
     try {
-      String questionMarks =
-          (teiIds.isEmpty ? [''] : teiIds).map((e) => '?').toList().join(',');
-      var dbClient = await db;
-      List<Map> maps = await dbClient!.query(table,
-          columns: [
-            enrollment,
-            enrollmentDate,
-            incidentDate,
-            program,
-            orgUnit,
-            trackedEntityInstance
-          ],
-          where: "$trackedEntityInstance IN ($questionMarks)",
-          whereArgs: [...teiIds]);
+      List<List<String>> chunkedTeiIds =
+          AppUtil.chunkItems(items: teiIds, size: 50).cast<List<String>>();
 
-      if (maps.isNotEmpty) {
-        for (Map map in maps) {
-          enrollments.add(Enrollment.fromOffline(map as Map<String, dynamic>));
+      for (List<String> teiIdsChunk in chunkedTeiIds) {
+        String questionMarks = (teiIdsChunk.isEmpty ? [''] : teiIdsChunk)
+            .map((e) => '?')
+            .toList()
+            .join(',');
+        var dbClient = await db;
+        List<Map> maps = await dbClient!.query(table,
+            columns: [
+              enrollment,
+              enrollmentDate,
+              incidentDate,
+              program,
+              orgUnit,
+              trackedEntityInstance
+            ],
+            where: "$trackedEntityInstance IN ($questionMarks)",
+            whereArgs: [...teiIdsChunk]);
+
+        if (maps.isNotEmpty) {
+          for (Map map in maps) {
+            enrollments
+                .add(Enrollment.fromOffline(map as Map<String, dynamic>));
+          }
         }
       }
     } catch (e) {}
@@ -122,18 +130,24 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
 
   Future<int> getFilteredEnrollmentsCount(
       String programId, List<String> filteredTei) async {
-    String questionMarks = (filteredTei.isEmpty ? [''] : filteredTei)
-        .map((e) => '?')
-        .toList()
-        .join(',');
+    List<Map> enrollmentList = [];
+    List<List<String>> chunkedFilteredTei =
+        (AppUtil.chunkItems(items: filteredTei, size: 50)).cast<List<String>>();
 
-    var dbClient = await db;
-    List<Map> enrollmentList = await dbClient!.query(
-      table,
-      columns: [enrollment],
-      where: '$trackedEntityInstance IN ($questionMarks) AND $program = ?',
-      whereArgs: [...filteredTei, programId],
-    );
+    for (List<String> teiList in chunkedFilteredTei) {
+      String questionMarks =
+          (teiList.isEmpty ? [''] : teiList).map((e) => '?').toList().join(',');
+
+      var dbClient = await db;
+      List<Map> map = await dbClient!.query(
+        table,
+        columns: [enrollment],
+        where: '$trackedEntityInstance IN ($questionMarks) AND $program = ?',
+        whereArgs: [...teiList, programId],
+      );
+
+      enrollmentList.addAll(map);
+    }
     return enrollmentList.length;
   }
 
@@ -141,34 +155,45 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
       {int? page, required List<String> requiredTeiList}) async {
     List<Enrollment> enrollments = [];
     try {
-      String questionMarks = (requiredTeiList.isEmpty ? [''] : requiredTeiList)
-          .map((e) => '?')
-          .toList()
-          .join(',');
-      var dbClient = await db;
-      List<Map> maps = await dbClient!.query(table,
-          columns: [
-            enrollment,
-            enrollmentDate,
-            incidentDate,
-            program,
-            orgUnit,
-            status,
-            syncStatus,
-            trackedEntityInstance
-          ],
-          where: "$trackedEntityInstance IN ($questionMarks) AND $program = ?",
-          orderBy: '$enrollmentDate DESC',
-          whereArgs: [...requiredTeiList, programId],
-          limit: page != null ? PaginationConstants.paginationLimit : null,
-          offset:
-              page != null ? page * PaginationConstants.paginationLimit : null);
-      if (maps.isNotEmpty) {
-        for (Map map in maps) {
-          enrollments.add(Enrollment.fromOffline(map as Map<String, dynamic>));
+      List<List<String>> chunkedTeiList =
+          (AppUtil.chunkItems(items: requiredTeiList, size: 50))
+              .cast<List<String>>();
+
+      for (List<String> teiList in chunkedTeiList) {
+        String questionMarks = (teiList.isEmpty ? [''] : teiList)
+            .map((e) => '?')
+            .toList()
+            .join(',');
+        var dbClient = await db;
+        List<Map> maps = await dbClient!.query(table,
+            columns: [
+              enrollment,
+              enrollmentDate,
+              incidentDate,
+              program,
+              orgUnit,
+              status,
+              syncStatus,
+              trackedEntityInstance
+            ],
+            where:
+                "$trackedEntityInstance IN ($questionMarks) AND $program = ?",
+            orderBy: '$enrollmentDate DESC',
+            whereArgs: [...teiList, programId],
+            limit: page != null ? PaginationConstants.paginationLimit : null,
+            offset: page != null
+                ? page * PaginationConstants.paginationLimit
+                : null);
+        if (maps.isNotEmpty) {
+          for (Map map in maps) {
+            enrollments
+                .add(Enrollment.fromOffline(map as Map<String, dynamic>));
+          }
         }
       }
-    } catch (e) {}
+    } catch (e) {
+      print(e);
+    }
     return enrollments
       ..sort((b, a) => a.enrollmentDate!.compareTo(b.enrollmentDate!));
   }

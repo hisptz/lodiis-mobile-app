@@ -203,7 +203,7 @@ class _AgywDreamsEnrollmentEditFormState
         hiddenFields,
       );
       Provider.of<DreamsInterventionListState>(context, listen: false)
-          .refreshDreamsList();
+          .refreshAllDreamsLists();
       clearFormAutoSaveState(context);
       Timer(Duration(seconds: 1), () {
         if (Navigator.canPop(context)) {
