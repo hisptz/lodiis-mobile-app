@@ -26,10 +26,7 @@ class TrackedEntityInstanceUtil {
       formSections,
     );
     inputFieldIds.addAll(hiddenFields ?? []);
-
     inputFieldIds.removeWhere((field) => skippedFields!.indexOf(field) > -1);
-
-    // assign implementing partner and service provider
     if (eventId == null) {
       inputFieldIds.add(UserAccountReference.implementingPartnerDataElement);
       inputFieldIds.add(UserAccountReference.subImplementingPartnerDataElement);
@@ -51,7 +48,6 @@ class TrackedEntityInstanceUtil {
 
     eventId =
         eventId == null ? dataObject!['eventId'] ?? AppUtil.getUid() : eventId;
-    //clear unwanted object from the mapper : an object in clo question which signifies form to save
     Events eventData = FormUtil.getEventPayload(eventId, program, programStage,
         orgUnit, inputFieldIds, dataObject, eventDate, trackedEntityInstance);
     await FormUtil.savingEvent(eventData);

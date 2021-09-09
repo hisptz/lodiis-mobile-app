@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/app_state/current_user_state/current_user_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
+import 'package:kb_mobile_app/core/components/access_to_data_entry/access_to_data_entry_warning.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:provider/provider.dart';
 
@@ -10,23 +12,32 @@ class SubPageBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<InterventionCardState>(
-      builder: (context, interventionCardState, child) {
-        InterventionCard activeInterventionProgram =
-            interventionCardState.currentInterventionProgram;
-        return Stack(
-          fit: StackFit.expand,
-          children: [
-            Container(
-              decoration:
-                  BoxDecoration(color: activeInterventionProgram.background),
-            ),
-            SingleChildScrollView(
-              child: body,
-            )
-          ],
+    return Container(
+      child: Consumer<CurrentUserState>(
+          builder: (context, currentUserState, child) {
+        bool hasAccessToDataEntry = currentUserState.canCurrentUserDoDataEntry;
+        return Consumer<InterventionCardState>(
+          builder: (context, interventionCardState, child) {
+            InterventionCard activeInterventionProgram =
+                interventionCardState.currentInterventionProgram;
+            return !hasAccessToDataEntry
+                ? AccessToDataEntryWarning()
+                : Stack(
+                    fit: StackFit.expand,
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          color: activeInterventionProgram.background,
+                        ),
+                      ),
+                      SingleChildScrollView(
+                        child: body,
+                      )
+                    ],
+                  );
+          },
         );
-      },
+      }),
     );
   }
 }
