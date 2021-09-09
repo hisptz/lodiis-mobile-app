@@ -6,17 +6,15 @@ import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:provider/provider.dart';
 
-class OvcHouseholdMonitorListContainer extends StatelessWidget {
-  OvcHouseholdMonitorListContainer({
+class MonitoringHomeListContainer extends StatelessWidget {
+  const MonitoringHomeListContainer({
     Key? key,
     required this.programStageIds,
-    this.onViewHouseholdMonitor,
-    this.onEditHouseholdMonitor,
+    this.onViewCasePlan,
   }) : super(key: key);
 
   final List<String> programStageIds;
-  final Function? onViewHouseholdMonitor;
-  final Function? onEditHouseholdMonitor;
+  final Function? onViewCasePlan;
 
   @override
   Widget build(BuildContext context) {
@@ -29,22 +27,25 @@ class OvcHouseholdMonitorListContainer extends StatelessWidget {
         builder: (context, serviceEventDataState, child) {
           Map<String?, List<Events>> eventListByProgramStage =
               serviceEventDataState.eventListByProgramStage;
-          List<Events> eventList = TrackedEntityInstanceUtil
+          List<Events> events = TrackedEntityInstanceUtil
               .getAllEventListFromServiceDataStateByProgramStages(
                   eventListByProgramStage, programStageIds);
-          int monitorIndex = eventList.length;
-          return monitorIndex == 0
+          Map groupedEventByDates =
+              TrackedEntityInstanceUtil.getGroupedEventByDates(events);
+          int assessmentIndex = groupedEventByDates.keys.toList().length;
+          return assessmentIndex == 0
               ? Center(
-                  child: Text('There is no monitor details at moment'),
+                  child: Text('There is no case plan at moment'),
                 )
               : Container(
                   child: Column(
-                    children: eventList.map((Events monitor) {
-                      monitorIndex--;
+                    children:
+                        groupedEventByDates.keys.toList().map((assessmentDate) {
+                      assessmentIndex--;
                       return Container(
                         margin: EdgeInsets.symmetric(
                           vertical: 5.0,
-                          horizontal: 7.0,
+                          horizontal: 17.0,
                         ),
                         child: MaterialCard(
                           body: ClipRRect(
@@ -53,6 +54,13 @@ class OvcHouseholdMonitorListContainer extends StatelessWidget {
                               bottomLeft: Radius.circular(12.0),
                             ),
                             child: Container(
+                              decoration: BoxDecoration(
+                                  border: Border(
+                                left: BorderSide(
+                                  color: Color(0xFF4B9F46),
+                                  width: 9.0,
+                                ),
+                              )),
                               padding: EdgeInsets.symmetric(
                                   vertical: 10.0, horizontal: 20.0),
                               child: Column(
@@ -64,20 +72,19 @@ class OvcHouseholdMonitorListContainer extends StatelessWidget {
                                         child: Expanded(
                                           child: RichText(
                                             text: TextSpan(
-                                              text:
-                                                  'Visit ${monitorIndex + 1}   ',
+                                              text: '$assessmentDate   ',
                                               style: TextStyle().copyWith(
-                                                color: Color(0xFF1A3518),
-                                                fontSize: 14.0,
+                                                color: Color(0xFF92A791),
+                                                fontSize: 12.0,
                                                 fontWeight: FontWeight.w700,
                                               ),
                                               children: [
                                                 TextSpan(
                                                   text:
-                                                      '${monitor.eventDate}   ',
+                                                      'Services Monitoring (Case plan ${assessmentIndex + 1})',
                                                   style: TextStyle().copyWith(
-                                                    color: Color(0xFF92A791),
-                                                    fontSize: 12.0,
+                                                    color: Color(0xFF1A3518),
+                                                    fontSize: 14.0,
                                                     fontWeight: FontWeight.w700,
                                                   ),
                                                 )
@@ -91,8 +98,9 @@ class OvcHouseholdMonitorListContainer extends StatelessWidget {
                                           horizontal: 5.0,
                                         ),
                                         child: InkWell(
-                                            onTap: () =>
-                                                onViewHouseholdMonitor!(monitor),
+                                            onTap: () => onViewCasePlan!(
+                                                groupedEventByDates[
+                                                    assessmentDate]),
                                             child: Container(
                                               height: iconHeight,
                                               width: iconHeight,
@@ -100,24 +108,6 @@ class OvcHouseholdMonitorListContainer extends StatelessWidget {
                                                   vertical: 5, horizontal: 5),
                                               child: SvgPicture.asset(
                                                 'assets/icons/expand_icon.svg',
-                                                color: Color(0xFF4B9F46),
-                                              ),
-                                            )),
-                                      ),
-                                      Container(
-                                        margin: EdgeInsets.symmetric(
-                                          horizontal: 5.0,
-                                        ),
-                                        child: InkWell(
-                                            onTap: () =>
-                                                onEditHouseholdMonitor!(monitor),
-                                            child: Container(
-                                              height: iconHeight,
-                                              width: iconHeight,
-                                              margin: EdgeInsets.symmetric(
-                                                  vertical: 5, horizontal: 5),
-                                              child: SvgPicture.asset(
-                                                'assets/icons/edit-icon.svg',
                                                 color: Color(0xFF4B9F46),
                                               ),
                                             )),
