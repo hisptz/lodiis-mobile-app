@@ -112,16 +112,26 @@ class DreamsBeneficiaryCard extends StatelessWidget {
     );
   }
 
+  bool _syncStatusOfAgyw(AgywDream agywDream) {
+    //@TODO checking if has unsynced event
+    return agywDream.isSynced!;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(bottom: 16.0, right: 13.0, left: 13.0),
+      margin: EdgeInsets.only(
+        bottom: 16.0,
+        right: 13.0,
+        left: 13.0,
+      ),
       child: MaterialCard(
         body: Container(
           child: Column(
             children: [
               DreamsBeneficiaryCardHeader(
                 svgIcon: svgIcon,
+                isSynced: _syncStatusOfAgyw(agywDream),
                 beneficiaryName: beneficiaryName,
                 canEdit: canEdit,
                 canExpand: canExpand,
@@ -134,10 +144,11 @@ class DreamsBeneficiaryCard extends StatelessWidget {
               cardBody,
               cardButtonActions,
               Visibility(
-                  visible: isExpanded,
-                  child: Container(
-                    child: cardButtonContent,
-                  ))
+                visible: isExpanded,
+                child: Container(
+                  child: cardButtonContent,
+                ),
+              )
             ],
           ),
         ),
