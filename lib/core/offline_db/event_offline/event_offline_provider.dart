@@ -7,8 +7,6 @@ import 'package:sqflite/sqflite.dart';
 class EventOfflineProvider extends OfflineDbProvider {
   final String table = 'events';
 
-  // @TODO add support to get teis in case event has unsync status
-
   //columns
   final String id = 'id';
   final String event = 'event';
@@ -104,6 +102,35 @@ class EventOfflineProvider extends OfflineDbProvider {
       }
     } catch (e) {}
     return events..sort((b, a) => a.eventDate!.compareTo(b.eventDate!));
+  }
+
+  Future<List<String>> getTrackedEntityInstanceReferenceByEventSyncStatus({
+    String eventSyncStatus = "not-synced",
+  }) async {
+    List<String> references = [];
+    try {
+      var dbClient = await db;
+      List<Map> maps = await dbClient!.query(
+        table,
+        columns: [
+          id,
+          event,
+          eventDate,
+          program,
+          programStage,
+          trackedEntityInstance,
+          status,
+          orgUnit,
+          syncStatus,
+        ],
+        where: '$syncStatus = ?',
+        whereArgs: [eventSyncStatus],
+      );
+      if (maps.isNotEmpty) {
+        references.addAll(maps.map((Map map) => map[trackedEntityInstance]));
+      }
+    } catch (e) {}
+    return references.toSet().toList();
   }
 
   Future<List<Events>> getTrackedEntityInstanceEventsByStatus(
