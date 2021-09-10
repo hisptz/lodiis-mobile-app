@@ -85,8 +85,8 @@ class _AppLogsState extends State<AppLogsPage> {
                 tooltip: 'download',
                 child: Icon(Icons.download),
               ),
-              body: SubPageBody(
-                body: Consumer<AppLogsState>(
+              body: Container(
+                child: Consumer<AppLogsState>(
                   builder: (context, appLogsState, child) {
                     return Scaffold(
                       appBar: AppBar(

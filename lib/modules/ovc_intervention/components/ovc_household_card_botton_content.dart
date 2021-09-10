@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_household_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
+import 'package:kb_mobile_app/core/components/beneficiary_sync_status_indicator.dart';
 import 'package:kb_mobile_app/core/components/line_separator.dart';
 import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/utils/app_resume_routes/app_resume_route.dart';
@@ -183,6 +184,11 @@ class OvcHouseholdCardButtonContent extends StatelessWidget {
     );
   }
 
+  bool _getSyncStatusOfChild(OvcHouseholdChild child) {
+    //@TODO checking if has unsynced event
+    return child.isSynced!;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -241,6 +247,9 @@ class OvcHouseholdCardButtonContent extends StatelessWidget {
                       Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
+                          BeneficiarySyncStatusIndicator(
+                            isSynced: _getSyncStatusOfChild(child),
+                          ),
                           Visibility(
                             visible: canViewChildService ||
                                 canViewChildInfo ||

@@ -28,17 +28,20 @@ class Events {
     return 'event <$event> eventDate <$eventDate>';
   }
 
+  bool get isSynced => this.syncStatus == "synced";
+
   Events fromJson(dynamic json) {
     return Events(
-        event: json['event'],
-        eventDate: "${json['eventDate']}".split('T')[0],
-        program: json['program'],
-        programStage: json['programStage'],
-        trackedEntityInstance: json['trackedEntityInstance'] ?? '',
-        orgUnit: json['orgUnit'],
-        status: json['status'],
-        dataValues: json['dataValues'],
-        syncStatus: json['syncStatus'] ?? 'synced');
+      event: json['event'],
+      eventDate: "${json['eventDate']}".split('T')[0],
+      program: json['program'],
+      programStage: json['programStage'],
+      trackedEntityInstance: json['trackedEntityInstance'] ?? '',
+      orgUnit: json['orgUnit'],
+      status: json['status'],
+      dataValues: json['dataValues'],
+      syncStatus: json['syncStatus'] ?? 'synced',
+    );
   }
 
   String toJson(Events event) {

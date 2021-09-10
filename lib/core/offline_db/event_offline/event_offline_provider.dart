@@ -7,6 +7,8 @@ import 'package:sqflite/sqflite.dart';
 class EventOfflineProvider extends OfflineDbProvider {
   final String table = 'events';
 
+  // @TODO add support to get teis in case event has unsync status
+
   //columns
   final String id = 'id';
   final String event = 'event';
@@ -110,12 +112,9 @@ class EventOfflineProvider extends OfflineDbProvider {
     List<Events> events = [];
     try {
       var dbClient = await db;
-
       List<List<String?>> chunkedEventList =
           AppUtil.chunkItems(items: eventList, size: 50).cast<List<String?>>();
-      for (List<String?> eventListGroup in chunkedEventList) {
-        String questionMarks =
-            eventListGroup.map((e) => '?').toList().join(',');
+      if (chunkedEventList.isEmpty) {
         List<Map> maps = await dbClient!.query(
           table,
           columns: [
@@ -129,11 +128,8 @@ class EventOfflineProvider extends OfflineDbProvider {
             orgUnit,
             syncStatus,
           ],
-          where: eventList.isEmpty
-              ? '$syncStatus = ?'
-              : '$event IN ($questionMarks)',
-          whereArgs:
-              eventListGroup.isEmpty ? [eventSyncStatus] : [...eventListGroup],
+          where: '$syncStatus = ?',
+          whereArgs: [eventSyncStatus],
         );
         if (maps.isNotEmpty) {
           for (Map map in maps) {
@@ -142,6 +138,41 @@ class EventOfflineProvider extends OfflineDbProvider {
             Events eventData = Events.fromOffline(map as Map<String, dynamic>);
             eventData.dataValues = dataValues;
             events.add(eventData);
+          }
+        }
+      } else {
+        for (List<String?> eventListGroup in chunkedEventList) {
+          String questionMarks =
+              eventListGroup.map((e) => '?').toList().join(',');
+          List<Map> maps = await dbClient!.query(
+            table,
+            columns: [
+              id,
+              event,
+              eventDate,
+              program,
+              programStage,
+              trackedEntityInstance,
+              status,
+              orgUnit,
+              syncStatus,
+            ],
+            where: eventList.isEmpty
+                ? '$syncStatus = ?'
+                : '$event IN ($questionMarks)',
+            whereArgs: eventListGroup.isEmpty
+                ? [eventSyncStatus]
+                : [...eventListGroup],
+          );
+          if (maps.isNotEmpty) {
+            for (Map map in maps) {
+              List dataValues = await EventOfflineDataValueProvider()
+                  .getEventDataValuesByEventId(map['id']);
+              Events eventData =
+                  Events.fromOffline(map as Map<String, dynamic>);
+              eventData.dataValues = dataValues;
+              events.add(eventData);
+            }
           }
         }
       }
