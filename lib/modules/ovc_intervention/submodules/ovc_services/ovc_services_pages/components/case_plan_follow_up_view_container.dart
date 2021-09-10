@@ -73,8 +73,8 @@ class _CasePlanFollowUpViewContainerState
     super.initState();
     setState(() {
       programStage = widget.isCasePlanForHousehold
-          ? OvcHouseholdCasePlanConstant.casePlanGapFollowUpProgramStage
-          : OvcChildCasePlanConstant.casePlanGapFollowUpProgramStage;
+          ? OvcHouseholdCasePlanConstant.casePlanGapServiceProvisionProgramStage
+          : OvcChildCasePlanConstant.casePlanGapServiceProvisionProgramStage;
       casePlanGapToFollowUpLinkage =
           OvcCasePlanConstant.casePlanGapToFollowUpLinkage;
       isViewReady = true;

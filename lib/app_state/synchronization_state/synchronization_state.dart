@@ -195,13 +195,9 @@ class SynchronizationState with ChangeNotifier {
     updateStatusForAvailableDataFromServer(status: false);
   }
 
-  Future<void> startCheckingStatusOfUnsyncedData(
-      {bool isAutoUpload = false}) async {
-    // _dataDownloadProcess = _dataDownloadProcess ?? [];
-    // _dataUploadProcess = _dataUploadProcess ?? [];
-    // if (!isAutoUpload) {
-    //   updateUnsyncedDataCheckingStatus(true);
-    // }
+  Future<void> startCheckingStatusOfUnsyncedData({
+    bool isAutoUpload = false,
+  }) async {
     CurrentUser? user = await (UserService().getCurrentUser());
     _synchronizationService = SynchronizationService(
         user!.username, user.password, user.programs, user.userOrgUnitIds);
@@ -384,7 +380,6 @@ class SynchronizationState with ChangeNotifier {
               await _synchronizationService.uploadTeisToTheServer(
                   teiChunk as List<TrackedEntityInstance>, isAutoUpload);
           conflictOnTeisImport = conflictOnTeisImport || conflictOnImport;
-
           profileCount = profileCount + (batch / chunkedTeis.length);
           profileDataUploadProgress = profileCount / profileTotalCount;
           overallUploadProgress =

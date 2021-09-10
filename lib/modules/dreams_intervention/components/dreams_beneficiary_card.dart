@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
+import 'package:kb_mobile_app/app_state/synchronization_state/synchronization_status_state.dart';
 import 'package:kb_mobile_app/core/components/material_card.dart';
 import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/utils/app_resume_routes/app_resume_route.dart';
@@ -112,9 +113,12 @@ class DreamsBeneficiaryCard extends StatelessWidget {
     );
   }
 
-  bool _syncStatusOfAgyw(AgywDream agywDream) {
-    //@TODO checking if has unsynced event
-    return agywDream.isSynced!;
+  bool _syncStatusOfAgyw(
+    AgywDream agywDream,
+    List<String> unsyncedTeiReferences,
+  ) {
+    int teiIndex = unsyncedTeiReferences.indexOf(agywDream.id!);
+    return agywDream.isSynced! && teiIndex == -1;
   }
 
   @override
@@ -129,17 +133,25 @@ class DreamsBeneficiaryCard extends StatelessWidget {
         body: Container(
           child: Column(
             children: [
-              DreamsBeneficiaryCardHeader(
-                svgIcon: svgIcon,
-                isSynced: _syncStatusOfAgyw(agywDream),
-                beneficiaryName: beneficiaryName,
-                canEdit: canEdit,
-                canExpand: canExpand,
-                canView: canView,
-                isExpanded: isExpanded,
-                onToggleCard: onCardToggle,
-                onEdit: () => onEdit(context),
-                onView: () => onView(context),
+              Container(
+                child: Consumer<SynchronizationStatusState>(
+                    builder: (context, synchronizationStatusState, child) {
+                  List<String> unsyncedTeiReferences =
+                      synchronizationStatusState.unsyncedTeiReferences;
+                  return DreamsBeneficiaryCardHeader(
+                    svgIcon: svgIcon,
+                    isSynced:
+                        _syncStatusOfAgyw(agywDream, unsyncedTeiReferences),
+                    beneficiaryName: beneficiaryName,
+                    canEdit: canEdit,
+                    canExpand: canExpand,
+                    canView: canView,
+                    isExpanded: isExpanded,
+                    onToggleCard: onCardToggle,
+                    onEdit: () => onEdit(context),
+                    onView: () => onView(context),
+                  );
+                }),
               ),
               cardBody,
               cardButtonActions,

@@ -49,7 +49,6 @@ class _AppLogsState extends State<AppLogsPage> {
     await Provider.of<AppLogsState>(context, listen: false).clearLogs();
   }
 
-//@TODO refactor to using sub pages widget
   @override
   Widget build(BuildContext context) {
     return Container(

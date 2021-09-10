@@ -648,27 +648,13 @@ class SynchronizationService {
         json.encode(body),
         queryParameters: queryParameters,
       );
-      if (response.statusCode >= 400 && response.statusCode != 409) {
-        var message = await _getHttpResponseAppLogs(response.body);
-        if (message.isNotEmpty) {
-          AppLogs log = AppLogs(
-              type: AppLogsConstants.errorLogType,
-              message: 'uploadTeiRelationToTheServer: $message');
-          await AppLogsOfflineProvider().addLogs(log);
-        }
-        conflictOnImport = true;
-      }
-      var referenceIds = await _getReferenceIds(json.decode(response.body));
+      var referenceIds = await _getReferenceIds(
+        json.decode(response.body),
+        skipErrorLogs: true,
+      );
       syncedIds = referenceIds['syncedIds'];
       conflictOnImport = conflictOnImport || referenceIds['conflictOnImport'];
-    } catch (e) {
-      AppLogs log = AppLogs(
-          type: AppLogsConstants.errorLogType,
-          message: 'uploadTeiRelationToTheServer: ${e.toString()}');
-      await AppLogsOfflineProvider().addLogs(log);
-      throw e;
-    }
-
+    } catch (e) {}
     if (syncedIds!.length > 0) {
       for (TeiRelationship teiRelationship in teiRelationShips) {
         if (syncedIds.indexOf(teiRelationship.id) > -1) {
@@ -752,11 +738,13 @@ class SynchronizationService {
     return logMessage;
   }
 
-  Future<Map<String, dynamic>> _getReferenceIds(Map body) async {
+  Future<Map<String, dynamic>> _getReferenceIds(Map body,
+      {bool skipErrorLogs = false}) async {
     List<String?> syncedIds = [];
     List<String?> unsyncedDueToEnrollment = [];
     List<String?> unsyncedDueMissingBeneficiary = [];
     bool conflictOnImport = false;
+
     try {
       var bodyResponse = body['response'] ?? Map();
       var importSummaries = bodyResponse['importSummaries'] ?? [];
@@ -764,7 +752,7 @@ class SynchronizationService {
         if (importSummary['status'] == 'SUCCESS' &&
             importSummary['reference'] != null) {
           syncedIds.add(importSummary['reference']);
-        } else {
+        } else if (!skipErrorLogs) {
           if (importSummary['conflicts'] != null) {
             for (var conflict in importSummary['conflicts']) {
               AppLogs log = AppLogs(
