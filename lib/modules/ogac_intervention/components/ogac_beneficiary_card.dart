@@ -19,7 +19,7 @@ class OgacBeneficiaryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double iconHeight = 20;
+    double iconHeight = 20.0;
     return Container(
       margin: EdgeInsets.symmetric(
         vertical: 5.0,

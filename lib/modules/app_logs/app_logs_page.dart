@@ -49,7 +49,6 @@ class _AppLogsState extends State<AppLogsPage> {
     await Provider.of<AppLogsState>(context, listen: false).clearLogs();
   }
 
-//@TODO refactor to using sub pages widget
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -85,8 +84,8 @@ class _AppLogsState extends State<AppLogsPage> {
                 tooltip: 'download',
                 child: Icon(Icons.download),
               ),
-              body: SubPageBody(
-                body: Consumer<AppLogsState>(
+              body: Container(
+                child: Consumer<AppLogsState>(
                   builder: (context, appLogsState, child) {
                     return Scaffold(
                       appBar: AppBar(

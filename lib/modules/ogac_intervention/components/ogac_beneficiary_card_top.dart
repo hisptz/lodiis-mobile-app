@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:kb_mobile_app/core/components/beneficiary_sync_status_indicator.dart';
 import 'package:kb_mobile_app/models/ogac_beneficiary.dart';
 
 class OgacBeneficiaryCardTop extends StatelessWidget {
@@ -34,6 +35,10 @@ class OgacBeneficiaryCardTop extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
+          ),
+          BeneficiarySyncStatusIndicator(
+            iconHeight: iconHeight,
+            isSynced: ogacBeneficiary.isSynced!,
           ),
           Container(
             child: InkWell(

@@ -23,7 +23,6 @@ mixin OvcCasePlanGapSkipLogic {
       evaluateAgeSkipLogics(inputFieldIds, currentHouseholdChild);
     }
 
-//@TODO Skip logics for extenal person on OVCs
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
       if (inputFieldId == 'XoSPWmpWXCy' && value != 'true') {

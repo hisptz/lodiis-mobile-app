@@ -1,12 +1,16 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:kb_mobile_app/app_state/synchronization_state/synchronization_status_state.dart';
 import 'package:kb_mobile_app/core/constants/pagination.dart';
 import 'package:kb_mobile_app/core/services/pagination_service.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/services/agyw_dreams_enrollment_service.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/services/none_agyw_dreams_enrollment_service.dart';
+import 'package:provider/provider.dart';
 
 class DreamsInterventionListState with ChangeNotifier {
+  final BuildContext? context;
   // initial state
   List<AgywDream> _agywDreamsInterventionList = <AgywDream>[];
   List<AgywDream> _agywDreamsIncomingReferralList = <AgywDream>[];
@@ -31,6 +35,8 @@ class DreamsInterventionListState with ChangeNotifier {
   PagingController? _agywIncomingReferralPagingController;
 
   PagingController? _nonAgywPagingController;
+
+  DreamsInterventionListState(this.context);
 
   bool get isLoading => _isLoading != null ? _isLoading : false;
 
@@ -231,6 +237,8 @@ class DreamsInterventionListState with ChangeNotifier {
     _nonAgywPagingController!.refresh();
     _agywIncomingReferralPagingController!.refresh();
     notifyListeners();
+    Provider.of<SynchronizationStatusState>(context!, listen: false)
+        .resetSyncStatusReferences();
   }
 
   void refreshAgywDreamsList() async {
