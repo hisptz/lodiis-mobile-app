@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 class BeneficiarySyncStatusIndicator extends StatelessWidget {
   const BeneficiarySyncStatusIndicator({
     Key? key,
-    required this.iconHeight,
+    this.iconHeight = 20.0,
     required this.isSynced,
     this.onTap,
   }) : super(key: key);

@@ -461,9 +461,7 @@ class SynchronizationState with ChangeNotifier {
             (profileDataUploadProgress + eventsDataUploadProgress) / 2;
         notifyListeners();
       }
-
       var teiEvents = await _synchronizationService.getTeiEventsFromOfflineDb();
-
       if (teiEvents.length > 0) {
         List<List<dynamic>> chunkedTeiEvents =
             AppUtil.chunkItems(items: teiEvents, size: dataUploadBatchSize * 2);
@@ -477,7 +475,6 @@ class SynchronizationState with ChangeNotifier {
               await _synchronizationService.uploadTeiEventsToTheServer(
                   teiEventsChunk as List<Events>, isAutoUpload);
           conflictOnEventsImport = conflictOnEventsImport || conflictOnImport;
-
           eventsCount = eventsCount + (batch / chunkedTeiEvents.length);
           eventsDataUploadProgress = eventsCount / eventsTotalCount;
           overallUploadProgress =
