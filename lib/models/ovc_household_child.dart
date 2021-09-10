@@ -13,6 +13,7 @@ class OvcHouseholdChild {
   String? orgUnit;
   String? createdDate;
   String? hivStatus;
+  bool? isSynced;
   TrackedEntityInstance? teiData;
 
   OvcHouseholdChild({
@@ -27,6 +28,7 @@ class OvcHouseholdChild {
     this.orgUnit,
     this.createdDate,
     this.hivStatus,
+    this.isSynced,
     this.teiData,
   });
 
@@ -62,6 +64,7 @@ class OvcHouseholdChild {
         primaryUIC: data[BeneficiaryIdentification.primaryUIC] ?? '',
         secondaryUIC: data[BeneficiaryIdentification.secondaryUIC] ?? '',
         createdDate: createdDate,
+        isSynced: tei.syncStatus == "synced",
         hivStatus: data['wmKqYZML8GA'] != null
             ? data['wmKqYZML8GA'] == 'true'
                 ? 'Positive'
