@@ -17,7 +17,10 @@ class AgywDreamsNoneParticipationService {
           .getNoneParticipationConstant();
 
   Future saveNoneParticipationForm(
-      List<FormSection> formSections, Map dataObject, String eventId) async {
+    List<FormSection> formSections,
+    Map dataObject,
+    String eventId,
+  ) async {
     List<String> inputFieldIds = FormUtil.getFormFieldIds(
       formSections,
     );
@@ -32,8 +35,6 @@ class AgywDreamsNoneParticipationService {
       }
     }
 
-    // TODO Add service provider
-    // assign implementing partner
     if (eventId == null) {
       inputFieldIds.add(UserAccountReference.implementingPartnerDataElement);
       inputFieldIds.add(UserAccountReference.subImplementingPartnerDataElement);
