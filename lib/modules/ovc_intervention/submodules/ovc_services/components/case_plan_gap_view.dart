@@ -15,9 +15,9 @@ import 'package:kb_mobile_app/models/ovc_household_child.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_child_case_plan_gap.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_household_case_plan_gaps.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_case_plan/constants/ovc_child_case_plan_constant.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/components/case_plan_follow_up_container.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/components/case_plan_gap_form_container.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/constants/ovc_case_plan_constant.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/components/case_plan_follow_up_container.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/components/case_plan_gap_form_container.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/constants/ovc_case_plan_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/household_case_plan/constants/ovc_household_case_plan_constant.dart';
 import 'package:provider/provider.dart';
 
@@ -276,19 +276,19 @@ class _CasePlanGapViewState extends State<CasePlanGapView> {
                                   ],
                                 )))
                             .toList()
-                              ..add(Container(
-                                child: CasePlanGapFollowUpContainer(
-                                  domainId: widget.domainId,
-                                  formSectionColor: widget.formSectionColor,
-                                  isCasePlanForHousehold:
-                                      widget.isCasePlanForHousehold,
-                                  casePlanGap: widget.casePlanGap,
-                                  shouldEditCaseGapFollowUps:
-                                      widget.shouldEditCaseGapFollowUps,
-                                  shouldViewCaseGapFollowUp:
-                                      widget.shouldViewCaseGapFollowUp,
-                                ),
-                              )),
+                          ..add(Container(
+                            child: CasePlanGapFollowUpContainer(
+                              domainId: widget.domainId,
+                              formSectionColor: widget.formSectionColor,
+                              isCasePlanForHousehold:
+                                  widget.isCasePlanForHousehold,
+                              casePlanGap: widget.casePlanGap,
+                              shouldEditCaseGapFollowUps:
+                                  widget.shouldEditCaseGapFollowUps,
+                              shouldViewCaseGapFollowUp:
+                                  widget.shouldViewCaseGapFollowUp,
+                            ),
+                          )),
                       ),
                     ),
                   )
