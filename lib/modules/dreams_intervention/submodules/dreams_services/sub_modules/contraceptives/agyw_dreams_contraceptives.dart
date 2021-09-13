@@ -61,11 +61,12 @@ class _AgywDreamContraceptivesState extends State<AgywDreamContraceptives> {
     }
   }
 
-  void onAddPrep(BuildContext context, AgywDream agywDream) async {
+  void onAddContraceptives(BuildContext context, AgywDream agywDream) async {
     updateFormState(context, true, null);
     String? beneficiaryId = agywDream.id;
+    String eventId = '';
     String formAutoSaveId =
-        "${DreamsRoutesConstant.agywDreamsContraceptivesPage}_$beneficiaryId";
+        "${DreamsRoutesConstant.agywDreamsContraceptivesPage}_${beneficiaryId}_$eventId";
     FormAutoSave formAutoSave =
         await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
     bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
@@ -83,7 +84,7 @@ class _AgywDreamContraceptivesState extends State<AgywDreamContraceptives> {
     }
   }
 
-  void onViewPrep(BuildContext context, Events eventData) {
+  void onViewContraceptives(BuildContext context, Events eventData) {
     updateFormState(context, false, eventData);
     Navigator.push(
         context,
@@ -91,12 +92,26 @@ class _AgywDreamContraceptivesState extends State<AgywDreamContraceptives> {
             builder: (context) => AgywDreamsContraceptivesForm()));
   }
 
-  void onEditPrep(BuildContext context, Events eventData) {
+  void onEditContraceptives(
+      BuildContext context, Events eventData, AgywDream agywDream) async {
     updateFormState(context, true, eventData);
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => AgywDreamsContraceptivesForm()));
+    String? beneficiaryId = agywDream.id;
+    String eventId = eventData.event!;
+    String formAutoSaveId =
+        "${DreamsRoutesConstant.agywDreamsContraceptivesPage}_${beneficiaryId}_$eventId";
+    FormAutoSave formAutoSave =
+        await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
+    bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
+        .shouldResumeWithUnSavedChanges(context, formAutoSave);
+
+    if (shouldResumeWithUnSavedChanges) {
+      AppResumeRoute().redirectToPages(context, formAutoSave);
+    } else {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => AgywDreamsContraceptivesForm()));
+    }
   }
 
   @override
@@ -168,10 +183,13 @@ class _AgywDreamContraceptivesState extends State<AgywDreamContraceptives> {
                                                           DreamsServiceVisitCard(
                                                         visitName: "Visit",
                                                         onEdit: () =>
-                                                            onEditPrep(context,
-                                                                eventData),
+                                                            onEditContraceptives(
+                                                                context,
+                                                                eventData,
+                                                                agywDream!),
                                                         onView: () =>
-                                                            onViewPrep(context,
+                                                            onViewContraceptives(
+                                                                context,
                                                                 eventData),
                                                         eventData: eventData,
                                                         visitCount:
@@ -188,7 +206,8 @@ class _AgywDreamContraceptivesState extends State<AgywDreamContraceptives> {
                                           buttonColor: Color(0xFF1F8ECE),
                                           fontSize: 15.0,
                                           onPressButton: () =>
-                                              onAddPrep(context, agywDream!))
+                                              onAddContraceptives(
+                                                  context, agywDream!))
                                     ],
                                   ),
                           ),

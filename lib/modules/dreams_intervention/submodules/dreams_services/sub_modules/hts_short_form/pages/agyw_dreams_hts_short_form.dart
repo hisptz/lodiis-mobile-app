@@ -104,7 +104,7 @@ class _AgywDreamsHTSShortFormState extends State<AgywDreamsHTSShortForm> {
                 : 'Form has been saved successfully',
             position: ToastGravity.TOP,
           );
-          clearFormAutoSaveState(context, agywDream.id);
+          clearFormAutoSaveState(context, agywDream.id, eventId ?? '');
           Navigator.popUntil(context, (route) => route.isFirst);
         });
       });
@@ -135,9 +135,9 @@ class _AgywDreamsHTSShortFormState extends State<AgywDreamsHTSShortForm> {
   }
 
   void clearFormAutoSaveState(
-      BuildContext context, String? beneficiaryId) async {
+      BuildContext context, String? beneficiaryId, String eventId) async {
     String formAutoSaveId =
-        "${DreamsRoutesConstant.agywDreamsHTSShortFormPage}_$beneficiaryId";
+        "${DreamsRoutesConstant.agywDreamsHTSShortFormPage}_${beneficiaryId}_$eventId";
     await FormAutoSaveOfflineService().deleteSavedFormAutoData(formAutoSaveId);
   }
 

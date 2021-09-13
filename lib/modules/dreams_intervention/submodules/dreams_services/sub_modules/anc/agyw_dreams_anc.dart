@@ -59,11 +59,12 @@ class _AgywDreamsANCState extends State<AgywDreamsANC> {
     }
   }
 
-  void onAddPrep(BuildContext context, AgywDream agywDream) async {
+  void onAddANC(BuildContext context, AgywDream agywDream) async {
     updateFormState(context, true, null);
     String? beneficiaryId = agywDream.id;
+    String eventId = '';
     String formAutoSaveId =
-        "${DreamsRoutesConstant.agywDreamsANCFormPage}_$beneficiaryId";
+        "${DreamsRoutesConstant.agywDreamsANCFormPage}_${beneficiaryId}_$eventId";
     FormAutoSave formAutoSave =
         await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
     bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
@@ -79,16 +80,30 @@ class _AgywDreamsANCState extends State<AgywDreamsANC> {
     }
   }
 
-  void onViewPrep(BuildContext context, Events eventData) {
+  void onViewANC(BuildContext context, Events eventData) {
     updateFormState(context, false, eventData);
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => AgywDreamsANCForm()));
   }
 
-  void onEditPrep(BuildContext context, Events eventData) {
+  void onEditANC(
+      BuildContext context, Events eventData, AgywDream agywDream) async {
     updateFormState(context, true, eventData);
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => AgywDreamsANCForm()));
+    String? beneficiaryId = agywDream.id;
+    String eventId = eventData.event!;
+    String formAutoSaveId =
+        "${DreamsRoutesConstant.agywDreamsANCFormPage}_${beneficiaryId}_$eventId";
+    FormAutoSave formAutoSave =
+        await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
+    bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
+        .shouldResumeWithUnSavedChanges(context, formAutoSave);
+
+    if (shouldResumeWithUnSavedChanges) {
+      AppResumeRoute().redirectToPages(context, formAutoSave);
+    } else {
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => AgywDreamsANCForm()));
+    }
   }
 
   @override
@@ -159,12 +174,12 @@ class _AgywDreamsANCState extends State<AgywDreamsANC> {
                                                       child:
                                                           DreamsServiceVisitCard(
                                                         visitName: "ANC VISIT ",
-                                                        onEdit: () =>
-                                                            onEditPrep(context,
-                                                                eventData),
-                                                        onView: () =>
-                                                            onViewPrep(context,
-                                                                eventData),
+                                                        onEdit: () => onEditANC(
+                                                            context,
+                                                            eventData,
+                                                            agywDream!),
+                                                        onView: () => onViewANC(
+                                                            context, eventData),
                                                         eventData: eventData,
                                                         visitCount:
                                                             referralIndex,
@@ -180,7 +195,7 @@ class _AgywDreamsANCState extends State<AgywDreamsANC> {
                                           buttonColor: Color(0xFF1F8ECE),
                                           fontSize: 15.0,
                                           onPressButton: () =>
-                                              onAddPrep(context, agywDream!))
+                                              onAddANC(context, agywDream!))
                                     ],
                                   ),
                           ),

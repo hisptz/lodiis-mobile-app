@@ -109,7 +109,7 @@ class _AgywDreamsARTRefillFormState extends State<AgywDreamsARTRefillForm> {
                   : 'Form has been saved successfully',
               position: ToastGravity.TOP,
             );
-            clearFormAutoSaveState(context, agywDream.id);
+            clearFormAutoSaveState(context, agywDream.id, eventId ?? '');
             Navigator.pop(context);
           });
         });
@@ -129,9 +129,9 @@ class _AgywDreamsARTRefillFormState extends State<AgywDreamsARTRefillForm> {
   }
 
   void clearFormAutoSaveState(
-      BuildContext context, String? beneficiaryId) async {
+      BuildContext context, String? beneficiaryId, String eventId) async {
     String formAutoSaveId =
-        "${DreamsRoutesConstant.agywDreamsArtRefillPage}_$beneficiaryId";
+        "${DreamsRoutesConstant.agywDreamsArtRefillPage}_${beneficiaryId}_$eventId";
     await FormAutoSaveOfflineService().deleteSavedFormAutoData(formAutoSaveId);
   }
 
@@ -146,8 +146,9 @@ class _AgywDreamsARTRefillFormState extends State<AgywDreamsARTRefillForm> {
     String? beneficiaryId = agyw.id;
     Map dataObject =
         Provider.of<ServiceFormState>(context, listen: false).formState;
+    String eventId = dataObject['eventId'] ?? '';
     String id =
-        "${DreamsRoutesConstant.agywDreamsArtRefillPage}_$beneficiaryId";
+        "${DreamsRoutesConstant.agywDreamsArtRefillPage}_${beneficiaryId}_$eventId";
     FormAutoSave formAutoSave = FormAutoSave(
       id: id,
       beneficiaryId: beneficiaryId,
@@ -182,7 +183,8 @@ class _AgywDreamsARTRefillFormState extends State<AgywDreamsARTRefillForm> {
         body: Container(
           child: Consumer<LanguageTranslationState>(
             builder: (context, languageTranslationState, child) {
-              String? currentLanguage = languageTranslationState.currentLanguage;
+              String? currentLanguage =
+                  languageTranslationState.currentLanguage;
               return Consumer<DreamsBeneficiarySelectionState>(
                 builder: (context, nonAgywState, child) {
                   AgywDream? agywDream = nonAgywState.currentAgywDream;

@@ -87,7 +87,8 @@ class _AgywDreamsPrepState extends State<AgywDreamsPrep> {
         MaterialPageRoute(builder: (context) => AgywDreamsPrepFormPage()));
   }
 
-  void onEditPrep(BuildContext context, Events eventData) {
+  void onEditPrep(
+      BuildContext context, Events eventData, AgywDream agywDream) async {
     updateFormState(context, true, eventData);
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => AgywDreamsPrepFormPage()));
@@ -100,8 +101,9 @@ class _AgywDreamsPrepState extends State<AgywDreamsPrep> {
     if (int.parse(agywDream.age!) >= 15 && int.parse(agywDream.age!) <= 24) {
       if (int.parse(agywDream.age!) >= 15 && int.parse(agywDream.age!) < 25) {
         String? beneficiaryId = agywDream.id;
+        String? eventId = '';
         String formAutoSaveId =
-            "${DreamsRoutesConstant.agywDreamsPrepVisitFormPage}_$beneficiaryId";
+            "${DreamsRoutesConstant.agywDreamsPrepVisitFormPage}_${beneficiaryId}_$eventId";
         FormAutoSave formAutoSave = await FormAutoSaveOfflineService()
             .getSavedFormAutoData(formAutoSaveId);
         bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
@@ -127,10 +129,23 @@ class _AgywDreamsPrepState extends State<AgywDreamsPrep> {
         context, MaterialPageRoute(builder: (context) => AgywPrepVisitForm()));
   }
 
-  void onEditVisit(BuildContext context, Events eventData) {
+  void onEditVisit(
+      BuildContext context, Events eventData, AgywDream agywDream) async {
     updateFormState(context, true, eventData);
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => AgywPrepVisitForm()));
+    String? beneficiaryId = agywDream.id;
+    String? eventId = eventData.event;
+    String formAutoSaveId =
+        "${DreamsRoutesConstant.agywDreamsPrepVisitFormPage}_${beneficiaryId}_$eventId";
+    FormAutoSave formAutoSave =
+        await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
+    bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
+        .shouldResumeWithUnSavedChanges(context, formAutoSave);
+    if (shouldResumeWithUnSavedChanges) {
+      AppResumeRoute().redirectToPages(context, formAutoSave);
+    } else {
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => AgywPrepVisitForm()));
+    }
   }
 
   List getStoppedPrepEvent(List<Events> events) {
@@ -246,18 +261,18 @@ class _AgywDreamsPrepState extends State<AgywDreamsPrep> {
                                                         visitName:
                                                             "PrEP Screening",
                                                         onEdit: () =>
-                                                            onEditPrep(context,
-                                                                eventData),
+                                                            onEditPrep(
+                                                                context,
+                                                                eventData,
+                                                                agywDream!),
                                                         onView: () =>
                                                             onViewPrep(context,
                                                                 eventData),
                                                         eventData: eventData,
-                                                        editDisabled: visits !=
-                                                                    null &&
-                                                                visits.length >
-                                                                    0
-                                                            ? true
-                                                            : false,
+                                                        editDisabled:
+                                                            visits.length > 0
+                                                                ? true
+                                                                : false,
                                                       ),
                                                     );
                                                   }).toList(),
@@ -308,10 +323,10 @@ class _AgywDreamsPrepState extends State<AgywDreamsPrep> {
                                                                     DreamsServiceVisitCard(
                                                                   visitName:
                                                                       "PrEP Visit",
-                                                                  onEdit: () =>
-                                                                      onEditVisit(
-                                                                          context,
-                                                                          eventData),
+                                                                  onEdit: () => onEditVisit(
+                                                                      context,
+                                                                      eventData,
+                                                                      agywDream!),
                                                                   onView: () =>
                                                                       onViewVisit(
                                                                           context,
