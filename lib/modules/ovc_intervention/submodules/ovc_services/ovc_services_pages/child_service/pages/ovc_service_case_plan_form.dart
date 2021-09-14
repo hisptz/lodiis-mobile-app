@@ -22,12 +22,12 @@ import 'package:provider/provider.dart';
 class OcvServiceCasePlanForm extends StatefulWidget {
   const OcvServiceCasePlanForm({
     Key? key,
-    this.shouldEditCaseGapFollowUps = false,
-    this.shouldViewCaseGapFollowUp = false,
+    this.shouldEditCaseGapServiceProvision = false,
+    this.shoulViewCaseGapServiceProvision = false,
   }) : super(key: key);
 
-  final bool shouldEditCaseGapFollowUps;
-  final bool shouldViewCaseGapFollowUp;
+  final bool shouldEditCaseGapServiceProvision;
+  final bool shoulViewCaseGapServiceProvision;
 
   @override
   _OcvServiceCasePlanFormState createState() => _OcvServiceCasePlanFormState();
@@ -189,10 +189,12 @@ class _OcvServiceCasePlanFormState extends State<OcvServiceCasePlanForm> {
                                                 formSection.id == 'Schooled')
                                             ? Container()
                                             : ServiceFormContainer(
-                                                shouldEditCaseGapFollowUps: widget
-                                                    .shouldEditCaseGapFollowUps,
-                                                shouldViewCaseGapFollowUp: widget
-                                                    .shouldViewCaseGapFollowUp,
+                                                shouldEditCaseGapServiceProvision:
+                                                    widget
+                                                        .shouldEditCaseGapServiceProvision,
+                                                shoulViewCaseGapServiceProvision:
+                                                    widget
+                                                        .shoulViewCaseGapServiceProvision,
                                                 formSectionColor: borderColors[
                                                     formSection.id],
                                                 formSection: formSection,

@@ -19,8 +19,8 @@ class CasePlanFormContainer extends StatelessWidget {
       required this.dataObject,
       this.isCasePlanForHousehold = false,
       this.onInputValueChange,
-      required this.shouldEditCaseGapFollowUps,
-      required this.shouldViewCaseGapFollowUp,
+      required this.shouldEditCaseGapServiceProvision,
+      required this.shoulViewCaseGapServiceProvision,
       required this.shouldAddCasePlanGap,
       this.currentHouseholdChild})
       : super(key: key);
@@ -31,9 +31,9 @@ class CasePlanFormContainer extends StatelessWidget {
   final Map? dataObject;
   final Function? onInputValueChange;
   final bool isCasePlanForHousehold;
-  final bool shouldEditCaseGapFollowUps;
+  final bool shouldEditCaseGapServiceProvision;
   final bool shouldAddCasePlanGap;
-  final bool shouldViewCaseGapFollowUp;
+  final bool shoulViewCaseGapServiceProvision;
   final OvcHouseholdChild? currentHouseholdChild;
 
   final String caseToGapLinkage = OvcCasePlanConstant.casePlanToGapLinkage;
@@ -111,8 +111,10 @@ class CasePlanFormContainer extends StatelessWidget {
                   domainId: formSection.id,
                   isCasePlanForHousehold: isCasePlanForHousehold,
                   formSectionColor: formSectionColor,
-                  shouldEditCaseGapFollowUps: shouldEditCaseGapFollowUps,
-                  shouldViewCaseGapFollowUp: shouldViewCaseGapFollowUp,
+                  shouldEditCaseGapServiceProvision:
+                      shouldEditCaseGapServiceProvision,
+                  shoulViewCaseGapServiceProvision:
+                      shoulViewCaseGapServiceProvision,
                 ),
                 Visibility(
                   visible: (isEditableMode || shouldAddCasePlanGap),

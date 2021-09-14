@@ -28,13 +28,13 @@ import 'package:provider/provider.dart';
 class OvcHouseholdCasePlanForm extends StatefulWidget {
   OvcHouseholdCasePlanForm({
     Key? key,
-    this.shouldEditCaseGapFollowUps = false,
-    this.shouldViewCaseGapFollowUp = false,
+    this.shouldEditCaseGapServiceProvision = false,
+    this.shoulViewCaseGapServiceProvision = false,
     this.shouldAddCasePlanGap = false,
   }) : super(key: key);
 
-  final bool shouldEditCaseGapFollowUps;
-  final bool shouldViewCaseGapFollowUp;
+  final bool shouldEditCaseGapServiceProvision;
+  final bool shoulViewCaseGapServiceProvision;
   final bool shouldAddCasePlanGap;
 
   @override
@@ -232,10 +232,12 @@ class _OvcHouseholdCasePlanFormState extends State<OvcHouseholdCasePlanForm> {
                                                   CasePlanFormContainer(
                                                 shouldAddCasePlanGap:
                                                     widget.shouldAddCasePlanGap,
-                                                shouldEditCaseGapFollowUps: widget
-                                                    .shouldEditCaseGapFollowUps,
-                                                shouldViewCaseGapFollowUp: widget
-                                                    .shouldViewCaseGapFollowUp,
+                                                shouldEditCaseGapServiceProvision:
+                                                    widget
+                                                        .shouldEditCaseGapServiceProvision,
+                                                shoulViewCaseGapServiceProvision:
+                                                    widget
+                                                        .shoulViewCaseGapServiceProvision,
                                                 formSectionColor: borderColors[
                                                     formSection.id],
                                                 formSection: formSection,

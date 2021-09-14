@@ -92,8 +92,8 @@ class OvcHouseholdService extends StatelessWidget {
       context,
       MaterialPageRoute(
         builder: (context) => HouseholdServiceForm(
-          shouldViewCaseGapFollowUp: true,
-          shouldEditCaseGapFollowUps: true,
+          shoulViewCaseGapServiceProvision: true,
+          shouldEditCaseGapServiceProvision: true,
         ),
       ),
     );

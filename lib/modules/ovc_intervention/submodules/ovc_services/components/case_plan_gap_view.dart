@@ -15,7 +15,7 @@ import 'package:kb_mobile_app/models/ovc_household_child.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_child_case_plan_gap.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_household_case_plan_gaps.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_case_plan/constants/ovc_child_case_plan_constant.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/components/case_plan_follow_up_container.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/components/case_plan_gap_service_provision_container.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/components/case_plan_gap_form_container.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/constants/ovc_case_plan_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/household_case_plan/constants/ovc_household_case_plan_constant.dart';
@@ -28,8 +28,8 @@ class CasePlanGapView extends StatefulWidget {
     required this.isCasePlanForHousehold,
     required this.domainId,
     required this.gapIndex,
-    required this.shouldEditCaseGapFollowUps,
-    required this.shouldViewCaseGapFollowUp,
+    required this.shouldEditCaseGapServiceProvision,
+    required this.shoulViewCaseGapServiceProvision,
     required this.formSectionColor,
   }) : super(key: key);
   final Map casePlanGap;
@@ -37,8 +37,8 @@ class CasePlanGapView extends StatefulWidget {
   final String? domainId;
   final int gapIndex;
   final bool isCasePlanForHousehold;
-  final bool shouldEditCaseGapFollowUps;
-  final bool shouldViewCaseGapFollowUp;
+  final bool shouldEditCaseGapServiceProvision;
+  final bool shoulViewCaseGapServiceProvision;
 
   @override
   _CasePlanGapViewState createState() => _CasePlanGapViewState();
@@ -108,7 +108,7 @@ class _CasePlanGapViewState extends State<CasePlanGapView> {
     Widget modal = CasePlanGapFormContainer(
       formSections: formSections,
       isCasePlanForHousehold: widget.isCasePlanForHousehold,
-      isEditableMode: widget.shouldEditCaseGapFollowUps,
+      isEditableMode: widget.shouldEditCaseGapServiceProvision,
       formSectionColor: widget.formSectionColor,
       dataObject: widget.casePlanGap,
     );
@@ -185,7 +185,7 @@ class _CasePlanGapViewState extends State<CasePlanGapView> {
                   ),
                   Container(
                     child: Visibility(
-                      visible: false, //widget.shouldEditCaseGapFollowUps,
+                      visible: false,
                       child: Consumer<OvcHouseholdCurrentSelectionState>(
                         builder: (
                           context,
@@ -277,16 +277,16 @@ class _CasePlanGapViewState extends State<CasePlanGapView> {
                                 )))
                             .toList()
                           ..add(Container(
-                            child: CasePlanGapFollowUpContainer(
+                            child: CasePlanGapServiceProvisionContainer(
                               domainId: widget.domainId,
                               formSectionColor: widget.formSectionColor,
                               isCasePlanForHousehold:
                                   widget.isCasePlanForHousehold,
                               casePlanGap: widget.casePlanGap,
-                              shouldEditCaseGapFollowUps:
-                                  widget.shouldEditCaseGapFollowUps,
-                              shouldViewCaseGapFollowUp:
-                                  widget.shouldViewCaseGapFollowUp,
+                              shouldEditCaseGapServiceProvision:
+                                  widget.shouldEditCaseGapServiceProvision,
+                              shoulViewCaseGapServiceProvision:
+                                  widget.shoulViewCaseGapServiceProvision,
                             ),
                           )),
                       ),

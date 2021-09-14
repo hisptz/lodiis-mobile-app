@@ -13,38 +13,39 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/c
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/household_case_plan/constants/ovc_household_case_plan_constant.dart';
 import 'package:provider/provider.dart';
 
-class CasePlanFollowUpViewContainer extends StatefulWidget {
-  const CasePlanFollowUpViewContainer({
+class CasePlanGapServiceViewContainer extends StatefulWidget {
+  const CasePlanGapServiceViewContainer({
     Key? key,
-    required this.casePlanGapToFollowUpLinkageValue,
-    required this.shouldEditCaseGapFollowUps,
+    required this.casePlanGapToServiceProvisionLinkageValue,
+    required this.shouldEditCaseGapServiceProvision,
     required this.isCasePlanForHousehold,
     required this.themeColor,
     required this.domainId,
     required this.casePlanGap,
   }) : super(key: key);
 
-  final String? casePlanGapToFollowUpLinkageValue;
-  final bool shouldEditCaseGapFollowUps;
+  final String? casePlanGapToServiceProvisionLinkageValue;
+  final bool shouldEditCaseGapServiceProvision;
   final bool isCasePlanForHousehold;
   final String? domainId;
   final Color? themeColor;
   final Map casePlanGap;
 
   @override
-  _CasePlanFollowUpViewContainerState createState() =>
-      _CasePlanFollowUpViewContainerState();
+  _CasePlanGapServiceViewContainerState createState() =>
+      _CasePlanGapServiceViewContainerState();
 }
 
-class _CasePlanFollowUpViewContainerState
-    extends State<CasePlanFollowUpViewContainer> {
+class _CasePlanGapServiceViewContainerState
+    extends State<CasePlanGapServiceViewContainer> {
   String? programStage;
   String casePlanGapToFollowUpLinkage =
       OvcCasePlanConstant.casePlanGapToFollowUpLinkage;
   bool isViewReady = false;
   double iconHeight = 15.0;
 
-  void onEditCasePlanFollowUp(
+  //@TODO make sure previous events arevin state
+  void onEditCasePlanServiceProvision(
     BuildContext context,
     CasePlanGapServiceProvision casePlanGapServiceProvision,
   ) async {
@@ -59,13 +60,93 @@ class _CasePlanFollowUpViewContainerState
     casePlanGap.remove('eventDate');
     casePlanGap.remove('eventId');
     dataObject.addAll(casePlanGap);
-    Widget modal = CasePlanServiceProvisionFormContainer(
+    Widget modal = CasePlanServiceProvisionFormModalContainer(
       dataObject: dataObject,
       domainId: widget.domainId,
       isCasePlanForHousehold: widget.isCasePlanForHousehold,
       isEditableMode: true,
     );
     await AppUtil.showPopUpModal(context, modal, true);
+  }
+
+  Expanded _getTableViewWidget(String? currentLanguage,
+      CasePlanGapServiceProvision casePlanGapServiceProvision) {
+    return Expanded(
+      child: Table(
+        children: [
+          TableRow(
+            children: [
+              TableCell(
+                child: Text(
+                  currentLanguage == 'lesotho' ? 'Letsatsi' : 'Date',
+                  style: TextStyle().copyWith(
+                    color: Color(
+                      0xFF8A9589,
+                    ),
+                    fontSize: 12.0,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+              TableCell(
+                child: Text(
+                  'Service provided',
+                  style: TextStyle().copyWith(
+                    color: Color(0xFF8A9589),
+                    fontSize: 12.0,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+              TableCell(
+                child: Text(
+                  'Comment',
+                  style: TextStyle().copyWith(
+                    color: Color(0xFF8A9589),
+                    fontSize: 12.0,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          TableRow(
+            children: [
+              TableCell(
+                child: Text(
+                  casePlanGapServiceProvision.date!,
+                  style: TextStyle().copyWith(
+                    color: Color(0xFF1A3518),
+                    fontSize: 12.0,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+              TableCell(
+                child: Text(
+                  casePlanGapServiceProvision.result!,
+                  style: TextStyle().copyWith(
+                    color: Color(0xFF1A3518),
+                    fontSize: 12.0,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+              TableCell(
+                child: Text(
+                  casePlanGapServiceProvision.reason!,
+                  style: TextStyle().copyWith(
+                    color: Color(0xFF1A3518),
+                    fontSize: 12.0,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+            ],
+          )
+        ],
+      ),
+    );
   }
 
   @override
@@ -101,7 +182,7 @@ class _CasePlanFollowUpViewContainerState
                   .toList()
                   .where((CasePlanGapServiceProvision casePlanFollowup) =>
                       casePlanFollowup.casePlanGapToFollowUpLinkage ==
-                      widget.casePlanGapToFollowUpLinkageValue)
+                      widget.casePlanGapToServiceProvisionLinkageValue)
                   .toList();
               return Container(
                 child: isLoading || !isViewReady
@@ -147,113 +228,18 @@ class _CasePlanFollowUpViewContainerState
                                         ),
                                         child: Row(
                                           children: [
-                                            Expanded(
-                                              child: Table(
-                                                children: [
-                                                  TableRow(
-                                                    children: [
-                                                      TableCell(
-                                                        child: Text(
-                                                          currentLanguage ==
-                                                                  'lesotho'
-                                                              ? 'Letsatsi'
-                                                              : 'Date',
-                                                          style: TextStyle()
-                                                              .copyWith(
-                                                            color: Color(
-                                                              0xFF8A9589,
-                                                            ),
-                                                            fontSize: 12.0,
-                                                            fontWeight:
-                                                                FontWeight.w500,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      TableCell(
-                                                        child: Text(
-                                                          'Service provided',
-                                                          style: TextStyle()
-                                                              .copyWith(
-                                                            color: Color(
-                                                                0xFF8A9589),
-                                                            fontSize: 12.0,
-                                                            fontWeight:
-                                                                FontWeight.w500,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      TableCell(
-                                                        child: Text(
-                                                          'Comment',
-                                                          style: TextStyle()
-                                                              .copyWith(
-                                                            color: Color(
-                                                                0xFF8A9589),
-                                                            fontSize: 12.0,
-                                                            fontWeight:
-                                                                FontWeight.w500,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  TableRow(
-                                                    children: [
-                                                      TableCell(
-                                                        child: Text(
-                                                          casePlanGapServiceProvision
-                                                              .date!,
-                                                          style: TextStyle()
-                                                              .copyWith(
-                                                            color: Color(
-                                                                0xFF1A3518),
-                                                            fontSize: 12.0,
-                                                            fontWeight:
-                                                                FontWeight.w500,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      TableCell(
-                                                        child: Text(
-                                                          casePlanGapServiceProvision
-                                                              .result!,
-                                                          style: TextStyle()
-                                                              .copyWith(
-                                                            color: Color(
-                                                                0xFF1A3518),
-                                                            fontSize: 12.0,
-                                                            fontWeight:
-                                                                FontWeight.w500,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      TableCell(
-                                                        child: Text(
-                                                          casePlanGapServiceProvision
-                                                              .reason!,
-                                                          style: TextStyle()
-                                                              .copyWith(
-                                                            color: Color(
-                                                                0xFF1A3518),
-                                                            fontSize: 12.0,
-                                                            fontWeight:
-                                                                FontWeight.w500,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  )
-                                                ],
-                                              ),
+                                            _getTableViewWidget(
+                                              currentLanguage,
+                                              casePlanGapServiceProvision,
                                             ),
                                             Container(
                                               child: Visibility(
                                                 visible: widget
-                                                    .shouldEditCaseGapFollowUps,
+                                                    .shouldEditCaseGapServiceProvision,
                                                 child: Container(
                                                   child: InkWell(
                                                     onTap: () =>
-                                                        onEditCasePlanFollowUp(
+                                                        onEditCasePlanServiceProvision(
                                                       context,
                                                       casePlanGapServiceProvision,
                                                     ),

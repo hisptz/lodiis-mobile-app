@@ -28,12 +28,12 @@ import 'package:provider/provider.dart';
 class HouseholdServiceForm extends StatefulWidget {
   HouseholdServiceForm({
     Key? key,
-    this.shouldEditCaseGapFollowUps = false,
-    this.shouldViewCaseGapFollowUp = false,
+    this.shouldEditCaseGapServiceProvision = false,
+    this.shoulViewCaseGapServiceProvision = false,
   }) : super(key: key);
 
-  final bool shouldEditCaseGapFollowUps;
-  final bool shouldViewCaseGapFollowUp;
+  final bool shouldEditCaseGapServiceProvision;
+  final bool shoulViewCaseGapServiceProvision;
   @override
   _HouseholdServiceFormState createState() => _HouseholdServiceFormState();
 }
@@ -224,10 +224,12 @@ class _HouseholdServiceFormState extends State<HouseholdServiceForm> {
                                             .map(
                                               (FormSection formSection) =>
                                                   ServiceFormContainer(
-                                                shouldEditCaseGapFollowUps: widget
-                                                    .shouldEditCaseGapFollowUps,
-                                                shouldViewCaseGapFollowUp: widget
-                                                    .shouldViewCaseGapFollowUp,
+                                                shouldEditCaseGapServiceProvision:
+                                                    widget
+                                                        .shouldEditCaseGapServiceProvision,
+                                                shoulViewCaseGapServiceProvision:
+                                                    widget
+                                                        .shoulViewCaseGapServiceProvision,
                                                 formSectionColor: borderColors[
                                                     formSection.id],
                                                 formSection: formSection,

@@ -8,16 +8,16 @@ class CasePlanGapViewContainer extends StatelessWidget {
     required this.formSectionColor,
     required this.domainId,
     required this.isCasePlanForHousehold,
-    required this.shouldEditCaseGapFollowUps,
-    required this.shouldViewCaseGapFollowUp,
+    required this.shouldEditCaseGapServiceProvision,
+    required this.shoulViewCaseGapServiceProvision,
   }) : super(key: key);
 
   final List<dynamic> casePlanGaps;
   final Color? formSectionColor;
   final String? domainId;
   final bool isCasePlanForHousehold;
-  final bool shouldEditCaseGapFollowUps;
-  final bool shouldViewCaseGapFollowUp;
+  final bool shouldEditCaseGapServiceProvision;
+  final bool shoulViewCaseGapServiceProvision;
 
   @override
   Widget build(BuildContext context) {
@@ -36,8 +36,10 @@ class CasePlanGapViewContainer extends StatelessWidget {
               casePlanGap: casePlanGap,
               isCasePlanForHousehold: isCasePlanForHousehold,
               formSectionColor: formSectionColor,
-              shouldEditCaseGapFollowUps: shouldEditCaseGapFollowUps,
-              shouldViewCaseGapFollowUp: shouldViewCaseGapFollowUp,
+              shouldEditCaseGapServiceProvision:
+                  shouldEditCaseGapServiceProvision,
+              shoulViewCaseGapServiceProvision:
+                  shoulViewCaseGapServiceProvision,
             ),
           );
         }).toList(),

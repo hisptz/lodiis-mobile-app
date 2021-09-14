@@ -29,8 +29,8 @@ class ServiceGapView extends StatefulWidget {
     required this.isCasePlanForHousehold,
     required this.domainId,
     required this.gapIndex,
-    required this.shouldEditCaseGapFollowUps,
-    required this.shouldViewCaseGapFollowUp,
+    required this.shouldEditCaseGapServiceProvision,
+    required this.shoulViewCaseGapServiceProvision,
     required this.formSectionColor,
   }) : super(key: key);
   final Map casePlanGap;
@@ -38,8 +38,8 @@ class ServiceGapView extends StatefulWidget {
   final String? domainId;
   final int gapIndex;
   final bool isCasePlanForHousehold;
-  final bool shouldEditCaseGapFollowUps;
-  final bool shouldViewCaseGapFollowUp;
+  final bool shouldEditCaseGapServiceProvision;
+  final bool shoulViewCaseGapServiceProvision;
 
   @override
   _ServiceGapViewState createState() => _ServiceGapViewState();
@@ -109,7 +109,7 @@ class _ServiceGapViewState extends State<ServiceGapView> {
     Widget modal = CasePlanGapFormContainer(
       formSections: formSections,
       isCasePlanForHousehold: widget.isCasePlanForHousehold,
-      isEditableMode: widget.shouldEditCaseGapFollowUps,
+      isEditableMode: widget.shouldEditCaseGapServiceProvision,
       formSectionColor: widget.formSectionColor,
       dataObject: widget.casePlanGap,
     );
@@ -186,7 +186,7 @@ class _ServiceGapViewState extends State<ServiceGapView> {
                   ),
                   Container(
                     child: Visibility(
-                      visible: false, //widget.shouldEditCaseGapFollowUps,
+                      visible: false,
                       child: Consumer<OvcHouseholdCurrentSelectionState>(
                         builder: (
                           context,
@@ -284,10 +284,10 @@ class _ServiceGapViewState extends State<ServiceGapView> {
                               isCasePlanForHousehold:
                                   widget.isCasePlanForHousehold,
                               casePlanGap: widget.casePlanGap,
-                              shouldEditCaseGapFollowUps:
-                                  widget.shouldEditCaseGapFollowUps,
-                              shouldViewCaseGapFollowUp:
-                                  widget.shouldViewCaseGapFollowUp,
+                              shouldEditCaseGapServiceProvision:
+                                  widget.shouldEditCaseGapServiceProvision,
+                              shoulViewCaseGapServiceProvision:
+                                  widget.shoulViewCaseGapServiceProvision,
                             ),
                           )),
                       ),

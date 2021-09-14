@@ -28,13 +28,13 @@ import 'package:provider/provider.dart';
 class OcvChildCasePlanForm extends StatefulWidget {
   const OcvChildCasePlanForm({
     Key? key,
-    this.shouldEditCaseGapFollowUps = false,
-    this.shouldViewCaseGapFollowUp = false,
+    this.shouldEditCaseGapServiceProvision = false,
+    this.shoulViewCaseGapServiceProvision = false,
     this.shouldAddCasePlanGap = false,
   }) : super(key: key);
 
-  final bool shouldEditCaseGapFollowUps;
-  final bool shouldViewCaseGapFollowUp;
+  final bool shouldEditCaseGapServiceProvision;
+  final bool shoulViewCaseGapServiceProvision;
   final bool shouldAddCasePlanGap;
 
   @override
@@ -241,12 +241,12 @@ class _OcvChildCasePlanFormState extends State<OcvChildCasePlanForm> {
                                                           currentOvcHouseholdChild,
                                                       shouldAddCasePlanGap: widget
                                                           .shouldAddCasePlanGap,
-                                                      shouldEditCaseGapFollowUps:
+                                                      shouldEditCaseGapServiceProvision:
                                                           widget
-                                                              .shouldEditCaseGapFollowUps,
-                                                      shouldViewCaseGapFollowUp:
+                                                              .shouldEditCaseGapServiceProvision,
+                                                      shoulViewCaseGapServiceProvision:
                                                           widget
-                                                              .shouldViewCaseGapFollowUp,
+                                                              .shoulViewCaseGapServiceProvision,
                                                       formSectionColor:
                                                           borderColors[
                                                               formSection.id],

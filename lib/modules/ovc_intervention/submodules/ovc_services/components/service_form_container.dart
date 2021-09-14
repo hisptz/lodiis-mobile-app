@@ -18,8 +18,8 @@ class ServiceFormContainer extends StatelessWidget {
     required this.dataObject,
     this.isCasePlanForHousehold = false,
     this.onInputValueChange,
-    required this.shouldEditCaseGapFollowUps,
-    required this.shouldViewCaseGapFollowUp,
+    required this.shouldEditCaseGapServiceProvision,
+    required this.shoulViewCaseGapServiceProvision,
   }) : super(key: key);
 
   final Color? formSectionColor;
@@ -28,8 +28,8 @@ class ServiceFormContainer extends StatelessWidget {
   final Map? dataObject;
   final Function? onInputValueChange;
   final bool isCasePlanForHousehold;
-  final bool shouldEditCaseGapFollowUps;
-  final bool shouldViewCaseGapFollowUp;
+  final bool shouldEditCaseGapServiceProvision;
+  final bool shoulViewCaseGapServiceProvision;
 
   final String caseToGapLinkage = OvcCasePlanConstant.casePlanToGapLinkage;
   final String casePlanGapToFollowUpLinkage =
@@ -105,12 +105,15 @@ class ServiceFormContainer extends StatelessWidget {
                   domainId: formSection.id,
                   isCasePlanForHousehold: isCasePlanForHousehold,
                   formSectionColor: formSectionColor,
-                  shouldEditCaseGapFollowUps: shouldEditCaseGapFollowUps,
-                  shouldViewCaseGapFollowUp: shouldViewCaseGapFollowUp,
+                  shouldEditCaseGapServiceProvision:
+                      shouldEditCaseGapServiceProvision,
+                  shoulViewCaseGapServiceProvision:
+                      shoulViewCaseGapServiceProvision,
                 ),
                 Visibility(
-                  visible: (isEditableMode || shouldEditCaseGapFollowUps) &&
-                      !shouldViewCaseGapFollowUp,
+                  visible:
+                      (isEditableMode || shouldEditCaseGapServiceProvision) &&
+                          !shoulViewCaseGapServiceProvision,
                   child: Container(
                     margin: EdgeInsets.only(
                       bottom: 10.0,
