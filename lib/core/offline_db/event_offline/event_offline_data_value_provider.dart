@@ -16,14 +16,16 @@ class EventOfflineDataValueProvider extends OfflineDbProvider {
       List dataValues = eventData.dataValues ?? [];
       String? event = eventData.event;
       for (Map dataValue in dataValues) {
-        String? dataElement = dataValue['dataElement'];
-        Map data = Map<String, dynamic>();
-        data['id'] = '$event-$dataElement';
-        data['event'] = event;
-        data['dataElement'] = dataElement;
-        data['value'] = dataValue['value'] ?? '';
-        await dbClient!.insert(table, data as Map<String, Object?>,
-            conflictAlgorithm: ConflictAlgorithm.replace);
+        if ('${dataValue[value]}'.isNotEmpty) {
+          String? dataElement = dataValue['dataElement'];
+          Map data = Map<String, dynamic>();
+          data['id'] = '$event-$dataElement';
+          data['event'] = event;
+          data['dataElement'] = dataElement;
+          data['value'] = dataValue['value'] ?? '';
+          await dbClient!.insert(table, data as Map<String, Object?>,
+              conflictAlgorithm: ConflictAlgorithm.replace);
+        }
       }
     } catch (e) {}
   }
@@ -42,7 +44,9 @@ class EventOfflineDataValueProvider extends OfflineDbProvider {
       );
       if (maps.isNotEmpty) {
         for (Map map in maps) {
-          dataValues.add(map);
+          if ('${map[value]}'.isNotEmpty) {
+            dataValues.add(map);
+          }
         }
       }
     } catch (e) {}
