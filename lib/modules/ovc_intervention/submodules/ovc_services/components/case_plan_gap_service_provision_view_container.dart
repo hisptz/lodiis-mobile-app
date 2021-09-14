@@ -39,8 +39,8 @@ class CasePlanGapServiceViewContainer extends StatefulWidget {
 class _CasePlanGapServiceViewContainerState
     extends State<CasePlanGapServiceViewContainer> {
   String? programStage;
-  String casePlanGapToFollowUpLinkage =
-      OvcCasePlanConstant.casePlanGapToFollowUpLinkage;
+  String casePlanGapToServiceProvisionLinkage =
+      OvcCasePlanConstant.casePlanGapToServiceProvisionLinkage;
   bool isViewReady = false;
   double iconHeight = 15.0;
 
@@ -156,8 +156,8 @@ class _CasePlanGapServiceViewContainerState
       programStage = widget.isCasePlanForHousehold
           ? OvcHouseholdCasePlanConstant.casePlanGapServiceProvisionProgramStage
           : OvcChildCasePlanConstant.casePlanGapServiceProvisionProgramStage;
-      casePlanGapToFollowUpLinkage =
-          OvcCasePlanConstant.casePlanGapToFollowUpLinkage;
+      casePlanGapToServiceProvisionLinkage =
+          OvcCasePlanConstant.casePlanGapToServiceProvisionLinkage;
       isViewReady = true;
     });
   }
@@ -178,10 +178,13 @@ class _CasePlanGapServiceViewContainerState
                       eventListByProgramStage, [programStage]);
               List<CasePlanGapServiceProvision> casePlanFollowups = events
                   .map((Events eventData) => CasePlanGapServiceProvision()
-                      .fromTeiModel(eventData, casePlanGapToFollowUpLinkage))
+                      .fromTeiModel(
+                          eventData, casePlanGapToServiceProvisionLinkage))
                   .toList()
-                  .where((CasePlanGapServiceProvision casePlanFollowup) =>
-                      casePlanFollowup.casePlanGapToFollowUpLinkage ==
+                  .where((CasePlanGapServiceProvision
+                          casePlanGapServiceProvision) =>
+                      casePlanGapServiceProvision
+                          .casePlanGapToServiceProvisionLinkage ==
                       widget.casePlanGapToServiceProvisionLinkageValue)
                   .toList();
               return Container(

@@ -66,8 +66,8 @@ class OvcChildCasePlan extends StatelessWidget {
       map['eventDate'] = map['eventDate'] ?? eventDate;
       map[OvcCasePlanConstant.casePlanToGapLinkage] =
           map[OvcCasePlanConstant.casePlanToGapLinkage] ?? casePlanToGapLinkage;
-      map[OvcCasePlanConstant.casePlanGapToFollowUpLinkage] =
-          map[OvcCasePlanConstant.casePlanGapToFollowUpLinkage] ??
+      map[OvcCasePlanConstant.casePlanGapToServiceProvisionLinkage] =
+          map[OvcCasePlanConstant.casePlanGapToServiceProvisionLinkage] ??
               AppUtil.getUid();
       map[OvcCasePlanConstant.casePlanDomainType] = formSection.id;
       Provider.of<ServiceFormState>(context, listen: false)

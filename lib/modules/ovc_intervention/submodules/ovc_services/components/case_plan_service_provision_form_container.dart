@@ -101,7 +101,7 @@ class _CasePlanServiceProvisionFormModalContainerState
       String? eventDate = dataObject!['eventDate'];
       String? eventId = dataObject['eventId'];
       List<String> hiddenFields = [
-        OvcCasePlanConstant.casePlanGapToFollowUpLinkage
+        OvcCasePlanConstant.casePlanGapToServiceProvisionLinkage
       ];
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(

@@ -36,7 +36,7 @@ class _CasePlanServiceProvisionContainerState
     super.initState();
     setState(() {
       String casePlanGapToServiceProvisionLinkage =
-          OvcCasePlanConstant.casePlanGapToFollowUpLinkage;
+          OvcCasePlanConstant.casePlanGapToServiceProvisionLinkage;
       casePlanGapToServiceProvisionLinkageValue =
           widget.casePlanGap[casePlanGapToServiceProvisionLinkage] ??
               AppUtil.getUid();
@@ -51,7 +51,7 @@ class _CasePlanServiceProvisionContainerState
         dataObject[key] = widget.casePlanGap[key];
       }
     }
-    dataObject[OvcCasePlanConstant.casePlanGapToFollowUpLinkage] =
+    dataObject[OvcCasePlanConstant.casePlanGapToServiceProvisionLinkage] =
         casePlanGapToServiceProvisionLinkageValue;
     Widget modal = CasePlanServiceProvisionFormModalContainer(
       dataObject: dataObject,

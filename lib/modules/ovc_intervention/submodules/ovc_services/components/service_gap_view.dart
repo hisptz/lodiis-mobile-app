@@ -117,7 +117,7 @@ class _ServiceGapViewState extends State<ServiceGapView> {
     if (response != null) {
       List<String> hiddenFields = [
         OvcCasePlanConstant.casePlanToGapLinkage,
-        OvcCasePlanConstant.casePlanGapToFollowUpLinkage
+        OvcCasePlanConstant.casePlanGapToServiceProvisionLinkage
       ];
       String program = widget.isCasePlanForHousehold
           ? OvcHouseholdCasePlanConstant.program

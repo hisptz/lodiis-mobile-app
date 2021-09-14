@@ -35,7 +35,7 @@ class _CasePlanGapServiceProvisionContainerState
     super.initState();
     setState(() {
       String casePlanGapToServiceProvisionLinkage =
-          OvcCasePlanConstant.casePlanGapToFollowUpLinkage;
+          OvcCasePlanConstant.casePlanGapToServiceProvisionLinkage;
       casePlanGapToServiceProvisionLinkageValue =
           widget.casePlanGap[casePlanGapToServiceProvisionLinkage] ??
               AppUtil.getUid();
