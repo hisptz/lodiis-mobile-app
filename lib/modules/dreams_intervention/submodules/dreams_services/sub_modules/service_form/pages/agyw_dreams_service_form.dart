@@ -72,9 +72,12 @@ class _AgywDreamsServiceFormState extends State<AgywDreamsServiceForm> {
         Map dataObject =
             Provider.of<ServiceFormState>(context, listen: false).formState;
         await AgywDreamsServiceFormSkipLogic.evaluateSkipLogics(
-            context, formSections!, dataObject,
-            isFormEdited: widget.isFormEdited,
-            implementingPartner: widget.currentUserImplementingPartner);
+          context,
+          formSections!,
+          dataObject,
+          isFormEdited: widget.isFormEdited,
+          implementingPartner: widget.currentUserImplementingPartner,
+        );
       },
     );
   }
@@ -96,14 +99,16 @@ class _AgywDreamsServiceFormState extends State<AgywDreamsServiceForm> {
               .evaluateSkipLogicBySessionReoccurrence(dataObject);
           if (!allowedNumberOfSessions) {
             AppUtil.showToastMessage(
-                message:
-                    "Sessions ${dataObject[sessionNumberInputField]} is not valid for ${dataObject[typeOfIntervention]}",
-                position: ToastGravity.TOP);
+              message:
+                  "Sessions ${dataObject[sessionNumberInputField]} is not valid for ${dataObject[typeOfIntervention]}",
+              position: ToastGravity.TOP,
+            );
           } else if (sessionAlreadyExists) {
             AppUtil.showToastMessage(
-                message:
-                    "Sessions ${dataObject[sessionNumberInputField]} for ${dataObject[typeOfIntervention]} already exists",
-                position: ToastGravity.TOP);
+              message:
+                  "Sessions ${dataObject[sessionNumberInputField]} for ${dataObject[typeOfIntervention]} already exists",
+              position: ToastGravity.TOP,
+            );
           }
         }
       });
@@ -120,6 +125,7 @@ class _AgywDreamsServiceFormState extends State<AgywDreamsServiceForm> {
             AgywDreamsServiceFormSkipLogic.evaluateSkipLogicsBySession(
           dataObject,
         );
+        //@TODO Set appropriate message session number
         if (shouldSaveForm) {
           bool sessionAlreadyExists = AgywDreamsServiceFormSkipLogic
               .evaluateSkipLogicBySessionReoccurrence(dataObject);

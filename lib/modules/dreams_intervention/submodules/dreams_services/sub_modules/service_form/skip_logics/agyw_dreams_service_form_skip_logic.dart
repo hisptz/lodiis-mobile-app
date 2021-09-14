@@ -130,7 +130,8 @@ class AgywDreamsServiceFormSkipLogic {
     List interventionSessions =
         sessionsPerInterventions[interventionType] ?? [];
     return interventionType != ''
-        ? currentSession != '' && interventionSessions.contains(currentSession)
+        ? currentSession != '' &&
+            interventionSessions.contains(currentSession.toLowerCase())
         : false;
   }
 
