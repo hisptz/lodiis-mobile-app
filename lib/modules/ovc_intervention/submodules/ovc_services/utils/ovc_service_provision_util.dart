@@ -64,13 +64,15 @@ class OvcServiceProvisionUtil {
         String currentSessionNumber =
             dataObject[sessionNumberDataElement] ?? "";
         if (currentSessionNumber.isNotEmpty) {
+          currentSessionNumber = currentSessionNumber.toLowerCase();
           List<String> previousSessionNumbers =
               interventionSessions[serviceDataElement] ?? [];
-          // checking ofr invalid
-          // checking for exisiting session
-          print("currentSessionNumber => $currentSessionNumber");
-          print("previousSessionNumbers => $previousSessionNumbers");
-          print("possibleSessionNumbers => $possibleSessionNumbers");
+          if (possibleSessionNumbers.indexOf(currentSessionNumber) == -1) {
+            isSessionNumberInValid = true;
+          }
+          if (previousSessionNumbers.indexOf(currentSessionNumber) > -1) {
+            isSessionNumberExit = true;
+          }
         }
       }
     }
