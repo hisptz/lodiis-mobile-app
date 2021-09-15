@@ -27,8 +27,9 @@ class HouseholdServicesOngoingMonitoring {
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'PcLhqLEjKGw',
-                name: 'HIVS&D Service progress',
-                translatedName: 'Tsoelo-pele ea litšebeletso tsa HIVS&D ',
+                name: 'HIVS&D/HIV Messaging Service progress',
+                translatedName:
+                    'Tsoelo-pele ea litšebeletso tsa HIVS&D/HIV Messaging ',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
@@ -90,8 +91,9 @@ class HouseholdServicesOngoingMonitoring {
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'QD77bNjavza',
-                name: 'FE Service progress',
-                translatedName: 'Tsoelo-pele ea litšebeletso tsa FE',
+                name: 'Financial Education Service progress',
+                translatedName:
+                    'Tsoelo-pele ea litšebeletso tsa Financial Education',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0000FF),
                 labelColor: Color(0xFF737373)),
@@ -141,14 +143,15 @@ class HouseholdServicesOngoingMonitoring {
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'es23GNgSa7N',
-                name: 'VAC Service progress',
-                translatedName: 'Tsoelo-pele ea litšebeletso tsa VAC',
+                name: 'VAC/VAC Messaging Service progress',
+                translatedName:
+                    'Tsoelo-pele ea litšebeletso tsa VAC/VAC Messaging',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'x3FxC6Bw139',
-                name: 'VAC Legal Messaging progress',
+                name: 'VACLegal Messaging progress',
                 translatedName:
                     'Tsoelo-pele ea litšebeletso tsa VAC Legal Messaging',
                 valueType: 'TEXT',
@@ -156,8 +159,9 @@ class HouseholdServicesOngoingMonitoring {
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'akSICiOvXty',
-                name: 'SURVIVORS Service progress',
-                translatedName: 'Tsoelo-pele ea litšebeletso tsa SURVIVORS',
+                name: 'Survivors of Abuse Service progress',
+                translatedName:
+                    'Tsoelo-pele ea litšebeletso tsa Survivors of Abuse',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
