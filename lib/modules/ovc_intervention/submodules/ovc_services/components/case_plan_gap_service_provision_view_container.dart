@@ -11,6 +11,7 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/o
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/components/case_plan_service_provision_form_container.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/constants/ovc_case_plan_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/household_case_plan/constants/ovc_household_case_plan_constant.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/utils/ovc_service_provision_util.dart';
 import 'package:provider/provider.dart';
 
 class CasePlanGapServiceViewContainer extends StatefulWidget {
@@ -56,6 +57,14 @@ class _CasePlanGapServiceViewContainerState
       if ('${dataValue['value']}'.isNotEmpty)
         dataObject[dataValue['dataElement']] = dataValue['value'];
     }
+    Map<String, List<String>> interventionSessions =
+        OvcServiceProvisionUtil.getExistingSessionNumberMapping(
+      context,
+      [programStage!],
+      eventId: casePlanGapServiceProvision.id,
+    );
+    dataObject["interventionSessions"] = interventionSessions;
+    print("interventionSessions => $interventionSessions");
     Map casePlanGap = widget.casePlanGap;
     casePlanGap.remove('eventDate');
     casePlanGap.remove('eventId');

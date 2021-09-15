@@ -3,6 +3,9 @@ import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/components/case_plan_service_provision_form_container.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/components/case_plan_gap_service_provision_view_container.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/constants/ovc_case_plan_constant.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_case_plan/constants/ovc_child_case_plan_constant.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/household_case_plan/constants/ovc_household_case_plan_constant.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/utils/ovc_service_provision_util.dart';
 
 class CasePlanServiceProvisionContainer extends StatefulWidget {
   const CasePlanServiceProvisionContainer({
@@ -45,12 +48,23 @@ class _CasePlanServiceProvisionContainerState
 
   //@TODO adding previous session events
   void addServiceProvision(BuildContext context) async {
+    String programStage = widget.isCasePlanForHousehold
+        ? OvcHouseholdCasePlanConstant.casePlanGapServiceProvisionProgramStage
+        : OvcChildCasePlanConstant.casePlanGapServiceProvisionProgramStage;
+
     Map dataObject = Map();
     for (var key in widget.casePlanGap.keys) {
       if (key != 'eventId' && key != 'eventDate') {
         dataObject[key] = widget.casePlanGap[key];
       }
     }
+    Map<String, List<String>> interventionSessions =
+        OvcServiceProvisionUtil.getExistingSessionNumberMapping(
+      context,
+      [programStage],
+    );
+    print("interventionSessions => $interventionSessions");
+    dataObject["interventionSessions"] = interventionSessions;
     dataObject[OvcCasePlanConstant.casePlanGapToServiceProvisionLinkage] =
         casePlanGapToServiceProvisionLinkageValue;
     Widget modal = CasePlanServiceProvisionFormModalContainer(
