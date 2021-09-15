@@ -560,7 +560,7 @@ class OvcHouseholdServicesCasePlanGaps {
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'jKqWohAPqyW',
-                name: '(VAC) Name of responsible internal person',
+                name: '(VAC/VAC MessagingVAC) Name of responsible internal person',
                 // translatedName:
                 //     'Lebitso la motho ea ikarabellang bakeng sa VAC',
                 valueType: 'TEXT',
@@ -568,7 +568,7 @@ class OvcHouseholdServicesCasePlanGaps {
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'U8jnyQsnfBD',
-                name: '(VAC) Name of responsible external person',
+                name: '(VAC/VAC Messaging) Name of responsible external person',
                 // translatedName:
                 //     'Lebitso la motho ea ikarabellang bakeng sa VAC',
                 valueType: 'TEXT',
@@ -577,8 +577,8 @@ class OvcHouseholdServicesCasePlanGaps {
             InputField(
                 id: 'wGrQeSydiwd',
                 allowFuturePeriod: true,
-                name: '(VAC) Projected date for completion',
-                translatedName: 'Letsatsi la VAC le tla phetheloa',
+                name: '(VAC/VAC Messaging) Projected date for completion',
+                translatedName: 'Letsatsi la VAC/VAC Messaging le tla phetheloa',
                 valueType: 'DATE',
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
