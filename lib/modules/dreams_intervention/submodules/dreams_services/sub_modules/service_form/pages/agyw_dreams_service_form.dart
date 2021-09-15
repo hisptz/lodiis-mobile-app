@@ -72,9 +72,12 @@ class _AgywDreamsServiceFormState extends State<AgywDreamsServiceForm> {
         Map dataObject =
             Provider.of<ServiceFormState>(context, listen: false).formState;
         await AgywDreamsServiceFormSkipLogic.evaluateSkipLogics(
-            context, formSections!, dataObject,
-            isFormEdited: widget.isFormEdited,
-            implementingPartner: widget.currentUserImplementingPartner);
+          context,
+          formSections!,
+          dataObject,
+          isFormEdited: widget.isFormEdited,
+          implementingPartner: widget.currentUserImplementingPartner,
+        );
       },
     );
   }
@@ -96,14 +99,16 @@ class _AgywDreamsServiceFormState extends State<AgywDreamsServiceForm> {
               .evaluateSkipLogicBySessionReoccurrence(dataObject);
           if (!allowedNumberOfSessions) {
             AppUtil.showToastMessage(
-                message:
-                    "Sessions ${dataObject[sessionNumberInputField]} is not valid for ${dataObject[typeOfIntervention]}",
-                position: ToastGravity.TOP);
+              message:
+                  "Sessions ${dataObject[sessionNumberInputField]} is not valid for ${dataObject[typeOfIntervention]}",
+              position: ToastGravity.TOP,
+            );
           } else if (sessionAlreadyExists) {
             AppUtil.showToastMessage(
-                message:
-                    "Sessions ${dataObject[sessionNumberInputField]} for ${dataObject[typeOfIntervention]} already exists",
-                position: ToastGravity.TOP);
+              message:
+                  "Sessions ${dataObject[sessionNumberInputField]} for ${dataObject[typeOfIntervention]} already exists",
+              position: ToastGravity.TOP,
+            );
           }
         }
       });
@@ -118,15 +123,18 @@ class _AgywDreamsServiceFormState extends State<AgywDreamsServiceForm> {
       if (FormUtil.geFormFilledStatus(dataObject, formSections)) {
         bool shouldSaveForm =
             AgywDreamsServiceFormSkipLogic.evaluateSkipLogicsBySession(
-                dataObject);
+          dataObject,
+        );
+        //@TODO Set appropriate message session number
         if (shouldSaveForm) {
           bool sessionAlreadyExists = AgywDreamsServiceFormSkipLogic
               .evaluateSkipLogicBySessionReoccurrence(dataObject);
           if (sessionAlreadyExists) {
             AppUtil.showToastMessage(
-                message:
-                    "Sessions ${dataObject[sessionNumberInputField]} for ${dataObject[typeOfIntervention]} already exists",
-                position: ToastGravity.TOP);
+              message:
+                  "Sessions ${dataObject[sessionNumberInputField]} for ${dataObject[typeOfIntervention]} already exists",
+              position: ToastGravity.TOP,
+            );
           } else {
             setState(() {
               isSaving = true;
@@ -142,16 +150,17 @@ class _AgywDreamsServiceFormState extends State<AgywDreamsServiceForm> {
             try {
               await TrackedEntityInstanceUtil
                   .savingTrackedEntityInstanceEventData(
-                      ServiceFormConstant.program,
-                      ServiceFormConstant.programStage,
-                      agywDream!.orgUnit,
-                      formSections!,
-                      dataObject,
-                      eventDate,
-                      agywDream.id,
-                      eventId,
-                      hiddenFields,
-                      skippedFields: skippedFields);
+                ServiceFormConstant.program,
+                ServiceFormConstant.programStage,
+                agywDream!.orgUnit,
+                formSections!,
+                dataObject,
+                eventDate,
+                agywDream.id,
+                eventId,
+                hiddenFields,
+                skippedFields: skippedFields,
+              );
               Provider.of<ServiceEventDataState>(context, listen: false)
                   .resetServiceEventDataState(agywDream.id);
               Timer(Duration(seconds: 1), () {
@@ -182,14 +191,16 @@ class _AgywDreamsServiceFormState extends State<AgywDreamsServiceForm> {
           }
         } else {
           AppUtil.showToastMessage(
-              message:
-                  "You have reached the maximum number of sessions for ${dataObject[typeOfIntervention]}",
-              position: ToastGravity.TOP);
+            message:
+                "You have reached the maximum number of sessions for ${dataObject[typeOfIntervention]}",
+            position: ToastGravity.TOP,
+          );
         }
       } else {
         AppUtil.showToastMessage(
-            message: 'Please fill at least one form field',
-            position: ToastGravity.TOP);
+          message: 'Please fill at least one form field',
+          position: ToastGravity.TOP,
+        );
         Navigator.pop(context);
       }
     } else {
@@ -198,8 +209,9 @@ class _AgywDreamsServiceFormState extends State<AgywDreamsServiceForm> {
             AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
       });
       AppUtil.showToastMessage(
-          message: 'Please fill all mandatory field',
-          position: ToastGravity.TOP);
+        message: 'Please fill all mandatory field',
+        position: ToastGravity.TOP,
+      );
     }
   }
 
@@ -240,102 +252,104 @@ class _AgywDreamsServiceFormState extends State<AgywDreamsServiceForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(65.0),
-          child: Consumer<InterventionCardState>(
-            builder: (context, interventionCardState, child) {
-              InterventionCard activeInterventionProgram =
-                  interventionCardState.currentInterventionProgram;
-              return SubPageAppBar(
-                label: label,
-                activeInterventionProgram: activeInterventionProgram,
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(65.0),
+        child: Consumer<InterventionCardState>(
+          builder: (context, interventionCardState, child) {
+            InterventionCard activeInterventionProgram =
+                interventionCardState.currentInterventionProgram;
+            return SubPageAppBar(
+              label: label,
+              activeInterventionProgram: activeInterventionProgram,
+            );
+          },
+        ),
+      ),
+      body: SubPageBody(
+        body: Container(
+          child: Consumer<LanguageTranslationState>(
+            builder: (context, languageTranslationState, child) {
+              String? currentLanguage =
+                  languageTranslationState.currentLanguage;
+              return Consumer<DreamsBeneficiarySelectionState>(
+                builder: (context, nonAgywState, child) {
+                  AgywDream? agywDream = nonAgywState.currentAgywDream;
+                  return Consumer<ServiceFormState>(
+                    builder: (context, serviceFormState, child) {
+                      return Container(
+                        child: Column(
+                          children: [
+                            DreamsBeneficiaryTopHeader(
+                              agywDream: agywDream,
+                            ),
+                            !isFormReady
+                                ? Container(
+                                    child: CircularProcessLoader(
+                                      color: Colors.blueGrey,
+                                    ),
+                                  )
+                                : Column(
+                                    children: [
+                                      Container(
+                                        margin: EdgeInsets.only(
+                                          top: 10.0,
+                                          left: 13.0,
+                                          right: 13.0,
+                                        ),
+                                        child: EntryFormContainer(
+                                          hiddenFields:
+                                              serviceFormState.hiddenFields,
+                                          hiddenSections:
+                                              serviceFormState.hiddenSections,
+                                          hiddenInputFieldOptions:
+                                              serviceFormState
+                                                  .hiddenInputFieldOptions,
+                                          formSections: formSections,
+                                          mandatoryFieldObject:
+                                              mandatoryFieldObject,
+                                          isEditableMode:
+                                              serviceFormState.isEditableMode,
+                                          dataObject:
+                                              serviceFormState.formState,
+                                          onInputValueChange:
+                                              onInputValueChange,
+                                          unFilledMandatoryFields:
+                                              unFilledMandatoryFields,
+                                        ),
+                                      ),
+                                      Visibility(
+                                        visible:
+                                            serviceFormState.isEditableMode,
+                                        child: EntryFormSaveButton(
+                                          label: isSaving
+                                              ? 'Saving ...'
+                                              : currentLanguage == 'lesotho'
+                                                  ? 'Boloka'
+                                                  : 'Save',
+                                          labelColor: Colors.white,
+                                          buttonColor: Color(0xFF258DCC),
+                                          fontSize: 15.0,
+                                          onPressButton: () => onSaveForm(
+                                            context,
+                                            serviceFormState.formState,
+                                            agywDream,
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  )
+                          ],
+                        ),
+                      );
+                    },
+                  );
+                },
               );
             },
           ),
         ),
-        body: SubPageBody(
-          body: Container(
-            child: Consumer<LanguageTranslationState>(
-              builder: (context, languageTranslationState, child) {
-                String? currentLanguage =
-                    languageTranslationState.currentLanguage;
-                return Consumer<DreamsBeneficiarySelectionState>(
-                  builder: (context, nonAgywState, child) {
-                    AgywDream? agywDream = nonAgywState.currentAgywDream;
-                    return Consumer<ServiceFormState>(
-                      builder: (context, serviceFormState, child) {
-                        return Container(
-                          child: Column(
-                            children: [
-                              DreamsBeneficiaryTopHeader(
-                                agywDream: agywDream,
-                              ),
-                              !isFormReady
-                                  ? Container(
-                                      child: CircularProcessLoader(
-                                        color: Colors.blueGrey,
-                                      ),
-                                    )
-                                  : Column(
-                                      children: [
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            top: 10.0,
-                                            left: 13.0,
-                                            right: 13.0,
-                                          ),
-                                          child: EntryFormContainer(
-                                            hiddenFields:
-                                                serviceFormState.hiddenFields,
-                                            hiddenSections:
-                                                serviceFormState.hiddenSections,
-                                            hiddenInputFieldOptions:
-                                                serviceFormState
-                                                    .hiddenInputFieldOptions,
-                                            formSections: formSections,
-                                            mandatoryFieldObject:
-                                                mandatoryFieldObject,
-                                            isEditableMode:
-                                                serviceFormState.isEditableMode,
-                                            dataObject:
-                                                serviceFormState.formState,
-                                            onInputValueChange:
-                                                onInputValueChange,
-                                            unFilledMandatoryFields:
-                                                unFilledMandatoryFields,
-                                          ),
-                                        ),
-                                        Visibility(
-                                          visible:
-                                              serviceFormState.isEditableMode,
-                                          child: EntryFormSaveButton(
-                                            label: isSaving
-                                                ? 'Saving ...'
-                                                : currentLanguage == 'lesotho'
-                                                    ? 'Boloka'
-                                                    : 'Save',
-                                            labelColor: Colors.white,
-                                            buttonColor: Color(0xFF258DCC),
-                                            fontSize: 15.0,
-                                            onPressButton: () => onSaveForm(
-                                                context,
-                                                serviceFormState.formState,
-                                                agywDream),
-                                          ),
-                                        )
-                                      ],
-                                    )
-                            ],
-                          ),
-                        );
-                      },
-                    );
-                  },
-                );
-              },
-            ),
-          ),
-        ),
-        bottomNavigationBar: InterventionBottomNavigationBarContainer());
+      ),
+      bottomNavigationBar: InterventionBottomNavigationBarContainer(),
+    );
   }
 }

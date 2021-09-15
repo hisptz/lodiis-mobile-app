@@ -9,18 +9,20 @@ import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.d
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
+import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/ovc_household.dart';
 import 'package:kb_mobile_app/models/ovc_household_child.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/household_service_provision.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_child_service_provision.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_case_plan/constants/ovc_child_case_plan_constant.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/constants/ovc_case_plan_constant.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/constants/ovc_case_plan_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/household_case_plan/constants/ovc_household_case_plan_constant.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/skip_logics/ovc_case_plan_service_provision_skip_logic.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/skip_logics/ovc_case_plan_service_provision_skip_logic.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/utils/ovc_service_provision_util.dart';
 import 'package:provider/provider.dart';
 
-class CasePlanServiceProvisionFormContainer extends StatefulWidget {
-  const CasePlanServiceProvisionFormContainer({
+class CasePlanServiceProvisionFormModalContainer extends StatefulWidget {
+  const CasePlanServiceProvisionFormModalContainer({
     Key? key,
     required this.dataObject,
     required this.isCasePlanForHousehold,
@@ -34,12 +36,12 @@ class CasePlanServiceProvisionFormContainer extends StatefulWidget {
   final bool isEditableMode;
 
   @override
-  _CasePlanServiceProvisionFormContainerState createState() =>
-      _CasePlanServiceProvisionFormContainerState();
+  _CasePlanServiceProvisionFormModalContainerState createState() =>
+      _CasePlanServiceProvisionFormModalContainerState();
 }
 
-class _CasePlanServiceProvisionFormContainerState
-    extends State<CasePlanServiceProvisionFormContainer>
+class _CasePlanServiceProvisionFormModalContainerState
+    extends State<CasePlanServiceProvisionFormModalContainer>
     with OvcCasePlanServiceProvisionSkipLogic {
   bool isFormReady = false;
   bool isSaving = false;
@@ -75,6 +77,86 @@ class _CasePlanServiceProvisionFormContainerState
     });
   }
 
+  void setSessionNumberViolationMessages(
+    Map<String, dynamic> sessionNumnberValidation,
+  ) {
+    print(sessionNumnberValidation);
+    bool isSessionNumberExit = sessionNumnberValidation["isSessionNumberExit"];
+    bool isSessionNumberInValid =
+        sessionNumnberValidation["isSessionNumberInValid"];
+    String message = "";
+    if (isSessionNumberInValid) {
+      List<String> sessionWithInvalidSessionNumber =
+          sessionNumnberValidation["sessionWithInvalidSessionNumber"] ?? [];
+      String inputFieldLabels =
+          getInputFieldsLabel(formSections!, sessionWithInvalidSessionNumber)
+              .join(", ");
+      message =
+          "Session number for $inputFieldLabels are not valid session numnber";
+    } else if (isSessionNumberExit) {
+      List<String> sessionWithExistingSessionNumber =
+          sessionNumnberValidation["sessionWithExistingSessionNumber"] ?? [];
+      String inputFieldLabels =
+          getInputFieldsLabel(formSections!, sessionWithExistingSessionNumber)
+              .join(", ");
+      message =
+          "Session number for $inputFieldLabels already existed for prevision service provision ";
+    }
+    if (message.isNotEmpty)
+      AppUtil.showToastMessage(
+        message: message,
+        position: ToastGravity.TOP,
+      );
+  }
+
+  void onInputValueChange(String id, dynamic value) {
+    widget.dataObject[id] = value;
+    setState(() {});
+    evaluateSkipLogics(context, formSections!, widget.dataObject);
+    Map<String, dynamic> sessionNumnberValidation =
+        OvcServiceProvisionUtil.getSessionNumberValidation(widget.dataObject);
+    setState(() {});
+    setSessionNumberViolationMessages(sessionNumnberValidation);
+  }
+
+  List<String> getInputFieldsLabel(
+    List<FormSection> formSections,
+    List<String> inputFieldIds,
+  ) {
+    String? currentLanguage =
+        Provider.of<LanguageTranslationState>(context, listen: false)
+            .currentLanguage;
+    List<String> inputFieldLabels = [];
+    for (FormSection formSection in formSections) {
+      for (InputField inputField in formSection.inputFields!) {
+        if (inputFieldIds.indexOf(inputField.id) > -1) {
+          if (inputField.id != '' &&
+              inputField.id != 'location' &&
+              inputField.valueType != 'CHECK_BOX') {
+            String? label = currentLanguage == 'lesotho' &&
+                    inputField.translatedName!.isNotEmpty
+                ? inputField.translatedName
+                : inputField.name;
+            inputFieldLabels.add(label!);
+          }
+          if (inputField.valueType == 'CHECK_BOX') {
+            for (var option in inputField.options!) {
+              String? label = currentLanguage == 'lesotho' &&
+                      option.translatedName!.isNotEmpty
+                  ? option.translatedName
+                  : option.name;
+              inputFieldLabels.add(label!);
+            }
+          }
+        }
+      }
+      List<String> subSectionFormInputFieldLabels =
+          getInputFieldsLabel(formSection.subSections!, inputFieldIds);
+      inputFieldLabels.addAll(subSectionFormInputFieldLabels);
+    }
+    return inputFieldLabels.toSet().toList();
+  }
+
   void onSaveGapForm(
     BuildContext context,
     Map? dataObject,
@@ -82,80 +164,82 @@ class _CasePlanServiceProvisionFormContainerState
     OvcHouseholdChild? currentOvcHouseholdChild,
   ) async {
     if (widget.dataObject.keys.length > 1) {
-      setState(() {
-        isSaving = true;
-      });
-      String program = widget.isCasePlanForHousehold
-          ? OvcHouseholdCasePlanConstant.program
-          : OvcChildCasePlanConstant.program;
-      String programStage = widget.isCasePlanForHousehold
-          ? OvcHouseholdCasePlanConstant.casePlanGapServiceProvisionProgramStage
-          : OvcChildCasePlanConstant.casePlanGapServiceProvisionProgramStage;
-      String? orgUnit = widget.isCasePlanForHousehold
-          ? currentOvcHousehold!.orgUnit
-          : currentOvcHouseholdChild!.orgUnit;
-      String? beneficiaryId = widget.isCasePlanForHousehold
-          ? currentOvcHousehold!.id
-          : currentOvcHouseholdChild!.id;
-      String? eventDate = dataObject!['eventDate'];
-      String? eventId = dataObject['eventId'];
-      List<String> hiddenFields = [
-        OvcCasePlanConstant.casePlanGapToFollowUpLinkage
-      ];
-      try {
-        await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-          program,
-          programStage,
-          orgUnit,
-          formSections!,
-          dataObject,
-          eventDate,
-          beneficiaryId,
-          eventId,
-          hiddenFields,
-        );
-        Timer(Duration(seconds: 1), () {
-          setState(() {
-            isSaving = false;
-          });
-          Provider.of<ServiceEventDataState>(context, listen: false)
-              .resetServiceEventDataState(beneficiaryId);
-          String? currentLanguage =
-              Provider.of<LanguageTranslationState>(context, listen: false)
-                  .currentLanguage;
-          AppUtil.showToastMessage(
-            message: currentLanguage == 'lesotho'
-                ? 'Fomo e bolokeile'
-                : 'Form has been saved successfully',
-            position: ToastGravity.TOP,
-          );
-          Navigator.pop(context);
+      Map<String, dynamic> sessionNumnberValidation =
+          OvcServiceProvisionUtil.getSessionNumberValidation(widget.dataObject);
+      setSessionNumberViolationMessages(sessionNumnberValidation);
+      bool isSessionNumberExit =
+          sessionNumnberValidation["isSessionNumberExit"];
+      bool isSessionNumberInValid =
+          sessionNumnberValidation["isSessionNumberInValid"];
+      if (!isSessionNumberExit && !isSessionNumberInValid) {
+        setState(() {
+          isSaving = true;
         });
-      } catch (e) {
-        Timer(Duration(seconds: 1), () {
-          setState(() {
-            isSaving = false;
+        String program = widget.isCasePlanForHousehold
+            ? OvcHouseholdCasePlanConstant.program
+            : OvcChildCasePlanConstant.program;
+        String programStage = widget.isCasePlanForHousehold
+            ? OvcHouseholdCasePlanConstant
+                .casePlanGapServiceProvisionProgramStage
+            : OvcChildCasePlanConstant.casePlanGapServiceProvisionProgramStage;
+        String? orgUnit = widget.isCasePlanForHousehold
+            ? currentOvcHousehold!.orgUnit
+            : currentOvcHouseholdChild!.orgUnit;
+        String? beneficiaryId = widget.isCasePlanForHousehold
+            ? currentOvcHousehold!.id
+            : currentOvcHouseholdChild!.id;
+        String? eventDate = dataObject!['eventDate'];
+        String? eventId = dataObject['eventId'];
+        List<String> hiddenFields = [
+          OvcCasePlanConstant.casePlanGapToServiceProvisionLinkage
+        ];
+        try {
+          await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
+            program,
+            programStage,
+            orgUnit,
+            formSections!,
+            dataObject,
+            eventDate,
+            beneficiaryId,
+            eventId,
+            hiddenFields,
+          );
+          Timer(Duration(seconds: 1), () {
+            setState(() {
+              isSaving = false;
+            });
+            Provider.of<ServiceEventDataState>(context, listen: false)
+                .resetServiceEventDataState(beneficiaryId);
+            String? currentLanguage =
+                Provider.of<LanguageTranslationState>(context, listen: false)
+                    .currentLanguage;
             AppUtil.showToastMessage(
-              message: e.toString(),
-              position: ToastGravity.BOTTOM,
+              message: currentLanguage == 'lesotho'
+                  ? 'Fomo e bolokeile'
+                  : 'Form has been saved successfully',
+              position: ToastGravity.TOP,
             );
             Navigator.pop(context);
           });
-        });
+        } catch (e) {
+          Timer(Duration(seconds: 1), () {
+            setState(() {
+              isSaving = false;
+              AppUtil.showToastMessage(
+                message: e.toString(),
+                position: ToastGravity.BOTTOM,
+              );
+              Navigator.pop(context);
+            });
+          });
+        }
       }
     } else {
       AppUtil.showToastMessage(
           message: 'Please fill at least one field',
           position: ToastGravity.TOP);
     }
-  }
-
-  void onInputValueChange(String id, dynamic value) {
-    setState(() {
-      widget.dataObject[id] = value;
-    });
-    evaluateSkipLogics(context, formSections!, widget.dataObject);
-    setState(() {});
   }
 
   @override

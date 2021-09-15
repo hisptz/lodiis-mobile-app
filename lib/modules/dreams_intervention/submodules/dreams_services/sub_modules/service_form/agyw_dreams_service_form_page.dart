@@ -150,12 +150,14 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
         .setFormFieldState('W79837fEI3C', youthMentorName);
     updateFormState(context, true, eventData, agywDream, serviceEvents);
     Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => AgywDreamsServiceForm(
-                  isFormEdited: true,
-                  currentUserImplementingPartner: implementingPartner,
-                )));
+      context,
+      MaterialPageRoute(
+        builder: (context) => AgywDreamsServiceForm(
+          isFormEdited: true,
+          currentUserImplementingPartner: implementingPartner,
+        ),
+      ),
+    );
   }
 
   @override
