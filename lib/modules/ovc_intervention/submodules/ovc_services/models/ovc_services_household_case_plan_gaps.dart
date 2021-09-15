@@ -83,32 +83,35 @@ class OvcHouseholdServicesCasePlanGaps {
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'cx4xBY4jZXM',
-                translatedName: 'Tšebeletso ea  HIVS&D',
-                name: 'HIVS&D',
+                translatedName: 'Tšebeletso ea  HIVS&D/HIV Messaging',
+                name: 'HIVS&D/HIV Messaging',
                 valueType: 'TRUE_ONLY',
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'b6hvMQuH3oJ',
-                name: '(HIVS&D) Name of responsible internal person',
+                name:
+                    '(HIVS&D/HIV Messaging) Name of responsible internal person',
                 // translatedName:
-                //     'Lebitso la motho ea ikarabellang bakeng sa HIVS&D',
+                //     'Lebitso la motho ea ikarabellang bakeng sa HIVS&D/HIV Messaging',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'iy0KZ7K4qld',
-                name: '(HIVS&D) Name of responsible external person',
+                name:
+                    '(HIVS&D/HIV Messaging) Name of responsible external person',
                 // translatedName:
-                //     'Lebitso la motho ea ikarabellang bakeng sa HIVS&D',
+                //     'Lebitso la motho ea ikarabellang bakeng sa HIVS&D/HIV Messaging',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'SIEeRmPm0Q0',
                 allowFuturePeriod: true,
-                name: '(HIVS&D) Projected date for completion',
-                translatedName: 'Letsatsi la HIVS&D le tla phetheloa',
+                name: '(HIVS&D/HIV Messaging) Projected date for completion',
+                translatedName:
+                    'Letsatsi la HIVS&D/HIV Messaging le tla phetheloa',
                 valueType: 'DATE',
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
@@ -346,21 +349,23 @@ class OvcHouseholdServicesCasePlanGaps {
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'kvF996ugmMl',
-                name: 'FE',
-                translatedName: 'Tšebeletso ea  FE',
+                name: 'Financial Education',
+                translatedName: 'Tšebeletso ea  Financial Education',
                 valueType: 'TRUE_ONLY',
                 inputColor: Color(0xFF0000FF),
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'OMtcDA7tcVL',
-                name: '(FE) Name of responsible internal person',
+                name:
+                    '(Financial Education) Name of responsible internal person',
                 // translatedName: 'Lebitso la motho ea ikarabellang bakeng sa FE',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0000FF),
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'Mz24UpWclb3',
-                name: '(FE) Name of responsible external person',
+                name:
+                    '(Financial Education) Name of responsible external person',
                 // translatedName:
                 //     'Lebitso la motho ea ikarabellang bakeng sa FE',
                 valueType: 'TEXT',
@@ -369,8 +374,9 @@ class OvcHouseholdServicesCasePlanGaps {
             InputField(
                 id: 'zVCkEJuy2t8',
                 allowFuturePeriod: true,
-                name: '(FE) Projected date for completion',
-                translatedName: 'Letsatsi la FE le tla phetheloa',
+                name: '(Financial Education) Projected date for completion',
+                translatedName:
+                    'Letsatsi la Financial Education le tla phetheloa',
                 valueType: 'DATE',
                 inputColor: Color(0xFF0000FF),
                 labelColor: Color(0xFF737373)),
@@ -547,8 +553,8 @@ class OvcHouseholdServicesCasePlanGaps {
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'aPmPhwm8Zln',
-                translatedName: 'Tšebeletso ea  VAC',
-                name: 'VAC',
+                translatedName: 'Tšebeletso ea  VAC/VAC Messaging',
+                name: 'VAC/VAC Messaging',
                 valueType: 'TRUE_ONLY',
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
@@ -612,14 +618,15 @@ class OvcHouseholdServicesCasePlanGaps {
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'Vd8dV7OweWB',
-                name: 'SURVIVORS',
-                translatedName: 'Tšebeletso ea  SURVIVORS',
+                name: 'Survivors of Abuse',
+                translatedName: 'Tšebeletso ea  Survivors of Abuse',
                 valueType: 'TRUE_ONLY',
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'UDYd31rUKgN',
-                name: '(SURVIVORS) Name of responsible internal person',
+                name:
+                    '(Survivors of Abuse) Name of responsible internal person',
                 // translatedName:
                 //     'Lebitso la motho ea ikarabellang bakeng sa SURVIVORS',
                 valueType: 'TEXT',
@@ -627,7 +634,8 @@ class OvcHouseholdServicesCasePlanGaps {
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'XvOgqGxX39f',
-                name: '(SURVIVORS) Name of responsible external person',
+                name:
+                    '(Survivors of Abuse) Name of responsible external person',
                 // translatedName:
                 //     'Lebitso la motho ea ikarabellang bakeng sa SURVIVORS',
                 valueType: 'TEXT',
@@ -636,8 +644,9 @@ class OvcHouseholdServicesCasePlanGaps {
             InputField(
                 id: 'ZO2Zg7kaYyD',
                 allowFuturePeriod: true,
-                name: '(SURVIVORS) Projected date for completion',
-                translatedName: 'Letsatsi la SURVIVORS le tla phetheloa',
+                name: '(Survivors of Abuse) Projected date for completion',
+                translatedName:
+                    'Letsatsi la Survivors of Abuse le tla phetheloa',
                 valueType: 'DATE',
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),

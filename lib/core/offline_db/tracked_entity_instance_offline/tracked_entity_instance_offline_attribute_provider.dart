@@ -20,7 +20,8 @@ class TrackedEntityInstanceOfflineAttributeProvider extends OfflineDbProvider {
       String? trackedEntityInstance =
           trackedEntityInstanceData.trackedEntityInstance;
       for (Map attributeObj in attributes) {
-        if ('${attributeObj[value]}'.isNotEmpty) {
+        if ('${attributeObj[value]}'.isNotEmpty &&
+            '${attributeObj[value]}' != 'null') {
           String? attribute = attributeObj['attribute'];
           Map data = Map<String, dynamic>();
           data['id'] = '$trackedEntityInstance-$attribute';
@@ -83,7 +84,7 @@ class TrackedEntityInstanceOfflineAttributeProvider extends OfflineDbProvider {
       );
       if (maps.isNotEmpty) {
         for (Map map in maps) {
-          if ('${map[value]}'.isNotEmpty) {
+          if ('${map[value]}'.isNotEmpty && '${map[value]}' != 'null') {
             attributes.add(map);
           }
         }

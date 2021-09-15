@@ -16,7 +16,8 @@ class EventOfflineDataValueProvider extends OfflineDbProvider {
       List dataValues = eventData.dataValues ?? [];
       String? event = eventData.event;
       for (Map dataValue in dataValues) {
-        if ('${dataValue[value]}'.isNotEmpty) {
+        if ('${dataValue[value]}'.isNotEmpty &&
+            '${dataValue[value]}' != 'null') {
           String? dataElement = dataValue['dataElement'];
           Map data = Map<String, dynamic>();
           data['id'] = '$event-$dataElement';
@@ -44,7 +45,7 @@ class EventOfflineDataValueProvider extends OfflineDbProvider {
       );
       if (maps.isNotEmpty) {
         for (Map map in maps) {
-          if ('${map[value]}'.isNotEmpty) {
+          if ('${map[value]}'.isNotEmpty && '${map[value]}' != 'null') {
             dataValues.add(map);
           }
         }
