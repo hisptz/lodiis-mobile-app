@@ -51,6 +51,8 @@ class OvcServiceProvisionUtil {
         OvcServiceFormSessionNumber.sessionMapping;
     bool isSessionNumberExit = false;
     bool isSessionNumberInValid = false;
+    List<String> sessionWithExistingSessionNumber = [];
+    List<String> sessionWithInvalidSessionNumber = [];
     Map<String, List<String>> interventionSessions =
         dataObject["interventionSessions"] ?? [];
     for (String serviceDataElement
@@ -69,15 +71,21 @@ class OvcServiceProvisionUtil {
               interventionSessions[serviceDataElement] ?? [];
           if (possibleSessionNumbers.indexOf(currentSessionNumber) == -1) {
             isSessionNumberInValid = true;
+            sessionWithInvalidSessionNumber.add(serviceDataElement);
           }
           if (previousSessionNumbers.indexOf(currentSessionNumber) > -1) {
             isSessionNumberExit = true;
+            sessionWithExistingSessionNumber.add(serviceDataElement);
           }
         }
       }
     }
     sessionNumnberValidation["isSessionNumberExit"] = isSessionNumberExit;
     sessionNumnberValidation["isSessionNumberInValid"] = isSessionNumberInValid;
+    sessionNumnberValidation["sessionWithExistingSessionNumber"] =
+        sessionWithExistingSessionNumber;
+    sessionNumnberValidation["sessionWithInvalidSessionNumber"] =
+        sessionWithInvalidSessionNumber;
     return sessionNumnberValidation;
   }
 }

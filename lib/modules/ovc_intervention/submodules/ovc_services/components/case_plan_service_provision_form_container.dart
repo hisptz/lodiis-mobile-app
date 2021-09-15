@@ -7,7 +7,9 @@ import 'package:kb_mobile_app/app_state/language_translation_state/language_tran
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
+import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
+import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/ovc_household.dart';
 import 'package:kb_mobile_app/models/ovc_household_child.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/household_service_provision.dart';
@@ -76,12 +78,35 @@ class _CasePlanServiceProvisionFormModalContainerState
   }
 
   void setSessionNumberViolationMessages(
-      Map<String, dynamic> sessionNumnberValidation) {
+    Map<String, dynamic> sessionNumnberValidation,
+  ) {
+    print(sessionNumnberValidation);
     bool isSessionNumberExit = sessionNumnberValidation["isSessionNumberExit"];
     bool isSessionNumberInValid =
         sessionNumnberValidation["isSessionNumberInValid"];
-    print(
-        "isSessionNumberInValid=> $isSessionNumberInValid :: isSessionNumberExit => $isSessionNumberExit");
+    String message = "";
+    if (isSessionNumberInValid) {
+      List<String> sessionWithInvalidSessionNumber =
+          sessionNumnberValidation["sessionWithInvalidSessionNumber"] ?? [];
+      String inputFieldLabels =
+          getInputFieldsLabel(formSections!, sessionWithInvalidSessionNumber)
+              .join(", ");
+      message =
+          "Session number for $inputFieldLabels are not valid session numnber";
+    } else if (isSessionNumberExit) {
+      List<String> sessionWithExistingSessionNumber =
+          sessionNumnberValidation["sessionWithExistingSessionNumber"] ?? [];
+      String inputFieldLabels =
+          getInputFieldsLabel(formSections!, sessionWithExistingSessionNumber)
+              .join(", ");
+      message =
+          "Session number for $inputFieldLabels already existed for prevision service provision ";
+    }
+    if (message.isNotEmpty)
+      AppUtil.showToastMessage(
+        message: message,
+        position: ToastGravity.TOP,
+      );
   }
 
   void onInputValueChange(String id, dynamic value) {
@@ -92,6 +117,44 @@ class _CasePlanServiceProvisionFormModalContainerState
         OvcServiceProvisionUtil.getSessionNumberValidation(widget.dataObject);
     setState(() {});
     setSessionNumberViolationMessages(sessionNumnberValidation);
+  }
+
+  List<String> getInputFieldsLabel(
+    List<FormSection> formSections,
+    List<String> inputFieldIds,
+  ) {
+    String? currentLanguage =
+        Provider.of<LanguageTranslationState>(context, listen: false)
+            .currentLanguage;
+    List<String> inputFieldLabels = [];
+    for (FormSection formSection in formSections) {
+      for (InputField inputField in formSection.inputFields!) {
+        if (inputFieldIds.indexOf(inputField.id) > -1) {
+          if (inputField.id != '' &&
+              inputField.id != 'location' &&
+              inputField.valueType != 'CHECK_BOX') {
+            String? label = currentLanguage == 'lesotho' &&
+                    inputField.translatedName!.isNotEmpty
+                ? inputField.translatedName
+                : inputField.name;
+            inputFieldLabels.add(label!);
+          }
+          if (inputField.valueType == 'CHECK_BOX') {
+            for (var option in inputField.options!) {
+              String? label = currentLanguage == 'lesotho' &&
+                      option.translatedName!.isNotEmpty
+                  ? option.translatedName
+                  : option.name;
+              inputFieldLabels.add(label!);
+            }
+          }
+        }
+      }
+      List<String> subSectionFormInputFieldLabels =
+          getInputFieldsLabel(formSection.subSections!, inputFieldIds);
+      inputFieldLabels.addAll(subSectionFormInputFieldLabels);
+    }
+    return inputFieldLabels.toSet().toList();
   }
 
   void onSaveGapForm(
@@ -131,19 +194,17 @@ class _CasePlanServiceProvisionFormModalContainerState
           OvcCasePlanConstant.casePlanGapToServiceProvisionLinkage
         ];
         try {
-          print(dataObject);
-          //@TODO enable back actual saving
-          // await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-          //   program,
-          //   programStage,
-          //   orgUnit,
-          //   formSections!,
-          //   dataObject,
-          //   eventDate,
-          //   beneficiaryId,
-          //   eventId,
-          //   hiddenFields,
-          // );
+          await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
+            program,
+            programStage,
+            orgUnit,
+            formSections!,
+            dataObject,
+            eventDate,
+            beneficiaryId,
+            eventId,
+            hiddenFields,
+          );
           Timer(Duration(seconds: 1), () {
             setState(() {
               isSaving = false;
