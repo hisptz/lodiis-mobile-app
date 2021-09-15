@@ -28,14 +28,6 @@ class HouseholdServiceProvision {
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
             InputField(
-              id: 'UQKbbPTRaB8',
-              name: 'HTS session number',
-              // translatedName: 'Boemo ba Phano ea Litšebeletso ea HTS',
-              valueType: 'TEXT',
-              inputColor: Color(0xFF4D9E49),
-              labelColor: Color(0xFF737373),
-            ),
-            InputField(
                 id: 'sxlVgySosg3',
                 name: 'HTS Comment',
                 translatedName: 'Tlhaloso ea HTS',
@@ -57,14 +49,6 @@ class HouseholdServiceProvision {
                 valueType: 'DATE',
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
-            InputField(
-              id: 'BOuCiVoZ7sT',
-              name: 'HIVTREAT session number',
-              // translatedName: 'Boemo ba Phano ea Litšebeletso ea HTS',
-              valueType: 'TEXT',
-              inputColor: Color(0xFF4D9E49),
-              labelColor: Color(0xFF737373),
-            ),
             InputField(
                 id: 'i9icxSZ8HCf',
                 name: 'HIVTREAT Comment',
@@ -118,14 +102,6 @@ class HouseholdServiceProvision {
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
             InputField(
-              id: 'ze0vffQrd1R',
-              name: 'HEALTH session number',
-              // translatedName: 'Boemo ba Phano ea Litšebeletso ea HEALTH',
-              valueType: 'TEXT',
-              inputColor: Color(0xFF4D9E49),
-              labelColor: Color(0xFF737373),
-            ),
-            InputField(
                 id: 'AStxMCkJhi5',
                 name: 'HEALTH Comment',
                 translatedName: 'Tlhaloso ea HEALTH',
@@ -146,14 +122,6 @@ class HouseholdServiceProvision {
                 valueType: 'DATE',
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
-            InputField(
-              id: 'jR2yBxtyPRa',
-              name: 'PRG&L session number',
-              // translatedName: 'Boemo ba Phano ea Litšebeletso ea PRG&L',
-              valueType: 'TEXT',
-              inputColor: Color(0xFF4D9E49),
-              labelColor: Color(0xFF737373),
-            ),
             InputField(
                 id: 'GISFLEttRtU',
                 name: 'PRG&L Comment',
@@ -177,14 +145,6 @@ class HouseholdServiceProvision {
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
             InputField(
-              id: 'zzH8cEeSDFz',
-              name: 'SAIDS session number',
-              // translatedName: 'Boemo ba Phano ea Litšebeletso ea SAIDS',
-              valueType: 'TEXT',
-              inputColor: Color(0xFF4D9E49),
-              labelColor: Color(0xFF737373),
-            ),
-            InputField(
                 id: 'itTgPQ0OrMU',
                 name: 'SAIDS Comment',
                 translatedName: 'Tlhaloso ea SAIDS',
@@ -207,14 +167,6 @@ class HouseholdServiceProvision {
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
             InputField(
-              id: 'EtENRPlSnO0',
-              name: 'WASHMES session number',
-              // translatedName: 'Boemo ba Phano ea Litšebeletso ea WASHMES',
-              valueType: 'TEXT',
-              inputColor: Color(0xFF4D9E49),
-              labelColor: Color(0xFF737373),
-            ),
-            InputField(
                 id: 'JFlnkaXlXm5',
                 name: 'WASHMES Comment',
                 translatedName: 'Tlhaloso ea WASHMES',
@@ -236,14 +188,6 @@ class HouseholdServiceProvision {
                 valueType: 'DATE',
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
-            InputField(
-              id: 'k5RGRpWRbbs',
-              name: 'SOACKAGE session number',
-              // translatedName: 'Boemo ba Phano ea Litšebeletso ea SOACKAGE',
-              valueType: 'TEXT',
-              inputColor: Color(0xFF4D9E49),
-              labelColor: Color(0xFF737373),
-            ),
             InputField(
                 id: 'SODPuEmHEGV',
                 name: 'SOACKAGE Comment',
@@ -365,13 +309,6 @@ class HouseholdServiceProvision {
                 inputColor: Color(0xFF0000FF),
                 labelColor: Color(0xFF737373)),
             InputField(
-                id: 'Z6VwHVRIh48',
-                name: 'EST COOPRTVS session number',
-                // translatedName: 'Boemo ba Phano ea Litšebeletso ea EST COOPRTVS',
-                valueType: 'TEXT',
-                inputColor: Color(0xFF0000FF),
-                labelColor: Color(0xFF737373)),
-            InputField(
                 id: 'giA7cceTW8w',
                 name: 'EST COOPRTVS Comment',
                 translatedName: 'Tlhaloso ea EST COOPRTVS',
@@ -393,13 +330,6 @@ class HouseholdServiceProvision {
                 translatedName:
                     'Letsatsi la Kabo ea Litšebeletso tsa FUNCT COOPRTVS',
                 valueType: 'DATE',
-                inputColor: Color(0xFF0000FF),
-                labelColor: Color(0xFF737373)),
-            InputField(
-                id: 'kehmVw8hmos',
-                name: 'FUNCT COOPRTVS session number',
-                // translatedName: 'Boemo ba Phano ea Litšebeletso ea FUNCT COOPRTVS',
-                valueType: 'TEXT',
                 inputColor: Color(0xFF0000FF),
                 labelColor: Color(0xFF737373)),
             InputField(
@@ -427,13 +357,6 @@ class HouseholdServiceProvision {
                 inputColor: Color(0xFF0000FF),
                 labelColor: Color(0xFF737373)),
             InputField(
-                id: 'iwuAHCCxe5m',
-                name: 'MARKT COOPRTVS session number',
-                // translatedName: 'Boemo ba Phano ea Litšebeletso ea MARKT COOPRTVS',
-                valueType: 'TEXT',
-                inputColor: Color(0xFF0000FF),
-                labelColor: Color(0xFF737373)),
-            InputField(
                 id: 'KpUgwivl5Cr',
                 name: 'MARKT COOPRTVS Comment',
                 translatedName: 'Tlhaloso ea MARKT COOPRTVS',
@@ -453,13 +376,6 @@ class HouseholdServiceProvision {
                 name: 'K/TPLOTS Service Provision Date',
                 // translatedName: 'Letsatsi la Kabo ea Litšebeletso tsa K/TPLOTS',
                 valueType: 'DATE',
-                inputColor: Color(0xFF0000FF),
-                labelColor: Color(0xFF737373)),
-            InputField(
-                id: 'ereN7hP7yuT',
-                name: 'K/TPLOTS session number',
-                // translatedName: 'Boemo ba Phano ea Litšebeletso ea K/TPLOTS',
-                valueType: 'TEXT',
                 inputColor: Color(0xFF0000FF),
                 labelColor: Color(0xFF737373)),
             InputField(

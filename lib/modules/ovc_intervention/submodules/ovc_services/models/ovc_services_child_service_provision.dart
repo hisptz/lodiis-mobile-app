@@ -29,14 +29,6 @@ class OvcServicesChildServiceProvision {
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
             InputField(
-              id: 'EXYGq5lJI1v',
-              name: 'HIVSCREEN session number',
-              // translatedName: 'Boemo ba Phano ea Litšebeletso ea HIVSCREEN',
-              valueType: 'TEXT',
-              inputColor: Color(0xFF4D9E49),
-              labelColor: Color(0xFF737373),
-            ),
-            InputField(
                 id: 'W5lbgijaXA6',
                 name: 'HIVSCREEN Comment',
                 translatedName: 'Tlhaloso ea HIVSCREEN',
@@ -59,14 +51,6 @@ class OvcServicesChildServiceProvision {
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
             InputField(
-              id: 'UQKbbPTRaB8',
-              name: 'HTS session number',
-              // translatedName: 'Boemo ba Phano ea Litšebeletso ea HTS',
-              valueType: 'TEXT',
-              inputColor: Color(0xFF4D9E49),
-              labelColor: Color(0xFF737373),
-            ),
-            InputField(
                 id: 'sxlVgySosg3',
                 name: 'HTS Comment',
                 translatedName: 'Tlhaloso ea HTS',
@@ -88,14 +72,6 @@ class OvcServicesChildServiceProvision {
                 valueType: 'DATE',
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
-            InputField(
-              id: 'BOuCiVoZ7sT',
-              name: 'HIVTREAT session number',
-              // translatedName: 'Boemo ba Phano ea Litšebeletso ea HIVTREAT',
-              valueType: 'TEXT',
-              inputColor: Color(0xFF4D9E49),
-              labelColor: Color(0xFF737373),
-            ),
             InputField(
                 id: 'i9icxSZ8HCf',
                 name: 'HIVTREAT Comment',
@@ -149,14 +125,6 @@ class OvcServicesChildServiceProvision {
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
             InputField(
-              id: 'ze0vffQrd1R',
-              name: 'HEALTH session number',
-              // translatedName: 'Boemo ba Phano ea Litšebeletso ea HEALTH',
-              valueType: 'TEXT',
-              inputColor: Color(0xFF4D9E49),
-              labelColor: Color(0xFF737373),
-            ),
-            InputField(
                 id: 'AStxMCkJhi5',
                 name: 'HEALTH Comment',
                 translatedName: 'Tlhaloso ea HEALTH',
@@ -178,14 +146,6 @@ class OvcServicesChildServiceProvision {
                 valueType: 'DATE',
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
-            InputField(
-              id: 'jR2yBxtyPRa',
-              name: 'PRG&L session number',
-              // translatedName: 'Boemo ba Phano ea Litšebeletso ea PRG&L',
-              valueType: 'TEXT',
-              inputColor: Color(0xFF4D9E49),
-              labelColor: Color(0xFF737373),
-            ),
             InputField(
                 id: 'GISFLEttRtU',
                 name: 'PRG&L Comment',
@@ -209,14 +169,6 @@ class OvcServicesChildServiceProvision {
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
             InputField(
-              id: 'zzH8cEeSDFz',
-              name: 'SAIDS session number',
-              // translatedName: 'Boemo ba Phano ea Litšebeletso ea SAIDS',
-              valueType: 'TEXT',
-              inputColor: Color(0xFF4D9E49),
-              labelColor: Color(0xFF737373),
-            ),
-            InputField(
                 id: 'itTgPQ0OrMU',
                 name: 'SAIDS Comment',
                 translatedName: 'Tlhaloso ea SAIDS',
@@ -239,14 +191,6 @@ class OvcServicesChildServiceProvision {
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
             InputField(
-              id: 'LUyWbpKKNgW',
-              name: 'IMMUNIZE session number',
-              // translatedName: 'Boemo ba Phano ea Litšebeletso ea IMMUNIZE',
-              valueType: 'TEXT',
-              inputColor: Color(0xFF4D9E49),
-              labelColor: Color(0xFF737373),
-            ),
-            InputField(
                 id: 'wZLjymsKsuj',
                 name: 'IMMUNIZE Comment',
                 translatedName: 'Tlhaloso ea IMMUNIZE',
@@ -268,14 +212,6 @@ class OvcServicesChildServiceProvision {
                 valueType: 'DATE',
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
-            InputField(
-              id: 'uqYcjiXv41F',
-              name: 'MALNU session number',
-              // translatedName: 'Boemo ba Phano ea Litšebeletso ea MALNU',
-              valueType: 'TEXT',
-              inputColor: Color(0xFF4D9E49),
-              labelColor: Color(0xFF737373),
-            ),
             InputField(
                 id: 'Jxlug5I3kdu',
                 name: 'MALNU Comment',
@@ -390,14 +326,6 @@ class OvcServicesChildServiceProvision {
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
             InputField(
-              id: 'ydZH3TOpsXS',
-              name: 'TBREFER session number',
-              // translatedName: 'Boemo ba Phano ea Litšebeletso ea TBREFER',
-              valueType: 'TEXT',
-              inputColor: Color(0xFF4D9E49),
-              labelColor: Color(0xFF737373),
-            ),
-            InputField(
                 id: 'kBivIQr6mrW',
                 name: 'TBREFER Comment',
                 translatedName: 'Tlhaloso ea TBREFER',
@@ -480,14 +408,6 @@ class OvcServicesChildServiceProvision {
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
             InputField(
-              id: 'vXuVPQLxw1d',
-              name: 'FOODSUPP session number',
-              // translatedName: 'Boemo ba Phano ea Litšebeletso ea FOODSUPP',
-              valueType: 'TEXT',
-              inputColor: Color(0xFF4D9E49),
-              labelColor: Color(0xFF737373),
-            ),
-            InputField(
                 id: 'xdI5atw8DC4',
                 name: 'FOODSUPP Comment',
                 translatedName: 'Tlhaloso ea FOODSUPP',
@@ -515,13 +435,6 @@ class OvcServicesChildServiceProvision {
                 name: 'OVCFUND Service Provision Date',
                 translatedName: 'Letsatsi la Kabo ea Litšebeletso tsa OVCFUND',
                 valueType: 'DATE',
-                inputColor: Color(0xFF0000FF),
-                labelColor: Color(0xFF737373)),
-            InputField(
-                id: 'InQiKRJfuZW',
-                name: 'OVCFUND session number',
-                // translatedName: 'Boemo ba Phano ea Litšebeletso ea OVCFUND',
-                valueType: 'TEXT',
                 inputColor: Color(0xFF0000FF),
                 labelColor: Color(0xFF737373)),
             InputField(
@@ -578,13 +491,6 @@ class OvcServicesChildServiceProvision {
                 inputColor: Color(0xFF0000FF),
                 labelColor: Color(0xFF737373)),
             InputField(
-                id: 'Z6VwHVRIh48',
-                name: 'EST COOPRTVS session number',
-                // translatedName: 'Boemo ba Phano ea Litšebeletso ea EST COOPRTVS',
-                valueType: 'TEXT',
-                inputColor: Color(0xFF0000FF),
-                labelColor: Color(0xFF737373)),
-            InputField(
                 id: 'giA7cceTW8w',
                 name: 'EST COOPRTVS Comment',
                 translatedName: 'Tlhaloso ea EST COOPRTVS ',
@@ -609,13 +515,6 @@ class OvcServicesChildServiceProvision {
                 inputColor: Color(0xFF0000FF),
                 labelColor: Color(0xFF737373)),
             InputField(
-                id: 'kehmVw8hmos',
-                name: 'FUNCT COOPRTVS session number',
-                // translatedName: 'Boemo ba Phano ea Litšebeletso ea FUNCT COOPRTVS',
-                valueType: 'TEXT',
-                inputColor: Color(0xFF0000FF),
-                labelColor: Color(0xFF737373)),
-            InputField(
                 id: 'TNmg7uRUWgC',
                 name: 'FUNCT COOPRTVS Comment',
                 translatedName: 'Tlhaloso ea FUNCT COOPRTVS',
@@ -637,13 +536,6 @@ class OvcServicesChildServiceProvision {
                 translatedName:
                     'Letsatsi la Kabo ea Litšebeletso tsa MARKT COOPRTVS',
                 valueType: 'DATE',
-                inputColor: Color(0xFF0000FF),
-                labelColor: Color(0xFF737373)),
-            InputField(
-                id: 'iwuAHCCxe5m',
-                name: 'MARKT COOPRTVS session number',
-                // translatedName: 'Boemo ba Phano ea Litšebeletso ea MARKT COOPRTVS',
-                valueType: 'TEXT',
                 inputColor: Color(0xFF0000FF),
                 labelColor: Color(0xFF737373)),
             InputField(
@@ -1154,13 +1046,6 @@ class OvcServicesChildServiceProvision {
                 inputColor: Color(0xFF9B2BAE),
                 labelColor: Color(0xFF737373)),
             InputField(
-                id: 'LO3eAKwk0gW',
-                name: 'BURSARY session number',
-                // translatedName: 'Boemo ba Phano ea Litšebeletso ea BURSARY',
-                valueType: 'TEXT',
-                inputColor: Color(0xFF9B2BAE),
-                labelColor: Color(0xFF737373)),
-            InputField(
                 id: 'yuwtSD8EyoY',
                 name: 'BURSARY Comment',
                 translatedName: 'Tlhaloso ea BURSARY',
@@ -1179,13 +1064,6 @@ class OvcServicesChildServiceProvision {
                 id: 'KZIjTeMl7sj',
                 name: 'SFEES Service Provision Date',
                 translatedName: 'Letsatsi la Kabo ea Litšebeletso tsa SFEES',
-                valueType: 'TEXT',
-                inputColor: Color(0xFF9B2BAE),
-                labelColor: Color(0xFF737373)),
-            InputField(
-                id: 'J8iM7Hh2z3K',
-                name: 'SFEES session number',
-                // translatedName: 'Boemo ba Phano ea Litšebeletso ea SFEES',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF9B2BAE),
                 labelColor: Color(0xFF737373)),
@@ -1213,13 +1091,6 @@ class OvcServicesChildServiceProvision {
                 inputColor: Color(0xFF9B2BAE),
                 labelColor: Color(0xFF737373)),
             InputField(
-                id: 'FYBjYHD8050',
-                name: 'SMATERIAL session number',
-                // translatedName: 'Boemo ba Phano ea Litšebeletso ea SMATERIAL',
-                valueType: 'TEXT',
-                inputColor: Color(0xFF9B2BAE),
-                labelColor: Color(0xFF737373)),
-            InputField(
                 id: 'CxREUNzKxHB',
                 name: 'SMATERIAL Comment',
                 translatedName: 'Tlhaloso ea SMATERIAL',
@@ -1239,13 +1110,6 @@ class OvcServicesChildServiceProvision {
                 name: 'REENROL Service Provision Date',
                 translatedName: 'Letsatsi la Kabo ea Litšebeletso tsa REENROL',
                 valueType: 'DATE',
-                inputColor: Color(0xFF9B2BAE),
-                labelColor: Color(0xFF737373)),
-            InputField(
-                id: 'yvAIdXNQevG',
-                name: 'REENROL session number',
-                // translatedName: 'Boemo ba Phano ea Litšebeletso ea REENROL',
-                valueType: 'TEXT',
                 inputColor: Color(0xFF9B2BAE),
                 labelColor: Color(0xFF737373)),
             InputField(
