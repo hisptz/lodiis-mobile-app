@@ -116,7 +116,6 @@ class AgywDreamsServiceFormSkipLogic {
     resetValuesForHiddenInputFieldOptions(context, formSections);
   }
 
-  //@TODO additional fields for sessions controlls to extend on ovc foms
   static bool evaluateSkipLogicBySessionReoccurrence(Map dataObject) {
     String interventionType = dataObject['Eug4BXDFLym'] ?? '';
     Map sessionsPerInterventions = dataObject['interventionSessions'];
@@ -130,7 +129,8 @@ class AgywDreamsServiceFormSkipLogic {
     List interventionSessions =
         sessionsPerInterventions[interventionType] ?? [];
     return interventionType != ''
-        ? currentSession != '' && interventionSessions.contains(currentSession)
+        ? currentSession != '' &&
+            interventionSessions.contains(currentSession.toLowerCase())
         : false;
   }
 

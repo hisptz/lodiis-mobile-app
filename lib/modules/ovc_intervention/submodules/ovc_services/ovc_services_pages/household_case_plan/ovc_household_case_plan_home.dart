@@ -16,8 +16,8 @@ import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_household_top_header.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_case_plan.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/components/case_plan_home_list_container.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/constants/ovc_case_plan_constant.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/components/case_plan_home_list_container.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/constants/ovc_case_plan_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/household_case_plan/constants/ovc_household_case_plan_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/household_case_plan/pages/ovc_household_case_plan_form.dart';
 import 'package:provider/provider.dart';
@@ -67,8 +67,8 @@ class OvcHouseholdCasePlanHome extends StatelessWidget {
       map['eventDate'] = map['eventDate'] ?? eventDate;
       map[OvcCasePlanConstant.casePlanToGapLinkage] =
           map[OvcCasePlanConstant.casePlanToGapLinkage] ?? casePlanToGapLinkage;
-      map[OvcCasePlanConstant.casePlanGapToFollowUpLinkage] =
-          map[OvcCasePlanConstant.casePlanGapToFollowUpLinkage] ??
+      map[OvcCasePlanConstant.casePlanGapToServiceProvisionLinkage] =
+          map[OvcCasePlanConstant.casePlanGapToServiceProvisionLinkage] ??
               AppUtil.getUid();
       map[OvcCasePlanConstant.casePlanDomainType] = formSection.id;
       Provider.of<ServiceFormState>(context, listen: false)
@@ -114,7 +114,7 @@ class OvcHouseholdCasePlanHome extends StatelessWidget {
       context,
       MaterialPageRoute(
         builder: (context) => OvcHouseholdCasePlanForm(
-          shouldViewCaseGapFollowUp: true,
+          shoulViewCaseGapServiceProvision: true,
           shouldAddCasePlanGap: true,
         ),
       ),
@@ -133,7 +133,7 @@ class OvcHouseholdCasePlanHome extends StatelessWidget {
       context,
       MaterialPageRoute(
         builder: (context) => OvcHouseholdCasePlanForm(
-          shouldViewCaseGapFollowUp: true,
+          shoulViewCaseGapServiceProvision: true,
         ),
       ),
     );

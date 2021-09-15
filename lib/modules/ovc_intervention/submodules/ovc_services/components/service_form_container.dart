@@ -5,9 +5,9 @@ import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_child_case_plan_gap.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_household_case_plan_gaps.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/components/case_plan_gap_form_container.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/components/case_plan_service_provision_view_container.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/constants/ovc_case_plan_constant.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/components/case_plan_gap_form_container.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/components/case_plan_service_provision_view_container.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/constants/ovc_case_plan_constant.dart';
 
 class ServiceFormContainer extends StatelessWidget {
   ServiceFormContainer({
@@ -18,8 +18,8 @@ class ServiceFormContainer extends StatelessWidget {
     required this.dataObject,
     this.isCasePlanForHousehold = false,
     this.onInputValueChange,
-    required this.shouldEditCaseGapFollowUps,
-    required this.shouldViewCaseGapFollowUp,
+    required this.shouldEditCaseGapServiceProvision,
+    required this.shoulViewCaseGapServiceProvision,
   }) : super(key: key);
 
   final Color? formSectionColor;
@@ -28,17 +28,17 @@ class ServiceFormContainer extends StatelessWidget {
   final Map? dataObject;
   final Function? onInputValueChange;
   final bool isCasePlanForHousehold;
-  final bool shouldEditCaseGapFollowUps;
-  final bool shouldViewCaseGapFollowUp;
+  final bool shouldEditCaseGapServiceProvision;
+  final bool shoulViewCaseGapServiceProvision;
 
   final String caseToGapLinkage = OvcCasePlanConstant.casePlanToGapLinkage;
-  final String casePlanGapToFollowUpLinkage =
-      OvcCasePlanConstant.casePlanGapToFollowUpLinkage;
+  final String casePlanGapToServiceProvisionLinkage =
+      OvcCasePlanConstant.casePlanGapToServiceProvisionLinkage;
 
   void onAddNewGap(BuildContext context) async {
     Map gapDataObject = Map();
-    gapDataObject[casePlanGapToFollowUpLinkage] =
-        gapDataObject[casePlanGapToFollowUpLinkage] ?? AppUtil.getUid();
+    gapDataObject[casePlanGapToServiceProvisionLinkage] =
+        gapDataObject[casePlanGapToServiceProvisionLinkage] ?? AppUtil.getUid();
     gapDataObject[caseToGapLinkage] =
         dataObject![caseToGapLinkage] ?? AppUtil.getUid();
     List<FormSection> formSections = isCasePlanForHousehold
@@ -105,12 +105,15 @@ class ServiceFormContainer extends StatelessWidget {
                   domainId: formSection.id,
                   isCasePlanForHousehold: isCasePlanForHousehold,
                   formSectionColor: formSectionColor,
-                  shouldEditCaseGapFollowUps: shouldEditCaseGapFollowUps,
-                  shouldViewCaseGapFollowUp: shouldViewCaseGapFollowUp,
+                  shouldEditCaseGapServiceProvision:
+                      shouldEditCaseGapServiceProvision,
+                  shoulViewCaseGapServiceProvision:
+                      shoulViewCaseGapServiceProvision,
                 ),
                 Visibility(
-                  visible: (isEditableMode || shouldEditCaseGapFollowUps) &&
-                      !shouldViewCaseGapFollowUp,
+                  visible:
+                      (isEditableMode || shouldEditCaseGapServiceProvision) &&
+                          !shoulViewCaseGapServiceProvision,
                   child: Container(
                     margin: EdgeInsets.only(
                       bottom: 10.0,

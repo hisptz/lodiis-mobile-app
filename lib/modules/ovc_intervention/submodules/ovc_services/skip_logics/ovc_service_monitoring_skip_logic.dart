@@ -24,8 +24,7 @@ class OvcServiceMonitoringSkipLogic {
       hiddenFields[inputFieldId] = true;
     }
 
-    //@TODO adding checking of service session numbers
-    //@TODO checkong age limit to hide and hide ot dhoe serevices
+    //@TODO checkong age limit to hide and hide or show services
 
     dataObject.forEach((key, value) {
       if (key == 'BYu8pI5kGXF' && value == 'true') {

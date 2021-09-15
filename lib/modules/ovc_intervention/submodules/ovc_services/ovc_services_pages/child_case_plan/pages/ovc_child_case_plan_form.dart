@@ -21,20 +21,20 @@ import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_case_plan.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_child_case_plan_gap.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_case_plan/constants/ovc_child_case_plan_constant.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/components/case_plan_form_container.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/constants/ovc_case_plan_constant.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/components/case_plan_form_container.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/constants/ovc_case_plan_constant.dart';
 import 'package:provider/provider.dart';
 
 class OcvChildCasePlanForm extends StatefulWidget {
   const OcvChildCasePlanForm({
     Key? key,
-    this.shouldEditCaseGapFollowUps = false,
-    this.shouldViewCaseGapFollowUp = false,
+    this.shouldEditCaseGapServiceProvision = false,
+    this.shoulViewCaseGapServiceProvision = false,
     this.shouldAddCasePlanGap = false,
   }) : super(key: key);
 
-  final bool shouldEditCaseGapFollowUps;
-  final bool shouldViewCaseGapFollowUp;
+  final bool shouldEditCaseGapServiceProvision;
+  final bool shoulViewCaseGapServiceProvision;
   final bool shouldAddCasePlanGap;
 
   @override
@@ -118,7 +118,7 @@ class _OcvChildCasePlanFormState extends State<OcvChildCasePlanForm> {
           );
           hiddenFields = [
             OvcCasePlanConstant.casePlanToGapLinkage,
-            OvcCasePlanConstant.casePlanGapToFollowUpLinkage
+            OvcCasePlanConstant.casePlanGapToServiceProvisionLinkage
           ];
           for (Map domainGapDataObject in domainDataObject['gaps']) {
             await TrackedEntityInstanceUtil
@@ -241,12 +241,12 @@ class _OcvChildCasePlanFormState extends State<OcvChildCasePlanForm> {
                                                           currentOvcHouseholdChild,
                                                       shouldAddCasePlanGap: widget
                                                           .shouldAddCasePlanGap,
-                                                      shouldEditCaseGapFollowUps:
+                                                      shouldEditCaseGapServiceProvision:
                                                           widget
-                                                              .shouldEditCaseGapFollowUps,
-                                                      shouldViewCaseGapFollowUp:
+                                                              .shouldEditCaseGapServiceProvision,
+                                                      shoulViewCaseGapServiceProvision:
                                                           widget
-                                                              .shouldViewCaseGapFollowUp,
+                                                              .shoulViewCaseGapServiceProvision,
                                                       formSectionColor:
                                                           borderColors[
                                                               formSection.id],

@@ -5,7 +5,7 @@ class CasePlanGapServiceProvision {
   String? date;
   String? result;
   String? reason;
-  String? casePlanGapToFollowUpLinkage;
+  String? casePlanGapToServiceProvisionLinkage;
   Events? eventData;
 
   CasePlanGapServiceProvision({
@@ -13,13 +13,13 @@ class CasePlanGapServiceProvision {
     this.date,
     this.result,
     this.reason,
-    this.casePlanGapToFollowUpLinkage,
+    this.casePlanGapToServiceProvisionLinkage,
     this.eventData,
   });
 
   CasePlanGapServiceProvision fromTeiModel(
     Events eventData,
-    String casePlanGapToFollowUpLinkage,
+    String casePlanGapToServiceProvisionLinkage,
   ) {
     List reasonIds = [
       'W5lbgijaXA6',
@@ -134,7 +134,8 @@ class CasePlanGapServiceProvision {
     String followUpReason = '';
     for (Map detailObj in eventData.dataValues) {
       String? dataElement = detailObj['dataElement'];
-      if (dataElement != null && dataElement == casePlanGapToFollowUpLinkage) {
+      if (dataElement != null &&
+          dataElement == casePlanGapToServiceProvisionLinkage) {
         data[dataElement] = '${detailObj['value']}'.trim();
       } else if (dataElement != null && resultIds.indexOf(dataElement) > -1) {
         followupResults =
@@ -150,7 +151,8 @@ class CasePlanGapServiceProvision {
     }
     return CasePlanGapServiceProvision(
       id: eventData.event,
-      casePlanGapToFollowUpLinkage: data[casePlanGapToFollowUpLinkage] ?? '',
+      casePlanGapToServiceProvisionLinkage:
+          data[casePlanGapToServiceProvisionLinkage] ?? '',
       date: eventData.eventDate,
       result: "$followupResults" == "true" ? "Yes" : "No",
       reason: followUpReason,

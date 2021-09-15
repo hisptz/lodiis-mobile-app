@@ -2,7 +2,7 @@ import 'package:kb_mobile_app/models/events.dart';
 
 class OvcCasePlanConstant {
   static final String casePlanToGapLinkage = 'ajqTV28fydL';
-  static final String casePlanGapToFollowUpLinkage = 'tDWIRBsuwsB';
+  static final String casePlanGapToServiceProvisionLinkage = 'tDWIRBsuwsB';
   static final String casePlanDomainType = 'vexrPNgPBYg';
   static final String casePlanFirstGoal = 'ADc3clrQRl4';
 
@@ -12,7 +12,8 @@ class OvcCasePlanConstant {
   ) {
     Map sanitizedDataObject = Map();
     List<Map> mappedCasePlanGaps =
-        OvcCasePlanConstant.getMappedCasePlanGaps(casePlanGapsEvents) as List<Map<dynamic, dynamic>>;
+        OvcCasePlanConstant.getMappedCasePlanGaps(casePlanGapsEvents)
+            as List<Map<dynamic, dynamic>>;
     for (Events casePlanEvent in casePlanEvents) {
       Map data = OvcCasePlanConstant.getMappedEventObject(casePlanEvent);
       String casePlanToGapLinkageValue =

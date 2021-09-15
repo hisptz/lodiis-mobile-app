@@ -20,20 +20,20 @@ import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_household_top_header.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_case_plan.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_household_case_plan_gaps.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/components/service_form_container.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/constants/ovc_case_plan_constant.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/components/service_form_container.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/constants/ovc_case_plan_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/household_case_plan/constants/ovc_household_case_plan_constant.dart';
 import 'package:provider/provider.dart';
 
 class HouseholdServiceForm extends StatefulWidget {
   HouseholdServiceForm({
     Key? key,
-    this.shouldEditCaseGapFollowUps = false,
-    this.shouldViewCaseGapFollowUp = false,
+    this.shouldEditCaseGapServiceProvision = false,
+    this.shoulViewCaseGapServiceProvision = false,
   }) : super(key: key);
 
-  final bool shouldEditCaseGapFollowUps;
-  final bool shouldViewCaseGapFollowUp;
+  final bool shouldEditCaseGapServiceProvision;
+  final bool shoulViewCaseGapServiceProvision;
   @override
   _HouseholdServiceFormState createState() => _HouseholdServiceFormState();
 }
@@ -114,7 +114,7 @@ class _HouseholdServiceFormState extends State<HouseholdServiceForm> {
           );
           hiddenFields = [
             OvcCasePlanConstant.casePlanToGapLinkage,
-            OvcCasePlanConstant.casePlanGapToFollowUpLinkage
+            OvcCasePlanConstant.casePlanGapToServiceProvisionLinkage
           ];
           for (Map domainGapDataObject in domainDataObject['gaps']) {
             await TrackedEntityInstanceUtil
@@ -224,10 +224,12 @@ class _HouseholdServiceFormState extends State<HouseholdServiceForm> {
                                             .map(
                                               (FormSection formSection) =>
                                                   ServiceFormContainer(
-                                                shouldEditCaseGapFollowUps: widget
-                                                    .shouldEditCaseGapFollowUps,
-                                                shouldViewCaseGapFollowUp: widget
-                                                    .shouldViewCaseGapFollowUp,
+                                                shouldEditCaseGapServiceProvision:
+                                                    widget
+                                                        .shouldEditCaseGapServiceProvision,
+                                                shoulViewCaseGapServiceProvision:
+                                                    widget
+                                                        .shoulViewCaseGapServiceProvision,
                                                 formSectionColor: borderColors[
                                                     formSection.id],
                                                 formSection: formSection,

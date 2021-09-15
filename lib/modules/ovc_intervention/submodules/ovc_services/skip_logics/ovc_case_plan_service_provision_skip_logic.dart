@@ -24,8 +24,7 @@ mixin OvcCasePlanServiceProvisionSkipLogic {
       hiddenFields[inputFieldId] = true;
     }
 
-    //@TODO adding checking of service session numbers
-    //@TODO checkong age limit to hide and hide ot dhoe serevices
+    //@TODO checking age limit to sercice provision form
 
     dataObject.forEach((key, value) {
       if (key == 'ylSjcj6cv42' && value == 'true') {
@@ -243,7 +242,7 @@ mixin OvcCasePlanServiceProvisionSkipLogic {
         if (inputValue == 'true') {
           hiddenFields['GyG2HcLsVka'] = false;
           hiddenFields['y8ToqnbVz1o'] = false;
-          hiddenFields[''] = false;
+          hiddenFields['uU4TvD2O1uL'] = false;
         }
       } else if (key == 'yJQi4cbzeBF' && value == 'true') {
         hiddenFields['BYu8pI5kGXF'] = false;
