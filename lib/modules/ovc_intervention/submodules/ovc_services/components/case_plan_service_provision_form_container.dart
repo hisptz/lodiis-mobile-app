@@ -75,14 +75,23 @@ class _CasePlanServiceProvisionFormModalContainerState
     });
   }
 
+  void setSessionNumberViolationMessages(
+      Map<String, dynamic> sessionNumnberValidation) {
+    bool isSessionNumberExit = sessionNumnberValidation["isSessionNumberExit"];
+    bool isSessionNumberInValid =
+        sessionNumnberValidation["isSessionNumberInValid"];
+    print(
+        "isSessionNumberInValid=> $isSessionNumberInValid :: isSessionNumberExit => $isSessionNumberExit");
+  }
+
   void onInputValueChange(String id, dynamic value) {
     widget.dataObject[id] = value;
     setState(() {});
     evaluateSkipLogics(context, formSections!, widget.dataObject);
     Map<String, dynamic> sessionNumnberValidation =
         OvcServiceProvisionUtil.getSessionNumberValidation(widget.dataObject);
-    print(sessionNumnberValidation);
     setState(() {});
+    setSessionNumberViolationMessages(sessionNumnberValidation);
   }
 
   void onSaveGapForm(
@@ -91,72 +100,79 @@ class _CasePlanServiceProvisionFormModalContainerState
     OvcHousehold? currentOvcHousehold,
     OvcHouseholdChild? currentOvcHouseholdChild,
   ) async {
-    Map<String, dynamic> sessionNumnberValidation =
-        OvcServiceProvisionUtil.getSessionNumberValidation(widget.dataObject);
-    print(sessionNumnberValidation);
     if (widget.dataObject.keys.length > 1) {
-      setState(() {
-        isSaving = true;
-      });
-      String program = widget.isCasePlanForHousehold
-          ? OvcHouseholdCasePlanConstant.program
-          : OvcChildCasePlanConstant.program;
-      String programStage = widget.isCasePlanForHousehold
-          ? OvcHouseholdCasePlanConstant.casePlanGapServiceProvisionProgramStage
-          : OvcChildCasePlanConstant.casePlanGapServiceProvisionProgramStage;
-      String? orgUnit = widget.isCasePlanForHousehold
-          ? currentOvcHousehold!.orgUnit
-          : currentOvcHouseholdChild!.orgUnit;
-      String? beneficiaryId = widget.isCasePlanForHousehold
-          ? currentOvcHousehold!.id
-          : currentOvcHouseholdChild!.id;
-      String? eventDate = dataObject!['eventDate'];
-      String? eventId = dataObject['eventId'];
-      List<String> hiddenFields = [
-        OvcCasePlanConstant.casePlanGapToServiceProvisionLinkage
-      ];
-      try {
-        print(dataObject);
-        //@TODO enable back actual saving
-        // await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-        //   program,
-        //   programStage,
-        //   orgUnit,
-        //   formSections!,
-        //   dataObject,
-        //   eventDate,
-        //   beneficiaryId,
-        //   eventId,
-        //   hiddenFields,
-        // );
-        Timer(Duration(seconds: 1), () {
-          setState(() {
-            isSaving = false;
-          });
-          Provider.of<ServiceEventDataState>(context, listen: false)
-              .resetServiceEventDataState(beneficiaryId);
-          String? currentLanguage =
-              Provider.of<LanguageTranslationState>(context, listen: false)
-                  .currentLanguage;
-          AppUtil.showToastMessage(
-            message: currentLanguage == 'lesotho'
-                ? 'Fomo e bolokeile'
-                : 'Form has been saved successfully',
-            position: ToastGravity.TOP,
-          );
-          Navigator.pop(context);
+      Map<String, dynamic> sessionNumnberValidation =
+          OvcServiceProvisionUtil.getSessionNumberValidation(widget.dataObject);
+      setSessionNumberViolationMessages(sessionNumnberValidation);
+      bool isSessionNumberExit =
+          sessionNumnberValidation["isSessionNumberExit"];
+      bool isSessionNumberInValid =
+          sessionNumnberValidation["isSessionNumberInValid"];
+      if (!isSessionNumberExit && !isSessionNumberInValid) {
+        setState(() {
+          isSaving = true;
         });
-      } catch (e) {
-        Timer(Duration(seconds: 1), () {
-          setState(() {
-            isSaving = false;
+        String program = widget.isCasePlanForHousehold
+            ? OvcHouseholdCasePlanConstant.program
+            : OvcChildCasePlanConstant.program;
+        String programStage = widget.isCasePlanForHousehold
+            ? OvcHouseholdCasePlanConstant
+                .casePlanGapServiceProvisionProgramStage
+            : OvcChildCasePlanConstant.casePlanGapServiceProvisionProgramStage;
+        String? orgUnit = widget.isCasePlanForHousehold
+            ? currentOvcHousehold!.orgUnit
+            : currentOvcHouseholdChild!.orgUnit;
+        String? beneficiaryId = widget.isCasePlanForHousehold
+            ? currentOvcHousehold!.id
+            : currentOvcHouseholdChild!.id;
+        String? eventDate = dataObject!['eventDate'];
+        String? eventId = dataObject['eventId'];
+        List<String> hiddenFields = [
+          OvcCasePlanConstant.casePlanGapToServiceProvisionLinkage
+        ];
+        try {
+          print(dataObject);
+          //@TODO enable back actual saving
+          // await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
+          //   program,
+          //   programStage,
+          //   orgUnit,
+          //   formSections!,
+          //   dataObject,
+          //   eventDate,
+          //   beneficiaryId,
+          //   eventId,
+          //   hiddenFields,
+          // );
+          Timer(Duration(seconds: 1), () {
+            setState(() {
+              isSaving = false;
+            });
+            Provider.of<ServiceEventDataState>(context, listen: false)
+                .resetServiceEventDataState(beneficiaryId);
+            String? currentLanguage =
+                Provider.of<LanguageTranslationState>(context, listen: false)
+                    .currentLanguage;
             AppUtil.showToastMessage(
-              message: e.toString(),
-              position: ToastGravity.BOTTOM,
+              message: currentLanguage == 'lesotho'
+                  ? 'Fomo e bolokeile'
+                  : 'Form has been saved successfully',
+              position: ToastGravity.TOP,
             );
             Navigator.pop(context);
           });
-        });
+        } catch (e) {
+          Timer(Duration(seconds: 1), () {
+            setState(() {
+              isSaving = false;
+              AppUtil.showToastMessage(
+                message: e.toString(),
+                position: ToastGravity.BOTTOM,
+              );
+              Navigator.pop(context);
+            });
+          });
+        }
       }
     } else {
       AppUtil.showToastMessage(
