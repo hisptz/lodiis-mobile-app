@@ -45,7 +45,6 @@ class _CasePlanGapServiceViewContainerState
   bool isViewReady = false;
   double iconHeight = 15.0;
 
-  //@TODO make sure previous events arevin state
   void onEditCasePlanServiceProvision(
     BuildContext context,
     CasePlanGapServiceProvision casePlanGapServiceProvision,
@@ -64,7 +63,6 @@ class _CasePlanGapServiceViewContainerState
       eventId: casePlanGapServiceProvision.id,
     );
     dataObject["interventionSessions"] = interventionSessions;
-    print("interventionSessions => $interventionSessions");
     Map casePlanGap = widget.casePlanGap;
     casePlanGap.remove('eventDate');
     casePlanGap.remove('eventId');

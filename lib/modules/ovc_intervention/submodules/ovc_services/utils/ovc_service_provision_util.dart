@@ -42,4 +42,40 @@ class OvcServiceProvisionUtil {
     }
     return interventionSessions;
   }
+
+  static Map<String, dynamic> getSessionNumberValidation(Map dataObject) {
+    Map<String, dynamic> sessionNumnberValidation = Map();
+    Map serviceToSessionMapping =
+        OvcServiceFormSessionNumber.serviceToSessionMapping;
+    Map<String, List<String>> sessionMapping =
+        OvcServiceFormSessionNumber.sessionMapping;
+    bool isSessionNumberExit = false;
+    bool isSessionNumberInValid = false;
+    Map<String, List<String>> interventionSessions =
+        dataObject["interventionSessions"] ?? [];
+    for (String serviceDataElement
+        in OvcServiceFormSessionNumber.sessionMapping.keys) {
+      List<String> possibleSessionNumbers =
+          sessionMapping[serviceDataElement] ?? [];
+      String sessionNumberDataElement =
+          serviceToSessionMapping[serviceDataElement];
+      if (dataObject.keys.toList().indexOf(serviceDataElement) > -1 &&
+          dataObject.keys.toList().indexOf(serviceDataElement) > -1) {
+        String currentSessionNumber =
+            dataObject[sessionNumberDataElement] ?? "";
+        if (currentSessionNumber.isNotEmpty) {
+          List<String> previousSessionNumbers =
+              interventionSessions[serviceDataElement] ?? [];
+          // checking ofr invalid
+          // checking for exisiting session
+          print("currentSessionNumber => $currentSessionNumber");
+          print("previousSessionNumbers => $previousSessionNumbers");
+          print("possibleSessionNumbers => $possibleSessionNumbers");
+        }
+      }
+    }
+    sessionNumnberValidation["isSessionNumberExit"] = isSessionNumberExit;
+    sessionNumnberValidation["isSessionNumberInValid"] = isSessionNumberInValid;
+    return sessionNumnberValidation;
+  }
 }

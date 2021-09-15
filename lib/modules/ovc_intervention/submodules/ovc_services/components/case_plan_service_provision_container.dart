@@ -46,7 +46,6 @@ class _CasePlanServiceProvisionContainerState
     });
   }
 
-  //@TODO adding previous session events
   void addServiceProvision(BuildContext context) async {
     String programStage = widget.isCasePlanForHousehold
         ? OvcHouseholdCasePlanConstant.casePlanGapServiceProvisionProgramStage
@@ -63,7 +62,6 @@ class _CasePlanServiceProvisionContainerState
       context,
       [programStage],
     );
-    print("interventionSessions => $interventionSessions");
     dataObject["interventionSessions"] = interventionSessions;
     dataObject[OvcCasePlanConstant.casePlanGapToServiceProvisionLinkage] =
         casePlanGapToServiceProvisionLinkageValue;

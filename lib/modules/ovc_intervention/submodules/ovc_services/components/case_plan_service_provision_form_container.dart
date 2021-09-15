@@ -7,7 +7,6 @@ import 'package:kb_mobile_app/app_state/language_translation_state/language_tran
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
-import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/ovc_household.dart';
 import 'package:kb_mobile_app/models/ovc_household_child.dart';
@@ -17,6 +16,7 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/o
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/constants/ovc_case_plan_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/household_case_plan/constants/ovc_household_case_plan_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/skip_logics/ovc_case_plan_service_provision_skip_logic.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/utils/ovc_service_provision_util.dart';
 import 'package:provider/provider.dart';
 
 class CasePlanServiceProvisionFormModalContainer extends StatefulWidget {
@@ -75,13 +75,25 @@ class _CasePlanServiceProvisionFormModalContainerState
     });
   }
 
+  void onInputValueChange(String id, dynamic value) {
+    widget.dataObject[id] = value;
+    setState(() {});
+    evaluateSkipLogics(context, formSections!, widget.dataObject);
+    Map<String, dynamic> sessionNumnberValidation =
+        OvcServiceProvisionUtil.getSessionNumberValidation(widget.dataObject);
+    print(sessionNumnberValidation);
+    setState(() {});
+  }
+
   void onSaveGapForm(
     BuildContext context,
     Map? dataObject,
     OvcHousehold? currentOvcHousehold,
     OvcHouseholdChild? currentOvcHouseholdChild,
   ) async {
-    //@TODO handling session control/skip logics on saving servive forms
+    Map<String, dynamic> sessionNumnberValidation =
+        OvcServiceProvisionUtil.getSessionNumberValidation(widget.dataObject);
+    print(sessionNumnberValidation);
     if (widget.dataObject.keys.length > 1) {
       setState(() {
         isSaving = true;
@@ -151,14 +163,6 @@ class _CasePlanServiceProvisionFormModalContainerState
           message: 'Please fill at least one field',
           position: ToastGravity.TOP);
     }
-  }
-
-  void onInputValueChange(String id, dynamic value) {
-    setState(() {
-      widget.dataObject[id] = value;
-    });
-    evaluateSkipLogics(context, formSections!, widget.dataObject);
-    setState(() {});
   }
 
   @override
