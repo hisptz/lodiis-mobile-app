@@ -6,14 +6,14 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/c
 import 'package:provider/provider.dart';
 
 class OvcServiceProvisionUtil {
-  static Map<String, List<String>> getExistingSessionNumberMapping(
+  static Map<String, List<String>> getPreviousSessionMapping(
     BuildContext context,
     List<String> programStageIds, {
     String? eventId = "",
   }) {
     Map serviceToSessionMapping =
         OvcServiceFormSessionNumber.serviceToSessionMapping;
-    Map<String, List<String>> interventionSessions = Map();
+    Map<String, List<String>> previousSessionMapping = Map();
     Map<String?, List<Events>> eventListByProgramStage =
         Provider.of<ServiceEventDataState>(context, listen: false)
             .eventListByProgramStage;
@@ -24,7 +24,7 @@ class OvcServiceProvisionUtil {
         .toList();
     for (String serviceDataElement
         in OvcServiceFormSessionNumber.sessionMapping.keys) {
-      interventionSessions[serviceDataElement] = events
+      previousSessionMapping[serviceDataElement] = events
           .map((Events eventObject) {
             String sessionNumberDataElement =
                 serviceToSessionMapping[serviceDataElement];
@@ -40,7 +40,7 @@ class OvcServiceProvisionUtil {
           .toSet()
           .toList();
     }
-    return interventionSessions;
+    return previousSessionMapping;
   }
 
   static Map<String, dynamic> getSessionNumberValidation(Map dataObject) {
@@ -53,8 +53,8 @@ class OvcServiceProvisionUtil {
     bool isSessionNumberInValid = false;
     List<String> sessionWithExistingSessionNumber = [];
     List<String> sessionWithInvalidSessionNumber = [];
-    Map<String, List<String>> interventionSessions =
-        dataObject["interventionSessions"] ?? [];
+    Map<String, List<String>> previousSessionMapping =
+        dataObject["previousSessionMapping"] ?? [];
     for (String serviceDataElement
         in OvcServiceFormSessionNumber.sessionMapping.keys) {
       List<String> possibleSessionNumbers =
@@ -68,7 +68,7 @@ class OvcServiceProvisionUtil {
         if (currentSessionNumber.isNotEmpty) {
           currentSessionNumber = currentSessionNumber.toLowerCase();
           List<String> previousSessionNumbers =
-              interventionSessions[serviceDataElement] ?? [];
+              previousSessionMapping[serviceDataElement] ?? [];
           if (possibleSessionNumbers.indexOf(currentSessionNumber) == -1) {
             isSessionNumberInValid = true;
             sessionWithInvalidSessionNumber.add(serviceDataElement);

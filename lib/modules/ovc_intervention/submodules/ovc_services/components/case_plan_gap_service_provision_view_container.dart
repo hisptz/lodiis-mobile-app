@@ -56,13 +56,13 @@ class _CasePlanGapServiceViewContainerState
       if ('${dataValue['value']}'.isNotEmpty)
         dataObject[dataValue['dataElement']] = dataValue['value'];
     }
-    Map<String, List<String>> interventionSessions =
-        OvcServiceProvisionUtil.getExistingSessionNumberMapping(
+    Map<String, List<String>> previousSessionMapping =
+        OvcServiceProvisionUtil.getPreviousSessionMapping(
       context,
       [programStage!],
       eventId: casePlanGapServiceProvision.id,
     );
-    dataObject["interventionSessions"] = interventionSessions;
+    dataObject["previousSessionMapping"] = previousSessionMapping;
     Map casePlanGap = widget.casePlanGap;
     casePlanGap.remove('eventDate');
     casePlanGap.remove('eventId');

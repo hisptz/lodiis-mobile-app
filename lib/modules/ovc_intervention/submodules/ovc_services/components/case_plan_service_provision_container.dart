@@ -57,12 +57,12 @@ class _CasePlanServiceProvisionContainerState
         dataObject[key] = widget.casePlanGap[key];
       }
     }
-    Map<String, List<String>> interventionSessions =
-        OvcServiceProvisionUtil.getExistingSessionNumberMapping(
+    Map<String, List<String>> previousSessionMapping =
+        OvcServiceProvisionUtil.getPreviousSessionMapping(
       context,
       [programStage],
     );
-    dataObject["interventionSessions"] = interventionSessions;
+    dataObject["previousSessionMapping"] = previousSessionMapping;
     dataObject[OvcCasePlanConstant.casePlanGapToServiceProvisionLinkage] =
         casePlanGapToServiceProvisionLinkageValue;
     Widget modal = CasePlanServiceProvisionFormModalContainer(

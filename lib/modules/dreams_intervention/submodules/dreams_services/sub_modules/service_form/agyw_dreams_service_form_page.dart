@@ -71,7 +71,6 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
     }
   }
 
-//@TODO getting session numbers for previous interventions
   Map<String?, List<dynamic>> getSessionsPerIntervention(
     List<ServiceEvent>? serviceEvents,
     Events? currentEvent,
