@@ -63,8 +63,9 @@ class _AgywDreamsPostGBVState extends State<AgywDreamsPostGBV> {
   void onAddPrep(BuildContext context, AgywDream agywDream) async {
     updateFormState(context, true, null);
     String? beneficiaryId = agywDream.id;
+    String? eventId = '';
     String formAutoSaveId =
-        "${DreamsRoutesConstant.agywDreamsPostGBVFormPage}_$beneficiaryId";
+        "${DreamsRoutesConstant.agywDreamsPostGBVFormPage}_${beneficiaryId}_$eventId";
     FormAutoSave formAutoSave =
         await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
     bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
@@ -86,10 +87,24 @@ class _AgywDreamsPostGBVState extends State<AgywDreamsPostGBV> {
         MaterialPageRoute(builder: (context) => AgywDreamsPostGBVForm()));
   }
 
-  void onEditPrep(BuildContext context, Events eventData) {
+  void onEditPrep(
+      BuildContext context, Events eventData, AgywDream agywDream) async {
     updateFormState(context, true, eventData);
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => AgywDreamsPostGBVForm()));
+    String? beneficiaryId = agywDream.id;
+    String? eventId = eventData.event;
+    String formAutoSaveId =
+        "${DreamsRoutesConstant.agywDreamsPostGBVFormPage}_${beneficiaryId}_$eventId";
+    FormAutoSave formAutoSave =
+        await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
+    bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
+        .shouldResumeWithUnSavedChanges(context, formAutoSave);
+
+    if (shouldResumeWithUnSavedChanges) {
+      AppResumeRoute().redirectToPages(context, formAutoSave);
+    } else {
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => AgywDreamsPostGBVForm()));
+    }
   }
 
   @override
@@ -161,8 +176,10 @@ class _AgywDreamsPostGBVState extends State<AgywDreamsPostGBV> {
                                                           DreamsServiceVisitCard(
                                                         visitName: "POST GBV",
                                                         onEdit: () =>
-                                                            onEditPrep(context,
-                                                                eventData),
+                                                            onEditPrep(
+                                                                context,
+                                                                eventData,
+                                                                agywDream!),
                                                         onView: () =>
                                                             onViewPrep(context,
                                                                 eventData),

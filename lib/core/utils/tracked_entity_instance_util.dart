@@ -102,7 +102,7 @@ class TrackedEntityInstanceUtil {
         .map((event) => event.eventDate)
         .toSet()
         .toList()
-          ..sort((b, a) => a!.compareTo(b!));
+      ..sort((b, a) => a!.compareTo(b!));
     for (String? eventDate in eventDates) {
       groupedEvents[eventDate] =
           events.where((event) => event.eventDate == eventDate).toList();

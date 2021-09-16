@@ -108,7 +108,7 @@ class _AgywDreamsANCFormState extends State<AgywDreamsANCForm> {
                   : 'Form has been saved successfully',
               position: ToastGravity.TOP,
             );
-            clearFormAutoSaveState(context, agywDream.id);
+            clearFormAutoSaveState(context, agywDream.id, eventId ?? '');
             Navigator.pop(context);
           });
         });
@@ -129,9 +129,9 @@ class _AgywDreamsANCFormState extends State<AgywDreamsANCForm> {
   }
 
   void clearFormAutoSaveState(
-      BuildContext context, String? beneficiaryId) async {
+      BuildContext context, String? beneficiaryId, String eventId) async {
     String formAutoSaveId =
-        "${DreamsRoutesConstant.agywDreamsANCFormPage}_$beneficiaryId";
+        "${DreamsRoutesConstant.agywDreamsANCFormPage}_${beneficiaryId}_$eventId";
     await FormAutoSaveOfflineService().deleteSavedFormAutoData(formAutoSaveId);
   }
 
@@ -146,7 +146,9 @@ class _AgywDreamsANCFormState extends State<AgywDreamsANCForm> {
     String? beneficiaryId = agyw.id;
     Map dataObject =
         Provider.of<ServiceFormState>(context, listen: false).formState;
-    String id = "${DreamsRoutesConstant.agywDreamsANCFormPage}_$beneficiaryId";
+    String eventId = dataObject['eventId'] ?? '';
+    String id =
+        "${DreamsRoutesConstant.agywDreamsANCFormPage}_${beneficiaryId}_$eventId";
     FormAutoSave formAutoSave = FormAutoSave(
       id: id,
       beneficiaryId: beneficiaryId,
@@ -181,7 +183,8 @@ class _AgywDreamsANCFormState extends State<AgywDreamsANCForm> {
         body: Container(
           child: Consumer<LanguageTranslationState>(
             builder: (context, languageTranslationState, child) {
-              String? currentLanguage = languageTranslationState.currentLanguage;
+              String? currentLanguage =
+                  languageTranslationState.currentLanguage;
               return Consumer<DreamsBeneficiarySelectionState>(
                 builder: (context, dreamsBeneficiarySelectionState, child) {
                   AgywDream? agywDream =
