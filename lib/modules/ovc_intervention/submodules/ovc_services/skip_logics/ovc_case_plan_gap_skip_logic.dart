@@ -296,7 +296,6 @@ mixin OvcCasePlanGapSkipLogic {
         hiddenFields['JXx3FiIQe08'] = true;
       }
       if (inputFieldId == 'TdReJf2LTXA' && value != 'true') {
-        hiddenFields['TdReJf2LTXA'] = true;
         hiddenFields['EonyCjxIh5l'] = true;
         hiddenFields['YIFHsUgTAlI'] = true;
         hiddenFields['meR35m2WVNZ'] = true;

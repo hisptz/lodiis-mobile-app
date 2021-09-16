@@ -296,14 +296,7 @@ class OvcServicesChildServiceProvision {
                 valueType: 'DATE',
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
-            InputField(
-              id: 'x7J6mbgCF10',
-              name: 'TBSCREEN session number',
-              // translatedName: 'Boemo ba Phano ea Litšebeletso ea TBSCREEN',
-              valueType: 'TEXT',
-              inputColor: Color(0xFF4D9E49),
-              labelColor: Color(0xFF737373),
-            ),
+            
             InputField(
                 id: 'pSkl6ibruvU',
                 name: 'TBSCREEN Comment',

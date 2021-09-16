@@ -274,7 +274,6 @@ mixin OvcCasePlanServiceProvisionSkipLogic {
         if (inputValue == 'true') {
           hiddenFields['fVpcWBp0Ngp'] = false;
           hiddenFields['pSkl6ibruvU'] = false;
-          hiddenFields['x7J6mbgCF10'] = false;
         }
       } else if (key == 'gCKoJgBFdob' && value == 'true') {
         hiddenFields['mY7GqOTKtsQ'] = false;
