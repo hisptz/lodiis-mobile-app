@@ -160,17 +160,18 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
       AppResumeRoute().redirectToPages(context, formAutoSave);
     } else {
       updateFormState(context, true, eventData, agywDream, serviceEvents);
-    Provider.of<ServiceFormState>(context, listen: false)
-        .setFormFieldState('W79837fEI3C', youthMentorName);
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => AgywDreamsServiceForm(
-          isFormEdited: true,
-          currentUserImplementingPartner: implementingPartner,
+      Provider.of<ServiceFormState>(context, listen: false)
+          .setFormFieldState('W79837fEI3C', youthMentorName);
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => AgywDreamsServiceForm(
+            isFormEdited: true,
+            currentUserImplementingPartner: implementingPartner,
+          ),
         ),
-      ),
-    );
+      );
+    }
   }
 
   @override
