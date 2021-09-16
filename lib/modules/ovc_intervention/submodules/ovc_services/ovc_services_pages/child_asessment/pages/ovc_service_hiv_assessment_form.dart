@@ -19,7 +19,7 @@ import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/models/ovc_household_child.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_child_info_top_header.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_hivscreening.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_hivs_creening.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_asessment/constants/ovc_service_hiv_assessment_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_asessment/skip_logics/ovc_child_hiv_assessment_skip_logic.dart';
 import 'package:provider/provider.dart';
@@ -33,14 +33,14 @@ class OvcServiceHIVAssessmentForm extends StatefulWidget {
 class _OvcServiceHIVAssessmentFormState
     extends State<OvcServiceHIVAssessmentForm> {
   final String label = 'Child HIV Assessment';
-  List<FormSection> formSections;
+  List<FormSection>? formSections;
   bool isFormReady = false;
   bool isSaving = false;
 
   @override
   void initState() {
     super.initState();
-    formSections = OvcServicesHivscreening.getFormSections();
+    formSections = OvcServicesHivScreening.getFormSections();
     Timer(Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
@@ -57,7 +57,7 @@ class _OvcServiceHIVAssessmentFormState
             Provider.of<ServiceFormState>(context, listen: false).formState;
         await OvcChildHivAssessmentSkipLogic.evaluateSkipLogics(
           context,
-          formSections,
+          formSections!,
           dataObject,
         );
       },
@@ -73,14 +73,14 @@ class _OvcServiceHIVAssessmentFormState
   void onSaveForm(
     BuildContext context,
     Map dataObject,
-    OvcHouseholdChild currentOvcHouseholdChild,
+    OvcHouseholdChild? currentOvcHouseholdChild,
   ) async {
     if (FormUtil.geFormFilledStatus(dataObject, formSections)) {
       setState(() {
         isSaving = true;
       });
-      String eventDate = dataObject['eventDate'];
-      String eventId = dataObject['eventId'];
+      String? eventDate = dataObject['eventDate'];
+      String? eventId = dataObject['eventId'];
 
       List<String> skippedFields = [
         'hivriskres',
@@ -90,8 +90,8 @@ class _OvcServiceHIVAssessmentFormState
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
             OvcServiceHIVAssessmentConstant.program,
             OvcServiceHIVAssessmentConstant.programStage,
-            currentOvcHouseholdChild.orgUnit,
-            formSections,
+            currentOvcHouseholdChild!.orgUnit,
+            formSections!,
             dataObject,
             eventDate,
             currentOvcHouseholdChild.id,
@@ -104,7 +104,7 @@ class _OvcServiceHIVAssessmentFormState
           setState(() {
             isSaving = false;
           });
-          String currentLanguage =
+          String? currentLanguage =
               Provider.of<LanguageTranslationState>(context, listen: false)
                   .currentLanguage;
           AppUtil.showToastMessage(
@@ -152,11 +152,11 @@ class _OvcServiceHIVAssessmentFormState
           body: Container(
             child: Consumer<LanguageTranslationState>(
               builder: (context, languageTranslationState, child) {
-                String currentLanguage =
+                String? currentLanguage =
                     languageTranslationState.currentLanguage;
                 return Consumer<OvcHouseholdCurrentSelectionState>(
                   builder: (context, ovcHouseholdCurrentSelectionState, child) {
-                    OvcHouseholdChild currentOvcHouseholdChild =
+                    OvcHouseholdChild? currentOvcHouseholdChild =
                         ovcHouseholdCurrentSelectionState
                             .currentOvcHouseholdChild;
                     return Consumer<ServiceFormState>(

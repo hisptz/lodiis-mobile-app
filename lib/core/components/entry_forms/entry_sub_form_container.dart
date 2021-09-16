@@ -5,13 +5,13 @@ import 'package:kb_mobile_app/models/input_field.dart';
 
 class EntrySubFormContainer extends StatelessWidget {
   const EntrySubFormContainer({
-    Key key,
-    @required this.subSections,
-    @required this.dataObject,
-    @required this.mandatoryFieldObject,
-    @required this.currentLanguage,
-    @required this.hiddenInputFieldOptions,
-    @required this.currentUserCountryLevelReferences,
+    Key? key,
+    required this.subSections,
+    required this.dataObject,
+    required this.mandatoryFieldObject,
+    required this.currentLanguage,
+    required this.hiddenInputFieldOptions,
+    required this.currentUserCountryLevelReferences,
     this.isEditableMode = true,
     this.onInputValueChange,
     this.hiddenFields,
@@ -19,17 +19,17 @@ class EntrySubFormContainer extends StatelessWidget {
     this.unFilledMandatoryFields,
   }) : super(key: key);
 
-  final List<FormSection> subSections;
-  final String currentLanguage;
-  final Function onInputValueChange;
-  final Map dataObject;
-  final Map mandatoryFieldObject;
-  final Map hiddenFields;
-  final Map hiddenSections;
+  final List<FormSection>? subSections;
+  final String? currentLanguage;
+  final Function? onInputValueChange;
+  final Map? dataObject;
+  final Map? mandatoryFieldObject;
+  final Map? hiddenFields;
+  final Map? hiddenSections;
   final Map hiddenInputFieldOptions;
   final bool isEditableMode;
-  final List unFilledMandatoryFields;
-  final List<String> currentUserCountryLevelReferences;
+  final List? unFilledMandatoryFields;
+  final List<String?> currentUserCountryLevelReferences;
 
   @override
   Widget build(BuildContext context) {
@@ -37,18 +37,18 @@ class EntrySubFormContainer extends StatelessWidget {
     return Container(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
-        children: subSections
+        children: subSections!
             .map(
               (FormSection subSection) => Visibility(
                 visible: hiddenSections == null ||
-                    '${hiddenSections[subSection.id]}'.trim() != 'true',
+                    '${hiddenSections![subSection.id]}'.trim() != 'true',
                 child: Container(
                   margin: EdgeInsets.symmetric(
                       vertical: subSection.name != '' ? 5.0 : 0.0),
                   decoration: BoxDecoration(
                       border: Border(
                           left: BorderSide(
-                              color: subSection.borderColor, width: 8.0)),
+                              color: subSection.borderColor!, width: 8.0)),
                       color: subSection.backgroundColor),
                   child: Column(
                     children: [
@@ -63,7 +63,7 @@ class EntrySubFormContainer extends StatelessWidget {
                                 child: Text(
                                   currentLanguage == 'lesotho' &&
                                           subSection.translatedName != null
-                                      ? subSection.translatedName
+                                      ? subSection.translatedName!
                                       : subSection.name,
                                   style: TextStyle().copyWith(
                                       color: subSection.color,
@@ -87,8 +87,8 @@ class EntrySubFormContainer extends StatelessWidget {
                                   currentLanguage == 'lesotho' &&
                                           subSection.translatedDescription !=
                                               null
-                                      ? subSection.translatedDescription
-                                      : subSection.description,
+                                      ? subSection.translatedDescription!
+                                      : subSection.description!,
                                   style: TextStyle().copyWith(
                                       color: subSection.color,
                                       fontSize: 14.0,
@@ -102,11 +102,11 @@ class EntrySubFormContainer extends StatelessWidget {
                       ),
                       Container(
                         child: Column(
-                          children: subSection.inputFields
+                          children: subSection.inputFields!
                               .map(
                                 (InputField inputField) => Visibility(
                                   visible: hiddenFields == null ||
-                                      '${hiddenFields[inputField.id]}'.trim() !=
+                                      '${hiddenFields![inputField.id]}'.trim() !=
                                           'true',
                                   child: Container(
                                     margin: EdgeInsets.only(
@@ -133,7 +133,7 @@ class EntrySubFormContainer extends StatelessWidget {
                                       dataObject: dataObject,
                                       onInputValueChange:
                                           (String id, dynamic value) =>
-                                              onInputValueChange(id, value),
+                                              onInputValueChange!(id, value),
                                     ),
                                   ),
                                 ),
@@ -167,10 +167,10 @@ class EntrySubFormContainer extends StatelessWidget {
   }
 
   void setFieldErrors() {
-    if (unFilledMandatoryFields != null && unFilledMandatoryFields.isNotEmpty) {
-      subSections.forEach((section) {
-        section.inputFields.forEach((inputField) {
-          if (unFilledMandatoryFields.contains(inputField.id)) {
+    if (unFilledMandatoryFields != null && unFilledMandatoryFields!.isNotEmpty) {
+      subSections!.forEach((section) {
+        section.inputFields!.forEach((inputField) {
+          if (unFilledMandatoryFields!.contains(inputField.id)) {
             inputField.hasError = true;
           } else {
             inputField.hasError = false;

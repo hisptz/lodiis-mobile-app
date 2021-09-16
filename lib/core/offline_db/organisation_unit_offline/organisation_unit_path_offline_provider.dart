@@ -17,20 +17,20 @@ class OrganisationUnitPathOfflineProvider extends OfflineDbProvider {
       var map = Map<String, dynamic>();
       map['id'] = organisationUnit.id;
       map['path'] = organisationUnit.path;
-      await dbClient.insert(table, map,
-          conflictAlgorithm: ConflictAlgorithm.replace);
+      await dbClient!
+          .insert(table, map, conflictAlgorithm: ConflictAlgorithm.replace);
     } catch (error) {
       print("addOrUpdateOrganisationUnitPath : ${error.toString()}");
     }
   }
 
-  Future<List<String>> getOrganisationUnitsInPathByOrganisationUnit(
-    String organisationUnitId,
+  Future<List<String?>> getOrganisationUnitsInPathByOrganisationUnit(
+    String? organisationUnitId,
   ) async {
-    List<String> organisationUnitIds = [];
+    List<String?> organisationUnitIds = [];
     try {
       var dbClient = await db;
-      List<Map> maps = await dbClient.query(
+      List<Map> maps = await dbClient!.query(
         table,
         columns: [id, path],
       );
@@ -38,13 +38,13 @@ class OrganisationUnitPathOfflineProvider extends OfflineDbProvider {
         List<String> paths = maps
             .map((map) => "${map[path]}")
             .toList()
-            .where((path) => path.contains(organisationUnitId))
+            .where((path) => path.contains(organisationUnitId!))
             .toList();
         for (String path in paths) {
-          List<String> splittedPath = path.split("/");
+          List<String?> splittedPath = path.split("/");
           organisationUnitIds.addAll(
             splittedPath.where(
-              (String path) =>
+              (String? path) =>
                   splittedPath.indexOf(path) >=
                   splittedPath.indexOf(organisationUnitId),
             ),
@@ -58,22 +58,22 @@ class OrganisationUnitPathOfflineProvider extends OfflineDbProvider {
     return organisationUnitIds.toList().toSet().toList();
   }
 
-  Future<String> getOrganiationUnitPath(String organisationUnitId) async {
-    String organisationunitPath = "";
+  Future<String?> getOrganiationUnitPath(String? organisationUnitId) async {
+    String? organisationUnitPath = "";
     try {
       var dbClient = await db;
-      List<Map> maps = await dbClient.query(
+      List<Map> maps = await dbClient!.query(
         table,
         columns: [id, path],
         where: '$id = ?',
         whereArgs: [organisationUnitId],
       );
       if (maps.isNotEmpty) {
-        organisationunitPath = maps.first["path"];
+        organisationUnitPath = maps.first["path"];
       }
     } catch (error) {
       print("getOrganiationUnitPath : ${error.toString()}");
     }
-    return organisationunitPath;
+    return organisationUnitPath;
   }
 }

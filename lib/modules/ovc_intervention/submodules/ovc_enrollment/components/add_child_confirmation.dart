@@ -3,7 +3,7 @@ import 'package:kb_mobile_app/app_state/language_translation_state/language_tran
 import 'package:provider/provider.dart';
 
 class AddChildConfirmation extends StatelessWidget {
-  const AddChildConfirmation({Key key, @required this.name}) : super(key: key);
+  const AddChildConfirmation({Key? key, required this.name}) : super(key: key);
   final String name;
 
   @override
@@ -11,7 +11,7 @@ class AddChildConfirmation extends StatelessWidget {
     return Container(
       child: Consumer<LanguageTranslationState>(
         builder: (context, languageTranslationState, child) {
-          String currentLanguage = languageTranslationState.currentLanguage;
+          String? currentLanguage = languageTranslationState.currentLanguage;
           return Container(
             padding: EdgeInsets.symmetric(
               horizontal: 30.0,

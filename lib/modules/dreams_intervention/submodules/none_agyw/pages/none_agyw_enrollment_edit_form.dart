@@ -31,7 +31,7 @@ import 'package:provider/provider.dart';
 import '../models/none_agyw_enrollment_prep_screening.dart';
 
 class NoneAgywEnrollmentEditForm extends StatefulWidget {
-  const NoneAgywEnrollmentEditForm({Key key}) : super(key: key);
+  const NoneAgywEnrollmentEditForm({Key? key}) : super(key: key);
 
   @override
   _NoneAgywEnrollmentEditFormState createState() =>
@@ -40,10 +40,10 @@ class NoneAgywEnrollmentEditForm extends StatefulWidget {
 
 class _NoneAgywEnrollmentEditFormState
     extends State<NoneAgywEnrollmentEditForm> {
-  List<FormSection> formSections;
-  List<FormSection> prepScreeningFormSections;
-  List<FormSection> htsClientInformationFormSections;
-  List<FormSection> htsRegisterFormSections;
+  List<FormSection>? formSections;
+  late List<FormSection> prepScreeningFormSections;
+  List<FormSection>? htsClientInformationFormSections;
+  List<FormSection>? htsRegisterFormSections;
 
   final String label = 'None Agyw Enrollment Form';
   final Map mandatoryFieldObject = Map();
@@ -72,13 +72,13 @@ class _NoneAgywEnrollmentEditFormState
         'dQBja8nUr18'
       ];
       formSections = [
-        ...htsClientInformationFormSections,
-        ...htsRegisterFormSections,
+        ...htsClientInformationFormSections!,
+        ...htsRegisterFormSections!,
       ];
       if (isBeneficiaryHIVNegative()) {
         mandatoryFields
             .addAll(NoneAgywEnrollmentPrepScreening.getMandatoryField());
-        formSections.addAll(prepScreeningFormSections);
+        formSections!.addAll(prepScreeningFormSections);
         mandatoryFields
             .addAll(NoneAgywEnrollmentPrepScreening.getMandatoryField());
       }
@@ -86,7 +86,7 @@ class _NoneAgywEnrollmentEditFormState
         mandatoryFieldObject[id] = true;
       }
       formSections = FormUtil.getFormSectionWithReadOnlyStatus(
-        formSections,
+        formSections!,
         false,
         skippedInputs,
       );
@@ -103,7 +103,7 @@ class _NoneAgywEnrollmentEditFormState
             Provider.of<EnrollmentFormState>(context, listen: false).formState;
         await NoneAgywEnrollmentSkipLogic.evaluateSkipLogics(
           context,
-          formSections,
+          formSections!,
           dataObject,
         );
       },
@@ -155,15 +155,15 @@ class _NoneAgywEnrollmentEditFormState
       setState(() {
         isSaving = true;
       });
-      CurrentUser user = await UserService().getCurrentUser();
-      String trackedEntityInstance = dataObject['trackedEntityInstance'];
-      String orgUnit = dataObject['orgUnit'];
-      String enrollment = dataObject['enrollment'];
-      String enrollmentDate = dataObject['enrollmentDate'];
-      String incidentDate = dataObject['incidentDate'];
+      CurrentUser? user = await UserService().getCurrentUser();
+      String? trackedEntityInstance = dataObject['trackedEntityInstance'];
+      String? orgUnit = dataObject['orgUnit'];
+      String? enrollment = dataObject['enrollment'];
+      String? enrollmentDate = dataObject['enrollmentDate'];
+      String? incidentDate = dataObject['incidentDate'];
       dataObject['PN92g65TkVI'] = dataObject['PN92g65TkVI'] ?? 'Active';
       dataObject['klLkGxy328c'] =
-          dataObject['klLkGxy328c'] ?? user.implementingPartner;
+          dataObject['klLkGxy328c'] ?? user!.implementingPartner;
       List<String> hiddenFields = [
         BeneficiaryIdentification.beneficiaryId,
         BeneficiaryIdentification.beneficiaryIndex,
@@ -180,14 +180,14 @@ class _NoneAgywEnrollmentEditFormState
         hiddenFields,
       );
       Provider.of<DreamsInterventionListState>(context, listen: false)
-          .refreshDreamsList();
+          .refreshAllDreamsLists();
       clearFormAutoSaveState(context);
       Timer(Duration(seconds: 1), () {
         if (Navigator.canPop(context)) {
           setState(() {
             isSaving = false;
           });
-          String currentLanguage =
+          String? currentLanguage =
               Provider.of<LanguageTranslationState>(context, listen: false)
                   .currentLanguage;
           AppUtil.showToastMessage(
@@ -203,7 +203,6 @@ class _NoneAgywEnrollmentEditFormState
       setState(() {
         unFilledMandatoryFields =
             AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
-        print('UNFILLED: $unFilledMandatoryFields');
       });
       AppUtil.showToastMessage(
           message: 'Please fill all mandatory field',
@@ -246,7 +245,7 @@ class _NoneAgywEnrollmentEditFormState
                           child: Consumer<LanguageTranslationState>(
                             builder:
                                 (context, languageTranslationState, child) {
-                              String currentLanguage =
+                              String? currentLanguage =
                                   languageTranslationState.currentLanguage;
                               return Consumer<EnrollmentFormState>(
                                 builder:

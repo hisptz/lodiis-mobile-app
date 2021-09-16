@@ -1,9 +1,11 @@
+import 'dart:convert';
+
 class FormAutoSave {
-  String id;
-  String beneficiaryId;
-  String pageModule;
-  String nextPageModule;
-  String data;
+  String? id;
+  String? beneficiaryId;
+  String? pageModule;
+  String? nextPageModule;
+  String? data;
 
   FormAutoSave({
     this.id,
@@ -16,7 +18,7 @@ class FormAutoSave {
   }
 
   bool hasFormAutoSaveData() {
-    return data.isNotEmpty && data != "";
+    return data!.isNotEmpty && data != "";
   }
 
   Map toOffline(FormAutoSave formAutoSave) {
@@ -25,8 +27,14 @@ class FormAutoSave {
     mapData['beneficiaryId'] = formAutoSave.beneficiaryId;
     mapData['pageModule'] = formAutoSave.pageModule;
     mapData['nextPageModule'] = formAutoSave.nextPageModule;
-    mapData['data'] = formAutoSave.data;
+    mapData['data'] = sanitizeJsonData(jsonObject: formAutoSave.data!);
     return mapData;
+  }
+
+  String sanitizeJsonData({String jsonObject = ''}) {
+    Map<String, dynamic> jsonMap = json.decode(jsonObject);
+    jsonMap.removeWhere((key, value) => value == null || value == '');
+    return json.encode(jsonMap);
   }
 
   FormAutoSave.fromOffline(Map<String, dynamic> mapData) {

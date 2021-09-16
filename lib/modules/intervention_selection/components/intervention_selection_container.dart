@@ -20,14 +20,14 @@ import 'package:provider/provider.dart';
 
 class InterventionSelectionContainer extends StatefulWidget {
   const InterventionSelectionContainer({
-    Key key,
-    @required this.interventionPrograms,
-    @required this.onInterventionSelection,
-    @required this.numberOfAgywDreamsBeneficiaries,
-    @required this.numberOfNoneAgywDreamsBeneficiaries,
-    @required this.numberOfHouseholds,
-    @required this.numberOfOvcs,
-    @required this.numberOfOgac,
+    Key? key,
+    required this.interventionPrograms,
+    required this.onInterventionSelection,
+    required this.numberOfAgywDreamsBeneficiaries,
+    required this.numberOfNoneAgywDreamsBeneficiaries,
+    required this.numberOfHouseholds,
+    required this.numberOfOvcs,
+    required this.numberOfOgac,
   }) : super(key: key);
 
   final List<InterventionCard> interventionPrograms;
@@ -46,11 +46,11 @@ class InterventionSelectionContainer extends StatefulWidget {
 class _InterventionSelectionContainerState
     extends State<InterventionSelectionContainer> {
   bool isInterventionSelected = false;
-  InterventionCard activeInterventionProgram;
+  InterventionCard? activeInterventionProgram;
   List<InterventionCard> interventionPrograms = [];
   bool isLoading = true;
-  InterventionCardState interventionCardState;
-  CurrentUserState currentUserState;
+  late InterventionCardState interventionCardState;
+  late CurrentUserState currentUserState;
 
   @override
   void initState() {
@@ -91,8 +91,8 @@ class _InterventionSelectionContainerState
 
   void onInterventionButtonClick() {
     if (activeInterventionProgram != null &&
-        activeInterventionProgram.id.isNotEmpty) {
-      if (activeInterventionProgram.id == 'dreams') {
+        activeInterventionProgram!.id!.isNotEmpty) {
+      if (activeInterventionProgram!.id == 'dreams') {
         List<String> teiWithIncomingReferral =
             Provider.of<ReferralNotificationState>(context, listen: false)
                 .beneficiariesWithIncomingReferrals;
@@ -101,20 +101,20 @@ class _InterventionSelectionContainerState
                 teiWithIncomingReferral: teiWithIncomingReferral);
       }
       interventionCardState
-          .setCurrentInterventionProgram(activeInterventionProgram);
+          .setCurrentInterventionProgram(activeInterventionProgram!);
       Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-              builder: (context) => activeInterventionProgram.id == 'ovc'
+              builder: (context) => activeInterventionProgram!.id == 'ovc'
                   ? OvcIntervention()
-                  : activeInterventionProgram.id == 'dreams'
+                  : activeInterventionProgram!.id == 'dreams'
                       ? DreamsIntervention()
-                      : activeInterventionProgram.id == 'ogac'
+                      : activeInterventionProgram!.id == 'ogac'
                           ? OgacIntervention()
                           : RoutePageNotFound(
                               pageTitle:
-                                  '${activeInterventionProgram.name} is not found',
-                              color: activeInterventionProgram.primaryColor)));
+                                  '${activeInterventionProgram!.name} is not found',
+                              color: activeInterventionProgram!.primaryColor)));
     }
   }
 
@@ -131,7 +131,7 @@ class _InterventionSelectionContainerState
                 String locations = currentUserState.currentUserLocations;
                 return Consumer<LanguageTranslationState>(
                   builder: (context, languageTranslationState, child) {
-                    String currentLanguage =
+                    String? currentLanguage =
                         languageTranslationState.currentLanguage;
                     return Center(
                       child: Container(
@@ -144,16 +144,18 @@ class _InterventionSelectionContainerState
                                   ? 'Sebaka : '
                                   : 'Location : ',
                               style: TextStyle().copyWith(
-                                  fontSize: 20.0,
-                                  fontWeight: FontWeight.w500,
-                                  color: Color(0xFFFAFAFA)),
+                                fontSize: 20.0,
+                                fontWeight: FontWeight.w500,
+                                color: Color(0xFFFAFAFA),
+                              ),
                               children: [
                                 TextSpan(
                                   text: locations,
                                   style: TextStyle().copyWith(
-                                      fontSize: 16.0,
-                                      fontWeight: FontWeight.normal,
-                                      color: Color(0xFFFAFAFA)),
+                                    fontSize: 16.0,
+                                    fontWeight: FontWeight.normal,
+                                    color: Color(0xFFFAFAFA),
+                                  ),
                                 ),
                               ],
                             ),

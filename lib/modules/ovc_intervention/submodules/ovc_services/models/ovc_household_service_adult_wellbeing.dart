@@ -844,7 +844,7 @@ class OvcHouseholdServiceAdultWellbeing {
                 translatedName: '22. U nka litlare setsing sefe sa bophelo?',
                 valueType: 'ORGANISATION_UNIT',
                 showCountryLevelTree: true,
-                allowedSelectedLevels: [3, 4],
+                allowedSelectedLevels: [4],
                 inputColor: Color(0xFF4B9F46),
                 labelColor: Color(0xFF1A3518)),
             InputField(
@@ -944,10 +944,10 @@ class OvcHouseholdServiceAdultWellbeing {
                       code: 'pCHKaQptcwn',
                       name: 'Boyfriend/ girlfriend',
                       translatedName: 'Mohlankana oaka/Kharebe eaka'),
-                  InputFieldOption(
-                      code: 'Wfu966TC3M5',
-                      name: 'Member of the family',
-                      translatedName: 'Moruti'),
+                  // InputFieldOption(
+                  //     code: 'Wfu966TC3M5',
+                  //     name: 'Member of the family',
+                  //     translatedName: 'Moruti'),
                   InputFieldOption(
                       code: 'J5hjKDmiE6a',
                       name: 'Pastor or priest',
@@ -971,7 +971,7 @@ class OvcHouseholdServiceAdultWellbeing {
                 name:
                     '26. Do you feel like people treat you differently because you are HIV positive?',
                 translatedName:
-                    '26. Na o nahana hore batho ba o khetolla hobane unale le tso’oaetso ea HIV?',
+                    '26. Na o nahana hore batho ba o khetholla hobane unale le tso’oaetso ea HIV?',
                 description:
                     'Refer to Village Health Workers or Social Workers or psychosocial support.',
                 translatedDescription:
@@ -1167,7 +1167,7 @@ class OvcHouseholdServiceAdultWellbeing {
                 name:
                     '31. In the last six months have you received information on parenting/ child care and development through training, counseling, mentoring, or home visits?',
                 translatedName:
-                    '31. Khoeling tse tseletseng tse fetileng u kile oa fumana thuto/tlhahisoleseling ka sehlopha sa likamano tsa bana le baholisi (rethabile), tlhokomelo le kholo ea ngoana ka thupelo, tlhabollo kapa ka ho eteloa lapeng?',
+                    '31. Khoeling tse tseletseng tse fetileng u kile oa fumana thuto/tlhahiso-leseling ka sehlopha sa likamano tsa bana le baholisi (rethabile), tlhokomelo le kholo ea ngoana ka thupelo, tlhabollo kapa ka ho eteloa lapeng?',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF549388),
                 labelColor: Color(0xFF1A3518),

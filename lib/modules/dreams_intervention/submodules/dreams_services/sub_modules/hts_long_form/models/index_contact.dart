@@ -2,13 +2,13 @@ import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_long_form/constants/agyw_dreams_hts_index_constant.dart';
 
 class IndexContact {
-  String id;
-  String date;
-  String name;
+  String? id;
+  String? date;
+  String? name;
   dynamic dataValues;
-  Events eventData;
-  String indexInfoToIndexContactLinkage;
-  String indexContactToElicitedPartnerLinkage;
+  Events? eventData;
+  String? indexInfoToIndexContactLinkage;
+  String? indexContactToElicitedPartnerLinkage;
 
   IndexContact(
       {this.id,
@@ -27,9 +27,9 @@ class IndexContact {
     ];
     Map data = Map();
     for (Map detailObj in eventData.dataValues) {
-      String attribute = detailObj['dataElement'];
+      String? attribute = detailObj['dataElement'];
       if (attribute != null && keys.indexOf(attribute) > -1) {
-        data[attribute] = '${detailObj['value']}'.trim() ?? '';
+        data[attribute] = '${detailObj['value']}'.trim();
       }
     }
     return IndexContact(

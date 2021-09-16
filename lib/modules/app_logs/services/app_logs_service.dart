@@ -10,7 +10,7 @@ class AppLogsService {
   }
 
   Future<List<AppLogs>> getAppLogs(
-      {int page, String searchableValue = ''}) async {
+      {int? page, String searchableValue = ''}) async {
     List<AppLogs> appLogsList = [];
     try {
       List<AppLogs> appLogs =
@@ -89,6 +89,10 @@ class AppLogsService {
     return formattedMessage;
   }
 
+  Future<void> clearLogs() async {
+    await AppLogsOfflineProvider().clearLogs();
+  }
+
   String getProgramStageName(String message) {
     // program list with their uids
     Map programStages = ProgramStagesConstants.programStages;
@@ -96,7 +100,6 @@ class AppLogsService {
     programStages.forEach((id, name) {
       if (message.contains(id)) {
         programStage = 'to $name';
-        return programStage;
       }
     });
 
@@ -110,7 +113,6 @@ class AppLogsService {
     programs.forEach((id, name) {
       if (message.contains(id)) {
         program = ' $name';
-        return program;
       }
     });
 

@@ -24,7 +24,7 @@ import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:provider/provider.dart';
 
 class AgywDreamsIndexInfoAboutElicitedPartner extends StatefulWidget {
-  AgywDreamsIndexInfoAboutElicitedPartner({Key key}) : super(key: key);
+  AgywDreamsIndexInfoAboutElicitedPartner({Key? key}) : super(key: key);
 
   @override
   _AgywDreamsIndexInfoAboutElicitedPartnerState createState() =>
@@ -34,7 +34,7 @@ class AgywDreamsIndexInfoAboutElicitedPartner extends StatefulWidget {
 class _AgywDreamsIndexInfoAboutElicitedPartnerState
     extends State<AgywDreamsIndexInfoAboutElicitedPartner> {
   final String label = 'HTS Index contact';
-  List<FormSection> formSections;
+  List<FormSection>? formSections;
   bool isFormReady = false;
   bool isSaving = false;
 
@@ -56,20 +56,20 @@ class _AgywDreamsIndexInfoAboutElicitedPartnerState
   }
 
   void onSaveForm(
-      BuildContext context, Map dataObject, AgywDream agywDream) async {
+      BuildContext context, Map dataObject, AgywDream? agywDream) async {
     if (FormUtil.geFormFilledStatus(dataObject, formSections)) {
       setState(() {
         isSaving = true;
       });
-      String eventDate = dataObject['eventDate'];
-      String eventId = dataObject['eventId'];
+      String? eventDate = dataObject['eventDate'];
+      String? eventId = dataObject['eventId'];
       List<String> hiddenFields = [];
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
             AgywDreamsHTSIndexConstant.program,
             AgywDreamsHTSIndexConstant.programStage,
-            agywDream.orgUnit,
-            formSections,
+            agywDream!.orgUnit,
+            formSections!,
             dataObject,
             eventDate,
             agywDream.id,
@@ -81,7 +81,7 @@ class _AgywDreamsIndexInfoAboutElicitedPartnerState
           setState(() {
             isSaving = false;
           });
-          String currentLanguage =
+          String? currentLanguage =
               Provider.of<LanguageTranslationState>(context, listen: false)
                   .currentLanguage;
           AppUtil.showToastMessage(
@@ -127,11 +127,11 @@ class _AgywDreamsIndexInfoAboutElicitedPartnerState
           body: Container(
             child: Consumer<LanguageTranslationState>(
               builder: (context, languageTranslationState, child) {
-                String currentLanguage =
+                String? currentLanguage =
                     languageTranslationState.currentLanguage;
                 return Consumer<DreamsBeneficiarySelectionState>(
                   builder: (context, nonAgywState, child) {
-                    AgywDream agywDream = nonAgywState.currentAgywDream;
+                    AgywDream? agywDream = nonAgywState.currentAgywDream;
                     return Consumer<ServiceFormState>(
                       builder: (context, serviceFormState, child) {
                         return Container(

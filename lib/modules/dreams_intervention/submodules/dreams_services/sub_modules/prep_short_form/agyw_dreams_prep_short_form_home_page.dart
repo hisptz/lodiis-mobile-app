@@ -8,18 +8,22 @@ import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
+import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
+import 'package:kb_mobile_app/core/utils/app_resume_routes/app_resume_route.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/events.dart';
+import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_top_header.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/constants/dreams_routes_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/components/dreams_services_visit_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/prep_short_form/constants/prep_intake_short_form_constants.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/prep_short_form/pages/agyw_dreams_prep_short_form.dart';
 import 'package:provider/provider.dart';
 
 class AgywDreamsPrepShortFormHomePage extends StatefulWidget {
-  AgywDreamsPrepShortFormHomePage({Key key}) : super(key: key);
+  AgywDreamsPrepShortFormHomePage({Key? key}) : super(key: key);
   @override
   _AgywDreamsPrepShortFormHomePageState createState() =>
       _AgywDreamsPrepShortFormHomePageState();
@@ -38,7 +42,7 @@ class _AgywDreamsPrepShortFormHomePageState
   void updateFormState(
     BuildContext context,
     bool isEditableMode,
-    Events eventData,
+    Events? eventData,
   ) {
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
     Provider.of<ServiceFormState>(context, listen: false)
@@ -62,9 +66,23 @@ class _AgywDreamsPrepShortFormHomePageState
         MaterialPageRoute(builder: (context) => AgywDreamsPrepShortForm()));
   }
 
-  onEditPREP(BuildContext context, Events eventData) {
+  onEditPREP(
+      BuildContext context, Events eventData, AgywDream? agywDream) async {
     updateFormState(context, true, eventData);
-    redirectPrepShortForm(context);
+    String? beneficiaryId = agywDream!.id;
+    String? eventId = eventData.event;
+    String formAutoSaveId =
+        "${DreamsRoutesConstant.agywDreamsPrEPShortFormPage}_${beneficiaryId}_$eventId";
+    FormAutoSave formAutoSave =
+        await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
+    bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
+        .shouldResumeWithUnSavedChanges(context, formAutoSave);
+
+    if (shouldResumeWithUnSavedChanges) {
+      AppResumeRoute().redirectToPages(context, formAutoSave);
+    } else {
+      redirectPrepShortForm(context);
+    }
   }
 
   onViewPREP(BuildContext context, Events eventData) {
@@ -72,9 +90,22 @@ class _AgywDreamsPrepShortFormHomePageState
     redirectPrepShortForm(context);
   }
 
-  onAddPREP(BuildContext context, AgywDream agywDream) {
+  onAddPREP(BuildContext context, AgywDream agywDream) async {
     updateFormState(context, true, null);
-    redirectPrepShortForm(context);
+    String? beneficiaryId = agywDream.id;
+    String eventId = '';
+    String formAutoSaveId =
+        "${DreamsRoutesConstant.agywDreamsPrEPShortFormPage}_${beneficiaryId}_$eventId";
+    FormAutoSave formAutoSave =
+        await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
+    bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
+        .shouldResumeWithUnSavedChanges(context, formAutoSave);
+
+    if (shouldResumeWithUnSavedChanges) {
+      AppResumeRoute().redirectToPages(context, formAutoSave);
+    } else {
+      redirectPrepShortForm(context);
+    }
   }
 
   @override
@@ -99,10 +130,10 @@ class _AgywDreamsPrepShortFormHomePageState
             builder: (context, dreamBeneficiarySelectionState, child) {
           return Consumer<ServiceEventDataState>(
               builder: (context, serviceFormState, child) {
-            AgywDream agywDream =
+            AgywDream? agywDream =
                 dreamBeneficiarySelectionState.currentAgywDream;
             bool isLoading = serviceFormState.isLoading;
-            Map<String, List<Events>> eventListByProgramStage =
+            Map<String?, List<Events>> eventListByProgramStage =
                 serviceFormState.eventListByProgramStage;
             List<Events> events = TrackedEntityInstanceUtil
                     .getAllEventListFromServiceDataStateByProgramStages(
@@ -150,9 +181,9 @@ class _AgywDreamsPrepShortFormHomePageState
                                               child: DreamsServiceVisitCard(
                                                 visitName: "PrEP ",
                                                 onEdit: () => onEditPREP(
-                                                  context,
-                                                  eventData,
-                                                ),
+                                                    context,
+                                                    eventData,
+                                                    agywDream),
                                                 onView: () => onViewPREP(
                                                   context,
                                                   eventData,
@@ -170,7 +201,7 @@ class _AgywDreamsPrepShortFormHomePageState
                               fontSize: 15.0,
                               onPressButton: () => onAddPREP(
                                 context,
-                                agywDream,
+                                agywDream!,
                               ),
                             )
                           ],

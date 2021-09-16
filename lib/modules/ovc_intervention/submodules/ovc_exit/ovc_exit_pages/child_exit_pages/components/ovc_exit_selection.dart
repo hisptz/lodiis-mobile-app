@@ -3,11 +3,11 @@ import 'package:kb_mobile_app/core/components/line_separator.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_pages/child_exit_pages/constants/ovc_exit_constant.dart';
 
 class OvcChildExitSelection extends StatefulWidget {
-  final List<String> programStageIdsWithData;
+  final List<String?> programStageIdsWithData;
 
   const OvcChildExitSelection({
-    Key key,
-    @required this.programStageIdsWithData,
+    Key? key,
+    required this.programStageIdsWithData,
   }) : super(key: key);
 
   @override
@@ -15,7 +15,7 @@ class OvcChildExitSelection extends StatefulWidget {
 }
 
 class _OvcChildExitSelectionState extends State<OvcChildExitSelection> {
-  List<String> exitTitles;
+  late List<String?> exitTitles;
 
   @override
   void initState() {
@@ -64,7 +64,9 @@ class _OvcChildExitSelectionState extends State<OvcChildExitSelection> {
                       ),
                     ),
                     Container(
-                      margin: EdgeInsets.symmetric(vertical: 5.0),
+                      margin: EdgeInsets.symmetric(
+                        vertical: 5.0,
+                      ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -72,15 +74,19 @@ class _OvcChildExitSelectionState extends State<OvcChildExitSelection> {
                             child: InkWell(
                               onTap: () => Navigator.pop(context, exitTitle),
                               child: Container(
-                                  alignment: Alignment.center,
-                                  padding: EdgeInsets.symmetric(vertical: 12),
-                                  child: Text(
-                                    exitTitle,
-                                    style: TextStyle(
-                                        color: Color(0xFF1A3518),
-                                        fontWeight: FontWeight.w700,
-                                        fontSize: 14),
-                                  )),
+                                alignment: Alignment.center,
+                                padding: EdgeInsets.symmetric(
+                                  vertical: 12,
+                                ),
+                                child: Text(
+                                  exitTitle!,
+                                  style: TextStyle(
+                                    color: Color(0xFF1A3518),
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                              ),
                             ),
                           )
                         ],

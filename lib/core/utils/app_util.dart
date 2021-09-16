@@ -70,7 +70,7 @@ class AppUtil {
     return unFilledFields.length < fields.length;
   }
 
-  static void setStatusBarColor(Color color) {
+  static void setStatusBarColor(Color? color) {
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
         statusBarColor: color,
@@ -110,7 +110,7 @@ class AppUtil {
     return position;
   }
 
-  static int getAgeInYear(String dateOfBirth) {
+  static int getAgeInYear(String? dateOfBirth) {
     int age = 0;
     try {
       DateTime currentDate = DateTime.now();
@@ -129,8 +129,10 @@ class AppUtil {
     return age;
   }
 
-  static List<List<dynamic>> chunkItems(
-      {List<dynamic> items = const [], int size = 0}) {
+  static List<List<dynamic>> chunkItems({
+    List<dynamic> items = const [],
+    int size = 0,
+  }) {
     List<List<dynamic>> groupedItems = [];
     size = size != 0 ? size : items.length;
     for (var count = 1; count <= (items.length / size).ceil(); count++) {
@@ -143,10 +145,13 @@ class AppUtil {
     return groupedItems;
   }
 
-  bool searchFromString({String searchableString, String searchedValue}) {
+  bool searchFromString({
+    String? searchableString,
+    required String searchedValue,
+  }) {
     List<String> searchedSubString = searchedValue.split(' ');
     for (String str in searchedSubString) {
-      if (searchableString.toLowerCase().indexOf(str.toLowerCase()) == -1) {
+      if (searchableString!.toLowerCase().indexOf(str.toLowerCase()) == -1) {
         return false;
       }
     }
@@ -154,8 +159,8 @@ class AppUtil {
   }
 
   static showToastMessage({
-    String message,
-    ToastGravity position = ToastGravity.BOTTOM,
+    required String message,
+    ToastGravity? position = ToastGravity.BOTTOM,
   }) {
     if (message.isNotEmpty)
       Fluttertoast.showToast(
@@ -176,7 +181,7 @@ class AppUtil {
       context: context,
       builder: (BuildContext context) {
         return Dialog(
-          elevation: 10,
+          elevation: 10.0,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(22.0),
           ),
@@ -185,10 +190,10 @@ class AppUtil {
               padding: diablePadding
                   ? const EdgeInsets.all(0)
                   : const EdgeInsets.only(
-                      bottom: 12,
-                      top: 5,
-                      right: 5,
-                      left: 5,
+                      bottom: 12.0,
+                      top: 5.0,
+                      right: 5.0,
+                      left: 5.0,
                     ),
               child: SingleChildScrollView(
                 child: Column(

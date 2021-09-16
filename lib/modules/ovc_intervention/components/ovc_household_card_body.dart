@@ -1,24 +1,67 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/models/ovc_household.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_household_child_count.dart';
 import 'package:provider/provider.dart';
 
 class OvcHouseholdCardBody extends StatelessWidget {
   OvcHouseholdCardBody({
-    Key key,
-    @required this.ovcHousehold,
+    Key? key,
+    required this.ovcHousehold,
   }) : super(key: key);
 
   final OvcHousehold ovcHousehold;
+
+  Expanded _getOvcHouseholdDetailsWidget({
+    required String value,
+    required int flex,
+    required Color color,
+  }) {
+    return Expanded(
+      flex: flex,
+      child: Text(
+        value,
+        style: TextStyle().copyWith(
+          fontSize: 14.0,
+          color: color,
+          fontWeight: FontWeight.w500,
+        ),
+      ),
+    );
+  }
+
+  Container _getOvcHouseholdRowWidget({
+    required String key,
+    required String value,
+  }) {
+    return Container(
+      margin: EdgeInsets.symmetric(
+        vertical: 2.0,
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          _getOvcHouseholdDetailsWidget(
+            value: key,
+            flex: 1,
+            color: Color(0XFF536852),
+          ),
+          _getOvcHouseholdDetailsWidget(
+            value: value,
+            flex: 2,
+            color: Color(0XFF92A791),
+          ),
+        ],
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
       child: Consumer<LanguageTranslationState>(
         builder: (context, languageTranslationState, child) {
-          String currentLanguage = languageTranslationState.currentLanguage;
+          String? currentLanguage = languageTranslationState.currentLanguage;
           return Container(
             margin: EdgeInsets.symmetric(
               horizontal: 13.0,
@@ -26,169 +69,23 @@ class OvcHouseholdCardBody extends StatelessWidget {
             ),
             child: Column(
               children: [
-                Container(
-                  margin: EdgeInsets.symmetric(
-                    vertical: 2.0,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        flex: 1,
-                        child: Text(
-                          currentLanguage == 'lesotho'
-                              ? 'Mohlokomeli'
-                              : 'Caregiver',
-                          style: TextStyle().copyWith(
-                            fontSize: 14.0,
-                            color: Color(0XFF92A791),
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        flex: 2,
-                        child: Text(
-                          ovcHousehold.toString(),
-                          style: TextStyle().copyWith(
-                            fontSize: 14.0,
-                            color: Color(0XFF536852),
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                _getOvcHouseholdRowWidget(
+                  key: currentLanguage == 'lesotho'
+                      ? 'Mohlokomeli'
+                      : 'Caregiver',
+                  value: ovcHousehold.toString(),
                 ),
-                Container(
-                  margin: EdgeInsets.symmetric(
-                    vertical: 2.0,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        flex: 1,
-                        child: Text(
-                          'Created',
-                          style: TextStyle().copyWith(
-                            fontSize: 14.0,
-                            color: Color(0XFF92A791),
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        flex: 2,
-                        child: Text(
-                          ovcHousehold.createdDate,
-                          style: TextStyle().copyWith(
-                            fontSize: 14.0,
-                            color: Color(0XFF536852),
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
+                _getOvcHouseholdRowWidget(
+                  key: "Created",
+                  value: ovcHousehold.createdDate!,
                 ),
-                Container(
-                  margin: EdgeInsets.symmetric(
-                    vertical: 2.0,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        flex: 1,
-                        child: Text(
-                          currentLanguage == 'lesotho' ? 'Sebaka' : 'Location',
-                          style: TextStyle().copyWith(
-                            fontSize: 14.0,
-                            color: Color(0XFF92A791),
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        flex: 2,
-                        child: Text(
-                          ovcHousehold.location,
-                          style: TextStyle().copyWith(
-                            fontSize: 14.0,
-                            color: Color(0XFF536852),
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
+                _getOvcHouseholdRowWidget(
+                  key: currentLanguage == 'lesotho' ? 'Sebaka' : 'Location',
+                  value: ovcHousehold.location!,
                 ),
-                Container(
-                  margin: EdgeInsets.symmetric(
-                    vertical: 2.0,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        flex: 1,
-                        child: Text(
-                          '# of OVC',
-                          style: TextStyle().copyWith(
-                            fontSize: 14.0,
-                            color: Color(0XFF92A791),
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        flex: 2,
-                        child: Row(
-                          children: [
-                            Container(
-                              child: Text(
-                                currentLanguage == 'lesotho'
-                                    ? 'Mosali - ${ovcHousehold.ovcFemaleCount}'
-                                    : 'Female - ${ovcHousehold.ovcFemaleCount}',
-                                style: TextStyle().copyWith(
-                                  fontSize: 14.0,
-                                  color: Color(0XFF536852),
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ),
-                            Container(
-                              height: 14.0,
-                              margin: EdgeInsets.symmetric(
-                                horizontal: 20.0,
-                              ),
-                              decoration: BoxDecoration(
-                                border: Border(
-                                  left: BorderSide(
-                                    color: Color(0xFFC9E2C7),
-                                    width: 1.0,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Container(
-                              child: Text(
-                                currentLanguage == 'lesotho'
-                                    ? 'Monna - ${ovcHousehold.ovcMaleCount}'
-                                    : 'Male - ${ovcHousehold.ovcMaleCount}',
-                                style: TextStyle().copyWith(
-                                  fontSize: 14.0,
-                                  color: Color(0XFF536852),
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
+                OvcHouseholdChildCount(
+                  currentLanguage: currentLanguage,
+                  ovcHousehold: ovcHousehold,
                 )
               ],
             ),

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -12,10 +13,15 @@ import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.d
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/core/constants/beneficiary_identification.dart';
+import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
+import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
+import 'package:kb_mobile_app/models/current_user.dart';
+import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/constants/ovc_routes_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/services/ovc_enrollment_child_services.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/services/ovc_enrollment_household_service.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/models/ovc_enrollment_household.dart';
@@ -23,7 +29,7 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment
 import 'package:provider/provider.dart';
 
 class OvcEnrollmentHouseholdForm extends StatefulWidget {
-  const OvcEnrollmentHouseholdForm({Key key}) : super(key: key);
+  const OvcEnrollmentHouseholdForm({Key? key}) : super(key: key);
 
   @override
   _OvcEnrollmentHouseholdFormState createState() =>
@@ -32,7 +38,7 @@ class OvcEnrollmentHouseholdForm extends StatefulWidget {
 
 class _OvcEnrollmentHouseholdFormState
     extends State<OvcEnrollmentHouseholdForm> {
-  List<FormSection> formSections;
+  List<FormSection>? formSections;
   final String label = 'Household information';
   final List<String> mandatoryFields =
       OvcEnrollmentHousehold.getMandatoryField();
@@ -67,10 +73,24 @@ class _OvcEnrollmentHouseholdFormState
       List<String> hiddenFields = [
         BeneficiaryIdentification.beneficiaryId,
         BeneficiaryIdentification.beneficiaryIndex,
-        'PN92g65TkVI'
+        'PN92g65TkVI',
+        'klLkGxy328c',
+        'DdnlE8kmIkT',
+        'fQInK8s2RNR'
       ];
-      List<Map> childrenObjects = dataObject['children'];
-      String orgUnit = dataObject['location'];
+      List<Map?> childMapObjects = [];
+      for (Map childObj in dataObject["children"]) {
+        childMapObjects.add(childObj);
+      }
+      CurrentUser? user = await UserService().getCurrentUser();
+      dataObject['klLkGxy328c'] =
+          dataObject['klLkGxy328c'] ?? user!.implementingPartner;
+      dataObject['DdnlE8kmIkT'] = dataObject['DdnlE8kmIkT'] ?? user!.username;
+      if (user!.subImplementingPartner != '') {
+        dataObject['fQInK8s2RNR'] =
+            dataObject['fQInK8s2RNR'] ?? user.subImplementingPartner;
+      }
+      String? orgUnit = dataObject['location'];
       bool shouldEnroll = true;
       await OvcEnrollmentHouseholdService().savingHouseholdForm(
         dataObject,
@@ -85,7 +105,7 @@ class _OvcEnrollmentHouseholdFormState
       await OvcEnrollmentChildService().savingChildrenEnrollmentForms(
         trackedEntityInstance,
         orgUnit,
-        childrenObjects,
+        childMapObjects,
         null,
         null,
         shouldEnroll,
@@ -93,12 +113,11 @@ class _OvcEnrollmentHouseholdFormState
       );
       await Provider.of<OvcInterventionListState>(context, listen: false)
           .onHouseholdAdd();
+      clearFormAutoSaveState(context);
       Timer(Duration(seconds: 1), () {
         if (Navigator.canPop(context)) {
-          setState(() {
-            isSaving = false;
-          });
-          String currentLanguage =
+          isSaving = false;
+          String? currentLanguage =
               Provider.of<LanguageTranslationState>(context, listen: false)
                   .currentLanguage;
           AppUtil.showToastMessage(
@@ -107,18 +126,56 @@ class _OvcEnrollmentHouseholdFormState
                 : 'Form has been saved successfully',
             position: ToastGravity.TOP,
           );
+          setState(() {});
           Navigator.popUntil(context, (route) => route.isFirst);
         }
       });
     } else {
-      setState(() {
-        unFilledMandatoryFields =
-            AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
-      });
+      unFilledMandatoryFields =
+          AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+      setState(() {});
       AppUtil.showToastMessage(
-          message: 'Please fill all mandatory field',
-          position: ToastGravity.TOP);
+        message: 'Please fill all mandatory field',
+        position: ToastGravity.TOP,
+      );
     }
+  }
+
+  void clearFormAutoSaveState(BuildContext context) async {
+    String beneficiaryId = "";
+    String formAutoSaveId =
+        "${OvcRoutesConstant.ovcConcentFormPage}_$beneficiaryId";
+    await FormAutoSaveOfflineService().deleteSavedFormAutoData(formAutoSaveId);
+  }
+
+  void onUpdateFormAutoSaveState(
+    BuildContext context, {
+    bool isSaveForm = false,
+    String nextPageModule = "",
+  }) async {
+    String beneficiaryId = "";
+    Map dataObject =
+        Provider.of<EnrollmentFormState>(context, listen: false).formState;
+    String id = "${OvcRoutesConstant.ovcConcentFormPage}_$beneficiaryId";
+    FormAutoSave formAutoSave = FormAutoSave(
+      id: id,
+      beneficiaryId: beneficiaryId,
+      pageModule: OvcRoutesConstant.ovcHouseholdInformationFormPage,
+      nextPageModule: isSaveForm
+          ? nextPageModule != ""
+              ? nextPageModule
+              : OvcRoutesConstant.ovcHouseholdInformationFormNextPage
+          : OvcRoutesConstant.ovcHouseholdInformationFormPage,
+      data: jsonEncode(dataObject),
+    );
+    await FormAutoSaveOfflineService().saveFormAutoSaveData(formAutoSave);
+  }
+
+  void onInputValueChange(String id, dynamic value) {
+    Provider.of<EnrollmentFormState>(context, listen: false)
+        .setFormFieldState(id, value);
+    evaluateSkipLogics();
+    onUpdateFormAutoSaveState(context);
   }
 
   evaluateSkipLogics() {
@@ -129,90 +186,84 @@ class _OvcEnrollmentHouseholdFormState
             Provider.of<EnrollmentFormState>(context, listen: false).formState;
         await OvcHouseholdEnrollmentSkipLogic.evaluateSkipLogics(
           context,
-          formSections,
+          formSections!,
           dataObject,
         );
       },
     );
   }
 
-  void onInputValueChange(String id, dynamic value) {
-    Provider.of<EnrollmentFormState>(context, listen: false)
-        .setFormFieldState(id, value);
-    evaluateSkipLogics();
-  }
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: Scaffold(
-            appBar: PreferredSize(
-              preferredSize: Size.fromHeight(65.0),
-              child: Consumer<InterventionCardState>(
-                builder: (context, interventionCardState, child) {
-                  InterventionCard activeInterventionProgram =
-                      interventionCardState.currentInterventionProgram;
-                  return SubPageAppBar(
-                    label: label,
-                    activeInterventionProgram: activeInterventionProgram,
-                  );
-                },
-              ),
+      child: Scaffold(
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(65.0),
+          child: Consumer<InterventionCardState>(
+            builder: (context, interventionCardState, child) {
+              InterventionCard activeInterventionProgram =
+                  interventionCardState.currentInterventionProgram;
+              return SubPageAppBar(
+                label: label,
+                activeInterventionProgram: activeInterventionProgram,
+              );
+            },
+          ),
+        ),
+        body: SubPageBody(
+          body: Container(
+            margin: EdgeInsets.symmetric(
+              vertical: 16.0,
+              horizontal: 13.0,
             ),
-            body: SubPageBody(
-                body: Container(
-                    margin:
-                        EdgeInsets.symmetric(vertical: 16.0, horizontal: 13.0),
-                    child: !isFormReady
-                        ? Column(
-                            children: [
-                              Center(
-                                child: CircularProcessLoader(
-                                  color: Colors.blueGrey,
-                                ),
-                              )
-                            ],
+            child: !isFormReady
+                ? Column(
+                    children: [
+                      Center(
+                        child: CircularProcessLoader(
+                          color: Colors.blueGrey,
+                        ),
+                      )
+                    ],
+                  )
+                : Container(
+                    child: Consumer<EnrollmentFormState>(
+                      builder: (context, enrollmentFormState, child) => Column(
+                        children: [
+                          Container(
+                            child: EntryFormContainer(
+                              hiddenFields: enrollmentFormState.hiddenFields,
+                              hiddenSections:
+                                  enrollmentFormState.hiddenSections,
+                              formSections: formSections,
+                              mandatoryFieldObject: mandatoryFieldObject,
+                              dataObject: enrollmentFormState.formState,
+                              onInputValueChange: onInputValueChange,
+                              unFilledMandatoryFields: unFilledMandatoryFields,
+                            ),
+                          ),
+                          EntryFormSaveButton(
+                            label: isSaving
+                                ? 'Saving Household ...'
+                                : 'Save Household',
+                            labelColor: Colors.white,
+                            buttonColor: Color(0xFF4B9F46),
+                            fontSize: 15.0,
+                            onPressButton: () => isSaving
+                                ? null
+                                : onSaveAndContinue(
+                                    context,
+                                    enrollmentFormState.formState,
+                                  ),
                           )
-                        : Container(
-                            child: Consumer<EnrollmentFormState>(
-                                builder: (context, enrollmentFormState,
-                                        child) =>
-                                    Column(
-                                      children: [
-                                        Container(
-                                          child: EntryFormContainer(
-                                            hiddenFields: enrollmentFormState
-                                                .hiddenFields,
-                                            hiddenSections: enrollmentFormState
-                                                .hiddenSections,
-                                            formSections: formSections,
-                                            mandatoryFieldObject:
-                                                mandatoryFieldObject,
-                                            dataObject:
-                                                enrollmentFormState.formState,
-                                            onInputValueChange:
-                                                onInputValueChange,
-                                            unFilledMandatoryFields:
-                                                unFilledMandatoryFields,
-                                          ),
-                                        ),
-                                        EntryFormSaveButton(
-                                          label: isSaving
-                                              ? 'Saving Household ...'
-                                              : 'Save Household',
-                                          labelColor: Colors.white,
-                                          buttonColor: Color(0xFF4B9F46),
-                                          fontSize: 15.0,
-                                          onPressButton: () => isSaving
-                                              ? null
-                                              : onSaveAndContinue(
-                                                  context,
-                                                  enrollmentFormState
-                                                      .formState),
-                                        )
-                                      ],
-                                    )),
-                          ))),
-            bottomNavigationBar: InterventionBottomNavigationBarContainer()));
+                        ],
+                      ),
+                    ),
+                  ),
+          ),
+        ),
+        bottomNavigationBar: InterventionBottomNavigationBarContainer(),
+      ),
+    );
   }
 }

@@ -17,13 +17,15 @@ import 'package:provider/provider.dart';
 
 class DreamsReferralManage extends StatefulWidget {
   DreamsReferralManage({
-    Key key,
-    @required this.eventData,
-    @required this.referralIndex,
+    Key? key,
+    required this.eventData,
+    required this.referralIndex,
+    required this.isIncommingReferral,
   }) : super(key: key);
 
   final Events eventData;
   final int referralIndex;
+  final bool isIncommingReferral;
 
   @override
   _DreamsReferralManageState createState() => _DreamsReferralManageState();
@@ -33,7 +35,7 @@ class _DreamsReferralManageState extends State<DreamsReferralManage> {
   final String label = 'Manage Agyw Referral';
 
   bool shouldEditReferral(List dataValues) {
-    CurrentUser user =
+    CurrentUser? user =
         Provider.of<CurrentUserState>(context, listen: false).currentUser;
     var referralImplementingPartner = dataValues.firstWhere(
         (dataValue) =>
@@ -41,7 +43,7 @@ class _DreamsReferralManageState extends State<DreamsReferralManage> {
             DreamsAgywReferralConstant.referralImplementingPartner,
         orElse: () => null);
     return referralImplementingPartner != null
-        ? referralImplementingPartner['value'] != user.implementingPartner
+        ? referralImplementingPartner['value'] != user!.implementingPartner
         : true;
   }
 
@@ -66,7 +68,7 @@ class _DreamsReferralManageState extends State<DreamsReferralManage> {
           child: Consumer<DreamsBeneficiarySelectionState>(
             builder: (context, dreamCurrentSelectionState, child) {
               var currentDreamsAgywBeneficiary =
-                  dreamCurrentSelectionState.currentAgywDream;
+                  dreamCurrentSelectionState.currentAgywDream!;
               return Container(
                 child: Column(
                   children: [
@@ -90,6 +92,7 @@ class _DreamsReferralManageState extends State<DreamsReferralManage> {
                                 eventData: widget.eventData,
                                 isEditable: shouldEditReferral(
                                     widget.eventData.dataValues ?? []),
+                                isIncommingReferral: widget.isIncommingReferral,
                               ),
                               ReferralOutComeCardContainer(
                                 isOvcIntervention: false,

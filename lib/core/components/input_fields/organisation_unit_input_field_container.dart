@@ -13,19 +13,19 @@ import 'package:kb_mobile_app/models/organisation_unit.dart';
 
 class OrganisationUnitInputFieldContainer extends StatefulWidget {
   const OrganisationUnitInputFieldContainer({
-    Key key,
-    @required this.inputField,
-    @required this.onInputValueChange,
-    @required this.currentUserCountryLevelReferences,
+    Key? key,
+    required this.inputField,
+    required this.onInputValueChange,
+    required this.currentUserCountryLevelReferences,
     this.inputValue,
     this.filteredPrograms,
   }) : super(key: key);
 
   final InputField inputField;
   final Function onInputValueChange;
-  final List<String> currentUserCountryLevelReferences;
-  final String inputValue;
-  final List<String> filteredPrograms;
+  final List<String?> currentUserCountryLevelReferences;
+  final String? inputValue;
+  final List<String>? filteredPrograms;
 
   @override
   _OrganisationUnitInputFieldContainerState createState() =>
@@ -34,11 +34,11 @@ class OrganisationUnitInputFieldContainer extends StatefulWidget {
 
 class _OrganisationUnitInputFieldContainerState
     extends State<OrganisationUnitInputFieldContainer> {
-  TextEditingController organisationUnitController;
-  List userOrganisationUnits = [];
+  TextEditingController? organisationUnitController;
+  List? userOrganisationUnits = [];
   bool isLoading = true;
   bool valueCleared = false;
-  String _value;
+  String? _value;
 
   @override
   void initState() {
@@ -61,8 +61,8 @@ class _OrganisationUnitInputFieldContainerState
   }
 
   void getUserOrganisationunits() async {
-    CurrentUser user = await UserService().getCurrentUser();
-    userOrganisationUnits = user.userOrgUnitIds;
+    CurrentUser? user = await (UserService().getCurrentUser());
+    userOrganisationUnits = user!.userOrgUnitIds;
     discoveringSelectedOrganisationUnit();
   }
 
@@ -70,12 +70,12 @@ class _OrganisationUnitInputFieldContainerState
     if (widget.inputField != null) {
       List<OrganisationUnit> ous = await OrganisationUnitService()
           .getOrganisationUnits([widget.inputValue]);
-      String value = ous.length > 0 ? ous[0].name : null;
+      String? value = ous.length > 0 ? ous[0].name : null;
       setOrganisationunit(value);
     }
   }
 
-  void setOrganisationunit(String value) {
+  void setOrganisationunit(String? value) {
     organisationUnitController = TextEditingController(text: value);
     _value = value;
     isLoading = false;
@@ -91,12 +91,12 @@ class _OrganisationUnitInputFieldContainerState
       height: height,
       margin: EdgeInsets.symmetric(horizontal: 5.0),
       decoration:
-          BoxDecoration(color: widget.inputField.labelColor.withOpacity(0.05)),
+          BoxDecoration(color: widget.inputField.labelColor!.withOpacity(0.05)),
       child: SingleChildScrollView(
         child: OrganisationUnitTreeList(
           organisationUnitIds:
               widget.currentUserCountryLevelReferences.length > 0 &&
-                      widget.inputField.showCountryLevelTree
+                      widget.inputField.showCountryLevelTree!
                   ? widget.currentUserCountryLevelReferences
                   : userOrganisationUnits,
           labelColor: widget.inputField.labelColor,
@@ -105,7 +105,7 @@ class _OrganisationUnitInputFieldContainerState
         ),
       ),
     );
-    OrganisationUnit organisationUnit =
+    OrganisationUnit? organisationUnit =
         await AppUtil.showPopUpModal(context, modal, false);
     if (organisationUnit != null) {
       setOrganisationunit(organisationUnit.name);
@@ -131,7 +131,7 @@ class _OrganisationUnitInputFieldContainerState
                     style: TextStyle().copyWith(
                       color: widget.inputField.inputColor,
                     ),
-                    onTap: () => widget.inputField.isReadOnly
+                    onTap: () => widget.inputField.isReadOnly!
                         ? null
                         : openOrganisationUnit(context),
                     readOnly: true,

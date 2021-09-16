@@ -1,14 +1,14 @@
 import 'package:kb_mobile_app/models/events.dart';
 
-class ServiceEvents {
-  String event;
-  String programStage;
-  String interventionType;
-  String interventionGroup;
-  int sessionNumber;
-  Events eventData;
+class ServiceEvent {
+  String? event;
+  String? programStage;
+  String? interventionType;
+  String? interventionGroup;
+  String? sessionNumber;
+  Events? eventData;
 
-  ServiceEvents(
+  ServiceEvent(
       {this.event,
       this.programStage,
       this.eventData,
@@ -16,7 +16,7 @@ class ServiceEvents {
       this.interventionGroup,
       this.sessionNumber});
 
-  ServiceEvents getServiceSessions(Events events) {
+  ServiceEvent getServiceSessions(Events events) {
     List keys = [
       'Eug4BXDFLym',
       'vL6NpUA0rIU',
@@ -24,21 +24,21 @@ class ServiceEvents {
 
     Map data = Map();
     for (Map dataValues in events.dataValues) {
-      String attribute = dataValues['dataElement'];
+      String? attribute = dataValues['dataElement'];
       if (attribute != null && keys.indexOf(attribute) > -1) {
-        data[attribute] = '${dataValues['value']}'.trim() ?? '';
+        data[attribute] = '${dataValues['value']}'.trim();
       }
     }
 
     var sessionNumber = data['vL6NpUA0rIU'] != '' && data['vL6NpUA0rIU'] != null
         ? data['vL6NpUA0rIU']
         : '0';
-    return ServiceEvents(
+    return ServiceEvent(
         event: events.event,
         programStage: events.programStage,
         interventionType: data['Eug4BXDFLym'] ?? '',
         interventionGroup: assignInterventionGroup(data['Eug4BXDFLym'] ?? ''),
-        sessionNumber: int.parse(sessionNumber) ?? 0,
+        sessionNumber: '$sessionNumber'.toLowerCase(),
         eventData: events);
   }
 

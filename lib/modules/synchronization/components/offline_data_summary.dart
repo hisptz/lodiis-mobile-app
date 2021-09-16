@@ -4,9 +4,9 @@ import 'package:kb_mobile_app/core/components/material_card.dart';
 
 class OfflineDataSummary extends StatelessWidget {
   const OfflineDataSummary(
-      {Key key,
-      @required this.beneficiaryCount,
-      @required this.beneficiaryServiceCount})
+      {Key? key,
+      required this.beneficiaryCount,
+      required this.beneficiaryServiceCount})
       : super(key: key);
 
   final int beneficiaryCount;
@@ -20,7 +20,8 @@ class OfflineDataSummary extends StatelessWidget {
           child: Column(
             children: [
               Container(
-                margin: EdgeInsets.symmetric(vertical: 5.0),
+                alignment: Alignment.centerLeft,
+                margin: EdgeInsets.symmetric(vertical: 10.0),
                 child: Text('Offline data summary',
                     style: TextStyle().copyWith(
                       fontSize: 14.0,

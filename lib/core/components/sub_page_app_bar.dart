@@ -4,9 +4,9 @@ import 'package:kb_mobile_app/models/intervention_card.dart';
 
 class SubPageAppBar extends StatelessWidget {
   const SubPageAppBar({
-    Key key,
-    @required this.label,
-    @required this.activeInterventionProgram,
+    Key? key,
+    required this.label,
+    required this.activeInterventionProgram,
     this.disableSelectionOfActiveIntervention = true,
   }) : super(key: key);
 

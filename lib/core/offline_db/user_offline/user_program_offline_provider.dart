@@ -4,32 +4,32 @@ import 'package:sqflite/sqflite.dart';
 
 class UserProgramOfflineProvider extends OfflineDbProvider {
   // columns
-  String id = 'id';
+  String? id = 'id';
   String userId = 'userId';
 
   addOrUpdateUserPrograms(CurrentUser user) async {
     var dbClient = await db;
-    for (id in user.programs) {
+    for (id in user.programs ?? []) {
       var data = Map<String, dynamic>();
       data['id'] = id;
       data['userId'] = user.id;
-      await dbClient.insert(CurrentUser.userProgramTable, data,
+      await dbClient!.insert(CurrentUser.userProgramTable, data,
           conflictAlgorithm: ConflictAlgorithm.replace);
     }
   }
 
-  deleteUserPrograms(String userId) async {
+  deleteUserPrograms(String? userId) async {
     var dbClient = await db;
-    return await dbClient.delete(CurrentUser.userProgramTable,
+    return await dbClient!.delete(CurrentUser.userProgramTable,
         where: '$id = ?', whereArgs: [userId]);
   }
 
-  Future<List> getUserPrograms(String currentUserId) async {
+  Future<List> getUserPrograms(String? currentUserId) async {
     List userProgramIds = [];
     try {
       var dbClient = await db;
-      List<Map> maps = await dbClient
-          .query(CurrentUser.userProgramTable, columns: [id, userId]);
+      List<Map> maps = await dbClient!
+          .query(CurrentUser.userProgramTable, columns: [id!, userId]);
       if (maps.isNotEmpty) {
         for (Map map in maps) {
           if (map['userId'] == currentUserId) {

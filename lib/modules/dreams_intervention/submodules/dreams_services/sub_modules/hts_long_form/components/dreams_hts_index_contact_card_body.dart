@@ -4,15 +4,15 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_serv
 
 class DreamsHTSIndexContactCardBody extends StatelessWidget {
   DreamsHTSIndexContactCardBody({
-    Key key,
+    Key? key,
     this.event,
   }) : super(key: key);
 
-  final IndexContact event;
+  final IndexContact? event;
 
   @override
   Widget build(BuildContext context) {
-    Map eventData = event.toDataMap();
+    Map eventData = event!.toDataMap();
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 13.0, vertical: 10.0),
       child: Column(

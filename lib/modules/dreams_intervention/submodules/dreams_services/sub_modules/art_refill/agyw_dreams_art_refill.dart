@@ -7,11 +7,15 @@ import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
+import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
+import 'package:kb_mobile_app/core/utils/app_resume_routes/app_resume_route.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/events.dart';
+import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_top_header.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/constants/dreams_routes_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/components/dreams_services_visit_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/art_refill/constants/art_refill_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/art_refill/pages/agyw_dreams_art_refill_form.dart';
@@ -19,7 +23,7 @@ import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:provider/provider.dart';
 
 class AgywDreamsArtRefill extends StatefulWidget {
-  AgywDreamsArtRefill({Key key}) : super(key: key);
+  AgywDreamsArtRefill({Key? key}) : super(key: key);
 
   @override
   _AgywDreamsArtRefillState createState() => _AgywDreamsArtRefillState();
@@ -36,7 +40,7 @@ class _AgywDreamsArtRefillState extends State<AgywDreamsArtRefill> {
   void updateFormState(
     BuildContext context,
     bool isEditableMode,
-    Events eventData,
+    Events? eventData,
   ) {
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
     Provider.of<ServiceFormState>(context, listen: false)
@@ -55,24 +59,49 @@ class _AgywDreamsArtRefillState extends State<AgywDreamsArtRefill> {
     }
   }
 
-  void onAddPrep(BuildContext context, AgywDream agywDream) {
+  void onAddArtRefill(BuildContext context, AgywDream agywDream) async {
     updateFormState(context, true, null);
-    Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
-        .setCurrentAgywDream(agywDream);
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => AgywDreamsARTRefillForm()));
+    String? beneficiaryId = agywDream.id;
+    String eventId = '';
+    String formAutoSaveId =
+        "${DreamsRoutesConstant.agywDreamsArtRefillPage}_${beneficiaryId}_$eventId";
+    FormAutoSave formAutoSave =
+        await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
+    bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
+        .shouldResumeWithUnSavedChanges(context, formAutoSave);
+    if (shouldResumeWithUnSavedChanges) {
+      AppResumeRoute().redirectToPages(context, formAutoSave);
+    } else {
+      Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
+          .setCurrentAgywDream(agywDream);
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => AgywDreamsARTRefillForm()));
+    }
   }
 
-  void onViewPrep(BuildContext context, Events eventData) {
+  void onViewArtRefill(BuildContext context, Events eventData) {
     updateFormState(context, false, eventData);
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => AgywDreamsARTRefillForm()));
   }
 
-  void onEditPrep(BuildContext context, Events eventData) {
+  void onEditArtRefill(
+      BuildContext context, Events eventData, AgywDream agywDream) async {
     updateFormState(context, true, eventData);
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => AgywDreamsARTRefillForm()));
+    String eventId = '';
+    String beneficiaryId = agywDream.id!;
+    String formAutoSaveId =
+        "${DreamsRoutesConstant.agywDreamsArtRefillPage}_${beneficiaryId}_$eventId";
+    FormAutoSave formAutoSave =
+        await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
+    bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
+        .shouldResumeWithUnSavedChanges(context, formAutoSave);
+    if (shouldResumeWithUnSavedChanges) {
+      AppResumeRoute().redirectToPages(context, formAutoSave);
+    } else {
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => AgywDreamsARTRefillForm()));
+    }
   }
 
   @override
@@ -97,10 +126,10 @@ class _AgywDreamsArtRefillState extends State<AgywDreamsArtRefill> {
               builder: (context, dreamBeneficiarySelectionState, child) {
                 return Consumer<ServiceEventDataState>(
                   builder: (context, serviceFormState, child) {
-                    AgywDream agywDream =
+                    AgywDream? agywDream =
                         dreamBeneficiarySelectionState.currentAgywDream;
                     bool isLoading = serviceFormState.isLoading;
-                    Map<String, List<Events>> eventListByProgramStage =
+                    Map<String?, List<Events>> eventListByProgramStage =
                         serviceFormState.eventListByProgramStage;
                     List<Events> events = TrackedEntityInstanceUtil
                         .getAllEventListFromServiceDataStateByProgramStages(
@@ -145,10 +174,13 @@ class _AgywDreamsArtRefillState extends State<AgywDreamsArtRefill> {
                                                         visitName:
                                                             "ART Re-fill",
                                                         onEdit: () =>
-                                                            onEditPrep(context,
-                                                                eventData),
+                                                            onEditArtRefill(
+                                                                context,
+                                                                eventData,
+                                                                agywDream!),
                                                         onView: () =>
-                                                            onViewPrep(context,
+                                                            onViewArtRefill(
+                                                                context,
                                                                 eventData),
                                                         eventData: eventData,
                                                         visitCount:
@@ -164,8 +196,8 @@ class _AgywDreamsArtRefillState extends State<AgywDreamsArtRefill> {
                                           labelColor: Colors.white,
                                           buttonColor: Color(0xFF1F8ECE),
                                           fontSize: 15.0,
-                                          onPressButton: () =>
-                                              onAddPrep(context, agywDream))
+                                          onPressButton: () => onAddArtRefill(
+                                              context, agywDream!))
                                     ],
                                   ),
                           ),

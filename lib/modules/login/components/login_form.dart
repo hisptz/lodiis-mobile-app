@@ -21,9 +21,9 @@ import 'package:provider/provider.dart';
 import 'package:kb_mobile_app/core/services/organisation_unit_service.dart';
 
 class LoginForm extends StatefulWidget {
-  const LoginForm({Key key, @required this.currentLanguage}) : super(key: key);
+  const LoginForm({Key? key, required this.currentLanguage}) : super(key: key);
 
-  final String currentLanguage;
+  final String? currentLanguage;
 
   @override
   State<StatefulWidget> createState() {
@@ -32,26 +32,26 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
-  CurrentUser currentUser;
-  LoginFormState loginFormState;
-  TextEditingController usernameController;
-  TextEditingController passwordController;
+  CurrentUser? currentUser;
+  late LoginFormState loginFormState;
+  TextEditingController? usernameController;
+  TextEditingController? passwordController;
 
   @override
   void initState() {
     super.initState();
     this.loginFormState = Provider.of<LoginFormState>(context, listen: false);
-    UserService().getCurrentUser().then((CurrentUser user) {
+    UserService().getCurrentUser().then((CurrentUser? user) {
       currentUser = user ??
           new CurrentUser(
             username: '',
             password: '',
           );
-      currentUser.password = "";
+      currentUser!.password = "";
       usernameController =
-          new TextEditingController(text: currentUser.username);
+          new TextEditingController(text: currentUser!.username);
       passwordController =
-          new TextEditingController(text: currentUser.password);
+          new TextEditingController(text: currentUser!.password);
       setState(() {});
     });
   }
@@ -65,10 +65,10 @@ class _LoginFormState extends State<LoginForm> {
   }
 
   void onFieldValueChanges(String value, String key) {
-    currentUser.username =
-        key == 'username' ? value.trim() : currentUser.username;
-    currentUser.password =
-        key == 'password' ? value.trim() : currentUser.password;
+    currentUser!.username =
+        key == 'username' ? value.trim() : currentUser!.username;
+    currentUser!.password =
+        key == 'password' ? value.trim() : currentUser!.password;
     setState(() {});
   }
 
@@ -78,32 +78,34 @@ class _LoginFormState extends State<LoginForm> {
   }
 
   void onLogin(bool isLoginProcessActive) async {
-    bool isOnline = Provider.of<DeviceConnectivityState>(context, listen: false)
-        .connectivityStatus;
-    bool status = currentUser.isCurrentUserSet();
+    bool? isOnline =
+        Provider.of<DeviceConnectivityState>(context, listen: false)
+            .connectivityStatus;
+    bool status = currentUser!.isCurrentUserSet();
     FocusScope.of(context).unfocus();
     updateInputActiveStatus('');
     if (!isLoginProcessActive && status) {
       loginFormState.setHasLoginErrorStatus(false);
       loginFormState.setIsLoginProcessActive(true);
       loginFormState.setCurrentLoginProcessMessage('Authenticating user...');
-      if (isOnline) {
+      if (isOnline!) {
         await onlineAuthentication(
-          username: currentUser.username.trim(),
-          password: currentUser.password.trim(),
+          username: currentUser!.username!.trim(),
+          password: currentUser!.password!.trim(),
         );
       } else {
         await offlineAuthentication(
-          username: currentUser.username.trim(),
-          password: currentUser.password.trim(),
+          username: currentUser!.username!.trim(),
+          password: currentUser!.password!.trim(),
         );
       }
     }
   }
 
-  Future<void> offlineAuthentication({String username, String password}) async {
+  Future<void> offlineAuthentication(
+      {String? username, String? password}) async {
     try {
-      CurrentUser user = await UserService().login(
+      CurrentUser? user = await UserService().login(
         username: username,
         password: password,
         isOnlineAuthentication: false,
@@ -117,14 +119,15 @@ class _LoginFormState extends State<LoginForm> {
     } catch (error) {
       resetLoginFormState(
         showErrorOnInputFields: true,
-        toastMessage: error.toString() ?? error,
+        toastMessage: error.toString(),
       );
     }
   }
 
-  Future<void> onlineAuthentication({String username, String password}) async {
+  Future<void> onlineAuthentication(
+      {String? username, String? password}) async {
     try {
-      CurrentUser user = await UserService().login(
+      CurrentUser? user = await UserService().login(
         username: username,
         password: password,
       );
@@ -142,8 +145,8 @@ class _LoginFormState extends State<LoginForm> {
             .discoveringOrgananisationUnitsFromTheServer();
         loginFormState.setCurrentLoginProcessMessage(
             "Saving assigned access for interventions...");
-        List<String> programs = user.programs ?? [];
-        for (String program in programs) {
+        List<String?> programs = user.programs as List<String?>? ?? [];
+        for (String? program in programs) {
           await ProgramService()
               .discoverProgramOrganisationUnitsFromTheServer(program);
         }
@@ -157,8 +160,7 @@ class _LoginFormState extends State<LoginForm> {
       }
     } catch (error) {
       resetLoginFormState(
-          toastMessage: error.toString() ?? error,
-          showErrorOnInputFields: false);
+          toastMessage: error.toString(), showErrorOnInputFields: false);
     }
   }
 
@@ -170,7 +172,7 @@ class _LoginFormState extends State<LoginForm> {
     Provider.of<CurrentUserState>(context, listen: false)
         .setCurrentUser(user, userAccessConfigurations);
     await Provider.of<ReferralNotificationState>(context, listen: false)
-        .setCurrentImplementingPartner(user.implementingPartner);
+        .setCurrentImplementingPartner(user.implementingPartner!);
     await ImplementingPartnerReferralConfigService()
         .addImplementingPartnerReferralServices(user.username, user.password);
   }

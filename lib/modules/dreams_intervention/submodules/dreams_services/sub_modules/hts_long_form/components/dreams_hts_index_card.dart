@@ -9,19 +9,19 @@ import 'dreams_hts_index_card_header.dart';
 
 class DreamsHTSIndexCard extends StatelessWidget {
   const DreamsHTSIndexCard({
-    Key key,
-    @required this.event,
-    @required this.cardBody,
-    @required this.cardButtonActions,
-    @required this.cardButtonContent,
-    @required this.canExpand,
-    @required this.canEdit,
-    @required this.canView,
-    @required this.isExpanded,
+    Key? key,
+    required this.event,
+    required this.cardBody,
+    required this.cardButtonActions,
+    required this.cardButtonContent,
+    required this.canExpand,
+    required this.canEdit,
+    required this.canView,
+    required this.isExpanded,
     this.onCardToggle,
   }) : super(key: key);
 
-  final AgywDreamsIndexInfoEvent event;
+  final AgywDreamsIndexInfoEvent? event;
   final Widget cardBody;
   final Widget cardButtonActions;
   final Widget cardButtonContent;
@@ -30,13 +30,13 @@ class DreamsHTSIndexCard extends StatelessWidget {
   final bool canEdit;
   final bool canView;
 
-  final VoidCallback onCardToggle;
+  final VoidCallback? onCardToggle;
   final String svgIcon = 'assets/icons/hh_icon.svg';
 
   void updateFormState(
     BuildContext context,
     bool isEditableMode,
-    AgywDreamsIndexInfoEvent eventData,
+    AgywDreamsIndexInfoEvent? eventData,
   ) {
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
     Provider.of<ServiceFormState>(context, listen: false)
@@ -56,7 +56,7 @@ class DreamsHTSIndexCard extends StatelessWidget {
   }
 
   void onEditIndexInfo(
-      BuildContext context, AgywDreamsIndexInfoEvent eventData) {
+      BuildContext context, AgywDreamsIndexInfoEvent? eventData) {
     updateFormState(context, true, eventData);
     Navigator.push(
         context,
@@ -65,7 +65,7 @@ class DreamsHTSIndexCard extends StatelessWidget {
   }
 
   void onViewIndexInfo(
-      BuildContext context, AgywDreamsIndexInfoEvent eventData) {
+      BuildContext context, AgywDreamsIndexInfoEvent? eventData) {
     updateFormState(context, false, eventData);
     Navigator.push(
         context,

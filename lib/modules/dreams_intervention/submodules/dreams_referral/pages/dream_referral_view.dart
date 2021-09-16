@@ -15,13 +15,15 @@ import 'package:provider/provider.dart';
 
 class DreamsReferralView extends StatefulWidget {
   DreamsReferralView({
-    Key key,
-    @required this.eventData,
-    @required this.referralIndex,
+    Key? key,
+    required this.eventData,
+    required this.referralIndex,
+    required this.isIncommingReferral,
   }) : super(key: key);
 
   final Events eventData;
   final int referralIndex;
+  final bool isIncommingReferral;
 
   @override
   _DreamsReferralViewState createState() => _DreamsReferralViewState();
@@ -51,7 +53,7 @@ class _DreamsReferralViewState extends State<DreamsReferralView> {
             child: Consumer<DreamsBeneficiarySelectionState>(
               builder: (context, dreamCurrentSelectionState, child) {
                 var currentDreamsAgywBeneficiary =
-                    dreamCurrentSelectionState.currentAgywDream;
+                    dreamCurrentSelectionState.currentAgywDream!;
                 return Container(
                   child: Column(
                     children: [
@@ -73,6 +75,8 @@ class _DreamsReferralViewState extends State<DreamsReferralView> {
                                   isOvcIntervention: false,
                                   referralIndex: widget.referralIndex,
                                   eventData: widget.eventData,
+                                  isIncommingReferral:
+                                      widget.isIncommingReferral,
                                 ),
                                 ReferralOutComeCard(
                                   isOvcIntervention: false,

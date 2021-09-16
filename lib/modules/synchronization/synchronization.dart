@@ -1,29 +1,28 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/app_state/synchronization_state/synchronization_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
-import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/synchronization/components/offline_data_summary.dart';
 import 'package:kb_mobile_app/modules/synchronization/components/synchronization_action_form.dart';
 import 'package:kb_mobile_app/modules/synchronization/components/synchronization_progress.dart';
 import 'package:kb_mobile_app/modules/synchronization/conflict_on_download_page.dart';
+import 'package:kb_mobile_app/modules/synchronization/constants/synchronization_actions_constants.dart';
 import 'package:provider/provider.dart';
 
 class Synchronization extends StatefulWidget {
-  Synchronization({Key key, this.synchronizationAction}) : super(key: key);
-  final String synchronizationAction;
+  Synchronization({Key? key, this.synchronizationAction}) : super(key: key);
+  final String? synchronizationAction;
   @override
   _SynchronizationState createState() => _SynchronizationState();
 }
 
 class _SynchronizationState extends State<Synchronization> {
   final String label = 'Data Synchronization';
-  String selectedSyncAction = '';
+  String? selectedSyncAction = '';
 
   void onStartDataUpload(BuildContext context) async {
     await Provider.of<SynchronizationState>(context, listen: false)
@@ -46,18 +45,12 @@ class _SynchronizationState extends State<Synchronization> {
   }
 
   void initializeSynchronization(BuildContext context,
-      {String syncAction, bool isSyncActive = false}) async {
-    if (!isSyncActive) {
-      setState(() {
-        selectedSyncAction = syncAction;
-      });
-      await Provider.of<SynchronizationState>(context, listen: false)
-          .startSyncActivity(syncAction: syncAction);
-    } else {
-      AppUtil.showToastMessage(
-          message: 'Synchronization is in progress',
-          position: ToastGravity.BOTTOM);
-    }
+      {String? syncAction}) async {
+    setState(() {
+      selectedSyncAction = syncAction;
+    });
+    await Provider.of<SynchronizationState>(context, listen: false)
+        .startSyncActivity(syncAction: syncAction);
   }
 
   @override
@@ -119,6 +112,10 @@ class _SynchronizationState extends State<Synchronization> {
                   synchronizationState.overallDownloadProgress;
               double overallUploadProgress =
                   synchronizationState.overallUploadProgress;
+              double notificationSyncProgress =
+                  synchronizationState.notificationProgress;
+              bool isSyncActive =
+                  (isDataDownloadingActive || isDataUploadingActive);
               return isUnsyncedCheckingActive
                   ? Container(
                       child: CircularProcessLoader(
@@ -138,13 +135,17 @@ class _SynchronizationState extends State<Synchronization> {
                           Container(
                             margin: EdgeInsets.symmetric(vertical: 5.0),
                             child: SynchronizationActionForm(
-                                selectedSyncAction: selectedSyncAction,
-                                onInitializeSyncAction: (String syncAction) =>
+                                selectedSyncAction: selectedSyncAction != ''
+                                    ? selectedSyncAction
+                                    : beneficiaryCount > 0 ||
+                                            beneficiaryServiceCount > 0
+                                        ? SynchronizationActionsConstants()
+                                            .upload
+                                        : '',
+                                isSyncActive: isSyncActive,
+                                onInitializeSyncAction: (String? syncAction) =>
                                     initializeSynchronization(context,
-                                        syncAction: syncAction,
-                                        isSyncActive:
-                                            (isDataDownloadingActive ||
-                                                isDataUploadingActive))),
+                                        syncAction: syncAction)),
                           ),
                           Visibility(
                             visible: isDataDownloadingActive ||
@@ -153,6 +154,8 @@ class _SynchronizationState extends State<Synchronization> {
                               margin: EdgeInsets.symmetric(vertical: 5.0),
                               child: SynchronizationProgress(
                                 syncAction: selectedSyncAction,
+                                notificationSyncProgress:
+                                    notificationSyncProgress,
                                 hasUnsyncedData: hasUnsyncedData,
                                 eventsSyncProgress: eventsSyncProgress,
                                 profileSyncProgress: profileSyncProgress,

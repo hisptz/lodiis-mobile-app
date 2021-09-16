@@ -18,29 +18,29 @@ import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/models/ovc_household.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_household_top_header.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_caseplan.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_case_plan.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_household_case_plan_gaps.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/components/service_form_container.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/constants/ovc_case_plan_constant.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/components/service_form_container.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/constants/ovc_case_plan_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/household_case_plan/constants/ovc_household_case_plan_constant.dart';
 import 'package:provider/provider.dart';
 
 class HouseholdServiceForm extends StatefulWidget {
   HouseholdServiceForm({
-    Key key,
-    this.shouldEditCaseGapFollowUps = false,
-    this.shouldViewCaseGapFollowUp = false,
+    Key? key,
+    this.shouldEditCaseGapServiceProvision = false,
+    this.shoulViewCaseGapServiceProvision = false,
   }) : super(key: key);
 
-  final bool shouldEditCaseGapFollowUps;
-  final bool shouldViewCaseGapFollowUp;
+  final bool shouldEditCaseGapServiceProvision;
+  final bool shoulViewCaseGapServiceProvision;
   @override
   _HouseholdServiceFormState createState() => _HouseholdServiceFormState();
 }
 
 class _HouseholdServiceFormState extends State<HouseholdServiceForm> {
-  final String label = 'Household Service Follow Up';
-  List<FormSection> formSections;
+  final String label = 'Household Service Provision';
+  late List<FormSection> formSections;
   Map borderColors = Map();
   bool isSaving = false;
   bool isFormReady = false;
@@ -59,7 +59,7 @@ class _HouseholdServiceFormState extends State<HouseholdServiceForm> {
     });
   }
 
-  onInputValueChange(String formSectionId, dynamic value) {
+  onInputValueChange(String? formSectionId, dynamic value) {
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState(formSectionId, value);
   }
@@ -67,7 +67,7 @@ class _HouseholdServiceFormState extends State<HouseholdServiceForm> {
   bool isAllDomainGoalAndGapFilled(Map dataObject) {
     bool isAllDomainFilled = true;
     String casePlanFirstGoal = OvcCasePlanConstant.casePlanFirstGoal;
-    for (String domainType in dataObject.keys.toList()) {
+    for (String? domainType in dataObject.keys.toList()) {
       Map domainDataObject = dataObject[domainType];
       if (domainDataObject['gaps'].length > 0 &&
           (domainDataObject[casePlanFirstGoal] == null ||
@@ -80,10 +80,10 @@ class _HouseholdServiceFormState extends State<HouseholdServiceForm> {
 
   Future savingDomainsAndGaps(
     Map dataObject,
-    OvcHousehold currentOvcHousehold,
+    OvcHousehold? currentOvcHousehold,
   ) async {
     String casePlanFirstGoal = OvcCasePlanConstant.casePlanFirstGoal;
-    for (String domainType in dataObject.keys.toList()) {
+    for (String? domainType in dataObject.keys.toList()) {
       Map domainDataObject = dataObject[domainType];
       if (domainDataObject['gaps'].length > 0 &&
           (domainDataObject[casePlanFirstGoal] != null ||
@@ -104,7 +104,7 @@ class _HouseholdServiceFormState extends State<HouseholdServiceForm> {
           await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
             OvcHouseholdCasePlanConstant.program,
             OvcHouseholdCasePlanConstant.casePlanProgramStage,
-            currentOvcHousehold.orgUnit,
+            currentOvcHousehold!.orgUnit,
             domainFormSections,
             domainDataObject,
             domainDataObject['eventDate'],
@@ -114,7 +114,7 @@ class _HouseholdServiceFormState extends State<HouseholdServiceForm> {
           );
           hiddenFields = [
             OvcCasePlanConstant.casePlanToGapLinkage,
-            OvcCasePlanConstant.casePlanGapToFollowUpLinkage
+            OvcCasePlanConstant.casePlanGapToServiceProvisionLinkage
           ];
           for (Map domainGapDataObject in domainDataObject['gaps']) {
             await TrackedEntityInstanceUtil
@@ -138,7 +138,7 @@ class _HouseholdServiceFormState extends State<HouseholdServiceForm> {
   void onSaveForm(
     BuildContext context,
     Map dataObject,
-    OvcHousehold currentOvcHousehold,
+    OvcHousehold? currentOvcHousehold,
   ) async {
     bool isAllDomainFilled = isAllDomainGoalAndGapFilled(dataObject);
     if (isAllDomainFilled) {
@@ -147,13 +147,13 @@ class _HouseholdServiceFormState extends State<HouseholdServiceForm> {
       });
       await savingDomainsAndGaps(dataObject, currentOvcHousehold);
       Provider.of<ServiceEventDataState>(context, listen: false)
-          .resetServiceEventDataState(currentOvcHousehold.id);
+          .resetServiceEventDataState(currentOvcHousehold!.id);
       Timer(Duration(seconds: 1), () {
         if (Navigator.canPop(context)) {
           setState(() {
             isSaving = false;
           });
-          String currentLanguage =
+          String? currentLanguage =
               Provider.of<LanguageTranslationState>(context, listen: false)
                   .currentLanguage;
           AppUtil.showToastMessage(
@@ -192,11 +192,11 @@ class _HouseholdServiceFormState extends State<HouseholdServiceForm> {
           body: Container(
             child: Consumer<LanguageTranslationState>(
               builder: (context, languageTranslationState, child) {
-                String currentLanguage =
+                String? currentLanguage =
                     languageTranslationState.currentLanguage;
                 return Consumer<OvcHouseholdCurrentSelectionState>(
                   builder: (context, ovcHouseholdCurrentSelectionState, child) {
-                    OvcHousehold currentOvcHousehold =
+                    OvcHousehold? currentOvcHousehold =
                         ovcHouseholdCurrentSelectionState.currentOvcHousehold;
                     return Consumer<ServiceFormState>(
                       builder: (context, serviceFormState, child) {
@@ -224,10 +224,12 @@ class _HouseholdServiceFormState extends State<HouseholdServiceForm> {
                                             .map(
                                               (FormSection formSection) =>
                                                   ServiceFormContainer(
-                                                shouldEditCaseGapFollowUps: widget
-                                                    .shouldEditCaseGapFollowUps,
-                                                shouldViewCaseGapFollowUp: widget
-                                                    .shouldViewCaseGapFollowUp,
+                                                shouldEditCaseGapServiceProvision:
+                                                    widget
+                                                        .shouldEditCaseGapServiceProvision,
+                                                shoulViewCaseGapServiceProvision:
+                                                    widget
+                                                        .shoulViewCaseGapServiceProvision,
                                                 formSectionColor: borderColors[
                                                     formSection.id],
                                                 formSection: formSection,

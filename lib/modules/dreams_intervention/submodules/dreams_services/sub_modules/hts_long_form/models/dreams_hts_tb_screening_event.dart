@@ -1,11 +1,11 @@
 import 'package:kb_mobile_app/models/events.dart';
 
 class DreamsHTSTBScreeningEvent {
-  String id;
-  String date;
-  String htsTBLinkage;
+  String? id;
+  String? date;
+  String? htsTBLinkage;
   dynamic dataValues;
-  Events eventData;
+  Events? eventData;
 
   DreamsHTSTBScreeningEvent({
     this.id,
@@ -21,9 +21,9 @@ class DreamsHTSTBScreeningEvent {
     ];
     Map data = Map();
     for (Map detailObj in eventData.dataValues) {
-      String attribute = detailObj['dataElement'];
+      String? attribute = detailObj['dataElement'];
       if (attribute != null && keys.indexOf(attribute) > -1) {
-        data[attribute] = '${detailObj['value']}'.trim() ?? '';
+        data[attribute] = '${detailObj['value']}'.trim();
       }
     }
     return DreamsHTSTBScreeningEvent(

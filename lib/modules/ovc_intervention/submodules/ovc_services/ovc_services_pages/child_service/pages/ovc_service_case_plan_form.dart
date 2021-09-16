@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_household_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar_container.dart';
@@ -11,30 +12,30 @@ import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/models/ovc_household_child.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_child_info_top_header.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_caseplan.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_child_caseplan_gaps.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/components/service_form_container.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_case_plan.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_child_case_plan_gap.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_case_plan/constants/ovc_child_case_plan_constant.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/components/service_form_container.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/constants/ovc_case_plan_constant.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/constants/ovc_case_plan_constant.dart';
 import 'package:provider/provider.dart';
 
 class OcvServiceCasePlanForm extends StatefulWidget {
   const OcvServiceCasePlanForm({
-    Key key,
-    this.shouldEditCaseGapFollowUps = false,
-    this.shouldViewCaseGapFollowUp = false,
+    Key? key,
+    this.shouldEditCaseGapServiceProvision = false,
+    this.shoulViewCaseGapServiceProvision = false,
   }) : super(key: key);
 
-  final bool shouldEditCaseGapFollowUps;
-  final bool shouldViewCaseGapFollowUp;
+  final bool shouldEditCaseGapServiceProvision;
+  final bool shoulViewCaseGapServiceProvision;
 
   @override
   _OcvServiceCasePlanFormState createState() => _OcvServiceCasePlanFormState();
 }
 
 class _OcvServiceCasePlanFormState extends State<OcvServiceCasePlanForm> {
-  final String label = 'Service Follow up';
-  List<FormSection> formSections;
+  final String label = 'Service Provision';
+  late List<FormSection> formSections;
   Map borderColors = Map();
 
   bool isSaving = false;
@@ -54,7 +55,7 @@ class _OcvServiceCasePlanFormState extends State<OcvServiceCasePlanForm> {
     });
   }
 
-  onInputValueChange(String formSectionId, dynamic value) {
+  onInputValueChange(String? formSectionId, dynamic value) {
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState(formSectionId, value);
   }
@@ -92,7 +93,7 @@ class _OcvServiceCasePlanFormState extends State<OcvServiceCasePlanForm> {
               .where((FormSection formSection) => formSection.id == domainType)
               .toList();
           List<FormSection> domainGapFormSections =
-              OvcServicesChildCasePlanGaps.getFormSections()
+              OvcServicesChildCasePlanGap.getFormSections()
                   .where(
                       (FormSection formSection) => formSection.id == domainType)
                   .toList();
@@ -109,7 +110,7 @@ class _OcvServiceCasePlanFormState extends State<OcvServiceCasePlanForm> {
           );
           hiddenFields = [
             OvcCasePlanConstant.casePlanToGapLinkage,
-            OvcCasePlanConstant.casePlanGapToFollowUpLinkage
+            OvcCasePlanConstant.casePlanGapToServiceProvisionLinkage
           ];
           for (Map domainGapDataObject in domainDataObject['gaps']) {
             await TrackedEntityInstanceUtil
@@ -133,72 +134,94 @@ class _OcvServiceCasePlanFormState extends State<OcvServiceCasePlanForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(65.0),
-          child: Consumer<InterventionCardState>(
-            builder: (context, interventionCardState, child) {
-              InterventionCard activeInterventionProgram =
-                  interventionCardState.currentInterventionProgram;
-              return SubPageAppBar(
-                label: label,
-                activeInterventionProgram: activeInterventionProgram,
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(65.0),
+        child: Consumer<InterventionCardState>(
+          builder: (context, interventionCardState, child) {
+            InterventionCard activeInterventionProgram =
+                interventionCardState.currentInterventionProgram;
+            return SubPageAppBar(
+              label: label,
+              activeInterventionProgram: activeInterventionProgram,
+            );
+          },
+        ),
+      ),
+      body: SubPageBody(
+        body: Container(
+          child: Consumer<ServiceFormState>(
+            builder: (context, serviceFormState, child) {
+              Map dataObject = serviceFormState.formState;
+              return Container(
+                child: !isFormReady
+                    ? Container(
+                        child: CircularProcessLoader(
+                          color: Colors.blueGrey,
+                        ),
+                      )
+                    : Container(
+                        child: Consumer<OvcHouseholdCurrentSelectionState>(
+                            builder: (context,
+                                ovcHouseholdCurrentSelectionState, child) {
+                          OvcHouseholdChild currentOvcHouseholdChild =
+                              ovcHouseholdCurrentSelectionState
+                                  .currentOvcHouseholdChild!;
+                          int age = 5;
+                          try {
+                            age = int.parse(currentOvcHouseholdChild.age!);
+                          } catch (e) {
+                            print(e);
+                          }
+
+                          return Column(
+                            children: [
+                              OvcChildInfoTopHeader(),
+                              Container(
+                                margin: EdgeInsets.only(
+                                  top: 10.0,
+                                  left: 13.0,
+                                  right: 13.0,
+                                ),
+                                child: Column(
+                                  children: formSections
+                                      .map(
+                                        (FormSection formSection) => (age < 5 &&
+                                                formSection.id == 'Schooled')
+                                            ? Container()
+                                            : ServiceFormContainer(
+                                                shouldEditCaseGapServiceProvision:
+                                                    widget
+                                                        .shouldEditCaseGapServiceProvision,
+                                                shoulViewCaseGapServiceProvision:
+                                                    widget
+                                                        .shoulViewCaseGapServiceProvision,
+                                                formSectionColor: borderColors[
+                                                    formSection.id],
+                                                formSection: formSection,
+                                                dataObject:
+                                                    dataObject[formSection.id],
+                                                isEditableMode: serviceFormState
+                                                    .isEditableMode,
+                                                onInputValueChange:
+                                                    (dynamic value) =>
+                                                        onInputValueChange(
+                                                            formSection.id,
+                                                            value),
+                                              ),
+                                      )
+                                      .toList(),
+                                ),
+                              ),
+                            ],
+                          );
+                        }),
+                      ),
               );
             },
           ),
         ),
-        body: SubPageBody(
-          body: Container(
-            child: Consumer<ServiceFormState>(
-              builder: (context, serviceFormState, child) {
-                Map dataObject = serviceFormState.formState;
-                return Container(
-                  child: !isFormReady
-                      ? Container(
-                          child: CircularProcessLoader(
-                            color: Colors.blueGrey,
-                          ),
-                        )
-                      : Column(
-                          children: [
-                            OvcChildInfoTopHeader(),
-                            Container(
-                              margin: EdgeInsets.only(
-                                top: 10.0,
-                                left: 13.0,
-                                right: 13.0,
-                              ),
-                              child: Column(
-                                children: formSections
-                                    .map(
-                                      (FormSection formSection) =>
-                                          ServiceFormContainer(
-                                        shouldEditCaseGapFollowUps:
-                                            widget.shouldEditCaseGapFollowUps,
-                                        shouldViewCaseGapFollowUp:
-                                            widget.shouldViewCaseGapFollowUp,
-                                        formSectionColor:
-                                            borderColors[formSection.id],
-                                        formSection: formSection,
-                                        dataObject: dataObject[formSection.id],
-                                        isEditableMode:
-                                            serviceFormState.isEditableMode,
-                                        onInputValueChange: (
-                                          dynamic value,
-                                        ) =>
-                                            onInputValueChange(
-                                                formSection.id, value),
-                                      ),
-                                    )
-                                    .toList(),
-                              ),
-                            ),
-                          ],
-                        ),
-                );
-              },
-            ),
-          ),
-        ),
-        bottomNavigationBar: InterventionBottomNavigationBarContainer());
+      ),
+      bottomNavigationBar: InterventionBottomNavigationBarContainer(),
+    );
   }
 }

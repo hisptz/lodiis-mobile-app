@@ -33,7 +33,7 @@ class OvcServiceWellBeingAssessmentForm extends StatefulWidget {
 class _OvcServiceWellBeingAssessmentFormState
     extends State<OvcServiceWellBeingAssessmentForm> {
   final String label = 'Child Well-being Assessment';
-  List<FormSection> formSections;
+  List<FormSection>? formSections;
   bool isFormReady = false;
   bool isSaving = false;
 
@@ -57,7 +57,7 @@ class _OvcServiceWellBeingAssessmentFormState
             Provider.of<ServiceFormState>(context, listen: false).formState;
         await OvcChildWellBeingAssessmentSkipLogic.evaluateSkipLogics(
           context,
-          formSections,
+          formSections!,
           dataObject,
         );
       },
@@ -73,14 +73,14 @@ class _OvcServiceWellBeingAssessmentFormState
   void onSaveForm(
     BuildContext context,
     Map dataObject,
-    OvcHouseholdChild currentOvcHouseholdChild,
+    OvcHouseholdChild? currentOvcHouseholdChild,
   ) async {
     if (FormUtil.geFormFilledStatus(dataObject, formSections)) {
       setState(() {
         isSaving = true;
       });
-      String eventDate = dataObject['eventDate'];
-      String eventId = dataObject['eventId'];
+      String? eventDate = dataObject['eventDate'];
+      String? eventId = dataObject['eventId'];
 
       List<String> skippedFields = [
         'Wstcittf',
@@ -89,8 +89,8 @@ class _OvcServiceWellBeingAssessmentFormState
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
             OvcServiceWellBeingAssessmentConstant.program,
             OvcServiceWellBeingAssessmentConstant.programStage,
-            currentOvcHouseholdChild.orgUnit,
-            formSections,
+            currentOvcHouseholdChild!.orgUnit,
+            formSections!,
             dataObject,
             eventDate,
             currentOvcHouseholdChild.id,
@@ -104,7 +104,7 @@ class _OvcServiceWellBeingAssessmentFormState
           setState(() {
             isSaving = false;
           });
-          String currentLanguage =
+          String? currentLanguage =
               Provider.of<LanguageTranslationState>(context, listen: false)
                   .currentLanguage;
           AppUtil.showToastMessage(
@@ -152,11 +152,11 @@ class _OvcServiceWellBeingAssessmentFormState
           body: Container(
             child: Consumer<LanguageTranslationState>(
               builder: (context, languageTranslationState, child) {
-                String currentLanguage =
+                String? currentLanguage =
                     languageTranslationState.currentLanguage;
                 return Consumer<OvcHouseholdCurrentSelectionState>(
                   builder: (context, ovcHouseholdCurrentSelectionState, child) {
-                    OvcHouseholdChild currentOvcHouseholdChild =
+                    OvcHouseholdChild? currentOvcHouseholdChild =
                         ovcHouseholdCurrentSelectionState
                             .currentOvcHouseholdChild;
                     return Consumer<ServiceFormState>(

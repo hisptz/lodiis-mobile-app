@@ -1,13 +1,13 @@
 import 'package:kb_mobile_app/models/events.dart';
 
 class DreamsHTSEvent {
-  String id;
-  String date;
-  String htsIndexLinkage;
-  String htsTBLinkage;
-  String htsToHtsRegisterLinkage;
+  String? id;
+  String? date;
+  String? htsIndexLinkage;
+  String? htsTBLinkage;
+  String? htsToHtsRegisterLinkage;
   dynamic dataValues;
-  Events eventData;
+  Events? eventData;
 
   DreamsHTSEvent({
     this.id,
@@ -23,9 +23,9 @@ class DreamsHTSEvent {
     List keys = ['vbnWGqIQoAN', 'A4Fl5p0ZBhX', 'icla65Bvljz'];
     Map data = Map();
     for (Map detailObj in eventData.dataValues) {
-      String attribute = detailObj['dataElement'];
+      String? attribute = detailObj['dataElement'];
       if (attribute != null && keys.indexOf(attribute) > -1) {
-        data[attribute] = '${detailObj['value']}'.trim() ?? '';
+        data[attribute] = '${detailObj['value']}'.trim();
       }
     }
     return DreamsHTSEvent(

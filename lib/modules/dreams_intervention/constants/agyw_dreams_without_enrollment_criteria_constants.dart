@@ -8,7 +8,7 @@ class AgywDreamsWithoutEnrollmentCriteriaConstant {
   static String programStage = 'V79FkJcd1AY';
 
   AgywDreamsWithoutEnrollmentCriteriaConstant(
-      {@required this.attribute, @required this.dataElement});
+      {required this.attribute, required this.dataElement});
 
   static List<AgywDreamsWithoutEnrollmentCriteriaConstant>
       getDreamsWithoutEnrollmentCriteriaConstants() {

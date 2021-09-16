@@ -3,12 +3,12 @@ import 'package:connectivity/connectivity.dart';
 
 class DeviceConnectivityState with ChangeNotifier {
   // initial state
-  bool _isConnectedToNetwork = false;
+  bool? _isConnectedToNetwork = false;
   // selectors
-  bool get connectivityStatus => _isConnectedToNetwork;
+  bool? get connectivityStatus => _isConnectedToNetwork;
 
   // reducers
-  void changeConnectivityStatus({bool isConnected}) {
+  void changeConnectivityStatus({bool? isConnected}) {
     _isConnectedToNetwork = isConnected;
     notifyListeners();
   }

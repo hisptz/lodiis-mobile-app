@@ -16,7 +16,7 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   final String appLabel = "";
-  StreamSubscription connectionSubscription;
+  late StreamSubscription connectionSubscription;
   @override
   void initState() {
     super.initState();
@@ -47,7 +47,7 @@ class _LoginState extends State<Login> {
               child: Container(
                 child: Consumer<LanguageTranslationState>(
                   builder: (context, languageTranslationState, child) {
-                    String currentLanguage =
+                    String? currentLanguage =
                         languageTranslationState.currentLanguage;
                     return Column(
                       mainAxisAlignment: MainAxisAlignment.start,

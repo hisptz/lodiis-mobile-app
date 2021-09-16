@@ -3,21 +3,21 @@ import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 
 class FormSection {
-  String id;
+  String? id;
   String name;
-  String translatedName;
+  String? translatedName;
   Color color;
-  Color backgroundColor;
-  Color borderColor;
-  String description;
-  String translatedDescription;
-  List<FormSection> subSections;
-  List<InputField> inputFields;
+  Color? backgroundColor;
+  Color? borderColor;
+  String? description;
+  String? translatedDescription;
+  List<FormSection>? subSections;
+  List<InputField>? inputFields;
 
   FormSection({
     this.id,
-    @required this.name,
-    @required this.color,
+    required this.name,
+    required this.color,
     this.backgroundColor,
     this.borderColor,
     this.subSections,

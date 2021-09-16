@@ -13,28 +13,31 @@ class EventOfflineDataValueProvider extends OfflineDbProvider {
   addOrUpdateEventDataValues(Events eventData) async {
     var dbClient = await db;
     try {
-      List dataValues = eventData.dataValues as List<dynamic>;
-      String event = eventData.event;
+      List dataValues = eventData.dataValues ?? [];
+      String? event = eventData.event;
       for (Map dataValue in dataValues) {
-        String dataElement = dataValue['dataElement'];
-        Map data = Map<String, dynamic>();
-        data['id'] = '$event-$dataElement';
-        data['event'] = event;
-        data['dataElement'] = dataElement;
-        data['value'] = dataValue['value'] ?? '';
-        await dbClient.insert(table, data,
-            conflictAlgorithm: ConflictAlgorithm.replace);
+        if ('${dataValue[value]}'.isNotEmpty &&
+            '${dataValue[value]}' != 'null') {
+          String? dataElement = dataValue['dataElement'];
+          Map data = Map<String, dynamic>();
+          data['id'] = '$event-$dataElement';
+          data['event'] = event;
+          data['dataElement'] = dataElement;
+          data['value'] = dataValue['value'] ?? '';
+          await dbClient!.insert(table, data as Map<String, Object?>,
+              conflictAlgorithm: ConflictAlgorithm.replace);
+        }
       }
     } catch (e) {}
   }
 
   Future<List> getEventDataValuesByEventId(
-    String eventId,
+    String? eventId,
   ) async {
     List dataValues = [];
     try {
       var dbClient = await db;
-      List<Map> maps = await dbClient.query(
+      List<Map> maps = await dbClient!.query(
         table,
         columns: [dataElement, value],
         where: '$event = ?',
@@ -42,7 +45,9 @@ class EventOfflineDataValueProvider extends OfflineDbProvider {
       );
       if (maps.isNotEmpty) {
         for (Map map in maps) {
-          dataValues.add(map);
+          if ('${map[value]}'.isNotEmpty && '${map[value]}' != 'null') {
+            dataValues.add(map);
+          }
         }
       }
     } catch (e) {}

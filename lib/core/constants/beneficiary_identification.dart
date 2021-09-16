@@ -14,24 +14,24 @@ class BeneficiaryIdentification {
   String getBenificiaryId(
     OrganisationUnit organisationUnit,
     Map dataObject,
-    String beneficiaryIndex,
+    String? beneficiaryIndex,
   ) {
-    var enrollYear = getValueFromMap(dataObject, birthDate);
+    var enrollYear = getValueFromMap(dataObject, birthDate)!;
     String enrollFirstName =
-        removeSpecialCharacter(getValueFromMap(dataObject, firstNameReference));
+        removeSpecialCharacter(getValueFromMap(dataObject, firstNameReference)!);
     String enrollSurName =
-        removeSpecialCharacter(getValueFromMap(dataObject, surnameReference));
+        removeSpecialCharacter(getValueFromMap(dataObject, surnameReference)!);
     DateTime date = AppUtil.getDateIntoDateTimeFormat(enrollYear);
     String yearBirth = '${date.year}'.substring(2, 4);
     String monthBirth = date.month < 10 ? '0${date.month}' : '${date.month}';
-    String districtBirth = organisationUnit.code;
+    String? districtBirth = organisationUnit.code;
     String firstName = '$enrollFirstName'.toUpperCase().substring(0, 2);
     String surName = '$enrollSurName'.toUpperCase().substring(0, 2);
     return '$yearBirth$monthBirth$districtBirth$firstName$surName$beneficiaryIndex';
   }
 
-  String getValueFromMap(Map dataObject, List<String> objectData) {
-    String value = '';
+  String? getValueFromMap(Map dataObject, List<String> objectData) {
+    String? value = '';
     try {
       for (var referenceId in objectData) {
         if (dataObject[referenceId] != null) {

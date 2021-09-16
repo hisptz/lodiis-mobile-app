@@ -2,18 +2,19 @@ import 'package:kb_mobile_app/core/constants/beneficiary_identification.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
 
 class OvcHouseholdChild {
-  String id;
-  String primaryUIC;
-  String secondaryUIC;
-  String firstName;
-  String middleName;
-  String surname;
-  String sex;
-  String age;
-  String orgUnit;
-  String createdDate;
-  String hivStatus;
-  TrackedEntityInstance teiData;
+  String? id;
+  String? primaryUIC;
+  String? secondaryUIC;
+  String? firstName;
+  String? middleName;
+  String? surname;
+  String? sex;
+  String? age;
+  String? orgUnit;
+  String? createdDate;
+  String? hivStatus;
+  bool? isSynced;
+  TrackedEntityInstance? teiData;
 
   OvcHouseholdChild({
     this.id,
@@ -27,13 +28,14 @@ class OvcHouseholdChild {
     this.orgUnit,
     this.createdDate,
     this.hivStatus,
+    this.isSynced,
     this.teiData,
   });
 
   OvcHouseholdChild fromTeiModel(
     TrackedEntityInstance tei,
-    String orgUnit,
-    String createdDate,
+    String? orgUnit,
+    String? createdDate,
   ) {
     List keys = [
       'WTZ7GLTrE8Q',
@@ -47,9 +49,9 @@ class OvcHouseholdChild {
     ];
     Map data = Map();
     for (Map attributeObject in tei.attributes) {
-      String attribute = attributeObject['attribute'];
+      String? attribute = attributeObject['attribute'];
       if (attribute != null && keys.indexOf(attribute) > -1) {
-        data[attribute] = '${attributeObject['value']}'.trim() ?? '';
+        data[attribute] = '${attributeObject['value']}'.trim();
       }
     }
     return OvcHouseholdChild(
@@ -62,6 +64,7 @@ class OvcHouseholdChild {
         primaryUIC: data[BeneficiaryIdentification.primaryUIC] ?? '',
         secondaryUIC: data[BeneficiaryIdentification.secondaryUIC] ?? '',
         createdDate: createdDate,
+        isSynced: tei.syncStatus == "synced",
         hivStatus: data['wmKqYZML8GA'] != null
             ? data['wmKqYZML8GA'] == 'true'
                 ? 'Positive'

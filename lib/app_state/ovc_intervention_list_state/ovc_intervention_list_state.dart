@@ -1,21 +1,28 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:kb_mobile_app/app_state/synchronization_state/synchronization_status_state.dart';
 import 'package:kb_mobile_app/core/constants/pagination.dart';
-import 'package:kb_mobile_app/core/services/pagination-service.dart';
+import 'package:kb_mobile_app/core/services/pagination_service.dart';
 import 'package:kb_mobile_app/models/ovc_household.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/services/ovc_enrollment_child_services.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/services/ovc_enrollment_household_service.dart';
+import 'package:provider/provider.dart';
 
 class OvcInterventionListState with ChangeNotifier {
+  final BuildContext? context;
+
   // initial state
   List<OvcHousehold> _ovcInterventionList = <OvcHousehold>[];
-  PagingController _pagingController;
+  PagingController? _pagingController;
   bool _isLoading = true;
   int _numberOfHouseholds = 0;
   int _numberOfOvcs = 0;
   int _numberOfPages = 0;
-  int _nextPage = 0;
+  int? _nextPage = 0;
   String _searchableValue = '';
+
+  OvcInterventionListState(this.context);
 
   bool get isLoading => _isLoading != null ? _isLoading : false;
 
@@ -25,7 +32,7 @@ class OvcInterventionListState with ChangeNotifier {
 
   int get numberOfPages => _numberOfPages;
 
-  PagingController get pagingController => _pagingController;
+  PagingController? get pagingController => _pagingController;
 
   void initializePagination() {
     _pagingController = PagingController<int, OvcHousehold>(
@@ -39,9 +46,8 @@ class OvcInterventionListState with ChangeNotifier {
 
   Future<void> _fetchPage(int pageKey) async {
     String searchableValue = _searchableValue;
-    List ovcList = await OvcEnrollmentHouseholdService().getHouseholdList(
-            page: pageKey, searchableValue: searchableValue) ??
-        [];
+    List ovcList = await OvcEnrollmentHouseholdService()
+        .getHouseholdList(page: pageKey, searchableValue: searchableValue);
     if (ovcList.isEmpty && pageKey < numberOfPages) {
       _fetchPage(pageKey + 1);
     } else {
@@ -65,16 +71,18 @@ class OvcInterventionListState with ChangeNotifier {
 
   void searchHousehold(String value) {
     if (_ovcInterventionList.isEmpty) {
-      _ovcInterventionList = _pagingController.itemList ?? <OvcHousehold>[];
-      _nextPage = _pagingController.nextPageKey;
+      _ovcInterventionList =
+          _pagingController!.itemList as List<OvcHousehold>? ??
+              <OvcHousehold>[];
+      _nextPage = _pagingController!.nextPageKey;
     }
     if (value != '') {
       _searchableValue = value;
       notifyListeners();
       refreshOvcList();
     } else {
-      _pagingController.itemList = _ovcInterventionList;
-      _pagingController.nextPageKey = _nextPage;
+      _pagingController!.itemList = _ovcInterventionList;
+      _pagingController!.nextPageKey = _nextPage;
 
       _ovcInterventionList = <OvcHousehold>[];
       _nextPage = 0;
@@ -92,14 +100,16 @@ class OvcInterventionListState with ChangeNotifier {
     if (_pagingController == null) {
       initializePagination();
     } else {
-      _pagingController.refresh();
+      _pagingController!.refresh();
     }
     _isLoading = false;
     notifyListeners();
+    Provider.of<SynchronizationStatusState>(context!, listen: false)
+        .resetSyncStatusReferences();
   }
 
   Future<void> refreshOvcList() async {
-    _pagingController.refresh();
+    _pagingController!.refresh();
   }
 
   Future<void> onHouseholdAdd() async {
@@ -112,7 +122,7 @@ class OvcInterventionListState with ChangeNotifier {
 
   @override
   void dispose() {
-    _pagingController.dispose();
+    _pagingController!.dispose();
     super.dispose();
   }
 

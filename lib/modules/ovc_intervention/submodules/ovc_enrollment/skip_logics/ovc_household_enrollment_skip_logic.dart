@@ -32,10 +32,6 @@ class OvcHouseholdEnrollmentSkipLogic {
           assignInputFieldValue(context, 'oF2lwagPkQA', 'false');
         }
       }
-
-      // if (inputFieldId == 'M9uM11xcHG3' && value != 'true') {
-      //   hiddenFields['gybZY8lq4Ky'] = true;
-      // }
       if (inputFieldId == 'tNdoR0jYr7R_confirm' && value != 'true') {
         hiddenFields['tNdoR0jYr7R'] = true;
       }
@@ -49,10 +45,10 @@ class OvcHouseholdEnrollmentSkipLogic {
     }
 
     if (dataObject['children'] != null) {
-      List<Map> children = dataObject['children'];
+      List<dynamic> children = dataObject['children'] ?? [];
       try {
-        if (children
-            .every((child) => int.parse('${child['ls9hlz2tyol']}') > 5)) {
+        if (children.every(
+            (child) => int.parse('${child?['ls9hlz2tyol'] ?? '0'}') > 5)) {
           hiddenFields['NqoQ5BNNoob'] = true;
           hiddenFields['NAMKqy2KVKk'] = true;
         }
@@ -166,7 +162,7 @@ class OvcHouseholdEnrollmentSkipLogic {
   static assignInputFieldValue(
     BuildContext context,
     String inputFieldId,
-    String value,
+    String? value,
   ) {
     Provider.of<EnrollmentFormState>(context, listen: false)
         .setFormFieldState(inputFieldId, value);

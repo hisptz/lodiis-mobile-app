@@ -14,11 +14,15 @@ import 'package:provider/provider.dart';
 
 class SynchronizationActionForm extends StatefulWidget {
   const SynchronizationActionForm(
-      {Key key, this.selectedSyncAction, this.onInitializeSyncAction})
+      {Key? key,
+      this.selectedSyncAction,
+      this.onInitializeSyncAction,
+      this.isSyncActive = false})
       : super(key: key);
 
-  final String selectedSyncAction;
-  final Function(String) onInitializeSyncAction;
+  final String? selectedSyncAction;
+  final bool isSyncActive;
+  final Function(String?)? onInitializeSyncAction;
 
   @override
   _SynchronizationActionFormState createState() =>
@@ -43,7 +47,7 @@ class _SynchronizationActionFormState extends State<SynchronizationActionForm> {
       ),
     ],
   );
-  String selectedSyncAction;
+  String? selectedSyncAction;
 
   void onSyncActionSelection(BuildContext context, String value) {
     setState(() {
@@ -53,9 +57,9 @@ class _SynchronizationActionFormState extends State<SynchronizationActionForm> {
 
   onSyncButtonPress() {
     if (selectedSyncAction != null) {
-      widget.onInitializeSyncAction(selectedSyncAction);
+      widget.onInitializeSyncAction!(selectedSyncAction);
     } else if (widget.selectedSyncAction != null) {
-      widget.onInitializeSyncAction(widget.selectedSyncAction);
+      widget.onInitializeSyncAction!(widget.selectedSyncAction);
     } else {
       AppUtil.showToastMessage(
           message: 'Please Select Sync Action', position: ToastGravity.BOTTOM);
@@ -86,7 +90,7 @@ class _SynchronizationActionFormState extends State<SynchronizationActionForm> {
                     Provider.of<InterventionCardState>(context, listen: false)
                         .currentInterventionProgram
                         .primaryColor,
-                isReadOnly: syncActionInput.isReadOnly,
+                isReadOnly: widget.isSyncActive,
                 renderAsRadio: syncActionInput.renderAsRadio,
                 onInputValueChange: (dynamic value) =>
                     onSyncActionSelection(context, value),
@@ -98,12 +102,15 @@ class _SynchronizationActionFormState extends State<SynchronizationActionForm> {
                 color:
                     Provider.of<InterventionCardState>(context, listen: false)
                         .currentInterventionProgram
-                        .primaryColor
+                        .primaryColor!
                         .withOpacity(0.3)),
             Center(
               child: Container(
                 margin: EdgeInsets.only(top: 15.0),
                 child: EntryFormSaveButton(
+                  marginLeft: 80.0,
+                  marginRight: 80.0,
+                  vertical: 5.0,
                   label: 'Sync',
                   svgIconPath: selectedSyncAction ==
                               SynchronizationActionsConstants().download ||
@@ -131,7 +138,8 @@ class _SynchronizationActionFormState extends State<SynchronizationActionForm> {
                           .currentInterventionProgram
                           .primaryColor,
                   fontSize: 15.0,
-                  onPressButton: () => {onSyncButtonPress()},
+                  onPressButton: () =>
+                      !widget.isSyncActive ? onSyncButtonPress() : null,
                 ),
               ),
             )

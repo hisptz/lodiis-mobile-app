@@ -20,7 +20,7 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/s
 import 'package:provider/provider.dart';
 
 class NoneAgyw extends StatefulWidget {
-  const NoneAgyw({Key key}) : super(key: key);
+  const NoneAgyw({Key? key}) : super(key: key);
 
   @override
   _NoneAgywState createState() => _NoneAgywState();
@@ -32,11 +32,15 @@ class _NoneAgywState extends State<NoneAgyw> {
   final bool canView = true;
   final bool canExpand = true;
 
-  String toggleCardId = '';
+  String? toggleCardId = '';
 
-  void onCardToggle(String cardId) {
+  void onCardToggle(BuildContext context, String? trackedEntityInstance) {
+    Provider.of<ServiceEventDataState>(context, listen: false)
+        .resetServiceEventDataState(trackedEntityInstance);
     setState(() {
-      toggleCardId = canExpand && cardId != toggleCardId ? cardId : '';
+      toggleCardId = canExpand && trackedEntityInstance != toggleCardId
+          ? trackedEntityInstance
+          : '';
     });
   }
 
@@ -139,11 +143,16 @@ class _NoneAgywState extends State<NoneAgyw> {
               canView: canView,
               isExpanded: agywBeneficiary.id == toggleCardId,
               onCardToggle: () {
-                onCardToggle(agywBeneficiary.id);
+                onCardToggle(
+                  context,
+                  agywBeneficiary.id,
+                );
               },
               cardBody: DreamsBeneficiaryCardBody(
-                  agywBeneficiary: agywBeneficiary,
-                  isVerticalLayout: agywBeneficiary.id == toggleCardId),
+                agywBeneficiary: agywBeneficiary,
+                canViewServiceCategory: false,
+                isVerticalLayout: agywBeneficiary.id == toggleCardId,
+              ),
               cardButtonActions: isBeneficiaryHIVNegative
                   ? Container(
                       child: Column(
@@ -157,12 +166,14 @@ class _NoneAgywState extends State<NoneAgyw> {
                                 context,
                                 agywBeneficiary,
                               ),
-                              child: Text('PREP',
-                                  style: TextStyle().copyWith(
-                                    fontSize: 14.0,
-                                    fontWeight: FontWeight.normal,
-                                    color: Color(0xFF1F8ECE),
-                                  )),
+                              child: Text(
+                                'PREP',
+                                style: TextStyle().copyWith(
+                                  fontSize: 14.0,
+                                  fontWeight: FontWeight.normal,
+                                  color: Color(0xFF1F8ECE),
+                                ),
+                              ),
                             ),
                           )
                         ],

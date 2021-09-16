@@ -34,14 +34,14 @@ class NoneAgywDreamsEnrollmentService {
 
   Future savingNonAgywBeneficiary(
     Map dataObject,
-    String trackedEntityInstance,
-    String orgUnit,
-    String enrollment,
-    String enrollmentDate,
-    String incidentDate,
+    String? trackedEntityInstance,
+    String? orgUnit,
+    String? enrollment,
+    String? enrollmentDate,
+    String? incidentDate,
     List<String> hiddenFields,
   ) async {
-    List<String> inputFieldIds = hiddenFields ?? [];
+    List<String> inputFieldIds = hiddenFields;
     inputFieldIds
         .addAll(FormUtil.getFormFieldIds(nonAgywClientIntakeFormSections));
     inputFieldIds
@@ -74,19 +74,20 @@ class NoneAgywDreamsEnrollmentService {
   }
 
   Future<List<AgywDream>> getNonAgywBeneficiaryList(
-      {int page, String searchableValue = ''}) async {
+      {int? page, String searchableValue = ''}) async {
     List<AgywDream> agywDreamList = [];
     try {
-      List<Enrollment> enrollments =
-          await EnrollmentOfflineProvider().getEnrollments(program, page: page);
+      List<Enrollment> enrollments = await EnrollmentOfflineProvider()
+          .getEnrollments(program,
+              page: page, isSearching: searchableValue != '');
       for (Enrollment enrollment in enrollments) {
         // get location
         List<OrganisationUnit> ous = await OrganisationUnitService()
             .getOrganisationUnits([enrollment.orgUnit]);
-        String location = ous.length > 0 ? ous[0].name : enrollment.orgUnit;
-        String orgUnit = enrollment.orgUnit;
-        String createdDate = enrollment.enrollmentDate;
-        String enrollmentId = enrollment.enrollment;
+        String? location = ous.length > 0 ? ous[0].name : enrollment.orgUnit;
+        String? orgUnit = enrollment.orgUnit;
+        String? createdDate = enrollment.enrollmentDate;
+        String? enrollmentId = enrollment.enrollment;
         List<TrackedEntityInstance> dataHolds =
             await TrackedEntityInstanceOfflineProvider()
                 .getTrackedEntityInstanceByIds(

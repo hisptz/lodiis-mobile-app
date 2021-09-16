@@ -8,7 +8,7 @@ class OvcEnrollmentNoneParticipationConstant {
   static String programStage = 'AkbbzsszCOJ';
 
   OvcEnrollmentNoneParticipationConstant(
-      {@required this.attribute, @required this.dataElement});
+      {required this.attribute, required this.dataElement});
 
   static List<OvcEnrollmentNoneParticipationConstant>
       getNoneParticipationConstant() {

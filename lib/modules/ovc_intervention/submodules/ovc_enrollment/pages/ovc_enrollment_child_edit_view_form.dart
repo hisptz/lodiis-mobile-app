@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
@@ -12,19 +13,22 @@ import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.d
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/core/constants/beneficiary_identification.dart';
+import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
+import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/models/ovc_household.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_household_top_header.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/constants/ovc_routes_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/services/ovc_enrollment_child_services.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/models/ovc_enrollment_child.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/skip_logics/ovc_child_enrollment_skip_logic.dart';
 import 'package:provider/provider.dart';
 
 class OvcEnrollmentChildEditViewForm extends StatefulWidget {
-  const OvcEnrollmentChildEditViewForm({Key key}) : super(key: key);
+  const OvcEnrollmentChildEditViewForm({Key? key}) : super(key: key);
 
   @override
   _OvcEnrollmentChildEditViewFormState createState() =>
@@ -33,13 +37,13 @@ class OvcEnrollmentChildEditViewForm extends StatefulWidget {
 
 class _OvcEnrollmentChildEditViewFormState
     extends State<OvcEnrollmentChildEditViewForm> {
-  List<FormSection> formSections;
+  List<FormSection>? formSections;
   final String label = 'Child vulnerability form';
 
   bool isSaving = false;
   bool isFormReady = false;
 
-  List<String> mandatoryFields;
+  late List<String> mandatoryFields;
   final Map mandatoryFieldObject = Map();
   List unFilledMandatoryFields = [];
 
@@ -65,7 +69,7 @@ class _OvcEnrollmentChildEditViewFormState
             Provider.of<EnrollmentFormState>(context, listen: false).formState;
         await OvcChildEnrollmentSkipLogic.evaluateSkipLogics(
           context,
-          formSections,
+          formSections!,
           dataObject,
         );
       },
@@ -82,11 +86,11 @@ class _OvcEnrollmentChildEditViewFormState
       dataObject['PN92g65TkVI'] = dataObject['PN92g65TkVI'] ?? 'Active';
       List<Map> childrenObjects = [];
       childrenObjects.add(dataObject);
-      String parentTrackedEntityInstance =
+      String? parentTrackedEntityInstance =
           dataObject['parentTrackedEntityInstance'];
-      String orgUnit = dataObject['orgUnit'];
-      String enrollmentDate = dataObject['enrollmentDate'];
-      String incidentDate = dataObject['incidentDate'];
+      String? orgUnit = dataObject['orgUnit'];
+      String? enrollmentDate = dataObject['enrollmentDate'];
+      String? incidentDate = dataObject['incidentDate'];
       bool shouldEnroll = dataObject['trackedEntityInstance'] == null;
       List<String> hiddenFields = [
         BeneficiaryIdentification.beneficiaryId,
@@ -111,7 +115,7 @@ class _OvcEnrollmentChildEditViewFormState
           setState(() {
             isSaving = false;
           });
-          String currentLanguage =
+          String? currentLanguage =
               Provider.of<LanguageTranslationState>(context, listen: false)
                   .currentLanguage;
           AppUtil.showToastMessage(
@@ -120,6 +124,7 @@ class _OvcEnrollmentChildEditViewFormState
                 : 'Form has been saved successfully',
             position: ToastGravity.TOP,
           );
+          clearFormAutoSaveState(context);
           Navigator.popUntil(context, (route) => route.isFirst);
         }
       });
@@ -134,10 +139,44 @@ class _OvcEnrollmentChildEditViewFormState
     }
   }
 
+  void clearFormAutoSaveState(BuildContext context) async {
+    Map dataObject =
+        Provider.of<EnrollmentFormState>(context, listen: false).formState;
+    String beneficiaryId = dataObject['trackedEntityInstance'] ?? "";
+    String formAutoSaveId =
+        "${OvcRoutesConstant.ovcChildVulnerabilityEditFormPage}_$beneficiaryId";
+    await FormAutoSaveOfflineService().deleteSavedFormAutoData(formAutoSaveId);
+  }
+
+  void onUpdateFormAutoSaveState(
+    BuildContext context, {
+    bool isSaveForm = false,
+    String nextPageModule = "",
+  }) async {
+    Map dataObject =
+        Provider.of<EnrollmentFormState>(context, listen: false).formState;
+    String beneficiaryId = dataObject['trackedEntityInstance'] ?? "";
+    String id =
+        "${OvcRoutesConstant.ovcChildVulnerabilityEditFormPage}_$beneficiaryId";
+    FormAutoSave formAutoSave = FormAutoSave(
+      id: id,
+      beneficiaryId: beneficiaryId,
+      pageModule: OvcRoutesConstant.ovcChildVulnerabilityEditFormPage,
+      nextPageModule: isSaveForm
+          ? nextPageModule != ""
+              ? nextPageModule
+              : OvcRoutesConstant.ovcChildVulnerabilityEditFormNextPage
+          : OvcRoutesConstant.ovcChildVulnerabilityEditFormPage,
+      data: jsonEncode(dataObject),
+    );
+    await FormAutoSaveOfflineService().saveFormAutoSaveData(formAutoSave);
+  }
+
   void onInputValueChange(String id, dynamic value) {
     Provider.of<EnrollmentFormState>(context, listen: false)
         .setFormFieldState(id, value);
     evaluateSkipLogics();
+    onUpdateFormAutoSaveState(context);
   }
 
   @override
@@ -175,7 +214,7 @@ class _OvcEnrollmentChildEditViewFormState
                         child: Consumer<OvcHouseholdCurrentSelectionState>(
                           builder: (context, ovcHouseholdCurrentSelectionState,
                               child) {
-                            OvcHousehold currentOvcHousehold =
+                            OvcHousehold? currentOvcHousehold =
                                 ovcHouseholdCurrentSelectionState
                                     .currentOvcHousehold;
                             return OvcHouseholdInfoTopHeader(
@@ -191,7 +230,7 @@ class _OvcEnrollmentChildEditViewFormState
                         ),
                         child: Consumer<LanguageTranslationState>(
                           builder: (context, languageTranslationState, child) {
-                            String currentLanguage =
+                            String? currentLanguage =
                                 languageTranslationState.currentLanguage;
                             return Consumer<EnrollmentFormState>(
                               builder: (context, enrollmentFormState, child) {

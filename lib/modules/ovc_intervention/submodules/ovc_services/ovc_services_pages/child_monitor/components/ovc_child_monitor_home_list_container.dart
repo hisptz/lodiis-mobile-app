@@ -5,17 +5,17 @@ import 'package:kb_mobile_app/models/events.dart';
 
 class OvcChildMonitorHomeListContainer extends StatelessWidget {
   const OvcChildMonitorHomeListContainer({
-    Key key,
-    @required this.eventData,
-    @required this.programStageMap,
+    Key? key,
+    required this.eventData,
+    required this.programStageMap,
     this.onEditMonitor,
     this.onViewMonitor,
   }) : super(key: key);
 
   final Events eventData;
   final Map programStageMap;
-  final Function onViewMonitor;
-  final Function onEditMonitor;
+  final Function? onViewMonitor;
+  final Function? onEditMonitor;
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +63,7 @@ class OvcChildMonitorHomeListContainer extends StatelessWidget {
                       horizontal: 5.0,
                     ),
                     child: InkWell(
-                        onTap: onViewMonitor,
+                        onTap: onViewMonitor as void Function()?,
                         child: Container(
                           height: iconHeight,
                           width: iconHeight,
@@ -80,7 +80,7 @@ class OvcChildMonitorHomeListContainer extends StatelessWidget {
                       horizontal: 5.0,
                     ),
                     child: InkWell(
-                        onTap: onEditMonitor,
+                        onTap: onEditMonitor as void Function()?,
                         child: Container(
                           height: iconHeight,
                           width: iconHeight,

@@ -1043,6 +1043,7 @@ class AgywEnrollmentFormSection {
               translatedName:
                   '305. Nakong ea joale ke tleleniki efe moo u fumanang litšebeletso tsa HIV?',
               valueType: 'ORGANISATION_UNIT',
+              allowedSelectedLevels: [4],
               showCountryLevelTree: true,
               inputColor: Color(0xFF258DCC),
               labelColor: Color(0xFF737373)),
@@ -1465,6 +1466,7 @@ class AgywEnrollmentFormSection {
               translatedName:
                   '505. U tsamaea tleleniking efe ho fumana litšebeletso tsa bokhachane?',
               valueType: 'ORGANISATION_UNIT',
+              allowedSelectedLevels: [4],
               inputColor: Color(0xFF258DCC),
               showCountryLevelTree: true,
               labelColor: Color(0xFF737373)),

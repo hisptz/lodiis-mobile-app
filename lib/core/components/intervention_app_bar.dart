@@ -15,8 +15,8 @@ import 'package:rxdart/rxdart.dart';
 
 class InterventionAppBar extends StatefulWidget {
   const InterventionAppBar(
-      {Key key,
-      @required this.activeInterventionProgram,
+      {Key? key,
+      required this.activeInterventionProgram,
       this.onClickHome,
       this.onAddHousehold,
       this.onOpenMoreMenu,
@@ -26,12 +26,12 @@ class InterventionAppBar extends StatefulWidget {
       : super(key: key);
 
   final InterventionCard activeInterventionProgram;
-  final VoidCallback onAddHousehold;
-  final VoidCallback onAddAgywBeneficiary;
-  final VoidCallback onAddNoneAgywBeneficiary;
-  final VoidCallback onAddOgacBeneficiary;
-  final VoidCallback onClickHome;
-  final VoidCallback onOpenMoreMenu;
+  final VoidCallback? onAddHousehold;
+  final VoidCallback? onAddAgywBeneficiary;
+  final VoidCallback? onAddNoneAgywBeneficiary;
+  final VoidCallback? onAddOgacBeneficiary;
+  final VoidCallback? onClickHome;
+  final VoidCallback? onOpenMoreMenu;
 
   @override
   _InterventionAppBarState createState() => _InterventionAppBarState();
@@ -124,12 +124,12 @@ class _InterventionAppBarState extends State<InterventionAppBar> {
                             borderRadius: BorderRadius.circular(14),
                             border: Border.all(
                                 color: widget
-                                    .activeInterventionProgram.svgIconColor)),
+                                    .activeInterventionProgram.svgIconColor!)),
                         child: Row(
                           children: [
                             Container(
                               child: SvgPicture.asset(
-                                widget.activeInterventionProgram.svgIcon,
+                                widget.activeInterventionProgram.svgIcon!,
                                 color: widget
                                     .activeInterventionProgram.svgIconColor,
                                 height: 19.2,
@@ -143,7 +143,7 @@ class _InterventionAppBarState extends State<InterventionAppBar> {
                               height: 20,
                               padding: EdgeInsets.only(top: 2),
                               child: Text(
-                                widget.activeInterventionProgram.shortName,
+                                widget.activeInterventionProgram.shortName!,
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
@@ -168,7 +168,7 @@ class _InterventionAppBarState extends State<InterventionAppBar> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10.0),
                   border: Border.all(
-                      color: widget.activeInterventionProgram.svgIconColor),
+                      color: widget.activeInterventionProgram.svgIconColor!),
                 ),
                 child: TextInputFieldContainer(
                   inputField: inputField,

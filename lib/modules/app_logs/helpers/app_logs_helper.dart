@@ -13,7 +13,7 @@ class AppLogsHelper {
     final directory = await getExternalStorageDirectory();
     bool permission = await _requestStoragePermission(Permission.storage);
     if (permission) {
-      if (!await directory.exists()) {
+      if (!await directory!.exists()) {
         try {
           var createdDir = await directory.create(recursive: true);
           return createdDir.path;
@@ -29,11 +29,11 @@ class AppLogsHelper {
     }
   }
 
-  static Future<File> get _localFile async {
+  static Future<File?> get _localFile async {
     final path = await _appPath;
     if (path != '') {
-      CurrentUser user = await UserService().getCurrentUser();
-      return File('$path/${user.username}-logs.xlsx');
+      CurrentUser? user = await (UserService().getCurrentUser());
+      return File('$path/${user!.username}-logs.xlsx');
     } else {
       return null;
     }
@@ -76,8 +76,8 @@ class AppLogsHelper {
       sheetObject.insertRowIterables(tableHeaders, rowCount);
 
       // Insert data rows
-      List<List<String>> rows = await getExcelRows(tableHeaders);
-      for (List<String> row in rows) {
+      List<List<String?>> rows = await getExcelRows(tableHeaders);
+      for (List<String?> row in rows) {
         rowCount++;
         sheetObject.insertRowIterables(row, rowCount);
       }
@@ -88,12 +88,12 @@ class AppLogsHelper {
     }
   }
 
-  static Future<List<List<String>>> getExcelRows(
+  static Future<List<List<String?>>> getExcelRows(
       List<String> columnHeaders) async {
-    List<List<String>> rows = [];
+    List<List<String?>> rows = [];
     List<Map> logs = await AppLogsService().getAllAppLogs();
     for (Map log in logs) {
-      List<String> row = [];
+      List<String?> row = [];
       for (String column in columnHeaders) {
         row.add(log[column]);
       }

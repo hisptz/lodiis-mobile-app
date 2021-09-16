@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:collection/collection.dart' show IterableExtension;
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_household_current_selection_state.dart';
@@ -42,7 +43,7 @@ class _OvcHouseholdCaseClosureState extends State<OvcHouseholdCaseClosure> {
   ];
 
   bool isSaving = false;
-  List<FormSection> formSections;
+  List<FormSection>? formSections;
   bool isFormReady = false;
 
   @override
@@ -59,32 +60,33 @@ class _OvcHouseholdCaseClosureState extends State<OvcHouseholdCaseClosure> {
   void onSaveForm(
     BuildContext context,
     Map dataObject,
-    OvcHousehold currentOvcHousehold,
+    OvcHousehold? currentOvcHousehold,
   ) async {
     if (FormUtil.geFormFilledStatus(dataObject, formSections)) {
       setState(() {
         isSaving = true;
       });
-      String eventDate = dataObject['eventDate'];
-      String eventId = dataObject['eventId'];
+      String? eventDate = dataObject['eventDate'];
+      String? eventId = dataObject['eventId'];
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-            OvcHouseholdCaseClosureConstant.program,
-            OvcHouseholdCaseClosureConstant.programStage,
-            currentOvcHousehold.orgUnit,
-            formSections,
-            dataObject,
-            eventDate,
-            currentOvcHousehold.id,
-            eventId,
-            null);
+          OvcHouseholdCaseClosureConstant.program,
+          OvcHouseholdCaseClosureConstant.programStage,
+          currentOvcHousehold!.orgUnit,
+          formSections!,
+          dataObject,
+          eventDate,
+          currentOvcHousehold.id,
+          eventId,
+          null,
+        );
         Provider.of<ServiceEventDataState>(context, listen: false)
             .resetServiceEventDataState(currentOvcHousehold.id);
         Timer(Duration(seconds: 1), () {
           setState(() {
             isSaving = false;
           });
-          String currentLanguage =
+          String? currentLanguage =
               Provider.of<LanguageTranslationState>(context, listen: false)
                   .currentLanguage;
           AppUtil.showToastMessage(
@@ -100,103 +102,105 @@ class _OvcHouseholdCaseClosureState extends State<OvcHouseholdCaseClosure> {
           setState(() {
             isSaving = false;
             AppUtil.showToastMessage(
-                message: e.toString(), position: ToastGravity.BOTTOM);
+              message: e.toString(),
+              position: ToastGravity.BOTTOM,
+            );
             Navigator.pop(context);
           });
         });
       }
     } else {
       AppUtil.showToastMessage(
-          message: 'Please fill at least one form field',
-          position: ToastGravity.TOP);
+        message: 'Please fill at least one form field',
+        position: ToastGravity.TOP,
+      );
     }
+  }
+
+  bool shouldDisableClosure(List<Events> eventList) {
+    return eventList.isEmpty;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(65.0),
-          child: Consumer<InterventionCardState>(
-            builder: (context, interventionCardState, child) {
-              InterventionCard activeInterventionProgram =
-                  interventionCardState.currentInterventionProgram;
-              return SubPageAppBar(
-                label: label,
-                activeInterventionProgram: activeInterventionProgram,
-              );
-            },
-          ),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(65.0),
+        child: Consumer<InterventionCardState>(
+          builder: (context, interventionCardState, child) {
+            InterventionCard activeInterventionProgram =
+                interventionCardState.currentInterventionProgram;
+            return SubPageAppBar(
+              label: label,
+              activeInterventionProgram: activeInterventionProgram,
+            );
+          },
         ),
-        body: SubPageBody(
-          body: Container(
-            child: Consumer<OvcHouseholdCurrentSelectionState>(
-              builder: (context, ovcHouseholdCurrentSelectionState, child) {
-                OvcHousehold currentOvcHousehold =
-                    ovcHouseholdCurrentSelectionState.currentOvcHousehold;
-                return Container(
-                  child: Column(
-                    children: [
-                      OvcHouseholdInfoTopHeader(
-                        currentOvcHousehold: currentOvcHousehold,
-                      ),
-                      Container(
-                        child: Consumer<ServiceEventDataState>(
-                          builder: (context, serviceEventDataState, child) {
-                            bool isLoading = serviceEventDataState.isLoading;
-                            Map<String, List<Events>> eventListByProgramStage =
-                                serviceEventDataState.eventListByProgramStage;
-                            List<Events> eventList = TrackedEntityInstanceUtil
-                                    .getAllEventListFromServiceDataStateByProgramStages(
-                                        eventListByProgramStage,
-                                        programStageIds) ??
-                                [];
-                            Events event = eventList.firstWhere(
-                                (e) =>
-                                    e.programStage ==
-                                    OvcHouseholdCaseClosureConstant
-                                        .programStage,
-                                orElse: () => null);
-                            bool isDisabled = shouldDisableClosure(eventList);
-
-                            return isLoading
-                                ? CircularProcessLoader(
-                                    color: Colors.blueGrey,
-                                  )
-                                : isDisabled
-                                    ? Container(
-                                        height: 100.0,
-                                        child: Center(
-                                          child: Text(
-                                            'You cannot add closure before adding either Graduation, Exit, or Transfer',
-                                            textAlign: TextAlign.center,
-                                          ),
+      ),
+      body: SubPageBody(
+        body: Container(
+          child: Consumer<OvcHouseholdCurrentSelectionState>(
+            builder: (context, ovcHouseholdCurrentSelectionState, child) {
+              OvcHousehold? currentOvcHousehold =
+                  ovcHouseholdCurrentSelectionState.currentOvcHousehold;
+              return Container(
+                child: Column(
+                  children: [
+                    OvcHouseholdInfoTopHeader(
+                      currentOvcHousehold: currentOvcHousehold,
+                    ),
+                    Container(
+                      child: Consumer<ServiceEventDataState>(
+                        builder: (context, serviceEventDataState, child) {
+                          bool isLoading = serviceEventDataState.isLoading;
+                          Map<String?, List<Events>> eventListByProgramStage =
+                              serviceEventDataState.eventListByProgramStage;
+                          List<Events> eventList = TrackedEntityInstanceUtil
+                              .getAllEventListFromServiceDataStateByProgramStages(
+                                  eventListByProgramStage, programStageIds);
+                          Events? event = eventList.firstWhereOrNull((e) =>
+                              e.programStage ==
+                              OvcHouseholdCaseClosureConstant.programStage);
+                          bool isDisabled = shouldDisableClosure(eventList);
+                          return isLoading && !isFormReady
+                              ? CircularProcessLoader(
+                                  color: Colors.blueGrey,
+                                )
+                              : !isLoading && isDisabled
+                                  ? Container(
+                                      height: 100.0,
+                                      child: Center(
+                                        child: Text(
+                                          'You cannot add closure before adding either Graduation, Exit, or Transfer',
+                                          textAlign: TextAlign.center,
                                         ),
-                                      )
-                                    : Container(
-                                        child: OvcHouseholdExitFormContainer(
+                                      ),
+                                    )
+                                  : Container(
+                                      child: OvcHouseholdExitFormContainer(
                                         event: event,
                                         exitType: 'closure',
                                         isSaving: isSaving,
                                         formSections: formSections,
-                                        onSaveForm: (dataObject) => this
-                                            .onSaveForm(context, dataObject,
-                                                currentOvcHousehold),
-                                      ));
-                          },
-                        ),
-                      )
-                    ],
-                  ),
-                );
-              },
-            ),
+                                        onSaveForm: (dataObject) =>
+                                            this.onSaveForm(
+                                          context,
+                                          dataObject,
+                                          currentOvcHousehold,
+                                        ),
+                                      ),
+                                    );
+                        },
+                      ),
+                    )
+                  ],
+                ),
+              );
+            },
           ),
         ),
-        bottomNavigationBar: InterventionBottomNavigationBarContainer());
-  }
-
-  bool shouldDisableClosure(List<Events> eventList) {
-    return eventList.isEmpty;
+      ),
+      bottomNavigationBar: InterventionBottomNavigationBarContainer(),
+    );
   }
 }

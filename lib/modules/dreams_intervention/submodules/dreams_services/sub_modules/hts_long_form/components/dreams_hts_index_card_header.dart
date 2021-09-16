@@ -5,15 +5,15 @@ import 'package:kb_mobile_app/models/agyw_dreams_index_info_event.dart';
 
 class DreamsHTSIndexCardHeader extends StatelessWidget {
   DreamsHTSIndexCardHeader({
-    Key key,
-    @required this.event,
-    @required this.svgIcon,
-    @required this.canExpand,
-    @required this.canEdit,
-    @required this.canView,
-    @required this.isExpanded,
-    @required this.onEdit,
-    @required this.onView,
+    Key? key,
+    required this.event,
+    required this.svgIcon,
+    required this.canExpand,
+    required this.canEdit,
+    required this.canView,
+    required this.isExpanded,
+    required this.onEdit,
+    required this.onView,
     this.onToggleCard,
   }) : super(key: key);
 
@@ -24,9 +24,9 @@ class DreamsHTSIndexCardHeader extends StatelessWidget {
   final bool isExpanded;
   final Function onEdit;
   final Function onView;
-  final AgywDreamsIndexInfoEvent event;
+  final AgywDreamsIndexInfoEvent? event;
 
-  final VoidCallback onToggleCard;
+  final VoidCallback? onToggleCard;
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +58,7 @@ class DreamsHTSIndexCardHeader extends StatelessWidget {
                   child: Expanded(
                     flex: 1,
                     child: InkWell(
-                        onTap: event == null ? null : onView,
+                        onTap: event == null ? null : onView as void Function()?,
                         child: Container(
                           height: iconHeight,
                           width: iconHeight,
@@ -75,7 +75,7 @@ class DreamsHTSIndexCardHeader extends StatelessWidget {
                   child: Expanded(
                     flex: 1,
                     child: InkWell(
-                        onTap: event == null ? null : onEdit,
+                        onTap: event == null ? null : onEdit as void Function()?,
                         child: Container(
                           height: iconHeight,
                           width: iconHeight,

@@ -14,11 +14,11 @@ import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_child_info_top_header.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_caseplan.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_case_plan.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_case_plan/constants/ovc_child_case_plan_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_case_plan/pages/ovc_child_case_plan_form.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/components/case_plan_home_list_container.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/constants/ovc_case_plan_constant.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/components/case_plan_home_list_container.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/constants/ovc_case_plan_constant.dart';
 import 'package:provider/provider.dart';
 
 class OvcChildCasePlan extends StatelessWidget {
@@ -34,14 +34,17 @@ class OvcChildCasePlan extends StatelessWidget {
   updateformState(
     BuildContext context,
     bool isEditableMode,
-    List<Events> casePlanEvents,
-    Map<String, List<Events>> eventListByProgramStage,
+    List<Events>? casePlanEvents,
+    Map<String?, List<Events>> eventListByProgramStage,
   ) {
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
     Provider.of<ServiceFormState>(context, listen: false)
         .updateFormEditabilityState(isEditableMode: isEditableMode);
-    Map sanitizedDataObject;
+    Map? sanitizedDataObject;
+    String? eventDate;
     if (casePlanEvents != null) {
+      eventDate =
+          casePlanEvents.length > 0 ? casePlanEvents[0].eventDate : eventDate;
       List<Events> casePlanGapsEvents = eventListByProgramStage[
               OvcChildCasePlanConstant.casePlanGapProgramStage] ??
           [];
@@ -52,17 +55,19 @@ class OvcChildCasePlan extends StatelessWidget {
       );
     }
     for (FormSection formSection in OvcServicesCasePlan.getFormSections()) {
-      String formSectionId = formSection.id;
+      String? formSectionId = formSection.id;
       String casePlanToGapLinkage = AppUtil.getUid();
       Map map = sanitizedDataObject != null &&
               sanitizedDataObject.containsKey(formSectionId)
           ? sanitizedDataObject[formSectionId]
           : Map();
+
       map['gaps'] = map['gaps'] ?? [];
+      map['eventDate'] = map['eventDate'] ?? eventDate;
       map[OvcCasePlanConstant.casePlanToGapLinkage] =
           map[OvcCasePlanConstant.casePlanToGapLinkage] ?? casePlanToGapLinkage;
-      map[OvcCasePlanConstant.casePlanGapToFollowUpLinkage] =
-          map[OvcCasePlanConstant.casePlanGapToFollowUpLinkage] ??
+      map[OvcCasePlanConstant.casePlanGapToServiceProvisionLinkage] =
+          map[OvcCasePlanConstant.casePlanGapToServiceProvisionLinkage] ??
               AppUtil.getUid();
       map[OvcCasePlanConstant.casePlanDomainType] = formSection.id;
       Provider.of<ServiceFormState>(context, listen: false)
@@ -70,7 +75,7 @@ class OvcChildCasePlan extends StatelessWidget {
     }
   }
 
-  isCasePlanExit(Map<String, List<Events>> eventListByProgramStage) {
+  isCasePlanExit(Map<String?, List<Events>> eventListByProgramStage) {
     List<Events> events = TrackedEntityInstanceUtil
         .getAllEventListFromServiceDataStateByProgramStages(
             eventListByProgramStage, casePlanProgramStageIds);
@@ -82,7 +87,7 @@ class OvcChildCasePlan extends StatelessWidget {
 
   void onAddNewAssessment(
     BuildContext context,
-    Map<String, List<Events>> eventListByProgramStage,
+    Map<String?, List<Events>> eventListByProgramStage,
   ) {
     bool isEditableMode = true;
     if (isCasePlanExit(eventListByProgramStage)) {
@@ -103,7 +108,7 @@ class OvcChildCasePlan extends StatelessWidget {
   void onEditCasePlan(
     BuildContext context,
     List<Events> casePlanEvents,
-    Map<String, List<Events>> eventListByProgramStage,
+    Map<String?, List<Events>> eventListByProgramStage,
   ) {
     bool isEditableMode = true;
     updateformState(
@@ -121,7 +126,7 @@ class OvcChildCasePlan extends StatelessWidget {
   void onViewCasePlan(
     BuildContext context,
     List<Events> casePlanEvents,
-    Map<String, List<Events>> eventListByProgramStage,
+    Map<String?, List<Events>> eventListByProgramStage,
   ) {
     bool isEditableMode = false;
     updateformState(
@@ -130,7 +135,7 @@ class OvcChildCasePlan extends StatelessWidget {
       context,
       MaterialPageRoute(
         builder: (context) => OcvChildCasePlanForm(
-          shouldViewCaseGapFollowUp: true,
+          shoulViewCaseGapServiceProvision: true,
         ),
       ),
     );
@@ -160,7 +165,7 @@ class OvcChildCasePlan extends StatelessWidget {
                 child: Consumer<ServiceEventDataState>(
                   builder: (context, serviceEventDataState, child) {
                     bool isLoading = serviceEventDataState.isLoading;
-                    Map<String, List<Events>> eventListByProgramStage =
+                    Map<String?, List<Events>> eventListByProgramStage =
                         serviceEventDataState.eventListByProgramStage;
                     return isLoading
                         ? CircularProcessLoader(

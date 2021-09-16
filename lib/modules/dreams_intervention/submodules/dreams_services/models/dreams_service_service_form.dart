@@ -61,7 +61,7 @@ class DreamsServiceForm {
           id: 'vL6NpUA0rIU',
           name: 'Number of session',
           translatedName: 'Palo ea Lithupelo',
-          valueType: 'INTEGER_ZERO_OR_POSITIVE',
+          valueType: 'TEXT',
           inputColor: Color(0xFF258DCC),
           labelColor: Color(0xFF737373),
         ),

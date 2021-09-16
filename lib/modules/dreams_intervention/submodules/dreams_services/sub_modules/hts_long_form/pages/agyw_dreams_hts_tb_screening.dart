@@ -27,10 +27,10 @@ import '../../../models/dreams_service_tb_screening_form_info.dart';
 
 class AgywDreamsHTSTBForm extends StatefulWidget {
   AgywDreamsHTSTBForm({
-    Key key,
+    Key? key,
     this.htsToTBLinkageValue,
   }) : super(key: key);
-  final String htsToTBLinkageValue;
+  final String? htsToTBLinkageValue;
 
   @override
   _AgywDreamsHTSTBFormState createState() => _AgywDreamsHTSTBFormState();
@@ -38,7 +38,7 @@ class AgywDreamsHTSTBForm extends StatefulWidget {
 
 class _AgywDreamsHTSTBFormState extends State<AgywDreamsHTSTBForm> {
   final String label = 'TB Screening';
-  List<FormSection> formSections;
+  List<FormSection>? formSections;
   bool isFormReady = false;
   bool isSaving = false;
 
@@ -62,7 +62,7 @@ class _AgywDreamsHTSTBFormState extends State<AgywDreamsHTSTBForm> {
             Provider.of<ServiceFormState>(context, listen: false).formState;
         await AgywDreamsHTSTBScreeningSkipLogic.evaluateSkipLogics(
           context,
-          formSections,
+          formSections!,
           dataObject,
         );
       },
@@ -76,13 +76,13 @@ class _AgywDreamsHTSTBFormState extends State<AgywDreamsHTSTBForm> {
   }
 
   void onSaveForm(
-      BuildContext context, Map dataObject, AgywDream agywDream) async {
+      BuildContext context, Map dataObject, AgywDream? agywDream) async {
     if (FormUtil.geFormFilledStatus(dataObject, formSections)) {
       setState(() {
         isSaving = true;
       });
-      String eventDate = dataObject['eventDate'];
-      String eventId = dataObject['eventId'];
+      String? eventDate = dataObject['eventDate'];
+      String? eventId = dataObject['eventId'];
 
       dataObject[AgywDreamsHTSTBConstant.htsToTBLinkage] =
           widget.htsToTBLinkageValue;
@@ -91,8 +91,8 @@ class _AgywDreamsHTSTBFormState extends State<AgywDreamsHTSTBForm> {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
             AgywDreamsHTSTBConstant.program,
             AgywDreamsHTSTBConstant.programStage,
-            agywDream.orgUnit,
-            formSections,
+            agywDream!.orgUnit,
+            formSections!,
             dataObject,
             eventDate,
             agywDream.id,
@@ -102,7 +102,7 @@ class _AgywDreamsHTSTBFormState extends State<AgywDreamsHTSTBForm> {
             .resetServiceEventDataState(agywDream.id);
         Timer(Duration(seconds: 1), () {
           setState(() {
-            String currentLanguage =
+            String? currentLanguage =
                 Provider.of<LanguageTranslationState>(context, listen: false)
                     .currentLanguage;
             AppUtil.showToastMessage(
@@ -149,10 +149,10 @@ class _AgywDreamsHTSTBFormState extends State<AgywDreamsHTSTBForm> {
         body: Container(
           child: Consumer<LanguageTranslationState>(
             builder: (context, languageTranslationState, child) {
-              String currentLanguage = languageTranslationState.currentLanguage;
+              String? currentLanguage = languageTranslationState.currentLanguage;
               return Consumer<DreamsBeneficiarySelectionState>(
                 builder: (context, nonAgywState, child) {
-                  AgywDream agywDream = nonAgywState.currentAgywDream;
+                  AgywDream? agywDream = nonAgywState.currentAgywDream;
                   return Consumer<ServiceFormState>(
                     builder: (context, serviceFormState, child) {
                       return Container(

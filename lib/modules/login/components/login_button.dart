@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 
 class LoginButton extends StatelessWidget {
   const LoginButton({
-    Key key,
-    @required this.isLoginProcessActive,
+    Key? key,
+    required this.isLoginProcessActive,
     this.onLogin,
-    @required this.currentLanguage,
+    required this.currentLanguage,
   }) : super(key: key);
 
   final bool isLoginProcessActive;
-  final VoidCallback onLogin;
-  final String currentLanguage;
+  final VoidCallback? onLogin;
+  final String? currentLanguage;
 
   @override
   Widget build(BuildContext context) {

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_current_selection_state.dart';
@@ -11,13 +12,16 @@ import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
+import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
+import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_top_header.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/constants/dreams_routes_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/dreams_service_condoms_form.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/condoms/constants/condoms_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/condoms/skip_logics/agyw_dreams_condoms_skip_logics.dart';
@@ -25,7 +29,7 @@ import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:provider/provider.dart';
 
 class AgywDreamsCondomsForm extends StatefulWidget {
-  AgywDreamsCondomsForm({Key key}) : super(key: key);
+  AgywDreamsCondomsForm({Key? key}) : super(key: key);
 
   @override
   _AgywDreamsCondomsFormState createState() => _AgywDreamsCondomsFormState();
@@ -33,7 +37,7 @@ class AgywDreamsCondomsForm extends StatefulWidget {
 
 class _AgywDreamsCondomsFormState extends State<AgywDreamsCondomsForm> {
   final String label = 'Condoms';
-  List<FormSection> formSections;
+  List<FormSection>? formSections;
   bool isFormReady = false;
   bool isSaving = false;
 
@@ -57,7 +61,7 @@ class _AgywDreamsCondomsFormState extends State<AgywDreamsCondomsForm> {
             Provider.of<ServiceFormState>(context, listen: false).formState;
         await AgywDreamsCondomsSkipLogic.evaluateSkipLogics(
           context,
-          formSections,
+          formSections!,
           dataObject,
         );
       },
@@ -68,23 +72,24 @@ class _AgywDreamsCondomsFormState extends State<AgywDreamsCondomsForm> {
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState(id, value);
     evaluateSkipLogics();
+    onUpdateFormAutoSaveState(context);
   }
 
   void onSaveForm(
-      BuildContext context, Map dataObject, AgywDream agywDream) async {
+      BuildContext context, Map dataObject, AgywDream? agywDream) async {
     if (FormUtil.geFormFilledStatus(dataObject, formSections)) {
       setState(() {
         isSaving = true;
       });
-      String eventDate = dataObject['eventDate'];
-      String eventId = dataObject['eventId'];
+      String? eventDate = dataObject['eventDate'];
+      String? eventId = dataObject['eventId'];
       List<String> hiddenFields = [];
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
             CondomsConstant.program,
             CondomsConstant.programStage,
-            agywDream.orgUnit,
-            formSections,
+            agywDream!.orgUnit,
+            formSections!,
             dataObject,
             eventDate,
             agywDream.id,
@@ -94,7 +99,7 @@ class _AgywDreamsCondomsFormState extends State<AgywDreamsCondomsForm> {
             .resetServiceEventDataState(agywDream.id);
         Timer(Duration(seconds: 1), () {
           setState(() {
-            String currentLanguage =
+            String? currentLanguage =
                 Provider.of<LanguageTranslationState>(context, listen: false)
                     .currentLanguage;
             AppUtil.showToastMessage(
@@ -103,6 +108,7 @@ class _AgywDreamsCondomsFormState extends State<AgywDreamsCondomsForm> {
                   : 'Form has been saved successfully',
               position: ToastGravity.TOP,
             );
+            clearFormAutoSaveState(context, agywDream.id, eventId ?? '');
             Navigator.pop(context);
           });
         });
@@ -119,6 +125,41 @@ class _AgywDreamsCondomsFormState extends State<AgywDreamsCondomsForm> {
           message: 'Please fill at least one form field',
           position: ToastGravity.TOP);
     }
+  }
+
+  void clearFormAutoSaveState(
+      BuildContext context, String? beneficiaryId, String eventId) async {
+    String formAutoSaveId =
+        "${DreamsRoutesConstant.agywDreamsCondomsFormPage}_${beneficiaryId}_$eventId";
+    await FormAutoSaveOfflineService().deleteSavedFormAutoData(formAutoSaveId);
+  }
+
+  void onUpdateFormAutoSaveState(
+    BuildContext context, {
+    bool isSaveForm = false,
+    String nextPageModule = "",
+  }) async {
+    var agyw =
+        Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
+            .currentAgywDream!;
+    String? beneficiaryId = agyw.id;
+    Map dataObject =
+        Provider.of<ServiceFormState>(context, listen: false).formState;
+    String eventId = dataObject['eventId'] ?? '';
+    String id =
+        "${DreamsRoutesConstant.agywDreamsCondomsFormPage}_${beneficiaryId}_$eventId";
+    FormAutoSave formAutoSave = FormAutoSave(
+      id: id,
+      beneficiaryId: beneficiaryId,
+      pageModule: DreamsRoutesConstant.agywDreamsCondomsFormPage,
+      nextPageModule: isSaveForm
+          ? nextPageModule != ""
+              ? nextPageModule
+              : DreamsRoutesConstant.agywDreamsCondomsFormNextPage
+          : DreamsRoutesConstant.agywDreamsCondomsFormPage,
+      data: jsonEncode(dataObject),
+    );
+    await FormAutoSaveOfflineService().saveFormAutoSaveData(formAutoSave);
   }
 
   @override
@@ -141,10 +182,11 @@ class _AgywDreamsCondomsFormState extends State<AgywDreamsCondomsForm> {
         body: Container(
           child: Consumer<LanguageTranslationState>(
             builder: (context, languageTranslationState, child) {
-              String currentLanguage = languageTranslationState.currentLanguage;
+              String? currentLanguage =
+                  languageTranslationState.currentLanguage;
               return Consumer<DreamsBeneficiarySelectionState>(
                 builder: (context, nonAgywState, child) {
-                  AgywDream agywDream = nonAgywState.currentAgywDream;
+                  AgywDream? agywDream = nonAgywState.currentAgywDream;
                   return Consumer<ServiceFormState>(
                     builder: (context, serviceFormState, child) {
                       return Container(

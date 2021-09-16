@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
@@ -8,10 +10,13 @@ import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
+import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
+import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/constants/ovc_routes_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/constants/ovc_enrollment_consent_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/models/ovc_enrollment_consent.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/pages/ovc_enrollement_basic_info_form.dart';
@@ -19,7 +24,7 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment
 import 'package:provider/provider.dart';
 
 class OvcEnrollmentConsentForm extends StatefulWidget {
-  const OvcEnrollmentConsentForm({Key key}) : super(key: key);
+  const OvcEnrollmentConsentForm({Key? key}) : super(key: key);
 
   @override
   _OvcEnrollmentConsentFormState createState() =>
@@ -27,7 +32,7 @@ class OvcEnrollmentConsentForm extends StatefulWidget {
 }
 
 class _OvcEnrollmentConsentFormState extends State<OvcEnrollmentConsentForm> {
-  List<FormSection> formSections;
+  List<FormSection>? formSections;
   final String label = 'Consent Form';
   final List<String> consentFields = OvcEnrollmentConstant.getConsentFields();
   final List<String> mandatoryFields = OvcEnrollmentConsent.getMandatoryField();
@@ -53,21 +58,25 @@ class _OvcEnrollmentConsentFormState extends State<OvcEnrollmentConsentForm> {
     bool hadAllMandatoryFilled =
         AppUtil.hasAllMandatoryFieldsFilled(mandatoryFields, dataObject);
     if (hadAllMandatoryFilled) {
+      bool hasConsent = dataObject['sCGr0RTmvJ7'];
+      onUpdateFormAutoSaveState(
+        context,
+        isSaveForm: true,
+        nextPageModule:
+            hasConsent ? "" : OvcRoutesConstant.ovcNoneParticipationFormPage,
+      );
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) =>
-              // hasAccepted
-              dataObject['sCGr0RTmvJ7']
-                  ? OvcEnrollmentBasicInfoForm()
-                  : OvcEnrollmentNoneParticipationForm(),
+          builder: (context) => hasConsent
+              ? OvcEnrollmentBasicInfoForm()
+              : OvcEnrollmentNoneParticipationForm(),
         ),
       );
     } else {
-      setState(() {
-        unFilledMandatoryFields =
-            AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
-      });
+      unFilledMandatoryFields =
+          AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+      setState(() {});
       AppUtil.showToastMessage(
         message: 'Please fill all mandatory field',
         position: ToastGravity.TOP,
@@ -75,9 +84,33 @@ class _OvcEnrollmentConsentFormState extends State<OvcEnrollmentConsentForm> {
     }
   }
 
+  void onUpdateFormAutoSaveState(
+    BuildContext context, {
+    bool isSaveForm = false,
+    String nextPageModule = "",
+  }) async {
+    String beneficiaryId = "";
+    Map dataObject =
+        Provider.of<EnrollmentFormState>(context, listen: false).formState;
+    String id = "${OvcRoutesConstant.ovcConcentFormPage}_$beneficiaryId";
+    FormAutoSave formAutoSave = FormAutoSave(
+      id: id,
+      beneficiaryId: beneficiaryId,
+      pageModule: OvcRoutesConstant.ovcConcentFormPage,
+      nextPageModule: isSaveForm
+          ? nextPageModule != ""
+              ? nextPageModule
+              : OvcRoutesConstant.ovcConcentFormNextPage
+          : OvcRoutesConstant.ovcConcentFormNextPage,
+      data: jsonEncode(dataObject),
+    );
+    await FormAutoSaveOfflineService().saveFormAutoSaveData(formAutoSave);
+  }
+
   void onInputValueChange(String id, dynamic value) {
     Provider.of<EnrollmentFormState>(context, listen: false)
         .setFormFieldState(id, value);
+    onUpdateFormAutoSaveState(context);
   }
 
   @override
@@ -116,7 +149,7 @@ class _OvcEnrollmentConsentFormState extends State<OvcEnrollmentConsentForm> {
                 : Container(
                     child: Consumer<LanguageTranslationState>(
                       builder: (context, languageTranslationState, child) {
-                        String currentLanguage =
+                        String? currentLanguage =
                             languageTranslationState.currentLanguage;
                         return Consumer<EnrollmentFormState>(
                           builder: (context, enrollmentFormState, child) =>

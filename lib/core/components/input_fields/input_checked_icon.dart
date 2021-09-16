@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class InputCheckedIcon extends StatelessWidget {
-  const InputCheckedIcon({Key key, @required this.showTickedIcon, this.color})
+  const InputCheckedIcon({Key? key, required this.showTickedIcon, this.color})
       : super(key: key);
 
   final bool showTickedIcon;
-  final Color color;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {

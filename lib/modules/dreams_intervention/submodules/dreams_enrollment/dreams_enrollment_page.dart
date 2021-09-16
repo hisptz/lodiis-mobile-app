@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
+import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/core/components/paginated_list_view.dart';
 import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/utils/app_resume_routes/app_resume_route.dart';
@@ -14,7 +15,7 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enro
 import 'package:provider/provider.dart';
 
 class DreamsEnrollmentPage extends StatefulWidget {
-  const DreamsEnrollmentPage({Key key}) : super(key: key);
+  const DreamsEnrollmentPage({Key? key}) : super(key: key);
 
   @override
   _DreamsEnrollmentPageState createState() => _DreamsEnrollmentPageState();
@@ -26,11 +27,15 @@ class _DreamsEnrollmentPageState extends State<DreamsEnrollmentPage> {
   final bool canView = true;
   final bool canExpand = true;
 
-  String toggleCardId = '';
+  String? toggleCardId = '';
 
-  void onCardToggle(String cardId) {
+  void onCardToggle(BuildContext context, String? trackedEntityInstance) {
+    Provider.of<ServiceEventDataState>(context, listen: false)
+        .resetServiceEventDataState(trackedEntityInstance);
     setState(() {
-      toggleCardId = canExpand && cardId != toggleCardId ? cardId : '';
+      toggleCardId = canExpand && trackedEntityInstance != toggleCardId
+          ? trackedEntityInstance
+          : '';
     });
   }
 
@@ -85,10 +90,14 @@ class _DreamsEnrollmentPageState extends State<DreamsEnrollmentPage> {
               canView: canView,
               isExpanded: agywBeneficiary.id == toggleCardId,
               onCardToggle: () {
-                onCardToggle(agywBeneficiary.id);
+                onCardToggle(
+                  context,
+                  agywBeneficiary.id,
+                );
               },
               cardBody: DreamsBeneficiaryCardBody(
                 agywBeneficiary: agywBeneficiary,
+                canViewServiceCategory: false,
                 isVerticalLayout: agywBeneficiary.id == toggleCardId,
               ),
               cardButtonActions: Container(),

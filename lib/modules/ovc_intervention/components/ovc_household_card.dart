@@ -1,24 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
 import 'package:kb_mobile_app/core/components/material_card.dart';
+import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
+import 'package:kb_mobile_app/core/utils/app_resume_routes/app_resume_route.dart';
+import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/ovc_household.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_household_card_header.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/constants/ovc_routes_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/pages/ovc_enrollment_household_edit_form.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/pages/ovc_enrollment_household_view_form.dart';
 import 'package:provider/provider.dart';
 
 class OvcHouseholdCard extends StatelessWidget {
   OvcHouseholdCard({
-    Key key,
-    @required this.ovcHousehold,
-    @required this.canEdit,
-    @required this.canView,
-    @required this.canExpand,
-    @required this.isExpanded,
-    @required this.cardBody,
-    @required this.cardButtonActions,
-    @required this.cardButtonContent,
+    Key? key,
+    required this.ovcHousehold,
+    required this.canEdit,
+    required this.canView,
+    required this.canExpand,
+    required this.isExpanded,
+    required this.cardBody,
+    required this.cardButtonActions,
+    required this.cardButtonContent,
     this.onCardToggle,
   }) : super(key: key);
 
@@ -31,14 +35,14 @@ class OvcHouseholdCard extends StatelessWidget {
   final bool canExpand;
   final bool isExpanded;
 
-  final VoidCallback onCardToggle;
+  final VoidCallback? onCardToggle;
   final String svgIcon = 'assets/icons/hh_icon.svg';
 
   void updateEnrollmentFormStateData(
     BuildContext context,
     bool isEditableMode,
   ) {
-    TrackedEntityInstance teiData = ovcHousehold.teiData;
+    TrackedEntityInstance teiData = ovcHousehold.teiData!;
     Provider.of<EnrollmentFormState>(context, listen: false).resetFormState();
     Provider.of<EnrollmentFormState>(context, listen: false)
         .updateFormEditabilityState(isEditableMode: isEditableMode);
@@ -66,46 +70,73 @@ class OvcHouseholdCard extends StatelessWidget {
     }
   }
 
-  void onEditHousehold(BuildContext context) {
-    updateEnrollmentFormStateData(context, true);
-    Navigator.push(
+  void onEditHousehold(BuildContext context) async {
+    String? beneficiaryId = ovcHousehold.id;
+    String formAutoSaveId =
+        "${OvcRoutesConstant.ovcEnrollmentHouseholdEditFormPage}_$beneficiaryId";
+    FormAutoSave formAutoSave =
+        await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
+    bool shouldResumeWithUnSavedChanges =
+        await AppResumeRoute().shouldResumeWithUnSavedChanges(
+      context,
+      formAutoSave,
+      beneficiaryName: ovcHousehold.toString(),
+    );
+    if (shouldResumeWithUnSavedChanges) {
+      AppResumeRoute().redirectToPages(context, formAutoSave);
+    } else {
+      updateEnrollmentFormStateData(context, true);
+      Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => OvcEnrollmentHouseholdEditForm()));
+          builder: (context) => OvcEnrollmentHouseholdEditForm(),
+        ),
+      );
+    }
   }
 
   void onViewHousehold(BuildContext context) {
     updateEnrollmentFormStateData(context, false);
     Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => OvcEnrollmentHouseholdViewForm()));
+      context,
+      MaterialPageRoute(
+        builder: (context) => OvcEnrollmentHouseholdViewForm(),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
       child: Container(
-        margin: EdgeInsets.only(bottom: 16.0, right: 13.0, left: 13.0),
+        margin: EdgeInsets.only(
+          bottom: 16.0,
+          right: 13.0,
+          left: 13.0,
+        ),
         child: MaterialCard(
           body: Container(
             child: Column(
               children: [
                 Container(
-                    child: OvcHouseholdCardHeader(
-                  ovcHousehold: ovcHousehold,
-                  svgIcon: svgIcon,
-                  canEdit: canEdit,
-                  canExpand: canExpand,
-                  canView: canView,
-                  isExpanded: isExpanded,
-                  onToggleCard: onCardToggle,
-                  onEdit: () => onEditHousehold(context),
-                  onView: () => onViewHousehold(context),
-                )),
+                  child: OvcHouseholdCardHeader(
+                    ovcHousehold: ovcHousehold,
+                    svgIcon: svgIcon,
+                    canEdit: canEdit,
+                    canExpand: canExpand,
+                    canView: canView,
+                    isExpanded: isExpanded,
+                    onToggleCard: onCardToggle,
+                    onEdit: () => onEditHousehold(context),
+                    onView: () => onViewHousehold(context),
+                  ),
+                ),
                 cardBody,
                 cardButtonActions,
-                Visibility(visible: isExpanded, child: cardButtonContent),
+                Visibility(
+                  visible: isExpanded,
+                  child: cardButtonContent,
+                ),
               ],
             ),
           ),

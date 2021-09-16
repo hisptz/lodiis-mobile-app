@@ -27,7 +27,7 @@ import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:provider/provider.dart';
 
 class NoneAgywEnrollmentPrepScreeningForm extends StatefulWidget {
-  const NoneAgywEnrollmentPrepScreeningForm({Key key}) : super(key: key);
+  const NoneAgywEnrollmentPrepScreeningForm({Key? key}) : super(key: key);
 
   @override
   _NoneAgywEnrollmentPrepScreeningFormState createState() =>
@@ -38,7 +38,7 @@ class _NoneAgywEnrollmentPrepScreeningFormState
     extends State<NoneAgywEnrollmentPrepScreeningForm> {
   final List<String> mandatoryFields =
       NoneAgywEnrollmentPrepScreening.getMandatoryField();
-  List<FormSection> formSections;
+  List<FormSection>? formSections;
   final String label = 'PrEP Screening for Substantial Risk and Eligibility';
 
   final Map mandatoryFieldObject = Map();
@@ -68,7 +68,7 @@ class _NoneAgywEnrollmentPrepScreeningFormState
             Provider.of<EnrollmentFormState>(context, listen: false).formState;
         await NoneAgywEnrollmentSkipLogic.evaluateSkipLogics(
           context,
-          formSections,
+          formSections!,
           dataObject,
         );
       },
@@ -120,11 +120,12 @@ class _NoneAgywEnrollmentPrepScreeningFormState
       setState(() {
         isSaving = true;
       });
-      CurrentUser user = await UserService().getCurrentUser();
+      CurrentUser? user = await (UserService().getCurrentUser());
       dataObject['PN92g65TkVI'] = dataObject['PN92g65TkVI'] ?? 'Active';
       dataObject['klLkGxy328c'] =
-          dataObject['klLkGxy328c'] ?? user.implementingPartner;
-      if (user.subImplementingPartner != '') {
+          dataObject['klLkGxy328c'] ?? user!.implementingPartner;
+      dataObject['DdnlE8kmIkT'] = dataObject['DdnlE8kmIkT'] ?? user!.username;
+      if (user!.subImplementingPartner != '') {
         dataObject['fQInK8s2RNR'] =
             dataObject['fQInK8s2RNR'] ?? user.subImplementingPartner;
       }
@@ -133,9 +134,10 @@ class _NoneAgywEnrollmentPrepScreeningFormState
         BeneficiaryIdentification.beneficiaryIndex,
         'PN92g65TkVI',
         'klLkGxy328c',
-        'fQInK8s2RNR'
+        'fQInK8s2RNR',
+        'DdnlE8kmIkT'
       ];
-      String orgUnit = dataObject['location'];
+      String? orgUnit = dataObject['location'];
       await NoneAgywDreamsEnrollmentService().savingNonAgywBeneficiary(
         dataObject,
         trackedEntityInstance,
@@ -155,7 +157,7 @@ class _NoneAgywEnrollmentPrepScreeningFormState
             setState(() {
               isSaving = false;
             });
-            String currentLanguage =
+            String? currentLanguage =
                 Provider.of<LanguageTranslationState>(context, listen: false)
                     .currentLanguage;
             AppUtil.showToastMessage(
@@ -215,7 +217,7 @@ class _NoneAgywEnrollmentPrepScreeningFormState
                   ),
                   child: Consumer<LanguageTranslationState>(
                     builder: (context, languageTranslationState, child) {
-                      String currentLanguage =
+                      String? currentLanguage =
                           languageTranslationState.currentLanguage;
                       return Consumer<EnrollmentFormState>(
                         builder: (context, enrollmentFormState, child) =>

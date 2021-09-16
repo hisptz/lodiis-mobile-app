@@ -6,17 +6,17 @@ import 'package:kb_mobile_app/models/organisation_unit.dart';
 
 class OrganisationUnitList extends StatefulWidget {
   const OrganisationUnitList({
-    Key key,
-    @required this.organisationUnit,
-    @required this.labelColor,
-    @required this.allowedSelectedLevels,
+    Key? key,
+    required this.organisationUnit,
+    required this.labelColor,
+    required this.allowedSelectedLevels,
     this.filteredPrograms = const [],
   }) : super(key: key);
 
   final OrganisationUnit organisationUnit;
-  final Color labelColor;
-  final List<int> allowedSelectedLevels;
-  final List<String> filteredPrograms;
+  final Color? labelColor;
+  final List<int?>? allowedSelectedLevels;
+  final List<String>? filteredPrograms;
 
   @override
   _OrganisationUnitListState createState() => _OrganisationUnitListState();
@@ -30,7 +30,7 @@ class _OrganisationUnitListState extends State<OrganisationUnitList> {
   void initState() {
     super.initState();
     setState(() {
-      hasChildren = widget.organisationUnit.children.length > 0;
+      hasChildren = widget.organisationUnit.children!.length > 0;
     });
   }
 
@@ -44,12 +44,12 @@ class _OrganisationUnitListState extends State<OrganisationUnitList> {
     BuildContext context,
     OrganisationUnit organisationUnit,
   ) {
-    if (widget.allowedSelectedLevels.length == 0 ||
-        widget.allowedSelectedLevels.indexOf(organisationUnit.level) > -1) {
+    if (widget.allowedSelectedLevels!.length == 0 ||
+        widget.allowedSelectedLevels!.indexOf(organisationUnit.level) > -1) {
       Navigator.pop(context, organisationUnit);
     } else {
       String message =
-          'Please select location of level ${widget.allowedSelectedLevels.join(", ")}';
+          'Please select location of level ${widget.allowedSelectedLevels!.join(", ")}';
       AppUtil.showToastMessage(message: message, position: ToastGravity.TOP);
     }
   }
@@ -84,7 +84,7 @@ class _OrganisationUnitListState extends State<OrganisationUnitList> {
                   child: Container(
                       padding:
                           EdgeInsets.symmetric(vertical: 5.0, horizontal: 2.0),
-                      child: Text(widget.organisationUnit.name)),
+                      child: Text(widget.organisationUnit.name!)),
                 )),
               ],
             ),

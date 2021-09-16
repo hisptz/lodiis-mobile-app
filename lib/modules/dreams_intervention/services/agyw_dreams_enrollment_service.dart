@@ -24,13 +24,13 @@ class AgywDreamsEnrollmentService {
 
   Future savingAgywBeneficiary(
       Map dataObject,
-      String trackedEntityInstance,
-      String orgUnit,
-      String enrollment,
-      String enrollmentDate,
-      String incidentDate,
+      String? trackedEntityInstance,
+      String? orgUnit,
+      String? enrollment,
+      String? enrollmentDate,
+      String? incidentDate,
       List<String> hiddenFields) async {
-    List<String> inputFieldIds = hiddenFields ?? [];
+    List<String> inputFieldIds = hiddenFields;
     inputFieldIds.addAll(FormUtil.getFormFieldIds(riskAssessmentFormSections));
     inputFieldIds.addAll(FormUtil.getFormFieldIds(concentFormSections));
     inputFieldIds.addAll(FormUtil.getFormFieldIds(enrollmentFormSections));
@@ -58,20 +58,20 @@ class AgywDreamsEnrollmentService {
   }
 
   Future<List<AgywDream>> getAgywBenficiariesWithIncomingReferralList(
-      {int page, List teiList = const [], String searchableValue = ''}) async {
+      {int? page, List teiList = const [], String searchableValue = ''}) async {
     List<AgywDream> agywDreamList = [];
     try {
       List<Enrollment> enrollments = await EnrollmentOfflineProvider()
           .getFilteredEnrollments(program,
-              page: page, requiredTeiList: teiList);
+              page: page, requiredTeiList: teiList as List<String>);
       for (Enrollment enrollment in enrollments) {
         // get location
         List<OrganisationUnit> ous = await OrganisationUnitService()
             .getOrganisationUnits([enrollment.orgUnit]);
-        String location = ous.length > 0 ? ous[0].name : enrollment.orgUnit;
-        String orgUnit = enrollment.orgUnit;
-        String createdDate = enrollment.enrollmentDate;
-        String enrollmentId = enrollment.enrollment;
+        String? location = ous.length > 0 ? ous[0].name : enrollment.orgUnit;
+        String? orgUnit = enrollment.orgUnit;
+        String? createdDate = enrollment.enrollmentDate;
+        String? enrollmentId = enrollment.enrollment;
 
         List<TrackedEntityInstance> dataHolds =
             await TrackedEntityInstanceOfflineProvider()
@@ -97,16 +97,17 @@ class AgywDreamsEnrollmentService {
       {page, String searchableValue = ''}) async {
     List<AgywDream> agywDreamList = [];
     try {
-      List<Enrollment> enrollments =
-          await EnrollmentOfflineProvider().getEnrollments(program, page: page);
+      List<Enrollment> enrollments = await EnrollmentOfflineProvider()
+          .getEnrollments(program,
+              page: page, isSearching: searchableValue != '');
       for (Enrollment enrollment in enrollments) {
         // get location
         List<OrganisationUnit> ous = await OrganisationUnitService()
             .getOrganisationUnits([enrollment.orgUnit]);
-        String location = ous.length > 0 ? ous[0].name : enrollment.orgUnit;
-        String orgUnit = enrollment.orgUnit;
-        String createdDate = enrollment.enrollmentDate;
-        String enrollmentId = enrollment.enrollment;
+        String? location = ous.length > 0 ? ous[0].name : enrollment.orgUnit;
+        String? orgUnit = enrollment.orgUnit;
+        String? createdDate = enrollment.enrollmentDate;
+        String? enrollmentId = enrollment.enrollment;
 
         List<TrackedEntityInstance> dataHolds =
             await TrackedEntityInstanceOfflineProvider()

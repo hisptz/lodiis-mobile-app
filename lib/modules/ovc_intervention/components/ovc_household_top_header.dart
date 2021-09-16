@@ -6,18 +6,52 @@ import 'package:provider/provider.dart';
 
 class OvcHouseholdInfoTopHeader extends StatelessWidget {
   const OvcHouseholdInfoTopHeader({
-    Key key,
-    @required this.currentOvcHousehold,
+    Key? key,
+    required this.currentOvcHousehold,
   }) : super(key: key);
-  final OvcHousehold currentOvcHousehold;
+  final OvcHousehold? currentOvcHousehold;
   final String svgIcon = 'assets/icons/hh_icon.svg';
+
+  Expanded _getOvcHouseholdDetailsWidget({
+    required String key,
+    required String value,
+  }) {
+    return Expanded(
+      child: Container(
+        margin: EdgeInsets.symmetric(
+          horizontal: 10,
+          vertical: 10,
+        ),
+        child: RichText(
+          text: TextSpan(
+            text: '$key: ',
+            style: TextStyle().copyWith(
+              fontSize: 12.0,
+              fontWeight: FontWeight.w500,
+              color: Color(0xFF92A791),
+            ),
+            children: [
+              TextSpan(
+                text: value,
+                style: TextStyle().copyWith(
+                  fontSize: 12.0,
+                  fontWeight: FontWeight.w500,
+                  color: Color(0xFF536852),
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
       child: Consumer<LanguageTranslationState>(
         builder: (context, languageTranslationState, child) {
-          String currentLanguage = languageTranslationState.currentLanguage;
+          String? currentLanguage = languageTranslationState.currentLanguage;
           return Material(
             type: MaterialType.card,
             elevation: 1.0,
@@ -42,34 +76,22 @@ class OvcHouseholdInfoTopHeader extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Container(
-                        margin: EdgeInsets.symmetric(
-                          horizontal: 10,
-                          vertical: 10,
-                        ),
-                        child: RichText(
-                          text: TextSpan(
-                            text: currentLanguage == 'lesotho'
-                                ? 'Mohlokomeli  '
-                                : 'Caregiver  ',
-                            style: TextStyle().copyWith(
-                              fontSize: 14.0,
-                              fontWeight: FontWeight.w500,
-                              color: Color(0xFF92A791),
-                            ),
-                            children: [
-                              TextSpan(
-                                text: currentOvcHousehold.toString(),
-                                style: TextStyle().copyWith(
-                                  fontSize: 14.0,
-                                  fontWeight: FontWeight.w500,
-                                  color: Color(0xFF536852),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      )
+                      _getOvcHouseholdDetailsWidget(
+                        key: currentLanguage == 'lesotho'
+                            ? 'Mohlokomeli'
+                            : 'Caregiver',
+                        value: currentOvcHousehold.toString(),
+                      ),
+                      _getOvcHouseholdDetailsWidget(
+                        key: currentLanguage == 'lesotho'
+                            ? 'Nomoro ea mohala'
+                            : 'Phone #',
+                        value: currentOvcHousehold!.phoneNumber ?? '',
+                      ),
+                      _getOvcHouseholdDetailsWidget(
+                        key: currentLanguage == 'lesotho' ? 'Motse' : 'Village',
+                        value: currentOvcHousehold!.village ?? '',
+                      ),
                     ],
                   )
                 ],

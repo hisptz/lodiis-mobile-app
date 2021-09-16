@@ -1,12 +1,16 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:kb_mobile_app/app_state/synchronization_state/synchronization_status_state.dart';
 import 'package:kb_mobile_app/core/constants/pagination.dart';
-import 'package:kb_mobile_app/core/services/pagination-service.dart';
+import 'package:kb_mobile_app/core/services/pagination_service.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/services/agyw_dreams_enrollment_service.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/services/none_agyw_dreams_enrollment_service.dart';
+import 'package:provider/provider.dart';
 
 class DreamsInterventionListState with ChangeNotifier {
+  final BuildContext? context;
   // initial state
   List<AgywDream> _agywDreamsInterventionList = <AgywDream>[];
   List<AgywDream> _agywDreamsIncomingReferralList = <AgywDream>[];
@@ -18,19 +22,21 @@ class DreamsInterventionListState with ChangeNotifier {
   int _agywNumberOfPages = 0;
   int _agywIncomingReferralNumberOfPages = 0;
   int _nonAgywNumberOfPages = 0;
-  int _agywNextPage = 0;
-  int _agywIncomingReferralNextPage = 0;
-  int _nonAgywNextPage = 0;
+  int? _agywNextPage = 0;
+  int? _agywIncomingReferralNextPage = 0;
+  int? _nonAgywNextPage = 0;
   String _searchableValue = '';
-  bool _isIncomingReferral = false;
+  bool? _isIncomingReferral = false;
 
   List<String> _teiWithIncomingReferral = [];
 
-  PagingController _agywPagingController;
+  PagingController? _agywPagingController;
 
-  PagingController _agywIncomingReferralPagingController;
+  PagingController? _agywIncomingReferralPagingController;
 
-  PagingController _nonAgywPagingController;
+  PagingController? _nonAgywPagingController;
+
+  DreamsInterventionListState(this.context);
 
   bool get isLoading => _isLoading != null ? _isLoading : false;
 
@@ -49,23 +55,23 @@ class DreamsInterventionListState with ChangeNotifier {
 
   int get nonAgywNumberOfPages => _nonAgywNumberOfPages;
 
-  bool get isIncomingReferral => _isIncomingReferral;
+  bool? get isIncomingReferral => _isIncomingReferral;
 
-  PagingController get agywPagingController => _agywPagingController;
+  PagingController? get agywPagingController => _agywPagingController;
 
-  PagingController get agywIncomingReferralPagingController =>
+  PagingController? get agywIncomingReferralPagingController =>
       _agywIncomingReferralPagingController;
 
-  PagingController get nonAgywPagingController => _nonAgywPagingController;
+  PagingController? get nonAgywPagingController => _nonAgywPagingController;
 
   void setTeiWithIncomingReferral(
       {List<String> teiWithIncomingReferral = const []}) {
     _teiWithIncomingReferral = teiWithIncomingReferral;
-    refreshDreamsList();
+    refreshAllDreamsLists();
     notifyListeners();
   }
 
-  void setReferralStatus({bool isIncomingReferral}) {
+  void setReferralStatus({bool? isIncomingReferral}) {
     _isIncomingReferral = isIncomingReferral;
   }
 
@@ -141,7 +147,6 @@ class DreamsInterventionListState with ChangeNotifier {
     _isLoading = true;
     _searchableValue = '';
     notifyListeners();
-    //write code to count and update number of Beneficiaries
     await getDreamsCount();
     getNumberOfPages();
     if (_nonAgywPagingController == null ||
@@ -149,9 +154,9 @@ class DreamsInterventionListState with ChangeNotifier {
         _agywIncomingReferralPagingController == null) {
       initializePagination();
     } else {
-      _nonAgywPagingController.refresh();
-      _agywPagingController.refresh();
-      _agywIncomingReferralPagingController.refresh();
+      _nonAgywPagingController!.refresh();
+      _agywPagingController!.refresh();
+      _agywIncomingReferralPagingController!.refresh();
     }
     _isLoading = false;
     notifyListeners();
@@ -172,39 +177,41 @@ class DreamsInterventionListState with ChangeNotifier {
   void searchAgywDreams(String value) {
     if (_agywDreamsInterventionList.isEmpty) {
       _agywDreamsInterventionList =
-          _agywPagingController.itemList ?? <AgywDream>[];
-      _agywNextPage = _agywPagingController.nextPageKey;
+          _agywPagingController!.itemList as List<AgywDream>? ?? <AgywDream>[];
+      _agywNextPage = _agywPagingController!.nextPageKey;
     }
     if (_agywDreamsIncomingReferralList.isEmpty) {
       _agywDreamsIncomingReferralList =
-          _agywIncomingReferralPagingController.itemList ?? <AgywDream>[];
+          _agywIncomingReferralPagingController!.itemList as List<AgywDream>? ??
+              <AgywDream>[];
       _agywIncomingReferralNextPage =
-          _agywIncomingReferralPagingController.nextPageKey;
+          _agywIncomingReferralPagingController!.nextPageKey;
     }
     if (_noneAgywDreamsInterventionList.isEmpty) {
       _noneAgywDreamsInterventionList =
-          _nonAgywPagingController.itemList ?? <AgywDream>[];
-      _nonAgywNextPage = _nonAgywPagingController.nextPageKey;
+          _nonAgywPagingController!.itemList as List<AgywDream>? ??
+              <AgywDream>[];
+      _nonAgywNextPage = _nonAgywPagingController!.nextPageKey;
     }
     if (value.isNotEmpty) {
       _searchableValue = value;
       notifyListeners();
-      refreshDreamsList();
+      refreshAllDreamsLists();
     } else {
-      _agywPagingController.itemList = _agywDreamsInterventionList;
-      _agywPagingController.nextPageKey = _agywNextPage;
+      _agywPagingController!.itemList = _agywDreamsInterventionList;
+      _agywPagingController!.nextPageKey = _agywNextPage;
       _agywDreamsInterventionList = <AgywDream>[];
       _agywNextPage = 0;
 
-      _agywIncomingReferralPagingController.itemList =
+      _agywIncomingReferralPagingController!.itemList =
           _agywDreamsIncomingReferralList;
-      _agywIncomingReferralPagingController.nextPageKey =
+      _agywIncomingReferralPagingController!.nextPageKey =
           _agywIncomingReferralNextPage;
       _agywDreamsIncomingReferralList = <AgywDream>[];
       _agywIncomingReferralNextPage = 0;
 
-      _nonAgywPagingController.itemList = _noneAgywDreamsInterventionList;
-      _nonAgywPagingController.nextPageKey = _nonAgywNextPage;
+      _nonAgywPagingController!.itemList = _noneAgywDreamsInterventionList;
+      _nonAgywPagingController!.nextPageKey = _nonAgywNextPage;
       _noneAgywDreamsInterventionList = <AgywDream>[];
       _nonAgywNextPage = 0;
     }
@@ -215,28 +222,45 @@ class DreamsInterventionListState with ChangeNotifier {
         _numberOfNoneAgywDreamsBeneficiaries + 1;
     getNumberOfPages();
     notifyListeners();
-    refreshDreamsList();
+    refreshAllDreamsLists();
   }
 
   void onAgywBeneficiaryAdd() {
     _numberOfAgywDreamsBeneficiaries = _numberOfAgywDreamsBeneficiaries + 1;
     getNumberOfPages();
     notifyListeners();
-    refreshDreamsList();
+    refreshAllDreamsLists();
   }
 
-  void refreshDreamsList() async {
-    _agywPagingController.refresh();
-    _nonAgywPagingController.refresh();
-    _agywIncomingReferralPagingController.refresh();
+  void refreshAllDreamsLists() async {
+    _agywPagingController!.refresh();
+    _nonAgywPagingController!.refresh();
+    _agywIncomingReferralPagingController!.refresh();
+    notifyListeners();
+    Provider.of<SynchronizationStatusState>(context!, listen: false)
+        .resetSyncStatusReferences();
+  }
+
+  void refreshAgywDreamsList() async {
+    _agywPagingController!.refresh();
+    notifyListeners();
+  }
+
+  void refreshNonAgywDreamsList() async {
+    _nonAgywPagingController!.refresh();
+    notifyListeners();
+  }
+
+  void refreshAgywIncomingReferralDreamsList() async {
+    _agywIncomingReferralPagingController!.refresh();
     notifyListeners();
   }
 
   @override
   void dispose() {
-    _agywPagingController.dispose();
-    _nonAgywPagingController.dispose();
-    _agywIncomingReferralPagingController.dispose();
+    _agywPagingController!.dispose();
+    _nonAgywPagingController!.dispose();
+    _agywIncomingReferralPagingController!.dispose();
     super.dispose();
   }
 

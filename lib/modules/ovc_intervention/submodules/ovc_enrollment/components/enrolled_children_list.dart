@@ -6,7 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
 class EnrolledChildrenList extends StatelessWidget {
-  final List<String> childrenList;
+  final List<String?> childrenList;
   final String title = 'Enrolled Children';
 
   EnrolledChildrenList(this.childrenList);
@@ -17,7 +17,7 @@ class EnrolledChildrenList extends StatelessWidget {
       elevation: 2.0,
       body: Consumer<LanguageTranslationState>(
         builder: (context, languageTranslationState, child) {
-          String currentLanguage = languageTranslationState.currentLanguage;
+          String? currentLanguage = languageTranslationState.currentLanguage;
           return Container(
             margin: EdgeInsets.symmetric(
               vertical: 10.0,

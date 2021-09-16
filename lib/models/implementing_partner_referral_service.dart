@@ -1,8 +1,8 @@
 import 'package:kb_mobile_app/core/constants/default_implementing_partner_referral_service.dart';
 
 class ImplementingPartnerReferralService {
-  String id;
-  String services;
+  String? id;
+  String? services;
 
   ImplementingPartnerReferralService({this.id, this.services});
 

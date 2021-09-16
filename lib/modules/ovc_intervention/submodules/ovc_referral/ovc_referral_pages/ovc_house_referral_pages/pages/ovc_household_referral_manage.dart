@@ -16,13 +16,15 @@ import 'package:provider/provider.dart';
 
 class OvcHouseholdReferralManage extends StatefulWidget {
   OvcHouseholdReferralManage({
-    Key key,
-    @required this.eventData,
-    @required this.referralIndex,
+    Key? key,
+    required this.eventData,
+    required this.referralIndex,
+    required this.isIncommingReferral,
   }) : super(key: key);
 
   final Events eventData;
   final int referralIndex;
+  final bool isIncommingReferral;
 
   @override
   _OvcHouseholdReferralManageState createState() =>
@@ -36,74 +38,76 @@ class _OvcHouseholdReferralManageState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(65.0),
-          child: Consumer<InterventionCardState>(
-            builder: (context, interventionCardState, child) {
-              InterventionCard activeInterventionProgram =
-                  interventionCardState.currentInterventionProgram;
-              return SubPageAppBar(
-                label: label,
-                activeInterventionProgram: activeInterventionProgram,
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(65.0),
+        child: Consumer<InterventionCardState>(
+          builder: (context, interventionCardState, child) {
+            InterventionCard activeInterventionProgram =
+                interventionCardState.currentInterventionProgram;
+            return SubPageAppBar(
+              label: label,
+              activeInterventionProgram: activeInterventionProgram,
+            );
+          },
+        ),
+      ),
+      body: SubPageBody(
+        body: Container(
+          child: Consumer<OvcHouseholdCurrentSelectionState>(
+            builder: (context, ovcHouseholdCurrentSelectionState, child) {
+              OvcHousehold currentOvcHousehold =
+                  ovcHouseholdCurrentSelectionState.currentOvcHousehold!;
+              return Container(
+                child: Column(
+                  children: [
+                    OvcHouseholdInfoTopHeader(
+                      currentOvcHousehold: currentOvcHousehold,
+                    ),
+                    Container(
+                      margin: EdgeInsets.symmetric(
+                          vertical: 16.0, horizontal: 13.0),
+                      child: MaterialCard(
+                        body: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            ReferralDetailedCard(
+                              borderColor: Color(0xFFEDF5EC),
+                              titleColor: Color(0xFF1B3518),
+                              labelColor: Color(0XFF92A791),
+                              valueColor: Color(0XFF536852),
+                              referralIndex: widget.referralIndex,
+                              isIncommingReferral: widget.isIncommingReferral,
+                              isEditable: true,
+                              isHouseholdReferral: true,
+                              eventData: widget.eventData,
+                            ),
+                            ReferralOutComeCardContainer(
+                              isOvcIntervention: true,
+                              currentEventId: widget.eventData.event,
+                              currentProgramStage:
+                                  widget.eventData.programStage,
+                              beneficiary: currentOvcHousehold.teiData,
+                              referralProgram:
+                                  OvcHouseholdReferralConstant.program,
+                              referralFollowUpStage:
+                                  OvcHouseholdReferralConstant
+                                      .referralFollowUpStage,
+                              referralToFollowUpLinkage:
+                                  OvcHouseholdReferralConstant
+                                      .referralToFollowUpLinkage,
+                            ),
+                          ],
+                        ),
+                      ),
+                    )
+                  ],
+                ),
               );
             },
           ),
         ),
-        body: SubPageBody(
-          body: Container(
-            child: Consumer<OvcHouseholdCurrentSelectionState>(
-              builder: (context, ovcHouseholdCurrentSelectionState, child) {
-                OvcHousehold currentOvcHousehold =
-                    ovcHouseholdCurrentSelectionState.currentOvcHousehold;
-                return Container(
-                  child: Column(
-                    children: [
-                      OvcHouseholdInfoTopHeader(
-                        currentOvcHousehold: currentOvcHousehold,
-                      ),
-                      Container(
-                        margin: EdgeInsets.symmetric(
-                            vertical: 16.0, horizontal: 13.0),
-                        child: MaterialCard(
-                          body: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              ReferralDetailedCard(
-                                borderColor: Color(0xFFEDF5EC),
-                                titleColor: Color(0xFF1B3518),
-                                labelColor: Color(0XFF92A791),
-                                valueColor: Color(0XFF536852),
-                                referralIndex: widget.referralIndex,
-                                isEditable: true,
-                                isHouseholdReferral: true,
-                                eventData: widget.eventData,
-                              ),
-                              ReferralOutComeCardContainer(
-                                isOvcIntervention: true,
-                                currentEventId: widget.eventData.event,
-                                currentProgramStage:
-                                    widget.eventData.programStage,
-                                beneficiary: currentOvcHousehold.teiData,
-                                referralProgram:
-                                    OvcHouseholdReferralConstant.program,
-                                referralFollowUpStage:
-                                    OvcHouseholdReferralConstant
-                                        .referralFollowUpStage,
-                                referralToFollowUpLinkage:
-                                    OvcHouseholdReferralConstant
-                                        .referralToFollowUpLinkage,
-                              ),
-                            ],
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                );
-              },
-            ),
-          ),
-        ),
-        bottomNavigationBar: InterventionBottomNavigationBarContainer());
+      ),
+      bottomNavigationBar: InterventionBottomNavigationBarContainer(),
+    );
   }
 }

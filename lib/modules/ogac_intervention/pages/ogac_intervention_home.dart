@@ -15,7 +15,7 @@ import 'package:provider/provider.dart';
 
 class OgacInterventionHome extends StatelessWidget {
   const OgacInterventionHome({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   final String title = 'OGAC List';
@@ -43,7 +43,7 @@ class OgacInterventionHome extends StatelessWidget {
         .setFormFieldState('incidentDate', ogacBeneficiary.createdDate);
     if (ogacBeneficiary.trackedEntityInstanceData != null) {
       for (Map attributeObj
-          in ogacBeneficiary.trackedEntityInstanceData.attributes) {
+          in ogacBeneficiary.trackedEntityInstanceData!.attributes) {
         Provider.of<EnrollmentFormState>(context, listen: false)
             .setFormFieldState(
                 attributeObj['attribute'], attributeObj['value']);
@@ -51,19 +51,22 @@ class OgacInterventionHome extends StatelessWidget {
     }
     if (ogacBeneficiary.eventData != null) {
       Provider.of<EnrollmentFormState>(context, listen: false)
-          .setFormFieldState('eventDate', ogacBeneficiary.eventData.eventDate);
+          .setFormFieldState('eventDate', ogacBeneficiary.eventData!.eventDate);
       Provider.of<EnrollmentFormState>(context, listen: false)
-          .setFormFieldState('eventId', ogacBeneficiary.eventData.event);
-      for (Map dataValue in ogacBeneficiary.eventData.dataValues) {
+          .setFormFieldState('eventId', ogacBeneficiary.eventData!.event);
+      for (Map dataValue in ogacBeneficiary.eventData!.dataValues) {
         Provider.of<EnrollmentFormState>(context, listen: false)
             .setFormFieldState(dataValue['dataElement'], dataValue['value']);
       }
     }
-    Navigator.push(context, MaterialPageRoute(
-      builder: (context) {
-        return OgacEnrollmentForm();
-      },
-    ));
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
+          return OgacEnrollmentForm();
+        },
+      ),
+    );
   }
 
   void onViewBeneficiary(

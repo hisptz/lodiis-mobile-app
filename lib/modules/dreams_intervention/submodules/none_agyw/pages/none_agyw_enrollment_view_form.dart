@@ -19,7 +19,7 @@ import 'package:provider/provider.dart';
 import '../models/none_agyw_enrollment_prep_screening.dart';
 
 class NoneAgywEnrollmentViewForm extends StatefulWidget {
-  const NoneAgywEnrollmentViewForm({Key key}) : super(key: key);
+  const NoneAgywEnrollmentViewForm({Key? key}) : super(key: key);
 
   @override
   _NoneAgywEnrollmentViewFormState createState() =>
@@ -28,12 +28,12 @@ class NoneAgywEnrollmentViewForm extends StatefulWidget {
 
 class _NoneAgywEnrollmentViewFormState
     extends State<NoneAgywEnrollmentViewForm> {
-  List<FormSection> formSections;
-  List<FormSection> prepScreeningFormSections;
+  List<FormSection>? formSections;
+  late List<FormSection> prepScreeningFormSections;
   // List<FormSection> enrollmentClientIntakeFormSections;
-  List<FormSection> htsConsentFormSections;
-  List<FormSection> htsClientInformationFormSections;
-  List<FormSection> htsRegisterFormSections;
+  late List<FormSection> htsConsentFormSections;
+  late List<FormSection> htsClientInformationFormSections;
+  late List<FormSection> htsRegisterFormSections;
   // List<FormSection> htsConsentForReleaseFormSections;
 
   final String label = 'None Agyw Enrolment Form';
@@ -48,13 +48,13 @@ class _NoneAgywEnrollmentViewFormState
       htsClientInformationFormSections =
           NonAgywHTSClientInformation.getFormSections();
       htsRegisterFormSections = NonAgywHTSRegister.getFormSections();
-      formSections.addAll(htsConsentFormSections);
-      formSections.addAll(htsClientInformationFormSections);
-      formSections.addAll(htsRegisterFormSections);
+      formSections!.addAll(htsConsentFormSections);
+      formSections!.addAll(htsClientInformationFormSections);
+      formSections!.addAll(htsRegisterFormSections);
       if (isBeneficiaryHIVNegative()) {
         prepScreeningFormSections =
             NoneAgywEnrollmentPrepScreening.getFormSections();
-        formSections.addAll(prepScreeningFormSections);
+        formSections!.addAll(prepScreeningFormSections);
       }
       isFormReady = true;
       evaluateSkipLogics();
@@ -69,7 +69,7 @@ class _NoneAgywEnrollmentViewFormState
             Provider.of<EnrollmentFormState>(context, listen: false).formState;
         await NoneAgywEnrollmentSkipLogic.evaluateSkipLogics(
           context,
-          formSections,
+          formSections!,
           dataObject,
         );
       },

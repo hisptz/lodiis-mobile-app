@@ -20,10 +20,6 @@ class OvcChildCasePlanSkipLogic {
       inputFieldIds.add('$key');
     }
     inputFieldIds = inputFieldIds.toSet().toList();
-    // for (String inputFieldId in inputFieldIds) {
-    //   String value = '${dataObject[inputFieldId]}';
-    //   print(value);
-    // }
     for (String sectionId in hiddenSections.keys) {
       List<FormSection> allFormSections =
           FormUtil.getFlattenFormSections(formSections);
@@ -60,7 +56,7 @@ class OvcChildCasePlanSkipLogic {
   static assignInputFieldValue(
     BuildContext context,
     String inputFieldId,
-    String value,
+    String? value,
   ) {
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState(inputFieldId, value);

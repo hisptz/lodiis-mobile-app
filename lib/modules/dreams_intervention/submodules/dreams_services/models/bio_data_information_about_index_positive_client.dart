@@ -72,7 +72,7 @@ class BioDataInformationAboutIndexPositiveClient {
                 name: 'ART enrolment facility',
                 valueType: 'ORGANISATION_UNIT',
                 showCountryLevelTree: true,
-                allowedSelectedLevels: [3, 4],
+                allowedSelectedLevels: [4],
                 inputColor: Color(0xFF258DCC),
                 labelColor: Color(0xFF737373)),
             InputField(

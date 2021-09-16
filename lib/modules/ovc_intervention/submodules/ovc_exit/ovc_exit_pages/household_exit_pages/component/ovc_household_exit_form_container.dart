@@ -16,19 +16,19 @@ import 'package:provider/provider.dart';
 
 class OvcHouseholdExitFormContainer extends StatefulWidget {
   const OvcHouseholdExitFormContainer({
-    Key key,
-    @required this.event,
-    @required this.formSections,
-    @required this.isSaving,
-    @required this.exitType,
+    Key? key,
+    required this.event,
+    required this.formSections,
+    required this.isSaving,
+    required this.exitType,
     this.onSaveForm,
   }) : super(key: key);
 
   final String exitType;
-  final Events event;
-  final List<FormSection> formSections;
+  final Events? event;
+  final List<FormSection>? formSections;
   final bool isSaving;
-  final Function onSaveForm;
+  final Function? onSaveForm;
 
   @override
   _OvcHouseholdExitFormContainerState createState() =>
@@ -46,14 +46,15 @@ class _OvcHouseholdExitFormContainerState
   @override
   void initState() {
     super.initState();
-    Timer(Duration(seconds: 1), () {
-      bool isEditableMode = widget.event == null;
-      updateFormState(context, isEditableMode, widget.event);
-      setState(() {
-        isFormReady = true;
-        evaluateSkipLogics();
+    if (!isFormReady)
+      Timer(Duration(seconds: 1), () {
+        bool isEditableMode = widget.event == null;
+        updateFormState(context, isEditableMode, widget.event);
+        setState(() {
+          isFormReady = true;
+          evaluateSkipLogics();
+        });
       });
-    });
   }
 
   evaluateSkipLogics() {
@@ -66,21 +67,21 @@ class _OvcHouseholdExitFormContainerState
         if (widget.exitType == 'closure') {
           await evaluateCaseClosureSkipLogics(
             context,
-            widget.formSections,
+            widget.formSections!,
             dataObject,
           );
         }
         if (widget.exitType == 'exit') {
           await evaluateCaseExitSkipLogics(
             context,
-            widget.formSections,
+            widget.formSections!,
             dataObject,
           );
         }
         if (widget.exitType == 'transfer') {
           await evaluateCaseTransferSkipLogics(
             context,
-            widget.formSections,
+            widget.formSections!,
             dataObject,
           );
         }
@@ -95,7 +96,7 @@ class _OvcHouseholdExitFormContainerState
   }
 
   void updateFormState(
-      BuildContext context, bool isEditableMode, Events event) {
+      BuildContext context, bool isEditableMode, Events? event) {
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
     Provider.of<ServiceFormState>(context, listen: false)
         .updateFormEditabilityState(isEditableMode: isEditableMode);
@@ -132,7 +133,7 @@ class _OvcHouseholdExitFormContainerState
             margin: EdgeInsets.symmetric(vertical: 16.0, horizontal: 13.0),
             child: Consumer<LanguageTranslationState>(
               builder: (context, languageTranslationState, child) {
-                String currentLanguage =
+                String? currentLanguage =
                     languageTranslationState.currentLanguage;
                 return Consumer<ServiceFormState>(
                   builder: (context, serviceFormState, child) {
@@ -204,7 +205,7 @@ class _OvcHouseholdExitFormContainerState
                             buttonColor: Color(0xFF4B9F46),
                             fontSize: 15.0,
                             onPressButton: () {
-                              widget.onSaveForm(serviceFormState.formState);
+                              widget.onSaveForm!(serviceFormState.formState);
                             },
                           ),
                         )

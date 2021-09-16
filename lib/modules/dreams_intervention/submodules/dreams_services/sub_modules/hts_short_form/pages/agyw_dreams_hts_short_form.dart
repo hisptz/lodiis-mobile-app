@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -13,19 +14,22 @@ import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
+import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
+import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_top_header.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/constants/dreams_routes_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/agyw_dreams_short_form.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_short_form/constants/agyw_dreams_hts_short_form.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_short_form/skip_logics/agyw_dreams_hts_short_form_skip_logics.dart';
 import 'package:provider/provider.dart';
 
 class AgywDreamsHTSShortForm extends StatefulWidget {
-  AgywDreamsHTSShortForm({Key key}) : super(key: key);
+  AgywDreamsHTSShortForm({Key? key}) : super(key: key);
 
   @override
   _AgywDreamsHTSShortFormState createState() => _AgywDreamsHTSShortFormState();
@@ -33,11 +37,11 @@ class AgywDreamsHTSShortForm extends StatefulWidget {
 
 class _AgywDreamsHTSShortFormState extends State<AgywDreamsHTSShortForm> {
   final String label = "HTS Form";
-  List<FormSection> formSections;
-  List<String> mandatoryFields = AgywDreamsShortForm.getMandatoryFields() ?? [];
+  List<FormSection>? formSections;
+  List<String> mandatoryFields = AgywDreamsShortForm.getMandatoryFields();
   bool isFormReady = false;
   bool isSaving = false;
-  Map mandatoryFieldObject;
+  Map? mandatoryFieldObject;
   List unFilledMandatoryFields = [];
 
   @override
@@ -45,7 +49,7 @@ class _AgywDreamsHTSShortFormState extends State<AgywDreamsHTSShortForm> {
     super.initState();
     formSections = AgywDreamsShortForm.getFormSections();
     mandatoryFieldObject = Map();
-    mandatoryFields.forEach((field) => mandatoryFieldObject[field] = true);
+    mandatoryFields.forEach((field) => mandatoryFieldObject![field] = true);
     Timer(Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
@@ -58,12 +62,13 @@ class _AgywDreamsHTSShortFormState extends State<AgywDreamsHTSShortForm> {
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState(id, value);
     evaluateSkipLogics();
+    onUpdateFormAutoSaveState(context);
   }
 
   void onSaveForm(
-      BuildContext context, Map dataObject, AgywDream agywDream) async {
-    String eventDate = dataObject['eventDate'];
-    String eventId = dataObject['eventId'];
+      BuildContext context, Map dataObject, AgywDream? agywDream) async {
+    String? eventDate = dataObject['eventDate'];
+    String? eventId = dataObject['eventId'];
     bool hadAllMandatoryFilled =
         AppUtil.hasAllMandatoryFieldsFilled(mandatoryFields, dataObject);
     if (hadAllMandatoryFilled) {
@@ -75,8 +80,8 @@ class _AgywDreamsHTSShortFormState extends State<AgywDreamsHTSShortForm> {
       await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
         AgywDreamsHTSShortFormConstant.program,
         AgywDreamsHTSShortFormConstant.programStage,
-        agywDream.orgUnit,
-        formSections,
+        agywDream!.orgUnit,
+        formSections!,
         dataObject,
         eventDate,
         agywDream.id,
@@ -90,7 +95,7 @@ class _AgywDreamsHTSShortFormState extends State<AgywDreamsHTSShortForm> {
       Timer(Duration(seconds: 1), () {
         setState(() {
           isSaving = false;
-          String currentLanguage =
+          String? currentLanguage =
               Provider.of<LanguageTranslationState>(context, listen: false)
                   .currentLanguage;
           AppUtil.showToastMessage(
@@ -99,6 +104,7 @@ class _AgywDreamsHTSShortFormState extends State<AgywDreamsHTSShortForm> {
                 : 'Form has been saved successfully',
             position: ToastGravity.TOP,
           );
+          clearFormAutoSaveState(context, agywDream.id, eventId ?? '');
           Navigator.popUntil(context, (route) => route.isFirst);
         });
       });
@@ -121,11 +127,45 @@ class _AgywDreamsHTSShortFormState extends State<AgywDreamsHTSShortForm> {
             Provider.of<ServiceFormState>(context, listen: false).formState;
         await AgywDreamsHTSShortFormSkipLogic.evaluateSkipLogics(
           context,
-          formSections,
+          formSections!,
           dataObject,
         );
       },
     );
+  }
+
+  void clearFormAutoSaveState(
+      BuildContext context, String? beneficiaryId, String eventId) async {
+    String formAutoSaveId =
+        "${DreamsRoutesConstant.agywDreamsHTSShortFormPage}_${beneficiaryId}_$eventId";
+    await FormAutoSaveOfflineService().deleteSavedFormAutoData(formAutoSaveId);
+  }
+
+  void onUpdateFormAutoSaveState(
+    BuildContext context, {
+    bool isSaveForm = false,
+    String nextPageModule = "",
+  }) async {
+    var agyw =
+        Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
+            .currentAgywDream!;
+    String? beneficiaryId = agyw.id;
+    Map dataObject =
+        Provider.of<ServiceFormState>(context, listen: false).formState;
+    String id =
+        "${DreamsRoutesConstant.agywDreamsHTSShortFormPage}_$beneficiaryId";
+    FormAutoSave formAutoSave = FormAutoSave(
+      id: id,
+      beneficiaryId: beneficiaryId,
+      pageModule: DreamsRoutesConstant.agywDreamsHTSShortFormPage,
+      nextPageModule: isSaveForm
+          ? nextPageModule != ""
+              ? nextPageModule
+              : DreamsRoutesConstant.agywDreamsHTSShortFormNextPage
+          : DreamsRoutesConstant.agywDreamsHTSShortFormPage,
+      data: jsonEncode(dataObject),
+    );
+    await FormAutoSaveOfflineService().saveFormAutoSaveData(formAutoSave);
   }
 
   @override
@@ -148,12 +188,13 @@ class _AgywDreamsHTSShortFormState extends State<AgywDreamsHTSShortForm> {
         body: Container(
           child: Consumer<LanguageTranslationState>(
             builder: (context, languageTranslationState, child) {
-              String currentLanguage = languageTranslationState.currentLanguage;
+              String? currentLanguage =
+                  languageTranslationState.currentLanguage;
               return Consumer<DreamsBeneficiarySelectionState>(
                 builder: (context, dreamBeneficiarySelectionState, child) {
                   return Consumer<ServiceFormState>(
                     builder: (context, serviceFormState, child) {
-                      AgywDream agywDream =
+                      AgywDream? agywDream =
                           dreamBeneficiarySelectionState.currentAgywDream;
                       return Container(
                         child: Column(

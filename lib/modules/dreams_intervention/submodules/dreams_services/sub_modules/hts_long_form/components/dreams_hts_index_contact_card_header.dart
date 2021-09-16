@@ -4,14 +4,14 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_serv
 
 class DreamsHTSIndexContactCardHeader extends StatelessWidget {
   DreamsHTSIndexContactCardHeader({
-    Key key,
-    @required this.event,
+    Key? key,
+    required this.event,
     this.onToggleCard,
   }) : super(key: key);
 
-  final IndexContact event;
+  final IndexContact? event;
 
-  final VoidCallback onToggleCard;
+  final VoidCallback? onToggleCard;
 
   @override
   Widget build(BuildContext context) {

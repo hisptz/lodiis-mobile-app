@@ -4,36 +4,36 @@ import 'package:kb_mobile_app/models/input_field_option.dart';
 class InputField {
   String id;
   String name;
-  String translatedName;
-  String description;
-  String translatedDescription;
+  String? translatedName;
+  String? description;
+  String? translatedDescription;
   String valueType;
-  Color labelColor;
-  Color inputColor;
-  Color background;
-  bool renderAsRadio;
-  bool isReadOnly;
-  bool allowFuturePeriod;
-  bool showCountryLevelTree;
-  bool disablePastPeriod;
-  bool hasError;
-  int minAgeInYear;
-  int maxAgeInYear;
-  int numberOfMonth;
-  bool shouldUserCustomAgeLimit;
-  String suffixLabel;
-  String hint;
-  String translatedHint;
-  List<InputFieldOption> options;
-  bool hasSubInputField;
-  InputField subInputField;
-  List<int> allowedSelectedLevels;
-  List<String> filteredPrograms;
+  Color? labelColor;
+  Color? inputColor;
+  Color? background;
+  bool? renderAsRadio;
+  bool? isReadOnly;
+  bool? allowFuturePeriod;
+  bool? showCountryLevelTree;
+  bool? disablePastPeriod;
+  bool? hasError;
+  int? minAgeInYear;
+  int? maxAgeInYear;
+  int? numberOfMonth;
+  bool? shouldUserCustomAgeLimit;
+  String? suffixLabel;
+  String? hint;
+  String? translatedHint;
+  List<InputFieldOption>? options;
+  bool? hasSubInputField;
+  InputField? subInputField;
+  List<int>? allowedSelectedLevels;
+  List<String>? filteredPrograms;
 
   InputField({
-    @required this.id,
-    @required this.name,
-    @required this.valueType,
+    required this.id,
+    required this.name,
+    required this.valueType,
     this.hasSubInputField,
     this.description,
     this.inputColor,

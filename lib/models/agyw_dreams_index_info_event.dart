@@ -3,18 +3,18 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_serv
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_long_form/constants/agyw_dreams_index_positive_constant.dart';
 
 class AgywDreamsIndexInfoEvent {
-  String id;
-  String date;
-  String consent;
-  String onART;
-  String startDateART;
-  String enrollmentFacility;
-  String htsIndexLinkage;
-  String indexInfoToIndexContactLinkage;
-  String indexContactToElicitedPartnerLinkage;
+  String? id;
+  String? date;
+  String? consent;
+  String? onART;
+  String? startDateART;
+  String? enrollmentFacility;
+  String? htsIndexLinkage;
+  String? indexInfoToIndexContactLinkage;
+  String? indexContactToElicitedPartnerLinkage;
   dynamic dataValues;
 
-  Events eventData;
+  Events? eventData;
 
   AgywDreamsIndexInfoEvent({
     this.id,
@@ -42,9 +42,9 @@ class AgywDreamsIndexInfoEvent {
     ];
     Map data = Map();
     for (Map detailObj in eventData.dataValues) {
-      String attribute = detailObj['dataElement'];
+      String? attribute = detailObj['dataElement'];
       if (attribute != null && keys.indexOf(attribute) > -1) {
-        data[attribute] = '${detailObj['value']}'.trim() ?? '';
+        data[attribute] = '${detailObj['value']}'.trim();
       }
     }
     return AgywDreamsIndexInfoEvent(

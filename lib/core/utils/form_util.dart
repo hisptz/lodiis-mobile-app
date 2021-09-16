@@ -23,9 +23,9 @@ class FormUtil {
     List<FormSection> sanitizedFormSections = [];
     for (FormSection formSection in formSections) {
       List<InputField> inputFields = getInputFieldsWithStatus(
-          formSection.inputFields, isReadOnly, skippedInputs);
+          formSection.inputFields!, isReadOnly, skippedInputs);
       List<FormSection> subSection = getFormSectionWithReadOnlyStatus(
-          formSection.subSections, isReadOnly, skippedInputs);
+          formSection.subSections!, isReadOnly, skippedInputs);
       formSection.inputFields = inputFields;
       formSection.subSections = subSection;
       sanitizedFormSections.add(formSection);
@@ -50,8 +50,8 @@ class FormUtil {
       List<FormSection> formSections) {
     List<FormSection> sections = [];
     for (FormSection formSection in formSections) {
-      if (formSection.subSections.length > 0) {
-        sections.addAll(getFlattenFormSections(formSection.subSections));
+      if (formSection.subSections!.length > 0) {
+        sections.addAll(getFlattenFormSections(formSection.subSections!));
       }
       // formSection.subSections = [];
       sections.add(formSection);
@@ -62,30 +62,30 @@ class FormUtil {
   static List<String> getFormFieldIds(List<FormSection> formSections) {
     List<String> fieldIds = [];
     for (FormSection formSection in formSections) {
-      for (InputField inputField in formSection.inputFields) {
+      for (InputField inputField in formSection.inputFields!) {
         if (inputField.id != '' &&
             inputField.id != 'location' &&
             inputField.valueType != 'CHECK_BOX') {
           fieldIds.add(inputField.id);
         }
         if (inputField.valueType == 'CHECK_BOX') {
-          for (var option in inputField.options) {
+          for (var option in inputField.options!) {
             fieldIds.add(option.code);
           }
         }
       }
       List<String> subSectionFormFields =
-          getFormFieldIds(formSection.subSections);
+          getFormFieldIds(formSection.subSections!);
       fieldIds.addAll(subSectionFormFields);
     }
     return fieldIds;
   }
 
   static bool geFormFilledStatus(
-      Map dataObject, List<FormSection> formSections) {
+      Map dataObject, List<FormSection>? formSections) {
     bool isFormFilled = false;
     if (dataObject.keys.length > 0) {
-      List<String> inputFields = getFormFieldIds(formSections);
+      List<String> inputFields = getFormFieldIds(formSections!);
       for (String id in inputFields) {
         if (dataObject.containsKey(id) && '${dataObject[id]}'.trim() != '') {
           isFormFilled = true;
@@ -100,27 +100,27 @@ class FormUtil {
     List<InputField> inputFields = [];
     for (FormSection formSection in formSections) {
       List<InputField> subSectionFormFields =
-          getFormInputFields(formSection.subSections);
-      inputFields.addAll(formSection.inputFields);
+          getFormInputFields(formSection.subSections!);
+      inputFields.addAll(formSection.inputFields!);
       inputFields.addAll(subSectionFormFields);
     }
     return inputFields;
   }
 
   static Future<TrackedEntityInstance> geTrackedEntityInstanceEnrollmentPayLoad(
-      String trackedEntityInstance,
+      String? trackedEntityInstance,
       String trackedEntityType,
-      String orgUnit,
+      String? orgUnit,
       List<String> inputFieldIds,
       Map dataObject,
       {bool hasBeneficiaryId = true}) async {
     trackedEntityInstance = trackedEntityInstance ?? AppUtil.getUid();
-    String beneficiaryIndex =
+    String? beneficiaryIndex =
         dataObject[BeneficiaryIdentification.beneficiaryIndex] ??
             await ReservedAttributeValueService().getReservedAttributeValue();
     List<OrganisationUnit> organisationUnits =
         await OrganisationUnitService().getOrganisationUnits([orgUnit]);
-    OrganisationUnit organisationUnit =
+    OrganisationUnit? organisationUnit =
         organisationUnits.length > 0 ? organisationUnits[0] : null;
     if (hasBeneficiaryId) {
       dataObject[BeneficiaryIdentification.beneficiaryId] =
@@ -128,7 +128,7 @@ class FormUtil {
               dataObject[BeneficiaryIdentification.beneficiaryIndex] != null
                   ? dataObject[BeneficiaryIdentification.beneficiaryId]
                   : BeneficiaryIdentification().getBenificiaryId(
-                      organisationUnit, dataObject, beneficiaryIndex);
+                      organisationUnit!, dataObject, beneficiaryIndex);
       dataObject[BeneficiaryIdentification.beneficiaryIndex] = beneficiaryIndex;
     }
 
@@ -148,12 +148,12 @@ class FormUtil {
   }
 
   static Enrollment getEnrollmentPayLoad(
-    String enrollment,
-    String enrollmentDate,
-    String incidentDate,
-    String orgUnit,
+    String? enrollment,
+    String? enrollmentDate,
+    String? incidentDate,
+    String? orgUnit,
     String program,
-    String trackedEntityInstance,
+    String? trackedEntityInstance,
   ) {
     enrollment = enrollment ?? AppUtil.getUid();
     enrollmentDate =
@@ -167,7 +167,7 @@ class FormUtil {
 
   static TeiRelationship getTeiRelationshipPayload(
     String relationshipType,
-    String fromTei,
+    String? fromTei,
     String toTei,
   ) {
     String id = AppUtil.getUid();
@@ -177,14 +177,14 @@ class FormUtil {
   }
 
   static Events getEventPayload(
-    String event,
-    String program,
-    String programStage,
-    String orgUnit,
+    String? event,
+    String? program,
+    String? programStage,
+    String? orgUnit,
     List<String> inputFieldIds,
-    Map dataObject,
-    String eventDate,
-    String trackedEntityInstance,
+    Map? dataObject,
+    String? eventDate,
+    String? trackedEntityInstance,
   ) {
     event = event ?? AppUtil.getUid();
     trackedEntityInstance = trackedEntityInstance ?? '';
@@ -192,7 +192,7 @@ class FormUtil {
         eventDate ?? AppUtil.formattedDateTimeIntoString(DateTime.now());
     String dataValues = inputFieldIds
         .map((String dataElement) {
-          String value = dataObject.keys.toList().indexOf(dataElement) > -1
+          String value = dataObject!.keys.toList().indexOf(dataElement) > -1
               ? '${dataObject[dataElement]}'.trim()
               : '';
           return '{"dataElement": "$dataElement", "value": "$value"}';

@@ -7,11 +7,15 @@ import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
+import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
+import 'package:kb_mobile_app/core/utils/app_resume_routes/app_resume_route.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/events.dart';
+import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_top_header.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/constants/dreams_routes_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/components/dreams_services_visit_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/condoms/pages/agyw_dreams_condoms_form.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
@@ -20,7 +24,7 @@ import 'package:provider/provider.dart';
 import 'constants/condoms_constant.dart';
 
 class AgywDreamsCondoms extends StatefulWidget {
-  AgywDreamsCondoms({Key key}) : super(key: key);
+  AgywDreamsCondoms({Key? key}) : super(key: key);
 
   @override
   _AgywDreamsCondomsState createState() => _AgywDreamsCondomsState();
@@ -37,7 +41,7 @@ class _AgywDreamsCondomsState extends State<AgywDreamsCondoms> {
   void updateFormState(
     BuildContext context,
     bool isEditableMode,
-    Events eventData,
+    Events? eventData,
   ) {
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
     Provider.of<ServiceFormState>(context, listen: false)
@@ -56,12 +60,25 @@ class _AgywDreamsCondomsState extends State<AgywDreamsCondoms> {
     }
   }
 
-  void onAddPrep(BuildContext context, AgywDream agywDream) {
+  void onAddPrep(BuildContext context, AgywDream agywDream) async {
     updateFormState(context, true, null);
-    Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
-        .setCurrentAgywDream(agywDream);
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => AgywDreamsCondomsForm()));
+    String? beneficiaryId = agywDream.id;
+    String eventId = '';
+    String formAutoSaveId =
+        "${DreamsRoutesConstant.agywDreamsCondomsFormPage}_${beneficiaryId}_$eventId";
+    FormAutoSave formAutoSave =
+        await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
+    bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
+        .shouldResumeWithUnSavedChanges(context, formAutoSave);
+
+    if (shouldResumeWithUnSavedChanges) {
+      AppResumeRoute().redirectToPages(context, formAutoSave);
+    } else {
+      Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
+          .setCurrentAgywDream(agywDream);
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => AgywDreamsCondomsForm()));
+    }
   }
 
   void onViewPrep(BuildContext context, Events eventData) {
@@ -70,10 +87,23 @@ class _AgywDreamsCondomsState extends State<AgywDreamsCondoms> {
         MaterialPageRoute(builder: (context) => AgywDreamsCondomsForm()));
   }
 
-  void onEditPrep(BuildContext context, Events eventData) {
+  void onEditPrep(
+      BuildContext context, Events eventData, AgywDream agywDream) async {
     updateFormState(context, true, eventData);
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => AgywDreamsCondomsForm()));
+    String? beneficiaryId = agywDream.id;
+    String eventId = eventData.event!;
+    String formAutoSaveId =
+        "${DreamsRoutesConstant.agywDreamsCondomsFormPage}_${beneficiaryId}_$eventId";
+    FormAutoSave formAutoSave =
+        await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
+    bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
+        .shouldResumeWithUnSavedChanges(context, formAutoSave);
+    if (shouldResumeWithUnSavedChanges) {
+      AppResumeRoute().redirectToPages(context, formAutoSave);
+    } else {
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => AgywDreamsCondomsForm()));
+    }
   }
 
   @override
@@ -98,10 +128,10 @@ class _AgywDreamsCondomsState extends State<AgywDreamsCondoms> {
               builder: (context, dreamBeneficiarySelectionState, child) {
                 return Consumer<ServiceEventDataState>(
                   builder: (context, serviceFormState, child) {
-                    AgywDream agywDream =
+                    AgywDream? agywDream =
                         dreamBeneficiarySelectionState.currentAgywDream;
                     bool isLoading = serviceFormState.isLoading;
-                    Map<String, List<Events>> eventListByProgramStage =
+                    Map<String?, List<Events>> eventListByProgramStage =
                         serviceFormState.eventListByProgramStage;
                     List<Events> events = TrackedEntityInstanceUtil
                         .getAllEventListFromServiceDataStateByProgramStages(
@@ -145,8 +175,10 @@ class _AgywDreamsCondomsState extends State<AgywDreamsCondoms> {
                                                           DreamsServiceVisitCard(
                                                         visitName: "Visit",
                                                         onEdit: () =>
-                                                            onEditPrep(context,
-                                                                eventData),
+                                                            onEditPrep(
+                                                                context,
+                                                                eventData,
+                                                                agywDream!),
                                                         onView: () =>
                                                             onViewPrep(context,
                                                                 eventData),
@@ -165,7 +197,7 @@ class _AgywDreamsCondomsState extends State<AgywDreamsCondoms> {
                                           buttonColor: Color(0xFF1F8ECE),
                                           fontSize: 15.0,
                                           onPressButton: () =>
-                                              onAddPrep(context, agywDream))
+                                              onAddPrep(context, agywDream!))
                                     ],
                                   ),
                           ),

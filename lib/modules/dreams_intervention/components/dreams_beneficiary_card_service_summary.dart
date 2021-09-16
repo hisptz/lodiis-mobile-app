@@ -8,9 +8,11 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_serv
 import 'package:provider/provider.dart';
 
 class DreamsBeneficiaryCardServiceSummary extends StatelessWidget {
-  const DreamsBeneficiaryCardServiceSummary(
-      {Key key, @required this.services, @required this.labelColor})
-      : super(key: key);
+  const DreamsBeneficiaryCardServiceSummary({
+    Key? key,
+    required this.services,
+    required this.labelColor,
+  }) : super(key: key);
 
   final List<List<Map>> services;
   final Color labelColor;
@@ -22,7 +24,7 @@ class DreamsBeneficiaryCardServiceSummary extends StatelessWidget {
       child: Consumer<ServiceEventDataState>(
         builder: (context, serviceEventDataState, child) {
           bool eventsLoading = serviceEventDataState.isLoading;
-          Map<String, List<Events>> serviceEvents =
+          Map<String?, List<Events>> serviceEvents =
               serviceEventDataState.eventListByProgramStage;
           return eventsLoading
               ? Container(
@@ -40,51 +42,54 @@ class DreamsBeneficiaryCardServiceSummary extends StatelessWidget {
                         child: Row(
                           children: [
                             Expanded(
-                                child: Table(
-                              children: (services ?? []).map((List serviceRow) {
-                                return TableRow(
-                                    children: (serviceRow ?? []).map((service) {
-                                  return TableCell(
-                                    child: Container(
-                                      padding: EdgeInsets.only(
-                                        bottom: 5.0,
-                                      ),
-                                      child: Row(
-                                        children: [
-                                          Container(
-                                            width: 10.0,
-                                            margin: EdgeInsets.only(
-                                              right: 5.0,
-                                            ),
-                                            child: Visibility(
-                                              visible: service['name'] != '' &&
-                                                  isServiceProvided(
-                                                    service,
-                                                    serviceEvents,
+                              child: Table(
+                                children: (services).map((List serviceRow) {
+                                  return TableRow(
+                                    children: (serviceRow).map((service) {
+                                      return TableCell(
+                                        child: Container(
+                                          padding: EdgeInsets.only(
+                                            bottom: 5.0,
+                                          ),
+                                          child: Row(
+                                            children: [
+                                              Container(
+                                                width: 10.0,
+                                                margin: EdgeInsets.only(
+                                                  right: 5.0,
+                                                ),
+                                                child: Visibility(
+                                                  visible:
+                                                      service['name'] != '' &&
+                                                          isServiceProvided(
+                                                            service,
+                                                            serviceEvents,
+                                                          ),
+                                                  child: SvgPicture.asset(
+                                                    'assets/icons/tick-icon.svg',
+                                                    color: labelColor,
+                                                    height: 10,
                                                   ),
-                                              child: SvgPicture.asset(
-                                                'assets/icons/tick-icon.svg',
-                                                color: labelColor,
-                                                height: 10,
+                                                ),
                                               ),
-                                            ),
-                                          ),
-                                          Expanded(
-                                            child: Text(
-                                              '${service['name']} ',
-                                              style: TextStyle().copyWith(
-                                                color: labelColor,
-                                                fontSize: 10.0,
+                                              Expanded(
+                                                child: Text(
+                                                  '${service['name']} ',
+                                                  style: TextStyle().copyWith(
+                                                    color: labelColor,
+                                                    fontSize: 10.0,
+                                                  ),
+                                                ),
                                               ),
-                                            ),
+                                            ],
                                           ),
-                                        ],
-                                      ),
-                                    ),
+                                        ),
+                                      );
+                                    }).toList(),
                                   );
-                                }).toList());
-                              }).toList(),
-                            )),
+                                }).toList(),
+                              ),
+                            ),
                           ],
                         ),
                       )
@@ -97,7 +102,7 @@ class DreamsBeneficiaryCardServiceSummary extends StatelessWidget {
   }
 
   bool isServiceProvided(
-      Map serviceProgramStage, Map<String, List<Events>> serviceEvents) {
+      Map serviceProgramStage, Map<String?, List<Events>> serviceEvents) {
     List<String> serviceProgramStageIds = serviceProgramStage['programStage'];
     List<Events> events = getEventList(serviceEvents);
     List programStageIds =
@@ -106,13 +111,13 @@ class DreamsBeneficiaryCardServiceSummary extends StatelessWidget {
         programStageIds.indexWhere((programStageId) =>
                 serviceProgramStageIds.contains(programStageId)) !=
             -1) {
-      List<ServiceEvents> serviceEvents = [];
+      List<ServiceEvent> serviceEvents = [];
       events.removeWhere((Events event) =>
           !serviceProgramStageIds.contains(event.programStage));
       events.forEach((event) {
-        serviceEvents.add(ServiceEvents().getServiceSessions(event));
+        serviceEvents.add(ServiceEvent().getServiceSessions(event));
       });
-      for (ServiceEvents element in serviceEvents) {
+      for (ServiceEvent element in serviceEvents) {
         if (element.interventionGroup == serviceProgramStage['name']) {
           return true;
         }
@@ -127,7 +132,7 @@ class DreamsBeneficiaryCardServiceSummary extends StatelessWidget {
     }
   }
 
-  List<Events> getEventList(Map<String, List<Events>> serviceEvents) {
+  List<Events> getEventList(Map<String?, List<Events>> serviceEvents) {
     List<List<Events>> sanitizedList = [];
     serviceEvents.forEach((key, value) {
       sanitizedList.add(value);

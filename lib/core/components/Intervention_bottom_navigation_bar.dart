@@ -13,25 +13,35 @@ import 'package:provider/provider.dart';
 
 class InterventionBottomNavigationBar extends StatelessWidget {
   const InterventionBottomNavigationBar({
-    Key key,
-    @required this.activeInterventionProgram,
-    @required this.currentLanguage,
+    Key? key,
+    required this.activeInterventionProgram,
+    required this.currentLanguage,
   }) : super(key: key);
 
   final InterventionCard activeInterventionProgram;
-  final String currentLanguage;
+  final String? currentLanguage;
 
-  void onTap(BuildContext context, int index, String id) {
+  void onTap(BuildContext context, int index, String? id) {
     Provider.of<InterventionBottomNavigationState>(context, listen: false)
         .setCurrentInterventionBottomNavigationStatus(index, id);
     if (activeInterventionProgram.id == 'dreams') {
       if (id == 'incomingReferral') {
         Provider.of<DreamsInterventionListState>(context, listen: false)
             .setReferralStatus(isIncomingReferral: true);
+        Provider.of<DreamsInterventionListState>(context, listen: false)
+            .refreshAgywIncomingReferralDreamsList();
+      } else if (id == 'noneAgyw') {
+        Provider.of<DreamsInterventionListState>(context, listen: false)
+            .refreshNonAgywDreamsList();
       } else {
         Provider.of<DreamsInterventionListState>(context, listen: false)
             .setReferralStatus(isIncomingReferral: false);
+        Provider.of<DreamsInterventionListState>(context, listen: false)
+            .refreshAgywDreamsList();
       }
+    } else if (activeInterventionProgram.id == 'ovc') {
+      // Provider.of<OvcInterventionListState>(context, listen: false)
+      //     .refreshOvcList();
     }
     if (Navigator.canPop(context)) {
       Navigator.popUntil(context, (route) => route.isFirst);
@@ -138,7 +148,7 @@ class InterventionBottomNavigationBar extends StatelessWidget {
                                                     "noneAgyw"
                                             ? "KB PrEP"
                                             : interventionBottomNavigation
-                                                .translatedName
+                                                .translatedName!
                                         : isCurrentUserKbDreamPartner &&
                                                 interventionBottomNavigation
                                                         .id ==
@@ -153,16 +163,13 @@ class InterventionBottomNavigationBar extends StatelessWidget {
                                                         "referral"
                                                 ? 'Referral'
                                                 : interventionBottomNavigation
-                                                    .name,
+                                                    .name!,
                                     style: TextStyle(
                                       fontSize: 10,
                                       fontWeight: FontWeight.bold,
-                                      color: currentInterventionBottomNavigation !=
-                                                  null &&
-                                              currentInterventionBottomNavigation
-                                                      .id ==
-                                                  interventionBottomNavigation
-                                                      .id
+                                      color: currentInterventionBottomNavigation
+                                                  .id ==
+                                              interventionBottomNavigation.id
                                           ? Colors.white
                                           : Color(0xFF737373),
                                     ),
@@ -189,16 +196,16 @@ class InterventionBottomNavigationBar extends StatelessWidget {
 
 class InterventionBottomNavigationIcon extends StatelessWidget {
   const InterventionBottomNavigationIcon(
-      {Key key,
-      @required this.currentInterventionBottomNavigation,
-      @required this.interventionBottomNavigation,
-      @required this.inactiveColor,
-      @required this.hasIndicatorValue})
+      {Key? key,
+      required this.currentInterventionBottomNavigation,
+      required this.interventionBottomNavigation,
+      required this.inactiveColor,
+      required this.hasIndicatorValue})
       : super(key: key);
 
   final InterventionBottomNavigation currentInterventionBottomNavigation;
   final InterventionBottomNavigation interventionBottomNavigation;
-  final Color inactiveColor;
+  final Color? inactiveColor;
   final bool hasIndicatorValue;
 
   @override
@@ -213,10 +220,9 @@ class InterventionBottomNavigationIcon extends StatelessWidget {
               vertical: 9.0,
             ),
             child: SvgPicture.asset(
-              interventionBottomNavigation.svgIcon,
-              color: currentInterventionBottomNavigation != null &&
-                      currentInterventionBottomNavigation.id ==
-                          interventionBottomNavigation.id
+              interventionBottomNavigation.svgIcon!,
+              color: currentInterventionBottomNavigation.id ==
+                      interventionBottomNavigation.id
                   ? Colors.white
                   : Color(0xFF737373),
             ),
@@ -251,18 +257,16 @@ class InterventionBottomNavigationIcon extends StatelessWidget {
                                       (interventionBottomNavigation.id ==
                                               "incomingReferral" &&
                                           incomingReferralToResolve != "")
-                                  ? inactiveColor.withOpacity(0.5)
-                                  : inactiveColor.withOpacity(0.0),
+                                  ? inactiveColor!.withOpacity(0.5)
+                                  : inactiveColor!.withOpacity(0.0),
                           child: Text(
                             interventionBottomNavigation.id == "referral"
                                 ? incomingReferralsResolved
                                 : incomingReferralToResolve,
                             style: TextStyle().copyWith(
                               fontWeight: FontWeight.bold,
-                              color: currentInterventionBottomNavigation !=
-                                          null &&
-                                      currentInterventionBottomNavigation.id ==
-                                          interventionBottomNavigation.id
+                              color: currentInterventionBottomNavigation.id ==
+                                      interventionBottomNavigation.id
                                   ? Colors.white
                                   : inactiveColor,
                             ),

@@ -4,20 +4,23 @@ import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
 
 class OgacBeneficiary {
-  String id;
-  String firstname;
-  String middlename;
-  String surname;
-  String age;
-  String sex;
-  String beneficiaryId;
-  String location;
-  String orgUnit;
-  String createdDate;
-  String searchableValue;
-  String enrollment;
-  TrackedEntityInstance trackedEntityInstanceData;
-  Events eventData;
+  String? id;
+  String? firstname;
+  String? middlename;
+  String? surname;
+  String? age;
+  String? sex;
+  String? beneficiaryId;
+  String? location;
+  String? phoneNumber;
+  String? village;
+  String? orgUnit;
+  String? createdDate;
+  String? searchableValue;
+  String? enrollment;
+  bool? isSynced;
+  TrackedEntityInstance? trackedEntityInstanceData;
+  Events? eventData;
 
   OgacBeneficiary({
     this.id,
@@ -28,22 +31,27 @@ class OgacBeneficiary {
     this.beneficiaryId,
     this.sex,
     this.location,
+    this.phoneNumber,
+    this.village,
     this.orgUnit,
     this.createdDate,
     this.enrollment,
     this.searchableValue,
+    this.isSynced,
     this.trackedEntityInstanceData,
     this.eventData,
   });
   OgacBeneficiary fromTeiModel(
     TrackedEntityInstance trackedEntityInstance,
-    String orgUnit,
-    String location,
-    String createdDate,
-    String enrollment,
-    Events eventData,
+    String? orgUnit,
+    String? location,
+    String? createdDate,
+    String? enrollment,
+    Events? eventData,
   ) {
     List keys = [
+      'RB8Wx75hGa4',
+      'tNdoR0jYr7R',
       'WTZ7GLTrE8Q',
       's1HaiT6OllL',
       'rSP9c21JsfC',
@@ -54,12 +62,14 @@ class OgacBeneficiary {
     ];
     Map data = Map();
     for (Map detailObj in trackedEntityInstance.attributes) {
-      String attribute = detailObj['attribute'];
+      String? attribute = detailObj['attribute'];
       if (attribute != null && keys.indexOf(attribute) > -1) {
-        data[attribute] = '${detailObj['value']}'.trim() ?? '';
+        data[attribute] = '${detailObj['value']}'.trim();
       }
     }
     int age = AppUtil.getAgeInYear(data['qZP982qpSPS']);
+    String phoneNumber = data["tNdoR0jYr7R"] ?? '';
+    String village = data["RB8Wx75hGa4"] ?? '';
     return OgacBeneficiary(
       id: trackedEntityInstance.trackedEntityInstance,
       firstname: data['WTZ7GLTrE8Q'] ?? '',
@@ -69,12 +79,16 @@ class OgacBeneficiary {
       beneficiaryId: data[BeneficiaryIdentification.beneficiaryId] ?? '',
       sex: data['vIX4GTSCX4P'] ?? '',
       searchableValue:
-          "${data['WTZ7GLTrE8Q'] ?? ''} ${data['s1HaiT6OllL'] ?? ''} ${data['rSP9c21JsfC'] ?? ''} $age ${data[BeneficiaryIdentification.beneficiaryId] ?? ''} ${data['vIX4GTSCX4P'] ?? ''} $location $createdDate"
+          "${data['WTZ7GLTrE8Q'] ?? ''} ${data['s1HaiT6OllL'] ?? ''} ${data['rSP9c21JsfC'] ?? ''} $age ${data[BeneficiaryIdentification.beneficiaryId] ?? ''} ${data['vIX4GTSCX4P'] ?? ''} ${data['RB8Wx75hGa4']} $location $createdDate"
               .toLowerCase(),
       orgUnit: orgUnit,
       location: location,
+      phoneNumber: phoneNumber != "" ? phoneNumber : 'N/A',
+      village: village != "" ? village : 'N/A',
       createdDate: createdDate,
       enrollment: enrollment,
+      isSynced: trackedEntityInstance.syncStatus == "synced" &&
+          eventData?.isSynced == true,
       trackedEntityInstanceData: trackedEntityInstance,
       eventData: eventData,
     );

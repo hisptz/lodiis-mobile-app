@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:kb_mobile_app/app_state/current_user_state/current_user_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
@@ -13,7 +14,9 @@ import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/core/constants/beneficiary_identification.dart';
 import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
+import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
+import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
@@ -25,7 +28,7 @@ import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:provider/provider.dart';
 
 class OgacEnrollmentForm extends StatefulWidget {
-  OgacEnrollmentForm({Key key}) : super(key: key);
+  OgacEnrollmentForm({Key? key}) : super(key: key);
 
   @override
   _OgacEnrollmentFormState createState() => _OgacEnrollmentFormState();
@@ -36,8 +39,8 @@ class _OgacEnrollmentFormState extends State<OgacEnrollmentForm> {
   final List<String> mandatoryFields =
       OgacInterventionFormSection.getMandatoryField();
   final Map mandatoryFieldObject = Map();
-  List<FormSection> formSections;
-  List<FormSection> stageFormSections;
+  List<FormSection>? formSections;
+  late List<FormSection> stageFormSections;
   bool isSaving = false;
   bool isFormReady = false;
   List unFilledMandatoryFields = [];
@@ -51,7 +54,7 @@ class _OgacEnrollmentFormState extends State<OgacEnrollmentForm> {
       }
       formSections = OgacInterventionFormSection.getEnrollmentFormSections();
       stageFormSections = OgacInterventionFormSection.getStageFormSections();
-      formSections.addAll(stageFormSections);
+      formSections!.addAll(stageFormSections);
       isFormReady = true;
       evaluateSkipLogics();
     });
@@ -65,7 +68,7 @@ class _OgacEnrollmentFormState extends State<OgacEnrollmentForm> {
             Provider.of<EnrollmentFormState>(context, listen: false).formState;
         await OgacInterventionSkipLogic.evaluateSkipLogics(
           context,
-          formSections,
+          formSections!,
           dataObject,
         );
       },
@@ -102,15 +105,27 @@ class _OgacEnrollmentFormState extends State<OgacEnrollmentForm> {
       setState(() {
         isSaving = true;
       });
+
+      CurrentUser? user = await (UserService().getCurrentUser());
+      dataObject['klLkGxy328c'] =
+          dataObject['klLkGxy328c'] ?? user!.implementingPartner;
+      dataObject['DdnlE8kmIkT'] = dataObject['DdnlE8kmIkT'] ?? user!.username;
+      if (user!.subImplementingPartner != '') {
+        dataObject['fQInK8s2RNR'] =
+            dataObject['fQInK8s2RNR'] ?? user.subImplementingPartner;
+      }
       String trackedEntityInstance =
           dataObject['trackedEntityInstance'] ?? AppUtil.getUid();
-      String orgUnit = dataObject['location'];
-      String enrollment = dataObject['enrollment'];
-      String enrollmentDate = dataObject['enrollmentDate'];
-      String incidentDate = dataObject['incidentDate'];
+      String? orgUnit = dataObject['location'];
+      String? enrollment = dataObject['enrollment'];
+      String? enrollmentDate = dataObject['enrollmentDate'];
+      String? incidentDate = dataObject['incidentDate'];
       List<String> hiddenFields = [
         BeneficiaryIdentification.beneficiaryId,
         BeneficiaryIdentification.beneficiaryIndex,
+        'klLkGxy328c',
+        'DdnlE8kmIkT',
+        'fQInK8s2RNR'
       ];
       try {
         await OgacEnrollmentService().savingOgacBeneficiaryEnrollment(
@@ -129,7 +144,7 @@ class _OgacEnrollmentFormState extends State<OgacEnrollmentForm> {
             setState(() {
               isSaving = false;
             });
-            String currentLanguage =
+            String? currentLanguage =
                 Provider.of<LanguageTranslationState>(context, listen: false)
                     .currentLanguage;
             AppUtil.showToastMessage(
@@ -200,7 +215,7 @@ class _OgacEnrollmentFormState extends State<OgacEnrollmentForm> {
                 : Container(
                     child: Consumer<LanguageTranslationState>(
                       builder: (context, languageTranslationState, child) {
-                        String currentLanguage =
+                        String? currentLanguage =
                             languageTranslationState.currentLanguage;
                         return Consumer<EnrollmentFormState>(
                           builder: (context, enrollmentFormState, child) =>

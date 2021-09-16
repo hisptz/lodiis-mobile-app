@@ -2,11 +2,11 @@ import 'package:flutter/foundation.dart';
 
 class LoginFormState with ChangeNotifier {
   // initial state
-  bool _isLoginProcessActive;
-  bool _isPasswordVisible;
-  String _activeInput;
-  String _currentLoginProcessMessage;
-  bool _hasLoginFormError;
+  bool? _isLoginProcessActive;
+  bool? _isPasswordVisible;
+  String? _activeInput;
+  String? _currentLoginProcessMessage;
+  bool? _hasLoginFormError;
 
   // Selectors
   bool get isLoginProcessActive => _isLoginProcessActive ?? false;
