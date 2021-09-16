@@ -1,12 +1,17 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:kb_mobile_app/app_state/synchronization_state/synchronization_status_state.dart';
 import 'package:kb_mobile_app/core/constants/pagination.dart';
 import 'package:kb_mobile_app/core/services/pagination_service.dart';
 import 'package:kb_mobile_app/models/ovc_household.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/services/ovc_enrollment_child_services.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/services/ovc_enrollment_household_service.dart';
+import 'package:provider/provider.dart';
 
 class OvcInterventionListState with ChangeNotifier {
+  final BuildContext? context;
+
   // initial state
   List<OvcHousehold> _ovcInterventionList = <OvcHousehold>[];
   PagingController? _pagingController;
@@ -16,6 +21,8 @@ class OvcInterventionListState with ChangeNotifier {
   int _numberOfPages = 0;
   int? _nextPage = 0;
   String _searchableValue = '';
+
+  OvcInterventionListState(this.context);
 
   bool get isLoading => _isLoading != null ? _isLoading : false;
 
@@ -97,6 +104,8 @@ class OvcInterventionListState with ChangeNotifier {
     }
     _isLoading = false;
     notifyListeners();
+    Provider.of<SynchronizationStatusState>(context!, listen: false)
+        .resetSyncStatusReferences();
   }
 
   Future<void> refreshOvcList() async {

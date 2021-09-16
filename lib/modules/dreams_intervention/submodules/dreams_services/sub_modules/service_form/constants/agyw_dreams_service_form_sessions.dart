@@ -34,7 +34,6 @@ class AgywDreamsServiceFormSessions {
       '12',
     ],
     'FINANCIAL EDUCATION': ['1', '2', '3', '4'],
-    // Mappings for the other sessions which were not shared
     'PTS 4-GRADS': [
       '1',
       '2',

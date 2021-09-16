@@ -114,32 +114,35 @@ class OvcServicesChildCasePlanGap {
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'cx4xBY4jZXM',
-                name: 'HIVS&D',
-                translatedName: 'Tšebeletso a HIVS&D ',
+                name: 'HIVS&D/HIV Messaging',
+                translatedName: 'Tšebeletso a HIVS&D/HIV Messaging ',
                 valueType: 'TRUE_ONLY',
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'b6hvMQuH3oJ',
-                name: '(HIVS&D) Name of responsible internal person',
+                name:
+                    '(HIVS&D/HIV Messaging) Name of responsible internal person',
                 // translatedName:
-                //     'Lebitso la motho ea ikarabellang bakeng sa HIVS&D',
+                //     'Lebitso la motho ea ikarabellang bakeng sa HIVS&D/HIV Messaging',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'iy0KZ7K4qld',
-                name: '(HIVS&D) Name of responsible external Person',
+                name:
+                    '(HIVS&D/HIV Messaging) Name of responsible external Person',
                 // translatedName:
-                //     'Lebitso la motho ea ikarabellang bakeng sa HIVS&D',
+                //     'Lebitso la motho ea ikarabellang bakeng sa HIVS&D/HIV Messaging',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'SIEeRmPm0Q0',
                 allowFuturePeriod: true,
-                name: '(HIVS&D) Projected date for completion',
-                translatedName: 'Letsatsi la HIVS&D le tla phetheloa',
+                name: '(HIVS&D/HIV Messaging) Projected date for completion',
+                translatedName:
+                    'Letsatsi la HIVS&D/HIV Messaging le tla phetheloa',
                 valueType: 'DATE',
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
@@ -563,14 +566,14 @@ class OvcServicesChildCasePlanGap {
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'yPP7lkomNfK',
-                name: 'SGROUP',
-                translatedName: 'Tšebeletso a SGROUP',
+                name: 'Savings Group',
+                translatedName: 'Tšebeletso a Savings Group',
                 valueType: 'TRUE_ONLY',
                 inputColor: Color(0xFF0000FF),
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'ZQ6jDrZ54ic',
-                name: '(SGROUP) Name of responsible internal person',
+                name: '(Savings Group) Name of responsible internal person',
                 // translatedName:
                 //     'Lebitso la motho ea ikarabellang bakeng sa SGROUP',
                 valueType: 'TEXT',
@@ -578,7 +581,7 @@ class OvcServicesChildCasePlanGap {
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'XhG2eidZKCN',
-                name: '(SGROUP) Name of responsible external Person',
+                name: '(Savings Group) Name of responsible external Person',
                 // translatedName:
                 //     'Lebitso la motho ea ikarabellang bakeng sa SGROUP',
                 valueType: 'TEXT',
@@ -587,8 +590,8 @@ class OvcServicesChildCasePlanGap {
             InputField(
                 id: 'vJx6vWPxGsJ',
                 allowFuturePeriod: true,
-                name: '(SGROUP) Projected date for completion',
-                translatedName: 'Letsatsi la SGROUP le tla phetheloa',
+                name: '(Savings Group) Projected date for completion',
+                translatedName: 'Letsatsi la Savings Group le tla phetheloa',
                 valueType: 'DATE',
                 inputColor: Color(0xFF0000FF),
                 labelColor: Color(0xFF737373)),
@@ -702,14 +705,15 @@ class OvcServicesChildCasePlanGap {
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'uQiyym8SEvd',
-                name: 'SLION',
-                translatedName: 'Tšebeletso a SLION',
+                name: 'Singing to the LION',
+                translatedName: 'Tšebeletso a Singing to the LION',
                 valueType: 'TRUE_ONLY',
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'GjIU252Rcvq',
-                name: '(SLION) Name of responsible internal person',
+                name:
+                    '(Singing to the LION) Name of responsible internal person',
                 // translatedName:
                 //     'Lebitso la motho ea ikarabellang bakeng sa SLION',
                 valueType: 'TEXT',
@@ -717,7 +721,8 @@ class OvcServicesChildCasePlanGap {
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'meOOSrOPoLB',
-                name: '(SLION) Name of responsible external Person',
+                name:
+                    '(Singing to the LION) Name of responsible external Person',
                 // translatedName:
                 //     'Lebitso la motho ea ikarabellang bakeng sa SLION',
                 valueType: 'TEXT',
@@ -726,21 +731,22 @@ class OvcServicesChildCasePlanGap {
             InputField(
                 id: 'MEFwYLoRyPR',
                 allowFuturePeriod: true,
-                name: '(SLION ) Projected date for completion',
-                translatedName: 'Letsatsi la SLION le tla phetheloa',
+                name: '(Singing to the LION ) Projected date for completion',
+                translatedName:
+                    'Letsatsi la Singing to the LION le tla phetheloa',
                 valueType: 'DATE',
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'WiPTQhWLVU1',
-                name: 'RTEEN',
-                translatedName: 'Tšebeletso a RTEEN',
+                name: 'RTEEN/Parenting',
+                translatedName: 'Tšebeletso a RTEEN/Parenting',
                 valueType: 'TRUE_ONLY',
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'E2CWztOcx2X',
-                name: '(RTEEN) Name of responsible internal person',
+                name: '(RTEEN/Parenting) Name of responsible internal person',
                 // translatedName:
                 //     'Lebitso la motho ea ikarabellang bakeng sa RTEEN',
                 valueType: 'TEXT',
@@ -748,7 +754,7 @@ class OvcServicesChildCasePlanGap {
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'xFXc0oacTEb',
-                name: '(RTEEN) Name of responsible external Person',
+                name: '(RTEEN/Parenting) Name of responsible external Person',
                 // translatedName:
                 //     'Lebitso la motho ea ikarabellang bakeng sa RTEEN',
                 valueType: 'TEXT',
@@ -757,8 +763,8 @@ class OvcServicesChildCasePlanGap {
             InputField(
                 id: 'BpLk6ruSL7e',
                 allowFuturePeriod: true,
-                name: '(RTEEN) Projected date for completion',
-                translatedName: 'Letsatsi la RTEEN le tla phetheloa',
+                name: '(RTEEN/Parenting) Projected date for completion',
+                translatedName: 'Letsatsi la RTEEN/Parenting le tla phetheloa',
                 valueType: 'DATE',
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
@@ -795,14 +801,14 @@ class OvcServicesChildCasePlanGap {
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'aPmPhwm8Zln',
-                name: 'VAC',
-                translatedName: 'Tšebeletso a VAC',
+                name: 'VAC/VAC Messaging',
+                translatedName: 'Tšebeletso a VAC/VAC Messaging',
                 valueType: 'TRUE_ONLY',
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'jKqWohAPqyW',
-                name: '(VAC) Name of responsible internal person',
+                name: '(VAC/VAC Messaging) Name of responsible internal person',
                 // translatedName:
                 //     'Lebitso la motho ea ikarabellang bakeng sa VAC',
                 valueType: 'TEXT',
@@ -810,7 +816,7 @@ class OvcServicesChildCasePlanGap {
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'U8jnyQsnfBD',
-                name: '(VAC) Name of responsible external Person',
+                name: '(VAC/VAC Messaging) Name of responsible external Person',
                 // translatedName:
                 //     'Lebitso la motho ea ikarabellang bakeng sa VAC',
                 valueType: 'TEXT',
@@ -819,8 +825,8 @@ class OvcServicesChildCasePlanGap {
             InputField(
                 id: 'wGrQeSydiwd',
                 allowFuturePeriod: true,
-                name: '(VAC) Projected date for completion',
-                translatedName: 'Letsatsi la VAC le tla phetheloa',
+                name: '(VAC/VAC Messaging) Projected date for completion',
+                translatedName: 'Letsatsi la VAC/VAC Messaging le tla phetheloa',
                 valueType: 'DATE',
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
@@ -860,8 +866,8 @@ class OvcServicesChildCasePlanGap {
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'Vd8dV7OweWB',
-                name: 'SURVIVORS',
-                translatedName: 'Tšebeletso a SURVIVORS',
+                name: 'Survivors of Abuse',
+                translatedName: 'Tšebeletso a Survivors of Abuse',
                 valueType: 'TRUE_ONLY',
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
@@ -924,7 +930,7 @@ class OvcServicesChildCasePlanGap {
                 name: 'FCARE',
                 translatedName: 'Tšebeletso a FCARE',
                 valueType: 'TRUE_ONLY',
-                 inputColor: Color(0xFF0F9587),
+                inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'kRwTftt9Nl0',
@@ -1091,14 +1097,14 @@ class OvcServicesChildCasePlanGap {
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'Cb8qzfdrg7d',
-                name: 'AFLAS',
-                translatedName: 'Tšebeletso a AFLAS',
+                name: 'Aflatoun/teen',
+                translatedName: 'Tšebeletso a Aflatoun/teen',
                 valueType: 'TRUE_ONLY',
                 inputColor: Color(0xFF9B2BAE),
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'JiqD0sYv7pH',
-                name: '(AFLAS) Name of responsible internal person',
+                name: '(Aflatoun/teen) Name of responsible internal person',
                 // translatedName:
                 //     'Lebitso la motho ea ikarabellang bakeng sa AFLAS',
                 valueType: 'TEXT',
@@ -1106,7 +1112,7 @@ class OvcServicesChildCasePlanGap {
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'vqmvjogGeX5',
-                name: '(AFLAS) Name of responsible external Person',
+                name: '(Aflatoun/teen) Name of responsible external Person',
                 // translatedName:
                 //     'Lebitso la motho ea ikarabellang bakeng sa AFLAS',
                 valueType: 'TEXT',
@@ -1115,8 +1121,8 @@ class OvcServicesChildCasePlanGap {
             InputField(
                 id: 'HeoYwEJukC8',
                 allowFuturePeriod: true,
-                name: '(AFLAS) Projected date for completion',
-                translatedName: 'Letsatsi la AFLAS le tla phetheloa',
+                name: '(Aflatoun/teen) Projected date for completion',
+                translatedName: 'Letsatsi la Aflatoun/teen le tla phetheloa',
                 valueType: 'DATE',
                 inputColor: Color(0xFF9B2BAE),
                 labelColor: Color(0xFF737373)),

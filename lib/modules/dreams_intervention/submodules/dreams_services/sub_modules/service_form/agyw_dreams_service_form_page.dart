@@ -150,7 +150,6 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
     String? implementingPartner = currentUser.implementingPartner;
     String? eventId = eventData.event;
     String? beneficiaryId = agywDream.id;
-
     String formAutoSaveId =
         "${DreamsRoutesConstant.agywDreamsServiceFormPage}_${beneficiaryId}_$eventId";
     FormAutoSave formAutoSave =
@@ -160,14 +159,18 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
     if (shouldResumeWithUnSavedChanges) {
       AppResumeRoute().redirectToPages(context, formAutoSave);
     } else {
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => AgywDreamsServiceForm(
-                    isFormEdited: true,
-                    currentUserImplementingPartner: implementingPartner,
-                  )));
-    }
+      updateFormState(context, true, eventData, agywDream, serviceEvents);
+    Provider.of<ServiceFormState>(context, listen: false)
+        .setFormFieldState('W79837fEI3C', youthMentorName);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => AgywDreamsServiceForm(
+          isFormEdited: true,
+          currentUserImplementingPartner: implementingPartner,
+        ),
+      ),
+    );
   }
 
   @override

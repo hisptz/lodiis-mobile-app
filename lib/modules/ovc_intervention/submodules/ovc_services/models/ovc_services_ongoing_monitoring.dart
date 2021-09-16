@@ -34,8 +34,9 @@ class OvcServicesOngoingMonitoring {
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'PcLhqLEjKGw',
-                name: 'HIVS&D Service progress',
-                translatedName: 'Tsoelo-pele ea litšebeletso tsa HIVS&D ',
+                name: 'HIVS&D/HIV Messaging Service progress',
+                translatedName:
+                    'Tsoelo-pele ea litšebeletso tsa HIVS&D/HIV Messaging ',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
@@ -139,8 +140,8 @@ class OvcServicesOngoingMonitoring {
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'a7GDFMWz1qf',
-                name: 'SGROUP Service progress',
-                translatedName: 'Tsoelo-pele ea litšebeletso tsa SGROUP',
+                name: 'Savings Group Service progress',
+                translatedName: 'Tsoelo-pele ea litšebeletso tsa Savings Group',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0000FF),
                 labelColor: Color(0xFF737373)),
@@ -176,15 +177,16 @@ class OvcServicesOngoingMonitoring {
           inputFields: [
             InputField(
                 id: 'KNRkkNs8IeP',
-                name: 'SLION Service progress',
+                name: 'Singing to the LION Service progress',
                 translatedName: 'Tsoelo-pele ea litšebeletso tsa SLION',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'UqQEuWwhwBd',
-                name: 'RTEEN Service progress',
-                translatedName: 'Tsoelo-pele ea litšebeletso tsa RTEEN',
+                name: 'RTEEN/Parenting Service progress',
+                translatedName:
+                    'Tsoelo-pele ea litšebeletso tsa RTEEN/Parenting',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
@@ -197,22 +199,25 @@ class OvcServicesOngoingMonitoring {
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'es23GNgSa7N',
-                name: 'VAC Service progress',
-                translatedName: 'Tsoelo-pele ea litšebeletso tsa VAC',
+                name: 'VAC/VAC Messaging Service progress',
+                translatedName:
+                    'Tsoelo-pele ea litšebeletso tsa VAC/VAC Messaging',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'x3FxC6Bw139',
                 name: 'VAC Legal Messaging progress',
-                translatedName: 'Tsoelo-pele ea litšebeletso tsa VAC Legal Messaging progress',
+                translatedName:
+                    'Tsoelo-pele ea litšebeletso tsa VAC Legal Messaging progress',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'akSICiOvXty',
-                name: 'SURVIVORS Service progress',
-                translatedName: 'Tsoelo-pele ea litšebeletso tsa SURVIVORS',
+                name: 'Survivors of Abuse Service progress',
+                translatedName:
+                    'Tsoelo-pele ea litšebeletso tsa Survivors of Abuse',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
@@ -261,14 +266,14 @@ class OvcServicesOngoingMonitoring {
           ]),
       FormSection(
           name: 'DOMAIN SCHOOLED',
-          translatedName:'TSA SEKOLO',
+          translatedName: 'TSA SEKOLO',
           color: Color(0xFF9B2BAE),
           borderColor: Color(0xFF9B2BAE),
           inputFields: [
             InputField(
                 id: 'AKjlaqY2VFZ',
-                name: 'AFLAS Service progress',
-                translatedName: 'Tsoelo-pele ea litšebeletso tsa AFLAS',
+                name: 'Aflatoun/teen Service progress',
+                translatedName: 'Tsoelo-pele ea litšebeletso tsa Aflatoun/teen',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF9B2BAE),
                 labelColor: Color(0xFF737373)),

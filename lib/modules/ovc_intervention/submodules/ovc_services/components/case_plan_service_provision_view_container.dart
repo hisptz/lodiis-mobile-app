@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/components/service_gap_view.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/components/service_gap_view.dart';
 
 class CasePlanServiceProvisionViewContainer extends StatelessWidget {
   const CasePlanServiceProvisionViewContainer({
@@ -8,16 +8,16 @@ class CasePlanServiceProvisionViewContainer extends StatelessWidget {
     required this.formSectionColor,
     required this.domainId,
     required this.isCasePlanForHousehold,
-    required this.shouldEditCaseGapFollowUps,
-    required this.shouldViewCaseGapFollowUp,
+    required this.shouldEditCaseGapServiceProvision,
+    required this.shoulViewCaseGapServiceProvision,
   }) : super(key: key);
 
   final List<dynamic> casePlanGaps;
   final Color? formSectionColor;
   final String? domainId;
   final bool isCasePlanForHousehold;
-  final bool shouldEditCaseGapFollowUps;
-  final bool shouldViewCaseGapFollowUp;
+  final bool shouldEditCaseGapServiceProvision;
+  final bool shoulViewCaseGapServiceProvision;
 
   @override
   Widget build(BuildContext context) {
@@ -36,8 +36,10 @@ class CasePlanServiceProvisionViewContainer extends StatelessWidget {
               casePlanGap: casePlanGap,
               isCasePlanForHousehold: isCasePlanForHousehold,
               formSectionColor: formSectionColor,
-              shouldEditCaseGapFollowUps: shouldEditCaseGapFollowUps,
-              shouldViewCaseGapFollowUp: shouldViewCaseGapFollowUp,
+              shouldEditCaseGapServiceProvision:
+                  shouldEditCaseGapServiceProvision,
+              shoulViewCaseGapServiceProvision:
+                  shoulViewCaseGapServiceProvision,
             ),
           );
         }).toList(),

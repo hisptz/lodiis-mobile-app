@@ -58,9 +58,8 @@ class OrganisationUnitPathOfflineProvider extends OfflineDbProvider {
     return organisationUnitIds.toList().toSet().toList();
   }
 
-// TODO remove typos
   Future<String?> getOrganiationUnitPath(String? organisationUnitId) async {
-    String? organisationunitPath = "";
+    String? organisationUnitPath = "";
     try {
       var dbClient = await db;
       List<Map> maps = await dbClient!.query(
@@ -70,11 +69,11 @@ class OrganisationUnitPathOfflineProvider extends OfflineDbProvider {
         whereArgs: [organisationUnitId],
       );
       if (maps.isNotEmpty) {
-        organisationunitPath = maps.first["path"];
+        organisationUnitPath = maps.first["path"];
       }
     } catch (error) {
       print("getOrganiationUnitPath : ${error.toString()}");
     }
-    return organisationunitPath;
+    return organisationUnitPath;
   }
 }

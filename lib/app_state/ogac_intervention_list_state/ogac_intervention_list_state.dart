@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:kb_mobile_app/core/constants/pagination.dart';
 import 'package:kb_mobile_app/core/services/pagination_service.dart';
@@ -15,7 +16,6 @@ class OgacInterventionListState with ChangeNotifier {
   String _searchableValue = '';
 
   PagingController? _pagingController;
-
   bool get isLoading => _isLoading ?? false;
 
   int get numberOfOgac => _numberOfOgac;
