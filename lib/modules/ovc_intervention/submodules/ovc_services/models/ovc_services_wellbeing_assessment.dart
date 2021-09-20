@@ -315,7 +315,7 @@ class OvcServicesWellbeingAssessment {
                 labelColor: Color(0xFF284227)),
             InputField(
                 id: 'YKuTfp8LIRr',
-                name: '50. Did the child miss more than three school days?',
+                name: '50. During the last month did you miss more than three days of school or vocational training?',
                 translatedName:
                     '50. Na ngoana o hlotsoe ke sekolo matsatsi a fetang a mararo?',
                 valueType: 'BOOLEAN',
@@ -476,7 +476,7 @@ class OvcServicesWellbeingAssessment {
             InputField(
                 id: 'aaERjQ9jSZn',
                 name:
-                    '53. In the past month, has the child ever gone to be hungry?',
+                    '53. In the past month have you ever gone a whole day or night without eating anything at all because there was not enough food?',
                 translatedName:
                     '53. Na ngoana o kile a robala a sa ja khoeling e fetileng?',
                 valueType: 'BOOLEAN',
@@ -606,7 +606,7 @@ class OvcServicesWellbeingAssessment {
             InputField(
                 id: 'Vc7Q23oTNhu',
                 name:
-                    '59. OVC has an illness or disability that you would like to share with me?',
+                    '59. Do you have a chronic illness that you would like to share with me?',
                 translatedName:
                     '59. ngoana o na le bokuli kapa bokooa boo u ka ratang ho mpolella ka bona?',
                 valueType: 'BOOLEAN',
