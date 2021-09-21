@@ -22,6 +22,11 @@ class InterventionSelectionHelper {
           .where((interventionProgram) => interventionProgram.id == 'ogac')
           .toList());
     }
+    //@TODO Adding access controll for user for PP prev and education  module
+    interventionPrograms.addAll(interventionProgramList
+        .where((interventionProgram) => interventionProgram.id == 'pp_prev')
+        .toList());
+
     return interventionPrograms;
   }
 }
