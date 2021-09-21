@@ -13,9 +13,10 @@ import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/dreams_intervention.dart';
 import 'package:kb_mobile_app/modules/intervention_selection/components/Intervention_selection_list.dart';
 import 'package:kb_mobile_app/modules/intervention_selection/components/intervention_selection_button.dart';
-import 'package:kb_mobile_app/modules/intervention_selection/utils/intervention_selection_helper.dart';
+import 'package:kb_mobile_app/core/utils/intervention_selection_helper.dart';
 import 'package:kb_mobile_app/modules/ogac_intervention/ogac_intervention.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/ovc_intervention.dart';
+import 'package:kb_mobile_app/modules/pp_prev_intervention/pp_prev_intervention.dart';
 import 'package:provider/provider.dart';
 
 class InterventionSelectionContainer extends StatefulWidget {
@@ -103,18 +104,23 @@ class _InterventionSelectionContainerState
       interventionCardState
           .setCurrentInterventionProgram(activeInterventionProgram!);
       Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-              builder: (context) => activeInterventionProgram!.id == 'ovc'
-                  ? OvcIntervention()
-                  : activeInterventionProgram!.id == 'dreams'
-                      ? DreamsIntervention()
-                      : activeInterventionProgram!.id == 'ogac'
-                          ? OgacIntervention()
+        context,
+        MaterialPageRoute(
+          builder: (context) => activeInterventionProgram!.id == 'ovc'
+              ? OvcIntervention()
+              : activeInterventionProgram!.id == 'dreams'
+                  ? DreamsIntervention()
+                  : activeInterventionProgram!.id == 'ogac'
+                      ? OgacIntervention()
+                      : activeInterventionProgram!.id == 'pp_prev'
+                          ? PpPrevIntervention()
                           : RoutePageNotFound(
                               pageTitle:
                                   '${activeInterventionProgram!.name} is not found',
-                              color: activeInterventionProgram!.primaryColor)));
+                              color: activeInterventionProgram!.primaryColor,
+                            ),
+        ),
+      );
     }
   }
 
