@@ -37,6 +37,14 @@ class InterventionCard {
     this.countLabelColor,
   });
 
+  static List<String> getInterventionIds() {
+    return getInterventions()
+        .map((InterventionCard interventionCard) => interventionCard.id!)
+        .toList()
+        .toSet()
+        .toList();
+  }
+
   static List<InterventionCard> getInterventions() {
     return [
       InterventionCard(
