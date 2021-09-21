@@ -4,6 +4,7 @@ import 'package:kb_mobile_app/app_state/language_translation_state/language_tran
 import 'package:kb_mobile_app/core/components/line_separator.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/models/intervention_pop_action_menu.dart';
+import 'package:kb_mobile_app/core/utils/intervention_selection_helper.dart';
 import 'package:provider/provider.dart';
 
 class InterventionPopUpMenu extends StatelessWidget {
@@ -33,31 +34,9 @@ class InterventionPopUpMenu extends StatelessWidget {
                 List<InterventionPopActionMenu> popUpMenus =
                     InterventionPopActionMenu
                         .getDefaultInterventionPopActionMenus();
-                List<InterventionCard> interventionPrograms = [];
-                if (currentUserState.canManageOvc) {
-                  interventionPrograms.addAll(
-                    InterventionCard.getInterventions()
-                        .where((interventionProgram) =>
-                            interventionProgram.id == 'ovc')
-                        .toList(),
-                  );
-                }
-                if (currentUserState.canManageDreams) {
-                  interventionPrograms.addAll(
-                    InterventionCard.getInterventions()
-                        .where((interventionProgram) =>
-                            interventionProgram.id == 'dreams')
-                        .toList(),
-                  );
-                }
-                if (currentUserState.canManageOGAC) {
-                  interventionPrograms.addAll(
-                    InterventionCard.getInterventions()
-                        .where((interventionProgram) =>
-                            interventionProgram.id == 'ogac')
-                        .toList(),
-                  );
-                }
+                List<InterventionCard> interventionPrograms =
+                    InterventionSelectionHelper.getInterventionSelections(
+                        InterventionCard.getInterventions(), currentUserState);
                 popUpMenus.addAll(
                   interventionPrograms.map(
                     (interventionProgram) {

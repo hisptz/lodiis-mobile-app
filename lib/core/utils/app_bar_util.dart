@@ -19,6 +19,7 @@ import 'package:kb_mobile_app/modules/language_selection/language_selection.dart
 import 'package:kb_mobile_app/modules/login/login.dart';
 import 'package:kb_mobile_app/modules/ogac_intervention/ogac_intervention.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/ovc_intervention.dart';
+import 'package:kb_mobile_app/modules/pp_prev_intervention/pp_prev_intervention.dart';
 import 'package:kb_mobile_app/modules/synchronization/synchronization.dart';
 import 'package:provider/provider.dart';
 
@@ -35,9 +36,8 @@ class AppBarUtil {
     );
     var response = await AppUtil.showPopUpModal(context, modal, false);
     if (response != null) {
-      if (response.id == 'dreams' ||
-          response.id == 'ovc' ||
-          response.id == 'ogac') {
+      List<String> interventionIds = InterventionCard.getInterventionIds();
+      if (interventionIds.indexOf(response.id) > -1) {
         await _onSwitchToIntervention(context, response.id);
       } else if (response.id == 'logout') {
         onLogOut(context);
@@ -108,7 +108,10 @@ class AppBarUtil {
   }
 
   static Future<void> _onSwitchToIntervention(
-      BuildContext context, String? id) async {
+    BuildContext context,
+    String? id,
+  ) async {
+    //@TODO support to switch to other interventiosn
     if (id == 'ovc') {
       await Provider.of<OvcInterventionListState>(context, listen: false)
           .refreshOvcNumber();
@@ -124,6 +127,11 @@ class AppBarUtil {
     } else if (id == 'ogac') {
       await Provider.of<OgacInterventionListState>(context, listen: false)
           .refreshOgacNumber();
+    } else if (id == 'ogac') {
+      await Provider.of<OgacInterventionListState>(context, listen: false)
+          .refreshOgacNumber();
+    } else if (id == 'pp_prev') {
+      //@TODO refresg list of pp orev module
     }
     Provider.of<InterventionCardState>(context, listen: false)
         .setCurrentInterventionProgramId(id);
@@ -139,7 +147,9 @@ class AppBarUtil {
                 ? OvcIntervention()
                 : id == 'ogac'
                     ? OgacIntervention()
-                    : DreamsIntervention();
+                    : id == 'pp_prev'
+                        ? PpPrevIntervention()
+                        : DreamsIntervention();
           },
         ),
       );

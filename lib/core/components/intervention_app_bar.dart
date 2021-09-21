@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
 import 'package:flutter_svg/svg.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_bottom_navigation_state/intervention_bottom_navigation_state.dart';
@@ -14,21 +13,23 @@ import 'package:provider/provider.dart';
 import 'package:rxdart/rxdart.dart';
 
 class InterventionAppBar extends StatefulWidget {
-  const InterventionAppBar(
-      {Key? key,
-      required this.activeInterventionProgram,
-      this.onClickHome,
-      this.onAddHousehold,
-      this.onOpenMoreMenu,
-      this.onAddAgywBeneficiary,
-      this.onAddNoneAgywBeneficiary,
-      this.onAddOgacBeneficiary})
-      : super(key: key);
+  const InterventionAppBar({
+    Key? key,
+    required this.activeInterventionProgram,
+    this.onClickHome,
+    this.onAddHousehold,
+    this.onOpenMoreMenu,
+    this.onAddAgywBeneficiary,
+    this.onAddNoneAgywBeneficiary,
+    this.onAddPpPrevBeneficiary,
+    this.onAddOgacBeneficiary,
+  }) : super(key: key);
 
   final InterventionCard activeInterventionProgram;
   final VoidCallback? onAddHousehold;
   final VoidCallback? onAddAgywBeneficiary;
   final VoidCallback? onAddNoneAgywBeneficiary;
+  final VoidCallback? onAddPpPrevBeneficiary;
   final VoidCallback? onAddOgacBeneficiary;
   final VoidCallback? onClickHome;
   final VoidCallback? onOpenMoreMenu;
@@ -71,6 +72,7 @@ class _InterventionAppBarState extends State<InterventionAppBar> {
     } else if (widget.activeInterventionProgram.id == 'ovc') {
       Provider.of<OvcInterventionListState>(context, listen: false)
           .refreshOvcNumber();
+      //@TODO refereshing listing for other interventions
     }
   }
 
@@ -81,6 +83,7 @@ class _InterventionAppBarState extends State<InterventionAppBar> {
   }
 
   void onSearchBeneficiary(BuildContext context, String value) {
+    //@TODO adding logics for seaching othetr interventions
     _searchedValued
         .debounce((_) => TimerStream(true, Duration(milliseconds: 500)))
         .listen((searchedValue) async {
@@ -200,8 +203,10 @@ class _InterventionAppBarState extends State<InterventionAppBar> {
                         .getCurrentInterventionBottomNavigation(
                   widget.activeInterventionProgram,
                 );
+                //@TODO Adding visibility of other interventions selection [Education]
                 return Visibility(
-                  visible: widget.activeInterventionProgram.id == 'ogac' ||
+                  visible: widget.activeInterventionProgram.id == 'pp_prev' ||
+                      widget.activeInterventionProgram.id == 'ogac' ||
                       currentInterventionBottomNavigation != null &&
                           (currentInterventionBottomNavigation.id ==
                                   'enrollment' ||
@@ -210,10 +215,7 @@ class _InterventionAppBarState extends State<InterventionAppBar> {
                   child: Container(
                     child: IconButton(
                       icon: SvgPicture.asset(
-                        widget.activeInterventionProgram.id == 'dreams' ||
-                                widget.activeInterventionProgram.id == 'ogac'
-                            ? 'assets/icons/add-beneficiary.svg'
-                            : 'assets/icons/add-house-hold.svg',
+                        widget.activeInterventionProgram.enrollmentIcon!,
                       ),
                       onPressed: currentInterventionBottomNavigation.id ==
                               'noneAgyw'
@@ -222,7 +224,10 @@ class _InterventionAppBarState extends State<InterventionAppBar> {
                               ? widget.onAddAgywBeneficiary
                               : widget.activeInterventionProgram.id == 'ogac'
                                   ? widget.onAddOgacBeneficiary
-                                  : widget.onAddHousehold,
+                                  : widget.activeInterventionProgram.id ==
+                                          'pp_prev'
+                                      ? widget.onAddPpPrevBeneficiary
+                                      : widget.onAddHousehold,
                     ),
                   ),
                 );
