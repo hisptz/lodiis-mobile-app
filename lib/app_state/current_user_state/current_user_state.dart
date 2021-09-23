@@ -13,6 +13,8 @@ class CurrentUserState with ChangeNotifier {
   List<String?>? _currentUserCountryLevelReferences;
   bool? _canCurrentUserDoDataEntry;
   bool? _canManageDreams;
+  bool? _canManageEducation;
+  bool? _canManagePpPrev;
   bool? _canManageOGAC;
   bool? _canManageOvc;
   bool? _canManageNoneAgyw;
@@ -45,6 +47,8 @@ class CurrentUserState with ChangeNotifier {
   List<String?> get currentUserCountryLevelReferences =>
       _currentUserCountryLevelReferences ?? [];
   bool get canManageDreams => _canManageDreams ?? false;
+  bool get canManageEducation => _canManageEducation ?? false;
+  bool get canManagePpPrev => _canManagePpPrev ?? false;
   bool get canManageOGAC => _canManageOGAC ?? false;
   bool get canManageOvc => _canManageOvc ?? false;
   bool get canManageNoneAgyw => _canManageNoneAgyw ?? false;
@@ -73,6 +77,10 @@ class CurrentUserState with ChangeNotifier {
     try {
       _canManageDreams = userAccesses.containsKey('canManageDreams') &&
           userAccesses['canManageDreams'] == true;
+      _canManageEducation = userAccesses.containsKey('canManageEducation') &&
+          userAccesses['canManageEducation'] == true;
+      _canManagePpPrev = userAccesses.containsKey('canManagePpPrev') &&
+          userAccesses['canManagePpPrev'] == true;
       _canManageOGAC = userAccesses.containsKey('canManageOGAC') &&
           userAccesses['canManageOGAC'] == true;
       _canManageOvc = userAccesses.containsKey('canManageOvc') &&
