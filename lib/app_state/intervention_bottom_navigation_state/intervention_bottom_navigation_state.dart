@@ -34,7 +34,9 @@ class InterventionBottomNavigationState with ChangeNotifier {
       activeInterventionProgram,
     );
     InterventionBottomNavigation interventionBottomNavigation =
-        interventionBottomNavigations[0];
+        interventionBottomNavigations.isNotEmpty
+            ? interventionBottomNavigations[0]
+            : InterventionBottomNavigation(id: "", name: "");
     if (_currentInterventionBottomNavigationId != null) {
       var filteredList = interventionBottomNavigations
           .where((nav) => nav.id == _currentInterventionBottomNavigationId)
