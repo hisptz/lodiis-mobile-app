@@ -15,6 +15,7 @@ import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/about_app/about_app.dart';
 import 'package:kb_mobile_app/modules/app_logs/app_logs_page.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/dreams_intervention.dart';
+import 'package:kb_mobile_app/modules/education_intervention/education_intervention.dart';
 import 'package:kb_mobile_app/modules/language_selection/language_selection.dart';
 import 'package:kb_mobile_app/modules/login/login.dart';
 import 'package:kb_mobile_app/modules/ogac_intervention/ogac_intervention.dart';
@@ -111,7 +112,6 @@ class AppBarUtil {
     BuildContext context,
     String? id,
   ) async {
-    //@TODO support to switch to other interventiosn
     if (id == 'ovc') {
       await Provider.of<OvcInterventionListState>(context, listen: false)
           .refreshOvcNumber();
@@ -132,6 +132,8 @@ class AppBarUtil {
           .refreshOgacNumber();
     } else if (id == 'pp_prev') {
       //@TODO refresg list of pp orev module
+    } else if (id == 'education') {
+      //@TODO refresg list of education module
     }
     Provider.of<InterventionCardState>(context, listen: false)
         .setCurrentInterventionProgramId(id);
@@ -149,7 +151,9 @@ class AppBarUtil {
                     ? OgacIntervention()
                     : id == 'pp_prev'
                         ? PpPrevIntervention()
-                        : DreamsIntervention();
+                        : id == 'education'
+                            ? EducationIntervention()
+                            : DreamsIntervention();
           },
         ),
       );

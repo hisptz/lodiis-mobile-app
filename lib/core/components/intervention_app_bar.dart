@@ -123,11 +123,13 @@ class _InterventionAppBarState extends State<InterventionAppBar> {
                         padding: EdgeInsets.symmetric(
                             vertical: 9.0, horizontal: 13.5),
                         decoration: BoxDecoration(
-                            color: Colors.transparent,
-                            borderRadius: BorderRadius.circular(14),
-                            border: Border.all(
-                                color: widget
-                                    .activeInterventionProgram.svgIconColor!)),
+                          color: Colors.transparent,
+                          borderRadius: BorderRadius.circular(14),
+                          border: Border.all(
+                            color:
+                                widget.activeInterventionProgram.svgIconColor!,
+                          ),
+                        ),
                         child: Row(
                           children: [
                             Container(
@@ -171,7 +173,8 @@ class _InterventionAppBarState extends State<InterventionAppBar> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10.0),
                   border: Border.all(
-                      color: widget.activeInterventionProgram.svgIconColor!),
+                    color: widget.activeInterventionProgram.svgIconColor!,
+                  ),
                 ),
                 child: TextInputFieldContainer(
                   inputField: inputField,
@@ -206,6 +209,7 @@ class _InterventionAppBarState extends State<InterventionAppBar> {
                 //@TODO Adding visibility of other interventions selection [Education]
                 return Visibility(
                   visible: widget.activeInterventionProgram.id == 'pp_prev' ||
+                      widget.activeInterventionProgram.id == 'education' ||
                       widget.activeInterventionProgram.id == 'ogac' ||
                       currentInterventionBottomNavigation != null &&
                           (currentInterventionBottomNavigation.id ==
@@ -217,6 +221,7 @@ class _InterventionAppBarState extends State<InterventionAppBar> {
                       icon: SvgPicture.asset(
                         widget.activeInterventionProgram.enrollmentIcon!,
                       ),
+                      //@TODO handling logics for adding sub modules in educatioj module
                       onPressed: currentInterventionBottomNavigation.id ==
                               'noneAgyw'
                           ? widget.onAddNoneAgywBeneficiary
@@ -227,7 +232,11 @@ class _InterventionAppBarState extends State<InterventionAppBar> {
                                   : widget.activeInterventionProgram.id ==
                                           'pp_prev'
                                       ? widget.onAddPpPrevBeneficiary
-                                      : widget.onAddHousehold,
+                                      : widget.activeInterventionProgram.id ==
+                                              "ovc"
+                                          ? widget.onAddHousehold
+                                          : () =>
+                                              {print("Not supported function")},
                     ),
                   ),
                 );

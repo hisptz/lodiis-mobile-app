@@ -21,6 +21,8 @@ class InterventionBottomNavigationBar extends StatelessWidget {
   final InterventionCard activeInterventionProgram;
   final String? currentLanguage;
 
+  //@TODO handling tabs for Education modules
+
   void onTap(BuildContext context, int index, String? id) {
     Provider.of<InterventionBottomNavigationState>(context, listen: false)
         .setCurrentInterventionBottomNavigationStatus(index, id);

@@ -102,6 +102,10 @@ class _InterventionSelectionState extends State<InterventionSelection> {
                                         ogacInterventionListState.numberOfOgac;
                                     bool isOgacListLoading =
                                         ogacInterventionListState.isLoading;
+                                    //@TODO loadig status and count for education and pp prev modules using state for listing
+                                    int numberPpPrev = 0;
+                                    int numberEducationLbse = 0;
+                                    int numberEducationBursary = 0;
                                     return Container(
                                       child: isDreamsListLoading ||
                                               isOvcListLoading ||
@@ -120,6 +124,11 @@ class _InterventionSelectionState extends State<InterventionSelection> {
                                                   numberOfNoneAgywDreamsBeneficiaries,
                                               numberOfOvcs: numberOfOvcs,
                                               numberOfOgac: numberOfOgac,
+                                              numberPpPrev: numberPpPrev,
+                                              numberEducationLbse:
+                                                  numberEducationLbse,
+                                              numberEducationBursary:
+                                                  numberEducationBursary,
                                             ),
                                     );
                                   },
