@@ -17,6 +17,7 @@ class InterventionCard {
   Color? nameColor;
   Color? countLabelColor;
   Color? countColor;
+  List<String>? supportedTabs;
 
   InterventionCard({
     this.id,
@@ -35,6 +36,7 @@ class InterventionCard {
     this.nameColor,
     this.countColor,
     this.countLabelColor,
+    this.supportedTabs,
   });
 
   static List<String> getInterventionIds() {
@@ -62,6 +64,13 @@ class InterventionCard {
         nameColor: Color(0xFF4B9F46),
         countColor: Color(0xFF4B9F46).withOpacity(0.8),
         countLabelColor: Color(0xFF4B9F46).withOpacity(0.3),
+        supportedTabs: [
+          "services",
+          "referral",
+          "enrollment",
+          "exit",
+          "records"
+        ],
       ),
       InterventionCard(
         id: 'dreams',
@@ -78,6 +87,13 @@ class InterventionCard {
         nameColor: Color(0xFF1C7AB2),
         countColor: Color(0xFF1C7AB2).withOpacity(0.8),
         countLabelColor: Color(0xFF1C7AB2).withOpacity(0.3),
+        supportedTabs: [
+          "services",
+          "outGoingreferral",
+          "incomingReferral",
+          "enrollment",
+          "noneAgyw"
+        ],
       ),
       InterventionCard(
         id: 'ogac',
@@ -94,6 +110,7 @@ class InterventionCard {
         nameColor: Color(0xFFF05A2A),
         countColor: Color(0xFFF05A2A).withOpacity(0.8),
         countLabelColor: Color(0xFFF05A2A).withOpacity(0.3),
+        supportedTabs: [],
       ),
       InterventionCard(
         id: 'education',
@@ -110,6 +127,7 @@ class InterventionCard {
         nameColor: Color(0xFF2D9688),
         countColor: Color(0xFF2D9688).withOpacity(0.8),
         countLabelColor: Color(0xFF2D9688).withOpacity(0.3),
+        supportedTabs: ["lbse", "bursary"],
       ),
       InterventionCard(
         id: 'pp_prev',
@@ -126,6 +144,7 @@ class InterventionCard {
         nameColor: Color(0xFF9B2BAE),
         countColor: Color(0xFF9B2BAE).withOpacity(0.8),
         countLabelColor: Color(0xFF9B2BAE).withOpacity(0.3),
+        supportedTabs: [],
       ),
     ];
   }
