@@ -22,14 +22,14 @@ class InterventionSelectionHelper {
           .where((interventionProgram) => interventionProgram.id == 'ogac')
           .toList());
     }
-    if (currentUserState.canManagePpPrev) {
-      interventionPrograms.addAll(interventionProgramList
-          .where((interventionProgram) => interventionProgram.id == 'pp_prev')
-          .toList());
-    }
     if (currentUserState.canManageEducation) {
       interventionPrograms.addAll(interventionProgramList
           .where((interventionProgram) => interventionProgram.id == 'education')
+          .toList());
+    }
+    if (currentUserState.canManagePpPrev) {
+      interventionPrograms.addAll(interventionProgramList
+          .where((interventionProgram) => interventionProgram.id == 'pp_prev')
           .toList());
     }
     return interventionPrograms;
