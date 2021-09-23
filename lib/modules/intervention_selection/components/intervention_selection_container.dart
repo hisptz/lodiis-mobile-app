@@ -11,6 +11,7 @@ import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/route_page_not_found.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/dreams_intervention.dart';
+import 'package:kb_mobile_app/modules/education_intervention/education_intervention.dart';
 import 'package:kb_mobile_app/modules/intervention_selection/components/Intervention_selection_list.dart';
 import 'package:kb_mobile_app/modules/intervention_selection/components/intervention_selection_button.dart';
 import 'package:kb_mobile_app/core/utils/intervention_selection_helper.dart';
@@ -29,6 +30,9 @@ class InterventionSelectionContainer extends StatefulWidget {
     required this.numberOfHouseholds,
     required this.numberOfOvcs,
     required this.numberOfOgac,
+    required this.numberPpPrev,
+    required this.numberEducationLbse,
+    required this.numberEducationBursary,
   }) : super(key: key);
 
   final List<InterventionCard> interventionPrograms;
@@ -38,6 +42,9 @@ class InterventionSelectionContainer extends StatefulWidget {
   final int numberOfHouseholds;
   final int numberOfOvcs;
   final int numberOfOgac;
+  final int numberPpPrev;
+  final int numberEducationBursary;
+  final int numberEducationLbse;
 
   @override
   _InterventionSelectionContainerState createState() =>
@@ -114,11 +121,14 @@ class _InterventionSelectionContainerState
                       ? OgacIntervention()
                       : activeInterventionProgram!.id == 'pp_prev'
                           ? PpPrevIntervention()
-                          : RoutePageNotFound(
-                              pageTitle:
-                                  '${activeInterventionProgram!.name} is not found',
-                              color: activeInterventionProgram!.primaryColor,
-                            ),
+                          : activeInterventionProgram!.id == 'education'
+                              ? EducationIntervention()
+                              : RoutePageNotFound(
+                                  pageTitle:
+                                      '${activeInterventionProgram!.name} is not found',
+                                  color:
+                                      activeInterventionProgram!.primaryColor,
+                                ),
         ),
       );
     }
@@ -198,6 +208,9 @@ class _InterventionSelectionContainerState
                           numberOfHouseholds: widget.numberOfHouseholds,
                           numberOfOvcs: widget.numberOfOvcs,
                           numberOfOgac: widget.numberOfOgac,
+                          numberPpPrev: widget.numberPpPrev,
+                          numberEducationLbse: widget.numberEducationLbse,
+                          numberEducationBursary: widget.numberEducationBursary,
                         ),
                       ),
                       InterventionSelectionButton(
