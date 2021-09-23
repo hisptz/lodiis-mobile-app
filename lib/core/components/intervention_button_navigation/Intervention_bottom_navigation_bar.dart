@@ -50,11 +50,14 @@ class InterventionBottomNavigationBar extends StatelessWidget {
     }
   }
 
+  //@TODO refactor this widget to support generic pages
+
   @override
   Widget build(BuildContext context) {
     List<InterventionBottomNavigation> interventionBottomNavigations =
         InterventionBottomNavigation.getInterventionNavigationButtons(
-            activeInterventionProgram);
+      activeInterventionProgram,
+    );
     return Consumer<InterventionCardState>(
       builder: (context, interventionCardState, child) {
         return Consumer<InterventionBottomNavigationState>(
@@ -63,23 +66,12 @@ class InterventionBottomNavigationBar extends StatelessWidget {
               builder: (context, currentUserState, child) {
                 bool isCurrentUserKbDreamPartner =
                     currentUserState.isCurrentUserKbDreamPartner;
-                if (!currentUserState.canManageReferral) {
-                  interventionBottomNavigations = interventionBottomNavigations
-                      .where((nav) =>
-                          nav.id != 'referral' || nav.id != 'incomingReferral')
-                      .toList();
-                }
-                if (!currentUserState.canManageNoneAgyw) {
-                  interventionBottomNavigations = interventionBottomNavigations
-                      .where((nav) => nav.id != 'noneAgyw')
-                      .toList();
-                }
-                if (interventionCardState.currentInterventionProgram.id !=
-                    'dreams') {
-                  interventionBottomNavigations = interventionBottomNavigations
-                      .where((nav) => nav.id != 'incomingReferral')
-                      .toList();
-                }
+                interventionBottomNavigations =
+                    _getSanitizedInterventionsByCurrentUserAccess(
+                  currentUserState,
+                  interventionBottomNavigations,
+                  interventionCardState,
+                );
                 int currentIndex = interventionBottomNavigationState
                     .currentInterventionBottomNavigationIndex;
                 InterventionBottomNavigation
@@ -193,6 +185,29 @@ class InterventionBottomNavigationBar extends StatelessWidget {
         );
       },
     );
+  }
+
+  List<InterventionBottomNavigation>
+      _getSanitizedInterventionsByCurrentUserAccess(
+          CurrentUserState currentUserState,
+          List<InterventionBottomNavigation> interventionBottomNavigations,
+          InterventionCardState interventionCardState) {
+    if (!currentUserState.canManageReferral) {
+      interventionBottomNavigations = interventionBottomNavigations
+          .where((nav) => nav.id != 'referral' || nav.id != 'incomingReferral')
+          .toList();
+    }
+    if (!currentUserState.canManageNoneAgyw) {
+      interventionBottomNavigations = interventionBottomNavigations
+          .where((nav) => nav.id != 'noneAgyw')
+          .toList();
+    }
+    if (interventionCardState.currentInterventionProgram.id != 'dreams') {
+      interventionBottomNavigations = interventionBottomNavigations
+          .where((nav) => nav.id != 'incomingReferral')
+          .toList();
+    }
+    return interventionBottomNavigations;
   }
 }
 
