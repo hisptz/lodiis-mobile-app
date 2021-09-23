@@ -22,6 +22,8 @@ class InterventionAppBar extends StatefulWidget {
     this.onAddAgywBeneficiary,
     this.onAddNoneAgywBeneficiary,
     this.onAddPpPrevBeneficiary,
+    this.onAddLbseBeneficiary,
+    this.onAddBursaryBeneficiary,
     this.onAddOgacBeneficiary,
   }) : super(key: key);
 
@@ -30,6 +32,8 @@ class InterventionAppBar extends StatefulWidget {
   final VoidCallback? onAddAgywBeneficiary;
   final VoidCallback? onAddNoneAgywBeneficiary;
   final VoidCallback? onAddPpPrevBeneficiary;
+  final VoidCallback? onAddLbseBeneficiary;
+  final VoidCallback? onAddBursaryBeneficiary;
   final VoidCallback? onAddOgacBeneficiary;
   final VoidCallback? onClickHome;
   final VoidCallback? onOpenMoreMenu;
@@ -72,7 +76,10 @@ class _InterventionAppBarState extends State<InterventionAppBar> {
     } else if (widget.activeInterventionProgram.id == 'ovc') {
       Provider.of<OvcInterventionListState>(context, listen: false)
           .refreshOvcNumber();
-      //@TODO refereshing listing for other interventions
+    } else if (widget.activeInterventionProgram.id == 'pp_prev') {
+      //@TODO refereshing pp_prev interventions
+    } else if (widget.activeInterventionProgram.id == 'education') {
+      //@TODO refereshing education interventions
     }
   }
 
@@ -96,6 +103,10 @@ class _InterventionAppBarState extends State<InterventionAppBar> {
       } else if (widget.activeInterventionProgram.id == 'ovc') {
         Provider.of<OvcInterventionListState>(context, listen: false)
             .searchHousehold(searchedValue);
+      } else if (widget.activeInterventionProgram.id == 'pp_prev') {
+        //@TODO searching pp_prev interventions
+      } else if (widget.activeInterventionProgram.id == 'education') {
+        //@TODO searching education interventions
       }
     });
   }
@@ -206,7 +217,6 @@ class _InterventionAppBarState extends State<InterventionAppBar> {
                         .getCurrentInterventionBottomNavigation(
                   widget.activeInterventionProgram,
                 );
-                //@TODO Adding visibility of other interventions selection [Education]
                 return Visibility(
                   visible: widget.activeInterventionProgram.id == 'pp_prev' ||
                       widget.activeInterventionProgram.id == 'education' ||
@@ -221,22 +231,32 @@ class _InterventionAppBarState extends State<InterventionAppBar> {
                       icon: SvgPicture.asset(
                         widget.activeInterventionProgram.enrollmentIcon!,
                       ),
-                      //@TODO handling logics for adding sub modules in educatioj module
                       onPressed: currentInterventionBottomNavigation.id ==
                               'noneAgyw'
                           ? widget.onAddNoneAgywBeneficiary
-                          : widget.activeInterventionProgram.id == 'dreams'
-                              ? widget.onAddAgywBeneficiary
-                              : widget.activeInterventionProgram.id == 'ogac'
-                                  ? widget.onAddOgacBeneficiary
+                          : currentInterventionBottomNavigation.id == 'lbse'
+                              ? widget.onAddLbseBeneficiary
+                              : currentInterventionBottomNavigation.id ==
+                                      'bursary'
+                                  ? widget.onAddBursaryBeneficiary
                                   : widget.activeInterventionProgram.id ==
-                                          'pp_prev'
-                                      ? widget.onAddPpPrevBeneficiary
+                                          'dreams'
+                                      ? widget.onAddAgywBeneficiary
                                       : widget.activeInterventionProgram.id ==
-                                              "ovc"
-                                          ? widget.onAddHousehold
-                                          : () =>
-                                              {print("Not supported function")},
+                                              'ogac'
+                                          ? widget.onAddOgacBeneficiary
+                                          : widget.activeInterventionProgram
+                                                      .id ==
+                                                  'pp_prev'
+                                              ? widget.onAddPpPrevBeneficiary
+                                              : widget.activeInterventionProgram
+                                                          .id ==
+                                                      "ovc"
+                                                  ? widget.onAddHousehold
+                                                  : () => {
+                                                        print(
+                                                            "Not supported function")
+                                                      },
                     ),
                   ),
                 );

@@ -2,19 +2,30 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/current_user_state/current_user_state.dart';
+import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_bottom_navigation_state/intervention_bottom_navigation_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
-import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar_container.dart';
+import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/Intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/access_to_data_entry/access_to_data_entry_warning.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/intervention_app_bar.dart';
+import 'package:kb_mobile_app/core/components/route_page_not_found.dart';
 import 'package:kb_mobile_app/core/constants/auto_synchronization.dart';
 import 'package:kb_mobile_app/core/services/auto_synchronization_service.dart';
 import 'package:kb_mobile_app/core/services/data_quality_service.dart';
 import 'package:kb_mobile_app/core/services/device_connectivity_provider.dart';
+import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/utils/app_bar_util.dart';
+import 'package:kb_mobile_app/core/utils/app_resume_routes/app_resume_route.dart';
 import 'package:kb_mobile_app/models/Intervention_bottom_navigation.dart';
+import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
+import 'package:kb_mobile_app/modules/education_intervention/submodules/education_bursary/constants/bursary_routes_constant.dart';
+import 'package:kb_mobile_app/modules/education_intervention/submodules/education_bursary/education_bursary.dart';
+import 'package:kb_mobile_app/modules/education_intervention/submodules/education_bursary/pages/education_bursary_assessment_form.dart';
+import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/constants/lbse_routes_constant.dart';
+import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/education_lbse.dart';
+import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/pages/education_lbse_enrollment_form.dart';
 import 'package:provider/provider.dart';
 
 class EducationIntervention extends StatefulWidget {
@@ -68,7 +79,52 @@ class _EducationInterventionState extends State<EducationIntervention> {
     );
   }
 
-  //@TODO controll on adding LBSE and Bursary pages
+  void onAddLbseBeneficiary(BuildContext context) async {
+    String beneficiaryId = "";
+    String formAutoSaveId =
+        "${LbseRoutesConstant.enrollmentPageModule}_$beneficiaryId";
+    FormAutoSave formAutoSave =
+        await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
+    bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
+        .shouldResumeWithUnSavedChanges(context, formAutoSave);
+    if (shouldResumeWithUnSavedChanges) {
+      AppResumeRoute().redirectToPages(context, formAutoSave);
+    } else {
+      Provider.of<EnrollmentFormState>(context, listen: false).resetFormState();
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) {
+            return EducationLbseEnrollmentForm();
+          },
+        ),
+      );
+    }
+  }
+
+  void onAddBursaryBeneficiary(BuildContext context) async {
+    print("onAddBursaryBeneficiary");
+    String beneficiaryId = "";
+    String formAutoSaveId =
+        "${BursaryRoutesConstant.enrollmentPageModule}_$beneficiaryId";
+    FormAutoSave formAutoSave =
+        await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
+    bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
+        .shouldResumeWithUnSavedChanges(context, formAutoSave);
+    if (shouldResumeWithUnSavedChanges) {
+      AppResumeRoute().redirectToPages(context, formAutoSave);
+    } else {
+      Provider.of<EnrollmentFormState>(context, listen: false).resetFormState();
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) {
+            return EducationBursaryAssessmentForm();
+          },
+        ),
+      );
+    }
+  }
 
   void onClickHome() {}
 
@@ -85,6 +141,8 @@ class _EducationInterventionState extends State<EducationIntervention> {
               child: InterventionAppBar(
                 activeInterventionProgram: activeInterventionProgram,
                 onClickHome: onClickHome,
+                onAddLbseBeneficiary: () => onAddLbseBeneficiary(context),
+                onAddBursaryBeneficiary: () => onAddBursaryBeneficiary(context),
                 onOpenMoreMenu: () =>
                     onOpenMoreMenu(context, activeInterventionProgram),
               ),
@@ -125,12 +183,20 @@ class _EducationInterventionState extends State<EducationIntervention> {
                                           interventionBottomNavigationState
                                               .getCurrentInterventionBottomNavigation(
                                                   activeInterventionProgram);
-                                      //@TODO handling tabs selections
                                       return Container(
-                                        child: Text(
-                                          currentInterventionBottomNavigation
-                                              .name!,
-                                        ),
+                                        child: currentInterventionBottomNavigation
+                                                    .id ==
+                                                'lbse'
+                                            ? EducationLbse()
+                                            : currentInterventionBottomNavigation
+                                                        .id ==
+                                                    'bursary'
+                                                ? EducationBursary()
+                                                : RoutePageNotFound(
+                                                    pageTitle:
+                                                        currentInterventionBottomNavigation
+                                                            .id,
+                                                  ),
                                       );
                                     },
                                   ),
