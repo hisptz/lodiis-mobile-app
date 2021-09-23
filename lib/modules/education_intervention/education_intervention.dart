@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/current_user_state/current_user_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_bottom_navigation_state/intervention_bottom_navigation_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
+import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/access_to_data_entry/access_to_data_entry_warning.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/intervention_app_bar.dart';
@@ -139,7 +140,7 @@ class _EducationInterventionState extends State<EducationIntervention> {
                 );
               }),
             ),
-            // bottomNavigationBar: InterventionBottomNavigationBarContainer(),
+            bottomNavigationBar: InterventionBottomNavigationBarContainer(),
           );
         },
       ),
