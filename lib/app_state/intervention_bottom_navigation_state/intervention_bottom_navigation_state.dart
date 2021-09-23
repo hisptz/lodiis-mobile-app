@@ -31,7 +31,8 @@ class InterventionBottomNavigationState with ChangeNotifier {
       InterventionCard activeInterventionProgram) {
     List<InterventionBottomNavigation> interventionBottomNavigations =
         InterventionBottomNavigation.getInterventionNavigationButtons(
-            activeInterventionProgram);
+      activeInterventionProgram,
+    );
     InterventionBottomNavigation interventionBottomNavigation =
         interventionBottomNavigations[0];
     if (_currentInterventionBottomNavigationId != null) {

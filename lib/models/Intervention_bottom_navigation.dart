@@ -16,47 +16,66 @@ class InterventionBottomNavigation {
   static List<InterventionBottomNavigation>
       defaultInterventionNavigationButtons = [
     InterventionBottomNavigation(
-        id: 'services',
-        name: 'Services',
-        translatedName: 'Litsebeletso',
-        svgIcon: 'assets/icons/services-navigation-icon.svg'),
+      id: 'lbse',
+      name: 'LBSE',
+      svgIcon: 'assets/icons/lbse-navigation-icon.svg',
+    ),
     InterventionBottomNavigation(
-        id: 'referral',
-        name: 'Outgoing Referral',
-        svgIcon: 'assets/icons/referral-navigation-icon.svg'),
+      id: 'bursary',
+      name: 'Bursary',
+      svgIcon: 'assets/icons/bursary-navigation-icon.svg',
+    ),
     InterventionBottomNavigation(
-        id: 'incomingReferral',
-        name: 'Incoming Referral',
-        svgIcon: 'assets/icons/incoming-referral-navigation-icon.svg'),
+      id: 'services',
+      name: 'Services',
+      translatedName: 'Litsebeletso',
+      svgIcon: 'assets/icons/services-navigation-icon.svg',
+    ),
     InterventionBottomNavigation(
-        id: 'enrollment',
-        name: 'Enrollment',
-        translatedName: 'Ngoliso',
-        svgIcon: 'assets/icons/enrollment-navigation-icon.svg'),
+      id: 'referral',
+      name: 'Referral',
+      svgIcon: 'assets/icons/referral-navigation-icon.svg',
+    ),
     InterventionBottomNavigation(
-        id: 'exit',
-        name: 'Exit',
-        svgIcon: 'assets/icons/exit-navigation-icon.svg'),
+      id: 'outGoingreferral',
+      name: 'Outgoing Referral',
+      svgIcon: 'assets/icons/out-going-referral-navigation-icon.svg',
+    ),
     InterventionBottomNavigation(
-        id: 'records',
-        name: 'Records',
-        svgIcon: 'assets/icons/records-navigation-icon.svg'),
+      id: 'incomingReferral',
+      name: 'Incoming Referral',
+      svgIcon: 'assets/icons/incoming-referral-navigation-icon.svg',
+    ),
     InterventionBottomNavigation(
-        id: 'noneAgyw',
-        name: 'None AGYW',
-        svgIcon: 'assets/icons/none-agyw-navigation-icon.svg'),
+      id: 'enrollment',
+      name: 'Enrollment',
+      translatedName: 'Ngoliso',
+      svgIcon: 'assets/icons/enrollment-navigation-icon.svg',
+    ),
+    InterventionBottomNavigation(
+      id: 'exit',
+      name: 'Exit',
+      svgIcon: 'assets/icons/exit-navigation-icon.svg',
+    ),
+    InterventionBottomNavigation(
+      id: 'records',
+      name: 'Records',
+      svgIcon: 'assets/icons/records-navigation-icon.svg',
+    ),
+    InterventionBottomNavigation(
+      id: 'noneAgyw',
+      name: 'None AGYW',
+      svgIcon: 'assets/icons/none-agyw-navigation-icon.svg',
+    ),
   ];
 
   static List<InterventionBottomNavigation> getInterventionNavigationButtons(
-      InterventionCard activeInterventionProgram) {
+    InterventionCard activeInterventionProgram,
+  ) {
+    List<String> supportedTabs = activeInterventionProgram.supportedTabs!;
     return defaultInterventionNavigationButtons
         .where((InterventionBottomNavigation interventionBottomNavigation) {
-      return interventionBottomNavigation.id == 'records' ||
-              interventionBottomNavigation.id == 'exit'
-          ? activeInterventionProgram.id == 'ovc'
-          : interventionBottomNavigation.id == 'noneAgyw'
-              ? activeInterventionProgram.id == 'dreams'
-              : true;
+      return supportedTabs.indexOf(interventionBottomNavigation.id!) > -1;
     }).toList();
   }
 
