@@ -1,12 +1,9 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:kb_mobile_app/app_state/current_user_state/current_user_state.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_bottom_navigation_state/intervention_bottom_navigation_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
-import 'package:kb_mobile_app/app_state/referral_notification_state/referral_notification_state.dart';
+import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/intervention_bottom_navigation_icon.dart';
 import 'package:kb_mobile_app/models/Intervention_bottom_navigation.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:provider/provider.dart';
@@ -50,11 +47,34 @@ class InterventionBottomNavigationBar extends StatelessWidget {
     }
   }
 
+  List<InterventionBottomNavigation>
+      _getSanitizedInterventionsByCurrentUserAccess(
+          CurrentUserState currentUserState,
+          List<InterventionBottomNavigation> interventionBottomNavigations,
+          InterventionCardState interventionCardState) {
+    if (!currentUserState.canManageReferral) {
+      interventionBottomNavigations = interventionBottomNavigations
+          .where((nav) =>
+              nav.id != 'referral' ||
+              nav.id != 'outGoingreferral' ||
+              nav.id != 'incomingReferral')
+          .toList();
+    }
+    if (!currentUserState.canManageNoneAgyw) {
+      interventionBottomNavigations = interventionBottomNavigations
+          .where((nav) => nav.id != 'noneAgyw')
+          .toList();
+    }
+    return interventionBottomNavigations;
+  }
+
   @override
   Widget build(BuildContext context) {
     List<InterventionBottomNavigation> interventionBottomNavigations =
         InterventionBottomNavigation.getInterventionNavigationButtons(
-            activeInterventionProgram);
+      activeInterventionProgram,
+    );
+
     return Consumer<InterventionCardState>(
       builder: (context, interventionCardState, child) {
         return Consumer<InterventionBottomNavigationState>(
@@ -63,23 +83,12 @@ class InterventionBottomNavigationBar extends StatelessWidget {
               builder: (context, currentUserState, child) {
                 bool isCurrentUserKbDreamPartner =
                     currentUserState.isCurrentUserKbDreamPartner;
-                if (!currentUserState.canManageReferral) {
-                  interventionBottomNavigations = interventionBottomNavigations
-                      .where((nav) =>
-                          nav.id != 'referral' || nav.id != 'incomingReferral')
-                      .toList();
-                }
-                if (!currentUserState.canManageNoneAgyw) {
-                  interventionBottomNavigations = interventionBottomNavigations
-                      .where((nav) => nav.id != 'noneAgyw')
-                      .toList();
-                }
-                if (interventionCardState.currentInterventionProgram.id !=
-                    'dreams') {
-                  interventionBottomNavigations = interventionBottomNavigations
-                      .where((nav) => nav.id != 'incomingReferral')
-                      .toList();
-                }
+                interventionBottomNavigations =
+                    _getSanitizedInterventionsByCurrentUserAccess(
+                  currentUserState,
+                  interventionBottomNavigations,
+                  interventionCardState,
+                );
                 int currentIndex = interventionBottomNavigationState
                     .currentInterventionBottomNavigationIndex;
                 InterventionBottomNavigation
@@ -87,18 +96,19 @@ class InterventionBottomNavigationBar extends StatelessWidget {
                     interventionBottomNavigationState
                         .getCurrentInterventionBottomNavigation(
                             activeInterventionProgram);
-
                 return Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
                   children: interventionBottomNavigations.map((
                     InterventionBottomNavigation interventionBottomNavigation,
                   ) {
                     int index = interventionBottomNavigations
                         .indexOf(interventionBottomNavigation);
+                    double tabsWidth = MediaQuery.of(context).size.width /
+                        interventionBottomNavigations.length;
                     return Container(
-                      width: MediaQuery.of(context).size.width /
-                          interventionBottomNavigations.length,
+                      width: tabsWidth > 90.0 ? 90.0 : tabsWidth,
                       child: InkWell(
                         onTap: () => onTap(
                             context, index, interventionBottomNavigation.id),
@@ -156,16 +166,8 @@ class InterventionBottomNavigationBar extends StatelessWidget {
                                                         .id ==
                                                     "noneAgyw"
                                             ? "KB PrEP"
-                                            : interventionCardState
-                                                            .currentInterventionProgram
-                                                            .id !=
-                                                        'dreams' &&
-                                                    interventionBottomNavigation
-                                                            .id ==
-                                                        "referral"
-                                                ? 'Referral'
-                                                : interventionBottomNavigation
-                                                    .name!,
+                                            : interventionBottomNavigation
+                                                .name!,
                                     style: TextStyle(
                                       fontSize: 10,
                                       fontWeight: FontWeight.bold,
@@ -192,97 +194,6 @@ class InterventionBottomNavigationBar extends StatelessWidget {
           },
         );
       },
-    );
-  }
-}
-
-class InterventionBottomNavigationIcon extends StatelessWidget {
-  const InterventionBottomNavigationIcon(
-      {Key? key,
-      required this.currentInterventionBottomNavigation,
-      required this.interventionBottomNavigation,
-      required this.inactiveColor,
-      required this.hasIndicatorValue})
-      : super(key: key);
-
-  final InterventionBottomNavigation currentInterventionBottomNavigation;
-  final InterventionBottomNavigation interventionBottomNavigation;
-  final Color? inactiveColor;
-  final bool hasIndicatorValue;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      child: Stack(
-        children: [
-          Container(
-            alignment: Alignment.topCenter,
-            margin: EdgeInsets.symmetric(
-              vertical: 9.0,
-            ),
-            child: SvgPicture.asset(
-              interventionBottomNavigation.svgIcon!,
-              color: currentInterventionBottomNavigation.id ==
-                      interventionBottomNavigation.id
-                  ? Colors.white
-                  : Color(0xFF737373),
-            ),
-          ),
-          Container(
-            child: Positioned(
-              right: 0,
-              top: 0,
-              child: Visibility(
-                visible: hasIndicatorValue &&
-                    (interventionBottomNavigation.id == "referral" ||
-                        interventionBottomNavigation.id == "incomingReferral"),
-                child: Container(
-                  child: Consumer<ReferralNotificationState>(
-                    builder: (context, referralNotificationState, child) {
-                      String incomingReferralsResolved =
-                          referralNotificationState
-                              .incomingReferralsResolvedIndicator;
-                      String incomingReferralToResolve =
-                          referralNotificationState
-                              .incomingReferralToResolveIndicator;
-                      return ClipOval(
-                        clipBehavior: Clip.antiAliasWithSaveLayer,
-                        child: Container(
-                          padding: EdgeInsets.symmetric(
-                            vertical: 3.0,
-                            horizontal: 5.0,
-                          ),
-                          color:
-                              (interventionBottomNavigation.id == "referral" &&
-                                          incomingReferralsResolved != "") ||
-                                      (interventionBottomNavigation.id ==
-                                              "incomingReferral" &&
-                                          incomingReferralToResolve != "")
-                                  ? inactiveColor!.withOpacity(0.5)
-                                  : inactiveColor!.withOpacity(0.0),
-                          child: Text(
-                            interventionBottomNavigation.id == "referral"
-                                ? incomingReferralsResolved
-                                : incomingReferralToResolve,
-                            style: TextStyle().copyWith(
-                              fontWeight: FontWeight.bold,
-                              color: currentInterventionBottomNavigation.id ==
-                                      interventionBottomNavigation.id
-                                  ? Colors.white
-                                  : inactiveColor,
-                            ),
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
     );
   }
 }
