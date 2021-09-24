@@ -30,6 +30,9 @@ class OvcChildEnrollmentSkipLogic {
         if (age > 2) {
           hiddenFields['GMcljM7jbNG'] = true;
         }
+        if(age <2){
+          hiddenSections['domainschooltsasekolo'] = true;
+        }
       }
 
       if (inputFieldId == 'UeF4OvjIIEK' &&
