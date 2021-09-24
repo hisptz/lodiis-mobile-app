@@ -306,7 +306,8 @@ class OvcEnrollmentChild {
                       code: 'tbLVGG4zDrJ',
                       name: 'deaf or hard hearing',
                       translatedName: 'setholo kapa kutlo e thata'),
-                  InputFieldOptionLr0tYkjTTB',
+                  InputFieldOption(
+                    code:'ULr0tYkjTTB',
                       name: 'intellectual disability',
                       translatedName: 'bokooa ba kelello'),
                   InputFieldOption(

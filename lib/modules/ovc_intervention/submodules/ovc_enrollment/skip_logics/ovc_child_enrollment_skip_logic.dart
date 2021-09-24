@@ -30,7 +30,7 @@ class OvcChildEnrollmentSkipLogic {
         if (age > 2) {
           hiddenFields['GMcljM7jbNG'] = true;
         }
-        if(age <2){
+        if (age < 2) {
           hiddenSections['domainschooltsasekolo'] = true;
         }
       }
@@ -38,6 +38,10 @@ class OvcChildEnrollmentSkipLogic {
       if (inputFieldId == 'UeF4OvjIIEK' &&
           (value.isEmpty || '$value'.trim() != 'true')) {
         hiddenFields['nOgf8LKXS4k'] = true;
+      }
+      if (inputFieldId == 'wmKqYZML8GA' &&
+          (value.isEmpty || '$value'.trim() == 'true')) {
+        hiddenFields['GMcljM7jbNG'] = true;
       }
       if (inputFieldId == 'Gkjp5XZD70V' &&
           (value.isEmpty || '$value'.trim() != 'true')) {
