@@ -18,6 +18,39 @@ class PpPrevInterventionHome extends StatelessWidget {
 
   final String title = 'PP PREV List';
 
+  void onUpdateFormState(
+    BuildContext context,
+    PpPrevBeneficiary ppPrevBeneficiary,
+    bool isEditableMode,
+  ) {
+    Provider.of<EnrollmentFormState>(context, listen: false).resetFormState();
+    Provider.of<EnrollmentFormState>(context, listen: false)
+        .updateFormEditabilityState(isEditableMode: isEditableMode);
+    Provider.of<EnrollmentFormState>(context, listen: false).setFormFieldState(
+        'location',
+        isEditableMode
+            ? ppPrevBeneficiary.orgUnit
+            : ppPrevBeneficiary.location);
+    Provider.of<EnrollmentFormState>(context, listen: false)
+        .setFormFieldState('trackedEntityInstance', ppPrevBeneficiary.id);
+    Provider.of<EnrollmentFormState>(context, listen: false)
+        .setFormFieldState('orgUnit', ppPrevBeneficiary.orgUnit);
+    Provider.of<EnrollmentFormState>(context, listen: false)
+        .setFormFieldState('enrollment', ppPrevBeneficiary.enrollment);
+    Provider.of<EnrollmentFormState>(context, listen: false)
+        .setFormFieldState('enrollmentDate', ppPrevBeneficiary.createdDate);
+    Provider.of<EnrollmentFormState>(context, listen: false)
+        .setFormFieldState('incidentDate', ppPrevBeneficiary.createdDate);
+    if (ppPrevBeneficiary.trackedEntityInstanceData != null) {
+      for (Map attributeObj
+          in ppPrevBeneficiary.trackedEntityInstanceData!.attributes) {
+        Provider.of<EnrollmentFormState>(context, listen: false)
+            .setFormFieldState(
+                attributeObj['attribute'], attributeObj['value']);
+      }
+    }
+  }
+
   void onAddPpPrevBeneficiary(BuildContext context) async {
     String beneficiaryId = "";
     String formAutoSaveId =
@@ -30,50 +63,54 @@ class PpPrevInterventionHome extends StatelessWidget {
       AppResumeRoute().redirectToPages(context, formAutoSave);
     } else {
       Provider.of<EnrollmentFormState>(context, listen: false).resetFormState();
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) {
-            return PpPrevInterventionEnrollmentForm();
-          },
-        ),
-      );
+      redirectToPpPrevEnrollmentForm(context);
     }
+  }
+
+  void redirectToPpPrevEnrollmentForm(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
+          return PpPrevInterventionEnrollmentForm();
+        },
+      ),
+    );
   }
 
   void onViewBeneficiary(
     BuildContext context,
     PpPrevBeneficiary ppPrevBeneficiary,
   ) {
-    print("onViewBeneficiary => ${ppPrevBeneficiary.toString()}");
+    bool isEditableMode = false;
+    onUpdateFormState(context, ppPrevBeneficiary, isEditableMode);
+    redirectToPpPrevEnrollmentForm(context);
   }
 
   void onEditBeneficiary(
     BuildContext context,
     PpPrevBeneficiary ppPrevBeneficiary,
-  ) {
-    print("onEditBeneficiary => ${ppPrevBeneficiary.toString()}");
+  ) async {
+    String beneficiaryId = ppPrevBeneficiary.id!;
+    String formAutoSaveId =
+        "${PpPrevRoutesConstant.enrollmentPageModule}_$beneficiaryId";
+    FormAutoSave formAutoSave =
+        await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
+    bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
+        .shouldResumeWithUnSavedChanges(context, formAutoSave);
+    if (shouldResumeWithUnSavedChanges) {
+      AppResumeRoute().redirectToPages(context, formAutoSave);
+    } else {
+      bool isEditableMode = true;
+      onUpdateFormState(context, ppPrevBeneficiary, isEditableMode);
+      redirectToPpPrevEnrollmentForm(context);
+    }
   }
 
   void onOpenBeneficiaryServices(
     BuildContext context,
     PpPrevBeneficiary ppPrevBeneficiary,
-  ) {
-    print("onOpenBeneficiaryServices => ${ppPrevBeneficiary.toString()}");
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Consumer<PpPrevInterventionListState>(
-      builder: (context, ppPrevInterventionListState, child) {
-        return SubModuleHomeContainer(
-          header:
-              '$title : ${ppPrevInterventionListState.numberOfPpPrev} beneficiaries',
-          bodyContents: _buildBody(),
-        );
-      },
-    );
-  }
+  ) {}
 
   Container _buildBody() {
     return Container(
@@ -149,6 +186,19 @@ class PpPrevInterventionHome extends StatelessWidget {
           },
         ),
       ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<PpPrevInterventionListState>(
+      builder: (context, ppPrevInterventionListState, child) {
+        return SubModuleHomeContainer(
+          header:
+              '$title : ${ppPrevInterventionListState.numberOfPpPrev} beneficiaries',
+          bodyContents: _buildBody(),
+        );
+      },
     );
   }
 }
