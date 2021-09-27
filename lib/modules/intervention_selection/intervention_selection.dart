@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/app_state/pp_prev_intervention_state/pp_prev_intervention_state.dart';
 import 'package:kb_mobile_app/core/components/access_to_data_entry/access_to_data_entry_warning.dart';
 import 'package:provider/provider.dart';
 import 'package:kb_mobile_app/app_state/current_user_state/current_user_state.dart';
@@ -50,6 +51,8 @@ class _InterventionSelectionState extends State<InterventionSelection> {
           .refreshBeneficiariesNumber();
       Provider.of<OgacInterventionListState>(context, listen: false)
           .refreshOgacNumber();
+      Provider.of<PpPrevInterventionListState>(context, listen: false)
+          .refreshPpPrevList();
       Provider.of<CurrentUserState>(context, listen: false)
           .setCurrentUserLocation();
     } catch (error) {}
@@ -102,35 +105,48 @@ class _InterventionSelectionState extends State<InterventionSelection> {
                                         ogacInterventionListState.numberOfOgac;
                                     bool isOgacListLoading =
                                         ogacInterventionListState.isLoading;
-                                    //@TODO loadig status and count for education and pp prev modules using state for listing
-                                    int numberPpPrev = 0;
-                                    int numberEducationLbse = 0;
-                                    int numberEducationBursary = 0;
-                                    return Container(
-                                      child: isDreamsListLoading ||
-                                              isOvcListLoading ||
-                                              isOgacListLoading
-                                          ? CircularProcessLoader()
-                                          : InterventionSelectionContainer(
-                                              interventionPrograms:
-                                                  interventionPrograms,
-                                              onInterventionSelection:
-                                                  onInterventionSelection,
-                                              numberOfHouseholds:
-                                                  numberOfHouseholds,
-                                              numberOfAgywDreamsBeneficiaries:
-                                                  numberOfAgywDreamsBeneficiaries,
-                                              numberOfNoneAgywDreamsBeneficiaries:
-                                                  numberOfNoneAgywDreamsBeneficiaries,
-                                              numberOfOvcs: numberOfOvcs,
-                                              numberOfOgac: numberOfOgac,
-                                              numberPpPrev: numberPpPrev,
-                                              numberEducationLbse:
-                                                  numberEducationLbse,
-                                              numberEducationBursary:
-                                                  numberEducationBursary,
-                                            ),
-                                    );
+
+                                    return Consumer<
+                                            PpPrevInterventionListState>(
+                                        builder: (context,
+                                            ppPrevInterventionListState,
+                                            child) {
+                                      //@TODO loadig status and count for education modules using state for listing
+                                      int numberPpPrev =
+                                          ppPrevInterventionListState
+                                              .numberOfPpPrev;
+                                      bool isPpPrevListLoading =
+                                          ppPrevInterventionListState.isLoading;
+                                      int numberEducationLbse = 0;
+                                      int numberEducationBursary = 0;
+
+                                      return Container(
+                                        child: isDreamsListLoading ||
+                                                isPpPrevListLoading ||
+                                                isOvcListLoading ||
+                                                isOgacListLoading
+                                            ? CircularProcessLoader()
+                                            : InterventionSelectionContainer(
+                                                interventionPrograms:
+                                                    interventionPrograms,
+                                                onInterventionSelection:
+                                                    onInterventionSelection,
+                                                numberOfHouseholds:
+                                                    numberOfHouseholds,
+                                                numberOfAgywDreamsBeneficiaries:
+                                                    numberOfAgywDreamsBeneficiaries,
+                                                numberOfNoneAgywDreamsBeneficiaries:
+                                                    numberOfNoneAgywDreamsBeneficiaries,
+                                                numberOfOvcs: numberOfOvcs,
+                                                numberOfOgac: numberOfOgac,
+                                                numberPpPrev: numberPpPrev,
+                                                numberEducationLbse:
+                                                    numberEducationLbse,
+                                                numberEducationBursary:
+                                                    numberEducationBursary,
+                                              ),
+                                      );
+                                    });
                                   },
                                 );
                               },

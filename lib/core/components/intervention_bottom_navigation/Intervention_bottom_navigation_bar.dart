@@ -18,8 +18,6 @@ class InterventionBottomNavigationBar extends StatelessWidget {
   final InterventionCard activeInterventionProgram;
   final String? currentLanguage;
 
-  //@TODO handling tabs for Education modules
-
   void onTap(BuildContext context, int index, String? id) {
     Provider.of<InterventionBottomNavigationState>(context, listen: false)
         .setCurrentInterventionBottomNavigationStatus(index, id);
@@ -38,9 +36,6 @@ class InterventionBottomNavigationBar extends StatelessWidget {
         Provider.of<DreamsInterventionListState>(context, listen: false)
             .refreshAgywDreamsList();
       }
-    } else if (activeInterventionProgram.id == 'ovc') {
-      // Provider.of<OvcInterventionListState>(context, listen: false)
-      //     .refreshOvcList();
     }
     if (Navigator.canPop(context)) {
       Navigator.popUntil(context, (route) => route.isFirst);

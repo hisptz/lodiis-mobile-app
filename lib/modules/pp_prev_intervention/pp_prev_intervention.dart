@@ -75,7 +75,6 @@ class _PpPrevInterventionState extends State<PpPrevIntervention> {
   void onClickHome() {}
 
   void onAddPpPrevBeneficiary(BuildContext context) async {
-    print("On adding new beneficiary");
     String beneficiaryId = "";
     String formAutoSaveId =
         "${PpPrevRoutesConstant.enrollmentPageModule}_$beneficiaryId";

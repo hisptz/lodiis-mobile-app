@@ -4,6 +4,7 @@ import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_in
 import 'package:kb_mobile_app/app_state/intervention_bottom_navigation_state/intervention_bottom_navigation_state.dart';
 import 'package:kb_mobile_app/app_state/ogac_intervention_list_state/ogac_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_intervention_list_state.dart';
+import 'package:kb_mobile_app/app_state/pp_prev_intervention_state/pp_prev_intervention_state.dart';
 import 'package:kb_mobile_app/core/components/data_download_message.dart';
 import 'package:kb_mobile_app/core/components/input_fields/text_input_field_container.dart';
 import 'package:kb_mobile_app/models/Intervention_bottom_navigation.dart';
@@ -77,7 +78,8 @@ class _InterventionAppBarState extends State<InterventionAppBar> {
       Provider.of<OvcInterventionListState>(context, listen: false)
           .refreshOvcNumber();
     } else if (widget.activeInterventionProgram.id == 'pp_prev') {
-      //@TODO refereshing pp_prev interventions
+      Provider.of<PpPrevInterventionListState>(context, listen: false)
+          .refreshPpPrevList();
     } else if (widget.activeInterventionProgram.id == 'education') {
       //@TODO refereshing education interventions
     }
@@ -90,7 +92,6 @@ class _InterventionAppBarState extends State<InterventionAppBar> {
   }
 
   void onSearchBeneficiary(BuildContext context, String value) {
-    //@TODO adding logics for seaching othetr interventions
     _searchedValued
         .debounce((_) => TimerStream(true, Duration(milliseconds: 500)))
         .listen((searchedValue) async {
@@ -104,7 +105,8 @@ class _InterventionAppBarState extends State<InterventionAppBar> {
         Provider.of<OvcInterventionListState>(context, listen: false)
             .searchHousehold(searchedValue);
       } else if (widget.activeInterventionProgram.id == 'pp_prev') {
-        //@TODO searching pp_prev interventions
+        Provider.of<PpPrevInterventionListState>(context, listen: false)
+            .searchPpPrevList(searchedValue);
       } else if (widget.activeInterventionProgram.id == 'education') {
         //@TODO searching education interventions
       }
