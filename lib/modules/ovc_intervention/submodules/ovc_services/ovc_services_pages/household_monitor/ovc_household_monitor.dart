@@ -11,12 +11,9 @@ import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
-import 'package:kb_mobile_app/models/ovc_household.dart';
-import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_household_top_header.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/constants/ovc_case_plan_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/household_services_ongoing_monitoring.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/components/services_home_list_container.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/constants/ovc_case_plan_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/household_case_plan/constants/ovc_household_case_plan_constant.dart';
 import 'package:provider/provider.dart';
 import 'components/monitor_list_container.dart';
@@ -32,46 +29,6 @@ class OvcHouseholdMonitor extends StatelessWidget {
   final List<String> casePlanProgramStageIds = [
     OvcHouseholdCasePlanConstant.casePlanProgramStage
   ];
-
-  // void updateFormState(
-  //     BuildContext context, bool isEditableMode, Events? achievement) {
-  //   Provider.of<ServiceFormState>(context, listen: false).resetFormState();
-  //   Provider.of<ServiceFormState>(context, listen: false)
-  //       .updateFormEditabilityState(isEditableMode: isEditableMode);
-
-  //   if (achievement != null) {
-  //     Provider.of<ServiceFormState>(context, listen: false);
-  //     Provider.of<ServiceFormState>(context, listen: false)
-  //         .setFormFieldState('eventDate', achievement.eventDate);
-  //     Provider.of<ServiceFormState>(context, listen: false)
-  //         .setFormFieldState('eventId', achievement.event);
-  //     for (Map dataValue in achievement.dataValues) {
-  //       if (dataValue['value'] != '') {
-  //         Provider.of<ServiceFormState>(context, listen: false)
-  //             .setFormFieldState(dataValue['dataElement'], dataValue['value']);
-  //       }
-  //     }
-  //   }
-  //   Navigator.push(context,
-  //       MaterialPageRoute(builder: (context) => OvcHouseholdMonitorForm()));
-  // }
-
-  // void onAddNewHouseholdMonitor(
-  //   BuildContext context,
-  //   OvcHousehold? houseHold,
-  // ) {
-  //   updateFormState(context, true, null);
-  // }
-
-  // void onViewHouseholdMonitor(
-  //     BuildContext context, OvcHousehold? houseHold, Events monitor) {
-  //   updateFormState(context, false, monitor);
-  // }
-
-  // void onEditHouseholdMonitor(
-  //     BuildContext context, OvcHousehold? houseHold, Events monitor) {
-  //   updateFormState(context, true, monitor);
-  // }
 
   updateFormState(
     BuildContext context,

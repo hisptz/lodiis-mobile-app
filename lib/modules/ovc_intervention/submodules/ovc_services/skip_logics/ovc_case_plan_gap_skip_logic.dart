@@ -23,7 +23,6 @@ mixin OvcCasePlanGapSkipLogic {
       evaluateAgeSkipLogics(inputFieldIds, currentHouseholdChild);
     }
 
-//@TODO Skip logics for extenal person on OVCs
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
       if (inputFieldId == 'XoSPWmpWXCy' && value != 'true') {
@@ -297,7 +296,6 @@ mixin OvcCasePlanGapSkipLogic {
         hiddenFields['JXx3FiIQe08'] = true;
       }
       if (inputFieldId == 'TdReJf2LTXA' && value != 'true') {
-        hiddenFields['TdReJf2LTXA'] = true;
         hiddenFields['EonyCjxIh5l'] = true;
         hiddenFields['YIFHsUgTAlI'] = true;
         hiddenFields['meR35m2WVNZ'] = true;

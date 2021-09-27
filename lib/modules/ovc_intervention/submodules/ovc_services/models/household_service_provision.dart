@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 
-//@TODO add referrences for service's session numbers
 class HouseholdServiceProvision {
   static List<FormSection> getFormSections() {
     return [
@@ -29,14 +28,6 @@ class HouseholdServiceProvision {
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
             InputField(
-              id: 'UQKbbPTRaB8',
-              name: 'HTS session number',
-              // translatedName: 'Boemo ba Phano ea Litšebeletso ea HTS',
-              valueType: 'TEXT',
-              inputColor: Color(0xFF4D9E49),
-              labelColor: Color(0xFF737373),
-            ),
-            InputField(
                 id: 'sxlVgySosg3',
                 name: 'HTS Comment',
                 translatedName: 'Tlhaloso ea HTS',
@@ -59,14 +50,6 @@ class HouseholdServiceProvision {
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
             InputField(
-              id: 'BOuCiVoZ7sT',
-              name: 'HIVTREAT session number',
-              // translatedName: 'Boemo ba Phano ea Litšebeletso ea HTS',
-              valueType: 'TEXT',
-              inputColor: Color(0xFF4D9E49),
-              labelColor: Color(0xFF737373),
-            ),
-            InputField(
                 id: 'i9icxSZ8HCf',
                 name: 'HIVTREAT Comment',
                 translatedName: 'Tlhaloso ea HIVTREAT',
@@ -75,22 +58,23 @@ class HouseholdServiceProvision {
                 labelColor: Color(0xFF737373)),
             InputField(
               id: 'HzI5X2yHef6',
-              name: 'HIVS&D Service provided',
-              // translatedName: 'Boemo ba Phano ea Litšebeletso ea HIVS&D',
+              name: 'HIVS&D/HIV Messaging Service provided',
+              // translatedName: 'Boemo ba Phano ea Litšebeletso ea HIVS&D/HIV Messaging',
               valueType: 'TRUE_ONLY',
               inputColor: Color(0xFF4D9E49),
               labelColor: Color(0xFF737373),
             ),
             InputField(
                 id: 'GyG2HcLsVka',
-                name: 'HIVS&D Service Provision Date',
-                translatedName: 'Letsatsi la Kabo ea Litšebeletso tsa HIVS&D',
+                name: 'HIVS&D/HIV Messaging Service Provision Date',
+                translatedName:
+                    'Letsatsi la Kabo ea Litšebeletso tsa HIVS&D/HIV Messaging',
                 valueType: 'DATE',
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
             InputField(
               id: 'uU4TvD2O1uL',
-              name: 'HIVS&D session number',
+              name: 'HIVS&D/HIV Messaging session number',
               // translatedName: 'Boemo ba Phano ea Litšebeletso ea HTS',
               valueType: 'TEXT',
               inputColor: Color(0xFF4D9E49),
@@ -98,8 +82,8 @@ class HouseholdServiceProvision {
             ),
             InputField(
                 id: 'y8ToqnbVz1o',
-                name: 'HIVS&D Comment',
-                translatedName: 'Tlhaloso ea HIVS&D',
+                name: 'HIVS&D/HIV Messaging Comment',
+                translatedName: 'Tlhaloso ea HIVS&D/HIV Messaging',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
@@ -118,14 +102,6 @@ class HouseholdServiceProvision {
                 valueType: 'DATE',
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
-            InputField(
-              id: 'ze0vffQrd1R',
-              name: 'HEALTH session number',
-              // translatedName: 'Boemo ba Phano ea Litšebeletso ea HEALTH',
-              valueType: 'TEXT',
-              inputColor: Color(0xFF4D9E49),
-              labelColor: Color(0xFF737373),
-            ),
             InputField(
                 id: 'AStxMCkJhi5',
                 name: 'HEALTH Comment',
@@ -147,14 +123,6 @@ class HouseholdServiceProvision {
                 valueType: 'DATE',
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
-            InputField(
-              id: 'jR2yBxtyPRa',
-              name: 'PRG&L session number',
-              // translatedName: 'Boemo ba Phano ea Litšebeletso ea PRG&L',
-              valueType: 'TEXT',
-              inputColor: Color(0xFF4D9E49),
-              labelColor: Color(0xFF737373),
-            ),
             InputField(
                 id: 'GISFLEttRtU',
                 name: 'PRG&L Comment',
@@ -178,14 +146,6 @@ class HouseholdServiceProvision {
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
             InputField(
-              id: 'zzH8cEeSDFz',
-              name: 'SAIDS session number',
-              // translatedName: 'Boemo ba Phano ea Litšebeletso ea SAIDS',
-              valueType: 'TEXT',
-              inputColor: Color(0xFF4D9E49),
-              labelColor: Color(0xFF737373),
-            ),
-            InputField(
                 id: 'itTgPQ0OrMU',
                 name: 'SAIDS Comment',
                 translatedName: 'Tlhaloso ea SAIDS',
@@ -208,14 +168,6 @@ class HouseholdServiceProvision {
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
             InputField(
-              id: 'EtENRPlSnO0',
-              name: 'WASHMES session number',
-              // translatedName: 'Boemo ba Phano ea Litšebeletso ea WASHMES',
-              valueType: 'TEXT',
-              inputColor: Color(0xFF4D9E49),
-              labelColor: Color(0xFF737373),
-            ),
-            InputField(
                 id: 'JFlnkaXlXm5',
                 name: 'WASHMES Comment',
                 translatedName: 'Tlhaloso ea WASHMES',
@@ -237,14 +189,6 @@ class HouseholdServiceProvision {
                 valueType: 'DATE',
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
-            InputField(
-              id: 'k5RGRpWRbbs',
-              name: 'SOACKAGE session number',
-              // translatedName: 'Boemo ba Phano ea Litšebeletso ea SOACKAGE',
-              valueType: 'TEXT',
-              inputColor: Color(0xFF4D9E49),
-              labelColor: Color(0xFF737373),
-            ),
             InputField(
                 id: 'SODPuEmHEGV',
                 name: 'SOACKAGE Comment',
@@ -321,7 +265,7 @@ class HouseholdServiceProvision {
                 labelColor: Color(0xFF737373)),
             InputField(
               id: 'lpTVK3t1Ahk',
-              name: 'FE Service provided',
+              name: 'Financial Education Service provided',
               // translatedName: 'Boemo ba Phano ea Litšebeletso ea FE',
               valueType: 'TRUE_ONLY',
               inputColor: Color(0xFF0000FF),
@@ -329,22 +273,22 @@ class HouseholdServiceProvision {
             ),
             InputField(
                 id: 'j1yzHzO0w6w',
-                name: 'FE Service Provision Date',
-                translatedName: 'Letsatsi la Kabo ea Litšebeletso tsa FE',
+                name: 'Financial Education Service Provision Date',
+                translatedName: 'Letsatsi la Kabo ea Litšebeletso tsa Financial Education',
                 valueType: 'DATE',
                 inputColor: Color(0xFF0000FF),
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'KvHf0rBfa1L',
-                name: 'FE session number',
+                name: 'Financial Education session number',
                 // translatedName: 'Boemo ba Phano ea Litšebeletso ea FE',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0000FF),
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'QnfPxpJvb1D',
-                name: 'FE Comment',
-                translatedName: 'Tlhaloso ea FE',
+                name: 'Financial Education Comment',
+                translatedName: 'Tlhaloso ea Financial Education',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0000FF),
                 labelColor: Color(0xFF737373)),
@@ -363,13 +307,6 @@ class HouseholdServiceProvision {
                 translatedName:
                     'Letsatsi la Kabo ea Litšebeletso tsa EST COOPRTVS',
                 valueType: 'DATE',
-                inputColor: Color(0xFF0000FF),
-                labelColor: Color(0xFF737373)),
-            InputField(
-                id: 'Z6VwHVRIh48',
-                name: 'EST COOPRTVS session number',
-                // translatedName: 'Boemo ba Phano ea Litšebeletso ea EST COOPRTVS',
-                valueType: 'TEXT',
                 inputColor: Color(0xFF0000FF),
                 labelColor: Color(0xFF737373)),
             InputField(
@@ -397,13 +334,6 @@ class HouseholdServiceProvision {
                 inputColor: Color(0xFF0000FF),
                 labelColor: Color(0xFF737373)),
             InputField(
-                id: 'kehmVw8hmos',
-                name: 'FUNCT COOPRTVS session number',
-                // translatedName: 'Boemo ba Phano ea Litšebeletso ea FUNCT COOPRTVS',
-                valueType: 'TEXT',
-                inputColor: Color(0xFF0000FF),
-                labelColor: Color(0xFF737373)),
-            InputField(
                 id: 'TNmg7uRUWgC',
                 name: 'FUNCT COOPRTVS Comment',
                 translatedName: 'Tlhaloso ea FUNCT COOPRTVS',
@@ -428,13 +358,6 @@ class HouseholdServiceProvision {
                 inputColor: Color(0xFF0000FF),
                 labelColor: Color(0xFF737373)),
             InputField(
-                id: 'iwuAHCCxe5m',
-                name: 'MARKT COOPRTVS session number',
-                // translatedName: 'Boemo ba Phano ea Litšebeletso ea MARKT COOPRTVS',
-                valueType: 'TEXT',
-                inputColor: Color(0xFF0000FF),
-                labelColor: Color(0xFF737373)),
-            InputField(
                 id: 'KpUgwivl5Cr',
                 name: 'MARKT COOPRTVS Comment',
                 translatedName: 'Tlhaloso ea MARKT COOPRTVS',
@@ -454,13 +377,6 @@ class HouseholdServiceProvision {
                 name: 'K/TPLOTS Service Provision Date',
                 // translatedName: 'Letsatsi la Kabo ea Litšebeletso tsa K/TPLOTS',
                 valueType: 'DATE',
-                inputColor: Color(0xFF0000FF),
-                labelColor: Color(0xFF737373)),
-            InputField(
-                id: 'ereN7hP7yuT',
-                name: 'K/TPLOTS session number',
-                // translatedName: 'Boemo ba Phano ea Litšebeletso ea K/TPLOTS',
-                valueType: 'TEXT',
                 inputColor: Color(0xFF0000FF),
                 labelColor: Color(0xFF737373)),
             InputField(
@@ -509,7 +425,7 @@ class HouseholdServiceProvision {
                 labelColor: Color(0xFF737373)),
             InputField(
               id: 'rMtSykWZ4HB',
-              name: 'VAC Service provided',
+              name: 'VAC/VAC Messaging Service provided',
               // translatedName: 'Boemo ba Phano ea Litšebeletso ea VAC',
               valueType: 'TRUE_ONLY',
               inputColor: Color(0xFF0F9587),
@@ -517,22 +433,23 @@ class HouseholdServiceProvision {
             ),
             InputField(
                 id: 'qwnfgBG2web',
-                name: 'VAC Service Provision Date',
-                translatedName: 'Letsatsi la Kabo ea Litšebeletso tsa VAC',
+                name: 'VAC/VAC Messaging Service Provision Date',
+                translatedName:
+                    'Letsatsi la Kabo ea Litšebeletso tsa VAC/VAC Messaging',
                 valueType: 'DATE',
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'YPImSLRMLWH',
-                name: 'VAC session number',
+                name: 'VAC/VAC Messaging session number',
                 // translatedName: 'Boemo ba Phano ea Litšebeletso ea VAC',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'OMhFxj6SYhM',
-                name: 'VAC Comment',
-                translatedName: 'Tlhaloso ea VAC',
+                name: 'VAC/VAC Messaging Comment',
+                translatedName: 'Tlhaloso ea VAC/VAC Messaging',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
@@ -569,7 +486,7 @@ class HouseholdServiceProvision {
                 labelColor: Color(0xFF737373)),
             InputField(
               id: 'cuy4Ai7mBbA',
-              name: 'SURVIVORS Service provided',
+              name: 'Survivors of Abuse Service provided',
               // translatedName: 'Boemo ba Phano ea Litšebeletso ea SURVIVORS',
               valueType: 'TRUE_ONLY',
               inputColor: Color(0xFF0F9587),
@@ -577,23 +494,23 @@ class HouseholdServiceProvision {
             ),
             InputField(
                 id: 'C5bhgqcq6Qn',
-                name: 'SURVIVORS Service Provision Date',
+                name: 'Survivors of Abuse Service Provision Date',
                 translatedName:
-                    'Letsatsi la Kabo ea Litšebeletso tsa SURVIVORS',
+                    'Letsatsi la Kabo ea Litšebeletso tsa Survivors of Abuse',
                 valueType: 'DATE',
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'sONWFapy6yk',
-                name: 'SURVIVORS session number',
+                name: 'Survivors of Abuse session number',
                 // translatedName: 'Boemo ba Phano ea Litšebeletso ea SURVIVORS',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'h10Iktl4KKR',
-                name: 'SURVIVORS Comment',
-                translatedName: 'Tlhaloso ea SURVIVORS',
+                name: 'Survivors of Abuse Comment',
+                translatedName: 'Tlhaloso ea Survivors of Abuse',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),

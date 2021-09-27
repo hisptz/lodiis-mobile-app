@@ -6,6 +6,7 @@ import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_in
 import 'package:kb_mobile_app/app_state/ogac_intervention_list_state/ogac_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/referral_notification_state/referral_notification_state.dart';
+import 'package:kb_mobile_app/app_state/synchronization_state/synchronization_status_state.dart';
 import 'package:kb_mobile_app/core/constants/app_logs_constants.dart';
 import 'package:kb_mobile_app/core/offline_db/app_logs_offline/app_logs_offline_provider.dart';
 import 'package:kb_mobile_app/core/services/implementing_partner_config_service.dart';
@@ -195,13 +196,9 @@ class SynchronizationState with ChangeNotifier {
     updateStatusForAvailableDataFromServer(status: false);
   }
 
-  Future<void> startCheckingStatusOfUnsyncedData(
-      {bool isAutoUpload = false}) async {
-    // _dataDownloadProcess = _dataDownloadProcess ?? [];
-    // _dataUploadProcess = _dataUploadProcess ?? [];
-    // if (!isAutoUpload) {
-    //   updateUnsyncedDataCheckingStatus(true);
-    // }
+  Future<void> startCheckingStatusOfUnsyncedData({
+    bool isAutoUpload = false,
+  }) async {
     CurrentUser? user = await (UserService().getCurrentUser());
     _synchronizationService = SynchronizationService(
         user!.username, user.password, user.programs, user.userOrgUnitIds);
@@ -384,7 +381,6 @@ class SynchronizationState with ChangeNotifier {
               await _synchronizationService.uploadTeisToTheServer(
                   teiChunk as List<TrackedEntityInstance>, isAutoUpload);
           conflictOnTeisImport = conflictOnTeisImport || conflictOnImport;
-
           profileCount = profileCount + (batch / chunkedTeis.length);
           profileDataUploadProgress = profileCount / profileTotalCount;
           overallUploadProgress =
@@ -461,9 +457,7 @@ class SynchronizationState with ChangeNotifier {
             (profileDataUploadProgress + eventsDataUploadProgress) / 2;
         notifyListeners();
       }
-
       var teiEvents = await _synchronizationService.getTeiEventsFromOfflineDb();
-
       if (teiEvents.length > 0) {
         List<List<dynamic>> chunkedTeiEvents =
             AppUtil.chunkItems(items: teiEvents, size: dataUploadBatchSize * 2);
@@ -477,7 +471,6 @@ class SynchronizationState with ChangeNotifier {
               await _synchronizationService.uploadTeiEventsToTheServer(
                   teiEventsChunk as List<Events>, isAutoUpload);
           conflictOnEventsImport = conflictOnEventsImport || conflictOnImport;
-
           eventsCount = eventsCount + (batch / chunkedTeiEvents.length);
           eventsDataUploadProgress = eventsCount / eventsTotalCount;
           overallUploadProgress =
@@ -516,6 +509,8 @@ class SynchronizationState with ChangeNotifier {
         AppUtil.formattedDateTimeIntoString(new DateTime.now());
     await PreferenceProvider.setPreferenceValue(
         lastDataUploadDatePreferenceKey, lastDataUploadDate);
+    Provider.of<SynchronizationStatusState>(context!, listen: false)
+        .resetSyncStatusReferences();
   }
 
   Future syncReferralNotifications() async {

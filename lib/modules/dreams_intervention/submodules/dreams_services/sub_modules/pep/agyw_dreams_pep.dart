@@ -61,9 +61,12 @@ class _AgywDreamsPEPState extends State<AgywDreamsPEP> {
 
   void onAddPrep(BuildContext context, AgywDream agywDream) async {
     updateFormState(context, true, null);
+    Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
+        .setCurrentAgywDream(agywDream);
     String? beneficiaryId = agywDream.id;
+    String eventId = '';
     String formAutoSaveId =
-        "${DreamsRoutesConstant.agywDreamsPEPFormPage}_$beneficiaryId";
+        "${DreamsRoutesConstant.agywDreamsPEPFormPage}_${beneficiaryId}_$eventId";
     FormAutoSave formAutoSave =
         await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
     bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
@@ -72,20 +75,32 @@ class _AgywDreamsPEPState extends State<AgywDreamsPEP> {
     if (shouldResumeWithUnSavedChanges) {
       AppResumeRoute().redirectToPages(context, formAutoSave);
     } else {
-      Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
-          .setCurrentAgywDream(agywDream);
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => AgywDreamsPEPForm()));
+    }
+  }
+
+  void onEditPrep(
+      BuildContext context, Events eventData, AgywDream agywDream) async {
+    updateFormState(context, false, eventData);
+    String? beneficiaryId = agywDream.id;
+    String eventId = eventData.event!;
+    String formAutoSaveId =
+        "${DreamsRoutesConstant.agywDreamsPEPFormPage}_${beneficiaryId}_$eventId";
+    FormAutoSave formAutoSave =
+        await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
+    bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
+        .shouldResumeWithUnSavedChanges(context, formAutoSave);
+
+    if (shouldResumeWithUnSavedChanges) {
+      AppResumeRoute().redirectToPages(context, formAutoSave);
+    } else {
       Navigator.push(context,
           MaterialPageRoute(builder: (context) => AgywDreamsPEPForm()));
     }
   }
 
   void onViewPrep(BuildContext context, Events eventData) {
-    updateFormState(context, false, eventData);
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => AgywDreamsPEPForm()));
-  }
-
-  void onEditPrep(BuildContext context, Events eventData) {
     updateFormState(context, true, eventData);
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => AgywDreamsPEPForm()));
@@ -160,8 +175,10 @@ class _AgywDreamsPEPState extends State<AgywDreamsPEP> {
                                                           DreamsServiceVisitCard(
                                                         visitName: "PEP Visit",
                                                         onEdit: () =>
-                                                            onEditPrep(context,
-                                                                eventData),
+                                                            onEditPrep(
+                                                                context,
+                                                                eventData,
+                                                                agywDream!),
                                                         onView: () =>
                                                             onViewPrep(context,
                                                                 eventData),

@@ -129,8 +129,10 @@ class AppUtil {
     return age;
   }
 
-  static List<List<dynamic>> chunkItems(
-      {List<dynamic> items = const [], int size = 0}) {
+  static List<List<dynamic>> chunkItems({
+    List<dynamic> items = const [],
+    int size = 0,
+  }) {
     List<List<dynamic>> groupedItems = [];
     size = size != 0 ? size : items.length;
     for (var count = 1; count <= (items.length / size).ceil(); count++) {
@@ -143,7 +145,10 @@ class AppUtil {
     return groupedItems;
   }
 
-  bool searchFromString({String? searchableString, required String searchedValue}) {
+  bool searchFromString({
+    String? searchableString,
+    required String searchedValue,
+  }) {
     List<String> searchedSubString = searchedValue.split(' ');
     for (String str in searchedSubString) {
       if (searchableString!.toLowerCase().indexOf(str.toLowerCase()) == -1) {
@@ -155,7 +160,7 @@ class AppUtil {
 
   static showToastMessage({
     required String message,
-    ToastGravity position = ToastGravity.BOTTOM,
+    ToastGravity? position = ToastGravity.BOTTOM,
   }) {
     if (message.isNotEmpty)
       Fluttertoast.showToast(
@@ -176,7 +181,7 @@ class AppUtil {
       context: context,
       builder: (BuildContext context) {
         return Dialog(
-          elevation: 10,
+          elevation: 10.0,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(22.0),
           ),
@@ -185,10 +190,10 @@ class AppUtil {
               padding: diablePadding
                   ? const EdgeInsets.all(0)
                   : const EdgeInsets.only(
-                      bottom: 12,
-                      top: 5,
-                      right: 5,
-                      left: 5,
+                      bottom: 12.0,
+                      top: 5.0,
+                      right: 5.0,
+                      left: 5.0,
                     ),
               child: SingleChildScrollView(
                 child: Column(

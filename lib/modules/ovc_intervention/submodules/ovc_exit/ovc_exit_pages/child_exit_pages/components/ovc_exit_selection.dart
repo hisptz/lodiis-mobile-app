@@ -64,7 +64,9 @@ class _OvcChildExitSelectionState extends State<OvcChildExitSelection> {
                       ),
                     ),
                     Container(
-                      margin: EdgeInsets.symmetric(vertical: 5.0),
+                      margin: EdgeInsets.symmetric(
+                        vertical: 5.0,
+                      ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -72,15 +74,19 @@ class _OvcChildExitSelectionState extends State<OvcChildExitSelection> {
                             child: InkWell(
                               onTap: () => Navigator.pop(context, exitTitle),
                               child: Container(
-                                  alignment: Alignment.center,
-                                  padding: EdgeInsets.symmetric(vertical: 12),
-                                  child: Text(
-                                    exitTitle!,
-                                    style: TextStyle(
-                                        color: Color(0xFF1A3518),
-                                        fontWeight: FontWeight.w700,
-                                        fontSize: 14),
-                                  )),
+                                alignment: Alignment.center,
+                                padding: EdgeInsets.symmetric(
+                                  vertical: 12,
+                                ),
+                                child: Text(
+                                  exitTitle!,
+                                  style: TextStyle(
+                                    color: Color(0xFF1A3518),
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                              ),
                             ),
                           )
                         ],

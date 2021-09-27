@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/components/case_plan_service_provision_form_container.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/components/case_plan_follow_up_view_container.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/constants/ovc_case_plan_constant.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/components/case_plan_service_provision_form_container.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/components/case_plan_gap_service_provision_view_container.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/constants/ovc_case_plan_constant.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_case_plan/constants/ovc_child_case_plan_constant.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/household_case_plan/constants/ovc_household_case_plan_constant.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/utils/ovc_service_provision_util.dart';
 
 class CasePlanServiceProvisionContainer extends StatefulWidget {
   const CasePlanServiceProvisionContainer({
@@ -10,16 +13,16 @@ class CasePlanServiceProvisionContainer extends StatefulWidget {
     required this.formSectionColor,
     required this.isCasePlanForHousehold,
     required this.casePlanGap,
-    required this.shouldEditCaseGapFollowUps,
-    required this.shouldViewCaseGapFollowUp,
+    required this.shouldEditCaseGapServiceProvision,
+    required this.shoulViewCaseGapServiceProvision,
     required this.domainId,
   }) : super(key: key);
 
   final Map casePlanGap;
   final Color? formSectionColor;
   final bool isCasePlanForHousehold;
-  final bool shouldEditCaseGapFollowUps;
-  final bool shouldViewCaseGapFollowUp;
+  final bool shouldEditCaseGapServiceProvision;
+  final bool shoulViewCaseGapServiceProvision;
   final String? domainId;
 
   @override
@@ -29,60 +32,71 @@ class CasePlanServiceProvisionContainer extends StatefulWidget {
 
 class _CasePlanServiceProvisionContainerState
     extends State<CasePlanServiceProvisionContainer> {
-  String? casePlanGapToFollowUpLinkageValue;
+  String? casePlanGapToServiceProvisionLinkageValue;
 
   @override
   void initState() {
     super.initState();
     setState(() {
-      String casePlanGapToFollowUpLinkage =
-          OvcCasePlanConstant.casePlanGapToFollowUpLinkage;
-      casePlanGapToFollowUpLinkageValue =
-          widget.casePlanGap[casePlanGapToFollowUpLinkage] ?? AppUtil.getUid();
+      String casePlanGapToServiceProvisionLinkage =
+          OvcCasePlanConstant.casePlanGapToServiceProvisionLinkage;
+      casePlanGapToServiceProvisionLinkageValue =
+          widget.casePlanGap[casePlanGapToServiceProvisionLinkage] ??
+              AppUtil.getUid();
     });
   }
 
-  void addNewFollowingUp(BuildContext context) async {
+  void addServiceProvision(BuildContext context) async {
+    String programStage = widget.isCasePlanForHousehold
+        ? OvcHouseholdCasePlanConstant.casePlanGapServiceProvisionProgramStage
+        : OvcChildCasePlanConstant.casePlanGapServiceProvisionProgramStage;
+
     Map dataObject = Map();
     for (var key in widget.casePlanGap.keys) {
       if (key != 'eventId' && key != 'eventDate') {
         dataObject[key] = widget.casePlanGap[key];
       }
     }
-    dataObject[OvcCasePlanConstant.casePlanGapToFollowUpLinkage] =
-        casePlanGapToFollowUpLinkageValue;
-    Widget modal = CasePlanServiceProvisionFormContainer(
+    Map<String, List<String>> previousSessionMapping =
+        OvcServiceProvisionUtil.getPreviousSessionMapping(
+      context,
+      [programStage],
+    );
+    dataObject["previousSessionMapping"] = previousSessionMapping;
+    dataObject[OvcCasePlanConstant.casePlanGapToServiceProvisionLinkage] =
+        casePlanGapToServiceProvisionLinkageValue;
+    Widget modal = CasePlanServiceProvisionFormModalContainer(
       dataObject: dataObject,
       domainId: widget.domainId,
       isCasePlanForHousehold: widget.isCasePlanForHousehold,
-      isEditableMode: widget.shouldViewCaseGapFollowUp,
+      isEditableMode: widget.shoulViewCaseGapServiceProvision,
     );
     await AppUtil.showPopUpModal(context, modal, true);
   }
 
-// handling state management on adding following ups
   @override
   Widget build(BuildContext context) {
     return Container(
       child: Visibility(
-        visible: widget.shouldEditCaseGapFollowUps ||
-            widget.shouldViewCaseGapFollowUp,
+        visible: widget.shouldEditCaseGapServiceProvision ||
+            widget.shoulViewCaseGapServiceProvision,
         child: Container(
           child: Column(
             children: [
               Container(
-                child: CasePlanFollowUpViewContainer(
+                child: CasePlanGapServiceViewContainer(
                   casePlanGap: widget.casePlanGap,
                   domainId: widget.domainId,
                   themeColor: widget.formSectionColor,
-                  casePlanGapToFollowUpLinkageValue:
-                      casePlanGapToFollowUpLinkageValue,
-                  shouldEditCaseGapFollowUps: widget.shouldEditCaseGapFollowUps,
+                  casePlanGapToServiceProvisionLinkageValue:
+                      casePlanGapToServiceProvisionLinkageValue,
+                  shouldEditCaseGapServiceProvision:
+                      widget.shouldEditCaseGapServiceProvision,
                   isCasePlanForHousehold: widget.isCasePlanForHousehold,
                 ),
               ),
               Visibility(
-                visible: widget.shouldViewCaseGapFollowUp,
+                visible: widget.shoulViewCaseGapServiceProvision,
                 child: Container(
                   alignment: Alignment.center,
                   margin: EdgeInsets.symmetric(
@@ -98,7 +112,7 @@ class _CasePlanServiceProvisionContainerState
                       ),
                       padding: EdgeInsets.all(15.0),
                     ),
-                    onPressed: () => this.addNewFollowingUp(context),
+                    onPressed: () => this.addServiceProvision(context),
                     child: Text(
                       'ADD SERVICE',
                       style: TextStyle().copyWith(

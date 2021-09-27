@@ -56,7 +56,6 @@ class TrackedEntityInstanceUtil {
   static Future<List<Events>> getSavedTrackedEntityInstanceEventData(
     String? trackedEntityInstance,
   ) async {
-    //@TODO sort by event dates
     List<Events> events = [];
     List<String?> trackedEntityInstanceIds = [];
     try {
@@ -64,7 +63,7 @@ class TrackedEntityInstanceUtil {
       events = await EventOfflineProvider()
           .getTrackedEntityInstanceEvents(trackedEntityInstanceIds);
     } catch (e) {}
-    return events;
+    return events.reversed.toList();
   }
 
   static List<Events> getAllEventListFromServiceDataStateByProgramStages(
@@ -102,7 +101,7 @@ class TrackedEntityInstanceUtil {
         .map((event) => event.eventDate)
         .toSet()
         .toList()
-          ..sort((b, a) => a!.compareTo(b!));
+      ..sort((b, a) => a!.compareTo(b!));
     for (String? eventDate in eventDates) {
       groupedEvents[eventDate] =
           events.where((event) => event.eventDate == eventDate).toList();
