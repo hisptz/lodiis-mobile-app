@@ -90,10 +90,6 @@ class OgacBeneficiaryCardBody extends StatelessWidget {
                   key: 'Created on',
                   value: ogacBeneficiary.beneficiaryId!,
                 ),
-                _getRowBeneficiaryData(
-                  key: 'Beneficiary Id',
-                  value: ogacBeneficiary.createdDate!,
-                ),
               ],
             ),
           );
