@@ -5,10 +5,10 @@ import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:provider/provider.dart';
 
-class PpPrevInterventionServiceProvision extends StatelessWidget {
-  const PpPrevInterventionServiceProvision({Key? key}) : super(key: key);
+class PpPrevInterventionServiceProvisionForm extends StatelessWidget {
+  const PpPrevInterventionServiceProvisionForm({Key? key}) : super(key: key);
 
-  final String label = "PP Prev Service Provision";
+  final String label = "PP Prev Service Provision Form";
 
   @override
   Widget build(BuildContext context) {

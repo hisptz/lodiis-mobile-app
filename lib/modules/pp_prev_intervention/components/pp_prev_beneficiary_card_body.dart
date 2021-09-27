@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
-import 'package:kb_mobile_app/models/ogac_beneficiary.dart';
+import 'package:kb_mobile_app/models/pp_prev_beneficiary.dart';
 import 'package:provider/provider.dart';
 
-class OgacBeneficiaryCardBody extends StatelessWidget {
-  const OgacBeneficiaryCardBody({
+class PpPrevBeneficiaryCardBody extends StatelessWidget {
+  const PpPrevBeneficiaryCardBody({
     Key? key,
-    required this.ogacBeneficiary,
+    required this.ppPrevBeneficiary,
   }) : super(key: key);
 
-  final OgacBeneficiary ogacBeneficiary;
+  final PpPrevBeneficiary ppPrevBeneficiary;
 
   Container _getRowBeneficiaryData({
     required String key,
@@ -25,7 +25,7 @@ class OgacBeneficiaryCardBody extends StatelessWidget {
             child: Text(
               key,
               style: TextStyle().copyWith(
-                color: Color(0xFF651900).withOpacity(0.4),
+                color: Color(0xFF9B2BAE).withOpacity(0.4),
                 fontSize: 14.0,
                 fontWeight: FontWeight.w500,
               ),
@@ -36,7 +36,7 @@ class OgacBeneficiaryCardBody extends StatelessWidget {
             child: Text(
               value,
               style: TextStyle().copyWith(
-                color: Color(0xFF651900).withOpacity(0.8),
+                color: Color(0xFF9B2BAE).withOpacity(0.9),
                 fontSize: 14.0,
                 fontWeight: FontWeight.w500,
               ),
@@ -61,34 +61,30 @@ class OgacBeneficiaryCardBody extends StatelessWidget {
             child: Column(
               children: [
                 _getRowBeneficiaryData(
-                  key: 'Beneficiary Id',
-                  value: ogacBeneficiary.beneficiaryId!,
+                  key: currentLanguage == 'lesotho' ? 'Sebaka' : 'Location',
+                  value: ppPrevBeneficiary.location!,
+                ),
+                _getRowBeneficiaryData(
+                  key: currentLanguage == 'lesotho' ? 'Motse' : 'Village',
+                  value: ppPrevBeneficiary.village!,
                 ),
                 _getRowBeneficiaryData(
                   key: currentLanguage == 'lesotho' ? 'Lilemo' : 'Age',
-                  value: ogacBeneficiary.age!,
+                  value: ppPrevBeneficiary.age!,
                 ),
                 _getRowBeneficiaryData(
                   key: currentLanguage == 'lesotho' ? 'Boleng' : 'Sex',
-                  value: ogacBeneficiary.sex!,
+                  value: ppPrevBeneficiary.sex!,
                 ),
                 _getRowBeneficiaryData(
                   key: currentLanguage == 'lesotho'
                       ? 'Nomoro ea mohala'
                       : 'Phone number',
-                  value: ogacBeneficiary.phoneNumber!,
-                ),
-                _getRowBeneficiaryData(
-                  key: currentLanguage == 'lesotho' ? 'Sebaka' : 'Location',
-                  value: ogacBeneficiary.location!,
-                ),
-                _getRowBeneficiaryData(
-                  key: currentLanguage == 'lesotho' ? 'Motse' : 'Village',
-                  value: ogacBeneficiary.village!,
+                  value: ppPrevBeneficiary.phoneNumber!,
                 ),
                 _getRowBeneficiaryData(
                   key: 'Created on',
-                  value: ogacBeneficiary.beneficiaryId!,
+                  value: ppPrevBeneficiary.createdDate!,
                 ),
               ],
             ),

@@ -7,6 +7,7 @@ import 'package:kb_mobile_app/app_state/intervention_bottom_navigation_state/int
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/app_state/ogac_intervention_list_state/ogac_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_intervention_list_state.dart';
+import 'package:kb_mobile_app/app_state/pp_prev_intervention_state/pp_prev_intervention_state.dart';
 import 'package:kb_mobile_app/app_state/referral_notification_state/referral_notification_state.dart';
 import 'package:kb_mobile_app/core/components/intervention_pop_up_menu.dart';
 import 'package:kb_mobile_app/core/services/user_service.dart';
@@ -131,7 +132,8 @@ class AppBarUtil {
       await Provider.of<OgacInterventionListState>(context, listen: false)
           .refreshOgacNumber();
     } else if (id == 'pp_prev') {
-      //@TODO refresg list of pp orev module
+      await Provider.of<PpPrevInterventionListState>(context, listen: false)
+          .refreshPpPrevList();
     } else if (id == 'education') {
       //@TODO refresg list of education module
     }

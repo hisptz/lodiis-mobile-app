@@ -17,12 +17,15 @@ import 'package:kb_mobile_app/app_state/language_translation_state/language_tran
 import 'package:kb_mobile_app/app_state/login_form_state/login_form_state.dart';
 import 'package:kb_mobile_app/app_state/ogac_intervention_list_state/ogac_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_intervention_list_state.dart';
+import 'package:kb_mobile_app/app_state/pp_prev_intervention_state/pp_prev_intervention_state.dart';
 import 'package:kb_mobile_app/app_state/referral_notification_state/referral_notification_state.dart';
 import 'package:kb_mobile_app/app_state/synchronization_state/synchronization_state.dart';
 import 'package:kb_mobile_app/app_state/synchronization_state/synchronization_status_state.dart';
 import 'package:kb_mobile_app/core/constants/custom_color.dart';
 import 'package:kb_mobile_app/modules/splash/splash.dart';
 import 'package:provider/provider.dart';
+
+import 'app_state/pp_prev_intervention_state/pp_prev_current_selection_state.dart';
 
 class MyApp extends StatelessWidget {
   @override
@@ -43,6 +46,8 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(create: (_) => EnrollmentFormState()),
           ChangeNotifierProvider(create: (_) => ServiceFormState()),
           ChangeNotifierProvider(
+              create: (_) => PpPrevBeneficiarySelectionState()),
+          ChangeNotifierProvider(
               create: (BuildContext context) => ServiceEventDataState(context)),
           ChangeNotifierProvider(
             create: (_) => OvcHouseholdCurrentSelectionState(),
@@ -53,7 +58,12 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(
               create: (BuildContext context) =>
                   DreamsInterventionListState(context)),
-          ChangeNotifierProvider(create: (_) => OgacInterventionListState()),
+          ChangeNotifierProvider(
+              create: (BuildContext context) =>
+                  OgacInterventionListState(context)),
+          ChangeNotifierProvider(
+              create: (BuildContext context) =>
+                  PpPrevInterventionListState(context)),
           ChangeNotifierProvider(
               create: (BuildContext context) =>
                   SynchronizationState(context: context)),
