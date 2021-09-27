@@ -17,6 +17,7 @@ import 'package:kb_mobile_app/app_state/language_translation_state/language_tran
 import 'package:kb_mobile_app/app_state/login_form_state/login_form_state.dart';
 import 'package:kb_mobile_app/app_state/ogac_intervention_list_state/ogac_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_intervention_list_state.dart';
+import 'package:kb_mobile_app/app_state/pp_prev_intervention_state/pp_prev_intervention_state.dart';
 import 'package:kb_mobile_app/app_state/referral_notification_state/referral_notification_state.dart';
 import 'package:kb_mobile_app/app_state/synchronization_state/synchronization_state.dart';
 import 'package:kb_mobile_app/app_state/synchronization_state/synchronization_status_state.dart';
@@ -53,7 +54,12 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(
               create: (BuildContext context) =>
                   DreamsInterventionListState(context)),
-          ChangeNotifierProvider(create: (_) => OgacInterventionListState()),
+          ChangeNotifierProvider(
+              create: (BuildContext context) =>
+                  OgacInterventionListState(context)),
+          ChangeNotifierProvider(
+              create: (BuildContext context) =>
+                  PpPrevInterventionListState(context)),
           ChangeNotifierProvider(
               create: (BuildContext context) =>
                   SynchronizationState(context: context)),

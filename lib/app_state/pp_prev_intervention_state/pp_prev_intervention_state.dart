@@ -4,33 +4,33 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:kb_mobile_app/app_state/synchronization_state/synchronization_status_state.dart';
 import 'package:kb_mobile_app/core/constants/pagination.dart';
 import 'package:kb_mobile_app/core/services/pagination_service.dart';
-import 'package:kb_mobile_app/models/ogac_beneficiary.dart';
-import 'package:kb_mobile_app/modules/ogac_intervention/services/ogac_enrollment_service.dart';
+import 'package:kb_mobile_app/models/pp_prev_beneficiary.dart';
+import 'package:kb_mobile_app/modules/pp_prev_intervention/services/pp_prev_enrollment_service.dart';
 import 'package:provider/provider.dart';
 
-class OgacInterventionListState with ChangeNotifier {
+class PpPrevInterventionListState with ChangeNotifier {
   final BuildContext? context;
-  // intitial state
-  List<OgacBeneficiary> _ogacInterventionList = <OgacBeneficiary>[];
+  List<PpPrevBeneficiary> _ogacInterventionList = <PpPrevBeneficiary>[];
   bool? _isLoading;
-  int _numberOfOgac = 0;
+  int _numberOfPpPrev = 0;
   int _numberOfPages = 0;
   int? _nextPage = 0;
   String _searchableValue = '';
 
   PagingController? _pagingController;
 
-  OgacInterventionListState(this.context);
+  PpPrevInterventionListState(this.context);
   bool get isLoading => _isLoading ?? false;
 
-  int get numberOfOgac => _numberOfOgac;
+  int get numberOfPpPrev => _numberOfPpPrev;
 
   int get numberOfPages => _numberOfPages;
 
   PagingController? get pagingController => _pagingController;
 
   void initializePagination() {
-    _pagingController = PagingController<int, OgacBeneficiary>(firstPageKey: 0);
+    _pagingController =
+        PagingController<int, PpPrevBeneficiary>(firstPageKey: 0);
 
     PaginationService.initializePagination(
         mounted: true,
@@ -40,22 +40,26 @@ class OgacInterventionListState with ChangeNotifier {
 
   Future<void> _fetchPage(int pageKey) async {
     String searchableValue = _searchableValue;
-    List ovcList = await OgacEnrollmentService()
-        .getOgacBeneficiaries(page: pageKey, searchableValue: searchableValue);
+    List ovcList = await PpPrevEnrollmentService()
+        .getBeneficiaries(page: pageKey, searchableValue: searchableValue);
     if (ovcList.isEmpty && pageKey < numberOfPages) {
       _fetchPage(pageKey + 1);
     } else {
       getNumberOfPages();
       PaginationService.assignPagesToController(
-          _pagingController, ovcList, pageKey, numberOfPages);
+        _pagingController,
+        ovcList,
+        pageKey,
+        numberOfPages,
+      );
     }
   }
 
   Future<void> getBeneficiaryNumber() async {
-    _numberOfOgac = await OgacEnrollmentService().getOgacBeneficiariesCount();
+    _numberOfPpPrev = await PpPrevEnrollmentService().getBeneficiariesCount();
   }
 
-  Future<void> refreshOgacNumber() async {
+  Future<void> searchPpPrevNumber() async {
     _isLoading = true;
     _searchableValue = '';
     notifyListeners();
@@ -72,35 +76,35 @@ class OgacInterventionListState with ChangeNotifier {
         .resetSyncStatusReferences();
   }
 
-  void searchOgacList(String value) {
+  void searchPpPrevList(String value) {
     if (_ogacInterventionList.isEmpty) {
       _ogacInterventionList =
-          _pagingController!.itemList as List<OgacBeneficiary>? ??
-              <OgacBeneficiary>[];
+          _pagingController!.itemList as List<PpPrevBeneficiary>? ??
+              <PpPrevBeneficiary>[];
       _nextPage = _pagingController!.nextPageKey;
     }
     if (value != '') {
       _searchableValue = value;
       notifyListeners();
-      refreshOgacList();
+      refreshPpPrevList();
     } else {
       _pagingController!.itemList = _ogacInterventionList;
       _pagingController!.nextPageKey = _nextPage;
 
-      _ogacInterventionList = <OgacBeneficiary>[];
+      _ogacInterventionList = <PpPrevBeneficiary>[];
       _nextPage = 0;
     }
   }
 
   void onBeneficiaryAdd() {
-    _numberOfOgac = _numberOfOgac + 1;
+    _numberOfPpPrev = _numberOfPpPrev + 1;
     getNumberOfPages();
     notifyListeners();
-    refreshOgacList();
+    refreshPpPrevList();
   }
 
   //reducers
-  Future<void> refreshOgacList() async {
+  Future<void> refreshPpPrevList() async {
     _isLoading = true;
     notifyListeners();
     await getBeneficiaryNumber();
@@ -115,9 +119,9 @@ class OgacInterventionListState with ChangeNotifier {
   }
 
   void getNumberOfPages() {
-    if (numberOfOgac != null) {
+    if (_numberOfPpPrev != null) {
       _numberOfPages =
-          (numberOfOgac / PaginationConstants.paginationLimit).ceil();
+          (_numberOfPpPrev / PaginationConstants.paginationLimit).ceil();
     }
   }
 }
