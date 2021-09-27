@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
+import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
+import 'package:kb_mobile_app/app_state/pp_prev_intervention_state/pp_prev_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/pp_prev_intervention_state/pp_prev_intervention_state.dart';
 import 'package:kb_mobile_app/core/components/paginated_list_view.dart';
 import 'package:kb_mobile_app/core/components/sub_module_home_container.dart';
@@ -11,6 +13,7 @@ import 'package:kb_mobile_app/models/pp_prev_beneficiary.dart';
 import 'package:kb_mobile_app/modules/pp_prev_intervention/components/pp_prev_beneficiary_card.dart';
 import 'package:kb_mobile_app/modules/pp_prev_intervention/constants/pp_prev_routes_constant.dart';
 import 'package:kb_mobile_app/modules/pp_prev_intervention/pages/pp_prev_intervention_enrollment_form.dart';
+import 'package:kb_mobile_app/modules/pp_prev_intervention/pages/pp_prev_intervention_service_home.dart';
 import 'package:provider/provider.dart';
 
 class PpPrevInterventionHome extends StatelessWidget {
@@ -97,7 +100,8 @@ class PpPrevInterventionHome extends StatelessWidget {
     FormAutoSave formAutoSave =
         await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
     bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
-        .shouldResumeWithUnSavedChanges(context, formAutoSave);
+        .shouldResumeWithUnSavedChanges(context, formAutoSave,
+            beneficiaryName: ppPrevBeneficiary.toString());
     if (shouldResumeWithUnSavedChanges) {
       AppResumeRoute().redirectToPages(context, formAutoSave);
     } else {
@@ -110,7 +114,20 @@ class PpPrevInterventionHome extends StatelessWidget {
   void onOpenBeneficiaryServices(
     BuildContext context,
     PpPrevBeneficiary ppPrevBeneficiary,
-  ) {}
+  ) {
+    Provider.of<PpPrevBeneficiarySelectionState>(context, listen: false)
+        .setCurrentAgywDream(ppPrevBeneficiary);
+    Provider.of<ServiceEventDataState>(context, listen: false)
+        .resetServiceEventDataState(ppPrevBeneficiary.id);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
+          return PpPrevInterventionServiceHome();
+        },
+      ),
+    );
+  }
 
   Container _buildBody() {
     return Container(

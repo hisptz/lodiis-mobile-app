@@ -25,6 +25,8 @@ import 'package:kb_mobile_app/core/constants/custom_color.dart';
 import 'package:kb_mobile_app/modules/splash/splash.dart';
 import 'package:provider/provider.dart';
 
+import 'app_state/pp_prev_intervention_state/pp_prev_current_selection_state.dart';
+
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -43,6 +45,8 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(create: (_) => ReferralNotificationState()),
           ChangeNotifierProvider(create: (_) => EnrollmentFormState()),
           ChangeNotifierProvider(create: (_) => ServiceFormState()),
+          ChangeNotifierProvider(
+              create: (_) => PpPrevBeneficiarySelectionState()),
           ChangeNotifierProvider(
               create: (BuildContext context) => ServiceEventDataState(context)),
           ChangeNotifierProvider(
