@@ -30,7 +30,7 @@ class ServiceGapView extends StatefulWidget {
     required this.domainId,
     required this.gapIndex,
     required this.shouldEditCaseGapServiceProvision,
-    required this.shoulViewCaseGapServiceProvision,
+    required this.shouldViewCaseGapServiceProvision,
     required this.formSectionColor,
   }) : super(key: key);
   final Map casePlanGap;
@@ -39,7 +39,7 @@ class ServiceGapView extends StatefulWidget {
   final int gapIndex;
   final bool isCasePlanForHousehold;
   final bool shouldEditCaseGapServiceProvision;
-  final bool shoulViewCaseGapServiceProvision;
+  final bool shouldViewCaseGapServiceProvision;
 
   @override
   _ServiceGapViewState createState() => _ServiceGapViewState();
@@ -286,8 +286,8 @@ class _ServiceGapViewState extends State<ServiceGapView> {
                               casePlanGap: widget.casePlanGap,
                               shouldEditCaseGapServiceProvision:
                                   widget.shouldEditCaseGapServiceProvision,
-                              shoulViewCaseGapServiceProvision:
-                                  widget.shoulViewCaseGapServiceProvision,
+                              shouldViewCaseGapServiceProvision:
+                                  widget.shouldViewCaseGapServiceProvision,
                             ),
                           )),
                       ),

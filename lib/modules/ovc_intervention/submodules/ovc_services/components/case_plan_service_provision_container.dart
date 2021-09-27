@@ -14,7 +14,7 @@ class CasePlanServiceProvisionContainer extends StatefulWidget {
     required this.isCasePlanForHousehold,
     required this.casePlanGap,
     required this.shouldEditCaseGapServiceProvision,
-    required this.shoulViewCaseGapServiceProvision,
+    required this.shouldViewCaseGapServiceProvision,
     required this.domainId,
   }) : super(key: key);
 
@@ -22,7 +22,7 @@ class CasePlanServiceProvisionContainer extends StatefulWidget {
   final Color? formSectionColor;
   final bool isCasePlanForHousehold;
   final bool shouldEditCaseGapServiceProvision;
-  final bool shoulViewCaseGapServiceProvision;
+  final bool shouldViewCaseGapServiceProvision;
   final String? domainId;
 
   @override
@@ -69,7 +69,7 @@ class _CasePlanServiceProvisionContainerState
       dataObject: dataObject,
       domainId: widget.domainId,
       isCasePlanForHousehold: widget.isCasePlanForHousehold,
-      isEditableMode: widget.shoulViewCaseGapServiceProvision,
+      isEditableMode: widget.shouldViewCaseGapServiceProvision,
     );
     await AppUtil.showPopUpModal(context, modal, true);
   }
@@ -79,7 +79,7 @@ class _CasePlanServiceProvisionContainerState
     return Container(
       child: Visibility(
         visible: widget.shouldEditCaseGapServiceProvision ||
-            widget.shoulViewCaseGapServiceProvision,
+            widget.shouldViewCaseGapServiceProvision,
         child: Container(
           child: Column(
             children: [
@@ -96,7 +96,7 @@ class _CasePlanServiceProvisionContainerState
                 ),
               ),
               Visibility(
-                visible: widget.shoulViewCaseGapServiceProvision,
+                visible: widget.shouldViewCaseGapServiceProvision,
                 child: Container(
                   alignment: Alignment.center,
                   margin: EdgeInsets.symmetric(

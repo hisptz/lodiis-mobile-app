@@ -29,12 +29,12 @@ class OvcHouseholdCasePlanForm extends StatefulWidget {
   OvcHouseholdCasePlanForm({
     Key? key,
     this.shouldEditCaseGapServiceProvision = false,
-    this.shoulViewCaseGapServiceProvision = false,
+    this.shouldViewCaseGapServiceProvision = false,
     this.shouldAddCasePlanGap = false,
   }) : super(key: key);
 
   final bool shouldEditCaseGapServiceProvision;
-  final bool shoulViewCaseGapServiceProvision;
+  final bool shouldViewCaseGapServiceProvision;
   final bool shouldAddCasePlanGap;
 
   @override
@@ -235,9 +235,9 @@ class _OvcHouseholdCasePlanFormState extends State<OvcHouseholdCasePlanForm> {
                                                 shouldEditCaseGapServiceProvision:
                                                     widget
                                                         .shouldEditCaseGapServiceProvision,
-                                                shoulViewCaseGapServiceProvision:
+                                                shouldViewCaseGapServiceProvision:
                                                     widget
-                                                        .shoulViewCaseGapServiceProvision,
+                                                        .shouldViewCaseGapServiceProvision,
                                                 formSectionColor: borderColors[
                                                     formSection.id],
                                                 formSection: formSection,

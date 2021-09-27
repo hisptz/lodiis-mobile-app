@@ -29,11 +29,11 @@ class HouseholdServiceForm extends StatefulWidget {
   HouseholdServiceForm({
     Key? key,
     this.shouldEditCaseGapServiceProvision = false,
-    this.shoulViewCaseGapServiceProvision = false,
+    this.shouldViewCaseGapServiceProvision = false,
   }) : super(key: key);
 
   final bool shouldEditCaseGapServiceProvision;
-  final bool shoulViewCaseGapServiceProvision;
+  final bool shouldViewCaseGapServiceProvision;
   @override
   _HouseholdServiceFormState createState() => _HouseholdServiceFormState();
 }
@@ -227,9 +227,9 @@ class _HouseholdServiceFormState extends State<HouseholdServiceForm> {
                                                 shouldEditCaseGapServiceProvision:
                                                     widget
                                                         .shouldEditCaseGapServiceProvision,
-                                                shoulViewCaseGapServiceProvision:
+                                                shouldViewCaseGapServiceProvision:
                                                     widget
-                                                        .shoulViewCaseGapServiceProvision,
+                                                        .shouldViewCaseGapServiceProvision,
                                                 formSectionColor: borderColors[
                                                     formSection.id],
                                                 formSection: formSection,

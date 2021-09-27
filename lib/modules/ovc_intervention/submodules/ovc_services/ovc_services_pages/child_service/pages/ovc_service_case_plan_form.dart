@@ -23,11 +23,11 @@ class OcvServiceCasePlanForm extends StatefulWidget {
   const OcvServiceCasePlanForm({
     Key? key,
     this.shouldEditCaseGapServiceProvision = false,
-    this.shoulViewCaseGapServiceProvision = false,
+    this.shouldViewCaseGapServiceProvision = false,
   }) : super(key: key);
 
   final bool shouldEditCaseGapServiceProvision;
-  final bool shoulViewCaseGapServiceProvision;
+  final bool shouldViewCaseGapServiceProvision;
 
   @override
   _OcvServiceCasePlanFormState createState() => _OcvServiceCasePlanFormState();
@@ -192,9 +192,9 @@ class _OcvServiceCasePlanFormState extends State<OcvServiceCasePlanForm> {
                                                 shouldEditCaseGapServiceProvision:
                                                     widget
                                                         .shouldEditCaseGapServiceProvision,
-                                                shoulViewCaseGapServiceProvision:
+                                                shouldViewCaseGapServiceProvision:
                                                     widget
-                                                        .shoulViewCaseGapServiceProvision,
+                                                        .shouldViewCaseGapServiceProvision,
                                                 formSectionColor: borderColors[
                                                     formSection.id],
                                                 formSection: formSection,

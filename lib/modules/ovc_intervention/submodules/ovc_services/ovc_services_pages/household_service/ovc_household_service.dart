@@ -92,7 +92,7 @@ class OvcHouseholdService extends StatelessWidget {
       context,
       MaterialPageRoute(
         builder: (context) => HouseholdServiceForm(
-          shoulViewCaseGapServiceProvision: true,
+          shouldViewCaseGapServiceProvision: true,
           shouldEditCaseGapServiceProvision: true,
         ),
       ),

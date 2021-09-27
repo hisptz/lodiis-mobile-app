@@ -9,7 +9,7 @@ class CasePlanGapViewContainer extends StatelessWidget {
     required this.domainId,
     required this.isCasePlanForHousehold,
     required this.shouldEditCaseGapServiceProvision,
-    required this.shoulViewCaseGapServiceProvision,
+    required this.shouldViewCaseGapServiceProvision,
   }) : super(key: key);
 
   final List<dynamic> casePlanGaps;
@@ -17,7 +17,7 @@ class CasePlanGapViewContainer extends StatelessWidget {
   final String? domainId;
   final bool isCasePlanForHousehold;
   final bool shouldEditCaseGapServiceProvision;
-  final bool shoulViewCaseGapServiceProvision;
+  final bool shouldViewCaseGapServiceProvision;
 
   @override
   Widget build(BuildContext context) {
@@ -38,8 +38,8 @@ class CasePlanGapViewContainer extends StatelessWidget {
               formSectionColor: formSectionColor,
               shouldEditCaseGapServiceProvision:
                   shouldEditCaseGapServiceProvision,
-              shoulViewCaseGapServiceProvision:
-                  shoulViewCaseGapServiceProvision,
+              shouldViewCaseGapServiceProvision:
+                  shouldViewCaseGapServiceProvision,
             ),
           );
         }).toList(),
