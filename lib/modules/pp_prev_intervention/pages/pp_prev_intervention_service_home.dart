@@ -15,6 +15,7 @@ import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/models/pp_prev_beneficiary.dart';
 import 'package:kb_mobile_app/modules/pp_prev_intervention/components/pp_prev_beneficiary_top_header.dart';
+import 'package:kb_mobile_app/modules/pp_prev_intervention/components/pp_prev_services_visit_card.dart';
 import 'package:kb_mobile_app/modules/pp_prev_intervention/constants/pp_prev_intervention_constant.dart';
 import 'package:kb_mobile_app/modules/pp_prev_intervention/constants/pp_prev_routes_constant.dart';
 import 'package:kb_mobile_app/modules/pp_prev_intervention/pages/pp_prev_intervention_service_provision_form.dart';
@@ -143,7 +144,7 @@ class PpPrevInterventionServiceHome extends StatelessWidget {
                     List<Events> events = TrackedEntityInstanceUtil
                         .getAllEventListFromServiceDataStateByProgramStages(
                             eventListByProgramStage, programStageIds);
-                    //@TODO mapped events
+                    int serviceIndex = events.length + 1;
                     return Container(
                       child: Column(
                         children: [
@@ -170,8 +171,26 @@ class PpPrevInterventionServiceHome extends StatelessWidget {
                                                   vertical: 5.0,
                                                   horizontal: 13.0,
                                                 ),
-                                                child: Text(
-                                                  "events => $events",
+                                                child: Column(
+                                                  children: events
+                                                      .map((Events eventData) {
+                                                    serviceIndex--;
+                                                    return PpPrevServiceVisitCard(
+                                                      eventData: eventData,
+                                                      visitName:
+                                                          "Service $serviceIndex",
+                                                      onEdit: () =>
+                                                          onEditPpPrevService(
+                                                              context,
+                                                              ppPrevBeneficiary,
+                                                              eventData),
+                                                      onView: () =>
+                                                          onViewPpPrevService(
+                                                              context,
+                                                              ppPrevBeneficiary,
+                                                              eventData),
+                                                    );
+                                                  }).toList(),
                                                 ),
                                               ),
                                       ),
