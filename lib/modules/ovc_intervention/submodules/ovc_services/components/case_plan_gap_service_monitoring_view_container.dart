@@ -59,7 +59,7 @@ class _CasePlanGapServiceMonitoringViewContainerState
   }
 
   Expanded _getTableViewWidget(String? currentLanguage,
-      CasePlanGapServiceMonitoring casePlanGapServiceMonitoring) {
+      CasePlanGapServiceMonitoring casePlanGapServiceMonitoring, int index) {
     return Expanded(
       child: Table(
         children: [
@@ -77,6 +77,18 @@ class _CasePlanGapServiceMonitoringViewContainerState
                   ),
                 ),
               ),
+              TableCell(
+                child: Text(
+                  '',
+                  style: TextStyle().copyWith(
+                    color: Color(
+                      0xFF8A9589,
+                    ),
+                    fontSize: 12.0,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
             ],
           ),
           TableRow(
@@ -84,6 +96,16 @@ class _CasePlanGapServiceMonitoringViewContainerState
               TableCell(
                 child: Text(
                   casePlanGapServiceMonitoring.date!,
+                  style: TextStyle().copyWith(
+                    color: Color(0xFF1A3518),
+                    fontSize: 12.0,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+              TableCell(
+                child: Text(
+                  'Monitoring $index',
                   style: TextStyle().copyWith(
                     color: Color(0xFF1A3518),
                     fontSize: 12.0,
@@ -149,7 +171,7 @@ class _CasePlanGapServiceMonitoringViewContainerState
                               .casePlanGapToServiceMonitoringLinkage ==
                           widget.casePlanGapToServiceMonitoringLinkageValue)
                       .toList();
-
+              int index = casePlanMonitoringEvents.length;
               return Container(
                 child: isLoading || !isViewReady
                     ? Container(
@@ -184,54 +206,51 @@ class _CasePlanGapServiceMonitoringViewContainerState
                             ),
                             Container(
                               child: Column(
-                                children: casePlanMonitoringEvents
-                                    .map(
-                                      (CasePlanGapServiceMonitoring
-                                              casePlanGapServiceMonitoring) =>
-                                          Container(
-                                        margin: EdgeInsets.symmetric(
-                                          vertical: 10.0,
+                                children: casePlanMonitoringEvents.map(
+                                    (CasePlanGapServiceMonitoring
+                                        casePlanGapServiceMonitoring) {
+                                  return Container(
+                                    margin: EdgeInsets.symmetric(
+                                      vertical: 10.0,
+                                    ),
+                                    child: Row(
+                                      children: [
+                                        _getTableViewWidget(
+                                          currentLanguage,
+                                          casePlanGapServiceMonitoring,
+                                          index--,
                                         ),
-                                        child: Row(
-                                          children: [
-                                            _getTableViewWidget(
-                                              currentLanguage,
-                                              casePlanGapServiceMonitoring,
-                                            ),
-                                            Container(
-                                              child: Visibility(
-                                                visible: widget
-                                                    .shouldEditCaseGapServiceMonitoring,
+                                        Container(
+                                          child: Visibility(
+                                            visible: widget
+                                                .shouldEditCaseGapServiceMonitoring,
+                                            child: Container(
+                                              child: InkWell(
+                                                onTap: () =>
+                                                    onEditCasePlanServiceMonitoring(
+                                                  context,
+                                                  casePlanGapServiceMonitoring,
+                                                ),
                                                 child: Container(
-                                                  child: InkWell(
-                                                    onTap: () =>
-                                                        onEditCasePlanServiceMonitoring(
-                                                      context,
-                                                      casePlanGapServiceMonitoring,
-                                                    ),
-                                                    child: Container(
-                                                      height: iconHeight,
-                                                      width: iconHeight,
-                                                      margin:
-                                                          EdgeInsets.symmetric(
-                                                        vertical: 5,
-                                                        horizontal: 5,
-                                                      ),
-                                                      child: SvgPicture.asset(
-                                                        'assets/icons/edit-icon.svg',
-                                                        color:
-                                                            widget.themeColor,
-                                                      ),
-                                                    ),
+                                                  height: iconHeight,
+                                                  width: iconHeight,
+                                                  margin: EdgeInsets.symmetric(
+                                                    vertical: 5,
+                                                    horizontal: 5,
+                                                  ),
+                                                  child: SvgPicture.asset(
+                                                    'assets/icons/edit-icon.svg',
+                                                    color: widget.themeColor,
                                                   ),
                                                 ),
                                               ),
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                    )
-                                    .toList(),
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  );
+                                }).toList(),
                               ),
                             )
                           ],
