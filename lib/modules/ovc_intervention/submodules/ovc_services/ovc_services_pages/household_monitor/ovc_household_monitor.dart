@@ -15,6 +15,7 @@ import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_household_
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/constants/ovc_case_plan_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/household_services_ongoing_monitoring.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/household_case_plan/constants/ovc_household_case_plan_constant.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/household_case_plan/pages/household_service_form.dart';
 import 'package:provider/provider.dart';
 import 'components/monitor_list_container.dart';
 import 'constants/ovc_household_monitor_constant.dart';
@@ -81,10 +82,10 @@ class OvcHouseholdMonitor extends StatelessWidget {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => OvcHouseholdMonitorForm(
-            //   shouldViewCaseGapFollowUp: true,
-            //   shouldEditCaseGapFollowUps: true,
-            ),
+        builder: (context) => HouseholdServiceForm(
+            shouldEditCaseGapServiceProvision: true,
+            shouldViewCaseGapServiceProvision: true,
+            isServiceMonitoring: true),
       ),
     );
   }

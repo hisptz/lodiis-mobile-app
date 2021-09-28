@@ -24,17 +24,20 @@ class OcvServiceCasePlanForm extends StatefulWidget {
     Key? key,
     this.shouldEditCaseGapServiceProvision = false,
     this.shouldViewCaseGapServiceProvision = false,
+    this.isServiceMonitoring = false,
   }) : super(key: key);
 
   final bool shouldEditCaseGapServiceProvision;
   final bool shouldViewCaseGapServiceProvision;
+  final bool isServiceMonitoring;
 
   @override
   _OcvServiceCasePlanFormState createState() => _OcvServiceCasePlanFormState();
 }
 
 class _OcvServiceCasePlanFormState extends State<OcvServiceCasePlanForm> {
-  final String label = 'Service Provision';
+  final String serviceProvisionLabel = 'Service Provision';
+  final String serviceMonitoringLabel = 'Service Monitoring';
   late List<FormSection> formSections;
   Map borderColors = Map();
 
@@ -141,7 +144,9 @@ class _OcvServiceCasePlanFormState extends State<OcvServiceCasePlanForm> {
             InterventionCard activeInterventionProgram =
                 interventionCardState.currentInterventionProgram;
             return SubPageAppBar(
-              label: label,
+              label: widget.isServiceMonitoring
+                  ? serviceMonitoringLabel
+                  : serviceProvisionLabel,
               activeInterventionProgram: activeInterventionProgram,
             );
           },
@@ -202,6 +207,8 @@ class _OcvServiceCasePlanFormState extends State<OcvServiceCasePlanForm> {
                                                     dataObject[formSection.id],
                                                 isEditableMode: serviceFormState
                                                     .isEditableMode,
+                                                isServiceMonitoring:
+                                                    widget.isServiceMonitoring,
                                                 onInputValueChange:
                                                     (dynamic value) =>
                                                         onInputValueChange(
