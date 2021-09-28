@@ -17,6 +17,7 @@ class ServiceFormContainer extends StatelessWidget {
     required this.isEditableMode,
     required this.dataObject,
     this.isCasePlanForHousehold = false,
+    required this.isServiceMonitoring,
     this.onInputValueChange,
     required this.shouldEditCaseGapServiceProvision,
     required this.shouldViewCaseGapServiceProvision,
@@ -28,12 +29,15 @@ class ServiceFormContainer extends StatelessWidget {
   final Map? dataObject;
   final Function? onInputValueChange;
   final bool isCasePlanForHousehold;
+  final bool isServiceMonitoring;
   final bool shouldEditCaseGapServiceProvision;
   final bool shouldViewCaseGapServiceProvision;
 
   final String caseToGapLinkage = OvcCasePlanConstant.casePlanToGapLinkage;
   final String casePlanGapToServiceProvisionLinkage =
       OvcCasePlanConstant.casePlanGapToServiceProvisionLinkage;
+  final String casePlanGapToServiceMonitoringLinkage =
+      OvcCasePlanConstant.casePlanGapToMonitoringLinkage;
 
   void onAddNewGap(BuildContext context) async {
     Map gapDataObject = Map();
@@ -41,6 +45,9 @@ class ServiceFormContainer extends StatelessWidget {
         gapDataObject[casePlanGapToServiceProvisionLinkage] ?? AppUtil.getUid();
     gapDataObject[caseToGapLinkage] =
         dataObject![caseToGapLinkage] ?? AppUtil.getUid();
+    gapDataObject[casePlanGapToServiceMonitoringLinkage] =
+        gapDataObject[casePlanGapToServiceMonitoringLinkage] ??
+            AppUtil.getUid();
     List<FormSection> formSections = isCasePlanForHousehold
         ? OvcHouseholdServicesCasePlanGaps.getFormSections()
             .where((FormSection form) => form.id == formSection.id)
@@ -104,6 +111,7 @@ class ServiceFormContainer extends StatelessWidget {
                   casePlanGaps: dataObject!['gaps'] ?? [],
                   domainId: formSection.id,
                   isCasePlanForHousehold: isCasePlanForHousehold,
+                  isServiceMonitoring: isServiceMonitoring,
                   formSectionColor: formSectionColor,
                   shouldEditCaseGapServiceProvision:
                       shouldEditCaseGapServiceProvision,

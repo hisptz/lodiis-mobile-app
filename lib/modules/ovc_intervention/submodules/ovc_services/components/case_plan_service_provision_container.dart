@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/components/case_plan_gap_service_monitoring_view_container.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/components/case_plan_service_monitoring_form_container.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/components/case_plan_service_provision_form_container.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/components/case_plan_gap_service_provision_view_container.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/constants/ovc_case_plan_constant.dart';
@@ -12,6 +14,7 @@ class CasePlanServiceProvisionContainer extends StatefulWidget {
     Key? key,
     required this.formSectionColor,
     required this.isCasePlanForHousehold,
+    required this.isServiceMonitoring,
     required this.casePlanGap,
     required this.shouldEditCaseGapServiceProvision,
     required this.shouldViewCaseGapServiceProvision,
@@ -21,6 +24,7 @@ class CasePlanServiceProvisionContainer extends StatefulWidget {
   final Map casePlanGap;
   final Color? formSectionColor;
   final bool isCasePlanForHousehold;
+  final bool isServiceMonitoring;
   final bool shouldEditCaseGapServiceProvision;
   final bool shouldViewCaseGapServiceProvision;
   final String? domainId;
@@ -32,7 +36,8 @@ class CasePlanServiceProvisionContainer extends StatefulWidget {
 
 class _CasePlanServiceProvisionContainerState
     extends State<CasePlanServiceProvisionContainer> {
-  String? casePlanGapToServiceProvisionLinkageValue;
+  late String casePlanGapToServiceProvisionLinkageValue;
+  late String casePlanGapToServiceMonitoringLinkageValue;
 
   @override
   void initState() {
@@ -40,10 +45,42 @@ class _CasePlanServiceProvisionContainerState
     setState(() {
       String casePlanGapToServiceProvisionLinkage =
           OvcCasePlanConstant.casePlanGapToServiceProvisionLinkage;
+      String casePlanGapToServiceMonitoringLinkage =
+          OvcCasePlanConstant.casePlanGapToMonitoringLinkage;
       casePlanGapToServiceProvisionLinkageValue =
           widget.casePlanGap[casePlanGapToServiceProvisionLinkage] ??
               AppUtil.getUid();
+      casePlanGapToServiceMonitoringLinkageValue =
+          widget.casePlanGap[casePlanGapToServiceMonitoringLinkage] ??
+              AppUtil.getUid();
     });
+  }
+
+  void addServiceMonitoring(BuildContext context) async {
+    Map dataObject = Map();
+    for (var key in widget.casePlanGap.keys) {
+      if (key != 'eventId' && key != 'eventDate') {
+        dataObject[key] = widget.casePlanGap[key];
+      }
+    }
+
+    if (widget
+            .casePlanGap[OvcCasePlanConstant.casePlanGapToMonitoringLinkage] ==
+        null) {
+      // TODO add it to the case plan
+    }
+
+    dataObject[OvcCasePlanConstant.casePlanGapToMonitoringLinkage] =
+        casePlanGapToServiceMonitoringLinkageValue;
+
+    Widget modal = CasePlanServiceMonitoringFormContainer(
+      dataObject: dataObject,
+      domainId: widget.domainId,
+      isCasePlanForHousehold: widget.isCasePlanForHousehold,
+      isEditableMode: widget.shouldViewCaseGapServiceProvision,
+    );
+
+    await AppUtil.showPopUpModal(context, modal, true);
   }
 
   void addServiceProvision(BuildContext context) async {
@@ -84,16 +121,27 @@ class _CasePlanServiceProvisionContainerState
           child: Column(
             children: [
               Container(
-                child: CasePlanGapServiceViewContainer(
-                  casePlanGap: widget.casePlanGap,
-                  domainId: widget.domainId,
-                  themeColor: widget.formSectionColor,
-                  casePlanGapToServiceProvisionLinkageValue:
-                      casePlanGapToServiceProvisionLinkageValue,
-                  shouldEditCaseGapServiceProvision:
-                      widget.shouldEditCaseGapServiceProvision,
-                  isCasePlanForHousehold: widget.isCasePlanForHousehold,
-                ),
+                child: widget.isServiceMonitoring
+                    ? CasePlanGapServiceMonitoringViewContainer(
+                        casePlanGap: widget.casePlanGap,
+                        domainId: widget.domainId,
+                        themeColor: widget.formSectionColor,
+                        casePlanGapToServiceMonitoringLinkageValue:
+                            casePlanGapToServiceMonitoringLinkageValue,
+                        shouldEditCaseGapServiceMonitoring:
+                            widget.shouldEditCaseGapServiceProvision,
+                        isCasePlanForHousehold: widget.isCasePlanForHousehold,
+                      )
+                    : CasePlanGapServiceViewContainer(
+                        casePlanGap: widget.casePlanGap,
+                        domainId: widget.domainId,
+                        themeColor: widget.formSectionColor,
+                        casePlanGapToServiceProvisionLinkageValue:
+                            casePlanGapToServiceProvisionLinkageValue,
+                        shouldEditCaseGapServiceProvision:
+                            widget.shouldEditCaseGapServiceProvision,
+                        isCasePlanForHousehold: widget.isCasePlanForHousehold,
+                      ),
               ),
               Visibility(
                 visible: widget.shouldViewCaseGapServiceProvision,
@@ -112,9 +160,13 @@ class _CasePlanServiceProvisionContainerState
                       ),
                       padding: EdgeInsets.all(15.0),
                     ),
-                    onPressed: () => this.addServiceProvision(context),
+                    onPressed: () => widget.isServiceMonitoring
+                        ? this.addServiceMonitoring(context)
+                        : this.addServiceProvision(context),
                     child: Text(
-                      'ADD SERVICE',
+                      widget.isServiceMonitoring
+                          ? 'ADD MONITORING'
+                          : 'ADD SERVICE',
                       style: TextStyle().copyWith(
                         color: widget.formSectionColor,
                         fontSize: 14.0,

@@ -39,11 +39,16 @@ class CasePlanFormContainer extends StatelessWidget {
   final String caseToGapLinkage = OvcCasePlanConstant.casePlanToGapLinkage;
   final String casePlanGapToServiceProvisionLinkage =
       OvcCasePlanConstant.casePlanGapToServiceProvisionLinkage;
+  final String casePlanGapToServiceMonitoringLinkage =
+      OvcCasePlanConstant.casePlanGapToMonitoringLinkage;
 
   void onAddNewGap(BuildContext context) async {
     Map gapDataObject = Map();
     gapDataObject[casePlanGapToServiceProvisionLinkage] =
         gapDataObject[casePlanGapToServiceProvisionLinkage] ?? AppUtil.getUid();
+    gapDataObject[casePlanGapToServiceMonitoringLinkage] =
+        gapDataObject[casePlanGapToServiceMonitoringLinkage] ??
+            AppUtil.getUid();
     gapDataObject[caseToGapLinkage] =
         dataObject![caseToGapLinkage] ?? AppUtil.getUid();
     List<FormSection> formSections = isCasePlanForHousehold

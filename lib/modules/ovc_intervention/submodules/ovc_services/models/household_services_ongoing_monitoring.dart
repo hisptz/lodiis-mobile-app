@@ -154,7 +154,7 @@ class HouseholdServicesOngoingMonitoring {
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'x3FxC6Bw139',
-                name: 'VACLegal Messaging progress',
+                name: 'VAC Legal Messaging progress',
                 translatedName:
                     'Tsoelo-pele ea litšebeletso tsa VAC Legal Messaging',
                 valueType: 'TEXT',
@@ -239,6 +239,7 @@ class HouseholdServicesOngoingMonitoring {
       //           labelColor: Color(0xFF737373))
       //     ]),
       FormSection(
+        id: '',
         name: 'Household ongoing monitoring',
         color: Color(0xFF4D9E49),
         inputFields: [
