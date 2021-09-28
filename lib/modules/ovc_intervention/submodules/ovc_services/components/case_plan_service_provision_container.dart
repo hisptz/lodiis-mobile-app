@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_household_current_selection_state.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
+import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
+import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/components/case_plan_gap_service_monitoring_view_container.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/components/case_plan_service_monitoring_form_container.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/components/case_plan_service_provision_form_container.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/components/case_plan_gap_service_provision_view_container.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/constants/ovc_case_plan_constant.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_child_case_plan_gap.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_household_case_plan_gaps.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_case_plan/constants/ovc_child_case_plan_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/household_case_plan/constants/ovc_household_case_plan_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/utils/ovc_service_provision_util.dart';
+import 'package:provider/provider.dart';
 
 class CasePlanServiceProvisionContainer extends StatefulWidget {
   const CasePlanServiceProvisionContainer({
@@ -64,10 +70,15 @@ class _CasePlanServiceProvisionContainerState
       }
     }
 
+    // Add case plan to service monitoring linkage if not exist
     if (widget
             .casePlanGap[OvcCasePlanConstant.casePlanGapToMonitoringLinkage] ==
         null) {
-      // TODO add it to the case plan
+      Map casePlanGapDataObject = widget.casePlanGap;
+      casePlanGapDataObject[
+              OvcCasePlanConstant.casePlanGapToMonitoringLinkage] =
+          casePlanGapToServiceMonitoringLinkageValue;
+      await editCasePlanGap(context, casePlanGapDataObject);
     }
 
     dataObject[OvcCasePlanConstant.casePlanGapToMonitoringLinkage] =
@@ -81,6 +92,54 @@ class _CasePlanServiceProvisionContainerState
     );
 
     await AppUtil.showPopUpModal(context, modal, true);
+  }
+
+  Future<void> editCasePlanGap(
+      BuildContext context, Map casePlanGapDataObject) async {
+    String programId = widget.isCasePlanForHousehold
+        ? OvcHouseholdCasePlanConstant.program
+        : OvcChildCasePlanConstant.program;
+    String programStageId = widget.isCasePlanForHousehold
+        ? OvcHouseholdCasePlanConstant.casePlanGapProgramStage
+        : OvcChildCasePlanConstant.casePlanGapProgramStage;
+    String orgUnit = widget.isCasePlanForHousehold
+        ? Provider.of<OvcHouseholdCurrentSelectionState>(context, listen: false)
+            .currentOvcHousehold!
+            .orgUnit!
+        : Provider.of<OvcHouseholdCurrentSelectionState>(context, listen: false)
+            .currentOvcHouseholdChild!
+            .orgUnit!;
+    String tei = widget.isCasePlanForHousehold
+        ? Provider.of<OvcHouseholdCurrentSelectionState>(context, listen: false)
+            .currentOvcHousehold!
+            .id!
+        : Provider.of<OvcHouseholdCurrentSelectionState>(context, listen: false)
+            .currentOvcHouseholdChild!
+            .id!;
+    List<FormSection> formSections = widget.isCasePlanForHousehold
+        ? OvcHouseholdServicesCasePlanGaps.getFormSections()
+            .where((FormSection form) => form.id == widget.domainId)
+            .toList()
+        : OvcServicesChildCasePlanGap.getFormSections()
+            .where((FormSection form) => form.id == widget.domainId)
+            .toList();
+    List<String> hiddenFields = [
+      OvcCasePlanConstant.casePlanToGapLinkage,
+      OvcCasePlanConstant.casePlanGapToServiceProvisionLinkage,
+      OvcCasePlanConstant.casePlanGapToMonitoringLinkage
+    ];
+
+    await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
+      programId,
+      programStageId,
+      orgUnit,
+      formSections,
+      casePlanGapDataObject,
+      casePlanGapDataObject['eventDate'],
+      tei,
+      casePlanGapDataObject['eventId'],
+      hiddenFields,
+    );
   }
 
   void addServiceProvision(BuildContext context) async {
