@@ -50,8 +50,8 @@ class PpPrevServiceForm {
             labelColor: Color(0xFF737373),
           ),
           InputField(
-            id: 'Date of referral',
-            name: 'OIUDljKyNgy',
+            id: 'OIUDljKyNgy',
+            name: 'Date of referral',
             valueType: 'DATE',
             inputColor: Color(0xFF9B2BAE),
             labelColor: Color(0xFF737373),

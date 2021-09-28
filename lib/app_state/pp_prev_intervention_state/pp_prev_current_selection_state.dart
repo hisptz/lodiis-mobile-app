@@ -6,8 +6,8 @@ class PpPrevBeneficiarySelectionState with ChangeNotifier {
 
   PpPrevBeneficiary? get currentPpPrev => _currentPpPrev;
 
-  void setCurrentAgywDream(PpPrevBeneficiary? currentAgywDream) {
-    _currentPpPrev = currentAgywDream;
+  void setCurrentAgywDream(PpPrevBeneficiary? currentPpPrev) {
+    _currentPpPrev = currentPpPrev;
     notifyListeners();
   }
 }

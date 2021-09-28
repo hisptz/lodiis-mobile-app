@@ -59,7 +59,7 @@ class _DreamsInterventionState extends State<DreamsIntervention> {
         Timer.periodic(Duration(minutes: syncTimeout), (Timer timer) {
       Provider.of<CurrentUserState>(context, listen: false)
           .getAndSetCurrentUserDataEntryAuthorityStatus();
-      AutoSynchronizationService().startAutoDownload(context);
+      AutoSynchronizationService().startAutoUpload(context);
     });
   }
 
