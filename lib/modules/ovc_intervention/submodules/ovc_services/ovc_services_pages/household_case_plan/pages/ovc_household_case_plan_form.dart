@@ -120,7 +120,8 @@ class _OvcHouseholdCasePlanFormState extends State<OvcHouseholdCasePlanForm> {
 
           hiddenFields = [
             OvcCasePlanConstant.casePlanToGapLinkage,
-            OvcCasePlanConstant.casePlanGapToServiceProvisionLinkage
+            OvcCasePlanConstant.casePlanGapToServiceProvisionLinkage,
+            OvcCasePlanConstant.casePlanGapToMonitoringLinkage
           ];
           for (Map domainGapDataObject in domainDataObject['gaps']) {
             await TrackedEntityInstanceUtil
