@@ -9,12 +9,14 @@ class PpPrevBeneficiaryCardTop extends StatelessWidget {
     required this.ppPrevBeneficiary,
     required this.onViewBeneficiary,
     required this.iconHeight,
+    required this.isSynced,
     required this.onEditBeneficiary,
   }) : super(key: key);
 
   final PpPrevBeneficiary ppPrevBeneficiary;
   final VoidCallback? onViewBeneficiary;
   final double iconHeight;
+  final bool isSynced;
   final VoidCallback? onEditBeneficiary;
 
   @override
@@ -38,7 +40,7 @@ class PpPrevBeneficiaryCardTop extends StatelessWidget {
           ),
           BeneficiarySyncStatusIndicator(
             iconHeight: iconHeight,
-            isSynced: ppPrevBeneficiary.isSynced!,
+            isSynced: isSynced,
           ),
           Container(
             child: InkWell(

@@ -11,7 +11,7 @@ class AutoSynchronizationService {
         .checkChangeOfDeviceConnectionStatus(context);
   }
 
-  void startAutoDownload(BuildContext context) async {
+  void startAutoUpload(BuildContext context) async {
     await Provider.of<SynchronizationState>(context, listen: false)
         .startCheckingStatusOfUnsyncedData(isAutoUpload: true);
     bool isOnline = Provider.of<DeviceConnectivityState>(context, listen: false)

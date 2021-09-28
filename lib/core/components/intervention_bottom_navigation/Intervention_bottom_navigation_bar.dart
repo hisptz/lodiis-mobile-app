@@ -76,8 +76,6 @@ class InterventionBottomNavigationBar extends StatelessWidget {
           builder: (context, interventionBottomNavigationState, child) {
             return Consumer<CurrentUserState>(
               builder: (context, currentUserState, child) {
-                bool isCurrentUserKbDreamPartner =
-                    currentUserState.isCurrentUserKbDreamPartner;
                 interventionBottomNavigations =
                     _getSanitizedInterventionsByCurrentUserAccess(
                   currentUserState,
@@ -149,20 +147,9 @@ class InterventionBottomNavigationBar extends StatelessWidget {
                                             interventionBottomNavigation
                                                     .translatedName !=
                                                 null
-                                        ? isCurrentUserKbDreamPartner &&
-                                                interventionBottomNavigation
-                                                        .id ==
-                                                    "noneAgyw"
-                                            ? "KB PrEP"
-                                            : interventionBottomNavigation
-                                                .translatedName!
-                                        : isCurrentUserKbDreamPartner &&
-                                                interventionBottomNavigation
-                                                        .id ==
-                                                    "noneAgyw"
-                                            ? "KB PrEP"
-                                            : interventionBottomNavigation
-                                                .name!,
+                                        ? interventionBottomNavigation
+                                            .translatedName!
+                                        : interventionBottomNavigation.name!,
                                     style: TextStyle(
                                       fontSize: 10,
                                       fontWeight: FontWeight.bold,
