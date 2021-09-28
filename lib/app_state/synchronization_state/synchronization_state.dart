@@ -210,6 +210,9 @@ class SynchronizationState with ChangeNotifier {
     _hasUnsyncedData = unsyncedEventsCount > 0 || unsyncedTeiCount > 0;
     if (!isAutoUpload) {
       updateUnsyncedDataCheckingStatus(false);
+    } else {
+      Provider.of<SynchronizationStatusState>(context!, listen: false)
+          .resetSyncStatusReferences();
     }
   }
 
