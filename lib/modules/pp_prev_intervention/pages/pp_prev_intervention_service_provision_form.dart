@@ -7,7 +7,7 @@ import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_ev
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
-import 'package:kb_mobile_app/app_state/pp_prev_intervention_state/pp_prev_current_selection_state.dart';
+import 'package:kb_mobile_app/app_state/pp_prev_intervention_state/pp_prev_intervention_current_selection_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
@@ -146,9 +146,10 @@ class _PpPrevInterventionServiceProvisionFormState
     bool isSaveForm = false,
     String nextPageModule = "",
   }) async {
-    var currentPpPrev =
-        Provider.of<PpPrevBeneficiarySelectionState>(context, listen: false)
-            .currentPpPrev;
+    var currentPpPrev = Provider.of<PpPrevInterventionCurrentSelectionState>(
+            context,
+            listen: false)
+        .currentPpPrev;
     String? beneficiaryId = currentPpPrev!.id;
     Map dataObject =
         Provider.of<ServiceFormState>(context, listen: false).formState;
@@ -192,7 +193,7 @@ class _PpPrevInterventionServiceProvisionFormState
                 builder: (context, languageTranslationState, child) {
               String? currentLanguage =
                   languageTranslationState.currentLanguage;
-              return Consumer<PpPrevBeneficiarySelectionState>(
+              return Consumer<PpPrevInterventionCurrentSelectionState>(
                 builder: (context, dreamBeneficiarySelectionState, child) {
                   return Consumer<ServiceFormState>(
                     builder: (context, serviceFormState, child) {
