@@ -64,7 +64,7 @@ class InterventionBottomNavigation {
     ),
     InterventionBottomNavigation(
       id: 'noneAgyw',
-      name: 'None AGYW',
+      name: 'KB PrEP',
       svgIcon: 'assets/icons/none-agyw-navigation-icon.svg',
     ),
   ];
