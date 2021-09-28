@@ -19,19 +19,19 @@ import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/models/ovc_household_child.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_child_info_top_header.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_school_monitoring.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_monitor/pages/add_school/constants/ovc_school_monitoring_constant.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_monitor/pages/add_school/skip_logics/ovc_child_school_monitoring_skip_logic.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_ongoing_monitoring.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_monitor/pages/ovc_service_monitoring/constants/ovc_service_monitoring_constant.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_monitor/pages/ovc_service_monitoring/skip_logics/ovc_child_service_monitoring_skip_logic.dart';
 import 'package:provider/provider.dart';
 
-class OvcSchoolMonitoringForm extends StatefulWidget {
+class OvcServiceMonitoringForm extends StatefulWidget {
   @override
-  _OvcSchoolMonitoringFormState createState() =>
-      _OvcSchoolMonitoringFormState();
+  _OvcServiceMonitoringFormState createState() =>
+      _OvcServiceMonitoringFormState();
 }
 
-class _OvcSchoolMonitoringFormState extends State<OvcSchoolMonitoringForm> {
-  final String label = 'Child school performance monitoring tool';
+class _OvcServiceMonitoringFormState extends State<OvcServiceMonitoringForm> {
+  final String label = 'Ongoing monitoring tool';
   List<FormSection>? formSections;
   bool isFormReady = false;
   bool isSaving = false;
@@ -39,7 +39,7 @@ class _OvcSchoolMonitoringFormState extends State<OvcSchoolMonitoringForm> {
   @override
   void initState() {
     super.initState();
-    formSections = OvcSchoolMonitoring.getFormSections();
+    formSections = OvcServicesOngoingMonitoring.getFormSections();
     Timer(Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
@@ -54,7 +54,7 @@ class _OvcSchoolMonitoringFormState extends State<OvcSchoolMonitoringForm> {
       () async {
         Map dataObject =
             Provider.of<ServiceFormState>(context, listen: false).formState;
-        await OvcChildSchoolMonitoringSkipLogic.evaluateSkipLogics(
+        await OvcChildServiceMonitoringSkipLogic.evaluateSkipLogics(
           context,
           formSections!,
           dataObject,
@@ -82,8 +82,8 @@ class _OvcSchoolMonitoringFormState extends State<OvcSchoolMonitoringForm> {
       String? eventId = dataObject['eventId'];
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-            OvcSchoolMonitoringConstant.program,
-            OvcSchoolMonitoringConstant.programStage,
+            OvcServiceMonitoringConstant.program,
+            OvcServiceMonitoringConstant.programStage,
             currentOvcHouseholdChild!.orgUnit,
             formSections!,
             dataObject,

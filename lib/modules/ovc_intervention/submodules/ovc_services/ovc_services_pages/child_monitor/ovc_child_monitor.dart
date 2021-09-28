@@ -14,8 +14,8 @@ import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_child_info
 import 'package:provider/provider.dart';
 import 'components/ovc_child_monitor_home_list_container.dart';
 import 'components/ovc_monitor_save_button.dart';
-import 'pages/add_school/pages/ovc_school_monitoring_form.dart';
-import 'pages/add_service/pages/ovc_service_monitoring_form.dart';
+import 'pages/ovc_school_monitoring/pages/ovc_school_monitoring_form.dart';
+import 'pages/ovc_service_monitoring/pages/ovc_service_monitoring_form.dart';
 import 'pages/constants/ovc_monitor_constant.dart';
 
 class OvcChildMonitor extends StatelessWidget {

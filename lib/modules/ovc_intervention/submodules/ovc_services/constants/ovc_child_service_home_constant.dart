@@ -42,8 +42,9 @@ class OvcChildServiceHomeConstant {
       OvcChildServiceHomeConstant(
         id: 'monitor',
         title: 'Monitor',
+        groupByDate: true,
         icon: 'assets/icons/child_monitor_ovc_icon.svg',
-        programStages: ['v9Vrc5exzam', 'dVdlJNtNLIQ'],
+        programStages: ['dVdlJNtNLIQ', 'ZHjrdThi7Bz'],
       )
     ];
   }
