@@ -5,7 +5,7 @@ import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/events.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_monitor/components/ovc_child_monitor_home_list_container.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_monitor/components/ovc_child_school_monitor_container.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_monitor/pages/ovc_school_monitoring/constants/ovc_school_monitoring_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_monitor/pages/ovc_school_monitoring/pages/ovc_school_monitoring_form.dart';
 import 'package:provider/provider.dart';
@@ -45,7 +45,6 @@ class _OvcSchoolMonitoringState extends State<OvcSchoolMonitoring> {
 
   void onEditSchoolMonitoring(
     BuildContext context,
-    String? monitorResponse,
     Events eventData,
   ) {
     bool isEditableMode = true;
@@ -58,7 +57,6 @@ class _OvcSchoolMonitoringState extends State<OvcSchoolMonitoring> {
 
   void onViewSchoolMonitoring(
     BuildContext context,
-    String? monitorResponse,
     Events eventData,
   ) {
     bool isEditableMode = false;
@@ -99,8 +97,10 @@ class _OvcSchoolMonitoringState extends State<OvcSchoolMonitoring> {
                                 child: OvcChildSchoolMonitorContainer(
                                   eventData: event,
                                   index: index,
-                                  onEditMonitor: () => null,
-                                  onViewMonitor: () => null,
+                                  onEditMonitor: () =>
+                                      onEditSchoolMonitoring(context, event),
+                                  onViewMonitor: () =>
+                                      onViewSchoolMonitoring(context, event),
                                 ));
                           }).toList(),
                         ),
