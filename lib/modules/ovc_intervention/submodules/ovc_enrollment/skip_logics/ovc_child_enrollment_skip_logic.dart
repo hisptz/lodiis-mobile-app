@@ -34,6 +34,10 @@ class OvcChildEnrollmentSkipLogic {
           hiddenSections['domainschooltsasekolo'] = true;
         }
       }
+         if (inputFieldId == 'iS9mAp3jDaU' &&
+          (value.isEmpty || '$value'.trim() != 'Biological mother')) {
+        hiddenFields['nOgf8LKXS4k'] = true;
+      }
 
       if (inputFieldId == 'UeF4OvjIIEK' &&
           (value.isEmpty || '$value'.trim() != 'true')) {
