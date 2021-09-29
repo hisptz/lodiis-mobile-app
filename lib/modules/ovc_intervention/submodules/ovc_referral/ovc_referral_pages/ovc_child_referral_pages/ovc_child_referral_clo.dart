@@ -23,7 +23,7 @@ class OvcChildCLOReferral extends StatefulWidget {
 }
 
 class _OvcChildCLOReferralState extends State<OvcChildCLOReferral> {
-  final bool isIncommingReferral = false;
+  final bool isIncomingReferral = false;
   final String label = 'Child Referral';
   final List<String> programStageIds = [
     OvcChildCLOReferralConstant.referralCLOOutGoingStage,
@@ -76,7 +76,7 @@ class _OvcChildCLOReferralState extends State<OvcChildCLOReferral> {
         builder: (context) => OvcChildReferralView(
           eventData: eventData,
           referralIndex: referralIndex,
-          isIncommingReferral: isIncommingReferral,
+          isIncomingReferral: isIncomingReferral,
         ),
       ),
     );
@@ -93,7 +93,7 @@ class _OvcChildCLOReferralState extends State<OvcChildCLOReferral> {
         builder: (context) => OvcChildReferralManage(
           eventData: eventData,
           referralIndex: referralIndex,
-          isIncommingReferral: isIncommingReferral,
+          isIncomingReferral: isIncomingReferral,
         ),
       ),
     );
