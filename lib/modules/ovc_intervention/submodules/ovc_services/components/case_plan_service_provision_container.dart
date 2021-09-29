@@ -88,7 +88,7 @@ class _CasePlanServiceProvisionContainerState
       dataObject: dataObject,
       domainId: widget.domainId,
       isCasePlanForHousehold: widget.isCasePlanForHousehold,
-      isEditableMode: widget.shouldViewCaseGapServiceProvision,
+      isEditableMode: true,
     );
 
     await AppUtil.showPopUpModal(context, modal, true);

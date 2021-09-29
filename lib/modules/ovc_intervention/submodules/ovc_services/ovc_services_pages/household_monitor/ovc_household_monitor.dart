@@ -19,7 +19,6 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/o
 import 'package:provider/provider.dart';
 import 'components/monitor_list_container.dart';
 import 'constants/ovc_household_monitor_constant.dart';
-import 'pages/ovc_household_monitor_form.dart';
 
 class OvcHouseholdMonitor extends StatelessWidget {
   final String label = 'Household Monitor';
