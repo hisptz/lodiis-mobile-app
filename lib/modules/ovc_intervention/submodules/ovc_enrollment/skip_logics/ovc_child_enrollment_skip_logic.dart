@@ -36,14 +36,18 @@ class OvcChildEnrollmentSkipLogic {
           hiddenSections['domainschooltsasekolo'] = true;
         }
       }
-      if (inputFieldId == 'iS9mAp3jDaU') {
+      if (inputFieldId == 'nOgf8LKXS4k') {
         Map hiddenOptions = Map();
-        if ('$value'.trim() == 'Biological mother') {
+        String relationShipToCaregiver = '${dataObject['iS9mAp3jDaU']}';
+        if (relationShipToCaregiver == 'Biological mother') {
           hiddenOptions['Single Orphan(Mother)'] = true;
+          hiddenOptions['Double Orphan'] = true;
+        } else if (relationShipToCaregiver == 'Biological father') {
+          hiddenOptions['Single Orphan(Father)'] = true;
+          hiddenOptions['Double Orphan'] = true;
         }
-        hiddenInputFieldOptions['nOgf8LKXS4k'] = hiddenOptions;
+        hiddenInputFieldOptions[inputFieldId] = hiddenOptions;
       }
-     
 
       if (inputFieldId == 'UeF4OvjIIEK' &&
           (value.isEmpty || '$value'.trim() != 'true')) {
