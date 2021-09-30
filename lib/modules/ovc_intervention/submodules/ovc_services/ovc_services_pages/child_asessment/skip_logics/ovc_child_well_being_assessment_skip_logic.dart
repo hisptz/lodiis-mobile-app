@@ -157,6 +157,7 @@ class OvcChildWellBeingAssessmentSkipLogic {
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
       bool isFieldHidden = hiddenFields[inputFieldId] ?? false;
+      
       if (!isFieldHidden) {
         if (inputFieldId == 'vCSvOI0d9M4' && value != 'true') {
           hiddenFields['NAqMo0LwqZR'] = true;
