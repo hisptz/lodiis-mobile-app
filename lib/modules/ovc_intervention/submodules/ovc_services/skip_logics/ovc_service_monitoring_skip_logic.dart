@@ -16,20 +16,30 @@ class OvcServiceMonitoringSkipLogic {
     hiddenSections.clear();
 
     // Gather all progress fields
-    List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections
+    List<FormSection> filteredFormSections = formSections
         .where((formSection) => formSection.id != '' && formSection.id != null)
-        .toList());
+        .toList();
+    List<String> inputFieldIds = FormUtil.getFormFieldIds(filteredFormSections);
+
+    // Gather all non-progress fields
+    List<FormSection> sectionsToBeSkipped = formSections
+        .where((formSection) => formSection.id == '' || formSection.id == null)
+        .toList();
+    List<String> skippedInputFieldIds =
+        FormUtil.getFormFieldIds(sectionsToBeSkipped);
+
+    // Hidding all progress fields
     for (var key in dataObject.keys) {
-      inputFieldIds.add('$key');
+      if (!skippedInputFieldIds.contains(key)) {
+        inputFieldIds.add('$key');
+      }
     }
     inputFieldIds = inputFieldIds.toSet().toList();
-
     for (String inputFieldId in inputFieldIds) {
       hiddenFields[inputFieldId] = true;
     }
 
     //@TODO checking age limit to hide and hide or show services
-
     dataObject.forEach((key, value) {
       if (key == 'ylSjcj6cv42' && value == 'true') {
         hiddenFields['yOoWkd9dHsJ'] = false;
@@ -134,7 +144,7 @@ class OvcServiceMonitoringSkipLogic {
 
     for (String sectionId in hiddenSections.keys) {
       List<FormSection> allFormSections =
-          FormUtil.getFlattenFormSections(formSections);
+          FormUtil.getFlattenFormSections(filteredFormSections);
       List<String> hiddenSectionInputFieldIds = FormUtil.getFormFieldIds(
           allFormSections
               .where((formSection) => formSection.id == sectionId)

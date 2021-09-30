@@ -121,7 +121,7 @@ class _CasePlanServiceMonitoringFormContainerState
   void onInputValueChange(String id, dynamic value) {
     widget.dataObject[id] = value;
     setState(() {});
-    // evaluateSkipLogics(context, formSections!, widget.dataObject);
+    evaluateSkipLogics(context, formSections!, widget.dataObject);
   }
 
   void onSaveForm(
