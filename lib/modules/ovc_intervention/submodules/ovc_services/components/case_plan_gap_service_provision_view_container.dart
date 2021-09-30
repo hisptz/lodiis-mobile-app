@@ -45,10 +45,9 @@ class _CasePlanGapServiceViewContainerState
   bool isViewReady = false;
   double iconHeight = 15.0;
 
-  void onEditCasePlanServiceProvision(
-    BuildContext context,
-    CasePlanGapServiceProvision casePlanGapServiceProvision,
-  ) async {
+  void onEditCasePlanServiceProvision(BuildContext context,
+      CasePlanGapServiceProvision casePlanGapServiceProvision,
+      {bool isEditable = true}) async {
     Map dataObject = Map();
     dataObject['eventDate'] = casePlanGapServiceProvision.date;
     dataObject['eventId'] = casePlanGapServiceProvision.id;
@@ -71,7 +70,7 @@ class _CasePlanGapServiceViewContainerState
       dataObject: dataObject,
       domainId: widget.domainId,
       isCasePlanForHousehold: widget.isCasePlanForHousehold,
-      isEditableMode: true,
+      isEditableMode: isEditable,
     );
     await AppUtil.showPopUpModal(context, modal, true);
   }
@@ -243,6 +242,27 @@ class _CasePlanGapServiceViewContainerState
                                             _getTableViewWidget(
                                               currentLanguage,
                                               casePlanGapServiceProvision,
+                                            ),
+                                            Container(
+                                              child: InkWell(
+                                                onTap: () =>
+                                                    onEditCasePlanServiceProvision(
+                                                        context,
+                                                        casePlanGapServiceProvision,
+                                                        isEditable: false),
+                                                child: Container(
+                                                  height: iconHeight,
+                                                  width: iconHeight,
+                                                  margin: EdgeInsets.symmetric(
+                                                    vertical: 5,
+                                                    horizontal: 5,
+                                                  ),
+                                                  child: SvgPicture.asset(
+                                                    'assets/icons/expand_icon.svg',
+                                                    color: widget.themeColor,
+                                                  ),
+                                                ),
+                                              ),
                                             ),
                                             Container(
                                               child: Visibility(

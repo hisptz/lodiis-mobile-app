@@ -120,8 +120,9 @@ class _CasePlanGapServiceMonitoringViewContainerState
     );
   }
 
-  onEditCasePlanServiceMonitoring(context,
-      CasePlanGapServiceMonitoring casePlanGapServiceMonitoring) async {
+  onEditCasePlanServiceMonitoring(
+      context, CasePlanGapServiceMonitoring casePlanGapServiceMonitoring,
+      {bool isEditable = true}) async {
     Map dataObject = Map();
     dataObject['eventDate'] = casePlanGapServiceMonitoring.date;
     dataObject['eventId'] = casePlanGapServiceMonitoring.id;
@@ -139,7 +140,7 @@ class _CasePlanGapServiceMonitoringViewContainerState
       dataObject: dataObject,
       domainId: widget.domainId,
       isCasePlanForHousehold: widget.isCasePlanForHousehold,
-      isEditableMode: true,
+      isEditableMode: isEditable,
     );
 
     await AppUtil.showPopUpModal(context, modal, true);
@@ -221,6 +222,27 @@ class _CasePlanGapServiceMonitoringViewContainerState
                                           index--,
                                         ),
                                         Container(
+                                          child: InkWell(
+                                            onTap: () =>
+                                                onEditCasePlanServiceMonitoring(
+                                                    context,
+                                                    casePlanGapServiceMonitoring,
+                                                    isEditable: false),
+                                            child: Container(
+                                              height: iconHeight,
+                                              width: iconHeight,
+                                              margin: EdgeInsets.symmetric(
+                                                vertical: 5,
+                                                horizontal: 5,
+                                              ),
+                                              child: SvgPicture.asset(
+                                                'assets/icons/expand_icon.svg',
+                                                color: widget.themeColor,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        Container(
                                           child: Visibility(
                                             visible: widget
                                                 .shouldEditCaseGapServiceMonitoring,
@@ -252,7 +274,7 @@ class _CasePlanGapServiceMonitoringViewContainerState
                                   );
                                 }).toList(),
                               ),
-                            )
+                            ),
                           ],
                         ),
                       ),
