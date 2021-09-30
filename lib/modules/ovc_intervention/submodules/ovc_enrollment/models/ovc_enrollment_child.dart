@@ -184,6 +184,7 @@ class OvcEnrollmentChild {
                     translatedName: '7-12 likhoeli tse fetileng'),
               ],
             ),
+            // TODO Migration for the type of data [Add checkbox options]
             InputField(
                 id: 'wtrZQadTkOL',
                 name: '5.2. What type of violence /abuse did you experience?',

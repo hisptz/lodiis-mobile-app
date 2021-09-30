@@ -15,10 +15,10 @@ import 'package:provider/provider.dart';
 class OvcReferralPage extends StatefulWidget {
   const OvcReferralPage({
     Key? key,
-    this.isIncommingReferral = false,
+    this.isIncomingReferral = false,
   }) : super(key: key);
 
-  final bool isIncommingReferral;
+  final bool isIncomingReferral;
 
   @override
   _OvcReferralPageState createState() => _OvcReferralPageState();
@@ -57,7 +57,7 @@ class _OvcReferralPageState extends State<OvcReferralPage> {
       context,
       MaterialPageRoute(
         builder: (context) => OvcHouseholdReferralHome(
-          isIncommingReferral: widget.isIncommingReferral,
+          isIncomingReferral: widget.isIncomingReferral,
         ),
       ),
     );
@@ -160,7 +160,7 @@ class _OvcReferralPageState extends State<OvcReferralPage> {
             canViewChildService: canViewChildService,
             canViewChildReferral: canViewChildReferral,
             canViewChildExit: canViewChildExit,
-            isIncommingReferral: widget.isIncommingReferral,
+            isIncomingReferral: widget.isIncomingReferral,
           ),
         ),
       ),

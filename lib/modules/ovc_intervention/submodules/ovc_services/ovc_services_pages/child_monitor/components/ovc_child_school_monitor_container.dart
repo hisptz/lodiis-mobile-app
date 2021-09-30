@@ -3,17 +3,17 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kb_mobile_app/core/components/material_card.dart';
 import 'package:kb_mobile_app/models/events.dart';
 
-class OvcChildMonitorHomeListContainer extends StatelessWidget {
-  const OvcChildMonitorHomeListContainer({
+class OvcChildSchoolMonitorContainer extends StatelessWidget {
+  const OvcChildSchoolMonitorContainer({
     Key? key,
     required this.eventData,
-    required this.programStageMap,
     this.onEditMonitor,
     this.onViewMonitor,
+    this.index,
   }) : super(key: key);
 
   final Events eventData;
-  final Map programStageMap;
+  final int? index;
   final Function? onViewMonitor;
   final Function? onEditMonitor;
 
@@ -37,8 +37,7 @@ class OvcChildMonitorHomeListContainer extends StatelessWidget {
                     child: Expanded(
                       child: RichText(
                         text: TextSpan(
-                          text: programStageMap[eventData.programStage] ??
-                              'Monitor',
+                          text: 'Monitor $index',
                           style: TextStyle().copyWith(
                             color: Color(0xFF1A3518),
                             fontSize: 14.0,

@@ -20,7 +20,7 @@ class CasePlanFormContainer extends StatelessWidget {
       this.isCasePlanForHousehold = false,
       this.onInputValueChange,
       required this.shouldEditCaseGapServiceProvision,
-      required this.shoulViewCaseGapServiceProvision,
+      required this.shouldViewCaseGapServiceProvision,
       required this.shouldAddCasePlanGap,
       this.currentHouseholdChild})
       : super(key: key);
@@ -33,17 +33,22 @@ class CasePlanFormContainer extends StatelessWidget {
   final bool isCasePlanForHousehold;
   final bool shouldEditCaseGapServiceProvision;
   final bool shouldAddCasePlanGap;
-  final bool shoulViewCaseGapServiceProvision;
+  final bool shouldViewCaseGapServiceProvision;
   final OvcHouseholdChild? currentHouseholdChild;
 
   final String caseToGapLinkage = OvcCasePlanConstant.casePlanToGapLinkage;
   final String casePlanGapToServiceProvisionLinkage =
       OvcCasePlanConstant.casePlanGapToServiceProvisionLinkage;
+  final String casePlanGapToServiceMonitoringLinkage =
+      OvcCasePlanConstant.casePlanGapToMonitoringLinkage;
 
   void onAddNewGap(BuildContext context) async {
     Map gapDataObject = Map();
     gapDataObject[casePlanGapToServiceProvisionLinkage] =
         gapDataObject[casePlanGapToServiceProvisionLinkage] ?? AppUtil.getUid();
+    gapDataObject[casePlanGapToServiceMonitoringLinkage] =
+        gapDataObject[casePlanGapToServiceMonitoringLinkage] ??
+            AppUtil.getUid();
     gapDataObject[caseToGapLinkage] =
         dataObject![caseToGapLinkage] ?? AppUtil.getUid();
     List<FormSection> formSections = isCasePlanForHousehold
@@ -113,8 +118,8 @@ class CasePlanFormContainer extends StatelessWidget {
                   formSectionColor: formSectionColor,
                   shouldEditCaseGapServiceProvision:
                       shouldEditCaseGapServiceProvision,
-                  shoulViewCaseGapServiceProvision:
-                      shoulViewCaseGapServiceProvision,
+                  shouldViewCaseGapServiceProvision:
+                      shouldViewCaseGapServiceProvision,
                 ),
                 Visibility(
                   visible: (isEditableMode || shouldAddCasePlanGap),

@@ -27,7 +27,7 @@ class ReferralDetailedCard extends StatefulWidget {
     required this.titleColor,
     required this.labelColor,
     required this.valueColor,
-    required this.isIncommingReferral,
+    required this.isIncomingReferral,
     this.isOvcIntervention = true,
     this.isHouseholdReferral = false,
     this.isEditable = false,
@@ -42,7 +42,7 @@ class ReferralDetailedCard extends StatefulWidget {
   final bool isOvcIntervention;
   final bool isHouseholdReferral;
   final bool isEditable;
-  final bool isIncommingReferral;
+  final bool isIncomingReferral;
 
   @override
   _ReferralDetailedCardState createState() => _ReferralDetailedCardState();
@@ -204,7 +204,7 @@ class _ReferralDetailedCardState extends State<ReferralDetailedCard> {
                                 labelColor: widget.labelColor,
                                 valueColor: widget.valueColor,
                                 referralDataCard: referralDataCard!,
-                                isIncommingReferral: widget.isIncommingReferral,
+                                isIncomingReferral: widget.isIncomingReferral,
                               ),
                             ),
                           )
