@@ -20,14 +20,17 @@ class TrackedEntityInstanceOfflineAttributeProvider extends OfflineDbProvider {
       String? trackedEntityInstance =
           trackedEntityInstanceData.trackedEntityInstance;
       for (Map attributeObj in attributes) {
-        String? attribute = attributeObj['attribute'];
-        Map data = Map<String, dynamic>();
-        data['id'] = '$trackedEntityInstance-$attribute';
-        data['trackedEntityInstance'] = trackedEntityInstance;
-        data['attribute'] = attribute;
-        data['value'] = attributeObj['value'] ?? '';
-        await dbClient!.insert(table, data as Map<String, Object?>,
-            conflictAlgorithm: ConflictAlgorithm.replace);
+        if ('${attributeObj[value]}'.isNotEmpty &&
+            '${attributeObj[value]}' != 'null') {
+          String? attribute = attributeObj['attribute'];
+          Map data = Map<String, dynamic>();
+          data['id'] = '$trackedEntityInstance-$attribute';
+          data['trackedEntityInstance'] = trackedEntityInstance;
+          data['attribute'] = attribute;
+          data['value'] = attributeObj['value'] ?? '';
+          await dbClient!.insert(table, data as Map<String, Object?>,
+              conflictAlgorithm: ConflictAlgorithm.replace);
+        }
       }
     } catch (e) {}
   }
@@ -81,7 +84,9 @@ class TrackedEntityInstanceOfflineAttributeProvider extends OfflineDbProvider {
       );
       if (maps.isNotEmpty) {
         for (Map map in maps) {
-          attributes.add(map);
+          if ('${map[value]}'.isNotEmpty && '${map[value]}' != 'null') {
+            attributes.add(map);
+          }
         }
       }
     } catch (e) {}

@@ -14,8 +14,8 @@ import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_household_top_header.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_case_plan.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/components/services_home_list_container.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/constants/ovc_case_plan_constant.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/components/services_home_list_container.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/constants/ovc_case_plan_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/household_case_plan/constants/ovc_household_case_plan_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/household_case_plan/pages/household_service_form.dart';
 import 'package:provider/provider.dart';
@@ -61,8 +61,8 @@ class OvcHouseholdService extends StatelessWidget {
       map['gaps'] = map['gaps'] ?? [];
       map[OvcCasePlanConstant.casePlanToGapLinkage] =
           map[OvcCasePlanConstant.casePlanToGapLinkage] ?? casePlanToGapLinkage;
-      map[OvcCasePlanConstant.casePlanGapToFollowUpLinkage] =
-          map[OvcCasePlanConstant.casePlanGapToFollowUpLinkage] ??
+      map[OvcCasePlanConstant.casePlanGapToServiceProvisionLinkage] =
+          map[OvcCasePlanConstant.casePlanGapToServiceProvisionLinkage] ??
               AppUtil.getUid();
       map[OvcCasePlanConstant.casePlanDomainType] = formSection.id;
       Provider.of<ServiceFormState>(context, listen: false)
@@ -92,8 +92,8 @@ class OvcHouseholdService extends StatelessWidget {
       context,
       MaterialPageRoute(
         builder: (context) => HouseholdServiceForm(
-          shouldViewCaseGapFollowUp: true,
-          shouldEditCaseGapFollowUps: true,
+          shoulViewCaseGapServiceProvision: true,
+          shouldEditCaseGapServiceProvision: true,
         ),
       ),
     );

@@ -43,24 +43,34 @@ class OvcChildExitHome extends StatelessWidget {
         .updateFormEditabilityState(isEditableMode: isEditableMode);
     if (exitResponse != null) {
       exitResponse == 'Exit'
-          ? Navigator.push(context,
-              MaterialPageRoute(builder: (context) => OvcExitInformationForm()))
+          ? Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => OvcExitInformationForm(),
+              ),
+            )
           : exitResponse == 'Transfer'
               ? Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => OvcExitCaseTransferForm()))
+                    builder: (context) => OvcExitCaseTransferForm(),
+                  ),
+                )
               : exitResponse == 'Case closure'
                   ? Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => OvcExitCaseClosureForm()))
+                        builder: (context) => OvcExitCaseClosureForm(),
+                      ),
+                    )
                   : exitResponse == 'Graduation'
                       ? Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) =>
-                                  OvcExitCasePlanGraduationReadinessForm()))
+                            builder: (context) =>
+                                OvcExitCasePlanGraduationReadinessForm(),
+                          ),
+                        )
                       : print(exitResponse);
     }
   }
@@ -101,106 +111,105 @@ class OvcChildExitHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(65.0),
-          child: Consumer<InterventionCardState>(
-            builder: (context, interventionCardState, child) {
-              InterventionCard activeInterventionProgram =
-                  interventionCardState.currentInterventionProgram;
-              return SubPageAppBar(
-                label: label,
-                activeInterventionProgram: activeInterventionProgram,
-              );
-            },
-          ),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(65.0),
+        child: Consumer<InterventionCardState>(
+          builder: (context, interventionCardState, child) {
+            InterventionCard activeInterventionProgram =
+                interventionCardState.currentInterventionProgram;
+            return SubPageAppBar(
+              label: label,
+              activeInterventionProgram: activeInterventionProgram,
+            );
+          },
         ),
-        body: SubPageBody(
-          body: Container(
-            child: Column(children: [
-              OvcChildInfoTopHeader(),
-              Container(
-                child: Consumer<ServiceEventDataState>(
-                  builder: (context, serviceEventDataState, child) {
-                    bool isLoading = serviceEventDataState.isLoading;
-                    Map<String?, List<Events>> eventListByProgramStage =
-                        serviceEventDataState.eventListByProgramStage;
-                    Map programStageMap =
-                        OvcExitConstant.getOvcExitProgramStageMap();
-                    for (var id in programStageMap.keys.toList()) {
-                      programStageIds.add('$id');
-                    }
-                    List<Events> events = TrackedEntityInstanceUtil
-                        .getAllEventListFromServiceDataStateByProgramStages(
-                            eventListByProgramStage, programStageIds);
-                    bool shouldAllowAddNewButton = events
-                            .map((Events event) => event.programStage)
-                            .toList()
-                            .length <
-                        programStageIds.toSet().toList().length;
-                    return isLoading
-                        ? CircularProcessLoader(
-                            color: Colors.blueGrey,
-                          )
-                        : Column(
-                            children: [
-                              Container(
-                                margin: EdgeInsets.only(top: 10.0),
-                                child: events.length == 0
-                                    ? Center(
-                                        child: Text(
-                                            'There is no any exit details at moment'),
-                                      )
-                                    : Column(
-                                        children: events
-                                            .map((Events eventData) =>
+      ),
+      body: SubPageBody(
+        body: Container(
+          child: Column(children: [
+            OvcChildInfoTopHeader(),
+            Container(
+              child: Consumer<ServiceEventDataState>(
+                builder: (context, serviceEventDataState, child) {
+                  bool isLoading = serviceEventDataState.isLoading;
+                  Map<String?, List<Events>> eventListByProgramStage =
+                      serviceEventDataState.eventListByProgramStage;
+                  Map programStageMap =
+                      OvcExitConstant.getOvcExitProgramStageMap();
+                  for (var id in programStageMap.keys.toList()) {
+                    programStageIds.add('$id');
+                  }
+                  List<Events> events = TrackedEntityInstanceUtil
+                      .getAllEventListFromServiceDataStateByProgramStages(
+                          eventListByProgramStage, programStageIds);
+                  bool shouldAllowAddNewButton = events
+                          .map((Events event) => event.programStage)
+                          .toList()
+                          .length <
+                      programStageIds.toSet().toList().length;
+                  return isLoading
+                      ? CircularProcessLoader(
+                          color: Colors.blueGrey,
+                        )
+                      : Column(
+                          children: [
+                            Container(
+                              margin: EdgeInsets.only(top: 10.0),
+                              child: events.length == 0
+                                  ? Center(
+                                      child: Text(
+                                          'There is no any exit details at moment'),
+                                    )
+                                  : Column(
+                                      children: events
+                                          .map(
+                                            (Events eventData) =>
                                                 OvcExitListCard(
-                                                  eventData: eventData,
-                                                  programStageMap:
-                                                      programStageMap,
-                                                  onEditExit: () {
-                                                    String? exitResponse =
-                                                        programStageMap[
-                                                            eventData
-                                                                .programStage];
-                                                    onEditExit(
-                                                        context,
-                                                        exitResponse,
-                                                        eventData);
-                                                  },
-                                                  onViewExit: () {
-                                                    String? exitResponse =
-                                                        programStageMap[
-                                                            eventData
-                                                                .programStage];
-                                                    onViewExit(
-                                                        context,
-                                                        exitResponse,
-                                                        eventData);
-                                                  },
-                                                ))
-                                            .toList(),
-                                      ),
-                              ),
-                              Visibility(
-                                visible: shouldAllowAddNewButton,
-                                child: Container(
-                                    child: EntryFormSaveButton(
+                                              eventData: eventData,
+                                              programStageMap: programStageMap,
+                                              onEditExit: () {
+                                                String? exitResponse =
+                                                    programStageMap[
+                                                        eventData.programStage];
+                                                onEditExit(context,
+                                                    exitResponse, eventData);
+                                              },
+                                              onViewExit: () {
+                                                String? exitResponse =
+                                                    programStageMap[
+                                                        eventData.programStage];
+                                                onViewExit(context,
+                                                    exitResponse, eventData);
+                                              },
+                                            ),
+                                          )
+                                          .toList(),
+                                    ),
+                            ),
+                            Visibility(
+                              visible: shouldAllowAddNewButton,
+                              child: Container(
+                                child: EntryFormSaveButton(
                                   label: 'ADD',
                                   labelColor: Colors.white,
                                   fontSize: 14,
                                   buttonColor: Color(0xFF4B9F46),
-                                  onPressButton: () =>
-                                      onAddNewExit(context, events),
-                                )),
-                              )
-                            ],
-                          );
-                  },
-                ),
+                                  onPressButton: () => onAddNewExit(
+                                    context,
+                                    events,
+                                  ),
+                                ),
+                              ),
+                            )
+                          ],
+                        );
+                },
               ),
-            ]),
-          ),
+            ),
+          ]),
         ),
-        bottomNavigationBar: InterventionBottomNavigationBarContainer());
+      ),
+      bottomNavigationBar: InterventionBottomNavigationBarContainer(),
+    );
   }
 }

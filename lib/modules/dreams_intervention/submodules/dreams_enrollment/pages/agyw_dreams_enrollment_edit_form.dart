@@ -121,6 +121,7 @@ class _AgywDreamsEnrollmentEditFormState
       () async {
         Map dataObject =
             Provider.of<EnrollmentFormState>(context, listen: false).formState;
+        // TODO check why skip logic is not working
         await AgywDreamsEnrollmentSkipLogic.evaluateSkipLogics(
           context,
           formSections!,
@@ -202,7 +203,7 @@ class _AgywDreamsEnrollmentEditFormState
         hiddenFields,
       );
       Provider.of<DreamsInterventionListState>(context, listen: false)
-          .refreshDreamsList();
+          .refreshAllDreamsLists();
       clearFormAutoSaveState(context);
       Timer(Duration(seconds: 1), () {
         if (Navigator.canPop(context)) {

@@ -57,9 +57,26 @@ class _HTSShortFormHomePageState extends State<HTSShortFormHomePage> {
     }
   }
 
-  onEditHTS(BuildContext context, Events eventData) {
+  onEditHTS(
+      BuildContext context, Events eventData, AgywDream? agywDream) async {
     updateFormState(context, true, eventData);
-    redirectHTSShortForm(context);
+    String? beneficiaryId = agywDream!.id;
+    String? eventId = eventData.event;
+    String formAutoSaveId =
+        "${DreamsRoutesConstant.agywDreamsHTSShortFormPage}_${beneficiaryId}_$eventId";
+
+    FormAutoSave formAutoSave =
+        await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
+    bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
+        .shouldResumeWithUnSavedChanges(context, formAutoSave);
+
+    if (shouldResumeWithUnSavedChanges) {
+      AppResumeRoute().redirectToPages(context, formAutoSave);
+    } else {
+      Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
+          .setCurrentAgywDream(agywDream);
+      redirectHTSShortForm(context);
+    }
   }
 
   onViewtHTS(BuildContext context, Events eventData) {
@@ -70,8 +87,9 @@ class _HTSShortFormHomePageState extends State<HTSShortFormHomePage> {
   onAddHTS(BuildContext context, AgywDream agywDream) async {
     updateFormState(context, true, null);
     String? beneficiaryId = agywDream.id;
+    String eventId = '';
     String formAutoSaveId =
-        "${DreamsRoutesConstant.agywDreamsHTSShortFormPage}_$beneficiaryId";
+        "${DreamsRoutesConstant.agywDreamsHTSShortFormPage}_${beneficiaryId}_$eventId";
     FormAutoSave formAutoSave =
         await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
     bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
@@ -174,6 +192,7 @@ class _HTSShortFormHomePageState extends State<HTSShortFormHomePage> {
                                                         onEdit: () => onEditHTS(
                                                           context,
                                                           eventData,
+                                                          agywDream,
                                                         ),
                                                         onView: () =>
                                                             onViewtHTS(

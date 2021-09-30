@@ -19,6 +19,7 @@ import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/constants/ovc_routes_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/components/add_child_confirmation.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/components/enrolled_children_list.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/constants/ovc_enrollment_child_form_constant.dart';
@@ -76,6 +77,7 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
           childMapObjects.add(map);
           Provider.of<EnrollmentFormState>(context, listen: false)
               .setFormFieldState('children', childMapObjects);
+          onUpdateFormAutoSaveState(context);
         }
       }
       childMapObject = Map();
@@ -295,7 +297,31 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
     updateOvcCount();
     Provider.of<EnrollmentFormState>(context, listen: false)
         .setFormFieldState('children', childMapObjects);
+    onUpdateFormAutoSaveState(context, isSaveForm: isSaveForm);
     setState(() {});
+  }
+
+  void onUpdateFormAutoSaveState(
+    BuildContext context, {
+    bool isSaveForm = false,
+    String nextPageModule = "",
+  }) async {
+    String beneficiaryId = "";
+    Map dataObject =
+        Provider.of<EnrollmentFormState>(context, listen: false).formState;
+    String id = "${OvcRoutesConstant.ovcConcentFormPage}_$beneficiaryId";
+    FormAutoSave formAutoSave = FormAutoSave(
+      id: id,
+      beneficiaryId: beneficiaryId,
+      pageModule: OvcRoutesConstant.ovcChildVulnerabilityFormPage,
+      nextPageModule: isSaveForm
+          ? nextPageModule != ""
+              ? nextPageModule
+              : OvcRoutesConstant.ovcChildVulnerabilityFormNextPage
+          : OvcRoutesConstant.ovcChildVulnerabilityFormPage,
+      data: jsonEncode(dataObject),
+    );
+    await FormAutoSaveOfflineService().saveFormAutoSaveData(formAutoSave);
   }
 
   void onInputValueChange(String id, dynamic value) {

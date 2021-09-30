@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
+import 'package:kb_mobile_app/app_state/synchronization_state/synchronization_state.dart';
 import 'package:kb_mobile_app/core/components/line_separator.dart';
 import 'package:kb_mobile_app/core/components/material_card.dart';
 import 'package:kb_mobile_app/modules/synchronization/constants/synchronization_actions_constants.dart';
@@ -14,7 +16,8 @@ class SynchronizationProgress extends StatefulWidget {
       this.eventsSyncProgress,
       this.profileSyncProgress,
       this.overallUploadProgress,
-      this.overallDownloadProgress})
+      this.overallDownloadProgress,
+      this.notificationSyncProgress})
       : super(key: key);
 
   final String? syncAction;
@@ -24,6 +27,7 @@ class SynchronizationProgress extends StatefulWidget {
   final double? overallUploadProgress;
   final double? overallDownloadProgress;
   final double? overallSyncProgress;
+  final double? notificationSyncProgress;
 
   @override
   _SynchronizationProgressState createState() =>
@@ -31,9 +35,14 @@ class SynchronizationProgress extends StatefulWidget {
 }
 
 class _SynchronizationProgressState extends State<SynchronizationProgress> {
+  Future<void> stopSynchronization(BuildContext context) async {
+    Provider.of<SynchronizationState>(context, listen: false)
+        .stopSyncActivity();
+  }
+
   @override
   Widget build(BuildContext context) {
-    String title = 'Sync Progress';
+    String title = 'Synchronization Progress';
     return Container(
       child: MaterialCard(
           body: Container(
@@ -41,13 +50,43 @@ class _SynchronizationProgressState extends State<SynchronizationProgress> {
         child: Column(
           children: [
             Container(
-              margin: EdgeInsets.symmetric(vertical: 5.0),
-              child: Text(title,
-                  style: TextStyle().copyWith(
-                    fontSize: 14.0,
-                    fontWeight: FontWeight.w500,
-                  )),
-            ),
+                margin: EdgeInsets.symmetric(vertical: 5.0),
+                // ),
+                child: Row(children: [
+                  Expanded(
+                    flex: 9,
+                    child: Center(
+                      child: Container(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            title,
+                            style: TextStyle().copyWith(
+                              fontSize: 14.0,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          )),
+                    ),
+                  ),
+                  Expanded(
+                      flex: 2,
+                      child: Container(
+                          child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          InkWell(
+                            onTap: () => stopSynchronization(context),
+                            child: Container(
+                              margin: EdgeInsets.all(10),
+                              height: 22,
+                              width: 22,
+                              child: SvgPicture.asset(
+                                'assets/icons/close_icon.svg',
+                              ),
+                            ),
+                          )
+                        ],
+                      )))
+                ])),
             LineSeparator(color: Colors.blueGrey.withOpacity(0.2)),
             Container(
               margin: EdgeInsets.only(top: 5.0),
@@ -111,8 +150,7 @@ class _SynchronizationProgressState extends State<SynchronizationProgress> {
             ),
             Visibility(
               visible: widget.syncAction ==
-                      SynchronizationActionsConstants().downloadAndUpload &&
-                  widget.hasUnsyncedData!,
+                  SynchronizationActionsConstants().downloadAndUpload,
               child: Container(
                 margin: EdgeInsets.only(top: 10.0),
                 child: Column(
@@ -189,6 +227,29 @@ class _SynchronizationProgressState extends State<SynchronizationProgress> {
                     ),
                   ],
                 ),
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.only(top: 10.0),
+              child: Column(
+                children: [
+                  Text('Notifications'),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Center(
+                      child: LinearProgressIndicator(
+                        backgroundColor: Colors.grey,
+                        valueColor: AlwaysStoppedAnimation<Color?>(
+                            Provider.of<InterventionCardState>(context,
+                                    listen: false)
+                                .currentInterventionProgram
+                                .primaryColor),
+                        minHeight: 10.0,
+                        value: widget.notificationSyncProgress ?? 0,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           ],

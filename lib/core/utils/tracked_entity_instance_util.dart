@@ -26,10 +26,7 @@ class TrackedEntityInstanceUtil {
       formSections,
     );
     inputFieldIds.addAll(hiddenFields ?? []);
-
     inputFieldIds.removeWhere((field) => skippedFields!.indexOf(field) > -1);
-
-    // assign implementing partner and service provider
     if (eventId == null) {
       inputFieldIds.add(UserAccountReference.implementingPartnerDataElement);
       inputFieldIds.add(UserAccountReference.subImplementingPartnerDataElement);
@@ -51,7 +48,6 @@ class TrackedEntityInstanceUtil {
 
     eventId =
         eventId == null ? dataObject!['eventId'] ?? AppUtil.getUid() : eventId;
-    //clear unwanted object from the mapper : an object in clo question which signifies form to save
     Events eventData = FormUtil.getEventPayload(eventId, program, programStage,
         orgUnit, inputFieldIds, dataObject, eventDate, trackedEntityInstance);
     await FormUtil.savingEvent(eventData);
@@ -60,7 +56,6 @@ class TrackedEntityInstanceUtil {
   static Future<List<Events>> getSavedTrackedEntityInstanceEventData(
     String? trackedEntityInstance,
   ) async {
-    //@TODO sort by event dates
     List<Events> events = [];
     List<String?> trackedEntityInstanceIds = [];
     try {
@@ -68,7 +63,7 @@ class TrackedEntityInstanceUtil {
       events = await EventOfflineProvider()
           .getTrackedEntityInstanceEvents(trackedEntityInstanceIds);
     } catch (e) {}
-    return events;
+    return events.reversed.toList();
   }
 
   static List<Events> getAllEventListFromServiceDataStateByProgramStages(
@@ -106,7 +101,7 @@ class TrackedEntityInstanceUtil {
         .map((event) => event.eventDate)
         .toSet()
         .toList()
-          ..sort((b, a) => a!.compareTo(b!));
+      ..sort((b, a) => a!.compareTo(b!));
     for (String? eventDate in eventDates) {
       groupedEvents[eventDate] =
           events.where((event) => event.eventDate == eventDate).toList();

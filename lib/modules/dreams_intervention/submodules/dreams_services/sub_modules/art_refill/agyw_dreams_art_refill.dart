@@ -59,11 +59,12 @@ class _AgywDreamsArtRefillState extends State<AgywDreamsArtRefill> {
     }
   }
 
-  void onAddPrep(BuildContext context, AgywDream agywDream) async {
+  void onAddArtRefill(BuildContext context, AgywDream agywDream) async {
     updateFormState(context, true, null);
     String? beneficiaryId = agywDream.id;
+    String eventId = '';
     String formAutoSaveId =
-        "${DreamsRoutesConstant.agywDreamsArtRefillPage}_$beneficiaryId";
+        "${DreamsRoutesConstant.agywDreamsArtRefillPage}_${beneficiaryId}_$eventId";
     FormAutoSave formAutoSave =
         await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
     bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
@@ -78,16 +79,29 @@ class _AgywDreamsArtRefillState extends State<AgywDreamsArtRefill> {
     }
   }
 
-  void onViewPrep(BuildContext context, Events eventData) {
+  void onViewArtRefill(BuildContext context, Events eventData) {
     updateFormState(context, false, eventData);
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => AgywDreamsARTRefillForm()));
   }
 
-  void onEditPrep(BuildContext context, Events eventData) {
+  void onEditArtRefill(
+      BuildContext context, Events eventData, AgywDream agywDream) async {
     updateFormState(context, true, eventData);
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => AgywDreamsARTRefillForm()));
+    String eventId = '';
+    String beneficiaryId = agywDream.id!;
+    String formAutoSaveId =
+        "${DreamsRoutesConstant.agywDreamsArtRefillPage}_${beneficiaryId}_$eventId";
+    FormAutoSave formAutoSave =
+        await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
+    bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
+        .shouldResumeWithUnSavedChanges(context, formAutoSave);
+    if (shouldResumeWithUnSavedChanges) {
+      AppResumeRoute().redirectToPages(context, formAutoSave);
+    } else {
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => AgywDreamsARTRefillForm()));
+    }
   }
 
   @override
@@ -160,10 +174,13 @@ class _AgywDreamsArtRefillState extends State<AgywDreamsArtRefill> {
                                                         visitName:
                                                             "ART Re-fill",
                                                         onEdit: () =>
-                                                            onEditPrep(context,
-                                                                eventData),
+                                                            onEditArtRefill(
+                                                                context,
+                                                                eventData,
+                                                                agywDream!),
                                                         onView: () =>
-                                                            onViewPrep(context,
+                                                            onViewArtRefill(
+                                                                context,
                                                                 eventData),
                                                         eventData: eventData,
                                                         visitCount:
@@ -179,8 +196,8 @@ class _AgywDreamsArtRefillState extends State<AgywDreamsArtRefill> {
                                           labelColor: Colors.white,
                                           buttonColor: Color(0xFF1F8ECE),
                                           fontSize: 15.0,
-                                          onPressButton: () =>
-                                              onAddPrep(context, agywDream!))
+                                          onPressButton: () => onAddArtRefill(
+                                              context, agywDream!))
                                     ],
                                   ),
                           ),

@@ -99,8 +99,9 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
     updateFormState(context, true, null, agywDream, serviceEvents);
 
     String? beneficiaryId = agywDream.id;
+    String eventId = '';
     String formAutoSaveId =
-        "${DreamsRoutesConstant.agywDreamsServiceFormPage}_$beneficiaryId";
+        "${DreamsRoutesConstant.agywDreamsServiceFormPage}_${beneficiaryId}_$eventId";
     FormAutoSave formAutoSave =
         await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
     bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
@@ -143,19 +144,34 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
     AgywDream agywDream,
     List<ServiceEvent> serviceEvents,
   ) async {
+    updateFormState(context, true, eventData, agywDream, serviceEvents);
     CurrentUser? currentUser = await (UserService().getCurrentUser());
     String? youthMentorName = currentUser!.name;
     String? implementingPartner = currentUser.implementingPartner;
-    Provider.of<ServiceFormState>(context, listen: false)
-        .setFormFieldState('W79837fEI3C', youthMentorName);
-    updateFormState(context, true, eventData, agywDream, serviceEvents);
-    Navigator.push(
+    String? eventId = eventData.event;
+    String? beneficiaryId = agywDream.id;
+    String formAutoSaveId =
+        "${DreamsRoutesConstant.agywDreamsServiceFormPage}_${beneficiaryId}_$eventId";
+    FormAutoSave formAutoSave =
+        await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
+    bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
+        .shouldResumeWithUnSavedChanges(context, formAutoSave);
+    if (shouldResumeWithUnSavedChanges) {
+      AppResumeRoute().redirectToPages(context, formAutoSave);
+    } else {
+      updateFormState(context, true, eventData, agywDream, serviceEvents);
+      Provider.of<ServiceFormState>(context, listen: false)
+          .setFormFieldState('W79837fEI3C', youthMentorName);
+      Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => AgywDreamsServiceForm(
-                  isFormEdited: true,
-                  currentUserImplementingPartner: implementingPartner,
-                )));
+          builder: (context) => AgywDreamsServiceForm(
+            isFormEdited: true,
+            currentUserImplementingPartner: implementingPartner,
+          ),
+        ),
+      );
+    }
   }
 
   @override

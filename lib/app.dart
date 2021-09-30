@@ -19,6 +19,7 @@ import 'package:kb_mobile_app/app_state/ogac_intervention_list_state/ogac_interv
 import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/referral_notification_state/referral_notification_state.dart';
 import 'package:kb_mobile_app/app_state/synchronization_state/synchronization_state.dart';
+import 'package:kb_mobile_app/app_state/synchronization_state/synchronization_status_state.dart';
 import 'package:kb_mobile_app/core/constants/custom_color.dart';
 import 'package:kb_mobile_app/modules/splash/splash.dart';
 import 'package:provider/provider.dart';
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
         providers: [
+          ChangeNotifierProvider(create: (_) => SynchronizationStatusState()),
           ChangeNotifierProvider(create: (_) => AppInfoState()),
           ChangeNotifierProvider(create: (_) => LanguageTranslationState()),
           ChangeNotifierProvider(create: (_) => CurrentUserState()),
@@ -40,12 +42,17 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(create: (_) => ReferralNotificationState()),
           ChangeNotifierProvider(create: (_) => EnrollmentFormState()),
           ChangeNotifierProvider(create: (_) => ServiceFormState()),
-          ChangeNotifierProvider(create: (_) => ServiceEventDataState()),
+          ChangeNotifierProvider(
+              create: (BuildContext context) => ServiceEventDataState(context)),
           ChangeNotifierProvider(
             create: (_) => OvcHouseholdCurrentSelectionState(),
           ),
-          ChangeNotifierProvider(create: (_) => OvcInterventionListState()),
-          ChangeNotifierProvider(create: (_) => DreamsInterventionListState()),
+          ChangeNotifierProvider(
+              create: (BuildContext context) =>
+                  OvcInterventionListState(context)),
+          ChangeNotifierProvider(
+              create: (BuildContext context) =>
+                  DreamsInterventionListState(context)),
           ChangeNotifierProvider(create: (_) => OgacInterventionListState()),
           ChangeNotifierProvider(
               create: (BuildContext context) =>

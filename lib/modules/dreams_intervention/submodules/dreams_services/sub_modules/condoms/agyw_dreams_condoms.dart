@@ -63,8 +63,9 @@ class _AgywDreamsCondomsState extends State<AgywDreamsCondoms> {
   void onAddPrep(BuildContext context, AgywDream agywDream) async {
     updateFormState(context, true, null);
     String? beneficiaryId = agywDream.id;
+    String eventId = '';
     String formAutoSaveId =
-        "${DreamsRoutesConstant.agywDreamsCondomsFormPage}_$beneficiaryId";
+        "${DreamsRoutesConstant.agywDreamsCondomsFormPage}_${beneficiaryId}_$eventId";
     FormAutoSave formAutoSave =
         await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
     bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
@@ -86,10 +87,23 @@ class _AgywDreamsCondomsState extends State<AgywDreamsCondoms> {
         MaterialPageRoute(builder: (context) => AgywDreamsCondomsForm()));
   }
 
-  void onEditPrep(BuildContext context, Events eventData) {
+  void onEditPrep(
+      BuildContext context, Events eventData, AgywDream agywDream) async {
     updateFormState(context, true, eventData);
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => AgywDreamsCondomsForm()));
+    String? beneficiaryId = agywDream.id;
+    String eventId = eventData.event!;
+    String formAutoSaveId =
+        "${DreamsRoutesConstant.agywDreamsCondomsFormPage}_${beneficiaryId}_$eventId";
+    FormAutoSave formAutoSave =
+        await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
+    bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
+        .shouldResumeWithUnSavedChanges(context, formAutoSave);
+    if (shouldResumeWithUnSavedChanges) {
+      AppResumeRoute().redirectToPages(context, formAutoSave);
+    } else {
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => AgywDreamsCondomsForm()));
+    }
   }
 
   @override
@@ -161,8 +175,10 @@ class _AgywDreamsCondomsState extends State<AgywDreamsCondoms> {
                                                           DreamsServiceVisitCard(
                                                         visitName: "Visit",
                                                         onEdit: () =>
-                                                            onEditPrep(context,
-                                                                eventData),
+                                                            onEditPrep(
+                                                                context,
+                                                                eventData,
+                                                                agywDream!),
                                                         onView: () =>
                                                             onViewPrep(context,
                                                                 eventData),

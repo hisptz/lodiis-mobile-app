@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:kb_mobile_app/app_state/synchronization_state/synchronization_status_state.dart';
+import 'package:kb_mobile_app/core/components/beneficiary_sync_status_indicator.dart';
 import 'package:kb_mobile_app/core/components/line_separator.dart';
 import 'package:kb_mobile_app/models/ovc_household.dart';
+import 'package:kb_mobile_app/models/ovc_household_child.dart';
+import 'package:provider/provider.dart';
 
 class OvcHouseholdCardHeader extends StatelessWidget {
   OvcHouseholdCardHeader({
@@ -59,6 +63,20 @@ class OvcHouseholdCardHeader extends StatelessWidget {
     );
   }
 
+  bool _getSyncStaatusOfHousehold(
+    OvcHousehold ovcHousehold,
+    List<String> unsyncedTeiReferences,
+  ) {
+    int teiIndex = unsyncedTeiReferences.indexOf(ovcHousehold.id!);
+    List<OvcHouseholdChild> unsyncedChildren =
+        ovcHousehold.children!.where((OvcHouseholdChild ovcHouseholdChild) {
+      bool isSynced = ovcHouseholdChild.isSynced!;
+      int childIndex = unsyncedTeiReferences.indexOf(ovcHouseholdChild.id!);
+      return !isSynced || childIndex > -1;
+    }).toList();
+    return ovcHousehold.isSynced! && unsyncedChildren.isEmpty && teiIndex == -1;
+  }
+
   @override
   Widget build(BuildContext context) {
     double iconHeight = 20.0;
@@ -93,6 +111,17 @@ class OvcHouseholdCardHeader extends StatelessWidget {
                     ),
                   ),
                 ),
+              ),
+              Container(
+                child: Consumer<SynchronizationStatusState>(
+                    builder: (context, synchronizationStatusState, child) {
+                  List<String> unsyncedTeiReferences =
+                      synchronizationStatusState.unsyncedTeiReferences;
+                  return BeneficiarySyncStatusIndicator(
+                    isSynced: _getSyncStaatusOfHousehold(
+                        ovcHousehold!, unsyncedTeiReferences),
+                  );
+                }),
               ),
               _getOvcHouseHoldCardHeaderIcon(
                 iconHeight: iconHeight,

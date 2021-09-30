@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -11,10 +12,13 @@ import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
+import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
+import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/constants/ovc_routes_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/services/ovc_enrollment_none_participation_service.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/models/ovc_enrollement_none_participation.dart';
 import 'package:provider/provider.dart';
@@ -57,18 +61,16 @@ class _OvcEnrollmentNoneParticipationFormState
     bool hadAllMandatoryFilled =
         AppUtil.hasAllMandatoryFieldsFilled(mandatoryFields, dataObject);
     if (hadAllMandatoryFilled) {
-      setState(() {
-        isSaving = true;
-      });
+      isSaving = true;
+      setState(() {});
       await OvcEnrollmentNoneParticipationService()
           .saveNoneParticipationForm(formSections!, dataObject, eventId);
       Provider.of<OvcInterventionListState>(context, listen: false)
           .refreshOvcList();
+      clearFormAutoSaveState(context);
       Timer(Duration(seconds: 1), () {
         if (Navigator.canPop(context)) {
-          setState(() {
-            isSaving = false;
-          });
+          isSaving = false;
           String? currentLanguage =
               Provider.of<LanguageTranslationState>(context, listen: false)
                   .currentLanguage;
@@ -78,18 +80,56 @@ class _OvcEnrollmentNoneParticipationFormState
                 : 'Form has been saved successfully',
             position: ToastGravity.TOP,
           );
+          setState(() {});
           Navigator.popUntil(context, (route) => route.isFirst);
         }
       });
     } else {
-      setState(() {
-        unFilledMandatoryFields =
-            AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
-      });
+      unFilledMandatoryFields =
+          AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+      setState(() {});
       AppUtil.showToastMessage(
-          message: 'Please fill all mandatory field',
-          position: ToastGravity.TOP);
+        message: 'Please fill all mandatory field',
+        position: ToastGravity.TOP,
+      );
     }
+  }
+
+  void clearFormAutoSaveState(BuildContext context) async {
+    String beneficiaryId = "";
+    String formAutoSaveId =
+        "${OvcRoutesConstant.ovcConcentFormPage}_$beneficiaryId";
+    await FormAutoSaveOfflineService().deleteSavedFormAutoData(formAutoSaveId);
+  }
+
+  void onUpdateFormAutoSaveState(
+    BuildContext context, {
+    bool isSaveForm = false,
+    String nextPageModule = "",
+  }) async {
+    String beneficiaryId = "";
+    Map dataObject =
+        Provider.of<EnrollmentFormState>(context, listen: false).formState;
+    String id = "${OvcRoutesConstant.ovcConcentFormPage}_$beneficiaryId";
+    FormAutoSave formAutoSave = FormAutoSave(
+      id: id,
+      beneficiaryId: beneficiaryId,
+      pageModule: OvcRoutesConstant.ovcNoneParticipationFormPage,
+      nextPageModule: isSaveForm
+          ? nextPageModule != ""
+              ? nextPageModule
+              : OvcRoutesConstant.ovcNoneParticipationFormNextPage
+          : OvcRoutesConstant.ovcNoneParticipationFormNextPage,
+      data: jsonEncode(dataObject),
+    );
+    await FormAutoSaveOfflineService().saveFormAutoSaveData(formAutoSave);
+  }
+
+  void onInputValueChange(String id, dynamic value) {
+    Provider.of<EnrollmentFormState>(context, listen: false)
+        .setFormFieldState(id, value);
+    autoFillInputFields(id, value);
+    onUpdateFormAutoSaveState(context);
   }
 
   void autoFillInputFields(String id, dynamic value) {
@@ -98,12 +138,6 @@ class _OvcEnrollmentNoneParticipationFormState
       Provider.of<EnrollmentFormState>(context, listen: false)
           .setFormFieldState('mZs1YsN56cR', age.toString());
     }
-  }
-
-  void onInputValueChange(String id, dynamic value) {
-    Provider.of<EnrollmentFormState>(context, listen: false)
-        .setFormFieldState(id, value);
-    autoFillInputFields(id, value);
   }
 
   @override
@@ -125,7 +159,10 @@ class _OvcEnrollmentNoneParticipationFormState
         ),
         body: SubPageBody(
           body: Container(
-            margin: EdgeInsets.symmetric(vertical: 16.0, horizontal: 13.0),
+            margin: EdgeInsets.symmetric(
+              vertical: 16.0,
+              horizontal: 13.0,
+            ),
             child: !isFormReady
                 ? Column(
                     children: [
@@ -142,37 +179,38 @@ class _OvcEnrollmentNoneParticipationFormState
                         String? currentLanguage =
                             languageTranslationState.currentLanguage;
                         return Consumer<EnrollmentFormState>(
-                          builder: (context, enrollmentFormState, child) =>
-                              Column(
-                            children: [
-                              Container(
-                                child: EntryFormContainer(
-                                  formSections: formSections,
-                                  mandatoryFieldObject: mandatoryFieldObject,
-                                  dataObject: enrollmentFormState.formState,
-                                  onInputValueChange: onInputValueChange,
-                                  unFilledMandatoryFields:
-                                      unFilledMandatoryFields,
+                          builder: (context, enrollmentFormState, child) {
+                            return Column(
+                              children: [
+                                Container(
+                                  child: EntryFormContainer(
+                                    formSections: formSections,
+                                    mandatoryFieldObject: mandatoryFieldObject,
+                                    dataObject: enrollmentFormState.formState,
+                                    onInputValueChange: onInputValueChange,
+                                    unFilledMandatoryFields:
+                                        unFilledMandatoryFields,
+                                  ),
                                 ),
-                              ),
-                              EntryFormSaveButton(
-                                label: isSaving
-                                    ? 'Saving ...'
-                                    : currentLanguage == 'lesotho'
-                                        ? 'Boloka'
-                                        : 'Save',
-                                labelColor: Colors.white,
-                                buttonColor: Color(0xFF4B9F46),
-                                fontSize: 15.0,
-                                onPressButton: () => isSaving
-                                    ? null
-                                    : onSaveAndContinue(
-                                        context,
-                                        enrollmentFormState.formState,
-                                      ),
-                              )
-                            ],
-                          ),
+                                EntryFormSaveButton(
+                                  label: isSaving
+                                      ? 'Saving ...'
+                                      : currentLanguage == 'lesotho'
+                                          ? 'Boloka'
+                                          : 'Save',
+                                  labelColor: Colors.white,
+                                  buttonColor: Color(0xFF4B9F46),
+                                  fontSize: 15.0,
+                                  onPressButton: () => isSaving
+                                      ? null
+                                      : onSaveAndContinue(
+                                          context,
+                                          enrollmentFormState.formState,
+                                        ),
+                                )
+                              ],
+                            );
+                          },
                         );
                       },
                     ),

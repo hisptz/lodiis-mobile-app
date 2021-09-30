@@ -1,7 +1,8 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:kb_mobile_app/core/constants/pagination.dart';
-import 'package:kb_mobile_app/core/services/pagination-service.dart';
+import 'package:kb_mobile_app/core/services/pagination_service.dart';
 import 'package:kb_mobile_app/models/ogac_beneficiary.dart';
 import 'package:kb_mobile_app/modules/ogac_intervention/services/ogac_enrollment_service.dart';
 
@@ -15,7 +16,6 @@ class OgacInterventionListState with ChangeNotifier {
   String _searchableValue = '';
 
   PagingController? _pagingController;
-
   bool get isLoading => _isLoading ?? false;
 
   int get numberOfOgac => _numberOfOgac;
@@ -67,7 +67,9 @@ class OgacInterventionListState with ChangeNotifier {
 
   void searchOgacList(String value) {
     if (_ogacInterventionList.isEmpty) {
-      _ogacInterventionList = _pagingController!.itemList as List<OgacBeneficiary>? ?? <OgacBeneficiary>[];
+      _ogacInterventionList =
+          _pagingController!.itemList as List<OgacBeneficiary>? ??
+              <OgacBeneficiary>[];
       _nextPage = _pagingController!.nextPageKey;
     }
     if (value != '') {

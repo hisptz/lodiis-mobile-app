@@ -1,4 +1,5 @@
 import 'package:kb_mobile_app/core/offline_db/offline_db_provider.dart';
+import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/referral_event_notification.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -44,23 +45,27 @@ class ReferralEventNotificationOfflineProvider extends OfflineDbProvider {
     List<ReferralEventNotification> referralEvents = [];
     try {
       var dbClient = await db;
-      String questionMarks = teiIds.map((e) => '?').toList().join(',');
-      List<Map> maps = await dbClient!.query(
-        table,
-        columns: [
-          id,
-          tei,
-          nameSpaceKey,
-          fromImplementingPartner,
-          isCompleted,
-          isViewed,
-        ],
-        where: '$tei IN ($questionMarks)',
-        whereArgs: teiIds,
-      );
-      if (maps.isNotEmpty) {
-        for (Map map in maps) {
-          referralEvents.add(ReferralEventNotification.fromJson(map));
+      List<List<String?>> chunkedTeiIds =
+          AppUtil.chunkItems(items: teiIds, size: 50).cast<List<String?>>();
+      for (List<String?> teiIdsChunk in chunkedTeiIds) {
+        String questionMarks = teiIdsChunk.map((e) => '?').toList().join(',');
+        List<Map> maps = await dbClient!.query(
+          table,
+          columns: [
+            id,
+            tei,
+            nameSpaceKey,
+            fromImplementingPartner,
+            isCompleted,
+            isViewed,
+          ],
+          where: '$tei IN ($questionMarks)',
+          whereArgs: teiIdsChunk,
+        );
+        if (maps.isNotEmpty) {
+          for (Map map in maps) {
+            referralEvents.add(ReferralEventNotification.fromJson(map));
+          }
         }
       }
     } catch (error) {

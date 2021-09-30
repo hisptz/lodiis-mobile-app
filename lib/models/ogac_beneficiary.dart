@@ -18,6 +18,7 @@ class OgacBeneficiary {
   String? createdDate;
   String? searchableValue;
   String? enrollment;
+  bool? isSynced;
   TrackedEntityInstance? trackedEntityInstanceData;
   Events? eventData;
 
@@ -36,6 +37,7 @@ class OgacBeneficiary {
     this.createdDate,
     this.enrollment,
     this.searchableValue,
+    this.isSynced,
     this.trackedEntityInstanceData,
     this.eventData,
   });
@@ -85,6 +87,8 @@ class OgacBeneficiary {
       village: village != "" ? village : 'N/A',
       createdDate: createdDate,
       enrollment: enrollment,
+      isSynced: trackedEntityInstance.syncStatus == "synced" &&
+          eventData?.isSynced == true,
       trackedEntityInstanceData: trackedEntityInstance,
       eventData: eventData,
     );

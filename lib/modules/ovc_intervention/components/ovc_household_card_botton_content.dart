@@ -5,10 +5,16 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_household_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
+import 'package:kb_mobile_app/app_state/synchronization_state/synchronization_status_state.dart';
+import 'package:kb_mobile_app/core/components/beneficiary_sync_status_indicator.dart';
 import 'package:kb_mobile_app/core/components/line_separator.dart';
+import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
+import 'package:kb_mobile_app/core/utils/app_resume_routes/app_resume_route.dart';
+import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/ovc_household.dart';
 import 'package:kb_mobile_app/models/ovc_household_child.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/constants/ovc_routes_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/pages/ovc_enrollment_child_edit_view_form.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_pages/child_exit_pages/ovc_child_exit_home.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/ovc_referral_pages/ovc_child_referral_pages/ovc_child_referral_home.dart';
@@ -81,15 +87,30 @@ class OvcHouseholdCardButtonContent extends StatelessWidget {
     }
   }
 
-  void onEditChildInfo(BuildContext context, OvcHouseholdChild child) {
+  void onEditChildInfo(BuildContext context, OvcHouseholdChild child) async {
     setOvcHouseholdCurrentSelection(context, child);
     updateEnrollmentFormStateData(context, child, true);
-    Navigator.push(
+    String? beneficiaryId = child.id;
+    String formAutoSaveId =
+        "${OvcRoutesConstant.ovcChildVulnerabilityEditFormPage}_$beneficiaryId";
+    FormAutoSave formAutoSave =
+        await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
+    bool shouldResumeWithUnSavedChanges =
+        await AppResumeRoute().shouldResumeWithUnSavedChanges(
       context,
-      MaterialPageRoute(
-        builder: (context) => OvcEnrollmentChildEditViewForm(),
-      ),
+      formAutoSave,
+      beneficiaryName: child.toString(),
     );
+    if (shouldResumeWithUnSavedChanges) {
+      AppResumeRoute().redirectToPages(context, formAutoSave);
+    } else {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => OvcEnrollmentChildEditViewForm(),
+        ),
+      );
+    }
   }
 
   void onViewChildInfo(BuildContext context, OvcHouseholdChild child) {
@@ -105,19 +126,31 @@ class OvcHouseholdCardButtonContent extends StatelessWidget {
 
   void onAddNewChild(
     BuildContext context,
-  ) {
+  ) async {
     setOvcHouseholdCurrentSelection(context, null);
     Provider.of<EnrollmentFormState>(context, listen: false).resetFormState();
     Provider.of<EnrollmentFormState>(context, listen: false)
         .setFormFieldState('parentTrackedEntityInstance', ovcHousehold.id);
     Provider.of<EnrollmentFormState>(context, listen: false)
         .setFormFieldState('orgUnit', ovcHousehold.orgUnit);
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => OvcEnrollmentChildEditViewForm(),
-      ),
-    );
+    String beneficiaryId = "";
+    String formAutoSaveId =
+        "${OvcRoutesConstant.ovcChildVulnerabilityEditFormPage}_$beneficiaryId";
+    FormAutoSave formAutoSave =
+        await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
+    bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
+        .shouldResumeWithUnSavedChanges(context, formAutoSave);
+    if (shouldResumeWithUnSavedChanges) {
+      AppResumeRoute().redirectToPages(context, formAutoSave);
+    } else {
+      print(formAutoSaveId);
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => OvcEnrollmentChildEditViewForm(),
+        ),
+      );
+    }
   }
 
   void onViewChildService(BuildContext context, OvcHouseholdChild child) {
@@ -150,6 +183,14 @@ class OvcHouseholdCardButtonContent extends StatelessWidget {
         builder: (context) => OvcChildExitHome(),
       ),
     );
+  }
+
+  bool _getSyncStatusOfChild(
+    OvcHouseholdChild ovcHouseholdChild,
+    List<String> unsyncedTeiReferences,
+  ) {
+    int teiIndex = unsyncedTeiReferences.indexOf(ovcHouseholdChild.id!);
+    return ovcHouseholdChild.isSynced! && teiIndex == -1;
   }
 
   @override
@@ -192,14 +233,15 @@ class OvcHouseholdCardButtonContent extends StatelessWidget {
             ),
             child: Column(
               children: ovcHousehold.children!.map(
-                (OvcHouseholdChild child) {
-                  int index = ovcHousehold.children!.indexOf(child) + 1;
+                (OvcHouseholdChild ovcHouseholdChild) {
+                  int index =
+                      ovcHousehold.children!.indexOf(ovcHouseholdChild) + 1;
                   return Row(
                     children: [
                       Expanded(
                         child: Container(
                           child: Text(
-                            '$index. ${child.toString()}',
+                            '$index. ${ovcHouseholdChild.toString()}',
                             style: TextStyle().copyWith(
                                 fontSize: 14.0,
                                 color: Color(0xFF536852),
@@ -210,6 +252,18 @@ class OvcHouseholdCardButtonContent extends StatelessWidget {
                       Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
+                          Container(
+                            child: Consumer<SynchronizationStatusState>(builder:
+                                (context, synchronizationStatusState, child) {
+                              List<String> unsyncedTeiReferences =
+                                  synchronizationStatusState
+                                      .unsyncedTeiReferences;
+                              return BeneficiarySyncStatusIndicator(
+                                isSynced: _getSyncStatusOfChild(
+                                    ovcHouseholdChild, unsyncedTeiReferences),
+                              );
+                            }),
+                          ),
                           Visibility(
                             visible: canViewChildService ||
                                 canViewChildInfo ||
@@ -217,11 +271,14 @@ class OvcHouseholdCardButtonContent extends StatelessWidget {
                             child: Container(
                               child: InkWell(
                                 onTap: () => canViewChildExit
-                                    ? onViewChildExit(context, child)
+                                    ? onViewChildExit(
+                                        context, ovcHouseholdChild)
                                     : canViewChildInfo
-                                        ? onViewChildInfo(context, child)
+                                        ? onViewChildInfo(
+                                            context, ovcHouseholdChild)
                                         : canViewChildService
-                                            ? onViewChildService(context, child)
+                                            ? onViewChildService(
+                                                context, ovcHouseholdChild)
                                             : null,
                                 child: Container(
                                   padding: EdgeInsets.all(10.0),
@@ -244,8 +301,8 @@ class OvcHouseholdCardButtonContent extends StatelessWidget {
                                 left: 10.0,
                               ),
                               child: InkWell(
-                                onTap: () =>
-                                    onViewChildReferral(context, child),
+                                onTap: () => onViewChildReferral(
+                                    context, ovcHouseholdChild),
                                 child: Container(
                                   padding: EdgeInsets.all(
                                     10.0,
@@ -267,7 +324,8 @@ class OvcHouseholdCardButtonContent extends StatelessWidget {
                             child: Container(
                               margin: EdgeInsets.only(left: 10.0),
                               child: InkWell(
-                                onTap: () => onEditChildInfo(context, child),
+                                onTap: () =>
+                                    onEditChildInfo(context, ovcHouseholdChild),
                                 child: Container(
                                   padding: EdgeInsets.all(10.0),
                                   child: Text(
