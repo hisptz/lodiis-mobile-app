@@ -38,6 +38,7 @@ class SynchronizationState with ChangeNotifier {
   bool _isDataUploadingActive = false;
   bool _isDataDownloadingActive = false;
   bool? _hasUnsyncedData;
+  bool? _isDataAvailableForDownload;
   bool _isUnsyncedCheckingActive = true;
   bool? _isCheckingForAvailableDataFromServer;
   late SynchronizationService _synchronizationService;
@@ -102,6 +103,8 @@ class SynchronizationState with ChangeNotifier {
   String get currentSyncAction => _currentSyncAction ?? '';
 
   bool get hasUnsyncedData => _hasUnsyncedData ?? false;
+
+  bool get isDataAvailableForDownload => _isDataAvailableForDownload ?? false;
 
   bool get isUnsyncedCheckingActive => _isUnsyncedCheckingActive;
 
@@ -183,10 +186,12 @@ class SynchronizationState with ChangeNotifier {
           .getOnlineEnrollmentsCount(currentUser, lastSyncDate);
       int onlineEventsCount = await _synchronizationService
           .getOnlineEventsCount(currentUser, lastSyncDate);
-      setStatusMessageForAvailableDataFromServer(
-          onlineEventsCount > 0 || onlineEnrollmentsCount > 0
-              ? 'New beneficiary data are available, try to sync!'
-              : '');
+      _isDataAvailableForDownload =
+          onlineEnrollmentsCount > 0 || onlineEventsCount > 0;
+      notifyListeners();
+      setStatusMessageForAvailableDataFromServer(_isDataAvailableForDownload!
+          ? 'New beneficiary data are available, try to sync!'
+          : '');
     } catch (e) {
       AppLogs log = AppLogs(
           type: AppLogsConstants.errorLogType, message: '${e.toString()}');

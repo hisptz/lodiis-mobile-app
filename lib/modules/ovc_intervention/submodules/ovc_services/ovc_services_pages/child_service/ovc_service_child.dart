@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
+import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
@@ -21,6 +22,7 @@ import 'package:provider/provider.dart';
 
 class OvcServiceSubPageChildView extends StatelessWidget {
   final String label = 'Service Provision';
+  final String translatedLabel = 'Phano ea Litsebeletso';
   final List<String> casePlanProgramStageIds = [
     OvcChildCasePlanConstant.casePlanProgramStage
   ];
@@ -90,7 +92,7 @@ class OvcServiceSubPageChildView extends StatelessWidget {
       context,
       MaterialPageRoute(
         builder: (context) => OcvServiceCasePlanForm(
-          shoulViewCaseGapServiceProvision: true,
+          shouldViewCaseGapServiceProvision: true,
           shouldEditCaseGapServiceProvision: true,
         ),
       ),
@@ -106,10 +108,15 @@ class OvcServiceSubPageChildView extends StatelessWidget {
             builder: (context, interventionCardState, child) {
               InterventionCard activeInterventionProgram =
                   interventionCardState.currentInterventionProgram;
-              return SubPageAppBar(
-                label: label,
-                activeInterventionProgram: activeInterventionProgram,
-              );
+              return Consumer<LanguageTranslationState>(
+                  builder: (context, languageTranslationState, child) {
+                String? currentLanguage =
+                    languageTranslationState.currentLanguage;
+                return SubPageAppBar(
+                  label: currentLanguage != 'lesotho' ? label : translatedLabel,
+                  activeInterventionProgram: activeInterventionProgram,
+                );
+              });
             },
           ),
         ),

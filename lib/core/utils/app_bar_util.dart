@@ -8,7 +8,9 @@ import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_car
 import 'package:kb_mobile_app/app_state/ogac_intervention_list_state/ogac_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/referral_notification_state/referral_notification_state.dart';
+import 'package:kb_mobile_app/app_state/synchronization_state/synchronization_state.dart';
 import 'package:kb_mobile_app/core/components/intervention_pop_up_menu.dart';
+import 'package:kb_mobile_app/core/services/preference_provider.dart';
 import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
@@ -19,6 +21,7 @@ import 'package:kb_mobile_app/modules/language_selection/language_selection.dart
 import 'package:kb_mobile_app/modules/login/login.dart';
 import 'package:kb_mobile_app/modules/ogac_intervention/ogac_intervention.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/ovc_intervention.dart';
+import 'package:kb_mobile_app/modules/synchronization/constants/synchronization_actions_constants.dart';
 import 'package:kb_mobile_app/modules/synchronization/synchronization.dart';
 import 'package:provider/provider.dart';
 
@@ -73,11 +76,41 @@ class AppBarUtil {
     );
   }
 
-  static void _onOpenSyncModule(BuildContext context) {
+  static void _onOpenSyncModule(BuildContext context) async {
+    var syncActionConstants = SynchronizationActionsConstants();
+    bool isDataDownloadActive =
+        Provider.of<SynchronizationState>(context, listen: false)
+            .isDataDownloadingActive;
+    bool isDataUploadActive =
+        Provider.of<SynchronizationState>(context, listen: false)
+            .isDataUploadingActive;
+    bool isDataAvailableForDownload =
+        Provider.of<SynchronizationState>(context, listen: false)
+            .isDataAvailableForDownload;
+    int beneficiaryCount =
+        Provider.of<SynchronizationState>(context, listen: false)
+            .beneficiaryCount;
+    int beneficiaryServicesCount =
+        Provider.of<SynchronizationState>(context, listen: false)
+            .beneficiaryServiceCount;
+
+    String lastDataDownloadDatePreferenceKey = "lastSyncDatePreferenceKey";
+    String? lastSyncDate = await PreferenceProvider.getPreferenceValue(
+        lastDataDownloadDatePreferenceKey);
+
+    String syncAction = isDataDownloadActive || isDataUploadActive
+        ? ''
+        : beneficiaryCount + beneficiaryServicesCount > 0
+            ? syncActionConstants.upload
+            : lastSyncDate == null || isDataAvailableForDownload
+                ? syncActionConstants.download
+                : '';
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => Synchronization(),
+        builder: (context) => Synchronization(
+          synchronizationAction: syncAction,
+        ),
       ),
     );
   }

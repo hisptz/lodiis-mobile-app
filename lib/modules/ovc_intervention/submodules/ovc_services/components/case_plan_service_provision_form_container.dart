@@ -80,7 +80,6 @@ class _CasePlanServiceProvisionFormModalContainerState
   void setSessionNumberViolationMessages(
     Map<String, dynamic> sessionNumnberValidation,
   ) {
-    print(sessionNumnberValidation);
     bool isSessionNumberExit = sessionNumnberValidation["isSessionNumberExit"];
     bool isSessionNumberInValid =
         sessionNumnberValidation["isSessionNumberInValid"];
@@ -286,31 +285,41 @@ class _CasePlanServiceProvisionFormModalContainerState
                                 OvcHouseholdChild? currentOvcHouseholdChild =
                                     ovcHouseholdCurrentSelectionState
                                         .currentOvcHouseholdChild;
-                                return TextButton(
-                                  style: TextButton.styleFrom(
-                                    backgroundColor: formSectionColor,
-                                  ),
-                                  onPressed: () => onSaveGapForm(
-                                      context,
-                                      dataObject,
-                                      currentOvcHousehold,
-                                      currentOvcHouseholdChild),
-                                  child: Container(
-                                    alignment: Alignment.center,
-                                    padding:
-                                        EdgeInsets.symmetric(vertical: 22.0),
-                                    child: Text(
-                                      isSaving
-                                          ? 'SAVING SERVICE ...'
-                                          : 'SAVE SERVICE',
-                                      style: TextStyle().copyWith(
-                                        color: Color(0xFFFAFAFA),
-                                        fontSize: 14.0,
-                                        fontWeight: FontWeight.w700,
+                                return Consumer<LanguageTranslationState>(
+                                    builder: (context, languageTranslationState,
+                                        child) {
+                                  String? currentLanguage =
+                                      languageTranslationState.currentLanguage;
+                                  return TextButton(
+                                    style: TextButton.styleFrom(
+                                      backgroundColor: formSectionColor,
+                                    ),
+                                    onPressed: () => onSaveGapForm(
+                                        context,
+                                        dataObject,
+                                        currentOvcHousehold,
+                                        currentOvcHouseholdChild),
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      padding:
+                                          EdgeInsets.symmetric(vertical: 22.0),
+                                      child: Text(
+                                        currentLanguage == 'lesotho'
+                                            ? isSaving
+                                                ? 'E EA BOLOKA LITSEBELETSO ...'
+                                                : 'BOLOKA LITSEBELETSO'
+                                            : isSaving
+                                                ? 'SAVING SERVICE ...'
+                                                : 'SAVE SERVICE',
+                                        style: TextStyle().copyWith(
+                                          color: Color(0xFFFAFAFA),
+                                          fontSize: 14.0,
+                                          fontWeight: FontWeight.w700,
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                );
+                                  );
+                                });
                               },
                             ),
                           )

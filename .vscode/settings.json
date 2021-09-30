@@ -10,5 +10,6 @@
     "sublist",
     "tomcat",
     "uids"
-  ]
+  ],
+  "seat.enable": true
 }

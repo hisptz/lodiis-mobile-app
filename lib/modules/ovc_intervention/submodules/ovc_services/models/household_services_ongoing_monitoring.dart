@@ -6,6 +6,7 @@ class HouseholdServicesOngoingMonitoring {
   static List<FormSection> getFormSections() {
     return [
       FormSection(
+          id: 'Health',
           name: 'DOMAIN HEALTH',
           translatedName: 'BOPHELO BO BOTLE',
           color: Color(0xFF4D9E49),
@@ -77,6 +78,7 @@ class HouseholdServicesOngoingMonitoring {
                 labelColor: Color(0xFF737373))
           ]),
       FormSection(
+          id: 'Stable',
           name: 'DOMAIN STABLE',
           translatedName: 'BOTSITSO',
           color: Color(0xFF0000FF),
@@ -129,6 +131,7 @@ class HouseholdServicesOngoingMonitoring {
                 labelColor: Color(0xFF737373))
           ]),
       FormSection(
+          id: 'Safe',
           name: 'DOMAIN SAFE',
           translatedName: 'TSIRELETSO',
           color: Color(0xFF0F9587),
@@ -151,7 +154,7 @@ class HouseholdServicesOngoingMonitoring {
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'x3FxC6Bw139',
-                name: 'VACLegal Messaging progress',
+                name: 'VAC Legal Messaging progress',
                 translatedName:
                     'Tsoelo-pele ea litšebeletso tsa VAC Legal Messaging',
                 valueType: 'TEXT',
@@ -195,6 +198,7 @@ class HouseholdServicesOngoingMonitoring {
                 labelColor: Color(0xFF737373))
           ]),
       FormSection(
+          id: 'Schooled',
           name: 'DOMAIN SCHOOLED',
           translatedName: 'TSA SEKOLO',
           color: Color(0xFF9B2BAE),
@@ -222,19 +226,20 @@ class HouseholdServicesOngoingMonitoring {
                 inputColor: Color(0xFF9B2BAE),
                 labelColor: Color(0xFF737373)),
           ]),
+      // FormSection(
+      //     name: 'Other activities',
+      //     color: Color(0xFF4D9E49),
+      //     borderColor: Color(0xFF4D9E49),
+      //     inputFields: [
+      //       InputField(
+      //           id: 'C06k1O4qrjw',
+      //           name: 'Other activities progress',
+      //           valueType: 'TEXT',
+      //           inputColor: Color(0xFF4D9E49),
+      //           labelColor: Color(0xFF737373))
+      //     ]),
       FormSection(
-          name: 'Other activities',
-          color: Color(0xFF4D9E49),
-          borderColor: Color(0xFF4D9E49),
-          inputFields: [
-            InputField(
-                id: 'C06k1O4qrjw',
-                name: 'Other activities progress',
-                valueType: 'TEXT',
-                inputColor: Color(0xFF4D9E49),
-                labelColor: Color(0xFF737373))
-          ]),
-      FormSection(
+        id: '',
         name: 'Household ongoing monitoring',
         color: Color(0xFF4D9E49),
         inputFields: [

@@ -6,6 +6,7 @@ class OvcServicesOngoingMonitoring {
   static List<FormSection> getFormSections() {
     return [
       FormSection(
+          id: 'Health',
           name: 'DOMAIN HEALTH',
           translatedName: 'BOPHELO BO BOTLE',
           color: Color(0xFF4D9E49),
@@ -126,6 +127,7 @@ class OvcServicesOngoingMonitoring {
                 labelColor: Color(0xFF737373))
           ]),
       FormSection(
+          id: 'Stable',
           name: 'DOMAIN STABLE',
           translatedName: 'BOTSITSO',
           color: Color(0xFF0000FF),
@@ -170,6 +172,7 @@ class OvcServicesOngoingMonitoring {
                 labelColor: Color(0xFF737373))
           ]),
       FormSection(
+          id: 'Safe',
           name: 'DOMAIN SAFE',
           translatedName: 'TSIRELETSO',
           color: Color(0xFF0F9587),
@@ -265,6 +268,7 @@ class OvcServicesOngoingMonitoring {
                 labelColor: Color(0xFF737373))
           ]),
       FormSection(
+          id: 'Schooled',
           name: 'DOMAIN SCHOOLED',
           translatedName: 'TSA SEKOLO',
           color: Color(0xFF9B2BAE),
@@ -340,6 +344,7 @@ class OvcServicesOngoingMonitoring {
                 labelColor: Color(0xFF737373))
           ]),
       FormSection(
+          id: '',
           name: 'For those who were referred and changing HIV status',
           translatedName:
               'Bakeng sa ba fetiselitsoeng litsing tsa bophelo le bao boemo ba bona ba tšoaetso bo fetohileng',

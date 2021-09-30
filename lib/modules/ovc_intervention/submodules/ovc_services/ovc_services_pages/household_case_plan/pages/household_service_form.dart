@@ -26,20 +26,24 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/o
 import 'package:provider/provider.dart';
 
 class HouseholdServiceForm extends StatefulWidget {
-  HouseholdServiceForm({
-    Key? key,
-    this.shouldEditCaseGapServiceProvision = false,
-    this.shoulViewCaseGapServiceProvision = false,
-  }) : super(key: key);
+  HouseholdServiceForm(
+      {Key? key,
+      this.shouldEditCaseGapServiceProvision = false,
+      this.shouldViewCaseGapServiceProvision = false,
+      this.isServiceMonitoring = false})
+      : super(key: key);
 
   final bool shouldEditCaseGapServiceProvision;
-  final bool shoulViewCaseGapServiceProvision;
+  final bool shouldViewCaseGapServiceProvision;
+  final bool isServiceMonitoring;
   @override
   _HouseholdServiceFormState createState() => _HouseholdServiceFormState();
 }
 
 class _HouseholdServiceFormState extends State<HouseholdServiceForm> {
-  final String label = 'Household Service Provision';
+  final String serviceProvisionLabel = 'Household Service Provision';
+  final String translatedServiceProvisionLabel = 'Litsebeletso tsa lelapa';
+  final String serviceMonitoringLabel = 'Household Service Monitoring';
   late List<FormSection> formSections;
   Map borderColors = Map();
   bool isSaving = false;
@@ -114,7 +118,8 @@ class _HouseholdServiceFormState extends State<HouseholdServiceForm> {
           );
           hiddenFields = [
             OvcCasePlanConstant.casePlanToGapLinkage,
-            OvcCasePlanConstant.casePlanGapToServiceProvisionLinkage
+            OvcCasePlanConstant.casePlanGapToServiceProvisionLinkage,
+            OvcCasePlanConstant.casePlanGapToMonitoringLinkage
           ];
           for (Map domainGapDataObject in domainDataObject['gaps']) {
             await TrackedEntityInstanceUtil
@@ -181,9 +186,19 @@ class _HouseholdServiceFormState extends State<HouseholdServiceForm> {
             builder: (context, interventionCardState, child) {
               InterventionCard activeInterventionProgram =
                   interventionCardState.currentInterventionProgram;
-              return SubPageAppBar(
-                label: label,
-                activeInterventionProgram: activeInterventionProgram,
+              return Consumer<LanguageTranslationState>(
+                builder: (context, languageTranslationState, child) {
+                  String? currentLanguage =
+                      languageTranslationState.currentLanguage;
+                  return SubPageAppBar(
+                    label: widget.isServiceMonitoring
+                        ? serviceMonitoringLabel
+                        : currentLanguage != 'lesotho'
+                            ? serviceProvisionLabel
+                            : translatedServiceProvisionLabel,
+                    activeInterventionProgram: activeInterventionProgram,
+                  );
+                },
               );
             },
           ),
@@ -227,9 +242,9 @@ class _HouseholdServiceFormState extends State<HouseholdServiceForm> {
                                                 shouldEditCaseGapServiceProvision:
                                                     widget
                                                         .shouldEditCaseGapServiceProvision,
-                                                shoulViewCaseGapServiceProvision:
+                                                shouldViewCaseGapServiceProvision:
                                                     widget
-                                                        .shoulViewCaseGapServiceProvision,
+                                                        .shouldViewCaseGapServiceProvision,
                                                 formSectionColor: borderColors[
                                                     formSection.id],
                                                 formSection: formSection,
@@ -238,6 +253,8 @@ class _HouseholdServiceFormState extends State<HouseholdServiceForm> {
                                                 isEditableMode: serviceFormState
                                                     .isEditableMode,
                                                 isCasePlanForHousehold: true,
+                                                isServiceMonitoring:
+                                                    widget.isServiceMonitoring,
                                                 onInputValueChange: (
                                                   dynamic value,
                                                 ) =>
