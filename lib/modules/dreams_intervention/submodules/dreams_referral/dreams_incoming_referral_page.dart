@@ -25,7 +25,7 @@ class _DreamsIncomingReferralPageState
   final bool canEdit = false;
   final bool canView = false;
   final bool canExpand = true;
-  final bool isIncommingReferral = true;
+  final bool isIncomingReferral = true;
 
   String? toggleCardId = '';
 
@@ -51,7 +51,7 @@ class _DreamsIncomingReferralPageState
       context,
       MaterialPageRoute(
         builder: (context) => DreamsAgywReferralPage(
-          isIncommingReferral: isIncommingReferral,
+          isIncomingReferral: isIncomingReferral,
         ),
       ),
     );

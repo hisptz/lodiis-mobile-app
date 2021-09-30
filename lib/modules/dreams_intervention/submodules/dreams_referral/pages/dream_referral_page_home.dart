@@ -36,10 +36,10 @@ import 'package:provider/provider.dart';
 class DreamsAgywReferralPage extends StatefulWidget {
   DreamsAgywReferralPage({
     Key? key,
-    required this.isIncommingReferral,
+    required this.isIncomingReferral,
   }) : super(key: key);
 
-  final bool isIncommingReferral;
+  final bool isIncomingReferral;
   @override
   _DreamsAgywReferralPageState createState() => _DreamsAgywReferralPageState();
 }
@@ -116,7 +116,7 @@ class _DreamsAgywReferralPageState extends State<DreamsAgywReferralPage> {
         builder: (context) => DreamsReferralView(
           eventData: eventData,
           referralIndex: referralIndex,
-          isIncommingReferral: widget.isIncommingReferral,
+          isIncomingReferral: widget.isIncomingReferral,
         ),
       ),
     );
@@ -172,7 +172,7 @@ class _DreamsAgywReferralPageState extends State<DreamsAgywReferralPage> {
         builder: (context) => DreamsReferralManage(
           eventData: eventData,
           referralIndex: referralIndex,
-          isIncommingReferral: widget.isIncommingReferral,
+          isIncomingReferral: widget.isIncomingReferral,
         ),
       ),
     );
@@ -270,9 +270,9 @@ class _DreamsAgywReferralPageState extends State<DreamsAgywReferralPage> {
                                                             count: count,
                                                             cardBody:
                                                                 ReferralCardBodySummary(
-                                                              isIncommingReferral:
+                                                              isIncomingReferral:
                                                                   widget
-                                                                      .isIncommingReferral,
+                                                                      .isIncomingReferral,
                                                               labelColor: Color(
                                                                   0XFF82898D),
                                                               valueColor: Color(

@@ -26,7 +26,7 @@ class _DreamsReferralPageState extends State<DreamsReferralPage> {
   final bool canEdit = false;
   final bool canView = false;
   final bool canExpand = true;
-  final bool isIncommingReferral = false;
+  final bool isIncomingReferral = false;
 
   String? toggleCardId = '';
 
@@ -52,7 +52,7 @@ class _DreamsReferralPageState extends State<DreamsReferralPage> {
       context,
       MaterialPageRoute(
         builder: (context) => DreamsAgywReferralPage(
-          isIncommingReferral: isIncommingReferral,
+          isIncomingReferral: isIncomingReferral,
         ),
       ),
     );
@@ -67,7 +67,7 @@ class _DreamsReferralPageState extends State<DreamsReferralPage> {
             teiList: incomingTeiWithOutcome);
     Widget modal = DreamsOutgoingReferralsOutcome(
       agywList: agywList,
-      isIncommingReferral: isIncommingReferral,
+      isIncomingReferral: isIncomingReferral,
     );
     await AppUtil.showPopUpModal(context, modal, false,
         title: 'Beneficiaries with referral outcome');

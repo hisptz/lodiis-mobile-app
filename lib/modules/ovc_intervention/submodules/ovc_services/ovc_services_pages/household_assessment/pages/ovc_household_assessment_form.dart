@@ -50,6 +50,7 @@ class _OvcHouseholdAssessmentFormState
         evaluateSkipLogics();
       });
     });
+    updateHousholdcount();
   }
 
   evaluateSkipLogics() {
@@ -65,6 +66,24 @@ class _OvcHouseholdAssessmentFormState
         );
       },
     );
+  }
+
+  void updateHousholdcount() {
+    int totalHouseHoldCount = 0;
+    for (var attributeObject in Provider.of<OvcHouseholdCurrentSelectionState>(
+            context,
+            listen: false)
+        .currentOvcHousehold!
+        .teiData!
+        .attributes) {
+      if (attributeObject['attribute'] == 'BXUNH6LXeGA' ||
+          attributeObject['attribute'] == 'kQehaqmaygZ' ||
+          attributeObject['attribute'] == 'rGAQnszNGVN' ||
+          attributeObject['attribute'] == 'l9tcZ2TNgx6')
+        totalHouseHoldCount += int.parse((attributeObject['value']) ?? '0');
+    }
+    Provider.of<ServiceFormState>(context, listen: false)
+        .setFormFieldState('Eg1fUXWnFU4', totalHouseHoldCount.toString());
   }
 
   void onInputValueChange(String id, dynamic value) {

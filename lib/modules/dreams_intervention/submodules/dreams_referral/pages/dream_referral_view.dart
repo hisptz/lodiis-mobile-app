@@ -18,12 +18,12 @@ class DreamsReferralView extends StatefulWidget {
     Key? key,
     required this.eventData,
     required this.referralIndex,
-    required this.isIncommingReferral,
+    required this.isIncomingReferral,
   }) : super(key: key);
 
   final Events eventData;
   final int referralIndex;
-  final bool isIncommingReferral;
+  final bool isIncomingReferral;
 
   @override
   _DreamsReferralViewState createState() => _DreamsReferralViewState();
@@ -75,8 +75,7 @@ class _DreamsReferralViewState extends State<DreamsReferralView> {
                                   isOvcIntervention: false,
                                   referralIndex: widget.referralIndex,
                                   eventData: widget.eventData,
-                                  isIncommingReferral:
-                                      widget.isIncommingReferral,
+                                  isIncomingReferral: widget.isIncomingReferral,
                                 ),
                                 ReferralOutComeCard(
                                   isOvcIntervention: false,

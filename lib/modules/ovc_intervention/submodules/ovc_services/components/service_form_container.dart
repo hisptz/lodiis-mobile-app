@@ -17,9 +17,10 @@ class ServiceFormContainer extends StatelessWidget {
     required this.isEditableMode,
     required this.dataObject,
     this.isCasePlanForHousehold = false,
+    required this.isServiceMonitoring,
     this.onInputValueChange,
     required this.shouldEditCaseGapServiceProvision,
-    required this.shoulViewCaseGapServiceProvision,
+    required this.shouldViewCaseGapServiceProvision,
   }) : super(key: key);
 
   final Color? formSectionColor;
@@ -28,12 +29,15 @@ class ServiceFormContainer extends StatelessWidget {
   final Map? dataObject;
   final Function? onInputValueChange;
   final bool isCasePlanForHousehold;
+  final bool isServiceMonitoring;
   final bool shouldEditCaseGapServiceProvision;
-  final bool shoulViewCaseGapServiceProvision;
+  final bool shouldViewCaseGapServiceProvision;
 
   final String caseToGapLinkage = OvcCasePlanConstant.casePlanToGapLinkage;
   final String casePlanGapToServiceProvisionLinkage =
       OvcCasePlanConstant.casePlanGapToServiceProvisionLinkage;
+  final String casePlanGapToServiceMonitoringLinkage =
+      OvcCasePlanConstant.casePlanGapToMonitoringLinkage;
 
   void onAddNewGap(BuildContext context) async {
     Map gapDataObject = Map();
@@ -41,6 +45,9 @@ class ServiceFormContainer extends StatelessWidget {
         gapDataObject[casePlanGapToServiceProvisionLinkage] ?? AppUtil.getUid();
     gapDataObject[caseToGapLinkage] =
         dataObject![caseToGapLinkage] ?? AppUtil.getUid();
+    gapDataObject[casePlanGapToServiceMonitoringLinkage] =
+        gapDataObject[casePlanGapToServiceMonitoringLinkage] ??
+            AppUtil.getUid();
     List<FormSection> formSections = isCasePlanForHousehold
         ? OvcHouseholdServicesCasePlanGaps.getFormSections()
             .where((FormSection form) => form.id == formSection.id)
@@ -104,16 +111,17 @@ class ServiceFormContainer extends StatelessWidget {
                   casePlanGaps: dataObject!['gaps'] ?? [],
                   domainId: formSection.id,
                   isCasePlanForHousehold: isCasePlanForHousehold,
+                  isServiceMonitoring: isServiceMonitoring,
                   formSectionColor: formSectionColor,
                   shouldEditCaseGapServiceProvision:
                       shouldEditCaseGapServiceProvision,
-                  shoulViewCaseGapServiceProvision:
-                      shoulViewCaseGapServiceProvision,
+                  shouldViewCaseGapServiceProvision:
+                      shouldViewCaseGapServiceProvision,
                 ),
                 Visibility(
                   visible:
                       (isEditableMode || shouldEditCaseGapServiceProvision) &&
-                          !shoulViewCaseGapServiceProvision,
+                          !shouldViewCaseGapServiceProvision,
                   child: Container(
                     margin: EdgeInsets.only(
                       bottom: 10.0,
