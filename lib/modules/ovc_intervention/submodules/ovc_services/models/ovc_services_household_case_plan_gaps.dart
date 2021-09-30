@@ -29,16 +29,14 @@ class OvcHouseholdServicesCasePlanGaps {
             InputField(
                 id: 'vqf67Edjw4y',
                 name: '(HTS) Name of responsible internal person',
-                // translatedName:
-                //     'Lebitso la motho ea ikarabellang bakeng sa HTS',
+                translatedName: 'Motho ea ikarabellang ka hare ho HTS',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'bQtXR6iQyo8',
                 name: '(HTS) Name of responsible external person',
-                // translatedName:
-                //     'Lebitso la motho ea ikarabellang bakeng sa HTS',
+                translatedName: 'Motho ea ikarabellang ka ntle ho HTS',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
@@ -60,16 +58,14 @@ class OvcHouseholdServicesCasePlanGaps {
             InputField(
                 id: 'elqeNdaYNTS',
                 name: '(HIVTREAT) Name of responsible internal person',
-                // translatedName:
-                //     'Lebitso la motho ea ikarabellang bakeng sa HIVTREAT',
+                translatedName: 'Motho ea ikarabellang ka hare ho HIVTREAT',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'IhzyIy3tzo0',
                 name: '(HIVTREAT) Name of responsible external person',
-                // translatedName:
-                //     'Lebitso la motho ea ikarabellang bakeng sa HIVTREAT',
+                translatedName: 'Motho ea ikarabellang ka ntle ho HIVTREAT',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
@@ -92,8 +88,8 @@ class OvcHouseholdServicesCasePlanGaps {
                 id: 'b6hvMQuH3oJ',
                 name:
                     '(HIVS&D/HIV Messaging) Name of responsible internal person',
-                // translatedName:
-                //     'Lebitso la motho ea ikarabellang bakeng sa HIVS&D/HIV Messaging',
+                translatedName:
+                    'Motho ea ikarabellang ka hare ho HIVS&D/HIV Messaging',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
@@ -101,8 +97,8 @@ class OvcHouseholdServicesCasePlanGaps {
                 id: 'iy0KZ7K4qld',
                 name:
                     '(HIVS&D/HIV Messaging) Name of responsible external person',
-                // translatedName:
-                //     'Lebitso la motho ea ikarabellang bakeng sa HIVS&D/HIV Messaging',
+                translatedName:
+                    'Motho ea ikarabellang ka ntle ho HIVS&D/HIV Messaging',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
@@ -125,16 +121,14 @@ class OvcHouseholdServicesCasePlanGaps {
             InputField(
                 id: 'G6GkSeccLmB',
                 name: '(HEALTH) Name of responsible internal person',
-                // translatedName:
-                //     'Lebitso la motho ea ikarabellang bakeng sa HEALTH',
+                translatedName: 'Motho ea ikarabellang ka hare ho HEALTH',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'GULhHDCXRvz',
                 name: '(HEALTH) Name of responsible external person',
-                // translatedName:
-                //     'Lebitso la motho ea ikarabellang bakeng sa HEALTH',
+                translatedName: 'Motho ea ikarabellang ka ntle ho HEALTH',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
@@ -156,16 +150,14 @@ class OvcHouseholdServicesCasePlanGaps {
             InputField(
                 id: 'GnsYKEE2fnr',
                 name: '(PRG&L) Name of responsible internal person',
-                // translatedName:
-                //     'Lebitso la motho ea ikarabellang bakeng sa PRG&L',
+                translatedName: 'Motho ea ikarabellang ka hare ho PRG&L',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'X2CA3iQZU74',
                 name: '(PRG&L) Name of responsible external person',
-                // translatedName:
-                //     'Lebitso la motho ea ikarabellang bakeng sa HEALTH',
+                translatedName: 'Motho ea ikarabellang ka ntle ho PRG&L',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
@@ -187,16 +179,14 @@ class OvcHouseholdServicesCasePlanGaps {
             InputField(
                 id: 'emAJOTWYHVq',
                 name: '(SAIDS) Name of responsible internal person',
-                // translatedName:
-                //     'Lebitso la motho ea ikarabellang bakeng sa SAIDS',
+                translatedName: 'Motho ea ikarabellang ka hare ho SAIDS',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'lwa1qFrFISz',
                 name: '(SAIDS) Name of responsible external person',
-                // translatedName:
-                //     'Lebitso la motho ea ikarabellang bakeng sa SAIDS',
+                translatedName: 'Motho ea ikarabellang ka ntle ho SAIDS',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
@@ -218,16 +208,14 @@ class OvcHouseholdServicesCasePlanGaps {
             InputField(
                 id: 'ue6xLPEURqt',
                 name: '(WASHMES) Name of responsible internal person',
-                // translatedName:
-                //     'Lebitso la motho ea ikarabellang bakeng sa WASHMES',
+                translatedName: 'Motho ea ikarabellang ka hare ho WASHMES',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'vIbKIUgzBU4',
                 name: '(WASHMES) Name of responsible external person',
-                // translatedName:
-                //     'Lebitso la motho ea ikarabellang bakeng sa WASHMES',
+                translatedName: 'Motho ea ikarabellang ka ntle ho WASHMES',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
@@ -249,16 +237,14 @@ class OvcHouseholdServicesCasePlanGaps {
             InputField(
                 id: 'ontonbgTJ8k',
                 name: '(SOACKAGE) Name of responsible internal person',
-                // translatedName:
-                //     'Lebitso la motho ea ikarabellang bakeng sa SOACKAGE',
+                translatedName: 'Motho ea ikarabellang ka hare ho SOACKAGE',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'AjYKLfIQPtT',
                 name: '(SOACKAGE) Name of responsible external person',
-                // translatedName:
-                //     'Lebitso la motho ea ikarabellang bakeng sa SOACKAGE',
+                translatedName: 'Motho ea ikarabellang ka ntle ho SOACKAGE',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
@@ -280,16 +266,14 @@ class OvcHouseholdServicesCasePlanGaps {
             InputField(
                 id: 'P4I6rK6Xqxw',
                 name: '(TIPPY) Name of responsible internal person',
-                // translatedName:
-                //     'Lebitso la motho ea ikarabellang bakeng sa TIPPY',
+                translatedName: 'Motho ea ikarabellang ka hare ho TIPPY',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'WFKe1YpH1uK',
                 name: '(TIPPY) Name of responsible external person',
-                // translatedName:
-                //     'Lebitso la motho ea ikarabellang bakeng sa TIPPY',
+                translatedName: 'Motho ea ikarabellang ka ntle ho TIPPY',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
@@ -326,16 +310,14 @@ class OvcHouseholdServicesCasePlanGaps {
             InputField(
                 id: 'JtfKB58MvNK',
                 name: '(SILC) Name of responsible internal person',
-                // translatedName:
-                //     'Lebitso la motho ea ikarabellang bakeng sa SILC',
+                translatedName: 'Motho ea ikarabellang ka hare ho SILC',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0000FF),
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'MMjndp2xsoQ',
                 name: '(SILC) Name of responsible external person',
-                // translatedName:
-                //     'Lebitso la motho ea ikarabellang bakeng sa SILC',
+                translatedName: 'Motho ea ikarabellang ka ntle ho SILC',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0000FF),
                 labelColor: Color(0xFF737373)),
@@ -358,7 +340,8 @@ class OvcHouseholdServicesCasePlanGaps {
                 id: 'OMtcDA7tcVL',
                 name:
                     '(Financial Education) Name of responsible internal person',
-                // translatedName: 'Lebitso la motho ea ikarabellang bakeng sa FE',
+                translatedName:
+                    'Motho ea ikarabellang ka hare ho Financial Education',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0000FF),
                 labelColor: Color(0xFF737373)),
@@ -366,8 +349,8 @@ class OvcHouseholdServicesCasePlanGaps {
                 id: 'Mz24UpWclb3',
                 name:
                     '(Financial Education) Name of responsible external person',
-                // translatedName:
-                //     'Lebitso la motho ea ikarabellang bakeng sa FE',
+                translatedName:
+                    'Motho ea ikarabellang ka ntle ho Financial Education',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0000FF),
                 labelColor: Color(0xFF737373)),
@@ -389,8 +372,7 @@ class OvcHouseholdServicesCasePlanGaps {
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'xse9M31M9z1',
-                // translatedName:
-                //     'Lebitso la motho ea ikarabellang bakeng sa EST COOPRTVS',
+                translatedName: 'Motho ea ikarabellang ka hare ho EST COOPRTVS',
                 name: '(EST COOPRTVS) Name of responsible internal person',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0000FF),
@@ -398,8 +380,7 @@ class OvcHouseholdServicesCasePlanGaps {
             InputField(
                 id: 'uLi7eqd0eEy',
                 name: '(EST COOPRTVS) Name of responsible external person',
-                // translatedName:
-                //     'Lebitso la motho ea ikarabellang bakeng sa EST COOPRTVS',
+                translatedName: 'Motho ea ikarabellang ka ntle ho EST COOPRTVS',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0000FF),
                 labelColor: Color(0xFF737373)),
@@ -408,7 +389,7 @@ class OvcHouseholdServicesCasePlanGaps {
                 allowFuturePeriod: true,
                 name: '(EST COOPRTVS) Projected date for completion',
                 translatedName:
-                    'Lebitso la motho ea ikarabellang bakeng sa EST COOPRTVS',
+                    'Letsatsi la FUNCT COOPRTVS le tla EST COOPRTVS',
                 valueType: 'DATE',
                 inputColor: Color(0xFF0000FF),
                 labelColor: Color(0xFF737373)),
@@ -422,16 +403,16 @@ class OvcHouseholdServicesCasePlanGaps {
             InputField(
                 id: 'cKJggm2OXFQ',
                 name: '(FUNCT COOPRTVS) Name of responsible internal person',
-                // translatedName:
-                //     'Lebitso la motho ea ikarabellang bakeng sa FUNCT COOPRTVS ',
+                translatedName:
+                    'Motho ea ikarabellang ka hare ho FUNCT COOPRTVS ',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0000FF),
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'NUXAxwvM3FE',
                 name: '(FUNCT COOPRTVS) Name of responsible external person',
-                // translatedName:
-                //     'Lebitso la motho ea ikarabellang bakeng sa FUNCT COOPRTVS',
+                translatedName:
+                    'Motho ea ikarabellang ka ntle ho FUNCT COOPRTVS',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0000FF),
                 labelColor: Color(0xFF737373)),
@@ -439,7 +420,7 @@ class OvcHouseholdServicesCasePlanGaps {
                 id: 'kCoBEKqJelO',
                 allowFuturePeriod: true,
                 name: '(FUNCT COOPRTVS) Projected date for completion',
-                translatedName: 'Letsatsi la FUNCT COOPRTVS  le tla phetheloa',
+                translatedName: 'Letsatsi la FUNCT COOPRTVS le tla phetheloa',
                 valueType: 'DATE',
                 inputColor: Color(0xFF0000FF),
                 labelColor: Color(0xFF737373)),
@@ -453,16 +434,16 @@ class OvcHouseholdServicesCasePlanGaps {
             InputField(
                 id: 'a9geBDwDmXA',
                 name: '(MARKT COOPRTVS) Name of responsible internal person',
-                // translatedName:
-                //     'Lebitso la motho ea ikarabellang bakeng sa MARKT COOPRTVS',
+                translatedName:
+                    'Motho ea ikarabellang ka hare ho MARKT COOPRTVS',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0000FF),
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 's5mJvzRyfmW',
                 name: '(MARKT COOPRTVS) Name of responsible external person',
-                // translatedName:
-                //     'Lebitso la motho ea ikarabellang bakeng sa MARKT COOPRTVS',
+                translatedName:
+                    'Motho ea ikarabellang ka ntle ho MARKT COOPRTVS',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0000FF),
                 labelColor: Color(0xFF737373)),
@@ -484,16 +465,14 @@ class OvcHouseholdServicesCasePlanGaps {
             InputField(
                 id: 'NWBZilCPutW',
                 name: '(K/TPLOTS) Name of responsible internal person',
-                // translatedName:
-                //     'Lebitso la motho ea ikarabellang bakeng sa K/TPLOTS',
+                translatedName: 'Motho ea ikarabellang ka hare ho K/TPLOTS',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0000FF),
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'boUUP8UeWDL',
                 name: '(K/TPLOTS) Name of responsible external person',
-                // translatedName:
-                //     'Lebitso la motho ea ikarabellang bakeng sa K/TPLOTS',
+                translatedName: 'Motho ea ikarabellang ka ntle ho K/TPLOTS',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0000FF),
                 labelColor: Color(0xFF737373)),
@@ -530,16 +509,14 @@ class OvcHouseholdServicesCasePlanGaps {
             InputField(
                 id: 'O3mOdzWYmg3',
                 name: '(P&FC) Name of responsible internal person',
-                // translatedName:
-                //     'Lebitso la motho ea ikarabellang bakeng sa P&FC ',
+                translatedName: 'Motho ea ikarabellang ka hare ho P&FC ',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'WFscqdyjgUy',
                 name: '(P&FC) Name of responsible external person',
-                // translatedName:
-                //     'Lebitso la motho ea ikarabellang bakeng sa P&FC',
+                translatedName: 'Motho ea ikarabellang ka ntle ho P&FC',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
@@ -560,17 +537,17 @@ class OvcHouseholdServicesCasePlanGaps {
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'jKqWohAPqyW',
-                name: '(VAC/VAC MessagingVAC) Name of responsible internal person',
-                // translatedName:
-                //     'Lebitso la motho ea ikarabellang bakeng sa VAC',
+                name: '(VAC/VAC Messaging) Name of responsible internal person',
+                translatedName:
+                    'Motho ea ikarabellang ka hare ho VAC/VAC Messaging',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'U8jnyQsnfBD',
                 name: '(VAC/VAC Messaging) Name of responsible external person',
-                // translatedName:
-                //     'Lebitso la motho ea ikarabellang bakeng sa VAC',
+                translatedName:
+                    'Motho ea ikarabellang ka ntle ho VAC/VAC Messaging',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
@@ -578,7 +555,8 @@ class OvcHouseholdServicesCasePlanGaps {
                 id: 'wGrQeSydiwd',
                 allowFuturePeriod: true,
                 name: '(VAC/VAC Messaging) Projected date for completion',
-                translatedName: 'Letsatsi la VAC/VAC Messaging le tla phetheloa',
+                translatedName:
+                    'Letsatsi la VAC/VAC Messaging le tla phetheloa',
                 valueType: 'DATE',
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
@@ -593,8 +571,8 @@ class OvcHouseholdServicesCasePlanGaps {
                 id: 'TizNGPP6e1d',
                 name:
                     '(VAC Legal Messaging) Name of responsible internal person',
-                // translatedName:
-                //     'Lebitso la motho ea ikarabellang bakeng sa VAC Legal Messaging',
+                translatedName:
+                    'Motho ea ikarabellang ka hare ho VAC Legal Messaging',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
@@ -602,8 +580,8 @@ class OvcHouseholdServicesCasePlanGaps {
                 id: 'Q7GxvZD6h99',
                 name:
                     '(VAC Legal Messaging) Name of responsible external person',
-                // translatedName:
-                //     'Lebitso la motho ea ikarabellang bakeng sa VAC Legal Messaging',
+                translatedName:
+                    'Motho ea ikarabellang ka ntle ho VAC Legal Messaging',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
@@ -627,8 +605,8 @@ class OvcHouseholdServicesCasePlanGaps {
                 id: 'UDYd31rUKgN',
                 name:
                     '(Survivors of Abuse) Name of responsible internal person',
-                // translatedName:
-                //     'Lebitso la motho ea ikarabellang bakeng sa SURVIVORS',
+                translatedName:
+                    'Motho ea ikarabellang ka hare ho Survivors of Abuse',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
@@ -636,8 +614,8 @@ class OvcHouseholdServicesCasePlanGaps {
                 id: 'XvOgqGxX39f',
                 name:
                     '(Survivors of Abuse) Name of responsible external person',
-                // translatedName:
-                //     'Lebitso la motho ea ikarabellang bakeng sa SURVIVORS',
+                translatedName:
+                    'Motho ea ikarabellang ka ntle ho Survivors of Abuse',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
@@ -652,7 +630,7 @@ class OvcHouseholdServicesCasePlanGaps {
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'Ccp4Odlh3BE',
-                translatedName: 'Tšebeletso ea  COUNSEL',
+                translatedName: 'Tšebeletso ea COUNSEL',
                 name: 'COUNSEL',
                 valueType: 'TRUE_ONLY',
                 inputColor: Color(0xFF0F9587),
@@ -660,14 +638,14 @@ class OvcHouseholdServicesCasePlanGaps {
             InputField(
                 id: 'kGoKVtkQxvk',
                 name: '(COUNSEL) Name of responsible internal person',
+                translatedName: 'Motho ea ikarabellang ka hare ho COUNSEL',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'yoI0bu18mPo',
                 name: '(COUNSEL) Name of responsible external person',
-                // translatedName:
-                //     'Lebitso la motho ea ikarabellang bakeng sa COUNSEL',
+                translatedName: 'Motho ea ikarabellang ka ntle ho COUNSEL',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
@@ -687,14 +665,14 @@ class OvcHouseholdServicesCasePlanGaps {
             InputField(
                 id: 'oth3dRYox12',
                 name: '(ABUSE) Name of responsible internal person',
+                translatedName: 'Motho ea ikarabellang ka hare ho ABUSE',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'RsCebbDkMx9',
                 name: '(ABUSE) Name of responsible external person',
-                // translatedName:
-                //     'Lebitso la motho ea ikarabellang bakeng sa ABUSE',
+                translatedName: 'Motho ea ikarabellang ka ntle ho ABUSE',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
@@ -714,14 +692,14 @@ class OvcHouseholdServicesCasePlanGaps {
             InputField(
                 id: 'dJR6GJyHCTr',
                 name: '(LEGALPROT) Name of responsible internal person',
+                translatedName: 'Motho ea ikarabellang ka hare ho LEGALPROT',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'cu1UkUUTbME',
                 name: '(LEGALPROT) Name of responsible external person',
-                // translatedName:
-                //     'Lebitso la motho ea ikarabellang bakeng sa LEGALPROT',
+                translatedName: 'Motho ea ikarabellang ka ntle ho LEGALPROT',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
@@ -741,14 +719,14 @@ class OvcHouseholdServicesCasePlanGaps {
             InputField(
                 id: 'LDH3TLjHUYK',
                 name: '(BIRTHCERT) Name of responsible internal person',
+                translatedName: 'Motho ea ikarabellang ka hare ho BIRTHCERT',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'Pd5CyDu2Z54',
                 name: '(BIRTHCERT) Name of responsible external person',
-                // translatedName:
-                //     'Lebitso la motho ea ikarabellang bakeng sa BIRTHCERT',
+                translatedName: 'Motho ea ikarabellang ka ntle ho BIRTHCERT',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
@@ -784,16 +762,14 @@ class OvcHouseholdServicesCasePlanGaps {
             InputField(
                 id: 'do1fAllY7Jv',
                 name: '(PTS4G) Name of responsible internal person',
-                // translatedName:
-                //     'Lebitso la motho ea ikarabellang bakeng sa PTS4G',
+                translatedName: 'Motho ea ikarabellang ka hare ho PTS4G',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF9B2BAE),
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'y5v9t8Skiyi',
                 name: '(PTS4G) Name of responsible external person',
-                // translatedName:
-                //     'Lebitso la motho ea ikarabellang bakeng sa PTS4G',
+                translatedName: 'Motho ea ikarabellang ka ntle ho PTS4G',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF9B2BAE),
                 labelColor: Color(0xFF737373)),
@@ -815,16 +791,14 @@ class OvcHouseholdServicesCasePlanGaps {
             InputField(
                 id: 'k9R0AUmBqHS',
                 name: '(PTS4NG) Name of responsible internal person',
-                // translatedName:
-                //     'Lebitso la motho ea ikarabellang bakeng sa PTS4NG',
+                translatedName: 'Motho ea ikarabellang ka hare ho PTS4NG',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF9B2BAE),
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'k2eUheeYmfk',
                 name: '(PTS4NG) Name of responsible external person',
-                // translatedName:
-                //     'Lebitso la motho ea ikarabellang bakeng sa PTS4NG',
+                translatedName: 'Motho ea ikarabellang ka ntle ho PTS4NG',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF9B2BAE),
                 labelColor: Color(0xFF737373)),
@@ -846,16 +820,14 @@ class OvcHouseholdServicesCasePlanGaps {
             InputField(
                 id: 'kfcqLf2d2dc',
                 name: '(HWCLUB) Name of responsible internal person',
-                // translatedName:
-                //     'Lebitso la motho ea ikarabellang bakeng sa HWCLUB',
+                translatedName: 'Motho ea ikarabellang ka hare ho HWCLUB',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF9B2BAE),
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'ewpLauNhb8N',
                 name: '(HWCLUB) Name of responsible external person',
-                // translatedName:
-                //     'Lebitso la motho ea ikarabellang bakeng sa HWCLUB',
+                translatedName: 'Motho ea ikarabellang ka ntle ho HWCLUB',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF9B2BAE),
                 labelColor: Color(0xFF737373)),
@@ -890,16 +862,16 @@ class OvcHouseholdServicesCasePlanGaps {
             InputField(
                 id: 'Mq7g4k4lk44',
                 name: '(Other activities) Name of responsible internal person',
-                // translatedName:
-                //     'Lebitso la motho ea ikarabellang bakeng sa Mesebetsi e meng',
+                translatedName:
+                    'Motho ea ikarabellang ka hare ho Mesebetsi e meng',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
             InputField(
                 id: 'XSTUvAjvijB',
                 name: '(Other activities) Name of responsible external person',
-                // translatedName:
-                //     'Lebitso la motho ea ikarabellang bakeng sa Other activities',
+                translatedName:
+                    'Motho ea ikarabellang ka ntle ho Other activities',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),

@@ -700,7 +700,7 @@ class OvcServicesChildServiceProvision {
             InputField(
               id: 'cuy4Ai7mBbA',
               name: 'Survivors of Abuse Service provided',
-              // translatedName: 'Boemo ba Phano ea Litšebeletso ea SURVIVORS',
+              // translatedName: 'Boemo ba Phano ea Litšebeletso ea Survivors of Abuse,
               valueType: 'TRUE_ONLY',
               inputColor: Color(0xFF0F9587),
               labelColor: Color(0xFF737373),
@@ -709,7 +709,7 @@ class OvcServicesChildServiceProvision {
                 id: 'C5bhgqcq6Qn',
                 name: 'Survivors of Abuse Service Provision Date',
                 translatedName:
-                    'Letsatsi la Kabo ea Litšebeletso tsa SURVIVORS',
+                    'Letsatsi la Kabo ea Litšebeletso tsa Survivors of Abuse',
                 valueType: 'DATE',
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
@@ -914,7 +914,7 @@ class OvcServicesChildServiceProvision {
             InputField(
               id: 'LcIB5EL3IjT',
               name: 'Aflatoun/teen Service provided',
-              // translatedName: 'Boemo ba Phano ea Litšebeletso ea AFLAS',
+              // translatedName: 'Boemo ba Phano ea Litšebeletso ea Aflatoun/teen',
               valueType: 'TRUE_ONLY',
               inputColor: Color(0xFF9B2BAE),
               labelColor: Color(0xFF737373),

@@ -266,7 +266,7 @@ class HouseholdServiceProvision {
             InputField(
               id: 'lpTVK3t1Ahk',
               name: 'Financial Education Service provided',
-              // translatedName: 'Boemo ba Phano ea Litšebeletso ea FE',
+              // translatedName: 'Boemo ba Phano ea Litšebeletso ea Financial Education',
               valueType: 'TRUE_ONLY',
               inputColor: Color(0xFF0000FF),
               labelColor: Color(0xFF737373),
@@ -488,7 +488,7 @@ class HouseholdServiceProvision {
             InputField(
               id: 'cuy4Ai7mBbA',
               name: 'Survivors of Abuse Service provided',
-              // translatedName: 'Boemo ba Phano ea Litšebeletso ea SURVIVORS',
+              // translatedName: 'Boemo ba Phano ea Litšebeletso ea Survivors of Abuse,
               valueType: 'TRUE_ONLY',
               inputColor: Color(0xFF0F9587),
               labelColor: Color(0xFF737373),
