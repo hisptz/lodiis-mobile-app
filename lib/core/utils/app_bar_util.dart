@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/app_logs_state/app_logs_state.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
+import 'package:kb_mobile_app/app_state/education_intervention_state/education_bursary_state.dart';
+import 'package:kb_mobile_app/app_state/education_intervention_state/education_lbse_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_bottom_navigation_state/intervention_bottom_navigation_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/app_state/ogac_intervention_list_state/ogac_intervention_list_state.dart';
@@ -132,10 +134,14 @@ class AppBarUtil {
       await Provider.of<OgacInterventionListState>(context, listen: false)
           .refreshOgacNumber();
     } else if (id == 'pp_prev') {
-      await Provider.of<PpPrevInterventionListState>(context, listen: false)
+      await Provider.of<PpPrevInterventionState>(context, listen: false)
           .refreshPpPrevList();
     } else if (id == 'education') {
-      //@TODO refresg list of education module
+      await Provider.of<EducationLbseInterventionState>(context, listen: false)
+          .refreshEducationLbseList();
+      await Provider.of<EducationBursaryInterventionState>(context,
+              listen: false)
+          .refreshEducationBursaryList();
     }
     Provider.of<InterventionCardState>(context, listen: false)
         .setCurrentInterventionProgramId(id);

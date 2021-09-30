@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
+import 'package:kb_mobile_app/app_state/education_intervention_state/education_bursary_state.dart';
+import 'package:kb_mobile_app/app_state/education_intervention_state/education_lbse_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_bottom_navigation_state/intervention_bottom_navigation_state.dart';
 import 'package:kb_mobile_app/app_state/ogac_intervention_list_state/ogac_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_intervention_list_state.dart';
@@ -78,10 +80,19 @@ class _InterventionAppBarState extends State<InterventionAppBar> {
       Provider.of<OvcInterventionListState>(context, listen: false)
           .refreshOvcNumber();
     } else if (widget.activeInterventionProgram.id == 'pp_prev') {
-      Provider.of<PpPrevInterventionListState>(context, listen: false)
-          .refreshPpPrevList();
+      Provider.of<PpPrevInterventionState>(context, listen: false)
+          .searchPpPrevNumber();
     } else if (widget.activeInterventionProgram.id == 'education') {
-      //@TODO refereshing education interventions
+      String currentInterventionBottomNavigationId =
+          Provider.of<InterventionBottomNavigationState>(context, listen: false)
+              .currentInterventionBottomNavigationId!;
+      if (currentInterventionBottomNavigationId == "lbse") {
+        Provider.of<EducationLbseInterventionState>(context, listen: false)
+            .searchEducationLbseNumber();
+      } else if (currentInterventionBottomNavigationId == "bursary") {
+        Provider.of<EducationBursaryInterventionState>(context, listen: false)
+            .searchEducationBursaryNumber();
+      }
     }
   }
 
@@ -105,10 +116,20 @@ class _InterventionAppBarState extends State<InterventionAppBar> {
         Provider.of<OvcInterventionListState>(context, listen: false)
             .searchHousehold(searchedValue);
       } else if (widget.activeInterventionProgram.id == 'pp_prev') {
-        Provider.of<PpPrevInterventionListState>(context, listen: false)
+        Provider.of<PpPrevInterventionState>(context, listen: false)
             .searchPpPrevList(searchedValue);
       } else if (widget.activeInterventionProgram.id == 'education') {
-        //@TODO searching education interventions
+        String currentInterventionBottomNavigationId =
+            Provider.of<InterventionBottomNavigationState>(context,
+                    listen: false)
+                .currentInterventionBottomNavigationId!;
+        if (currentInterventionBottomNavigationId == "lbse") {
+          Provider.of<EducationLbseInterventionState>(context, listen: false)
+              .searchEducationLbseList(value);
+        } else if (currentInterventionBottomNavigationId == "bursary") {
+          Provider.of<EducationBursaryInterventionState>(context, listen: false)
+              .searchEducationBursaryList(value);
+        }
       }
     });
   }
