@@ -133,6 +133,8 @@ class FormUtil {
     }
 
     String attributes = inputFieldIds
+        .toSet()
+        .toList()
         .map((String attribute) {
           String value = dataObject.keys.toList().indexOf(attribute) > -1
               ? '${dataObject[attribute]}'.trim()
@@ -191,6 +193,8 @@ class FormUtil {
     eventDate =
         eventDate ?? AppUtil.formattedDateTimeIntoString(DateTime.now());
     String dataValues = inputFieldIds
+        .toSet()
+        .toList()
         .map((String dataElement) {
           String value = dataObject!.keys.toList().indexOf(dataElement) > -1
               ? '${dataObject[dataElement]}'.trim()
