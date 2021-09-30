@@ -132,8 +132,8 @@ class PpPrevInterventionHome extends StatelessWidget {
   Container _buildBody() {
     return Container(
       child: Container(
-        child: Consumer<PpPrevInterventionListState>(
-          builder: (context, ppPrevInterventionListState, child) {
+        child: Consumer<PpPrevInterventionState>(
+          builder: (context, PpPrevInterventionState, child) {
             return CustomPaginatedListView(
               childBuilder: (context, ppPrevBeneficiary, child) => Container(
                 child: PpPrevBeneficiaryCard(
@@ -152,7 +152,7 @@ class PpPrevInterventionHome extends StatelessWidget {
                   ),
                 ),
               ),
-              pagingController: ppPrevInterventionListState.pagingController!,
+              pagingController: PpPrevInterventionState.pagingController!,
               emptyListWidget: Center(
                 child: Column(
                   children: [
@@ -208,11 +208,11 @@ class PpPrevInterventionHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<PpPrevInterventionListState>(
-      builder: (context, ppPrevInterventionListState, child) {
+    return Consumer<PpPrevInterventionState>(
+      builder: (context, PpPrevInterventionState, child) {
         return SubModuleHomeContainer(
           header:
-              '$title : ${ppPrevInterventionListState.numberOfPpPrev} beneficiaries',
+              '$title : ${PpPrevInterventionState.numberOfPpPrev} beneficiaries',
           bodyContents: _buildBody(),
         );
       },

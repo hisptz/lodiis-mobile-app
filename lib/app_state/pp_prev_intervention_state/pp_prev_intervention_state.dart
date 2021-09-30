@@ -8,9 +8,9 @@ import 'package:kb_mobile_app/models/pp_prev_beneficiary.dart';
 import 'package:kb_mobile_app/modules/pp_prev_intervention/services/pp_prev_enrollment_service.dart';
 import 'package:provider/provider.dart';
 
-class PpPrevInterventionListState with ChangeNotifier {
+class PpPrevInterventionState with ChangeNotifier {
   final BuildContext? context;
-  List<PpPrevBeneficiary> _ogacInterventionList = <PpPrevBeneficiary>[];
+  List<PpPrevBeneficiary> _ppPrevInterventionList = <PpPrevBeneficiary>[];
   bool? _isLoading;
   int _numberOfPpPrev = 0;
   int _numberOfPages = 0;
@@ -19,7 +19,7 @@ class PpPrevInterventionListState with ChangeNotifier {
 
   PagingController? _pagingController;
 
-  PpPrevInterventionListState(this.context);
+  PpPrevInterventionState(this.context);
   bool get isLoading => _isLoading ?? false;
 
   int get numberOfPpPrev => _numberOfPpPrev;
@@ -40,15 +40,15 @@ class PpPrevInterventionListState with ChangeNotifier {
 
   Future<void> _fetchPage(int pageKey) async {
     String searchableValue = _searchableValue;
-    List ovcList = await PpPrevEnrollmentService()
+    List ppPrevList = await PpPrevEnrollmentService()
         .getBeneficiaries(page: pageKey, searchableValue: searchableValue);
-    if (ovcList.isEmpty && pageKey < numberOfPages) {
+    if (ppPrevList.isEmpty && pageKey < numberOfPages) {
       _fetchPage(pageKey + 1);
     } else {
       getNumberOfPages();
       PaginationService.assignPagesToController(
         _pagingController,
-        ovcList,
+        ppPrevList,
         pageKey,
         numberOfPages,
       );
@@ -77,8 +77,8 @@ class PpPrevInterventionListState with ChangeNotifier {
   }
 
   void searchPpPrevList(String value) {
-    if (_ogacInterventionList.isEmpty) {
-      _ogacInterventionList =
+    if (_ppPrevInterventionList.isEmpty) {
+      _ppPrevInterventionList =
           _pagingController!.itemList as List<PpPrevBeneficiary>? ??
               <PpPrevBeneficiary>[];
       _nextPage = _pagingController!.nextPageKey;
@@ -88,10 +88,10 @@ class PpPrevInterventionListState with ChangeNotifier {
       notifyListeners();
       refreshPpPrevList();
     } else {
-      _pagingController!.itemList = _ogacInterventionList;
+      _pagingController!.itemList = _ppPrevInterventionList;
       _pagingController!.nextPageKey = _nextPage;
 
-      _ogacInterventionList = <PpPrevBeneficiary>[];
+      _ppPrevInterventionList = <PpPrevBeneficiary>[];
       _nextPage = 0;
     }
   }
