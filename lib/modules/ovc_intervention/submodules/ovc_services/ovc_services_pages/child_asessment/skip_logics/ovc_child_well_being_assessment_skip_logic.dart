@@ -150,6 +150,8 @@ class OvcChildWellBeingAssessmentSkipLogic {
     } else {
       if (age > 5) {
         hideMalnutritionQuestions();
+      } else if (age < 2) {
+        hiddenSections['domainschooltsasekolo'] = true;
       }
       hideForCaregiver();
     }
@@ -157,6 +159,7 @@ class OvcChildWellBeingAssessmentSkipLogic {
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
       bool isFieldHidden = hiddenFields[inputFieldId] ?? false;
+      
       if (!isFieldHidden) {
         if (inputFieldId == 'vCSvOI0d9M4' && value != 'true') {
           hiddenFields['NAqMo0LwqZR'] = true;

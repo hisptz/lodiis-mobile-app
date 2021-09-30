@@ -24,6 +24,11 @@ class OvcHouseholdMonitoringSkipLogic {
     //   String value = '${dataObject[inputFieldId]}';
     //   // print(value);
     // }
+     dataObject.forEach((key, value) {
+      if (key == 'kEa51XegbF1' && value == 'false') {
+        hiddenFields['whQroZXYFXl'] = false;
+      } 
+    });
     for (String sectionId in hiddenSections.keys) {
       List<FormSection> allFormSections =
           FormUtil.getFlattenFormSections(formSections);
