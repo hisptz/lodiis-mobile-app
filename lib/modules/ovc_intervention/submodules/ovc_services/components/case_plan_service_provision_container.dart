@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_household_current_selection_state.dart';
+import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
@@ -204,35 +205,43 @@ class _CasePlanServiceProvisionContainerState
               ),
               Visibility(
                 visible: widget.shouldViewCaseGapServiceProvision,
-                child: Container(
-                  alignment: Alignment.center,
-                  margin: EdgeInsets.symmetric(
-                    vertical: 10.0,
-                  ),
-                  child: TextButton(
-                    style: TextButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        side: BorderSide(
-                          color: widget.formSectionColor!,
+                child: Consumer<LanguageTranslationState>(
+                  builder: (context, languageTranslationState, child) {
+                    String? currentLanguage =
+                        languageTranslationState.currentLanguage;
+                    return Container(
+                      alignment: Alignment.center,
+                      margin: EdgeInsets.symmetric(
+                        vertical: 10.0,
+                      ),
+                      child: TextButton(
+                        style: TextButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            side: BorderSide(
+                              color: widget.formSectionColor!,
+                            ),
+                            borderRadius: BorderRadius.circular(12.0),
+                          ),
+                          padding: EdgeInsets.all(15.0),
                         ),
-                        borderRadius: BorderRadius.circular(12.0),
+                        onPressed: () => widget.isServiceMonitoring
+                            ? this.addServiceMonitoring(context)
+                            : this.addServiceProvision(context),
+                        child: Text(
+                          widget.isServiceMonitoring
+                              ? 'ADD MONITORING'
+                              : currentLanguage != 'lesotho'
+                                  ? 'ADD SERVICE'
+                                  : 'KENYA LITSEBELETSO',
+                          style: TextStyle().copyWith(
+                            color: widget.formSectionColor,
+                            fontSize: 14.0,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
                       ),
-                      padding: EdgeInsets.all(15.0),
-                    ),
-                    onPressed: () => widget.isServiceMonitoring
-                        ? this.addServiceMonitoring(context)
-                        : this.addServiceProvision(context),
-                    child: Text(
-                      widget.isServiceMonitoring
-                          ? 'ADD MONITORING'
-                          : 'ADD SERVICE',
-                      style: TextStyle().copyWith(
-                        color: widget.formSectionColor,
-                        fontSize: 14.0,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                  ),
+                    );
+                  },
                 ),
               ),
             ],

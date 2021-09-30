@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_household_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
+import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
@@ -37,6 +38,7 @@ class OcvServiceCasePlanForm extends StatefulWidget {
 
 class _OcvServiceCasePlanFormState extends State<OcvServiceCasePlanForm> {
   final String serviceProvisionLabel = 'Service Provision';
+  final String translatedServiceProvisionLabel = 'Phano ea Litsebeletso';
   final String serviceMonitoringLabel = 'Service Monitoring';
   late List<FormSection> formSections;
   Map borderColors = Map();
@@ -143,11 +145,19 @@ class _OcvServiceCasePlanFormState extends State<OcvServiceCasePlanForm> {
           builder: (context, interventionCardState, child) {
             InterventionCard activeInterventionProgram =
                 interventionCardState.currentInterventionProgram;
-            return SubPageAppBar(
-              label: widget.isServiceMonitoring
-                  ? serviceMonitoringLabel
-                  : serviceProvisionLabel,
-              activeInterventionProgram: activeInterventionProgram,
+            return Consumer<LanguageTranslationState>(
+              builder: (context, languageTranslationState, child) {
+                String? currentLanguage =
+                    languageTranslationState.currentLanguage;
+                return SubPageAppBar(
+                  label: widget.isServiceMonitoring
+                      ? serviceMonitoringLabel
+                      : currentLanguage != 'lesotho'
+                          ? serviceProvisionLabel
+                          : translatedServiceProvisionLabel,
+                  activeInterventionProgram: activeInterventionProgram,
+                );
+              },
             );
           },
         ),

@@ -42,6 +42,7 @@ class HouseholdServiceForm extends StatefulWidget {
 
 class _HouseholdServiceFormState extends State<HouseholdServiceForm> {
   final String serviceProvisionLabel = 'Household Service Provision';
+  final String translatedServiceProvisionLabel = 'Litsebeletso tsa lelapa';
   final String serviceMonitoringLabel = 'Household Service Monitoring';
   late List<FormSection> formSections;
   Map borderColors = Map();
@@ -185,11 +186,19 @@ class _HouseholdServiceFormState extends State<HouseholdServiceForm> {
             builder: (context, interventionCardState, child) {
               InterventionCard activeInterventionProgram =
                   interventionCardState.currentInterventionProgram;
-              return SubPageAppBar(
-                label: widget.isServiceMonitoring
-                    ? serviceMonitoringLabel
-                    : serviceProvisionLabel,
-                activeInterventionProgram: activeInterventionProgram,
+              return Consumer<LanguageTranslationState>(
+                builder: (context, languageTranslationState, child) {
+                  String? currentLanguage =
+                      languageTranslationState.currentLanguage;
+                  return SubPageAppBar(
+                    label: widget.isServiceMonitoring
+                        ? serviceMonitoringLabel
+                        : currentLanguage != 'lesotho'
+                            ? serviceProvisionLabel
+                            : translatedServiceProvisionLabel,
+                    activeInterventionProgram: activeInterventionProgram,
+                  );
+                },
               );
             },
           ),

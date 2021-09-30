@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
+import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/core/components/material_card.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/events.dart';
@@ -63,58 +64,71 @@ class MonitoringHomeListContainer extends StatelessWidget {
                               )),
                               padding: EdgeInsets.symmetric(
                                   vertical: 10.0, horizontal: 20.0),
-                              child: Column(
-                                children: [
-                                  Row(
-                                    mainAxisSize: MainAxisSize.min,
+                              child: Consumer<LanguageTranslationState>(
+                                builder:
+                                    (context, languageTranslationState, child) {
+                                  String? currentLanguage =
+                                      languageTranslationState.currentLanguage;
+                                  return Column(
                                     children: [
-                                      Container(
-                                        child: Expanded(
-                                          child: RichText(
-                                            text: TextSpan(
-                                              text: '$assessmentDate   ',
-                                              style: TextStyle().copyWith(
-                                                color: Color(0xFF92A791),
-                                                fontSize: 12.0,
-                                                fontWeight: FontWeight.w700,
-                                              ),
-                                              children: [
-                                                TextSpan(
-                                                  text:
-                                                      'Services Monitoring (Case plan ${assessmentIndex + 1})',
+                                      Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Container(
+                                            child: Expanded(
+                                              child: RichText(
+                                                text: TextSpan(
+                                                  text: '$assessmentDate   ',
                                                   style: TextStyle().copyWith(
-                                                    color: Color(0xFF1A3518),
-                                                    fontSize: 14.0,
+                                                    color: Color(0xFF92A791),
+                                                    fontSize: 12.0,
                                                     fontWeight: FontWeight.w700,
                                                   ),
-                                                )
-                                              ],
+                                                  children: [
+                                                    TextSpan(
+                                                      text: currentLanguage ==
+                                                              'lesotho'
+                                                          ? 'Phano ea Litsebeletso (moralo oa lintlafatso tsa lelapa ${assessmentIndex + 1}) '
+                                                          : 'Services Monitoring (Case plan ${assessmentIndex + 1})',
+                                                      style:
+                                                          TextStyle().copyWith(
+                                                        color:
+                                                            Color(0xFF1A3518),
+                                                        fontSize: 14.0,
+                                                        fontWeight:
+                                                            FontWeight.w700,
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                      ),
-                                      Container(
-                                        margin: EdgeInsets.symmetric(
-                                          horizontal: 5.0,
-                                        ),
-                                        child: InkWell(
-                                            onTap: () => onViewCasePlan!(
-                                                groupedEventByDates[
-                                                    assessmentDate]),
-                                            child: Container(
-                                              height: iconHeight,
-                                              width: iconHeight,
-                                              margin: EdgeInsets.symmetric(
-                                                  vertical: 5, horizontal: 5),
-                                              child: SvgPicture.asset(
-                                                'assets/icons/expand_icon.svg',
-                                                color: Color(0xFF4B9F46),
-                                              ),
-                                            )),
-                                      ),
+                                          Container(
+                                            margin: EdgeInsets.symmetric(
+                                              horizontal: 5.0,
+                                            ),
+                                            child: InkWell(
+                                                onTap: () => onViewCasePlan!(
+                                                    groupedEventByDates[
+                                                        assessmentDate]),
+                                                child: Container(
+                                                  height: iconHeight,
+                                                  width: iconHeight,
+                                                  margin: EdgeInsets.symmetric(
+                                                      vertical: 5,
+                                                      horizontal: 5),
+                                                  child: SvgPicture.asset(
+                                                    'assets/icons/expand_icon.svg',
+                                                    color: Color(0xFF4B9F46),
+                                                  ),
+                                                )),
+                                          ),
+                                        ],
+                                      )
                                     ],
-                                  )
-                                ],
+                                  );
+                                },
                               ),
                             ),
                           ),

@@ -214,7 +214,9 @@ class _CasePlanGapServiceViewContainerState
                                   children: [
                                     Expanded(
                                       child: Text(
-                                        'Services',
+                                        currentLanguage != 'lesotho'
+                                            ? 'Services'
+                                            : 'Litsebeletso',
                                         style: TextStyle().copyWith(
                                           color: widget.themeColor,
                                           fontSize: 14.0,
