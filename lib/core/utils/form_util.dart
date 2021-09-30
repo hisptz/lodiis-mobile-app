@@ -139,7 +139,9 @@ class FormUtil {
           String value = dataObject.keys.toList().indexOf(attribute) > -1
               ? '${dataObject[attribute]}'.trim()
               : '';
-          return '{"attribute": "$attribute", "value": "$value"}';
+          return attribute != ''
+              ? '{"attribute": "$attribute", "value": "$value"}'
+              : '';
         })
         .toList()
         .join(',');
@@ -199,7 +201,9 @@ class FormUtil {
           String value = dataObject!.keys.toList().indexOf(dataElement) > -1
               ? '${dataObject[dataElement]}'.trim()
               : '';
-          return '{"dataElement": "$dataElement", "value": "$value"}';
+          return dataElement != ''
+              ? '{"dataElement": "$dataElement", "value": "$value"}'
+              : '';
         })
         .toList()
         .join(',');
