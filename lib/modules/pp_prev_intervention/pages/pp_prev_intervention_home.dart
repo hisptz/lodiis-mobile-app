@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
-import 'package:kb_mobile_app/app_state/pp_prev_intervention_state/pp_prev_current_selection_state.dart';
+import 'package:kb_mobile_app/app_state/pp_prev_intervention_state/pp_prev_intervention_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/pp_prev_intervention_state/pp_prev_intervention_state.dart';
 import 'package:kb_mobile_app/core/components/paginated_list_view.dart';
 import 'package:kb_mobile_app/core/components/sub_module_home_container.dart';
@@ -115,7 +115,7 @@ class PpPrevInterventionHome extends StatelessWidget {
     BuildContext context,
     PpPrevBeneficiary ppPrevBeneficiary,
   ) {
-    Provider.of<PpPrevBeneficiarySelectionState>(context, listen: false)
+    Provider.of<PpPrevInterventionCurrentSelectionState>(context, listen: false)
         .setCurrentAgywDream(ppPrevBeneficiary);
     Provider.of<ServiceEventDataState>(context, listen: false)
         .resetServiceEventDataState(ppPrevBeneficiary.id);
@@ -132,8 +132,8 @@ class PpPrevInterventionHome extends StatelessWidget {
   Container _buildBody() {
     return Container(
       child: Container(
-        child: Consumer<PpPrevInterventionListState>(
-          builder: (context, ppPrevInterventionListState, child) {
+        child: Consumer<PpPrevInterventionState>(
+          builder: (context, PpPrevInterventionState, child) {
             return CustomPaginatedListView(
               childBuilder: (context, ppPrevBeneficiary, child) => Container(
                 child: PpPrevBeneficiaryCard(
@@ -152,7 +152,7 @@ class PpPrevInterventionHome extends StatelessWidget {
                   ),
                 ),
               ),
-              pagingController: ppPrevInterventionListState.pagingController!,
+              pagingController: PpPrevInterventionState.pagingController!,
               emptyListWidget: Center(
                 child: Column(
                   children: [
@@ -208,11 +208,11 @@ class PpPrevInterventionHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<PpPrevInterventionListState>(
-      builder: (context, ppPrevInterventionListState, child) {
+    return Consumer<PpPrevInterventionState>(
+      builder: (context, PpPrevInterventionState, child) {
         return SubModuleHomeContainer(
           header:
-              '$title : ${ppPrevInterventionListState.numberOfPpPrev} beneficiaries',
+              '$title : ${PpPrevInterventionState.numberOfPpPrev} beneficiaries',
           bodyContents: _buildBody(),
         );
       },

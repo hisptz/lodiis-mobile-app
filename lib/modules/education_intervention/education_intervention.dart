@@ -25,7 +25,7 @@ import 'package:kb_mobile_app/modules/education_intervention/submodules/educatio
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_bursary/pages/education_bursary_assessment_form.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/constants/lbse_routes_constant.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/education_lbse.dart';
-import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/pages/education_lbse_enrollment_form.dart';
+import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/pages/education_lbse_enrollment_form_page.dart';
 import 'package:provider/provider.dart';
 
 class EducationIntervention extends StatefulWidget {
@@ -95,7 +95,7 @@ class _EducationInterventionState extends State<EducationIntervention> {
         context,
         MaterialPageRoute(
           builder: (context) {
-            return EducationLbseEnrollmentForm();
+            return EducationLbseEnrollmentFormPage();
           },
         ),
       );

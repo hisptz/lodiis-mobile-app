@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/app_state/education_intervention_state/education_bursary_state.dart';
+import 'package:kb_mobile_app/app_state/education_intervention_state/education_lbse_state.dart';
 import 'package:kb_mobile_app/app_state/pp_prev_intervention_state/pp_prev_intervention_state.dart';
 import 'package:kb_mobile_app/core/components/access_to_data_entry/access_to_data_entry_warning.dart';
 import 'package:provider/provider.dart';
@@ -51,8 +53,12 @@ class _InterventionSelectionState extends State<InterventionSelection> {
           .refreshBeneficiariesNumber();
       Provider.of<OgacInterventionListState>(context, listen: false)
           .refreshOgacNumber();
-      Provider.of<PpPrevInterventionListState>(context, listen: false)
+      Provider.of<PpPrevInterventionState>(context, listen: false)
           .refreshPpPrevList();
+      Provider.of<EducationLbseInterventionState>(context, listen: false)
+          .refreshEducationLbseList();
+      Provider.of<EducationBursaryInterventionState>(context, listen: false)
+          .refreshEducationBursaryList();
       Provider.of<CurrentUserState>(context, listen: false)
           .setCurrentUserLocation();
     } catch (error) {}
@@ -105,47 +111,68 @@ class _InterventionSelectionState extends State<InterventionSelection> {
                                         ogacInterventionListState.numberOfOgac;
                                     bool isOgacListLoading =
                                         ogacInterventionListState.isLoading;
-
                                     return Consumer<
-                                            PpPrevInterventionListState>(
+                                            EducationLbseInterventionState>(
                                         builder: (context,
-                                            ppPrevInterventionListState,
+                                            educationLbseInterventionState,
                                             child) {
-                                      //@TODO loadig status and count for education modules using state for listing
-                                      int numberPpPrev =
-                                          ppPrevInterventionListState
-                                              .numberOfPpPrev;
-                                      bool isPpPrevListLoading =
-                                          ppPrevInterventionListState.isLoading;
-                                      int numberEducationLbse = 0;
-                                      int numberEducationBursary = 0;
-
-                                      return Container(
-                                        child: isDreamsListLoading ||
-                                                isPpPrevListLoading ||
-                                                isOvcListLoading ||
-                                                isOgacListLoading
-                                            ? CircularProcessLoader()
-                                            : InterventionSelectionContainer(
-                                                interventionPrograms:
-                                                    interventionPrograms,
-                                                onInterventionSelection:
-                                                    onInterventionSelection,
-                                                numberOfHouseholds:
-                                                    numberOfHouseholds,
-                                                numberOfAgywDreamsBeneficiaries:
-                                                    numberOfAgywDreamsBeneficiaries,
-                                                numberOfNoneAgywDreamsBeneficiaries:
-                                                    numberOfNoneAgywDreamsBeneficiaries,
-                                                numberOfOvcs: numberOfOvcs,
-                                                numberOfOgac: numberOfOgac,
-                                                numberPpPrev: numberPpPrev,
-                                                numberEducationLbse:
-                                                    numberEducationLbse,
-                                                numberEducationBursary:
-                                                    numberEducationBursary,
-                                              ),
-                                      );
+                                      int numberEducationLbse =
+                                          educationLbseInterventionState
+                                              .numberOfEducationLbse;
+                                      bool isEducationLbseListLoading =
+                                          educationLbseInterventionState
+                                              .isLoading;
+                                      return Consumer<
+                                              EducationBursaryInterventionState>(
+                                          builder: (context,
+                                              educationBursaryInterventionState,
+                                              child) {
+                                        bool isEducationBursaryListLoading =
+                                            educationBursaryInterventionState
+                                                .isLoading;
+                                        int numberEducationBursary =
+                                            educationBursaryInterventionState
+                                                .numberOfEducationBursary;
+                                        return Consumer<
+                                                PpPrevInterventionState>(
+                                            builder: (context,
+                                                ppPrevInterventionState,
+                                                child) {
+                                          int numberPpPrev =
+                                              ppPrevInterventionState
+                                                  .numberOfPpPrev;
+                                          bool isPpPrevListLoading =
+                                              ppPrevInterventionState.isLoading;
+                                          return Container(
+                                            child: isDreamsListLoading ||
+                                                    isEducationBursaryListLoading ||
+                                                    isEducationLbseListLoading ||
+                                                    isPpPrevListLoading ||
+                                                    isOvcListLoading ||
+                                                    isOgacListLoading
+                                                ? CircularProcessLoader()
+                                                : InterventionSelectionContainer(
+                                                    interventionPrograms:
+                                                        interventionPrograms,
+                                                    onInterventionSelection:
+                                                        onInterventionSelection,
+                                                    numberOfHouseholds:
+                                                        numberOfHouseholds,
+                                                    numberOfAgywDreamsBeneficiaries:
+                                                        numberOfAgywDreamsBeneficiaries,
+                                                    numberOfNoneAgywDreamsBeneficiaries:
+                                                        numberOfNoneAgywDreamsBeneficiaries,
+                                                    numberOfOvcs: numberOfOvcs,
+                                                    numberOfOgac: numberOfOgac,
+                                                    numberPpPrev: numberPpPrev,
+                                                    numberEducationLbse:
+                                                        numberEducationLbse,
+                                                    numberEducationBursary:
+                                                        numberEducationBursary,
+                                                  ),
+                                          );
+                                        });
+                                      });
                                     });
                                   },
                                 );

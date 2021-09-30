@@ -4,25 +4,26 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:kb_mobile_app/app_state/synchronization_state/synchronization_status_state.dart';
 import 'package:kb_mobile_app/core/constants/pagination.dart';
 import 'package:kb_mobile_app/core/services/pagination_service.dart';
-import 'package:kb_mobile_app/models/pp_prev_beneficiary.dart';
-import 'package:kb_mobile_app/modules/pp_prev_intervention/services/pp_prev_enrollment_service.dart';
+import 'package:kb_mobile_app/models/education_beneficiary.dart';
+import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/services/education_lbse_enrollment_service.dart';
 import 'package:provider/provider.dart';
 
-class PpPrevInterventionState with ChangeNotifier {
+class EducationLbseInterventionState with ChangeNotifier {
   final BuildContext? context;
-  List<PpPrevBeneficiary> _ppPrevInterventionList = <PpPrevBeneficiary>[];
+  List<EducationBeneficiary> _educationLbseInterventionList =
+      <EducationBeneficiary>[];
   bool? _isLoading;
-  int _numberOfPpPrev = 0;
+  int _numberOfEducationLbse = 0;
   int _numberOfPages = 0;
   int? _nextPage = 0;
   String _searchableValue = '';
 
   PagingController? _pagingController;
 
-  PpPrevInterventionState(this.context);
+  EducationLbseInterventionState(this.context);
   bool get isLoading => _isLoading ?? false;
 
-  int get numberOfPpPrev => _numberOfPpPrev;
+  int get numberOfEducationLbse => _numberOfEducationLbse;
 
   int get numberOfPages => _numberOfPages;
 
@@ -30,7 +31,7 @@ class PpPrevInterventionState with ChangeNotifier {
 
   void initializePagination() {
     _pagingController =
-        PagingController<int, PpPrevBeneficiary>(firstPageKey: 0);
+        PagingController<int, EducationBeneficiary>(firstPageKey: 0);
 
     PaginationService.initializePagination(
         mounted: true,
@@ -40,15 +41,15 @@ class PpPrevInterventionState with ChangeNotifier {
 
   Future<void> _fetchPage(int pageKey) async {
     String searchableValue = _searchableValue;
-    List ppPrevList = await PpPrevEnrollmentService()
+    List lbseList = await EducationLbseEnrollmentService()
         .getBeneficiaries(page: pageKey, searchableValue: searchableValue);
-    if (ppPrevList.isEmpty && pageKey < numberOfPages) {
+    if (lbseList.isEmpty && pageKey < numberOfPages) {
       _fetchPage(pageKey + 1);
     } else {
       getNumberOfPages();
       PaginationService.assignPagesToController(
         _pagingController,
-        ppPrevList,
+        lbseList,
         pageKey,
         numberOfPages,
       );
@@ -56,10 +57,11 @@ class PpPrevInterventionState with ChangeNotifier {
   }
 
   Future<void> getBeneficiaryNumber() async {
-    _numberOfPpPrev = await PpPrevEnrollmentService().getBeneficiariesCount();
+    _numberOfEducationLbse =
+        await EducationLbseEnrollmentService().getBeneficiariesCount();
   }
 
-  Future<void> searchPpPrevNumber() async {
+  Future<void> searchEducationLbseNumber() async {
     _isLoading = true;
     _searchableValue = '';
     notifyListeners();
@@ -76,35 +78,34 @@ class PpPrevInterventionState with ChangeNotifier {
         .resetSyncStatusReferences();
   }
 
-  void searchPpPrevList(String value) {
-    if (_ppPrevInterventionList.isEmpty) {
-      _ppPrevInterventionList =
-          _pagingController!.itemList as List<PpPrevBeneficiary>? ??
-              <PpPrevBeneficiary>[];
+  void searchEducationLbseList(String value) {
+    if (_educationLbseInterventionList.isEmpty) {
+      _educationLbseInterventionList =
+          _pagingController!.itemList as List<EducationBeneficiary>? ??
+              <EducationBeneficiary>[];
       _nextPage = _pagingController!.nextPageKey;
     }
     if (value != '') {
       _searchableValue = value;
       notifyListeners();
-      refreshPpPrevList();
+      refreshEducationLbseList();
     } else {
-      _pagingController!.itemList = _ppPrevInterventionList;
+      _pagingController!.itemList = _educationLbseInterventionList;
       _pagingController!.nextPageKey = _nextPage;
-
-      _ppPrevInterventionList = <PpPrevBeneficiary>[];
+      _educationLbseInterventionList = <EducationBeneficiary>[];
       _nextPage = 0;
     }
   }
 
   void onBeneficiaryAdd() {
-    _numberOfPpPrev = _numberOfPpPrev + 1;
+    _numberOfEducationLbse = _numberOfEducationLbse + 1;
     getNumberOfPages();
     notifyListeners();
-    refreshPpPrevList();
+    refreshEducationLbseList();
   }
 
   //reducers
-  Future<void> refreshPpPrevList() async {
+  Future<void> refreshEducationLbseList() async {
     _isLoading = true;
     notifyListeners();
     await getBeneficiaryNumber();
@@ -119,9 +120,9 @@ class PpPrevInterventionState with ChangeNotifier {
   }
 
   void getNumberOfPages() {
-    if (_numberOfPpPrev != null) {
+    if (_numberOfEducationLbse != null) {
       _numberOfPages =
-          (_numberOfPpPrev / PaginationConstants.paginationLimit).ceil();
+          (_numberOfEducationLbse / PaginationConstants.paginationLimit).ceil();
     }
   }
 }

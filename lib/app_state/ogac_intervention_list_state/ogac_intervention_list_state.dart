@@ -40,14 +40,14 @@ class OgacInterventionListState with ChangeNotifier {
 
   Future<void> _fetchPage(int pageKey) async {
     String searchableValue = _searchableValue;
-    List ovcList = await OgacEnrollmentService()
+    List ogacList = await OgacEnrollmentService()
         .getOgacBeneficiaries(page: pageKey, searchableValue: searchableValue);
-    if (ovcList.isEmpty && pageKey < numberOfPages) {
+    if (ogacList.isEmpty && pageKey < numberOfPages) {
       _fetchPage(pageKey + 1);
     } else {
       getNumberOfPages();
       PaginationService.assignPagesToController(
-          _pagingController, ovcList, pageKey, numberOfPages);
+          _pagingController, ogacList, pageKey, numberOfPages);
     }
   }
 
