@@ -1,3 +1,4 @@
+import 'package:kb_mobile_app/core/constants/beneficiary_identification.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
 
@@ -48,6 +49,9 @@ class EducationBeneficiary {
       'rSP9c21JsfC',
       'vIX4GTSCX4P',
       'qZP982qpSPS',
+      'EwZil0AnlYo',
+      'BUPSEpJySPR',
+      BeneficiaryIdentification.beneficiaryId
     ];
     Map data = Map();
     for (Map detailObj in trackedEntityInstance.attributes) {
@@ -56,10 +60,6 @@ class EducationBeneficiary {
         data[attribute] = '${detailObj['value']}'.trim();
       }
     }
-    //@TODO assign to proper attributes
-    String grade = "";
-    String schoolName = "";
-    String beneficiaryId = "";
 
     int age = AppUtil.getAgeInYear(data['qZP982qpSPS']);
     return EducationBeneficiary(
@@ -75,9 +75,9 @@ class EducationBeneficiary {
       location: location,
       createdDate: createdDate,
       enrollment: enrollment,
-      grade: grade,
-      beneficiaryId: beneficiaryId,
-      schoolName: schoolName,
+      grade: data['BUPSEpJySPR'] ?? 'BUPSEpJySPR',
+      beneficiaryId: data[BeneficiaryIdentification.beneficiaryId] ?? '',
+      schoolName: data['EwZil0AnlYo'] ?? '',
       isSynced: trackedEntityInstance.syncStatus == "synced",
       trackedEntityInstanceData: trackedEntityInstance,
     );
