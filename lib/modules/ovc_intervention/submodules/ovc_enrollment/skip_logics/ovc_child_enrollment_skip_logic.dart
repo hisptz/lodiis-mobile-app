@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 class OvcChildEnrollmentSkipLogic {
   static Map hiddenFields = Map();
   static Map hiddenSections = Map();
+  static Map hiddenInputFieldOptions = Map();
 
   static Future evaluateSkipLogics(
     BuildContext context,
@@ -17,6 +18,7 @@ class OvcChildEnrollmentSkipLogic {
   ) async {
     hiddenFields.clear();
     hiddenSections.clear();
+    hiddenInputFieldOptions.clear();
     List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections);
     for (var key in dataObject.keys) {
       inputFieldIds.add('$key');
@@ -34,10 +36,14 @@ class OvcChildEnrollmentSkipLogic {
           hiddenSections['domainschooltsasekolo'] = true;
         }
       }
-         if (inputFieldId == 'iS9mAp3jDaU' &&
-          (value.isEmpty || '$value'.trim() != 'Biological mother')) {
-        hiddenFields['nOgf8LKXS4k'] = true;
+      if (inputFieldId == 'iS9mAp3jDaU') {
+        Map hiddenOptions = Map();
+        if ('$value'.trim() == 'Biological mother') {
+          hiddenOptions['Single Orphan(Mother)'] = true;
+        }
+        hiddenInputFieldOptions['nOgf8LKXS4k'] = hiddenOptions;
       }
+     
 
       if (inputFieldId == 'UeF4OvjIIEK' &&
           (value.isEmpty || '$value'.trim() != 'true')) {
@@ -85,6 +91,7 @@ class OvcChildEnrollmentSkipLogic {
     }
     resetValuesForHiddenFields(context, hiddenFields.keys);
     resetValuesForHiddenSections(context, formSections);
+    resetValuesForHiddenInputFieldOptions(context, formSections);
   }
 
   static assignPrimaryVulnerability(BuildContext context, Map dataObject) {
@@ -140,6 +147,14 @@ class OvcChildEnrollmentSkipLogic {
   ) {
     Provider.of<EnrollmentFormState>(context, listen: false)
         .setHiddenSections(hiddenSections);
+  }
+
+  static resetValuesForHiddenInputFieldOptions(
+    BuildContext context,
+    List<FormSection> formSections,
+  ) {
+    Provider.of<EnrollmentFormState>(context, listen: false)
+        .setHiddenInputFieldOptions(hiddenInputFieldOptions);
   }
 
   static assignInputFieldValue(

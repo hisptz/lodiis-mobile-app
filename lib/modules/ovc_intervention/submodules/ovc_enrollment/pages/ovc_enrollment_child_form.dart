@@ -21,6 +21,7 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/constants/ovc_enrollment_child_form_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/models/ovc_enrollment_child.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/pages/ovc_enrollment_household_form.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/skip_logics/ovc_child_enrollment_skip_logic.dart';
 import 'package:provider/provider.dart';
 
 class OvcEnrollmentChildForm extends StatefulWidget {
@@ -39,9 +40,6 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
   final List<String> mandatoryFields = OvcEnrollmentChild.getMandatoryField();
   final Map mandatoryFieldObject = Map();
   bool onSkipButton = false;
-
-  Map hiddenFields = Map();
-  Map hiddenSections = Map();
   List unFilledMandatoryFields = [];
 
   @override
@@ -70,79 +68,22 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
       evaluateSkipLogics();
     });
   }
-
-  evaluateSkipLogics() async {
-    hiddenFields.clear();
-    hiddenSections.clear();
-    List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections);
-    for (String inputFieldId in inputFieldIds) {
-      String value = '${childMapObject![inputFieldId]}';
-      if (inputFieldId == 'qZP982qpSPS') {
-        int age = AppUtil.getAgeInYear(value);
-        assignInputFieldValue('ls9hlz2tyol', age.toString());
-        if (age > 2) {
-          hiddenFields['GMcljM7jbNG'] = true;
-        }
-      }
-        if (inputFieldId == 'wmKqYZML8GA' &&
-          (value.isEmpty || '$value'.trim() == 'true')) {
-        hiddenFields['GMcljM7jbNG'] = true;
-      }
-      if (inputFieldId == 'UeF4OvjIIEK' &&
-          (value.isEmpty || '$value'.trim() != 'true')) {
-        hiddenFields['nOgf8LKXS4k'] = true;
-      }
-      if (inputFieldId == 'Gkjp5XZD70V' &&
-          (value.isEmpty || '$value'.trim() != 'true')) {
-        hiddenFields['Sa0KVprHUr7'] = true;
-        hiddenFields['XZh0Uew9Xk0'] = true;
-        hiddenFields['wtrZQadTkOL'] = true;
-        hiddenFields['Mc3k3bSwXNe'] = true;
-        hiddenFields['CePNVGSnj00'] = true;
-        hiddenFields['GM2mJDlGZin'] = true;
-      }
-      if (inputFieldId == 'Mc3k3bSwXNe' &&
-          (value.isEmpty || '$value'.trim() != 'true')) {
-        hiddenFields['CePNVGSnj00'] = true;
-        hiddenFields['GM2mJDlGZin'] = true;
-      }
-      if (inputFieldId == 'CePNVGSnj00' &&
-          (value.isEmpty || '$value'.trim() != 'Other')) {
-        hiddenFields['GM2mJDlGZin'] = true;
-      }
-      if (inputFieldId == 'Sa0KVprHUr7' && value != 'Date') {
-        hiddenFields['XZh0Uew9Xk0'] = true;
-      }
-      if (inputFieldId == 'omUPOnb4JVp' && value != 'true') {
-        hiddenFields['WsmWkkFBiT6'] = true;
-      }
-      if (inputFieldId == 'YR7Xxk14qoP' && value != 'true') {
-        hiddenFields['YR7Xxk14qoP_checkbox'] = true;
-      }
-    }
-    assignPrimaryVulnerability(childMapObject);
-    for (String sectionId in hiddenSections.keys) {
-      List<FormSection> allFormSections =
-          FormUtil.getFlattenFormSections(formSections);
-      List<String> hiddenSectionInputFieldIds = FormUtil.getFormFieldIds(
-          allFormSections
-              .where((formSection) => formSection.id == sectionId)
-              .toList());
-      for (String inputFieldId in hiddenSectionInputFieldIds) {
-        hiddenFields[inputFieldId] = true;
-      }
-    }
-    resetValuesForHiddenFields(context, hiddenFields.keys);
-    setState(() {});
+    evaluateSkipLogics() {
+    Timer(
+      Duration(milliseconds: 200),
+      () async {
+        Map dataObject =
+            Provider.of<EnrollmentFormState>(context, listen: false).formState;
+        await OvcChildEnrollmentSkipLogic.evaluateSkipLogics(
+          context,
+          formSections,
+          dataObject,
+        );
+      },
+    );
   }
 
-  resetValuesForHiddenFields(BuildContext context, inputFieldIds) {
-    for (String inputFieldId in inputFieldIds) {
-      if (hiddenFields[inputFieldId]) {
-        assignInputFieldValue(inputFieldId, null);
-      }
-    }
-  }
+
 
   assignInputFieldValue(
     String inputFieldId,
@@ -310,7 +251,8 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
               builder: (context, languageTranslationState, child) {
                 String? currentLanguage =
                     languageTranslationState.currentLanguage;
-                return Container(
+                return Consumer<EnrollmentFormState>(builder:(context,enrolmentState,child){
+                  return Container(
                   margin: EdgeInsets.symmetric(
                     vertical: 16.0,
                     horizontal: 13.0,
@@ -341,8 +283,10 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
                             Container(
                               child: EntryFormContainer(
                                 formSections: formSections,
-                                hiddenFields: hiddenFields,
-                                hiddenSections: hiddenSections,
+                                hiddenFields:enrolmentState. hiddenFields,
+                                hiddenSections:enrolmentState. hiddenSections,
+                                hiddenInputFieldOptions:
+                                   enrolmentState. hiddenInputFieldOptions,
                                 mandatoryFieldObject: mandatoryFieldObject,
                                 dataObject: childMapObject,
                                 onInputValueChange: onInputValueChange,
@@ -380,6 +324,10 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
                           ],
                         ),
                 );
+             
+             
+                } );
+             
               },
             ),
           ),
