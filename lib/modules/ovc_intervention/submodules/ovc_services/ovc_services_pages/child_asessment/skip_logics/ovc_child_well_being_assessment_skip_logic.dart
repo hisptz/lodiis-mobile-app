@@ -150,6 +150,8 @@ class OvcChildWellBeingAssessmentSkipLogic {
     } else {
       if (age > 5) {
         hideMalnutritionQuestions();
+      } else if (age < 2) {
+        hiddenSections['domainschooltsasekolo'] = true;
       }
       hideForCaregiver();
     }

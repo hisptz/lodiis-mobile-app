@@ -80,7 +80,7 @@ class _OvcHouseholdAssessmentFormState
           attributeObject['attribute'] == 'kQehaqmaygZ' ||
           attributeObject['attribute'] == 'rGAQnszNGVN' ||
           attributeObject['attribute'] == 'l9tcZ2TNgx6')
-      totalHouseHoldCount +=  int.parse((attributeObject['value']));
+        totalHouseHoldCount += int.parse((attributeObject['value']) ?? '0');
     }
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState('Eg1fUXWnFU4', totalHouseHoldCount.toString());
