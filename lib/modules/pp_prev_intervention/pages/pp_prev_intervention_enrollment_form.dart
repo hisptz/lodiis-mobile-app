@@ -128,7 +128,7 @@ class _PpPrevInterventionEnrollmentFormState
           incidentDate,
           hiddenFields,
         );
-        Provider.of<PpPrevInterventionListState>(context, listen: false)
+        Provider.of<PpPrevInterventionState>(context, listen: false)
             .onBeneficiaryAdd();
         Timer(Duration(seconds: 1), () {
           if (Navigator.canPop(context)) {

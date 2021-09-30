@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
-import 'package:kb_mobile_app/app_state/pp_prev_intervention_state/pp_prev_current_selection_state.dart';
+import 'package:kb_mobile_app/app_state/pp_prev_intervention_state/pp_prev_intervention_current_selection_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
@@ -132,7 +132,7 @@ class PpPrevInterventionServiceHome extends StatelessWidget {
         ),
         body: SubPageBody(
           body: Container(
-            child: Consumer<PpPrevBeneficiarySelectionState>(
+            child: Consumer<PpPrevInterventionCurrentSelectionState>(
               builder: (context, dreamBeneficiarySelectionState, child) {
                 return Consumer<ServiceEventDataState>(
                   builder: (context, serviceFormState, child) {
