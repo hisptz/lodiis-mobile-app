@@ -28,6 +28,16 @@ class OvcServiceMonitoringSkipLogic {
     List<String> skippedInputFieldIds =
         FormUtil.getFormFieldIds(sectionsToBeSkipped);
 
+    for (String inputFieldId in skippedInputFieldIds) {
+      String value = "${dataObject[inputFieldId]}";
+      if (inputFieldId == 'kEa51XegbF1' && value != 'true') {
+        hiddenFields['whQroZXYFXl'] = true;
+      }
+       if (inputFieldId == 'pgjVoHQ4rr7' && value != 'true') {
+        hiddenFields['lHfHlWRFF7C'] = true;
+      }
+    }
+
     // Hidding all progress fields
     for (var key in dataObject.keys) {
       if (!skippedInputFieldIds.contains(key)) {
