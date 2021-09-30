@@ -41,15 +41,15 @@ class EducationLbseInterventionState with ChangeNotifier {
 
   Future<void> _fetchPage(int pageKey) async {
     String searchableValue = _searchableValue;
-    List ovcList = await EducationLbseEnrollmentService()
+    List lbseList = await EducationLbseEnrollmentService()
         .getBeneficiaries(page: pageKey, searchableValue: searchableValue);
-    if (ovcList.isEmpty && pageKey < numberOfPages) {
+    if (lbseList.isEmpty && pageKey < numberOfPages) {
       _fetchPage(pageKey + 1);
     } else {
       getNumberOfPages();
       PaginationService.assignPagesToController(
         _pagingController,
-        ovcList,
+        lbseList,
         pageKey,
         numberOfPages,
       );

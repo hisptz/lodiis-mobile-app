@@ -41,16 +41,15 @@ class EducationBursaryInterventionState with ChangeNotifier {
 
   Future<void> _fetchPage(int pageKey) async {
     String searchableValue = _searchableValue;
-    //@TODO replacing with service for getting services
-    List ovcList = await EducationBursaryEnrollmentService()
+    List bursaryList = await EducationBursaryEnrollmentService()
         .getBeneficiaries(page: pageKey, searchableValue: searchableValue);
-    if (ovcList.isEmpty && pageKey < numberOfPages) {
+    if (bursaryList.isEmpty && pageKey < numberOfPages) {
       _fetchPage(pageKey + 1);
     } else {
       getNumberOfPages();
       PaginationService.assignPagesToController(
         _pagingController,
-        ovcList,
+        bursaryList,
         pageKey,
         numberOfPages,
       );
@@ -58,7 +57,6 @@ class EducationBursaryInterventionState with ChangeNotifier {
   }
 
   Future<void> getBeneficiaryNumber() async {
-    //@TODO replacing with service for getting services
     _numberOfEducationBursary =
         await EducationBursaryEnrollmentService().getBeneficiariesCount();
   }
