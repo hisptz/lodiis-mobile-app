@@ -6,8 +6,8 @@ import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:provider/provider.dart';
 
-class EducationLbseEnrollmentForm extends StatelessWidget {
-  const EducationLbseEnrollmentForm({Key? key}) : super(key: key);
+class EducationLbseEnrollmentFormPage extends StatelessWidget {
+  const EducationLbseEnrollmentFormPage({Key? key}) : super(key: key);
 
   final String label = "LBSE Enrollment Form";
 
