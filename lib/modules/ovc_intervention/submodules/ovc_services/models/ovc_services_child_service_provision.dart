@@ -98,7 +98,7 @@ class OvcServicesChildServiceProvision {
             InputField(
               id: 'uU4TvD2O1uL',
               name: 'HIVS&D/HIV Messaging session number',
-              // translatedName: 'Boemo ba Phano ea Litšebeletso ea HIVS&D/HIV Messaging',
+              translatedName: 'Thupelo ea HIVS&D/HIV Messaging',
               valueType: 'TEXT',
               inputColor: Color(0xFF4D9E49),
               labelColor: Color(0xFF737373),
@@ -238,7 +238,7 @@ class OvcServicesChildServiceProvision {
             InputField(
               id: 'wfiqfXHUBde',
               name: 'CCFLS session number',
-              // translatedName: 'Boemo ba Phano ea Litšebeletso ea CCFLS',
+              translatedName: 'Thupelo ea CCFLS',
               valueType: 'TEXT',
               inputColor: Color(0xFF4D9E49),
               labelColor: Color(0xFF737373),
@@ -269,7 +269,7 @@ class OvcServicesChildServiceProvision {
             InputField(
               id: 'PYMmQdzlPLJ',
               name: 'STIMULATE session number',
-              // translatedName: 'Boemo ba Phano ea Litšebeletso ea STIMULATE',
+              translatedName: 'Thupelo ea STIMULATE',
               valueType: 'TEXT',
               inputColor: Color(0xFF4D9E49),
               labelColor: Color(0xFF737373),
@@ -296,7 +296,6 @@ class OvcServicesChildServiceProvision {
                 valueType: 'DATE',
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
-            
             InputField(
                 id: 'pSkl6ibruvU',
                 name: 'TBSCREEN Comment',
@@ -344,7 +343,7 @@ class OvcServicesChildServiceProvision {
             InputField(
               id: 'F6z3SQxLskG',
               name: 'FOODPREP session number',
-              // translatedName: 'Boemo ba Phano ea Litšebeletso ea FOODPREP',
+              translatedName: 'Thupelo ea FOODPREP',
               valueType: 'TEXT',
               inputColor: Color(0xFF4D9E49),
               labelColor: Color(0xFF737373),
@@ -374,7 +373,7 @@ class OvcServicesChildServiceProvision {
             InputField(
               id: 'YRUnLuPerwn',
               name: 'FOODPREV session number',
-              // translatedName: 'Boemo ba Phano ea Litšebeletso ea FOODPREV',
+              translatedName: 'Thupelo ea FOODPREV',
               valueType: 'TEXT',
               inputColor: Color(0xFF4D9E49),
               labelColor: Color(0xFF737373),
@@ -457,7 +456,7 @@ class OvcServicesChildServiceProvision {
             InputField(
                 id: 'WA8MAXBxaD1',
                 name: 'Savings Group session number',
-                // translatedName: 'Boemo ba Phano ea Litšebeletso ea SGROUP',
+                translatedName: 'Thupelo ea Saving Group',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0000FF),
                 labelColor: Color(0xFF737373)),
@@ -567,7 +566,7 @@ class OvcServicesChildServiceProvision {
             InputField(
                 id: 'FAqGmEGN1sa',
                 name: 'Singing to the LION session number',
-                // translatedName: 'Boemo ba Phano ea Litšebeletso ea SLION',
+                translatedName: 'Thupelo ea Singing to the Lion',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
@@ -597,7 +596,7 @@ class OvcServicesChildServiceProvision {
             InputField(
                 id: 'QBNhlIan0LR',
                 name: 'RTEEN/Parenting session number',
-                // translatedName: 'Boemo ba Phano ea Litšebeletso ea RTEEN',
+                translatedName: 'Thupelo ea RTEEN/Parenting',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
@@ -626,7 +625,7 @@ class OvcServicesChildServiceProvision {
             InputField(
                 id: 'xbMtMJ9Uo5j',
                 name: 'RKIDS session number',
-                // translatedName: 'Boemo ba Phano ea Litšebeletso ea RKIDS',
+                translatedName: 'Thupelo ea RKIDS',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
@@ -687,7 +686,7 @@ class OvcServicesChildServiceProvision {
             InputField(
                 id: 'P4PMMDgWCSA',
                 name: 'VAC Legal Messaging session number',
-                // translatedName: 'Boemo ba Phano ea Litšebeletso ea VAC Legal Messaging',
+                translatedName: 'Thupelo ea VAC Legal Messaging',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
@@ -717,7 +716,7 @@ class OvcServicesChildServiceProvision {
             InputField(
                 id: 'sONWFapy6yk',
                 name: 'Survivors of Abuse session number',
-                // translatedName: 'Boemo ba Phano ea Litšebeletso ea SURVIVORS',
+                translatedName: 'Thupelo ea Survivors of Abuse',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
@@ -746,7 +745,7 @@ class OvcServicesChildServiceProvision {
             InputField(
                 id: 'LkQxvdt6YCw',
                 name: 'COUNSEL session number',
-                // translatedName: 'Boemo ba Phano ea Litšebeletso ea COUNSEL',
+                translatedName: 'Thupelo ea COUNSEL',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
@@ -775,7 +774,7 @@ class OvcServicesChildServiceProvision {
             InputField(
                 id: 'HtBtsU71Can',
                 name: 'FCARE session number',
-                // translatedName: 'Boemo ba Phano ea Litšebeletso ea FCARE',
+                translatedName: 'Thupelo ea FCARE',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
@@ -804,7 +803,7 @@ class OvcServicesChildServiceProvision {
             InputField(
                 id: 'RcKIwnxrhqw',
                 name: 'SHELTER session number',
-                // translatedName: 'Boemo ba Phano ea Litšebeletso ea SHELTER',
+                translatedName: 'Thupelo ea SHELTER',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
@@ -833,7 +832,7 @@ class OvcServicesChildServiceProvision {
             InputField(
                 id: 'Gs4XVviJB3r',
                 name: 'ABUSE session number',
-                // translatedName: 'Boemo ba Phano ea Litšebeletso ea ABUSE',
+                translatedName: 'Thupelo ea ABUSE',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
@@ -863,7 +862,7 @@ class OvcServicesChildServiceProvision {
             InputField(
                 id: 'NwtohlveKHW',
                 name: 'LEGALPROT session number',
-                // translatedName: 'Boemo ba Phano ea Litšebeletso ea LEGALPROT',
+                translatedName: 'Thupelo ea LEGALPROT',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
@@ -893,7 +892,7 @@ class OvcServicesChildServiceProvision {
             InputField(
                 id: 'RTEBrgDTe02',
                 name: 'BIRTHCERT session number',
-                // translatedName: 'Boemo ba Phano ea Litšebeletso ea BIRTHCERT',
+                translatedName: 'Thupelo ea BIRTHCERT',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF0F9587),
                 labelColor: Color(0xFF737373)),
@@ -931,7 +930,7 @@ class OvcServicesChildServiceProvision {
             InputField(
                 id: 'g0WhpZC7Rhe',
                 name: 'Aflatoun/teen session number',
-                // translatedName: 'Boemo ba Phano ea Litšebeletso ea AFLAS',
+                translatedName: 'Thupelo ea Aflatoun/teen',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF9B2BAE),
                 labelColor: Color(0xFF737373)),
@@ -960,7 +959,7 @@ class OvcServicesChildServiceProvision {
             InputField(
                 id: 'uVd1sxrd6C7',
                 name: 'PTS4G session number',
-                // translatedName: 'Boemo ba Phano ea Litšebeletso ea PTS4G',
+                translatedName: 'Thupelo ea PTS4G',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF9B2BAE),
                 labelColor: Color(0xFF737373)),
@@ -989,7 +988,7 @@ class OvcServicesChildServiceProvision {
             InputField(
                 id: 'p8Ha7w4plCe',
                 name: 'PTS4NG session number',
-                // translatedName: 'Boemo ba Phano ea Litšebeletso ea PTS4NG',
+                translatedName: 'Thupelo ea PTS4NG',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF9B2BAE),
                 labelColor: Color(0xFF737373)),
@@ -1018,7 +1017,7 @@ class OvcServicesChildServiceProvision {
             InputField(
                 id: 'cuLeuQsq7ZG',
                 name: 'HWCLUB session number',
-                // translatedName: 'Boemo ba Phano ea Litšebeletso ea HWCLUB',
+                translatedName: 'Thupelo ea HWCLUB',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF9B2BAE),
                 labelColor: Color(0xFF737373)),
@@ -1140,7 +1139,7 @@ class OvcServicesChildServiceProvision {
             InputField(
                 id: 'mPMxntJR5Qy',
                 name: 'OTHER ACTIVITIES session number',
-                // translatedName: 'Boemo ba Phano ea Litšebeletso ea OTHER ACTIVITIES',
+                translatedName: 'Thupelo ea OTHER ACTIVITIES',
                 valueType: 'TEXT',
                 inputColor: Color(0xFF9B2BAE),
                 labelColor: Color(0xFF737373)),
