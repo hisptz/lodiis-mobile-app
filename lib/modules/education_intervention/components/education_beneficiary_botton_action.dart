@@ -47,33 +47,25 @@ class EducationBeneficiaryBottonAction extends StatelessWidget {
                   label: 'LEARNING OUTCOME',
                   isVisible: isLbseLearningOutcomeVisible,
                   hasSplitBorder: isLbseReferralVisible,
-                  onTap: () => {
-                    print('On tap => isLbseLearningOutcomeVisible'),
-                  },
+                  onTap: onOpenLbseLearningOutcome,
                 ),
                 EducationBeneficiaryButton(
                   label: 'REFERRAL',
                   isVisible: isLbseReferralVisible,
                   hasSplitBorder: isBursarySchoolVisible,
-                  onTap: () => {
-                    print('On tap => isLbseReferralVisible'),
-                  },
+                  onTap: onOpenLbseReferral,
                 ),
                 EducationBeneficiaryButton(
                   label: 'SCHOOL',
                   isVisible: isBursarySchoolVisible,
                   hasSplitBorder: isBursaryClubVisible,
-                  onTap: () => {
-                    print('On tap => isBursarySchoolVisible'),
-                  },
+                  onTap: onOpenBursarySchool,
                 ),
                 EducationBeneficiaryButton(
                   label: 'CLUB',
                   isVisible: isBursaryClubVisible,
                   hasSplitBorder: false,
-                  onTap: () => {
-                    print('On tap => onOpenBursaryClub'),
-                  },
+                  onTap: onOpenBursaryClub,
                 ),
               ],
             ),
