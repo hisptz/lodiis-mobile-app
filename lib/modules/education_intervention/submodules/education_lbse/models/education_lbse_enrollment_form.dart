@@ -6,7 +6,15 @@ import 'package:kb_mobile_app/modules/education_intervention/submodules/educatio
 
 class EducationLbseEnrollmentForm {
   static List<String> getMandatoryField() {
-    return ["location"];
+    return [
+      "location",
+      "EwZil0AnlYo",
+      "BUPSEpJySPR",
+      "WTZ7GLTrE8Q",
+      "rSP9c21JsfC",
+      "qZP982qpSPS",
+      "vIX4GTSCX4P"
+    ];
   }
 
 //@TODO complete assiggment on empty ids
