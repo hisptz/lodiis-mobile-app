@@ -207,7 +207,7 @@ class _CasePlanGapServiceMonitoringViewContainerState
                             ),
                             Container(
                               child: Column(
-                                children: casePlanMonitoringEvents.map(
+                                children: casePlanMonitoringEvents.reversed.map(
                                     (CasePlanGapServiceMonitoring
                                         casePlanGapServiceMonitoring) {
                                   return Container(
