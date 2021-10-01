@@ -28,13 +28,28 @@ class OvcServiceMonitoringSkipLogic {
     List<String> skippedInputFieldIds =
         FormUtil.getFormFieldIds(sectionsToBeSkipped);
 
+    // skip logics for non-progress fields
     for (String inputFieldId in skippedInputFieldIds) {
       String value = "${dataObject[inputFieldId]}";
       if (inputFieldId == 'kEa51XegbF1' && value != 'true') {
         hiddenFields['whQroZXYFXl'] = true;
       }
-       if (inputFieldId == 'pgjVoHQ4rr7' && value != 'true') {
+      if (inputFieldId == 'pgjVoHQ4rr7' && value != 'true') {
         hiddenFields['lHfHlWRFF7C'] = true;
+      }
+      if (inputFieldId == 'gdbL3fKWwXn' && value != 'true') {
+        hiddenFields['uRsImCXXDXe'] = true;
+        hiddenFields['jiS3es770I1'] = true;
+        hiddenFields['ywYdzitJvSi'] = true;
+        hiddenFields['KgLtXquRot3'] = true;
+      }
+      if (inputFieldId == 'uRsImCXXDXe' && value != 'Positive') {
+        hiddenFields['jiS3es770I1'] = true;
+        hiddenFields['KgLtXquRot3'] = true;
+        hiddenFields['ywYdzitJvSi'] = true;
+      }
+      if (inputFieldId == 'ywYdzitJvSi' && value != 'true') {
+        hiddenFields['KgLtXquRot3'] = true;
       }
     }
 
