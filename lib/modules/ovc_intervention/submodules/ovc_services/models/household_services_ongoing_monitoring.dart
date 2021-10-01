@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
+import 'package:kb_mobile_app/models/input_field_option.dart';
 
 class HouseholdServicesOngoingMonitoring {
   static List<FormSection> getFormSections() {
@@ -295,7 +296,26 @@ class HouseholdServicesOngoingMonitoring {
               inputColor: Color(0xFF4D9E49),
               labelColor: Color(0xFF737373)),
         ],
-      )
+      ),
+      FormSection(
+          id: '',
+          name: 'For those who were referred and changing HIV status',
+          translatedName:
+              'Bakeng sa ba fetiselitsoeng litsing tsa bophelo le bao boemo ba bona ba tšoaetso bo fetohileng',
+          color: Color(0xFF4D9E49),
+          inputFields: [
+            InputField(
+                id: 'uRsImCXXDXe',
+                name: 'HIV status',
+                valueType: 'TEXT',
+                options: [
+                  InputFieldOption(code: 'Positive', name: 'Positive'),
+                  InputFieldOption(code: 'Negative', name: 'Negative'),
+                  InputFieldOption(code: 'No Response', name: 'No Response'),
+                ],
+                inputColor: Color(0xFF4D9E49),
+                labelColor: Color(0xFF737373)),
+          ]),
     ];
   }
 }
