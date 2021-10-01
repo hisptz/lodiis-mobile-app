@@ -10,6 +10,7 @@ import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart'
 import 'package:kb_mobile_app/core/utils/app_resume_routes/app_resume_route.dart';
 import 'package:kb_mobile_app/models/education_beneficiary.dart';
 import 'package:kb_mobile_app/models/form_auto_save.dart';
+import 'package:kb_mobile_app/modules/education_intervention/components/education_beneficiary_card.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/constants/lbse_routes_constant.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/pages/education_lbse_enrollment_form_page.dart';
 import 'package:provider/provider.dart';
@@ -23,6 +24,17 @@ class EducationLbse extends StatefulWidget {
 
 class _EducationLbseState extends State<EducationLbse> {
   final String title = 'LBSE List';
+  final bool canEdit = true;
+  final bool canView = true;
+  final bool canExpand = true;
+
+  String? toggleCardId = '';
+  void onCardToggle(BuildContext context, String? trackedEntityInstance) {
+    toggleCardId = canExpand && trackedEntityInstance != toggleCardId
+        ? trackedEntityInstance
+        : '';
+    setState(() {});
+  }
 
   void onUpdateFormState(
     BuildContext context,
@@ -184,7 +196,23 @@ class _EducationLbseState extends State<EducationLbse> {
           builder: (context, educationLbseInterventionState, child) {
             return CustomPaginatedListView(
               childBuilder: (context, lbseBeneficiary, child) => Container(
-                child: Text("Data => $lbseBeneficiary"),
+                child: EducationBeneficiaryCard(
+                  canEdit: canEdit,
+                  canView: canView,
+                  canExpand: canExpand,
+                  isExpanded: toggleCardId == lbseBeneficiary.id,
+                  isLbseLearningOutcomeVisible: true,
+                  isLbseReferralVisible: true,
+                  isBursarySchoolVisible: false,
+                  isBursaryClubVisible: false,
+                  educationBeneficiary: lbseBeneficiary,
+                  onEdit: () => {print("onEdit")},
+                  onView: () => {print("onView")},
+                  onCardToggle: () => onCardToggle(context, lbseBeneficiary.id),
+                  onOpenLbseLearningOutcome: () =>
+                      {print("onOpenLbseLearningOutcome")},
+                  onOpenLbseReferral: () => {print("onOpenLbseReferral")},
+                ),
               ),
               pagingController:
                   educationLbseInterventionState.pagingController!,
