@@ -9,6 +9,7 @@ class EducationLbseEnrollmentForm {
     return [
       "location",
       "EwZil0AnlYo",
+      "UhZhN6s0SNg",
       "BUPSEpJySPR",
       "WTZ7GLTrE8Q",
       "rSP9c21JsfC",
@@ -17,7 +18,6 @@ class EducationLbseEnrollmentForm {
     ];
   }
 
-//@TODO complete assiggment on empty ids
   static List<FormSection> getFormSections() {
     return [
       FormSection(
@@ -55,19 +55,19 @@ class EducationLbseEnrollmentForm {
             labelColor: Color(0xFF737373),
           ),
           InputField(
-            id: '',
+            id: 'UhZhN6s0SNg',
             name: 'School Level',
             valueType: 'TEXT',
             inputColor: Color(0xFF009688),
             labelColor: Color(0xFF737373),
             options: [
               InputFieldOption(
-                code: "PRIMARY",
-                name: "PRIMARY",
+                code: "Primary",
+                name: "Primary",
               ),
               InputFieldOption(
-                code: "POST PRIMARY",
-                name: "POST PRIMARY",
+                code: "Post primary",
+                name: "Post primary",
               ),
             ],
           ),
@@ -79,48 +79,48 @@ class EducationLbseEnrollmentForm {
             labelColor: Color(0xFF737373),
             options: [
               InputFieldOption(
-                code: "4",
-                name: "4",
+                code: "Grade 4",
+                name: "Grade 4",
               ),
               InputFieldOption(
-                code: "5",
-                name: "5",
+                code: "Grade 5",
+                name: "Grade 5",
               ),
               InputFieldOption(
-                code: "6",
-                name: "6",
+                code: "Grade 6",
+                name: "Grade 6",
               ),
               InputFieldOption(
-                code: "7",
-                name: "7",
+                code: "Grade 7",
+                name: "Grade 7",
               ),
               InputFieldOption(
-                code: "8",
-                name: "8",
+                code: "Grade 8",
+                name: "Grade 8",
               ),
               InputFieldOption(
-                code: "9",
-                name: "9",
+                code: "Grade 9",
+                name: "Grade 9",
               ),
               InputFieldOption(
-                code: "10",
-                name: "10",
+                code: "Grade 10",
+                name: "Grade 10",
               ),
               InputFieldOption(
-                code: "11",
-                name: "11",
+                code: "Grade 11",
+                name: "Grade 11",
               ),
             ],
           ),
           InputField(
-            id: '',
+            id: 'ZyNCDMbB2Yx',
             name: 'Strean',
             valueType: 'TEXT',
             inputColor: Color(0xFF009688),
             labelColor: Color(0xFF737373),
           ),
           InputField(
-            id: '',
+            id: 'mmY2WLON5MF',
             name: 'Centre Name',
             valueType: 'TEXT',
             inputColor: Color(0xFF009688),
@@ -187,7 +187,7 @@ class EducationLbseEnrollmentForm {
             ],
           ),
           InputField(
-            id: '',
+            id: 'jCtTXW1Ig6P',
             name: 'National ID/Passport number',
             valueType: 'TEXT',
             inputColor: Color(0xFF009688),

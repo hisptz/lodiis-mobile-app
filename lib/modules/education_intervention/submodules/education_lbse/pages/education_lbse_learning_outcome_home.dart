@@ -165,7 +165,7 @@ class EducationLbseLearningOutcomeHome extends StatelessWidget {
                                         ),
                                         child: events.length == 0
                                             ? Text(
-                                                'There is no Services at a moment',
+                                                'There is no learning outcome at a moment',
                                               )
                                             : Container(
                                                 margin: EdgeInsets.symmetric(
