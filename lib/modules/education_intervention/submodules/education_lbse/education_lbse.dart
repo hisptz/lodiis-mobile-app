@@ -114,8 +114,12 @@ class _EducationLbseState extends State<EducationLbse> {
         "${LbseRoutesConstant.enrollmentPageModule}_$beneficiaryId";
     FormAutoSave formAutoSave =
         await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
-    bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
-        .shouldResumeWithUnSavedChanges(context, formAutoSave);
+    bool shouldResumeWithUnSavedChanges =
+        await AppResumeRoute().shouldResumeWithUnSavedChanges(
+      context,
+      formAutoSave,
+      beneficiaryName: educationBeneficiary.toString(),
+    );
     if (shouldResumeWithUnSavedChanges) {
       AppResumeRoute().redirectToPages(context, formAutoSave);
     } else {
@@ -206,7 +210,7 @@ class _EducationLbseState extends State<EducationLbse> {
                   isBursarySchoolVisible: false,
                   isBursaryClubVisible: false,
                   educationBeneficiary: lbseBeneficiary,
-                  onEdit: () => {print("onEdit")},
+                  onEdit: () => onEditBeneficiary(context, lbseBeneficiary),
                   onView: () => {print("onView")},
                   onCardToggle: () => onCardToggle(context, lbseBeneficiary.id),
                   onOpenLbseLearningOutcome: () =>
