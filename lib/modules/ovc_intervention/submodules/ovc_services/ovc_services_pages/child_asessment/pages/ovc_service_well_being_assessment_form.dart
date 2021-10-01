@@ -76,9 +76,14 @@ class _OvcServiceWellBeingAssessmentFormState
     OvcHouseholdChild? currentOvcHouseholdChild,
   ) async {
     if (FormUtil.geFormFilledStatus(dataObject, formSections)) {
+       if (dataObject['ADc3clrQRl4'] == null &&
+          dataObject['efNgDIqhlNs'] == null) {
+        return AppUtil.showToastMessage(message: "Fill atleast one goal");
+      }
       setState(() {
         isSaving = true;
       });
+   
       String? eventDate = dataObject['eventDate'];
       String? eventId = dataObject['eventId'];
 

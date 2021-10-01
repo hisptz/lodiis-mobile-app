@@ -68,6 +68,7 @@ class OvcChildServiceHome extends StatelessWidget {
     Map eventListByProgramStage,
   ) {
     int countValue = 0;
+    print('eventListByProgramStage: $eventListByProgramStage');
     for (String programStage in ovcChildServiceHomeCard.programStages!) {
       List<Events> events = eventListByProgramStage[programStage] ?? [];
       if (ovcChildServiceHomeCard.groupByDate!) {

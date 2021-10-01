@@ -8,14 +8,14 @@ class ReferralCardData extends StatelessWidget {
     required this.valueColor,
     required this.currentLanguage,
     required this.referralDataCard,
-    required this.isIncommingReferral,
+    required this.isIncomingReferral,
   }) : super(key: key);
 
   final Color labelColor;
   final Color valueColor;
   final String currentLanguage;
   final ReferralEvent referralDataCard;
-  final bool isIncommingReferral;
+  final bool isIncomingReferral;
 
   Container _getReferralCardDataWidget({
     required String key,
@@ -85,10 +85,10 @@ class ReferralCardData extends StatelessWidget {
           ),
           _getReferralCardDataWidget(
             isVisible: referralDataCard.referredToIp!.isNotEmpty,
-            key: isIncommingReferral
+            key: isIncomingReferral
                 ? 'Referred issued from '
                 : 'Referred issued to ',
-            value: isIncommingReferral
+            value: isIncomingReferral
                 ? referralDataCard.referredFromIp!
                 : referralDataCard.referredToIp!,
           ),

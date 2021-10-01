@@ -45,6 +45,7 @@ class AgywDreamsEnrollmentSkipLogic {
           hiddenSections['8_O_O_S'] = true;
           hiddenSections['9_O_H'] = true;
         }
+      
         if (age >= 15 && age <= 19) {
           hiddenFields['VsqV6prIfm9'] = true;
           hiddenFields['r0rKJA911ma'] = true;

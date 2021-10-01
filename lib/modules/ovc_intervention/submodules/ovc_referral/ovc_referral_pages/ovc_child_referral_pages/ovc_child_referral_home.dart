@@ -23,9 +23,9 @@ import 'package:provider/provider.dart';
 class OvcChildReferralHome extends StatefulWidget {
   OvcChildReferralHome({
     Key? key,
-    required this.isIncommingReferral,
+    required this.isIncomingReferral,
   }) : super(key: key);
-  final bool isIncommingReferral;
+  final bool isIncomingReferral;
 
   @override
   _OvcChildReferralHomeState createState() => _OvcChildReferralHomeState();
@@ -82,7 +82,7 @@ class _OvcChildReferralHomeState extends State<OvcChildReferralHome> {
         builder: (context) => OvcChildReferralView(
           eventData: eventData,
           referralIndex: referralIndex,
-          isIncommingReferral: widget.isIncommingReferral,
+          isIncomingReferral: widget.isIncomingReferral,
         ),
       ),
     );
@@ -109,7 +109,7 @@ class _OvcChildReferralHomeState extends State<OvcChildReferralHome> {
         builder: (context) => OvcChildReferralManage(
           eventData: eventData,
           referralIndex: referralIndex,
-          isIncommingReferral: widget.isIncommingReferral,
+          isIncomingReferral: widget.isIncomingReferral,
         ),
       ),
     );
@@ -160,8 +160,8 @@ class _OvcChildReferralHomeState extends State<OvcChildReferralHome> {
                                     isCloReferralSelected
                                         ? OvcChildCLOReferral()
                                         : OvcChildReferral(
-                                            isIncommingReferral:
-                                                widget.isIncommingReferral,
+                                            isIncomingReferral:
+                                                widget.isIncomingReferral,
                                           )
                                   ],
                                 ),
