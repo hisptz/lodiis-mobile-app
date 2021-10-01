@@ -14,7 +14,7 @@ class EducationLbseEnrollmentForm {
     return [
       FormSection(
         name: "Location",
-        color: Color(0xFF2D9688),
+        color: Color(0xFF009688),
         inputFields: [
           InputField(
             id: 'location',
@@ -23,34 +23,34 @@ class EducationLbseEnrollmentForm {
             valueType: 'ORGANISATION_UNIT',
             allowedSelectedLevels: [3],
             filteredPrograms: [LbseInterventionConstant.program],
-            inputColor: Color(0xFF2D9688),
+            inputColor: Color(0xFF009688),
             labelColor: Color(0xFF737373),
           ),
           InputField(
             id: 'RB8Wx75hGa4',
             name: 'Village of Residence',
             valueType: 'TEXT',
-            inputColor: Color(0xFF2D9688),
+            inputColor: Color(0xFF009688),
             labelColor: Color(0xFF737373),
           ),
         ],
       ),
       FormSection(
         name: "School information",
-        color: Color(0xFF2D9688),
+        color: Color(0xFF009688),
         inputFields: [
           InputField(
             id: 'EwZil0AnlYo',
             name: 'School Name',
             valueType: 'TEXT',
-            inputColor: Color(0xFF2D9688),
+            inputColor: Color(0xFF009688),
             labelColor: Color(0xFF737373),
           ),
           InputField(
             id: '',
             name: 'School Level',
             valueType: 'TEXT',
-            inputColor: Color(0xFF2D9688),
+            inputColor: Color(0xFF009688),
             labelColor: Color(0xFF737373),
             options: [
               InputFieldOption(
@@ -67,7 +67,7 @@ class EducationLbseEnrollmentForm {
             id: 'BUPSEpJySPR',
             name: 'Grade',
             valueType: 'TEXT',
-            inputColor: Color(0xFF2D9688),
+            inputColor: Color(0xFF009688),
             labelColor: Color(0xFF737373),
             options: [
               InputFieldOption(
@@ -108,28 +108,28 @@ class EducationLbseEnrollmentForm {
             id: '',
             name: 'Strean',
             valueType: 'TEXT',
-            inputColor: Color(0xFF2D9688),
+            inputColor: Color(0xFF009688),
             labelColor: Color(0xFF737373),
           ),
           InputField(
             id: 'WTZ7GLTrE8Q',
             name: 'Centre Name',
             valueType: 'TEXT',
-            inputColor: Color(0xFF2D9688),
+            inputColor: Color(0xFF009688),
             labelColor: Color(0xFF737373),
           ),
         ],
       ),
       FormSection(
         name: "Client Bio",
-        color: Color(0xFF2D9688),
+        color: Color(0xFF009688),
         inputFields: [
           InputField(
             id: 'WTZ7GLTrE8Q',
             name: 'First Name',
             translatedName: 'Lebitso la pele',
             valueType: 'TEXT',
-            inputColor: Color(0xFF2D9688),
+            inputColor: Color(0xFF009688),
             labelColor: Color(0xFF737373),
           ),
           InputField(
@@ -137,7 +137,7 @@ class EducationLbseEnrollmentForm {
             name: 'Surname',
             translatedName: 'Le Fane',
             valueType: 'TEXT',
-            inputColor: Color(0xFF2D9688),
+            inputColor: Color(0xFF009688),
             labelColor: Color(0xFF737373),
           ),
           InputField(
@@ -145,7 +145,7 @@ class EducationLbseEnrollmentForm {
             name: 'Date of Birth',
             translatedName: 'Letsatsi la tsoalo',
             valueType: 'DATE',
-            inputColor: Color(0xFF2D9688),
+            inputColor: Color(0xFF009688),
             labelColor: Color(0xFF737373),
           ),
           InputField(
@@ -154,7 +154,7 @@ class EducationLbseEnrollmentForm {
             translatedName: 'Lilemo',
             isReadOnly: true,
             valueType: 'NUMBER',
-            inputColor: Color(0xFF2D9688),
+            inputColor: Color(0xFF009688),
             labelColor: Color(0xFF737373),
           ),
           InputField(
@@ -162,7 +162,7 @@ class EducationLbseEnrollmentForm {
             name: 'Sex',
             translatedName: 'Boleng',
             valueType: 'TEXT',
-            inputColor: Color(0xFF2D9688),
+            inputColor: Color(0xFF009688),
             labelColor: Color(0xFF737373),
             renderAsRadio: true,
             options: [
@@ -182,7 +182,7 @@ class EducationLbseEnrollmentForm {
             id: '',
             name: 'National ID/Passport number',
             valueType: 'TEXT',
-            inputColor: Color(0xFF2D9688),
+            inputColor: Color(0xFF009688),
             labelColor: Color(0xFF737373),
           ),
         ],

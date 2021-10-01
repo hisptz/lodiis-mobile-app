@@ -249,7 +249,7 @@ class _EducationLbseEnrollmentFormPageState
                                             ? 'Boloka'
                                             : 'Save',
                                     labelColor: Colors.white,
-                                    buttonColor: Color(0xFF2D9688),
+                                    buttonColor: Color(0xFF009688),
                                     fontSize: 15.0,
                                     onPressButton: () => onSaveAndContinue(
                                       context,
