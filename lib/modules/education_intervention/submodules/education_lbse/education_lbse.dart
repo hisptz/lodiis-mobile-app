@@ -13,6 +13,8 @@ import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/modules/education_intervention/components/education_beneficiary_card.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/constants/lbse_routes_constant.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/pages/education_lbse_enrollment_form_page.dart';
+import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/pages/education_lbse_learning_outcome_home.dart';
+import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/pages/education_lbse_learning_referral_home.dart';
 import 'package:provider/provider.dart';
 
 class EducationLbse extends StatefulWidget {
@@ -38,7 +40,7 @@ class _EducationLbseState extends State<EducationLbse> {
 
   void onUpdateFormState(
     BuildContext context,
-    EducationBeneficiary educationBeneficiary,
+    EducationBeneficiary lbseBeneficiary,
     bool isEditableMode,
   ) {
     Provider.of<EnrollmentFormState>(context, listen: false).resetFormState();
@@ -46,22 +48,20 @@ class _EducationLbseState extends State<EducationLbse> {
         .updateFormEditabilityState(isEditableMode: isEditableMode);
     Provider.of<EnrollmentFormState>(context, listen: false).setFormFieldState(
         'location',
-        isEditableMode
-            ? educationBeneficiary.orgUnit
-            : educationBeneficiary.location);
+        isEditableMode ? lbseBeneficiary.orgUnit : lbseBeneficiary.location);
     Provider.of<EnrollmentFormState>(context, listen: false)
-        .setFormFieldState('trackedEntityInstance', educationBeneficiary.id);
+        .setFormFieldState('trackedEntityInstance', lbseBeneficiary.id);
     Provider.of<EnrollmentFormState>(context, listen: false)
-        .setFormFieldState('orgUnit', educationBeneficiary.orgUnit);
+        .setFormFieldState('orgUnit', lbseBeneficiary.orgUnit);
     Provider.of<EnrollmentFormState>(context, listen: false)
-        .setFormFieldState('enrollment', educationBeneficiary.enrollment);
+        .setFormFieldState('enrollment', lbseBeneficiary.enrollment);
     Provider.of<EnrollmentFormState>(context, listen: false)
-        .setFormFieldState('enrollmentDate', educationBeneficiary.createdDate);
+        .setFormFieldState('enrollmentDate', lbseBeneficiary.createdDate);
     Provider.of<EnrollmentFormState>(context, listen: false)
-        .setFormFieldState('incidentDate', educationBeneficiary.createdDate);
-    if (educationBeneficiary.trackedEntityInstanceData != null) {
+        .setFormFieldState('incidentDate', lbseBeneficiary.createdDate);
+    if (lbseBeneficiary.trackedEntityInstanceData != null) {
       for (Map attributeObj
-          in educationBeneficiary.trackedEntityInstanceData!.attributes) {
+          in lbseBeneficiary.trackedEntityInstanceData!.attributes) {
         Provider.of<EnrollmentFormState>(context, listen: false)
             .setFormFieldState(
                 attributeObj['attribute'], attributeObj['value']);
@@ -107,9 +107,9 @@ class _EducationLbseState extends State<EducationLbse> {
 
   void onEditBeneficiary(
     BuildContext context,
-    EducationBeneficiary educationBeneficiary,
+    EducationBeneficiary lbseBeneficiary,
   ) async {
-    String beneficiaryId = educationBeneficiary.id!;
+    String beneficiaryId = lbseBeneficiary.id!;
     String formAutoSaveId =
         "${LbseRoutesConstant.enrollmentPageModule}_$beneficiaryId";
     FormAutoSave formAutoSave =
@@ -118,53 +118,53 @@ class _EducationLbseState extends State<EducationLbse> {
         await AppResumeRoute().shouldResumeWithUnSavedChanges(
       context,
       formAutoSave,
-      beneficiaryName: educationBeneficiary.toString(),
+      beneficiaryName: lbseBeneficiary.toString(),
     );
     if (shouldResumeWithUnSavedChanges) {
       AppResumeRoute().redirectToPages(context, formAutoSave);
     } else {
       bool isEditableMode = true;
-      onUpdateFormState(context, educationBeneficiary, isEditableMode);
+      onUpdateFormState(context, lbseBeneficiary, isEditableMode);
       redirectToLbseEnrollmentForm(context);
     }
   }
 
   void onOpenBeneficiaryLearningOutcome(
     BuildContext context,
-    EducationBeneficiary educationBeneficiary,
+    EducationBeneficiary lbseBeneficiary,
   ) {
     Provider.of<EducationInterventionCurrentSelectionState>(context,
             listen: false)
-        .setCurrentBeneficiary(educationBeneficiary);
+        .setCurrentBeneficiary(lbseBeneficiary);
     Provider.of<ServiceEventDataState>(context, listen: false)
-        .resetServiceEventDataState(educationBeneficiary.id);
-    // Navigator.push(
-    //   context,
-    //   MaterialPageRoute(
-    //     builder: (context) {
-    //       return PpPrevInterventionServiceHome();
-    //     },
-    //   ),
-    // );
+        .resetServiceEventDataState(lbseBeneficiary.id);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
+          return EducationLbseLearningOutcomeHome();
+        },
+      ),
+    );
   }
 
   void onOpenBeneficiaryReferrals(
     BuildContext context,
-    EducationBeneficiary educationBeneficiary,
+    EducationBeneficiary lbseBeneficiary,
   ) {
     Provider.of<EducationInterventionCurrentSelectionState>(context,
             listen: false)
-        .setCurrentBeneficiary(educationBeneficiary);
+        .setCurrentBeneficiary(lbseBeneficiary);
     Provider.of<ServiceEventDataState>(context, listen: false)
-        .resetServiceEventDataState(educationBeneficiary.id);
-    // Navigator.push(
-    //   context,
-    //   MaterialPageRoute(
-    //     builder: (context) {
-    //       return PpPrevInterventionServiceHome();
-    //     },
-    //   ),
-    // );
+        .resetServiceEventDataState(lbseBeneficiary.id);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
+          return EducationLbseReferralHome();
+        },
+      ),
+    );
   }
 
   Center _getEmptyListContainer(BuildContext context) {
@@ -214,8 +214,10 @@ class _EducationLbseState extends State<EducationLbse> {
                   onView: () => onViewBeneficiary(context, lbseBeneficiary),
                   onCardToggle: () => onCardToggle(context, lbseBeneficiary.id),
                   onOpenLbseLearningOutcome: () =>
-                      {print("onOpenLbseLearningOutcome")},
-                  onOpenLbseReferral: () => {print("onOpenLbseReferral")},
+                      onOpenBeneficiaryLearningOutcome(
+                          context, lbseBeneficiary),
+                  onOpenLbseReferral: () =>
+                      onOpenBeneficiaryReferrals(context, lbseBeneficiary),
                 ),
               ),
               pagingController:
