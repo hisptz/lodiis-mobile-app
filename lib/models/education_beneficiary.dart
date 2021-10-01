@@ -16,7 +16,7 @@ class EducationBeneficiary {
   String? enrollment;
   String? schoolName;
   String? grade;
-
+  bool? isMaleBeneficiary;
   bool? isSynced;
   TrackedEntityInstance? trackedEntityInstanceData;
 
@@ -33,6 +33,7 @@ class EducationBeneficiary {
     this.enrollment,
     this.schoolName,
     this.grade,
+    this.isMaleBeneficiary,
     this.searchableValue,
     this.isSynced,
     this.trackedEntityInstanceData,
@@ -60,14 +61,16 @@ class EducationBeneficiary {
         data[attribute] = '${detailObj['value']}'.trim();
       }
     }
-
+    String sex = data['vIX4GTSCX4P'] ?? '';
     int age = AppUtil.getAgeInYear(data['qZP982qpSPS']);
+    bool isMaleBeneficiary = '$sex'.trim().toLowerCase() == "male";
     return EducationBeneficiary(
       id: trackedEntityInstance.trackedEntityInstance,
       firstname: data['WTZ7GLTrE8Q'] ?? '',
       surname: data['rSP9c21JsfC'] ?? '',
       age: age.toString(),
-      sex: data['vIX4GTSCX4P'] ?? '',
+      sex: sex,
+      isMaleBeneficiary: isMaleBeneficiary,
       searchableValue:
           "${data['WTZ7GLTrE8Q'] ?? ''} ${data['rSP9c21JsfC'] ?? ''} $age  ${data['vIX4GTSCX4P'] ?? ''} ${data['RB8Wx75hGa4']} $location $createdDate"
               .toLowerCase(),
