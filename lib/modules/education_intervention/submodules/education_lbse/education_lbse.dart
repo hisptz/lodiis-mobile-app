@@ -211,7 +211,7 @@ class _EducationLbseState extends State<EducationLbse> {
                   isBursaryClubVisible: false,
                   educationBeneficiary: lbseBeneficiary,
                   onEdit: () => onEditBeneficiary(context, lbseBeneficiary),
-                  onView: () => {print("onView")},
+                  onView: () => onViewBeneficiary(context, lbseBeneficiary),
                   onCardToggle: () => onCardToggle(context, lbseBeneficiary.id),
                   onOpenLbseLearningOutcome: () =>
                       {print("onOpenLbseLearningOutcome")},
