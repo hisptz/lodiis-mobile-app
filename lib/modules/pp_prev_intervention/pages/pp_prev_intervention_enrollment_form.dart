@@ -117,7 +117,11 @@ class _PpPrevInterventionEnrollmentFormState
       String? enrollment = dataObject['enrollment'];
       String? enrollmentDate = dataObject['enrollmentDate'];
       String? incidentDate = dataObject['incidentDate'];
-      List<String> hiddenFields = ['klLkGxy328c', 'DdnlE8kmIkT', 'fQInK8s2RNR'];
+      List<String> hiddenFields = [
+        'klLkGxy328c',
+        'DdnlE8kmIkT',
+        'fQInK8s2RNR',
+      ];
       try {
         await PpPrevEnrollmentService().savingBeneficiaryEnrollment(
           dataObject,

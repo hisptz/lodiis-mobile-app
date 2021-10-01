@@ -1,3 +1,4 @@
+import 'package:kb_mobile_app/core/constants/beneficiary_identification.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
 
@@ -15,7 +16,7 @@ class EducationBeneficiary {
   String? enrollment;
   String? schoolName;
   String? grade;
-
+  bool? isMaleBeneficiary;
   bool? isSynced;
   TrackedEntityInstance? trackedEntityInstanceData;
 
@@ -32,6 +33,7 @@ class EducationBeneficiary {
     this.enrollment,
     this.schoolName,
     this.grade,
+    this.isMaleBeneficiary,
     this.searchableValue,
     this.isSynced,
     this.trackedEntityInstanceData,
@@ -48,6 +50,9 @@ class EducationBeneficiary {
       'rSP9c21JsfC',
       'vIX4GTSCX4P',
       'qZP982qpSPS',
+      'EwZil0AnlYo',
+      'BUPSEpJySPR',
+      BeneficiaryIdentification.beneficiaryId
     ];
     Map data = Map();
     for (Map detailObj in trackedEntityInstance.attributes) {
@@ -56,18 +61,16 @@ class EducationBeneficiary {
         data[attribute] = '${detailObj['value']}'.trim();
       }
     }
-    //@TODO assign to proper attributes
-    String grade = "";
-    String schoolName = "";
-    String beneficiaryId = "";
-
+    String sex = data['vIX4GTSCX4P'] ?? '';
     int age = AppUtil.getAgeInYear(data['qZP982qpSPS']);
+    bool isMaleBeneficiary = '$sex'.trim().toLowerCase() == "male";
     return EducationBeneficiary(
       id: trackedEntityInstance.trackedEntityInstance,
       firstname: data['WTZ7GLTrE8Q'] ?? '',
       surname: data['rSP9c21JsfC'] ?? '',
       age: age.toString(),
-      sex: data['vIX4GTSCX4P'] ?? '',
+      sex: sex,
+      isMaleBeneficiary: isMaleBeneficiary,
       searchableValue:
           "${data['WTZ7GLTrE8Q'] ?? ''} ${data['rSP9c21JsfC'] ?? ''} $age  ${data['vIX4GTSCX4P'] ?? ''} ${data['RB8Wx75hGa4']} $location $createdDate"
               .toLowerCase(),
@@ -75,9 +78,9 @@ class EducationBeneficiary {
       location: location,
       createdDate: createdDate,
       enrollment: enrollment,
-      grade: grade,
-      beneficiaryId: beneficiaryId,
-      schoolName: schoolName,
+      grade: data['BUPSEpJySPR'] ?? 'BUPSEpJySPR',
+      beneficiaryId: data[BeneficiaryIdentification.beneficiaryId] ?? '',
+      schoolName: data['EwZil0AnlYo'] ?? '',
       isSynced: trackedEntityInstance.syncStatus == "synced",
       trackedEntityInstanceData: trackedEntityInstance,
     );

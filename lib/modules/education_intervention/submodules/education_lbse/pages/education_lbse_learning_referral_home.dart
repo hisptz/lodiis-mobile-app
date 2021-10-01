@@ -1,30 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/app_state/education_intervention_state/education_intervention_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
-import 'package:kb_mobile_app/app_state/pp_prev_intervention_state/pp_prev_intervention_current_selection_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
-import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/utils/app_resume_routes/app_resume_route.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
+import 'package:kb_mobile_app/models/education_beneficiary.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
-import 'package:kb_mobile_app/models/pp_prev_beneficiary.dart';
-import 'package:kb_mobile_app/modules/pp_prev_intervention/components/pp_prev_beneficiary_top_header.dart';
-import 'package:kb_mobile_app/modules/pp_prev_intervention/components/pp_prev_services_visit_card.dart';
-import 'package:kb_mobile_app/modules/pp_prev_intervention/constants/pp_prev_intervention_constant.dart';
-import 'package:kb_mobile_app/modules/pp_prev_intervention/constants/pp_prev_routes_constant.dart';
-import 'package:kb_mobile_app/modules/pp_prev_intervention/pages/pp_prev_intervention_service_provision_form.dart';
+import 'package:kb_mobile_app/modules/education_intervention/components/education_beneficiary_top_header.dart';
+import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/constants/lbse_intervention_constant.dart';
+import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/constants/lbse_routes_constant.dart';
 import 'package:provider/provider.dart';
 
-class PpPrevInterventionServiceHome extends StatelessWidget {
-  const PpPrevInterventionServiceHome({Key? key}) : super(key: key);
+class EducationLbseReferralHome extends StatelessWidget {
+  const EducationLbseReferralHome({Key? key}) : super(key: key);
 
-  final String label = "PP Prev Service Provision";
+  final String label = "LBSE Referral";
 
   void updateFormState(
     BuildContext context,
@@ -48,75 +45,54 @@ class PpPrevInterventionServiceHome extends StatelessWidget {
     }
   }
 
-  void redirectToPpPrevServiceForm(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) {
-          return PpPrevInterventionServiceProvisionForm();
-        },
-      ),
-    );
+  void redirectToReferralForm(BuildContext context) {
+    // Navigator.push(
+    //   context,
+    //   MaterialPageRoute(
+    //     builder: (context) {
+    //       return PpPrevInterventionServiceProvisionForm();
+    //     },
+    //   ),
+    // );
   }
 
-  onAddNewPpPrevService(
+  onViewReferral(
     BuildContext context,
-    PpPrevBeneficiary ppPrevBeneficiary,
-  ) async {
-    bool isEditableMode = true;
-    String? beneficiaryId = ppPrevBeneficiary.id;
-    String eventId = '';
-    String formAutoSaveId =
-        "${PpPrevRoutesConstant.serviceFormPageModule}_${beneficiaryId}_$eventId";
-    FormAutoSave formAutoSave =
-        await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
-    bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
-        .shouldResumeWithUnSavedChanges(context, formAutoSave,
-            beneficiaryName: ppPrevBeneficiary.toString());
-    if (shouldResumeWithUnSavedChanges) {
-      AppResumeRoute().redirectToPages(context, formAutoSave);
-    } else {
-      updateFormState(context, isEditableMode, null);
-      redirectToPpPrevServiceForm(context);
-    }
-  }
-
-  onViewPpPrevService(
-    BuildContext context,
-    PpPrevBeneficiary ppPrevBeneficiary,
     Events eventData,
   ) {
     bool isEditableMode = false;
     updateFormState(context, isEditableMode, eventData);
-    redirectToPpPrevServiceForm(context);
+    redirectToReferralForm(context);
   }
 
-  onEditPpPrevService(
+  onEditReferral(
     BuildContext context,
-    PpPrevBeneficiary ppPrevBeneficiary,
+    EducationBeneficiary educationBeneficiary,
     Events eventData,
   ) async {
     bool isEditableMode = true;
-    String? beneficiaryId = ppPrevBeneficiary.id;
+    String? beneficiaryId = educationBeneficiary.id;
     String eventId = eventData.event!;
     String formAutoSaveId =
-        "${PpPrevRoutesConstant.serviceFormPageModule}_${beneficiaryId}_$eventId";
+        "${LbseRoutesConstant.referralPageModule}_${beneficiaryId}_$eventId";
     FormAutoSave formAutoSave =
         await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
     bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
         .shouldResumeWithUnSavedChanges(context, formAutoSave,
-            beneficiaryName: ppPrevBeneficiary.toString());
+            beneficiaryName: educationBeneficiary.toString());
     if (shouldResumeWithUnSavedChanges) {
       AppResumeRoute().redirectToPages(context, formAutoSave);
     } else {
       updateFormState(context, isEditableMode, eventData);
-      redirectToPpPrevServiceForm(context);
+      redirectToReferralForm(context);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    List<String> programStageIds = [PpPrevInterventionConstant.programStage];
+    List<String> programStageIds = [
+      LbseInterventionConstant.referralProgamStage
+    ];
     return SafeArea(
       child: Scaffold(
         appBar: PreferredSize(
@@ -134,24 +110,26 @@ class PpPrevInterventionServiceHome extends StatelessWidget {
         ),
         body: SubPageBody(
           body: Container(
-            child: Consumer<PpPrevInterventionCurrentSelectionState>(
-              builder: (context, dreamBeneficiarySelectionState, child) {
+            child: Consumer<EducationInterventionCurrentSelectionState>(
+              builder:
+                  (context, educationInterventionCurrentSelectionState, child) {
                 return Consumer<ServiceEventDataState>(
                   builder: (context, serviceFormState, child) {
-                    PpPrevBeneficiary? ppPrevBeneficiary =
-                        dreamBeneficiarySelectionState.currentPpPrev;
+                    EducationBeneficiary? lbseBeneficiary =
+                        educationInterventionCurrentSelectionState
+                            .currentBeneficiciary;
                     bool isLoading = serviceFormState.isLoading;
                     Map<String?, List<Events>> eventListByProgramStage =
                         serviceFormState.eventListByProgramStage;
                     List<Events> events = TrackedEntityInstanceUtil
                         .getAllEventListFromServiceDataStateByProgramStages(
                             eventListByProgramStage, programStageIds);
-                    int serviceIndex = events.length + 1;
+                    int referralIndex = events.length + 1;
                     return Container(
                       child: Column(
                         children: [
-                          PpPrevBeneficiaryTopHeader(
-                            ppPrevBeneficiary: ppPrevBeneficiary!,
+                          EducationBeneficiaryTopHeader(
+                            educationBeneficiary: lbseBeneficiary!,
                           ),
                           Container(
                             child: isLoading
@@ -166,7 +144,7 @@ class PpPrevInterventionServiceHome extends StatelessWidget {
                                         ),
                                         child: events.length == 0
                                             ? Text(
-                                                'There is no Services at a moment',
+                                                'There is no referral at a moment',
                                               )
                                             : Container(
                                                 margin: EdgeInsets.symmetric(
@@ -176,35 +154,13 @@ class PpPrevInterventionServiceHome extends StatelessWidget {
                                                 child: Column(
                                                   children: events
                                                       .map((Events eventData) {
-                                                    serviceIndex--;
-                                                    return PpPrevServiceVisitCard(
-                                                      eventData: eventData,
-                                                      visitName:
-                                                          "Service $serviceIndex",
-                                                      onEdit: () =>
-                                                          onEditPpPrevService(
-                                                              context,
-                                                              ppPrevBeneficiary,
-                                                              eventData),
-                                                      onView: () =>
-                                                          onViewPpPrevService(
-                                                              context,
-                                                              ppPrevBeneficiary,
-                                                              eventData),
-                                                    );
+                                                    referralIndex--;
+                                                    return Text(
+                                                        "$eventData => $referralIndex");
                                                   }).toList(),
                                                 ),
                                               ),
                                       ),
-                                      EntryFormSaveButton(
-                                        label: 'ADD Service',
-                                        labelColor: Colors.white,
-                                        buttonColor: Color(0xFF9B2BAE),
-                                        fontSize: 15.0,
-                                        onPressButton: () =>
-                                            onAddNewPpPrevService(
-                                                context, ppPrevBeneficiary),
-                                      )
                                     ],
                                   ),
                           ),

@@ -25,10 +25,6 @@ class PpPrevServiceVisitCard extends StatelessWidget {
   Widget build(BuildContext context) {
     double iconHeight = 20;
     return Container(
-      margin: EdgeInsets.symmetric(
-        vertical: 5.0,
-        horizontal: 17.0,
-      ),
       child: MaterialCard(
         body: Container(
           padding: EdgeInsets.symmetric(

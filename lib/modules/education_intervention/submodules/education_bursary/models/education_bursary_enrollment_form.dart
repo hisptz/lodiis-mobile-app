@@ -13,7 +13,7 @@ class EducationBursaryEnrollmentForm {
     return [
       FormSection(
         name: "Enrollment Form",
-        color: Color(0xFF2D9688),
+        color: Color(0xFF009688),
         inputFields: [
           InputField(
             id: 'location',
@@ -22,7 +22,7 @@ class EducationBursaryEnrollmentForm {
             valueType: 'ORGANISATION_UNIT',
             allowedSelectedLevels: [3],
             filteredPrograms: [BursaryInterventionConstant.program],
-            inputColor: Color(0xFF2D9688),
+            inputColor: Color(0xFF009688),
             labelColor: Color(0xFF737373),
           ),
         ],
