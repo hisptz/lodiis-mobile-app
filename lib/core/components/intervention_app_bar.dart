@@ -304,20 +304,21 @@ class _InterventionAppBarState extends State<InterventionAppBar> {
         )
       ],
       bottom: PreferredSize(
-        preferredSize: Size.fromHeight(100.0),
-        child: widget.hasTabs && widget.tabs.isNotEmpty
-            ? PreferredSize(
-                child: TabBar(
-                    isScrollable: true,
-                    controller: widget.tabController,
-                    unselectedLabelColor: Colors.white.withOpacity(0.3),
-                    indicatorColor: Colors.white,
-                    tabs: widget.tabs
-                        .map((tab) => Tab(
-                              child: tab,
-                            ))
-                        .toList()),
-                preferredSize: Size.fromHeight(30.0))
+        preferredSize: Size.fromHeight(80.0),
+        child: widget.hasTabs &&
+                widget.tabs.isNotEmpty &&
+                widget.tabController != null
+            ? TabBar(
+                isScrollable: true,
+                padding: EdgeInsets.symmetric(horizontal: 5.0),
+                controller: widget.tabController,
+                unselectedLabelColor: Colors.white.withOpacity(0.3),
+                indicatorColor: Colors.white,
+                tabs: widget.tabs
+                    .map((tab) => Tab(
+                          child: tab,
+                        ))
+                    .toList())
             : DataDownloadMessage(),
       ),
     );
