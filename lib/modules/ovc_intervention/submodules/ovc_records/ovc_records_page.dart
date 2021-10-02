@@ -9,7 +9,14 @@ import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_household_
 import 'package:provider/provider.dart';
 
 class OvcRecordsPage extends StatefulWidget {
-  const OvcRecordsPage({Key? key}) : super(key: key);
+  const OvcRecordsPage({
+    Key? key,
+    required this.tabsController,
+    this.tabsVieItems = const [],
+  }) : super(key: key);
+
+  final List<Widget> tabsVieItems;
+  final TabController tabsController;
 
   @override
   _OvcRecordsPageState createState() => _OvcRecordsPageState();
@@ -59,46 +66,51 @@ class _OvcRecordsPageState extends State<OvcRecordsPage> {
   }
 
   Widget _buildBody(String? currentLanguage) {
-    return Consumer<OvcInterventionListState>(
-        builder: (context, ovcListState, child) => CustomPaginatedListView(
-            childBuilder: (context, ovcHousehold, index) => OvcHouseholdCard(
-                  ovcHousehold: ovcHousehold,
-                  canEdit: canEdit,
-                  canExpand: canExpand,
-                  canView: canView,
-                  isExpanded: ovcHousehold.id == toggleCardId,
-                  onCardToggle: () {
-                    onCardToggle(ovcHousehold.id);
-                  },
-                  cardBody: OvcHouseholdCardBody(
-                    ovcHousehold: ovcHousehold,
-                  ),
-                  cardButtonActions: Container(),
-                  cardButtonContent: OvcHouseholdCardButtonContent(
-                    currentLanguage: currentLanguage,
-                    ovcHousehold: ovcHousehold,
-                    canAddChild: canAddChild,
-                    canViewChildInfo: canViewChildInfo,
-                    canEditChildInfo: canEditChildInfo,
-                    canViewChildService: canViewChildService,
-                    canViewChildReferral: canViewChildReferral,
-                    canViewChildExit: canViewChildExit,
-                  ),
-                ),
-            pagingController: ovcListState.pagingController,
-            emptyListWidget: Center(
-              child: Text(
-                currentLanguage == 'lesotho'
-                    ? 'Ha hona lelapa le ngolisitsoeng ha hajoale'
-                    : 'There is no household enrolled at moment',
-              ),
-            ),
-            errorWidget: Center(
-              child: Text(
-                currentLanguage == 'lesotho'
-                    ? 'Ha hona lelapa le ngolisitsoeng ha hajoale'
-                    : 'There is no household enrolled at moment',
-              ),
-            )));
+    return Scaffold(
+        body: TabBarView(
+      controller: widget.tabsController,
+      children: widget.tabsVieItems.map((Widget tab) => tab).toList(),
+    ));
+    // return Consumer<OvcInterventionListState>(
+    //     builder: (context, ovcListState, child) => CustomPaginatedListView(
+    //         childBuilder: (context, ovcHousehold, index) => OvcHouseholdCard(
+    //               ovcHousehold: ovcHousehold,
+    //               canEdit: canEdit,
+    //               canExpand: canExpand,
+    //               canView: canView,
+    //               isExpanded: ovcHousehold.id == toggleCardId,
+    //               onCardToggle: () {
+    //                 onCardToggle(ovcHousehold.id);
+    //               },
+    //               cardBody: OvcHouseholdCardBody(
+    //                 ovcHousehold: ovcHousehold,
+    //               ),
+    //               cardButtonActions: Container(),
+    //               cardButtonContent: OvcHouseholdCardButtonContent(
+    //                 currentLanguage: currentLanguage,
+    //                 ovcHousehold: ovcHousehold,
+    //                 canAddChild: canAddChild,
+    //                 canViewChildInfo: canViewChildInfo,
+    //                 canEditChildInfo: canEditChildInfo,
+    //                 canViewChildService: canViewChildService,
+    //                 canViewChildReferral: canViewChildReferral,
+    //                 canViewChildExit: canViewChildExit,
+    //               ),
+    //             ),
+    //         pagingController: ovcListState.pagingController,
+    //         emptyListWidget: Center(
+    //           child: Text(
+    //             currentLanguage == 'lesotho'
+    //                 ? 'Ha hona lelapa le ngolisitsoeng ha hajoale'
+    //                 : 'There is no household enrolled at moment',
+    //           ),
+    //         ),
+    //         errorWidget: Center(
+    //           child: Text(
+    //             currentLanguage == 'lesotho'
+    //                 ? 'Ha hona lelapa le ngolisitsoeng ha hajoale'
+    //                 : 'There is no household enrolled at moment',
+    //           ),
+    //         )));
   }
 }
