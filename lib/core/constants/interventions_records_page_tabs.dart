@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_records/pages/ovc_enrollment_records.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_records/pages/ovc_none_participation_records.dart';
 
 class InterventionRecordsPageTabs {
   static final Map<String, Widget> dreamsModule = {
@@ -13,8 +14,7 @@ class InterventionRecordsPageTabs {
   };
   static final Map<String, Widget> ovcModule = {
     'Households': OvcEnrollmentRecords(),
-    'None Participation': Container(
-        margin: EdgeInsets.only(top: 20), child: Text('None Participation')),
+    'None Participation': OvcNoneParticipationRecords(),
   };
   static final Map<String, Widget> educationModule = {
     'Bursary':
