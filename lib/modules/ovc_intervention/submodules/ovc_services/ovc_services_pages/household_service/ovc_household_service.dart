@@ -3,6 +3,7 @@ import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_househ
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
+import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/Intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
@@ -22,6 +23,7 @@ import 'package:provider/provider.dart';
 
 class OvcHouseholdService extends StatelessWidget {
   final String label = 'Household Service Provision';
+  final String translatedServiceProvisionLabel = 'Litsebeletso tsa lelapa';
 
   final List<String> casePlanProgramStageIds = [
     OvcHouseholdCasePlanConstant.casePlanProgramStage
@@ -92,7 +94,7 @@ class OvcHouseholdService extends StatelessWidget {
       context,
       MaterialPageRoute(
         builder: (context) => HouseholdServiceForm(
-          shoulViewCaseGapServiceProvision: true,
+          shouldViewCaseGapServiceProvision: true,
           shouldEditCaseGapServiceProvision: true,
         ),
       ),
@@ -104,13 +106,21 @@ class OvcHouseholdService extends StatelessWidget {
     return Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(65.0),
-          child: Consumer<InterventionCardState>(
-            builder: (context, interventionCardState, child) {
-              InterventionCard activeInterventionProgram =
-                  interventionCardState.currentInterventionProgram;
-              return SubPageAppBar(
-                label: label,
-                activeInterventionProgram: activeInterventionProgram,
+          child: Consumer<LanguageTranslationState>(
+            builder: (context, languageTranslationState, child) {
+              String? currentLanguage =
+                  languageTranslationState.currentLanguage;
+              return Consumer<InterventionCardState>(
+                builder: (context, interventionCardState, child) {
+                  InterventionCard activeInterventionProgram =
+                      interventionCardState.currentInterventionProgram;
+                  return SubPageAppBar(
+                    label: currentLanguage != 'lesotho'
+                        ? label
+                        : translatedServiceProvisionLabel,
+                    activeInterventionProgram: activeInterventionProgram,
+                  );
+                },
               );
             },
           ),

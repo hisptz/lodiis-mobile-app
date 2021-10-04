@@ -71,7 +71,8 @@ class PpPrevInterventionServiceHome extends StatelessWidget {
     FormAutoSave formAutoSave =
         await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
     bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
-        .shouldResumeWithUnSavedChanges(context, formAutoSave);
+        .shouldResumeWithUnSavedChanges(context, formAutoSave,
+            beneficiaryName: ppPrevBeneficiary.toString());
     if (shouldResumeWithUnSavedChanges) {
       AppResumeRoute().redirectToPages(context, formAutoSave);
     } else {
@@ -103,7 +104,8 @@ class PpPrevInterventionServiceHome extends StatelessWidget {
     FormAutoSave formAutoSave =
         await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
     bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
-        .shouldResumeWithUnSavedChanges(context, formAutoSave);
+        .shouldResumeWithUnSavedChanges(context, formAutoSave,
+            beneficiaryName: ppPrevBeneficiary.toString());
     if (shouldResumeWithUnSavedChanges) {
       AppResumeRoute().redirectToPages(context, formAutoSave);
     } else {

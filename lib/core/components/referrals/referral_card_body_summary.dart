@@ -13,13 +13,13 @@ class ReferralCardBodySummary extends StatefulWidget {
     required this.referralEvent,
     required this.labelColor,
     required this.valueColor,
-    required this.isIncommingReferral,
+    required this.isIncomingReferral,
   }) : super(key: key);
 
   final Events referralEvent;
   final Color labelColor;
   final Color valueColor;
-  final bool isIncommingReferral;
+  final bool isIncomingReferral;
 
   @override
   _ReferralCardBodySummaryState createState() =>
@@ -70,7 +70,7 @@ class _ReferralCardBodySummaryState extends State<ReferralCardBodySummary> {
                         labelColor: widget.labelColor,
                         valueColor: widget.valueColor,
                         referralDataCard: referralDataCard!,
-                        isIncommingReferral: widget.isIncommingReferral,
+                        isIncomingReferral: widget.isIncomingReferral,
                       ),
                     ),
                   );

@@ -19,10 +19,10 @@ import 'package:provider/provider.dart';
 class OvcChildReferral extends StatefulWidget {
   OvcChildReferral({
     Key? key,
-    required this.isIncommingReferral,
+    required this.isIncomingReferral,
   }) : super(key: key);
 
-  final bool isIncommingReferral;
+  final bool isIncomingReferral;
 
   @override
   _OvcChildReferralState createState() => _OvcChildReferralState();
@@ -76,7 +76,7 @@ class _OvcChildReferralState extends State<OvcChildReferral> {
         builder: (context) => OvcChildReferralView(
           eventData: eventData,
           referralIndex: referralIndex,
-          isIncommingReferral: widget.isIncommingReferral,
+          isIncomingReferral: widget.isIncomingReferral,
         ),
       ),
     );
@@ -93,7 +93,7 @@ class _OvcChildReferralState extends State<OvcChildReferral> {
         builder: (context) => OvcChildReferralManage(
           eventData: eventData,
           referralIndex: referralIndex,
-          isIncommingReferral: widget.isIncommingReferral,
+          isIncomingReferral: widget.isIncomingReferral,
         ),
       ),
     );
@@ -164,9 +164,8 @@ class _OvcChildReferralState extends State<OvcChildReferral> {
                                                         count: count,
                                                         cardBody:
                                                             ReferralCardBodySummary(
-                                                          isIncommingReferral:
-                                                              widget
-                                                                  .isIncommingReferral,
+                                                          isIncomingReferral: widget
+                                                              .isIncomingReferral,
                                                           labelColor:
                                                               Color(0XFF92A791),
                                                           valueColor:

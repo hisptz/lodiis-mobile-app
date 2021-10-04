@@ -184,28 +184,29 @@ class OvcEnrollmentChild {
                     translatedName: '7-12 likhoeli tse fetileng'),
               ],
             ),
+            // TODO Migration for the type of data [Add checkbox options]
             InputField(
                 id: 'wtrZQadTkOL',
                 name: '5.2. What type of violence /abuse did you experience?',
                 translatedName: '5.2. Ene ele Tlhekefetso ea mofuta ofe?',
                 inputColor: Color(0xFF4B9F46),
                 labelColor: Color(0xFF737373),
-                valueType: 'TEXT',
+                valueType: 'CHECK_BOX',
                 options: [
                   InputFieldOption(
-                      code: 'Sexual',
+                      code: 'm26lCJGANwu',
                       name: 'Sexual',
                       translatedName: 'Tlhekefetso ka Motabo'),
                   InputFieldOption(
-                      code: 'Economic/Neglect',
+                      code: 'BGJgzqszT0H',
                       name: 'Economic/Neglect',
                       translatedName: 'Tlhekefetso moruong'),
                   InputFieldOption(
-                      code: 'Physical',
+                      code: 'WAjYVtFWI2n',
                       name: 'Physical',
                       translatedName: 'Tlhekefetso Mmeleng'),
                   InputFieldOption(
-                      code: 'Emotional',
+                      code: 'lm4BA6iOdlI',
                       name: 'Emotional',
                       translatedName: 'Tlhekefetso maikutlong'),
                 ]),
@@ -222,28 +223,28 @@ class OvcEnrollmentChild {
                 translatedName: '5.4. Ke methati efe ea Molao e latetsoeng?',
                 inputColor: Color(0xFF4B9F46),
                 labelColor: Color(0xFF737373),
-                valueType: 'TEXT',
+                valueType: 'CHECK_BOX',
                 options: [
                   InputFieldOption(
-                      code: 'Health Facility',
+                      code: 'yI8xKOrRN9a',
                       name: 'Health Facility',
                       translatedName: 'Setsi sa bophelo'),
                   InputFieldOption(
-                      code: 'Police -CGPU',
+                      code: 'ftRPTznAqUn',
                       name: 'Police -CGPU',
                       translatedName: 'Mapoleseng'),
                   InputFieldOption(
-                      code: 'Chief', name: 'Chief', translatedName: 'Morena'),
+                      code: 'FVBsqRoLGYW', name: 'Chief', translatedName: 'Morena'),
                   InputFieldOption(
-                      code: 'Councilor',
+                      code: 'PoQuVkWjI4K',
                       name: 'Councilor',
                       translatedName: 'Mocouncilor'),
                   InputFieldOption(
-                      code: 'Social Worker',
+                      code: 'mM0mGp695z4',
                       name: 'Social Worker',
                       translatedName: 'Mohlabolli'),
                   InputFieldOption(
-                      code: 'Other', name: 'Other', translatedName: 'Tse ling'),
+                      code: 'Yu4SpTnnAqb', name: 'Other', translatedName: 'Tse ling'),
                 ]),
             InputField(
                 id: 'GM2mJDlGZin',
@@ -307,7 +308,7 @@ class OvcEnrollmentChild {
                       name: 'deaf or hard hearing',
                       translatedName: 'setholo kapa kutlo e thata'),
                   InputFieldOption(
-                      code: 'ULr0tYkjTTB',
+                    code:'ULr0tYkjTTB',
                       name: 'intellectual disability',
                       translatedName: 'bokooa ba kelello'),
                   InputFieldOption(

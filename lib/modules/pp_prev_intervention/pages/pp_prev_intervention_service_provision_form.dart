@@ -194,11 +194,12 @@ class _PpPrevInterventionServiceProvisionFormState
               String? currentLanguage =
                   languageTranslationState.currentLanguage;
               return Consumer<PpPrevInterventionCurrentSelectionState>(
-                builder: (context, dreamBeneficiarySelectionState, child) {
+                builder:
+                    (context, ppPrevInterventionCurrentSelectionState, child) {
                   return Consumer<ServiceFormState>(
                     builder: (context, serviceFormState, child) {
                       PpPrevBeneficiary? ppPrevBeneficiary =
-                          dreamBeneficiarySelectionState.currentPpPrev;
+                          ppPrevInterventionCurrentSelectionState.currentPpPrev;
                       return Container(
                         child: Column(
                           children: [

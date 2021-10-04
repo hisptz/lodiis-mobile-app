@@ -242,6 +242,9 @@ class _OvcEnrollmentChildEditViewFormState
                                             enrollmentFormState.hiddenFields,
                                         hiddenSections:
                                             enrollmentFormState.hiddenSections,
+                                        hiddenInputFieldOptions:
+                                            enrollmentFormState
+                                                .hiddenInputFieldOptions,
                                         formSections: formSections,
                                         mandatoryFieldObject:
                                             mandatoryFieldObject,

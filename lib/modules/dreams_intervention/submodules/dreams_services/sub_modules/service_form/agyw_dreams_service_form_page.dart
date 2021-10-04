@@ -267,7 +267,7 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
                                             ),
                                     ),
                                     EntryFormSaveButton(
-                                      label: 'ADD Service',
+                                      label: 'ADD SERVICE',
                                       labelColor: Colors.white,
                                       buttonColor: Color(0xFF1F8ECE),
                                       fontSize: 15.0,

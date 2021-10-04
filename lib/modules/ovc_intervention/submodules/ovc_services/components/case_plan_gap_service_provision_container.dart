@@ -10,7 +10,7 @@ class CasePlanGapServiceProvisionContainer extends StatefulWidget {
     required this.isCasePlanForHousehold,
     required this.casePlanGap,
     required this.shouldEditCaseGapServiceProvision,
-    required this.shoulViewCaseGapServiceProvision,
+    required this.shouldViewCaseGapServiceProvision,
     required this.domainId,
   }) : super(key: key);
 
@@ -18,7 +18,7 @@ class CasePlanGapServiceProvisionContainer extends StatefulWidget {
   final Color? formSectionColor;
   final bool isCasePlanForHousehold;
   final bool shouldEditCaseGapServiceProvision;
-  final bool shoulViewCaseGapServiceProvision;
+  final bool shouldViewCaseGapServiceProvision;
   final String? domainId;
 
   @override
@@ -48,7 +48,7 @@ class _CasePlanGapServiceProvisionContainerState
     return Container(
       child: Visibility(
         visible: widget.shouldEditCaseGapServiceProvision ||
-            widget.shoulViewCaseGapServiceProvision,
+            widget.shouldViewCaseGapServiceProvision,
         child: Container(
           child: Column(
             children: [

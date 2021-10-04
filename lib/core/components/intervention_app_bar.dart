@@ -61,6 +61,7 @@ class _InterventionAppBarState extends State<InterventionAppBar> {
     inputColor: Colors.white,
   );
 
+//@TODO adding support of activate and deactivate based on changes on tabs [education module]
   void onActivateOrDeactivateSearch(
     BuildContext context,
   ) {
