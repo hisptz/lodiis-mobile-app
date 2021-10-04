@@ -100,7 +100,7 @@ class _EducationLbseLearningOutcomeFormPageState
     String inputFieldId =
         EducationLbseLearningOutcomeForm.learningOutComeToReferralCheck;
     String value = '${dataObject[inputFieldId]}';
-    return '$value' == 'true';
+    return widget.isNewLearningOutcomeForm && '$value' == 'true';
   }
 
   List<String> getMandatoryFielOnFormSubmission(bool isReferralNeed) {

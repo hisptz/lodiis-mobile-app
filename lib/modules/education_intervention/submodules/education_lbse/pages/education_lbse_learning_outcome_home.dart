@@ -15,8 +15,10 @@ import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/education_intervention/components/education_beneficiary_top_header.dart';
+import 'package:kb_mobile_app/modules/education_intervention/components/education_list_card.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/constants/lbse_intervention_constant.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/constants/lbse_routes_constant.dart';
+import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/models/lbse_learning_outcome_event.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/pages/education_lbse_learning_outcome_form_page.dart';
 import 'package:provider/provider.dart';
 
@@ -151,7 +153,10 @@ class EducationLbseLearningOutcomeHome extends StatelessWidget {
                     List<Events> events = TrackedEntityInstanceUtil
                         .getAllEventListFromServiceDataStateByProgramStages(
                             eventListByProgramStage, programStageIds);
-                    int learningOutcomeIndex = events.length + 1;
+                    List<LbseLearningOutcomeEvent> lbseLearningOutcomes = events
+                        .map((Events eventData) =>
+                            LbseLearningOutcomeEvent().fromTeiModel(eventData))
+                        .toList();
                     return Container(
                       child: Column(
                         children: [
@@ -169,7 +174,7 @@ class EducationLbseLearningOutcomeHome extends StatelessWidget {
                                         margin: EdgeInsets.symmetric(
                                           vertical: 10.0,
                                         ),
-                                        child: events.length == 0
+                                        child: lbseLearningOutcomes.length == 0
                                             ? Text(
                                                 'There is no learning outcome at a moment',
                                               )
@@ -179,11 +184,28 @@ class EducationLbseLearningOutcomeHome extends StatelessWidget {
                                                   horizontal: 13.0,
                                                 ),
                                                 child: Column(
-                                                  children: events
-                                                      .map((Events eventData) {
-                                                    learningOutcomeIndex--;
-                                                    return Text(
-                                                        "$eventData => $learningOutcomeIndex");
+                                                  children: lbseLearningOutcomes
+                                                      .map((LbseLearningOutcomeEvent
+                                                          lbseLearningOutcome) {
+                                                    return EducationListCard(
+                                                      date: lbseLearningOutcome
+                                                          .date!,
+                                                      title: lbseLearningOutcome
+                                                          .toString(),
+                                                      onEdit: () =>
+                                                          onEditLearningOutcome(
+                                                        context,
+                                                        lbseBeneficiary,
+                                                        lbseLearningOutcome
+                                                            .eventData!,
+                                                      ),
+                                                      onView: () =>
+                                                          onViewLearningOutcome(
+                                                        context,
+                                                        lbseLearningOutcome
+                                                            .eventData!,
+                                                      ),
+                                                    );
                                                   }).toList(),
                                                 ),
                                               ),
@@ -196,7 +218,7 @@ class EducationLbseLearningOutcomeHome extends StatelessWidget {
                                         onPressButton: () =>
                                             onAddNewLearningOutcome(
                                                 context, lbseBeneficiary),
-                                      )
+                                      ),
                                     ],
                                   ),
                           ),
