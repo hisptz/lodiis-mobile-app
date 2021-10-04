@@ -15,6 +15,8 @@ class OvcInterventionListState with ChangeNotifier {
 
   // initial state
   List<OvcHousehold> _ovcInterventionList = <OvcHousehold>[];
+  List<NoneParticipationBeneficiary> _ovcNoneParticipationList =
+      <NoneParticipationBeneficiary>[];
   PagingController? _ovcPagingController;
   PagingController? _ovcNoneParticipationPagingController;
   bool _isLoading = true;
@@ -24,6 +26,7 @@ class OvcInterventionListState with ChangeNotifier {
   int _numberOfNoneParticipants = 0;
   int _numberOfNoneParticipantsPages = 0;
   int? _nextPage = 0;
+  int? _nextNoneParticipantPage = 0;
   String _searchableValue = '';
 
   OvcInterventionListState(this.context);
@@ -107,11 +110,19 @@ class OvcInterventionListState with ChangeNotifier {
   }
 
   void searchHousehold(String value) {
+    print('searching for $value');
     if (_ovcInterventionList.isEmpty) {
       _ovcInterventionList =
           _ovcPagingController!.itemList as List<OvcHousehold>? ??
               <OvcHousehold>[];
       _nextPage = _ovcPagingController!.nextPageKey;
+    }
+    if (_ovcNoneParticipationList.isEmpty) {
+      _ovcNoneParticipationList = _ovcNoneParticipationPagingController!
+              .itemList as List<NoneParticipationBeneficiary>? ??
+          <NoneParticipationBeneficiary>[];
+      _nextNoneParticipantPage =
+          _ovcNoneParticipationPagingController!.nextPageKey;
     }
     if (value != '') {
       _searchableValue = value;
@@ -120,9 +131,15 @@ class OvcInterventionListState with ChangeNotifier {
     } else {
       _ovcPagingController!.itemList = _ovcInterventionList;
       _ovcPagingController!.nextPageKey = _nextPage;
-
       _ovcInterventionList = <OvcHousehold>[];
       _nextPage = 0;
+
+      _ovcNoneParticipationPagingController!.itemList =
+          _ovcNoneParticipationList;
+      _ovcNoneParticipationPagingController!.nextPageKey =
+          _nextNoneParticipantPage;
+      _ovcNoneParticipationList = <NoneParticipationBeneficiary>[];
+      _nextNoneParticipantPage = 0;
     }
   }
 

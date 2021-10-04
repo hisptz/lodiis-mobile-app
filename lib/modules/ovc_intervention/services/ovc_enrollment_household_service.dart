@@ -148,7 +148,15 @@ class OvcEnrollmentHouseholdService {
     List<NoneParticipationBeneficiary> ovcNoneParticipants =
         await EventOfflineProvider().getEventsByProgram(
             programId: programId, programStageId: programStageId, page: page);
-    return ovcNoneParticipants;
+
+    return searchableValue == ''
+        ? ovcNoneParticipants
+        : ovcNoneParticipants.where((NoneParticipationBeneficiary beneficiary) {
+            bool isBeneficiaryFound = AppUtil().searchFromString(
+                searchableString: beneficiary.searchableValue,
+                searchedValue: searchableValue);
+            return isBeneficiaryFound;
+          }).toList();
   }
 
   TrackedEntityInstance getUpdatedHouseholdWithOvcCounts(
