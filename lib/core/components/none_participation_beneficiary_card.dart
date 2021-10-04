@@ -50,7 +50,7 @@ class NoneParticipantBeneficiaryCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                  margin: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -73,7 +73,7 @@ class NoneParticipantBeneficiaryCard extends StatelessWidget {
                       Visibility(
                         visible: true,
                         child: Expanded(
-                          flex: 7,
+                          flex: 10,
                           child: Container(
                             padding: EdgeInsets.only(left: 5.0),
                             child: Text(
