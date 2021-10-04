@@ -15,8 +15,6 @@ class OvcRecordsPage extends StatefulWidget {
 }
 
 class _OvcRecordsPageState extends State<OvcRecordsPage> {
-  String? toggleCardId = '';
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

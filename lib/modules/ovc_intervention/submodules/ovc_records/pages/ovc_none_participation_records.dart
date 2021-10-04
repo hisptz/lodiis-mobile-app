@@ -95,6 +95,7 @@ class _OvcNoneParticipationRecordsState
         childBuilder: (context, ovcNoneParticipant, index) =>
             NoneParticipantBeneficiaryCard(
           beneficiary: ovcNoneParticipant,
+          canEdit: true,
           onViewBeneficiary: () =>
               onViewBeneficiary(context, ovcNoneParticipant),
           onEditBeneficiary: () =>
