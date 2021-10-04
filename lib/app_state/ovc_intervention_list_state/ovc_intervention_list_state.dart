@@ -4,6 +4,7 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:kb_mobile_app/app_state/synchronization_state/synchronization_status_state.dart';
 import 'package:kb_mobile_app/core/constants/pagination.dart';
 import 'package:kb_mobile_app/core/services/pagination_service.dart';
+import 'package:kb_mobile_app/models/none_participation_beneficiary.dart';
 import 'package:kb_mobile_app/models/ovc_household.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/services/ovc_enrollment_child_services.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/services/ovc_enrollment_household_service.dart';
@@ -14,11 +15,14 @@ class OvcInterventionListState with ChangeNotifier {
 
   // initial state
   List<OvcHousehold> _ovcInterventionList = <OvcHousehold>[];
-  PagingController? _pagingController;
+  PagingController? _ovcPagingController;
+  PagingController? _ovcNoneParticipationPagingController;
   bool _isLoading = true;
   int _numberOfHouseholds = 0;
   int _numberOfOvcs = 0;
   int _numberOfPages = 0;
+  int _numberOfNoneParticipants = 0;
+  int _numberOfNoneParticipantsPages = 0;
   int? _nextPage = 0;
   String _searchableValue = '';
 
@@ -28,20 +32,33 @@ class OvcInterventionListState with ChangeNotifier {
 
   int get numberOfHouseholds => _numberOfHouseholds;
 
+  int get numberOfOvcNoneParticipants => _numberOfNoneParticipants;
+
   int get numberOfOvcs => _numberOfOvcs;
 
   int get numberOfPages => _numberOfPages;
 
-  PagingController? get pagingController => _pagingController;
+  int get numberOfNoneParticipantsPages => _numberOfNoneParticipantsPages;
+
+  PagingController? get pagingController => _ovcPagingController;
+
+  PagingController? get noneParticipationPagingController =>
+      _ovcNoneParticipationPagingController;
 
   void initializePagination() {
-    _pagingController = PagingController<int, OvcHousehold>(
+    _ovcPagingController = PagingController<int, OvcHousehold>(
       firstPageKey: 0,
     );
+    _ovcNoneParticipationPagingController =
+        PagingController<int, NoneParticipationBeneficiary>(firstPageKey: 0);
     PaginationService.initializePagination(
         mounted: true,
-        pagingController: _pagingController,
+        pagingController: _ovcPagingController,
         fetchPage: _fetchPage);
+    PaginationService.initializePagination(
+        mounted: true,
+        pagingController: _ovcNoneParticipationPagingController,
+        fetchPage: _fetchNoneParticipationPage);
   }
 
   Future<void> _fetchPage(int pageKey) async {
@@ -53,12 +70,29 @@ class OvcInterventionListState with ChangeNotifier {
     } else {
       getNumberOfPages();
       PaginationService.assignPagesToController(
-          _pagingController, ovcList, pageKey, numberOfPages);
+          _ovcPagingController, ovcList, pageKey, numberOfPages);
+    }
+  }
+
+  Future<void> _fetchNoneParticipationPage(int pageKey) async {
+    String searchableValue = _searchableValue;
+    List beneficiaryList = await OvcEnrollmentHouseholdService()
+        .getNoneParticipationBeneficiaryList(
+            page: pageKey, searchableValue: searchableValue);
+    if (beneficiaryList.isEmpty && pageKey < numberOfNoneParticipantsPages) {
+      _fetchNoneParticipationPage(pageKey + 1);
+    } else {
+      getNumberOfPages();
+      PaginationService.assignPagesToController(
+          _ovcNoneParticipationPagingController,
+          beneficiaryList,
+          pageKey,
+          numberOfNoneParticipantsPages);
     }
   }
 
   // reducers
-  void updateNumerOfOvcBeneficiaries() {
+  void updateNumberOfOvcBeneficiaries() {
     _isLoading = false;
     searchHousehold('');
   }
@@ -66,23 +100,26 @@ class OvcInterventionListState with ChangeNotifier {
   Future<void> getHouseholdCount() async {
     _numberOfHouseholds =
         await OvcEnrollmentHouseholdService().getHouseholdCount();
+    _numberOfNoneParticipants =
+        await await OvcEnrollmentHouseholdService().getNoneParticipationCount();
+    ;
     _numberOfOvcs = await OvcEnrollmentChildService().getOvcCount();
   }
 
   void searchHousehold(String value) {
     if (_ovcInterventionList.isEmpty) {
       _ovcInterventionList =
-          _pagingController!.itemList as List<OvcHousehold>? ??
+          _ovcPagingController!.itemList as List<OvcHousehold>? ??
               <OvcHousehold>[];
-      _nextPage = _pagingController!.nextPageKey;
+      _nextPage = _ovcPagingController!.nextPageKey;
     }
     if (value != '') {
       _searchableValue = value;
       notifyListeners();
       refreshOvcList();
     } else {
-      _pagingController!.itemList = _ovcInterventionList;
-      _pagingController!.nextPageKey = _nextPage;
+      _ovcPagingController!.itemList = _ovcInterventionList;
+      _ovcPagingController!.nextPageKey = _nextPage;
 
       _ovcInterventionList = <OvcHousehold>[];
       _nextPage = 0;
@@ -97,10 +134,12 @@ class OvcInterventionListState with ChangeNotifier {
     await getHouseholdCount();
     //Update number of Pages
     getNumberOfPages();
-    if (_pagingController == null) {
+    if (_ovcPagingController == null ||
+        _ovcNoneParticipationPagingController == null) {
       initializePagination();
     } else {
-      _pagingController!.refresh();
+      _ovcPagingController!.refresh();
+      _ovcNoneParticipationPagingController!.refresh();
     }
     _isLoading = false;
     notifyListeners();
@@ -109,7 +148,8 @@ class OvcInterventionListState with ChangeNotifier {
   }
 
   Future<void> refreshOvcList() async {
-    _pagingController!.refresh();
+    _ovcPagingController!.refresh();
+    _ovcNoneParticipationPagingController!.refresh();
   }
 
   Future<void> onHouseholdAdd() async {
@@ -122,14 +162,16 @@ class OvcInterventionListState with ChangeNotifier {
 
   @override
   void dispose() {
-    _pagingController!.dispose();
+    _ovcPagingController!.dispose();
+    _ovcNoneParticipationPagingController!.dispose();
     super.dispose();
   }
 
   void getNumberOfPages() {
-    if (numberOfHouseholds != null) {
-      _numberOfPages =
-          (numberOfHouseholds / PaginationConstants.paginationLimit).ceil();
-    }
+    _numberOfPages =
+        (numberOfHouseholds / PaginationConstants.paginationLimit).ceil();
+    _numberOfNoneParticipantsPages = _numberOfPages =
+        (numberOfHouseholds / PaginationConstants.paginationLimit).ceil();
+    notifyListeners();
   }
 }
