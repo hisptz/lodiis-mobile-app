@@ -17,6 +17,7 @@ import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/education_intervention/components/education_beneficiary_top_header.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/constants/lbse_intervention_constant.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/constants/lbse_routes_constant.dart';
+import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/pages/education_lbse_learning_outcome_form_page.dart';
 import 'package:provider/provider.dart';
 
 class EducationLbseLearningOutcomeHome extends StatelessWidget {
@@ -46,15 +47,20 @@ class EducationLbseLearningOutcomeHome extends StatelessWidget {
     }
   }
 
-  void redirectToLearningOutcomeForm(BuildContext context) {
-    // Navigator.push(
-    //   context,
-    //   MaterialPageRoute(
-    //     builder: (context) {
-    //       return PpPrevInterventionServiceProvisionForm();
-    //     },
-    //   ),
-    // );
+  void redirectToLearningOutcomeForm(
+    BuildContext context, {
+    bool? isNewLearningOutcomeForm = false,
+  }) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
+          return EducationLbseLearningOutcomeFormPage(
+            isNewLearningOutcomeForm: isNewLearningOutcomeForm!,
+          );
+        },
+      ),
+    );
   }
 
   onAddNewLearningOutcome(
@@ -74,7 +80,7 @@ class EducationLbseLearningOutcomeHome extends StatelessWidget {
       AppResumeRoute().redirectToPages(context, formAutoSave);
     } else {
       updateFormState(context, isEditableMode, null);
-      redirectToLearningOutcomeForm(context);
+      redirectToLearningOutcomeForm(context, isNewLearningOutcomeForm: true);
     }
   }
 
