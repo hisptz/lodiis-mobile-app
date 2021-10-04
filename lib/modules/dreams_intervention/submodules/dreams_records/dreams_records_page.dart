@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class OvcRecordsPage extends StatefulWidget {
-  const OvcRecordsPage({
+class DreamsRecordsPage extends StatefulWidget {
+  const DreamsRecordsPage({
     Key? key,
     required this.tabsController,
     this.tabsVieItems = const [],
@@ -11,10 +11,10 @@ class OvcRecordsPage extends StatefulWidget {
   final TabController tabsController;
 
   @override
-  _OvcRecordsPageState createState() => _OvcRecordsPageState();
+  _DreamsRecordsPageState createState() => _DreamsRecordsPageState();
 }
 
-class _OvcRecordsPageState extends State<OvcRecordsPage> {
+class _DreamsRecordsPageState extends State<DreamsRecordsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

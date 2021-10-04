@@ -92,7 +92,8 @@ class InterventionCard {
           "outGoingreferral",
           "incomingReferral",
           "enrollment",
-          "noneAgyw"
+          "noneAgyw",
+          "records"
         ],
       ),
       InterventionCard(

@@ -38,7 +38,6 @@ class _AgywDreamsWithoutEnrollmentCriteriaFormState
   final List<String> mandatoryFields =
       AgywWithoutEnrollmentCriteria.getMandatoryField();
   final Map mandatoryFieldObject = Map();
-  final String eventId = AppUtil.getUid();
 
   bool isSaving = false;
   bool isFormReady = false;
@@ -63,6 +62,7 @@ class _AgywDreamsWithoutEnrollmentCriteriaFormState
       setState(() {
         isSaving = true;
       });
+      String eventId = dataObject['eventId'] ?? AppUtil.getUid();
       await AgywDreamsWithoutEnrollmentCriteriaService()
           .saveAgywDreamsWithoutEnrollmentCriteria(
               formSections!, dataObject, eventId);

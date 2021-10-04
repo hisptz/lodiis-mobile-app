@@ -58,14 +58,14 @@ class InterventionBottomNavigation {
       svgIcon: 'assets/icons/exit-navigation-icon.svg',
     ),
     InterventionBottomNavigation(
-      id: 'records',
-      name: 'Records',
-      svgIcon: 'assets/icons/records-navigation-icon.svg',
-    ),
-    InterventionBottomNavigation(
       id: 'noneAgyw',
       name: 'KB PrEP',
       svgIcon: 'assets/icons/none-agyw-navigation-icon.svg',
+    ),
+    InterventionBottomNavigation(
+      id: 'records',
+      name: 'Records',
+      svgIcon: 'assets/icons/records-navigation-icon.svg',
     ),
   ];
 
