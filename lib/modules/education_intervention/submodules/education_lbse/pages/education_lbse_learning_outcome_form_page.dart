@@ -15,11 +15,13 @@ import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
+import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/education_beneficiary.dart';
 import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/education_intervention/components/education_beneficiary_top_header.dart';
+import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/constants/lbse_intervention_constant.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/constants/lbse_routes_constant.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/models/education_lbse_learning_outcome_form.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/models/education_lbse_learning_referral_form.dart';
@@ -53,19 +55,17 @@ class _EducationLbseLearningOutcomeFormPageState
   void initState() {
     super.initState();
     formSections = EducationLbseLearningOutcomeForm.getFormSections();
+    if (widget.isNewLearningOutcomeForm) {
+      formSections!.addAll(
+          EducationLbseLearningOutcomeForm.getReferralCheckFormSections());
+      formSections!.addAll(EducationLbseReferralForm.getFormSections());
+      mandatoryFields.addAll(EducationLbseReferralForm.getMandatoryField());
+      mandatoryFields
+          .add(EducationLbseLearningOutcomeForm.learningOutComeToReferralCheck);
+    }
     for (String id in mandatoryFields) {
       mandatoryFieldObject[id] = true;
     }
-    if (widget.isNewLearningOutcomeForm) {
-      formSections!.addAll(EducationLbseReferralForm.getFormSections());
-      for (String id in EducationLbseReferralForm.getMandatoryField()) {
-        mandatoryFieldObject[id] = true;
-      }
-    } else {
-      // @TODO disble this fields CQ3GZFbzv5N
-      // @TODO disable fields automatics
-    }
-
     Timer(Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
@@ -96,55 +96,98 @@ class _EducationLbseLearningOutcomeFormPageState
     onUpdateFormAutoSaveState(context);
   }
 
+  bool isLearningOutcomeReferralNeeded(Map dataObject) {
+    String inputFieldId =
+        EducationLbseLearningOutcomeForm.learningOutComeToReferralCheck;
+    String value = '${dataObject[inputFieldId]}';
+    return '$value' == 'true';
+  }
+
+  List<String> getMandatoryFielOnFormSubmission(bool isReferralNeed) {
+    List<String> allMandatoryFields =
+        widget.isNewLearningOutcomeForm && isReferralNeed
+            ? mandatoryFields
+            : EducationLbseLearningOutcomeForm.getMandatoryField();
+    allMandatoryFields
+        .add(EducationLbseLearningOutcomeForm.learningOutComeToReferralCheck);
+    return allMandatoryFields.toSet().toList();
+  }
+
   void onSaveForm(
     BuildContext context,
     Map dataObject,
-    EducationBeneficiary ppPrevBeneficiary,
+    EducationBeneficiary lbseBeneficiary,
   ) async {
-    // @TODO checking for mansdatoy fields based on selected skip logics
+    bool isReferralNeed = isLearningOutcomeReferralNeeded(dataObject);
+    List<String> allMandatoryFields =
+        getMandatoryFielOnFormSubmission(isReferralNeed);
     bool hadAllMandatoryFilled =
-        AppUtil.hasAllMandatoryFieldsFilled(mandatoryFields, dataObject);
+        AppUtil.hasAllMandatoryFieldsFilled(allMandatoryFields, dataObject);
     if (hadAllMandatoryFilled) {
       setState(() {
         isSaving = true;
       });
-      // @TODO adding hidden linkeage data element referernces
+      String learningOutcomeToReferralLinkage =
+          LbseInterventionConstant.learningOutcomeToReferralLinkage;
+      String referralToReferralOutcomeLinkage =
+          LbseInterventionConstant.referralToReferralOutcomeLinkage;
+      dataObject[learningOutcomeToReferralLinkage] =
+          dataObject[learningOutcomeToReferralLinkage] ?? AppUtil.getUid();
+      dataObject[referralToReferralOutcomeLinkage] =
+          dataObject[referralToReferralOutcomeLinkage] ?? AppUtil.getUid();
       String? eventDate = dataObject['eventDate'];
       String? eventId = dataObject['eventId'];
-      List<String> hiddenFields = [];
+      List<String> hiddenFields = [
+        EducationLbseLearningOutcomeForm.learningOutComeToReferralCheck,
+        learningOutcomeToReferralLinkage
+      ];
       try {
-        // @TODO saving data for both LO and referrals
-
-        // await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-        //     PpPrevInterventionConstant.program,
-        //     PpPrevInterventionConstant.programStage,
-        //     ppPrevBeneficiary.orgUnit,
-        //     formSections!,
-        //     dataObject,
-        //     eventDate,
-        //     ppPrevBeneficiary.id,
-        //     eventId,
-        //     hiddenFields);
+        await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
+          LbseInterventionConstant.program,
+          LbseInterventionConstant.learningOutcomeProgamStage,
+          lbseBeneficiary.orgUnit,
+          formSections!,
+          dataObject,
+          eventDate,
+          lbseBeneficiary.id,
+          eventId,
+          hiddenFields,
+        );
+        if (isReferralNeed) {
+          hiddenFields = [
+            learningOutcomeToReferralLinkage,
+            referralToReferralOutcomeLinkage
+          ];
+          await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
+            LbseInterventionConstant.program,
+            LbseInterventionConstant.referralProgamStage,
+            lbseBeneficiary.orgUnit,
+            formSections!,
+            dataObject,
+            eventDate,
+            lbseBeneficiary.id,
+            eventId,
+            hiddenFields,
+          );
+        }
         Provider.of<ServiceEventDataState>(context, listen: false)
-            .resetServiceEventDataState(ppPrevBeneficiary.id);
+            .resetServiceEventDataState(lbseBeneficiary.id);
         Timer(Duration(seconds: 1), () {
-          setState(() {
-            String? currentLanguage =
-                Provider.of<LanguageTranslationState>(context, listen: false)
-                    .currentLanguage;
-            AppUtil.showToastMessage(
-              message: currentLanguage == 'lesotho'
-                  ? 'Fomo e bolokeile'
-                  : 'Form has been saved successfully',
-              position: ToastGravity.TOP,
-            );
-            clearFormAutoSaveState(
-              context,
-              ppPrevBeneficiary.id,
-              eventId ?? '',
-            );
-            Navigator.pop(context);
-          });
+          String? currentLanguage =
+              Provider.of<LanguageTranslationState>(context, listen: false)
+                  .currentLanguage;
+          AppUtil.showToastMessage(
+            message: currentLanguage == 'lesotho'
+                ? 'Fomo e bolokeile'
+                : 'Form has been saved successfully',
+            position: ToastGravity.TOP,
+          );
+          clearFormAutoSaveState(
+            context,
+            lbseBeneficiary.id,
+            eventId ?? '',
+          );
+          Navigator.pop(context);
         });
       } catch (e) {
         Timer(Duration(seconds: 1), () {
@@ -157,7 +200,7 @@ class _EducationLbseLearningOutcomeFormPageState
     } else {
       setState(() {
         unFilledMandatoryFields =
-            AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+            AppUtil.getUnFilledMandatoryFields(allMandatoryFields, dataObject);
       });
       AppUtil.showToastMessage(
           message: 'Please fill all mandatory field',
