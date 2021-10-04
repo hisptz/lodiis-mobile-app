@@ -232,6 +232,8 @@ class _EducationLbseEnrollmentFormPageState
                                       enrollmentFormState.hiddenSections,
                                   formSections: formSections,
                                   mandatoryFieldObject: mandatoryFieldObject,
+                                  hiddenInputFieldOptions: enrollmentFormState
+                                      .hiddenInputFieldOptions,
                                   dataObject: enrollmentFormState.formState,
                                   onInputValueChange: onInputValueChange,
                                   unFilledMandatoryFields:
