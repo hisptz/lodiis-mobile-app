@@ -66,6 +66,8 @@ class _OvcEnrollmentNoneParticipationFormState
       await OvcEnrollmentNoneParticipationService()
           .saveNoneParticipationForm(formSections!, dataObject, eventId);
       Provider.of<OvcInterventionListState>(context, listen: false)
+          .onNoneParticipantAdd();
+      Provider.of<OvcInterventionListState>(context, listen: false)
           .refreshOvcList();
       clearFormAutoSaveState(context);
       Timer(Duration(seconds: 1), () {

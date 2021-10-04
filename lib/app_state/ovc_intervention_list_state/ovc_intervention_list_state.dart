@@ -155,6 +155,14 @@ class OvcInterventionListState with ChangeNotifier {
   Future<void> onHouseholdAdd() async {
     _numberOfHouseholds = _numberOfHouseholds + 1;
     _numberOfOvcs = await OvcEnrollmentChildService().getOvcCount();
+
+    getNumberOfPages();
+    notifyListeners();
+    refreshOvcList();
+  }
+
+  void onNoneParticipantAdd() {
+    _numberOfNoneParticipants = _numberOfNoneParticipants + 1;
     getNumberOfPages();
     notifyListeners();
     refreshOvcList();
