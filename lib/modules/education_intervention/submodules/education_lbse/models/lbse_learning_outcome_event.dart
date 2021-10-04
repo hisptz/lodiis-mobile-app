@@ -46,6 +46,6 @@ class LbseLearningOutcomeEvent {
 
   @override
   String toString() {
-    return '$theme $learningOutcome';
+    return '$theme - $learningOutcome';
   }
 }
