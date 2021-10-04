@@ -38,7 +38,6 @@ class _AgywEnrollmentNoneParticipationFormState
   final List<String> mandatoryFields =
       AgywEnrollmentNoneParticipation.getMandatoryField();
   final Map mandatoryFieldObject = Map();
-  final String eventId = AppUtil.getUid();
 
   bool isSaving = false;
   bool isFormReady = false;
@@ -97,6 +96,7 @@ class _AgywEnrollmentNoneParticipationFormState
       setState(() {
         isSaving = true;
       });
+      String eventId = dataObject['eventId'] ?? AppUtil.getUid();
       await AgywDreamsNoneParticipationService()
           .saveNoneParticipationForm(formSections!, dataObject, eventId);
       Provider.of<DreamsInterventionListState>(context, listen: false)

@@ -38,7 +38,6 @@ class _OvcEnrollmentNoneParticipationFormState
   final List<String> mandatoryFields =
       OvcEnrollmentNoneParticipation.getMandatoryField();
   final Map mandatoryFieldObject = Map();
-  final String eventId = AppUtil.getUid();
 
   List unFilledMandatoryFields = [];
 
@@ -63,6 +62,7 @@ class _OvcEnrollmentNoneParticipationFormState
     if (hadAllMandatoryFilled) {
       isSaving = true;
       setState(() {});
+      String eventId = dataObject['eventId'] ?? AppUtil.getUid();
       await OvcEnrollmentNoneParticipationService()
           .saveNoneParticipationForm(formSections!, dataObject, eventId);
       Provider.of<OvcInterventionListState>(context, listen: false)
