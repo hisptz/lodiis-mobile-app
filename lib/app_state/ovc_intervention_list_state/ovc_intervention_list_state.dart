@@ -110,7 +110,6 @@ class OvcInterventionListState with ChangeNotifier {
   }
 
   void searchHousehold(String value) {
-    print('searching for $value');
     if (_ovcInterventionList.isEmpty) {
       _ovcInterventionList =
           _ovcPagingController!.itemList as List<OvcHousehold>? ??
@@ -140,6 +139,7 @@ class OvcInterventionListState with ChangeNotifier {
           _nextNoneParticipantPage;
       _ovcNoneParticipationList = <NoneParticipationBeneficiary>[];
       _nextNoneParticipantPage = 0;
+      notifyListeners();
     }
   }
 
