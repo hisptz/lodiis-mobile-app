@@ -149,13 +149,13 @@ class OvcChildWellBeingAssessmentSkipLogic {
     if (age >= 14) {
       hideForChild();
     } else {
-      if (age > 5) {
-        hideMalnutritionQuestions();
-        hiddenFields['r0vhM9GCkxp'] = true;
-      } else if (age < 2) {
-        hiddenSections['domainschooltsasekolo'] = true;
-      }
       hideForCaregiver();
+    }
+    if (age > 5) {
+      hideMalnutritionQuestions();
+      hiddenFields['r0vhM9GCkxp'] = true;
+    } else if (age < 2) {
+      hiddenSections['domainschooltsasekolo'] = true;
     }
 
     for (String inputFieldId in inputFieldIds) {
