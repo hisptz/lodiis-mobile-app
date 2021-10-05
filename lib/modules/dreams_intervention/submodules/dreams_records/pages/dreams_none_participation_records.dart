@@ -88,8 +88,18 @@ class _DreamsNoneParticipationRecordsPageState
   Widget _buildBody(String? currentLanguage) {
     return Consumer<DreamsInterventionListState>(
       builder: (context, ovcState, child) => CustomPaginatedListView(
-        errorWidget: Center(
-          child: Text('There is no AGYW/DREAMS none participants at moment'),
+        errorWidget: Container(
+          margin: EdgeInsets.only(
+            bottom: 16.0,
+            right: 13.0,
+            left: 13.0,
+          ),
+          child: Center(
+            child: Text(
+              'There is no AGYW/DREAMS none participants at moment',
+              textAlign: TextAlign.center,
+            ),
+          ),
         ),
         pagingController: ovcState.noneParticipantsPagingController,
         childBuilder: (context, dreamsNoneParticipant, index) =>
@@ -102,10 +112,20 @@ class _DreamsNoneParticipationRecordsPageState
               onEditBeneficiary(context, dreamsNoneParticipant),
         ),
         emptyListWidget: Center(
-          child: Column(
-            children: [
-              Text('There is no AGYW/DREAMS none participants at moment')
-            ],
+          child: Container(
+            margin: EdgeInsets.only(
+              bottom: 16.0,
+              right: 13.0,
+              left: 13.0,
+            ),
+            child: Column(
+              children: [
+                Text(
+                  'There is no AGYW/DREAMS none participants at moment',
+                  textAlign: TextAlign.center,
+                )
+              ],
+            ),
           ),
         ),
       ),
