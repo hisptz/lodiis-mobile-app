@@ -123,7 +123,7 @@ class InterventionBottomNavigationBar extends StatelessWidget {
                             ),
                           ),
                           child: SizedBox(
-                            height: 70,
+                            height: 80,
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               mainAxisSize: MainAxisSize.max,
