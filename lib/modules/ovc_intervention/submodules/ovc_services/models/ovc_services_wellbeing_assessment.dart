@@ -95,6 +95,8 @@ class OvcServicesWellbeingAssessment {
                       name: 'Earn extra money',
                       translatedName: 'Ho fumana chelete engoe'),
                   InputFieldOption(
+                      code: 'r0vhM9GCkxp', name: 'N/A', translatedName: 'N/A'),
+                  InputFieldOption(
                       code: 'TH3xvl6NZhi',
                       name: 'Other',
                       translatedName: 'Tse ling (Hlalosa)')
@@ -110,7 +112,7 @@ class OvcServicesWellbeingAssessment {
       FormSection(
           name: 'DOMAIN SCHOOLED',
           translatedName: 'TSA SEKOLO',
-          id:'domainschooltsasekolo',
+          id: 'domainschooltsasekolo',
           color: Color(0xFF9B2BAE),
           borderColor: Color(0xFF9B2BAE),
           inputFields: [
@@ -316,7 +318,8 @@ class OvcServicesWellbeingAssessment {
                 labelColor: Color(0xFF284227)),
             InputField(
                 id: 'YKuTfp8LIRr',
-                name: '50. During the last month did you miss more than three days of school or vocational training?',
+                name:
+                    '50. During the last month did you miss more than three days of school or vocational training?',
                 translatedName:
                     '50. Na ngoana o hlotsoe ke sekolo matsatsi a fetang a mararo?',
                 valueType: 'BOOLEAN',
