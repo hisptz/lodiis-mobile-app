@@ -208,6 +208,7 @@ class InputFieldContainer extends StatelessWidget {
     return Container(
       child: inputField != null && inputField.valueType == 'CHECK_BOX'
           ? CheckBoxListInputField(
+              hiddenFields: hiddenFields ?? Map(),
               currentLanguage: currentLanguage,
               inputField: inputField,
               isReadOnly: true, //this.onInputValueChange,
@@ -245,6 +246,7 @@ class InputFieldContainer extends StatelessWidget {
                   Expanded(
                     child: inputField.valueType == 'CHECK_BOX'
                         ? CheckBoxListInputField(
+                            hiddenFields: hiddenFields ?? Map(),
                             currentLanguage: currentLanguage,
                             inputField: inputField,
                             onInputValueChange: (id, value) {
