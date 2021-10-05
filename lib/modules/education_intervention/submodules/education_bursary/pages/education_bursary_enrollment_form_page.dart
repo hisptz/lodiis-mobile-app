@@ -149,14 +149,7 @@ class _EducationBursaryEnrollmentFormPageState
             setState(() {
               isSaving = false;
             });
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) {
-                  return EducationBursaryEnrollmentFormPage();
-                },
-              ),
-            );
+            Navigator.popUntil(context, (route) => route.isFirst);
           }
         });
       } catch (e) {

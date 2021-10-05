@@ -6,7 +6,13 @@ import 'package:kb_mobile_app/modules/education_intervention/submodules/educatio
 
 class EducationBursaryAssessment {
   static List<String> getMandatoryField() {
-    return ["location"];
+    return [
+      "location",
+      'WTZ7GLTrE8Q',
+      'rSP9c21JsfC',
+      'qZP982qpSPS',
+      'vIX4GTSCX4P',
+    ];
   }
 
   static List<FormSection> getFormSections() {
@@ -20,7 +26,7 @@ class EducationBursaryAssessment {
           InputField(
             id: 'location',
             name: '1. Location',
-            translatedName: 'Sebaka',
+            translatedName: '1 Sebaka',
             valueType: 'ORGANISATION_UNIT',
             allowedSelectedLevels: [3],
             // filteredPrograms: [BursaryInterventionConstant.program],
@@ -604,7 +610,7 @@ class EducationBursaryAssessment {
                   name: "Cow dung",
                 ),
                 InputFieldOption(
-                  code: "fEclXXfVbwS",
+                  code: "qNpe49Zq0lU",
                   name: "Crop waste",
                 ),
                 // InputFieldOption(
