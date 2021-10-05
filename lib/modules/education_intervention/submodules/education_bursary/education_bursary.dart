@@ -12,6 +12,7 @@ import 'package:kb_mobile_app/models/education_beneficiary.dart';
 import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/modules/education_intervention/components/education_beneficiary_card.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_bursary/constants/bursary_routes_constant.dart';
+import 'package:kb_mobile_app/modules/education_intervention/submodules/education_bursary/pages/education_bursary_assessment_form.dart';
 import 'package:provider/provider.dart';
 
 class EducationBursary extends StatefulWidget {
@@ -71,7 +72,7 @@ class _EducationBursaryState extends State<EducationBursary> {
   void onAddBursaryBeneficiary(BuildContext context) async {
     String beneficiaryId = "";
     String formAutoSaveId =
-        "${BursaryRoutesConstant.enrollmentPageModule}_$beneficiaryId";
+        "${BursaryRoutesConstant.assessmentPageModule}_$beneficiaryId";
     FormAutoSave formAutoSave =
         await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
     bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
@@ -80,7 +81,14 @@ class _EducationBursaryState extends State<EducationBursary> {
       AppResumeRoute().redirectToPages(context, formAutoSave);
     } else {
       Provider.of<EnrollmentFormState>(context, listen: false).resetFormState();
-      //@TODO render appropriate form
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) {
+            return EducationBursaryAssessmentFormPage();
+          },
+        ),
+      );
     }
   }
 

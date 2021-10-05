@@ -77,9 +77,9 @@ class _AgywDreamsEnrollmentFormState extends State<AgywDreamsEnrollmentForm> {
     BuildContext context, {
     bool isSaveForm = false,
   }) async {
-    String beneficiaryId = "";
     Map dataObject =
         Provider.of<EnrollmentFormState>(context, listen: false).formState;
+    String beneficiaryId = dataObject['trackedEntityInstance'] ?? "";
     String id = "${DreamsRoutesConstant.agywConsentPage}_$beneficiaryId";
     FormAutoSave formAutoSave = FormAutoSave(
       id: id,
@@ -94,7 +94,9 @@ class _AgywDreamsEnrollmentFormState extends State<AgywDreamsEnrollmentForm> {
   }
 
   void clearFormAutoSaveState(BuildContext context) async {
-    String beneficiaryId = "";
+    Map dataObject =
+        Provider.of<EnrollmentFormState>(context, listen: false).formState;
+    String beneficiaryId = dataObject['trackedEntityInstance'] ?? "";
     String formAutoSaveId =
         "${DreamsRoutesConstant.agywConsentPage}_$beneficiaryId";
     await FormAutoSaveOfflineService().deleteSavedFormAutoData(formAutoSaveId);

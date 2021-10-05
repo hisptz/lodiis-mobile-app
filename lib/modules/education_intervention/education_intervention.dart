@@ -119,7 +119,7 @@ class _EducationInterventionState extends State<EducationIntervention> {
         context,
         MaterialPageRoute(
           builder: (context) {
-            return EducationBursaryAssessmentForm();
+            return EducationBursaryAssessmentFormPage();
           },
         ),
       );
