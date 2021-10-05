@@ -710,13 +710,6 @@ class OvcHouseholdServiceAdultWellbeing {
                 InputFieldOption(
                     code: '0.000001', name: 'NA', translatedName: 'N/A')
               ],
-              hasSubInputField: true,
-              subInputField: InputField(
-                id: 'eShHDoV4ARm',
-                name: 'Referral',
-                valueType: 'TRUE_ONLY',
-                inputColor: Color(0xFF4B9F46),
-              ),
             ),
             InputField(
                 id: 'ubin7MjQ5OI',
