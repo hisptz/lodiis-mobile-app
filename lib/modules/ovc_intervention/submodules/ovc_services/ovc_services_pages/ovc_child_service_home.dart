@@ -70,7 +70,10 @@ class OvcChildServiceHome extends StatelessWidget {
     int countValue = 0;
     for (String programStage in ovcChildServiceHomeCard.programStages!) {
       List<Events> events = eventListByProgramStage[programStage] ?? [];
-      if (ovcChildServiceHomeCard.groupByDate!) {
+      if (ovcChildServiceHomeCard.groupByDate! &&
+          ovcChildServiceHomeCard.groupingProgramStages!
+                  .indexOf(programStage) !=
+              -1) {
         Map groupedEventByDates =
             TrackedEntityInstanceUtil.getGroupedEventByDates(events);
         countValue += groupedEventByDates.keys.toList().length;
