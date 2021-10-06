@@ -63,12 +63,13 @@ class _EducationBursaryEnrollmentEditFormPageState
     Map dataObject =
         Provider.of<EnrollmentFormState>(context, listen: false).formState;
     String beneficiaryId = dataObject['trackedEntityInstance'] ?? "";
-    String id = "${BursaryRoutesConstant.assessmentPageModule}_$beneficiaryId";
+    String id =
+        "${BursaryRoutesConstant.enrollmentEditPageModule}_$beneficiaryId";
     FormAutoSave formAutoSave = FormAutoSave(
       id: id,
       beneficiaryId: beneficiaryId,
-      pageModule: BursaryRoutesConstant.enrollmentPageModule,
-      nextPageModule: BursaryRoutesConstant.enrollmentNextPageModule,
+      pageModule: BursaryRoutesConstant.enrollmentEditPageModule,
+      nextPageModule: BursaryRoutesConstant.enrollmentEditNextPageModule,
       data: jsonEncode(dataObject),
     );
     await FormAutoSaveOfflineService().saveFormAutoSaveData(formAutoSave);
@@ -101,7 +102,8 @@ class _EducationBursaryEnrollmentEditFormPageState
         Provider.of<EnrollmentFormState>(context, listen: false).formState;
     String beneficiaryId = dataObject['trackedEntityInstance'] ?? "";
     String formAutoSaveId =
-        "${BursaryRoutesConstant.assessmentPageModule}_$beneficiaryId";
+        "${BursaryRoutesConstant.enrollmentEditPageModule}_$beneficiaryId";
+    print('formAutoSaveId $formAutoSaveId');
     await FormAutoSaveOfflineService().deleteSavedFormAutoData(formAutoSaveId);
   }
 
@@ -141,6 +143,7 @@ class _EducationBursaryEnrollmentEditFormPageState
           incidentDate,
           hiddenFields,
         );
+        clearFormAutoSaveState(context);
         Timer(Duration(seconds: 1), () {
           if (Navigator.canPop(context)) {
             setState(() {

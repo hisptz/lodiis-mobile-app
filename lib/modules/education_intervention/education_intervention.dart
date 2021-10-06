@@ -103,10 +103,9 @@ class _EducationInterventionState extends State<EducationIntervention> {
   }
 
   void onAddBursaryBeneficiary(BuildContext context) async {
-    print("onAddBursaryBeneficiary");
     String beneficiaryId = "";
     String formAutoSaveId =
-        "${BursaryRoutesConstant.enrollmentPageModule}_$beneficiaryId";
+        "${BursaryRoutesConstant.assessmentPageModule}_$beneficiaryId";
     FormAutoSave formAutoSave =
         await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
     bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
