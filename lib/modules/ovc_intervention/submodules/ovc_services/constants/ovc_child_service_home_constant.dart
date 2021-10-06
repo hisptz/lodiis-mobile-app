@@ -5,17 +5,21 @@ class OvcChildServiceHomeConstant {
   String? icon;
   bool? groupByDate;
   List<String>? programStages;
+  List<String>? groupingProgramStages;
 
-  OvcChildServiceHomeConstant({
-    this.id,
-    this.title,
-    this.translatedTitle,
-    this.icon,
-    this.programStages,
-    this.groupByDate,
-  }) {
+  OvcChildServiceHomeConstant(
+      {this.id,
+      this.title,
+      this.translatedTitle,
+      this.icon,
+      this.programStages,
+      this.groupByDate,
+      this.groupingProgramStages}) {
     this.programStages = this.programStages ?? [];
     this.groupByDate = this.groupByDate ?? false;
+    this.groupingProgramStages = this.groupByDate == true
+        ? this.groupingProgramStages ?? this.programStages
+        : [];
   }
 
   static List<OvcChildServiceHomeConstant> getOvcChildServiceHomeConstant() {
@@ -43,6 +47,7 @@ class OvcChildServiceHomeConstant {
         id: 'monitor',
         title: 'Monitor',
         groupByDate: true,
+        groupingProgramStages: ['ZHjrdThi7Bz'],
         icon: 'assets/icons/child_monitor_ovc_icon.svg',
         programStages: ['dVdlJNtNLIQ', 'ZHjrdThi7Bz'],
       )
