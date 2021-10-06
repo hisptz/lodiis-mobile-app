@@ -98,7 +98,6 @@ class EducationBursaryInterventionState with ChangeNotifier {
   }
 
   void onBeneficiaryAdd() {
-    _numberOfEducationBursary = _numberOfEducationBursary + 1;
     getNumberOfPages();
     notifyListeners();
     refreshEducationBursaryList();

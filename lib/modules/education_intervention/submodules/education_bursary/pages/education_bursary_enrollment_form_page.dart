@@ -103,7 +103,6 @@ class _EducationBursaryEnrollmentFormPageState
     String beneficiaryId = dataObject['trackedEntityInstance'] ?? "";
     String formAutoSaveId =
         "${BursaryRoutesConstant.assessmentPageModule}_$beneficiaryId";
-    print('formAutoSaveId $formAutoSaveId');
     await FormAutoSaveOfflineService().deleteSavedFormAutoData(formAutoSaveId);
   }
 
