@@ -52,6 +52,7 @@ class EducationBeneficiary {
       'qZP982qpSPS',
       'EwZil0AnlYo',
       'BUPSEpJySPR',
+      'tbzi0t27D8l',
       BeneficiaryIdentification.beneficiaryId
     ];
     Map data = Map();
@@ -78,7 +79,9 @@ class EducationBeneficiary {
       location: location,
       createdDate: createdDate,
       enrollment: enrollment,
-      grade: data['BUPSEpJySPR'] ?? 'BUPSEpJySPR',
+      grade: data['BUPSEpJySPR'] ?? data['tbzi0t27D8l'] != null
+          ? '${data['tbzi0t27D8l']}'.split(' ')[1]
+          : 'BUPSEpJySPR',
       beneficiaryId: data[BeneficiaryIdentification.beneficiaryId] ?? '',
       schoolName: data['EwZil0AnlYo'] ?? '',
       isSynced: trackedEntityInstance.syncStatus == "synced",
