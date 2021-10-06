@@ -21,7 +21,7 @@ import 'package:kb_mobile_app/modules/education_intervention/components/educatio
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_bursary/constants/bursary_intervention_constant.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_bursary/constants/bursary_routes_constant.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_bursary/models/bursary_attendance_event.dart';
-import 'package:kb_mobile_app/modules/education_intervention/submodules/education_bursary/pages/education_bursary_clubs_attendance_form_page.dart';
+import 'package:kb_mobile_app/modules/education_intervention/submodules/education_bursary/pages/education_bursary_attendance_form_page.dart';
 import 'package:provider/provider.dart';
 
 class EducationBursaryClubsAttendancePage extends StatefulWidget {
@@ -63,7 +63,7 @@ class _EducationBursaryClubsAttendancePageState
       context,
       MaterialPageRoute(
         builder: (context) {
-          return EducationBursaryClubsAttendanceFormPage();
+          return EducationBursaryAttendanceFormPage();
         },
       ),
     );

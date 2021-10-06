@@ -29,19 +29,19 @@ import 'package:kb_mobile_app/modules/education_intervention/submodules/educatio
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_bursary/skip_logics/education_bursary_attendance_skip_logic.dart';
 import 'package:provider/provider.dart';
 
-class EducationBursaryClubsAttendanceFormPage extends StatefulWidget {
-  const EducationBursaryClubsAttendanceFormPage(
+class EducationBursaryAttendanceFormPage extends StatefulWidget {
+  const EducationBursaryAttendanceFormPage(
       {Key? key, this.isSchoolAttendance = false})
       : super(key: key);
   final bool isSchoolAttendance;
 
   @override
-  _EducationBursaryClubsAttendanceFormPageState createState() =>
-      _EducationBursaryClubsAttendanceFormPageState();
+  _EducationBursaryAttendanceFormPageState createState() =>
+      _EducationBursaryAttendanceFormPageState();
 }
 
-class _EducationBursaryClubsAttendanceFormPageState
-    extends State<EducationBursaryClubsAttendanceFormPage> {
+class _EducationBursaryAttendanceFormPageState
+    extends State<EducationBursaryAttendanceFormPage> {
   final String schoolAttendanceLabel = 'School Attendance Form';
   final String clubsAttendanceLabel = 'Clubs Attendance Form';
   List<FormSection>? formSections;
