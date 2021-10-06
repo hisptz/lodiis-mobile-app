@@ -8,4 +8,8 @@ class BursaryRoutesConstant {
   static final String schoolsAttendancePageModule = "School Attendance Form";
   static final String schoolsAttendanceNextPageModule =
       "School Attendance Form";
+  static final String schoolsPerformancePageModule =
+      "Student Performance Tracking Form";
+  static final String schoolsPerformanceNextPageModule =
+      "Student Performance Tracking Form";
 }

@@ -35,7 +35,7 @@ class _EducationBursarySchoolPageState
   @override
   Widget build(BuildContext context) {
     String schoolAttendanceLabel = 'School Attendance';
-    String schoolPerformanceLabel = 'School Performance Tracking';
+    String schoolPerformanceLabel = 'Student Performance Tracking';
     return SafeArea(
       child: Scaffold(
           appBar: PreferredSize(
