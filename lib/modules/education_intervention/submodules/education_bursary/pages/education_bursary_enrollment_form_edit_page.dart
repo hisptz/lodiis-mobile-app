@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:kb_mobile_app/app_state/education_intervention_state/education_bursary_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
@@ -63,12 +64,13 @@ class _EducationBursaryEnrollmentEditFormPageState
     Map dataObject =
         Provider.of<EnrollmentFormState>(context, listen: false).formState;
     String beneficiaryId = dataObject['trackedEntityInstance'] ?? "";
-    String id = "${BursaryRoutesConstant.assessmentPageModule}_$beneficiaryId";
+    String id =
+        "${BursaryRoutesConstant.enrollmentEditPageModule}_$beneficiaryId";
     FormAutoSave formAutoSave = FormAutoSave(
       id: id,
       beneficiaryId: beneficiaryId,
-      pageModule: BursaryRoutesConstant.enrollmentPageModule,
-      nextPageModule: BursaryRoutesConstant.enrollmentNextPageModule,
+      pageModule: BursaryRoutesConstant.enrollmentEditPageModule,
+      nextPageModule: BursaryRoutesConstant.enrollmentEditNextPageModule,
       data: jsonEncode(dataObject),
     );
     await FormAutoSaveOfflineService().saveFormAutoSaveData(formAutoSave);
@@ -101,7 +103,7 @@ class _EducationBursaryEnrollmentEditFormPageState
         Provider.of<EnrollmentFormState>(context, listen: false).formState;
     String beneficiaryId = dataObject['trackedEntityInstance'] ?? "";
     String formAutoSaveId =
-        "${BursaryRoutesConstant.assessmentPageModule}_$beneficiaryId";
+        "${BursaryRoutesConstant.enrollmentEditPageModule}_$beneficiaryId";
     await FormAutoSaveOfflineService().deleteSavedFormAutoData(formAutoSaveId);
   }
 
@@ -141,6 +143,9 @@ class _EducationBursaryEnrollmentEditFormPageState
           incidentDate,
           hiddenFields,
         );
+        clearFormAutoSaveState(context);
+        Provider.of<EducationBursaryInterventionState>(context, listen: false)
+            .onBeneficiaryAdd();
         Timer(Duration(seconds: 1), () {
           if (Navigator.canPop(context)) {
             setState(() {

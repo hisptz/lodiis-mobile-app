@@ -71,7 +71,8 @@ class _EducationBursaryAssessmentFormPageState
     );
   }
 
-  void onUpdateFormAutoSaveState(BuildContext context) async {
+  void onUpdateFormAutoSaveState(BuildContext context,
+      {bool isSaveForm = false}) async {
     Map dataObject =
         Provider.of<EnrollmentFormState>(context, listen: false).formState;
     String beneficiaryId = dataObject['trackedEntityInstance'] ?? "";
@@ -80,7 +81,9 @@ class _EducationBursaryAssessmentFormPageState
       id: id,
       beneficiaryId: beneficiaryId,
       pageModule: BursaryRoutesConstant.assessmentPageModule,
-      nextPageModule: BursaryRoutesConstant.assessmentNextPageModule,
+      nextPageModule: isSaveForm
+          ? BursaryRoutesConstant.assessmentNextPageModule
+          : BursaryRoutesConstant.assessmentPageModule,
       data: jsonEncode(dataObject),
     );
     await FormAutoSaveOfflineService().saveFormAutoSaveData(formAutoSave);
@@ -100,7 +103,7 @@ class _EducationBursaryAssessmentFormPageState
       setState(() {
         isSaving = true;
       });
-      onUpdateFormAutoSaveState(context);
+      onUpdateFormAutoSaveState(context, isSaveForm: true);
       setState(() {
         isSaving = false;
       });

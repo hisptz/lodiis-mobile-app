@@ -118,7 +118,7 @@ class _EducationBursaryState extends State<EducationBursary> {
   ) async {
     String beneficiaryId = bursaryBeneficiary.id!;
     String formAutoSaveId =
-        "${BursaryRoutesConstant.enrollmentPageModule}_$beneficiaryId";
+        "${BursaryRoutesConstant.enrollmentEditPageModule}_$beneficiaryId";
     FormAutoSave formAutoSave =
         await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
     bool shouldResumeWithUnSavedChanges =

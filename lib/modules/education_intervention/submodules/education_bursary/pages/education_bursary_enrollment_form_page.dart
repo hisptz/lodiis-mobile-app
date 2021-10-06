@@ -142,6 +142,7 @@ class _EducationBursaryEnrollmentFormPageState
           incidentDate,
           hiddenFields,
         );
+        clearFormAutoSaveState(context);
         Provider.of<EducationBursaryInterventionState>(context, listen: false)
             .onBeneficiaryAdd();
         Timer(Duration(seconds: 1), () {
