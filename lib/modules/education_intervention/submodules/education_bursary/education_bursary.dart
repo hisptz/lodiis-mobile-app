@@ -13,8 +13,10 @@ import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/modules/education_intervention/components/education_beneficiary_card.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_bursary/constants/bursary_routes_constant.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_bursary/pages/education_bursary_assessment_form_page.dart';
+import 'package:kb_mobile_app/modules/education_intervention/submodules/education_bursary/pages/education_bursary_clubs_attendance_page.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_bursary/pages/education_bursary_enrollment_form_edit_page.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_bursary/pages/education_bursary_enrollment_view_page.dart';
+import 'package:kb_mobile_app/modules/education_intervention/submodules/education_bursary/pages/education_bursary_school_page.dart';
 import 'package:provider/provider.dart';
 
 class EducationBursary extends StatefulWidget {
@@ -150,15 +152,14 @@ class _EducationBursaryState extends State<EducationBursary> {
         .setCurrentBeneficiary(bursaryBeneficiary);
     Provider.of<ServiceEventDataState>(context, listen: false)
         .resetServiceEventDataState(bursaryBeneficiary.id);
-    //@TODO render appropriate form
-    // Navigator.push(
-    //   context,
-    //   MaterialPageRoute(
-    //     builder: (context) {
-    //       return EducationLbseLearningOutcomeHome();
-    //     },
-    //   ),
-    // );
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
+          return EducationBursarySchoolPage();
+        },
+      ),
+    );
   }
 
   void onOpenBeneficiaryClub(
@@ -170,14 +171,14 @@ class _EducationBursaryState extends State<EducationBursary> {
         .setCurrentBeneficiary(bursaryBeneficiary);
     Provider.of<ServiceEventDataState>(context, listen: false)
         .resetServiceEventDataState(bursaryBeneficiary.id);
-    // Navigator.push(
-    //   context,
-    //   MaterialPageRoute(
-    //     builder: (context) {
-    //       return EducationLbseReferralHome();
-    //     },
-    //   ),
-    // );
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
+          return EducationBursaryClubsAttendancePage();
+        },
+      ),
+    );
   }
 
   Center _getEmptyListContainer(BuildContext context) {
