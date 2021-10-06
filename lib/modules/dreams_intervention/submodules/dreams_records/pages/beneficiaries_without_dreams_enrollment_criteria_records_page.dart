@@ -91,9 +91,16 @@ class _BeneficiariesWithoutDreamsEnrollmentCriteriaRecordsPageState
   Widget _buildBody(String? currentLanguage) {
     return Consumer<DreamsInterventionListState>(
       builder: (context, ovcState, child) => CustomPaginatedListView(
-        errorWidget: Center(
+        errorWidget: Container(
+          margin: EdgeInsets.only(
+            bottom: 16.0,
+            right: 13.0,
+            left: 13.0,
+          ),
           child: Text(
-              'There is no beneficiaries without AGYW/DREAMS enrollment criteria at moment'),
+            'There is no beneficiaries without AGYW/DREAMS enrollment criteria at moment',
+            textAlign: TextAlign.center,
+          ),
         ),
         pagingController:
             ovcState.beneficiariesWithoutAgywDreamsCriteriaPagingController,
@@ -109,8 +116,17 @@ class _BeneficiariesWithoutDreamsEnrollmentCriteriaRecordsPageState
         emptyListWidget: Center(
           child: Column(
             children: [
-              Text(
-                  'There is no beneficiaries without AGYW/DREAMS enrollment criteria at moment')
+              Container(
+                margin: EdgeInsets.only(
+                  bottom: 16.0,
+                  right: 13.0,
+                  left: 13.0,
+                ),
+                child: Text(
+                  'There is no beneficiaries without AGYW/DREAMS enrollment criteria at moment',
+                  textAlign: TextAlign.center,
+                ),
+              )
             ],
           ),
         ),

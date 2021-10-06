@@ -6,7 +6,14 @@ import 'package:kb_mobile_app/modules/education_intervention/submodules/educatio
 
 class EducationBursaryEnrollmentForm {
   static List<String> getMandatoryField() {
-    return ["location"];
+    return [
+      "location",
+      'WTZ7GLTrE8Q',
+      'rSP9c21JsfC',
+      'qZP982qpSPS',
+      'vIX4GTSCX4P',
+      'EwZil0AnlYo'
+    ];
   }
 
   static List<FormSection> getFormSections() {

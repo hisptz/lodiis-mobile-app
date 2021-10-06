@@ -80,6 +80,7 @@ class _DreamsEnrollmentRecordsState extends State<DreamsEnrollmentRecords> {
                 Center(
                   child: Text(
                     'There is no beneficiary list at a moment',
+                    textAlign: TextAlign.center,
                   ),
                 ),
               ],
@@ -87,6 +88,7 @@ class _DreamsEnrollmentRecordsState extends State<DreamsEnrollmentRecords> {
             errorWidget: Center(
               child: Text(
                 'Error in loading beneficiary list ',
+                textAlign: TextAlign.center,
               ),
             ),
           );

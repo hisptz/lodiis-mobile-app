@@ -3,7 +3,6 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:kb_mobile_app/app_state/education_intervention_state/education_bursary_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
@@ -21,26 +20,26 @@ import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_bursary/constants/bursary_routes_constant.dart';
-import 'package:kb_mobile_app/modules/education_intervention/submodules/education_bursary/models/education_bursary_assessment_form.dart';
-import 'package:kb_mobile_app/modules/education_intervention/submodules/education_bursary/pages/education_bursary_enrollment_form_page.dart';
+import 'package:kb_mobile_app/modules/education_intervention/submodules/education_bursary/models/education_bursary_enrollment_form.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_bursary/services/education_bursary_enrollment_service.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_bursary/skip_logics/education_bursary_enrollment_skip_logic.dart';
 import 'package:provider/provider.dart';
 
-class EducationBursaryAssessmentFormPage extends StatefulWidget {
-  const EducationBursaryAssessmentFormPage({Key? key}) : super(key: key);
+class EducationBursaryEnrollmentEditFormPage extends StatefulWidget {
+  const EducationBursaryEnrollmentEditFormPage({Key? key}) : super(key: key);
 
   @override
-  State<EducationBursaryAssessmentFormPage> createState() =>
-      _EducationBursaryAssessmentFormPageState();
+  State<EducationBursaryEnrollmentEditFormPage> createState() =>
+      _EducationBursaryEnrollmentEditFormPageState();
 }
 
-class _EducationBursaryAssessmentFormPageState
-    extends State<EducationBursaryAssessmentFormPage> {
-  final String label = "Bursary Assessment Form";
+class _EducationBursaryEnrollmentEditFormPageState
+    extends State<EducationBursaryEnrollmentEditFormPage> {
+  final String label = "Bursary Enrollment Form";
 
   final List<String> mandatoryFields =
-      EducationBursaryAssessment.getMandatoryField();
+      EducationBursaryEnrollmentForm.getMandatoryField();
+
   final Map mandatoryFieldObject = Map();
   List<FormSection>? formSections;
   bool isSaving = false;
@@ -54,10 +53,32 @@ class _EducationBursaryAssessmentFormPageState
       for (String id in mandatoryFields) {
         mandatoryFieldObject[id] = true;
       }
-      formSections = EducationBursaryAssessment.getFormSections();
+      formSections = EducationBursaryEnrollmentForm.getFormSections();
       isFormReady = true;
       evaluateSkipLogics();
     });
+  }
+
+  void onUpdateFormAutoSaveState(BuildContext context) async {
+    Map dataObject =
+        Provider.of<EnrollmentFormState>(context, listen: false).formState;
+    String beneficiaryId = dataObject['trackedEntityInstance'] ?? "";
+    String id = "${BursaryRoutesConstant.assessmentPageModule}_$beneficiaryId";
+    FormAutoSave formAutoSave = FormAutoSave(
+      id: id,
+      beneficiaryId: beneficiaryId,
+      pageModule: BursaryRoutesConstant.enrollmentPageModule,
+      nextPageModule: BursaryRoutesConstant.enrollmentNextPageModule,
+      data: jsonEncode(dataObject),
+    );
+    await FormAutoSaveOfflineService().saveFormAutoSaveData(formAutoSave);
+  }
+
+  void onInputValueChange(String id, dynamic value) {
+    Provider.of<EnrollmentFormState>(context, listen: false)
+        .setFormFieldState(id, value);
+    evaluateSkipLogics();
+    onUpdateFormAutoSaveState(context);
   }
 
   evaluateSkipLogics() {
@@ -75,47 +96,66 @@ class _EducationBursaryAssessmentFormPageState
     );
   }
 
-  void onUpdateFormAutoSaveState(BuildContext context) async {
+  void clearFormAutoSaveState(BuildContext context) async {
     Map dataObject =
         Provider.of<EnrollmentFormState>(context, listen: false).formState;
     String beneficiaryId = dataObject['trackedEntityInstance'] ?? "";
-    String id = "${BursaryRoutesConstant.assessmentPageModule}_$beneficiaryId";
-    FormAutoSave formAutoSave = FormAutoSave(
-      id: id,
-      beneficiaryId: beneficiaryId,
-      pageModule: BursaryRoutesConstant.assessmentPageModule,
-      nextPageModule: BursaryRoutesConstant.assessmentNextPageModule,
-      data: jsonEncode(dataObject),
-    );
-    await FormAutoSaveOfflineService().saveFormAutoSaveData(formAutoSave);
+    String formAutoSaveId =
+        "${BursaryRoutesConstant.assessmentPageModule}_$beneficiaryId";
+    await FormAutoSaveOfflineService().deleteSavedFormAutoData(formAutoSaveId);
   }
 
-  void onInputValueChange(String id, dynamic value) {
-    Provider.of<EnrollmentFormState>(context, listen: false)
-        .setFormFieldState(id, value);
-    evaluateSkipLogics();
-    onUpdateFormAutoSaveState(context);
-  }
-
-  void onSaveAndContinue(BuildContext context, Map dataObject) async {
+  void onSave(BuildContext context, Map dataObject) async {
     bool hadAllMandatoryFilled =
         AppUtil.hasAllMandatoryFieldsFilled(mandatoryFields, dataObject);
     if (hadAllMandatoryFilled) {
       setState(() {
         isSaving = true;
       });
-      onUpdateFormAutoSaveState(context);
-      setState(() {
-        isSaving = false;
-      });
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) {
-            return EducationBursaryEnrollmentFormPage();
-          },
-        ),
-      );
+      CurrentUser? user = await (UserService().getCurrentUser());
+      dataObject['klLkGxy328c'] =
+          dataObject['klLkGxy328c'] ?? user!.implementingPartner;
+      dataObject['DdnlE8kmIkT'] = dataObject['DdnlE8kmIkT'] ?? user!.username;
+      if (user!.subImplementingPartner != '') {
+        dataObject['fQInK8s2RNR'] =
+            dataObject['fQInK8s2RNR'] ?? user.subImplementingPartner;
+      }
+      String trackedEntityInstance =
+          dataObject['trackedEntityInstance'] ?? AppUtil.getUid();
+      String? orgUnit = dataObject['location'];
+      String? enrollment = dataObject['enrollment'];
+      String? enrollmentDate = dataObject['enrollmentDate'];
+      String? incidentDate = dataObject['incidentDate'];
+      List<String> hiddenFields = [
+        'klLkGxy328c',
+        'DdnlE8kmIkT',
+        'fQInK8s2RNR',
+      ];
+      try {
+        await EducationBursaryEnrollmentService().savingBeneficiaryEnrollment(
+          dataObject,
+          trackedEntityInstance,
+          orgUnit,
+          enrollment,
+          enrollmentDate,
+          incidentDate,
+          hiddenFields,
+        );
+        Timer(Duration(seconds: 1), () {
+          if (Navigator.canPop(context)) {
+            setState(() {
+              isSaving = false;
+            });
+            Navigator.popUntil(context, (route) => route.isFirst);
+          }
+        });
+      } catch (e) {
+        setState(() {
+          isSaving = false;
+        });
+        AppUtil.showToastMessage(
+            message: e.toString(), position: ToastGravity.BOTTOM);
+      }
     } else {
       setState(() {
         unFilledMandatoryFields =
@@ -195,11 +235,11 @@ class _EducationBursaryAssessmentFormPageState
                                         ? 'Saving ...'
                                         : currentLanguage == 'lesotho'
                                             ? 'Boloka'
-                                            : 'Save and Continue',
+                                            : 'Save',
                                     labelColor: Colors.white,
                                     buttonColor: Color(0xFF009688),
                                     fontSize: 15.0,
-                                    onPressButton: () => onSaveAndContinue(
+                                    onPressButton: () => onSave(
                                       context,
                                       enrollmentFormState.formState,
                                     ),

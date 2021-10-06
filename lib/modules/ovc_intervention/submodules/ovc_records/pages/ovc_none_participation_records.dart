@@ -88,8 +88,18 @@ class _OvcNoneParticipationRecordsState
   Widget _buildBody(String? currentLanguage) {
     return Consumer<OvcInterventionListState>(
       builder: (context, ovcState, child) => CustomPaginatedListView(
-        errorWidget: Center(
-          child: Text('There is no OVC none participants at moment'),
+        errorWidget: Container(
+          margin: EdgeInsets.only(
+            bottom: 16.0,
+            right: 13.0,
+            left: 13.0,
+          ),
+          child: Center(
+            child: Text(
+              'There is no OVC none participants at moment',
+              textAlign: TextAlign.center,
+            ),
+          ),
         ),
         pagingController: ovcState.noneParticipationPagingController,
         childBuilder: (context, ovcNoneParticipant, index) =>
@@ -101,9 +111,21 @@ class _OvcNoneParticipationRecordsState
           onEditBeneficiary: () =>
               onEditBeneficiary(context, ovcNoneParticipant),
         ),
-        emptyListWidget: Center(
-          child: Column(
-            children: [Text('There is no OVC none participants at moment')],
+        emptyListWidget: Container(
+          margin: EdgeInsets.only(
+            bottom: 16.0,
+            right: 13.0,
+            left: 13.0,
+          ),
+          child: Center(
+            child: Column(
+              children: [
+                Text(
+                  'There is no OVC none participants at moment',
+                  textAlign: TextAlign.center,
+                )
+              ],
+            ),
           ),
         ),
       ),
