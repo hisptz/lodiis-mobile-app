@@ -18,6 +18,7 @@ import 'package:kb_mobile_app/modules/education_intervention/submodules/educatio
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/constants/lbse_intervention_constant.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/constants/lbse_routes_constant.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/models/lbse_referral_event.dart';
+import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/pages/education_lbse_referral_form_page.dart';
 import 'package:provider/provider.dart';
 
 class EducationLbseReferralHome extends StatelessWidget {
@@ -48,14 +49,14 @@ class EducationLbseReferralHome extends StatelessWidget {
   }
 
   void redirectToReferralForm(BuildContext context) {
-    // Navigator.push(
-    //   context,
-    //   MaterialPageRoute(
-    //     builder: (context) {
-    //       return PpPrevInterventionServiceProvisionForm();
-    //     },
-    //   ),
-    // );
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
+          return EducationLbseReferralFormPage();
+        },
+      ),
+    );
   }
 
   onViewReferral(
