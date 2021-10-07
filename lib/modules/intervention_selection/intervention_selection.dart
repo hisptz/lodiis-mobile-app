@@ -56,9 +56,9 @@ class _InterventionSelectionState extends State<InterventionSelection> {
       Provider.of<PpPrevInterventionState>(context, listen: false)
           .refreshPpPrevList();
       Provider.of<EducationLbseInterventionState>(context, listen: false)
-          .refreshEducationLbseList();
+          .refreshEducationLbseNumber();
       Provider.of<EducationBursaryInterventionState>(context, listen: false)
-          .refreshEducationBursaryList();
+          .refreshEducationBursaryNumber();
       Provider.of<CurrentUserState>(context, listen: false)
           .setCurrentUserLocation();
     } catch (error) {}
