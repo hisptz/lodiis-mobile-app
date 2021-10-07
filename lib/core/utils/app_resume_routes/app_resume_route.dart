@@ -3,6 +3,7 @@ import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart'
 import 'package:kb_mobile_app/core/utils/app_resume_routes/dreams_routes/dreams_enrollment_route.dart';
 import 'package:kb_mobile_app/core/utils/app_resume_routes/dreams_routes/dreams_services_route.dart';
 import 'package:kb_mobile_app/core/utils/app_resume_routes/education_routes/education_bursary_route.dart';
+import 'package:kb_mobile_app/core/utils/app_resume_routes/education_routes/education_lbse_route.dart';
 import 'package:kb_mobile_app/core/utils/app_resume_routes/pp_prev_routes/pp_prev_route.dart';
 import 'package:kb_mobile_app/core/utils/app_resume_routes/utils/app_resume_route_util.dart';
 import 'package:kb_mobile_app/core/utils/app_resume_routes/ogac_routes/ogac_enrollment_route.dart';
@@ -12,6 +13,7 @@ import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/constants/dreams_routes_constant.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_bursary/constants/bursary_routes_constant.dart';
+import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/constants/lbse_routes_constant.dart';
 import 'package:kb_mobile_app/modules/ogac_intervention/constants/ogac_routes_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/constants/ovc_routes_constant.dart';
 import 'package:kb_mobile_app/modules/pp_prev_intervention/constants/pp_prev_routes_constant.dart';
@@ -24,6 +26,7 @@ class AppResumeRoute
         OvcEnrollmentRoute,
         OvcServicesRoute,
         EducationBursaryRoute,
+        EducationLbseRoute,
         PpPrevRoute {
   void redirectToPages(
     BuildContext context,
@@ -34,6 +37,12 @@ class AppResumeRoute
     } else if (formAutoSave.nextPageModule ==
         PpPrevRoutesConstant.enrollmentPageModule) {
       redirectToPpPrevEnrollmentForm(context, formAutoSave);
+    } else if (formAutoSave.nextPageModule ==
+        LbseRoutesConstant.enrollmentPageModule) {
+      redirectToLbseEnrollmentForm(context, formAutoSave);
+    } else if (formAutoSave.nextPageModule ==
+        LbseRoutesConstant.learningOutcomePageModule) {
+      redirectToLbseLearningOutcomeForm(context, formAutoSave);
     } else if (formAutoSave.nextPageModule ==
         PpPrevRoutesConstant.serviceFormPageModule) {
       redirectToPpPrevServiceForm(context, formAutoSave);

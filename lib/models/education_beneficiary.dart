@@ -79,9 +79,7 @@ class EducationBeneficiary {
       location: location,
       createdDate: createdDate,
       enrollment: enrollment,
-      grade: data['BUPSEpJySPR'] ?? data['tbzi0t27D8l'] != null
-          ? '${data['tbzi0t27D8l']}'.split(' ')[1]
-          : 'BUPSEpJySPR',
+      grade: data['BUPSEpJySPR'] ?? data['tbzi0t27D8l'] ?? '',
       beneficiaryId: data[BeneficiaryIdentification.beneficiaryId] ?? '',
       schoolName: data['EwZil0AnlYo'] ?? '',
       isSynced: trackedEntityInstance.syncStatus == "synced",
