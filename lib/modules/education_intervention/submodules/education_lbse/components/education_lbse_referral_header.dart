@@ -16,6 +16,7 @@ class EducationLbseReferralHeader extends StatelessWidget {
 
   final VoidCallback? onView;
   final VoidCallback? onEdit;
+  final Color valueColor = const Color(0xFF82898D);
 
   Container _getActionButton({
     required String svgIcon,
@@ -56,7 +57,14 @@ class EducationLbseReferralHeader extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Expanded(
-                    child: Text("Referral $referralIndex"),
+                    child: Text(
+                      "Referral $referralIndex",
+                      style: TextStyle().copyWith(
+                        color: valueColor,
+                        fontSize: 14.0,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
                   ),
                   Container(
                     child: _getActionButton(

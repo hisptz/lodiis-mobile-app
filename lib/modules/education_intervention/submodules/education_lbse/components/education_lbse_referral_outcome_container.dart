@@ -21,12 +21,16 @@ class EducationLbseReferralOutComeContainer extends StatelessWidget {
   }
 
   void onEditOutcome(BuildContext context) {
-    print("On add outcome");
+    print("On edit outcome");
   }
 
-  void onAddOutComeFollowingUps(BuildContext context) {}
+  void onAddOutComeFollowingUps(BuildContext context) {
+    print("On add outcome following ups");
+  }
 
-  void onEditOutComeFollowingUps(BuildContext context) {}
+  void onEditOutComeFollowingUps(BuildContext context) {
+    print("On edit outcome following ups");
+  }
 
   Container _getActionButton({
     required Color backgroundColor,

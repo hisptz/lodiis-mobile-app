@@ -5,7 +5,7 @@ class LbseReferralEvent {
   String? id;
   String? date;
   String? casetType;
-  String? referralTop;
+  String? referralTo;
   String? description;
   String? referralToReferralOutcomeLinkage;
   Events? eventData;
@@ -14,7 +14,7 @@ class LbseReferralEvent {
     this.id,
     this.date,
     this.casetType,
-    this.referralTop,
+    this.referralTo,
     this.description,
     this.referralToReferralOutcomeLinkage,
     this.eventData,
@@ -39,7 +39,7 @@ class LbseReferralEvent {
     return LbseReferralEvent(
       id: eventData.event,
       casetType: data['CoUEvTpNjvO'] ?? '',
-      referralTop: data['hpuu3TCZkKx'] ?? '',
+      referralTo: data['hpuu3TCZkKx'] ?? '',
       description: data['OT97N8oZhpF'] ?? '',
       referralToReferralOutcomeLinkage:
           data[LbseInterventionConstant.referralToReferralOutcomeLinkage] ?? '',
@@ -50,6 +50,6 @@ class LbseReferralEvent {
 
   @override
   String toString() {
-    return 'casetType => $casetType referralTop => $referralTop';
+    return 'casetType => $casetType referralTop => $referralTo';
   }
 }
