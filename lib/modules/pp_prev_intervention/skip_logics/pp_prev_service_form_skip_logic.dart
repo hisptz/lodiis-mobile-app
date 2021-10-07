@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
+import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:provider/provider.dart';
@@ -7,6 +7,11 @@ import 'package:provider/provider.dart';
 class PpPrevServiceFormSkipLogic {
   static Map hiddenFields = Map();
   static Map hiddenSections = Map();
+  static List<String> referralReferences = [
+    "iHExrhttHRG",
+    'FrrHVBvLfq5',
+    'mXUZFx1p6VG'
+  ];
 
   static Future evaluateSkipLogics(
     BuildContext context,
@@ -19,9 +24,21 @@ class PpPrevServiceFormSkipLogic {
     for (var key in dataObject.keys) {
       inputFieldIds.add('$key');
     }
+    hiddenFields['OIUDljKyNgy'] = true;
+    hiddenFields['h4PRnqfEOCL'] = true;
+    hiddenFields['LIDzWRHXgIt'] = true;
+    hiddenFields['Z4D3jEwXO1I'] = true;
     inputFieldIds = inputFieldIds.toSet().toList();
-    //@TODO adding appropriate skip logics on service forms
-    // for (String inputFieldId in inputFieldIds) {}
+    for (String inputFieldId in inputFieldIds) {
+      String value = '${dataObject[inputFieldId]}';
+      if (referralReferences.indexOf(inputFieldId) > -1 &&
+          '$value'.toLowerCase() == 'true') {
+        hiddenFields['OIUDljKyNgy'] = false;
+        hiddenFields['h4PRnqfEOCL'] = false;
+        hiddenFields['LIDzWRHXgIt'] = false;
+        hiddenFields['Z4D3jEwXO1I'] = false;
+      }
+    }
     for (String sectionId in hiddenSections.keys) {
       List<FormSection> allFormSections =
           FormUtil.getFlattenFormSections(formSections);
@@ -43,7 +60,7 @@ class PpPrevServiceFormSkipLogic {
         assignInputFieldValue(context, inputFieldId, null);
       }
     }
-    Provider.of<EnrollmentFormState>(context, listen: false)
+    Provider.of<ServiceFormState>(context, listen: false)
         .setHiddenFields(hiddenFields);
   }
 
@@ -51,7 +68,7 @@ class PpPrevServiceFormSkipLogic {
     BuildContext context,
     List<FormSection> formSections,
   ) {
-    Provider.of<EnrollmentFormState>(context, listen: false)
+    Provider.of<ServiceFormState>(context, listen: false)
         .setHiddenSections(hiddenSections);
   }
 
@@ -60,7 +77,7 @@ class PpPrevServiceFormSkipLogic {
     String inputFieldId,
     String? value,
   ) {
-    Provider.of<EnrollmentFormState>(context, listen: false)
+    Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState(inputFieldId, value);
   }
 }
