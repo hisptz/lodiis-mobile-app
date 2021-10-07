@@ -3,8 +3,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
+import 'package:kb_mobile_app/app_state/education_intervention_state/education_bursary_state.dart';
+import 'package:kb_mobile_app/app_state/education_intervention_state/education_lbse_state.dart';
 import 'package:kb_mobile_app/app_state/ogac_intervention_list_state/ogac_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_intervention_list_state.dart';
+import 'package:kb_mobile_app/app_state/pp_prev_intervention_state/pp_prev_intervention_state.dart';
 import 'package:kb_mobile_app/app_state/referral_notification_state/referral_notification_state.dart';
 import 'package:kb_mobile_app/app_state/synchronization_state/synchronization_status_state.dart';
 import 'package:kb_mobile_app/core/constants/app_logs_constants.dart';
@@ -358,7 +361,14 @@ class SynchronizationState with ChangeNotifier {
     await Provider.of<DreamsInterventionListState>(context!, listen: false)
         .refreshBeneficiariesNumber();
     await Provider.of<OgacInterventionListState>(context!, listen: false)
-        .refreshOgacList();
+        .refreshOgacNumber();
+    await Provider.of<EducationLbseInterventionState>(context!, listen: false)
+        .refreshEducationLbseNumber();
+    await Provider.of<PpPrevInterventionState>(context!, listen: false)
+        .refreshPpPrevNumber();
+    await Provider.of<EducationBursaryInterventionState>(context!,
+            listen: false)
+        .refreshEducationBursaryNumber();
   }
 
   Future startDataUploadActivity({bool isAutoUpload = false}) async {
