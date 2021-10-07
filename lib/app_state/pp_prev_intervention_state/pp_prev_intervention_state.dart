@@ -16,38 +16,34 @@ class PpPrevInterventionState with ChangeNotifier {
   int _numberOfPages = 0;
   int? _nextPage = 0;
   String _searchableValue = '';
-
-  PagingController? _pagingController;
+  PagingController? _ppPrevPagingController;
 
   PpPrevInterventionState(this.context);
+
   bool get isLoading => _isLoading ?? false;
-
   int get numberOfPpPrev => _numberOfPpPrev;
-
   int get numberOfPages => _numberOfPages;
-
-  PagingController? get pagingController => _pagingController;
+  PagingController? get pagingController => _ppPrevPagingController;
 
   void initializePagination() {
-    _pagingController =
+    _ppPrevPagingController =
         PagingController<int, PpPrevBeneficiary>(firstPageKey: 0);
-
     PaginationService.initializePagination(
         mounted: true,
-        pagingController: _pagingController,
-        fetchPage: _fetchPage);
+        pagingController: _ppPrevPagingController,
+        fetchPage: _fetchPpPrevPage);
   }
 
-  Future<void> _fetchPage(int pageKey) async {
+  Future<void> _fetchPpPrevPage(int pageKey) async {
     String searchableValue = _searchableValue;
     List ppPrevList = await PpPrevEnrollmentService()
         .getBeneficiaries(page: pageKey, searchableValue: searchableValue);
     if (ppPrevList.isEmpty && pageKey < numberOfPages) {
-      _fetchPage(pageKey + 1);
+      _fetchPpPrevPage(pageKey + 1);
     } else {
       getNumberOfPages();
       PaginationService.assignPagesToController(
-        _pagingController,
+        _ppPrevPagingController,
         ppPrevList,
         pageKey,
         numberOfPages,
@@ -55,20 +51,21 @@ class PpPrevInterventionState with ChangeNotifier {
     }
   }
 
-  Future<void> getBeneficiaryNumber() async {
+  Future<void> _getPpPrevBeneficiaryNumber() async {
     _numberOfPpPrev = await PpPrevEnrollmentService().getBeneficiariesCount();
+    notifyListeners();
   }
 
-  Future<void> searchPpPrevNumber() async {
+  Future<void> refreshPpPrevNumber() async {
     _isLoading = true;
     _searchableValue = '';
     notifyListeners();
-    await getBeneficiaryNumber();
+    await _getPpPrevBeneficiaryNumber();
     getNumberOfPages();
-    if (_pagingController == null) {
+    if (_ppPrevPagingController == null) {
       initializePagination();
     } else {
-      _pagingController!.refresh();
+      _ppPrevPagingController!.refresh();
     }
     _isLoading = false;
     notifyListeners();
@@ -77,51 +74,38 @@ class PpPrevInterventionState with ChangeNotifier {
   }
 
   void searchPpPrevList(String value) {
+    _searchableValue = value;
+    notifyListeners();
     if (_ppPrevInterventionList.isEmpty) {
       _ppPrevInterventionList =
-          _pagingController!.itemList as List<PpPrevBeneficiary>? ??
+          _ppPrevPagingController!.itemList as List<PpPrevBeneficiary>? ??
               <PpPrevBeneficiary>[];
-      _nextPage = _pagingController!.nextPageKey;
+      _nextPage = _ppPrevPagingController!.nextPageKey;
     }
     if (value != '') {
-      _searchableValue = value;
-      notifyListeners();
       refreshPpPrevList();
     } else {
-      _pagingController!.itemList = _ppPrevInterventionList;
-      _pagingController!.nextPageKey = _nextPage;
-
+      _ppPrevPagingController!.itemList = _ppPrevInterventionList;
+      _ppPrevPagingController!.nextPageKey = _nextPage;
       _ppPrevInterventionList = <PpPrevBeneficiary>[];
       _nextPage = 0;
     }
   }
 
   void onBeneficiaryAdd() {
-    _numberOfPpPrev = _numberOfPpPrev + 1;
-    getNumberOfPages();
-    notifyListeners();
     refreshPpPrevList();
   }
 
-  //reducers
   Future<void> refreshPpPrevList() async {
-    _isLoading = true;
+    _ppPrevPagingController!.refresh();
     notifyListeners();
-    await getBeneficiaryNumber();
-    getNumberOfPages();
-    if (_pagingController == null) {
-      initializePagination();
-    } else {
-      _pagingController!.refresh();
-    }
-    _isLoading = false;
-    notifyListeners();
+    Provider.of<SynchronizationStatusState>(context!, listen: false)
+        .resetSyncStatusReferences();
   }
 
   void getNumberOfPages() {
-    if (_numberOfPpPrev != null) {
-      _numberOfPages =
-          (_numberOfPpPrev / PaginationConstants.paginationLimit).ceil();
-    }
+    _numberOfPages =
+        (_numberOfPpPrev / PaginationConstants.paginationLimit).ceil();
+    notifyListeners();
   }
 }

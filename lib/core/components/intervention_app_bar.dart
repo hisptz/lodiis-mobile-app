@@ -64,16 +64,23 @@ class _InterventionAppBarState extends State<InterventionAppBar> {
 //@TODO adding support of activate and deactivate based on changes on tabs [education module]
   void onActivateOrDeactivateSearch(
     BuildContext context,
-  ) {
-    String value = '';
-    _searchedValued.add(value);
+  ) async {
     isSearchActive = !isSearchActive;
+    _searchedValued.add('');
     setState(() {});
-    if (isSearchActive) {
-      onSearchBeneficiary(context, value);
-    } else {
+    if (!isSearchActive) {
       refreshBeneficiaryList(context);
+    } else {
+      onSearchBeneficiary(context);
     }
+  }
+
+  String _getCurrentInterventionBottomNavigationId(
+      BuildContext context, InterventionCard activeInterventionProgram) {
+    InterventionBottomNavigation currentInterventionBottomNavigation =
+        Provider.of<InterventionBottomNavigationState>(context, listen: false)
+            .getCurrentInterventionBottomNavigation(activeInterventionProgram);
+    return currentInterventionBottomNavigation.id!;
   }
 
   void refreshBeneficiaryList(BuildContext context) {
@@ -88,31 +95,28 @@ class _InterventionAppBarState extends State<InterventionAppBar> {
           .refreshOvcNumber();
     } else if (widget.activeInterventionProgram.id == 'pp_prev') {
       Provider.of<PpPrevInterventionState>(context, listen: false)
-          .searchPpPrevNumber();
+          .refreshPpPrevNumber();
     } else if (widget.activeInterventionProgram.id == 'education') {
-      String currentInterventionBottomNavigationId =
-          Provider.of<InterventionBottomNavigationState>(context, listen: false)
-              .currentInterventionBottomNavigationId!;
-      if (currentInterventionBottomNavigationId == "lbse") {
-        Provider.of<EducationLbseInterventionState>(context, listen: false)
-            .searchEducationLbseNumber();
-      } else if (currentInterventionBottomNavigationId == "bursary") {
-        Provider.of<EducationBursaryInterventionState>(context, listen: false)
-            .searchEducationBursaryNumber();
-      }
+      Provider.of<EducationBursaryInterventionState>(context, listen: false)
+          .refreshEducationBursaryNumber();
+      Provider.of<EducationLbseInterventionState>(context, listen: false)
+          .refreshEducationLbseNumber();
     }
   }
 
   void onSearchInputValueChange(BuildContext context, String value) {
     value = value.toLowerCase();
     _searchedValued.add(value);
-    onSearchBeneficiary(context, value);
+    onSearchBeneficiary(context);
   }
 
-  void onSearchBeneficiary(BuildContext context, String value) {
+  void onSearchBeneficiary(BuildContext context) {
     _searchedValued
         .debounce((_) => TimerStream(true, Duration(milliseconds: 500)))
         .listen((searchedValue) async {
+      String currentInterventionBottomNavigationId =
+          _getCurrentInterventionBottomNavigationId(
+              context, widget.activeInterventionProgram);
       if (widget.activeInterventionProgram.id == 'ogac') {
         Provider.of<OgacInterventionListState>(context, listen: false)
             .searchOgacList(searchedValue);
@@ -126,24 +130,21 @@ class _InterventionAppBarState extends State<InterventionAppBar> {
         Provider.of<PpPrevInterventionState>(context, listen: false)
             .searchPpPrevList(searchedValue);
       } else if (widget.activeInterventionProgram.id == 'education') {
-        String currentInterventionBottomNavigationId =
-            Provider.of<InterventionBottomNavigationState>(context,
-                    listen: false)
-                .currentInterventionBottomNavigationId!;
         if (currentInterventionBottomNavigationId == "lbse") {
           Provider.of<EducationLbseInterventionState>(context, listen: false)
-              .searchEducationLbseList(value);
+              .searchEducationLbseList(searchedValue);
         } else if (currentInterventionBottomNavigationId == "bursary") {
           Provider.of<EducationBursaryInterventionState>(context, listen: false)
-              .searchEducationBursaryList(value);
+              .searchEducationBursaryList(searchedValue);
         }
       }
     });
   }
 
   @override
-  void dispose() {
+  void dispose() async {
     super.dispose();
+    await _searchedValued.close();
   }
 
   @override
@@ -247,6 +248,8 @@ class _InterventionAppBarState extends State<InterventionAppBar> {
                         .getCurrentInterventionBottomNavigation(
                   widget.activeInterventionProgram,
                 );
+
+                // TODO update the value for search
                 return Visibility(
                   visible: widget.activeInterventionProgram.id == 'pp_prev' ||
                       widget.activeInterventionProgram.id == 'education' ||

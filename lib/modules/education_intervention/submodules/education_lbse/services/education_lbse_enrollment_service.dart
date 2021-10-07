@@ -53,7 +53,7 @@ class EducationLbseEnrollmentService {
     int? page,
     String searchableValue = '',
   }) async {
-    List<EducationBeneficiary> ppPrevBeneficiaries = [];
+    List<EducationBeneficiary> educationLbseBeneficiaries = [];
     List<Enrollment> enrollments = await EnrollmentOfflineProvider()
         .getEnrollments(LbseInterventionConstant.program,
             page: page, isSearching: searchableValue != '');
@@ -64,12 +64,12 @@ class EducationLbseEnrollmentService {
       String? orgUnit = enrollment.orgUnit;
       String? createdDate = enrollment.enrollmentDate;
       String? enrollmentId = enrollment.enrollment;
-      List<TrackedEntityInstance> ogacBeneficiaryList =
+      List<TrackedEntityInstance> lbseBeneficiaryList =
           await TrackedEntityInstanceOfflineProvider()
               .getTrackedEntityInstanceByIds(
                   [enrollment.trackedEntityInstance]);
-      for (TrackedEntityInstance tei in ogacBeneficiaryList) {
-        ppPrevBeneficiaries.add(EducationBeneficiary().fromTeiModel(
+      for (TrackedEntityInstance tei in lbseBeneficiaryList) {
+        educationLbseBeneficiaries.add(EducationBeneficiary().fromTeiModel(
           tei,
           orgUnit,
           location,
@@ -79,8 +79,8 @@ class EducationLbseEnrollmentService {
       }
     }
     return searchableValue == ''
-        ? ppPrevBeneficiaries
-        : ppPrevBeneficiaries.where((EducationBeneficiary beneficiary) {
+        ? educationLbseBeneficiaries
+        : educationLbseBeneficiaries.where((EducationBeneficiary beneficiary) {
             bool isBeneficiaryFound = AppUtil().searchFromString(
                 searchableString: beneficiary.searchableValue,
                 searchedValue: searchableValue);

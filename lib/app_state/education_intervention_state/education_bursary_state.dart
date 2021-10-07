@@ -98,7 +98,6 @@ class EducationBursaryInterventionState with ChangeNotifier {
     refreshEducationBursaryList();
   }
 
-  //reducers
   Future<void> refreshEducationBursaryList() async {
     _bursaryPagingController!.refresh();
     notifyListeners();

@@ -54,7 +54,7 @@ class _InterventionSelectionState extends State<InterventionSelection> {
       Provider.of<OgacInterventionListState>(context, listen: false)
           .refreshOgacNumber();
       Provider.of<PpPrevInterventionState>(context, listen: false)
-          .refreshPpPrevList();
+          .refreshPpPrevNumber();
       Provider.of<EducationLbseInterventionState>(context, listen: false)
           .refreshEducationLbseNumber();
       Provider.of<EducationBursaryInterventionState>(context, listen: false)
