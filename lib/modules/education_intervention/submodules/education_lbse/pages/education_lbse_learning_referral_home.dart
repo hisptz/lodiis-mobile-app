@@ -69,11 +69,11 @@ class EducationLbseReferralHome extends StatelessWidget {
 
   onEditReferral(
     BuildContext context,
-    EducationBeneficiary educationBeneficiary,
+    EducationBeneficiary lbseBeneficiary,
     Events eventData,
   ) async {
     bool isEditableMode = true;
-    String? beneficiaryId = educationBeneficiary.id;
+    String? beneficiaryId = lbseBeneficiary.id;
     String eventId = eventData.event!;
     String formAutoSaveId =
         "${LbseRoutesConstant.referralPageModule}_${beneficiaryId}_$eventId";
@@ -81,7 +81,7 @@ class EducationLbseReferralHome extends StatelessWidget {
         await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
     bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
         .shouldResumeWithUnSavedChanges(context, formAutoSave,
-            beneficiaryName: educationBeneficiary.toString());
+            beneficiaryName: lbseBeneficiary.toString());
     if (shouldResumeWithUnSavedChanges) {
       AppResumeRoute().redirectToPages(context, formAutoSave);
     } else {
@@ -167,6 +167,17 @@ class EducationLbseReferralHome extends StatelessWidget {
                                                           lbseReferral,
                                                       referralIndex:
                                                           referralIndex,
+                                                      onView: () =>
+                                                          onViewReferral(
+                                                              context,
+                                                              lbseReferral
+                                                                  .eventData!),
+                                                      onEdit: () =>
+                                                          onEditReferral(
+                                                              context,
+                                                              lbseBeneficiary,
+                                                              lbseReferral
+                                                                  .eventData!),
                                                     );
                                                   }).toList(),
                                                 ),
