@@ -22,29 +22,25 @@ import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/education_intervention/components/education_beneficiary_top_header.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/constants/lbse_intervention_constant.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/constants/lbse_routes_constant.dart';
-import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/models/education_lbse_learning_outcome_form.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/models/education_lbse_referral_form.dart';
-import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/skip_logics/education_lbse_learning_outcome_skip_logic.dart';
 import 'package:provider/provider.dart';
 
-class EducationLbseLearningOutcomeFormPage extends StatefulWidget {
-  const EducationLbseLearningOutcomeFormPage({
+class EducationLbseReferralFormPage extends StatefulWidget {
+  const EducationLbseReferralFormPage({
     Key? key,
-    required this.isNewLearningOutcomeForm,
   }) : super(key: key);
-  final bool isNewLearningOutcomeForm;
 
   @override
-  State<EducationLbseLearningOutcomeFormPage> createState() =>
-      _EducationLbseLearningOutcomeFormPageState();
+  State<EducationLbseReferralFormPage> createState() =>
+      _EducationLbseReferralFormPageState();
 }
 
-class _EducationLbseLearningOutcomeFormPageState
-    extends State<EducationLbseLearningOutcomeFormPage> {
-  final String label = "Learning Outcome Form";
+class _EducationLbseReferralFormPageState
+    extends State<EducationLbseReferralFormPage> {
+  final String label = "Referral Form";
   List<FormSection>? formSections;
   final List<String> mandatoryFields =
-      EducationLbseLearningOutcomeForm.getMandatoryField();
+      EducationLbseReferralForm.getMandatoryField();
   final Map mandatoryFieldObject = Map();
   List unFilledMandatoryFields = [];
   bool isFormReady = false;
@@ -53,63 +49,21 @@ class _EducationLbseLearningOutcomeFormPageState
   @override
   void initState() {
     super.initState();
-    formSections = EducationLbseLearningOutcomeForm.getFormSections();
-    if (widget.isNewLearningOutcomeForm) {
-      formSections!.addAll(
-          EducationLbseLearningOutcomeForm.getReferralCheckFormSections());
-      formSections!.addAll(EducationLbseReferralForm.getFormSections());
-      mandatoryFields.addAll(EducationLbseReferralForm.getMandatoryField());
-      mandatoryFields
-          .add(EducationLbseLearningOutcomeForm.learningOutComeToReferralCheck);
-    }
+    formSections = EducationLbseReferralForm.getFormSections();
+
     for (String id in mandatoryFields) {
       mandatoryFieldObject[id] = true;
     }
     Timer(Duration(seconds: 1), () {
-      setState(() {
-        isFormReady = true;
-        evaluateSkipLogics();
-      });
+      isFormReady = true;
+      setState(() {});
     });
-  }
-
-  evaluateSkipLogics() {
-    Timer(
-      Duration(milliseconds: 200),
-      () async {
-        Map dataObject =
-            Provider.of<ServiceFormState>(context, listen: false).formState;
-        await EducationLbseLearningOutcomeSkipLogic.evaluateSkipLogics(
-          context,
-          formSections!,
-          dataObject,
-        );
-      },
-    );
   }
 
   void onInputValueChange(String id, dynamic value) {
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState(id, value);
-    evaluateSkipLogics();
     onUpdateFormAutoSaveState(context);
-  }
-
-  bool isLearningOutcomeReferralNeeded(Map dataObject) {
-    String inputFieldId =
-        EducationLbseLearningOutcomeForm.learningOutComeToReferralCheck;
-    String value = '${dataObject[inputFieldId]}';
-    return widget.isNewLearningOutcomeForm && '$value' == 'true';
-  }
-
-  List<String> getMandatoryFielOnFormSubmission(bool isReferralNeed) {
-    List<String> allMandatoryFields =
-        widget.isNewLearningOutcomeForm && isReferralNeed
-            ? mandatoryFields
-            : EducationLbseLearningOutcomeForm.getMandatoryField();
-    allMandatoryFields
-        .add(EducationLbseLearningOutcomeForm.learningOutComeToReferralCheck);
-    return allMandatoryFields.toSet().toList();
   }
 
   void onSaveForm(
@@ -117,11 +71,8 @@ class _EducationLbseLearningOutcomeFormPageState
     Map dataObject,
     EducationBeneficiary lbseBeneficiary,
   ) async {
-    bool isReferralNeed = isLearningOutcomeReferralNeeded(dataObject);
-    List<String> allMandatoryFields =
-        getMandatoryFielOnFormSubmission(isReferralNeed);
     bool hadAllMandatoryFilled =
-        AppUtil.hasAllMandatoryFieldsFilled(allMandatoryFields, dataObject);
+        AppUtil.hasAllMandatoryFieldsFilled(mandatoryFields, dataObject);
     if (hadAllMandatoryFilled) {
       setState(() {
         isSaving = true;
@@ -137,13 +88,14 @@ class _EducationLbseLearningOutcomeFormPageState
       String? eventDate = dataObject['eventDate'];
       String? eventId = dataObject['eventId'];
       List<String> hiddenFields = [
-        EducationLbseLearningOutcomeForm.learningOutComeToReferralCheck,
-        learningOutcomeToReferralLinkage
+        learningOutcomeToReferralLinkage,
+        referralToReferralOutcomeLinkage
       ];
+
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
           LbseInterventionConstant.program,
-          LbseInterventionConstant.learningOutcomeProgamStage,
+          LbseInterventionConstant.referralProgamStage,
           lbseBeneficiary.orgUnit,
           formSections!,
           dataObject,
@@ -152,23 +104,6 @@ class _EducationLbseLearningOutcomeFormPageState
           eventId,
           hiddenFields,
         );
-        if (isReferralNeed) {
-          hiddenFields = [
-            learningOutcomeToReferralLinkage,
-            referralToReferralOutcomeLinkage
-          ];
-          await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-            LbseInterventionConstant.program,
-            LbseInterventionConstant.referralProgamStage,
-            lbseBeneficiary.orgUnit,
-            formSections!,
-            dataObject,
-            eventDate,
-            lbseBeneficiary.id,
-            eventId,
-            hiddenFields,
-          );
-        }
         Provider.of<ServiceEventDataState>(context, listen: false)
             .resetServiceEventDataState(lbseBeneficiary.id);
         Timer(Duration(seconds: 1), () {
@@ -192,25 +127,27 @@ class _EducationLbseLearningOutcomeFormPageState
         Timer(Duration(seconds: 1), () {
           setState(() {
             AppUtil.showToastMessage(
-                message: e.toString(), position: ToastGravity.BOTTOM);
+              message: e.toString(),
+              position: ToastGravity.BOTTOM,
+            );
           });
         });
       }
     } else {
-      setState(() {
-        unFilledMandatoryFields =
-            AppUtil.getUnFilledMandatoryFields(allMandatoryFields, dataObject);
-      });
+      unFilledMandatoryFields =
+          AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+      setState(() {});
       AppUtil.showToastMessage(
-          message: 'Please fill all mandatory field',
-          position: ToastGravity.TOP);
+        message: 'Please fill all mandatory field',
+        position: ToastGravity.TOP,
+      );
     }
   }
 
   void clearFormAutoSaveState(
       BuildContext context, String? beneficiaryId, String eventId) async {
     String formAutoSaveId =
-        "${LbseRoutesConstant.learningOutcomePageModule}_${beneficiaryId}_$eventId";
+        "${LbseRoutesConstant.referralPageModule}_${beneficiaryId}_$eventId";
     await FormAutoSaveOfflineService().deleteSavedFormAutoData(formAutoSaveId);
   }
 
@@ -228,16 +165,16 @@ class _EducationLbseLearningOutcomeFormPageState
         Provider.of<ServiceFormState>(context, listen: false).formState;
     String eventId = dataObject['eventId'] ?? '';
     String id =
-        "${LbseRoutesConstant.learningOutcomePageModule}_${beneficiaryId}_$eventId";
+        "${LbseRoutesConstant.referralPageModule}_${beneficiaryId}_$eventId";
     FormAutoSave formAutoSave = FormAutoSave(
       id: id,
       beneficiaryId: beneficiaryId,
-      pageModule: LbseRoutesConstant.learningOutcomePageModule,
+      pageModule: LbseRoutesConstant.referralPageModule,
       nextPageModule: isSaveForm
           ? nextPageModule != ""
               ? nextPageModule
-              : LbseRoutesConstant.learningOutcomeNextPageModule
-          : LbseRoutesConstant.learningOutcomePageModule,
+              : LbseRoutesConstant.referralNextPageModule
+          : LbseRoutesConstant.referralPageModule,
       data: jsonEncode(dataObject),
     );
     await FormAutoSaveOfflineService().saveFormAutoSaveData(formAutoSave);
