@@ -165,7 +165,7 @@ class SelectionOptionContainer extends StatelessWidget {
           ),
         ),
         InputCheckedIcon(
-          showTickedIcon: _selectedOption != null,
+          showTickedIcon: _selectedOption != null && _selectedOption != '',
           color: color,
         )
       ],
