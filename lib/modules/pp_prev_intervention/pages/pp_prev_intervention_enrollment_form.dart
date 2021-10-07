@@ -225,6 +225,8 @@ class _PpPrevInterventionEnrollmentFormState
                                       enrollmentFormState.isEditableMode,
                                   hiddenFields:
                                       enrollmentFormState.hiddenFields,
+                                  hiddenInputFieldOptions: enrollmentFormState
+                                      .hiddenInputFieldOptions,
                                   hiddenSections:
                                       enrollmentFormState.hiddenSections,
                                   formSections: formSections,
