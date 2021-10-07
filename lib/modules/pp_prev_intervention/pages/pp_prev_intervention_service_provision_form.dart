@@ -224,6 +224,9 @@ class _PpPrevInterventionServiceProvisionFormState
                                           child: EntryFormContainer(
                                             hiddenFields:
                                                 serviceFormState.hiddenFields,
+                                            hiddenInputFieldOptions:
+                                                serviceFormState
+                                                    .hiddenInputFieldOptions,
                                             hiddenSections:
                                                 serviceFormState.hiddenSections,
                                             formSections: formSections,

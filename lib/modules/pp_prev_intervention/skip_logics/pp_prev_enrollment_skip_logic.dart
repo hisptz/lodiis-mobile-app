@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 class PpPrevEnrollmentSkipLogic {
   static Map hiddenFields = Map();
   static Map hiddenSections = Map();
+  static Map hiddenInputFieldOptions = Map();
 
   static Future evaluateSkipLogics(
     BuildContext context,
@@ -16,6 +17,7 @@ class PpPrevEnrollmentSkipLogic {
   ) async {
     hiddenFields.clear();
     hiddenSections.clear();
+    hiddenInputFieldOptions.clear();
     List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections);
     for (var key in dataObject.keys) {
       inputFieldIds.add('$key');
@@ -26,6 +28,17 @@ class PpPrevEnrollmentSkipLogic {
       if (inputFieldId == 'qZP982qpSPS') {
         int age = AppUtil.getAgeInYear(value);
         assignInputFieldValue(context, 'ls9hlz2tyol', age.toString());
+      } else if (inputFieldId == 'vIX4GTSCX4P') {
+        String gender = '${dataObject[inputFieldId]}';
+        Map hiddenOptions = Map();
+        hiddenOptions['F'] = true;
+        hiddenOptions['CF'] = true;
+        if (gender == 'Female') {
+          hiddenOptions['M'] = true;
+        } else if (gender == 'Male') {
+          hiddenOptions['AGYW'] = true;
+        }
+        hiddenInputFieldOptions['j5iIE2kifv4'] = hiddenOptions;
       }
     }
     for (String sectionId in hiddenSections.keys) {
@@ -41,6 +54,7 @@ class PpPrevEnrollmentSkipLogic {
     }
     resetValuesForHiddenFields(context, hiddenFields.keys);
     resetValuesForHiddenSections(context, formSections);
+    resetValuesForHiddenOptions(context);
   }
 
   static resetValuesForHiddenFields(BuildContext context, inputFieldIds) {
@@ -59,6 +73,13 @@ class PpPrevEnrollmentSkipLogic {
   ) {
     Provider.of<EnrollmentFormState>(context, listen: false)
         .setHiddenSections(hiddenSections);
+  }
+
+  static resetValuesForHiddenOptions(
+    BuildContext context,
+  ) {
+    Provider.of<EnrollmentFormState>(context, listen: false)
+        .setHiddenInputFieldOptions(hiddenInputFieldOptions);
   }
 
   static assignInputFieldValue(
