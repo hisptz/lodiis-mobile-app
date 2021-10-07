@@ -163,7 +163,8 @@ class EducationLbseLearningOutcomeHome extends StatelessWidget {
                     List<LbseLearningOutcomeEvent> lbseLearningOutcomes = events
                         .map((Events eventData) =>
                             LbseLearningOutcomeEvent().fromTeiModel(eventData))
-                        .toList();
+                        .toList()
+                      ..sort((b, a) => a.date!.compareTo(b.date!));
                     return Container(
                       child: Column(
                         children: [

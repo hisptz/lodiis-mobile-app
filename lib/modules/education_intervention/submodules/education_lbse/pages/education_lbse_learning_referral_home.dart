@@ -129,8 +129,9 @@ class EducationLbseReferralHome extends StatelessWidget {
                     List<LbseReferralEvent> lbseReferrals = events
                         .map((Events eventData) =>
                             LbseReferralEvent().fromTeiModel(eventData))
-                        .toList();
-                    int referralIndex = events.length + 1;
+                        .toList()
+                      ..sort((b, a) => a.date!.compareTo(b.date!));
+                    int referralIndex = lbseReferrals.length + 1;
                     return Container(
                       child: Column(
                         children: [
