@@ -22,7 +22,7 @@ import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_bursary/constants/bursary_routes_constant.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_bursary/education_bursary.dart';
-import 'package:kb_mobile_app/modules/education_intervention/submodules/education_bursary/pages/education_bursary_assessment_form.dart';
+import 'package:kb_mobile_app/modules/education_intervention/submodules/education_bursary/pages/education_bursary_assessment_form_page.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/constants/lbse_routes_constant.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/education_lbse.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/pages/education_lbse_enrollment_form_page.dart';
@@ -103,10 +103,9 @@ class _EducationInterventionState extends State<EducationIntervention> {
   }
 
   void onAddBursaryBeneficiary(BuildContext context) async {
-    print("onAddBursaryBeneficiary");
     String beneficiaryId = "";
     String formAutoSaveId =
-        "${BursaryRoutesConstant.enrollmentPageModule}_$beneficiaryId";
+        "${BursaryRoutesConstant.assessmentPageModule}_$beneficiaryId";
     FormAutoSave formAutoSave =
         await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
     bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
@@ -119,7 +118,7 @@ class _EducationInterventionState extends State<EducationIntervention> {
         context,
         MaterialPageRoute(
           builder: (context) {
-            return EducationBursaryAssessmentForm();
+            return EducationBursaryAssessmentFormPage();
           },
         ),
       );

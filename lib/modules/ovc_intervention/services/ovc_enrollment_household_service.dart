@@ -1,16 +1,19 @@
 import 'package:kb_mobile_app/core/offline_db/enrollment_offline/enrollment_offline_provider.dart';
+import 'package:kb_mobile_app/core/offline_db/event_offline/event_offline_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/tei_relationship_offline/tei_relationship_offline_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/tracked_entity_instance_offline/tracked_entity_instance_offline_provider.dart';
 import 'package:kb_mobile_app/core/services/organisation_unit_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/enrollment.dart';
+import 'package:kb_mobile_app/models/none_participation_beneficiary.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/organisation_unit.dart';
 import 'package:kb_mobile_app/models/ovc_household.dart';
 import 'package:kb_mobile_app/models/ovc_household_child.dart';
 import 'package:kb_mobile_app/models/tei_relationship.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/constants/ovc_enrollement_none_participation_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/constants/ovc_enrollment_consent_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/models/ovc_enrollment_household.dart';
 
@@ -126,6 +129,34 @@ class OvcEnrollmentHouseholdService {
 
   Future<int> getHouseholdCount() async {
     return await EnrollmentOfflineProvider().getEnrollmentsCount(program);
+  }
+
+  Future<int> getNoneParticipationCount() async {
+    String programId = OvcEnrollmentNoneParticipationConstant.program;
+    String programStageId = OvcEnrollmentNoneParticipationConstant.programStage;
+
+    return await EventOfflineProvider().getEventsByProgramCount(
+        programId: programId, programStageId: programStageId);
+  }
+
+  Future<List<NoneParticipationBeneficiary>>
+      getNoneParticipationBeneficiaryList(
+          {page, String searchableValue = ''}) async {
+    String programId = OvcEnrollmentNoneParticipationConstant.program;
+    String programStageId = OvcEnrollmentNoneParticipationConstant.programStage;
+
+    List<NoneParticipationBeneficiary> ovcNoneParticipants =
+        await EventOfflineProvider().getEventsByProgram(
+            programId: programId, programStageId: programStageId, page: page);
+
+    return searchableValue == ''
+        ? ovcNoneParticipants
+        : ovcNoneParticipants.where((NoneParticipationBeneficiary beneficiary) {
+            bool isBeneficiaryFound = AppUtil().searchFromString(
+                searchableString: beneficiary.searchableValue,
+                searchedValue: searchableValue);
+            return isBeneficiaryFound;
+          }).toList();
   }
 
   TrackedEntityInstance getUpdatedHouseholdWithOvcCounts(

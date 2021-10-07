@@ -16,19 +16,22 @@ import 'package:provider/provider.dart';
 import 'package:rxdart/rxdart.dart';
 
 class InterventionAppBar extends StatefulWidget {
-  const InterventionAppBar({
-    Key? key,
-    required this.activeInterventionProgram,
-    this.onClickHome,
-    this.onAddHousehold,
-    this.onOpenMoreMenu,
-    this.onAddAgywBeneficiary,
-    this.onAddNoneAgywBeneficiary,
-    this.onAddPpPrevBeneficiary,
-    this.onAddLbseBeneficiary,
-    this.onAddBursaryBeneficiary,
-    this.onAddOgacBeneficiary,
-  }) : super(key: key);
+  const InterventionAppBar(
+      {Key? key,
+      required this.activeInterventionProgram,
+      this.onClickHome,
+      this.onAddHousehold,
+      this.onOpenMoreMenu,
+      this.onAddAgywBeneficiary,
+      this.onAddNoneAgywBeneficiary,
+      this.onAddPpPrevBeneficiary,
+      this.onAddLbseBeneficiary,
+      this.onAddBursaryBeneficiary,
+      this.onAddOgacBeneficiary,
+      this.tabs = const [],
+      this.tabController,
+      this.hasTabs = false})
+      : super(key: key);
 
   final InterventionCard activeInterventionProgram;
   final VoidCallback? onAddHousehold;
@@ -40,6 +43,9 @@ class InterventionAppBar extends StatefulWidget {
   final VoidCallback? onAddOgacBeneficiary;
   final VoidCallback? onClickHome;
   final VoidCallback? onOpenMoreMenu;
+  final List<Widget> tabs;
+  final TabController? tabController;
+  final bool hasTabs;
 
   @override
   _InterventionAppBarState createState() => _InterventionAppBarState();
@@ -299,8 +305,22 @@ class _InterventionAppBarState extends State<InterventionAppBar> {
         )
       ],
       bottom: PreferredSize(
-        preferredSize: Size.fromHeight(100.0),
-        child: DataDownloadMessage(),
+        preferredSize: Size.fromHeight(80.0),
+        child: widget.hasTabs &&
+                widget.tabs.isNotEmpty &&
+                widget.tabController != null
+            ? TabBar(
+                isScrollable: true,
+                padding: EdgeInsets.symmetric(horizontal: 5.0),
+                controller: widget.tabController,
+                unselectedLabelColor: Colors.white.withOpacity(0.3),
+                indicatorColor: Colors.white,
+                tabs: widget.tabs
+                    .map((tab) => Tab(
+                          child: tab,
+                        ))
+                    .toList())
+            : DataDownloadMessage(),
       ),
     );
   }

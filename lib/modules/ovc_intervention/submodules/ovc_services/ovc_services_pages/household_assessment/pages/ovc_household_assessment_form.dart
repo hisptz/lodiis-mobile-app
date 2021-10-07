@@ -48,9 +48,9 @@ class _OvcHouseholdAssessmentFormState
       setState(() {
         isFormReady = true;
         evaluateSkipLogics();
+        updateHouseHoldCount();
       });
     });
-    updateHousholdcount();
   }
 
   evaluateSkipLogics() {
@@ -59,6 +59,7 @@ class _OvcHouseholdAssessmentFormState
       () async {
         Map dataObject =
             Provider.of<ServiceFormState>(context, listen: false).formState;
+
         await OvchouseHoldAssessmentSkipLogic.evaluateSkipLogics(
           context,
           formSections!,
@@ -68,7 +69,7 @@ class _OvcHouseholdAssessmentFormState
     );
   }
 
-  void updateHousholdcount() {
+  void updateHouseHoldCount() {
     int totalHouseHoldCount = 0;
     for (var attributeObject in Provider.of<OvcHouseholdCurrentSelectionState>(
             context,
@@ -191,58 +192,60 @@ class _OvcHouseholdAssessmentFormState
                               OvcHouseholdInfoTopHeader(
                                 currentOvcHousehold: currentOvcHousehold,
                               ),
-                              Container(
-                                margin: EdgeInsets.symmetric(
-                                    vertical: 16.0, horizontal: 13.0),
-                                child: !isFormReady
-                                    ? Container(
-                                        child: CircularProcessLoader(
-                                          color: Colors.blueGrey,
+                              !isFormReady
+                                  ? Container(
+                                      child: CircularProcessLoader(
+                                        color: Colors.blueGrey,
+                                      ),
+                                    )
+                                  : Column(
+                                      children: [
+                                        Container(
+                                          margin: EdgeInsets.only(
+                                            top: 10.0,
+                                            left: 13.0,
+                                            right: 13.0,
+                                          ),
+                                          child: EntryFormContainer(
+                                            hiddenSections:
+                                                serviceFormState.hiddenSections,
+                                            hiddenFields:
+                                                serviceFormState.hiddenFields,
+                                            hiddenInputFieldOptions:
+                                                serviceFormState
+                                                    .hiddenInputFieldOptions,
+                                            formSections: formSections,
+                                            // formSections: [],
+                                            mandatoryFieldObject: Map(),
+                                            dataObject:
+                                                serviceFormState.formState,
+                                            isEditableMode:
+                                                serviceFormState.isEditableMode,
+                                            onInputValueChange:
+                                                onInputValueChange,
+                                          ),
                                         ),
-                                      )
-                                    : Column(
-                                        children: [
-                                          Container(
-                                            child: EntryFormContainer(
-                                              hiddenSections: serviceFormState
-                                                  .hiddenSections,
-                                              hiddenFields:
-                                                  serviceFormState.hiddenFields,
-                                              hiddenInputFieldOptions:
-                                                  serviceFormState
-                                                      .hiddenInputFieldOptions,
-                                              formSections: formSections,
-                                              mandatoryFieldObject: Map(),
-                                              dataObject:
-                                                  serviceFormState.formState,
-                                              isEditableMode: serviceFormState
-                                                  .isEditableMode,
-                                              onInputValueChange:
-                                                  onInputValueChange,
+                                        Visibility(
+                                          visible:
+                                              serviceFormState.isEditableMode,
+                                          child: EntryFormSaveButton(
+                                            label: isSaving
+                                                ? 'Saving ...'
+                                                : currentLanguage == 'lesotho'
+                                                    ? 'Boloka'
+                                                    : 'Save',
+                                            labelColor: Colors.white,
+                                            buttonColor: Color(0xFF4B9F46),
+                                            fontSize: 15.0,
+                                            onPressButton: () => onSaveForm(
+                                              context,
+                                              serviceFormState.formState,
+                                              currentOvcHousehold,
                                             ),
                                           ),
-                                          Visibility(
-                                            visible:
-                                                serviceFormState.isEditableMode,
-                                            child: EntryFormSaveButton(
-                                              label: isSaving
-                                                  ? 'Saving ...'
-                                                  : currentLanguage == 'lesotho'
-                                                      ? 'Boloka'
-                                                      : 'Save',
-                                              labelColor: Colors.white,
-                                              buttonColor: Color(0xFF4B9F46),
-                                              fontSize: 15.0,
-                                              onPressButton: () => onSaveForm(
-                                                context,
-                                                serviceFormState.formState,
-                                                currentOvcHousehold,
-                                              ),
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                              )
+                                        )
+                                      ],
+                                    )
                             ],
                           ),
                         );

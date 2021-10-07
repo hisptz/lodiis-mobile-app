@@ -60,6 +60,15 @@ class InterventionBottomNavigationBar extends StatelessWidget {
           .where((nav) => nav.id != 'noneAgyw')
           .toList();
     }
+
+    String currentUserImplementingPartner =
+        currentUserState.currentUser!.implementingPartner!;
+    if (currentUserImplementingPartner == 'Paralegal') {
+      interventionBottomNavigations = interventionBottomNavigations
+          .where((nav) => !['enrollment', 'exit', 'records'].contains(nav.id))
+          .toList();
+    }
+
     return interventionBottomNavigations;
   }
 
@@ -123,7 +132,7 @@ class InterventionBottomNavigationBar extends StatelessWidget {
                             ),
                           ),
                           child: SizedBox(
-                            height: 70,
+                            height: 80,
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               mainAxisSize: MainAxisSize.max,

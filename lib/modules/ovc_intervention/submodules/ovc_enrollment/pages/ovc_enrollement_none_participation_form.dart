@@ -38,7 +38,6 @@ class _OvcEnrollmentNoneParticipationFormState
   final List<String> mandatoryFields =
       OvcEnrollmentNoneParticipation.getMandatoryField();
   final Map mandatoryFieldObject = Map();
-  final String eventId = AppUtil.getUid();
 
   List unFilledMandatoryFields = [];
 
@@ -63,8 +62,11 @@ class _OvcEnrollmentNoneParticipationFormState
     if (hadAllMandatoryFilled) {
       isSaving = true;
       setState(() {});
+      String eventId = dataObject['eventId'] ?? AppUtil.getUid();
       await OvcEnrollmentNoneParticipationService()
           .saveNoneParticipationForm(formSections!, dataObject, eventId);
+      Provider.of<OvcInterventionListState>(context, listen: false)
+          .onNoneParticipantAdd();
       Provider.of<OvcInterventionListState>(context, listen: false)
           .refreshOvcList();
       clearFormAutoSaveState(context);
@@ -184,6 +186,8 @@ class _OvcEnrollmentNoneParticipationFormState
                               children: [
                                 Container(
                                   child: EntryFormContainer(
+                                    isEditableMode:
+                                        enrollmentFormState.isEditableMode,
                                     formSections: formSections,
                                     mandatoryFieldObject: mandatoryFieldObject,
                                     dataObject: enrollmentFormState.formState,
@@ -192,21 +196,24 @@ class _OvcEnrollmentNoneParticipationFormState
                                         unFilledMandatoryFields,
                                   ),
                                 ),
-                                EntryFormSaveButton(
-                                  label: isSaving
-                                      ? 'Saving ...'
-                                      : currentLanguage == 'lesotho'
-                                          ? 'Boloka'
-                                          : 'Save',
-                                  labelColor: Colors.white,
-                                  buttonColor: Color(0xFF4B9F46),
-                                  fontSize: 15.0,
-                                  onPressButton: () => isSaving
-                                      ? null
-                                      : onSaveAndContinue(
-                                          context,
-                                          enrollmentFormState.formState,
-                                        ),
+                                Visibility(
+                                  visible: enrollmentFormState.isEditableMode,
+                                  child: EntryFormSaveButton(
+                                    label: isSaving
+                                        ? 'Saving ...'
+                                        : currentLanguage == 'lesotho'
+                                            ? 'Boloka'
+                                            : 'Save',
+                                    labelColor: Colors.white,
+                                    buttonColor: Color(0xFF4B9F46),
+                                    fontSize: 15.0,
+                                    onPressButton: () => isSaving
+                                        ? null
+                                        : onSaveAndContinue(
+                                            context,
+                                            enrollmentFormState.formState,
+                                          ),
+                                  ),
                                 )
                               ],
                             );
