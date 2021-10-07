@@ -29,12 +29,17 @@ class EducationLbseLearningOutcomeHome extends StatelessWidget {
 
   void updateFormState(
     BuildContext context,
+    EducationBeneficiary lbseBeneficiary,
     bool isEditableMode,
     Events? eventData,
   ) {
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
     Provider.of<ServiceFormState>(context, listen: false)
         .updateFormEditabilityState(isEditableMode: isEditableMode);
+    if (isEditableMode) {
+      Provider.of<ServiceFormState>(context, listen: false)
+          .setFormFieldState('beneficiary_grade', lbseBeneficiary.grade);
+    }
     if (eventData != null) {
       Provider.of<ServiceFormState>(context, listen: false)
           .setFormFieldState('eventDate', eventData.eventDate);
@@ -81,38 +86,40 @@ class EducationLbseLearningOutcomeHome extends StatelessWidget {
     if (shouldResumeWithUnSavedChanges) {
       AppResumeRoute().redirectToPages(context, formAutoSave);
     } else {
-      updateFormState(context, isEditableMode, null);
+      updateFormState(context, lbseBeneficiary, isEditableMode, null);
       redirectToLearningOutcomeForm(context, isNewLearningOutcomeForm: true);
     }
   }
 
   onViewLearningOutcome(
     BuildContext context,
+    EducationBeneficiary lbseBeneficiary,
     Events eventData,
   ) {
     bool isEditableMode = false;
-    updateFormState(context, isEditableMode, eventData);
+    updateFormState(context, lbseBeneficiary, isEditableMode, eventData);
     redirectToLearningOutcomeForm(context);
   }
 
   onEditLearningOutcome(
     BuildContext context,
-    EducationBeneficiary educationBeneficiary,
+    EducationBeneficiary lbseBeneficiary,
     Events eventData,
   ) async {
     bool isEditableMode = true;
-    String? beneficiaryId = educationBeneficiary.id;
+    String? beneficiaryId = lbseBeneficiary.id;
     String eventId = eventData.event!;
     String formAutoSaveId =
         "${LbseRoutesConstant.learningOutcomePageModule}_${beneficiaryId}_$eventId";
     FormAutoSave formAutoSave =
         await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
     bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
-        .shouldResumeWithUnSavedChanges(context, formAutoSave);
+        .shouldResumeWithUnSavedChanges(context, formAutoSave,
+            beneficiaryName: lbseBeneficiary.toString());
     if (shouldResumeWithUnSavedChanges) {
       AppResumeRoute().redirectToPages(context, formAutoSave);
     } else {
-      updateFormState(context, isEditableMode, eventData);
+      updateFormState(context, lbseBeneficiary, isEditableMode, eventData);
       redirectToLearningOutcomeForm(context);
     }
   }
@@ -202,6 +209,7 @@ class EducationLbseLearningOutcomeHome extends StatelessWidget {
                                                       onView: () =>
                                                           onViewLearningOutcome(
                                                         context,
+                                                        lbseBeneficiary,
                                                         lbseLearningOutcome
                                                             .eventData!,
                                                       ),
