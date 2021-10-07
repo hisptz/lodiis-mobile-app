@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 class EducationLbseEnrollmentSkipLogic {
   static Map hiddenFields = Map();
   static Map hiddenSections = Map();
+  static Map hiddenInputFieldOptions = Map();
 
   static Future evaluateSkipLogics(
     BuildContext context,
@@ -16,6 +17,7 @@ class EducationLbseEnrollmentSkipLogic {
   ) async {
     hiddenFields.clear();
     hiddenSections.clear();
+    hiddenInputFieldOptions.clear();
     List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections);
     for (var key in dataObject.keys) {
       inputFieldIds.add('$key');
@@ -26,6 +28,21 @@ class EducationLbseEnrollmentSkipLogic {
       if (inputFieldId == 'qZP982qpSPS') {
         int age = AppUtil.getAgeInYear(value);
         assignInputFieldValue(context, 'ls9hlz2tyol', age.toString());
+      } else if (inputFieldId == 'UhZhN6s0SNg') {
+        String schoolLevel = '${dataObject[inputFieldId]}';
+        Map hiddenOptions = Map();
+        if (schoolLevel == 'Primary') {
+          hiddenOptions["Grade 8"] = true;
+          hiddenOptions["Grade 9"] = true;
+          hiddenOptions["Grade 10"] = true;
+          hiddenOptions["Grade 11"] = true;
+        } else if (schoolLevel == 'Post primary') {
+          hiddenOptions["Grade 4"] = true;
+          hiddenOptions["Grade 5"] = true;
+          hiddenOptions["Grade 6"] = true;
+          hiddenOptions["Grade 7"] = true;
+        }
+        hiddenInputFieldOptions['BUPSEpJySPR'] = hiddenOptions;
       }
     }
     for (String sectionId in hiddenSections.keys) {
@@ -39,6 +56,7 @@ class EducationLbseEnrollmentSkipLogic {
         hiddenFields[inputFieldId] = true;
       }
     }
+    resetValuesForHiddenOptions(context);
     resetValuesForHiddenFields(context, hiddenFields.keys);
     resetValuesForHiddenSections(context, formSections);
   }
@@ -51,6 +69,13 @@ class EducationLbseEnrollmentSkipLogic {
     }
     Provider.of<EnrollmentFormState>(context, listen: false)
         .setHiddenFields(hiddenFields);
+  }
+
+  static resetValuesForHiddenOptions(
+    BuildContext context,
+  ) {
+    Provider.of<EnrollmentFormState>(context, listen: false)
+        .setHiddenInputFieldOptions(hiddenInputFieldOptions);
   }
 
   static resetValuesForHiddenSections(
