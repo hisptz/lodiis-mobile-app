@@ -10,6 +10,11 @@ class EducationLbseEnrollmentSkipLogic {
   static Map hiddenSections = Map();
   static Map hiddenInputFieldOptions = Map();
 
+  static String schoolGradeReference = "BUPSEpJySPR";
+  static String schoolLevelReference = "UhZhN6s0SNg";
+  static String dobReference = "qZP982qpSPS";
+  static String ageReference = "ls9hlz2tyol";
+
   static Future evaluateSkipLogics(
     BuildContext context,
     List<FormSection> formSections,
@@ -25,24 +30,26 @@ class EducationLbseEnrollmentSkipLogic {
     inputFieldIds = inputFieldIds.toSet().toList();
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
-      if (inputFieldId == 'qZP982qpSPS') {
+      if (inputFieldId == dobReference) {
         int age = AppUtil.getAgeInYear(value);
-        assignInputFieldValue(context, 'ls9hlz2tyol', age.toString());
-      } else if (inputFieldId == 'UhZhN6s0SNg') {
+        assignInputFieldValue(context, ageReference, age.toString());
+      } else if (inputFieldId == schoolLevelReference) {
         String schoolLevel = '${dataObject[inputFieldId]}';
-        Map hiddenOptions = Map();
+        Map hiddenGrades = Map();
         if (schoolLevel == 'Primary') {
-          hiddenOptions["Grade 8"] = true;
-          hiddenOptions["Grade 9"] = true;
-          hiddenOptions["Grade 10"] = true;
-          hiddenOptions["Grade 11"] = true;
+          hiddenGrades["Grade 8"] = true;
+          hiddenGrades["Grade 9"] = true;
+          hiddenGrades["Grade 10"] = true;
+          hiddenGrades["Grade 11"] = true;
         } else if (schoolLevel == 'Post primary') {
-          hiddenOptions["Grade 4"] = true;
-          hiddenOptions["Grade 5"] = true;
-          hiddenOptions["Grade 6"] = true;
-          hiddenOptions["Grade 7"] = true;
+          hiddenGrades["Grade 4"] = true;
+          hiddenGrades["Grade 5"] = true;
+          hiddenGrades["Grade 6"] = true;
+          hiddenGrades["Grade 7"] = true;
+        } else {
+          assignInputFieldValue(context, schoolGradeReference, null);
         }
-        hiddenInputFieldOptions['BUPSEpJySPR'] = hiddenOptions;
+        hiddenInputFieldOptions[schoolGradeReference] = hiddenGrades;
       }
     }
     for (String sectionId in hiddenSections.keys) {
