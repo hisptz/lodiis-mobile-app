@@ -23,7 +23,7 @@ import 'package:kb_mobile_app/modules/education_intervention/components/educatio
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/constants/lbse_intervention_constant.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/constants/lbse_routes_constant.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/models/education_lbse_learning_outcome_form.dart';
-import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/models/education_lbse_learning_referral_form.dart';
+import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/models/education_lbse_referral_form.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/skip_logics/education_lbse_learning_outcome_skip_logic.dart';
 import 'package:provider/provider.dart';
 

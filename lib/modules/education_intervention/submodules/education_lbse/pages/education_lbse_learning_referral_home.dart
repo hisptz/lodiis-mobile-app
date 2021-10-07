@@ -14,8 +14,10 @@ import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/education_intervention/components/education_beneficiary_top_header.dart';
+import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/components/education_lbse_referral_container.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/constants/lbse_intervention_constant.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/constants/lbse_routes_constant.dart';
+import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/models/lbse_referral_event.dart';
 import 'package:provider/provider.dart';
 
 class EducationLbseReferralHome extends StatelessWidget {
@@ -124,6 +126,10 @@ class EducationLbseReferralHome extends StatelessWidget {
                     List<Events> events = TrackedEntityInstanceUtil
                         .getAllEventListFromServiceDataStateByProgramStages(
                             eventListByProgramStage, programStageIds);
+                    List<LbseReferralEvent> lbseReferrals = events
+                        .map((Events eventData) =>
+                            LbseReferralEvent().fromTeiModel(eventData))
+                        .toList();
                     int referralIndex = events.length + 1;
                     return Container(
                       child: Column(
@@ -152,11 +158,16 @@ class EducationLbseReferralHome extends StatelessWidget {
                                                   horizontal: 13.0,
                                                 ),
                                                 child: Column(
-                                                  children: events
-                                                      .map((Events eventData) {
+                                                  children: lbseReferrals.map(
+                                                      (LbseReferralEvent
+                                                          lbseReferral) {
                                                     referralIndex--;
-                                                    return Text(
-                                                        "$eventData => $referralIndex");
+                                                    return EducationLbseReferralContainer(
+                                                      lbseReferral:
+                                                          lbseReferral,
+                                                      referralIndex:
+                                                          referralIndex,
+                                                    );
                                                   }).toList(),
                                                 ),
                                               ),
