@@ -17,38 +17,34 @@ class EducationBursaryInterventionState with ChangeNotifier {
   int _numberOfPages = 0;
   int? _nextPage = 0;
   String _searchableValue = '';
-
-  PagingController? _pagingController;
+  PagingController? _bursaryPagingController;
 
   EducationBursaryInterventionState(this.context);
+
   bool get isLoading => _isLoading ?? false;
-
   int get numberOfEducationBursary => _numberOfEducationBursary;
-
   int get numberOfPages => _numberOfPages;
-
-  PagingController? get pagingController => _pagingController;
+  PagingController? get pagingController => _bursaryPagingController;
 
   void initializePagination() {
-    _pagingController =
+    _bursaryPagingController =
         PagingController<int, EducationBeneficiary>(firstPageKey: 0);
-
     PaginationService.initializePagination(
         mounted: true,
-        pagingController: _pagingController,
-        fetchPage: _fetchPage);
+        pagingController: _bursaryPagingController,
+        fetchPage: _fetchBursaryPage);
   }
 
-  Future<void> _fetchPage(int pageKey) async {
+  Future<void> _fetchBursaryPage(int pageKey) async {
     String searchableValue = _searchableValue;
     List bursaryList = await EducationBursaryEnrollmentService()
         .getBeneficiaries(page: pageKey, searchableValue: searchableValue);
     if (bursaryList.isEmpty && pageKey < numberOfPages) {
-      _fetchPage(pageKey + 1);
+      _fetchBursaryPage(pageKey + 1);
     } else {
       getNumberOfPages();
       PaginationService.assignPagesToController(
-        _pagingController,
+        _bursaryPagingController,
         bursaryList,
         pageKey,
         numberOfPages,
@@ -56,21 +52,22 @@ class EducationBursaryInterventionState with ChangeNotifier {
     }
   }
 
-  Future<void> getBeneficiaryNumber() async {
+  Future<void> _getBursaryBeneficiaryNumber() async {
     _numberOfEducationBursary =
         await EducationBursaryEnrollmentService().getBeneficiariesCount();
+    notifyListeners();
   }
 
-  Future<void> searchEducationBursaryNumber() async {
+  Future<void> refreshEducationBursaryNumber() async {
     _isLoading = true;
     _searchableValue = '';
     notifyListeners();
-    await getBeneficiaryNumber();
+    await _getBursaryBeneficiaryNumber();
     getNumberOfPages();
-    if (_pagingController == null) {
+    if (_bursaryPagingController == null) {
       initializePagination();
     } else {
-      _pagingController!.refresh();
+      _bursaryPagingController!.refresh();
     }
     _isLoading = false;
     notifyListeners();
@@ -79,50 +76,39 @@ class EducationBursaryInterventionState with ChangeNotifier {
   }
 
   void searchEducationBursaryList(String value) {
+    _searchableValue = value;
+    notifyListeners();
     if (_educationBursaryInterventionList.isEmpty) {
       _educationBursaryInterventionList =
-          _pagingController!.itemList as List<EducationBeneficiary>? ??
+          _bursaryPagingController!.itemList as List<EducationBeneficiary>? ??
               <EducationBeneficiary>[];
-      _nextPage = _pagingController!.nextPageKey;
+      _nextPage = _bursaryPagingController!.nextPageKey;
     }
-    if (value != '') {
-      _searchableValue = value;
-      notifyListeners();
+    if (value.isNotEmpty) {
       refreshEducationBursaryList();
     } else {
-      _pagingController!.itemList = _educationBursaryInterventionList;
-      _pagingController!.nextPageKey = _nextPage;
+      _bursaryPagingController!.itemList = _educationBursaryInterventionList;
+      _bursaryPagingController!.nextPageKey = _nextPage;
       _educationBursaryInterventionList = <EducationBeneficiary>[];
       _nextPage = 0;
     }
   }
 
   void onBeneficiaryAdd() {
-    getNumberOfPages();
-    notifyListeners();
     refreshEducationBursaryList();
   }
 
-  //reducers
   Future<void> refreshEducationBursaryList() async {
-    _isLoading = true;
+    _bursaryPagingController!.refresh();
     notifyListeners();
-    await getBeneficiaryNumber();
-    getNumberOfPages();
-    if (_pagingController == null) {
-      initializePagination();
-    } else {
-      _pagingController!.refresh();
-    }
-    _isLoading = false;
-    notifyListeners();
+    Provider.of<SynchronizationStatusState>(context!, listen: false)
+        .resetSyncStatusReferences();
   }
 
   void getNumberOfPages() {
-    if (_numberOfEducationBursary != null) {
-      _numberOfPages =
-          (_numberOfEducationBursary / PaginationConstants.paginationLimit)
-              .ceil();
-    }
+    _numberOfPages =
+        (_numberOfEducationBursary / PaginationConstants.paginationLimit)
+            .ceil();
+    notifyListeners();
   }
 }

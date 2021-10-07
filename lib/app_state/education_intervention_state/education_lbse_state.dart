@@ -14,41 +14,37 @@ class EducationLbseInterventionState with ChangeNotifier {
       <EducationBeneficiary>[];
   bool? _isLoading;
   int _numberOfEducationLbse = 0;
-  int _numberOfPages = 0;
-  int? _nextPage = 0;
+  int _numberOfLbsePages = 0;
+  int? _nextLbsePage = 0;
   String _searchableValue = '';
-
-  PagingController? _pagingController;
+  PagingController? _lbsePagingController;
 
   EducationLbseInterventionState(this.context);
+
   bool get isLoading => _isLoading ?? false;
-
   int get numberOfEducationLbse => _numberOfEducationLbse;
+  int get numberOfPages => _numberOfLbsePages;
+  PagingController? get pagingController => _lbsePagingController;
 
-  int get numberOfPages => _numberOfPages;
-
-  PagingController? get pagingController => _pagingController;
-
-  void initializePagination() {
-    _pagingController =
+  void _initializePagination() {
+    _lbsePagingController =
         PagingController<int, EducationBeneficiary>(firstPageKey: 0);
-
     PaginationService.initializePagination(
         mounted: true,
-        pagingController: _pagingController,
-        fetchPage: _fetchPage);
+        pagingController: _lbsePagingController,
+        fetchPage: _fetchLbsePage);
   }
 
-  Future<void> _fetchPage(int pageKey) async {
+  Future<void> _fetchLbsePage(int pageKey) async {
     String searchableValue = _searchableValue;
     List lbseList = await EducationLbseEnrollmentService()
         .getBeneficiaries(page: pageKey, searchableValue: searchableValue);
     if (lbseList.isEmpty && pageKey < numberOfPages) {
-      _fetchPage(pageKey + 1);
+      _fetchLbsePage(pageKey + 1);
     } else {
       getNumberOfPages();
       PaginationService.assignPagesToController(
-        _pagingController,
+        _lbsePagingController,
         lbseList,
         pageKey,
         numberOfPages,
@@ -56,21 +52,22 @@ class EducationLbseInterventionState with ChangeNotifier {
     }
   }
 
-  Future<void> getBeneficiaryNumber() async {
+  Future<void> _getLbseBeneficiariesNumber() async {
     _numberOfEducationLbse =
         await EducationLbseEnrollmentService().getBeneficiariesCount();
+    notifyListeners();
   }
 
-  Future<void> searchEducationLbseNumber() async {
+  Future<void> refreshEducationLbseNumber() async {
     _isLoading = true;
     _searchableValue = '';
     notifyListeners();
-    await getBeneficiaryNumber();
+    await _getLbseBeneficiariesNumber();
     getNumberOfPages();
-    if (_pagingController == null) {
-      initializePagination();
+    if (_lbsePagingController == null) {
+      _initializePagination();
     } else {
-      _pagingController!.refresh();
+      _lbsePagingController!.refresh();
     }
     _isLoading = false;
     notifyListeners();
@@ -79,50 +76,38 @@ class EducationLbseInterventionState with ChangeNotifier {
   }
 
   void searchEducationLbseList(String value) {
+    _searchableValue = value;
+    notifyListeners();
     if (_educationLbseInterventionList.isEmpty) {
       _educationLbseInterventionList =
-          _pagingController!.itemList as List<EducationBeneficiary>? ??
+          _lbsePagingController!.itemList as List<EducationBeneficiary>? ??
               <EducationBeneficiary>[];
-      _nextPage = _pagingController!.nextPageKey;
+      _nextLbsePage = _lbsePagingController!.nextPageKey;
     }
-    if (value != '') {
-      _searchableValue = value;
-      notifyListeners();
+    if (value.isNotEmpty) {
       refreshEducationLbseList();
     } else {
-      _pagingController!.itemList = _educationLbseInterventionList;
-      _pagingController!.nextPageKey = _nextPage;
+      _lbsePagingController!.itemList = _educationLbseInterventionList;
+      _lbsePagingController!.nextPageKey = _nextLbsePage;
       _educationLbseInterventionList = <EducationBeneficiary>[];
-      _nextPage = 0;
+      _nextLbsePage = 0;
     }
   }
 
   void onBeneficiaryAdd() {
-    _numberOfEducationLbse = _numberOfEducationLbse + 1;
-    getNumberOfPages();
-    notifyListeners();
     refreshEducationLbseList();
   }
 
-  //reducers
   Future<void> refreshEducationLbseList() async {
-    _isLoading = true;
+    _lbsePagingController!.refresh();
     notifyListeners();
-    await getBeneficiaryNumber();
-    getNumberOfPages();
-    if (_pagingController == null) {
-      initializePagination();
-    } else {
-      _pagingController!.refresh();
-    }
-    _isLoading = false;
-    notifyListeners();
+    Provider.of<SynchronizationStatusState>(context!, listen: false)
+        .resetSyncStatusReferences();
   }
 
   void getNumberOfPages() {
-    if (_numberOfEducationLbse != null) {
-      _numberOfPages =
-          (_numberOfEducationLbse / PaginationConstants.paginationLimit).ceil();
-    }
+    _numberOfLbsePages =
+        (_numberOfEducationLbse / PaginationConstants.paginationLimit).ceil();
+    notifyListeners();
   }
 }
