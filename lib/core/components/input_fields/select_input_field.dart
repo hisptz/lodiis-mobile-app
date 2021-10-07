@@ -48,6 +48,13 @@ class _SelectInputFieldState extends State<SelectInputField> {
           (_hiddenInputFieldOptions[option.code] != null &&
               '${_hiddenInputFieldOptions[option.code]}' != 'true');
     }).toList();
+    List<String> validOptionCodes = _options!
+        .map((InputFieldOption option) => '${option.code}')
+        .toList()
+        .toSet()
+        .toList();
+    value =
+        value != null && validOptionCodes.indexOf(value) > -1 ? value : null;
     setState(() {
       _selectedOption = value == '' ? null : value;
     });
