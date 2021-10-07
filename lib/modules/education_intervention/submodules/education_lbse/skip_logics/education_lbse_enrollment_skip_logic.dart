@@ -8,6 +8,12 @@ import 'package:provider/provider.dart';
 class EducationLbseEnrollmentSkipLogic {
   static Map hiddenFields = Map();
   static Map hiddenSections = Map();
+  static Map hiddenInputFieldOptions = Map();
+
+  static String schoolGradeReference = "BUPSEpJySPR";
+  static String schoolLevelReference = "UhZhN6s0SNg";
+  static String dobReference = "qZP982qpSPS";
+  static String ageReference = "ls9hlz2tyol";
 
   static Future evaluateSkipLogics(
     BuildContext context,
@@ -16,6 +22,7 @@ class EducationLbseEnrollmentSkipLogic {
   ) async {
     hiddenFields.clear();
     hiddenSections.clear();
+    hiddenInputFieldOptions.clear();
     List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections);
     for (var key in dataObject.keys) {
       inputFieldIds.add('$key');
@@ -23,9 +30,26 @@ class EducationLbseEnrollmentSkipLogic {
     inputFieldIds = inputFieldIds.toSet().toList();
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
-      if (inputFieldId == 'qZP982qpSPS') {
+      if (inputFieldId == dobReference) {
         int age = AppUtil.getAgeInYear(value);
-        assignInputFieldValue(context, 'ls9hlz2tyol', age.toString());
+        assignInputFieldValue(context, ageReference, age.toString());
+      } else if (inputFieldId == schoolLevelReference) {
+        String schoolLevel = '${dataObject[inputFieldId]}';
+        Map hiddenGrades = Map();
+        if (schoolLevel == 'Primary') {
+          hiddenGrades["Grade 8"] = true;
+          hiddenGrades["Grade 9"] = true;
+          hiddenGrades["Grade 10"] = true;
+          hiddenGrades["Grade 11"] = true;
+        } else if (schoolLevel == 'Post primary') {
+          hiddenGrades["Grade 4"] = true;
+          hiddenGrades["Grade 5"] = true;
+          hiddenGrades["Grade 6"] = true;
+          hiddenGrades["Grade 7"] = true;
+        } else {
+          assignInputFieldValue(context, schoolGradeReference, null);
+        }
+        hiddenInputFieldOptions[schoolGradeReference] = hiddenGrades;
       }
     }
     for (String sectionId in hiddenSections.keys) {
@@ -39,6 +63,7 @@ class EducationLbseEnrollmentSkipLogic {
         hiddenFields[inputFieldId] = true;
       }
     }
+    resetValuesForHiddenOptions(context);
     resetValuesForHiddenFields(context, hiddenFields.keys);
     resetValuesForHiddenSections(context, formSections);
   }
@@ -51,6 +76,13 @@ class EducationLbseEnrollmentSkipLogic {
     }
     Provider.of<EnrollmentFormState>(context, listen: false)
         .setHiddenFields(hiddenFields);
+  }
+
+  static resetValuesForHiddenOptions(
+    BuildContext context,
+  ) {
+    Provider.of<EnrollmentFormState>(context, listen: false)
+        .setHiddenInputFieldOptions(hiddenInputFieldOptions);
   }
 
   static resetValuesForHiddenSections(
