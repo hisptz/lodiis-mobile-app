@@ -14,8 +14,11 @@ import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/education_intervention/components/education_beneficiary_top_header.dart';
+import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/components/education_lbse_referral_container.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/constants/lbse_intervention_constant.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/constants/lbse_routes_constant.dart';
+import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/models/lbse_referral_event.dart';
+import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/pages/education_lbse_referral_form_page.dart';
 import 'package:provider/provider.dart';
 
 class EducationLbseReferralHome extends StatelessWidget {
@@ -46,14 +49,14 @@ class EducationLbseReferralHome extends StatelessWidget {
   }
 
   void redirectToReferralForm(BuildContext context) {
-    // Navigator.push(
-    //   context,
-    //   MaterialPageRoute(
-    //     builder: (context) {
-    //       return PpPrevInterventionServiceProvisionForm();
-    //     },
-    //   ),
-    // );
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
+          return EducationLbseReferralFormPage();
+        },
+      ),
+    );
   }
 
   onViewReferral(
@@ -67,11 +70,11 @@ class EducationLbseReferralHome extends StatelessWidget {
 
   onEditReferral(
     BuildContext context,
-    EducationBeneficiary educationBeneficiary,
+    EducationBeneficiary lbseBeneficiary,
     Events eventData,
   ) async {
     bool isEditableMode = true;
-    String? beneficiaryId = educationBeneficiary.id;
+    String? beneficiaryId = lbseBeneficiary.id;
     String eventId = eventData.event!;
     String formAutoSaveId =
         "${LbseRoutesConstant.referralPageModule}_${beneficiaryId}_$eventId";
@@ -79,7 +82,7 @@ class EducationLbseReferralHome extends StatelessWidget {
         await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
     bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
         .shouldResumeWithUnSavedChanges(context, formAutoSave,
-            beneficiaryName: educationBeneficiary.toString());
+            beneficiaryName: lbseBeneficiary.toString());
     if (shouldResumeWithUnSavedChanges) {
       AppResumeRoute().redirectToPages(context, formAutoSave);
     } else {
@@ -124,7 +127,12 @@ class EducationLbseReferralHome extends StatelessWidget {
                     List<Events> events = TrackedEntityInstanceUtil
                         .getAllEventListFromServiceDataStateByProgramStages(
                             eventListByProgramStage, programStageIds);
-                    int referralIndex = events.length + 1;
+                    List<LbseReferralEvent> lbseReferrals = events
+                        .map((Events eventData) =>
+                            LbseReferralEvent().fromTeiModel(eventData))
+                        .toList()
+                      ..sort((b, a) => a.date!.compareTo(b.date!));
+                    int referralIndex = lbseReferrals.length + 1;
                     return Container(
                       child: Column(
                         children: [
@@ -152,11 +160,27 @@ class EducationLbseReferralHome extends StatelessWidget {
                                                   horizontal: 13.0,
                                                 ),
                                                 child: Column(
-                                                  children: events
-                                                      .map((Events eventData) {
+                                                  children: lbseReferrals.map(
+                                                      (LbseReferralEvent
+                                                          lbseReferral) {
                                                     referralIndex--;
-                                                    return Text(
-                                                        "$eventData => $referralIndex");
+                                                    return EducationLbseReferralContainer(
+                                                      lbseReferral:
+                                                          lbseReferral,
+                                                      referralIndex:
+                                                          referralIndex,
+                                                      onView: () =>
+                                                          onViewReferral(
+                                                              context,
+                                                              lbseReferral
+                                                                  .eventData!),
+                                                      onEdit: () =>
+                                                          onEditReferral(
+                                                              context,
+                                                              lbseBeneficiary,
+                                                              lbseReferral
+                                                                  .eventData!),
+                                                    );
                                                   }).toList(),
                                                 ),
                                               ),

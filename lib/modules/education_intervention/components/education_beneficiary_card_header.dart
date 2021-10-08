@@ -32,14 +32,16 @@ class EducationBeneficiaryCardHeader extends StatelessWidget {
   final VoidCallback? onView;
   final VoidCallback? onToggleCard;
 
-//@TODO change iconbs accordining based on gender
   @override
   Widget build(BuildContext context) {
     double iconHeight = 25;
     return Column(
       children: [
         Container(
-          margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          margin: EdgeInsets.symmetric(
+            horizontal: 10,
+            vertical: 10,
+          ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
