@@ -26,6 +26,32 @@ class EducationBursarySchoolPerfromanceSKipLogic {
     inputFieldIds = inputFieldIds.toSet().toList();
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
+      if (inputFieldId == 'Uw2Z1XNFgXI') {
+        if (value != 'true') {
+          hiddenFields['t6kN1SwgMSs'] = true;
+          hiddenFields['yYuNppDTRji'] = true;
+          hiddenFields['vci20we0Ypg'] = true;
+          hiddenFields['O8VSN74kSJx'] = true;
+          hiddenFields['na5YEZYwY0l'] = true;
+          hiddenFields['sCR0ebG3UWX'] = true;
+          hiddenFields['AGBBacBaorC'] = true;
+          hiddenFields['fZEQ0wIyB5h'] = true;
+          hiddenFields['iBanzhFYlRN'] = true;
+          hiddenFields['uEeaGfuxHyV'] = true;
+          hiddenFields['lwLEpwalIlG'] = true;
+          hiddenFields['zpykd7zvLsC'] = true;
+          hiddenFields['asG0ls9Qfp2'] = true;
+        }
+        if (value != 'false') {
+          hiddenFields['vigylZN5Wjz'] = true;
+        }
+      }
+      if (inputFieldId == 'O8VSN74kSJx' && value != 'true') {
+        hiddenFields['na5YEZYwY0l'] = true;
+      }
+      if (inputFieldId == 'lwLEpwalIlG' && value != 'true') {
+        hiddenFields['zpykd7zvLsC'] = true;
+      }
     }
 
     for (String sectionId in hiddenSections.keys) {
