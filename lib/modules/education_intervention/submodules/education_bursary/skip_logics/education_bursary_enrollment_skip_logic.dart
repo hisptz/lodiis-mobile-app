@@ -59,6 +59,54 @@ class EducationBursaryEnrollmentSkipLogic {
       if (inputFieldId == 'IVjlzXHizyT' && value != 'Other') {
         hiddenFields['rHXVmf70LCM'] = true;
       }
+      if (inputFieldId == 'RIhVna2gMyU' && value != 'true') {
+        hiddenFields['z4z7ow7yriM'] = true;
+      }
+      if (inputFieldId == 'AI5HI4sMmH9' && value != 'true') {
+        hiddenFields['BnYxw1cOirn'] = true;
+      }
+      if (inputFieldId == 'SBulXSQB2yA' && value != 'true') {
+        hiddenFields['l9thzEZzGrK'] = true;
+      }
+      if (inputFieldId == 'n60llwHJIc2' && value != 'true') {
+        hiddenFields['rzeyShjMVHO'] = true;
+      }
+      if (inputFieldId == 'eQs6QgpZFFl' && value != 'true') {
+        hiddenFields['FMLuCvm2yTI'] = true;
+      }
+      if (inputFieldId == 'X0oEMbsnbRp' && value != 'true') {
+        hiddenFields['ziBNi3VfdQU'] = true;
+      }
+      if (inputFieldId == 'e9JhEYUkO4V' && value != 'true') {
+        hiddenFields['o4Bi74oylwo'] = true;
+      }
+      if (inputFieldId == 'DZWBn9lpEVu' && value != 'true') {
+        hiddenFields['DZWBn9lpEVu'] = true;
+      }
+      if (inputFieldId == 'CM64InhpVVd' && value != 'true') {
+        hiddenFields['yKUVT2msSLT'] = true;
+      }
+      if (inputFieldId == 'vzuGxvADAQ1' && value != 'true') {
+        hiddenFields['QBxpDou3jlE'] = true;
+      }
+      if (inputFieldId == 'YTfNinzrOGA' && value != 'true') {
+        hiddenFields['pkVU7LVIO9W'] = true;
+      }
+      if (inputFieldId == 'LSJjze7HV3w' && value != 'true') {
+        hiddenFields['WoSdTNgH4Mz'] = true;
+      }
+      if (inputFieldId == 'juGeWTcD9LL' && value != 'true') {
+        hiddenFields['LtyzmIBWl7w'] = true;
+      }
+      if (inputFieldId == 'o67RKCxvNCy' && value != 'true') {
+        hiddenFields['VQbVQea2s7n'] = true;
+      }
+      if (inputFieldId == 'OeEHpwWkzgf' && value != 'true') {
+        hiddenFields['ykg7pxiVcSc'] = true;
+      }
+      if (inputFieldId == 'dUwwS3Gp7OU' && value != 'true') {
+        hiddenFields['BjIO7hTeor3'] = true;
+      }
 
       // Vulnerability Criteria
       if (inputFieldId == 'Ne8BaB6rCZX') {

@@ -17,7 +17,6 @@ class EducationBursaryAssessment {
 
   static List<FormSection> getFormSections() {
     return [
-      // TODO number the fields
       FormSection(
         id: 'geographical_info',
         name: "SECTION A: GEOGRAPHICAL INFORMATION",
