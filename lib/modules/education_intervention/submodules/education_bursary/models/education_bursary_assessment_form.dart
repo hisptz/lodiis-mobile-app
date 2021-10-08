@@ -29,7 +29,7 @@ class EducationBursaryAssessment {
             translatedName: '1 Sebaka',
             valueType: 'ORGANISATION_UNIT',
             allowedSelectedLevels: [3],
-            // filteredPrograms: [BursaryInterventionConstant.program],
+            filteredPrograms: [BursaryInterventionConstant.program],
             inputColor: Color(0xFF009688),
             labelColor: Color(0xFF737373),
           ),
@@ -186,10 +186,10 @@ class EducationBursaryAssessment {
                   code: "yK3ovFC1uGO",
                   name: "School too far",
                 ),
-                InputFieldOption(
-                  code: "h2LrMC9ep8E",
-                  name: "Other",
-                ),
+                // InputFieldOption(
+                //   code: "h2LrMC9ep8E",
+                //   name: "Other",
+                // ),
               ],
             ),
             InputField(
@@ -515,10 +515,11 @@ class EducationBursaryAssessment {
                 inputColor: Color(0xFF009688),
                 labelColor: Color(0xFF737373),
                 options: [
-                  InputFieldOption(code: "Always", name: "Always"),
-                  InputFieldOption(code: "Often", name: "Often"),
-                  InputFieldOption(code: "Sometimes", name: "Sometimes"),
-                  InputFieldOption(code: "Never", name: "Never"),
+                  InputFieldOption(
+                      code: "More than 4 times", name: "More than 4 times"),
+                  InputFieldOption(code: "3 to 4 times", name: "3 to 4 times"),
+                  InputFieldOption(code: "1 to 2 times", name: "1 to 2 times"),
+                  InputFieldOption(code: "Often 0", name: "Often 0"),
                 ]),
             InputField(
                 id: 'PyAH5nY83o3',
@@ -528,11 +529,10 @@ class EducationBursaryAssessment {
                 inputColor: Color(0xFF009688),
                 labelColor: Color(0xFF737373),
                 options: [
-                  InputFieldOption(
-                      code: "More than 4 times", name: "More than 4 times"),
-                  InputFieldOption(code: "3 to 4 times", name: "3 to 4 times"),
-                  InputFieldOption(code: "1 to 2 times", name: "1 to 2 times"),
-                  InputFieldOption(code: "Often 0", name: "Often 0"),
+                  InputFieldOption(code: "Always", name: "Always"),
+                  InputFieldOption(code: "Often", name: "Often"),
+                  InputFieldOption(code: "Sometimes", name: "Sometimes"),
+                  InputFieldOption(code: "Never", name: "Never"),
                 ]),
             InputField(
                 id: 'om8s3kpQnjI',
@@ -684,10 +684,10 @@ class EducationBursaryAssessment {
                   code: "mDJ1QUxMLsR",
                   name: "Public or shared toilet",
                 ),
-                InputFieldOption(
-                  code: "hE4PMNfJxTW",
-                  name: "Other (specify)",
-                ),
+                // InputFieldOption(
+                //   code: "hE4PMNfJxTW",
+                //   name: "Other (specify)",
+                // ),
               ],
             ),
             InputField(
