@@ -927,7 +927,7 @@ class EducationBursaryAssessment {
             ),
           ]),
       FormSection(
-        id: 'Vulnerability_criteria',
+        id: 'vulnerability_criteria',
         color: Color(0xFF009688),
         name: 'Vulnerability Criteria',
         inputFields: [

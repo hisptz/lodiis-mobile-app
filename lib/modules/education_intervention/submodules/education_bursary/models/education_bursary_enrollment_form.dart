@@ -28,7 +28,7 @@ class EducationBursaryEnrollmentForm {
             translatedName: 'Sebaka',
             valueType: 'ORGANISATION_UNIT',
             allowedSelectedLevels: [3],
-            // filteredPrograms: [BursaryInterventionConstant.program],
+            filteredPrograms: [BursaryInterventionConstant.program],
             inputColor: Color(0xFF009688),
             labelColor: Color(0xFF737373),
           ),
@@ -60,6 +60,7 @@ class EducationBursaryEnrollmentForm {
             id: 'qZP982qpSPS',
             name: 'Date of Birth',
             translatedName: 'Letsatsi la tsoalo',
+            isReadOnly: true,
             valueType: 'DATE',
             inputColor: Color(0xFF009688),
             labelColor: Color(0xFF737373),
@@ -110,7 +111,6 @@ class EducationBursaryEnrollmentForm {
             inputColor: Color(0xFF009688),
             labelColor: Color(0xFF737373),
           ),
-          // TODO Follow up on this field
           InputField(
             id: 'tbzi0t27D8l',
             name: 'Grade to be attended',

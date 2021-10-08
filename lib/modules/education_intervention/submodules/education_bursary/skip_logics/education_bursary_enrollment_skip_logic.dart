@@ -81,7 +81,7 @@ class EducationBursaryEnrollmentSkipLogic {
         hiddenFields['o4Bi74oylwo'] = true;
       }
       if (inputFieldId == 'DZWBn9lpEVu' && value != 'true') {
-        hiddenFields['DZWBn9lpEVu'] = true;
+        hiddenFields['Z0XaEgRPvkM'] = true;
       }
       if (inputFieldId == 'CM64InhpVVd' && value != 'true') {
         hiddenFields['yKUVT2msSLT'] = true;
