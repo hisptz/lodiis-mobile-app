@@ -165,9 +165,6 @@ class OvcInterventionListState with ChangeNotifier {
   }
 
   void onNoneParticipantAdd() {
-    _numberOfNoneParticipants = _numberOfNoneParticipants + 1;
-    getNumberOfPages();
-    notifyListeners();
     refreshOvcList();
   }
 

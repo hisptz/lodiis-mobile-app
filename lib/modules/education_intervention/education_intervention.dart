@@ -11,6 +11,7 @@ import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/intervention_app_bar.dart';
 import 'package:kb_mobile_app/core/components/route_page_not_found.dart';
 import 'package:kb_mobile_app/core/constants/auto_synchronization.dart';
+import 'package:kb_mobile_app/core/constants/interventions_records_page_tabs.dart';
 import 'package:kb_mobile_app/core/services/auto_synchronization_service.dart';
 import 'package:kb_mobile_app/core/services/data_quality_service.dart';
 import 'package:kb_mobile_app/core/services/device_connectivity_provider.dart';
@@ -26,6 +27,7 @@ import 'package:kb_mobile_app/modules/education_intervention/submodules/educatio
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/constants/lbse_routes_constant.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/education_lbse.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/pages/education_lbse_enrollment_form_page.dart';
+import 'package:kb_mobile_app/modules/education_intervention/submodules/education_records/education_records_page.dart';
 import 'package:provider/provider.dart';
 
 class EducationIntervention extends StatefulWidget {
@@ -35,11 +37,15 @@ class EducationIntervention extends StatefulWidget {
   _EducationInterventionState createState() => _EducationInterventionState();
 }
 
-class _EducationInterventionState extends State<EducationIntervention> {
+class _EducationInterventionState extends State<EducationIntervention>
+    with TickerProviderStateMixin {
   final bool disableSelectionOfActiveIntervention = true;
   bool isViewReady = false;
   late Timer periodicTimer;
   late StreamSubscription connectionSubscription;
+  TabController? tabController;
+  late List<Widget> tabsItems = [];
+  late List<Widget> tabsViews = [];
   int syncTimeout = AutoSynchronization.syncTimeout;
 
   @override
@@ -48,6 +54,7 @@ class _EducationInterventionState extends State<EducationIntervention> {
     Timer(Duration(seconds: 1), () {
       setState(() {
         isViewReady = true;
+        setTabsController();
       });
     });
     DataQualityService.runDataQualityCheckResolution();
@@ -65,7 +72,24 @@ class _EducationInterventionState extends State<EducationIntervention> {
   void dispose() {
     periodicTimer.cancel();
     connectionSubscription.cancel();
+    tabController!.dispose();
     super.dispose();
+  }
+
+  void setTabsController() {
+    Map<String, Widget> tabsMap = InterventionRecordsPageTabs.educationModule;
+    tabsItems = tabsMap.keys.map((String key) {
+      return Text(
+        key,
+      );
+    }).toList();
+    tabsViews = tabsMap.values.toList();
+
+    tabController = TabController(
+      length: tabsItems.length,
+      vsync: this,
+    );
+    setState(() {});
   }
 
   void onOpenMoreMenu(
@@ -134,79 +158,99 @@ class _EducationInterventionState extends State<EducationIntervention> {
         builder: (context, interventionCardState, child) {
           InterventionCard activeInterventionProgram =
               interventionCardState.currentInterventionProgram;
-          return Scaffold(
-            appBar: PreferredSize(
-              preferredSize: Size.fromHeight(90),
-              child: InterventionAppBar(
-                activeInterventionProgram: activeInterventionProgram,
-                onClickHome: onClickHome,
-                onAddLbseBeneficiary: () => onAddLbseBeneficiary(context),
-                onAddBursaryBeneficiary: () => onAddBursaryBeneficiary(context),
-                onOpenMoreMenu: () =>
-                    onOpenMoreMenu(context, activeInterventionProgram),
+          return Consumer<InterventionBottomNavigationState>(
+              builder: (context, interventionBottomNavigationState, child) {
+            InterventionBottomNavigation currentInterventionBottomNavigation =
+                interventionBottomNavigationState
+                    .getCurrentInterventionBottomNavigation(
+                        activeInterventionProgram);
+            return Scaffold(
+              appBar: PreferredSize(
+                preferredSize: Size.fromHeight(90),
+                child: InterventionAppBar(
+                  activeInterventionProgram: activeInterventionProgram,
+                  onClickHome: onClickHome,
+                  tabController: tabController,
+                  tabs: tabsItems,
+                  hasTabs: currentInterventionBottomNavigation.id == 'records',
+                  onAddLbseBeneficiary: () => onAddLbseBeneficiary(context),
+                  onAddBursaryBeneficiary: () =>
+                      onAddBursaryBeneficiary(context),
+                  onOpenMoreMenu: () =>
+                      onOpenMoreMenu(context, activeInterventionProgram),
+                ),
               ),
-            ),
-            body: Container(
-              child: Consumer<CurrentUserState>(
-                  builder: (context, currentUserState, child) {
-                bool hasAccessToDataEntry =
-                    currentUserState.canCurrentUserDoDataEntry;
-                return Container(
-                  child: !isViewReady
-                      ? Container(
-                          margin: EdgeInsets.only(
-                            top: 20.0,
-                          ),
-                          child: CircularProcessLoader(
-                            color: Colors.blueGrey,
-                          ),
-                        )
-                      : !hasAccessToDataEntry
-                          ? AccessToDataEntryWarning()
-                          : Container(
-                              child: Stack(
-                                fit: StackFit.expand,
-                                children: [
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      color:
-                                          activeInterventionProgram.background,
-                                    ),
-                                  ),
-                                  Consumer<InterventionBottomNavigationState>(
-                                    builder: (context,
-                                        interventionBottomNavigationState,
-                                        child) {
-                                      InterventionBottomNavigation
-                                          currentInterventionBottomNavigation =
-                                          interventionBottomNavigationState
-                                              .getCurrentInterventionBottomNavigation(
-                                                  activeInterventionProgram);
-                                      return Container(
-                                        child: currentInterventionBottomNavigation
-                                                    .id ==
-                                                'lbse'
-                                            ? EducationLbse()
-                                            : currentInterventionBottomNavigation
-                                                        .id ==
-                                                    'bursary'
-                                                ? EducationBursary()
-                                                : RoutePageNotFound(
-                                                    pageTitle:
-                                                        currentInterventionBottomNavigation
-                                                            .id,
-                                                  ),
-                                      );
-                                    },
-                                  ),
-                                ],
-                              ),
+              body: Container(
+                child: Consumer<CurrentUserState>(
+                    builder: (context, currentUserState, child) {
+                  bool hasAccessToDataEntry =
+                      currentUserState.canCurrentUserDoDataEntry;
+                  return Container(
+                    child: !isViewReady
+                        ? Container(
+                            margin: EdgeInsets.only(
+                              top: 20.0,
                             ),
-                );
-              }),
-            ),
-            bottomNavigationBar: InterventionBottomNavigationBarContainer(),
-          );
+                            child: CircularProcessLoader(
+                              color: Colors.blueGrey,
+                            ),
+                          )
+                        : !hasAccessToDataEntry
+                            ? AccessToDataEntryWarning()
+                            : Container(
+                                child: Stack(
+                                  fit: StackFit.expand,
+                                  children: [
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        color: activeInterventionProgram
+                                            .background,
+                                      ),
+                                    ),
+                                    Consumer<InterventionBottomNavigationState>(
+                                      builder: (context,
+                                          interventionBottomNavigationState,
+                                          child) {
+                                        InterventionBottomNavigation
+                                            currentInterventionBottomNavigation =
+                                            interventionBottomNavigationState
+                                                .getCurrentInterventionBottomNavigation(
+                                                    activeInterventionProgram);
+                                        return Container(
+                                          child: currentInterventionBottomNavigation
+                                                      .id ==
+                                                  'lbse'
+                                              ? EducationLbse()
+                                              : currentInterventionBottomNavigation
+                                                          .id ==
+                                                      'bursary'
+                                                  ? EducationBursary()
+                                                  : currentInterventionBottomNavigation
+                                                              .id ==
+                                                          'records'
+                                                      ? EducationRecordsPage(
+                                                          tabsController:
+                                                              tabController!,
+                                                          tabsVieItems:
+                                                              tabsViews,
+                                                        )
+                                                      : RoutePageNotFound(
+                                                          pageTitle:
+                                                              currentInterventionBottomNavigation
+                                                                  .id,
+                                                        ),
+                                        );
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ),
+                  );
+                }),
+              ),
+              bottomNavigationBar: InterventionBottomNavigationBarContainer(),
+            );
+          });
         },
       ),
     );
