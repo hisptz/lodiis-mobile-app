@@ -1,14 +1,19 @@
+import 'package:kb_mobile_app/core/constants/user_account_reference.dart';
 import 'package:kb_mobile_app/core/offline_db/enrollment_offline/enrollment_offline_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/tracked_entity_instance_offline/tracked_entity_instance_offline_provider.dart';
 import 'package:kb_mobile_app/core/services/organisation_unit_service.dart';
+import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
+import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/models/education_beneficiary.dart';
 import 'package:kb_mobile_app/models/enrollment.dart';
+import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/organisation_unit.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_bursary/constants/bursary_intervention_constant.dart';
+import 'package:kb_mobile_app/modules/education_intervention/submodules/education_bursary/constants/bursary_without_enrollment_criteria_constant.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_bursary/models/education_bursary_enrollment_form.dart';
 
 class EducationBursaryEnrollmentService {
@@ -86,6 +91,40 @@ class EducationBursaryEnrollmentService {
                 searchedValue: searchableValue);
             return isBeneficiaryFound;
           }).toList();
+  }
+
+  Future saveBursaryWithoutVulnerabilityCriteria(
+      List<FormSection> formSections, Map dataObject, String eventId) async {
+    List<String> inputFieldIds = FormUtil.getFormFieldIds(
+      formSections,
+    );
+    String program = BursaryWithoutEnrollmentCriteriaConstant.program;
+    String programStage = BursaryWithoutEnrollmentCriteriaConstant.programStage;
+
+    // assign implementing partner
+    if (eventId == null) {
+      inputFieldIds.add(UserAccountReference.implementingPartnerDataElement);
+      inputFieldIds.add(UserAccountReference.subImplementingPartnerDataElement);
+      CurrentUser? user = await (UserService().getCurrentUser());
+      dataObject[UserAccountReference.implementingPartnerDataElement] =
+          dataObject[UserAccountReference.implementingPartnerDataElement] ??
+              user!.implementingPartner;
+      dataObject[UserAccountReference.serviceProviderDataElement] =
+          dataObject[UserAccountReference.serviceProviderDataElement] ??
+              user!.username;
+      if (user!.subImplementingPartner != '') {
+        dataObject[UserAccountReference.subImplementingPartnerDataElement] =
+            dataObject[
+                    UserAccountReference.subImplementingPartnerDataElement] ??
+                user.subImplementingPartner;
+      }
+    }
+
+    eventId =
+        eventId == null ? dataObject['eventId'] ?? AppUtil.getUid() : eventId;
+    Events eventData = FormUtil.getEventPayload(eventId, program, programStage,
+        dataObject['location'], inputFieldIds, dataObject, null, null);
+    await FormUtil.savingEvent(eventData);
   }
 
   Future<int> getBeneficiariesCount() async {

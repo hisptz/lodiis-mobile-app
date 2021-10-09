@@ -12,14 +12,17 @@ import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.d
 import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/Intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
+import 'package:kb_mobile_app/core/constants/beneficiary_without_enrollment_criteria.dart';
 import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
+import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_bursary/constants/bursary_routes_constant.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_bursary/models/education_bursary_assessment_form.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_bursary/pages/education_bursary_enrollment_form_page.dart';
+import 'package:kb_mobile_app/modules/education_intervention/submodules/education_bursary/pages/education_bursary_without_enrollment_criteria_form_page.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_bursary/skip_logics/education_bursary_enrollment_skip_logic.dart';
 import 'package:provider/provider.dart';
 
@@ -107,11 +110,39 @@ class _EducationBursaryAssessmentFormPageState
       setState(() {
         isSaving = false;
       });
+      List<FormSection> vulnerabilityCriteriaSections = formSections!
+          .where((section) => section.id == 'vulnerability_criteria')
+          .toList();
+      List<String> vulnerabilityCriteria =
+          FormUtil.getFormFieldIds(vulnerabilityCriteriaSections);
+      bool beneficiaryMetVulnerabilityCriteria = false;
+      for (String criteria in vulnerabilityCriteria) {
+        if ('${dataObject[criteria]}' == 'true') {
+          beneficiaryMetVulnerabilityCriteria = true;
+        }
+      }
+      if (!beneficiaryMetVulnerabilityCriteria) {
+        final List<BeneficiaryWithoutEnrollmentCriteriaConstant>
+            beneficiaryWithoutEnrollmentConstants =
+            BeneficiaryWithoutEnrollmentCriteriaConstant
+                .getDreamsWithoutEnrollmentCriteriaConstants();
+        for (BeneficiaryWithoutEnrollmentCriteriaConstant beneficiaryConstant
+            in beneficiaryWithoutEnrollmentConstants) {
+          String dataElement = beneficiaryConstant.dataElement;
+          String attribute = beneficiaryConstant.attribute;
+          if (dataObject.keys.toList().indexOf(attribute) != -1) {
+            Provider.of<EnrollmentFormState>(context, listen: false)
+                .setFormFieldState(dataElement, dataObject[attribute]);
+          }
+        }
+      }
       Navigator.push(
         context,
         MaterialPageRoute(
           builder: (context) {
-            return EducationBursaryEnrollmentFormPage();
+            return beneficiaryMetVulnerabilityCriteria
+                ? EducationBursaryEnrollmentFormPage()
+                : EducationBursaryWithoutVulnerabilityCriteriaFormPage();
           },
         ),
       );
