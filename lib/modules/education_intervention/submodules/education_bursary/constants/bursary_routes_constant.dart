@@ -3,6 +3,10 @@ class BursaryRoutesConstant {
   static final String assessmentNextPageModule = "Bursary Enrollment Form";
   static final String enrollmentPageModule = "Bursary Enrollment Form";
   static final String enrollmentNextPageModule = "Bursary Enrollment Form";
+  static final String bursaryWithoutVulnerabilityCriteriaPageModule =
+      "Bursary without vulnerability criteria";
+  static final String bursaryWithoutVulnerabilityCriteriaNextPageModule =
+      "Bursary without vulnerability criteria";
   static final String enrollmentEditPageModule = "Bursary Enrollment";
   static final String enrollmentEditNextPageModule = "Bursary Enrollment";
   static final String clubsAttendancePageModule = "Clubs Attendance Form";

@@ -42,6 +42,7 @@ class EducationBursaryEnrollmentSkipLogic {
         hiddenFields['qWXojsKR6VU'] = true;
       }
       if (inputFieldId == 'OL0bjS9XQsh' && value != 'false') {
+        hiddenFields['Ze2W9vkrfrL'] = true;
         hiddenFields['why_not_schooling'] = true;
       }
       if (inputFieldId == 'Ze2W9vkrfrL' && value != 'false') {
@@ -144,7 +145,9 @@ class EducationBursaryEnrollmentSkipLogic {
       }
       if (inputFieldId == 'FbYzrCTLoHz') {
         String childUnderCareOf = '${dataObject['IVjlzXHizyT']}';
-        if (childUnderCareOf != 'Both parents') {
+        if (childUnderCareOf != 'Both parents' &&
+            childUnderCareOf != 'null' &&
+            childUnderCareOf != '') {
           assignInputFieldValue(context, inputFieldId, 'true');
         } else {
           assignInputFieldValue(context, inputFieldId, '');
