@@ -98,15 +98,21 @@ class EducationBeneficiaryCard extends StatelessWidget {
               LineSeparator(
                 color: Color(0xFF009688).withOpacity(0.1),
               ),
-              EducationBeneficiaryBottonAction(
-                isLbseLearningOutcomeVisible: isLbseLearningOutcomeVisible,
-                isLbseReferralVisible: isLbseReferralVisible,
-                isBursarySchoolVisible: isBursarySchoolVisible,
-                isBursaryClubVisible: isBursaryClubVisible,
-                onOpenLbseLearningOutcome: onOpenLbseLearningOutcome,
-                onOpenLbseReferral: onOpenLbseReferral,
-                onOpenBursarySchool: onOpenBursarySchool,
-                onOpenBursaryClub: onOpenBursaryClub,
+              Visibility(
+                visible: isBursaryClubVisible ||
+                    isBursarySchoolVisible ||
+                    isLbseLearningOutcomeVisible ||
+                    isLbseReferralVisible,
+                child: EducationBeneficiaryBottonAction(
+                  isLbseLearningOutcomeVisible: isLbseLearningOutcomeVisible,
+                  isLbseReferralVisible: isLbseReferralVisible,
+                  isBursarySchoolVisible: isBursarySchoolVisible,
+                  isBursaryClubVisible: isBursaryClubVisible,
+                  onOpenLbseLearningOutcome: onOpenLbseLearningOutcome,
+                  onOpenLbseReferral: onOpenLbseReferral,
+                  onOpenBursarySchool: onOpenBursarySchool,
+                  onOpenBursaryClub: onOpenBursaryClub,
+                ),
               )
             ],
           ),

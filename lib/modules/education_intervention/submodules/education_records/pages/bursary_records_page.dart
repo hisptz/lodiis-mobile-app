@@ -93,8 +93,8 @@ class _BursaryRecordsPageState extends State<BursaryRecordsPage> {
                   isExpanded: toggleCardId == bursaryBeneficiary.id,
                   isLbseLearningOutcomeVisible: false,
                   isLbseReferralVisible: false,
-                  isBursarySchoolVisible: true,
-                  isBursaryClubVisible: true,
+                  isBursarySchoolVisible: false,
+                  isBursaryClubVisible: false,
                   educationBeneficiary: bursaryBeneficiary,
                   onView: () => onViewBeneficiary(context, bursaryBeneficiary),
                   onCardToggle: () =>
