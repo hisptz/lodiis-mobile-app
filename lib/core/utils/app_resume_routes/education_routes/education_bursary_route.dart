@@ -6,6 +6,7 @@ import 'package:kb_mobile_app/modules/education_intervention/submodules/educatio
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_bursary/pages/education_bursary_enrollment_form_edit_page.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_bursary/pages/education_bursary_enrollment_form_page.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_bursary/pages/education_bursary_school_performance_form_page.dart';
+import 'package:kb_mobile_app/modules/education_intervention/submodules/education_bursary/pages/education_bursary_without_enrollment_criteria_form_page.dart';
 
 class EducationBursaryRoute {
   redirectToBursaryAssessment(
@@ -30,6 +31,20 @@ class EducationBursaryRoute {
       context,
       MaterialPageRoute(
         builder: (context) => EducationBursaryEnrollmentFormPage(),
+      ),
+    );
+  }
+
+  redirectToBursaryWithoutVulnerabilityCriteria(
+    BuildContext context,
+    FormAutoSave formAutoSave,
+  ) {
+    redirectToBursaryAssessment(context, formAutoSave);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) =>
+            EducationBursaryWithoutVulnerabilityCriteriaFormPage(),
       ),
     );
   }

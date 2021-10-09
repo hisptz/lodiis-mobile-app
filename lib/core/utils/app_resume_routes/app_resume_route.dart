@@ -53,6 +53,9 @@ class AppResumeRoute
         BursaryRoutesConstant.enrollmentPageModule) {
       redirectToBursaryEnrollment(context, formAutoSave);
     } else if (formAutoSave.nextPageModule ==
+        BursaryRoutesConstant.bursaryWithoutVulnerabilityCriteriaPageModule) {
+      redirectToBursaryWithoutVulnerabilityCriteria(context, formAutoSave);
+    } else if (formAutoSave.nextPageModule ==
         BursaryRoutesConstant.enrollmentEditPageModule) {
       redirectToBursaryEnrollmentEdit(context, formAutoSave);
     } else if (formAutoSave.nextPageModule ==
