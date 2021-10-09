@@ -18,6 +18,7 @@ class EducationBursaryInterventionState with ChangeNotifier {
   int? _nextPage = 0;
   String _searchableValue = '';
   PagingController? _bursaryPagingController;
+  PagingController? _bursaryWithoutVulnerabilityPagingController;
 
   EducationBursaryInterventionState(this.context);
 
@@ -25,6 +26,8 @@ class EducationBursaryInterventionState with ChangeNotifier {
   int get numberOfEducationBursary => _numberOfEducationBursary;
   int get numberOfPages => _numberOfPages;
   PagingController? get pagingController => _bursaryPagingController;
+  PagingController? get bursaryWithoutVulnerabilityPagingController =>
+      _bursaryWithoutVulnerabilityPagingController;
 
   void initializePagination() {
     _bursaryPagingController =

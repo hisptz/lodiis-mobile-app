@@ -38,9 +38,7 @@ class DreamsInterventionListState with ChangeNotifier {
   int? _beneficiariesWithoutAgywDreamsCriteriaNextPage = 0;
   String _searchableValue = '';
   bool? _isIncomingReferral = false;
-
   List<String> _teiWithIncomingReferral = [];
-
   PagingController? _agywPagingController;
   PagingController? _agywIncomingReferralPagingController;
   PagingController? _nonAgywPagingController;
@@ -50,46 +48,30 @@ class DreamsInterventionListState with ChangeNotifier {
   DreamsInterventionListState(this.context);
 
   bool get isLoading => _isLoading;
-
   int get numberOfAgywDreamsBeneficiaries => _numberOfAgywDreamsBeneficiaries;
-
   int get numberOfAgywDreamsIncomingReferralBeneficiaries =>
       _numberOfAgywDreamsIncomingReferralBeneficiaries;
-
   int get numberOfNoneAgywDreamsBeneficiaries =>
       _numberOfNoneAgywDreamsBeneficiaries;
-
   int get numberOfNoneParticipants => _numberOfNoneParticipants;
-
   int get numberOfBeneficiariesWithoutAgywDreamsCriteria =>
       _numberOfBeneficiariesWithoutAgywDreamsCriteria;
-
   int get agywNumberOfPages => _agywNumberOfPages;
-
   int get agywIncomingReferralNumberOfPages =>
       _agywIncomingReferralNumberOfPages;
-
   int get nonAgywNumberOfPages => _nonAgywNumberOfPages;
-
   int get noneParticipantsNumberOfPages => _noneParticipantsNumberOfPages;
-
   int get beneficiariesWithoutAgywDreamsCriteriaNumberOfPages =>
       _beneficiariesWithoutAgywDreamsCriteriaNumberOfPages;
-
   bool? get isIncomingReferral => _isIncomingReferral;
-
   PagingController? get agywPagingController => _agywPagingController;
-
   PagingController? get agywIncomingReferralPagingController =>
       _agywIncomingReferralPagingController;
-
   PagingController? get noneParticipantsPagingController =>
       _noneParticipantsPagingController;
-
   PagingController?
       get beneficiariesWithoutAgywDreamsCriteriaPagingController =>
           _beneficiariesWithoutAgywDreamsCriteriaPagingController;
-
   PagingController? get nonAgywPagingController => _nonAgywPagingController;
 
   void setTeiWithIncomingReferral(
@@ -242,6 +224,8 @@ class DreamsInterventionListState with ChangeNotifier {
     }
     _isLoading = false;
     notifyListeners();
+    Provider.of<SynchronizationStatusState>(context!, listen: false)
+        .resetSyncStatusReferences();
   }
 
   Future<void> getDreamsCount() async {
@@ -262,6 +246,8 @@ class DreamsInterventionListState with ChangeNotifier {
 
   // reducers
   void searchAgywDreams(String value) {
+    _searchableValue = value;
+    notifyListeners();
     if (_agywDreamsInterventionList.isEmpty) {
       _agywDreamsInterventionList =
           _agywPagingController!.itemList as List<AgywDream>? ?? <AgywDream>[];
@@ -296,8 +282,6 @@ class DreamsInterventionListState with ChangeNotifier {
           _beneficiariesWithoutAgywDreamsCriteriaPagingController!.nextPageKey;
     }
     if (value.isNotEmpty) {
-      _searchableValue = value;
-      notifyListeners();
       refreshAllDreamsLists();
     } else {
       _agywPagingController!.itemList = _agywDreamsInterventionList;
@@ -335,32 +319,18 @@ class DreamsInterventionListState with ChangeNotifier {
   }
 
   void onNonAgywBeneficiaryAdd() {
-    _numberOfNoneAgywDreamsBeneficiaries =
-        _numberOfNoneAgywDreamsBeneficiaries + 1;
-    getNumberOfPages();
-    notifyListeners();
     refreshAllDreamsLists();
   }
 
   void onAgywBeneficiaryAdd() {
-    _numberOfAgywDreamsBeneficiaries = _numberOfAgywDreamsBeneficiaries + 1;
-    getNumberOfPages();
-    notifyListeners();
     refreshAllDreamsLists();
   }
 
   void onBeneficiariesWithoutAgywDreamsCriteriaAdd() {
-    _numberOfBeneficiariesWithoutAgywDreamsCriteria =
-        _numberOfBeneficiariesWithoutAgywDreamsCriteria + 1;
-    getNumberOfPages();
-    notifyListeners();
     refreshAllDreamsLists();
   }
 
   void onAgywDreamsNoneParticipantAdd() {
-    _numberOfNoneParticipants = _numberOfNoneParticipants + 1;
-    getNumberOfPages();
-    notifyListeners();
     refreshAllDreamsLists();
   }
 
@@ -411,7 +381,6 @@ class DreamsInterventionListState with ChangeNotifier {
   }
 
   void getNumberOfPages() async {
-    await getDreamsCount();
     _agywNumberOfPages =
         (_numberOfAgywDreamsBeneficiaries / PaginationConstants.paginationLimit)
             .ceil();
