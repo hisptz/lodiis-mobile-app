@@ -166,7 +166,7 @@ class _EducationInterventionState extends State<EducationIntervention>
                         activeInterventionProgram);
             return Scaffold(
               appBar: PreferredSize(
-                preferredSize: Size.fromHeight(90),
+                preferredSize: Size.fromHeight(105),
                 child: InterventionAppBar(
                   activeInterventionProgram: activeInterventionProgram,
                   onClickHome: onClickHome,
