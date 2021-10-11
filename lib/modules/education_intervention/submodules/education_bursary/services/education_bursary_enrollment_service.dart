@@ -164,4 +164,9 @@ class EducationBursaryEnrollmentService {
     return await EnrollmentOfflineProvider()
         .getEnrollmentsCount(BursaryInterventionConstant.program);
   }
+
+  Future<Map<String, int>> getBeneficiariesCountBySex() async {
+    return await EnrollmentOfflineProvider()
+        .getEnrollmentsCountBySex(BursaryInterventionConstant.program);
+  }
 }

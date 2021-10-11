@@ -17,6 +17,7 @@ class EducationBursaryInterventionState with ChangeNotifier {
       <NoneParticipationBeneficiary>[];
   bool? _isLoading;
   int _numberOfEducationBursary = 0;
+  Map<String, int> _numberOfEducationBursaryBySex = Map();
   int _numberOfEducationBursaryWithoutVulnerability = 0;
   int _numberOfBursaryPages = 0;
   int _numberOfBursaryWithoutVulnerabilityPages = 0;
@@ -30,6 +31,8 @@ class EducationBursaryInterventionState with ChangeNotifier {
 
   bool get isLoading => _isLoading ?? false;
   int get numberOfEducationBursary => _numberOfEducationBursary;
+  String get numberOfEducationBursaryBySex =>
+      '${_numberOfEducationBursaryBySex['male'] ?? 0} Male  ${_numberOfEducationBursaryBySex['female'] ?? 0} Female';
   int get numberOfEducationBursaryWithoutVulnerability =>
       _numberOfEducationBursaryWithoutVulnerability;
   int get numberOfPages => _numberOfBursaryPages;
@@ -91,6 +94,8 @@ class EducationBursaryInterventionState with ChangeNotifier {
   }
 
   Future<void> _getBursaryBeneficiaryNumber() async {
+    _numberOfEducationBursaryBySex =
+        await EducationBursaryEnrollmentService().getBeneficiariesCountBySex();
     _numberOfEducationBursary =
         await EducationBursaryEnrollmentService().getBeneficiariesCount();
     _numberOfEducationBursaryWithoutVulnerability =
@@ -156,6 +161,7 @@ class EducationBursaryInterventionState with ChangeNotifier {
   }
 
   Future<void> refreshEducationBursaryList() async {
+    _getBursaryBeneficiaryNumber();
     _bursaryPagingController!.refresh();
     _bursaryWithoutVulnerabilityPagingController!.refresh();
     notifyListeners();

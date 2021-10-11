@@ -92,4 +92,9 @@ class EducationLbseEnrollmentService {
     return await EnrollmentOfflineProvider()
         .getEnrollmentsCount(LbseInterventionConstant.program);
   }
+
+  Future<Map<String, int>> getBeneficiariesCountBySex() async {
+    return await EnrollmentOfflineProvider()
+        .getEnrollmentsCountBySex(LbseInterventionConstant.program);
+  }
 }
