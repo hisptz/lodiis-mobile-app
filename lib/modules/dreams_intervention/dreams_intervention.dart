@@ -225,7 +225,7 @@ class _DreamsInterventionState extends State<DreamsIntervention>
                                               ? DreamsServicesPage()
                                               : currentInterventionBottomNavigation
                                                           .id ==
-                                                      'outGoingreferral'
+                                                      'outGoingReferral'
                                                   ? DreamsReferralPage()
                                                   : currentInterventionBottomNavigation
                                                               .id ==

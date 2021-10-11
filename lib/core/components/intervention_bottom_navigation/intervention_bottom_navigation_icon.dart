@@ -43,7 +43,7 @@ class InterventionBottomNavigationIcon extends StatelessWidget {
               top: 0,
               child: Visibility(
                 visible: hasIndicatorValue &&
-                    (interventionBottomNavigation.id == "outGoingreferral" ||
+                    (interventionBottomNavigation.id == "outGoingReferral" ||
                         interventionBottomNavigation.id == "incomingReferral"),
                 child: Container(
                   child: Consumer<ReferralNotificationState>(
@@ -62,7 +62,7 @@ class InterventionBottomNavigationIcon extends StatelessWidget {
                             horizontal: 5.0,
                           ),
                           color: (interventionBottomNavigation.id ==
-                                          "outGoingreferral" &&
+                                          "outGoingReferral" &&
                                       incomingReferralsResolved != "") ||
                                   (interventionBottomNavigation.id ==
                                           "incomingReferral" &&
@@ -71,7 +71,7 @@ class InterventionBottomNavigationIcon extends StatelessWidget {
                               : inactiveColor!.withOpacity(0.0),
                           child: Text(
                             interventionBottomNavigation.id ==
-                                    "outGoingreferral"
+                                    "outGoingReferral"
                                 ? incomingReferralsResolved
                                 : incomingReferralToResolve,
                             style: TextStyle().copyWith(

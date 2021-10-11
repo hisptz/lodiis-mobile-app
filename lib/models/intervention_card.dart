@@ -89,7 +89,7 @@ class InterventionCard {
         countLabelColor: Color(0xFF1C7AB2).withOpacity(0.3),
         supportedTabs: [
           "services",
-          "outGoingreferral",
+          "outGoingReferral",
           "incomingReferral",
           "enrollment",
           "noneAgyw",

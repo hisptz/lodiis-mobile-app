@@ -37,7 +37,7 @@ class InterventionBottomNavigation {
       svgIcon: 'assets/icons/referral-navigation-icon.svg',
     ),
     InterventionBottomNavigation(
-      id: 'outGoingreferral',
+      id: 'outGoingReferral',
       name: 'Outgoing Referral',
       svgIcon: 'assets/icons/out-going-referral-navigation-icon.svg',
     ),
