@@ -114,7 +114,7 @@ class _EducationBursaryWithoutVulnerabilityCriteriaFormPageState
           .saveBursaryWithoutVulnerabilityCriteria(
               formSections!, dataObject, eventId);
       Provider.of<EducationBursaryInterventionState>(context, listen: false)
-          .refreshEducationBursaryList();
+          .refreshAllEducationBursaryLists();
       clearFormAutoSaveState(context);
       Timer(Duration(seconds: 1), () {
         if (Navigator.canPop(context)) {

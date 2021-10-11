@@ -174,7 +174,7 @@ class AppBarUtil {
           .refreshEducationLbseList();
       await Provider.of<EducationBursaryInterventionState>(context,
               listen: false)
-          .refreshEducationBursaryList();
+          .refreshAllEducationBursaryLists();
     }
     Provider.of<InterventionCardState>(context, listen: false)
         .setCurrentInterventionProgramId(id);
