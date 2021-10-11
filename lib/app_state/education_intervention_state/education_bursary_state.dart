@@ -23,7 +23,8 @@ class EducationBursaryInterventionState with ChangeNotifier {
   int _numberOfBursaryWithoutVulnerabilityPages = 0;
   int? _nextBursaryPage = 0;
   int? _nextBursaryWithoutCriteriaPage = 0;
-  String _searchableValue = '';
+  String _bursarySearchableValue = '';
+  String _bursaryWithoutVulnerabilitySearchableValue = '';
   PagingController? _bursaryPagingController;
   PagingController? _bursaryWithoutVulnerabilityPagingController;
 
@@ -58,7 +59,7 @@ class EducationBursaryInterventionState with ChangeNotifier {
   }
 
   Future<void> _fetchBursaryWithoutVulnerability(int pageKey) async {
-    String searchableValue = _searchableValue;
+    String searchableValue = _bursaryWithoutVulnerabilitySearchableValue;
     List<NoneParticipationBeneficiary> beneficiaryList =
         await EducationBursaryEnrollmentService()
             .getBursaryWithoutVulnerabilityCriteria(
@@ -77,7 +78,7 @@ class EducationBursaryInterventionState with ChangeNotifier {
   }
 
   Future<void> _fetchBursaryPage(int pageKey) async {
-    String searchableValue = _searchableValue;
+    String searchableValue = _bursarySearchableValue;
     List bursaryList = await EducationBursaryEnrollmentService()
         .getBeneficiaries(page: pageKey, searchableValue: searchableValue);
     if (bursaryList.isEmpty && pageKey < numberOfPages) {
@@ -106,12 +107,13 @@ class EducationBursaryInterventionState with ChangeNotifier {
 
   Future<void> refreshEducationBursaryNumber() async {
     _isLoading = true;
-    _searchableValue = '';
+    _bursarySearchableValue = '';
+    _bursaryWithoutVulnerabilitySearchableValue = '';
     notifyListeners();
     await _getBursaryBeneficiaryNumber();
     getNumberOfPages();
     if (_bursaryPagingController == null ||
-        _bursaryWithoutVulnerabilityPagingController != null) {
+        _bursaryWithoutVulnerabilityPagingController == null) {
       initializePagination();
     } else {
       _bursaryPagingController!.refresh();
@@ -123,8 +125,30 @@ class EducationBursaryInterventionState with ChangeNotifier {
         .resetSyncStatusReferences();
   }
 
+  // For searching only the bursary
   void searchEducationBursaryList(String value) {
-    _searchableValue = value;
+    _bursarySearchableValue = value;
+    notifyListeners();
+    if (_educationBursaryInterventionList.isEmpty) {
+      _educationBursaryInterventionList =
+          _bursaryPagingController!.itemList as List<EducationBeneficiary>? ??
+              <EducationBeneficiary>[];
+      _nextBursaryPage = _bursaryPagingController!.nextPageKey;
+    }
+    if (value.isNotEmpty) {
+      // _getBursaryBeneficiaryNumber();
+      _bursaryPagingController!.refresh();
+    } else {
+      _bursaryPagingController!.itemList = _educationBursaryInterventionList;
+      _bursaryPagingController!.nextPageKey = _nextBursaryPage;
+      _educationBursaryInterventionList = <EducationBeneficiary>[];
+      _nextBursaryPage = 0;
+    }
+  }
+
+  void searchAllEducationBursaryLists(String value) {
+    _bursarySearchableValue = value;
+    _bursaryWithoutVulnerabilitySearchableValue = value;
     notifyListeners();
     if (_educationBursaryInterventionList.isEmpty) {
       _educationBursaryInterventionList =
@@ -139,7 +163,7 @@ class EducationBursaryInterventionState with ChangeNotifier {
               <NoneParticipationBeneficiary>[];
     }
     if (value.isNotEmpty) {
-      refreshEducationBursaryList();
+      refreshAllEducationBursaryLists();
     } else {
       _bursaryPagingController!.itemList = _educationBursaryInterventionList;
       _bursaryPagingController!.nextPageKey = _nextBursaryPage;
@@ -157,10 +181,10 @@ class EducationBursaryInterventionState with ChangeNotifier {
   }
 
   void onBeneficiaryAdd() {
-    refreshEducationBursaryList();
+    refreshAllEducationBursaryLists();
   }
 
-  Future<void> refreshEducationBursaryList() async {
+  Future<void> refreshAllEducationBursaryLists() async {
     _getBursaryBeneficiaryNumber();
     _bursaryPagingController!.refresh();
     _bursaryWithoutVulnerabilityPagingController!.refresh();

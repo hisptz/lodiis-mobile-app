@@ -36,6 +36,9 @@ class DreamsInterventionListState with ChangeNotifier {
   int? _nonAgywNextPage = 0;
   int? _noneParticipantsNextPage = 0;
   int? _beneficiariesWithoutAgywDreamsCriteriaNextPage = 0;
+  String _agywSearchableValue = '';
+  String _nonAgywSearchableValue = '';
+  String _incomingReferralsSearchableValue = '';
   String _searchableValue = '';
   bool? _isIncomingReferral = false;
   List<String> _teiWithIncomingReferral = [];
@@ -86,7 +89,7 @@ class DreamsInterventionListState with ChangeNotifier {
   }
 
   Future<void> _fetchAgywPage(int pageKey) async {
-    String searchableValue = _searchableValue;
+    String searchableValue = _agywSearchableValue;
     List<AgywDream> agywList = await AgywDreamsEnrollmentService()
         .getAgywBeneficiaryList(
             page: pageKey, searchableValue: searchableValue);
@@ -137,7 +140,7 @@ class DreamsInterventionListState with ChangeNotifier {
   }
 
   _fetchAgywPagePerIncomingReferral(int pageKey) async {
-    String searchableValue = _searchableValue;
+    String searchableValue = _incomingReferralsSearchableValue;
     List<AgywDream> agywList = await AgywDreamsEnrollmentService()
         .getAgywBenficiariesWithIncomingReferralList(
             page: pageKey,
@@ -156,7 +159,7 @@ class DreamsInterventionListState with ChangeNotifier {
   }
 
   Future<void> _fetchNonAgywPage(int pageKey) async {
-    String searchableValue = _searchableValue;
+    String searchableValue = _nonAgywSearchableValue;
 
     List<AgywDream> nonAgywList = await NoneAgywDreamsEnrollmentService()
         .getNonAgywBeneficiaryList(
@@ -205,7 +208,10 @@ class DreamsInterventionListState with ChangeNotifier {
 
   Future<void> refreshBeneficiariesNumber() async {
     _isLoading = true;
+    _agywSearchableValue = '';
     _searchableValue = '';
+    _nonAgywSearchableValue = '';
+    _incomingReferralsSearchableValue = '';
     notifyListeners();
     await getDreamsCount();
     getNumberOfPages();
@@ -244,15 +250,46 @@ class DreamsInterventionListState with ChangeNotifier {
     notifyListeners();
   }
 
-  // reducers
-  void searchAgywDreams(String value) {
-    _searchableValue = value;
+  void searchAgywDreamsList(String value) {
+    _agywSearchableValue = value;
     notifyListeners();
     if (_agywDreamsInterventionList.isEmpty) {
       _agywDreamsInterventionList =
           _agywPagingController!.itemList as List<AgywDream>? ?? <AgywDream>[];
       _agywNextPage = _agywPagingController!.nextPageKey;
     }
+    if (value.isNotEmpty) {
+      refreshAgywDreamsList();
+    } else {
+      _agywPagingController!.itemList = _agywDreamsInterventionList;
+      _agywPagingController!.nextPageKey = _agywNextPage;
+      _agywDreamsInterventionList = <AgywDream>[];
+      _agywNextPage = 0;
+    }
+  }
+
+  void searchNonAgywList(String value) {
+    _nonAgywSearchableValue = value;
+    notifyListeners();
+    if (_noneAgywDreamsInterventionList.isEmpty) {
+      _noneAgywDreamsInterventionList =
+          _nonAgywPagingController!.itemList as List<AgywDream>? ??
+              <AgywDream>[];
+      _nonAgywNextPage = _nonAgywPagingController!.nextPageKey;
+    }
+    if (value.isNotEmpty) {
+      refreshNonAgywDreamsList();
+    } else {
+      _nonAgywPagingController!.itemList = _noneAgywDreamsInterventionList;
+      _nonAgywPagingController!.nextPageKey = _nonAgywNextPage;
+      _noneAgywDreamsInterventionList = <AgywDream>[];
+      _nonAgywNextPage = 0;
+    }
+  }
+
+  void searchIncomingReferralList(String value) {
+    _incomingReferralsSearchableValue = value;
+    notifyListeners();
     if (_agywDreamsIncomingReferralList.isEmpty) {
       _agywDreamsIncomingReferralList =
           _agywIncomingReferralPagingController!.itemList as List<AgywDream>? ??
@@ -260,6 +297,36 @@ class DreamsInterventionListState with ChangeNotifier {
       _agywIncomingReferralNextPage =
           _agywIncomingReferralPagingController!.nextPageKey;
     }
+    if (value.isNotEmpty) {
+      refreshAgywIncomingReferralDreamsList();
+    } else {
+      _agywIncomingReferralPagingController!.itemList =
+          _agywDreamsIncomingReferralList;
+      _agywIncomingReferralPagingController!.nextPageKey =
+          _agywIncomingReferralNextPage;
+      _agywDreamsIncomingReferralList = <AgywDream>[];
+      _agywIncomingReferralNextPage = 0;
+    }
+  }
+
+  void searchAllAgywDreamsLists(String value) {
+    _agywSearchableValue = value;
+    _searchableValue = value;
+    _nonAgywSearchableValue = value;
+    _incomingReferralsSearchableValue = value;
+    notifyListeners();
+    if (_agywDreamsInterventionList.isEmpty) {
+      _agywDreamsInterventionList =
+          _agywPagingController!.itemList as List<AgywDream>? ?? <AgywDream>[];
+      _agywNextPage = _agywPagingController!.nextPageKey;
+    }
+    // if (_agywDreamsIncomingReferralList.isEmpty) {
+    //   _agywDreamsIncomingReferralList =
+    //       _agywIncomingReferralPagingController!.itemList as List<AgywDream>? ??
+    //           <AgywDream>[];
+    //   _agywIncomingReferralNextPage =
+    //       _agywIncomingReferralPagingController!.nextPageKey;
+    // }
     if (_noneAgywDreamsInterventionList.isEmpty) {
       _noneAgywDreamsInterventionList =
           _nonAgywPagingController!.itemList as List<AgywDream>? ??
@@ -289,12 +356,12 @@ class DreamsInterventionListState with ChangeNotifier {
       _agywDreamsInterventionList = <AgywDream>[];
       _agywNextPage = 0;
 
-      _agywIncomingReferralPagingController!.itemList =
-          _agywDreamsIncomingReferralList;
-      _agywIncomingReferralPagingController!.nextPageKey =
-          _agywIncomingReferralNextPage;
-      _agywDreamsIncomingReferralList = <AgywDream>[];
-      _agywIncomingReferralNextPage = 0;
+      // _agywIncomingReferralPagingController!.itemList =
+      //     _agywDreamsIncomingReferralList;
+      // _agywIncomingReferralPagingController!.nextPageKey =
+      //     _agywIncomingReferralNextPage;
+      // _agywDreamsIncomingReferralList = <AgywDream>[];
+      // _agywIncomingReferralNextPage = 0;
 
       _nonAgywPagingController!.itemList = _noneAgywDreamsInterventionList;
       _nonAgywPagingController!.nextPageKey = _nonAgywNextPage;
@@ -348,6 +415,8 @@ class DreamsInterventionListState with ChangeNotifier {
   void refreshAgywDreamsList() async {
     _agywPagingController!.refresh();
     notifyListeners();
+    Provider.of<SynchronizationStatusState>(context!, listen: false)
+        .resetSyncStatusReferences();
   }
 
   void refreshNonAgywDreamsList() async {
