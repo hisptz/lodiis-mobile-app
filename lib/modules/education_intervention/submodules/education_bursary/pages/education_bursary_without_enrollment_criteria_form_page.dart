@@ -114,7 +114,7 @@ class _EducationBursaryWithoutVulnerabilityCriteriaFormPageState
           .saveBursaryWithoutVulnerabilityCriteria(
               formSections!, dataObject, eventId);
       Provider.of<EducationBursaryInterventionState>(context, listen: false)
-          .refreshEducationBursaryList();
+          .refreshAllEducationBursaryLists();
       clearFormAutoSaveState(context);
       Timer(Duration(seconds: 1), () {
         if (Navigator.canPop(context)) {
@@ -189,6 +189,8 @@ class _EducationBursaryWithoutVulnerabilityCriteriaFormPageState
                           children: [
                             Container(
                               child: EntryFormContainer(
+                                isEditableMode:
+                                    enrollmentFormState.isEditableMode,
                                 formSections: formSections,
                                 mandatoryFieldObject: mandatoryFieldObject,
                                 dataObject: enrollmentFormState.formState,
@@ -197,21 +199,24 @@ class _EducationBursaryWithoutVulnerabilityCriteriaFormPageState
                                     unFilledMandatoryFields,
                               ),
                             ),
-                            EntryFormSaveButton(
-                              label: isSaving
-                                  ? 'Saving ...'
-                                  : currentLanguage == 'lesotho'
-                                      ? 'Boloka'
-                                      : 'Save',
-                              labelColor: Colors.white,
-                              buttonColor: Color(0xFF009688),
-                              fontSize: 15.0,
-                              onPressButton: () => isSaving
-                                  ? null
-                                  : onSave(
-                                      context,
-                                      enrollmentFormState.formState,
-                                    ),
+                            Visibility(
+                              visible: enrollmentFormState.isEditableMode,
+                              child: EntryFormSaveButton(
+                                label: isSaving
+                                    ? 'Saving ...'
+                                    : currentLanguage == 'lesotho'
+                                        ? 'Boloka'
+                                        : 'Save',
+                                labelColor: Colors.white,
+                                buttonColor: Color(0xFF009688),
+                                fontSize: 15.0,
+                                onPressButton: () => isSaving
+                                    ? null
+                                    : onSave(
+                                        context,
+                                        enrollmentFormState.formState,
+                                      ),
+                              ),
                             )
                           ],
                         ),

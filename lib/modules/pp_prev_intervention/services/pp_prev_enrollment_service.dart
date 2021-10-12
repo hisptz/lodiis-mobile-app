@@ -63,11 +63,11 @@ class PpPrevEnrollmentService {
       String? orgUnit = enrollment.orgUnit;
       String? createdDate = enrollment.enrollmentDate;
       String? enrollmentId = enrollment.enrollment;
-      List<TrackedEntityInstance> ogacBeneficiaryList =
+      List<TrackedEntityInstance> ppPrevBeneficiaryList =
           await TrackedEntityInstanceOfflineProvider()
               .getTrackedEntityInstanceByIds(
                   [enrollment.trackedEntityInstance]);
-      for (TrackedEntityInstance tei in ogacBeneficiaryList) {
+      for (TrackedEntityInstance tei in ppPrevBeneficiaryList) {
         ppPrevBeneficiaries.add(PpPrevBeneficiary().fromTeiModel(
           tei,
           orgUnit,

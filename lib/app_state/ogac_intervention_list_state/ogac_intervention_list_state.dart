@@ -89,22 +89,13 @@ class OgacInterventionListState with ChangeNotifier {
     }
   }
 
-  void onBeneficiaryAdd() {
+  void onBeneficiaryAdd() async {
+    await _getOgacBeneficiaryNumber();
     refreshOgacList();
   }
 
   //reducers
   Future<void> refreshOgacList() async {
-    _isLoading = true;
-    notifyListeners();
-    await _getOgacBeneficiaryNumber();
-    getNumberOfPages();
-    if (_ogacPagingController == null) {
-      initializePagination();
-    } else {
-      _ogacPagingController!.refresh();
-    }
-    _isLoading = false;
     _ogacPagingController!.refresh();
     notifyListeners();
     Provider.of<SynchronizationStatusState>(context!, listen: false)

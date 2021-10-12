@@ -237,7 +237,7 @@ class _EducationLbseState extends State<EducationLbse> {
       builder: (context, educationLbseInterventionState, child) {
         return SubModuleHomeContainer(
           header:
-              '$title : ${educationLbseInterventionState.numberOfEducationLbse} beneficiaries',
+              '$title : ${educationLbseInterventionState.numberOfEducationLbseBySex}',
           bodyContents: _buildBody(),
         );
       },

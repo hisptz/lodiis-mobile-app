@@ -89,7 +89,7 @@ class InterventionCard {
         countLabelColor: Color(0xFF1C7AB2).withOpacity(0.3),
         supportedTabs: [
           "services",
-          "outGoingreferral",
+          "outGoingReferral",
           "incomingReferral",
           "enrollment",
           "noneAgyw",
@@ -128,7 +128,7 @@ class InterventionCard {
         nameColor: Color(0xFF009688),
         countColor: Color(0xFF009688).withOpacity(0.8),
         countLabelColor: Color(0xFF009688).withOpacity(0.3),
-        supportedTabs: ["lbse", "bursary"],
+        supportedTabs: ["lbse", "bursary", "records"],
       ),
       InterventionCard(
         id: 'pp_prev',

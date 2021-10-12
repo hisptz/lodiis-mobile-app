@@ -265,11 +265,13 @@ class _EducationLbseReferralFormPageState
                                             labelColor: Colors.white,
                                             buttonColor: Color(0xFF009688),
                                             fontSize: 15.0,
-                                            onPressButton: () => onSaveForm(
-                                              context,
-                                              serviceFormState.formState,
-                                              lbseBeneficiary,
-                                            ),
+                                            onPressButton: () => !isSaving
+                                                ? onSaveForm(
+                                                    context,
+                                                    serviceFormState.formState,
+                                                    lbseBeneficiary,
+                                                  )
+                                                : null,
                                           ),
                                         )
                                       ],

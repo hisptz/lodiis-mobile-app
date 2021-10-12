@@ -244,10 +244,12 @@ class _EducationBursaryEnrollmentEditFormPageState
                                     labelColor: Colors.white,
                                     buttonColor: Color(0xFF009688),
                                     fontSize: 15.0,
-                                    onPressButton: () => onSave(
-                                      context,
-                                      enrollmentFormState.formState,
-                                    ),
+                                    onPressButton: () => isSaving
+                                        ? null
+                                        : onSave(
+                                            context,
+                                            enrollmentFormState.formState,
+                                          ),
                                   ),
                                 ),
                               )

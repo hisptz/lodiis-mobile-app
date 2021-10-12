@@ -251,7 +251,7 @@ class _EducationBursaryState extends State<EducationBursary> {
       builder: (context, educationBursaryInterventionState, child) {
         return SubModuleHomeContainer(
           header:
-              '$title : ${educationBursaryInterventionState.numberOfEducationBursary} beneficiaries',
+              '$title : ${educationBursaryInterventionState.numberOfEducationBursaryBySex}',
           bodyContents: _buildBody(),
         );
       },

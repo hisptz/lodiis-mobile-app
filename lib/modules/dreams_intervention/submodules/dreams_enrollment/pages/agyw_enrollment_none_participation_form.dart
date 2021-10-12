@@ -185,6 +185,8 @@ class _AgywEnrollmentNoneParticipationFormState
                               Container(
                                 child: EntryFormContainer(
                                   formSections: formSections,
+                                  isEditableMode:
+                                      enrollmentFormState.isEditableMode,
                                   mandatoryFieldObject: mandatoryFieldObject,
                                   dataObject: enrollmentFormState.formState,
                                   onInputValueChange: onInputValueChange,
@@ -192,21 +194,24 @@ class _AgywEnrollmentNoneParticipationFormState
                                       unFilledMandatoryFields,
                                 ),
                               ),
-                              EntryFormSaveButton(
-                                label: isSaving
-                                    ? 'Saving ...'
-                                    : currentLanguage == 'lesotho'
-                                        ? 'Boloka'
-                                        : 'Save',
-                                labelColor: Colors.white,
-                                buttonColor: Color(0xFF258DCC),
-                                fontSize: 15.0,
-                                onPressButton: () => isSaving
-                                    ? null
-                                    : onSaveAndContinue(
-                                        context,
-                                        enrollmentFormState.formState,
-                                      ),
+                              Visibility(
+                                visible: enrollmentFormState.isEditableMode,
+                                child: EntryFormSaveButton(
+                                  label: isSaving
+                                      ? 'Saving ...'
+                                      : currentLanguage == 'lesotho'
+                                          ? 'Boloka'
+                                          : 'Save',
+                                  labelColor: Colors.white,
+                                  buttonColor: Color(0xFF258DCC),
+                                  fontSize: 15.0,
+                                  onPressButton: () => isSaving
+                                      ? null
+                                      : onSaveAndContinue(
+                                          context,
+                                          enrollmentFormState.formState,
+                                        ),
+                                ),
                               )
                             ],
                           ),

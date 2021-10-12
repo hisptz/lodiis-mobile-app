@@ -65,14 +65,15 @@ class _InterventionAppBarState extends State<InterventionAppBar> {
   void onActivateOrDeactivateSearch(
     BuildContext context,
   ) async {
-    isSearchActive = !isSearchActive;
-    _searchedValued.add('');
-    setState(() {});
-    if (!isSearchActive) {
-      refreshBeneficiaryList(context);
-    } else {
-      onSearchBeneficiary(context);
-    }
+    setState(() {
+      isSearchActive = !isSearchActive;
+      _searchedValued.add('');
+      if (!isSearchActive) {
+        refreshBeneficiaryList(context);
+      } else {
+        onSearchBeneficiary(context);
+      }
+    });
   }
 
   String _getCurrentInterventionBottomNavigationId(
@@ -83,7 +84,7 @@ class _InterventionAppBarState extends State<InterventionAppBar> {
     return currentInterventionBottomNavigation.id!;
   }
 
-  void refreshBeneficiaryList(BuildContext context) {
+  void refreshBeneficiaryList(BuildContext context) async {
     if (widget.activeInterventionProgram.id == 'ogac') {
       Provider.of<OgacInterventionListState>(context, listen: false)
           .refreshOgacNumber();
@@ -97,9 +98,10 @@ class _InterventionAppBarState extends State<InterventionAppBar> {
       Provider.of<PpPrevInterventionState>(context, listen: false)
           .refreshPpPrevNumber();
     } else if (widget.activeInterventionProgram.id == 'education') {
-      Provider.of<EducationBursaryInterventionState>(context, listen: false)
+      await Provider.of<EducationBursaryInterventionState>(context,
+              listen: false)
           .refreshEducationBursaryNumber();
-      Provider.of<EducationLbseInterventionState>(context, listen: false)
+      await Provider.of<EducationLbseInterventionState>(context, listen: false)
           .refreshEducationLbseNumber();
     }
   }
@@ -117,25 +119,51 @@ class _InterventionAppBarState extends State<InterventionAppBar> {
       String currentInterventionBottomNavigationId =
           _getCurrentInterventionBottomNavigationId(
               context, widget.activeInterventionProgram);
-      if (widget.activeInterventionProgram.id == 'ogac') {
-        Provider.of<OgacInterventionListState>(context, listen: false)
-            .searchOgacList(searchedValue);
-      } else if (widget.activeInterventionProgram.id == 'dreams') {
-        Provider.of<DreamsInterventionListState>(context, listen: false)
-            .searchAgywDreams(searchedValue);
-      } else if (widget.activeInterventionProgram.id == 'ovc') {
-        Provider.of<OvcInterventionListState>(context, listen: false)
-            .searchHousehold(searchedValue);
-      } else if (widget.activeInterventionProgram.id == 'pp_prev') {
-        Provider.of<PpPrevInterventionState>(context, listen: false)
-            .searchPpPrevList(searchedValue);
-      } else if (widget.activeInterventionProgram.id == 'education') {
-        if (currentInterventionBottomNavigationId == "lbse") {
-          Provider.of<EducationLbseInterventionState>(context, listen: false)
-              .searchEducationLbseList(searchedValue);
-        } else if (currentInterventionBottomNavigationId == "bursary") {
-          Provider.of<EducationBursaryInterventionState>(context, listen: false)
-              .searchEducationBursaryList(searchedValue);
+      if (searchedValue.isNotEmpty) {
+        if (widget.activeInterventionProgram.id == 'ogac') {
+          Provider.of<OgacInterventionListState>(context, listen: false)
+              .searchOgacList(searchedValue);
+        } else if (widget.activeInterventionProgram.id == 'dreams') {
+          if (currentInterventionBottomNavigationId == 'records') {
+            Provider.of<DreamsInterventionListState>(context, listen: false)
+                .searchAllAgywDreamsLists(searchedValue);
+          } else if (currentInterventionBottomNavigationId ==
+              'incomingReferral') {
+            Provider.of<DreamsInterventionListState>(context, listen: false)
+                .searchIncomingReferralList(searchedValue);
+          } else if (currentInterventionBottomNavigationId == 'noneAgyw') {
+            Provider.of<DreamsInterventionListState>(context, listen: false)
+                .searchNonAgywList(searchedValue);
+          } else {
+            Provider.of<DreamsInterventionListState>(context, listen: false)
+                .searchAgywDreamsList(searchedValue);
+          }
+        } else if (widget.activeInterventionProgram.id == 'ovc') {
+          if (currentInterventionBottomNavigationId == 'records') {
+            Provider.of<OvcInterventionListState>(context, listen: false)
+                .searchAllOvcList(searchedValue);
+          } else {
+            Provider.of<OvcInterventionListState>(context, listen: false)
+                .searchHousehold(searchedValue);
+          }
+        } else if (widget.activeInterventionProgram.id == 'pp_prev') {
+          Provider.of<PpPrevInterventionState>(context, listen: false)
+              .searchPpPrevList(searchedValue);
+        } else if (widget.activeInterventionProgram.id == 'education') {
+          if (currentInterventionBottomNavigationId == 'records') {
+            Provider.of<EducationLbseInterventionState>(context, listen: false)
+                .searchEducationLbseList(searchedValue);
+            Provider.of<EducationBursaryInterventionState>(context,
+                    listen: false)
+                .searchAllEducationBursaryLists(searchedValue);
+          } else if (currentInterventionBottomNavigationId == "lbse") {
+            Provider.of<EducationLbseInterventionState>(context, listen: false)
+                .searchEducationLbseList(searchedValue);
+          } else if (currentInterventionBottomNavigationId == "bursary") {
+            Provider.of<EducationBursaryInterventionState>(context,
+                    listen: false)
+                .searchEducationBursaryList(searchedValue);
+          }
         }
       }
     });
