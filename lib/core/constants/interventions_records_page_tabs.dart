@@ -9,19 +9,31 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_records/pa
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_records/pages/ovc_none_participation_records.dart';
 
 class InterventionRecordsPageTabs {
-  static final Map<String, Widget> dreamsModule = {
-    'AGYW/DREAMS': DreamsEnrollmentRecords(),
-    'None Participation': DreamsNoneParticipationRecordsPage(),
-    'No Enrollment Criteria':
-        BeneficiariesWithoutDreamsEnrollmentCriteriaRecordsPage(),
+  InterventionRecordsPageTabs({required this.page, this.implementingPartners});
+  Widget page;
+  List<String>? implementingPartners;
+
+  static final Map<String, InterventionRecordsPageTabs> dreamsModule = {
+    'AGYW/DREAMS': InterventionRecordsPageTabs(page: DreamsEnrollmentRecords()),
+    'None Participation':
+        InterventionRecordsPageTabs(page: DreamsNoneParticipationRecordsPage()),
+    'No Enrollment Criteria': InterventionRecordsPageTabs(
+        page: BeneficiariesWithoutDreamsEnrollmentCriteriaRecordsPage(),
+        implementingPartners: []),
+    // 'Kb PrEP': InterventionRecordsPageTabs(
+    //     page: BeneficiariesWithoutDreamsEnrollmentCriteriaRecordsPage(),
+    //     implementingPartners: ['KB-AGYW/DREAMS', 'Super user'])
   };
-  static final Map<String, Widget> ovcModule = {
-    'Households': OvcEnrollmentRecords(),
-    'None Participation': OvcNoneParticipationRecords(),
+  static final Map<String, InterventionRecordsPageTabs> ovcModule = {
+    'Households': InterventionRecordsPageTabs(page: OvcEnrollmentRecords()),
+    'None Participation':
+        InterventionRecordsPageTabs(page: OvcNoneParticipationRecords()),
   };
-  static final Map<String, Widget> educationModule = {
-    'LBSE': LbseRecordsPage(),
-    'Bursary': BursaryRecordsPage(),
-    'No Vulnerability Criteria': BursaryWithoutVulnerabilityRecordsPage(),
+
+  static final Map<String, InterventionRecordsPageTabs> educationModule = {
+    'LBSE': InterventionRecordsPageTabs(page: LbseRecordsPage()),
+    'Bursary': InterventionRecordsPageTabs(page: BursaryRecordsPage()),
+    'No Vulnerability Criteria': InterventionRecordsPageTabs(
+        page: BursaryWithoutVulnerabilityRecordsPage()),
   };
 }
