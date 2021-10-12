@@ -1,5 +1,6 @@
 import 'package:kb_mobile_app/core/constants/user_account_reference.dart';
 import 'package:kb_mobile_app/core/offline_db/enrollment_offline/enrollment_offline_provider.dart';
+import 'package:kb_mobile_app/core/offline_db/event_offline/event_offline_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/tracked_entity_instance_offline/tracked_entity_instance_offline_provider.dart';
 import 'package:kb_mobile_app/core/services/organisation_unit_service.dart';
 import 'package:kb_mobile_app/core/services/user_service.dart';
@@ -10,6 +11,7 @@ import 'package:kb_mobile_app/models/education_beneficiary.dart';
 import 'package:kb_mobile_app/models/enrollment.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
+import 'package:kb_mobile_app/models/none_participation_beneficiary.dart';
 import 'package:kb_mobile_app/models/organisation_unit.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_bursary/constants/bursary_intervention_constant.dart';
@@ -93,6 +95,37 @@ class EducationBursaryEnrollmentService {
           }).toList();
   }
 
+  Future<List<NoneParticipationBeneficiary>>
+      getBursaryWithoutVulnerabilityCriteria(
+          {page, String searchableValue = ''}) async {
+    String programId = BursaryWithoutEnrollmentCriteriaConstant.program;
+    String programStageId =
+        BursaryWithoutEnrollmentCriteriaConstant.programStage;
+
+    List<NoneParticipationBeneficiary> bursaryWithoutVulnerability =
+        await EventOfflineProvider().getEventsByProgram(
+            programId: programId, programStageId: programStageId, page: page);
+
+    return searchableValue == ''
+        ? bursaryWithoutVulnerability
+        : bursaryWithoutVulnerability
+            .where((NoneParticipationBeneficiary beneficiary) {
+            bool isBeneficiaryFound = AppUtil().searchFromString(
+                searchableString: beneficiary.searchableValue,
+                searchedValue: searchableValue);
+            return isBeneficiaryFound;
+          }).toList();
+  }
+
+  Future<int> getBursaryWithoutVulnerabilityCriteriaCount() async {
+    String programId = BursaryWithoutEnrollmentCriteriaConstant.program;
+    String programStageId =
+        BursaryWithoutEnrollmentCriteriaConstant.programStage;
+
+    return await EventOfflineProvider().getEventsByProgramCount(
+        programId: programId, programStageId: programStageId);
+  }
+
   Future saveBursaryWithoutVulnerabilityCriteria(
       List<FormSection> formSections, Map dataObject, String eventId) async {
     List<String> inputFieldIds = FormUtil.getFormFieldIds(
@@ -130,5 +163,10 @@ class EducationBursaryEnrollmentService {
   Future<int> getBeneficiariesCount() async {
     return await EnrollmentOfflineProvider()
         .getEnrollmentsCount(BursaryInterventionConstant.program);
+  }
+
+  Future<Map<String, int>> getBeneficiariesCountBySex() async {
+    return await EnrollmentOfflineProvider()
+        .getEnrollmentsCountBySex(BursaryInterventionConstant.program);
   }
 }

@@ -5,6 +5,7 @@ import 'package:kb_mobile_app/app_state/synchronization_state/synchronization_st
 import 'package:kb_mobile_app/core/constants/pagination.dart';
 import 'package:kb_mobile_app/core/services/pagination_service.dart';
 import 'package:kb_mobile_app/models/education_beneficiary.dart';
+import 'package:kb_mobile_app/models/none_participation_beneficiary.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_bursary/services/education_bursary_enrollment_service.dart';
 import 'package:provider/provider.dart';
 
@@ -12,31 +13,72 @@ class EducationBursaryInterventionState with ChangeNotifier {
   final BuildContext? context;
   List<EducationBeneficiary> _educationBursaryInterventionList =
       <EducationBeneficiary>[];
+  List<NoneParticipationBeneficiary> _educationBursaryWithoutVulnerabilityLit =
+      <NoneParticipationBeneficiary>[];
   bool? _isLoading;
   int _numberOfEducationBursary = 0;
-  int _numberOfPages = 0;
-  int? _nextPage = 0;
-  String _searchableValue = '';
+  Map<String, int> _numberOfEducationBursaryBySex = Map();
+  int _numberOfEducationBursaryWithoutVulnerability = 0;
+  int _numberOfBursaryPages = 0;
+  int _numberOfBursaryWithoutVulnerabilityPages = 0;
+  int? _nextBursaryPage = 0;
+  int? _nextBursaryWithoutCriteriaPage = 0;
+  String _bursarySearchableValue = '';
+  String _bursaryWithoutVulnerabilitySearchableValue = '';
   PagingController? _bursaryPagingController;
+  PagingController? _bursaryWithoutVulnerabilityPagingController;
 
   EducationBursaryInterventionState(this.context);
 
   bool get isLoading => _isLoading ?? false;
   int get numberOfEducationBursary => _numberOfEducationBursary;
-  int get numberOfPages => _numberOfPages;
+  String get numberOfEducationBursaryBySex =>
+      '${_numberOfEducationBursaryBySex['male'] ?? 0} Male  ${_numberOfEducationBursaryBySex['female'] ?? 0} Female';
+  int get numberOfEducationBursaryWithoutVulnerability =>
+      _numberOfEducationBursaryWithoutVulnerability;
+  int get numberOfPages => _numberOfBursaryPages;
+  int get numberOfBursaryWithoutVulnerabilityPages =>
+      _numberOfBursaryWithoutVulnerabilityPages;
   PagingController? get pagingController => _bursaryPagingController;
+  PagingController? get bursaryWithoutVulnerabilityPagingController =>
+      _bursaryWithoutVulnerabilityPagingController;
 
   void initializePagination() {
     _bursaryPagingController =
         PagingController<int, EducationBeneficiary>(firstPageKey: 0);
+    _bursaryWithoutVulnerabilityPagingController =
+        PagingController<int, NoneParticipationBeneficiary>(firstPageKey: 0);
     PaginationService.initializePagination(
         mounted: true,
         pagingController: _bursaryPagingController,
         fetchPage: _fetchBursaryPage);
+    PaginationService.initializePagination(
+        mounted: true,
+        pagingController: _bursaryWithoutVulnerabilityPagingController,
+        fetchPage: _fetchBursaryWithoutVulnerability);
+  }
+
+  Future<void> _fetchBursaryWithoutVulnerability(int pageKey) async {
+    String searchableValue = _bursaryWithoutVulnerabilitySearchableValue;
+    List<NoneParticipationBeneficiary> beneficiaryList =
+        await EducationBursaryEnrollmentService()
+            .getBursaryWithoutVulnerabilityCriteria(
+                page: pageKey, searchableValue: searchableValue);
+    if (beneficiaryList.isEmpty && pageKey < numberOfPages) {
+      _fetchBursaryWithoutVulnerability(pageKey + 1);
+    } else {
+      getNumberOfPages();
+      PaginationService.assignPagesToController(
+        _bursaryWithoutVulnerabilityPagingController,
+        beneficiaryList,
+        pageKey,
+        numberOfBursaryWithoutVulnerabilityPages,
+      );
+    }
   }
 
   Future<void> _fetchBursaryPage(int pageKey) async {
-    String searchableValue = _searchableValue;
+    String searchableValue = _bursarySearchableValue;
     List bursaryList = await EducationBursaryEnrollmentService()
         .getBeneficiaries(page: pageKey, searchableValue: searchableValue);
     if (bursaryList.isEmpty && pageKey < numberOfPages) {
@@ -53,21 +95,29 @@ class EducationBursaryInterventionState with ChangeNotifier {
   }
 
   Future<void> _getBursaryBeneficiaryNumber() async {
+    _numberOfEducationBursaryBySex =
+        await EducationBursaryEnrollmentService().getBeneficiariesCountBySex();
     _numberOfEducationBursary =
         await EducationBursaryEnrollmentService().getBeneficiariesCount();
+    _numberOfEducationBursaryWithoutVulnerability =
+        await EducationBursaryEnrollmentService()
+            .getBursaryWithoutVulnerabilityCriteriaCount();
     notifyListeners();
   }
 
   Future<void> refreshEducationBursaryNumber() async {
     _isLoading = true;
-    _searchableValue = '';
+    _bursarySearchableValue = '';
+    _bursaryWithoutVulnerabilitySearchableValue = '';
     notifyListeners();
     await _getBursaryBeneficiaryNumber();
     getNumberOfPages();
-    if (_bursaryPagingController == null) {
+    if (_bursaryPagingController == null ||
+        _bursaryWithoutVulnerabilityPagingController == null) {
       initializePagination();
     } else {
       _bursaryPagingController!.refresh();
+      _bursaryWithoutVulnerabilityPagingController!.refresh();
     }
     _isLoading = false;
     notifyListeners();
@@ -75,39 +125,81 @@ class EducationBursaryInterventionState with ChangeNotifier {
         .resetSyncStatusReferences();
   }
 
+  // For searching only the bursary
   void searchEducationBursaryList(String value) {
-    _searchableValue = value;
+    _bursarySearchableValue = value;
     notifyListeners();
     if (_educationBursaryInterventionList.isEmpty) {
       _educationBursaryInterventionList =
           _bursaryPagingController!.itemList as List<EducationBeneficiary>? ??
               <EducationBeneficiary>[];
-      _nextPage = _bursaryPagingController!.nextPageKey;
+      _nextBursaryPage = _bursaryPagingController!.nextPageKey;
     }
     if (value.isNotEmpty) {
-      refreshEducationBursaryList();
+      // _getBursaryBeneficiaryNumber();
+      _bursaryPagingController!.refresh();
     } else {
       _bursaryPagingController!.itemList = _educationBursaryInterventionList;
-      _bursaryPagingController!.nextPageKey = _nextPage;
+      _bursaryPagingController!.nextPageKey = _nextBursaryPage;
       _educationBursaryInterventionList = <EducationBeneficiary>[];
-      _nextPage = 0;
+      _nextBursaryPage = 0;
+    }
+  }
+
+  void searchAllEducationBursaryLists(String value) {
+    _bursarySearchableValue = value;
+    _bursaryWithoutVulnerabilitySearchableValue = value;
+    notifyListeners();
+    if (_educationBursaryInterventionList.isEmpty) {
+      _educationBursaryInterventionList =
+          _bursaryPagingController!.itemList as List<EducationBeneficiary>? ??
+              <EducationBeneficiary>[];
+      _nextBursaryPage = _bursaryPagingController!.nextPageKey;
+    }
+    if (_educationBursaryWithoutVulnerabilityLit.isEmpty) {
+      _educationBursaryWithoutVulnerabilityLit =
+          _bursaryWithoutVulnerabilityPagingController!.itemList
+                  as List<NoneParticipationBeneficiary>? ??
+              <NoneParticipationBeneficiary>[];
+    }
+    if (value.isNotEmpty) {
+      refreshAllEducationBursaryLists();
+    } else {
+      _bursaryPagingController!.itemList = _educationBursaryInterventionList;
+      _bursaryPagingController!.nextPageKey = _nextBursaryPage;
+      _educationBursaryInterventionList = <EducationBeneficiary>[];
+      _nextBursaryPage = 0;
+
+      _bursaryWithoutVulnerabilityPagingController!.itemList =
+          _educationBursaryWithoutVulnerabilityLit;
+      _bursaryWithoutVulnerabilityPagingController!.nextPageKey =
+          _nextBursaryWithoutCriteriaPage;
+      _educationBursaryWithoutVulnerabilityLit =
+          <NoneParticipationBeneficiary>[];
+      _nextBursaryWithoutCriteriaPage = 0;
     }
   }
 
   void onBeneficiaryAdd() {
-    refreshEducationBursaryList();
+    refreshAllEducationBursaryLists();
   }
 
-  Future<void> refreshEducationBursaryList() async {
+  Future<void> refreshAllEducationBursaryLists() async {
+    _getBursaryBeneficiaryNumber();
     _bursaryPagingController!.refresh();
+    _bursaryWithoutVulnerabilityPagingController!.refresh();
     notifyListeners();
     Provider.of<SynchronizationStatusState>(context!, listen: false)
         .resetSyncStatusReferences();
   }
 
   void getNumberOfPages() {
-    _numberOfPages =
+    _numberOfBursaryPages =
         (_numberOfEducationBursary / PaginationConstants.paginationLimit)
+            .ceil();
+    _numberOfBursaryWithoutVulnerabilityPages =
+        (_numberOfEducationBursaryWithoutVulnerability /
+                PaginationConstants.paginationLimit)
             .ceil();
     notifyListeners();
   }

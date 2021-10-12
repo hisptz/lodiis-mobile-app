@@ -14,6 +14,7 @@ class EducationLbseInterventionState with ChangeNotifier {
       <EducationBeneficiary>[];
   bool? _isLoading;
   int _numberOfEducationLbse = 0;
+  Map _numberOfEducationLbseBySex = Map();
   int _numberOfLbsePages = 0;
   int? _nextLbsePage = 0;
   String _searchableValue = '';
@@ -23,6 +24,8 @@ class EducationLbseInterventionState with ChangeNotifier {
 
   bool get isLoading => _isLoading ?? false;
   int get numberOfEducationLbse => _numberOfEducationLbse;
+  String get numberOfEducationLbseBySex =>
+      '${_numberOfEducationLbseBySex['male'] ?? 0} Male  ${_numberOfEducationLbseBySex['female'] ?? 0} Female';
   int get numberOfPages => _numberOfLbsePages;
   PagingController? get pagingController => _lbsePagingController;
 
@@ -53,6 +56,8 @@ class EducationLbseInterventionState with ChangeNotifier {
   }
 
   Future<void> _getLbseBeneficiariesNumber() async {
+    _numberOfEducationLbseBySex =
+        await EducationLbseEnrollmentService().getBeneficiariesCountBySex();
     _numberOfEducationLbse =
         await EducationLbseEnrollmentService().getBeneficiariesCount();
     notifyListeners();
@@ -95,6 +100,7 @@ class EducationLbseInterventionState with ChangeNotifier {
   }
 
   void onBeneficiaryAdd() {
+    _getLbseBeneficiariesNumber();
     refreshEducationLbseList();
   }
 

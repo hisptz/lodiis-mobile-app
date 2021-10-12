@@ -229,10 +229,12 @@ class _EducationBursaryAssessmentFormPageState
                                     labelColor: Colors.white,
                                     buttonColor: Color(0xFF009688),
                                     fontSize: 15.0,
-                                    onPressButton: () => onSaveAndContinue(
-                                      context,
-                                      enrollmentFormState.formState,
-                                    ),
+                                    onPressButton: () => !isSaving
+                                        ? onSaveAndContinue(
+                                            context,
+                                            enrollmentFormState.formState,
+                                          )
+                                        : null,
                                   ),
                                 ),
                               )

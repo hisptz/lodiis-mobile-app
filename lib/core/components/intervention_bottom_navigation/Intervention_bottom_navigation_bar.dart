@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/current_user_state/current_user_state.dart';
-import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_bottom_navigation_state/intervention_bottom_navigation_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/intervention_bottom_navigation_icon.dart';
@@ -21,22 +20,6 @@ class InterventionBottomNavigationBar extends StatelessWidget {
   void onTap(BuildContext context, int index, String? id) {
     Provider.of<InterventionBottomNavigationState>(context, listen: false)
         .setCurrentInterventionBottomNavigationStatus(index, id);
-    if (activeInterventionProgram.id == 'dreams') {
-      if (id == 'incomingReferral') {
-        Provider.of<DreamsInterventionListState>(context, listen: false)
-            .setReferralStatus(isIncomingReferral: true);
-        Provider.of<DreamsInterventionListState>(context, listen: false)
-            .refreshAgywIncomingReferralDreamsList();
-      } else if (id == 'noneAgyw') {
-        Provider.of<DreamsInterventionListState>(context, listen: false)
-            .refreshNonAgywDreamsList();
-      } else {
-        Provider.of<DreamsInterventionListState>(context, listen: false)
-            .setReferralStatus(isIncomingReferral: false);
-        Provider.of<DreamsInterventionListState>(context, listen: false)
-            .refreshAgywDreamsList();
-      }
-    }
     if (Navigator.canPop(context)) {
       Navigator.popUntil(context, (route) => route.isFirst);
     }
@@ -51,7 +34,7 @@ class InterventionBottomNavigationBar extends StatelessWidget {
       interventionBottomNavigations = interventionBottomNavigations
           .where((nav) =>
               nav.id != 'referral' ||
-              nav.id != 'outGoingreferral' ||
+              nav.id != 'outGoingReferral' ||
               nav.id != 'incomingReferral')
           .toList();
     }

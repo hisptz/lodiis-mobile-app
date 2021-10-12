@@ -92,7 +92,8 @@ class PpPrevInterventionState with ChangeNotifier {
     }
   }
 
-  void onBeneficiaryAdd() {
+  void onBeneficiaryAdd() async {
+    await _getPpPrevBeneficiaryNumber();
     refreshPpPrevList();
   }
 

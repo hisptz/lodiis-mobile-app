@@ -16,9 +16,11 @@ import 'package:kb_mobile_app/core/services/auto_synchronization_service.dart';
 import 'package:kb_mobile_app/core/services/data_quality_service.dart';
 import 'package:kb_mobile_app/core/services/device_connectivity_provider.dart';
 import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
+import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/core/utils/app_bar_util.dart';
 import 'package:kb_mobile_app/core/utils/app_resume_routes/app_resume_route.dart';
 import 'package:kb_mobile_app/models/Intervention_bottom_navigation.dart';
+import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/constants/dreams_routes_constant.dart';
@@ -78,14 +80,26 @@ class _DreamsInterventionState extends State<DreamsIntervention>
     super.dispose();
   }
 
-  void setTabsController() {
-    Map<String, Widget> tabsMap = InterventionRecordsPageTabs.dreamsModule;
+  void setTabsController() async {
+    CurrentUser? user = await UserService().getCurrentUser();
+    String currentUserImplementingPartner = user!.implementingPartner ?? '';
+    Map<String, InterventionRecordsPageTabs> tabsMap =
+        InterventionRecordsPageTabs.dreamsModule;
+
+    // Filter tabs based on the current implementing partner
+    tabsMap.removeWhere((key, value) {
+      List implementingPartners = value.implementingPartners ?? [];
+      return implementingPartners.isNotEmpty &&
+          !implementingPartners.contains(currentUserImplementingPartner);
+    });
+
     tabsItems = tabsMap.keys.map((String key) {
       return Text(
         key,
       );
     }).toList();
-    tabsViews = tabsMap.values.toList();
+
+    tabsViews = tabsMap.values.map((tabView) => tabView.page).toList();
 
     tabController = TabController(
       length: tabsItems.length,
@@ -225,7 +239,7 @@ class _DreamsInterventionState extends State<DreamsIntervention>
                                               ? DreamsServicesPage()
                                               : currentInterventionBottomNavigation
                                                           .id ==
-                                                      'outGoingreferral'
+                                                      'outGoingReferral'
                                                   ? DreamsReferralPage()
                                                   : currentInterventionBottomNavigation
                                                               .id ==
