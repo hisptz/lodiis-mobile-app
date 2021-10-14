@@ -62,7 +62,8 @@ class _ConflictOnDownloadPageState extends State<ConflictOnDownloadPage> {
                     DataDownloadConflictPageHeader(),
                     Column(
                       children: conflictPage == "Service Data Conflicts"
-                          ? synchronizationState.trackedInstance1
+                          ? synchronizationState
+                              .trackedEntityInstancesWithConflicts
                               .map((trackedInstance) {
                               return Container(
                                 margin: EdgeInsets.symmetric(vertical: 5.0),
@@ -155,7 +156,7 @@ class _ConflictOnDownloadPageState extends State<ConflictOnDownloadPage> {
                                 ),
                               );
                             }).toList()
-                          : synchronizationState.events_1
+                          : synchronizationState.eventsWithConflicts
                               .map((trackedInstance) {
                               return Text("events ");
                             }).toList(),
