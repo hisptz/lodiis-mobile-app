@@ -96,6 +96,8 @@ class _EducationInterventionState extends State<EducationIntervention>
       );
     }).toList();
 
+    tabsViews = tabsMap.values.map((tabView) => tabView.page).toList();
+
     tabController = TabController(
       length: tabsItems.length,
       vsync: this,
