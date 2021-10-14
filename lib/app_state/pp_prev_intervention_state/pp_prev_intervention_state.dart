@@ -14,6 +14,7 @@ class PpPrevInterventionState with ChangeNotifier {
   bool? _isLoading;
   int _numberOfPpPrev = 0;
   int _numberOfPages = 0;
+  int _numberOfSearchablePages = 0;
   int? _nextPage = 0;
   String _searchableValue = '';
   PagingController? _ppPrevPagingController;
@@ -22,7 +23,8 @@ class PpPrevInterventionState with ChangeNotifier {
 
   bool get isLoading => _isLoading ?? false;
   int get numberOfPpPrev => _numberOfPpPrev;
-  int get numberOfPages => _numberOfPages;
+  int get numberOfPages =>
+      _searchableValue == '' ? _numberOfPages : _numberOfSearchablePages;
   PagingController? get pagingController => _ppPrevPagingController;
 
   void initializePagination() {
@@ -107,6 +109,8 @@ class PpPrevInterventionState with ChangeNotifier {
   void getNumberOfPages() {
     _numberOfPages =
         (_numberOfPpPrev / PaginationConstants.paginationLimit).ceil();
+    _numberOfSearchablePages =
+        (_numberOfPpPrev / PaginationConstants.searchingPaginationLimit).ceil();
     notifyListeners();
   }
 }

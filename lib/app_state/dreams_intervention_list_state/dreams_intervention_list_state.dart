@@ -31,6 +31,11 @@ class DreamsInterventionListState with ChangeNotifier {
   int _nonAgywNumberOfPages = 0;
   int _noneParticipantsNumberOfPages = 0;
   int _beneficiariesWithoutAgywDreamsCriteriaNumberOfPages = 0;
+  int _agywNumberOfSearchablePages = 0;
+  int _agywIncomingReferralNumberOfSearchablePages = 0;
+  int _nonAgywNumberOfSearchablePages = 0;
+  int _noneParticipantsNumberOfSearchablePages = 0;
+  int _beneficiariesWithoutAgywDreamsCriteriaNumberOfSearchablePages = 0;
   int? _agywNextPage = 0;
   int? _agywIncomingReferralNextPage = 0;
   int? _nonAgywNextPage = 0;
@@ -59,13 +64,25 @@ class DreamsInterventionListState with ChangeNotifier {
   int get numberOfNoneParticipants => _numberOfNoneParticipants;
   int get numberOfBeneficiariesWithoutAgywDreamsCriteria =>
       _numberOfBeneficiariesWithoutAgywDreamsCriteria;
-  int get agywNumberOfPages => _agywNumberOfPages;
+  int get agywNumberOfPages =>
+      _searchableValue == '' && _agywSearchableValue == ''
+          ? _agywNumberOfPages
+          : _agywNumberOfSearchablePages;
   int get agywIncomingReferralNumberOfPages =>
-      _agywIncomingReferralNumberOfPages;
-  int get nonAgywNumberOfPages => _nonAgywNumberOfPages;
-  int get noneParticipantsNumberOfPages => _noneParticipantsNumberOfPages;
+      _searchableValue == '' && _incomingReferralsSearchableValue == ''
+          ? _agywIncomingReferralNumberOfPages
+          : _agywIncomingReferralNumberOfSearchablePages;
+  int get nonAgywNumberOfPages =>
+      _searchableValue == '' && _nonAgywSearchableValue == ''
+          ? _nonAgywNumberOfPages
+          : _nonAgywNumberOfSearchablePages;
+  int get noneParticipantsNumberOfPages => _searchableValue == ''
+      ? _noneParticipantsNumberOfPages
+      : _noneParticipantsNumberOfSearchablePages;
   int get beneficiariesWithoutAgywDreamsCriteriaNumberOfPages =>
-      _beneficiariesWithoutAgywDreamsCriteriaNumberOfPages;
+      _searchableValue == ''
+          ? _beneficiariesWithoutAgywDreamsCriteriaNumberOfPages
+          : _beneficiariesWithoutAgywDreamsCriteriaNumberOfSearchablePages;
   bool? get isIncomingReferral => _isIncomingReferral;
   PagingController? get agywPagingController => _agywPagingController;
   PagingController? get agywIncomingReferralPagingController =>
@@ -320,13 +337,6 @@ class DreamsInterventionListState with ChangeNotifier {
           _agywPagingController!.itemList as List<AgywDream>? ?? <AgywDream>[];
       _agywNextPage = _agywPagingController!.nextPageKey;
     }
-    // if (_agywDreamsIncomingReferralList.isEmpty) {
-    //   _agywDreamsIncomingReferralList =
-    //       _agywIncomingReferralPagingController!.itemList as List<AgywDream>? ??
-    //           <AgywDream>[];
-    //   _agywIncomingReferralNextPage =
-    //       _agywIncomingReferralPagingController!.nextPageKey;
-    // }
     if (_noneAgywDreamsInterventionList.isEmpty) {
       _noneAgywDreamsInterventionList =
           _nonAgywPagingController!.itemList as List<AgywDream>? ??
@@ -355,13 +365,6 @@ class DreamsInterventionListState with ChangeNotifier {
       _agywPagingController!.nextPageKey = _agywNextPage;
       _agywDreamsInterventionList = <AgywDream>[];
       _agywNextPage = 0;
-
-      // _agywIncomingReferralPagingController!.itemList =
-      //     _agywDreamsIncomingReferralList;
-      // _agywIncomingReferralPagingController!.nextPageKey =
-      //     _agywIncomingReferralNextPage;
-      // _agywDreamsIncomingReferralList = <AgywDream>[];
-      // _agywIncomingReferralNextPage = 0;
 
       _nonAgywPagingController!.itemList = _noneAgywDreamsInterventionList;
       _nonAgywPagingController!.nextPageKey = _nonAgywNextPage;
@@ -453,21 +456,37 @@ class DreamsInterventionListState with ChangeNotifier {
     _agywNumberOfPages =
         (_numberOfAgywDreamsBeneficiaries / PaginationConstants.paginationLimit)
             .ceil();
+    _agywNumberOfSearchablePages = (_numberOfAgywDreamsBeneficiaries /
+            PaginationConstants.searchingPaginationLimit)
+        .ceil();
     _nonAgywNumberOfPages = (_numberOfNoneAgywDreamsBeneficiaries /
             PaginationConstants.paginationLimit)
+        .ceil();
+    _nonAgywNumberOfSearchablePages = (_numberOfNoneAgywDreamsBeneficiaries /
+            PaginationConstants.searchingPaginationLimit)
         .ceil();
     _agywIncomingReferralNumberOfPages =
         (_numberOfAgywDreamsIncomingReferralBeneficiaries /
                 PaginationConstants.paginationLimit)
             .ceil();
+    _agywIncomingReferralNumberOfSearchablePages =
+        (_numberOfAgywDreamsIncomingReferralBeneficiaries /
+                PaginationConstants.searchingPaginationLimit)
+            .ceil();
     _noneParticipantsNumberOfPages =
         (_numberOfNoneParticipants / PaginationConstants.paginationLimit)
             .ceil();
+    _noneParticipantsNumberOfSearchablePages = (_numberOfNoneParticipants /
+            PaginationConstants.searchingPaginationLimit)
+        .ceil();
     _beneficiariesWithoutAgywDreamsCriteriaNumberOfPages =
         (_numberOfBeneficiariesWithoutAgywDreamsCriteria /
                 PaginationConstants.paginationLimit)
             .ceil();
-
+    _beneficiariesWithoutAgywDreamsCriteriaNumberOfSearchablePages =
+        (_numberOfBeneficiariesWithoutAgywDreamsCriteria /
+                PaginationConstants.searchingPaginationLimit)
+            .ceil();
     notifyListeners();
   }
 }

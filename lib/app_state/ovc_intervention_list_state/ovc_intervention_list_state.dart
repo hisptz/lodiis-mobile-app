@@ -23,8 +23,10 @@ class OvcInterventionListState with ChangeNotifier {
   int _numberOfHouseholds = 0;
   int _numberOfOvcs = 0;
   int _numberOfPages = 0;
+  int _numberOfSearchablePages = 0;
   int _numberOfNoneParticipants = 0;
   int _numberOfNoneParticipantsPages = 0;
+  int _numberOfNoneParticipantsSearchablePages = 0;
   int? _nextPage = 0;
   int? _nextNoneParticipantPage = 0;
   String _ovcSearchableValue = '';
@@ -36,8 +38,11 @@ class OvcInterventionListState with ChangeNotifier {
   int get numberOfHouseholds => _numberOfHouseholds;
   int get numberOfOvcNoneParticipants => _numberOfNoneParticipants;
   int get numberOfOvcs => _numberOfOvcs;
-  int get numberOfPages => _numberOfPages;
-  int get numberOfNoneParticipantsPages => _numberOfNoneParticipantsPages;
+  int get numberOfPages =>
+      _ovcSearchableValue == '' ? _numberOfPages : _numberOfSearchablePages;
+  int get numberOfNoneParticipantsPages => _searchableValue == ''
+      ? _numberOfNoneParticipantsPages
+      : _numberOfNoneParticipantsSearchablePages;
   PagingController? get pagingController => _ovcPagingController;
   PagingController? get noneParticipationPagingController =>
       _ovcNoneParticipationPagingController;
@@ -207,8 +212,15 @@ class OvcInterventionListState with ChangeNotifier {
   void getNumberOfPages() {
     _numberOfPages =
         (numberOfHouseholds / PaginationConstants.paginationLimit).ceil();
-    _numberOfNoneParticipantsPages = _numberOfPages =
-        (numberOfHouseholds / PaginationConstants.paginationLimit).ceil();
+    _numberOfSearchablePages =
+        (numberOfHouseholds / PaginationConstants.searchingPaginationLimit)
+            .ceil();
+    _numberOfNoneParticipantsPages =
+        (numberOfOvcNoneParticipants / PaginationConstants.paginationLimit)
+            .ceil();
+    _numberOfNoneParticipantsSearchablePages = (numberOfOvcNoneParticipants /
+            PaginationConstants.searchingPaginationLimit)
+        .ceil();
     notifyListeners();
   }
 }

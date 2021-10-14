@@ -16,6 +16,7 @@ class EducationLbseInterventionState with ChangeNotifier {
   int _numberOfEducationLbse = 0;
   Map _numberOfEducationLbseBySex = Map();
   int _numberOfLbsePages = 0;
+  int _numberOfLbseSearchablePages = 0;
   int? _nextLbsePage = 0;
   String _searchableValue = '';
   PagingController? _lbsePagingController;
@@ -26,7 +27,9 @@ class EducationLbseInterventionState with ChangeNotifier {
   int get numberOfEducationLbse => _numberOfEducationLbse;
   String get numberOfEducationLbseBySex =>
       '${_numberOfEducationLbseBySex['male'] ?? 0} Male  ${_numberOfEducationLbseBySex['female'] ?? 0} Female';
-  int get numberOfPages => _numberOfLbsePages;
+  int get numberOfPages => _searchableValue == ''
+      ? _numberOfLbsePages
+      : _numberOfLbseSearchablePages;
   PagingController? get pagingController => _lbsePagingController;
 
   void _initializePagination() {
@@ -114,6 +117,9 @@ class EducationLbseInterventionState with ChangeNotifier {
   void getNumberOfPages() {
     _numberOfLbsePages =
         (_numberOfEducationLbse / PaginationConstants.paginationLimit).ceil();
+    _numberOfLbseSearchablePages =
+        (_numberOfEducationLbse / PaginationConstants.searchingPaginationLimit)
+            .ceil();
     notifyListeners();
   }
 }
