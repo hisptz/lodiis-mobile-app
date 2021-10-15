@@ -18,7 +18,21 @@ class EducationLbseReferralOutcomeSkipLogic {
     hiddenSections.clear();
     hiddenInputFieldOptions.clear();
 
-    //@TODO checking skip logics associcated
+    hiddenFields["lvT9gfpHIlT"] = true;
+    hiddenFields["Ep3atnNQGTY"] = true;
+    hiddenFields["DPf5mUDoZMy"] = true;
+    hiddenFields["LcG4J82PM4Z"] = true;
+
+    String isReferralServiceProvided = '${dataObject["hXyqgOWZ17b"]}';
+    String isFollowUpRequired = '${dataObject["Ep3atnNQGTY"]}';
+    if (isReferralServiceProvided == "true") {
+      hiddenFields["lvT9gfpHIlT"] = false;
+      hiddenFields["Ep3atnNQGTY"] = false;
+      hiddenFields["LcG4J82PM4Z"] = false;
+    }
+    if (isFollowUpRequired == "true") {
+      hiddenFields["DPf5mUDoZMy"] = false;
+    }
 
     for (String sectionId in hiddenSections.keys) {
       List<FormSection> allFormSections =
