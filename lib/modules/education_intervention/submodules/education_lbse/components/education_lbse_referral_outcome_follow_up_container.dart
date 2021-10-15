@@ -15,13 +15,13 @@ class EdcucationLbseReferralOutcomeFollowUpContainer extends StatelessWidget {
     required this.isFollowingUpNeeded,
     required this.referralOutcomeEvent,
     this.onAddOutComeFollowingUp,
-    this.editAddOutComeFollowingUp,
+    required this.editAddOutComeFollowingUp,
   }) : super(key: key);
 
   final bool isFollowingUpNeeded;
   final LbseReferralOutcomeEvent referralOutcomeEvent;
   final VoidCallback? onAddOutComeFollowingUp;
-  final Function? editAddOutComeFollowingUp;
+  final Function editAddOutComeFollowingUp;
 
   final Color color = const Color(0xFF009688);
 
@@ -128,10 +128,14 @@ class EdcucationLbseReferralOutcomeFollowUpContainer extends StatelessWidget {
                             return Container(
                               child: EducationLbseReferralOutcomeFollowUpCard(
                                 color: color,
+                                shouldEditFollowingUp: followUpIndex ==
+                                    referralOutcomeFollowUps.length,
                                 followUpIndex: followUpIndex,
                                 referralOutcomeFollowUpEvent:
                                     referralOutcomeFollowUpEvent,
-                                onAddOutComeFollowingUp: () => {},
+                                onAddOutComeFollowingUp: () =>
+                                    editAddOutComeFollowingUp(
+                                        referralOutcomeFollowUpEvent),
                               ),
                             );
                           },

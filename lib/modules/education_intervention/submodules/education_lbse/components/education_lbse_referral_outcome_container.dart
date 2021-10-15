@@ -125,7 +125,7 @@ class EducationLbseReferralOutComeContainer extends StatelessWidget {
     );
   }
 
-  void onEditOutComeFollowingUps(
+  void onEditOutComeFollowingUp(
     BuildContext context,
     LbseReferralOutcomeEvent referralOutcomeEvent,
     Events eventData,
@@ -254,23 +254,26 @@ class EducationLbseReferralOutComeContainer extends StatelessWidget {
                                                       referralOutcomeEvent),
                                             ),
                                             Container(
-                                              child: EdcucationLbseReferralOutcomeFollowUpContainer(
-                                                  referralOutcomeEvent:
-                                                      referralOutcomeEvent,
-                                                  isFollowingUpNeeded:
-                                                      referralOutcomeEvent
-                                                          .isRequireFollowUp!,
-                                                  onAddOutComeFollowingUp: () =>
-                                                      onAddOutComeFollowingUp(
-                                                          context,
-                                                          referralOutcomeEvent),
-                                                  editAddOutComeFollowingUp:
-                                                      (LbseReferralOutcomeFollowUpEvent
-                                                              referralOutcomeFollowUpEvent) =>
-                                                          {
-                                                            print(
-                                                                referralOutcomeFollowUpEvent)
-                                                          }),
+                                              child:
+                                                  EdcucationLbseReferralOutcomeFollowUpContainer(
+                                                referralOutcomeEvent:
+                                                    referralOutcomeEvent,
+                                                isFollowingUpNeeded:
+                                                    referralOutcomeEvent
+                                                        .isRequireFollowUp!,
+                                                onAddOutComeFollowingUp: () =>
+                                                    onAddOutComeFollowingUp(
+                                                        context,
+                                                        referralOutcomeEvent),
+                                                editAddOutComeFollowingUp:
+                                                    (LbseReferralOutcomeFollowUpEvent
+                                                            referralOutcomeFollowUpEvent) =>
+                                                        onEditOutComeFollowingUp(
+                                                            context,
+                                                            referralOutcomeEvent,
+                                                            referralOutcomeFollowUpEvent
+                                                                .eventData!),
+                                              ),
                                             )
                                           ],
                                         ),
