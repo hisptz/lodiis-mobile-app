@@ -169,6 +169,21 @@ class AppResumeRoute
     } else if (formAutoSave.nextPageModule ==
         OvcRoutesConstant.ovcChildVulnerabilityEditFormNextPage) {
       redirectToOvcEnrollmentChildEditViewForm(context, formAutoSave);
+    } else if (formAutoSave.nextPageModule ==
+        OvcRoutesConstant.houseHoldAssessmentFormPage) {
+      redirectToOvcHouseHoldAssessmentForm(context, formAutoSave);
+    } else if (formAutoSave.nextPageModule ==
+        OvcRoutesConstant.houseHoldCasePlanFormPage) {
+      redirectToOvcHouseHoldCasePlanForm(context, formAutoSave);
+      // } else if (formAutoSave.nextPageModule ==
+      //     OvcRoutesConstant.houseHoldServiceFormPage) {
+      //   redirectToOvcHouseHoldServiceForm(context, formAutoSave);
+      // } else if (formAutoSave.nextPageModule ==
+      //     OvcRoutesConstant.houseHoldMonitorFormPage) {
+      //   redirectToOvcHouseHoldServiceMonitoringForm(context, formAutoSave);
+    } else if (formAutoSave.nextPageModule ==
+        OvcRoutesConstant.houseHoldReferralFormPage) {
+      redirectToOvcHouseHoldReferral(context, formAutoSave);
     } else {
       print("$formAutoSave \n");
       print("Not page to redirect ${formAutoSave.nextPageModule}\n\n");

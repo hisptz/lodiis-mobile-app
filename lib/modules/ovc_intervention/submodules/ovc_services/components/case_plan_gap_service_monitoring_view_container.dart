@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_household_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
+import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
+import 'package:kb_mobile_app/core/utils/app_resume_routes/app_resume_route.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/case_plan_gap_service_monitoring.dart';
 import 'package:kb_mobile_app/models/events.dart';
+import 'package:kb_mobile_app/models/form_auto_save.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/constants/ovc_routes_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/components/case_plan_service_monitoring_form_container.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/constants/ovc_case_plan_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_case_plan/constants/ovc_child_case_plan_constant.dart';
@@ -136,14 +141,34 @@ class _CasePlanGapServiceMonitoringViewContainerState
     casePlanGap.remove('eventId');
     dataObject.addAll(casePlanGap);
 
-    Widget modal = CasePlanServiceMonitoringFormContainer(
-      dataObject: dataObject,
-      domainId: widget.domainId,
-      isCasePlanForHousehold: widget.isCasePlanForHousehold,
-      isEditableMode: isEditable,
-    );
+    dynamic beneficiary = widget.isCasePlanForHousehold
+        ? Provider.of<OvcHouseholdCurrentSelectionState>(context, listen: false)
+            .currentOvcHousehold
+        : Provider.of<OvcHouseholdCurrentSelectionState>(context, listen: false)
+            .currentOvcHouseholdChild;
+    String beneficiaryId = beneficiary.id ?? '';
+    String eventId = dataObject['eventId'] ?? '';
+    String formAutoSaveId =
+        '${widget.isCasePlanForHousehold ? OvcRoutesConstant.houseHoldMonitorFormPage : OvcRoutesConstant.ovcServiceMonitoringFormPage}_${beneficiaryId}_${widget.domainId}_$eventId';
+    FormAutoSave formAutoSave =
+        await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
+    bool shouldResumeWithUnSavedChanges = isEditable
+        ? await AppResumeRoute()
+            .shouldResumeWithUnSavedChanges(context, formAutoSave)
+        : isEditable;
+    if (shouldResumeWithUnSavedChanges) {
+      AppResumeRoute().redirectToOvcHouseHoldServiceMonitoringForm(
+          context, formAutoSave, widget.domainId ?? '');
+    } else {
+      Widget modal = CasePlanServiceMonitoringFormContainer(
+        dataObject: dataObject,
+        domainId: widget.domainId,
+        isCasePlanForHousehold: widget.isCasePlanForHousehold,
+        isEditableMode: isEditable,
+      );
 
-    await AppUtil.showPopUpModal(context, modal, true);
+      await AppUtil.showPopUpModal(context, modal, true);
+    }
   }
 
   @override
@@ -243,27 +268,23 @@ class _CasePlanGapServiceMonitoringViewContainerState
                                           ),
                                         ),
                                         Container(
-                                          child: Visibility(
-                                            visible: widget
-                                                .shouldEditCaseGapServiceMonitoring,
-                                            child: Container(
-                                              child: InkWell(
-                                                onTap: () =>
-                                                    onEditCasePlanServiceMonitoring(
-                                                  context,
-                                                  casePlanGapServiceMonitoring,
+                                          child: Container(
+                                            child: InkWell(
+                                              onTap: () =>
+                                                  onEditCasePlanServiceMonitoring(
+                                                context,
+                                                casePlanGapServiceMonitoring,
+                                              ),
+                                              child: Container(
+                                                height: iconHeight,
+                                                width: iconHeight,
+                                                margin: EdgeInsets.symmetric(
+                                                  vertical: 5,
+                                                  horizontal: 5,
                                                 ),
-                                                child: Container(
-                                                  height: iconHeight,
-                                                  width: iconHeight,
-                                                  margin: EdgeInsets.symmetric(
-                                                    vertical: 5,
-                                                    horizontal: 5,
-                                                  ),
-                                                  child: SvgPicture.asset(
-                                                    'assets/icons/edit-icon.svg',
-                                                    color: widget.themeColor,
-                                                  ),
+                                                child: SvgPicture.asset(
+                                                  'assets/icons/edit-icon.svg',
+                                                  color: widget.themeColor,
                                                 ),
                                               ),
                                             ),
