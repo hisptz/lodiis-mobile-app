@@ -22,16 +22,20 @@ class EducationLbseReferralOutcomeSkipLogic {
     hiddenFields["Ep3atnNQGTY"] = true;
     hiddenFields["DPf5mUDoZMy"] = true;
     hiddenFields["LcG4J82PM4Z"] = true;
-
-    String isReferralServiceProvided = '${dataObject["hXyqgOWZ17b"]}';
-    String isFollowUpRequired = '${dataObject["Ep3atnNQGTY"]}';
-    if (isReferralServiceProvided == "true") {
-      hiddenFields["lvT9gfpHIlT"] = false;
-      hiddenFields["Ep3atnNQGTY"] = false;
-      hiddenFields["LcG4J82PM4Z"] = false;
+    List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections);
+    for (var key in dataObject.keys) {
+      inputFieldIds.add('$key');
     }
-    if (isFollowUpRequired == "true") {
-      hiddenFields["DPf5mUDoZMy"] = false;
+    inputFieldIds = inputFieldIds.toSet().toList();
+    for (String inputFieldId in inputFieldIds) {
+      String value = '${dataObject[inputFieldId]}';
+      if (inputFieldId == 'hXyqgOWZ17b' && value == "true") {
+        hiddenFields["lvT9gfpHIlT"] = false;
+        hiddenFields["Ep3atnNQGTY"] = false;
+        hiddenFields["LcG4J82PM4Z"] = false;
+      } else if (inputFieldId == 'Ep3atnNQGTY' && value == "true") {
+        hiddenFields["DPf5mUDoZMy"] = false;
+      }
     }
 
     for (String sectionId in hiddenSections.keys) {

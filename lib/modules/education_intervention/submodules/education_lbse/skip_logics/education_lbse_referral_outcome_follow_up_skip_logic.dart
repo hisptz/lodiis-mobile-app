@@ -18,7 +18,31 @@ class EducationLbseReferralOutcomeFollowUpSkipLogic {
     hiddenSections.clear();
     hiddenInputFieldOptions.clear();
 
-    //@TODO checking skip logics associcated
+    hiddenFields['VHe4ctA0bqU'] = true;
+    hiddenFields['BzkeBAxdEVT'] = true;
+    hiddenFields['Yp3zlQ779fk'] = true;
+    hiddenFields['LcG4J82PM4Z'] = true;
+    List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections);
+    for (var key in dataObject.keys) {
+      inputFieldIds.add('$key');
+    }
+    inputFieldIds = inputFieldIds.toSet().toList();
+    for (String inputFieldId in inputFieldIds) {
+      String value = '${dataObject[inputFieldId]}';
+      if (inputFieldId == 'DPf5mUDoZMy' && value != '' && value != 'null') {
+        hiddenFields['VHe4ctA0bqU'] = false;
+        hiddenFields['LcG4J82PM4Z'] = false;
+      } else if (inputFieldId == 'VHe4ctA0bqU' &&
+          value != 'Complete' &&
+          value != "" &&
+          value != "null") {
+        hiddenFields['BzkeBAxdEVT'] = false;
+      } else if (inputFieldId == 'BzkeBAxdEVT' &&
+          value == 'true' &&
+          value != 'null') {
+        hiddenFields['Yp3zlQ779fk'] = false;
+      }
+    }
 
     for (String sectionId in hiddenSections.keys) {
       List<FormSection> allFormSections =
