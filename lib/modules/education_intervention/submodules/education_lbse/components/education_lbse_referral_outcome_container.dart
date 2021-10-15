@@ -179,8 +179,12 @@ class EducationLbseReferralOutComeContainer extends StatelessWidget {
         List<LbseReferralOutcomeEvent> referralOutcomeEvents = events
             .map((Events eventData) =>
                 LbseReferralOutcomeEvent().fromTeiModel(eventData))
+            .toList()
+            .where((LbseReferralOutcomeEvent referralOutcomeEvent) =>
+                referralOutcomeEvent.referralToReferralOutcomeLinkage ==
+                lbseReferral.referralToReferralOutcomeLinkage)
             .toList();
-        bool shouldAddOutcome = events.length == 0;
+        bool shouldAddOutcome = referralOutcomeEvents.length == 0;
         return isLoading
             ? Container(
                 child: CircularProcessLoader(
