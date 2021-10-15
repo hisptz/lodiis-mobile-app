@@ -111,7 +111,7 @@ class EducationLbseReferralOutComeContainer extends StatelessWidget {
     onAddOrEditOutcome(context, isEditableMode, referralOutcomeEvent.eventData);
   }
 
-  void onAddOutComeFollowingUps(BuildContext context) {
+  void onAddOutComeFollowingUp(BuildContext context) {
     bool isEditableMode = true;
     onAddOrEditOutcomeFollowingUp(context, isEditableMode, null);
   }
@@ -239,21 +239,23 @@ class EducationLbseReferralOutComeContainer extends StatelessWidget {
                                     .toList()
                                   ..add(
                                     Container(
-                                      child: Column(
-                                        children: [
-                                          //@TODO adding container for following ups
-                                          Visibility(
-                                            child: _getActionButton(
-                                              backgroundColor:
-                                                  Color(0xFF009688),
-                                              label: 'ADD FOLLOW UP',
-                                              labelColor: Colors.white,
-                                              onTap: () =>
-                                                  onAddOutComeFollowingUps(
-                                                      context),
-                                            ),
-                                          )
-                                        ],
+                                      child: Container(
+                                        child: Column(
+                                          children: [
+                                            //@TODO adding container for following ups
+                                            Visibility(
+                                              child: _getActionButton(
+                                                backgroundColor:
+                                                    Color(0xFF009688),
+                                                label: 'ADD FOLLOW UP',
+                                                labelColor: Colors.white,
+                                                onTap: () =>
+                                                    onAddOutComeFollowingUp(
+                                                        context),
+                                              ),
+                                            )
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),
