@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
@@ -7,12 +8,14 @@ import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
+import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/components/education_lbse_referral_outcome_card.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/components/education_lbse_referral_outcome_following_up_modal.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/components/education_lbse_referral_outcome_modal.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/constants/lbse_intervention_constant.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/models/education_lbse_referral_outcome_follow_up_form.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/models/education_lbse_referral_outcome_form.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/models/lbse_referral_event.dart';
+import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/models/lbse_referral_outcome_event.dart';
 import 'package:provider/provider.dart';
 
 class EducationLbseReferralOutComeContainer extends StatelessWidget {
@@ -100,10 +103,12 @@ class EducationLbseReferralOutComeContainer extends StatelessWidget {
     onAddOrEditOutcome(context, isEditableMode, null);
   }
 
-  void onEditOutcome(BuildContext context) {
+  void onEditOutcome(
+    BuildContext context,
+    LbseReferralOutcomeEvent referralOutcomeEvent,
+  ) {
     bool isEditableMode = true;
-    //@TODO adding event for edited  outcome
-    onAddOrEditOutcome(context, isEditableMode, null);
+    onAddOrEditOutcome(context, isEditableMode, referralOutcomeEvent.eventData);
   }
 
   void onAddOutComeFollowingUps(BuildContext context) {
@@ -163,85 +168,98 @@ class EducationLbseReferralOutComeContainer extends StatelessWidget {
     ];
 
     return Container(
-      child: Container(
-        child: Column(
-          children: [
-            Container(
-              child: LineSeparator(
-                color: Color(0xFF009688).withOpacity(0.3),
-              ),
-            ),
-            Container(
-              child: Consumer<ServiceEventDataState>(
-                  builder: (context, serviceFormState, child) {
-                bool isLoading = serviceFormState.isLoading;
-                Map<String?, List<Events>> eventListByProgramStage =
-                    serviceFormState.eventListByProgramStage;
-                List<Events> events = TrackedEntityInstanceUtil
-                    .getAllEventListFromServiceDataStateByProgramStages(
-                        eventListByProgramStage, programStageIds);
-                //@TODO getting event based on refeerala
-                bool shouldAddOutcome = events.length == 0;
-                return isLoading
-                    ? Container(
-                        child: CircularProcessLoader(
-                          color: Colors.blueGrey,
-                        ),
-                      )
-                    : Container(
-                        child: shouldAddOutcome
-                            ? _getActionButton(
-                                backgroundColor:
-                                    Color(0xFF009688).withOpacity(0.1),
-                                label: 'ADD OUTCOME',
-                                labelColor: Color(0xFF009688),
-                                onTap: () => onAddingOutcome(context),
-                              )
-                            : Container(
-                                margin: EdgeInsets.symmetric(
-                                  vertical: 15.0,
-                                  horizontal: 15.0,
+      child: Consumer<ServiceEventDataState>(
+          builder: (context, serviceFormState, child) {
+        bool isLoading = serviceFormState.isLoading;
+        Map<String?, List<Events>> eventListByProgramStage =
+            serviceFormState.eventListByProgramStage;
+        List<Events> events = TrackedEntityInstanceUtil
+            .getAllEventListFromServiceDataStateByProgramStages(
+                eventListByProgramStage, programStageIds);
+        List<LbseReferralOutcomeEvent> referralOutcomeEvents = events
+            .map((Events eventData) =>
+                LbseReferralOutcomeEvent().fromTeiModel(eventData))
+            .toList();
+        bool shouldAddOutcome = events.length == 0;
+        return isLoading
+            ? Container(
+                child: CircularProcessLoader(
+                  color: Colors.blueGrey,
+                ),
+              )
+            : Column(
+                children: [
+                  Container(
+                    child: Visibility(
+                      visible: shouldAddOutcome,
+                      child: LineSeparator(
+                        color: Color(0xFF009688).withOpacity(0.3),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    child: shouldAddOutcome
+                        ? _getActionButton(
+                            backgroundColor: Color(0xFF009688).withOpacity(0.1),
+                            label: 'ADD OUTCOME',
+                            labelColor: Color(0xFF009688),
+                            onTap: () => onAddingOutcome(context),
+                          )
+                        : Container(
+                            margin: EdgeInsets.symmetric(
+                              vertical: 15.0,
+                              horizontal: 15.0,
+                            ),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: Color(0xFFB2B7B9),
                                 ),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    border: Border.all(
-                                      color: Color(0xFFB2B7B9),
-                                    ),
-                                    borderRadius: BorderRadius.circular(12.0),
-                                  ),
-                                  child: Column(
-                                    children: events
-                                        .map(
-                                          (e) => Container(
-                                            margin: EdgeInsets.symmetric(
-                                              vertical: 15.0,
-                                              horizontal: 15.0,
-                                            ),
-                                            child: Text('Listi of outcome $e'),
-                                          ),
-                                        )
-                                        .toList()
-                                      ..add(Container(
-                                        child: Visibility(
-                                          child: _getActionButton(
-                                            backgroundColor: Color(0xFF009688),
-                                            label: 'ADD FOLLOW UP',
-                                            labelColor: Colors.white,
-                                            onTap: () =>
-                                                onAddOutComeFollowingUps(
-                                                    context),
-                                          ),
-                                        ),
-                                      )),
-                                  ),
-                                ),
+                                borderRadius: BorderRadius.circular(12.0),
                               ),
-                      );
-              }),
-            ),
-          ],
-        ),
-      ),
+                              child: Column(
+                                children: referralOutcomeEvents
+                                    .map(
+                                      (LbseReferralOutcomeEvent
+                                              referralOutcomeEvent) =>
+                                          Container(
+                                        child: EducationLbseReferralOutcomeCard(
+                                          referralOutcomeEvent:
+                                              referralOutcomeEvent,
+                                          onEditReferralOutcome: () =>
+                                              onEditOutcome(context,
+                                                  referralOutcomeEvent),
+                                        ),
+                                      ),
+                                    )
+                                    .toList()
+                                  ..add(
+                                    Container(
+                                      child: Column(
+                                        children: [
+                                          //@TODO adding container for following ups
+                                          Visibility(
+                                            child: _getActionButton(
+                                              backgroundColor:
+                                                  Color(0xFF009688),
+                                              label: 'ADD FOLLOW UP',
+                                              labelColor: Colors.white,
+                                              onTap: () =>
+                                                  onAddOutComeFollowingUps(
+                                                      context),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                              ),
+                            ),
+                          ),
+                  ),
+                ],
+              );
+      }),
     );
   }
 }
