@@ -7,6 +7,7 @@ import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/constants/lbse_intervention_constant.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/models/lbse_referral_outcome_event.dart';
+import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/models/lbse_referral_outcome_follow_up_event.dart';
 import 'package:provider/provider.dart';
 
 class EducationLbseReferralOutcomeCard extends StatelessWidget {
@@ -73,13 +74,23 @@ class EducationLbseReferralOutcomeCard extends StatelessWidget {
       LbseInterventionConstant.referralOutcomeFollowUpProgamStage
     ];
     return Consumer<ServiceEventDataState>(
-        builder: (context, serviceFormState, child) {
+        builder: (context, serviceEventDataState, child) {
       Map<String?, List<Events>> eventListByProgramStage =
-          serviceFormState.eventListByProgramStage;
+          serviceEventDataState.eventListByProgramStage;
       List<Events> events = TrackedEntityInstanceUtil
           .getAllEventListFromServiceDataStateByProgramStages(
               eventListByProgramStage, programStageIds);
-      //@TODO getting event for following ups of this outcomes
+      List<LbseReferralOutcomeFollowUpEvent> referralOutcomeFollowUps = events
+          .map((Events eventData) => LbseReferralOutcomeFollowUpEvent())
+          .toList()
+          .where(
+              (LbseReferralOutcomeFollowUpEvent referralOutcomeFollowUpEvent) =>
+                  referralOutcomeFollowUpEvent
+                      .referralOutcomeToReferralOutComeFollowingUpLinkage ==
+                  referralOutcomeEvent
+                      .referralOutcomeToReferralOutComeFollowingUpLinkage)
+          .toList();
+      bool hasOutccomeHasFollowUps = referralOutcomeFollowUps.length > 0;
       return Consumer<LanguageTranslationState>(
           builder: (context, languageTranslationState, child) {
         String? currentLanguage = languageTranslationState.currentLanguage;
@@ -101,18 +112,21 @@ class EducationLbseReferralOutcomeCard extends StatelessWidget {
                     ),
                   ),
                   Container(
-                    child: InkWell(
-                      onTap: onEditReferralOutcome,
-                      child: Container(
-                        height: iconHeight,
-                        width: iconHeight,
-                        margin: EdgeInsets.symmetric(
-                          vertical: 5.0,
-                          horizontal: 5.0,
-                        ),
-                        child: SvgPicture.asset(
-                          svgIcon,
-                          color: Color(0xFF009688),
+                    child: Visibility(
+                      visible: !hasOutccomeHasFollowUps,
+                      child: InkWell(
+                        onTap: onEditReferralOutcome,
+                        child: Container(
+                          height: iconHeight,
+                          width: iconHeight,
+                          margin: EdgeInsets.symmetric(
+                            vertical: 5.0,
+                            horizontal: 5.0,
+                          ),
+                          child: SvgPicture.asset(
+                            svgIcon,
+                            color: Color(0xFF009688),
+                          ),
                         ),
                       ),
                     ),

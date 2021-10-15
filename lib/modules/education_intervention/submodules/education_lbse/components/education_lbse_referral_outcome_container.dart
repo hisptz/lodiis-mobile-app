@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
@@ -10,13 +9,14 @@ import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/components/education_lbse_referral_outcome_card.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/components/education_lbse_referral_outcome_follow_up_modal.dart';
-import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/components/education_lbse_referral_outcome_followup_container.dart';
+import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/components/education_lbse_referral_outcome_follow_up_container.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/components/education_lbse_referral_outcome_modal.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/constants/lbse_intervention_constant.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/models/education_lbse_referral_outcome_follow_up_form.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/models/education_lbse_referral_outcome_form.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/models/lbse_referral_event.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/models/lbse_referral_outcome_event.dart';
+import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/models/lbse_referral_outcome_follow_up_event.dart';
 import 'package:provider/provider.dart';
 
 class EducationLbseReferralOutComeContainer extends StatelessWidget {
@@ -128,14 +128,14 @@ class EducationLbseReferralOutComeContainer extends StatelessWidget {
   void onEditOutComeFollowingUps(
     BuildContext context,
     LbseReferralOutcomeEvent referralOutcomeEvent,
+    Events eventData,
   ) {
     bool isEditableMode = true;
-    //@TODO adding event for edited  outcome following up
     onAddOrEditOutcomeFollowingUp(
       context,
       referralOutcomeEvent,
       isEditableMode,
-      null,
+      eventData,
     );
   }
 
@@ -186,10 +186,10 @@ class EducationLbseReferralOutComeContainer extends StatelessWidget {
 
     return Container(
       child: Consumer<ServiceEventDataState>(
-          builder: (context, serviceFormState, child) {
-        bool isLoading = serviceFormState.isLoading;
+          builder: (context, serviceEventDataState, child) {
+        bool isLoading = serviceEventDataState.isLoading;
         Map<String?, List<Events>> eventListByProgramStage =
-            serviceFormState.eventListByProgramStage;
+            serviceEventDataState.eventListByProgramStage;
         List<Events> events = TrackedEntityInstanceUtil
             .getAllEventListFromServiceDataStateByProgramStages(
                 eventListByProgramStage, programStageIds);
@@ -254,16 +254,23 @@ class EducationLbseReferralOutComeContainer extends StatelessWidget {
                                                       referralOutcomeEvent),
                                             ),
                                             Container(
-                                              child:
-                                                  EdcucationLbseReferralOutcomeFollowUpContainer(
-                                                isFollowingUpNeeded:
-                                                    referralOutcomeEvent
-                                                        .isRequireFollowUp!,
-                                                onAddOutComeFollowingUp: () =>
-                                                    onAddOutComeFollowingUp(
-                                                        context,
-                                                        referralOutcomeEvent),
-                                              ),
+                                              child: EdcucationLbseReferralOutcomeFollowUpContainer(
+                                                  referralOutcomeEvent:
+                                                      referralOutcomeEvent,
+                                                  isFollowingUpNeeded:
+                                                      referralOutcomeEvent
+                                                          .isRequireFollowUp!,
+                                                  onAddOutComeFollowingUp: () =>
+                                                      onAddOutComeFollowingUp(
+                                                          context,
+                                                          referralOutcomeEvent),
+                                                  editAddOutComeFollowingUp:
+                                                      (LbseReferralOutcomeFollowUpEvent
+                                                              referralOutcomeFollowUpEvent) =>
+                                                          {
+                                                            print(
+                                                                referralOutcomeFollowUpEvent)
+                                                          }),
                                             )
                                           ],
                                         ),
