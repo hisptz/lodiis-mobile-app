@@ -180,6 +180,7 @@ class EducationLbseReferralOutComeContainer extends StatelessWidget {
                 List<Events> events = TrackedEntityInstanceUtil
                     .getAllEventListFromServiceDataStateByProgramStages(
                         eventListByProgramStage, programStageIds);
+                //@TODO getting event based on refeerala
                 bool shouldAddOutcome = events.length == 0;
                 return isLoading
                     ? Container(
@@ -201,29 +202,38 @@ class EducationLbseReferralOutComeContainer extends StatelessWidget {
                                   vertical: 15.0,
                                   horizontal: 15.0,
                                 ),
-                                child: Column(
-                                  children: events
-                                      .map(
-                                        (e) => Container(
-                                          margin: EdgeInsets.symmetric(
-                                            vertical: 15.0,
-                                            horizontal: 15.0,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                      color: Color(0xFFB2B7B9),
+                                    ),
+                                    borderRadius: BorderRadius.circular(12.0),
+                                  ),
+                                  child: Column(
+                                    children: events
+                                        .map(
+                                          (e) => Container(
+                                            margin: EdgeInsets.symmetric(
+                                              vertical: 15.0,
+                                              horizontal: 15.0,
+                                            ),
+                                            child: Text('Listi of outcome $e'),
                                           ),
-                                          child: Text('Listi of outcome'),
+                                        )
+                                        .toList()
+                                      ..add(Container(
+                                        child: Visibility(
+                                          child: _getActionButton(
+                                            backgroundColor: Color(0xFF009688),
+                                            label: 'ADD FOLLOW UP',
+                                            labelColor: Colors.white,
+                                            onTap: () =>
+                                                onAddOutComeFollowingUps(
+                                                    context),
+                                          ),
                                         ),
-                                      )
-                                      .toList()
-                                    ..add(Container(
-                                      child: Visibility(
-                                        child: _getActionButton(
-                                          backgroundColor: Color(0xFF009688),
-                                          label: 'ADD FOLLOW UP',
-                                          labelColor: Colors.white,
-                                          onTap: () =>
-                                              onAddOutComeFollowingUps(context),
-                                        ),
-                                      ),
-                                    )),
+                                      )),
+                                  ),
                                 ),
                               ),
                       );
