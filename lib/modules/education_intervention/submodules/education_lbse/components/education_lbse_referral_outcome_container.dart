@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
+import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/line_separator.dart';
+import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/events.dart';
+import 'package:kb_mobile_app/models/form_section.dart';
+import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/components/education_lbse_referral_outcome_following_up_modal.dart';
+import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/components/education_lbse_referral_outcome_modal.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/constants/lbse_intervention_constant.dart';
+import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/models/education_lbse_referral_outcome_follow_up_form.dart';
+import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/models/education_lbse_referral_outcome_form.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/models/lbse_referral_event.dart';
 import 'package:provider/provider.dart';
 
@@ -16,20 +23,99 @@ class EducationLbseReferralOutComeContainer extends StatelessWidget {
 
   final LbseReferralEvent lbseReferral;
 
+  void updateFormState(
+    BuildContext context,
+    bool isEditableMode,
+    Events? eventData,
+  ) {
+    Provider.of<ServiceFormState>(context, listen: false).resetFormState();
+    Provider.of<ServiceFormState>(context, listen: false)
+        .updateFormEditabilityState(isEditableMode: isEditableMode);
+    if (eventData != null) {
+      Provider.of<ServiceFormState>(context, listen: false)
+          .setFormFieldState('eventDate', eventData.eventDate);
+      Provider.of<ServiceFormState>(context, listen: false)
+          .setFormFieldState('eventId', eventData.event);
+      for (Map dataValue in eventData.dataValues) {
+        if (dataValue['value'] != '') {
+          Provider.of<ServiceFormState>(context, listen: false)
+              .setFormFieldState(dataValue['dataElement'], dataValue['value']);
+        }
+      }
+    }
+  }
+
+  void onAddOrEditOutcome(
+    BuildContext context,
+    bool isEditableMode,
+    Events? eventData,
+  ) async {
+    updateFormState(context, isEditableMode, eventData);
+    Provider.of<ServiceFormState>(context, listen: false).setFormFieldState(
+        LbseInterventionConstant.referralToReferralOutcomeLinkage,
+        lbseReferral.referralToReferralOutcomeLinkage);
+    List<FormSection> formSections =
+        EducationLbseReferralOutcomeForm.getFormSections();
+    Widget modal = EducationLbseRefferalOutcomeModal(
+      formSections: formSections,
+    );
+    Map dataObject = await AppUtil.showPopUpModal(
+      context,
+      modal,
+      true,
+      title: 'Referral Ourcome',
+    );
+    if (dataObject.keys.length > 0 && isEditableMode) {
+      print(dataObject);
+    }
+  }
+
+  void onAddOrEditOutcomeFollowingUp(
+    BuildContext context,
+    bool isEditableMode,
+    Events? eventData,
+  ) async {
+    updateFormState(context, isEditableMode, eventData);
+    //@TODO adding linkeage to referral outcome following ups
+    // Provider.of<ServiceFormState>(context, listen: false).setFormFieldState(
+    //     LbseInterventionConstant.referralToReferralOutcomeLinkage,
+    //     lbseReferral.referralToReferralOutcomeLinkage);
+    List<FormSection> formSections =
+        EducationLbseReferralOutcomeFollowUpForm.getFormSections();
+    Widget modal = EducationLbseRefferalOutcomeFollowingUpModal(
+      formSections: formSections,
+    );
+    Map dataObject = await AppUtil.showPopUpModal(
+      context,
+      modal,
+      true,
+      title: 'Referral Ourcome',
+    );
+    if (dataObject.keys.length > 0 && isEditableMode) {
+      print(dataObject);
+    }
+  }
+
   void onAddingOutcome(BuildContext context) {
-    print("On add outcome");
+    bool isEditableMode = true;
+    onAddOrEditOutcome(context, isEditableMode, null);
   }
 
   void onEditOutcome(BuildContext context) {
-    print("On edit outcome");
+    bool isEditableMode = true;
+    //@TODO adding event for edited  outcome
+    onAddOrEditOutcome(context, isEditableMode, null);
   }
 
   void onAddOutComeFollowingUps(BuildContext context) {
-    print("On add outcome following ups");
+    bool isEditableMode = true;
+    onAddOrEditOutcomeFollowingUp(context, isEditableMode, null);
   }
 
   void onEditOutComeFollowingUps(BuildContext context) {
-    print("On edit outcome following ups");
+    bool isEditableMode = true;
+    //@TODO adding event for edited  outcome following up
+    onAddOrEditOutcomeFollowingUp(context, isEditableMode, null);
   }
 
   Container _getActionButton({
