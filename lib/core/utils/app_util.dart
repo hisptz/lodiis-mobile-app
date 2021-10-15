@@ -149,13 +149,17 @@ class AppUtil {
     String? searchableString,
     required String searchedValue,
   }) {
-    List<String> searchedSubString = searchedValue.split(' ');
-    for (String str in searchedSubString) {
-      if (searchableString!.toLowerCase().indexOf(str.toLowerCase()) == -1) {
-        return false;
+    List<String> searchedValues =
+        searchedValue.split(' ').where((item) => item.isNotEmpty).toList();
+
+    for (String search in searchedValues) {
+      if (RegExp(search.toLowerCase())
+          .hasMatch(searchableString!.toLowerCase())) {
+        return true;
       }
     }
-    return true;
+
+    return false;
   }
 
   static showToastMessage({

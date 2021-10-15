@@ -21,6 +21,8 @@ class EducationBursaryInterventionState with ChangeNotifier {
   int _numberOfEducationBursaryWithoutVulnerability = 0;
   int _numberOfBursaryPages = 0;
   int _numberOfBursaryWithoutVulnerabilityPages = 0;
+  int _numberOfBursarySearchablePages = 0;
+  int _numberOfBursaryWithoutVulnerabilitySearchablePages = 0;
   int? _nextBursaryPage = 0;
   int? _nextBursaryWithoutCriteriaPage = 0;
   String _bursarySearchableValue = '';
@@ -36,9 +38,13 @@ class EducationBursaryInterventionState with ChangeNotifier {
       '${_numberOfEducationBursaryBySex['male'] ?? 0} Male  ${_numberOfEducationBursaryBySex['female'] ?? 0} Female';
   int get numberOfEducationBursaryWithoutVulnerability =>
       _numberOfEducationBursaryWithoutVulnerability;
-  int get numberOfPages => _numberOfBursaryPages;
+  int get numberOfPages => _bursarySearchableValue == ''
+      ? _numberOfBursaryPages
+      : _numberOfBursarySearchablePages;
   int get numberOfBursaryWithoutVulnerabilityPages =>
-      _numberOfBursaryWithoutVulnerabilityPages;
+      _bursaryWithoutVulnerabilitySearchableValue == ''
+          ? _numberOfBursaryWithoutVulnerabilityPages
+          : _numberOfBursaryWithoutVulnerabilitySearchablePages;
   PagingController? get pagingController => _bursaryPagingController;
   PagingController? get bursaryWithoutVulnerabilityPagingController =>
       _bursaryWithoutVulnerabilityPagingController;
@@ -64,7 +70,8 @@ class EducationBursaryInterventionState with ChangeNotifier {
         await EducationBursaryEnrollmentService()
             .getBursaryWithoutVulnerabilityCriteria(
                 page: pageKey, searchableValue: searchableValue);
-    if (beneficiaryList.isEmpty && pageKey < numberOfPages) {
+    if (beneficiaryList.isEmpty &&
+        pageKey < numberOfBursaryWithoutVulnerabilityPages) {
       _fetchBursaryWithoutVulnerability(pageKey + 1);
     } else {
       getNumberOfPages();
@@ -161,6 +168,8 @@ class EducationBursaryInterventionState with ChangeNotifier {
           _bursaryWithoutVulnerabilityPagingController!.itemList
                   as List<NoneParticipationBeneficiary>? ??
               <NoneParticipationBeneficiary>[];
+      _nextBursaryWithoutCriteriaPage =
+          _bursaryWithoutVulnerabilityPagingController!.nextPageKey;
     }
     if (value.isNotEmpty) {
       refreshAllEducationBursaryLists();
@@ -197,9 +206,16 @@ class EducationBursaryInterventionState with ChangeNotifier {
     _numberOfBursaryPages =
         (_numberOfEducationBursary / PaginationConstants.paginationLimit)
             .ceil();
+    _numberOfBursarySearchablePages = (_numberOfEducationBursary /
+            PaginationConstants.searchingPaginationLimit)
+        .ceil();
     _numberOfBursaryWithoutVulnerabilityPages =
         (_numberOfEducationBursaryWithoutVulnerability /
                 PaginationConstants.paginationLimit)
+            .ceil();
+    _numberOfBursaryWithoutVulnerabilitySearchablePages =
+        (_numberOfEducationBursaryWithoutVulnerability /
+                PaginationConstants.searchingPaginationLimit)
             .ceil();
     notifyListeners();
   }

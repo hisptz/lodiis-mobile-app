@@ -112,14 +112,14 @@ class ReferralNotificationService {
 
   Future<List<ReferralNotification>>
       getReferralNotificationFromOffline() async {
-    List<ReferralNotification> referralNofications = [];
+    List<ReferralNotification> referralNotifications = [];
     try {
-      referralNofications = await ReferralNotificationOfflineProvider()
+      referralNotifications = await ReferralNotificationOfflineProvider()
           .getReferralNotifications();
     } catch (error) {
       print("getReferralNotificationFromOffline : ${error.toString()}");
     }
-    return referralNofications;
+    return referralNotifications;
   }
 
   Future<List<ReferralNotification>>
@@ -143,7 +143,7 @@ class ReferralNotificationService {
         apiUrlToDataStore,
         queryParameters: {},
       );
-      List<String> keysForReferralNotification = getKeysForReferralNofification(
+      List<String> keysForReferralNotification = getKeysForReferralNotification(
         response,
         implementingPartner,
         locations.toSet().toList(),
@@ -162,7 +162,7 @@ class ReferralNotificationService {
     List<String> keysForReferralNotification,
     HttpService httpService,
   ) async {
-    List<ReferralNotification> referralNofications = [];
+    List<ReferralNotification> referralNotifications = [];
     // TODO Check why notification are not synced
     try {
       for (String nameSpaceKey in keysForReferralNotification) {
@@ -171,16 +171,16 @@ class ReferralNotificationService {
           queryParameters: {},
         );
         for (Map data in json.decode(response.body)) {
-          referralNofications.add(ReferralNotification.fromJson(data));
+          referralNotifications.add(ReferralNotification.fromJson(data));
         }
       }
     } catch (error) {
       print("getReferralNotificationFromServer : ${error.toString()}");
     }
-    return referralNofications;
+    return referralNotifications;
   }
 
-  List<String> getKeysForReferralNofification(
+  List<String> getKeysForReferralNotification(
     Response response,
     String implementingPartner,
     List<String?> locations,
@@ -203,7 +203,7 @@ class ReferralNotificationService {
         }
       }
     } catch (error) {
-      print("getKeysForReferralNofification : ${error.toString()}");
+      print("getKeysForReferralNotification : ${error.toString()}");
     }
     return selectedKeys;
   }

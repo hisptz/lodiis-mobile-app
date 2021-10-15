@@ -15,6 +15,7 @@ class OgacInterventionListState with ChangeNotifier {
   bool? _isLoading;
   int _numberOfOgac = 0;
   int _numberOfPages = 0;
+  int _numberOfSearchablePages = 0;
   int? _nextPage = 0;
   String _searchableValue = '';
   PagingController? _ogacPagingController;
@@ -23,7 +24,8 @@ class OgacInterventionListState with ChangeNotifier {
 
   bool get isLoading => _isLoading ?? false;
   int get numberOfOgac => _numberOfOgac;
-  int get numberOfPages => _numberOfPages;
+  int get numberOfPages =>
+      _searchableValue == '' ? _numberOfPages : _numberOfSearchablePages;
   PagingController? get pagingController => _ogacPagingController;
 
   void initializePagination() {
@@ -105,6 +107,8 @@ class OgacInterventionListState with ChangeNotifier {
   void getNumberOfPages() {
     _numberOfPages =
         (numberOfOgac / PaginationConstants.paginationLimit).ceil();
+    _numberOfSearchablePages =
+        (numberOfOgac / PaginationConstants.searchingPaginationLimit).ceil();
     notifyListeners();
   }
 }

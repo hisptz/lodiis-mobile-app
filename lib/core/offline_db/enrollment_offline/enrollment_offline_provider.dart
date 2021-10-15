@@ -66,7 +66,11 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
           where: '$program = ?',
           orderBy: '$enrollmentDate DESC',
           whereArgs: [programId],
-          limit: page != null ? PaginationConstants.paginationLimit : null,
+          limit: page != null
+              ? isSearching
+                  ? PaginationConstants.searchingPaginationLimit
+                  : PaginationConstants.paginationLimit
+              : null,
           offset: page != null
               ? isSearching
                   ? page * PaginationConstants.searchingPaginationLimit

@@ -44,24 +44,13 @@ class SynchronizationState with ChangeNotifier {
   bool? _isDataAvailableForDownload;
   bool _isUnsyncedCheckingActive = true;
   bool? _isCheckingForAvailableDataFromServer;
-  late SynchronizationService _synchronizationService;
+  bool _dataUploadStopped = true;
+  bool _dataDownloadStopped = true;
   int? _beneficiaryCount;
   int? _beneficiaryServiceCount;
   int _conflictLCount = 0;
   String? _statusMessageForAvailableDataFromServer;
-  List<String>? _dataDownloadProcess;
-  List<String>? _dataUploadProcess;
-  List<Events>? _eventFromServer;
-  List<TrackedEntityInstance>? _trackedEntityInstance;
-  List<dynamic>? _serverTrackedEntityInstance;
-  List<Map<String, dynamic>>? _events_1;
-  List<Map<String, dynamic>>? _trackedInstance1;
-  Map<String, List>? _trackedInstance;
-  Map<String, List>? _events;
-  Map<String, List>? _relationships;
-  String? _currentSyncAction = '';
-  bool _dataUploadStopped = true;
-  bool _dataDownloadStopped = true;
+  String _currentSyncAction = '';
   double _notificationProgress = 0.0;
   double profileDataDownloadProgress = 0.0;
   double eventsDataDownloadProgress = 0.0;
@@ -69,6 +58,17 @@ class SynchronizationState with ChangeNotifier {
   double profileDataUploadProgress = 0.0;
   double eventsDataUploadProgress = 0.0;
   double overallUploadProgress = 0.0;
+  List<String>? _dataDownloadProcess;
+  List<String>? _dataUploadProcess;
+  List<Map<String, dynamic>>? _eventsWithConflicts;
+  List<Map<String, dynamic>>? _trackedEntityInstancesWithConflicts;
+  List<TrackedEntityInstance>? _trackedEntityInstance;
+  List<Events>? _eventFromServer;
+  List<dynamic>? _serverTrackedEntityInstance;
+  Map<String, List>? _trackedInstance;
+  Map<String, List>? _events;
+  Map<String, List>? _relationships;
+  late SynchronizationService _synchronizationService;
 
 // selectors
   bool get isDataUploadingActive => _isDataUploadingActive;
@@ -103,7 +103,7 @@ class SynchronizationState with ChangeNotifier {
   String get statusMessageForAvailableDataFromServer =>
       _statusMessageForAvailableDataFromServer ?? '';
 
-  String get currentSyncAction => _currentSyncAction ?? '';
+  String get currentSyncAction => _currentSyncAction;
 
   bool get hasUnsyncedData => _hasUnsyncedData ?? false;
 
@@ -137,9 +137,11 @@ class SynchronizationState with ChangeNotifier {
 
   Map<String, List> get relationships => _relationships ?? {};
 
-  List<Map<String, dynamic>> get events_1 => _events_1 ?? [];
+  List<Map<String, dynamic>> get eventsWithConflicts =>
+      _eventsWithConflicts ?? [];
 
-  List<Map<String, dynamic>> get trackedInstance1 => _trackedInstance1 ?? [];
+  List<Map<String, dynamic>> get trackedEntityInstancesWithConflicts =>
+      _trackedEntityInstancesWithConflicts ?? [];
 
 // reducers
   void updateDataUploadStatus(bool status) {
@@ -167,6 +169,7 @@ class SynchronizationState with ChangeNotifier {
     notifyListeners();
   }
 
+  // TODO add check for when the widget is active
   checkingForAvailableBeneficiaryData() async {
     updateStatusForAvailableDataFromServer(status: true);
     setStatusMessageForAvailableDataFromServer(
@@ -249,7 +252,7 @@ class SynchronizationState with ChangeNotifier {
     eventsDataUploadProgress = 0.0;
     overallUploadProgress = 0.0;
     _notificationProgress = 0.0;
-    _currentSyncAction = syncAction;
+    _currentSyncAction = syncAction!;
     notifyListeners();
     switch (syncAction) {
       case 'Download':
@@ -345,30 +348,6 @@ class SynchronizationState with ChangeNotifier {
       updateDataDownloadStatus(false);
       AppUtil.showToastMessage(message: 'Error downloading data');
     }
-  }
-
-  Future refreshBeneficiaryCounts() async {
-    await Provider.of<ReferralNotificationState>(context!, listen: false)
-        .reloadReferralNotifications();
-    List<String> teiWithIncomingReferral =
-        Provider.of<ReferralNotificationState>(context!, listen: false)
-            .beneficiariesWithIncomingReferrals;
-    Provider.of<DreamsInterventionListState>(context!, listen: false)
-        .setTeiWithIncomingReferral(
-            teiWithIncomingReferral: teiWithIncomingReferral);
-    await Provider.of<OvcInterventionListState>(context!, listen: false)
-        .refreshOvcNumber();
-    await Provider.of<DreamsInterventionListState>(context!, listen: false)
-        .refreshBeneficiariesNumber();
-    await Provider.of<OgacInterventionListState>(context!, listen: false)
-        .refreshOgacNumber();
-    await Provider.of<EducationLbseInterventionState>(context!, listen: false)
-        .refreshEducationLbseNumber();
-    await Provider.of<PpPrevInterventionState>(context!, listen: false)
-        .refreshPpPrevNumber();
-    await Provider.of<EducationBursaryInterventionState>(context!,
-            listen: false)
-        .refreshEducationBursaryNumber();
   }
 
   Future startDataUploadActivity({bool isAutoUpload = false}) async {
@@ -574,5 +553,29 @@ class SynchronizationState with ChangeNotifier {
     } catch (error) {
       print("syncReferralNotifications : ${error.toString()}");
     }
+  }
+
+  Future refreshBeneficiaryCounts() async {
+    await Provider.of<ReferralNotificationState>(context!, listen: false)
+        .reloadReferralNotifications();
+    List<String> teiWithIncomingReferral =
+        Provider.of<ReferralNotificationState>(context!, listen: false)
+            .beneficiariesWithIncomingReferrals;
+    Provider.of<DreamsInterventionListState>(context!, listen: false)
+        .setTeiWithIncomingReferral(
+            teiWithIncomingReferral: teiWithIncomingReferral);
+    await Provider.of<OvcInterventionListState>(context!, listen: false)
+        .refreshOvcNumber();
+    await Provider.of<DreamsInterventionListState>(context!, listen: false)
+        .refreshBeneficiariesNumber();
+    await Provider.of<OgacInterventionListState>(context!, listen: false)
+        .refreshOgacNumber();
+    await Provider.of<EducationLbseInterventionState>(context!, listen: false)
+        .refreshEducationLbseNumber();
+    await Provider.of<PpPrevInterventionState>(context!, listen: false)
+        .refreshPpPrevNumber();
+    await Provider.of<EducationBursaryInterventionState>(context!,
+            listen: false)
+        .refreshEducationBursaryNumber();
   }
 }
