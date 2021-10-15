@@ -183,11 +183,11 @@ class _AgywDreamsHTSIndexFollowUpListState
               return Consumer<DreamsBeneficiarySelectionState>(
                 builder: (context, dreamBeneficiarySelectionState, child) {
                   return Consumer<ServiceEventDataState>(
-                    builder: (context, serviceFormState, child) {
+                    builder: (context, serviceEventDataState, child) {
                       AgywDream? agywDream =
                           dreamBeneficiarySelectionState.currentAgywDream;
                       Map<String?, List<Events>> eventListByProgramStage =
-                          serviceFormState.eventListByProgramStage;
+                          serviceEventDataState.eventListByProgramStage;
                       List<Events> indexContactFollowUpEvents =
                           TrackedEntityInstanceUtil
                               .getAllEventListFromServiceDataStateByProgramStages(

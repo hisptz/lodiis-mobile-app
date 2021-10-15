@@ -5,7 +5,7 @@ import 'package:kb_mobile_app/models/input_field_option.dart';
 
 class EducationLbseReferralOutcomeFollowUpForm {
   static List<String> getMandatoryField() {
-    return ['DPf5mUDoZMy'];
+    return ['DPf5mUDoZMy', 'VHe4ctA0bqU'];
   }
 
   static List<FormSection> getFormSections() {
@@ -48,6 +48,8 @@ class EducationLbseReferralOutcomeFollowUpForm {
           InputField(
             id: 'Yp3zlQ779fk',
             name: 'Additional Follow-up date',
+            allowFuturePeriod: true,
+            disablePastPeriod: true,
             valueType: 'DATE',
             inputColor: Color(0xFF009688),
             labelColor: Color(0xFF737373),
