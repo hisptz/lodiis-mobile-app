@@ -105,12 +105,12 @@ class _OvcChildCLOReferralState extends State<OvcChildCLOReferral> {
       child: Consumer<OvcHouseholdCurrentSelectionState>(
         builder: (context, ovcHouseholdCurrentSelectionState, child) {
           return Consumer<ServiceEventDataState>(
-            builder: (context, serviceFormState, child) {
+            builder: (context, serviceEventDataState, child) {
               OvcHouseholdChild? currentOvcHouseholdChild =
                   ovcHouseholdCurrentSelectionState.currentOvcHouseholdChild;
-              bool isLoading = serviceFormState.isLoading;
+              bool isLoading = serviceEventDataState.isLoading;
               Map<String?, List<Events>> eventListByProgramStage =
-                  serviceFormState.eventListByProgramStage;
+                  serviceEventDataState.eventListByProgramStage;
               List<Events> events = TrackedEntityInstanceUtil
                   .getAllEventListFromServiceDataStateByProgramStages(
                       eventListByProgramStage, programStageIds);
