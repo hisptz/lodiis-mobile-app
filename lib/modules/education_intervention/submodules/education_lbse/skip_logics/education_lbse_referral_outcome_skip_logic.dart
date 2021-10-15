@@ -33,6 +33,8 @@ class EducationLbseReferralOutcomeSkipLogic {
         hiddenFields["lvT9gfpHIlT"] = false;
         hiddenFields["Ep3atnNQGTY"] = false;
         hiddenFields["LcG4J82PM4Z"] = false;
+      } else if (inputFieldId == 'hXyqgOWZ17b' && value == "false") {
+        hiddenFields["LcG4J82PM4Z"] = false;
       } else if (inputFieldId == 'Ep3atnNQGTY' && value == "true") {
         hiddenFields["DPf5mUDoZMy"] = false;
       }

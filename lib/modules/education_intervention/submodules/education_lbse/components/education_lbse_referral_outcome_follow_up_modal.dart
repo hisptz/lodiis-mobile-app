@@ -48,7 +48,7 @@ class _EducationLbseRefferalOutcomeFollowUpModalState
     });
     evaluateSkipLogics();
     isFormReady = true;
-    Timer(Duration(seconds: 1), () {
+    Timer(Duration(seconds: 2), () {
       setState(() {});
     });
   }
@@ -99,20 +99,18 @@ class _EducationLbseRefferalOutcomeFollowUpModalState
       List<String> hiddenFields = [
         referralOutcomeToReferralOutComeFollowingUpLinkage
       ];
-
       try {
-        print(dataObject);
-        // await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-        //   LbseInterventionConstant.program,
-        //   LbseInterventionConstant.referralOutcomeProgamStage,
-        //   lbseBeneficiary?.orgUnit,
-        //   widget.formSections,
-        //   dataObject,
-        //   eventDate,
-        //   lbseBeneficiary?.id,
-        //   eventId,
-        //   hiddenFields,
-        // );
+        await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
+          LbseInterventionConstant.program,
+          LbseInterventionConstant.referralOutcomeFollowUpProgamStage,
+          lbseBeneficiary?.orgUnit,
+          widget.formSections,
+          dataObject,
+          eventDate,
+          lbseBeneficiary?.id,
+          eventId,
+          hiddenFields,
+        );
         Timer(Duration(seconds: 1), () {
           String? currentLanguage =
               Provider.of<LanguageTranslationState>(context, listen: false)

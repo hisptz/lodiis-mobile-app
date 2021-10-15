@@ -5,7 +5,7 @@ import 'package:kb_mobile_app/models/input_field_option.dart';
 
 class EducationLbseReferralOutcomeFollowUpForm {
   static List<String> getMandatoryField() {
-    return ['DPf5mUDoZMy'];
+    return ['DPf5mUDoZMy', 'VHe4ctA0bqU'];
   }
 
   static List<FormSection> getFormSections() {
