@@ -105,17 +105,17 @@ class _EducationLbseRefferalOutcomeModalState
         referralOutcomeToReferralOutComeFollowingUpLinkage
       ];
       try {
-        // await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-        //   LbseInterventionConstant.program,
-        //   LbseInterventionConstant.referralOutcomeProgamStage,
-        //   lbseBeneficiary?.orgUnit,
-        //   widget.formSections,
-        //   dataObject,
-        //   eventDate,
-        //   lbseBeneficiary?.id,
-        //   eventId,
-        //   hiddenFields,
-        // );
+        await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
+          LbseInterventionConstant.program,
+          LbseInterventionConstant.referralOutcomeProgamStage,
+          lbseBeneficiary?.orgUnit,
+          widget.formSections,
+          dataObject,
+          eventDate,
+          lbseBeneficiary?.id,
+          eventId,
+          hiddenFields,
+        );
         Timer(Duration(seconds: 1), () {
           String? currentLanguage =
               Provider.of<LanguageTranslationState>(context, listen: false)
