@@ -137,12 +137,12 @@ class PpPrevInterventionServiceHome extends StatelessWidget {
             child: Consumer<PpPrevInterventionCurrentSelectionState>(
               builder: (context, dreamBeneficiarySelectionState, child) {
                 return Consumer<ServiceEventDataState>(
-                  builder: (context, serviceFormState, child) {
+                  builder: (context, serviceEventDataState, child) {
                     PpPrevBeneficiary? ppPrevBeneficiary =
                         dreamBeneficiarySelectionState.currentPpPrev;
-                    bool isLoading = serviceFormState.isLoading;
+                    bool isLoading = serviceEventDataState.isLoading;
                     Map<String?, List<Events>> eventListByProgramStage =
-                        serviceFormState.eventListByProgramStage;
+                        serviceEventDataState.eventListByProgramStage;
                     List<Events> events = TrackedEntityInstanceUtil
                         .getAllEventListFromServiceDataStateByProgramStages(
                             eventListByProgramStage, programStageIds);
