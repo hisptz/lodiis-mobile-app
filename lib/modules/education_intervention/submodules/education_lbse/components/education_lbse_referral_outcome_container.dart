@@ -56,18 +56,17 @@ class EducationLbseReferralOutComeContainer extends StatelessWidget {
         lbseReferral.referralToReferralOutcomeLinkage);
     List<FormSection> formSections =
         EducationLbseReferralOutcomeForm.getFormSections();
+    List mandatoryFields = EducationLbseReferralOutcomeForm.getMandatoryField();
     Widget modal = EducationLbseRefferalOutcomeModal(
       formSections: formSections,
+      mandatoryFields: mandatoryFields,
     );
-    Map dataObject = await AppUtil.showPopUpModal(
+    await AppUtil.showPopUpModal(
       context,
       modal,
       true,
-      title: 'Referral Ourcome',
+      title: 'Referral Outcome',
     );
-    if (dataObject.keys.length > 0 && isEditableMode) {
-      print(dataObject);
-    }
   }
 
   void onAddOrEditOutcomeFollowingUp(
@@ -76,24 +75,24 @@ class EducationLbseReferralOutComeContainer extends StatelessWidget {
     Events? eventData,
   ) async {
     updateFormState(context, isEditableMode, eventData);
+    //@TODO add this reference referralOutcomeToReferralOutComeFollowingUpLinkage
+
     //@TODO adding linkeage to referral outcome following ups
     // Provider.of<ServiceFormState>(context, listen: false).setFormFieldState(
     //     LbseInterventionConstant.referralToReferralOutcomeLinkage,
     //     lbseReferral.referralToReferralOutcomeLinkage);
+    List mandatoryFields =
+        EducationLbseReferralOutcomeFollowUpForm.getMandatoryField();
     List<FormSection> formSections =
         EducationLbseReferralOutcomeFollowUpForm.getFormSections();
     Widget modal = EducationLbseRefferalOutcomeFollowingUpModal(
-      formSections: formSections,
-    );
-    Map dataObject = await AppUtil.showPopUpModal(
+        formSections: formSections, mandatoryFields: mandatoryFields);
+    await AppUtil.showPopUpModal(
       context,
       modal,
       true,
-      title: 'Referral Ourcome',
+      title: 'Referral Follow up',
     );
-    if (dataObject.keys.length > 0 && isEditableMode) {
-      print(dataObject);
-    }
   }
 
   void onAddingOutcome(BuildContext context) {
