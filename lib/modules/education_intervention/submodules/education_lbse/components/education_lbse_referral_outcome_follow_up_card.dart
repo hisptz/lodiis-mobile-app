@@ -1,34 +1,174 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/core/components/line_separator.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/models/lbse_referral_outcome_follow_up_event.dart';
+import 'package:provider/provider.dart';
 
 class EducationLbseReferralOutcomeFollowUpCard extends StatelessWidget {
   const EducationLbseReferralOutcomeFollowUpCard({
     Key? key,
     required this.color,
     required this.followUpIndex,
+    required this.shouldEditFollowingUp,
     required this.referralOutcomeFollowUpEvent,
     required this.onAddOutComeFollowingUp,
   }) : super(key: key);
 
   final Color color;
   final int followUpIndex;
+  final bool shouldEditFollowingUp;
   final LbseReferralOutcomeFollowUpEvent referralOutcomeFollowUpEvent;
   final VoidCallback? onAddOutComeFollowingUp;
 
+  final double iconHeight = 18.0;
+  final String svgIcon = 'assets/icons/edit-icon.svg';
+  final Color valueColor = const Color(0xFF82898D);
+
+  Container _getReferralOutcomeDetailData({
+    required Color labelColor,
+    required Color valueColor,
+    required String label,
+    String? value,
+  }) {
+    return Container(
+      width: double.infinity,
+      margin: EdgeInsets.only(
+        bottom: 10.0,
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            margin: EdgeInsets.only(
+              bottom: 5.0,
+            ),
+            child: Text(
+              label,
+              style: TextStyle().copyWith(
+                color: labelColor,
+                fontSize: 14.0,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+          Container(
+            child: Text(
+              value!,
+              style: TextStyle().copyWith(
+                color: valueColor,
+                fontSize: 14.0,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        LineSeparator(color: color),
-        Container(
-          child: Text("FOLLOW UP $followUpIndex"),
-        ),
-        LineSeparator(color: color),
-        Container(
-          child: Text("$referralOutcomeFollowUpEvent"),
-        )
-      ],
+    return Container(
+      child: Column(
+        children: [
+          LineSeparator(
+            color: color.withOpacity(0.7),
+            height: 1.0,
+          ),
+          Container(
+            margin: EdgeInsets.symmetric(
+              vertical: 10.0,
+            ),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    "FOLLOW UP $followUpIndex",
+                    style: TextStyle().copyWith(
+                      color: color,
+                      fontSize: 15.0,
+                    ),
+                  ),
+                ),
+                Container(
+                  child: Visibility(
+                    visible: shouldEditFollowingUp,
+                    child: Container(
+                      margin: EdgeInsets.symmetric(
+                        horizontal: 10.0,
+                      ),
+                      child: InkWell(
+                        onTap: onAddOutComeFollowingUp,
+                        child: Container(
+                          height: iconHeight,
+                          width: iconHeight,
+                          margin: EdgeInsets.symmetric(
+                            vertical: 5.0,
+                            horizontal: 5.0,
+                          ),
+                          child: SvgPicture.asset(
+                            svgIcon,
+                            color: color,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
+          LineSeparator(
+            color: color.withOpacity(0.7),
+            height: 1.0,
+          ),
+          Container(
+            child: Consumer<LanguageTranslationState>(
+                builder: (context, languageTranslationState, child) {
+              String? currentLanguage =
+                  languageTranslationState.currentLanguage;
+
+              return Container(
+                margin: EdgeInsets.only(
+                  top: 10.0,
+                  left: 15.0,
+                  right: 15.0,
+                ),
+                child: Column(
+                  children: [
+                    _getReferralOutcomeDetailData(
+                      labelColor: color,
+                      valueColor: valueColor,
+                      label: currentLanguage == 'lesotho'
+                          ? 'Follow up date'
+                          : 'Follow up date',
+                      value: referralOutcomeFollowUpEvent.followUpDate,
+                    ),
+                    _getReferralOutcomeDetailData(
+                      labelColor: color,
+                      valueColor: valueColor,
+                      label: currentLanguage == 'lesotho'
+                          ? 'Follow up status'
+                          : 'Follow up status',
+                      value: referralOutcomeFollowUpEvent.followUpStatus,
+                    ),
+                    _getReferralOutcomeDetailData(
+                      labelColor: color,
+                      valueColor: valueColor,
+                      label: currentLanguage == 'lesotho'
+                          ? 'Comments or next steps'
+                          : 'Comments or next steps',
+                      value: referralOutcomeFollowUpEvent.comments,
+                    ),
+                  ],
+                ),
+              );
+            }),
+          )
+        ],
+      ),
     );
   }
 }
