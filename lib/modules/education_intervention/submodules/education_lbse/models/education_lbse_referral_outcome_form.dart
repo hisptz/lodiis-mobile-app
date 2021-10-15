@@ -37,6 +37,8 @@ class EducationLbseReferralOutcomeForm {
           InputField(
             id: 'DPf5mUDoZMy',
             name: 'Follow-up date',
+            allowFuturePeriod: true,
+            disablePastPeriod: true,
             valueType: 'DATE',
             inputColor: Color(0xFF009688),
             labelColor: Color(0xFF737373),
