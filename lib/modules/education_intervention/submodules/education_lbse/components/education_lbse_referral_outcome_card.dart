@@ -81,7 +81,8 @@ class EducationLbseReferralOutcomeCard extends StatelessWidget {
           .getAllEventListFromServiceDataStateByProgramStages(
               eventListByProgramStage, programStageIds);
       List<LbseReferralOutcomeFollowUpEvent> referralOutcomeFollowUps = events
-          .map((Events eventData) => LbseReferralOutcomeFollowUpEvent())
+          .map((Events eventData) =>
+              LbseReferralOutcomeFollowUpEvent().fromTeiModel(eventData))
           .toList()
           .where(
               (LbseReferralOutcomeFollowUpEvent referralOutcomeFollowUpEvent) =>
