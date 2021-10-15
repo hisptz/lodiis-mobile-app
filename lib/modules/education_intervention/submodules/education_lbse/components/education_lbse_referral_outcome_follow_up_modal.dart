@@ -16,8 +16,8 @@ import 'package:kb_mobile_app/modules/education_intervention/submodules/educatio
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/skip_logics/education_lbse_referral_outcome_follow_up_skip_logic.dart';
 import 'package:provider/provider.dart';
 
-class EducationLbseRefferalOutcomeFollowingUpModal extends StatefulWidget {
-  const EducationLbseRefferalOutcomeFollowingUpModal({
+class EducationLbseRefferalOutcomeFollowUpModal extends StatefulWidget {
+  const EducationLbseRefferalOutcomeFollowUpModal({
     Key? key,
     required this.formSections,
     required this.mandatoryFields,
@@ -27,12 +27,12 @@ class EducationLbseRefferalOutcomeFollowingUpModal extends StatefulWidget {
   final List mandatoryFields;
 
   @override
-  State<EducationLbseRefferalOutcomeFollowingUpModal> createState() =>
-      _EducationLbseRefferalOutcomeFollowingUpModalState();
+  State<EducationLbseRefferalOutcomeFollowUpModal> createState() =>
+      _EducationLbseRefferalOutcomeFollowUpModalState();
 }
 
-class _EducationLbseRefferalOutcomeFollowingUpModalState
-    extends State<EducationLbseRefferalOutcomeFollowingUpModal> {
+class _EducationLbseRefferalOutcomeFollowUpModalState
+    extends State<EducationLbseRefferalOutcomeFollowUpModal> {
   Map mandatoryFieldObject = Map();
   List unFilledMandatoryFields = [];
   bool isFormReady = false;
@@ -101,6 +101,7 @@ class _EducationLbseRefferalOutcomeFollowingUpModalState
       ];
 
       try {
+        print(dataObject);
         // await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
         //   LbseInterventionConstant.program,
         //   LbseInterventionConstant.referralOutcomeProgamStage,

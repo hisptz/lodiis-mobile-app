@@ -9,7 +9,8 @@ import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/components/education_lbse_referral_outcome_card.dart';
-import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/components/education_lbse_referral_outcome_following_up_modal.dart';
+import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/components/education_lbse_referral_outcome_follow_up_modal.dart';
+import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/components/education_lbse_referral_outcome_followup_container.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/components/education_lbse_referral_outcome_modal.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/constants/lbse_intervention_constant.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/models/education_lbse_referral_outcome_follow_up_form.dart';
@@ -74,21 +75,21 @@ class EducationLbseReferralOutComeContainer extends StatelessWidget {
 
   void onAddOrEditOutcomeFollowingUp(
     BuildContext context,
+    LbseReferralOutcomeEvent referralOutcomeEvent,
     bool isEditableMode,
     Events? eventData,
   ) async {
     updateFormState(context, isEditableMode, eventData);
-    //@TODO add this reference referralOutcomeToReferralOutComeFollowingUpLinkage
-
-    //@TODO adding linkeage to referral outcome following ups
-    // Provider.of<ServiceFormState>(context, listen: false).setFormFieldState(
-    //     LbseInterventionConstant.referralToReferralOutcomeLinkage,
-    //     lbseReferral.referralToReferralOutcomeLinkage);
+    Provider.of<ServiceFormState>(context, listen: false).setFormFieldState(
+        LbseInterventionConstant
+            .referralOutcomeToReferralOutComeFollowingUpLinkage,
+        referralOutcomeEvent
+            .referralOutcomeToReferralOutComeFollowingUpLinkage);
     List mandatoryFields =
         EducationLbseReferralOutcomeFollowUpForm.getMandatoryField();
     List<FormSection> formSections =
         EducationLbseReferralOutcomeFollowUpForm.getFormSections();
-    Widget modal = EducationLbseRefferalOutcomeFollowingUpModal(
+    Widget modal = EducationLbseRefferalOutcomeFollowUpModal(
         formSections: formSections, mandatoryFields: mandatoryFields);
     await AppUtil.showPopUpModal(
       context,
@@ -111,15 +112,31 @@ class EducationLbseReferralOutComeContainer extends StatelessWidget {
     onAddOrEditOutcome(context, isEditableMode, referralOutcomeEvent.eventData);
   }
 
-  void onAddOutComeFollowingUp(BuildContext context) {
+  void onAddOutComeFollowingUp(
+    BuildContext context,
+    LbseReferralOutcomeEvent referralOutcomeEvent,
+  ) {
     bool isEditableMode = true;
-    onAddOrEditOutcomeFollowingUp(context, isEditableMode, null);
+    onAddOrEditOutcomeFollowingUp(
+      context,
+      referralOutcomeEvent,
+      isEditableMode,
+      null,
+    );
   }
 
-  void onEditOutComeFollowingUps(BuildContext context) {
+  void onEditOutComeFollowingUps(
+    BuildContext context,
+    LbseReferralOutcomeEvent referralOutcomeEvent,
+  ) {
     bool isEditableMode = true;
     //@TODO adding event for edited  outcome following up
-    onAddOrEditOutcomeFollowingUp(context, isEditableMode, null);
+    onAddOrEditOutcomeFollowingUp(
+      context,
+      referralOutcomeEvent,
+      isEditableMode,
+      null,
+    );
   }
 
   Container _getActionButton({
@@ -227,38 +244,32 @@ class EducationLbseReferralOutComeContainer extends StatelessWidget {
                                       (LbseReferralOutcomeEvent
                                               referralOutcomeEvent) =>
                                           Container(
-                                        child: EducationLbseReferralOutcomeCard(
-                                          referralOutcomeEvent:
-                                              referralOutcomeEvent,
-                                          onEditReferralOutcome: () =>
-                                              onEditOutcome(context,
-                                                  referralOutcomeEvent),
-                                        ),
-                                      ),
-                                    )
-                                    .toList()
-                                  ..add(
-                                    Container(
-                                      child: Container(
                                         child: Column(
                                           children: [
-                                            //@TODO adding container for following ups
-                                            Visibility(
-                                              child: _getActionButton(
-                                                backgroundColor:
-                                                    Color(0xFF009688),
-                                                label: 'ADD FOLLOW UP',
-                                                labelColor: Colors.white,
-                                                onTap: () =>
+                                            EducationLbseReferralOutcomeCard(
+                                              referralOutcomeEvent:
+                                                  referralOutcomeEvent,
+                                              onEditReferralOutcome: () =>
+                                                  onEditOutcome(context,
+                                                      referralOutcomeEvent),
+                                            ),
+                                            Container(
+                                              child:
+                                                  EdcucationLbseReferralOutcomeFollowUpContainer(
+                                                isFollowingUpNeeded:
+                                                    referralOutcomeEvent
+                                                        .isRequireFollowUp!,
+                                                onAddOutComeFollowingUp: () =>
                                                     onAddOutComeFollowingUp(
-                                                        context),
+                                                        context,
+                                                        referralOutcomeEvent),
                                               ),
                                             )
                                           ],
                                         ),
                                       ),
-                                    ),
-                                  ),
+                                    )
+                                    .toList(),
                               ),
                             ),
                           ),
