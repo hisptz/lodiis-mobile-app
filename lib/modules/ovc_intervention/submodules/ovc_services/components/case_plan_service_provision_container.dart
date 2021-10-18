@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_household_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
-import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
-import 'package:kb_mobile_app/core/utils/app_resume_routes/app_resume_route.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
-import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/constants/ovc_routes_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/components/case_plan_gap_service_monitoring_view_container.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/components/case_plan_service_monitoring_form_container.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/components/case_plan_service_provision_form_container.dart';
@@ -89,32 +85,14 @@ class _CasePlanServiceProvisionContainerState
     dataObject[OvcCasePlanConstant.casePlanGapToMonitoringLinkage] =
         casePlanGapToServiceMonitoringLinkageValue;
 
-    dynamic beneficiary = widget.isCasePlanForHousehold
-        ? Provider.of<OvcHouseholdCurrentSelectionState>(context, listen: false)
-            .currentOvcHousehold
-        : Provider.of<OvcHouseholdCurrentSelectionState>(context, listen: false)
-            .currentOvcHouseholdChild;
-    String beneficiaryId = beneficiary.id ?? '';
-    String eventId = dataObject['eventId'] ?? '';
-    String formAutoSaveId =
-        '${widget.isCasePlanForHousehold ? OvcRoutesConstant.houseHoldMonitorFormPage : OvcRoutesConstant.ovcServiceMonitoringFormPage}_${beneficiaryId}_${widget.domainId}_$eventId';
-    FormAutoSave formAutoSave =
-        await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
-    bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
-        .shouldResumeWithUnSavedChanges(context, formAutoSave);
-    if (shouldResumeWithUnSavedChanges) {
-      AppResumeRoute().redirectToOvcHouseHoldServiceMonitoringForm(
-          context, formAutoSave, widget.domainId ?? '');
-    } else {
-      Widget modal = CasePlanServiceMonitoringFormContainer(
-        dataObject: dataObject,
-        domainId: widget.domainId,
-        isCasePlanForHousehold: widget.isCasePlanForHousehold,
-        isEditableMode: true,
-      );
+    Widget modal = CasePlanServiceMonitoringFormContainer(
+      dataObject: dataObject,
+      domainId: widget.domainId,
+      isCasePlanForHousehold: widget.isCasePlanForHousehold,
+      isEditableMode: true,
+    );
 
-      await AppUtil.showPopUpModal(context, modal, true);
-    }
+    await AppUtil.showPopUpModal(context, modal, true);
   }
 
   Future<void> editCasePlanGap(
@@ -184,31 +162,13 @@ class _CasePlanServiceProvisionContainerState
     dataObject["previousSessionMapping"] = previousSessionMapping;
     dataObject[OvcCasePlanConstant.casePlanGapToServiceProvisionLinkage] =
         casePlanGapToServiceProvisionLinkageValue;
-    dynamic beneficiary = widget.isCasePlanForHousehold
-        ? Provider.of<OvcHouseholdCurrentSelectionState>(context, listen: false)
-            .currentOvcHousehold
-        : Provider.of<OvcHouseholdCurrentSelectionState>(context, listen: false)
-            .currentOvcHouseholdChild;
-    String beneficiaryId = beneficiary.id ?? '';
-    String eventId = dataObject['eventId'] ?? '';
-    String formAutoSaveId =
-        '${widget.isCasePlanForHousehold ? OvcRoutesConstant.houseHoldServiceFormPage : OvcRoutesConstant.ovcServiceFormPage}_${beneficiaryId}_${widget.domainId}_$eventId';
-    FormAutoSave formAutoSave =
-        await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
-    bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
-        .shouldResumeWithUnSavedChanges(context, formAutoSave);
-    if (shouldResumeWithUnSavedChanges) {
-      AppResumeRoute().redirectToOvcHouseHoldServiceForm(
-          context, formAutoSave, widget.domainId ?? '');
-    } else {
-      Widget modal = CasePlanServiceProvisionFormModalContainer(
-        dataObject: dataObject,
-        domainId: widget.domainId,
-        isCasePlanForHousehold: widget.isCasePlanForHousehold,
-        isEditableMode: widget.shouldViewCaseGapServiceProvision,
-      );
-      await AppUtil.showPopUpModal(context, modal, true);
-    }
+    Widget modal = CasePlanServiceProvisionFormModalContainer(
+      dataObject: dataObject,
+      domainId: widget.domainId,
+      isCasePlanForHousehold: widget.isCasePlanForHousehold,
+      isEditableMode: widget.shouldViewCaseGapServiceProvision,
+    );
+    await AppUtil.showPopUpModal(context, modal, true);
   }
 
   @override

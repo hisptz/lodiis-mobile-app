@@ -4,19 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_household_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
-import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
-import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
-import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/ovc_household.dart';
 import 'package:kb_mobile_app/models/ovc_household_child.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/constants/ovc_routes_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/household_service_provision.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_child_service_provision.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_case_plan/constants/ovc_child_case_plan_constant.dart';
@@ -113,50 +109,6 @@ class _CasePlanServiceProvisionFormModalContainerState
       );
   }
 
-  void clearFormAutoSaveState(
-      BuildContext context, String? beneficiaryId, String eventId) async {
-    String formAutoSaveId =
-        "${widget.isCasePlanForHousehold ? OvcRoutesConstant.houseHoldServiceFormPage : OvcRoutesConstant.ovcServiceFormPage}_${beneficiaryId}_${widget.domainId}_$eventId";
-    await FormAutoSaveOfflineService().deleteSavedFormAutoData(formAutoSaveId);
-  }
-
-  void onUpdateFormAutoSaveState(
-    BuildContext context, {
-    bool isSaveForm = false,
-    String nextPageModule = "",
-  }) async {
-    var houseHold =
-        Provider.of<OvcHouseholdCurrentSelectionState>(context, listen: false)
-            .currentOvcHousehold!;
-    String? beneficiaryId = houseHold.id;
-    Map dataObject =
-        Provider.of<ServiceFormState>(context, listen: false).formState;
-    widget.dataObject.forEach((key, value) {
-      dataObject.putIfAbsent(key, () => value);
-    });
-    String eventId = dataObject['eventId'] ?? '';
-    String id =
-        "${widget.isCasePlanForHousehold ? OvcRoutesConstant.houseHoldServiceFormPage : OvcRoutesConstant.ovcServiceFormPage}_${beneficiaryId}_${widget.domainId}_$eventId";
-    FormAutoSave formAutoSave = FormAutoSave(
-      id: id,
-      beneficiaryId: beneficiaryId,
-      pageModule: widget.isCasePlanForHousehold
-          ? OvcRoutesConstant.houseHoldServiceFormPage
-          : OvcRoutesConstant.ovcServiceFormPage,
-      nextPageModule: isSaveForm
-          ? nextPageModule != ""
-              ? nextPageModule
-              : widget.isCasePlanForHousehold
-                  ? OvcRoutesConstant.houseHoldServiceFormNextPage
-                  : OvcRoutesConstant.ovcServiceFormNextPage
-          : widget.isCasePlanForHousehold
-              ? OvcRoutesConstant.houseHoldServiceFormPage
-              : OvcRoutesConstant.ovcServiceFormPage,
-      data: jsonEncode(dataObject),
-    );
-    await FormAutoSaveOfflineService().saveFormAutoSaveData(formAutoSave);
-  }
-
   void onInputValueChange(String id, dynamic value) {
     widget.dataObject[id] = value;
     setState(() {});
@@ -165,7 +117,6 @@ class _CasePlanServiceProvisionFormModalContainerState
         OvcServiceProvisionUtil.getSessionNumberValidation(widget.dataObject);
     setState(() {});
     setSessionNumberViolationMessages(sessionNumberValidation);
-    onUpdateFormAutoSaveState(context);
   }
 
   List<String> getInputFieldsLabel(
@@ -268,7 +219,6 @@ class _CasePlanServiceProvisionFormModalContainerState
                   : 'Form has been saved successfully',
               position: ToastGravity.TOP,
             );
-            clearFormAutoSaveState(context, beneficiaryId, eventId ?? '');
             Navigator.pop(context);
           });
         } catch (e) {
