@@ -1,12 +1,12 @@
 class AppSemanticVersion {
-  int? major;
-  int? minor;
-  int? patch;
+  int major;
+  int minor;
+  int patch;
 
   AppSemanticVersion({
-    this.major,
-    this.minor,
-    this.patch,
+    required this.major,
+    required this.minor,
+    required this.patch,
   });
 
   @override
