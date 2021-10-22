@@ -8,10 +8,12 @@ class AppInfoState with ChangeNotifier {
   String? _currentAppName;
   String? _currentAppVersion;
   String? _currentAppId;
-  bool? _canUpdate;
+  bool? _showWarningToAppUpdate;
+  bool? _shouldUpdateTheApp;
 
   String get currentAppName => _currentAppName ?? '';
-  bool get canUpdate => _canUpdate ?? false;
+  bool get showWarningToAppUpdate => _showWarningToAppUpdate ?? false;
+  bool get shouldUpdateTheApp => _shouldUpdateTheApp ?? false;
   String get currentAppVersion => _currentAppVersion ?? '';
   String get currentAppId => _currentAppId ?? '';
 
@@ -24,41 +26,36 @@ class AppInfoState with ChangeNotifier {
         androidId: AppInfoReference.androidId,
       );
       final status = await newVersion.getVersionStatus();
-      _canUpdate = status!.canUpdate;
+      _showWarningToAppUpdate = status!.canUpdate;
       _currentAppVersion = status.localVersion;
-      // updateAppUpdateState(
-      //   storeVersion: status.storeVersion,
-      //   localVersion: status.localVersion,
-      // );
       updateAppUpdateState(
-        storeVersion: "1.3.7",
-        localVersion: "1.3.5",
+        storeVersion: status.storeVersion,
+        localVersion: status.localVersion,
       );
     } catch (error) {}
     notifyListeners();
   }
 
   void updateAppUpdateState({storeVersion: String, localVersion: String}) {
-    int minmunAllowedMajorVersion = 0;
-    int minmunAllowedMinorVersion = 0;
-    int minmunAllowedPatchVersion = 2;
     AppSemanticVersion storeSemanticVersion =
         AppUtil.getSemanticVersionValue(version: storeVersion);
     AppSemanticVersion localSemanticVersion =
         AppUtil.getSemanticVersionValue(version: localVersion);
-    if (localSemanticVersion.major + minmunAllowedMajorVersion <
+    if (localSemanticVersion.major +
+            AppInfoReference.minmunAllowedMajorVersion <
         storeSemanticVersion.major) {
-      print("Updating the app based on major");
-    } else if (localSemanticVersion.minor + minmunAllowedMinorVersion <
+      _shouldUpdateTheApp = true;
+    } else if (localSemanticVersion.minor +
+            AppInfoReference.minmunAllowedMinorVersion <
         storeSemanticVersion.minor) {
-      print("Updating the app based on minor");
-    } else if (localSemanticVersion.patch + minmunAllowedPatchVersion <
+      _shouldUpdateTheApp = true;
+    } else if (localSemanticVersion.patch +
+            AppInfoReference.minmunAllowedPatchVersion <
         storeSemanticVersion.patch) {
-      print("Updating the app based on patch");
+      _shouldUpdateTheApp = true;
     } else {
-      print("No need to update");
+      _shouldUpdateTheApp = false;
     }
-    print("storeSemanticVersion => $storeSemanticVersion");
-    print("localSemanticVersion => $localSemanticVersion");
+    notifyListeners();
   }
 }
