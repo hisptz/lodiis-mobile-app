@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/app_state/app_info_state/app_device_info_state.dart';
 import 'package:kb_mobile_app/app_state/app_info_state/app_info_state.dart';
 import 'package:kb_mobile_app/app_state/current_user_state/current_user_state.dart';
 import 'package:kb_mobile_app/app_state/device_connectivity_state/device_connectivity_state.dart';
@@ -40,6 +41,8 @@ class _SplashState extends State<Splash> {
     String? currentLanguage =
         await LanguageSelectionService.getCurrentLanguageSelection();
     Provider.of<AppInfoState>(context, listen: false).setCurrentAppInfo();
+    Provider.of<AppDeviceInfoState>(context, listen: false)
+        .setCurrentDeviceInfo();
     Provider.of<DeviceConnectivityState>(context, listen: false)
         .initializeConnectionStatus();
     if (currentLanguage != null) {
