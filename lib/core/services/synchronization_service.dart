@@ -51,7 +51,7 @@ class SynchronizationService {
         int pageTotal = pager['total'];
         int pageSize = 1000;
         int total = pageTotal >= pageSize ? pageTotal : pageSize;
-        for (int page = 1; page <= (total / pageSize).round(); page++) {
+        for (int page = 1; page <= (total / pageSize).ceil(); page++) {
           paginationFilter.add({
             "totalPages": "true",
             "page": "$page",
