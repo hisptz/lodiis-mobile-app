@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:kb_mobile_app/core/utils/device_info_util.dart';
 
 class AppDeviceInfoState with ChangeNotifier {
+  String? _androidDeviceId;
   String? _securityPatch;
   String? _osVersion;
   String? _brand;
@@ -13,6 +14,7 @@ class AppDeviceInfoState with ChangeNotifier {
   String? _model;
   String? _product;
 
+  String get androidDeviceId => _androidDeviceId ?? '';
   String get securityPatch => _securityPatch ?? '';
   String get osVersion => _osVersion ?? '';
   String get brand => _brand ?? '';
@@ -38,6 +40,7 @@ class AppDeviceInfoState with ChangeNotifier {
           _manufacturer = deviceData['manufacturer'] ?? '';
           _model = deviceData['model'] ?? '';
           _product = deviceData['product'] ?? '';
+          _androidDeviceId = deviceData['androidId'] ?? '';
         } else if (Platform.isIOS) {
           print('It s on iOS');
         } else if (Platform.isLinux) {
