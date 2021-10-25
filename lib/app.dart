@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:kb_mobile_app/app_state/app_info_state/app_device_info_state.dart';
 import 'package:kb_mobile_app/app_state/app_info_state/app_info_state.dart';
 import 'package:kb_mobile_app/app_state/app_logs_state/app_logs_state.dart';
 import 'package:kb_mobile_app/app_state/current_user_state/current_user_state.dart';
@@ -36,6 +37,7 @@ class MyApp extends StatelessWidget {
         providers: [
           ChangeNotifierProvider(create: (_) => SynchronizationStatusState()),
           ChangeNotifierProvider(create: (_) => AppInfoState()),
+          ChangeNotifierProvider(create: (_) => AppDeviceInfoState()),
           ChangeNotifierProvider(create: (_) => LanguageTranslationState()),
           ChangeNotifierProvider(create: (_) => CurrentUserState()),
           ChangeNotifierProvider(create: (_) => InterventionCardState()),
