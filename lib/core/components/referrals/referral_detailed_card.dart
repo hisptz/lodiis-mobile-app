@@ -153,9 +153,9 @@ class _ReferralDetailedCardState extends State<ReferralDetailedCard> {
         builder: (context, languageTranslationState, child) {
           String? currentLanguage = languageTranslationState.currentLanguage;
           return Consumer<ServiceEventDataState>(
-            builder: (context, serviceFormState, child) {
+            builder: (context, serviceEventDataState, child) {
               Map<String?, List<Events>> eventListByProgramStage =
-                  serviceFormState.eventListByProgramStage;
+                  serviceEventDataState.eventListByProgramStage;
               List<Events> eventList =
                   TrackedEntityInstanceUtil.getAllEventListFromServiceDataState(
                       eventListByProgramStage);

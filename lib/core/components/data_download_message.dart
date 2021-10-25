@@ -48,12 +48,14 @@ class _DataDownloadMessageState extends State<DataDownloadMessage> {
           Provider.of<DeviceConnectivityState>(context, listen: false)
               .connectivityStatus!;
       if (connected) {
-        // TODO stop checking for sync notificiation if the widget is disposed
         await ReferralNotificationService().syncReferralNotifications();
-        await Provider.of<ReferralNotificationState>(context, listen: false)
-            .reloadReferralNotifications();
-        Provider.of<SynchronizationState>(context, listen: false)
-            .checkingForAvailableBeneficiaryData();
+        if (mounted) {
+          BuildContext ctx = context;
+          await Provider.of<ReferralNotificationState>(ctx, listen: false)
+              .reloadReferralNotifications();
+          Provider.of<SynchronizationState>(ctx, listen: false)
+              .checkingForAvailableBeneficiaryData();
+        }
       }
     });
   }

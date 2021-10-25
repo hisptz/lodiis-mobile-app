@@ -204,11 +204,11 @@ class _DreamsAgywReferralPageState extends State<DreamsAgywReferralPage> {
                 return Consumer<ReferralNotificationState>(
                   builder: (context, referralNotificationState, child) {
                     return Consumer<ServiceEventDataState>(
-                      builder: (context, serviceFormState, child) {
+                      builder: (context, serviceEventDataState, child) {
                         AgywDream? agywDream = dreamAgywState.currentAgywDream;
-                        bool isLoading = serviceFormState.isLoading;
+                        bool isLoading = serviceEventDataState.isLoading;
                         Map<String?, List<Events>> eventListByProgramStage =
-                            serviceFormState.eventListByProgramStage;
+                            serviceEventDataState.eventListByProgramStage;
                         List<String?> incomingReferrals =
                             referralNotificationState.incomingReferrals;
                         List<Events> events = TrackedEntityInstanceUtil

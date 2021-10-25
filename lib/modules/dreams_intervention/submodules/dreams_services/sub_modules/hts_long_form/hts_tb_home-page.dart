@@ -79,10 +79,10 @@ class _HTSTBHomePageState extends State<HTSTBHomePage> {
   Widget build(BuildContext context) {
     return Container(
       child: Container(child: Consumer<ServiceEventDataState>(
-        builder: (context, serviceFormState, child) {
-          bool isLoading = serviceFormState.isLoading;
+        builder: (context, serviceEventDataState, child) {
+          bool isLoading = serviceEventDataState.isLoading;
           Map<String?, List<Events>> eventListByProgramStage =
-              serviceFormState.eventListByProgramStage;
+              serviceEventDataState.eventListByProgramStage;
           List<Events> events = TrackedEntityInstanceUtil
               .getAllEventListFromServiceDataStateByProgramStages(
                   eventListByProgramStage, programStageIds);

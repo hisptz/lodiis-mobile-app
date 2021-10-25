@@ -163,15 +163,16 @@ class ReferralNotificationService {
     HttpService httpService,
   ) async {
     List<ReferralNotification> referralNotifications = [];
-    // TODO Check why notification are not synced
     try {
       for (String nameSpaceKey in keysForReferralNotification) {
         Response response = await httpService.httpGet(
           "$apiUrlToDataStore/$nameSpaceKey",
           queryParameters: {},
         );
-        for (Map data in json.decode(response.body)) {
-          referralNotifications.add(ReferralNotification.fromJson(data));
+        if (response.statusCode == 200) {
+          for (Map data in json.decode(response.body)) {
+            referralNotifications.add(ReferralNotification.fromJson(data));
+          }
         }
       }
     } catch (error) {
