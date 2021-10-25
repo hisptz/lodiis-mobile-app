@@ -5,14 +5,31 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:kb_mobile_app/models/app_semantic_version.dart';
 
 class AppUtil {
+  static AppSemanticVersion getSemanticVersionValue({version: String}) {
+    List<String> versionList = version.split(".");
+    int major = 0;
+    int minor = 0;
+    int patch = 0;
+    if (versionList.length > 0 && versionList[0] != "") {
+      major = versionList.length > 0 ? int.parse(versionList[0]) : major;
+    }
+    if (versionList.length > 1 && versionList[2] != "") {
+      minor = versionList.length > 0 ? int.parse(versionList[1]) : minor;
+    }
+    if (versionList.length > 2 && versionList[2] != "") {
+      patch = versionList.length > 0 ? int.parse(versionList[2]) : patch;
+    }
+    return AppSemanticVersion(major: major, minor: minor, patch: patch);
+  }
+
   static bool hasAllMandatoryFieldsFilled(List mandatoryFields, Map dataDynamic,
       {Map hiddenFields = const {}}) {
     bool hasFilled = true;
     List fieldIds = dataDynamic.keys.toList();
     List hiddenFieldsIds = hiddenFields.keys.toList();
-    //Remove all hidden fields which are mandatory from the list
     List filteredMandatoryFields = mandatoryFields
         .where((field) => hiddenFieldsIds.indexOf(field) < 0)
         .toList();
@@ -34,7 +51,6 @@ class AppUtil {
     List unFilledMandatoryFields = [];
     List fieldIds = dataDynamic.keys.toList();
     List hiddenFieldsIds = hiddenFields.keys.toList();
-    //Remove all hidden fields which are mandatory from the list
     List filteredMandatoryFields = mandatoryFields
         .where((field) => hiddenFieldsIds.indexOf(field) < 0)
         .toList();
