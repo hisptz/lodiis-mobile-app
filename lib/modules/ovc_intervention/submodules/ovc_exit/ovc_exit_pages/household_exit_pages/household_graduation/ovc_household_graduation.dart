@@ -8,11 +8,15 @@ import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/Int
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
+import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
+import 'package:kb_mobile_app/core/utils/app_resume_routes/app_resume_route.dart';
 import 'package:kb_mobile_app/models/events.dart';
+import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/models/ovc_household.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_household_top_header.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/constants/ovc_routes_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_pages/household_exit_pages/household_graduation/components/ovc_household_graduation_list_container.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_pages/household_exit_pages/household_graduation/constants/ovc_household_graduation_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_pages/household_exit_pages/household_graduation/pages/ovc_household_graduation_form.dart';
@@ -24,8 +28,8 @@ class OvcHouseholdGraduation extends StatelessWidget {
     OvcHouseholdGraduationConstant.programStage
   ];
 
-  void updateFormState(
-      BuildContext context, bool isEditableMode, Events? graduation) {
+  void updateFormState(BuildContext context, bool isEditableMode,
+      Events? graduation, OvcHousehold? houseHold) async {
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
     Provider.of<ServiceFormState>(context, listen: false)
         .updateFormEditabilityState(isEditableMode: isEditableMode);
@@ -43,29 +47,50 @@ class OvcHouseholdGraduation extends StatelessWidget {
         }
       }
     }
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => OvcHouseholdGraduationForm(),
-      ),
-    );
+    if (isEditableMode) {
+      String beneficiaryId = houseHold!.id!;
+      String eventId = graduation == null ? '' : graduation.event ?? '';
+      String formAutoSaveId =
+          '${OvcRoutesConstant.householdGraduationFormPage}_${beneficiaryId}_$eventId';
+      FormAutoSave formAutoSave = await FormAutoSaveOfflineService()
+          .getSavedFormAutoData(formAutoSaveId);
+      bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
+          .shouldResumeWithUnSavedChanges(context, formAutoSave);
+      if (shouldResumeWithUnSavedChanges) {
+        AppResumeRoute().redirectToPages(context, formAutoSave);
+      } else {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => OvcHouseholdGraduationForm(),
+          ),
+        );
+      }
+    } else {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => OvcHouseholdGraduationForm(),
+        ),
+      );
+    }
   }
 
   void onAddNewHouseholdAchievement(
     BuildContext context,
     OvcHousehold? houseHold,
   ) {
-    updateFormState(context, true, null);
+    updateFormState(context, true, null, houseHold);
   }
 
   void onViewHouseholdAchievement(
       BuildContext context, OvcHousehold? houseHold, Events graduation) {
-    updateFormState(context, false, graduation);
+    updateFormState(context, false, graduation, houseHold);
   }
 
   void onEditHouseholdAchievement(
       BuildContext context, OvcHousehold? houseHold, Events graduation) {
-    updateFormState(context, true, graduation);
+    updateFormState(context, true, graduation, houseHold);
   }
 
   @override
