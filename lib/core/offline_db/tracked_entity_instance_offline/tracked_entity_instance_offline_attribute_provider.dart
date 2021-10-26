@@ -59,7 +59,7 @@ class TrackedEntityInstanceOfflineAttributeProvider extends OfflineDbProvider {
       for (Map attributeObj in attributes) {
         String? attribute = attributeObj['attribute'];
         Map data = Map<String, dynamic>();
-        data['id'] = '$trackedEntityInstance-$attribute';
+        data['id'] = '$trackedEntityInstanceId-$attribute';
         data['trackedEntityInstance'] = trackedEntityInstanceId;
         data['attribute'] = attribute;
         data['value'] = attributeObj['value'] ?? '';
@@ -113,5 +113,17 @@ class TrackedEntityInstanceOfflineAttributeProvider extends OfflineDbProvider {
       }
     } catch (e) {}
     return attributes;
+  }
+
+  Future<void> deleteTrackedEntityAttributesByIds(List<String> ids) async {
+    try {
+      var dbClient = await db;
+      var batch = dbClient!.batch();
+      for (String id in ids) {
+        batch.delete(table, where: '$attribute = ?', whereArgs: [id]);
+      }
+      await batch.commit(
+          exclusive: true, noResult: true, continueOnError: true);
+    } catch (e) {}
   }
 }

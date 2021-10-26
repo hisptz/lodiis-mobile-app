@@ -1,6 +1,8 @@
 import 'package:kb_mobile_app/core/offline_db/tracked_entity_instance_offline/tracked_entity_instance_offline_attribute_provider.dart';
+import 'package:kb_mobile_app/core/offline_db/tracked_entity_instance_offline/tracked_entity_instance_offline_provider.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
+import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/models/non_agyw_hts_client_information.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/models/non_agyw_hts_register.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/models/none_agyw_enrollment_prep_screening.dart';
@@ -14,9 +16,99 @@ class DataQualityService {
         : '${double.parse(value)}';
   }
 
+  static Future<List<TrackedEntityInstance>>
+      getTrackedEntityInstancesToBeUpdated(List<String> updatedTei) async {
+    List<TrackedEntityInstance> teiToUpdate =
+        await TrackedEntityInstanceOfflineProvider()
+            .getTrackedEntityInstanceByIds(updatedTei);
+    teiToUpdate = teiToUpdate.map((tei) {
+      tei.syncStatus = 'not-synced';
+      return tei;
+    }).toList();
+
+    return teiToUpdate;
+  }
+
+  static Future<void> migrateOptionSetsToCheckBox() async {
+    List migratedAttributes = [];
+    List<String> updatedTei = [];
+    List<String> fieldsToBeMigrated = [
+      'wtrZQadTkOL',
+      'CePNVGSnj00',
+    ];
+    try {
+      List attributesToMigrate =
+          await TrackedEntityInstanceOfflineAttributeProvider()
+              .getTrackedEntityAttributesValuesById(fieldsToBeMigrated);
+
+      for (dynamic attributeData in attributesToMigrate) {
+        Map resolvedAttribute = Map<String, dynamic>();
+        String attribute = attributeData['attribute'] ?? '';
+        String trackedEntityInstance =
+            attributeData['trackedEntityInstance'] ?? '';
+        String value = attributeData['value'] ?? '';
+        if (attribute == 'wtrZQadTkOL') {
+          if (value == 'Sexual') {
+            resolvedAttribute['attribute'] = 'm26lCJGANwu';
+            resolvedAttribute['value'] = 'true';
+          } else if (value == 'Economic/Neglect') {
+            resolvedAttribute['attribute'] = 'BGJgzqszT0H';
+            resolvedAttribute['value'] = 'true';
+          } else if (value == 'Physical') {
+            resolvedAttribute['attribute'] = 'WAjYVtFWI2n';
+            resolvedAttribute['value'] = 'true';
+          } else if (value == 'Emotional') {
+            resolvedAttribute['attribute'] = 'lm4BA6iOdlI';
+            resolvedAttribute['value'] = 'true';
+          }
+        } else if (attribute == 'CePNVGSnj00') {
+          if (value == 'Health Facility') {
+            resolvedAttribute['attribute'] = 'yI8xKOrRN9a';
+            resolvedAttribute['value'] = 'true';
+          } else if (value == 'Police -CGPU') {
+            resolvedAttribute['attribute'] = 'ftRPTznAqUn';
+            resolvedAttribute['value'] = 'true';
+          } else if (value == 'Councilor') {
+            resolvedAttribute['attribute'] = 'PoQuVkWjI4K';
+            resolvedAttribute['value'] = 'true';
+          } else if (value == 'Chief') {
+            resolvedAttribute['attribute'] = 'FVBsqRoLGYW';
+            resolvedAttribute['value'] = 'true';
+          } else if (value == 'Social Worker') {
+            resolvedAttribute['attribute'] = 'mM0mGp695z4';
+            resolvedAttribute['value'] = 'true';
+          } else if (value == 'Other') {
+            resolvedAttribute['attribute'] = 'Yu4SpTnnAqb';
+            resolvedAttribute['value'] = 'true';
+          }
+        }
+
+        if (resolvedAttribute.containsKey('attribute')) {
+          resolvedAttribute['trackedEntityInstance'] = trackedEntityInstance;
+          resolvedAttribute['id'] =
+              '$trackedEntityInstance-${resolvedAttribute['attribute']}';
+          migratedAttributes.add(resolvedAttribute);
+          updatedTei.add(trackedEntityInstance);
+        }
+      }
+
+      if (migratedAttributes.isNotEmpty) {
+        List<TrackedEntityInstance> teiToBeUpdated =
+            await getTrackedEntityInstancesToBeUpdated(updatedTei);
+        await TrackedEntityInstanceOfflineAttributeProvider()
+            .addOrUpdateMultipleTrackedEntityInstanceAttributes(
+                migratedAttributes);
+        await TrackedEntityInstanceOfflineProvider()
+            .addOrUpdateMultipleTrackedEntityInstance(teiToBeUpdated);
+        await TrackedEntityInstanceOfflineAttributeProvider()
+            .deleteTrackedEntityAttributesByIds(fieldsToBeMigrated);
+      }
+    } catch (e) {}
+  }
+
   static void runDataQualityCheckResolution() async {
     List resolvedAttributes = [];
-    List<FormSection> enrollmentFormSections = getEnrollmmentFormSections();
+    List<FormSection> enrollmentFormSections = getEnrollmentFormSections();
     List<InputField> numericalInputFields =
         getNumericalInputFields(enrollmentFormSections);
     List<String> attributeIds = numericalInputFields
@@ -39,6 +131,7 @@ class DataQualityService {
     }
     await TrackedEntityInstanceOfflineAttributeProvider()
         .addOrUpdateMultipleTrackedEntityInstanceAttributes(resolvedAttributes);
+    await migrateOptionSetsToCheckBox();
   }
 
   static List<InputField> getNumericalInputFields(
@@ -68,7 +161,7 @@ class DataQualityService {
         .toList();
   }
 
-  static List<FormSection> getEnrollmmentFormSections() {
+  static List<FormSection> getEnrollmentFormSections() {
     List<FormSection> ogacEnrollment =
         OgacInterventionFormSection.getEnrollmentFormSections();
     List<FormSection> agywRiskAssessment = [];
