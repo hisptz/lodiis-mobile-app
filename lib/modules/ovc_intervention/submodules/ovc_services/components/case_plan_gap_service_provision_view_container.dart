@@ -265,29 +265,24 @@ class _CasePlanGapServiceViewContainerState
                                               ),
                                             ),
                                             Container(
-                                              child: Visibility(
-                                                visible: widget
-                                                    .shouldEditCaseGapServiceProvision,
-                                                child: Container(
-                                                  child: InkWell(
-                                                    onTap: () =>
-                                                        onEditCasePlanServiceProvision(
-                                                      context,
-                                                      casePlanGapServiceProvision,
+                                              child: Container(
+                                                child: InkWell(
+                                                  onTap: () =>
+                                                      onEditCasePlanServiceProvision(
+                                                    context,
+                                                    casePlanGapServiceProvision,
+                                                  ),
+                                                  child: Container(
+                                                    height: iconHeight,
+                                                    width: iconHeight,
+                                                    margin:
+                                                        EdgeInsets.symmetric(
+                                                      vertical: 5,
+                                                      horizontal: 5,
                                                     ),
-                                                    child: Container(
-                                                      height: iconHeight,
-                                                      width: iconHeight,
-                                                      margin:
-                                                          EdgeInsets.symmetric(
-                                                        vertical: 5,
-                                                        horizontal: 5,
-                                                      ),
-                                                      child: SvgPicture.asset(
-                                                        'assets/icons/edit-icon.svg',
-                                                        color:
-                                                            widget.themeColor,
-                                                      ),
+                                                    child: SvgPicture.asset(
+                                                      'assets/icons/edit-icon.svg',
+                                                      color: widget.themeColor,
                                                     ),
                                                   ),
                                                 ),

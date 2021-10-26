@@ -23,10 +23,10 @@ class ServiceFormContainer extends StatelessWidget {
     required this.shouldViewCaseGapServiceProvision,
   }) : super(key: key);
 
-  final Color? formSectionColor;
+  final Color formSectionColor;
   final FormSection formSection;
   final bool isEditableMode;
-  final Map? dataObject;
+  final Map dataObject;
   final Function? onInputValueChange;
   final bool isCasePlanForHousehold;
   final bool isServiceMonitoring;
@@ -44,7 +44,7 @@ class ServiceFormContainer extends StatelessWidget {
     gapDataObject[casePlanGapToServiceProvisionLinkage] =
         gapDataObject[casePlanGapToServiceProvisionLinkage] ?? AppUtil.getUid();
     gapDataObject[caseToGapLinkage] =
-        dataObject![caseToGapLinkage] ?? AppUtil.getUid();
+        dataObject[caseToGapLinkage] ?? AppUtil.getUid();
     gapDataObject[casePlanGapToServiceMonitoringLinkage] =
         gapDataObject[casePlanGapToServiceMonitoringLinkage] ??
             AppUtil.getUid();
@@ -67,14 +67,12 @@ class ServiceFormContainer extends StatelessWidget {
       dataObject: gapDataObject,
     );
     Map response = await AppUtil.showPopUpModal(context, modal, true);
-    if (response != null) {
-      dataObject!['gaps'].add(response);
-      onValueChange('gaps', dataObject!['gaps']);
-    }
+    dataObject['gaps'].add(response);
+    onValueChange('gaps', dataObject['gaps']);
   }
 
   void onValueChange(String id, dynamic value) {
-    dataObject![id] = value;
+    dataObject[id] = value;
     onInputValueChange!(dataObject);
   }
 
@@ -93,7 +91,7 @@ class ServiceFormContainer extends StatelessWidget {
             decoration: BoxDecoration(
                 border: Border(
               left: BorderSide(
-                color: formSectionColor!,
+                color: formSectionColor,
                 width: 8.0,
               ),
             )),
@@ -108,7 +106,7 @@ class ServiceFormContainer extends StatelessWidget {
                   onInputValueChange: onValueChange,
                 ),
                 CasePlanServiceProvisionViewContainer(
-                  casePlanGaps: dataObject!['gaps'] ?? [],
+                  casePlanGaps: dataObject['gaps'] ?? [],
                   domainId: formSection.id,
                   isCasePlanForHousehold: isCasePlanForHousehold,
                   isServiceMonitoring: isServiceMonitoring,
@@ -129,9 +127,9 @@ class ServiceFormContainer extends StatelessWidget {
                     child: TextButton(
                       style: TextButton.styleFrom(
                         backgroundColor: Colors.white,
-                        onSurface: formSectionColor!.withOpacity(0.5),
+                        onSurface: formSectionColor.withOpacity(0.5),
                         shape: RoundedRectangleBorder(
-                          side: BorderSide(color: formSectionColor!),
+                          side: BorderSide(color: formSectionColor),
                           borderRadius: BorderRadius.circular(12.0),
                         ),
                       ),

@@ -23,7 +23,36 @@ class OvcRoutesConstant {
       "Household vulnerability and prioritization form";
   static final String ovcEnrollmentHouseholdEditFormNextPage =
       "Household vulnerability and prioritization form";
-  //@TODO Routes constants for services of caregiver/household
-  //@TODO routes constants for services of children
 
+  //@TODO Routes constants for services of caregiver/household
+  static final String houseHoldAssessmentFormPage = 'Household Assessment Form';
+  static final String houseHoldAssessmentFormNextPage =
+      'Household Assessment Form';
+  static final String houseHoldCasePlanFormPage = 'Household Case Plan Form';
+  static final String houseHoldCasePlanFormNextPage =
+      'Household Case Plan Form';
+  // static final String houseHoldServiceFormPage =
+  //     'Household Service Provision Form';
+  // static final String houseHoldServiceFormNextPage =
+  //     'Household Service Provision Form';
+  // static final String houseHoldMonitorFormPage =
+  //     'Household Service Monitoring Form';
+  // static final String houseHoldMonitorFormNextPage =
+  //     'Household Service Monitoring Form';
+  static final String houseHoldReferralFormPage = 'Household Referral Form';
+  static final String houseHoldReferralFormNextPage = 'Household Referral Form';
+
+  //@TODO routes constants for services of children
+  static final String ovcReferralFormPage = 'Ovc child Referral Form';
+  static final String ovcReferralFormNextPage = 'Ovc child Referral Form';
+  static final String ovcCloReferralFormPage = 'Child CLO Referral Form';
+  static final String ovcCloReferralFormNextPage = 'Child CLO Referral Form';
+  // static final String ovcServiceFormPage = 'Service Provision';
+  // static final String ovcServiceFormNextPage = 'Service Provision';
+  // static final String ovcServiceMonitoringFormPage = 'Service Monitoring';
+  // static final String ovcServiceMonitoringFormNextPage = 'Service Monitoring';
+  static final String ovcSchoolMonitoringFormPage =
+      'Child school performance monitoring';
+  static final String ovcSchoolMonitoringFormNextPage =
+      'Child school performance monitoring';
 }

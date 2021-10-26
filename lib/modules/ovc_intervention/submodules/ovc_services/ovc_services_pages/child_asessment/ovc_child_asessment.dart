@@ -29,7 +29,7 @@ class OvcChildAssessment extends StatelessWidget {
       BuildContext context, OvcHouseholdChild child) async {
     updateFormStateData(context, null, child);
     Widget model = OvcChildAssessmentSelection();
-    String assessmentResponse =
+    String? assessmentResponse =
         await AppUtil.showPopUpModal(context, model, false);
     onRedirectToAssessmentForm(context, assessmentResponse, true);
   }

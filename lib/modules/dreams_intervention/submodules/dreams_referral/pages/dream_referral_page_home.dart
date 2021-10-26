@@ -82,8 +82,9 @@ class _DreamsAgywReferralPageState extends State<DreamsAgywReferralPage> {
     await Provider.of<ImplementingPartnerReferralServiceState>(context,
             listen: false)
         .setImplementingPartnerServices();
+    String eventId = '';
     String formAutoSaveId =
-        "${DreamsRoutesConstant.agywDreamsReferralPage}_${agywDream.id}";
+        "${DreamsRoutesConstant.agywDreamsReferralPage}_${agywDream.id}_$eventId";
     FormAutoSave formAutoSave =
         await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
     bool shouldResumeWithUnSavedChanges = await AppResumeRoute()

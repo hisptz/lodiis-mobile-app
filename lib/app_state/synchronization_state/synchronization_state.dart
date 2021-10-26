@@ -169,7 +169,6 @@ class SynchronizationState with ChangeNotifier {
     notifyListeners();
   }
 
-  // TODO add check for when the widget is active
   checkingForAvailableBeneficiaryData() async {
     updateStatusForAvailableDataFromServer(status: true);
     setStatusMessageForAvailableDataFromServer(
@@ -207,6 +206,7 @@ class SynchronizationState with ChangeNotifier {
     updateStatusForAvailableDataFromServer(status: false);
   }
 
+// TODO updated the sync status
   Future<void> startCheckingStatusOfUnsyncedData({
     bool isAutoUpload = false,
   }) async {

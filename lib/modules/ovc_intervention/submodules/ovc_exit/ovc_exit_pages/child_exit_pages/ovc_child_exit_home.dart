@@ -33,7 +33,7 @@ class OvcChildExitHome extends StatelessWidget {
     Widget model = OvcChildExitSelection(
       programStageIdsWithData: programStageIdsWithData,
     );
-    String exitResponse = await AppUtil.showPopUpModal(context, model, false);
+    String? exitResponse = await AppUtil.showPopUpModal(context, model, false);
     onRedirectToExitForm(context, exitResponse, true);
   }
 

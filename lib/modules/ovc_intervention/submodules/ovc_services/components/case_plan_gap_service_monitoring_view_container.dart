@@ -243,27 +243,23 @@ class _CasePlanGapServiceMonitoringViewContainerState
                                           ),
                                         ),
                                         Container(
-                                          child: Visibility(
-                                            visible: widget
-                                                .shouldEditCaseGapServiceMonitoring,
-                                            child: Container(
-                                              child: InkWell(
-                                                onTap: () =>
-                                                    onEditCasePlanServiceMonitoring(
-                                                  context,
-                                                  casePlanGapServiceMonitoring,
+                                          child: Container(
+                                            child: InkWell(
+                                              onTap: () =>
+                                                  onEditCasePlanServiceMonitoring(
+                                                context,
+                                                casePlanGapServiceMonitoring,
+                                              ),
+                                              child: Container(
+                                                height: iconHeight,
+                                                width: iconHeight,
+                                                margin: EdgeInsets.symmetric(
+                                                  vertical: 5,
+                                                  horizontal: 5,
                                                 ),
-                                                child: Container(
-                                                  height: iconHeight,
-                                                  width: iconHeight,
-                                                  margin: EdgeInsets.symmetric(
-                                                    vertical: 5,
-                                                    horizontal: 5,
-                                                  ),
-                                                  child: SvgPicture.asset(
-                                                    'assets/icons/edit-icon.svg',
-                                                    color: widget.themeColor,
-                                                  ),
+                                                child: SvgPicture.asset(
+                                                  'assets/icons/edit-icon.svg',
+                                                  color: widget.themeColor,
                                                 ),
                                               ),
                                             ),
