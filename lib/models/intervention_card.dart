@@ -7,6 +7,7 @@ class InterventionCard {
   String? shortName;
   String? translatedShortName;
   String? svgIcon;
+  String? enrollmentIcon;
   Color? primaryColor;
   Color? secondaryColor;
   Color? svgIconColor;
@@ -16,6 +17,7 @@ class InterventionCard {
   Color? nameColor;
   Color? countLabelColor;
   Color? countColor;
+  List<String>? supportedTabs;
 
   InterventionCard({
     this.id,
@@ -24,6 +26,7 @@ class InterventionCard {
     this.translatedShortName,
     this.shortName,
     this.svgIcon,
+    this.enrollmentIcon,
     this.primaryColor,
     this.secondaryColor,
     this.svgIconColor,
@@ -33,7 +36,16 @@ class InterventionCard {
     this.nameColor,
     this.countColor,
     this.countLabelColor,
+    this.supportedTabs,
   });
+
+  static List<String> getInterventionIds() {
+    return getInterventions()
+        .map((InterventionCard interventionCard) => interventionCard.id!)
+        .toList()
+        .toSet()
+        .toList();
+  }
 
   static List<InterventionCard> getInterventions() {
     return [
@@ -42,45 +54,98 @@ class InterventionCard {
         name: 'OVCs and caregivers',
         shortName: 'OVC',
         svgIcon: 'assets/icons/ovc-icon.svg',
+        enrollmentIcon: 'assets/icons/add-house-hold.svg',
         primaryColor: Color(0xFF4B9F46),
-        secondaryColor: Color(0xFF63BC48),
-        svgIconColor: Color(0xFFB9F8A6),
-        svgIconBorderColor: Color(0xFF6CBA63),
-        svgBackgroundColor: Color(0xFFE5F1E4),
-        background: Color(0xFFEEF2ED),
-        nameColor: Color(0xFF1A3518),
-        countColor: Color(0xFF4B9F46),
-        countLabelColor: Color(0xFF8EA58C),
+        secondaryColor: Color(0xFF4B9F46).withOpacity(0.8),
+        svgIconColor: Colors.white,
+        svgIconBorderColor: Colors.white,
+        svgBackgroundColor: Color(0xFF4B9F46).withOpacity(0.1),
+        background: Color(0xFF4B9F46).withOpacity(0.09),
+        nameColor: Color(0xFF4B9F46),
+        countColor: Color(0xFF4B9F46).withOpacity(0.8),
+        countLabelColor: Color(0xFF4B9F46).withOpacity(0.3),
+        supportedTabs: [
+          "services",
+          "referral",
+          "enrollment",
+          "exit",
+          "records"
+        ],
       ),
       InterventionCard(
         id: 'dreams',
         name: 'DREAMS - AGYW',
         shortName: 'DREAMS',
         svgIcon: 'assets/icons/dreams-icon.svg',
+        enrollmentIcon: 'assets/icons/add-beneficiary.svg',
         primaryColor: Color(0xFF1C7AB2),
-        secondaryColor: Color(0xFF1F8ECE),
-        svgIconColor: Color(0xFF8FD6FF),
-        svgIconBorderColor: Color(0xFF8FD6FF),
-        svgBackgroundColor: Color(0xFFE2F1F9),
-        background: Color(0xFFF4F7F9),
-        nameColor: Color(0xFF071E2C),
-        countColor: Color(0xFF1F8ECE),
-        countLabelColor: Color(0xFF8CC5E6),
+        secondaryColor: Color(0xFF1C7AB2).withOpacity(0.8),
+        svgIconColor: Colors.white,
+        svgIconBorderColor: Colors.white,
+        svgBackgroundColor: Color(0xFF1C7AB2).withOpacity(0.1),
+        background: Color(0xFF1C7AB2).withOpacity(0.09),
+        nameColor: Color(0xFF1C7AB2),
+        countColor: Color(0xFF1C7AB2).withOpacity(0.8),
+        countLabelColor: Color(0xFF1C7AB2).withOpacity(0.3),
+        supportedTabs: [
+          "services",
+          "outGoingReferral",
+          "incomingReferral",
+          "enrollment",
+          "noneAgyw",
+          "records"
+        ],
       ),
       InterventionCard(
         id: 'ogac',
         name: '9-14 OGAC',
         shortName: 'OGAC',
         svgIcon: 'assets/icons/ogac-icon.svg',
+        enrollmentIcon: 'assets/icons/add-beneficiary.svg',
         primaryColor: Color(0xFFF05A2A),
         secondaryColor: Color(0xFFF05A2A).withOpacity(0.8),
         svgIconColor: Colors.white,
         svgIconBorderColor: Colors.white,
         svgBackgroundColor: Color(0xFFF05A2A).withOpacity(0.1),
         background: Color(0xFFF05A2A).withOpacity(0.09),
-        nameColor: Color(0xFF651900),
-        countColor: Color(0xFF651900).withOpacity(0.8),
-        countLabelColor: Color(0xFF651900).withOpacity(0.3),
+        nameColor: Color(0xFFF05A2A),
+        countColor: Color(0xFFF05A2A).withOpacity(0.8),
+        countLabelColor: Color(0xFFF05A2A).withOpacity(0.3),
+        supportedTabs: [],
+      ),
+      InterventionCard(
+        id: 'education',
+        name: 'Education',
+        shortName: 'Education',
+        svgIcon: 'assets/icons/education-module-icon.svg',
+        enrollmentIcon: 'assets/icons/add-beneficiary.svg',
+        primaryColor: Color(0xFF009688),
+        secondaryColor: Color(0xFF009688).withOpacity(0.8),
+        svgIconColor: Colors.white,
+        svgIconBorderColor: Colors.white,
+        svgBackgroundColor: Color(0xFF009688).withOpacity(0.1),
+        background: Color(0xFF009688).withOpacity(0.09),
+        nameColor: Color(0xFF009688),
+        countColor: Color(0xFF009688).withOpacity(0.8),
+        countLabelColor: Color(0xFF009688).withOpacity(0.3),
+        supportedTabs: ["lbse", "bursary", "records"],
+      ),
+      InterventionCard(
+        id: 'pp_prev',
+        name: 'PP PREV',
+        shortName: 'PP PREV',
+        svgIcon: 'assets/icons/pp-prev-icon.svg',
+        enrollmentIcon: 'assets/icons/add-beneficiary.svg',
+        primaryColor: Color(0xFF9B2BAE),
+        secondaryColor: Color(0xFF9B2BAE).withOpacity(0.8),
+        svgIconColor: Colors.white,
+        svgIconBorderColor: Colors.white,
+        svgBackgroundColor: Color(0xFF9B2BAE).withOpacity(0.1),
+        background: Color(0xFF9B2BAE).withOpacity(0.09),
+        nameColor: Color(0xFF9B2BAE),
+        countColor: Color(0xFF9B2BAE).withOpacity(0.8),
+        countLabelColor: Color(0xFF9B2BAE).withOpacity(0.3),
+        supportedTabs: [],
       ),
     ];
   }

@@ -73,7 +73,9 @@ class OgacBeneficiaryCardBody extends StatelessWidget {
                   value: ogacBeneficiary.sex!,
                 ),
                 _getRowBeneficiaryData(
-                  key: 'Phone number',
+                  key: currentLanguage == 'lesotho'
+                      ? 'Nomoro ea mohala'
+                      : 'Phone number',
                   value: ogacBeneficiary.phoneNumber!,
                 ),
                 _getRowBeneficiaryData(
@@ -81,16 +83,12 @@ class OgacBeneficiaryCardBody extends StatelessWidget {
                   value: ogacBeneficiary.location!,
                 ),
                 _getRowBeneficiaryData(
-                  key: 'Village',
+                  key: currentLanguage == 'lesotho' ? 'Motse' : 'Village',
                   value: ogacBeneficiary.village!,
                 ),
                 _getRowBeneficiaryData(
                   key: 'Created on',
                   value: ogacBeneficiary.beneficiaryId!,
-                ),
-                _getRowBeneficiaryData(
-                  key: 'Beneficiary Id',
-                  value: ogacBeneficiary.createdDate!,
                 ),
               ],
             ),

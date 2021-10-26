@@ -4,12 +4,16 @@ import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_ev
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
+import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
+import 'package:kb_mobile_app/core/utils/app_resume_routes/app_resume_route.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/events.dart';
+import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/ovc_household_child.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:kb_mobile_app/core/components/referrals/referral_card_summary.dart';
 import 'package:kb_mobile_app/core/components/referrals/referral_card_body_summary.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/constants/ovc_routes_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/ovc_referral_pages/ovc_child_referral_pages/constants/ovc_child_referral_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/ovc_referral_pages/ovc_child_referral_pages/pages/ovc_child_referral_add_form.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/ovc_referral_pages/ovc_child_referral_pages/pages/ovc_child_referral_manage.dart';
@@ -55,14 +59,27 @@ class _OvcChildReferralState extends State<OvcChildReferral> {
     }
   }
 
-  void onAddReferral(BuildContext context, OvcHouseholdChild? child) {
+  void onAddReferral(BuildContext context, OvcHouseholdChild? child) async {
     updateFormState(context, true, null);
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => OvcChildReferralAddForm(),
-      ),
-    );
+    String? beneficiaryId = child!.id;
+    String eventId = '';
+    String formAutoSaveId =
+        '${OvcRoutesConstant.ovcReferralFormPage}_${beneficiaryId}_$eventId';
+
+    FormAutoSave formAutoSave =
+        await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
+    bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
+        .shouldResumeWithUnSavedChanges(context, formAutoSave);
+    if (shouldResumeWithUnSavedChanges) {
+      AppResumeRoute().redirectToPages(context, formAutoSave);
+    } else {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => OvcChildReferralAddForm(),
+        ),
+      );
+    }
   }
 
   void onViewChildReferral(
@@ -108,13 +125,13 @@ class _OvcChildReferralState extends State<OvcChildReferral> {
           return Consumer<OvcHouseholdCurrentSelectionState>(
             builder: (context, ovcHouseholdCurrentSelectionState, child) {
               return Consumer<ServiceEventDataState>(
-                builder: (context, serviceFormState, child) {
+                builder: (context, serviceEventDataState, child) {
                   OvcHouseholdChild? currentOvcHouseholdChild =
                       ovcHouseholdCurrentSelectionState
                           .currentOvcHouseholdChild;
-                  bool isLoading = serviceFormState.isLoading;
+                  bool isLoading = serviceEventDataState.isLoading;
                   Map<String?, List<Events>> eventListByProgramStage =
-                      serviceFormState.eventListByProgramStage;
+                      serviceEventDataState.eventListByProgramStage;
                   List<Events> events = TrackedEntityInstanceUtil
                       .getAllEventListFromServiceDataStateByProgramStages(
                           eventListByProgramStage, programStageIds);

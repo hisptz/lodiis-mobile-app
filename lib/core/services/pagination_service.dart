@@ -22,14 +22,14 @@ class PaginationService {
   }
 
   static void assignPagesToController(PagingController? pagingController,
-      List ovcList, int pageKey, int numberOfPages) {
+      List beneficiaryList, int pageKey, int numberOfPages) {
     if (numberOfPages <= 0) {
-      pagingController!.appendLastPage(ovcList);
+      pagingController!.appendLastPage(beneficiaryList);
     } else {
       if (pageKey >= (numberOfPages - 1)) {
-        pagingController!.appendLastPage(ovcList);
+        pagingController!.appendLastPage(beneficiaryList);
       } else {
-        pagingController!.appendPage(ovcList, (pageKey + 1));
+        pagingController!.appendPage(beneficiaryList, (pageKey + 1));
       }
     }
   }

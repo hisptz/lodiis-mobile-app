@@ -188,8 +188,7 @@ class _CasePlanServiceProvisionContainerState
                         themeColor: widget.formSectionColor,
                         casePlanGapToServiceMonitoringLinkageValue:
                             casePlanGapToServiceMonitoringLinkageValue,
-                        shouldEditCaseGapServiceMonitoring:
-                            widget.shouldEditCaseGapServiceProvision,
+                        shouldEditCaseGapServiceMonitoring: false,
                         isCasePlanForHousehold: widget.isCasePlanForHousehold,
                       )
                     : CasePlanGapServiceViewContainer(
@@ -198,8 +197,7 @@ class _CasePlanServiceProvisionContainerState
                         themeColor: widget.formSectionColor,
                         casePlanGapToServiceProvisionLinkageValue:
                             casePlanGapToServiceProvisionLinkageValue,
-                        shouldEditCaseGapServiceProvision:
-                            widget.shouldEditCaseGapServiceProvision,
+                        shouldEditCaseGapServiceProvision: false,
                         isCasePlanForHousehold: widget.isCasePlanForHousehold,
                       ),
               ),

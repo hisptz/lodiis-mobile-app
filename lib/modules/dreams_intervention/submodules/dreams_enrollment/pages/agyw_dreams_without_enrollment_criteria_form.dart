@@ -7,7 +7,7 @@ import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_in
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
-import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar_container.dart';
+import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/Intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
@@ -38,7 +38,6 @@ class _AgywDreamsWithoutEnrollmentCriteriaFormState
   final List<String> mandatoryFields =
       AgywWithoutEnrollmentCriteria.getMandatoryField();
   final Map mandatoryFieldObject = Map();
-  final String eventId = AppUtil.getUid();
 
   bool isSaving = false;
   bool isFormReady = false;
@@ -63,6 +62,7 @@ class _AgywDreamsWithoutEnrollmentCriteriaFormState
       setState(() {
         isSaving = true;
       });
+      String eventId = dataObject['eventId'] ?? AppUtil.getUid();
       await AgywDreamsWithoutEnrollmentCriteriaService()
           .saveAgywDreamsWithoutEnrollmentCriteria(
               formSections!, dataObject, eventId);
@@ -183,6 +183,8 @@ class _AgywDreamsWithoutEnrollmentCriteriaFormState
                           children: [
                             Container(
                               child: EntryFormContainer(
+                                isEditableMode:
+                                    enrollmentFormState.isEditableMode,
                                 formSections: formSections,
                                 mandatoryFieldObject: mandatoryFieldObject,
                                 dataObject: enrollmentFormState.formState,
@@ -191,21 +193,24 @@ class _AgywDreamsWithoutEnrollmentCriteriaFormState
                                     unFilledMandatoryFields,
                               ),
                             ),
-                            EntryFormSaveButton(
-                              label: isSaving
-                                  ? 'Saving ...'
-                                  : currentLanguage == 'lesotho'
-                                      ? 'Boloka'
-                                      : 'Save',
-                              labelColor: Colors.white,
-                              buttonColor: Color(0xFF258DCC),
-                              fontSize: 15.0,
-                              onPressButton: () => isSaving
-                                  ? null
-                                  : onSave(
-                                      context,
-                                      enrollmentFormState.formState,
-                                    ),
+                            Visibility(
+                              visible: enrollmentFormState.isEditableMode,
+                              child: EntryFormSaveButton(
+                                label: isSaving
+                                    ? 'Saving ...'
+                                    : currentLanguage == 'lesotho'
+                                        ? 'Boloka'
+                                        : 'Save',
+                                labelColor: Colors.white,
+                                buttonColor: Color(0xFF258DCC),
+                                fontSize: 15.0,
+                                onPressButton: () => isSaving
+                                    ? null
+                                    : onSave(
+                                        context,
+                                        enrollmentFormState.formState,
+                                      ),
+                              ),
                             )
                           ],
                         ),

@@ -4,6 +4,7 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:kb_mobile_app/app_state/synchronization_state/synchronization_status_state.dart';
 import 'package:kb_mobile_app/core/constants/pagination.dart';
 import 'package:kb_mobile_app/core/services/pagination_service.dart';
+import 'package:kb_mobile_app/models/none_participation_beneficiary.dart';
 import 'package:kb_mobile_app/models/ovc_household.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/services/ovc_enrollment_child_services.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/services/ovc_enrollment_household_service.dart';
@@ -14,93 +15,162 @@ class OvcInterventionListState with ChangeNotifier {
 
   // initial state
   List<OvcHousehold> _ovcInterventionList = <OvcHousehold>[];
-  PagingController? _pagingController;
+  List<NoneParticipationBeneficiary> _ovcNoneParticipationList =
+      <NoneParticipationBeneficiary>[];
+  PagingController? _ovcPagingController;
+  PagingController? _ovcNoneParticipationPagingController;
   bool _isLoading = true;
   int _numberOfHouseholds = 0;
   int _numberOfOvcs = 0;
   int _numberOfPages = 0;
+  int _numberOfSearchablePages = 0;
+  int _numberOfNoneParticipants = 0;
+  int _numberOfNoneParticipantsPages = 0;
+  int _numberOfNoneParticipantsSearchablePages = 0;
   int? _nextPage = 0;
+  int? _nextNoneParticipantPage = 0;
+  String _ovcSearchableValue = '';
   String _searchableValue = '';
 
   OvcInterventionListState(this.context);
 
-  bool get isLoading => _isLoading != null ? _isLoading : false;
-
+  bool get isLoading => _isLoading;
   int get numberOfHouseholds => _numberOfHouseholds;
-
+  int get numberOfOvcNoneParticipants => _numberOfNoneParticipants;
   int get numberOfOvcs => _numberOfOvcs;
-
-  int get numberOfPages => _numberOfPages;
-
-  PagingController? get pagingController => _pagingController;
+  int get numberOfPages =>
+      _ovcSearchableValue == '' ? _numberOfPages : _numberOfSearchablePages;
+  int get numberOfNoneParticipantsPages => _searchableValue == ''
+      ? _numberOfNoneParticipantsPages
+      : _numberOfNoneParticipantsSearchablePages;
+  PagingController? get pagingController => _ovcPagingController;
+  PagingController? get noneParticipationPagingController =>
+      _ovcNoneParticipationPagingController;
 
   void initializePagination() {
-    _pagingController = PagingController<int, OvcHousehold>(
+    _ovcPagingController = PagingController<int, OvcHousehold>(
       firstPageKey: 0,
     );
+    _ovcNoneParticipationPagingController =
+        PagingController<int, NoneParticipationBeneficiary>(firstPageKey: 0);
     PaginationService.initializePagination(
         mounted: true,
-        pagingController: _pagingController,
-        fetchPage: _fetchPage);
+        pagingController: _ovcPagingController,
+        fetchPage: _fetchOvcPage);
+    PaginationService.initializePagination(
+        mounted: true,
+        pagingController: _ovcNoneParticipationPagingController,
+        fetchPage: _fetchNoneParticipationPage);
   }
 
-  Future<void> _fetchPage(int pageKey) async {
-    String searchableValue = _searchableValue;
+  Future<void> _fetchOvcPage(int pageKey) async {
+    String searchableValue = _ovcSearchableValue;
     List ovcList = await OvcEnrollmentHouseholdService()
         .getHouseholdList(page: pageKey, searchableValue: searchableValue);
     if (ovcList.isEmpty && pageKey < numberOfPages) {
-      _fetchPage(pageKey + 1);
+      _fetchOvcPage(pageKey + 1);
     } else {
       getNumberOfPages();
       PaginationService.assignPagesToController(
-          _pagingController, ovcList, pageKey, numberOfPages);
+          _ovcPagingController, ovcList, pageKey, numberOfPages);
     }
   }
 
-  // reducers
-  void updateNumerOfOvcBeneficiaries() {
-    _isLoading = false;
-    searchHousehold('');
+  Future<void> _fetchNoneParticipationPage(int pageKey) async {
+    String searchableValue = _searchableValue;
+    List beneficiaryList = await OvcEnrollmentHouseholdService()
+        .getNoneParticipationBeneficiaryList(
+            page: pageKey, searchableValue: searchableValue);
+    if (beneficiaryList.isEmpty && pageKey < numberOfNoneParticipantsPages) {
+      _fetchNoneParticipationPage(pageKey + 1);
+    } else {
+      getNumberOfPages();
+      PaginationService.assignPagesToController(
+          _ovcNoneParticipationPagingController,
+          beneficiaryList,
+          pageKey,
+          numberOfNoneParticipantsPages);
+    }
   }
 
   Future<void> getHouseholdCount() async {
     _numberOfHouseholds =
         await OvcEnrollmentHouseholdService().getHouseholdCount();
+    _numberOfNoneParticipants =
+        await OvcEnrollmentHouseholdService().getNoneParticipationCount();
+    ;
     _numberOfOvcs = await OvcEnrollmentChildService().getOvcCount();
+    notifyListeners();
   }
 
   void searchHousehold(String value) {
+    _ovcSearchableValue = value;
+    notifyListeners();
     if (_ovcInterventionList.isEmpty) {
       _ovcInterventionList =
-          _pagingController!.itemList as List<OvcHousehold>? ??
+          _ovcPagingController!.itemList as List<OvcHousehold>? ??
               <OvcHousehold>[];
-      _nextPage = _pagingController!.nextPageKey;
+      _nextPage = _ovcPagingController!.nextPageKey;
     }
-    if (value != '') {
-      _searchableValue = value;
-      notifyListeners();
-      refreshOvcList();
+    if (value.isNotEmpty) {
+      refreshHouseHoldsList();
     } else {
-      _pagingController!.itemList = _ovcInterventionList;
-      _pagingController!.nextPageKey = _nextPage;
-
+      _ovcPagingController!.itemList = _ovcInterventionList;
+      _ovcPagingController!.nextPageKey = _nextPage;
       _ovcInterventionList = <OvcHousehold>[];
       _nextPage = 0;
+      notifyListeners();
+    }
+  }
+
+  void searchAllOvcList(String value) {
+    _ovcSearchableValue = value;
+    _searchableValue = value;
+    notifyListeners();
+    if (_ovcInterventionList.isEmpty) {
+      _ovcInterventionList =
+          _ovcPagingController!.itemList as List<OvcHousehold>? ??
+              <OvcHousehold>[];
+      _nextPage = _ovcPagingController!.nextPageKey;
+    }
+    if (_ovcNoneParticipationList.isEmpty) {
+      _ovcNoneParticipationList = _ovcNoneParticipationPagingController!
+              .itemList as List<NoneParticipationBeneficiary>? ??
+          <NoneParticipationBeneficiary>[];
+      _nextNoneParticipantPage =
+          _ovcNoneParticipationPagingController!.nextPageKey;
+    }
+    if (value.isNotEmpty) {
+      refreshOvcList();
+    } else {
+      _ovcPagingController!.itemList = _ovcInterventionList;
+      _ovcPagingController!.nextPageKey = _nextPage;
+      _ovcInterventionList = <OvcHousehold>[];
+      _nextPage = 0;
+
+      _ovcNoneParticipationPagingController!.itemList =
+          _ovcNoneParticipationList;
+      _ovcNoneParticipationPagingController!.nextPageKey =
+          _nextNoneParticipantPage;
+      _ovcNoneParticipationList = <NoneParticipationBeneficiary>[];
+      _nextNoneParticipantPage = 0;
+      notifyListeners();
     }
   }
 
   Future<void> refreshOvcNumber() async {
-    //write code to count and update number of Households and number of OVC
     _isLoading = true;
+    _ovcSearchableValue = '';
     _searchableValue = '';
     notifyListeners();
     await getHouseholdCount();
-    //Update number of Pages
     getNumberOfPages();
-    if (_pagingController == null) {
+    if (_ovcPagingController == null ||
+        _ovcNoneParticipationPagingController == null) {
       initializePagination();
     } else {
-      _pagingController!.refresh();
+      _ovcPagingController!.refresh();
+      _ovcNoneParticipationPagingController!.refresh();
     }
     _isLoading = false;
     notifyListeners();
@@ -109,27 +179,48 @@ class OvcInterventionListState with ChangeNotifier {
   }
 
   Future<void> refreshOvcList() async {
-    _pagingController!.refresh();
+    _ovcPagingController!.refresh();
+    _ovcNoneParticipationPagingController!.refresh();
+    notifyListeners();
+    Provider.of<SynchronizationStatusState>(context!, listen: false)
+        .resetSyncStatusReferences();
+  }
+
+  Future<void> refreshHouseHoldsList() async {
+    _ovcPagingController!.refresh();
+    notifyListeners();
+    Provider.of<SynchronizationStatusState>(context!, listen: false)
+        .resetSyncStatusReferences();
   }
 
   Future<void> onHouseholdAdd() async {
-    _numberOfHouseholds = _numberOfHouseholds + 1;
-    _numberOfOvcs = await OvcEnrollmentChildService().getOvcCount();
-    getNumberOfPages();
-    notifyListeners();
+    refreshOvcList();
+  }
+
+  void onNoneParticipantAdd() {
+    refreshOvcNumber();
     refreshOvcList();
   }
 
   @override
   void dispose() {
-    _pagingController!.dispose();
+    _ovcPagingController!.dispose();
+    _ovcNoneParticipationPagingController!.dispose();
     super.dispose();
   }
 
   void getNumberOfPages() {
-    if (numberOfHouseholds != null) {
-      _numberOfPages =
-          (numberOfHouseholds / PaginationConstants.paginationLimit).ceil();
-    }
+    _numberOfPages =
+        (numberOfHouseholds / PaginationConstants.paginationLimit).ceil();
+    _numberOfSearchablePages =
+        (numberOfHouseholds / PaginationConstants.searchingPaginationLimit)
+            .ceil();
+    _numberOfNoneParticipantsPages =
+        (numberOfOvcNoneParticipants / PaginationConstants.paginationLimit)
+            .ceil();
+    _numberOfNoneParticipantsSearchablePages = (numberOfOvcNoneParticipants /
+            PaginationConstants.searchingPaginationLimit)
+        .ceil();
+    notifyListeners();
   }
 }

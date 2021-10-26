@@ -12,6 +12,9 @@ class InterventionSelectionCard extends StatelessWidget {
     required this.numberOfHouseholds,
     required this.numberOfOvcs,
     required this.numberOfOgac,
+    required this.numberPpPrev,
+    required this.numberEducationLbse,
+    required this.numberEducationBursary,
   }) : super(key: key);
 
   final InterventionCard? interventionProgram;
@@ -21,107 +24,158 @@ class InterventionSelectionCard extends StatelessWidget {
   final int numberOfHouseholds;
   final int numberOfOvcs;
   final int numberOfOgac;
+  final int numberPpPrev;
+  final int numberEducationBursary;
+  final int numberEducationLbse;
+
+  RichText getCardBeneficiaryLabelAndCount({
+    required String label,
+    required String count,
+  }) {
+    return RichText(
+      text: TextSpan(
+        text: '$label ',
+        style: TextStyle(
+          fontSize: 12,
+          fontWeight: FontWeight.w500,
+          color: interventionProgram!.countLabelColor,
+        ),
+        children: [
+          TextSpan(
+            text: count,
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w500,
+              color: interventionProgram!.countColor,
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  String getBeneficiaryCardCount({
+    required String interventionId,
+    required bool isSubtitle,
+  }) {
+    String beneficiaryCardCount = isSubtitle ? '' : '';
+    if (interventionId == 'ovc') {
+      beneficiaryCardCount =
+          isSubtitle ? numberOfOvcs.toString() : numberOfHouseholds.toString();
+    } else if (interventionId == 'dreams') {
+      beneficiaryCardCount = isSubtitle
+          ? numberOfNoneAgywDreamsBeneficiaries.toString()
+          : numberOfAgywDreamsBeneficiaries.toString();
+    } else if (interventionId == 'education') {
+      beneficiaryCardCount = isSubtitle
+          ? numberEducationBursary.toString()
+          : numberEducationLbse.toString();
+    } else if (interventionId == 'ogac') {
+      beneficiaryCardCount =
+          isSubtitle ? beneficiaryCardCount : numberOfOgac.toString();
+    } else if (interventionId == 'pp_prev') {
+      beneficiaryCardCount =
+          isSubtitle ? beneficiaryCardCount : numberPpPrev.toString();
+    }
+    return beneficiaryCardCount;
+  }
+
+  String getBeneficiaryCardLabel({
+    required String interventionId,
+    required bool isSubtitle,
+  }) {
+    String beneficiaryCardLabel = isSubtitle ? '' : '# of Beneficiaries:';
+    if (interventionId == 'ovc') {
+      beneficiaryCardLabel = isSubtitle ? '# of OVCs:' : '# of Households:';
+    } else if (interventionId == 'dreams') {
+      beneficiaryCardLabel = isSubtitle ? '# of none-AGWYs:' : '# of AGYWS:';
+    } else if (interventionId == 'education') {
+      beneficiaryCardLabel = isSubtitle ? '# of BURSARY:' : '# of LBSE:';
+    }
+    return beneficiaryCardLabel;
+  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 10, horizontal: 30),
+      margin: EdgeInsets.symmetric(
+        vertical: 10.0,
+        horizontal: 30.0,
+      ),
       decoration: BoxDecoration(
-          color: Color(0xFFFFFFFF),
-          borderRadius: BorderRadius.all(Radius.circular(32))),
+        color: Color(0xFFFFFFFF),
+        borderRadius: BorderRadius.all(
+          Radius.circular(32),
+        ),
+      ),
       child: Column(
         children: [
           Container(
-            height: 120,
+            height: 120.0,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(
-                    margin: EdgeInsets.symmetric(horizontal: 22),
-                    decoration: BoxDecoration(
-                        color: interventionProgram!.svgBackgroundColor,
-                        borderRadius: BorderRadius.all(Radius.circular(20))),
-                    width: 65,
-                    height: 65,
-                    child: Container(
-                      margin: EdgeInsets.all(15),
-                      child: SvgPicture.asset(
-                        interventionProgram!.svgIcon!,
-                      ),
-                    )),
+                  margin: EdgeInsets.symmetric(
+                    horizontal: 22.0,
+                  ),
+                  decoration: BoxDecoration(
+                    color: interventionProgram!.svgBackgroundColor,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(20.0),
+                    ),
+                  ),
+                  width: 65.0,
+                  height: 65.0,
+                  child: Container(
+                    margin: EdgeInsets.all(15.0),
+                    child: SvgPicture.asset(
+                      interventionProgram!.svgIcon!,
+                    ),
+                  ),
+                ),
                 Container(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
-                          child: Text(interventionProgram!.name!,
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w500,
-                                  color: interventionProgram!.nameColor))),
+                        child: Text(
+                          interventionProgram!.name!,
+                          style: TextStyle(
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.w500,
+                            color: interventionProgram!.nameColor,
+                          ),
+                        ),
+                      ),
                       Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            RichText(
-                              text: TextSpan(
-                                  text: interventionProgram!.id == 'ovc'
-                                      ? '# of Households: '
-                                      : interventionProgram!.id == 'dreams'
-                                          ? '# of AGYWs: '
-                                          : '# of Beneficiaries: ',
-                                  style: TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w500,
-                                      color:
-                                          interventionProgram!.countLabelColor),
-                                  children: [
-                                    TextSpan(
-                                      text: interventionProgram!.id == 'ovc'
-                                          ? numberOfHouseholds.toString()
-                                          : interventionProgram!.id == 'dreams'
-                                              ? numberOfAgywDreamsBeneficiaries
-                                                  .toString()
-                                              : numberOfOgac.toString(),
-                                      style: TextStyle(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w500,
-                                          color:
-                                              interventionProgram!.countColor),
-                                    )
-                                  ]),
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          getCardBeneficiaryLabelAndCount(
+                            label: getBeneficiaryCardLabel(
+                              interventionId: interventionProgram!.id!,
+                              isSubtitle: false,
                             ),
-                            RichText(
-                              text: TextSpan(
-                                  text: interventionProgram!.id == 'ovc'
-                                      ? '# of OVCs: '
-                                      : interventionProgram!.id == 'dreams'
-                                          ? '# of none-AGWYs: '
-                                          : '',
-                                  style: TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w500,
-                                      color:
-                                          interventionProgram!.countLabelColor),
-                                  children: [
-                                    TextSpan(
-                                      text: interventionProgram!.id == 'ovc'
-                                          ? numberOfOvcs.toString()
-                                          : interventionProgram!.id == 'dreams'
-                                              ? numberOfNoneAgywDreamsBeneficiaries
-                                                  .toString()
-                                              : '',
-                                      style: TextStyle(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w500,
-                                          color:
-                                              interventionProgram!.countColor),
-                                    )
-                                  ]),
-                            )
-                          ])
+                            count: getBeneficiaryCardCount(
+                              interventionId: interventionProgram!.id!,
+                              isSubtitle: false,
+                            ),
+                          ),
+                          getCardBeneficiaryLabelAndCount(
+                            label: getBeneficiaryCardLabel(
+                              interventionId: interventionProgram!.id!,
+                              isSubtitle: true,
+                            ),
+                            count: getBeneficiaryCardCount(
+                              interventionId: interventionProgram!.id!,
+                              isSubtitle: true,
+                            ),
+                          ),
+                        ],
+                      )
                     ],
                   ),
                 ),
@@ -129,21 +183,29 @@ class InterventionSelectionCard extends StatelessWidget {
             ),
           ),
           Container(
-            height: 35,
+            height: 35.0,
             width: double.infinity,
             decoration: BoxDecoration(
-                color: interventionProgramId == interventionProgram!.id
-                    ? interventionProgram!.secondaryColor
-                    : Color(0xFFFFFFFF),
-                borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(32),
-                    bottomRight: Radius.circular(32))),
+              color: interventionProgramId == interventionProgram!.id
+                  ? interventionProgram!.secondaryColor
+                  : Color(0xFFFFFFFF),
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(32.0),
+                bottomRight: Radius.circular(32.0),
+              ),
+            ),
             child: Visibility(
-                visible: interventionProgramId == interventionProgram!.id,
-                child: Container(
-                  padding: EdgeInsets.only(top: 10, bottom: 10),
-                  child: SvgPicture.asset('assets/icons/tick-icon.svg'),
-                )),
+              visible: interventionProgramId == interventionProgram!.id,
+              child: Container(
+                padding: EdgeInsets.only(
+                  top: 10.0,
+                  bottom: 10.0,
+                ),
+                child: SvgPicture.asset(
+                  'assets/icons/tick-icon.svg',
+                ),
+              ),
+            ),
           )
         ],
       ),

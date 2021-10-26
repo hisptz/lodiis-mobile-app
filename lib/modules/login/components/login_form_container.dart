@@ -83,6 +83,7 @@ class LoginFormContainer extends StatelessWidget {
                       children: [
                         Text(
                           loginFormState.currentLoginProcessMessage,
+                          textAlign: TextAlign.center,
                           style: TextStyle(
                             color: Color(0xFF737373),
                             fontSize: 14.0,

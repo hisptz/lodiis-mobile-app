@@ -7,7 +7,7 @@ import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_in
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
-import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar_container.dart';
+import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/Intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
@@ -38,7 +38,6 @@ class _AgywEnrollmentNoneParticipationFormState
   final List<String> mandatoryFields =
       AgywEnrollmentNoneParticipation.getMandatoryField();
   final Map mandatoryFieldObject = Map();
-  final String eventId = AppUtil.getUid();
 
   bool isSaving = false;
   bool isFormReady = false;
@@ -97,6 +96,7 @@ class _AgywEnrollmentNoneParticipationFormState
       setState(() {
         isSaving = true;
       });
+      String eventId = dataObject['eventId'] ?? AppUtil.getUid();
       await AgywDreamsNoneParticipationService()
           .saveNoneParticipationForm(formSections!, dataObject, eventId);
       Provider.of<DreamsInterventionListState>(context, listen: false)
@@ -185,6 +185,8 @@ class _AgywEnrollmentNoneParticipationFormState
                               Container(
                                 child: EntryFormContainer(
                                   formSections: formSections,
+                                  isEditableMode:
+                                      enrollmentFormState.isEditableMode,
                                   mandatoryFieldObject: mandatoryFieldObject,
                                   dataObject: enrollmentFormState.formState,
                                   onInputValueChange: onInputValueChange,
@@ -192,21 +194,24 @@ class _AgywEnrollmentNoneParticipationFormState
                                       unFilledMandatoryFields,
                                 ),
                               ),
-                              EntryFormSaveButton(
-                                label: isSaving
-                                    ? 'Saving ...'
-                                    : currentLanguage == 'lesotho'
-                                        ? 'Boloka'
-                                        : 'Save',
-                                labelColor: Colors.white,
-                                buttonColor: Color(0xFF258DCC),
-                                fontSize: 15.0,
-                                onPressButton: () => isSaving
-                                    ? null
-                                    : onSaveAndContinue(
-                                        context,
-                                        enrollmentFormState.formState,
-                                      ),
+                              Visibility(
+                                visible: enrollmentFormState.isEditableMode,
+                                child: EntryFormSaveButton(
+                                  label: isSaving
+                                      ? 'Saving ...'
+                                      : currentLanguage == 'lesotho'
+                                          ? 'Boloka'
+                                          : 'Save',
+                                  labelColor: Colors.white,
+                                  buttonColor: Color(0xFF258DCC),
+                                  fontSize: 15.0,
+                                  onPressButton: () => isSaving
+                                      ? null
+                                      : onSaveAndContinue(
+                                          context,
+                                          enrollmentFormState.formState,
+                                        ),
+                                ),
                               )
                             ],
                           ),

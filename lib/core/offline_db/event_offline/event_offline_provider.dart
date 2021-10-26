@@ -1,7 +1,9 @@
+import 'package:kb_mobile_app/core/constants/pagination.dart';
 import 'package:kb_mobile_app/core/offline_db/event_offline/event_offline_data_value_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/offline_db_provider.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/events.dart';
+import 'package:kb_mobile_app/models/none_participation_beneficiary.dart';
 import 'package:sqflite/sqflite.dart';
 
 class EventOfflineProvider extends OfflineDbProvider {
@@ -131,6 +133,56 @@ class EventOfflineProvider extends OfflineDbProvider {
       }
     } catch (e) {}
     return references.toSet().toList();
+  }
+
+  Future<List<NoneParticipationBeneficiary>> getEventsByProgram(
+      {String programId = '', String programStageId = '', int? page}) async {
+    List<NoneParticipationBeneficiary> eventsProgramBeneficiaries = [];
+    try {
+      var dbClient = await db;
+      List<Map> maps = await dbClient!.query(table,
+          columns: [
+            id,
+            event,
+            eventDate,
+            program,
+            programStage,
+            trackedEntityInstance,
+            status,
+            orgUnit,
+            syncStatus,
+          ],
+          where: '$program = ? AND $programStage = ?',
+          whereArgs: [programId, programStageId],
+          orderBy: '$eventDate DESC',
+          limit: page != null ? PaginationConstants.paginationLimit : null,
+          offset:
+              page != null ? page * PaginationConstants.paginationLimit : null);
+      if (maps.isNotEmpty) {
+        for (Map map in maps) {
+          List dataValues = await EventOfflineDataValueProvider()
+              .getEventDataValuesByEventId(map['id']);
+          Events eventData = Events.fromOffline(map as Map<String, dynamic>);
+          eventData.dataValues = dataValues;
+          eventsProgramBeneficiaries
+              .add(NoneParticipationBeneficiary().fromEventsModel(eventData));
+        }
+      }
+    } catch (e) {}
+    return eventsProgramBeneficiaries
+      ..sort((b, a) => a.eventDate!.compareTo(b.eventDate!));
+  }
+
+  Future<int> getEventsByProgramCount(
+      {String programId = '', String programStageId = ''}) async {
+    int? offlineEventsCount;
+    try {
+      var dbClient = await db;
+      offlineEventsCount = Sqflite.firstIntValue(await dbClient!.rawQuery(
+          'SELECT COUNT(*) FROM $table WHERE $program = ? AND $programStage = ?',
+          ['$programId', '$programStageId']));
+    } catch (e) {}
+    return offlineEventsCount ?? 0;
   }
 
   Future<List<Events>> getTrackedEntityInstanceEventsByStatus(

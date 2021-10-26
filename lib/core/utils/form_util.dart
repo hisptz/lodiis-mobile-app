@@ -133,11 +133,15 @@ class FormUtil {
     }
 
     String attributes = inputFieldIds
+        .toSet()
+        .toList()
         .map((String attribute) {
           String value = dataObject.keys.toList().indexOf(attribute) > -1
               ? '${dataObject[attribute]}'.trim()
               : '';
-          return '{"attribute": "$attribute", "value": "$value"}';
+          return attribute != ''
+              ? '{"attribute": "$attribute", "value": "$value"}'
+              : '';
         })
         .toList()
         .join(',');
@@ -191,11 +195,15 @@ class FormUtil {
     eventDate =
         eventDate ?? AppUtil.formattedDateTimeIntoString(DateTime.now());
     String dataValues = inputFieldIds
+        .toSet()
+        .toList()
         .map((String dataElement) {
           String value = dataObject!.keys.toList().indexOf(dataElement) > -1
               ? '${dataObject[dataElement]}'.trim()
               : '';
-          return '{"dataElement": "$dataElement", "value": "$value"}';
+          return dataElement != ''
+              ? '{"dataElement": "$dataElement", "value": "$value"}'
+              : '';
         })
         .toList()
         .join(',');
