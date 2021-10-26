@@ -66,7 +66,11 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
           where: '$program = ?',
           orderBy: '$enrollmentDate DESC',
           whereArgs: [programId],
-          limit: page != null ? PaginationConstants.paginationLimit : null,
+          limit: page != null
+              ? isSearching
+                  ? PaginationConstants.searchingPaginationLimit
+                  : PaginationConstants.paginationLimit
+              : null,
           offset: page != null
               ? isSearching
                   ? page * PaginationConstants.searchingPaginationLimit
@@ -90,6 +94,27 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
           'SELECT COUNT(*) FROM $table WHERE $program = ?', ['$programId']));
     } catch (e) {}
     return enrollmentsCount ?? 0;
+  }
+
+  Future<Map<String, int>> getEnrollmentsCountBySex(String programId) async {
+    Map<String, int> enrollmentsCountBySex = Map();
+    String attributesTable = 'tracked_entity_instance_attribute';
+    String attribute = 'attribute';
+    String sexAttribute = 'vIX4GTSCX4P';
+    String value = 'value';
+    List<String> sex = ['Male', 'Female'];
+    try {
+      var dbClient = await db;
+      for (String sexValue in sex) {
+        int? enrollmentsCount = Sqflite.firstIntValue(await dbClient!.rawQuery(
+            'SELECT COUNT($table.$trackedEntityInstance) FROM $table, $attributesTable WHERE $program = ? AND $table.$trackedEntityInstance = $attributesTable.$trackedEntityInstance AND $attributesTable.$attribute = ? AND $attributesTable.$value = ?',
+            ['$programId', '$sexAttribute', '$sexValue']));
+
+        enrollmentsCountBySex['$sexValue'.toLowerCase()] =
+            enrollmentsCount ?? 0;
+      }
+    } catch (e) {}
+    return enrollmentsCountBySex;
   }
 
   Future<List<Enrollment>> getEnrollmentsFromTeiList(

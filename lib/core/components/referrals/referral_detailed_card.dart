@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_current_selection_state.dart';
+import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_household_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/implementing_partner_referral_service_state/implementing_partner_referral_service_state.dart';
@@ -7,13 +9,18 @@ import 'package:kb_mobile_app/app_state/language_translation_state/language_tran
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/line_separator.dart';
 import 'package:kb_mobile_app/core/components/referrals/referral_card_data.dart';
+import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/services/user_service.dart';
+import 'package:kb_mobile_app/core/utils/app_resume_routes/app_resume_route.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/models/events.dart';
+import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/referral_event.dart';
 import 'package:kb_mobile_app/models/referral_outcome_event.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/constants/dreams_routes_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_referral/pages/dream_agyw_referral_form.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/constants/ovc_routes_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/ovc_referral_pages/ovc_child_referral_pages/pages/ovc_child_referral_add_form.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/ovc_referral_pages/ovc_house_referral_pages/pages/ovc_household_add_referral_form.dart';
 import 'package:provider/provider.dart';
@@ -27,7 +34,7 @@ class ReferralDetailedCard extends StatefulWidget {
     required this.titleColor,
     required this.labelColor,
     required this.valueColor,
-    required this.isIncommingReferral,
+    required this.isIncomingReferral,
     this.isOvcIntervention = true,
     this.isHouseholdReferral = false,
     this.isEditable = false,
@@ -42,7 +49,7 @@ class ReferralDetailedCard extends StatefulWidget {
   final bool isOvcIntervention;
   final bool isHouseholdReferral;
   final bool isEditable;
-  final bool isIncommingReferral;
+  final bool isIncomingReferral;
 
   @override
   _ReferralDetailedCardState createState() => _ReferralDetailedCardState();
@@ -100,18 +107,43 @@ class _ReferralDetailedCardState extends State<ReferralDetailedCard> {
             listen: false)
         .setImplementingPartnerServices();
     updateFormState(context, true, widget.eventData);
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => widget.isOvcIntervention
-            ? widget.isHouseholdReferral
-                ? OvcHouseholdAddReferralForm()
-                : OvcChildReferralAddForm()
-            : DreamsAgywAddReferralForm(
-                currentUser: user,
-              ),
-      ),
-    );
+    dynamic beneficiary = widget.isOvcIntervention
+        ? widget.isHouseholdReferral
+            ? Provider.of<OvcHouseholdCurrentSelectionState>(context,
+                    listen: false)
+                .currentOvcHousehold
+            : Provider.of<OvcHouseholdCurrentSelectionState>(context,
+                    listen: false)
+                .currentOvcHouseholdChild
+        : Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
+            .currentAgywDream;
+
+    String beneficiaryId = beneficiary!.id;
+    String eventId = widget.eventData.event!;
+    String formAutoSaveId =
+        "${widget.isOvcIntervention ? widget.isHouseholdReferral ? OvcRoutesConstant.houseHoldReferralFormPage : OvcRoutesConstant.ovcReferralFormPage : DreamsRoutesConstant.agywDreamsReferralPage}_${beneficiaryId}_$eventId";
+
+    FormAutoSave formAutoSave =
+        await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
+    bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
+        .shouldResumeWithUnSavedChanges(context, formAutoSave);
+
+    if (shouldResumeWithUnSavedChanges) {
+      AppResumeRoute().redirectToPages(context, formAutoSave);
+    } else {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => widget.isOvcIntervention
+              ? widget.isHouseholdReferral
+                  ? OvcHouseholdAddReferralForm()
+                  : OvcChildReferralAddForm()
+              : DreamsAgywAddReferralForm(
+                  currentUser: user,
+                ),
+        ),
+      );
+    }
   }
 
   @override
@@ -121,9 +153,9 @@ class _ReferralDetailedCardState extends State<ReferralDetailedCard> {
         builder: (context, languageTranslationState, child) {
           String? currentLanguage = languageTranslationState.currentLanguage;
           return Consumer<ServiceEventDataState>(
-            builder: (context, serviceFormState, child) {
+            builder: (context, serviceEventDataState, child) {
               Map<String?, List<Events>> eventListByProgramStage =
-                  serviceFormState.eventListByProgramStage;
+                  serviceEventDataState.eventListByProgramStage;
               List<Events> eventList =
                   TrackedEntityInstanceUtil.getAllEventListFromServiceDataState(
                       eventListByProgramStage);
@@ -204,7 +236,7 @@ class _ReferralDetailedCardState extends State<ReferralDetailedCard> {
                                 labelColor: widget.labelColor,
                                 valueColor: widget.valueColor,
                                 referralDataCard: referralDataCard!,
-                                isIncommingReferral: widget.isIncommingReferral,
+                                isIncomingReferral: widget.isIncomingReferral,
                               ),
                             ),
                           )

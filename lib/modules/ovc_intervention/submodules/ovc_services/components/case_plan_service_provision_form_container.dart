@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_household_current_selection_state.dart';
@@ -78,24 +79,23 @@ class _CasePlanServiceProvisionFormModalContainerState
   }
 
   void setSessionNumberViolationMessages(
-    Map<String, dynamic> sessionNumnberValidation,
+    Map<String, dynamic> sessionNumberValidation,
   ) {
-    print(sessionNumnberValidation);
-    bool isSessionNumberExit = sessionNumnberValidation["isSessionNumberExit"];
+    bool isSessionNumberExit = sessionNumberValidation["isSessionNumberExit"];
     bool isSessionNumberInValid =
-        sessionNumnberValidation["isSessionNumberInValid"];
+        sessionNumberValidation["isSessionNumberInValid"];
     String message = "";
     if (isSessionNumberInValid) {
       List<String> sessionWithInvalidSessionNumber =
-          sessionNumnberValidation["sessionWithInvalidSessionNumber"] ?? [];
+          sessionNumberValidation["sessionWithInvalidSessionNumber"] ?? [];
       String inputFieldLabels =
           getInputFieldsLabel(formSections!, sessionWithInvalidSessionNumber)
               .join(", ");
       message =
-          "Session number for $inputFieldLabels are not valid session numnber";
+          "Session number for $inputFieldLabels are not valid session number";
     } else if (isSessionNumberExit) {
       List<String> sessionWithExistingSessionNumber =
-          sessionNumnberValidation["sessionWithExistingSessionNumber"] ?? [];
+          sessionNumberValidation["sessionWithExistingSessionNumber"] ?? [];
       String inputFieldLabels =
           getInputFieldsLabel(formSections!, sessionWithExistingSessionNumber)
               .join(", ");
@@ -113,10 +113,10 @@ class _CasePlanServiceProvisionFormModalContainerState
     widget.dataObject[id] = value;
     setState(() {});
     evaluateSkipLogics(context, formSections!, widget.dataObject);
-    Map<String, dynamic> sessionNumnberValidation =
+    Map<String, dynamic> sessionNumberValidation =
         OvcServiceProvisionUtil.getSessionNumberValidation(widget.dataObject);
     setState(() {});
-    setSessionNumberViolationMessages(sessionNumnberValidation);
+    setSessionNumberViolationMessages(sessionNumberValidation);
   }
 
   List<String> getInputFieldsLabel(
@@ -164,13 +164,12 @@ class _CasePlanServiceProvisionFormModalContainerState
     OvcHouseholdChild? currentOvcHouseholdChild,
   ) async {
     if (widget.dataObject.keys.length > 1) {
-      Map<String, dynamic> sessionNumnberValidation =
+      Map<String, dynamic> sessionNumberValidation =
           OvcServiceProvisionUtil.getSessionNumberValidation(widget.dataObject);
-      setSessionNumberViolationMessages(sessionNumnberValidation);
-      bool isSessionNumberExit =
-          sessionNumnberValidation["isSessionNumberExit"];
+      setSessionNumberViolationMessages(sessionNumberValidation);
+      bool isSessionNumberExit = sessionNumberValidation["isSessionNumberExit"];
       bool isSessionNumberInValid =
-          sessionNumnberValidation["isSessionNumberInValid"];
+          sessionNumberValidation["isSessionNumberInValid"];
       if (!isSessionNumberExit && !isSessionNumberInValid) {
         setState(() {
           isSaving = true;
@@ -286,31 +285,41 @@ class _CasePlanServiceProvisionFormModalContainerState
                                 OvcHouseholdChild? currentOvcHouseholdChild =
                                     ovcHouseholdCurrentSelectionState
                                         .currentOvcHouseholdChild;
-                                return TextButton(
-                                  style: TextButton.styleFrom(
-                                    backgroundColor: formSectionColor,
-                                  ),
-                                  onPressed: () => onSaveGapForm(
-                                      context,
-                                      dataObject,
-                                      currentOvcHousehold,
-                                      currentOvcHouseholdChild),
-                                  child: Container(
-                                    alignment: Alignment.center,
-                                    padding:
-                                        EdgeInsets.symmetric(vertical: 22.0),
-                                    child: Text(
-                                      isSaving
-                                          ? 'SAVING SERVICE ...'
-                                          : 'SAVE SERVICE',
-                                      style: TextStyle().copyWith(
-                                        color: Color(0xFFFAFAFA),
-                                        fontSize: 14.0,
-                                        fontWeight: FontWeight.w700,
+                                return Consumer<LanguageTranslationState>(
+                                    builder: (context, languageTranslationState,
+                                        child) {
+                                  String? currentLanguage =
+                                      languageTranslationState.currentLanguage;
+                                  return TextButton(
+                                    style: TextButton.styleFrom(
+                                      backgroundColor: formSectionColor,
+                                    ),
+                                    onPressed: () => onSaveGapForm(
+                                        context,
+                                        dataObject,
+                                        currentOvcHousehold,
+                                        currentOvcHouseholdChild),
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      padding:
+                                          EdgeInsets.symmetric(vertical: 22.0),
+                                      child: Text(
+                                        currentLanguage == 'lesotho'
+                                            ? isSaving
+                                                ? 'E EA BOLOKA LITSEBELETSO ...'
+                                                : 'BOLOKA LITSEBELETSO'
+                                            : isSaving
+                                                ? 'SAVING SERVICE ...'
+                                                : 'SAVE SERVICE',
+                                        style: TextStyle().copyWith(
+                                          color: Color(0xFFFAFAFA),
+                                          fontSize: 14.0,
+                                          fontWeight: FontWeight.w700,
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                );
+                                  );
+                                });
                               },
                             ),
                           )

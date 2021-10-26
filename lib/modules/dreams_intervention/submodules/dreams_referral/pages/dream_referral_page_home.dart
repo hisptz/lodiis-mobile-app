@@ -7,7 +7,7 @@ import 'package:kb_mobile_app/app_state/implementing_partner_referral_service_st
 import 'package:kb_mobile_app/app_state/intervention_bottom_navigation_state/intervention_bottom_navigation_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/app_state/referral_notification_state/referral_notification_state.dart';
-import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar_container.dart';
+import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/Intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/referrals/referral_card_body_summary.dart';
 import 'package:kb_mobile_app/core/components/referrals/referral_card_summary.dart';
@@ -36,10 +36,10 @@ import 'package:provider/provider.dart';
 class DreamsAgywReferralPage extends StatefulWidget {
   DreamsAgywReferralPage({
     Key? key,
-    required this.isIncommingReferral,
+    required this.isIncomingReferral,
   }) : super(key: key);
 
-  final bool isIncommingReferral;
+  final bool isIncomingReferral;
   @override
   _DreamsAgywReferralPageState createState() => _DreamsAgywReferralPageState();
 }
@@ -82,8 +82,9 @@ class _DreamsAgywReferralPageState extends State<DreamsAgywReferralPage> {
     await Provider.of<ImplementingPartnerReferralServiceState>(context,
             listen: false)
         .setImplementingPartnerServices();
+    String eventId = '';
     String formAutoSaveId =
-        "${DreamsRoutesConstant.agywDreamsReferralPage}_${agywDream.id}";
+        "${DreamsRoutesConstant.agywDreamsReferralPage}_${agywDream.id}_$eventId";
     FormAutoSave formAutoSave =
         await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
     bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
@@ -116,7 +117,7 @@ class _DreamsAgywReferralPageState extends State<DreamsAgywReferralPage> {
         builder: (context) => DreamsReferralView(
           eventData: eventData,
           referralIndex: referralIndex,
-          isIncommingReferral: widget.isIncommingReferral,
+          isIncomingReferral: widget.isIncomingReferral,
         ),
       ),
     );
@@ -172,7 +173,7 @@ class _DreamsAgywReferralPageState extends State<DreamsAgywReferralPage> {
         builder: (context) => DreamsReferralManage(
           eventData: eventData,
           referralIndex: referralIndex,
-          isIncommingReferral: widget.isIncommingReferral,
+          isIncomingReferral: widget.isIncomingReferral,
         ),
       ),
     );
@@ -203,11 +204,11 @@ class _DreamsAgywReferralPageState extends State<DreamsAgywReferralPage> {
                 return Consumer<ReferralNotificationState>(
                   builder: (context, referralNotificationState, child) {
                     return Consumer<ServiceEventDataState>(
-                      builder: (context, serviceFormState, child) {
+                      builder: (context, serviceEventDataState, child) {
                         AgywDream? agywDream = dreamAgywState.currentAgywDream;
-                        bool isLoading = serviceFormState.isLoading;
+                        bool isLoading = serviceEventDataState.isLoading;
                         Map<String?, List<Events>> eventListByProgramStage =
-                            serviceFormState.eventListByProgramStage;
+                            serviceEventDataState.eventListByProgramStage;
                         List<String?> incomingReferrals =
                             referralNotificationState.incomingReferrals;
                         List<Events> events = TrackedEntityInstanceUtil
@@ -270,9 +271,9 @@ class _DreamsAgywReferralPageState extends State<DreamsAgywReferralPage> {
                                                             count: count,
                                                             cardBody:
                                                                 ReferralCardBodySummary(
-                                                              isIncommingReferral:
+                                                              isIncomingReferral:
                                                                   widget
-                                                                      .isIncommingReferral,
+                                                                      .isIncomingReferral,
                                                               labelColor: Color(
                                                                   0XFF82898D),
                                                               valueColor: Color(

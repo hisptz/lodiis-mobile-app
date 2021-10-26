@@ -12,10 +12,10 @@ import 'package:provider/provider.dart';
 class DreamsOutgoingReferralsOutcome extends StatefulWidget {
   DreamsOutgoingReferralsOutcome({
     required this.agywList,
-    required this.isIncommingReferral,
+    required this.isIncomingReferral,
   });
   final List<AgywDream> agywList;
-  final bool isIncommingReferral;
+  final bool isIncomingReferral;
 
   @override
   _DreamsOutgoingReferralsOutcomeState createState() =>
@@ -37,7 +37,7 @@ class _DreamsOutgoingReferralsOutcomeState
       context,
       MaterialPageRoute(
         builder: (context) => DreamsAgywReferralPage(
-          isIncommingReferral: widget.isIncommingReferral,
+          isIncomingReferral: widget.isIncomingReferral,
         ),
       ),
     );

@@ -51,7 +51,7 @@ class _OgacInterventionState extends State<OgacIntervention> {
         Timer.periodic(Duration(minutes: syncTimeout), (Timer timer) {
       Provider.of<CurrentUserState>(context, listen: false)
           .getAndSetCurrentUserDataEntryAuthorityStatus();
-      AutoSynchronizationService().startAutoDownload(context);
+      AutoSynchronizationService().startAutoUpload(context);
     });
   }
 
@@ -107,7 +107,7 @@ class _OgacInterventionState extends State<OgacIntervention> {
                 interventionCardState.currentInterventionProgram;
             return Scaffold(
               appBar: PreferredSize(
-                preferredSize: Size.fromHeight(90),
+                preferredSize: Size.fromHeight(105),
                 child: InterventionAppBar(
                   activeInterventionProgram: activeInterventionProgram,
                   onClickHome: onClickHome,

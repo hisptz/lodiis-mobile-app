@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 class OvcChildEnrollmentSkipLogic {
   static Map hiddenFields = Map();
   static Map hiddenSections = Map();
+  static Map hiddenInputFieldOptions = Map();
 
   static Future evaluateSkipLogics(
     BuildContext context,
@@ -17,6 +18,7 @@ class OvcChildEnrollmentSkipLogic {
   ) async {
     hiddenFields.clear();
     hiddenSections.clear();
+    hiddenInputFieldOptions.clear();
     List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections);
     for (var key in dataObject.keys) {
       inputFieldIds.add('$key');
@@ -30,11 +32,30 @@ class OvcChildEnrollmentSkipLogic {
         if (age > 2) {
           hiddenFields['GMcljM7jbNG'] = true;
         }
+        if (age < 2) {
+          hiddenSections['domainschooltsasekolo'] = true;
+        }
+      }
+      if (inputFieldId == 'nOgf8LKXS4k') {
+        Map hiddenOptions = Map();
+        String relationShipToCaregiver = '${dataObject['iS9mAp3jDaU']}';
+        if (relationShipToCaregiver == 'Biological mother') {
+          hiddenOptions['Single Orphan(Mother)'] = true;
+          hiddenOptions['Double Orphan'] = true;
+        } else if (relationShipToCaregiver == 'Biological father') {
+          hiddenOptions['Single Orphan(Father)'] = true;
+          hiddenOptions['Double Orphan'] = true;
+        }
+        hiddenInputFieldOptions[inputFieldId] = hiddenOptions;
       }
 
       if (inputFieldId == 'UeF4OvjIIEK' &&
           (value.isEmpty || '$value'.trim() != 'true')) {
         hiddenFields['nOgf8LKXS4k'] = true;
+      }
+      if (inputFieldId == 'wmKqYZML8GA' &&
+          (value.isEmpty || '$value'.trim() == 'true')) {
+        hiddenFields['GMcljM7jbNG'] = true;
       }
       if (inputFieldId == 'Gkjp5XZD70V' &&
           (value.isEmpty || '$value'.trim() != 'true')) {
@@ -74,6 +95,7 @@ class OvcChildEnrollmentSkipLogic {
     }
     resetValuesForHiddenFields(context, hiddenFields.keys);
     resetValuesForHiddenSections(context, formSections);
+    resetValuesForHiddenInputFieldOptions(context, formSections);
   }
 
   static assignPrimaryVulnerability(BuildContext context, Map dataObject) {
@@ -129,6 +151,14 @@ class OvcChildEnrollmentSkipLogic {
   ) {
     Provider.of<EnrollmentFormState>(context, listen: false)
         .setHiddenSections(hiddenSections);
+  }
+
+  static resetValuesForHiddenInputFieldOptions(
+    BuildContext context,
+    List<FormSection> formSections,
+  ) {
+    Provider.of<EnrollmentFormState>(context, listen: false)
+        .setHiddenInputFieldOptions(hiddenInputFieldOptions);
   }
 
   static assignInputFieldValue(

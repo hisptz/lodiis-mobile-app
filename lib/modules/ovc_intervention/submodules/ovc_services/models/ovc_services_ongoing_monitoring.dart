@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
+import 'package:kb_mobile_app/models/input_field_option.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/constants/ovc_intervention_constant.dart';
 
 class OvcServicesOngoingMonitoring {
   static List<FormSection> getFormSections() {
     return [
       FormSection(
+          id: 'Health',
           name: 'DOMAIN HEALTH',
           translatedName: 'BOPHELO BO BOTLE',
           color: Color(0xFF4D9E49),
@@ -126,6 +129,7 @@ class OvcServicesOngoingMonitoring {
                 labelColor: Color(0xFF737373))
           ]),
       FormSection(
+          id: 'Stable',
           name: 'DOMAIN STABLE',
           translatedName: 'BOTSITSO',
           color: Color(0xFF0000FF),
@@ -170,6 +174,7 @@ class OvcServicesOngoingMonitoring {
                 labelColor: Color(0xFF737373))
           ]),
       FormSection(
+          id: 'Safe',
           name: 'DOMAIN SAFE',
           translatedName: 'TSIRELETSO',
           color: Color(0xFF0F9587),
@@ -265,6 +270,7 @@ class OvcServicesOngoingMonitoring {
                 labelColor: Color(0xFF737373))
           ]),
       FormSection(
+          id: 'Schooled',
           name: 'DOMAIN SCHOOLED',
           translatedName: 'TSA SEKOLO',
           color: Color(0xFF9B2BAE),
@@ -340,6 +346,7 @@ class OvcServicesOngoingMonitoring {
                 labelColor: Color(0xFF737373))
           ]),
       FormSection(
+          id: '',
           name: 'For those who were referred and changing HIV status',
           translatedName:
               'Bakeng sa ba fetiselitsoeng litsing tsa bophelo le bao boemo ba bona ba tšoaetso bo fetohileng',
@@ -350,6 +357,17 @@ class OvcServicesOngoingMonitoring {
                 name: 'Tested for HIV?',
                 translatedName: 'Hlahlobile HIV?',
                 valueType: 'BOOLEAN',
+                inputColor: Color(0xFF4D9E49),
+                labelColor: Color(0xFF737373)),
+            InputField(
+                id: 'uRsImCXXDXe',
+                name: 'HIV status',
+                valueType: 'TEXT',
+                options: [
+                  InputFieldOption(code: 'Positive', name: 'Positive'),
+                  InputFieldOption(code: 'Negative', name: 'Negative'),
+                  InputFieldOption(code: 'No Response', name: 'No Response'),
+                ],
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
             InputField(
@@ -367,7 +385,15 @@ class OvcServicesOngoingMonitoring {
                 valueType: 'BOOLEAN',
                 inputColor: Color(0xFF4D9E49),
                 labelColor: Color(0xFF737373)),
-          ])
+            InputField(
+                id: 'KgLtXquRot3',
+                name: 'Health facility',
+                valueType: 'ORGANISATION_UNIT',
+                allowedSelectedLevels: [4],
+                filteredPrograms: [OvcInterventionConstant.program],
+                inputColor: Color(0xFF4B9F46),
+                labelColor: Color(0xFF737373)),
+          ]),
     ];
   }
 }

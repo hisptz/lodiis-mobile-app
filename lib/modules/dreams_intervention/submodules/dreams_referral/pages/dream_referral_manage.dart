@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/current_user_state/current_user_state.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
-import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar_container.dart';
+import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/Intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/material_card.dart';
 import 'package:kb_mobile_app/core/components/referrals/referral_detailed_card.dart';
 import 'package:kb_mobile_app/core/components/referrals/referral_outcome_card_container.dart';
@@ -20,12 +20,12 @@ class DreamsReferralManage extends StatefulWidget {
     Key? key,
     required this.eventData,
     required this.referralIndex,
-    required this.isIncommingReferral,
+    required this.isIncomingReferral,
   }) : super(key: key);
 
   final Events eventData;
   final int referralIndex;
-  final bool isIncommingReferral;
+  final bool isIncomingReferral;
 
   @override
   _DreamsReferralManageState createState() => _DreamsReferralManageState();
@@ -92,7 +92,7 @@ class _DreamsReferralManageState extends State<DreamsReferralManage> {
                                 eventData: widget.eventData,
                                 isEditable: shouldEditReferral(
                                     widget.eventData.dataValues ?? []),
-                                isIncommingReferral: widget.isIncommingReferral,
+                                isIncomingReferral: widget.isIncomingReferral,
                               ),
                               ReferralOutComeCardContainer(
                                 isOvcIntervention: false,

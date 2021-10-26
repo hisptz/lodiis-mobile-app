@@ -3,7 +3,7 @@ import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_cu
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
-import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar_container.dart';
+import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/Intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
@@ -195,12 +195,12 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
           child: Consumer<DreamsBeneficiarySelectionState>(
             builder: (context, dreamBeneficiarySelectionState, child) {
               return Consumer<ServiceEventDataState>(
-                builder: (context, serviceFormState, child) {
+                builder: (context, serviceEventDataState, child) {
                   AgywDream? agywDream =
                       dreamBeneficiarySelectionState.currentAgywDream;
-                  bool isLoading = serviceFormState.isLoading;
+                  bool isLoading = serviceEventDataState.isLoading;
                   Map<String?, List<Events>> eventListByProgramStage =
-                      serviceFormState.eventListByProgramStage;
+                      serviceEventDataState.eventListByProgramStage;
                   List<Events> events = TrackedEntityInstanceUtil
                       .getAllEventListFromServiceDataStateByProgramStages(
                           eventListByProgramStage, programStageIds);
@@ -267,7 +267,7 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
                                             ),
                                     ),
                                     EntryFormSaveButton(
-                                      label: 'ADD Service',
+                                      label: 'ADD SERVICE',
                                       labelColor: Colors.white,
                                       buttonColor: Color(0xFF1F8ECE),
                                       fontSize: 15.0,

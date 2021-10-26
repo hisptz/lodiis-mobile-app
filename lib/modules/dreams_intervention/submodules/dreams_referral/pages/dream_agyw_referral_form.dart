@@ -9,7 +9,7 @@ import 'package:kb_mobile_app/app_state/implementing_partner_referral_service_st
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/app_state/referral_notification_state/referral_notification_state.dart';
-import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar_container.dart';
+import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/Intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
@@ -172,7 +172,8 @@ class _DreamsAgywAddReferralFormState extends State<DreamsAgywAddReferralForm> {
                     : 'Form has been saved successfully',
                 position: ToastGravity.TOP,
               );
-              clearFormAutoSaveState(context, currentAgywDream.id);
+              clearFormAutoSaveState(
+                  context, currentAgywDream.id, eventId ?? '');
               Navigator.pop(context);
             });
           });
@@ -237,9 +238,9 @@ class _DreamsAgywAddReferralFormState extends State<DreamsAgywAddReferralForm> {
   }
 
   void clearFormAutoSaveState(
-      BuildContext context, String? beneficiaryId) async {
+      BuildContext context, String? beneficiaryId, String eventId) async {
     String formAutoSaveId =
-        "${DreamsRoutesConstant.agywDreamsANCFormPage}_$beneficiaryId";
+        "${DreamsRoutesConstant.agywDreamsANCFormPage}_${beneficiaryId}_$eventId";
     await FormAutoSaveOfflineService().deleteSavedFormAutoData(formAutoSaveId);
   }
 
@@ -254,7 +255,9 @@ class _DreamsAgywAddReferralFormState extends State<DreamsAgywAddReferralForm> {
     String? beneficiaryId = agyw.id;
     Map dataObject =
         Provider.of<ServiceFormState>(context, listen: false).formState;
-    String id = "${DreamsRoutesConstant.agywDreamsReferralPage}_$beneficiaryId";
+    String eventId = dataObject['eventId'] ?? '';
+    String id =
+        "${DreamsRoutesConstant.agywDreamsReferralPage}_${beneficiaryId}_$eventId";
     FormAutoSave formAutoSave = FormAutoSave(
       id: id,
       beneficiaryId: beneficiaryId,

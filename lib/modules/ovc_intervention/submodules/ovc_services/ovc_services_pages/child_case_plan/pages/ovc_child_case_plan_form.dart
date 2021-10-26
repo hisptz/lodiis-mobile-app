@@ -7,7 +7,7 @@ import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_ev
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
-import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar_container.dart';
+import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/Intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
@@ -29,12 +29,12 @@ class OcvChildCasePlanForm extends StatefulWidget {
   const OcvChildCasePlanForm({
     Key? key,
     this.shouldEditCaseGapServiceProvision = false,
-    this.shoulViewCaseGapServiceProvision = false,
+    this.shouldViewCaseGapServiceProvision = false,
     this.shouldAddCasePlanGap = false,
   }) : super(key: key);
 
   final bool shouldEditCaseGapServiceProvision;
-  final bool shoulViewCaseGapServiceProvision;
+  final bool shouldViewCaseGapServiceProvision;
   final bool shouldAddCasePlanGap;
 
   @override
@@ -118,7 +118,8 @@ class _OcvChildCasePlanFormState extends State<OcvChildCasePlanForm> {
           );
           hiddenFields = [
             OvcCasePlanConstant.casePlanToGapLinkage,
-            OvcCasePlanConstant.casePlanGapToServiceProvisionLinkage
+            OvcCasePlanConstant.casePlanGapToServiceProvisionLinkage,
+            OvcCasePlanConstant.casePlanGapToMonitoringLinkage
           ];
           for (Map domainGapDataObject in domainDataObject['gaps']) {
             await TrackedEntityInstanceUtil
@@ -244,9 +245,9 @@ class _OcvChildCasePlanFormState extends State<OcvChildCasePlanForm> {
                                                       shouldEditCaseGapServiceProvision:
                                                           widget
                                                               .shouldEditCaseGapServiceProvision,
-                                                      shoulViewCaseGapServiceProvision:
+                                                      shouldViewCaseGapServiceProvision:
                                                           widget
-                                                              .shoulViewCaseGapServiceProvision,
+                                                              .shouldViewCaseGapServiceProvision,
                                                       formSectionColor:
                                                           borderColors[
                                                               formSection.id],

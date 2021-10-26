@@ -4,18 +4,22 @@ import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_ev
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
-import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar_container.dart';
+import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/Intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
+import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
+import 'package:kb_mobile_app/core/utils/app_resume_routes/app_resume_route.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/events.dart';
+import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/models/ovc_household.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_household_top_header.dart';
 import 'package:kb_mobile_app/core/components/referrals/referral_card_summary.dart';
 import 'package:kb_mobile_app/core/components/referrals/referral_card_body_summary.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/constants/ovc_routes_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/ovc_referral_pages/ovc_house_referral_pages/constants/ovc_household_referral_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/ovc_referral_pages/ovc_house_referral_pages/pages/ovc_household_referral_manage.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/ovc_referral_pages/ovc_house_referral_pages/pages/ovc_household_referral_view.dart';
@@ -25,10 +29,10 @@ import 'pages/ovc_household_add_referral_form.dart';
 class OvcHouseholdReferralHome extends StatefulWidget {
   OvcHouseholdReferralHome({
     Key? key,
-    required this.isIncommingReferral,
+    required this.isIncomingReferral,
   }) : super(key: key);
 
-  final bool isIncommingReferral;
+  final bool isIncomingReferral;
 
   @override
   _OvcHouseholdReferralHomeState createState() =>
@@ -61,10 +65,25 @@ class _OvcHouseholdReferralHomeState extends State<OvcHouseholdReferralHome> {
     }
   }
 
-  void onAddReferral(BuildContext context, OvcHousehold? child) {
+  void onAddReferral(BuildContext context, OvcHousehold? household) async {
     updateFormState(context, true, null);
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => OvcHouseholdAddReferralForm()));
+    String? beneficiaryId = household!.id;
+    String eventId = '';
+    String formAutoSaveId =
+        "${OvcRoutesConstant.houseHoldReferralFormPage}_${beneficiaryId}_$eventId";
+    FormAutoSave formAutoSave =
+        await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
+    bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
+        .shouldResumeWithUnSavedChanges(context, formAutoSave);
+
+    if (shouldResumeWithUnSavedChanges) {
+      AppResumeRoute().redirectToPages(context, formAutoSave);
+    } else {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => OvcHouseholdAddReferralForm()));
+    }
   }
 
   void onViewHouseholdReferral(
@@ -78,7 +97,7 @@ class _OvcHouseholdReferralHomeState extends State<OvcHouseholdReferralHome> {
         builder: (context) => OvcHouseholdReferralView(
           eventData: eventData,
           referralIndex: referralIndex,
-          isIncommingReferral: widget.isIncommingReferral,
+          isIncomingReferral: widget.isIncomingReferral,
         ),
       ),
     );
@@ -95,7 +114,7 @@ class _OvcHouseholdReferralHomeState extends State<OvcHouseholdReferralHome> {
         builder: (context) => OvcHouseholdReferralManage(
           eventData: eventData,
           referralIndex: referralIndex,
-          isIncommingReferral: widget.isIncommingReferral,
+          isIncomingReferral: widget.isIncomingReferral,
         ),
       ),
     );
@@ -126,12 +145,12 @@ class _OvcHouseholdReferralHomeState extends State<OvcHouseholdReferralHome> {
               return Consumer<OvcHouseholdCurrentSelectionState>(
                 builder: (context, ovcHouseholdCurrentSelectionState, child) {
                   return Consumer<ServiceEventDataState>(
-                    builder: (context, serviceFormState, child) {
+                    builder: (context, serviceEventDataState, child) {
                       OvcHousehold? currentOvcHousehold =
                           ovcHouseholdCurrentSelectionState.currentOvcHousehold;
-                      bool isLoading = serviceFormState.isLoading;
+                      bool isLoading = serviceEventDataState.isLoading;
                       Map<String?, List<Events>> eventListByProgramStage =
-                          serviceFormState.eventListByProgramStage;
+                          serviceEventDataState.eventListByProgramStage;
                       List<Events> events = TrackedEntityInstanceUtil
                           .getAllEventListFromServiceDataStateByProgramStages(
                               eventListByProgramStage, programStageIds);
@@ -184,7 +203,7 @@ class _OvcHouseholdReferralHomeState extends State<OvcHouseholdReferralHome> {
                                                           count: count,
                                                           cardBody:
                                                               ReferralCardBodySummary(
-                                                            isIncommingReferral:
+                                                            isIncomingReferral:
                                                                 false,
                                                             labelColor: Color(
                                                                 0XFF92A791),

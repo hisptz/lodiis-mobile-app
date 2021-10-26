@@ -5,7 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
-import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar_container.dart';
+import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/Intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
@@ -45,6 +45,7 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
 
   Map hiddenFields = Map();
   Map hiddenSections = Map();
+  Map hiddenInputFieldOptions = Map();
   List unFilledMandatoryFields = [];
 
   @override
@@ -65,9 +66,7 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
       for (Map childObj in dataObject["children"]) {
         childMapObjects.add(childObj);
       }
-    } catch (e) {
-      print(e.toString());
-    }
+    } catch (e) {}
   }
 
   void resetMapObject(Map? map) {
@@ -99,6 +98,18 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
         if (age > 2) {
           hiddenFields['GMcljM7jbNG'] = true;
         }
+      }
+      if (inputFieldId == 'nOgf8LKXS4k') {
+        Map hiddenOptions = Map();
+        String relationShipToCaregiver = '${childMapObject!['iS9mAp3jDaU']}';
+        if (relationShipToCaregiver == 'Biological mother') {
+          hiddenOptions['Single Orphan(Mother)'] = true;
+          hiddenOptions['Double Orphan'] = true;
+        } else if (relationShipToCaregiver == 'Biological father') {
+          hiddenOptions['Single Orphan(Father)'] = true;
+          hiddenOptions['Double Orphan'] = true;
+        }
+        hiddenInputFieldOptions[inputFieldId] = hiddenOptions;
       }
       if (inputFieldId == 'UeF4OvjIIEK' &&
           (value.isEmpty || '$value'.trim() != 'true')) {
@@ -404,6 +415,8 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
                                 formSections: formSections,
                                 hiddenFields: hiddenFields,
                                 hiddenSections: hiddenSections,
+                                hiddenInputFieldOptions:
+                                    hiddenInputFieldOptions,
                                 mandatoryFieldObject: mandatoryFieldObject,
                                 dataObject: childMapObject,
                                 onInputValueChange: onInputValueChange,

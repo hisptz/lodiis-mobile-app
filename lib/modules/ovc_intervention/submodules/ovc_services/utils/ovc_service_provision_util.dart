@@ -53,7 +53,7 @@ class OvcServiceProvisionUtil {
     bool isSessionNumberInValid = false;
     List<String> sessionWithExistingSessionNumber = [];
     List<String> sessionWithInvalidSessionNumber = [];
-    Map<String, List<String>> previousSessionMapping =
+    Map<String, dynamic> previousSessionMapping =
         dataObject["previousSessionMapping"] ?? [];
     for (String serviceDataElement
         in OvcServiceFormSessionNumber.sessionMapping.keys) {

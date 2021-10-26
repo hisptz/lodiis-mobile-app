@@ -3,15 +3,19 @@ import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_househ
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
-import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar_container.dart';
+import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/Intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
+import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
+import 'package:kb_mobile_app/core/utils/app_resume_routes/app_resume_route.dart';
 import 'package:kb_mobile_app/models/events.dart';
+import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/models/ovc_household.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_household_top_header.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/constants/ovc_routes_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/household_assessment/components/ovc_household_assessment_list_container.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/household_assessment/constants/ovc_household_assessment_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/household_assessment/pages/ovc_household_assessment_form.dart';
@@ -23,8 +27,8 @@ class OvcHouseholdAssessment extends StatelessWidget {
     OvcHouseholdAssessmentConstant.programStage
   ];
 
-  void updateFormState(
-      BuildContext context, bool isEditableMode, Events? assessment) {
+  void updateFormState(BuildContext context, bool isEditableMode,
+      Events? assessment, OvcHousehold? household) async {
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
     Provider.of<ServiceFormState>(context, listen: false)
         .updateFormEditabilityState(isEditableMode: isEditableMode);
@@ -42,25 +46,41 @@ class OvcHouseholdAssessment extends StatelessWidget {
         }
       }
     }
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => OvcHouseholdAssessmentForm()));
+
+    String? beneficiaryId = household!.id;
+    String eventId = assessment == null ? '' : assessment.event ?? '';
+    String formAutoSaveId =
+        "${OvcRoutesConstant.houseHoldAssessmentFormPage}_${beneficiaryId}_$eventId";
+    FormAutoSave formAutoSave =
+        await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
+    bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
+        .shouldResumeWithUnSavedChanges(context, formAutoSave);
+
+    if (shouldResumeWithUnSavedChanges) {
+      AppResumeRoute().redirectToPages(context, formAutoSave);
+    } else {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => OvcHouseholdAssessmentForm()));
+    }
   }
 
   void onAddNewHouseholdAssessment(
     BuildContext context,
     OvcHousehold? houseHold,
   ) {
-    updateFormState(context, true, null);
+    updateFormState(context, true, null, houseHold);
   }
 
   void onViewHouseholdAssessment(
       BuildContext context, OvcHousehold? houseHold, Events assessment) {
-    updateFormState(context, false, assessment);
+    updateFormState(context, false, assessment, houseHold);
   }
 
   void onEditHouseholdAssessment(
       BuildContext context, OvcHousehold? houseHold, Events assessment) {
-    updateFormState(context, true, assessment);
+    updateFormState(context, true, assessment, houseHold);
   }
 
   @override

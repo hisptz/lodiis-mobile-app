@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
-import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar_container.dart';
+import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/Intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
@@ -70,7 +70,10 @@ class OvcChildServiceHome extends StatelessWidget {
     int countValue = 0;
     for (String programStage in ovcChildServiceHomeCard.programStages!) {
       List<Events> events = eventListByProgramStage[programStage] ?? [];
-      if (ovcChildServiceHomeCard.groupByDate!) {
+      if (ovcChildServiceHomeCard.groupByDate! &&
+          ovcChildServiceHomeCard.groupingProgramStages!
+                  .indexOf(programStage) !=
+              -1) {
         Map groupedEventByDates =
             TrackedEntityInstanceUtil.getGroupedEventByDates(events);
         countValue += groupedEventByDates.keys.toList().length;

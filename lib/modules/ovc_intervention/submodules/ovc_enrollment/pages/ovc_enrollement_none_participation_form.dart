@@ -7,7 +7,7 @@ import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_intervention_list_state.dart';
-import 'package:kb_mobile_app/core/components/Intervention_bottom_navigation_bar_container.dart';
+import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/Intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
@@ -38,7 +38,6 @@ class _OvcEnrollmentNoneParticipationFormState
   final List<String> mandatoryFields =
       OvcEnrollmentNoneParticipation.getMandatoryField();
   final Map mandatoryFieldObject = Map();
-  final String eventId = AppUtil.getUid();
 
   List unFilledMandatoryFields = [];
 
@@ -63,8 +62,11 @@ class _OvcEnrollmentNoneParticipationFormState
     if (hadAllMandatoryFilled) {
       isSaving = true;
       setState(() {});
+      String eventId = dataObject['eventId'] ?? AppUtil.getUid();
       await OvcEnrollmentNoneParticipationService()
           .saveNoneParticipationForm(formSections!, dataObject, eventId);
+      Provider.of<OvcInterventionListState>(context, listen: false)
+          .onNoneParticipantAdd();
       Provider.of<OvcInterventionListState>(context, listen: false)
           .refreshOvcList();
       clearFormAutoSaveState(context);
@@ -184,6 +186,8 @@ class _OvcEnrollmentNoneParticipationFormState
                               children: [
                                 Container(
                                   child: EntryFormContainer(
+                                    isEditableMode:
+                                        enrollmentFormState.isEditableMode,
                                     formSections: formSections,
                                     mandatoryFieldObject: mandatoryFieldObject,
                                     dataObject: enrollmentFormState.formState,
@@ -192,21 +196,24 @@ class _OvcEnrollmentNoneParticipationFormState
                                         unFilledMandatoryFields,
                                   ),
                                 ),
-                                EntryFormSaveButton(
-                                  label: isSaving
-                                      ? 'Saving ...'
-                                      : currentLanguage == 'lesotho'
-                                          ? 'Boloka'
-                                          : 'Save',
-                                  labelColor: Colors.white,
-                                  buttonColor: Color(0xFF4B9F46),
-                                  fontSize: 15.0,
-                                  onPressButton: () => isSaving
-                                      ? null
-                                      : onSaveAndContinue(
-                                          context,
-                                          enrollmentFormState.formState,
-                                        ),
+                                Visibility(
+                                  visible: enrollmentFormState.isEditableMode,
+                                  child: EntryFormSaveButton(
+                                    label: isSaving
+                                        ? 'Saving ...'
+                                        : currentLanguage == 'lesotho'
+                                            ? 'Boloka'
+                                            : 'Save',
+                                    labelColor: Colors.white,
+                                    buttonColor: Color(0xFF4B9F46),
+                                    fontSize: 15.0,
+                                    onPressButton: () => isSaving
+                                        ? null
+                                        : onSaveAndContinue(
+                                            context,
+                                            enrollmentFormState.formState,
+                                          ),
+                                  ),
                                 )
                               ],
                             );
