@@ -4,6 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/core/utils/app_resume_routes/utils/app_resume_route_util.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/form_auto_save.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_pages/child_exit_pages/pages/ovc_exit_case_closure_form.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_pages/child_exit_pages/pages/ovc_exit_case_transfer_form.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_pages/child_exit_pages/pages/ovc_exit_caseplan_graduation_readiness_form.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_pages/child_exit_pages/pages/ovc_exit_information_form.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/ovc_referral_pages/ovc_child_referral_pages/pages/ovc_child_clo_referral_add_form.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/ovc_referral_pages/ovc_child_referral_pages/pages/ovc_child_referral_add_form.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/ovc_referral_pages/ovc_house_referral_pages/pages/ovc_household_add_referral_form.dart';
@@ -15,7 +19,7 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/o
 class OvcServicesRoute {
   //@TODO implement routes for ovc services
 
-  redirectToOvcHouseHoldAssessmentForm(
+  redirectToOvcHouseholdAssessmentForm(
     BuildContext context,
     FormAutoSave formAutoSave,
   ) {
@@ -30,7 +34,7 @@ class OvcServicesRoute {
     );
   }
 
-  redirectToOvcHouseHoldCasePlanForm(
+  redirectToOvcHouseholdCasePlanForm(
       BuildContext context, FormAutoSave formAutoSave) {
     AppResumeRouteUtil.setServiceFormState(context, formAutoSave);
     Navigator.push(
@@ -43,7 +47,7 @@ class OvcServicesRoute {
     );
   }
 
-  // redirectToOvcHouseHoldServiceForm(
+  // redirectToOvcHouseholdServiceForm(
   //     BuildContext context,
   //     FormAutoSave formAutoSave,
   //     String domainId,
@@ -73,7 +77,7 @@ class OvcServicesRoute {
   //   await AppUtil.showPopUpModal(context, modal, true);
   // }
 
-  redirectToOvcHouseHoldReferral(
+  redirectToOvcHouseholdReferral(
       BuildContext context, FormAutoSave formAutoSave) {
     AppResumeRouteUtil.setServiceFormState(context, formAutoSave);
     Navigator.push(
@@ -97,5 +101,105 @@ class OvcServicesRoute {
     AppResumeRouteUtil.setServiceFormState(context, formAutoSave);
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => OvcChildCLOReferralAddForm()));
+  }
+
+  redirectToOvcHouseholdClosureForm(
+      BuildContext context, FormAutoSave formAutoSave) {
+    AppResumeRouteUtil.setServiceFormState(context, formAutoSave);
+    // Navigator.push(
+    //   context,
+    //   MaterialPageRoute(
+    //     builder: (context) {
+    //       return OvcHouseholdAddReferralForm();
+    //     },
+    //   ),
+    // );
+  }
+
+  redirectToOvcHouseholdGraduationForm(
+      BuildContext context, FormAutoSave formAutoSave) {
+    AppResumeRouteUtil.setServiceFormState(context, formAutoSave);
+    // Navigator.push(
+    //   context,
+    //   MaterialPageRoute(
+    //     builder: (context) {
+    //       return OvcHouseholdAddReferralForm();
+    //     },
+    //   ),
+    // );
+  }
+
+  redirectToOvcHouseholdTransferForm(
+      BuildContext context, FormAutoSave formAutoSave) {
+    AppResumeRouteUtil.setServiceFormState(context, formAutoSave);
+    // Navigator.push(
+    //   context,
+    //   MaterialPageRoute(
+    //     builder: (context) {
+    //       return OvcHouseholdAddReferralForm();
+    //     },
+    //   ),
+    // );
+  }
+
+  redirectToOvcHouseholdExitForm(
+      BuildContext context, FormAutoSave formAutoSave) {
+    AppResumeRouteUtil.setServiceFormState(context, formAutoSave);
+    // Navigator.push(
+    //   context,
+    //   MaterialPageRoute(
+    //     builder: (context) {
+    //       return OvcHouseholdAddReferralForm();
+    //     },
+    //   ),
+    // );
+  }
+
+  redirectToOvcClosureForm(BuildContext context, FormAutoSave formAutoSave) {
+    AppResumeRouteUtil.setServiceFormState(context, formAutoSave);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
+          return OvcExitCaseClosureForm();
+        },
+      ),
+    );
+  }
+
+  redirectToOvcGraduationForm(BuildContext context, FormAutoSave formAutoSave) {
+    AppResumeRouteUtil.setServiceFormState(context, formAutoSave);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
+          return OvcExitCasePlanGraduationReadinessForm();
+        },
+      ),
+    );
+  }
+
+  redirectToOvcTransferForm(BuildContext context, FormAutoSave formAutoSave) {
+    AppResumeRouteUtil.setServiceFormState(context, formAutoSave);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
+          return OvcExitCaseTransferForm();
+        },
+      ),
+    );
+  }
+
+  redirectToOvcExitForm(BuildContext context, FormAutoSave formAutoSave) {
+    AppResumeRouteUtil.setServiceFormState(context, formAutoSave);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
+          return OvcExitInformationForm();
+        },
+      ),
+    );
   }
 }

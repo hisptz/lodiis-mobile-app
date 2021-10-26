@@ -41,6 +41,15 @@ class OvcRoutesConstant {
   //     'Household Service Monitoring Form';
   static final String houseHoldReferralFormPage = 'Household Referral Form';
   static final String houseHoldReferralFormNextPage = 'Household Referral Form';
+  static final String householdExitFormPage = 'Household Exit Form';
+  static final String householdExitFormNextPage = 'Household Exit Form';
+  static final String householdClosureFormPage = 'Household closure form';
+  static final String householdClosureFormNextPage = 'Household closure form';
+  static final String householdGraduationFormPage = 'Household Graduation Form';
+  static final String householdGraduationFormNextPage =
+      'Household Graduation Form';
+  static final String householdTransferFormPage = 'Household Transfer Form';
+  static final String householdTransferFormNextPage = 'Household Transfer Form';
 
   //@TODO routes constants for services of children
   static final String ovcReferralFormPage = 'Ovc child Referral Form';
@@ -55,4 +64,12 @@ class OvcRoutesConstant {
       'Child school performance monitoring';
   static final String ovcSchoolMonitoringFormNextPage =
       'Child school performance monitoring';
+  static final String ovcExitFormPage = 'OVC Exit Form';
+  static final String ovcExitFormNextPage = 'OVC Exit Form';
+  static final String ovcClosureFormPage = 'OVC closure form';
+  static final String ovcClosureFormNextPage = 'OVC closure form';
+  static final String ovcGraduationFormPage = 'OVC Graduation Form';
+  static final String ovcGraduationFormNextPage = 'OVC Graduation Form';
+  static final String ovcTransferFormPage = 'OVC Transfer Form';
+  static final String ovcTransferFormNextPage = 'OVC Transfer Form';
 }

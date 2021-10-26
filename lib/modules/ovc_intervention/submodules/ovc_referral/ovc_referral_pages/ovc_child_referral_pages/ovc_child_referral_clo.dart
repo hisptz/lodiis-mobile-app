@@ -70,7 +70,6 @@ class _OvcChildCLOReferralState extends State<OvcChildCLOReferral> {
         await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
     bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
         .shouldResumeWithUnSavedChanges(context, formAutoSave);
-    print('$formAutoSaveId => $shouldResumeWithUnSavedChanges');
     if (shouldResumeWithUnSavedChanges) {
       AppResumeRoute().redirectToPages(context, formAutoSave);
     } else {

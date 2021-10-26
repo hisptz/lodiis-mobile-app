@@ -171,19 +171,40 @@ class AppResumeRoute
       redirectToOvcEnrollmentChildEditViewForm(context, formAutoSave);
     } else if (formAutoSave.nextPageModule ==
         OvcRoutesConstant.houseHoldAssessmentFormPage) {
-      redirectToOvcHouseHoldAssessmentForm(context, formAutoSave);
+      redirectToOvcHouseholdAssessmentForm(context, formAutoSave);
     } else if (formAutoSave.nextPageModule ==
         OvcRoutesConstant.houseHoldCasePlanFormPage) {
-      redirectToOvcHouseHoldCasePlanForm(context, formAutoSave);
+      redirectToOvcHouseholdCasePlanForm(context, formAutoSave);
     } else if (formAutoSave.nextPageModule ==
         OvcRoutesConstant.houseHoldReferralFormPage) {
-      redirectToOvcHouseHoldReferral(context, formAutoSave);
+      redirectToOvcHouseholdReferral(context, formAutoSave);
     } else if (formAutoSave.nextPageModule ==
         OvcRoutesConstant.ovcReferralFormPage) {
       redirectToOvcReferralForm(context, formAutoSave);
     } else if (formAutoSave.nextPageModule ==
         OvcRoutesConstant.ovcCloReferralFormPage) {
       redirectToOvcCloReferralForm(context, formAutoSave);
+    } else if (formAutoSave.nextPageModule ==
+        OvcRoutesConstant.ovcExitFormPage) {
+      redirectToOvcExitForm(context, formAutoSave);
+    } else if (formAutoSave.nextPageModule ==
+        OvcRoutesConstant.ovcClosureFormPage) {
+      redirectToOvcClosureForm(context, formAutoSave);
+    } else if (formAutoSave.nextPageModule ==
+        OvcRoutesConstant.ovcGraduationFormPage) {
+      redirectToOvcGraduationForm(context, formAutoSave);
+    } else if (formAutoSave.nextPageModule ==
+        OvcRoutesConstant.ovcTransferFormPage) {
+      redirectToOvcTransferForm(context, formAutoSave);
+    } else if (formAutoSave.nextPageModule ==
+        OvcRoutesConstant.householdExitFormPage) {
+      redirectToOvcHouseholdExitForm(context, formAutoSave);
+    } else if (formAutoSave.nextPageModule ==
+        OvcRoutesConstant.householdGraduationFormPage) {
+    } else if (formAutoSave.nextPageModule ==
+        OvcRoutesConstant.householdClosureFormPage) {
+    } else if (formAutoSave.nextPageModule ==
+        OvcRoutesConstant.householdTransferFormPage) {
     } else {
       print("$formAutoSave \n");
       print("Not page to redirect ${formAutoSave.nextPageModule}\n\n");
