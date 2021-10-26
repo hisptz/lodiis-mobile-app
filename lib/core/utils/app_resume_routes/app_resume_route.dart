@@ -201,10 +201,13 @@ class AppResumeRoute
       redirectToOvcHouseholdExitForm(context, formAutoSave);
     } else if (formAutoSave.nextPageModule ==
         OvcRoutesConstant.householdGraduationFormPage) {
+      redirectToOvcHouseholdGraduationForm(context, formAutoSave);
     } else if (formAutoSave.nextPageModule ==
         OvcRoutesConstant.householdClosureFormPage) {
+      redirectToOvcHouseholdClosureForm(context, formAutoSave);
     } else if (formAutoSave.nextPageModule ==
         OvcRoutesConstant.householdTransferFormPage) {
+      redirectToOvcHouseholdTransferForm(context, formAutoSave);
     } else {
       print("$formAutoSave \n");
       print("Not page to redirect ${formAutoSave.nextPageModule}\n\n");
