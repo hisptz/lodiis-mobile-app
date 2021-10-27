@@ -241,6 +241,7 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
           header:
               '$title : ${dreamInterventionListState.numberOfAgywDreamsBeneficiaries} beneficiaries',
           bodyContents: _buildBody(),
+          showFilter: true,
         );
       },
     );
