@@ -21,7 +21,6 @@ class AgywDream {
   String? beneficiaryType;
   String? phoneNumber;
   String? village;
-  bool? isSynced;
   TrackedEntityInstance? trackedEntityInstanceData;
 
   AgywDream(
@@ -43,7 +42,6 @@ class AgywDream {
       this.beneficiaryType,
       this.phoneNumber,
       this.village,
-      this.isSynced,
       this.trackedEntityInstanceData});
   AgywDream fromTeiModel(
     TrackedEntityInstance trackedEntityInstance,
@@ -93,7 +91,6 @@ class AgywDream {
       location: location,
       createdDate: createdDate,
       enrollment: enrollment,
-      isSynced: trackedEntityInstance.syncStatus == "synced",
       enrolledOrganisation: data['klLkGxy328c'] ?? '',
       searchableValue:
           "${data['WTZ7GLTrE8Q'] ?? ''} ${data['s1HaiT6OllL'] ?? ''} ${data['rSP9c21JsfC'] ?? ''} $age ${agywAgeBand(age)} ${data[BeneficiaryIdentification.beneficiaryId] ?? ''} ${data['VJiWumvINR6'] ?? ''} ${data['klLkGxy328c'] ?? ''} $location $createdDate"

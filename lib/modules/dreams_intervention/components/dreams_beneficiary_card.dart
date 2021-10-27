@@ -118,7 +118,7 @@ class DreamsBeneficiaryCard extends StatelessWidget {
     List<String> unsyncedTeiReferences,
   ) {
     int teiIndex = unsyncedTeiReferences.indexOf(agywDream.id!);
-    return agywDream.isSynced! && teiIndex == -1;
+    return teiIndex == -1;
   }
 
   @override

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:kb_mobile_app/app_state/synchronization_state/synchronization_status_state.dart';
 import 'package:kb_mobile_app/core/components/beneficiary_sync_status_indicator.dart';
 import 'package:kb_mobile_app/models/ogac_beneficiary.dart';
+import 'package:provider/provider.dart';
 
 class OgacBeneficiaryCardTop extends StatelessWidget {
   const OgacBeneficiaryCardTop({
@@ -36,10 +38,16 @@ class OgacBeneficiaryCardTop extends StatelessWidget {
               ),
             ),
           ),
-          BeneficiarySyncStatusIndicator(
-            iconHeight: iconHeight,
-            isSynced: ogacBeneficiary.isSynced!,
-          ),
+          Consumer<SynchronizationStatusState>(
+              builder: (context, synchronizationStatusState, child) {
+            List<String> unsyncedTeiReferences =
+                synchronizationStatusState.unsyncedTeiReferences;
+            bool isSynced = !unsyncedTeiReferences.contains(ogacBeneficiary.id);
+            return BeneficiarySyncStatusIndicator(
+              iconHeight: iconHeight,
+              isSynced: isSynced,
+            );
+          }),
           Container(
             child: InkWell(
               onTap: onViewBeneficiary,
