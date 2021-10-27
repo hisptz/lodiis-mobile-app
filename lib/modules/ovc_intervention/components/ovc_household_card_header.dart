@@ -63,16 +63,15 @@ class OvcHouseholdCardHeader extends StatelessWidget {
     );
   }
 
-  bool _getSyncStaatusOfHousehold(
+  bool _getSyncStatusOfHousehold(
     OvcHousehold ovcHousehold,
     List<String> unsyncedTeiReferences,
   ) {
     int teiIndex = unsyncedTeiReferences.indexOf(ovcHousehold.id!);
     List<OvcHouseholdChild> unsyncedChildren =
         ovcHousehold.children!.where((OvcHouseholdChild ovcHouseholdChild) {
-      bool isSynced = ovcHouseholdChild.isSynced!;
       int childIndex = unsyncedTeiReferences.indexOf(ovcHouseholdChild.id!);
-      return !isSynced || childIndex > -1;
+      return childIndex > -1;
     }).toList();
     return unsyncedChildren.isEmpty && teiIndex == -1;
   }
@@ -118,7 +117,7 @@ class OvcHouseholdCardHeader extends StatelessWidget {
                   List<String> unsyncedTeiReferences =
                       synchronizationStatusState.unsyncedTeiReferences;
                   return BeneficiarySyncStatusIndicator(
-                    isSynced: _getSyncStaatusOfHousehold(
+                    isSynced: _getSyncStatusOfHousehold(
                         ovcHousehold!, unsyncedTeiReferences),
                   );
                 }),

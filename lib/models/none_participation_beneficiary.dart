@@ -13,23 +13,22 @@ class NoneParticipationBeneficiary {
   String? phoneNumber;
   String? searchableValue;
   String? reason;
-  bool? isSynced;
   Events? eventData;
 
-  NoneParticipationBeneficiary(
-      {this.event,
-      this.eventDate,
-      this.program,
-      this.programStage,
-      this.firstname,
-      this.surname,
-      this.age,
-      this.phoneNumber,
-      this.sex,
-      this.searchableValue,
-      this.reason,
-      this.eventData,
-      this.isSynced});
+  NoneParticipationBeneficiary({
+    this.event,
+    this.eventDate,
+    this.program,
+    this.programStage,
+    this.firstname,
+    this.surname,
+    this.age,
+    this.phoneNumber,
+    this.sex,
+    this.searchableValue,
+    this.reason,
+    this.eventData,
+  });
 
   NoneParticipationBeneficiary fromEventsModel(Events eventData) {
     List<String> keys = [
@@ -63,7 +62,6 @@ class NoneParticipationBeneficiary {
         firstname: data['JhOvli80Qbx'] ?? '',
         surname: data['jjZWuJfVStp'] ?? '',
         sex: data['an7w8LYPZ7y'] ?? '',
-        isSynced: eventData.isSynced,
         searchableValue:
             "${data['an7w8LYPZ7y']} ${data['JhOvli80Qbx']}, ${data['jjZWuJfVStp']}",
         reason: data['FHn0nJPumhO'] ?? '',

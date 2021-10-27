@@ -14,7 +14,6 @@ class PpPrevBeneficiary {
   String? createdDate;
   String? searchableValue;
   String? enrollment;
-  bool? isSynced;
   TrackedEntityInstance? trackedEntityInstanceData;
 
   PpPrevBeneficiary({
@@ -30,7 +29,6 @@ class PpPrevBeneficiary {
     this.createdDate,
     this.enrollment,
     this.searchableValue,
-    this.isSynced,
     this.trackedEntityInstanceData,
   });
   PpPrevBeneficiary fromTeiModel(
@@ -73,7 +71,6 @@ class PpPrevBeneficiary {
       village: village != "" ? village : 'N/A',
       createdDate: createdDate,
       enrollment: enrollment,
-      isSynced: trackedEntityInstance.syncStatus == "synced",
       trackedEntityInstanceData: trackedEntityInstance,
     );
   }
