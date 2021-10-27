@@ -126,6 +126,31 @@ class TrackedEntityInstanceOfflineProvider extends OfflineDbProvider {
     return teiCount ?? 0;
   }
 
+  Future<List<String>> getTrackedEntitiyInstanceReferencesBySyncStatus(
+      {String teiSyncStatus = 'not-synced'}) async {
+    List<String> references = [];
+    try {
+      var dbClient = await db;
+      List<Map> maps = await dbClient!.query(
+        table,
+        columns: [
+          trackedEntityInstance,
+          trackedEntityType,
+          orgUnit,
+          syncStatus,
+        ],
+        where: '$syncStatus = ?',
+        whereArgs: [teiSyncStatus],
+      );
+
+      for (Map map in maps) {
+        references.add(map[trackedEntityInstance] as String);
+      }
+    } catch (e) {}
+
+    return references;
+  }
+
   Future<List<TrackedEntityInstance>> getTrackedEntityInstanceByStatus(
     String teiSyncStatus,
   ) async {

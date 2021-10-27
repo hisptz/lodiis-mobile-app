@@ -74,7 +74,7 @@ class OvcHouseholdCardHeader extends StatelessWidget {
       int childIndex = unsyncedTeiReferences.indexOf(ovcHouseholdChild.id!);
       return !isSynced || childIndex > -1;
     }).toList();
-    return ovcHousehold.isSynced! && unsyncedChildren.isEmpty && teiIndex == -1;
+    return unsyncedChildren.isEmpty && teiIndex == -1;
   }
 
   @override

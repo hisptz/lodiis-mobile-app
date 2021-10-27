@@ -26,7 +26,7 @@ class PpPrevBeneficiaryCard extends StatelessWidget {
     List<String> unsyncedTeiReferences,
   ) {
     int teiIndex = unsyncedTeiReferences.indexOf(ppPrevBeneficiary.id!);
-    return ppPrevBeneficiary.isSynced! && teiIndex == -1;
+    return teiIndex == -1;
   }
 
   @override
