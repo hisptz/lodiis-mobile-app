@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_household_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
@@ -7,12 +8,17 @@ import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/Int
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
+import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
+import 'package:kb_mobile_app/core/utils/app_resume_routes/app_resume_route.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/events.dart';
+import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
+import 'package:kb_mobile_app/models/ovc_household_child.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_child_info_top_header.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/constants/ovc_routes_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_pages/child_exit_pages/constants/ovc_exit_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_pages/child_exit_pages/pages/ovc_exit_case_closure_form.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_pages/child_exit_pages/pages/ovc_exit_case_transfer_form.dart';
@@ -38,40 +44,65 @@ class OvcChildExitHome extends StatelessWidget {
   }
 
   void onRedirectToExitForm(
-      BuildContext context, String? exitResponse, bool isEditableMode) {
+      BuildContext context, String? exitResponse, bool isEditableMode,
+      {String eventId = ''}) async {
     Provider.of<ServiceFormState>(context, listen: false)
         .updateFormEditabilityState(isEditableMode: isEditableMode);
     if (exitResponse != null) {
-      exitResponse == 'Exit'
-          ? Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => OvcExitInformationForm(),
-              ),
-            )
+      OvcHouseholdChild? beneficiary =
+          Provider.of<OvcHouseholdCurrentSelectionState>(context, listen: false)
+              .currentOvcHouseholdChild;
+      String beneficiaryId = beneficiary!.id ?? '';
+      String exitForm = exitResponse == 'Exit'
+          ? OvcRoutesConstant.ovcExitFormPage
           : exitResponse == 'Transfer'
-              ? Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => OvcExitCaseTransferForm(),
-                  ),
-                )
+              ? OvcRoutesConstant.ovcTransferFormPage
               : exitResponse == 'Case closure'
-                  ? Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => OvcExitCaseClosureForm(),
-                      ),
-                    )
+                  ? OvcRoutesConstant.ovcClosureFormPage
                   : exitResponse == 'Graduation'
-                      ? Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                OvcExitCasePlanGraduationReadinessForm(),
-                          ),
-                        )
-                      : print(exitResponse);
+                      ? OvcRoutesConstant.ovcGraduationFormPage
+                      : '';
+      String formAutoSaveId = '${exitForm}_${beneficiaryId}_$eventId';
+
+      FormAutoSave formAutoSave = await FormAutoSaveOfflineService()
+          .getSavedFormAutoData(formAutoSaveId);
+      bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
+          .shouldResumeWithUnSavedChanges(context, formAutoSave);
+
+      if (shouldResumeWithUnSavedChanges) {
+        AppResumeRoute().redirectToPages(context, formAutoSave);
+      } else {
+        exitResponse == 'Exit'
+            ? Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => OvcExitInformationForm(),
+                ),
+              )
+            : exitResponse == 'Transfer'
+                ? Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => OvcExitCaseTransferForm(),
+                    ),
+                  )
+                : exitResponse == 'Case closure'
+                    ? Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => OvcExitCaseClosureForm(),
+                        ),
+                      )
+                    : exitResponse == 'Graduation'
+                        ? Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  OvcExitCasePlanGraduationReadinessForm(),
+                            ),
+                          )
+                        : print(exitResponse);
+      }
     }
   }
 
@@ -105,7 +136,8 @@ class OvcChildExitHome extends StatelessWidget {
   ) {
     bool isEditableMode = true;
     updateFormStateData(context, eventData);
-    onRedirectToExitForm(context, exitResponse, isEditableMode);
+    onRedirectToExitForm(context, exitResponse, isEditableMode,
+        eventId: eventData.event!);
   }
 
   @override

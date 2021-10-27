@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_household_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
+import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_intervention_list_state.dart';
 import 'package:kb_mobile_app/core/components/paginated_list_view.dart';
 import 'package:kb_mobile_app/core/components/sub_module_home_container.dart';
+import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
+import 'package:kb_mobile_app/core/utils/app_resume_routes/app_resume_route.dart';
+import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/ovc_household.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_household_card.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_household_card_body.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_household_card_botton_content.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/constants/ovc_routes_constant.dart';
 import 'package:provider/provider.dart';
 import 'ovc_exit_pages/household_exit_pages/household_graduation/ovc_household_graduation.dart';
 import 'ovc_exit_pages/household_exit_pages/household_case_closure/ovc_household_case_closure.dart';
@@ -59,34 +64,74 @@ class _OvcExitPageState extends State<OvcExitPage> {
     );
   }
 
-  void onViewExit(BuildContext context, OvcHousehold ovcHousehold) {
+  void onViewExit(BuildContext context, OvcHousehold ovcHousehold) async {
     setOvcHouseholdCurrentSelection(context, ovcHousehold);
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => OvcHouseholdExit(),
-      ),
-    );
+    String beneficiaryId = ovcHousehold.id!;
+    String eventId = '';
+    String formAutoSaveId =
+        '${OvcRoutesConstant.householdExitFormPage}_${beneficiaryId}_$eventId';
+    FormAutoSave formAutoSave =
+        await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
+    bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
+        .shouldResumeWithUnSavedChanges(context, formAutoSave);
+    if (shouldResumeWithUnSavedChanges) {
+      AppResumeRoute().redirectToPages(context, formAutoSave);
+    } else {
+      Provider.of<ServiceFormState>(context, listen: false).resetFormState();
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => OvcHouseholdExit(),
+        ),
+      );
+    }
   }
 
-  void onViewTransfer(BuildContext context, OvcHousehold ovcHousehold) {
+  void onViewTransfer(BuildContext context, OvcHousehold ovcHousehold) async {
     setOvcHouseholdCurrentSelection(context, ovcHousehold);
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => OvcHouseholdCaseTransfer(),
-      ),
-    );
+    String beneficiaryId = ovcHousehold.id!;
+    String eventId = '';
+    String formAutoSaveId =
+        '${OvcRoutesConstant.householdTransferFormPage}_${beneficiaryId}_$eventId';
+    FormAutoSave formAutoSave =
+        await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
+    bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
+        .shouldResumeWithUnSavedChanges(context, formAutoSave);
+    if (shouldResumeWithUnSavedChanges) {
+      print(formAutoSave);
+      AppResumeRoute().redirectToPages(context, formAutoSave);
+    } else {
+      Provider.of<ServiceFormState>(context, listen: false).resetFormState();
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => OvcHouseholdCaseTransfer(),
+        ),
+      );
+    }
   }
 
-  void onViewClosure(BuildContext context, OvcHousehold ovcHousehold) {
+  void onViewClosure(BuildContext context, OvcHousehold ovcHousehold) async {
     setOvcHouseholdCurrentSelection(context, ovcHousehold);
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => OvcHouseholdCaseClosure(),
-      ),
-    );
+    String beneficiaryId = ovcHousehold.id!;
+    String eventId = '';
+    String formAutoSaveId =
+        '${OvcRoutesConstant.householdClosureFormPage}_${beneficiaryId}_$eventId';
+    FormAutoSave formAutoSave =
+        await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
+    bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
+        .shouldResumeWithUnSavedChanges(context, formAutoSave);
+    if (shouldResumeWithUnSavedChanges) {
+      AppResumeRoute().redirectToPages(context, formAutoSave);
+    } else {
+      Provider.of<ServiceFormState>(context, listen: false).resetFormState();
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => OvcHouseholdCaseClosure(),
+        ),
+      );
+    }
   }
 
   @override

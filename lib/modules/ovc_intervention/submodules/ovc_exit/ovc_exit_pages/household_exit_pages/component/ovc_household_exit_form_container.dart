@@ -1,14 +1,19 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_household_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/components/material_card.dart';
+import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/models/events.dart';
+import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/constants/ovc_routes_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/skip_logics/ovc_case_closure_skip_logic.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/skip_logics/ovc_case_exit_skip_logic.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/skip_logics/ovc_case_transfer_skip_logic.dart';
@@ -97,7 +102,6 @@ class _OvcHouseholdExitFormContainerState
 
   void updateFormState(
       BuildContext context, bool isEditableMode, Events? event) {
-    Provider.of<ServiceFormState>(context, listen: false).resetFormState();
     Provider.of<ServiceFormState>(context, listen: false)
         .updateFormEditabilityState(isEditableMode: isEditableMode);
     if (event != null) {
@@ -115,10 +119,54 @@ class _OvcHouseholdExitFormContainerState
     }
   }
 
+  void onUpdateFormAutoSaveState(
+    BuildContext context, {
+    bool isSaveForm = false,
+    String nextPageModule = "",
+  }) async {
+    var ovc =
+        Provider.of<OvcHouseholdCurrentSelectionState>(context, listen: false)
+            .currentOvcHousehold!;
+    String? beneficiaryId = ovc.id;
+    Map dataObject =
+        Provider.of<ServiceFormState>(context, listen: false).formState;
+    if (dataObject['eventId'] == null) {
+      String eventId = '';
+      String currentPage = widget.exitType == 'exit'
+          ? OvcRoutesConstant.householdExitFormPage
+          : widget.exitType == 'transfer'
+              ? OvcRoutesConstant.householdTransferFormPage
+              : widget.exitType == 'closure'
+                  ? OvcRoutesConstant.householdClosureFormPage
+                  : '';
+      String nextPage = widget.exitType == 'exit'
+          ? OvcRoutesConstant.householdExitFormNextPage
+          : widget.exitType == 'transfer'
+              ? OvcRoutesConstant.householdTransferFormNextPage
+              : widget.exitType == 'closure'
+                  ? OvcRoutesConstant.householdClosureFormNextPage
+                  : '';
+      String id = "${currentPage}_${beneficiaryId}_$eventId";
+      FormAutoSave formAutoSave = FormAutoSave(
+        id: id,
+        beneficiaryId: beneficiaryId,
+        pageModule: currentPage,
+        nextPageModule: isSaveForm
+            ? nextPageModule != ""
+                ? nextPageModule
+                : nextPage
+            : currentPage,
+        data: jsonEncode(dataObject),
+      );
+      await FormAutoSaveOfflineService().saveFormAutoSaveData(formAutoSave);
+    }
+  }
+
   void onInputValueChange(String id, dynamic value) {
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState(id, value);
     evaluateSkipLogics();
+    onUpdateFormAutoSaveState(context);
   }
 
   @override
