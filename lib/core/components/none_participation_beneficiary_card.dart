@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
+import 'package:kb_mobile_app/app_state/synchronization_state/synchronization_status_state.dart';
 import 'package:kb_mobile_app/core/components/beneficiary_sync_status_indicator.dart';
 import 'package:kb_mobile_app/core/components/line_separator.dart';
 import 'package:kb_mobile_app/core/components/material_card.dart';
@@ -86,9 +87,16 @@ class NoneParticipantBeneficiaryCard extends StatelessWidget {
                           ),
                         ),
                       ),
-                      BeneficiarySyncStatusIndicator(
-                        isSynced: beneficiary.isSynced!,
-                      ),
+                      Consumer<SynchronizationStatusState>(builder:
+                          (context, synchronizationStatusState, child) {
+                        List<String> unsyncedTeiReferences =
+                            synchronizationStatusState.unsyncedTeiReferences;
+                        bool isUnsynced =
+                            unsyncedTeiReferences.contains(beneficiary.event);
+                        return BeneficiarySyncStatusIndicator(
+                          isSynced: !isUnsynced,
+                        );
+                      }),
                       Visibility(
                         visible: canView,
                         child: Expanded(

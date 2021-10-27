@@ -190,7 +190,7 @@ class OvcHouseholdCardButtonContent extends StatelessWidget {
     List<String> unsyncedTeiReferences,
   ) {
     int teiIndex = unsyncedTeiReferences.indexOf(ovcHouseholdChild.id!);
-    return ovcHouseholdChild.isSynced! && teiIndex == -1;
+    return teiIndex == -1;
   }
 
   @override
