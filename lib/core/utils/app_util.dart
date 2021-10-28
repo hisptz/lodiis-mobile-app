@@ -229,7 +229,7 @@ class AppUtil {
                             child: title == ''
                                 ? Container()
                                 : Container(
-                                    alignment: Alignment.center,
+                                    alignment: Alignment.centerLeft,
                                     child: Wrap(
                                       alignment: WrapAlignment.start,
                                       children: [
@@ -237,7 +237,7 @@ class AppUtil {
                                           title,
                                           style: TextStyle().copyWith(
                                             color: Color(0xFF82898D),
-                                            fontSize: 14.0,
+                                            fontSize: 16.0,
                                             fontWeight: FontWeight.bold,
                                           ),
                                         )

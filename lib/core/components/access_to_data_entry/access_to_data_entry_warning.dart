@@ -52,7 +52,7 @@ class AccessToDataEntryWarning extends StatelessWidget {
                     ),
                     AccessToDataEntryMessage(
                       message:
-                          "Your account has some problems on enrolling or providing services to beneficiaries, kindly contact your supervisor or system administartor to correct the access",
+                          "Your account has some problems on enrolling or providing services to beneficiaries, kindly contact your supervisor or system administrator to correct the access",
                       color: Colors.redAccent,
                     ),
                     AccessToDataEntryActionButton(

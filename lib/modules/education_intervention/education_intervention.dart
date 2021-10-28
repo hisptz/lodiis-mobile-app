@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/app_state/app_info_state/app_info_state.dart';
 import 'package:kb_mobile_app/app_state/current_user_state/current_user_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_bottom_navigation_state/intervention_bottom_navigation_state.dart';
@@ -19,6 +20,7 @@ import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart'
 import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/core/utils/app_bar_util.dart';
 import 'package:kb_mobile_app/core/utils/app_resume_routes/app_resume_route.dart';
+import 'package:kb_mobile_app/core/utils/app_version_update.dart';
 import 'package:kb_mobile_app/models/Intervention_bottom_navigation.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/models/form_auto_save.dart';
@@ -30,6 +32,7 @@ import 'package:kb_mobile_app/modules/education_intervention/submodules/educatio
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/education_lbse.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/pages/education_lbse_enrollment_form_page.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_records/education_records_page.dart';
+import 'package:new_version/new_version.dart';
 import 'package:provider/provider.dart';
 
 class EducationIntervention extends StatefulWidget {
@@ -62,6 +65,7 @@ class _EducationInterventionState extends State<EducationIntervention>
     DataQualityService.runDataQualityCheckResolution();
     connectionSubscription = DeviceConnectivityProvider()
         .checkChangeOfDeviceConnectionStatus(context);
+    checkAppVersion();
     periodicTimer =
         Timer.periodic(Duration(minutes: syncTimeout), (Timer timer) {
       Provider.of<CurrentUserState>(context, listen: false)
@@ -76,6 +80,19 @@ class _EducationInterventionState extends State<EducationIntervention>
     connectionSubscription.cancel();
     tabController!.dispose();
     super.dispose();
+  }
+
+  void checkAppVersion() async {
+    bool shouldShowUpdateWarning =
+        Provider.of<AppInfoState>(context, listen: false)
+            .showWarningToAppUpdate;
+    VersionStatus? versionStatus =
+        Provider.of<AppInfoState>(context, listen: false).versionStatus;
+    WidgetsBinding.instance!.addPostFrameCallback((_) async {
+      if (shouldShowUpdateWarning && versionStatus != null) {
+        AppVersionUpdate.showAppUpdateWarning(context, versionStatus);
+      }
+    });
   }
 
   void setTabsController() async {

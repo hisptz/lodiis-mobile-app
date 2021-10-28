@@ -129,7 +129,11 @@ class EventOfflineProvider extends OfflineDbProvider {
         whereArgs: [eventSyncStatus],
       );
       if (maps.isNotEmpty) {
-        references.addAll(maps.map((Map map) => map[trackedEntityInstance]));
+        references.addAll(maps.map((Map map) =>
+            map[trackedEntityInstance] != null &&
+                    map[trackedEntityInstance] != ''
+                ? map[trackedEntityInstance]
+                : map[event]));
       }
     } catch (e) {}
     return references.toSet().toList();

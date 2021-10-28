@@ -54,7 +54,7 @@ class EducationBeneficiaryCard extends StatelessWidget {
     List<String> unsyncedTeiReferences,
   ) {
     int teiIndex = unsyncedTeiReferences.indexOf(educationBeneficiary.id!);
-    return educationBeneficiary.isSynced! && teiIndex == -1;
+    return teiIndex == -1;
   }
 
   @override

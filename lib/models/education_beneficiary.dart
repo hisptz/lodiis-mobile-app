@@ -17,7 +17,6 @@ class EducationBeneficiary {
   String? schoolName;
   String? grade;
   bool? isMaleBeneficiary;
-  bool? isSynced;
   TrackedEntityInstance? trackedEntityInstanceData;
 
   EducationBeneficiary({
@@ -35,7 +34,6 @@ class EducationBeneficiary {
     this.grade,
     this.isMaleBeneficiary,
     this.searchableValue,
-    this.isSynced,
     this.trackedEntityInstanceData,
   });
   EducationBeneficiary fromTeiModel(
@@ -82,7 +80,6 @@ class EducationBeneficiary {
       grade: data['BUPSEpJySPR'] ?? data['tbzi0t27D8l'] ?? '',
       beneficiaryId: data[BeneficiaryIdentification.beneficiaryId] ?? '',
       schoolName: data['EwZil0AnlYo'] ?? '',
-      isSynced: trackedEntityInstance.syncStatus == "synced",
       trackedEntityInstanceData: trackedEntityInstance,
     );
   }

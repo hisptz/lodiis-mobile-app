@@ -1,13 +1,17 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:new_version/new_version.dart';
+
 import 'package:kb_mobile_app/core/constants/app_info_reference.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/app_semantic_version.dart';
-import 'package:new_version/new_version.dart';
 
 class AppInfoState with ChangeNotifier {
   String? _currentAppName;
   String? _currentAppVersion;
   String? _currentAppId;
+  VersionStatus? _versionStatus;
+  NewVersion _newVersion = NewVersion();
   bool? _showWarningToAppUpdate;
   bool? _shouldUpdateTheApp;
 
@@ -16,18 +20,22 @@ class AppInfoState with ChangeNotifier {
   bool get shouldUpdateTheApp => _shouldUpdateTheApp ?? false;
   String get currentAppVersion => _currentAppVersion ?? '';
   String get currentAppId => _currentAppId ?? '';
+  NewVersion get newVersion => _newVersion;
+  VersionStatus? get versionStatus => _versionStatus ?? null;
 
-  void setCurrentAppInfo() async {
+  Future<void> setCurrentAppInfo() async {
     _currentAppId = AppInfoReference.androidId;
     _currentAppName = AppInfoReference.currentAppName;
     _currentAppVersion = AppInfoReference.currentAppVersion;
     try {
-      final newVersion = NewVersion(
+      _newVersion = NewVersion(
         androidId: AppInfoReference.androidId,
       );
-      final status = await newVersion.getVersionStatus();
+      final status = await _newVersion.getVersionStatus();
+      _versionStatus = status;
       _showWarningToAppUpdate = status!.canUpdate;
       _currentAppVersion = status.localVersion;
+
       updateAppUpdateState(
         storeVersion: status.storeVersion,
         localVersion: status.localVersion,
@@ -42,19 +50,24 @@ class AppInfoState with ChangeNotifier {
     AppSemanticVersion localSemanticVersion =
         AppUtil.getSemanticVersionValue(version: localVersion);
     if (localSemanticVersion.major +
-            AppInfoReference.minmunAllowedMajorVersion <
+            AppInfoReference.minimumAllowedMajorVersion <
         storeSemanticVersion.major) {
       _shouldUpdateTheApp = true;
     } else if (localSemanticVersion.minor +
-            AppInfoReference.minmunAllowedMinorVersion <
+            AppInfoReference.minimumAllowedMinorVersion <
         storeSemanticVersion.minor) {
       _shouldUpdateTheApp = true;
+    } else if (!(storeSemanticVersion.patch <= localSemanticVersion.patch) &&
+        storeSemanticVersion.patch - localSemanticVersion.patch <=
+            AppInfoReference.minimumAllowedPatchVersion) {
+      _showWarningToAppUpdate = true;
     } else if (localSemanticVersion.patch +
-            AppInfoReference.minmunAllowedPatchVersion <
+            AppInfoReference.minimumAllowedPatchVersion <=
         storeSemanticVersion.patch) {
       _shouldUpdateTheApp = true;
     } else {
       _shouldUpdateTheApp = false;
+      _showWarningToAppUpdate = false;
     }
     notifyListeners();
   }
