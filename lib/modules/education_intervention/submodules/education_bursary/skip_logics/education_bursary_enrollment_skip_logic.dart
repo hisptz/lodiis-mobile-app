@@ -108,6 +108,18 @@ class EducationBursaryEnrollmentSkipLogic {
       if (inputFieldId == 'dUwwS3Gp7OU' && value != 'true') {
         hiddenFields['BjIO7hTeor3'] = true;
       }
+      if (inputFieldId == 'vIX4GTSCX4P') {
+        Map hiddenRelationshipsWithChild = Map();
+        if (value == 'Male') {
+          hiddenFields['oIGWbCQTZ8w'] = true;
+          hiddenRelationshipsWithChild['Daughter'] = true;
+          hiddenRelationshipsWithChild['Granddaughter'] = true;
+        } else if (value == 'Female') {
+          hiddenRelationshipsWithChild['Son'] = true;
+          hiddenRelationshipsWithChild['Grandson'] = true;
+        }
+        hiddenInputFieldOptions['C524HuWqRyt'] = hiddenRelationshipsWithChild;
+      }
 
       // Vulnerability Criteria
       if (inputFieldId == 'Ne8BaB6rCZX') {

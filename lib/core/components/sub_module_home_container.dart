@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
+import 'package:kb_mobile_app/core/components/beneficiary_list_filter.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:provider/provider.dart';
 
@@ -8,14 +9,25 @@ class SubModuleHomeContainer extends StatelessWidget {
   final Widget bodyContents;
   final Function? onOpenInfo;
   final bool hasInfo;
+  final bool showFilter;
 
   const SubModuleHomeContainer(
       {Key? key,
       this.header,
       required this.bodyContents,
       this.onOpenInfo,
-      this.hasInfo = false})
+      this.hasInfo = false,
+      this.showFilter = false})
       : super(key: key);
+
+  void openFilters(BuildContext context) {
+    showModalBottomSheet(
+        context: context,
+        isDismissible: true,
+        isScrollControlled: true,
+        backgroundColor: Colors.transparent,
+        builder: (BuildContext context) => BeneficiaryListFilter());
+  }
 
   @override
   Widget build(
@@ -45,6 +57,22 @@ class SubModuleHomeContainer extends StatelessWidget {
                               size: 24.0,
                             ),
                           )),
+                      Visibility(
+                        visible: showFilter,
+                        child: Consumer<InterventionCardState>(
+                          builder: (context, interventionCardState, child) {
+                            return InkWell(
+                              onTap: () => openFilters(context),
+                              child: Icon(
+                                Icons.filter_list_outlined,
+                                color: interventionCardState
+                                    .currentInterventionProgram.primaryColor,
+                                size: 24.0,
+                              ),
+                            );
+                          },
+                        ),
+                      )
                     ],
                   ),
                 ),

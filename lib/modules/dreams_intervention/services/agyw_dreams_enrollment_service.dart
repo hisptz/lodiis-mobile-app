@@ -98,7 +98,9 @@ class AgywDreamsEnrollmentService {
   }
 
   Future<List<AgywDream>> getAgywBeneficiaryList(
-      {page, String searchableValue = ''}) async {
+      {page,
+      String searchableValue = '',
+      List<Map<String, dynamic>> filters = const []}) async {
     List<AgywDream> agywDreamList = [];
     try {
       List<Enrollment> enrollments = await EnrollmentOfflineProvider()
@@ -123,6 +125,18 @@ class AgywDreamsEnrollmentService {
         }
       }
     } catch (e) {}
+    if (filters.isNotEmpty) {
+      for (Map<String, dynamic> filter in filters) {
+        String? implementingPartner = filter['implementingPartner'];
+
+        agywDreamList = implementingPartner == null
+            ? agywDreamList
+            : agywDreamList
+                .where(
+                    (agyw) => agyw.enrolledOrganisation == implementingPartner)
+                .toList();
+      }
+    }
     return searchableValue == ''
         ? agywDreamList
         : agywDreamList.where((AgywDream beneficiary) {

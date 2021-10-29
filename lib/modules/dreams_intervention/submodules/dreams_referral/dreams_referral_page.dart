@@ -84,6 +84,7 @@ class _DreamsReferralPageState extends State<DreamsReferralPage> {
           return SubModuleHomeContainer(
             header:
                 '$title : ${dreamInterventionListState.numberOfAgywDreamsBeneficiaries} beneficiaries',
+            showFilter: true,
             onOpenInfo: () => onViewOutgoingReferralWithOutcome(context),
             hasInfo: incomingReferralsResolved != '',
             bodyContents: _buildBody(),

@@ -69,6 +69,7 @@ class _DreamsEnrollmentPageState extends State<DreamsEnrollmentPage> {
         return SubModuleHomeContainer(
           header:
               '$title : ${dreamInterventionListState.numberOfAgywDreamsBeneficiaries} beneficiaries',
+          showFilter: true,
           bodyContents: _buildBody(),
         );
       },
