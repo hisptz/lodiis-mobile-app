@@ -161,15 +161,20 @@ class InputFieldContainer extends StatelessWidget {
               ),
             ),
             Visibility(
-              visible: !inputField.hasSubInputField!,
+              // TODO add condition
+              visible:
+                  !inputField.hasSubInputField! && !inputField.hasLabelOnly!,
               child: Container(
                 child: isEditableMode!
                     ? _getInputField(inputField)
                     : _getInputFieldLabel(inputField),
               ),
             ),
-            LineSeparator(
-              color: inputField.inputColor!.withOpacity(0.3),
+            Visibility(
+              visible: !inputField.hasLabelOnly!,
+              child: LineSeparator(
+                color: inputField.inputColor!.withOpacity(0.3),
+              ),
             )
           ],
         ),
