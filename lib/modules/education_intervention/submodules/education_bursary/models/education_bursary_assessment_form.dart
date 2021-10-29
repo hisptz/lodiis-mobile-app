@@ -231,14 +231,36 @@ class EducationBursaryAssessment {
               inputColor: Color(0xFF009688),
               labelColor: Color(0xFF737373),
             ),
-            // TODO see how to present this
-            // InputField(
-            //   id: '',
-            //   name: '10. What do you think can be done to support you as a student to succeed or thrive in school',
-            //   valueType: 'TEXT',
-            //   inputColor: Color(0xFF009688),
-            //   labelColor: Color(0xFF737373),
-            // ),
+            InputField(
+              id: '',
+              name:
+                  '10. What do you think can be done to support you as a student to succeed or thrive in school?',
+              valueType: 'TEXT',
+              hasLabelOnly: true,
+              inputColor: Color(0xFF009688),
+              labelColor: Color(0xFF737373),
+            ),
+            InputField(
+              id: 'Ll5R0e0IBzC',
+              name: 'a)',
+              valueType: 'TEXT',
+              inputColor: Color(0xFF009688),
+              labelColor: Color(0xFF737373),
+            ),
+            InputField(
+              id: 'KI8toyKBwWj',
+              name: 'b)',
+              valueType: 'TEXT',
+              inputColor: Color(0xFF009688),
+              labelColor: Color(0xFF737373),
+            ),
+            InputField(
+              id: 'rtvNfM9KPvH',
+              name: 'c)',
+              valueType: 'TEXT',
+              inputColor: Color(0xFF009688),
+              labelColor: Color(0xFF737373),
+            ),
             InputField(
               id: 'type_of_disability',
               name: '11. Do you or any of your sibling have a disability?',

@@ -161,7 +161,6 @@ class InputFieldContainer extends StatelessWidget {
               ),
             ),
             Visibility(
-              // TODO add condition
               visible:
                   !inputField.hasSubInputField! && !inputField.hasLabelOnly!,
               child: Container(
