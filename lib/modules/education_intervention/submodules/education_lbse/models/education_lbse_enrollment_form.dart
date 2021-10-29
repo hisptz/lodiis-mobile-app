@@ -114,7 +114,7 @@ class EducationLbseEnrollmentForm {
           ),
           InputField(
             id: 'ZyNCDMbB2Yx',
-            name: 'Strean',
+            name: 'Stream',
             valueType: 'TEXT',
             inputColor: Color(0xFF009688),
             labelColor: Color(0xFF737373),
