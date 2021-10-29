@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/app_state/beneficiary_filter_state/beneficiary_filter_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/core/components/input_fields/select_input_field.dart';
@@ -24,10 +25,14 @@ class BeneficiaryFilter {
     required this.filterInput,
   });
 
+  static void onUpdateFilter(BuildContext context, String id, String value) {
+    Provider.of<BeneficiaryFilterState>(context, listen: false)
+        .addOrUpdateFilter(id, value);
+  }
+
   static List<String> getImplementingPartners() {
     String defaultImplementingPartnerConfig =
         DefaultImplementingPartnerConfig.getDefaultConfig();
-
     Map implementingPartners = json.decode(defaultImplementingPartnerConfig);
     return implementingPartners.keys.toList() as List<String>;
   }
@@ -35,11 +40,12 @@ class BeneficiaryFilter {
   static Widget getImplementingPartnerFilterInput() {
     List<String> implementingPartners = getImplementingPartners();
     InputField syncActionInput = InputField(
-        id: 'ip',
+        id: 'implementingPartner',
         name: 'Select Implementing partner',
         valueType: 'TEXT',
         options: implementingPartners
-            .map((ip) => InputFieldOption(code: ip, name: ip))
+            .map((implementingPartner) => InputFieldOption(
+                code: implementingPartner, name: implementingPartner))
             .toList());
 
     return Consumer<LanguageTranslationState>(
@@ -59,20 +65,24 @@ class BeneficiaryFilter {
                           fontSize: 13.0,
                           fontWeight: FontWeight.normal,
                         ))),
-                Container(
-                  child: SelectInputField(
-                    hiddenInputFieldOptions: Map(),
-                    selectedOption: '',
-                    isReadOnly: false,
-                    currentLanguage: languageTranslationState.currentLanguage,
-                    color: currentInterventionProgram.primaryColor,
-                    renderAsRadio: syncActionInput.renderAsRadio,
-                    onInputValueChange: (dynamic value) => {
-                      // TODO: Implement saving of filter
-                    },
-                    options: syncActionInput.options,
-                  ),
-                ),
+                Consumer<BeneficiaryFilterState>(
+                    builder: (context, beneficiaryFilterState, child) {
+                  String implementingPartner =
+                      beneficiaryFilterState.getFilterValue(syncActionInput.id);
+                  return Container(
+                    child: SelectInputField(
+                      hiddenInputFieldOptions: Map(),
+                      selectedOption: implementingPartner,
+                      isReadOnly: false,
+                      currentLanguage: languageTranslationState.currentLanguage,
+                      color: currentInterventionProgram.primaryColor,
+                      renderAsRadio: syncActionInput.renderAsRadio,
+                      onInputValueChange: (dynamic value) =>
+                          onUpdateFilter(context, syncActionInput.id, value),
+                      options: syncActionInput.options,
+                    ),
+                  );
+                }),
                 LineSeparator(
                     color: currentInterventionProgram.primaryColor!
                         .withOpacity(0.1)),
@@ -85,7 +95,7 @@ class BeneficiaryFilter {
   static List<BeneficiaryFilter> getBeneficiaryFilters() {
     return [
       BeneficiaryFilter(
-          id: 'ip',
+          id: 'implementingPartner',
           name: 'Implementing Partner',
           interventions: ['dreams', 'ovc', 'ogac', 'education', 'pp_prev'],
           filterInput: getImplementingPartnerFilterInput()),
@@ -113,7 +123,7 @@ class BeneficiaryFilter {
             child: Text('Grade Filter Here!'),
           )),
       BeneficiaryFilter(
-          id: 'school',
+          id: 'schoolName',
           name: 'School',
           interventions: ['education'],
           filterInput: Container(
