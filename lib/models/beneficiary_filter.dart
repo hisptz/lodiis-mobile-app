@@ -92,6 +92,28 @@ class BeneficiaryFilter {
     });
   }
 
+  static List<Map<String, dynamic>> getBeneficiaryFilterByIntervention(
+      BuildContext context, String interventionId) {
+    List<Map<String, dynamic>> filtersFromState =
+        Provider.of<BeneficiaryFilterState>(context, listen: false).filters;
+    List<String> beneficiaryFilters = getBeneficiaryFilters()
+        .where((BeneficiaryFilter filter) =>
+            filter.interventions!.isEmpty ||
+            filter.interventions!.contains(interventionId))
+        .toList()
+        .map((filter) => filter.id)
+        .toList();
+
+    return filtersFromState
+        .where((Map<String, dynamic> filter) =>
+            filter.keys
+                .toSet()
+                .intersection(beneficiaryFilters.toSet())
+                .length >
+            0)
+        .toList();
+  }
+
   static List<BeneficiaryFilter> getBeneficiaryFilters() {
     return [
       BeneficiaryFilter(

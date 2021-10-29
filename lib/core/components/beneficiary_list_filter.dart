@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/beneficiary_filter_state/beneficiary_filter_state.dart';
+import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/core/components/line_separator.dart';
 import 'package:kb_mobile_app/models/beneficiary_filter.dart';
@@ -36,12 +37,15 @@ class _BeneficiaryListFilterState extends State<BeneficiaryListFilter> {
   }
 
   void onApplyFilters(InterventionCard currentIntervention) {
-    // TODO  apply filter to the correct intevention
     String intervention = currentIntervention.id ?? '';
+    List<Map<String, dynamic>> filters =
+        BeneficiaryFilter.getBeneficiaryFilterByIntervention(
+            context, intervention);
     if (intervention == 'ovc') {
       print('filtering $intervention');
     } else if (intervention == 'dreams') {
-      print('filtering $intervention');
+      Provider.of<DreamsInterventionListState>(context, listen: false)
+          .setAgywFilters(filters);
     } else if (intervention == 'ogac') {
       print('filtering $intervention');
     } else if (intervention == 'education') {
@@ -78,6 +82,8 @@ class _BeneficiaryListFilterState extends State<BeneficiaryListFilter> {
 
   void onClearFilters(BuildContext context) {
     Provider.of<BeneficiaryFilterState>(context, listen: false).clearFilters();
+    Provider.of<DreamsInterventionListState>(context, listen: false)
+        .clearAllDreamsFilters();
   }
 
   @override
