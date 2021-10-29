@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/app_state/beneficiary_filter_state/beneficiary_filter_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/core/components/line_separator.dart';
 import 'package:kb_mobile_app/models/beneficiary_filter.dart';
@@ -36,7 +37,21 @@ class _BeneficiaryListFilterState extends State<BeneficiaryListFilter> {
 
   void onApplyFilters(InterventionCard currentIntervention) {
     // TODO  apply filter to the correct intevention
-    print('filtering');
+    String intervention = currentIntervention.id ?? '';
+    if (intervention == 'ovc') {
+      print('filtering $intervention');
+    } else if (intervention == 'dreams') {
+      print('filtering $intervention');
+    } else if (intervention == 'ogac') {
+      print('filtering $intervention');
+    } else if (intervention == 'education') {
+      print('filtering $intervention');
+    } else if (intervention == 'pp_prev') {
+      print('filtering $intervention');
+    } else {
+      print('filtering $intervention');
+    }
+
     Navigator.of(context).pop();
   }
 
@@ -61,13 +76,17 @@ class _BeneficiaryListFilterState extends State<BeneficiaryListFilter> {
         ));
   }
 
+  void onClearFilters(BuildContext context) {
+    Provider.of<BeneficiaryFilterState>(context, listen: false).clearFilters();
+  }
+
   @override
   Widget build(BuildContext context) {
     return makeFilterDismissible(
         child: DraggableScrollableSheet(
-      initialChildSize: 0.7,
+      initialChildSize: 0.8,
       minChildSize: 0.5,
-      maxChildSize: 0.82,
+      maxChildSize: 0.8,
       builder: (BuildContext context, ScrollController scrollController) {
         return Consumer<InterventionCardState>(
             builder: (context, interventionCardState, child) {
@@ -121,7 +140,35 @@ class _BeneficiaryListFilterState extends State<BeneficiaryListFilter> {
                           filter,
                           interventionCardState.currentInterventionProgram))
                       .toList(),
-                ))
+                )),
+                Container(
+                  margin: EdgeInsets.symmetric(vertical: 10.0),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                    color: interventionCardState
+                        .currentInterventionProgram.primaryColor,
+                  ),
+                  padding: EdgeInsets.only(
+                    right: 5.0,
+                  ),
+                  child: TextButton(
+                    onPressed: () => onClearFilters(context),
+                    style: TextButton.styleFrom(
+                      padding: EdgeInsets.symmetric(
+                        vertical: 15,
+                      ),
+                    ),
+                    child: Container(
+                      margin: EdgeInsets.symmetric(horizontal: 25.0),
+                      child: Text(
+                        "Clear All",
+                        style: TextStyle(
+                          color: Color(0xFFFAFAFA),
+                        ),
+                      ),
+                    ),
+                  ),
+                )
               ],
             ),
           );
