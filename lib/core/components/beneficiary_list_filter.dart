@@ -84,6 +84,7 @@ class _BeneficiaryListFilterState extends State<BeneficiaryListFilter> {
     Provider.of<BeneficiaryFilterState>(context, listen: false).clearFilters();
     Provider.of<DreamsInterventionListState>(context, listen: false)
         .clearAllDreamsFilters();
+    Navigator.of(context).pop();
   }
 
   @override
@@ -122,10 +123,9 @@ class _BeneficiaryListFilterState extends State<BeneficiaryListFilter> {
                       Container(
                         padding: EdgeInsets.symmetric(horizontal: 8.0),
                         child: InkWell(
-                          onTap: () => onApplyFilters(
-                              interventionCardState.currentInterventionProgram),
+                          onTap: () => onClearFilters(context),
                           child: Text(
-                            'Apply',
+                            'Clear All',
                             style: TextStyle(
                                 color: interventionCardState
                                     .currentInterventionProgram.primaryColor),
@@ -158,7 +158,9 @@ class _BeneficiaryListFilterState extends State<BeneficiaryListFilter> {
                     right: 5.0,
                   ),
                   child: TextButton(
-                    onPressed: () => onClearFilters(context),
+                    onPressed: () => onApplyFilters(
+                        interventionCardState.currentInterventionProgram),
+                    // onPressed: () => onClearFilters(context),
                     style: TextButton.styleFrom(
                       padding: EdgeInsets.symmetric(
                         vertical: 15,
@@ -167,7 +169,7 @@ class _BeneficiaryListFilterState extends State<BeneficiaryListFilter> {
                     child: Container(
                       margin: EdgeInsets.symmetric(horizontal: 25.0),
                       child: Text(
-                        "Clear All",
+                        "Apply filters",
                         style: TextStyle(
                           color: Color(0xFFFAFAFA),
                         ),
