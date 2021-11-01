@@ -213,6 +213,7 @@ class PpPrevInterventionHome extends StatelessWidget {
         return SubModuleHomeContainer(
           header:
               '$title : ${ppPrevInterventionState.numberOfPpPrev} beneficiaries',
+          showFilter: true,
           bodyContents: _buildBody(),
         );
       },

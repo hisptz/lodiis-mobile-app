@@ -3,6 +3,7 @@ import 'package:kb_mobile_app/app_state/beneficiary_filter_state/beneficiary_fil
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/app_state/ogac_intervention_list_state/ogac_intervention_list_state.dart';
+import 'package:kb_mobile_app/app_state/pp_prev_intervention_state/pp_prev_intervention_state.dart';
 import 'package:kb_mobile_app/core/components/line_separator.dart';
 import 'package:kb_mobile_app/models/beneficiary_filter.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
@@ -53,7 +54,8 @@ class _BeneficiaryListFilterState extends State<BeneficiaryListFilter> {
     } else if (intervention == 'education') {
       print('filtering $intervention');
     } else if (intervention == 'pp_prev') {
-      print('filtering $intervention');
+      Provider.of<PpPrevInterventionState>(context, listen: false)
+          .setPpPrevFilters(filters);
     } else {
       print('filtering $intervention');
     }
@@ -88,6 +90,8 @@ class _BeneficiaryListFilterState extends State<BeneficiaryListFilter> {
         .clearAllDreamsFilters();
     Provider.of<OgacInterventionListState>(context, listen: false)
         .clearOgacFilter();
+    Provider.of<PpPrevInterventionState>(context, listen: false)
+        .clearPpPrevFilters();
     Navigator.of(context).pop();
   }
 
