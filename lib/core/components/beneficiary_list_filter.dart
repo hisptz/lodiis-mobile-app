@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/beneficiary_filter_state/beneficiary_filter_state.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
+import 'package:kb_mobile_app/app_state/education_intervention_state/education_bursary_state.dart';
+import 'package:kb_mobile_app/app_state/education_intervention_state/education_lbse_state.dart';
+import 'package:kb_mobile_app/app_state/intervention_bottom_navigation_state/intervention_bottom_navigation_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/app_state/ogac_intervention_list_state/ogac_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/pp_prev_intervention_state/pp_prev_intervention_state.dart';
 import 'package:kb_mobile_app/core/components/line_separator.dart';
+import 'package:kb_mobile_app/models/Intervention_bottom_navigation.dart';
 import 'package:kb_mobile_app/models/beneficiary_filter.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:provider/provider.dart';
@@ -52,6 +56,16 @@ class _BeneficiaryListFilterState extends State<BeneficiaryListFilter> {
       Provider.of<OgacInterventionListState>(context, listen: false)
           .setOgacFilter(filters);
     } else if (intervention == 'education') {
+      InterventionBottomNavigation currentTab =
+          Provider.of<InterventionBottomNavigationState>(context, listen: false)
+              .getCurrentInterventionBottomNavigation(currentIntervention);
+      if (currentTab.id == 'lbse') {
+        Provider.of<EducationLbseInterventionState>(context, listen: false)
+            .setLbseFilters(filters);
+      } else if (currentTab.id == 'bursary') {
+        Provider.of<EducationBursaryInterventionState>(context, listen: false)
+            .setBursaryFilters(filters);
+      }
       print('filtering $intervention');
     } else if (intervention == 'pp_prev') {
       Provider.of<PpPrevInterventionState>(context, listen: false)
@@ -92,6 +106,10 @@ class _BeneficiaryListFilterState extends State<BeneficiaryListFilter> {
         .clearOgacFilter();
     Provider.of<PpPrevInterventionState>(context, listen: false)
         .clearPpPrevFilters();
+    Provider.of<EducationLbseInterventionState>(context, listen: false)
+        .clearLbseFilters();
+    Provider.of<EducationBursaryInterventionState>(context, listen: false)
+        .clearBursaryFilters();
     Navigator.of(context).pop();
   }
 

@@ -107,6 +107,7 @@ class _OvcServicesPageState extends State<OvcServicesPage> {
               return SubModuleHomeContainer(
                 header: header,
                 bodyContents: _buildBody(currentLanguage),
+                showFilter: true,
               );
             },
           );

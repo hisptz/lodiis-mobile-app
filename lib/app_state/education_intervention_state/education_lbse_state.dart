@@ -19,6 +19,7 @@ class EducationLbseInterventionState with ChangeNotifier {
   int _numberOfLbseSearchablePages = 0;
   int? _nextLbsePage = 0;
   String _searchableValue = '';
+  List<Map<String, dynamic>> _lbseFilters = [];
   PagingController? _lbsePagingController;
 
   EducationLbseInterventionState(this.context);
@@ -32,6 +33,18 @@ class EducationLbseInterventionState with ChangeNotifier {
       : _numberOfLbseSearchablePages;
   PagingController? get pagingController => _lbsePagingController;
 
+  void setLbseFilters(List<Map<String, dynamic>> filters) {
+    _lbseFilters = filters;
+    notifyListeners();
+    refreshEducationLbseList();
+  }
+
+  void clearLbseFilters() {
+    _lbseFilters.clear();
+    notifyListeners();
+    refreshEducationLbseList();
+  }
+
   void _initializePagination() {
     _lbsePagingController =
         PagingController<int, EducationBeneficiary>(firstPageKey: 0);
@@ -43,8 +56,8 @@ class EducationLbseInterventionState with ChangeNotifier {
 
   Future<void> _fetchLbsePage(int pageKey) async {
     String searchableValue = _searchableValue;
-    List lbseList = await EducationLbseEnrollmentService()
-        .getBeneficiaries(page: pageKey, searchableValue: searchableValue);
+    List lbseList = await EducationLbseEnrollmentService().getBeneficiaries(
+        page: pageKey, searchableValue: searchableValue, filters: _lbseFilters);
     if (lbseList.isEmpty && pageKey < numberOfPages) {
       _fetchLbsePage(pageKey + 1);
     } else {

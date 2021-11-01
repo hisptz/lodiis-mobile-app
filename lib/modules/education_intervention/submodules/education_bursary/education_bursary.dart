@@ -252,6 +252,7 @@ class _EducationBursaryState extends State<EducationBursary> {
         return SubModuleHomeContainer(
           header:
               '$title : ${educationBursaryInterventionState.numberOfEducationBursaryBySex}',
+          showFilter: true,
           bodyContents: _buildBody(),
         );
       },

@@ -49,10 +49,10 @@ class EducationLbseEnrollmentService {
     }
   }
 
-  Future<List<dynamic>> getBeneficiaries({
-    int? page,
-    String searchableValue = '',
-  }) async {
+  Future<List<dynamic>> getBeneficiaries(
+      {int? page,
+      String searchableValue = '',
+      List<Map<String, dynamic>> filters = const []}) async {
     List<EducationBeneficiary> educationLbseBeneficiaries = [];
     List<Enrollment> enrollments = await EnrollmentOfflineProvider()
         .getEnrollments(LbseInterventionConstant.program,
@@ -76,6 +76,19 @@ class EducationLbseEnrollmentService {
           createdDate,
           enrollmentId,
         ));
+      }
+    }
+
+    if (filters.isNotEmpty) {
+      for (Map<String, dynamic> filter in filters) {
+        String? implementingPartner = filter['implementingPartner'];
+
+        educationLbseBeneficiaries = implementingPartner == null
+            ? educationLbseBeneficiaries
+            : educationLbseBeneficiaries
+                .where((beneficiary) =>
+                    beneficiary.implementingPartner == implementingPartner)
+                .toList();
       }
     }
     return searchableValue == ''

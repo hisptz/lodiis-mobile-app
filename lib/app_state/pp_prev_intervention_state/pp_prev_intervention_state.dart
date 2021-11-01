@@ -17,6 +17,7 @@ class PpPrevInterventionState with ChangeNotifier {
   int _numberOfSearchablePages = 0;
   int? _nextPage = 0;
   String _searchableValue = '';
+  List<Map<String, dynamic>> _ppPrevFilters = [];
   PagingController? _ppPrevPagingController;
 
   PpPrevInterventionState(this.context);
@@ -25,7 +26,6 @@ class PpPrevInterventionState with ChangeNotifier {
   int get numberOfPpPrev => _numberOfPpPrev;
   int get numberOfPages =>
       _searchableValue == '' ? _numberOfPages : _numberOfSearchablePages;
-  List<Map<String, dynamic>> _ppPrevFilters = [];
   PagingController? get pagingController => _ppPrevPagingController;
 
   void setPpPrevFilters(List<Map<String, dynamic>> filters) {

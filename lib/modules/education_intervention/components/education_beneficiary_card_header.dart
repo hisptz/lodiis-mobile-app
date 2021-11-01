@@ -34,7 +34,7 @@ class EducationBeneficiaryCardHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double iconHeight = 25;
+    double iconHeight = 20;
     return Column(
       children: [
         Container(

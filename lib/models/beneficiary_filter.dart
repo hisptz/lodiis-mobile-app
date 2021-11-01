@@ -30,15 +30,30 @@ class BeneficiaryFilter {
         .addOrUpdateFilter(id, value);
   }
 
-  static List<String> getImplementingPartners() {
+  static List<String> getImplementingPartners(
+      InterventionCard currentIntervention) {
     String defaultImplementingPartnerConfig =
         DefaultImplementingPartnerConfig.getDefaultConfig();
     Map implementingPartners = json.decode(defaultImplementingPartnerConfig);
-    return implementingPartners.keys.toList() as List<String>;
+    implementingPartners.removeWhere((key, value) {
+      if (currentIntervention.id == 'dreams') {
+        return false;
+      } else if (currentIntervention.id == 'education') {
+        return key != 'Super user';
+      } else {
+        return ['EGPAF', 'JHPIEGO', 'EGPAF', 'PSI'].contains(key);
+      }
+    });
+    return implementingPartners.keys
+        .toList()
+        .where((implementingPartner) => implementingPartner != 'Paralegal')
+        .toList() as List<String>;
   }
 
-  static Widget getImplementingPartnerFilterInput() {
-    List<String> implementingPartners = getImplementingPartners();
+  static Widget getImplementingPartnerFilterInput(
+      InterventionCard currentIntervention) {
+    List<String> implementingPartners =
+        getImplementingPartners(currentIntervention);
     InputField syncActionInput = InputField(
         id: 'implementingPartner',
         name: 'Select Implementing partner',
@@ -96,7 +111,10 @@ class BeneficiaryFilter {
       BuildContext context, String interventionId) {
     List<Map<String, dynamic>> filtersFromState =
         Provider.of<BeneficiaryFilterState>(context, listen: false).filters;
-    List<String> beneficiaryFilters = getBeneficiaryFilters()
+    InterventionCard currentIntervention =
+        Provider.of<InterventionCardState>(context, listen: false)
+            .currentInterventionProgram;
+    List<String> beneficiaryFilters = getBeneficiaryFilters(currentIntervention)
         .where((BeneficiaryFilter filter) =>
             filter.interventions!.isEmpty ||
             filter.interventions!.contains(interventionId))
@@ -114,13 +132,14 @@ class BeneficiaryFilter {
         .toList();
   }
 
-  static List<BeneficiaryFilter> getBeneficiaryFilters() {
+  static List<BeneficiaryFilter> getBeneficiaryFilters(
+      InterventionCard currentIntervention) {
     return [
       BeneficiaryFilter(
           id: 'implementingPartner',
           name: 'Implementing Partner',
           interventions: ['dreams', 'ovc', 'ogac', 'education', 'pp_prev'],
-          filterInput: getImplementingPartnerFilterInput()),
+          filterInput: getImplementingPartnerFilterInput(currentIntervention)),
       BeneficiaryFilter(
           id: 'sex',
           name: 'Sex',

@@ -59,8 +59,9 @@ class EducationBursaryEnrollmentService {
   Future<List<dynamic>> getBeneficiaries({
     int? page,
     String searchableValue = '',
+    List<Map<String, dynamic>> filters = const [],
   }) async {
-    List<EducationBeneficiary> ppPrevBeneficiaries = [];
+    List<EducationBeneficiary> beneficiaries = [];
     List<Enrollment> enrollments = await EnrollmentOfflineProvider()
         .getEnrollments(BursaryInterventionConstant.program,
             page: page, isSearching: searchableValue != '');
@@ -76,7 +77,7 @@ class EducationBursaryEnrollmentService {
               .getTrackedEntityInstanceByIds(
                   [enrollment.trackedEntityInstance]);
       for (TrackedEntityInstance tei in ogacBeneficiaryList) {
-        ppPrevBeneficiaries.add(EducationBeneficiary().fromTeiModel(
+        beneficiaries.add(EducationBeneficiary().fromTeiModel(
           tei,
           orgUnit,
           location,
@@ -85,9 +86,23 @@ class EducationBursaryEnrollmentService {
         ));
       }
     }
+
+    if (filters.isNotEmpty) {
+      for (Map<String, dynamic> filter in filters) {
+        String? implementingPartner = filter['implementingPartner'];
+
+        beneficiaries = implementingPartner == null
+            ? beneficiaries
+            : beneficiaries
+                .where((beneficiary) =>
+                    beneficiary.implementingPartner == implementingPartner)
+                .toList();
+      }
+    }
+
     return searchableValue == ''
-        ? ppPrevBeneficiaries
-        : ppPrevBeneficiaries.where((EducationBeneficiary beneficiary) {
+        ? beneficiaries
+        : beneficiaries.where((EducationBeneficiary beneficiary) {
             bool isBeneficiaryFound = AppUtil().searchFromString(
                 searchableString: beneficiary.searchableValue,
                 searchedValue: searchableValue);
