@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart';
 import 'package:kb_mobile_app/core/constants/app_logs_constants.dart';
 import 'package:kb_mobile_app/core/offline_db/app_logs_offline/app_logs_offline_provider.dart';
@@ -15,8 +16,13 @@ import 'package:kb_mobile_app/models/referral_notification.dart';
 class ReferralNotificationService {
   final String apiUrlToDataStore = "api/dataStore/kb-referral-notification";
 
-  Future syncReferralNotifications() async {
+  Future syncReferralNotifications({
+    BuildContext? context,
+    bool shouldRefreshBeneficairyList = false,
+  }) async {
     try {
+      // @TODO Checking
+      print("Sync referrals ");
       List<ReferralNotification> onlineReferralNotifications =
           await discoveringReferralNotificationFromServer();
       List<ReferralNotification> offlineReferralNotifications =
@@ -24,12 +30,30 @@ class ReferralNotificationService {
       List<ReferralNotification> referralNotifications =
           getMergedReferralNotifications(
               onlineReferralNotifications, offlineReferralNotifications);
-      await savingReferralNotificationToOfflineDb(referralNotifications);
-      await updateReferralNotificationToServer(referralNotifications);
+      print(
+          "onlineReferralNotifications => ${onlineReferralNotifications.length}");
+      print(
+          "offlineReferralNotifications => ${offlineReferralNotifications.length}");
+      print("referralNotifications => ${referralNotifications.length}");
+
+      List<String> beneficiaryIdsToBeSynced = referralNotifications
+          .map((ReferralNotification referralNotification) =>
+              referralNotification.tei)
+          .toList();
+      for (String beneficiaryId in beneficiaryIdsToBeSynced) {
+        print(beneficiaryId);
+      }
+      if (shouldRefreshBeneficairyList) {
+        print("shouldRefreshBeneficairyList => $shouldRefreshBeneficairyList");
+      }
+      // await savingReferralNotificationToOfflineDb(referralNotifications);
+      // await updateReferralNotificationToServer(referralNotifications);
     } catch (error) {
       print("syncReferralNotifications : ${error.toString()}");
     }
   }
+
+  //@TODO adding logic for identify teis
 
   savingReferralNotificationToOfflineDb(
     List<ReferralNotification> referralNotifications,
