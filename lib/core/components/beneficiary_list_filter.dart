@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/beneficiary_filter_state/beneficiary_filter_state.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
+import 'package:kb_mobile_app/app_state/ogac_intervention_list_state/ogac_intervention_list_state.dart';
 import 'package:kb_mobile_app/core/components/line_separator.dart';
 import 'package:kb_mobile_app/models/beneficiary_filter.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
@@ -27,7 +28,7 @@ class _BeneficiaryListFilterState extends State<BeneficiaryListFilter> {
   List<BeneficiaryFilter> getFilterMetadata(
       InterventionCard currentIntervention) {
     final List<BeneficiaryFilter> filters =
-        BeneficiaryFilter.getBeneficiaryFilters();
+        BeneficiaryFilter.getBeneficiaryFilters(currentIntervention);
 
     return filters
         .where((BeneficiaryFilter filter) =>
@@ -47,7 +48,8 @@ class _BeneficiaryListFilterState extends State<BeneficiaryListFilter> {
       Provider.of<DreamsInterventionListState>(context, listen: false)
           .setAgywFilters(filters);
     } else if (intervention == 'ogac') {
-      print('filtering $intervention');
+      Provider.of<OgacInterventionListState>(context, listen: false)
+          .setOgacFilter(filters);
     } else if (intervention == 'education') {
       print('filtering $intervention');
     } else if (intervention == 'pp_prev') {
@@ -84,6 +86,8 @@ class _BeneficiaryListFilterState extends State<BeneficiaryListFilter> {
     Provider.of<BeneficiaryFilterState>(context, listen: false).clearFilters();
     Provider.of<DreamsInterventionListState>(context, listen: false)
         .clearAllDreamsFilters();
+    Provider.of<OgacInterventionListState>(context, listen: false)
+        .clearOgacFilter();
     Navigator.of(context).pop();
   }
 

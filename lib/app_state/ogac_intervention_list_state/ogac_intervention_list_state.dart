@@ -18,6 +18,7 @@ class OgacInterventionListState with ChangeNotifier {
   int _numberOfSearchablePages = 0;
   int? _nextPage = 0;
   String _searchableValue = '';
+  List<Map<String, dynamic>> _ogacFilters = [];
   PagingController? _ogacPagingController;
 
   OgacInterventionListState(this.context);
@@ -27,6 +28,18 @@ class OgacInterventionListState with ChangeNotifier {
   int get numberOfPages =>
       _searchableValue == '' ? _numberOfPages : _numberOfSearchablePages;
   PagingController? get pagingController => _ogacPagingController;
+
+  void setOgacFilter(List<Map<String, dynamic>> ogacFilters) {
+    _ogacFilters = ogacFilters;
+    notifyListeners();
+    refreshOgacList();
+  }
+
+  void clearOgacFilter() {
+    _ogacFilters.clear();
+    notifyListeners();
+    refreshOgacList();
+  }
 
   void initializePagination() {
     _ogacPagingController =
@@ -39,8 +52,8 @@ class OgacInterventionListState with ChangeNotifier {
 
   Future<void> _fetchOgacPage(int pageKey) async {
     String searchableValue = _searchableValue;
-    List ogacList = await OgacEnrollmentService()
-        .getOgacBeneficiaries(page: pageKey, searchableValue: searchableValue);
+    List ogacList = await OgacEnrollmentService().getOgacBeneficiaries(
+        page: pageKey, searchableValue: searchableValue, filters: _ogacFilters);
     if (ogacList.isEmpty && pageKey < numberOfPages) {
       _fetchOgacPage(pageKey + 1);
     } else {
