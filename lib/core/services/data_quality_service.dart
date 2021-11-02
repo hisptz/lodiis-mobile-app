@@ -132,6 +132,8 @@ class DataQualityService {
     await TrackedEntityInstanceOfflineAttributeProvider()
         .addOrUpdateMultipleTrackedEntityInstanceAttributes(resolvedAttributes);
     await migrateOptionSetsToCheckBox();
+
+    // TODO Add migration for improving searching
   }
 
   static List<InputField> getNumericalInputFields(

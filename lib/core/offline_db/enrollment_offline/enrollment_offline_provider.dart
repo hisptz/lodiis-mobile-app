@@ -17,6 +17,7 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
   final String trackedEntityInstance = 'trackedEntityInstance';
   final String status = 'status';
   final String syncStatus = 'syncStatus';
+  final String searchableValue = 'searchableValue';
 
   addOrUpdateEnrollment(Enrollment enrollment) async {
     var dbClient = await db;
@@ -47,6 +48,7 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
     }
   }
 
+  // TODO add searchable value to the passsed params
   Future<List<Enrollment>> getEnrollments(String programId,
       {int? page, bool isSearching = false}) async {
     List<Enrollment> enrollments = [];

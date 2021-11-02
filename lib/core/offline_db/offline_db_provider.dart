@@ -38,7 +38,8 @@ class OfflineDbProvider {
     "ALTER TABLE current_user ADD email TEXT DEFAULT 'email'",
     "ALTER TABLE current_user ADD userRoles TEXT DEFAULT 'userRoles'",
     "ALTER TABLE current_user ADD userGroups TEXT DEFAULT 'userGroups'",
-    "ALTER TABLE tei_relationships ADD syncStatus TEXT DEFAULT 'not-synced'"
+    "ALTER TABLE tei_relationships ADD syncStatus TEXT DEFAULT 'not-synced'",
+    "ALTER TABLE enrollment ADD searchableValue TEXT DEFAULT ''"
   ];
   Future<Database?> get db async {
     if (_db != null) {
