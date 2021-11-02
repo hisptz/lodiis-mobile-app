@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/beneficiary_filter_state/beneficiary_filter_state.dart';
+import 'package:kb_mobile_app/app_state/intervention_bottom_navigation_state/intervention_bottom_navigation_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/core/components/input_fields/select_input_field.dart';
@@ -7,6 +8,7 @@ import 'package:kb_mobile_app/core/components/line_separator.dart';
 import 'dart:convert';
 
 import 'package:kb_mobile_app/core/constants/default_implementing_partner_config.dart';
+import 'package:kb_mobile_app/models/Intervention_bottom_navigation.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/input_field_option.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
@@ -105,6 +107,118 @@ class BeneficiaryFilter {
         },
       );
     });
+  }
+
+  static Widget getGradeFilterInput(InterventionCard currentIntervention) {
+    return Consumer<InterventionBottomNavigationState>(
+      builder: (context, interventionBottomNavigationState, child) {
+        InterventionBottomNavigation interventionBottomNavigation =
+            interventionBottomNavigationState
+                .getCurrentInterventionBottomNavigation(currentIntervention);
+        InputField gradeInput = InputField(
+            id: 'Sex',
+            name: 'Select sex',
+            valueType: 'TEXT',
+            options: interventionBottomNavigation.id == 'lbse'
+                ? [
+                    InputFieldOption(
+                      code: "Grade 4",
+                      name: "Grade 4",
+                    ),
+                    InputFieldOption(
+                      code: "Grade 5",
+                      name: "Grade 5",
+                    ),
+                    InputFieldOption(
+                      code: "Grade 6",
+                      name: "Grade 6",
+                    ),
+                    InputFieldOption(
+                      code: "Grade 7",
+                      name: "Grade 7",
+                    ),
+                    InputFieldOption(
+                      code: "Grade 8",
+                      name: "Grade 8",
+                    ),
+                    InputFieldOption(
+                      code: "Grade 9",
+                      name: "Grade 9",
+                    ),
+                    InputFieldOption(
+                      code: "Grade 10",
+                      name: "Grade 10",
+                    ),
+                    InputFieldOption(
+                      code: "Grade 11",
+                      name: "Grade 11",
+                    ),
+                  ]
+                : interventionBottomNavigation.id == 'bursary'
+                    ? [
+                        InputFieldOption(
+                          code: "Grade 8",
+                          name: "Grade 8",
+                        ),
+                        InputFieldOption(
+                          code: "Grade 9",
+                          name: "Grade 9",
+                        ),
+                        InputFieldOption(
+                          code: "Grade 10",
+                          name: "Grade 10",
+                        ),
+                        InputFieldOption(
+                          code: "Grade 11",
+                          name: "Grade 11",
+                        ),
+                      ]
+                    : []);
+        return Consumer<LanguageTranslationState>(
+            builder: (context, languageTranslationState, child) {
+          return Consumer<InterventionCardState>(
+              builder: (context, interventionCardState, child) {
+            InterventionCard currentInterventionProgram =
+                interventionCardState.currentInterventionProgram;
+
+            return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  RichText(
+                      text: TextSpan(
+                          text: gradeInput.name,
+                          style: TextStyle(
+                            color: gradeInput.labelColor,
+                            fontSize: 13.0,
+                            fontWeight: FontWeight.normal,
+                          ))),
+                  Consumer<BeneficiaryFilterState>(
+                      builder: (context, beneficiaryFilterState, child) {
+                    String implementingPartner =
+                        beneficiaryFilterState.getFilterValue(gradeInput.id);
+                    return Container(
+                      child: SelectInputField(
+                        hiddenInputFieldOptions: Map(),
+                        selectedOption: implementingPartner,
+                        isReadOnly: false,
+                        currentLanguage:
+                            languageTranslationState.currentLanguage,
+                        color: currentInterventionProgram.primaryColor,
+                        renderAsRadio: gradeInput.renderAsRadio,
+                        onInputValueChange: (dynamic value) =>
+                            onUpdateFilter(context, gradeInput.id, value),
+                        options: gradeInput.options,
+                      ),
+                    );
+                  }),
+                  LineSeparator(
+                      color: currentInterventionProgram.primaryColor!
+                          .withOpacity(0.1)),
+                ]);
+          });
+        });
+      },
+    );
   }
 
   static Widget getSexFilterInput(InterventionCard currentIntervention) {
@@ -220,9 +334,7 @@ class BeneficiaryFilter {
           interventions: [
             'education',
           ],
-          filterInput: Container(
-            child: Text('Grade Filter Here!'),
-          )),
+          filterInput: getGradeFilterInput(currentIntervention)),
       BeneficiaryFilter(
           id: 'schoolName',
           name: 'School',
