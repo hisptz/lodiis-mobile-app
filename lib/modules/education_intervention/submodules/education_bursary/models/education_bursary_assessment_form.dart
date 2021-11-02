@@ -185,12 +185,18 @@ class EducationBursaryAssessment {
                   code: "yK3ovFC1uGO",
                   name: "School too far",
                 ),
-                // InputFieldOption(
-                //   code: "h2LrMC9ep8E",
-                //   name: "Other",
-                // ),
+                InputFieldOption(
+                  code: "h2LrMC9ep8E",
+                  name: "Other",
+                ),
               ],
             ),
+            InputField(
+                id: 'Ha1E9m1x3Nn',
+                name: 'Specify other',
+                inputColor: Color(0xFF009688),
+                labelColor: Color(0xFF737373),
+                valueType: 'TEXT'),
             InputField(
               id: 'tbzi0t27D8l',
               name: '8. Grade to be attended',
@@ -231,14 +237,36 @@ class EducationBursaryAssessment {
               inputColor: Color(0xFF009688),
               labelColor: Color(0xFF737373),
             ),
-            // TODO see how to present this
-            // InputField(
-            //   id: '',
-            //   name: '10. What do you think can be done to support you as a student to succeed or thrive in school',
-            //   valueType: 'TEXT',
-            //   inputColor: Color(0xFF009688),
-            //   labelColor: Color(0xFF737373),
-            // ),
+            InputField(
+              id: '',
+              name:
+                  '10. What do you think can be done to support you as a student to succeed or thrive in school?',
+              valueType: 'TEXT',
+              hasLabelOnly: true,
+              inputColor: Color(0xFF009688),
+              labelColor: Color(0xFF737373),
+            ),
+            InputField(
+              id: 'Ll5R0e0IBzC',
+              name: 'a)',
+              valueType: 'TEXT',
+              inputColor: Color(0xFF009688),
+              labelColor: Color(0xFF737373),
+            ),
+            InputField(
+              id: 'KI8toyKBwWj',
+              name: 'b)',
+              valueType: 'TEXT',
+              inputColor: Color(0xFF009688),
+              labelColor: Color(0xFF737373),
+            ),
+            InputField(
+              id: 'rtvNfM9KPvH',
+              name: 'c)',
+              valueType: 'TEXT',
+              inputColor: Color(0xFF009688),
+              labelColor: Color(0xFF737373),
+            ),
             InputField(
               id: 'type_of_disability',
               name: '11. Do you or any of your sibling have a disability?',
@@ -270,9 +298,18 @@ class EducationBursaryAssessment {
                   code: "ZAgwp8OV3Az",
                   name: "Multiple disability",
                 ),
-                // TODO no others option
+                InputFieldOption(
+                  code: "dWKnZE5xkfk",
+                  name: "Other",
+                ),
               ],
             ),
+            InputField(
+                id: 'JsNImCkS1gh',
+                name: 'Specify other',
+                inputColor: Color(0xFF009688),
+                labelColor: Color(0xFF737373),
+                valueType: 'TEXT')
           ]),
       FormSection(
           id: 'caregiver_info',
@@ -410,12 +447,18 @@ class EducationBursaryAssessment {
                   code: "vU3H2pTHjZM",
                   name: "Self employed",
                 ),
-                // InputFieldOption(
-                //   code: "fSWNHF4MmTl",
-                //   name: "Other",
-                // ),
+                InputFieldOption(
+                  code: "JW3YHXh0oVQ",
+                  name: "Other",
+                ),
               ],
             ),
+            InputField(
+                id: 'fSWNHF4MmTl',
+                name: 'Specify other',
+                inputColor: Color(0xFF009688),
+                labelColor: Color(0xFF737373),
+                valueType: 'TEXT'),
             InputField(
                 id: 'vQ7hj9nTgo7',
                 name: '9. Child current status at school',
@@ -466,8 +509,15 @@ class EducationBursaryAssessment {
                   InputFieldOption(
                       code: 'oObzvgasBoK',
                       name: 'Cannot afford other necessity'),
-                  // InputFieldOption(code: 'TwKzPVRTdR1', name: 'Other (specify)'),
+                  InputFieldOption(
+                      code: 'hxWJ7bGS2Lh', name: 'Other (specify)'),
                 ]),
+            InputField(
+                id: 'TwKzPVRTdR1',
+                inputColor: Color(0xFF009688),
+                labelColor: Color(0xFF737373),
+                name: 'Specify other',
+                valueType: 'TEXT'),
             InputField(
                 id: 'forms_of_assistance',
                 name:
@@ -568,9 +618,14 @@ class EducationBursaryAssessment {
                   InputFieldOption(code: 'SEmpuVncKMP', name: 'TB'),
                   InputFieldOption(
                       code: 'FYQGgPhYQcy', name: 'Both TB and HIV'),
-                  // TODO no others option
-                  // InputFieldOption(code: '', name: ''),
-                ])
+                  InputFieldOption(code: 'w3mmK0ZhKHm', name: 'Other'),
+                ]),
+            InputField(
+                id: 'gNn6fGxFBvu',
+                name: 'Specify other',
+                inputColor: Color(0xFF009688),
+                labelColor: Color(0xFF737373),
+                valueType: 'TEXT')
           ]),
       FormSection(
           id: 'household_assets',
@@ -612,12 +667,18 @@ class EducationBursaryAssessment {
                   code: "qNpe49Zq0lU",
                   name: "Crop waste",
                 ),
-                // InputFieldOption(
-                //   code: "EQIf299WMiS",
-                //   name: "Other specify",
-                // )
+                InputFieldOption(
+                  code: "YkVyjaNi5Bp",
+                  name: "Other",
+                )
               ],
             ),
+            InputField(
+                id: 'EQIf299WMiS',
+                name: 'Specify other',
+                inputColor: Color(0xFF009688),
+                labelColor: Color(0xFF737373),
+                valueType: 'TEXT'),
             InputField(
               id: 'oaVHpFUuIOw',
               name: '2. How many rooms does the house have?',
@@ -683,12 +744,18 @@ class EducationBursaryAssessment {
                   code: "mDJ1QUxMLsR",
                   name: "Public or shared toilet",
                 ),
-                // InputFieldOption(
-                //   code: "hE4PMNfJxTW",
-                //   name: "Other (specify)",
-                // ),
+                InputFieldOption(
+                  code: "hE4PMNfJxTW",
+                  name: "Other",
+                ),
               ],
             ),
+            InputField(
+                id: 'H5glFCPsa9n',
+                name: 'Specify Other',
+                inputColor: Color(0xFF009688),
+                labelColor: Color(0xFF737373),
+                valueType: 'TEXT'),
             InputField(
               id: 'household_items',
               name: '4. Does the household have the following items?',

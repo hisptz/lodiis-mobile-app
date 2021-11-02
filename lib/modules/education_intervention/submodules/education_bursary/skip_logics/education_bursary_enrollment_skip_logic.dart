@@ -108,6 +108,27 @@ class EducationBursaryEnrollmentSkipLogic {
       if (inputFieldId == 'dUwwS3Gp7OU' && value != 'true') {
         hiddenFields['BjIO7hTeor3'] = true;
       }
+      if (inputFieldId == 'h2LrMC9ep8E' && value != 'true') {
+        hiddenFields['Ha1E9m1x3Nn'] = true;
+      }
+      if (inputFieldId == 'dWKnZE5xkfk' && value != 'true') {
+        hiddenFields['JsNImCkS1gh'] = true;
+      }
+      if (inputFieldId == 'JW3YHXh0oVQ' && value != 'true') {
+        hiddenFields['fSWNHF4MmTl'] = true;
+      }
+      if (inputFieldId == 'hxWJ7bGS2Lh' && value != 'true') {
+        hiddenFields['TwKzPVRTdR1'] = true;
+      }
+      if (inputFieldId == 'w3mmK0ZhKHm' && value != 'true') {
+        hiddenFields['gNn6fGxFBvu'] = true;
+      }
+      if (inputFieldId == 'YkVyjaNi5Bp' && value != 'true') {
+        hiddenFields['EQIf299WMiS'] = true;
+      }
+      if (inputFieldId == 'hE4PMNfJxTW' && value != 'true') {
+        hiddenFields['H5glFCPsa9n'] = true;
+      }
       if (inputFieldId == 'vIX4GTSCX4P') {
         Map hiddenRelationshipsWithChild = Map();
         if (value == 'Male') {
