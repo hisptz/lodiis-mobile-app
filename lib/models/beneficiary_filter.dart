@@ -54,7 +54,7 @@ class BeneficiaryFilter {
       InterventionCard currentIntervention) {
     List<String> implementingPartners =
         getImplementingPartners(currentIntervention);
-    InputField syncActionInput = InputField(
+    InputField implementingPartnerInput = InputField(
         id: 'implementingPartner',
         name: 'Select Implementing partner',
         valueType: 'TEXT',
@@ -74,16 +74,16 @@ class BeneficiaryFilter {
               children: [
                 RichText(
                     text: TextSpan(
-                        text: syncActionInput.name,
+                        text: implementingPartnerInput.name,
                         style: TextStyle(
-                          color: syncActionInput.labelColor,
+                          color: implementingPartnerInput.labelColor,
                           fontSize: 13.0,
                           fontWeight: FontWeight.normal,
                         ))),
                 Consumer<BeneficiaryFilterState>(
                     builder: (context, beneficiaryFilterState, child) {
-                  String implementingPartner =
-                      beneficiaryFilterState.getFilterValue(syncActionInput.id);
+                  String implementingPartner = beneficiaryFilterState
+                      .getFilterValue(implementingPartnerInput.id);
                   return Container(
                     child: SelectInputField(
                       hiddenInputFieldOptions: Map(),
@@ -91,10 +91,10 @@ class BeneficiaryFilter {
                       isReadOnly: false,
                       currentLanguage: languageTranslationState.currentLanguage,
                       color: currentInterventionProgram.primaryColor,
-                      renderAsRadio: syncActionInput.renderAsRadio,
-                      onInputValueChange: (dynamic value) =>
-                          onUpdateFilter(context, syncActionInput.id, value),
-                      options: syncActionInput.options,
+                      renderAsRadio: implementingPartnerInput.renderAsRadio,
+                      onInputValueChange: (dynamic value) => onUpdateFilter(
+                          context, implementingPartnerInput.id, value),
+                      options: implementingPartnerInput.options,
                     ),
                   );
                 }),
@@ -104,6 +104,68 @@ class BeneficiaryFilter {
               ]);
         },
       );
+    });
+  }
+
+  static Widget getSexFilterInput(InterventionCard currentIntervention) {
+    InputField sexInput = InputField(
+        id: 'Sex',
+        name: 'Select sex',
+        valueType: 'TEXT',
+        options: currentIntervention.id == 'dreams'
+            ? [
+                InputFieldOption(code: 'Male', name: 'Male'),
+                InputFieldOption(code: 'Female', name: 'Female'),
+                InputFieldOption(
+                    code: 'Transgender (male to female)',
+                    name: 'Transgender (male to female)'),
+                InputFieldOption(
+                    code: 'Transgender (female to male)',
+                    name: 'Transgender (female to male)'),
+              ]
+            : [
+                InputFieldOption(code: 'Male', name: 'Male'),
+                InputFieldOption(code: 'Female', name: 'Female'),
+              ]);
+
+    return Consumer<LanguageTranslationState>(
+        builder: (context, languageTranslationState, child) {
+      return Consumer<InterventionCardState>(
+          builder: (context, interventionCardState, child) {
+        InterventionCard currentInterventionProgram =
+            interventionCardState.currentInterventionProgram;
+
+        return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          RichText(
+              text: TextSpan(
+                  text: sexInput.name,
+                  style: TextStyle(
+                    color: sexInput.labelColor,
+                    fontSize: 13.0,
+                    fontWeight: FontWeight.normal,
+                  ))),
+          Consumer<BeneficiaryFilterState>(
+              builder: (context, beneficiaryFilterState, child) {
+            String implementingPartner =
+                beneficiaryFilterState.getFilterValue(sexInput.id);
+            return Container(
+              child: SelectInputField(
+                hiddenInputFieldOptions: Map(),
+                selectedOption: implementingPartner,
+                isReadOnly: false,
+                currentLanguage: languageTranslationState.currentLanguage,
+                color: currentInterventionProgram.primaryColor,
+                renderAsRadio: sexInput.renderAsRadio,
+                onInputValueChange: (dynamic value) =>
+                    onUpdateFilter(context, sexInput.id, value),
+                options: sexInput.options,
+              ),
+            );
+          }),
+          LineSeparator(
+              color: currentInterventionProgram.primaryColor!.withOpacity(0.1)),
+        ]);
+      });
     });
   }
 
@@ -143,10 +205,8 @@ class BeneficiaryFilter {
       BeneficiaryFilter(
           id: 'sex',
           name: 'Sex',
-          interventions: ['ogac', 'education', 'pp_prev'],
-          filterInput: Container(
-            child: Text('Sex Filter Here!'),
-          )),
+          interventions: ['ogac', 'education', 'pp_prev', 'dreams'],
+          filterInput: getSexFilterInput(currentIntervention)),
       BeneficiaryFilter(
           id: 'age',
           name: 'Age',
