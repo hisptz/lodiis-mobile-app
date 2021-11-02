@@ -3,6 +3,7 @@ import 'package:kb_mobile_app/app_state/beneficiary_filter_state/beneficiary_fil
 import 'package:kb_mobile_app/app_state/intervention_bottom_navigation_state/intervention_bottom_navigation_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
+import 'package:kb_mobile_app/core/components/input_fields/input_field_container.dart';
 import 'package:kb_mobile_app/core/components/input_fields/select_input_field.dart';
 import 'package:kb_mobile_app/core/components/line_separator.dart';
 import 'dart:convert';
@@ -27,9 +28,9 @@ class BeneficiaryFilter {
     required this.filterInput,
   });
 
-  static void onUpdateFilter(BuildContext context, String id, String value) {
+  static void onUpdateFilter(BuildContext context, String id, String? value) {
     Provider.of<BeneficiaryFilterState>(context, listen: false)
-        .addOrUpdateFilter(id, value);
+        .addOrUpdateFilter(id, value ?? '');
   }
 
   static List<String> getImplementingPartners(
@@ -102,7 +103,7 @@ class BeneficiaryFilter {
                 }),
                 LineSeparator(
                     color: currentInterventionProgram.primaryColor!
-                        .withOpacity(0.1)),
+                        .withOpacity(0.3)),
               ]);
         },
       );
@@ -116,8 +117,8 @@ class BeneficiaryFilter {
             interventionBottomNavigationState
                 .getCurrentInterventionBottomNavigation(currentIntervention);
         InputField gradeInput = InputField(
-            id: 'Sex',
-            name: 'Select sex',
+            id: 'grade',
+            name: 'Select Grade',
             valueType: 'TEXT',
             options: interventionBottomNavigation.id == 'lbse'
                 ? [
@@ -194,12 +195,12 @@ class BeneficiaryFilter {
                           ))),
                   Consumer<BeneficiaryFilterState>(
                       builder: (context, beneficiaryFilterState, child) {
-                    String implementingPartner =
+                    String grade =
                         beneficiaryFilterState.getFilterValue(gradeInput.id);
                     return Container(
                       child: SelectInputField(
                         hiddenInputFieldOptions: Map(),
-                        selectedOption: implementingPartner,
+                        selectedOption: grade,
                         isReadOnly: false,
                         currentLanguage:
                             languageTranslationState.currentLanguage,
@@ -223,7 +224,7 @@ class BeneficiaryFilter {
 
   static Widget getSexFilterInput(InterventionCard currentIntervention) {
     InputField sexInput = InputField(
-        id: 'Sex',
+        id: 'sex',
         name: 'Select sex',
         valueType: 'TEXT',
         options: currentIntervention.id == 'dreams'
@@ -260,12 +261,11 @@ class BeneficiaryFilter {
                   ))),
           Consumer<BeneficiaryFilterState>(
               builder: (context, beneficiaryFilterState, child) {
-            String implementingPartner =
-                beneficiaryFilterState.getFilterValue(sexInput.id);
+            String sex = beneficiaryFilterState.getFilterValue(sexInput.id);
             return Container(
               child: SelectInputField(
                 hiddenInputFieldOptions: Map(),
-                selectedOption: implementingPartner,
+                selectedOption: sex,
                 isReadOnly: false,
                 currentLanguage: languageTranslationState.currentLanguage,
                 color: currentInterventionProgram.primaryColor,
@@ -277,7 +277,80 @@ class BeneficiaryFilter {
             );
           }),
           LineSeparator(
-              color: currentInterventionProgram.primaryColor!.withOpacity(0.1)),
+              color: currentInterventionProgram.primaryColor!.withOpacity(0.3)),
+        ]);
+      });
+    });
+  }
+
+  static Widget getSchoolFilterInput(InterventionCard currentIntervention) {
+    InputField schoolInput = InputField(
+      id: 'schoolName',
+      name: 'School name',
+      inputColor: currentIntervention.primaryColor,
+      valueType: 'TEXT',
+    );
+    return Consumer<LanguageTranslationState>(
+        builder: (context, languageTranslationState, child) {
+      return Consumer<InterventionCardState>(
+          builder: (context, interventionCardState, child) {
+        return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Consumer<BeneficiaryFilterState>(
+              builder: (context, beneficiaryFilterState, child) {
+            String school =
+                beneficiaryFilterState.getFilterValue(schoolInput.id);
+            Map dataObject = {"${schoolInput.id}": school};
+            return Container(
+              child: InputFieldContainer(
+                currentUserCountryLevelReferences: [],
+                hiddenFields: Map(),
+                inputField: schoolInput,
+                hiddenInputFieldOptions: Map(),
+                currentLanguage: languageTranslationState.currentLanguage,
+                isEditableMode: true,
+                mandatoryFieldObject: Map(),
+                dataObject: dataObject,
+                onInputValueChange: (String id, dynamic value) =>
+                    onUpdateFilter(context, schoolInput.id, value),
+              ),
+            );
+          }),
+        ]);
+      });
+    });
+  }
+
+  static Widget getAgeFilterInput(InterventionCard currentIntervention) {
+    InputField ageInput = InputField(
+      id: 'age',
+      name: 'Age',
+      inputColor: currentIntervention.primaryColor,
+      valueType: 'NUMBER',
+    );
+    return Consumer<LanguageTranslationState>(
+        builder: (context, languageTranslationState, child) {
+      return Consumer<InterventionCardState>(
+          builder: (context, interventionCardState, child) {
+        return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Consumer<BeneficiaryFilterState>(
+              builder: (context, beneficiaryFilterState, child) {
+            String age = beneficiaryFilterState.getFilterValue(ageInput.id);
+            Map dataObject = {"${ageInput.id}": age};
+            return Container(
+              child: InputFieldContainer(
+                currentUserCountryLevelReferences: [],
+                hiddenFields: Map(),
+                inputField: ageInput,
+                hiddenInputFieldOptions: Map(),
+                currentLanguage: languageTranslationState.currentLanguage,
+                isEditableMode: true,
+                mandatoryFieldObject: Map(),
+                dataObject: dataObject,
+                onInputValueChange: (String id, dynamic value) =>
+                    onUpdateFilter(context, ageInput.id, value),
+              ),
+            );
+          }),
         ]);
       });
     });
@@ -317,17 +390,15 @@ class BeneficiaryFilter {
           interventions: ['dreams', 'ovc', 'ogac', 'education', 'pp_prev'],
           filterInput: getImplementingPartnerFilterInput(currentIntervention)),
       BeneficiaryFilter(
+          id: 'age',
+          name: 'Age',
+          interventions: ['ogac', 'education', 'pp_prev', 'dreams'],
+          filterInput: getAgeFilterInput(currentIntervention)),
+      BeneficiaryFilter(
           id: 'sex',
           name: 'Sex',
           interventions: ['ogac', 'education', 'pp_prev', 'dreams'],
           filterInput: getSexFilterInput(currentIntervention)),
-      BeneficiaryFilter(
-          id: 'age',
-          name: 'Age',
-          interventions: ['ogac', 'education', 'pp_prev'],
-          filterInput: Container(
-            child: Text('Age Filter Here!'),
-          )),
       BeneficiaryFilter(
           id: 'grade',
           name: 'Grade',
@@ -336,12 +407,11 @@ class BeneficiaryFilter {
           ],
           filterInput: getGradeFilterInput(currentIntervention)),
       BeneficiaryFilter(
-          id: 'schoolName',
-          name: 'School',
-          interventions: ['education'],
-          filterInput: Container(
-            child: Text('School Filter Here!'),
-          )),
+        id: 'schoolName',
+        name: 'School',
+        interventions: ['education'],
+        filterInput: getSchoolFilterInput(currentIntervention),
+      ),
     ];
   }
 }

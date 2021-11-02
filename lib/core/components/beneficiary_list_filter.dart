@@ -66,7 +66,6 @@ class _BeneficiaryListFilterState extends State<BeneficiaryListFilter> {
         Provider.of<EducationBursaryInterventionState>(context, listen: false)
             .setBursaryFilters(filters);
       }
-      print('filtering $intervention');
     } else if (intervention == 'pp_prev') {
       Provider.of<PpPrevInterventionState>(context, listen: false)
           .setPpPrevFilters(filters);
@@ -202,7 +201,10 @@ class _BeneficiaryListFilterState extends State<BeneficiaryListFilter> {
                       ),
                     ),
                   ),
-                )
+                ),
+                Padding(
+                    padding: EdgeInsets.only(
+                        bottom: MediaQuery.of(context).viewInsets.bottom))
               ],
             ),
           );
