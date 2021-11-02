@@ -13,7 +13,6 @@ class TrackedEntityInstanceService {
         password: currentUser.password,
       );
       var url = "api/trackedEntityInstances/$teiId.json";
-
       List<String> programs = await discoveringBeneficiaryPrograms(teiId);
       for (String program in programs) {
         var queryParameters = {
@@ -24,24 +23,32 @@ class TrackedEntityInstanceService {
         var response =
             await httpService.httpGet(url, queryParameters: queryParameters);
         if (response.statusCode == 200) {
-          Map<String, dynamic> dataReponse = json.decode(response.body);
-
-          List enrollments = dataReponse["enrollments"] ?? [];
-          List relationships = dataReponse["relationships"] ?? [];
-          List events = enrollments
+          Map<String, dynamic> teiJson = json.decode(response.body);
+          List teiEnrollmentsJson = teiJson["enrollments"] ?? [];
+          List teiReleationShipsJson = teiJson["relationships"] ?? [];
+          List teiEventsJson = teiEnrollmentsJson
               .map((enrollment) => enrollment["events"] ?? [])
               .toList();
-
-          print(dataReponse);
-          print(enrollments);
-          print(relationships);
-          print(events);
+          await saveTrackeEntityInstanceProfile(teiJson);
+          await saveTrackeEntityInstanceEnrollment(teiEnrollmentsJson);
+          await saveTrackeEntityInstanceEvents(teiEventsJson);
+          await saveTrackeEntityInstanceRelationShips(teiReleationShipsJson);
         }
       }
     } catch (error) {
       print("error on discoverTrackedEntityInstnaceById ${error.toString()}");
     }
   }
+
+  Future saveTrackeEntityInstanceProfile(dynamic teiJson) async {}
+
+  Future saveTrackeEntityInstanceEnrollment(List teiEnrollmentsJson) async {}
+
+  Future saveTrackeEntityInstanceEvents(List teiEventsJson) async {}
+
+  Future saveTrackeEntityInstanceRelationShips(
+    List teiReleationShipsJson,
+  ) async {}
 
   Future<List<String>> discoveringBeneficiaryPrograms(String teiId) async {
     print(teiId);
