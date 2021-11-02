@@ -26,9 +26,10 @@ class TrackedEntityInstanceService {
           Map<String, dynamic> teiJson = json.decode(response.body);
           List teiEnrollmentsJson = teiJson["enrollments"] ?? [];
           List teiReleationShipsJson = teiJson["relationships"] ?? [];
-          List teiEventsJson = teiEnrollmentsJson
-              .map((enrollment) => enrollment["events"] ?? [])
-              .toList();
+          List teiEventsJson = [];
+          for (var enrollment in teiEnrollmentsJson) {
+            teiEventsJson.addAll(enrollment["events"] ?? []);
+          }
           await saveTrackeEntityInstanceProfile(teiJson);
           await saveTrackeEntityInstanceEnrollment(teiEnrollmentsJson);
           await saveTrackeEntityInstanceEvents(teiEventsJson);
@@ -42,16 +43,27 @@ class TrackedEntityInstanceService {
 
   Future saveTrackeEntityInstanceProfile(dynamic teiJson) async {}
 
-  Future saveTrackeEntityInstanceEnrollment(List teiEnrollmentsJson) async {}
+  Future saveTrackeEntityInstanceEnrollment(List teiEnrollmentsJson) async {
+    for (dynamic json in teiEnrollmentsJson) {
+      print("enrollment->json=> $json");
+    }
+  }
 
-  Future saveTrackeEntityInstanceEvents(List teiEventsJson) async {}
+  Future saveTrackeEntityInstanceEvents(List teiEventsJson) async {
+    for (dynamic json in teiEventsJson) {
+      print("evebts->json=> $json");
+    }
+  }
 
   Future saveTrackeEntityInstanceRelationShips(
     List teiReleationShipsJson,
-  ) async {}
+  ) async {
+    for (dynamic json in teiReleationShipsJson) {
+      print("relations->json=> $json");
+    }
+  }
 
   Future<List<String>> discoveringBeneficiaryPrograms(String teiId) async {
-    print(teiId);
     List<String> programs = [];
     try {
       CurrentUser? currentUser = await (UserService().getCurrentUser());
