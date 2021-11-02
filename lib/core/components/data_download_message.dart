@@ -48,7 +48,10 @@ class _DataDownloadMessageState extends State<DataDownloadMessage> {
           Provider.of<DeviceConnectivityState>(context, listen: false)
               .connectivityStatus!;
       if (connected) {
-        await ReferralNotificationService().syncReferralNotifications();
+        await ReferralNotificationService().syncReferralNotifications(
+          shouldRefreshBeneficairyList: true,
+          context: context,
+        );
         if (mounted) {
           BuildContext ctx = context;
           await Provider.of<ReferralNotificationState>(ctx, listen: false)
