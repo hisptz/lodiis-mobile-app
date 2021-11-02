@@ -81,12 +81,26 @@ class PpPrevEnrollmentService {
     if (filters.isNotEmpty) {
       for (Map<String, dynamic> filter in filters) {
         String? implementingPartner = filter['implementingPartner'];
+        String? sex = filter['sex'];
+        String? age = filter['age'];
 
         ppPrevBeneficiaries = implementingPartner == null
             ? ppPrevBeneficiaries
             : ppPrevBeneficiaries
                 .where((beneficiary) =>
                     beneficiary.implementingPartner == implementingPartner)
+                .toList();
+
+        ppPrevBeneficiaries = age == null
+            ? ppPrevBeneficiaries
+            : ppPrevBeneficiaries
+                .where((beneficiary) => beneficiary.age == age)
+                .toList();
+
+        ppPrevBeneficiaries = sex == null
+            ? ppPrevBeneficiaries
+            : ppPrevBeneficiaries
+                .where((beneficiary) => beneficiary.sex == sex)
                 .toList();
       }
     }
