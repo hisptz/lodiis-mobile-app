@@ -1,8 +1,16 @@
 import 'dart:convert';
 
+import 'package:kb_mobile_app/core/offline_db/enrollment_offline/enrollment_offline_provider.dart';
+import 'package:kb_mobile_app/core/offline_db/event_offline/event_offline_provider.dart';
+import 'package:kb_mobile_app/core/offline_db/tei_relationship_offline/tei_relationship_offline_provider.dart';
+import 'package:kb_mobile_app/core/offline_db/tracked_entity_instance_offline/tracked_entity_instance_offline_provider.dart';
 import 'package:kb_mobile_app/core/services/http_service.dart';
 import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
+import 'package:kb_mobile_app/models/enrollment.dart';
+import 'package:kb_mobile_app/models/events.dart';
+import 'package:kb_mobile_app/models/tei_relationship.dart';
+import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
 
 class TrackedEntityInstanceService {
   Future discoverTrackedEntityInstnaceById(String teiId) async {
@@ -36,22 +44,25 @@ class TrackedEntityInstanceService {
           await saveTrackeEntityInstanceRelationShips(teiReleationShipsJson);
         }
       }
-    } catch (error) {
-      print("error on discoverTrackedEntityInstnaceById ${error.toString()}");
-    }
+    } catch (error) {}
   }
 
-  Future saveTrackeEntityInstanceProfile(dynamic teiJson) async {}
+  Future saveTrackeEntityInstanceProfile(dynamic teiJson) async {
+    await TrackedEntityInstanceOfflineProvider()
+        .addOrUpdateTrackedEntityInstance(
+            TrackedEntityInstance().fromJson(teiJson));
+  }
 
   Future saveTrackeEntityInstanceEnrollment(List teiEnrollmentsJson) async {
     for (dynamic json in teiEnrollmentsJson) {
-      print("enrollment->json=> $json");
+      await EnrollmentOfflineProvider()
+          .addOrUpdateEnrollment(Enrollment().fromJson(json));
     }
   }
 
   Future saveTrackeEntityInstanceEvents(List teiEventsJson) async {
     for (dynamic json in teiEventsJson) {
-      print("evebts->json=> $json");
+      await EventOfflineProvider().addOrUpdateEvent(Events().fromJson(json));
     }
   }
 
@@ -59,7 +70,8 @@ class TrackedEntityInstanceService {
     List teiReleationShipsJson,
   ) async {
     for (dynamic json in teiReleationShipsJson) {
-      print("relations->json=> $json");
+      await TeiRelationshipOfflineProvider()
+          .addOrUpdateTeiRelationship(TeiRelationship().fromJson(json));
     }
   }
 
