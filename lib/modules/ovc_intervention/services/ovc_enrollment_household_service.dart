@@ -62,7 +62,9 @@ class OvcEnrollmentHouseholdService {
   }
 
   Future<List<OvcHousehold>> getHouseholdList(
-      {page, String searchableValue = ''}) async {
+      {page,
+      String searchableValue = '',
+      List<Map<String, dynamic>> filters = const []}) async {
     List<OvcHousehold> ovcHouseHoldList = [];
 
     List<TrackedEntityInstance> allTrackedEntityInstanceList = [];
@@ -117,6 +119,19 @@ class OvcEnrollmentHouseholdService {
         }
       }
     } catch (e) {}
+
+    if (filters.isNotEmpty) {
+      for (Map<String, dynamic> filter in filters) {
+        String? implementingPartner = filter['implementingPartner'];
+        ovcHouseHoldList = implementingPartner == null
+            ? ovcHouseHoldList
+            : ovcHouseHoldList
+                .where((OvcHousehold household) =>
+                    household.implementingPartner == implementingPartner)
+                .toList();
+      }
+    }
+
     return searchableValue == ''
         ? ovcHouseHoldList
         : ovcHouseHoldList.where((OvcHousehold beneficiary) {

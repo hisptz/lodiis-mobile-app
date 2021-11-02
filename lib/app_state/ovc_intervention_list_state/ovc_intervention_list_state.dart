@@ -17,6 +17,7 @@ class OvcInterventionListState with ChangeNotifier {
   List<OvcHousehold> _ovcInterventionList = <OvcHousehold>[];
   List<NoneParticipationBeneficiary> _ovcNoneParticipationList =
       <NoneParticipationBeneficiary>[];
+  List<Map<String, dynamic>> _ovcFilters = [];
   PagingController? _ovcPagingController;
   PagingController? _ovcNoneParticipationPagingController;
   bool _isLoading = true;
@@ -33,6 +34,18 @@ class OvcInterventionListState with ChangeNotifier {
   String _searchableValue = '';
 
   OvcInterventionListState(this.context);
+
+  void setOvcFilters(List<Map<String, dynamic>> filters) {
+    _ovcFilters = filters;
+    notifyListeners();
+    refreshHouseHoldsList();
+  }
+
+  void clearOvcFilters() {
+    _ovcFilters.clear();
+    notifyListeners();
+    refreshHouseHoldsList();
+  }
 
   bool get isLoading => _isLoading;
   int get numberOfHouseholds => _numberOfHouseholds;
@@ -65,8 +78,8 @@ class OvcInterventionListState with ChangeNotifier {
 
   Future<void> _fetchOvcPage(int pageKey) async {
     String searchableValue = _ovcSearchableValue;
-    List ovcList = await OvcEnrollmentHouseholdService()
-        .getHouseholdList(page: pageKey, searchableValue: searchableValue);
+    List ovcList = await OvcEnrollmentHouseholdService().getHouseholdList(
+        page: pageKey, searchableValue: searchableValue, filters: _ovcFilters);
     if (ovcList.isEmpty && pageKey < numberOfPages) {
       _fetchOvcPage(pageKey + 1);
     } else {
