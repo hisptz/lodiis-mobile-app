@@ -1,21 +1,29 @@
 import 'dart:convert';
+import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart';
+import 'package:kb_mobile_app/app_state/synchronization_state/synchronization_state.dart';
 import 'package:kb_mobile_app/core/constants/app_logs_constants.dart';
 import 'package:kb_mobile_app/core/offline_db/app_logs_offline/app_logs_offline_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/referral_notification/referral_event_notification_offline_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/referral_notification/referral_notification_offline_provider.dart';
+import 'package:kb_mobile_app/core/offline_db/tracked_entity_instance_offline/tracked_entity_instance_offline_provider.dart';
 import 'package:kb_mobile_app/core/services/http_service.dart';
 import 'package:kb_mobile_app/core/services/organisation_unit_service.dart';
+import 'package:kb_mobile_app/core/services/tracked_entity_instance_service.dart';
 import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/models/app_logs.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/models/referral_event_notification.dart';
 import 'package:kb_mobile_app/models/referral_notification.dart';
+import 'package:provider/provider.dart';
 
 class ReferralNotificationService {
   final String apiUrlToDataStore = "api/dataStore/kb-referral-notification";
 
-  Future syncReferralNotifications() async {
+  Future syncReferralNotifications({
+    BuildContext? context,
+    bool shouldRefreshBeneficairyList = false,
+  }) async {
     try {
       List<ReferralNotification> onlineReferralNotifications =
           await discoveringReferralNotificationFromServer();
@@ -24,10 +32,46 @@ class ReferralNotificationService {
       List<ReferralNotification> referralNotifications =
           getMergedReferralNotifications(
               onlineReferralNotifications, offlineReferralNotifications);
+      List<String> beneficiaryIdsToBeSynced = referralNotifications
+          .map((ReferralNotification referralNotification) =>
+              referralNotification.tei)
+          .toList();
+      if (shouldRefreshBeneficairyList && context != null) {
+        List<String> offlineIds = await TrackedEntityInstanceOfflineProvider()
+            .getTrackedEntitiyInstanceReferencesBySyncStatus();
+        List<String> offlineSynced =
+            await TrackedEntityInstanceOfflineProvider()
+                .getTrackedEntitiyInstanceReferencesBySyncStatus(
+                    teiSyncStatus: "synced");
+        offlineIds.addAll(offlineSynced);
+        List<String> beneficiaryIds = beneficiaryIdsToBeSynced
+            .where((String id) => offlineIds.indexOf(id) == -1)
+            .toList();
+        if (beneficiaryIds.length > 0) {
+          await synchronizeUnsyncedBeneficiariesWithNotifications(
+            context,
+            beneficiaryIds,
+          );
+        }
+      }
       await savingReferralNotificationToOfflineDb(referralNotifications);
       await updateReferralNotificationToServer(referralNotifications);
     } catch (error) {
       print("syncReferralNotifications : ${error.toString()}");
+    }
+  }
+
+  Future synchronizeUnsyncedBeneficiariesWithNotifications(
+      BuildContext context, List<String> beneficiaryIds) async {
+    try {
+      for (String teiId in beneficiaryIds) {
+        await TrackedEntityInstanceService()
+            .discoverTrackedEntityInstnaceById(teiId);
+      }
+      await Provider.of<SynchronizationState>(context, listen: false)
+          .refreshBeneficiaryCounts();
+    } catch (error) {
+      print('savingReferralNotificationToOfflineDb: ${error.toString()}');
     }
   }
 
