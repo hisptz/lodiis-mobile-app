@@ -308,6 +308,7 @@ class BeneficiaryFilter {
                 hiddenInputFieldOptions: Map(),
                 currentLanguage: languageTranslationState.currentLanguage,
                 isEditableMode: true,
+                showClearIcon: false,
                 mandatoryFieldObject: Map(),
                 dataObject: dataObject,
                 onInputValueChange: (String id, dynamic value) =>
@@ -344,6 +345,7 @@ class BeneficiaryFilter {
                 hiddenInputFieldOptions: Map(),
                 currentLanguage: languageTranslationState.currentLanguage,
                 isEditableMode: true,
+                showClearIcon: false,
                 mandatoryFieldObject: Map(),
                 dataObject: dataObject,
                 onInputValueChange: (String id, dynamic value) =>
