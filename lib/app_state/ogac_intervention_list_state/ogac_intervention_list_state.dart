@@ -41,6 +41,10 @@ class OgacInterventionListState with ChangeNotifier {
     refreshOgacList();
   }
 
+  int getOgacFilterCount() {
+    return _ogacFilters.length;
+  }
+
   void initializePagination() {
     _ogacPagingController =
         PagingController<int, OgacBeneficiary>(firstPageKey: 0);

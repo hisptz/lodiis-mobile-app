@@ -112,6 +112,10 @@ class DreamsInterventionListState with ChangeNotifier {
     notifyListeners();
   }
 
+  int getAgywFiltersCount() {
+    return _agywFilters.length;
+  }
+
   void clearAllDreamsFilters() {
     _agywFilters = [];
     refreshAllDreamsLists();

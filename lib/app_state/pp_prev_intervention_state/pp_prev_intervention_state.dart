@@ -40,6 +40,10 @@ class PpPrevInterventionState with ChangeNotifier {
     refreshPpPrevList();
   }
 
+  int getPpPrevFilterCount() {
+    return _ppPrevFilters.length;
+  }
+
   void initializePagination() {
     _ppPrevPagingController =
         PagingController<int, PpPrevBeneficiary>(firstPageKey: 0);

@@ -45,6 +45,10 @@ class EducationLbseInterventionState with ChangeNotifier {
     refreshEducationLbseList();
   }
 
+  int getLbseFilterCount() {
+    return _lbseFilters.length;
+  }
+
   void _initializePagination() {
     _lbsePagingController =
         PagingController<int, EducationBeneficiary>(firstPageKey: 0);

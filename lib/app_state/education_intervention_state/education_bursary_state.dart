@@ -62,6 +62,10 @@ class EducationBursaryInterventionState with ChangeNotifier {
     refreshAllEducationBursaryLists();
   }
 
+  int getBursaryFilterCount() {
+    return _bursaryFilters.length;
+  }
+
   void initializePagination() {
     _bursaryPagingController =
         PagingController<int, EducationBeneficiary>(firstPageKey: 0);

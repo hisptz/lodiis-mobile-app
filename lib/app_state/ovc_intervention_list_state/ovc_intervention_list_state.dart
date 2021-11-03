@@ -47,6 +47,10 @@ class OvcInterventionListState with ChangeNotifier {
     refreshHouseHoldsList();
   }
 
+  int getOvcFiltersCount() {
+    return _ovcFilters.length;
+  }
+
   bool get isLoading => _isLoading;
   int get numberOfHouseholds => _numberOfHouseholds;
   int get numberOfOvcNoneParticipants => _numberOfNoneParticipants;
