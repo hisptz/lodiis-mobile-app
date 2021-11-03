@@ -31,6 +31,7 @@ class EducationLbseInterventionState with ChangeNotifier {
   int get numberOfPages => _searchableValue == ''
       ? _numberOfLbsePages
       : _numberOfLbseSearchablePages;
+  List<Map<String, dynamic>> get lbseFilters => _lbseFilters;
   PagingController? get pagingController => _lbsePagingController;
 
   void setLbseFilters(List<Map<String, dynamic>> filters) {

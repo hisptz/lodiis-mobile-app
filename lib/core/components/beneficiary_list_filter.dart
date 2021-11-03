@@ -8,6 +8,7 @@ import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_car
 import 'package:kb_mobile_app/app_state/ogac_intervention_list_state/ogac_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/pp_prev_intervention_state/pp_prev_intervention_state.dart';
+import 'package:kb_mobile_app/core/components/input_fields/input_clear_icon.dart';
 import 'package:kb_mobile_app/core/components/line_separator.dart';
 import 'package:kb_mobile_app/models/Intervention_bottom_navigation.dart';
 import 'package:kb_mobile_app/models/beneficiary_filter.dart';
@@ -41,6 +42,42 @@ class _BeneficiaryListFilterState extends State<BeneficiaryListFilter> {
             filter.interventions!.isEmpty ||
             filter.interventions!.contains(currentIntervention.id))
         .toList();
+  }
+
+  bool canClearFilter(String filterId, InterventionCard currentIntervention) {
+    String intervention = currentIntervention.id ?? '';
+    InterventionBottomNavigation currentTab =
+        Provider.of<InterventionBottomNavigationState>(context, listen: false)
+            .getCurrentInterventionBottomNavigation(currentIntervention);
+    List<Map<String, dynamic>> filters = intervention == 'education'
+        ? currentTab.id == 'lbse'
+            ? Provider.of<EducationLbseInterventionState>(context,
+                    listen: false)
+                .lbseFilters
+            : currentTab.id == 'bursary'
+                ? Provider.of<EducationBursaryInterventionState>(context,
+                        listen: false)
+                    .bursaryFilters
+                : []
+        : intervention == 'ogac'
+            ? Provider.of<OgacInterventionListState>(context, listen: false)
+                .ogacFilters
+            : intervention == 'ovc'
+                ? Provider.of<OvcInterventionListState>(context, listen: false)
+                    .ovcFilters
+                : intervention == 'pp_prev'
+                    ? Provider.of<PpPrevInterventionState>(context,
+                            listen: false)
+                        .ppPrevFilters
+                    : intervention == 'dreams'
+                        ? Provider.of<DreamsInterventionListState>(context,
+                                listen: false)
+                            .agywFilters
+                        : [];
+    List<Map<String, dynamic>> filter = filters
+        .where((filterItem) => filterItem.keys.contains(filterId))
+        .toList();
+    return filter.isNotEmpty;
   }
 
   void onApplyFilters(InterventionCard currentIntervention) {
@@ -88,13 +125,33 @@ class _BeneficiaryListFilterState extends State<BeneficiaryListFilter> {
           child: ExpansionTile(
             childrenPadding:
                 EdgeInsets.only(left: 16.0, right: 16.0, bottom: 8.0),
-            title: Text(
-              filter.name,
-              style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w500),
+            title: Row(
+              children: [
+                Expanded(
+                    child: Text(
+                  filter.name,
+                  style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w500),
+                )),
+                Visibility(
+                  visible: canClearFilter(filter.id, currentIntervention),
+                  child: InputClearIcon(
+                    onClearInput: () {
+                      print('clear');
+                    },
+                    showClearIcon: true,
+                  ),
+                )
+              ],
             ),
             children: [filter.filterInput],
             iconColor: filterColor,
             textColor: filterColor,
+            collapsedTextColor: canClearFilter(filter.id, currentIntervention)
+                ? filterColor
+                : null,
+            collapsedIconColor: canClearFilter(filter.id, currentIntervention)
+                ? filterColor
+                : null,
           ),
         ));
   }

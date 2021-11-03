@@ -60,6 +60,7 @@ class OvcInterventionListState with ChangeNotifier {
   int get numberOfNoneParticipantsPages => _searchableValue == ''
       ? _numberOfNoneParticipantsPages
       : _numberOfNoneParticipantsSearchablePages;
+  List<Map<String, dynamic>> get ovcFilters => _ovcFilters;
   PagingController? get pagingController => _ovcPagingController;
   PagingController? get noneParticipationPagingController =>
       _ovcNoneParticipationPagingController;

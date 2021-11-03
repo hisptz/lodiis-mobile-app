@@ -85,6 +85,7 @@ class DreamsInterventionListState with ChangeNotifier {
           ? _beneficiariesWithoutAgywDreamsCriteriaNumberOfPages
           : _beneficiariesWithoutAgywDreamsCriteriaNumberOfSearchablePages;
   bool? get isIncomingReferral => _isIncomingReferral;
+  List<Map<String, dynamic>> get agywFilters => _agywFilters;
   PagingController? get agywPagingController => _agywPagingController;
   PagingController? get agywIncomingReferralPagingController =>
       _agywIncomingReferralPagingController;

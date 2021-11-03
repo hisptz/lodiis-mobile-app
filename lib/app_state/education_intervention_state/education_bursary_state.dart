@@ -46,6 +46,7 @@ class EducationBursaryInterventionState with ChangeNotifier {
       _bursaryWithoutVulnerabilitySearchableValue == ''
           ? _numberOfBursaryWithoutVulnerabilityPages
           : _numberOfBursaryWithoutVulnerabilitySearchablePages;
+  List<Map<String, dynamic>> get bursaryFilters => _bursaryFilters;
   PagingController? get pagingController => _bursaryPagingController;
   PagingController? get bursaryWithoutVulnerabilityPagingController =>
       _bursaryWithoutVulnerabilityPagingController;
