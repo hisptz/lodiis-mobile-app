@@ -44,79 +44,77 @@ class _BeneficiaryListFilterState extends State<BeneficiaryListFilter> {
         .toList();
   }
 
-  bool canClearFilter(String filterId, InterventionCard currentIntervention) {
+  void onClearFilterItem(
+      String filterId, InterventionCard currentIntervention) {
+    String intervention = currentIntervention.id ?? '';
+    InterventionBottomNavigation interventionBottomNavigation =
+        Provider.of<InterventionBottomNavigationState>(context, listen: false)
+            .getCurrentInterventionBottomNavigation(currentIntervention);
+    String programId = intervention == 'education'
+        ? interventionBottomNavigation.id!
+        : intervention;
+    Provider.of<BeneficiaryFilterState>(context, listen: false)
+        .clearFilterById(programId, filterId);
+    setFiltersToProgram(programId);
+  }
+
+  bool isFilterApplied(String filterId, InterventionCard currentIntervention) {
     String intervention = currentIntervention.id ?? '';
     InterventionBottomNavigation currentTab =
         Provider.of<InterventionBottomNavigationState>(context, listen: false)
             .getCurrentInterventionBottomNavigation(currentIntervention);
     List<Map<String, dynamic>> filters = intervention == 'education'
-        ? currentTab.id == 'lbse'
-            ? Provider.of<EducationLbseInterventionState>(context,
-                    listen: false)
-                .lbseFilters
-            : currentTab.id == 'bursary'
-                ? Provider.of<EducationBursaryInterventionState>(context,
-                        listen: false)
-                    .bursaryFilters
-                : []
-        : intervention == 'ogac'
-            ? Provider.of<OgacInterventionListState>(context, listen: false)
-                .ogacFilters
-            : intervention == 'ovc'
-                ? Provider.of<OvcInterventionListState>(context, listen: false)
-                    .ovcFilters
-                : intervention == 'pp_prev'
-                    ? Provider.of<PpPrevInterventionState>(context,
-                            listen: false)
-                        .ppPrevFilters
-                    : intervention == 'dreams'
-                        ? Provider.of<DreamsInterventionListState>(context,
-                                listen: false)
-                            .agywFilters
-                        : [];
+        ? Provider.of<BeneficiaryFilterState>(context, listen: false)
+            .getFiltersByProgram(currentTab.id!)
+        : Provider.of<BeneficiaryFilterState>(context, listen: false)
+            .getFiltersByProgram(intervention);
     List<Map<String, dynamic>> filter = filters
         .where((filterItem) => filterItem.keys.contains(filterId))
         .toList();
     return filter.isNotEmpty;
   }
 
-  void onApplyFilters(InterventionCard currentIntervention) {
-    String intervention = currentIntervention.id ?? '';
+  void setFiltersToProgram(String programId) {
     List<Map<String, dynamic>> filters =
-        BeneficiaryFilter.getBeneficiaryFilterByIntervention(
-            context, intervention);
-    if (intervention == 'ovc') {
+        Provider.of<BeneficiaryFilterState>(context, listen: false)
+            .getFiltersByProgram(programId);
+
+    if (programId == 'ovc') {
       Provider.of<OvcInterventionListState>(context, listen: false)
           .setOvcFilters(filters);
-    } else if (intervention == 'dreams') {
+    } else if (programId == 'dreams') {
       Provider.of<DreamsInterventionListState>(context, listen: false)
           .setAgywFilters(filters);
-    } else if (intervention == 'ogac') {
+    } else if (programId == 'ogac') {
       Provider.of<OgacInterventionListState>(context, listen: false)
           .setOgacFilter(filters);
-    } else if (intervention == 'education') {
-      InterventionBottomNavigation currentTab =
-          Provider.of<InterventionBottomNavigationState>(context, listen: false)
-              .getCurrentInterventionBottomNavigation(currentIntervention);
-      if (currentTab.id == 'lbse') {
-        Provider.of<EducationLbseInterventionState>(context, listen: false)
-            .setLbseFilters(filters);
-      } else if (currentTab.id == 'bursary') {
-        Provider.of<EducationBursaryInterventionState>(context, listen: false)
-            .setBursaryFilters(filters);
-      }
-    } else if (intervention == 'pp_prev') {
+    } else if (programId == 'lbse') {
+      Provider.of<EducationLbseInterventionState>(context, listen: false)
+          .setLbseFilters(filters);
+    } else if (programId == 'bursary') {
+      Provider.of<EducationBursaryInterventionState>(context, listen: false)
+          .setBursaryFilters(filters);
+    } else if (programId == 'pp_prev') {
       Provider.of<PpPrevInterventionState>(context, listen: false)
           .setPpPrevFilters(filters);
-    } else {
-      print('filtering $intervention');
     }
+  }
 
+  void onApplyFilters(InterventionCard currentIntervention) {
+    String intervention = currentIntervention.id ?? '';
+    InterventionBottomNavigation interventionBottomNavigation =
+        Provider.of<InterventionBottomNavigationState>(context, listen: false)
+            .getCurrentInterventionBottomNavigation(currentIntervention);
+    String programId = intervention == 'education'
+        ? interventionBottomNavigation.id!
+        : intervention;
+    setFiltersToProgram(programId);
     Navigator.of(context).pop();
   }
 
   Widget _buildFilterWidget(
       BeneficiaryFilter filter, InterventionCard currentIntervention) {
+    bool isFilterSelected = isFilterApplied(filter.id, currentIntervention);
     Color filterColor = currentIntervention.primaryColor ?? Colors.blue;
     return Container(
         padding: EdgeInsets.only(bottom: 8.0),
@@ -133,10 +131,10 @@ class _BeneficiaryListFilterState extends State<BeneficiaryListFilter> {
                   style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w500),
                 )),
                 Visibility(
-                  visible: canClearFilter(filter.id, currentIntervention),
+                  visible: isFilterSelected,
                   child: InputClearIcon(
                     onClearInput: () {
-                      print('clear');
+                      onClearFilterItem(filter.id, currentIntervention);
                     },
                     showClearIcon: true,
                   ),
@@ -146,30 +144,23 @@ class _BeneficiaryListFilterState extends State<BeneficiaryListFilter> {
             children: [filter.filterInput],
             iconColor: filterColor,
             textColor: filterColor,
-            collapsedTextColor: canClearFilter(filter.id, currentIntervention)
-                ? filterColor
-                : null,
-            collapsedIconColor: canClearFilter(filter.id, currentIntervention)
-                ? filterColor
-                : null,
+            collapsedTextColor: isFilterSelected ? filterColor : null,
+            collapsedIconColor: isFilterSelected ? filterColor : null,
           ),
         ));
   }
 
-  void onClearFilters(BuildContext context) {
-    Provider.of<BeneficiaryFilterState>(context, listen: false).clearFilters();
-    Provider.of<DreamsInterventionListState>(context, listen: false)
-        .clearAllDreamsFilters();
-    Provider.of<OgacInterventionListState>(context, listen: false)
-        .clearOgacFilter();
-    Provider.of<PpPrevInterventionState>(context, listen: false)
-        .clearPpPrevFilters();
-    Provider.of<EducationLbseInterventionState>(context, listen: false)
-        .clearLbseFilters();
-    Provider.of<EducationBursaryInterventionState>(context, listen: false)
-        .clearBursaryFilters();
-    Provider.of<OvcInterventionListState>(context, listen: false)
-        .clearOvcFilters();
+  void onClearFilters(
+      BuildContext context, InterventionCard currentIntervention) {
+    String intervention = currentIntervention.id ?? '';
+    InterventionBottomNavigation currentTab =
+        Provider.of<InterventionBottomNavigationState>(context, listen: false)
+            .getCurrentInterventionBottomNavigation(currentIntervention);
+    String currentProgramId =
+        intervention == 'education' ? currentTab.id! : intervention;
+    Provider.of<BeneficiaryFilterState>(context, listen: false)
+        .clearFiltersByProgram(currentProgramId);
+    setFiltersToProgram(currentProgramId);
     Navigator.of(context).pop();
   }
 
@@ -186,89 +177,98 @@ class _BeneficiaryListFilterState extends State<BeneficiaryListFilter> {
           List<BeneficiaryFilter> filters = getFilterMetadata(
               interventionCardState.currentInterventionProgram);
           return Container(
-            padding: EdgeInsets.only(top: 10.0, left: 5.0, right: 5.0),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-                color: Colors.white),
-            child: Column(
-              children: [
-                Container(
-                  margin: EdgeInsets.symmetric(vertical: 10.0),
-                  child: Row(
+              padding: EdgeInsets.only(top: 10.0, left: 5.0, right: 5.0),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+                  color: Colors.white),
+              child: Consumer<BeneficiaryFilterState>(
+                builder: (context, beneficiaryFilterState, child) {
+                  return Column(
                     children: [
-                      Expanded(
-                        child: Container(
-                          padding: EdgeInsets.symmetric(horizontal: 8.0),
-                          child: Text(
-                            'Filters',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w600, fontSize: 16.0),
-                          ),
-                        ),
-                      ),
                       Container(
-                        padding: EdgeInsets.symmetric(horizontal: 8.0),
-                        child: InkWell(
-                          onTap: () => onClearFilters(context),
-                          child: Text(
-                            'Clear All',
-                            style: TextStyle(
-                                color: interventionCardState
-                                    .currentInterventionProgram.primaryColor),
+                        margin: EdgeInsets.symmetric(vertical: 10.0),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Container(
+                                padding: EdgeInsets.symmetric(horizontal: 8.0),
+                                child: Text(
+                                  'Filters',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 16.0),
+                                ),
+                              ),
+                            ),
+                            Container(
+                              padding: EdgeInsets.symmetric(horizontal: 8.0),
+                              child: InkWell(
+                                onTap: () => onClearFilters(
+                                    context,
+                                    interventionCardState
+                                        .currentInterventionProgram),
+                                child: Text(
+                                  'Clear All',
+                                  style: TextStyle(
+                                      color: interventionCardState
+                                          .currentInterventionProgram
+                                          .primaryColor),
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                      LineSeparator(
+                          color: interventionCardState
+                              .currentInterventionProgram.countLabelColor!),
+                      Flexible(
+                          child: ListView(
+                        padding: EdgeInsets.all(8.0),
+                        children: filters
+                            .map((BeneficiaryFilter filter) =>
+                                _buildFilterWidget(
+                                    filter,
+                                    interventionCardState
+                                        .currentInterventionProgram))
+                            .toList(),
+                      )),
+                      Container(
+                        margin: EdgeInsets.symmetric(vertical: 10.0),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                          color: interventionCardState
+                              .currentInterventionProgram.primaryColor,
+                        ),
+                        padding: EdgeInsets.only(
+                          right: 5.0,
+                        ),
+                        child: TextButton(
+                          onPressed: () => onApplyFilters(
+                              interventionCardState.currentInterventionProgram),
+                          style: TextButton.styleFrom(
+                            padding: EdgeInsets.symmetric(
+                              vertical: 15,
+                            ),
+                          ),
+                          child: Container(
+                            margin: EdgeInsets.symmetric(horizontal: 25.0),
+                            child: Text(
+                              "Apply filters",
+                              style: TextStyle(
+                                color: Color(0xFFFAFAFA),
+                              ),
+                            ),
                           ),
                         ),
-                      )
+                      ),
+                      Padding(
+                          padding: EdgeInsets.only(
+                              bottom: MediaQuery.of(context).viewInsets.bottom))
                     ],
-                  ),
-                ),
-                LineSeparator(
-                    color: interventionCardState
-                        .currentInterventionProgram.countLabelColor!),
-                Flexible(
-                    child: ListView(
-                  padding: EdgeInsets.all(8.0),
-                  children: filters
-                      .map((BeneficiaryFilter filter) => _buildFilterWidget(
-                          filter,
-                          interventionCardState.currentInterventionProgram))
-                      .toList(),
-                )),
-                Container(
-                  margin: EdgeInsets.symmetric(vertical: 10.0),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(12.0)),
-                    color: interventionCardState
-                        .currentInterventionProgram.primaryColor,
-                  ),
-                  padding: EdgeInsets.only(
-                    right: 5.0,
-                  ),
-                  child: TextButton(
-                    onPressed: () => onApplyFilters(
-                        interventionCardState.currentInterventionProgram),
-                    // onPressed: () => onClearFilters(context),
-                    style: TextButton.styleFrom(
-                      padding: EdgeInsets.symmetric(
-                        vertical: 15,
-                      ),
-                    ),
-                    child: Container(
-                      margin: EdgeInsets.symmetric(horizontal: 25.0),
-                      child: Text(
-                        "Apply filters",
-                        style: TextStyle(
-                          color: Color(0xFFFAFAFA),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                Padding(
-                    padding: EdgeInsets.only(
-                        bottom: MediaQuery.of(context).viewInsets.bottom))
-              ],
-            ),
-          );
+                  );
+                },
+              ));
         });
       },
     ));

@@ -27,7 +27,9 @@ class OgacInterventionListState with ChangeNotifier {
   int get numberOfOgac => _numberOfOgac;
   int get numberOfPages =>
       _searchableValue == '' ? _numberOfPages : _numberOfSearchablePages;
-  List<Map<String, dynamic>> get ogacFilters => _ogacFilters;
+  List<Map<String, dynamic>> get ogacFilters => _ogacFilters
+      .where((Map<String, dynamic> filter) => filter.isNotEmpty)
+      .toList();
   PagingController? get pagingController => _ogacPagingController;
 
   void setOgacFilter(List<Map<String, dynamic>> ogacFilters) {
