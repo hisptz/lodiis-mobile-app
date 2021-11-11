@@ -77,7 +77,8 @@ class NoneAgywDreamsEnrollmentService {
       {int? page, String searchableValue = ''}) async {
     List<AgywDream> agywDreamList = [];
     try {
-      //@TODO finsd all valid ou using user access of current user
+      List<String> accessibleOrgUnits = await OrganisationUnitService()
+          .getOrganisationUnitAccessedByCurrentUser();
       List<Enrollment> enrollments = await EnrollmentOfflineProvider()
           .getEnrollments(program,
               page: page, isSearching: searchableValue != '');
@@ -88,14 +89,15 @@ class NoneAgywDreamsEnrollmentService {
         String? orgUnit = enrollment.orgUnit;
         String? createdDate = enrollment.enrollmentDate;
         String? enrollmentId = enrollment.enrollment;
+        bool enrollmentOuAccessible = accessibleOrgUnits.contains(orgUnit);
         List<TrackedEntityInstance> dataHolds =
             await TrackedEntityInstanceOfflineProvider()
                 .getTrackedEntityInstanceByIds(
                     [enrollment.trackedEntityInstance]);
         for (TrackedEntityInstance tei in dataHolds) {
           try {
-            agywDreamList.add(AgywDream().fromTeiModel(
-                tei, orgUnit, location, createdDate, enrollmentId));
+            agywDreamList.add(AgywDream().fromTeiModel(tei, orgUnit, location,
+                createdDate, enrollmentId, enrollmentOuAccessible));
           } catch (e) {}
         }
       }
