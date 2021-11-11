@@ -18,6 +18,7 @@ class EducationBeneficiary {
   String? grade;
   bool? isMaleBeneficiary;
   String? implementingPartner;
+  bool? enrollmentOuAccessible;
   TrackedEntityInstance? trackedEntityInstanceData;
 
   EducationBeneficiary({
@@ -36,15 +37,16 @@ class EducationBeneficiary {
     this.isMaleBeneficiary,
     this.searchableValue,
     this.implementingPartner,
+    this.enrollmentOuAccessible,
     this.trackedEntityInstanceData,
   });
   EducationBeneficiary fromTeiModel(
-    TrackedEntityInstance trackedEntityInstance,
-    String? orgUnit,
-    String? location,
-    String? createdDate,
-    String? enrollment,
-  ) {
+      TrackedEntityInstance trackedEntityInstance,
+      String? orgUnit,
+      String? location,
+      String? createdDate,
+      String? enrollment,
+      bool? enrollmentOuAccessible) {
     List keys = [
       'WTZ7GLTrE8Q',
       'rSP9c21JsfC',
@@ -84,6 +86,7 @@ class EducationBeneficiary {
       beneficiaryId: data[BeneficiaryIdentification.beneficiaryId] ?? '',
       implementingPartner: data['klLkGxy328c'] ?? '',
       schoolName: data['EwZil0AnlYo'] ?? '',
+      enrollmentOuAccessible: enrollmentOuAccessible,
       trackedEntityInstanceData: trackedEntityInstance,
     );
   }

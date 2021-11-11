@@ -53,7 +53,8 @@ class EducationLbseEnrollmentService {
       {int? page,
       String searchableValue = '',
       List<Map<String, dynamic>> filters = const []}) async {
-    //@TODO finsd all valid ou using user access of current user
+    List<String> accessibleOrgUnits = await OrganisationUnitService()
+        .getOrganisationUnitAccessedByCurrentUser();
     List<EducationBeneficiary> educationLbseBeneficiaries = [];
     List<Enrollment> enrollments = await EnrollmentOfflineProvider()
         .getEnrollments(LbseInterventionConstant.program,
@@ -65,6 +66,7 @@ class EducationLbseEnrollmentService {
       String? orgUnit = enrollment.orgUnit;
       String? createdDate = enrollment.enrollmentDate;
       String? enrollmentId = enrollment.enrollment;
+      bool enrollmentOuAccessible = accessibleOrgUnits.contains(orgUnit);
       List<TrackedEntityInstance> lbseBeneficiaryList =
           await TrackedEntityInstanceOfflineProvider()
               .getTrackedEntityInstanceByIds(
@@ -76,6 +78,7 @@ class EducationLbseEnrollmentService {
           location,
           createdDate,
           enrollmentId,
+          enrollmentOuAccessible,
         ));
       }
     }
