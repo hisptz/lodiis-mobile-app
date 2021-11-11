@@ -15,6 +15,7 @@ class PpPrevBeneficiary {
   String? searchableValue;
   String? enrollment;
   String? implementingPartner;
+  bool? enrollmentOuAccessible;
   TrackedEntityInstance? trackedEntityInstanceData;
 
   PpPrevBeneficiary({
@@ -31,6 +32,7 @@ class PpPrevBeneficiary {
     this.enrollment,
     this.implementingPartner,
     this.searchableValue,
+    this.enrollmentOuAccessible,
     this.trackedEntityInstanceData,
   });
   PpPrevBeneficiary fromTeiModel(
@@ -39,6 +41,7 @@ class PpPrevBeneficiary {
     String? location,
     String? createdDate,
     String? enrollment,
+    bool? enrollmentOuAccessible,
   ) {
     List keys = [
       'RB8Wx75hGa4',
@@ -74,6 +77,7 @@ class PpPrevBeneficiary {
       village: village != "" ? village : 'N/A',
       createdDate: createdDate,
       enrollment: enrollment,
+      enrollmentOuAccessible: enrollmentOuAccessible,
       implementingPartner: data['klLkGxy328c'] ?? '',
       trackedEntityInstanceData: trackedEntityInstance,
     );
