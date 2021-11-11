@@ -79,6 +79,7 @@ class _OvcReferralPageState extends State<OvcReferralPage> {
               return SubModuleHomeContainer(
                 header: header,
                 bodyContents: _buildBody(currentLanguage),
+                showFilter: true,
               );
             },
           );

@@ -27,6 +27,7 @@ class EducationBursaryInterventionState with ChangeNotifier {
   int? _nextBursaryWithoutCriteriaPage = 0;
   String _bursarySearchableValue = '';
   String _bursaryWithoutVulnerabilitySearchableValue = '';
+  List<Map<String, dynamic>> _bursaryFilters = [];
   PagingController? _bursaryPagingController;
   PagingController? _bursaryWithoutVulnerabilityPagingController;
 
@@ -45,9 +46,28 @@ class EducationBursaryInterventionState with ChangeNotifier {
       _bursaryWithoutVulnerabilitySearchableValue == ''
           ? _numberOfBursaryWithoutVulnerabilityPages
           : _numberOfBursaryWithoutVulnerabilitySearchablePages;
+  List<Map<String, dynamic>> get bursaryFilters => _bursaryFilters
+      .where((Map<String, dynamic> filter) => filter.isNotEmpty)
+      .toList();
   PagingController? get pagingController => _bursaryPagingController;
   PagingController? get bursaryWithoutVulnerabilityPagingController =>
       _bursaryWithoutVulnerabilityPagingController;
+
+  void setBursaryFilters(List<Map<String, dynamic>> filters) {
+    _bursaryFilters = filters;
+    notifyListeners();
+    refreshAllEducationBursaryLists();
+  }
+
+  void clearBursaryFilters() {
+    _bursaryFilters.clear();
+    notifyListeners();
+    refreshAllEducationBursaryLists();
+  }
+
+  int getBursaryFilterCount() {
+    return _bursaryFilters.length;
+  }
 
   void initializePagination() {
     _bursaryPagingController =
@@ -87,7 +107,10 @@ class EducationBursaryInterventionState with ChangeNotifier {
   Future<void> _fetchBursaryPage(int pageKey) async {
     String searchableValue = _bursarySearchableValue;
     List bursaryList = await EducationBursaryEnrollmentService()
-        .getBeneficiaries(page: pageKey, searchableValue: searchableValue);
+        .getBeneficiaries(
+            page: pageKey,
+            searchableValue: searchableValue,
+            filters: _bursaryFilters);
     if (bursaryList.isEmpty && pageKey < numberOfPages) {
       _fetchBursaryPage(pageKey + 1);
     } else {

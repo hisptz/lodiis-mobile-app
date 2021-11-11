@@ -17,6 +17,7 @@ class EducationBeneficiary {
   String? schoolName;
   String? grade;
   bool? isMaleBeneficiary;
+  String? implementingPartner;
   TrackedEntityInstance? trackedEntityInstanceData;
 
   EducationBeneficiary({
@@ -34,6 +35,7 @@ class EducationBeneficiary {
     this.grade,
     this.isMaleBeneficiary,
     this.searchableValue,
+    this.implementingPartner,
     this.trackedEntityInstanceData,
   });
   EducationBeneficiary fromTeiModel(
@@ -51,6 +53,7 @@ class EducationBeneficiary {
       'EwZil0AnlYo',
       'BUPSEpJySPR',
       'tbzi0t27D8l',
+      'klLkGxy328c',
       BeneficiaryIdentification.beneficiaryId
     ];
     Map data = Map();
@@ -79,6 +82,7 @@ class EducationBeneficiary {
       enrollment: enrollment,
       grade: data['BUPSEpJySPR'] ?? data['tbzi0t27D8l'] ?? '',
       beneficiaryId: data[BeneficiaryIdentification.beneficiaryId] ?? '',
+      implementingPartner: data['klLkGxy328c'] ?? '',
       schoolName: data['EwZil0AnlYo'] ?? '',
       trackedEntityInstanceData: trackedEntityInstance,
     );

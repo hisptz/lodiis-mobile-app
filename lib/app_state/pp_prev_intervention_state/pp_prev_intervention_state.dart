@@ -17,6 +17,7 @@ class PpPrevInterventionState with ChangeNotifier {
   int _numberOfSearchablePages = 0;
   int? _nextPage = 0;
   String _searchableValue = '';
+  List<Map<String, dynamic>> _ppPrevFilters = [];
   PagingController? _ppPrevPagingController;
 
   PpPrevInterventionState(this.context);
@@ -25,7 +26,26 @@ class PpPrevInterventionState with ChangeNotifier {
   int get numberOfPpPrev => _numberOfPpPrev;
   int get numberOfPages =>
       _searchableValue == '' ? _numberOfPages : _numberOfSearchablePages;
+  List<Map<String, dynamic>> get ppPrevFilters => _ppPrevFilters
+      .where((Map<String, dynamic> filter) => filter.isNotEmpty)
+      .toList();
   PagingController? get pagingController => _ppPrevPagingController;
+
+  void setPpPrevFilters(List<Map<String, dynamic>> filters) {
+    _ppPrevFilters = filters;
+    notifyListeners();
+    refreshPpPrevList();
+  }
+
+  void clearPpPrevFilters() {
+    _ppPrevFilters = [];
+    notifyListeners();
+    refreshPpPrevList();
+  }
+
+  int getPpPrevFilterCount() {
+    return _ppPrevFilters.length;
+  }
 
   void initializePagination() {
     _ppPrevPagingController =
@@ -38,8 +58,10 @@ class PpPrevInterventionState with ChangeNotifier {
 
   Future<void> _fetchPpPrevPage(int pageKey) async {
     String searchableValue = _searchableValue;
-    List ppPrevList = await PpPrevEnrollmentService()
-        .getBeneficiaries(page: pageKey, searchableValue: searchableValue);
+    List ppPrevList = await PpPrevEnrollmentService().getBeneficiaries(
+        page: pageKey,
+        searchableValue: searchableValue,
+        filters: _ppPrevFilters);
     if (ppPrevList.isEmpty && pageKey < numberOfPages) {
       _fetchPpPrevPage(pageKey + 1);
     } else {

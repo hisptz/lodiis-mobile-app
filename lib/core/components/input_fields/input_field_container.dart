@@ -27,6 +27,7 @@ class InputFieldContainer extends StatelessWidget {
     this.dataObject,
     this.mandatoryFieldObject,
     this.isEditableMode,
+    this.showClearIcon = true,
   }) : super(key: key);
 
   final InputField inputField;
@@ -36,6 +37,7 @@ class InputFieldContainer extends StatelessWidget {
   final Map? dataObject;
   final Map? mandatoryFieldObject;
   final Map hiddenInputFieldOptions;
+  final bool showClearIcon;
   final Map? hiddenFields;
   final List<String?> currentUserCountryLevelReferences;
 
@@ -390,7 +392,8 @@ class InputFieldContainer extends StatelessWidget {
                       showClearIcon: inputField != null &&
                           dataObject![inputField.id] != null &&
                           dataObject![inputField.id] != '' &&
-                          inputField.isReadOnly == false,
+                          inputField.isReadOnly == false &&
+                          showClearIcon,
                       onClearInput: () {
                         onInputValueChange!(inputField.id, null);
                       })

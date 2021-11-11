@@ -239,6 +239,7 @@ class _EducationLbseState extends State<EducationLbse> {
           header:
               '$title : ${educationLbseInterventionState.numberOfEducationLbseBySex}',
           bodyContents: _buildBody(),
+          showFilter: true,
         );
       },
     );

@@ -48,10 +48,10 @@ class PpPrevEnrollmentService {
     }
   }
 
-  Future<List<dynamic>> getBeneficiaries({
-    int? page,
-    String searchableValue = '',
-  }) async {
+  Future<List<dynamic>> getBeneficiaries(
+      {int? page,
+      String searchableValue = '',
+      List<Map<String, dynamic>> filters = const []}) async {
     List<PpPrevBeneficiary> ppPrevBeneficiaries = [];
     List<Enrollment> enrollments = await EnrollmentOfflineProvider()
         .getEnrollments(PpPrevInterventionConstant.program,
@@ -75,6 +75,33 @@ class PpPrevEnrollmentService {
           createdDate,
           enrollmentId,
         ));
+      }
+    }
+
+    if (filters.isNotEmpty) {
+      for (Map<String, dynamic> filter in filters) {
+        String? implementingPartner = filter['implementingPartner'];
+        String? sex = filter['sex'];
+        String? age = filter['age'];
+
+        ppPrevBeneficiaries = implementingPartner == null
+            ? ppPrevBeneficiaries
+            : ppPrevBeneficiaries
+                .where((beneficiary) =>
+                    beneficiary.implementingPartner == implementingPartner)
+                .toList();
+
+        ppPrevBeneficiaries = age == null
+            ? ppPrevBeneficiaries
+            : ppPrevBeneficiaries
+                .where((beneficiary) => beneficiary.age == age)
+                .toList();
+
+        ppPrevBeneficiaries = sex == null
+            ? ppPrevBeneficiaries
+            : ppPrevBeneficiaries
+                .where((beneficiary) => beneficiary.sex == sex)
+                .toList();
       }
     }
     return searchableValue == ''
