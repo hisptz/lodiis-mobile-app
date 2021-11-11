@@ -66,7 +66,8 @@ class OvcEnrollmentHouseholdService {
       String searchableValue = '',
       List<Map<String, dynamic>> filters = const []}) async {
     List<OvcHousehold> ovcHouseHoldList = [];
-//@TODO finsd all valid ou using user access of current user
+    List<String> accessibleOrgUnits = await OrganisationUnitService()
+        .getOrganisationUnitAccessedByCurrentUser();
     List<TrackedEntityInstance> allTrackedEntityInstanceList = [];
     try {
       List<Enrollment> enrollments = await EnrollmentOfflineProvider()
@@ -84,6 +85,7 @@ class OvcEnrollmentHouseholdService {
         String? location = ous.length > 0 ? ous[0].name : enrollment.orgUnit;
         String? orgUnit = enrollment.orgUnit;
         String? createdDate = enrollment.enrollmentDate;
+        bool enrollmentOuAccessible = accessibleOrgUnits.contains(orgUnit);
         List<TrackedEntityInstance> houseHolds = allTrackedEntityInstanceList
             .where((tei) =>
                 tei.trackedEntityInstance == enrollment.trackedEntityInstance)
@@ -99,8 +101,9 @@ class OvcEnrollmentHouseholdService {
               await TrackedEntityInstanceOfflineProvider()
                   .getTrackedEntityInstanceByIds(childTeiIds);
           List<OvcHouseholdChild> houseHoldChildren = houseHoldChildrenTeiData
-              .map((TrackedEntityInstance child) =>
-                  OvcHouseholdChild().fromTeiModel(child, orgUnit, createdDate))
+              .map((TrackedEntityInstance child) => OvcHouseholdChild()
+                  .fromTeiModel(
+                      child, orgUnit, createdDate, enrollmentOuAccessible))
               .toList();
           try {
             tei =
@@ -108,7 +111,13 @@ class OvcEnrollmentHouseholdService {
             FormUtil.savingTrackedEntityInstance(tei);
           } catch (e) {}
           ovcHouseHoldList.add(OvcHousehold().fromTeiModel(
-              tei, location, orgUnit, createdDate, houseHoldChildren));
+            tei,
+            location,
+            orgUnit,
+            createdDate,
+            enrollmentOuAccessible,
+            houseHoldChildren,
+          ));
         }
       }
     } catch (e) {}

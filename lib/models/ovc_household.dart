@@ -19,6 +19,7 @@ class OvcHousehold {
   String? houseHoldStatus;
   String? implementingPartner;
   String? searchableValue;
+  bool? enrollmentOuAccessible;
   List<OvcHouseholdChild>? children;
   TrackedEntityInstance? teiData;
 
@@ -39,6 +40,7 @@ class OvcHousehold {
     this.ovcFemaleCount,
     this.houseHoldStatus,
     this.searchableValue,
+    this.enrollmentOuAccessible,
     this.implementingPartner,
     this.teiData,
   });
@@ -48,6 +50,7 @@ class OvcHousehold {
     String? location,
     String? orgUnit,
     String? createdDate,
+    bool? enrollmentOuAccessible,
     List<OvcHouseholdChild> children,
   ) {
     List<String> phoneNumberIds = ['tNdoR0jYr7R', 'cvrdI9t4rtN'];
@@ -93,6 +96,7 @@ class OvcHousehold {
       secondaryUIC: data[BeneficiaryIdentification.secondaryUIC] ?? '',
       houseHoldStatus: data['PN92g65TkVI'] ?? '',
       implementingPartner: data['klLkGxy328c'] ?? '',
+      enrollmentOuAccessible: enrollmentOuAccessible,
       searchableValue:
           "${data['WTZ7GLTrE8Q'] ?? ''} ${data['s1HaiT6OllL'] ?? ''} ${data['rSP9c21JsfC'] ?? ''} ${data[BeneficiaryIdentification.beneficiaryId] ?? ''} $location $createdDate"
               .toLowerCase(),
