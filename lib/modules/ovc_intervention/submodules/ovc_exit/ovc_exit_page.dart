@@ -149,6 +149,7 @@ class _OvcExitPageState extends State<OvcExitPage> {
                       ': ${ovcInterventionListState.numberOfHouseholds} households';
               return SubModuleHomeContainer(
                 header: header,
+                showFilter: true,
                 bodyContents: _buildBody(currentLanguage),
               );
             },

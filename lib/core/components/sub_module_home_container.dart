@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
+import 'package:kb_mobile_app/app_state/education_intervention_state/education_bursary_state.dart';
+import 'package:kb_mobile_app/app_state/education_intervention_state/education_lbse_state.dart';
+import 'package:kb_mobile_app/app_state/intervention_bottom_navigation_state/intervention_bottom_navigation_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
+import 'package:kb_mobile_app/app_state/ogac_intervention_list_state/ogac_intervention_list_state.dart';
+import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_intervention_list_state.dart';
+import 'package:kb_mobile_app/app_state/pp_prev_intervention_state/pp_prev_intervention_state.dart';
 import 'package:kb_mobile_app/core/components/beneficiary_list_filter.dart';
+import 'package:kb_mobile_app/models/Intervention_bottom_navigation.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:provider/provider.dart';
 
@@ -27,6 +35,37 @@ class SubModuleHomeContainer extends StatelessWidget {
         isScrollControlled: true,
         backgroundColor: Colors.transparent,
         builder: (BuildContext context) => BeneficiaryListFilter());
+  }
+
+  int getCurrentInterventionFilterCount(
+      BuildContext context, InterventionCard currentIntervention) {
+    String? id = currentIntervention.id;
+    InterventionBottomNavigation currentBottomNavigation =
+        Provider.of<InterventionBottomNavigationState>(context)
+            .getCurrentInterventionBottomNavigation(currentIntervention);
+    return id == 'education'
+        ? currentBottomNavigation.id == 'lbse'
+            ? Provider.of<EducationLbseInterventionState>(context,
+                    listen: false)
+                .getLbseFilterCount()
+            : Provider.of<EducationBursaryInterventionState>(context,
+                    listen: false)
+                .getBursaryFilterCount()
+        : id == 'dreams'
+            ? Provider.of<DreamsInterventionListState>(context, listen: false)
+                .getAgywFiltersCount()
+            : id == 'ovc'
+                ? Provider.of<OvcInterventionListState>(context, listen: false)
+                    .getOvcFiltersCount()
+                : id == 'ogac'
+                    ? Provider.of<OgacInterventionListState>(context,
+                            listen: false)
+                        .getOgacFilterCount()
+                    : id == 'pp_prev'
+                        ? Provider.of<PpPrevInterventionState>(context,
+                                listen: false)
+                            .getPpPrevFilterCount()
+                        : 0;
   }
 
   @override
@@ -61,14 +100,54 @@ class SubModuleHomeContainer extends StatelessWidget {
                         visible: showFilter,
                         child: Consumer<InterventionCardState>(
                           builder: (context, interventionCardState, child) {
-                            return InkWell(
-                              onTap: () => openFilters(context),
-                              child: Icon(
-                                Icons.filter_list_outlined,
-                                color: interventionCardState
-                                    .currentInterventionProgram.primaryColor,
-                                size: 24.0,
-                              ),
+                            int filterCount = getCurrentInterventionFilterCount(
+                                context,
+                                interventionCardState
+                                    .currentInterventionProgram);
+                            return Stack(
+                              children: [
+                                IconButton(
+                                  onPressed: () => openFilters(context),
+                                  icon: Icon(
+                                    Icons.filter_list_outlined,
+                                    color: interventionCardState
+                                        .currentInterventionProgram
+                                        .primaryColor,
+                                    size: 24.0,
+                                  ),
+                                ),
+                                filterCount != 0
+                                    ? Positioned(
+                                        child: InkWell(
+                                          onTap: () => openFilters(context),
+                                          child: Container(
+                                            padding: EdgeInsets.all(2.0),
+                                            decoration: BoxDecoration(
+                                                color: interventionCardState
+                                                    .currentInterventionProgram
+                                                    .primaryColor,
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        12.0)),
+                                            constraints: BoxConstraints(
+                                              minWidth: 14,
+                                              minHeight: 14,
+                                            ),
+                                            child: Text(
+                                              "$filterCount",
+                                              style: TextStyle().copyWith(
+                                                  color: Colors.white,
+                                                  fontSize: 10.0,
+                                                  fontWeight: FontWeight.bold),
+                                              textAlign: TextAlign.center,
+                                            ),
+                                          ),
+                                        ),
+                                        right: 11,
+                                        top: 11,
+                                      )
+                                    : Container(),
+                              ],
                             );
                           },
                         ),

@@ -128,13 +128,23 @@ class AgywDreamsEnrollmentService {
     if (filters.isNotEmpty) {
       for (Map<String, dynamic> filter in filters) {
         String? implementingPartner = filter['implementingPartner'];
+        String? age = filter['age'];
+        String? sex = filter['sex'];
 
         agywDreamList = implementingPartner == null
             ? agywDreamList
             : agywDreamList
-                .where(
-                    (agyw) => agyw.enrolledOrganisation == implementingPartner)
+                .where((AgywDream agyw) =>
+                    agyw.enrolledOrganisation == implementingPartner)
                 .toList();
+
+        agywDreamList = age == null
+            ? agywDreamList
+            : agywDreamList.where((AgywDream agyw) => agyw.age == age).toList();
+
+        agywDreamList = sex == null
+            ? agywDreamList
+            : agywDreamList.where((AgywDream agyw) => agyw.sex == sex).toList();
       }
     }
     return searchableValue == ''

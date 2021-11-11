@@ -85,6 +85,9 @@ class DreamsInterventionListState with ChangeNotifier {
           ? _beneficiariesWithoutAgywDreamsCriteriaNumberOfPages
           : _beneficiariesWithoutAgywDreamsCriteriaNumberOfSearchablePages;
   bool? get isIncomingReferral => _isIncomingReferral;
+  List<Map<String, dynamic>> get agywFilters => _agywFilters
+      .where((Map<String, dynamic> filter) => filter.isNotEmpty)
+      .toList();
   PagingController? get agywPagingController => _agywPagingController;
   PagingController? get agywIncomingReferralPagingController =>
       _agywIncomingReferralPagingController;
@@ -110,6 +113,10 @@ class DreamsInterventionListState with ChangeNotifier {
     _agywFilters = agywFilters;
     refreshAllDreamsLists();
     notifyListeners();
+  }
+
+  int getAgywFiltersCount() {
+    return _agywFilters.length;
   }
 
   void clearAllDreamsFilters() {

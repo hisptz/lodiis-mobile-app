@@ -58,7 +58,9 @@ class OgacEnrollmentService {
   }
 
   Future<List<OgacBeneficiary>> getOgacBeneficiaries(
-      {int? page, String searchableValue = ''}) async {
+      {int? page,
+      String searchableValue = '',
+      List<Map<String, dynamic>> filters = const []}) async {
     List<OgacBeneficiary> ogacBeneficiaries = [];
     List<Enrollment> enrollments = await EnrollmentOfflineProvider()
         .getEnrollments(OgacInterventionConstant.program,
@@ -88,6 +90,30 @@ class OgacEnrollmentService {
         ));
       }
     }
+
+    if (filters.isNotEmpty) {
+      for (Map<String, dynamic> filter in filters) {
+        String? implementingPartner = filter['implementingPartner'];
+        String? sex = filter['sex'];
+        String? age = filter['age'];
+
+        ogacBeneficiaries = sex == null
+            ? ogacBeneficiaries
+            : ogacBeneficiaries.where((ogac) => ogac.sex == sex).toList();
+
+        ogacBeneficiaries = age == null
+            ? ogacBeneficiaries
+            : ogacBeneficiaries.where((ogac) => ogac.age == age).toList();
+
+        ogacBeneficiaries = implementingPartner == null
+            ? ogacBeneficiaries
+            : ogacBeneficiaries
+                .where(
+                    (ogac) => ogac.implementingPartner == implementingPartner)
+                .toList();
+      }
+    }
+
     return searchableValue == ''
         ? ogacBeneficiaries
         : ogacBeneficiaries.where((OgacBeneficiary beneficiary) {

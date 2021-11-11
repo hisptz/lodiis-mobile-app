@@ -78,6 +78,7 @@ class _OvcEnrollmentPageState extends State<OvcEnrollmentPage> {
                       ': ${ovcInterventionListState.numberOfHouseholds} households';
               return SubModuleHomeContainer(
                 header: header,
+                showFilter: true,
                 bodyContents: _buildBody(currentLanguage),
               );
             },

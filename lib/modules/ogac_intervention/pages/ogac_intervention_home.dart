@@ -124,6 +124,7 @@ class OgacInterventionHome extends StatelessWidget {
           header:
               '$title : ${dreamInterventionListState.numberOfOgac} beneficiaries',
           bodyContents: _buildBody(),
+          showFilter: true,
         );
       },
     );

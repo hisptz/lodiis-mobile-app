@@ -14,6 +14,7 @@ class PpPrevBeneficiary {
   String? createdDate;
   String? searchableValue;
   String? enrollment;
+  String? implementingPartner;
   TrackedEntityInstance? trackedEntityInstanceData;
 
   PpPrevBeneficiary({
@@ -28,6 +29,7 @@ class PpPrevBeneficiary {
     this.orgUnit,
     this.createdDate,
     this.enrollment,
+    this.implementingPartner,
     this.searchableValue,
     this.trackedEntityInstanceData,
   });
@@ -45,6 +47,7 @@ class PpPrevBeneficiary {
       'rSP9c21JsfC',
       'vIX4GTSCX4P',
       'qZP982qpSPS',
+      'klLkGxy328c'
     ];
     Map data = Map();
     for (Map detailObj in trackedEntityInstance.attributes) {
@@ -71,6 +74,7 @@ class PpPrevBeneficiary {
       village: village != "" ? village : 'N/A',
       createdDate: createdDate,
       enrollment: enrollment,
+      implementingPartner: data['klLkGxy328c'] ?? '',
       trackedEntityInstanceData: trackedEntityInstance,
     );
   }
