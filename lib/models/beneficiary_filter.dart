@@ -28,9 +28,17 @@ class BeneficiaryFilter {
     required this.filterInput,
   });
 
-  static void onUpdateFilter(BuildContext context, String id, String? value) {
+  static void onUpdateFilter(BuildContext context,
+      InterventionCard currentIntervention, String id, String? value) {
+    String interventionId = currentIntervention.id!;
+    InterventionBottomNavigation interventionBottomNavigation =
+        Provider.of<InterventionBottomNavigationState>(context, listen: false)
+            .getCurrentInterventionBottomNavigation(currentIntervention);
+    String programId = interventionId == 'education'
+        ? interventionBottomNavigation.id!
+        : interventionId;
     Provider.of<BeneficiaryFilterState>(context, listen: false)
-        .addOrUpdateFilter(id, value ?? '');
+        .addOrUpdateFilter(programId, id, value);
   }
 
   static List<String> getImplementingPartners(
@@ -51,6 +59,23 @@ class BeneficiaryFilter {
         .toList()
         .where((implementingPartner) => implementingPartner != 'Paralegal')
         .toList() as List<String>;
+  }
+
+  static dynamic getFilterValue(
+      BuildContext context,
+      InterventionCard currentIntervention,
+      InterventionBottomNavigation currentBottomNavigation,
+      String id) {
+    String interventionId = currentIntervention.id!;
+    InterventionBottomNavigation interventionBottomNavigation =
+        Provider.of<InterventionBottomNavigationState>(context, listen: false)
+            .getCurrentInterventionBottomNavigation(currentIntervention);
+
+    String programId = interventionId == 'education'
+        ? interventionBottomNavigation.id!
+        : interventionId;
+    return Provider.of<BeneficiaryFilterState>(context, listen: false)
+        .getFilterValue(programId, id);
   }
 
   static Widget getImplementingPartnerFilterInput(
@@ -83,10 +108,18 @@ class BeneficiaryFilter {
                           fontSize: 13.0,
                           fontWeight: FontWeight.normal,
                         ))),
-                Consumer<BeneficiaryFilterState>(
-                    builder: (context, beneficiaryFilterState, child) {
-                  String implementingPartner = beneficiaryFilterState
-                      .getFilterValue(implementingPartnerInput.id);
+                Consumer<InterventionBottomNavigationState>(
+                    builder: (context, bottomNavigationState, child) {
+                  InterventionBottomNavigation interventionBottomNavigation =
+                      bottomNavigationState
+                          .getCurrentInterventionBottomNavigation(
+                              currentIntervention);
+                  String implementingPartner = getFilterValue(
+                      context,
+                      currentIntervention,
+                      interventionBottomNavigation,
+                      implementingPartnerInput.id);
+
                   return Container(
                     child: SelectInputField(
                       hiddenInputFieldOptions: Map(),
@@ -96,7 +129,10 @@ class BeneficiaryFilter {
                       color: currentInterventionProgram.primaryColor,
                       renderAsRadio: implementingPartnerInput.renderAsRadio,
                       onInputValueChange: (dynamic value) => onUpdateFilter(
-                          context, implementingPartnerInput.id, value),
+                          context,
+                          currentInterventionProgram,
+                          implementingPartnerInput.id,
+                          value),
                       options: implementingPartnerInput.options,
                     ),
                   );
@@ -182,6 +218,9 @@ class BeneficiaryFilter {
             InterventionCard currentInterventionProgram =
                 interventionCardState.currentInterventionProgram;
 
+            String grade = getFilterValue(context, currentIntervention,
+                interventionBottomNavigation, gradeInput.id);
+
             return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -193,25 +232,22 @@ class BeneficiaryFilter {
                             fontSize: 13.0,
                             fontWeight: FontWeight.normal,
                           ))),
-                  Consumer<BeneficiaryFilterState>(
-                      builder: (context, beneficiaryFilterState, child) {
-                    String grade =
-                        beneficiaryFilterState.getFilterValue(gradeInput.id);
-                    return Container(
-                      child: SelectInputField(
-                        hiddenInputFieldOptions: Map(),
-                        selectedOption: grade,
-                        isReadOnly: false,
-                        currentLanguage:
-                            languageTranslationState.currentLanguage,
-                        color: currentInterventionProgram.primaryColor,
-                        renderAsRadio: gradeInput.renderAsRadio,
-                        onInputValueChange: (dynamic value) =>
-                            onUpdateFilter(context, gradeInput.id, value),
-                        options: gradeInput.options,
-                      ),
-                    );
-                  }),
+                  Container(
+                    child: SelectInputField(
+                      hiddenInputFieldOptions: Map(),
+                      selectedOption: grade,
+                      isReadOnly: false,
+                      currentLanguage: languageTranslationState.currentLanguage,
+                      color: currentInterventionProgram.primaryColor,
+                      renderAsRadio: gradeInput.renderAsRadio,
+                      onInputValueChange: (dynamic value) => onUpdateFilter(
+                          context,
+                          currentInterventionProgram,
+                          gradeInput.id,
+                          value),
+                      options: gradeInput.options,
+                    ),
+                  ),
                   LineSeparator(
                       color: currentInterventionProgram.primaryColor!
                           .withOpacity(0.1)),
@@ -259,9 +295,13 @@ class BeneficiaryFilter {
                     fontSize: 13.0,
                     fontWeight: FontWeight.normal,
                   ))),
-          Consumer<BeneficiaryFilterState>(
-              builder: (context, beneficiaryFilterState, child) {
-            String sex = beneficiaryFilterState.getFilterValue(sexInput.id);
+          Consumer<InterventionBottomNavigationState>(
+              builder: (context, bottomNavigationState, child) {
+            InterventionBottomNavigation interventionBottomNavigation =
+                bottomNavigationState.getCurrentInterventionBottomNavigation(
+                    currentIntervention);
+            String sex = getFilterValue(context, currentIntervention,
+                interventionBottomNavigation, sexInput.id);
             return Container(
               child: SelectInputField(
                 hiddenInputFieldOptions: Map(),
@@ -270,8 +310,8 @@ class BeneficiaryFilter {
                 currentLanguage: languageTranslationState.currentLanguage,
                 color: currentInterventionProgram.primaryColor,
                 renderAsRadio: sexInput.renderAsRadio,
-                onInputValueChange: (dynamic value) =>
-                    onUpdateFilter(context, sexInput.id, value),
+                onInputValueChange: (dynamic value) => onUpdateFilter(
+                    context, currentInterventionProgram, sexInput.id, value),
                 options: sexInput.options,
               ),
             );
@@ -295,10 +335,13 @@ class BeneficiaryFilter {
       return Consumer<InterventionCardState>(
           builder: (context, interventionCardState, child) {
         return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Consumer<BeneficiaryFilterState>(
-              builder: (context, beneficiaryFilterState, child) {
-            String school =
-                beneficiaryFilterState.getFilterValue(schoolInput.id);
+          Consumer<InterventionBottomNavigationState>(
+              builder: (context, bottomNavigationState, child) {
+            InterventionBottomNavigation interventionBottomNavigation =
+                bottomNavigationState.getCurrentInterventionBottomNavigation(
+                    currentIntervention);
+            String school = getFilterValue(context, currentIntervention,
+                interventionBottomNavigation, schoolInput.id);
             Map dataObject = {"${schoolInput.id}": school};
             return Container(
               child: InputFieldContainer(
@@ -312,7 +355,8 @@ class BeneficiaryFilter {
                 mandatoryFieldObject: Map(),
                 dataObject: dataObject,
                 onInputValueChange: (String id, dynamic value) =>
-                    onUpdateFilter(context, schoolInput.id, value),
+                    onUpdateFilter(
+                        context, currentIntervention, schoolInput.id, value),
               ),
             );
           }),
@@ -333,9 +377,13 @@ class BeneficiaryFilter {
       return Consumer<InterventionCardState>(
           builder: (context, interventionCardState, child) {
         return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Consumer<BeneficiaryFilterState>(
-              builder: (context, beneficiaryFilterState, child) {
-            String age = beneficiaryFilterState.getFilterValue(ageInput.id);
+          Consumer<InterventionBottomNavigationState>(
+              builder: (context, bottomNavigationState, child) {
+            InterventionBottomNavigation interventionBottomNavigation =
+                bottomNavigationState.getCurrentInterventionBottomNavigation(
+                    currentIntervention);
+            String age = getFilterValue(context, currentIntervention,
+                interventionBottomNavigation, ageInput.id);
             Map dataObject = {"${ageInput.id}": age};
             return Container(
               child: InputFieldContainer(
@@ -349,38 +397,14 @@ class BeneficiaryFilter {
                 mandatoryFieldObject: Map(),
                 dataObject: dataObject,
                 onInputValueChange: (String id, dynamic value) =>
-                    onUpdateFilter(context, ageInput.id, value),
+                    onUpdateFilter(
+                        context, currentIntervention, ageInput.id, value),
               ),
             );
           }),
         ]);
       });
     });
-  }
-
-  static List<Map<String, dynamic>> getBeneficiaryFilterByIntervention(
-      BuildContext context, String interventionId) {
-    List<Map<String, dynamic>> filtersFromState =
-        Provider.of<BeneficiaryFilterState>(context, listen: false).filters;
-    InterventionCard currentIntervention =
-        Provider.of<InterventionCardState>(context, listen: false)
-            .currentInterventionProgram;
-    List<String> beneficiaryFilters = getBeneficiaryFilters(currentIntervention)
-        .where((BeneficiaryFilter filter) =>
-            filter.interventions!.isEmpty ||
-            filter.interventions!.contains(interventionId))
-        .toList()
-        .map((filter) => filter.id)
-        .toList();
-
-    return filtersFromState
-        .where((Map<String, dynamic> filter) =>
-            filter.keys
-                .toSet()
-                .intersection(beneficiaryFilters.toSet())
-                .length >
-            0)
-        .toList();
   }
 
   static List<BeneficiaryFilter> getBeneficiaryFilters(
