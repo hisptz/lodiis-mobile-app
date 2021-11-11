@@ -38,7 +38,6 @@ class AgywDreamsEnrollmentService {
     inputFieldIds.addAll(FormUtil.getFormFieldIds(riskAssessmentFormSections));
     inputFieldIds.addAll(FormUtil.getFormFieldIds(concentFormSections));
     inputFieldIds.addAll(FormUtil.getFormFieldIds(enrollmentFormSections));
-
     TrackedEntityInstance trackedEntityInstanceData =
         await FormUtil.geTrackedEntityInstanceEnrollmentPayLoad(
             trackedEntityInstance,
@@ -65,18 +64,17 @@ class AgywDreamsEnrollmentService {
       {int? page, List teiList = const [], String searchableValue = ''}) async {
     List<AgywDream> agywDreamList = [];
     try {
+      //@TODO finsd all valid ou using user access of current user
       List<Enrollment> enrollments = await EnrollmentOfflineProvider()
           .getFilteredEnrollments(program,
               page: page, requiredTeiList: teiList as List<String>);
       for (Enrollment enrollment in enrollments) {
-        // get location
         List<OrganisationUnit> ous = await OrganisationUnitService()
             .getOrganisationUnits([enrollment.orgUnit]);
         String? location = ous.length > 0 ? ous[0].name : enrollment.orgUnit;
         String? orgUnit = enrollment.orgUnit;
         String? createdDate = enrollment.enrollmentDate;
         String? enrollmentId = enrollment.enrollment;
-
         List<TrackedEntityInstance> dataHolds =
             await TrackedEntityInstanceOfflineProvider()
                 .getTrackedEntityInstanceByIds(
@@ -103,11 +101,11 @@ class AgywDreamsEnrollmentService {
       List<Map<String, dynamic>> filters = const []}) async {
     List<AgywDream> agywDreamList = [];
     try {
+      //@TODO finsd all valid ou using user access of current user
       List<Enrollment> enrollments = await EnrollmentOfflineProvider()
           .getEnrollments(program,
               page: page, isSearching: searchableValue != '');
       for (Enrollment enrollment in enrollments) {
-        // get location
         List<OrganisationUnit> ous = await OrganisationUnitService()
             .getOrganisationUnits([enrollment.orgUnit]);
         String? location = ous.length > 0 ? ous[0].name : enrollment.orgUnit;

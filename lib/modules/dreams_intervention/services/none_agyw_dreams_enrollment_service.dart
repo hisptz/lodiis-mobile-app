@@ -77,11 +77,11 @@ class NoneAgywDreamsEnrollmentService {
       {int? page, String searchableValue = ''}) async {
     List<AgywDream> agywDreamList = [];
     try {
+      //@TODO finsd all valid ou using user access of current user
       List<Enrollment> enrollments = await EnrollmentOfflineProvider()
           .getEnrollments(program,
               page: page, isSearching: searchableValue != '');
       for (Enrollment enrollment in enrollments) {
-        // get location
         List<OrganisationUnit> ous = await OrganisationUnitService()
             .getOrganisationUnits([enrollment.orgUnit]);
         String? location = ous.length > 0 ? ous[0].name : enrollment.orgUnit;

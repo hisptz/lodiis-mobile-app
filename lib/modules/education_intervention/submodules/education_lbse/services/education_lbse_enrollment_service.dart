@@ -53,6 +53,7 @@ class EducationLbseEnrollmentService {
       {int? page,
       String searchableValue = '',
       List<Map<String, dynamic>> filters = const []}) async {
+    //@TODO finsd all valid ou using user access of current user
     List<EducationBeneficiary> educationLbseBeneficiaries = [];
     List<Enrollment> enrollments = await EnrollmentOfflineProvider()
         .getEnrollments(LbseInterventionConstant.program,
