@@ -1,5 +1,8 @@
+import 'package:kb_mobile_app/core/offline_db/enrollment_offline/enrollment_offline_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/tracked_entity_instance_offline/tracked_entity_instance_offline_attribute_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/tracked_entity_instance_offline/tracked_entity_instance_offline_provider.dart';
+import 'package:kb_mobile_app/core/utils/data_quality_util.dart';
+import 'package:kb_mobile_app/models/enrollment.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
@@ -132,8 +135,28 @@ class DataQualityService {
     await TrackedEntityInstanceOfflineAttributeProvider()
         .addOrUpdateMultipleTrackedEntityInstanceAttributes(resolvedAttributes);
     await migrateOptionSetsToCheckBox();
+    await enrollmentSearchableValueMigration();
+  }
 
-    // TODO Add migration for improving searching
+  static Future<void> enrollmentSearchableValueMigration() async {
+    int enrollmentWithoutSearchableValue = await EnrollmentOfflineProvider()
+        .getOfflineEnrollmentsWithoutSearchableValueCount();
+
+    List<int> pages =
+        DataQualityUtil().getPagination(enrollmentWithoutSearchableValue);
+    for (var page in pages) {
+      List<Enrollment> enrollments =
+          await EnrollmentOfflineProvider().getAllEnrollments(page);
+
+      for (Enrollment enrollment in enrollments) {
+        String searchableValue =
+            await TrackedEntityInstanceOfflineAttributeProvider()
+                .getSearchableFieldFromTrackedEntityAttributes(
+                    enrollment.trackedEntityInstance ?? '');
+        enrollment.searchableValue = searchableValue;
+        await EnrollmentOfflineProvider().addOrUpdateEnrollment(enrollment);
+      }
+    }
   }
 
   static List<InputField> getNumericalInputFields(
