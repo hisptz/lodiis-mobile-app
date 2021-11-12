@@ -78,7 +78,7 @@ class NoneAgywDreamsEnrollmentService {
     List<AgywDream> agywDreamList = [];
     try {
       List<Enrollment> enrollments = await EnrollmentOfflineProvider()
-          .getEnrollments(program,
+          .getEnrollmentsByProgram(program,
               page: page, isSearching: searchableValue != '');
       for (Enrollment enrollment in enrollments) {
         // get location

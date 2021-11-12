@@ -71,7 +71,7 @@ class OvcEnrollmentHouseholdService {
 
     try {
       List<Enrollment> enrollments = await EnrollmentOfflineProvider()
-          .getEnrollments(program,
+          .getEnrollmentsByProgram(program,
               page: page, isSearching: searchableValue != '');
       allTrackedEntityInstanceList =
           await TrackedEntityInstanceOfflineProvider()

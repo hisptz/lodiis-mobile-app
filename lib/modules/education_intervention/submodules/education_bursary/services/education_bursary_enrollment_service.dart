@@ -63,7 +63,7 @@ class EducationBursaryEnrollmentService {
   }) async {
     List<EducationBeneficiary> beneficiaries = [];
     List<Enrollment> enrollments = await EnrollmentOfflineProvider()
-        .getEnrollments(BursaryInterventionConstant.program,
+        .getEnrollmentsByProgram(BursaryInterventionConstant.program,
             page: page, isSearching: searchableValue != '');
     for (Enrollment enrollment in enrollments) {
       List<OrganisationUnit> ous = await OrganisationUnitService()

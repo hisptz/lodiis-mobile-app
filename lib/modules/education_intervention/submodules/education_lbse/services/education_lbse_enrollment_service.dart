@@ -55,7 +55,7 @@ class EducationLbseEnrollmentService {
       List<Map<String, dynamic>> filters = const []}) async {
     List<EducationBeneficiary> educationLbseBeneficiaries = [];
     List<Enrollment> enrollments = await EnrollmentOfflineProvider()
-        .getEnrollments(LbseInterventionConstant.program,
+        .getEnrollmentsByProgram(LbseInterventionConstant.program,
             page: page, isSearching: searchableValue != '');
     for (Enrollment enrollment in enrollments) {
       List<OrganisationUnit> ous = await OrganisationUnitService()

@@ -54,7 +54,7 @@ class PpPrevEnrollmentService {
       List<Map<String, dynamic>> filters = const []}) async {
     List<PpPrevBeneficiary> ppPrevBeneficiaries = [];
     List<Enrollment> enrollments = await EnrollmentOfflineProvider()
-        .getEnrollments(PpPrevInterventionConstant.program,
+        .getEnrollmentsByProgram(PpPrevInterventionConstant.program,
             page: page, isSearching: searchableValue != '');
     for (Enrollment enrollment in enrollments) {
       List<OrganisationUnit> ous = await OrganisationUnitService()
