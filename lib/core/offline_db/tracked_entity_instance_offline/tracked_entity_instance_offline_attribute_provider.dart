@@ -1,3 +1,4 @@
+import 'package:kb_mobile_app/core/constants/beneficiary_identification.dart';
 import 'package:kb_mobile_app/core/offline_db/offline_db_provider.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
 import 'package:sqflite/sqflite.dart';
@@ -91,6 +92,35 @@ class TrackedEntityInstanceOfflineAttributeProvider extends OfflineDbProvider {
       }
     } catch (e) {}
     return attributes;
+  }
+
+  Future<String> getSearchableFieldFromTrackedEntityAttributes(
+      String tei) async {
+    List<String> searchableFields = [
+      'WTZ7GLTrE8Q',
+      's1HaiT6OllL',
+      'rSP9c21JsfC',
+      'VJiWumvINR6',
+      'klLkGxy328c',
+      BeneficiaryIdentification.beneficiaryId
+    ];
+    String searchableValue = '';
+    String questionMarks = searchableFields.map((e) => '?').toList().join(',');
+    try {
+      var dbClient = await db;
+      List<Map> maps = await dbClient!.query(
+        table,
+        columns: [id, trackedEntityInstance, attribute, value],
+        where: '$trackedEntityInstance = ? AND $attribute IN ($questionMarks)',
+        whereArgs: [tei, ...searchableFields],
+      );
+      if (maps.isNotEmpty) {
+        for (Map map in maps) {
+          searchableValue = searchableValue + '${map[value]} ';
+        }
+      }
+    } catch (e) {}
+    return searchableValue;
   }
 
   Future<List> getTrackedEntityAttributesValuesById(

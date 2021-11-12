@@ -49,7 +49,7 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
   }
 
   // TODO add searchable value to the passsed params
-  Future<List<Enrollment>> getEnrollments(String programId,
+  Future<List<Enrollment>> getEnrollmentsByProgram(String programId,
       {int? page, bool isSearching = false}) async {
     List<Enrollment> enrollments = [];
     try {
@@ -78,6 +78,34 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
                   ? page * PaginationConstants.searchingPaginationLimit
                   : page * PaginationConstants.paginationLimit
               : null);
+      if (maps.isNotEmpty) {
+        for (Map map in maps) {
+          enrollments.add(Enrollment.fromOffline(map as Map<String, dynamic>));
+        }
+      }
+    } catch (e) {}
+    return enrollments
+      ..sort((b, a) => a.enrollmentDate!.compareTo(b.enrollmentDate!));
+  }
+
+  Future<List<Enrollment>> getAllEnrollments(int page) async {
+    List<Enrollment> enrollments = [];
+    try {
+      var dbClient = await db;
+      List<Map> maps = await dbClient!.query(table,
+          columns: [
+            enrollment,
+            enrollmentDate,
+            incidentDate,
+            program,
+            orgUnit,
+            status,
+            syncStatus,
+            trackedEntityInstance
+          ],
+          orderBy: '$enrollmentDate DESC',
+          limit: PaginationConstants.searchingPaginationLimit,
+          offset: (page - 1) * PaginationConstants.searchingPaginationLimit);
       if (maps.isNotEmpty) {
         for (Map map in maps) {
           enrollments.add(Enrollment.fromOffline(map as Map<String, dynamic>));
@@ -233,6 +261,16 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
       offlineEnrollmentsCount = Sqflite.firstIntValue(await dbClient!.rawQuery(
           'SELECT COUNT(*) FROM $table WHERE $program = ? AND $orgUnit = ?',
           ['$programId', '$orgUnitId']));
+    } catch (e) {}
+    return offlineEnrollmentsCount ?? 0;
+  }
+
+  Future<int> getOfflineEnrollmentsWithoutSearchableValueCount() async {
+    int? offlineEnrollmentsCount;
+    try {
+      var dbClient = await db;
+      offlineEnrollmentsCount = Sqflite.firstIntValue(await dbClient!.rawQuery(
+          'SELECT COUNT(*) FROM $table WHERE $searchableValue = ?', ['']));
     } catch (e) {}
     return offlineEnrollmentsCount ?? 0;
   }

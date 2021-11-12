@@ -9,6 +9,7 @@ class Enrollment {
   String? trackedEntityInstance;
   String? status;
   String? syncStatus;
+  String? searchableValue;
 
   Enrollment(
       {this.enrollment,
@@ -18,6 +19,7 @@ class Enrollment {
       this.orgUnit,
       this.trackedEntityInstance,
       this.status,
+      this.searchableValue,
       this.syncStatus});
 
   @override
@@ -51,6 +53,7 @@ class Enrollment {
     mapData['trackedEntityInstance'] = enrollmentData.trackedEntityInstance;
     mapData['status'] = enrollmentData.status;
     mapData['syncStatus'] = enrollmentData.syncStatus;
+    mapData['searchableValue'] = enrollmentData.searchableValue;
     return mapData;
   }
 
@@ -63,5 +66,6 @@ class Enrollment {
     this.trackedEntityInstance = mapData['trackedEntityInstance'];
     this.status = mapData['status'];
     this.syncStatus = mapData['syncStatus'];
+    this.searchableValue = mapData['searchableValue'];
   }
 }
