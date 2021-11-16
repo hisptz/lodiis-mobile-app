@@ -102,7 +102,9 @@ class TrackedEntityInstanceOfflineAttributeProvider extends OfflineDbProvider {
       'rSP9c21JsfC',
       'VJiWumvINR6',
       'klLkGxy328c',
-      BeneficiaryIdentification.beneficiaryId
+      BeneficiaryIdentification.beneficiaryId,
+      BeneficiaryIdentification.primaryUIC,
+      BeneficiaryIdentification.secondaryUIC,
     ];
     String searchableValue = '';
     String questionMarks = searchableFields.map((e) => '?').toList().join(',');
@@ -120,7 +122,7 @@ class TrackedEntityInstanceOfflineAttributeProvider extends OfflineDbProvider {
         }
       }
     } catch (e) {}
-    return searchableValue.toLowerCase();
+    return searchableValue.toLowerCase().trim();
   }
 
   Future<List> getTrackedEntityAttributesValuesById(

@@ -36,6 +36,7 @@ class Enrollment {
         orgUnit: json['orgUnit'],
         trackedEntityInstance: json['trackedEntityInstance'],
         status: json['status'],
+        searchableValue: json['searchableValue'] ?? '',
         syncStatus: json['syncStatus'] ?? 'synced');
   }
 
