@@ -105,7 +105,7 @@ class AgywDreamsEnrollmentService {
     try {
       List<Enrollment> enrollments = await EnrollmentOfflineProvider()
           .getEnrollmentsByProgram(program,
-              page: page, isSearching: searchableValue != '');
+              page: page, searchedValue: searchableValue);
       for (Enrollment enrollment in enrollments) {
         // get location
         List<OrganisationUnit> ous = await OrganisationUnitService()
@@ -147,14 +147,8 @@ class AgywDreamsEnrollmentService {
             : agywDreamList.where((AgywDream agyw) => agyw.sex == sex).toList();
       }
     }
-    return searchableValue == ''
-        ? agywDreamList
-        : agywDreamList.where((AgywDream beneficiary) {
-            bool isBeneficiaryFound = AppUtil().searchFromString(
-                searchableString: beneficiary.searchableValue,
-                searchedValue: searchableValue);
-            return isBeneficiaryFound;
-          }).toList();
+
+    return agywDreamList;
   }
 
   Future<List<NoneParticipationBeneficiary>>

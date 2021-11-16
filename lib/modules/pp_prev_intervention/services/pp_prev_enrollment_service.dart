@@ -55,7 +55,7 @@ class PpPrevEnrollmentService {
     List<PpPrevBeneficiary> ppPrevBeneficiaries = [];
     List<Enrollment> enrollments = await EnrollmentOfflineProvider()
         .getEnrollmentsByProgram(PpPrevInterventionConstant.program,
-            page: page, isSearching: searchableValue != '');
+            page: page, searchedValue: searchableValue);
     for (Enrollment enrollment in enrollments) {
       List<OrganisationUnit> ous = await OrganisationUnitService()
           .getOrganisationUnits([enrollment.orgUnit]);
@@ -104,14 +104,7 @@ class PpPrevEnrollmentService {
                 .toList();
       }
     }
-    return searchableValue == ''
-        ? ppPrevBeneficiaries
-        : ppPrevBeneficiaries.where((PpPrevBeneficiary beneficiary) {
-            bool isBeneficiaryFound = AppUtil().searchFromString(
-                searchableString: beneficiary.searchableValue,
-                searchedValue: searchableValue);
-            return isBeneficiaryFound;
-          }).toList();
+    return ppPrevBeneficiaries;
   }
 
   Future<int> getBeneficiariesCount() async {

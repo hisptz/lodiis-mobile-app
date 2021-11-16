@@ -64,7 +64,7 @@ class EducationBursaryEnrollmentService {
     List<EducationBeneficiary> beneficiaries = [];
     List<Enrollment> enrollments = await EnrollmentOfflineProvider()
         .getEnrollmentsByProgram(BursaryInterventionConstant.program,
-            page: page, isSearching: searchableValue != '');
+            page: page, searchedValue: searchableValue);
     for (Enrollment enrollment in enrollments) {
       List<OrganisationUnit> ous = await OrganisationUnitService()
           .getOrganisationUnits([enrollment.orgUnit]);
@@ -132,14 +132,7 @@ class EducationBursaryEnrollmentService {
       }
     }
 
-    return searchableValue == ''
-        ? beneficiaries
-        : beneficiaries.where((EducationBeneficiary beneficiary) {
-            bool isBeneficiaryFound = AppUtil().searchFromString(
-                searchableString: beneficiary.searchableValue,
-                searchedValue: searchableValue);
-            return isBeneficiaryFound;
-          }).toList();
+    return beneficiaries;
   }
 
   Future<List<NoneParticipationBeneficiary>>

@@ -72,7 +72,7 @@ class OvcEnrollmentHouseholdService {
     try {
       List<Enrollment> enrollments = await EnrollmentOfflineProvider()
           .getEnrollmentsByProgram(program,
-              page: page, isSearching: searchableValue != '');
+              page: page, searchedValue: searchableValue);
       allTrackedEntityInstanceList =
           await TrackedEntityInstanceOfflineProvider()
               .getTrackedEntityInstanceByIds(enrollments
@@ -132,14 +132,7 @@ class OvcEnrollmentHouseholdService {
       }
     }
 
-    return searchableValue == ''
-        ? ovcHouseHoldList
-        : ovcHouseHoldList.where((OvcHousehold beneficiary) {
-            bool isBeneficiaryFound = AppUtil().searchFromString(
-                searchableString: beneficiary.searchableValue,
-                searchedValue: searchableValue);
-            return isBeneficiaryFound;
-          }).toList();
+    return ovcHouseHoldList;
   }
 
   Future<int> getHouseholdCount() async {

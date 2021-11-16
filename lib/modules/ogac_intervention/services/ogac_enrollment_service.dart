@@ -64,7 +64,7 @@ class OgacEnrollmentService {
     List<OgacBeneficiary> ogacBeneficiaries = [];
     List<Enrollment> enrollments = await EnrollmentOfflineProvider()
         .getEnrollmentsByProgram(OgacInterventionConstant.program,
-            page: page, isSearching: searchableValue != '');
+            page: page, searchedValue: searchableValue);
     for (Enrollment enrollment in enrollments) {
       List<OrganisationUnit> ous = await OrganisationUnitService()
           .getOrganisationUnits([enrollment.orgUnit]);
@@ -114,14 +114,7 @@ class OgacEnrollmentService {
       }
     }
 
-    return searchableValue == ''
-        ? ogacBeneficiaries
-        : ogacBeneficiaries.where((OgacBeneficiary beneficiary) {
-            bool isBeneficiaryFound = AppUtil().searchFromString(
-                searchableString: beneficiary.searchableValue,
-                searchedValue: searchableValue);
-            return isBeneficiaryFound;
-          }).toList();
+    return ogacBeneficiaries;
   }
 
   Future<int> getOgacBeneficiariesCount() async {

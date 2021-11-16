@@ -56,7 +56,7 @@ class EducationLbseEnrollmentService {
     List<EducationBeneficiary> educationLbseBeneficiaries = [];
     List<Enrollment> enrollments = await EnrollmentOfflineProvider()
         .getEnrollmentsByProgram(LbseInterventionConstant.program,
-            page: page, isSearching: searchableValue != '');
+            page: page, searchedValue: searchableValue);
     for (Enrollment enrollment in enrollments) {
       List<OrganisationUnit> ous = await OrganisationUnitService()
           .getOrganisationUnits([enrollment.orgUnit]);
@@ -123,14 +123,7 @@ class EducationLbseEnrollmentService {
                 .toList();
       }
     }
-    return searchableValue == ''
-        ? educationLbseBeneficiaries
-        : educationLbseBeneficiaries.where((EducationBeneficiary beneficiary) {
-            bool isBeneficiaryFound = AppUtil().searchFromString(
-                searchableString: beneficiary.searchableValue,
-                searchedValue: searchableValue);
-            return isBeneficiaryFound;
-          }).toList();
+    return educationLbseBeneficiaries;
   }
 
   Future<int> getBeneficiariesCount() async {
