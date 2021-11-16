@@ -48,9 +48,8 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
     }
   }
 
-  // TODO add searchable value to the passsed params
   Future<List<Enrollment>> getEnrollmentsByProgram(String programId,
-      {int? page, bool isSearching = false}) async {
+      {int? page, String searchedValue = ''}) async {
     List<Enrollment> enrollments = [];
     try {
       var dbClient = await db;
@@ -63,18 +62,23 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
             orgUnit,
             status,
             syncStatus,
+            searchableValue,
             trackedEntityInstance
           ],
-          where: '$program = ?',
+          where: searchedValue.isNotEmpty
+              ? '$program = ? AND $searchableValue LIKE ?'
+              : '$program = ?',
           orderBy: '$enrollmentDate DESC',
-          whereArgs: [programId],
+          whereArgs: searchedValue.isNotEmpty
+              ? [programId, '%$searchedValue%']
+              : [programId],
           limit: page != null
-              ? isSearching
+              ? searchedValue.isNotEmpty
                   ? PaginationConstants.searchingPaginationLimit
                   : PaginationConstants.paginationLimit
               : null,
           offset: page != null
-              ? isSearching
+              ? searchedValue.isNotEmpty
                   ? page * PaginationConstants.searchingPaginationLimit
                   : page * PaginationConstants.paginationLimit
               : null);

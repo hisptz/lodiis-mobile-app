@@ -120,7 +120,7 @@ class TrackedEntityInstanceOfflineAttributeProvider extends OfflineDbProvider {
         }
       }
     } catch (e) {}
-    return searchableValue;
+    return searchableValue.toLowerCase();
   }
 
   Future<List> getTrackedEntityAttributesValuesById(
