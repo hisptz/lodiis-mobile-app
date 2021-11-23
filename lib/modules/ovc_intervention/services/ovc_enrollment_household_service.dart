@@ -49,16 +49,15 @@ class OvcEnrollmentHouseholdService {
             dataObject,
             hasBeneficiaryId: false);
     await FormUtil.savingTrackedEntityInstance(trackedEntityInstanceData);
-    if (shouldEnroll) {
-      Enrollment enrollmentData = FormUtil.getEnrollmentPayLoad(
-          enrollment,
-          enrollmentDate,
-          incidentDate,
-          orgUnit,
-          program,
-          trackedEntityInstance);
-      await FormUtil.savingEnrollment(enrollmentData);
-    }
+    Enrollment enrollmentData = FormUtil.getEnrollmentPayLoad(
+        enrollment,
+        enrollmentDate,
+        incidentDate,
+        orgUnit,
+        program,
+        trackedEntityInstance,
+        dataObject);
+    await FormUtil.savingEnrollment(enrollmentData);
   }
 
   Future<List<OvcHousehold>> getHouseholdList(

@@ -38,18 +38,17 @@ class OgacEnrollmentService {
             orgUnit,
             inputFieldIds,
             dataObject);
+
     await FormUtil.savingTrackedEntityInstance(trackedEntityInstanceData);
-    if (dataObject['trackedEntityInstance'] == null) {
-      Enrollment enrollmentData = FormUtil.getEnrollmentPayLoad(
+    Enrollment enrollmentData = FormUtil.getEnrollmentPayLoad(
         enrollment,
         enrollmentDate,
         incidentDate,
         orgUnit,
         OgacInterventionConstant.program,
         trackedEntityInstance,
-      );
-      await FormUtil.savingEnrollment(enrollmentData);
-    }
+        dataObject);
+    await FormUtil.savingEnrollment(enrollmentData);
     await savingOgacBeneficiaryEvent(
       orgUnit,
       dataObject,

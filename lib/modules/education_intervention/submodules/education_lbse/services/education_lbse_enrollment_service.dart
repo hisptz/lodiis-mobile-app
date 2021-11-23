@@ -36,17 +36,15 @@ class EducationLbseEnrollmentService {
             inputFieldIds,
             dataObject);
     await FormUtil.savingTrackedEntityInstance(trackedEntityInstanceData);
-    if (dataObject['trackedEntityInstance'] == null) {
-      Enrollment enrollmentData = FormUtil.getEnrollmentPayLoad(
+    Enrollment enrollmentData = FormUtil.getEnrollmentPayLoad(
         enrollment,
         enrollmentDate,
         incidentDate,
         orgUnit,
         LbseInterventionConstant.program,
         trackedEntityInstance,
-      );
-      await FormUtil.savingEnrollment(enrollmentData);
-    }
+        dataObject);
+    await FormUtil.savingEnrollment(enrollmentData);
   }
 
   Future<List<dynamic>> getBeneficiaries(

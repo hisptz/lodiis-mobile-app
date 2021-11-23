@@ -40,17 +40,15 @@ class OvcEnrollmentChildService {
               dataObject,
               hasBeneficiaryId: false);
       await FormUtil.savingTrackedEntityInstance(trackedEntityInstanceData);
-      if (shouldEnroll) {
-        Enrollment enrollmentData = FormUtil.getEnrollmentPayLoad(
+      Enrollment enrollmentData = FormUtil.getEnrollmentPayLoad(
           enrollment,
           enrollmentDate,
           incidentDate,
           orgUnit,
           program,
           trackedEntityInstance,
-        );
-        await FormUtil.savingEnrollment(enrollmentData);
-      }
+          dataObject);
+      await FormUtil.savingEnrollment(enrollmentData);
     }
     for (String childTeiReference in childTeiReferences) {
       TeiRelationship teiRelationshipData = FormUtil.getTeiRelationshipPayload(

@@ -60,17 +60,15 @@ class NoneAgywDreamsEnrollmentService {
             dataObject,
             hasBeneficiaryId: false);
     await FormUtil.savingTrackedEntityInstance(trackedEntityInstanceData);
-    if (dataObject['trackedEntityInstance'] == null) {
-      Enrollment enrollmentData = FormUtil.getEnrollmentPayLoad(
+    Enrollment enrollmentData = FormUtil.getEnrollmentPayLoad(
         enrollment,
         enrollmentDate,
         incidentDate,
         orgUnit,
         program,
         trackedEntityInstance,
-      );
-      await FormUtil.savingEnrollment(enrollmentData);
-    }
+        dataObject);
+    await FormUtil.savingEnrollment(enrollmentData);
   }
 
   Future<List<AgywDream>> getNonAgywBeneficiaryList(
