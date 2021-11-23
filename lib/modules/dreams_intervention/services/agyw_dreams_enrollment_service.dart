@@ -48,17 +48,15 @@ class AgywDreamsEnrollmentService {
             dataObject,
             hasBeneficiaryId: false);
     await FormUtil.savingTrackedEntityInstance(trackedEntityInstanceData);
-    if (dataObject['trackedEntityInstance'] == null) {
-      Enrollment enrollmentData = FormUtil.getEnrollmentPayLoad(
+    Enrollment enrollmentData = FormUtil.getEnrollmentPayLoad(
         enrollment,
         enrollmentDate,
         incidentDate,
         orgUnit,
         program,
         trackedEntityInstance,
-      );
-      await FormUtil.savingEnrollment(enrollmentData);
-    }
+        dataObject);
+    await FormUtil.savingEnrollment(enrollmentData);
   }
 
   Future<List<AgywDream>> getAgywBenficiariesWithIncomingReferralList(
@@ -104,8 +102,8 @@ class AgywDreamsEnrollmentService {
     List<AgywDream> agywDreamList = [];
     try {
       List<Enrollment> enrollments = await EnrollmentOfflineProvider()
-          .getEnrollments(program,
-              page: page, isSearching: searchableValue != '');
+          .getEnrollmentsByProgram(program,
+              page: page, searchedValue: searchableValue);
       for (Enrollment enrollment in enrollments) {
         // get location
         List<OrganisationUnit> ous = await OrganisationUnitService()
@@ -147,14 +145,8 @@ class AgywDreamsEnrollmentService {
             : agywDreamList.where((AgywDream agyw) => agyw.sex == sex).toList();
       }
     }
-    return searchableValue == ''
-        ? agywDreamList
-        : agywDreamList.where((AgywDream beneficiary) {
-            bool isBeneficiaryFound = AppUtil().searchFromString(
-                searchableString: beneficiary.searchableValue,
-                searchedValue: searchableValue);
-            return isBeneficiaryFound;
-          }).toList();
+
+    return agywDreamList;
   }
 
   Future<List<NoneParticipationBeneficiary>>

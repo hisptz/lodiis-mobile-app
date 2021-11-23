@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:kb_mobile_app/core/constants/app_logs_constants.dart';
+import 'package:kb_mobile_app/core/constants/beneficiary_identification.dart';
 import 'package:kb_mobile_app/core/offline_db/app_logs_offline/app_logs_offline_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/enrollment_offline/enrollment_offline_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/event_offline/event_offline_data_value_provider.dart';
@@ -208,13 +209,41 @@ class SynchronizationService {
         ?.toList();
   }
 
+  String getEnrollmentSearchableValue(dynamic tei) {
+    String searchableValue = "";
+    try {
+      var searchableAttributes = (tei['attributes'] ?? [])
+          .map((attribute) {
+            return [
+              'WTZ7GLTrE8Q',
+              's1HaiT6OllL',
+              'rSP9c21JsfC',
+              'VJiWumvINR6',
+              'klLkGxy328c',
+              BeneficiaryIdentification.beneficiaryId,
+              BeneficiaryIdentification.primaryUIC,
+              BeneficiaryIdentification.secondaryUIC,
+            ].contains(attribute['attribute'])
+                ? attribute['value']
+                : '';
+          })
+          .where((value) => value.trim() != '')
+          .toList();
+      searchableValue = searchableAttributes.join(' ');
+    } catch (e) {}
+
+    return searchableValue.toLowerCase();
+  }
+
   Map<String, List> getEnrollmentsAndRelationshipsFromResponse(responseData) {
     List<Enrollment> enrollments = [];
     List<TeiRelationship> relationships = [];
     for (var tei in responseData['trackedEntityInstances']) {
-      enrollments.addAll(tei['enrollments']
-          ?.map<Enrollment>((t) => Enrollment().fromJson(t))
-          ?.toList());
+      String searchableValue = getEnrollmentSearchableValue(tei);
+      enrollments.addAll(tei['enrollments']?.map<Enrollment>((enrollment) {
+        enrollment['searchableValue'] = searchableValue;
+        return Enrollment().fromJson(enrollment);
+      })?.toList());
       relationships.addAll(tei['relationships']
           ?.map<TeiRelationship>((t) => TeiRelationship().fromOnline(t))
           ?.toList());

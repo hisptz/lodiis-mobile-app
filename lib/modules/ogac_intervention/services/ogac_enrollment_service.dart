@@ -38,18 +38,17 @@ class OgacEnrollmentService {
             orgUnit,
             inputFieldIds,
             dataObject);
+
     await FormUtil.savingTrackedEntityInstance(trackedEntityInstanceData);
-    if (dataObject['trackedEntityInstance'] == null) {
-      Enrollment enrollmentData = FormUtil.getEnrollmentPayLoad(
+    Enrollment enrollmentData = FormUtil.getEnrollmentPayLoad(
         enrollment,
         enrollmentDate,
         incidentDate,
         orgUnit,
         OgacInterventionConstant.program,
         trackedEntityInstance,
-      );
-      await FormUtil.savingEnrollment(enrollmentData);
-    }
+        dataObject);
+    await FormUtil.savingEnrollment(enrollmentData);
     await savingOgacBeneficiaryEvent(
       orgUnit,
       dataObject,
@@ -63,8 +62,8 @@ class OgacEnrollmentService {
       List<Map<String, dynamic>> filters = const []}) async {
     List<OgacBeneficiary> ogacBeneficiaries = [];
     List<Enrollment> enrollments = await EnrollmentOfflineProvider()
-        .getEnrollments(OgacInterventionConstant.program,
-            page: page, isSearching: searchableValue != '');
+        .getEnrollmentsByProgram(OgacInterventionConstant.program,
+            page: page, searchedValue: searchableValue);
     for (Enrollment enrollment in enrollments) {
       List<OrganisationUnit> ous = await OrganisationUnitService()
           .getOrganisationUnits([enrollment.orgUnit]);
@@ -114,14 +113,7 @@ class OgacEnrollmentService {
       }
     }
 
-    return searchableValue == ''
-        ? ogacBeneficiaries
-        : ogacBeneficiaries.where((OgacBeneficiary beneficiary) {
-            bool isBeneficiaryFound = AppUtil().searchFromString(
-                searchableString: beneficiary.searchableValue,
-                searchedValue: searchableValue);
-            return isBeneficiaryFound;
-          }).toList();
+    return ogacBeneficiaries;
   }
 
   Future<int> getOgacBeneficiariesCount() async {
