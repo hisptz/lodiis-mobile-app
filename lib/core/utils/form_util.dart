@@ -158,15 +158,41 @@ class FormUtil {
     String? orgUnit,
     String program,
     String? trackedEntityInstance,
+    Map? dataObject,
   ) {
     enrollment = enrollment ?? AppUtil.getUid();
     enrollmentDate =
         enrollmentDate ?? AppUtil.formattedDateTimeIntoString(DateTime.now());
     incidentDate =
         incidentDate ?? AppUtil.formattedDateTimeIntoString(DateTime.now());
+
+    String searchableValue =
+        dataObject != null ? _getSearchableFieldFromDataObject(dataObject) : '';
     dynamic enrollmentJson =
-        '{"enrollment":"$enrollment", "enrollmentDate":"$enrollmentDate","incidentDate":"$incidentDate","orgUnit":"$orgUnit","program":"$program","trackedEntityInstance":"$trackedEntityInstance","status":"ACTIVE","syncStatus":"not-synced" }';
+        '{"enrollment":"$enrollment", "enrollmentDate":"$enrollmentDate","incidentDate":"$incidentDate","orgUnit":"$orgUnit","program":"$program","trackedEntityInstance":"$trackedEntityInstance","status":"ACTIVE","syncStatus":"not-synced", "searchableValue":"$searchableValue" }';
     return Enrollment().fromJson(json.decode(enrollmentJson));
+  }
+
+  static String _getSearchableFieldFromDataObject(Map dataObjet) {
+    String searchableField = '';
+
+    List<String> searchableFields = [
+      'WTZ7GLTrE8Q',
+      's1HaiT6OllL',
+      'rSP9c21JsfC',
+      'VJiWumvINR6',
+      'klLkGxy328c',
+      BeneficiaryIdentification.beneficiaryId,
+      BeneficiaryIdentification.primaryUIC,
+      BeneficiaryIdentification.secondaryUIC,
+    ];
+
+    for (String field in searchableFields) {
+      if (dataObjet[field] != null) {
+        searchableField += '${dataObjet[field]} ';
+      }
+    }
+    return searchableField.trim();
   }
 
   static TeiRelationship getTeiRelationshipPayload(

@@ -43,17 +43,15 @@ class EducationBursaryEnrollmentService {
             inputFieldIds,
             dataObject);
     await FormUtil.savingTrackedEntityInstance(trackedEntityInstanceData);
-    if (dataObject['trackedEntityInstance'] == null) {
-      Enrollment enrollmentData = FormUtil.getEnrollmentPayLoad(
+    Enrollment enrollmentData = FormUtil.getEnrollmentPayLoad(
         enrollment,
         enrollmentDate,
         incidentDate,
         orgUnit,
         BursaryInterventionConstant.program,
         trackedEntityInstance,
-      );
-      await FormUtil.savingEnrollment(enrollmentData);
-    }
+        dataObject);
+    await FormUtil.savingEnrollment(enrollmentData);
   }
 
   Future<List<dynamic>> getBeneficiaries({
@@ -65,8 +63,8 @@ class EducationBursaryEnrollmentService {
         .getOrganisationUnitAccessedByCurrentUser();
     List<EducationBeneficiary> beneficiaries = [];
     List<Enrollment> enrollments = await EnrollmentOfflineProvider()
-        .getEnrollments(BursaryInterventionConstant.program,
-            page: page, isSearching: searchableValue != '');
+        .getEnrollmentsByProgram(BursaryInterventionConstant.program,
+            page: page, searchedValue: searchableValue);
     for (Enrollment enrollment in enrollments) {
       List<OrganisationUnit> ous = await OrganisationUnitService()
           .getOrganisationUnits([enrollment.orgUnit]);
@@ -136,14 +134,7 @@ class EducationBursaryEnrollmentService {
       }
     }
 
-    return searchableValue == ''
-        ? beneficiaries
-        : beneficiaries.where((EducationBeneficiary beneficiary) {
-            bool isBeneficiaryFound = AppUtil().searchFromString(
-                searchableString: beneficiary.searchableValue,
-                searchedValue: searchableValue);
-            return isBeneficiaryFound;
-          }).toList();
+    return beneficiaries;
   }
 
   Future<List<NoneParticipationBeneficiary>>

@@ -49,16 +49,15 @@ class OvcEnrollmentHouseholdService {
             dataObject,
             hasBeneficiaryId: false);
     await FormUtil.savingTrackedEntityInstance(trackedEntityInstanceData);
-    if (shouldEnroll) {
-      Enrollment enrollmentData = FormUtil.getEnrollmentPayLoad(
-          enrollment,
-          enrollmentDate,
-          incidentDate,
-          orgUnit,
-          program,
-          trackedEntityInstance);
-      await FormUtil.savingEnrollment(enrollmentData);
-    }
+    Enrollment enrollmentData = FormUtil.getEnrollmentPayLoad(
+        enrollment,
+        enrollmentDate,
+        incidentDate,
+        orgUnit,
+        program,
+        trackedEntityInstance,
+        dataObject);
+    await FormUtil.savingEnrollment(enrollmentData);
   }
 
   Future<List<OvcHousehold>> getHouseholdList(
@@ -71,8 +70,8 @@ class OvcEnrollmentHouseholdService {
     List<TrackedEntityInstance> allTrackedEntityInstanceList = [];
     try {
       List<Enrollment> enrollments = await EnrollmentOfflineProvider()
-          .getEnrollments(program,
-              page: page, isSearching: searchableValue != '');
+          .getEnrollmentsByProgram(program,
+              page: page, searchedValue: searchableValue);
       allTrackedEntityInstanceList =
           await TrackedEntityInstanceOfflineProvider()
               .getTrackedEntityInstanceByIds(enrollments
@@ -132,14 +131,8 @@ class OvcEnrollmentHouseholdService {
                 .toList();
       }
     }
-    return searchableValue == ''
-        ? ovcHouseHoldList
-        : ovcHouseHoldList.where((OvcHousehold beneficiary) {
-            bool isBeneficiaryFound = AppUtil().searchFromString(
-                searchableString: beneficiary.searchableValue,
-                searchedValue: searchableValue);
-            return isBeneficiaryFound;
-          }).toList();
+
+    return ovcHouseHoldList;
   }
 
   Future<int> getHouseholdCount() async {

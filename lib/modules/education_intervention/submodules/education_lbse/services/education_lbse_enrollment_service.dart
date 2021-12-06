@@ -36,17 +36,15 @@ class EducationLbseEnrollmentService {
             inputFieldIds,
             dataObject);
     await FormUtil.savingTrackedEntityInstance(trackedEntityInstanceData);
-    if (dataObject['trackedEntityInstance'] == null) {
-      Enrollment enrollmentData = FormUtil.getEnrollmentPayLoad(
+    Enrollment enrollmentData = FormUtil.getEnrollmentPayLoad(
         enrollment,
         enrollmentDate,
         incidentDate,
         orgUnit,
         LbseInterventionConstant.program,
         trackedEntityInstance,
-      );
-      await FormUtil.savingEnrollment(enrollmentData);
-    }
+        dataObject);
+    await FormUtil.savingEnrollment(enrollmentData);
   }
 
   Future<List<dynamic>> getBeneficiaries(
@@ -57,8 +55,8 @@ class EducationLbseEnrollmentService {
         .getOrganisationUnitAccessedByCurrentUser();
     List<EducationBeneficiary> educationLbseBeneficiaries = [];
     List<Enrollment> enrollments = await EnrollmentOfflineProvider()
-        .getEnrollments(LbseInterventionConstant.program,
-            page: page, isSearching: searchableValue != '');
+        .getEnrollmentsByProgram(LbseInterventionConstant.program,
+            page: page, searchedValue: searchableValue);
     for (Enrollment enrollment in enrollments) {
       List<OrganisationUnit> ous = await OrganisationUnitService()
           .getOrganisationUnits([enrollment.orgUnit]);
@@ -127,14 +125,7 @@ class EducationLbseEnrollmentService {
                 .toList();
       }
     }
-    return searchableValue == ''
-        ? educationLbseBeneficiaries
-        : educationLbseBeneficiaries.where((EducationBeneficiary beneficiary) {
-            bool isBeneficiaryFound = AppUtil().searchFromString(
-                searchableString: beneficiary.searchableValue,
-                searchedValue: searchableValue);
-            return isBeneficiaryFound;
-          }).toList();
+    return educationLbseBeneficiaries;
   }
 
   Future<int> getBeneficiariesCount() async {
