@@ -68,8 +68,6 @@ class AgywDream {
       'vkd6o91n1IC',
       BeneficiaryIdentification.primaryUIC
     ];
-    print(
-        "orgUnit=>$orgUnit enrollmentOuAccessible => $enrollmentOuAccessible");
     Map data = Map();
     for (Map detailObj in trackedEntityInstance.attributes) {
       String? attribute = detailObj['attribute'];
