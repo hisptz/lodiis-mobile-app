@@ -81,7 +81,8 @@ class EducationBeneficiaryCard extends StatelessWidget {
                     isSynced: _syncStatusOfLbseBeneficiary(
                         educationBeneficiary, unsyncedTeiReferences),
                     beneficiaryName: educationBeneficiary.toString(),
-                    canEdit: canEdit,
+                    canEdit:
+                        canEdit && educationBeneficiary.enrollmentOuAccessible!,
                     canExpand: canExpand,
                     canView: canView,
                     isExpanded: isExpanded,

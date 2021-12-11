@@ -65,19 +65,22 @@ class OgacBeneficiaryCardTop extends StatelessWidget {
               ),
             ),
           ),
-          Container(
-            child: InkWell(
-              onTap: onEditBeneficiary,
-              child: Container(
-                height: iconHeight,
-                width: iconHeight,
-                margin: EdgeInsets.symmetric(
-                  vertical: 5.0,
-                  horizontal: 5.0,
-                ),
-                child: SvgPicture.asset(
-                  'assets/icons/edit-icon.svg',
-                  color: Color(0xFFF05A2A),
+          Visibility(
+            visible: ogacBeneficiary.enrollmentOuAccessible!,
+            child: Container(
+              child: InkWell(
+                onTap: onEditBeneficiary,
+                child: Container(
+                  height: iconHeight,
+                  width: iconHeight,
+                  margin: EdgeInsets.symmetric(
+                    vertical: 5.0,
+                    horizontal: 5.0,
+                  ),
+                  child: SvgPicture.asset(
+                    'assets/icons/edit-icon.svg',
+                    color: Color(0xFFF05A2A),
+                  ),
                 ),
               ),
             ),

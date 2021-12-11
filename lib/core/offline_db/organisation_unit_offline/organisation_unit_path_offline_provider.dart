@@ -5,7 +5,7 @@ import 'package:sqflite/sqflite.dart';
 class OrganisationUnitPathOfflineProvider extends OfflineDbProvider {
   // table name
   final String table = "organisation_unit_path";
-  // column\
+  // column
   final String id = "id";
   final String path = "path";
 
@@ -19,9 +19,26 @@ class OrganisationUnitPathOfflineProvider extends OfflineDbProvider {
       map['path'] = organisationUnit.path;
       await dbClient!
           .insert(table, map, conflictAlgorithm: ConflictAlgorithm.replace);
-    } catch (error) {
-      print("addOrUpdateOrganisationUnitPath : ${error.toString()}");
-    }
+    } catch (error) {}
+  }
+
+  Future<List<String>> getAccessableOrganisationUnits(
+      String organisationUnitId) async {
+    List<String> organisationUnitIds = [];
+    try {
+      var dbClient = await db;
+      List<Map> maps = await dbClient!.query(
+        table,
+        columns: [id, path],
+      );
+      if (maps.isNotEmpty) {
+        organisationUnitIds.addAll(maps
+            .where((map) => "${map[path]}".contains(organisationUnitId))
+            .toList()
+            .map((map) => "${map[id]}"));
+      }
+    } catch (error) {}
+    return organisationUnitIds.toList().toSet().toList();
   }
 
   Future<List<String?>> getOrganisationUnitsInPathByOrganisationUnit(
@@ -51,10 +68,7 @@ class OrganisationUnitPathOfflineProvider extends OfflineDbProvider {
           );
         }
       }
-    } catch (error) {
-      print(
-          "getOrganisationUnitsInPathByOrganisationUnit : ${error.toString()}");
-    }
+    } catch (error) {}
     return organisationUnitIds.toList().toSet().toList();
   }
 
@@ -71,9 +85,7 @@ class OrganisationUnitPathOfflineProvider extends OfflineDbProvider {
       if (maps.isNotEmpty) {
         organisationUnitPath = maps.first["path"];
       }
-    } catch (error) {
-      print("getOrganiationUnitPath : ${error.toString()}");
-    }
+    } catch (error) {}
     return organisationUnitPath;
   }
 }

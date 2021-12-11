@@ -59,19 +59,22 @@ class PpPrevBeneficiaryCardTop extends StatelessWidget {
               ),
             ),
           ),
-          Container(
-            child: InkWell(
-              onTap: onEditBeneficiary,
-              child: Container(
-                height: iconHeight,
-                width: iconHeight,
-                margin: EdgeInsets.symmetric(
-                  vertical: 5.0,
-                  horizontal: 5.0,
-                ),
-                child: SvgPicture.asset(
-                  'assets/icons/edit-icon.svg',
-                  color: Color(0xFF9B2BAE),
+          Visibility(
+            visible: ppPrevBeneficiary.enrollmentOuAccessible!,
+            child: Container(
+              child: InkWell(
+                onTap: onEditBeneficiary,
+                child: Container(
+                  height: iconHeight,
+                  width: iconHeight,
+                  margin: EdgeInsets.symmetric(
+                    vertical: 5.0,
+                    horizontal: 5.0,
+                  ),
+                  child: SvgPicture.asset(
+                    'assets/icons/edit-icon.svg',
+                    color: Color(0xFF9B2BAE),
+                  ),
                 ),
               ),
             ),

@@ -38,7 +38,6 @@ class AgywDreamsEnrollmentService {
     inputFieldIds.addAll(FormUtil.getFormFieldIds(riskAssessmentFormSections));
     inputFieldIds.addAll(FormUtil.getFormFieldIds(concentFormSections));
     inputFieldIds.addAll(FormUtil.getFormFieldIds(enrollmentFormSections));
-
     TrackedEntityInstance trackedEntityInstanceData =
         await FormUtil.geTrackedEntityInstanceEnrollmentPayLoad(
             trackedEntityInstance,
@@ -63,25 +62,26 @@ class AgywDreamsEnrollmentService {
       {int? page, List teiList = const [], String searchableValue = ''}) async {
     List<AgywDream> agywDreamList = [];
     try {
+      List<String> accessibleOrgUnits = await OrganisationUnitService()
+          .getOrganisationUnitAccessedByCurrentUser();
       List<Enrollment> enrollments = await EnrollmentOfflineProvider()
           .getFilteredEnrollments(program,
               page: page, requiredTeiList: teiList as List<String>);
       for (Enrollment enrollment in enrollments) {
-        // get location
         List<OrganisationUnit> ous = await OrganisationUnitService()
             .getOrganisationUnits([enrollment.orgUnit]);
         String? location = ous.length > 0 ? ous[0].name : enrollment.orgUnit;
         String? orgUnit = enrollment.orgUnit;
         String? createdDate = enrollment.enrollmentDate;
         String? enrollmentId = enrollment.enrollment;
-
+        bool enrollmentOuAccessible = accessibleOrgUnits.contains(orgUnit);
         List<TrackedEntityInstance> dataHolds =
             await TrackedEntityInstanceOfflineProvider()
                 .getTrackedEntityInstanceByIds(
                     [enrollment.trackedEntityInstance]);
         for (TrackedEntityInstance tei in dataHolds) {
-          agywDreamList.add(AgywDream()
-              .fromTeiModel(tei, orgUnit, location, createdDate, enrollmentId));
+          agywDreamList.add(AgywDream().fromTeiModel(tei, orgUnit, location,
+              createdDate, enrollmentId, enrollmentOuAccessible));
         }
       }
     } catch (e) {}
@@ -101,25 +101,26 @@ class AgywDreamsEnrollmentService {
       List<Map<String, dynamic>> filters = const []}) async {
     List<AgywDream> agywDreamList = [];
     try {
+      List<String> accessibleOrgUnits = await OrganisationUnitService()
+          .getOrganisationUnitAccessedByCurrentUser();
       List<Enrollment> enrollments = await EnrollmentOfflineProvider()
           .getEnrollmentsByProgram(program,
               page: page, searchedValue: searchableValue);
       for (Enrollment enrollment in enrollments) {
-        // get location
         List<OrganisationUnit> ous = await OrganisationUnitService()
             .getOrganisationUnits([enrollment.orgUnit]);
         String? location = ous.length > 0 ? ous[0].name : enrollment.orgUnit;
         String? orgUnit = enrollment.orgUnit;
         String? createdDate = enrollment.enrollmentDate;
         String? enrollmentId = enrollment.enrollment;
-
+        bool enrollmentOuAccessible = accessibleOrgUnits.contains(orgUnit);
         List<TrackedEntityInstance> dataHolds =
             await TrackedEntityInstanceOfflineProvider()
                 .getTrackedEntityInstanceByIds(
                     [enrollment.trackedEntityInstance]);
         for (TrackedEntityInstance tei in dataHolds) {
-          agywDreamList.add(AgywDream()
-              .fromTeiModel(tei, orgUnit, location, createdDate, enrollmentId));
+          agywDreamList.add(AgywDream().fromTeiModel(tei, orgUnit, location,
+              createdDate, enrollmentId, enrollmentOuAccessible));
         }
       }
     } catch (e) {}

@@ -63,7 +63,11 @@ class EducationBeneficiaryCardHeader extends StatelessWidget {
               Visibility(
                 visible: true,
                 child: Expanded(
-                  flex: canEdit && canView ? 7 : 10,
+                  flex: canEdit && canView
+                      ? 7
+                      : canView
+                          ? 8
+                          : 10,
                   child: Container(
                     padding: EdgeInsets.only(left: 5.0),
                     child: Text(

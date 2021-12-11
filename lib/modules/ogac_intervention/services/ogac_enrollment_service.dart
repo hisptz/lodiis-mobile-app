@@ -60,6 +60,8 @@ class OgacEnrollmentService {
       {int? page,
       String searchableValue = '',
       List<Map<String, dynamic>> filters = const []}) async {
+    List<String> accessibleOrgUnits = await OrganisationUnitService()
+        .getOrganisationUnitAccessedByCurrentUser();
     List<OgacBeneficiary> ogacBeneficiaries = [];
     List<Enrollment> enrollments = await EnrollmentOfflineProvider()
         .getEnrollmentsByProgram(OgacInterventionConstant.program,
@@ -75,6 +77,7 @@ class OgacEnrollmentService {
           await TrackedEntityInstanceOfflineProvider()
               .getTrackedEntityInstanceByIds(
                   [enrollment.trackedEntityInstance]);
+      bool enrollmentOuAccessible = accessibleOrgUnits.contains(orgUnit);
       for (TrackedEntityInstance tei in ogacBeneficiaryList) {
         List<Events> eventList = await EventOfflineProvider()
             .getTrackedEntityInstanceEvents([tei.trackedEntityInstance]);
@@ -86,6 +89,7 @@ class OgacEnrollmentService {
           createdDate,
           enrollmentId,
           eventData,
+          enrollmentOuAccessible,
         ));
       }
     }

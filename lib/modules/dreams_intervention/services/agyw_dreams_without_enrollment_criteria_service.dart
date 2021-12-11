@@ -18,7 +18,6 @@ class AgywDreamsWithoutEnrollmentCriteriaService {
       formSections,
     );
 
-    // assign implementing partner
     if (eventId == null) {
       inputFieldIds.add(UserAccountReference.implementingPartnerDataElement);
       inputFieldIds.add(UserAccountReference.subImplementingPartnerDataElement);
