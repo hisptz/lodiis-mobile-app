@@ -50,6 +50,8 @@ class PpPrevEnrollmentService {
       {int? page,
       String searchableValue = '',
       List<Map<String, dynamic>> filters = const []}) async {
+    List<String> accessibleOrgUnits = await OrganisationUnitService()
+        .getOrganisationUnitAccessedByCurrentUser();
     List<PpPrevBeneficiary> ppPrevBeneficiaries = [];
     List<Enrollment> enrollments = await EnrollmentOfflineProvider()
         .getEnrollmentsByProgram(PpPrevInterventionConstant.program,
@@ -61,6 +63,7 @@ class PpPrevEnrollmentService {
       String? orgUnit = enrollment.orgUnit;
       String? createdDate = enrollment.enrollmentDate;
       String? enrollmentId = enrollment.enrollment;
+      bool enrollmentOuAccessible = accessibleOrgUnits.contains(orgUnit);
       List<TrackedEntityInstance> ppPrevBeneficiaryList =
           await TrackedEntityInstanceOfflineProvider()
               .getTrackedEntityInstanceByIds(
@@ -72,6 +75,7 @@ class PpPrevEnrollmentService {
           location,
           createdDate,
           enrollmentId,
+          enrollmentOuAccessible,
         ));
       }
     }

@@ -19,6 +19,7 @@ class OgacBeneficiary {
   String? searchableValue;
   String? enrollment;
   String? implementingPartner;
+  bool? enrollmentOuAccessible;
   TrackedEntityInstance? trackedEntityInstanceData;
   Events? eventData;
 
@@ -38,6 +39,7 @@ class OgacBeneficiary {
     this.enrollment,
     this.searchableValue,
     this.implementingPartner,
+    this.enrollmentOuAccessible,
     this.trackedEntityInstanceData,
     this.eventData,
   });
@@ -48,6 +50,7 @@ class OgacBeneficiary {
     String? createdDate,
     String? enrollment,
     Events? eventData,
+    bool? enrollmentOuAccessible,
   ) {
     List keys = [
       'RB8Wx75hGa4',
@@ -88,6 +91,7 @@ class OgacBeneficiary {
       village: village != "" ? village : 'N/A',
       createdDate: createdDate,
       enrollment: enrollment,
+      enrollmentOuAccessible: enrollmentOuAccessible,
       implementingPartner: data['klLkGxy328c'] ?? '',
       trackedEntityInstanceData: trackedEntityInstance,
       eventData: eventData,

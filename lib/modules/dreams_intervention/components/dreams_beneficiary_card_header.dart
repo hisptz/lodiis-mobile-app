@@ -38,7 +38,10 @@ class DreamsBeneficiaryCardHeader extends StatelessWidget {
     return Column(
       children: [
         Container(
-          margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          margin: EdgeInsets.symmetric(
+            horizontal: 10.0,
+            vertical: 10.0,
+          ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -60,9 +63,15 @@ class DreamsBeneficiaryCardHeader extends StatelessWidget {
               Visibility(
                 visible: true,
                 child: Expanded(
-                  flex: canEdit && canView ? 7 : 10,
+                  flex: canEdit && canView
+                      ? 7
+                      : canView
+                          ? 8
+                          : 10,
                   child: Container(
-                    padding: EdgeInsets.only(left: 5.0),
+                    padding: EdgeInsets.only(
+                      left: 5.0,
+                    ),
                     child: Text(
                       beneficiaryName,
                       style: TextStyle().copyWith(
@@ -151,7 +160,7 @@ class DreamsBeneficiaryCardHeader extends StatelessWidget {
                   child: InkWell(
                     onTap: onToggleCard,
                     child: Container(
-                      height: iconHeight * 0.8,
+                      height: iconHeight,
                       width: iconHeight,
                       margin: EdgeInsets.symmetric(
                         vertical: 5.0,

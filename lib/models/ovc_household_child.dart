@@ -13,6 +13,7 @@ class OvcHouseholdChild {
   String? orgUnit;
   String? createdDate;
   String? hivStatus;
+  bool? enrollmentOuAccessible;
   TrackedEntityInstance? teiData;
 
   OvcHouseholdChild({
@@ -27,6 +28,7 @@ class OvcHouseholdChild {
     this.orgUnit,
     this.createdDate,
     this.hivStatus,
+    this.enrollmentOuAccessible,
     this.teiData,
   });
 
@@ -34,6 +36,7 @@ class OvcHouseholdChild {
     TrackedEntityInstance tei,
     String? orgUnit,
     String? createdDate,
+    bool? enrollmentOuAccessible,
   ) {
     List keys = [
       'WTZ7GLTrE8Q',
@@ -67,6 +70,7 @@ class OvcHouseholdChild {
                 ? 'Positive'
                 : 'Negative'
             : '',
+        enrollmentOuAccessible: enrollmentOuAccessible,
         orgUnit: orgUnit,
         teiData: tei);
   }

@@ -65,9 +65,9 @@ class OvcEnrollmentHouseholdService {
       String searchableValue = '',
       List<Map<String, dynamic>> filters = const []}) async {
     List<OvcHousehold> ovcHouseHoldList = [];
-
+    List<String> accessibleOrgUnits = await OrganisationUnitService()
+        .getOrganisationUnitAccessedByCurrentUser();
     List<TrackedEntityInstance> allTrackedEntityInstanceList = [];
-
     try {
       List<Enrollment> enrollments = await EnrollmentOfflineProvider()
           .getEnrollmentsByProgram(program,
@@ -78,20 +78,17 @@ class OvcEnrollmentHouseholdService {
                   .map((Enrollment enrollment) =>
                       enrollment.trackedEntityInstance)
                   .toList());
-
       for (Enrollment enrollment in enrollments) {
-        // get location
         List<OrganisationUnit> ous = await OrganisationUnitService()
             .getOrganisationUnits([enrollment.orgUnit]);
         String? location = ous.length > 0 ? ous[0].name : enrollment.orgUnit;
         String? orgUnit = enrollment.orgUnit;
         String? createdDate = enrollment.enrollmentDate;
-        //loading households
+        bool enrollmentOuAccessible = accessibleOrgUnits.contains(orgUnit);
         List<TrackedEntityInstance> houseHolds = allTrackedEntityInstanceList
             .where((tei) =>
                 tei.trackedEntityInstance == enrollment.trackedEntityInstance)
             .toList();
-        // loop house hold/caregiver
         for (TrackedEntityInstance tei in houseHolds) {
           List<TeiRelationship> relationships =
               await TeiRelationshipOfflineProvider()
@@ -102,23 +99,27 @@ class OvcEnrollmentHouseholdService {
           List<TrackedEntityInstance> houseHoldChildrenTeiData =
               await TrackedEntityInstanceOfflineProvider()
                   .getTrackedEntityInstanceByIds(childTeiIds);
-          //assign household data
           List<OvcHouseholdChild> houseHoldChildren = houseHoldChildrenTeiData
-              .map((TrackedEntityInstance child) =>
-                  OvcHouseholdChild().fromTeiModel(child, orgUnit, createdDate))
+              .map((TrackedEntityInstance child) => OvcHouseholdChild()
+                  .fromTeiModel(
+                      child, orgUnit, createdDate, enrollmentOuAccessible))
               .toList();
-          // update ovc counts
           try {
             tei =
                 getUpdatedHouseholdWithOvcCounts(tei, houseHoldChildrenTeiData);
             FormUtil.savingTrackedEntityInstance(tei);
           } catch (e) {}
           ovcHouseHoldList.add(OvcHousehold().fromTeiModel(
-              tei, location, orgUnit, createdDate, houseHoldChildren));
+            tei,
+            location,
+            orgUnit,
+            createdDate,
+            enrollmentOuAccessible,
+            houseHoldChildren,
+          ));
         }
       }
     } catch (e) {}
-
     if (filters.isNotEmpty) {
       for (Map<String, dynamic> filter in filters) {
         String? implementingPartner = filter['implementingPartner'];

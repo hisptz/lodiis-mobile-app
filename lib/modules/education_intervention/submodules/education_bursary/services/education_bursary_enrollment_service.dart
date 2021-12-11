@@ -59,6 +59,8 @@ class EducationBursaryEnrollmentService {
     String searchableValue = '',
     List<Map<String, dynamic>> filters = const [],
   }) async {
+    List<String> accessibleOrgUnits = await OrganisationUnitService()
+        .getOrganisationUnitAccessedByCurrentUser();
     List<EducationBeneficiary> beneficiaries = [];
     List<Enrollment> enrollments = await EnrollmentOfflineProvider()
         .getEnrollmentsByProgram(BursaryInterventionConstant.program,
@@ -70,6 +72,7 @@ class EducationBursaryEnrollmentService {
       String? orgUnit = enrollment.orgUnit;
       String? createdDate = enrollment.enrollmentDate;
       String? enrollmentId = enrollment.enrollment;
+      bool enrollmentOuAccessible = accessibleOrgUnits.contains(orgUnit);
       List<TrackedEntityInstance> ogacBeneficiaryList =
           await TrackedEntityInstanceOfflineProvider()
               .getTrackedEntityInstanceByIds(
@@ -81,6 +84,7 @@ class EducationBursaryEnrollmentService {
           location,
           createdDate,
           enrollmentId,
+          enrollmentOuAccessible,
         ));
       }
     }

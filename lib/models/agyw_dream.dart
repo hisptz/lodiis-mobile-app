@@ -21,34 +21,38 @@ class AgywDream {
   String? beneficiaryType;
   String? phoneNumber;
   String? village;
+  bool? enrollmentOuAccessible;
   TrackedEntityInstance? trackedEntityInstanceData;
 
-  AgywDream(
-      {this.id,
-      this.firstname,
-      this.middlename,
-      this.surname,
-      this.age,
-      this.ageBand,
-      this.primaryUIC,
-      this.sex,
-      this.programStatus,
-      this.enrolledOrganisation,
-      this.location,
-      this.orgUnit,
-      this.createdDate,
-      this.enrollment,
-      this.searchableValue,
-      this.beneficiaryType,
-      this.phoneNumber,
-      this.village,
-      this.trackedEntityInstanceData});
+  AgywDream({
+    this.id,
+    this.firstname,
+    this.middlename,
+    this.surname,
+    this.age,
+    this.ageBand,
+    this.primaryUIC,
+    this.sex,
+    this.programStatus,
+    this.enrolledOrganisation,
+    this.location,
+    this.orgUnit,
+    this.createdDate,
+    this.enrollment,
+    this.searchableValue,
+    this.beneficiaryType,
+    this.phoneNumber,
+    this.village,
+    this.enrollmentOuAccessible,
+    this.trackedEntityInstanceData,
+  });
   AgywDream fromTeiModel(
     TrackedEntityInstance trackedEntityInstance,
     String? orgUnit,
     String? location,
     String? createdDate,
     String? enrollment,
+    bool? enrollmentOuAccessible,
   ) {
     List keys = [
       'WTZ7GLTrE8Q',
@@ -92,6 +96,7 @@ class AgywDream {
       createdDate: createdDate,
       enrollment: enrollment,
       enrolledOrganisation: data['klLkGxy328c'] ?? '',
+      enrollmentOuAccessible: enrollmentOuAccessible,
       searchableValue:
           "${data['WTZ7GLTrE8Q'] ?? ''} ${data['s1HaiT6OllL'] ?? ''} ${data['rSP9c21JsfC'] ?? ''} $age ${agywAgeBand(age)} ${data[BeneficiaryIdentification.beneficiaryId] ?? ''} ${data['VJiWumvINR6'] ?? ''} ${data['klLkGxy328c'] ?? ''} $location $createdDate"
               .toLowerCase(),
