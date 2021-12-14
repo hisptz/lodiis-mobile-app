@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:kb_mobile_app/app_state/device_connectivity_state/device_connectivity_state.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/education_intervention_state/education_bursary_state.dart';
 import 'package:kb_mobile_app/app_state/education_intervention_state/education_lbse_state.dart';
@@ -77,7 +78,7 @@ class _InterventionAppBarState extends State<InterventionAppBar> {
     });
   }
 
-  void openOnlineSearchSheet(BuildContext context) {
+  void onOpenOnlineSearchSheet(BuildContext context) {
     showModalBottomSheet(
         context: context,
         isDismissible: true,
@@ -336,13 +337,17 @@ class _InterventionAppBarState extends State<InterventionAppBar> {
           ),
         ),
         Container(
-          child: Visibility(
-            visible: !isSearchActive,
-            child: IconButton(
-              icon: Icon(Icons.travel_explore),
-              onPressed: () => openOnlineSearchSheet(context),
-            ),
-          ),
+          child: Consumer<DeviceConnectivityState>(
+              builder: (context, deviceConnectivityState, child) {
+            return Visibility(
+              visible: !isSearchActive &&
+                  (deviceConnectivityState.connectivityStatus ?? false),
+              child: IconButton(
+                icon: Icon(Icons.travel_explore),
+                onPressed: () => onOpenOnlineSearchSheet(context),
+              ),
+            );
+          }),
         ),
         Container(
           child: Visibility(
