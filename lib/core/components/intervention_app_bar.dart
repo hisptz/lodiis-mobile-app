@@ -9,6 +9,7 @@ import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_interven
 import 'package:kb_mobile_app/app_state/pp_prev_intervention_state/pp_prev_intervention_state.dart';
 import 'package:kb_mobile_app/core/components/data_download_message.dart';
 import 'package:kb_mobile_app/core/components/input_fields/text_input_field_container.dart';
+import 'package:kb_mobile_app/core/components/online_beneficiary_search.dart';
 import 'package:kb_mobile_app/models/Intervention_bottom_navigation.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
@@ -74,6 +75,15 @@ class _InterventionAppBarState extends State<InterventionAppBar> {
         onSearchBeneficiary(context);
       }
     });
+  }
+
+  void openOnlineSearchSheet(BuildContext context) {
+    showModalBottomSheet(
+        context: context,
+        isDismissible: true,
+        isScrollControlled: true,
+        backgroundColor: Colors.transparent,
+        builder: (BuildContext context) => OnlineBeneficiarySearch());
   }
 
   String _getCurrentInterventionBottomNavigationId(
@@ -322,6 +332,15 @@ class _InterventionAppBarState extends State<InterventionAppBar> {
                   ),
                 );
               },
+            ),
+          ),
+        ),
+        Container(
+          child: Visibility(
+            visible: !isSearchActive,
+            child: IconButton(
+              icon: Icon(Icons.travel_explore),
+              onPressed: () => openOnlineSearchSheet(context),
             ),
           ),
         ),
