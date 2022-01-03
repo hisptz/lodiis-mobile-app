@@ -1,11 +1,16 @@
 import 'dart:convert';
 
+import 'package:http/http.dart';
+import 'package:kb_mobile_app/core/constants/app_logs_constants.dart';
+import 'package:kb_mobile_app/core/offline_db/app_logs_offline/app_logs_offline_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/enrollment_offline/enrollment_offline_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/event_offline/event_offline_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/tei_relationship_offline/tei_relationship_offline_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/tracked_entity_instance_offline/tracked_entity_instance_offline_provider.dart';
 import 'package:kb_mobile_app/core/services/http_service.dart';
+import 'package:kb_mobile_app/core/services/synchronization_service.dart';
 import 'package:kb_mobile_app/core/services/user_service.dart';
+import 'package:kb_mobile_app/models/app_logs.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/models/enrollment.dart';
 import 'package:kb_mobile_app/models/events.dart';
@@ -73,6 +78,55 @@ class TrackedEntityInstanceService {
       await TeiRelationshipOfflineProvider()
           .addOrUpdateTeiRelationship(TeiRelationship().fromJson(json));
     }
+  }
+
+  Future<List<dynamic>> discoveringBeneficiaryByFilters(
+      List<String> programIds, String filters) async {
+    List<dynamic> tei = [];
+    try {
+      CurrentUser? currentUser = await (UserService().getCurrentUser());
+      String username = currentUser!.username ?? '';
+      String password = currentUser.password ?? '';
+      HttpService httpService = HttpService(
+        username: username,
+        password: password,
+      );
+      var url = "api/trackedEntityInstances.json";
+      for (String program in programIds) {
+        var queryParameters = {
+          "program": program,
+          "filter": filters,
+          "ouMode": "ALL",
+        };
+        List pageFilters =
+            await SynchronizationService(username, password, programIds, [])
+                .getDataPaginationFilters(
+          url,
+          queryParameters: queryParameters,
+        );
+        for (var pageFilter in pageFilters) {
+          Map<String, String> dataQueryParameters = {
+            "fields":
+                "trackedEntityInstance,trackedEntityType,attributes[attribute,value],enrollments[orgUnitName, program]"
+          };
+          dataQueryParameters.addAll(queryParameters);
+          dataQueryParameters.addAll(pageFilter);
+          Response response = await httpService.httpGet(url,
+              queryParameters: dataQueryParameters);
+
+          if (response.statusCode == 200) {
+            Map<String, dynamic> teiJson = json.decode(response.body);
+            tei.addAll(teiJson["trackedEntityInstances"] ?? []);
+          }
+        }
+      }
+    } catch (error) {
+      AppLogs log = AppLogs(
+          type: AppLogsConstants.errorLogType,
+          message: 'discoveringBeneficiaryByFilters: ${error.toString()}');
+      await AppLogsOfflineProvider().addLogs(log);
+    }
+    return tei;
   }
 
   Future<List<String>> discoveringBeneficiaryPrograms(String teiId) async {

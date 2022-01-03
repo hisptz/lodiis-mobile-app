@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/app_state/current_user_state/current_user_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/core/components/input_fields/input_field_container.dart';
 import 'package:kb_mobile_app/core/components/line_separator.dart';
+import 'package:kb_mobile_app/core/constants/intervention_program_mapper.dart';
+import 'package:kb_mobile_app/core/services/tracked_entity_instance_service.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/online_beneficiary_search_input.dart';
 import 'package:provider/provider.dart';
@@ -44,7 +47,7 @@ class _OnlineBeneficiarySearchState extends State<OnlineBeneficiarySearch> {
         ),
       );
 
-  void onBeneficiarySearch(BuildContext context) {
+  Future<void> onBeneficiarySearch(BuildContext context, String program) async {
     // remove empty values
     onlineSearchDataObject.removeWhere((String key, String value) {
       return value.isEmpty;
@@ -53,10 +56,35 @@ class _OnlineBeneficiarySearchState extends State<OnlineBeneficiarySearch> {
     // generate filter url
     List<String> apiFilters = [];
     onlineSearchDataObject.forEach((key, value) {
-      apiFilters.add('filter=$key:like:$value');
+      apiFilters.add('$key:like:$value');
     });
-    String searchFilterUrl = apiFilters.join('&');
-    print(searchFilterUrl);
+    String searchFilterUrl = apiFilters.join('&filter=');
+
+    List<String> searchablePrograms =
+        getSearchableProgramsByUserAccess(context, program);
+    // TODO: Add a check for unavailable searchable programs
+
+    List<dynamic> searchedTeis = await TrackedEntityInstanceService()
+        .discoveringBeneficiaryByFilters(searchablePrograms, searchFilterUrl);
+
+    // TODO: sanitize searched teis
+    print('results: $searchedTeis');
+  }
+
+  List<String> getSearchableProgramsByUserAccess(
+      BuildContext context, String intervention) {
+    Map<String, List<String>> programMapper =
+        InterventionProgramMapper.programs;
+
+    List<String> interventionPrograms = programMapper[intervention] ?? [];
+    List userPrograms = Provider.of<CurrentUserState>(context, listen: false)
+            .currentUser!
+            .programs ??
+        [];
+
+    return interventionPrograms
+        .where((program) => userPrograms.contains(program))
+        .toList();
   }
 
   @override
@@ -71,6 +99,10 @@ class _OnlineBeneficiarySearchState extends State<OnlineBeneficiarySearch> {
                   builder: (context, languageTranslationState, child) {
                 return Consumer<InterventionCardState>(
                     builder: (context, interventionCardState, child) {
+                  String program =
+                      interventionCardState.currentInterventionProgram.id!;
+                  var primaryColor = interventionCardState
+                      .currentInterventionProgram.primaryColor;
                   return Container(
                     padding: EdgeInsets.only(top: 10.0, left: 5.0, right: 5.0),
                     decoration: BoxDecoration(
@@ -98,13 +130,13 @@ class _OnlineBeneficiarySearchState extends State<OnlineBeneficiarySearch> {
                               Container(
                                 padding: EdgeInsets.symmetric(horizontal: 8.0),
                                 child: InkWell(
-                                  onTap: () => {onBeneficiarySearch(context)},
+                                  onTap: () =>
+                                      {onBeneficiarySearch(context, program)},
+
+                                  // TODO add loader when searching and disabled button when data object is empty
                                   child: Text(
                                     'Search',
-                                    style: TextStyle(
-                                        color: interventionCardState
-                                            .currentInterventionProgram
-                                            .primaryColor),
+                                    style: TextStyle(color: primaryColor),
                                   ),
                                 ),
                               )
@@ -119,8 +151,6 @@ class _OnlineBeneficiarySearchState extends State<OnlineBeneficiarySearch> {
                           padding: EdgeInsets.all(8.0),
                           children: searchInputs
                               .map((OnlineBeneficiarySearchInput input) {
-                            var primaryColor = interventionCardState
-                                .currentInterventionProgram.primaryColor;
                             InputField inputField = input.inputField;
                             inputField.inputColor = primaryColor;
                             return Container(
