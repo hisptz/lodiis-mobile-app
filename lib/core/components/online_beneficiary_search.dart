@@ -8,6 +8,7 @@ import 'package:kb_mobile_app/core/constants/intervention_program_mapper.dart';
 import 'package:kb_mobile_app/core/services/tracked_entity_instance_service.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/online_beneficiary_search_input.dart';
+import 'package:kb_mobile_app/models/online_beneficiary_search_result.dart';
 import 'package:provider/provider.dart';
 
 class OnlineBeneficiarySearch extends StatefulWidget {
@@ -64,8 +65,12 @@ class _OnlineBeneficiarySearchState extends State<OnlineBeneficiarySearch> {
         getSearchableProgramsByUserAccess(context, program);
     // TODO: Add a check for unavailable searchable programs
 
-    List<dynamic> searchedTeis = await TrackedEntityInstanceService()
+    List<dynamic> searchResults = await TrackedEntityInstanceService()
         .discoveringBeneficiaryByFilters(searchablePrograms, searchFilterUrl);
+
+    List<OnlineBeneficiarySearchResult> searchedTeis = searchResults
+        .map((result) => OnlineBeneficiarySearchResult().fromJson(result))
+        .toList();
 
     // TODO: sanitize searched teis
     print('results: $searchedTeis');

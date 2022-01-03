@@ -107,7 +107,7 @@ class TrackedEntityInstanceService {
         for (var pageFilter in pageFilters) {
           Map<String, String> dataQueryParameters = {
             "fields":
-                "trackedEntityInstance,trackedEntityType,attributes[attribute,value],enrollments[orgUnitName, program]"
+                "trackedEntityInstance,attributes[attribute,value],enrollments[orgUnitName, program]"
           };
           dataQueryParameters.addAll(queryParameters);
           dataQueryParameters.addAll(pageFilter);
