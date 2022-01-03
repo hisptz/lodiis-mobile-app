@@ -91,7 +91,8 @@ class _DreamsReferralManageState extends State<DreamsReferralManage> {
                                 referralIndex: widget.referralIndex,
                                 eventData: widget.eventData,
                                 isEditable: shouldEditReferral(
-                                    widget.eventData.dataValues ?? []),
+                                  widget.eventData.dataValues ?? [],
+                                ),
                                 isIncomingReferral: widget.isIncomingReferral,
                               ),
                               ReferralOutComeCardContainer(

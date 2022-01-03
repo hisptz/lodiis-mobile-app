@@ -119,7 +119,7 @@ class NoneParticipantBeneficiaryCard extends StatelessWidget {
                         ),
                       ),
                       Visibility(
-                        visible: canEdit,
+                        visible: canEdit && beneficiary.enrollmentOuAccessible!,
                         child: Expanded(
                           flex: 1,
                           child: InkWell(
