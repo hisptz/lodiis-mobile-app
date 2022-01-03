@@ -21,6 +21,7 @@ class OnlineBeneficiarySearch extends StatefulWidget {
 
 class _OnlineBeneficiarySearchState extends State<OnlineBeneficiarySearch> {
   Map<String, String> onlineSearchDataObject = Map();
+  bool isSearching = false;
   List<OnlineBeneficiarySearchInput> searchInputs = [
     OnlineBeneficiarySearchInput(
         label: 'First Name',
@@ -39,6 +40,12 @@ class _OnlineBeneficiarySearchState extends State<OnlineBeneficiarySearch> {
     });
   }
 
+  void updateSearchState() {
+    setState(() {
+      isSearching = !isSearching;
+    });
+  }
+
   Widget makeFilterDismissible({required Widget child}) => GestureDetector(
         behavior: HitTestBehavior.opaque,
         onTap: () => Navigator.of(context).pop(),
@@ -49,6 +56,7 @@ class _OnlineBeneficiarySearchState extends State<OnlineBeneficiarySearch> {
       );
 
   Future<void> onBeneficiarySearch(BuildContext context, String program) async {
+    updateSearchState();
     // remove empty values
     onlineSearchDataObject.removeWhere((String key, String value) {
       return value.isEmpty;
@@ -61,19 +69,23 @@ class _OnlineBeneficiarySearchState extends State<OnlineBeneficiarySearch> {
     });
     String searchFilterUrl = apiFilters.join('&filter=');
 
-    List<String> searchablePrograms =
-        getSearchableProgramsByUserAccess(context, program);
-    // TODO: Add a check for unavailable searchable programs
+    try {
+      List<String> searchablePrograms =
+          getSearchableProgramsByUserAccess(context, program);
+      // TODO: Add a check for unavailable searchable programs
 
-    List<dynamic> searchResults = await TrackedEntityInstanceService()
-        .discoveringBeneficiaryByFilters(searchablePrograms, searchFilterUrl);
+      List<dynamic> searchResults = await TrackedEntityInstanceService()
+          .discoveringBeneficiaryByFilters(searchablePrograms, searchFilterUrl);
 
-    List<OnlineBeneficiarySearchResult> searchedTeis = searchResults
-        .map((result) => OnlineBeneficiarySearchResult().fromJson(result))
-        .toList();
+      List<OnlineBeneficiarySearchResult> searchedTeis = searchResults
+          .map((result) => OnlineBeneficiarySearchResult().fromJson(result))
+          .toList();
+      print('results: $searchedTeis');
+    } catch (error) {
+      // TODO handle error
+    }
 
-    // TODO: sanitize searched teis
-    print('results: $searchedTeis');
+    updateSearchState();
   }
 
   List<String> getSearchableProgramsByUserAccess(
@@ -134,16 +146,19 @@ class _OnlineBeneficiarySearchState extends State<OnlineBeneficiarySearch> {
                               ),
                               Container(
                                 padding: EdgeInsets.symmetric(horizontal: 8.0),
-                                child: InkWell(
-                                  onTap: () =>
-                                      {onBeneficiarySearch(context, program)},
+                                child: isSearching
+                                    ? Text('Searching...')
+                                    : InkWell(
+                                        onTap: () => {
+                                          onBeneficiarySearch(context, program)
+                                        },
 
-                                  // TODO add loader when searching and disabled button when data object is empty
-                                  child: Text(
-                                    'Search',
-                                    style: TextStyle(color: primaryColor),
-                                  ),
-                                ),
+                                        // TODO add loader when searching and disabled button when data object is empty
+                                        child: Text(
+                                          'Search',
+                                          style: TextStyle(color: primaryColor),
+                                        ),
+                                      ),
                               )
                             ],
                           ),
