@@ -50,10 +50,11 @@ class _NoneAgywState extends State<NoneAgyw> {
     Provider.of<ServiceEventDataState>(context, listen: false)
         .resetServiceEventDataState(agywDream.id);
     Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => NoneAgywPrep(),
-        ));
+      context,
+      MaterialPageRoute(
+        builder: (context) => NoneAgywPrep(),
+      ),
+    );
   }
 
   void onAddNoneAgywBeneficiary(BuildContext context) async {
