@@ -7,6 +7,7 @@ class ReferralOutcomeEvent {
   String? referralReference;
   bool? requiredFollowUp;
   String? comments;
+  bool? enrollmentOuAccessible;
   Events? eventData;
 
   ReferralOutcomeEvent({
@@ -16,6 +17,7 @@ class ReferralOutcomeEvent {
     this.requiredFollowUp,
     this.referralReference,
     this.comments,
+    this.enrollmentOuAccessible,
     this.eventData,
   });
 
@@ -46,6 +48,7 @@ class ReferralOutcomeEvent {
       requiredFollowUp: data.containsKey('Ep3atnNQGTY')
           ? '${data['Ep3atnNQGTY']}'.trim() == 'true'
           : false,
+      enrollmentOuAccessible: eventData.enrollmentOuAccessible,
       eventData: eventData,
     );
   }
