@@ -9,6 +9,7 @@ class Events {
   String? status;
   String? orgUnit;
   String? syncStatus;
+  bool? enrollmentOuAccessible;
   dynamic dataValues;
 
   Events({
@@ -25,7 +26,7 @@ class Events {
 
   @override
   String toString() {
-    return 'event <$event> eventDate <$eventDate>';
+    return 'event <$event> eventDate <$eventDate> enrollmentOuAccessible <$enrollmentOuAccessible>';
   }
 
   bool get isSynced => this.syncStatus == "synced";

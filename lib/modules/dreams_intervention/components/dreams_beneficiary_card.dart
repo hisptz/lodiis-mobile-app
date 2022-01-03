@@ -142,8 +142,7 @@ class DreamsBeneficiaryCard extends StatelessWidget {
                     svgIcon: svgIcon,
                     isSynced:
                         _syncStatusOfAgyw(agywDream, unsyncedTeiReferences),
-                    beneficiaryName: beneficiaryName +
-                        ' ${agywDream.enrollmentOuAccessible}',
+                    beneficiaryName: beneficiaryName,
                     canEdit: canEdit && agywDream.enrollmentOuAccessible!,
                     canExpand: canExpand,
                     canView: canView,
