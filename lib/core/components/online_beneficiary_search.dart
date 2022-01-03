@@ -16,7 +16,7 @@ class OnlineBeneficiarySearch extends StatefulWidget {
 }
 
 class _OnlineBeneficiarySearchState extends State<OnlineBeneficiarySearch> {
-  Map onlineSearchDataObject = Map();
+  Map<String, String> onlineSearchDataObject = Map();
   List<OnlineBeneficiarySearchInput> searchInputs = [
     OnlineBeneficiarySearchInput(
         label: 'First Name',
@@ -29,8 +29,10 @@ class _OnlineBeneficiarySearchState extends State<OnlineBeneficiarySearch> {
         inputField: InputField(id: 'qZP982qpSPS', name: '', valueType: 'DATE')),
   ];
 
-  void searchInputChange(String id, String value) {
-    print('$id : $value');
+  void searchInputChange(String id, String? value) {
+    setState(() {
+      onlineSearchDataObject[id] = value ?? '';
+    });
   }
 
   Widget makeFilterDismissible({required Widget child}) => GestureDetector(
@@ -43,7 +45,18 @@ class _OnlineBeneficiarySearchState extends State<OnlineBeneficiarySearch> {
       );
 
   void onBeneficiarySearch(BuildContext context) {
-    print('Am searching');
+    // remove empty values
+    onlineSearchDataObject.removeWhere((String key, String value) {
+      return value.isEmpty;
+    });
+
+    // generate filter url
+    List<String> apiFilters = [];
+    onlineSearchDataObject.forEach((key, value) {
+      apiFilters.add('filter=$key:like:$value');
+    });
+    String searchFilterUrl = apiFilters.join('&');
+    print(searchFilterUrl);
   }
 
   @override
