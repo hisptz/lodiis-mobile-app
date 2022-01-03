@@ -277,6 +277,19 @@ class _InterventionAppBarState extends State<InterventionAppBar> {
           ),
         ),
         Container(
+          child: Consumer<DeviceConnectivityState>(
+              builder: (context, deviceConnectivityState, child) {
+            return Visibility(
+              visible: !isSearchActive &&
+                  (deviceConnectivityState.connectivityStatus ?? false),
+              child: IconButton(
+                icon: Icon(Icons.travel_explore),
+                onPressed: () => onOpenOnlineSearchSheet(context),
+              ),
+            );
+          }),
+        ),
+        Container(
           child: Visibility(
             visible: !isSearchActive,
             child: Consumer<InterventionBottomNavigationState>(
@@ -335,19 +348,6 @@ class _InterventionAppBarState extends State<InterventionAppBar> {
               },
             ),
           ),
-        ),
-        Container(
-          child: Consumer<DeviceConnectivityState>(
-              builder: (context, deviceConnectivityState, child) {
-            return Visibility(
-              visible: !isSearchActive &&
-                  (deviceConnectivityState.connectivityStatus ?? false),
-              child: IconButton(
-                icon: Icon(Icons.travel_explore),
-                onPressed: () => onOpenOnlineSearchSheet(context),
-              ),
-            );
-          }),
         ),
         Container(
           child: Visibility(
