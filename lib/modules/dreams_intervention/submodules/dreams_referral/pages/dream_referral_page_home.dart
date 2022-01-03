@@ -262,12 +262,15 @@ class _DreamsAgywReferralPageState extends State<DreamsAgywReferralPage> {
                                                           child:
                                                               ReferralCardSummary(
                                                             borderColor: Color(
-                                                                0xFFE9F4FA),
+                                                              0xFFE9F4FA,
+                                                            ),
                                                             buttonLabelColor:
                                                                 Color(
-                                                                    0xFF1F8ECE),
+                                                              0xFF1F8ECE,
+                                                            ),
                                                             titleColor: Color(
-                                                                0xFF05131B),
+                                                              0xFF05131B,
+                                                            ),
                                                             count: count,
                                                             cardBody:
                                                                 ReferralCardBodySummary(
@@ -275,9 +278,11 @@ class _DreamsAgywReferralPageState extends State<DreamsAgywReferralPage> {
                                                                   widget
                                                                       .isIncomingReferral,
                                                               labelColor: Color(
-                                                                  0XFF82898D),
+                                                                0XFF82898D,
+                                                              ),
                                                               valueColor: Color(
-                                                                  0XFF444E54),
+                                                                0XFF444E54,
+                                                              ),
                                                               referralEvent:
                                                                   eventData,
                                                             ),
@@ -311,7 +316,9 @@ class _DreamsAgywReferralPageState extends State<DreamsAgywReferralPage> {
                                               fontSize: 15.0,
                                               onPressButton: () =>
                                                   onAddReferral(
-                                                      context, agywDream!),
+                                                context,
+                                                agywDream!,
+                                              ),
                                             ),
                                           )
                                         ],

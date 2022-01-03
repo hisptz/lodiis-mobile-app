@@ -270,7 +270,8 @@ class ReferralOutComeView extends StatelessWidget {
                     Container(
                       child: Visibility(
                         visible: isEditableMode &&
-                            referralOutComeEvent!.requiredFollowUp!,
+                            referralOutComeEvent!.requiredFollowUp! &&
+                            referralOutComeEvent!.enrollmentOuAccessible!,
                         child: Container(
                           decoration: BoxDecoration(
                             color: themeColor,

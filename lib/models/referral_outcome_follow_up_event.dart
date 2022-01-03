@@ -7,6 +7,7 @@ class ReferralOutcomeFollowUpEvent {
   String? comments;
   String? referralReference;
   bool? additionalFollowUpRequired;
+  bool? enrollmentOuAccessible;
   Events? eventData;
 
   ReferralOutcomeFollowUpEvent({
@@ -16,6 +17,7 @@ class ReferralOutcomeFollowUpEvent {
     this.comments,
     this.referralReference,
     this.additionalFollowUpRequired,
+    this.enrollmentOuAccessible,
     this.eventData,
   });
 
@@ -47,6 +49,7 @@ class ReferralOutcomeFollowUpEvent {
               ? true
               : false
           : true,
+      enrollmentOuAccessible: eventData.enrollmentOuAccessible,
       referralReference: data[referralToFollowUpLinkage] ?? '',
       eventData: eventData,
     );
