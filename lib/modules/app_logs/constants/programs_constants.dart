@@ -7,5 +7,8 @@ class ProgramsConstants {
     "BNsDaCclOiu": "Caregiver",
     "CK4iMK8b0aZ": "NON-AGYW/DREAMS",
     "em38qztTI8s": "OVC",
+    "Pxpu6mjYnKD": "Bursary",
+    "tkL2hvIRwMy": "LBSE",
+    "iR6hbkQABMk": "PP PREV"
   };
 }
