@@ -1,6 +1,7 @@
 import 'package:kb_mobile_app/core/constants/pagination.dart';
 import 'package:kb_mobile_app/core/offline_db/event_offline/event_offline_data_value_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/offline_db_provider.dart';
+import 'package:kb_mobile_app/core/services/organisation_unit_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/none_participation_beneficiary.dart';
@@ -146,6 +147,8 @@ class EventOfflineProvider extends OfflineDbProvider {
       {String programId = '', String programStageId = '', int? page}) async {
     List<NoneParticipationBeneficiary> eventsProgramBeneficiaries = [];
     try {
+      List<String> accessibleOrgUnits = await OrganisationUnitService()
+          .getOrganisationUnitAccessedByCurrentUser();
       var dbClient = await db;
       List<Map> maps = await dbClient!.query(table,
           columns: [
@@ -171,6 +174,8 @@ class EventOfflineProvider extends OfflineDbProvider {
               .getEventDataValuesByEventId(map['id']);
           Events eventData = Events.fromOffline(map as Map<String, dynamic>);
           eventData.dataValues = dataValues;
+          eventData.enrollmentOuAccessible =
+              accessibleOrgUnits.contains(eventData.orgUnit);
           eventsProgramBeneficiaries
               .add(NoneParticipationBeneficiary().fromEventsModel(eventData));
         }
