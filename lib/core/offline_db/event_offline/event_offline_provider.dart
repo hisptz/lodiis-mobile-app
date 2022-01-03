@@ -70,8 +70,9 @@ class EventOfflineProvider extends OfflineDbProvider {
   }
 
   Future<List<Events>> getTrackedEntityInstanceEvents(
-    List<String?> trackedEntityInstanceIds,
-  ) async {
+    List<String?> trackedEntityInstanceIds, {
+    List<String>? accessibleOrgUnits,
+  }) async {
     List<Events> events = [];
     try {
       var dbClient = await db;
@@ -97,6 +98,8 @@ class EventOfflineProvider extends OfflineDbProvider {
             List dataValues = await EventOfflineDataValueProvider()
                 .getEventDataValuesByEventId(map['id']);
             Events eventData = Events.fromOffline(map as Map<String, dynamic>);
+            eventData.enrollmentOuAccessible =
+                accessibleOrgUnits?.contains(eventData.orgUnit);
             eventData.dataValues = dataValues;
             events.add(eventData);
           }
