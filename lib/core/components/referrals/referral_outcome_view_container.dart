@@ -134,33 +134,39 @@ class _ReferralOutComeViewContainerState
                           ),
                         ),
                       ),
-                      Container(child: Consumer<ServiceEventDataState>(
-                          builder: (context, serviceEventDataState, child) {
-                        Map<String?, List<Events>> eventListByProgramStage =
-                            serviceEventDataState.eventListByProgramStage;
-                        List<ReferralOutcomeFollowUpEvent>
-                            referralOutComeFollowUpEvents =
-                            getReferralOutComeFollowUps(
-                                eventListByProgramStage);
-                        return Visibility(
+                      Container(
+                        child: Consumer<ServiceEventDataState>(
+                            builder: (context, serviceEventDataState, child) {
+                          Map<String?, List<Events>> eventListByProgramStage =
+                              serviceEventDataState.eventListByProgramStage;
+                          List<ReferralOutcomeFollowUpEvent>
+                              referralOutComeFollowUpEvents =
+                              getReferralOutComeFollowUps(
+                                  eventListByProgramStage);
+                          return Visibility(
                             visible: widget.isEditableMode &&
                                 referralOutComeEvent != null &&
-                                referralOutComeFollowUpEvents.length == 0,
+                                referralOutComeFollowUpEvents.length == 0 &&
+                                widget.eventData.enrollmentOuAccessible!,
                             child: InkWell(
-                                onTap: widget.onEditReferralOutCome as void Function()?,
-                                child: Container(
-                                  height: editIconHeight,
-                                  width: editIconHeight,
-                                  margin: EdgeInsets.symmetric(
-                                    vertical: 10.0,
-                                    horizontal: 20.0,
-                                  ),
-                                  child: SvgPicture.asset(
-                                    'assets/icons/edit-icon.svg',
-                                    color: widget.themeColor,
-                                  ),
-                                )));
-                      }))
+                              onTap: widget.onEditReferralOutCome as void
+                                  Function()?,
+                              child: Container(
+                                height: editIconHeight,
+                                width: editIconHeight,
+                                margin: EdgeInsets.symmetric(
+                                  vertical: 10.0,
+                                  horizontal: 20.0,
+                                ),
+                                child: SvgPicture.asset(
+                                  'assets/icons/edit-icon.svg',
+                                  color: widget.themeColor,
+                                ),
+                              ),
+                            ),
+                          );
+                        }),
+                      )
                     ],
                   ),
                   LineSeparator(

@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
@@ -159,7 +157,9 @@ class _ReferralOutComeCardState extends State<ReferralOutComeCard> {
                   ),
                 ),
                 Visibility(
-                  visible: widget.isEditableMode && !isReferralOutComeFilled,
+                  visible: widget.isEditableMode &&
+                      !isReferralOutComeFilled &&
+                      widget.eventData.enrollmentOuAccessible!,
                   child: ClipRRect(
                     borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(12.0),

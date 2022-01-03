@@ -196,7 +196,9 @@ class _ReferralDetailedCardState extends State<ReferralDetailedCard> {
                                   ),
                                 ),
                                 Visibility(
-                                  visible: widget.isEditable &&
+                                  visible: widget
+                                          .eventData.enrollmentOuAccessible! &&
+                                      widget.isEditable &&
                                       referralOutComeEvent != null &&
                                       referralOutComeEvent!
                                               .dateClientReachStation ==
