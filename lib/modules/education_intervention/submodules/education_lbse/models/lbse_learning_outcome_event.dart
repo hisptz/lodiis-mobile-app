@@ -7,6 +7,7 @@ class LbseLearningOutcomeEvent {
   String? date;
   String? learningOutcome;
   String? referralLinkeage;
+  bool? enrollmentOuAccessible;
   Events? eventData;
 
   LbseLearningOutcomeEvent({
@@ -15,6 +16,7 @@ class LbseLearningOutcomeEvent {
     this.learningOutcome,
     this.date,
     this.referralLinkeage,
+    this.enrollmentOuAccessible,
     this.eventData,
   });
 
@@ -40,6 +42,7 @@ class LbseLearningOutcomeEvent {
       referralLinkeage:
           data[LbseInterventionConstant.learningOutcomeToReferralLinkage] ?? '',
       date: eventData.eventDate,
+      enrollmentOuAccessible: eventData.enrollmentOuAccessible,
       eventData: eventData,
     );
   }
