@@ -43,17 +43,23 @@ class OvcChildAssessment extends StatelessWidget {
           ? Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => OvcServiceWellBeingAssessmentForm()))
+                builder: (context) => OvcServiceWellBeingAssessmentForm(),
+              ),
+            )
           : assessmentResponse == 'TB'
               ? Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => OvcServiceTBAssessmentForm()))
+                    builder: (context) => OvcServiceTBAssessmentForm(),
+                  ),
+                )
               : assessmentResponse == 'HIV'
                   ? Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => OvcServiceHIVAssessmentForm()))
+                        builder: (context) => OvcServiceHIVAssessmentForm(),
+                      ),
+                    )
                   : print(assessmentResponse);
     }
   }
@@ -95,26 +101,27 @@ class OvcChildAssessment extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(65.0),
-          child: Consumer<InterventionCardState>(
-            builder: (context, interventionCardState, child) {
-              InterventionCard activeInterventionProgram =
-                  interventionCardState.currentInterventionProgram;
-              return SubPageAppBar(
-                label: label,
-                activeInterventionProgram: activeInterventionProgram,
-              );
-            },
-          ),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(65.0),
+        child: Consumer<InterventionCardState>(
+          builder: (context, interventionCardState, child) {
+            InterventionCard activeInterventionProgram =
+                interventionCardState.currentInterventionProgram;
+            return SubPageAppBar(
+              label: label,
+              activeInterventionProgram: activeInterventionProgram,
+            );
+          },
         ),
-        body: SubPageBody(
-          body: Container(
-            child: Consumer<OvcHouseholdCurrentSelectionState>(
-              builder: (context, ovcHouseholdCurrentSelectionState, child) {
-                OvcHouseholdChild? currentOvcHouseholdChild =
-                    ovcHouseholdCurrentSelectionState.currentOvcHouseholdChild;
-                return Column(children: [
+      ),
+      body: SubPageBody(
+        body: Container(
+          child: Consumer<OvcHouseholdCurrentSelectionState>(
+            builder: (context, ovcHouseholdCurrentSelectionState, child) {
+              OvcHouseholdChild? currentOvcHouseholdChild =
+                  ovcHouseholdCurrentSelectionState.currentOvcHouseholdChild;
+              return Column(
+                children: [
                   OvcChildInfoTopHeader(),
                   Container(
                     child: Container(
@@ -145,36 +152,36 @@ class OvcChildAssessment extends StatelessWidget {
                                         )
                                       : Column(
                                           children: events
-                                              .map((Events eventData) =>
-                                                  OvcChildAssessmentListCard(
-                                                    eventData: eventData,
-                                                    programStageMap:
-                                                        programStageMap,
-                                                    onEditAssessment: () {
-                                                      String?
-                                                          assessmentResponse =
-                                                          programStageMap[
-                                                              eventData
-                                                                  .programStage];
-                                                      onEditAssessment(
-                                                          context,
-                                                          assessmentResponse,
-                                                          eventData,
-                                                          currentOvcHouseholdChild!);
-                                                    },
-                                                    onViewAssessment: () {
-                                                      String?
-                                                          assessmentResponse =
-                                                          programStageMap[
-                                                              eventData
-                                                                  .programStage];
-                                                      onViewAssessment(
-                                                          context,
-                                                          assessmentResponse,
-                                                          eventData,
-                                                          currentOvcHouseholdChild!);
-                                                    },
-                                                  ))
+                                              .map(
+                                                (Events eventData) =>
+                                                    OvcChildAssessmentListCard(
+                                                  eventData: eventData,
+                                                  programStageMap:
+                                                      programStageMap,
+                                                  onEditAssessment: () {
+                                                    String? assessmentResponse =
+                                                        programStageMap[
+                                                            eventData
+                                                                .programStage];
+                                                    onEditAssessment(
+                                                        context,
+                                                        assessmentResponse,
+                                                        eventData,
+                                                        currentOvcHouseholdChild!);
+                                                  },
+                                                  onViewAssessment: () {
+                                                    String? assessmentResponse =
+                                                        programStageMap[
+                                                            eventData
+                                                                .programStage];
+                                                    onViewAssessment(
+                                                        context,
+                                                        assessmentResponse,
+                                                        eventData,
+                                                        currentOvcHouseholdChild!);
+                                                  },
+                                                ),
+                                              )
                                               .toList(),
                                         ),
                                 );
@@ -183,19 +190,26 @@ class OvcChildAssessment extends StatelessWidget {
                     ),
                   ),
                   Container(
+                    child: Visibility(
+                      visible:
+                          currentOvcHouseholdChild!.enrollmentOuAccessible!,
                       child: EntryFormSaveButton(
-                    label: 'NEW ASSESSMENT',
-                    labelColor: Colors.white,
-                    fontSize: 14,
-                    buttonColor: Color(0xFF4B9F46),
-                    onPressButton: () => onAddNewChildAssessment(
-                        context, currentOvcHouseholdChild!),
-                  ))
-                ]);
-              },
-            ),
+                        label: 'NEW ASSESSMENT',
+                        labelColor: Colors.white,
+                        fontSize: 14,
+                        buttonColor: Color(0xFF4B9F46),
+                        onPressButton: () => onAddNewChildAssessment(
+                            context, currentOvcHouseholdChild),
+                      ),
+                    ),
+                  )
+                ],
+              );
+            },
           ),
         ),
-        bottomNavigationBar: InterventionBottomNavigationBarContainer());
+      ),
+      bottomNavigationBar: InterventionBottomNavigationBarContainer(),
+    );
   }
 }
