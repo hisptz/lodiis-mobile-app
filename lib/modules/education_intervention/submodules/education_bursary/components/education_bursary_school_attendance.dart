@@ -11,7 +11,6 @@ import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/education_beneficiary.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/form_auto_save.dart';
-import 'package:kb_mobile_app/modules/education_intervention/components/education_beneficiary_top_header.dart';
 import 'package:kb_mobile_app/modules/education_intervention/components/education_list_card.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_bursary/constants/bursary_intervention_constant.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_bursary/constants/bursary_routes_constant.dart';
@@ -176,6 +175,8 @@ class _EducationBursarySchoolAttendanceState
                                                 title: attendance.attended
                                                     ? 'Attended'
                                                     : 'Not Attended',
+                                                canEdit: attendance
+                                                    .enrollmentOuAccessible!,
                                                 onEdit: () => onEditAttendance(
                                                   context,
                                                   bursaryBeneficiary!,
