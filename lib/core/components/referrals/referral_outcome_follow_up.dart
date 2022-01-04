@@ -72,7 +72,6 @@ class ReferralOutComeFollowUp extends StatelessWidget {
                           ),
                         ),
                       ),
-                      //@TODO on editing following ups
                       Visibility(
                         visible: isEditableMode &&
                             referralOutComeFollowUpEvent
