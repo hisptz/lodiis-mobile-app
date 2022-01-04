@@ -11,19 +11,20 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/c
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/constants/ovc_case_plan_constant.dart';
 
 class CasePlanFormContainer extends StatelessWidget {
-  CasePlanFormContainer(
-      {Key? key,
-      required this.formSectionColor,
-      required this.formSection,
-      required this.isEditableMode,
-      required this.dataObject,
-      this.isCasePlanForHousehold = false,
-      this.onInputValueChange,
-      required this.shouldEditCaseGapServiceProvision,
-      required this.shouldViewCaseGapServiceProvision,
-      required this.shouldAddCasePlanGap,
-      this.currentHouseholdChild})
-      : super(key: key);
+  CasePlanFormContainer({
+    Key? key,
+    required this.formSectionColor,
+    required this.formSection,
+    required this.isEditableMode,
+    required this.dataObject,
+    required this.hasEditAccess,
+    this.isCasePlanForHousehold = false,
+    this.onInputValueChange,
+    required this.shouldEditCaseGapServiceProvision,
+    required this.shouldViewCaseGapServiceProvision,
+    required this.shouldAddCasePlanGap,
+    this.currentHouseholdChild,
+  }) : super(key: key);
 
   final Color? formSectionColor;
   final FormSection formSection;
@@ -33,6 +34,7 @@ class CasePlanFormContainer extends StatelessWidget {
   final bool isCasePlanForHousehold;
   final bool shouldEditCaseGapServiceProvision;
   final bool shouldAddCasePlanGap;
+  final bool hasEditAccess;
   final bool shouldViewCaseGapServiceProvision;
   final OvcHouseholdChild? currentHouseholdChild;
 
@@ -112,6 +114,7 @@ class CasePlanFormContainer extends StatelessWidget {
                   onInputValueChange: onValueChange,
                 ),
                 CasePlanGapViewContainer(
+                  hasEditAccess: hasEditAccess,
                   casePlanGaps: dataObject!['gaps'] ?? [],
                   domainId: formSection.id,
                   isCasePlanForHousehold: isCasePlanForHousehold,

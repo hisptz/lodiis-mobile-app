@@ -21,8 +21,6 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_serv
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/service_form/pages/agyw_dreams_service_form.dart';
 
 class DreamsServicesRoute {
-  //@TODO redirect for None agyw beneficiaries
-
   redirectToAgywDreamsANCForm(
     BuildContext context,
     FormAutoSave formAutoSave,

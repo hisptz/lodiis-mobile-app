@@ -75,22 +75,25 @@ class OvcExitListCard extends StatelessWidget {
                           ),
                         )),
                   ),
-                  Container(
-                    margin: EdgeInsets.symmetric(
-                      horizontal: 5.0,
+                  Visibility(
+                    visible: eventData.enrollmentOuAccessible!,
+                    child: Container(
+                      margin: EdgeInsets.symmetric(
+                        horizontal: 5.0,
+                      ),
+                      child: InkWell(
+                          onTap: onEditExit as void Function()?,
+                          child: Container(
+                            height: iconHeight,
+                            width: iconHeight,
+                            margin: EdgeInsets.symmetric(
+                                vertical: 5, horizontal: 5),
+                            child: SvgPicture.asset(
+                              'assets/icons/edit-icon.svg',
+                              color: Color(0xFF4B9F46),
+                            ),
+                          )),
                     ),
-                    child: InkWell(
-                        onTap: onEditExit as void Function()?,
-                        child: Container(
-                          height: iconHeight,
-                          width: iconHeight,
-                          margin:
-                              EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-                          child: SvgPicture.asset(
-                            'assets/icons/edit-icon.svg',
-                            color: Color(0xFF4B9F46),
-                          ),
-                        )),
                   ),
                 ],
               )

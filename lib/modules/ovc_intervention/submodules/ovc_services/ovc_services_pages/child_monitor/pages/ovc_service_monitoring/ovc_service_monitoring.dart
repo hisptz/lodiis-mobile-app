@@ -73,9 +73,12 @@ class _OvcServiceMonitoringState extends State<OvcServiceMonitoring> {
       context,
       MaterialPageRoute(
         builder: (context) => OcvServiceCasePlanForm(
-            shouldEditCaseGapServiceProvision: true,
-            shouldViewCaseGapServiceProvision: true,
-            isServiceMonitoring: true),
+          hasEditAccess:
+              AppUtil.hasAccessToEditCasePlanServiceData(casePlanEvents),
+          shouldEditCaseGapServiceProvision: true,
+          shouldViewCaseGapServiceProvision: true,
+          isServiceMonitoring: true,
+        ),
       ),
     );
   }

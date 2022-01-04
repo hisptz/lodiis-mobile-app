@@ -34,7 +34,6 @@ class _PhoneNumberInputFieldContainerState
   }
 
   void onValueChange(String value) {
-    // @TODO handling error messages
     setState(() {
       _value = value;
     });

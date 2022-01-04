@@ -196,7 +196,8 @@ class _OvcHouseholdExitFormContainerState
                                 child: Container(
                                   margin: EdgeInsets.symmetric(horizontal: 5.0),
                                   child: Visibility(
-                                    visible: !serviceFormState.isEditableMode,
+                                    visible: !serviceFormState.isEditableMode &&
+                                        widget.event!.enrollmentOuAccessible!,
                                     child: TextButton(
                                       style: TextButton.styleFrom(
                                         backgroundColor: Colors.transparent,

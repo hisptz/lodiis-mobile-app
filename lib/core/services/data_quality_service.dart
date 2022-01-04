@@ -119,7 +119,6 @@ class DataQualityService {
         .toList()
         .toSet()
         .toList();
-    // @TODO filtering list with those who fail to sync
     List attributes = await TrackedEntityInstanceOfflineAttributeProvider()
         .getTrackedEntityAttributesValuesById(attributeIds);
     for (Map attributeObject in attributes) {

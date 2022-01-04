@@ -59,10 +59,6 @@ class OvcChildServiceHome extends StatelessWidget {
     );
   }
 
-  void childHousehold() {
-    // print('go to house child hold');
-  }
-
   int getCountValueForOvcServiceChildCard(
     OvcChildServiceHomeConstant ovcChildServiceHomeCard,
     Map eventListByProgramStage,
@@ -87,93 +83,92 @@ class OvcChildServiceHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(65.0),
-          child: Consumer<InterventionCardState>(
-            builder: (context, interventionCardState, child) {
-              InterventionCard activeInterventionProgram =
-                  interventionCardState.currentInterventionProgram;
-              return SubPageAppBar(
-                label: label,
-                activeInterventionProgram: activeInterventionProgram,
-              );
-            },
-          ),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(65.0),
+        child: Consumer<InterventionCardState>(
+          builder: (context, interventionCardState, child) {
+            InterventionCard activeInterventionProgram =
+                interventionCardState.currentInterventionProgram;
+            return SubPageAppBar(
+              label: label,
+              activeInterventionProgram: activeInterventionProgram,
+            );
+          },
         ),
-        body: SubPageBody(
-          body: Container(
-            child: Column(
-              children: [
-                OvcChildInfoTopHeader(),
-                Container(
-                  child: Consumer<ServiceEventDataState>(
-                    builder: (context, serviceEventDataState, child) {
-                      bool isLoading = serviceEventDataState.isLoading;
-                      var eventListByProgramStage =
-                          serviceEventDataState.eventListByProgramStage;
-                      return isLoading
-                          ? Container(
-                              margin: EdgeInsets.only(top: 20.0),
-                              child: CircularProcessLoader(
-                                color: Colors.blueGrey,
-                              ),
-                            )
-                          : Container(
-                              margin: EdgeInsets.symmetric(
-                                  vertical: 16.0, horizontal: 13.0),
-                              child: GridView.count(
-                                crossAxisCount: 2,
-                                primary: false,
-                                mainAxisSpacing: 10.0,
-                                crossAxisSpacing: 10.0,
-                                shrinkWrap: true,
-                                children: ovcChildServiceHomeCards.map(
-                                  (OvcChildServiceHomeConstant
-                                      ovcChildServiceHomeCard) {
-                                    int countValue =
-                                        getCountValueForOvcServiceChildCard(
-                                      ovcChildServiceHomeCard,
-                                      eventListByProgramStage,
-                                    );
-                                    return Container(
-                                      alignment: Alignment.center,
-                                      margin: EdgeInsets.all(5.0),
-                                      child: InkWell(
-                                        child: OvcServiceChildCard(
-                                          ovcChildServiceHomeCard:
-                                              ovcChildServiceHomeCard,
-                                          countValue: countValue.toString(),
-                                        ),
-                                        onTap: () => ovcChildServiceHomeCard
-                                                    .id ==
-                                                'assessment'
-                                            ? onOpenChildAssessment(context)
-                                            : ovcChildServiceHomeCard.id ==
-                                                    'casePlan'
-                                                ? onOpenChildCasePlan(context)
-                                                : ovcChildServiceHomeCard.id ==
-                                                        'services'
-                                                    ? onOpenChildService(
-                                                        context)
-                                                    : ovcChildServiceHomeCard
-                                                                .id ==
-                                                            'monitor'
-                                                        ? onOpenChildMonitor(
-                                                            context)
-                                                        : null,
+      ),
+      body: SubPageBody(
+        body: Container(
+          child: Column(
+            children: [
+              OvcChildInfoTopHeader(),
+              Container(
+                child: Consumer<ServiceEventDataState>(
+                  builder: (context, serviceEventDataState, child) {
+                    bool isLoading = serviceEventDataState.isLoading;
+                    var eventListByProgramStage =
+                        serviceEventDataState.eventListByProgramStage;
+                    return isLoading
+                        ? Container(
+                            margin: EdgeInsets.only(top: 20.0),
+                            child: CircularProcessLoader(
+                              color: Colors.blueGrey,
+                            ),
+                          )
+                        : Container(
+                            margin: EdgeInsets.symmetric(
+                                vertical: 16.0, horizontal: 13.0),
+                            child: GridView.count(
+                              crossAxisCount: 2,
+                              primary: false,
+                              mainAxisSpacing: 10.0,
+                              crossAxisSpacing: 10.0,
+                              shrinkWrap: true,
+                              children: ovcChildServiceHomeCards.map(
+                                (OvcChildServiceHomeConstant
+                                    ovcChildServiceHomeCard) {
+                                  int countValue =
+                                      getCountValueForOvcServiceChildCard(
+                                    ovcChildServiceHomeCard,
+                                    eventListByProgramStage,
+                                  );
+                                  return Container(
+                                    alignment: Alignment.center,
+                                    margin: EdgeInsets.all(5.0),
+                                    child: InkWell(
+                                      child: OvcServiceChildCard(
+                                        ovcChildServiceHomeCard:
+                                            ovcChildServiceHomeCard,
+                                        countValue: countValue.toString(),
                                       ),
-                                    );
-                                  },
-                                ).toList(),
-                              ),
-                            );
-                    },
-                  ),
+                                      onTap: () => ovcChildServiceHomeCard.id ==
+                                              'assessment'
+                                          ? onOpenChildAssessment(context)
+                                          : ovcChildServiceHomeCard.id ==
+                                                  'casePlan'
+                                              ? onOpenChildCasePlan(context)
+                                              : ovcChildServiceHomeCard.id ==
+                                                      'services'
+                                                  ? onOpenChildService(context)
+                                                  : ovcChildServiceHomeCard
+                                                              .id ==
+                                                          'monitor'
+                                                      ? onOpenChildMonitor(
+                                                          context)
+                                                      : null,
+                                    ),
+                                  );
+                                },
+                              ).toList(),
+                            ),
+                          );
+                  },
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
-        bottomNavigationBar: InterventionBottomNavigationBarContainer());
+      ),
+      bottomNavigationBar: InterventionBottomNavigationBarContainer(),
+    );
   }
 }

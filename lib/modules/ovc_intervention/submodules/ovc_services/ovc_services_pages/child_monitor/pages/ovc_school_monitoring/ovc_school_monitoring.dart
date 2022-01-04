@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_household_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
@@ -93,24 +94,39 @@ class _OvcSchoolMonitoringState extends State<OvcSchoolMonitoring> {
                           children: events.map((Events event) {
                             int index = monitoringCount--;
                             return Container(
-                                margin: EdgeInsets.only(bottom: 15.0),
-                                child: OvcChildSchoolMonitorContainer(
-                                  eventData: event,
-                                  index: index,
-                                  onEditMonitor: () =>
-                                      onEditSchoolMonitoring(context, event),
-                                  onViewMonitor: () =>
-                                      onViewSchoolMonitoring(context, event),
-                                ));
+                              margin: EdgeInsets.only(bottom: 15.0),
+                              child: OvcChildSchoolMonitorContainer(
+                                eventData: event,
+                                index: index,
+                                onEditMonitor: () =>
+                                    onEditSchoolMonitoring(context, event),
+                                onViewMonitor: () =>
+                                    onViewSchoolMonitoring(context, event),
+                              ),
+                            );
                           }).toList(),
                         ),
                 ),
-                EntryFormSaveButton(
-                  label: 'ADD MONITORING',
-                  labelColor: Colors.white,
-                  buttonColor: Color(0xFF4B9F46),
-                  fontSize: 15.0,
-                  onPressButton: () => onAddSchoolMonitoring(context),
+                Container(
+                  child: Consumer<OvcHouseholdCurrentSelectionState>(
+                    builder:
+                        (context, ovcHouseholdCurrentSelectionState, child) {
+                      var currentOvcHouseholdChild =
+                          ovcHouseholdCurrentSelectionState
+                              .currentOvcHouseholdChild!;
+                      return Visibility(
+                        visible:
+                            currentOvcHouseholdChild.enrollmentOuAccessible!,
+                        child: EntryFormSaveButton(
+                          label: 'ADD MONITORING',
+                          labelColor: Colors.white,
+                          buttonColor: Color(0xFF4B9F46),
+                          fontSize: 15.0,
+                          onPressButton: () => onAddSchoolMonitoring(context),
+                        ),
+                      );
+                    },
+                  ),
                 )
               ],
             );
