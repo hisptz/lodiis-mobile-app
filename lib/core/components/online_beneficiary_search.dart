@@ -84,6 +84,7 @@ class _OnlineBeneficiarySearchState extends State<OnlineBeneficiarySearch> {
       );
 
   Future<void> onBeneficiarySearch(BuildContext context, String program) async {
+    FocusScope.of(context).requestFocus(FocusNode());
     List<OnlineBeneficiarySearchResult> searchedTeis = [];
     updateSearchResults();
     updateSearchResultMessage('');
@@ -137,7 +138,7 @@ class _OnlineBeneficiarySearchState extends State<OnlineBeneficiarySearch> {
     return makeFilterDismissible(
         child: DraggableScrollableSheet(
             initialChildSize: 0.8,
-            minChildSize: 0.5,
+            minChildSize: 0.25,
             maxChildSize: 0.9,
             builder: (BuildContext context, ScrollController scrollController) {
               return Consumer<LanguageTranslationState>(
@@ -196,103 +197,97 @@ class _OnlineBeneficiarySearchState extends State<OnlineBeneficiarySearch> {
                         ),
                         LineSeparator(color: lineColor!),
                         Flexible(
-                            flex: 1,
                             child: ListView(
                                 controller: scrollController,
                                 children: [
-                                  ...searchInputs.map(
-                                      (OnlineBeneficiarySearchInput input) {
-                                    InputField inputField = input.inputField;
-                                    inputField.inputColor = primaryColor;
-                                    return Container(
-                                        padding: EdgeInsets.only(bottom: 8.0),
-                                        child: Theme(
-                                          data: Theme.of(context).copyWith(
-                                              dividerColor: Colors.transparent),
-                                          child: ExpansionTile(
-                                            childrenPadding: EdgeInsets.only(
-                                              left: 16.0,
-                                              right: 16.0,
-                                            ),
-                                            title: Row(
-                                              children: [
-                                                Expanded(
-                                                    child: Text(
-                                                  input.label,
-                                                  style: TextStyle(
-                                                      fontSize: 14.0,
-                                                      fontWeight:
-                                                          FontWeight.w500),
-                                                )),
-                                              ],
-                                            ),
-                                            children: [
-                                              InputFieldContainer(
-                                                  currentUserCountryLevelReferences: [],
-                                                  hiddenFields: Map(),
-                                                  inputField: inputField,
-                                                  hiddenInputFieldOptions:
-                                                      Map(),
-                                                  currentLanguage:
-                                                      languageTranslationState
-                                                          .currentLanguage,
-                                                  isEditableMode: true,
-                                                  showClearIcon: true,
-                                                  mandatoryFieldObject: Map(),
-                                                  dataObject:
-                                                      onlineSearchDataObject,
-                                                  onInputValueChange:
-                                                      (String id,
-                                                              dynamic value) =>
-                                                          searchInputChange(
-                                                              id, value))
-                                            ],
-                                            iconColor: primaryColor,
-                                            textColor: primaryColor,
-                                          ),
-                                        ));
-                                  }).toList(),
-                                  Visibility(
-                                      visible: searchResults.isNotEmpty ||
-                                          searchResultMessage.isNotEmpty,
-                                      child: Container(
-                                        margin: EdgeInsets.only(top: 10.0),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
+                              ...searchInputs
+                                  .map((OnlineBeneficiarySearchInput input) {
+                                InputField inputField = input.inputField;
+                                inputField.inputColor = primaryColor;
+                                return Container(
+                                    padding: EdgeInsets.only(bottom: 8.0),
+                                    child: Theme(
+                                      data: Theme.of(context).copyWith(
+                                          dividerColor: Colors.transparent),
+                                      child: ExpansionTile(
+                                        childrenPadding: EdgeInsets.only(
+                                          left: 16.0,
+                                          right: 16.0,
+                                        ),
+                                        title: Row(
                                           children: [
-                                            Container(
-                                                alignment: Alignment.centerLeft,
-                                                padding: EdgeInsets.symmetric(
-                                                    horizontal: 8.0),
-                                                margin: EdgeInsets.only(
-                                                    bottom: 10.0),
+                                            Expanded(
                                                 child: Text(
-                                                  'Search Results',
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                      fontSize: 16.0),
-                                                )),
-                                            LineSeparator(color: lineColor),
+                                              input.label,
+                                              style: TextStyle(
+                                                  fontSize: 14.0,
+                                                  fontWeight: FontWeight.w500),
+                                            )),
                                           ],
                                         ),
-                                      )),
-                                  Visibility(
-                                      child: Container(
-                                          alignment: Alignment.center,
-                                          margin: EdgeInsets.only(bottom: 15.0),
-                                          padding: EdgeInsets.only(top: 10.0),
-                                          child: Text(searchResultMessage)),
-                                      visible: searchResultMessage.isNotEmpty),
-                                  ...searchResults.map((result) {
-                                    return OnlineBeneficiarySearchResultCard(
-                                      searchResult: result,
-                                      primaryColor: primaryColor,
-                                      lineColor: lineColor,
-                                    );
-                                  }),
-                                ])),
+                                        children: [
+                                          InputFieldContainer(
+                                              currentUserCountryLevelReferences: [],
+                                              hiddenFields: Map(),
+                                              inputField: inputField,
+                                              hiddenInputFieldOptions: Map(),
+                                              currentLanguage:
+                                                  languageTranslationState
+                                                      .currentLanguage,
+                                              isEditableMode: true,
+                                              showClearIcon: true,
+                                              mandatoryFieldObject: Map(),
+                                              dataObject:
+                                                  onlineSearchDataObject,
+                                              onInputValueChange: (String id,
+                                                      dynamic value) =>
+                                                  searchInputChange(id, value))
+                                        ],
+                                        iconColor: primaryColor,
+                                        textColor: primaryColor,
+                                      ),
+                                    ));
+                              }).toList(),
+                              Visibility(
+                                  visible: searchResults.isNotEmpty ||
+                                      searchResultMessage.isNotEmpty,
+                                  child: Container(
+                                    margin: EdgeInsets.only(top: 10.0),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Container(
+                                            alignment: Alignment.centerLeft,
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 8.0),
+                                            margin:
+                                                EdgeInsets.only(bottom: 10.0),
+                                            child: Text(
+                                              'Search Results',
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 16.0),
+                                            )),
+                                        LineSeparator(color: lineColor),
+                                      ],
+                                    ),
+                                  )),
+                              Visibility(
+                                  child: Container(
+                                      alignment: Alignment.center,
+                                      margin: EdgeInsets.only(bottom: 15.0),
+                                      padding: EdgeInsets.only(top: 10.0),
+                                      child: Text(searchResultMessage)),
+                                  visible: searchResultMessage.isNotEmpty),
+                              ...searchResults.map((result) {
+                                return OnlineBeneficiarySearchResultCard(
+                                  searchResult: result,
+                                  primaryColor: primaryColor,
+                                  lineColor: lineColor,
+                                );
+                              }),
+                            ])),
                         Padding(
                             padding: EdgeInsets.only(
                                 bottom:
