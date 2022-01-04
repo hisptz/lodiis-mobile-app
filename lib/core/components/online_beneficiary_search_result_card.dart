@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/app_state/synchronization_state/synchronization_state.dart';
+import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/material_card.dart';
+import 'package:kb_mobile_app/core/services/tracked_entity_instance_service.dart';
 import 'package:kb_mobile_app/models/online_beneficiary_search_result.dart';
+import 'package:provider/provider.dart';
 
-class OnlineBeneficiarySearchResultCard extends StatelessWidget {
+class OnlineBeneficiarySearchResultCard extends StatefulWidget {
   final OnlineBeneficiarySearchResult searchResult;
   final Color? primaryColor;
   final Color? lineColor;
@@ -11,8 +15,46 @@ class OnlineBeneficiarySearchResultCard extends StatelessWidget {
       {Key? key, required this.searchResult, this.lineColor, this.primaryColor})
       : super(key: key);
 
+  @override
+  State<OnlineBeneficiarySearchResultCard> createState() =>
+      _OnlineBeneficiarySearchResultCardState();
+}
+
+class _OnlineBeneficiarySearchResultCardState
+    extends State<OnlineBeneficiarySearchResultCard> {
+  bool downloading = false;
+  bool downloaded = false;
+
+  updateDownloadingStatus() {
+    if (mounted) {
+      setState(() {
+        downloading = !downloading;
+      });
+    }
+  }
+
+  updateDownloadedStatus(bool status) {
+    if (mounted) {
+      setState(() {
+        downloaded = status;
+      });
+    }
+  }
+
   Future<void> onDownloadResult() async {
-    print('Downloading result ${searchResult.id}');
+    updateDownloadingStatus();
+    var teiId = widget.searchResult.id ?? '';
+    try {
+      await TrackedEntityInstanceService()
+          .discoverTrackedEntityInstanceById(teiId);
+      await Provider.of<SynchronizationState>(context, listen: false)
+          .refreshBeneficiaryCounts();
+      updateDownloadedStatus(true);
+    } catch (e) {
+      updateDownloadedStatus(false);
+    } finally {
+      updateDownloadingStatus();
+    }
   }
 
   @override
@@ -33,20 +75,35 @@ class OnlineBeneficiarySearchResultCard extends StatelessWidget {
             child: Row(
               children: [
                 Expanded(
+                  flex: 4,
                   child: Text(
-                    searchResult.toString(),
+                    widget.searchResult.toString(),
                     style: TextStyle(
-                        color: primaryColor,
+                        color: widget.primaryColor,
                         fontSize: 14.0,
                         fontWeight: FontWeight.bold),
                   ),
                 ),
-                IconButton(
-                    onPressed: onDownloadResult,
-                    icon: Icon(
-                      Icons.download,
-                      color: primaryColor,
-                    ))
+                Expanded(
+                  child: downloading
+                      ? CircularProcessLoader(
+                          color: widget.primaryColor,
+                          height: 20.0,
+                          width: 20.0,
+                          size: 2,
+                        )
+                      : downloaded
+                          ? Icon(
+                              Icons.check,
+                              color: widget.primaryColor,
+                            )
+                          : IconButton(
+                              onPressed: onDownloadResult,
+                              icon: Icon(
+                                Icons.download,
+                                color: widget.primaryColor,
+                              )),
+                )
               ],
             ),
           ),
@@ -58,39 +115,39 @@ class OnlineBeneficiarySearchResultCard extends StatelessWidget {
               child: Column(
                 children: [
                   Visibility(
-                      visible: searchResult.primaryUIC != '',
+                      visible: widget.searchResult.primaryUIC != '',
                       child: SearchResultDetails(
                         label: 'Primary UIC',
-                        value: searchResult.primaryUIC!,
-                        primaryColor: primaryColor ?? Colors.blueGrey,
+                        value: widget.searchResult.primaryUIC!,
+                        primaryColor: widget.primaryColor ?? Colors.blueGrey,
                       )),
                   Visibility(
-                      visible: searchResult.location != '',
+                      visible: widget.searchResult.location != '',
                       child: SearchResultDetails(
                         label: 'Location',
-                        value: searchResult.location!,
-                        primaryColor: primaryColor ?? Colors.blueGrey,
+                        value: widget.searchResult.location!,
+                        primaryColor: widget.primaryColor ?? Colors.blueGrey,
                       )),
                   Visibility(
-                      visible: searchResult.sex != '',
+                      visible: widget.searchResult.sex != '',
                       child: SearchResultDetails(
                         label: 'Sex',
-                        value: searchResult.sex!,
-                        primaryColor: primaryColor ?? Colors.blueGrey,
+                        value: widget.searchResult.sex!,
+                        primaryColor: widget.primaryColor ?? Colors.blueGrey,
                       )),
                   Visibility(
-                      visible: searchResult.dateOfBirth != '',
+                      visible: widget.searchResult.dateOfBirth != '',
                       child: SearchResultDetails(
                         label: 'Date of Birth',
-                        value: searchResult.dateOfBirth!,
-                        primaryColor: primaryColor ?? Colors.blueGrey,
+                        value: widget.searchResult.dateOfBirth!,
+                        primaryColor: widget.primaryColor ?? Colors.blueGrey,
                       )),
                   Visibility(
-                      visible: searchResult.program != '',
+                      visible: widget.searchResult.program != '',
                       child: SearchResultDetails(
                         label: 'Program',
-                        value: searchResult.program!,
-                        primaryColor: primaryColor ?? Colors.blueGrey,
+                        value: widget.searchResult.program!,
+                        primaryColor: widget.primaryColor ?? Colors.blueGrey,
                       )),
                 ],
               ))

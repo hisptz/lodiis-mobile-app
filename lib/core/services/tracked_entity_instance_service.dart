@@ -49,7 +49,9 @@ class TrackedEntityInstanceService {
           await saveTrackedEntityInstanceRelationShips(teiRelationshipsJson);
         }
       }
-    } catch (error) {}
+    } catch (error) {
+      throw error;
+    }
   }
 
   Future saveTrackedEntityInstanceProfile(dynamic teiJson) async {
