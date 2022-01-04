@@ -73,7 +73,8 @@ class _OvcChildReferralManageState extends State<OvcChildReferralManage> {
                                   valueColor: Color(0XFF536852),
                                   referralIndex: widget.referralIndex,
                                   isIncomingReferral: widget.isIncomingReferral,
-                                  isEditable: true,
+                                  isEditable:
+                                      widget.eventData.enrollmentOuAccessible!,
                                   eventData: widget.eventData,
                                 ),
                                 ReferralOutComeCardContainer(
