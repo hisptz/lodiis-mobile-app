@@ -218,21 +218,34 @@ class OvcChildExitHome extends StatelessWidget {
                                           .toList(),
                                     ),
                             ),
-                            Visibility(
-                              visible: shouldAllowAddNewButton,
-                              child: Container(
-                                child: EntryFormSaveButton(
-                                  label: 'ADD',
-                                  labelColor: Colors.white,
-                                  fontSize: 14,
-                                  buttonColor: Color(0xFF4B9F46),
-                                  onPressButton: () => onAddNewExit(
-                                    context,
-                                    events,
+                            Container(
+                              child:
+                                  Consumer<OvcHouseholdCurrentSelectionState>(
+                                      builder: (context,
+                                          ovcHouseholdCurrentSelectionState,
+                                          child) {
+                                var currentOvcHouseholdChild =
+                                    ovcHouseholdCurrentSelectionState
+                                        .currentOvcHouseholdChild!;
+                                return Visibility(
+                                  visible: shouldAllowAddNewButton &&
+                                      currentOvcHouseholdChild
+                                          .enrollmentOuAccessible!,
+                                  child: Container(
+                                    child: EntryFormSaveButton(
+                                      label: 'ADD',
+                                      labelColor: Colors.white,
+                                      fontSize: 14,
+                                      buttonColor: Color(0xFF4B9F46),
+                                      onPressButton: () => onAddNewExit(
+                                        context,
+                                        events,
+                                      ),
+                                    ),
                                   ),
-                                ),
-                              ),
-                            )
+                                );
+                              }),
+                            ),
                           ],
                         );
                 },
