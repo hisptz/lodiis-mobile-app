@@ -37,6 +37,12 @@ class _OnlineBeneficiarySearchState extends State<OnlineBeneficiarySearch> {
         inputField: InputField(id: 'qZP982qpSPS', name: '', valueType: 'DATE')),
   ];
 
+  bool isItemSearched(OnlineBeneficiarySearchInput input) {
+    var inputId = input.inputField.id;
+    var value = onlineSearchDataObject[inputId];
+    return value != null && value.isNotEmpty;
+  }
+
   void searchInputChange(String id, String? value) {
     setState(() {
       onlineSearchDataObject[id] = value ?? '';
@@ -221,6 +227,9 @@ class _OnlineBeneficiarySearchState extends State<OnlineBeneficiarySearch> {
                                               input.label,
                                               style: TextStyle(
                                                   fontSize: 14.0,
+                                                  color: isItemSearched(input)
+                                                      ? primaryColor
+                                                      : null,
                                                   fontWeight: FontWeight.w500),
                                             )),
                                           ],
