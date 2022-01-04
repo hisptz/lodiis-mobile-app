@@ -75,7 +75,7 @@ class _OnlineBeneficiarySearchResultCardState
             child: Row(
               children: [
                 Expanded(
-                  flex: 4,
+                  flex: 9,
                   child: Text(
                     widget.searchResult.toString(),
                     style: TextStyle(
@@ -85,25 +85,29 @@ class _OnlineBeneficiarySearchResultCardState
                   ),
                 ),
                 Expanded(
-                  child: downloading
-                      ? CircularProcessLoader(
-                          color: widget.primaryColor,
-                          height: 20.0,
-                          width: 20.0,
-                          size: 2,
-                        )
-                      : downloaded
-                          ? Icon(
-                              Icons.check,
-                              color: widget.primaryColor,
-                            )
-                          : IconButton(
-                              onPressed: onDownloadResult,
-                              icon: Icon(
-                                Icons.download,
-                                color: widget.primaryColor,
-                              )),
-                )
+                    flex: 1,
+                    child: downloading
+                        ? CircularProcessLoader(
+                            color: widget.primaryColor,
+                            height: 20.0,
+                            width: 20.0,
+                            size: 2,
+                          )
+                        : SizedBox(
+                            height: 20.0,
+                            width: 20.0,
+                            child: downloaded
+                                ? Icon(
+                                    Icons.check,
+                                    color: widget.primaryColor,
+                                  )
+                                : IconButton(
+                                    onPressed: onDownloadResult,
+                                    icon: Icon(
+                                      Icons.download,
+                                      color: widget.primaryColor,
+                                    )),
+                          ))
               ],
             ),
           ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/current_user_state/current_user_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
+import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/input_fields/input_field_container.dart';
 import 'package:kb_mobile_app/core/components/line_separator.dart';
 import 'package:kb_mobile_app/core/components/online_beneficiary_search_result_card.dart';
@@ -185,6 +186,7 @@ class _OnlineBeneficiarySearchState extends State<OnlineBeneficiarySearch> {
                           child: Row(
                             children: [
                               Expanded(
+                                flex: 9,
                                 child: Container(
                                   padding:
                                       EdgeInsets.symmetric(horizontal: 8.0),
@@ -196,27 +198,37 @@ class _OnlineBeneficiarySearchState extends State<OnlineBeneficiarySearch> {
                                   ),
                                 ),
                               ),
-                              Container(
-                                padding: EdgeInsets.symmetric(horizontal: 8.0),
-                                child: isSearching
-                                    ? Text('Searching...')
-                                    : InkWell(
-                                        onTap: () => {
-                                          if (canSearch())
-                                            {
-                                              onBeneficiarySearch(
-                                                  context, program)
-                                            }
-                                        },
-                                        child: Text(
-                                          'Search',
-                                          style: TextStyle(
-                                              color: canSearch()
-                                                  ? primaryColor
-                                                  : primaryColor!
-                                                      .withOpacity(0.3)),
+                              Expanded(
+                                flex: 1,
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: 8.0),
+                                  child: isSearching
+                                      ? CircularProcessLoader(
+                                          color: primaryColor,
+                                          height: 20.0,
+                                          width: 20.0,
+                                          size: 2,
+                                        )
+                                      : InkWell(
+                                          onTap: () => {
+                                            if (canSearch())
+                                              {
+                                                onBeneficiarySearch(
+                                                    context, program)
+                                              }
+                                          },
+                                          child: Text(
+                                            'Search',
+                                            style: TextStyle(
+                                                color: canSearch()
+                                                    ? primaryColor
+                                                    : primaryColor!
+                                                        .withOpacity(0.3)),
+                                          ),
                                         ),
-                                      ),
+                                ),
                               )
                             ],
                           ),
