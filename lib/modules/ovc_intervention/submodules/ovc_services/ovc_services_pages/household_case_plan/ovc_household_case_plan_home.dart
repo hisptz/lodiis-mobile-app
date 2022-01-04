@@ -97,7 +97,6 @@ class OvcHouseholdCasePlanHome extends StatelessWidget {
           position: ToastGravity.TOP);
     } else {
       updateformState(context, isEditableMode, null, eventListByProgramStage);
-      // TODO Add autosave
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -119,6 +118,8 @@ class OvcHouseholdCasePlanHome extends StatelessWidget {
       context,
       MaterialPageRoute(
         builder: (context) => OvcHouseholdCasePlanForm(
+          hasEditAccess:
+              AppUtil.hasAccessToEditCasePlanServiceData(casePlanEvents),
           shouldViewCaseGapServiceProvision: true,
           shouldAddCasePlanGap: true,
         ),
@@ -138,6 +139,8 @@ class OvcHouseholdCasePlanHome extends StatelessWidget {
       context,
       MaterialPageRoute(
         builder: (context) => OvcHouseholdCasePlanForm(
+          hasEditAccess:
+              AppUtil.hasAccessToEditCasePlanServiceData(casePlanEvents),
           shouldViewCaseGapServiceProvision: true,
         ),
       ),
