@@ -43,12 +43,12 @@ class OnlineBeneficiarySearchResult {
     }
     return OnlineBeneficiarySearchResult(
         id: json['trackedEntityInstance'],
-        firstname: data['WTZ7GLTrE8Q'],
-        middleName: data['s1HaiT6OllL'],
-        surname: data['rSP9c21JsfC'],
-        dateOfBirth: data['qZP982qpSPS'],
-        sex: data['vIX4GTSCX4P'],
-        primaryUIC: data['fTSAY18LgCF'],
+        firstname: data['WTZ7GLTrE8Q'] ?? '',
+        middleName: data['s1HaiT6OllL'] ?? '',
+        surname: data['rSP9c21JsfC'] ?? '',
+        dateOfBirth: data['qZP982qpSPS'] ?? '',
+        sex: data['vIX4GTSCX4P'] ?? '',
+        primaryUIC: data['fTSAY18LgCF'] ?? '',
         program: getEnrolledProgramName(enrollmentDetails['program']),
         location: enrollmentDetails['orgUnitName'] ?? '');
   }

@@ -4,6 +4,7 @@ import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_car
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/core/components/input_fields/input_field_container.dart';
 import 'package:kb_mobile_app/core/components/line_separator.dart';
+import 'package:kb_mobile_app/core/components/online_beneficiary_search_result_card.dart';
 import 'package:kb_mobile_app/core/constants/intervention_program_mapper.dart';
 import 'package:kb_mobile_app/core/services/tracked_entity_instance_service.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
@@ -21,6 +22,8 @@ class OnlineBeneficiarySearch extends StatefulWidget {
 
 class _OnlineBeneficiarySearchState extends State<OnlineBeneficiarySearch> {
   Map<String, String> onlineSearchDataObject = Map();
+  List<OnlineBeneficiarySearchResult> searchResults = [];
+  String searchResultMessage = '';
   bool isSearching = false;
   List<OnlineBeneficiarySearchInput> searchInputs = [
     OnlineBeneficiarySearchInput(
@@ -41,9 +44,34 @@ class _OnlineBeneficiarySearchState extends State<OnlineBeneficiarySearch> {
   }
 
   void updateSearchState() {
-    setState(() {
-      isSearching = !isSearching;
-    });
+    if (mounted) {
+      setState(() {
+        isSearching = !isSearching;
+      });
+    }
+  }
+
+  void updateSearchResultMessage(String message) {
+    if (mounted) {
+      setState(() {
+        searchResultMessage = message;
+      });
+    }
+  }
+
+  void updateSearchResults(
+      {List<OnlineBeneficiarySearchResult> results = const []}) {
+    if (mounted) {
+      setState(() {
+        searchResults = results;
+      });
+      updateSearchState();
+      if (results.isEmpty) {
+        updateSearchResultMessage('No results found');
+      } else {
+        updateSearchResultMessage('');
+      }
+    }
   }
 
   Widget makeFilterDismissible({required Widget child}) => GestureDetector(
@@ -56,7 +84,10 @@ class _OnlineBeneficiarySearchState extends State<OnlineBeneficiarySearch> {
       );
 
   Future<void> onBeneficiarySearch(BuildContext context, String program) async {
-    updateSearchState();
+    List<OnlineBeneficiarySearchResult> searchedTeis = [];
+    updateSearchResults();
+    updateSearchResultMessage('');
+
     // remove empty values
     onlineSearchDataObject.removeWhere((String key, String value) {
       return value.isEmpty;
@@ -74,18 +105,15 @@ class _OnlineBeneficiarySearchState extends State<OnlineBeneficiarySearch> {
           getSearchableProgramsByUserAccess(context, program);
       // TODO: Add a check for unavailable searchable programs
 
-      List<dynamic> searchResults = await TrackedEntityInstanceService()
+      List<dynamic> results = await TrackedEntityInstanceService()
           .discoveringBeneficiaryByFilters(searchablePrograms, searchFilterUrl);
-
-      List<OnlineBeneficiarySearchResult> searchedTeis = searchResults
+      searchedTeis = results
           .map((result) => OnlineBeneficiarySearchResult().fromJson(result))
           .toList();
-      print('results: $searchedTeis');
     } catch (error) {
       // TODO handle error
     }
-
-    updateSearchState();
+    updateSearchResults(results: searchedTeis);
   }
 
   List<String> getSearchableProgramsByUserAccess(
@@ -110,7 +138,7 @@ class _OnlineBeneficiarySearchState extends State<OnlineBeneficiarySearch> {
         child: DraggableScrollableSheet(
             initialChildSize: 0.8,
             minChildSize: 0.5,
-            maxChildSize: 0.8,
+            maxChildSize: 0.9,
             builder: (BuildContext context, ScrollController scrollController) {
               return Consumer<LanguageTranslationState>(
                   builder: (context, languageTranslationState, child) {
@@ -120,12 +148,17 @@ class _OnlineBeneficiarySearchState extends State<OnlineBeneficiarySearch> {
                       interventionCardState.currentInterventionProgram.id!;
                   var primaryColor = interventionCardState
                       .currentInterventionProgram.primaryColor;
+                  var lineColor = interventionCardState
+                      .currentInterventionProgram.countLabelColor;
+                  var backgroundColor = interventionCardState
+                      .currentInterventionProgram.background;
                   return Container(
                     padding: EdgeInsets.only(top: 10.0, left: 5.0, right: 5.0),
                     decoration: BoxDecoration(
                         borderRadius:
                             BorderRadius.vertical(top: Radius.circular(20)),
-                        color: Colors.white),
+                        color: Color.alphaBlend(
+                            backgroundColor ?? Colors.white, Colors.white)),
                     child: Column(
                       children: [
                         Container(
@@ -152,8 +185,6 @@ class _OnlineBeneficiarySearchState extends State<OnlineBeneficiarySearch> {
                                         onTap: () => {
                                           onBeneficiarySearch(context, program)
                                         },
-
-                                        // TODO add loader when searching and disabled button when data object is empty
                                         child: Text(
                                           'Search',
                                           style: TextStyle(color: primaryColor),
@@ -163,58 +194,105 @@ class _OnlineBeneficiarySearchState extends State<OnlineBeneficiarySearch> {
                             ],
                           ),
                         ),
-                        LineSeparator(
-                            color: interventionCardState
-                                .currentInterventionProgram.countLabelColor!),
+                        LineSeparator(color: lineColor!),
                         Flexible(
+                            flex: 1,
                             child: ListView(
-                          padding: EdgeInsets.all(8.0),
-                          children: searchInputs
-                              .map((OnlineBeneficiarySearchInput input) {
-                            InputField inputField = input.inputField;
-                            inputField.inputColor = primaryColor;
-                            return Container(
-                                padding: EdgeInsets.only(bottom: 8.0),
-                                child: Theme(
-                                  data: Theme.of(context).copyWith(
-                                      dividerColor: Colors.transparent),
-                                  child: ExpansionTile(
-                                    childrenPadding: EdgeInsets.only(
-                                        left: 16.0, right: 16.0, bottom: 8.0),
-                                    title: Row(
-                                      children: [
-                                        Expanded(
-                                            child: Text(
-                                          input.label,
-                                          style: TextStyle(
-                                              fontSize: 16.0,
-                                              fontWeight: FontWeight.w500),
-                                        )),
-                                      ],
-                                    ),
-                                    children: [
-                                      InputFieldContainer(
-                                          currentUserCountryLevelReferences: [],
-                                          hiddenFields: Map(),
-                                          inputField: inputField,
-                                          hiddenInputFieldOptions: Map(),
-                                          currentLanguage:
-                                              languageTranslationState
-                                                  .currentLanguage,
-                                          isEditableMode: true,
-                                          showClearIcon: true,
-                                          mandatoryFieldObject: Map(),
-                                          dataObject: onlineSearchDataObject,
-                                          onInputValueChange:
-                                              (String id, dynamic value) =>
-                                                  searchInputChange(id, value))
-                                    ],
-                                    iconColor: primaryColor,
-                                    textColor: primaryColor,
-                                  ),
-                                ));
-                          }).toList(),
-                        )),
+                                controller: scrollController,
+                                children: [
+                                  ...searchInputs.map(
+                                      (OnlineBeneficiarySearchInput input) {
+                                    InputField inputField = input.inputField;
+                                    inputField.inputColor = primaryColor;
+                                    return Container(
+                                        padding: EdgeInsets.only(bottom: 8.0),
+                                        child: Theme(
+                                          data: Theme.of(context).copyWith(
+                                              dividerColor: Colors.transparent),
+                                          child: ExpansionTile(
+                                            childrenPadding: EdgeInsets.only(
+                                              left: 16.0,
+                                              right: 16.0,
+                                            ),
+                                            title: Row(
+                                              children: [
+                                                Expanded(
+                                                    child: Text(
+                                                  input.label,
+                                                  style: TextStyle(
+                                                      fontSize: 14.0,
+                                                      fontWeight:
+                                                          FontWeight.w500),
+                                                )),
+                                              ],
+                                            ),
+                                            children: [
+                                              InputFieldContainer(
+                                                  currentUserCountryLevelReferences: [],
+                                                  hiddenFields: Map(),
+                                                  inputField: inputField,
+                                                  hiddenInputFieldOptions:
+                                                      Map(),
+                                                  currentLanguage:
+                                                      languageTranslationState
+                                                          .currentLanguage,
+                                                  isEditableMode: true,
+                                                  showClearIcon: true,
+                                                  mandatoryFieldObject: Map(),
+                                                  dataObject:
+                                                      onlineSearchDataObject,
+                                                  onInputValueChange:
+                                                      (String id,
+                                                              dynamic value) =>
+                                                          searchInputChange(
+                                                              id, value))
+                                            ],
+                                            iconColor: primaryColor,
+                                            textColor: primaryColor,
+                                          ),
+                                        ));
+                                  }).toList(),
+                                  Visibility(
+                                      visible: searchResults.isNotEmpty ||
+                                          searchResultMessage.isNotEmpty,
+                                      child: Container(
+                                        margin: EdgeInsets.only(top: 10.0),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            Container(
+                                                alignment: Alignment.centerLeft,
+                                                padding: EdgeInsets.symmetric(
+                                                    horizontal: 8.0),
+                                                margin: EdgeInsets.only(
+                                                    bottom: 10.0),
+                                                child: Text(
+                                                  'Search Results',
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      fontSize: 16.0),
+                                                )),
+                                            LineSeparator(color: lineColor),
+                                          ],
+                                        ),
+                                      )),
+                                  Visibility(
+                                      child: Container(
+                                          alignment: Alignment.center,
+                                          margin: EdgeInsets.only(bottom: 15.0),
+                                          padding: EdgeInsets.only(top: 10.0),
+                                          child: Text(searchResultMessage)),
+                                      visible: searchResultMessage.isNotEmpty),
+                                  ...searchResults.map((result) {
+                                    return OnlineBeneficiarySearchResultCard(
+                                      searchResult: result,
+                                      primaryColor: primaryColor,
+                                      lineColor: lineColor,
+                                    );
+                                  }),
+                                ])),
                         Padding(
                             padding: EdgeInsets.only(
                                 bottom:
