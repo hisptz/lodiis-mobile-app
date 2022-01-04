@@ -11,6 +11,10 @@ class OnlineBeneficiarySearchResultCard extends StatelessWidget {
       {Key? key, required this.searchResult, this.lineColor, this.primaryColor})
       : super(key: key);
 
+  Future<void> onDownloadResult() async {
+    print('Downloading result ${searchResult.id}');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -21,26 +25,30 @@ class OnlineBeneficiarySearchResultCard extends StatelessWidget {
       child: MaterialCard(
           body: Column(
         children: [
-          Row(
-            children: [
-              Container(
-                padding: EdgeInsets.symmetric(
-                  vertical: 10.0,
-                  horizontal: 15.0,
+          Container(
+            padding: EdgeInsets.symmetric(
+              vertical: 5.0,
+              horizontal: 15.0,
+            ),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    searchResult.toString(),
+                    style: TextStyle(
+                        color: primaryColor,
+                        fontSize: 14.0,
+                        fontWeight: FontWeight.bold),
+                  ),
                 ),
-                child: Row(
-                  children: [
-                    Text(
-                      searchResult.toString(),
-                      style: TextStyle(
-                          color: primaryColor,
-                          fontSize: 14.0,
-                          fontWeight: FontWeight.bold),
-                    )
-                  ],
-                ),
-              )
-            ],
+                IconButton(
+                    onPressed: onDownloadResult,
+                    icon: Icon(
+                      Icons.download,
+                      color: primaryColor,
+                    ))
+              ],
+            ),
           ),
           Container(
               padding: EdgeInsets.symmetric(
