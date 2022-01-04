@@ -6,8 +6,17 @@ import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:kb_mobile_app/models/app_semantic_version.dart';
+import 'package:kb_mobile_app/models/events.dart';
 
 class AppUtil {
+  static bool hasAccessToEditCasePlanServiceData(List<Events> events) {
+    return events.length ==
+        events
+            .where((Events event) => event.enrollmentOuAccessible!)
+            .toList()
+            .length;
+  }
+
   static AppSemanticVersion getSemanticVersionValue({version: String}) {
     List<String> versionList = version.split(".");
     int major = 0;
